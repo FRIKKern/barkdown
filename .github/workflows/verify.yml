@@ -1,0 +1,21 @@
+name: Verify handoff
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  concept:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run verify
+      - name: Ensure generated deliverables match source
+        run: git diff --exit-code -- docs/PRD.md preview evidence/artifact-manifest.json

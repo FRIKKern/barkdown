@@ -1,0 +1,135 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-09-17T20:18:51.231Z",
+  "environment": {
+    "platform": "win32",
+    "architecture": "x64",
+    "node": "v22.13.1",
+    "playwright": "1.62.1",
+    "browserChannel": "playwright-chromium"
+  },
+  "command": "npm run verify",
+  "scope": "Concept and handoff only; production integrations are not exercised.",
+  "suites": [
+    {
+      "suite": "check-worktabs.cjs",
+      "result": {
+        "checks": "work tab types, side-chat reply/draft, document editing, internal path, per-chat state, direct document mode, pins, URL input, review state, AI focus, closed tabs, background draft preservation, narrow chat access",
+        "widths": [
+          {
+            "width": 1024,
+            "root": 1024,
+            "pageWidth": 1024
+          },
+          {
+            "width": 736,
+            "root": 736,
+            "pageWidth": 736
+          },
+          {
+            "width": 390,
+            "root": 390,
+            "pageWidth": 390
+          },
+          {
+            "width": 320,
+            "root": 320,
+            "pageWidth": 320
+          }
+        ],
+        "errors": []
+      }
+    },
+    {
+      "suite": "check-project-editor.cjs",
+      "result": {
+        "checks": "bound project/folder, expanded editor, file drafts, scoped new chat, side-chat inheritance, chat drafts, pin context, 60% restore, background run ownership, exact file activity, responsive editor",
+        "widths": [
+          {
+            "width": 1024,
+            "scrollWidth": 1024
+          },
+          {
+            "width": 736,
+            "scrollWidth": 736
+          },
+          {
+            "width": 390,
+            "scrollWidth": 390
+          },
+          {
+            "width": 320,
+            "scrollWidth": 320
+          }
+        ],
+        "errors": []
+      }
+    },
+    {
+      "suite": "check-editor-study.cjs",
+      "result": {
+        "checks": "editor direct edit, selection, attached Types menu, viewport fit, type change preserves text, Escape, document edit preservation",
+        "errors": []
+      }
+    },
+    {
+      "suite": "check-prd.cjs",
+      "result": {
+        "desktop": {
+          "images": [
+            {
+              "loaded": true,
+              "embedded": true
+            },
+            {
+              "loaded": true,
+              "embedded": true
+            },
+            {
+              "loaded": true,
+              "embedded": true
+            },
+            {
+              "loaded": true,
+              "embedded": true
+            }
+          ],
+          "missingAnchors": [],
+          "overflow": false,
+          "requirements": 24,
+          "interactionChecks": "image zoom, Escape, P0/P1/all filters, three pane modes, phase accordion passed"
+        },
+        "mobile": {
+          "width": 390,
+          "scrollWidth": 390,
+          "overflow": false
+        },
+        "errors": [],
+        "externalRequests": [],
+        "print": "PDF generated"
+      }
+    },
+    {
+      "suite": "check-previews.cjs",
+      "result": {
+        "standalonePreviews": [
+          {
+            "file": "index.html",
+            "errors": [],
+            "network": []
+          },
+          {
+            "file": "editor.html",
+            "errors": [],
+            "network": []
+          },
+          {
+            "file": "prd.html",
+            "errors": [],
+            "network": []
+          }
+        ]
+      }
+    }
+  ]
+}

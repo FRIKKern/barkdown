@@ -1,0 +1,6 @@
+// Run after npm run verify succeeds; records this machine's actual browser results.
+const fs=require('fs'),path=require('path'),os=require('os');const root=path.resolve(__dirname,'..');
+const names=['check-worktabs.cjs','check-project-editor.cjs','check-editor-study.cjs','check-prd.cjs','check-previews.cjs'];
+const suites=names.map(name=>{const text=fs.readFileSync(path.join(root,'test-results',name+'.log'),'utf8');const lines=text.split(/\r?\n/).filter(line=>line.startsWith('{'));if(lines.length!==1)throw Error('Expected one successful result: '+name);const result=JSON.parse(lines[0]);if(result.errors?.length)throw Error(name+' has errors');return {suite:name,result};});
+const result={status:'passed',recordedAt:new Date().toISOString(),environment:{platform:os.platform(),architecture:os.arch(),node:process.version,playwright:require('playwright/package.json').version,browserChannel:process.env.BARKDOWN_BROWSER_CHANNEL||'playwright-chromium'},command:'npm run verify',scope:'Concept and handoff only; production integrations are not exercised.',suites};
+fs.writeFileSync(path.join(root,'evidence/validation.json'),JSON.stringify(result,null,2)+'\n');console.log('Recorded local handoff validation.');

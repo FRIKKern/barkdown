@@ -1,0 +1,13 @@
+const fs=require('fs'),path=require('path'),{pathToFileURL}=require('url'),{launch}=require('./browser.cjs');
+const root=path.resolve(__dirname,'..'),assert=(ok,message)=>{if(!ok)throw Error(message)};
+(async()=>{const browser=await launch();try{const page=await browser.newPage({viewport:{width:1320,height:900},colorScheme:'dark'});const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto(pathToFileURL(path.join(root,'preview/editor.html')).href);
+ await page.locator('#bd-docs [data-doc="1"]').click();const field=page.locator('#bd-paper [data-field="body"]');await field.fill('A paragraph that stays editable and keeps its selection.');await field.focus();await page.evaluate(()=>{const n=document.querySelector('#bd-paper [data-field="body"]'),r=document.createRange();r.selectNodeContents(n);const s=getSelection();s.removeAllRanges();s.addRange(r);});
+ await page.locator('#bd-selection-tools').waitFor({state:'visible'});await page.locator('#bd-selection-tools [data-block-type]').click();await page.locator('#bd-block-menu').waitFor({state:'visible'});
+ assert(await page.locator('#bd-selection-tools #bd-block-menu').count()===1,'Types menu is not attached');
+ const rect=await page.locator('#bd-block-menu').boundingBox();assert(rect.x>=0&&rect.x+rect.width<=1320,'Types menu overflows');
+ await page.locator('#barkdown').screenshot({path:path.join(root,'test-results/editor-attached-menu.png')});
+ await page.locator('#bd-block-menu [data-kind="h2"]').click();assert((await field.innerText()).includes('stays editable'),'Type change lost the selected text');assert(await page.locator('#bd-type-label').innerText()==='Heading 2','Requested type was not applied');
+ await page.keyboard.press('Escape');assert(!await page.locator('#bd-block-menu').isVisible(),'Escape did not close Types menu');
+ await page.locator('#bd-docs [data-doc="0"]').click();await page.locator('#bd-docs [data-doc="1"]').click();assert((await field.innerText()).includes('stays editable'),'Document navigation lost edits');
+ assert(errors.length===0,errors.join('; '));console.log(JSON.stringify({checks:'editor direct edit, selection, attached Types menu, viewport fit, type change preserves text, Escape, document edit preservation',errors}));
+ }finally{await browser.close();}})().catch(e=>{console.error(e);process.exit(1)});
