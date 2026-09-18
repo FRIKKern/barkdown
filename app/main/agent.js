@@ -7,7 +7,8 @@ const files = require('./files');
 const git = require('./git');
 const { docToMarkdown } = require('../shared/markdown');
 
-const runs = new Map();
+const providerRuns = require('./providers/runs');
+const runs = providerRuns.runs;
 let Anthropic = null;
 
 let clientFactory = options => new (loadSdk())(options);
@@ -136,32 +137,10 @@ function findDir(nodes, dir) {
   return current;
 }
 
-function requestApproval(run, request) {
-  return new Promise(resolve => {
-    const id = crypto.randomUUID();
-    run.approvals.set(id, resolve);
-    run.emit({ type: 'approval', approvalId: id, request });
-  });
-}
+function requestApproval(run, request) { return providerRuns.requestApproval(run, request); }
 
-function respondApproval(runId, approvalId, approved) {
-  const run = runs.get(runId);
-  const resolve = run?.approvals.get(approvalId);
-  if (!resolve) return false;
-  run.approvals.delete(approvalId);
-  resolve(Boolean(approved));
-  return true;
-}
-
-function cancel(runId) {
-  const run = runs.get(runId);
-  if (!run) return false;
-  run.cancelled = true;
-  run.abort.abort();
-  for (const resolve of run.approvals.values()) resolve(false);
-  run.approvals.clear();
-  return true;
-}
+const respondApproval = providerRuns.respondApproval;
+const cancel = providerRuns.cancel;
 
 function offlineReply(run, userText) {
   // No API key: still make the workspace useful by opening what the request names.
@@ -185,11 +164,9 @@ function offlineReply(run, userText) {
   return `${done}No Claude API key is configured, so I cannot reason about your request yet. Add a key under Settings (Ctrl+,) or set ANTHROPIC_API_KEY, and I will read documents, browse, propose edits and work in your folder.`;
 }
 
-async function start({ chatId, messages, context, settings, send }) {
-  const id = crypto.randomUUID();
-  const run = { id, chatId, context, approvals: new Map(), abort: new AbortController(), cancelled: false, emit: null };
-  run.emit = event => send({ runId: id, chatId, ...event });
-  runs.set(id, run);
+async function startApi({ chatId, messages, context, settings, send }) {
+  const run = providerRuns.createRun({ chatId, context, send, provider: 'api' });
+  const id = run.id;
   (async () => {
     try {
       const apiKey = settings.apiKey || process.env.ANTHROPIC_API_KEY || '';
@@ -250,10 +227,18 @@ async function start({ chatId, messages, context, settings, send }) {
       else if (Sdk && error instanceof Sdk.RateLimitError) message = 'Rate limited by the Claude API. Try again shortly.';
       run.emit({ type: 'error', message });
     } finally {
-      runs.delete(id);
+      providerRuns.finish(run);
     }
   })();
   return { runId: id };
 }
 
-module.exports = { start, cancel, respondApproval, toolDefinitions, setClientFactory };
+// Dispatch to the provider the chat uses: the person's Claude Code login, their Codex login, or a raw API key.
+async function start(params) {
+  const provider = params.provider || 'api';
+  if (provider === 'claude') return require('./providers/claude').start(params);
+  if (provider === 'codex') return require('./providers/codex').start(params);
+  return startApi(params);
+}
+
+module.exports = { start, startApi, cancel, respondApproval, toolDefinitions, setClientFactory };

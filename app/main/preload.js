@@ -19,11 +19,12 @@ const api = {
   files: { tree: root => call('files:tree', root), read: (root, path) => call('files:read', { root, path }), write: (root, path, text, mtime) => call('files:write', { root, path, text, mtime }), search: (root, query) => call('files:search', { root, query }), exists: (root, path) => call('files:exists', { root, path }) },
   git: { status: root => call('git:status', root), diff: (root, options = {}) => call('git:diff', { root, ...options }), log: root => call('git:log', root) },
   agent: {
-    start: (chatId, messages, context) => call('agent:start', { chatId, messages, context }),
+    start: (chatId, messages, context, provider, session, prompt) => call('agent:start', { chatId, messages, context, provider, session, prompt }),
     cancel: runId => call('agent:cancel', runId),
     approve: (runId, approvalId, approved) => call('agent:approve', { runId, approvalId, approved }),
     onEvent: handler => { const listener = (_e, event) => handler(event); ipcRenderer.on('agent:event', listener); return () => ipcRenderer.removeListener('agent:event', listener); },
   },
+  providers: { status: () => call('providers:status') },
   web: { fetchTitle: url => call('web:fetchTitle', url) },
   barkpark: { test: config => call('barkpark:test', config), importCli: () => call('barkpark:importCli'), list: () => call('barkpark:list'), get: id => call('barkpark:get', id), search: q => call('barkpark:search', q), backlinks: id => call('barkpark:backlinks', id), related: id => call('barkpark:related', id), history: id => call('barkpark:history', id), import: id => call('barkpark:import', id) },
   onMenu: handler => { const listener = (_e, command) => handler(command); ipcRenderer.on('menu', listener); return () => ipcRenderer.removeListener('menu', listener); },

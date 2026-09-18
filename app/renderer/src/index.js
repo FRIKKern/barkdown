@@ -1,7 +1,7 @@
 // Barkdown desktop renderer: app-wide navigation, per-chat workspaces, agent runs, pins, quick open.
 import { el, esc, iconHtml, renderIcons, toast, basename, relativeTime } from './ui.js';
 import { state, load, save, newChat, newTab, currentChat, activeTab, touch, chatTitleFrom } from './state.js';
-import { transcriptHtml, sendMessage, handleAgentEvent, respondApproval, cancelRun } from './conversation.js';
+import { transcriptHtml, sendMessage, handleAgentEvent, respondApproval, cancelRun, PROVIDER_LABEL, providerFor } from './conversation.js';
 import { mountDocument } from './tabs/document.js';
 import { mountWebsite } from './tabs/website.js';
 import { mountReview } from './tabs/review.js';
@@ -238,6 +238,7 @@ async function chooseFolder() {
   if (!folder) return null;
   const chat = currentChat();
   chat.folder = folder;
+  chat.sessions = {};
   state.settings = await api.settings.set({ recentFolder: folder }).catch(() => state.settings);
   for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.();
   render();
@@ -262,6 +263,12 @@ function renderChat() {
   q('#bw-prompt').value = chat.draft || '';
   q('#bw-folder-label').textContent = chat.folder ? basename(chat.folder) : 'No working folder';
   q('#bw-folder-context').title = chat.folder || 'Choose an agent working folder for this chat';
+  const provider = providerFor(chat);
+  const available = state.settings?.providers || {};
+  const ready = provider === 'claude' ? available.claude?.loggedIn : provider === 'codex' ? available.codex?.loggedIn : available.api?.hasKey;
+  q('#bw-provider-label').textContent = (PROVIDER_LABEL[provider] || provider) + (ready ? '' : ' · not signed in');
+  q('#bw-provider').classList.toggle('off', !ready);
+  q('#bw-provider').title = ready ? `Runs on ${PROVIDER_LABEL[provider]} using your local login. Click to switch.` : `${PROVIDER_LABEL[provider]} is not available. Click to switch or open Settings.`;
   q('#bw-working').hidden = !chat.runId;
   q('#bw-run-state').hidden = !chat.runId;
   q('#bw-stop').hidden = !chat.runId;
@@ -340,7 +347,7 @@ function renderProjectMenu() {
   menu.querySelector('[data-act="open"]') && (menu.querySelector('[data-act="open"]').onclick = () => { hideMenus(); openProject(true); });
   menu.querySelector('[data-act="new-chat"]') && (menu.querySelector('[data-act="new-chat"]').onclick = () => { hideMenus(); startFolderChat(chat.folder); });
   menu.querySelector('[data-act="clear"]') && (menu.querySelector('[data-act="clear"]').onclick = () => { hideMenus(); chat.folder = null; render(); });
-  menu.querySelectorAll('[data-folder]').forEach(b => { b.onclick = () => { hideMenus(); chat.folder = b.dataset.folder; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }; });
+  menu.querySelectorAll('[data-folder]').forEach(b => { b.onclick = () => { hideMenus(); chat.folder = b.dataset.folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }; });
 }
 
 // ---------- pins ----------
@@ -456,6 +463,7 @@ api.agent.onEvent(event => handleAgentEvent(event, {
     if (target.kind === 'doc' && event.proposalId) refreshLibrary();
   },
   attention: chat => { if (chat.id !== state.current) toast(`"${chat.title}" needs your approval`); },
+  libraryChanged: () => refreshLibrary(),
   runChanged: chat => { renderChat(); renderSidebar(); },
 }));
 
@@ -465,7 +473,7 @@ function setChatWidth(value) { const width = Math.min(70, Math.max(40, Math.roun
 let widthTimer = null;
 function persistWidth() { clearTimeout(widthTimer); widthTimer = setTimeout(() => api.settings.set({ chatWidth: state.settings.chatWidth }).catch(() => {}), 500); }
 function applyTheme(theme) { document.documentElement.dataset.theme = theme === 'system' ? '' : theme; }
-function applySettings(patch, live) { if (patch.chatWidth != null) { state.settings.chatWidth = patch.chatWidth; applyChatWidth(patch.chatWidth); } if (patch.theme) applyTheme(patch.theme); if (!live) refreshLibrary(); }
+function applySettings(patch, live) { if (patch.chatWidth != null) { state.settings.chatWidth = patch.chatWidth; applyChatWidth(patch.chatWidth); } if (patch.theme) applyTheme(patch.theme); if (!live) { refreshLibrary(); renderChat(); } }
 
 function wireSplitter() {
   const splitter = q('#bw-splitter');
@@ -491,6 +499,7 @@ function wire() {
   q('#bw-new-chat').onclick = () => createChat();
   q('#bw-new-doc').onclick = () => createDocument();
   q('#bw-folder-context').onclick = () => { renderProjectMenu(); toggleMenu('#bw-project-menu', '#bw-folder-context'); };
+  q('#bw-provider').onclick = () => { const chat = currentChat(); const order = ['claude', 'codex', 'api']; const current = providerFor(chat); chat.provider = order[(order.indexOf(current) + 1) % order.length]; renderChat(); save(); toast(`This chat now uses ${PROVIDER_LABEL[chat.provider]}`); };
   q('#bw-go-chat').onclick = () => { pauseFollow(); root.classList.add('mobile-chat'); q('#bw-prompt').focus(); };
   q('#bw-mobile-back').onclick = () => { if (state.mode === 'document') { state.mode = 'chat'; render(); } root.classList.toggle('mobile-chat'); };
   q('#bw-stop').onclick = () => cancelRun(currentChat());
@@ -534,8 +543,9 @@ function wire() {
   await refreshLibrary();
   render();
   if (state.mode === 'chat') q('#bw-transcript').scrollTop = currentChat()?.chatScroll || 0;
-  if (!state.settings.hasApiKey) setTimeout(() => toast('No Claude API key yet. Open Settings (Ctrl+,) to connect the assistant.'), 800);
+  const p = state.settings.providers || {};
+  if (!p.claude?.loggedIn && !p.codex?.loggedIn && !state.settings.hasApiKey) setTimeout(() => toast('No assistant sign-in found. Sign in to Claude Code or Codex, or add an API key in Settings (Ctrl+,).'), 800);
 })();
 
 // Test and debugging hooks (no UI depends on these).
-window.__barkdown = { state, controllers, openTarget, render, refreshLibrary, setFolder: folder => { const chat = currentChat(); chat.folder = folder; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }, openProject, openDirect, openPalette, createChat, switchChat };
+window.__barkdown = { state, controllers, openTarget, render, refreshLibrary, setFolder: folder => { const chat = currentChat(); chat.folder = folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }, openProject, openDirect, openPalette, createChat, switchChat };

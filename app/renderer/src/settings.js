@@ -12,6 +12,15 @@ export function openSettings(onChange) {
     <h2>Settings</h2>
     <p class="note">Stored locally in ${esc(s.userData)}. Secrets are encrypted with the operating system keychain when available.</p>
     <h3>Assistant</h3>
+    <p class="note">Barkdown runs on the sign-ins already on this computer, like T3 Code: Claude Code (<code>claude</code> login) or Codex (<code>codex login</code>). An API key is the fallback.</p>
+    <label for="provider">Default provider</label>
+    <select id="provider">
+      <option value="claude">Claude Code · ${s.providers?.claude?.loggedIn ? 'signed in' : 'not signed in (run claude in a terminal)'}</option>
+      <option value="codex">Codex · ${s.providers?.codex?.loggedIn ? 'signed in' + (s.providers.codex.model ? ' · ' + esc(s.providers.codex.model) : '') : 'not signed in (run codex login)'}</option>
+      <option value="api">Claude API key · ${s.providers?.api?.hasKey ? 'configured' : 'no key'}</option>
+    </select>
+    <div class="row" style="margin-top:8px"><label for="claude-model" style="margin:0">Claude Code model</label><input id="claude-model" type="text" placeholder="default (Claude Code's own)" style="width:220px"><label for="codex-model" style="margin:0">Codex model</label><input id="codex-model" type="text" placeholder="default (~/.codex/config.toml)" style="width:200px"></div>
+    <p class="note">Claude Code asks you in the chat before editing files or running commands. Codex applies edits inside the working folder's sandbox and shows them as a review. Each chat can override the provider from the composer.</p>
     <label for="api-key">Claude API key ${s.hasApiKey ? `<span class="bw-positive">· configured${s.apiKeyFromEnv ? ' from ANTHROPIC_API_KEY' : ''}</span>` : '<span class="bw-negative">· missing (offline mode)</span>'}</label>
     <div class="row"><input id="api-key" type="password" placeholder="${s.hasApiKey ? 'Leave blank to keep the current key' : 'sk-ant-…'}" style="flex:1"><button data-act="clear-key" title="Remove the stored key">Clear</button></div>
     <label for="model">Model</label>
@@ -33,6 +42,9 @@ export function openSettings(onChange) {
   backdrop.hidden = false;
   const q = sel => dialog.querySelector(sel);
   q('#model').value = s.model || 'claude-opus-5';
+  q('#provider').value = s.provider || 'claude';
+  q('#claude-model').value = s.claudeModel || '';
+  q('#codex-model').value = s.codexModel || '';
   q('#theme').value = s.theme || 'system';
   q('#width').value = s.chatWidth || 60;
   q('#width-value').textContent = (s.chatWidth || 60) + '%';
@@ -63,7 +75,7 @@ export function openSettings(onChange) {
   q('[data-act="cancel"]').onclick = close;
   backdrop.onclick = e => { if (e.target === backdrop) close(); };
   q('[data-act="save"]').onclick = async () => {
-    const patch = { model: q('#model').value, theme: q('#theme').value, chatWidth: Number(q('#width').value), barkpark: { enabled: q('#bp-enabled').checked, viaCli: q('#bp-cli').checked, server: q('#bp-server').value.trim(), dataset: q('#bp-dataset').value.trim() || 'production', writes: q('#bp-writes').checked } };
+    const patch = { model: q('#model').value, provider: q('#provider').value, claudeModel: q('#claude-model').value.trim(), codexModel: q('#codex-model').value.trim(), theme: q('#theme').value, chatWidth: Number(q('#width').value), barkpark: { enabled: q('#bp-enabled').checked, viaCli: q('#bp-cli').checked, server: q('#bp-server').value.trim(), dataset: q('#bp-dataset').value.trim() || 'production', writes: q('#bp-writes').checked } };
     if (q('#api-key').value.trim()) patch.apiKey = q('#api-key').value.trim(); else if (clearKey) patch.apiKey = '';
     if (q('#bp-token').value.trim()) patch.barkpark.token = q('#bp-token').value.trim();
     try { state.settings = await api.settings.set(patch); onChange(patch, false); toast('Settings saved'); close(); } catch (error) { toast(error.message, 'error'); }

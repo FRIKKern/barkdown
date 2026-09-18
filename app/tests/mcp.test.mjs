@@ -1,0 +1,39 @@
+// The Barkdown document MCP server, driven by a real MCP client over stdio against a throwaway store.
+import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
+import { createRequire } from 'module';
+import { fileURLToPath } from 'url';
+import fs from 'fs'; import os from 'os'; import path from 'path';
+
+const require = createRequire(import.meta.url);
+const here = path.dirname(fileURLToPath(import.meta.url));
+const assert = (ok, message) => { if (!ok) throw new Error(message); };
+const storeDir = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-mcp-'));
+
+const transport = new StdioClientTransport({ command: process.execPath, args: [path.join(here, '..', 'main', 'mcp-server.js'), storeDir] });
+const client = new Client({ name: 'barkdown-test', version: '0.0.0' });
+await client.connect(transport);
+
+const tools = (await client.listTools()).tools.map(t => t.name).sort();
+assert(['create_document', 'list_documents', 'open_project_file', 'open_website', 'propose_document_edit', 'read_document', 'search_documents'].every(t => tools.includes(t)), 'tools missing: ' + tools.join(','));
+const list = JSON.parse((await client.callTool({ name: 'list_documents', arguments: {} })).content[0].text);
+assert(list.length === 2, 'seeded library should have two documents');
+const overview = list.find(d => d.title === 'Overview');
+const read = (await client.callTool({ name: 'read_document', arguments: { id: overview.id } })).content[0].text;
+assert(read.includes('# Overview') && read.includes('Top-level blocks'), 'read_document did not return markdown with block indexes');
+const proposed = (await client.callTool({ name: 'propose_document_edit', arguments: { id: overview.id, mode: 'append', markdown: '## From MCP\n\nAdded via the tool.', summary: 'Add a section' } })).content[0].text;
+assert(/Proposal .* added/.test(proposed), 'proposal not recorded');
+const created = (await client.callTool({ name: 'create_document', arguments: { title: 'MCP made this', markdown: 'Hello from **MCP**.' } })).content[0].text;
+assert(created.includes('Created document mcp-made-this'), 'create_document failed: ' + created);
+const search = JSON.parse((await client.callTool({ name: 'search_documents', arguments: { query: 'hello' } })).content[0].text);
+assert(search.some(d => d.id === 'mcp-made-this'), 'search did not find the new document');
+
+// The main process reads the same files: proposals written by the MCP process are visible after reload().
+const store = require('../main/store.js'); const documents = require('../main/documents.js');
+store.init(storeDir); documents.loadAll();
+assert(documents.get(overview.id).proposals.length === 1, 'main process does not see the MCP proposal');
+assert(documents.get('mcp-made-this').markdown.includes('**MCP**'), 'main process does not see the MCP document');
+
+await client.close();
+fs.rmSync(storeDir, { recursive: true, force: true });
+console.log('MCP server checks passed.');

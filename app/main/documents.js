@@ -18,6 +18,13 @@ function slugify(title) {
   return id;
 }
 
+function reload(id) {
+  if (!id) return loadAll();
+  const doc = store.readJson(fileFor(id), null);
+  if (doc && doc.id) cache.set(doc.id, doc); else cache.delete(id);
+  return doc;
+}
+
 function loadAll() {
   cache.clear();
   for (const file of store.list('documents', '.json')) {
@@ -192,4 +199,4 @@ function seed() {
   ].join('\n\n') });
 }
 
-module.exports = { loadAll, list, get, create, save, remove, backlinks, related, history, restore, search, addProposal, resolveProposal, summary };
+module.exports = { loadAll, reload, list, get, create, save, remove, backlinks, related, history, restore, search, addProposal, resolveProposal, summary };

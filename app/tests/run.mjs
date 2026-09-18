@@ -24,7 +24,7 @@ const assert = (ok, message) => { if (!ok) throw new Error(message); };
 const results = [];
 const step = (name, ok) => { results.push({ name, ok }); if (!ok) throw new Error('Failed: ' + name); };
 
-const app = await electron.launch({ executablePath: require('electron'), args: [appDir, `--user-data=${userData}`], env: { ...process.env, ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '' } });
+const app = await electron.launch({ executablePath: require('electron'), args: [appDir, `--user-data=${userData}`], env: { ...process.env, ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', BARKDOWN_PROVIDER: 'api' } });
 const page = await app.firstWindow();
 const errors = [];
 page.on('pageerror', e => errors.push(e.message));
@@ -59,6 +59,7 @@ try {
   await page.waitForFunction(() => /Saved · rev \d+/.test(document.querySelector('.bw-doc-pane:not([hidden]) #save-state')?.textContent || ''), null, { timeout: 8000 });
   step('document autosaved with a new revision', true);
   await page.keyboard.press('Enter');
+  await page.waitForTimeout(400);
   await page.keyboard.type('/heading 2');
   try { await page.waitForSelector('.bw-doc-pane:not([hidden]) .bw-slash:not([hidden]) [data-slash="h2"][aria-selected="true"]', { timeout: 4000 }); } catch (error) { console.log('SLASH DEBUG', await page.evaluate(() => { const p = document.querySelector('.bw-doc-pane:not([hidden])'); return { slashHidden: p.querySelector('#slash').hidden, slash: p.querySelector('#slash').innerHTML.slice(0, 200), tail: p.querySelector('.ProseMirror').innerHTML.slice(-400), active: document.activeElement?.className }; })); throw error; }
   await page.keyboard.press('Enter');
@@ -117,7 +118,7 @@ try {
 
   // Pins restore navigation; per-chat workspaces are independent; state survives reload.
   await page.locator('#bw-tabs .bw-tab').first().hover();
-  await page.locator('#bw-tabs [data-pin]').first().click();
+  await page.locator('#bw-tabs [data-pin]').first().dispatchEvent('click');
   step('pin recorded', (await page.locator('#bw-pin-menu [data-restore]').count()) === 1);
   await page.keyboard.press('Escape');
   const tabsBefore = await page.locator('#bw-tabs [data-tab]').count();

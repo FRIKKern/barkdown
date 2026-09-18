@@ -7,12 +7,23 @@ const files = require('./files');
 const git = require('./git');
 const agent = require('./agent');
 const barkpark = require('./barkpark');
+const claudeProvider = require('./providers/claude');
+const codexProvider = require('./providers/codex');
+
+function providerStatus() {
+  return { claude: { loggedIn: claudeProvider.loggedIn() }, codex: { loggedIn: codexProvider.loggedIn(), model: codexProvider.defaultModel() }, api: { hasKey: Boolean(readSettings().apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY) } };
+}
+function defaultProvider() {
+  if (process.env.BARKDOWN_PROVIDER) return process.env.BARKDOWN_PROVIDER;
+  const status = providerStatus();
+  return status.claude.loggedIn ? 'claude' : status.codex.loggedIn ? 'codex' : 'api';
+}
 
 const DEV = process.argv.includes('--dev');
 let win = null;
 
 // ---------- settings ----------
-const DEFAULT_SETTINGS = { chatWidth: 60, theme: 'system', model: 'claude-opus-5', apiKeyEncrypted: null, barkpark: { enabled: false, server: '', tokenEncrypted: null, dataset: 'production', writes: false, viaCli: false }, recentFolders: [], windowBounds: null };
+const DEFAULT_SETTINGS = { chatWidth: 60, theme: 'system', model: 'claude-opus-5', provider: null, claudeModel: '', codexModel: '', apiKeyEncrypted: null, barkpark: { enabled: false, server: '', tokenEncrypted: null, dataset: 'production', writes: false, viaCli: false }, recentFolders: [], windowBounds: null };
 
 function readSettings() { return { ...DEFAULT_SETTINGS, ...store.readJson('settings.json', {}), barkpark: { ...DEFAULT_SETTINGS.barkpark, ...(store.readJson('settings.json', {}).barkpark || {}) } }; }
 function writeSettings(settings) { store.writeJson('settings.json', settings); }
@@ -20,7 +31,7 @@ function encrypt(value) { if (!value) return null; return safeStorage.isEncrypti
 function decrypt(value) { if (!value) return ''; try { if (value.startsWith('enc:')) return safeStorage.decryptString(Buffer.from(value.slice(4), 'base64')); if (value.startsWith('plain:')) return Buffer.from(value.slice(6), 'base64').toString('utf8'); } catch (error) { console.warn('settings: could not decrypt', error.message); } return ''; }
 function publicSettings() {
   const s = readSettings();
-  return { chatWidth: s.chatWidth, theme: s.theme, model: s.model, hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY) && !s.apiKeyEncrypted, barkpark: { enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli }, recentFolders: s.recentFolders, userData: store.dir() };
+  return { chatWidth: s.chatWidth, theme: s.theme, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY) && !s.apiKeyEncrypted, barkpark: { enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli }, recentFolders: s.recentFolders, userData: store.dir() };
 }
 function barkparkConfig() { const s = readSettings(); return { server: s.barkpark.server, token: decrypt(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, enabled: s.barkpark.enabled }; }
 
@@ -78,6 +89,9 @@ function registerIpc() {
     if (patch.chatWidth != null) s.chatWidth = patch.chatWidth;
     if (patch.theme) s.theme = patch.theme;
     if (patch.model) s.model = patch.model;
+    if (patch.provider !== undefined) s.provider = patch.provider || null;
+    if (patch.claudeModel !== undefined) s.claudeModel = patch.claudeModel;
+    if (patch.codexModel !== undefined) s.codexModel = patch.codexModel;
     if (patch.apiKey !== undefined) s.apiKeyEncrypted = patch.apiKey ? encrypt(patch.apiKey) : null;
     if (patch.barkpark) {
       const b = patch.barkpark;
@@ -121,9 +135,11 @@ function registerIpc() {
   handle('git:diff', ({ root, base, staged, path: rel }) => git.diff(root, { base, staged, path: rel }));
   handle('git:log', root => git.log(root));
 
-  handle('agent:start', ({ chatId, messages, context }) => {
+  handle('providers:status', () => providerStatus());
+  handle('agent:start', ({ chatId, messages, context, provider, session, prompt }) => {
     const s = readSettings();
-    return agent.start({ chatId, messages, context, settings: { apiKey: decrypt(s.apiKeyEncrypted), model: s.model }, send: event => win?.webContents.send('agent:event', event) });
+    const chosen = provider || s.provider || defaultProvider();
+    return agent.start({ chatId, messages, prompt, context, provider: chosen, session, storeDir: store.dir(), settings: { apiKey: decrypt(s.apiKeyEncrypted), model: s.model, claudeModel: s.claudeModel, codexModel: s.codexModel }, send: event => { if (event.type === 'library_changed') documents.loadAll(); win?.webContents.send('agent:event', event); } });
   });
   handle('agent:cancel', runId => agent.cancel(runId));
   handle('agent:approve', ({ runId, approvalId, approved }) => agent.respondApproval(runId, approvalId, approved));
