@@ -214,3 +214,10 @@
 .bw-paper-document .bw-kicker .bw-doc-meta:not(:empty)::before { content: "·"; margin-right: 10px; opacity: .6; }
 .bw-paper-document .bw-doc-title { margin-bottom: 14px; }
 .bp-paper-host { margin-top: 0; }
+
+/* Checklist rows in the canvas (taskList markup). */
+.bp-paper-host .ProseMirror ul[data-type="taskList"] { padding-left: 2px; }
+.bp-paper-host .ProseMirror ul[data-type="taskList"] > li { padding: 1px 0; gap: 8px; }
+.bp-paper-host .ProseMirror ul[data-type="taskList"] > li > label { margin-top: 5px; }
+.bp-paper-host .ProseMirror ul[data-type="taskList"] > li > label input { width: 16px; height: 16px; border-radius: 3px; accent-color: var(--paper-accent); }
+.bp-paper-host .ProseMirror ul[data-type="taskList"] > li[data-checked="true"] > div > p { color: var(--paper-ink-faint); text-decoration-color: var(--paper-ink-faint); }

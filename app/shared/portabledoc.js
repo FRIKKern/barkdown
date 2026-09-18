@@ -70,7 +70,7 @@ function pmDocToBlocks(doc) {
       case 'heading': blocks.push({ type: 'heading', level: Math.min(3, Math.max(1, node.attrs?.level || 2)), text: pdInlineToText(pmInlineToPd(node.content)) }); break;
       case 'paragraph': blocks.push({ type: 'paragraph', content: pmInlineToPd(node.content) }); break;
       case 'bulletList': case 'orderedList': case 'taskList':
-        blocks.push({ type: 'list', ordered: node.type === 'orderedList', items: (node.content || []).map(item => { const first = (item.content || []).find(c => c.type === 'paragraph'); const inline = pmInlineToPd(first?.content); return node.type === 'taskList' ? [{ type: 'text', value: item.attrs?.checked ? '[x] ' : '[ ] ' }, ...inline] : inline; }) });
+        blocks.push({ type: 'list', ordered: node.type === 'orderedList', ...(node.type === 'taskList' ? { task: true } : {}), items: (node.content || []).map(item => { const first = (item.content || []).find(c => c.type === 'paragraph'); const inline = pmInlineToPd(first?.content); return node.type === 'taskList' ? { content: inline, checked: item.attrs?.checked === true } : inline; }) });
         break;
       case 'blockquote': blocks.push({ type: 'callout', tone: 'note', content: pmInlineToPd((node.content || []).flatMap(p => p.content || [])) }); break;
       case 'codeBlock': blocks.push({ type: 'code', language: node.attrs?.language || '', value: (node.content || []).map(t => t.text || '').join('') }); break;
@@ -90,7 +90,7 @@ function blocksToMarkdown(blocks) {
     switch (block.type) {
       case 'heading': return '#'.repeat(Math.min(6, block.level || 2)) + ' ' + (typeof block.text === 'string' ? block.text : pdInlineToMarkdown(inlineOf(block)));
       case 'paragraph': return pdInlineToMarkdown(inlineOf(block));
-      case 'list': return (block.items || []).map((item, n) => (block.ordered ? `${n + 1}. ` : '- ') + pdInlineToMarkdown(Array.isArray(item) ? item : typeof item === 'string' ? [{ type: 'text', value: item }] : inlineOf(item || {}))).join('\n');
+      case 'list': return (block.items || []).map((item, n) => (block.task ? (item && item.checked === true ? '- [x] ' : '- [ ] ') : block.ordered ? `${n + 1}. ` : '- ') + pdInlineToMarkdown(Array.isArray(item) ? item : typeof item === 'string' ? [{ type: 'text', value: item }] : inlineOf(item || {}))).join('\n');
       case 'callout': case 'note': return '> ' + (block.title ? '**' + block.title + '** ' : '') + pdInlineToMarkdown(inlineOf(block));
       case 'code': return '```' + (block.language || '') + '\n' + (block.value || block.code || '') + '\n```';
       case 'divider': return '---';

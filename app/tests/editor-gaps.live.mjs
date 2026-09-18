@@ -33,7 +33,7 @@ const paste = (text, html) => page.evaluate(([t, h]) => { const dt = new DataTra
 await pm.locator('p').last().click(); await page.keyboard.press('End'); await page.keyboard.press('Enter');
 await step('inline markdown: **bold** *em* ~~strike~~ `code`', async () => { await page.keyboard.type('**bold** and *em* and ~~gone~~ and `mono` end'); });
 await step('blockquote shorthand >', async () => { await page.keyboard.press('Enter'); await page.keyboard.type('> quoted'); });
-await step('task item shorthand [ ]', async () => { await page.keyboard.press('Enter'); await page.keyboard.press('Enter'); await page.keyboard.type('[ ] todo'); });
+await step('task item shorthand [ ]', async () => { await page.keyboard.press('Enter'); await page.keyboard.press('Enter'); await page.keyboard.type('[ ] todo'); await page.keyboard.press('Enter'); await page.keyboard.type('second todo'); await page.locator('.bw-paper-pane:not([hidden]) ul[data-type="taskList"] li input').first().click(); await page.waitForTimeout(200); await pm.locator('ul[data-type="taskList"] li p').last().click(); await page.keyboard.press('End'); await page.keyboard.press('Enter'); await page.keyboard.press('Enter'); });
 await step('typed URL autolinks', async () => { await page.keyboard.press('Enter'); await page.keyboard.type('see https://example.com/x now'); });
 await step('paste URL over selection makes a link', async () => { await page.keyboard.press('Enter'); await page.keyboard.type('linked words'); await page.keyboard.press('Shift+Home'); await page.waitForTimeout(200); await paste('https://example.org/'); });
 await step('paste markdown block text', async () => { await page.keyboard.press('End'); await page.keyboard.press('Enter'); await paste('## Pasted heading\n\n- one\n- two\n\nTail paragraph'); });
@@ -46,5 +46,8 @@ await step('quote then callout shorthand', async () => { await pm.locator('p:has
 await step('select all + type replaces everything', async () => { await page.keyboard.press('Control+a'); await page.keyboard.type('fresh'); await page.keyboard.press('Control+z'); });
 await page.screenshot({ path: 'test-results/30-gaps.png' });
 const server = bp(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); const d = server.document || server;
-console.log(JSON.stringify({ log, serverBlocks: d.blocks.map(b => b.type + ':' + JSON.stringify(b.content || b.text || b.items || b.value || '').slice(0, 60)), errors: [...new Set(errors)].slice(0, 10) }, null, 1));
+const kindOf = s => s.replace(/^headingd/, 'heading').replace(/^(bulletList|orderedList|taskList)/, 'list').replace(/^bpCode/, 'code').split(':')[0];
+const canvasKinds = log.at(-1).doc.map(kindOf); const serverKinds = d.blocks.map(b => b.type);
+const kindMismatch = canvasKinds.length !== serverKinds.length || canvasKinds.some((k, i) => k !== serverKinds[i]) ? { canvasKinds, serverKinds } : null;
+console.log(JSON.stringify({ kindMismatch, log, serverBlocks: d.blocks.map(b => b.type + ':' + JSON.stringify(b.content || b.text || b.items || b.value || '').slice(0, 60)), errors: [...new Set(errors)].slice(0, 10) }, null, 1));
 await app.close(); fs.rmSync(userData, { recursive: true, force: true });
