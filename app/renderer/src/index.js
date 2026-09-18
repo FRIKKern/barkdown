@@ -599,6 +599,8 @@ function wire() {
     menu.querySelectorAll('[data-choice]').forEach(b => { b.onclick = () => { apply(b.dataset.choice || null); hideMenus(); renderChat(); save(); }; });
     menu.querySelector('[data-custom]') && (menu.querySelector('[data-custom]').onclick = () => { const v = prompt(customLabel.prompt, current || ''); if (v != null) { apply(v.trim() || null); renderChat(); save(); } hideMenus(); });
     toggleMenu(menuId, chipId);
+    // Anchor the menu just above the chip that opened it, kept inside the window.
+    if (!menu.hidden) { const r = q(chipId).getBoundingClientRect(); menu.style.position = 'fixed'; menu.style.right = 'auto'; menu.style.bottom = 'auto'; menu.style.left = Math.max(8, Math.min(r.left, innerWidth - menu.offsetWidth - 8)) + 'px'; menu.style.top = Math.max(8, r.top - menu.offsetHeight - 8) + 'px'; }
   };
   q('#bw-model').onclick = () => { const chat = currentChat(); const provider = providerFor(chat); chipMenu('#bw-model', '#bw-model-menu', modelChoices(provider), chat.model, v => { chat.model = v; }, { title: 'Model for this chat', custom: 'Other model id…', prompt: 'Model id (as the provider names it)' }); };
   q('#bw-effort').onclick = () => { const chat = currentChat(); const provider = providerFor(chat); chipMenu('#bw-effort', '#bw-effort-menu', EFFORT_CHOICES[provider] || [], chat.effort, v => { chat.effort = v; }, { title: 'Reasoning effort' }); };
