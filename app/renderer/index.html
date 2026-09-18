@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: http:; font-src 'self' data:; connect-src 'self' https: http:; frame-src https: http:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' file: data: https: http:; font-src 'self' data:; connect-src 'self' https: http:; frame-src https: http:">
 <title>Barkdown</title>
 <link rel="stylesheet" href="vendor/bp-paper-editor.css">
 <link rel="stylesheet" href="vendor/bp-paper-popups.css">
@@ -25,9 +25,11 @@
   <section class="bw-chat" aria-label="Main conversation">
     <div class="bw-transcript" id="bw-transcript"></div>
     <form class="bw-composer" id="bw-compose">
+      <div class="bw-attachments" id="bw-attachments" hidden></div>
       <textarea id="bw-prompt" aria-label="Message the assistant" placeholder="Ask, create, or change something… (Enter to send, Shift+Enter for a new line)" rows="3"></textarea>
       <div class="bw-compose-foot">
         <button type="button" class="bw-folder-chip" id="bw-folder-context" aria-label="Agent working folder"><i data-lucide="folder-open"></i><span id="bw-folder-label">No working folder</span><i data-lucide="chevron-down"></i></button>
+        <button type="button" class="bw-folder-chip bw-attach" id="bw-attach" title="Attach an image · or paste / drop one" aria-label="Attach an image"><i data-lucide="image"></i></button><input type="file" id="bw-attach-input" accept="image/png,image/jpeg,image/gif,image/webp" multiple hidden>
         <button type="button" class="bw-folder-chip" id="bw-provider" title="Assistant provider for this chat"><i data-lucide="sparkles"></i><span id="bw-provider-label">Assistant</span></button><span class="bw-working" id="bw-working" hidden><span class="bw-pulse"></span>Working…</span>
         <span class="bw-spacer"></span>
         <button type="button" class="bw-stop" id="bw-stop" hidden title="Stop the run">Stop</button>
@@ -38,6 +40,7 @@
   <section class="bw-workspace" id="bw-workspace" aria-label="Active work tab"></section>
   <button class="bw-splitter" id="bw-splitter" role="separator" aria-orientation="vertical" aria-label="Conversation width" aria-valuemin="40" aria-valuemax="70" aria-valuenow="60" title="Drag to resize · double-click to reset"></button>
   <div class="bw-menu" id="bw-new-menu" hidden></div>
+  <div class="bw-lightbox" id="bw-lightbox" hidden role="dialog" aria-label="Image preview"><img alt=""></div>
   <div class="bw-menu" id="bw-pin-menu" hidden></div>
   <div class="bw-menu" id="bw-project-menu" hidden></div>
   <div class="bw-palette" id="bw-palette" role="dialog" aria-label="Quick open" hidden>

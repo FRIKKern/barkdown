@@ -151,10 +151,27 @@ function registerIpc() {
   handle('git:log', root => git.log(root));
 
   handle('providers:status', () => providerStatus());
-  handle('agent:start', ({ chatId, messages, context, provider, session, prompt }) => {
+  // Pasted or dropped images land as files under userData/attachments; messages keep the path, and the
+  // providers read the bytes when the prompt is sent (base64 blocks for Claude, local_image for Codex).
+  handle('attachments:save', ({ name, mime, dataUrl }) => {
+    const m = /^data:([\w.+-]+\/[\w.+-]+);base64,(.+)$/s.exec(dataUrl || '');
+    if (!m) throw Object.assign(new Error('Unsupported attachment payload'), { code: 'bad_attachment' });
+    const type = mime || m[1];
+    if (!/^image\/(png|jpeg|gif|webp)$/.test(type)) throw Object.assign(new Error('Only PNG, JPEG, GIF and WebP images can be attached'), { code: 'bad_attachment' });
+    const bytes = Buffer.from(m[2], 'base64');
+    if (bytes.length > 20 * 1024 * 1024) throw Object.assign(new Error('Images are limited to 20 MB'), { code: 'bad_attachment' });
+    const dir = path.join(store.dir(), 'attachments');
+    fs.mkdirSync(dir, { recursive: true });
+    const id = Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
+    const ext = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/gif': 'gif', 'image/webp': 'webp' }[type];
+    const file = path.join(dir, id + '.' + ext);
+    fs.writeFileSync(file, bytes);
+    return { id, path: file, url: 'file:///' + file.replace(/\\/g, '/').replace(/^\//, ''), name: name || id + '.' + ext, mime: type, size: bytes.length };
+  });
+  handle('agent:start', ({ chatId, messages, context, provider, session, prompt, images }) => {
     const s = readSettings();
     const chosen = provider || s.provider || defaultProvider();
-    return agent.start({ chatId, messages, prompt, context, provider: chosen, session, storeDir: store.dir(), settings: { apiKey: decrypt(s.apiKeyEncrypted), model: s.model, claudeModel: s.claudeModel, codexModel: s.codexModel }, send: event => { if (event.type === 'library_changed') documents.loadAll(); win?.webContents.send('agent:event', event); } });
+    return agent.start({ chatId, messages, prompt, images, context, provider: chosen, session, storeDir: store.dir(), settings: { apiKey: decrypt(s.apiKeyEncrypted), model: s.model, claudeModel: s.claudeModel, codexModel: s.codexModel }, send: event => { if (event.type === 'library_changed') documents.loadAll(); win?.webContents.send('agent:event', event); } });
   });
   handle('agent:cancel', runId => agent.cancel(runId));
   handle('agent:approve', ({ runId, approvalId, approved }) => agent.respondApproval(runId, approvalId, approved));

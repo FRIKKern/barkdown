@@ -164,7 +164,38 @@ function offlineReply(run, userText) {
   return `${done}No Claude API key is configured, so I cannot reason about your request yet. Add a key under Settings (Ctrl+,) or set ANTHROPIC_API_KEY, and I will read documents, browse, propose edits and work in your folder.`;
 }
 
-async function startApi({ chatId, messages, context, settings, send }) {
+// Attached images as Messages API blocks. Files were written by attachments:save; a missing file is
+// skipped rather than failing the whole turn.
+const IMAGE_MIME = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.gif': 'image/gif', '.webp': 'image/webp' };
+function imageBlocks(images) {
+  const blocks = [];
+  for (const image of images || []) {
+    try {
+      const file = image.path;
+      const media_type = image.mime || IMAGE_MIME[path.extname(file).toLowerCase()];
+      if (!media_type) continue;
+      blocks.push({ type: 'image', source: { type: 'base64', media_type, data: require('fs').readFileSync(file).toString('base64') } });
+    } catch { /* skipped */ }
+  }
+  return blocks;
+}
+
+// The last user message with the attached images ahead of its text, as the Messages API expects.
+function withImages(messages, images) {
+  const blocks = imageBlocks(images);
+  if (!blocks.length) return messages;
+  const out = messages.map(m => ({ ...m }));
+  for (let i = out.length - 1; i >= 0; i--) {
+    if (out[i].role !== 'user') continue;
+    const content = typeof out[i].content === 'string' ? [{ type: 'text', text: out[i].content }] : [...(out[i].content || [])];
+    out[i].content = [...blocks, ...content.filter(b => b.type !== 'text' || b.text)];
+    if (!out[i].content.some(b => b.type === 'text')) out[i].content.push({ type: 'text', text: 'See the attached image.' });
+    break;
+  }
+  return out;
+}
+
+async function startApi({ chatId, messages, context, settings, send, images }) {
   const run = providerRuns.createRun({ chatId, context, send, provider: 'api' });
   const id = run.id;
   (async () => {
@@ -180,7 +211,7 @@ async function startApi({ chatId, messages, context, settings, send }) {
       }
       const client = clientFactory({ apiKey: apiKey || undefined, maxRetries: 2 });
       const tools = toolDefinitions(context).map(t => ({ ...t, eager_input_streaming: true }));
-      const history = messages.map(m => ({ role: m.role, content: m.content }));
+      const history = withImages(messages, images).map(m => ({ role: m.role, content: m.content }));
       const contextNote = context.folder ? `The agent working folder for this chat is ${context.folder}. Paths are relative to it.` : 'This chat has no working folder; file tools are unavailable. Documents are still available.';
       let turns = 0;
       let finalText = '';
@@ -241,4 +272,4 @@ async function start(params) {
   return startApi(params);
 }
 
-module.exports = { start, startApi, cancel, respondApproval, toolDefinitions, setClientFactory };
+module.exports = { start, startApi, cancel, respondApproval, toolDefinitions, setClientFactory, imageBlocks, withImages };

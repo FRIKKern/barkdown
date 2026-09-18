@@ -9,6 +9,7 @@ async function call(channel, ...args) {
 
 const api = {
   settings: { get: () => call('settings:get'), set: patch => call('settings:set', patch) },
+  attachments: { save: input => call('attachments:save', input) },
   app: { pickFolder: () => call('app:pickFolder'), openExternal: url => call('app:openExternal', url), openPath: p => call('app:openPath', p), platform: process.platform },
   state: { load: () => call('state:load'), save: state => call('state:save', state) },
   docs: {
@@ -19,7 +20,7 @@ const api = {
   files: { tree: root => call('files:tree', root), read: (root, path) => call('files:read', { root, path }), write: (root, path, text, mtime) => call('files:write', { root, path, text, mtime }), search: (root, query) => call('files:search', { root, query }), exists: (root, path) => call('files:exists', { root, path }) },
   git: { status: root => call('git:status', root), diff: (root, options = {}) => call('git:diff', { root, ...options }), log: root => call('git:log', root) },
   agent: {
-    start: (chatId, messages, context, provider, session, prompt) => call('agent:start', { chatId, messages, context, provider, session, prompt }),
+    start: (chatId, messages, context, provider, session, prompt, images) => call('agent:start', { chatId, messages, context, provider, session, prompt, images }),
     cancel: runId => call('agent:cancel', runId),
     approve: (runId, approvalId, approved) => call('agent:approve', { runId, approvalId, approved }),
     onEvent: handler => { const listener = (_e, event) => handler(event); ipcRenderer.on('agent:event', listener); return () => ipcRenderer.removeListener('agent:event', listener); },

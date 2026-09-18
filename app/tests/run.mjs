@@ -48,6 +48,22 @@ try {
   step('chat title derived from first message', (await page.locator('#bw-chat-title').innerText()).startsWith('Open the Interaction'));
   await page.screenshot({ path: path.join(out, '02-offline-run.png') });
 
+  // Image attachments: a pasted image shows as a thumbnail in the composer, is saved under userData, and
+  // renders inside the sent message.
+  await page.evaluate(async () => { const c = document.createElement('canvas'); c.width = 40; c.height = 30; const g = c.getContext('2d'); g.fillStyle = '#c62828'; g.fillRect(0, 0, 40, 30); const blob = await new Promise(r => c.toBlob(r, 'image/png')); const file = new File([blob], 'paste.png', { type: 'image/png' }); const dt = new DataTransfer(); dt.items.add(file); document.querySelector('#bw-prompt').dispatchEvent(new ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); });
+  await page.waitForSelector('#bw-attachments .bw-attachment img', { timeout: 10000 });
+  step('pasted image shows as a composer thumbnail', (await page.locator('#bw-attachments .bw-attachment').count()) === 1);
+  step('attachment saved under userData', fs.existsSync(path.join(userData, 'barkdown', 'attachments')) && fs.readdirSync(path.join(userData, 'barkdown', 'attachments')).some(f => f.endsWith('.png')));
+  await page.locator('#bw-prompt').fill('What colour is this?');
+  await page.locator('#bw-prompt').press('Enter');
+  await page.waitForFunction(() => document.querySelector('#bw-working')?.hidden === true && document.querySelectorAll('.bw-user-message').length === 2, null, { timeout: 20000 });
+  step('sent message renders the image', (await page.locator('.bw-user-message').last().locator('.bw-user-images img').count()) === 1);
+  step('composer strip cleared after sending', await page.locator('#bw-attachments').isHidden());
+  await page.locator('.bw-user-images img').last().click();
+  step('clicking the image opens the lightbox', await page.locator('#bw-lightbox').isVisible());
+  await page.keyboard.press('Escape'); await page.locator('#bw-lightbox').click({ position: { x: 5, y: 5 } }).catch(() => {});
+  await page.screenshot({ path: path.join(out, '02b-image-message.png') });
+
   // Real document editing with autosave and revision.
   const docTab = page.locator('#bw-tabs [data-tab]').first();
   await docTab.click();
@@ -129,7 +145,7 @@ try {
   step('switching back restores the workspace', (await page.locator('#bw-tabs [data-tab]').count()) === tabsBefore);
   await page.reload();
   await page.waitForSelector('#bw-documents .bw-nav', { timeout: 20000 });
-  step('workspace persisted across reload', (await page.locator('#bw-tabs [data-tab]').count()) === tabsBefore && (await page.locator('.bw-user-message').count()) === 1);
+  step('workspace persisted across reload', (await page.locator('#bw-tabs [data-tab]').count()) === tabsBefore && (await page.locator('.bw-user-message').count()) === 2);
   await page.screenshot({ path: path.join(out, '07-after-reload.png') });
 
   const relevant = errors.filter(e => !/Autofill|devtools|ERR_BLOCKED_BY_RESPONSE|Electron Security Warning|CSP/i.test(e));

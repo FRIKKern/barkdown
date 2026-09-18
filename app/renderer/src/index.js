@@ -1,5 +1,5 @@
 // Barkdown desktop renderer: app-wide navigation, per-chat workspaces, agent runs, pins, quick open.
-import { el, esc, iconHtml, renderIcons, toast, basename, relativeTime } from './ui.js';
+import { el, esc, iconHtml, renderIcons, toast, basename, relativeTime, errorMessage } from './ui.js';
 import { state, load, save, newChat, newTab, currentChat, activeTab, touch, chatTitleFrom } from './state.js';
 import { transcriptHtml, sendMessage, handleAgentEvent, respondApproval, cancelRun, PROVIDER_LABEL, providerFor } from './conversation.js';
 import { mountDocument } from './tabs/document.js';
@@ -180,6 +180,56 @@ function openTarget(target, chat = currentChat(), manual = true, options = {}) {
   return tab;
 }
 
+// Composer attachments: thumbnails with a remove control, kept per chat as draftImages until sent.
+function renderAttachments(chat) {
+  const strip = q('#bw-attachments');
+  const images = chat?.draftImages || [];
+  strip.hidden = !images.length;
+  strip.innerHTML = images.map(i => `<span class="bw-attachment" title="${esc(i.name)}"><img src="${esc(i.url)}" alt="${esc(i.name)}"><button type="button" data-remove="${esc(i.id)}" aria-label="Remove ${esc(i.name)}">×</button></span>`).join('');
+}
+
+// Reads each image, downsizes anything over 2400px on its long side (ordinary screenshots stay as
+// they are), and saves it through the main process. Attaches to the current chat's draft.
+async function attachImages(files) {
+  const chat = currentChat();
+  if (!chat) return;
+  for (const file of files) {
+    if (!/^image\/(png|jpeg|gif|webp)$/.test(file.type)) { toast(`${file.name || 'That file'} is not a supported image (PNG, JPEG, GIF or WebP).`, 'error'); continue; }
+    try {
+      const dataUrl = await imageDataUrl(file);
+      const saved = await api.attachments.save({ name: file.name || 'pasted-image.png', mime: dataUrl.slice(5, dataUrl.indexOf(';')), dataUrl });
+      chat.draftImages = [...(chat.draftImages || []), saved];
+      renderAttachments(chat);
+      save();
+    } catch (error) { toast(errorMessage(error), 'error'); }
+  }
+  q('#bw-prompt').focus();
+}
+
+function imageDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('Could not read the image'));
+    reader.onload = () => {
+      const original = reader.result;
+      if (file.type === 'image/gif') return resolve(original);
+      const img = new Image();
+      img.onerror = () => resolve(original);
+      img.onload = () => {
+        const max = 2400;
+        const scale = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+        if (scale === 1) return resolve(original);
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.round(img.naturalWidth * scale); canvas.height = Math.round(img.naturalHeight * scale);
+        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+        resolve(canvas.toDataURL(file.type === 'image/jpeg' ? 'image/jpeg' : 'image/png', 0.92));
+      };
+      img.src = original;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 function userIsTyping() { const a = document.activeElement; return Boolean(a && a.closest('#bw-workspace') && (a.matches('textarea, input, [contenteditable="true"], .cm-content') || a.closest('.ProseMirror'))); }
 
 function openDocTab(chat, id, source = 'local') { return openTarget({ kind: 'doc', id, source }, chat, true); }
@@ -264,6 +314,7 @@ function renderChat() {
   transcript.querySelectorAll('a[href]').forEach(a => { a.onclick = e => { e.preventDefault(); openTarget({ kind: 'web', url: a.href, title: hostname(a.href) }, chat, true); }; });
   if (atBottom || chat.runId) transcript.scrollTop = transcript.scrollHeight;
   q('#bw-prompt').value = chat.draft || '';
+  renderAttachments(chat);
   q('#bw-folder-label').textContent = chat.folder ? basename(chat.folder) : 'No working folder';
   q('#bw-folder-context').title = chat.folder || 'Choose an agent working folder for this chat';
   const provider = providerFor(chat);
@@ -512,7 +563,18 @@ function wire() {
   q('#bw-go-chat').onclick = () => { pauseFollow(); root.classList.add('mobile-chat'); q('#bw-prompt').focus(); };
   q('#bw-mobile-back').onclick = () => { if (state.mode === 'document') { state.mode = 'chat'; render(); } root.classList.toggle('mobile-chat'); };
   q('#bw-stop').onclick = () => cancelRun(currentChat());
-  q('#bw-compose').onsubmit = e => { e.preventDefault(); const chat = currentChat(); const text = q('#bw-prompt').value; if (!text.trim()) return; if (chat.runId) { toast('Wait for the current run to finish, or stop it.'); return; } chat.draft = ''; q('#bw-prompt').value = ''; sendMessage(chat, text, { render: () => { renderChat(); renderSidebar(); }, runChanged: () => { renderChat(); renderSidebar(); } }); };
+  q('#bw-compose').onsubmit = e => { e.preventDefault(); const chat = currentChat(); const text = q('#bw-prompt').value; const images = chat.draftImages || []; if (!text.trim() && !images.length) return; if (chat.runId) { toast('Wait for the current run to finish, or stop it.'); return; } chat.draft = ''; chat.draftImages = []; q('#bw-prompt').value = ''; renderAttachments(chat); sendMessage(chat, text, { render: () => { renderChat(); renderSidebar(); }, runChanged: () => { renderChat(); renderSidebar(); } }, images); };
+  // Images: paste into the prompt, drop on the composer, or pick with the attach button. Each is saved
+  // under userData/attachments right away so the chat only keeps a path.
+  q('#bw-prompt').addEventListener('paste', e => { const files = [...(e.clipboardData?.files || [])].filter(f => f.type.startsWith('image/')); if (files.length) { e.preventDefault(); attachImages(files); } });
+  const composer = q('#bw-compose');
+  composer.addEventListener('dragover', e => { if ([...(e.dataTransfer?.types || [])].includes('Files')) { e.preventDefault(); composer.classList.add('drop'); } });
+  composer.addEventListener('dragleave', () => composer.classList.remove('drop'));
+  composer.addEventListener('drop', e => { composer.classList.remove('drop'); const files = [...(e.dataTransfer?.files || [])].filter(f => f.type.startsWith('image/')); if (files.length) { e.preventDefault(); attachImages(files); } });
+  q('#bw-attach').onclick = () => q('#bw-attach-input').click();
+  q('#bw-attach-input').onchange = () => { attachImages([...q('#bw-attach-input').files]); q('#bw-attach-input').value = ''; };
+  q('#bw-attachments').addEventListener('click', e => { const remove = e.target.closest('[data-remove]'); if (!remove) return; const chat = currentChat(); chat.draftImages = (chat.draftImages || []).filter(i => i.id !== remove.dataset.remove); renderAttachments(chat); save(); q('#bw-prompt').focus(); });
+  document.addEventListener('click', e => { const img = e.target.closest('[data-lightbox]'); const box = q('#bw-lightbox'); if (img) { box.querySelector('img').src = img.dataset.lightbox; box.hidden = false; } else if (!box.hidden) box.hidden = true; });
   q('#bw-prompt').addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); q('#bw-compose').requestSubmit(); } });
   q('#bw-prompt').addEventListener('input', () => { const chat = currentChat(); if (chat) { chat.draft = q('#bw-prompt').value; save(); } });
   q('#bw-tabs').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; const chat = workspaceChat(); if (b.dataset.tab) focusTab(chat, b.dataset.tab); else if (b.dataset.close) closeTab(chat, b.dataset.close); else if (b.dataset.pin) addPin(b.dataset.pin); });
@@ -559,4 +621,4 @@ function wire() {
 })();
 
 // Test and debugging hooks (no UI depends on these).
-window.__barkdown = { state, controllers, openTarget, render, refreshLibrary, expandArchive: () => { ensurePages().archiveOpen = true; renderSidebar(); }, addPage, pagePath, setFolder: folder => { const chat = currentChat(); chat.folder = folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }, openProject, openDirect, openPalette, createChat, switchChat };
+window.__barkdown = { attachImages,  state, controllers, openTarget, render, refreshLibrary, expandArchive: () => { ensurePages().archiveOpen = true; renderSidebar(); }, addPage, pagePath, setFolder: folder => { const chat = currentChat(); chat.folder = folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }, openProject, openDirect, openPalette, createChat, switchChat };

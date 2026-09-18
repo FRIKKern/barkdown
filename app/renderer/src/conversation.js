@@ -13,7 +13,10 @@ export function transcriptHtml(chat, options = {}) {
     return `<div class="bw-byline"><span class="bw-avatar bw-agent">b</span>Barkdown</div><p class="bw-agent-copy">${esc(options.intro || 'Start with a question, a document, or a website. I can open documents beside this chat, propose edits for you to keep or discard, browse websites, and work in a folder you give me.')}</p>`;
   }
   return chat.messages.map((m, index) => {
-    if (m.role === 'user') return `<div class="bw-byline"><span class="bw-avatar">${esc(options.initials || 'FJ')}</span>You<time>${esc(relativeTime(m.at))}</time></div><div class="bw-user-message">${esc(m.text)}</div>`;
+    if (m.role === 'user') {
+      const images = (m.images || []).length ? `<div class="bw-user-images">${m.images.map(i => `<img src="${esc(i.url)}" alt="${esc(i.name || 'Attached image')}" title="${esc(i.name || '')}" data-lightbox="${esc(i.url)}">`).join('')}</div>` : '';
+      return `<div class="bw-byline"><span class="bw-avatar">${esc(options.initials || 'FJ')}</span>You<time>${esc(relativeTime(m.at))}</time></div><div class="bw-user-message${m.text ? '' : ' bw-user-message--images'}">${images}${esc(m.text)}</div>`;
+    }
     const tools = (m.tools || []).map(t => `<div class="bw-tool ${t.ok === false ? 'error' : ''}">${iconHtml(t.ok === false ? 'alert-triangle' : t.done ? 'circle-check' : 'wrench', 12)}<span>${esc(describeTool(t))}</span></div>`).join('');
     const events = (m.events || []).map((e, n) => `<button class="bw-event" data-event="${index}:${n}">${iconHtml(TARGET_ICON[e.target?.kind] || 'sparkles')}<span>${esc(e.label)}<small>${esc(e.detail || '')}</small></span></button>`).join('');
     const approvals = (m.approvals || []).filter(a => a.status === 'pending').map(a => `<div class="bw-approval" data-approval="${esc(a.approvalId)}"><strong>${a.request.kind === 'command' ? 'Allow running a command?' : a.request.outside ? `Allow ${esc(a.request.tool)} outside the working folder: ${esc(a.request.path)}?` : `Allow writing ${esc(a.request.path || a.request.tool)}?`}</strong><span class="bw-muted">${esc(a.request.summary || '')}</span><pre>${esc(String(a.request.command || a.request.contents || '').slice(0, 4000))}</pre><div class="row"><button class="primary" data-approve="1">Allow</button><button data-approve="0">Decline</button></div></div>`).join('');
@@ -58,26 +61,27 @@ export function apiMessagesFor(chat) {
   const userMessages = chat.messages.filter(m => m.role === 'user');
   if (!history.length) return userMessagesToApi(chat.messages);
   const last = userMessages.at(-1);
-  if (last && !last.sentInHistory) history.push({ role: 'user', content: last.text });
+  if (last && !last.sentInHistory) history.push({ role: 'user', content: last.text || 'See the attached image.' });
   return history;
 }
 
 function userMessagesToApi(messages) {
   const out = [];
   for (const m of messages) {
-    if (m.role === 'user') out.push({ role: 'user', content: m.text });
+    if (m.role === 'user') out.push({ role: 'user', content: m.text || 'See the attached image.' });
     else if (m.text) out.push({ role: 'assistant', content: m.text });
   }
   if (out.at(-1)?.role !== 'user') return out.filter((m, i, arr) => i < arr.length - 1 || m.role === 'user');
   return out;
 }
 
-export async function sendMessage(chat, text, hooks) {
+export async function sendMessage(chat, text, hooks, images = []) {
   const clean = text.trim();
-  if (!clean || chat.runId) return false;
+  const attached = (images || []).map(i => ({ id: i.id, path: i.path, url: i.url, name: i.name, mime: i.mime }));
+  if ((!clean && !attached.length) || chat.runId) return false;
   const now = new Date().toISOString();
-  chat.messages.push({ role: 'user', text: clean, at: now });
-  if (chat.messages.filter(m => m.role === 'user').length === 1 && (chat.title === 'New chat' || chat.title === 'Shaping Barkdown' && !chat.side)) chat.title = chatTitleFrom(clean);
+  chat.messages.push({ role: 'user', text: clean, at: now, images: attached });
+  if (chat.messages.filter(m => m.role === 'user').length === 1 && (chat.title === 'New chat' || chat.title === 'Shaping Barkdown' && !chat.side)) chat.title = chatTitleFrom(clean || (attached.length > 1 ? `${attached.length} images` : attached[0].name || 'Image'));
   chat.messages.push({ role: 'assistant', text: '', at: now, streaming: true, tools: [], events: [], approvals: [] });
   chat.following = true;
   chat.closedTargets = [];
@@ -87,7 +91,7 @@ export async function sendMessage(chat, text, hooks) {
     const messages = apiMessagesFor(chat);
     const provider = providerFor(chat);
     chat.sessions = chat.sessions || {};
-    const { runId } = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title }, provider, chat.sessions[provider] || null, clean);
+    const { runId } = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title }, provider, chat.sessions[provider] || null, clean, attached);
     chat.runProvider = provider;
     chat.runId = runId;
     hooks.runChanged(chat);
