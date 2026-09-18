@@ -18,11 +18,15 @@ const q = s => root.querySelector(s);
 const TYPE_ICON = { doc: 'file-text', web: 'globe', review: 'git-pull-request', project: 'folder-code', chat: 'message-circle', terminal: 'terminal' };
 
 // Models and reasoning effort a chat can pick per provider. Empty value means the provider's own default.
-const MODEL_CHOICES = {
-  claude: [['', 'Claude Code default'], ['claude-opus-5', 'Opus 5'], ['claude-sonnet-5', 'Sonnet 5'], ['claude-haiku-4-5-20251001', 'Haiku 4.5']],
-  codex: [['', 'Codex default'], ['gpt-5-codex', 'GPT-5 Codex'], ['gpt-5', 'GPT-5']],
-  api: [['', 'Settings default'], ['claude-opus-5', 'Opus 5'], ['claude-sonnet-5', 'Sonnet 5'], ['claude-haiku-4-5-20251001', 'Haiku 4.5']],
-};
+const CLAUDE_MODELS = [['claude-fable-5-1', 'Fable 5.1'], ['claude-opus-5', 'Opus 5'], ['claude-sonnet-5', 'Sonnet 5'], ['claude-haiku-4-5-20251001', 'Haiku 4.5']];
+const CODEX_MODELS = [['gpt-6-astra', 'GPT-6 Astra'], ['gpt-6', 'GPT-6'], ['gpt-5-codex', 'GPT-5 Codex']];
+// The default rows name what the provider would use on its own: Codex reads ~/.codex/config.toml.
+function modelChoices(provider) {
+  const codexDefault = state.settings?.providers?.codex?.model;
+  if (provider === 'claude') return [['', 'Claude Code default'], ...CLAUDE_MODELS];
+  if (provider === 'codex') return [['', codexDefault ? `Codex default (${codexDefault})` : 'Codex default'], ...CODEX_MODELS.filter(([id]) => id !== codexDefault)];
+  return [['', `Settings default${state.settings?.model ? ' (' + state.settings.model + ')' : ''}`], ...CLAUDE_MODELS];
+}
 const EFFORT_CHOICES = {
   claude: [['', 'Default effort'], ['low', 'Low'], ['medium', 'Medium'], ['high', 'High'], ['xhigh', 'Extra high'], ['max', 'Max']],
   codex: [['', 'Default effort'], ['minimal', 'Minimal'], ['low', 'Low'], ['medium', 'Medium'], ['high', 'High'], ['xhigh', 'Extra high']],
@@ -345,7 +349,7 @@ function renderChat() {
   q('#bw-provider-label').textContent = (PROVIDER_LABEL[provider] || provider) + (ready ? '' : ' · not signed in');
   q('#bw-provider').classList.toggle('off', !ready);
   q('#bw-provider').title = ready ? `Runs on ${PROVIDER_LABEL[provider]} using your local login. Click to switch.` : `${PROVIDER_LABEL[provider]} is not available. Click to switch or open Settings.`;
-  const modelLabel = (MODEL_CHOICES[provider] || []).find(([v]) => v === (chat.model || ''))?.[1] || chat.model || 'Model';
+  const modelLabel = (modelChoices(provider)).find(([v]) => v === (chat.model || ''))?.[1] || chat.model || 'Model';
   q('#bw-model-label').textContent = chat.model ? modelLabel : 'Model';
   q('#bw-model').title = chat.model ? `Model for this chat: ${chat.model}` : 'Model for this chat (provider default)';
   const efforts = EFFORT_CHOICES[provider] || [];
@@ -596,7 +600,7 @@ function wire() {
     menu.querySelector('[data-custom]') && (menu.querySelector('[data-custom]').onclick = () => { const v = prompt(customLabel.prompt, current || ''); if (v != null) { apply(v.trim() || null); renderChat(); save(); } hideMenus(); });
     toggleMenu(menuId, chipId);
   };
-  q('#bw-model').onclick = () => { const chat = currentChat(); const provider = providerFor(chat); chipMenu('#bw-model', '#bw-model-menu', MODEL_CHOICES[provider] || [], chat.model, v => { chat.model = v; }, { title: 'Model for this chat', custom: 'Other model id…', prompt: 'Model id (as the provider names it)' }); };
+  q('#bw-model').onclick = () => { const chat = currentChat(); const provider = providerFor(chat); chipMenu('#bw-model', '#bw-model-menu', modelChoices(provider), chat.model, v => { chat.model = v; }, { title: 'Model for this chat', custom: 'Other model id…', prompt: 'Model id (as the provider names it)' }); };
   q('#bw-effort').onclick = () => { const chat = currentChat(); const provider = providerFor(chat); chipMenu('#bw-effort', '#bw-effort-menu', EFFORT_CHOICES[provider] || [], chat.effort, v => { chat.effort = v; }, { title: 'Reasoning effort' }); };
   q('#bw-provider').onclick = () => { const chat = currentChat(); const order = ['claude', 'codex', 'api']; const current = providerFor(chat); chat.provider = order[(order.indexOf(current) + 1) % order.length]; renderChat(); save(); toast(`This chat now uses ${PROVIDER_LABEL[chat.provider]}`); };
   q('#bw-go-chat').onclick = () => { pauseFollow(); root.classList.add('mobile-chat'); q('#bw-prompt').focus(); };
