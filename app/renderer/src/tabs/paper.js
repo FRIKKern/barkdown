@@ -9,7 +9,7 @@ import { normaliseOps, reinsertMoves } from '../../../shared/ops.js';
 const api = window.barkdown;
 
 export function mountPaper(tab, host, ctx) {
-  const pane = el(`<div class="bw-pane bw-doc-pane bw-paper-pane"><div class="bw-path" id="path"></div><div class="bw-current-pane" id="current"><div class="bw-document bw-paper-document"><div class="bw-kicker"><span id="kicker">Barkpark / Paper</span><span class="bw-save-state" id="save-state"></span></div><input class="bw-doc-title" id="title" aria-label="Paper title" placeholder="Untitled"><div class="bw-doc-meta" id="meta"></div><div id="banner"></div><div id="proposals"></div><div id="conflict"></div><div class="bp-paper-host" id="canvas-host"></div><div class="bw-doc-links" id="links"></div><div class="bw-doc-state" id="state"></div></div></div></div>`);
+  const pane = el(`<div class="bw-pane bw-doc-pane bw-paper-pane"><div class="bw-path" id="path"></div><div class="bw-current-pane" id="current"><div class="bw-document bw-paper-document"><div class="bw-kicker"><span id="kicker">Barkpark / Paper</span><span class="bw-doc-meta" id="meta"></span><span class="bw-save-state" id="save-state"></span></div><input class="bw-doc-title" id="title" aria-label="Paper title" placeholder="Untitled"><div id="banner"></div><div id="proposals"></div><div id="conflict"></div><div class="bp-paper-host" id="canvas-host"></div><div class="bw-doc-links" id="links"></div><div class="bw-doc-state" id="state"></div></div></div></div>`);
   host.appendChild(pane);
   const q = s => pane.querySelector(s);
   let paper = null;
@@ -32,7 +32,16 @@ export function mountPaper(tab, host, ctx) {
     if (!paper) return;
     const crumbs = ctx.pagePath ? ctx.pagePath(slug(), 'barkpark') : [];
     q('#kicker').textContent = crumbs.length > 1 ? crumbs.join(' / ') : 'Barkpark / Paper';
-    q('#meta').textContent = `${writesOn() ? 'Editing live' : 'Read-only'} · rev ${rev ?? '–'} · updated ${relativeTime(paper.updatedAt)} · ${paper.blocks ? paper.blocks.length + ' block(s)' : 'HTML body'}${paper.draft ? ' · draft' : ''}`;
+    q('#meta').textContent = `${writesOn() ? 'Editing live' : 'Read-only'} · edited ${relativeTime(paper.updatedAt)}${paper.draft ? ' · draft' : ''}${paper.blocks ? '' : ' · HTML body'}`;
+  }
+
+  // Barkpark derives a paper's title from its first heading, so when the document opens with one the
+  // heading is the title row (Notion's model) and the separate input would only duplicate it.
+  function syncTitleRow() {
+    const first = canvas?._editor?.state?.doc?.firstChild;
+    const headed = first ? first.type.name === 'heading' : /^heading$|^h[1-3]$/.test(canvas?.blocks?.[0]?.type || '');
+    q('#title').hidden = Boolean(headed);
+    q('#canvas-host').classList.toggle('bp-paper-host--titled', Boolean(headed));
   }
 
   function renderBanner() {
@@ -145,6 +154,8 @@ export function mountPaper(tab, host, ctx) {
           else canvas.applyServerBlocks(fresh.blocks);
           mergeAfterSave = false;
           renderMeta();
+          if (paper.title && tab.title !== paper.title) { tab.title = paper.title; q('#title').value = paper.title; ctx.tabChanged(tab); ctx.libraryChanged(); }
+          syncTitleRow();
         }
       } catch {}
       ctx.documentChanged({ id: 'bp:' + slug(), title: paper.title });
@@ -188,8 +199,10 @@ export function mountPaper(tab, host, ctx) {
       const { ops, seq } = event.detail || {};
       if (!Array.isArray(ops) || !ops.length) return;
       ctx.userIsEditing();
+      syncTitleRow();
       applyOps(ops, seq);
     });
+    canvas.addEventListener('keyup', () => syncTitleRow());
     canvas.addEventListener('focusin', () => ctx.userIsEditing());
     hostEl.appendChild(canvas);
   }
@@ -210,6 +223,8 @@ export function mountPaper(tab, host, ctx) {
     const editable = writesOn() && Boolean(paper.blocks);
     const blocks = paper.blocks || (paper.html ? htmlToBlocks(paper.html) : []);
     mountCanvas(blocks, editable);
+    syncTitleRow();
+    requestAnimationFrame(() => { if (!destroyed) syncTitleRow(); });
     q('#state').textContent = editable
       ? 'Edits go straight to Barkpark through the fenced ops endpoint. Each batch is saved with the paper\'s revision; a clash with another writer shows up here instead of overwriting.'
       : paper.blocks ? 'Read-only view of the Barkpark paper. Enable live editing above to edit in place.' : 'Preview converted from the paper\'s HTML body.';
