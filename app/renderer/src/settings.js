@@ -1,6 +1,12 @@
 // Settings dialog: Claude API key and model, appearance, and the Barkpark connection.
 import { el, esc, toast } from './ui.js';
 import { state } from './state.js';
+import { CLAUDE_MODELS, modelsFor, defaultModelLabel } from './models.js';
+
+// Options for a provider's model select: its default, the known ids, and an "Other" entry.
+function modelOptions(provider, s) {
+  return [`<option value="">${esc(defaultModelLabel(provider, s.providers))}</option>`, ...modelsFor(provider).map(([id, label]) => `<option value="${id}">${esc(label)} · ${id}</option>`), '<option value="custom">Other model id…</option>'].join('');
+}
 
 const api = window.barkdown;
 
@@ -19,12 +25,15 @@ export function openSettings(onChange) {
       <option value="codex">Codex · ${s.providers?.codex?.loggedIn ? 'signed in' + (s.providers.codex.model ? ' · ' + esc(s.providers.codex.model) : '') : 'not signed in (run codex login)'}</option>
       <option value="api">Claude API key · ${s.providers?.api?.hasKey ? 'configured' : 'no key'}</option>
     </select>
-    <div class="row" style="margin-top:8px"><label for="claude-model" style="margin:0">Claude Code model</label><input id="claude-model" type="text" placeholder="default (Claude Code's own)" style="width:220px"><label for="codex-model" style="margin:0">Codex model</label><input id="codex-model" type="text" placeholder="default (~/.codex/config.toml)" style="width:200px"></div>
+    <label for="claude-model">Claude Code model</label>
+    <div class="row"><select id="claude-model" style="flex:1">${modelOptions('claude', s)}</select><input id="claude-model-custom" type="text" placeholder="model id" style="flex:1" hidden></div>
+    <label for="codex-model">Codex (OpenAI) model</label>
+    <div class="row"><select id="codex-model" style="flex:1">${modelOptions('codex', s)}</select><input id="codex-model-custom" type="text" placeholder="model id" style="flex:1" hidden></div>
     <p class="note">Claude Code asks you in the chat before editing files or running commands. Codex applies edits inside the working folder's sandbox and shows them as a review. Each chat can override the provider from the composer.</p>
     <label for="api-key">Claude API key ${s.hasApiKey ? `<span class="bw-positive">· configured${s.apiKeyFromEnv ? ' from ANTHROPIC_API_KEY' : ''}</span>` : '<span class="bw-negative">· missing (offline mode)</span>'}</label>
     <div class="row"><input id="api-key" type="password" placeholder="${s.hasApiKey ? 'Leave blank to keep the current key' : 'sk-ant-…'}" style="flex:1"><button data-act="clear-key" title="Remove the stored key">Clear</button></div>
     <label for="model">Model</label>
-    <select id="model"><option value="claude-opus-5">Claude Opus 5 (default)</option><option value="claude-sonnet-5">Claude Sonnet 5</option><option value="claude-opus-4-8">Claude Opus 4.8</option><option value="claude-haiku-4-5">Claude Haiku 4.5</option></select>
+    <select id="model">${CLAUDE_MODELS.map(([id, label]) => `<option value="${id}">Claude ${label}${id === 'claude-opus-5' ? ' (default)' : ''}</option>`).join('')}</select>
     <h3>Appearance</h3>
     <div class="row"><label for="theme">Theme</label><select id="theme" style="width:auto"><option value="system">System</option><option value="dark">Dark</option><option value="light">Light</option></select><label for="width">Conversation width</label><input id="width" type="range" min="40" max="70" step="5"><span id="width-value"></span></div>
     <h3>Barkpark</h3>
@@ -43,8 +52,17 @@ export function openSettings(onChange) {
   const q = sel => dialog.querySelector(sel);
   q('#model').value = s.model || 'claude-opus-5';
   q('#provider').value = s.provider || 'claude';
-  q('#claude-model').value = s.claudeModel || '';
-  q('#codex-model').value = s.codexModel || '';
+  // A saved id outside the list selects "Other" and shows it in the text box.
+  for (const [provider, key] of [['claude', 'claudeModel'], ['codex', 'codexModel']]) {
+    const select = q(`#${provider}-model`), custom = q(`#${provider}-model-custom`);
+    const value = s[key] || '';
+    const listed = value === '' || modelsFor(provider).some(([id]) => id === value);
+    select.value = listed ? value : 'custom';
+    custom.hidden = listed;
+    custom.value = listed ? '' : value;
+    select.onchange = () => { custom.hidden = select.value !== 'custom'; if (select.value === 'custom') custom.focus(); };
+  }
+  const modelValue = provider => { const select = q(`#${provider}-model`); return select.value === 'custom' ? q(`#${provider}-model-custom`).value.trim() : select.value; };
   q('#theme').value = s.theme || 'system';
   q('#width').value = s.chatWidth || 60;
   q('#width-value').textContent = (s.chatWidth || 60) + '%';
@@ -75,7 +93,7 @@ export function openSettings(onChange) {
   q('[data-act="cancel"]').onclick = close;
   backdrop.onclick = e => { if (e.target === backdrop) close(); };
   q('[data-act="save"]').onclick = async () => {
-    const patch = { model: q('#model').value, provider: q('#provider').value, claudeModel: q('#claude-model').value.trim(), codexModel: q('#codex-model').value.trim(), theme: q('#theme').value, chatWidth: Number(q('#width').value), barkpark: { enabled: q('#bp-enabled').checked, viaCli: q('#bp-cli').checked, server: q('#bp-server').value.trim(), dataset: q('#bp-dataset').value.trim() || 'production', writes: q('#bp-writes').checked } };
+    const patch = { model: q('#model').value, provider: q('#provider').value, claudeModel: modelValue('claude'), codexModel: modelValue('codex'), theme: q('#theme').value, chatWidth: Number(q('#width').value), barkpark: { enabled: q('#bp-enabled').checked, viaCli: q('#bp-cli').checked, server: q('#bp-server').value.trim(), dataset: q('#bp-dataset').value.trim() || 'production', writes: q('#bp-writes').checked } };
     if (q('#api-key').value.trim()) patch.apiKey = q('#api-key').value.trim(); else if (clearKey) patch.apiKey = '';
     if (q('#bp-token').value.trim()) patch.barkpark.token = q('#bp-token').value.trim();
     try { state.settings = await api.settings.set(patch); onChange(patch, false); toast('Settings saved'); close(); } catch (error) { toast(error.message, 'error'); }

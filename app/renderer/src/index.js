@@ -9,6 +9,7 @@ import { mountReview } from './tabs/review.js';
 import { mountProject, buffers, dirtyCount } from './tabs/project.js';
 import { mountSideChat } from './tabs/sidechat.js';
 import { mountTerminal } from './tabs/terminal.js';
+import { CLAUDE_MODELS, CODEX_MODELS, EFFORT_LEVELS, defaultModelLabel } from './models.js';
 import { openSettings } from './settings.js';
 import { renderPages, seedTree, addPage, pagePath, pageKey, ensurePages } from './pages.js';
 
@@ -18,19 +19,14 @@ const q = s => root.querySelector(s);
 const TYPE_ICON = { doc: 'file-text', web: 'globe', review: 'git-pull-request', project: 'folder-code', chat: 'message-circle', terminal: 'terminal' };
 
 // Models and reasoning effort a chat can pick per provider. Empty value means the provider's own default.
-const CLAUDE_MODELS = [['claude-fable-5-1', 'Fable 5.1'], ['claude-opus-5', 'Opus 5'], ['claude-sonnet-5', 'Sonnet 5'], ['claude-haiku-4-5-20251001', 'Haiku 4.5']];
-const CODEX_MODELS = [['gpt-6-astra', 'GPT-6 Astra'], ['gpt-6', 'GPT-6'], ['gpt-5-codex', 'GPT-5 Codex']];
 // The default rows name what the provider would use on its own: Codex reads ~/.codex/config.toml.
 function modelChoices(provider) {
   const codexDefault = state.settings?.providers?.codex?.model;
-  if (provider === 'claude') { const seen = state.settings?.providers?.claude?.modelSeen; return [['', seen ? `Claude Code default (${seen})` : 'Claude Code default'], ...CLAUDE_MODELS.filter(([id]) => id !== seen)]; }
-  if (provider === 'codex') return [['', codexDefault ? `Codex default (${codexDefault})` : 'Codex default'], ...CODEX_MODELS.filter(([id]) => id !== codexDefault)];
+  const providers = state.settings?.providers || {};
+  if (provider === 'claude') return [['', defaultModelLabel('claude', providers)], ...CLAUDE_MODELS.filter(([id]) => id !== providers.claude?.modelSeen)];
+  if (provider === 'codex') return [['', defaultModelLabel('codex', providers)], ...CODEX_MODELS.filter(([id]) => id !== codexDefault)];
   return [['', `Settings default${state.settings?.model ? ' (' + state.settings.model + ')' : ''}`], ...CLAUDE_MODELS];
 }
-const EFFORT_LEVELS = {
-  claude: [['low', 'Low'], ['medium', 'Medium'], ['high', 'High'], ['xhigh', 'Extra high'], ['max', 'Max']],
-  codex: [['minimal', 'Minimal'], ['low', 'Low'], ['medium', 'Medium'], ['high', 'High'], ['xhigh', 'Extra high']],
-};
 // The default row names the effort the provider uses on its own: what its last run reported, else
 // what its own config says (Claude Code: settings.json or high; Codex: config.toml or medium).
 function effortChoices(provider) {
