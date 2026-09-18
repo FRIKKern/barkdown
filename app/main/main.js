@@ -104,6 +104,7 @@ function registerIpc() {
     }
     if (patch.recentFolder) s.recentFolders = [patch.recentFolder, ...s.recentFolders.filter(f => f !== patch.recentFolder)].slice(0, 8);
     writeSettings(s);
+    store.writeJson('barkpark.json', { enabled: s.barkpark.enabled, viaCli: s.barkpark.viaCli, server: s.barkpark.server });
     return publicSettings();
   });
   handle('app:pickFolder', async () => { const r = await dialog.showOpenDialog(win, { properties: ['openDirectory'] }); return r.canceled ? null : r.filePaths[0]; });
@@ -123,6 +124,20 @@ function registerIpc() {
   handle('docs:history', id => documents.history(id));
   handle('docs:restore', ({ id, rev }) => documents.restore(id, rev));
   handle('docs:proposal', ({ id, proposalId, accept }) => documents.resolveProposal(id, proposalId, accept));
+  handle('docs:paperProposals', slug => documents.paperProposals(slug));
+  handle('docs:resolvePaperProposal', async ({ slug, proposalId, accept, rev }) => {
+    const proposal = documents.takePaperProposal(slug, proposalId);
+    if (!accept) return { ok: true };
+    const c = barkparkConfig();
+    if (!c.writes) { documents.addPaperProposal(slug, proposal); const e = new Error('Barkpark writes are off. Enable them in Settings to apply proposals.'); e.code = 'writes_disabled'; throw e; }
+    const current = c.viaCli ? await barkpark.cliGetPaper(slug) : await barkpark.getPaper(c, slug);
+    if (rev != null && current.rev !== rev) { documents.addPaperProposal(slug, proposal); return { conflict: true, rev: current.rev }; }
+    const { appendOps, replaceBlockOps, replaceAllOps } = require('../shared/portabledoc');
+    const blocks = current.blocks || [];
+    const ops = proposal.mode === 'replace' ? replaceAllOps(blocks, proposal.markdown) : proposal.mode === 'replace_block' && blocks[proposal.blockIndex ?? -1]?.id ? replaceBlockOps(blocks[proposal.blockIndex].id, proposal.markdown) : appendOps(proposal.markdown);
+    try { const result = c.viaCli ? await barkpark.cliApplyOps(slug, ops, current.rev) : await barkpark.applyOps(c, slug, ops, current.rev); return { ok: true, rev: result.rev }; }
+    catch (error) { documents.addPaperProposal(slug, proposal); throw error; }
+  });
   handle('docs:exportMarkdown', async id => { const doc = documents.get(id); const r = await dialog.showSaveDialog(win, { defaultPath: doc.id + '.md', filters: [{ name: 'Markdown', extensions: ['md'] }] }); if (r.canceled) return null; fs.writeFileSync(r.filePath, `# ${doc.title}\n\n${doc.markdown}`); return r.filePath; });
 
   handle('files:tree', root => files.tree(root));
@@ -154,6 +169,10 @@ function registerIpc() {
   handle('barkpark:backlinks', id => { const c = barkparkConfig(); return c.viaCli ? barkpark.cliBacklinks(id) : barkpark.backlinks(c, id); });
   handle('barkpark:related', id => { const c = barkparkConfig(); return c.viaCli ? [] : barkpark.related(c, id); });
   handle('barkpark:history', id => { const c = barkparkConfig(); return c.viaCli ? barkpark.cliHistory(id) : barkpark.history(c, id); });
+  const requireWrites = () => { if (!barkparkConfig().writes) { const e = new Error('Barkpark writes are off. Enable them in Settings to edit papers.'); e.code = 'writes_disabled'; throw e; } };
+  handle('barkpark:applyOps', ({ slug, ops, ifRev }) => { requireWrites(); const c = barkparkConfig(); return c.viaCli ? barkpark.cliApplyOps(slug, ops, ifRev) : barkpark.applyOps(c, slug, ops, ifRev); });
+  handle('barkpark:publish', payload => { requireWrites(); const c = barkparkConfig(); return c.viaCli ? barkpark.cliPublish(payload) : barkpark.publish(c, payload); });
+  handle('barkpark:patchTitle', ({ slug, title }) => { requireWrites(); const c = barkparkConfig(); if (!c.viaCli) throw new Error('Title edits need the bp CLI connection'); return barkpark.cliPatchTitle(slug, title); });
   handle('barkpark:import', async id => {
     const c = barkparkConfig();
     const paper = c.viaCli ? await barkpark.cliGetPaper(id) : await barkpark.getPaper(c, id);

@@ -9,9 +9,10 @@
     "watch": "node scripts/build.mjs --watch",
     "start": "npm run build && electron .",
     "dev": "node scripts/build.mjs && electron . --dev",
-    "test": "node tests/agent.test.mjs && node tests/mcp.test.mjs && node tests/run.mjs",
+    "test": "node tests/portabledoc.test.mjs && node tests/agent.test.mjs && node tests/mcp.test.mjs && node tests/run.mjs",
     "dist": "npm run build && electron-builder --dir",
-    "test:live": "node tests/providers.live.mjs"
+    "test:live": "node tests/providers.live.mjs && node tests/paper.live.mjs && node tests/paper-proposal.live.mjs",
+    "test:paper": "node tests/paper.live.mjs"
   },
   "engines": {
     "node": ">=22.13.1"

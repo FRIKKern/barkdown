@@ -92,3 +92,7 @@ export function inlineMarkdownHtml(text) {
 export function uid() { return crypto.randomUUID(); }
 
 export function basename(p) { return String(p || '').replace(/[\\/]+$/, '').split(/[\\/]/).pop(); }
+
+// Errors that cross the Electron context bridge keep only their message; IPC codes ride in a [code] prefix.
+export function errorCode(error) { return error?.code || (/^\[([\w-]+)\]\s/.exec(error?.message || '') || [])[1] || null; }
+export function errorMessage(error) { return String(error?.message || error || '').replace(/^\[[\w-]+\]\s/, ''); }

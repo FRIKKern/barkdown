@@ -3,6 +3,7 @@ import { el, esc, iconHtml, renderIcons, toast, basename, relativeTime } from '.
 import { state, load, save, newChat, newTab, currentChat, activeTab, touch, chatTitleFrom } from './state.js';
 import { transcriptHtml, sendMessage, handleAgentEvent, respondApproval, cancelRun, PROVIDER_LABEL, providerFor } from './conversation.js';
 import { mountDocument } from './tabs/document.js';
+import { mountPaper } from './tabs/paper.js';
 import { mountWebsite } from './tabs/website.js';
 import { mountReview } from './tabs/review.js';
 import { mountProject, buffers, dirtyCount } from './tabs/project.js';
@@ -50,7 +51,7 @@ function tabContext(chat) {
     askAbout: text => { q('#bw-prompt').value = text; q('#bw-prompt').focus(); if (state.mode !== 'chat') { state.mode = 'chat'; render(); } },
     libraryChanged: () => refreshLibrary(),
     closeTab: tab => closeTab(chat, tab.id),
-    documentChanged: doc => { refreshLibrary(); for (const [id, c] of controllers) if (c.type === 'doc' && id !== undefined && c.tab.path.at(-1) === doc.id && c.tab.id !== undefined) c.refresh?.(doc.id); },
+    documentChanged: doc => { refreshLibrary(); for (const c of controllers.values()) if (c.type === 'doc' && c.tab.path.at(-1) === String(doc.id).replace(/^bp:/, '')) c.refresh?.(doc.id); },
     userIsEditing: () => pauseFollow(chat),
     isExpanded: () => Boolean(chat.editorExpanded),
     toggleExpanded: () => { chat.editorExpanded = !chat.editorExpanded; render(); },
@@ -69,7 +70,7 @@ function mountTab(chat, tab) {
   if (controllers.has(tab.id)) return controllers.get(tab.id);
   const host = q('#bw-workspace');
   const ctx = tabContext(chat);
-  const controller = tab.type === 'doc' ? mountDocument(tab, host, ctx) : tab.type === 'web' ? mountWebsite(tab, host, ctx) : tab.type === 'review' ? mountReview(tab, host, ctx) : tab.type === 'project' ? mountProject(tab, host, ctx) : mountSideChat(tab, host, ctx);
+  const controller = tab.type === 'doc' ? (tab.source === 'barkpark' ? mountPaper(tab, host, ctx) : mountDocument(tab, host, ctx)) : tab.type === 'web' ? mountWebsite(tab, host, ctx) : tab.type === 'review' ? mountReview(tab, host, ctx) : tab.type === 'project' ? mountProject(tab, host, ctx) : mountSideChat(tab, host, ctx);
   controllers.set(tab.id, controller);
   return controller;
 }
@@ -459,6 +460,7 @@ api.agent.onEvent(event => handleAgentEvent(event, {
     if (target.kind === 'doc' && event.libraryChanged) refreshLibrary();
     openTarget(target, owner, false);
     if (target.kind === 'doc') controllers.forEach(c => { if (c.type === 'doc' && c.tab.path.at(-1) === target.id) c.refresh(target.id); });
+    if (target.kind === 'doc' && event.proposalId) setTimeout(() => controllers.forEach(c => { if (c.type === 'doc' && c.tab.path.at(-1) === target.id) c.refresh(target.id); }), 400);
     if (event.fileChanged) controllers.forEach(c => { if (c.type === 'project') c.refresh(event.fileChanged); if (c.type === 'review') c.refresh(); });
     if (target.kind === 'doc' && event.proposalId) refreshLibrary();
   },

@@ -105,3 +105,6 @@ h1,h2,h3,p{margin:0}
 @media(max-width:920px){.bw{--bw-sidebar:160px}.bw-transcript{padding:21px 15px}.bw-tab{flex-basis:90px}}
 @media(max-width:760px){.bw{grid-template-columns:minmax(0,var(--bw-chat)) minmax(0,var(--bw-work))}.bw-brand,.bw-sidebar{display:none}.bw-context,.bw-chat{grid-column:1}.bw-workbar,.bw-workspace,.bw-splitter{grid-column:2}.bw[data-mode="document"],.bw[data-mode="editor"]{grid-template-columns:minmax(0,1fr)}.bw[data-mode="document"] .bw-workbar,.bw[data-mode="document"] .bw-workspace,.bw[data-mode="editor"] .bw-workbar,.bw[data-mode="editor"] .bw-workspace{grid-column:1}}
 @media(prefers-reduced-motion:reduce){.bw-pulse{animation:none}}
+
+/* Barkpark paper canvas host */
+.bp-paper-host{margin:6px 0 10px;min-height:200px;--paper-font-serif:'Segoe UI',system-ui,sans-serif;--paper-font-mono:Consolas,monospace}.bp-paper-host bp-paper-canvas{display:block}.bp-paper-host .bp-paper-editor-body{padding:0}.bp-paper-host .ProseMirror{font-size:14px;line-height:1.75;min-height:160px}.bw-save-state[data-kind="error"]{color:var(--bw-delete)}.bw-save-state[data-kind="saved"]{color:var(--bw-accent)}.bw-save-state[data-kind="saving"]{color:var(--bw-warn)}

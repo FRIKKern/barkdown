@@ -6,6 +6,12 @@ const { z } = require('zod');
 const store = require('./store');
 const documents = require('./documents');
 const { docToMarkdown } = require('../shared/markdown');
+const barkpark = require('./barkpark');
+
+function barkparkOn() { const flag = store.readJson('barkpark.json', null); return Boolean(flag && flag.enabled && flag.viaCli); }
+const isPaper = id => typeof id === 'string' && id.startsWith('bp:');
+const slugOf = id => id.slice(3);
+async function paperListing() { if (!barkparkOn()) return []; try { return (await barkpark.cliListPapers(60)).map(d => ({ id: 'bp:' + d.id, title: d.title, excerpt: d.excerpt, rev: d.rev, source: 'barkpark' })); } catch { return []; } }
 
 const storeDir = process.argv[2];
 if (!storeDir) { console.error('usage: mcp-server.js <storeDir>'); process.exit(2); }
@@ -21,23 +27,38 @@ function describe(doc) {
 
 const server = new McpServer({ name: 'barkdown', version: '0.6.0' });
 
-server.registerTool('list_documents', { description: 'List the documents in the Barkdown library with ids, titles and excerpts.', inputSchema: {} }, async () => {
+server.registerTool('list_documents', { description: 'List the documents in the Barkdown library with ids, titles and excerpts. Ids starting with bp: are Barkpark papers on the connected server; the rest are local documents.', inputSchema: {} }, async () => {
   documents.loadAll();
-  return text(documents.list().map(d => ({ id: d.id, title: d.title, excerpt: d.excerpt, rev: d.rev })));
+  const local = documents.list().map(d => ({ id: d.id, title: d.title, excerpt: d.excerpt, rev: d.rev, source: 'local' }));
+  return text([...local, ...(await paperListing())]);
 });
 
-server.registerTool('search_documents', { description: 'Full-text search across the Barkdown document library. Returns ids, titles and snippets.', inputSchema: { query: z.string() } }, async ({ query }) => {
+server.registerTool('search_documents', { description: 'Search the Barkdown library and, when connected, Barkpark papers (ids starting with bp:). Returns ids, titles and snippets.', inputSchema: { query: z.string() } }, async ({ query }) => {
   documents.loadAll();
-  return text(documents.search(query).map(d => ({ id: d.id, title: d.title, snippet: d.snippet })));
+  const local = documents.search(query).map(d => ({ id: d.id, title: d.title, snippet: d.snippet, source: 'local' }));
+  const papers = barkparkOn() ? (await barkpark.cliSearch(query).catch(() => [])).map(d => ({ id: 'bp:' + d.id, title: d.title, snippet: d.snippet, source: 'barkpark' })) : [];
+  const needle = query.toLowerCase();
+  const listed = barkparkOn() && !papers.length ? (await paperListing()).filter(d => (d.title + ' ' + d.excerpt).toLowerCase().includes(needle)).map(d => ({ id: d.id, title: d.title, snippet: d.excerpt, source: 'barkpark' })) : [];
+  return text([...local, ...papers, ...listed]);
 });
 
-server.registerTool('read_document', { description: 'Read a Barkdown document as markdown with its revision, references, backlinks and block indexes. Opens it beside the chat for the person.', inputSchema: { id: z.string() } }, async ({ id }) => {
+server.registerTool('read_document', { description: 'Read a Barkdown document (or a Barkpark paper, id bp:<slug>) as markdown with its revision and block indexes. Opens it beside the chat for the person.', inputSchema: { id: z.string() } }, async ({ id }) => {
+  if (isPaper(id)) {
+    if (!barkparkOn()) return text('Barkpark is not connected.');
+    const paper = await barkpark.cliGetPaper(slugOf(id));
+    const blocks = (paper.blocks || []).map((b, n) => `[${n}] ${b.type}${b.level ? ' h' + b.level : ''}`);
+    return text([`# ${paper.title}`, `id: ${id} · rev ${paper.rev} · updated ${paper.updatedAt} · Barkpark paper`, '', 'Top-level blocks: ' + (blocks.join(', ') || '(HTML body, no blocks)'), '', paper.markdown || barkpark.htmlToText(paper.html)].join('\n'));
+  }
   documents.loadAll();
   const doc = documents.get(id);
   return text(doc ? describe(doc) : `No document with id ${id}. Use list_documents.`);
 });
 
 server.registerTool('propose_document_edit', { description: 'Propose a change to a Barkdown document. The person reviews it in the document tab and keeps or discards it; never assume it is applied. mode=append adds blocks at the end, mode=replace rewrites the whole document, mode=replace_block replaces one top-level block by index (0-based, as listed by read_document).', inputSchema: { id: z.string(), mode: z.enum(['append', 'replace', 'replace_block']), blockIndex: z.number().int().optional(), markdown: z.string(), summary: z.string().describe('One sentence describing the change') } }, async ({ id, mode, blockIndex, markdown, summary }) => {
+  if (isPaper(id)) {
+    const proposal = documents.addPaperProposal(slugOf(id), { mode, blockIndex, markdown, summary, actor: 'agent' });
+    return text(`Proposal ${proposal.id} added to Barkpark paper ${slugOf(id)}. The person keeps or discards it in the paper tab; when kept it is applied through the fenced ops endpoint.`);
+  }
   documents.loadAll();
   const doc = documents.get(id);
   if (!doc) return text(`No document with id ${id}.`);

@@ -1,0 +1,1 @@
+window.BP_PAPER_EDITOR_NO_INJECT = true;

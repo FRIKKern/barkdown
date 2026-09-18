@@ -55,6 +55,10 @@ function activityForTool(run, toolName, input = {}) {
   const name = toolName.replace(/^mcp__barkdown__/, '');
   const isBarkdown = toolName.startsWith('mcp__barkdown__') || (input && input.__barkdown);
   if (isBarkdown || ['read_document', 'propose_document_edit', 'create_document', 'open_website', 'open_project_file'].includes(name)) {
+    if ((name === 'read_document' || name === 'propose_document_edit') && typeof input.id === 'string' && input.id.startsWith('bp:')) {
+      const slug = input.id.slice(3);
+      return { type: 'activity', target: { kind: 'doc', id: slug, source: 'barkpark', title: slug }, label: name === 'read_document' ? `Opened paper ${slug}` : `Proposed a change to paper ${slug}`, detail: name === 'read_document' ? 'Reading the Barkpark paper' : input.summary || '', proposalId: name === 'propose_document_edit' ? 'pending' : undefined };
+    }
     if (name === 'read_document' || name === 'propose_document_edit') {
       documents.reload(input.id);
       const doc = documents.get(input.id);

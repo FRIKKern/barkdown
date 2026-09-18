@@ -2,6 +2,7 @@
 // Writes are fenced through the bulldocs ops endpoint with an if-rev guard and are off unless enabled in settings.
 // Endpoint shapes come from the Barkpark OpenAPI document (docs/openapi.json in the sibling repository).
 const { execFile } = require('child_process');
+const portabledoc = require('../shared/portabledoc');
 
 function normalise(config) {
   const server = String(config?.server || '').replace(/\/+$/, '');
@@ -63,22 +64,7 @@ function blocksToText(blocks) {
   return out.join(' ').replace(/\s+/g, ' ').trim();
 }
 
-function blocksToMarkdown(blocks) {
-  if (!Array.isArray(blocks)) return '';
-  return blocks.map(block => {
-    const type = block.type || block._type || 'paragraph';
-    const inline = value => Array.isArray(value) ? value.map(v => typeof v === 'string' ? v : v?.value || v?.text || '').join('') : typeof value === 'string' ? value : value?.value || value?.text || '';
-    if (/^heading/.test(type) || type === 'h1' || type === 'h2' || type === 'h3') { const level = block.level || Number(type.replace(/\D/g, '')) || 2; return `${'#'.repeat(level)} ${inline(block.value ?? block.text ?? block.children)}`; }
-    if (type === 'paragraph' || type === 'text') return inline(block.value ?? block.text ?? block.children);
-    if (type === 'list' || type === 'bullets' || type === 'bulletList') return (block.items || []).map(i => `- ${inline(i.value ?? i)}`).join('\n');
-    if (type === 'numbered' || type === 'orderedList') return (block.items || []).map((i, n) => `${n + 1}. ${inline(i.value ?? i)}`).join('\n');
-    if (type === 'quote' || type === 'blockquote') return `> ${inline(block.value ?? block.text)}`;
-    if (type === 'code') return '```' + (block.language || '') + '\n' + inline(block.value ?? block.code ?? block.text) + '\n```';
-    if (type === 'divider' || type === 'hr') return '---';
-    if (type === 'table') return (block.rows || []).map(row => '| ' + (row.cells || row).map(c => inline(c.value ?? c)).join(' | ') + ' |').join('\n');
-    return `<!-- ${type} block -->\n${blocksToText([block])}`;
-  }).join('\n\n');
-}
+function blocksToMarkdown(blocks) { return portabledoc.blocksToMarkdown(blocks); }
 
 async function test(config) {
   const { server, dataset } = normalise(config);
@@ -97,7 +83,7 @@ async function getPaper(config, id) {
   const doc = await request(config, 'GET', `/v1/data/doc/${encodeURIComponent(dataset)}/paper/${encodeURIComponent(id)}?perspective=raw`);
   const paper = doc?.document || doc;
   const markdown = paper.blocks ? blocksToMarkdown(paper.blocks) : null;
-  return { ...paperToSummary(paper), raw: paper, markdown, html: paper.body_html || null, blocks: paper.blocks || null, revision: paper._rev, contentRev: paper.content?.rev ?? paper.rev ?? null };
+  return { ...paperToSummary(paper), raw: paper, markdown, html: paper.body_html || null, blocks: paper.blocks || null, revision: paper._rev, rev: paper.rev ?? null, description: paper.description || '' };
 }
 
 async function search(config, query, limit = 20) {
@@ -123,12 +109,12 @@ async function history(config, id, limit = 20) {
 }
 
 async function applyOps(config, slug, ops, ifRev) {
-  if (!normalise(config).writes) throw new Error('Barkpark writes are disabled in Settings');
-  return request(config, 'POST', `/v1/plugins/bulldocs/papers/${encodeURIComponent(slug)}/ops`, { ops, if_rev: ifRev });
+  const result = await request(config, 'POST', `/v1/plugins/bulldocs/papers/${encodeURIComponent(slug)}/ops`, ifRev != null ? { ifRev, ops } : { ops });
+  return { ok: true, rev: result.rev != null ? Number(result.rev) : null, unchanged: Boolean(result.unchanged), opCount: result.op_count ?? ops.length };
 }
+async function publish(config, payload) { return request(config, 'POST', '/v1/plugins/bulldocs/papers', payload); }
 
 async function propose(config, slug, proposal) {
-  if (!normalise(config).writes) throw new Error('Barkpark writes are disabled in Settings');
   return request(config, 'POST', `/v1/plugins/bulldocs/papers/${encodeURIComponent(slug)}/proposals`, proposal);
 }
 
@@ -152,12 +138,16 @@ function importFromCli() {
 }
 
 // When the token itself is not exposed by `bp servers`, proxy reads through the CLI.
-function cli(args) {
+function cli(args, input) {
   return new Promise((resolve, reject) => {
-    execFile('bp', [...args, '-o', 'json'], { windowsHide: true, shell: process.platform === 'win32', timeout: 30000, maxBuffer: 20 * 1024 * 1024 }, (error, stdout, stderr) => {
-      if (error) return reject(new Error((stderr || error.message).trim()));
-      try { resolve(JSON.parse(stdout)); } catch { resolve({ raw: stdout }); }
+    const child = execFile('bp', [...args, '-o', 'json'], { windowsHide: true, shell: process.platform === 'win32', timeout: 60000, maxBuffer: 20 * 1024 * 1024 }, (error, stdout, stderr) => {
+      let data = null;
+      for (const text of [stdout, stderr]) { if (data) break; try { const parsed = JSON.parse(String(text || '').trim()); if (parsed && typeof parsed === 'object') data = parsed; } catch {} }
+      if (data && data.ok === false && data.error) { const e = new Error(data.error.message || 'bp failed'); e.code = data.error.code; if (!e.code && /ifRev did not match|precondition/i.test(e.message)) e.code = 'precondition_failed'; e.status = e.code === 'precondition_failed' ? 412 : undefined; return reject(e); }
+      if (error && !data) { const e = new Error((stderr || stdout || error.message).trim().slice(0, 500)); if (/ifRev did not match|precondition_failed/i.test(e.message)) { e.code = 'precondition_failed'; e.status = 412; } return reject(e); }
+      resolve(data ?? { raw: stdout });
     });
+    if (input != null) { child.stdin.end(typeof input === 'string' ? input : JSON.stringify(input)); } else child.stdin.end();
   });
 }
 
@@ -169,8 +159,17 @@ async function cliListPapers(limit = 60) {
 async function cliGetPaper(id) {
   const data = await cli(['doc', 'get', 'paper', id, '--perspective', 'raw']);
   const paper = data?.document || data;
-  return { ...paperToSummary(paper), raw: paper, markdown: paper.blocks ? blocksToMarkdown(paper.blocks) : null, html: paper.body_html || null, blocks: paper.blocks || null, revision: paper._rev };
+  return { ...paperToSummary(paper), raw: paper, markdown: paper.blocks ? blocksToMarkdown(paper.blocks) : null, html: paper.body_html || null, blocks: paper.blocks || null, revision: paper._rev, rev: paper.rev ?? null, description: paper.description || '' };
 }
+
+// Writes through the bp CLI. The fenced ops verb rejects a stale rev with precondition_failed.
+async function cliApplyOps(slug, ops, ifRev) {
+  // The guard travels in the body as ifRev (the CLI's --if-rev flag is not honoured by the server).
+  const result = await cli(['bulldocs', 'patch', slug, '--file', '-', '--yes'], ifRev != null ? { ifRev, ops } : { ops });
+  return { ok: true, rev: result.rev != null ? Number(result.rev) : null, unchanged: Boolean(result.unchanged), opCount: result.op_count ?? ops.length };
+}
+async function cliPublish(payload) { return cli(['bulldocs', 'publish', payload.slug, '--file', '-', '--yes'], payload); }
+async function cliPatchTitle(slug, title) { return cli(['doc', 'patch', 'paper', slug, '--set', 'title=' + title, '--yes']); }
 
 async function cliSearch(query, limit = 20) {
   try {
@@ -182,4 +181,4 @@ async function cliSearch(query, limit = 20) {
 async function cliBacklinks(id) { try { return envelopeDocs(await cli(['doc', 'backlinks', id])).map(paperToSummary); } catch { return []; } }
 async function cliHistory(id) { try { return envelopeDocs(await cli(['doc', 'history', 'paper', id])).map(rev => ({ rev: rev._rev || rev.rev, at: rev._createdAt || rev.at, actor: rev.actor || rev.author || 'barkpark', summary: rev.summary || rev.message || '' })); } catch { return []; } }
 
-module.exports = { test, listPapers, getPaper, search, backlinks, related, history, applyOps, propose, importFromCli, cliListPapers, cliGetPaper, cliSearch, cliBacklinks, cliHistory, blocksToMarkdown, htmlToText };
+module.exports = { test, listPapers, getPaper, search, backlinks, related, history, applyOps, publish, propose, importFromCli, cliListPapers, cliGetPaper, cliSearch, cliBacklinks, cliHistory, cliApplyOps, cliPublish, cliPatchTitle, blocksToMarkdown, htmlToText };

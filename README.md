@@ -10,7 +10,7 @@ This private repository is the **v0.5 product and engineering handoff**. It incl
 
 ## Desktop prototype (Electron)
 
-The `app/` folder contains a working Electron prototype built from this handoff: a real Tiptap document library with revisions and backlinks, an assistant that runs on your local Claude Code or Codex sign-in (like T3 Code) with document proposals and approval-gated file writes, per-chat working folders with a CodeMirror project editor, git diff reviews, website tabs, side chats, pins, quick open, and a read-only Barkpark adapter. See [app/README.md](app/README.md) for how to run and verify it, and what is still simulated.
+The `app/` folder contains a working Electron prototype built from this handoff: a real Tiptap document library with revisions and backlinks, an assistant that runs on your local Claude Code or Codex sign-in (like T3 Code) with document proposals and approval-gated file writes, per-chat working folders with a CodeMirror project editor, git diff reviews, website tabs, side chats, pins, quick open, and Barkpark papers edited live in Barkpark's own canvas through the fenced ops endpoint. See [app/README.md](app/README.md) for how to run and verify it, and what is still simulated.
 
 ```sh
 cd app && npm install && npm start

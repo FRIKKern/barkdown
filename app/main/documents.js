@@ -199,4 +199,23 @@ function seed() {
   ].join('\n\n') });
 }
 
-module.exports = { loadAll, reload, list, get, create, save, remove, backlinks, related, history, restore, search, addProposal, resolveProposal, summary };
+// Proposals for Barkpark papers live beside the local library (papers themselves stay on the server).
+function paperProposalsAll() { return store.readJson('paper-proposals.json', {}); }
+function paperProposals(slug) { return paperProposalsAll()[slug] || []; }
+function addPaperProposal(slug, proposal) {
+  const all = paperProposalsAll();
+  const entry = { id: crypto.randomUUID(), createdAt: new Date().toISOString(), status: 'pending', ...proposal };
+  all[slug] = [...(all[slug] || []), entry];
+  store.writeJson('paper-proposals.json', all);
+  return entry;
+}
+function takePaperProposal(slug, proposalId) {
+  const all = paperProposalsAll();
+  const proposal = (all[slug] || []).find(p => p.id === proposalId);
+  if (!proposal) throw new Error('Proposal not found');
+  all[slug] = all[slug].filter(p => p.id !== proposalId);
+  store.writeJson('paper-proposals.json', all);
+  return proposal;
+}
+
+module.exports = { paperProposals, addPaperProposal, takePaperProposal, loadAll, reload, list, get, create, save, remove, backlinks, related, history, restore, search, addProposal, resolveProposal, summary };
