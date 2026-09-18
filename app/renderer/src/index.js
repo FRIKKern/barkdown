@@ -9,6 +9,7 @@ import { mountReview } from './tabs/review.js';
 import { mountProject, buffers, dirtyCount } from './tabs/project.js';
 import { mountSideChat } from './tabs/sidechat.js';
 import { openSettings } from './settings.js';
+import { renderPages, seedTree, addPage, pagePath, pageKey, ensurePages } from './pages.js';
 
 const api = window.barkdown;
 const root = document.getElementById('app');
@@ -38,6 +39,7 @@ function tabContext(chat) {
     folder: () => chat.folder || null,
     tabChanged: tab => { renderTabs(); save(); },
     documentSummary,
+    pagePath: (id, source) => pagePath(pageKey(id, source)),
     openLinked: (fromTab, id, source = 'local', replace = false) => {
       pauseFollow(chat);
       if (replace) { fromTab.path = [id]; fromTab.source = source; }
@@ -278,11 +280,15 @@ function renderChat() {
 function initials() { return 'FJ'; }
 
 function renderSidebar() {
-  const docs = q('#bw-documents');
-  const localRows = state.documents.map(d => `<button class="bw-nav ${isOpenDoc(d.id) ? 'selected' : ''}" data-direct="${esc(d.id)}" data-source="local" title="${esc(d.excerpt)}">${iconHtml('file-text')}<span>${esc(d.title)}</span>${d.proposals ? '<span class="bw-dot" title="Pending proposal"></span>' : ''}</button>`);
-  const bpRows = state.barkparkDocs.map(d => `<button class="bw-nav ${isOpenDoc(d.id) ? 'selected' : ''}" data-direct="${esc(d.id)}" data-source="barkpark" title="${esc(d.excerpt)}">${iconHtml('cloud')}<span>${esc(d.title)}</span><span class="bw-src">bp</span></button>`);
-  docs.innerHTML = [...localRows, ...bpRows].join('') || '<p class="bw-small bw-muted" style="padding:6px 8px">No documents yet.</p>';
-  docs.querySelectorAll('[data-direct]').forEach(b => { b.onclick = () => openDirect(b.dataset.direct, b.dataset.source); });
+  seedTree();
+  renderPages(q('#bw-documents'), {
+    openKey: (id, source) => openDirect(id, source),
+    openBeside: (id, source) => openDocTab(currentChat(), id, source),
+    isOpen: key => { const chat = workspaceChat(); const tab = activeTab(chat); return tab?.type === 'doc' && pageKey(tab.path.at(-1), tab.source) === key; },
+    onNewPage: parent => createDocument(parent),
+    onNewSubpage: parent => createDocument(parent),
+    onDelete: async id => { const d = state.documents.find(x => x.id === id); if (!d || !confirm(`Delete "${d.title}"? This cannot be undone.`)) return; await api.docs.delete(id); for (const c of [...controllers.values()]) if (c.type === 'doc' && c.tab.path.at(-1) === id) closeTab(workspaceChat(), c.tab.id); refreshLibrary(); },
+  });
   const recents = q('#bw-recent-chats');
   recents.innerHTML = state.order.map(id => state.chats[id]).filter(Boolean).slice(0, 30).map(c => `<button class="bw-nav ${c.id === state.current && state.mode === 'chat' ? 'selected' : ''}" data-context="${c.id}"><span>${esc(c.title)}<small>${esc(c.folder ? basename(c.folder) : 'no folder')}${c.runId ? ' · working' : ''} · ${esc(relativeTime(c.updatedAt))}</small></span></button>`).join('');
   recents.querySelectorAll('[data-context]').forEach(b => { b.onclick = () => switchChat(b.dataset.context); b.oncontextmenu = e => { e.preventDefault(); if (confirm(`Delete chat "${state.chats[b.dataset.context].title}"?`)) deleteChat(b.dataset.context); }; });
@@ -442,10 +448,11 @@ async function refreshLibrary() {
   renderSidebar(); renderTabs();
 }
 
-async function createDocument() {
-  const title = prompt('Document title', 'Untitled');
+async function createDocument(parent = null) {
+  const title = prompt(parent ? 'Sub-page title' : 'Page title', 'Untitled');
   if (title === null) return;
   const doc = await api.docs.create({ title: title.trim() || 'Untitled', markdown: '' });
+  addPage(doc.id, typeof parent === 'string' ? parent : null);
   await refreshLibrary();
   if (state.mode === 'document') openDirect(doc.id); else openDocTab(currentChat(), doc.id, 'local');
 }
@@ -550,4 +557,4 @@ function wire() {
 })();
 
 // Test and debugging hooks (no UI depends on these).
-window.__barkdown = { state, controllers, openTarget, render, refreshLibrary, setFolder: folder => { const chat = currentChat(); chat.folder = folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }, openProject, openDirect, openPalette, createChat, switchChat };
+window.__barkdown = { state, controllers, openTarget, render, refreshLibrary, expandArchive: () => { ensurePages().archiveOpen = true; renderSidebar(); }, addPage, pagePath, setFolder: folder => { const chat = currentChat(); chat.folder = folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }, openProject, openDirect, openPalette, createChat, switchChat };

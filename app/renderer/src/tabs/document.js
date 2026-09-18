@@ -86,7 +86,8 @@ export function mountDocument(tab, host, ctx) {
 
   function renderMeta() {
     if (!doc) return;
-    q('#kicker').textContent = doc.source === 'barkpark' ? 'Barkpark / Paper' : 'Barkdown / Library';
+    const crumbs = ctx.pagePath ? ctx.pagePath(doc.id, doc.source) : [];
+    q('#kicker').textContent = crumbs.length > 1 ? crumbs.join(' / ') : (doc.source === 'barkpark' ? 'Barkpark / Paper' : 'Pages');
     q('#meta').textContent = `${doc.source === 'barkpark' ? 'Read-only copy · ' : ''}rev ${doc.rev ?? '–'} · updated ${relativeTime(doc.updatedAt)} · ${(doc.references || []).length} reference(s) · ${(doc.backlinks || []).length} backlink(s)`;
   }
 

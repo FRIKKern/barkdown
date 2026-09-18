@@ -34,7 +34,8 @@ await page.setViewportSize({ width: 1400, height: 880 });
 
 try {
   // Library seeded with two documents; app-wide sidebar has no folder picker.
-  step('seeded documents', (await page.locator('#bw-documents .bw-nav').count()) === 2);
+  step('seeded documents appear as root pages', (await page.locator('#bw-pages .bw-page-row').count()) === 2);
+  step('archive is collapsed and empty when everything is placed', (await page.locator('#bw-archive-toggle').innerText()).includes('0'));
   step('no sidebar folder picker', (await page.locator('.bw-sidebar [data-project-open], .bw-sidebar select').count()) === 0);
   await page.screenshot({ path: path.join(out, '01-start.png') });
 
@@ -74,7 +75,7 @@ try {
   await page.screenshot({ path: path.join(out, '03-document-editing.png') });
 
   // Direct document mode hides the chat; linked documents open to the right.
-  await page.locator('#bw-documents .bw-nav:has-text("Interaction notes")').click();
+  await page.locator('#bw-pages .bw-page-row:has-text("Interaction notes")').click();
   step('direct document mode hides chat', !(await page.locator('.bw-chat').isVisible()));
   await page.locator('.bw-doc-pane:not([hidden]) .ProseMirror a').first().click();
   await page.waitForFunction(() => document.querySelectorAll('.bw-doc-pane:not([hidden]) .bw-path button').length >= 2, null, { timeout: 8000 });

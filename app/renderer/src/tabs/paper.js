@@ -29,6 +29,8 @@ export function mountPaper(tab, host, ctx) {
 
   function renderMeta() {
     if (!paper) return;
+    const crumbs = ctx.pagePath ? ctx.pagePath(slug(), 'barkpark') : [];
+    q('#kicker').textContent = crumbs.length > 1 ? crumbs.join(' / ') : 'Barkpark / Paper';
     q('#meta').textContent = `${writesOn() ? 'Editing live' : 'Read-only'} · rev ${rev ?? '–'} · updated ${relativeTime(paper.updatedAt)} · ${paper.blocks ? paper.blocks.length + ' block(s)' : 'HTML body'}${paper.draft ? ' · draft' : ''}`;
   }
 

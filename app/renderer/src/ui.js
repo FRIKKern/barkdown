@@ -3,7 +3,7 @@ import { createElement, icons as allIcons } from 'lucide';
 const ICONS = {
   'file-text': allIcons.FileText, 'file-plus': allIcons.FilePlus, globe: allIcons.Globe, 'git-pull-request': allIcons.GitPullRequest, 'message-circle': allIcons.MessageCircle,
   'message-circle-plus': allIcons.MessageCirclePlus, 'folder-code': allIcons.FolderCode, 'folder-open': allIcons.FolderOpen, plus: allIcons.Plus, pin: allIcons.Pin, x: allIcons.X,
-  'settings-2': allIcons.Settings2, 'chevron-down': allIcons.ChevronDown, files: allIcons.Files, expand: allIcons.Expand, 'panel-left-open': allIcons.PanelLeftOpen,
+  'settings-2': allIcons.Settings2, 'chevron-down': allIcons.ChevronDown, 'chevron-right': allIcons.ChevronRight, ellipsis: allIcons.Ellipsis, files: allIcons.Files, expand: allIcons.Expand, 'panel-left-open': allIcons.PanelLeftOpen,
   'file-code': allIcons.FileCode, play: allIcons.Play, 'columns-2': allIcons.Columns2, search: allIcons.Search, 'arrow-left': allIcons.ArrowLeft, 'arrow-right': allIcons.ArrowRight,
   'rotate-cw': allIcons.RotateCw, 'external-link': allIcons.ExternalLink, check: allIcons.Check, 'square-pen': allIcons.SquarePen, history: allIcons.History, link: allIcons.Link,
   bold: allIcons.Bold, italic: allIcons.Italic, code: allIcons.Code, strikethrough: allIcons.Strikethrough, heading: allIcons.Heading, list: allIcons.List, 'list-ordered': allIcons.ListOrdered,

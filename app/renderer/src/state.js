@@ -7,6 +7,7 @@ export const state = {
   chats: {},
   order: [],
   pins: [],
+  pages: null,
   current: null,
   mode: 'chat', // chat | document | editor
   directTab: null,
@@ -37,7 +38,7 @@ export function touch(chat) { chat.updatedAt = new Date().toISOString(); }
 export function serialise() {
   const chats = {};
   for (const [id, chat] of Object.entries(state.chats)) chats[id] = { ...chat, runId: null };
-  return { version: 1, chats, order: state.order, pins: state.pins, current: state.current, mode: state.mode, directTab: state.directTab };
+  return { version: 1, chats, order: state.order, pins: state.pins, pages: state.pages, current: state.current, mode: state.mode, directTab: state.directTab };
 }
 
 export const save = debounce(() => { api.state.save(serialise()).catch(error => console.warn('save failed', error)); }, 400);
@@ -48,6 +49,7 @@ export async function load() {
     state.chats = data.chats || {};
     state.order = (data.order || []).filter(id => state.chats[id]);
     state.pins = data.pins || [];
+    state.pages = data.pages || null;
     state.current = state.chats[data.current] ? data.current : state.order[0] || null;
     state.mode = data.mode === 'document' && data.directTab ? 'document' : 'chat';
     state.directTab = data.directTab || null;

@@ -24,7 +24,8 @@ const results = [];
 const step = (name, ok) => { results.push({ name, ok }); if (!ok) throw new Error('Failed: ' + name); };
 try {
   await page.evaluate(async () => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true } }); await window.__barkdown.refreshLibrary(); });
-  await page.waitForSelector('#bw-documents [data-source="barkpark"]', { timeout: 90000 });
+  await page.evaluate(() => window.__barkdown.expandArchive());
+  await page.waitForSelector('#bw-archive [data-source="barkpark"]', { timeout: 90000 });
   // Reset leftovers from earlier runs so the scratch paper stays small.
   { const current = serverPaper(); const stray = (current.blocks || []).filter(b => /External edit from another writer\.|Appended block\./.test(JSON.stringify(b))).map(b => ({ op: 'remove-block', id: b.id })); const reset = current.blocks?.find(b => b.id === 'block-1') ? [{ op: 'patch-block', id: 'block-1', patch: { content: [{ type: 'text', value: 'Type here; the change lands through the fenced ops endpoint with a revision guard.' }] } }] : []; const ops = [...stray, ...reset]; if (ops.length) bp(['bulldocs', 'patch', SLUG, '--file', '-', '--yes'], JSON.stringify({ ifRev: current.rev, ops })); }
   const before = serverPaper();
