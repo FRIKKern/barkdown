@@ -7,6 +7,7 @@ const store = require('./store');
 const documents = require('./documents');
 const { docToMarkdown } = require('../shared/markdown');
 const barkpark = require('./barkpark');
+const conversations = require('./conversations');
 
 function barkparkOn() { const flag = store.readJson('barkpark.json', null); return Boolean(flag && flag.enabled && flag.viaCli); }
 const isPaper = id => typeof id === 'string' && id.startsWith('bp:');
@@ -70,6 +71,13 @@ server.registerTool('create_document', { description: 'Create a new document in 
   documents.loadAll();
   const doc = documents.create({ title, markdown, actor: 'agent' });
   return text(`Created document ${doc.id} ("${doc.title}") at rev 1.`);
+});
+
+server.registerTool('list_conversations', { description: 'List the conversations in this Barkdown workspace: the main chat and its side chats, each with its last question and reply, open tabs and working folder. Use it to see what another chat is doing.', inputSchema: {} }, async () => text(conversations.listConversations()));
+
+server.registerTool('read_conversation', { description: 'Read another conversation\'s transcript (the main chat from a side chat, or a side chat from the main chat) by id from list_conversations. Returns the last messages with what each reply opened or used.', inputSchema: { id: z.string(), limit: z.number().int().optional().describe('How many latest messages to include (default 24)') } }, async ({ id, limit }) => {
+  const transcript = conversations.readConversation(id, { limit: limit || 24 });
+  return text(transcript || `No conversation with id ${id}. Use list_conversations for the ids.`);
 });
 
 server.registerTool('open_website', { description: 'Open a website in a work tab beside the chat so the person can see it. Use your own web tools to read its content.', inputSchema: { url: z.string() } }, async ({ url }) => text(`Opened ${url} beside the chat.`));

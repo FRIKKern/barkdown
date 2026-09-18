@@ -1,6 +1,6 @@
 // Conversation rendering and agent runs, shared by the main chat and side chats.
 import { el, esc, iconHtml, inlineMarkdownHtml, relativeTime, toast } from './ui.js';
-import { state, touch, save, chatTitleFrom } from './state.js';
+import { state, touch, save, serialise, chatTitleFrom } from './state.js';
 
 export const PROVIDER_LABEL = { claude: 'Claude Code', codex: 'Codex', api: 'Claude API key' };
 export function providerFor(chat) { return chat.provider || state.settings?.provider || 'api'; }
@@ -88,6 +88,8 @@ export async function sendMessage(chat, text, hooks, images = []) {
   touch(chat);
   hooks.render();
   try {
+    // The run reads the other conversations from workspace.json; write it now rather than after the debounce.
+    try { await api.state.save(serialise()); } catch {}
     const messages = apiMessagesFor(chat);
     const provider = providerFor(chat);
     chat.sessions = chat.sessions || {};

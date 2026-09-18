@@ -15,7 +15,18 @@ const client = new Client({ name: 'barkdown-test', version: '0.0.0' });
 await client.connect(transport);
 
 const tools = (await client.listTools()).tools.map(t => t.name).sort();
-assert(['create_document', 'list_documents', 'open_project_file', 'open_website', 'propose_document_edit', 'read_document', 'search_documents'].every(t => tools.includes(t)), 'tools missing: ' + tools.join(','));
+assert(['create_document', 'list_conversations', 'list_documents', 'open_project_file', 'open_website', 'propose_document_edit', 'read_conversation', 'read_document', 'search_documents'].every(t => tools.includes(t)), 'tools missing: ' + tools.join(','));
+{
+  fs.writeFileSync(path.join(storeDir, 'workspace.json'), JSON.stringify({ version: 1, chats: {
+    main1: { id: 'main1', title: 'Trip to Bergen', side: false, parent: null, updatedAt: '2026-09-18T10:00:00Z', tabs: [{ title: 'Overview' }], messages: [{ role: 'user', text: 'Plan a weekend in Bergen.', at: '2026-09-18T09:58:00Z' }, { role: 'assistant', text: 'Two days: Bryggen and Fløyen first.', at: '2026-09-18T09:59:00Z', tools: [{ tool: 'read_document' }], events: [{ label: 'Opened Overview' }] }] },
+    side1: { id: 'side1', title: 'Side chat', side: true, parent: 'main1', updatedAt: '2026-09-18T10:05:00Z', tabs: [], messages: [{ role: 'user', text: 'Is Fløyen worth it?', at: '2026-09-18T10:04:00Z' }] },
+  }, order: ['main1'] }));
+  const rows = JSON.parse((await client.callTool({ name: 'list_conversations', arguments: {} })).content[0].text);
+  assert(rows.length === 2 && rows[0].id === 'side1' && rows[0].kind === 'side chat' && rows[0].parent?.id === 'main1', 'list_conversations rows wrong: ' + JSON.stringify(rows).slice(0, 200));
+  const transcript = (await client.callTool({ name: 'read_conversation', arguments: { id: 'main1' } })).content[0].text;
+  assert(transcript.includes('# Trip to Bergen') && transcript.includes('Bryggen') && transcript.includes('opened: Opened Overview'), 'read_conversation transcript wrong: ' + transcript.slice(0, 200));
+  assert((await client.callTool({ name: 'read_conversation', arguments: { id: 'nope' } })).content[0].text.startsWith('No conversation'), 'unknown id should say so');
+}
 const list = JSON.parse((await client.callTool({ name: 'list_documents', arguments: {} })).content[0].text);
 assert(list.length === 2, 'seeded library should have two documents');
 const overview = list.find(d => d.title === 'Overview');
