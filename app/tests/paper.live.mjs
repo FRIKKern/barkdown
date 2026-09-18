@@ -26,8 +26,8 @@ try {
   await page.evaluate(async () => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true } }); await window.__barkdown.refreshLibrary(); });
   await page.evaluate(() => window.__barkdown.expandArchive());
   await page.waitForSelector('#bw-archive [data-source="barkpark"]', { timeout: 90000 });
-  // Reset leftovers from earlier runs so the scratch paper stays small.
-  { const current = serverPaper(); const stray = (current.blocks || []).filter(b => /External edit from another writer\.|Appended block\./.test(JSON.stringify(b))).map(b => ({ op: 'remove-block', id: b.id })); const reset = current.blocks?.find(b => b.id === 'block-1') ? [{ op: 'patch-block', id: 'block-1', patch: { content: [{ type: 'text', value: 'Type here; the change lands through the fenced ops endpoint with a revision guard.' }] } }] : []; const ops = [...stray, ...reset]; if (ops.length) bp(['bulldocs', 'patch', SLUG, '--file', '-', '--yes'], JSON.stringify({ ifRev: current.rev, ops })); }
+  // Reset the scratch paper to a known shape (unfenced publish) so earlier runs cannot skew the checks.
+  bp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug: SLUG, title: 'Barkdown editor test', blocks: [{ type: 'heading', level: 1, text: 'Barkdown editor test' }, { type: 'paragraph', content: [{ type: 'text', value: 'Type here; the change lands through the fenced ops endpoint with a revision guard.' }] }, { type: 'list', ordered: false, items: [[{ type: 'text', value: 'Cross-block caret and Enter split' }], [{ type: 'text', value: 'Server-acknowledged saves' }], [{ type: 'text', value: 'Conflicts surface instead of overwriting' }]] }] }));
   const before = serverPaper();
   await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug }), SLUG);
   await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 });

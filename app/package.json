@@ -11,8 +11,9 @@
     "dev": "node scripts/build.mjs && electron . --dev",
     "test": "node tests/portabledoc.test.mjs && node tests/agent.test.mjs && node tests/mcp.test.mjs && node tests/run.mjs",
     "dist": "npm run build && electron-builder --dir",
-    "test:live": "node tests/providers.live.mjs && node tests/paper.live.mjs && node tests/paper-proposal.live.mjs",
-    "test:paper": "node tests/paper.live.mjs"
+    "test:live": "node tests/providers.live.mjs && node tests/paper.live.mjs && node tests/paper-proposal.live.mjs && node tests/editor.live.mjs && node tests/editor-code.live.mjs",
+    "test:paper": "node tests/paper.live.mjs",
+    "test:editor": "node tests/editor.live.mjs && node tests/editor-code.live.mjs"
   },
   "engines": {
     "node": ">=22.13.1"
