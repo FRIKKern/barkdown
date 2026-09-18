@@ -1,0 +1,56 @@
+{
+  "name": "barkdown-desktop",
+  "version": "0.6.0",
+  "private": true,
+  "description": "Barkdown desktop prototype: app-wide conversations and documents with agent working folders.",
+  "main": "main/main.js",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "watch": "node scripts/build.mjs --watch",
+    "start": "npm run build && electron .",
+    "dev": "node scripts/build.mjs && electron . --dev",
+    "test": "node tests/agent.test.mjs && node tests/run.mjs",
+    "dist": "npm run build && electron-builder --dir"
+  },
+  "engines": {
+    "node": ">=22.13.1"
+  },
+  "devDependencies": {
+    "electron": "^38.0.0",
+    "electron-builder": "^26.0.0",
+    "esbuild": "^0.25.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.126.0",
+    "@codemirror/commands": "^6.11.1",
+    "@codemirror/lang-css": "^6.3.0",
+    "@codemirror/lang-html": "^6.4.9",
+    "@codemirror/lang-javascript": "^6.2.2",
+    "@codemirror/lang-json": "^6.0.1",
+    "@codemirror/lang-markdown": "^6.3.0",
+    "@codemirror/language": "^6.11.0",
+    "@codemirror/state": "^6.5.0",
+    "@codemirror/view": "^6.36.0",
+    "@tiptap/core": "^3.0.0",
+    "@tiptap/extension-link": "^3.0.0",
+    "@tiptap/extension-placeholder": "^3.0.0",
+    "@tiptap/extension-task-item": "^3.0.0",
+    "@tiptap/extension-task-list": "^3.0.0",
+    "@tiptap/pm": "^3.0.0",
+    "@tiptap/starter-kit": "^3.0.0",
+    "codemirror": "^6.0.1",
+    "lucide": "^0.540.0"
+  },
+  "build": {
+    "appId": "no.guerrilla.barkdown",
+    "productName": "Barkdown",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main/**",
+      "renderer/**",
+      "package.json"
+    ]
+  }
+}

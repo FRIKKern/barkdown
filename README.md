@@ -8,6 +8,14 @@ This private repository is the **v0.5 product and engineering handoff**. It incl
 
 ![Current Barkdown concept: app-wide sidebar, wide chat, document work tab](docs/images/prd-workspace-tabs.png)
 
+## Desktop prototype (Electron)
+
+The `app/` folder contains a working Electron prototype built from this handoff: a real Tiptap document library with revisions and backlinks, a Claude-powered assistant with document proposals and approval-gated file writes, per-chat working folders with a CodeMirror project editor, git diff reviews, website tabs, side chats, pins, quick open, and a read-only Barkpark adapter. See [app/README.md](app/README.md) for how to run and verify it, and what is still simulated.
+
+```sh
+cd app && npm install && npm start
+```
+
 ## Start here
 
 1. Read the [product requirements](docs/PRD.md).
@@ -62,6 +70,8 @@ To use an already installed browser for verification, set `BARKDOWN_BROWSER_CHAN
 Open a document, website, review, project editor, or side chat with **+** beside the work tabs. Chat starts at 60% of the available working width. Editing or choosing a tab pauses automatic following. **Watch AI work** demonstrates scripted activity; **Go to latest activity** resumes following.
 
 Use the folder chip in the chat composer to inspect the agent’s working folder or open the project editor. **New chat in this folder** creates a conversation with that agent context. **Back to chat** restores the wider conversation. Hover or focus a tab to pin its navigation path, then restore it from **Pins**.
+
+Drag the divider between chat and work tabs to adjust the split (double-click resets to 60%; arrow keys work when it is focused). Press **Ctrl+K** for quick open: jump to any work tab, document, recent chat, new tab type, or action by typing part of its name. **Alt+1–9** switches tabs, **Alt+W** closes the active one, **Alt+N** opens the type menu, and a middle-click closes a tab. **Enter** sends a message, **Shift+Enter** adds a line. A small **Working…** pulse beside the composer shows while the scripted agent runs, and a red dot on the project tab marks unsaved file drafts.
 
 In the editor study, open a document directly from the sidebar, select text, and open **Types**. The attached submenu and block interactions are the editing target for the real Paper integration.
 

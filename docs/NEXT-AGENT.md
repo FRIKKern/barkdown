@@ -16,6 +16,10 @@ Documents and recent chats remain available across the app. A chat retains its a
 
 There is no requirement that a content-only chat or direct document view have a local filesystem project. In the current demonstration, all example chats use different folders of a single sample project; the production model must support independent projects/environments and no-folder conversations.
 
+## Status: Electron prototype delivered (branch `codex/electron-prototype`)
+
+`app/` now holds a runnable desktop app that replaces most of the concept's simulation with real behaviour: a local document store with Tiptap editing, revisions, references and backlinks; an `@anthropic-ai/sdk` streaming tool loop whose document edits are proposals and whose file writes need approval; per-chat working folders with confined file access, a CodeMirror project editor and `git diff` reviews; `<webview>` website tabs; side chats with their own runs; persisted workspaces, pins and quick open; and a read-only Barkpark adapter (HTTP or through the `bp` CLI) that lists papers in the library and imports them as local copies. Verification is `cd app && npm test` (scripted-client agent checks plus 23 Playwright checks against the real Electron window). What remains simulated or absent is listed in [app/README.md](../app/README.md): no T3 runtime import, Tiptap instead of `bp-paper-editor`, Barkpark writes fenced and off by default, in-memory unsaved file buffers, unsigned packaging. The milestone below is therefore partly met: a real document is mounted, edited, saved and reopened inside a desktop shell, but the document is a local Paper-like record, not a Barkpark Paper through the upstream editor.
+
 ## First 20 minutes
 
 1. Run `npm ci`, `npx playwright install chromium`, and `npm run verify`.
@@ -72,6 +76,8 @@ All functions below are in `concepts/workspace.html`, scoped by `#bd-worktabs` a
 | `projectMarkup`, `treeMarkup`, `openProject` | Project file tab, file tree, expand/return layout. Replace textarea with audited file-editor host if appropriate. |
 | `contextLabel`, `renderProjectContext`, `projectMenu`, `placeProjectMenu` | Agent folder control; app-wide recents; attached composer menu. There is no sidebar folder picker. |
 | `startFolderChat` | Creates new chat with folder context; preserves original state and draft. |
+| `setChatWidth`, `#bw-splitter` | Adjustable 60/40 split with drag, arrow keys, and double-click reset (D07). Production should persist the width per window and keep the 40–70% range. |
+| `collectPalette`, `renderPalette`, `openPalette` | Ctrl+K quick open built from the current navigation state (D23). Replace the fixture index with permission-scoped Barkpark search and typed targets. |
 | `sideChatMarkup`, `sideMessages`, `sideDrafts` | Separate conversation surface and drafts with inherited working context. Responses are scripted. |
 
 In `concepts/editor-study.html`, inspect `editorState`, `addBlock`, `showBlockMenu`, and `attachTypeMenu`. The last two preserve the selected block and keep Types attached to the formatting menu. Also inspect the inline change Keep/Undo behavior as an interaction reference. Production undo must use actual authorized Barkpark receipts and native text history, not the fixture's reversals.
@@ -86,6 +92,7 @@ The previous session's one-time migration scripts and stale extension chunks wer
 - Scripted AI activity that retains its owner, respects manual focus, preserves drafts, and can reopen its exact file target when explicitly requested.
 - The separate editor study's block insertion/formatting, selection menu, attached Types submenu, and inline change demonstration.
 - Responsive examples down to 320px without page overflow; no visible scrollbar tracks or vertical collapsed-pane rails.
+- Adjustable chat/work split (drag, keyboard, double-click reset), Ctrl+K quick open across tabs, documents, chats, and actions, Alt+digit/Alt+W/Alt+N shortcuts, middle-click close, Enter to send, a working indicator during runs, and an unsaved-draft marker on the project tab. Quick open indexes fixture navigation, not Barkpark search; the split width is not persisted.
 
 ## Known limitations to replace, not hide
 
