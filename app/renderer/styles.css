@@ -142,3 +142,9 @@ h1,h2,h3,p{margin:0}
 .bw.bw-nowork .bw-transcript{padding-inline:max(20px,calc((100% - 880px) / 2))}
 .bw.bw-nowork .bw-composer{margin-inline:max(12px,calc((100% - 880px) / 2))}
 @media(max-width:760px){.bw.bw-nowork{grid-template-columns:minmax(0,1fr) 0}}
+/* composer: one quiet container, no inner focus ring, a soft lift on focus */
+.bw-composer{background:var(--bw-side);border-color:var(--bw-border);transition:border-color .12s,box-shadow .12s}
+.bw-composer:focus-within{border-color:light-dark(rgba(36,42,32,.22),rgba(231,235,223,.22));box-shadow:0 4px 18px light-dark(rgba(0,0,0,.05),rgba(0,0,0,.25))}
+.bw-composer textarea:focus-visible,.bw-composer textarea:focus,.bw-side-compose textarea:focus-visible{outline:0}
+.bw-composer .bw-folder-chip{color:var(--bw-muted)}.bw-composer .bw-folder-chip:hover{color:var(--bw-text)}
+.bw-send{background:var(--bw-raised);color:var(--bw-muted);border-radius:8px;transition:background .12s,color .12s}.bw-composer:focus-within .bw-send,.bw-send:hover{background:var(--bw-accent);color:var(--bw-bg)}
