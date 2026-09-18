@@ -16,7 +16,7 @@ export function mountSideChat(tab, host, ctx) {
     q('#messages').innerHTML = transcriptHtml(chat, { intro: 'Explore an idea here while keeping the main conversation in place.' }).replaceAll('bw-user-message', 'question').replaceAll('bw-agent-copy', 'reply');
     q('#messages').querySelectorAll('[data-approval]').forEach(node => node.querySelectorAll('[data-approve]').forEach(b => { b.onclick = () => { respondApproval(chat, node.dataset.approval, b.dataset.approve === '1'); render(); }; }));
     q('#messages').querySelectorAll('[data-event]').forEach(b => { b.onclick = () => { const [mi, ei] = b.dataset.event.split(':').map(Number); const entry = chat.messages[mi]?.events?.[ei]; if (entry) ctx.openTarget(entry.target); }; });
-    q('#state').textContent = chat.runId ? 'Working…' : '';
+    q('#state').textContent = chat.runId ? (chat.workingLabel || 'Working…') : '';
     q('#stop').hidden = !chat.runId;
     q('#input').value = chat.draft || '';
   }

@@ -363,6 +363,7 @@ function renderChat() {
   q('#bw-effort-label').textContent = chat.effort ? (efforts.find(([v]) => v === chat.effort)?.[1] || chat.effort) : 'Effort';
   q('#bw-effort').title = chat.effort ? `Reasoning effort for this chat: ${chat.effort}` : 'Reasoning effort for this chat (provider default)';
   q('#bw-working').hidden = !chat.runId;
+  q('#bw-working').innerHTML = `<span class="bw-pulse"></span>${esc(chat.workingLabel || 'Working…')}`;
   q('#bw-run-state').hidden = !chat.runId;
   q('#bw-stop').hidden = !chat.runId;
 }
@@ -556,6 +557,7 @@ api.agent.onEvent(event => handleAgentEvent(event, {
     const owner = chat.side ? state.chats[chat.parent] || chat : chat;
     const target = event.target;
     if (target.kind === 'doc' && event.libraryChanged) refreshLibrary();
+    if (target.kind === 'doc' && (target.source || 'local') === 'local' && /^Created/.test(event.label || '')) { addPage(target.id); renderSidebar(); }
     openTarget(target, owner, false);
     if (target.kind === 'doc') controllers.forEach(c => { if (c.type === 'doc' && c.tab.path.at(-1) === target.id) c.refresh(target.id); });
     if (target.kind === 'doc' && event.proposalId) setTimeout(() => controllers.forEach(c => { if (c.type === 'doc' && c.tab.path.at(-1) === target.id) c.refresh(target.id); }), 400);

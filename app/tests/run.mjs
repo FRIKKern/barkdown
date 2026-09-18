@@ -149,8 +149,13 @@ try {
     { tool: 'Bash', input: { command: 'npm test' }, id: 't1', done: true, ok: true, output: 'All 3 checks passed.' },
     { tool: 'Edit', input: { file_path: 'src/app.js', old_string: 'const a = 1;', new_string: 'const a = 2;\nconst b = 3;' }, id: 't2', done: true, ok: true },
     { tool: 'Write', input: { file_path: 'src/new.js', content: 'export const x = 1;' }, id: 't3', done: true, ok: true },
-  ], events: [{ label: 'Proposed a change to Overview', target: { kind: 'doc', id: 'overview', title: 'Overview' }, at: new Date().toISOString() }], approvals: [] }); window.__barkdown.render(); });
-  step('tool calls render as steps', (await page.locator('.bw-step').count()) === 3);
+    { tool: 'create_document', input: { title: 'Meeting notes', markdown: '# Meeting notes\n\n- decide the venue\n- book the room' }, id: 't4', done: true, ok: true, output: 'Created document meeting-notes' },
+    { tool: 'read_document', input: { id: 'overview' }, id: 't5', done: false },
+  ], events: [{ label: 'Proposed a change to Overview', target: { kind: 'doc', id: 'overview', title: 'Overview' }, at: new Date().toISOString() }], approvals: [] }); chat.workingLabel = 'Reading overview…'; chat.runId = 'fake'; window.__barkdown.render(); });
+  step('tool calls render as steps', (await page.locator('.bw-step').count()) === 5);
+  step('a created page shows its title and a rendered preview', (await page.locator('.bw-step').nth(3).locator('summary').innerText()).includes('Created page “Meeting notes”') && (await page.locator('.bw-step').nth(3).locator('.bw-doc-preview li').count()) === 2);
+  step('a running step and the working indicator say what is happening', (await page.locator('.bw-step').nth(4).locator('summary').innerText()).includes('Reading overview…') && (await page.locator('#bw-working').innerText()).includes('Reading overview…'));
+  await page.evaluate(() => { const chat = window.__barkdown.state.chats[window.__barkdown.state.current]; chat.runId = null; chat.workingLabel = ''; chat.messages.at(-1).tools.pop(); window.__barkdown.render(); });
   await page.locator('.bw-step').nth(0).locator('summary').click();
   step('a step opens to show the command and its output', (await page.locator('.bw-step').nth(0).locator('.bw-cmd').innerText()).includes('npm test') && (await page.locator('.bw-step').nth(0).locator('.bw-out').innerText()).includes('All 3 checks passed'));
   await page.locator('.bw-step').nth(1).locator('summary').click();

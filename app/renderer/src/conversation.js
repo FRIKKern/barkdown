@@ -46,9 +46,12 @@ function stepHtml(t, mi, n) {
     case 'MultiEdit': body = `<div class="bw-kv"><b>file</b> ${esc(input.file_path || '')}</div>` + (input.edits || []).map(e => diffHtml(lineDiff(e.old_string || '', e.new_string || ''))).join(''); break;
     case 'Write': case 'write_file': { const text = input.content ?? input.contents ?? ''; body = `<div class="bw-kv"><b>file</b> ${esc(input.file_path || input.path || '')}</div>${diffHtml(String(clipOut(text)).split('\n').map(text => ({ kind: 'add', text })))}`; break; }
     case 'NotebookEdit': body = `<div class="bw-kv"><b>notebook</b> ${esc(input.notebook_path || '')}</div>${diffHtml(String(input.new_source || '').split('\n').map(text => ({ kind: 'add', text })))}`; break;
+    // Barkdown's own tools: show the page or proposal as it will read, not as JSON.
+    case 'create_document': body = `<div class="bw-kv"><b>page</b> ${esc(input.title || '')}</div><div class="bw-doc-preview">${inlineMarkdownHtml(String(input.markdown || ''))}</div>${t.output ? `<pre class="bw-out">${esc(clipOut(t.output))}</pre>` : ''}`; break;
+    case 'propose_document_edit': body = `${kv({ document: input.id, mode: input.mode, block: input.blockIndex, summary: input.summary })}<div class="bw-doc-preview">${inlineMarkdownHtml(String(input.markdown || ''))}</div>${t.output ? `<pre class="bw-out">${esc(clipOut(t.output))}</pre>` : ''}`; break;
     default: body = kv(input) + (t.output != null || t.preview ? `<pre class="bw-out">${esc(clipOut(t.output ?? t.preview))}</pre>` : '');
   }
-  return `<details class="bw-step ${state}" data-step="${mi}:${n}"><summary>${iconHtml(icon, 12)}<span>${esc(describeTool(t))}</span>${state === 'running' ? '<i class="bw-pulse"></i>' : ''}</summary><div class="bw-step-body">${body}</div></details>`;
+  return `<details class="bw-step ${state}" data-step="${mi}:${n}"><summary>${iconHtml(icon, 12)}<span>${esc(t.done ? describeTool(t) : runningLabel(t))}</span>${state === 'running' ? '<i class="bw-pulse"></i>' : ''}</summary><div class="bw-step-body">${body}</div></details>`;
 }
 
 // The change card under a reply: every file and document it touched, with counts, View and Undo.
@@ -58,6 +61,31 @@ function changeCardHtml(m, index) {
   const files = summary.files.map(f => `<div class="bw-change"><span class="bw-change-icon">${iconHtml('file-code', 12)}</span><span class="bw-change-path" title="${esc(f.path)}">${esc(f.path)}</span><span class="bw-change-counts">${f.known ? `<b class="bw-positive">+${f.additions}</b> <b class="bw-negative">−${f.deletions}</b>` : `<span class="bw-muted">${esc(f.kinds.join(', ') || 'changed')}</span>`}</span><button data-view-file="${esc(f.path)}" title="Open the file in the project editor">View</button><button data-undo-file="${esc(f.path)}" title="Restore the file from git, or remove it if it is new">Undo</button></div>`).join('');
   const docs = summary.docs.map(d => `<div class="bw-change"><span class="bw-change-icon">${iconHtml('file-text', 12)}</span><span class="bw-change-path">${esc(d.title)}</span><span class="bw-change-counts"><span class="bw-muted">${d.kind === 'created' ? 'created' : 'proposal to review'}</span></span><button data-view-doc="${esc(d.id)}" data-doc-source="${esc(d.source)}" title="Open the document">${d.kind === 'created' ? 'View' : 'Review'}</button></div>`).join('');
   return `<div class="bw-changes" data-changes="${index}"><div class="bw-changes-head"><span>${esc(changeHeadline(summary))}</span>${summary.files.some(f => f.known) ? `<b class="bw-positive">+${summary.additions}</b><b class="bw-negative">−${summary.deletions}</b>` : ''}</div>${files}${docs}</div>`;
+}
+
+// What a step is doing while it runs, for the step row and the "Working…" indicator.
+export function runningLabel(t) {
+  const input = t.input || {};
+  switch (t.tool) {
+    case 'create_document': return `Creating page “${input.title || ''}”…`;
+    case 'propose_document_edit': return `Proposing a change to ${input.id || 'a document'}…`;
+    case 'read_document': return `Reading ${input.id || 'a document'}…`;
+    case 'search_documents': return `Searching documents for “${input.query || ''}”…`;
+    case 'list_documents': return 'Listing documents…';
+    case 'list_conversations': return 'Looking at the other chats…';
+    case 'read_conversation': return `Reading the chat ${input.id || ''}…`;
+    case 'open_website': return `Opening ${input.url || 'a website'}…`;
+    case 'open_project_file': return `Showing ${input.path || 'a file'}…`;
+    case 'Bash': return `Running ${String(input.command || '').slice(0, 60)}…`;
+    case 'Read': case 'read_file': return `Reading ${input.file_path || input.path || ''}…`;
+    case 'Edit': case 'MultiEdit': case 'NotebookEdit': return `Editing ${input.file_path || input.notebook_path || ''}…`;
+    case 'Write': case 'write_file': return `Writing ${input.file_path || input.path || ''}…`;
+    case 'Glob': case 'Grep': case 'search_files': return `Searching files for ${input.pattern || input.query || ''}…`;
+    case 'WebFetch': return `Fetching ${input.url || ''}…`;
+    case 'WebSearch': return `Searching the web for ${input.query || ''}…`;
+    case 'Task': return `Running a subagent: ${input.description || ''}…`;
+    default: return `${t.tool}…`;
+  }
 }
 
 function describeTool(t) {
@@ -76,7 +104,7 @@ function describeTool(t) {
     case 'search_documents': return `Searched documents for “${input.query}”`;
     case 'list_documents': return 'Listed documents';
     case 'propose_document_edit': return `Proposed ${input.mode} in ${input.id}`;
-    case 'create_document': return `Created document “${input.title}”`;
+    case 'create_document': return `${t.ok === false ? 'Could not create page' : 'Created page'} “${input.title}”`;
     case 'open_website': return `Opened ${input.url}`;
     case 'list_files': return `Listed files${input.dir ? ' in ' + input.dir : ''}`;
     case 'search_files': return `Searched files for “${input.query}”`;
@@ -159,8 +187,8 @@ export function handleAgentEvent(event, hooks) {
     case 'error_note': reply.notes = [...(reply.notes || []), event.message]; hooks.render(chat); break;
     case 'library_changed': hooks.libraryChanged?.(); break;
     case 'text_break': if (reply.text && !reply.text.endsWith('\n')) reply.text += '\n\n'; break;
-    case 'tool_start': reply.tools.push({ tool: event.tool, input: event.input, kind: event.kind, id: event.toolUseId, done: false }); hooks.tool?.(chat, event); hooks.render(chat); break;
-    case 'tool_result': { const t = reply.tools.find(t => t.id === event.toolUseId); if (t) { t.done = true; t.ok = event.ok; t.preview = event.preview; if (event.output != null) t.output = event.output; } hooks.tool?.(chat, event); hooks.render(chat); break; }
+    case 'tool_start': { const t = { tool: event.tool, input: event.input, kind: event.kind, id: event.toolUseId, done: false }; reply.tools.push(t); chat.workingLabel = runningLabel(t); hooks.tool?.(chat, event); hooks.render(chat); break; }
+    case 'tool_result': { const t = reply.tools.find(t => t.id === event.toolUseId); if (t) { t.done = true; t.ok = event.ok; t.preview = event.preview; if (event.output != null) t.output = event.output; } const open = reply.tools.filter(t => !t.done).at(-1); chat.workingLabel = open ? runningLabel(open) : ''; hooks.tool?.(chat, event); hooks.render(chat); break; }
     case 'activity': {
       const entry = { label: event.label, detail: event.detail, target: event.target, at: new Date().toISOString(), proposalId: event.proposalId };
       reply.events.push(entry);
@@ -170,7 +198,7 @@ export function handleAgentEvent(event, hooks) {
       break;
     }
     case 'approval': reply.approvals.push({ approvalId: event.approvalId, runId: event.runId, request: event.request, status: 'pending' }); hooks.render(chat); hooks.attention(chat); break;
-    case 'error': reply.streaming = false; reply.error = event.message; chat.runId = null; hooks.render(chat); hooks.runChanged(chat); break;
+    case 'error': reply.streaming = false; reply.error = event.message; chat.runId = null; chat.workingLabel = ''; hooks.render(chat); hooks.runChanged(chat); break;
     case 'done':
       reply.streaming = false;
       if (event.history) { chat.apiHistory = event.history; chat.messages.filter(m => m.role === 'user').forEach(m => { m.sentInHistory = true; }); }
@@ -178,6 +206,7 @@ export function handleAgentEvent(event, hooks) {
       if (event.session && event.provider) { chat.sessions = chat.sessions || {}; chat.sessions[event.provider] = event.session; }
       reply.provider = event.provider;
       chat.runId = null;
+      chat.workingLabel = '';
       touch(chat);
       hooks.render(chat);
       hooks.runChanged(chat);
