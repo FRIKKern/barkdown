@@ -46,7 +46,7 @@ await step('quote then callout shorthand', async () => { await pm.locator('p:has
 await step('select all + type replaces everything', async () => { await page.keyboard.press('Control+a'); await page.keyboard.type('fresh'); await page.keyboard.press('Control+z'); });
 await page.screenshot({ path: 'test-results/30-gaps.png' });
 const server = bp(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); const d = server.document || server;
-const kindOf = s => s.replace(/^headingd/, 'heading').replace(/^(bulletList|orderedList|taskList)/, 'list').replace(/^bpCode/, 'code').split(':')[0];
+const kindOf = s => s.replace(/^heading[0-9]/, 'heading').replace(/^(bulletList|orderedList|taskList)/, 'list').replace(/^bpCode/, 'code').split(':')[0];
 const canvasKinds = log.at(-1).doc.map(kindOf); const serverKinds = d.blocks.map(b => b.type);
 const kindMismatch = canvasKinds.length !== serverKinds.length || canvasKinds.some((k, i) => k !== serverKinds[i]) ? { canvasKinds, serverKinds } : null;
 console.log(JSON.stringify({ kindMismatch, log, serverBlocks: d.blocks.map(b => b.type + ':' + JSON.stringify(b.content || b.text || b.items || b.value || '').slice(0, 60)), errors: [...new Set(errors)].slice(0, 10) }, null, 1));
