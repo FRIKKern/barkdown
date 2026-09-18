@@ -524,7 +524,9 @@ function wire() {
   paletteInput.addEventListener('keydown', e => { if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); if (!paletteItems.length) return; paletteIndex = (paletteIndex + (e.key === 'ArrowDown' ? 1 : paletteItems.length - 1)) % paletteItems.length; renderPalette(); } else if (e.key === 'Enter') { e.preventDefault(); runPalette(paletteIndex, e.shiftKey); } else if (e.key === 'Escape') { hideMenus(); } });
   document.addEventListener('keydown', e => {
     const key = e.key.toLowerCase();
-    if ((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey && key === 'k') { e.preventDefault(); q('#bw-palette').hidden ? openPalette() : hideMenus(); return; }
+    // Inside an editor the editor owns Ctrl+K (link) and friends; quick open stays available from everywhere else.
+    const inEditor = e.target?.closest?.('bp-paper-canvas, .ProseMirror, .cm-content, textarea.bp-canvas-code-area');
+    if ((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey && key === 'k') { if (inEditor && q('#bw-palette').hidden) return; e.preventDefault(); q('#bw-palette').hidden ? openPalette() : hideMenus(); return; }
     if ((e.ctrlKey || e.metaKey) && key === ',') { e.preventDefault(); openSettings(applySettings); return; }
     if ((e.ctrlKey || e.metaKey) && !e.shiftKey && key === 'n') { e.preventDefault(); createChat(); return; }
     if ((e.ctrlKey || e.metaKey) && e.shiftKey && key === 'n') { e.preventDefault(); createDocument(); return; }
