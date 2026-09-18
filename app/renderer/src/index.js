@@ -599,7 +599,7 @@ function wire() {
     else if (key === 'w') { const t = activeTab(chat); if (t) { e.preventDefault(); closeTab(chat, t.id); } }
     else if (key === 'n') { e.preventDefault(); toggleMenu('#bw-new-menu', '#bw-plus'); }
   });
-  api.onMenu(command => { if (command === 'new-chat') createChat(); if (command === 'new-document') createDocument(); if (command === 'palette') openPalette(); if (command === 'settings') openSettings(applySettings); });
+  api.onMenu(command => { if (command === 'new-chat') createChat(); if (command === 'new-document') createDocument(); if (command === 'palette') openPalette(); if (command === 'settings') openSettings(applySettings); if (command === 'close-tab') { const chat = workspaceChat(); if (chat?.active) { closeTab(chat, chat.active); render(); } } });
   window.addEventListener('beforeunload', () => { savePositions(); save.flush(); });
   wireSplitter();
 }

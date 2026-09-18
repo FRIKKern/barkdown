@@ -75,8 +75,13 @@ try {
   await page.keyboard.type('A sentence added by the end-to-end test.');
   await page.waitForFunction(() => /Saved · rev \d+/.test(document.querySelector('.bw-doc-pane:not([hidden]) #save-state')?.textContent || ''), null, { timeout: 8000 });
   step('document autosaved with a new revision', true);
+  // Re-anchor the caret on the last paragraph before the slash command: after the autosave the editor
+  // occasionally drops focus, which made this step flaky.
+  await editor.locator('p').last().click();
+  await page.keyboard.press('End');
   await page.keyboard.press('Enter');
-  await page.waitForTimeout(400);
+  await page.waitForFunction(() => document.activeElement?.closest('.bw-doc-pane:not([hidden]) .ProseMirror') != null, null, { timeout: 3000 }).catch(() => {});
+  await page.waitForTimeout(300);
   await page.keyboard.type('/heading 2');
   try { await page.waitForSelector('.bw-doc-pane:not([hidden]) .bw-slash:not([hidden]) [data-slash="h2"][aria-selected="true"]', { timeout: 4000 }); } catch (error) { console.log('SLASH DEBUG', await page.evaluate(() => { const p = document.querySelector('.bw-doc-pane:not([hidden])'); return { slashHidden: p.querySelector('#slash').hidden, slash: p.querySelector('#slash').innerHTML.slice(0, 200), tail: p.querySelector('.ProseMirror').innerHTML.slice(-400), active: document.activeElement?.className }; })); throw error; }
   await page.keyboard.press('Enter');
@@ -138,6 +143,11 @@ try {
   await page.locator('#bw-tabs [data-pin]').first().dispatchEvent('click');
   step('pin recorded', (await page.locator('#bw-pin-menu [data-restore]').count()) === 1);
   await page.keyboard.press('Escape');
+  // Ctrl+W is a menu accelerator that closes the active work tab, not the window.
+  const tabsBeforeClose = await page.locator('#bw-tabs [data-tab]').count();
+  await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].webContents.send('menu', 'close-tab'));
+  await page.waitForFunction(n => document.querySelectorAll('#bw-tabs [data-tab]').length === n - 1, tabsBeforeClose, { timeout: 5000 });
+  step('Close tab accelerator closes one tab and keeps the window', (await page.locator('#bw-tabs [data-tab]').count()) === tabsBeforeClose - 1 && !page.isClosed());
   const tabsBefore = await page.locator('#bw-tabs [data-tab]').count();
   await page.evaluate(() => window.__barkdown.createChat());
   step('new chat starts with an empty workspace', (await page.locator('#bw-tabs [data-tab]').count()) === 0);
