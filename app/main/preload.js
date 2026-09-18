@@ -18,9 +18,10 @@ const api = {
     resolveProposal: (id, proposalId, accept) => call('docs:proposal', { id, proposalId, accept }), paperProposals: slug => call('docs:paperProposals', slug), resolvePaperProposal: (slug, proposalId, accept, rev) => call('docs:resolvePaperProposal', { slug, proposalId, accept, rev }), exportMarkdown: id => call('docs:exportMarkdown', id),
   },
   files: { tree: root => call('files:tree', root), read: (root, path) => call('files:read', { root, path }), write: (root, path, text, mtime) => call('files:write', { root, path, text, mtime }), search: (root, query) => call('files:search', { root, query }), exists: (root, path) => call('files:exists', { root, path }) },
-  git: { status: root => call('git:status', root), diff: (root, options = {}) => call('git:diff', { root, ...options }), log: root => call('git:log', root) },
+  git: { status: root => call('git:status', root), diff: (root, options = {}) => call('git:diff', { root, ...options }), log: root => call('git:log', root), revertFile: (root, path) => call('git:revertFile', { root, path }) },
+  term: { start: (id, root) => call('term:start', { id, root }), input: (id, line) => call('term:input', { id, line }), stop: id => call('term:stop', id), onData: handler => { const listener = (_e, event) => handler(event); ipcRenderer.on('term:data', listener); return () => ipcRenderer.removeListener('term:data', listener); } },
   agent: {
-    start: (chatId, messages, context, provider, session, prompt, images) => call('agent:start', { chatId, messages, context, provider, session, prompt, images }),
+    start: (chatId, messages, context, provider, session, prompt, images, options) => call('agent:start', { chatId, messages, context, provider, session, prompt, images, options }),
     cancel: runId => call('agent:cancel', runId),
     approve: (runId, approvalId, approved) => call('agent:approve', { runId, approvalId, approved }),
     onEvent: handler => { const listener = (_e, event) => handler(event); ipcRenderer.on('agent:event', listener); return () => ipcRenderer.removeListener('agent:event', listener); },

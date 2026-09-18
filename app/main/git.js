@@ -81,4 +81,20 @@ async function log(root, limit = 20) {
   return out.split('\n').filter(Boolean).map(line => { const [hash, subject, author, date] = line.split('\x1f'); return { hash, subject, author, date }; });
 }
 
-module.exports = { isRepo, status, diff, log, parseDiff };
+// Undo one file the assistant touched: a tracked file goes back to HEAD, an untracked one is removed.
+// Confined to the working folder; refuses outside it or when the folder is not a repository.
+async function revertFile(root, rel) {
+  const path = require('path');
+  const fs = require('fs');
+  const abs = path.resolve(root, rel);
+  const inside = path.relative(root, abs);
+  if (!inside || inside.startsWith('..') || path.isAbsolute(inside)) throw Object.assign(new Error('That path is outside the working folder'), { code: 'outside_folder' });
+  if (!(await isRepo(root))) throw Object.assign(new Error('The working folder is not a git repository, so there is no known previous version to restore'), { code: 'not_a_repo' });
+  let tracked = true;
+  try { await run(root, ['ls-files', '--error-unmatch', '--', inside]); } catch { tracked = false; }
+  if (tracked) { await run(root, ['checkout', '--', inside]); return { path: inside, action: 'restored' }; }
+  if (fs.existsSync(abs)) { fs.rmSync(abs, { force: true }); return { path: inside, action: 'removed' }; }
+  return { path: inside, action: 'absent' };
+}
+
+module.exports = { isRepo, status, diff, log, parseDiff, revertFile };

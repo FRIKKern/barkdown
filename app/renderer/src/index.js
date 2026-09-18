@@ -8,13 +8,26 @@ import { mountWebsite } from './tabs/website.js';
 import { mountReview } from './tabs/review.js';
 import { mountProject, buffers, dirtyCount } from './tabs/project.js';
 import { mountSideChat } from './tabs/sidechat.js';
+import { mountTerminal } from './tabs/terminal.js';
 import { openSettings } from './settings.js';
 import { renderPages, seedTree, addPage, pagePath, pageKey, ensurePages } from './pages.js';
 
 const api = window.barkdown;
 const root = document.getElementById('app');
 const q = s => root.querySelector(s);
-const TYPE_ICON = { doc: 'file-text', web: 'globe', review: 'git-pull-request', project: 'folder-code', chat: 'message-circle' };
+const TYPE_ICON = { doc: 'file-text', web: 'globe', review: 'git-pull-request', project: 'folder-code', chat: 'message-circle', terminal: 'terminal' };
+
+// Models and reasoning effort a chat can pick per provider. Empty value means the provider's own default.
+const MODEL_CHOICES = {
+  claude: [['', 'Claude Code default'], ['claude-opus-5', 'Opus 5'], ['claude-sonnet-5', 'Sonnet 5'], ['claude-haiku-4-5-20251001', 'Haiku 4.5']],
+  codex: [['', 'Codex default'], ['gpt-5-codex', 'GPT-5 Codex'], ['gpt-5', 'GPT-5']],
+  api: [['', 'Settings default'], ['claude-opus-5', 'Opus 5'], ['claude-sonnet-5', 'Sonnet 5'], ['claude-haiku-4-5-20251001', 'Haiku 4.5']],
+};
+const EFFORT_CHOICES = {
+  claude: [['', 'Default effort'], ['low', 'Low'], ['medium', 'Medium'], ['high', 'High'], ['xhigh', 'Extra high'], ['max', 'Max']],
+  codex: [['', 'Default effort'], ['minimal', 'Minimal'], ['low', 'Low'], ['medium', 'Medium'], ['high', 'High'], ['xhigh', 'Extra high']],
+  api: [],
+};
 const controllers = new Map(); // tab.id -> mounted controller
 const DIRECT = 'direct';
 
@@ -72,7 +85,8 @@ function mountTab(chat, tab) {
   if (controllers.has(tab.id)) return controllers.get(tab.id);
   const host = q('#bw-workspace');
   const ctx = tabContext(chat);
-  const controller = tab.type === 'doc' ? (tab.source === 'barkpark' ? mountPaper(tab, host, ctx) : mountDocument(tab, host, ctx)) : tab.type === 'web' ? mountWebsite(tab, host, ctx) : tab.type === 'review' ? mountReview(tab, host, ctx) : tab.type === 'project' ? mountProject(tab, host, ctx) : mountSideChat(tab, host, ctx);
+  const controller = tab.type === 'doc' ? (tab.source === 'barkpark' ? mountPaper(tab, host, ctx) : mountDocument(tab, host, ctx)) : tab.type === 'web' ? mountWebsite(tab, host, ctx) : tab.type === 'review' ? mountReview(tab, host, ctx) : tab.type === 'project' ? mountProject(tab, host, ctx) : tab.type === 'terminal' ? mountTerminal(tab, host, ctx) : mountSideChat(tab, host, ctx);
+  controller.chatId = chat.id;
   controllers.set(tab.id, controller);
   return controller;
 }
@@ -163,6 +177,7 @@ function openTarget(target, chat = currentChat(), manual = true, options = {}) {
     else if (target.kind === 'project') tab = newTab('project', { title: target.path ? basename(target.path) : 'Project', file: target.path || '', treeOpen: !target.path });
     else if (target.kind === 'review') tab = newTab('review', { title: 'Review', path: target.path || '' });
     else if (target.kind === 'chat') tab = newTab('chat', { title: target.title || 'New chat', sideChatId: target.id });
+    else if (target.kind === 'terminal') tab = newTab('terminal', { title: 'Terminal' });
     chat.tabs.push(tab);
   } else {
     if (target.kind === 'doc' && tab.path.at(-1) !== target.id) tab.path = tab.path.slice(0, tab.path.indexOf(target.id) + 1);
@@ -242,6 +257,7 @@ function openNewTab(type) {
   if (type === 'web') { savePositions(); pauseFollow(chat); const tab = newTab('web', { title: 'Website', url: '' }); chat.tabs.push(tab); chat.active = tab.id; render(); controllers.get(tab.id)?.focus(); return tab; }
   if (type === 'project') return openProject(true);
   if (type === 'review') return openTarget({ kind: 'review' }, chat, true);
+  if (type === 'terminal') return openTarget({ kind: 'terminal' }, chat, true);
 }
 
 function openProject(expand = false) {
@@ -299,6 +315,7 @@ async function chooseFolder() {
   return folder;
 }
 
+const openSteps = new Set();
 function renderChat() {
   const chat = currentChat();
   if (!chat) return;
@@ -312,6 +329,11 @@ function renderChat() {
   const latest = transcript.querySelector('#bw-latest');
   if (latest) latest.onclick = () => { const last = chat.events.at(-1); if (last) { chat.following = true; openTarget(last.target, chat, false); focusTab(chat, findTabForTarget(chat, last.target)?.id || chat.active, false); chat.following = true; renderChat(); } };
   transcript.querySelectorAll('a[href]').forEach(a => { a.onclick = e => { e.preventDefault(); openTarget({ kind: 'web', url: a.href, title: hostname(a.href) }, chat, true); }; });
+  transcript.querySelectorAll('[data-view-file]').forEach(b => { b.onclick = () => openTarget({ kind: 'project', path: b.dataset.viewFile, title: basename(b.dataset.viewFile) }, chat, true); });
+  transcript.querySelectorAll('[data-view-doc]').forEach(b => { b.onclick = () => openTarget({ kind: 'doc', id: b.dataset.viewDoc, source: b.dataset.docSource || 'local' }, chat, true); });
+  transcript.querySelectorAll('[data-undo-file]').forEach(b => { b.onclick = async () => { const rel = b.dataset.undoFile; if (!chat.folder) { toast('No working folder on this chat.', 'error'); return; } if (!confirm(`Undo the assistant's change to ${rel}? A tracked file goes back to the last commit; a new file is removed.`)) return; try { const r = await api.git.revertFile(chat.folder, rel); toast(r.action === 'restored' ? `Restored ${r.path} from git` : r.action === 'removed' ? `Removed ${r.path}` : `${r.path} was already gone`); controllers.forEach(c => { if (c.type === 'project') c.refresh(rel); if (c.type === 'review') c.refresh(); }); } catch (error) { toast(errorMessage(error), 'error'); } }; });
+  // Remember which steps the person opened across re-renders while a run streams.
+  transcript.querySelectorAll('details.bw-step').forEach(d => { const key = chat.id + ':' + d.dataset.step; if (openSteps.has(key)) d.open = true; d.addEventListener('toggle', () => { if (d.open) openSteps.add(key); else openSteps.delete(key); }); });
   if (atBottom || chat.runId) transcript.scrollTop = transcript.scrollHeight;
   q('#bw-prompt').value = chat.draft || '';
   renderAttachments(chat);
@@ -323,6 +345,13 @@ function renderChat() {
   q('#bw-provider-label').textContent = (PROVIDER_LABEL[provider] || provider) + (ready ? '' : ' · not signed in');
   q('#bw-provider').classList.toggle('off', !ready);
   q('#bw-provider').title = ready ? `Runs on ${PROVIDER_LABEL[provider]} using your local login. Click to switch.` : `${PROVIDER_LABEL[provider]} is not available. Click to switch or open Settings.`;
+  const modelLabel = (MODEL_CHOICES[provider] || []).find(([v]) => v === (chat.model || ''))?.[1] || chat.model || 'Model';
+  q('#bw-model-label').textContent = chat.model ? modelLabel : 'Model';
+  q('#bw-model').title = chat.model ? `Model for this chat: ${chat.model}` : 'Model for this chat (provider default)';
+  const efforts = EFFORT_CHOICES[provider] || [];
+  q('#bw-effort').hidden = !efforts.length;
+  q('#bw-effort-label').textContent = chat.effort ? (efforts.find(([v]) => v === chat.effort)?.[1] || chat.effort) : 'Effort';
+  q('#bw-effort').title = chat.effort ? `Reasoning effort for this chat: ${chat.effort}` : 'Reasoning effort for this chat (provider default)';
   q('#bw-working').hidden = !chat.runId;
   q('#bw-run-state').hidden = !chat.runId;
   q('#bw-stop').hidden = !chat.runId;
@@ -383,7 +412,7 @@ function render() {
 
 // ---------- menus ----------
 function hideMenus() {
-  ['#bw-new-menu', '#bw-pin-menu', '#bw-project-menu'].forEach(s => { q(s).hidden = true; });
+  ['#bw-new-menu', '#bw-pin-menu', '#bw-project-menu', '#bw-model-menu', '#bw-effort-menu'].forEach(s => { q(s).hidden = true; });
   ['#bw-plus', '#bw-pins', '#bw-folder-context'].forEach(s => q(s).setAttribute('aria-expanded', 'false'));
   const palette = q('#bw-palette');
   if (!palette.hidden) { palette.hidden = true; if (palette.contains(document.activeElement)) q('#bw-prompt').focus(); }
@@ -391,7 +420,7 @@ function hideMenus() {
 function toggleMenu(menu, button) { const open = q(menu).hidden; hideMenus(); q(menu).hidden = !open; q(button).setAttribute('aria-expanded', String(open)); }
 
 function renderNewMenu() {
-  q('#bw-new-menu').innerHTML = `<h3>Open in this workspace</h3><button data-new="project">${iconHtml('folder-code')}Project editor</button><button data-new="chat">${iconHtml('message-circle')}New side chat</button><button data-new="web">${iconHtml('globe')}Website</button><button data-new="doc">${iconHtml('file-text')}Document</button><button data-new="review">${iconHtml('git-pull-request')}Code review</button><p class="bw-menu-hint"><kbd>Ctrl</kbd>+<kbd>K</kbd> quick open · <kbd>Alt</kbd>+<kbd>N</kbd> this menu · <kbd>Alt</kbd>+<kbd>1–9</kbd> switch tab</p>`;
+  q('#bw-new-menu').innerHTML = `<h3>Open in this workspace</h3><button data-new="project">${iconHtml('folder-code')}Project editor</button><button data-new="chat">${iconHtml('message-circle')}New side chat</button><button data-new="web">${iconHtml('globe')}Website</button><button data-new="doc">${iconHtml('file-text')}Document</button><button data-new="review">${iconHtml('git-pull-request')}Code review</button><button data-new="terminal">${iconHtml('terminal')}Terminal</button><p class="bw-menu-hint"><kbd>Ctrl</kbd>+<kbd>K</kbd> quick open · <kbd>Alt</kbd>+<kbd>N</kbd> this menu · <kbd>Alt</kbd>+<kbd>1–9</kbd> switch tab</p>`;
   q('#bw-new-menu').querySelectorAll('[data-new]').forEach(b => { b.onclick = () => { hideMenus(); openNewTab(b.dataset.new); }; });
 }
 
@@ -462,7 +491,7 @@ async function collectPalette(query) {
   state.order.map(id => state.chats[id]).filter(Boolean).forEach(c => items.push({ group: 'Recent chats', icon: 'message-circle', label: c.title, hint: c.id === state.current ? 'Current' : (c.folder ? basename(c.folder) : 'Switch'), run: () => switchChat(c.id) }));
   items.push({ group: 'New', icon: 'message-circle-plus', label: 'New chat', hint: 'Ctrl+N', run: () => createChat() });
   items.push({ group: 'New', icon: 'file-plus', label: 'New document', hint: 'Ctrl+Shift+N', run: () => createDocument() });
-  [['project', 'Project editor'], ['chat', 'Side chat'], ['web', 'Website'], ['review', 'Code review']].forEach(([type, label]) => items.push({ group: 'New work tab', icon: TYPE_ICON[type], label, hint: 'New', run: () => openNewTab(type) }));
+  [['project', 'Project editor'], ['chat', 'Side chat'], ['web', 'Website'], ['review', 'Code review'], ['terminal', 'Terminal']].forEach(([type, label]) => items.push({ group: 'New work tab', icon: TYPE_ICON[type], label, hint: 'New', run: () => openNewTab(type) }));
   items.push({ group: 'Actions', icon: 'folder-open', label: chat?.folder ? 'Change working folder' : 'Choose working folder', hint: chat?.folder ? basename(chat.folder) : '', run: () => chooseFolder() });
   if (activeTab(ws)) items.push({ group: 'Actions', icon: 'pin', label: 'Pin this workspace', hint: activeTab(ws).title, run: () => addPin(ws.active) });
   items.push({ group: 'Actions', icon: 'settings-2', label: 'Settings', hint: 'Ctrl+,', run: () => openSettings(applySettings) });
@@ -510,6 +539,7 @@ async function createDocument(parent = null) {
 
 // ---------- agent events ----------
 api.agent.onEvent(event => handleAgentEvent(event, {
+  tool: (chat, ev) => controllers.forEach(c => { if (c.type === 'terminal' && c.chatId === chat.id) c.agentEvent(ev); }),
   render: chat => { if (!chat || chat.id === state.current) renderChat(); if (chat?.side) controllers.forEach(c => { if (c.type === 'chat' && c.tab.sideChatId === chat.id) c.render?.(); }); renderSidebar(); },
   renderDelta: chat => { if (chat.id === state.current) { const copy = q('#bw-transcript').querySelectorAll('.bw-agent-copy'); const last = copy[copy.length - 1]; if (last) { renderChat(); } } else if (chat.side) controllers.forEach(c => { if (c.type === 'chat' && c.tab.sideChatId === chat.id) c.render?.(); }); },
   activity: (chat, entry, event) => {
@@ -559,6 +589,15 @@ function wire() {
   q('#bw-new-chat').onclick = () => createChat();
   q('#bw-new-doc').onclick = () => createDocument();
   q('#bw-folder-context').onclick = () => { renderProjectMenu(); toggleMenu('#bw-project-menu', '#bw-folder-context'); };
+  const chipMenu = (chipId, menuId, choices, current, apply, customLabel) => {
+    const menu = q(menuId);
+    menu.innerHTML = `<h3>${esc(customLabel.title)}</h3>` + choices.map(([value, label]) => `<button data-choice="${esc(value)}" aria-selected="${value === (current || '')}">${iconHtml(value === (current || '') ? 'check' : 'chevron-right', 12)}${esc(label)}</button>`).join('') + (customLabel.custom ? `<button data-custom>${iconHtml('square-pen', 12)}${esc(customLabel.custom)}</button>` : '');
+    menu.querySelectorAll('[data-choice]').forEach(b => { b.onclick = () => { apply(b.dataset.choice || null); hideMenus(); renderChat(); save(); }; });
+    menu.querySelector('[data-custom]') && (menu.querySelector('[data-custom]').onclick = () => { const v = prompt(customLabel.prompt, current || ''); if (v != null) { apply(v.trim() || null); renderChat(); save(); } hideMenus(); });
+    toggleMenu(menuId, chipId);
+  };
+  q('#bw-model').onclick = () => { const chat = currentChat(); const provider = providerFor(chat); chipMenu('#bw-model', '#bw-model-menu', MODEL_CHOICES[provider] || [], chat.model, v => { chat.model = v; }, { title: 'Model for this chat', custom: 'Other model id…', prompt: 'Model id (as the provider names it)' }); };
+  q('#bw-effort').onclick = () => { const chat = currentChat(); const provider = providerFor(chat); chipMenu('#bw-effort', '#bw-effort-menu', EFFORT_CHOICES[provider] || [], chat.effort, v => { chat.effort = v; }, { title: 'Reasoning effort' }); };
   q('#bw-provider').onclick = () => { const chat = currentChat(); const order = ['claude', 'codex', 'api']; const current = providerFor(chat); chat.provider = order[(order.indexOf(current) + 1) % order.length]; renderChat(); save(); toast(`This chat now uses ${PROVIDER_LABEL[chat.provider]}`); };
   q('#bw-go-chat').onclick = () => { pauseFollow(); root.classList.add('mobile-chat'); q('#bw-prompt').focus(); };
   q('#bw-mobile-back').onclick = () => { if (state.mode === 'document') { state.mode = 'chat'; render(); } root.classList.toggle('mobile-chat'); };

@@ -29,6 +29,7 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
       const codex = new Codex({ env: { ...process.env }, config: { mcp_servers: { barkdown: { command: spec.command, args: spec.args, env: spec.env, default_tools_approval_mode: 'approve' } } } });
       const threadOptions = { workingDirectory: folder || scratchFolder(storeDir), skipGitRepoCheck: true, sandboxMode: folder ? 'workspace-write' : 'read-only', approvalPolicy: 'on-failure', threadSource: 'barkdown' };
       if (settings.codexModel) threadOptions.model = settings.codexModel;
+      if (settings.effort) threadOptions.modelReasoningEffort = settings.effort;
       const thread = session ? codex.resumeThread(session, threadOptions) : codex.startThread(threadOptions);
       const text = session ? prompt : `${PREAMBLE}\n${folder ? `The working folder is ${folder}. File edits you make are applied directly inside it and shown to the person as a review.` : 'This chat has no working folder; do not touch files.'}\n\n${prompt}`;
       const input = images?.length ? [{ type: 'text', text: text || 'See the attached image.' }, ...images.map(image => ({ type: 'local_image', path: image.path }))] : text;
@@ -49,11 +50,11 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
             if (event.type === 'item.completed') run.emit({ type: 'text_break' });
           } else if (item.type === 'command_execution') {
             if (event.type === 'item.started') run.emit({ type: 'tool_start', tool: 'Bash', input: { command: item.command }, toolUseId: item.id });
-            if (event.type === 'item.completed') run.emit({ type: 'tool_result', tool: 'Bash', toolUseId: item.id, ok: item.status !== 'failed', preview: String(item.aggregated_output || '').slice(0, 240) });
+            if (event.type === 'item.completed') run.emit({ type: 'tool_result', tool: 'Bash', toolUseId: item.id, ok: item.status !== 'failed', preview: String(item.aggregated_output || '').slice(0, 240), output: String(item.aggregated_output || '').slice(0, 30000) });
           } else if (item.type === 'file_change' && event.type === 'item.completed') {
             for (const change of item.changes || []) {
               const rel = relativeTo(folder, change.path) || change.path;
-              run.emit({ type: 'tool_start', tool: 'Edit', input: { file_path: rel }, toolUseId: item.id + ':' + rel });
+              run.emit({ type: 'tool_start', tool: 'Edit', input: { file_path: rel }, kind: change.kind, toolUseId: item.id + ':' + rel });
               run.emit({ type: 'tool_result', tool: 'Edit', toolUseId: item.id + ':' + rel, ok: item.status !== 'failed', preview: `${change.kind} ${rel}` });
               run.emit({ type: 'activity', target: { kind: 'project', path: rel, title: path.basename(rel) }, label: `${change.kind === 'add' ? 'Created' : change.kind === 'delete' ? 'Deleted' : 'Edited'} ${path.basename(rel)}`, detail: rel, fileChanged: rel });
             }
@@ -63,7 +64,7 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
             if (event.type === 'item.started') { run.emit({ type: 'tool_start', tool: name, input: args, toolUseId: item.id }); if (item.server === 'barkdown' && (name === 'read_document' || name === 'open_website' || name === 'open_project_file')) { const activity = activityForTool(run, name, { ...args, __barkdown: true }); if (activity) run.emit(activity); } }
             if (event.type === 'item.completed') {
               const preview = item.error ? item.error.message : (item.result?.content || []).map(c => c.text || '').join(' ');
-              run.emit({ type: 'tool_result', tool: name, toolUseId: item.id, ok: !item.error && item.status !== 'failed', preview: String(preview).slice(0, 240) });
+              run.emit({ type: 'tool_result', tool: name, toolUseId: item.id, ok: !item.error && item.status !== 'failed', preview: String(preview).slice(0, 240), output: String(preview).slice(0, 30000) });
               if (item.server === 'barkdown') { if (name === 'propose_document_edit' || name === 'create_document') { const activity = activityForTool(run, name, { ...args, __barkdown: true }); if (activity) run.emit({ ...activity, proposalId: name === 'propose_document_edit' ? 'pending' : undefined }); } run.emit({ type: 'library_changed' }); }
             }
           } else if (item.type === 'web_search' && event.type === 'item.started') run.emit({ type: 'tool_start', tool: 'WebSearch', input: { query: item.query }, toolUseId: item.id });

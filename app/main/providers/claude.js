@@ -50,6 +50,7 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
       };
       if (!folder) options.tools = ['WebFetch', 'WebSearch', 'TodoWrite'];
       if (settings.claudeModel) options.model = settings.claudeModel;
+      if (settings.effort) options.effort = settings.effort;
       if (session) options.resume = session;
       // With images the prompt is one streamed user message carrying image blocks; the SDK closes its
       // input after the first result, so the turn still ends normally.
@@ -85,7 +86,7 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
               const { name, input } = pendingTools.get(block.tool_use_id);
               pendingTools.delete(block.tool_use_id);
               const preview = typeof block.content === 'string' ? block.content : (block.content || []).map(c => c.text || '').join(' ');
-              run.emit({ type: 'tool_result', tool: name.replace(/^mcp__barkdown__/, ''), toolUseId: block.tool_use_id, ok: !block.is_error, preview: String(preview).slice(0, 240) });
+              run.emit({ type: 'tool_result', tool: name.replace(/^mcp__barkdown__/, ''), toolUseId: block.tool_use_id, ok: !block.is_error, preview: String(preview).slice(0, 240), output: String(preview).slice(0, 30000) });
               if (!block.is_error && (name === 'mcp__barkdown__propose_document_edit' || name === 'mcp__barkdown__create_document')) { const activity = activityForTool(run, name, input); if (activity) run.emit({ ...activity, proposalId: name.endsWith('propose_document_edit') ? 'pending' : undefined }); }
               if (name.startsWith('mcp__barkdown__')) run.emit({ type: 'library_changed' });
             }

@@ -1,6 +1,7 @@
 // Conversation rendering and agent runs, shared by the main chat and side chats.
 import { el, esc, iconHtml, inlineMarkdownHtml, relativeTime, toast } from './ui.js';
 import { state, touch, save, serialise, chatTitleFrom } from './state.js';
+import { lineDiff, summariseChanges, changeHeadline } from '../../shared/changes.js';
 
 export const PROVIDER_LABEL = { claude: 'Claude Code', codex: 'Codex', api: 'Claude API key' };
 export function providerFor(chat) { return chat.provider || state.settings?.provider || 'api'; }
@@ -15,16 +16,48 @@ export function transcriptHtml(chat, options = {}) {
   return chat.messages.map((m, index) => {
     if (m.role === 'user') {
       const images = (m.images || []).length ? `<div class="bw-user-images">${m.images.map(i => `<img src="${esc(i.url)}" alt="${esc(i.name || 'Attached image')}" title="${esc(i.name || '')}" data-lightbox="${esc(i.url)}">`).join('')}</div>` : '';
-      return `<div class="bw-byline"><span class="bw-avatar">${esc(options.initials || 'FJ')}</span>You<time>${esc(relativeTime(m.at))}</time></div><div class="bw-user-message${m.text ? '' : ' bw-user-message--images'}">${images}${esc(m.text)}</div>`;
+      return `<div class="bw-user-message${m.text ? '' : ' bw-user-message--images'}" title="${esc(relativeTime(m.at))}">${images}${esc(m.text)}</div>`;
     }
-    const tools = (m.tools || []).map(t => `<div class="bw-tool ${t.ok === false ? 'error' : ''}">${iconHtml(t.ok === false ? 'alert-triangle' : t.done ? 'circle-check' : 'wrench', 12)}<span>${esc(describeTool(t))}</span></div>`).join('');
+    const steps = (m.tools || []).map((t, n) => stepHtml(t, index, n)).join('');
     const events = (m.events || []).map((e, n) => `<button class="bw-event" data-event="${index}:${n}">${iconHtml(TARGET_ICON[e.target?.kind] || 'sparkles')}<span>${esc(e.label)}<small>${esc(e.detail || '')}</small></span></button>`).join('');
     const approvals = (m.approvals || []).filter(a => a.status === 'pending').map(a => `<div class="bw-approval" data-approval="${esc(a.approvalId)}"><strong>${a.request.kind === 'command' ? 'Allow running a command?' : a.request.outside ? `Allow ${esc(a.request.tool)} outside the working folder: ${esc(a.request.path)}?` : `Allow writing ${esc(a.request.path || a.request.tool)}?`}</strong><span class="bw-muted">${esc(a.request.summary || '')}</span><pre>${esc(String(a.request.command || a.request.contents || '').slice(0, 4000))}</pre><div class="row"><button class="primary" data-approve="1">Allow</button><button data-approve="0">Decline</button></div></div>`).join('');
     const error = m.error ? `<p class="bw-error-line">${esc(m.error)}</p>` : '';
     const notes = (m.notes || []).map(n => `<p class="bw-error-line">${esc(n)}</p>`).join('');
-    const meta = m.provider && !m.streaming ? `<span class="bw-small bw-muted"> · ${esc(PROVIDER_LABEL[m.provider] || m.provider)}${m.usage?.cost ? ' · $' + m.usage.cost.toFixed(3) : ''}</span>` : '';
-    return `<div class="bw-byline"><span class="bw-avatar bw-agent">b</span>Barkdown${meta}<time>${esc(relativeTime(m.at))}</time></div>${tools}${events}${approvals}<div class="bw-agent-copy">${inlineMarkdownHtml(m.text || '')}${m.streaming && !m.text ? '<span class="bw-muted">Thinking…</span>' : ''}</div>${notes}${error}`;
+    const meta = m.provider && !m.streaming ? `<span class="bw-muted"> · ${esc(PROVIDER_LABEL[m.provider] || m.provider)}${m.usage?.cost ? ' · $' + m.usage.cost.toFixed(3) : ''}</span>` : '';
+    const changes = m.streaming ? '' : changeCardHtml(m, index);
+    return `<div class="bw-byline"><span class="bw-avatar bw-agent">b</span>Barkdown${meta}<time>${esc(relativeTime(m.at))}</time></div>${steps}${events}${approvals}<div class="bw-agent-copy">${inlineMarkdownHtml(m.text || '')}${m.streaming && !m.text ? '<span class="bw-muted">Thinking…</span>' : ''}</div>${changes}${notes}${error}`;
   }).join('') + (options.footer || '');
+}
+
+const OUTPUT_CAP = 6000;
+function clipOut(text) { const s = String(text ?? ''); return s.length > OUTPUT_CAP ? s.slice(0, OUTPUT_CAP) + `\n… ${s.length - OUTPUT_CAP} more characters` : s; }
+function diffHtml(lines) { return `<pre class="bw-diff">${lines.map(l => `<span class="${l.kind}">${l.kind === 'add' ? '+' : l.kind === 'del' ? '−' : ' '} ${esc(l.text)}</span>`).join('')}</pre>`; }
+function kv(input, skip = []) { return Object.entries(input || {}).filter(([k]) => !skip.includes(k) && !k.startsWith('__')).map(([k, v]) => `<div class="bw-kv"><b>${esc(k)}</b> ${esc(typeof v === 'string' ? v : JSON.stringify(v))}</div>`).join(''); }
+
+// One expandable step per tool call: what ran, what it printed, what it changed.
+function stepHtml(t, mi, n) {
+  const input = t.input || {};
+  const state = t.ok === false ? 'error' : t.done ? 'done' : 'running';
+  const icon = t.ok === false ? 'alert-triangle' : t.done ? 'circle-check' : 'wrench';
+  let body = '';
+  switch (t.tool) {
+    case 'Bash': body = `<pre class="bw-cmd">$ ${esc(input.command || '')}</pre>${t.output != null || t.preview ? `<pre class="bw-out">${esc(clipOut(t.output ?? t.preview))}</pre>` : ''}`; break;
+    case 'Edit': body = `<div class="bw-kv"><b>file</b> ${esc(input.file_path || '')}</div>${diffHtml(lineDiff(input.old_string || '', input.new_string || ''))}`; break;
+    case 'MultiEdit': body = `<div class="bw-kv"><b>file</b> ${esc(input.file_path || '')}</div>` + (input.edits || []).map(e => diffHtml(lineDiff(e.old_string || '', e.new_string || ''))).join(''); break;
+    case 'Write': case 'write_file': { const text = input.content ?? input.contents ?? ''; body = `<div class="bw-kv"><b>file</b> ${esc(input.file_path || input.path || '')}</div>${diffHtml(String(clipOut(text)).split('\n').map(text => ({ kind: 'add', text })))}`; break; }
+    case 'NotebookEdit': body = `<div class="bw-kv"><b>notebook</b> ${esc(input.notebook_path || '')}</div>${diffHtml(String(input.new_source || '').split('\n').map(text => ({ kind: 'add', text })))}`; break;
+    default: body = kv(input) + (t.output != null || t.preview ? `<pre class="bw-out">${esc(clipOut(t.output ?? t.preview))}</pre>` : '');
+  }
+  return `<details class="bw-step ${state}" data-step="${mi}:${n}"><summary>${iconHtml(icon, 12)}<span>${esc(describeTool(t))}</span>${state === 'running' ? '<i class="bw-pulse"></i>' : ''}</summary><div class="bw-step-body">${body}</div></details>`;
+}
+
+// The change card under a reply: every file and document it touched, with counts, View and Undo.
+function changeCardHtml(m, index) {
+  const summary = summariseChanges(m.tools || [], m.events || []);
+  if (!summary.total) return '';
+  const files = summary.files.map(f => `<div class="bw-change"><span class="bw-change-icon">${iconHtml('file-code', 12)}</span><span class="bw-change-path" title="${esc(f.path)}">${esc(f.path)}</span><span class="bw-change-counts">${f.known ? `<b class="bw-positive">+${f.additions}</b> <b class="bw-negative">−${f.deletions}</b>` : `<span class="bw-muted">${esc(f.kinds.join(', ') || 'changed')}</span>`}</span><button data-view-file="${esc(f.path)}" title="Open the file in the project editor">View</button><button data-undo-file="${esc(f.path)}" title="Restore the file from git, or remove it if it is new">Undo</button></div>`).join('');
+  const docs = summary.docs.map(d => `<div class="bw-change"><span class="bw-change-icon">${iconHtml('file-text', 12)}</span><span class="bw-change-path">${esc(d.title)}</span><span class="bw-change-counts"><span class="bw-muted">${d.kind === 'created' ? 'created' : 'proposal to review'}</span></span><button data-view-doc="${esc(d.id)}" data-doc-source="${esc(d.source)}" title="Open the document">${d.kind === 'created' ? 'View' : 'Review'}</button></div>`).join('');
+  return `<div class="bw-changes" data-changes="${index}"><div class="bw-changes-head"><span>${esc(changeHeadline(summary))}</span>${summary.files.some(f => f.known) ? `<b class="bw-positive">+${summary.additions}</b><b class="bw-negative">−${summary.deletions}</b>` : ''}</div>${files}${docs}</div>`;
 }
 
 function describeTool(t) {
@@ -93,7 +126,7 @@ export async function sendMessage(chat, text, hooks, images = []) {
     const messages = apiMessagesFor(chat);
     const provider = providerFor(chat);
     chat.sessions = chat.sessions || {};
-    const { runId } = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title }, provider, chat.sessions[provider] || null, clean, attached);
+    const { runId } = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title }, provider, chat.sessions[provider] || null, clean, attached, { model: chat.model || undefined, effort: chat.effort || undefined });
     chat.runProvider = provider;
     chat.runId = runId;
     hooks.runChanged(chat);
@@ -120,8 +153,8 @@ export function handleAgentEvent(event, hooks) {
     case 'error_note': reply.notes = [...(reply.notes || []), event.message]; hooks.render(chat); break;
     case 'library_changed': hooks.libraryChanged?.(); break;
     case 'text_break': if (reply.text && !reply.text.endsWith('\n')) reply.text += '\n\n'; break;
-    case 'tool_start': reply.tools.push({ tool: event.tool, input: event.input, id: event.toolUseId, done: false }); hooks.render(chat); break;
-    case 'tool_result': { const t = reply.tools.find(t => t.id === event.toolUseId); if (t) { t.done = true; t.ok = event.ok; } hooks.render(chat); break; }
+    case 'tool_start': reply.tools.push({ tool: event.tool, input: event.input, kind: event.kind, id: event.toolUseId, done: false }); hooks.tool?.(chat, event); hooks.render(chat); break;
+    case 'tool_result': { const t = reply.tools.find(t => t.id === event.toolUseId); if (t) { t.done = true; t.ok = event.ok; t.preview = event.preview; if (event.output != null) t.output = event.output; } hooks.tool?.(chat, event); hooks.render(chat); break; }
     case 'activity': {
       const entry = { label: event.label, detail: event.detail, target: event.target, at: new Date().toISOString(), proposalId: event.proposalId };
       reply.events.push(entry);

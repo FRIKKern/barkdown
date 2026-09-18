@@ -30,7 +30,7 @@
       <div class="bw-compose-foot">
         <button type="button" class="bw-folder-chip" id="bw-folder-context" aria-label="Agent working folder"><i data-lucide="folder-open"></i><span id="bw-folder-label">No working folder</span><i data-lucide="chevron-down"></i></button>
         <button type="button" class="bw-folder-chip bw-attach" id="bw-attach" title="Attach an image · or paste / drop one" aria-label="Attach an image"><i data-lucide="image"></i></button><input type="file" id="bw-attach-input" accept="image/png,image/jpeg,image/gif,image/webp" multiple hidden>
-        <button type="button" class="bw-folder-chip" id="bw-provider" title="Assistant provider for this chat"><i data-lucide="sparkles"></i><span id="bw-provider-label">Assistant</span></button><span class="bw-working" id="bw-working" hidden><span class="bw-pulse"></span>Working…</span>
+        <button type="button" class="bw-folder-chip" id="bw-provider" title="Assistant provider for this chat"><i data-lucide="sparkles"></i><span id="bw-provider-label">Assistant</span></button><button type="button" class="bw-folder-chip" id="bw-model" title="Model for this chat"><i data-lucide="cpu"></i><span id="bw-model-label">Model</span></button><button type="button" class="bw-folder-chip" id="bw-effort" title="Reasoning effort for this chat"><i data-lucide="gauge"></i><span id="bw-effort-label">Effort</span></button><span class="bw-working" id="bw-working" hidden><span class="bw-pulse"></span>Working…</span>
         <span class="bw-spacer"></span>
         <button type="button" class="bw-stop" id="bw-stop" hidden title="Stop the run">Stop</button>
         <button class="bw-send" id="bw-send" aria-label="Send message" title="Send · Enter">↑</button>
@@ -40,6 +40,8 @@
   <section class="bw-workspace" id="bw-workspace" aria-label="Active work tab"></section>
   <button class="bw-splitter" id="bw-splitter" role="separator" aria-orientation="vertical" aria-label="Conversation width" aria-valuemin="40" aria-valuemax="70" aria-valuenow="60" title="Drag to resize · double-click to reset"></button>
   <div class="bw-menu" id="bw-new-menu" hidden></div>
+  <div class="bw-menu bw-menu-chip" id="bw-model-menu" hidden></div>
+  <div class="bw-menu bw-menu-chip" id="bw-effort-menu" hidden></div>
   <div class="bw-lightbox" id="bw-lightbox" hidden role="dialog" aria-label="Image preview"><img alt=""></div>
   <div class="bw-menu" id="bw-pin-menu" hidden></div>
   <div class="bw-menu" id="bw-project-menu" hidden></div>

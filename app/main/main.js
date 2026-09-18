@@ -7,6 +7,7 @@ const files = require('./files');
 const git = require('./git');
 const agent = require('./agent');
 const barkpark = require('./barkpark');
+const terminal = require('./terminal');
 const claudeProvider = require('./providers/claude');
 const codexProvider = require('./providers/codex');
 
@@ -151,6 +152,12 @@ function registerIpc() {
   handle('git:status', root => git.status(root));
   handle('git:diff', ({ root, base, staged, path: rel }) => git.diff(root, { base, staged, path: rel }));
   handle('git:log', root => git.log(root));
+  handle('git:revertFile', ({ root, path: rel }) => git.revertFile(root, rel));
+
+  // Terminal work tabs: one shell per tab, output streamed back as term:data events.
+  handle('term:start', ({ id, root }) => terminal.start({ id, root, send: event => win?.webContents.send('term:data', event) }));
+  handle('term:input', ({ id, line }) => terminal.input(id, line));
+  handle('term:stop', id => terminal.stop(id));
 
   handle('providers:status', () => providerStatus());
   // Pasted or dropped images land as files under userData/attachments; messages keep the path, and the
@@ -170,10 +177,13 @@ function registerIpc() {
     fs.writeFileSync(file, bytes);
     return { id, path: file, url: 'file:///' + file.replace(/\\/g, '/').replace(/^\//, ''), name: name || id + '.' + ext, mime: type, size: bytes.length };
   });
-  handle('agent:start', ({ chatId, messages, context, provider, session, prompt, images }) => {
+  handle('agent:start', ({ chatId, messages, context, provider, session, prompt, images, options }) => {
     const s = readSettings();
     const chosen = provider || s.provider || defaultProvider();
-    return agent.start({ chatId, messages, prompt, images, context, provider: chosen, session, storeDir: store.dir(), settings: { apiKey: decrypt(s.apiKeyEncrypted), model: s.model, claudeModel: s.claudeModel, codexModel: s.codexModel }, send: event => { if (event.type === 'library_changed') documents.loadAll(); win?.webContents.send('agent:event', event); } });
+    const o = options || {};
+    // A chat's own model and effort win over the settings defaults.
+    const settings = { apiKey: decrypt(s.apiKeyEncrypted), model: chosen === 'api' ? (o.model || s.model) : s.model, claudeModel: chosen === 'claude' ? (o.model || s.claudeModel) : s.claudeModel, codexModel: chosen === 'codex' ? (o.model || s.codexModel) : s.codexModel, effort: o.effort || undefined };
+    return agent.start({ chatId, messages, prompt, images, context, provider: chosen, session, storeDir: store.dir(), settings, send: event => { if (event.type === 'library_changed') documents.loadAll(); win?.webContents.send('agent:event', event); } });
   });
   handle('agent:cancel', runId => agent.cancel(runId));
   handle('agent:approve', ({ runId, approvalId, approved }) => agent.respondApproval(runId, approvalId, approved));
@@ -214,4 +224,5 @@ app.whenReady().then(() => {
   app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); });
 });
 
+app.on('will-quit', () => terminal.stopAll());
 app.on('window-all-closed', () => { if (process.platform !== 'darwin') app.quit(); });

@@ -249,7 +249,7 @@ async function startApi({ chatId, messages, context, settings, send, images }) {
           let output;
           let isError = false;
           try { output = await executeTool(run, use.name, use.input || {}); } catch (error) { output = `Error: ${error.message}`; isError = true; }
-          run.emit({ type: 'tool_result', tool: use.name, toolUseId: use.id, ok: !isError, preview: String(output).slice(0, 240) });
+          run.emit({ type: 'tool_result', tool: use.name, toolUseId: use.id, ok: !isError, preview: String(output).slice(0, 240), output: String(output).slice(0, 30000) });
           results.push({ type: 'tool_result', tool_use_id: use.id, content: String(output).slice(0, 60000), is_error: isError || undefined });
         }
         history.push({ role: 'user', content: results });

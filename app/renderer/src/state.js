@@ -26,7 +26,7 @@ export function newChat({ title = 'New chat', folder = null, side = false, paren
 }
 
 export function newTab(type, extra = {}) {
-  const titles = { doc: 'Document', web: 'Website', review: 'Review', project: 'Project', chat: 'New chat' };
+  const titles = { doc: 'Document', web: 'Website', review: 'Review', project: 'Project', chat: 'New chat', terminal: 'Terminal' };
   return { id: uid(), type, title: titles[type] || 'Tab', path: [], url: '', file: '', treeOpen: false, scroll: 0, unread: false, ...extra };
 }
 

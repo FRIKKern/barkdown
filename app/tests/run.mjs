@@ -143,6 +143,43 @@ try {
   await page.locator('#bw-tabs [data-pin]').first().dispatchEvent('click');
   step('pin recorded', (await page.locator('#bw-pin-menu [data-restore]').count()) === 1);
   await page.keyboard.press('Escape');
+  // Verbose transcript: a reply with tool steps renders expandable steps with the command, its output and a
+  // line diff, plus a change card with counts and View/Undo per file.
+  await page.evaluate(() => { const chat = window.__barkdown.state.chats[window.__barkdown.state.current]; chat.messages.push({ role: 'assistant', text: 'Done.', at: new Date().toISOString(), streaming: false, provider: 'claude', tools: [
+    { tool: 'Bash', input: { command: 'npm test' }, id: 't1', done: true, ok: true, output: 'All 3 checks passed.' },
+    { tool: 'Edit', input: { file_path: 'src/app.js', old_string: 'const a = 1;', new_string: 'const a = 2;\nconst b = 3;' }, id: 't2', done: true, ok: true },
+    { tool: 'Write', input: { file_path: 'src/new.js', content: 'export const x = 1;' }, id: 't3', done: true, ok: true },
+  ], events: [{ label: 'Proposed a change to Overview', target: { kind: 'doc', id: 'overview', title: 'Overview' }, at: new Date().toISOString() }], approvals: [] }); window.__barkdown.render(); });
+  step('tool calls render as steps', (await page.locator('.bw-step').count()) === 3);
+  await page.locator('.bw-step').nth(0).locator('summary').click();
+  step('a step opens to show the command and its output', (await page.locator('.bw-step').nth(0).locator('.bw-cmd').innerText()).includes('npm test') && (await page.locator('.bw-step').nth(0).locator('.bw-out').innerText()).includes('All 3 checks passed'));
+  await page.locator('.bw-step').nth(1).locator('summary').click();
+  step('an edit step shows a line diff', (await page.locator('.bw-step').nth(1).locator('.bw-diff .add').count()) === 2 && (await page.locator('.bw-step').nth(1).locator('.bw-diff .del').count()) === 1);
+  step('the change card lists files and the document with counts', (await page.locator('.bw-changes-head').innerText()).includes('Edited 2 files · 1 document') && (await page.locator('.bw-change').count()) === 3 && (await page.locator('.bw-change').nth(0).innerText()).includes('+2') && (await page.locator('[data-undo-file]').count()) === 2);
+  await page.screenshot({ path: path.join(out, '02c-verbose-reply.png') });
+
+  // Model and effort chips set the chat's own choices.
+  await page.locator('#bw-model').click();
+  await page.locator('#bw-model-menu [data-choice="claude-sonnet-5"]').click();
+  step('model chip stores the chat model', (await page.locator('#bw-model-label').innerText()) === 'Sonnet 5' && (await page.evaluate(() => window.__barkdown.state.chats[window.__barkdown.state.current].model)) === 'claude-sonnet-5');
+  // Effort exists for the login providers only; the offline run uses the API loop, so switch the chat to Claude Code for the chip.
+  await page.evaluate(() => { const chat = window.__barkdown.state.chats[window.__barkdown.state.current]; chat.provider = 'claude'; window.__barkdown.render(); });
+  await page.locator('#bw-effort').click();
+  await page.locator('#bw-effort-menu [data-choice="high"]').click();
+  step('effort chip stores the chat effort', (await page.evaluate(() => window.__barkdown.state.chats[window.__barkdown.state.current].effort)) === 'high');
+  await page.evaluate(() => { const chat = window.__barkdown.state.chats[window.__barkdown.state.current]; chat.provider = 'api'; window.__barkdown.render(); });
+
+  // Terminal work tab: a shell in the working folder that runs what is typed.
+  await page.evaluate(() => window.__barkdown.openTarget({ kind: 'terminal' }));
+  await page.waitForSelector('.bw-terminal #in', { timeout: 10000 });
+  await page.locator('.bw-terminal #in').fill('echo hello-from-terminal');
+  await page.locator('.bw-terminal #in').press('Enter');
+  await page.waitForFunction(() => (document.querySelector('.bw-terminal .bw-term-out')?.textContent || '').includes('hello-from-terminal\n'), null, { timeout: 20000 }).catch(() => {});
+  const termText = await page.locator('.bw-terminal .bw-term-out').innerText();
+  if (termText.split('hello-from-terminal').length < 3) console.log('TERM DEBUG', JSON.stringify(termText.slice(0, 400)));
+  step('terminal tab runs a command and shows its output', termText.split('hello-from-terminal').length >= 3);
+  await page.screenshot({ path: path.join(out, '02d-terminal.png') });
+
   // Ctrl+W is a menu accelerator that closes the active work tab, not the window.
   const tabsBeforeClose = await page.locator('#bw-tabs [data-tab]').count();
   await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].webContents.send('menu', 'close-tab'));
