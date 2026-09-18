@@ -118,6 +118,8 @@ function renderWorkspace() {
 function renderTabs() {
   const chat = workspaceChat();
   const nav = q('#bw-tabs');
+  // The work panel is something you open: with no tabs in a chat it stays collapsed and the chat takes the width.
+  root.classList.toggle('bw-nowork', state.mode !== 'document' && !chat?.editorExpanded && !(chat?.tabs?.length));
   nav.innerHTML = (chat?.tabs || []).map(t => {
     const dirty = t.type === 'project' && chat.folder && dirtyCount(chat.folder) > 0;
     const title = t.type === 'doc' ? t.path.map(id => documentSummary(id, t.source)?.title || id).join(' → ') : t.type === 'web' ? t.url || t.title : t.title;
@@ -417,7 +419,7 @@ function render() {
 // ---------- menus ----------
 function hideMenus() {
   ['#bw-new-menu', '#bw-pin-menu', '#bw-project-menu', '#bw-model-menu', '#bw-effort-menu'].forEach(s => { q(s).hidden = true; });
-  ['#bw-plus', '#bw-pins', '#bw-folder-context'].forEach(s => q(s).setAttribute('aria-expanded', 'false'));
+  ['#bw-plus', '#bw-pins', '#bw-folder-context', '#bw-open-work'].forEach(s => q(s).setAttribute('aria-expanded', 'false'));
   const palette = q('#bw-palette');
   if (!palette.hidden) { palette.hidden = true; if (palette.contains(document.activeElement)) q('#bw-prompt').focus(); }
 }
@@ -588,6 +590,7 @@ function wireSplitter() {
 function wire() {
   renderNewMenu();
   q('#bw-plus').onclick = () => toggleMenu('#bw-new-menu', '#bw-plus');
+  q('#bw-open-work').onclick = () => toggleMenu('#bw-new-menu', '#bw-open-work');
   q('#bw-pins').onclick = () => { renderPins(); toggleMenu('#bw-pin-menu', '#bw-pins'); };
   q('#bw-settings').onclick = () => openSettings(applySettings);
   q('#bw-new-chat').onclick = () => createChat();

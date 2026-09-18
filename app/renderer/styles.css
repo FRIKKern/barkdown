@@ -132,3 +132,13 @@ h1,h2,h3,p{margin:0}
 .bw-menu-chip{width:230px}.bw-menu-chip button[aria-selected="true"]{color:var(--bw-accent)}
 .bw-terminal{display:flex;flex-direction:column;min-height:0;background:light-dark(#fbfaf5,#141613)}.bw-term-out{flex:1;min-height:0;overflow:auto;margin:0;padding:10px 14px;font-family:Consolas,'Cascadia Code',monospace;font-size:12px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--bw-text)}.bw-term-out .bw-term-cmd{color:var(--bw-accent);font-weight:600}.bw-term-out .bw-term-err{color:var(--bw-delete)}.bw-term-out .bw-term-meta{color:var(--bw-muted)}.bw-term-out .bw-term-agent{color:var(--bw-warn);font-weight:600}.bw-term-out .bw-term-agent-out{color:var(--bw-muted)}
 .bw-term-form{display:flex;gap:8px;align-items:center;padding:8px 14px;border-top:1px solid var(--bw-border)}.bw-term-prompt{font-family:Consolas,monospace;color:var(--bw-accent)}.bw-term-form input{flex:1;background:transparent;border:0;outline:0;font-family:Consolas,'Cascadia Code',monospace;font-size:12px;color:var(--bw-text)}
+
+/* collapsed work panel: nothing to show, so the chat has the width */
+.bw-open-work{display:none}
+.bw.bw-nowork{grid-template-columns:var(--bw-sidebar) minmax(0,1fr) 0}
+.bw.bw-nowork .bw-workbar,.bw.bw-nowork .bw-workspace,.bw.bw-nowork .bw-splitter{display:none}
+.bw.bw-nowork .bw-context,.bw.bw-nowork .bw-chat{border-right:0}
+.bw.bw-nowork .bw-open-work{display:inline-flex}
+.bw.bw-nowork .bw-transcript{padding-inline:max(20px,calc((100% - 880px) / 2))}
+.bw.bw-nowork .bw-composer{margin-inline:max(12px,calc((100% - 880px) / 2))}
+@media(max-width:760px){.bw.bw-nowork{grid-template-columns:minmax(0,1fr) 0}}

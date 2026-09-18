@@ -188,6 +188,10 @@ try {
   const tabsBefore = await page.locator('#bw-tabs [data-tab]').count();
   await page.evaluate(() => window.__barkdown.createChat());
   step('new chat starts with an empty workspace', (await page.locator('#bw-tabs [data-tab]').count()) === 0);
+  step('an empty workspace collapses and the chat takes the width', await page.evaluate(() => document.getElementById('app').classList.contains('bw-nowork') && getComputedStyle(document.querySelector('.bw-workspace')).display === 'none' && getComputedStyle(document.getElementById('bw-open-work')).display !== 'none'));
+  await page.locator('#bw-open-work').click();
+  step('the open-work button offers the work tab menu', await page.locator('#bw-new-menu').isVisible());
+  await page.keyboard.press('Escape'); await page.evaluate(() => document.body.click());
   await page.locator('#bw-recent-chats [data-context]').nth(1).click();
   step('switching back restores the workspace', (await page.locator('#bw-tabs [data-tab]').count()) === tabsBefore);
   await page.reload();
