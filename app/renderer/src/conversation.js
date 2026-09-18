@@ -148,7 +148,13 @@ export function handleAgentEvent(event, hooks) {
   switch (event.type) {
     case 'text_delta': reply.text = (reply.text || '') + event.text; hooks.renderDelta(chat); break;
     case 'text_replace': reply.text = event.text; hooks.renderDelta(chat); break;
-    case 'status': if (event.model) reply.model = event.model; break;
+    case 'status': {
+      if (event.model) reply.model = event.model;
+      // What the provider actually used tells the chips what "default" means.
+      const seen = state.settings?.providers?.[chat.runProvider || providerFor(chat)];
+      if (seen) { if (event.model) seen.modelSeen = event.model; if (event.effort) seen.effortSeen = event.effort; }
+      break;
+    }
     case 'usage': reply.usage = event; break;
     case 'error_note': reply.notes = [...(reply.notes || []), event.message]; hooks.render(chat); break;
     case 'library_changed': hooks.libraryChanged?.(); break;

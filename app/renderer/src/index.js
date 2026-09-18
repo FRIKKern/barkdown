@@ -23,15 +23,23 @@ const CODEX_MODELS = [['gpt-6-astra', 'GPT-6 Astra'], ['gpt-6', 'GPT-6'], ['gpt-
 // The default rows name what the provider would use on its own: Codex reads ~/.codex/config.toml.
 function modelChoices(provider) {
   const codexDefault = state.settings?.providers?.codex?.model;
-  if (provider === 'claude') return [['', 'Claude Code default'], ...CLAUDE_MODELS];
+  if (provider === 'claude') { const seen = state.settings?.providers?.claude?.modelSeen; return [['', seen ? `Claude Code default (${seen})` : 'Claude Code default'], ...CLAUDE_MODELS.filter(([id]) => id !== seen)]; }
   if (provider === 'codex') return [['', codexDefault ? `Codex default (${codexDefault})` : 'Codex default'], ...CODEX_MODELS.filter(([id]) => id !== codexDefault)];
   return [['', `Settings default${state.settings?.model ? ' (' + state.settings.model + ')' : ''}`], ...CLAUDE_MODELS];
 }
-const EFFORT_CHOICES = {
-  claude: [['', 'Default effort'], ['low', 'Low'], ['medium', 'Medium'], ['high', 'High'], ['xhigh', 'Extra high'], ['max', 'Max']],
-  codex: [['', 'Default effort'], ['minimal', 'Minimal'], ['low', 'Low'], ['medium', 'Medium'], ['high', 'High'], ['xhigh', 'Extra high']],
-  api: [],
+const EFFORT_LEVELS = {
+  claude: [['low', 'Low'], ['medium', 'Medium'], ['high', 'High'], ['xhigh', 'Extra high'], ['max', 'Max']],
+  codex: [['minimal', 'Minimal'], ['low', 'Low'], ['medium', 'Medium'], ['high', 'High'], ['xhigh', 'Extra high']],
 };
+// The default row names the effort the provider uses on its own: what its last run reported, else
+// what its own config says (Claude Code: settings.json or high; Codex: config.toml or medium).
+function effortChoices(provider) {
+  const levels = EFFORT_LEVELS[provider];
+  if (!levels) return [];
+  const p = state.settings?.providers?.[provider] || {};
+  const current = p.effortSeen || p.effort;
+  return [['', current ? `Default (${levels.find(([v]) => v === current)?.[1]?.toLowerCase() || current})` : 'Default'], ...levels];
+}
 const controllers = new Map(); // tab.id -> mounted controller
 const DIRECT = 'direct';
 
@@ -354,7 +362,7 @@ function renderChat() {
   const modelLabel = (modelChoices(provider)).find(([v]) => v === (chat.model || ''))?.[1] || chat.model || 'Model';
   q('#bw-model-label').textContent = chat.model ? modelLabel : 'Model';
   q('#bw-model').title = chat.model ? `Model for this chat: ${chat.model}` : 'Model for this chat (provider default)';
-  const efforts = EFFORT_CHOICES[provider] || [];
+  const efforts = effortChoices(provider);
   q('#bw-effort').hidden = !efforts.length;
   q('#bw-effort-label').textContent = chat.effort ? (efforts.find(([v]) => v === chat.effort)?.[1] || chat.effort) : 'Effort';
   q('#bw-effort').title = chat.effort ? `Reasoning effort for this chat: ${chat.effort}` : 'Reasoning effort for this chat (provider default)';
@@ -606,7 +614,7 @@ function wire() {
     if (!menu.hidden) { const r = q(chipId).getBoundingClientRect(); menu.style.position = 'fixed'; menu.style.right = 'auto'; menu.style.bottom = 'auto'; menu.style.left = Math.max(8, Math.min(r.left, innerWidth - menu.offsetWidth - 8)) + 'px'; menu.style.top = Math.max(8, r.top - menu.offsetHeight - 8) + 'px'; }
   };
   q('#bw-model').onclick = () => { const chat = currentChat(); const provider = providerFor(chat); chipMenu('#bw-model', '#bw-model-menu', modelChoices(provider), chat.model, v => { chat.model = v; }, { title: 'Model for this chat', custom: 'Other model id…', prompt: 'Model id (as the provider names it)' }); };
-  q('#bw-effort').onclick = () => { const chat = currentChat(); const provider = providerFor(chat); chipMenu('#bw-effort', '#bw-effort-menu', EFFORT_CHOICES[provider] || [], chat.effort, v => { chat.effort = v; }, { title: 'Reasoning effort' }); };
+  q('#bw-effort').onclick = () => { const chat = currentChat(); const provider = providerFor(chat); chipMenu('#bw-effort', '#bw-effort-menu', effortChoices(provider), chat.effort, v => { chat.effort = v; }, { title: 'Reasoning effort' }); };
   q('#bw-provider').onclick = () => { const chat = currentChat(); const order = ['claude', 'codex', 'api']; const current = providerFor(chat); chat.provider = order[(order.indexOf(current) + 1) % order.length]; renderChat(); save(); toast(`This chat now uses ${PROVIDER_LABEL[chat.provider]}`); };
   q('#bw-go-chat').onclick = () => { pauseFollow(); root.classList.add('mobile-chat'); q('#bw-prompt').focus(); };
   q('#bw-mobile-back').onclick = () => { if (state.mode === 'document') { state.mode = 'chat'; render(); } root.classList.toggle('mobile-chat'); };

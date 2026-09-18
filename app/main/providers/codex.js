@@ -83,4 +83,9 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
   return { runId: run.id };
 }
 
-module.exports = { start, loggedIn, defaultModel };
+// Codex's own reasoning effort from ~/.codex/config.toml, else its documented default (medium).
+function defaultEffort() {
+  try { const m = /^\s*model_reasoning_effort\s*=\s*"([^"]+)"/m.exec(fs.readFileSync(path.join(os.homedir(), '.codex', 'config.toml'), 'utf8')); return m ? m[1] : 'medium'; } catch { return 'medium'; }
+}
+
+module.exports = { start, loggedIn, defaultModel, defaultEffort };

@@ -64,7 +64,7 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
       const pendingTools = new Map(); // tool_use id -> { name, input }
       for await (const message of q) {
         if (run.cancelled) break;
-        if (message.type === 'system' && message.subtype === 'init') { sessionId = message.session_id; run.emit({ type: 'status', model: message.model, apiKeySource: message.apiKeySource, version: message.claude_code_version }); }
+        if (message.type === 'system' && message.subtype === 'init') { sessionId = message.session_id; run.emit({ type: 'status', model: message.model, effort: message.effort || undefined, apiKeySource: message.apiKeySource, version: message.claude_code_version }); }
         else if (message.type === 'stream_event') {
           const event = message.event;
           if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta' && message.parent_tool_use_id == null) { streamedText += event.delta.text; run.emit({ type: 'text_delta', text: event.delta.text }); }
@@ -106,4 +106,13 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
   return { runId: run.id };
 }
 
-module.exports = { start, loggedIn };
+// The effort Claude Code will use on its own: the env override, then ~/.claude/settings.json, else the
+// documented default (high). The init message reports the effective value once a run starts.
+function defaultEffort() {
+  const env = process.env.CLAUDE_CODE_EFFORT_LEVEL;
+  if (env && env !== 'unset') return env;
+  try { const s = JSON.parse(fs.readFileSync(path.join(os.homedir(), '.claude', 'settings.json'), 'utf8')); if (s.effortLevel) return s.effortLevel; } catch {}
+  return 'high';
+}
+
+module.exports = { start, loggedIn, defaultEffort };
