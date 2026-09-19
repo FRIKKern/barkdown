@@ -31,7 +31,7 @@ export function transcriptHtml(chat, options = {}) {
 // The reply as it happened: thinking, steps and text in order. Replies saved before the timeline existed
 // (no parts) fall back to steps first, then the text. Tools a timeline does not mention still render.
 function timelineHtml(m, index, legacySteps) {
-  if (!m.parts?.length) return `${legacySteps}<div class="bw-agent-copy">${inlineMarkdownHtml(m.text || '')}${m.streaming && !m.text ? '<span class="bw-muted">Thinking…</span>' : ''}</div>`;
+  if (!m.parts?.length) return `${legacySteps}<div class="bw-agent-copy">${inlineMarkdownHtml(m.text || '')}</div>`;
   const seen = new Set();
   const out = m.parts.map((p, i) => {
     const live = m.streaming && i === m.parts.length - 1;
@@ -53,8 +53,10 @@ export function formatDuration(ms) {
 export function formatTokens(n) { return n >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k' : String(n); }
 
 // The line under a reply: while it runs, elapsed time and what it is doing; after, time, tokens, cost, provider.
+// The mark in the footer is the provider's: Claude's asterisk for Claude Code and the API, a hexagon for Codex.
+function providerMark(provider) { return provider === 'codex' ? `<span class="bw-mark-codex">${iconHtml('hexagon', 12)}</span>` : `<span class="bw-mark-claude">${iconHtml('asterisk', 12)}</span>`; }
 function replyFootHtml(m, chat) {
-  if (m.streaming) return `<div class="bw-reply-foot live">${iconHtml('asterisk', 12)}<span class="bw-elapsed" data-since="${esc(m.at)}">${formatDuration(Date.now() - new Date(m.at).getTime())}</span><span>· ${esc(chat.workingLabel || (m.parts?.length ? 'Writing…' : 'Thinking…'))}</span></div>`;
+  if (m.streaming) return `<div class="bw-reply-foot live">${providerMark(chat.runProvider || providerFor(chat))}<span class="bw-elapsed" data-since="${esc(m.at)}">${formatDuration(Date.now() - new Date(m.at).getTime())}</span><span>· ${esc(chat.workingLabel || (m.parts?.length ? 'Writing…' : 'Thinking…'))}</span></div>`;
   if (m.offline) return '';
   const u = m.usage || {};
   const bits = [];
@@ -65,7 +67,7 @@ function replyFootHtml(m, chat) {
   if (u.cost) bits.push('$' + u.cost.toFixed(3));
   if (m.provider) bits.push(PROVIDER_LABEL[m.provider] || m.provider);
   if (!bits.length) return '';
-  return `<div class="bw-reply-foot">${iconHtml('asterisk', 12)}<span>${esc(bits.join(' · '))}</span></div>`;
+  return `<div class="bw-reply-foot">${providerMark(m.provider)}<span>${esc(bits.join(' · '))}</span></div>`;
 }
 
 // A shell command with its parts coloured: command names, flags, strings, operators.

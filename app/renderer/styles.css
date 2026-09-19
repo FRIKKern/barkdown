@@ -264,6 +264,6 @@ h1,h2,h3,p{margin:0}
 .bw-thought p{margin:0 0 8px}.bw-thought code{font-style:normal;font-size:11px;background:var(--bw-raised);padding:1px 4px;border-radius:3px}
 .bw-thought.live::after{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--bw-accent);margin-left:6px;vertical-align:middle;animation:bw-pulse 1s infinite}
 .bw-reply-foot{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--bw-muted);margin:2px 0 20px}
-.bw-reply-foot svg{color:light-dark(#c95d2a,#f0925e);flex-shrink:0}
+.bw-reply-foot>span:first-child{display:inline-flex;flex-shrink:0}.bw-mark-claude svg{color:light-dark(#c95d2a,#f0925e)}.bw-mark-codex svg{color:light-dark(#0f8a6c,#4ecfa8);fill:light-dark(#0f8a6c22,#4ecfa822)}
 .bw-reply-foot.live svg{animation:bw-spin 4s linear infinite}
 @keyframes bw-spin{to{transform:rotate(360deg)}}
