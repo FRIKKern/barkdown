@@ -9,10 +9,19 @@ const { docToMarkdown } = require('../shared/markdown');
 const barkpark = require('./barkpark');
 const conversations = require('./conversations');
 
-function barkparkOn() { const flag = store.readJson('barkpark.json', null); return Boolean(flag && flag.enabled && flag.viaCli); }
+// The main process keeps barkpark.json current (server, dataset, mode) and hands a stored token over as
+// BARKDOWN_BP_TOKEN when it starts this server; published papers read fine without one.
+function bpFlag() { return store.readJson('barkpark.json', null) || {}; }
+function barkparkOn() { const f = bpFlag(); return Boolean(f.enabled && (f.viaCli || f.server)); }
+function bpConfig() { const f = bpFlag(); return { server: f.server, dataset: f.dataset || 'production', token: process.env.BARKDOWN_BP_TOKEN || '' }; }
+const paper = {
+  list: limit => bpFlag().viaCli ? barkpark.cliListPapers(limit) : barkpark.listPapers(bpConfig(), limit),
+  get: id => bpFlag().viaCli ? barkpark.cliGetPaper(id) : barkpark.getPaper(bpConfig(), id),
+  search: query => bpFlag().viaCli ? barkpark.cliSearch(query) : barkpark.search(bpConfig(), query),
+};
 const isPaper = id => typeof id === 'string' && id.startsWith('bp:');
 const slugOf = id => id.slice(3);
-async function paperListing() { if (!barkparkOn()) return []; try { return (await barkpark.cliListPapers(60)).map(d => ({ id: 'bp:' + d.id, title: d.title, excerpt: d.excerpt, rev: d.rev, source: 'barkpark' })); } catch { return []; } }
+async function paperListing() { if (!barkparkOn()) return []; try { return (await paper.list(60)).map(d => ({ id: 'bp:' + d.id, title: d.title, excerpt: d.excerpt, rev: d.rev, source: 'barkpark' })); } catch { return []; } }
 
 const storeDir = process.argv[2];
 if (!storeDir) { console.error('usage: mcp-server.js <storeDir>'); process.exit(2); }
@@ -37,7 +46,7 @@ server.registerTool('list_documents', { description: 'List the documents in the 
 server.registerTool('search_documents', { description: 'Search the Barkdown library and, when connected, Barkpark papers (ids starting with bp:). Returns ids, titles and snippets.', inputSchema: { query: z.string() } }, async ({ query }) => {
   documents.loadAll();
   const local = documents.search(query).map(d => ({ id: d.id, title: d.title, snippet: d.snippet, source: 'local' }));
-  const papers = barkparkOn() ? (await barkpark.cliSearch(query).catch(() => [])).map(d => ({ id: 'bp:' + d.id, title: d.title, snippet: d.snippet, source: 'barkpark' })) : [];
+  const papers = barkparkOn() ? (await paper.search(query).catch(() => [])).map(d => ({ id: 'bp:' + d.id, title: d.title, snippet: d.snippet, source: 'barkpark' })) : [];
   const needle = query.toLowerCase();
   const listed = barkparkOn() && !papers.length ? (await paperListing()).filter(d => (d.title + ' ' + d.excerpt).toLowerCase().includes(needle)).map(d => ({ id: d.id, title: d.title, snippet: d.excerpt, source: 'barkpark' })) : [];
   return text([...local, ...papers, ...listed]);
@@ -46,9 +55,9 @@ server.registerTool('search_documents', { description: 'Search the Barkdown libr
 server.registerTool('read_document', { description: 'Read a Barkdown document (or a Barkpark paper, id bp:<slug>) as markdown with its revision and block indexes. Opens it beside the chat for the person.', inputSchema: { id: z.string() } }, async ({ id }) => {
   if (isPaper(id)) {
     if (!barkparkOn()) return text('Barkpark is not connected.');
-    const paper = await barkpark.cliGetPaper(slugOf(id));
-    const blocks = (paper.blocks || []).map((b, n) => `[${n}] ${b.type}${b.level ? ' h' + b.level : ''}`);
-    return text([`# ${paper.title}`, `id: ${id} · rev ${paper.rev} · updated ${paper.updatedAt} · Barkpark paper`, '', 'Top-level blocks: ' + (blocks.join(', ') || '(HTML body, no blocks)'), '', paper.markdown || barkpark.htmlToText(paper.html)].join('\n'));
+    const p = await paper.get(slugOf(id));
+    const blocks = (p.blocks || []).map((b, n) => `[${n}] ${b.type}${b.level ? ' h' + b.level : ''}`);
+    return text([`# ${p.title}`, `id: ${id} · rev ${p.rev} · updated ${p.updatedAt} · Barkpark paper`, '', 'Top-level blocks: ' + (blocks.join(', ') || '(HTML body, no blocks)'), '', p.markdown || barkpark.htmlToText(p.html)].join('\n'));
   }
   documents.loadAll();
   const doc = documents.get(id);

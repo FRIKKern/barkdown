@@ -30,9 +30,12 @@ async function request(config, method, route, body) {
   return data;
 }
 
+// Responses arrive bare, or wrapped in { result: … } on newer servers.
+function unwrap(data) { return data && typeof data === 'object' && !Array.isArray(data) && data.result && typeof data.result === 'object' ? data.result : data; }
 function envelopeDocs(data) {
-  if (Array.isArray(data)) return data;
-  return data?.documents || data?.revisions || data?.results || data?.items || data?.data || [];
+  const d = unwrap(data);
+  if (Array.isArray(d)) return d;
+  return d?.documents || d?.revisions || d?.results || d?.items || d?.data || [];
 }
 
 function htmlToText(html) {
@@ -68,8 +71,8 @@ function blocksToMarkdown(blocks) { return portabledoc.blocksToMarkdown(blocks);
 
 async function test(config) {
   const { server, dataset } = normalise(config);
-  const data = await request(config, 'GET', `/v1/data/query/${encodeURIComponent(dataset)}/paper?limit=1`);
-  return { ok: true, server, dataset, sample: envelopeDocs(data).length };
+  const data = await request(config, 'GET', `/v1/data/query/${encodeURIComponent(dataset)}/paper?limit=60&fields=title`);
+  return { ok: true, server, dataset, papers: envelopeDocs(data).length };
 }
 
 async function listPapers(config, limit = 60) {
@@ -80,7 +83,7 @@ async function listPapers(config, limit = 60) {
 
 async function getPaper(config, id) {
   const { dataset } = normalise(config);
-  const doc = await request(config, 'GET', `/v1/data/doc/${encodeURIComponent(dataset)}/paper/${encodeURIComponent(id)}?perspective=raw`);
+  const doc = unwrap(await request(config, 'GET', `/v1/data/doc/${encodeURIComponent(dataset)}/paper/${encodeURIComponent(id)}?perspective=raw`));
   const paper = doc?.document || doc;
   const markdown = paper.blocks ? blocksToMarkdown(paper.blocks) : null;
   return { ...paperToSummary(paper), raw: paper, markdown, html: paper.body_html || null, blocks: paper.blocks || null, revision: paper._rev, rev: paper.rev ?? null, description: paper.description || '' };
@@ -157,7 +160,7 @@ async function cliListPapers(limit = 60) {
 }
 
 async function cliGetPaper(id) {
-  const data = await cli(['doc', 'get', 'paper', id, '--perspective', 'raw']);
+  const data = unwrap(await cli(['doc', 'get', 'paper', id, '--perspective', 'raw']));
   const paper = data?.document || data;
   return { ...paperToSummary(paper), raw: paper, markdown: paper.blocks ? blocksToMarkdown(paper.blocks) : null, html: paper.body_html || null, blocks: paper.blocks || null, revision: paper._rev, rev: paper.rev ?? null, description: paper.description || '' };
 }

@@ -272,6 +272,10 @@ try {
   await page.locator('.bw-ask input').press('Enter');
   await page.waitForFunction(n => document.querySelectorAll('#bw-pages .bw-page-row').length === n + 1, pagesBefore, { timeout: 5000 });
   step('New document asks for a title in a dialog and creates the page', (await page.locator('#bw-pages .bw-page-row').count()) === pagesBefore + 1 && (await page.locator('#bw-tabs .bw-tab.active .bw-tab-label').innerText()) === 'Dialog page');
+  const tableDoc = await page.evaluate(() => window.barkdown.docs.create({ title: 'Table page', markdown: '| Mode | What it does |\n| --- | --- |\n| Append | Adds blocks |\n| Replace | Rewrites |\n' }));
+  await page.evaluate(id => window.__barkdown.openTarget({ kind: 'doc', id, source: 'local' }), tableDoc.id);
+  await page.waitForSelector('.ProseMirror table', { timeout: 8000 });
+  step('a Markdown table in a document renders as a table', (await page.locator('.ProseMirror table th').count()) === 2 && (await page.locator('.ProseMirror table td').count()) === 4);
   await page.locator('#bw-recent-chats [data-context]').first().click({ button: 'right' });
   await page.waitForSelector('.bw-ask[role="alertdialog"]', { timeout: 5000 });
   step('deleting a chat asks in an app dialog', (await page.locator('.bw-ask[role="alertdialog"] h2').innerText()) === 'Delete chat?');

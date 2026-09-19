@@ -34,6 +34,12 @@ function publicSettings() {
   const s = readSettings();
   return { chatWidth: s.chatWidth, theme: s.theme, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY) && !s.apiKeyEncrypted, barkpark: { enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli }, recentFolders: s.recentFolders, userData: store.dir() };
 }
+// What the MCP server and the context note need to know about Barkpark, refreshed on every save.
+function syncBarkparkEnv() {
+  const s = readSettings();
+  process.env.BARKDOWN_BP_TOKEN = decrypt(s.barkpark.tokenEncrypted) || '';
+  store.writeJson('barkpark.json', { enabled: s.barkpark.enabled, viaCli: s.barkpark.viaCli, server: s.barkpark.server, dataset: s.barkpark.dataset, hasToken: Boolean(s.barkpark.tokenEncrypted) });
+}
 function barkparkConfig() { const s = readSettings(); return { server: s.barkpark.server, token: decrypt(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, enabled: s.barkpark.enabled }; }
 
 // ---------- window ----------
@@ -107,7 +113,7 @@ function registerIpc() {
     }
     if (patch.recentFolder) s.recentFolders = [patch.recentFolder, ...s.recentFolders.filter(f => f !== patch.recentFolder)].slice(0, 8);
     writeSettings(s);
-    store.writeJson('barkpark.json', { enabled: s.barkpark.enabled, viaCli: s.barkpark.viaCli, server: s.barkpark.server });
+    syncBarkparkEnv();
     return publicSettings();
   });
   handle('app:pickFolder', async () => { const r = await dialog.showOpenDialog(win, { properties: ['openDirectory'] }); return r.canceled ? null : r.filePaths[0]; });
@@ -217,6 +223,8 @@ if (userDataArg) app.setPath('userData', path.resolve(userDataArg.slice('--user-
 
 app.whenReady().then(() => {
   store.init(path.join(app.getPath('userData'), 'barkdown'));
+  syncBarkparkEnv();
+  for (const word of ['Barkdown', 'Barkpark', 'PortableDoc', 'Codex']) session.defaultSession.addWordToSpellCheckerDictionary(word);
   documents.loadAll();
   registerIpc();
   buildMenu();

@@ -6,6 +6,7 @@ import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 import TaskList from '@tiptap/extension-task-list';
 import TaskItem from '@tiptap/extension-task-item';
+import { TableKit } from '@tiptap/extension-table';
 import { el, esc, icon, iconHtml, relativeTime, toast, debounce } from '../ui.js';
 import { markdownToDoc } from '../../../shared/markdown.js';
 import { askText, askConfirm } from '../dialogs.js';
@@ -176,7 +177,7 @@ export function mountDocument(tab, host, ctx) {
       if (destroyed) return;
       pane.hidden = false;
       pane.innerHTML = `<div class="bw-kicker">Source document</div><h2>${esc(source.title)}</h2><div id="source-body"></div>`;
-      new Editor({ element: pane.querySelector('#source-body'), editable: false, extensions: [StarterKit.configure({ link: false }), Link.configure({ openOnClick: false }), TaskList, TaskItem.configure({ nested: true })], content: source.content });
+      new Editor({ element: pane.querySelector('#source-body'), editable: false, extensions: [StarterKit.configure({ link: false }), Link.configure({ openOnClick: false }), TaskList, TaskItem.configure({ nested: true }), TableKit.configure({ table: { resizable: false } })], content: source.content });
     } catch { pane.innerHTML = ''; }
   }
 
@@ -290,6 +291,7 @@ export function mountDocument(tab, host, ctx) {
         Link.configure({ openOnClick: false, autolink: true, protocols: ['barkdown'] }),
         Placeholder.configure({ placeholder: 'Write, or type / for block types…' }),
         TaskList, TaskItem.configure({ nested: true }),
+        TableKit.configure({ table: { resizable: false } }),
       ],
       content: doc.content,
       editorProps: {

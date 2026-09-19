@@ -20,6 +20,14 @@ function parseInline(text) {
   return nodes.filter(n => n.text.length);
 }
 
+// GFM tables: a header row, a separator row of dashes, then body rows. Cells may escape a pipe as \|.
+function isTableRow(line) { return /^\s*\|.*\|\s*$/.test(line); }
+function isTableSeparator(line) { return /^\s*\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)*\|?\s*$/.test(line) && line.includes('-'); }
+function splitCells(line) {
+  const cells = line.trim().replace(/^\|/, '').replace(/\|$/, '').split(/(?<!\\)\|/).map(c => c.replace(/\\\|/g, '|').trim());
+  return cells;
+}
+
 function paragraph(text) {
   const content = parseInline(text);
   return content.length ? { type: 'paragraph', content } : { type: 'paragraph' };
@@ -44,6 +52,14 @@ function markdownToDoc(markdown) {
       continue;
     }
     if (/^(-{3,}|\*{3,}|_{3,})\s*$/.test(line)) { content.push({ type: 'horizontalRule' }); i++; continue; }
+    if (isTableRow(line) && i + 1 < lines.length && isTableSeparator(lines[i + 1])) {
+      const cell = (text, type) => ({ type, content: [paragraph(text)] });
+      const rows = [{ type: 'tableRow', content: splitCells(line).map(c => cell(c, 'tableHeader')) }];
+      i += 2;
+      while (i < lines.length && isTableRow(lines[i])) { rows.push({ type: 'tableRow', content: splitCells(lines[i]).map(c => cell(c, 'tableCell')) }); i++; }
+      content.push({ type: 'table', content: rows });
+      continue;
+    }
     if (/^>\s?/.test(line)) {
       const quoted = [];
       while (i < lines.length && /^>\s?/.test(lines[i])) { quoted.push(lines[i].replace(/^>\s?/, '')); i++; }
@@ -80,7 +96,7 @@ function markdownToDoc(markdown) {
     }
     const buffer = [line];
     i++;
-    while (i < lines.length && lines[i].trim() && !/^(#{1,6}\s|```|>|\s*[-*+]\s|\s*\d+[.)]\s)/.test(lines[i])) { buffer.push(lines[i]); i++; }
+    while (i < lines.length && lines[i].trim() && !/^(#{1,6}\s|```|>|\s*[-*+]\s|\s*\d+[.)]\s)/.test(lines[i]) && !(isTableRow(lines[i]) && isTableSeparator(lines[i + 1] || ''))) { buffer.push(lines[i]); i++; }
     content.push(paragraph(buffer.join(' ')));
   }
   return { type: 'doc', content: content.length ? content : [{ type: 'paragraph' }] };
@@ -114,6 +130,13 @@ function blockToMarkdown(node, depth = 0) {
     case 'orderedList': return (node.content || []).map((item, n) => `${indent}${(node.attrs?.start || 1) + n}. ${listItemToMarkdown(item, depth)}`).join('\n');
     case 'taskList': return (node.content || []).map(item => `${indent}- [${item.attrs?.checked ? 'x' : ' '}] ${listItemToMarkdown(item, depth)}`).join('\n');
     case 'image': return `![${node.attrs?.alt || ''}](${node.attrs?.src || ''})`;
+    case 'table': {
+      const rows = (node.content || []).map(row => (row.content || []).map(c => (c.content || []).map(p => inlineToMarkdown(p.content)).join(' ').replace(/\|/g, '\\|')));
+      if (!rows.length) return '';
+      const [head, ...body] = rows;
+      const line = r => `| ${r.join(' | ')} |`;
+      return [line(head), `| ${head.map(() => '---').join(' | ')} |`, ...body.map(line)].join('\n');
+    }
     default: return inlineToMarkdown(node.content);
   }
 }
@@ -135,7 +158,8 @@ function docToText(doc) {
     if (!node) return;
     if (node.type === 'text') out.push(node.text || '');
     (node.content || []).forEach(walk);
-    if (['paragraph', 'heading', 'listItem', 'taskItem', 'codeBlock'].includes(node.type)) out.push('\n');
+    if (['paragraph', 'heading', 'listItem', 'taskItem', 'codeBlock', 'tableRow'].includes(node.type)) out.push('\n');
+    else if (['tableCell', 'tableHeader'].includes(node.type)) out.push(' ');
   };
   walk(doc);
   return out.join('').replace(/\n{2,}/g, '\n').trim();

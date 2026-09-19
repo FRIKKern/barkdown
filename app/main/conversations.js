@@ -117,10 +117,19 @@ function contextNote(chatId, { budget = 3500 } = {}) {
       sides.slice(0, 4).forEach((side, i) => parts.push(sideLine(side, i === 0 ? 'most recent: ' : '')));
     }
   }
-  if (!parts.length) return '';
+  parts.push(barkparkLine());
   let note = parts.join('\n');
   if (note.length > budget) note = note.slice(0, budget - 1) + '…';
   return note;
+}
+
+// One line on the Barkpark connection, from the flag file the main process keeps current.
+function barkparkLine() {
+  const bp = store.readJson('barkpark.json', null);
+  if (!bp || !bp.enabled || !(bp.viaCli || bp.server)) return 'Barkpark: not connected (Settings → Barkpark); only local documents are available.';
+  const where = bp.viaCli ? `the bp CLI's active server${bp.server ? ` (${bp.server})` : ''}` : bp.server;
+  const how = bp.viaCli ? 'reads go through the bp CLI' : bp.hasToken ? 'direct HTTP with a stored token' : 'direct HTTP without a token, so published papers only';
+  return `Barkpark: connected to ${where}, dataset ${bp.dataset || 'production'}; ${how}. Its papers are in list_documents and search_documents with ids bp:<slug>.`;
 }
 
 module.exports = { listConversations, readConversation, contextNote };

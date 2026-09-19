@@ -86,7 +86,9 @@ function hostname(url) { try { return new URL(url).hostname; } catch { return ur
 function mcpServerSpec(storeDir) {
   const script = path.join(__dirname, '..', 'mcp-server.js');
   const underElectron = Boolean(process.versions.electron);
-  return { command: process.execPath, args: [script, storeDir], env: underElectron ? { ELECTRON_RUN_AS_NODE: '1' } : {} };
+  const env = underElectron ? { ELECTRON_RUN_AS_NODE: '1' } : {};
+  if (process.env.BARKDOWN_BP_TOKEN) env.BARKDOWN_BP_TOKEN = process.env.BARKDOWN_BP_TOKEN;
+  return { command: process.execPath, args: [script, storeDir], env };
 }
 
 function scratchFolder(storeDir) {

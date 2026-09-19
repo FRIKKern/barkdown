@@ -95,7 +95,9 @@ assert(offline.at(-1).offline === true, 'offline done flag missing');
 console.log('scenario 5 ok: offline fallback');
 
 // 6. Markdown round trip keeps structure.
-const md = '# Title\n\nPara with **bold**.\n\n- one\n- two\n\n- [x] done\n\n> quote\n\n```js\ncode();\n```\n';
+const md = '# Title\n\nPara with **bold**.\n\n- one\n- two\n\n- [x] done\n\n> quote\n\n| Mode | What it does |\n| --- | --- |\n| Append | Adds blocks at the end |\n| Replace | Rewrites it, a \\| escaped pipe |\n\n```js\ncode();\n```\n';
+const table = markdownToDoc(md).content.find(n => n.type === 'table');
+assert(table && table.content.length === 3 && table.content[0].content[0].type === 'tableHeader' && table.content[2].content[1].content[0].content[0].text === 'Rewrites it, a | escaped pipe', 'table parsed: ' + JSON.stringify(table));
 assert(docToMarkdown(markdownToDoc(md)).trim() === md.trim(), 'markdown round trip changed the document');
 console.log('scenario 6 ok: markdown round trip');
 

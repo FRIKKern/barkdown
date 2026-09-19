@@ -92,7 +92,7 @@ export function openSettings(onChange, { pane = 'general' } = {}) {
         </div>
         <div id="bp-http-fields">
           ${setting('Server URL', '', `<input id="bp-server" type="text" placeholder="https://your-instance.barkpark.cloud" aria-label="Server URL">`, { stack: true })}
-          ${setting('Bearer token', s.barkpark.hasToken ? 'A token is stored. Leave blank to keep it.' : '', `<input id="bp-token" type="password" placeholder="${s.barkpark.hasToken ? '••••••••' : 'token'}" aria-label="Bearer token">`, { stack: true })}
+          ${setting('Bearer token', s.barkpark.hasToken ? 'A token is stored. Leave blank to keep it.' : 'Optional for reading published papers; drafts and writes need one.', `<input id="bp-token" type="password" placeholder="${s.barkpark.hasToken ? '••••••••' : 'token'}" aria-label="Bearer token">`, { stack: true })}
         </div>
         ${setting('Dataset', '', `<input id="bp-dataset" type="text" aria-label="Dataset" style="width:180px">`)}
         <div class="bw-set"><div class="bw-set-text"><span class="bw-status" id="bp-status" aria-live="polite"></span></div><div class="bw-set-ctl"><button type="button" class="bw-btn" data-act="test">${iconHtml('plug-zap', 13)}Test connection</button></div></div>
@@ -171,7 +171,7 @@ export function openSettings(onChange, { pane = 'general' } = {}) {
     try {
       if (bpMode() === 'cli') { const list = await api.barkpark.list(); status(`bp answered with ${list.length} paper(s).`, 'ok'); return; }
       const r = await api.barkpark.test({ server: q('#bp-server').value, token: q('#bp-token').value || undefined, dataset: q('#bp-dataset').value });
-      status(`Connected to ${r.server} (${r.dataset}).`, 'ok');
+      status(`Connected to ${r.server} (${r.dataset}) · ${r.papers} published paper${r.papers === 1 ? '' : 's'}.`, 'ok');
     } catch (error) { status(error.message, 'err'); }
   };
 

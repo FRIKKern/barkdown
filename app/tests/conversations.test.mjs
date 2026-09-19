@@ -51,6 +51,12 @@ assert(sideNote.includes('Other side chats of the same conversation') && sideNot
 const mainNote = conversations.contextNote('main1');
 assert(mainNote.includes('1 side chat open beside this conversation, newest first') && mainNote.includes('most recent: "Side chat" (id side1') && mainNote.includes('Fløyen') && !mainNote.includes('Empty side'), 'main note: ' + mainNote);
 assert(conversations.contextNote('side2').includes('most recent: "Side chat" (id side1') && conversations.contextNote('nope') === '', 'empty side chat still gets its parent and siblings; unknown chat gets nothing');
+assert(mainNote.includes('Barkpark: not connected'), 'no flag file means not connected: ' + mainNote);
+fs.writeFileSync(path.join(dir, 'barkpark.json'), JSON.stringify({ enabled: true, viaCli: false, server: 'https://x.barkpark.cloud', dataset: 'production', hasToken: false }));
+assert(conversations.contextNote('main1').includes('Barkpark: connected to https://x.barkpark.cloud, dataset production; direct HTTP without a token'), 'direct connection described: ' + conversations.contextNote('main1'));
+fs.writeFileSync(path.join(dir, 'barkpark.json'), JSON.stringify({ enabled: true, viaCli: true, server: '', dataset: 'production', hasToken: false }));
+assert(conversations.contextNote('side1').includes("connected to the bp CLI's active server, dataset production; reads go through the bp CLI"), 'cli connection described');
+fs.rmSync(path.join(dir, 'barkpark.json'));
 const lone = conversations.contextNote('main1', { budget: 80 });
 assert(lone.length <= 80 && lone.endsWith('…'), 'budget clips');
 console.log('ok context notes');

@@ -389,7 +389,7 @@ function renderSidebar() {
   const recents = q('#bw-recent-chats');
   recents.innerHTML = state.order.map(id => state.chats[id]).filter(Boolean).slice(0, 30).map(c => `<button class="bw-nav ${c.id === state.current && state.mode === 'chat' ? 'selected' : ''}" data-context="${c.id}"><span>${esc(c.title)}<small>${esc(c.folder ? basename(c.folder) : 'no folder')}${c.runId ? ' · working' : ''} · ${esc(relativeTime(c.updatedAt))}</small></span></button>`).join('');
   recents.querySelectorAll('[data-context]').forEach(b => { b.onclick = () => switchChat(b.dataset.context); b.oncontextmenu = e => { e.preventDefault(); askConfirm(`Delete chat "${state.chats[b.dataset.context].title}"?`, { title: 'Delete chat?', confirm: 'Delete', danger: true }).then(ok => { if (ok) deleteChat(b.dataset.context); }); }; });
-  q('#bw-connection').textContent = state.settings?.barkpark?.enabled ? 'Barkpark' : 'Local';
+  q('#bw-connection').textContent = state.settings?.barkpark?.enabled ? `Barkpark${state.barkparkDocs.length ? ' · ' + state.barkparkDocs.length : ''}` : 'Local';
   q('#bw-connection').title = state.settings?.barkpark?.enabled ? state.settings.barkpark.server || 'via bp CLI' : 'Local library';
 }
 

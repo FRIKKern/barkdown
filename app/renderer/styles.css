@@ -248,3 +248,4 @@ h1,h2,h3,p{margin:0}
 .bw-about b{display:block;font-size:15px}.bw-about small{color:var(--bw-muted);font-size:11.5px}
 @media(max-width:760px){.bw-settings{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr) auto}.bw-settings-nav{grid-row:1;flex-direction:row;overflow:auto;border-right:0;border-bottom:1px solid var(--bw-border);padding:10px}.bw-settings-nav h2{display:none}.bw-settings-foot{grid-column:1}.bw-set{flex-direction:column;align-items:stretch;gap:8px}}
 .bw-menu-blank{display:inline-block;width:12px;height:12px;flex-shrink:0}
+.ProseMirror table{width:100%;table-layout:fixed}.ProseMirror th{background:var(--bw-raised);font-weight:600;text-align:left}.ProseMirror td>p,.ProseMirror th>p{margin:0}.ProseMirror .selectedCell{background:var(--bw-wash)}
