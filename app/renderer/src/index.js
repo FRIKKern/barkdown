@@ -12,6 +12,7 @@ import { mountTerminal } from './tabs/terminal.js';
 import { CLAUDE_MODELS, CODEX_MODELS, EFFORT_LEVELS, defaultModelLabel } from './models.js';
 import { openSettings } from './settings.js';
 import { renderPages, seedTree, addPage, pagePath, pageKey, ensurePages } from './pages.js';
+import { tabToTarget, favoriteKey } from './state.js';
 
 const api = window.barkdown;
 const root = document.getElementById('app');
@@ -124,12 +125,14 @@ function renderTabs() {
   const nav = q('#bw-tabs');
   // The work panel is something you open: with no tabs in a chat it stays collapsed and the chat takes the width.
   root.classList.toggle('bw-nowork', state.mode !== 'document' && !chat?.editorExpanded && !(chat?.tabs?.length));
-  nav.innerHTML = (chat?.tabs || []).map(t => {
+  const html = (chat?.tabs || []).map(t => {
     const dirty = t.type === 'project' && chat.folder && dirtyCount(chat.folder) > 0;
     if (t.type === 'chat' && state.chats[t.sideChatId]?.title) t.title = state.chats[t.sideChatId].title;
     const title = t.type === 'doc' ? t.path.map(id => documentSummary(id, t.source)?.title || id).join(' → ') : t.type === 'web' ? t.url || t.title : t.title;
-    return `<div class="bw-tab ${t.id === chat.active ? 'active' : ''}"><button data-tab="${t.id}" aria-current="${t.id === chat.active ? 'page' : 'false'}" title="${esc(title)}">${iconHtml(TYPE_ICON[t.type])}<span class="bw-tab-label">${esc(t.title)}</span>${t.unread ? '<span class="bw-dot" aria-label="Updated by the assistant"></span>' : dirty ? '<span class="bw-dot bw-dot-dirty" aria-label="Unsaved edits"></span>' : ''}</button><div class="bw-tab-actions"><button data-pin="${t.id}" aria-label="Pin ${esc(t.title)}">${iconHtml('pin', 12)}</button><button data-close="${t.id}" aria-label="Close ${esc(t.title)}">${iconHtml('x', 12)}</button></div></div>`;
+    return `<div class="bw-tab ${t.id === chat.active ? 'active' : ''}"><button data-tab="${t.id}" aria-current="${t.id === chat.active ? 'page' : 'false'}" title="${esc(title)}">${iconHtml(TYPE_ICON[t.type])}<span class="bw-tab-label">${esc(t.title)}</span>${t.unread ? '<span class="bw-dot" aria-label="Updated by the assistant"></span>' : dirty ? '<span class="bw-dot bw-dot-dirty" aria-label="Unsaved edits"></span>' : ''}</button><div class="bw-tab-actions"><button data-fav="${t.id}" class="${favoriteFor(t) ? 'on' : ''}" aria-label="${favoriteFor(t) ? 'Remove from favorites' : 'Add to favorites'}" title="${favoriteFor(t) ? 'Remove from favorites' : 'Add to favorites'}">${iconHtml('star', 12)}</button><button data-close="${t.id}" aria-label="Close ${esc(t.title)}">${iconHtml('x', 12)}</button></div></div>`;
   }).join('');
+  // Only touch the DOM when the strip changed: keeps double-clicks (rename) and hover states intact.
+  if (nav.innerHTML !== html) nav.innerHTML = html;
   requestAnimationFrame(() => { const b = nav.querySelector(`[data-tab="${chat?.active}"]`); if (b) { const o = nav.getBoundingClientRect(), i = b.getBoundingClientRect(); if (i.right > o.right) nav.scrollLeft += i.right - o.right; else if (i.left < o.left) nav.scrollLeft -= o.left - i.left; } });
 }
 
@@ -424,8 +427,8 @@ function render() {
 
 // ---------- menus ----------
 function hideMenus() {
-  ['#bw-new-menu', '#bw-pin-menu', '#bw-project-menu', '#bw-model-menu', '#bw-effort-menu'].forEach(s => { q(s).hidden = true; });
-  ['#bw-plus', '#bw-pins', '#bw-folder-context', '#bw-open-work'].forEach(s => q(s).setAttribute('aria-expanded', 'false'));
+  ['#bw-new-menu', '#bw-fav-menu', '#bw-project-menu', '#bw-model-menu', '#bw-effort-menu'].forEach(s => { q(s).hidden = true; });
+  ['#bw-plus', '#bw-favorites', '#bw-folder-context', '#bw-open-work'].forEach(s => q(s).setAttribute('aria-expanded', 'false'));
   const palette = q('#bw-palette');
   if (!palette.hidden) { palette.hidden = true; if (palette.contains(document.activeElement)) q('#bw-prompt').focus(); }
 }
@@ -449,45 +452,89 @@ function renderProjectMenu() {
   menu.querySelectorAll('[data-folder]').forEach(b => { b.onclick = () => { hideMenus(); chat.folder = b.dataset.folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }; });
 }
 
-// ---------- pins ----------
-function renderPins() {
-  const menu = q('#bw-pin-menu');
-  menu.innerHTML = '<h3>Saved workspaces</h3>' + (state.pins.length ? state.pins.map(p => `<div class="bw-pin-row"><button data-restore="${p.id}">${esc(p.label)}<small>${esc(p.rootTitle)} · ${esc(p.summary)}</small></button><button data-unpin="${p.id}" aria-label="Remove pin">×</button></div>`).join('') : '<p class="bw-small bw-muted" style="padding:4px 9px">Pin a tab to save the chat, its tabs, the focused tab and the document paths.</p>');
-  menu.querySelectorAll('[data-restore]').forEach(b => { b.onclick = () => restorePin(b.dataset.restore); });
-  menu.querySelectorAll('[data-unpin]').forEach(b => { b.onclick = () => { state.pins = state.pins.filter(p => p.id !== b.dataset.unpin); renderPins(); save(); }; });
+// ---------- favorites ----------
+// A favorite is a bookmark for one tab: the document, website, file, review, terminal or side chat it
+// showed. It reopens later in whatever chat is current (or in its own chat when it needs that
+// chat's working folder), even after the tab was closed.
+const FAVORITE_KIND = { doc: 'Document', web: 'Website', project: 'File', review: 'Review', chat: 'Side chat', terminal: 'Terminal' };
+function favoriteFor(tab) { const key = favoriteKey(tabToTarget(tab)); return state.favorites.find(f => favoriteKey(f.target) === key); }
+
+function renderFavorites() {
+  const menu = q('#bw-fav-menu');
+  menu.innerHTML = '<h3>Favorites</h3>' + (state.favorites.length ? state.favorites.map(f => `<div class="bw-fav-row"><button data-open="${f.id}" title="Open ${esc(f.label)}">${iconHtml(TYPE_ICON[f.target.kind] || 'sparkles', 12)}<span><span class="bw-fav-label">${esc(f.label)}</span><small>${esc(FAVORITE_KIND[f.target.kind] || f.target.kind)}${f.target.kind === 'chat' && f.chatTitle ? ' · from ' + esc(f.chatTitle) : f.target.kind === 'doc' && f.target.source === 'barkpark' ? ' · Barkpark' : ''}${f.target.url ? ' · ' + esc(hostname(f.target.url)) : f.target.path ? ' · ' + esc(f.target.path) : ''}</small></span></button><button data-rename="${f.id}" aria-label="Rename" title="Rename">${iconHtml('square-pen', 12)}</button><button data-unfav="${f.id}" aria-label="Remove from favorites" title="Remove">×</button></div>`).join('') : '<p class="bw-small bw-muted" style="padding:4px 9px">Star a tab to keep it here. Favorites reopen later in any chat, even after the tab is closed.</p>');
+  menu.querySelectorAll('[data-open]').forEach(b => { b.onclick = () => openFavorite(b.dataset.open); });
+  menu.querySelectorAll('[data-rename]').forEach(b => { b.onclick = () => { const f = state.favorites.find(x => x.id === b.dataset.rename); const v = prompt('Name this favorite', f?.label || ''); if (f && v != null && v.trim()) { f.label = v.trim(); renderFavorites(); save(); } }; });
+  menu.querySelectorAll('[data-unfav]').forEach(b => { b.onclick = () => { state.favorites = state.favorites.filter(f => f.id !== b.dataset.unfav); renderFavorites(); renderTabs(); save(); }; });
 }
 
-function addPin(tabId) {
-  savePositions();
+function toggleFavorite(tabId) {
   const chat = workspaceChat();
-  const tab = chat.tabs.find(t => t.id === tabId);
+  const tab = chat?.tabs.find(t => t.id === tabId);
   if (!tab) return;
-  const pin = { id: crypto.randomUUID(), label: tab.title, rootTitle: chat.title, chatId: chat.id, mode: state.mode, folder: chat.folder, editorExpanded: chat.editorExpanded, active: tabId, chatScroll: chat.chatScroll, at: new Date().toISOString(),
-    tabs: chat.tabs.map(t => ({ ...t, unread: false })), summary: chat.tabs.map(t => t.type === 'doc' ? t.path.map(id => documentSummary(id, t.source)?.title || id).join(' → ') : t.title).join(' / ') };
-  state.pins.unshift(pin);
-  hideMenus(); renderPins(); q('#bw-pin-menu').hidden = false; q('#bw-pins').setAttribute('aria-expanded', 'true');
-  save();
+  const existing = favoriteFor(tab);
+  if (existing) { state.favorites = state.favorites.filter(f => f.id !== existing.id); toast(`Removed “${existing.label}” from favorites`); }
+  else {
+    state.favorites.unshift({ id: crypto.randomUUID(), label: tab.title, target: tabToTarget(tab), chatId: chat.id, chatTitle: chat.title, folder: chat.folder || null, at: new Date().toISOString() });
+    toast(`Added “${tab.title}” to favorites`);
+  }
+  renderTabs(); renderFavorites(); save();
 }
 
-function restorePin(id) {
-  const pin = state.pins.find(p => p.id === id);
-  if (!pin) return;
-  const chat = state.chats[pin.chatId];
-  if (!chat) { toast('The chat for this pin no longer exists.', 'error'); return; }
-  savePositions();
-  const restoredTabs = pin.tabs.map(t => ({ ...t, id: chat.tabs.find(x => x.id === t.id)?.id || t.id }));
-  // Keep controllers for tabs that still exist; drop the rest.
-  for (const t of chat.tabs) if (!restoredTabs.some(r => r.id === t.id)) unmountTab(t.id);
-  for (const r of restoredTabs) { const existing = chat.tabs.find(t => t.id === r.id); if (existing) Object.assign(existing, r); }
-  chat.tabs = restoredTabs.map(r => chat.tabs.find(t => t.id === r.id) || r);
-  chat.active = chat.tabs.some(t => t.id === pin.active) ? pin.active : chat.tabs[0]?.id || null;
-  chat.editorExpanded = Boolean(pin.editorExpanded);
-  chat.following = false;
-  if (pin.mode === 'document') { state.mode = 'document'; } else { state.current = chat.id; state.mode = 'chat'; }
-  for (const t of chat.tabs) controllers.get(t.id)?.navigate?.();
+function openFavorite(id) {
+  const f = state.favorites.find(x => x.id === id);
+  if (!f) return;
+  const target = { ...f.target };
+  let chat = currentChat();
+  const needsFolder = ['project', 'review', 'terminal'].includes(target.kind);
+  if (target.kind === 'chat' && !state.chats[target.id]) { toast('That side chat no longer exists.', 'error'); return; }
+  if (needsFolder && (!chat?.folder || (f.folder && chat.folder !== f.folder))) {
+    const home = state.chats[f.chatId];
+    if (home) { state.current = home.id; state.mode = 'chat'; chat = home; }
+    else if (!chat?.folder) { toast('This favorite needs a working folder. Choose one for the chat first.', 'error'); return; }
+  }
+  if (state.mode === 'document') state.mode = 'chat';
+  const tab = openTarget(target, chat, true);
+  if (tab && f.label) { tab.title = f.label; if (tab.type === 'chat' && state.chats[tab.sideChatId]) state.chats[tab.sideChatId].title = f.label; }
   hideMenus();
   render();
-  toast('Pin restored. Navigation only; content is whatever it is now.');
+}
+
+// Rename a tab in place (double-click its label). A side chat's rename is the chat's own title.
+async function renameTab(chat, tabId, value) {
+  const tab = chat?.tabs.find(t => t.id === tabId);
+  const title = String(value || '').trim();
+  if (!tab || !title || title === tab.title) return;
+  tab.title = title;
+  if (tab.type === 'chat' && state.chats[tab.sideChatId]) state.chats[tab.sideChatId].title = title;
+  // A document tab's name is the document's title, so renaming the tab renames the document.
+  if (tab.type === 'doc' && tab.path.at(-1)) {
+    const id = tab.path.at(-1);
+    try {
+      if (tab.source === 'barkpark') await api.barkpark.patchTitle(id, title); else await api.docs.save({ id, title, actor: 'you', summary: 'Renamed' });
+      refreshLibrary();
+    } catch (error) { toast(errorMessage(error), 'error'); }
+  }
+  const key = favoriteKey(tabToTarget(tab));
+  for (const f of state.favorites) if (favoriteKey(f.target) === key) f.label = title;
+  controllers.get(tabId)?.refresh?.();
+  render();
+}
+
+function startRenameTab(chat, tabId) {
+  const label = q(`#bw-tabs [data-tab="${tabId}"] .bw-tab-label`);
+  const tab = chat?.tabs.find(t => t.id === tabId);
+  if (!label || !tab) return;
+  const input = document.createElement('input');
+  input.className = 'bw-tab-rename';
+  input.value = tab.title;
+  input.setAttribute('aria-label', 'Tab name');
+  label.replaceWith(input);
+  input.focus(); input.select();
+  let done = false;
+  const finish = commit => { if (done) return; done = true; if (commit) renameTab(chat, tabId, input.value); else renderTabs(); };
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); finish(true); } else if (e.key === 'Escape') { e.preventDefault(); finish(false); } e.stopPropagation(); });
+  input.addEventListener('blur', () => finish(true));
+  input.addEventListener('click', e => e.stopPropagation());
 }
 
 // ---------- palette ----------
@@ -505,7 +552,8 @@ async function collectPalette(query) {
   items.push({ group: 'New', icon: 'file-plus', label: 'New document', hint: 'Ctrl+Shift+N', run: () => createDocument() });
   [['project', 'Project editor'], ['chat', 'Side chat'], ['web', 'Website'], ['review', 'Code review'], ['terminal', 'Terminal']].forEach(([type, label]) => items.push({ group: 'New work tab', icon: TYPE_ICON[type], label, hint: 'New', run: () => openNewTab(type) }));
   items.push({ group: 'Actions', icon: 'folder-open', label: chat?.folder ? 'Change working folder' : 'Choose working folder', hint: chat?.folder ? basename(chat.folder) : '', run: () => chooseFolder() });
-  if (activeTab(ws)) items.push({ group: 'Actions', icon: 'pin', label: 'Pin this workspace', hint: activeTab(ws).title, run: () => addPin(ws.active) });
+  if (activeTab(ws)) items.push({ group: 'Actions', icon: 'star', label: favoriteFor(activeTab(ws)) ? 'Remove this tab from favorites' : 'Add this tab to favorites', hint: activeTab(ws).title, run: () => toggleFavorite(ws.active) });
+  state.favorites.forEach(f => items.push({ group: 'Favorites', icon: TYPE_ICON[f.target.kind] || 'sparkles', label: f.label, hint: FAVORITE_KIND[f.target.kind] || f.target.kind, run: () => openFavorite(f.id) }));
   items.push({ group: 'Actions', icon: 'settings-2', label: 'Settings', hint: 'Ctrl+,', run: () => openSettings(applySettings) });
   items.push({ group: 'Actions', icon: 'columns-2', label: 'Reset conversation width to 60%', hint: (state.settings?.chatWidth || 60) + '% now', run: () => setChatWidth(60) });
   if (query.length >= 2 && chat?.folder) {
@@ -598,7 +646,7 @@ function wire() {
   renderNewMenu();
   q('#bw-plus').onclick = () => toggleMenu('#bw-new-menu', '#bw-plus');
   q('#bw-open-work').onclick = () => toggleMenu('#bw-new-menu', '#bw-open-work');
-  q('#bw-pins').onclick = () => { renderPins(); toggleMenu('#bw-pin-menu', '#bw-pins'); };
+  q('#bw-favorites').onclick = () => { renderFavorites(); toggleMenu('#bw-fav-menu', '#bw-favorites'); };
   q('#bw-settings').onclick = () => openSettings(applySettings);
   q('#bw-new-chat').onclick = () => createChat();
   q('#bw-new-doc').onclick = () => createDocument();
@@ -632,10 +680,11 @@ function wire() {
   document.addEventListener('click', e => { const img = e.target.closest('[data-lightbox]'); const box = q('#bw-lightbox'); if (img) { box.querySelector('img').src = img.dataset.lightbox; box.hidden = false; } else if (!box.hidden) box.hidden = true; });
   q('#bw-prompt').addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); q('#bw-compose').requestSubmit(); } });
   q('#bw-prompt').addEventListener('input', () => { const chat = currentChat(); if (chat) { chat.draft = q('#bw-prompt').value; save(); } });
-  q('#bw-tabs').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; const chat = workspaceChat(); if (b.dataset.tab) focusTab(chat, b.dataset.tab); else if (b.dataset.close) closeTab(chat, b.dataset.close); else if (b.dataset.pin) addPin(b.dataset.pin); });
+  q('#bw-tabs').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; const chat = workspaceChat(); if (b.dataset.tab) focusTab(chat, b.dataset.tab); else if (b.dataset.close) closeTab(chat, b.dataset.close); else if (b.dataset.fav) toggleFavorite(b.dataset.fav); });
+  q('#bw-tabs').addEventListener('dblclick', e => { const b = e.target.closest('[data-tab]'); if (b) { e.preventDefault(); startRenameTab(workspaceChat(), b.dataset.tab); } });
   q('#bw-tabs').addEventListener('auxclick', e => { const b = e.target.closest('[data-tab]'); if (e.button === 1 && b) { e.preventDefault(); closeTab(workspaceChat(), b.dataset.tab); } });
   q('#bw-tabs').addEventListener('pointerdown', e => { if (e.button === 1) e.preventDefault(); });
-  root.addEventListener('pointerdown', e => { if (!e.target.closest('.bw-menu') && !e.target.closest('#bw-plus') && !e.target.closest('#bw-pins') && !e.target.closest('#bw-folder-context') && !e.target.closest('.bw-palette')) { ['#bw-new-menu', '#bw-pin-menu', '#bw-project-menu'].forEach(s => { q(s).hidden = true; }); if (!e.target.closest('.bw-palette')) q('#bw-palette').hidden = true; } });
+  root.addEventListener('pointerdown', e => { if (!e.target.closest('.bw-menu') && !e.target.closest('#bw-plus') && !e.target.closest('#bw-favorites') && !e.target.closest('#bw-folder-context') && !e.target.closest('.bw-palette')) { ['#bw-new-menu', '#bw-fav-menu', '#bw-project-menu'].forEach(s => { q(s).hidden = true; }); if (!e.target.closest('.bw-palette')) q('#bw-palette').hidden = true; } });
   const paletteInput = q('#bw-palette-input');
   paletteInput.addEventListener('input', () => { paletteIndex = 0; renderPalette(); });
   paletteInput.addEventListener('keydown', e => { if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); if (!paletteItems.length) return; paletteIndex = (paletteIndex + (e.key === 'ArrowDown' ? 1 : paletteItems.length - 1)) % paletteItems.length; renderPalette(); } else if (e.key === 'Enter') { e.preventDefault(); runPalette(paletteIndex, e.shiftKey); } else if (e.key === 'Escape') { hideMenus(); } });

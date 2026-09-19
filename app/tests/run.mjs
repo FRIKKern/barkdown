@@ -78,7 +78,9 @@ try {
   // Re-anchor the caret on the last paragraph before the slash command: after the autosave the editor
   // occasionally drops focus, which made this step flaky.
   await editor.locator('p').last().click();
-  await page.keyboard.press('End');
+  // Put the caret at the very end of the last paragraph (a click lands mid-text and End is a visual-line key).
+  await page.evaluate(() => { const pm = document.querySelector('.bw-doc-pane:not([hidden]) .ProseMirror'); const p = [...pm.querySelectorAll('p')].pop(); const r = document.createRange(); r.selectNodeContents(p); r.collapse(false); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); });
+  await page.waitForTimeout(150);
   await page.keyboard.press('Enter');
   await page.waitForFunction(() => document.activeElement?.closest('.bw-doc-pane:not([hidden]) .ProseMirror') != null, null, { timeout: 3000 }).catch(() => {});
   await page.waitForTimeout(300);
@@ -138,10 +140,36 @@ try {
   await page.waitForFunction(() => document.querySelector('.bw-pane:not([hidden]) webview')?.getAttribute('src')?.includes('example.com'), null, { timeout: 8000 });
   step('website tab mounted a webview', true);
 
-  // Pins restore navigation; per-chat workspaces are independent; state survives reload.
+  // Favorites bookmark one tab and reopen it later, even after it was closed; tabs rename in place.
   await page.locator('#bw-tabs .bw-tab').first().hover();
-  await page.locator('#bw-tabs [data-pin]').first().dispatchEvent('click');
-  step('pin recorded', (await page.locator('#bw-pin-menu [data-restore]').count()) === 1);
+  await page.locator('#bw-tabs [data-fav]').first().dispatchEvent('click');
+  step('starring a tab records a favorite', (await page.evaluate(() => window.__barkdown.state.favorites.length)) === 1 && (await page.locator('#bw-tabs [data-fav].on').count()) === 1);
+  const favTab = await page.locator('#bw-tabs [data-tab]').first().getAttribute('data-tab');
+  const favLabel = await page.locator('#bw-tabs [data-tab]').first().locator('.bw-tab-label').innerText();
+  await page.locator(`#bw-tabs [data-close="${favTab}"]`).dispatchEvent('click');
+  await page.locator('#bw-favorites').click();
+  await page.locator('#bw-fav-menu [data-open]').first().click();
+  step('a favorite reopens its tab after it was closed', (await page.locator('#bw-tabs .bw-tab.active .bw-tab-label').innerText()) === favLabel);
+  await page.locator('#bw-tabs .bw-tab.active [data-tab]').dblclick();
+  await page.locator('#bw-tabs .bw-tab-rename').fill('Renamed tab');
+  await page.locator('#bw-tabs .bw-tab-rename').press('Enter');
+  await page.waitForTimeout(400);
+  step('double-clicking a tab renames it and its favorite', (await page.locator('#bw-tabs .bw-tab.active .bw-tab-label').innerText()) === 'Renamed tab' && (await page.evaluate(() => window.__barkdown.state.favorites[0].label)) === 'Renamed tab');
+  await page.locator('#bw-plus').click();
+  await page.locator('#bw-new-menu [data-new="chat"]').click();
+  await page.waitForSelector('.bw-side-chat', { timeout: 5000 });
+  await page.locator('#bw-tabs .bw-tab.active [data-tab]').dblclick();
+  await page.locator('#bw-tabs .bw-tab-rename').fill('Brainstorm');
+  await page.locator('#bw-tabs .bw-tab-rename').press('Enter');
+  step('renaming a side chat tab names the side chat', (await page.evaluate(() => { const chat = window.__barkdown.state.chats[window.__barkdown.state.current]; const tab = chat.tabs.find(t => t.id === chat.active); return window.__barkdown.state.chats[tab.sideChatId]?.title; })) === 'Brainstorm' && (await page.locator('.bw-side-chat #title').innerText()) === 'Brainstorm');
+  await page.locator('#bw-tabs .bw-tab.active').hover();
+  await page.locator('#bw-tabs .bw-tab.active [data-fav]').dispatchEvent('click');
+  const sideTab = await page.locator('#bw-tabs .bw-tab.active [data-tab]').getAttribute('data-tab');
+  await page.locator(`#bw-tabs [data-close="${sideTab}"]`).dispatchEvent('click');
+  await page.locator('#bw-favorites').click();
+  await page.locator('#bw-fav-menu [data-open]').first().click();
+  step('a favorited side chat comes back by name', (await page.locator('#bw-tabs .bw-tab.active .bw-tab-label').innerText()) === 'Brainstorm' && (await page.locator('.bw-side-chat #title').innerText()) === 'Brainstorm');
+  await page.locator(`#bw-tabs [data-close="${sideTab}"]`).dispatchEvent('click').catch(() => {});
   await page.keyboard.press('Escape');
   // Verbose transcript: a reply with tool steps renders expandable steps with the command, its output and a
   // line diff, plus a change card with counts and View/Undo per file.

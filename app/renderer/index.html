@@ -15,7 +15,7 @@
 <div id="app" class="bw" data-mode="chat">
   <div class="bw-brand"><span class="bw-mark">b</span><span class="bw-brand-name">Barkdown</span><span class="bw-spacer"></span><button class="bw-icon-button" id="bw-new-doc" title="New document (Ctrl+Shift+N)" aria-label="New document"><i data-lucide="file-plus"></i></button></div>
   <div class="bw-context"><button id="bw-go-chat" aria-label="Return to main chat"><i data-lucide="message-circle"></i></button><span id="bw-chat-title">Chat</span><span class="bw-spacer"></span><button class="bw-icon-button bw-open-work" id="bw-open-work" title="Open a work tab beside the chat (Alt+N)" aria-label="Open a work tab" aria-expanded="false"><i data-lucide="panel-right-open"></i></button><span class="bw-run-state" id="bw-run-state" hidden><span class="bw-pulse"></span>Working…</span></div>
-  <div class="bw-workbar"><button class="bw-mobile-back" id="bw-mobile-back" aria-label="Show conversation"><i data-lucide="message-circle"></i></button><nav class="bw-tabs" id="bw-tabs" aria-label="Work tabs"></nav><button class="bw-icon-button" id="bw-plus" aria-label="Open new work tab" title="New work tab (Alt+N)"><i data-lucide="plus"></i></button><button class="bw-icon-button" id="bw-pins" aria-label="Saved workspace pins" title="Pins"><i data-lucide="pin"></i><span class="bw-pins-label">Pins</span></button><button class="bw-icon-button" id="bw-settings" aria-label="Settings" title="Settings (Ctrl+,)"><i data-lucide="settings-2"></i></button></div>
+  <div class="bw-workbar"><button class="bw-mobile-back" id="bw-mobile-back" aria-label="Show conversation"><i data-lucide="message-circle"></i></button><nav class="bw-tabs" id="bw-tabs" aria-label="Work tabs"></nav><button class="bw-icon-button" id="bw-plus" aria-label="Open new work tab" title="New work tab (Alt+N)"><i data-lucide="plus"></i></button><button class="bw-icon-button" id="bw-favorites" aria-label="Favorites" title="Favorites: tabs you saved to reopen later"><i data-lucide="star"></i><span>Favorites</span></button><button class="bw-icon-button" id="bw-settings" aria-label="Settings" title="Settings (Ctrl+,)"><i data-lucide="settings-2"></i></button></div>
   <aside class="bw-sidebar" aria-label="Documents and chats">
     <nav id="bw-documents" aria-label="Pages"></nav>
     <div class="bw-label bw-label-chats"><span>Recent chats</span><span class="bw-spacer"></span><button class="bw-icon-button" id="bw-new-chat" title="New chat (Ctrl+N)" aria-label="New chat"><i data-lucide="plus"></i></button></div>
@@ -43,7 +43,7 @@
   <div class="bw-menu bw-menu-chip" id="bw-model-menu" hidden></div>
   <div class="bw-menu bw-menu-chip" id="bw-effort-menu" hidden></div>
   <div class="bw-lightbox" id="bw-lightbox" hidden role="dialog" aria-label="Image preview"><img alt=""></div>
-  <div class="bw-menu" id="bw-pin-menu" hidden></div>
+  <div class="bw-menu" id="bw-fav-menu" hidden></div>
   <div class="bw-menu" id="bw-project-menu" hidden></div>
   <div class="bw-palette" id="bw-palette" role="dialog" aria-label="Quick open" hidden>
     <input id="bw-palette-input" type="text" autocomplete="off" spellcheck="false" placeholder="Jump to a tab, document, chat, file, or action…" aria-label="Quick open">

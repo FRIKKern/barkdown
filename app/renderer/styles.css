@@ -151,3 +151,8 @@ h1,h2,h3,p{margin:0}
 
 /* page and proposal previews inside a step */
 .bw-doc-preview{border:1px solid var(--bw-border);border-radius:8px;padding:10px 14px;margin:6px 0;background:var(--bw-bg);font-size:12px;line-height:1.7;max-height:360px;overflow:auto}.bw-doc-preview p{margin:0 0 8px}.bw-doc-preview ul,.bw-doc-preview ol{margin:0 0 8px;padding-left:20px}.bw-doc-preview pre{background:var(--bw-side);border-radius:6px;padding:8px 10px;font-size:11px;overflow:auto}
+
+/* favorites and tab renaming */
+.bw-fav-row{display:flex;align-items:center;border-top:1px solid var(--bw-border)}.bw-fav-row>button:first-child{display:flex;gap:8px;align-items:center;min-width:0;flex:1;text-align:left}.bw-fav-row>button:first-child>span{min-width:0;display:block}.bw-fav-label{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bw-fav-row small{display:block;font-size:10px;color:var(--bw-muted);line-height:1.6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bw-fav-row>button:not(:first-child){padding:4px 6px;color:var(--bw-muted)}
+.bw-tab-actions button.on{color:var(--bw-warn)}.bw-tab-actions button.on svg{fill:currentColor}
+.bw-tab-rename{font:inherit;font-size:11px;background:var(--bw-bg);border:1px solid var(--bw-accent);border-radius:4px;padding:1px 5px;width:130px;outline:0}

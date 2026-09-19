@@ -23,6 +23,7 @@ These record the user's decisions through the private handoff. Preserve the inte
 | D17 | Tab hover or keyboard focus exposes pin/close. | Both remain reachable by touch and keyboard. Closing a view does not delete its content or cancel a run. |
 | D18 | Pins restore the exact route. | A right-side Pins dropdown restores the chat, work tabs, focused destination, document path, reading anchors, and layout. |
 | D19 | Pins are navigation snapshots. | No extra pinned sidebar, no content rollback, no repeated agent actions. Unavailable paths remain visibly unavailable. |
+| D19a | Favorites supersede pins (2026-09-19). | D18 and D19 are superseded: a pin snapshotted a whole workspace route and could only be restored into its own chat. A favorite bookmarks one tab (document, paper, website, file, review, terminal or side chat) and reopens it from any chat, after the tab was closed, by name. Tabs rename in place; a side chat's tab name is its title, a document tab's name is the document title. |
 | D20 | Agent context is local to the conversation. | A compact composer control shows the working folder. Side-chat agents inherit that context when created. File viewing does not silently rebind a run. |
 | D21 | Open the agent's project as an editor. | A chat action or working-folder menu opens files on the right. Expand if needed; Back to chat restores the conversation and split. |
 | D22 | Start a chat from the current file's folder. | Create a new chat whose agent uses that folder, retaining the original chat and unsaved buffers. |
