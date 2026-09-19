@@ -148,7 +148,11 @@ try {
   const favLabel = await page.locator('#bw-tabs [data-tab]').first().locator('.bw-tab-label').innerText();
   await page.locator(`#bw-tabs [data-close="${favTab}"]`).dispatchEvent('click');
   await page.locator('#bw-favorites').click();
-  await page.locator('#bw-fav-menu [data-open]').first().click();
+  const favRow = page.locator('#bw-fav-menu [data-open]').first();
+  const favBox = await favRow.locator('.bw-fav-label').boundingBox();
+  const removeBox = await page.locator('#bw-fav-menu [data-unfav]').first().boundingBox();
+  step('the favorites menu shows the name, wider than its remove button', (await favRow.locator('.bw-fav-label').innerText()) === favLabel && favBox && removeBox && favBox.width > 60 && removeBox.width < 40);
+  await favRow.click();
   step('a favorite reopens its tab after it was closed', (await page.locator('#bw-tabs .bw-tab.active .bw-tab-label').innerText()) === favLabel);
   await page.locator('#bw-tabs .bw-tab.active [data-tab]').dblclick();
   await page.locator('#bw-tabs .bw-tab-rename').fill('Renamed tab');
