@@ -32,6 +32,15 @@ function modelChoices(provider) {
 }
 // The default row names the effort the provider uses on its own: what its last run reported, else
 // what its own config says (Claude Code: settings.json or high; Codex: config.toml or medium).
+// The model a provider uses when the chat does not pick one: what its last run reported, else its own config.
+function modelName(id) { return [...CLAUDE_MODELS, ...CODEX_MODELS].find(([v]) => v === id)?.[1] || id; }
+function defaultModelInForce(provider) {
+  const p = state.settings?.providers?.[provider] || {};
+  if (provider === 'claude') return p.modelSeen ? { id: p.modelSeen, label: modelName(p.modelSeen) } : { id: '', label: 'Claude Code model' };
+  if (provider === 'codex') return p.model ? { id: p.model, label: modelName(p.model) } : { id: '', label: 'Codex model' };
+  const id = state.settings?.model || 'claude-opus-5';
+  return { id, label: modelName(id) };
+}
 function effortChoices(provider) {
   const levels = EFFORT_LEVELS[provider];
   if (!levels) return [];
@@ -361,13 +370,18 @@ function renderChat() {
   q('#bw-provider-label').textContent = (PROVIDER_LABEL[provider] || provider) + (ready ? '' : ' · not signed in');
   q('#bw-provider').classList.toggle('off', !ready);
   q('#bw-provider').title = ready ? `Runs on ${PROVIDER_LABEL[provider]} using your local login. Click to switch.` : `${PROVIDER_LABEL[provider]} is not available. Click to switch or open Settings.`;
-  const modelLabel = (modelChoices(provider)).find(([v]) => v === (chat.model || ''))?.[1] || chat.model || 'Model';
-  q('#bw-model-label').textContent = chat.model ? modelLabel : 'Model';
-  q('#bw-model').title = chat.model ? `Model for this chat: ${chat.model}` : 'Model for this chat (provider default)';
+  // The chips always name the value in force; a provider default is shown as such, never as a blank word.
+  const modelLabel = (modelChoices(provider)).find(([v]) => v === (chat.model || ''))?.[1] || chat.model;
+  const defaultModel = defaultModelInForce(provider);
+  q('#bw-model-label').textContent = chat.model ? modelLabel : `${defaultModel.label} (default)`;
+  q('#bw-model').title = chat.model ? `Model for this chat: ${chat.model}` : `Model for this chat: the provider default${defaultModel.id ? ', ' + defaultModel.id : ''}. Click to choose another.`;
   const efforts = effortChoices(provider);
   q('#bw-effort').hidden = !efforts.length;
-  q('#bw-effort-label').textContent = chat.effort ? (efforts.find(([v]) => v === chat.effort)?.[1] || chat.effort) : 'Effort';
-  q('#bw-effort').title = chat.effort ? `Reasoning effort for this chat: ${chat.effort}` : 'Reasoning effort for this chat (provider default)';
+  const p = state.settings?.providers?.[provider] || {};
+  const defaultEffort = p.effortSeen || p.effort;
+  const effortName = v => (EFFORT_LEVELS[provider] || []).find(([id]) => id === v)?.[1] || v;
+  q('#bw-effort-label').textContent = chat.effort ? effortName(chat.effort) : defaultEffort ? `${effortName(defaultEffort)} (default)` : 'Effort';
+  q('#bw-effort').title = chat.effort ? `Reasoning effort for this chat: ${chat.effort}` : `Reasoning effort for this chat: the provider default${defaultEffort ? ', ' + defaultEffort : ''}. Click to choose another.`;
   q('#bw-working').hidden = !chat.runId;
   q('#bw-working').innerHTML = `<span class="bw-pulse"></span>${esc(chat.workingLabel || 'Working…')}`;
   q('#bw-run-state').hidden = !chat.runId;

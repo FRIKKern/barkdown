@@ -205,7 +205,8 @@ try {
   await page.locator('#bw-model-menu [data-choice="claude-sonnet-5"]').click();
   step('model chip stores the chat model', (await page.locator('#bw-model-label').innerText()) === 'Sonnet 5' && (await page.evaluate(() => window.__barkdown.state.chats[window.__barkdown.state.current].model)) === 'claude-sonnet-5');
   // Effort exists for the login providers only; the offline run uses the API loop, so switch the chat to Claude Code for the chip.
-  await page.evaluate(() => { const chat = window.__barkdown.state.chats[window.__barkdown.state.current]; chat.provider = 'claude'; window.__barkdown.render(); });
+  await page.evaluate(() => { const chat = window.__barkdown.state.chats[window.__barkdown.state.current]; chat.provider = 'claude'; chat.model = null; chat.effort = null; window.__barkdown.render(); });
+  step('the chips name the defaults in force instead of saying Model and Effort', (await page.locator('#bw-model-label').innerText()).endsWith(' (default)') && /^(Low|Medium|High|Extra high|Max) [(]default[)]$/.test(await page.locator('#bw-effort-label').innerText()));
   await page.locator('#bw-effort').click();
   await page.locator('#bw-effort-menu [data-choice="high"]').click();
   step('effort chip stores the chat effort', (await page.evaluate(() => window.__barkdown.state.chats[window.__barkdown.state.current].effort)) === 'high');
