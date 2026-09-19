@@ -528,6 +528,7 @@ function startRenameTab(chat, tabId) {
   input.className = 'bw-tab-rename';
   input.value = tab.title;
   input.setAttribute('aria-label', 'Tab name');
+  label.closest('.bw-tab')?.classList.add('renaming');
   label.replaceWith(input);
   input.focus(); input.select();
   let done = false;
