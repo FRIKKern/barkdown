@@ -46,10 +46,11 @@ console.log('ok read_conversation');
 
 // context: a side chat hears the main conversation; the main chat hears its side chats
 const sideNote = conversations.contextNote('side1');
-assert(sideNote.includes('side chat opened from the main conversation "Trip to Bergen" (id main1)') && sideNote.includes('Bryggen') && sideNote.includes('Open beside it: Overview, Bergen guide'), 'side note: ' + sideNote);
+assert(sideNote.includes('You are the side chat "Side chat" (id side1), opened from the main conversation "Trip to Bergen" (id main1)') && sideNote.includes('Bryggen') && sideNote.includes('Open beside it: Overview, Bergen guide'), 'side note: ' + sideNote);
+assert(sideNote.includes('Other side chats of the same conversation') && sideNote.includes('"Empty side" (id side2') && sideNote.includes('nothing said yet') && !sideNote.includes('(id side1,'), 'side note lists siblings, not itself: ' + sideNote);
 const mainNote = conversations.contextNote('main1');
-assert(mainNote.includes('Side chats open beside this conversation') && mainNote.includes('Side chat (id side1') && mainNote.includes('Fløyen') && !mainNote.includes('Empty side'), 'main note: ' + mainNote);
-assert(conversations.contextNote('side2') !== '' && conversations.contextNote('nope') === '', 'empty side chat still gets its parent; unknown chat gets nothing');
+assert(mainNote.includes('1 side chat open beside this conversation, newest first') && mainNote.includes('most recent: "Side chat" (id side1') && mainNote.includes('Fløyen') && !mainNote.includes('Empty side'), 'main note: ' + mainNote);
+assert(conversations.contextNote('side2').includes('most recent: "Side chat" (id side1') && conversations.contextNote('nope') === '', 'empty side chat still gets its parent and siblings; unknown chat gets nothing');
 const lone = conversations.contextNote('main1', { budget: 80 });
 assert(lone.length <= 80 && lone.endsWith('…'), 'budget clips');
 console.log('ok context notes');

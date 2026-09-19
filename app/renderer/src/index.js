@@ -126,6 +126,7 @@ function renderTabs() {
   root.classList.toggle('bw-nowork', state.mode !== 'document' && !chat?.editorExpanded && !(chat?.tabs?.length));
   nav.innerHTML = (chat?.tabs || []).map(t => {
     const dirty = t.type === 'project' && chat.folder && dirtyCount(chat.folder) > 0;
+    if (t.type === 'chat' && state.chats[t.sideChatId]?.title) t.title = state.chats[t.sideChatId].title;
     const title = t.type === 'doc' ? t.path.map(id => documentSummary(id, t.source)?.title || id).join(' → ') : t.type === 'web' ? t.url || t.title : t.title;
     return `<div class="bw-tab ${t.id === chat.active ? 'active' : ''}"><button data-tab="${t.id}" aria-current="${t.id === chat.active ? 'page' : 'false'}" title="${esc(title)}">${iconHtml(TYPE_ICON[t.type])}<span class="bw-tab-label">${esc(t.title)}</span>${t.unread ? '<span class="bw-dot" aria-label="Updated by the assistant"></span>' : dirty ? '<span class="bw-dot bw-dot-dirty" aria-label="Unsaved edits"></span>' : ''}</button><div class="bw-tab-actions"><button data-pin="${t.id}" aria-label="Pin ${esc(t.title)}">${iconHtml('pin', 12)}</button><button data-close="${t.id}" aria-label="Close ${esc(t.title)}">${iconHtml('x', 12)}</button></div></div>`;
   }).join('');

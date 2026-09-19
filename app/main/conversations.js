@@ -96,21 +96,25 @@ function contextNote(chatId, { budget = 3500 } = {}) {
   const chat = all[chatId];
   if (!chat) return '';
   const parts = [];
+  const newestFirst = list => [...list].sort((a, b) => String(b.updatedAt || '').localeCompare(String(a.updatedAt || '')));
+  const sideLine = (side, marker) => { const d = describe(side, all); return `  ${marker}"${side.title}" (id ${side.id}, ${d.messages} message${d.messages === 1 ? '' : 's'}, ${ago(side.updatedAt)})${d.lastQuestion ? `: last question "${d.lastQuestion}"` : ': nothing said yet'}${d.lastReply ? ` · last reply "${clip(d.lastReply, 160)}"` : ''}`; };
   if (chat.side && all[chat.parent]) {
     const parent = all[chat.parent];
     const recent = (parent.messages || []).filter(m => m.text || m.images?.length).slice(-6);
-    parts.push(`This is a side chat opened from the main conversation "${parent.title}" (id ${parent.id}). Its latest exchanges:`);
+    parts.push(`You are the side chat "${chat.title}" (id ${chat.id}), opened from the main conversation "${parent.title}" (id ${parent.id}). The main conversation's latest exchanges:`);
     parts.push(...recent.map(m => '  ' + messageLine(m, 500)));
     if ((parent.tabs || []).length) parts.push(`  Open beside it: ${parent.tabs.map(t => t.title).filter(Boolean).join(', ')}.`);
-    parts.push('Use read_conversation with that id for the full transcript. Other side chats of the same conversation appear in list_conversations.');
+    const siblings = newestFirst(Object.values(all).filter(c => c.side && c.parent === parent.id && c.id !== chat.id));
+    if (siblings.length) {
+      parts.push(`Other side chats of the same conversation, newest first (this chat is not among them):`);
+      siblings.slice(0, 4).forEach((side, i) => parts.push(sideLine(side, i === 0 ? 'most recent: ' : '')));
+    } else parts.push('There are no other side chats.');
+    parts.push('read_conversation with an id gives the full transcript.');
   } else {
-    const sides = Object.values(all).filter(c => c.side && c.parent === chat.id && (c.messages || []).length);
+    const sides = newestFirst(Object.values(all).filter(c => c.side && c.parent === chat.id && (c.messages || []).length));
     if (sides.length) {
-      parts.push(`Side chats open beside this conversation (read one with read_conversation):`);
-      for (const side of sides.slice(-4)) {
-        const d = describe(side, all);
-        parts.push(`  ${side.title} (id ${side.id}, ${d.messages} messages, ${ago(side.updatedAt)}): last question "${d.lastQuestion}"${d.lastReply ? ` · last reply "${clip(d.lastReply, 160)}"` : ''}`);
-      }
+      parts.push(`${sides.length} side chat${sides.length === 1 ? '' : 's'} open beside this conversation, newest first (say which one by title or id; read one with read_conversation):`);
+      sides.slice(0, 4).forEach((side, i) => parts.push(sideLine(side, i === 0 ? 'most recent: ' : '')));
     }
   }
   if (!parts.length) return '';

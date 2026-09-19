@@ -142,7 +142,7 @@ export async function sendMessage(chat, text, hooks, images = []) {
   if ((!clean && !attached.length) || chat.runId) return false;
   const now = new Date().toISOString();
   chat.messages.push({ role: 'user', text: clean, at: now, images: attached });
-  if (chat.messages.filter(m => m.role === 'user').length === 1 && (chat.title === 'New chat' || chat.title === 'Shaping Barkdown' && !chat.side)) chat.title = chatTitleFrom(clean || (attached.length > 1 ? `${attached.length} images` : attached[0].name || 'Image'));
+  if (chat.messages.filter(m => m.role === 'user').length === 1 && (chat.title === 'New chat' || chat.title === 'Side chat' || chat.title === 'Shaping Barkdown' && !chat.side)) chat.title = chatTitleFrom(clean || (attached.length > 1 ? `${attached.length} images` : attached[0].name || 'Image'));
   chat.messages.push({ role: 'assistant', text: '', at: now, streaming: true, tools: [], events: [], approvals: [] });
   chat.following = true;
   chat.closedTargets = [];
