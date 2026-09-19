@@ -12,7 +12,7 @@ const claudeProvider = require('./providers/claude');
 const codexProvider = require('./providers/codex');
 
 function providerStatus() {
-  return { claude: { loggedIn: claudeProvider.loggedIn(), effort: claudeProvider.defaultEffort() }, codex: { loggedIn: codexProvider.loggedIn(), model: codexProvider.defaultModel(), effort: codexProvider.defaultEffort() }, api: { hasKey: Boolean(readSettings().apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY) } };
+  return { claude: { loggedIn: claudeProvider.loggedIn(), effort: claudeProvider.defaultEffort(), model: claudeProvider.defaultModel() }, codex: { loggedIn: codexProvider.loggedIn(), model: codexProvider.defaultModel(), effort: codexProvider.defaultEffort() }, api: { hasKey: Boolean(readSettings().apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY) } };
 }
 function defaultProvider() {
   if (process.env.BARKDOWN_PROVIDER) return process.env.BARKDOWN_PROVIDER;

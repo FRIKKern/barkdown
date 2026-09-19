@@ -7,11 +7,29 @@ export const EFFORT_LEVELS = {
   codex: [['minimal', 'Minimal'], ['low', 'Low'], ['medium', 'Medium'], ['high', 'High'], ['xhigh', 'Extra high']],
 };
 
-// Label for a provider's default row: what the last run reported, else what its own config says.
-export function defaultModelLabel(provider, providers = {}) {
+// A model id as a person reads it: known ids by their name, Claude Code's aliases ("fable", "opus[1m]")
+// resolved, anything else as given.
+const ALIASES = { fable: 'Fable 5.1', opus: 'Opus 5', sonnet: 'Sonnet 5', haiku: 'Haiku 4.5' };
+export function modelName(id) {
+  if (!id) return '';
+  const m = /^(.*?)(\[1m\])?$/i.exec(String(id));
+  const base = m[1], long = Boolean(m[2]);
+  const label = [...CLAUDE_MODELS, ...CODEX_MODELS].find(([v]) => v === base)?.[1] || ALIASES[base.toLowerCase()] || base;
+  return long ? `${label} · 1M` : label;
+}
+
+// The model a provider uses when the chat does not pick one: what its last run reported, else its own
+// config (Claude Code: ANTHROPIC_MODEL or ~/.claude/settings.json; Codex: ~/.codex/config.toml).
+export function defaultModelId(provider, providers = {}) {
   const p = providers[provider] || {};
-  if (provider === 'claude') return p.modelSeen ? `Claude Code default (${p.modelSeen})` : 'Claude Code default';
-  if (provider === 'codex') return p.model ? `Codex default (${p.model})` : 'Codex default (~/.codex/config.toml)';
+  return p.modelSeen || p.model || '';
+}
+
+// Label for a provider's default row: the actual model, marked as the provider's default.
+export function defaultModelLabel(provider, providers = {}) {
+  const id = defaultModelId(provider, providers);
+  if (provider === 'claude') return id ? `${modelName(id)} · Claude Code default` : 'Claude Code default (unknown until the first run)';
+  if (provider === 'codex') return id ? `${modelName(id)} · Codex default` : 'Codex default (~/.codex/config.toml)';
   return 'Settings default';
 }
 

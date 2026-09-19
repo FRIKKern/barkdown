@@ -12,6 +12,14 @@ function loggedIn() {
   try { return fs.existsSync(path.join(os.homedir(), '.claude', '.credentials.json')); } catch { return false; }
 }
 
+// The model Claude Code uses on its own: the env override, then ~/.claude/settings.json ("fable", "opus",
+// "sonnet[1m]" and full ids all occur), else unknown until a run's init message reports it.
+function defaultModel() {
+  if (process.env.ANTHROPIC_MODEL) return process.env.ANTHROPIC_MODEL;
+  try { const s = JSON.parse(fs.readFileSync(path.join(os.homedir(), '.claude', 'settings.json'), 'utf8')); if (s.model) return String(s.model); } catch {}
+  return null;
+}
+
 const ALWAYS_ALLOW = new Set(['Read', 'Glob', 'Grep', 'LS', 'WebFetch', 'WebSearch', 'TodoWrite', 'TodoRead', 'Task', 'ToolSearch', 'BashOutput', 'KillShell', 'NotebookRead']);
 const NEEDS_APPROVAL = new Set(['Write', 'Edit', 'MultiEdit', 'NotebookEdit', 'Bash']);
 
@@ -124,4 +132,4 @@ function defaultEffort() {
   return 'high';
 }
 
-module.exports = { start, loggedIn, defaultEffort };
+module.exports = { start, loggedIn, defaultEffort, defaultModel };

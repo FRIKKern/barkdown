@@ -9,7 +9,7 @@ import { mountReview } from './tabs/review.js';
 import { mountProject, buffers, dirtyCount } from './tabs/project.js';
 import { mountSideChat } from './tabs/sidechat.js';
 import { mountTerminal } from './tabs/terminal.js';
-import { CLAUDE_MODELS, CODEX_MODELS, EFFORT_LEVELS, defaultModelLabel } from './models.js';
+import { CLAUDE_MODELS, CODEX_MODELS, EFFORT_LEVELS, defaultModelLabel, defaultModelId, modelName } from './models.js';
 import { openSettings } from './settings.js';
 import { toggleMenu, hideMenus as closeMenus, installMenuDismissal } from './menus.js';
 import { askText, askConfirm } from './dialogs.js';
@@ -26,18 +26,16 @@ const TYPE_ICON = { doc: 'file-text', web: 'globe', review: 'git-pull-request', 
 function modelChoices(provider) {
   const codexDefault = state.settings?.providers?.codex?.model;
   const providers = state.settings?.providers || {};
-  if (provider === 'claude') return [['', defaultModelLabel('claude', providers)], ...CLAUDE_MODELS.filter(([id]) => id !== providers.claude?.modelSeen)];
+  if (provider === 'claude') return [['', defaultModelLabel('claude', providers)], ...CLAUDE_MODELS.filter(([id]) => id !== defaultModelId('claude', providers).replace(/\[1m\]$/i, ''))];
   if (provider === 'codex') return [['', defaultModelLabel('codex', providers)], ...CODEX_MODELS.filter(([id]) => id !== codexDefault)];
   return [['', `Settings default${state.settings?.model ? ' (' + state.settings.model + ')' : ''}`], ...CLAUDE_MODELS];
 }
 // The default row names the effort the provider uses on its own: what its last run reported, else
 // what its own config says (Claude Code: settings.json or high; Codex: config.toml or medium).
 // The model a provider uses when the chat does not pick one: what its last run reported, else its own config.
-function modelName(id) { return [...CLAUDE_MODELS, ...CODEX_MODELS].find(([v]) => v === id)?.[1] || id; }
 function defaultModelInForce(provider) {
-  const p = state.settings?.providers?.[provider] || {};
-  if (provider === 'claude') return p.modelSeen ? { id: p.modelSeen, label: modelName(p.modelSeen) } : { id: '', label: 'Claude Code model' };
-  if (provider === 'codex') return p.model ? { id: p.model, label: modelName(p.model) } : { id: '', label: 'Codex model' };
+  const providers = state.settings?.providers || {};
+  if (provider === 'claude' || provider === 'codex') { const id = defaultModelId(provider, providers); return id ? { id, label: modelName(id) } : { id: '', label: provider === 'claude' ? 'Claude Code model' : 'Codex model' }; }
   const id = state.settings?.model || 'claude-opus-5';
   return { id, label: modelName(id) };
 }
