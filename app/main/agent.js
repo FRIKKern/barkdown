@@ -296,12 +296,34 @@ function withConversationContext(params) {
   return { ...params, prompt, messages };
 }
 
+// A provider session only knows the turns it ran itself. When the person switches provider, or comes
+// back to one, the turns that session missed travel with the prompt (newest kept whole, oldest dropped
+// past the budget) so the conversation carries on where it was. The API loop has the full history already.
+const CATCH_UP_BUDGET = 14000;
+function withCatchUp(params) {
+  const turns = params.context?.catchUp;
+  if (!Array.isArray(turns) || !turns.length || params.provider === 'api') return params;
+  const lines = [];
+  let used = 0;
+  for (const t of [...turns].reverse()) {
+    const text = String(t.text || '').replace(/\s+/g, ' ').trim();
+    if (!text) continue;
+    const who = t.role === 'user' ? 'Person' : 'Assistant' + (t.provider ? ` (${t.provider})` : '');
+    const line = `${who}: ${text.length > 1500 ? text.slice(0, 1499) + '…' : text}`;
+    if (used + line.length > CATCH_UP_BUDGET) { lines.push('… earlier turns omitted'); break; }
+    lines.push(line); used += line.length;
+  }
+  if (!lines.length) return params;
+  const note = `[Earlier in this conversation]\nYou are continuing this chat. These turns happened before this session started; some may have been answered by a different model. Treat them as your own history: do not greet again, and keep any decisions made.\n${lines.reverse().join('\n')}\n[End of earlier turns]\n\n`;
+  return { ...params, prompt: note + (params.prompt || '') };
+}
+
 async function start(rawParams) {
-  const params = withConversationContext(rawParams);
+  const params = withConversationContext(withCatchUp(rawParams));
   const provider = params.provider || 'api';
   if (provider === 'claude') return require('./providers/claude').start(params);
   if (provider === 'codex') return require('./providers/codex').start(params);
   return startApi(params);
 }
 
-module.exports = { start, startApi, cancel, respondApproval, toolDefinitions, setClientFactory, imageBlocks, withImages, withConversationContext };
+module.exports = { start, startApi, cancel, respondApproval, toolDefinitions, setClientFactory, imageBlocks, withImages, withConversationContext, withCatchUp };

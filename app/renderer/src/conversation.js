@@ -211,7 +211,11 @@ export async function sendMessage(chat, text, hooks, images = []) {
     const messages = apiMessagesFor(chat);
     const provider = providerFor(chat);
     chat.sessions = chat.sessions || {};
-    const { runId } = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title }, provider, chat.sessions[provider] || null, clean, attached, { model: chat.model || undefined, effort: chat.effort || undefined });
+    // Turns this provider's session has not seen: everything, for a fresh session; what happened while
+    // another provider answered, for a resumed one. The new question and the empty reply are excluded.
+    const seen = chat.sessions[provider] ? (chat.sessionSeen?.[provider] || 0) : 0;
+    const catchUp = chat.messages.slice(seen, -2).filter(m => m.text).map(m => ({ role: m.role, text: m.text, provider: m.role === 'assistant' ? (PROVIDER_LABEL[m.provider] || m.provider || undefined) : undefined }));
+    const { runId } = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title, catchUp }, provider, chat.sessions[provider] || null, clean, attached, { model: chat.model || undefined, effort: chat.effort || undefined });
     chat.runProvider = provider;
     chat.runId = runId;
     hooks.runChanged(chat);
@@ -274,7 +278,7 @@ export function handleAgentEvent(event, hooks) {
       reply.streaming = false;
       if (event.history) { chat.apiHistory = event.history; chat.messages.filter(m => m.role === 'user').forEach(m => { m.sentInHistory = true; }); }
       if (event.offline) reply.offline = true;
-      if (event.session && event.provider) { chat.sessions = chat.sessions || {}; chat.sessions[event.provider] = event.session; }
+      if (event.session && event.provider) { chat.sessions = chat.sessions || {}; chat.sessions[event.provider] = event.session; chat.sessionSeen = chat.sessionSeen || {}; chat.sessionSeen[event.provider] = chat.messages.length; }
       reply.provider = event.provider;
       reply.finishedAt = new Date().toISOString();
       chat.runId = null;

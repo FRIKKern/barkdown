@@ -94,6 +94,18 @@ assert(offline.some(e => e.type === 'activity' && e.target.kind === 'doc') && of
 assert(offline.at(-1).offline === true, 'offline done flag missing');
 console.log('scenario 5 ok: offline fallback');
 
+// 6b. A switched provider gets the turns its session missed, newest kept, oldest dropped past the budget.
+{
+  const turns = [{ role: 'user', text: 'Hey!' }, { role: 'assistant', text: 'Hey! What would you like to work on?', provider: 'Claude Code' }, { role: 'user', text: 'What model are you?' }];
+  const p = agent.withCatchUp({ provider: 'codex', prompt: 'Tell me what we discussed', context: { catchUp: turns } });
+  assert(p.prompt.startsWith('[Earlier in this conversation]') && p.prompt.includes('Person: Hey!\nAssistant (Claude Code): Hey! What would you like to work on?\nPerson: What model are you?') && p.prompt.endsWith('[End of earlier turns]\n\nTell me what we discussed'), 'catch-up prompt: ' + p.prompt);
+  assert(agent.withCatchUp({ provider: 'api', prompt: 'x', context: { catchUp: turns } }).prompt === 'x' && agent.withCatchUp({ provider: 'claude', prompt: 'x', context: {} }).prompt === 'x', 'api loop and empty catch-up untouched');
+  const long = Array.from({ length: 40 }, (_, i) => ({ role: i % 2 ? 'assistant' : 'user', text: `turn ${i} ` + 'x'.repeat(600) }));
+  const clipped = agent.withCatchUp({ provider: 'claude', prompt: 'go', context: { catchUp: long } }).prompt;
+  assert(clipped.includes('… earlier turns omitted') && clipped.includes('turn 39') && !clipped.includes('turn 0 '), 'budget keeps the newest turns');
+  console.log('scenario 6b ok: provider catch-up');
+}
+
 // 6. Markdown round trip keeps structure.
 const md = '# Title\n\nPara with **bold**.\n\n- one\n- two\n\n- [x] done\n\n> quote\n\n| Mode | What it does |\n| --- | --- |\n| Append | Adds blocks at the end |\n| Replace | Rewrites it, a \\| escaped pipe |\n\n```js\ncode();\n```\n';
 const table = markdownToDoc(md).content.find(n => n.type === 'table');
