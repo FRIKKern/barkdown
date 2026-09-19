@@ -23,10 +23,65 @@ export function transcriptHtml(chat, options = {}) {
     const approvals = (m.approvals || []).filter(a => a.status === 'pending').map(a => `<div class="bw-approval" data-approval="${esc(a.approvalId)}"><strong>${a.request.kind === 'command' ? 'Allow running a command?' : a.request.outside ? `Allow ${esc(a.request.tool)} outside the working folder: ${esc(a.request.path)}?` : `Allow writing ${esc(a.request.path || a.request.tool)}?`}</strong><span class="bw-muted">${esc(a.request.summary || '')}</span><pre>${esc(String(a.request.command || a.request.contents || '').slice(0, 4000))}</pre><div class="row"><button class="primary" data-approve="1">Allow</button><button data-approve="0">Decline</button></div></div>`).join('');
     const error = m.error ? `<p class="bw-error-line">${esc(m.error)}</p>` : '';
     const notes = (m.notes || []).map(n => `<p class="bw-error-line">${esc(n)}</p>`).join('');
-    const meta = m.provider && !m.streaming ? `<span class="bw-muted"> · ${esc(PROVIDER_LABEL[m.provider] || m.provider)}${m.usage?.cost ? ' · $' + m.usage.cost.toFixed(3) : ''}</span>` : '';
     const changes = m.streaming ? '' : changeCardHtml(m, index);
-    return `<div class="bw-byline"><span class="bw-avatar bw-agent">b</span>Barkdown${meta}<time>${esc(relativeTime(m.at))}</time></div>${steps}${events}${approvals}<div class="bw-agent-copy">${inlineMarkdownHtml(m.text || '')}${m.streaming && !m.text ? '<span class="bw-muted">Thinking…</span>' : ''}</div>${changes}${notes}${error}`;
+    return `<div class="bw-byline"><span class="bw-avatar bw-agent">b</span>Barkdown<time>${esc(relativeTime(m.at))}</time></div>${timelineHtml(m, index, steps)}${events}${approvals}${changes}${notes}${error}${replyFootHtml(m, chat)}`;
   }).join('') + (options.footer || '');
+}
+
+// The reply as it happened: thinking, steps and text in order. Replies saved before the timeline existed
+// (no parts) fall back to steps first, then the text. Tools a timeline does not mention still render.
+function timelineHtml(m, index, legacySteps) {
+  if (!m.parts?.length) return `${legacySteps}<div class="bw-agent-copy">${inlineMarkdownHtml(m.text || '')}${m.streaming && !m.text ? '<span class="bw-muted">Thinking…</span>' : ''}</div>`;
+  const seen = new Set();
+  const out = m.parts.map((p, i) => {
+    const live = m.streaming && i === m.parts.length - 1;
+    if (p.kind === 'tool') { const n = (m.tools || []).findIndex(t => t.id === p.id); if (n < 0) return ''; seen.add(n); return stepHtml(m.tools[n], index, n); }
+    if (p.kind === 'thinking') return `<div class="bw-thought${live ? ' live' : ''}">${inlineMarkdownHtml(p.text || '')}</div>`;
+    return `<div class="bw-agent-copy">${inlineMarkdownHtml(p.text || '')}</div>`;
+  }).join('');
+  const rest = (m.tools || []).map((t, n) => seen.has(n) ? '' : stepHtml(t, index, n)).join('');
+  return out + rest;
+}
+
+export function formatDuration(ms) {
+  const s = Math.max(0, Math.round(ms / 1000));
+  if (s < 60) return `${s}s`;
+  const m = Math.floor(s / 60), r = s % 60;
+  if (m < 60) return `${m}m ${r}s`;
+  return `${Math.floor(m / 60)}h ${m % 60}m`;
+}
+export function formatTokens(n) { return n >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k' : String(n); }
+
+// The line under a reply: while it runs, elapsed time and what it is doing; after, time, tokens, cost, provider.
+function replyFootHtml(m, chat) {
+  if (m.streaming) return `<div class="bw-reply-foot live">${iconHtml('asterisk', 12)}<span class="bw-elapsed" data-since="${esc(m.at)}">${formatDuration(Date.now() - new Date(m.at).getTime())}</span><span>· ${esc(chat.workingLabel || (m.parts?.length ? 'Writing…' : 'Thinking…'))}</span></div>`;
+  if (m.offline) return '';
+  const u = m.usage || {};
+  const bits = [];
+  const ms = u.durationMs || (m.finishedAt ? new Date(m.finishedAt) - new Date(m.at) : 0);
+  if (ms > 0) bits.push(formatDuration(ms));
+  const tokens = (u.tokens?.input || 0) + (u.tokens?.output || 0);
+  if (tokens) bits.push(`${formatTokens(tokens)} tokens`);
+  if (u.cost) bits.push('$' + u.cost.toFixed(3));
+  if (m.provider) bits.push(PROVIDER_LABEL[m.provider] || m.provider);
+  if (!bits.length) return '';
+  return `<div class="bw-reply-foot">${iconHtml('asterisk', 12)}<span>${esc(bits.join(' · '))}</span></div>`;
+}
+
+// A shell command with its parts coloured: command names, flags, strings, operators.
+function shellHtml(command) {
+  return String(command || '').split('\n').map((line, i, lines) => {
+    let expectCommand = i === 0 || /(\|\||&&|\||;|\\)\s*$/.test(lines[i - 1] || '');
+    return line.replace(/("[^"]*"?|'[^']*'?|\S+)/g, token => {
+      let cls = '';
+      if (/^("|')/.test(token)) cls = 's';
+      else if (/^(\|\||&&|\||;|>>?|2>&1|<<?|\\)$/.test(token)) { cls = 'o'; expectCommand = true; return `<span class="o">${esc(token)}</span>`; }
+      else if (token.startsWith('-') && token.length > 1) cls = 'f';
+      else if (expectCommand) { cls = 'c'; expectCommand = false; if (/^(sudo|npx|npm|node|python|git|bp|cd|time)$/.test(token) && !/^(cd)$/.test(token)) expectCommand = false; }
+      if (cls === 'c' || cls === 's' || cls === 'f') expectCommand = false;
+      return cls ? `<span class="${cls}">${esc(token)}</span>` : esc(token);
+    });
+  }).join('\n');
 }
 
 const OUTPUT_CAP = 6000;
@@ -41,7 +96,7 @@ function stepHtml(t, mi, n) {
   const icon = t.ok === false ? 'alert-triangle' : t.done ? 'circle-check' : 'wrench';
   let body = '';
   switch (t.tool) {
-    case 'Bash': body = `<pre class="bw-cmd">$ ${esc(input.command || '')}</pre>${t.output != null || t.preview ? `<pre class="bw-out">${esc(clipOut(t.output ?? t.preview))}</pre>` : ''}`; break;
+    case 'Bash': body = `<pre class="bw-cmd"><span class="p">$</span> ${shellHtml(input.command || '')}</pre>${t.output != null || t.preview ? `<pre class="bw-out">${esc(clipOut(t.output ?? t.preview))}</pre>` : ''}`; break;
     case 'Edit': body = `<div class="bw-kv"><b>file</b> ${esc(input.file_path || '')}</div>${diffHtml(lineDiff(input.old_string || '', input.new_string || ''))}`; break;
     case 'MultiEdit': body = `<div class="bw-kv"><b>file</b> ${esc(input.file_path || '')}</div>` + (input.edits || []).map(e => diffHtml(lineDiff(e.old_string || '', e.new_string || ''))).join(''); break;
     case 'Write': case 'write_file': { const text = input.content ?? input.contents ?? ''; body = `<div class="bw-kv"><b>file</b> ${esc(input.file_path || input.path || '')}</div>${diffHtml(String(clipOut(text)).split('\n').map(text => ({ kind: 'add', text })))}`; break; }
@@ -51,7 +106,7 @@ function stepHtml(t, mi, n) {
     case 'propose_document_edit': body = `${kv({ document: input.id, mode: input.mode, block: input.blockIndex, summary: input.summary })}<div class="bw-doc-preview">${inlineMarkdownHtml(String(input.markdown || ''))}</div>${t.output ? `<pre class="bw-out">${esc(clipOut(t.output))}</pre>` : ''}`; break;
     default: body = kv(input) + (t.output != null || t.preview ? `<pre class="bw-out">${esc(clipOut(t.output ?? t.preview))}</pre>` : '');
   }
-  return `<details class="bw-step ${state}" data-step="${mi}:${n}"><summary>${iconHtml(icon, 12)}<span>${esc(t.done ? describeTool(t) : runningLabel(t))}</span>${state === 'running' ? '<i class="bw-pulse"></i>' : ''}</summary><div class="bw-step-body">${body}</div></details>`;
+  return `<details class="bw-step ${state}" data-step="${mi}:${n}" open><summary>${iconHtml(icon, 12)}<span>${esc(t.done ? describeTool(t) : runningLabel(t))}</span>${state === 'running' ? '<i class="bw-pulse"></i>' : ''}${iconHtml('chevron-down', 12)}</summary><div class="bw-step-body">${body}</div></details>`;
 }
 
 // The change card under a reply: every file and document it touched, with counts, View and Undo.
@@ -76,7 +131,7 @@ export function runningLabel(t) {
     case 'read_conversation': return `Reading the chat ${input.id || ''}…`;
     case 'open_website': return `Opening ${input.url || 'a website'}…`;
     case 'open_project_file': return `Showing ${input.path || 'a file'}…`;
-    case 'Bash': return `Running ${String(input.command || '').slice(0, 60)}…`;
+    case 'Bash': return input.description ? `${input.description}…` : `Running ${String(input.command || '').slice(0, 60)}…`;
     case 'Read': case 'read_file': return `Reading ${input.file_path || input.path || ''}…`;
     case 'Edit': case 'MultiEdit': case 'NotebookEdit': return `Editing ${input.file_path || input.notebook_path || ''}…`;
     case 'Write': case 'write_file': return `Writing ${input.file_path || input.path || ''}…`;
@@ -93,7 +148,7 @@ function describeTool(t) {
   switch (t.tool) {
     case 'Read': return `Read ${input.file_path || input.path || ''}`;
     case 'Edit': case 'MultiEdit': case 'Write': case 'NotebookEdit': return `${t.ok === false ? 'Could not edit' : t.tool === 'Write' ? 'Wrote' : 'Edited'} ${input.file_path || input.path || ''}`;
-    case 'Bash': return `Ran ${String(input.command || '').slice(0, 80)}`;
+    case 'Bash': return input.description || `Ran ${String(input.command || '').slice(0, 80)}`;
     case 'Glob': case 'Grep': return `Searched files for ${input.pattern || ''}`;
     case 'WebFetch': return `Fetched ${input.url || ''}`;
     case 'WebSearch': return `Searched the web for ${input.query || ''}`;
@@ -168,14 +223,28 @@ export async function sendMessage(chat, text, hooks, images = []) {
   return true;
 }
 
+// Timeline bookkeeping: the open part of a kind, or a fresh one once the previous was closed.
+function part(reply, kind) {
+  reply.parts ||= [];
+  const last = reply.parts.at(-1);
+  if (last && last.kind === kind && !last.closed) return last;
+  const p = { kind, text: '' };
+  reply.parts.push(p);
+  return p;
+}
+function closePart(reply) { const last = reply.parts?.at(-1); if (last && last.kind !== 'tool') last.closed = true; }
+
 export function handleAgentEvent(event, hooks) {
   const chat = state.chats[event.chatId];
   if (!chat) return;
   const reply = [...chat.messages].reverse().find(m => m.role === 'assistant');
   if (!reply) return;
   switch (event.type) {
-    case 'text_delta': reply.text = (reply.text || '') + event.text; hooks.renderDelta(chat); break;
-    case 'text_replace': reply.text = event.text; hooks.renderDelta(chat); break;
+    case 'text_delta': reply.text = (reply.text || '') + event.text; part(reply, 'text').text += event.text; hooks.renderDelta(chat); break;
+    case 'text_replace': { const p = part(reply, 'text'); reply.text = (reply.text || '').slice(0, reply.text.length - p.text.length) + event.text; p.text = event.text; hooks.renderDelta(chat); break; }
+    case 'thinking_delta': part(reply, 'thinking').text += event.text; hooks.renderDelta(chat); break;
+    case 'thinking_replace': part(reply, 'thinking').text = event.text; hooks.renderDelta(chat); break;
+    case 'thinking_break': closePart(reply); break;
     case 'status': {
       if (event.model) reply.model = event.model;
       // What the provider actually used tells the chips what "default" means.
@@ -183,11 +252,11 @@ export function handleAgentEvent(event, hooks) {
       if (seen) { if (event.model) seen.modelSeen = event.model; if (event.effort) seen.effortSeen = event.effort; }
       break;
     }
-    case 'usage': reply.usage = event; break;
+    case 'usage': reply.usage = { ...(reply.usage || {}), ...event }; break;
     case 'error_note': reply.notes = [...(reply.notes || []), event.message]; hooks.render(chat); break;
     case 'library_changed': hooks.libraryChanged?.(); break;
-    case 'text_break': if (reply.text && !reply.text.endsWith('\n')) reply.text += '\n\n'; break;
-    case 'tool_start': { const t = { tool: event.tool, input: event.input, kind: event.kind, id: event.toolUseId, done: false }; reply.tools.push(t); chat.workingLabel = runningLabel(t); hooks.tool?.(chat, event); hooks.render(chat); break; }
+    case 'text_break': if (reply.text && !reply.text.endsWith('\n')) reply.text += '\n\n'; closePart(reply); break;
+    case 'tool_start': { const t = { tool: event.tool, input: event.input, kind: event.kind, id: event.toolUseId, done: false }; reply.tools.push(t); closePart(reply); (reply.parts ||= []).push({ kind: 'tool', id: t.id }); chat.workingLabel = runningLabel(t); hooks.tool?.(chat, event); hooks.render(chat); break; }
     case 'tool_result': { const t = reply.tools.find(t => t.id === event.toolUseId); if (t) { t.done = true; t.ok = event.ok; t.preview = event.preview; if (event.output != null) t.output = event.output; } const open = reply.tools.filter(t => !t.done).at(-1); chat.workingLabel = open ? runningLabel(open) : ''; hooks.tool?.(chat, event); hooks.render(chat); break; }
     case 'activity': {
       const entry = { label: event.label, detail: event.detail, target: event.target, at: new Date().toISOString(), proposalId: event.proposalId };
@@ -205,6 +274,7 @@ export function handleAgentEvent(event, hooks) {
       if (event.offline) reply.offline = true;
       if (event.session && event.provider) { chat.sessions = chat.sessions || {}; chat.sessions[event.provider] = event.session; }
       reply.provider = event.provider;
+      reply.finishedAt = new Date().toISOString();
       chat.runId = null;
       chat.workingLabel = '';
       touch(chat);

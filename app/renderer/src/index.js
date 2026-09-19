@@ -1,7 +1,7 @@
 // Barkdown desktop renderer: app-wide navigation, per-chat workspaces, agent runs, pins, quick open.
 import { el, esc, iconHtml, renderIcons, toast, basename, relativeTime, errorMessage } from './ui.js';
 import { state, load, save, newChat, newTab, currentChat, activeTab, touch, chatTitleFrom } from './state.js';
-import { transcriptHtml, sendMessage, handleAgentEvent, respondApproval, cancelRun, PROVIDER_LABEL, providerFor } from './conversation.js';
+import { transcriptHtml, sendMessage, handleAgentEvent, respondApproval, cancelRun, PROVIDER_LABEL, providerFor, formatDuration } from './conversation.js';
 import { mountDocument } from './tabs/document.js';
 import { mountPaper } from './tabs/paper.js';
 import { mountWebsite } from './tabs/website.js';
@@ -331,7 +331,7 @@ async function chooseFolder() {
   return folder;
 }
 
-const openSteps = new Set();
+const closedSteps = new Set();
 function renderChat() {
   const chat = currentChat();
   if (!chat) return;
@@ -349,7 +349,7 @@ function renderChat() {
   transcript.querySelectorAll('[data-view-doc]').forEach(b => { b.onclick = () => openTarget({ kind: 'doc', id: b.dataset.viewDoc, source: b.dataset.docSource || 'local' }, chat, true); });
   transcript.querySelectorAll('[data-undo-file]').forEach(b => { b.onclick = async () => { const rel = b.dataset.undoFile; if (!chat.folder) { toast('No working folder on this chat.', 'error'); return; } if (!await askConfirm(`Undo the assistant's change to ${rel}? A tracked file goes back to the last commit; a new file is removed.`, { title: 'Undo this change?', confirm: 'Undo', danger: true })) return; try { const r = await api.git.revertFile(chat.folder, rel); toast(r.action === 'restored' ? `Restored ${r.path} from git` : r.action === 'removed' ? `Removed ${r.path}` : `${r.path} was already gone`); controllers.forEach(c => { if (c.type === 'project') c.refresh(rel); if (c.type === 'review') c.refresh(); }); } catch (error) { toast(errorMessage(error), 'error'); } }; });
   // Remember which steps the person opened across re-renders while a run streams.
-  transcript.querySelectorAll('details.bw-step').forEach(d => { const key = chat.id + ':' + d.dataset.step; if (openSteps.has(key)) d.open = true; d.addEventListener('toggle', () => { if (d.open) openSteps.add(key); else openSteps.delete(key); }); });
+  transcript.querySelectorAll('details.bw-step').forEach(d => { const key = chat.id + ':' + d.dataset.step; if (closedSteps.has(key)) d.open = false; d.addEventListener('toggle', () => { if (d.open) closedSteps.delete(key); else closedSteps.add(key); }); });
   if (atBottom || chat.runId) transcript.scrollTop = transcript.scrollHeight;
   q('#bw-prompt').value = chat.draft || '';
   renderAttachments(chat);
@@ -685,6 +685,7 @@ function wire() {
   q('#bw-tabs').addEventListener('auxclick', e => { const b = e.target.closest('[data-tab]'); if (e.button === 1 && b) { e.preventDefault(); closeTab(workspaceChat(), b.dataset.tab); } });
   q('#bw-tabs').addEventListener('pointerdown', e => { if (e.button === 1) e.preventDefault(); });
   installMenuDismissal();
+  setInterval(() => { document.querySelectorAll('.bw-elapsed[data-since]').forEach(n => { n.textContent = formatDuration(Date.now() - new Date(n.dataset.since).getTime()); }); }, 1000);
   root.addEventListener('pointerdown', e => { if (!e.target.closest('.bw-palette')) q('#bw-palette').hidden = true; });
   const paletteInput = q('#bw-palette-input');
   paletteInput.addEventListener('input', () => { paletteIndex = 0; renderPalette(); });

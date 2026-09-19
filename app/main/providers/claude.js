@@ -61,13 +61,19 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
       let sessionId = session || null;
       let finalText = '';
       let streamedText = '';
+      let streamedThinking = '';
+      const blockTypes = new Map(); // stream index -> content block type, to know what a stop closes
       const pendingTools = new Map(); // tool_use id -> { name, input }
       for await (const message of q) {
         if (run.cancelled) break;
         if (message.type === 'system' && message.subtype === 'init') { sessionId = message.session_id; run.emit({ type: 'status', model: message.model, effort: message.effort || undefined, apiKeySource: message.apiKeySource, version: message.claude_code_version }); }
         else if (message.type === 'stream_event') {
           const event = message.event;
-          if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta' && message.parent_tool_use_id == null) { streamedText += event.delta.text; run.emit({ type: 'text_delta', text: event.delta.text }); }
+          if (message.parent_tool_use_id != null) continue;
+          if (event.type === 'content_block_start') blockTypes.set(event.index, event.content_block?.type);
+          else if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') { streamedText += event.delta.text; run.emit({ type: 'text_delta', text: event.delta.text }); }
+          else if (event.type === 'content_block_delta' && event.delta?.type === 'thinking_delta' && event.delta.thinking) { streamedThinking += event.delta.thinking; run.emit({ type: 'thinking_delta', text: event.delta.thinking }); }
+          else if (event.type === 'content_block_stop' && blockTypes.get(event.index) === 'thinking') run.emit({ type: 'thinking_break' });
         } else if (message.type === 'assistant') {
           if (message.error) run.emit({ type: 'error_note', message: message.error });
           for (const block of message.message.content || []) {
@@ -78,6 +84,8 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
               if (activity && block.name !== 'mcp__barkdown__create_document' && block.name !== 'mcp__barkdown__propose_document_edit') run.emit(activity);
             }
           }
+          const thought = (message.message.content || []).filter(b => b.type === 'thinking' && b.thinking).map(b => b.thinking).join('\n\n');
+          if (thought && message.parent_tool_use_id == null) { if (!streamedThinking.includes(thought.slice(0, 40))) { run.emit({ type: 'thinking_delta', text: thought }); run.emit({ type: 'thinking_break' }); } streamedThinking = ''; }
           const text = (message.message.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
           if (text && message.parent_tool_use_id == null) { finalText = text; if (!streamedText.includes(text.slice(0, 40))) run.emit({ type: 'text_delta', text }); streamedText = ''; run.emit({ type: 'text_break' }); }
         } else if (message.type === 'user' && Array.isArray(message.message?.content)) {
@@ -95,7 +103,8 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
           sessionId = message.session_id || sessionId;
           if (message.subtype !== 'success') run.emit({ type: 'error_note', message: `Claude Code stopped: ${message.subtype}` });
           else if (message.result && !finalText) run.emit({ type: 'text_delta', text: message.result });
-          run.emit({ type: 'usage', cost: message.total_cost_usd, turns: message.num_turns });
+          const u = message.usage || {};
+          run.emit({ type: 'usage', cost: message.total_cost_usd, turns: message.num_turns, durationMs: message.duration_ms, tokens: { input: (u.input_tokens || 0) + (u.cache_read_input_tokens || 0) + (u.cache_creation_input_tokens || 0), output: u.output_tokens || 0 } });
         }
       }
       run.emit({ type: 'done', cancelled: run.cancelled, session: sessionId, provider: 'claude' });

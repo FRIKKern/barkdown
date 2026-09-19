@@ -9,7 +9,7 @@ const ICONS = {
   bold: allIcons.Bold, italic: allIcons.Italic, code: allIcons.Code, strikethrough: allIcons.Strikethrough, heading: allIcons.Heading, list: allIcons.List, 'list-ordered': allIcons.ListOrdered,
   'list-checks': allIcons.ListChecks, quote: allIcons.Quote, type: allIcons.Type, 'square-code': allIcons.SquareCode, minus: allIcons.Minus, sparkles: allIcons.Sparkles, wrench: allIcons.Wrench,
   'alert-triangle': allIcons.TriangleAlert, 'circle-check': allIcons.CircleCheck, trash: allIcons.Trash2, download: allIcons.Download, cloud: allIcons.Cloud, 'hard-drive': allIcons.HardDrive, save: allIcons.Save,
-  'sliders-horizontal': allIcons.SlidersHorizontal, library: allIcons.Library, keyboard: allIcons.Keyboard, info: allIcons.Info, monitor: allIcons.Monitor, sun: allIcons.Sun, moon: allIcons.Moon, bot: allIcons.Bot, 'key-round': allIcons.KeyRound, 'scan-search': allIcons.ScanSearch, 'plug-zap': allIcons.PlugZap, 'circle-dot': allIcons.CircleDot,
+  'sliders-horizontal': allIcons.SlidersHorizontal, library: allIcons.Library, keyboard: allIcons.Keyboard, info: allIcons.Info, monitor: allIcons.Monitor, sun: allIcons.Sun, moon: allIcons.Moon, bot: allIcons.Bot, 'key-round': allIcons.KeyRound, 'scan-search': allIcons.ScanSearch, 'plug-zap': allIcons.PlugZap, 'circle-dot': allIcons.CircleDot, asterisk: allIcons.Asterisk,
 };
 
 export function icon(name, size = 15) {

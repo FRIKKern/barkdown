@@ -177,20 +177,25 @@ try {
   await page.keyboard.press('Escape');
   // Verbose transcript: a reply with tool steps renders expandable steps with the command, its output and a
   // line diff, plus a change card with counts and View/Undo per file.
-  await page.evaluate(() => { const chat = window.__barkdown.state.chats[window.__barkdown.state.current]; chat.messages.push({ role: 'assistant', text: 'Done.', at: new Date().toISOString(), streaming: false, provider: 'claude', tools: [
-    { tool: 'Bash', input: { command: 'npm test' }, id: 't1', done: true, ok: true, output: 'All 3 checks passed.' },
+  await page.evaluate(() => { const chat = window.__barkdown.state.chats[window.__barkdown.state.current]; chat.messages.push({ role: 'assistant', text: 'Done.', at: new Date().toISOString(), streaming: true, provider: 'claude', tools: [
+    { tool: 'Bash', input: { command: 'npm test -- --grep "smoke" | tail -n 3', description: 'Run the smoke tests' }, id: 't1', done: true, ok: true, output: 'All 3 checks passed.' },
     { tool: 'Edit', input: { file_path: 'src/app.js', old_string: 'const a = 1;', new_string: 'const a = 2;\nconst b = 3;' }, id: 't2', done: true, ok: true },
     { tool: 'Write', input: { file_path: 'src/new.js', content: 'export const x = 1;' }, id: 't3', done: true, ok: true },
     { tool: 'create_document', input: { title: 'Meeting notes', markdown: '# Meeting notes\n\n- decide the venue\n- book the room' }, id: 't4', done: true, ok: true, output: 'Created document meeting-notes' },
     { tool: 'read_document', input: { id: 'overview' }, id: 't5', done: false },
-  ], events: [{ label: 'Proposed a change to Overview', target: { kind: 'doc', id: 'overview', title: 'Overview' }, at: new Date().toISOString() }], approvals: [] }); chat.workingLabel = 'Reading overview…'; chat.runId = 'fake'; window.__barkdown.render(); });
+  ], parts: [{ kind: 'thinking', text: 'Let me run the tests first.', closed: true }, { kind: 'tool', id: 't1' }, { kind: 'text', text: 'Tests pass, so on to the edit.', closed: true }, { kind: 'tool', id: 't2' }, { kind: 'tool', id: 't3' }, { kind: 'tool', id: 't4' }, { kind: 'tool', id: 't5' }, { kind: 'text', text: 'Done.' }], usage: { cost: 0.061, durationMs: 140000, tokens: { input: 3000, output: 400 } }, events: [{ label: 'Proposed a change to Overview', target: { kind: 'doc', id: 'overview', title: 'Overview' }, at: new Date().toISOString() }], approvals: [] }); chat.workingLabel = 'Reading overview…'; chat.runId = 'fake'; window.__barkdown.render(); });
+  step('the reply is a timeline: thinking, then the step, then the text, in order', await page.evaluate(() => { const nodes = [...document.querySelectorAll('#bw-transcript .bw-thought, #bw-transcript .bw-step, #bw-transcript .bw-agent-copy')].slice(-8).map(n => n.className.split(' ')[0]); return nodes[0] === 'bw-thought' && nodes[1] === 'bw-step' && nodes[2] === 'bw-agent-copy' && nodes[3] === 'bw-step'; }));
+  step('a command step is labelled with its description and shows the coloured command', (await page.locator('.bw-step').nth(0).locator('summary').innerText()).includes('Run the smoke tests') && (await page.locator('.bw-step').nth(0).locator('.bw-cmd .c').first().innerText()) === 'npm' && (await page.locator('.bw-step').nth(0).locator('.bw-cmd .s').count()) === 1);
+  step('the live footer shows elapsed time and what is happening', (await page.locator('.bw-reply-foot.live').innerText()).includes('Reading overview…'));
   step('tool calls render as steps', (await page.locator('.bw-step').count()) === 5);
   step('a created page shows its title and a rendered preview', (await page.locator('.bw-step').nth(3).locator('summary').innerText()).includes('Created page “Meeting notes”') && (await page.locator('.bw-step').nth(3).locator('.bw-doc-preview li').count()) === 2);
   step('a running step and the working indicator say what is happening', (await page.locator('.bw-step').nth(4).locator('summary').innerText()).includes('Reading overview…') && (await page.locator('#bw-working').innerText()).includes('Reading overview…'));
-  await page.evaluate(() => { const chat = window.__barkdown.state.chats[window.__barkdown.state.current]; chat.runId = null; chat.workingLabel = ''; chat.messages.at(-1).tools.pop(); window.__barkdown.render(); });
+  await page.evaluate(() => { const chat = window.__barkdown.state.chats[window.__barkdown.state.current]; chat.runId = null; chat.workingLabel = ''; chat.messages.at(-1).streaming = false; chat.messages.at(-1).tools.pop(); window.__barkdown.render(); });
+  step('steps are open by default and show the command and its output', (await page.locator('.bw-step').nth(0).locator('.bw-cmd').innerText()).includes('npm test') && (await page.locator('.bw-step').nth(0).locator('.bw-out').innerText()).includes('All 3 checks passed'));
   await page.locator('.bw-step').nth(0).locator('summary').click();
-  step('a step opens to show the command and its output', (await page.locator('.bw-step').nth(0).locator('.bw-cmd').innerText()).includes('npm test') && (await page.locator('.bw-step').nth(0).locator('.bw-out').innerText()).includes('All 3 checks passed'));
-  await page.locator('.bw-step').nth(1).locator('summary').click();
+  await page.evaluate(() => window.__barkdown.render());
+  step('a step the person collapsed stays collapsed across re-renders', !(await page.locator('.bw-step').nth(0).evaluate(d => d.open)) && (await page.locator('.bw-step').nth(1).evaluate(d => d.open)));
+  step('the finished footer shows time, tokens, cost and provider', (await page.locator('.bw-reply-foot').last().innerText()).includes('2m 20s · 3.4k tokens · $0.061 · Claude Code'));
   step('an edit step shows a line diff', (await page.locator('.bw-step').nth(1).locator('.bw-diff .add').count()) === 2 && (await page.locator('.bw-step').nth(1).locator('.bw-diff .del').count()) === 1);
   step('the change card lists files and the document with counts', (await page.locator('.bw-changes-head').innerText()).includes('Edited 2 files · 1 document') && (await page.locator('.bw-change').count()) === 3 && (await page.locator('.bw-change').nth(0).innerText()).includes('+2') && (await page.locator('[data-undo-file]').count()) === 2);
   await page.screenshot({ path: path.join(out, '02c-verbose-reply.png') });

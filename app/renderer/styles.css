@@ -249,3 +249,21 @@ h1,h2,h3,p{margin:0}
 @media(max-width:760px){.bw-settings{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr) auto}.bw-settings-nav{grid-row:1;flex-direction:row;overflow:auto;border-right:0;border-bottom:1px solid var(--bw-border);padding:10px}.bw-settings-nav h2{display:none}.bw-settings-foot{grid-column:1}.bw-set{flex-direction:column;align-items:stretch;gap:8px}}
 .bw-menu-blank{display:inline-block;width:12px;height:12px;flex-shrink:0}
 .ProseMirror table{width:100%;table-layout:fixed}.ProseMirror th{background:var(--bw-raised);font-weight:600;text-align:left}.ProseMirror td>p,.ProseMirror th>p{margin:0}.ProseMirror .selectedCell{background:var(--bw-wash)}
+
+/* verbose transcript: steps open, commands coloured, thinking in place, a footer with time and tokens */
+.bw-step{margin:6px 0}
+.bw-step summary{font-size:11.5px;color:var(--bw-text)}
+.bw-step summary>svg:last-child{margin-left:auto;color:var(--bw-muted);transition:transform .15s;flex-shrink:0}
+.bw-step:not([open]) summary>svg:last-child{transform:rotate(-90deg)}
+.bw-step summary>svg:first-child{color:var(--bw-muted)}.bw-step.done summary>svg:first-child{color:var(--bw-accent)}.bw-step.error summary>svg:first-child{color:var(--bw-delete)}
+.bw-step-body{margin:4px 0 10px 4px;border-left:0;padding-left:0}
+.bw-cmd{font:11.5px/1.6 Consolas,'Cascadia Code',monospace;background:var(--bw-side);border:1px solid var(--bw-border);border-radius:8px;padding:8px 12px;margin:0 0 6px;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--bw-text)}
+.bw-cmd .p{color:var(--bw-muted)}.bw-cmd .c{color:light-dark(#2d5a8c,#8fb8e8)}.bw-cmd .f{color:var(--bw-muted)}.bw-cmd .s{color:light-dark(#8a5a1a,#e6c76a)}.bw-cmd .o{color:light-dark(#7a3f8c,#c9a0e0)}
+.bw-out{font:11px/1.55 Consolas,'Cascadia Code',monospace;background:var(--bw-bg);border:1px solid var(--bw-border);border-radius:8px;padding:8px 12px;margin:0 0 4px;white-space:pre-wrap;overflow-wrap:anywhere;max-height:260px;overflow:auto;color:var(--bw-text)}
+.bw-thought{font-size:12px;line-height:1.75;color:var(--bw-muted);font-style:italic;margin:8px 0 12px;overflow-wrap:anywhere}
+.bw-thought p{margin:0 0 8px}.bw-thought code{font-style:normal;font-size:11px;background:var(--bw-raised);padding:1px 4px;border-radius:3px}
+.bw-thought.live::after{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--bw-accent);margin-left:6px;vertical-align:middle;animation:bw-pulse 1s infinite}
+.bw-reply-foot{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--bw-muted);margin:2px 0 20px}
+.bw-reply-foot svg{color:light-dark(#c95d2a,#f0925e);flex-shrink:0}
+.bw-reply-foot.live svg{animation:bw-spin 4s linear infinite}
+@keyframes bw-spin{to{transform:rotate(360deg)}}

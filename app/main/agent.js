@@ -221,6 +221,7 @@ async function startApi({ chatId, messages, context, settings, send, images }) {
       const contextNote = context.folder ? `The agent working folder for this chat is ${context.folder}. Paths are relative to it.` : 'This chat has no working folder; file tools are unavailable. Documents are still available.';
       let turns = 0;
       let finalText = '';
+      const tokens = { input: 0, output: 0 };
       while (turns++ < 24 && !run.cancelled) {
         const stream = client.messages.stream({
           model: settings.model || 'claude-opus-5',
@@ -230,12 +231,16 @@ async function startApi({ chatId, messages, context, settings, send, images }) {
           messages: history,
         }, { signal: run.abort.signal });
         stream.on('text', delta => { finalText += delta; run.emit({ type: 'text_delta', text: delta }); });
+        stream.on('thinking', delta => { if (delta) run.emit({ type: 'thinking_delta', text: delta }); });
         stream.on('inputJson', (partial, snapshot) => { if (snapshot && typeof snapshot === 'object' && snapshot.path) run.emit({ type: 'tool_progress', path: snapshot.path }); });
         let message;
         try { message = await stream.finalMessage(); } catch (error) {
           if (run.cancelled) break;
           throw error;
         }
+        if (message.content.some(b => b.type === 'thinking')) run.emit({ type: 'thinking_break' });
+        tokens.input += (message.usage?.input_tokens || 0) + (message.usage?.cache_read_input_tokens || 0) + (message.usage?.cache_creation_input_tokens || 0);
+        tokens.output += message.usage?.output_tokens || 0;
         if (message.stop_reason === 'refusal') { run.emit({ type: 'text_delta', text: '\n\nI cannot help with that request.' }); break; }
         if (message.stop_reason === 'max_tokens') { run.emit({ type: 'text_delta', text: '\n\n(The reply reached the length limit.)' }); break; }
         history.push({ role: 'assistant', content: message.content });
@@ -256,6 +261,7 @@ async function startApi({ chatId, messages, context, settings, send, images }) {
         finalText += '\n';
         run.emit({ type: 'text_break' });
       }
+      if (tokens.input || tokens.output) run.emit({ type: 'usage', tokens });
       run.emit({ type: 'done', cancelled: run.cancelled, text: finalText.trim(), history });
     } catch (error) {
       const Sdk = loadSdk();

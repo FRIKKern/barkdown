@@ -48,6 +48,12 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
             itemText.set(item.id, item.text);
             sawText = true;
             if (event.type === 'item.completed') run.emit({ type: 'text_break' });
+          } else if (item.type === 'reasoning') {
+            const previous = itemText.get(item.id) || '';
+            if (item.text.startsWith(previous)) { const delta = item.text.slice(previous.length); if (delta) run.emit({ type: 'thinking_delta', text: delta }); }
+            else run.emit({ type: 'thinking_replace', text: item.text });
+            itemText.set(item.id, item.text);
+            if (event.type === 'item.completed') run.emit({ type: 'thinking_break' });
           } else if (item.type === 'command_execution') {
             if (event.type === 'item.started') run.emit({ type: 'tool_start', tool: 'Bash', input: { command: item.command }, toolUseId: item.id });
             if (event.type === 'item.completed') run.emit({ type: 'tool_result', tool: 'Bash', toolUseId: item.id, ok: item.status !== 'failed', preview: String(item.aggregated_output || '').slice(0, 240), output: String(item.aggregated_output || '').slice(0, 30000) });
@@ -69,7 +75,7 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
             }
           } else if (item.type === 'web_search' && event.type === 'item.started') run.emit({ type: 'tool_start', tool: 'WebSearch', input: { query: item.query }, toolUseId: item.id });
           else if (item.type === 'error') run.emit({ type: 'error_note', message: item.message });
-        } else if (event.type === 'turn.completed') run.emit({ type: 'usage', usage: event.usage });
+        } else if (event.type === 'turn.completed') { const u = event.usage || {}; run.emit({ type: 'usage', usage: u, tokens: { input: (u.input_tokens || 0), output: (u.output_tokens || 0) } }); }
         else if (event.type === 'turn.failed') throw new Error(event.error?.message || 'Codex turn failed');
         else if (event.type === 'error') throw new Error(event.message || 'Codex error');
       }
