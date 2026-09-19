@@ -29,6 +29,7 @@ These record the user's decisions through the private handoff. Preserve the inte
 | D22 | Start a chat from the current file's folder. | Create a new chat whose agent uses that folder, retaining the original chat and unsaved buffers. |
 | D23 | Search and the content graph are central. | Search real permitted content and media; open the exact source; distinguish stored references/backlinks from ranked suggestions. |
 | D24 | Prototype before full application delivery. | Preserve working interaction studies and an implementation-ready PRD. Do not present simulated actions as production integration. |
+| D25 | Menus anchor to their control; questions are in-app dialogs. | A popup opens where its control is (below a toolbar button, above a composer chip) and never at a fixed window corner; all menus share one dismissal policy. Electron has no `window.prompt`, so nothing in the renderer calls `prompt()` or `confirm()`: page titles, names, model ids, link addresses and confirmations use the app's own dialog sheet. Settings is a sectioned sheet (General, Assistant, Barkpark, Shortcuts, About) with app-styled controls; appearance previews live and reverts on Cancel. |
 
 ## Explicitly superseded directions
 

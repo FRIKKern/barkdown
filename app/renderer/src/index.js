@@ -11,6 +11,8 @@ import { mountSideChat } from './tabs/sidechat.js';
 import { mountTerminal } from './tabs/terminal.js';
 import { CLAUDE_MODELS, CODEX_MODELS, EFFORT_LEVELS, defaultModelLabel } from './models.js';
 import { openSettings } from './settings.js';
+import { toggleMenu, hideMenus as closeMenus, installMenuDismissal } from './menus.js';
+import { askText, askConfirm } from './dialogs.js';
 import { renderPages, seedTree, addPage, pagePath, pageKey, ensurePages } from './pages.js';
 import { tabToTarget, favoriteKey } from './state.js';
 
@@ -345,7 +347,7 @@ function renderChat() {
   transcript.querySelectorAll('a[href]').forEach(a => { a.onclick = e => { e.preventDefault(); openTarget({ kind: 'web', url: a.href, title: hostname(a.href) }, chat, true); }; });
   transcript.querySelectorAll('[data-view-file]').forEach(b => { b.onclick = () => openTarget({ kind: 'project', path: b.dataset.viewFile, title: basename(b.dataset.viewFile) }, chat, true); });
   transcript.querySelectorAll('[data-view-doc]').forEach(b => { b.onclick = () => openTarget({ kind: 'doc', id: b.dataset.viewDoc, source: b.dataset.docSource || 'local' }, chat, true); });
-  transcript.querySelectorAll('[data-undo-file]').forEach(b => { b.onclick = async () => { const rel = b.dataset.undoFile; if (!chat.folder) { toast('No working folder on this chat.', 'error'); return; } if (!confirm(`Undo the assistant's change to ${rel}? A tracked file goes back to the last commit; a new file is removed.`)) return; try { const r = await api.git.revertFile(chat.folder, rel); toast(r.action === 'restored' ? `Restored ${r.path} from git` : r.action === 'removed' ? `Removed ${r.path}` : `${r.path} was already gone`); controllers.forEach(c => { if (c.type === 'project') c.refresh(rel); if (c.type === 'review') c.refresh(); }); } catch (error) { toast(errorMessage(error), 'error'); } }; });
+  transcript.querySelectorAll('[data-undo-file]').forEach(b => { b.onclick = async () => { const rel = b.dataset.undoFile; if (!chat.folder) { toast('No working folder on this chat.', 'error'); return; } if (!await askConfirm(`Undo the assistant's change to ${rel}? A tracked file goes back to the last commit; a new file is removed.`, { title: 'Undo this change?', confirm: 'Undo', danger: true })) return; try { const r = await api.git.revertFile(chat.folder, rel); toast(r.action === 'restored' ? `Restored ${r.path} from git` : r.action === 'removed' ? `Removed ${r.path}` : `${r.path} was already gone`); controllers.forEach(c => { if (c.type === 'project') c.refresh(rel); if (c.type === 'review') c.refresh(); }); } catch (error) { toast(errorMessage(error), 'error'); } }; });
   // Remember which steps the person opened across re-renders while a run streams.
   transcript.querySelectorAll('details.bw-step').forEach(d => { const key = chat.id + ':' + d.dataset.step; if (openSteps.has(key)) d.open = true; d.addEventListener('toggle', () => { if (d.open) openSteps.add(key); else openSteps.delete(key); }); });
   if (atBottom || chat.runId) transcript.scrollTop = transcript.scrollHeight;
@@ -382,11 +384,11 @@ function renderSidebar() {
     isOpen: key => { const chat = workspaceChat(); const tab = activeTab(chat); return tab?.type === 'doc' && pageKey(tab.path.at(-1), tab.source) === key; },
     onNewPage: parent => createDocument(parent),
     onNewSubpage: parent => createDocument(parent),
-    onDelete: async id => { const d = state.documents.find(x => x.id === id); if (!d || !confirm(`Delete "${d.title}"? This cannot be undone.`)) return; await api.docs.delete(id); for (const c of [...controllers.values()]) if (c.type === 'doc' && c.tab.path.at(-1) === id) closeTab(workspaceChat(), c.tab.id); refreshLibrary(); },
+    onDelete: async id => { const d = state.documents.find(x => x.id === id); if (!d || !await askConfirm(`Delete "${d.title}"? This cannot be undone.`, { title: 'Delete page?', confirm: 'Delete', danger: true })) return; await api.docs.delete(id); for (const c of [...controllers.values()]) if (c.type === 'doc' && c.tab.path.at(-1) === id) closeTab(workspaceChat(), c.tab.id); refreshLibrary(); },
   });
   const recents = q('#bw-recent-chats');
   recents.innerHTML = state.order.map(id => state.chats[id]).filter(Boolean).slice(0, 30).map(c => `<button class="bw-nav ${c.id === state.current && state.mode === 'chat' ? 'selected' : ''}" data-context="${c.id}"><span>${esc(c.title)}<small>${esc(c.folder ? basename(c.folder) : 'no folder')}${c.runId ? ' · working' : ''} · ${esc(relativeTime(c.updatedAt))}</small></span></button>`).join('');
-  recents.querySelectorAll('[data-context]').forEach(b => { b.onclick = () => switchChat(b.dataset.context); b.oncontextmenu = e => { e.preventDefault(); if (confirm(`Delete chat "${state.chats[b.dataset.context].title}"?`)) deleteChat(b.dataset.context); }; });
+  recents.querySelectorAll('[data-context]').forEach(b => { b.onclick = () => switchChat(b.dataset.context); b.oncontextmenu = e => { e.preventDefault(); askConfirm(`Delete chat "${state.chats[b.dataset.context].title}"?`, { title: 'Delete chat?', confirm: 'Delete', danger: true }).then(ok => { if (ok) deleteChat(b.dataset.context); }); }; });
   q('#bw-connection').textContent = state.settings?.barkpark?.enabled ? 'Barkpark' : 'Local';
   q('#bw-connection').title = state.settings?.barkpark?.enabled ? state.settings.barkpark.server || 'via bp CLI' : 'Local library';
 }
@@ -426,13 +428,12 @@ function render() {
 }
 
 // ---------- menus ----------
+// Every popup closes together: the menus (menus.js) and quick open.
 function hideMenus() {
-  ['#bw-new-menu', '#bw-fav-menu', '#bw-project-menu', '#bw-model-menu', '#bw-effort-menu'].forEach(s => { q(s).hidden = true; });
-  ['#bw-plus', '#bw-favorites', '#bw-folder-context', '#bw-open-work'].forEach(s => q(s).setAttribute('aria-expanded', 'false'));
+  closeMenus();
   const palette = q('#bw-palette');
   if (!palette.hidden) { palette.hidden = true; if (palette.contains(document.activeElement)) q('#bw-prompt').focus(); }
 }
-function toggleMenu(menu, button) { const open = q(menu).hidden; hideMenus(); q(menu).hidden = !open; q(button).setAttribute('aria-expanded', String(open)); }
 
 function renderNewMenu() {
   q('#bw-new-menu').innerHTML = `<h3>Open in this workspace</h3><button data-new="project">${iconHtml('folder-code')}Project editor</button><button data-new="chat">${iconHtml('message-circle')}New side chat</button><button data-new="web">${iconHtml('globe')}Website</button><button data-new="doc">${iconHtml('file-text')}Document</button><button data-new="review">${iconHtml('git-pull-request')}Code review</button><button data-new="terminal">${iconHtml('terminal')}Terminal</button><p class="bw-menu-hint"><kbd>Ctrl</kbd>+<kbd>K</kbd> quick open · <kbd>Alt</kbd>+<kbd>N</kbd> this menu · <kbd>Alt</kbd>+<kbd>1–9</kbd> switch tab</p>`;
@@ -463,7 +464,7 @@ function renderFavorites() {
   const menu = q('#bw-fav-menu');
   menu.innerHTML = '<h3>Favorites</h3>' + (state.favorites.length ? state.favorites.map(f => `<div class="bw-fav-row"><button data-open="${f.id}" title="Open ${esc(f.label)}">${iconHtml(TYPE_ICON[f.target.kind] || 'sparkles', 12)}<span><span class="bw-fav-label">${esc(f.label)}</span><small>${esc(FAVORITE_KIND[f.target.kind] || f.target.kind)}${f.target.kind === 'chat' && f.chatTitle ? ' · from ' + esc(f.chatTitle) : f.target.kind === 'doc' && f.target.source === 'barkpark' ? ' · Barkpark' : ''}${f.target.url ? ' · ' + esc(hostname(f.target.url)) : f.target.path ? ' · ' + esc(f.target.path) : ''}</small></span></button><button data-rename="${f.id}" aria-label="Rename" title="Rename">${iconHtml('square-pen', 12)}</button><button data-unfav="${f.id}" aria-label="Remove from favorites" title="Remove">×</button></div>`).join('') : '<p class="bw-small bw-muted" style="padding:4px 9px">Star a tab to keep it here. Favorites reopen later in any chat, even after the tab is closed.</p>');
   menu.querySelectorAll('[data-open]').forEach(b => { b.onclick = () => openFavorite(b.dataset.open); });
-  menu.querySelectorAll('[data-rename]').forEach(b => { b.onclick = () => { const f = state.favorites.find(x => x.id === b.dataset.rename); const v = prompt('Name this favorite', f?.label || ''); if (f && v != null && v.trim()) { f.label = v.trim(); renderFavorites(); save(); } }; });
+  menu.querySelectorAll('[data-rename]').forEach(b => { b.onclick = async () => { const f = state.favorites.find(x => x.id === b.dataset.rename); hideMenus(); const v = await askText({ title: 'Rename favorite', value: f?.label || '', confirm: 'Rename' }); if (f && v) { f.label = v; renderFavorites(); save(); } }; });
   menu.querySelectorAll('[data-unfav]').forEach(b => { b.onclick = () => { state.favorites = state.favorites.filter(f => f.id !== b.dataset.unfav); renderFavorites(); renderTabs(); save(); }; });
 }
 
@@ -590,9 +591,9 @@ async function refreshLibrary() {
 }
 
 async function createDocument(parent = null) {
-  const title = prompt(parent ? 'Sub-page title' : 'Page title', 'Untitled');
+  const title = await askText({ title: parent ? 'New sub-page' : 'New page', label: 'Title', value: 'Untitled', confirm: 'Create' });
   if (title === null) return;
-  const doc = await api.docs.create({ title: title.trim() || 'Untitled', markdown: '' });
+  const doc = await api.docs.create({ title: title || 'Untitled', markdown: '' });
   addPage(doc.id, typeof parent === 'string' ? parent : null);
   await refreshLibrary();
   if (state.mode === 'document') openDirect(doc.id); else openDocTab(currentChat(), doc.id, 'local');
@@ -651,19 +652,17 @@ function wire() {
   q('#bw-settings').onclick = () => openSettings(applySettings);
   q('#bw-new-chat').onclick = () => createChat();
   q('#bw-new-doc').onclick = () => createDocument();
-  q('#bw-folder-context').onclick = () => { renderProjectMenu(); toggleMenu('#bw-project-menu', '#bw-folder-context'); };
+  q('#bw-folder-context').onclick = () => { renderProjectMenu(); toggleMenu('#bw-project-menu', '#bw-folder-context', { side: 'above' }); };
   const chipMenu = (chipId, menuId, choices, current, apply, customLabel) => {
     const menu = q(menuId);
-    menu.innerHTML = `<h3>${esc(customLabel.title)}</h3>` + choices.map(([value, label]) => `<button data-choice="${esc(value)}" aria-selected="${value === (current || '')}">${iconHtml(value === (current || '') ? 'check' : 'chevron-right', 12)}${esc(label)}</button>`).join('') + (customLabel.custom ? `<button data-custom>${iconHtml('square-pen', 12)}${esc(customLabel.custom)}</button>` : '');
+    menu.innerHTML = `<h3>${esc(customLabel.title)}</h3>` + choices.map(([value, label]) => `<button data-choice="${esc(value)}" aria-selected="${value === (current || '')}" role="menuitemradio">${value === (current || '') ? iconHtml('check', 12) : '<i class="bw-menu-blank"></i>'}${esc(label)}</button>`).join('') + (customLabel.custom ? `<button data-custom>${iconHtml('square-pen', 12)}${esc(customLabel.custom)}</button>` : '');
     menu.querySelectorAll('[data-choice]').forEach(b => { b.onclick = () => { apply(b.dataset.choice || null); hideMenus(); renderChat(); save(); }; });
-    menu.querySelector('[data-custom]') && (menu.querySelector('[data-custom]').onclick = () => { const v = prompt(customLabel.prompt, current || ''); if (v != null) { apply(v.trim() || null); renderChat(); save(); } hideMenus(); });
-    toggleMenu(menuId, chipId);
-    // Anchor the menu just above the chip that opened it, kept inside the window.
-    if (!menu.hidden) { const r = q(chipId).getBoundingClientRect(); menu.style.position = 'fixed'; menu.style.right = 'auto'; menu.style.bottom = 'auto'; menu.style.left = Math.max(8, Math.min(r.left, innerWidth - menu.offsetWidth - 8)) + 'px'; menu.style.top = Math.max(8, r.top - menu.offsetHeight - 8) + 'px'; }
+    menu.querySelector('[data-custom]') && (menu.querySelector('[data-custom]').onclick = async () => { hideMenus(); const v = await askText({ title: customLabel.custom.replace(/…$/, ''), label: customLabel.prompt, value: current || '', placeholder: 'model id' }); if (v != null) { apply(v || null); renderChat(); save(); } });
+    toggleMenu(menuId, chipId, { side: 'above' });
   };
   q('#bw-model').onclick = () => { const chat = currentChat(); const provider = providerFor(chat); chipMenu('#bw-model', '#bw-model-menu', modelChoices(provider), chat.model, v => { chat.model = v; }, { title: 'Model for this chat', custom: 'Other model id…', prompt: 'Model id (as the provider names it)' }); };
   q('#bw-effort').onclick = () => { const chat = currentChat(); const provider = providerFor(chat); chipMenu('#bw-effort', '#bw-effort-menu', effortChoices(provider), chat.effort, v => { chat.effort = v; }, { title: 'Reasoning effort' }); };
-  q('#bw-provider').onclick = () => { const chat = currentChat(); const order = ['claude', 'codex', 'api']; const current = providerFor(chat); chat.provider = order[(order.indexOf(current) + 1) % order.length]; renderChat(); save(); toast(`This chat now uses ${PROVIDER_LABEL[chat.provider]}`); };
+  q('#bw-provider').onclick = () => { const chat = currentChat(); const p = state.settings?.providers || {}; const ready = { claude: p.claude?.loggedIn, codex: p.codex?.loggedIn, api: p.api?.hasKey }; const choices = ['claude', 'codex', 'api'].map(id => [id, `${PROVIDER_LABEL[id]}${ready[id] ? '' : ' · not signed in'}`]); chipMenu('#bw-provider', '#bw-provider-menu', choices, providerFor(chat), v => { chat.provider = v; chat.sessions = {}; }, { title: 'Provider for this chat' }); };
   q('#bw-go-chat').onclick = () => { pauseFollow(); root.classList.add('mobile-chat'); q('#bw-prompt').focus(); };
   q('#bw-mobile-back').onclick = () => { if (state.mode === 'document') { state.mode = 'chat'; render(); } root.classList.toggle('mobile-chat'); };
   q('#bw-stop').onclick = () => cancelRun(currentChat());
@@ -685,7 +684,8 @@ function wire() {
   q('#bw-tabs').addEventListener('dblclick', e => { const b = e.target.closest('[data-tab]'); if (b) { e.preventDefault(); startRenameTab(workspaceChat(), b.dataset.tab); } });
   q('#bw-tabs').addEventListener('auxclick', e => { const b = e.target.closest('[data-tab]'); if (e.button === 1 && b) { e.preventDefault(); closeTab(workspaceChat(), b.dataset.tab); } });
   q('#bw-tabs').addEventListener('pointerdown', e => { if (e.button === 1) e.preventDefault(); });
-  root.addEventListener('pointerdown', e => { if (!e.target.closest('.bw-menu') && !e.target.closest('#bw-plus') && !e.target.closest('#bw-favorites') && !e.target.closest('#bw-folder-context') && !e.target.closest('.bw-palette')) { ['#bw-new-menu', '#bw-fav-menu', '#bw-project-menu'].forEach(s => { q(s).hidden = true; }); if (!e.target.closest('.bw-palette')) q('#bw-palette').hidden = true; } });
+  installMenuDismissal();
+  root.addEventListener('pointerdown', e => { if (!e.target.closest('.bw-palette')) q('#bw-palette').hidden = true; });
   const paletteInput = q('#bw-palette-input');
   paletteInput.addEventListener('input', () => { paletteIndex = 0; renderPalette(); });
   paletteInput.addEventListener('keydown', e => { if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); if (!paletteItems.length) return; paletteIndex = (paletteIndex + (e.key === 'ArrowDown' ? 1 : paletteItems.length - 1)) % paletteItems.length; renderPalette(); } else if (e.key === 'Enter') { e.preventDefault(); runPalette(paletteIndex, e.shiftKey); } else if (e.key === 'Escape') { hideMenus(); } });

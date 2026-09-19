@@ -3,6 +3,7 @@
 // with the paper's revision, acknowledged on success, and the server echo is fed back so minted ids land.
 import { el, esc, iconHtml, relativeTime, toast, errorCode, errorMessage } from '../ui.js';
 import { state } from '../state.js';
+import { askConfirm } from '../dialogs.js';
 import { htmlToBlocks, blocksToMarkdown } from '../../../shared/portabledoc.js';
 import { normaliseOps, reinsertMoves } from '../../../shared/ops.js';
 
@@ -54,7 +55,7 @@ export function mountPaper(tab, host, ctx) {
     } else if (paper && !paper.blocks && paper.html) {
       const node = el(`<div class="bw-conflict"><strong>This paper is stored as HTML.</strong> Converting it to blocks makes it editable here; the conversion keeps headings, paragraphs, lists, quotes and code and drops other markup. <button data-act="convert">Convert to blocks</button></div>`);
       node.querySelector('[data-act="convert"]').onclick = async () => {
-        if (!confirm(`Convert "${paper.title}" to PortableDoc blocks on the server? This replaces its HTML body.`)) return;
+        if (!await askConfirm(`Convert "${paper.title}" to PortableDoc blocks on the server? This replaces its HTML body.`, { title: 'Convert to blocks?', confirm: 'Convert' })) return;
         try { await api.barkpark.publish({ slug: slug(), title: paper.title, blocks: htmlToBlocks(paper.html), description: paper.description || undefined }); toast('Converted to blocks'); load(); } catch (error) { toast('Could not convert: ' + error.message, 'error'); }
       };
       banner.appendChild(node);

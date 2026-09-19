@@ -9,6 +9,7 @@ import { html } from '@codemirror/lang-html';
 import { json } from '@codemirror/lang-json';
 import { markdown } from '@codemirror/lang-markdown';
 import { el, esc, iconHtml, toast, basename } from '../ui.js';
+import { askConfirm } from '../dialogs.js';
 
 const api = window.barkdown;
 // Unsaved buffers are keyed by folder + file so they survive tab switches and chat switches within a session.
@@ -118,7 +119,7 @@ export function mountProject(tab, host, ctx) {
     try {
       const result = await api.files.write(root, tab.file, b.draft, b.mtime);
       if (result.conflict) {
-        if (!confirm(`${tab.file} changed on disk since you opened it. Overwrite the disk version with yours?`)) { b.mtime = result.mtime; status('Not saved · file changed on disk'); return; }
+        if (!await askConfirm(`${tab.file} changed on disk since you opened it. Overwrite the disk version with yours?`, { title: 'File changed on disk', confirm: 'Overwrite', danger: true })) { b.mtime = result.mtime; status('Not saved · file changed on disk'); return; }
         const forced = await api.files.write(root, tab.file, b.draft);
         b.mtime = forced.mtime;
       } else b.mtime = result.mtime;

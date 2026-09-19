@@ -113,6 +113,7 @@ function registerIpc() {
   handle('app:pickFolder', async () => { const r = await dialog.showOpenDialog(win, { properties: ['openDirectory'] }); return r.canceled ? null : r.filePaths[0]; });
   handle('app:openExternal', url => { if (/^https?:/.test(url)) shell.openExternal(url); return true; });
   handle('app:openPath', p => shell.openPath(p));
+  handle('app:info', () => ({ version: app.getVersion(), electron: process.versions.electron, chrome: process.versions.chrome, node: process.versions.node, platform: process.platform, arch: process.arch, userData: store.dir() }));
 
   handle('state:load', () => store.readJson('workspace.json', null));
   handle('state:save', state => { store.writeJson('workspace.json', state); return true; });

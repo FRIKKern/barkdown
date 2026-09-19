@@ -236,6 +236,73 @@ try {
   step('workspace persisted across reload', (await page.locator('#bw-tabs [data-tab]').count()) === tabsBefore && (await page.locator('.bw-user-message').count()) === 2);
   await page.screenshot({ path: path.join(out, '07-after-reload.png') });
 
+  // Menus open against the control that opened them, inside the window, and all close the same way.
+  const box = sel => page.locator(sel).boundingBox();
+  await page.locator('#bw-plus').click();
+  { const m = await box('#bw-new-menu'), b = await box('#bw-plus');
+    step('the new-tab menu hangs below its button with matching right edges', m && b && m.y >= b.y + b.height && Math.abs((m.x + m.width) - (b.x + b.width)) < 4 && m.x + m.width <= 1400); }
+  await page.locator('#bw-transcript').click({ position: { x: 20, y: 20 } });
+  step('clicking elsewhere closes the menu and resets its button', await page.locator('#bw-new-menu').isHidden() && (await page.locator('#bw-plus').getAttribute('aria-expanded')) === 'false');
+  await page.locator('#bw-folder-context').click();
+  { const m = await box('#bw-project-menu'), b = await box('#bw-folder-context');
+    step('the working-folder menu opens above its chip, left-aligned', m && b && m.y + m.height <= b.y && Math.abs(m.x - b.x) < 4); }
+  await page.keyboard.press('Escape');
+  step('Escape closes a menu', await page.locator('#bw-project-menu').isHidden());
+  await page.evaluate(() => { const s = window.__barkdown.state; s.chats[s.current].provider = 'claude'; s.chats[s.current].model = null; window.__barkdown.render(); });
+  await page.locator('#bw-provider').click();
+  step('the provider chip opens a menu instead of cycling', (await page.locator('#bw-provider-menu [data-choice]').count()) === 3 && (await page.locator('#bw-provider-menu [aria-selected="true"]').innerText()).includes('Claude Code'));
+  await page.locator('#bw-provider-menu [data-choice="codex"]').click();
+  step('choosing a provider updates the chip', (await page.locator('#bw-provider-label').innerText()).startsWith('Codex'));
+  await page.evaluate(() => { const s = window.__barkdown.state; s.chats[s.current].provider = 'claude'; window.__barkdown.render(); });
+  await page.locator('#bw-model').click();
+  { const m = await box('#bw-model-menu'), b = await box('#bw-model'); step('the model menu opens above its chip', m && b && m.y + m.height <= b.y); }
+  await page.locator('#bw-model-menu [data-custom]').click();
+  await page.waitForSelector('.bw-ask input', { timeout: 5000 });
+  step('"Other model id" asks in an app dialog (Electron has no prompt())', await page.locator('.bw-ask input').isVisible() && await page.locator('#bw-model-menu').isHidden());
+  await page.locator('.bw-ask input').fill('claude-test-model');
+  await page.locator('.bw-ask input').press('Enter');
+  step('the typed model id lands on the chip', (await page.locator('#bw-model-label').innerText()).includes('claude-test-model'));
+  await page.evaluate(() => { const s = window.__barkdown.state; s.chats[s.current].model = null; window.__barkdown.render(); });
+
+  // New page goes through the same dialog.
+  const pagesBefore = await page.locator('#bw-pages .bw-page-row').count();
+  await page.locator('#bw-new-doc').click();
+  await page.waitForSelector('.bw-ask input', { timeout: 5000 });
+  await page.locator('.bw-ask input').fill('Dialog page');
+  await page.locator('.bw-ask input').press('Enter');
+  await page.waitForFunction(n => document.querySelectorAll('#bw-pages .bw-page-row').length === n + 1, pagesBefore, { timeout: 5000 });
+  step('New document asks for a title in a dialog and creates the page', (await page.locator('#bw-pages .bw-page-row').count()) === pagesBefore + 1 && (await page.locator('#bw-tabs .bw-tab.active .bw-tab-label').innerText()) === 'Dialog page');
+  await page.locator('#bw-recent-chats [data-context]').first().click({ button: 'right' });
+  await page.waitForSelector('.bw-ask[role="alertdialog"]', { timeout: 5000 });
+  step('deleting a chat asks in an app dialog', (await page.locator('.bw-ask[role="alertdialog"] h2').innerText()) === 'Delete chat?');
+  await page.locator('.bw-ask [data-cancel]').click();
+  step('cancelling keeps the chat', await page.locator('.bw-ask').count() === 0 && (await page.locator('#bw-recent-chats [data-context]').count()) >= 2);
+
+  // Settings: panes, live theme preview, cancel reverts, save persists.
+  await page.keyboard.press('Control+,');
+  await page.waitForSelector('.bw-settings', { timeout: 5000 });
+  step('settings opens as a sheet with five panes and General first', (await page.locator('.bw-settings-nav [data-pane]').count()) === 5 && await page.locator('section[data-pane="general"]').isVisible() && await page.locator('#dirty').isHidden());
+  await page.locator('#theme [data-value="dark"]').click();
+  step('choosing a theme previews it and marks the sheet dirty', (await page.evaluate(() => document.documentElement.dataset.theme)) === 'dark' && await page.locator('#dirty').isVisible());
+  await page.locator('.bw-settings [data-act="cancel"]').click();
+  step('cancel reverts the preview', (await page.evaluate(() => document.documentElement.dataset.theme || '')) === '' && (await page.locator('.bw-settings').count()) === 0);
+  await page.locator('#bw-settings').click();
+  await page.locator('.bw-settings-nav [data-pane="assistant"]').click();
+  step('the Assistant pane shows the three providers with their status', await page.locator('section[data-pane="assistant"]').isVisible() && await page.locator('section[data-pane="general"]').isHidden() && (await page.locator('.bw-card').count()) === 3 && (await page.locator('.bw-card[data-provider="api"] .bw-badge').innerText()) === 'No key');
+  await page.locator('.bw-settings-nav [data-pane="shortcuts"]').click();
+  step('the Shortcuts pane lists the app shortcuts', (await page.locator('section[data-pane="shortcuts"] .bw-keys tr').count()) >= 15);
+  await page.locator('.bw-settings-nav [data-pane="general"]').click();
+  await page.locator('#theme [data-value="dark"]').click();
+  await page.locator('.bw-settings [data-act="save"]').click();
+  await page.waitForFunction(() => !document.querySelector('.bw-settings'), null, { timeout: 5000 });
+  step('save persists the theme', (await page.evaluate(() => window.__barkdown.state.settings.theme)) === 'dark' && (await page.evaluate(() => document.documentElement.dataset.theme)) === 'dark');
+  await page.screenshot({ path: path.join(out, '08-settings-dark.png') });
+  await page.keyboard.press('Control+,');
+  await page.waitForSelector('.bw-settings', { timeout: 5000 });
+  await page.locator('#theme [data-value="system"]').click();
+  await page.locator('.bw-settings [data-act="save"]').click();
+  await page.waitForFunction(() => !document.querySelector('.bw-settings'), null, { timeout: 5000 });
+
   const relevant = errors.filter(e => !/Autofill|devtools|ERR_BLOCKED_BY_RESPONSE|Electron Security Warning|CSP/i.test(e));
   step('no renderer errors', relevant.length === 0 || (console.error(relevant), false));
 } finally {

@@ -1,58 +1,142 @@
-// Settings dialog: Claude API key and model, appearance, and the Barkpark connection.
-import { el, esc, toast } from './ui.js';
+// Settings sheet: a navigation column and one pane at a time, in the app's own controls.
+// General (appearance, storage), Assistant (providers and models), Barkpark (connection),
+// Shortcuts (reference) and About. Appearance changes preview live and are reverted on Cancel;
+// everything else lands on Save.
+import { el, esc, iconHtml, toast } from './ui.js';
 import { state } from './state.js';
-import { CLAUDE_MODELS, modelsFor, defaultModelLabel } from './models.js';
-
-// Options for a provider's model select: its default, the known ids, and an "Other" entry.
-function modelOptions(provider, s) {
-  return [`<option value="">${esc(defaultModelLabel(provider, s.providers))}</option>`, ...modelsFor(provider).map(([id, label]) => `<option value="${id}">${esc(label)} · ${id}</option>`), '<option value="custom">Other model id…</option>'].join('');
-}
+import { modelsFor, defaultModelLabel } from './models.js';
+import { openDialog } from './dialogs.js';
 
 const api = window.barkdown;
 
-export function openSettings(onChange) {
-  const backdrop = document.getElementById('bw-dialog');
+const PANES = [
+  ['general', 'sliders-horizontal', 'General'],
+  ['assistant', 'sparkles', 'Assistant'],
+  ['barkpark', 'library', 'Barkpark'],
+  ['shortcuts', 'keyboard', 'Shortcuts'],
+  ['about', 'info', 'About'],
+];
+
+const SHORTCUTS = [
+  ['Everywhere', [['Ctrl', 'K'], 'Quick open: tabs, documents, chats, files, actions'], [['Ctrl', ','], 'Settings'], [['Ctrl', 'N'], 'New chat'], [['Ctrl', 'Shift', 'N'], 'New document'], [['Esc'], 'Close a menu or dialog']],
+  ['Work tabs', [['Alt', 'N'], 'Open a work tab (menu)'], [['Alt', '1–9'], 'Switch to tab 1–9 (9 is the last)'], [['Ctrl', 'W'], 'Close the active tab'], [['Alt', 'W'], 'Close the active tab'], [['Double-click'], 'Rename a tab in place']],
+  ['Composer', [['Enter'], 'Send'], [['Shift', 'Enter'], 'New line'], [['Ctrl', 'V'], 'Paste an image from the clipboard']],
+  ['Paper editor', [['/'], 'Slash menu'], [['Ctrl', 'Shift', '↑ / ↓'], 'Move the block'], [['Ctrl', 'D'], 'Duplicate the block'], [['Ctrl', 'K'], 'Link the selection'], [['Ctrl', 'U'], 'Underline'], [['Ctrl', 'Shift', '0–8'], 'Turn into text, headings, lists, code']],
+  ['Project editor', [['Ctrl', 'S'], 'Save the file']],
+  ['Terminal', [['↑ / ↓'], 'Recall history'], [['Ctrl', 'C'], 'Restart the shell on an empty line']],
+];
+
+const keys = combo => combo.map(k => `<kbd>${esc(k)}</kbd>`).join('<i>+</i>');
+
+const badge = (ok, okText, badText) => `<span class="bw-badge ${ok ? 'ok' : 'off'}">${esc(ok ? okText : badText)}</span>`;
+const modelOptions = (provider, s) => [`<option value="">${esc(defaultModelLabel(provider, s.providers))}</option>`, ...modelsFor(provider).map(([id, label]) => `<option value="${id}">${esc(label)} · ${id}</option>`), '<option value="custom">Other model id…</option>'].join('');
+const selectHtml = (id, options, extra = '') => `<span class="bw-select"><select id="${id}" ${extra}>${options}</select>${iconHtml('chevron-down', 12)}</span>`;
+const switchHtml = (id, label, help = '') => `<label class="bw-set bw-set-switch" for="${id}"><span class="bw-set-text"><b>${esc(label)}</b>${help ? `<small>${help}</small>` : ''}</span><span class="bw-switch"><input type="checkbox" id="${id}" role="switch"><i></i></span></label>`;
+const setting = (title, help, control, opts = {}) => `<div class="bw-set ${opts.stack ? 'bw-set-stack' : ''}"><div class="bw-set-text"><b>${esc(title)}</b>${help ? `<small>${help}</small>` : ''}</div><div class="bw-set-ctl">${control}</div></div>`;
+
+export function openSettings(onChange, { pane = 'general' } = {}) {
   const s = state.settings;
-  backdrop.innerHTML = '';
-  const dialog = el(`<div class="bw-dialog" role="dialog" aria-label="Settings">
-    <h2>Settings</h2>
-    <p class="note">Stored locally in ${esc(s.userData)}. Secrets are encrypted with the operating system keychain when available.</p>
-    <h3>Assistant</h3>
-    <p class="note">Barkdown runs on the sign-ins already on this computer, like T3 Code: Claude Code (<code>claude</code> login) or Codex (<code>codex login</code>). An API key is the fallback.</p>
-    <label for="provider">Default provider</label>
-    <select id="provider">
-      <option value="claude">Claude Code · ${s.providers?.claude?.loggedIn ? 'signed in' : 'not signed in (run claude in a terminal)'}</option>
-      <option value="codex">Codex · ${s.providers?.codex?.loggedIn ? 'signed in' + (s.providers.codex.model ? ' · ' + esc(s.providers.codex.model) : '') : 'not signed in (run codex login)'}</option>
-      <option value="api">Claude API key · ${s.providers?.api?.hasKey ? 'configured' : 'no key'}</option>
-    </select>
-    <label for="claude-model">Claude Code model</label>
-    <div class="row"><select id="claude-model" style="flex:1">${modelOptions('claude', s)}</select><input id="claude-model-custom" type="text" placeholder="model id" style="flex:1" hidden></div>
-    <label for="codex-model">Codex (OpenAI) model</label>
-    <div class="row"><select id="codex-model" style="flex:1">${modelOptions('codex', s)}</select><input id="codex-model-custom" type="text" placeholder="model id" style="flex:1" hidden></div>
-    <p class="note">Claude Code asks you in the chat before editing files or running commands. Codex applies edits inside the working folder's sandbox and shows them as a review. Each chat can override the provider from the composer.</p>
-    <label for="api-key">Claude API key ${s.hasApiKey ? `<span class="bw-positive">· configured${s.apiKeyFromEnv ? ' from ANTHROPIC_API_KEY' : ''}</span>` : '<span class="bw-negative">· missing (offline mode)</span>'}</label>
-    <div class="row"><input id="api-key" type="password" placeholder="${s.hasApiKey ? 'Leave blank to keep the current key' : 'sk-ant-…'}" style="flex:1"><button data-act="clear-key" title="Remove the stored key">Clear</button></div>
-    <label for="model">Model</label>
-    <select id="model">${CLAUDE_MODELS.map(([id, label]) => `<option value="${id}">Claude ${label}${id === 'claude-opus-5' ? ' (default)' : ''}</option>`).join('')}</select>
-    <h3>Appearance</h3>
-    <div class="row"><label for="theme">Theme</label><select id="theme" style="width:auto"><option value="system">System</option><option value="dark">Dark</option><option value="light">Light</option></select><label for="width">Conversation width</label><input id="width" type="range" min="40" max="70" step="5"><span id="width-value"></span></div>
-    <h3>Barkpark</h3>
-    <div class="row"><label><input id="bp-enabled" type="checkbox"> Show Barkpark papers in the library</label></div>
-    <div class="row"><label><input id="bp-cli" type="checkbox"> Read through the installed <code>bp</code> CLI (uses its saved server and token)</label><button data-act="import-cli">Detect from bp</button></div>
-    <label for="bp-server">Server URL (direct HTTP)</label>
-    <input id="bp-server" type="text" placeholder="https://your-instance.barkpark.cloud">
-    <label for="bp-token">Bearer token ${s.barkpark.hasToken ? '<span class="bw-positive">· stored</span>' : ''}</label>
-    <input id="bp-token" type="password" placeholder="${s.barkpark.hasToken ? 'Leave blank to keep the current token' : 'token'}">
-    <div class="row" style="margin-top:8px"><label for="bp-dataset">Dataset</label><input id="bp-dataset" type="text" style="width:160px"><label><input id="bp-writes" type="checkbox"> Allow fenced writes to Barkpark (off by default)</label></div>
-    <div class="row" style="margin-top:8px"><button data-act="test">Test connection</button><span class="status" id="bp-status"></span></div>
-    <div class="actions"><button data-act="cancel">Cancel</button><button class="primary" data-act="save">Save</button></div>
+  const p = s.providers || {};
+  const original = { theme: s.theme || 'system', chatWidth: s.chatWidth || 60 };
+  const dialog = el(`<div class="bw-sheet bw-settings" role="dialog" aria-label="Settings">
+    <nav class="bw-settings-nav" aria-label="Settings sections">
+      <h2>Settings</h2>
+      ${PANES.map(([id, icon, label]) => `<button type="button" data-pane="${id}" aria-selected="${id === pane}">${iconHtml(icon, 14)}${esc(label)}</button>`).join('')}
+    </nav>
+    <div class="bw-settings-body">
+      <section data-pane="general" ${pane !== 'general' ? 'hidden' : ''}>
+        <h3>Appearance</h3>
+        ${setting('Theme', 'Follow the system, or pick one. Previews as you choose.', `<div class="bw-seg" id="theme" role="radiogroup" aria-label="Theme"><button type="button" data-value="system">${iconHtml('monitor', 13)}System</button><button type="button" data-value="light">${iconHtml('sun', 13)}Light</button><button type="button" data-value="dark">${iconHtml('moon', 13)}Dark</button></div>`)}
+        ${setting('Conversation width', 'How much of the window the chat takes when a work tab is open. Drag the divider between them for the same thing.', `<div class="bw-range"><input id="width" type="range" min="40" max="70" step="5" aria-label="Conversation width"><output id="width-value"></output></div>`)}
+        <h3>Storage</h3>
+        ${setting('Local data', `Chats, documents, attachments and these settings live in <code>${esc(s.userData)}</code>. Secrets are encrypted with the operating system keychain when it is available.`, `<button type="button" class="bw-btn" data-act="open-data">${iconHtml('folder-open', 13)}Open folder</button>`)}
+      </section>
+      <section data-pane="assistant" ${pane !== 'assistant' ? 'hidden' : ''}>
+        <h3>Providers</h3>
+        <p class="bw-sheet-note">Barkdown runs on the sign-ins already on this computer: Claude Code (<code>claude</code> login) or Codex (<code>codex login</code>). A Claude API key is the fallback. Pick the default here; the chips under the composer change provider, model and effort per chat.</p>
+        <div class="bw-cards" id="providers">
+          <article class="bw-card" data-provider="claude">
+            <header><label><input type="radio" name="provider" value="claude"><span class="bw-card-title">${iconHtml('sparkles', 14)}Claude Code</span></label>${badge(p.claude?.loggedIn, 'Signed in', 'Not signed in')}</header>
+            <div class="bw-card-body">
+              ${setting('Model', 'Leave on the default to use what Claude Code itself is set to.', `<div class="bw-model">${selectHtml('claude-model', modelOptions('claude', s))}<input id="claude-model-custom" type="text" placeholder="model id" aria-label="Claude model id" hidden></div>`)}
+              ${setting('Reasoning effort', `Claude Code's own default is <b>${esc(p.claude?.effort || 'high')}</b>${p.claude?.effortSeen && p.claude.effortSeen !== p.claude.effort ? ` (the last run reported ${esc(p.claude.effortSeen)})` : ''}. Change it per chat from the Effort chip.`, '')}
+              ${p.claude?.loggedIn ? '' : '<p class="bw-sheet-note">Run <code>claude</code> in a terminal once and sign in; Barkdown reads the same credentials.</p>'}
+            </div>
+          </article>
+          <article class="bw-card" data-provider="codex">
+            <header><label><input type="radio" name="provider" value="codex"><span class="bw-card-title">${iconHtml('bot', 14)}Codex</span></label>${badge(p.codex?.loggedIn, 'Signed in', 'Not signed in')}</header>
+            <div class="bw-card-body">
+              ${setting('Model', 'Leave on the default to use <code>~/.codex/config.toml</code>.', `<div class="bw-model">${selectHtml('codex-model', modelOptions('codex', s))}<input id="codex-model-custom" type="text" placeholder="model id" aria-label="Codex model id" hidden></div>`)}
+              ${setting('Reasoning effort', `Codex's own default is <b>${esc(p.codex?.effort || 'medium')}</b>. Change it per chat from the Effort chip.`, '')}
+              ${p.codex?.loggedIn ? '' : '<p class="bw-sheet-note">Run <code>codex login</code> once; Barkdown reads the same credentials.</p>'}
+            </div>
+          </article>
+          <article class="bw-card" data-provider="api">
+            <header><label><input type="radio" name="provider" value="api"><span class="bw-card-title">${iconHtml('key-round', 14)}Claude API key</span></label>${badge(s.hasApiKey, s.apiKeyFromEnv ? 'From ANTHROPIC_API_KEY' : 'Configured', 'No key')}</header>
+            <div class="bw-card-body">
+              ${setting('API key', 'Stored encrypted. Leave blank to keep the current key.', `<div class="bw-inline"><input id="api-key" type="password" placeholder="${s.hasApiKey ? '••••••••' : 'sk-ant-…'}" aria-label="Claude API key"><button type="button" class="bw-btn" data-act="clear-key" ${s.hasApiKey ? '' : 'disabled'}>Clear</button></div>`)}
+              ${setting('Model', 'Used when this chat runs on the API key.', selectHtml('model', modelsFor('claude').map(([id, label]) => `<option value="${id}">Claude ${esc(label)} · ${id}</option>`).join('')))}
+            </div>
+          </article>
+        </div>
+        <h3>How edits happen</h3>
+        <p class="bw-sheet-note">Claude Code asks in the chat before it edits files or runs commands. Codex applies edits inside the working folder's sandbox and shows them as a review. Both propose document changes for you to keep or discard.</p>
+      </section>
+      <section data-pane="barkpark" ${pane !== 'barkpark' ? 'hidden' : ''}>
+        <h3>Library</h3>
+        ${switchHtml('bp-enabled', 'Show Barkpark papers in the library', 'Papers from the connected server appear beside local documents and open on the paper canvas.')}
+        <h3>Connection</h3>
+        ${setting('Read through', 'The <code>bp</code> CLI uses its own saved server and token. Direct HTTP needs a server URL and a bearer token.', `<div class="bw-seg" id="bp-mode" role="radiogroup" aria-label="Connection"><button type="button" data-value="cli">${iconHtml('terminal', 13)}bp CLI</button><button type="button" data-value="http">${iconHtml('globe', 13)}Direct HTTP</button></div>`)}
+        <div id="bp-cli-fields">
+          ${setting('Detect', 'Ask the installed CLI which server and dataset it is pointed at.', `<button type="button" class="bw-btn" data-act="import-cli">${iconHtml('scan-search', 13)}Detect from bp</button>`)}
+        </div>
+        <div id="bp-http-fields">
+          ${setting('Server URL', '', `<input id="bp-server" type="text" placeholder="https://your-instance.barkpark.cloud" aria-label="Server URL">`, { stack: true })}
+          ${setting('Bearer token', s.barkpark.hasToken ? 'A token is stored. Leave blank to keep it.' : '', `<input id="bp-token" type="password" placeholder="${s.barkpark.hasToken ? '••••••••' : 'token'}" aria-label="Bearer token">`, { stack: true })}
+        </div>
+        ${setting('Dataset', '', `<input id="bp-dataset" type="text" aria-label="Dataset" style="width:180px">`)}
+        <div class="bw-set"><div class="bw-set-text"><span class="bw-status" id="bp-status" aria-live="polite"></span></div><div class="bw-set-ctl"><button type="button" class="bw-btn" data-act="test">${iconHtml('plug-zap', 13)}Test connection</button></div></div>
+        <h3>Writing</h3>
+        ${switchHtml('bp-writes', 'Allow fenced writes to Barkpark', 'Off by default. When on, accepted proposals on a paper are sent to the server through the fenced ops endpoint.')}
+      </section>
+      <section data-pane="shortcuts" ${pane !== 'shortcuts' ? 'hidden' : ''}>
+        ${SHORTCUTS.map(([group, ...rows]) => `<h3>${esc(group)}</h3><table class="bw-keys">${rows.map(([combo, what]) => `<tr><td>${keys(combo)}</td><td>${esc(what)}</td></tr>`).join('')}</table>`).join('')}
+      </section>
+      <section data-pane="about" ${pane !== 'about' ? 'hidden' : ''}>
+        <div class="bw-about"><span class="bw-mark">b</span><div><b>Barkdown</b><small id="about-version">…</small></div></div>
+        <h3>Runtime</h3>
+        <table class="bw-keys" id="about-runtime"><tr><td>Loading…</td></tr></table>
+        <h3>Data</h3>
+        <p class="bw-sheet-note"><code>${esc(s.userData)}</code></p>
+      </section>
+    </div>
+    <footer class="bw-settings-foot"><span class="bw-dirty" id="dirty" hidden>${iconHtml('circle-dot', 12)}Unsaved changes</span><span class="bw-spacer"></span><button type="button" data-act="cancel">Cancel</button><button type="button" class="primary" data-act="save">Save</button></footer>
   </div>`);
-  backdrop.appendChild(dialog);
-  backdrop.hidden = false;
   const q = sel => dialog.querySelector(sel);
-  q('#model').value = s.model || 'claude-opus-5';
-  q('#provider').value = s.provider || 'claude';
-  // A saved id outside the list selects "Other" and shows it in the text box.
+  const qa = sel => [...dialog.querySelectorAll(sel)];
+
+  // navigation
+  const showPane = id => { qa('[data-pane]').forEach(n => { if (n.tagName === 'BUTTON') n.setAttribute('aria-selected', String(n.dataset.pane === id)); else n.hidden = n.dataset.pane !== id; }); q('.bw-settings-body').scrollTop = 0; };
+  qa('nav [data-pane]').forEach(b => { b.onclick = () => showPane(b.dataset.pane); });
+
+  // segmented controls
+  const seg = (sel, value, onPick) => {
+    const box = q(sel);
+    const set = v => { box.dataset.value = v; box.querySelectorAll('button').forEach(b => { b.setAttribute('aria-checked', String(b.dataset.value === v)); b.setAttribute('role', 'radio'); }); };
+    set(value);
+    box.querySelectorAll('button').forEach(b => { b.onclick = () => { set(b.dataset.value); onPick?.(b.dataset.value); markDirty(); }; });
+    return () => box.dataset.value;
+  };
+  const theme = seg('#theme', original.theme, v => onChange({ theme: v }, true));
+  q('#width').value = original.chatWidth; q('#width-value').value = original.chatWidth + '%';
+  q('#width').oninput = () => { q('#width-value').value = q('#width').value + '%'; onChange({ chatWidth: Number(q('#width').value) }, true); markDirty(); };
+  q('[data-act="open-data"]').onclick = () => api.app.openPath(s.userData);
+
+  // providers
+  q(`input[name="provider"][value="${s.provider || 'claude'}"]`).checked = true;
+  const syncCards = () => qa('.bw-card').forEach(c => c.classList.toggle('on', c.querySelector('input[name="provider"]').checked));
+  syncCards();
+  qa('input[name="provider"]').forEach(r => { r.onchange = () => { syncCards(); markDirty(); }; });
   for (const [provider, key] of [['claude', 'claudeModel'], ['codex', 'codexModel']]) {
     const select = q(`#${provider}-model`), custom = q(`#${provider}-model-custom`);
     const value = s[key] || '';
@@ -60,43 +144,55 @@ export function openSettings(onChange) {
     select.value = listed ? value : 'custom';
     custom.hidden = listed;
     custom.value = listed ? '' : value;
-    select.onchange = () => { custom.hidden = select.value !== 'custom'; if (select.value === 'custom') custom.focus(); };
+    select.onchange = () => { custom.hidden = select.value !== 'custom'; if (select.value === 'custom') custom.focus(); markDirty(); };
+    custom.oninput = markDirty;
   }
   const modelValue = provider => { const select = q(`#${provider}-model`); return select.value === 'custom' ? q(`#${provider}-model-custom`).value.trim() : select.value; };
-  q('#theme').value = s.theme || 'system';
-  q('#width').value = s.chatWidth || 60;
-  q('#width-value').textContent = (s.chatWidth || 60) + '%';
-  q('#width').oninput = () => { q('#width-value').textContent = q('#width').value + '%'; onChange({ chatWidth: Number(q('#width').value) }, true); };
+  q('#model').value = s.model || 'claude-opus-5';
+  let clearKey = false;
+  q('[data-act="clear-key"]').onclick = () => { clearKey = true; q('#api-key').value = ''; q('#api-key').placeholder = 'Removed on save'; q('[data-act="clear-key"]').disabled = true; markDirty(); };
+
+  // barkpark
   q('#bp-enabled').checked = Boolean(s.barkpark.enabled);
-  q('#bp-cli').checked = Boolean(s.barkpark.viaCli);
+  const bpMode = seg('#bp-mode', s.barkpark.viaCli ? 'cli' : 'http', v => syncBp(v));
+  const syncBp = v => { q('#bp-cli-fields').hidden = v !== 'cli'; q('#bp-http-fields').hidden = v !== 'http'; };
+  syncBp(bpMode());
   q('#bp-server').value = s.barkpark.server || '';
   q('#bp-dataset').value = s.barkpark.dataset || 'production';
   q('#bp-writes').checked = Boolean(s.barkpark.writes);
-  let clearKey = false;
-  q('[data-act="clear-key"]').onclick = () => { clearKey = true; q('#api-key').value = ''; q('#api-key').placeholder = 'Key will be removed on save'; };
+  const status = (text, kind = '') => { const n = q('#bp-status'); n.textContent = text; n.className = 'bw-status ' + kind; };
   q('[data-act="import-cli"]').onclick = async () => {
-    const status = q('#bp-status');
-    status.textContent = 'Asking bp…'; status.className = 'status';
-    try { const r = await api.barkpark.importCli(); if (!r.ok) throw new Error(r.error); q('#bp-server').value = r.server; q('#bp-dataset').value = r.dataset; q('#bp-cli').checked = true; q('#bp-enabled').checked = true; status.textContent = `Found ${r.name} (${r.server}, ${r.tier} tier). Reads will go through bp.`; status.className = 'status ok'; }
-    catch (error) { status.textContent = error.message; status.className = 'status err'; }
+    status('Asking bp…');
+    try { const r = await api.barkpark.importCli(); if (!r.ok) throw new Error(r.error); q('#bp-server').value = r.server; q('#bp-dataset').value = r.dataset; q('#bp-enabled').checked = true; status(`Found ${r.name} (${r.server}, ${r.tier} tier). Reads will go through bp.`, 'ok'); markDirty(); }
+    catch (error) { status(error.message, 'err'); }
   };
   q('[data-act="test"]').onclick = async () => {
-    const status = q('#bp-status');
-    status.textContent = 'Testing…'; status.className = 'status';
+    status('Testing…');
     try {
-      if (q('#bp-cli').checked) { const list = await api.barkpark.list(); status.textContent = `bp answered with ${list.length} paper(s).`; status.className = 'status ok'; return; }
+      if (bpMode() === 'cli') { const list = await api.barkpark.list(); status(`bp answered with ${list.length} paper(s).`, 'ok'); return; }
       const r = await api.barkpark.test({ server: q('#bp-server').value, token: q('#bp-token').value || undefined, dataset: q('#bp-dataset').value });
-      status.textContent = `Connected to ${r.server} (${r.dataset}).`; status.className = 'status ok';
-    } catch (error) { status.textContent = error.message; status.className = 'status err'; }
+      status(`Connected to ${r.server} (${r.dataset}).`, 'ok');
+    } catch (error) { status(error.message, 'err'); }
   };
-  const close = () => { backdrop.hidden = true; backdrop.innerHTML = ''; };
-  q('[data-act="cancel"]').onclick = close;
-  backdrop.onclick = e => { if (e.target === backdrop) close(); };
+
+  // about
+  api.app.info?.().then(info => {
+    q('#about-version').textContent = `Version ${info.version} · ${info.platform} ${info.arch}`;
+    q('#about-runtime').innerHTML = [['Electron', info.electron], ['Chromium', info.chrome], ['Node', info.node]].map(([k, v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join('');
+  }).catch(() => { q('#about-version').textContent = ''; });
+
+  // dirty tracking and close
+  let dirty = false;
+  function markDirty() { dirty = true; q('#dirty').hidden = false; }
+  qa('input[type=text], input[type=password], input[type=checkbox], select').forEach(n => n.addEventListener('input', markDirty));
+  const close = openDialog(dialog, { onDismiss: () => cancel() });
+  const cancel = () => { onChange({ theme: original.theme, chatWidth: original.chatWidth }, true); close(); };
+  q('[data-act="cancel"]').onclick = cancel;
   q('[data-act="save"]').onclick = async () => {
-    const patch = { model: q('#model').value, provider: q('#provider').value, claudeModel: modelValue('claude'), codexModel: modelValue('codex'), theme: q('#theme').value, chatWidth: Number(q('#width').value), barkpark: { enabled: q('#bp-enabled').checked, viaCli: q('#bp-cli').checked, server: q('#bp-server').value.trim(), dataset: q('#bp-dataset').value.trim() || 'production', writes: q('#bp-writes').checked } };
+    const patch = { model: q('#model').value, provider: q('input[name="provider"]:checked').value, claudeModel: modelValue('claude'), codexModel: modelValue('codex'), theme: theme(), chatWidth: Number(q('#width').value), barkpark: { enabled: q('#bp-enabled').checked, viaCli: bpMode() === 'cli', server: q('#bp-server').value.trim(), dataset: q('#bp-dataset').value.trim() || 'production', writes: q('#bp-writes').checked } };
     if (q('#api-key').value.trim()) patch.apiKey = q('#api-key').value.trim(); else if (clearKey) patch.apiKey = '';
     if (q('#bp-token').value.trim()) patch.barkpark.token = q('#bp-token').value.trim();
     try { state.settings = await api.settings.set(patch); onChange(patch, false); toast('Settings saved'); close(); } catch (error) { toast(error.message, 'error'); }
   };
-  setTimeout(() => q(s.hasApiKey ? '#model' : '#api-key').focus(), 30);
+  setTimeout(() => q('nav [aria-selected="true"]')?.focus(), 30);
 }

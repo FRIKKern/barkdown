@@ -8,6 +8,7 @@ import TaskList from '@tiptap/extension-task-list';
 import TaskItem from '@tiptap/extension-task-item';
 import { el, esc, icon, iconHtml, relativeTime, toast, debounce } from '../ui.js';
 import { markdownToDoc } from '../../../shared/markdown.js';
+import { askText, askConfirm } from '../dialogs.js';
 
 const api = window.barkdown;
 
@@ -159,7 +160,7 @@ export function mountDocument(tab, host, ctx) {
       const exportBtn = el(`<button title="Export as Markdown">${iconHtml('download')}</button>`);
       exportBtn.onclick = async () => { const p = await api.docs.exportMarkdown(doc.id); if (p) toast('Exported to ' + p); };
       const del = el(`<button title="Delete document">${iconHtml('trash')}</button>`);
-      del.onclick = async () => { if (!confirm(`Delete "${doc.title}"? This cannot be undone.`)) return; await api.docs.delete(doc.id); ctx.libraryChanged(); ctx.closeTab(tab); };
+      del.onclick = async () => { if (!await askConfirm(`Delete "${doc.title}"? This cannot be undone.`, { title: 'Delete document?', confirm: 'Delete', danger: true })) return; await api.docs.delete(doc.id); ctx.libraryChanged(); ctx.closeTab(tab); };
       actions.append(ask, exportBtn, del);
     }
     bar.appendChild(actions);
@@ -211,9 +212,9 @@ export function mountDocument(tab, host, ctx) {
     bubble.querySelectorAll('[data-mark]').forEach(b => { b.onmousedown = e => e.preventDefault(); b.onclick = () => { marks.find(m => m.id === b.dataset.mark).run(); renderBubble(); }; });
     const link = bubble.querySelector('[data-link]');
     link.onmousedown = e => e.preventDefault();
-    link.onclick = () => {
+    link.onclick = async () => {
       const previous = editor.getAttributes('link').href || '';
-      const href = prompt('Link address (https://… or barkdown://doc/<id>)', previous);
+      const href = await askText({ title: 'Link', label: 'Address', value: previous, placeholder: 'https://… or barkdown://doc/<id>', confirm: previous ? 'Update' : 'Link', hint: 'Leave empty to remove the link.' });
       if (href === null) return;
       if (!href) editor.chain().focus().unsetLink().run(); else editor.chain().focus().setLink({ href }).run();
       renderBubble();
