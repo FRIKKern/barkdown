@@ -146,6 +146,7 @@ export function mountPaper(tab, host, ctx) {
       // "Saved" only when nothing newer is queued: acknowledging may flush the next batch at once, and an edit made
       // during this request is still debouncing in the canvas. Either way the paper is not saved yet.
       if (seq === latestSeq && !canvas.hasPendingChanges?.()) setSaveState('Saved · rev ' + rev, 'saved');
+      if (pendingRetry?.seq !== seq) { pendingRetry = null; q('#conflict').innerHTML = ''; }
       renderMeta();
       // Echo: minted ids for new blocks come back on the paper itself.
       try {
@@ -179,6 +180,10 @@ export function mountPaper(tab, host, ctx) {
       } else {
         setSaveState('Not saved', 'error');
         pendingRetry = { ops, seq };
+        // Tell the canvas the batch was refused, or every later edit stays queued behind it. It keeps the author's
+        // state and, on the next edit, diffs against the last saved blocks, so the refused change rides along —
+        // a vetoed batch (say, one that would empty the paper) then saves as soon as the author writes again.
+        canvas.acknowledgeOps?.(seq, false);
         const box = q('#conflict');
         box.innerHTML = '';
         const message = /known DocPatchOp/.test(error.message) && ops.some(o => o.op === 'move-block') ? 'Moving blocks needs the newer Barkpark server (move-block landed on main; this server predates it). Your edit is still on screen.' : errorMessage(error);
