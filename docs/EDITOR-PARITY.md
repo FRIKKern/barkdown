@@ -23,7 +23,7 @@ Status as of 2026-09-20. Verified rows come from the live suites (`editor.live.m
 | # | Behaviour | Status |
 |---|---|---|
 | 1 | Typing, Enter-split, Backspace-merge across blocks; caret and selection across blocks | verified |
-| 2 | Inline marks: bold, italic, strike, code, underline, link (Ctrl+K row); markdown shorthands for all of them | verified |
+| 2 | Inline marks: bold, italic, strike, code, underline, link (Ctrl+K row); markdown shorthands for all of them | verified. **Highlight** (`==text==`, Ctrl+Shift+H, the bubble's H) added 2026-09-20 as plan #15, the proof of the Barkpark-first pipeline: 6/6 in `editor-highlight.live.mjs` three runs in a row — a highlight stored on the server mounts as the mark, the shorthand and the bubble write a `highlight` inline wrapper the server holds, the reader renders `<mark class="bp-highlight">` (the same selector the canvas paints), and a reload agrees |
 | 3 | Headings 1–3 by `#` shorthand and Ctrl+Shift+digit turn-into; back to text | verified |
 | 4 | Bulleted, numbered and check lists; Tab / Shift+Tab nesting; `[ ]` shorthand; Backspace lifts a first item | verified |
 | 5 | Quote (`> `), callout (`> [!note] `), divider (`---`), code block (fence, language, keyboard exits) | verified |

@@ -45,7 +45,7 @@ Requires Node 22.13+ and a desktop session (Electron 38). The assistant uses you
 cd app && npm test
 ```
 
-`npm test` runs the scripted-client agent checks and the Playwright suite against the real Electron window. The editor parity rows are live, against a Barkpark: `npm run test:tables`, `npm run test:multiblock`, `npm run test:opaque` (row 12 is red by design while types remain opaque). `npm run shots` refreshes the README's pictures and their manifest. At the repo root, `npm run check` verifies links, the handoff's requirements and hashes, and that those pictures are no older than the UI they show.
+`npm test` runs the scripted-client agent checks and the Playwright suite against the real Electron window. The editor parity rows are live, against a Barkpark: `npm run test:tables`, `npm run test:multiblock`, `npm run test:highlight`, `npm run test:opaque` (row 12 is red by design while types remain opaque). `npm run shots` refreshes the README's pictures and their manifest. At the repo root, `npm run check` verifies links, the handoff's requirements and hashes, and that those pictures are no older than the UI they show.
 
 ![The slash menu inside the paper, with the plain Quote row beside Callout and Code.](docs/images/status/slash-menu.0d76e270.png)
 
