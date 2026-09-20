@@ -57,7 +57,7 @@ Pick the default under **Settings** (Ctrl+,, Assistant pane); the composer chips
 
 - No T3 Code runtime import. The provider adapters are Barkdown's own, built directly on the Claude Agent SDK and Codex SDK rather than T3's audited provider layer.
 - Codex edits inside the sandbox are not approval-gated per call (Codex's own `on-failure` policy); Claude Code edits and commands are.
-- Local documents still use Tiptap 3 while Barkpark papers use the real Barkpark canvas; they are not yet one editor. The canvas bundle is vendored from the sibling checkout at commit `8dca3402` rather than built from source.
+- Local documents still use Tiptap 3 while Barkpark papers use the real Barkpark canvas; they are not yet one editor. The canvas bundle is vendored from the sibling `barkpark-editor` checkout (branch `barkdown/editor-quality`, commit `bc5a1aee8`: table Tab/Shift+Tab selection, Tab-adds-row, pipe-table paste) rather than loaded from the connected server; [docs/EDITOR-PARITY.md](../docs/EDITOR-PARITY.md) makes loading it from the server the target.
 - Barkpark search, related and history go through the adapter but were verified only for list, get, backlinks and history through `bp`.
 - Unsaved project buffers live in memory for the session; they are not written to a durable store.
 - No packaging beyond `npm run dist` (electron-builder, unsigned).

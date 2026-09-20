@@ -20,6 +20,7 @@ export function mountPaper(tab, host, ctx) {
   let destroyed = false;
   let saving = false;
   let pendingRetry = null;
+  let latestSeq = null;
   let mergeAfterSave = false;
   const slug = () => tab.path.at(-1);
   const writesOn = () => Boolean(state.settings?.barkpark?.writes);
@@ -142,7 +143,9 @@ export function mountPaper(tab, host, ctx) {
       if (destroyed) return;
       rev = result.rev ?? rev;
       canvas.acknowledgeOps(seq, true);
-      setSaveState('Saved · rev ' + rev, 'saved');
+      // "Saved" only when nothing newer is queued: acknowledging may flush the next batch at once, and an edit made
+      // during this request is still debouncing in the canvas. Either way the paper is not saved yet.
+      if (seq === latestSeq && !canvas.hasPendingChanges?.()) setSaveState('Saved · rev ' + rev, 'saved');
       renderMeta();
       // Echo: minted ids for new blocks come back on the paper itself.
       try {
@@ -199,6 +202,7 @@ export function mountPaper(tab, host, ctx) {
     canvas.addEventListener('bp-canvas-ops', event => {
       const { ops, seq } = event.detail || {};
       if (!Array.isArray(ops) || !ops.length) return;
+      latestSeq = seq;
       ctx.userIsEditing();
       syncTitleRow();
       applyOps(ops, seq);
