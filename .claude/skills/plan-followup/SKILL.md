@@ -37,6 +37,20 @@ Some things worth knowing before they cost an hour:
 3. Close the issue: `gh issue close <n> --comment "<row> <score>, <runs> runs; Barkpark <hash>, Barkdown <hash>"`.
 4. Tell the user in a few lines: what went green, what was found, what is next in the sequence. Flag anything that needs them — a Barkpark PR to merge, a decision (heading levels, quote block), a switch of `bp` back to cloud.
 
+## 3b. Landing a Barkpark PR
+
+Barkpark's `main` is protected by four required checks — **Elixir gate, PR references an active task, Cloud gate, Console gate** — and nothing else; the security gates are red on `main` itself and are not required, so do not chase them. The task gate wants exactly one `Task: <doc_id>` line at column 0 of the PR body, naming a task on the **Guerrilla ledger** (`https://guerrilla.barkpark.cloud`) that someone has *claimed*. Use the script, which walks the traps in order and stops at the one it cannot clear:
+
+```sh
+node .claude/skills/plan-followup/scripts/barkpark-pr.mjs create --pr <n> \
+  --task-title "…" --task-description "…" \
+  --tags js-correctness:90:"why",robustness:60:"why" \
+  --criterion "<measurable>" --criterion "MERGE-GATED: PR merged to main"
+node .claude/skills/plan-followup/scripts/barkpark-pr.mjs status --pr <n>
+```
+
+What it knows so you don't have to: bp's Guerrilla entry can carry a token with `auth_tier: "none"` (every task write then says "caller is not a member of this workspace") and the cure is re-minting it from the cloud session with the interactive picker fed on stdin — which still needs the user's `bp login` if the cloud session is gone; a task publishes only with a real description and 1–12 *registered* weighted tags with distinct strengths; a claim needs a worker id and refuses a row without acceptance criteria; `gh pr edit` fails on this repo (classic-projects deprecation) so body edits go through `gh api -X PATCH`. First merge main into the branch and rebuild the bundle (`npm run build` in `api/assets/paper-editor`; CI checks bundle freshness), and remember `__save_ack_mounted` is flaky on Windows — CI is its judge.
+
 ## 4. Environment
 
 - Local Barkpark: `powershell -File ../barkpark/scripts/setup-windows.ps1 status` (Postgres on `:5432`, Phoenix on `:4000`, seed `demo`, token `barkpark-dev-token`). If it is down, start Postgres with `pg_ctl` from the Scoop install and Phoenix with `mix phx.server` in `../barkpark/api` — inside a Visual Studio `vcvars64` environment, because `argon2_elixir` needs `nmake`. If migrations hang or Phoenix stops answering, look for `error 487` (and a worker "terminated by exception 0xC0000142") in the cluster's `pg.log`: Postgres on Windows failing to spawn backends, worst under load (do not run `mix test`, the unit sweep and the live rows at once). A wedged postmaster ignores `pg_ctl stop`, so kill every `postgres.exe` by PID, delete `data/postmaster.pid`, and `pg_ctl start` with a *new* log file name (the old one stays locked); recovery replays the WAL and Phoenix reconnects on its own.
