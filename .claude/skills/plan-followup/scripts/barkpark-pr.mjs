@@ -164,10 +164,14 @@ function status(pr) {
 if (mode === 'status') { status(opt.pr || die('--pr is required')); process.exit(0); }
 if (mode !== 'create') die('Usage: barkpark-pr.mjs create … | status --pr <n>   (see the header comment)');
 const was = ensureLedger();
+// die() exits the process, and a finally block does not run on process.exit — so the
+// switch back to the server the user had (usually `local`, which the live rows need)
+// is pinned to the exit event, not to the happy path.
+process.on('exit', () => restore(was));
 try {
   const id = createTask();
   claimTask(id);
   const pr = opt.pr || (opt.title && opt['body-file'] && opt.head ? createPr(id) : die('Either --pr <n> (attach to an existing PR) or --title, --body-file and --head (open one).'));
   if (opt.pr) attachToPr(pr, id);
   console.log('\nThe task gate re-runs on the body edit. Check with:\n  node .claude/skills/plan-followup/scripts/barkpark-pr.mjs status --pr ' + pr);
-} finally { restore(was); }
+} finally { /* restored on exit */ }
