@@ -12,7 +12,7 @@ Notes are Barkpark papers, edited in Barkpark's own canvas. Beside them sits an 
 
 ## Where it stands
 
-- **The app** is the Electron desktop in [app/](app/README.md): a Notion-like page tree of papers and local documents, the assistant with approval-gated edits and commands, per-chat working folders with a project editor, git reviews, website tabs, side chats, favorites and quick open. Barkpark papers open in `<bp-paper-canvas>`; every edit is an ops batch under `ifRev`, acknowledged, echoed, and conflict-carded on 412.
+- **The app** is the Electron desktop in [app/](app/README.md): a Notion-like page tree of papers and local documents, the assistant with approval-gated edits and commands, per-chat working folders with a project editor, git reviews, website tabs, side chats, favorites and quick open. Barkpark papers open in `<bp-paper-canvas>`, loaded from the connected Barkpark itself (Settings › Barkpark shows which build); every edit is an ops batch under `ifRev`, acknowledged, echoed, and conflict-carded on 412.
 - **The store** is a real Barkpark — Postgres to the bone — running on this machine (`scripts\setup-windows.ps1` in the Barkpark checkout) or in bp cloud. Barkdown does not reimplement any of it; profiles, export and sync build on `bp servers`, `bp export` and `bp migrate`.
 - **The editor goal** is measurable: [EDITOR-PARITY.md](docs/EDITOR-PARITY.md) lists what Barkdown's older Tiptap tab gives an author and turns each row green only by a live test that compares the canvas with the server. Rows 10 (tables), 11 (multi-block edits) and 12 (every block type a note can hold mounts editable, edits and inserts through the slash menu) are green. [TIPTAP-REVIEW.md](docs/TIPTAP-REVIEW.md) sizes the rest at five to six focused weeks.
 - **The plan** is [PLAN.md](docs/PLAN.md): an ordered sequence with one GitHub issue per task under five milestones. The project skill `plan-followup` (`.claude/skills/plan-followup`) picks the next issue, works it Barkpark-first, and lands both repos.
@@ -53,7 +53,7 @@ cd app && npm test
 
 ## Working in two repos
 
-Editor truth lives in Barkpark. A change to a block, a mark or an attribute is a Barkpark PR first (schema, reader render, contract, canvas, unit test, on the `barkdown/editor-quality` branch), then a rebuilt bundle in `app/renderer/vendor` (until the app loads it from the connected server — plan item #2), then a red-first live row here. Landing a Barkpark PR has its own gates; `.claude/skills/plan-followup/scripts/barkpark-pr.mjs` walks them.
+Editor truth lives in Barkpark. A change to a block, a mark or an attribute is a Barkpark PR first (schema, reader render, contract, canvas, unit test, on the `barkdown/editor-quality` branch), then a red-first live row here. The app loads the canvas bundle from the Barkpark it is connected to (cached under userData; `app/renderer/vendor` is the offline fallback and is refreshed when a Barkpark change lands), so a Barkpark editor change reaches Barkdown by restarting Phoenix. Landing a Barkpark PR has its own gates; `.claude/skills/plan-followup/scripts/barkpark-pr.mjs` walks them.
 
 ## The concept handoff (v0.5, kept as history)
 

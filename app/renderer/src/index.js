@@ -11,6 +11,7 @@ import { mountSideChat } from './tabs/sidechat.js';
 import { mountTerminal } from './tabs/terminal.js';
 import { CLAUDE_MODELS, CODEX_MODELS, EFFORT_LEVELS, defaultModelLabel, defaultModelId, modelName } from './models.js';
 import { openSettings } from './settings.js';
+import { ensureCanvasBundle } from './canvas-bundle.js';
 import { toggleMenu, hideMenus as closeMenus, installMenuDismissal } from './menus.js';
 import { askText, askConfirm } from './dialogs.js';
 import { renderPages, seedTree, addPage, pagePath, pageKey, ensurePages } from './pages.js';
@@ -726,6 +727,10 @@ function wire() {
 (async () => {
   renderIcons(root);
   state.settings = await api.settings.get();
+  // When a Barkpark is connected, its canvas bundle starts loading now so the first paper tab finds
+  // <bp-paper-canvas> defined; unconnected, the first paper tab resolves it (a custom element cannot
+  // be redefined, so the bundle must not be pinned to the vendored copy before the connection is known).
+  if (state.settings?.barkpark?.enabled) ensureCanvasBundle().catch(() => {});
   applyChatWidth(state.settings.chatWidth || 40);
   applyTheme(state.settings.theme || 'system');
   await load();

@@ -66,6 +66,17 @@ await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseM
 await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 });
 await page.waitForTimeout(800);
 
+// Plan #2: the editor running here is the connected server's bundle, not the vendored copy — the stamp is the
+// sha1 of the bytes the server serves, compared with what the app says it loaded.
+const bundle = await (async () => {
+  try {
+    const info = await page.evaluate(() => window.__barkdown.state.canvasBundle);
+    const server = (JSON.parse(execFileSync('bp', ['use', '-o', 'json'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], shell: true })).active || {}).server || 'http://localhost:4000';
+    const bytes = Buffer.from(await (await fetch(server.replace(/\/$/, '') + '/assets/bp-paper-editor.bundle.js')).arrayBuffer());
+    const sha = (await import('crypto')).createHash('sha1').update(bytes).digest('hex');
+    return { pass: info?.source === 'server' && info?.sha === sha, source: info?.source, appSha: info?.sha?.slice(0, 8), serverSha: sha.slice(0, 8), version: info?.version };
+  } catch (e) { return { pass: false, error: e.message.slice(0, 200) }; }
+})();
 // What the canvas mounted for each server block, by id order.
 const mounted = await page.evaluate(() => {
   const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas');
@@ -201,6 +212,6 @@ await slashInsert('Video', 'video');
 const insertsPassed = inserts.filter(i => i.pass).length;
 const editsPassed = edits.filter(e => e.pass).length;
 await page.screenshot({ path: 'test-results/33-opaque.png', fullPage: true });
-console.log(JSON.stringify({ summary: `${passed}/${rows.length} note block types mount editable; ${editsPassed}/${edits.length} edits held by the server; ${insertsPassed}/${inserts.length} slash inserts land on the server`, edits, inserts, opaque: rows.filter(r => !r.pass).map(r => r.type), readOnlyAtoms: rows.filter(r => r.pass && r.readOnly).map(r => r.type + ':' + r.mounted), rows, errors: [...new Set(errors)].slice(0, 10) }, null, 1));
+console.log(JSON.stringify({ summary: `${passed}/${rows.length} note block types mount editable; ${editsPassed}/${edits.length} edits held by the server; ${insertsPassed}/${inserts.length} slash inserts land on the server; editor bundle ${bundle.pass ? 'from the server' : 'NOT from the server'}`, bundle, edits, inserts, opaque: rows.filter(r => !r.pass).map(r => r.type), readOnlyAtoms: rows.filter(r => r.pass && r.readOnly).map(r => r.type + ':' + r.mounted), rows, errors: [...new Set(errors)].slice(0, 10) }, null, 1));
 await app.close(); fs.rmSync(userData, { recursive: true, force: true });
-process.exitCode = passed === rows.length && editsPassed === edits.length && insertsPassed === inserts.length ? 0 : 1;
+process.exitCode = passed === rows.length && editsPassed === edits.length && insertsPassed === inserts.length && bundle.pass ? 0 : 1;

@@ -6,6 +6,7 @@ import { el, esc, iconHtml, toast } from './ui.js';
 import { state } from './state.js';
 import { modelsFor, defaultModelLabel } from './models.js';
 import { openDialog } from './dialogs.js';
+import { ensureCanvasBundle, describeCanvasBundle, refreshCanvasBundleAfterSettings } from './canvas-bundle.js';
 
 const api = window.barkdown;
 
@@ -95,6 +96,7 @@ export function openSettings(onChange, { pane = 'general' } = {}) {
           ${setting('Bearer token', s.barkpark.hasToken ? 'A token is stored. Leave blank to keep it.' : 'Optional for reading published papers; drafts and writes need one.', `<input id="bp-token" type="password" placeholder="${s.barkpark.hasToken ? '••••••••' : 'token'}" aria-label="Bearer token">`, { stack: true })}
         </div>
         ${setting('Dataset', '', `<input id="bp-dataset" type="text" aria-label="Dataset" style="width:180px">`)}
+        <div class="bw-set"><div class="bw-set-text"><span class="bw-status" id="bp-bundle">${esc(describeCanvasBundle())}</span></div></div>
         <div class="bw-set"><div class="bw-set-text"><span class="bw-status" id="bp-status" aria-live="polite"></span></div><div class="bw-set-ctl"><button type="button" class="bw-btn" data-act="test">${iconHtml('plug-zap', 13)}Test connection</button></div></div>
         <h3>Writing</h3>
         ${switchHtml('bp-writes', 'Allow fenced writes to Barkpark', 'Off by default. When on, accepted proposals on a paper are sent to the server through the fenced ops endpoint.')}
@@ -161,6 +163,7 @@ export function openSettings(onChange, { pane = 'general' } = {}) {
   q('#bp-dataset').value = s.barkpark.dataset || 'production';
   q('#bp-writes').checked = Boolean(s.barkpark.writes);
   const status = (text, kind = '') => { const n = q('#bp-status'); n.textContent = text; n.className = 'bw-status ' + kind; };
+  ensureCanvasBundle().then(info => { const n = q('#bp-bundle'); if (n) n.textContent = describeCanvasBundle(info); }).catch(e => { const n = q('#bp-bundle'); if (n) n.textContent = 'Editor bundle failed to load: ' + (e?.message || e); });
   q('[data-act="import-cli"]').onclick = async () => {
     status('Asking bp…');
     try { const r = await api.barkpark.importCli(); if (!r.ok) throw new Error(r.error); q('#bp-server').value = r.server; q('#bp-dataset').value = r.dataset; q('#bp-enabled').checked = true; status(`Found ${r.name} (${r.server}, ${r.tier} tier). Reads will go through bp.`, 'ok'); markDirty(); }
@@ -192,7 +195,11 @@ export function openSettings(onChange, { pane = 'general' } = {}) {
     const patch = { model: q('#model').value, provider: q('input[name="provider"]:checked').value, claudeModel: modelValue('claude'), codexModel: modelValue('codex'), theme: theme(), chatWidth: Number(q('#width').value), barkpark: { enabled: q('#bp-enabled').checked, viaCli: bpMode() === 'cli', server: q('#bp-server').value.trim(), dataset: q('#bp-dataset').value.trim() || 'production', writes: q('#bp-writes').checked } };
     if (q('#api-key').value.trim()) patch.apiKey = q('#api-key').value.trim(); else if (clearKey) patch.apiKey = '';
     if (q('#bp-token').value.trim()) patch.barkpark.token = q('#bp-token').value.trim();
-    try { state.settings = await api.settings.set(patch); onChange(patch, false); toast('Settings saved'); close(); } catch (error) { toast(error.message, 'error'); }
+    try {
+      state.settings = await api.settings.set(patch); onChange(patch, false); toast('Settings saved'); close();
+      // A (re)connected Barkpark: fetch its editor bundle now; if a different build is already running, say so.
+      refreshCanvasBundleAfterSettings().then(info => { if (state.canvasBundle?.next) toast(`Barkpark's editor bundle (sha1 ${info.sha.slice(0, 8)}) is fetched — restart Barkdown to use it`); });
+    } catch (error) { toast(error.message, 'error'); }
   };
   setTimeout(() => q('nav [aria-selected="true"]')?.focus(), 30);
 }

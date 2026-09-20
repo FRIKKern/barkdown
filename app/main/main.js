@@ -7,6 +7,7 @@ const files = require('./files');
 const git = require('./git');
 const agent = require('./agent');
 const barkpark = require('./barkpark');
+const canvasBundle = require('./canvas-bundle');
 const terminal = require('./terminal');
 const claudeProvider = require('./providers/claude');
 const codexProvider = require('./providers/codex');
@@ -199,6 +200,8 @@ function registerIpc() {
 
   handle('barkpark:test', config => barkpark.test({ ...barkparkConfig(), ...config, token: config?.token || barkparkConfig().token }));
   handle('barkpark:importCli', () => barkpark.importFromCli());
+  // The canvas bundle comes from the connected Barkpark (cached under userData); vendored is the fallback.
+  handle('barkpark:bundle', () => canvasBundle.resolve({ config: barkparkConfig(), cacheDir: path.join(app.getPath('userData'), 'canvas-bundle'), vendorDir: path.join(__dirname, '..', 'renderer', 'vendor') }));
   handle('barkpark:list', () => { const c = barkparkConfig(); return c.viaCli ? barkpark.cliListPapers() : barkpark.listPapers(c); });
   handle('barkpark:get', id => { const c = barkparkConfig(); return c.viaCli ? barkpark.cliGetPaper(id) : barkpark.getPaper(c, id); });
   handle('barkpark:search', q => { const c = barkparkConfig(); return c.viaCli ? barkpark.cliSearch(q) : barkpark.search(c, q); });

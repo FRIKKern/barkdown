@@ -28,7 +28,7 @@ const api = {
   },
   providers: { status: () => call('providers:status') },
   web: { fetchTitle: url => call('web:fetchTitle', url) },
-  barkpark: { test: config => call('barkpark:test', config), importCli: () => call('barkpark:importCli'), list: () => call('barkpark:list'), get: id => call('barkpark:get', id), search: q => call('barkpark:search', q), backlinks: id => call('barkpark:backlinks', id), related: id => call('barkpark:related', id), history: id => call('barkpark:history', id), import: id => call('barkpark:import', id), applyOps: (slug, ops, ifRev) => call('barkpark:applyOps', { slug, ops, ifRev }), publish: payload => call('barkpark:publish', payload), patchTitle: (slug, title) => call('barkpark:patchTitle', { slug, title }) },
+  barkpark: { test: config => call('barkpark:test', config), importCli: () => call('barkpark:importCli'), bundle: () => call('barkpark:bundle'), list: () => call('barkpark:list'), get: id => call('barkpark:get', id), search: q => call('barkpark:search', q), backlinks: id => call('barkpark:backlinks', id), related: id => call('barkpark:related', id), history: id => call('barkpark:history', id), import: id => call('barkpark:import', id), applyOps: (slug, ops, ifRev) => call('barkpark:applyOps', { slug, ops, ifRev }), publish: payload => call('barkpark:publish', payload), patchTitle: (slug, title) => call('barkpark:patchTitle', { slug, title }) },
   onMenu: handler => { const listener = (_e, command) => handler(command); ipcRenderer.on('menu', listener); return () => ipcRenderer.removeListener('menu', listener); },
 };
 

@@ -6,6 +6,7 @@ import { state } from '../state.js';
 import { askConfirm } from '../dialogs.js';
 import { htmlToBlocks, blocksToMarkdown } from '../../../shared/portabledoc.js';
 import { normaliseOps, reinsertMoves } from '../../../shared/ops.js';
+import { ensureCanvasBundle } from '../canvas-bundle.js';
 
 const api = window.barkdown;
 
@@ -196,7 +197,10 @@ export function mountPaper(tab, host, ctx) {
     } finally { saving = false; }
   }
 
-  function mountCanvas(blocks, editable) {
+  async function mountCanvas(blocks, editable) {
+    // The bundle may still be arriving from the server on a cold start.
+    try { await ensureCanvasBundle(); } catch (e) { setSaveState('Editor bundle failed to load: ' + (e?.message || e), 'error'); return; }
+    if (destroyed) return;
     const hostEl = q('#canvas-host');
     hostEl.innerHTML = '';
     hostEl.dataset.theme = themeAttr();
@@ -234,7 +238,8 @@ export function mountPaper(tab, host, ctx) {
     q('#title').onchange = async () => { const title = q('#title').value.trim() || paper.title; if (title === paper.title) return; try { await api.barkpark.patchTitle(slug(), title); paper.title = title; tab.title = title; ctx.tabChanged(tab); ctx.libraryChanged(); toast('Title saved'); } catch (error) { toast(error.message, 'error'); q('#title').value = paper.title; } };
     const editable = writesOn() && Boolean(paper.blocks);
     const blocks = paper.blocks || (paper.html ? htmlToBlocks(paper.html) : []);
-    mountCanvas(blocks, editable);
+    await mountCanvas(blocks, editable);
+    if (destroyed) return;
     syncTitleRow();
     requestAnimationFrame(() => { if (!destroyed) syncTitleRow(); });
     q('#state').textContent = editable
