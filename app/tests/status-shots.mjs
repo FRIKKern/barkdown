@@ -146,6 +146,26 @@ const manifest = {
   rows,
   shots,
 };
+// Content-hashed filenames: GitHub (camo) caches README images by URL, so a picture with the same name as
+// last time is served stale for hours after a push. Each capture writes <name>.<8-hex>.<ext>, removes the
+// previous versions, and points the README's image links at the new names. npm run check still requires every
+// embedded status image to be listed in the manifest.
+const crypto = await import('node:crypto');
+const readmePath = path.join(repo, 'README.md');
+let rootReadme = fs.readFileSync(readmePath, 'utf8');
+for (const shotEntry of manifest.shots) {
+  const ext = shotEntry.file.split('.').pop();
+  const base = shotEntry.file.slice(0, -(ext.length + 1));
+  const bytes = fs.readFileSync(path.join(out, shotEntry.file));
+  const hash = crypto.createHash('sha1').update(bytes).digest('hex').slice(0, 8);
+  const hashed = base + '.' + hash + '.' + ext;
+  const family = new RegExp('^' + base + '(\\.[0-9a-f]{8})?\\.' + ext + '$');
+  for (const old of fs.readdirSync(out)) if (old !== hashed && family.test(old)) fs.rmSync(path.join(out, old));
+  fs.writeFileSync(path.join(out, hashed), bytes);
+  rootReadme = rootReadme.replace(new RegExp('docs/images/status/' + base + '(\\.[0-9a-f]{8})?\\.' + ext, 'g'), () => 'docs/images/status/' + hashed);
+  shotEntry.file = hashed;
+}
+fs.writeFileSync(readmePath, rootReadme);
 fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
 await app.close(); fs.rmSync(userData, { recursive: true, force: true });
 console.log(`wrote ${shots.length} pictures + manifest to ${out}`);
