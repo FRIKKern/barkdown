@@ -66,6 +66,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: npm 11 (the lockfiles are written by npm 11; npm 10's ci demands optional peers it never installs)
+        run: npm install -g npm@11
       - name: Cache Barkpark deps and build
         uses: actions/cache@v4
         with:
@@ -82,11 +84,10 @@ jobs:
           sudo apt-get install -y -q libvips-dev xvfb libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2t64 libpango-1.0-0 libcairo2 libgtk-3-0 || sudo apt-get install -y -q libvips-dev xvfb libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2 libpango-1.0-0 libcairo2 libgtk-3-0
       - name: Boot Barkpark
         run: bash app/tests/ci/boot-barkpark.sh "$GITHUB_WORKSPACE/barkpark"
-      - name: Barkdown app
-        working-directory: app
+      - name: Barkdown app (root holds playwright; app holds electron and the app's deps)
         run: |
           npm ci
-          npm run build
+          cd app && npm ci && npm run build
       - name: Parity rows
         working-directory: app
         env:
