@@ -163,7 +163,7 @@
 
 /* Popups rendered into <body>: slash menu, command palette, format bubble, block menu. Same
  * neutral surface as Notion's menus: app ground, 8px radius, one soft shadow, blue accent. */
-.bp-slash-menu, .bp-paper-format, .bp-block-menu {
+.bp-slash-menu, .bp-paper-format, .bp-block-menu, .bp-link-preview {
   --paper-bg: var(--bw-bg); --paper-bg-deep: light-dark(#f1f1ef, #33362f);
   --paper-ink: var(--bw-text); --paper-ink-soft: var(--bw-muted);
   --paper-ink-faint: light-dark(rgba(55, 53, 47, 0.5), rgba(231, 235, 223, 0.45));
@@ -194,6 +194,14 @@
 .bp-cmd-input { border-radius: 6px; border-color: var(--paper-rule); background: var(--paper-bg-deep); }
 .bp-cmd-input:focus { border-color: var(--paper-accent); box-shadow: 0 0 0 2px light-dark(rgba(35, 131, 226, 0.25), rgba(127, 176, 255, 0.3)); }
 .bp-paper-format { gap: 1px; padding: 3px; border-radius: 6px; }
+/* A wikilink reads as a link (Notion's page mention): accent ink, a soft underline, a pointer. */
+.bp-paper-host .ProseMirror span[data-wikilink] { color: var(--paper-accent); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--paper-accent) 40%, transparent); text-underline-offset: 2px; cursor: pointer; }
+.bp-link-preview { padding: 10px 12px 8px; border-radius: 8px; width: 340px; }
+.bp-link-preview__title { font-size: 14px; }
+.bp-link-preview__addr { font-size: 11px; }
+.bp-link-preview__excerpt { font-size: 13px; color: var(--paper-ink-soft); }
+.bp-link-preview__btn { border-radius: 4px; border-color: var(--paper-rule); color: var(--paper-ink); font-size: 12px; height: 24px; }
+.bp-link-preview__btn:hover { background: var(--paper-accent-soft); color: var(--paper-ink); border-color: var(--paper-rule); }
 .bp-paper-format__btn { width: 28px; height: 26px; font-size: 13px; border-radius: 4px; }
 .bp-paper-format__btn:hover { background: var(--paper-accent-soft); }
 .bp-paper-format__btn--active, .bp-paper-format__btn[aria-pressed="true"] { background: light-dark(rgba(35, 131, 226, 0.12), rgba(127, 176, 255, 0.2)); color: var(--paper-accent); }

@@ -231,6 +231,27 @@ export function mountPaper(tab, host, ctx) {
     canvas.blocks = blocks;
     canvas.wikilinkSource = async query => { try { return (await api.barkpark.search(query)).slice(0, 8).map(d => ({ title: d.title, id: d.id, type: 'paper' })); } catch { return []; } };
     canvas.tagSource = async () => [];
+    // The link hover card: a wikilink's title and first line come from the connected Barkpark; Open
+    // goes to a paper tab for a wikilink and to the system browser for an address (plan #23).
+    canvas.linkPreviewSource = async info => {
+      if (info?.kind !== 'wikilink') return null;
+      const id = info.docId || info.target;
+      if (!id) return null;
+      try {
+        const p = await api.barkpark.get(id);
+        // The first line is the first paragraph, not the title again; the summary's excerpt is the fallback.
+        const inline = nodes => (Array.isArray(nodes) ? nodes : []).map(n => typeof n === 'string' ? n : (n?.value ?? n?.text ?? inline(n?.children || n?.content))).join('');
+        const first = (p.blocks || []).find(b => b?.type === 'paragraph');
+        const firstLine = first ? inline(first.content || (first.text ? [first.text] : [])).trim() : '';
+        return { title: p.title, excerpt: firstLine || p.excerpt || p.description || '', href: 'bp:' + (p.slug || p.id) };
+      } catch { return null; }
+    };
+    canvas.addEventListener('bp-canvas-open-link', event => {
+      const d = event.detail || {};
+      event.preventDefault();
+      if (d.kind === 'wikilink') { const id = d.docId || d.target; if (id) ctx.openLinked(tab, id, 'barkpark'); return; }
+      if (/^https?:/.test(d.href || '')) api.app.openExternal(d.href);
+    });
     // A pasted or dropped picture uploads to the connected Barkpark's media; the node shows the outcome.
     canvas.mediaUploader = async file => {
       if (!writesOn()) throw new Error('Barkpark writes are off');
