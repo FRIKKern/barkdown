@@ -42,7 +42,7 @@ Status as of 2026-09-20. Verified rows come from the live suites (`editor.live.m
 
 Add rows when the Tiptap tab is found to do something not listed; never remove a row to make the matrix greener.
 
-Beyond the matrix, the plan's authoring items that are proven live: the highlight mark (#15, `editor-highlight.live.mjs`) and find and replace (#17, `editor-find.live.mjs` — Ctrl+F/Ctrl+H in the paper tab, the canvas paints the matches and replaces in one transaction, so undo is one step and the save one batch).
+Beyond the matrix, the plan's authoring items that are proven live: the highlight mark (#15, `editor-highlight.live.mjs`) find and replace (#17, `editor-find.live.mjs` — Ctrl+F/Ctrl+H in the paper tab, the canvas paints the matches and replaces in one transaction, so undo is one step and the save one batch), and "@" as an alias for the wikilink autocomplete (#19, `editor-mention.live.mjs`).
 
 ## Order of work
 
