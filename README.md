@@ -4,9 +4,9 @@
 
 Notes are Barkpark papers, edited in Barkpark's own canvas. Beside them sits an assistant that runs on the Claude Code or Codex sign-in already on your machine, reads and proposes on those notes, and works in folders you give it. Barkpark supplies the document format, the ops protocol, the editor and the cloud; Barkdown is the desktop that puts a person and an agent in front of them. The real Barkpark runs locally beside the app and syncs to bp cloud; a profile can also stay local-only.
 
-![A Barkpark paper edited live in the canvas inside Barkdown: quote, checklist, table, callout and code, saved as ops to a local Barkpark.](docs/images/status/paper-light.101d0c29.png)
+![A Barkpark paper edited live in the canvas inside Barkdown: quote, checklist, table, callout and code, saved as ops to a local Barkpark.](docs/images/status/paper-light.680d648e.png)
 
-![An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open.](docs/images/status/editing.15164b31.gif)
+![An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open.](docs/images/status/editing.2b0f4783.gif)
 
 *Real pictures of the running app, taken by `cd app && npm run shots` against the local Barkpark: five stills and the loop above. `npm run check` refuses a README whose pictures are older than the last change to the app's UI, and every capture gets content-hashed filenames so a cached old picture can never stand in for a new one. The manifest beside them says which commits they came from and whether the assistant turn in them was real.*
 
@@ -17,7 +17,7 @@ Notes are Barkpark papers, edited in Barkpark's own canvas. Beside them sits an 
 - **The editor goal** is measurable: [EDITOR-PARITY.md](docs/EDITOR-PARITY.md) lists what Barkdown's older Tiptap tab gives an author and turns each row green only by a live test that compares the canvas with the server. Rows 10 (tables) and 11 (multi-block edits) are 11/11; row 12 (the opaque block set) is 14/22 and climbing. [TIPTAP-REVIEW.md](docs/TIPTAP-REVIEW.md) sizes the rest at five to six focused weeks.
 - **The plan** is [PLAN.md](docs/PLAN.md): an ordered sequence with one GitHub issue per task under five milestones. The project skill `plan-followup` (`.claude/skills/plan-followup`) picks the next issue, works it Barkpark-first, and lands both repos.
 
-![The same paper in dark mode.](docs/images/status/paper-dark.48c8f13e.png)
+![The same paper in dark mode.](docs/images/status/paper-dark.a05492ff.png)
 
 ## Start here
 
@@ -37,7 +37,7 @@ cd app && npm install && npm start
 
 Requires Node 22.13+ and a desktop session (Electron 38). The assistant uses your `claude` or `codex` login as-is; an Anthropic API key is the fallback. To edit papers you need a Barkpark: point Settings › Barkpark (or `bp use`) at bp cloud, or run one locally — the Barkpark checkout's `scripts\setup-windows.ps1` installs the toolchain and a Postgres cluster without admin rights; the traps found on the way (compile under `vcvars64`, Postgres wedging under load) are written down in [PLAN.md](docs/PLAN.md) and the `plan-followup` skill.
 
-![Settings › Barkpark: the connection Barkdown edits through — here the local server.](docs/images/status/settings-barkpark.4fc756c7.png)
+![Settings › Barkpark: the connection Barkdown edits through — here the local server.](docs/images/status/settings-barkpark.8aaea988.png)
 
 ## Verify
 
@@ -47,9 +47,9 @@ cd app && npm test
 
 `npm test` runs the scripted-client agent checks and the Playwright suite against the real Electron window. The editor parity rows are live, against a Barkpark: `npm run test:tables`, `npm run test:multiblock`, `npm run test:highlight`, `npm run test:opaque` (row 12 is red by design while types remain opaque). `npm run shots` refreshes the README's pictures and their manifest. At the repo root, `npm run check` verifies links, the handoff's requirements and hashes, and that those pictures are no older than the UI they show.
 
-![The slash menu inside the paper, with the plain Quote row beside Callout and Code.](docs/images/status/slash-menu.793b83a1.png)
+![The slash menu inside the paper, with the plain Quote row beside Callout and Code.](docs/images/status/slash-menu.83f1766c.png)
 
-![Quick open (Ctrl+K) over tabs, papers, chats and actions.](docs/images/status/quick-open.ebbeb3da.png)
+![Quick open (Ctrl+K) over tabs, papers, chats and actions.](docs/images/status/quick-open.1f6a8a5f.png)
 
 ## Working in two repos
 
