@@ -32,7 +32,7 @@ const NOTE_BLOCKS = [
   { type: 'diagram', value: 'graph TD; a-->b' },
   { type: 'equation', value: 'E = mc^2' },
   { type: 'video', src: 'https://example.com/v.mp4' },
-  { type: 'expandable', title: 'Details', children: [{ type: 'paragraph', content: text('Hidden.') }] },
+  { type: 'expandable', summary: 'Details', blocks: [{ type: 'paragraph', content: text('Hidden.') }] },
   { type: 'steps', items: [text('first'), text('second')] },
   { type: 'footnote', content: text('A footnote.') },
   { type: 'toc' },
@@ -89,17 +89,20 @@ const passed = rows.filter(r => r.pass).length;
 // hold. image (2026-09-20): alt typed into the node's alt input, a url pasted into its url input.
 const edits = [];
 const serverBlock = (type) => { const r = bp(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); const d = r.document || r; return d.blocks.find(b => b.type === type) || null; };
-const waitSaved = async () => { await page.waitForFunction(() => /Saved · rev|Not saved|Conflict/.test(document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent || ''), null, { timeout: 20000 }).catch(() => {}); await page.waitForTimeout(600); };
+// Wait for the NEXT save, not the last one: the state text must move on from what it said before the edit
+// (an instant fill() would otherwise read the server before the batch went out), then settle.
+const saveState = () => page.evaluate(() => document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent || '');
+const waitSavedFrom = async (before) => { await page.waitForFunction((prev) => { const t = document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent || ''; return t !== prev && /Saved · rev|Not saved|Conflict/.test(t); }, before, { timeout: 20000 }).catch(() => {}); await page.waitForTimeout(600); };
 try {
   const img = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas figure[data-bp-type="image"]').first();
   if (await img.count()) {
     await img.hover();
     const alt = img.locator('input.bp-canvas-image-alt');
-    await alt.click(); await alt.fill('A described image'); await alt.press('Enter'); await waitSaved();
+    const s1 = await saveState(); await alt.click(); await alt.fill('A described image'); await alt.press('Enter'); await waitSavedFrom(s1);
     const afterAlt = serverBlock('image');
     edits.push({ type: 'image', edit: 'alt', pass: afterAlt?.alt === 'A described image', server: afterAlt });
     const src = img.locator('input.bp-canvas-image-src');
-    await src.click(); await src.fill('https://example.com/y.png'); await src.press('Enter'); await waitSaved();
+    const s2 = await saveState(); await src.click(); await src.fill('https://example.com/y.png'); await src.press('Enter'); await waitSavedFrom(s2);
     const afterSrc = serverBlock('image');
     const shown = await img.locator('img').getAttribute('src');
     edits.push({ type: 'image', edit: 'src', pass: afterSrc?.src === 'https://example.com/y.png' && shown === 'https://example.com/y.png' && afterSrc?.alt === 'A described image', server: afterSrc, shown });
@@ -107,6 +110,23 @@ try {
     edits.push({ type: 'image', edit: 'mount', pass: false, note: 'no bpImage figure in the canvas' });
   }
 } catch (e) { edits.push({ type: 'image', edit: 'error', pass: false, error: e.message.slice(0, 200) }); }
+// expandable (2026-09-20): the summary typed in its island, a word typed into the body paragraph.
+try {
+  const tog = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas [data-bp-type="expandable"]').first();
+  if (await tog.count()) {
+    const summary = tog.locator('.bp-expandable__summary').first();
+    const s3 = await saveState(); await summary.click(); await summary.fill('Details and more'); await summary.press('Enter'); await waitSavedFrom(s3);
+    const afterSummary = serverBlock('expandable');
+    edits.push({ type: 'expandable', edit: 'summary', pass: afterSummary?.summary === 'Details and more', server: afterSummary });
+    const para = tog.locator('.bp-expandable__body p').first();
+    const s4 = await saveState(); await para.click(); await page.keyboard.press('End'); await page.keyboard.type(' Shown.'); await waitSavedFrom(s4);
+    const afterBody = serverBlock('expandable');
+    const bodyText = ((afterBody?.blocks || afterBody?.children || [])[0]?.content || []).map(x => x.value || '').join('');
+    edits.push({ type: 'expandable', edit: 'body', pass: bodyText === 'Hidden. Shown.' && afterBody?.summary === 'Details and more', server: afterBody });
+  } else {
+    edits.push({ type: 'expandable', edit: 'mount', pass: false, note: 'no bpExpandable node in the canvas' });
+  }
+} catch (e) { edits.push({ type: 'expandable', edit: 'error', pass: false, error: e.message.slice(0, 200) }); }
 const editsPassed = edits.filter(e => e.pass).length;
 await page.screenshot({ path: 'test-results/33-opaque.png', fullPage: true });
 console.log(JSON.stringify({ summary: `${passed}/${rows.length} note block types mount editable; ${editsPassed}/${edits.length} edits held by the server`, edits, opaque: rows.filter(r => !r.pass).map(r => r.type), readOnlyAtoms: rows.filter(r => r.pass && r.readOnly).map(r => r.type + ':' + r.mounted), rows, errors: [...new Set(errors)].slice(0, 10) }, null, 1));
