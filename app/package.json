@@ -16,7 +16,8 @@
     "test:editor": "node tests/editor.live.mjs && node tests/editor-code.live.mjs",
     "test:tables": "node tests/editor-tables.live.mjs",
     "test:multiblock": "node tests/editor-multiblock.live.mjs",
-    "test:opaque": "node tests/editor-opaque.live.mjs"
+    "test:opaque": "node tests/editor-opaque.live.mjs",
+    "shots": "node tests/status-shots.mjs"
   },
   "engines": {
     "node": ">=22.13.1"
@@ -24,7 +25,9 @@
   "devDependencies": {
     "electron": "^38.0.0",
     "electron-builder": "^26.0.0",
-    "esbuild": "^0.25.0"
+    "esbuild": "^0.25.0",
+    "gifenc": "^1.0.3",
+    "pngjs": "^7.0.0"
   },
   "dependencies": {
     "@anthropic-ai/claude-agent-sdk": "^0.3.276",

@@ -1,44 +1,61 @@
 # Barkdown
 
-**A desktop workspace for conversations, documents, and the work happening between them.**
+**A note + agent app, utilizing Barkpark.**
 
-Barkdown combines a ChatGPT-like conversation workspace with Notion-like document editing, using Barkpark for structured content, relationships, media, search, and revision history. The intended desktop foundation is a T3 Code fork.
+Notes are Barkpark papers, edited in Barkpark's own canvas. Beside them sits an assistant that runs on the Claude Code or Codex sign-in already on your machine, reads and proposes on those notes, and works in folders you give it. Barkpark supplies the document format, the ops protocol, the editor and the cloud; Barkdown is the desktop that puts a person and an agent in front of them. The real Barkpark runs locally beside the app and syncs to bp cloud; a profile can also stay local-only.
 
-This private repository is the **v0.5 product and engineering handoff**. It includes the actual interactive concept code and a detailed implementation plan. It does not yet contain the T3 runtime, a packaged desktop application, a live AI connection, or a connected Barkpark editor.
+![A Barkpark paper edited live in the canvas inside Barkdown: quote, checklist, table, callout and code, saved as ops to a local Barkpark.](docs/images/status/paper-light.png)
 
-![Current Barkdown concept: app-wide sidebar, wide chat, document work tab](docs/images/prd-workspace-tabs.png)
+*Real screenshots, taken by `cd app && npm run shots` against the local Barkpark; `npm run check` refuses a README whose pictures are older than the last change to the app's UI. The manifest beside them says which commits they came from.*
 
-## Desktop prototype (Electron)
+## Where it stands
 
-The `app/` folder contains a working Electron prototype built from this handoff: a real Tiptap document library with revisions and backlinks, an assistant that runs on your local Claude Code or Codex sign-in (like T3 Code) with document proposals and approval-gated file writes, per-chat working folders with a CodeMirror project editor, git diff reviews, website tabs, side chats, pins, quick open, and Barkpark papers edited live in Barkpark's own canvas through the fenced ops endpoint. See [app/README.md](app/README.md) for how to run and verify it, and what is still simulated.
+- **The app** is the Electron desktop in [app/](app/README.md): a Notion-like page tree of papers and local documents, the assistant with approval-gated edits and commands, per-chat working folders with a project editor, git reviews, website tabs, side chats, favorites and quick open. Barkpark papers open in `<bp-paper-canvas>`; every edit is an ops batch under `ifRev`, acknowledged, echoed, and conflict-carded on 412.
+- **The store** is a real Barkpark — Postgres to the bone — running on this machine (`scripts\setup-windows.ps1` in the Barkpark checkout) or in bp cloud. Barkdown does not reimplement any of it; profiles, export and sync build on `bp servers`, `bp export` and `bp migrate`.
+- **The editor goal** is measurable: [EDITOR-PARITY.md](docs/EDITOR-PARITY.md) lists what Barkdown's older Tiptap tab gives an author and turns each row green only by a live test that compares the canvas with the server. Rows 10 (tables) and 11 (multi-block edits) are 11/11; row 12 (the opaque block set) is 14/22 and climbing. [TIPTAP-REVIEW.md](docs/TIPTAP-REVIEW.md) sizes the rest at five to six focused weeks.
+- **The plan** is [PLAN.md](docs/PLAN.md): an ordered sequence with one GitHub issue per task under five milestones. The project skill `plan-followup` (`.claude/skills/plan-followup`) picks the next issue, works it Barkpark-first, and lands both repos.
+
+![The same paper in dark mode.](docs/images/status/paper-dark.png)
+
+## Start here
+
+1. [PLAN.md](docs/PLAN.md) — what to do next and in what order; `node .claude/skills/plan-followup/scripts/next.mjs` prints the next open issue and checks the environment.
+2. [EDITOR-PARITY.md](docs/EDITOR-PARITY.md) — the standing goal and its matrix; [TIPTAP-REVIEW.md](docs/TIPTAP-REVIEW.md) — the gap against Tiptap itself.
+3. [DESIGN-DECISIONS.md](docs/DESIGN-DECISIONS.md) — accepted decisions, including the 2026-09-20 identity and editor decisions.
+4. [NEXT-AGENT.md](docs/NEXT-AGENT.md) — the handoff: what is real, what is simulated, the corrections most likely to get lost.
+5. [PRD.md](docs/PRD.md), [ARCHITECTURE.md](docs/ARCHITECTURE.md), the [typed proposal](docs/contracts/workspace.ts), [ACCEPTANCE.md](docs/ACCEPTANCE.md) — the product and integration plan the app grew from.
+
+The central rule still holds: **Barkdown is app-wide. Agents have working folders.** The sidebar is not scoped to a folder; each chat carries its agent's working context; a project editor is a work tab inside that conversation.
+
+## Run it
 
 ```sh
 cd app && npm install && npm start
 ```
 
-## Start here
+Requires Node 22.13+ and a desktop session (Electron 38). The assistant uses your `claude` or `codex` login as-is; an Anthropic API key is the fallback. To edit papers you need a Barkpark: point Settings › Barkpark (or `bp use`) at bp cloud, or run one locally — the Barkpark checkout's `scripts\setup-windows.ps1` installs the toolchain and a Postgres cluster without admin rights; the traps found on the way (compile under `vcvars64`, Postgres wedging under load) are written down in [PLAN.md](docs/PLAN.md) and the `plan-followup` skill.
 
-1. Read the [product requirements](docs/PRD.md).
-2. Read the [next-agent handoff](docs/NEXT-AGENT.md), including the first milestone and known limitations.
-3. Keep the [accepted design decisions](docs/DESIGN-DECISIONS.md) open while implementing, and the standing [editor parity goal](docs/EDITOR-PARITY.md): the Barkpark canvas becomes as good as the Tiptap tab, then replaces it ([review against Tiptap](docs/TIPTAP-REVIEW.md) sizes the distance; [the plan](docs/PLAN.md) orders the work, one issue per task).
-4. Use the [architecture and integration plan](docs/ARCHITECTURE.md), [typed proposal](docs/contracts/workspace.ts), and [source map](docs/SOURCE-MAP.md).
-5. Follow [acceptance and delivery](docs/ACCEPTANCE.md) before calling a production milestone complete.
+![Settings › Barkpark: the connection Barkdown edits through — here the local server.](docs/images/status/settings-barkpark.png)
 
-The central rule: **Barkdown is app-wide. Agents have working folders.** The sidebar is not scoped to an active filesystem folder. Each chat carries its agent’s working context; a project editor is a work tab within that conversation.
+## Verify
 
-## Open the handoff without installing anything
+```sh
+cd app && npm test
+```
 
-Clone or download this private repository, then open:
+`npm test` runs the scripted-client agent checks and the Playwright suite against the real Electron window. The editor parity rows are live, against a Barkpark: `npm run test:tables`, `npm run test:multiblock`, `npm run test:opaque` (row 12 is red by design while types remain opaque). `npm run shots` refreshes the README's pictures and their manifest. At the repo root, `npm run check` verifies links, the handoff's requirements and hashes, and that those pictures are no older than the UI they show.
 
-- `preview/index.html` — the current mixed work-tab concept.
-- `preview/editor.html` — the earlier, richer document editing interaction study.
-- `preview/prd.html` — the illustrated, self-contained product plan.
+![The slash menu inside the paper, with the plain Quote row beside Callout and Code.](docs/images/status/slash-menu.png)
 
-These pages embed their icons and need no network requests. GitHub displays HTML as source; download or open locally to interact with it. No public website or GitHub Pages deployment is configured.
+![Quick open (Ctrl+K) over tabs, papers, chats and actions.](docs/images/status/quick-open.png)
 
-## Develop and verify the handoff
+## Working in two repos
 
-Use Node.js 22.13.1 or newer and npm. These requirements apply to this handoff; the proposed T3 baseline has its own toolchain.
+Editor truth lives in Barkpark. A change to a block, a mark or an attribute is a Barkpark PR first (schema, reader render, contract, canvas, unit test, on the `barkdown/editor-quality` branch), then a rebuilt bundle in `app/renderer/vendor` (until the app loads it from the connected server — plan item #2), then a red-first live row here. Landing a Barkpark PR has its own gates; `.claude/skills/plan-followup/scripts/barkpark-pr.mjs` walks them.
+
+## The concept handoff (v0.5, kept as history)
+
+The repository began as a product and engineering handoff: [concepts/workspace.html](concepts/workspace.html) (the app shell and simulated agent activity), [concepts/editor-study.html](concepts/editor-study.html) (block editing interactions), and the illustrated PRD. They are still the interaction reference the app was built from and are still checked:
 
 ```sh
 npm ci
@@ -47,38 +64,15 @@ npm run verify
 npm run preview
 ```
 
-Open `http://127.0.0.1:4173`. Stop the local preview with Ctrl+C. For Linux environments, Playwright may require `npx playwright install --with-deps chromium`.
-
-To use an already installed browser for verification, set `BARKDOWN_BROWSER_CHANNEL=msedge` or `chrome` in your shell. Default verification uses Playwright’s Chromium. An installed desktop browser is optional.
-
-`npm run build` regenerates the three portable preview pages, GitHub-readable PRD, and artifact hashes. `npm run check` checks the proposed types, source syntax, local links, and handoff consistency. `npm test` exercises the concepts, including folder context, editing, drafts, pins, agent focus, menus, and narrow layouts.
-
-## Source ownership
+`npm run build` regenerates the portable preview pages (`preview/*.html`, self-contained), the GitHub-readable PRD and the artifact hashes; `npm test` exercises the concepts at widths down to 320px. Open `http://127.0.0.1:4173` for the preview. Everything in the concepts is in-memory and resets on reload.
 
 | File | Role |
 |---|---|
-| `concepts/workspace.html` | Authoritative current app shell, chat/work tabs, agent folder controls, file editor, pins, and simulated AI activity. |
-| `concepts/editor-study.html` | Authoritative interaction reference for block editing, selection formatting, attached Types submenu, and inline AI changes. Its older shell is superseded. |
-| `docs/prd.source.html` | Editable source of the PRD. |
-| `docs/PRD.md`, `preview/*.html` | Generated deliverables; edit their sources, then rebuild. |
-| `docs/contracts/workspace.ts` | Checked design proposal for state and adapter boundaries, not a production protocol. |
-| `tests/` | Repeatable concept checks. |
-| `evidence/` | Source provenance, hashes, and the checked handoff baseline. |
+| `app/` | The desktop app. `main/` (Electron main: window, IPC, documents, files, git, agent, Barkpark adapter, settings), `renderer/` (the UI; `vendor/` holds the canvas bundle), `shared/` (markdown, PortableDoc and ops helpers), `tests/` (unit, Playwright/Electron, and the live parity rows). |
+| `docs/` | The plan, the goal, the review, decisions, the handoff, the PRD and its source. `docs/images/status/` is written by `npm run shots`. |
+| `concepts/`, `preview/`, `evidence/` | The v0.5 concept, its portable previews, and source provenance with hashes. |
+| `.claude/skills/plan-followup/` | The project skill that works the plan. |
 
-## Try the intended behavior
+## Status and licence
 
-Open a document, website, review, project editor, or side chat with **+** beside the work tabs. Chat starts at 60% of the available working width. Editing or choosing a tab pauses automatic following. **Watch AI work** demonstrates scripted activity; **Go to latest activity** resumes following.
-
-Use the folder chip in the chat composer to inspect the agent’s working folder or open the project editor. **New chat in this folder** creates a conversation with that agent context. **Back to chat** restores the wider conversation. Hover or focus a tab to pin its navigation path, then restore it from **Pins**.
-
-Drag the divider between chat and work tabs to adjust the split (double-click resets to 60%; arrow keys work when it is focused). Press **Ctrl+K** for quick open: jump to any work tab, document, recent chat, new tab type, or action by typing part of its name. **Alt+1–9** switches tabs, **Alt+W** closes the active one, **Alt+N** opens the type menu, and a middle-click closes a tab. **Enter** sends a message, **Shift+Enter** adds a line. A small **Working…** pulse beside the composer shows while the scripted agent runs, and a red dot on the project tab marks unsaved file drafts.
-
-In the editor study, open a document directly from the sidebar, select text, and open **Types**. The attached submenu and block interactions are the editing target for the real Paper integration.
-
-All edits, pins, reviews, replies, and file buffers in these concepts are local, in-memory demonstrations. Reloading resets them. “Store in demo” does not write a repository file.
-
-## Delivery status
-
-See [VALIDATION.md](docs/VALIDATION.md) for the exact checks run and [SOURCE-MAP.md](docs/SOURCE-MAP.md) for immutable upstream references. The first implementation milestone is one real Barkpark Paper mounted, edited, saved, and reopened inside an audited T3-derived desktop shell.
-
-Original Barkdown material has no public open-source license in this handoff. Private visibility is intentional. Third-party notices are in [THIRD-PARTY.md](THIRD-PARTY.md).
+[VALIDATION.md](docs/VALIDATION.md) records the checks that were run and on what. Original Barkdown material has no public open-source licence; the repository is private on purpose. Third-party notices are in [THIRD-PARTY.md](THIRD-PARTY.md).

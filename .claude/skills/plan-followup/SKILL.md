@@ -33,9 +33,10 @@ Some things worth knowing before they cost an hour:
 ## 3. Finish
 
 1. Update the row in `docs/EDITOR-PARITY.md`: the score, what was fixed where, anything intermittent with its evidence. Add a row when the task reveals a behaviour the Tiptap tab has that the matrix lacks; never remove a row to make it greener.
-2. Commit Barkpark first (`git -C ../barkpark-editor`), push `barkdown/editor-quality`; note the commit hash. Then commit Barkdown (test, vendored bundle, docs, `app/README.md`'s vendoring note with the new hash), push `codex/electron-prototype`. Messages in the repo's voice: a first line that says what changed for the author, then why, then the numbers (`8/11 -> 11/11, three runs`). End with the attribution line the session reminder gives.
-3. Close the issue: `gh issue close <n> --comment "<row> <score>, <runs> runs; Barkpark <hash>, Barkdown <hash>"`.
-4. Tell the user in a few lines: what went green, what was found, what is next in the sequence. Flag anything that needs them — a Barkpark PR to merge, a decision (heading levels, quote block), a switch of `bp` back to cloud.
+2. If the task changed anything an author sees, commit that change, then `cd app && npm run shots` and commit the pictures with their manifest: `npm run check` at the root refuses a README whose status screenshots are older than the last commit to `app/renderer`, `app/main` or `app/shared` (the script needs the local Barkpark, `bp use local`, and a provider login for the assistant turn; it falls back to Codex, then to a seeded transcript it flags in the manifest).
+3. Commit Barkpark first (`git -C ../barkpark-editor`), push `barkdown/editor-quality`; note the commit hash. Then commit Barkdown (test, vendored bundle, docs, `app/README.md`'s vendoring note with the new hash), push `codex/electron-prototype`. Messages in the repo's voice: a first line that says what changed for the author, then why, then the numbers (`8/11 -> 11/11, three runs`). End with the attribution line the session reminder gives.
+4. Close the issue: `gh issue close <n> --comment "<row> <score>, <runs> runs; Barkpark <hash>, Barkdown <hash>"`.
+5. Tell the user in a few lines: what went green, what was found, what is next in the sequence. Flag anything that needs them — a Barkpark PR to merge, a decision (heading levels, quote block), a switch of `bp` back to cloud.
 
 ## 3b. Landing a Barkpark PR
 
