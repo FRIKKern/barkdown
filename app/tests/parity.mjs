@@ -22,6 +22,7 @@ const ROWS = [
   ['images', 'editor-images.live.mjs', 'row 13'],
   ['row14', 'editor-row14.live.mjs', 'row 14'],
   ['ime', 'editor-ime.live.mjs', 'row 15'],
+  ['perf', 'editor-perf.live.mjs', 'row 16'],
   ['gaps', 'editor-gaps.live.mjs', 'rows 1–7 (Notion behaviours)'],
   ['paper', 'paper.live.mjs', 'row 9 (ifRev, 412, re-apply)'],
   ['highlight', 'editor-highlight.live.mjs', '#15'],
