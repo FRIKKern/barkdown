@@ -15,7 +15,8 @@
     "test:paper": "node tests/paper.live.mjs",
     "test:editor": "node tests/editor.live.mjs && node tests/editor-code.live.mjs",
     "test:tables": "node tests/editor-tables.live.mjs",
-    "test:multiblock": "node tests/editor-multiblock.live.mjs"
+    "test:multiblock": "node tests/editor-multiblock.live.mjs",
+    "test:opaque": "node tests/editor-opaque.live.mjs"
   },
   "engines": {
     "node": ">=22.13.1"

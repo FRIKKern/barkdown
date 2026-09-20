@@ -183,12 +183,14 @@ export function mountPaper(tab, host, ctx) {
         // Tell the canvas the batch was refused, or every later edit stays queued behind it. It keeps the author's
         // state and, on the next edit, diffs against the last saved blocks, so the refused change rides along —
         // a vetoed batch (say, one that would empty the paper) then saves as soon as the author writes again.
-        canvas.acknowledgeOps?.(seq, false);
+        const discarded = canvas.discardInflightOps?.(seq) === true;
         const box = q('#conflict');
         box.innerHTML = '';
         const message = /known DocPatchOp/.test(error.message) && ops.some(o => o.op === 'move-block') ? 'Moving blocks needs the newer Barkpark server (move-block landed on main; this server predates it). Your edit is still on screen.' : errorMessage(error);
         const node = el(`<div class="bw-conflict"><strong>Could not save:</strong> ${esc(message)} <button data-act="retry">Retry</button></div>`);
-        node.querySelector('[data-act="retry"]').onclick = async () => { box.innerHTML = ''; const p = pendingRetry; pendingRetry = null; if (p) await applyOps(p.ops, p.seq); };
+        // After a discard the canvas re-diffs on Retry (resending the old ops would land an insert twice); an older
+        // canvas without the seam keeps the batch in flight and Retry resends it as before.
+        node.querySelector('[data-act="retry"]').onclick = async () => { box.innerHTML = ''; const p = pendingRetry; pendingRetry = null; if (discarded) { setSaveState('Saving…', 'saving'); if (!canvas.resendPendingOps?.()) setSaveState('Saved · rev ' + rev, 'saved'); } else if (p) await applyOps(p.ops, p.seq); };
         box.appendChild(node);
       }
     } finally { saving = false; }
