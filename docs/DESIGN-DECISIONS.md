@@ -42,3 +42,8 @@ These record the user's decisions through the private handoff. Preserve the inte
 ## Recommendations that are not settled user decisions
 
 The PRD proposes Windows for the first pilot, one existing provider adapter, review-before-apply for initial agent changes, and one active Barkpark connection for the first connected slice. These are starting assumptions to validate, not permanent platform/provider restrictions. The exact T3 import baseline, persistence engine, native file editor component, browser host, commercial-template entitlement, and searchable-chat storage are unresolved.
+
+## Direction set 2026-09-20
+
+- **D-editor:** the standing goal is that the Barkpark canvas becomes as good as the Tiptap document tab, measured by the matrix in [EDITOR-PARITY.md](EDITOR-PARITY.md); when every row is green the Tiptap tab is deleted and local documents are Barkpark papers. Editor fixes land in the Barkpark repo and reach Barkdown through the connected server's bundle, not a hand copy.
+- **D-identity:** Barkdown is a note + agent app utilizing Barkpark. It runs the real Barkpark locally as a sidecar (its own Postgres cluster per profile) rather than reimplementing any of it, and syncs to bp cloud. Profiles may be cloud-backed or local-only; a profile's data must be zippable to another device. This supersedes the earlier assumption of "one active Barkpark connection" as the only mode.

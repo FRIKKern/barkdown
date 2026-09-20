@@ -6,6 +6,8 @@ Build Barkdown: an app-wide desktop workspace that combines ChatGPT-like convers
 
 This repository delivers a working **concept**, not the desktop application. Preserve the interaction decisions while replacing the simulation with real execution and storage.
 
+**Standing goal (set 2026-09-20):** the Barkpark editor becomes as good as Tiptap and replaces Barkdown's Tiptap document tab; Barkdown is a note + agent app utilizing Barkpark, with a real Barkpark running locally and syncing to bp cloud. The measurable matrix and the order of work are in [EDITOR-PARITY.md](EDITOR-PARITY.md). Work that does not move a row of that matrix, or the local-Barkpark sidecar it depends on, needs a reason.
+
 Read in order: [README](../README.md), [decisions](DESIGN-DECISIONS.md), [PRD](PRD.md), [architecture](ARCHITECTURE.md), [source map](SOURCE-MAP.md), [acceptance](ACCEPTANCE.md). The proposed [TypeScript contracts](contracts/workspace.ts) make the intended state ownership explicit. They are not upstream schemas.
 
 ## The correction most likely to get lost
