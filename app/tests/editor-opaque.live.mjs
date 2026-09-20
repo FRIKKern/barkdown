@@ -85,7 +85,30 @@ for (let i = 0; i < server.length; i++) {
 const byType = new Map(); for (const r of results) if (!byType.has(r.type) || !r.pass) byType.set(r.type, r);
 const rows = [...byType.values()];
 const passed = rows.filter(r => r.pass).length;
+// Editability is more than mounting: for each type that stopped being opaque, one edit that the server must
+// hold. image (2026-09-20): alt typed into the node's alt input, a url pasted into its url input.
+const edits = [];
+const serverBlock = (type) => { const r = bp(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); const d = r.document || r; return d.blocks.find(b => b.type === type) || null; };
+const waitSaved = async () => { await page.waitForFunction(() => /Saved · rev|Not saved|Conflict/.test(document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent || ''), null, { timeout: 20000 }).catch(() => {}); await page.waitForTimeout(600); };
+try {
+  const img = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas figure[data-bp-type="image"]').first();
+  if (await img.count()) {
+    await img.hover();
+    const alt = img.locator('input.bp-canvas-image-alt');
+    await alt.click(); await alt.fill('A described image'); await alt.press('Enter'); await waitSaved();
+    const afterAlt = serverBlock('image');
+    edits.push({ type: 'image', edit: 'alt', pass: afterAlt?.alt === 'A described image', server: afterAlt });
+    const src = img.locator('input.bp-canvas-image-src');
+    await src.click(); await src.fill('https://example.com/y.png'); await src.press('Enter'); await waitSaved();
+    const afterSrc = serverBlock('image');
+    const shown = await img.locator('img').getAttribute('src');
+    edits.push({ type: 'image', edit: 'src', pass: afterSrc?.src === 'https://example.com/y.png' && shown === 'https://example.com/y.png' && afterSrc?.alt === 'A described image', server: afterSrc, shown });
+  } else {
+    edits.push({ type: 'image', edit: 'mount', pass: false, note: 'no bpImage figure in the canvas' });
+  }
+} catch (e) { edits.push({ type: 'image', edit: 'error', pass: false, error: e.message.slice(0, 200) }); }
+const editsPassed = edits.filter(e => e.pass).length;
 await page.screenshot({ path: 'test-results/33-opaque.png', fullPage: true });
-console.log(JSON.stringify({ summary: `${passed}/${rows.length} note block types mount editable`, opaque: rows.filter(r => !r.pass).map(r => r.type), readOnlyAtoms: rows.filter(r => r.pass && r.readOnly).map(r => r.type + ':' + r.mounted), rows, errors: [...new Set(errors)].slice(0, 10) }, null, 1));
+console.log(JSON.stringify({ summary: `${passed}/${rows.length} note block types mount editable; ${editsPassed}/${edits.length} edits held by the server`, edits, opaque: rows.filter(r => !r.pass).map(r => r.type), readOnlyAtoms: rows.filter(r => r.pass && r.readOnly).map(r => r.type + ':' + r.mounted), rows, errors: [...new Set(errors)].slice(0, 10) }, null, 1));
 await app.close(); fs.rmSync(userData, { recursive: true, force: true });
-process.exitCode = passed === rows.length ? 0 : 1;
+process.exitCode = passed === rows.length && editsPassed === edits.length ? 0 : 1;
