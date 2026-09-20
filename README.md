@@ -14,7 +14,7 @@ Notes are Barkpark papers, edited in Barkpark's own canvas. Beside them sits an 
 
 - **The app** is the Electron desktop in [app/](app/README.md): a Notion-like page tree of papers and local documents, the assistant with approval-gated edits and commands, per-chat working folders with a project editor, git reviews, website tabs, side chats, favorites and quick open. Barkpark papers open in `<bp-paper-canvas>`; every edit is an ops batch under `ifRev`, acknowledged, echoed, and conflict-carded on 412.
 - **The store** is a real Barkpark — Postgres to the bone — running on this machine (`scripts\setup-windows.ps1` in the Barkpark checkout) or in bp cloud. Barkdown does not reimplement any of it; profiles, export and sync build on `bp servers`, `bp export` and `bp migrate`.
-- **The editor goal** is measurable: [EDITOR-PARITY.md](docs/EDITOR-PARITY.md) lists what Barkdown's older Tiptap tab gives an author and turns each row green only by a live test that compares the canvas with the server. Rows 10 (tables) and 11 (multi-block edits) are 11/11; row 12 (the opaque block set) is 14/22 and climbing. [TIPTAP-REVIEW.md](docs/TIPTAP-REVIEW.md) sizes the rest at five to six focused weeks.
+- **The editor goal** is measurable: [EDITOR-PARITY.md](docs/EDITOR-PARITY.md) lists what Barkdown's older Tiptap tab gives an author and turns each row green only by a live test that compares the canvas with the server. Rows 10 (tables), 11 (multi-block edits) and 12 (every block type a note can hold mounts editable, edits and inserts through the slash menu) are green. [TIPTAP-REVIEW.md](docs/TIPTAP-REVIEW.md) sizes the rest at five to six focused weeks.
 - **The plan** is [PLAN.md](docs/PLAN.md): an ordered sequence with one GitHub issue per task under five milestones. The project skill `plan-followup` (`.claude/skills/plan-followup`) picks the next issue, works it Barkpark-first, and lands both repos.
 
 ![The same paper in dark mode.](docs/images/status/paper-dark.2d02465a.png)
@@ -45,7 +45,7 @@ Requires Node 22.13+ and a desktop session (Electron 38). The assistant uses you
 cd app && npm test
 ```
 
-`npm test` runs the scripted-client agent checks and the Playwright suite against the real Electron window. The editor parity rows are live, against a Barkpark: `npm run test:tables`, `npm run test:multiblock`, `npm run test:highlight`, `npm run test:opaque` (row 12 is red by design while types remain opaque). `npm run shots` refreshes the README's pictures and their manifest. At the repo root, `npm run check` verifies links, the handoff's requirements and hashes, and that those pictures are no older than the UI they show.
+`npm test` runs the scripted-client agent checks and the Playwright suite against the real Electron window. The editor parity rows are live, against a Barkpark: `npm run test:tables`, `npm run test:multiblock`, `npm run test:highlight`, `npm run test:opaque`. `npm run shots` refreshes the README's pictures and their manifest. At the repo root, `npm run check` verifies links, the handoff's requirements and hashes, and that those pictures are no older than the UI they show.
 
 ![The slash menu inside the paper, with the plain Quote row beside Callout and Code.](docs/images/status/slash-menu.093962cb.png)
 

@@ -30,12 +30,12 @@ const NOTE_BLOCKS = [
   { type: 'image', src: 'https://example.com/x.png', alt: 'An image' },
   { type: 'figure', children: [{ type: 'paragraph', content: text('Figure caption.') }] },
   { type: 'diagram', value: 'graph TD; a-->b' },
-  { type: 'equation', value: 'E = mc^2' },
+  { type: 'equation', tex: 'E = mc^2' },
   { type: 'video', src: 'https://example.com/v.mp4' },
   { type: 'expandable', summary: 'Details', blocks: [{ type: 'paragraph', content: text('Hidden.') }] },
   { type: 'steps', steps: [{ title: 'First', blocks: [{ type: 'paragraph', content: text('Do this.') }] }, { title: 'Second', blocks: [{ type: 'paragraph', content: text('Then that.') }] }] },
-  { type: 'footnote', content: text('A footnote.') },
-  { type: 'toc' },
+  { type: 'footnote', notes: [{ text: 'A footnote.' }] },
+  { type: 'toc', items: [{ text: 'Heading', level: 1 }] },
   { type: 'embed', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
   { type: 'pullquote', content: text('A pull quote.') },
   { type: 'section', title: 'Section', children: [{ type: 'paragraph', content: text('In a section.') }] },
@@ -143,8 +143,64 @@ try {
     edits.push({ type: 'tabs', edit: 'body', pass: t0 === 'Tab one. Edited.' && after?.tabs?.[0]?.label === 'One' && after?.tabs?.[1]?.label === 'Two', server: after });
   } else edits.push({ type: 'tabs', edit: 'mount', pass: false, note: 'no tab body in the canvas' });
 } catch (e) { edits.push({ type: 'steps/tabs', edit: 'error', pass: false, error: e.message.slice(0, 200) }); }
+// equation / footnote / toc / video (2026-09-20): one field each, committed with Enter (Ctrl+Enter in a textarea).
+const island = async (type, key, value, expect) => {
+  try {
+    const node = page.locator(`.bw-paper-pane:not([hidden]) bp-paper-canvas [data-bp-type="${type}"]`).first();
+    if (!(await node.count())) { edits.push({ type, edit: 'mount', pass: false, note: 'no ' + type + ' node in the canvas' }); return; }
+    await node.hover();
+    const input = node.locator(`[data-test-id="paper-${type}-${key}"]`).first();
+    const s0 = await saveState(); await input.click(); await input.fill(value); await input.press('Control+Enter'); await waitSavedFrom(s0);
+    const after = serverBlock(type);
+    edits.push({ type, edit: key, pass: expect(after), server: after });
+  } catch (e) { edits.push({ type, edit: key, pass: false, error: e.message.slice(0, 200) }); }
+};
+await island('equation', 'tex', 'a^2 + b^2 = c^2', (b) => b?.tex === 'a^2 + b^2 = c^2');
+await island('footnote', 'notes', 'A footnote.\nA second one.', (b) => Array.isArray(b?.notes) && b.notes.length === 2 && b.notes[1]?.text === 'A second one.');
+await island('toc', 'items', 'Heading\n  Sub-heading | sub', (b) => Array.isArray(b?.items) && b.items.length === 2 && b.items[1]?.level === 2 && b.items[1]?.anchor === 'sub');
+await island('video', 'src', 'https://example.com/w.mp4', (b) => b?.src === 'https://example.com/w.mp4');
+// The second half of the acceptance: each type that stopped being opaque can be INSERTED through the slash
+// menu, and the server gains a block of that type. Each insert starts from a fresh paragraph after the intro.
+const inserts = [];
+const countOnServer = (type) => { const r = bp(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); const d = r.document || r; return d.blocks.filter(b => b.type === type).length; };
+// Top-level canvas nodes of a portable-doc type (the projector stamps bpType on every node).
+const countInCanvas = (type) => page.evaluate((t) => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); return c._editor.getJSON().content.filter(n => (n.attrs?.bpType || n.type) === t).length; }, type);
+// The typed "/label" is itself an edit that saves, so the save state moving on says nothing about the insert;
+// the server is polled until it holds one more block of the type (or 20 s pass).
+const waitServerCount = async (type, expected) => { for (let i = 0; i < 20; i++) { if (countOnServer(type) === expected) return true; await page.waitForTimeout(1000); } return false; };
+const slashInsert = async (label, type) => {
+  try {
+    const before = countOnServer(type);
+    const inCanvasBefore = await countInCanvas(type);
+    const intro = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror p:has-text("block types follow")').first();
+    // A field island may still hold focus from the edit steps; the click must land the caret in prose.
+    await page.keyboard.press('Escape').catch(() => {});
+    await intro.click(); await page.waitForTimeout(150);
+    const inProse = await page.evaluate(() => !!document.activeElement?.closest?.('.ProseMirror'));
+    if (!inProse) { await intro.click(); await page.waitForTimeout(150); }
+    await page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); const ed = c._editor; const { state } = ed; const $from = state.selection.$from; ed.commands.setTextSelection($from.end($from.depth)); ed.commands.focus(); });
+    await page.keyboard.press('Enter'); await page.keyboard.type('/' + label); await page.waitForTimeout(500);
+    const menu = page.locator('body .bp-slash-menu'); const menuText = (await menu.innerText().catch(() => '')).replace(/\s+/g, ' ').slice(0, 80);
+    await page.keyboard.press('Enter');
+    await page.waitForFunction(([t, n]) => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); return c._editor.getJSON().content.filter(x => (x.attrs?.bpType || x.type) === t).length >= n; }, [type, inCanvasBefore + 1], { timeout: 5000 }).catch(() => {});
+    const inCanvasAfter = await countInCanvas(type);
+    const landed = await waitServerCount(type, before + 1);
+    const after = countOnServer(type);
+    inserts.push({ type, label, pass: landed, before, after, inCanvasBefore, inCanvasAfter, menu: menuText });
+  } catch (e) { inserts.push({ type, label, pass: false, error: e.message.slice(0, 200) }); }
+};
+await slashInsert('Quote', 'blockquote');
+await slashInsert('Image', 'image');
+await slashInsert('Toggle', 'expandable');
+await slashInsert('Steps', 'steps');
+await slashInsert('Tabs', 'tabs');
+await slashInsert('Equation', 'equation');
+await slashInsert('Footnotes', 'footnote');
+await slashInsert('Contents', 'toc');
+await slashInsert('Video', 'video');
+const insertsPassed = inserts.filter(i => i.pass).length;
 const editsPassed = edits.filter(e => e.pass).length;
 await page.screenshot({ path: 'test-results/33-opaque.png', fullPage: true });
-console.log(JSON.stringify({ summary: `${passed}/${rows.length} note block types mount editable; ${editsPassed}/${edits.length} edits held by the server`, edits, opaque: rows.filter(r => !r.pass).map(r => r.type), readOnlyAtoms: rows.filter(r => r.pass && r.readOnly).map(r => r.type + ':' + r.mounted), rows, errors: [...new Set(errors)].slice(0, 10) }, null, 1));
+console.log(JSON.stringify({ summary: `${passed}/${rows.length} note block types mount editable; ${editsPassed}/${edits.length} edits held by the server; ${insertsPassed}/${inserts.length} slash inserts land on the server`, edits, inserts, opaque: rows.filter(r => !r.pass).map(r => r.type), readOnlyAtoms: rows.filter(r => r.pass && r.readOnly).map(r => r.type + ':' + r.mounted), rows, errors: [...new Set(errors)].slice(0, 10) }, null, 1));
 await app.close(); fs.rmSync(userData, { recursive: true, force: true });
-process.exitCode = passed === rows.length && editsPassed === edits.length ? 0 : 1;
+process.exitCode = passed === rows.length && editsPassed === edits.length && insertsPassed === inserts.length ? 0 : 1;
