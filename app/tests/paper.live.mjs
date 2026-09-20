@@ -25,7 +25,7 @@ const step = (name, ok) => { results.push({ name, ok }); if (!ok) throw new Erro
 try {
   await page.evaluate(async () => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true } }); await window.__barkdown.refreshLibrary(); });
   await page.evaluate(() => window.__barkdown.expandArchive());
-  await page.waitForSelector('#bw-archive [data-source="barkpark"]', { timeout: 90000 });
+  await page.waitForSelector('#bw-pages [data-source="barkpark"], #bw-archive [data-source="barkpark"]', { timeout: 90000 });
   // Reset the scratch paper to a known shape (unfenced publish) so earlier runs cannot skew the checks.
   bp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug: SLUG, title: 'Barkdown editor test', blocks: [{ type: 'heading', level: 1, text: 'Barkdown editor test' }, { type: 'paragraph', content: [{ type: 'text', value: 'Type here; the change lands through the fenced ops endpoint with a revision guard.' }] }, { type: 'list', ordered: false, items: [[{ type: 'text', value: 'Cross-block caret and Enter split' }], [{ type: 'text', value: 'Server-acknowledged saves' }], [{ type: 'text', value: 'Conflicts surface instead of overwriting' }]] }] }));
   const before = serverPaper();

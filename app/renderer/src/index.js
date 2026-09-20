@@ -569,7 +569,7 @@ async function collectPalette(query) {
   if (activeTab(ws)) items.push({ group: 'Actions', icon: 'star', label: favoriteFor(activeTab(ws)) ? 'Remove this tab from favorites' : 'Add this tab to favorites', hint: activeTab(ws).title, run: () => toggleFavorite(ws.active) });
   state.favorites.forEach(f => items.push({ group: 'Favorites', icon: TYPE_ICON[f.target.kind] || 'sparkles', label: f.label, hint: FAVORITE_KIND[f.target.kind] || f.target.kind, run: () => openFavorite(f.id) }));
   items.push({ group: 'Actions', icon: 'settings-2', label: 'Settings', hint: 'Ctrl+,', run: () => openSettings(applySettings) });
-  items.push({ group: 'Actions', icon: 'columns-2', label: 'Reset conversation width to 60%', hint: (state.settings?.chatWidth || 60) + '% now', run: () => setChatWidth(60) });
+  items.push({ group: 'Actions', icon: 'columns-2', label: 'Reset conversation width to 40%', hint: (state.settings?.chatWidth || 40) + '% now', run: () => setChatWidth(40) });
   if (query.length >= 2 && chat?.folder) {
     try { const hits = await api.files.search(chat.folder, query); hits.slice(0, 8).forEach(h => items.push({ group: 'Files in ' + basename(chat.folder), icon: 'file-code', label: `${h.path}:${h.line}  ${h.text}`, hint: 'Open', run: () => openTarget({ kind: 'project', path: h.path, title: basename(h.path) }, chat, true), noFilter: true })); } catch {}
   }
@@ -634,7 +634,7 @@ api.agent.onEvent(event => handleAgentEvent(event, {
 
 // ---------- splitter & settings ----------
 function applyChatWidth(value) { root.style.setProperty('--bw-chat', value + 'fr'); root.style.setProperty('--bw-work', (100 - value) + 'fr'); q('#bw-splitter').setAttribute('aria-valuenow', value); }
-function setChatWidth(value) { const width = Math.min(70, Math.max(40, Math.round(value))); state.settings.chatWidth = width; applyChatWidth(width); persistWidth(); }
+function setChatWidth(value) { const width = Math.min(70, Math.max(30, Math.round(value))); state.settings.chatWidth = width; applyChatWidth(width); persistWidth(); }
 let widthTimer = null;
 function persistWidth() { clearTimeout(widthTimer); widthTimer = setTimeout(() => api.settings.set({ chatWidth: state.settings.chatWidth }).catch(() => {}), 500); }
 function applyTheme(theme) { document.documentElement.dataset.theme = theme === 'system' ? '' : theme; }
@@ -652,7 +652,7 @@ function wireSplitter() {
     splitter.addEventListener('pointermove', move); splitter.addEventListener('pointerup', stop, { once: true }); splitter.addEventListener('pointercancel', stop, { once: true });
   });
   splitter.addEventListener('dblclick', () => setChatWidth(60));
-  splitter.addEventListener('keydown', e => { const d = { ArrowLeft: -5, ArrowRight: 5 }[e.key]; if (d) { e.preventDefault(); setChatWidth(state.settings.chatWidth + d); } else if (e.key === 'Home') setChatWidth(60); });
+  splitter.addEventListener('keydown', e => { const d = { ArrowLeft: -5, ArrowRight: 5 }[e.key]; if (d) { e.preventDefault(); setChatWidth(state.settings.chatWidth + d); } else if (e.key === 'Home') setChatWidth(40); });
 }
 
 // ---------- events ----------
@@ -726,7 +726,7 @@ function wire() {
 (async () => {
   renderIcons(root);
   state.settings = await api.settings.get();
-  applyChatWidth(state.settings.chatWidth || 60);
+  applyChatWidth(state.settings.chatWidth || 40);
   applyTheme(state.settings.theme || 'system');
   await load();
   if (!state.chats[DIRECT]) directChat();

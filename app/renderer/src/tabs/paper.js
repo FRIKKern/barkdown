@@ -1,7 +1,7 @@
 // Barkpark paper work tab: hosts Barkpark's own <bp-paper-canvas> (vendored bundle) over a real paper.
 // Edits leave the canvas as bp-canvas-ops batches; each batch is applied through the fenced ops endpoint
 // with the paper's revision, acknowledged on success, and the server echo is fed back so minted ids land.
-import { el, esc, iconHtml, relativeTime, toast, errorCode, errorMessage } from '../ui.js';
+import { el, esc, iconHtml, relativeTime, toast, errorCode, errorMessage, inlineMarkdownHtml } from '../ui.js';
 import { state } from '../state.js';
 import { askConfirm } from '../dialogs.js';
 import { htmlToBlocks, blocksToMarkdown } from '../../../shared/portabledoc.js';
@@ -33,7 +33,7 @@ export function mountPaper(tab, host, ctx) {
   function renderMeta() {
     if (!paper) return;
     const crumbs = ctx.pagePath ? ctx.pagePath(slug(), 'barkpark') : [];
-    q('#kicker').textContent = crumbs.length > 1 ? crumbs.join(' / ') : 'Barkpark / Paper';
+    q('#kicker').textContent = crumbs.length > 1 ? crumbs.join(' / ') : '';
     q('#meta').textContent = `${writesOn() ? 'Editing live' : 'Read-only'} · edited ${relativeTime(paper.updatedAt)}${paper.draft ? ' · draft' : ''}${paper.blocks ? '' : ' · HTML body'}`;
   }
 
@@ -97,7 +97,7 @@ export function mountPaper(tab, host, ctx) {
     const host = q('#proposals');
     host.innerHTML = '';
     for (const p of paper?.proposals || []) {
-      const node = el(`<div class="bw-proposal" data-id="${esc(p.id)}"><small>Proposed by the assistant · ${esc(p.mode)} · ${esc(relativeTime(p.createdAt))}</small><p><strong>${esc(p.summary || 'Change')}</strong></p><div class="body">${esc(p.markdown)}</div><button class="primary" data-act="keep" ${writesOn() ? '' : 'disabled title="Enable live editing first"'}>Keep</button><button data-act="discard">Discard</button></div>`);
+      const node = el(`<div class="bw-proposal" data-id="${esc(p.id)}"><small>Proposed by the assistant · ${esc(p.mode)} · ${esc(relativeTime(p.createdAt))}</small><div class="bw-proposal-head"><strong>${esc(p.summary || 'Change')}</strong><span><button class="primary" data-act="keep" ${writesOn() ? '' : 'disabled title="Enable live editing first"'}>Keep</button><button data-act="discard">Discard</button></span></div><details><summary>Show the change</summary><div class="body">${inlineMarkdownHtml(p.markdown || '')}</div></details></div>`);
       node.querySelector('[data-act="keep"]').onclick = () => resolveProposal(p.id, true);
       node.querySelector('[data-act="discard"]').onclick = () => resolveProposal(p.id, false);
       host.appendChild(node);

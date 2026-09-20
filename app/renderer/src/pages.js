@@ -68,6 +68,16 @@ export function seedTree() {
   save();
 }
 
+// Notes are papers: a Barkpark paper the tree has not seen joins the root the first time it appears, unless
+// the person moved it to the archive on purpose (renderPages calls this before drawing).
+export function placeBarkparkPapers() {
+  const pages = ensurePages();
+  pages.archived ||= {};
+  let changed = false;
+  for (const d of state.barkparkDocs || []) { const key = 'bp:' + d.id; if (!inTree(key) && !pages.archived[key]) { pages.roots.push(key); changed = true; } }
+  if (changed) save();
+}
+
 // Prune pages whose document no longer exists.
 function prune() {
   const pages = ensurePages();
@@ -81,6 +91,7 @@ function prune() {
 export function renderPages(host, deps) {
   const pages = ensurePages();
   prune();
+  placeBarkparkPapers();
   const { openKey, isOpen, onNewPage, onNewSubpage, onDelete } = deps;
   const row = (key, depth) => {
     const s = summaryFor(key);
@@ -110,7 +121,7 @@ export function renderPages(host, deps) {
       const t = e.target.closest('[data-toggle],[data-add],[data-more],[data-place]');
       if (t?.dataset.toggle != null) { pages.expanded[t.dataset.toggle] = !pages.expanded[t.dataset.toggle]; save(); renderPages(host, deps); return; }
       if (t?.dataset.add != null) { onNewSubpage(t.dataset.add); return; }
-      if (t?.dataset.place != null) { addPage(t.dataset.place, null); renderPages(host, deps); toast('Added to pages'); return; }
+      if (t?.dataset.place != null) { delete (ensurePages().archived ||= {})[t.dataset.place]; addPage(t.dataset.place, null); renderPages(host, deps); toast('Added to pages'); return; }
       if (t?.dataset.more != null) { showMenu(t, t.dataset.more, host, deps); return; }
       const { id, source } = splitKey(b.dataset.open);
       openKey(id, source);
@@ -164,8 +175,8 @@ function showMenu(anchor, key, host, deps) {
   const onDown = e => { if (!menu.contains(e.target)) close(); };
   setTimeout(() => document.addEventListener('pointerdown', onDown, true), 0);
   menu.querySelector('[data-act="sub"]').onclick = () => { close(); deps.onNewSubpage(key); };
-  menu.querySelector('[data-act="archive"]') && (menu.querySelector('[data-act="archive"]').onclick = () => { close(); const pages = ensurePages(); const kids = pages.children[key] || []; const parent = parentOf(key); removeFromTree(key); for (const k of kids) addPage(k, parent); delete pages.children[key]; save(); renderPages(host, deps); });
-  menu.querySelector('[data-act="place"]') && (menu.querySelector('[data-act="place"]').onclick = () => { close(); addPage(key, null); renderPages(host, deps); });
+  menu.querySelector('[data-act="archive"]') && (menu.querySelector('[data-act="archive"]').onclick = () => { close(); const pages = ensurePages(); const kids = pages.children[key] || []; const parent = parentOf(key); removeFromTree(key); for (const k of kids) addPage(k, parent); delete pages.children[key]; (pages.archived ||= {})[key] = true; save(); renderPages(host, deps); });
+  menu.querySelector('[data-act="place"]') && (menu.querySelector('[data-act="place"]').onclick = () => { close(); delete (ensurePages().archived ||= {})[key]; addPage(key, null); renderPages(host, deps); });
   menu.querySelector('[data-act="side"]').onclick = () => { close(); const { id, source: s } = splitKey(key); deps.openBeside(id, s); };
   menu.querySelector('[data-act="delete"]') && (menu.querySelector('[data-act="delete"]').onclick = () => { close(); deps.onDelete(splitKey(key).id); });
 }

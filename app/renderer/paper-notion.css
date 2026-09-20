@@ -211,13 +211,17 @@
 }
 .bp-paper-host--titled .ProseMirror > h1:first-child + *, .bp-paper-host--titled .ProseMirror > h2:first-child + *, .bp-paper-host--titled .ProseMirror > h3:first-child + * { margin-top: 0; }
 .bw-paper-document .bw-kicker .bw-doc-meta { margin: 0; font-size: 11px; color: var(--bw-muted); }
-.bw-paper-document .bw-kicker .bw-doc-meta:not(:empty)::before { content: "·"; margin-right: 10px; opacity: .6; }
+.bw-paper-document .bw-kicker #kicker:not(:empty) + .bw-doc-meta:not(:empty)::before { content: "·"; margin-right: 10px; opacity: .6; }
 .bw-paper-document .bw-doc-title { margin-bottom: 14px; }
 .bp-paper-host { margin-top: 0; }
 
+/* Tables sit on the text edge and use the note's type, not the reader's centred, small-caps evidence chrome. */
+.bp-paper-host .ProseMirror .bp-table { left: 0; transform: none; margin-inline: 0; width: auto; max-width: 100%; font-size: 14px; }
+.bp-paper-host .ProseMirror .bp-table__th { font-family: inherit; text-transform: none; letter-spacing: 0; font-size: 13px; font-weight: 600; padding: 8px 12px; color: var(--paper-ink-soft); }
+.bp-paper-host .ProseMirror .bp-table__td { padding: 7px 12px; }
 /* Checklist rows in the canvas (taskList markup). */
 .bp-paper-host .ProseMirror ul[data-type="taskList"] { padding-left: 2px; }
 .bp-paper-host .ProseMirror ul[data-type="taskList"] > li { padding: 1px 0; gap: 8px; }
 .bp-paper-host .ProseMirror ul[data-type="taskList"] > li > label { margin-top: 5px; }
 .bp-paper-host .ProseMirror ul[data-type="taskList"] > li > label input { width: 16px; height: 16px; border-radius: 3px; accent-color: var(--paper-accent); }
-.bp-paper-host .ProseMirror ul[data-type="taskList"] > li[data-checked="true"] > div > p { color: var(--paper-ink-faint); text-decoration-color: var(--paper-ink-faint); }
+.bp-paper-host .ProseMirror ul[data-type="taskList"] > li[data-checked="true"] > div > p { color: var(--paper-ink-faint); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--paper-ink-faint) 40%, transparent); text-decoration-thickness: 1px; }

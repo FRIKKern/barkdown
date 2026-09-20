@@ -22,7 +22,7 @@ await page.setViewportSize({ width: 1400, height: 900 });
 try {
   await page.evaluate(async () => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true } }); await window.__barkdown.refreshLibrary(); });
   await page.evaluate(() => window.__barkdown.expandArchive());
-  await page.waitForSelector('#bw-archive [data-source="barkpark"]', { timeout: 90000 });
+  await page.waitForSelector('#bw-pages [data-source="barkpark"], #bw-archive [data-source="barkpark"]', { timeout: 90000 });
   const storeDir = await page.evaluate(() => window.__barkdown.state.settings.userData);
 
   // The MCP server the agents use, pointed at the app's own store.

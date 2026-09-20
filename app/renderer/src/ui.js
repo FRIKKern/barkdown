@@ -71,11 +71,15 @@ export function inlineMarkdownHtml(text) {
   const out = [];
   let list = null;
   let code = null;
+  let quote = null;
   const inline = s => esc(s).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>').replace(/(^|\s)\*([^*\n]+)\*/g, '$1<em>$2</em>').replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>');
-  const flush = () => { if (list) { out.push(`</${list}>`); list = null; } };
+  const flush = () => { if (list) { out.push(`</${list}>`); list = null; } if (quote) { out.push(`<blockquote>${quote.map(inline).join('<br>')}</blockquote>`); quote = null; } };
   for (const line of lines) {
     if (code !== null) { if (/^```/.test(line)) { out.push(`<pre><code>${esc(code.join('\n'))}</code></pre>`); code = null; } else code.push(line); continue; }
     if (/^```/.test(line)) { flush(); code = []; continue; }
+    const quoted = /^>s?(.*)$/.exec(line);
+    if (quoted) { if (list) flush(); (quote ||= []).push(quoted[1]); continue; }
+    if (quote) flush();
     const bullet = /^\s*[-*]\s+(.*)$/.exec(line);
     const numbered = /^\s*\d+[.)]\s+(.*)$/.exec(line);
     if (bullet || numbered) { const kind = bullet ? 'ul' : 'ol'; if (list !== kind) { flush(); out.push(`<${kind}>`); list = kind; } out.push(`<li>${inline((bullet || numbered)[1])}</li>`); continue; }
