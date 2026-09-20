@@ -210,6 +210,12 @@ export function mountPaper(tab, host, ctx) {
     canvas.blocks = blocks;
     canvas.wikilinkSource = async query => { try { return (await api.barkpark.search(query)).slice(0, 8).map(d => ({ title: d.title, id: d.id, type: 'paper' })); } catch { return []; } };
     canvas.tagSource = async () => [];
+    // A pasted or dropped picture uploads to the connected Barkpark's media; the node shows the outcome.
+    canvas.mediaUploader = async file => {
+      if (!writesOn()) throw new Error('Barkpark writes are off');
+      const dataUrl = await new Promise((resolve, reject) => { const r = new FileReader(); r.onload = () => resolve(r.result); r.onerror = () => reject(r.error); r.readAsDataURL(file); });
+      return api.barkpark.uploadMedia({ name: file.name, mime: file.type, dataUrl });
+    };
     canvas.addEventListener('bp-canvas-ops', event => {
       const { ops, seq } = event.detail || {};
       if (!Array.isArray(ops) || !ops.length) return;

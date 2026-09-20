@@ -122,6 +122,45 @@ async function propose(config, slug, proposal) {
 }
 
 // Reuse the credentials the person already saved with the bp CLI, without Barkdown storing them itself.
+// Upload a picture to the connected Barkpark's media library. viaCli: `bp media upload <file>`;
+// direct: multipart POST /media/upload with the bearer. Returns { src, id, width, height, alt }.
+async function uploadMedia(config, { name, mime, dataUrl, filePath }) {
+  const fs = require('fs'); const os = require('os'); const path = require('path');
+  let file = filePath;
+  let temp = null;
+  if (!file) {
+    const m = /^data:([^;]+);base64,(.*)$/s.exec(dataUrl || '');
+    if (!m) throw new Error('uploadMedia needs a data: URL or a file path');
+    temp = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-upload-')), (name || 'image').replace(/[^\w.-]+/g, '_') || 'image');
+    fs.writeFileSync(temp, Buffer.from(m[2], 'base64'));
+    file = temp;
+  }
+  try {
+    let data;
+    if (config.viaCli) {
+      data = await cli(['media', 'upload', file, '--yes']);
+    } else {
+      const { server, token, dataset } = normalise(config);
+      if (!server) throw new Error('No Barkpark server configured');
+      const form = new FormData();
+      form.append('file', new Blob([fs.readFileSync(file)], { type: mime || 'application/octet-stream' }), name || path.basename(file));
+      form.append('dataset', dataset);
+      const response = await fetch(server + '/media/upload', { method: 'POST', headers: { accept: 'application/json', ...(token ? { authorization: `Bearer ${token}` } : {}) }, body: form, signal: AbortSignal.timeout(60000) });
+      const text = await response.text();
+      try { data = text ? JSON.parse(text) : null; } catch { data = { raw: text }; }
+      if (!response.ok) throw new Error(data?.error?.message || data?.message || `${response.status} ${response.statusText}`);
+    }
+    const d = unwrap(data) || {};
+    const info = d.asset?.fileInfo || {};
+    const server = String(config.server || '').replace(/\/+$/, '');
+    const src = d.absoluteUrl || (info.url ? (server ? server + info.url : info.url) : '');
+    if (!src) throw new Error('the upload returned no url');
+    return { src, id: d.asset?._publishedId || d.assetDocId || null, width: info.width ? Number(info.width) : null, height: info.height ? Number(info.height) : null, alt: d.asset?.altText || null };
+  } finally {
+    if (temp) { try { fs.rmSync(path.dirname(temp), { recursive: true, force: true }); } catch {} }
+  }
+}
+
 function importFromCli() {
   return new Promise(resolve => {
     execFile('bp', ['servers', '-o', 'json'], { windowsHide: true, shell: process.platform === 'win32', timeout: 15000 }, (error, stdout) => {
@@ -184,4 +223,4 @@ async function cliSearch(query, limit = 20) {
 async function cliBacklinks(id) { try { return envelopeDocs(await cli(['doc', 'backlinks', id])).map(paperToSummary); } catch { return []; } }
 async function cliHistory(id) { try { return envelopeDocs(await cli(['doc', 'history', 'paper', id])).map(rev => ({ rev: rev._rev || rev.rev, at: rev._createdAt || rev.at, actor: rev.actor || rev.author || 'barkpark', summary: rev.summary || rev.message || '' })); } catch { return []; } }
 
-module.exports = { test, listPapers, getPaper, search, backlinks, related, history, applyOps, publish, propose, importFromCli, cliListPapers, cliGetPaper, cliSearch, cliBacklinks, cliHistory, cliApplyOps, cliPublish, cliPatchTitle, blocksToMarkdown, htmlToText };
+module.exports = { uploadMedia, test, listPapers, getPaper, search, backlinks, related, history, applyOps, publish, propose, importFromCli, cliListPapers, cliGetPaper, cliSearch, cliBacklinks, cliHistory, cliApplyOps, cliPublish, cliPatchTitle, blocksToMarkdown, htmlToText };

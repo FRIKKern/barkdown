@@ -210,6 +210,7 @@ function registerIpc() {
   handle('barkpark:history', id => { const c = barkparkConfig(); return c.viaCli ? barkpark.cliHistory(id) : barkpark.history(c, id); });
   const requireWrites = () => { if (!barkparkConfig().writes) { const e = new Error('Barkpark writes are off. Enable them in Settings to edit papers.'); e.code = 'writes_disabled'; throw e; } };
   handle('barkpark:applyOps', ({ slug, ops, ifRev }) => { requireWrites(); const c = barkparkConfig(); return c.viaCli ? barkpark.cliApplyOps(slug, ops, ifRev) : barkpark.applyOps(c, slug, ops, ifRev); });
+  handle('barkpark:uploadMedia', async payload => { requireWrites(); const c = barkparkConfig(); if (c.viaCli && !c.server) { const cli = await barkpark.importFromCli(); if (cli.ok) c.server = cli.server; } return barkpark.uploadMedia(c, payload); });
   handle('barkpark:publish', payload => { requireWrites(); const c = barkparkConfig(); return c.viaCli ? barkpark.cliPublish(payload) : barkpark.publish(c, payload); });
   handle('barkpark:patchTitle', ({ slug, title }) => { requireWrites(); const c = barkparkConfig(); if (!c.viaCli) throw new Error('Title edits need the bp CLI connection'); return barkpark.cliPatchTitle(slug, title); });
   handle('barkpark:import', async id => {
