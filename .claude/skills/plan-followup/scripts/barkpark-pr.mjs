@@ -55,7 +55,7 @@ for (let i = 0; i < args.length; i++) {
 }
 const die = (m) => { console.error('\n' + m); process.exit(1); };
 const run = (cmd, a, input) => {
-  const r = spawnSync(cmd, a, { encoding: 'utf8', input: input ?? undefined, stdio: [input == null ? 'ignore' : 'pipe', 'pipe', 'pipe'], shell: process.platform === 'win32' && cmd === 'bp' });
+  const r = spawnSync(cmd, a, { encoding: 'utf8', input: input ?? undefined, stdio: [input == null ? 'ignore' : 'pipe', 'pipe', 'pipe'], shell: false }); // bp is bp.exe and gh is gh.exe: no shell, so a '<' or '&' in a description is text, not cmd.exe syntax
   return { ok: r.status === 0, out: (r.stdout || '') + (r.stderr || '') };
 };
 const bpJson = (a, input) => { const r = run('bp', [...a, '-o', 'json'], input); let j = null; try { j = JSON.parse(r.out.slice(r.out.indexOf('{'))); } catch {} return { ...r, json: j }; };
