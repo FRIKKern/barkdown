@@ -44,6 +44,8 @@ The order interleaves the tiers so an author feels progress every few days while
 
 ## How a task is worked
 
+The project skill `plan-followup` (`.claude/skills/plan-followup`) walks this; `node .claude/skills/plan-followup/scripts/next.mjs` prints the next open issue and checks the environment.
+
 1. Read the issue's acceptance line; it names the live row or test that ends the task.
 2. If the task adds or changes a block, mark or attribute: Barkpark first — schema, reader render (view and edit are one producer), the ops contract, a Barkpark unit test — on the `barkdown/editor-quality` branch, through Barkpark's gates.
 3. Then the canvas change (a Tiptap extension where one exists), the bundle rebuilt and, until #2 lands, vendored into `app/renderer/vendor`.
