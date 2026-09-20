@@ -2,12 +2,11 @@
 // Each step types or pastes into the scratch paper and records the document shape. Live, not in npm test.
 import { _electron as electron } from 'playwright';
 import { createRequire } from 'module';
-import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-test';
-const bp = (args, input) => JSON.parse(execFileSync('bp', [...args, '-o', 'json'], { input: input ?? '', shell: true, encoding: 'utf8', maxBuffer: 20e6 }));
-bp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug: SLUG, title: 'Gap probe', blocks: [{ type: 'heading', level: 1, text: 'Gap probe' }, { type: 'paragraph', content: [{ type: 'text', value: 'Start here.' }] }] }));
+import { bp, publishFixture } from './lib/paper-fixture.mjs';
+publishFixture({ slug: SLUG, title: 'Gap probe, the long tail', description: 'Scratch paper for the Barkdown editor gap checks: the behaviours the Tiptap tab has that the canvas must match, each compared with the server; rewritten on every run of tests/editor-gaps.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Gap probe' }, { type: 'paragraph', content: [{ type: 'text', value: 'Start here.' }] }] });
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-gaps-'));
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();

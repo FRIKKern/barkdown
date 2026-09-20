@@ -3,13 +3,12 @@
 // Uses the scratch paper `barkdown-editor-test` on the bp-connected server. Not part of `npm test`.
 import { _electron as electron } from 'playwright';
 import { createRequire } from 'module';
-import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 
 const require = createRequire(import.meta.url);
 const assert = (ok, message) => { if (!ok) throw new Error(message); };
 const SLUG = 'barkdown-editor-test';
-const bp = (args, input) => JSON.parse(execFileSync('bp', [...args, '-o', 'json'], { input: input ?? '', shell: process.platform === 'win32', encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 }));
+import { bp, publishFixture } from './lib/paper-fixture.mjs';
 const serverPaper = () => { const j = bp(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); return j.document || j; };
 
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-paper-'));
@@ -27,7 +26,7 @@ try {
   await page.evaluate(() => window.__barkdown.expandArchive());
   await page.waitForSelector('#bw-pages [data-source="barkpark"], #bw-archive [data-source="barkpark"]', { timeout: 90000 });
   // Reset the scratch paper to a known shape (unfenced publish) so earlier runs cannot skew the checks.
-  bp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug: SLUG, title: 'Barkdown editor test', blocks: [{ type: 'heading', level: 1, text: 'Barkdown editor test' }, { type: 'paragraph', content: [{ type: 'text', value: 'Type here; the change lands through the fenced ops endpoint with a revision guard.' }] }, { type: 'list', ordered: false, items: [[{ type: 'text', value: 'Cross-block caret and Enter split' }], [{ type: 'text', value: 'Server-acknowledged saves' }], [{ type: 'text', value: 'Conflicts surface instead of overwriting' }]] }] }));
+  publishFixture({ slug: SLUG, title: 'Fenced ops round trip', description: 'Scratch paper for the Barkdown paper tab: a typed change lands through the fenced ops endpoint under a revision guard, an injected external edit forces a 412 and the conflict card keeps both edits; rewritten on every run of tests/paper.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Barkdown editor test' }, { type: 'paragraph', content: [{ type: 'text', value: 'Type here; the change lands through the fenced ops endpoint with a revision guard.' }] }, { type: 'list', ordered: false, items: [[{ type: 'text', value: 'Cross-block caret and Enter split' }], [{ type: 'text', value: 'Server-acknowledged saves' }], [{ type: 'text', value: 'Conflicts surface instead of overwriting' }]] }] });
   const before = serverPaper();
   await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug }), SLUG);
   await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 });

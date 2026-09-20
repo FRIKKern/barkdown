@@ -4,13 +4,13 @@ import { _electron as electron } from 'playwright';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 import { createRequire } from 'module';
-import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-test';
-const bp = (args, input) => JSON.parse(execFileSync('bp', [...args, '-o', 'json'], { input: input ?? '', shell: process.platform === 'win32', encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 }));
+import { bp, publishFixture } from './lib/paper-fixture.mjs';
 const serverPaper = () => { const j = bp(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); return j.document || j; };
+publishFixture({ slug: SLUG, title: 'Agent proposal target', description: 'Scratch paper an agent proposes a change to through the MCP server; the proposal stays pending on the paper tab; rewritten on every run of tests/paper-proposal.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Barkdown editor test' }, { type: 'paragraph', content: [{ type: 'text', value: 'Top-level blocks live here; an agent proposes, a person keeps or discards.' }] }] });
 const results = [];
 const step = (name, ok) => { results.push({ name, ok }); if (!ok) throw new Error('Failed: ' + name); };
 

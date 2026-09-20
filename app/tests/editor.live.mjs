@@ -1,11 +1,10 @@
 import { _electron as electron } from 'playwright';
 import { createRequire } from 'module';
-import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-test';
-const bp = (args, input) => JSON.parse(execFileSync('bp', [...args, '-o', 'json'], { input: input ?? '', shell: true, encoding: 'utf8', maxBuffer: 20e6 }));
-bp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug: SLUG, title: 'Barkdown editor test', blocks: [{ type: 'heading', level: 1, text: 'Editor probe' }, { type: 'paragraph', content: [{ type: 'text', value: 'Start here.' }] }] }));
+import { bp, publishFixture } from './lib/paper-fixture.mjs';
+publishFixture({ slug: SLUG, title: 'Editor probe, the basics', description: 'Scratch paper for the Barkdown canvas basics: typing, Enter, marks, lists, the slash menu and the save round trip; rewritten on every run of tests/editor.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Editor probe' }, { type: 'paragraph', content: [{ type: 'text', value: 'Start here.' }] }] });
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-probe-'));
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
