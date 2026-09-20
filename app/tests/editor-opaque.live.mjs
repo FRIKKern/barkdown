@@ -33,14 +33,14 @@ const NOTE_BLOCKS = [
   { type: 'equation', value: 'E = mc^2' },
   { type: 'video', src: 'https://example.com/v.mp4' },
   { type: 'expandable', summary: 'Details', blocks: [{ type: 'paragraph', content: text('Hidden.') }] },
-  { type: 'steps', items: [text('first'), text('second')] },
+  { type: 'steps', steps: [{ title: 'First', blocks: [{ type: 'paragraph', content: text('Do this.') }] }, { title: 'Second', blocks: [{ type: 'paragraph', content: text('Then that.') }] }] },
   { type: 'footnote', content: text('A footnote.') },
   { type: 'toc' },
   { type: 'embed', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
   { type: 'pullquote', content: text('A pull quote.') },
   { type: 'section', title: 'Section', children: [{ type: 'paragraph', content: text('In a section.') }] },
   { type: 'columns', children: [{ type: 'paragraph', content: text('Left.') }, { type: 'paragraph', content: text('Right.') }] },
-  { type: 'tabs', children: [{ type: 'paragraph', content: text('Tab one.') }] },
+  { type: 'tabs', tabs: [{ label: 'One', blocks: [{ type: 'paragraph', content: text('Tab one.') }] }, { label: 'Two', blocks: [{ type: 'paragraph', content: text('Tab two.') }] }] },
 ];
 let published;
 try {
@@ -127,6 +127,22 @@ try {
     edits.push({ type: 'expandable', edit: 'mount', pass: false, note: 'no bpExpandable node in the canvas' });
   }
 } catch (e) { edits.push({ type: 'expandable', edit: 'error', pass: false, error: e.message.slice(0, 200) }); }
+// steps / tabs (2026-09-20): a step title typed into its input, a word typed into a tab's body.
+try {
+  const stepTitle = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas [data-bp-type="steps"] input.bp-canvas-row__title').first();
+  if (await stepTitle.count()) {
+    const s5 = await saveState(); await stepTitle.click(); await stepTitle.fill('First, renamed'); await stepTitle.press('Enter'); await waitSavedFrom(s5);
+    const after = serverBlock('steps');
+    edits.push({ type: 'steps', edit: 'title', pass: after?.steps?.[0]?.title === 'First, renamed' && after?.steps?.[1]?.title === 'Second', server: after });
+  } else edits.push({ type: 'steps', edit: 'mount', pass: false, note: 'no step title input in the canvas' });
+  const tabBody = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas [data-bp-type="tabs"] .bp-canvas-row__body p').first();
+  if (await tabBody.count()) {
+    const s6 = await saveState(); await tabBody.click(); await page.keyboard.press('End'); await page.keyboard.type(' Edited.'); await waitSavedFrom(s6);
+    const after = serverBlock('tabs');
+    const t0 = ((after?.tabs?.[0]?.blocks || [])[0]?.content || []).map(x => x.value || '').join('');
+    edits.push({ type: 'tabs', edit: 'body', pass: t0 === 'Tab one. Edited.' && after?.tabs?.[0]?.label === 'One' && after?.tabs?.[1]?.label === 'Two', server: after });
+  } else edits.push({ type: 'tabs', edit: 'mount', pass: false, note: 'no tab body in the canvas' });
+} catch (e) { edits.push({ type: 'steps/tabs', edit: 'error', pass: false, error: e.message.slice(0, 200) }); }
 const editsPassed = edits.filter(e => e.pass).length;
 await page.screenshot({ path: 'test-results/33-opaque.png', fullPage: true });
 console.log(JSON.stringify({ summary: `${passed}/${rows.length} note block types mount editable; ${editsPassed}/${edits.length} edits held by the server`, edits, opaque: rows.filter(r => !r.pass).map(r => r.type), readOnlyAtoms: rows.filter(r => r.pass && r.readOnly).map(r => r.type + ':' + r.mounted), rows, errors: [...new Set(errors)].slice(0, 10) }, null, 1));
