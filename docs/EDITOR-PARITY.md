@@ -57,6 +57,7 @@ Also: `__save_ack_mounted.test.mjs` fails on Barkpark `main` untouched. Fix it e
 
 ## Process
 
+- The whole suite is one run: `cd app && npm run test:parity` (every live row, one table, red if any row is red). In CI it is `.github/workflows/parity.yml` here — Postgres as a service, a Barkpark checkout at `app/BARKPARK_REF` booted by `app/tests/ci/boot-barkpark.sh`, the rows under Xvfb, the table in the job summary — and `barkdown-parity.yml` in the Barkpark repo on a PR that touches the paper editor or PortableDoc (it needs the `BARKDOWN_READ_TOKEN` secret, since this repository is private). Bump `app/BARKPARK_REF` when the vendored bundle moves.
 - Editor work happens in the Barkpark repo (`barkpark-editor` checkout, branch `barkdown/editor-quality`) and merges through Barkpark's own gates, as PR #19366 did. Barkpark is the single source of editor truth.
 - Barkdown loads the canvas bundle from the Barkpark it is connected to (`/assets/bp-paper-editor.bundle.js`) instead of a hand-copied file in `app/renderer/vendor`, and records the Barkpark version it targets. The vendored copy is a fallback for a session with no server, not the source.
 - The parity suite runs in both repos' CI against a local Barkpark. A row can only go from red to green by a test, and a green row that goes red blocks the merge.
