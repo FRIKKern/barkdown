@@ -11,7 +11,7 @@ import { ensureCanvasBundle } from '../canvas-bundle.js';
 const api = window.barkdown;
 
 export function mountPaper(tab, host, ctx) {
-  const pane = el(`<div class="bw-pane bw-doc-pane bw-paper-pane"><div class="bw-path" id="path"></div><div class="bw-current-pane" id="current"><div class="bw-document bw-paper-document"><div class="bw-kicker"><span id="kicker">Barkpark / Paper</span><span class="bw-doc-meta" id="meta"></span><span class="bw-save-state" id="save-state"></span></div><input class="bw-doc-title" id="title" aria-label="Paper title" placeholder="Untitled"><div id="banner"></div><div id="proposals"></div><div id="conflict"></div><div class="bp-paper-host" id="canvas-host"></div><div class="bw-doc-links" id="links"></div><div class="bw-doc-state" id="state"></div></div></div></div>`);
+  const pane = el(`<div class="bw-pane bw-doc-pane bw-paper-pane"><div class="bw-path" id="path"></div><div class="bw-current-pane" id="current"><div class="bw-document bw-paper-document"><div class="bw-kicker"><span id="kicker">Barkpark / Paper</span><span class="bw-doc-meta" id="meta"></span><span class="bw-save-state" id="save-state"></span></div><input class="bw-doc-title" id="title" aria-label="Paper title" placeholder="Untitled"><div id="banner"></div><div id="proposals"></div><div id="conflict"></div><div class="bw-find" id="find" hidden><input id="find-q" type="text" placeholder="Find" aria-label="Find in paper"><span class="bw-find-count" id="find-count"></span><button type="button" class="bw-btn" id="find-prev" title="Previous (Shift+Enter)" aria-label="Previous match">↑</button><button type="button" class="bw-btn" id="find-next" title="Next (Enter)" aria-label="Next match">↓</button><input id="find-r" type="text" placeholder="Replace with" aria-label="Replace with"><button type="button" class="bw-btn" id="find-replace">Replace</button><button type="button" class="bw-btn" id="find-replace-all">All</button><button type="button" class="bw-btn" id="find-close" title="Close (Esc)" aria-label="Close find">×</button></div><div class="bp-paper-host" id="canvas-host"></div><div class="bw-doc-links" id="links"></div><div class="bw-doc-state" id="state"></div></div></div></div>`);
   host.appendChild(pane);
   const q = s => pane.querySelector(s);
   let paper = null;
@@ -25,6 +25,27 @@ export function mountPaper(tab, host, ctx) {
   let mergeAfterSave = false;
   const slug = () => tab.path.at(-1);
   const writesOn = () => Boolean(state.settings?.barkpark?.writes);
+
+  // Find and replace: Ctrl+F / Ctrl+H inside the pane open the bar; the canvas paints the matches and
+  // does the replacing (one transaction per replace-all, so undo is one step and the save is one batch).
+  const findBar = q('#find');
+  const findCountEl = q('#find-count');
+  const syncFind = st => { const s = st || canvas?.findState?.() || { count: 0, index: -1 }; findCountEl.textContent = s.count ? `${s.index + 1} of ${s.count}` : (q('#find-q').value ? 'No matches' : ''); findCountEl.dataset.empty = s.count ? '' : 'true'; };
+  const openFind = replaceToo => { findBar.hidden = false; findBar.dataset.replace = replaceToo ? 'true' : ''; const sel = String(window.getSelection?.() || '').trim(); if (sel && !sel.includes('\n')) q('#find-q').value = sel; q('#find-q').focus(); q('#find-q').select(); syncFind(canvas?.findSet?.(q('#find-q').value)); };
+  const closeFind = () => { findBar.hidden = true; canvas?.findClear?.(); q('#find-count').textContent = ''; canvas?.querySelector('.ProseMirror')?.focus(); };
+  q('#find-q').addEventListener('input', () => syncFind(canvas?.findSet?.(q('#find-q').value)));
+  q('#find-q').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); syncFind(e.shiftKey ? canvas?.findPrev?.() : canvas?.findNext?.()); } if (e.key === 'Escape') { e.preventDefault(); closeFind(); } });
+  q('#find-r').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); syncFind(e.ctrlKey || e.metaKey ? canvas?.replaceAll?.(q('#find-r').value) : canvas?.replaceCurrent?.(q('#find-r').value)); } if (e.key === 'Escape') { e.preventDefault(); closeFind(); } });
+  q('#find-prev').onclick = () => syncFind(canvas?.findPrev?.());
+  q('#find-next').onclick = () => syncFind(canvas?.findNext?.());
+  q('#find-replace').onclick = () => { if (!writesOn()) return toast('Barkpark writes are off', 'error'); syncFind(canvas?.replaceCurrent?.(q('#find-r').value)); };
+  q('#find-replace-all').onclick = () => { if (!writesOn()) return toast('Barkpark writes are off', 'error'); const r = canvas?.replaceAll?.(q('#find-r').value); syncFind(r); if (r?.replaced) toast(`Replaced ${r.replaced}`); };
+  q('#find-close').onclick = closeFind;
+  pane.addEventListener('keydown', e => {
+    const key = e.key.toLowerCase();
+    if ((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey && (key === 'f' || key === 'h')) { e.preventDefault(); e.stopPropagation(); openFind(key === 'h'); }
+    else if (e.key === 'Escape' && !findBar.hidden) { e.preventDefault(); e.stopPropagation(); closeFind(); }
+  }, true);
 
   function setSaveState(text, kind = '') { q('#save-state').textContent = text; q('#save-state').dataset.kind = kind; }
   function themeAttr() { const t = document.documentElement.dataset.theme; return t || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); }
