@@ -8,6 +8,8 @@ Barkdown is a note + agent app utilizing Barkpark. Notes are Barkpark papers; th
 
 The canvas already *is* Tiptap: one ProseMirror document over the whole paper (StarterKit, Link, Placeholder, Typography, Underline, TaskList) with about twenty custom node types on top. So the gap is not the engine. The gap is everything around it: which blocks are editable rather than carried opaque, tables, how multi-block edits survive the ops round trip, images, and the loop that gets editor fixes from Barkpark into Barkdown. Each of those is finite and testable, which is what makes this a goal rather than a wish.
 
+[TIPTAP-REVIEW.md](TIPTAP-REVIEW.md) reviews the canvas against Tiptap's own catalogue and its Notion-like template and sizes the remaining work; the rows below are the measurable half of that.
+
 ## Definition of done
 
 Every row in the matrix is a behaviour Barkdown's Tiptap document tab ([app/renderer/src/tabs/document.js](../app/renderer/src/tabs/document.js)) already gives an author. A row is green when a live test proves the canvas does it **and the server holds the same result the canvas shows**. The test is [app/tests/editor-gaps.live.mjs](../app/tests/editor-gaps.live.mjs) and its siblings, run against the local Barkpark. The goal is met when every row is green in both repos' CI and the Tiptap tab is deleted.
