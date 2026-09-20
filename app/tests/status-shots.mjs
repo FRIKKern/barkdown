@@ -46,14 +46,14 @@ const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-status-'));
 const app = await electron.launch({ executablePath: require('electron'), args: [appDir, `--user-data=${userData}`], env: { ...process.env } });
 const page = await app.firstWindow();
 await page.waitForSelector('#bw-pages .bw-page-row');
-await page.setViewportSize({ width: 1600, height: 1000 });
-// The paper gets most of the width; the chat keeps enough to read a turn.
-await page.evaluate(async () => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true }, chatWidth: 40, provider: 'claude' }); await window.__barkdown.refreshLibrary(); });
+await page.setViewportSize({ width: 1760, height: 1000 });
+// The paper gets most of the width (about a thousand pixels of pane, so its 900px column is not squeezed); the chat keeps ~560px to read a turn.
+await page.evaluate(async () => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true }, chatWidth: 36, provider: 'claude' }); await window.__barkdown.refreshLibrary(); });
 await page.waitForFunction(() => window.__barkdown.state.barkparkDocs.length > 0, null, { timeout: 90000 });
 // The chat/work split, applied the way the splitter applies it (two CSS variables on the root).
 const split = w => page.evaluate(v => { const r = document.getElementById("app"); r.style.setProperty("--bw-chat", v + "fr"); r.style.setProperty("--bw-work", (100 - v) + "fr"); document.querySelector("#bw-splitter")?.setAttribute("aria-valuenow", v); }, w);
 const openPaper = async () => { await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug }), SLUG); await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 }); await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 }); };
-await split(40);
+await split(36);
 await openPaper();
 const settled = async () => { await page.waitForFunction(() => !/Saving/.test(document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent || ''), null, { timeout: 20000 }).catch(() => {}); await page.waitForTimeout(500); };
 const pm = () => page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror');
@@ -92,7 +92,7 @@ await settled();
 const tidyChat = (where = 'top') => page.evaluate(w => { document.querySelectorAll('details.bw-step').forEach(d => { d.open = false; }); const t = document.querySelector('#bw-transcript'); if (t) t.scrollTop = w === 'bottom' ? t.scrollHeight : 0; }, where);
 await tidyChat('top');
 const shots = [];
-const shot = async (file, caption, fn) => { await split(40); if (fn) await fn(); await settled(); await page.screenshot({ path: path.join(out, file) }); shots.push({ file, caption }); console.log('shot', file); };
+const shot = async (file, caption, fn) => { await split(36); if (fn) await fn(); await settled(); await page.screenshot({ path: path.join(out, file) }); shots.push({ file, caption }); console.log('shot', file); };
 await shot('paper-light.png', `A Barkpark paper edited live in the canvas inside Barkdown, beside ${chat.real ? 'a real Claude Code turn on it' : 'the assistant transcript'}: quote, checklist, table, callout and code, saved as ops to a local Barkpark.`, async () => { await pm().locator('p').first().hover(); });
 await shot('paper-dark.png', 'The same paper and conversation in dark mode.', async () => { await page.emulateMedia({ colorScheme: 'dark' }); });
 await page.emulateMedia({ colorScheme: 'light' });
@@ -104,8 +104,8 @@ await shot('settings-barkpark.png', 'Settings › Barkpark: the connection Barkd
 await page.locator('.bw-settings [data-act="cancel"]').click().catch(() => {});
 
 // ── the GIF: a short editing loop, frames captured while it happens ──
-await page.setViewportSize({ width: 1600, height: 900 });
-await split(40);
+await page.setViewportSize({ width: 1760, height: 900 });
+await split(36);
 await page.waitForTimeout(500); await settled(); await tidyChat('bottom');
 const frames = []; let last = 0; let keystrokes = 0;
 const frame = async (holdMs = 0) => { const png = PNG.sync.read(await page.screenshot({ type: 'png' })); frames.push({ data: png.data, width: png.width, height: png.height, delay: Math.max(120, holdMs || Date.now() - last || 120) }); last = Date.now(); };
