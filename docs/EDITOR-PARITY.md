@@ -8,7 +8,7 @@ Barkdown is a note + agent app utilizing Barkpark. Notes are Barkpark papers; th
 
 The canvas already *is* Tiptap: one ProseMirror document over the whole paper (StarterKit, Link, Placeholder, Typography, Underline, TaskList) with about twenty custom node types on top. So the gap is not the engine. The gap is everything around it: which blocks are editable rather than carried opaque, tables, how multi-block edits survive the ops round trip, images, and the loop that gets editor fixes from Barkpark into Barkdown. Each of those is finite and testable, which is what makes this a goal rather than a wish.
 
-[TIPTAP-REVIEW.md](TIPTAP-REVIEW.md) reviews the canvas against Tiptap's own catalogue and its Notion-like template and sizes the remaining work; the rows below are the measurable half of that.
+[TIPTAP-REVIEW.md](TIPTAP-REVIEW.md) reviews the canvas against Tiptap's own catalogue and its Notion-like template and sizes the remaining work; the rows below are the measurable half of that. [PLAN.md](PLAN.md) is the ordered sequence, with every task as an issue on `FRIKKern/barkdown`.
 
 ## Definition of done
 

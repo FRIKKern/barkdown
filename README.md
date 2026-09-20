@@ -20,7 +20,7 @@ cd app && npm install && npm start
 
 1. Read the [product requirements](docs/PRD.md).
 2. Read the [next-agent handoff](docs/NEXT-AGENT.md), including the first milestone and known limitations.
-3. Keep the [accepted design decisions](docs/DESIGN-DECISIONS.md) open while implementing, and the standing [editor parity goal](docs/EDITOR-PARITY.md): the Barkpark canvas becomes as good as the Tiptap tab, then replaces it ([review against Tiptap](docs/TIPTAP-REVIEW.md) sizes the distance).
+3. Keep the [accepted design decisions](docs/DESIGN-DECISIONS.md) open while implementing, and the standing [editor parity goal](docs/EDITOR-PARITY.md): the Barkpark canvas becomes as good as the Tiptap tab, then replaces it ([review against Tiptap](docs/TIPTAP-REVIEW.md) sizes the distance; [the plan](docs/PLAN.md) orders the work, one issue per task).
 4. Use the [architecture and integration plan](docs/ARCHITECTURE.md), [typed proposal](docs/contracts/workspace.ts), and [source map](docs/SOURCE-MAP.md).
 5. Follow [acceptance and delivery](docs/ACCEPTANCE.md) before calling a production milestone complete.
 
