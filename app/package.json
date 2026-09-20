@@ -13,7 +13,8 @@
     "dist": "npm run build && electron-builder --dir",
     "test:live": "node tests/providers.live.mjs && node tests/paper.live.mjs && node tests/paper-proposal.live.mjs && node tests/editor.live.mjs && node tests/editor-code.live.mjs && node tests/image.live.mjs && node tests/sidechat.live.mjs",
     "test:paper": "node tests/paper.live.mjs",
-    "test:editor": "node tests/editor.live.mjs && node tests/editor-code.live.mjs"
+    "test:editor": "node tests/editor.live.mjs && node tests/editor-code.live.mjs",
+    "test:tables": "node tests/editor-tables.live.mjs"
   },
   "engines": {
     "node": ">=22.13.1"

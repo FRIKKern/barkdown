@@ -29,7 +29,7 @@ Status as of 2026-09-20. Verified rows come from the live suites (`editor.live.m
 | 7 | Paste: plain markdown as blocks, HTML lists, URL over a selection; typed URL autolinks | verified |
 | 8 | Undo / redo, including of a paste | verified in the canvas; server state after undo unverified |
 | 9 | Save under `ifRev`, 412 conflict card, re-apply keeps both edits, echo writes minted ids back | verified |
-| 10 | **Tables**: type in cells, Tab between cells, add and remove rows and columns, paste a markdown table, round trip to the server | red |
+| 10 | **Tables**: type in cells, Tab between cells, add and remove rows and columns, paste a markdown table, round trip to the server | 8/11 in `editor-tables.live.mjs` (2026-09-20). Green: `/table` insert, typing, chrome add/remove row and column, server match after edits, undo, Enter stays in the cell, reload. Red: Tab/Shift+Tab move the caret to the cell start instead of selecting the cell content (TableKit selects it, so typing replaces); Tab in the last cell does not add a row; a pasted GFM pipe table lands as paragraphs. **Intermittent** (1 of 3 runs): after add/remove row and column the server kept an extra empty row, and after Ctrl+Z the server kept the undone text, both while the UI showed "Saved · rev N" — an ops-pipeline race, which is row 11's subject |
 | 11 | **Multi-block selection across ops**: Ctrl+A, copy three blocks, paste elsewhere, delete a spanning selection, undo — server matches canvas after each | red |
 | 12 | **Opaque set for note content**: every block type a note can contain mounts editable; nothing an author can insert renders as a read-only `bpOpaque` chip | red (enumerate against `paper_canvas.ex` first) |
 | 13 | **Images**: drop, paste and pick; lands as a figure with media on the server; resize and caption | red |
@@ -67,8 +67,10 @@ The live suites need a Barkpark on this machine. On Windows the toolchain is ins
 With Phoenix on `:4000` and the `demo` seed (token `barkpark-dev-token`), point `bp` or Barkdown's Settings at `http://localhost:4000`, then:
 
 ```sh
-cd app && npm run test:editor && node tests/editor-gaps.live.mjs && npm run test:paper
+cd app && npm run test:tables && npm run test:editor && node tests/editor-gaps.live.mjs && npm run test:paper
 ```
+
+`test:tables` registers the tags it needs and publishes its scratch paper with a description, because a current Barkpark runs a publish wall on new papers (`label_spine`, `unknown_tag`). The older live suites publish bare papers and will trip that wall on a local server until they do the same.
 
 ## Context: the direction this goal serves
 
