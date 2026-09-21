@@ -83,6 +83,14 @@ await assert.rejects(createProfileRuntimePool({ registry: b.registry, readSecret
 await run(b).rollback({ profileId: b.profileId });
 assert.equal(b.store.readJson('runtime-adoption.json').phase, 'rolled-back');
 console.log('PASS rollback publication interruption resumes without restoring authority');
+const partial = fixture('partial-rollback');
+await assert.rejects(run(partial, at => { if (at === 'adoption-backed-up') throw new Error('pause'); }).adopt({ profileId: partial.profileId, legacyDir: partial.source }), /pause/);
+const partialData = path.join(partial.store.storeDir, 'local-barkpark/runtime/pgdata'); fs.mkdirSync(partialData, { recursive: true }); fs.writeFileSync(path.join(partialData, 'PG_VERSION'), '18');
+await createRuntimeAdoption({ ...partial, checkCold: async () => { throw new Error('partial cluster has no pg_control'); } }).rollback({ profileId: partial.profileId });
+await createRuntimeAdoption({ ...partial, checkCold: async () => { throw new Error('partial cluster has no pg_control'); } }).rollback({ profileId: partial.profileId });
+assert.equal(partial.store.readJson('runtime-adoption.json').phase, 'rolled-back');
+assert.equal(fs.existsSync(path.join(partialData, 'PG_VERSION')), true);
+console.log('PASS partial unpublished copy can roll back without pretending it is a complete database');
 for (const phase of ['adoption-prepared', 'adoption-backed-up', 'adoption-copied', 'descriptor-committed', 'adoption-committed']) {
   const f = fixture('exit-' + phase);
   const script = `const {createProfileRegistry}=require(${JSON.stringify(require.resolve('../main/profile-registry'))});const {createRuntimeAdoption}=require(${JSON.stringify(require.resolve('../main/profile-runtime-adoption'))});const registry=createProfileRegistry(${JSON.stringify(path.dirname(path.dirname(f.store.storeDir)))});createRuntimeAdoption({registry,readSecrets:()=>({password:'fixture',token:'fixture'}),checkCold:async()=>{},checkpoint:phase=>{if(phase===${JSON.stringify(phase)})process.exit(73)}}).adopt(${JSON.stringify({profileId:f.profileId,legacyDir:f.source})}).catch(e=>{console.error(e);process.exit(1)});`;
