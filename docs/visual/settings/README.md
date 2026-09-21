@@ -2,14 +2,15 @@
 
 Real Settings navigation. No server connection or credential is configured.
 
-![Current view](../runs/2026-09-21T22-41-46-408Z/settings-3.png)
+![Current view](../runs/2026-09-21T23-23-17-409Z/settings-3.png)
 
-![Recorded interaction](../runs/2026-09-21T22-41-46-408Z/settings.gif)
+![Recorded interaction](../runs/2026-09-21T23-23-17-409Z/settings.gif)
 
-[Full comparison](../runs/2026-09-21T22-41-46-408Z/README.md) · [Capture manifest](../runs/2026-09-21T22-41-46-408Z/manifest.json)
+[Full comparison](../runs/2026-09-21T23-23-17-409Z/README.md) · [Capture manifest](../runs/2026-09-21T23-23-17-409Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-21T23:25:10.868Z: E002 afc9c79: inspected all21 actual PNG frames and all21 decoded GIF frames, including menus, narrow layout, modal controls, themes and side-chat geometry. Comparison reports no above-tolerance pixel, geometry or environment changes. Paper host23/23 and full desktop76/direct-edit/history/sidechat checks passed. Real Paper takeover motion and server preservation have separate dedicated evidence; this fixture approval does not claim them. Source afc9c79a3; [review](../runs/2026-09-21T23-23-17-409Z/comparison.json).
 - 2026-09-21T22:43:25.993Z: E001 final harness review: inspected all 21 action frames across workspace, chat, side chat, documents and Settings after adding the Paper recovery capture tripwire. No changed pixels above tolerance, geometry change or environment drift; clean capture inputs at e19edfa. Nineteen controlled Paper races and four real-server recovery journeys separately prove behavior. Live Paper and recovery images remain distinct from these fixture tours; no crash-recovery or profile-isolation claim. Source e19edfa6d; [review](../runs/2026-09-21T22-41-46-408Z/comparison.json).
 - 2026-09-21T22:36:22.255Z: E001: inspected all 21 deterministic action frames across five areas; no changed pixels above tolerance, geometry changes or environment drift. Paper save ownership is separately covered by 19 controlled races and real private-server delayed save, Undo/redo, Retry and cancelable discard checks. Reviewed nine Paper recovery stills including 760px layout, the action GIF, five live Paper stills and all 37 editing GIF frames; those are distinct from fixture tours. No crash-recovery or profile-isolation claim. Source 228a0084f; [review](../runs/2026-09-21T22-34-11-177Z/comparison.json).
 - 2026-09-21T21:50:11.399Z: C002: reviewed all 21 action frames across five areas after folder-context and offline-fallback changes. No pixel differences above tolerance or control-geometry changes; environment unchanged. Request/dispatcher tests cover resumed and cleared folders, image-only turns and original-text offline navigation. Visual evidence does not measure live folder-answer latency. Source 3e2ed6fa0; [review](../runs/2026-09-21T21-48-36-561Z/comparison.json).
