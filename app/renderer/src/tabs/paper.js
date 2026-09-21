@@ -16,6 +16,9 @@ export function mountPaper(tab, host, ctx) {
   const pane = el(`<div class="bw-pane bw-doc-pane bw-paper-pane"><div class="bw-path" id="path"></div><div class="bw-current-pane" id="current"><div class="bw-document bw-paper-document"><div class="bw-kicker"><span id="kicker">Barkpark / Paper</span><span class="bw-doc-meta" id="meta"></span><span class="bw-save-state" id="save-state"></span></div><input class="bw-doc-title" id="title" aria-label="Paper title" placeholder="Untitled"><div id="banner"></div><div id="agent-edit"></div><div id="proposals"></div><div id="conflict"></div><div class="bw-find" id="find" hidden><input id="find-q" type="text" placeholder="Find" aria-label="Find in paper"><span class="bw-find-count" id="find-count"></span><button type="button" class="bw-btn" id="find-prev" title="Previous (Shift+Enter)" aria-label="Previous match">↑</button><button type="button" class="bw-btn" id="find-next" title="Next (Enter)" aria-label="Next match">↓</button><input id="find-r" type="text" placeholder="Replace with" aria-label="Replace with"><button type="button" class="bw-btn" id="find-replace">Replace</button><button type="button" class="bw-btn" id="find-replace-all">All</button><button type="button" class="bw-btn" id="find-close" title="Close (Esc)" aria-label="Close find">×</button></div><div class="bp-paper-host" id="canvas-host"></div><div class="bw-doc-links" id="links"></div><div class="bw-doc-state" id="state"></div></div></div></div>`);
   host.appendChild(pane);
   const q = s => pane.querySelector(s);
+  // The receipt shares the existing metadata line; its arrival must not move
+  // the editor while a person reads, selects text or takes over an agent edit.
+  q('.bw-kicker').insertBefore(q('#agent-edit'), q('#save-state'));
   const presence = agentPresence(pane, () => q('.ProseMirror'), q('#current'));
   let refreshing = false, refreshAgain = false;
   const updateUndo = () => renderAgentUndo(q('#agent-edit'), 'bp:' + slug(), rev, async () => { if (hasUnsavedWork()) throw new Error('Finish saving your edit before Undo.'); presence.stop(); await api.docs.undoAgentEdit('bp:' + slug(), q('#agent-edit').dataset.editId); await controller.refresh(); ctx.libraryChanged(); });
@@ -398,14 +401,14 @@ export function mountPaper(tab, host, ctx) {
             // A focused canvas may queue applyServerBlocks while retaining its
             // old baseline. Never stamp that old content with a newer revision.
             if (!canvas.applyServerBlocksIfIdle?.(fresh.blocks || [])) return false;
-            rev = fresh.rev; lastAcked = fresh.blocks || [];
+            rev = fresh.rev; lastAcked = fresh.blocks || []; setSaveState('Saved · rev ' + rev, 'saved');
           }
           paper = { ...fresh, proposals }; syncTitleRow(); return true;
         };
         // Older bundles have no synchronous acceptance contract. Keep their
         // revision pinned so subsequent input remains protected by server 412.
         if (fresh.rev !== rev && !canvas?.applyServerBlocksIfIdle) {
-          if (allowed()) setSaveState('Newer version available · reload when ready');
+          if (allowed()) setSaveState('Update available · reload');
           return;
         }
         if (edit && !edit.undone && edit.beforeRev === beforeRev && edit.afterRev === fresh.rev) await presence.run(edit, apply, allowed);
