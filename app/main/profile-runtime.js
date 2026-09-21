@@ -40,7 +40,10 @@ function createProfileRuntimePool({ registry, readSecrets, createRuntime = ({ de
     const lock = path.join(path.dirname(path.dirname(store.storeDir)), 'runtime-descriptors.lock');
     const ownership = acquireFileLease(lock, { busy: 'Runtime descriptor is owned by another writer' });
     try {
+      const adoption = store.readJson('runtime-adoption.json', null);
+      if (adoption && (adoption.version !== 1 || adoption.profileId !== profileId || adoption.phase !== 'committed')) throw new Error('Runtime adoption is incomplete or rolled back; inspect its retained receipt before starting');
       let descriptor = store.readJson('runtime.json', null);
+      if (adoption && (!descriptor || JSON.stringify(descriptor) !== JSON.stringify(adoption.descriptor))) throw new Error('Runtime adoption descriptor is missing or changed; explicit recovery required');
       if (descriptor) {
         descriptor = validateDescriptor(descriptor, profileId);
         if (source && path.resolve(source) !== descriptor.source) throw new Error('Profile runtime source changed; stop and explicitly reconfigure it first');
