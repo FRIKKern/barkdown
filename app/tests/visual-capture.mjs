@@ -9,7 +9,7 @@ const profile=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-visual-'));
 const app=await electron.launch({executablePath:require('electron'),args:[path.join(root,'app'),`--user-data=${profile}`],env:{...process.env,ANTHROPIC_API_KEY:'',ANTHROPIC_AUTH_TOKEN:'',BARKDOWN_PROVIDER:'api'}});
 const errors=[],shots=[],hashes={};
 try{
- const p=await app.firstWindow();p.on('pageerror',e=>errors.push(e.message));await p.waitForFunction(()=>window.__barkdown?.state.loaded);await p.setViewportSize({width:1100,height:740});
+ let p=await app.firstWindow();p.on('pageerror',e=>errors.push(e.message));await p.waitForFunction(()=>window.__barkdown?.state.loaded);await p.setViewportSize({width:1100,height:740});
  // Initial sign-in notices are delayed; let them appear and expire rather than masking UI.
  await p.waitForTimeout(1000);await p.locator('.bw-toast').waitFor({state:'hidden',timeout:15000});
  await app.evaluate(({ipcMain})=>{ipcMain.removeHandler('agent:start');ipcMain.handle('agent:start',()=>{throw Error('Visual fixtures must not invoke providers');});});
@@ -71,6 +71,19 @@ try{
   ['narrow',()=>p.setViewportSize({width:740,height:740})],
   ['restore',()=>p.setViewportSize({width:1100,height:740})]
  ]);
+ const mainPage=p;
+ const recoveryWindow=app.waitForEvent('window');
+ await app.evaluate(()=>{global.visualRecovery=process.mainModule.require('./adoption-window').createAdoptionWindow();global.visualRecovery.choose({status:'none',actions:['prepare','quit']});});
+ p=await recoveryWindow;p.on('pageerror',e=>errors.push(e.message));await p.setViewportSize({width:1100,height:740});await p.emulateMedia({colorScheme:'light',reducedMotion:'reduce'});
+ await tour('adoption','Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.',[
+  ['confirm',()=>p.getByRole('button',{name:'Adopt existing library'}).waitFor()],
+  ['busy',async()=>{await p.getByRole('button',{name:'Adopt existing library'}).click();await p.getByRole('heading',{name:'Preparing your library'}).waitFor();}],
+  ['interrupted',async()=>{await app.evaluate(()=>{global.visualRecovery.choose({status:'staged',actions:['resume','quit'],error:'Preparation was interrupted. The original library and verified backup are retained.'});});await p.getByRole('button',{name:'Resume preparation'}).waitFor();}],
+  ['narrow',()=>p.setViewportSize({width:420,height:740})],
+  ['blocked',async()=>{await p.getByRole('button',{name:'Resume preparation'}).click();await app.evaluate(()=>{global.visualRecovery.choose({status:'blocked',actions:['quit'],error:'The registry does not match this recovery record. No library has been opened.'});});await p.getByRole('button',{name:'Quit'}).waitFor();}],
+  ['restore',()=>p.setViewportSize({width:1100,height:740})]
+ ]);
+ await app.evaluate(()=>{global.visualRecovery.close();delete global.visualRecovery;});p=mainPage;
  if(errors.length)throw Error(errors.join('\n'));
  const environment={platform:process.platform,osRelease:os.release(),arch:process.arch,font:await p.evaluate(()=>getComputedStyle(document.body).fontFamily),electron:await app.evaluate(()=>process.versions.electron),viewport:'1100x740, workspace narrow 740x740',scale:await p.evaluate(()=>devicePixelRatio),fixture:'temporary seeded local profile; providers blocked; reduced motion; caret hidden'};
  write(`${dir}/manifest.json`,{version:1,commit:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),capturedAt:new Date().toISOString(),environment,sourceDirty:execFileSync('git',['status','--porcelain','--','app','scripts','package.json','package-lock.json'],{cwd:root,encoding:'utf8'}).trim()!=='',inputs:inputs(),shots,hashes});write('docs/visual/pending.json',{run});console.log(`Captured ${dir}; run npm run visual:compare. Not approved.`);
