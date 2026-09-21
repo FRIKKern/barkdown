@@ -21,7 +21,7 @@ function setup({ release } = {}) {
   const requests = [1,2,3].map(i => ({ profileId, goalId, coordinatorChatId: 'main', chatId: `worker${i}`, taskId: `task${i}`,
     attemptId: randomUUID(), deadline: Date.now() + 60000, prompt: `Return result ${i}`, context: { profileId, chatId: `worker${i}`, folder: null, provider: 'api', model: 'test-model', effort: null, session: null } }));
   const transcripts = {
-    begin(request) { record.push({ kind: 'begin', attempt: request.attemptId }); store.writeJson('transcript-test.json', record); return [{ role: 'user', content: request.prompt }]; },
+    begin(request) { const fresh = !record.some(r => r.kind === 'begin' && r.attempt === request.attemptId); if (fresh) { record.push({ kind: 'begin', attempt: request.attemptId }); store.writeJson('transcript-test.json', record); } return { history: [{ role: 'user', content: request.prompt }], fresh }; },
     event(request, event) { record.push({ kind: 'event', attempt: request.attemptId, event }); store.writeJson('transcript-test.json', record); },
     finish(request, result) { record.push({ kind: 'finish', attempt: request.attemptId, result }); store.writeJson('transcript-test.json', record); },
   };
@@ -83,4 +83,67 @@ test('transcript failure stops the provider and reports uncertain effects instea
   agent.setClientFactory(() => ({ messages: { stream() { const handlers={}; return { on(n,fn) { handlers[n]=fn;return this; }, async finalMessage() { handlers.text('External effect may have happened'); return { stop_reason:'end_turn',usage:{},content:[{type:'text',text:'reply'}] }; } }; } } }));
   const result = await f.adapter.execute(f.requests[0], { signal: new AbortController().signal, progress() {} });
   assert.equal(result.status, 'interrupted'); assert.match(result.text, /journal full/);
+});
+
+test('an acknowledged duplicate reservation never launches a second provider', async () => {
+  const f = setup(); let launches = 0;
+  const runtime = { async start() { launches++; throw new Error('must not launch'); }, cancel() {} };
+  f.transcripts.begin(f.requests[0]);
+  const adapter = createGoalProvider({ agent: runtime, resolve: f.resolve, transcripts: f.transcripts });
+  const result = await adapter.execute(f.requests[0], { signal: new AbortController().signal, progress() {} });
+  assert.equal(result.status, 'interrupted'); assert.equal(launches, 0); assert.match(result.text, /already reserved/);
+});
+
+test('Promise-returning transcript sink is rejected before provider dispatch', async () => {
+  const f = setup(); f.transcripts.begin = async () => ({ history: [], fresh: true });
+  const runtime = { start() { throw new Error('must not launch'); }, cancel() {} };
+  const adapter = createGoalProvider({ agent: runtime, resolve: f.resolve, transcripts: f.transcripts });
+  await assert.rejects(adapter.execute(f.requests[0], { signal: new AbortController().signal, progress() {} }), /synchronously/);
+});
+
+test('unknown finalization retains the execution slot until trusted termination proof', async () => {
+  const f = setup(); const request = f.requests[0]; const progress = []; let completed = false;
+  const runtime = {
+    async start(params) { params.send({ type: 'done', profileId: request.profileId, chatId: request.chatId, provider: 'api', runId: 'known-run' }); return { runId: 'known-run' }; },
+    async waitForRunFinish() { throw new Error('Unknown or expired run completion'); }, cancel() {},
+  };
+  const adapter = createGoalProvider({ agent: runtime, resolve: f.resolve, transcripts: f.transcripts, verifyTermination: async ({ proof }) => proof === 'verified-owner-stopped' });
+  const executing = adapter.execute(request, { signal: new AbortController().signal, progress: event => progress.push(event) }).then(result => { completed = true; return result; });
+  await flush(); assert.equal(completed, false); assert.equal(adapter.pendingTermination().length, 1);
+  assert.equal(progress.at(-1).terminationUnknown, true);
+  await assert.rejects(adapter.execute(request, { signal: new AbortController().signal, progress() {} }), /already executing/);
+  await assert.rejects(adapter.reconcileTermination(request.profileId, request.attemptId, 'timeout'), /not been established/);
+  await assert.rejects(adapter.reconcileTermination(randomUUID(), request.attemptId, 'verified-owner-stopped'), /No uncertain/);
+  await adapter.reconcileTermination(request.profileId, request.attemptId, 'verified-owner-stopped');
+  assert.equal((await executing).status, 'interrupted'); assert.equal(adapter.pendingTermination().length, 0);
+});
+
+test('captured assignment images reach actual API transport; another profile path is rejected', async () => {
+  const f = setup(); fs.mkdirSync(path.join(f.root, 'attachments'));
+  const imagePath = path.join(f.root, 'attachments', 'image.png'); fs.writeFileSync(imagePath, Buffer.from('fixture-image'));
+  const image = { id: 'image', path: imagePath, mime: 'image/png', name: 'image.png' }; let blocks;
+  agent.setClientFactory(() => ({ messages: { stream(params) { blocks = params.messages.at(-1).content; return { on() { return this; }, async finalMessage() { return { stop_reason:'end_turn',usage:{},content:[{type:'text',text:'Image observed'}] }; } }; } } }));
+  const result = await f.adapter.execute({ ...f.requests[0], images: [image] }, { signal: new AbortController().signal, progress() {} });
+  assert.equal(result.status, 'succeeded'); assert.equal(blocks[0].type, 'image');
+  assert.equal(blocks[0].source.data, Buffer.from('fixture-image').toString('base64'));
+  const outsider = setup();
+  await assert.rejects(outsider.adapter.execute({ ...outsider.requests[0], images: [image] }, { signal: new AbortController().signal, progress() {} }), /outside its profile/);
+});
+
+test('worker provider launches disable native recursive delegation without changing ordinary chats', async () => {
+  const f=setup();const claude=require('../main/providers/claude'),codex=require('../main/providers/codex');let claudeOptions,codexOptions;
+  claude.setSdkLoader(async()=>({query({options}){claudeOptions=options;const iterator=(async function*(){yield {type:'result',subtype:'success',result:'bounded',usage:{}};})();iterator.interrupt=async()=>{};return iterator;}}));
+  codex.setSdkLoader(async()=>({Codex:class{constructor(options){codexOptions=options;}startThread(){return{id:'fixture-session',async runStreamed(){return{events:(async function*(){yield{type:'item.completed',item:{id:'text',type:'agent_message',text:'bounded'}};})()};}};}}}));
+  try{
+    for(const provider of ['claude','codex']){
+      const request={...f.requests[provider==='claude'?0:1],context:{...f.requests[0].context,provider,session:null}};request.context.chatId=request.chatId;
+      const resolve=(_profile,chatId)=>{const value=f.resolve(_profile,chatId);value.chat.provider=provider;return value;};
+      const adapter=createGoalProvider({resolve,transcripts:f.transcripts});
+      assert.equal((await adapter.execute(request,{signal:new AbortController().signal,progress(){}})).status,'succeeded');
+    }
+    assert.deepEqual(claudeOptions.disallowedTools,['Task','Agent']);assert.equal((await claudeOptions.canUseTool('Task',{},{})).behavior,'deny');
+    assert.equal(codexOptions.config.agents.enabled,false);assert.equal(codexOptions.config.features.goals,false);
+    const started=await agent.start({profileId:f.requests[0].profileId,storeDir:f.root,chatId:'ordinary',context:{folder:null},connection:{enabled:false},provider:'codex',settings:{},prompt:'ordinary',send(){}});
+    await agent.waitForRunFinish(started.runId);assert.equal(codexOptions.config.agents,undefined);
+  }finally{claude.setSdkLoader(null);codex.setSdkLoader(null);}
 });
