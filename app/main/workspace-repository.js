@@ -70,6 +70,9 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
       if (!object(view) || view.id !== id || !Array.isArray(view.messages)) throw new Error('Invalid conversation snapshot');
       if (meta.deletedChats[id]) continue; // a delayed view cannot resurrect a deleted chat
       const chat = ws.chats[id] ||= { id, messages: [], events: [], apiHistory: [], runId: null };
+      if (['folder', 'provider'].some(key => Object.hasOwn(view, key) && (view[key] || null) !== (chat[key] || null))) {
+        chat.sessions = {}; chat.sessionSeen = {}; chat.contextVersion = (chat.contextVersion || 0) + 1;
+      }
       for (const key of NAV) if (Object.hasOwn(view, key)) chat[key] = clone(view[key]);
       if (chat.parent && !snapshot.chats[chat.parent] && !ws.chats[chat.parent]) chat.parentTitle ||= 'deleted conversation';
     }
@@ -102,7 +105,7 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
     const history = chat.apiHistory?.length ? [...clone(chat.apiHistory), { role: 'user', content: user.text || 'See the attached image.' }]
       : chat.messages.filter(m => m.id !== assistantId && (m.text || m.role === 'user')).map(m => ({ role: m.role, content: m.text || 'See the attached image.' }));
     meta.attempts[request.attemptId] = { chatId, assistantId, userId, fingerprint, history, status: 'reserved', driverFinished: false, sequence: 0, runId: null,
-      goalId: request.goalId || null, taskId: request.taskId || null, coordinatorChatId: request.coordinatorChatId || null };
+      contextVersion: chat.contextVersion || 0, goalId: request.goalId || null, taskId: request.taskId || null, coordinatorChatId: request.coordinatorChatId || null };
     chat.runProvider = request.provider; chat.updatedAt = at;
     write(profileId, ws);
     return { history: clone(history), fresh: true, assistantId, state: 'reserved' };
@@ -125,7 +128,7 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
     if (value.sequence !== attempt.sequence + 1) throw new Error('Provider event sequence gap');
     attempt.runId = value.runId; attempt.sequence = value.sequence; attempt.status = 'running'; chat.runId = value.runId;
     reply.runId = value.runId; reply.lastSequence = value.sequence;
-    applyEvent(chat, reply, value, now());
+    applyEvent(chat, reply, value.type === 'done' && (chat.contextVersion || 0) !== attempt.contextVersion ? { ...value, session: null } : value, now());
     const saved = write(request.profileId, ws);
     return { accepted: true, revision: saved.ownership.revision };
   }

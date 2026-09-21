@@ -15,6 +15,12 @@ async function call(channel, ...args) {
 }
 
 const api = {
+  goals: {
+    list: captured => rawCall('goals:list', { owner: captured, args: [captured.chatId] }),
+    create: (captured, input) => rawCall('goals:create', { owner: captured, args: [captured.chatId, input] }),
+    command: (captured, id, action, payload) => rawCall('goals:command', { owner: captured, args: [captured.chatId, id, action, payload] }),
+    subscribe: (captured, handler) => { const listener = (_event, changed) => { if (changed.profileId === captured.profileId) handler(changed); }; ipcRenderer.on('goals:changed', listener); return () => ipcRenderer.removeListener('goals:changed', listener); }
+  },
   profiles: { status: () => rawCall('profiles:status'), create: name => call('profiles:create', name), select: async profileId => {
     await profileReady;
     return rawCall('profiles:select', { owner: { ...owner }, profileId });

@@ -8,13 +8,14 @@ const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-profile-ui-'));
 const site = http.createServer((_request, response) => response.end('<title>Profile website fixture</title><p>Owned website storage</p>'));
 await new Promise(resolve => site.listen(0, '127.0.0.1', resolve));
 const siteUrl = `http://127.0.0.1:${site.address().port}`;
-const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
-const page = await app.firstWindow(), errors = [];
+const launch = () => electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
+let app = await launch(), page = await app.firstWindow();
+const errors = [];
 page.on('pageerror', e => errors.push(e.message));
 async function website(value) {
   await page.evaluate(url => window.__barkdown.openTarget({ kind: 'web', url, title: 'Fixture website' }), siteUrl);
   await page.waitForFunction(() => { const view = document.querySelector('webview'); try { return view?.getTitle() === 'Profile website fixture'; } catch { return false; } });
-  return page.evaluate(value => document.querySelector('webview').executeJavaScript(value === undefined ? '({storage:localStorage.getItem("owner"),cookie:document.cookie})' : `localStorage.setItem('owner', ${JSON.stringify(value)}); document.cookie='owner=${value}; path=/';`), value);
+  return page.evaluate(value => document.querySelector('webview').executeJavaScript(value === undefined ? '({storage:localStorage.getItem("owner"),cookie:document.cookie})' : `localStorage.setItem('owner', ${JSON.stringify(value)}); document.cookie='owner=${value}; path=/; max-age=3600';`), value);
 }
 try {
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
@@ -51,6 +52,21 @@ try {
   assert.equal(await page.evaluate(() => window.__barkdown.state.chats.same.draft), 'A draft');
   assert.equal(await page.evaluate(async () => (await window.barkdown.docs.get('shared-slug')).markdown.trim()), 'A document');
   assert.deepEqual(await website(), { storage: 'A', cookie: 'owner=A' });
+  await page.evaluate(async id => { await window.barkdown.profiles.select(id); location.reload(); }, second.status.profileId);
+  await page.waitForFunction(id => window.__barkdown?.state.loaded && window.__barkdown.state.profileId === id, second.status.profileId);
+  await page.evaluate(async () => {
+    const ws = await window.barkdown.state.load();
+    ws.chats.child = { id: 'child', title: 'Saved side chat', side: true, parent: 'same', parentTitle: 'B chat', messages: [], draft: 'Child draft', folder: null, tabs: [{ id: 'site', type: 'web', title: 'Saved website', url: 'https://example.invalid', path: [] }] };
+    ws.order.push('child'); await window.barkdown.state.save(ws);
+  });
+  await app.close(); app = await launch(); page = await app.firstWindow(); page.on('pageerror', error => errors.push(error.message));
+  await page.waitForFunction(() => window.__barkdown?.state.loaded);
+  const restart = await page.evaluate(async () => ({ status: await window.barkdown.profiles.status(), ws: await window.barkdown.state.load(), doc: await window.barkdown.docs.get('shared-slug') }));
+  assert.equal(restart.status.profileId, second.status.profileId);
+  assert.equal(restart.ws.chats.same.draft, 'B draft');
+  assert.equal(restart.ws.chats.child.parent, 'same'); assert.equal(restart.ws.chats.child.draft, 'Child draft'); assert.equal(restart.ws.chats.child.tabs[0].id, 'site');
+  assert.equal(restart.doc.markdown.trim(), 'B document');
+  assert.deepEqual(await website(), { storage: 'B', cookie: 'owner=B' });
   assert.deepEqual(errors, []);
-  console.log(JSON.stringify({ passed: ['opt-in UUID boot', 'Settings create/switch', 'same-slug documents', 'draft restoration', 'stale snapshot rejection', 'legacy untouched'], userData }));
+  console.log(JSON.stringify({ passed: ['opt-in UUID boot', 'Settings create/switch', 'same-slug documents', 'draft restoration', 'stale snapshot rejection', 'legacy untouched', 'same-URL website storage/cookies', 'selected B process restart with draft/side-parent/tabs'], userData }));
 } finally { await app.close(); await new Promise(resolve => site.close(resolve)); }
