@@ -59,3 +59,7 @@ C003's [storage staging foundation](cycles/C003-profile-registry.md) is implemen
 ## Visual handoff
 
 The [visual health pages](visual/README.md) now hold reviewed stills, GIFs and comparison reports. Follow [visual rules](visual/RULES.md) for app/dependency/harness changes: capture, compare, inspect, explicitly approve, and preserve old evidence. The main baseline is merge b8e7bfb from PR #29; C002 is merged and P1 remains pending. This workflow update did not implement profiles or change runtime behavior. Dedicated agent-edit/files/recovery motion coverage remains to be added with those journeys. Do not treat fixture screenshots as live integration proof.
+
+## C007 runtime checkpoint
+
+Source `34b17ce` adds an opt-in profile runtime pool with distinct persisted ports/data/credentials and captured foreground/run leases. The disposable dual-runtime proof passed concurrent same-slug/media isolation, continued A writes after selecting B, independent restart and selected B restoration. No real library was migrated and no desktop profile UI is claimed; C006 owns that integration. See [C007](cycles/C007-profile-runtimes.md) for exact evidence and remaining adoption boundaries.

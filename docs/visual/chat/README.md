@@ -2,14 +2,15 @@
 
 Shared main composer: draft, provider chooser and model chooser. No message is sent.
 
-![Current view](../runs/2026-09-21T22-23-18-613Z/chat-4.png)
+![Current view](../runs/2026-09-21T23-01-10-158Z/chat-4.png)
 
-![Recorded interaction](../runs/2026-09-21T22-23-18-613Z/chat.gif)
+![Recorded interaction](../runs/2026-09-21T23-01-10-158Z/chat.gif)
 
-[Full comparison](../runs/2026-09-21T22-23-18-613Z/README.md) · [Capture manifest](../runs/2026-09-21T22-23-18-613Z/manifest.json)
+[Full comparison](../runs/2026-09-21T23-01-10-158Z/README.md) · [Capture manifest](../runs/2026-09-21T23-01-10-158Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-21T23:02:55.285Z: Inspected all 21 frames across five recorded action sequences, including narrow workspace, menus, side-chat composer, light/dark documents and Settings. No clipping or geometry regression; comparator reports zero changed pixels. Full desktop suite passed on24e1bc3; async snapshot unit checks and real dual runtime/media/restart proof passed on34b17ce. Fixture tour remains separate from live Paper and profile runtime evidence. Source 34b17cecf; [review](../runs/2026-09-21T23-01-10-158Z/comparison.json).
 - 2026-09-21T22:25:03.590Z: Reviewed all 21 action frames and five recorded sequences, including narrow layout, menus, themes and side-chat drafts. No pixel or geometry differences from approved baseline. Registry staging is additive and not wired to startup; 24 real-filesystem recovery/isolation checks plus full desktop, direct-edit, history and side-chat suites passed. Captures prove existing UI regression only, not profile switching or migration. Source 5b0917c2c; [review](../runs/2026-09-21T22-23-18-613Z/comparison.json).
 - 2026-09-21T21:50:11.399Z: C002: reviewed all 21 action frames across five areas after folder-context and offline-fallback changes. No pixel differences above tolerance or control-geometry changes; environment unchanged. Request/dispatcher tests cover resumed and cleared folders, image-only turns and original-text offline navigation. Visual evidence does not measure live folder-answer latency. Source 3e2ed6fa0; [review](../runs/2026-09-21T21-48-36-561Z/comparison.json).
 - 2026-09-21T21:34:25.844Z: Reviewed the CI startup-toast difference and corrected capture timing without hiding UI. New local capture matches all 21 prior frames and geometry; workspace dismissal image inspected again. Environment-change flag reflects newly recorded OS/architecture/font fields on the same local machine. Prior full visual and desktop regression evidence retained. Source 335b460f3; [review](../runs/2026-09-21T21-33-30-215Z/comparison.json).

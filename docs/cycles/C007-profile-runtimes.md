@@ -1,6 +1,6 @@
 # C007 — Profile runtime descriptors and leases
 
-Status: active, bounded P1/A1 runtime integration. Branch `codex/cycle-next-12h`, starting at validated C003 `482f4cc`. Parallel C006 owns desktop ownership/session wiring; this lane owns additive runtime pool and scoped source bootstrap fixes. Central queue remains coordinated separately.
+Status: done for the bounded backend runtime proof; P1/A1 remains pending. Branch `codex/cycle-next-12h`, starting at validated C003 `482f4cc`. Parallel C006 owns desktop ownership/session wiring; this lane owns additive runtime pool and scoped source bootstrap fixes. Central queue remains coordinated separately.
 
 ## Goal and acceptance
 
@@ -42,3 +42,17 @@ Installed Ecto task sources accept `--no-compile`; installed Mix `compile.all` a
 - Runtime pool has 13 passing injected lifecycle cases. New `selectWithoutRuntime(profileId)` commits B without starting a service, releases only A foreground ownership and retains A run leases; returns cleanup warning after committed selection. New acquisitions recheck current runtime readiness after watchdog recovery.
 
 No C007 runtime currently remains. Next: commit corrected source, run full desktop regression, obtain next source window and rerun dual private runtime/media/restart proof. Do not call C007 done from unit success.
+
+## Final source and evidence checkpoint
+
+Source commits: `15c0273` (pool/descriptors), `24e1bc3` (private build and lease recovery), `34b17ce` (asynchronous build preparation and valid upstream label fixtures). Stable API differs from the initial sketch: injected port callback is `allocate`; `writes` defaults false; `selectWithoutRuntime` supports profiles that need no private server. Credential callbacks receive `{profileId,storeDir,readJson,writeJson}`.
+
+Third live attempt `iJH8on` proved simultaneous private-build startup and the corrected upload envelope, then failed the upstream `label_spine` publication validator. The fixture now registers its synthetic tag and provides valid descriptions/rationales. Both services stopped; no product validation was bypassed. Fourth attempt `SpZMnG` passed all six scenarios on clean34b17ce and clean Barkpark a5440345c, including same-name media bytes, cross-token refusal, revision-checked A edit after selecting B, A-only restart and fresh-pool restoration of B. [Report](C007-runtime-evidence.json) records no cleanup errors. Raw logs and synthetic data remain in the named temporary directories; fixture secrets are never committed.
+
+`npm run test:desktop` passed on24e1bc3, including76 Electron assertions, direct-edit UI,100-entry history and side-chat restart parity. The subsequent async build change passed all4 snapshot tests and the real dual-runtime proof. File-lease4, profile-registry24, profile-runtime13 and media envelope cases passed. Root independently reviewed pool/lease boundaries and ran the earlier unit checks.
+
+Source34b17ce deterministic [capture/compare](../visual/runs/2026-09-21T23-01-10-158Z/README.md) has21 frames and five action GIFs with zero pixel or geometry differences. Named agent review inspected all intermediate frames, narrow geometry, menus, themes and controls before approval. Live `shots:isolated` used fixture `wRtNqh`, actual server0.2.26.3877 and real Codex after Claude weekly-limit refusal. All five stills and37 GIF frames were inspected; [immutable manifest](../images/status/history/C007-34b17ce.json) has clean source/server provenance. The GIF intentionally replaces selected table-cell text while typing the sample score; it is presentation evidence, not the isolation assertion. The private capture runtime stopped normally and source slot was released.
+
+Repository truth reviewed: storage contract, local runtime guide, app README, next-agent handoff, validation ledger and visual health. Central plan/cycle remains coordinator-owned; P1/A1 is not complete. Next exact action: integrate this stable API with C006 captured profile authority and provider finalization, then prove profile switching end-to-end. Existing managed database adoption requires an offline cold-copy/owned-runtime strategy; shell staging still refuses it. No source services remain; no real-user data migration, merge or deployment occurred.
+
+Final root `npm run verify` passed: generated outputs, syntax/types/links, cycle/visual freshness, concept and handoff checks. `git diff --check` passed. Source34b17ce → reviewed captures → evidence commit sequence is complete.

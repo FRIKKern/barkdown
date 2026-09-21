@@ -65,3 +65,7 @@ Use [the local-runtime guide](../docs/LOCAL-BARKPARK.md) for setup and [the acce
 - [Settings](../docs/visual/settings/README.md): preferences and connection controls.
 
 Each page contains a still, recorded interaction GIF, provenance and changelog. [Rules and coverage limits](../docs/visual/RULES.md) distinguish visual review from functional/runtime proof.
+
+## Profile runtime integration
+
+The [C007 backend](../docs/cycles/C007-profile-runtimes.md) adds `main/profile-runtime.js`, `runtime-build.js` and `file-lease.js`. Real dual-runtime tests demonstrate same-slug/media/credential isolation and leases that retain background work across foreground selection. Private verified build copies avoid shared Mix locks without altering the Barkpark checkout. This is additive API evidence; C006 desktop integration and existing-database adoption remain separate.

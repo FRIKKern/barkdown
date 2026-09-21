@@ -1,0 +1,32 @@
+{
+  "startedAt": "2026-09-21T22:57:24.420Z",
+  "barkdownCommit": "34b17cecf5186ba682ee3aca13b6ba74ddeb567b",
+  "barkdownDirty": false,
+  "barkparkCommit": "a5440345caa413087ac6488cac67f19fce58fa0f",
+  "barkparkDirty": false,
+  "checks": [
+    "two real private runtimes concurrently ready with distinct ports, roots and credentials",
+    "same-slug notes and uploaded media remain isolated; A credentials cannot access B",
+    "switch to B retains A background lease; real revision-checked A write changes only A",
+    "stopping and restarting A preserves content/ports while B remains available",
+    "normal shutdown stops only owned private clusters and retains profile data",
+    "new pool restores selected B with its original data, endpoint and credentials"
+  ],
+  "profiles": [
+    {
+      "id": "39683b5f-903e-458c-b84f-106686f76169",
+      "port": 56364,
+      "pgPort": 56365,
+      "mediaPath": "/media/files/d/60925f88-f49e-4528-8ac3-1662a1b20ef5/2026/09/same-1c94185f.png"
+    },
+    {
+      "id": "a29e4811-538f-4b1d-9a0d-6f4351e14056",
+      "port": 56366,
+      "pgPort": 56367,
+      "mediaPath": "/media/files/d/42947844-1b72-4b4a-b2dc-02226181e646/2026/09/same-19ba79ce.png"
+    }
+  ],
+  "stopped": true,
+  "cleanupErrors": [],
+  "finishedAt": "2026-09-21T22:59:53.538Z"
+}

@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "C007",
+  "stage": "P1",
+  "status": "done",
+  "goal": "Prove profile-owned runtime descriptors and leases against two real isolated runtimes.",
+  "scope": ["Bound runtime descriptors and captured leases", "Private built-artifact snapshots and owned lock recovery", "Disposable dual-runtime proof; no existing database adoption or desktop UI"],
+  "acceptance": ["Concurrent same-slug note/media/credential isolation", "A run survives selecting B", "Independent restart and fresh-pool restoration", "Unit, desktop, root and actual visual review"],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C007-profile-runtimes.md",
+  "nextAction": "Integrate stable pool with C006 profile authority and provider cleanup; prove end-to-end switching and plan offline legacy database adoption.",
+  "evidence": ["docs/cycles/C007-runtime-evidence.json", "app/tests/profile-runtime.test.mjs", "app/tests/profile-runtime.live.mjs", "docs/images/status/history/C007-34b17ce.json", "docs/visual/runs/2026-09-21T23-01-10-158Z/comparison.json"],
+  "truthReview": "Storage contract, runtime guide, app README, next-agent, validation and visual health reviewed. Central queue remains coordinator-owned; P1 and adoption remain pending.",
+  "screenshotReview": "Inspected21 deterministic frames/five action sequences with zero differences, approved explicitly. Inspected five live Paper stills and37 GIF frames from real Codex/private server; runtime stopped. Table sample replacement is intentional fixture input, not an integrity assertion."
+}
