@@ -1,6 +1,7 @@
 // Trusted main-process runtime ownership. Selection and each running transport
 // hold separate leases; a foreground switch cannot stop a background run.
 const path = require('node:path');
+const fs = require('node:fs');
 const net = require('node:net');
 const crypto = require('node:crypto');
 const { validateProfileId } = require('./profile-registry');
@@ -44,6 +45,12 @@ function createProfileRuntimePool({ registry, readSecrets, createRuntime = ({ de
       if (adoption && (adoption.version !== 1 || adoption.profileId !== profileId || adoption.phase !== 'committed')) throw new Error('Runtime adoption is incomplete or rolled back; inspect its retained receipt before starting');
       let descriptor = store.readJson('runtime.json', null);
       if (adoption && (!descriptor || JSON.stringify(descriptor) !== JSON.stringify(adoption.descriptor))) throw new Error('Runtime adoption descriptor is missing or changed; explicit recovery required');
+      if (adoption) {
+        for (const marker of ['pgdata/PG_VERSION', 'seeded']) {
+          const file = path.join(store.storeDir, 'local-barkpark/runtime', marker);
+          if (!fs.existsSync(file) || !fs.lstatSync(file).isFile()) throw new Error('Adopted runtime data is missing; refusing to initialize or reseed it');
+        }
+      }
       if (descriptor) {
         descriptor = validateDescriptor(descriptor, profileId);
         if (source && path.resolve(source) !== descriptor.source) throw new Error('Profile runtime source changed; stop and explicitly reconfigure it first');

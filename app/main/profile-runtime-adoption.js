@@ -117,6 +117,7 @@ function createRuntimeAdoption({ registry, readSecrets, checkCold = assertCold, 
       const dest = child(store.storeDir, 'local-barkpark/runtime');
       if (j?.phase === 'committed') {
         if (JSON.stringify(store.readJson('runtime.json', null)) !== JSON.stringify(j.descriptor)) throw new Error('Committed runtime descriptor changed');
+        for (const marker of ['pgdata/PG_VERSION', 'seeded']) { const file = child(dest, marker); if (!fs.existsSync(file) || !fs.lstatSync(file).isFile()) throw new Error('Committed adopted runtime data is missing; explicit recovery required'); }
         return { profileId, phase: j.phase, dataDir: dest, backupDir: child(store.storeDir, 'runtime-adoption-backup') };
       }
       if (!j && (store.readJson('runtime.json', null) || fs.existsSync(dest))) throw new Error('Destination runtime must be empty and inactive');
