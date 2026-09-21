@@ -40,21 +40,22 @@ async function runScenario(turns, { context = {}, respond } = {}) {
   return events;
 }
 
-// 1. Read a document, propose an edit, finish. The proposal is pending, not applied.
+// 1. Read and edit directly, then Undo.
 const overview = documents.list().find(d => d.title === 'Overview');
 let events = await runScenario([
   { stop_reason: 'tool_use', content: [text('Looking.'), use('t1', 'read_document', { id: overview.id })] },
-  params => { const last = params.messages.at(-1); assert(last.role === 'user' && last.content[0].type === 'tool_result' && last.content[0].content.includes('# Overview'), 'tool_result missing document markdown'); return { stop_reason: 'tool_use', content: [use('t2', 'propose_document_edit', { id: overview.id, mode: 'append', markdown: '## Added\n\nProposed text.', summary: 'Add a section' })] }; },
+  params => { const last = params.messages.at(-1); assert(last.role === 'user' && last.content[0].type === 'tool_result' && last.content[0].content.includes('# Overview'), 'tool_result missing document markdown'); return { stop_reason: 'tool_use', content: [use('t2', 'edit_document', { id: overview.id, mode: 'append', markdown: '## Added\n\nProposed text.', summary: 'Add a section' })] }; },
   { stop_reason: 'end_turn', content: [text('Proposed a section.')] },
 ]);
 assert(events.some(e => e.type === 'activity' && e.target.kind === 'doc' && e.label.startsWith('Opened')), 'read_document did not emit an activity');
-assert(events.some(e => e.type === 'activity' && e.proposalId), 'proposal activity missing');
+assert(events.some(e => e.type === 'activity' && e.agentEdit), 'direct edit activity missing');
 const doc = documents.get(overview.id);
-assert(doc.proposals.length === 1 && doc.rev === 1, 'proposal was applied instead of pending');
+assert(doc.proposals.length === 0 && doc.rev === 2 && doc.markdown.includes('Proposed text.'), 'edit was not saved directly');
 assert(events.at(-1).type === 'done' && events.at(-1).history.length === 6, 'history should contain user, assistant, tool_result, assistant, tool_result... turns');
-const accepted = documents.resolveProposal(overview.id, doc.proposals[0].id, true);
-assert(accepted.doc.rev === 2 && accepted.doc.markdown.includes('Proposed text.'), 'accepting the proposal did not create a new revision');
-console.log('scenario 1 ok: read + propose + accept');
+const agentEdits = require('../main/agent-edits');
+await agentEdits.undo(overview.id, agentEdits.latest(overview.id).id);
+assert(!documents.get(overview.id).markdown.includes('Proposed text.'), 'Undo did not restore the document');
+console.log('scenario 1 ok: read + direct edit + Undo');
 
 // 2. write_file waits for approval; declined writes do not touch disk; approved writes do.
 events = await runScenario([

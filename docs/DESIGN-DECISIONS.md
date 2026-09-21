@@ -35,6 +35,8 @@ These record the user's decisions through the private handoff. Preserve the inte
 
 **D27 (2026-09-21): People organize Pages.** Cloud discovery stays in a separate, initially collapsed Cloud archive. Opening a paper does not place it in Pages. People explicitly add, nest, reorder, or import a local copy; refresh and disconnect preserve that arrangement. The approved one-time migration moves legacy loose cloud roots into Cloud archive, preserves nested groups, and records the previous root order for recovery.
 
+**D28 (2026-09-21): Direct assistant editing with visible intent.** Document edits apply without a Keep step. Mark the target, move an agent caret, and reveal replacement text in the real editor. Show only actual acknowledged changes, allow immediate human takeover, honor reduced motion, and skip animation in hidden panes. Offer revision-checked Undo. This supersedes review-before-apply for new document edits; file/command permissions and disabled cloud writes retain their existing scope.
+
 ## Explicitly superseded directions
 
 - The earlier proposal for a permanently visible pinned sidebar is superseded by the Pins dropdown that restores a path.

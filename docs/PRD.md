@@ -165,6 +165,8 @@ Link an accepted operation to the actor, source chat or run, target block, and r
 
 Barkpark already defines references, permission-filtered backlinks, related results based on tags/backlinks, and revision history. This does not establish a general semantic graph engine. The node map above is a product explanation; first-release navigation uses useful relationship lists and adjacent panes. [Source B3 ↗](#s-graph)
 
+**Direct assistant editing.** New document edits save without a Keep step and offer revision-checked Undo. In the visible editor, mark the target, move an agent caret, and reveal the replacement. This presentation follows an acknowledged save; human input ends it immediately. Honor reduced motion and preserve document conflicts.
+
 **People organize Pages.** Discovered cloud papers remain in a separate, initially collapsed Cloud archive. Opening a paper does not add it to Pages. People choose what to add, nest, reorder, or import as a local copy; library refresh preserves their arrangement.
 
 <a id="search"></a>

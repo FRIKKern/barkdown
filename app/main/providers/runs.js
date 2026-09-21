@@ -54,16 +54,16 @@ function activityForTool(run, toolName, input = {}) {
   const folder = run.context.folder;
   const name = toolName.replace(/^mcp__barkdown__/, '');
   const isBarkdown = toolName.startsWith('mcp__barkdown__') || (input && input.__barkdown);
-  if (isBarkdown || ['read_document', 'propose_document_edit', 'create_document', 'open_website', 'open_project_file'].includes(name)) {
-    if ((name === 'read_document' || name === 'propose_document_edit') && typeof input.id === 'string' && input.id.startsWith('bp:')) {
+  if (isBarkdown || ['read_document', 'edit_document', 'propose_document_edit', 'create_document', 'open_website', 'open_project_file'].includes(name)) {
+    if ((name === 'read_document' || ['edit_document', 'propose_document_edit'].includes(name)) && typeof input.id === 'string' && input.id.startsWith('bp:')) {
       const slug = input.id.slice(3);
-      return { type: 'activity', target: { kind: 'doc', id: slug, source: 'barkpark', title: slug }, label: name === 'read_document' ? `Opened paper ${slug}` : `Proposed a change to paper ${slug}`, detail: name === 'read_document' ? 'Reading the Barkpark paper' : input.summary || '', proposalId: name === 'propose_document_edit' ? 'pending' : undefined };
+      return { type: 'activity', target: { kind: 'doc', id: slug, source: 'barkpark', title: slug }, label: name === 'read_document' ? `Opened paper ${slug}` : `Edited paper ${slug}`, detail: name === 'read_document' ? 'Reading the Barkpark paper' : input.summary || '', agentEdit: name !== 'read_document', libraryChanged: name !== 'read_document' };
     }
-    if (name === 'read_document' || name === 'propose_document_edit') {
+    if (name === 'read_document' || ['edit_document', 'propose_document_edit'].includes(name)) {
       documents.reload(input.id);
       const doc = documents.get(input.id);
       if (!doc) return null;
-      return { type: 'activity', target: { kind: 'doc', id: doc.id, title: doc.title }, label: name === 'read_document' ? `Opened ${doc.title}` : `Proposed a change to ${doc.title}`, detail: name === 'read_document' ? 'Reading the document' : input.summary || '', proposalId: name === 'propose_document_edit' ? 'pending' : undefined };
+      return { type: 'activity', target: { kind: 'doc', id: doc.id, title: doc.title }, label: name === 'read_document' ? `Opened ${doc.title}` : `Edited ${doc.title}`, detail: name === 'read_document' ? 'Reading the document' : input.summary || '', agentEdit: name !== 'read_document', libraryChanged: name !== 'read_document' };
     }
     if (name === 'create_document') { documents.loadAll(); const doc = documents.list().find(d => d.title === input.title); return doc ? { type: 'activity', target: { kind: 'doc', id: doc.id, title: doc.title }, label: `Created ${doc.title}`, detail: 'New document in the library', libraryChanged: true } : null; }
     if (name === 'open_website' && input.url) { const url = /^https?:/i.test(input.url) ? input.url : 'https://' + input.url; return { type: 'activity', target: { kind: 'web', url, title: hostname(url) }, label: 'Opened the website', detail: url }; }

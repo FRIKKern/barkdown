@@ -1,3 +1,5 @@
+import { agentPresence } from '../agent-presence.js';
+import { renderAgentUndo } from '../agent-undo.js';
 // Barkpark paper work tab: hosts Barkpark's own <bp-paper-canvas> (vendored bundle) over a real paper.
 // Edits leave the canvas as bp-canvas-ops batches; each batch is applied through the fenced ops endpoint
 // with the paper's revision, acknowledged on success, and the server echo is fed back so minted ids land.
@@ -11,9 +13,12 @@ import { ensureCanvasBundle } from '../canvas-bundle.js';
 const api = window.barkdown;
 
 export function mountPaper(tab, host, ctx) {
-  const pane = el(`<div class="bw-pane bw-doc-pane bw-paper-pane"><div class="bw-path" id="path"></div><div class="bw-current-pane" id="current"><div class="bw-document bw-paper-document"><div class="bw-kicker"><span id="kicker">Barkpark / Paper</span><span class="bw-doc-meta" id="meta"></span><span class="bw-save-state" id="save-state"></span></div><input class="bw-doc-title" id="title" aria-label="Paper title" placeholder="Untitled"><div id="banner"></div><div id="proposals"></div><div id="conflict"></div><div class="bw-find" id="find" hidden><input id="find-q" type="text" placeholder="Find" aria-label="Find in paper"><span class="bw-find-count" id="find-count"></span><button type="button" class="bw-btn" id="find-prev" title="Previous (Shift+Enter)" aria-label="Previous match">↑</button><button type="button" class="bw-btn" id="find-next" title="Next (Enter)" aria-label="Next match">↓</button><input id="find-r" type="text" placeholder="Replace with" aria-label="Replace with"><button type="button" class="bw-btn" id="find-replace">Replace</button><button type="button" class="bw-btn" id="find-replace-all">All</button><button type="button" class="bw-btn" id="find-close" title="Close (Esc)" aria-label="Close find">×</button></div><div class="bp-paper-host" id="canvas-host"></div><div class="bw-doc-links" id="links"></div><div class="bw-doc-state" id="state"></div></div></div></div>`);
+  const pane = el(`<div class="bw-pane bw-doc-pane bw-paper-pane"><div class="bw-path" id="path"></div><div class="bw-current-pane" id="current"><div class="bw-document bw-paper-document"><div class="bw-kicker"><span id="kicker">Barkpark / Paper</span><span class="bw-doc-meta" id="meta"></span><span class="bw-save-state" id="save-state"></span></div><input class="bw-doc-title" id="title" aria-label="Paper title" placeholder="Untitled"><div id="banner"></div><div id="agent-edit"></div><div id="proposals"></div><div id="conflict"></div><div class="bw-find" id="find" hidden><input id="find-q" type="text" placeholder="Find" aria-label="Find in paper"><span class="bw-find-count" id="find-count"></span><button type="button" class="bw-btn" id="find-prev" title="Previous (Shift+Enter)" aria-label="Previous match">↑</button><button type="button" class="bw-btn" id="find-next" title="Next (Enter)" aria-label="Next match">↓</button><input id="find-r" type="text" placeholder="Replace with" aria-label="Replace with"><button type="button" class="bw-btn" id="find-replace">Replace</button><button type="button" class="bw-btn" id="find-replace-all">All</button><button type="button" class="bw-btn" id="find-close" title="Close (Esc)" aria-label="Close find">×</button></div><div class="bp-paper-host" id="canvas-host"></div><div class="bw-doc-links" id="links"></div><div class="bw-doc-state" id="state"></div></div></div></div>`);
   host.appendChild(pane);
   const q = s => pane.querySelector(s);
+  const presence = agentPresence(pane, () => q('.ProseMirror'), q('#current'));
+  let refreshing = false, refreshAgain = false;
+  const updateUndo = () => renderAgentUndo(q('#agent-edit'), 'bp:' + slug(), rev, async () => { if (saving || canvas?.hasPendingChanges?.()) throw new Error('Finish saving your edit before Undo.'); presence.stop(); await api.docs.undoAgentEdit('bp:' + slug(), q('#agent-edit').dataset.editId); await controller.refresh(); ctx.libraryChanged(); });
   let paper = null;
   let canvas = null;
   let rev = null;
@@ -53,6 +58,7 @@ export function mountPaper(tab, host, ctx) {
   async function fetchPaper() { return api.barkpark.get(slug()); }
 
   function renderMeta() {
+    updateUndo();
     if (!paper) return;
     const crumbs = ctx.pagePath ? ctx.pagePath(slug(), 'barkpark') : [];
     q('#kicker').textContent = crumbs.length > 1 ? crumbs.join(' / ') : '';
@@ -299,27 +305,34 @@ export function mountPaper(tab, host, ctx) {
 
   load();
 
-  return {
+  const controller = {
     el: pane, type: 'doc', tab,
     async refresh(changedId) {
       if (changedId && changedId !== 'bp:' + slug() && changedId !== slug()) return;
+      if (refreshing) { refreshAgain = true; return; }
       if (saving || canvas?.hasPendingChanges?.()) return;
+      refreshing = true;
+      const id = slug(), beforeRev = rev;
       try {
         const fresh = await fetchPaper();
-        if (destroyed || !fresh) return;
-        const proposals = await api.docs.paperProposals(slug()).catch(() => []);
-        const revChanged = fresh.rev !== rev;
-        paper = { ...fresh, proposals };
-        if (revChanged && canvas) { rev = fresh.rev; lastAcked = fresh.blocks || []; canvas.applyServerBlocks(fresh.blocks || []); }
+        if (destroyed || !fresh || id !== slug()) return;
+        const proposals = await api.docs.paperProposals(id).catch(() => []);
+        const edit = await api.docs.agentEdit('bp:' + id);
+        const allowed = () => !destroyed && slug() === id && rev === beforeRev && !saving && !canvas?.hasPendingChanges?.();
+        const apply = () => { paper = { ...fresh, proposals }; if (fresh.rev !== rev && canvas) { rev = fresh.rev; lastAcked = fresh.blocks || []; canvas.applyServerBlocks(lastAcked); syncTitleRow(); } };
+        if (edit && !edit.undone && edit.beforeRev === beforeRev && edit.afterRev === fresh.rev) await presence.run(edit, apply, allowed);
+        else if (allowed()) apply();
         renderProposals(); renderMeta(); renderLinks(); renderPath();
-      } catch {}
+      } catch (error) { console.warn('Paper refresh:', error); }
+      finally { refreshing = false; if (refreshAgain) { refreshAgain = false; controller.refresh(); } }
     },
-    navigate() { load(); },
+    navigate() { presence.stop(); load(); },
     savePosition() { tab.scroll = q('#current').scrollTop; },
     focus() { canvas?.querySelector('.ProseMirror')?.focus(); },
     isDirty: () => Boolean(canvas?.hasPendingChanges?.()),
     flush: () => canvas?.flushPendingChanges?.(),
     markdown: () => blocksToMarkdown(canvas?.blocks || paper?.blocks || []),
-    destroy() { destroyed = true; try { canvas?.flushPendingChanges?.(); } catch {} pane.remove(); },
+    destroy() { destroyed = true; presence.destroy(); try { canvas?.flushPendingChanges?.(); } catch {} pane.remove(); },
   };
+  return controller;
 }

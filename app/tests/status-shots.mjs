@@ -63,7 +63,7 @@ const caretAtEndOf = async text => { await pm().locator(`p:has-text("${text}")`)
 // A reply that is an error result (a rate limit, a sign-in problem) is not a picture of the product; try the
 // next provider, and only then seed a transcript — flagged in the manifest and the caption.
 let chat = { real: false };
-const prompt = 'Read the paper "Status: what the canvas does today" and propose one short sentence to append under the callout, noting that table header columns and alignment now survive a reload. Keep your reply to two lines.';
+const prompt = 'Read the paper "Status: what the canvas does today" and append one short sentence at the end, noting that table header columns and alignment now survive a reload. Keep your reply to two lines.';
 const clearChat = () => page.evaluate(() => { const s = window.__barkdown.state; const c = s.chats[s.current]; c.messages = []; c.runId = null; c.workingLabel = null; window.__barkdown.render(); });
 for (const provider of ['claude', 'codex']) {
   try {
@@ -88,7 +88,7 @@ if (!chat.real) {
 await page.waitForTimeout(600);
 await settled();
 
-// Fold the tool steps (their summaries still say what was read and proposed) and scroll the transcript.
+// Fold the tool steps (their summaries still say what was read and edited) and scroll the transcript.
 const tidyChat = (where = 'top') => page.evaluate(w => { document.querySelectorAll('details.bw-step').forEach(d => { d.open = false; }); const t = document.querySelector('#bw-transcript'); if (t) t.scrollTop = w === 'bottom' ? t.scrollHeight : 0; }, where);
 await tidyChat('top');
 const shots = [];

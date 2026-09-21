@@ -1,3 +1,5 @@
+import { agentPresence } from '../agent-presence.js';
+import { renderAgentUndo } from '../agent-undo.js';
 // Document work tab: a Tiptap editor over the local document store, with proposals, revisions,
 // references and a linked-document path that opens to the right.
 import { Editor } from '@tiptap/core';
@@ -27,9 +29,12 @@ const BLOCK_TYPES = [
 ];
 
 export function mountDocument(tab, host, ctx) {
-  const pane = el(`<div class="bw-pane bw-doc-pane"><div class="bw-path" id="path"></div><div class="bw-docpanes"><div class="bw-source-pane" id="source"></div><div class="bw-current-pane" id="current"><div class="bw-document"><div class="bw-kicker"><span id="kicker">Barkdown / Library</span><span class="bw-save-state" id="save-state"></span></div><input class="bw-doc-title" id="title" aria-label="Document title" placeholder="Untitled"><div class="bw-doc-meta" id="meta"></div><div id="proposals"></div><div id="conflict"></div><div id="editor"></div><div class="bw-doc-links" id="links"></div><div class="bw-doc-state" id="state"></div></div></div></div><div class="bw-bubble" id="bubble" hidden></div><div class="bw-slash" id="slash" hidden></div></div>`);
+  const pane = el(`<div class="bw-pane bw-doc-pane"><div class="bw-path" id="path"></div><div class="bw-docpanes"><div class="bw-source-pane" id="source"></div><div class="bw-current-pane" id="current"><div class="bw-document"><div class="bw-kicker"><span id="kicker">Barkdown / Library</span><span class="bw-save-state" id="save-state"></span></div><input class="bw-doc-title" id="title" aria-label="Document title" placeholder="Untitled"><div class="bw-doc-meta" id="meta"></div><div id="agent-edit"></div><div id="proposals"></div><div id="conflict"></div><div id="editor"></div><div class="bw-doc-links" id="links"></div><div class="bw-doc-state" id="state"></div></div></div></div><div class="bw-bubble" id="bubble" hidden></div><div class="bw-slash" id="slash" hidden></div></div>`);
   host.appendChild(pane);
   const q = s => pane.querySelector(s);
+  const presence = agentPresence(pane, () => q('.ProseMirror'), q('#current'));
+  let refreshing = false, refreshAgain = false;
+  const updateUndo = () => renderAgentUndo(q('#agent-edit'), doc?.id, doc?.rev, async () => { if (dirty || saving) throw new Error('Finish saving your edit before Undo.'); presence.stop(); await api.docs.undoAgentEdit(doc.id, q('#agent-edit').dataset.editId); await controller.refresh(doc.id); ctx.libraryChanged(); });
   let editor = null;
   let doc = null;
   let dirty = false;
@@ -82,12 +87,13 @@ export function mountDocument(tab, host, ctx) {
     const box = q('#conflict');
     box.innerHTML = '';
     box.appendChild(el(`<div class="bw-conflict"><strong>This document changed elsewhere</strong> (now rev ${current.rev}, ${esc(relativeTime(current.updatedAt))}). Your unsaved edits are still here.<div><button data-act="theirs">Load the newer version</button><button data-act="mine">Keep mine and overwrite</button></div></div>`));
-    box.querySelector('[data-act="theirs"]').onclick = () => { doc = current; editor.commands.setContent(doc.content); q('#title').value = doc.title; dirty = false; box.innerHTML = ''; setSaveState('Loaded rev ' + doc.rev); renderMeta(); };
+    box.querySelector('[data-act="theirs"]').onclick = () => { doc = current; editor.commands.setContent(doc.content, { emitUpdate: false }); q('#title').value = doc.title; dirty = false; box.innerHTML = ''; setSaveState('Loaded rev ' + doc.rev); renderMeta(); };
     box.querySelector('[data-act="mine"]').onclick = () => { doc.rev = current.rev; dirty = true; box.innerHTML = ''; persist(); persist.flush(); };
   }
 
   function renderMeta() {
     if (!doc) return;
+    updateUndo();
     const crumbs = ctx.pagePath ? ctx.pagePath(doc.id, doc.source) : [];
     q('#kicker').textContent = crumbs.length > 1 ? crumbs.join(' / ') : (doc.source === 'barkpark' ? 'Barkpark / Paper' : 'Pages');
     q('#meta').textContent = `${doc.source === 'barkpark' ? 'Read-only copy · ' : ''}rev ${doc.rev ?? '–'} · updated ${relativeTime(doc.updatedAt)} · ${(doc.references || []).length} reference(s) · ${(doc.backlinks || []).length} backlink(s)`;
@@ -108,7 +114,7 @@ export function mountDocument(tab, host, ctx) {
     try {
       const result = await api.docs.resolveProposal(doc.id, proposalId, accept);
       doc = result.doc || doc;
-      if (accept && editor) { editor.commands.setContent(doc.content); dirty = false; setSaveState('Applied · rev ' + doc.rev); }
+      if (accept && editor) { editor.commands.setContent(doc.content, { emitUpdate: false }); dirty = false; setSaveState('Applied · rev ' + doc.rev); }
       renderProposals(); renderMeta(); renderLinks();
       ctx.documentChanged(doc);
       toast(accept ? 'Change applied' : 'Proposal discarded');
@@ -133,7 +139,7 @@ export function mountDocument(tab, host, ctx) {
       !references.length && !(doc.backlinks || []).length && !related.length ? '<h3>Linked documents</h3><p class="bw-small bw-muted">Link another document with the link button (barkdown://doc/&lt;id&gt;) and it will appear here with its backlink.</p>' : '',
     ].join('');
     host.querySelectorAll('[data-open]').forEach(b => { b.onclick = () => ctx.openLinked(tab, b.dataset.open, b.dataset.source); });
-    host.querySelectorAll('[data-restore]').forEach(b => { b.onclick = async () => { try { const r = await api.docs.restore(doc.id, Number(b.dataset.restore)); doc = r.doc; editor.commands.setContent(doc.content); dirty = false; setSaveState('Restored · rev ' + doc.rev); renderMeta(); renderLinks(); ctx.documentChanged(doc); } catch (error) { toast(error.message, 'error'); } }; });
+    host.querySelectorAll('[data-restore]').forEach(b => { b.onclick = async () => { try { const r = await api.docs.restore(doc.id, Number(b.dataset.restore)); doc = r.doc; editor.commands.setContent(doc.content, { emitUpdate: false }); dirty = false; setSaveState('Restored · rev ' + doc.rev); renderMeta(); renderLinks(); ctx.documentChanged(doc); } catch (error) { toast(error.message, 'error'); } }; });
   }
 
   function renderPath() {
@@ -313,7 +319,7 @@ export function mountDocument(tab, host, ctx) {
     });
     q('#title').oninput = () => { if (readOnly) return; dirty = true; tab.title = q('#title').value.trim() || 'Untitled'; ctx.tabChanged(tab); persist(); };
     q('#title').onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); editor.commands.focus('start'); } };
-    q('#state').textContent = readOnly ? 'This paper is read from Barkpark. Import it to edit a local copy; writes back to Barkpark are fenced through the ops endpoint and off by default.' : 'Edits save automatically to the local library with revision history. The assistant proposes changes here for you to keep or discard.';
+    q('#state').textContent = readOnly ? 'This paper is read from Barkpark. Import it to edit a local copy; writes back to Barkpark are fenced through the ops endpoint and off by default.' : 'Edits save automatically to the local library with revision history. Assistant edits save directly. Undo the latest change above or restore a revision from History.';
     renderMeta(); renderProposals(); renderPath(); renderLinks(); renderSource();
     q('#current').scrollTop = tab.scroll || 0;
   }
@@ -321,20 +327,34 @@ export function mountDocument(tab, host, ctx) {
   load();
   pane.addEventListener('scroll', () => {}, true);
 
-  return {
+  const controller = {
     el: pane,
     type: 'doc',
     tab,
     async refresh(changedId) {
       if (!doc || changedId && changedId !== doc.id) return;
+      if (refreshing) { refreshAgain = true; return; }
       if (dirty || saving) return;
-      try { const fresh = await fetchDoc(doc.id); if (destroyed || !fresh) return; const contentChanged = fresh.rev !== doc.rev; doc = fresh; if (contentChanged && editor) editor.commands.setContent(doc.content); renderProposals(); renderMeta(); renderLinks(); renderPath(); tab.title = doc.title; ctx.tabChanged(tab); } catch {}
+      refreshing = true;
+      const id = doc.id, beforeRev = doc.rev;
+      try {
+        const fresh = await fetchDoc(id);
+        if (destroyed || !fresh || doc.id !== id || dirty || saving) return;
+        const edit = await api.docs.agentEdit(id);
+        const allowed = () => !destroyed && doc.id === id && doc.rev === beforeRev && !dirty && !saving;
+        const apply = () => { doc = fresh; if (editor && fresh.rev !== beforeRev) editor.commands.setContent(doc.content, { emitUpdate: false }); q('#title').value = doc.title; setSaveState('Saved · rev ' + doc.rev); };
+        if (edit && !edit.undone && edit.beforeRev === beforeRev && edit.afterRev === fresh.rev) await presence.run(edit, apply, allowed);
+        else if (allowed()) apply();
+        renderProposals(); renderMeta(); renderLinks(); renderPath(); tab.title = doc.title; ctx.tabChanged(tab);
+      } catch (error) { console.warn('Document refresh:', error); }
+      finally { refreshing = false; if (refreshAgain) { refreshAgain = false; controller.refresh(); } }
     },
-    navigate() { load(); },
+    navigate() { presence.stop(); load(); },
     savePosition() { tab.scroll = q('#current').scrollTop; },
     focus() { editor?.commands.focus(); },
     isDirty: () => dirty,
     flush: () => persist.flush(),
-    destroy() { destroyed = true; persist.flush(); editor?.destroy(); pane.remove(); },
+    destroy() { destroyed = true; presence.destroy(); persist.flush(); editor?.destroy(); pane.remove(); },
   };
+  return controller;
 }

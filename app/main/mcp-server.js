@@ -5,6 +5,8 @@ const { StdioServerTransport } = require('@modelcontextprotocol/sdk/server/stdio
 const { z } = require('zod');
 const store = require('./store');
 const documents = require('./documents');
+const agentEdits = require('./agent-edits');
+const readRevisions = new Map();
 const { docToMarkdown } = require('../shared/markdown');
 const barkpark = require('./barkpark');
 const conversations = require('./conversations');
@@ -56,29 +58,29 @@ server.registerTool('read_document', { description: 'Read a Barkdown document (o
   if (isPaper(id)) {
     if (!barkparkOn()) return text('Barkpark is not connected.');
     const p = await paper.get(slugOf(id));
+    readRevisions.set(id, p.rev);
     const blocks = (p.blocks || []).map((b, n) => `[${n}] ${b.type}${b.level ? ' h' + b.level : ''}`);
     return text([`# ${p.title}`, `id: ${id} · rev ${p.rev} · updated ${p.updatedAt} · Barkpark paper`, '', 'Top-level blocks: ' + (blocks.join(', ') || '(HTML body, no blocks)'), '', p.markdown || barkpark.htmlToText(p.html)].join('\n'));
   }
   documents.loadAll();
   const doc = documents.get(id);
+  if (doc) readRevisions.set(id, doc.rev);
   return text(doc ? describe(doc) : `No document with id ${id}. Use list_documents.`);
 });
 
-server.registerTool('propose_document_edit', { description: 'Propose a change to a Barkdown document. The person reviews it in the document tab and keeps or discards it; never assume it is applied. mode=append adds blocks at the end, mode=replace rewrites the whole document, mode=replace_block replaces one top-level block by index (0-based, as listed by read_document).', inputSchema: { id: z.string(), mode: z.enum(['append', 'replace', 'replace_block']), blockIndex: z.number().int().optional(), markdown: z.string(), summary: z.string().describe('One sentence describing the change') } }, async ({ id, mode, blockIndex, markdown, summary }) => {
-  if (isPaper(id)) {
-    const proposal = documents.addPaperProposal(slugOf(id), { mode, blockIndex, markdown, summary, actor: 'agent' });
-    return text(`Proposal ${proposal.id} added to Barkpark paper ${slugOf(id)}. The person keeps or discards it in the paper tab; when kept it is applied through the fenced ops endpoint.`);
-  }
-  documents.loadAll();
-  const doc = documents.get(id);
-  if (!doc) return text(`No document with id ${id}.`);
-  const proposal = documents.addProposal(id, { mode, blockIndex, markdown, summary, actor: 'agent' });
-  return text(`Proposal ${proposal.id} added to "${doc.title}" (rev ${doc.rev}). The person can keep or discard it in the document tab.`);
+// Keep the old tool name as an alias for resumed provider sessions.
+for (const name of ['edit_document', 'propose_document_edit']) server.registerTool(name, { description: 'Apply a document edit directly and save it, with Undo available in the document. Read the document first. No Keep step. Prefer replace_block for targeted edits; append adds blocks, replace rewrites the document.', inputSchema: { id: z.string(), mode: z.enum(['append', 'replace', 'replace_block']), blockIndex: z.number().int().optional(), markdown: z.string(), summary: z.string() } }, async input => {
+  try {
+    const edit = await agentEdits.apply({ ...input, baseRev: readRevisions.get(input.id) }, { ...bpFlag(), ...bpConfig() });
+    readRevisions.set(input.id, edit.afterRev);
+    return text(`Saved edit to ${input.id} at revision ${edit.afterRev}. Applied directly; Undo is available in the document.`);
+  } catch (error) { return { ...text(error.message), isError: true }; }
 });
 
 server.registerTool('create_document', { description: 'Create a new document in the Barkdown library from markdown. It opens beside the chat.', inputSchema: { title: z.string(), markdown: z.string() } }, async ({ title, markdown }) => {
   documents.loadAll();
   const doc = documents.create({ title, markdown, actor: 'agent' });
+  readRevisions.set(doc.id, doc.rev);
   return text(`Created document ${doc.id} ("${doc.title}") at rev 1.`);
 });
 

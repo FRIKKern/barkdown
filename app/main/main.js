@@ -39,7 +39,7 @@ function publicSettings() {
 function syncBarkparkEnv() {
   const s = readSettings();
   process.env.BARKDOWN_BP_TOKEN = decrypt(s.barkpark.tokenEncrypted) || '';
-  store.writeJson('barkpark.json', { enabled: s.barkpark.enabled, viaCli: s.barkpark.viaCli, server: s.barkpark.server, dataset: s.barkpark.dataset, hasToken: Boolean(s.barkpark.tokenEncrypted) });
+  store.writeJson('barkpark.json', { enabled: s.barkpark.enabled, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, server: s.barkpark.server, dataset: s.barkpark.dataset, hasToken: Boolean(s.barkpark.tokenEncrypted) });
 }
 function barkparkConfig() { const s = readSettings(); return { server: s.barkpark.server, token: decrypt(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, enabled: s.barkpark.enabled }; }
 
@@ -126,6 +126,8 @@ function registerIpc() {
   handle('state:load', () => store.readJson('workspace.json', null));
   handle('state:save', state => { store.writeJson('workspace.json', state); return true; });
 
+  handle('docs:agentEdit', id => require('./agent-edits').latest(id));
+  handle('docs:undoAgentEdit', ({ id, editId }) => require('./agent-edits').undo(id, editId, barkparkConfig()));
   handle('docs:list', () => documents.list());
   handle('docs:get', id => documents.get(id));
   handle('docs:create', input => documents.create(input));

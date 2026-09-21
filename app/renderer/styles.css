@@ -279,3 +279,9 @@ h1,h2,h3,p{margin:0}
 @media(max-width:760px){.bw-sidebar-resizer{display:none}}
 
 @media(hover:none){.bw-page-actions{visibility:visible;pointer-events:auto}}
+.bw-agent-caret { position:fixed; width:2px; background:#85a554; z-index:90; pointer-events:none; transition:left 110ms ease-out,top 160ms ease-out; box-shadow:0 0 0 1px #85a55422; }
+.bw-agent-caret span { position:absolute; left:0; bottom:100%; padding:2px 6px; border-radius:4px 4px 4px 0; background:#658339; color:white; font:10px/1.4 system-ui; white-space:nowrap; }
+.bw-agent-edit { display:flex; gap:12px; align-items:center; font-size:12px; color:var(--muted); margin:8px 0 16px; }
+.bw-agent-edit span { flex:1; }
+.bw-agent-edit button { border:0; background:transparent; color:inherit; text-decoration:underline; cursor:pointer; }
+@media (prefers-reduced-motion:reduce) { .bw-agent-caret { transition:none; } }

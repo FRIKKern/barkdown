@@ -33,7 +33,7 @@ const overview = list.find(d => d.title === 'Overview');
 const read = (await client.callTool({ name: 'read_document', arguments: { id: overview.id } })).content[0].text;
 assert(read.includes('# Overview') && read.includes('Top-level blocks'), 'read_document did not return markdown with block indexes');
 const proposed = (await client.callTool({ name: 'propose_document_edit', arguments: { id: overview.id, mode: 'append', markdown: '## From MCP\n\nAdded via the tool.', summary: 'Add a section' } })).content[0].text;
-assert(/Proposal .* added/.test(proposed), 'proposal not recorded');
+assert(proposed.includes('Saved edit'), 'legacy alias did not apply directly');
 const created = (await client.callTool({ name: 'create_document', arguments: { title: 'MCP made this', markdown: 'Hello from **MCP**.' } })).content[0].text;
 assert(created.includes('Created document mcp-made-this'), 'create_document failed: ' + created);
 const search = JSON.parse((await client.callTool({ name: 'search_documents', arguments: { query: 'hello' } })).content[0].text);
@@ -42,7 +42,16 @@ assert(search.some(d => d.id === 'mcp-made-this'), 'search did not find the new 
 // The main process reads the same files: proposals written by the MCP process are visible after reload().
 const store = require('../main/store.js'); const documents = require('../main/documents.js');
 store.init(storeDir); documents.loadAll();
-assert(documents.get(overview.id).proposals.length === 1, 'main process does not see the MCP proposal');
+assert(documents.get(overview.id).proposals.length === 0 && documents.get(overview.id).markdown.includes('Added via the tool.'), 'main process does not see the direct MCP edit');
+const unseen = await client.callTool({name:'edit_document', arguments:{id:'interaction-notes',mode:'append',markdown:'unsafe',summary:'unsafe'}});
+assert(unseen.isError, 'unread document accepted an edit');
+const current = documents.get(overview.id);
+documents.save({id:current.id,baseRev:current.rev,content:current.content,summary:'Concurrent user edit'});
+const stale = await client.callTool({name:'edit_document', arguments:{id:overview.id,mode:'append',markdown:'stale edit',summary:'stale'}});
+assert(stale.isError, 'stale agent edit was not rejected');
+const edits = require('../main/agent-edits');
+let blocked = false; try { await edits.undo(overview.id, edits.latest(overview.id).id); } catch { blocked = true; }
+assert(blocked, 'Undo overwrote a later user edit');
 assert(documents.get('mcp-made-this').markdown.includes('**MCP**'), 'main process does not see the MCP document');
 
 await client.close();

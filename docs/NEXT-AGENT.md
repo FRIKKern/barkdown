@@ -36,6 +36,12 @@ The desktop sidebar now has a draggable right edge, keyboard adjustment and doub
 
 Cloud organization follows D27: discovered papers stay in collapsed Cloud archive until explicitly placed. Imports become local Pages while their cloud originals remain unplaced. Layout version 2 migrates loose legacy cloud roots only, preserving nested groups and storing `cloudLayoutMigration.previousRoots` for recovery. Refresh/disconnect preserve arranged cloud papers.
 
+## Direct assistant editing — 2026-09-21
+
+D28 supersedes the older proposal-by-default descriptions above. `edit_document` (and the legacy `propose_document_edit` alias for resumed sessions) now saves after checking the revision last read by the agent. Local mutations serialize through a per-document lock and reload from disk; cloud writes require live editing and an acknowledged revision. A persisted receipt supplies Undo for the latest edit, refused after intervening changes. Visible local and Paper tabs mark the target then reveal replacement text with an agent caret. The animation presents a save already acknowledged by storage; it does not synthesize transactions or steal native selection. Human input ends it immediately. Reduced motion and hidden views skip it. Existing pending proposals are retained for explicit review.
+
+Validation: unit/MCP checks exercise direct saves, legacy alias, stale edits and guarded Undo; `app/tests/agent-edit.live.mjs` exercises selection, writing, takeover, reduced motion and no extra saves in Electron. `paper-proposal.live.mjs` now tests direct MCP edits, three-block replacement and exact server-block Undo.
+
 ## First 20 minutes
 
 1. Run `npm ci`, `npx playwright install chromium`, and `npm run verify`.

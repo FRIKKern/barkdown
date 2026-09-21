@@ -1,5 +1,4 @@
-// Live check: an agent proposal on a Barkpark paper (made through the MCP server) shows up in the paper tab
-// and, when kept, is applied on the server through the fenced ops endpoint.
+// Live check: MCP edits save directly, show intention in the paper, and support fenced Undo.
 import { _electron as electron } from 'playwright';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
@@ -33,25 +32,26 @@ try {
   step('MCP listing includes Barkpark papers', listing.some(d => d.id === 'bp:' + SLUG));
   const read = (await client.callTool({ name: 'read_document', arguments: { id: 'bp:' + SLUG } })).content[0].text;
   step('MCP read_document returns the paper as markdown', read.includes('Barkpark paper') && read.includes('Top-level blocks'));
-  const marker = 'proposal-' + Date.now().toString(36);
-  const proposed = (await client.callTool({ name: 'propose_document_edit', arguments: { id: 'bp:' + SLUG, mode: 'append', markdown: `Agent proposal ${marker} with **bold** text.`, summary: 'Live proposal check' } })).content[0].text;
-  step('MCP proposal recorded for the paper', /Proposal .* added to Barkpark paper/.test(proposed));
-  await client.close();
-
   const before = serverPaper();
-  await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug }), SLUG);
-  await page.waitForSelector('.bw-paper-pane:not([hidden]) .bw-proposal [data-act="keep"]', { timeout: 60000 });
-  step('proposal card shown in the paper tab', (await page.locator('.bw-paper-pane:not([hidden]) .bw-proposal').innerText()).includes('Live proposal check'));
-  await page.screenshot({ path: 'test-results/15-paper-proposal.png' });
-  await page.locator('.bw-paper-pane:not([hidden]) .bw-proposal [data-act="keep"]').click();
-  await page.waitForFunction(() => document.querySelectorAll('.bw-paper-pane:not([hidden]) .bw-proposal').length === 0, null, { timeout: 60000 });
-  await page.waitForFunction(marker => (document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror')?.innerText || '').includes(marker), marker, { timeout: 60000 });
+  await page.evaluate(slug => window.__barkdown.openTarget({kind:'doc',id:slug,source:'barkpark',title:slug}), SLUG);
+  await page.waitForSelector('.bw-paper-pane:not([hidden]) .ProseMirror', {timeout:60000});
+  const marker = 'direct-' + Date.now().toString(36);
+  const result = await client.callTool({name:'edit_document',arguments:{id:'bp:'+SLUG,mode:'replace_block',blockIndex:1,markdown:`Agent edit ${marker} with **bold** text.\n\nA second replacement block.\n\nA third replacement block.`,summary:'Live direct edit check'}});
+  step('MCP directly saves the paper', !result.isError && result.content[0].text.includes('Saved edit'));
+  await page.evaluate(() => { window.__barkdown.controllers.forEach(c => { if(c.type==='doc') c.refresh(); }); });
+  await page.waitForSelector('[data-agent-phase="select"]', {timeout:10000});
+  step('paper marks the target before replacing it', true);
+  await page.screenshot({path:'test-results/15-paper-agent-selection.png'});
+  await page.waitForSelector('[data-agent-phase="write"]', {timeout:10000});
+  step('paper shows a writing caret', await page.locator('.bw-agent-caret').count() === 1);
+  await page.waitForFunction(() => !document.querySelector('[data-agent-phase]'));
   const after = serverPaper();
-  step('kept proposal landed on the server as a new block', after.rev > before.rev && JSON.stringify(after.blocks).includes(marker));
+  step('all replacement blocks landed without Keep', after.rev > before.rev && JSON.stringify(after.blocks).includes(marker) && JSON.stringify(after.blocks).includes('A third replacement block.') && await page.locator('[data-act="keep"]').count() === 0);
   step('inline markdown became a strong node', JSON.stringify(after.blocks).includes('"type":"strong"'));
-  await page.screenshot({ path: 'test-results/16-paper-proposal-kept.png' });
-  const extra = after.blocks.filter(b => JSON.stringify(b).includes(marker)).map(b => ({ op: 'remove-block', id: b.id }));
-  if (extra.length) bp(['bulldocs', 'patch', SLUG, '--file', '-', '--yes'], JSON.stringify({ ifRev: after.rev, ops: extra }));
+  await page.locator('.bw-paper-pane:not([hidden]) #agent-edit button').click();
+  await page.waitForFunction(marker => !(document.querySelector('.bw-paper-pane:not([hidden]) .ProseMirror')?.textContent || '').includes(marker), marker);
+  step('Undo restores the exact server blocks', JSON.stringify(serverPaper().blocks) === JSON.stringify(before.blocks));
+  await client.close();
 } finally {
   console.log(JSON.stringify({ results }, null, 1));
   await app.close();

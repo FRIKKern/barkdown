@@ -42,5 +42,6 @@ assert(s.additions === 6 && s.deletions === 2 && s.total === 6, 'totals: ' + JSO
 assert(changeHeadline(s) === 'Edited 4 files · 2 documents', 'headline: ' + changeHeadline(s));
 assert(changeHeadline(summariseChanges([{ tool: 'Write', input: { file_path: 'x', content: 'a' }, ok: true }], [])) === 'Wrote 1 file', 'write-only headline');
 assert(summariseChanges([], []).total === 0, 'nothing');
+assert(summariseChanges([], [{label:'Edited Overview',target:{kind:'doc',id:'overview'}}]).docs[0].kind === 'edited', 'direct edit must not be labeled a proposal');
 console.log('ok summariseChanges');
 console.log('Change card checks passed.');

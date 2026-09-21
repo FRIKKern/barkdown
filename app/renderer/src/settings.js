@@ -81,7 +81,7 @@ export function openSettings(onChange, { pane = 'general' } = {}) {
           </article>
         </div>
         <h3>How edits happen</h3>
-        <p class="bw-sheet-note">Claude Code asks in the chat before it edits files or runs commands. Codex applies edits inside the working folder's sandbox and shows them as a review. Both propose document changes for you to keep or discard.</p>
+        <p class="bw-sheet-note">Claude Code asks in the chat before it edits files or runs commands. Codex applies edits inside the working folder's sandbox and shows them as a review. Both edit documents directly, with Undo available in the document.</p>
       </section>
       <section data-pane="barkpark" ${pane !== 'barkpark' ? 'hidden' : ''}>
         <h3>Library</h3>
@@ -99,7 +99,7 @@ export function openSettings(onChange, { pane = 'general' } = {}) {
         <div class="bw-set"><div class="bw-set-text"><span class="bw-status" id="bp-bundle">${esc(describeCanvasBundle())}</span></div></div>
         <div class="bw-set"><div class="bw-set-text"><span class="bw-status" id="bp-status" aria-live="polite"></span></div><div class="bw-set-ctl"><button type="button" class="bw-btn" data-act="test">${iconHtml('plug-zap', 13)}Test connection</button></div></div>
         <h3>Writing</h3>
-        ${switchHtml('bp-writes', 'Allow fenced writes to Barkpark', 'Off by default. When on, accepted proposals on a paper are sent to the server through the fenced ops endpoint.')}
+        ${switchHtml('bp-writes', 'Allow fenced writes to Barkpark', 'Off by default. When on, you and the assistant can edit papers directly, with revision checks and Undo for assistant edits.')}
       </section>
       <section data-pane="shortcuts" ${pane !== 'shortcuts' ? 'hidden' : ''}>
         ${SHORTCUTS.map(([group, ...rows]) => `<h3>${esc(group)}</h3><table class="bw-keys">${rows.map(([combo, what]) => `<tr><td>${keys(combo)}</td><td>${esc(what)}</td></tr>`).join('')}</table>`).join('')}

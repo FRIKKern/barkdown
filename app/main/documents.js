@@ -81,12 +81,35 @@ function create({ title, markdown, content, actor = 'you', tags = [] }) {
   return get(doc.id);
 }
 
-function save({ id, baseRev, content, title, actor = 'you', summary: note = 'Edited' }) {
+function save(input) {
+  // Main process and provider MCP processes share this store. Check revisions while
+  // holding the same per-document lock, rather than trusting a process-local cache.
+  const fs = require('fs');
+  const lock = store.filePath(path.join('documents', crypto.createHash('sha256').update(input.id).digest('hex') + '.lock'));
+  let fd;
+  try { fd = fs.openSync(lock, 'wx'); } catch (error) {
+    if (error.code !== 'EEXIST') throw error;
+    let abandoned = false;
+    try {
+      const owner = Number(fs.readFileSync(lock, 'utf8'));
+      if (Number.isSafeInteger(owner) && owner > 0) {
+        try { process.kill(owner, 0); } catch (probe) { abandoned = probe.code === 'ESRCH'; }
+      } else abandoned = Date.now() - fs.statSync(lock).mtimeMs > 30000;
+      if (abandoned) { fs.unlinkSync(lock); fd = fs.openSync(lock, 'wx'); }
+    } catch {}
+    if (fd == null) throw new Error('Document is being saved elsewhere. Try again.');
+  }
+  fs.writeFileSync(fd, String(process.pid));
+  try { reload(input.id); return saveCurrent(input); } finally { fs.closeSync(fd); fs.unlinkSync(lock); }
+}
+
+function saveCurrent({ id, baseRev, content, title, proposals, actor = 'you', summary: note = 'Edited' }) {
   const doc = cache.get(id);
   if (!doc) throw new Error(`Unknown document ${id}`);
   if (baseRev != null && doc.rev !== baseRev) return { conflict: true, doc: get(id) };
   const now = new Date().toISOString();
   const body = content || doc.content;
+  if (proposals) doc.proposals = proposals;
   Object.assign(doc, { content: body, title: title ?? doc.title, markdown: docToMarkdown(body), text: docToText(body), updatedAt: now, rev: doc.rev + 1, references: extractReferences(body) });
   doc.revisions = [{ rev: doc.rev, at: now, actor, summary: note, content: body }, ...(doc.revisions || [])].slice(0, MAX_REVISIONS);
   persist(doc);
@@ -176,7 +199,7 @@ function resolveProposal(id, proposalId, accept, actor = 'you') {
     blocks.splice(index, 1, ...markdownToDoc(proposal.markdown).content);
     content = { type: 'doc', content: blocks };
   } else content = markdownToDoc(proposal.markdown);
-  return save({ id, baseRev: doc.rev, content, actor: proposal.actor || 'agent', summary: proposal.summary || 'Accepted agent proposal' });
+  return save({ id, baseRev: doc.rev, content, proposals: doc.proposals, actor: proposal.actor || 'agent', summary: proposal.summary || 'Accepted agent proposal' });
 }
 
 function seed() {

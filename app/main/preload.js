@@ -15,6 +15,7 @@ const api = {
   docs: {
     list: () => call('docs:list'), get: id => call('docs:get', id), create: input => call('docs:create', input), save: input => call('docs:save', input), delete: id => call('docs:delete', id),
     search: q => call('docs:search', q), related: id => call('docs:related', id), history: id => call('docs:history', id), restore: (id, rev) => call('docs:restore', { id, rev }),
+    agentEdit: id => call('docs:agentEdit', id), undoAgentEdit: (id, editId) => call('docs:undoAgentEdit', { id, editId }),
     resolveProposal: (id, proposalId, accept) => call('docs:proposal', { id, proposalId, accept }), paperProposals: slug => call('docs:paperProposals', slug), resolvePaperProposal: (slug, proposalId, accept, rev) => call('docs:resolvePaperProposal', { slug, proposalId, accept, rev }), exportMarkdown: id => call('docs:exportMarkdown', id),
   },
   files: { tree: root => call('files:tree', root), read: (root, path) => call('files:read', { root, path }), write: (root, path, text, mtime) => call('files:write', { root, path, text, mtime }), search: (root, query) => call('files:search', { root, query }), exists: (root, path) => call('files:exists', { root, path }) },

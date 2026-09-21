@@ -11,7 +11,7 @@ const TARGET_ICON = { doc: 'file-text', web: 'globe', review: 'git-pull-request'
 
 export function transcriptHtml(chat, options = {}) {
   if (!chat.messages.length) {
-    return `<div class="bw-byline"><span class="bw-avatar bw-agent">b</span>Barkdown</div><p class="bw-agent-copy">${esc(options.intro || 'Start with a question, a document, or a website. I can open documents beside this chat, propose edits for you to keep or discard, browse websites, and work in a folder you give me.')}</p>`;
+    return `<div class="bw-byline"><span class="bw-avatar bw-agent">b</span>Barkdown</div><p class="bw-agent-copy">${esc(options.intro || 'Start with a question, a document, or a website. I can open documents beside this chat, edit them directly with Undo, browse websites, and work in a folder you give me.')}</p>`;
   }
   return chat.messages.map((m, index) => {
     if (m.role === 'user') {
@@ -105,7 +105,7 @@ function stepHtml(t, mi, n) {
     case 'NotebookEdit': body = `<div class="bw-kv"><b>notebook</b> ${esc(input.notebook_path || '')}</div>${diffHtml(String(input.new_source || '').split('\n').map(text => ({ kind: 'add', text })))}`; break;
     // Barkdown's own tools: show the page or proposal as it will read, not as JSON.
     case 'create_document': body = `<div class="bw-kv"><b>page</b> ${esc(input.title || '')}</div><div class="bw-doc-preview">${inlineMarkdownHtml(String(input.markdown || ''))}</div>${t.output ? `<pre class="bw-out">${esc(clipOut(t.output))}</pre>` : ''}`; break;
-    case 'propose_document_edit': body = `${kv({ document: input.id, mode: input.mode, block: input.blockIndex, summary: input.summary })}<div class="bw-doc-preview">${inlineMarkdownHtml(String(input.markdown || ''))}</div>${t.output ? `<pre class="bw-out">${esc(clipOut(t.output))}</pre>` : ''}`; break;
+    case 'edit_document': case 'propose_document_edit': body = `${kv({ document: input.id, mode: input.mode, block: input.blockIndex, summary: input.summary })}<div class="bw-doc-preview">${inlineMarkdownHtml(String(input.markdown || ''))}</div>${t.output ? `<pre class="bw-out">${esc(clipOut(t.output))}</pre>` : ''}`; break;
     default: body = kv(input) + (t.output != null || t.preview ? `<pre class="bw-out">${esc(clipOut(t.output ?? t.preview))}</pre>` : '');
   }
   return `<details class="bw-step ${state}" data-step="${mi}:${n}" open><summary>${iconHtml(icon, 12)}<span>${esc(t.done ? describeTool(t) : runningLabel(t))}</span>${state === 'running' ? '<i class="bw-pulse"></i>' : ''}${iconHtml('chevron-down', 12)}</summary><div class="bw-step-body">${body}</div></details>`;
@@ -116,7 +116,7 @@ function changeCardHtml(m, index) {
   const summary = summariseChanges(m.tools || [], m.events || []);
   if (!summary.total) return '';
   const files = summary.files.map(f => `<div class="bw-change"><span class="bw-change-icon">${iconHtml('file-code', 12)}</span><span class="bw-change-path" title="${esc(f.path)}">${esc(f.path)}</span><span class="bw-change-counts">${f.known ? `<b class="bw-positive">+${f.additions}</b> <b class="bw-negative">−${f.deletions}</b>` : `<span class="bw-muted">${esc(f.kinds.join(', ') || 'changed')}</span>`}</span><button data-view-file="${esc(f.path)}" title="Open the file in the project editor">View</button><button data-undo-file="${esc(f.path)}" title="Restore the file from git, or remove it if it is new">Undo</button></div>`).join('');
-  const docs = summary.docs.map(d => `<div class="bw-change"><span class="bw-change-icon">${iconHtml('file-text', 12)}</span><span class="bw-change-path">${esc(d.title)}</span><span class="bw-change-counts"><span class="bw-muted">${d.kind === 'created' ? 'created' : 'proposal to review'}</span></span><button data-view-doc="${esc(d.id)}" data-doc-source="${esc(d.source)}" title="Open the document">${d.kind === 'created' ? 'View' : 'Review'}</button></div>`).join('');
+  const docs = summary.docs.map(d => `<div class="bw-change"><span class="bw-change-icon">${iconHtml('file-text', 12)}</span><span class="bw-change-path">${esc(d.title)}</span><span class="bw-change-counts"><span class="bw-muted">${d.kind === 'created' ? 'created' : d.kind === 'edited' ? 'edited' : 'proposal to review'}</span></span><button data-view-doc="${esc(d.id)}" data-doc-source="${esc(d.source)}" title="Open the document">${d.kind === 'proposed' ? 'Review' : 'View'}</button></div>`).join('');
   return `<div class="bw-changes" data-changes="${index}"><div class="bw-changes-head"><span>${esc(changeHeadline(summary))}</span>${summary.files.some(f => f.known) ? `<b class="bw-positive">+${summary.additions}</b><b class="bw-negative">−${summary.deletions}</b>` : ''}</div>${files}${docs}</div>`;
 }
 
@@ -125,7 +125,7 @@ export function runningLabel(t) {
   const input = t.input || {};
   switch (t.tool) {
     case 'create_document': return `Creating page “${input.title || ''}”…`;
-    case 'propose_document_edit': return `Proposing a change to ${input.id || 'a document'}…`;
+    case 'edit_document': case 'propose_document_edit': return `Editing ${input.id || 'a document'}…`;
     case 'read_document': return `Reading ${input.id || 'a document'}…`;
     case 'search_documents': return `Searching documents for “${input.query || ''}”…`;
     case 'list_documents': return 'Listing documents…';
@@ -160,7 +160,7 @@ function describeTool(t) {
     case 'read_document': return `Read document ${input.id}`;
     case 'search_documents': return `Searched documents for “${input.query}”`;
     case 'list_documents': return 'Listed documents';
-    case 'propose_document_edit': return `Proposed ${input.mode} in ${input.id}`;
+    case 'edit_document': case 'propose_document_edit': return `${t.ok === false ? 'Could not edit' : 'Edited'} ${input.id}`;
     case 'create_document': return `${t.ok === false ? 'Could not create page' : 'Created page'} “${input.title}”`;
     case 'open_website': return `Opened ${input.url}`;
     case 'list_files': return `Listed files${input.dir ? ' in ' + input.dir : ''}`;
