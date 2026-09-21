@@ -633,6 +633,55 @@ api.agent.onEvent(event => handleAgentEvent(event, {
   runChanged: chat => { renderChat(); renderSidebar(); },
 }));
 
+// Resize the app-wide navigation independently of each conversation's work split.
+function sidebarMaxWidth() { return Math.max(160, Math.min(420, root.clientWidth - 520)); }
+function applySidebarWidth(value) {
+  const width = Number.isFinite(value) ? Math.min(420, Math.max(160, Math.round(value))) : 200;
+  root.style.setProperty('--bw-sidebar-preferred', width + 'px');
+  const grip = q('#bw-sidebar-resizer');
+  grip.setAttribute('aria-valuemax', sidebarMaxWidth());
+  grip.setAttribute('aria-valuenow', Math.round(q('.bw-sidebar').getBoundingClientRect().width));
+}
+function wireSidebarResize() {
+  const grip = q('#bw-sidebar-resizer');
+  const width = () => q('.bw-sidebar').getBoundingClientRect().width;
+  const change = value => {
+    state.settings.sidebarWidth = Math.max(160, Math.min(sidebarMaxWidth(), Math.round(value)));
+    applySidebarWidth(state.settings.sidebarWidth);
+  };
+  const save = () => api.settings.set({ sidebarWidth: state.settings.sidebarWidth }).catch(() => toast('Could not remember the sidebar width.'));
+  grip.addEventListener('pointerdown', e => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    grip.setPointerCapture(e.pointerId);
+    const startX = e.clientX, startWidth = width();
+    root.classList.add('sidebar-resizing');
+    const move = ev => change(startWidth + ev.clientX - startX);
+    const stop = () => {
+      grip.removeEventListener('pointermove', move);
+      grip.removeEventListener('pointerup', stop);
+      grip.removeEventListener('pointercancel', stop);
+      grip.removeEventListener('lostpointercapture', stop);
+      root.classList.remove('sidebar-resizing');
+      if (grip.hasPointerCapture(e.pointerId)) grip.releasePointerCapture(e.pointerId);
+      save();
+    };
+    grip.addEventListener('pointermove', move);
+    grip.addEventListener('pointerup', stop);
+    grip.addEventListener('pointercancel', stop);
+    grip.addEventListener('lostpointercapture', stop);
+  });
+  grip.addEventListener('dblclick', () => { change(200); save(); });
+  grip.addEventListener('keydown', e => {
+    const delta = { ArrowLeft: -1, ArrowRight: 1 }[e.key];
+    if (!delta && e.key !== 'Home' && e.key !== 'End') return;
+    e.preventDefault();
+    change(delta ? width() + delta * (e.shiftKey ? 40 : 10) : e.key === 'Home' ? 200 : sidebarMaxWidth());
+    save();
+  });
+  new ResizeObserver(() => applySidebarWidth(state.settings.sidebarWidth)).observe(root);
+}
+
 // ---------- splitter & settings ----------
 function applyChatWidth(value) { root.style.setProperty('--bw-chat', value + 'fr'); root.style.setProperty('--bw-work', (100 - value) + 'fr'); q('#bw-splitter').setAttribute('aria-valuenow', value); }
 function setChatWidth(value) { const width = Math.min(70, Math.max(30, Math.round(value))); state.settings.chatWidth = width; applyChatWidth(width); persistWidth(); }
@@ -658,6 +707,7 @@ function wireSplitter() {
 
 // ---------- events ----------
 function wire() {
+  wireSidebarResize();
   renderNewMenu();
   q('#bw-plus').onclick = () => toggleMenu('#bw-new-menu', '#bw-plus');
   q('#bw-open-work').onclick = () => toggleMenu('#bw-new-menu', '#bw-open-work');
@@ -731,6 +781,7 @@ function wire() {
   // <bp-paper-canvas> defined; unconnected, the first paper tab resolves it (a custom element cannot
   // be redefined, so the bundle must not be pinned to the vendored copy before the connection is known).
   if (state.settings?.barkpark?.enabled) ensureCanvasBundle().catch(() => {});
+  applySidebarWidth(state.settings.sidebarWidth);
   applyChatWidth(state.settings.chatWidth || 40);
   applyTheme(state.settings.theme || 'system');
   await load();

@@ -25,7 +25,7 @@ const DEV = process.argv.includes('--dev');
 let win = null;
 
 // ---------- settings ----------
-const DEFAULT_SETTINGS = { chatWidth: 40, theme: 'system', model: 'claude-opus-5', provider: null, claudeModel: '', codexModel: '', apiKeyEncrypted: null, barkpark: { enabled: false, server: '', tokenEncrypted: null, dataset: 'production', writes: false, viaCli: false }, recentFolders: [], windowBounds: null };
+const DEFAULT_SETTINGS = { sidebarWidth: 200, chatWidth: 40, theme: 'system', model: 'claude-opus-5', provider: null, claudeModel: '', codexModel: '', apiKeyEncrypted: null, barkpark: { enabled: false, server: '', tokenEncrypted: null, dataset: 'production', writes: false, viaCli: false }, recentFolders: [], windowBounds: null };
 
 function readSettings() { return { ...DEFAULT_SETTINGS, ...store.readJson('settings.json', {}), barkpark: { ...DEFAULT_SETTINGS.barkpark, ...(store.readJson('settings.json', {}).barkpark || {}) } }; }
 function writeSettings(settings) { store.writeJson('settings.json', settings); }
@@ -33,7 +33,7 @@ function encrypt(value) { if (!value) return null; return safeStorage.isEncrypti
 function decrypt(value) { if (!value) return ''; try { if (value.startsWith('enc:')) return safeStorage.decryptString(Buffer.from(value.slice(4), 'base64')); if (value.startsWith('plain:')) return Buffer.from(value.slice(6), 'base64').toString('utf8'); } catch (error) { console.warn('settings: could not decrypt', error.message); } return ''; }
 function publicSettings() {
   const s = readSettings();
-  return { chatWidth: s.chatWidth, theme: s.theme, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY) && !s.apiKeyEncrypted, barkpark: { enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli }, recentFolders: s.recentFolders, userData: store.dir() };
+  return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY) && !s.apiKeyEncrypted, barkpark: { enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli }, recentFolders: s.recentFolders, userData: store.dir() };
 }
 // What the MCP server and the context note need to know about Barkpark, refreshed on every save.
 function syncBarkparkEnv() {
@@ -96,6 +96,7 @@ function registerIpc() {
   handle('settings:get', () => publicSettings());
   handle('settings:set', patch => {
     const s = readSettings();
+    if (Number.isFinite(patch.sidebarWidth)) s.sidebarWidth = Math.min(420, Math.max(160, Math.round(patch.sidebarWidth)));
     if (patch.chatWidth != null) s.chatWidth = patch.chatWidth;
     if (patch.theme) s.theme = patch.theme;
     if (patch.model) s.model = patch.model;

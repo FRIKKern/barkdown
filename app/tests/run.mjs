@@ -37,6 +37,26 @@ try {
   step('seeded documents appear as root pages', (await page.locator('#bw-pages .bw-page-row').count()) === 2);
   step('archive is collapsed and empty when everything is placed', (await page.locator('#bw-archive-toggle').innerText()).includes('0'));
   step('no sidebar folder picker', (await page.locator('.bw-sidebar [data-project-open], .bw-sidebar select').count()) === 0);
+  const sidebarWidth = () => page.locator('.bw-sidebar').evaluate(el => Math.round(el.getBoundingClientRect().width));
+  const sidebarGrip = page.getByRole('separator', { name: 'Sidebar width' });
+  const gripBounds = await sidebarGrip.boundingBox();
+  await page.mouse.move(gripBounds.x + gripBounds.width / 2, 220);
+  await page.mouse.down();
+  await page.mouse.move(gripBounds.x + gripBounds.width / 2 + 110, 220, { steps: 10 });
+  await page.mouse.up();
+  step('sidebar edge drags without changing the conversation split', await sidebarWidth() === 310 && await page.evaluate(() => window.__barkdown.state.settings.chatWidth === 40));
+  await page.waitForFunction(async () => (await window.barkdown.settings.get()).sidebarWidth === 310, null, { timeout: 10000 });
+  await page.reload();
+  await page.waitForSelector('#bw-pages .bw-page-row');
+  step('sidebar width restores from saved settings', await sidebarWidth() === 310);
+  await sidebarGrip.focus();
+  await page.keyboard.press('ArrowRight');
+  step('sidebar edge supports keyboard resizing', await sidebarWidth() === 320);
+  await sidebarGrip.dblclick();
+  step('sidebar double click resets its width', await sidebarWidth() === 200);
+  await page.setViewportSize({ width: 736, height: 880 });
+  step('sidebar resize edge hides with the sidebar on narrow windows', await sidebarGrip.isHidden());
+  await page.setViewportSize({ width: 1400, height: 880 });
   await page.screenshot({ path: path.join(out, '01-start.png') });
 
   // Offline assistant run: message sent with Enter, reply arrives, and the named document opens beside the chat.

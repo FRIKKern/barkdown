@@ -8,7 +8,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 svg.lucide,i[data-lucide]{width:15px;height:15px;flex-shrink:0;display:inline-block}
 .bw-muted{color:var(--bw-muted)}.bw-small{font-size:11px}.bw-spacer{flex:1}kbd{font:inherit;font-size:10px;border:1px solid var(--bw-border);border-radius:4px;padding:0 4px;background:var(--bw-raised)}
 h1,h2,h3,p{margin:0}
-.bw{height:100vh;display:grid;grid-template-columns:var(--bw-sidebar) minmax(0,var(--bw-chat)) minmax(0,var(--bw-work));grid-template-rows:40px minmax(0,1fr);position:relative;overflow:hidden}
+.bw{--bw-sidebar:clamp(160px,var(--bw-sidebar-preferred,200px),min(420px,calc(100vw - 520px)));height:100vh;display:grid;grid-template-columns:var(--bw-sidebar) minmax(0,var(--bw-chat)) minmax(0,var(--bw-work));grid-template-rows:40px minmax(0,1fr);position:relative;overflow:hidden}
 .bw-brand{grid-column:1;grid-row:1;display:flex;align-items:center;gap:9px;padding:0 8px 0 12px;border-right:1px solid var(--bw-border);border-bottom:1px solid var(--bw-border);background:var(--bw-side);font-size:11px;font-weight:600;-webkit-app-region:drag}.bw-brand button{-webkit-app-region:no-drag}
 .bw-mark{background:var(--bw-accent);color:var(--bw-bg);width:19px;height:21px;text-align:center;border-radius:3px;font-size:16px;line-height:20px;font-weight:750;flex-shrink:0}
 .bw-context{grid-column:2;grid-row:1;border-bottom:1px solid var(--bw-border);border-right:1px solid var(--bw-border);display:flex;align-items:center;gap:6px;padding:0 9px;font-size:11px;color:var(--bw-muted);min-width:0}.bw-context span{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.bw-context button{display:grid;place-items:center;padding:4px}
@@ -103,7 +103,7 @@ h1,h2,h3,p{margin:0}
 
 .bw-toasts{position:absolute;right:14px;bottom:14px;z-index:90;display:flex;flex-direction:column;gap:6px;pointer-events:none}.bw-toast{background:var(--bw-side);border:1px solid var(--bw-border);border-radius:8px;padding:8px 12px;font-size:11px;box-shadow:0 8px 30px #0005;max-width:360px;animation:bw-toast .2s ease-out}.bw-toast.err{border-color:var(--bw-delete)}@keyframes bw-toast{from{opacity:0;transform:translateY(6px)}}
 .bw-mobile-back{display:none}
-@media(max-width:920px){.bw{--bw-sidebar:160px}.bw-transcript{padding:21px 15px}.bw-tab{flex-basis:90px}}
+@media(max-width:920px){.bw-transcript{padding:21px 15px}.bw-tab{flex-basis:90px}}
 @media(max-width:760px){.bw-palette{left:50%;width:min(640px,calc(100% - 24px))}.bw{grid-template-columns:minmax(0,var(--bw-chat)) minmax(0,var(--bw-work))}.bw-brand,.bw-sidebar{display:none}.bw-context,.bw-chat{grid-column:1}.bw-workbar,.bw-workspace,.bw-splitter{grid-column:2}.bw[data-mode="document"],.bw[data-mode="editor"]{grid-template-columns:minmax(0,1fr)}.bw[data-mode="document"] .bw-workbar,.bw[data-mode="document"] .bw-workspace,.bw[data-mode="editor"] .bw-workbar,.bw[data-mode="editor"] .bw-workspace{grid-column:1}}
 @media(prefers-reduced-motion:reduce){.bw-pulse{animation:none}}
 
@@ -268,3 +268,12 @@ h1,h2,h3,p{margin:0}
 .bw-reply-foot>span:first-child{display:inline-flex;flex-shrink:0}.bw-mark-claude svg{color:light-dark(#c95d2a,#f0925e)}.bw-mark-codex svg{color:light-dark(#0f8a6c,#4ecfa8);fill:light-dark(#0f8a6c22,#4ecfa822)}
 .bw-reply-foot.live svg{animation:bw-spin 4s linear infinite}
 @keyframes bw-spin{to{transform:rotate(360deg)}}
+
+/* A hit target over the existing sidebar edge; no extra layout column. */
+.bw-sidebar-resizer{position:absolute;left:calc(var(--bw-sidebar) - 5px);top:0;bottom:0;width:10px;padding:0;border-radius:0;z-index:8;cursor:col-resize;touch-action:none;-webkit-app-region:no-drag}
+.bw-sidebar-resizer::after{content:"";position:absolute;inset:0 4px;background:transparent}
+.bw-sidebar-resizer:hover,.bw-sidebar-resizer:focus-visible{background:transparent;outline:0}
+.bw-sidebar-resizer:hover::after,.bw-sidebar-resizer:focus-visible::after,.bw.sidebar-resizing .bw-sidebar-resizer::after{background:var(--bw-accent)}
+.bw.sidebar-resizing,.bw.sidebar-resizing *{cursor:col-resize!important;user-select:none!important}
+.bw.sidebar-resizing webview,.bw.sidebar-resizing iframe{pointer-events:none}
+@media(max-width:760px){.bw-sidebar-resizer{display:none}}

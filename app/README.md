@@ -79,3 +79,5 @@ renderer/   index.html, styles.css, src/ (bundled by esbuild into renderer/dist/
 shared/     markdown <-> ProseMirror JSON used by both processes
 tests/      unit + Playwright/Electron end-to-end checks
 ```
+
+The left sidebar resizes by dragging its right edge (160–420 px, limited by the available workspace). The width is saved across restarts. Focus the edge and use arrow keys, or double-click to reset to 200 px.

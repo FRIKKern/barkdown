@@ -30,6 +30,10 @@ Next implementation: #5, the local Barkpark sidecar lifecycle, then profiles (#6
 
 Continuation validation: `npm ci`, Playwright Chromium installation and root `npm run verify` passed after refreshing the status screenshots. `cd app && npm test` passed all 71 desktop checks and its unit suites. Live regressions: tables 11/11, multi-block 11/11, spans 7/7 and widths 5/5. The first two hit manifest timeouts during Phoenix recompilation and passed after the server warmed. PortableDoc: 1,912 passed; editor sweep: 116/118 after fixing the table-render test, with the documented save-ack and press-watchdog failures still present. These do not establish green upstream merge gates.
 
+## Sidebar resizing — 2026-09-21
+
+The desktop sidebar now has a draggable right edge, keyboard adjustment and double-click reset. Its width persists in app settings and is capped to leave 520 px for the workspace; the handle hides with the sidebar on narrow windows. This user-requested shell change is independent of editor parity.
+
 ## First 20 minutes
 
 1. Run `npm ci`, `npx playwright install chromium`, and `npm run verify`.
