@@ -30,7 +30,9 @@ const pm = page.locator(`${pane} bp-paper-canvas .ProseMirror`);
 
 const paragraph = (i) => { const d = getPaper(SLUG); return d.blocks.filter(b => b.type === 'paragraph')[i]; };
 const waitParagraph = async (i, pred) => { for (let k = 0; k < 20; k++) { const p = paragraph(i); if (p && pred(p)) return p; await page.waitForTimeout(1000); } return paragraph(i); };
-const caretEnd = async (text) => { await pm.locator(`p:has-text("${text}")`).first().click(); await page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); const ed = c._editor; const $f = ed.state.selection.$from; ed.commands.setTextSelection($f.end($f.depth)); ed.commands.focus(); }); await page.waitForTimeout(100); };
+// The caret at the end of the paragraph holding `text`: found by text and set programmatically (a click on the
+// CI runner does not always move the caret while a selection or a popup is live).
+const caretEnd = async (text) => { await pm.locator(`p:has-text("${text}")`).first().click().catch(() => {}); await page.evaluate(t => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); const ed = c._editor; let end = null; ed.state.doc.descendants((node, pos) => { if (end == null && node.type.name === 'paragraph' && node.textContent.includes(t)) end = pos + node.nodeSize - 1; }); if (end != null) ed.commands.setTextSelection(end); ed.commands.focus(); }, text); await page.waitForTimeout(100); };
 
 await row('"@Mention" opens the wikilink popup with the target paper listed', async () => {
   await caretEnd('Link the target');

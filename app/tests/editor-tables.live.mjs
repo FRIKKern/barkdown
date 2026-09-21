@@ -43,6 +43,9 @@ const row = async (name, fn) => { try { const r = await fn(); results.push({ nam
 const pm = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror');
 const paste = (text, html) => page.evaluate(([t, h]) => { const dt = new DataTransfer(); dt.setData('text/plain', t); if (h) dt.setData('text/html', h); document.querySelector('.bw-paper-pane:not([hidden]) .ProseMirror').dispatchEvent(new ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); }, [text, html || '']);
 // The rails live inside a <details> ("Configure table"); open it before reaching for a button.
+// Put the caret in the i-th body cell (-1 = last): click, then verify, else place it programmatically — a click on
+// the CI runner does not always collapse the whole-cell selection Tab leaves behind.
+const clickCell = async i => { const cells = pm.locator('.bp-table__td'); const n = await cells.count(); const idx = i < 0 ? n + i : i; await cells.nth(idx).click(); await page.evaluate(k => { const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor; const found = []; ed.state.doc.descendants((node, pos) => { if (node.type.name === 'bpTableCell') found.push({ pos, node }); }); const cell = found[k]; if (!cell) return; const $f = ed.state.selection.$from; let inside = false; for (let d = $f.depth; d > 0; d--) if ($f.before(d) === cell.pos) inside = true; if (inside && ed.state.selection.empty) return; ed.commands.setTextSelection(cell.pos + cell.node.nodeSize - 1); ed.commands.focus(); }, idx); };
 const chrome = async name => { const d = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas details:has(summary:has-text("Configure table"))').first(); if (!(await d.evaluate(el => el.open).catch(() => false))) await d.locator('summary').click(); return page.locator(`.bw-paper-pane:not([hidden]) bp-paper-canvas [aria-label*="${name}" i]`).first(); };
 const settle = () => page.waitForTimeout(600);
 
@@ -61,7 +64,7 @@ await row('typing in cells; Tab and Shift+Tab move between cells', async () => {
 await row('server holds the typed cells after save', compare);
 await row('Tab in the last cell adds a row (as TableKit does)', async () => {
   const before = (await grids())[0].length;
-  await pm.locator('.bp-table__td').last().click(); await page.keyboard.press('End'); await page.keyboard.press('Tab');
+  await clickCell(-1); await page.keyboard.press('End'); await page.keyboard.press('Tab');
   // The new row is a transaction of its own; type only once it exists (CI is slower than a laptop).
   await page.waitForFunction(n => { const t = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .bp-table'); return t && t.querySelectorAll('tr').length > n; }, before, { timeout: 5000 }).catch(() => {});
   await page.keyboard.type('Pear'); await settle();

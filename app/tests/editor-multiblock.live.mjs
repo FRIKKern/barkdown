@@ -53,7 +53,9 @@ const compare = async () => { const save = await waitSaved(); await settle(); co
 const results = [];
 const row = async (name, fn) => { try { const r = await fn(); results.push({ name, pass: !!r.pass, ...r }); } catch (e) { results.push({ name, pass: false, error: e.message.slice(0, 200) }); } };
 const pm = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror');
-const clickText = async (t, where = 'End') => { await pm.locator(`p:has-text("${t}")`).first().click(); await page.keyboard.press(where); };
+// Click into the paragraph holding `t`, then make sure the caret is there (a click on the CI runner does not always
+// move the caret out of a live selection): otherwise place it programmatically at the block's edge.
+const clickText = async (t, where = 'End') => { await pm.locator(`p:has-text("${t}")`).first().click(); await page.keyboard.press(where); await page.evaluate(([txt, w]) => { const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor; if (ed.state.selection.empty && ed.state.selection.$from.parent.textContent.includes(txt)) return; let found = null; ed.state.doc.descendants((node, pos) => { if (found == null && node.isTextblock && node.textContent.includes(txt)) found = { pos, node }; }); if (found) { ed.commands.setTextSelection(w === 'Home' ? found.pos + 1 : found.pos + found.node.nodeSize - 1); ed.commands.focus(); } }, [t, where]); };
 const original = await canvasShape();
 // Select from inside one block's text to inside another's through ProseMirror, so a row tests the ops round trip
 // of a spanning edit rather than how far Shift+Arrow happens to travel in a headless window.
