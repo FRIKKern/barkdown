@@ -20,25 +20,32 @@ function setup(t, options = {}) {
   const profiles = createProfileService({ registry, settingsFor: () => ({ apiKey: 'fixture-key', forceOnline: true }), ...options.profile });
   const owner = () => ({ ...profiles.view(), chatId: 'main' });
   profiles.save(owner(), snapshot('A'));
-  const changed = [];
-  const service = createGoalService({ registry, profiles, heartbeatMs: 0, sendEvent: event => changed.push(event), ...options.goal });
+  const changed = [], events = [];
+  const service = createGoalService({ registry, profiles, heartbeatMs: 0, sendEvent: event => changed.push(event), sendProviderEvent: event => events.push(event), ...options.goal });
   t.after(() => service.close());
-  return { root, registry, a, b, profiles, owner, service, changed };
+  return { root, registry, a, b, profiles, owner, service, changed, events };
 }
 
 test('real provider loops persist three full workers through profile switch, stale save, reload and review', async t => {
-  const f = setup(t); let release; const gate = new Promise(resolve => { release = resolve; });
+  let release; const gate = new Promise(resolve => { release = resolve; }); t.after(() => release()); const f = setup(t);
   let launched = 0;
   agent.setClientFactory(() => ({ messages: { stream(params) {
     launched++; const handlers = {}, n = /Return result (\d)/.exec(params.messages.at(-1).content)[1];
-    return { on(name, fn) { handlers[name] = fn; return this; }, async finalMessage() { await gate; handlers.text(`Observed ${n}`); return { stop_reason: 'end_turn', usage: {}, content: [{ type: 'text', text: `Observed ${n}` }] }; } };
+    return { on(name, fn) { handlers[name] = fn; return this; }, async finalMessage() { handlers.text('Started '); await gate; handlers.text(`Observed ${n}`); return { stop_reason: 'end_turn', usage: {}, content: [{ type: 'text', text: `Observed ${n}` }] }; } };
   } } }));
   const ownerA = f.owner(), old = f.profiles.load(ownerA), goal = f.service.create(ownerA, plan);
   assert.equal(f.profiles.load(ownerA).order.length, 4);
   assert.ok(goal.tasks.every(task => f.profiles.load(ownerA).chats[task.chatId].side));
   await f.service.command(ownerA, goal.id, 'start'); await flush(); assert.equal(launched, 3);
+  assert.ok(f.events.length > 0);
+  for (const event of f.events) {
+    const attempt = f.profiles.load(ownerA).ownership.attempts[event.attemptId];
+    assert.equal(event.assistantId, attempt.assistantId); assert.equal(event.chatId, attempt.chatId);
+  }
+  const eventCount = f.events.length;
   await f.profiles.select(ownerA, f.b.id); const ownerB = f.owner(); f.profiles.save(ownerB, snapshot('B'));
   release(); for (let i = 0; i < 5; i++) await flush();
+  assert.equal(f.events.length, eventCount, 'A background events must not reach B');
   assert.equal(f.profiles.load(ownerB).order.length, 1); assert.equal(f.profiles.load(ownerB).chats.main.draft, 'B draft');
   await assert.rejects(f.service.command(ownerA, goal.id, 'cancel'), /Stale/);
   await f.profiles.select(ownerB, f.a.id); const fresh = f.owner();
@@ -56,6 +63,33 @@ test('real provider loops persist three full workers through profile switch, sta
   await f.service.close();
   const reopened = createGoalService({ registry: f.registry, profiles: f.profiles, heartbeatMs: 0 }); t.after(() => reopened.close());
   assert.equal(reopened.list(fresh)[0].status, 'completed'); assert.equal(launched, 3);
+});
+
+test('Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable', async t => {
+  const dispatched = [];
+  const runtime = { ...runs, async start(options) {
+    const run = runs.createRun(options); dispatched.push({ options, run }); run.emit({ type: 'status' }); return { runId: run.id };
+  } };
+  const f = setup(t, { goal: { agent: runtime } }), owner = f.owner();
+  t.after(async () => { for (const { run } of dispatched) await runs.finish(run); });
+  const goal = f.service.create(owner, { ...plan, assignments: plan.assignments.map((a, i) => ({ ...a, dependsOn: i ? ['task-1'] : [] })) });
+  let ws = f.profiles.load(owner);
+  Object.assign(ws.chats[goal.tasks[0].chatId], { folder: f.root, provider: 'codex', model: 'chosen-first', effort: 'high' });
+  f.profiles.save(owner, ws);
+  await f.service.command(owner, goal.id, 'start'); await flush();
+  assert.equal(dispatched.length, 1); assert.equal(dispatched[0].options.provider, 'codex'); assert.equal(dispatched[0].options.context.folder, f.root);
+  assert.equal(dispatched[0].options.settings.codexModel, 'chosen-first');
+  const originalContext = f.service.list(owner)[0].tasks[0].attempts[0].context;
+  ws = f.profiles.load(owner); ws.chats[goal.tasks[0].chatId].folder = null; f.profiles.save(owner, ws);
+  assert.equal(dispatched[0].options.context.folder, f.root);
+  await f.service.command(owner, goal.id, 'pause'); await runs.finish(dispatched[0].run); for (let i=0;i<3;i++) await flush();
+  await f.service.command(owner, goal.id, 'reviewTask', { taskId: 'task-1', accepted: true, note: 'Verified external work after stopped driver', evidence: ['fixture-run'] });
+  ws = f.profiles.load(owner); Object.assign(ws.chats[goal.tasks[1].chatId], { folder: f.root, provider: 'claude', model: 'chosen-second', effort: 'low' }); f.profiles.save(owner, ws);
+  await f.service.command(owner, goal.id, 'start'); await flush();
+  assert.equal(dispatched.length, 3); assert.equal(dispatched[1].options.provider, 'claude'); assert.equal(dispatched[1].options.settings.claudeModel, 'chosen-second');
+  assert.deepEqual(f.service.list(owner)[0].tasks[0].attempts[0].context, originalContext);
+  for (const { run } of dispatched.slice(1)) { run.emit({ type: 'done' }); await runs.finish(run); }
+  for(let i=0;i<3;i++) await flush();
 });
 
 test('goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access', async t => {

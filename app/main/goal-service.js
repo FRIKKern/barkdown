@@ -31,7 +31,11 @@ function createGoalService({ registry, profiles, agent = require('./agent'), sen
     transcripts: { begin: workspaces.begin, finish(request, result) { const value = workspaces.finish(request, result); notify(request.profileId); return value; },
       event(request, event) {
         const value = workspaces.event(request, event);
-        if (value.accepted) { try { if (profiles.view().profileId === request.profileId) sendProviderEvent(event); } catch { /* Reload reads the durable transcript. */ } }
+        if (value.accepted) {
+          const attempt = workspaces.load(request.profileId).ownership.attempts[request.attemptId];
+          check(attempt?.chatId === request.chatId && attempt.assistantId, 'Acknowledged worker message identity is missing');
+          try { if (profiles.view().profileId === request.profileId) sendProviderEvent({ ...event, attemptId: request.attemptId, assistantId: attempt.assistantId }); } catch { /* Reload reads the durable transcript. */ }
+        }
         notify(request.profileId); return value;
       } } });
   function scheduler(profileId) {
@@ -56,6 +60,13 @@ function createGoalService({ registry, profiles, agent = require('./agent'), sen
   }
   function stage(goal) {
     workspaces.stageWorkerChats(goal, goal.tasks.map(t => ({ chatId: t.chatId, title: t.title, ...t.context })));
+  }
+  function captureWorker(profileId, goal, task) {
+    const chat = workspaces.load(profileId).chats[task?.chatId];
+    check(chat && chat.goalId === goal.id && chat.parent === goal.chatId, 'Worker conversation ownership changed');
+    check(!chat.runId, 'Worker conversation still has a run');
+    const provider = chat.provider || profiles.settings(profileId).provider || 'api';
+    return { profileId, chatId: chat.id, provider, folder: chat.folder || null, model: chat.model || null, effort: chat.effort || null, session: chat.sessions?.[provider] || null };
   }
   function list(owner) {
     const { profileId } = ownerChat(owner), engine = scheduler(profileId);
@@ -87,18 +98,16 @@ function createGoalService({ registry, profiles, agent = require('./agent'), sen
         const other = scheduler(profile.id);
         check(!other.list(profile.id).some(g => g.tasks.some(t => t.status === 'interrupted' && !Number.isFinite(t.attempts.at(-1)?.stoppedAt))), 'Reconcile interrupted workers before starting more work');
       }
-      stage(goal); result = engine.start(profileId, id);
+      stage(goal);
+      const contexts = Object.fromEntries(goal.tasks.filter(t => t.status === 'pending').map(t => [t.id, captureWorker(profileId, goal, t)]));
+      result = engine.start(profileId, id, { contexts });
     }
     else if (action === 'pause' || action === 'cancel') result = engine.stop(profileId, id, action === 'pause' ? 'paused' : 'cancelled');
     else if (action === 'reviewTask') {
       const task = goal.tasks.find(t => t.id === payload.taskId);
       let context;
       if (payload.retry) {
-        const chat = workspaces.load(profileId).chats[task?.chatId];
-        check(chat && chat.goalId === id && chat.parent === goal.chatId, 'Worker conversation ownership changed');
-        check(!chat.runId, 'Worker conversation still has a run');
-        const provider = chat.provider || profiles.settings(profileId).provider || 'api';
-        context = { profileId, chatId: chat.id, provider, folder: chat.folder || null, model: chat.model || null, effort: chat.effort || null, session: chat.sessions?.[provider] || null };
+        context = captureWorker(profileId, goal, task);
       }
       result = engine.reviewTask(profileId, id, payload.taskId, { ...payload, context });
     }
