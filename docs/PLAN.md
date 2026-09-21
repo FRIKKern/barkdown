@@ -33,6 +33,8 @@ Packaging research may proceed alongside earlier stages. The local-only pilot do
 
 No sync engine, wholesale runtime rewrite or deletion of the old store before migration proof.
 
+C003 now proves the [additive storage staging foundation](cycles/C003-profile-registry.md) with recovery fixtures and reviewed regression captures. Existing desktop authority is unchanged. Profile runtimes, full switching and adoption cutover remain P1 work; the completed foundation does not complete the stage.
+
 ## Carry forward
 
 - [Accepted interaction decisions](DESIGN-DECISIONS.md), especially favorites (D19a), sidebar/organization and direct editing (D26–D28), history (D29) and full side chats (D30).

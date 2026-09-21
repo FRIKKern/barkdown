@@ -41,6 +41,7 @@ No-folder conversations remain valid. A folder selected in the composer never sc
 |---|---|
 | `main/main.js`, `preload.js` | Native window, settings and IPC boundary |
 | `main/store.js`, `documents.js`, `conversations.js` | Existing persistence; P1’s ownership inventory starts here |
+| `main/profile-registry.js` | Opt-in [profile storage staging](../docs/PROFILE-STORAGE.md), with recovery/isolation fixtures; not wired to startup |
 | `main/local-barkpark*` | Private runtime lifecycle and Windows source bootstrap |
 | `main/barkpark.js`, `canvas-bundle.js`, `agent-edits.js` | Barkpark adapter, editor delivery and edit receipts |
 | `main/providers/`, `agent.js`, `mcp-server.js` | Provider orchestration and document tools |

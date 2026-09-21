@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "C003",
+  "stage": "P1",
+  "status": "done",
+  "goal": "Prove recoverable, isolated profile storage staging without changing desktop authority.",
+  "scope": ["Versioned UUID registry and bound stores", "Byte-backed shell staging and explicit recovery/rollback", "No boot wiring, live database copying or real-user migration"],
+  "acceptance": ["Source and backup bytes survive repeated adoption", "Same-slug stores and selected restart remain isolated", "Process interruption, corrupt state and rollback fail safely", "Relevant regression and visual review completed"],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C003-profile-registry.md",
+  "nextAction": "Add profile runtime descriptors and leases; prove two disposable runtimes before desktop authority integration. P1 remains pending.",
+  "evidence": ["app/tests/profile-registry.test.mjs", "docs/PROFILE-STORAGE.md", "docs/images/status/history/C003-5b0917c.json", "docs/visual/runs/2026-09-21T22-23-18-613Z/comparison.json"],
+  "truthReview": "Reviewed active roadmap, README, app guide, handoff, architecture, ownership and validation. Additive staging is not startup adoption, profile switching, complete A1 or portability.",
+  "screenshotReview": "Inspected all 21 deterministic frames/five action sequences and five live stills/37 GIF frames. Named fixture approval has zero pixel/geometry differences. First null-server capture retained as failed provenance; serialized recapture has clean source and live server provenance."
+}
