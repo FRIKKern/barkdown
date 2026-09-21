@@ -176,8 +176,9 @@ function closeTab(chat, id) {
   pauseFollow(chat);
   const index = chat.tabs.findIndex(t => t.id === id);
   if (index < 0) return;
-  const [removed] = chat.tabs.splice(index, 1);
   const controller = controllers.get(id);
+  if (controller?.canClose?.() === false) return;
+  const [removed] = chat.tabs.splice(index, 1);
   if (controller?.isDirty?.() && removed.type === 'doc') controller.flush?.();
   if (removed.type === 'project' && chat.folder && dirtyCount(chat.folder)) toast('Unsaved file edits stay in this session. Reopen the project editor to save them.');
   unmountTab(id);
