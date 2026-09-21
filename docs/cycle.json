@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C006",
   "stage": "P1",
-  "status": "active",
+  "status": "done",
   "goal": "Integrate trusted profile resolution and durable workspace ownership before enabling safe profile switching.",
   "scope": [
     "Validated UUID registry roots, owner/generation IPC and profile boot opt-in",
@@ -17,8 +17,15 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C006-profile-workspace-service.md",
-  "nextAction": "Build and test shared workspace repository and trusted profile resolver, then wire opt-in Electron boot and profile-safe IPC.",
-  "evidence": [],
-  "truthReview": "",
-  "screenshotReview": ""
+  "nextAction": "Explicit first-adoption transaction and boot recovery gate, plus separately recaptured 60% conversation default correction; P1/A1 remain pending.",
+  "evidence": [
+    "docs/PROFILE-WORKSPACES.md",
+    "docs/visual/profiles/live-README.md",
+    "docs/visual/runs/2026-09-21T23-29-02-248Z/comparison.json",
+    "docs/images/status/history/C006-168e31b.json",
+    "app/tests/profile-ui.live.mjs",
+    "app/tests/profile-goals.live.mjs"
+  ],
+  "truthReview": "Reviewed current guide, handoff, validation, ownership contracts and acceptance. Opt-in profiles and saved goal workers are integrated; no default adoption, actual library migration or P1 completion claimed. Inherited 40% versus D07 60% mismatch recorded for separate correction.",
+  "screenshotReview": "Inspected all 31 deterministic frames, seven step GIFs, six real Paper profile frames, five live status stills and all 37 live GIF frames; explicit approval recorded. Existing 21 frames unchanged; ten new goal/profile baselines reviewed. All private runtimes stopped."
 }

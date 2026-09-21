@@ -2,14 +2,15 @@
 
 Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.
 
-![Current view](../runs/2026-09-21T22-32-06-713Z/documents-2.png)
+![Current view](../runs/2026-09-21T23-29-02-248Z/documents-2.png)
 
-![Recorded interaction](../runs/2026-09-21T22-32-06-713Z/documents.gif)
+![Recorded interaction](../runs/2026-09-21T23-29-02-248Z/documents.gif)
 
-[Full comparison](../runs/2026-09-21T22-32-06-713Z/README.md) · [Capture manifest](../runs/2026-09-21T22-32-06-713Z/manifest.json)
+[Full comparison](../runs/2026-09-21T23-29-02-248Z/README.md) · [Capture manifest](../runs/2026-09-21T23-29-02-248Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-21T23:35:02.650Z: Inspected all 31 PNG frames including narrow geometry and all seven GIF step sequences. Existing 21 frames have zero changed pixels with unchanged environment; ten goal/profile frames are explicit new fixture baselines. Controls remain reachable without clipping. Separately inspected six real Paper profile frames and all 37 live status GIF frames. Real restart, cookie isolation, late worker output, and pending-save switch guard passed; deterministic goals do not claim live model execution. Source 168e31b71; [review](../runs/2026-09-21T23-29-02-248Z/comparison.json).
 - 2026-09-21T22:33:31.825Z: C004: inspected all 21 action frames across five areas, including intermediate chooser states, narrow workspace and light/dark documents. Comparison reports no changed pixels above tolerance or geometry changes in the same environment. Bound-run ownership is covered by 11 behavior-test groups, not inferred from screenshots. No profile switching UI is claimed. Source 0086867d2; [review](../runs/2026-09-21T22-32-06-713Z/comparison.json).
 - 2026-09-21T21:50:11.399Z: C002: reviewed all 21 action frames across five areas after folder-context and offline-fallback changes. No pixel differences above tolerance or control-geometry changes; environment unchanged. Request/dispatcher tests cover resumed and cleared folders, image-only turns and original-text offline navigation. Visual evidence does not measure live folder-answer latency. Source 3e2ed6fa0; [review](../runs/2026-09-21T21-48-36-561Z/comparison.json).
 - 2026-09-21T21:34:25.844Z: Reviewed the CI startup-toast difference and corrected capture timing without hiding UI. New local capture matches all 21 prior frames and geometry; workspace dismissal image inspected again. Environment-change flag reflects newly recorded OS/architecture/font fields on the same local machine. Prior full visual and desktop regression evidence retained. Source 335b460f3; [review](../runs/2026-09-21T21-33-30-215Z/comparison.json).

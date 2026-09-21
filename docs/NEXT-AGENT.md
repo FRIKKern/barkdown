@@ -8,11 +8,11 @@ Read [PLAN.md](PLAN.md), [DESIGN-DECISIONS.md](DESIGN-DECISIONS.md), [ARCHITECTU
 
 Barkpark papers use the real Paper canvas and revision-checked operations. Direct agent edits save without Keep, reveal their intent visually and offer guarded Undo; human input ends the presentation immediately. Local legacy documents still use a separate Tiptap tab/store. Do not remove either before P2 proves migration.
 
-A [managed Windows source runtime](LOCAL-BARKPARK.md) owns private PostgreSQL and Barkpark processes, health/recovery and normal shutdown. It is opt-in and requires a built checkout. It is not yet a multi-profile system, packaged runtime, automatic migration or sync implementation.
+A [managed Windows source runtime](LOCAL-BARKPARK.md) owns private PostgreSQL and Barkpark processes, health/recovery and normal shutdown. The [opt-in profile workspace](PROFILE-WORKSPACES.md) now binds separate UUID stores and runtime leases, saved worker conversations, website storage and Settings switching. It requires a built checkout; default legacy adoption, ordinary installation and sync remain pending.
 
 ## First implementation slice
 
-Inventory existing persistence and write down profile ownership for documents, chats, tabs, drafts, favorites, media, credentials, caches, receipts and running tasks. Define stable profile-qualified identities and an idempotent adoption of today's workspace into a default profile, with backup. Prove two profiles with the same paper slug cannot affect each other before wiring the switching UI. Use existing issue #6 for continuity; the active scope and acceptance live in P1/A1.
+The ownership inventory, captured runs, registry, runtime pool and explicit profile mode are implemented. Finish default legacy adoption/cutover with backup, interruption/recovery and rollback, then the combined P1/A1 acceptance gate. Use existing issue #6 for continuity. The cycle handoff records exact proof; do not infer default migration readiness from opt-in switching.
 
 Do not change the user's actual library to demonstrate isolation. Use temporary user-data roots and private test clusters. Do not stop the shared development server, switch the CLI's server, change another checkout's branch, or migrate real notes as an incidental setup step.
 
@@ -52,8 +52,8 @@ Install locked dependencies and Playwright Chromium when needed; run root `npm r
 
 ## Current cycle checkpoint
 
-Start with `npm run cycle` and [cycle.json](cycle.json). C002 merged through PR #29 at `b8e7bfb`. C001 completed the [ownership design](PROFILE-OWNERSHIP.md). C004 implements [captured runs](RUN-OWNERSHIP.md); [its handoff](cycles/C004-captured-run-ownership.md) records source, tests, visuals and limits. Registry foundation C003 is on the parallel next-cycle branch; do not assume it is integrated here. Next: C006 trusted registry resolver, generation-scoped IPC and shared workspace transcript persistence before safe profile switching. P1 remains pending.
+Start with `npm run cycle` and [cycle.json](cycle.json). C002 merged through PR #29 at `b8e7bfb`. C001 completed the [ownership design](PROFILE-OWNERSHIP.md); C004 implements [captured runs](RUN-OWNERSHIP.md). This branch includes C003 registry, C007 runtime-pool source and E001 Paper guards. [C006](cycles/C006-profile-workspace-service.md) adds trusted IPC, durable transcripts, opt-in profile switching and the three-worker goal integration. Next: default adoption/cutover and combined A1 proof; P1 remains pending. C009 cold-runtime adoption is separate until its source and evidence are deliberately integrated.
 
 ## Visual handoff
 
-The [visual health pages](visual/README.md) now hold reviewed stills, GIFs and comparison reports. Follow [visual rules](visual/RULES.md) for app/dependency/harness changes: capture, compare, inspect, explicitly approve, and preserve old evidence. The main baseline is merge b8e7bfb from PR #29; C002 is merged and P1 remains pending. This workflow update did not implement profiles or change runtime behavior. Dedicated agent-edit/files/recovery motion coverage remains to be added with those journeys. Do not treat fixture screenshots as live integration proof.
+The [visual health pages](visual/README.md) hold reviewed stills, GIFs and comparison reports. Follow [visual rules](visual/RULES.md) for app/dependency/harness changes: capture, compare, inspect, explicitly approve, and preserve old evidence. The main baseline is merge b8e7bfb from PR #29; C002 is merged and P1 remains pending. C006 adds profile controls and goal fixture tours plus separately recorded real Paper switch protection. Dedicated files/recovery motion coverage remains incomplete. Do not treat fixture screenshots as live integration proof.
