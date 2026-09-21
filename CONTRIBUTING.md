@@ -44,3 +44,7 @@ Profiles own library/account data; working folders belong to individual chats. S
 Migration needs a recoverable source, stable identity mapping, comparison and interruption/rollback proof before the old editor/store is retired. Never silently switch the CLI server, stop shared services, kill unrelated processes, commit credentials, change repository visibility or deploy production as part of routine work.
 
 Original material remains private; preserve [third-party notices](THIRD-PARTY.md). Historical plans remain in [the archive](docs/archive/README.md), not the active queue.
+
+## Work in delivery cycles
+
+Follow [the cycle protocol](docs/CYCLES.md). Run `npm run cycle` to find the current bounded goal, acceptance and handoff. Checkpoint during work and before yielding; close with tests, a repository truth pass and screenshot review. Root verification checks cycle structure, but cannot certify prose or replace real integration proof.

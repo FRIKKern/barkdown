@@ -10,11 +10,13 @@
     "build": "node scripts/build.cjs",
     "preview": "node scripts/preview.cjs",
     "plan": "node .claude/skills/plan-followup/scripts/next.mjs",
-    "check": "tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs",
+    "check": "tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && npm run check:cycle",
     "test": "node scripts/test.cjs",
     "verify": "npm run build && npm run check && npm test",
     "desktop": "npm --prefix app start",
-    "test:desktop": "npm --prefix app run build && npm --prefix app test"
+    "test:desktop": "npm --prefix app run build && npm --prefix app test",
+    "cycle": "node scripts/cycle.mjs",
+    "check:cycle": "node scripts/check-cycle.mjs"
   },
   "devDependencies": {
     "cheerio": "1.2.0",

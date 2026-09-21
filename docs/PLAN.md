@@ -62,3 +62,7 @@ P3 recovery and P5 installation have local backlog entries; separate GitHub issu
 ## Done means demonstrated
 
 Use [ACCEPTANCE.md](ACCEPTANCE.md) for scenario gates and [VALIDATION.md](VALIDATION.md) for evidence. Record the source commit, exact command, result and limitations. Update `plan.json`, this plan and the handoff together. A stage becomes done only with linked evidence; blocked gates stay visible while other useful work proceeds.
+
+## Delivery cadence
+
+Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) is C001: inventory profile ownership and design safe adoption before changing storage. `npm run plan` prints both levels; each cycle maintains its own checkpoint and evidence. Cycle completion never automatically completes a roadmap stage.

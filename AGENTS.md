@@ -35,3 +35,7 @@ Create a `codex/` branch for subsequent implementation work. Do not switch branc
 Run `npm ci`, install Playwright Chromium, then `npm run verify`. Add production integration checks as real adapters are built; concept tests alone cannot prove production behavior. Keep CI and generated outputs consistent. Commit and push work, report exact validation and limitations, and update the handoff when a milestone changes status.
 
 Do not install or copy the paid Tiptap Notion template by default. It is an interaction reference. Preserve upstream and dependency licenses when code is introduced.
+
+## Delivery cycles
+
+Follow `docs/CYCLES.md` and run `npm run cycle` before implementation. Plan one bounded outcome in `docs/cycle.json`; keep its linked handoff current after meaningful slices, failed checks, blockers and before yielding. Every cycle closes with a repository truth review, relevant tests and screenshot review. App-source changes retain the implementation-commit → screenshots → evidence-commit sequence. Never mark a cycle or stage done without evidence. Archive completed cycle records before starting the next one; interrupted work must name the exact next action and any uncommitted/untested state.

@@ -62,3 +62,5 @@ The PRD proposes Windows for the first pilot, one existing provider adapter, rev
 ## Active direction — 2026-09-21 reset
 
 **D31: Complete dependable journeys.** The primary roadmap is now [PLAN.md](PLAN.md): profile ownership, one Paper note engine, recovery and portability, optional sync, then installation and daily use. The editor-first plan is archived; its tests and working features carry forward. Local-only use is independent of cloud. Profiles own library/account data and conversations, while agent working folders remain per chat. Preserve backups and identities during adoption/migration. Do not mark stages complete by old issue counts or local branch tests alone. Existing accepted interaction decisions remain in force.
+
+**D32: Work in evidence-backed cycles.** Plan bounded goals before implementation, maintain resumable handoffs during work, and close each cycle with tests, current screenshots where applicable and a repository-wide review of claims. Preserve unfinished/blocked status honestly and carry forward evidence and the next exact action. See [CYCLES.md](CYCLES.md).

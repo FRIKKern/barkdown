@@ -66,7 +66,8 @@ Use your existing Claude Code or Codex login, or configure an API key in Setting
 ## Build the next slice
 
 ```sh
-npm run plan                   # next unblocked delivery stage
+npm run plan                   # next stage and current delivery cycle
+npm run cycle                  # bounded goal, handoff and next action
 npx playwright install chromium
 npm run verify                 # roadmap, docs, types and concept checks
 npm run test:desktop            # build + desktop regression suite

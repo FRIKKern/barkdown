@@ -11,3 +11,7 @@
 <!-- If applicable: owning profile/chat/run, migration/backup/rollback, preserved IDs and drafts, and any upstream dependency. Omit this section for changes with no data impact. -->
 
 <!-- Update the active handoff/queue when status changes. App-source changes require fresh status screenshots after the implementation commit. -->
+
+## Cycle and repository truth
+
+<!-- Link the cycle handoff. Record README/plan/evidence review, screenshot refresh or a specific no-change reason, remaining failures and the next action. Do not mark the parent stage done merely because this PR closes a cycle. -->

@@ -26,3 +26,7 @@ The original [PRD](PRD.md), [sizing review](TIPTAP-REVIEW.md), [typed sketch](co
 ## Maintain this phase
 
 Keep planned, implemented, tested and merged states distinct. Update the plan, handoff and evidence when a milestone changes. Preserve old evidence with its source commit. G1 (upstream integration) and G2 (cross-repository regression enforcement) remain explicit in the plan until verified.
+
+## Everyday delivery
+
+[Delivery cycles](CYCLES.md) define planning, checkpoints and the closing truth pass. [The current cycle](cycle.json) links its working handoff. Run `npm run cycle`; planned work is never reported as demonstrated capability.

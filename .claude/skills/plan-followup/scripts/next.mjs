@@ -1,8 +1,11 @@
+import { printCycle } from '../../../../scripts/cycle.mjs';
 // Read-only active roadmap. --live adds tracker snapshots; it never changes the queue.
 import { execFileSync } from 'node:child_process';
 import { loadPlan, nextStage } from '../../../../scripts/plan.mjs';
 const plan = loadPlan(), next = nextStage(plan);
 console.log(plan.goal + '\n');
+printCycle();
+
 console.log('Delivery stages (docs/plan.json):');
 for (const stage of plan.stages) {
   const pending = stage.dependsOn.filter(id => plan.stages.find(s => s.id === id).status !== 'done');

@@ -49,3 +49,7 @@ The carried upstream editor branch is validated at `a5440345c`; PR #19579 was st
 Install locked dependencies and Playwright Chromium when needed; run root `npm run verify`, appropriate app tests and the stage's real integration cases. UI/runtime changes require the existing screenshot freshness workflow: commit app changes, run `cd app; npm run shots`, then commit evidence. Report failures and scope limits exactly. Commit and push to a `codex/` branch; update plan status only with evidence. No production deployment or public hosting is authorized.
 
 [Archived handoff](archive/2026-09-21-next-agent.md) preserves earlier investigations and commands. Consult it for evidence, not as a competing task queue.
+
+## Current cycle checkpoint
+
+Start with `npm run cycle` and the handoff linked by [cycle.json](cycle.json). The prepared C001 cycle scopes the first P1 ownership/design proof. Follow [CYCLES.md](CYCLES.md): checkpoint during work and before yielding, and perform the truth/screenshot review before completion. The cycle record owns the precise next action; this document retains broader product and environment context.

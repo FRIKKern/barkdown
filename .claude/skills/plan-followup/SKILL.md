@@ -36,3 +36,7 @@ Commit/push on a `codex/` branch. After app source changes, commit implementatio
 Record exact source commits, commands, results and limitations in `docs/VALIDATION.md`; link evidence from `docs/plan.json` before marking a stage done. Update PLAN/NEXT-AGENT when the next slice or gate changes. Keep G1/G2 explicit and recheck external state before landing/releasing. Do not automatically mutate GitHub issues based on this helper’s output; obtain scope from the user’s task or the existing issue workflow. Close an issue only when its actual acceptance is met, preserving its history.
 
 Tell the user what shipped, what was verified, what remains and the next slice. Do not report issue-count percentages as release readiness.
+
+## Cycle checkpoints
+
+Follow `docs/CYCLES.md`; run `npm run cycle`. Use the current cycle's bounded goal and acceptance before coding. Update its handoff during work and before yielding, including failed checks and untested changes. Close only with evidence, a repository truth review and screenshot review; archive the completed record before preparing the next cycle. A finished cycle does not automatically finish P1–P5.
