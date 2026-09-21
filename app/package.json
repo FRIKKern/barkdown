@@ -36,8 +36,7 @@
     "test:parity": "node tests/parity.mjs",
     "shots": "node tests/status-shots.mjs",
     "shots:isolated": "npm run build && node tests/status-shots-isolated.mjs",
-    "test:paper-host": "node tests/paper-host.test.mjs",
-    "test:paper-host:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-host.live.mjs"
+    "test": "node tests/paper-host.test.mjs && node tests/status-shots-isolated.mjs",
   },
   "engines": {
     "node": ">=22.13.1"
