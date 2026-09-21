@@ -520,7 +520,7 @@ async function collectPalette(query) {
   state.favorites.forEach(f => items.push({ group: 'Favorites', icon: TYPE_ICON[f.target.kind] || 'sparkles', label: f.label, hint: FAVORITE_KIND[f.target.kind] || f.target.kind, run: () => openFavorite(f.id) }));
   items.push({ group: 'Actions', icon: 'settings-2', label: 'Settings', hint: 'Ctrl+,', run: () => openSettings(applySettings) });
   if (state.profileId && chat && !chat.goalId) items.push({ group: 'Actions', icon: 'list-checks', label: 'Conversation goals', hint: 'Plan three workers', run: openConversationGoals });
-  items.push({ group: 'Actions', icon: 'columns-2', label: 'Reset conversation width to 40%', hint: (state.settings?.chatWidth || 40) + '% now', run: () => setChatWidth(40) });
+  items.push({ group: 'Actions', icon: 'columns-2', label: 'Reset conversation width to 60%', hint: (state.settings?.chatWidth || 60) + '% now', run: () => setChatWidth(60) });
   if (query.length >= 2 && chat?.folder) {
     try { const hits = await api.files.search(chat.folder, query); hits.slice(0, 8).forEach(h => items.push({ group: 'Files in ' + basename(chat.folder), icon: 'file-code', label: `${h.path}:${h.line}  ${h.text}`, hint: 'Open', run: () => openTarget({ kind: 'project', path: h.path, title: basename(h.path) }, chat, true), noFilter: true })); } catch {}
   }
@@ -659,7 +659,7 @@ function wireSplitter() {
     splitter.addEventListener('pointermove', move); splitter.addEventListener('pointerup', stop, { once: true }); splitter.addEventListener('pointercancel', stop, { once: true });
   });
   splitter.addEventListener('dblclick', () => setChatWidth(60));
-  splitter.addEventListener('keydown', e => { const d = { ArrowLeft: -5, ArrowRight: 5 }[e.key]; if (d) { e.preventDefault(); setChatWidth(state.settings.chatWidth + d); } else if (e.key === 'Home') setChatWidth(40); });
+  splitter.addEventListener('keydown', e => { const d = { ArrowLeft: -5, ArrowRight: 5 }[e.key]; if (d) { e.preventDefault(); setChatWidth(state.settings.chatWidth + d); } else if (e.key === 'Home') setChatWidth(60); });
 }
 
 // ---------- events ----------
@@ -719,7 +719,7 @@ function wire() {
   // be redefined, so the bundle must not be pinned to the vendored copy before the connection is known).
   if (state.settings?.barkpark?.enabled) ensureCanvasBundle().catch(() => {});
   applySidebarWidth(state.settings.sidebarWidth);
-  applyChatWidth(state.settings.chatWidth || 40);
+  applyChatWidth(state.settings.chatWidth || 60);
   applyTheme(state.settings.theme || 'system');
   await load();
   if (state.profileId) {

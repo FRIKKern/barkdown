@@ -38,7 +38,7 @@ const setting = (title, help, control, opts = {}) => `<div class="bw-set ${opts.
 export function openSettings(onChange, { pane = 'general', beforeProfileSwitch = async () => true } = {}) {
   const s = state.settings;
   const p = s.providers || {};
-  const original = { theme: s.theme || 'system', chatWidth: s.chatWidth || 40 };
+  const original = { theme: s.theme || 'system', chatWidth: s.chatWidth || 60 };
   const dialog = el(`<div class="bw-sheet bw-settings" role="dialog" aria-label="Settings">
     <nav class="bw-settings-nav" aria-label="Settings sections">
       <h2>Settings</h2>

@@ -44,7 +44,7 @@ try {
   await page.mouse.down();
   await page.mouse.move(gripBounds.x + gripBounds.width / 2 + 110, 220, { steps: 10 });
   await page.mouse.up();
-  step('sidebar edge drags without changing the conversation split', await sidebarWidth() === 310 && await page.evaluate(() => window.__barkdown.state.settings.chatWidth === 40));
+  step('sidebar edge drags without changing the conversation split', await sidebarWidth() === 310 && await page.evaluate(() => window.__barkdown.state.settings.chatWidth === 60));
   await page.waitForFunction(async () => (await window.barkdown.settings.get()).sidebarWidth === 310, null, { timeout: 10000 });
   await page.reload();
   await page.waitForSelector('#bw-pages .bw-page-row');
