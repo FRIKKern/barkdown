@@ -28,6 +28,8 @@ The interrupted table work (#26) is implemented in Barkpark `a5440345c` and regi
 
 Next implementation: #5, the local Barkpark sidecar lifecycle, then profiles (#6), migration off the local Tiptap tab (#13), and sync (#7). The earlier #4 remains open because Barkpark's parity workflow needs `BARKDOWN_READ_TOKEN` for this private repository; the deliberate broken-Tab CI proof is still outstanding. Do not mark that gate complete based on Barkdown's green CI alone. The local CLI remains on `local` (`http://localhost:4000`).
 
+Continuation validation: `npm ci`, Playwright Chromium installation and root `npm run verify` passed after refreshing the status screenshots. `cd app && npm test` passed all 71 desktop checks and its unit suites. Live regressions: tables 11/11, multi-block 11/11, spans 7/7 and widths 5/5. The first two hit manifest timeouts during Phoenix recompilation and passed after the server warmed. PortableDoc: 1,912 passed; editor sweep: 116/118 after fixing the table-render test, with the documented save-ack and press-watchdog failures still present. These do not establish green upstream merge gates.
+
 ## First 20 minutes
 
 1. Run `npm ci`, `npx playwright install chromium`, and `npm run verify`.

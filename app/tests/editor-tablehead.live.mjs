@@ -94,6 +94,8 @@ await row('toggling the header column off lands as headCol: false; the cells are
 
 await page.screenshot({ path: 'test-results/48-tablehead.png' });
 const passed = results.filter(r => r.pass).length;
-console.log(JSON.stringify({ summary: `${passed}/${results.length} green`, results, errors: [...new Set(errors)].slice(0, 10) }, null, 1));
+const report = JSON.stringify({ summary: `${passed}/${results.length} green`, results, errors: [...new Set(errors)].slice(0, 10) }, null, 1);
+fs.writeFileSync('test-results/tablehead.json', report + '\n');
+console.log(report);
 await app.close(); fs.rmSync(userData, { recursive: true, force: true });
 process.exitCode = passed === results.length ? 0 : 1;

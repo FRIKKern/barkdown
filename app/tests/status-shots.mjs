@@ -36,8 +36,8 @@ bp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug:
   { type: 'paragraph', content: text('A note in Barkdown is a Barkpark paper. This one is edited in Barkpark’s own canvas, against a local Barkpark, and every edit lands on the server as an op.') },
   { type: 'blockquote', content: text('Barkdown is a note + agent app, utilizing Barkpark.'), cite: 'Frikk, 2026-09-20' },
   { type: 'heading', level: 2, text: 'Editor parity rows' },
-  { type: 'list', task: true, items: [{ content: text('Row 10 — tables: 11/11'), checked: true }, { content: text('Row 11 — multi-block edits across the ops round trip: 11/11'), checked: true }, { content: text('Row 12 — the opaque set: 14/22, image next'), checked: false }] },
-  { type: 'table', head: [text('Row'), text('Score'), text('Fixed in')], rows: [[text('Tables'), text('11/11'), text('Barkpark table-node, markdown.js')], [text('Multi-block'), text('11/11'), text('canvas seam, paper.js')], [text('Opaque set'), text('14/22'), text('blockquote as a canvas block')]] },
+  { type: 'list', task: true, items: [{ content: text('Row 10 — tables: 11/11'), checked: true }, { content: text('Row 11 — multi-block edits across the ops round trip: 11/11'), checked: true }, { content: text('Table header columns and cell alignment: 6/6'), checked: true }] },
+  { type: 'table', headCol: true, head: [text('Row'), text('Score'), text('Fixed in')], rows: [[text('Tables'), text('11/11'), text('Barkpark table-node, markdown.js')], [text('Multi-block'), text('11/11'), text('canvas seam, paper.js')], [text('Header and alignment'), { content: text('6/6'), align: 'right' }, text('canvas, reader and BPML')]] },
   { type: 'callout', tone: 'info', content: text('Every row goes green only by a live test that compares the canvas with the server.') },
   { type: 'code', lang: 'sh', value: 'cd app && npm run test:tables' },
 ] }));
@@ -63,7 +63,7 @@ const caretAtEndOf = async text => { await pm().locator(`p:has-text("${text}")`)
 // A reply that is an error result (a rate limit, a sign-in problem) is not a picture of the product; try the
 // next provider, and only then seed a transcript — flagged in the manifest and the caption.
 let chat = { real: false };
-const prompt = 'Read the paper "Status: what the canvas does today" and propose one short sentence to append under the callout, naming what row 12 should close next. Keep your reply to two lines.';
+const prompt = 'Read the paper "Status: what the canvas does today" and propose one short sentence to append under the callout, noting that table header columns and alignment now survive a reload. Keep your reply to two lines.';
 const clearChat = () => page.evaluate(() => { const s = window.__barkdown.state; const c = s.chats[s.current]; c.messages = []; c.runId = null; c.workingLabel = null; window.__barkdown.render(); });
 for (const provider of ['claude', 'codex']) {
   try {
@@ -82,7 +82,7 @@ for (const provider of ['claude', 'codex']) {
 if (!chat.real) {
   console.error('seeding a transcript instead');
   await clearChat();
-  await page.evaluate(() => { const s = window.__barkdown.state; const c = s.chats[s.current]; c.provider = 'claude'; c.messages.push({ role: 'user', text: 'Read the status note and propose what row 12 should close next.', at: new Date().toISOString() }); c.messages.push({ role: 'assistant', text: 'Row 12 should close `image` next: it is what the markdown importer and agents write, and the canvas has only `figure`. I have proposed one sentence under the callout.', at: new Date().toISOString(), provider: 'claude', tools: [{ id: 't1', name: 'read_document', input: { id: 'bp:barkdown-status' }, output: 'heading, paragraph, blockquote, list, table, callout, code' }], parts: [{ kind: 'tool', id: 't1' }, { kind: 'text', text: 'Row 12 should close `image` next: it is what the markdown importer and agents write, and the canvas has only `figure`. I have proposed one sentence under the callout.' }], usage: { cost: 0.012, durationMs: 21000, tokens: { input: 2100, output: 90 } }, events: [{ label: 'Proposed a change to Status: what the canvas does today', target: { kind: 'doc', id: 'bp:barkdown-status', title: 'Status: what the canvas does today' }, at: new Date().toISOString() }], approvals: [] }); window.__barkdown.render(); });
+  await page.evaluate(() => { const s = window.__barkdown.state; const c = s.chats[s.current]; c.provider = 'claude'; c.messages.push({ role: 'user', text: 'Read the status note and summarize the verified table features.', at: new Date().toISOString() }); c.messages.push({ role: 'assistant', text: 'Header columns and cell alignment now save and survive a reload. The live row also checks that the reader matches the canvas.', at: new Date().toISOString(), provider: 'claude', tools: [{ id: 't1', name: 'read_document', input: { id: 'bp:barkdown-status' }, output: 'heading, paragraph, blockquote, list, table, callout, code' }], parts: [{ kind: 'tool', id: 't1' }, { kind: 'text', text: 'Header columns and cell alignment now save and survive a reload. The live row also checks that the reader matches the canvas.' }], usage: { cost: 0.012, durationMs: 21000, tokens: { input: 2100, output: 90 } }, events: [{ label: 'Proposed a change to Status: what the canvas does today', target: { kind: 'doc', id: 'bp:barkdown-status', title: 'Status: what the canvas does today' }, at: new Date().toISOString() }], approvals: [] }); window.__barkdown.render(); });
   chat = { real: false, seeded: true, provider: 'claude' };
 }
 await page.waitForTimeout(600);
@@ -93,7 +93,7 @@ const tidyChat = (where = 'top') => page.evaluate(w => { document.querySelectorA
 await tidyChat('top');
 const shots = [];
 const shot = async (file, caption, fn) => { await split(36); if (fn) await fn(); await settled(); await page.screenshot({ path: path.join(out, file) }); shots.push({ file, caption }); console.log('shot', file); };
-await shot('paper-light.png', `A Barkpark paper edited live in the canvas inside Barkdown, beside ${chat.real ? 'a real Claude Code turn on it' : 'the assistant transcript'}: quote, checklist, table, callout and code, saved as ops to a local Barkpark.`, async () => { await pm().locator('p').first().hover(); });
+await shot('paper-light.png', `A Barkpark paper edited live in the canvas inside Barkdown, beside ${chat.real ? `a real ${chat.provider === 'codex' ? 'Codex' : 'Claude Code'} turn on it` : 'the assistant transcript'}: quote, checklist, table, callout and code, saved as ops to a local Barkpark.`, async () => { await pm().locator('p').first().hover(); });
 await shot('paper-dark.png', 'The same paper and conversation in dark mode.', async () => { await page.emulateMedia({ colorScheme: 'dark' }); });
 await page.emulateMedia({ colorScheme: 'light' });
 await shot('slash-menu.png', 'The slash menu inside the paper, with the plain Quote row beside Callout and Code.', async () => { await caretAtEndOf('A note in Barkdown'); await page.keyboard.press('Enter'); await page.keyboard.type('/'); await page.waitForTimeout(400); });
@@ -131,7 +131,7 @@ console.log('gif', frames.length, 'frames,', Math.round(fs.statSync(path.join(ou
 // ── the manifest: what each picture shows, and which code it came from ──
 const rows = {};
 const resultsDir = path.join(appDir, 'test-results');
-for (const t of ['tables', 'multiblock', 'opaque']) {
+for (const t of ['tables', 'multiblock', 'tablehead']) {
   try { const files = fs.readdirSync(resultsDir).filter(f => new RegExp(`^${t}(-[a-z0-9]+)?\\.json$`).test(f)).map(f => path.join(resultsDir, f)).sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs); if (files.length) rows[t] = JSON.parse(fs.readFileSync(files[0], 'utf8')).summary; } catch {}
 }
 const readme = fs.readFileSync(path.join(appDir, 'README.md'), 'utf8');
