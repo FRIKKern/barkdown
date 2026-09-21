@@ -204,13 +204,14 @@ function withImages(messages, images) {
   return out;
 }
 
-async function startApi({ chatId, messages, context, settings, send, images }) {
+async function startApi({ chatId, messages, context, settings, send, images, originalMessages }) {
   const run = providerRuns.createRun({ chatId, context, send, provider: 'api' });
   const id = run.id;
   (async () => {
     try {
       const apiKey = settings.apiKey || process.env.ANTHROPIC_API_KEY || '';
-      const lastUser = [...messages].reverse().find(m => m.role === 'user');
+      // Offline navigation interprets only the person's text, never injected run guidance.
+      const lastUser = [...(originalMessages || messages)].reverse().find(m => m.role === 'user');
       const lastText = typeof lastUser?.content === 'string' ? lastUser.content : (lastUser?.content || []).map(b => b.text || '').join(' ');
       if (!apiKey && !process.env.ANTHROPIC_AUTH_TOKEN && !settings.forceOnline) {
         const reply = offlineReply(run, lastText);
@@ -283,8 +284,11 @@ async function startApi({ chatId, messages, context, settings, send, images }) {
 // Prefix the person's message with what the surrounding conversations are doing (see
 // conversations.contextNote). The stored transcript keeps the clean message; only the run sees this.
 function withConversationContext(params) {
-  const note = conversations.contextNote(params.chatId);
-  if (!note) return params;
+  const folder = params.context?.folder;
+  const folderNote = folder
+    ? `This chat's current working folder is ${JSON.stringify(folder)}. This is the folder captured for this run; use it even if earlier messages name a different folder. When the person asks where you are, which folder you are in, or what "this folder" means, answer directly with this path. No shell command, directory listing, document search or conversation read is needed just to identify it. Inspect files only when the person asks about their contents, a listing, or filesystem verification. Do not claim you inspected files unless you did.`
+    : 'This chat has no working folder selected. Answer folder-location questions directly with that fact; do not infer a folder from another chat, an open file, or a provider scratch directory.';
+  const note = [folderNote, conversations.contextNote(params.chatId)].filter(Boolean).join('\n');
   const wrap = text => `[Workspace context]\n${note}\n[End of context]\n\n${text}`;
   const prompt = wrap(params.prompt || '');
   const messages = Array.isArray(params.messages) ? params.messages.map(m => ({ ...m })) : params.messages;
@@ -292,7 +296,10 @@ function withConversationContext(params) {
     for (let i = messages.length - 1; i >= 0; i--) {
       if (messages[i].role !== 'user') continue;
       if (typeof messages[i].content === 'string') messages[i].content = wrap(messages[i].content);
-      else if (Array.isArray(messages[i].content)) messages[i].content = messages[i].content.map(b => b.type === 'text' ? { ...b, text: wrap(b.text) } : b);
+      else if (Array.isArray(messages[i].content)) {
+        messages[i].content = messages[i].content.map(b => b.type === 'text' ? { ...b, text: wrap(b.text) } : b);
+        if (!messages[i].content.some(b => b.type === 'text')) messages[i].content.push({ type: 'text', text: wrap(params.prompt || '') });
+      }
       break;
     }
   }
@@ -326,7 +333,7 @@ async function start(rawParams) {
   const provider = params.provider || 'api';
   if (provider === 'claude') return require('./providers/claude').start(params);
   if (provider === 'codex') return require('./providers/codex').start(params);
-  return startApi(params);
+  return startApi({ ...params, originalMessages: rawParams.messages });
 }
 
 module.exports = { start, startApi, cancel, respondApproval, toolDefinitions, setClientFactory, imageBlocks, withImages, withConversationContext, withCatchUp };

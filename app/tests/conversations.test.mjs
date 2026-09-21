@@ -68,7 +68,34 @@ assert(wrapped.prompt.startsWith('[Workspace context]') && wrapped.prompt.endsWi
 assert(wrapped.messages[2].content[1].text.startsWith('[Workspace context]') && wrapped.messages[0].content === 'earlier', 'last user turn wrapped, earlier turns untouched');
 assert(raw.prompt === 'And Ulriken?' && raw.messages[2].content[1].text === 'And Ulriken?', 'raw params not mutated');
 const alone = agent.withConversationContext({ chatId: 'nope', prompt: 'hi', messages: [] });
-assert(alone.prompt === 'hi', 'no note, no wrapper');
+assert(alone.prompt.includes('no working folder selected') && alone.prompt.endsWith('\n\nhi'), 'unknown chat still gets folderless guidance');
+for (const provider of ['codex', 'claude', 'api']) {
+  for (const chatId of ['main1', 'side1', 'nope']) {
+    const current = agent.withConversationContext({ provider, chatId, session: 'resumed', context: { folder: 'C:/work/current' }, prompt: 'Where are you?', messages: [{ role: 'user', content: 'Where are you?' }] });
+    assert(current.prompt.includes('current working folder is "C:/work/current"'), 'captured run folder for ' + provider + '/' + chatId);
+    assert(current.messages[0].content.includes('No shell command'), 'API history gets direct-answer guidance');
+    assert(current.prompt.includes('filesystem verification'), 'explicit inspection remains available');
+  }
+}
+// Exercise the real shared dispatcher, with transport seams stubbed so no login/provider is used.
+for (const provider of ['claude', 'codex']) {
+  const transport = require('../main/providers/' + provider);
+  const originalStart = transport.start;
+  const requests = [];
+  transport.start = async params => { requests.push(params); return { runId: 'context-test' }; };
+  try {
+    for (const folder of ['C:/work/first', 'C:/work/current', null]) {
+      await agent.start({ provider, chatId: 'side1', session: 'existing-session', context: { folder }, prompt: 'Where are you?', messages: [] });
+    }
+    assert(requests[1].session === 'existing-session' && requests[1].context.folder === 'C:/work/current', 'resume and captured folder preserved at ' + provider + ' dispatch');
+    assert(requests[1].prompt.includes('current working folder is "C:/work/current"') && !requests[1].prompt.includes('C:/work/first'), 'changed folder replaces prior run guidance');
+    assert(requests[2].prompt.startsWith('[Workspace context]\nThis chat has no working folder selected.'), 'clearing a folder does not reuse parent or resumed folder');
+  } finally { transport.start = originalStart; }
+}
+const imageOnly = { chatId: 'side1', context: { folder: 'C:/work/image' }, messages: [{ role: 'user', content: [{ type: 'image', source: {} }] }] };
+const imageWrapped = agent.withConversationContext(imageOnly);
+assert(imageWrapped.messages[0].content[1].text.includes('C:/work/image'), 'image-only API turn still receives current folder guidance');
+assert(imageOnly.messages[0].content.length === 1 && imageWrapped.messages[0].content[0].type === 'image', 'image-only original input and image order preserved');
 console.log('ok run context');
 
 fs.rmSync(dir, { recursive: true, force: true });
