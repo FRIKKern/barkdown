@@ -29,6 +29,7 @@ try {
     const child = spawn(process.execPath, process.argv.length > 2 ? process.argv.slice(2) : ['tests/status-shots.mjs'], { cwd: appDir, windowsHide: true, stdio: 'inherit', env: {
       ...process.env, XDG_CONFIG_HOME: path.join(data, 'cli-config'), BARKPARK_API_URL: driver.server, BARKPARK_API_TOKEN: secrets.token, BARKPARK_DATASET: 'production',
       BARKDOWN_SHOTS_SERVER: driver.server, BARKDOWN_SHOTS_BP_COMMIT: commit, BARKDOWN_SHOTS_BP_DIRTY: String(dirty), BARKDOWN_SHOTS_ISOLATED: '1',
+      BARKDOWN_SHOTS_BUILD_FINGERPRINT: driver.build?.fingerprint || '',
     } });
     child.once('error', reject); child.once('exit', resolve);
   });

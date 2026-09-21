@@ -17,6 +17,7 @@ class Canvas extends HTMLElement {
   flushPendingChanges() { this.flushed = true; }
   acknowledgeOps(seq) { this.acknowledgements.push(seq); this.pending = false; this.onAck?.(); }
   applyServerBlocks(blocks) { this.echoes.push(blocks); this.blocks = blocks; }
+  applyServerBlocksIfIdle(blocks) { if (this.rejectExternal) return false; this.applyServerBlocks(blocks); return true; }
   resolveConflictWithServerBlocks(blocks) { this.blocks=blocks;this.pending=false; }
   discardInflightOps() { return true; }
   emit(seq = 1) { this.pending = true; this.dispatchEvent(new CustomEvent('bp-canvas-ops', { detail: { seq, ops: [{ op: 'patch-block', id: this.blocks[0].id, patch: { text: 'edited' } }] } })); }
@@ -159,6 +160,30 @@ await test('a fully saved title during reload defeats the stale title snapshot',
   transport={get:async id=>paper(id),proposals:()=>++proposals===2?held.promise:Promise.resolve([]),patchTitle:async()=>({})};
   const m=mount();await tick();const canvas=m.canvas();const reload=m.controller.navigate();await tick();const title=m.host.querySelector('#title');title.value='Fresh title';await title.onchange();assert.equal(m.controller.isDirty(),false);held.resolve([]);await reload;
   try {assert.equal(m.canvas(),canvas);assert.equal(title.value,'Fresh title');assert.equal(m.tab.title,'Fresh title');}finally{m.close();}
+});
+await test('a refused external application never advances the next write revision', async () => {
+  let gets=0;const writes=[];transport={get:async id=>paper(id,++gets===1?1:2),applyOps:async(...args)=>{writes.push(args);return{rev:3};}};
+  const m=mount();await tick();const canvas=m.canvas();canvas.rejectExternal=true;await m.controller.refresh();
+  try {assert.equal(canvas.echoes.length,0);canvas.emit();await tick();assert.equal(writes[0][2],1);}finally{m.close();}
+});
+await test('an accepted external application advances the next write revision', async () => {
+  let gets=0;const writes=[];transport={get:async id=>paper(id,++gets===1?1:2),applyOps:async(...args)=>{writes.push(args);return{rev:3};}};
+  const m=mount();await tick();await m.controller.refresh();
+  try {assert.equal(m.canvas().echoes.length,1);m.canvas().emit();await tick();assert.equal(writes[0][2],2);}finally{m.close();}
+});
+await test('older bundles retain their original revision and offer an explicit reload', async () => {
+  let gets=0;const writes=[];transport={get:async id=>paper(id,++gets===1?1:2),applyOps:async(...args)=>{writes.push(args);return{rev:3};}};
+  const m=mount();await tick();m.canvas().applyServerBlocksIfIdle=undefined;await m.controller.refresh();
+  try {assert.equal(m.canvas().echoes.length,0);assert.match(m.host.querySelector('#save-state').textContent,/Newer version/);m.canvas().emit();await tick();assert.equal(writes[0][2],1);}finally{m.close();}
+});
+await test('an outstanding own echo finishes before a newer external revision can be accepted', async () => {
+  const oldEcho=deferred();let gets=0;const writes=[];
+  transport={get:async id=>++gets===2?oldEcho.promise:paper(id,gets===1?1:3),applyOps:async(...args)=>{writes.push(args);return{rev:writes.length===1?2:4};}};
+  const m=mount();await tick();const canvas=m.canvas();canvas.emit();await tick();await m.controller.refresh();
+  assert.equal(canvas.echoes.length,0,'the existing save guard includes its outstanding echo read');
+  oldEcho.resolve(paper('A',2));await tick();
+  await m.controller.refresh();
+  try {assert.equal(canvas.echoes.length,2);canvas.emit(2);await tick();assert.equal(writes[1][2],3);}finally{m.close();}
 });
 console.log(JSON.stringify(cases, null, 2));
 dom.window.close();
