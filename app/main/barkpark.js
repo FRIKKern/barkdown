@@ -153,7 +153,10 @@ async function uploadMedia(config, { name, mime, dataUrl, filePath }) {
     const d = unwrap(data) || {};
     const info = d.asset?.fileInfo || {};
     const server = String(config.server || '').replace(/\/+$/, '');
-    const src = d.absoluteUrl || (info.url ? (server ? server + info.url : info.url) : '');
+    // The dataset-less /media/upload endpoint returns {url, assetDocId};
+    // v1/CLI responses expose absoluteUrl or asset.fileInfo.url instead.
+    const mediaUrl = d.absoluteUrl || info.url || d.url;
+    const src = mediaUrl ? (server ? new URL(mediaUrl, server + '/').href : mediaUrl) : '';
     if (!src) throw new Error('the upload returned no url');
     return { src, id: d.asset?._publishedId || d.assetDocId || null, width: info.width ? Number(info.width) : null, height: info.height ? Number(info.height) : null, alt: d.asset?.altText || null };
   } finally {
