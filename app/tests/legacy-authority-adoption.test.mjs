@@ -83,6 +83,14 @@ for (const bad of ['existing', 'source-change', 'candidate-change', 'runtime-cha
   await assert.rejects(h.recover({ action: 'activate' })); assert.equal(fs.existsSync(staged.finalRoot), false);
 }
 console.log('PASS existing/changed/corrupt/missing authorities, unfinished runs and unresolved owned paths fail closed');
+for (const publish of [false, true]) {
+  const f = fixture('missing-journal-' + publish), h = f.api(); await h.prepare(); if (publish) await h.recover({ action: 'activate' });
+  fs.renameSync(path.join(f.userData, 'legacy-adoption.json'), path.join(f.userData, 'legacy-adoption.retained.json'));
+  assert.equal(h.inspect().status, 'blocked');
+  await assert.rejects(h.prepare());
+}
+const ordinary = fixture('ordinary-profile'); createProfileRegistry(path.join(ordinary.userData, 'profile-data')).createProfile({ name: 'Ordinary' }); assert.equal(ordinary.api().inspect().status, 'none');
+console.log('PASS missing journal with staged/published evidence blocks; ordinary pre-existing profile registry remains distinct');
 
 const own = fixture('ownership'); assert.throws(() => acquireAuthorityLease(own.userData), /owned/);
 own.ownership.release(); await assert.rejects(own.api().prepare(), /released/);
@@ -91,6 +99,32 @@ const relocatedDir = path.join(root, 'lease-original'), renamedDir = path.join(r
 const lease = acquireFileLease(path.join(relocatedDir, 'owner.json')); lease.prepareRelocation(); fs.renameSync(relocatedDir, renamedDir); lease.relocated(path.join(renamedDir, 'owner.json')); lease.release();
 assert.equal(fs.existsSync(path.join(renamedDir, 'owner.json')), false);
 console.log('PASS userData ownership, stale token, junction refusal and verified lease relocation');
+const multiple = fixture('later-runtime'); const multipleApi = multiple.api(); await multipleApi.prepare(); const multipleActive = await multipleApi.recover({ action: 'activate' });
+const multiRegistry = createProfileRegistry(multipleActive.finalRoot), later = multiRegistry.createProfile({ name: 'Later runtime' }), laterStore = multiRegistry.storeFor(later.id), laterData = path.join(laterStore.storeDir, 'local-barkpark/runtime');
+fs.mkdirSync(path.join(laterData, 'pgdata'), { recursive: true }); fs.writeFileSync(path.join(laterData, 'pgdata/PG_VERSION'), '18');
+const laterLease = acquireFileLease(path.join(laterData, 'owner.json'));
+await assert.rejects(multipleApi.recover({ action: 'rollback' }), /owned/); assert.equal(fs.existsSync(multipleActive.finalRoot), true); laterLease.release();
+fs.writeFileSync(path.join(laterData, 'pgdata/postmaster.pid'), String(process.pid));
+await assert.rejects(multipleApi.recover({ action: 'rollback' }), /postmaster.pid/); fs.renameSync(path.join(laterData, 'pgdata/postmaster.pid'), path.join(laterData, 'pgdata/postmaster.retained'));
+assert.equal((await multipleApi.recover({ action: 'rollback' })).status, 'rolled-back');
+console.log('PASS rollback checks later profiles and refuses their live owner or recorded database PID');
+
+const lostSnapshot = fixture('lease-lost-copy');
+await assert.rejects(lostSnapshot.api(phase => { if (phase === 'shell-file-copied') lostSnapshot.ownership.release(); }).prepare(), /released/);
+assert.equal(JSON.parse(fs.readFileSync(path.join(lostSnapshot.userData, 'legacy-adoption.json'))).phase, 'prepared');
+const lostCold = fixture('lease-lost-await', true);
+lostCold.checkCold = async () => { await Promise.resolve(); lostCold.ownership.release(); };
+await assert.rejects(lostCold.api().prepare(), /released/);
+const lostJournal = JSON.parse(fs.readFileSync(path.join(lostCold.userData, 'legacy-adoption.json')));
+assert.equal(lostJournal.phase, 'candidate');
+assert.equal(fs.existsSync(path.join(lostCold.userData, 'legacy-adoption-work', lostJournal.operationId, 'candidate-registry/profiles', lostJournal.profileId, 'runtime-adoption.json')), false);
+const lostVerify = fixture('lease-lost-verify'), lostVerifyApi = lostVerify.api(); await lostVerifyApi.prepare();
+const stream = fs.createReadStream; let armed = true;
+fs.createReadStream = function(file, ...args) { const result = stream.call(this, file, ...args); if (armed && String(file).includes('candidate-registry')) { armed = false; queueMicrotask(() => lostVerify.ownership.release()); } return result; };
+try { await assert.rejects(lostVerifyApi.recover({ action: 'activate' }), /released/); } finally { fs.createReadStream = stream; }
+assert.equal(fs.existsSync(path.join(lostVerify.userData, 'profile-data')), false);
+assert.equal(JSON.parse(fs.readFileSync(path.join(lostVerify.userData, 'legacy-adoption.json'))).phase, 'ready');
+console.log('PASS authority loss during shell copy, awaited cold check and candidate verification prevents later publication/writes');
 
 for (const phase of ['authority-prepared', 'shell-file-copied', 'authority-snapshotted', 'registry-registry-committed', 'authority-candidate', 'runtime-adoption-prepared', 'runtime-descriptor-committed', 'runtime-adoption-committed', 'reference-file-remapped', 'authority-ready', 'authority-activating', 'authority-renamed', 'authority-active', 'authority-rolling-back', 'authority-retired', 'authority-rolled-back']) {
   const f = fixture('exit-' + phase, phase.startsWith('runtime-')); f.ownership.release();

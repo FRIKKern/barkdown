@@ -15,7 +15,7 @@ const phases = new Set(['prepared', 'snapshotted', 'candidate', 'ready', 'activa
 const sha = value => crypto.createHash('sha256').update(value).digest('hex');
 function safe(file) {
   for (let at = path.resolve(file); ; at = path.dirname(at)) {
-    if (fs.existsSync(at) && fs.lstatSync(at).isSymbolicLink()) throw new Error('Linked authority paths are unsupported');
+    try { if (fs.lstatSync(at).isSymbolicLink()) throw new Error('Linked authority paths are unsupported'); } catch (error) { if (error.code !== 'ENOENT') throw error; }
     if (path.dirname(at) === at) break;
   }
   return path.resolve(file);
@@ -66,20 +66,21 @@ async function shellInventory(root) {
   if (!files.some(f => f.path === 'workspace.json')) throw new Error('Existing legacy workspace is required');
   return { files, dirs, runtime };
 }
-async function snapshot(source, target, manifest, tempRoot, checkpoint) {
-  await fsp.mkdir(target, { recursive: true }); await fsp.mkdir(tempRoot, { recursive: true });
-  for (const dir of manifest.dirs) await fsp.mkdir(child(target, dir), { recursive: true });
+async function snapshot(source, target, manifest, tempRoot, checkpoint, guard) {
+  guard(); await fsp.mkdir(target, { recursive: true }); guard(); await fsp.mkdir(tempRoot, { recursive: true });
+  for (const dir of manifest.dirs) { guard(); await fsp.mkdir(child(target, dir), { recursive: true }); }
   for (const file of manifest.files) {
+    guard();
     const from = child(source, file.path), to = child(target, file.path);
     const current = await digest(from); if (current.size !== file.size || current.sha256 !== file.sha256) throw new Error('Legacy shell changed: ' + file.path);
     if (fs.existsSync(to)) { const existing = await digest(to); if (existing.sha256 !== file.sha256 || existing.size !== file.size) throw new Error('Shell backup differs: ' + file.path); }
     else {
-      await fsp.mkdir(path.dirname(to), { recursive: true });
+      guard(); await fsp.mkdir(path.dirname(to), { recursive: true }); guard();
       const temp = child(tempRoot, crypto.randomUUID() + '.tmp');
       await pipeline(fs.createReadStream(from), fs.createWriteStream(temp, { flags: 'wx', mode: 0o600 }));
       const copied = await digest(temp); if (copied.sha256 !== file.sha256 || copied.size !== file.size) throw new Error('Legacy shell changed during copy');
       const fd = await fsp.open(temp, 'r+'); try { await fd.sync(); } finally { await fd.close(); }
-      await fsp.rename(temp, to);
+      guard(); await fsp.rename(temp, to);
     }
     checkpoint('shell-file-copied');
   }
@@ -87,6 +88,8 @@ async function snapshot(source, target, manifest, tempRoot, checkpoint) {
 function createLegacyAdoption({ userData, ownership, readSecrets, checkCold = assertCold, checkpoint = () => {} }) {
   const root = fs.realpathSync.native(safe(userData)), finalRoot = child(root, 'profile-data'), journalPath = child(root, 'legacy-adoption.json');
   const own = () => { if (!ownership || !fs.existsSync(root) || owners.get(ownership) !== canonical(root)) throw new Error('A bound workspace authority lease is required'); ownership.assertOwned(); };
+  const emit = phase => { own(); checkpoint(phase); own(); };
+  const ownedWrite = (file, value) => { own(); write(file, value); };
   function paths(j) { const work = child(root, 'legacy-adoption-work/' + j.operationId); return { work, snapshot: child(work, 'shell-original'), candidate: child(work, 'candidate-registry'), retired: child(work, 'retired-registry'), temp: child(work, 'copy-temp') }; }
   function readJournal() {
     if (!fs.existsSync(journalPath)) return null;
@@ -130,7 +133,11 @@ function createLegacyAdoption({ userData, ownership, readSecrets, checkCold = as
   function inspect() {
     try {
       const j = readJournal();
-      if (!j) return { status: 'none', finalRoot, actions: [] };
+      if (!j) {
+        const work = child(root, 'legacy-adoption-work');
+        if (fs.existsSync(child(finalRoot, 'legacy-authority.json')) || (fs.existsSync(work) && fs.readdirSync(work).length)) throw new Error('Adoption evidence exists without its journal; explicit inspection required');
+        return { status: 'none', finalRoot, actions: [] };
+      }
       const p = paths(j);
       if (j.phase === 'active') { marker(j, finalRoot); return { status: 'active', finalRoot, profileId: j.profileId, operationId: j.operationId, actions: ['rollback'] }; }
       if (j.phase === 'rolled-back') {
@@ -188,17 +195,17 @@ function createLegacyAdoption({ userData, ownership, readSecrets, checkCold = as
             if (chat.busy || chat.running || chat.runId) throw new Error('Legacy workspace records an unfinished run; explicit interruption reconciliation required');
           }
         }
-        if (changes.length !== beforeCount) store.writeJson(file.path, value);
+        if (changes.length !== beforeCount) { own(); store.writeJson(file.path, value); }
       } else {
         const output = strings(sourceBytes.toString('utf8'), file.path), target = child(store.storeDir, file.path);
-        if (output !== sourceBytes.toString('utf8')) { const tmp = target + '.' + crypto.randomUUID() + '.tmp'; await fsp.writeFile(tmp, output, { flag: 'wx' }); await fsp.rename(tmp, target); }
+        if (output !== sourceBytes.toString('utf8')) { const tmp = target + '.' + crypto.randomUUID() + '.tmp'; own(); await fsp.writeFile(tmp, output, { flag: 'wx' }); own(); await fsp.rename(tmp, target); }
       }
-      checkpoint('reference-file-remapped');
+      emit('reference-file-remapped');
     }
     for (const file of j.manifest.files.filter(f => f.path.startsWith('attachments/'))) {
       const value = await digest(child(store.storeDir, file.path)); if (value.sha256 !== file.sha256 || value.size !== file.size) throw new Error('Owned attachment copy differs');
     }
-    write(child(store.storeDir, 'legacy-reference-map.json'), { version: 1, originalRoot: j.source, finalRoot: finalStore, changes });
+    ownedWrite(child(store.storeDir, 'legacy-reference-map.json'), { version: 1, originalRoot: j.source, finalRoot: finalStore, changes });
   }
   async function prepare({ legacyDir = path.join(root, 'barkdown'), name = 'Personal' } = {}) {
     return transition(async () => {
@@ -209,31 +216,32 @@ function createLegacyAdoption({ userData, ownership, readSecrets, checkCold = as
       const source = fs.realpathSync.native(safe(legacyDir));
       if (j && canonical(source) !== canonical(j.source)) throw new Error('Adoption belongs to another legacy source');
       if (!j) {
+        const state = inspect(); if (state.status !== 'none') throw new Error(state.error || 'Orphan adoption evidence requires inspection');
         disjoint(source, finalRoot); disjoint(source, child(root, 'legacy-adoption-work'));
         if (typeof name !== 'string' || !name.trim()) throw new Error('Profile name is required');
         const manifest = await shellInventory(source);
         j = { version: 1, operationId: crypto.randomUUID(), phase: 'prepared', source, finalRoot, name: name.trim(), profileId: null, manifest };
-        write(journalPath, j); checkpoint('authority-prepared');
+        ownedWrite(journalPath, j); emit('authority-prepared');
       }
       await unchanged(j); const p = paths(j);
-      await snapshot(j.source, p.snapshot, j.manifest, p.temp, checkpoint);
-      write(child(p.work, 'shell-manifest.json'), { version: 1, source: j.source, manifest: j.manifest });
-      j.phase = 'snapshotted'; write(journalPath, j); checkpoint('authority-snapshotted');
-      const registry = createProfileRegistry(p.candidate, { checkpoint: phase => checkpoint('registry-' + phase) });
+      await snapshot(j.source, p.snapshot, j.manifest, p.temp, emit, own);
+      ownedWrite(child(p.work, 'shell-manifest.json'), { version: 1, source: j.source, manifest: j.manifest });
+      j.phase = 'snapshotted'; ownedWrite(journalPath, j); emit('authority-snapshotted'); own();
+      const registry = createProfileRegistry(p.candidate, { checkpoint: phase => emit('registry-' + phase) });
       const profile = registry.adoptLegacy({ legacyDir: p.snapshot, name: j.name });
       if (j.profileId && j.profileId !== profile.id) throw new Error('Candidate profile identity changed');
-      j.profileId = profile.id; j.phase = 'candidate'; write(journalPath, j); checkpoint('authority-candidate');
+      j.profileId = profile.id; j.phase = 'candidate'; ownedWrite(journalPath, j); emit('authority-candidate');
       const store = registry.storeFor(j.profileId);
-      if (j.manifest.runtime) await createRuntimeAdoption({ registry, readSecrets, checkCold, checkpoint: phase => checkpoint('runtime-' + phase) }).adopt({ profileId: j.profileId, legacyDir: j.source });
+      if (j.manifest.runtime) await createRuntimeAdoption({ registry, readSecrets: async store => { const value = await readSecrets(store); own(); return value; }, checkCold: async (...args) => { await checkCold(...args); own(); }, checkpoint: phase => emit('runtime-' + phase) }).adopt({ profileId: j.profileId, legacyDir: j.source });
       else if (store.readJson('settings.json', {}).barkpark?.local?.enabled) throw new Error('Enabled legacy runtime is missing; adoption will not seed a replacement');
       await remap(j, store, p.snapshot);
       await unchanged(j); own();
       const profileFiles = [];
       for (const file of [...j.manifest.files.map(f => f.path), 'legacy-reference-map.json', ...(j.manifest.runtime ? ['runtime.json', 'runtime-adoption.json'] : [])]) { const relative = 'profiles/' + j.profileId + '/' + file; profileFiles.push({ path: relative, ...await digest(child(p.candidate, relative)) }); }
-      write(child(p.candidate, 'legacy-authority.json'), { version: 1, operationId: j.operationId, profileId: j.profileId, finalRoot, shellManifestHash: sha(JSON.stringify(j.manifest)), profileFiles });
+      ownedWrite(child(p.candidate, 'legacy-authority.json'), { version: 1, operationId: j.operationId, profileId: j.profileId, finalRoot, shellManifestHash: sha(JSON.stringify(j.manifest)), profileFiles });
       j.readyHash = sha(fs.readFileSync(child(p.candidate, 'legacy-authority.json')));
       marker(j, p.candidate);
-      j.phase = 'ready'; write(journalPath, j); checkpoint('authority-ready');
+      j.phase = 'ready'; ownedWrite(journalPath, j); emit('authority-ready');
       return inspect();
     });
   }
@@ -256,32 +264,39 @@ function createLegacyAdoption({ userData, ownership, readSecrets, checkCold = as
               const receipt = store.readJson('runtime-adoption.json');
               if (JSON.stringify(await runtimeInventory(data)) !== JSON.stringify(receipt.manifest)) throw new Error('Legacy runtime changed after staging; activation refused');
             }
-            j.phase = 'activating'; write(journalPath, j); checkpoint('authority-activating'); own();
+            j.phase = 'activating'; ownedWrite(journalPath, j); emit('authority-activating'); own();
             if (fs.existsSync(finalRoot)) throw new Error('Final authority appeared during activation; refused');
-            fs.renameSync(p.candidate, finalRoot); checkpoint('authority-renamed');
+            fs.renameSync(p.candidate, finalRoot); emit('authority-renamed');
             marker(j, finalRoot);
           } finally { sourceLease?.release(); }
         }
-        j.phase = 'active'; write(journalPath, j); checkpoint('authority-active');
+        j.phase = 'active'; ownedWrite(journalPath, j); emit('authority-active');
         return inspect();
       }
       if (action === 'rollback') {
         if (j.phase === 'rolled-back') { const result = inspect(); if (result.status !== 'rolled-back') throw new Error(result.error); return result; }
         if (!['active', 'activating', 'rolling-back'].includes(j.phase)) throw new Error('Only published authority can roll back; private staging is retained for inspection');
         if (fs.existsSync(finalRoot)) {
-          const { store } = marker(j, finalRoot); let runtimeLease;
+          const { registry } = marker(j, finalRoot); const runtimeLeases = [];
           try {
-            if (j.manifest.runtime) { const data = child(store.storeDir, 'local-barkpark/runtime'); runtimeLease = acquireFileLease(child(data, 'owner.json')); await checkCold(data); }
+            for (const profile of registry.load().profiles) {
+              const store = registry.storeFor(profile.id), data = child(store.storeDir, 'local-barkpark/runtime');
+              if (!fs.existsSync(data)) continue;
+              own(); const lease = acquireFileLease(child(data, 'owner.json')); runtimeLeases.push({ lease, relative: 'profiles/' + profile.id + '/local-barkpark/runtime/owner.json' });
+              if (fs.existsSync(child(data, 'pgdata/postmaster.pid'))) throw new Error('A profile database still has a postmaster.pid; rollback refused');
+              if (fs.existsSync(child(data, 'pgdata/PG_VERSION'))) await checkCold(data);
+              own();
+            }
             if (fs.existsSync(p.retired)) throw new Error('Retired authority already exists; inspect before rollback');
-            j.phase = 'rolling-back'; write(journalPath, j); checkpoint('authority-rolling-back'); own();
+            j.phase = 'rolling-back'; ownedWrite(journalPath, j); emit('authority-rolling-back'); own();
             if (fs.existsSync(p.retired)) throw new Error('Retired authority appeared during rollback; refused');
-            runtimeLease?.prepareRelocation();
+            for (const { lease } of runtimeLeases) lease.prepareRelocation();
             fs.renameSync(finalRoot, p.retired);
-            if (runtimeLease) runtimeLease.relocated(child(p.retired, 'profiles/' + j.profileId + '/local-barkpark/runtime/owner.json'));
-            checkpoint('authority-retired');
-          } finally { runtimeLease?.release(); }
+            for (const { lease, relative } of runtimeLeases) lease.relocated(child(p.retired, relative));
+            emit('authority-retired');
+          } finally { for (const { lease } of runtimeLeases) lease.release(); }
         } else { if (j.phase !== 'rolling-back') throw new Error('Published authority is missing; no fallback to legacy'); marker(j, p.retired); }
-        j.phase = 'rolled-back'; write(journalPath, j); checkpoint('authority-rolled-back');
+        j.phase = 'rolled-back'; ownedWrite(journalPath, j); emit('authority-rolled-back');
         return inspect();
       }
       throw new Error('Unknown authority recovery action');

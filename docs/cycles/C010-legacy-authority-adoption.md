@@ -27,3 +27,9 @@ Windows fixture found open file handles prevent whole-directory rollback rename.
 No real C010 runtime or user data touched. Next: finish process-exit/unit gates and publish source for C006 import, then coordinated real adopted-profile proof and visual/root closeout.
 
 All sixteen composite subprocess exits passed (fixture96ufLr). File-lease regression and C009 adoption suite also passed after relocation support. Source implementation ready for C006 import; real boot integration and closeout remain pending. No background fixture processes remain.
+
+## Ownership and recovery hardening
+
+After coordinator review, missing outer journal with retained staging or published adoption marker blocks startup and new preparation; an unrelated ordinary profile registry still inspects as none. Rollback checks every later-created profile runtime, including owner leases and recorded PostgreSQL PIDs, before retiring the entire authority. Every async boundary and journal/reference publication rechecks the branded authority lease. Losing ownership during shell copy, awaited cold validation or streamed candidate verification prevents further publication.
+
+Targeted helper suite passed at fixture barkdown-authority-2qmbQh, including all sixteen actual subprocess exits. File-lease regressions passed at barkdown-file-lease-Ub64VN; cold-adoption regressions passed at barkdown-cold-adoption-lmf30N. git diff --check passed. C006 lane will own the single actual Electron + real runtime adoption/restart/edit/rollback proof using this helper commit; this lane owns helper regression and visual evidence. No actual user data migrated and no C010 runtime is running in this lane.
