@@ -1,5 +1,15 @@
 # Evidence and remaining proof
 
+## E001 — Paper save ownership, 2026-09-22
+
+Runtime fixes `0e2feca` / `228a008` retain Paper drafts during reload/navigation/close and fence late loads, saves and echoes; failed titles remain recoverable. Capture fixes `61d0753` / `e19edfa` wait actual animation completion and include the recovery harness in visual tripwires. [Handoff](cycles/E001-paper-save-ownership.md) and [recovery health page](visual/paper-save/README.md) record scope and provenance.
+
+- Root/app locked installs and Chromium install passed; no unlocked dependency upgrades.
+- `npm run test:desktop` passed: 19 controlled Paper-host races, existing units, 76 desktop checks, direct-edit, composer-history and side-chat suites. [Host results](cycles/E001-host-results.json).
+- `npm --prefix app run test:paper-host:isolated` passed four real private-server journeys: retained delayed save/navigation/close, server text Undo/redo, refusal/Retry and cancelable discard. [Clean-source manifest and named image review](visual/paper-save/runs/2026-09-21T22-43-32-426Z/review.json).
+- `npm run verify` passed after final visual capture/comparison/inspection/explicit approval. Twenty-one fixture action frames showed no geometry, environment or above-tolerance pixel changes. Five live Paper stills, a 37-frame editing GIF and the dedicated nine-still recovery journey were reviewed; earlier evidence is retained.
+- Private runtimes stopped normally; shared services and CLI settings were untouched. Real status showcase used Codex after Claude reported its weekly limit. Profile isolation, native crash/quit durability, specialized block Undo and upstream PR19579 merge remain unproved by this slice.
+
 Baseline at the 2026-09-21 roadmap reset. Implementation evidence is separate from the pending journey gates in [ACCEPTANCE.md](ACCEPTANCE.md). [Original concept validation](archive/2026-09-21-validation.md) is archived.
 
 | Baseline | Evidence | Limits |

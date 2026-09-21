@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-09-21T22-34-11-177Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-21T22-34-11-177Z/comparison.json",
+  "manifestHash": "a3925ec1bbda71d70d4471923f132e4e787002e91cd7e9802d740ed05b09cf68",
+  "reportHash": "f511ce8ac6b241f5112972913fdb07a676b93add94385cdb551d492e53bf400a",
+  "reviewer": "Codex editor agent",
+  "note": "E001: inspected all 21 deterministic action frames across five areas; no changed pixels above tolerance, geometry changes or environment drift. Paper save ownership is separately covered by 19 controlled races and real private-server delayed save, Undo/redo, Retry and cancelable discard checks. Reviewed nine Paper recovery stills including 760px layout, the action GIF, five live Paper stills and all 37 editing GIF frames; those are distinct from fixture tours. No crash-recovery or profile-isolation claim.",
+  "reviewedAt": "2026-09-21T22:36:22.255Z"
+}

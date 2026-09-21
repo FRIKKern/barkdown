@@ -1,0 +1,78 @@
+[
+  {
+    "name": "a cold bundle resolves before committing destination identity or mounting either canvas",
+    "pass": true
+  },
+  {
+    "name": "late initial load cannot replace a newer destination",
+    "pass": true
+  },
+  {
+    "name": "reload preserves a pending human edit and the mounted canvas",
+    "pass": true
+  },
+  {
+    "name": "navigation refuses to discard pending content and restores the source path",
+    "pass": true
+  },
+  {
+    "name": "a rejected batch stays on screen during reload",
+    "pass": true
+  },
+  {
+    "name": "reload requested during an in-flight write retains that document until acknowledgement",
+    "pass": true
+  },
+  {
+    "name": "out-of-order save echoes cannot roll the acknowledged baseline back",
+    "pass": true
+  },
+  {
+    "name": "human typing during a reload wins over its delayed response",
+    "pass": true
+  },
+  {
+    "name": "a chained acknowledgement cannot clear the next batch save guard",
+    "pass": true
+  },
+  {
+    "name": "pending title save prevents navigation and remains owned by its paper",
+    "pass": true
+  },
+  {
+    "name": "failed title remains editable until retry or explicit discard",
+    "pass": true
+  },
+  {
+    "name": "destroyed host ignores late failed writes",
+    "pass": true
+  },
+  {
+    "name": "failed navigation read retains the old editor including input made during the read",
+    "pass": true
+  },
+  {
+    "name": "failed navigation does not invalidate the retained title editor",
+    "pass": true
+  },
+  {
+    "name": "discard waits for a saved copy and cannot overwrite intervening input",
+    "pass": true
+  },
+  {
+    "name": "title writes serialize while retaining a newer typed title",
+    "pass": true
+  },
+  {
+    "name": "choosing the server conflict version clears the dirty navigation guard",
+    "pass": true
+  },
+  {
+    "name": "a fully acknowledged human edit during reload also defeats its stale snapshot",
+    "pass": true
+  },
+  {
+    "name": "a fully saved title during reload defeats the stale title snapshot",
+    "pass": true
+  }
+]
