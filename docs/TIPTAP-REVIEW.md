@@ -1,5 +1,7 @@
 # The Barkpark canvas reviewed against Tiptap
 
+> Roadmap reset, 2026-09-21: [PLAN.md](PLAN.md) is the active delivery queue. This is the historical editor gap analysis and sizing, not the remaining delivery estimate.
+
 Written 2026-09-20 to size the distance to "Tiptap quality" for [the standing goal](EDITOR-PARITY.md). Both sides are read from source: the canvas from the `barkpark-editor` checkout (`api/assets/paper-editor/src`, commit `e227b550f`), Tiptap from its package directory on GitHub (`ueberdosis/tiptap/packages`) and its pricing page, and Tiptap's own Notion-like editor template as the reference for what a finished Tiptap editor feels like.
 
 ## The one fact that sets the scale

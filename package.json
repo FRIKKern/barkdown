@@ -7,7 +7,8 @@
   "scripts": {
     "build": "node scripts/build.cjs",
     "preview": "node scripts/preview.cjs",
-    "check": "tsc -p tsconfig.json && node scripts/check.cjs",
+    "plan": "node .claude/skills/plan-followup/scripts/next.mjs",
+    "check": "tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs",
     "test": "node scripts/test.cjs",
     "verify": "npm run build && npm run check && npm test"
   },

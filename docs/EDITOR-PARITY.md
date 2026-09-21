@@ -1,5 +1,7 @@
 # Goal: the Barkpark editor is as good as Tiptap
 
+> Roadmap reset, 2026-09-21: [PLAN.md](PLAN.md) is the active delivery queue. This matrix remains regression evidence; historical ordering below does not choose the next task.
+
 Set 2026-09-20. This is the standing goal for editing in Barkdown until the matrix below is green and Barkdown's own Tiptap document tab has been retired.
 
 ## Why this is the goal

@@ -1,66 +1,38 @@
 ---
 name: plan-followup
-description: Follow up the Barkdown editor plan — pick the next open issue from docs/PLAN.md, work it Barkpark-first (schema, render, contract, canvas) then as a red-first live row in Barkdown against the local Barkpark, commit and push both repos, close the issue with the run's numbers. Use this whenever the user says to continue, get going, do the next task, work the plan, pick up where we left off, or names an issue number or a parity row (tables, opaque set, highlight, images, IME, profiles, sync) — even if they don't mention the plan by name.
+description: Continue Barkdown’s active dependable-workspace plan: profile isolation, one Paper note engine, recovery/portability, optional sync and ordinary installation. Use for continue, next task, work the plan, or an explicit stage/issue.
 ---
 
 # Plan follow-up
 
-The plan is [docs/PLAN.md](../../../docs/PLAN.md): an ordered sequence, one GitHub issue per task on `FRIKKern/barkdown`, grouped into milestones. The standing goal it serves is [docs/EDITOR-PARITY.md](../../../docs/EDITOR-PARITY.md) (the Barkpark canvas becomes as good as Tiptap, then replaces Barkdown's Tiptap tab) and the sizing is [docs/TIPTAP-REVIEW.md](../../../docs/TIPTAP-REVIEW.md). Read those three once per session; they are short and they are the contract.
+## Choose the next bounded slice
 
-## 1. Find the next task
+Read `docs/PLAN.md`, `docs/NEXT-AGENT.md`, `docs/DESIGN-DECISIONS.md`, and the relevant stage of `docs/ACCEPTANCE.md`. Run `npm run plan` (or `node .claude/skills/plan-followup/scripts/next.mjs`). The queue is `docs/plan.json`. It validates local stage/dependency/evidence records and reports the next ready stage separately from release gates.
 
-Run `node .claude/skills/plan-followup/scripts/next.mjs`. It prints the open issues in plan order with their milestone and estimate, then checks the environment (local Barkpark answering on `:4000`, `bp` pointed at `local`, both trees clean and tracking their remotes). Take the lowest open sequence number unless the user named one. If the environment check fails, fix that first (section 4) — a row cannot go green against a server that is not there.
+The old editor-first sequence and lowest-open-GitHub-issue rule are retired. Do not automatically work #4 before P1. Existing issue links preserve continuity; their state does not replace acceptance evidence. Historical files under `docs/archive/`, the PRD and the sizing review are references, not instructions. The editor matrix remains a regression gate.
 
-Read the issue with `gh issue view <n>`. Its **Acceptance** line names the live row or test that ends the task; everything else is in service of that line.
+User instructions take precedence. For an explicit issue, inspect its current description and map it to the active stage. For a general continuation, deliver a concrete slice of the next ready stage and update the handoff with the next slice.
 
-## 2. Work it in the order that keeps the truth in one place
+## Implement against the real owner
 
-Barkpark is the single source of editor truth; Barkdown consumes it. So a task that adds or changes a block, mark or attribute goes:
+- P1 starts with a persistence inventory, versioned stable profile identity, backed-up adoption of the current workspace, and a two-profile isolation test. Reuse the existing local runtime.
+- Preserve source data and receipts. P2 retires the separate editor only after comparison, restart and interruption/rollback proof. P3 export requires a consistent supported database export and media inventory, not a zip of a running cluster.
+- Profile ownership never changes a chat’s working folder. Capture both at run launch and route results to their original owner.
+- Audit actual Barkpark APIs before promising export, sync or schema behavior. A content-format/schema/reader/editor change belongs upstream first, with its own tests and PR gates; desktop-only ownership work belongs here.
+- Do not rewrite the provider runtime or replace functioning code with the concepts. Preserve full side chats, composer history, human-organized Pages and direct agent edits with human takeover and guarded Undo.
 
-1. **Barkpark first**, in the sibling checkout `../barkpark-editor` on branch `barkdown/editor-quality`: the PortableDoc schema (`api/lib/barkpark/portable_doc/`), the reader render (view and edit are one producer — doctrine rule 3), the ops contract (`docs/contracts/`), and a unit test in `api/assets/paper-editor/src` (mounted tests use the jsdom harness in `canvas/__flush_pending.test.mjs`; mirror it).
-2. **Then the canvas** (`api/assets/paper-editor/src/canvas/`). Where Tiptap ships an open-source extension for the thing (highlight, find-and-replace, emoji, sub/superscript, text-align, file-handler…) load it rather than writing it — the canvas *is* Tiptap. Rebuild with `npm run build` in `api/assets/paper-editor`; until issue #2 lands, copy `api/priv/static/assets/bp-paper-editor.bundle.js` and `.css` into `app/renderer/vendor/`.
-3. **Then the Barkdown row**: a live test in `app/tests/editor-<topic>.live.mjs`, written red first, modelled on `editor-tables.live.mjs` and `editor-multiblock.live.mjs`. A row is green only when the canvas does the thing **and the server holds the same result** — compare both after the tab says "Saved", and re-read the server 3 s later on a mismatch so the evidence says "late" or "lost". Green three consecutive runs before calling it done; the ops pipeline has had races.
+## Environment and verification
 
-Why the order: a canvas change without its server half looks green in the editor and silently diverges on the server, which is the exact failure the matrix exists to catch. And a Barkdown-only fix to a Barkpark problem drifts the moment the bundle is rebuilt.
+Use isolated user-data roots and private test clusters. See `docs/LOCAL-BARKPARK.md` for the Windows source launcher and `docs/VALIDATION.md` for command scope. Source startup needs a built checkout and the correct toolchain; it does not install/compile dependencies during desktop boot.
 
-Some things worth knowing before they cost an hour:
+Inspect target paths and process ownership before operations. Never kill every PostgreSQL process, delete a live pidfile, silently change the CLI server, or stop the shared development server. If owned recovery cannot finish, preserve data, retain the error and report the exact prerequisite. Do not modify another checkout’s branch or unrelated files.
 
-- Select spanning ranges through ProseMirror (`setTextSelection({from, to})` inside `page.evaluate`) rather than Shift+Arrow; keyboard selection extension is unreliable in a headless Electron window and produced false reds twice.
-- A current Barkpark runs a publish wall on new papers: register `tag` documents and publish with a `description` and weighted `tags`, as the two green suites do. Pipe stdin to `bp` only when there is input (`stdio: ['ignore','pipe','pipe']` otherwise) or it errors with "piped stdin is unused".
-- Barkpark vetoes any write that would leave a published paper with no content block. That is policy; the row should expect the tab to say so and the next edit to save.
-- Barkpark's unit sweep has two failures that predate this work (`__save_ack_mounted`, `__press_answer_watchdog`). Verify a new failure against the stashed tree before chasing it.
+Run locked dependency setup and Playwright installation when needed, root `npm run verify`, and app/live tests relevant to the changed boundary. Real storage/recovery/sync assertions require real adapters. Mock tests prove orchestration only. For editor changes compare canvas and authoritative server data and preserve the existing repeated-live-run standard.
 
-## 3. Finish
+## Finish and report
 
-1. Update the row in `docs/EDITOR-PARITY.md`: the score, what was fixed where, anything intermittent with its evidence. Add a row when the task reveals a behaviour the Tiptap tab has that the matrix lacks; never remove a row to make it greener.
-2. If the task changed anything an author sees, commit that change, then `cd app && npm run shots` and commit the pictures with their manifest: `npm run check` at the root refuses a README whose status screenshots are older than the last commit to `app/renderer`, `app/main` or `app/shared` (the script needs the local Barkpark, `bp use local`, and a provider login for the assistant turn; it falls back to Codex, then to a seeded transcript it flags in the manifest).
-3. Commit Barkpark first (`git -C ../barkpark-editor`), push `barkdown/editor-quality`; note the commit hash. Then commit Barkdown (test, vendored bundle, docs, `app/README.md`'s vendoring note with the new hash), push `codex/electron-prototype`. Messages in the repo's voice: a first line that says what changed for the author, then why, then the numbers (`8/11 -> 11/11, three runs`). End with the attribution line the session reminder gives.
-4. Close the issue: `gh issue close <n> --comment "<row> <score>, <runs> runs; Barkpark <hash>, Barkdown <hash>"`.
-5. Tell the user in a few lines: what went green, what was found, what is next in the sequence. Flag anything that needs them — a Barkpark PR to merge, a decision (heading levels, quote block), a switch of `bp` back to cloud.
+Commit/push on a `codex/` branch. After app source changes, commit implementation, run `cd app; npm run shots`, then commit evidence so the screenshot freshness gate stays valid. No production deployment or public hosting is authorized.
 
-## 3b. Landing a Barkpark PR
+Record exact source commits, commands, results and limitations in `docs/VALIDATION.md`; link evidence from `docs/plan.json` before marking a stage done. Update PLAN/NEXT-AGENT when the next slice or gate changes. Keep G1/G2 explicit and recheck external state before landing/releasing. Do not automatically mutate GitHub issues based on this helper’s output; obtain scope from the user’s task or the existing issue workflow. Close an issue only when its actual acceptance is met, preserving its history.
 
-Barkpark's `main` is protected by four required checks — **Elixir gate, PR references an active task, Cloud gate, Console gate** — and nothing else; the security gates are red on `main` itself and are not required, so do not chase them. The task gate wants exactly one `Task: <doc_id>` line at column 0 of the PR body, naming a task on the **Guerrilla ledger** (`https://guerrilla.barkpark.cloud`) that someone has *claimed*. Use the script, which walks the traps in order and stops at the one it cannot clear:
-
-```sh
-node .claude/skills/plan-followup/scripts/barkpark-pr.mjs create --pr <n> \
-  --task-title "…" --task-description "…" \
-  --tags js-correctness:90:"why",robustness:60:"why" \
-  --criterion "<measurable>" --criterion "MERGE-GATED: PR merged to main"
-node .claude/skills/plan-followup/scripts/barkpark-pr.mjs status --pr <n>
-```
-
-What it knows so you don't have to: bp's Guerrilla entry can carry a token with `auth_tier: "none"` (every task write then says "caller is not a member of this workspace") and the cure is re-minting it from the cloud session with the interactive picker fed on stdin — which still needs the user's `bp login` if the cloud session is gone; a task publishes only with a real description and 1–12 *registered* weighted tags with distinct strengths; a claim needs a worker id and refuses a row without acceptance criteria; `gh pr edit` fails on this repo (classic-projects deprecation) so body edits go through `gh api -X PATCH`. First merge main into the branch and rebuild the bundle (`npm run build` in `api/assets/paper-editor`; CI checks bundle freshness), and remember `__save_ack_mounted` is flaky on Windows — CI is its judge.
-
-## 4. Environment
-
-- Local Barkpark: `powershell -File ../barkpark/scripts/setup-windows.ps1 status` (Postgres on `:5432`, Phoenix on `:4000`, seed `demo`, token `barkpark-dev-token`). If it is down, start Postgres with `pg_ctl` from the Scoop install and Phoenix with `mix phx.server` in `../barkpark/api` — inside a Visual Studio `vcvars64` environment, because `argon2_elixir` needs `nmake`. If migrations hang or Phoenix stops answering, look for `error 487` (and a worker "terminated by exception 0xC0000142") in the cluster's `pg.log`: Postgres on Windows failing to spawn backends, worst under load (do not run `mix test`, the unit sweep and the live rows at once). A wedged postmaster ignores `pg_ctl stop`, so kill every `postgres.exe` by PID, delete `data/postmaster.pid`, and `pg_ctl start` with a *new* log file name (the old one stays locked); recovery replays the WAL and Phoenix reconnects on its own.
-- **The server the live rows hit must be the editor branch** when the task touched the server side (schema, reader, BPML): `../barkpark` (main) is what `setup-windows.ps1` runs, and its Phoenix will not know a new inline type. Run the editor worktree instead: it shares deps through a junction (`mklink /J ..arkpark-editorapideps ..arkparkapideps`; `mix.lock` is identical) and starts from a copy of `../barkpark/api/_build` (`robocopy /E`; the app recompiles once, deps do not). A second wrapper, `bp-mix-editor.cmd`, is the same `vcvars64` wrapper with `cd /d …arkpark-editorapi`; `MIX_ENV=test <wrapper> test <files>` runs the targeted ExUnit files there in seconds (the whole `mix test` is CI's job). Stop the main-checkout Phoenix first (free `:4000`), then `PORT=4000 <wrapper> phx.server`.
-- Phoenix boot is when Postgres wedges most (the pool's ten backends spawn at once; the cluster logs `0xC0000142` then `error 487` and the app dies "killed"). Recover the cluster (Stop-Process each `postgres` by id, delete `postmaster.pid` with `[IO.File]::Delete` — `Remove-Item` is blocked in the sandbox — `pg_ctl start` with a NEW log filename) and start Phoenix again; once it is up it stays up through the rows.
-- A new live suite publishes its paper with `publishFixture({ slug, title, description, blocks })` from `app/tests/lib/paper-fixture.mjs` (it registers the tags and names the wall's refusal); the dedup gate scores **title + tag-name tokens** (Jaccard ≥ 0.55 with ≥ 3 shared refuses). A fixture titled "X probe" with tags `barkdown`+`scratch` shares three tokens with the tables probe and needs at least two title words of its own ("Highlight mark round trip" passes; "Highlight probe" does not). The body is not scored.
-- **The canvas bundle comes from the connected server** (`app/main/canvas-bundle.js` → `renderer/src/canvas-bundle.js`; Settings › Barkpark shows the source and sha1). While iterating on Barkpark: `npm run build` in `api/assets/paper-editor`, restart that Phoenix, reopen the paper — no copy. Still refresh `app/renderer/vendor` (the offline fallback) in the landing commit, so a fresh install and the e2e suite (which runs unconnected) are not behind.
-- **Islands, not contentEditable.** Any edit surface a node-view puts OUTSIDE ProseMirror's content (a title, a summary, a url) must be an `<input>` or `<textarea>`: ProseMirror's focus handler snaps the DOM selection back to its own selection ~20 ms after anything inside `view.dom` gains focus, which pulls the caret out of a contentEditable island into the body (the section title still has this exposure). An input keeps its own caret; commit on blur/Enter/`bp-flush-node`.
-- **A mount-only census is not an editability proof.** Row 12 turned green only when the row also edited each type and inserted each through the slash menu — that sweep found "/Quote" inserting an empty paragraph. When a row says a type is "editable", make it edit and insert.
-- `bp use local` for the live suites (they use `viaCli`); `bp use gyldendal-2` returns the CLI to cloud — say so when you leave it on `local`.
-- The `gh` account must be `FRIKKern` (the repos' owner); `gh auth switch --user FRIKKern` if `gh` or `git push` reports "repository not found".
-- Keep green while you work: `cd app && npm run test:tables && npm run test:multiblock`.
+Tell the user what shipped, what was verified, what remains and the next slice. Do not report issue-count percentages as release readiness.

@@ -1,5 +1,9 @@
 <!-- Generated from prd.source.html by npm run build. Edit the source, not this file. -->
 
+## Historical product brief
+
+This original concept-era brief is retained for design and requirement traceability. As of 21 September 2026, the active delivery direction is profiles, one Paper engine, recovery and portability, optional sync, then ordinary installation. The repository’s docs/PLAN.md, docs/NEXT-AGENT.md and current accepted decisions supersede the old phase order, Keep-first policy and simulated-runtime descriptions below. The images in this brief are concepts, not current delivery evidence.
+
 <a id="cover"></a>
 
 Barkpark desktop · Product requirements

@@ -1,141 +1,51 @@
-# Next-agent handoff
+# Continue the dependable-workspace plan
 
-## What you are continuing
+Read [PLAN.md](PLAN.md), [DESIGN-DECISIONS.md](DESIGN-DECISIONS.md), [ARCHITECTURE.md](ARCHITECTURE.md), then the current stage in [ACCEPTANCE.md](ACCEPTANCE.md). Run `npm run plan`. **Next: P1, profile ownership and isolation.** The former lowest-open-editor-issue rule is retired.
 
-Build Barkdown: an app-wide desktop workspace that combines ChatGPT-like conversation with Notion-like editing, powered by Barkpark's structured content and a T3-derived agent runtime. The user wants to see agents open sources and make edits while remaining able to take over directly.
+## What exists
 
-This repository now contains a working Electron prototype in `app/`, alongside the original interaction concepts and product specification. Preserve the interaction decisions while closing the remaining storage, profile and runtime gaps. The continuation sections below supersede historical baseline descriptions.
+`app/` is a working Electron prototype using Claude Code, Codex and an API fallback. Main and side chats share controls, images, history and transcript actions; side chats are saved conversations with parent links and independent settings. Working folders belong to chats. Tabs, drafts, navigation and favorites persist.
 
-**Standing goal (set 2026-09-20):** the Barkpark editor becomes as good as Tiptap and replaces Barkdown's Tiptap document tab; Barkdown is a note + agent app utilizing Barkpark, with a real Barkpark running locally and syncing to bp cloud. The measurable matrix is in [EDITOR-PARITY.md](EDITOR-PARITY.md), the sizing in [TIPTAP-REVIEW.md](TIPTAP-REVIEW.md), and the ordered sequence with one GitHub issue per task in [PLAN.md](PLAN.md) — start from the lowest open sequence number there. Work that does not move a row of that matrix, or the local-Barkpark sidecar it depends on, needs a reason.
+Barkpark papers use the real Paper canvas and revision-checked operations. Direct agent edits save without Keep, reveal their intent visually and offer guarded Undo; human input ends the presentation immediately. Local legacy documents still use a separate Tiptap tab/store. Do not remove either before P2 proves migration.
 
-Read in order: [README](../README.md), [decisions](DESIGN-DECISIONS.md), [PRD](PRD.md), [architecture](ARCHITECTURE.md), [source map](SOURCE-MAP.md), [acceptance](ACCEPTANCE.md). The proposed [TypeScript contracts](contracts/workspace.ts) make the intended state ownership explicit. They are not upstream schemas.
+A [managed Windows source runtime](LOCAL-BARKPARK.md) owns private PostgreSQL and Barkpark processes, health/recovery and normal shutdown. It is opt-in and requires a built checkout. It is not yet a multi-profile system, packaged runtime, automatic migration or sync implementation.
 
-## The correction most likely to get lost
+## First implementation slice
 
-**The program is not inside a folder. The agents are.**
+Inventory existing persistence and write down profile ownership for documents, chats, tabs, drafts, favorites, media, credentials, caches, receipts and running tasks. Define stable profile-qualified identities and an idempotent adoption of today's workspace into a default profile, with backup. Prove two profiles with the same paper slug cannot affect each other before wiring the switching UI. Use existing issue #6 for continuity; the active scope and acceptance live in P1/A1.
 
-Documents and recent chats remain available across the app. A chat retains its agent's execution context. The working-folder control lives beside the composer. Opening a project editor is a local action in that chat, and viewing another file does not change the agent's execution folder. A running task retains the context captured at launch even if the foreground chat changes.
+Do not change the user's actual library to demonstrate isolation. Use temporary user-data roots and private test clusters. Do not stop the shared development server, switch the CLI's server, change another checkout's branch, or migrate real notes as an incidental setup step.
 
-There is no requirement that a content-only chat or direct document view have a local filesystem project. In the current demonstration, all example chats use different folders of a single sample project; the production model must support independent projects/environments and no-folder conversations.
+## Product rules to retain
 
-## Historical baseline: Electron prototype delivered (branch `codex/electron-prototype`)
+- The app is not a working folder. Documents and chats are available across the selected profile; each chat independently owns its agent folder. Profile selection is library/account ownership, never a filesystem project selector.
+- Pages stay human-organized; discoveries stay in Cloud archive until placed. Preserve the existing loose-root migration backup and nested groups.
+- Sidebar resizing and hover stability, 60% chat default, browser-like work tabs, quiet direct-document navigation, hidden scrollbar tracks and keyboard reachability remain.
+- Favorites bookmark individual destinations; old workspace-snapshot pins are superseded. Capture profile ownership in future favorites.
+- Preserve side-chat parent references, independent controls and drafts, and per-chat Up/Down recall with original-draft restoration.
+- Saved means acknowledged. Do not animate fabricated saves, replay uncertain writes blindly, or replace a human draft during recovery.
 
-`app/` now holds a runnable desktop app that replaces most of the concept's simulation with real behaviour: a local document store with Tiptap editing, revisions, references and backlinks; an `@anthropic-ai/sdk` streaming tool loop whose document edits are proposals and whose file writes need approval; per-chat working folders with confined file access, a CodeMirror project editor and `git diff` reviews; `<webview>` website tabs; side chats with their own runs; persisted workspaces, favorites (bookmarked tabs that reopen anywhere; they replaced pins) and quick open; and a read-only Barkpark adapter (HTTP or through the `bp` CLI) that lists papers in the library and imports them as local copies. The assistant runs on the sign-ins already on the machine, as T3 Code does: Claude Code through the Claude Agent SDK (approval cards for edits and commands, per-chat session resume) and Codex through the Codex SDK (sandboxed to the working folder), both with Barkdown's document tools attached as a stdio MCP server; an API key remains the fallback. Both providers were exercised live from this machine, including image attachments pasted or dropped into the chat (as in T3 Code), which reach Claude Code as image blocks and Codex as local images. Side chats and the main chat know about each other: a run gets a bounded context note about the surrounding conversations and can read any transcript through `list_conversations` / `read_conversation`. The transcript itself is verbose in the way Claude Code's desktop app is: expandable steps with commands, output and line diffs, a change card per reply with View and Undo per file, per-chat model and effort chips, and a terminal work tab that also mirrors the assistant's commands. Barkpark papers now open in the real `<bp-paper-canvas>` (vendored from the reviewed checkout) with edits applied through the fenced ops endpoint under `ifRev`, acknowledged saves, server echo write-back, and a conflict card on 412; agent proposals on papers (`bp:<slug>`) are applied as ops when kept. The canvas itself was brought toward Notion parity in the Barkpark repo (branch `barkdown/editor-quality`, merged into Barkpark main as 04c5b204b via PR #19366 on 2026-09-18; rebuilt and vendored here): block gutter with drag and a block menu, keyboard block moves, shorthands for divider and code, slash inside list items, strikethrough, code-island keyboard exits, an underline mark, Notion's Ctrl+Shift+digit turn-into chords, a checklist block (PortableDoc list with `task: true` and per-item `checked`, rendered by the server and mounted as native checkboxes), a fix so turn-into persists (kind changes replace the block instead of patching it), and a fix for lists that were saved as empty `bulletList` blocks. Inside Barkdown the canvas wears a Notion-style skin (`app/renderer/paper-notion.css`: app ground instead of the Studio paper tint, sans type, block rows, hairline dividers, gutter room, neutral popups) and a paper's first heading is its title row. Two server-side facts matter for deployment: the connected server predates the `move-block` allowlist (Barkdown rewrites insert+move batches and, when the server rejects `move-block`, re-expresses a reorder as remove plus re-insert under fresh ids; unit-checked in `app/tests/opsrewrite.test.mjs`), and the installed `bp` CLI ignores `--if-rev` (Barkdown sends `ifRev` in the body). That meets milestone B for prose blocks on a live server (verified with `npm run test:paper` against the scratch paper `barkdown-editor-test`), inside Barkdown's Electron shell rather than a T3-derived one; local documents still use Tiptap 3. Verification is `cd app && npm test` (scripted-client agent checks plus 71 Playwright checks against the real Electron window). What remains simulated or absent is listed in [app/README.md](../app/README.md): no T3 runtime import, Tiptap instead of `bp-paper-editor`, Barkpark writes fenced and off by default, in-memory unsaved file buffers, unsigned packaging. The milestone below is therefore met for the editor slice: a real Barkpark Paper is mounted in the upstream canvas, edited, saved with an acknowledged revision, and reopened inside a desktop shell.
+## Where to work
 
-## Continuation status — 2026-09-21
-
-The interrupted table work (#26) is implemented in Barkpark `a5440345c` and registered in Barkdown's parity runner as `tablehead`. Header columns and per-cell alignment passed 6/6 three times, including a full app reload and reader/server comparisons. M3's merge/split, resize and header/alignment features are now implemented; upstream PR #19579 remains open, so this is branch validation rather than a claim that it has merged.
-
-The Windows source-checkout path for #5 now has a managed local runtime; see [LOCAL-BARKPARK.md](LOCAL-BARKPARK.md). Next are profiles (#6), migration off the local Tiptap tab (#13), and sync (#7). Packaged release/toolchain delivery and non-Windows startup remain separate work. The earlier #4 remains open because Barkpark's parity workflow needs `BARKDOWN_READ_TOKEN` for this private repository; the deliberate broken-Tab CI proof is still outstanding. Do not mark that gate complete based on Barkdown's green CI alone. The local CLI remains on `local` (`http://localhost:4000`).
-
-Continuation validation: `npm ci`, Playwright Chromium installation and root `npm run verify` passed after refreshing the status screenshots. `cd app && npm test` passed all 71 desktop checks and its unit suites. Live regressions: tables 11/11, multi-block 11/11, spans 7/7 and widths 5/5. The first two hit manifest timeouts during Phoenix recompilation and passed after the server warmed. PortableDoc: 1,912 passed; editor sweep: 116/118 after fixing the table-render test, with the documented save-ack and press-watchdog failures still present. These do not establish green upstream merge gates.
-
-## Sidebar resizing — 2026-09-21
-
-The desktop sidebar now has a draggable right edge, keyboard adjustment and double-click reset. Its width persists in app settings and is capped to leave 520 px for the workspace; the handle hides with the sidebar on narrow windows. This user-requested shell change is independent of editor parity. Paper/archive rows reserve action space so hover and focus do not change row height or title width; work tabs reserve their action padding for the same reason.
-
-Cloud organization follows D27: discovered papers stay in collapsed Cloud archive until explicitly placed. Imports become local Pages while their cloud originals remain unplaced. Layout version 2 migrates loose legacy cloud roots only, preserving nested groups and storing `cloudLayoutMigration.previousRoots` for recovery. Refresh/disconnect preserve arranged cloud papers.
-
-## Direct assistant editing — 2026-09-21
-
-D28 supersedes the older proposal-by-default descriptions above. `edit_document` (and the legacy `propose_document_edit` alias for resumed sessions) now saves after checking the revision last read by the agent. Local mutations serialize through a per-document lock and reload from disk; cloud writes require live editing and an acknowledged revision. A persisted receipt supplies Undo for the latest edit, refused after intervening changes. Visible local and Paper tabs mark the target then reveal replacement text with an agent caret. The animation presents a save already acknowledged by storage; it does not synthesize transactions or steal native selection. Human input ends it immediately. Reduced motion and hidden views skip it. Existing pending proposals are retained for explicit review.
-
-Validation: unit/MCP checks exercise direct saves, legacy alias, stale edits and guarded Undo; `app/tests/agent-edit.live.mjs` exercises selection, writing, takeover, reduced motion and no extra saves in Electron. `paper-proposal.live.mjs` now tests direct MCP edits, three-block replacement and exact server-block Undo.
-
-Composer history (D29): main and side composers use `composer-history.js` for per-conversation Up/Down recall, capped at 100 user text messages. Visual-line boundary checks preserve soft-wrap navigation. Down restores the original draft/caret; serialization stores the original draft while recall is active. The Electron `composer-history.live.mjs` covers boundaries, wrapping, IME, selections, side-chat isolation and restart.
-
-Side-chat parity (D30): both views use `composer.js` and shared transcript action binding. Side chats now appear in Recent chats and quick open; legacy saved side chats omitted from `order` are recovered during load. Parent links and Open chat allow navigation between the inline view and a full workspace. Settings are inherited once, then independent. Side activities create work tabs owned by the side conversation, avoiding parent-folder leakage. Closing an inline tab preserves its conversation; deleting a parent preserves child conversations and the parent title. `sidechat-ui.live.mjs` verifies controls, real attachment storage, captured run arguments (mock provider), parent/child drafts, file routing, legacy recovery and restart persistence.
-
-## Managed local runtime — 2026-09-21
-
-Settings → Barkpark now offers an opt-in Local Barkpark connection. It starts a built source checkout against a private password-authenticated Postgres cluster, waits for migrations, clean seed and database-backed health, monitors and recovers its own processes, and stops on normal quit. Existing dev services, CLI configuration and local notes are unchanged. The shared Paper adapter waits for readiness and preserves pending edits across recovery. See [LOCAL-BARKPARK.md](LOCAL-BARKPARK.md) for setup, ownership, failure boundaries and the live test command. Validation: the lifecycle unit suite and full desktop regression suite passed. Real isolated runtime checks passed startup, authenticated reads, database termination/recovery and restart; the Electron check proved an edit during recovery reached the server, Settings status and shutdown cleanup. No packaged release, multi-profile identity, local-note migration or sync is claimed.
-
-## First 20 minutes
-
-1. Run `npm ci`, `npx playwright install chromium`, and `npm run verify`.
-2. Open `preview/index.html`. Inspect the wide chat and work tabs. Switch recents. Edit a document. Start the simulated AI walkthrough, manually choose a tab, and confirm focus stops moving.
-3. Open the composer's folder control, then the project editor. Edit a file, switch files, and return. Create a chat in that folder and verify the original draft survives. Restore a pin.
-4. Open `preview/editor.html`. Select document text and use the attached Types submenu. This study supplies the richer editing interactions absent from the current shell's simplified editor.
-5. Review the exact scope and known limitations below before choosing a runtime integration approach.
-
-## First implementation milestone
-
-Deliver **one real Barkpark Paper inside a T3-derived desktop shell**, with acknowledged saves and correct agent context. Keep the milestone small enough to verify before widening the product.
-
-### A. Establish an auditable upstream baseline
-
-- The source map records T3 reference commit `4749035bda13b4b6260499caedbc0d69a2f60e6f` and Barkpark reviewed commit `88280ee4306baa911a3cfd0c33b04f44ee71d427`. Barkpark main was newer at handoff; see the recorded observation.
-- Inspect upstream instructions, manifests, licenses, desktop startup, client/runtime ownership, provider adapters, and environment authentication. Select the import commit deliberately and record it.
-- Keep this repository private. Importing upstream code is separate from creating a public GitHub fork. Preserve this handoff history, documentation, and reference concepts. Do not overwrite the initial commit or force-push main.
-- The candidate T3 manifest requires Node `^24.13.1` and `pnpm@11.10.0`; the handoff's Node 22/npm tooling does not establish compatibility for the runtime.
-- Use a `codex/` implementation branch. If the sibling Barkpark repository needs changes, use its own authorized worktree and follow its instructions; its shared main checkout must stay on main.
-
-### B. Mount the existing Paper editor
-
-- Read Barkpark's editor embed contract and host implementation. Reuse `bp-paper-canvas` / `bp-paper-editor`, their actual block conversions, identity preservation, flush/acknowledgement behavior, and revision checks.
-- Establish a small adapter that reads a scoped real Paper, mounts the editor with its current revision, applies valid operations through the authoritative Barkpark boundary, and updates the saved-state indicator only on an acknowledged result.
-- Exercise a paragraph, heading, list, reference, and media/opaque block. Unsupported content must survive unchanged with a clear read-only fallback.
-- Edit, save, unmount, and reopen. Verify equivalent structured content and stable IDs, not just similar HTML.
-- Introduce a stale revision and a second update. Surface the conflict while retaining the user's unsaved draft. Do not force-write or silently replace it.
-
-### C. Establish navigation and run ownership
-
-- Implement app-wide navigation separately from each chat's workspace and optional agent execution context.
-- Start with a document tab and project-editor tab; use typed descriptors so websites, reviews, and side chats can be added without changing identity semantics.
-- A run event carries its originating chat/agent/run and target. Route it to that chat even while another chat is visible. Manual browsing pauses focus changes.
-- Prove chat A with folder A, chat B with folder B, direct document mode, and a no-folder chat are independent. Pins restore navigation only.
-
-### D. Exit evidence
-
-Provide the chosen upstream commits, changed source modules, a runnable desktop route, screenshots of the actual integration, and results for read/edit/save/reopen, stale revision, background ownership, and restart recovery. If an upstream contract blocks this slice, record the exact missing seam and a small adapter change; do not mask it with fixture responses.
-
-## Exact concept code map
-
-All functions below are in `concepts/workspace.html`, scoped by `#bd-worktabs` and an IIFE. The code is deliberately compact and contains later function wrappers; read final assignments before changing it.
-
-| Symbol | Responsibility / production replacement |
+| Source | Responsibility |
 |---|---|
-| `contexts`, `ctx()`, `current` | In-memory chat workspaces. Replace with persisted chat IDs/state and per-agent contexts. |
-| `newTab`, `renderTabs`, `openTab`, `focusTab` | Typed work-tab creation and focus; preserve stable IDs and ownership. |
-| `savePosition` | Chat/work scroll, side-chat draft, composer draft, file caret and scroll. Do not remount over unsent input. |
-| `documentMarkup`, `docs` | Simplified contenteditable fixture. Replace with the real Paper editor and scoped addresses. |
-| `runDemo` | Four scripted events: website, document proposal, review, project file. Captures owner chat; replace timers with authoritative activity events. |
-| `pauseFollow`, `closed`, `following` | Manual navigation pauses focus; deliberately closed targets stay closed during the demo. Production suppress by stable target identity, not only tab type. |
-| `addPin`, `renderPins`, restore handler | Navigation snapshot; persists only in memory. Production needs versioned storage, permission rechecks, and unavailable destinations. |
-| `project`, `exampleFiles`, `fileState` | One sample project and editable in-memory buffers. Never treat these fixtures as filesystem access. |
-| `projectMarkup`, `treeMarkup`, `openProject` | Project file tab, file tree, expand/return layout. Replace textarea with audited file-editor host if appropriate. |
-| `contextLabel`, `renderProjectContext`, `projectMenu`, `placeProjectMenu` | Agent folder control; app-wide recents; attached composer menu. There is no sidebar folder picker. |
-| `startFolderChat` | Creates new chat with folder context; preserves original state and draft. |
-| `setChatWidth`, `#bw-splitter` | Adjustable 60/40 split with drag, arrow keys, and double-click reset (D07). Production should persist the width per window and keep the 40–70% range. |
-| `collectPalette`, `renderPalette`, `openPalette` | Ctrl+K quick open built from the current navigation state (D23). Replace the fixture index with permission-scoped Barkpark search and typed targets. |
-| `sideChatMarkup`, `sideMessages`, `sideDrafts` | Separate conversation surface and drafts with inherited working context. Responses are scripted. |
+| `app/main/store.js`, `documents.js`, `conversations.js` | Existing persistence and content/chat ownership |
+| `app/main/local-barkpark*.js`, bootstrap `.exs`/`.ps1` | Owned runtime and source launcher |
+| `app/main/barkpark.js`, `canvas-bundle.js`, `agent-edits.js` | Authoritative adapter, editor loading, edit receipts |
+| `app/renderer/src/state.js`, `index.js`, `composer.js`, `tabs/` | Workspace ownership, shared chat UI and real editor hosts |
+| `app/tests/` | Desktop, runtime, agent and editor regression evidence |
+| `docs/contracts/workspace.ts` | Historical proposal; audit before reuse, not a runtime schema |
 
-In `concepts/editor-study.html`, inspect `editorState`, `addBlock`, `showBlockMenu`, and `attachTypeMenu`. The last two preserve the selected block and keep Types attached to the formatting menu. Also inspect the inline change Keep/Undo behavior as an interaction reference. Production undo must use actual authorized Barkpark receipts and native text history, not the fixture's reversals.
+Barkpark owns PortableDoc/schema/reader/editor contracts. Make changes there only when the current slice requires them, in an isolated authorized checkout with its own instructions and gates. The current application implementation is authoritative for what exists; the concepts and original PRD remain historical design references.
 
-The previous session's one-time migration scripts and stale extension chunks were deliberately not included. Only the resulting authoritative concepts, repeatable builders, checks, and documentation belong in this handoff.
+## Baseline and remaining gates
 
-## What works in this handoff
+Barkdown runtime implementation: `930fc2f`, screenshot evidence `5c91d29`, on `codex/electron-prototype`. The working tree was clean before this roadmap reset. [VALIDATION.md](VALIDATION.md) separates passing tests from unproved claims.
 
-- Mixed tabs and per-chat restoration; direct document view; internal document paths.
-- Local document/file edits, side-chat replies, drafts, caret/scroll, review marking, pin restoration.
-- Composer-local agent folder actions; expanded project editor; new chat in a folder; side-chat folder inheritance.
-- Scripted AI activity that retains its owner, respects manual focus, preserves drafts, and can reopen its exact file target when explicitly requested.
-- The separate editor study's block insertion/formatting, selection menu, attached Types submenu, and inline change demonstration.
-- Responsive examples down to 320px without page overflow; no visible scrollbar tracks or vertical collapsed-pane rails.
-- Adjustable chat/work split (drag, keyboard, double-click reset), Ctrl+K quick open across tabs, documents, chats, and actions, Alt+digit/Alt+W/Alt+N shortcuts, middle-click close, Enter to send, a working indicator during runs, and an unsaved-draft marker on the project tab. Quick open indexes fixture navigation, not Barkpark search; the split width is not persisted.
+The carried upstream editor branch is validated at `a5440345c`; PR #19579 was still open at the reset. Cross-repository CI issue #4 still needs a read token and deliberate failure proof. Recheck both before landing/releasing; neither forces P1 to wait. The local CLI was left on `local` at `http://localhost:4000`; managed runtimes use separate ports. Do not assume either service is running.
 
-## Known limitations to replace, not hide
+## Finish a slice
 
-- No persistence after reload. No authentication, native desktop shell, provider process, filesystem read/write, Git operation, live search, or connected Barkpark mutation.
-- Website tabs validate and retain addresses but show a local illustration, not a loaded website. Code reviews are example diffs.
-- The main concept's Paper content is plain fixture data and `contenteditable`, not Tiptap or PortableDoc. The editor study is also a simulation, not the production editor.
-- The project model assumes one example project; buffers are keyed only by relative filename. Production buffer keys must include environment, checkout, and file identity.
-- Chat folder fields in the demo stand in for agent-session ownership. Production supports optional context and multiple agents/runs without a shared cwd.
-- Pin snapshots use an in-memory clone of fixture navigation. Do not clone transcripts, dirty buffers, secrets, or historical file text into production pins.
-- Focus suppression uses tab types in the demo. Multiple tabs of the same type need stable target keys in production.
-- Closing a tab does not implement production unsaved-buffer recovery or a save prompt policy. Recover unsaved data through the durable buffer store.
-- All automated results here prove the concept and handoff, not backend security, production editor fidelity, or full assistive-technology compatibility.
+Install locked dependencies and Playwright Chromium when needed; run root `npm run verify`, appropriate app tests and the stage's real integration cases. UI/runtime changes require the existing screenshot freshness workflow: commit app changes, run `cd app; npm run shots`, then commit evidence. Report failures and scope limits exactly. Commit and push to a `codex/` branch; update plan status only with evidence. No production deployment or public hosting is authorized.
 
-## How to finish future work
-
-Update the PRD source and regenerate it when behavior or scope changes. Keep the decision record current, preserve the concept as a reference, and add meaningful integration tests for real boundaries. Report what became real, what remains simulated, the commands run, the verified upstream versions, and the next milestone. Do not call the whole desktop app complete after the first connected Paper works.
+[Archived handoff](archive/2026-09-21-next-agent.md) preserves earlier investigations and commands. Consult it for evidence, not as a competing task queue.
