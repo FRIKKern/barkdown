@@ -15,4 +15,14 @@ Paper host `refresh()` advances its revision before `canvas.applyServerBlocks()`
 
 ## Checkpoint and next action
 
-No implementation yet. E001 settled evidence recapture has priority. Next: reproduce the focused-idle case with assertions before choosing the contract. Inspect Barkpark's existing `_applyExternalContent()` mapping/history behavior and public acknowledgement seams in the isolated worktree. The shared built-source capture window is coordinated by root; no source runtime is owned by this planned cycle.
+E001 closed at `096e93e`. The initial real takeover harness is `app/tests/paper-agent-takeover.live.mjs` (uncommitted). Disposable runtime `b7ti00` reproduced actual data loss: agent revision 1→2 saved `Acknowledged agent sentence.`, then typing during selection presentation saved `Original target sentence. Human follows.` at revision 3. Both visible and actual server content lost the agent sentence. The runtime stopped normally; its slot was released. Before-fix screenshots/result remain in `app/test-results/paper-agent-takeover` pending evidence archival. This is diagnosis, not final visual approval.
+
+An isolated upstream worktree was created at `C:/Users/Frikk/.codex/worktrees/barkpark-agent-takeover`, branch `codex/agent-takeover-12h`, baseline `a5440345caa413087ac6488cac67f19fce58fa0f`. No upstream source changed. Locked editor `npm ci` passed (audit reports three moderate and one high issue; no dependency upgrades). The unchanged upstream cross-source debounce test passed. The unchanged `__save_ack_mounted.test.mjs` failed at line 721: `keep: the remote sibling survives`, actual child count 1 instead of 2. This is a baseline failure, not evidence against an E002 fix; retain it in validation reporting.
+
+The initial guarded upstream `applyServerBlocksIfIdle()` and host acceptance patch are uncommitted. The new mounted acceptance test passes; host tests pass 22/22. An existing whole-paragraph replacement moved a caret to the next paragraph; the patch now uses a minimal inline transaction for same-type textblocks and tests the caret remains at the changed paragraph's end. Full upstream tests are running. No live passing E002 result yet.
+
+### Explicit runtime dependency
+
+Root approved importing the exact isolated-build launcher files and their tests from next-cycle commit `34b17ce`: `runtime-build.js`, `file-lease.js`, `local-barkpark-source.js`, `local-barkpark-boot.exs`, `local-barkpark-launch.ps1`, and the runtime-build/file-lease/local lifecycle tests. Registry/pool/profile UI changes are outside this editor lane. Imported runtime-build, lease, and lifecycle suites pass. C007's dual-runtime proof passed at that commit; E002 must still prove its own compiled editor asset is served from its own copied build. Current C007 status capture owns the shared source window.
+
+Next: finish tests, build the isolated upstream bundle, prepare a private copied runtime with exact asset hashes, then run expanded takeover/IME/hidden/reduced-motion/server assertions. `resolveConflictWithServerBlocks()` remains an explicit discard seam and is not used for presentation.
