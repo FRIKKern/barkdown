@@ -1,6 +1,6 @@
 # Goal execution and conversation integration contract
 
-The main-owned service and provider bridge are implemented on the goal branch. Production Electron wiring and native restart proof remain pending; this document distinguishes the required end-to-end contract from that source checkpoint.
+The main-owned service and provider bridge are implemented on the goal branch. Production Electron wiring and native process recovery are implemented in opt-in profile mode on Windows. The crash-dialog journey and natural-language coordinator remain pending; the handoff distinguishes executable proof from the remaining contract.
 
 ## Authority and startup
 

@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C005",
   "stage": "P3",
-  "status": "active",
+  "status": "done",
   "goal": "Build and prove a bounded durable goal scheduler before wiring full worker conversations.",
   "scope": [
     "Additive goal journal and three-worker scheduler",
@@ -16,14 +16,17 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/goals/HANDOFF.md",
-  "nextAction": "Wire goal service through C006 generation-gated IPC and open-worker event routing, prove actual Electron flows, then capture fresh deterministic/live evidence and close verification gates.",
+  "nextAction": "Archive C005 and open a bounded Electron crash/reopen/reconciliation cycle; then implement coordinator planning and review.",
   "evidence": [
     "app/tests/goals.test.mjs",
-    "app/tests/goal-provider.test.mjs",
+    "app/tests/goal-recovery.test.mjs",
+    "app/tests/profile-goals.live.mjs",
     "docs/goals/HANDOFF.md",
-    "docs/visual/runs/2026-09-21T22-36-51-168Z/manifest.json",
+    "docs/goals/evidence/043e472/README.md",
+    "docs/goals/evidence/beefded/authenticated-codex.json",
+    "docs/visual/runs/2026-09-21T23-44-00-349Z/manifest.json",
     "docs/images/status/manifest.json"
   ],
-  "truthReview": "Reviewed README, app guide, PLAN/plan.json, NEXT-AGENT, VALIDATION and architecture. Existing prototype claims remain; goal track is additive and not activated. P1-P5 stay pending. No merge/deployment or full-provider goal claim.",
-  "screenshotReview": "Combined-source deterministic 21 frames and five live Paper stills plus 37 GIF frames inspected. Zero deterministic differences. Real Codex Paper edit; private runtime stopped. No goal UI coverage yet."
+  "truthReview": "README, app guide, integration contract, NEXT-AGENT, VALIDATION, PLAN/plan.json and architecture reviewed. Opt-in profile Windows goal service enabled; central P1-P5 still pending. Full user goal remains active.",
+  "screenshotReview": "31 deterministic frames inspected and explicitly approved, including narrow profile/settings and goal surfaces. Five fresh live Paper stills and 37 GIF frames inspected. Actual owned-worker Electron live/result screenshots inspected; deterministic transport distinct from authenticated Codex proof."
 }

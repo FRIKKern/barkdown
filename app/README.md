@@ -1,6 +1,6 @@
 # Barkdown desktop
 
-The separate [goal-orchestration track](../docs/goals/HANDOFF.md) currently provides a durable scheduler, owned provider bridge and an injected-service goal view. It is not enabled for the legacy workspace. `npm run test:goals` checks execution boundaries; `npm run test:goal-ui` exercises the real component with fixture snapshots. Production profile service integration and authenticated three-worker evidence remain pending.
+The separate [goal-orchestration track](../docs/goals/HANDOFF.md) provides a durable scheduler, three full worker conversations and owned Windows process recovery in opt-in `--profiles` mode. Legacy workspace activation remains disabled. The full desktop suite includes 46 goal checks and real Electron workers using deterministic HTTP. [Authenticated three-Codex proof](../docs/goals/evidence/beefded/authenticated-codex.json) is separate. Crash-dialog recovery and natural-language coordinator planning/review remain unfinished.
 
 The working Electron application: notes and conversations on the left, agents and their work alongside them. [Product overview](../README.md) · [Active roadmap](../docs/PLAN.md) · [Contributing](../CONTRIBUTING.md)
 
