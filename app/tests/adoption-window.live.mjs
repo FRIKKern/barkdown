@@ -1,0 +1,32 @@
+import { _electron as electron } from 'playwright';
+import { createRequire } from 'node:module';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+const require = createRequire(import.meta.url);
+const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-adoption-window-'));
+const fixture = path.join(root, 'main.cjs');
+const modulePath = path.resolve('main/adoption-window.js');
+fs.writeFileSync(fixture, `const {app}=require('electron');app.setPath('userData',${JSON.stringify(path.join(root, 'userData'))});app.whenReady().then(()=>{global.recovery=require(${JSON.stringify(modulePath)}).createAdoptionWindow();global.choice=global.recovery.choose({status:'staged',actions:['resume','quit'],error:'Interrupted copy <retained> & safe'}).then(value=>{global.result=value;});});`);
+const app = await electron.launch({ executablePath: require('electron'), args: [fixture] });
+try {
+  const page = await app.firstWindow();
+  await page.getByRole('button', { name: 'Resume preparation' }).waitFor();
+  assert.match(await page.locator('body').innerText(), /Interrupted copy <retained> & safe/);
+  assert.equal(await page.locator('script').count(), 0);
+  await page.setViewportSize({ width: 420, height: 600 });
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+  await page.getByRole('button', { name: 'Resume preparation' }).click();
+  await page.getByRole('heading', { name: 'Preparing your library' }).waitFor();
+  assert.equal(await app.evaluate(() => global.result), 'resume');
+  assert.equal(await page.locator('button').count(), 0);
+  await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].close());
+  assert.equal((await app.windows()).length, 1, 'busy transaction cannot close its recovery window');
+  await app.evaluate(() => { global.choice = global.recovery.choose({ status: 'blocked', actions: ['quit'], error: 'Foreign registry retained' }).then(value => { global.result = value; }); });
+  await page.getByRole('button', { name: 'Quit' }).click();
+  assert.equal(await app.evaluate(() => global.result), 'quit');
+  assert(!fs.existsSync(path.join(root, 'userData', 'barkdown')));
+  assert(!fs.existsSync(path.join(root, 'userData', 'profile-data')));
+  console.log('PASS recovery actions, escaped error, narrow layout, busy close guard, no library writes');
+} finally { await app.evaluate(() => global.recovery.close()); await app.close(); }
