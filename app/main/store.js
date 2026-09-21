@@ -4,13 +4,28 @@ const path = require('path');
 
 function createStore(initialDir = null, { create = true } = {}) {
 let baseDir = null;
+let rootIdentity = null;
+function validateRoot() {
+  for (let current = baseDir; ; current = path.dirname(current)) {
+    try { if (fs.lstatSync(current).isSymbolicLink()) throw new Error('Store root cannot traverse a symbolic link'); }
+    catch (error) { if (error.code !== 'ENOENT') throw error; }
+    if (path.dirname(current) === current) break;
+  }
+  if (rootIdentity) {
+    if (!fs.existsSync(baseDir)) throw new Error('Store root is unavailable');
+    const stat = fs.statSync(baseDir);
+    if (stat.dev !== rootIdentity.dev || stat.ino !== rootIdentity.ino) throw new Error('Store root changed; resolve its owner again');
+  }
+}
 
 function init(dir) {
   if (initialDir && baseDir) throw new Error('A bound store cannot change its root');
   baseDir = path.resolve(dir);
-  if (fs.existsSync(baseDir) && fs.lstatSync(baseDir).isSymbolicLink()) throw new Error('Store root cannot be a symbolic link');
+  rootIdentity = null;
+  validateRoot();
   if (create) fs.mkdirSync(filePath('documents'), { recursive: true });
   else if (!fs.existsSync(baseDir) || !fs.statSync(baseDir).isDirectory()) throw new Error('Store root is unavailable');
+  const stat = fs.statSync(baseDir); rootIdentity = { dev: stat.dev, ino: stat.ino };
   return baseDir;
 }
 
@@ -20,6 +35,7 @@ function dir() {
 }
 
 function filePath(name) {
+  if (baseDir) validateRoot();
   if (typeof name !== 'string' || !name || path.isAbsolute(name)) throw new Error('Invalid store path');
   const root = dir(), target = path.resolve(root, name), relative = path.relative(root, target);
   if (!relative || relative === '..' || relative.startsWith('..' + path.sep) || path.isAbsolute(relative)) throw new Error('Store path escapes its owner');

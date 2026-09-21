@@ -13,10 +13,11 @@ function createRun({ chatId, context, send, provider, scope, storeDir, profileId
   const id = crypto.randomUUID();
   const run = { id, chatId, context: scope.context, scope, provider, approvals: new Map(), abort: new AbortController(), cancelled: false, text: '', onCancel: null, onFinish };
   run.completion = new Promise(resolve => { run.resolveCompletion = resolve; });
+  let sequence = 0;
   run.emit = event => {
     if (event.type === 'done') run.outcome = { status: event.cancelled ? 'cancelled' : 'completed' };
     if (event.type === 'error') run.outcome = { status: 'failed', message: event.message };
-    send({ ...event, runId: id, chatId, provider, profileId: scope.profileId });
+    send({ ...event, runId: id, chatId, provider, profileId: scope.profileId, sequence: ++sequence });
   };
   runs.set(id, run);
   return run;
