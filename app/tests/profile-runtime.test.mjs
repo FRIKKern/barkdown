@@ -22,6 +22,7 @@ function fixture(name, hooks = {}) {
       const runtime = { ...input, starts: 0, stops: 0,
         async start() { this.starts++; phase = 'starting'; await hooks.start?.(this); phase = 'ready'; },
         async stop() { this.stops++; await hooks.stop?.(this); phase = 'stopped'; },
+        async ready() { await hooks.ready?.(this); },
         status() { return { phase }; },
       }; runtimes.push(runtime); return runtime;
     },
@@ -123,6 +124,29 @@ await test('writes remain explicit when selecting the same profile again', async
   assert.equal(readOnly.connection.writes, false); assert.equal(writable.connection.writes, true);
   const revoked = await f.pool.select(f.a.id); assert.equal(revoked.connection.writes, false);
   assert.equal(f.runtimes.length, 1); await f.pool.shutdown();
+});
+
+await test('new leases check current runtime readiness after initial startup', async () => {
+  let healthy = true;
+  const f = fixture('recovery-ready', { ready: () => { if (!healthy) throw new Error('runtime recovering'); } });
+  const first = await f.pool.acquire(f.a.id, { source: f.source, ownerId: 'existing-run' });
+  healthy = false;
+  await assert.rejects(f.pool.acquire(f.a.id, { ownerId: 'new-run' }), /recovering/);
+  assert.equal(f.runtimes[0].stops, 0, 'failed new acquisition cannot stop existing lease');
+  healthy = true;
+  const recovered = await f.pool.acquire(f.a.id, { ownerId: 'new-run' });
+  await recovered.release(); await first.release(); await f.pool.shutdown();
+});
+
+await test('selecting a profile without local runtime releases foreground only and preserves A run', async () => {
+  const f = fixture('without-runtime');
+  await f.pool.select(f.a.id, { source: f.source });
+  const run = await f.pool.acquire(f.a.id, { ownerId: 'A-run', writes: true });
+  const b = await f.pool.selectWithoutRuntime(f.b.id);
+  assert.equal(b.profileId, f.b.id); assert.equal(b.connection, null);
+  assert.equal(f.registry.load().selectedProfileId, f.b.id);
+  assert.equal(f.runtimes.length, 1); assert.equal(f.runtimes[0].stops, 0);
+  await run.release(); assert.equal(f.runtimes[0].stops, 1); await f.pool.shutdown();
 });
 
 await test('invalid/foreign/colliding descriptors fail before runtime creation', async () => {

@@ -6,6 +6,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { tinyPng } from './png.mjs';
 const require = createRequire(import.meta.url);
 const { createProfileRegistry } = require('../main/profile-registry');
@@ -20,7 +21,8 @@ const a = registry.createProfile({ name: 'Fixture A' }), b = registry.createProf
 const drivers = [], runtimes = [], leases = [];
 const checks = [];
 const record = name => { checks.push(name); console.log('PASS ' + name); };
-const git = (args, cwd = process.cwd()) => execFileSync('git', args, { cwd, encoding: 'utf8' }).trim();
+const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+const git = (args, cwd = repo) => execFileSync('git', args, { cwd, encoding: 'utf8' }).trim();
 const evidence = { startedAt: new Date().toISOString(), barkdownCommit: git(['rev-parse', 'HEAD']), barkdownDirty: git(['status', '--porcelain', '--', 'app/main', 'app/tests/profile-runtime.live.mjs']) !== '', barkparkCommit: git(['rev-parse', 'HEAD'], source), barkparkDirty: git(['status', '--porcelain'], source) !== '', checks, profiles: [], stopped: false };
 const options = {
   registry,
