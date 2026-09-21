@@ -207,7 +207,7 @@ export async function sendMessage(chat, text, hooks, images = []) {
   hooks.render();
   try {
     // The run reads the other conversations from workspace.json; write it now rather than after the debounce.
-    try { await api.state.save(serialise()); } catch {}
+    try { await api.state.save(serialise()); } catch (error) { if (state.profileId) throw error; }
     const messages = apiMessagesFor(chat);
     const provider = providerFor(chat);
     chat.sessions = chat.sessions || {};
@@ -215,9 +215,10 @@ export async function sendMessage(chat, text, hooks, images = []) {
     // another provider answered, for a resumed one. The new question and the empty reply are excluded.
     const seen = chat.sessions[provider] ? (chat.sessionSeen?.[provider] || 0) : 0;
     const catchUp = chat.messages.slice(seen, -2).filter(m => m.text).map(m => ({ role: m.role, text: m.text, provider: m.role === 'assistant' ? (PROVIDER_LABEL[m.provider] || m.provider || undefined) : undefined }));
-    const { runId } = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title, catchUp }, provider, chat.sessions[provider] || null, clean, attached, { model: chat.model || undefined, effort: chat.effort || undefined });
+    const { runId, assistantId, attemptId } = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title, catchUp }, provider, chat.sessions[provider] || null, clean, attached, { model: chat.model || undefined, effort: chat.effort || undefined });
+    if (assistantId) { chat.messages.at(-1).id = assistantId; chat.messages.at(-1).attemptId = attemptId; chat.messages.at(-2).id = `user-${attemptId}`; }
     chat.runProvider = provider;
-    chat.runId = runId;
+    chat.runId = state.profileId && !chat.messages.at(-1).streaming ? null : runId;
     hooks.runChanged(chat);
   } catch (error) {
     const reply = chat.messages.at(-1);
@@ -241,10 +242,19 @@ function part(reply, kind) {
 function closePart(reply) { const last = reply.parts?.at(-1); if (last && last.kind !== 'tool') last.closed = true; }
 
 export function handleAgentEvent(event, hooks) {
+  if (state.profileId && event.profileId !== state.profileId) return;
   const chat = state.chats[event.chatId];
   if (!chat) return;
-  const reply = [...chat.messages].reverse().find(m => m.role === 'assistant');
+  let reply = event.assistantId ? chat.messages.find(m => m.id === event.assistantId) : [...chat.messages].reverse().find(m => m.role === 'assistant');
+  if (!reply && event.assistantId) {
+    const pending = chat.messages.at(-1);
+    if (pending?.role === 'assistant' && pending.streaming && !pending.id) { pending.id = event.assistantId; pending.attemptId = event.attemptId; reply = pending; }
+  }
   if (!reply) return;
+  if (state.profileId && event.sequence) {
+    if (reply.runId && reply.runId !== event.runId || event.sequence <= (reply.lastSequence || 0)) return;
+    reply.runId = event.runId; reply.lastSequence = event.sequence;
+  }
   switch (event.type) {
     case 'text_delta': reply.text = (reply.text || '') + event.text; part(reply, 'text').text += event.text; hooks.renderDelta(chat); break;
     case 'text_replace': { const p = part(reply, 'text'); reply.text = (reply.text || '').slice(0, reply.text.length - p.text.length) + event.text; p.text = event.text; hooks.renderDelta(chat); break; }

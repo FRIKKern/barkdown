@@ -1,17 +1,28 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
-async function call(channel, ...args) {
+async function rawCall(channel, ...args) {
   const result = await ipcRenderer.invoke(channel, ...args);
   if (!result || result.ok === undefined) return result;
   if (!result.ok) { const error = new Error(result.code ? `[${result.code}] ${result.error}` : result.error); error.code = result.code; throw error; }
   return result.value;
 }
+let owner = null;
+const profileReady = rawCall('profiles:status').then(status => { owner = status.enabled ? { profileId: status.profileId, generation: status.generation } : null; return status; });
+async function call(channel, ...args) {
+  await profileReady;
+  const captured = owner && { ...owner };
+  return rawCall(channel, ...(captured ? [{ owner: captured, args }] : args));
+}
 
 const api = {
+  profiles: { status: () => rawCall('profiles:status'), create: name => call('profiles:create', name), select: async profileId => {
+    await profileReady;
+    return rawCall('profiles:select', { owner: { ...owner }, profileId });
+  } },
   settings: { get: () => call('settings:get'), set: patch => call('settings:set', patch) },
   attachments: { save: input => call('attachments:save', input) },
   app: { pickFolder: () => call('app:pickFolder'), openExternal: url => call('app:openExternal', url), openPath: p => call('app:openPath', p), info: () => call('app:info'), platform: process.platform },
-  state: { load: () => call('state:load'), save: state => call('state:save', state) },
+  state: { load: () => call('state:load'), save: state => call('state:save', state), command: command => call('state:command', command) },
   docs: {
     list: () => call('docs:list'), get: id => call('docs:get', id), create: input => call('docs:create', input), save: input => call('docs:save', input), delete: id => call('docs:delete', id),
     search: q => call('docs:search', q), related: id => call('docs:related', id), history: id => call('docs:history', id), restore: (id, rev) => call('docs:restore', { id, rev }),
@@ -20,7 +31,7 @@ const api = {
   },
   files: { tree: root => call('files:tree', root), read: (root, path) => call('files:read', { root, path }), write: (root, path, text, mtime) => call('files:write', { root, path, text, mtime }), search: (root, query) => call('files:search', { root, query }), exists: (root, path) => call('files:exists', { root, path }) },
   git: { status: root => call('git:status', root), diff: (root, options = {}) => call('git:diff', { root, ...options }), log: root => call('git:log', root), revertFile: (root, path) => call('git:revertFile', { root, path }) },
-  term: { start: (id, root) => call('term:start', { id, root }), input: (id, line) => call('term:input', { id, line }), stop: id => call('term:stop', id), onData: handler => { const listener = (_e, event) => handler(event); ipcRenderer.on('term:data', listener); return () => ipcRenderer.removeListener('term:data', listener); } },
+  term: { start: (id, root) => call('term:start', { id, root }), input: (id, line) => call('term:input', { id, line }), stop: id => call('term:stop', id), onData: handler => { const listener = (_e, event) => { if (!owner || event.profileId === owner.profileId) handler(event); }; ipcRenderer.on('term:data', listener); return () => ipcRenderer.removeListener('term:data', listener); } },
   agent: {
     start: (chatId, messages, context, provider, session, prompt, images, options) => call('agent:start', { chatId, messages, context, provider, session, prompt, images, options }),
     cancel: runId => call('agent:cancel', runId),
