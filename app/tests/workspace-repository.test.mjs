@@ -90,6 +90,15 @@ assert(ws.chats.worker, 'deleting parent preserves child');
 repo.saveView(a.id, view('old resurrect')); assert.equal(repo.load(a.id).chats.same, undefined);
 checks.push('revision-checked explicit transcript actions and parent deletion preserve children and prevent resurrection');
 
+const contextRequest = { ...request, profileId: b.id, attemptId: crypto.randomUUID() };
+repo.begin(contextRequest, { scope: { profileId: b.id } });
+const moved = repo.load(b.id); moved.chats.same.folder = '/new-folder';
+repo.saveView(b.id, moved);
+repo.event(contextRequest, { ...event(1, 'done', { session: 'old-folder-session' }), profileId: b.id });
+assert.deepEqual(repo.load(b.id).chats.same.sessions, {});
+repo.finish(contextRequest, { runId: 'run-A', status: 'completed', driverFinished: true });
+checks.push('folder/provider context reset rejects a late old-folder session receipt');
+
 const stable = path.join(root, 'stable'); fs.mkdirSync(stable); fs.writeFileSync(path.join(stable, 'data.json'), '{"owner":"A"}');
 const bound = createStore(stable, { create: false });
 fs.renameSync(stable, stable + '-retained');

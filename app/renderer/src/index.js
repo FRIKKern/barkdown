@@ -26,6 +26,29 @@ const TYPE_ICON = { doc: 'file-text', web: 'globe', review: 'git-pull-request', 
 let mainComposer;
 const controllers = new Map(); // tab.id -> mounted controller
 const DIRECT = 'direct';
+async function refreshManagedChats() {
+  if (!state.profileId) return;
+  const profileId = state.profileId, data = await api.state.load();
+  if (data.profileId !== profileId || state.profileId !== profileId) return;
+  const managed = ['messages', 'events', 'apiHistory', 'sessions', 'sessionSeen', 'runId', 'runProvider', 'workingLabel', 'goalId'];
+  for (const [id, saved] of Object.entries(data.chats)) {
+    if (!state.chats[id]) state.chats[id] = saved;
+    else for (const key of managed) if (Object.hasOwn(saved, key)) state.chats[id][key] = saved[key];
+    if (id !== DIRECT && !state.order.includes(id)) state.order.push(id);
+  }
+  render();
+  for (const controller of controllers.values()) if (controller.type === 'chat') controller.render?.();
+}
+async function openConversationGoals() {
+  const chat = currentChat();
+  if (!state.profileId || !chat || chat.goalId) return;
+  try {
+    await api.state.save(serialise());
+    openGoalView({ owner: { profileId: state.profileId, generation: state.generation, chatId: chat.id }, service: api.goals,
+      onSaved: () => refreshManagedChats().catch(error => toast(error.message, 'error')),
+      openChat: async (owner, id) => { if (owner.profileId !== state.profileId) return; await refreshManagedChats(); switchChat(id); } });
+  } catch (error) { toast(error.message, 'error'); }
+}
 function openSettings(onChange, options = {}) {
   return openSettingsSheet(onChange, { ...options, beforeProfileSwitch: async () => {
     if ([...controllers.values()].some(controller => controller.canClose?.() === false)) return false;
@@ -496,6 +519,7 @@ async function collectPalette(query) {
   if (activeTab(ws)) items.push({ group: 'Actions', icon: 'star', label: favoriteFor(activeTab(ws)) ? 'Remove this tab from favorites' : 'Add this tab to favorites', hint: activeTab(ws).title, run: () => toggleFavorite(ws.active) });
   state.favorites.forEach(f => items.push({ group: 'Favorites', icon: TYPE_ICON[f.target.kind] || 'sparkles', label: f.label, hint: FAVORITE_KIND[f.target.kind] || f.target.kind, run: () => openFavorite(f.id) }));
   items.push({ group: 'Actions', icon: 'settings-2', label: 'Settings', hint: 'Ctrl+,', run: () => openSettings(applySettings) });
+  if (state.profileId && chat && !chat.goalId) items.push({ group: 'Actions', icon: 'list-checks', label: 'Conversation goals', hint: 'Plan three workers', run: openConversationGoals });
   items.push({ group: 'Actions', icon: 'columns-2', label: 'Reset conversation width to 40%', hint: (state.settings?.chatWidth || 40) + '% now', run: () => setChatWidth(40) });
   if (query.length >= 2 && chat?.folder) {
     try { const hits = await api.files.search(chat.folder, query); hits.slice(0, 8).forEach(h => items.push({ group: 'Files in ' + basename(chat.folder), icon: 'file-code', label: `${h.path}:${h.line}  ${h.text}`, hint: 'Open', run: () => openTarget({ kind: 'project', path: h.path, title: basename(h.path) }, chat, true), noFilter: true })); } catch {}
@@ -698,6 +722,10 @@ function wire() {
   applyChatWidth(state.settings.chatWidth || 40);
   applyTheme(state.settings.theme || 'system');
   await load();
+  if (state.profileId) {
+    let refreshTimer;
+    api.goals.subscribe({ profileId: state.profileId }, () => { clearTimeout(refreshTimer); refreshTimer = setTimeout(() => refreshManagedChats().catch(error => console.warn('Goal transcript refresh:', error)), 80); });
+  }
   if (!state.chats[DIRECT]) directChat();
   wire();
   await refreshLibrary();

@@ -12,7 +12,7 @@ const terminal = require('./terminal');
 const { LocalBarkpark } = require('./local-barkpark');
 const { SourceDriver, validate: validateLocal } = require('./local-barkpark-source');
 const crypto = require('crypto');
-let profileRegistry = null, profileService = null, profileGate = null, profilePool = null, profileConnection = null, appSettingsStore = null;
+let profileRegistry = null, profileService = null, profileGate = null, profilePool = null, profileConnection = null, appSettingsStore = null, goalService = null;
 const PROFILE_MODE = process.argv.includes('--profiles');
 let localRuntime = null, localConfigKey = '';
 let localTransition = Promise.resolve(), localStartupError = null;
@@ -172,6 +172,7 @@ function handle(channel, fn, unowned = false) {
 }
 
 function registerIpc() {
+  if (goalService) require('./goal-service').registerGoalIpc({ register: handle, service: goalService, profiles: profileService });
   handle('profiles:status', () => profileService ? { ...profileService.view(), profiles: profileRegistry.load().profiles, enabled: true } : { enabled: false }, true);
   handle('profiles:create', name => profileRegistry.createProfile({ name }));
   handle('profiles:select', async ({ owner, profileId }) => {
@@ -348,11 +349,14 @@ app.whenReady().then(async () => {
     if (!profileRegistry.load()) profileRegistry.createProfile({ name: 'Personal' });
     profilePool = require('./profile-runtime').createProfileRuntimePool({ registry: profileRegistry, readSecrets: localSecrets });
     profileService = require('./profile-service').createProfileService({ registry: profileRegistry, runtimePool: profilePool,
-      settingsFor: source => { const s = readSettings(source); return { ...s, apiKey: decrypt(s.apiKeyEncrypted) }; },
+      settingsFor: source => { const s = readSettings(source); return { ...s, provider: s.provider || defaultProvider(), apiKey: decrypt(s.apiKeyEncrypted) }; },
       connectionFor: s => ({ ...s.barkpark, token: decrypt(s.barkpark.tokenEncrypted), viaCli: false }), defaultProvider,
       sendEvent: event => { if (event.libraryChanged || event.type === 'library_changed') documents.loadAll({ seed: false }); win?.webContents.send('agent:event', event); } });
     profileGate = require('./profile-ipc').createProfileIpcGate(profileService);
     store.init(profileRegistry.storeFor(profileService.view().profileId).storeDir);
+    goalService = require('./goal-service').createGoalService({ registry: profileRegistry, profiles: profileService,
+      sendEvent: event => win?.webContents.send('goals:changed', event),
+      sendProviderEvent: event => { if (event.libraryChanged || event.type === 'library_changed') documents.loadAll({ seed: false }); win?.webContents.send('agent:event', event); } });
   } else store.init(path.join(app.getPath('userData'), 'barkdown'));
   try { syncBarkparkEnv(); } catch (error) { localStartupError = error.message; }
   if (profileService) await reconcileLocal().catch(error => console.warn('Profile Barkpark:', error.message));
@@ -374,7 +378,7 @@ app.on('before-quit', event => {
     localQuitting = true;
     const owned = [...require('./providers/runs').runs.values()].filter(run => run.scope.profileId);
     for (const run of owned) agent.cancel(run.id);
-    Promise.all(owned.map(run => agent.waitForRunFinish(run.id))).then(() => profilePool.shutdown()).then(() => {
+    Promise.all([goalService?.close(), ...owned.map(run => agent.waitForRunFinish(run.id))]).then(() => profilePool.shutdown()).then(() => {
       localQuitDone = true; app.quit();
     }).catch(error => { localQuitting = false; console.error('Owned profile shutdown:', error.message); });
     return;
