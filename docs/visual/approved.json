@@ -1,9 +1,9 @@
 {
-  "manifest": "docs/visual/runs/2026-09-21T21-26-13-874Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-21T21-26-13-874Z/comparison.json",
-  "manifestHash": "dd2d79e234d6042546d28edef2e7d6aa8870632dbf4671c8cc9d8277cfe94031",
-  "reportHash": "aae4bd9c656d69f99fd1a4a5ff1f4343d15828075ee98d19d305784b56c8271e",
+  "manifest": "docs/visual/runs/2026-09-21T21-33-30-215Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-21T21-33-30-215Z/comparison.json",
+  "manifestHash": "9f0035d568051346fe47629d6d9213ad31a0edb933b9fc7160351a4a5a15fada",
+  "reportHash": "8306195c8aa4092116fc53b538d55b5eeaf3e3018b693f5d9e816a9450d5a8c2",
   "reviewer": "Codex",
-  "note": "Repeatability review: all 21 action frames and control geometries match the inspected baseline within tolerance; environment unchanged. Initial full image review retained in prior approval. This records fixture UI only; live saves, provider behavior and recovery require their separate tests.",
-  "reviewedAt": "2026-09-21T21:27:32.744Z"
+  "note": "Reviewed the CI startup-toast difference and corrected capture timing without hiding UI. New local capture matches all 21 prior frames and geometry; workspace dismissal image inspected again. Environment-change flag reflects newly recorded OS/architecture/font fields on the same local machine. Prior full visual and desktop regression evidence retained.",
+  "reviewedAt": "2026-09-21T21:34:25.844Z"
 }
