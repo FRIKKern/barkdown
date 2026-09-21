@@ -291,6 +291,7 @@ export function mountPaper(tab, host, ctx) {
     canvas.addEventListener('bp-canvas-ops', event => {
       const { ops, seq } = event.detail || {};
       if (!Array.isArray(ops) || !ops.length) return;
+      inputVersion++;
       latestSeq = seq;
       ctx.userIsEditing();
       syncTitleRow();
@@ -311,6 +312,7 @@ export function mountPaper(tab, host, ctx) {
       return false;
     }
     const generation = ++loadGeneration, path = [...tab.path], source = tab.source, id = path.at(-1);
+    const beforeInput = inputVersion, beforeRev = rev;
     const current = () => !destroyed && generation === loadGeneration;
     loadFailed = false;
     q('#conflict').innerHTML = '';
@@ -330,7 +332,7 @@ export function mountPaper(tab, host, ctx) {
     try { await ensureCanvasBundle(); } catch (e) { if (current()) setSaveState('Editor bundle failed to load: ' + (e?.message || e), 'error'); return; }
     if (!current()) return;
     // The old editor remains usable while the read is pending; a new human edit wins over the load.
-    if (hasUnsavedWork()) { tab.path = [...mountedPath]; tab.source = mountedSource; ctx.tabChanged(tab); return false; }
+    if (hasUnsavedWork() || inputVersion !== beforeInput || rev !== beforeRev) { tab.path = [...mountedPath]; tab.source = mountedSource; ctx.tabChanged(tab); return false; }
     paper = fetched; mountedPath = path; mountedSource = source;
     rev = paper.rev;
     lastAcked = paper.blocks || [];
@@ -338,11 +340,12 @@ export function mountPaper(tab, host, ctx) {
     ctx.tabChanged(tab);
     q('#title').value = paper.title;
     q('#title').disabled = !writesOn();
-    q('#title').oninput = () => { titleDirty = q('#title').value.trim() !== paper.title; };
+    q('#title').oninput = () => { inputVersion++; titleDirty = q('#title').value.trim() !== paper.title; };
     q('#title').onchange = async () => {
       if (titleSaving) return;
       const title = q('#title').value.trim() || paper.title;
       if (title === paper.title) { q('#title').value = paper.title; titleDirty = false; return; }
+      inputVersion++;
       const ownerCanvas = canvas, ownsTitle = () => !destroyed && slug() === id && canvas === ownerCanvas;
       let succeeded = false; titleDirty = true; titleSaving = true; saving++;
       try { await api.barkpark.patchTitle(id, title); if (!ownsTitle()) return; succeeded = true; paper.title = title; tab.title = title; titleDirty = q('#title').value.trim() !== title; q('#title-error')?.remove(); ctx.tabChanged(tab); ctx.libraryChanged(); toast('Title saved'); }
