@@ -55,6 +55,7 @@ try {
   await page.waitForFunction(id => window.__barkdown?.state.loaded && window.__barkdown.state.profileId === id, initial.second.id);
   assert.equal((await page.evaluate(() => window.barkdown.docs.list())).length, 0);
   await page.keyboard.press('Control+,'); await page.locator('#profile-choice').waitFor(); await shot('05-second-library');
+  await page.setViewportSize({ width: 760, height: 900 }); await shot('06-profiles-narrow');
   checks.push('Acknowledged A edit remains on real server; switching to empty B stops foreground A runtime');
   assert.deepEqual(errors, []);
 } finally {
@@ -62,7 +63,7 @@ try {
   await app.close();
   const { GIFEncoder, quantize, applyPalette } = require('gifenc'), { PNG } = require('pngjs');
   const gif = GIFEncoder();
-  for (const file of frames) { const png = PNG.sync.read(fs.readFileSync(path.join(out, file))), palette = quantize(png.data, 256); gif.writeFrame(applyPalette(png.data, palette), png.width, png.height, { palette, delay: 1100 }); }
+  for (const file of frames.filter(file => !file.includes('narrow'))) { const png = PNG.sync.read(fs.readFileSync(path.join(out, file))), palette = quantize(png.data, 256); gif.writeFrame(applyPalette(png.data, palette), png.width, png.height, { palette, delay: 1100 }); }
   if (frames.length) { gif.finish(); fs.writeFileSync(path.join(out, 'profile-switch.gif'), gif.bytes()); }
   fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify({ sourceCommit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), sourceDirty: execFileSync('git', ['status', '--porcelain', '--', 'app'], { encoding: 'utf8' }).trim() !== '', userData, frames, checks, stopped: true, motion: 'Real UI checkpoints; explicit delayed acknowledgement around real HTTP applyOps. No model simulation or CLI changes.' }, null, 2));
 }
