@@ -48,3 +48,6 @@ Imported source 6ba1896: accepted worker events carry durable assistant/attempt 
 
 Native Windows worker source beefded is imported into C008 for validation. It adds job-owned subprocesses and default trusted recovery; the earlier checkpoint's unimported statement is historical. Production Electron goal fixture needs its transport seam adapted to subprocess ownership. Fresh combined full validation and visuals remain pending.
 
+
+Imported043e472: actual Electron fixture now uses local SDK HTTP transport inside default owned worker processes; captured environment restored before SDK construction. Current combined validation follows C008.
+
