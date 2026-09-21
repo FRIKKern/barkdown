@@ -170,12 +170,14 @@ class GoalScheduler {
     return copy(g);
   }
 
-  start(profileId, id) {
+  start(profileId, id, { contexts = {} } = {}) {
     const g = this.change(profileId, id, g => {
       assert(['planned', 'paused'].includes(g.status), 'Goal cannot start from this state');
       assert(!g.tasks.some(t => ['running', 'interrupted'].includes(t.status)), 'Reconcile unresolved attempts before resume');
       assert(![...this.live.values()].some(r => r.profileId === profileId && r.goalId === id), 'Prior runs have not stopped');
-      assert(this.now() < g.deadline, 'Deadline already passed'); g.status = 'active'; delete g.reason;
+      assert(this.now() < g.deadline, 'Deadline already passed');
+      for (const task of g.tasks) if (task.status === 'pending' && contexts[task.id]) task.context = copy(contexts[task.id]);
+      g.status = 'active'; delete g.reason;
     });
     this.tick(); return this.get(profileId, g.id);
   }
@@ -218,7 +220,7 @@ class GoalScheduler {
     if (!releaseAdmission) return;
     try { this.change(g.profileId, g.id, goal => {
       const task = goal.tasks.find(x => x.id === t.id); assert(task.status === 'pending', 'Task already dispatched');
-      task.status = 'running'; task.attempts.push({ id: attemptId, status: 'running', startedAt: this.now() });
+      task.status = 'running'; task.attempts.push({ id: attemptId, status: 'running', startedAt: this.now(), context: copy(task.context) });
     }); } catch (error) { releaseAdmission(); throw error; }
     const live = { profileId: g.profileId, goalId: g.id, chatId: t.chatId, taskId: t.id, attemptId, abort };
     this.live.set(attemptId, live);
