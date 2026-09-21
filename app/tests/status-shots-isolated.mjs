@@ -26,7 +26,7 @@ console.log('Isolated capture data:', data);
 try {
   await runtime.start();
   const code = await new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, ['tests/status-shots.mjs'], { cwd: appDir, windowsHide: true, stdio: 'inherit', env: {
+    const child = spawn(process.execPath, process.argv.length > 2 ? process.argv.slice(2) : ['tests/status-shots.mjs'], { cwd: appDir, windowsHide: true, stdio: 'inherit', env: {
       ...process.env, XDG_CONFIG_HOME: path.join(data, 'cli-config'), BARKPARK_API_URL: driver.server, BARKPARK_API_TOKEN: secrets.token, BARKPARK_DATASET: 'production',
       BARKDOWN_SHOTS_SERVER: driver.server, BARKDOWN_SHOTS_BP_COMMIT: commit, BARKDOWN_SHOTS_BP_DIRTY: String(dirty), BARKDOWN_SHOTS_ISOLATED: '1',
     } });
