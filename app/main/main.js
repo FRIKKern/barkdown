@@ -14,6 +14,7 @@ const { SourceDriver, validate: validateLocal } = require('./local-barkpark-sour
 const crypto = require('crypto');
 let profileRegistry = null, profileService = null, profileGate = null, profilePool = null, profileConnection = null, appSettingsStore = null, goalService = null;
 const PROFILE_MODE = process.argv.includes('--profiles');
+let authorityOwnership = null, adoptionView = null, bootBusy = false;
 let localRuntime = null, localConfigKey = '';
 let localTransition = Promise.resolve(), localStartupError = null;
 const claudeProvider = require('./providers/claude');
@@ -60,8 +61,16 @@ function localSecrets(source = store) {
   if (!value.password || !value.token) throw new Error('Cannot unlock this local profile’s credentials.');
   return value;
 }
+function adoptionSecrets(source) {
+  const saved = source.readJson('local-credentials.json', null);
+  if (!saved) throw new Error('Legacy runtime credentials are missing; adoption will not generate replacements');
+  const value = { password: decrypt(saved.password), token: decrypt(saved.token) };
+  if (!value.password || !value.token) throw new Error('Cannot unlock the retained legacy runtime credentials on this machine');
+  return value;
+}
 function barkparkConfig() {
   const s = readSettings(), b = s.barkpark;
+  if (profileService && b.viaCli) throw new Error('This profile retains a legacy CLI connection. Choose a direct server connection in Settings before accessing Barkpark.');
   if (profileService && b.local?.enabled) {
     if (!profileConnection) throw new Error('Profile runtime is not ready');
     return { ...profileConnection, enabled: b.enabled, writes: b.writes };
@@ -158,7 +167,9 @@ function handle(channel, fn, unowned = false) {
     try {
       if (!win || event.sender !== win.webContents || event.senderFrame !== win.webContents.mainFrame) throw new Error('Only the main application window may use this request');
       const execute = async () => {
+        authorityOwnership?.assertOwned();
         if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
+        authorityOwnership?.assertOwned();
         return fn(...args);
       };
       if (profileService && !unowned) {
@@ -341,12 +352,27 @@ function registerIpc() {
 
 const userDataArg = process.argv.find(a => a.startsWith('--user-data='));
 if (userDataArg) app.setPath('userData', path.resolve(userDataArg.slice('--user-data='.length)));
+const ownsInstance = app.requestSingleInstanceLock();
+if (!ownsInstance) app.quit();
+app.on('second-instance', () => { if (win) { if (win.isMinimized()) win.restore(); win.focus(); } });
 
 app.whenReady().then(async () => {
-  if (PROFILE_MODE) {
+  if (!ownsInstance) return;
+  bootBusy = true;
+  const { acquireAuthorityLease, createLegacyAdoption } = require('./legacy-authority-adoption');
+  authorityOwnership = await acquireAuthorityLease(app.getPath('userData'));
+  const adoption = createLegacyAdoption({ userData: app.getPath('userData'), ownership: authorityOwnership, readSecrets: adoptionSecrets });
+  adoptionView = require('./adoption-window').createAdoptionWindow();
+  const boot = await require('./adoption-boot').prepareAdoptionBoot({ adoption, requested: process.argv.includes('--adopt-legacy'), rollback: process.argv.includes('--rollback-adoption'), profiles: PROFILE_MODE, choose: state => adoptionView.choose(state) });
+  authorityOwnership.assertOwned();
+  if (boot.mode === 'quit') { bootBusy = false; app.quit(); return; }
+  if (boot.mode === 'profiles') {
     appSettingsStore = store.createStore(path.join(app.getPath('userData'), 'app-settings'));
-    profileRegistry = require('./profile-registry').createProfileRegistry(path.join(app.getPath('userData'), 'profile-data'));
-    if (!profileRegistry.load()) profileRegistry.createProfile({ name: 'Personal' });
+    profileRegistry = require('./profile-registry').createProfileRegistry(boot.root || path.join(app.getPath('userData'), 'profile-data'));
+    if (!profileRegistry.load()) {
+      if (!boot.createEmpty) throw new Error('Verified adopted registry is missing; refusing to create an empty library');
+      profileRegistry.createProfile({ name: 'Personal' });
+    }
     profilePool = require('./profile-runtime').createProfileRuntimePool({ registry: profileRegistry, readSecrets: localSecrets });
     profileService = require('./profile-service').createProfileService({ registry: profileRegistry, runtimePool: profilePool,
       settingsFor: source => { const s = readSettings(source); return { ...s, provider: s.provider || defaultProvider(), apiKey: decrypt(s.apiKeyEncrypted) }; },
@@ -367,27 +393,32 @@ app.whenReady().then(async () => {
   buildMenu();
   session.defaultSession.setPermissionRequestHandler((_wc, permission, callback) => callback(['clipboard-read', 'fullscreen'].includes(permission)));
   createWindow();
+  bootBusy = false;
+  adoptionView.close(); adoptionView = null;
   app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); });
+}).catch(async error => {
+  console.error('Library startup:', error.message);
+  bootBusy = false;
+  try {
+    adoptionView ||= require('./adoption-window').createAdoptionWindow();
+    await adoptionView.choose({ status: 'blocked', error: error.message, actions: ['quit'] });
+  } finally { app.quit(); }
 });
 
 let localQuitDone = false, localQuitting = false;
 app.on('before-quit', event => {
-  if (profilePool && !localQuitDone) {
+  if (bootBusy) { event.preventDefault(); return; }
+  if (!localQuitDone && (profilePool || localRuntime || require('./providers/runs').runs.size)) {
     event.preventDefault();
     if (localQuitting) return;
     localQuitting = true;
-    const owned = [...require('./providers/runs').runs.values()].filter(run => run.scope.profileId);
+    const owned = [...require('./providers/runs').runs.values()];
     for (const run of owned) agent.cancel(run.id);
-    Promise.all([goalService?.close(), ...owned.map(run => agent.waitForRunFinish(run.id))]).then(() => profilePool.shutdown()).then(() => {
+    Promise.all([goalService?.close(), ...owned.map(run => agent.waitForRunFinish(run.id))]).then(async () => { if (profilePool) await profilePool.shutdown(); else if (localRuntime) await localRuntime.stop(); }).then(() => {
       localQuitDone = true; app.quit();
     }).catch(error => { localQuitting = false; console.error('Owned profile shutdown:', error.message); });
     return;
   }
-  if (localQuitDone || !localRuntime) return;
-  event.preventDefault();
-  if (localQuitting) return;
-  localQuitting = true;
-  localRuntime.stop().catch(error => console.error('Local Barkpark shutdown:', error.message)).finally(() => { localQuitDone = true; app.quit(); });
 });
-app.on('will-quit', () => terminal.stopAll());
+app.on('will-quit', () => { terminal.stopAll(); adoptionView?.close(); authorityOwnership?.release(); });
 app.on('window-all-closed', () => { if (process.platform !== 'darwin') app.quit(); });
