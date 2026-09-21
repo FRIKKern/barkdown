@@ -25,6 +25,10 @@ async function handle(message) {
   if (message.type !== 'start' || started) throw new Error('Invalid worker dispatch');
   started = true;
   const { scope: captured, ...params } = message.params;
+  // SDK constructors may consult process.env in addition to explicit options.
+  // This process handles one owned run, so restore its captured environment.
+  for (const key of Object.keys(process.env)) if (!Object.hasOwn(captured.env, key)) delete process.env[key];
+  for (const [key, value] of Object.entries(captured.env)) process.env[key] = value;
   const resolved = captureScope(captured);
   const scope = Object.freeze({ ...resolved, env: frozenCopy(captured.env) });
   const result = await agent.start({ ...params, scope, send: event => send({ type: 'event', event }) });
