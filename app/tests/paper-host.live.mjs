@@ -23,7 +23,11 @@ try {
   await page.evaluate(async server=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,viaCli:true,writes:true,server}});await window.__barkdown.refreshLibrary();},process.env.BARKDOWN_SHOTS_SERVER);
   await page.evaluate(slug=>window.__barkdown.openTarget({kind:'doc',id:slug,source:'barkpark',title:slug}),SLUG);
   const pm=page.locator('.bw-paper-pane:not([hidden]) .ProseMirror'); await pm.waitFor({timeout:60000});
-  const shot=async name=>{const file=name+'.png';await page.screenshot({path:path.join(out,file)});frames.push(file);};
+  const shot=async name=>{
+    // Health stills show settled controls; wait real finite UI transitions without disabling effects.
+    await page.evaluate(async()=>{await Promise.all(document.getAnimations().filter(a=>a.effect?.getComputedTiming().iterations!==Infinity).map(a=>a.finished.catch(()=>{})));});
+    const file=name+'.png';await page.screenshot({path:path.join(out,file)});frames.push(file);
+  };
   await shot('01-original');
   const evaluate=fn=>page.evaluate(fn);
   const saved=()=>page.waitForFunction(()=>/Saved · rev/.test(document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent||'')&&!document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas').hasPendingChanges(),null,{timeout:30000});
