@@ -65,4 +65,4 @@ Use [ACCEPTANCE.md](ACCEPTANCE.md) for scenario gates and [VALIDATION.md](VALIDA
 
 ## Delivery cadence
 
-Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) is completed C001: profile ownership inventory and adoption design. The user-requested C002 interruption is [completed and validated on its branch](cycles/C002-folder-context.md), merged through PR #29 at b8e7bfb; no deployment. `npm run plan` prints both roadmap and current cycle; finishing C002 does not complete P1.
+Deliver stages through [bounded cycles](CYCLES.md). C001 completed the ownership design; [C004](cycles/C004-captured-run-ownership.md) adds captured provider ownership and finalization. C003 registry/adoption foundation is independently developed on the next-cycle branch. C006 will integrate trusted ownership and workspace persistence before switching UI. [The current cycle](cycle.json) and `npm run plan` retain exact status. C002 merged through PR #29 at `b8e7bfb`; no deployment. These bounded slices do not complete P1.

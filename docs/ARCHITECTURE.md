@@ -31,3 +31,5 @@ The Paper adapter loads the editor from the connected Barkpark, with cached/vend
 Acceptance scenarios are in [ACCEPTANCE.md](ACCEPTANCE.md); unresolved API choices must be recorded as findings, not silently promoted into guarantees.
 
 The [C001 ownership audit](PROFILE-OWNERSHIP.md) maps actual files, caches, sessions and credentials to these owners, specifies the stable profile/resource/run contract, and separates shell-only adoption from unsupported live-database copying. It is design evidence, not implemented isolation.
+
+C004 adds [captured run handles](RUN-OWNERSHIP.md): bound local adapters, immutable provider/MCP connection snapshots, authoritative event owners and awaited driver finalization. Single-workspace boot remains; a verified registry resolver, profile IPC generations and background transcript persistence are still required before switching profiles.

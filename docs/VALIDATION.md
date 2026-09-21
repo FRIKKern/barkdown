@@ -64,3 +64,9 @@ No focused live folder-question latency/compliance benchmark, profile implementa
 ## C001 ownership design — 2026-09-22
 
 Audited merged baseline b8e7bfb; [inventory and contract](PROFILE-OWNERSHIP.md) covers actual storage/cache/session/credential/run boundaries, safe adoption and named A1 fixtures. Root npm ci, app npm ci and Playwright installation passed; npm run verify passed. This is documentation-only proof. Existing C002 visual approval remains current; narrow workspace image inspected and capture coverage reviewed. No profile storage, switching, adoption or background-run isolation is claimed. C002 is now merged through PR #29; earlier no-merge claims describe its historical push checkpoint. P1 remains pending. See [C001 handoff](cycles/C001-profile-ownership.md).
+
+## C004 captured run ownership — 2026-09-22
+
+Source 0086867 on codex/cycle-current-12h adds immutable run/MCP context and bound local adapters, exact created-document activity, authoritative event ownership and awaited finalization. Eleven [ownership test groups](../app/tests/run-ownership.test.mjs) pass with real stdio MCP and scripted SDK/API seams. Final npm run test:desktop passes existing units, 76 Electron checks and direct-edit/history/side-chat suites. Root npm run verify passes.
+
+[Live Paper evidence](images/status/history/C004-0086867.json) used an isolated private runtime on Barkpark a5440345c with clean source trees and a real Codex turn; five stills and 37 GIF frames reviewed, private runtime stopped. [Deterministic comparison](visual/runs/2026-09-21T22-32-06-713Z/comparison.json) has 21 frames with no above-tolerance pixel or geometry changes; explicit review recorded. [Lifecycle contract and limits](RUN-OWNERSHIP.md): no switching UI, durable scheduler, full profile credential isolation or OS process-stop guarantee. Roots are trusted input pending resolver/ancestor hardening. P1 remains pending; see [C004 handoff](cycles/C004-captured-run-ownership.md).

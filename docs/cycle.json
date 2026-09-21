@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C004",
   "stage": "P1",
-  "status": "active",
+  "status": "done",
   "goal": "Capture provider runs and their local adapters before dispatch so background work cannot rebind to a different store or connection.",
   "scope": [
     "Immutable run context and provider/MCP launch connection",
@@ -16,8 +16,13 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C004-captured-run-ownership.md",
-  "nextAction": "Add bound store/adapters and immutable run capture; prove delayed SDK and same-ID isolation with disposable fixtures.",
-  "evidence": [],
-  "truthReview": "",
-  "screenshotReview": ""
+  "nextAction": "C006: integrate validated registry resolver, owner/generation-checked IPC and shared durable workspace transcript repository before profile switching UI.",
+  "evidence": [
+    "docs/RUN-OWNERSHIP.md",
+    "app/tests/run-ownership.test.mjs",
+    "docs/images/status/history/C004-0086867.json",
+    "docs/visual/runs/2026-09-21T22-32-06-713Z/comparison.json"
+  ],
+  "truthReview": "Reviewed README, app guide, PLAN/plan.json, NEXT-AGENT, VALIDATION and architecture; captured-run foundations do not complete P1 or add switching. Trusted-root and provider/login/lifecycle limits remain explicit.",
+  "screenshotReview": "Inspected all 21 deterministic action frames and five live stills plus all 37 live GIF frames; explicit approval recorded. No deterministic geometry or above-tolerance differences; live Codex transcript/ephemeral server changes expected."
 }

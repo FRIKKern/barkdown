@@ -52,7 +52,7 @@ Install locked dependencies and Playwright Chromium when needed; run root `npm r
 
 ## Current cycle checkpoint
 
-Start with `npm run cycle` and [cycle.json](cycle.json). C002 is complete and validated on `codex/fast-folder-context`; [its handoff](cycles/C002-folder-context.md) records source commits, test results, screenshots and limits. C002 merged through PR #29 at b8e7bfb. C001 completed the ownership/adoption design in PROFILE-OWNERSHIP.md; captured-run ownership and registry foundations are next. P1 remains pending.
+Start with `npm run cycle` and [cycle.json](cycle.json). C002 merged through PR #29 at `b8e7bfb`. C001 completed the [ownership design](PROFILE-OWNERSHIP.md). C004 implements [captured runs](RUN-OWNERSHIP.md); [its handoff](cycles/C004-captured-run-ownership.md) records source, tests, visuals and limits. Registry foundation C003 is on the parallel next-cycle branch; do not assume it is integrated here. Next: C006 trusted registry resolver, generation-scoped IPC and shared workspace transcript persistence before safe profile switching. P1 remains pending.
 
 ## Visual handoff
 
