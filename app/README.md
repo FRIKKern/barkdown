@@ -64,5 +64,6 @@ Use [the local-runtime guide](../docs/LOCAL-BARKPARK.md) for setup and [the acce
 - [Main chat](../docs/visual/chat/README.md) and [side chat](../docs/visual/side-chat/README.md): shared composer and conversation controls.
 - [Local documents](../docs/visual/documents/README.md): the legacy editor retained pending P2; live Paper evidence remains in the root gallery.
 - [Settings](../docs/visual/settings/README.md): preferences and connection controls.
+- [Goals](../docs/visual/goals/README.md): injected-service component fixtures, distinct from live execution proof.
 
 Each page contains a still, recorded interaction GIF, provenance and changelog. [Rules and coverage limits](../docs/visual/RULES.md) distinguish visual review from functional/runtime proof.

@@ -2,14 +2,15 @@
 
 Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.
 
-![Current view](../runs/2026-09-21T22-36-51-168Z/documents-2.png)
+![Current view](../runs/2026-09-21T23-10-09-960Z/documents-2.png)
 
-![Recorded interaction](../runs/2026-09-21T22-36-51-168Z/documents.gif)
+![Recorded interaction](../runs/2026-09-21T23-10-09-960Z/documents.gif)
 
-[Full comparison](../runs/2026-09-21T22-36-51-168Z/README.md) · [Capture manifest](../runs/2026-09-21T22-36-51-168Z/manifest.json)
+[Full comparison](../runs/2026-09-21T23-10-09-960Z/README.md) · [Capture manifest](../runs/2026-09-21T23-10-09-960Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-21T23:12:12.279Z: Inspected all 27 raw action frames via contact sheets and full-size390px goal view; six step-recorded GIFs map to those same27 frames. Existing21 frames have zero changed pixels or geometry changes; environment unchanged. Six new explicitly labelled fixture goal frames cover plan, three observed fixture workers, pause, narrow, restore and ordinary worker navigation. No clipping or unintended tracks; main content remains scrollable behind fixed footer. Goals/provider/service36 tests pass including real provider loops with deterministic transport, profile switch, stale saves and recovered termination guard. Full desktop suite and isolated live Paper capture are still running; these fixtures do not prove production IPC or authenticated goal execution. Source cde979434; [review](../runs/2026-09-21T23-10-09-960Z/comparison.json).
 - 2026-09-21T22:38:14.738Z: Reviewed all 21 frames of combined C004 ownership and C005 scheduler/provider source f0568b5, including narrow and intermediate menu states, side-chat draft and local document themes. Zero pixel or geometry differences. 23 goal tests and 11 captured-ownership groups pass; no goal UI or authenticated model journey is claimed. Source f0568b508; [review](../runs/2026-09-21T22-36-51-168Z/comparison.json).
 - 2026-09-21T22:29:05.986Z: Inspected all 21 fixture frames including narrow workspace, menus, side-chat independent draft, document light/dark and Settings. Comparison has zero changed pixels and no geometry/environment changes. Additive scheduler has 18 passing tests; no goal UI or live model integration is claimed. Source f9bc9e5fd; [review](../runs/2026-09-21T22-27-53-842Z/comparison.json).
 - 2026-09-21T21:50:11.399Z: C002: reviewed all 21 action frames across five areas after folder-context and offline-fallback changes. No pixel differences above tolerance or control-geometry changes; environment unchanged. Request/dispatcher tests cover resumed and cleared folders, image-only turns and original-text offline navigation. Visual evidence does not measure live folder-answer latency. Source 3e2ed6fa0; [review](../runs/2026-09-21T21-48-36-561Z/comparison.json).
