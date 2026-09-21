@@ -1,0 +1,30 @@
+name: Bug report
+description: Record a reproducible problem in the desktop or its data lifecycle.
+title: "Bug: "
+body:
+  - type: textarea
+    id: behavior
+    attributes:
+      label: What happened?
+      description: Describe the expected behavior and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Include restart, profile switching, concurrent editing or connection changes when relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Build and environment
+      description: Commit/version, operating system, provider and Barkpark connection mode. Do not include tokens or private document contents.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and data impact
+      description: Sanitized logs/screenshots, save state, draft recovery, and whether the problem repeats. Keep original data and backups intact.

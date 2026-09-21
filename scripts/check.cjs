@@ -10,7 +10,7 @@ const source=cheerio.load(read('docs/prd.source.html'));
 if(source('#requirements-table tbody tr').length!==24)fail('Requirement count changed');
 if(source('#requirements-table tbody tr[data-priority="P0"]').length!==19)fail('P0 count changed');
 const markdownFiles=dir=>fs.readdirSync(path.join(root,dir),{withFileTypes:true}).flatMap(e=>e.isDirectory()?markdownFiles(dir+'/'+e.name):e.name.endsWith('.md')?[dir+'/'+e.name]:[]);
-for(const file of ['README.md','AGENTS.md',...markdownFiles('docs')]){
+for(const file of ['README.md','CONTRIBUTING.md','AGENTS.md','app/README.md',...markdownFiles('docs')]){
  const text=read(file);for(const match of text.matchAll(/\]\(([^)]+)\)/g)){const link=match[1].split('#')[0];if(!link||/^(?:https?:|mailto:)/.test(link))continue;const target=path.resolve(root,path.dirname(file),link);if(!target.startsWith(root+path.sep)||!fs.existsSync(target))fail('Broken local link in '+file+': '+link);}
 }
 for(const file of ['preview/index.html','preview/editor.html','preview/prd.html']){

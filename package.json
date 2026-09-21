@@ -1,16 +1,20 @@
 {
-  "name": "barkdown-handoff",
+  "name": "barkdown-workspace",
   "version": "0.5.0",
   "private": true,
-  "description": "Barkdown product specification, interactive concepts, and implementation handoff",
-  "engines": { "node": ">=22.13.1" },
+  "description": "Barkdown desktop workspace: notes and agents, powered by Barkpark.",
+  "engines": {
+    "node": ">=22.13.1"
+  },
   "scripts": {
     "build": "node scripts/build.cjs",
     "preview": "node scripts/preview.cjs",
     "plan": "node .claude/skills/plan-followup/scripts/next.mjs",
     "check": "tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs",
     "test": "node scripts/test.cjs",
-    "verify": "npm run build && npm run check && npm test"
+    "verify": "npm run build && npm run check && npm test",
+    "desktop": "npm --prefix app start",
+    "test:desktop": "npm --prefix app run build && npm --prefix app test"
   },
   "devDependencies": {
     "cheerio": "1.2.0",
