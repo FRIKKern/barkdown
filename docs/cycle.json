@@ -16,8 +16,14 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/goals/HANDOFF.md",
-  "nextAction": "Implement additive scheduler and disposable journal tests; coordinate C004 adapter before UI integration.",
-  "evidence": [],
-  "truthReview": "",
-  "screenshotReview": ""
+  "nextAction": "Adopt C006 synchronous fresh-reservation transcript sink, harden unknown-finalization recovery, then implement full worker goal UI.",
+  "evidence": [
+    "app/tests/goals.test.mjs",
+    "app/tests/goal-provider.test.mjs",
+    "docs/goals/HANDOFF.md",
+    "docs/visual/runs/2026-09-21T22-36-51-168Z/manifest.json",
+    "docs/images/status/manifest.json"
+  ],
+  "truthReview": "Reviewed README, app guide, PLAN/plan.json, NEXT-AGENT, VALIDATION and architecture. Existing prototype claims remain; goal track is additive and not activated. P1-P5 stay pending. No merge/deployment or full-provider goal claim.",
+  "screenshotReview": "Combined-source deterministic 21 frames and five live Paper stills plus 37 GIF frames inspected. Zero deterministic differences. Real Codex Paper edit; private runtime stopped. No goal UI coverage yet."
 }

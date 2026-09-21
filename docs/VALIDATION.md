@@ -11,6 +11,8 @@ Baseline at the 2026-09-21 roadmap reset. Implementation evidence is separate fr
 
 ## Pending evidence
 
+Separate goal-orchestration branch: source `f0568b5` includes C004 ownership cherry-pick `06dd8b1`, additive durable scheduler and provider bridge. `npm --prefix app run test:goals` passes 23 tests (three actual child processes; actual API agent loop with deterministic transport). `node app/tests/run-ownership.test.mjs` passes 11 groups. Combined-source `npm run test:desktop` and `npm run verify` both pass (76 desktop checks and all unit/direct-edit/history/side-chat suites). Deterministic [combined-source captures](visual/runs/2026-09-21T22-36-51-168Z/README.md) were inspected and explicitly approved with zero frame/geometry changes. The earlier root freshness failure cleared with `shots:isolated`: five live stills and a 37-frame GIF inspected; private runtime stopped cleanly, actual Codex Paper edit after Claude's weekly-limit response. No new editor-matrix rows were run. [Dedicated handoff](goals/HANDOFF.md) records limits and exact next actions. No full goal UI, authenticated three-worker journey, P1 completion, merge or deployment is claimed.
+
 P1–P5 are pending in [plan.json](plan.json). Existing implementation is the starting point; resetting the roadmap neither invalidates passing tests nor grants the new stages a pass. G1/G2 remain separate release gates.
 
 ## Commands
