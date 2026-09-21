@@ -3,6 +3,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
+const { acquireFileLease } = require('./file-lease');
 
 const VERSION = 1;
 const ID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
@@ -90,20 +91,8 @@ function createProfileRegistry(directory, { checkpoint = () => {} } = {}) {
 
   function locked(fn) {
     const lock = at('registry.lock');
-    let fd;
-    try { fd = fs.openSync(lock, 'wx', 0o600); } catch (error) {
-      if (error.code !== 'EEXIST') throw error;
-      let owner;
-      try { owner = read(lock); } catch { throw new Error('Registry lock is unreadable; inspect it before recovery'); }
-      if (!Number.isSafeInteger(owner.pid) || owner.pid <= 0) throw new Error('Registry lock has no valid owner');
-      try { process.kill(owner.pid, 0); throw new Error('Profile registry is in use'); } catch (probe) { if (probe.code !== 'ESRCH') throw probe; }
-      fs.renameSync(lock, at(`abandoned-lock-${crypto.randomUUID()}.json`));
-      fd = fs.openSync(lock, 'wx', 0o600);
-    }
-    try {
-      fs.writeFileSync(fd, JSON.stringify({ pid: process.pid })); fs.fsyncSync(fd);
-      return fn();
-    } finally { fs.closeSync(fd); fs.unlinkSync(lock); }
+    const ownership = acquireFileLease(lock, { busy: 'Profile registry is in use' });
+    try { return fn(); } finally { ownership.release(); }
   }
   function fromPointer(pointer) {
     if (isObject(pointer) && pointer.version === VERSION && pointer.empty === true && Object.keys(pointer).length === 2) return null;
