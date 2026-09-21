@@ -3,7 +3,7 @@
 // a side chat gets the main conversation's latest exchanges as context, the main chat can list and
 // read its side chats, and the document tools expose the same through list_conversations and
 // read_conversation. Read-only; nothing here writes.
-const store = require('./store');
+function createConversations(store) {
 
 const LIST_MAX = 30;
 
@@ -132,4 +132,6 @@ function barkparkLine() {
   return `Barkpark: connected to ${where}, dataset ${bp.dataset || 'production'}; ${how}. Its papers are in list_documents and search_documents with ids bp:<slug>.`;
 }
 
-module.exports = { listConversations, readConversation, contextNote };
+return { listConversations, readConversation, contextNote };
+}
+module.exports = { ...createConversations(require('./store')), createConversations };

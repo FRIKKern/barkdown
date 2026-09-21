@@ -9,6 +9,7 @@ const { docToMarkdown } = require('../shared/markdown');
 const conversations = require('./conversations');
 
 const providerRuns = require('./providers/runs');
+const { frozenCopy } = require('./providers/run-scope');
 const runs = providerRuns.runs;
 let Anthropic = null;
 
@@ -70,6 +71,7 @@ function describeDocument(doc) {
 }
 
 async function executeTool(run, name, input) {
+  const { documents, conversations, edits } = run.scope;
   const { context, emit } = run;
   const root = context.folder;
   switch (name) {
@@ -86,7 +88,7 @@ async function executeTool(run, name, input) {
     }
     case 'edit_document':
     case 'propose_document_edit': {
-      const edit = await require('./agent-edits').apply({ ...input, baseRev: run.readRevisions?.get(input.id) });
+      const edit = await edits.apply({ ...input, baseRev: run.readRevisions?.get(input.id) });
       run.readRevisions.set(input.id, edit.afterRev);
       const doc = documents.get(input.id);
       emit({ type: 'activity', target: { kind: 'doc', id: doc.id, title: doc.title }, label: `Edited ${doc.title}`, detail: input.summary, libraryChanged: true, agentEdit: true });
@@ -155,7 +157,7 @@ function offlineReply(run, userText) {
   // No API key: still make the workspace useful by opening what the request names.
   const text = userText.toLowerCase();
   const actions = [];
-  const docs = documents.list();
+  const docs = run.scope.documents.list();
   const named = docs.find(d => text.includes(d.title.toLowerCase()));
   if (named || /document|overview|notes/.test(text)) {
     const doc = named || docs[0];
@@ -204,16 +206,20 @@ function withImages(messages, images) {
   return out;
 }
 
-async function startApi({ chatId, messages, context, settings, send, images, originalMessages }) {
-  const run = providerRuns.createRun({ chatId, context, send, provider: 'api' });
+async function startApi({ chatId, messages, context, settings, send, images, originalMessages, scope, storeDir, profileId, connection, onFinish }) {
+  const run = providerRuns.createRun({ chatId, context, send, provider: 'api', scope, storeDir, profileId, connection, onFinish });
+  context = run.context;
+  settings = frozenCopy(settings || {});
+  messages = frozenCopy(messages || []);
+  images = frozenCopy(images || []);
   const id = run.id;
   (async () => {
     try {
-      const apiKey = settings.apiKey || process.env.ANTHROPIC_API_KEY || '';
+      const apiKey = settings.apiKey || run.scope.env.ANTHROPIC_API_KEY || '';
       // Offline navigation interprets only the person's text, never injected run guidance.
       const lastUser = [...(originalMessages || messages)].reverse().find(m => m.role === 'user');
       const lastText = typeof lastUser?.content === 'string' ? lastUser.content : (lastUser?.content || []).map(b => b.text || '').join(' ');
-      if (!apiKey && !process.env.ANTHROPIC_AUTH_TOKEN && !settings.forceOnline) {
+      if (!apiKey && !run.scope.env.ANTHROPIC_AUTH_TOKEN && !settings.forceOnline) {
         const reply = offlineReply(run, lastText);
         run.emit({ type: 'text_delta', text: reply });
         run.emit({ type: 'done', offline: true, text: reply });
@@ -274,7 +280,7 @@ async function startApi({ chatId, messages, context, settings, send, images, ori
       else if (Sdk && error instanceof Sdk.RateLimitError) message = 'Rate limited by the Claude API. Try again shortly.';
       run.emit({ type: 'error', message });
     } finally {
-      providerRuns.finish(run);
+      await providerRuns.finish(run);
     }
   })();
   return { runId: id };
@@ -288,7 +294,7 @@ function withConversationContext(params) {
   const folderNote = folder
     ? `This chat's current working folder is ${JSON.stringify(folder)}. This is the folder captured for this run; use it even if earlier messages name a different folder. When the person asks where you are, which folder you are in, or what "this folder" means, answer directly with this path. No shell command, directory listing, document search or conversation read is needed just to identify it. Inspect files only when the person asks about their contents, a listing, or filesystem verification. Do not claim you inspected files unless you did.`
     : 'This chat has no working folder selected. Answer folder-location questions directly with that fact; do not infer a folder from another chat, an open file, or a provider scratch directory.';
-  const note = [folderNote, conversations.contextNote(params.chatId)].filter(Boolean).join('\n');
+  const note = [folderNote, (params.scope?.conversations || conversations).contextNote(params.chatId)].filter(Boolean).join('\n');
   const wrap = text => `[Workspace context]\n${note}\n[End of context]\n\n${text}`;
   const prompt = wrap(params.prompt || '');
   const messages = Array.isArray(params.messages) ? params.messages.map(m => ({ ...m })) : params.messages;
@@ -329,11 +335,13 @@ function withCatchUp(params) {
 }
 
 async function start(rawParams) {
-  const params = withConversationContext(withCatchUp(rawParams));
+  const scope = rawParams.scope || providerRuns.captureScope(rawParams);
+  const params = withConversationContext(withCatchUp({ ...rawParams, scope, context: scope.context,
+    settings: frozenCopy(rawParams.settings || {}), messages: frozenCopy(rawParams.messages || []), images: frozenCopy(rawParams.images || []) }));
   const provider = params.provider || 'api';
   if (provider === 'claude') return require('./providers/claude').start(params);
   if (provider === 'codex') return require('./providers/codex').start(params);
   return startApi({ ...params, originalMessages: rawParams.messages });
 }
 
-module.exports = { start, startApi, cancel, respondApproval, toolDefinitions, setClientFactory, imageBlocks, withImages, withConversationContext, withCatchUp };
+module.exports = { start, startApi, cancel, waitForRunFinish: providerRuns.waitForRunFinish, respondApproval, toolDefinitions, setClientFactory, imageBlocks, withImages, withConversationContext, withCatchUp };

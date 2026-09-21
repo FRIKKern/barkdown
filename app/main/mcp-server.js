@@ -13,9 +13,10 @@ const conversations = require('./conversations');
 
 // The main process keeps barkpark.json current (server, dataset, mode) and hands a stored token over as
 // BARKDOWN_BP_TOKEN when it starts this server; published papers read fine without one.
-function bpFlag() { return store.readJson('barkpark.json', null) || {}; }
+const capturedConnection = process.env.BARKDOWN_RUN_CONNECTION ? Object.freeze(JSON.parse(process.env.BARKDOWN_RUN_CONNECTION)) : null;
+function bpFlag() { return capturedConnection || store.readJson('barkpark.json', null) || {}; }
 function barkparkOn() { const f = bpFlag(); return Boolean(f.enabled && (f.viaCli || f.server)); }
-function bpConfig() { const f = bpFlag(); return { server: f.server, dataset: f.dataset || 'production', token: process.env.BARKDOWN_BP_TOKEN || '' }; }
+function bpConfig() { const f = bpFlag(); return { server: f.server, dataset: f.dataset || 'production', token: capturedConnection ? capturedConnection.token || '' : process.env.BARKDOWN_BP_TOKEN || '' }; }
 const paper = {
   list: limit => bpFlag().viaCli ? barkpark.cliListPapers(limit) : barkpark.listPapers(bpConfig(), limit),
   get: id => bpFlag().viaCli ? barkpark.cliGetPaper(id) : barkpark.getPaper(bpConfig(), id),

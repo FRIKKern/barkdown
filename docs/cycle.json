@@ -1,25 +1,23 @@
 {
   "version": 1,
-  "id": "C001",
+  "id": "C004",
   "stage": "P1",
-  "status": "done",
-  "goal": "Map persistence ownership and design safe default-profile adoption before changing storage.",
+  "status": "active",
+  "goal": "Capture provider runs and their local adapters before dispatch so background work cannot rebind to a different store or connection.",
   "scope": [
-    "Inventory actual persistence and cache owners",
-    "Define profile-qualified identities and backed-up adoption",
-    "Specify A1 isolation fixtures; no switching UI or real-data migration"
+    "Immutable run context and provider/MCP launch connection",
+    "Bound local document/conversation/receipt adapters and authoritative event owner",
+    "No profile switching UI or registry boot adoption"
   ],
   "acceptance": [
-    "Complete ownership inventory with module/key references",
-    "Document adoption, interruption and rollback design",
-    "Name audited contracts, unresolved questions and next executable proof"
+    "Two temporary roots with same IDs remain isolated through delayed provider and API work",
+    "MCP connection is captured before asynchronous provider startup",
+    "Existing desktop tests, fresh visual review and live Paper evidence"
   ],
   "checkpoint": "2026-09-22",
-  "handoff": "docs/cycles/C001-profile-ownership.md",
-  "nextAction": "Start C004 captured-run ownership; C003 registry/adoption foundation runs independently. P1 remains pending.",
-  "evidence": [
-    "docs/PROFILE-OWNERSHIP.md"
-  ],
-  "truthReview": "Reviewed README, app guide, PLAN/plan.json, NEXT-AGENT, VALIDATION and architecture. Corrected stale C002 unmerged claim using main b8e7bfb; no new runtime or P1 completion claimed.",
-  "screenshotReview": "Documentation only: existing C002 approval remains current; inspected narrow workspace capture and reviewed gallery scope. No UI changes or new isolation screenshot claim."
+  "handoff": "docs/cycles/C004-captured-run-ownership.md",
+  "nextAction": "Add bound store/adapters and immutable run capture; prove delayed SDK and same-ID isolation with disposable fixtures.",
+  "evidence": [],
+  "truthReview": "",
+  "screenshotReview": ""
 }

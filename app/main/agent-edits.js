@@ -1,11 +1,10 @@
 // Direct, revision-checked document edits shared by the API and signed-in providers.
 const crypto = require('crypto');
-const store = require('./store');
-const documents = require('./documents');
 const barkpark = require('./barkpark');
 const { markdownToDoc } = require('../shared/markdown');
 const { markdownToBlocks } = require('../shared/portabledoc');
 
+function createAgentEdits({ store, documents }) {
 const receiptPath = id => 'agent-edits/' + crypto.createHash('sha256').update(id).digest('hex') + '.json';
 function latest(id) { return store.readJson(receiptPath(id), null); }
 function remote(config) {
@@ -84,4 +83,6 @@ async function undo(id, editId, config) {
   store.writeJson(receiptPath(id), { ...edit, undone: true });
   return result;
 }
-module.exports = { apply, latest, undo };
+return { apply, latest, undo };
+}
+module.exports = { ...createAgentEdits({ store: require('./store'), documents: require('./documents') }), createAgentEdits };
