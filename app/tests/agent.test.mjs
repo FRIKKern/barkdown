@@ -93,6 +93,9 @@ const offline = [];
 await new Promise(resolve => agent.start({ chatId: 'c3', messages: [{ role: 'user', content: 'Open the Overview and barkpark.cloud' }], context: {}, settings: { apiKey: '' }, send: e => { offline.push(e); if (e.type === 'done') resolve(); } }));
 assert(offline.some(e => e.type === 'activity' && e.target.kind === 'doc') && offline.some(e => e.type === 'activity' && e.target.kind === 'web'), 'offline mode did not open targets');
 assert(offline.at(-1).offline === true, 'offline done flag missing');
+const quietOffline = [];
+await new Promise(resolve => agent.start({ chatId: 'folderless-history', messages: [{ role: 'user', content: 'Hello' }], context: { folder: repo }, settings: { apiKey: '' }, send: e => { quietOffline.push(e); if (e.type === 'done') resolve(); } }));
+assert(!quietOffline.some(e => e.type === 'activity'), 'offline fallback must not execute navigation suggested only by injected folder guidance');
 console.log('scenario 5 ok: offline fallback');
 
 // 6b. A switched provider gets the turns its session missed, newest kept, oldest dropped past the budget.

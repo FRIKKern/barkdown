@@ -204,13 +204,14 @@ function withImages(messages, images) {
   return out;
 }
 
-async function startApi({ chatId, messages, context, settings, send, images }) {
+async function startApi({ chatId, messages, context, settings, send, images, originalMessages }) {
   const run = providerRuns.createRun({ chatId, context, send, provider: 'api' });
   const id = run.id;
   (async () => {
     try {
       const apiKey = settings.apiKey || process.env.ANTHROPIC_API_KEY || '';
-      const lastUser = [...messages].reverse().find(m => m.role === 'user');
+      // Offline navigation interprets only the person's text, never injected run guidance.
+      const lastUser = [...(originalMessages || messages)].reverse().find(m => m.role === 'user');
       const lastText = typeof lastUser?.content === 'string' ? lastUser.content : (lastUser?.content || []).map(b => b.text || '').join(' ');
       if (!apiKey && !process.env.ANTHROPIC_AUTH_TOKEN && !settings.forceOnline) {
         const reply = offlineReply(run, lastText);
@@ -295,7 +296,10 @@ function withConversationContext(params) {
     for (let i = messages.length - 1; i >= 0; i--) {
       if (messages[i].role !== 'user') continue;
       if (typeof messages[i].content === 'string') messages[i].content = wrap(messages[i].content);
-      else if (Array.isArray(messages[i].content)) messages[i].content = messages[i].content.map(b => b.type === 'text' ? { ...b, text: wrap(b.text) } : b);
+      else if (Array.isArray(messages[i].content)) {
+        messages[i].content = messages[i].content.map(b => b.type === 'text' ? { ...b, text: wrap(b.text) } : b);
+        if (!messages[i].content.some(b => b.type === 'text')) messages[i].content.push({ type: 'text', text: wrap(params.prompt || '') });
+      }
       break;
     }
   }
@@ -329,7 +333,7 @@ async function start(rawParams) {
   const provider = params.provider || 'api';
   if (provider === 'claude') return require('./providers/claude').start(params);
   if (provider === 'codex') return require('./providers/codex').start(params);
-  return startApi(params);
+  return startApi({ ...params, originalMessages: rawParams.messages });
 }
 
 module.exports = { start, startApi, cancel, respondApproval, toolDefinitions, setClientFactory, imageBlocks, withImages, withConversationContext, withCatchUp };

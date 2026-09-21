@@ -92,6 +92,10 @@ for (const provider of ['claude', 'codex']) {
     assert(requests[2].prompt.startsWith('[Workspace context]\nThis chat has no working folder selected.'), 'clearing a folder does not reuse parent or resumed folder');
   } finally { transport.start = originalStart; }
 }
+const imageOnly = { chatId: 'side1', context: { folder: 'C:/work/image' }, messages: [{ role: 'user', content: [{ type: 'image', source: {} }] }] };
+const imageWrapped = agent.withConversationContext(imageOnly);
+assert(imageWrapped.messages[0].content[1].text.includes('C:/work/image'), 'image-only API turn still receives current folder guidance');
+assert(imageOnly.messages[0].content.length === 1 && imageWrapped.messages[0].content[0].type === 'image', 'image-only original input and image order preserved');
 console.log('ok run context');
 
 fs.rmSync(dir, { recursive: true, force: true });
