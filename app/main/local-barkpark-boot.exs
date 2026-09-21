@@ -6,9 +6,11 @@ Application.put_env(:barkpark, Barkpark.Repo, Keyword.merge(repo,
   hostname: "127.0.0.1", port: String.to_integer(System.fetch_env!("BARKDOWN_PG_PORT")),
   username: "postgres", password: System.fetch_env!("BARKDOWN_PG_PASSWORD"),
   database: "barkdown", pool_size: 3, show_sensitive_data_on_connection_error: false))
+# A dev-built Endpoint may already contain the CodeReloader plug. Its runtime
+# reloadable_apps list must also be empty to prevent request-time compilation.
 endpoint = Application.fetch_env!(:barkpark, BarkparkWeb.Endpoint)
 Application.put_env(:barkpark, BarkparkWeb.Endpoint, Keyword.merge(endpoint,
-  server: true, code_reloader: false, debug_errors: false,
+  server: true, code_reloader: false, reloadable_apps: [], debug_errors: false,
   secret_key_base: System.fetch_env!("BARKDOWN_PG_PASSWORD"),
   http: [ip: {127, 0, 0, 1}, port: String.to_integer(System.fetch_env!("PORT"))]))
 Application.put_env(:barkpark, :dev_browser_token, nil)
