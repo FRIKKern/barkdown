@@ -33,7 +33,7 @@ function createGoalProvider({ agent = require('./agent'), resolve, transcripts, 
       const ownerKey = JSON.stringify([request.profileId, request.chatId]);
       check(!executing.has(ownerKey), 'Worker conversation is already executing');
       executing.add(ownerKey);
-      let runId = null, terminal = null, fault = null, text = '', started = false, resolved = null;
+      let runId = null, terminal = null, fault = null, text = '', started = false, began = false, resolved = null;
       let releaseUsed = false;
       const release = async () => { if (!releaseUsed) { releaseUsed = true; await resolved?.release?.(); } };
       const cancel = () => { if (runId) agent.cancel(runId); };
@@ -75,6 +75,7 @@ function createGoalProvider({ agent = require('./agent'), resolve, transcripts, 
         const reservation = acknowledged(transcripts.begin(request, resolved));
         check(Array.isArray(reservation?.history) && typeof reservation.fresh === 'boolean', 'Transcript writer did not acknowledge assignment history');
         if (!reservation.fresh) return { status: 'interrupted', text: 'This attempt was already reserved. Reconcile prior execution; never redispatch the same attempt.' };
+        began = true;
         const history = reservation.history;
         const settings = { ...resolved.settings, effort: request.context.effort || undefined, goalWorker: true };
         if (request.context.model) settings[request.context.provider === 'api' ? 'model' : request.context.provider === 'claude' ? 'claudeModel' : 'codexModel'] = request.context.model;
@@ -116,6 +117,10 @@ function createGoalProvider({ agent = require('./agent'), resolve, transcripts, 
         cancel();
         // A post-launch failure must not release the scheduler's lease before driver cleanup.
         if (runId) await waitForTermination();
+        if (began) {
+          try { acknowledged(transcripts.finish(request, { runId, status: started || runId ? 'interrupted' : 'failed', text: error.message, driverFinished: true })); }
+          catch { /* Retain unresolved transcript reservation for explicit recovery. */ }
+        }
         if (started || runId) return { status: 'interrupted', text: `Execution requires reconciliation: ${error.message}` };
         throw error;
       } finally {

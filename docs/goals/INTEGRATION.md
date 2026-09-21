@@ -1,6 +1,6 @@
 # Goal execution and conversation integration contract
 
-Planned next slice; this is not an implemented API claim.
+The main-owned service and provider bridge are implemented on the goal branch. Production Electron wiring and native restart proof remain pending; this document distinguishes the required end-to-end contract from that source checkpoint.
 
 ## Authority and startup
 
@@ -18,7 +18,7 @@ Events update only the attempt's exact assistant record. Progress is observed te
 
 ## Workspace snapshots and takeover
 
-Today's renderer replaces `workspace.json` and routes events to the last assistant message. Neither is adequate for background goal durability. Main-owned goal message IDs must survive a stale renderer save. Keep managed turns in a separate authoritative overlay/journal and merge them by stable IDs at load/save; preserve all renderer-owned draft, image, folder, model, effort, navigation and human-message fields. Never replace a current draft with an assignment prompt.
+C006's main-owned workspace repository retains stable attempt/message IDs and merges renderer navigation/drafts without replacing managed transcripts. It persists provider sequence and driver-finalization state. Explicit transcript edits are revision checked. Goal-service now uses that writer directly; production event routing must also update an already-open worker. Never replace a current draft with an assignment prompt.
 
 Create workers as ordinary saved side chats, with parent references and an inherited settings copy. Include them in the ordinary recent chat list and work tabs; no Agents section or global project picker. A small goal control in the coordinator opens goal details and worker destinations. State display separates pending, observed running, waiting for dependencies, review, interrupted, cancelled and expired. Unresolved work offers inspection/reconciliation, not a misleading Resume shortcut.
 
