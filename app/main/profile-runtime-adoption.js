@@ -164,7 +164,13 @@ function createRuntimeAdoption({ registry, readSecrets, checkCold = assertCold, 
       const dest = child(store.storeDir, 'local-barkpark/runtime');
       let lease;
       try {
-        if (fs.existsSync(dest)) { lease = acquireFileLease(child(dest, 'owner.json')); if (fs.existsSync(child(dest, 'pgdata/PG_VERSION'))) await checkCold(dest, { pgBin }); }
+        if (fs.existsSync(dest)) {
+          lease = acquireFileLease(child(dest, 'owner.json'));
+          if (fs.existsSync(child(dest, 'pgdata/postmaster.pid'))) throw new Error('Destination database has a postmaster.pid; rollback refused');
+          // A partial pre-publication copy may not yet contain pg_control. It
+          // never had runtime authority; retain it and retire only the receipt.
+          if (['copied', 'committed'].includes(j.phase) || store.readJson('runtime.json', null) || fs.existsSync(child(store.storeDir, 'runtime-adoption-retired-descriptor.json'))) await checkCold(dest, { pgBin });
+        }
         const descriptor = child(store.storeDir, 'runtime.json');
         if (fs.existsSync(descriptor)) {
           if (JSON.stringify(store.readJson('runtime.json')) !== JSON.stringify(j.descriptor)) throw new Error('Runtime descriptor changed; refusing rollback');

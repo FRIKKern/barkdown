@@ -22,3 +22,11 @@ The additive API targets an already staged inactive UUID profile with no descrip
 4. Complete desktop/root regression and screenshot capture/compare/actual review/evidence commit.
 
 No C009 process started or user data touched. Next: implement scoped copy/recovery helper and fail-closed cold checker. P1 remains pending.
+
+## Source checkpoint 926b22f
+
+Additive helper implemented and pushed. Registry descriptor lease and source/destination owner leases exclude cooperating writers. Streamed hashing/copy uses bounded buffers and atomic per-file publication; partial temp copies remain retained outside payload. Named receipt phases prepared/backed-up/copied/committed and rollback retirement are recoverable. Runtime pool refuses incomplete/rolled-back receipts and absent/mismatched committed descriptors, preventing accidental empty-database startup after interruption.
+
+Unit groups pass: backup/origin/credential retention, cache exclusion, six exception checkpoints, five actual process exits, refusal of changed credentials/source/unknown files/junctions, rollback interruption and start gating. Actual installed PostgreSQL18 pg_controldata checker returned clean shut down on an earlier stopped disposable C007 cluster. This follows PostgreSQL's filesystem-backup requirement for a stopped full cluster ([official guidance](https://www.postgresql.org/docs/18/backup-file.html)); external tablespaces are deliberately unsupported.
+
+Current real fixture is qKEZPn under the temporary barkdown-cold-runtime directory, session40638, launched from clean926b22f. Source slot granted by root; source runtime preparing. Full desktop regression session41770 and deterministic capture are running independently. No live adoption pass yet. Next: finish real source→cold backup→destination edit→rollback→source restart proof, stop all owned services and release source slot before C006 uses it.
