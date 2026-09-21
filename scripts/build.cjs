@@ -1,6 +1,6 @@
 const fs=require('fs'),path=require('path'),crypto=require('crypto');
 const cheerio=require('cheerio'),Turndown=require('turndown'),{gfm}=require('turndown-plugin-gfm');
-const root=path.resolve(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p),'utf8');
+const root=path.resolve(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p),'utf8').replace(/\r\n/g,'\n');
 const write=(p,text)=>{fs.mkdirSync(path.dirname(path.join(root,p)),{recursive:true});fs.writeFileSync(path.join(root,p),text);};
 const iconRoot=path.dirname(require.resolve('lucide/package.json'));
 const icons=fs.readFileSync(path.join(iconRoot,'dist/umd/lucide.min.js'),'utf8').replaceAll('</script','<\\/script');
@@ -23,6 +23,6 @@ $('main [id]').each((_,node)=>$(node).before('<a id="'+$(node).attr('id')+'"></a
 const td=new Turndown({headingStyle:'atx',bulletListMarker:'-',codeBlockStyle:'fenced'});td.use(gfm);td.addRule('summary',{filter:'summary',replacement:content=>'\n\n'+content+'\n\n'});td.addRule('anchors',{filter:node=>node.nodeName==='A'&&node.hasAttribute('id')&&!node.hasAttribute('href'),replacement:(_,node)=>'\n\n<a id="'+node.getAttribute('id')+'"></a>\n\n'});
 write('docs/PRD.md','<!-- Generated from prd.source.html by npm run build. Edit the source, not this file. -->\n\n'+td.turndown($('main').html()).replace(/\n{3,}/g,'\n\n')+'\n');
 const files=['concepts/workspace.html','concepts/editor-study.html','docs/prd.source.html','docs/PRD.md','docs/contracts/workspace.ts','preview/index.html','preview/editor.html','preview/prd.html'];
-const manifest={formatVersion:1,release:'0.5.0',sourceOfTruth:{workspace:'concepts/workspace.html',editor:'concepts/editor-study.html',prd:'docs/prd.source.html'},files:files.map(file=>({file,sha256:crypto.createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex')}))};
+const manifest={formatVersion:1,release:'0.5.0',sourceOfTruth:{workspace:'concepts/workspace.html',editor:'concepts/editor-study.html',prd:'docs/prd.source.html'},files:files.map(file=>({file,sha256:crypto.createHash('sha256').update(read(file)).digest('hex')}))};
 write('evidence/artifact-manifest.json',JSON.stringify(manifest,null,2)+'\n');
 console.log('Built portable previews, GitHub-readable PRD, and source hashes.');

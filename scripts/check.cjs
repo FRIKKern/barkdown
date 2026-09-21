@@ -16,7 +16,7 @@ for(const file of ['README.md','CONTRIBUTING.md','AGENTS.md','app/README.md',...
 for(const file of ['preview/index.html','preview/editor.html','preview/prd.html']){
  const $=cheerio.load(read(file));$('[src]').each((_,e)=>{const src=$(e).attr('src');if(src&&!src.startsWith('data:'))fail(file+' is not self-contained: '+src);});
 }
-const manifest=JSON.parse(read('evidence/artifact-manifest.json'));for(const item of manifest.files){const hash=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,item.file))).digest('hex');if(hash!==item.sha256)fail('Stale manifest: '+item.file);}
+const manifest=JSON.parse(read('evidence/artifact-manifest.json'));for(const item of manifest.files){const hash=crypto.createHash('sha256').update(read(item.file).replace(/\r\n/g,'\n')).digest('hex');if(hash!==item.sha256)fail('Stale manifest: '+item.file);}
 const refs=JSON.parse(read('evidence/source-references.json'));if(refs.repositories.some(repo=>repo.files.some(file=>!file.exists)))fail('Unresolved upstream file references');
 // Status screenshots: the README shows the real app, from a capture no older than the last change to its UI.
 // docs/images/status/manifest.json is written by `cd app && npm run shots`; every status image the README embeds
