@@ -29,3 +29,5 @@ The Paper adapter loads the editor from the connected Barkpark, with cached/vend
 - Diagnostics report process/state/version information without document bodies or secrets by default. Packaged startup must preserve the source runtime’s owned-process and bounded-retry guarantees.
 
 Acceptance scenarios are in [ACCEPTANCE.md](ACCEPTANCE.md); unresolved API choices must be recorded as findings, not silently promoted into guarantees.
+
+The [C001 ownership audit](PROFILE-OWNERSHIP.md) maps actual files, caches, sessions and credentials to these owners, specifies the stable profile/resource/run contract, and separates shell-only adoption from unsupported live-database copying. It is design evidence, not implemented isolation.
