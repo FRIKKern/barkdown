@@ -13,7 +13,7 @@ if(command==='check') {
  const { PNG }=createRequire(path.join(root,'app/package.json'))('pngjs');
  const {comparePixels}=await import('./visual-diff.mjs');
  const candidate='docs/visual/runs/'+read('docs/visual/pending.json').run+'/manifest.json';
- const m=read(candidate);verifyArtifacts(m);const previous=loadApproved();const entries=[];
+ const m=read(candidate);verifyArtifacts(m);const previous=loadApproved();if(previous?.approval.manifest===candidate)throw Error('This candidate is already approved; capture a new run instead of rewriting its review.');const entries=[];
  for(const shot of m.shots){
   const old=previous?.manifest.shots.find(s=>s.area===shot.area);
   for(const [index,frame] of shot.frames.entries()){
@@ -26,7 +26,7 @@ if(command==='check') {
  }
  const reportPath=path.posix.dirname(candidate)+'/comparison.json';
  write(reportPath,{candidate,candidateHash:hash(fs.readFileSync(safe(candidate))),baseline:previous?.approval.manifest||null,environmentChanged:previous?JSON.stringify(m.environment)!==JSON.stringify(previous.manifest.environment):false,entries});
- let md='# Candidate visual review\n\nNOT APPROVED. Inspect each before/after/diff, the GIFs and behavior checks. Pixel similarity is not proof of save, ownership or accessibility. Environment changes need recapture in the same environment before regression conclusions.\n\n';
+ let md='# Candidate visual review\n\nComparison report only. Approval is recorded separately in docs/visual/approved.json and reviews/. Inspect each before/after/diff, the GIFs and behavior checks. Pixel similarity is not proof of save, ownership or accessibility. Environment changes need recapture in the same environment before regression conclusions.\n\n';
  const link=p=>path.posix.relative(path.posix.dirname(candidate),p);
  for(const e of entries){md+=`## ${e.area}: ${e.step}\n\n${e.metrics.kind}; geometry changed: ${e.geometryChanged}; changed pixels: ${e.metrics.changedRatio??'new'}.\n\n`;
   for(const [label,p] of [['Before',e.before],['After',e.after],['Difference',e.diff]])if(p)md+=`![${label}](${link(p)})\n\n`;
