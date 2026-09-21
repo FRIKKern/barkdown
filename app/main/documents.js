@@ -2,13 +2,14 @@
 // Documents keep identity, revisions, references and backlinks, mirroring the Barkpark Paper model.
 const path = require('path');
 const crypto = require('crypto');
-const store = require('./store');
 const { markdownToDoc, docToMarkdown, docToText } = require('../shared/markdown');
 
+function createDocuments(store) {
 const MAX_REVISIONS = 60;
 const cache = new Map();
 
-function fileFor(id) { return path.join('documents', id + '.json'); }
+function validId(id) { if (typeof id !== 'string' || !/^[\w-]+$/.test(id)) throw new Error('Invalid local document ID'); return id; }
+function fileFor(id) { return path.join('documents', validId(id) + '.json'); }
 
 function slugify(title) {
   const base = String(title || 'untitled').toLowerCase().normalize('NFKD').replace(/[^\w\s-]/g, '').trim().replace(/[\s_]+/g, '-').slice(0, 48) || 'untitled';
@@ -25,13 +26,13 @@ function reload(id) {
   return doc;
 }
 
-function loadAll() {
+function loadAll({ seed: seedEmpty = true } = {}) {
   cache.clear();
   for (const file of store.list('documents', '.json')) {
     const doc = store.readJson(file, null);
     if (doc && doc.id) cache.set(doc.id, doc);
   }
-  if (!cache.size) seed();
+  if (!cache.size && seedEmpty) seed();
   return cache;
 }
 
@@ -64,6 +65,7 @@ function list() {
 }
 
 function get(id) {
+  reload(id);
   const doc = cache.get(id);
   if (!doc) return null;
   return { ...doc, backlinks: backlinks(id) };
@@ -82,6 +84,7 @@ function create({ title, markdown, content, actor = 'you', tags = [] }) {
 }
 
 function save(input) {
+  validId(input.id);
   // Main process and provider MCP processes share this store. Check revisions while
   // holding the same per-document lock, rather than trusting a process-local cache.
   const fs = require('fs');
@@ -117,6 +120,7 @@ function saveCurrent({ id, baseRev, content, title, proposals, actor = 'you', su
 }
 
 function remove(id) {
+  validId(id);
   cache.delete(id);
   store.remove(fileFor(id));
   store.remove(path.join('documents', id + '.md'));
@@ -241,4 +245,6 @@ function takePaperProposal(slug, proposalId) {
   return proposal;
 }
 
-module.exports = { paperProposals, addPaperProposal, takePaperProposal, loadAll, reload, list, get, create, save, remove, backlinks, related, history, restore, search, addProposal, resolveProposal, summary };
+return { paperProposals, addPaperProposal, takePaperProposal, loadAll, reload, list, get, create, save, remove, backlinks, related, history, restore, search, addProposal, resolveProposal, summary };
+}
+module.exports = { ...createDocuments(require('./store')), createDocuments };

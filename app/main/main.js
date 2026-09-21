@@ -242,7 +242,8 @@ function registerIpc() {
     const o = options || {};
     // A chat's own model and effort win over the settings defaults.
     const settings = { apiKey: decrypt(s.apiKeyEncrypted), model: chosen === 'api' ? (o.model || s.model) : s.model, claudeModel: chosen === 'claude' ? (o.model || s.claudeModel) : s.claudeModel, codexModel: chosen === 'codex' ? (o.model || s.codexModel) : s.codexModel, effort: o.effort || undefined };
-    return agent.start({ chatId, messages, prompt, images, context, provider: chosen, session, storeDir: store.dir(), settings, send: event => { if (event.type === 'library_changed') documents.loadAll(); win?.webContents.send('agent:event', event); } });
+    const runStoreDir = store.dir();
+    return agent.start({ chatId, messages, prompt, images, context, provider: chosen, session, storeDir: runStoreDir, connection: barkparkConfig(), settings, send: event => { if ((event.type === 'library_changed' || event.libraryChanged) && store.dir() === runStoreDir) documents.loadAll(); win?.webContents.send('agent:event', event); } });
   });
   handle('agent:cancel', runId => agent.cancel(runId));
   handle('agent:approve', ({ runId, approvalId, approved }) => agent.respondApproval(runId, approvalId, approved));
