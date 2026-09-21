@@ -61,6 +61,7 @@ Use [the local-runtime guide](../docs/LOCAL-BARKPARK.md) for setup and [the acce
 - [Workspace navigation](../docs/visual/workspace/README.md): renderer shell, sidebar, tabs and quick open.
 - [Main chat](../docs/visual/chat/README.md) and [side chat](../docs/visual/side-chat/README.md): shared composer and conversation controls.
 - [Local documents](../docs/visual/documents/README.md): the legacy editor retained pending P2; live Paper evidence remains in the root gallery.
+- [Paper save safety](../docs/visual/paper-save/README.md): retained drafts during delayed writes, navigation and close, server-backed Undo/redo, Retry and explicit discard. Run `npm run test:paper-host` in `app/` for controlled host races; `npm run test:paper-host:isolated` adds a disposable real server (set `BARKDOWN_TEST_BP_SOURCE` to a built checkout).
 - [Settings](../docs/visual/settings/README.md): preferences and connection controls.
 
 Each page contains a still, recorded interaction GIF, provenance and changelog. [Rules and coverage limits](../docs/visual/RULES.md) distinguish visual review from functional/runtime proof.
