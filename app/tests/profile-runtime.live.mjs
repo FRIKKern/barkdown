@@ -60,10 +60,17 @@ try {
 
   const slug = 'same-slug';
   for (const [lease, label, color] of [[runA, 'A', [220, 20, 20]], [runB, 'B', [20, 20, 220]]]) {
+    // A clean server has no tag vocabulary. Register the fixture label through
+    // the actual mutate/publish endpoint before the Paper publish wall checks it.
+    const tagResponse = await fetch(lease.connection.server + '/v1/data/mutate/production', { method: 'POST', headers: { authorization: 'Bearer ' + lease.connection.token, 'content-type': 'application/json' }, body: JSON.stringify({ mutations: [
+      { createOrReplace: { _id: 'profile-fixture', _type: 'tag', title: 'Profile fixture' } },
+      { publish: { id: 'profile-fixture', type: 'tag' } },
+    ] }) });
+    assert.equal(tagResponse.status, 200, await tagResponse.text());
     const mediaFile = path.join(data, `${label}.png`); fs.writeFileSync(mediaFile, tinyPng(32, 32, color));
     const media = await barkpark.uploadMedia(lease.connection, { name: 'same.png', mime: 'image/png', filePath: mediaFile });
     assert.equal(new URL(media.src).origin, lease.connection.server, 'media URL must belong to captured profile');
-    await barkpark.publish(lease.connection, { slug, title: `Owned by ${label}`, description: `Disposable profile ${label}`, blocks: [
+    await barkpark.publish(lease.connection, { slug, title: `Owned by ${label}`, description: `Disposable isolation fixture for profile ${label}; content and media must stay with their owner.`, tags: [{ tag: 'profile-fixture', strength: 95, rationale: 'Disposable profile isolation test fixture' }], blocks: [
       { type: 'paragraph', content: [{ type: 'text', value: `Private note ${label}` }] },
       { type: 'image', src: media.src, alt: `Private image ${label}`, width: 32, height: 32 },
     ] });
