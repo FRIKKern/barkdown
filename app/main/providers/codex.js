@@ -33,7 +33,7 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
       const { Codex } = await loadSdk();
       if (run.cancelled) { run.emit({ type: 'done', cancelled: true, provider: 'codex' }); return; }
       const folder = context.folder || null;
-      const codex = new Codex({ env: { ...run.scope.env }, config: { mcp_servers: { barkdown: { command: spec.command, args: spec.args, env: spec.env, default_tools_approval_mode: 'approve' } } } });
+      const codex = new Codex({ env: { ...run.scope.env }, config: { ...(settings.goalWorker ? { agents: { enabled: false }, features: { goals: false } } : {}), mcp_servers: { barkdown: { command: spec.command, args: spec.args, env: spec.env, default_tools_approval_mode: 'approve' } } } });
       const threadOptions = { workingDirectory: folder || scratchFolder(storeDir), skipGitRepoCheck: true, sandboxMode: folder ? 'workspace-write' : 'read-only', approvalPolicy: 'on-failure', threadSource: 'barkdown' };
       if (settings.codexModel) threadOptions.model = settings.codexModel;
       if (settings.effort) threadOptions.modelReasoningEffort = settings.effort;

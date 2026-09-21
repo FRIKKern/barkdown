@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const { GoalAdmission } = require('./goal-admission');
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 const GOAL_STATES = ['planned', 'active', 'paused', 'cancelled', 'expired', 'review', 'completed'];
@@ -25,6 +26,11 @@ function validateGoal(g) {
     assert(t.chatId !== g.chatId, 'Coordinator cannot be its own worker');
     assert(TASK_STATES.includes(t.status), 'Invalid task state');
     assert(Array.isArray(t.dependsOn) && t.dependsOn.every(d => typeof d === 'string'), 'Invalid dependencies');
+    assert(t.images === undefined || (Array.isArray(t.images) && t.images.length <= 10), 'Invalid task images');
+    for (const image of t.images || []) {
+      text(image.id, 'image ID', 128); text(image.path, 'image path', 4000);
+      assert(['image/png', 'image/jpeg', 'image/gif', 'image/webp'].includes(image.mime), 'Invalid image format');
+    }
     const c = t.context;
     assert(c && c.profileId === g.profileId && c.chatId === t.chatId, 'Worker ownership mismatch');
     assert(c.folder === null || typeof c.folder === 'string', 'Invalid folder');
@@ -113,10 +119,11 @@ function openJournal(root) {
 }
 
 class GoalScheduler {
-  constructor({ journal, adapter, now = Date.now, onChange = () => {} }) {
+  constructor({ journal, adapter, now = Date.now, onChange = () => {}, admission = new GoalAdmission() }) {
     assert(adapter && typeof adapter.execute === 'function', 'Missing execution adapter');
     this.journal = journal; this.adapter = adapter; this.now = now; this.onChange = onChange;
     this.live = new Map(); this.closed = false; this.fault = null; this.closePromise = null;
+    this.admission = admission;
     const data = journal.read(); let changed = false;
     for (const g of data.goals) {
       for (const t of g.tasks) if (t.status === 'running') {
@@ -127,6 +134,9 @@ class GoalScheduler {
       if (g.status === 'active') { g.status = 'paused'; g.reason = 'Recovered after interruption; explicit resume required.'; changed = true; }
     }
     if (changed) journal.write(data);
+    this.unsubscribeAdmission = admission.subscribe(() => {
+      if (!this.closed && !this.fault) { try { this.tick(); } catch (error) { this.halt(error); } }
+    });
   }
 
   list(profileId) { identity(profileId, 'profile ID'); return this.journal.read().goals.filter(g => g.profileId === profileId); }
@@ -148,7 +158,7 @@ class GoalScheduler {
     assert(!this.fault, 'Scheduler halted after persistence failure; reopen and reconcile');
     assert(Array.isArray(tasks), 'Invalid tasks');
     const g = { id, profileId, chatId, objective, deadline, createdAt: this.now(), status: 'planned', tasks: tasks.map(t => ({
-      id: t.id, chatId: t.chatId, prompt: t.prompt, dependsOn: [...(t.dependsOn || [])], status: 'pending', attempts: [],
+      id: t.id, title: t.title || t.id, chatId: t.chatId, prompt: t.prompt, images: copy(t.images || []), dependsOn: [...(t.dependsOn || [])], status: 'pending', attempts: [],
       context: { profileId, chatId: t.chatId, folder: t.context?.folder ?? null, provider: t.context?.provider,
         model: t.context?.model ?? null, effort: t.context?.effort ?? null, session: t.context?.session ?? null },
     })) };
@@ -203,14 +213,16 @@ class GoalScheduler {
 
   dispatch(g, t) {
     const attemptId = crypto.randomUUID(); const abort = new AbortController();
-    this.change(g.profileId, g.id, goal => {
+    const releaseAdmission = this.admission.acquire({ profileId: g.profileId, chatId: t.chatId, attemptId });
+    if (!releaseAdmission) return;
+    try { this.change(g.profileId, g.id, goal => {
       const task = goal.tasks.find(x => x.id === t.id); assert(task.status === 'pending', 'Task already dispatched');
       task.status = 'running'; task.attempts.push({ id: attemptId, status: 'running', startedAt: this.now() });
-    });
+    }); } catch (error) { releaseAdmission(); throw error; }
     const live = { profileId: g.profileId, goalId: g.id, chatId: t.chatId, taskId: t.id, attemptId, abort };
     this.live.set(attemptId, live);
     const dispatch = { profileId: g.profileId, goalId: g.id, coordinatorChatId: g.chatId, taskId: t.id, attemptId,
-      chatId: t.chatId, prompt: t.prompt, context: copy(t.context), deadline: g.deadline };
+      chatId: t.chatId, prompt: t.prompt, images: copy(t.images || []), context: copy(t.context), deadline: g.deadline };
     // Promise boundary catches synchronous adapter failures. Reservation is durable before this call.
     Promise.resolve().then(() => {
       if (abort.signal.aborted) return { status: 'cancelled', text: 'Stopped before provider launch' };
@@ -218,9 +230,10 @@ class GoalScheduler {
     }).then(result => this.settle(live, result), error => this.settle(live, { status: 'failed', text: String(error?.message || error) }))
       .catch(error => this.halt(error)).finally(() => {
         this.live.delete(attemptId);
+        releaseAdmission();
         if (this.closed) this.releaseWhenDrained();
         else if (!this.fault) { try { this.tick(); } catch (error) { this.halt(error); } }
-      });
+      }).catch(error => this.halt(error));
   }
 
   progress(owner, event) {
@@ -228,7 +241,10 @@ class GoalScheduler {
     if (!event || typeof event.text !== 'string' || event.text.length > 20000) return false;
     try { this.change(owner.profileId, owner.goalId, g => {
       const t = g.tasks.find(t => t.id === owner.taskId); const a = t.attempts.at(-1);
-      if (a.id === owner.attemptId && t.status === 'running') a.progress = { text: event.text, at: this.now() };
+      if (a.id === owner.attemptId && t.status === 'running') {
+        a.progress = { text: event.text, at: this.now() };
+        if (event.terminationUnknown === true) { t.status = a.status = 'interrupted'; a.reason = event.text; }
+      }
     }); } catch (error) { this.halt(error); return false; }
     return true;
   }
@@ -285,6 +301,7 @@ class GoalScheduler {
       catch (error) { this.halt(error); }
     }
     this.closed = true; for (const r of this.live.values()) r.abort.abort();
+    this.unsubscribeAdmission?.();
     this.closePromise = new Promise(resolve => { this.resolveClose = resolve; });
     this.releaseWhenDrained();
     return this.closePromise;

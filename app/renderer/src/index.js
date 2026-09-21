@@ -1,4 +1,5 @@
 import { mountComposer } from './composer.js';
+import { openGoalView } from './goals.js';
 // Barkdown desktop renderer: app-wide navigation, per-chat workspaces, agent runs, pins, quick open.
 import { el, esc, iconHtml, renderIcons, toast, basename, relativeTime, errorMessage } from './ui.js';
 import { state, load, save, newChat, newTab, currentChat, activeTab, touch, chatTitleFrom } from './state.js';
@@ -692,4 +693,4 @@ function wire() {
 })();
 
 // Test and debugging hooks (no UI depends on these).
-window.__barkdown = { attachImages,  state, controllers, openTarget, render, refreshLibrary, expandArchive: () => { ensurePages().archiveOpen = true; ensurePages().cloudArchiveOpen = true; renderSidebar(); }, addPage, pagePath, setFolder: folder => { const chat = currentChat(); chat.folder = folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }, openProject, openDirect, openPalette, createChat, switchChat };
+window.__barkdown = { openGoalView, attachImages,  state, controllers, openTarget, render, refreshLibrary, expandArchive: () => { ensurePages().archiveOpen = true; ensurePages().cloudArchiveOpen = true; renderSidebar(); }, addPage, pagePath, setFolder: folder => { const chat = currentChat(); chat.folder = folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }, openProject, openDirect, openPalette, createChat, switchChat };

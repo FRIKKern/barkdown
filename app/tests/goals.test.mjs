@@ -8,6 +8,7 @@ import { spawn } from 'node:child_process';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { GoalScheduler, openJournal } = require('../main/goals');
+const { GoalAdmission } = require('../main/goal-admission');
 const A = randomUUID(), B = randomUUID();
 const flush = () => new Promise(resolve => setImmediate(resolve));
 
@@ -218,4 +219,68 @@ test('real three-process execution integrates independent outputs with the persi
   assert.deepEqual(f.scheduler.get(A, g.id).tasks.map(t => t.attempts[0].result.text), ['t1', 't2', 't3']);
   assert.ok(f.scheduler.get(A, g.id).tasks.every(t => t.status === 'review'));
   // These are real child processes, deliberately not a claim of authenticated model integration.
+});
+
+test('uncertain termination is visibly interrupted and cannot be reviewed while slot remains live', async t => {
+  const f = fixture(t); const g = f.create(); f.scheduler.start(A, g.id); await flush();
+  f.calls[0].hooks.progress({ text: 'Termination not confirmed', terminationUnknown: true });
+  assert.equal(f.scheduler.get(A, g.id).tasks[0].status, 'interrupted');
+  assert.throws(() => f.scheduler.reviewTask(A, g.id, 't1', { accepted: false, retry: true, note: 'try again', evidence: ['guess'] }), /not stopped/);
+  f.calls[0].resolve({ status: 'interrupted', text: 'Driver later reconciled; effects still require review' }); await flush();
+  assert.equal(f.scheduler.get(A, g.id).tasks[0].status, 'interrupted');
+});
+
+test('assignment attachments are captured independently and survive restart', async t => {
+  const f = fixture(t); const images = [{ id: 'image', path: '/owned/attachments/a.png', mime: 'image/png' }];
+  const g = f.create({ tasks: [{ id: 'image-task', chatId: 'worker', prompt: 'Inspect image', images, context: { provider: 'api' } }] });
+  images[0].path = '/changed'; f.scheduler.start(A, g.id); await flush();
+  assert.equal(f.calls[0].request.images[0].path, '/owned/attachments/a.png');
+  assert.equal(JSON.parse(fs.readFileSync(path.join(f.root, 'goals.json'))).goals[0].tasks[0].images[0].path, '/owned/attachments/a.png');
+});
+
+test('abrupt process death after an external effect never replays the reserved attempt', async t => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-goals-crash-'));
+  const script = `const fs=require('fs'),path=require('path');const {GoalScheduler,openJournal}=require(process.argv[1]);
+    const root=process.argv[2],profileId=process.argv[3];const scheduler=new GoalScheduler({journal:openJournal(root),adapter:{async execute(){fs.appendFileSync(path.join(root,'effect.log'),'one effect\\n');process.exit(42)}}});
+    const goal=scheduler.create({profileId,chatId:'main',objective:'Crash test',deadline:Date.now()+60000,tasks:[{id:'t',chatId:'worker',prompt:'One effect',context:{provider:'api'}}]});scheduler.start(profileId,goal.id);`;
+  const code = await new Promise((resolve,reject) => {
+    const child = spawn(process.execPath, ['-e', script, require.resolve('../main/goals'), root, A], { windowsHide:true });
+    child.on('error',reject); child.on('close',resolve);
+  });
+  assert.equal(code,42); assert.equal(fs.readFileSync(path.join(root,'effect.log'),'utf8'),'one effect\n');
+  let replayed = 0;
+  const recovered = new GoalScheduler({journal:openJournal(root),adapter:{execute(){replayed++;}}}); t.after(() => recovered.close());
+  const goal = recovered.list(A)[0]; recovered.tick();
+  assert.equal(goal.status,'paused'); assert.equal(goal.tasks[0].status,'interrupted');
+  assert.throws(() => recovered.start(A,goal.id),/Reconcile/); assert.equal(replayed,0);
+  assert.equal(fs.readFileSync(path.join(root,'effect.log'),'utf8'),'one effect\n');
+});
+
+test('shared admission caps profile-local schedulers at three and holds uncertain termination', async t => {
+  const admission = new GoalAdmission(); const calls = []; const schedulers = [];
+  for (const profileId of [A,B]) {
+    const root=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-goals-admission-'));
+    const scheduler=new GoalScheduler({journal:openJournal(root),admission,adapter:{execute(request,hooks){return new Promise(resolve=>calls.push({request,hooks,resolve}));}}});
+    const goal=scheduler.create({profileId,chatId:'main',objective:'Owned work',deadline:Date.now()+60000,tasks:[1,2,3].map(i=>({id:`t${i}`,chatId:`same-${i}`,prompt:'Bounded',context:{provider:'api'}}))});
+    schedulers.push({scheduler,goal,root});scheduler.start(profileId,goal.id);
+  }
+  t.after(async()=>{const closing=schedulers.map(({scheduler})=>scheduler.close());calls.forEach(c=>c.resolve({status:'cancelled'}));await Promise.all(closing);});
+  await flush();assert.equal(calls.length,3);assert.equal(admission.snapshot().length,3);
+  assert.equal(JSON.parse(fs.readFileSync(path.join(schedulers[1].root,'goals.json'))).goals[0].tasks.filter(t=>t.status==='running').length,0);
+  calls[0].hooks.progress({text:'Termination unknown',terminationUnknown:true});
+  schedulers[0].scheduler.stop(A,schedulers[0].goal.id,'paused');await flush();assert.equal(calls.length,3);
+  calls[0].resolve({status:'interrupted'});await flush();
+  assert.equal(calls.length,4);assert.equal(calls[3].request.profileId,B);assert.equal(admission.snapshot().length,3);
+  // Same chat IDs in B are distinct owners, but total admission remains app-wide.
+  assert.ok(admission.snapshot().some(owner=>owner.profileId===B));
+});
+
+test('failed reservation and cancelled-before-launch release shared admission exactly once', async t => {
+  const admission=new GoalAdmission();const root=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-goals-admission-fail-'));
+  const journal=openJournal(root);let dispatched=0;
+  const scheduler=new GoalScheduler({journal,admission,adapter:{execute(){dispatched++;return {status:'succeeded'};}}});
+  t.after(()=>scheduler.close());const goal=scheduler.create({profileId:A,chatId:'main',objective:'Reservation failure',deadline:Date.now()+60000,tasks:[{id:'t',chatId:'worker',prompt:'work',context:{provider:'api'}}]});
+  const write=journal.write;let writes=0;journal.write=data=>{if(++writes===2)throw Error('disk');return write(data);};
+  assert.throws(()=>scheduler.start(A,goal.id),/disk/);assert.equal(admission.snapshot().length,0);assert.equal(dispatched,0);journal.write=write;
+  const release=admission.acquire({profileId:B,chatId:'worker',attemptId:'test'});assert.equal(release(),true);assert.equal(release(),false);assert.equal(admission.snapshot().length,0);
 });
