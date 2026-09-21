@@ -21,7 +21,7 @@ function setup(t, options = {}) {
   const owner = () => ({ ...profiles.view(), chatId: 'main' });
   profiles.save(owner(), snapshot('A'));
   const changed = [], events = [];
-  const service = createGoalService({ registry, profiles, heartbeatMs: 0, sendEvent: event => changed.push(event), sendProviderEvent: event => events.push(event), ...options.goal });
+  const service = createGoalService({ registry, profiles, agent, heartbeatMs: 0, sendEvent: event => changed.push(event), sendProviderEvent: event => events.push(event), ...options.goal });
   t.after(() => service.close());
   return { root, registry, a, b, profiles, owner, service, changed, events };
 }

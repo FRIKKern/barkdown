@@ -1,0 +1,14 @@
+const fs=require('node:fs');const path=require('node:path');
+const {createProfileRegistry}=require('../../main/profile-registry');
+const {createProfileService}=require('../../main/profile-service');
+const {createGoalService}=require('../../main/goal-service');
+const {createGoalWorkerAgent}=require('../../main/goal-worker-agent');
+const root=process.argv[2],registry=createProfileRegistry(path.join(root,'registry')),profile=registry.createProfile({name:'Crash fixture'});
+registry.selectProfile(profile.id);
+const profiles=createProfileService({registry}),owner={...profiles.view(),chatId:'main'};
+profiles.save(owner,{version:1,chats:{main:{id:'main',title:'Crash fixture',provider:'codex',folder:null,messages:[],draft:'Human draft before crash',tabs:[]}},order:['main'],current:'main'});
+const agent=createGoalWorkerAgent({script:path.join(__dirname,'goal-worker-protocol.cjs')});
+const service=createGoalService({registry,profiles,agent,sendProviderEvent(event){if(event.type==='approval')process.exit(23);}});
+const goal=service.create(owner,{objective:'Crash recovery fixture',durationMinutes:5,assignments:[1,2,3].map(i=>({title:`Worker ${i}`,prompt:'Fixture assignment',dependsOn:i>1?['task-1']:[]}))});
+fs.writeFileSync(path.join(root,'owner.json'),JSON.stringify({profileId:profile.id,goalId:goal.id}));
+service.command(owner,goal.id,'start').catch(error=>{process.stderr.write(error.stack);process.exit(1);});

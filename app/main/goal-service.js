@@ -8,7 +8,12 @@ const boundedText = (value, label, max = 20000) => {
   check(typeof value === 'string' && value.trim() && value.length <= max, `Invalid ${label}`); return value;
 };
 
-function createGoalService({ registry, profiles, agent = require('./agent'), sendEvent = () => {}, sendProviderEvent = () => {}, verifyTermination, now = Date.now, heartbeatMs = 1000 }) {
+function createGoalService({ registry, profiles, agent, sendEvent = () => {}, sendProviderEvent = () => {}, verifyTermination, now = Date.now, heartbeatMs = 1000 }) {
+  const ownedAgent = !agent && process.platform === 'win32' ? require('./goal-worker-agent').createGoalWorkerAgent() : null;
+  agent ||= ownedAgent || require('./agent');
+  const trustedVerifier = verifyTermination || (ownedAgent ? ({ request, runId }) => ownedAgent.verifyTermination({
+    request: { ...request, storeDir: registry.storeFor(request.profileId).storeDir }, runId,
+  }) : null);
   const schedulers = new Map(), admission = new GoalAdmission(), workspaces = profiles.workspaces;
   let closed = false;
   const notify = profileId => { try { sendEvent({ profileId }); } catch { /* Views can reload acknowledged state. */ } };
@@ -22,8 +27,8 @@ function createGoalService({ registry, profiles, agent = require('./agent'), sen
     if (!attempt) return true;
     check(attempt.chatId === request.chatId && attempt.goalId === request.goalId && attempt.taskId === request.taskId && attempt.coordinatorChatId === request.coordinatorChatId, 'Termination record ownership mismatch');
     if (attempt.driverFinished === true) return true;
-    check(typeof verifyTermination === 'function', 'Worker shutdown cannot be verified automatically; inspect the retained run before retrying');
-    if (await verifyTermination({ request: structuredClone(request), runId: runId || attempt.runId }) !== true) return false;
+    check(typeof trustedVerifier === 'function', 'Worker shutdown cannot be verified automatically; inspect the retained run before retrying');
+    if (await trustedVerifier({ request: structuredClone(request), runId: runId || attempt.runId }) !== true) return false;
     workspaces.finish(request, { runId: runId || attempt.runId, status: 'interrupted', driverFinished: true, text: 'Driver shutdown verified; effects still require review.' });
     return true;
   }
