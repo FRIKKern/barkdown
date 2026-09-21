@@ -185,4 +185,4 @@ function createRuntimeAdoption({ registry, readSecrets, checkCold = assertCold, 
   }
   return Object.freeze({ adopt, rollback });
 }
-module.exports = { createRuntimeAdoption, assertCold };
+module.exports = { createRuntimeAdoption, assertCold, runtimeInventory: inventory };

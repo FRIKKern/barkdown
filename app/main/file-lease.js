@@ -34,6 +34,18 @@ function acquireFileLease(file, { busy = 'Storage is owned by another writer', c
   catch (error) { fs.closeSync(fd); throw error; }
   let released = false, closed = false;
   return Object.freeze({ lease,
+    prepareRelocation() {
+      if (released) throw new Error('Released lease cannot relocate');
+      const owner = JSON.parse(fs.readFileSync(file, 'utf8'));
+      if (owner.lease !== lease || owner.pid !== process.pid) throw new Error('Lease ownership changed before relocation');
+      if (!closed) { fs.closeSync(fd); closed = true; }
+    },
+    relocated(nextFile) {
+      if (released || fs.existsSync(file)) throw new Error('Lease relocation requires its original path to be absent');
+      const owner = JSON.parse(fs.readFileSync(nextFile, 'utf8'));
+      if (owner.lease !== lease || owner.pid !== process.pid) throw new Error('Relocated lease belongs to another owner');
+      file = nextFile;
+    },
     release() {
       if (released) return;
       let owner;
