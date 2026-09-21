@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C001",
   "stage": "P1",
-  "status": "planned",
+  "status": "done",
   "goal": "Map persistence ownership and design safe default-profile adoption before changing storage.",
   "scope": [
     "Inventory actual persistence and cache owners",
@@ -14,10 +14,12 @@
     "Document adoption, interruption and rollback design",
     "Name audited contracts, unresolved questions and next executable proof"
   ],
-  "checkpoint": "2026-09-21",
+  "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C001-profile-ownership.md",
-  "nextAction": "Read persistence modules and write the ownership inventory and adoption design.",
-  "evidence": [],
-  "truthReview": "",
-  "screenshotReview": ""
+  "nextAction": "Start C004 captured-run ownership; C003 registry/adoption foundation runs independently. P1 remains pending.",
+  "evidence": [
+    "docs/PROFILE-OWNERSHIP.md"
+  ],
+  "truthReview": "Reviewed README, app guide, PLAN/plan.json, NEXT-AGENT, VALIDATION and architecture. Corrected stale C002 unmerged claim using main b8e7bfb; no new runtime or P1 completion claimed.",
+  "screenshotReview": "Documentation only: existing C002 approval remains current; inspected narrow workspace capture and reviewed gallery scope. No UI changes or new isolation screenshot claim."
 }

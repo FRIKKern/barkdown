@@ -1,6 +1,6 @@
 # C001 — Map profile ownership before implementation
 
-Status: planned. Parent: P1 / A1. No profile implementation or isolation proof is claimed.
+Status: complete (documentation/design only). Parent: P1 / A1. No profile implementation or isolation proof is claimed.
 
 ## Goal and boundary
 
@@ -19,12 +19,22 @@ Prepared from repository refresh `7b6445e`. Current desktop/runtime evidence is 
 
 ## Evidence and open questions
 
-No acceptance evidence yet. Locate current ownership in `app/main/store.js`, `documents.js`, `conversations.js`, `canvas-bundle.js`, `local-barkpark*.js`, and renderer `state.js`. Audit remaining storage/credential/media paths rather than treating this list as exhaustive.
+The [ownership inventory and contract](../PROFILE-OWNERSHIP.md) audits actual modules and keys at merged baseline `b8e7bfb`. It covers outside-store canvas assets and browser partitions, shared provider credentials, profile-bound caches and background events, immutable run capture, backed-up adoption and interruption/rollback fixtures. Registry/adoption foundation is assigned separately to the next-cycle agent; no app files changed in C001.
 
 ## Next exact action
 
-Read those modules and map each persistence key/file/cache to its current owner and proposed profile owner. Write the inventory and adoption design, then link it here. Keep this checkpoint current after each meaningful slice and before yielding.
+Run root verification, review the documentation-only diff and applicable visual evidence, then close C001 and archive its record. The next implementation slice captures provider run ownership before awaited SDK launch and removes mutable connection/token lookup. Preserve P1 pending until complete A1 proof.
 
 ## Resume after C002
 
-C002 is completed and validated on `codex/fast-folder-context` (implementation `3e2ed6f`); [its handoff](C002-folder-context.md) records evidence and limits. This ownership inventory remains planned, not implemented. No merge or deployment was authorized for C002.
+C002 is merged through PR #29 at `b8e7bfb` (implementation `3e2ed6f`); [its handoff](C002-folder-context.md) records earlier validation and limits. The prior unmerged statement described the earlier push checkpoint and is superseded. No deployment was performed.
+
+## 2026-09-22 checkpoint
+
+Working in isolated `codex/cycle-current-12h`; no user data, shared service, CLI selection or sibling source changed. Root `npm ci` and Playwright Chromium installation passed; isolated app dependency installation is underway. Pending: root verify and C001 truth/screenshot review. Ownership decisions were coordinated with the registry and editor agents: UUID profile identity, app-only appearance/window bounds, captured connection and resource tuples; no switching UI before isolation proof.
+
+## Closeout — 2026-09-22
+
+Root npm ci, app npm ci and Playwright Chromium installation passed. Root npm run verify passed all source/type/link/roadmap/cycle/visual and historical concept checks. npm app install reported two existing high advisories; no dependency versions changed. Reviewed repository README, app guide, PLAN/plan.json, NEXT-AGENT, VALIDATION and architecture: runtime claims remain accurate; corrected C002 merged status. Existing C002 visual approval is current; inspected its narrow workspace image and reviewed coverage limits. No app source changes, so no new capture required. No runtime/service started. P1/A1 remain pending.
+
+Next: C004 immutable provider/run ownership. C003 additive registry/adoption fixtures proceed in the parallel next-cycle branch. This design milestone can be reviewed independently; no merge/deployment performed.

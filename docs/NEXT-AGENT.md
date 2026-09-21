@@ -52,8 +52,8 @@ Install locked dependencies and Playwright Chromium when needed; run root `npm r
 
 ## Current cycle checkpoint
 
-Start with `npm run cycle` and [cycle.json](cycle.json). C002 is complete and validated on `codex/fast-folder-context`; [its handoff](cycles/C002-folder-context.md) records source commits, test results, screenshots and limits. No merge or deployment was authorized. C001 is restored as the next planned ownership/design cycle; P1 remains pending.
+Start with `npm run cycle` and [cycle.json](cycle.json). C002 is complete and validated on `codex/fast-folder-context`; [its handoff](cycles/C002-folder-context.md) records source commits, test results, screenshots and limits. C002 merged through PR #29 at b8e7bfb. C001 completed the ownership/adoption design in PROFILE-OWNERSHIP.md; captured-run ownership and registry foundations are next. P1 remains pending.
 
 ## Visual handoff
 
-The [visual health pages](visual/README.md) now hold reviewed stills, GIFs and comparison reports. Follow [visual rules](visual/RULES.md) for app/dependency/harness changes: capture, compare, inspect, explicitly approve, and preserve old evidence. The main baseline for this branch is merge 296d407 from PR #28; C002 remains unmerged and P1 remains pending. This workflow update did not implement profiles or change runtime behavior. Dedicated agent-edit/files/recovery motion coverage remains to be added with those journeys. Do not treat fixture screenshots as live integration proof.
+The [visual health pages](visual/README.md) now hold reviewed stills, GIFs and comparison reports. Follow [visual rules](visual/RULES.md) for app/dependency/harness changes: capture, compare, inspect, explicitly approve, and preserve old evidence. The main baseline is merge b8e7bfb from PR #29; C002 is merged and P1 remains pending. This workflow update did not implement profiles or change runtime behavior. Dedicated agent-edit/files/recovery motion coverage remains to be added with those journeys. Do not treat fixture screenshots as live integration proof.
