@@ -85,3 +85,5 @@ The left sidebar resizes by dragging its right edge (160–420 px, limited by th
 Assistant document edits now save directly: the visible editor marks the target, shows an agent caret, and reveals the replacement. This is a short presentation of an acknowledged save, not synthetic editor keystrokes. Human input immediately ends the presentation; reduced-motion and hidden panes skip it. Undo is offered for the latest assistant edit only while its revision is still current. Existing pending proposals remain available for manual review; new edits do not create Keep cards.
 
 Cloud papers stay in the collapsed **Cloud archive** until you add them to Pages or import a local copy. Pages order and nesting belong to you and survive refresh/disconnect. The one-time layout migration archives loose cloud entries, preserves nested groups, and keeps the old root order in workspace state for recovery.
+
+In either chat composer, press Up on the first line to recall up to 100 sent messages. Down on the last line moves forward and restores your unfinished draft. History is separate per conversation; restarting while browsing restores the original draft.

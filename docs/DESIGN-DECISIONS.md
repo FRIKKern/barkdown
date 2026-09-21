@@ -37,6 +37,8 @@ These record the user's decisions through the private handoff. Preserve the inte
 
 **D28 (2026-09-21): Direct assistant editing with visible intent.** Document edits apply without a Keep step. Mark the target, move an agent caret, and reveal replacement text in the real editor. Show only actual acknowledged changes, allow immediate human takeover, honor reduced motion, and skip animation in hidden panes. Offer revision-checked Undo. This supersedes review-before-apply for new document edits; file/command permissions and disabled cloud writes retain their existing scope.
 
+**D29 (2026-09-21): Composer history.** Up from the first visual line recalls up to 100 sent messages in that conversation. Down from the last visual line moves forward and restores the original draft and caret. Preserve normal multiline navigation, text selections, modifiers and IME. Main and side chats keep independent histories. Save the original unsent draft while browsing so restart cannot lose it.
+
 ## Explicitly superseded directions
 
 - The earlier proposal for a permanently visible pinned sidebar is superseded by the Pins dropdown that restores a path.

@@ -1,3 +1,4 @@
+import { recallComposer, resetComposerHistory } from './composer-history.js';
 // Barkdown desktop renderer: app-wide navigation, per-chat workspaces, agent runs, pins, quick open.
 import { el, esc, iconHtml, renderIcons, toast, basename, relativeTime, errorMessage } from './ui.js';
 import { state, load, save, newChat, newTab, currentChat, activeTab, touch, chatTitleFrom } from './state.js';
@@ -738,7 +739,7 @@ function wire() {
   q('#bw-go-chat').onclick = () => { pauseFollow(); root.classList.add('mobile-chat'); q('#bw-prompt').focus(); };
   q('#bw-mobile-back').onclick = () => { if (state.mode === 'document') { state.mode = 'chat'; render(); } root.classList.toggle('mobile-chat'); };
   q('#bw-stop').onclick = () => cancelRun(currentChat());
-  q('#bw-compose').onsubmit = e => { e.preventDefault(); const chat = currentChat(); const text = q('#bw-prompt').value; const images = chat.draftImages || []; if (!text.trim() && !images.length) return; if (chat.runId) { toast('Wait for the current run to finish, or stop it.'); return; } chat.draft = ''; chat.draftImages = []; q('#bw-prompt').value = ''; renderAttachments(chat); sendMessage(chat, text, { render: () => { renderChat(); renderSidebar(); }, runChanged: () => { renderChat(); renderSidebar(); } }, images); };
+  q('#bw-compose').onsubmit = e => { e.preventDefault(); const chat = currentChat(); const text = q('#bw-prompt').value; const images = chat.draftImages || []; if (!text.trim() && !images.length) return; if (chat.runId) { toast('Wait for the current run to finish, or stop it.'); return; } resetComposerHistory(chat); chat.draft = ''; chat.draftImages = []; q('#bw-prompt').value = ''; renderAttachments(chat); sendMessage(chat, text, { render: () => { renderChat(); renderSidebar(); }, runChanged: () => { renderChat(); renderSidebar(); } }, images); };
   // Images: paste into the prompt, drop on the composer, or pick with the attach button. Each is saved
   // under userData/attachments right away so the chat only keeps a path.
   q('#bw-prompt').addEventListener('paste', e => { const files = [...(e.clipboardData?.files || [])].filter(f => f.type.startsWith('image/')); if (files.length) { e.preventDefault(); attachImages(files); } });
@@ -750,7 +751,7 @@ function wire() {
   q('#bw-attach-input').onchange = () => { attachImages([...q('#bw-attach-input').files]); q('#bw-attach-input').value = ''; };
   q('#bw-attachments').addEventListener('click', e => { const remove = e.target.closest('[data-remove]'); if (!remove) return; const chat = currentChat(); chat.draftImages = (chat.draftImages || []).filter(i => i.id !== remove.dataset.remove); renderAttachments(chat); save(); q('#bw-prompt').focus(); });
   document.addEventListener('click', e => { const img = e.target.closest('[data-lightbox]'); const box = q('#bw-lightbox'); if (img) { box.querySelector('img').src = img.dataset.lightbox; box.hidden = false; } else if (!box.hidden) box.hidden = true; });
-  q('#bw-prompt').addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); q('#bw-compose').requestSubmit(); } });
+  q('#bw-prompt').addEventListener('keydown', e => { if (recallComposer(e, q('#bw-prompt'), currentChat(), save)) return; if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); q('#bw-compose').requestSubmit(); } });
   q('#bw-prompt').addEventListener('input', () => { const chat = currentChat(); if (chat) { chat.draft = q('#bw-prompt').value; save(); } });
   q('#bw-tabs').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; const chat = workspaceChat(); if (b.dataset.tab) focusTab(chat, b.dataset.tab); else if (b.dataset.close) closeTab(chat, b.dataset.close); else if (b.dataset.fav) toggleFavorite(b.dataset.fav); });
   q('#bw-tabs').addEventListener('dblclick', e => { const b = e.target.closest('[data-tab]'); if (b) { e.preventDefault(); startRenameTab(workspaceChat(), b.dataset.tab); } });

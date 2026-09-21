@@ -42,6 +42,8 @@ D28 supersedes the older proposal-by-default descriptions above. `edit_document`
 
 Validation: unit/MCP checks exercise direct saves, legacy alias, stale edits and guarded Undo; `app/tests/agent-edit.live.mjs` exercises selection, writing, takeover, reduced motion and no extra saves in Electron. `paper-proposal.live.mjs` now tests direct MCP edits, three-block replacement and exact server-block Undo.
 
+Composer history (D29): main and side composers use `composer-history.js` for per-conversation Up/Down recall, capped at 100 user text messages. Visual-line boundary checks preserve soft-wrap navigation. Down restores the original draft/caret; serialization stores the original draft while recall is active. The Electron `composer-history.live.mjs` covers boundaries, wrapping, IME, selections, side-chat isolation and restart.
+
 ## First 20 minutes
 
 1. Run `npm ci`, `npx playwright install chromium`, and `npm run verify`.

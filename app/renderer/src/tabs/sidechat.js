@@ -1,3 +1,4 @@
+import { recallComposer, resetComposerHistory } from '../composer-history.js';
 // Side chat work tab: a separate conversation with its own transcript and run, inheriting the parent's working folder.
 import { el, esc, iconHtml, basename } from '../ui.js';
 import { state, save } from '../state.js';
@@ -22,9 +23,9 @@ export function mountSideChat(tab, host, ctx) {
     q('#input').value = chat.draft || '';
   }
 
-  q('#form').onsubmit = e => { e.preventDefault(); const text = q('#input').value; if (!text.trim()) return; chat.draft = ''; q('#input').value = ''; sendMessage(chat, text, { render: () => { render(); tab.title = chat.title; ctx.tabChanged(tab); }, runChanged: render }); };
+  q('#form').onsubmit = e => { e.preventDefault(); const text = q('#input').value; if (!text.trim() || chat.runId) return; resetComposerHistory(chat); chat.draft = ''; q('#input').value = ''; sendMessage(chat, text, { render: () => { render(); tab.title = chat.title; ctx.tabChanged(tab); }, runChanged: render }); };
   q('#input').addEventListener('input', () => { chat.draft = q('#input').value; save(); });
-  q('#input').addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); q('#form').requestSubmit(); } });
+  q('#input').addEventListener('keydown', e => { if (recallComposer(e, q('#input'), chat, save)) return; if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); q('#form').requestSubmit(); } });
   q('#stop').onclick = () => cancelRun(chat);
   render();
 
