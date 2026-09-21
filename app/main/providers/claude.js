@@ -49,6 +49,7 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
       delete env.ANTHROPIC_AUTH_TOKEN;
       const canUseTool = async (toolName, input, options) => {
         if (run.cancelled) return { behavior: 'deny', message: 'The run was cancelled.', interrupt: true };
+        if (settings.goalWorker && ['Task', 'Agent'].includes(toolName)) return { behavior: 'deny', message: 'Goal workers cannot create more workers.' };
         if (toolName.startsWith('mcp__barkdown__')) return { behavior: 'allow', updatedInput: input };
         const file = input.file_path || input.path || input.notebook_path;
         const outside = file && folder && !relativeTo(folder, file);
@@ -65,6 +66,7 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
         settingSources: ['user'],
       };
       if (!folder) options.tools = ['WebFetch', 'WebSearch', 'TodoWrite'];
+      if (settings.goalWorker) options.disallowedTools = ['Task', 'Agent'];
       if (settings.claudeModel) options.model = settings.claudeModel;
       if (settings.effort) options.effort = settings.effort;
       if (session) options.resume = session;

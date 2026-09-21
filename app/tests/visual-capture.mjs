@@ -46,6 +46,21 @@ try{
  await tour('settings','Real Settings navigation. No server connection or credential is configured.',[
   ['general',()=>p.locator('#bw-settings').click()],['assistant',()=>p.locator('.bw-settings-nav [data-pane="assistant"]').click()],['barkpark',()=>p.locator('.bw-settings-nav [data-pane="barkpark"]').click()],['shortcuts',()=>p.locator('.bw-settings-nav [data-pane="shortcuts"]').click()]
  ]);
+ await p.keyboard.press('Escape');
+ await tour('goals','Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.',[
+  ['planned',async()=>{await p.evaluate(()=>{
+   const ui=window.__barkdown,parent=ui.state.current,profileId='11111111-1111-4111-8111-111111111111';
+   const workers=[1,2,3].map(n=>{const chat=ui.createChat({title:`Fixture worker ${n}`});Object.assign(chat,{side:true,parent,parentTitle:ui.state.chats[parent].title,provider:'api'});return chat;});ui.switchChat(parent);
+   const goal={id:'fixture-goal',objective:'Fixture: review a bounded delivery',status:'planned',deadline:Date.parse('2026-09-22T10:00:00Z'),tasks:workers.map((chat,i)=>({id:`task-${i+1}`,title:chat.title,chatId:chat.id,prompt:['Inspect ownership boundaries','Exercise interrupted work','Review the resulting evidence'][i],dependsOn:[],status:'pending',context:{provider:'api',folder:null,model:null,effort:null},attempts:[]}))};
+   const service={list:async()=>structuredClone([goal]),create:async()=>{throw Error('Visual fixture creation disabled');},command:async(_owner,_id,action)=>{if(action==='start'){goal.status='active';goal.tasks.forEach(t=>{t.status='running';t.attempts=[{id:'fixture-'+t.id,status:'running',progress:{text:'Fixture event; provider calls are blocked.'}}];});}else if(action==='pause'){goal.status='paused';goal.tasks.forEach(t=>{t.status='interrupted';Object.assign(t.attempts[0],{status:'interrupted',stoppedAt:1,reason:'Fixture provider stopped; inspect effects before retry.'});});}}};
+   ui.openGoalView({owner:{profileId,chatId:parent,generation:1},service,openChat:(_owner,id)=>ui.switchChat(id)});
+  });await p.locator('.bw-goal-card').waitFor();}],
+  ['running',()=>p.locator('.bw-goals [data-command="start"]').click()],
+  ['paused',()=>p.locator('.bw-goals [data-command="pause"]').click()],
+  ['narrow',()=>p.setViewportSize({width:390,height:740})],
+  ['restore',()=>p.setViewportSize({width:1100,height:740})],
+  ['worker-chat',()=>p.locator('.bw-goals [data-chat]').first().click()]
+ ]);
  if(errors.length)throw Error(errors.join('\n'));
  const environment={platform:process.platform,osRelease:os.release(),arch:process.arch,font:await p.evaluate(()=>getComputedStyle(document.body).fontFamily),electron:await app.evaluate(()=>process.versions.electron),viewport:'1100x740, workspace narrow 740x740',scale:await p.evaluate(()=>devicePixelRatio),fixture:'temporary seeded local profile; providers blocked; reduced motion; caret hidden'};
  write(`${dir}/manifest.json`,{version:1,commit:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),capturedAt:new Date().toISOString(),environment,sourceDirty:execFileSync('git',['status','--porcelain','--','app','scripts','package.json','package-lock.json'],{cwd:root,encoding:'utf8'}).trim()!=='',inputs:inputs(),shots,hashes});write('docs/visual/pending.json',{run});console.log(`Captured ${dir}; run npm run visual:compare. Not approved.`);
