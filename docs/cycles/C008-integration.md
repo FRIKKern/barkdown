@@ -23,4 +23,6 @@ Goal adapter/UI source `f99cb06` is now imported as `372c494`, resolving the pre
 
 Desktop session `30921` began before this import and observed the earlier built renderer plus later source modules. Its result is diagnostic only; a fresh build/full run is required after stable final source. No screenshots have been restamped. Main/preload/profile/goal-service wiring remains on the agent branches.
 
+Session `30921` ended exit 1: all 76 desktop checks passed, then the next Electron process failed at launch before the direct-edit test. A rebuilt, correctly app-directory-scoped isolated direct-edit retry passed all its checks. An intervening root-directory invocation was a test-launch mistake and is not product evidence. Final full-suite verification remains pending.
+
 Import stable C006 shared repository/resolver, C007 runtime isolation and goals UI commits when reviewed. Preserve the test union and lane artifact provenance. Then commit final source, perform fresh deterministic and live capture/review, run full verification and the combined acceptance scenarios recorded in the coordinator's `INTEGRATION-2026-09-22.md`. Push reviewable checkpoints and retain unfinished/failed status at the run deadline.
