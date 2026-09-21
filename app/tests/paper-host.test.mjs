@@ -8,7 +8,7 @@ globalThis.matchMedia = () => ({ matches: false });
 let transport;
 window.barkdown = {
   barkpark: { get: id => transport.get(id), applyOps: (...args) => transport.applyOps(...args), patchTitle: (...args) => transport.patchTitle(...args), backlinks: async () => [], history: async () => [], bundle: () => transport.bundle?.() || Promise.resolve({}), onLocalStatus: () => () => {} },
-  docs: { paperProposals: async () => [], agentEdit: async () => null },
+  docs: { paperProposals: id => transport.proposals?.(id) || Promise.resolve([]), agentEdit: async () => null },
 };
 class Canvas extends HTMLElement {
   pending = false; acknowledgements = []; echoes = [];
@@ -146,6 +146,19 @@ await test('choosing the server conflict version clears the dirty navigation gua
   transport={get:async id=>paper(id,2),applyOps:async()=>{const error=new Error('conflict');error.status=412;throw error;}};
   const m=mount();await tick();m.canvas().emit();await tick();m.host.querySelector('[data-act="theirs"]').click();
   try {assert.equal(m.controller.isDirty(),false);assert.equal(m.controller.canClose(),true);}finally{m.close();}
+});
+await test('a fully acknowledged human edit during reload also defeats its stale snapshot', async () => {
+  let proposals=0,gets=0;const held=deferred();
+  transport={get:async id=>paper(id,++gets>2?2:1),proposals:()=>++proposals===2?held.promise:Promise.resolve([]),applyOps:async()=>({rev:2})};
+  const m=mount();await tick();const canvas=m.canvas();const reload=m.controller.navigate();await tick();canvas.emit();await tick();assert.equal(m.controller.isDirty(),false);
+  held.resolve([]);await reload;
+  try {assert.equal(m.canvas(),canvas);assert.match(m.host.querySelector('#save-state').textContent,/rev 2/);}finally{m.close();}
+});
+await test('a fully saved title during reload defeats the stale title snapshot', async () => {
+  let proposals=0;const held=deferred();
+  transport={get:async id=>paper(id),proposals:()=>++proposals===2?held.promise:Promise.resolve([]),patchTitle:async()=>({})};
+  const m=mount();await tick();const canvas=m.canvas();const reload=m.controller.navigate();await tick();const title=m.host.querySelector('#title');title.value='Fresh title';await title.onchange();assert.equal(m.controller.isDirty(),false);held.resolve([]);await reload;
+  try {assert.equal(m.canvas(),canvas);assert.equal(title.value,'Fresh title');assert.equal(m.tab.title,'Fresh title');}finally{m.close();}
 });
 console.log(JSON.stringify(cases, null, 2));
 dom.window.close();
