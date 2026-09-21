@@ -204,7 +204,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
     const box = q('#profile-settings'); box.hidden = false;
     box.innerHTML = setting('Library profile', 'Each profile keeps its own pages, conversations, drafts and connections. Working folders still belong to individual chats.',
       `${selectHtml('profile-choice', status.profiles.map(profile => `<option value="${esc(profile.id)}" ${profile.id === status.profileId ? 'selected' : ''}>${esc(profile.name)}</option>`).join(''))}<button type="button" class="bw-btn" id="profile-switch">Switch</button>`) +
-      setting('New profile', 'Start with an empty library. Your existing profiles stay available.', '<input id="profile-name" aria-label="New profile name" placeholder="Profile name"><button type="button" class="bw-btn" id="profile-create">Create</button>');
+      setting('New profile', 'Start with an empty library. Your existing profiles stay available.', '<input type="text" id="profile-name" aria-label="New profile name" placeholder="Profile name"><button type="button" class="bw-btn" id="profile-create">Create</button>');
     q('#profile-switch').onclick = async () => {
       try {
         if (q('#profile-choice').value === status.profileId) return;
