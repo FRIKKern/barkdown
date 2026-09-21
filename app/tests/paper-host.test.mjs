@@ -174,7 +174,7 @@ await test('an accepted external application advances the next write revision', 
 await test('older bundles retain their original revision and offer an explicit reload', async () => {
   let gets=0;const writes=[];transport={get:async id=>paper(id,++gets===1?1:2),applyOps:async(...args)=>{writes.push(args);return{rev:3};}};
   const m=mount();await tick();m.canvas().applyServerBlocksIfIdle=undefined;await m.controller.refresh();
-  try {assert.equal(m.canvas().echoes.length,0);assert.match(m.host.querySelector('#save-state').textContent,/Newer version/);m.canvas().emit();await tick();assert.equal(writes[0][2],1);}finally{m.close();}
+  try {assert.equal(m.canvas().echoes.length,0);assert.match(m.host.querySelector('#save-state').textContent,/Update available/);m.canvas().emit();await tick();assert.equal(writes[0][2],1);}finally{m.close();}
 });
 await test('an outstanding own echo finishes before a newer external revision can be accepted', async () => {
   const oldEcho=deferred();let gets=0;const writes=[];
