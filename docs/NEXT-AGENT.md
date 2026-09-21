@@ -63,3 +63,5 @@ The [visual health pages](visual/README.md) now hold reviewed stills, GIFs and c
 ## C007 runtime checkpoint
 
 Source `34b17ce` adds an opt-in profile runtime pool with distinct persisted ports/data/credentials and captured foreground/run leases. The disposable dual-runtime proof passed concurrent same-slug/media isolation, continued A writes after selecting B, independent restart and selected B restoration. No real library was migrated and no desktop profile UI is claimed; C006 owns that integration. See [C007](cycles/C007-profile-runtimes.md) for exact evidence and remaining adoption boundaries.
+
+C009's [cold-runtime adoption helper](cycles/C009-local-runtime-adoption.md) passed a disposable real source/destination/restart proof. Source926b22f provides streamed backup/copy and safe publication;656378c adds tested rollback of incomplete unpublished copies. C003 shell staging still refuses a full runtime-bearing legacy root: the next integration must combine both staged authorities before changing the default workspace. No real library migration or portability is implied.

@@ -69,3 +69,5 @@ Each page contains a still, recorded interaction GIF, provenance and changelog. 
 ## Profile runtime integration
 
 The [C007 backend](../docs/cycles/C007-profile-runtimes.md) adds `main/profile-runtime.js`, `runtime-build.js` and `file-lease.js`. Real dual-runtime tests demonstrate same-slug/media/credential isolation and leases that retain background work across foreground selection. Private verified build copies avoid shared Mix locks without altering the Barkpark checkout. This is additive API evidence; C006 desktop integration and existing-database adoption remain separate.
+
+C009 adds [cold managed-runtime adoption](../docs/cycles/C009-local-runtime-adoption.md) into a pre-staged UUID profile. `main/profile-runtime-adoption.js` verifies stopped PG state, retains source/backup, preserves media origin and credential bytes, and supports interrupted publication/rollback. It has real same-machine database/media restart evidence; it is not a combined legacy workspace cutover or cross-machine export.

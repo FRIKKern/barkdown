@@ -2,14 +2,16 @@
 
 Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.
 
-![Current view](../runs/2026-09-21T23-01-10-158Z/documents-2.png)
+![Current view](../runs/2026-09-21T23-23-57-750Z/documents-2.png)
 
-![Recorded interaction](../runs/2026-09-21T23-01-10-158Z/documents.gif)
+![Recorded interaction](../runs/2026-09-21T23-23-57-750Z/documents.gif)
 
-[Full comparison](../runs/2026-09-21T23-01-10-158Z/README.md) · [Capture manifest](../runs/2026-09-21T23-01-10-158Z/manifest.json)
+[Full comparison](../runs/2026-09-21T23-23-57-750Z/README.md) · [Capture manifest](../runs/2026-09-21T23-23-57-750Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-21T23:25:06.581Z: Inspected all21 frames/five action sequences on63def04, including narrow workspace, composer menus, side chat, document themes and Settings. Zero pixel or geometry differences; no new clipping or control movement. Adoption/pool unit checks include missing-database refusal; real cold-copy/rollback/source-restart proof and full desktop passed926b22f. Fixture visuals are regression coverage, not adoption UI or portability evidence. Source 63def040d; [review](../runs/2026-09-21T23-23-57-750Z/comparison.json).
+- 2026-09-21T23:21:38.432Z: Inspected all21 intermediate frames and five action sequences: narrow workspace, main/side composer menus, light/dark local documents and Settings. Zero changed pixels/geometry and no new clipping. Cold real runtime adoption/restart and desktop regression passed on926b22f; final656378c adds tested partial-copy rollback. These are regression fixture views, not adoption UI or portability proof. Source 656378cf0; [review](../runs/2026-09-21T23-19-56-866Z/comparison.json).
 - 2026-09-21T23:02:55.285Z: Inspected all 21 frames across five recorded action sequences, including narrow workspace, menus, side-chat composer, light/dark documents and Settings. No clipping or geometry regression; comparator reports zero changed pixels. Full desktop suite passed on24e1bc3; async snapshot unit checks and real dual runtime/media/restart proof passed on34b17ce. Fixture tour remains separate from live Paper and profile runtime evidence. Source 34b17cecf; [review](../runs/2026-09-21T23-01-10-158Z/comparison.json).
 - 2026-09-21T22:25:03.590Z: Reviewed all 21 action frames and five recorded sequences, including narrow layout, menus, themes and side-chat drafts. No pixel or geometry differences from approved baseline. Registry staging is additive and not wired to startup; 24 real-filesystem recovery/isolation checks plus full desktop, direct-edit, history and side-chat suites passed. Captures prove existing UI regression only, not profile switching or migration. Source 5b0917c2c; [review](../runs/2026-09-21T22-23-18-613Z/comparison.json).
 - 2026-09-21T21:50:11.399Z: C002: reviewed all 21 action frames across five areas after folder-context and offline-fallback changes. No pixel differences above tolerance or control-geometry changes; environment unchanged. Request/dispatcher tests cover resumed and cleared folders, image-only turns and original-text offline navigation. Visual evidence does not measure live folder-answer latency. Source 3e2ed6fa0; [review](../runs/2026-09-21T21-48-36-561Z/comparison.json).

@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "id": "C009",
+  "stage": "P1",
+  "status": "done",
+  "goal": "Prove same-machine cold managed-runtime adoption into an inactive staged UUID profile.",
+  "scope": [
+    "Cold runtime payload, preserved original credentials/origin, immutable backup",
+    "Interrupted publication and retained rollback",
+    "Disposable fixtures only; no combined shell cutover or portable export"
+  ],
+  "acceptance": [
+    "Refuse live or unsupported sources",
+    "Retain source/backup and resume without reseeding",
+    "Real destination read/write and source restart after rollback",
+    "Regression and visual evidence closeout"
+  ],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C009-local-runtime-adoption.md",
+  "nextAction": "Implement provisional C010 explicit shell/runtime authority bridge with C006 boot integration, using the reviewed draft and disposable fixtures only.",
+  "evidence": [
+    "app/tests/profile-runtime-adoption.test.mjs",
+    "docs/cycles/C009-runtime-evidence.json",
+    "docs/cycles/C009-backup-evidence.json",
+    "docs/visual/runs/2026-09-21T23-23-57-750Z/comparison.json",
+    "docs/images/status/history/C009-63def04.json"
+  ],
+  "truthReview": "Runtime-only boundary explicit; C003 shell/default-profile authority integration remains pending. No real-user data migrated.",
+  "screenshotReview": "Final63def04: all21 deterministic frames/five sequences reviewed and explicitly approved, zero differences. Five live Paper stills and37 GIF frames inspected; real Codex/private-server provenance, runtime stopped. Root verify passed."
+}
