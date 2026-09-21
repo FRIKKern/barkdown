@@ -52,7 +52,7 @@ Install locked dependencies and Playwright Chromium when needed; run root `npm r
 
 ## Current cycle checkpoint
 
-Start with `npm run cycle` and the handoff linked by [cycle.json](cycle.json). The prepared C001 cycle scopes the first P1 ownership/design proof. Follow [CYCLES.md](CYCLES.md): checkpoint during work and before yielding, and perform the truth/screenshot review before completion. The cycle record owns the precise next action; this document retains broader product and environment context.
+Start with `npm run cycle` and the handoff linked by [cycle.json](cycle.json). C002 completes direct working-folder answers on codex/fast-folder-context, based on current main; dependency restoration, validation and fresh visual evidence are in progress. C001 remains deferred and resumes after C002. Follow [CYCLES.md](CYCLES.md) for checkpoints and closeout.
 
 ## Visual handoff
 

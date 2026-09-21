@@ -34,7 +34,8 @@
     "test:tablewidths": "node tests/editor-tablewidths.live.mjs",
     "test:tablehead": "node tests/editor-tablehead.live.mjs",
     "test:parity": "node tests/parity.mjs",
-    "shots": "node tests/status-shots.mjs"
+    "shots": "node tests/status-shots.mjs",
+    "shots:isolated": "npm run build && node tests/status-shots-isolated.mjs"
   },
   "engines": {
     "node": ">=22.13.1"

@@ -283,8 +283,11 @@ async function startApi({ chatId, messages, context, settings, send, images }) {
 // Prefix the person's message with what the surrounding conversations are doing (see
 // conversations.contextNote). The stored transcript keeps the clean message; only the run sees this.
 function withConversationContext(params) {
-  const note = conversations.contextNote(params.chatId);
-  if (!note) return params;
+  const folder = params.context?.folder;
+  const folderNote = folder
+    ? `This chat's current working folder is ${JSON.stringify(folder)}. This is the folder captured for this run; use it even if earlier messages name a different folder. When the person asks where you are, which folder you are in, or what "this folder" means, answer directly with this path. No shell command, directory listing, document search or conversation read is needed just to identify it. Inspect files only when the person asks about their contents, a listing, or filesystem verification. Do not claim you inspected files unless you did.`
+    : 'This chat has no working folder selected. Answer folder-location questions directly with that fact; do not infer a folder from another chat, an open file, or a provider scratch directory.';
+  const note = [folderNote, conversations.contextNote(params.chatId)].filter(Boolean).join('\n');
   const wrap = text => `[Workspace context]\n${note}\n[End of context]\n\n${text}`;
   const prompt = wrap(params.prompt || '');
   const messages = Array.isArray(params.messages) ? params.messages.map(m => ({ ...m })) : params.messages;
