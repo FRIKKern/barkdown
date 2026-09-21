@@ -1,22 +1,22 @@
 {
   "version": 1,
-  "id": "C001",
-  "stage": "P1",
-  "status": "planned",
-  "goal": "Map persistence ownership and design safe default-profile adoption before changing storage.",
+  "id": "C005",
+  "stage": "P3",
+  "status": "active",
+  "goal": "Build and prove a bounded durable goal scheduler before wiring full worker conversations.",
   "scope": [
-    "Inventory actual persistence and cache owners",
-    "Define profile-qualified identities and backed-up adoption",
-    "Specify A1 isolation fixtures; no switching UI or real-data migration"
+    "Additive goal journal and three-worker scheduler",
+    "Immutable owned dispatch and conservative crash recovery",
+    "No central profile queue changes or live-data activation"
   ],
   "acceptance": [
-    "Complete ownership inventory with module/key references",
-    "Document adoption, interruption and rollback design",
-    "Name audited contracts, unresolved questions and next executable proof"
+    "Three concurrent tasks with dependency and reviewed completion gates",
+    "Restart never replays uncertain external work",
+    "Cancellation deadline and same-ID profile boundaries have executable evidence"
   ],
-  "checkpoint": "2026-09-21",
-  "handoff": "docs/cycles/C001-profile-ownership.md",
-  "nextAction": "Read persistence modules and write the ownership inventory/adoption design. C002 is completed on codex/fast-folder-context; do not merge or deploy it without a new instruction.",
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/goals/HANDOFF.md",
+  "nextAction": "Implement additive scheduler and disposable journal tests; coordinate C004 adapter before UI integration.",
   "evidence": [],
   "truthReview": "",
   "screenshotReview": ""
