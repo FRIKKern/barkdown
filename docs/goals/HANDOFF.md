@@ -45,3 +45,6 @@ Next: source commit, deterministic capture/compare/actual image inspection/appro
 ## Pending worker choices and event identity
 Imported source 6ba1896: accepted worker events carry durable assistant/attempt IDs; explicit Start/Resume captures pending worker settings while retaining prior attempt context. Original lane evidence at 3b161cd predates this source; fresh combined evidence remains pending.
 
+
+Native Windows worker source beefded is imported into C008 for validation. It adds job-owned subprocesses and default trusted recovery; the earlier checkpoint's unimported statement is historical. Production Electron goal fixture needs its transport seam adapted to subprocess ownership. Fresh combined full validation and visuals remain pending.
+

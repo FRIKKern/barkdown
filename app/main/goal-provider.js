@@ -97,7 +97,7 @@ function createGoalProvider({ agent = require('./agent'), resolve, transcripts, 
             if (signal.aborted) cancel();
           } catch (error) { fault = error; cancel(); }
         };
-        const result = await agent.start({ profileId: request.profileId, storeDir: resolved.scope.storeDir, scope: resolved.scope,
+        const result = await agent.start({ profileId: request.profileId, goalAttemptId: request.attemptId, storeDir: resolved.scope.storeDir, scope: resolved.scope,
           chatId: request.chatId, context: resolved.scope.context, provider: request.context.provider, session: request.context.session,
           prompt, messages: [...history.slice(0, -1), { role: 'user', content: prompt }], images: request.images, settings, send, onFinish: release });
         started = true;
