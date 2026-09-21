@@ -1,0 +1,19 @@
+{
+  "sourceCommit": "b58a4e4ec036ebf1d2b5c27655cd62d232da1576",
+  "sourceDirty": false,
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-profile-paper-4XVJdz",
+  "frames": [
+    "01-profile-paper.png",
+    "02-save-pending.png",
+    "03-switch-blocked.png",
+    "04-owned-save-acknowledged.png",
+    "05-second-library.png",
+    "06-profiles-narrow.png"
+  ],
+  "checks": [
+    "Settings profile switch refuses a real in-flight human Paper save and retains A canvas",
+    "Acknowledged A edit remains on real server; switching to empty B stops foreground A runtime"
+  ],
+  "stopped": true,
+  "motion": "Real UI checkpoints; explicit delayed acknowledgement around real HTTP applyOps. No model simulation or CLI changes."
+}
