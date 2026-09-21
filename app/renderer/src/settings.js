@@ -87,7 +87,12 @@ export function openSettings(onChange, { pane = 'general' } = {}) {
         <h3>Library</h3>
         ${switchHtml('bp-enabled', 'Show Barkpark papers in the library', 'Papers from the connected server appear beside local documents and open on the paper canvas.')}
         <h3>Connection</h3>
-        ${setting('Read through', 'The <code>bp</code> CLI uses its own saved server and token. Direct HTTP needs a server URL and a bearer token.', `<div class="bw-seg" id="bp-mode" role="radiogroup" aria-label="Connection"><button type="button" data-value="cli">${iconHtml('terminal', 13)}bp CLI</button><button type="button" data-value="http">${iconHtml('globe', 13)}Direct HTTP</button></div>`)}
+        ${setting('Read through', 'The <code>bp</code> CLI uses its own saved server and token. Direct HTTP needs a server URL and a bearer token.', `<div class="bw-seg" id="bp-mode" role="radiogroup" aria-label="Connection"><button type="button" data-value="cli">${iconHtml('terminal', 13)}bp CLI</button><button type="button" data-value="http">${iconHtml('globe', 13)}Direct HTTP</button><button type="button" data-value="local">${iconHtml('hard-drive', 13)}Local Barkpark</button></div>`)}
+        <div id="bp-local-fields">
+          ${setting('Barkpark checkout', 'Uses a built Windows checkout and the installed Scoop toolchain. Its database and media stay in Barkdown’s private local data folder.', `<input id="bp-source" type="text" aria-label="Barkpark checkout"><button type="button" class="bw-btn" data-act="local-source">Choose folder…</button>`, { stack: true })}
+          <div class="bw-set"><div class="bw-set-text"><span class="bw-status" id="bp-local-status" aria-live="polite">Stopped</span></div><div class="bw-set-ctl"><button type="button" class="bw-btn" data-act="local-retry">Retry startup</button><button type="button" class="bw-btn" data-act="local-logs">Open data and logs</button></div></div>
+          <p class="bw-sheet-hint">Starts with Barkdown and stops on quit. Save to activate. Existing local notes are kept in their current store until migration is ready.</p>
+        </div>
         <div id="bp-cli-fields">
           ${setting('Detect', 'Ask the installed CLI which server and dataset it is pointed at.', `<button type="button" class="bw-btn" data-act="import-cli">${iconHtml('scan-search', 13)}Detect from bp</button>`)}
         </div>
@@ -156,9 +161,22 @@ export function openSettings(onChange, { pane = 'general' } = {}) {
 
   // barkpark
   q('#bp-enabled').checked = Boolean(s.barkpark.enabled);
-  const bpMode = seg('#bp-mode', s.barkpark.viaCli ? 'cli' : 'http', v => syncBp(v));
-  const syncBp = v => { q('#bp-cli-fields').hidden = v !== 'cli'; q('#bp-http-fields').hidden = v !== 'http'; };
+  const bpMode = seg('#bp-mode', s.barkpark.local?.enabled ? 'local' : s.barkpark.viaCli ? 'cli' : 'http', v => syncBp(v));
+  const syncBp = v => { q('#bp-cli-fields').hidden = v !== 'cli'; q('#bp-http-fields').hidden = v !== 'http'; q('#bp-local-fields').hidden = v !== 'local'; q('#bp-dataset').disabled = v === 'local'; };
   syncBp(bpMode());
+  q('#bp-source').value = s.barkpark.local?.source || '';
+  let localDataDir;
+  const showLocal = value => {
+    localDataDir = value.dataDir;
+    q('#bp-local-status').textContent = value.phase + (value.error ? ' · ' + value.error : '') + (value.server ? ' · ' + value.server : '');
+    q('[data-act="local-retry"]').disabled = ['starting', 'recovering', 'stopping'].includes(value.phase) || !s.barkpark.local?.enabled;
+  };
+  api.barkpark.localStatus().then(showLocal).catch(() => {});
+  const unsubscribeLocal = api.barkpark.onLocalStatus(showLocal);
+  q('[data-act="local-source"]').onclick = async () => { const folder = await api.app.pickFolder(); if (folder) { q('#bp-source').value = folder; markDirty(); } };
+  q('[data-act="local-logs"]').onclick = () => api.app.openPath(localDataDir || s.userData);
+  q('[data-act="local-retry"]').onclick = async () => { try { showLocal(await api.barkpark.localRetry()); } catch (error) { q('#bp-local-status').textContent = error.message; } };
+
   q('#bp-server').value = s.barkpark.server || '';
   q('#bp-dataset').value = s.barkpark.dataset || 'production';
   q('#bp-writes').checked = Boolean(s.barkpark.writes);
@@ -172,6 +190,7 @@ export function openSettings(onChange, { pane = 'general' } = {}) {
   q('[data-act="test"]').onclick = async () => {
     status('Testing…');
     try {
+      if (bpMode() === 'local') { const value = await api.barkpark.localStatus(); showLocal(value); status(value.phase === 'ready' ? 'Local Barkpark is ready.' : 'Local Barkpark: ' + value.phase, value.phase === 'ready' ? 'ok' : 'err'); return; }
       if (bpMode() === 'cli') { const list = await api.barkpark.list(); status(`bp answered with ${list.length} paper(s).`, 'ok'); return; }
       const r = await api.barkpark.test({ server: q('#bp-server').value, token: q('#bp-token').value || undefined, dataset: q('#bp-dataset').value });
       status(`Connected to ${r.server} (${r.dataset}) · ${r.papers} published paper${r.papers === 1 ? '' : 's'}.`, 'ok');
@@ -188,11 +207,12 @@ export function openSettings(onChange, { pane = 'general' } = {}) {
   let dirty = false;
   function markDirty() { dirty = true; q('#dirty').hidden = false; }
   qa('input[type=text], input[type=password], input[type=checkbox], select').forEach(n => n.addEventListener('input', markDirty));
-  const close = openDialog(dialog, { onDismiss: () => cancel() });
+  const dismiss = openDialog(dialog, { onDismiss: () => cancel() });
+  const close = () => { unsubscribeLocal(); dismiss(); };
   const cancel = () => { onChange({ theme: original.theme, chatWidth: original.chatWidth }, true); close(); };
   q('[data-act="cancel"]').onclick = cancel;
   q('[data-act="save"]').onclick = async () => {
-    const patch = { model: q('#model').value, provider: q('input[name="provider"]:checked').value, claudeModel: modelValue('claude'), codexModel: modelValue('codex'), theme: theme(), chatWidth: Number(q('#width').value), barkpark: { enabled: q('#bp-enabled').checked, viaCli: bpMode() === 'cli', server: q('#bp-server').value.trim(), dataset: q('#bp-dataset').value.trim() || 'production', writes: q('#bp-writes').checked } };
+    const patch = { model: q('#model').value, provider: q('input[name="provider"]:checked').value, claudeModel: modelValue('claude'), codexModel: modelValue('codex'), theme: theme(), chatWidth: Number(q('#width').value), barkpark: { enabled: q('#bp-enabled').checked, viaCli: bpMode() === 'cli', server: q('#bp-server').value.trim(), dataset: q('#bp-dataset').value.trim() || 'production', writes: q('#bp-writes').checked, local: { ...s.barkpark.local, enabled: bpMode() === 'local', source: q('#bp-source').value.trim() } } };
     if (q('#api-key').value.trim()) patch.apiKey = q('#api-key').value.trim(); else if (clearKey) patch.apiKey = '';
     if (q('#bp-token').value.trim()) patch.barkpark.token = q('#bp-token').value.trim();
     try {

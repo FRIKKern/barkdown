@@ -89,3 +89,7 @@ Cloud papers stay in the collapsed **Cloud archive** until you add them to Pages
 In either chat composer, press Up on the first line to recall up to 100 sent messages. Down on the last line moves forward and restores your unfinished draft. History is separate per conversation; restarting while browsing restores the original draft.
 
 Side chats share the full composer and transcript controls with the main chat, including provider/model/effort, images, history, approvals and activity. They appear in Recent chats and quick open, retain a parent link, and can open as a full conversation. Folder and model choices inherit once and can then change independently. Closing a tab or deleting its parent does not delete the side conversation. Older saved side chats are recovered into navigation on load.
+
+## Managed local Barkpark
+
+Settings → Barkpark → Local Barkpark starts a built Windows source checkout with its own Postgres cluster, database-backed readiness, bounded recovery and shutdown on quit. See [setup and limits](../docs/LOCAL-BARKPARK.md). `npm run test:local` exercises the real runtime and Paper editor in isolated temporary data. Existing local notes remain in their current store until the planned migration; profiles and sync are next.

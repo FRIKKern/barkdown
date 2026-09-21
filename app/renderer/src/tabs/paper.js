@@ -98,7 +98,7 @@ export function mountPaper(tab, host, ctx) {
     const ask = el(`<button title="Ask the assistant about this paper">${iconHtml('sparkles')} Ask</button>`);
     ask.onclick = () => ctx.askAbout(`About the Barkpark paper "${paper?.title || slug()}" (id bp:${slug()}): `);
     const open = el(`<button title="Open in Barkpark">${iconHtml('external-link')}</button>`);
-    open.onclick = () => { const server = state.settings?.barkpark?.server || 'https://gyldendal.barkpark.cloud'; api.app.openExternal(`${server.replace(/\/$/, '')}/papers/${slug()}`); };
+    open.onclick = () => { const server = state.settings?.barkpark?.effectiveServer || state.settings?.barkpark?.server; if (!server) { toast('No server address is available.', 'error'); return; } api.app.openExternal(`${server.replace(/\/$/, '')}/papers/${slug()}`); };
     const copy = el(`<button title="Import a local copy">${iconHtml('download')}</button>`);
     copy.onclick = async () => { try { const local = await ctx.importPaper(slug()); toast('Imported as ' + local.title); ctx.openLinked(tab, local.id, 'local', true); } catch (error) { toast(error.message, 'error'); } };
     const reload = el(`<button title="Reload from server">${iconHtml('rotate-cw')}</button>`);
@@ -277,10 +277,12 @@ export function mountPaper(tab, host, ctx) {
     hostEl.appendChild(canvas);
   }
 
+  let loadFailed = false;
   async function load() {
+    loadFailed = false;
     q('#conflict').innerHTML = '';
     setSaveState('');
-    try { paper = await fetchPaper(); } catch (error) { q('#canvas-host').innerHTML = `<p class="bw-error">Could not open ${esc(slug())}: ${esc(error.message)}</p>`; return; }
+    try { paper = await fetchPaper(); } catch (error) { loadFailed = true; q('#canvas-host').innerHTML = `<p class="bw-error">Could not open ${esc(slug())}: ${esc(error.message)}</p>`; return; }
     if (destroyed || !paper) return;
     try { paper.proposals = await api.docs.paperProposals(slug()); } catch { paper.proposals = []; }
     rev = paper.rev;
@@ -303,6 +305,11 @@ export function mountPaper(tab, host, ctx) {
     q('#current').scrollTop = tab.scroll || 0;
   }
 
+  const offLocal = api.barkpark.onLocalStatus(status => {
+    if (status.phase !== 'ready' || destroyed) return;
+    // Never reload over an unsaved edit or replay a write with uncertain acknowledgement.
+    if (loadFailed) load(); else if (canvas && !saving && !pendingRetry && !canvas.hasPendingChanges?.()) controller.refresh();
+  });
   load();
 
   const controller = {
@@ -332,7 +339,7 @@ export function mountPaper(tab, host, ctx) {
     isDirty: () => Boolean(canvas?.hasPendingChanges?.()),
     flush: () => canvas?.flushPendingChanges?.(),
     markdown: () => blocksToMarkdown(canvas?.blocks || paper?.blocks || []),
-    destroy() { destroyed = true; presence.destroy(); try { canvas?.flushPendingChanges?.(); } catch {} pane.remove(); },
+    destroy() { offLocal(); destroyed = true; presence.destroy(); try { canvas?.flushPendingChanges?.(); } catch {} pane.remove(); },
   };
   return controller;
 }

@@ -59,3 +59,7 @@ The project skill `plan-followup` (`.claude/skills/plan-followup`) walks this; `
 - Barkdown: branch `codex/electron-prototype`; `cd app && npm run test:tables && npm run test:multiblock` are the two green rows to keep green.
 - The app loads the canvas bundle from the connected Barkpark (`app/main/canvas-bundle.js`, cached under userData; `app/renderer/vendor` is the offline fallback). A Barkpark editor change reaches a running Barkdown by restarting Phoenix; the vendored copy is refreshed when the change lands so a fresh install is not behind.
 - Barkpark: checkout `../barkpark-editor`, branch `barkdown/editor-quality`; when a task changes the server side, the live rows must hit *that* checkout's Phoenix, not `../barkpark` (the skill's environment section has the junction + `_build` copy that makes it compile in seconds); `cd api/assets/paper-editor && npm run build` rebuilds the bundle; the unit sweep is 103/105 with two pre-existing failures (`__save_ack_mounted`, `__press_answer_watchdog`).
+
+## Local runtime milestone — 2026-09-21
+
+Issue #5 now has a Windows source-checkout implementation in Barkdown: private Postgres, migrations/clean seed, database-backed readiness, health recovery, Settings status and owned shutdown. [Setup and scope](LOCAL-BARKPARK.md). The next implementation is #6 (profile identity/portability), then #13 (local notes on Paper), then #7 (sync). Issue #4 remains blocked on the private-repository CI read token and the deliberate broken-Tab proof; the local runtime does not clear that gate.

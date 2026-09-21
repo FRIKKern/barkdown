@@ -9,6 +9,11 @@ const agent = require('./agent');
 const barkpark = require('./barkpark');
 const canvasBundle = require('./canvas-bundle');
 const terminal = require('./terminal');
+const { LocalBarkpark } = require('./local-barkpark');
+const { SourceDriver, validate: validateLocal } = require('./local-barkpark-source');
+const crypto = require('crypto');
+let localRuntime = null, localConfigKey = '';
+let localTransition = Promise.resolve(), localStartupError = null;
 const claudeProvider = require('./providers/claude');
 const codexProvider = require('./providers/codex');
 
@@ -25,7 +30,7 @@ const DEV = process.argv.includes('--dev');
 let win = null;
 
 // ---------- settings ----------
-const DEFAULT_SETTINGS = { sidebarWidth: 200, chatWidth: 40, theme: 'system', model: 'claude-opus-5', provider: null, claudeModel: '', codexModel: '', apiKeyEncrypted: null, barkpark: { enabled: false, server: '', tokenEncrypted: null, dataset: 'production', writes: false, viaCli: false }, recentFolders: [], windowBounds: null };
+const DEFAULT_SETTINGS = { sidebarWidth: 200, chatWidth: 40, theme: 'system', model: 'claude-opus-5', provider: null, claudeModel: '', codexModel: '', apiKeyEncrypted: null, barkpark: { enabled: false, server: '', tokenEncrypted: null, dataset: 'production', writes: false, viaCli: false, local: { enabled: false, source: '', port: 4540, pgPort: 5540 } }, recentFolders: [], windowBounds: null };
 
 function readSettings() { return { ...DEFAULT_SETTINGS, ...store.readJson('settings.json', {}), barkpark: { ...DEFAULT_SETTINGS.barkpark, ...(store.readJson('settings.json', {}).barkpark || {}) } }; }
 function writeSettings(settings) { store.writeJson('settings.json', settings); }
@@ -33,15 +38,48 @@ function encrypt(value) { if (!value) return null; return safeStorage.isEncrypti
 function decrypt(value) { if (!value) return ''; try { if (value.startsWith('enc:')) return safeStorage.decryptString(Buffer.from(value.slice(4), 'base64')); if (value.startsWith('plain:')) return Buffer.from(value.slice(6), 'base64').toString('utf8'); } catch (error) { console.warn('settings: could not decrypt', error.message); } return ''; }
 function publicSettings() {
   const s = readSettings();
-  return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY) && !s.apiKeyEncrypted, barkpark: { enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli }, recentFolders: s.recentFolders, userData: store.dir() };
+  return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY) && !s.apiKeyEncrypted, barkpark: { effectiveServer: s.barkpark.local?.enabled ? `http://127.0.0.1:${s.barkpark.local.port}` : s.barkpark.server, enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, local: s.barkpark.local || DEFAULT_SETTINGS.barkpark.local }, recentFolders: s.recentFolders, userData: store.dir() };
 }
 // What the MCP server and the context note need to know about Barkpark, refreshed on every save.
-function syncBarkparkEnv() {
-  const s = readSettings();
-  process.env.BARKDOWN_BP_TOKEN = decrypt(s.barkpark.tokenEncrypted) || '';
-  store.writeJson('barkpark.json', { enabled: s.barkpark.enabled, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, server: s.barkpark.server, dataset: s.barkpark.dataset, hasToken: Boolean(s.barkpark.tokenEncrypted) });
+function localSecrets() {
+  let saved = store.readJson('local-credentials.json', null);
+  if (!saved) {
+    saved = { password: encrypt(crypto.randomBytes(32).toString('hex')), token: encrypt('bp_admin_' + crypto.randomBytes(24).toString('base64url')) };
+    store.writeJson('local-credentials.json', saved);
+  }
+  const value = { password: decrypt(saved.password), token: decrypt(saved.token) };
+  if (!value.password || !value.token) throw new Error('Cannot unlock this local profile’s credentials.');
+  return value;
 }
-function barkparkConfig() { const s = readSettings(); return { server: s.barkpark.server, token: decrypt(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, enabled: s.barkpark.enabled }; }
+function barkparkConfig() {
+  const s = readSettings(), b = s.barkpark;
+  if (b.local?.enabled) return { server: `http://127.0.0.1:${b.local.port}`, token: localSecrets().token, dataset: 'production', writes: b.writes, viaCli: false, enabled: b.enabled };
+  return { server: b.server, token: decrypt(b.tokenEncrypted), dataset: b.dataset, writes: b.writes, viaCli: b.viaCli, enabled: b.enabled };
+}
+function syncBarkparkEnv() {
+  const c = barkparkConfig();
+  process.env.BARKDOWN_BP_TOKEN = c.token || '';
+  store.writeJson('barkpark.json', { ...c, token: undefined, hasToken: Boolean(c.token) });
+}
+function emitLocalStatus(status) { if (win && !win.isDestroyed() && !win.webContents.isDestroyed()) win.webContents.send('barkpark:localStatus', status); }
+function localStatus() { return localRuntime?.status() || { phase: localStartupError ? 'failed' : 'stopped', attempts: 0, error: localStartupError }; }
+function reconcileLocal() {
+  const desired = readSettings().barkpark.local;
+  if (localRuntime && (!desired?.enabled || JSON.stringify(desired) !== localConfigKey)) localRuntime.abort?.abort();
+  localTransition = localTransition.catch(() => {}).then(async () => {
+    localStartupError = null;
+    const config = readSettings().barkpark.local;
+    const key = config?.enabled ? JSON.stringify(config) : '';
+    if (key === localConfigKey && localRuntime) return;
+    await localRuntime?.stop(); localRuntime = null; localConfigKey = '';
+    if (!key) return;
+    const driver = new SourceDriver(config, path.join(store.dir(), 'local-barkpark', 'default'), localSecrets());
+    localRuntime = new LocalBarkpark(driver); localConfigKey = key;
+    localRuntime.on('status', status => emitLocalStatus(status));
+    await localRuntime.start();
+  }).catch(error => { localStartupError = error.message; emitLocalStatus(localStatus()); throw error; });
+  return localTransition;
+}
 
 // ---------- window ----------
 function createWindow() {
@@ -54,6 +92,7 @@ function createWindow() {
   });
   win.loadFile(path.join(__dirname, '..', 'renderer', 'index.html'));
   win.once('ready-to-show', () => win.show());
+  win.on('closed', () => { win = null; });
   win.on('close', () => { const s = readSettings(); s.windowBounds = win.getBounds(); writeSettings(s); });
   win.webContents.setWindowOpenHandler(({ url }) => { if (/^https?:/.test(url)) shell.openExternal(url); return { action: 'deny' }; });
   if (DEV) win.webContents.openDevTools({ mode: 'detach' });
@@ -88,7 +127,9 @@ function buildMenu() {
 // ---------- ipc ----------
 function handle(channel, fn) {
   ipcMain.handle(channel, async (event, ...args) => {
-    try { return { ok: true, value: await fn(...args) }; } catch (error) { return { ok: false, error: error.message || String(error), code: error.code }; }
+    try {
+      if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
+      return { ok: true, value: await fn(...args) }; } catch (error) { return { ok: false, error: error.message || String(error), code: error.code }; }
   });
 }
 
@@ -106,6 +147,11 @@ function registerIpc() {
     if (patch.apiKey !== undefined) s.apiKeyEncrypted = patch.apiKey ? encrypt(patch.apiKey) : null;
     if (patch.barkpark) {
       const b = patch.barkpark;
+      if (b.local) {
+        const config = { ...DEFAULT_SETTINGS.barkpark.local, ...s.barkpark.local, ...b.local };
+        if (config.enabled) validateLocal(config);
+        s.barkpark.local = config;
+      }
       if (b.enabled != null) s.barkpark.enabled = b.enabled;
       if (b.server != null) s.barkpark.server = b.server;
       if (b.dataset != null) s.barkpark.dataset = b.dataset;
@@ -116,6 +162,7 @@ function registerIpc() {
     if (patch.recentFolder) s.recentFolders = [patch.recentFolder, ...s.recentFolders.filter(f => f !== patch.recentFolder)].slice(0, 8);
     writeSettings(s);
     syncBarkparkEnv();
+    reconcileLocal().catch(error => console.warn('Local Barkpark:', error.message));
     return publicSettings();
   });
   handle('app:pickFolder', async () => { const r = await dialog.showOpenDialog(win, { properties: ['openDirectory'] }); return r.canceled ? null : r.filePaths[0]; });
@@ -189,6 +236,7 @@ function registerIpc() {
     return { id, path: file, url: 'file:///' + file.replace(/\\/g, '/').replace(/^\//, ''), name: name || id + '.' + ext, mime: type, size: bytes.length };
   });
   handle('agent:start', ({ chatId, messages, context, provider, session, prompt, images, options }) => {
+    if (readSettings().barkpark.local?.enabled && localStatus().phase !== 'ready') throw new Error('Local Barkpark is not ready. Check Settings → Barkpark before starting a run.');
     const s = readSettings();
     const chosen = provider || s.provider || defaultProvider();
     const o = options || {};
@@ -202,6 +250,13 @@ function registerIpc() {
   handle('web:fetchTitle', async url => { try { const r = await fetch(url, { signal: AbortSignal.timeout(8000) }); const html = await r.text(); return /<title[^>]*>([^<]*)<\/title>/i.exec(html)?.[1]?.trim() || null; } catch { return null; } });
 
   handle('barkpark:test', config => barkpark.test({ ...barkparkConfig(), ...config, token: config?.token || barkparkConfig().token }));
+  handle('barkpark:localStatus', () => localStatus());
+  handle('barkpark:localRetry', async () => {
+    await localTransition.catch(() => {});
+    if (!localRuntime) return reconcileLocal().then(localStatus);
+    localTransition = (async () => { await localRuntime.stop(); await localRuntime.start(); })();
+    await localTransition; return localStatus();
+  });
   handle('barkpark:importCli', () => barkpark.importFromCli());
   // The canvas bundle comes from the connected Barkpark (cached under userData); vendored is the fallback.
   handle('barkpark:bundle', () => canvasBundle.resolve({ config: barkparkConfig(), cacheDir: path.join(app.getPath('userData'), 'canvas-bundle'), vendorDir: path.join(__dirname, '..', 'renderer', 'vendor') }));
@@ -230,7 +285,8 @@ if (userDataArg) app.setPath('userData', path.resolve(userDataArg.slice('--user-
 
 app.whenReady().then(() => {
   store.init(path.join(app.getPath('userData'), 'barkdown'));
-  syncBarkparkEnv();
+  try { syncBarkparkEnv(); } catch (error) { localStartupError = error.message; }
+  reconcileLocal().catch(error => console.warn('Local Barkpark:', error.message));
   for (const word of ['Barkdown', 'Barkpark', 'PortableDoc', 'Codex']) session.defaultSession.addWordToSpellCheckerDictionary(word);
   documents.loadAll();
   registerIpc();
@@ -240,5 +296,13 @@ app.whenReady().then(() => {
   app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); });
 });
 
+let localQuitDone = false, localQuitting = false;
+app.on('before-quit', event => {
+  if (localQuitDone || !localRuntime) return;
+  event.preventDefault();
+  if (localQuitting) return;
+  localQuitting = true;
+  localRuntime.stop().catch(error => console.error('Local Barkpark shutdown:', error.message)).finally(() => { localQuitDone = true; app.quit(); });
+});
 app.on('will-quit', () => terminal.stopAll());
 app.on('window-all-closed', () => { if (process.platform !== 'darwin') app.quit(); });
