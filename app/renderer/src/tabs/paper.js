@@ -393,7 +393,21 @@ export function mountPaper(tab, host, ctx) {
         const proposals = await api.docs.paperProposals(id).catch(() => []);
         const edit = await api.docs.agentEdit('bp:' + id);
         const allowed = () => !destroyed && generation === loadGeneration && slug() === id && rev === beforeRev && !hasUnsavedWork();
-        const apply = () => { paper = { ...fresh, proposals }; if (fresh.rev !== rev && canvas) { rev = fresh.rev; lastAcked = fresh.blocks || []; canvas.applyServerBlocks(lastAcked); syncTitleRow(); } };
+        const apply = () => {
+          if (fresh.rev !== rev && canvas) {
+            // A focused canvas may queue applyServerBlocks while retaining its
+            // old baseline. Never stamp that old content with a newer revision.
+            if (!canvas.applyServerBlocksIfIdle?.(fresh.blocks || [])) return false;
+            rev = fresh.rev; lastAcked = fresh.blocks || [];
+          }
+          paper = { ...fresh, proposals }; syncTitleRow(); return true;
+        };
+        // Older bundles have no synchronous acceptance contract. Keep their
+        // revision pinned so subsequent input remains protected by server 412.
+        if (fresh.rev !== rev && !canvas?.applyServerBlocksIfIdle) {
+          if (allowed()) setSaveState('Newer version available · reload when ready');
+          return;
+        }
         if (edit && !edit.undone && edit.beforeRev === beforeRev && edit.afterRev === fresh.rev) await presence.run(edit, apply, allowed);
         else if (allowed()) apply();
         renderProposals(); renderMeta(); renderLinks(); renderPath();

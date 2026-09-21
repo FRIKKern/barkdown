@@ -37,7 +37,8 @@
     "shots": "node tests/status-shots.mjs",
     "shots:isolated": "npm run build && node tests/status-shots-isolated.mjs",
     "test:paper-host": "node tests/paper-host.test.mjs",
-    "test:paper-host:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-host.live.mjs"
+    "test:paper-host:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-host.live.mjs",
+    "test:agent-takeover:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-agent-takeover.live.mjs"
   },
   "engines": {
     "node": ">=22.13.1"

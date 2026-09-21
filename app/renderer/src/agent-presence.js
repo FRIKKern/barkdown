@@ -4,7 +4,8 @@ export function agentPresence(pane, getRoot, scroller) {
   const name = 'bw-agent-' + (++nextId);
   let active = null;
   const stop = () => active?.finish();
-  for (const event of ['pointerdown', 'keydown', 'beforeinput', 'wheel', 'touchstart']) pane.addEventListener(event, stop, true);
+  const takeoverEvents = ['pointerdown', 'keydown', 'beforeinput', 'compositionstart', 'wheel', 'touchstart'];
+  for (const event of takeoverEvents) pane.addEventListener(event, stop, true);
   const visible = () => pane.isConnected && !pane.hidden && pane.getClientRects().length && getRoot()?.getClientRects().length;
   function run(edit, apply, allowed = () => true) {
     stop();
@@ -12,7 +13,13 @@ export function agentPresence(pane, getRoot, scroller) {
     const root = getRoot(), oldText = root.textContent;
     const blocks = [...root.children];
     const target = blocks[edit.mode === 'append' ? blocks.length - 1 : edit.mode === 'replace_block' ? edit.blockIndex : 0] || root;
-    let done = false, applied = false, frame = 0, timer = 0, resolve;
+    const targetRect = target.getBoundingClientRect(), viewport = scroller.getBoundingClientRect();
+    // A person reading elsewhere in the focused editor owns their scroll position.
+    // Apply the real update without sending a presentation cursor offscreen.
+    if (root.contains(document.activeElement) && (targetRect.bottom < viewport.top || targetRect.top > viewport.bottom)) {
+      if (allowed()) apply(); return Promise.resolve();
+    }
+    let done = false, applied = false, attempted = false, frame = 0, timer = 0, resolve;
     const promise = new Promise(r => { resolve = r; });
     const style = document.createElement('style');
     style.textContent = `::highlight(${name}-select){background:rgba(133,165,84,.32);color:inherit}::highlight(${name}-hide){color:transparent;text-shadow:none}`;
@@ -29,7 +36,7 @@ export function agentPresence(pane, getRoot, scroller) {
       cursor.style.top = Math.max(bounds.top, Math.min(rect.top, bounds.bottom - 20)) + 'px';
       cursor.style.height = Math.min(30, Math.max(17, rect.height || 20)) + 'px';
     };
-    const perform = () => { if (!applied && allowed()) { applied = true; apply(); } };
+    const perform = () => { if (!attempted && allowed()) { attempted = true; applied = apply() !== false; } return applied; };
     const finish = () => {
       if (done) return;
       done = true; clearTimeout(timer); cancelAnimationFrame(frame);
@@ -39,7 +46,6 @@ export function agentPresence(pane, getRoot, scroller) {
       resolve();
     };
     active = { finish };
-    const targetRect = target.getBoundingClientRect(), viewport = scroller.getBoundingClientRect();
     if (targetRect.top < viewport.top + 40 || targetRect.bottom > viewport.bottom - 40) scroller.scrollTop += targetRect.top - viewport.top - 70;
     const selection = document.createRange(); selection.selectNodeContents(target);
     if (edit.mode === 'append') selection.collapse(false);
@@ -51,7 +57,7 @@ export function agentPresence(pane, getRoot, scroller) {
       timer = setTimeout(() => {
         if (!visible() || !allowed()) return finish();
         CSS.highlights.delete(name + '-select');
-        perform();
+        if (!perform()) return finish();
         const updated = getRoot(), text = updated.textContent;
         let start = 0, end = text.length, oldEnd = oldText.length;
         while (start < end && start < oldEnd && text[start] === oldText[start]) start++;
@@ -80,5 +86,5 @@ export function agentPresence(pane, getRoot, scroller) {
     }, 200);
     return promise;
   }
-  return { run, stop, destroy() { stop(); for (const event of ['pointerdown', 'keydown', 'beforeinput', 'wheel', 'touchstart']) pane.removeEventListener(event, stop, true); } };
+  return { run, stop, destroy() { stop(); for (const event of takeoverEvents) pane.removeEventListener(event, stop, true); } };
 }
