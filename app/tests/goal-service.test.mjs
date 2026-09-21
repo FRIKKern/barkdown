@@ -42,13 +42,16 @@ test('real provider loops persist three full workers through profile switch, sta
     const attempt = f.profiles.load(ownerA).ownership.attempts[event.attemptId];
     assert.equal(event.assistantId, attempt.assistantId); assert.equal(event.chatId, attempt.chatId);
   }
+  f.profiles.save(ownerA, old);
+  assert.equal(f.profiles.load(ownerA).order.length, 4, 'Same-generation stale navigation preserves saved workers');
   const eventCount = f.events.length;
   await f.profiles.select(ownerA, f.b.id); const ownerB = f.owner(); f.profiles.save(ownerB, snapshot('B'));
   release(); for (let i = 0; i < 5; i++) await flush();
   assert.equal(f.events.length, eventCount, 'A background events must not reach B');
   assert.equal(f.profiles.load(ownerB).order.length, 1); assert.equal(f.profiles.load(ownerB).chats.main.draft, 'B draft');
   await assert.rejects(f.service.command(ownerA, goal.id, 'cancel'), /Stale/);
-  await f.profiles.select(ownerB, f.a.id); const fresh = f.owner(); f.profiles.save(fresh, old);
+  await f.profiles.select(ownerB, f.a.id); const fresh = f.owner();
+  assert.throws(() => f.profiles.save(fresh, old), /stale profile view/, 'A fresh envelope cannot rebind a snapshot from an older view');
   const ws = f.profiles.load(fresh);
   assert.equal(ws.order.length, 4); assert.equal(ws.chats.main.draft, 'A draft');
   for (const task of goal.tasks) {
