@@ -1,31 +1,24 @@
 {
   "version": 1,
-  "id": "C006",
+  "id": "C010",
   "stage": "P1",
-  "status": "done",
-  "goal": "Integrate trusted profile resolution and durable workspace ownership before enabling safe profile switching.",
+  "status": "active",
+  "goal": "Gate every startup writer behind authority ownership and explicit verified adoption/recovery.",
   "scope": [
-    "Validated UUID registry roots, owner/generation IPC and profile boot opt-in",
-    "Main-owned transcript repository shared by ordinary runs and durable goal workers",
-    "Safe profile switching UI only after draft/event/isolation fixtures pass; no actual user-library migration"
+    "Boot and recovery UI lane; storage helper independently owned",
+    "Preserve legacy source; temporary fixtures only",
+    "Correct new/reset chat width to60 while preserving saved values"
   ],
   "acceptance": [
-    "Unknown/cross-profile start cancel approve wait and stale saves are rejected",
-    "Late A transcript persists without altering B draft/navigation",
-    "Goal attempt begin is idempotent and explicit transcript actions remain functional",
-    "Root/ancestor replacement rejected; isolated Electron switching/restart proof and required evidence"
+    "No writer or empty profile before valid authority decision",
+    "Explicit staged/interrupted recovery and verified active restart",
+    "Single-instance lease retained through cleanup",
+    "Saved widths preserved and default/reset60 verified"
   ],
   "checkpoint": "2026-09-22",
-  "handoff": "docs/cycles/C006-profile-workspace-service.md",
-  "nextAction": "Explicit first-adoption transaction and boot recovery gate, plus separately recaptured 60% conversation default correction; P1/A1 remain pending.",
-  "evidence": [
-    "docs/PROFILE-WORKSPACES.md",
-    "docs/visual/profiles/live-README.md",
-    "docs/visual/runs/2026-09-21T23-29-02-248Z/comparison.json",
-    "docs/images/status/history/C006-168e31b.json",
-    "app/tests/profile-ui.live.mjs",
-    "app/tests/profile-goals.live.mjs"
-  ],
-  "truthReview": "Reviewed current guide, handoff, validation, ownership contracts and acceptance. Opt-in profiles and saved goal workers are integrated; no default adoption, actual library migration or P1 completion claimed. Inherited 40% versus D07 60% mismatch recorded for separate correction.",
-  "screenshotReview": "Inspected all 31 deterministic frames, seven step GIFs, six real Paper profile frames, five live status stills and all 37 live GIF frames; explicit approval recorded. Existing 21 frames unchanged; ten new goal/profile baselines reviewed. All private runtimes stopped."
+  "handoff": "docs/cycles/C010-boot-adoption.md",
+  "nextAction": "Implement width correction and startup decision seam, then integrate validated storage helper and recovery UI.",
+  "evidence": [],
+  "truthReview": "",
+  "screenshotReview": ""
 }
