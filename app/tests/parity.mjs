@@ -33,6 +33,7 @@ const ROWS = [
   ['align', 'editor-align.live.mjs', '#21'],
   ['linkpreview', 'editor-linkpreview.live.mjs', '#23'],
   ['codehl', 'editor-codehl.live.mjs', '#27'],
+  ['tablespans', 'editor-tablespans.live.mjs', '#24'],
 ];
 
 const wanted = (process.env.PARITY_ROWS ? process.env.PARITY_ROWS.split(',') : process.argv.slice(2)).map(s => s.trim()).filter(Boolean);
