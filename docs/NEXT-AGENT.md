@@ -1,5 +1,7 @@
 # Continue the dependable-workspace plan
 
+**Combined candidate:** this worktree follows [C008 integration](cycles/C008-integration.md) on `codex/integration-12h`. Its checkpoint supersedes historical baseline notes below. Profile switching and saved goal-worker UI exist behind `--profiles`; integration evidence and remaining gaps are recorded there. Do not migrate real user data or claim P1 complete.
+
 Read [PLAN.md](PLAN.md), [DESIGN-DECISIONS.md](DESIGN-DECISIONS.md), [ARCHITECTURE.md](ARCHITECTURE.md), then the current stage in [ACCEPTANCE.md](ACCEPTANCE.md). Run `npm run plan`. **Next: P1, profile ownership and isolation.** The former lowest-open-editor-issue rule is retired.
 
 ## What exists

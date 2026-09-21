@@ -1,3 +1,15 @@
+# Goal integration checkpoint — C008
+
+This worktree is the combined candidate on `codex/integration-12h`, not the goal agent's original branch. The historical audit below describes earlier snapshots and does not override this checkpoint. See [C008](../cycles/C008-integration.md) for exact imports and validation.
+
+The opt-in `--profiles` desktop now exposes Conversation goals in the command palette. Three explicit assignments create saved worker side chats with parent links and shared controls. Main owns durable transcripts, provider context, deadline/dependency admission and review gating. Explicit Start/Resume captures pending workers' current choices; previous attempts retain their captured context. Native recursive delegation is disabled for goal workers.
+
+Combined source4c88a49 passed the full desktop suite, including37 goal tests,76 shell checks, actual Electron goal creation/streaming, profile switching, selected-profile process restart and existing chat/editor regressions. Goal transports in these tests are deterministic; they do not prove three authenticated model workers. Newer E002/C009 imports have focused passing tests but still need fresh full combined verification and visual evidence.
+
+Remaining: authenticated multi-worker journey, native process-tree crash recovery (owned by the goal agent and not yet imported), natural-language coordinator planning, complete failure/reconciliation UX, and fresh combined capture/review. No OS background service or execution while asleep is implemented. P1 and C005 remain unfinished. Do not replay uncertain attempts or substitute process-local cancellation for descendant termination proof.
+
+## Historical goal-track handoff
+
 # Durable goals and full worker conversations
 
 Dedicated user-requested orchestration track, starting at `b8e7bfb` on `codex/goal-orchestration`. The central P1 queue remains owned by the profile agents. Run window ends 2026-09-22T10:11:17Z; unfinished work must remain explicit.
