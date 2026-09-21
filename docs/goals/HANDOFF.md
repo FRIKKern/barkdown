@@ -29,3 +29,7 @@ Parent review identified missing cross-process ownership, observer reentrancy, c
 Current limits: no worker-chat creation, durable conversation event append, provider adapter, goal UI, machine-sleep execution service, or real-provider three-worker run. Journal lease recovery checks a dead host PID, not every possible surviving provider descendant; interrupted-task reconciliation must inspect external effects before retry. A crashed lease-acquisition guard fails closed for explicit inspection. JSON file fsync/atomic rename is tested for process-level persistence, not a hardware power-loss guarantee. Evidence strings record review assertions; they do not independently execute acceptance checks.
 
 Next: source commit, deterministic capture/compare/actual image inspection/approval, root and desktop regression tests. Live Paper capture requires the parent's serialized built-source runtime slot (requested; do not launch concurrently). Then bind the provider adapter to C004 captured scopes and implement saved worker conversation integration. All end-to-end product acceptance remains pending; C005 stays active. No owned services running.
+
+## Pending worker choices and event identity
+Imported source 6ba1896: accepted worker events carry durable assistant/attempt IDs; explicit Start/Resume captures pending worker settings while retaining prior attempt context. Original lane evidence at 3b161cd predates this source; fresh combined evidence remains pending.
+
