@@ -12,6 +12,8 @@ const terminal = require('./terminal');
 const { LocalBarkpark } = require('./local-barkpark');
 const { SourceDriver, validate: validateLocal } = require('./local-barkpark-source');
 const crypto = require('crypto');
+let profileRegistry = null, profileService = null, profileGate = null, profilePool = null, profileConnection = null, appSettingsStore = null;
+const PROFILE_MODE = process.argv.includes('--profiles');
 let localRuntime = null, localConfigKey = '';
 let localTransition = Promise.resolve(), localStartupError = null;
 const claudeProvider = require('./providers/claude');
@@ -32,20 +34,27 @@ let win = null;
 // ---------- settings ----------
 const DEFAULT_SETTINGS = { sidebarWidth: 200, chatWidth: 40, theme: 'system', model: 'claude-opus-5', provider: null, claudeModel: '', codexModel: '', apiKeyEncrypted: null, barkpark: { enabled: false, server: '', tokenEncrypted: null, dataset: 'production', writes: false, viaCli: false, local: { enabled: false, source: '', port: 4540, pgPort: 5540 } }, recentFolders: [], windowBounds: null };
 
-function readSettings() { return { ...DEFAULT_SETTINGS, ...store.readJson('settings.json', {}), barkpark: { ...DEFAULT_SETTINGS.barkpark, ...(store.readJson('settings.json', {}).barkpark || {}) } }; }
-function writeSettings(settings) { store.writeJson('settings.json', settings); }
+const APPEARANCE_KEYS = ['theme', 'sidebarWidth', 'chatWidth', 'windowBounds'];
+function readSettings(source = store) { const saved = source.readJson('settings.json', {}), appearance = appSettingsStore?.readJson('appearance.json', profileRegistry?.load()?.appSettings || {}) || {}; return { ...DEFAULT_SETTINGS, ...saved, ...appearance, barkpark: { ...DEFAULT_SETTINGS.barkpark, ...(saved.barkpark || {}) } }; }
+function writeSettings(settings) {
+  if (!appSettingsStore) return store.writeJson('settings.json', settings);
+  const owned = { ...settings }, appearance = {};
+  for (const key of APPEARANCE_KEYS) { appearance[key] = owned[key]; delete owned[key]; }
+  store.writeJson('settings.json', owned); appSettingsStore.writeJson('appearance.json', appearance);
+}
 function encrypt(value) { if (!value) return null; return safeStorage.isEncryptionAvailable() ? 'enc:' + safeStorage.encryptString(value).toString('base64') : 'plain:' + Buffer.from(value).toString('base64'); }
 function decrypt(value) { if (!value) return ''; try { if (value.startsWith('enc:')) return safeStorage.decryptString(Buffer.from(value.slice(4), 'base64')); if (value.startsWith('plain:')) return Buffer.from(value.slice(6), 'base64').toString('utf8'); } catch (error) { console.warn('settings: could not decrypt', error.message); } return ''; }
 function publicSettings() {
   const s = readSettings();
+  if (profileConnection && s.barkpark.local?.enabled) s.barkpark.local = { ...s.barkpark.local, port: Number(new URL(profileConnection.server).port) };
   return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY) && !s.apiKeyEncrypted, barkpark: { effectiveServer: s.barkpark.local?.enabled ? `http://127.0.0.1:${s.barkpark.local.port}` : s.barkpark.server, enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, local: s.barkpark.local || DEFAULT_SETTINGS.barkpark.local }, recentFolders: s.recentFolders, userData: store.dir() };
 }
 // What the MCP server and the context note need to know about Barkpark, refreshed on every save.
-function localSecrets() {
-  let saved = store.readJson('local-credentials.json', null);
+function localSecrets(source = store) {
+  let saved = source.readJson('local-credentials.json', null);
   if (!saved) {
     saved = { password: encrypt(crypto.randomBytes(32).toString('hex')), token: encrypt('bp_admin_' + crypto.randomBytes(24).toString('base64url')) };
-    store.writeJson('local-credentials.json', saved);
+    source.writeJson('local-credentials.json', saved);
   }
   const value = { password: decrypt(saved.password), token: decrypt(saved.token) };
   if (!value.password || !value.token) throw new Error('Cannot unlock this local profile’s credentials.');
@@ -53,6 +62,10 @@ function localSecrets() {
 }
 function barkparkConfig() {
   const s = readSettings(), b = s.barkpark;
+  if (profileService && b.local?.enabled) {
+    if (!profileConnection) throw new Error('Profile runtime is not ready');
+    return { ...profileConnection, enabled: b.enabled, writes: b.writes };
+  }
   if (b.local?.enabled) return { server: `http://127.0.0.1:${b.local.port}`, token: localSecrets().token, dataset: 'production', writes: b.writes, viaCli: false, enabled: b.enabled };
   return { server: b.server, token: decrypt(b.tokenEncrypted), dataset: b.dataset, writes: b.writes, viaCli: b.viaCli, enabled: b.enabled };
 }
@@ -62,8 +75,16 @@ function syncBarkparkEnv() {
   store.writeJson('barkpark.json', { ...c, token: undefined, hasToken: Boolean(c.token) });
 }
 function emitLocalStatus(status) { if (win && !win.isDestroyed() && !win.webContents.isDestroyed()) win.webContents.send('barkpark:localStatus', status); }
-function localStatus() { return localRuntime?.status() || { phase: localStartupError ? 'failed' : 'stopped', attempts: 0, error: localStartupError }; }
+function localStatus() { if (profilePool) return profilePool.status().find(s => s.profileId === profileService.view().profileId) || { phase: localStartupError ? 'failed' : 'stopped', error: localStartupError }; return localRuntime?.status() || { phase: localStartupError ? 'failed' : 'stopped', attempts: 0, error: localStartupError }; }
 function reconcileLocal() {
+  if (profileService) {
+    localTransition = localTransition.catch(() => {}).then(async () => {
+      const profileId = profileService.view().profileId, s = readSettings();
+      const result = s.barkpark.local?.enabled ? await profilePool.select(profileId, { source: s.barkpark.local.source, writes: Boolean(s.barkpark.writes) }) : await profilePool.selectWithoutRuntime(profileId);
+      profileConnection = result.connection; localStartupError = null; syncBarkparkEnv(); emitLocalStatus(localStatus());
+    }).catch(error => { localStartupError = error.message; emitLocalStatus(localStatus()); throw error; });
+    return localTransition;
+  }
   const desired = readSettings().barkpark.local;
   if (localRuntime && (!desired?.enabled || JSON.stringify(desired) !== localConfigKey)) localRuntime.abort?.abort();
   localTransition = localTransition.catch(() => {}).then(async () => {
@@ -97,6 +118,13 @@ function createWindow() {
   win.webContents.setWindowOpenHandler(({ url }) => { if (/^https?:/.test(url)) shell.openExternal(url); return { action: 'deny' }; });
   if (DEV) win.webContents.openDevTools({ mode: 'detach' });
   // Website tabs use <webview>. Keep them sandboxed and stop them from opening windows.
+  win.webContents.on('will-attach-webview', (_event, preferences, params) => {
+    const partition = profileService ? `persist:barkdown-web-${profileService.view().profileId}` : 'persist:barkdown-web';
+    preferences.partition = partition; params.partition = partition;
+    preferences.nodeIntegration = false; preferences.contextIsolation = true; preferences.sandbox = true;
+    delete preferences.preload;
+    session.fromPartition(partition).setPermissionRequestHandler((_contents, permission, callback) => callback(['clipboard-read', 'fullscreen'].includes(permission)));
+  });
   win.webContents.on('did-attach-webview', (_event, contents) => {
     contents.setWindowOpenHandler(({ url }) => { contents.loadURL(url).catch(() => {}); return { action: 'deny' }; });
   });
@@ -125,17 +153,38 @@ function buildMenu() {
 }
 
 // ---------- ipc ----------
-function handle(channel, fn) {
+function handle(channel, fn, unowned = false) {
   ipcMain.handle(channel, async (event, ...args) => {
     try {
-      if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
-      return { ok: true, value: await fn(...args) }; } catch (error) { return { ok: false, error: error.message || String(error), code: error.code }; }
+      if (!win || event.sender !== win.webContents || event.senderFrame !== win.webContents.mainFrame) throw new Error('Only the main application window may use this request');
+      const execute = async () => {
+        if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
+        return fn(...args);
+      };
+      if (profileService && !unowned) {
+        const envelope = args.shift();
+        if (!envelope || !Array.isArray(envelope.args)) throw new Error('Profile request owner required');
+        args = envelope.args;
+        return { ok: true, value: await profileGate.request(envelope.owner, execute) };
+      }
+      return { ok: true, value: await execute() }; } catch (error) { return { ok: false, error: error.message || String(error), code: error.code }; }
   });
 }
 
 function registerIpc() {
+  handle('profiles:status', () => profileService ? { ...profileService.view(), profiles: profileRegistry.load().profiles, enabled: true } : { enabled: false }, true);
+  handle('profiles:create', name => profileRegistry.createProfile({ name }));
+  handle('profiles:select', async ({ owner, profileId }) => {
+    if (!profileService) throw new Error('Start with --profiles to enable isolated profiles');
+    return profileGate.select(owner, profileId, async () => {
+      terminal.stopAll();
+      store.init(profileRegistry.storeFor(profileId).storeDir);
+      documents.loadAll({ seed: false });
+      await reconcileLocal();
+    });
+  }, true);
   handle('settings:get', () => publicSettings());
-  handle('settings:set', patch => {
+  handle('settings:set', async patch => {
     const s = readSettings();
     if (Number.isFinite(patch.sidebarWidth)) s.sidebarWidth = Math.min(420, Math.max(160, Math.round(patch.sidebarWidth)));
     if (patch.chatWidth != null) s.chatWidth = patch.chatWidth;
@@ -147,6 +196,7 @@ function registerIpc() {
     if (patch.apiKey !== undefined) s.apiKeyEncrypted = patch.apiKey ? encrypt(patch.apiKey) : null;
     if (patch.barkpark) {
       const b = patch.barkpark;
+      if (profileService && b.viaCli) throw new Error('Profiles require an explicit server connection; shared CLI routing is unavailable');
       if (b.local) {
         const config = { ...DEFAULT_SETTINGS.barkpark.local, ...s.barkpark.local, ...b.local };
         if (config.enabled) validateLocal(config);
@@ -161,8 +211,9 @@ function registerIpc() {
     }
     if (patch.recentFolder) s.recentFolders = [patch.recentFolder, ...s.recentFolders.filter(f => f !== patch.recentFolder)].slice(0, 8);
     writeSettings(s);
-    syncBarkparkEnv();
-    reconcileLocal().catch(error => console.warn('Local Barkpark:', error.message));
+    if (!profileService) syncBarkparkEnv();
+    if (profileService) await reconcileLocal();
+    else reconcileLocal().catch(error => console.warn('Local Barkpark:', error.message));
     return publicSettings();
   });
   handle('app:pickFolder', async () => { const r = await dialog.showOpenDialog(win, { properties: ['openDirectory'] }); return r.canceled ? null : r.filePaths[0]; });
@@ -170,8 +221,9 @@ function registerIpc() {
   handle('app:openPath', p => shell.openPath(p));
   handle('app:info', () => ({ version: app.getVersion(), electron: process.versions.electron, chrome: process.versions.chrome, node: process.versions.node, platform: process.platform, arch: process.arch, userData: store.dir() }));
 
-  handle('state:load', () => store.readJson('workspace.json', null));
-  handle('state:save', state => { store.writeJson('workspace.json', state); return true; });
+  handle('state:load', () => profileService ? profileService.load(profileService.view()) : store.readJson('workspace.json', null));
+  handle('state:save', state => { if (profileService) return profileService.save(profileService.view(), state); store.writeJson('workspace.json', state); return true; });
+  handle('state:command', command => { if (!profileService) throw new Error('Managed transcripts require profiles'); return profileService.workspaces.command(profileService.view().profileId, command); });
 
   handle('docs:agentEdit', id => require('./agent-edits').latest(id));
   handle('docs:undoAgentEdit', ({ id, editId }) => require('./agent-edits').undo(id, editId, barkparkConfig()));
@@ -213,7 +265,10 @@ function registerIpc() {
   handle('git:revertFile', ({ root, path: rel }) => git.revertFile(root, rel));
 
   // Terminal work tabs: one shell per tab, output streamed back as term:data events.
-  handle('term:start', ({ id, root }) => terminal.start({ id, root, send: event => win?.webContents.send('term:data', event) }));
+  handle('term:start', ({ id, root }) => {
+    const profileId = profileService?.view().profileId || null;
+    return terminal.start({ id, root, send: event => win?.webContents.send('term:data', { ...event, profileId }) });
+  });
   handle('term:input', ({ id, line }) => terminal.input(id, line));
   handle('term:stop', id => terminal.stop(id));
 
@@ -236,6 +291,7 @@ function registerIpc() {
     return { id, path: file, url: 'file:///' + file.replace(/\\/g, '/').replace(/^\//, ''), name: name || id + '.' + ext, mime: type, size: bytes.length };
   });
   handle('agent:start', ({ chatId, messages, context, provider, session, prompt, images, options }) => {
+    if (profileService) return profileService.start(profileService.view(), { chatId, prompt, images, provider });
     if (readSettings().barkpark.local?.enabled && localStatus().phase !== 'ready') throw new Error('Local Barkpark is not ready. Check Settings → Barkpark before starting a run.');
     const s = readSettings();
     const chosen = provider || s.provider || defaultProvider();
@@ -245,14 +301,15 @@ function registerIpc() {
     const runStoreDir = store.dir();
     return agent.start({ chatId, messages, prompt, images, context, provider: chosen, session, storeDir: runStoreDir, connection: barkparkConfig(), settings, send: event => { if ((event.type === 'library_changed' || event.libraryChanged) && store.dir() === runStoreDir) documents.loadAll(); win?.webContents.send('agent:event', event); } });
   });
-  handle('agent:cancel', runId => agent.cancel(runId));
-  handle('agent:approve', ({ runId, approvalId, approved }) => agent.respondApproval(runId, approvalId, approved));
+  handle('agent:cancel', runId => profileService ? profileService.cancel(profileService.view(), runId) : agent.cancel(runId));
+  handle('agent:approve', ({ runId, approvalId, approved }) => profileService ? profileService.approve(profileService.view(), runId, approvalId, approved) : agent.respondApproval(runId, approvalId, approved));
 
   handle('web:fetchTitle', async url => { try { const r = await fetch(url, { signal: AbortSignal.timeout(8000) }); const html = await r.text(); return /<title[^>]*>([^<]*)<\/title>/i.exec(html)?.[1]?.trim() || null; } catch { return null; } });
 
   handle('barkpark:test', config => barkpark.test({ ...barkparkConfig(), ...config, token: config?.token || barkparkConfig().token }));
   handle('barkpark:localStatus', () => localStatus());
   handle('barkpark:localRetry', async () => {
+    if (profileService) { await reconcileLocal(); return localStatus(); }
     await localTransition.catch(() => {});
     if (!localRuntime) return reconcileLocal().then(localStatus);
     localTransition = (async () => { await localRuntime.stop(); await localRuntime.start(); })();
@@ -260,7 +317,7 @@ function registerIpc() {
   });
   handle('barkpark:importCli', () => barkpark.importFromCli());
   // The canvas bundle comes from the connected Barkpark (cached under userData); vendored is the fallback.
-  handle('barkpark:bundle', () => canvasBundle.resolve({ config: barkparkConfig(), cacheDir: path.join(app.getPath('userData'), 'canvas-bundle'), vendorDir: path.join(__dirname, '..', 'renderer', 'vendor') }));
+  handle('barkpark:bundle', () => canvasBundle.resolve({ config: barkparkConfig(), cacheDir: path.join(profileService ? store.dir() : app.getPath('userData'), 'canvas-bundle'), vendorDir: path.join(__dirname, '..', 'renderer', 'vendor') }));
   handle('barkpark:list', () => { const c = barkparkConfig(); return c.viaCli ? barkpark.cliListPapers() : barkpark.listPapers(c); });
   handle('barkpark:get', id => { const c = barkparkConfig(); return c.viaCli ? barkpark.cliGetPaper(id) : barkpark.getPaper(c, id); });
   handle('barkpark:search', q => { const c = barkparkConfig(); return c.viaCli ? barkpark.cliSearch(q) : barkpark.search(c, q); });
@@ -284,12 +341,24 @@ function registerIpc() {
 const userDataArg = process.argv.find(a => a.startsWith('--user-data='));
 if (userDataArg) app.setPath('userData', path.resolve(userDataArg.slice('--user-data='.length)));
 
-app.whenReady().then(() => {
-  store.init(path.join(app.getPath('userData'), 'barkdown'));
+app.whenReady().then(async () => {
+  if (PROFILE_MODE) {
+    appSettingsStore = store.createStore(path.join(app.getPath('userData'), 'app-settings'));
+    profileRegistry = require('./profile-registry').createProfileRegistry(path.join(app.getPath('userData'), 'profile-data'));
+    if (!profileRegistry.load()) profileRegistry.createProfile({ name: 'Personal' });
+    profilePool = require('./profile-runtime').createProfileRuntimePool({ registry: profileRegistry, readSecrets: localSecrets });
+    profileService = require('./profile-service').createProfileService({ registry: profileRegistry, runtimePool: profilePool,
+      settingsFor: source => { const s = readSettings(source); return { ...s, apiKey: decrypt(s.apiKeyEncrypted) }; },
+      connectionFor: s => ({ ...s.barkpark, token: decrypt(s.barkpark.tokenEncrypted), viaCli: false }), defaultProvider,
+      sendEvent: event => { if (event.libraryChanged || event.type === 'library_changed') documents.loadAll({ seed: false }); win?.webContents.send('agent:event', event); } });
+    profileGate = require('./profile-ipc').createProfileIpcGate(profileService);
+    store.init(profileRegistry.storeFor(profileService.view().profileId).storeDir);
+  } else store.init(path.join(app.getPath('userData'), 'barkdown'));
   try { syncBarkparkEnv(); } catch (error) { localStartupError = error.message; }
-  reconcileLocal().catch(error => console.warn('Local Barkpark:', error.message));
+  if (profileService) await reconcileLocal().catch(error => console.warn('Profile Barkpark:', error.message));
+  else reconcileLocal().catch(error => console.warn('Local Barkpark:', error.message));
   for (const word of ['Barkdown', 'Barkpark', 'PortableDoc', 'Codex']) session.defaultSession.addWordToSpellCheckerDictionary(word);
-  documents.loadAll();
+  documents.loadAll({ seed: !profileService });
   registerIpc();
   buildMenu();
   session.defaultSession.setPermissionRequestHandler((_wc, permission, callback) => callback(['clipboard-read', 'fullscreen'].includes(permission)));
@@ -299,6 +368,17 @@ app.whenReady().then(() => {
 
 let localQuitDone = false, localQuitting = false;
 app.on('before-quit', event => {
+  if (profilePool && !localQuitDone) {
+    event.preventDefault();
+    if (localQuitting) return;
+    localQuitting = true;
+    const owned = [...require('./providers/runs').runs.values()].filter(run => run.scope.profileId);
+    for (const run of owned) agent.cancel(run.id);
+    Promise.all(owned.map(run => agent.waitForRunFinish(run.id))).then(() => profilePool.shutdown()).then(() => {
+      localQuitDone = true; app.quit();
+    }).catch(error => { localQuitting = false; console.error('Owned profile shutdown:', error.message); });
+    return;
+  }
   if (localQuitDone || !localRuntime) return;
   event.preventDefault();
   if (localQuitting) return;

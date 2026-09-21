@@ -16,6 +16,8 @@ export const state = {
   documents: [],
   barkparkDocs: [],
   loaded: false,
+  profileId: null,
+  generation: null,
 };
 
 export function newChat({ title = 'New chat', folder = null, side = false, parent = null } = {}) {
@@ -50,7 +52,7 @@ export function touch(chat) { chat.updatedAt = new Date().toISOString(); }
 export function serialise() {
   const chats = {};
   for (const [id, chat] of Object.entries(state.chats)) chats[id] = { ...chat, draft: composerDraft(chat), runId: null };
-  return { version: 1, chats, order: state.order, favorites: state.favorites, pages: state.pages, current: state.current, mode: state.mode, directTab: state.directTab };
+  return { version: 1, profileId: state.profileId, generation: state.generation, chats, order: state.order, favorites: state.favorites, pages: state.pages, current: state.current, mode: state.mode, directTab: state.directTab };
 }
 
 export const save = debounce(() => { api.state.save(serialise()).catch(error => console.warn('save failed', error)); }, 400);
@@ -58,6 +60,7 @@ export const save = debounce(() => { api.state.save(serialise()).catch(error => 
 export async function load() {
   const data = await api.state.load();
   if (data && data.version === 1) {
+    state.profileId = data.profileId || null; state.generation = data.generation || null;
     state.chats = data.chats || {};
     state.order = (data.order || []).filter(id => state.chats[id]);
     const missingChats = Object.values(state.chats).filter(c => c.id !== 'direct' && !state.order.includes(c.id)).sort((a,b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
@@ -67,7 +70,7 @@ export async function load() {
     state.current = state.chats[data.current] ? data.current : state.order[0] || null;
     state.mode = data.mode === 'document' && data.directTab ? 'document' : 'chat';
     state.directTab = data.directTab || null;
-    for (const chat of Object.values(state.chats)) { chat.runId = null; chat.closedTargets = chat.closedTargets || []; chat.apiHistory = chat.apiHistory || []; }
+    for (const chat of Object.values(state.chats)) { if (!state.profileId) chat.runId = null; chat.closedTargets = chat.closedTargets || []; chat.apiHistory = chat.apiHistory || []; }
   }
   if (!state.order.length) {
     const chat = newChat({ title: 'Shaping Barkdown' });

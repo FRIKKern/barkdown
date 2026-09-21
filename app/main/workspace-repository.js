@@ -124,6 +124,7 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
     if (value.sequence <= attempt.sequence) return { accepted: false, revision: metadata(ws).revision };
     if (value.sequence !== attempt.sequence + 1) throw new Error('Provider event sequence gap');
     attempt.runId = value.runId; attempt.sequence = value.sequence; attempt.status = 'running'; chat.runId = value.runId;
+    reply.runId = value.runId; reply.lastSequence = value.sequence;
     applyEvent(chat, reply, value, now());
     const saved = write(request.profileId, ws);
     return { accepted: true, revision: saved.ownership.revision };
