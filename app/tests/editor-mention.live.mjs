@@ -40,6 +40,13 @@ await row('"@Mention" opens the wikilink popup with the target paper listed', as
   return { pass: !!shown && /Mentionable target paper/.test(shown), popup: (shown || '').slice(0, 120) };
 });
 await row('Enter picks it: the server holds a wikilink inline to the target, the "@Mentionable" text is gone', async () => {
+  // The active row must be the target before Enter (a slower search on CI can re-render the list after
+  // the title first appears): step ArrowDown until the highlighted row names it, bounded.
+  for (let k = 0; k < 8; k++) {
+    const active = await page.evaluate(() => document.querySelector('body .bp-wikilink-menu .is-active')?.textContent || '');
+    if (/Mentionable target paper/.test(active)) break;
+    await page.keyboard.press('ArrowDown'); await page.waitForTimeout(150);
+  }
   await page.keyboard.press('Enter');
   const p = await waitParagraph(0, x => (x.content || []).some(n => n.type === 'wikilink'));
   const link = (p.content || []).find(n => n.type === 'wikilink');

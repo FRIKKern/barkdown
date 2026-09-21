@@ -60,8 +60,12 @@ await row('typing in cells; Tab and Shift+Tab move between cells', async () => {
 });
 await row('server holds the typed cells after save', compare);
 await row('Tab in the last cell adds a row (as TableKit does)', async () => {
-  await pm.locator('.bp-table__td').last().click(); await page.keyboard.press('End'); await page.keyboard.press('Tab'); await page.keyboard.type('Pear'); await settle();
-  const g = (await grids())[0]; return { pass: g.length === 3 && g[2][0] === 'Pear', grid: g };
+  const before = (await grids())[0].length;
+  await pm.locator('.bp-table__td').last().click(); await page.keyboard.press('End'); await page.keyboard.press('Tab');
+  // The new row is a transaction of its own; type only once it exists (CI is slower than a laptop).
+  await page.waitForFunction(n => { const t = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .bp-table'); return t && t.querySelectorAll('tr').length > n; }, before, { timeout: 5000 }).catch(() => {});
+  await page.keyboard.type('Pear'); await settle();
+  const g = (await grids())[0]; return { pass: g.length === before + 1 && g[before][0] === 'Pear', grid: g, before };
 });
 await row('chrome: add column, add row', async () => {
   await pm.locator('.bp-table__td').first().click();

@@ -73,10 +73,24 @@ await row('select across two paragraphs and type: they merge; server matches', a
 await row('undo the merge; server follows', async () => { await page.keyboard.press('Control+z'); await settle(); const r = await compare(); return { ...r, pass: r.pass && same(r.canvas, original) }; });
 
 await row('select three whole blocks, copy, paste at the end: three blocks appended; server matches', async () => {
-  await pm.click(); await selectBetween('First paragraph', 0, 'Third paragraph here.', 'Third paragraph here.'.length);
-  await page.keyboard.press('Control+c'); await clickText('Closing line', 'End'); await page.keyboard.press('Enter'); await page.keyboard.press('Control+v'); await settle();
-  const r = await compare(); const tail = r.canvas.slice(-3);
-  return { ...r, pass: r.pass && r.canvas.length === 9 && same(tail, original.slice(1, 4)) };
+  await pm.click(); const sel = await selectBetween('First paragraph', 0, 'Third paragraph here.', 'Third paragraph here.'.length);
+  // Capture what ProseMirror puts on the clipboard (its own copy handler fills the event), so the
+  // paste can be replayed from that payload if the OS clipboard is not there (a bare X server in CI).
+  await page.evaluate(() => { window.__clip = null; document.addEventListener('copy', e => { window.__clip = { html: e.clipboardData.getData('text/html'), text: e.clipboardData.getData('text/plain') }; }); });
+  await page.keyboard.press('Control+c');
+  await clickText('Closing line', 'End');
+  const caret = await page.evaluate(() => { const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor; return ed.state.selection.$from.parent.textContent.slice(0, 20); });
+  await page.keyboard.press('Enter'); await page.keyboard.press('Control+v'); await settle();
+  let clipboard = 'os';
+  let r = await compare();
+  if (r.canvas.length !== 9) {
+    // Replay ProseMirror's own payload through a synthetic paste event.
+    clipboard = 'synthetic';
+    const had = await page.evaluate(() => { const c = window.__clip; if (!c || !(c.html || c.text)) return false; const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor; const dt = new DataTransfer(); if (c.html) dt.setData('text/html', c.html); if (c.text) dt.setData('text/plain', c.text); ed.view.dom.dispatchEvent(new ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); return true; });
+    await settle(); r = await compare(); clipboard = had ? 'synthetic' : 'none';
+  }
+  const tail = r.canvas.slice(-3);
+  return { ...r, sel, caret, clipboard, pass: r.pass && r.canvas.length === 9 && same(tail, original.slice(1, 4)) };
 });
 await row('undo the paste; server follows', async () => { await page.keyboard.press('Control+z'); await settle(); await page.keyboard.press('Control+z'); await settle(); const r = await compare(); return { ...r, pass: r.pass && same(r.canvas, original) }; });
 

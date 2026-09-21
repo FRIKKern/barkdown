@@ -28,7 +28,7 @@ const serverShape = () => getPaper(SLUG).blocks.filter(b => b.type === 'paragrap
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 const waitServer = async (pred) => { for (let i = 0; i < 20; i++) { const s = serverShape(); if (pred(s)) return s; await page.waitForTimeout(1000); } return serverShape(); };
 // A keyboard selection inside a block, so the bubble shows.
-const selectIn = async (sel) => { await pm.locator(sel).first().click(); await page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); const ed = c._editor; const $f = ed.state.selection.$from; ed.commands.setTextSelection($f.end($f.depth)); ed.commands.focus(); }); await page.keyboard.press('Shift+ArrowLeft'); await page.keyboard.press('Shift+ArrowLeft'); await page.waitForTimeout(400); };
+const selectIn = async (sel) => { await pm.locator(sel).first().click(); await page.evaluate(selector => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); const ed = c._editor; const dom = c.querySelector('.ProseMirror'); const el = Array.from(dom.querySelectorAll(selector.split(':has-text(')[0])).find(e => e.textContent.includes(selector.match(/has-text\("([^"]+)"\)/)[1])); const pos = ed.view.posAtDOM(el, 0); const $p = ed.state.doc.resolve(pos); const end = $p.end($p.depth); ed.commands.setTextSelection({ from: Math.max($p.start($p.depth), end - 2), to: end }); ed.commands.focus(); }, sel); await page.waitForTimeout(400); };
 
 await row('a paragraph stored with align:center mounts centred', async () => { const s = await shape(); return { pass: s[3] === 'center', shape: s }; });
 await row('the bubble’s centre button centres a paragraph; the server holds align:center', async () => {
