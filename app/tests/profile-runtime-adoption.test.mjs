@@ -91,6 +91,15 @@ await createRuntimeAdoption({ ...partial, checkCold: async () => { throw new Err
 assert.equal(partial.store.readJson('runtime-adoption.json').phase, 'rolled-back');
 assert.equal(fs.existsSync(path.join(partialData, 'PG_VERSION')), true);
 console.log('PASS partial unpublished copy can roll back without pretending it is a complete database');
+for (const marker of ['pgdata/PG_VERSION', 'seeded']) {
+  const f = fixture('missing-' + marker.replaceAll('/', '-'));
+  const adopted = await run(f).adopt({ profileId: f.profileId, legacyDir: f.source });
+  const file = path.join(adopted.dataDir, marker); fs.renameSync(file, file + '.retained');
+  await assert.rejects(run(f).adopt({ profileId: f.profileId, legacyDir: f.source }), /data is missing/);
+  await assert.rejects(createProfileRuntimePool({ registry: f.registry, readSecrets: f.readSecrets }).acquire(f.profileId, { ownerId: 'missing' }), /data is missing/);
+  assert.equal(fs.existsSync(file), false);
+}
+console.log('PASS missing adopted database or seed marker refuses retry/start rather than initializing replacement');
 for (const phase of ['adoption-prepared', 'adoption-backed-up', 'adoption-copied', 'descriptor-committed', 'adoption-committed']) {
   const f = fixture('exit-' + phase);
   const script = `const {createProfileRegistry}=require(${JSON.stringify(require.resolve('../main/profile-registry'))});const {createRuntimeAdoption}=require(${JSON.stringify(require.resolve('../main/profile-runtime-adoption'))});const registry=createProfileRegistry(${JSON.stringify(path.dirname(path.dirname(f.store.storeDir)))});createRuntimeAdoption({registry,readSecrets:()=>({password:'fixture',token:'fixture'}),checkCold:async()=>{},checkpoint:phase=>{if(phase===${JSON.stringify(phase)})process.exit(73)}}).adopt(${JSON.stringify({profileId:f.profileId,legacyDir:f.source})}).catch(e=>{console.error(e);process.exit(1)});`;
