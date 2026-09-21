@@ -1,0 +1,110 @@
+name: Editor parity
+# The parity suite (docs/EDITOR-PARITY.md) against a local Barkpark, on every change to the app (plan #4):
+# Postgres as a service, a Barkpark checkout at the commit pinned in app/BARKPARK_REF booted by
+# app/tests/ci/boot-barkpark.sh (bp CLI built from that checkout, demo seed, Phoenix on :4000), then
+# every live row drives the real Electron app under Xvfb. A row can only go from red to green by a
+# test, and a green row going red fails this check. The rows' table lands in the job summary.
+on:
+  push:
+    branches: [main, codex/electron-prototype]
+    paths: ['app/**', '.github/workflows/parity.yml']
+  pull_request:
+    paths: ['app/**', '.github/workflows/parity.yml']
+  workflow_dispatch:
+    inputs:
+      barkpark_ref:
+        description: Barkpark commit or branch to boot (default app/BARKPARK_REF)
+        required: false
+      rows:
+        description: Comma-separated rows (default all)
+        required: false
+permissions:
+  contents: read
+concurrency:
+  group: parity-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  parity:
+    name: Parity rows against a local Barkpark
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: barkpark_dev
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 2s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - id: ref
+        name: Resolve the Barkpark ref
+        run: |
+          ref="${{ github.event.inputs.barkpark_ref }}"
+          [ -n "$ref" ] || ref="$(tr -d '[:space:]' < app/BARKPARK_REF)"
+          echo "ref=$ref" >> "$GITHUB_OUTPUT"
+          echo "Barkpark @ $ref"
+      - uses: actions/checkout@v4
+        with:
+          repository: FRIKKern/barkpark
+          ref: ${{ steps.ref.outputs.ref }}
+          path: barkpark
+      - uses: erlef/setup-beam@v1
+        with:
+          version-file: barkpark/.tool-versions
+          version-type: strict
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: barkpark/go.mod
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: npm 11 (the lockfiles are written by npm 11; npm 10's ci demands optional peers it never installs)
+        run: npm install -g npm@11
+      - name: Cache Barkpark deps and build
+        uses: actions/cache@v4
+        with:
+          path: |
+            barkpark/api/deps
+            barkpark/api/_build
+          key: barkpark-dev-${{ runner.os }}-${{ hashFiles('barkpark/api/mix.lock') }}-${{ steps.ref.outputs.ref }}
+          restore-keys: |
+            barkpark-dev-${{ runner.os }}-${{ hashFiles('barkpark/api/mix.lock') }}-
+            barkpark-dev-${{ runner.os }}-
+      - name: System libraries (libvips for Barkpark media, Xvfb and Electron's shared libraries)
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q libvips-dev xvfb libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2t64 libpango-1.0-0 libcairo2 libgtk-3-0 || sudo apt-get install -y -q libvips-dev xvfb libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2 libpango-1.0-0 libcairo2 libgtk-3-0
+      - name: Boot Barkpark
+        run: bash app/tests/ci/boot-barkpark.sh "$GITHUB_WORKSPACE/barkpark"
+      - name: Barkdown app (root holds playwright; app holds electron and the app's deps)
+        run: |
+          npm ci
+          cd app && npm ci && npm run build
+      - name: Parity rows
+        working-directory: app
+        env:
+          PARITY_ROWS: ${{ github.event.inputs.rows }}
+          BARKDOWN_PROVIDER: api
+          ELECTRON_DISABLE_SANDBOX: '1'
+        run: xvfb-run -a --server-args="-screen 0 1600x1000x24" node tests/parity.mjs
+      - name: Phoenix log
+        if: always()
+        run: tail -n 200 /tmp/barkpark-phx.log || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: parity-results
+          path: |
+            app/test-results/parity.md
+            app/test-results/parity.json
+            app/test-results/parity-*.log
+            app/test-results/*.png
+          if-no-files-found: ignore

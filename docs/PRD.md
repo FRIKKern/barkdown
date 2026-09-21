@@ -1,5 +1,9 @@
 <!-- Generated from prd.source.html by npm run build. Edit the source, not this file. -->
 
+## Historical product brief
+
+This original concept-era brief is retained for design and requirement traceability. As of 21 September 2026, the active delivery direction is profiles, one Paper engine, recovery and portability, optional sync, then ordinary installation. The repository’s docs/PLAN.md, docs/NEXT-AGENT.md and current accepted decisions supersede the old phase order, Keep-first policy and simulated-runtime descriptions below. The images in this brief are concepts, not current delivery evidence.
+
 <a id="cover"></a>
 
 Barkpark desktop · Product requirements
@@ -74,7 +78,7 @@ The design combines the familiarity of conversational work with the precision of
 
 **App-wide navigation, agent-specific folders:** Barkdown itself does not open inside a project folder. Documents and recent chats remain available across the app. An agent can have a working project and folder within its conversation; its project editor opens as a work tab when needed.
 
--   **Workspace**: Documents occupy the upper left sidebar; recent chats from across the app sit below. There is no active-folder selector at the top of the sidebar. The main conversation stays in place while the right-hand workspace changes. No dedicated Agents section.
+-   **Workspace**: Documents occupy the upper left sidebar; recent chats from across the app sit below. Drag the sidebar’s right edge to resize it; its width persists across restarts. The edge also supports arrow keys and double-click to reset. There is no active-folder selector at the top of the sidebar. The main conversation stays in place while the right-hand workspace changes. No dedicated Agents section.
 -   **Work tabs**: Project files, documents, websites, code reviews, and new side chats share a compact tab strip above the right-hand workspace. The + action opens a type picker; every tab has a clear icon, title, and close action.
 -   **Chat first**: Opening an artifact from chat creates or focuses the corresponding work tab to the right. By default, give the main conversation 60% of the working width after the sidebar, with 40% for work tabs. Keep this split adjustable. On a narrow window, show the focused work and keep an explicit route back to chat.
 -   **Document first**: A document opened directly from the sidebar starts a document path without automatically opening chat. Linked documents continue to open progressively to the right.
@@ -164,6 +168,14 @@ PROVENANCE
 Link an accepted operation to the actor, source chat or run, target block, and resulting revision. This cross-system link is work to build.
 
 Barkpark already defines references, permission-filtered backlinks, related results based on tags/backlinks, and revision history. This does not establish a general semantic graph engine. The node map above is a product explanation; first-release navigation uses useful relationship lists and adjacent panes. [Source B3 ↗](#s-graph)
+
+**Side chats are full conversations.** Save them alongside other chats, with a parent link. Use the same composer, model and effort controls, images, history and transcript actions. Inherit the parent folder at creation and allow independent changes. Closing the tab preserves the conversation; its files and work tabs use its own working folder.
+
+**Composer history.** Up from the first visual line recalls up to 100 sent messages in the current conversation. Down from the last line moves forward, then restores the unfinished draft and caret. Main and side chats have independent histories, and ordinary multiline navigation remains available.
+
+**Direct assistant editing.** New document edits save without a Keep step and offer revision-checked Undo. In the visible editor, mark the target, move an agent caret, and reveal the replacement. This presentation follows an acknowledged save; human input ends it immediately. Honor reduced motion and preserve document conflicts.
+
+**People organize Pages.** Discovered cloud papers remain in a separate, initially collapsed Cloud archive. Opening a paper does not add it to Pages. People choose what to add, nest, reorder, or import as a local copy; library refresh preserves their arrangement.
 
 <a id="search"></a>
 

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' file:; style-src 'self' 'unsafe-inline' file:; media-src 'self' https: http: file:; img-src 'self' file: data: blob: https: http:; font-src 'self' data:; connect-src 'self' https: http:; frame-src https: http:">
+<title>Barkdown</title>
+<link rel="stylesheet" href="vendor/bp-paper-popups.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="paper-notion.css">
+<script src="vendor/bp-flags.js"></script>
+</head>
+<body>
+<div id="app" class="bw" data-mode="chat">
+  <div class="bw-brand"><span class="bw-mark">b</span><span class="bw-brand-name">Barkdown</span><span class="bw-spacer"></span><button class="bw-icon-button" id="bw-new-doc" title="New document (Ctrl+Shift+N)" aria-label="New document"><i data-lucide="file-plus"></i></button></div>
+  <div class="bw-context"><button id="bw-go-chat" aria-label="Return to main chat"><i data-lucide="message-circle"></i></button><span id="bw-chat-title">Chat</span><span class="bw-spacer"></span><button class="bw-icon-button bw-open-work" id="bw-open-work" title="Open a work tab beside the chat (Alt+N)" aria-label="Open a work tab" aria-expanded="false"><i data-lucide="panel-right-open"></i></button><span class="bw-run-state" id="bw-run-state" hidden><span class="bw-pulse"></span>Working…</span></div>
+  <div class="bw-workbar"><button class="bw-mobile-back" id="bw-mobile-back" aria-label="Show conversation"><i data-lucide="message-circle"></i></button><nav class="bw-tabs" id="bw-tabs" aria-label="Work tabs"></nav><button class="bw-icon-button" id="bw-plus" aria-label="Open new work tab" title="New work tab (Alt+N)"><i data-lucide="plus"></i></button><button class="bw-icon-button" id="bw-favorites" aria-label="Favorites" title="Favorites: tabs you saved to reopen later"><i data-lucide="star"></i><span>Favorites</span></button><button class="bw-icon-button" id="bw-settings" aria-label="Settings" title="Settings (Ctrl+,)"><i data-lucide="settings-2"></i></button></div>
+  <aside id="bw-sidebar" class="bw-sidebar" aria-label="Documents and chats">
+    <nav id="bw-documents" aria-label="Pages"></nav>
+    <div class="bw-label bw-label-chats"><span>Recent chats</span><span class="bw-spacer"></span><button class="bw-icon-button" id="bw-new-chat" title="New chat (Ctrl+N)" aria-label="New chat"><i data-lucide="plus"></i></button></div>
+    <nav id="bw-recent-chats" aria-label="Recent chats"></nav>
+    <div class="bw-account"><span class="bw-avatar" id="bw-avatar">FJ</span><span id="bw-account-name">Barkdown</span><span class="bw-spacer"></span><span class="bw-muted bw-small" id="bw-connection">Local</span></div>
+  </aside>
+  <button id="bw-sidebar-resizer" class="bw-sidebar-resizer" role="separator" aria-orientation="vertical" aria-label="Sidebar width" aria-controls="bw-sidebar" aria-valuemin="160" aria-valuemax="420" aria-valuenow="200" title="Drag to resize sidebar · double-click to reset"></button>
+  <section class="bw-chat" aria-label="Main conversation">
+    <div class="bw-transcript" id="bw-transcript"></div>
+    <form class="bw-composer" id="bw-compose">
+      <div class="bw-attachments" id="bw-attachments" hidden></div>
+      <textarea id="bw-prompt" aria-label="Message the assistant" placeholder="Ask, create, or change something… (Enter to send, Shift+Enter for a new line)" rows="3"></textarea>
+      <div class="bw-compose-foot">
+        <button type="button" class="bw-folder-chip" id="bw-folder-context" aria-label="Agent working folder"><i data-lucide="folder-open"></i><span id="bw-folder-label">No working folder</span><i data-lucide="chevron-down"></i></button>
+        <button type="button" class="bw-folder-chip bw-attach" id="bw-attach" title="Attach an image · or paste / drop one" aria-label="Attach an image"><i data-lucide="image"></i></button><input type="file" id="bw-attach-input" accept="image/png,image/jpeg,image/gif,image/webp" multiple hidden>
+        <button type="button" class="bw-folder-chip" id="bw-provider" title="Assistant provider for this chat"><i data-lucide="sparkles"></i><span id="bw-provider-label">Assistant</span></button><button type="button" class="bw-folder-chip" id="bw-model" title="Model for this chat"><i data-lucide="cpu"></i><span id="bw-model-label">Model</span></button><button type="button" class="bw-folder-chip" id="bw-effort" title="Reasoning effort for this chat"><i data-lucide="gauge"></i><span id="bw-effort-label">Effort</span></button><span class="bw-working" id="bw-working" hidden><span class="bw-pulse"></span>Working…</span>
+        <span class="bw-spacer"></span>
+        <button type="button" class="bw-stop" id="bw-stop" hidden title="Stop the run">Stop</button>
+        <button class="bw-send" id="bw-send" aria-label="Send message" title="Send · Enter">↑</button>
+      </div>
+    </form>
+  </section>
+  <section class="bw-workspace" id="bw-workspace" aria-label="Active work tab"></section>
+  <button class="bw-splitter" id="bw-splitter" role="separator" aria-orientation="vertical" aria-label="Conversation width" aria-valuemin="40" aria-valuemax="70" aria-valuenow="60" title="Drag to resize · double-click to reset"></button>
+  <div class="bw-menu" id="bw-new-menu" hidden></div>
+  <div class="bw-menu bw-menu-chip" id="bw-provider-menu" hidden></div>
+  <div class="bw-menu bw-menu-chip" id="bw-model-menu" hidden></div>
+  <div class="bw-menu bw-menu-chip" id="bw-effort-menu" hidden></div>
+  <div class="bw-lightbox" id="bw-lightbox" hidden role="dialog" aria-label="Image preview"><img alt=""></div>
+  <div class="bw-menu" id="bw-fav-menu" hidden></div>
+  <div class="bw-menu" id="bw-project-menu" hidden></div>
+  <div class="bw-palette" id="bw-palette" role="dialog" aria-label="Quick open" hidden>
+    <input id="bw-palette-input" type="text" autocomplete="off" spellcheck="false" placeholder="Jump to a tab, document, chat, file, or action…" aria-label="Quick open">
+    <div class="bw-palette-list" id="bw-palette-list" role="listbox"></div>
+    <div class="bw-palette-hint"><span><kbd>↑</kbd> <kbd>↓</kbd> choose</span><span><kbd>Enter</kbd> open</span><span><kbd>Esc</kbd> close</span><span><kbd>Alt</kbd>+<kbd>1–9</kbd> switch tab</span><span><kbd>Alt</kbd>+<kbd>W</kbd> close tab</span></div>
+  </div>
+  <div class="bw-dialog-backdrop" id="bw-dialog" hidden></div>
+  <div class="bw-toasts" id="bw-toasts"></div>
+</div>
+<script src="dist/app.js"></script>
+</body>
+</html>

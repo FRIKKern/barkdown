@@ -1,74 +1,93 @@
-# Barkdown
+![Barkdown — Notes. Agents. Your workspace.](docs/images/barkdown-banner.svg)
 
-**A desktop workspace for conversations, documents, and the work happening between them.**
+<p align="center">
+  <a href="docs/PLAN.md"><strong>The next chapter</strong></a> ·
+  <a href="CONTRIBUTING.md">Build & contribute</a> ·
+  <a href="docs/README.md">Documentation</a> ·
+  <a href="docs/VALIDATION.md">Evidence</a>
+</p>
 
-Barkdown combines a ChatGPT-like conversation workspace with Notion-like document editing, using Barkpark for structured content, relationships, media, search, and revision history. The intended desktop foundation is a T3 Code fork.
+# A place for your notes and the work around them
 
-This private repository is the **v0.5 product and engineering handoff**. It includes the actual interactive concept code and a detailed implementation plan. It does not yet contain the T3 runtime, a packaged desktop application, a live AI connection, or a connected Barkpark editor.
+Write, ask, revise, and keep going in one desktop workspace. Barkdown pairs Barkpark’s real Paper editor with agents that can read your notes, make visible edits, and work in folders you choose for each conversation.
 
-![Current Barkdown concept: app-wide sidebar, wide chat, document work tab](docs/images/prd-workspace-tabs.png)
+**Working desktop prototype · Windows runtime first · Powered by Barkpark**
 
-## Start here
+![The real Barkdown desktop: a conversation beside an editable Barkpark paper.](docs/images/status/paper-light.4912db4e.png)
 
-1. Read the [product requirements](docs/PRD.md).
-2. Read the [next-agent handoff](docs/NEXT-AGENT.md), including the first milestone and known limitations.
-3. Keep the [accepted design decisions](docs/DESIGN-DECISIONS.md) open while implementing.
-4. Use the [architecture and integration plan](docs/ARCHITECTURE.md), [typed proposal](docs/contracts/workspace.ts), and [source map](docs/SOURCE-MAP.md).
-5. Follow [acceptance and delivery](docs/ACCEPTANCE.md) before calling a production milestone complete.
+## Think in notes. Work in conversations.
 
-The central rule: **Barkdown is app-wide. Agents have working folders.** The sidebar is not scoped to an active filesystem folder. Each chat carries its agent’s working context; a project editor is a work tab within that conversation.
+- **One workspace, many kinds of work.** Notes, websites, project files, reviews and side conversations open beside the chat.
+- **Edits you can follow.** Direct assistant edits show their target and writing, respect human takeover, and offer revision-checked Undo.
+- **Your organization stays yours.** Arrange Pages how you want. Cloud discoveries stay in Cloud archive until you place them.
+- **Conversations keep their context.** Main and side chats have model controls, images, drafts and history. Each agent has its own working folder.
 
-## Open the handoff without installing anything
+<details>
+<summary><strong>See the editor in motion and explore the desktop</strong></summary>
 
-Clone or download this private repository, then open:
+![Real editing: insert a quote, type, move through table cells, and use quick open.](docs/images/status/editing.eea9045a.gif)
 
-- `preview/index.html` — the current mixed work-tab concept.
-- `preview/editor.html` — the earlier, richer document editing interaction study.
-- `preview/prd.html` — the illustrated, self-contained product plan.
+![Barkdown in dark mode.](docs/images/status/paper-dark.2a15c87e.png)
 
-These pages embed their icons and need no network requests. GitHub displays HTML as source; download or open locally to interact with it. No public website or GitHub Pages deployment is configured.
+![Paper slash menu.](docs/images/status/slash-menu.c1dc5bcf.png)
 
-## Develop and verify the handoff
+![Quick open across the workspace.](docs/images/status/quick-open.2f6e23d1.png)
 
-Use Node.js 22.13.1 or newer and npm. These requirements apply to this handoff; the proposed T3 baseline has its own toolchain.
+![Barkpark connection settings.](docs/images/status/settings-barkpark.2ddae3cc.png)
+
+These are captures of the running app, not mockups. [Capture provenance](docs/images/status/manifest.json) records the source commits and whether the assistant turn was live. The typographic banner above is repository artwork.
+
+</details>
+
+## The next chapter: a workspace you can depend on
+
+**Create a local profile → write with an agent → restart safely → move to another machine and continue.**
+
+| Today | Next | After that |
+|---|---|---|
+| Working Paper editor, agent conversations and a managed Windows source runtime | Profile isolation, safe migration of every note to Paper, recovery and portability | Optional two-way sync and installation without a developer toolchain |
+
+We are starting **P1: profile ownership and isolation**. The existing local notes still have a separate editor/store. Profiles, migration and cloud sync are planned capabilities; the managed runtime currently requires a built Barkpark checkout. Upstream integration and CI gates remain tracked separately.
+
+[Read the delivery plan →](docs/PLAN.md) · [See what is verified →](docs/VALIDATION.md)
+
+## Run the desktop
+
+Use Node 22.13+ and a desktop session. From the repository root:
 
 ```sh
 npm ci
-npx playwright install chromium
-npm run verify
-npm run preview
+npm --prefix app ci
+npm run desktop
 ```
 
-Open `http://127.0.0.1:4173`. Stop the local preview with Ctrl+C. For Linux environments, Playwright may require `npx playwright install --with-deps chromium`.
+Use your existing Claude Code or Codex login, or configure an API key in Settings. To edit Barkpark papers, connect a server in Settings → Barkpark or follow the [managed local runtime setup](docs/LOCAL-BARKPARK.md). There is no packaged installer yet.
 
-To use an already installed browser for verification, set `BARKDOWN_BROWSER_CHANNEL=msedge` or `chrome` in your shell. Default verification uses Playwright’s Chromium. An installed desktop browser is optional.
+## Build the next slice
 
-`npm run build` regenerates the three portable preview pages, GitHub-readable PRD, and artifact hashes. `npm run check` checks the proposed types, source syntax, local links, and handoff consistency. `npm test` exercises the concepts, including folder context, editing, drafts, pins, agent focus, menus, and narrow layouts.
+```sh
+npm run plan                   # next stage and current delivery cycle
+npm run cycle                  # bounded goal, handoff and next action
+npx playwright install chromium
+npm run verify                 # roadmap, docs, types and concept checks
+npm run test:desktop            # build + desktop regression suite
+```
 
-## Source ownership
+The [contribution guide](CONTRIBUTING.md) covers real-runtime tests, upstream ownership, data safety and screenshot evidence. The [continuation brief](docs/NEXT-AGENT.md) takes you directly into P1.
 
-| File | Role |
+| Place | Purpose |
 |---|---|
-| `concepts/workspace.html` | Authoritative current app shell, chat/work tabs, agent folder controls, file editor, pins, and simulated AI activity. |
-| `concepts/editor-study.html` | Authoritative interaction reference for block editing, selection formatting, attached Types submenu, and inline AI changes. Its older shell is superseded. |
-| `docs/prd.source.html` | Editable source of the PRD. |
-| `docs/PRD.md`, `preview/*.html` | Generated deliverables; edit their sources, then rebuild. |
-| `docs/contracts/workspace.ts` | Checked design proposal for state and adapter boundaries, not a production protocol. |
-| `tests/` | Repeatable concept checks. |
-| `evidence/` | Source provenance, hashes, and the checked handoff baseline. |
+| [app/](app/README.md) | The real Electron desktop and its tests |
+| [docs/](docs/README.md) | Active plan, acceptance, architecture and evidence |
+| [AGENTS.md](AGENTS.md) | Repository rules and product decisions to preserve |
+| [Historical material](docs/archive/README.md) | Original plans, concepts and provenance; retained for reference |
 
-## Try the intended behavior
+Barkpark owns the content format, revisions and shared editor. Barkdown owns the desktop experience and workspace orchestration. A profile owns library data; an agent’s working folder belongs to its conversation.
 
-Open a document, website, review, project editor, or side chat with **+** beside the work tabs. Chat starts at 60% of the available working width. Editing or choosing a tab pauses automatic following. **Watch AI work** demonstrates scripted activity; **Go to latest activity** resumes following.
+---
 
-Use the folder chip in the chat composer to inspect the agent’s working folder or open the project editor. **New chat in this folder** creates a conversation with that agent context. **Back to chat** restores the wider conversation. Hover or focus a tab to pin its navigation path, then restore it from **Pins**.
+Private development repository. No production deployment is implied by a passing check or a source build. Original material has no public open-source license; dependencies retain their [third-party notices](THIRD-PARTY.md).
 
-In the editor study, open a document directly from the sidebar, select text, and open **Types**. The attached submenu and block interactions are the editing target for the real Paper integration.
+## Review the health of the app
 
-All edits, pins, reviews, replies, and file buffers in these concepts are local, in-memory demonstrations. Reloading resets them. “Store in demo” does not write a repository file.
-
-## Delivery status
-
-See [VALIDATION.md](docs/VALIDATION.md) for the exact checks run and [SOURCE-MAP.md](docs/SOURCE-MAP.md) for immutable upstream references. The first implementation milestone is one real Barkpark Paper mounted, edited, saved, and reopened inside an audited T3-derived desktop shell.
-
-Original Barkdown material has no public open-source license in this handoff. Private visibility is intentional. Third-party notices are in [THIRD-PARTY.md](THIRD-PARTY.md).
+Browse [visual health](docs/visual/README.md) for area READMEs with current screenshots, interaction GIFs, provenance and changelogs. Code changes trigger fresh capture and comparison; an agent or person must inspect the evidence before approval. [Review rules and known coverage gaps](docs/visual/RULES.md) keep screenshots separate from functional proof.

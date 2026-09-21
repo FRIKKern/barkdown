@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import { loadCycle, validateCycle } from './cycle.mjs';
+const cycle = loadCycle();
+const fixture = {...cycle,status:'done',evidence:[],truthReview:'',screenshotReview:''};
+assert.throws(() => validateCycle(fixture), /without evidence and reviews/);
+assert.throws(() => validateCycle({...cycle,status:'blocked',reason:''}), /without reason/);
+assert.throws(() => validateCycle({...cycle,handoff:'../outside.md'}), /outside-repo/);
+assert.throws(() => validateCycle({...cycle,stage:'unknown'}), /unknown parent/);
+validateCycle({...fixture,evidence:[cycle.handoff],truthReview:'Reviewed fixture',screenshotReview:'No app changes in fixture'});
+console.log('Cycle structure, handoff paths and completion requirements passed; evidence contents require review.');

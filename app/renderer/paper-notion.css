@@ -1,0 +1,237 @@
+/* Notion-style skin for the vendored <bp-paper-canvas>.
+ * The Barkpark bundle ships its Studio "warm paper" reading theme: a tinted page ground, serif
+ * display type, a 2px section rule above every H2 and a §-on-a-hairline divider. Inside Barkdown the
+ * paper is a working document, so the canvas takes the app ground, a sans reading face and Notion's
+ * block rhythm. Everything here is scoped to .bp-paper-host so the popups styled by
+ * bp-paper-popups.css keep their own look. Tokens are rebound rather than rules rewritten wherever
+ * the bundle exposes one, so a bundle rebuild keeps working. */
+.bp-paper-host {
+  /* Ground and ink follow the app theme (light-dark via :root color-scheme). */
+  --paper-bg: var(--bw-bg);
+  --paper-bg-deep: light-dark(#f7f6f3, #2a2c28);
+  --paper-ink: var(--bw-text);
+  --paper-ink-soft: var(--bw-muted);
+  --paper-ink-faint: light-dark(rgba(55, 53, 47, 0.4), rgba(231, 235, 223, 0.4));
+  --paper-rule: light-dark(rgba(55, 53, 47, 0.16), rgba(255, 255, 255, 0.14));
+  --paper-edit-hover: light-dark(rgba(55, 53, 47, 0.08), rgba(255, 255, 255, 0.08));
+  --paper-accent: light-dark(#2e6fd6, #7fb0ff);
+  --paper-accent-soft: light-dark(rgba(35, 131, 226, 0.22), rgba(127, 176, 255, 0.28));
+  --paper-chrome-bg: var(--bw-bg);
+  --paper-chrome-border: var(--bw-border);
+  --paper-reading-accent: var(--paper-accent);
+  --paper-muted: var(--bw-muted);
+  --paper-hover: var(--paper-edit-hover);
+  --paper-fg: var(--bw-text);
+  --paper-border: var(--bw-border);
+  --paper-popup-bg: var(--bw-bg);
+  --paper-danger: var(--bw-delete);
+  --paper-font-serif: "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --paper-font-sans: var(--paper-font-serif);
+  --paper-font-mono: "Cascadia Code", "JetBrains Mono", Consolas, "SFMono-Regular", Menlo, monospace;
+  /* Reading scale: Notion's 16px body at 1.5, headings 30/24/20 with real weight. */
+  --tok-reading-font: var(--paper-font-serif);
+  --tok-reading-body-size: 16px;
+  --tok-reading-body-lh: 1.5;
+  --tok-reading-body-tracking: 0;
+  --tok-reading-heading-weight: 700;
+  --tok-reading-h1-size: 30px;
+  --tok-reading-h1-lh: 1.2;
+  --tok-reading-h1-tracking: -0.01em;
+  --tok-reading-h2-size: 24px;
+  --tok-reading-h2-lh: 1.3;
+  --tok-reading-h2-tracking: -0.005em;
+  --tok-reading-h2-weight: 600;
+  --tok-reading-h3-size: 20px;
+  --tok-reading-h3-lh: 1.3;
+  /* No section device: an H2 is a heading, not a chapter break. */
+  --tok-section-beat: 1.4em;
+  --tok-section-rule: 0px;
+  --tok-section-gap: 0px;
+  --tok-air-beat: 8px;
+  --tok-air-code: 8px;
+  --tok-air-table: 8px;
+  --tok-air-asciicast: 8px;
+  --tok-air-callout: 8px;
+  --tok-air-stats: 8px;
+  --tok-air-figure: 8px;
+  --bp-para-margin-top: 0px;
+  --bp-li-gap: 1px;
+  --bp-list-indent: 26px;
+  --bp-code-size: 85%;
+  --bp-code-pad: 0.15em 0.4em;
+  --bp-code-radius: 4px;
+  --bp-codeblock-size: 14px;
+  --bp-codeblock-lh: 1.55;
+  --bp-codeblock-pad: 16px 18px;
+  --bp-codeblock-radius: 6px;
+  --bp-codeblock-margin: 4px 0 0;
+  --bp-pre-radius: 6px;
+  --bp-img-radius: 6px;
+  --bp-h1-size: var(--tok-reading-h1-size);
+  margin: 8px 0 12px;
+  min-height: 240px;
+}
+/* Room on the left for the hover gutter (⋮⋮ and +) without shifting text. */
+.bp-paper-host bp-paper-canvas { display: block; padding-left: 52px; margin-left: -52px; }
+.bp-paper-host .bp-paper-editor-body {
+  background: transparent;
+  padding: 0;
+  font-family: var(--paper-font-serif);
+  font-feature-settings: "kern", "liga", "calt";
+}
+.bp-paper-host .ProseMirror {
+  font-size: var(--tok-reading-body-size);
+  line-height: var(--tok-reading-body-lh);
+  min-height: 240px;
+  padding-bottom: 30vh; /* Notion lets you click below the last block */
+  caret-color: var(--paper-ink);
+}
+/* Block rhythm: every top-level block is a row with 3px vertical padding, like Notion. */
+.bp-paper-host .ProseMirror > * { margin-top: 0; padding-top: 3px; padding-bottom: 3px; }
+.bp-paper-host .ProseMirror > p { min-height: calc(1em * var(--tok-reading-body-lh)); }
+.bp-paper-host .ProseMirror > h1 { margin-top: 2em; margin-bottom: 4px; }
+.bp-paper-host .ProseMirror > h2 { margin-top: 1.4em; margin-bottom: 1px; border-top: 0; padding-top: 3px; padding-inline: 0; margin-inline: 0; width: auto; }
+.bp-paper-host .ProseMirror > h3 { margin-top: 1em; margin-bottom: 1px; }
+.bp-paper-host .ProseMirror > :first-child { margin-top: 0; }
+.bp-paper-host .ProseMirror h1, .bp-paper-host .ProseMirror h2, .bp-paper-host .ProseMirror h3 { text-wrap: pretty; color: var(--paper-ink); }
+/* Lists: tight rows, markers in ink, nested lists flush. */
+.bp-paper-host .ProseMirror ul, .bp-paper-host .ProseMirror ol { margin: 0; padding-left: var(--bp-list-indent); }
+.bp-paper-host .ProseMirror li { margin: 0; padding: 1px 0; }
+.bp-paper-host .ProseMirror li > p { margin: 0; padding: 0; }
+.bp-paper-host .ProseMirror li::marker { color: var(--paper-ink); }
+.bp-paper-host .ProseMirror ul ul > li { list-style: circle; }
+.bp-paper-host .ProseMirror ul ul ul > li { list-style: square; }
+.bp-paper-host .ProseMirror li > ul, .bp-paper-host .ProseMirror li > ol { margin-top: 1px; }
+/* Divider: a plain hairline, no § mark. */
+.bp-paper-host .ProseMirror .bp-section-divider,
+.bp-paper-host .ProseMirror hr {
+  margin: 4px 0; padding: 6px 0; border: 0; height: 13px; box-sizing: border-box; text-align: initial;
+  background: linear-gradient(var(--paper-rule), var(--paper-rule)) center / 100% 1px no-repeat;
+}
+.bp-paper-host .ProseMirror .bp-section-divider__mark { display: none; }
+/* Code block: flat gray slab with a soft radius, mono at 14px, language tag top right. */
+.bp-paper-host .ProseMirror pre.bp-canvas-code {
+  background: var(--paper-bg-deep); border-radius: var(--bp-codeblock-radius); padding: var(--bp-codeblock-pad);
+  margin: 4px 0 0; tab-size: 2; position: relative;
+}
+.bp-paper-host .bp-canvas-code-area { resize: none; min-height: 1.6em; font-size: var(--bp-codeblock-size); line-height: var(--bp-codeblock-lh); color: var(--paper-ink); }
+.bp-paper-host .bp-canvas-code-area:focus { outline: none; }
+.bp-paper-host .bp-canvas-code-lang { top: 6px; right: 8px; font: 11px/1.4 var(--paper-font-sans); color: var(--paper-ink-soft); background: transparent; border: 0; text-align: right; }
+.bp-paper-host .ProseMirror code { font-family: var(--paper-font-mono); font-size: var(--bp-code-size); background: light-dark(rgba(135, 131, 120, 0.15), rgba(255, 255, 255, 0.1)); color: light-dark(#eb5757, #ff8f8f); border-radius: 4px; padding: var(--bp-code-pad); }
+/* Callout: Notion's gray card, tone only on the edge and the text. */
+.bp-paper-host .ProseMirror .bp-callout { border-radius: 6px; padding: 14px 16px; margin: 4px 0 0; border-left-width: 3px; }
+.bp-paper-host .ProseMirror .bp-callout--neutral { background: var(--paper-bg-deep); color: var(--paper-ink); border-left-color: var(--paper-rule); }
+.bp-paper-host .ProseMirror .bp-callout--info { background: light-dark(#e7f3f8, #1f2f3a); color: var(--paper-ink); }
+.bp-paper-host .ProseMirror .bp-callout--success { background: light-dark(#edf3ec, #22302a); color: var(--paper-ink); }
+.bp-paper-host .ProseMirror .bp-callout--warning { background: light-dark(#fbf3db, #3a3220); color: var(--paper-ink); }
+.bp-paper-host .ProseMirror .bp-callout--danger { background: light-dark(#fdebec, #3a2424); color: var(--paper-ink); }
+.bp-paper-host .ProseMirror blockquote { border-left: 3px solid var(--paper-ink); background: transparent; padding: 2px 0 2px 14px; margin: 4px 0 0; border-radius: 0; }
+/* Links: ink with a soft underline, accent on hover. */
+.bp-paper-host .ProseMirror a { color: inherit; text-decoration: underline; text-decoration-color: var(--paper-rule); text-underline-offset: 0.16em; text-decoration-thickness: 1px; transition: text-decoration-color .12s; }
+.bp-paper-host .ProseMirror a:hover { text-decoration-color: var(--paper-ink-soft); }
+.bp-paper-host .ProseMirror s { opacity: .6; }
+.bp-paper-host .ProseMirror ::selection { background: var(--paper-accent-soft); }
+/* Placeholder ghost: Notion's grey on the focused empty block only. */
+.bp-paper-host .ProseMirror .is-empty::before, .bp-paper-host .ProseMirror .is-editor-empty::before { color: var(--paper-ink-faint); }
+/* Hover gutter: grip and + in the left margin, only when the pointer is over the block. */
+.bp-paper-host .bp-block-handle { opacity: 0; transition: opacity .1s; }
+.bp-paper-host bp-paper-canvas:hover .bp-block-handle, .bp-paper-host .bp-block-handle:hover, .bp-paper-host .bp-block-handle--dragging { opacity: 1; }
+.bp-paper-host .bp-block-handle__btn { color: var(--paper-ink-faint); border-radius: 4px; }
+.bp-paper-host .bp-block-handle__btn:hover { background: var(--paper-edit-hover); color: var(--paper-ink-soft); }
+.bp-paper-host .bp-block-drop { background: var(--paper-accent); height: 3px; border-radius: 2px; opacity: .7; }
+.bp-paper-host .bp-block-menu { box-shadow: 0 8px 32px rgba(0,0,0,.14), 0 0 0 1px var(--paper-rule); border: 0; padding: 4px; }
+.bp-paper-host .bp-block-menu__item { border-radius: 4px; padding: 5px 8px; }
+.bp-paper-host .bp-block-menu__group { padding-top: 6px; }
+/* Read-only papers keep the same face without the caret. */
+.bp-paper-host bp-paper-canvas:not([editable]) .ProseMirror { padding-bottom: 20px; cursor: default; }
+
+/* Paper header: one big title, the state line beneath it, no kicker shouting. */
+.bw-paper-document .bw-kicker { font-size: 11px; letter-spacing: .4px; text-transform: none; color: var(--bw-muted); margin-bottom: 26px; }
+.bw-paper-document .bw-doc-title { font-size: 40px; line-height: 1.2; font-weight: 700; letter-spacing: -.5px; margin: 0 0 4px; font-family: "Inter", "Segoe UI", system-ui, sans-serif; }
+.bw-paper-document .bw-doc-title::placeholder { color: light-dark(rgba(55, 53, 47, 0.25), rgba(231, 235, 223, 0.3)); }
+.bw-paper-document .bw-doc-meta { font-size: 12px; margin-bottom: 18px; color: var(--bw-muted); }
+/* The reading column: Notion's page is ~708px of text; 760px here minus the inset left 640px, which wrapped a
+ * one-line title and made the paper look squeezed beside the chat. 900px wide, and the inset shrinks with the pane. */
+.bw-paper-document { max-width: 900px; padding-top: 48px; }
+
+/* The gutter needs 52px of real room left of the text: widen the paper column's inset so the canvas's
+ * negative margin never leaves the pane (the pane clips nothing, so it would land over the chat). */
+.bw-paper-document { padding-inline: clamp(56px, 6cqw, 84px); }
+/* Empty paragraphs and dividers stay visible rows (Notion), not collapsed scaffolds with a + control. */
+.bp-paper-host .ProseMirror > .bp-resting-scaffold { display: block; }
+.bp-paper-host .bp-scaffold-control { display: none; }
+
+/* Popups rendered into <body>: slash menu, command palette, format bubble, block menu. Same
+ * neutral surface as Notion's menus: app ground, 8px radius, one soft shadow, blue accent. */
+.bp-slash-menu, .bp-paper-format, .bp-block-menu, .bp-link-preview {
+  --paper-bg: var(--bw-bg); --paper-bg-deep: light-dark(#f1f1ef, #33362f);
+  --paper-ink: var(--bw-text); --paper-ink-soft: var(--bw-muted);
+  --paper-ink-faint: light-dark(rgba(55, 53, 47, 0.5), rgba(231, 235, 223, 0.45));
+  --paper-rule: light-dark(rgba(55, 53, 47, 0.12), rgba(255, 255, 255, 0.12));
+  --paper-rule-soft: light-dark(rgba(55, 53, 47, 0.06), rgba(255, 255, 255, 0.06));
+  --paper-accent: light-dark(#2e6fd6, #7fb0ff);
+  --paper-accent-soft: light-dark(rgba(55, 53, 47, 0.08), rgba(255, 255, 255, 0.08));
+  --paper-chrome-bg: var(--bw-bg); --paper-chrome-border: transparent;
+  --paper-font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --paper-font-serif: var(--paper-font-sans);
+  --paper-font-mono: "Cascadia Code", "JetBrains Mono", Consolas, Menlo, monospace;
+  font-family: var(--paper-font-sans);
+  border: 0; border-radius: 8px;
+  box-shadow: 0 0 0 1px light-dark(rgba(15, 15, 15, 0.06), rgba(255, 255, 255, 0.1)), 0 3px 6px rgba(15, 15, 15, 0.08), 0 9px 24px rgba(15, 15, 15, 0.14);
+}
+.bp-slash-menu { width: 300px; padding: 6px 0 4px; }
+.bp-slash-eyebrow { font-size: 11px; letter-spacing: .02em; text-transform: none; color: var(--paper-ink-soft); padding: 6px 12px 4px; }
+.bp-slash-group { font-size: 11px; letter-spacing: .02em; text-transform: none; font-weight: 500; color: var(--paper-ink-soft); padding: 8px 8px 2px; }
+.bp-slash-item { padding: 6px 8px; border-radius: 4px; font-size: 14px; line-height: 1.25; color: var(--paper-ink); gap: 10px; }
+.bp-slash-item:hover, .bp-slash-item.is-active { background: var(--paper-accent-soft); }
+.bp-slash-hint { width: 26px; height: 26px; flex-basis: 26px; border-radius: 4px; background: var(--paper-bg-deep); color: var(--paper-ink); font-family: var(--paper-font-sans); font-size: 12px; font-weight: 600; }
+.bp-slash-item:hover .bp-slash-hint, .bp-slash-item.is-active .bp-slash-hint { color: var(--paper-ink); }
+.bp-slash-label { font-weight: 400; letter-spacing: 0; }
+.bp-slash-desc { font-size: 12px; color: var(--paper-ink-faint); max-width: 150px; }
+.bp-slash-item[data-expected] .bp-slash-desc { text-transform: none; letter-spacing: 0; font-size: 11px; }
+.bp-slash-foot { font-size: 11px; letter-spacing: 0; padding: 8px 12px 4px; }
+.bp-slash-foot kbd { font-family: var(--paper-font-sans); background: var(--paper-bg-deep); border: 0; }
+.bp-cmd-input { border-radius: 6px; border-color: var(--paper-rule); background: var(--paper-bg-deep); }
+.bp-cmd-input:focus { border-color: var(--paper-accent); box-shadow: 0 0 0 2px light-dark(rgba(35, 131, 226, 0.25), rgba(127, 176, 255, 0.3)); }
+.bp-paper-format { gap: 1px; padding: 3px; border-radius: 6px; }
+/* A wikilink reads as a link (Notion's page mention): accent ink, a soft underline, a pointer. */
+.bp-paper-host .ProseMirror span[data-wikilink] { color: var(--paper-accent); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--paper-accent) 40%, transparent); text-underline-offset: 2px; cursor: pointer; }
+.bp-link-preview { padding: 10px 12px 8px; border-radius: 8px; width: 340px; }
+.bp-link-preview__title { font-size: 14px; }
+.bp-link-preview__addr { font-size: 11px; }
+.bp-link-preview__excerpt { font-size: 13px; color: var(--paper-ink-soft); }
+.bp-link-preview__btn { border-radius: 4px; border-color: var(--paper-rule); color: var(--paper-ink); font-size: 12px; height: 24px; }
+.bp-link-preview__btn:hover { background: var(--paper-accent-soft); color: var(--paper-ink); border-color: var(--paper-rule); }
+.bp-paper-format__btn { width: 28px; height: 26px; font-size: 13px; border-radius: 4px; }
+.bp-paper-format__btn:hover { background: var(--paper-accent-soft); }
+.bp-paper-format__btn--active, .bp-paper-format__btn[aria-pressed="true"] { background: light-dark(rgba(35, 131, 226, 0.12), rgba(127, 176, 255, 0.2)); color: var(--paper-accent); }
+.bp-paper-format__btn--bold { font-family: var(--paper-font-sans); font-weight: 700; }
+.bp-paper-format__btn--italic { font-family: var(--paper-font-sans); }
+.bp-paper-format__btn--link { padding: 0 8px; font-size: 13px; }
+.bp-paper-format__sep { height: 16px; margin: 0 3px; }
+.bp-paper-format__link-row { margin-top: 4px; padding-top: 4px; }
+.bp-paper-format__link-input { width: 240px; height: 26px; border-radius: 4px; border-color: var(--paper-rule); font-size: 13px; }
+.bp-paper-format__link-remove { height: 26px; border-radius: 4px; font-size: 12px; }
+
+/* Title row. When the document opens with a heading it is the title (Barkpark derives the paper title
+ * from it), drawn at Notion's 40px title scale; otherwise the plain title input stands in. */
+.bw-paper-document .bw-doc-title[hidden] { display: none; }
+.bp-paper-host--titled .ProseMirror > h1:first-child, .bp-paper-host--titled .ProseMirror > h2:first-child, .bp-paper-host--titled .ProseMirror > h3:first-child {
+  font-size: 40px; line-height: 1.2; font-weight: 700; letter-spacing: -.5px; margin: 0 0 6px; padding-bottom: 6px;
+}
+.bp-paper-host--titled .ProseMirror > h1:first-child + *, .bp-paper-host--titled .ProseMirror > h2:first-child + *, .bp-paper-host--titled .ProseMirror > h3:first-child + * { margin-top: 0; }
+.bw-paper-document .bw-kicker .bw-doc-meta { margin: 0; font-size: 11px; color: var(--bw-muted); }
+.bw-paper-document .bw-kicker #kicker:not(:empty) + .bw-doc-meta:not(:empty)::before { content: "·"; margin-right: 10px; opacity: .6; }
+.bw-paper-document .bw-doc-title { margin-bottom: 14px; }
+.bp-paper-host { margin-top: 0; }
+
+/* Tables sit on the text edge and use the note's type, not the reader's centred, small-caps evidence chrome. */
+.bp-paper-host .ProseMirror .bp-table { left: 0; transform: none; margin-inline: 0; width: auto; max-width: 100%; font-size: 14px; }
+.bp-paper-host .ProseMirror .bp-table__th { font-family: inherit; text-transform: none; letter-spacing: 0; font-size: 13px; font-weight: 600; padding: 8px 12px; color: var(--paper-ink-soft); }
+.bp-paper-host .ProseMirror .bp-table__td { padding: 7px 12px; }
+/* Checklist rows in the canvas (taskList markup). */
+.bp-paper-host .ProseMirror ul[data-type="taskList"] { padding-left: 2px; }
+.bp-paper-host .ProseMirror ul[data-type="taskList"] > li { padding: 1px 0; gap: 8px; }
+.bp-paper-host .ProseMirror ul[data-type="taskList"] > li > label { margin-top: 5px; }
+.bp-paper-host .ProseMirror ul[data-type="taskList"] > li > label input { width: 16px; height: 16px; border-radius: 3px; accent-color: var(--paper-accent); }
+.bp-paper-host .ProseMirror ul[data-type="taskList"] > li[data-checked="true"] > div > p { color: var(--paper-ink-faint); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--paper-ink-faint) 40%, transparent); text-decoration-thickness: 1px; }

@@ -1,0 +1,37 @@
+name: Delivery slice
+description: Define a bounded piece of the dependable-workspace plan.
+body:
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Stage
+      options:
+        - P1 — Profile ownership and isolation
+        - P2 — Every note on Paper
+        - P3 — Recovery and portable profiles
+        - P4 — Optional two-way cloud sync
+        - P5 — Installation and daily-use pilot
+        - G1 — Upstream integration
+        - G2 — Cross-repository regression enforcement
+        - Maintenance or regression
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Outcome and scope
+      description: What should the person be able to do when this slice is complete? Name the owning layer and relevant dependencies.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance evidence
+      description: Name the scenario from docs/ACCEPTANCE.md and the concrete check that proves this slice. Include interruption, identity or rollback cases where data changes.
+    validations:
+      required: true
+  - type: textarea
+    id: baseline
+    attributes:
+      label: Baseline and dependencies
+      description: Link existing issues, affected modules, upstream contracts, and blockers. Do not duplicate completed editor work or imply an unverified API exists.

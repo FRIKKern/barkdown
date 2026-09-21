@@ -1,0 +1,345 @@
+import { agentPresence } from '../agent-presence.js';
+import { renderAgentUndo } from '../agent-undo.js';
+// Barkpark paper work tab: hosts Barkpark's own <bp-paper-canvas> (vendored bundle) over a real paper.
+// Edits leave the canvas as bp-canvas-ops batches; each batch is applied through the fenced ops endpoint
+// with the paper's revision, acknowledged on success, and the server echo is fed back so minted ids land.
+import { el, esc, iconHtml, relativeTime, toast, errorCode, errorMessage, inlineMarkdownHtml } from '../ui.js';
+import { state } from '../state.js';
+import { askConfirm } from '../dialogs.js';
+import { htmlToBlocks, blocksToMarkdown } from '../../../shared/portabledoc.js';
+import { normaliseOps, reinsertMoves } from '../../../shared/ops.js';
+import { ensureCanvasBundle } from '../canvas-bundle.js';
+
+const api = window.barkdown;
+
+export function mountPaper(tab, host, ctx) {
+  const pane = el(`<div class="bw-pane bw-doc-pane bw-paper-pane"><div class="bw-path" id="path"></div><div class="bw-current-pane" id="current"><div class="bw-document bw-paper-document"><div class="bw-kicker"><span id="kicker">Barkpark / Paper</span><span class="bw-doc-meta" id="meta"></span><span class="bw-save-state" id="save-state"></span></div><input class="bw-doc-title" id="title" aria-label="Paper title" placeholder="Untitled"><div id="banner"></div><div id="agent-edit"></div><div id="proposals"></div><div id="conflict"></div><div class="bw-find" id="find" hidden><input id="find-q" type="text" placeholder="Find" aria-label="Find in paper"><span class="bw-find-count" id="find-count"></span><button type="button" class="bw-btn" id="find-prev" title="Previous (Shift+Enter)" aria-label="Previous match">↑</button><button type="button" class="bw-btn" id="find-next" title="Next (Enter)" aria-label="Next match">↓</button><input id="find-r" type="text" placeholder="Replace with" aria-label="Replace with"><button type="button" class="bw-btn" id="find-replace">Replace</button><button type="button" class="bw-btn" id="find-replace-all">All</button><button type="button" class="bw-btn" id="find-close" title="Close (Esc)" aria-label="Close find">×</button></div><div class="bp-paper-host" id="canvas-host"></div><div class="bw-doc-links" id="links"></div><div class="bw-doc-state" id="state"></div></div></div></div>`);
+  host.appendChild(pane);
+  const q = s => pane.querySelector(s);
+  const presence = agentPresence(pane, () => q('.ProseMirror'), q('#current'));
+  let refreshing = false, refreshAgain = false;
+  const updateUndo = () => renderAgentUndo(q('#agent-edit'), 'bp:' + slug(), rev, async () => { if (saving || canvas?.hasPendingChanges?.()) throw new Error('Finish saving your edit before Undo.'); presence.stop(); await api.docs.undoAgentEdit('bp:' + slug(), q('#agent-edit').dataset.editId); await controller.refresh(); ctx.libraryChanged(); });
+  let paper = null;
+  let canvas = null;
+  let rev = null;
+  let lastAcked = [];
+  let destroyed = false;
+  let saving = false;
+  let pendingRetry = null;
+  let latestSeq = null;
+  let mergeAfterSave = false;
+  const slug = () => tab.path.at(-1);
+  const writesOn = () => Boolean(state.settings?.barkpark?.writes);
+
+  // Find and replace: Ctrl+F / Ctrl+H inside the pane open the bar; the canvas paints the matches and
+  // does the replacing (one transaction per replace-all, so undo is one step and the save is one batch).
+  const findBar = q('#find');
+  const findCountEl = q('#find-count');
+  const syncFind = st => { const s = st || canvas?.findState?.() || { count: 0, index: -1 }; findCountEl.textContent = s.count ? `${s.index + 1} of ${s.count}` : (q('#find-q').value ? 'No matches' : ''); findCountEl.dataset.empty = s.count ? '' : 'true'; };
+  const openFind = replaceToo => { findBar.hidden = false; findBar.dataset.replace = replaceToo ? 'true' : ''; const sel = String(window.getSelection?.() || '').trim(); if (sel && !sel.includes('\n')) q('#find-q').value = sel; q('#find-q').focus(); q('#find-q').select(); syncFind(canvas?.findSet?.(q('#find-q').value)); };
+  const closeFind = () => { findBar.hidden = true; canvas?.findClear?.(); q('#find-count').textContent = ''; canvas?.querySelector('.ProseMirror')?.focus(); };
+  q('#find-q').addEventListener('input', () => syncFind(canvas?.findSet?.(q('#find-q').value)));
+  q('#find-q').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); syncFind(e.shiftKey ? canvas?.findPrev?.() : canvas?.findNext?.()); } if (e.key === 'Escape') { e.preventDefault(); closeFind(); } });
+  q('#find-r').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); syncFind(e.ctrlKey || e.metaKey ? canvas?.replaceAll?.(q('#find-r').value) : canvas?.replaceCurrent?.(q('#find-r').value)); } if (e.key === 'Escape') { e.preventDefault(); closeFind(); } });
+  q('#find-prev').onclick = () => syncFind(canvas?.findPrev?.());
+  q('#find-next').onclick = () => syncFind(canvas?.findNext?.());
+  q('#find-replace').onclick = () => { if (!writesOn()) return toast('Barkpark writes are off', 'error'); syncFind(canvas?.replaceCurrent?.(q('#find-r').value)); };
+  q('#find-replace-all').onclick = () => { if (!writesOn()) return toast('Barkpark writes are off', 'error'); const r = canvas?.replaceAll?.(q('#find-r').value); syncFind(r); if (r?.replaced) toast(`Replaced ${r.replaced}`); };
+  q('#find-close').onclick = closeFind;
+  pane.addEventListener('keydown', e => {
+    const key = e.key.toLowerCase();
+    if ((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey && (key === 'f' || key === 'h')) { e.preventDefault(); e.stopPropagation(); openFind(key === 'h'); }
+    else if (e.key === 'Escape' && !findBar.hidden) { e.preventDefault(); e.stopPropagation(); closeFind(); }
+  }, true);
+
+  function setSaveState(text, kind = '') { q('#save-state').textContent = text; q('#save-state').dataset.kind = kind; }
+  function themeAttr() { const t = document.documentElement.dataset.theme; return t || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); }
+
+  async function fetchPaper() { return api.barkpark.get(slug()); }
+
+  function renderMeta() {
+    updateUndo();
+    if (!paper) return;
+    const crumbs = ctx.pagePath ? ctx.pagePath(slug(), 'barkpark') : [];
+    q('#kicker').textContent = crumbs.length > 1 ? crumbs.join(' / ') : '';
+    q('#meta').textContent = `${writesOn() ? 'Editing live' : 'Read-only'} · edited ${relativeTime(paper.updatedAt)}${paper.draft ? ' · draft' : ''}${paper.blocks ? '' : ' · HTML body'}`;
+  }
+
+  // Barkpark derives a paper's title from its first heading, so when the document opens with one the
+  // heading is the title row (Notion's model) and the separate input would only duplicate it.
+  function syncTitleRow() {
+    const first = canvas?._editor?.state?.doc?.firstChild;
+    const headed = first ? first.type.name === 'heading' : /^heading$|^h[1-3]$/.test(canvas?.blocks?.[0]?.type || '');
+    q('#title').hidden = Boolean(headed);
+    q('#canvas-host').classList.toggle('bp-paper-host--titled', Boolean(headed));
+  }
+
+  function renderBanner() {
+    const banner = q('#banner');
+    banner.innerHTML = '';
+    if (!writesOn()) {
+      const node = el(`<div class="bw-conflict"><strong>Read-only.</strong> Barkpark writes are off, so edits stay in this window. <button data-act="enable">Enable live editing</button></div>`);
+      node.querySelector('[data-act="enable"]').onclick = async () => { try { state.settings = await api.settings.set({ barkpark: { writes: true } }); toast('Live editing enabled for Barkpark papers'); load(); } catch (error) { toast(error.message, 'error'); } };
+      banner.appendChild(node);
+    } else if (paper && !paper.blocks && paper.html) {
+      const node = el(`<div class="bw-conflict"><strong>This paper is stored as HTML.</strong> Converting it to blocks makes it editable here; the conversion keeps headings, paragraphs, lists, quotes and code and drops other markup. <button data-act="convert">Convert to blocks</button></div>`);
+      node.querySelector('[data-act="convert"]').onclick = async () => {
+        if (!await askConfirm(`Convert "${paper.title}" to PortableDoc blocks on the server? This replaces its HTML body.`, { title: 'Convert to blocks?', confirm: 'Convert' })) return;
+        try { await api.barkpark.publish({ slug: slug(), title: paper.title, blocks: htmlToBlocks(paper.html), description: paper.description || undefined }); toast('Converted to blocks'); load(); } catch (error) { toast('Could not convert: ' + error.message, 'error'); }
+      };
+      banner.appendChild(node);
+    }
+  }
+
+  function renderPath() {
+    const bar = q('#path');
+    bar.innerHTML = `<span class="bw-muted">Barkpark paper · ${esc(slug())}</span>`;
+    const actions = el('<div class="bw-doc-actions"></div>');
+    const ask = el(`<button title="Ask the assistant about this paper">${iconHtml('sparkles')} Ask</button>`);
+    ask.onclick = () => ctx.askAbout(`About the Barkpark paper "${paper?.title || slug()}" (id bp:${slug()}): `);
+    const open = el(`<button title="Open in Barkpark">${iconHtml('external-link')}</button>`);
+    open.onclick = () => { const server = state.settings?.barkpark?.effectiveServer || state.settings?.barkpark?.server; if (!server) { toast('No server address is available.', 'error'); return; } api.app.openExternal(`${server.replace(/\/$/, '')}/papers/${slug()}`); };
+    const copy = el(`<button title="Import a local copy">${iconHtml('download')}</button>`);
+    copy.onclick = async () => { try { const local = await ctx.importPaper(slug()); toast('Imported as ' + local.title); ctx.openLinked(tab, local.id, 'local', true); } catch (error) { toast(error.message, 'error'); } };
+    const reload = el(`<button title="Reload from server">${iconHtml('rotate-cw')}</button>`);
+    reload.onclick = () => load();
+    actions.append(ask, open, copy, reload);
+    bar.appendChild(actions);
+  }
+
+  async function renderLinks() {
+    const host = q('#links');
+    let backlinks = [];
+    let history = [];
+    try { backlinks = await api.barkpark.backlinks(slug()); } catch {}
+    try { history = await api.barkpark.history(slug()); } catch {}
+    if (destroyed) return;
+    host.innerHTML = [
+      backlinks.length ? `<h3>Backlinks</h3>${backlinks.map(d => `<button data-open="${esc(d.id)}">${iconHtml('file-text')}<span>${esc(d.title)}</span><small>links here</small></button>`).join('')}` : '',
+      history.length ? `<h3>History</h3>${history.slice(0, 8).map(r => `<div class="bw-rev"><span>rev ${esc(String(r.rev).slice(0, 8))}</span><span>${esc(r.summary || '')}</span><span>${esc(r.actor || '')} · ${esc(relativeTime(r.at))}</span></div>`).join('')}` : '',
+    ].join('');
+    host.querySelectorAll('[data-open]').forEach(b => { b.onclick = () => ctx.openLinked(tab, b.dataset.open, 'barkpark'); });
+  }
+
+  function renderProposals() {
+    const host = q('#proposals');
+    host.innerHTML = '';
+    for (const p of paper?.proposals || []) {
+      const node = el(`<div class="bw-proposal" data-id="${esc(p.id)}"><small>Proposed by the assistant · ${esc(p.mode)} · ${esc(relativeTime(p.createdAt))}</small><div class="bw-proposal-head"><strong>${esc(p.summary || 'Change')}</strong><span><button class="primary" data-act="keep" ${writesOn() ? '' : 'disabled title="Enable live editing first"'}>Keep</button><button data-act="discard">Discard</button></span></div><details><summary>Show the change</summary><div class="body">${inlineMarkdownHtml(p.markdown || '')}</div></details></div>`);
+      node.querySelector('[data-act="keep"]').onclick = () => resolveProposal(p.id, true);
+      node.querySelector('[data-act="discard"]').onclick = () => resolveProposal(p.id, false);
+      host.appendChild(node);
+    }
+  }
+
+  async function resolveProposal(id, accept) {
+    try {
+      if (accept && canvas) canvas.flushPendingChanges();
+      const result = await api.docs.resolvePaperProposal(slug(), id, accept, rev);
+      if (result.conflict) { toast('The paper changed on the server; reloading before applying.', 'error'); await load(); return; }
+      toast(accept ? 'Change applied on Barkpark' : 'Proposal discarded');
+      await load();
+      ctx.libraryChanged();
+    } catch (error) { toast(error.message, 'error'); }
+  }
+
+  function showConflict(server) {
+    const box = q('#conflict');
+    box.innerHTML = '';
+    const node = el(`<div class="bw-conflict"><strong>Someone else changed this paper</strong> (server is at rev ${esc(server.rev)}, you were editing rev ${esc(rev)}). Your unsaved edits are still on screen.<div><button data-act="theirs">Load the server version</button><button data-act="mine">Re-apply my edit on top</button></div></div>`);
+    node.querySelector('[data-act="theirs"]').onclick = () => { paper = server; rev = server.rev; lastAcked = server.blocks || []; canvas?.resolveConflictWithServerBlocks(server.blocks || []); box.innerHTML = ''; setSaveState('Loaded rev ' + rev); renderMeta(); };
+    node.querySelector('[data-act="mine"]').onclick = async () => { box.innerHTML = ''; if (pendingRetry) { const { ops, seq } = pendingRetry; pendingRetry = null; rev = server.rev; mergeAfterSave = true; await applyOps(ops, seq); } };
+    box.appendChild(node);
+  }
+
+  async function applyOps(ops, seq) {
+    if (!ops?.length) return;
+    saving = true;
+    setSaveState('Saving…', 'saving');
+    try {
+      const baseline = canvas?.blocks || lastAcked;
+      const shaped = normaliseOps(ops, baseline);
+      let result;
+      try {
+        result = await api.barkpark.applyOps(slug(), shaped.ops, rev);
+      } catch (error) {
+        // Older servers reject move-block; re-express the reorder as remove + re-insert and try once more.
+        const alt = /known DocPatchOp/.test(error.message) && shaped.ops.some(o => o.op === 'move-block') ? reinsertMoves(shaped.ops, baseline) : null;
+        if (!alt) throw error;
+        result = await api.barkpark.applyOps(slug(), alt, rev);
+      }
+      if (destroyed) return;
+      rev = result.rev ?? rev;
+      canvas.acknowledgeOps(seq, true);
+      // "Saved" only when nothing newer is queued: acknowledging may flush the next batch at once, and an edit made
+      // during this request is still debouncing in the canvas. Either way the paper is not saved yet.
+      if (seq === latestSeq && !canvas.hasPendingChanges?.()) setSaveState('Saved · rev ' + rev, 'saved');
+      if (pendingRetry?.seq !== seq) { pendingRetry = null; q('#conflict').innerHTML = ''; }
+      renderMeta();
+      // Echo: minted ids for new blocks come back on the paper itself.
+      try {
+        const fresh = await fetchPaper();
+        if (!destroyed && fresh?.blocks) {
+          lastAcked = fresh.blocks;
+          paper = { ...paper, ...fresh, proposals: paper.proposals };
+          // After a conflict re-apply the server holds another writer's blocks too; with nothing pending locally, take the server truth.
+          if (mergeAfterSave && !canvas.hasPendingChanges()) canvas.resolveConflictWithServerBlocks(fresh.blocks);
+          else canvas.applyServerBlocks(fresh.blocks);
+          mergeAfterSave = false;
+          renderMeta();
+          if (paper.title && tab.title !== paper.title) { tab.title = paper.title; q('#title').value = paper.title; ctx.tabChanged(tab); ctx.libraryChanged(); }
+          syncTitleRow();
+        }
+      } catch {}
+      ctx.documentChanged({ id: 'bp:' + slug(), title: paper.title });
+    } catch (error) {
+      if (destroyed) return;
+      const code = errorCode(error);
+      if (code === 'precondition_failed' || error.status === 412) {
+        let server = null;
+        try { server = await fetchPaper(); } catch {}
+        pendingRetry = { ops, seq };
+        setSaveState('Conflict', 'error');
+        if (server) showConflict(server); else toast('Conflict, and the server copy could not be fetched.', 'error');
+      } else if (code === 'writes_disabled') {
+        setSaveState('Read-only', 'error');
+        toast(errorMessage(error), 'error');
+        renderBanner();
+      } else {
+        setSaveState('Not saved', 'error');
+        pendingRetry = { ops, seq };
+        // Tell the canvas the batch was refused, or every later edit stays queued behind it. It keeps the author's
+        // state and, on the next edit, diffs against the last saved blocks, so the refused change rides along —
+        // a vetoed batch (say, one that would empty the paper) then saves as soon as the author writes again.
+        const discarded = canvas.discardInflightOps?.(seq) === true;
+        const box = q('#conflict');
+        box.innerHTML = '';
+        const message = /known DocPatchOp/.test(error.message) && ops.some(o => o.op === 'move-block') ? 'Moving blocks needs the newer Barkpark server (move-block landed on main; this server predates it). Your edit is still on screen.' : errorMessage(error);
+        const node = el(`<div class="bw-conflict"><strong>Could not save:</strong> ${esc(message)} <button data-act="retry">Retry</button></div>`);
+        // After a discard the canvas re-diffs on Retry (resending the old ops would land an insert twice); an older
+        // canvas without the seam keeps the batch in flight and Retry resends it as before.
+        node.querySelector('[data-act="retry"]').onclick = async () => { box.innerHTML = ''; const p = pendingRetry; pendingRetry = null; if (discarded) { setSaveState('Saving…', 'saving'); if (!canvas.resendPendingOps?.()) setSaveState('Saved · rev ' + rev, 'saved'); } else if (p) await applyOps(p.ops, p.seq); };
+        box.appendChild(node);
+      }
+    } finally { saving = false; }
+  }
+
+  async function mountCanvas(blocks, editable) {
+    // The bundle may still be arriving from the server on a cold start.
+    try { await ensureCanvasBundle(); } catch (e) { setSaveState('Editor bundle failed to load: ' + (e?.message || e), 'error'); return; }
+    if (destroyed) return;
+    const hostEl = q('#canvas-host');
+    hostEl.innerHTML = '';
+    hostEl.dataset.theme = themeAttr();
+    canvas = document.createElement('bp-paper-canvas');
+    canvas.setAttribute('editable', editable ? 'true' : 'false');
+    canvas.acknowledgedSaves = true;
+    canvas.blocks = blocks;
+    canvas.wikilinkSource = async query => { try { return (await api.barkpark.search(query)).slice(0, 8).map(d => ({ title: d.title, id: d.id, type: 'paper' })); } catch { return []; } };
+    canvas.tagSource = async () => [];
+    // The link hover card: a wikilink's title and first line come from the connected Barkpark; Open
+    // goes to a paper tab for a wikilink and to the system browser for an address (plan #23).
+    canvas.linkPreviewSource = async info => {
+      if (info?.kind !== 'wikilink') return null;
+      const id = info.docId || info.target;
+      if (!id) return null;
+      try {
+        const p = await api.barkpark.get(id);
+        // The first line is the first paragraph, not the title again; the summary's excerpt is the fallback.
+        const inline = nodes => (Array.isArray(nodes) ? nodes : []).map(n => typeof n === 'string' ? n : (n?.value ?? n?.text ?? inline(n?.children || n?.content))).join('');
+        const first = (p.blocks || []).find(b => b?.type === 'paragraph');
+        const firstLine = first ? inline(first.content || (first.text ? [first.text] : [])).trim() : '';
+        return { title: p.title, excerpt: firstLine || p.excerpt || p.description || '', href: 'bp:' + (p.slug || p.id) };
+      } catch { return null; }
+    };
+    canvas.addEventListener('bp-canvas-open-link', event => {
+      const d = event.detail || {};
+      event.preventDefault();
+      if (d.kind === 'wikilink') { const id = d.docId || d.target; if (id) ctx.openLinked(tab, id, 'barkpark'); return; }
+      if (/^https?:/.test(d.href || '')) api.app.openExternal(d.href);
+    });
+    // A pasted or dropped picture uploads to the connected Barkpark's media; the node shows the outcome.
+    canvas.mediaUploader = async file => {
+      if (!writesOn()) throw new Error('Barkpark writes are off');
+      const dataUrl = await new Promise((resolve, reject) => { const r = new FileReader(); r.onload = () => resolve(r.result); r.onerror = () => reject(r.error); r.readAsDataURL(file); });
+      return api.barkpark.uploadMedia({ name: file.name, mime: file.type, dataUrl });
+    };
+    canvas.addEventListener('bp-canvas-ops', event => {
+      const { ops, seq } = event.detail || {};
+      if (!Array.isArray(ops) || !ops.length) return;
+      latestSeq = seq;
+      ctx.userIsEditing();
+      syncTitleRow();
+      applyOps(ops, seq);
+    });
+    canvas.addEventListener('keyup', () => syncTitleRow());
+    canvas.addEventListener('focusin', () => ctx.userIsEditing());
+    hostEl.appendChild(canvas);
+  }
+
+  let loadFailed = false;
+  async function load() {
+    loadFailed = false;
+    q('#conflict').innerHTML = '';
+    setSaveState('');
+    try { paper = await fetchPaper(); } catch (error) { loadFailed = true; q('#canvas-host').innerHTML = `<p class="bw-error">Could not open ${esc(slug())}: ${esc(error.message)}</p>`; return; }
+    if (destroyed || !paper) return;
+    try { paper.proposals = await api.docs.paperProposals(slug()); } catch { paper.proposals = []; }
+    rev = paper.rev;
+    lastAcked = paper.blocks || [];
+    tab.title = paper.title;
+    ctx.tabChanged(tab);
+    q('#title').value = paper.title;
+    q('#title').disabled = !writesOn();
+    q('#title').onchange = async () => { const title = q('#title').value.trim() || paper.title; if (title === paper.title) return; try { await api.barkpark.patchTitle(slug(), title); paper.title = title; tab.title = title; ctx.tabChanged(tab); ctx.libraryChanged(); toast('Title saved'); } catch (error) { toast(error.message, 'error'); q('#title').value = paper.title; } };
+    const editable = writesOn() && Boolean(paper.blocks);
+    const blocks = paper.blocks || (paper.html ? htmlToBlocks(paper.html) : []);
+    await mountCanvas(blocks, editable);
+    if (destroyed) return;
+    syncTitleRow();
+    requestAnimationFrame(() => { if (!destroyed) syncTitleRow(); });
+    q('#state').textContent = editable
+      ? 'Edits go straight to Barkpark through the fenced ops endpoint. Each batch is saved with the paper\'s revision; a clash with another writer shows up here instead of overwriting.'
+      : paper.blocks ? 'Read-only view of the Barkpark paper. Enable live editing above to edit in place.' : 'Preview converted from the paper\'s HTML body.';
+    renderMeta(); renderBanner(); renderPath(); renderProposals(); renderLinks();
+    q('#current').scrollTop = tab.scroll || 0;
+  }
+
+  const offLocal = api.barkpark.onLocalStatus(status => {
+    if (status.phase !== 'ready' || destroyed) return;
+    // Never reload over an unsaved edit or replay a write with uncertain acknowledgement.
+    if (loadFailed) load(); else if (canvas && !saving && !pendingRetry && !canvas.hasPendingChanges?.()) controller.refresh();
+  });
+  load();
+
+  const controller = {
+    el: pane, type: 'doc', tab,
+    async refresh(changedId) {
+      if (changedId && changedId !== 'bp:' + slug() && changedId !== slug()) return;
+      if (refreshing) { refreshAgain = true; return; }
+      if (saving || canvas?.hasPendingChanges?.()) return;
+      refreshing = true;
+      const id = slug(), beforeRev = rev;
+      try {
+        const fresh = await fetchPaper();
+        if (destroyed || !fresh || id !== slug()) return;
+        const proposals = await api.docs.paperProposals(id).catch(() => []);
+        const edit = await api.docs.agentEdit('bp:' + id);
+        const allowed = () => !destroyed && slug() === id && rev === beforeRev && !saving && !canvas?.hasPendingChanges?.();
+        const apply = () => { paper = { ...fresh, proposals }; if (fresh.rev !== rev && canvas) { rev = fresh.rev; lastAcked = fresh.blocks || []; canvas.applyServerBlocks(lastAcked); syncTitleRow(); } };
+        if (edit && !edit.undone && edit.beforeRev === beforeRev && edit.afterRev === fresh.rev) await presence.run(edit, apply, allowed);
+        else if (allowed()) apply();
+        renderProposals(); renderMeta(); renderLinks(); renderPath();
+      } catch (error) { console.warn('Paper refresh:', error); }
+      finally { refreshing = false; if (refreshAgain) { refreshAgain = false; controller.refresh(); } }
+    },
+    navigate() { presence.stop(); load(); },
+    savePosition() { tab.scroll = q('#current').scrollTop; },
+    focus() { canvas?.querySelector('.ProseMirror')?.focus(); },
+    isDirty: () => Boolean(canvas?.hasPendingChanges?.()),
+    flush: () => canvas?.flushPendingChanges?.(),
+    markdown: () => blocksToMarkdown(canvas?.blocks || paper?.blocks || []),
+    destroy() { offLocal(); destroyed = true; presence.destroy(); try { canvas?.flushPendingChanges?.(); } catch {} pane.remove(); },
+  };
+  return controller;
+}

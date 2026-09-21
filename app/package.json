@@ -1,0 +1,88 @@
+{
+  "name": "barkdown-desktop",
+  "version": "0.6.0",
+  "private": true,
+  "description": "Barkdown desktop prototype: app-wide conversations and documents with agent working folders.",
+  "main": "main/main.js",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "watch": "node scripts/build.mjs --watch",
+    "start": "npm run build && electron .",
+    "dev": "node scripts/build.mjs && electron . --dev",
+    "test": "node tests/local-barkpark.test.mjs && node tests/portabledoc.test.mjs && node tests/opsrewrite.test.mjs && node tests/attachments.test.mjs && node tests/conversations.test.mjs && node tests/changes.test.mjs && node tests/agent.test.mjs && node tests/mcp.test.mjs && node tests/pages.test.mjs && node tests/run.mjs && node tests/agent-edit.live.mjs && node tests/composer-history.live.mjs && node tests/sidechat-ui.live.mjs",
+    "dist": "npm run build && electron-builder --dir",
+    "test:live": "node tests/providers.live.mjs && node tests/paper.live.mjs && node tests/paper-proposal.live.mjs && node tests/editor.live.mjs && node tests/editor-code.live.mjs && node tests/image.live.mjs && node tests/sidechat.live.mjs",
+    "test:local": "node tests/local-barkpark.live.mjs && node tests/local-barkpark-ui.live.mjs",
+    "test:paper": "node tests/paper.live.mjs",
+    "test:editor": "node tests/editor.live.mjs && node tests/editor-code.live.mjs",
+    "test:tables": "node tests/editor-tables.live.mjs",
+    "test:multiblock": "node tests/editor-multiblock.live.mjs",
+    "test:opaque": "node tests/editor-opaque.live.mjs",
+    "test:highlight": "node tests/editor-highlight.live.mjs",
+    "test:images": "node tests/editor-images.live.mjs",
+    "test:find": "node tests/editor-find.live.mjs",
+    "test:mention": "node tests/editor-mention.live.mjs",
+    "test:emoji": "node tests/editor-emoji.live.mjs",
+    "test:row14": "node tests/editor-row14.live.mjs",
+    "test:subsup": "node tests/editor-subsup.live.mjs",
+    "test:align": "node tests/editor-align.live.mjs",
+    "test:linkpreview": "node tests/editor-linkpreview.live.mjs",
+    "test:ime": "node tests/editor-ime.live.mjs",
+    "test:perf": "node tests/editor-perf.live.mjs",
+    "test:codehl": "node tests/editor-codehl.live.mjs",
+    "test:tablespans": "node tests/editor-tablespans.live.mjs",
+    "test:tablewidths": "node tests/editor-tablewidths.live.mjs",
+    "test:tablehead": "node tests/editor-tablehead.live.mjs",
+    "test:parity": "node tests/parity.mjs",
+    "shots": "node tests/status-shots.mjs"
+  },
+  "engines": {
+    "node": ">=22.13.1"
+  },
+  "devDependencies": {
+    "electron": "^38.0.0",
+    "electron-builder": "^26.0.0",
+    "esbuild": "^0.25.0",
+    "gifenc": "^1.0.3",
+    "jsdom": "^26.1.0",
+    "pngjs": "^7.0.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.3.276",
+    "@anthropic-ai/sdk": "^0.126.0",
+    "@codemirror/commands": "^6.11.1",
+    "@codemirror/lang-css": "^6.3.0",
+    "@codemirror/lang-html": "^6.4.9",
+    "@codemirror/lang-javascript": "^6.2.2",
+    "@codemirror/lang-json": "^6.0.1",
+    "@codemirror/lang-markdown": "^6.3.0",
+    "@codemirror/language": "^6.11.0",
+    "@codemirror/state": "^6.5.0",
+    "@codemirror/view": "^6.36.0",
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "@openai/codex-sdk": "^0.155.0",
+    "@tiptap/core": "^3.0.0",
+    "@tiptap/extension-link": "^3.0.0",
+    "@tiptap/extension-placeholder": "^3.0.0",
+    "@tiptap/extension-table": "^3.31.3",
+    "@tiptap/extension-task-item": "^3.0.0",
+    "@tiptap/extension-task-list": "^3.0.0",
+    "@tiptap/pm": "^3.0.0",
+    "@tiptap/starter-kit": "^3.0.0",
+    "codemirror": "^6.0.1",
+    "lucide": "^0.540.0",
+    "zod": "^4.6.5"
+  },
+  "build": {
+    "appId": "no.guerrilla.barkdown",
+    "productName": "Barkdown",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main/**",
+      "renderer/**",
+      "package.json"
+    ]
+  }
+}

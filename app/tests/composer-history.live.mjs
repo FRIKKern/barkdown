@@ -1,0 +1,52 @@
+import { _electron as electron } from 'playwright';
+import { createRequire } from 'node:module';
+import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
+import assert from 'node:assert/strict';
+const require = createRequire(import.meta.url);
+const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-history-'));
+const app = await electron.launch({executablePath:require('electron'),args:[path.resolve('.'),`--user-data=${userData}`],env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
+const page = await app.firstWindow(), errors = [];
+page.on('pageerror', e => errors.push(e.message));
+try {
+  await page.waitForFunction(() => Boolean(window.__barkdown?.state.loaded));
+  await page.evaluate(() => {
+    const s = window.__barkdown.state, c = s.chats[s.current];
+    c.messages = Array.from({length:105}, (_,i) => ({role:'user',text:'Message '+i,at:new Date().toISOString()}));
+    c.messages.push({role:'assistant',text:'Not in input history',at:new Date().toISOString()});
+    c.draft='My unfinished draft'; window.__barkdown.render();
+  });
+  const input = page.locator('#bw-prompt'); await input.focus();
+  await input.evaluate(el => el.setSelectionRange(3,3));
+  await input.press('ArrowUp'); assert.equal(await input.inputValue(),'Message 104');
+  for (let i=0;i<105;i++) await input.press('ArrowUp');
+  assert.equal(await input.inputValue(),'Message 5','history must stop at 100');
+  for (let i=0;i<100;i++) await input.press('ArrowDown');
+  assert.equal(await input.inputValue(),'My unfinished draft');
+  assert.equal(await input.evaluate(el=>el.selectionStart),3,'restore draft caret');
+  await input.fill('First line\nSecond line'); await input.press('ArrowUp');
+  assert.equal(await input.inputValue(),'First line\nSecond line','Up within a multiline draft moves the caret');
+  await input.press('Control+Home'); await input.press('ArrowUp'); await input.press('ArrowDown');
+  assert.equal(await input.inputValue(),'First line\nSecond line');
+  await input.fill('A long wrapped line. '.repeat(50)); await input.press('ArrowUp');
+  assert.ok((await input.inputValue()).startsWith('A long wrapped'),'soft-wrapped lines keep native Up');
+  await input.fill('Preserve this draft'); await input.press('Control+Home');
+  await input.press('Shift+ArrowUp'); assert.equal(await input.inputValue(),'Preserve this draft');
+  await input.evaluate(el=>el.setSelectionRange(0,5)); await input.press('ArrowUp');
+  assert.equal(await input.inputValue(),'Preserve this draft','selection is not replaced');
+  await input.evaluate(el=>el.setSelectionRange(0,0));
+  await input.dispatchEvent('keydown',{key:'ArrowUp',isComposing:true}); assert.equal(await input.inputValue(),'Preserve this draft');
+  await input.press('ArrowUp');
+  await page.evaluate(() => {
+    const s=window.__barkdown.state, c=s.chats[s.current];
+    s.chats['history-side']={...c,id:'history-side',parent:c.id,side:true,title:'History side',messages:[{role:'user',text:'Side message',at:new Date().toISOString()}],tabs:[],active:null,draft:'Side draft'};
+    window.__barkdown.openTarget({kind:'chat',id:'history-side',title:'History side'});
+  });
+  const side=page.locator('.bw-side-compose textarea'); await side.focus(); await side.press('Control+Home'); await side.press('ArrowUp');
+  assert.equal(await side.inputValue(),'Side message'); await side.press('ArrowDown'); assert.equal(await side.inputValue(),'Side draft');
+  await input.focus(); await input.press('ArrowDown'); assert.equal(await input.inputValue(),'Preserve this draft');
+  await input.press('Control+Home'); await input.press('ArrowUp');
+  await page.waitForTimeout(550); await page.reload(); await page.waitForFunction(() => Boolean(window.__barkdown?.state.loaded));
+  assert.equal(await input.inputValue(),'Preserve this draft','restart preserves original draft while browsing');
+  assert.deepEqual(errors,[]);
+  console.log('Composer history passed: 100-entry boundary, original draft/caret, multiline and soft wrapping, modifiers, selection, IME, side-chat isolation, restart recovery.');
+} finally { await app.close(); }
