@@ -32,7 +32,7 @@ Continuation validation: `npm ci`, Playwright Chromium installation and root `np
 
 ## Sidebar resizing — 2026-09-21
 
-The desktop sidebar now has a draggable right edge, keyboard adjustment and double-click reset. Its width persists in app settings and is capped to leave 520 px for the workspace; the handle hides with the sidebar on narrow windows. This user-requested shell change is independent of editor parity.
+The desktop sidebar now has a draggable right edge, keyboard adjustment and double-click reset. Its width persists in app settings and is capped to leave 520 px for the workspace; the handle hides with the sidebar on narrow windows. This user-requested shell change is independent of editor parity. Paper/archive rows reserve action space so hover and focus do not change row height or title width; work tabs reserve their action padding for the same reason.
 
 ## First 20 minutes
 
