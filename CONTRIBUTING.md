@@ -48,3 +48,7 @@ Original material remains private; preserve [third-party notices](THIRD-PARTY.md
 ## Work in delivery cycles
 
 Follow [the cycle protocol](docs/CYCLES.md). Run `npm run cycle` to find the current bounded goal, acceptance and handoff. Checkpoint during work and before yielding; close with tests, a repository truth pass and screenshot review. Root verification checks cycle structure, but cannot certify prose or replace real integration proof.
+
+## Review what the code looks like
+
+Use the [visual health pages](docs/visual/README.md) and [capture/review rules](docs/visual/RULES.md). Run `npm run visual:capture`, `npm run visual:compare`, inspect the actual report images, then explicitly approve. `npm run check:visual` rejects stale source fingerprints or altered evidence. New visible journeys require corresponding motion evidence and behavior checks; CI never blesses differences automatically.

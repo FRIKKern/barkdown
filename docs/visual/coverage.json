@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "trigger": "Conservative: all app/main, renderer, shared, app dependency/lockfile, Barkpark pin, root tooling dependencies and visual harness changes require a new capture/review.",
+  "areas": [
+    {
+      "id": "workspace",
+      "capture": "deterministic"
+    },
+    {
+      "id": "chat",
+      "capture": "deterministic"
+    },
+    {
+      "id": "side-chat",
+      "capture": "deterministic"
+    },
+    {
+      "id": "documents",
+      "capture": "deterministic"
+    },
+    {
+      "id": "settings",
+      "capture": "deterministic"
+    },
+    {
+      "id": "paper",
+      "capture": "live-status-shots"
+    },
+    {
+      "id": "agent-edits-files-recovery",
+      "capture": "pending-live-journeys"
+    }
+  ]
+}

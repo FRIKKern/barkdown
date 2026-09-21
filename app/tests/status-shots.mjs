@@ -24,6 +24,12 @@ const appDir = path.resolve(here, '..');
 const repo = path.resolve(appDir, '..');
 const out = path.join(repo, 'docs', 'images', 'status');
 fs.mkdirSync(out, { recursive: true });
+// Preserve the reviewed baseline before a new live capture. Prior hashed media stays intact.
+const priorManifest = path.join(out, 'manifest.json');
+if (fs.existsSync(priorManifest)) {
+  const history = path.join(out, 'history'); fs.mkdirSync(history, { recursive: true });
+  fs.copyFileSync(priorManifest, path.join(history, new Date().toISOString().replace(/[:.]/g, '-') + '.json'));
+}
 
 const SLUG = 'barkdown-status';
 const bp = (args, input) => JSON.parse(execFileSync('bp', [...args, '-o', 'json'], { ...(input == null ? { stdio: ['ignore', 'pipe', 'pipe'] } : { input }), shell: true, encoding: 'utf8', maxBuffer: 20e6 }));
@@ -147,7 +153,7 @@ const manifest = {
   shots,
 };
 // Content-hashed filenames: GitHub (camo) caches README images by URL, so a picture with the same name as
-// last time is served stale for hours after a push. Each capture writes <name>.<8-hex>.<ext>, removes the
+// last time is served stale for hours after a push. Each capture writes <name>.<8-hex>.<ext>, retains the
 // previous versions, and points the README's image links at the new names. npm run check still requires every
 // embedded status image to be listed in the manifest.
 const crypto = await import('node:crypto');
@@ -159,8 +165,7 @@ for (const shotEntry of manifest.shots) {
   const bytes = fs.readFileSync(path.join(out, shotEntry.file));
   const hash = crypto.createHash('sha1').update(bytes).digest('hex').slice(0, 8);
   const hashed = base + '.' + hash + '.' + ext;
-  const family = new RegExp('^' + base + '(\\.[0-9a-f]{8})?\\.' + ext + '$');
-  for (const old of fs.readdirSync(out)) if (old !== hashed && family.test(old)) fs.rmSync(path.join(out, old));
+  // Never remove prior evidence; README references advance only after the new capture.
   fs.writeFileSync(path.join(out, hashed), bytes);
   rootReadme = rootReadme.replace(new RegExp('docs/images/status/' + base + '(\\.[0-9a-f]{8})?\\.' + ext, 'g'), () => 'docs/images/status/' + hashed);
   shotEntry.file = hashed;

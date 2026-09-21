@@ -15,3 +15,5 @@
 ## Cycle and repository truth
 
 <!-- Link the cycle handoff. Record README/plan/evidence review, screenshot refresh or a specific no-change reason, remaining failures and the next action. Do not mark the parent stage done merely because this PR closes a cycle. -->
+
+<!-- Visual tripwire: link the candidate report and named image review; explain intended differences and behavior checks. New UI journeys need a corresponding area GIF/video and README changelog. Never accept a baseline automatically. -->

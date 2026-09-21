@@ -39,3 +39,7 @@ Do not install or copy the paid Tiptap Notion template by default. It is an inte
 ## Delivery cycles
 
 Follow `docs/CYCLES.md` and run `npm run cycle` before implementation. Plan one bounded outcome in `docs/cycle.json`; keep its linked handoff current after meaningful slices, failed checks, blockers and before yielding. Every cycle closes with a repository truth review, relevant tests and screenshot review. App-source changes retain the implementation-commit → screenshots → evidence-commit sequence. Never mark a cycle or stage done without evidence. Archive completed cycle records before starting the next one; interrupted work must name the exact next action and any uncommitted/untested state.
+
+## Visual tripwires
+
+Follow `docs/visual/RULES.md`. App/dependency/capture changes require `visual:capture`, `visual:compare`, actual agent/human image inspection and explicit `visual:approve`, plus behavior tests. Never auto-accept a visual baseline or remove old evidence to pass CI. Review intermediate frames, geometry, narrow layouts and the code-area README changelogs. Keep live Paper evidence distinct from deterministic fixture tours. Existing `shots` freshness rules still apply.

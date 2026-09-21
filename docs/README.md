@@ -30,3 +30,7 @@ Keep planned, implemented, tested and merged states distinct. Update the plan, h
 ## Everyday delivery
 
 [Delivery cycles](CYCLES.md) define planning, checkpoints and the closing truth pass. [The current cycle](cycle.json) links its working handoff. Run `npm run cycle`; planned work is never reported as demonstrated capability.
+
+## Inspect the app without reading its implementation
+
+[Visual health](visual/README.md) provides area-specific screenshots, GIFs, review reports and changelogs. [Visual rules](visual/RULES.md) explain change tripwires and how agent review protects the approved baseline.

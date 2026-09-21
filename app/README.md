@@ -55,3 +55,12 @@ The canvas loads from the connected Barkpark, with cached and vendored fallback.
 P1–P5 deliver profile isolation, migration to one editor, interruption recovery and portability, optional sync, and clean-machine installation. Unsaved project buffers are still session memory. The Windows runtime is a source-checkout integration; forced-desktop termination, packaged installation and other platforms need further proof. Existing passing tests do not establish multi-profile or sync behavior.
 
 Use [the local-runtime guide](../docs/LOCAL-BARKPARK.md) for setup and [the acceptance scenarios](../docs/ACCEPTANCE.md) to decide when a stage is complete. The prototype uses direct provider adapters; no T3 runtime import is claimed.
+
+## Visual health by area
+
+- [Workspace navigation](../docs/visual/workspace/README.md): renderer shell, sidebar, tabs and quick open.
+- [Main chat](../docs/visual/chat/README.md) and [side chat](../docs/visual/side-chat/README.md): shared composer and conversation controls.
+- [Local documents](../docs/visual/documents/README.md): the legacy editor retained pending P2; live Paper evidence remains in the root gallery.
+- [Settings](../docs/visual/settings/README.md): preferences and connection controls.
+
+Each page contains a still, recorded interaction GIF, provenance and changelog. [Rules and coverage limits](../docs/visual/RULES.md) distinguish visual review from functional/runtime proof.
