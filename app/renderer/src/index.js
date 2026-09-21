@@ -1,5 +1,6 @@
 import { mountComposer } from './composer.js';
 import { openGoalView } from './goals.js';
+import { captureManagedView, mergeManagedView } from './managed-workspace.js';
 // Barkdown desktop renderer: app-wide navigation, per-chat workspaces, agent runs, pins, quick open.
 import { el, esc, iconHtml, renderIcons, toast, basename, relativeTime, errorMessage } from './ui.js';
 import { state, load, save, serialise, newChat, newTab, currentChat, activeTab, touch, chatTitleFrom } from './state.js';
@@ -27,21 +28,13 @@ let mainComposer;
 const controllers = new Map(); // tab.id -> mounted controller
 const DIRECT = 'direct';
 let managedRefreshRequest = 0;
-const transcriptStamp = chat => JSON.stringify([chat.runId, chat.messages.map(message => [message.id, message.runId, message.lastSequence, message.text, message.streaming])]);
 async function refreshManagedChats() {
   if (!state.profileId) return;
   const request = ++managedRefreshRequest, profileId = state.profileId;
-  const before = new Map(Object.entries(state.chats).map(([id, chat]) => [id, transcriptStamp(chat)]));
+  const before = captureManagedView(state);
   const data = await api.state.load();
   if (request !== managedRefreshRequest || data.profileId !== profileId || state.profileId !== profileId) return;
-  const managed = ['messages', 'events', 'apiHistory', 'sessions', 'sessionSeen', 'runId', 'runProvider', 'workingLabel', 'goalId'];
-  for (const [id, saved] of Object.entries(data.chats)) {
-    if (!state.chats[id]) state.chats[id] = saved;
-    // A provider event or a newly submitted prompt after this request wins over
-    // the older snapshot. A later refresh can reconcile its durable metadata.
-    else if (before.get(id) === transcriptStamp(state.chats[id])) for (const key of managed) if (Object.hasOwn(saved, key)) state.chats[id][key] = saved[key];
-    if (id !== DIRECT && !state.order.includes(id)) state.order.push(id);
-  }
+  mergeManagedView(state, data, before);
   render();
   for (const controller of controllers.values()) if (controller.type === 'chat') controller.render?.();
 }
