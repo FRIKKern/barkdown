@@ -20,7 +20,11 @@ try{
    const geometry=await p.evaluate(()=>[...document.querySelectorAll('button,input,textarea,[role="separator"],.bw-sidebar,.bw-side-chat')].filter(e=>e.getBoundingClientRect().width&&e.getBoundingClientRect().height).map(e=>{const r=e.getBoundingClientRect();return {tag:e.tagName,id:e.id,label:e.getAttribute('aria-label')||e.getAttribute('title')||e.textContent.trim().slice(0,60),box:[r.x,r.y,r.width,r.height].map(Math.round)};}));
    await p.screenshot({path:safe(file),animations:'disabled',caret:'hide'});hashes[file]=hash(fs.readFileSync(safe(file)));frames.push({file,step,geometry});
   }
-  const gif=GIFEncoder();for(const f of frames){const png=PNG.sync.read(fs.readFileSync(safe(f.file)));const palette=quantize(png.data,256,{format:'rgba4444'});gif.writeFrame(applyPalette(png.data,palette,'rgba4444'),png.width,png.height,{palette,delay:1300,repeat:0});}gif.finish();
+  const gif=GIFEncoder();for(const f of frames){const png=PNG.sync.read(fs.readFileSync(safe(f.file)));
+   // A narrow viewport is letterboxed, not composited over stale pixels from the wide view.
+   const width=1100,height=740,data=Buffer.alloc(width*height*4,235);for(let i=3;i<data.length;i+=4)data[i]=255;
+   for(let y=0;y<png.height;y++)png.data.copy(data,y*width*4,y*png.width*4,(y+1)*png.width*4);
+   const palette=quantize(data,256,{format:'rgba4444'});gif.writeFrame(applyPalette(data,palette,'rgba4444'),width,height,{palette,delay:1300,repeat:0});}gif.finish();
   const file=`${dir}/${area}.gif`;fs.writeFileSync(safe(file),Buffer.from(gif.bytes()));hashes[file]=hash(fs.readFileSync(safe(file)));shots.push({area,caption,file,frames});
  };
  await tour('workspace','Real desktop navigation with disposable local notes; no cloud or provider.',[
