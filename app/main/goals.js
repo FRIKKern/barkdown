@@ -119,11 +119,12 @@ function openJournal(root) {
 }
 
 class GoalScheduler {
-  constructor({ journal, adapter, now = Date.now, onChange = () => {}, admission = new GoalAdmission() }) {
+  constructor({ journal, adapter, now = Date.now, onChange = () => {}, admission = new GoalAdmission(), verifyTermination }) {
     assert(adapter && typeof adapter.execute === 'function', 'Missing execution adapter');
     this.journal = journal; this.adapter = adapter; this.now = now; this.onChange = onChange;
     this.live = new Map(); this.closed = false; this.fault = null; this.closePromise = null;
     this.admission = admission;
+    this.verifyTermination = verifyTermination;
     const data = journal.read(); let changed = false;
     for (const g of data.goals) {
       for (const t of g.tasks) if (t.status === 'running') {
@@ -266,7 +267,7 @@ class GoalScheduler {
     // Slot releases only after the adapter promise has terminated, in dispatch's finally.
   }
 
-  reviewTask(profileId, id, taskId, { accepted, evidence, note, retry = false }) {
+  reviewTask(profileId, id, taskId, { accepted, evidence, note, retry = false, context }) {
     text(note, 'review note'); assert(Array.isArray(evidence) && evidence.length > 0 && evidence.every(e => typeof e === 'string' && e.trim()), 'Review requires evidence');
     assert(typeof accepted === 'boolean' && !(accepted && retry), 'Invalid review decision');
     const g = this.change(profileId, id, g => {
@@ -275,10 +276,12 @@ class GoalScheduler {
       const t = g.tasks.find(t => t.id === taskId); assert(t, 'Unknown task');
       assert(![...this.live.values()].some(r => r.profileId === profileId && r.goalId === id && r.taskId === taskId), 'Provider has not stopped');
       assert(['review', 'interrupted', 'failed', 'cancelled'].includes(t.status), 'Task is not ready for review');
+      assert(Number.isFinite(t.attempts.at(-1)?.stoppedAt), 'Provider termination has not been established');
       assert(!accepted || t.status === 'review' || t.status === 'interrupted', 'Failed provider work cannot be accepted');
       assert(!retry || t.attempts.length < 100, 'Attempt limit reached');
       t.review = { accepted, note, evidence: copy(evidence), at: this.now() };
       t.status = accepted ? 'completed' : retry ? 'pending' : 'failed';
+      if (retry && context) t.context = copy(context);
       if (accepted) t.attempts.at(-1).status = 'completed';
       if (!['cancelled', 'expired'].includes(g.status) && g.tasks.every(t => t.status === 'completed')) g.status = 'review';
     });
@@ -291,6 +294,20 @@ class GoalScheduler {
     return this.change(profileId, id, g => {
       assert(g.status === 'review' && g.tasks.every(t => t.status === 'completed'), 'Unfinished goal');
       g.review = { note, evidence: copy(evidence), at: this.now() }; g.status = 'completed';
+    });
+  }
+
+  async reconcileTermination(profileId, id, taskId) {
+    const goal = this.get(profileId, id), task = goal.tasks.find(t => t.id === taskId), attempt = task?.attempts.at(-1);
+    assert(task?.status === 'interrupted' && attempt && !Number.isFinite(attempt.stoppedAt), 'No unresolved termination');
+    assert(!this.live.has(attempt.id), 'Provider has not stopped');
+    assert(typeof this.verifyTermination === 'function', 'No trusted termination verifier is configured');
+    assert(await this.verifyTermination({ goal, task, attempt }) === true, 'Termination has not been established');
+    return this.change(profileId, id, current => {
+      const latest = current.tasks.find(t => t.id === taskId)?.attempts.at(-1);
+      assert(latest?.id === attempt.id, 'Attempt changed during reconciliation');
+      latest.stoppedAt = this.now();
+      latest.reason = 'Driver shutdown verified; inspect effects before accepting or retrying.';
     });
   }
 
