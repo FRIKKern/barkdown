@@ -239,7 +239,7 @@ class GoalScheduler {
     this.change(owner.profileId, owner.goalId, g => {
       const t = g.tasks.find(t => t.id === owner.taskId); const a = t.attempts.at(-1);
       if (a.id !== owner.attemptId) return;
-      const status = result?.status === 'succeeded' && !result.offline ? 'review' : result?.status === 'cancelled' ? 'cancelled' : 'failed';
+      const status = result?.status === 'succeeded' && !result.offline ? 'review' : result?.status === 'cancelled' ? 'cancelled' : result?.status === 'interrupted' ? 'interrupted' : 'failed';
       a.result = { status, text: typeof result?.text === 'string' ? result.text.slice(0, 100000) : '', offline: Boolean(result?.offline) };
       a.stoppedAt = this.now();
       if (t.status === 'running') {
