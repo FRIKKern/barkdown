@@ -2,14 +2,15 @@
 
 A real saved side conversation and its independent composer, using disposable fixture state.
 
-![Current view](../runs/2026-09-21T22-32-06-713Z/side-chat-3.png)
+![Current view](../runs/2026-09-21T23-39-00-392Z/side-chat-3.png)
 
-![Recorded interaction](../runs/2026-09-21T22-32-06-713Z/side-chat.gif)
+![Recorded interaction](../runs/2026-09-21T23-39-00-392Z/side-chat.gif)
 
-[Full comparison](../runs/2026-09-21T22-32-06-713Z/README.md) · [Capture manifest](../runs/2026-09-21T22-32-06-713Z/manifest.json)
+[Full comparison](../runs/2026-09-21T23-39-00-392Z/README.md) · [Capture manifest](../runs/2026-09-21T23-39-00-392Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-21T23:41:01.692Z: Inspected all31 actual frames in seven area contact sheets, including profile Settings and goal planned/running/paused/narrow/worker navigation. Existing21 reference frames have zero above-tolerance pixel or geometry differences; new10 frames readable with menus and footer/scroll regions intact. No new clipping or overlap observed. Deterministic providers remain blocked; this does not prove native worker execution or live Paper behavior. Inherited40percent default mismatch is tracked separately. Full pre-native desktop passed;46 native goal tests and23 Paper host tests pass, current native Electron fixture adaptation pending. Source ae49f97b9; [review](../runs/2026-09-21T23-39-00-392Z/comparison.json).
 - 2026-09-21T22:33:31.825Z: C004: inspected all 21 action frames across five areas, including intermediate chooser states, narrow workspace and light/dark documents. Comparison reports no changed pixels above tolerance or geometry changes in the same environment. Bound-run ownership is covered by 11 behavior-test groups, not inferred from screenshots. No profile switching UI is claimed. Source 0086867d2; [review](../runs/2026-09-21T22-32-06-713Z/comparison.json).
 - 2026-09-21T21:50:11.399Z: C002: reviewed all 21 action frames across five areas after folder-context and offline-fallback changes. No pixel differences above tolerance or control-geometry changes; environment unchanged. Request/dispatcher tests cover resumed and cleared folders, image-only turns and original-text offline navigation. Visual evidence does not measure live folder-answer latency. Source 3e2ed6fa0; [review](../runs/2026-09-21T21-48-36-561Z/comparison.json).
 - 2026-09-21T21:34:25.844Z: Reviewed the CI startup-toast difference and corrected capture timing without hiding UI. New local capture matches all 21 prior frames and geometry; workspace dismissal image inspected again. Environment-change flag reflects newly recorded OS/architecture/font fields on the same local machine. Prior full visual and desktop regression evidence retained. Source 335b460f3; [review](../runs/2026-09-21T21-33-30-215Z/comparison.json).
