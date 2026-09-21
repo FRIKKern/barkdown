@@ -70,3 +70,8 @@ Branch `codex/fast-folder-context`, implementation `c66744b` plus regression cor
 `npm run test:desktop` passed all unit suites, 76 Electron checks, direct-edit UI, composer-history/restart and side-chat ownership/restart cases. `npm run verify` passed. The [live Paper capture](images/status/history/C002-3e2ed6f.json) used private Barkpark `a5440345c` with clean app/source trees and a real Codex turn; the private runtime stopped normally. Five stills and 37 GIF frames were inspected. The [deterministic comparison](visual/runs/2026-09-21T21-48-36-561Z/comparison.json) has no differences above tolerance or geometry changes across 21 frames; named review and current hashes pass.
 
 No focused live folder-question latency/compliance benchmark, profile implementation, merge or deployment is claimed. The [C002 handoff](cycles/C002-folder-context.md) preserves the initial failures, recovery steps and final evidence; C001 remains planned.
+
+## E002 editor takeover — 2026-09-22
+
+Barkdown663a12a / Barkparkbb3bd299d: 8/8 private-server live cases, host23/23 and direct-edit UI passed. Actual server content, IME, selection/scroll and first-receipt geometry covered. [Named motion review and provenance](visual/agent-takeover/runs/2026-09-21T23-35-14-407Z/README.md). Deterministic21-frame comparison unchanged and explicitly reviewed; current status media real Codex. Upstream full test/save-ack:721 and posttest/press-watchdog:284 remain known failures; no all-green upstream or merge-readiness claim. [Handoff](cycles/E002-agent-takeover.md).
+`npm run verify` passed with final current visual approval and exact-source status freshness. `git diff --check` passed.

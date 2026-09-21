@@ -2,14 +2,15 @@
 
 Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.
 
-![Current view](../runs/2026-09-21T23-23-17-409Z/documents-2.png)
+![Current view](../runs/2026-09-21T23-34-15-390Z/documents-2.png)
 
-![Recorded interaction](../runs/2026-09-21T23-23-17-409Z/documents.gif)
+![Recorded interaction](../runs/2026-09-21T23-34-15-390Z/documents.gif)
 
-[Full comparison](../runs/2026-09-21T23-23-17-409Z/README.md) · [Capture manifest](../runs/2026-09-21T23-23-17-409Z/manifest.json)
+[Full comparison](../runs/2026-09-21T23-34-15-390Z/README.md) · [Capture manifest](../runs/2026-09-21T23-34-15-390Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-21T23:40:30.809Z: Reviewed all 21 PNGs and 21 decoded fixture GIF frames; comparison has zero pixel, geometry or environment changes. Separately inspected final live Paper 8-case evidence, 70-frame normal-motion excerpt, 107 full-video one-second samples, eight stills including narrow layout; first receipt no longer shifts document. Real status five stills and all 37 GIF frames inspected. Host 23/23 and direct-edit UI passed; upstream baseline save-ack/watchdog failures remain. Source 663a12a6e; [review](../runs/2026-09-21T23-34-15-390Z/comparison.json).
 - 2026-09-21T23:25:10.868Z: E002 afc9c79: inspected all21 actual PNG frames and all21 decoded GIF frames, including menus, narrow layout, modal controls, themes and side-chat geometry. Comparison reports no above-tolerance pixel, geometry or environment changes. Paper host23/23 and full desktop76/direct-edit/history/sidechat checks passed. Real Paper takeover motion and server preservation have separate dedicated evidence; this fixture approval does not claim them. Source afc9c79a3; [review](../runs/2026-09-21T23-23-17-409Z/comparison.json).
 - 2026-09-21T22:43:25.993Z: E001 final harness review: inspected all 21 action frames across workspace, chat, side chat, documents and Settings after adding the Paper recovery capture tripwire. No changed pixels above tolerance, geometry change or environment drift; clean capture inputs at e19edfa. Nineteen controlled Paper races and four real-server recovery journeys separately prove behavior. Live Paper and recovery images remain distinct from these fixture tours; no crash-recovery or profile-isolation claim. Source e19edfa6d; [review](../runs/2026-09-21T22-41-46-408Z/comparison.json).
 - 2026-09-21T22:36:22.255Z: E001: inspected all 21 deterministic action frames across five areas; no changed pixels above tolerance, geometry changes or environment drift. Paper save ownership is separately covered by 19 controlled races and real private-server delayed save, Undo/redo, Retry and cancelable discard checks. Reviewed nine Paper recovery stills including 760px layout, the action GIF, five live Paper stills and all 37 editing GIF frames; those are distinct from fixture tours. No crash-recovery or profile-isolation claim. Source 228a0084f; [review](../runs/2026-09-21T22-34-11-177Z/comparison.json).

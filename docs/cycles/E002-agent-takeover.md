@@ -1,6 +1,6 @@
 # E002 — Present acknowledged agent edits without losing the person's next input
 
-Planned editor-lane cycle, 2026-09-22. Root approved after E001 closes. Remain on `codex/editor-upgrades-12h`; no merge/deploy. This does not replace the profile delivery queue.
+Closed editor-lane cycle, 2026-09-22. Root approved after E001 closes. Remain on `codex/editor-upgrades-12h`; no merge/deploy. This does not replace the profile delivery queue.
 
 ## Audited risk to reproduce
 
@@ -13,7 +13,7 @@ Paper host `refresh()` advances its revision before `canvas.applyServerBlocks()`
 3. Exercise hidden panes and reduced motion without fabricated saves or extra operations. Record genuine motion/video and final server/revision evidence.
 4. If editor internals require a new guarded application seam, create an isolated Barkpark worktree and follow its guide. Do not force an explicit conflict-discard API, copy editor source into Barkdown or alter the shared source checkout.
 
-## Checkpoint and next action
+## Historical checkpoints (superseded by final closeout)
 
 E001 closed at `096e93e`. The initial real takeover harness is `app/tests/paper-agent-takeover.live.mjs` (uncommitted). Disposable runtime `b7ti00` reproduced actual data loss: agent revision 1→2 saved `Acknowledged agent sentence.`, then typing during selection presentation saved `Original target sentence. Human follows.` at revision 3. Both visible and actual server content lost the agent sentence. The runtime stopped normally; its slot was released. Before-fix screenshots/result remain in `app/test-results/paper-agent-takeover` pending evidence archival. This is diagnosis, not final visual approval.
 
@@ -42,3 +42,18 @@ Pushed Barkdown `afc9c79` and upstream `bb3bd299d` (`codex/agent-takeover-12h`).
 Motion inspection found a roughly 44px first-receipt layout shift after presentation. This run is retained but **not visually approved**. Root directed fixing it inside E002. The pending correction moves Paper’s receipt into its existing metadata line, gives that useful line stable height, keeps Undo reachable with an ellipsized summary, and updates the visible saved revision after accepted external content. Added live geometry assertions cover visible paragraph positions before/during/after first receipt and offscreen first-receipt insertion. Corrective code is currently uncommitted; controlled host 23/23 and direct-edit UI tests pass. Final live verification and recapture are pending.
 
 The deterministic `2026-09-21T23-23-17-409Z` run at afc9c79 was actually reviewed (all 21 PNG and 21 decoded GIF frames), compared with no pixel/geometry/environment changes and explicitly approved for that source. Its approval is invalidated by the pending correction as intended. The afc9c79 live status capture used real Codex after Claude’s weekly limit and stopped (`RxmvsO`); retain its manifest as historical when replacing it with final evidence.
+
+## Final closeout
+
+Implementation: Barkdown `afc9c79` plus stable-receipt correction `663a12a`; upstream `bb3bd299d` on `codex/agent-takeover-12h`. Root-approved C007 launcher dependency is `73a9c0d`, imported narrowly from `34b17ce`. This cycle is closed for its bounded acceptance, not upstream merge readiness.
+
+Final clean-source live run `2026-09-21T23-35-14-407Z` passed 8/8: keyboard takeover; complete presentation and first-receipt geometry; actual beforeinput; Chromium IME; pointer takeover; reduced motion/narrow view; hidden pane; focused offscreen first receipt. Canvas, host revision and actual saved server content are asserted. Runtime kPpcTM stopped cleanly. Served bundle SHA1 is `4c7b4292234b343f54ae7431d93e0d16b5841536`; full provenance and named review are in [the final run](../visual/agent-takeover/runs/2026-09-21T23-35-14-407Z/README.md).
+
+Visual review inspected all eight stills, all 70 normal-motion excerpt frames, 107 one-second samples across the continuous recording and full-resolution narrow layout. The receipt now stays within the existing metadata line, leaves Undo readable and does not shift the first paragraph or focused offscreen reading. The rejected afc9c79 run remains preserved. Deterministic `2026-09-21T23-34-15-390Z` compared with zero pixel/geometry/environment changes; all 21 PNGs and 21 GIF frames inspected and explicitly approved. Current live status capture used genuine Codex after Claude hit its weekly limit; all five stills and 37 GIF frames inspected. Runtime acBnSS stopped cleanly.
+
+Controlled host 23/23 and direct-edit UI passed after the correction. Full Barkdown app suite passed at afc9c79, including 76 desktop checks. Upstream new mounted takeover, cross-source debounce, rejected acknowledgement, node-view flush and IME passed; full npm test stops at the pre-existing save-ack line 721 failure, and posttest reaches the existing press-answer-watchdog line 284 failure. Full root verify result is recorded below after the final run.
+
+Compatibility: the app pin stays a544. Improved takeover requires connected upstream bb3bd299d; a544 deliberately preserves the old revision and offers explicit reload when it cannot apply safely. The own compiled source is available at `C:/Users/Frikk/.codex/worktrees/barkpark-agent-takeover`; all owned test runtimes are stopped. Parent PR19579 remains OPEN/BLOCKED. Upstream requires a claimed task, while root prohibits shared task DB mutations, so the upstream checkpoint is a pushed branch without a new PR. No fabricated task fulfillment, merge or deployment.
+
+Next action: root can integrate the reviewed branch and run combined evidence using the exact upstream bundle above. Further editor work should begin a new bounded E003, retaining the upstream baseline failures and this compatibility boundary. No pending source edits or running editor test servers remain at closeout.
+`npm run verify` passed after final evidence/approval: source syntax, links, hashes, status freshness, roadmap/cycle checks, visual source coverage/review, responsive concept and handoff checks. Duplicate unhashed status aliases were recoverably moved to ignored `app/test-results/E002-status-aliases` after verifying exact equality with retained hashed artifacts; no approved historical media removed.
