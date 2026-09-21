@@ -285,3 +285,13 @@ h1,h2,h3,p{margin:0}
 .bw-agent-edit span { flex:1; }
 .bw-agent-edit button { border:0; background:transparent; color:inherit; text-decoration:underline; cursor:pointer; }
 @media (prefers-reduced-motion:reduce) { .bw-agent-caret { transition:none; } }
+.bw-chat-pane { overflow:hidden; }
+.bw-chat-pane .bw-side-chat { padding:0; height:100%; min-height:0; gap:0; overflow:hidden; }
+.bw-side-heading { display:flex; align-items:center; gap:12px; padding:14px 20px 4px; font-size:13px; }
+.bw-side-heading #title { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.bw-side-heading button,.bw-chat-parent button { font-size:11px; color:var(--bw-muted); }
+.bw-chat-parent { padding:4px 20px; }
+.bw-chat-pane .bw-side-messages { min-height:0; overflow:auto; padding:20px; }
+.bw-chat-pane .bw-side-compose { flex-shrink:0; margin:12px; }
+.bw-compose-foot { flex-wrap:wrap; }
+.bw-chat-pane .bw-side-compose textarea { min-height:58px; }

@@ -87,3 +87,5 @@ Assistant document edits now save directly: the visible editor marks the target,
 Cloud papers stay in the collapsed **Cloud archive** until you add them to Pages or import a local copy. Pages order and nesting belong to you and survive refresh/disconnect. The one-time layout migration archives loose cloud entries, preserves nested groups, and keeps the old root order in workspace state for recovery.
 
 In either chat composer, press Up on the first line to recall up to 100 sent messages. Down on the last line moves forward and restores your unfinished draft. History is separate per conversation; restarting while browsing restores the original draft.
+
+Side chats share the full composer and transcript controls with the main chat, including provider/model/effort, images, history, approvals and activity. They appear in Recent chats and quick open, retain a parent link, and can open as a full conversation. Folder and model choices inherit once and can then change independently. Closing a tab or deleting its parent does not delete the side conversation. Older saved side chats are recovered into navigation on load.

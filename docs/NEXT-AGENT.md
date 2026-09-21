@@ -44,6 +44,8 @@ Validation: unit/MCP checks exercise direct saves, legacy alias, stale edits and
 
 Composer history (D29): main and side composers use `composer-history.js` for per-conversation Up/Down recall, capped at 100 user text messages. Visual-line boundary checks preserve soft-wrap navigation. Down restores the original draft/caret; serialization stores the original draft while recall is active. The Electron `composer-history.live.mjs` covers boundaries, wrapping, IME, selections, side-chat isolation and restart.
 
+Side-chat parity (D30): both views use `composer.js` and shared transcript action binding. Side chats now appear in Recent chats and quick open; legacy saved side chats omitted from `order` are recovered during load. Parent links and Open chat allow navigation between the inline view and a full workspace. Settings are inherited once, then independent. Side activities create work tabs owned by the side conversation, avoiding parent-folder leakage. Closing an inline tab preserves its conversation; deleting a parent preserves child conversations and the parent title. `sidechat-ui.live.mjs` verifies controls, real attachment storage, captured run arguments (mock provider), parent/child drafts, file routing, legacy recovery and restart persistence.
+
 ## First 20 minutes
 
 1. Run `npm ci`, `npx playwright install chromium`, and `npm run verify`.

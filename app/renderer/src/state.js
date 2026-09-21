@@ -22,7 +22,7 @@ export function newChat({ title = 'New chat', folder = null, side = false, paren
   const now = new Date().toISOString();
   const chat = { id: uid(), title, createdAt: now, updatedAt: now, folder, messages: [], apiHistory: [], events: [], tabs: [], active: null, draft: '', following: true, editorExpanded: false, chatScroll: 0, side, parent, runId: null, closedTargets: [] };
   state.chats[chat.id] = chat;
-  if (!side) state.order.unshift(chat.id);
+  if (!side || parent) state.order.unshift(chat.id);
   return chat;
 }
 
@@ -60,6 +60,8 @@ export async function load() {
   if (data && data.version === 1) {
     state.chats = data.chats || {};
     state.order = (data.order || []).filter(id => state.chats[id]);
+    const missingChats = Object.values(state.chats).filter(c => c.id !== 'direct' && !state.order.includes(c.id)).sort((a,b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
+    state.order.push(...missingChats.map(c => c.id));
     state.favorites = data.favorites || (data.pins || []).map(pin => { const tab = (pin.tabs || []).find(t => t.id === pin.active) || (pin.tabs || [])[0]; return tab ? { id: pin.id, label: pin.label || tab.title, target: tabToTarget(tab), chatId: pin.chatId, chatTitle: pin.rootTitle, folder: pin.folder, at: pin.at } : null; }).filter(Boolean);
     state.pages = data.pages || null;
     state.current = state.chats[data.current] ? data.current : state.order[0] || null;

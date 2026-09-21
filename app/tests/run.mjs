@@ -249,13 +249,14 @@ try {
   await page.waitForFunction(n => document.querySelectorAll('#bw-tabs [data-tab]').length === n - 1, tabsBeforeClose, { timeout: 5000 });
   step('Close tab accelerator closes one tab and keeps the window', (await page.locator('#bw-tabs [data-tab]').count()) === tabsBeforeClose - 1 && !page.isClosed());
   const tabsBefore = await page.locator('#bw-tabs [data-tab]').count();
+  const previousChat = await page.evaluate(() => window.__barkdown.state.current);
   await page.evaluate(() => window.__barkdown.createChat());
   step('new chat starts with an empty workspace', (await page.locator('#bw-tabs [data-tab]').count()) === 0);
   step('an empty workspace collapses and the chat takes the width', await page.evaluate(() => document.getElementById('app').classList.contains('bw-nowork') && getComputedStyle(document.querySelector('.bw-workspace')).display === 'none' && getComputedStyle(document.getElementById('bw-open-work')).display !== 'none'));
   await page.locator('#bw-open-work').click();
   step('the open-work button offers the work tab menu', await page.locator('#bw-new-menu').isVisible());
   await page.keyboard.press('Escape'); await page.evaluate(() => document.body.click());
-  await page.locator('#bw-recent-chats [data-context]').nth(1).click();
+  await page.locator(`#bw-recent-chats [data-context="${previousChat}"]`).click();
   step('switching back restores the workspace', (await page.locator('#bw-tabs [data-tab]').count()) === tabsBefore);
   await page.reload();
   await page.waitForSelector('#bw-documents .bw-nav', { timeout: 20000 });

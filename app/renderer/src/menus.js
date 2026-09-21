@@ -2,7 +2,7 @@
 // the control that opened it (below a toolbar button, above a composer chip), kept inside the
 // window, closed by Escape, by a click anywhere else, by resize, or by opening another menu.
 const root = () => document.getElementById('app');
-const q = s => root().querySelector(s);
+const q = s => typeof s === 'string' ? root().querySelector(s) : s;
 const GAP = 6, EDGE = 8;
 
 let open = null; // { menu, anchor }

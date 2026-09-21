@@ -39,6 +39,8 @@ These record the user's decisions through the private handoff. Preserve the inte
 
 **D29 (2026-09-21): Composer history.** Up from the first visual line recalls up to 100 sent messages in that conversation. Down from the last visual line moves forward and restores the original draft and caret. Preserve normal multiline navigation, text selections, modifiers and IME. Main and side chats keep independent histories. Save the original unsent draft while browsing so restart cannot lose it.
 
+**D30 (2026-09-21): Side chats are full conversations.** Save and list them alongside other chats, with a persistent parent reference and a link back. They share the main composer and transcript actions: provider, model, effort, image attachments, history, approvals and activity. Inherit the parent folder and model choices at creation, then allow independent changes. Closing a tab never removes its conversation; deleting the parent preserves its children. Side-chat file activity belongs to its own workspace and working folder.
+
 ## Explicitly superseded directions
 
 - The earlier proposal for a permanently visible pinned sidebar is superseded by the Pins dropdown that restores a path.

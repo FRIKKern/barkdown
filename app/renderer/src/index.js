@@ -1,8 +1,8 @@
-import { recallComposer, resetComposerHistory } from './composer-history.js';
+import { mountComposer } from './composer.js';
 // Barkdown desktop renderer: app-wide navigation, per-chat workspaces, agent runs, pins, quick open.
 import { el, esc, iconHtml, renderIcons, toast, basename, relativeTime, errorMessage } from './ui.js';
 import { state, load, save, newChat, newTab, currentChat, activeTab, touch, chatTitleFrom } from './state.js';
-import { transcriptHtml, sendMessage, handleAgentEvent, respondApproval, cancelRun, PROVIDER_LABEL, providerFor, formatDuration } from './conversation.js';
+import { transcriptHtml, handleAgentEvent, respondApproval, providerFor, formatDuration } from './conversation.js';
 import { mountDocument } from './tabs/document.js';
 import { mountPaper } from './tabs/paper.js';
 import { mountWebsite } from './tabs/website.js';
@@ -10,7 +10,6 @@ import { mountReview } from './tabs/review.js';
 import { mountProject, buffers, dirtyCount } from './tabs/project.js';
 import { mountSideChat } from './tabs/sidechat.js';
 import { mountTerminal } from './tabs/terminal.js';
-import { CLAUDE_MODELS, CODEX_MODELS, EFFORT_LEVELS, defaultModelLabel, defaultModelId, modelName } from './models.js';
 import { openSettings } from './settings.js';
 import { ensureCanvasBundle } from './canvas-bundle.js';
 import { toggleMenu, hideMenus as closeMenus, installMenuDismissal } from './menus.js';
@@ -23,31 +22,7 @@ const root = document.getElementById('app');
 const q = s => root.querySelector(s);
 const TYPE_ICON = { doc: 'file-text', web: 'globe', review: 'git-pull-request', project: 'folder-code', chat: 'message-circle', terminal: 'terminal' };
 
-// Models and reasoning effort a chat can pick per provider. Empty value means the provider's own default.
-// The default rows name what the provider would use on its own: Codex reads ~/.codex/config.toml.
-function modelChoices(provider) {
-  const codexDefault = state.settings?.providers?.codex?.model;
-  const providers = state.settings?.providers || {};
-  if (provider === 'claude') return [['', defaultModelLabel('claude', providers)], ...CLAUDE_MODELS.filter(([id]) => id !== defaultModelId('claude', providers).replace(/\[1m\]$/i, ''))];
-  if (provider === 'codex') return [['', defaultModelLabel('codex', providers)], ...CODEX_MODELS.filter(([id]) => id !== codexDefault)];
-  return [['', `Settings default${state.settings?.model ? ' (' + state.settings.model + ')' : ''}`], ...CLAUDE_MODELS];
-}
-// The default row names the effort the provider uses on its own: what its last run reported, else
-// what its own config says (Claude Code: settings.json or high; Codex: config.toml or medium).
-// The model a provider uses when the chat does not pick one: what its last run reported, else its own config.
-function defaultModelInForce(provider) {
-  const providers = state.settings?.providers || {};
-  if (provider === 'claude' || provider === 'codex') { const id = defaultModelId(provider, providers); return id ? { id, label: modelName(id) } : { id: '', label: provider === 'claude' ? 'Claude Code model' : 'Codex model' }; }
-  const id = state.settings?.model || 'claude-opus-5';
-  return { id, label: modelName(id) };
-}
-function effortChoices(provider) {
-  const levels = EFFORT_LEVELS[provider];
-  if (!levels) return [];
-  const p = state.settings?.providers?.[provider] || {};
-  const current = p.effortSeen || p.effort;
-  return [['', current ? `Default (${levels.find(([v]) => v === current)?.[1]?.toLowerCase() || current})` : 'Default'], ...levels];
-}
+let mainComposer;
 const controllers = new Map(); // tab.id -> mounted controller
 const DIRECT = 'direct';
 
@@ -70,6 +45,12 @@ function pauseFollow(chat = currentChat()) { if (chat) chat.following = false; }
 function tabContext(chat) {
   return {
     folder: () => chat.folder || null,
+    bindTranscript,
+    initials,
+    switchChat,
+    chatChanged: changed => { if (state.current === changed.id) renderChat(); renderSidebar(); renderTabs(); save(); },
+    openChatTarget: (owner, target) => openConversationTarget(target, owner),
+    folderChanged: owner => { for (const c of controllers.values()) if (owner.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); },
     tabChanged: tab => { renderTabs(); save(); },
     documentSummary,
     pagePath: (id, source) => pagePath(pageKey(id, source)),
@@ -128,6 +109,7 @@ function renderWorkspace() {
   }
   const controller = mountTab(chat, active);
   controller.el.hidden = false;
+  if (controller.type === 'chat') controller.render?.();
   q('#bw-splitter').hidden = state.mode !== 'chat' || Boolean(chat.editorExpanded);
 }
 
@@ -221,55 +203,7 @@ function openTarget(target, chat = currentChat(), manual = true, options = {}) {
   return tab;
 }
 
-// Composer attachments: thumbnails with a remove control, kept per chat as draftImages until sent.
-function renderAttachments(chat) {
-  const strip = q('#bw-attachments');
-  const images = chat?.draftImages || [];
-  strip.hidden = !images.length;
-  strip.innerHTML = images.map(i => `<span class="bw-attachment" title="${esc(i.name)}"><img src="${esc(i.url)}" alt="${esc(i.name)}"><button type="button" data-remove="${esc(i.id)}" aria-label="Remove ${esc(i.name)}">×</button></span>`).join('');
-}
-
-// Reads each image, downsizes anything over 2400px on its long side (ordinary screenshots stay as
-// they are), and saves it through the main process. Attaches to the current chat's draft.
-async function attachImages(files) {
-  const chat = currentChat();
-  if (!chat) return;
-  for (const file of files) {
-    if (!/^image\/(png|jpeg|gif|webp)$/.test(file.type)) { toast(`${file.name || 'That file'} is not a supported image (PNG, JPEG, GIF or WebP).`, 'error'); continue; }
-    try {
-      const dataUrl = await imageDataUrl(file);
-      const saved = await api.attachments.save({ name: file.name || 'pasted-image.png', mime: dataUrl.slice(5, dataUrl.indexOf(';')), dataUrl });
-      chat.draftImages = [...(chat.draftImages || []), saved];
-      renderAttachments(chat);
-      save();
-    } catch (error) { toast(errorMessage(error), 'error'); }
-  }
-  q('#bw-prompt').focus();
-}
-
-function imageDataUrl(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onerror = () => reject(new Error('Could not read the image'));
-    reader.onload = () => {
-      const original = reader.result;
-      if (file.type === 'image/gif') return resolve(original);
-      const img = new Image();
-      img.onerror = () => resolve(original);
-      img.onload = () => {
-        const max = 2400;
-        const scale = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
-        if (scale === 1) return resolve(original);
-        const canvas = document.createElement('canvas');
-        canvas.width = Math.round(img.naturalWidth * scale); canvas.height = Math.round(img.naturalHeight * scale);
-        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-        resolve(canvas.toDataURL(file.type === 'image/jpeg' ? 'image/jpeg' : 'image/png', 0.92));
-      };
-      img.src = original;
-    };
-    reader.readAsDataURL(file);
-  });
-}
+function attachImages(files) { return mainComposer.attachImages(files); }
 
 function userIsTyping() { const a = document.activeElement; return Boolean(a && a.closest('#bw-workspace') && (a.matches('textarea, input, [contenteditable="true"], .cm-content') || a.closest('.ProseMirror'))); }
 
@@ -278,7 +212,7 @@ function openDocTab(chat, id, source = 'local') { return openTarget({ kind: 'doc
 function openNewTab(type) {
   const chat = currentChat();
   if (state.mode === 'document') { state.mode = 'chat'; }
-  if (type === 'chat') { const side = newChat({ title: 'Side chat', folder: chat.folder, side: true, parent: chat.id }); return openTarget({ kind: 'chat', id: side.id, title: 'Side chat' }, chat, true); }
+  if (type === 'chat') { const side = newChat({ title: 'Side chat', folder: chat.folder, side: true, parent: chat.id }); Object.assign(side, { parentTitle: chat.title, provider: providerFor(chat), model: chat.model || null, effort: chat.effort || null }); return openTarget({ kind: 'chat', id: side.id, title: 'Side chat' }, chat, true); }
   if (type === 'doc') { savePositions(); pauseFollow(chat); const tab = newTab('doc', { title: 'Choose a document', path: [], source: 'local' }); chat.tabs.push(tab); chat.active = tab.id; render(); return openPalette('documents '); }
   if (type === 'web') { savePositions(); pauseFollow(chat); const tab = newTab('web', { title: 'Website', url: '' }); chat.tabs.push(tab); chat.active = tab.id; render(); controllers.get(tab.id)?.focus(); return tab; }
   if (type === 'project') return openProject(true);
@@ -328,20 +262,29 @@ function startFolderChat(folder) {
   return chat;
 }
 
-async function chooseFolder() {
-  const folder = await api.app.pickFolder();
-  if (!folder) return null;
-  const chat = currentChat();
-  chat.folder = folder;
-  chat.sessions = {};
-  state.settings = await api.settings.set({ recentFolder: folder }).catch(() => state.settings);
-  for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.();
-  render();
-  toast(`This chat's agent now works in ${basename(folder)}`);
-  return folder;
-}
+async function chooseFolder() { return mainComposer.chooseFolder(); }
 
 const closedSteps = new Set();
+function openConversationTarget(target, chat, manual = true) {
+  if (state.current !== chat.id) switchChat(chat.id);
+  return openTarget(target, chat, manual);
+}
+function bindTranscript(transcript, chat) {
+  transcript.querySelectorAll('[data-event]').forEach(b => { b.onclick = () => { const [mi, ei] = b.dataset.event.split(':').map(Number); const entry = chat.messages[mi]?.events?.[ei]; if (entry) openConversationTarget(entry.target, chat, true); }; });
+  transcript.querySelectorAll('[data-approval]').forEach(node => node.querySelectorAll('[data-approve]').forEach(b => { b.onclick = async () => { await respondApproval(chat, node.dataset.approval, b.dataset.approve === '1'); renderChatViews(chat); }; }));
+  const latest = transcript.querySelector('#bw-latest');
+  if (latest) latest.onclick = () => { const last = chat.events.at(-1); if (last) { chat.following = true; openConversationTarget(last.target, chat, false); focusTab(chat, findTabForTarget(chat, last.target)?.id || chat.active, false); chat.following = true; renderChat(); } };
+  transcript.querySelectorAll('a[href]').forEach(a => { a.onclick = e => { e.preventDefault(); openConversationTarget({ kind: 'web', url: a.href, title: hostname(a.href) }, chat, true); }; });
+  transcript.querySelectorAll('[data-view-file]').forEach(b => { b.onclick = () => openConversationTarget({ kind: 'project', path: b.dataset.viewFile, title: basename(b.dataset.viewFile) }, chat, true); });
+  transcript.querySelectorAll('[data-view-doc]').forEach(b => { b.onclick = () => openConversationTarget({ kind: 'doc', id: b.dataset.viewDoc, source: b.dataset.docSource || 'local' }, chat, true); });
+  transcript.querySelectorAll('[data-undo-file]').forEach(b => { b.onclick = async () => { const rel = b.dataset.undoFile; if (!chat.folder) { toast('No working folder on this chat.', 'error'); return; } if (!await askConfirm(`Undo the assistant's change to ${rel}? A tracked file goes back to the last commit; a new file is removed.`, { title: 'Undo this change?', confirm: 'Undo', danger: true })) return; try { const r = await api.git.revertFile(chat.folder, rel); toast(r.action === 'restored' ? `Restored ${r.path} from git` : r.action === 'removed' ? `Removed ${r.path}` : `${r.path} was already gone`); controllers.forEach(c => { if (c.type === 'project') c.refresh(rel); if (c.type === 'review') c.refresh(); }); } catch (error) { toast(errorMessage(error), 'error'); } }; });
+  // Remember which steps the person opened across re-renders while a run streams.
+  transcript.querySelectorAll('details.bw-step').forEach(d => { const key = chat.id + ':' + d.dataset.step; if (closedSteps.has(key)) d.open = false; d.addEventListener('toggle', () => { if (d.open) closedSteps.delete(key); else closedSteps.add(key); }); });
+}
+function renderChatViews(chat) {
+  if (!chat || chat.id === state.current) renderChat();
+  if (chat) for (const c of controllers.values()) if (c.type === 'chat' && c.tab.sideChatId === chat.id) c.render?.();
+}
 function renderChat() {
   const chat = currentChat();
   if (!chat) return;
@@ -349,44 +292,12 @@ function renderChat() {
   const transcript = q('#bw-transcript');
   const footer = chat.events.length && !chat.following ? `<button class="bw-follow-action" id="bw-latest">Go to latest activity →</button>` : '';
   const atBottom = transcript.scrollHeight - transcript.scrollTop - transcript.clientHeight < 80;
-  transcript.innerHTML = transcriptHtml(chat, { initials: initials(), footer });
-  transcript.querySelectorAll('[data-event]').forEach(b => { b.onclick = () => { const [mi, ei] = b.dataset.event.split(':').map(Number); const entry = chat.messages[mi]?.events?.[ei]; if (entry) openTarget(entry.target, chat, true); }; });
-  transcript.querySelectorAll('[data-approval]').forEach(node => node.querySelectorAll('[data-approve]').forEach(b => { b.onclick = async () => { await respondApproval(chat, node.dataset.approval, b.dataset.approve === '1'); renderChat(); }; }));
-  const latest = transcript.querySelector('#bw-latest');
-  if (latest) latest.onclick = () => { const last = chat.events.at(-1); if (last) { chat.following = true; openTarget(last.target, chat, false); focusTab(chat, findTabForTarget(chat, last.target)?.id || chat.active, false); chat.following = true; renderChat(); } };
-  transcript.querySelectorAll('a[href]').forEach(a => { a.onclick = e => { e.preventDefault(); openTarget({ kind: 'web', url: a.href, title: hostname(a.href) }, chat, true); }; });
-  transcript.querySelectorAll('[data-view-file]').forEach(b => { b.onclick = () => openTarget({ kind: 'project', path: b.dataset.viewFile, title: basename(b.dataset.viewFile) }, chat, true); });
-  transcript.querySelectorAll('[data-view-doc]').forEach(b => { b.onclick = () => openTarget({ kind: 'doc', id: b.dataset.viewDoc, source: b.dataset.docSource || 'local' }, chat, true); });
-  transcript.querySelectorAll('[data-undo-file]').forEach(b => { b.onclick = async () => { const rel = b.dataset.undoFile; if (!chat.folder) { toast('No working folder on this chat.', 'error'); return; } if (!await askConfirm(`Undo the assistant's change to ${rel}? A tracked file goes back to the last commit; a new file is removed.`, { title: 'Undo this change?', confirm: 'Undo', danger: true })) return; try { const r = await api.git.revertFile(chat.folder, rel); toast(r.action === 'restored' ? `Restored ${r.path} from git` : r.action === 'removed' ? `Removed ${r.path}` : `${r.path} was already gone`); controllers.forEach(c => { if (c.type === 'project') c.refresh(rel); if (c.type === 'review') c.refresh(); }); } catch (error) { toast(errorMessage(error), 'error'); } }; });
-  // Remember which steps the person opened across re-renders while a run streams.
-  transcript.querySelectorAll('details.bw-step').forEach(d => { const key = chat.id + ':' + d.dataset.step; if (closedSteps.has(key)) d.open = false; d.addEventListener('toggle', () => { if (d.open) closedSteps.delete(key); else closedSteps.add(key); }); });
+  transcript.innerHTML = (chat.parent ? `<div class="bw-chat-parent"><button data-parent="${esc(chat.parent)}" ${state.chats[chat.parent] ? '' : 'disabled'}>From ${esc(state.chats[chat.parent]?.title || chat.parentTitle || 'deleted conversation')}</button></div>` : '') + transcriptHtml(chat, { initials: initials(), footer });
+  transcript.querySelector('[data-parent]')?.addEventListener('click', () => switchChat(chat.parent));
+  bindTranscript(transcript, chat);
   if (atBottom || chat.runId) transcript.scrollTop = transcript.scrollHeight;
-  q('#bw-prompt').value = chat.draft || '';
-  renderAttachments(chat);
-  q('#bw-folder-label').textContent = chat.folder ? basename(chat.folder) : 'No working folder';
-  q('#bw-folder-context').title = chat.folder || 'Choose an agent working folder for this chat';
-  const provider = providerFor(chat);
-  const available = state.settings?.providers || {};
-  const ready = provider === 'claude' ? available.claude?.loggedIn : provider === 'codex' ? available.codex?.loggedIn : available.api?.hasKey;
-  q('#bw-provider-label').textContent = (PROVIDER_LABEL[provider] || provider) + (ready ? '' : ' · not signed in');
-  q('#bw-provider').classList.toggle('off', !ready);
-  q('#bw-provider').title = ready ? `Runs on ${PROVIDER_LABEL[provider]} using your local login. Click to switch.` : `${PROVIDER_LABEL[provider]} is not available. Click to switch or open Settings.`;
-  // The chips always name the value in force; a provider default is shown as such, never as a blank word.
-  const modelLabel = (modelChoices(provider)).find(([v]) => v === (chat.model || ''))?.[1] || chat.model;
-  const defaultModel = defaultModelInForce(provider);
-  q('#bw-model-label').textContent = chat.model ? modelLabel : `${defaultModel.label} (default)`;
-  q('#bw-model').title = chat.model ? `Model for this chat: ${chat.model}` : `Model for this chat: the provider default${defaultModel.id ? ', ' + defaultModel.id : ''}. Click to choose another.`;
-  const efforts = effortChoices(provider);
-  q('#bw-effort').hidden = !efforts.length;
-  const p = state.settings?.providers?.[provider] || {};
-  const defaultEffort = p.effortSeen || p.effort;
-  const effortName = v => (EFFORT_LEVELS[provider] || []).find(([id]) => id === v)?.[1] || v;
-  q('#bw-effort-label').textContent = chat.effort ? effortName(chat.effort) : defaultEffort ? `${effortName(defaultEffort)} (default)` : 'Effort';
-  q('#bw-effort').title = chat.effort ? `Reasoning effort for this chat: ${chat.effort}` : `Reasoning effort for this chat: the provider default${defaultEffort ? ', ' + defaultEffort : ''}. Click to choose another.`;
-  q('#bw-working').hidden = !chat.runId;
-  q('#bw-working').innerHTML = `<span class="bw-pulse"></span>${esc(chat.workingLabel || 'Working…')}`;
+  mainComposer?.render();
   q('#bw-run-state').hidden = !chat.runId;
-  q('#bw-stop').hidden = !chat.runId;
 }
 
 function initials() { return 'FJ'; }
@@ -403,7 +314,7 @@ function renderSidebar() {
     onDelete: async id => { const d = state.documents.find(x => x.id === id); if (!d || !await askConfirm(`Delete "${d.title}"? This cannot be undone.`, { title: 'Delete page?', confirm: 'Delete', danger: true })) return; await api.docs.delete(id); for (const c of [...controllers.values()]) if (c.type === 'doc' && c.tab.path.at(-1) === id) closeTab(workspaceChat(), c.tab.id); refreshLibrary(); },
   });
   const recents = q('#bw-recent-chats');
-  recents.innerHTML = state.order.map(id => state.chats[id]).filter(Boolean).slice(0, 30).map(c => `<button class="bw-nav ${c.id === state.current && state.mode === 'chat' ? 'selected' : ''}" data-context="${c.id}"><span>${esc(c.title)}<small>${esc(c.folder ? basename(c.folder) : 'no folder')}${c.runId ? ' · working' : ''} · ${esc(relativeTime(c.updatedAt))}</small></span></button>`).join('');
+  recents.innerHTML = state.order.map(id => state.chats[id]).filter(Boolean).slice(0, 30).map(c => `<button class="bw-nav ${c.id === state.current && state.mode === 'chat' ? 'selected' : ''}" data-context="${c.id}"><span>${esc(c.title)}<small>${c.parent ? '↳ ' + esc(state.chats[c.parent]?.title || c.parentTitle || 'deleted conversation') + ' · ' : ''}${esc(c.folder ? basename(c.folder) : 'no folder')}${c.runId ? ' · working' : ''} · ${esc(relativeTime(c.updatedAt))}</small></span></button>`).join('');
   recents.querySelectorAll('[data-context]').forEach(b => { b.onclick = () => switchChat(b.dataset.context); b.oncontextmenu = e => { e.preventDefault(); askConfirm(`Delete chat "${state.chats[b.dataset.context].title}"?`, { title: 'Delete chat?', confirm: 'Delete', danger: true }).then(ok => { if (ok) deleteChat(b.dataset.context); }); }; });
   q('#bw-connection').textContent = state.settings?.barkpark?.enabled ? `Barkpark${state.barkparkDocs.length ? ' · ' + state.barkparkDocs.length : ''}` : 'Local';
   q('#bw-connection').title = state.settings?.barkpark?.enabled ? state.settings.barkpark.server || 'via bp CLI' : 'Local library';
@@ -415,6 +326,13 @@ function deleteChat(id) {
   const chat = state.chats[id];
   if (!chat) return;
   for (const t of chat.tabs) unmountTab(t.id);
+  for (const owner of Object.values(state.chats)) {
+    const removed = owner.tabs.filter(t => t.type === 'chat' && t.sideChatId === id);
+    for (const t of removed) unmountTab(t.id);
+    owner.tabs = owner.tabs.filter(t => !removed.includes(t));
+    if (removed.some(t => t.id === owner.active)) owner.active = owner.tabs.at(-1)?.id || null;
+    if (owner.parent === id) owner.parentTitle = chat.title;
+  }
   delete state.chats[id];
   state.order = state.order.filter(x => x !== id);
   if (state.current === id) state.current = state.order[0] || createChat().id;
@@ -456,18 +374,7 @@ function renderNewMenu() {
   q('#bw-new-menu').querySelectorAll('[data-new]').forEach(b => { b.onclick = () => { hideMenus(); openNewTab(b.dataset.new); }; });
 }
 
-function renderProjectMenu() {
-  const chat = currentChat();
-  if (!chat) return;
-  const menu = q('#bw-project-menu');
-  const recent = (state.settings?.recentFolders || []).filter(f => f !== chat.folder).slice(0, 5);
-  menu.innerHTML = `<h3>Agent working folder</h3><div class="bw-project-location"><b>${esc(chat.folder ? basename(chat.folder) : 'No working folder')}</b>${esc(chat.folder || 'File tools are unavailable until this chat has a folder.')}</div><button data-act="choose">${iconHtml('folder-open')}${chat.folder ? 'Change folder…' : 'Choose folder…'}</button>${chat.folder ? `<button data-act="open">${iconHtml('folder-code')}Open project in editor</button><button data-act="new-chat">${iconHtml('message-circle-plus')}New chat with this folder</button><button data-act="clear">${iconHtml('x')}Remove folder from this chat</button>` : ''}${recent.length ? `<h3>Recent folders</h3>${recent.map(f => `<button data-folder="${esc(f)}" title="${esc(f)}">${iconHtml('folder-open')}<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(basename(f))}</span></button>`).join('')}` : ''}`;
-  menu.querySelector('[data-act="choose"]').onclick = () => { hideMenus(); chooseFolder(); };
-  menu.querySelector('[data-act="open"]') && (menu.querySelector('[data-act="open"]').onclick = () => { hideMenus(); openProject(true); });
-  menu.querySelector('[data-act="new-chat"]') && (menu.querySelector('[data-act="new-chat"]').onclick = () => { hideMenus(); startFolderChat(chat.folder); });
-  menu.querySelector('[data-act="clear"]') && (menu.querySelector('[data-act="clear"]').onclick = () => { hideMenus(); chat.folder = null; render(); });
-  menu.querySelectorAll('[data-folder]').forEach(b => { b.onclick = () => { hideMenus(); chat.folder = b.dataset.folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }; });
-}
+function renderProjectMenu() { mainComposer?.renderProjectMenu(); }
 
 // ---------- favorites ----------
 // A favorite is a bookmark for one tab: the document, website, file, review, terminal or side chat it
@@ -625,10 +532,10 @@ async function createDocument(parent = null) {
 // ---------- agent events ----------
 api.agent.onEvent(event => handleAgentEvent(event, {
   tool: (chat, ev) => controllers.forEach(c => { if (c.type === 'terminal' && c.chatId === chat.id) c.agentEvent(ev); }),
-  render: chat => { if (!chat || chat.id === state.current) renderChat(); if (chat?.side) controllers.forEach(c => { if (c.type === 'chat' && c.tab.sideChatId === chat.id) c.render?.(); }); renderSidebar(); },
-  renderDelta: chat => { if (chat.id === state.current) { const copy = q('#bw-transcript').querySelectorAll('.bw-agent-copy'); const last = copy[copy.length - 1]; if (last) { renderChat(); } } else if (chat.side) controllers.forEach(c => { if (c.type === 'chat' && c.tab.sideChatId === chat.id) c.render?.(); }); },
+  render: chat => { renderChatViews(chat); renderSidebar(); },
+  renderDelta: renderChatViews,
   activity: (chat, entry, event) => {
-    const owner = chat.side ? state.chats[chat.parent] || chat : chat;
+    const owner = chat;
     const target = event.target;
     if (target.kind === 'doc' && event.libraryChanged) refreshLibrary();
     if (target.kind === 'doc' && (target.source || 'local') === 'local' && /^Created/.test(event.label || '')) { addPage(target.id); renderSidebar(); }
@@ -698,7 +605,7 @@ function setChatWidth(value) { const width = Math.min(70, Math.max(30, Math.roun
 let widthTimer = null;
 function persistWidth() { clearTimeout(widthTimer); widthTimer = setTimeout(() => api.settings.set({ chatWidth: state.settings.chatWidth }).catch(() => {}), 500); }
 function applyTheme(theme) { document.documentElement.dataset.theme = theme === 'system' ? '' : theme; }
-function applySettings(patch, live) { if (patch.chatWidth != null) { state.settings.chatWidth = patch.chatWidth; applyChatWidth(patch.chatWidth); } if (patch.theme) applyTheme(patch.theme); if (!live) { refreshLibrary(); renderChat(); } }
+function applySettings(patch, live) { if (patch.chatWidth != null) { state.settings.chatWidth = patch.chatWidth; applyChatWidth(patch.chatWidth); } if (patch.theme) applyTheme(patch.theme); if (!live) { refreshLibrary(); renderChat(); for (const c of controllers.values()) if (c.type === 'chat') c.render?.(); } }
 
 function wireSplitter() {
   const splitter = q('#bw-splitter');
@@ -725,34 +632,14 @@ function wire() {
   q('#bw-settings').onclick = () => openSettings(applySettings);
   q('#bw-new-chat').onclick = () => createChat();
   q('#bw-new-doc').onclick = () => createDocument();
-  q('#bw-folder-context').onclick = () => { renderProjectMenu(); toggleMenu('#bw-project-menu', '#bw-folder-context', { side: 'above' }); };
-  const chipMenu = (chipId, menuId, choices, current, apply, customLabel) => {
-    const menu = q(menuId);
-    menu.innerHTML = `<h3>${esc(customLabel.title)}</h3>` + choices.map(([value, label]) => `<button data-choice="${esc(value)}" aria-selected="${value === (current || '')}" role="menuitemradio">${value === (current || '') ? iconHtml('check', 12) : '<i class="bw-menu-blank"></i>'}${esc(label)}</button>`).join('') + (customLabel.custom ? `<button data-custom>${iconHtml('square-pen', 12)}${esc(customLabel.custom)}</button>` : '');
-    menu.querySelectorAll('[data-choice]').forEach(b => { b.onclick = () => { apply(b.dataset.choice || null); hideMenus(); renderChat(); save(); }; });
-    menu.querySelector('[data-custom]') && (menu.querySelector('[data-custom]').onclick = async () => { hideMenus(); const v = await askText({ title: customLabel.custom.replace(/…$/, ''), label: customLabel.prompt, value: current || '', placeholder: 'model id' }); if (v != null) { apply(v || null); renderChat(); save(); } });
-    toggleMenu(menuId, chipId, { side: 'above' });
-  };
-  q('#bw-model').onclick = () => { const chat = currentChat(); const provider = providerFor(chat); chipMenu('#bw-model', '#bw-model-menu', modelChoices(provider), chat.model, v => { chat.model = v; }, { title: 'Model for this chat', custom: 'Other model id…', prompt: 'Model id (as the provider names it)' }); };
-  q('#bw-effort').onclick = () => { const chat = currentChat(); const provider = providerFor(chat); chipMenu('#bw-effort', '#bw-effort-menu', effortChoices(provider), chat.effort, v => { chat.effort = v; }, { title: 'Reasoning effort' }); };
-  q('#bw-provider').onclick = () => { const chat = currentChat(); const p = state.settings?.providers || {}; const ready = { claude: p.claude?.loggedIn, codex: p.codex?.loggedIn, api: p.api?.hasKey }; const choices = ['claude', 'codex', 'api'].map(id => [id, `${PROVIDER_LABEL[id]}${ready[id] ? '' : ' · not signed in'}`]); chipMenu('#bw-provider', '#bw-provider-menu', choices, providerFor(chat), v => { chat.provider = v; chat.sessions = {}; }, { title: 'Provider for this chat' }); };
+  mainComposer = mountComposer(q('#bw-compose'), currentChat, {
+    render: () => { renderChat(); renderSidebar(); }, changed: renderSidebar,
+    folderChanged: chat => { for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); },
+    openProject: () => openProject(true), startFolderChat,
+  }, true);
   q('#bw-go-chat').onclick = () => { pauseFollow(); root.classList.add('mobile-chat'); q('#bw-prompt').focus(); };
   q('#bw-mobile-back').onclick = () => { if (state.mode === 'document') { state.mode = 'chat'; render(); } root.classList.toggle('mobile-chat'); };
-  q('#bw-stop').onclick = () => cancelRun(currentChat());
-  q('#bw-compose').onsubmit = e => { e.preventDefault(); const chat = currentChat(); const text = q('#bw-prompt').value; const images = chat.draftImages || []; if (!text.trim() && !images.length) return; if (chat.runId) { toast('Wait for the current run to finish, or stop it.'); return; } resetComposerHistory(chat); chat.draft = ''; chat.draftImages = []; q('#bw-prompt').value = ''; renderAttachments(chat); sendMessage(chat, text, { render: () => { renderChat(); renderSidebar(); }, runChanged: () => { renderChat(); renderSidebar(); } }, images); };
-  // Images: paste into the prompt, drop on the composer, or pick with the attach button. Each is saved
-  // under userData/attachments right away so the chat only keeps a path.
-  q('#bw-prompt').addEventListener('paste', e => { const files = [...(e.clipboardData?.files || [])].filter(f => f.type.startsWith('image/')); if (files.length) { e.preventDefault(); attachImages(files); } });
-  const composer = q('#bw-compose');
-  composer.addEventListener('dragover', e => { if ([...(e.dataTransfer?.types || [])].includes('Files')) { e.preventDefault(); composer.classList.add('drop'); } });
-  composer.addEventListener('dragleave', () => composer.classList.remove('drop'));
-  composer.addEventListener('drop', e => { composer.classList.remove('drop'); const files = [...(e.dataTransfer?.files || [])].filter(f => f.type.startsWith('image/')); if (files.length) { e.preventDefault(); attachImages(files); } });
-  q('#bw-attach').onclick = () => q('#bw-attach-input').click();
-  q('#bw-attach-input').onchange = () => { attachImages([...q('#bw-attach-input').files]); q('#bw-attach-input').value = ''; };
-  q('#bw-attachments').addEventListener('click', e => { const remove = e.target.closest('[data-remove]'); if (!remove) return; const chat = currentChat(); chat.draftImages = (chat.draftImages || []).filter(i => i.id !== remove.dataset.remove); renderAttachments(chat); save(); q('#bw-prompt').focus(); });
   document.addEventListener('click', e => { const img = e.target.closest('[data-lightbox]'); const box = q('#bw-lightbox'); if (img) { box.querySelector('img').src = img.dataset.lightbox; box.hidden = false; } else if (!box.hidden) box.hidden = true; });
-  q('#bw-prompt').addEventListener('keydown', e => { if (recallComposer(e, q('#bw-prompt'), currentChat(), save)) return; if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); q('#bw-compose').requestSubmit(); } });
-  q('#bw-prompt').addEventListener('input', () => { const chat = currentChat(); if (chat) { chat.draft = q('#bw-prompt').value; save(); } });
   q('#bw-tabs').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; const chat = workspaceChat(); if (b.dataset.tab) focusTab(chat, b.dataset.tab); else if (b.dataset.close) closeTab(chat, b.dataset.close); else if (b.dataset.fav) toggleFavorite(b.dataset.fav); });
   q('#bw-tabs').addEventListener('dblclick', e => { const b = e.target.closest('[data-tab]'); if (b) { e.preventDefault(); startRenameTab(workspaceChat(), b.dataset.tab); } });
   q('#bw-tabs').addEventListener('auxclick', e => { const b = e.target.closest('[data-tab]'); if (e.button === 1 && b) { e.preventDefault(); closeTab(workspaceChat(), b.dataset.tab); } });

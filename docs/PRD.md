@@ -165,6 +165,8 @@ Link an accepted operation to the actor, source chat or run, target block, and r
 
 Barkpark already defines references, permission-filtered backlinks, related results based on tags/backlinks, and revision history. This does not establish a general semantic graph engine. The node map above is a product explanation; first-release navigation uses useful relationship lists and adjacent panes. [Source B3 ↗](#s-graph)
 
+**Side chats are full conversations.** Save them alongside other chats, with a parent link. Use the same composer, model and effort controls, images, history and transcript actions. Inherit the parent folder at creation and allow independent changes. Closing the tab preserves the conversation; its files and work tabs use its own working folder.
+
 **Composer history.** Up from the first visual line recalls up to 100 sent messages in the current conversation. Down from the last line moves forward, then restores the unfinished draft and caret. Main and side chats have independent histories, and ordinary multiline navigation remains available.
 
 **Direct assistant editing.** New document edits save without a Keep step and offer revision-checked Undo. In the visible editor, mark the target, move an agent caret, and reveal the replacement. This presentation follows an acknowledged save; human input ends it immediately. Honor reduced motion and preserve document conflicts.
