@@ -1,5 +1,7 @@
 # C002 — Fast working-folder answers
 
+**Completed and validated on `codex/fast-folder-context`.** Implementation commits: `c66744b`, corrected by `3e2ed6f`. Historical blocked checkpoints below are retained; see the final results at the end. No merge or deployment.
+
 User-requested interruption of planned C001, preserved in C001-profile-ownership.json. No profile completion claimed.
 
 Plan: include this run's per-chat folder and direct-answer guidance in every provider request, including resumed sessions. Folderless chats must not infer a folder from the parent, open files or another chat. Inspect files only for content/listing/verification requests.
@@ -31,3 +33,18 @@ Live screenshot setup now has `npm --prefix app run shots:isolated`: a private r
 ## Regression review
 
 The full desktop suite passed on c66744b. A targeted new offline test then exposed an extra navigation caused by interpreting injected folder guidance as the user message. Fixed by passing original messages separately to the offline fallback; online provider requests still receive guidance. Added coverage for image-only API turns, resumed provider dispatch, folder changes and clearing. The failing offline test now passes. The first isolated live capture completed against private Barkpark, with a real Codex turn after Claude reported its usage limit; its owned database stopped cleanly. Fresh evidence will be recaptured after the correction commit.
+
+## Final results
+
+- Restored root dependencies with `npm.cmd ci`; installed Chromium with `npx.cmd playwright install chromium`. App missing-file repair used an isolated install with an identical lockfile, preserving the running Electron process; `npm --prefix app ls --depth=0` passed.
+- `node app/tests/conversations.test.mjs` and `node app/tests/agent.test.mjs` passed, including actual shared-dispatch interception, resumed and changed/cleared folders, image-only context, input preservation and the offline-navigation regression (observed failing before its fix).
+- `npm run test:desktop` passed after `3e2ed6f`: all unit suites, 76 Electron checks, direct-edit UI, composer history/restart and side-chat ownership/restart tests.
+- `npm --prefix app run shots:isolated` passed after the implementation commit. It captured five stills and a 37-frame editing GIF against private Barkpark `a5440345c`; Codex supplied the real assistant turn after Claude's usage-limit response. Both private capture runtimes stopped; no shared service or CLI selection was changed. Temporary data/logs were retained.
+- `npm run visual:capture`, `npm run visual:compare` and explicit Codex review completed. All 21 action frames and control geometries match the prior reviewed baseline within tolerance, with the same environment. Current source fingerprint and artifact hashes passed validation.
+- `npm run verify` passed in full; final handoff/queue/link checks are repeated before commit. `git diff --check` passed.
+
+[Completed cycle record](C002-folder-context.json) · [Live capture provenance](../images/status/history/C002-3e2ed6f.json) · [Visual comparison](../visual/runs/2026-09-21T21-48-36-561Z/README.md)
+
+The live gallery changes are a fresh private library, a new real transcript, revision/timing metadata and the private endpoint. Layout and editor affordances remain intact. Screenshot review does not prove folder-answer latency or guarantee model compliance; request/dispatcher tests prove the injected guidance. No focused live folder-location benchmark was run. P1 is still pending.
+
+C001 is restored as the next planned cycle; its inventory has not started. The original pending work remains recoverable in the named Git stash. Review/push this branch only; do not merge or deploy. No owned capture services remain running.

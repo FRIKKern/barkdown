@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "id": "C002",
+  "stage": "P1",
+  "status": "done",
+  "goal": "Answer chat working-folder questions directly from fresh run context.",
+  "scope": [
+    "Refresh per-chat folder context for every provider turn",
+    "Preserve C001 as deferred; no profile or UI changes"
+  ],
+  "acceptance": [
+    "Current run folder takes precedence over stored chat context",
+    "Main, side, resumed and folderless turns get explicit guidance",
+    "Run context and root regression checks"
+  ],
+  "checkpoint": "2026-09-21",
+  "handoff": "docs/cycles/C002-folder-context.md",
+  "nextAction": "Review codex/fast-folder-context without merging or deploying; resume planned C001 ownership inventory when requested.",
+  "evidence": [
+    "docs/cycles/C002-folder-context.md",
+    "docs/images/status/history/C002-3e2ed6f.json",
+    "docs/visual/runs/2026-09-21T21-48-36-561Z/comparison.json"
+  ],
+  "truthReview": "README/app guide, plan, handoff, architecture and validation reviewed. C002 changes provider context, not profile ownership; P1 remains pending. No live latency or universal model-compliance claim.",
+  "screenshotReview": "Inspected five live Paper stills and 37 GIF frames from an isolated Barkpark and real Codex turn. Reviewed all 21 deterministic UI frames: no differences above tolerance or geometry changes. Existing evidence retained."
+}

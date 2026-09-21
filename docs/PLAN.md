@@ -65,4 +65,4 @@ Use [ACCEPTANCE.md](ACCEPTANCE.md) for scenario gates and [VALIDATION.md](VALIDA
 
 ## Delivery cadence
 
-Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) is C002: answer working-folder questions from fresh run context, requested by the user. Planned C001 (profile ownership inventory) is preserved under docs/cycles/ and resumes afterward. `npm run plan` prints both levels; each cycle maintains its own checkpoint and evidence. Cycle completion never automatically completes a roadmap stage.
+Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) is planned C001: profile ownership inventory. The user-requested C002 interruption is [completed and validated on its branch](cycles/C002-folder-context.md), without merge or deployment. `npm run plan` prints both roadmap and current cycle; finishing C002 does not complete P1.

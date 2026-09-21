@@ -24,3 +24,7 @@ No acceptance evidence yet. Locate current ownership in `app/main/store.js`, `do
 ## Next exact action
 
 Read those modules and map each persistence key/file/cache to its current owner and proposed profile owner. Write the inventory and adoption design, then link it here. Keep this checkpoint current after each meaningful slice and before yielding.
+
+## Resume after C002
+
+C002 is completed and validated on `codex/fast-folder-context` (implementation `3e2ed6f`); [its handoff](C002-folder-context.md) records evidence and limits. This ownership inventory remains planned, not implemented. No merge or deployment was authorized for C002.

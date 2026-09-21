@@ -1,24 +1,23 @@
 {
   "version": 1,
-  "id": "C002",
+  "id": "C001",
   "stage": "P1",
-  "status": "active",
-  "goal": "Answer chat working-folder questions directly from fresh run context.",
+  "status": "planned",
+  "goal": "Map persistence ownership and design safe default-profile adoption before changing storage.",
   "scope": [
-    "Refresh per-chat folder context for every provider turn",
-    "Preserve C001 as deferred; no profile or UI changes"
+    "Inventory actual persistence and cache owners",
+    "Define profile-qualified identities and backed-up adoption",
+    "Specify A1 isolation fixtures; no switching UI or real-data migration"
   ],
   "acceptance": [
-    "Current run folder takes precedence over stored chat context",
-    "Main, side, resumed and folderless turns get explicit guidance",
-    "Run context and root regression checks"
+    "Complete ownership inventory with module/key references",
+    "Document adoption, interruption and rollback design",
+    "Name audited contracts, unresolved questions and next executable proof"
   ],
   "checkpoint": "2026-09-21",
-  "handoff": "docs/cycles/C002-folder-context.md",
-  "nextAction": "Commit reviewed implementation, complete full desktop tests, run isolated live Paper and deterministic visual captures, inspect differences, then verify and commit evidence.",
-  "evidence": [
-    "docs/cycles/C002-folder-context.md"
-  ],
-  "truthReview": "Reviewed README/app guide, roadmap, handoff, validation and architecture; P1 remains pending.",
-  "screenshotReview": "Fresh captures pending after implementation commit; prompt behavior is proved by request/dispatcher tests, not screenshots."
+  "handoff": "docs/cycles/C001-profile-ownership.md",
+  "nextAction": "Read persistence modules and write the ownership inventory/adoption design. C002 is completed on codex/fast-folder-context; do not merge or deploy it without a new instruction.",
+  "evidence": [],
+  "truthReview": "",
+  "screenshotReview": ""
 }

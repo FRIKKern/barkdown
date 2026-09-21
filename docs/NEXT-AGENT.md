@@ -52,8 +52,8 @@ Install locked dependencies and Playwright Chromium when needed; run root `npm r
 
 ## Current cycle checkpoint
 
-Start with `npm run cycle` and the handoff linked by [cycle.json](cycle.json). C002 completes direct working-folder answers on codex/fast-folder-context, based on current main; dependency restoration, validation and fresh visual evidence are in progress. C001 remains deferred and resumes after C002. Follow [CYCLES.md](CYCLES.md) for checkpoints and closeout.
+Start with `npm run cycle` and [cycle.json](cycle.json). C002 is complete and validated on `codex/fast-folder-context`; [its handoff](cycles/C002-folder-context.md) records source commits, test results, screenshots and limits. No merge or deployment was authorized. C001 is restored as the next planned ownership/design cycle; P1 remains pending.
 
 ## Visual handoff
 
-The [visual health pages](visual/README.md) now hold reviewed stills, GIFs and comparison reports. Follow [visual rules](visual/RULES.md) for app/dependency/harness changes: capture, compare, inspect, explicitly approve, and preserve old evidence. Main is the integration target via PR #28; P1 remains pending. This workflow update did not implement profiles or change runtime behavior. Dedicated agent-edit/files/recovery motion coverage remains to be added with those journeys. Do not treat fixture screenshots as live integration proof.
+The [visual health pages](visual/README.md) now hold reviewed stills, GIFs and comparison reports. Follow [visual rules](visual/RULES.md) for app/dependency/harness changes: capture, compare, inspect, explicitly approve, and preserve old evidence. The main baseline for this branch is merge 296d407 from PR #28; C002 remains unmerged and P1 remains pending. This workflow update did not implement profiles or change runtime behavior. Dedicated agent-edit/files/recovery motion coverage remains to be added with those journeys. Do not treat fixture screenshots as live integration proof.
