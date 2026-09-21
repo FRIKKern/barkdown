@@ -1,12 +1,12 @@
 // Trusted main-process runtime ownership. Selection and each running transport
 // hold separate leases; a foreground switch cannot stop a background run.
-const fs = require('node:fs');
 const path = require('node:path');
 const net = require('node:net');
 const crypto = require('node:crypto');
 const { validateProfileId } = require('./profile-registry');
 const { LocalBarkpark } = require('./local-barkpark');
 const { SourceDriver } = require('./local-barkpark-source');
+const { acquireFileLease } = require('./file-lease');
 
 const portValid = port => Number.isInteger(port) && port >= 1024 && port <= 65535;
 function validateDescriptor(value, profileId) {
@@ -38,19 +38,8 @@ function createProfileRuntimePool({ registry, readSecrets, createRuntime = ({ de
     // One registry-wide allocator lease prevents two processes from publishing
     // the same ports in different profiles. In-process preparations queue below.
     const lock = path.join(path.dirname(path.dirname(store.storeDir)), 'runtime-descriptors.lock');
-    let fd;
-    try { fd = fs.openSync(lock, 'wx', 0o600); }
-    catch (error) {
-      if (error.code !== 'EEXIST') throw error;
-      let owner;
-      try { owner = JSON.parse(fs.readFileSync(lock, 'utf8')); } catch { throw new Error('Runtime descriptor ownership unreadable; inspect before recovery'); }
-      if (!Number.isSafeInteger(owner.pid) || owner.pid < 1) throw new Error('Invalid runtime descriptor owner');
-      try { process.kill(owner.pid, 0); throw new Error('Runtime descriptor is owned by another writer'); } catch (probe) { if (probe.code !== 'ESRCH') throw probe; }
-      fs.renameSync(lock, lock + '.abandoned-' + crypto.randomUUID());
-      fd = fs.openSync(lock, 'wx', 0o600);
-    }
+    const ownership = acquireFileLease(lock, { busy: 'Runtime descriptor is owned by another writer' });
     try {
-      fs.writeFileSync(fd, JSON.stringify({ pid: process.pid })); fs.fsyncSync(fd);
       let descriptor = store.readJson('runtime.json', null);
       if (descriptor) {
         descriptor = validateDescriptor(descriptor, profileId);
@@ -69,7 +58,7 @@ function createProfileRuntimePool({ registry, readSecrets, createRuntime = ({ de
         store.writeJson('runtime.json', descriptor);
       } else if (used.has(descriptor.port) || used.has(descriptor.pgPort)) throw new Error('Runtime ports collide with another profile; no runtime started');
       return { store, descriptor };
-    } finally { fs.closeSync(fd); fs.unlinkSync(lock); }
+    } finally { ownership.release(); }
   }
 
   function startEntry(profileId, options) {
@@ -115,6 +104,9 @@ function createProfileRuntimePool({ registry, readSecrets, createRuntime = ({ de
     const leaseId = crypto.randomUUID(); entry.refs.set(leaseId, ownerId);
     try {
       await entry.ready;
+      // Existing runtimes may be recovering after their initial start promise
+      // resolved. A new lease must wait for current health, not stale readiness.
+      await entry.runtime.ready?.();
       if (source && path.resolve(source) !== entry.descriptor.source) throw new Error('Cannot rebind a running profile source');
       if (closing) throw new Error('Profile runtime pool is shutting down');
     } catch (error) {
@@ -161,6 +153,19 @@ function createProfileRuntimePool({ registry, readSecrets, createRuntime = ({ de
     selection = operation;
     return operation;
   }
+  function selectWithoutRuntime(profileId) {
+    const operation = selection.catch(() => {}).then(async () => {
+      if (closing) throw new Error('Profile runtime pool is shutting down');
+      const store = registry.storeFor(profileId);
+      registry.selectProfile(profileId);
+      const previous = foreground; foreground = null;
+      let cleanupWarning = null;
+      try { await previous?.release(); } catch (error) { cleanupWarning = error.message; }
+      return Object.freeze({ profileId, storeDir: store.storeDir, connection: null, cleanupWarning });
+    });
+    selection = operation;
+    return operation;
+  }
   async function shutdown() {
     closing = true;
     await selection.catch(() => {});
@@ -174,7 +179,7 @@ function createProfileRuntimePool({ registry, readSecrets, createRuntime = ({ de
   function status() {
     return [...entries.values()].map(entry => ({ profileId: entry.profileId, owners: [...entry.refs.values()], phase: entry.runtime?.status().phase || (entry.error ? 'failed' : 'starting'), error: entry.error?.message || null }));
   }
-  return Object.freeze({ acquire, select, clearSelection, shutdown, status });
+  return Object.freeze({ acquire, select, selectWithoutRuntime, clearSelection, shutdown, status });
 }
 
 module.exports = { createProfileRuntimePool, validateDescriptor };
