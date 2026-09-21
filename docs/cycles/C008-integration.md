@@ -9,10 +9,10 @@ Retained E001 recovery media and host results from `096e93e` to preserve linked 
 ## Current validation
 
 - Root `npm ci` and app `npm ci` passed; Playwright Chromium installation passed. App audit reported two high vulnerabilities in the locked dependency tree; no forced dependency changes were made.
-- Combined `npm run test:desktop` is running in session `74382`. Registry24, ownership11 groups and existing unit suites through Pages passed at the latest observed output. Remaining desktop/goal/editor checks are not yet claimed.
+- Combined `npm run test:desktop` session `74382` finished exit 0: registry24, ownership11 groups, all existing unit/desktop/direct-edit/history/side-chat suites, Paper host19 and goals/provider23 passed. These validate the imported foundation snapshot, not the newer C006/C007 or goals UI under development.
 - `npm run verify` first exposed missing imported E001 documentation links. Restoring their original evidence resolved the links. `npm run check` now stops at the expected stale-live-screenshot gate: current candidate source is newer than C004's live capture. No bypass or restamping.
 - No live runtime is owned by this candidate. Parent coordinates shared source windows; editor E002 currently has the slot and C007 follows.
 
 ## Next
 
-Poll the existing desktop session rather than restarting it. Import stable C006 shared repository/resolver, C007 runtime isolation and goals UI commits when reviewed. Preserve the test union and lane artifact provenance. Then commit final source, perform fresh deterministic and live capture/review, run full verification and the combined acceptance scenarios recorded in the coordinator's `INTEGRATION-2026-09-22.md`. Push reviewable checkpoints and retain unfinished/failed status at the run deadline.
+Import stable C006 shared repository/resolver, C007 runtime isolation and goals UI commits when reviewed. Preserve the test union and lane artifact provenance. Then commit final source, perform fresh deterministic and live capture/review, run full verification and the combined acceptance scenarios recorded in the coordinator's `INTEGRATION-2026-09-22.md`. Push reviewable checkpoints and retain unfinished/failed status at the run deadline.
