@@ -42,7 +42,7 @@ class SourceDriver {
     fs.mkdirSync(this.dataDir, { recursive: true });
     this.ownership = acquireFileLease(this.lockPath, { busy: 'This local profile is owned by another running Barkdown.' });
     this.lease = this.ownership.lease;
-    try { this.build = prepareRuntimeBuild(this.config.source, this.dataDir); }
+    try { this.build = await prepareRuntimeBuild(this.config.source, this.dataDir); }
     catch (error) { this.ownership.release(); this.ownership = null; this.lease = null; throw error; }
   }
   async release() {
