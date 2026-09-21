@@ -33,6 +33,8 @@ These record the user's decisions through the private handoff. Preserve the inte
 
 **D26 (2026-09-21): Resizable sidebar.** Drag the left sidebar’s right edge to resize it; remember the width across restarts. Arrow keys adjust the focused edge, and double-click restores the default. Keep enough room for the active workspace.
 
+**D27 (2026-09-21): People organize Pages.** Cloud discovery stays in a separate, initially collapsed Cloud archive. Opening a paper does not place it in Pages. People explicitly add, nest, reorder, or import a local copy; refresh and disconnect preserve that arrangement. The approved one-time migration moves legacy loose cloud roots into Cloud archive, preserves nested groups, and records the previous root order for recovery.
+
 ## Explicitly superseded directions
 
 - The earlier proposal for a permanently visible pinned sidebar is superseded by the Pins dropdown that restores a path.

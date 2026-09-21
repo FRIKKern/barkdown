@@ -94,7 +94,7 @@ export function mountPaper(tab, host, ctx) {
     const open = el(`<button title="Open in Barkpark">${iconHtml('external-link')}</button>`);
     open.onclick = () => { const server = state.settings?.barkpark?.server || 'https://gyldendal.barkpark.cloud'; api.app.openExternal(`${server.replace(/\/$/, '')}/papers/${slug()}`); };
     const copy = el(`<button title="Import a local copy">${iconHtml('download')}</button>`);
-    copy.onclick = async () => { try { const local = await api.barkpark.import(slug()); toast('Imported as ' + local.title); ctx.libraryChanged(); ctx.openLinked(tab, local.id, 'local', true); } catch (error) { toast(error.message, 'error'); } };
+    copy.onclick = async () => { try { const local = await ctx.importPaper(slug()); toast('Imported as ' + local.title); ctx.openLinked(tab, local.id, 'local', true); } catch (error) { toast(error.message, 'error'); } };
     const reload = el(`<button title="Reload from server">${iconHtml('rotate-cw')}</button>`);
     reload.onclick = () => load();
     actions.append(ask, open, copy, reload);

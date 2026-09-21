@@ -84,6 +84,7 @@ function tabContext(chat) {
     openWebsite: url => openTarget({ kind: 'web', url, title: hostname(url) }, chat, true),
     askAbout: text => { q('#bw-prompt').value = text; q('#bw-prompt').focus(); if (state.mode !== 'chat') { state.mode = 'chat'; render(); } },
     libraryChanged: () => refreshLibrary(),
+    importPaper,
     closeTab: tab => closeTab(chat, tab.id),
     documentChanged: doc => { refreshLibrary(); for (const c of controllers.values()) if (c.type === 'doc' && c.tab.path.at(-1) === String(doc.id).replace(/^bp:/, '')) c.refresh?.(doc.id); },
     userIsEditing: () => pauseFollow(chat),
@@ -397,6 +398,7 @@ function renderSidebar() {
     isOpen: key => { const chat = workspaceChat(); const tab = activeTab(chat); return tab?.type === 'doc' && pageKey(tab.path.at(-1), tab.source) === key; },
     onNewPage: parent => createDocument(parent),
     onNewSubpage: parent => createDocument(parent),
+    onImport: async id => { try { const doc = await importPaper(id); openDirect(doc.id); toast('Imported as ' + doc.title); } catch (error) { toast(error.message, 'error'); } },
     onDelete: async id => { const d = state.documents.find(x => x.id === id); if (!d || !await askConfirm(`Delete "${d.title}"? This cannot be undone.`, { title: 'Delete page?', confirm: 'Delete', danger: true })) return; await api.docs.delete(id); for (const c of [...controllers.values()]) if (c.type === 'doc' && c.tab.path.at(-1) === id) closeTab(workspaceChat(), c.tab.id); refreshLibrary(); },
   });
   const recents = q('#bw-recent-chats');
@@ -603,6 +605,13 @@ async function refreshLibrary() {
   renderSidebar(); renderTabs();
 }
 
+async function importPaper(id) {
+  const doc = await api.barkpark.import(id);
+  addPage(doc.id);
+  await refreshLibrary();
+  return doc;
+}
+
 async function createDocument(parent = null) {
   const title = await askText({ title: parent ? 'New sub-page' : 'New page', label: 'Title', value: 'Untitled', confirm: 'Create' });
   if (title === null) return;
@@ -795,4 +804,4 @@ function wire() {
 })();
 
 // Test and debugging hooks (no UI depends on these).
-window.__barkdown = { attachImages,  state, controllers, openTarget, render, refreshLibrary, expandArchive: () => { ensurePages().archiveOpen = true; renderSidebar(); }, addPage, pagePath, setFolder: folder => { const chat = currentChat(); chat.folder = folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }, openProject, openDirect, openPalette, createChat, switchChat };
+window.__barkdown = { attachImages,  state, controllers, openTarget, render, refreshLibrary, expandArchive: () => { ensurePages().archiveOpen = true; ensurePages().cloudArchiveOpen = true; renderSidebar(); }, addPage, pagePath, setFolder: folder => { const chat = currentChat(); chat.folder = folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }, openProject, openDirect, openPalette, createChat, switchChat };

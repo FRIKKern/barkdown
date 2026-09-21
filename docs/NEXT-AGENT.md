@@ -34,6 +34,8 @@ Continuation validation: `npm ci`, Playwright Chromium installation and root `np
 
 The desktop sidebar now has a draggable right edge, keyboard adjustment and double-click reset. Its width persists in app settings and is capped to leave 520 px for the workspace; the handle hides with the sidebar on narrow windows. This user-requested shell change is independent of editor parity. Paper/archive rows reserve action space so hover and focus do not change row height or title width; work tabs reserve their action padding for the same reason.
 
+Cloud organization follows D27: discovered papers stay in collapsed Cloud archive until explicitly placed. Imports become local Pages while their cloud originals remain unplaced. Layout version 2 migrates loose legacy cloud roots only, preserving nested groups and storing `cloudLayoutMigration.previousRoots` for recovery. Refresh/disconnect preserve arranged cloud papers.
+
 ## First 20 minutes
 
 1. Run `npm ci`, `npx playwright install chromium`, and `npm run verify`.
