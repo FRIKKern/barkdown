@@ -53,3 +53,7 @@ Install locked dependencies and Playwright Chromium when needed; run root `npm r
 ## Current cycle checkpoint
 
 Start with `npm run cycle` and the handoff linked by [cycle.json](cycle.json). The prepared C001 cycle scopes the first P1 ownership/design proof. Follow [CYCLES.md](CYCLES.md): checkpoint during work and before yielding, and perform the truth/screenshot review before completion. The cycle record owns the precise next action; this document retains broader product and environment context.
+
+## Visual handoff
+
+The [visual health pages](visual/README.md) now hold reviewed stills, GIFs and comparison reports. Follow [visual rules](visual/RULES.md) for app/dependency/harness changes: capture, compare, inspect, explicitly approve, and preserve old evidence. Main is the integration target via PR #28; P1 remains pending. This workflow update did not implement profiles or change runtime behavior. Dedicated agent-edit/files/recovery motion coverage remains to be added with those journeys. Do not treat fixture screenshots as live integration proof.

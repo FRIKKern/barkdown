@@ -12,7 +12,7 @@ npm --prefix app ci
 npm run visual:capture
 npm run visual:compare
 # Open docs/visual/runs/<run>/README.md and view the actual images/GIF frames.
-npm run visual:approve -- --reviewer "Your name or agent" --note "What changed, what was checked, limits and behavior-test evidence"
+node scripts/visual.mjs approve --reviewer "Your name or agent" --note "What changed, what was checked, limits and behavior-test evidence"
 npm run verify
 ```
 
