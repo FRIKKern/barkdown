@@ -2,7 +2,7 @@ import { mountComposer } from './composer.js';
 import { openGoalView } from './goals.js';
 // Barkdown desktop renderer: app-wide navigation, per-chat workspaces, agent runs, pins, quick open.
 import { el, esc, iconHtml, renderIcons, toast, basename, relativeTime, errorMessage } from './ui.js';
-import { state, load, save, newChat, newTab, currentChat, activeTab, touch, chatTitleFrom } from './state.js';
+import { state, load, save, serialise, newChat, newTab, currentChat, activeTab, touch, chatTitleFrom } from './state.js';
 import { transcriptHtml, handleAgentEvent, respondApproval, providerFor, formatDuration } from './conversation.js';
 import { mountDocument } from './tabs/document.js';
 import { mountPaper } from './tabs/paper.js';
@@ -11,7 +11,7 @@ import { mountReview } from './tabs/review.js';
 import { mountProject, buffers, dirtyCount } from './tabs/project.js';
 import { mountSideChat } from './tabs/sidechat.js';
 import { mountTerminal } from './tabs/terminal.js';
-import { openSettings } from './settings.js';
+import { openSettings as openSettingsSheet } from './settings.js';
 import { ensureCanvasBundle } from './canvas-bundle.js';
 import { toggleMenu, hideMenus as closeMenus, installMenuDismissal } from './menus.js';
 import { askText, askConfirm } from './dialogs.js';
@@ -26,6 +26,14 @@ const TYPE_ICON = { doc: 'file-text', web: 'globe', review: 'git-pull-request', 
 let mainComposer;
 const controllers = new Map(); // tab.id -> mounted controller
 const DIRECT = 'direct';
+function openSettings(onChange, options = {}) {
+  return openSettingsSheet(onChange, { ...options, beforeProfileSwitch: async () => {
+    if ([...controllers.values()].some(controller => controller.canClose?.() === false)) return false;
+    if (dirtyCount()) { toast('Save your project files before switching profiles.', 'error'); return false; }
+    await api.state.save(serialise());
+    return true;
+  } });
+}
 
 // ---------- helpers ----------
 function directChat() {
@@ -323,9 +331,16 @@ function renderSidebar() {
 
 function isOpenDoc(id) { const chat = workspaceChat(); const tab = activeTab(chat); return tab?.type === 'doc' && tab.path.at(-1) === id; }
 
-function deleteChat(id) {
+async function deleteChat(id) {
   const chat = state.chats[id];
   if (!chat) return;
+  if (chat.tabs.some(t => controllers.get(t.id)?.canClose?.() === false)) return;
+  if (state.profileId) {
+    try {
+      const latest = await api.state.load();
+      await api.state.command({ type: 'delete-chat', chatId: id, expectedRevision: latest.ownership.revision });
+    } catch (error) { toast(error.message, 'error'); return; }
+  }
   for (const t of chat.tabs) unmountTab(t.id);
   for (const owner of Object.values(state.chats)) {
     const removed = owner.tabs.filter(t => t.type === 'chat' && t.sideChatId === id);

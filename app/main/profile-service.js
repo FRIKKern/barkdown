@@ -26,7 +26,11 @@ function createProfileService({ registry, agent = require('./agent'), workspaces
     return owner.profileId;
   }
   function load(owner) { const profileId = validate(owner); return { ...workspaces.load(profileId), profileId, generation }; }
-  function save(owner, snapshot) { return workspaces.saveView(validate(owner), snapshot); }
+  function save(owner, snapshot) {
+    const profileId = validate(owner);
+    if (snapshot.profileId && (snapshot.profileId !== profileId || snapshot.generation !== owner.generation)) throw new Error('Workspace snapshot belongs to a stale profile view');
+    return workspaces.saveView(profileId, snapshot);
+  }
   function settings(profileId) { return settingsFor(registry.storeFor(profileId)); }
   async function resolve(profileId, chatId, request = {}) {
     const store = registry.storeFor(profileId), ws = workspaces.load(profileId), chat = ws.chats[chatId];
@@ -92,7 +96,7 @@ function createProfileService({ registry, agent = require('./agent'), workspaces
         settings: providerSettings, messages: reservation.history, prompt: request.prompt, images: request.images, onFinish: release,
         send(event) {
           if (persistenceFault) return;
-          try { runId ||= event.runId; workspaces.event(request, event); if (selected() === profileId) sendEvent(event); }
+          try { runId ||= event.runId; workspaces.event(request, event); if (selected() === profileId) sendEvent({ ...event, assistantId: reservation.assistantId, attemptId }); }
           catch (error) { persistenceFault = error; if (runId) agent.cancel(runId); }
         } });
       runId = result.runId;

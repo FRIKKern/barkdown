@@ -35,7 +35,7 @@ const selectHtml = (id, options, extra = '') => `<span class="bw-select"><select
 const switchHtml = (id, label, help = '') => `<label class="bw-set bw-set-switch" for="${id}"><span class="bw-set-text"><b>${esc(label)}</b>${help ? `<small>${help}</small>` : ''}</span><span class="bw-switch"><input type="checkbox" id="${id}" role="switch"><i></i></span></label>`;
 const setting = (title, help, control, opts = {}) => `<div class="bw-set ${opts.stack ? 'bw-set-stack' : ''}"><div class="bw-set-text"><b>${esc(title)}</b>${help ? `<small>${help}</small>` : ''}</div><div class="bw-set-ctl">${control}</div></div>`;
 
-export function openSettings(onChange, { pane = 'general' } = {}) {
+export function openSettings(onChange, { pane = 'general', beforeProfileSwitch = async () => true } = {}) {
   const s = state.settings;
   const p = s.providers || {};
   const original = { theme: s.theme || 'system', chatWidth: s.chatWidth || 40 };
@@ -50,6 +50,7 @@ export function openSettings(onChange, { pane = 'general' } = {}) {
         ${setting('Theme', 'Follow the system, or pick one. Previews as you choose.', `<div class="bw-seg" id="theme" role="radiogroup" aria-label="Theme"><button type="button" data-value="system">${iconHtml('monitor', 13)}System</button><button type="button" data-value="light">${iconHtml('sun', 13)}Light</button><button type="button" data-value="dark">${iconHtml('moon', 13)}Dark</button></div>`)}
         ${setting('Conversation width', 'How much of the window the chat takes when a work tab is open. Drag the divider between them for the same thing.', `<div class="bw-range"><input id="width" type="range" min="40" max="70" step="5" aria-label="Conversation width"><output id="width-value"></output></div>`)}
         <h3>Storage</h3>
+        <div id="profile-settings" hidden></div>
         ${setting('Local data', `Chats, documents, attachments and these settings live in <code>${esc(s.userData)}</code>. Secrets are encrypted with the operating system keychain when it is available.`, `<button type="button" class="bw-btn" data-act="open-data">${iconHtml('folder-open', 13)}Open folder</button>`)}
       </section>
       <section data-pane="assistant" ${pane !== 'assistant' ? 'hidden' : ''}>
@@ -198,6 +199,29 @@ export function openSettings(onChange, { pane = 'general' } = {}) {
   };
 
   // about
+  api.profiles?.status().then(status => {
+    if (!status.enabled) return;
+    const box = q('#profile-settings'); box.hidden = false;
+    box.innerHTML = setting('Library profile', 'Each profile keeps its own pages, conversations, drafts and connections. Working folders still belong to individual chats.',
+      `${selectHtml('profile-choice', status.profiles.map(profile => `<option value="${esc(profile.id)}" ${profile.id === status.profileId ? 'selected' : ''}>${esc(profile.name)}</option>`).join(''))}<button type="button" class="bw-btn" id="profile-switch">Switch</button>`) +
+      setting('New profile', 'Start with an empty library. Your existing profiles stay available.', '<input id="profile-name" aria-label="New profile name" placeholder="Profile name"><button type="button" class="bw-btn" id="profile-create">Create</button>');
+    q('#profile-switch').onclick = async () => {
+      try {
+        if (q('#profile-choice').value === status.profileId) return;
+        if (dirty) { toast('Save or cancel Settings changes before switching profiles.', 'error'); return; }
+        if (!await beforeProfileSwitch()) return;
+        await api.profiles.select(q('#profile-choice').value);
+        window.location.reload();
+      } catch (error) { toast(error.message, 'error'); }
+    };
+    q('#profile-create').onclick = async () => {
+      try {
+        const profile = await api.profiles.create(q('#profile-name').value.trim());
+        const option = document.createElement('option'); option.value = profile.id; option.textContent = profile.name;
+        q('#profile-choice').append(option); q('#profile-choice').value = profile.id; q('#profile-name').value = '';
+      } catch (error) { toast(error.message, 'error'); }
+    };
+  }).catch(error => toast(error.message, 'error'));
   api.app.info?.().then(info => {
     q('#about-version').textContent = `Version ${info.version} · ${info.platform} ${info.arch}`;
     q('#about-runtime').innerHTML = [['Electron', info.electron], ['Chromium', info.chrome], ['Node', info.node]].map(([k, v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join('');
