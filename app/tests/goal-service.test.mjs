@@ -41,7 +41,9 @@ test('real provider loops persist three full workers through profile switch, sta
   release(); for (let i = 0; i < 5; i++) await flush();
   assert.equal(f.profiles.load(ownerB).order.length, 1); assert.equal(f.profiles.load(ownerB).chats.main.draft, 'B draft');
   await assert.rejects(f.service.command(ownerA, goal.id, 'cancel'), /Stale/);
-  await f.profiles.select(ownerB, f.a.id); const fresh = f.owner(); f.profiles.save(fresh, old);
+  await f.profiles.select(ownerB, f.a.id); const fresh = f.owner();
+  assert.throws(() => f.profiles.save(fresh, old), /stale profile view/);
+  f.profiles.save(fresh, { ...old, generation: fresh.generation });
   const ws = f.profiles.load(fresh);
   assert.equal(ws.order.length, 4); assert.equal(ws.chats.main.draft, 'A draft');
   for (const task of goal.tasks) {
