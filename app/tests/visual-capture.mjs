@@ -61,6 +61,16 @@ try{
   ['restore',()=>p.setViewportSize({width:1100,height:740})],
   ['worker-chat',()=>p.locator('.bw-goals [data-chat]').first().click()]
  ]);
+ await app.evaluate(({ipcMain})=>{
+  ipcMain.removeHandler('profiles:status');
+  ipcMain.handle('profiles:status',()=>({ok:true,value:{enabled:true,profileId:'11111111-1111-4111-8111-111111111111',generation:'fixture',profiles:[{id:'11111111-1111-4111-8111-111111111111',name:'Personal'},{id:'22222222-2222-4222-8222-222222222222',name:'Research'}]}}));
+ });
+ await tour('profiles','Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.',[
+  ['settings',async()=>{await p.keyboard.press('Control+,');await p.locator('#profile-choice').waitFor();}],
+  ['new-name',()=>p.locator('#profile-name').fill('Writing')],
+  ['narrow',()=>p.setViewportSize({width:740,height:740})],
+  ['restore',()=>p.setViewportSize({width:1100,height:740})]
+ ]);
  if(errors.length)throw Error(errors.join('\n'));
  const environment={platform:process.platform,osRelease:os.release(),arch:process.arch,font:await p.evaluate(()=>getComputedStyle(document.body).fontFamily),electron:await app.evaluate(()=>process.versions.electron),viewport:'1100x740, workspace narrow 740x740',scale:await p.evaluate(()=>devicePixelRatio),fixture:'temporary seeded local profile; providers blocked; reduced motion; caret hidden'};
  write(`${dir}/manifest.json`,{version:1,commit:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),capturedAt:new Date().toISOString(),environment,sourceDirty:execFileSync('git',['status','--porcelain','--','app','scripts','package.json','package-lock.json'],{cwd:root,encoding:'utf8'}).trim()!=='',inputs:inputs(),shots,hashes});write('docs/visual/pending.json',{run});console.log(`Captured ${dir}; run npm run visual:compare. Not approved.`);
