@@ -16,11 +16,11 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C034-live-provider-truth.md",
-  "nextAction": "Commit failed-first actual-runner reproduction, implement bounded owned lifecycle and run offline regressions.",
+  "nextAction": "Review and commit tested source; run root verification and retain stale visual gate. Await named actual-provider grant and final combined captures.",
   "evidence": [
     "app/tests/providers.live.mjs",
     "docs/cycles/C034-live-provider-truth.md"
   ],
-  "truthReview": "Base e8166a5; observational live-provider runner can exit zero on error. No new behavior pass.",
+  "truthReview": "Failed-first5/5 false passes retained; offline19/19 classifications now pass. No authenticated call or process-containment proof executed in this lane.",
   "screenshotReview": "No UI/runtime launched; combined capture gates pending."
 }

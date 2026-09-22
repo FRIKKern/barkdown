@@ -91,3 +91,6 @@ Candidate `2b2ec11` is awaiting fresh combined gates. Global fixture approval/st
 - E009: [native clipboard gallery](../docs/visual/rich-clipboard/runs/2026-09-22T04-50-27-798Z/manifest.json), Barkdown `25cb114` / connected upstream3495. This does not update the vendored a544 fallback.
 - C028: [runner failure enforcement](../docs/cycles/C028-parity-exit.md); 24 controlled runner cases pass, while historical root freshness remains separate.
 - [Third-party notices](../THIRD-PARTY.md): 49-package metadata/license/provenance audit imported; no editor asset or pin change.
+
+
+C034 live-provider gate now requires a unique direct edit, persisted revision/content and receipt, acknowledged read/edit/read and owned driver/process completion. `npm --prefix app run test:providers -- claude` (or `codex`) spends existing device-login quota only when explicitly run; offline runner cases are part of desktop tests. All unexpected approvals are denied and disposable evidence is retained. [Exact scope and pending authenticated proof](../docs/cycles/C034-live-provider-truth.md).

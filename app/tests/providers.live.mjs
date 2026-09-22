@@ -1,41 +1,113 @@
-// Live checks of the Claude Code and Codex providers using the sign-ins on this computer.
-// Not part of `npm test` because it spends real quota: run `node tests/providers.live.mjs [claude|codex]`.
-import { createRequire } from 'module';
-import fs from 'fs'; import os from 'os'; import path from 'path';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import { createRequire } from 'node:module';
+
+// Explicitly spends the selected installed provider's quota. No authentication
+// configuration is changed. The owned worker requires Windows containment.
+const args = process.argv.slice(2);
+const names = args.filter(arg => !arg.startsWith('--'));
+const providers = names.length ? names : ['claude', 'codex'];
+const supported = new Set(['claude', 'codex']);
+function milliseconds(name, fallback) {
+  const values = args.filter(arg => arg.startsWith(`--${name}=`));
+  if (values.length > 1) throw Error(`Duplicate ${name}`);
+  const value = values.length ? Number(values[0].split('=')[1]) : fallback;
+  if (!Number.isSafeInteger(value) || value < 1 || value > 900000) throw Error(`Invalid ${name}`);
+  return value;
+}
+function bounded(promise, ms, label) {
+  let timer;
+  return Promise.race([promise, new Promise((_, reject) => { timer = setTimeout(() => reject(Error(`${label} timed out`)), ms); })]).finally(() => clearTimeout(timer));
+}
+let timeoutMs, cleanupMs;
+try {
+  if (providers.some(provider => !supported.has(provider)) || new Set(providers).size !== providers.length) throw Error('Choose claude and/or codex once each.');
+  if (args.some(arg => arg.startsWith('--') && !/^--(timeout-ms|cleanup-ms)=/.test(arg))) throw Error('Unknown option');
+  timeoutMs = milliseconds('timeout-ms', 180000);
+  cleanupMs = milliseconds('cleanup-ms', 30000);
+} catch (error) { console.error(error.message); process.exit(2); }
 
 const require = createRequire(import.meta.url);
-const store = require('../main/store.js');
-const documents = require('../main/documents.js');
-const agent = require('../main/agent.js');
-
-const which = process.argv[2] ? [process.argv[2]] : ['claude', 'codex'];
-const storeDir = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-live-'));
-store.init(storeDir); documents.loadAll();
-const folder = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-live-folder-'));
-fs.writeFileSync(path.join(folder, 'notes.txt'), 'alpha\n');
-
-for (const provider of which) {
-  console.log(`\n== ${provider} ==`);
-  const events = [];
-  const started = Date.now();
-  await new Promise(resolve => {
-    agent.start({
-      provider, chatId: 'live', prompt: 'Use the barkdown tools: read the document with id "overview", then propose appending one short sentence to it (mode append) with summary "Live check". Finally reply with the single word done.',
-      context: { folder }, settings: {}, storeDir, session: null,
-      send: event => {
-        events.push(event);
-        if (event.type === 'text_delta') process.stdout.write(event.text);
-        if (event.type === 'tool_start') console.log(`\n[tool] ${event.tool} ${JSON.stringify(event.input).slice(0, 120)}`);
-        if (event.type === 'activity') console.log(`\n[activity] ${event.label} -> ${event.target.kind}`);
-        if (event.type === 'approval') { console.log(`\n[approval] ${event.request.kind} ${event.request.path || event.request.command || ''} -> allow`); agent.respondApproval(event.runId, event.approvalId, true); }
-        if (event.type === 'error' || event.type === 'done') { console.log(`\n[${event.type}] ${event.message || ''} session=${event.session || ''} in ${Date.now() - started}ms`); resolve(); }
+const { createStore } = require('../main/store.js');
+const { createDocuments } = require('../main/documents.js');
+const { captureScope } = require('../main/providers/run-scope.js');
+const { createOwnedWorkerAgent } = require('../main/goal-worker-agent.js');
+const { markdownToDoc } = require('../shared/markdown.js');
+const root = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-provider-proof-'));
+const report = { version: 1, root, authentication: 'Existing device provider login; no profile-authentication-isolation claim', results: [] };
+const reportPath = path.join(root, 'report.json');
+const persist = () => fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n');
+console.log(`Retained provider evidence: ${reportPath}`);
+let uncertainCleanup = false;
+for (const provider of providers) {
+  const storeDir = path.join(root, provider), folder = path.join(storeDir, 'working-folder');
+  fs.mkdirSync(folder, { recursive: true });
+  const store = createStore(storeDir), documents = createDocuments(store);
+  const identity = crypto.randomUUID();
+  const marker = `Barkdown verified append ${identity}`;
+  const seed = `Original fixture ${identity}`;
+  const original = documents.create({ title: `Provider proof ${identity}`, markdown: seed });
+  const profileId = crypto.randomUUID(), attemptId = crypto.randomUUID();
+  const scope = captureScope({ profileId, storeDir, context: { folder }, connection: { enabled: false, viaCli: false, writes: false } });
+  const agent = createOwnedWorkerAgent();
+  const result = { provider, profileId, attemptId, documentId: original.id, marker, beforeRev: original.rev, events: [], pass: false, driverFinished: false, terminationVerified: false };
+  report.results.push(result); persist();
+  let runId, finishPromise, rejectFailure, observedFailure;
+  const failure = new Promise((_, reject) => { rejectFailure = error => { observedFailure ||= error; reject(error); }; }); failure.catch(() => {});
+  try {
+    const started = await bounded(Promise.resolve(agent.start({ provider, scope, storeDir, profileId, attemptId, chatId: `proof-${identity}`, context: scope.context, settings: {}, images: [], session: null,
+      prompt: `Use only Barkdown document MCP tools. Read document ${original.id}. Append exactly one paragraph containing exactly ${JSON.stringify(marker)} with edit_document mode append, preserving the existing paragraph. Then read the same document again to verify the saved change. Do not create another document, use shell commands, change files or request permissions. Finally reply done.`,
+      send(event) {
+        result.events.push(event); if (event.runId) runId ||= event.runId;
+        if (event.type === 'approval') { agent.respondApproval(event.runId, event.approvalId, false); rejectFailure(Error('Unexpected approval request denied')); }
+        if (event.type === 'error' || event.type === 'error_note') rejectFailure(Error(event.message || 'Provider error'));
+        if (event.type === 'tool_result' && event.ok !== true) rejectFailure(Error('Provider tool failed'));
+        if (event.type === 'done' && event.cancelled) rejectFailure(Error('Provider cancelled'));
       },
-    });
-  });
-  documents.loadAll();
-  const proposals = documents.get('overview')?.proposals || [];
-  console.log(`proposals recorded: ${proposals.length}; activities: ${events.filter(e => e.type === 'activity').length}; tools: ${events.filter(e => e.type === 'tool_start').map(e => e.tool).join(',')}`);
-  if (proposals.length) documents.resolveProposal('overview', proposals[0].id, false);
+    })), timeoutMs, 'Provider dispatch');
+    runId = started.runId; result.runId = runId;
+    finishPromise = agent.waitForRunFinish(runId);
+    result.completion = await bounded(Promise.race([finishPromise, failure]), timeoutMs, 'Provider driver');
+    result.driverFinished = true;
+    if (observedFailure) throw observedFailure;
+    if (result.completion.status !== 'completed' || result.completion.cancelled || result.completion.cleanupFailed) throw Error(`Provider completion: ${result.completion.status}`);
+    if (!result.events.some(event => event.type === 'done' && !event.cancelled)) throw Error('No successful terminal event');
+    const completedTools = [];
+    const starts = new Map();
+    for (const event of result.events) {
+      if (event.type === 'tool_start') starts.set(event.toolUseId, event);
+      if (event.type === 'tool_result' && event.ok === true) {
+        const start = starts.get(event.toolUseId);
+        if (start?.input?.id === original.id) completedTools.push(start.tool.replace(/^mcp__barkdown__/, ''));
+      }
+    }
+    if (completedTools.join(',') !== 'read_document,edit_document,read_document') throw Error('Expected acknowledged read/edit/read of the fixture');
+    const saved = documents.get(original.id), receipt = scope.edits.latest(original.id);
+    const expected = markdownToDoc(`${seed}\n\n${marker}`);
+    if (!saved || saved.rev !== original.rev + 1 || saved.title !== original.title || JSON.stringify(saved.content) !== JSON.stringify(expected) || documents.list().length !== 1) throw Error('Persisted document revision/content did not match the unique edit');
+    if (!receipt || receipt.documentId !== original.id || receipt.beforeRev !== original.rev || receipt.afterRev !== saved.rev || receipt.mode !== 'append') throw Error('No matching direct-edit receipt');
+    result.afterRev = saved.rev; result.receiptId = receipt.id;
+    result.terminationVerified = await bounded(agent.verifyTermination({ request: { storeDir, profileId, attemptId }, runId }), cleanupMs, 'Owned termination verification');
+    if (!result.terminationVerified) throw Error('Owned termination not verified');
+    result.pass = true;
+  } catch (error) {
+    result.error = String(error.message || error);
+    if (runId) {
+      try {
+        agent.cancel(runId);
+        result.completion = await bounded(finishPromise || agent.waitForRunFinish(runId), cleanupMs, 'Cancelled driver cleanup');
+        result.driverFinished = true;
+        result.terminationVerified = await bounded(agent.verifyTermination({ request: { storeDir, profileId, attemptId }, runId }), cleanupMs, 'Cancelled owned termination');
+      } catch (cleanupError) { result.cleanupError = String(cleanupError.message || cleanupError); }
+    }
+    if (!result.terminationVerified) uncertainCleanup = true;
+  } finally { if (runId) result.runId = runId; persist(); }
+  console.log(`${provider}: ${result.pass ? 'PASS' : 'FAIL'}; driverFinished=${result.driverFinished}; terminationVerified=${result.terminationVerified}`);
+  if (!result.pass) break; // Never spend a second provider's quota after a failure.
 }
-fs.rmSync(storeDir, { recursive: true, force: true });
-fs.rmSync(folder, { recursive: true, force: true });
+process.exitCode = report.results.length === providers.length && report.results.every(result => result.pass) ? 0 : 1;
+// On an unresponsive owned driver the parent exits nonzero; the existing native
+// job helper owns parent-death teardown. This report never calls that verified.
+if (uncertainCleanup) process.exit(1);
