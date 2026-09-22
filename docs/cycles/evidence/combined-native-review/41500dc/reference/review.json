@@ -1,0 +1,48 @@
+{
+  "source": "41500dc1f282182cbbd0539193376826a3c9475b",
+  "stillsInspected": [
+    "01-selected-B-unavailable-after-restart.png",
+    "02-claude-predispatch-refusal.png",
+    "02-codex-predispatch-refusal.png"
+  ],
+  "videos": [
+    {
+      "file": "01-selected-B-session.webm",
+      "framesInspected": 6,
+      "fps": 2
+    },
+    {
+      "file": "02-restart-refusal-session.webm",
+      "framesInspected": 7,
+      "fps": 2
+    }
+  ],
+  "originalManifestArtifactHashesVerified": 10,
+  "originalHashCount": 11,
+  "passed": true,
+  "stopped": true,
+  "finding": "Selected B missing same.txt remains unavailable, B draft retained; Claude/Codex refused before dispatch without A content substitution.",
+  "limits": "Selected B restart/missing reference/no A substitution and known missing ordinary CLI refusal. Original C029 SDK errors are historical; no post-stat removal race or combined-source proof.",
+  "reviewLimits": "2fps sample inspection plus all fullsize stills; source-bound bounded journey, no global approval or authenticated provider acceptance. Original media unchanged.",
+  "derivedHashes": {
+    "motion-map.json": "ea978ef68559f52a83026cafb3467ac8d77e9d74540ef7fcf6c277a2fc9cc718",
+    "original-hashes.json": "6f3c96a33f339e77beb0c26044ec69431a4282474947432c35b3d4db2253e473",
+    "motion-0/001.png": "5be4e19bf93e0e12e676fbf38a4769eadc079c72d477b05a9a6f1eec37deee13",
+    "motion-0/002.png": "56b0921ed47bccf6edc34fac18bdb8541249d08f6b831072f6aeaec52bb36416",
+    "motion-0/003.png": "3d81201a4a3d643074c8657a4ded86cb6d75afb811ac6f1bf2c4e4ff1103db26",
+    "motion-0/004.png": "76bafb2984c0b7b50304963d8453215082087eade3ea1b78c317e47e9304be7c",
+    "motion-0/005.png": "4cf97dc6416935b8c550de484a82ce4669c5207715e74ff73811853993b592e7",
+    "motion-0/006.png": "610cbae48fcfdf8e2ac86d28f8ce70e992edde1f2b49358ab1a84ce1190d0d4a",
+    "motion-0/contact-0.png": "c7ff3c6a7f08054958d5585f17ef6c1ef53ae126cb558fa76fb5d928b81a96b6",
+    "motion-0/decode.txt": "9470a5970d951c3cd8199f1ed9916e3806ebfd989ba1d6ae9554f58ef3350646",
+    "motion-1/001.png": "5be4e19bf93e0e12e676fbf38a4769eadc079c72d477b05a9a6f1eec37deee13",
+    "motion-1/002.png": "56b0921ed47bccf6edc34fac18bdb8541249d08f6b831072f6aeaec52bb36416",
+    "motion-1/003.png": "c606a2cc3c7eedcf6b1aae49756c4070a194521e379c700882489808a2f1b447",
+    "motion-1/004.png": "c1b756e71845feb9dcf785d836d74050f416f2f8469bdd75dee46bfe4cf6ed7e",
+    "motion-1/005.png": "0ab2a32be198d9e1e625747a96b5af03d0d80d0238b4e4b802468b30bfbe8695",
+    "motion-1/006.png": "3fa27de62c7b43815f643f7ac699cfa69d4f31e9fd9f247b8536b6795ecbb73f",
+    "motion-1/007.png": "3ba32f94520f61273abdd0493b6e3982dde86fde31cab9901ec4074c24b01726",
+    "motion-1/contact-0.png": "613eea40e284489fcdb05ae37cc0dd69f89c61ac0ae5eb2ded8dffb364fbe44b",
+    "motion-1/decode.txt": "30cb2daba0a90c1d4eb0e2af6917e09c967076f1b1143799cdbc77deea1b8eaa"
+  }
+}
