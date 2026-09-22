@@ -110,6 +110,7 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
       : chat.messages.filter(m => m.id !== assistantId && (m.text || m.role === 'user')).map(m => ({ role: m.role, content: m.text || 'See the attached image.' }));
     meta.attempts[request.attemptId] = { chatId, assistantId, userId, fingerprint, history, status: 'reserved', driverFinished: false, sequence: 0, runId: null,
       contextVersion: chat.contextVersion || 0, goalId: request.goalId || null, taskId: request.taskId || null, coordinatorChatId: request.coordinatorChatId || null };
+    if (!request.goalId) Object.assign(meta.attempts[request.attemptId], { request: clone(request), capturedContext: clone(resolved.scope.context || {}), model: resolved.chat?.model || null, effort: resolved.chat?.effort || null });
     chat.runProvider = request.provider; chat.updatedAt = at;
     write(profileId, ws);
     return { history: clone(history), fresh: true, assistantId, state: 'reserved' };
@@ -144,6 +145,14 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
       if (result.driverFinished !== false || result.status !== 'interrupted') throw new Error('Driver finalization acknowledgement required');
       attempt.status = 'interrupted'; attempt.runId ||= result.runId || null; chat.runId = attempt.runId;
       reply.streaming = false; reply.notes = [...(reply.notes || []), String(result.text || 'Driver finalization is unconfirmed; reconcile before retry.')];
+      write(request.profileId, ws); return { fresh: false, state: 'interrupted', driverFinished: false };
+    }
+    // A late teardown proof does not replace the person's review of an interrupted
+    // turn. Preserve its block until explicit recovery, even if native cleanup wins
+    // the race with the recovery request.
+    if (attempt.recovery) {
+      attempt.recovery.shutdownVerified = true; attempt.recovery.verifiedAt = now();
+      chat.interruption = { ...chat.interruption, shutdownVerified: true };
       write(request.profileId, ws); return { fresh: false, state: 'interrupted', driverFinished: false };
     }
     attempt.runId ||= result.runId || null; attempt.driverFinished = true; attempt.status = result.status || 'finished';
@@ -200,6 +209,44 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
     if (!item) throw new Error('Approval is no longer pending');
     item.status = approved ? 'approved' : 'declined'; write(profileId, ws); return true;
   }
-  return Object.freeze({ load, saveView, begin, event, finish, stageWorkerChats, command, approval });
+  function interruptOrdinary(profileId, isActive) {
+    const ws = read(profileId); let changed = false;
+    for (const [id, attempt] of Object.entries(metadata(ws).attempts)) {
+      if (attempt.goalId || attempt.driverFinished || isActive(id, attempt.runId, attempt.status)) continue;
+      const chat = chatFor(ws, attempt.chatId), reply = chat.messages.find(m => m.id === attempt.assistantId);
+      if (!reply) throw new Error('Interrupted attempt transcript is missing; recovery required');
+      if (!attempt.recovery) { attempt.recovery = { interruptedAt: now(), shutdownVerified: false }; changed = true; }
+      if (attempt.status !== 'interrupted' || reply.streaming || chat.runId) changed = true;
+      attempt.status = 'interrupted'; reply.streaming = false; chat.runId = null; chat.workingLabel = '';
+      chat.interruption = { attemptId: id, shutdownVerified: attempt.recovery.shutdownVerified, interruptedAt: attempt.recovery.interruptedAt };
+      for (const item of reply.approvals || []) if (item.status === 'pending') { item.status = 'interrupted'; changed = true; }
+    }
+    if (changed) write(profileId, ws);
+    return clone(ws);
+  }
+  function ordinaryRecovery(profileId, chatId, id) {
+    const ws = read(profileId); attemptId(id);
+    const attempt = metadata(ws).attempts[id];
+    if (!attempt || attempt.chatId !== chatId || attempt.goalId || attempt.driverFinished || !attempt.recovery) throw new Error('Ordinary interrupted attempt is unavailable');
+    const chat = chatFor(ws, chatId);
+    return { ws, attempt, chat };
+  }
+  function verifyOrdinary(profileId, chatId, id) {
+    const { ws, attempt, chat } = ordinaryRecovery(profileId, chatId, id);
+    attempt.recovery.shutdownVerified = true; attempt.recovery.verifiedAt = now();
+    chat.interruption = { ...chat.interruption, shutdownVerified: true };
+    return write(profileId, ws);
+  }
+  function releaseOrdinary(profileId, chatId, id, note) {
+    const { ws, attempt, chat } = ordinaryRecovery(profileId, chatId, id);
+    if (!attempt.recovery.shutdownVerified) throw new Error('Verify the previous process stopped before reviewing recovery');
+    if (typeof note !== 'string' || !note.trim() || note.length > 4000) throw new Error('Record what you reviewed before continuing');
+    attempt.recovery.review = note.trim(); attempt.recovery.reviewedAt = now(); attempt.driverFinished = true;
+    const reply = chat.messages.find(m => m.id === attempt.assistantId);
+    reply.notes = [...(reply.notes || []), 'Interrupted. The owned process stopped; effects were reviewed before allowing a new turn.'];
+    chat.interruption = null; chat.runId = null; chat.sessions = {}; chat.sessionSeen = {}; chat.apiHistory = [];
+    return write(profileId, ws);
+  }
+  return Object.freeze({ load, saveView, begin, event, finish, stageWorkerChats, command, approval, interruptOrdinary, ordinaryRecovery, verifyOrdinary, releaseOrdinary });
 }
 module.exports = { createWorkspaceRepository };

@@ -323,6 +323,7 @@ function registerIpc() {
     return agent.start({ chatId, messages, prompt, images, context, provider: chosen, session, storeDir: runStoreDir, connection: barkparkConfig(), settings, send: event => { if ((event.type === 'library_changed' || event.libraryChanged) && store.dir() === runStoreDir) documents.loadAll(); win?.webContents.send('agent:event', event); } });
   });
   handle('agent:cancel', runId => profileService ? profileService.cancel(profileService.view(), runId) : agent.cancel(runId));
+  handle('agent:recover', input => { if (!profileService) throw new Error('Recovery requires a managed profile'); return profileService.recover(profileService.view(), input); });
   handle('agent:approve', ({ runId, approvalId, approved }) => profileService ? profileService.approve(profileService.view(), runId, approvalId, approved) : agent.respondApproval(runId, approvalId, approved));
 
   handle('web:fetchTitle', async url => { try { const r = await fetch(url, { signal: AbortSignal.timeout(8000) }); const html = await r.text(); return /<title[^>]*>([^<]*)<\/title>/i.exec(html)?.[1]?.trim() || null; } catch { return null; } });

@@ -25,7 +25,7 @@ export function transcriptHtml(chat, options = {}) {
     const notes = (m.notes || []).map(n => `<p class="bw-error-line">${esc(n)}</p>`).join('');
     const changes = m.streaming ? '' : changeCardHtml(m, index);
     return `<div class="bw-byline"><span class="bw-avatar bw-agent">b</span>Barkdown<time>${esc(relativeTime(m.at))}</time></div>${timelineHtml(m, index, steps)}${events}${approvals}${changes}${notes}${error}${replyFootHtml(m, chat)}`;
-  }).join('') + (options.footer || '');
+  }).join('') + (chat.interruption ? `<div class="bw-approval" data-recovery="${esc(chat.interruption.attemptId)}"><strong>This turn was interrupted</strong><p>The partial response is saved. Nothing was resent. Check that the previous process stopped, then review any file or document changes before starting a new turn.</p>${chat.interruption.shutdownVerified ? '<p>Previous process stopped.</p><label>What did you review?<textarea data-recovery-note placeholder="Describe any changes you checked"></textarea></label><button data-recover="review">Allow a new turn</button>' : '<button data-recover="verify">Check stopped process</button>'}</div>` : '') + (options.footer || '');
 }
 
 // The reply as it happened: thinking, steps and text in order. Replies saved before the timeline existed
@@ -195,6 +195,7 @@ function userMessagesToApi(messages) {
 
 export async function sendMessage(chat, text, hooks, images = []) {
   const clean = text.trim();
+  if (chat.interruption) { toast('Review the interrupted turn before sending a new message.', 'error'); return false; }
   const attached = (images || []).map(i => ({ id: i.id, path: i.path, url: i.url, name: i.name, mime: i.mime }));
   if ((!clean && !attached.length) || chat.runId) return false;
   const now = new Date().toISOString();
@@ -218,7 +219,7 @@ export async function sendMessage(chat, text, hooks, images = []) {
     const { runId, assistantId, attemptId } = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title, catchUp }, provider, chat.sessions[provider] || null, clean, attached, { model: chat.model || undefined, effort: chat.effort || undefined });
     if (assistantId) { chat.messages.at(-1).id = assistantId; chat.messages.at(-1).attemptId = attemptId; chat.messages.at(-2).id = `user-${attemptId}`; }
     chat.runProvider = provider;
-    chat.runId = state.profileId && !chat.messages.at(-1).streaming ? null : runId;
+    chat.runId = state.profileId && chat.messages.at(-1).driverFinished ? null : runId;
     hooks.runChanged(chat);
   } catch (error) {
     const reply = chat.messages.at(-1);
@@ -251,6 +252,14 @@ export function handleAgentEvent(event, hooks) {
     if (pending?.role === 'assistant' && pending.streaming && !pending.id) { pending.id = event.assistantId; pending.attemptId = event.attemptId; reply = pending; }
   }
   if (!reply) return;
+  if (state.profileId && event.type === 'driver_state') {
+    if (reply.runId && reply.runId !== event.runId) return;
+    reply.driverFinished = event.driverFinished;
+    chat.interruption = event.interruption;
+    chat.runId = event.driverFinished || event.interruption ? null : event.runId;
+    chat.workingLabel = ''; reply.streaming = false;
+    hooks.render(chat); hooks.runChanged(chat); save(); return;
+  }
   if (state.profileId && event.sequence) {
     if (reply.runId && reply.runId !== event.runId || event.sequence <= (reply.lastSequence || 0)) return;
     reply.runId = event.runId; reply.lastSequence = event.sequence;
@@ -283,7 +292,7 @@ export function handleAgentEvent(event, hooks) {
       break;
     }
     case 'approval': reply.approvals.push({ approvalId: event.approvalId, runId: event.runId, request: event.request, status: 'pending' }); hooks.render(chat); hooks.attention(chat); break;
-    case 'error': reply.streaming = false; reply.error = event.message; chat.runId = null; chat.workingLabel = ''; hooks.render(chat); hooks.runChanged(chat); break;
+    case 'error': reply.streaming = false; reply.error = event.message; chat.runId = state.profileId ? event.runId : null; chat.workingLabel = ''; hooks.render(chat); hooks.runChanged(chat); break;
     case 'done':
       reply.streaming = false;
       if (event.history) { chat.apiHistory = event.history; chat.messages.filter(m => m.role === 'user').forEach(m => { m.sentInHistory = true; }); }
@@ -291,7 +300,7 @@ export function handleAgentEvent(event, hooks) {
       if (event.session && event.provider) { chat.sessions = chat.sessions || {}; chat.sessions[event.provider] = event.session; chat.sessionSeen = chat.sessionSeen || {}; chat.sessionSeen[event.provider] = chat.messages.length; }
       reply.provider = event.provider;
       reply.finishedAt = new Date().toISOString();
-      chat.runId = null;
+      chat.runId = state.profileId ? event.runId : null;
       chat.workingLabel = '';
       touch(chat);
       hooks.render(chat);
