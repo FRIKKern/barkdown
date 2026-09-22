@@ -1,0 +1,82 @@
+{
+  "sourceCommit": "cefe312a560518cbdcb7a9d0457eed52f7d87436",
+  "sourceDirty": false,
+  "barkparkCommit": "a5440345caa413087ac6488cac67f19fce58fa0f",
+  "barkparkDirty": "false",
+  "server": "http://127.0.0.1:60958",
+  "buildFingerprint": "1d2c54f136ae43336a2620943e4a794f79978d83f4884351183fb78ee25e3d0a",
+  "editorBundle": {
+    "source": "vendored",
+    "server": null,
+    "version": null,
+    "sha": "c73a0f46c5402178721a9fe334a25a8a6f530d70",
+    "js": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-editor-fallback-consumption\\app\\renderer\\vendor\\bp-paper-editor.bundle.js",
+    "css": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-editor-fallback-consumption\\app\\renderer\\vendor\\bp-paper-editor.css",
+    "fetchedAt": null,
+    "error": "503 Service Unavailable for http://127.0.0.1:61980/assets/bp-paper-editor.bundle.js",
+    "loaded": "now"
+  },
+  "proxy": {
+    "refused": {
+      "/assets/bp-paper-editor.bundle.js": 1,
+      "/assets/bp-paper-editor.css": 1
+    },
+    "forwarded": 36
+  },
+  "expectedVendorCommit": "54579debe6ad4579c1a48586805498602867d983",
+  "results": [
+    {
+      "name": "actual upload completion during Undo, repeated Redo and saved human reload",
+      "revisions": {
+        "initial": 1,
+        "restored": 4,
+        "human": 9
+      },
+      "blocks": [
+        {
+          "id": "block-0",
+          "level": 1,
+          "text": "Image uploads survive Undo",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Human text stays. Next human edit."
+            }
+          ],
+          "id": "block-1",
+          "type": "paragraph"
+        },
+        {
+          "alt": "history",
+          "id": "c-1-d2e26100",
+          "src": "http://127.0.0.1:61980/media/files/d/88bdab1a-0708-4405-8816-9017a6b0e997/2026/09/history-ae4b342c.png",
+          "type": "image"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "This surrounding paragraph must survive."
+            }
+          ],
+          "id": "block-2",
+          "type": "paragraph"
+        }
+      ]
+    }
+  ],
+  "artifacts": {
+    "01-upload-pending.png": "2de7d6189c17a33cecb5cfcb7d65fd566e5aedc48b1d478523f749d654f77fe3",
+    "02-undo-before-delivery.png": "3de0860d091ae4631c0765baba1a5fafd700f04e663eb00476c689f679a9beaa",
+    "03-redo-acknowledged-image.png": "b1d1d00e869cc93724ceae4efeaf083d56f1d92727475fb5ccf879a9a14425f1",
+    "04-human-saved.png": "5f7546b8bb462a7a9e05efb24428956ed2838c70a7b8cf7205a4d9cdb52890b5",
+    "05-reloaded.png": "ecad9a91c0b0f59493cc10344bd294d8bbee17fe690210f8fcd8d3259684d585",
+    "06-narrow.png": "c126e9c1210585785aba2c66cedf2b74060e8703f91ee9c58d4fe07644c64c91",
+    "fallback-consumption.webm": "dcae338365972cdad0bedcfb2d794551406a3cec612dcffedb3716c2ab5f1cce",
+    "server.json": "1e7423063cfe5169a3bf17e3bc8954df4488d1591354ebc918131ff2fea8ac71"
+  },
+  "motion": "Actual Paper host media upload with response delivery held at the uploader boundary, native history keys and real server assertions. No fabricated save acknowledgement; response delay is controlled race coverage."
+}

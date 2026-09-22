@@ -1,6 +1,6 @@
 # E011 — Explicit Paper fallback consumption
 
-Prepared isolated codex/editor-fallback-consumption from integration94aa3d7. E009/E010 native proof is a prerequisite; no pin or vendored asset has changed. Current source preference remains server, verified profile-owned cache, then vendor. A fallback update does not upgrade a reachable older server or valid old cache.
+Prepared isolated codex/editor-fallback-consumption from integration94aa3d7. E009/E010 native proof is a prerequisite; the initial preparation below preceded the consumed source checkpoint. Current source preference remains server, verified profile-owned cache, then vendor. A fallback update does not upgrade a reachable older server or valid old cache.
 
 ## Planned bounded proof
 
@@ -29,3 +29,17 @@ Root accepted E010 actual proof (Barkdown0d5ffa1/upstream54579) and authorized e
 Twelve Node checks passed:7 existing cache integrity tests,3 proxy/resolver checks,2 distribution provenance/notices checks. App build passed. Native fallback fixture and its proxy are now visual inputs; new coverage page explicitly remains pending. Source commit must precede olda544 then54579 actual compatibility, deterministic review and final status. Root granted the next exclusive UI window after this source checkpoint; rootC030 follows explicit cleanup/release.
 
 Offline notice verification passed49packages; root build passed. scripts/check.cjs correctly stops at stale inherited status screenshots, an expected pre-capture gate rather than a waived pass. Actual visual/live freshness will be refreshed after source commit.
+
+## Actual compatibility at consumed sourcecefe312
+
+Olda54479062/zsgbEy and intended5457948274/w9nwaO both passed real fallback fixture. Each asserted sourcevendored, loaded committed545JS/CSS paths/hashes, empty successful-server cache and refusal of exactly2asset endpoints. Real upload/ops/read/media went through proxy; one upload survived repeated native Undo/Redo, laterhuman revision9 and reload. Both wrappers stopped; postmaster absence checked before next launch. [Old-server review](../visual/fallback-consumption/runs/2026-09-22T05-23-20-987Z/review.json) and [new-server review](../visual/fallback-consumption/runs/2026-09-22T05-24-51-920Z/review.json) bind6stills+39video2fps+16GIFframes per run. These image/paragraph operations are bounded compatibility proof, not the whole PortableDoc parity sweep or unfinished-upload restart recovery.
+
+Imported root81a9510 visual-core/approvaltest/RULES only as65b0dab: every new live journey/helper is now included automatically. Diff/approval tests passed before finalcapture. Native manifests retain originalcefe source; production editor bytes unchanged. Full app suite84425 passed. It started at65b0dab; only README/provenance-limit text changed beforecc17fca, with operational bytes unchanged. [Original log](../visual/fallback-consumption/validation/full-app.txt).
+
+## Final visual and live checkpoint
+
+At cc17fca, deterministic91639 captured40 frames; comparison found39 within tolerance and only the expected Settings fallback SHA text change. All40 stills/diffs and40 decoded GIF frames inspected; explicit immutable approval recorded. Final live6059/uiMIYu passed with real Codex after Claude weekly limit, actual server54579/version0.2.26.3925, five stills and37 GIF frames inspected. [Exact status manifest](../images/status/history/E011-cc17fca.json) and [hash-bound review](../images/status/history/E011-cc17fca.review.json). All private runtimes stopped; postmaster absence checked. UI slot released to root. Final root verification pending.
+
+Source precedence remains server then verified cache then vendor: the old reachable server and valid old cache are not upgraded by this pin. Both dedicated runs forced only asset fetch failure and proved exact fallback bytes with real document/media traffic. No upstream merge/release, full parity sweep or unfinished-upload restart recovery claim. Next: selective integration of exact assets/notices/tests and original evidence, then combined validation on root branch.
+
+Final root verification42330 passed (build, type/check/plan/cycle, artifact and source freshness, visual approval integrity, concept/handoff tests). [Original log](../visual/fallback-consumption/validation/root-verify.txt). E011 is ready for selective integration review; combined branch gates remain root-owned and are not inferred from this isolated checkpoint.

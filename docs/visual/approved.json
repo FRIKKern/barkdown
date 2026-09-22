@@ -1,9 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-09-22T02-13-13-738Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-22T02-13-13-738Z/comparison.json",
-  "manifestHash": "ed5ef80111236e05948214c402f84729f6e033adefe891a7f3cc4580eacf34e3",
-  "reportHash": "f9532adfe23e2848a4015f7c8d4c272367b98535ce1358c7cf25f7cb788d0d8e",
-  "reviewer": "Codex root integration review",
-  "note": "Reviewed all 40 stills and all decoded GIF frames. Final recapture matched 43 of 48 reviewed artifacts byte-for-byte; the four changed stills and changed side-chat GIF were inspected again. Named-step comparison shows three new goal planning views and expected tasks-to-workers labels; no unintended geometry or clipping regression found. Combined desktop suite 64608 passed. Fixture capture alone does not prove live provider or persistence behavior.",
-  "reviewedAt": "2026-09-22T02:18:55.981Z"
+  "manifest": "docs/visual/runs/2026-09-22T05-31-59-959Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-22T05-31-59-959Z/comparison.json",
+  "manifestHash": "84ab89a75ba9def63a41db97be33e142dc0970cd1fc257248970b0efed634f7f",
+  "reportHash": "96b5edb54d64dfb5c8d896a077dc65facf83cce424acf573c4a533853ced6090",
+  "reviewer": "Codex editor agent",
+  "note": "E011: inspected all 40 deterministic stills/diffs and all 40 decoded GIF frames. Settings bundle SHA change to c73a0f46 is expected; geometry unchanged. Both real fallback compatibility runs separately prove actual upload/Undo/Redo/save/reload against a544 and545 servers. No new clipping or unintended displacement observed; deterministic tours are not server proof.",
+  "reviewedAt": "2026-09-22T05:37:10.756Z",
+  "reviewPath": "docs/visual/reviews/approval-09aa9a14923fcad33fcb21202a3134dc890425528a8787d15be921eb111791a7.json",
+  "reviewHash": "09aa9a14923fcad33fcb21202a3134dc890425528a8787d15be921eb111791a7"
 }
