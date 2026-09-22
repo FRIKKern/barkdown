@@ -12,14 +12,14 @@ const siteUrl = `http://127.0.0.1:${site.address().port}`;
 const launch = () => electron.launch({ executablePath: process.env.BARKDOWN_PROFILE_TEST_EXE || require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 let app = await launch(), page = await app.firstWindow();
 const errors = [];
-await app.evaluate(({ webContents }) => {
+async function armDiagnostics() { await app.evaluate(({ webContents, app: electronApp }) => {
   global.profileWebviewEvents = [];
   const attach = wc => {
     for (const name of ['did-start-loading','dom-ready','did-stop-loading','did-fail-load','render-process-gone','destroyed']) wc.on(name, (_event, ...args) => global.profileWebviewEvents.push({id:wc.id,name,args,at:Date.now()}));
   };
   webContents.getAllWebContents().forEach(attach);
-  require('electron').app.on('web-contents-created', (_event, wc) => attach(wc));
-});
+  electronApp.on('web-contents-created', (_event, wc) => attach(wc));
+}); }
 page.on('pageerror', e => errors.push(e.message));
 async function website(value) {
   await page.evaluate(url => window.__barkdown.openTarget({ kind: 'web', url, title: 'Fixture website' }), siteUrl);
@@ -27,6 +27,7 @@ async function website(value) {
   return page.evaluate(value => document.querySelector('webview').executeJavaScript(value === undefined ? '({storage:localStorage.getItem("owner"),cookie:document.cookie})' : `localStorage.setItem('owner', ${JSON.stringify(value)}); document.cookie='owner=${value}; path=/; max-age=3600';`), value);
 }
 try {
+  await armDiagnostics();
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
   const original = await page.evaluate(async () => {
     const api = window.barkdown, status = await api.profiles.status(), ws = await api.state.load();
