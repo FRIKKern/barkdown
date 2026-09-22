@@ -1,0 +1,40 @@
+{
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-rename-contention-MpwUG9",
+  "source": "17c2cc8d879c77923d6e7b604d5e06255efe2416",
+  "platform": "win32",
+  "results": [
+    {
+      "label": "bound profile workspace",
+      "failure": {
+        "code": "EPERM",
+        "syscall": "rename",
+        "message": "EPERM: operation not permitted, rename 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-rename-contention-MpwUG9\\registry\\profiles\\483b4f01-c2f9-4340-be54-23f83324a9fe\\workspace.json.31040ddf-6a7b-4e04-8322-566a3843e901.tmp' -> 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-rename-contention-MpwUG9\\registry\\profiles\\483b4f01-c2f9-4340-be54-23f83324a9fe\\workspace.json'"
+      },
+      "priorAuthorityHash": "928e0eb43e4e26a1475921dcaea62e87e4145e8f0f0fbcb56b558d696e4e50c6",
+      "retainedTemp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-rename-contention-MpwUG9\\registry\\profiles\\483b4f01-c2f9-4340-be54-23f83324a9fe\\workspace.json.31040ddf-6a7b-4e04-8322-566a3843e901.tmp",
+      "explicitPostUnlockWrite": "passed",
+      "nodeReadHandleWrite": "EPERM",
+      "nodePriorAuthorityPreservedOnFailure": true,
+      "explicitPostNodeCloseWrite": "passed"
+    },
+    {
+      "label": "goal journal",
+      "failure": {
+        "code": "EPERM",
+        "syscall": "rename",
+        "message": "EPERM: operation not permitted, rename 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-rename-contention-MpwUG9\\journal\\goals.ca1331a9-f703-426b-9c50-0c7e8d1eb51b.tmp' -> 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-rename-contention-MpwUG9\\journal\\goals.json'"
+      },
+      "priorAuthorityHash": "c148040455f2032562c917e27bec476512b27d360a142fced666c15582491987",
+      "retainedTemp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-rename-contention-MpwUG9\\journal\\goals.ca1331a9-f703-426b-9c50-0c7e8d1eb51b.tmp",
+      "explicitPostUnlockWrite": "passed",
+      "nodeReadHandleWrite": "EPERM",
+      "nodePriorAuthorityPreservedOnFailure": true,
+      "explicitPostNodeCloseWrite": "passed"
+    }
+  ],
+  "limitations": [
+    "Controlled .NET reader deliberately denies delete; origin of naturally observed EPERM remains unknown.",
+    "No production retry or automatic temporary-file adoption is implemented.",
+    "Explicit post-unlock calls prove availability only after the known handle closes; not power-loss durability."
+  ]
+}
