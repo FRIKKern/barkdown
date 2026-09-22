@@ -89,3 +89,11 @@ handleAgentEvent({ type: 'driver_state', profileId: a.id, chatId: 'ui', runId: '
 assert.equal(uiChat.runId, null); assert.equal(uiChat.messages[0].driverFinished, true);
 assert.equal(uiChat.draft, 'Keep unsent');
 console.log('PASS managed renderer waits for trusted driver acknowledgement and surfaces uncertainty without clearing draft');
+
+const fast = { id: 'fast', title: 'New chat', messages: [], draft: '', sessions: {} }; state.chats.fast = fast;
+window.barkdown.agent = { async start() {
+  handleAgentEvent({ type: 'driver_state', profileId: a.id, chatId: 'fast', runId: 'fast-run', driverFinished: false, interruption: { attemptId: 'early-failure' } }, hooks);
+  return { runId: 'fast-run' };
+} };
+await sendMessage(fast, 'Fast launch failure fixture', hooks);
+assert.ok(fast.interruption); assert.equal(fast.runId, null, 'early recovery notification must not be overwritten by late start acknowledgement');
