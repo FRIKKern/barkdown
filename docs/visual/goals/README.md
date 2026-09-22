@@ -18,3 +18,7 @@ Goal component with explicitly injected fixture snapshots and providers blocked.
 ## Actual coordinator execution evidence
 
 [Source61ee gallery](../../goals/evidence/61eea4d/README.md) is distinct from this injected-service fixture tour: 17 actual Electron normal/crash stills, saved synthetic SDK transport and separate authenticated Codex proof. All images inspected after full desktop50783. No continuous-motion crash recording is claimed.
+
+### C023 storage implementation checkpoint
+
+Goal journal replacement retries preserve expected acknowledged bytes and lifetime writer lease.68 goal checks and20 focused storage checks pass; fresh source-bound desktop/live/fixture gates remain pending. No orphan temp is adopted.

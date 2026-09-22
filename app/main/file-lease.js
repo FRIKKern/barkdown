@@ -33,7 +33,15 @@ function acquireFileLease(file, { busy = 'Storage is owned by another writer', c
   try { fs.writeFileSync(fd, JSON.stringify({ pid: process.pid, lease })); fs.fsyncSync(fd); }
   catch (error) { fs.closeSync(fd); throw error; }
   let released = false, closed = false;
+  function assertOwned() {
+    if (released || closed) throw new Error('Storage lease is closed');
+    let owner;
+    try { owner = JSON.parse(fs.readFileSync(file, 'utf8')); }
+    catch { throw new Error('Storage lease changed or disappeared'); }
+    if (owner.lease !== lease || owner.pid !== process.pid) throw new Error('Storage lease changed; refusing another owner');
+  }
   return Object.freeze({ lease,
+    assertOwned,
     release() {
       if (released) return;
       let owner;

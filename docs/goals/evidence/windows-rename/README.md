@@ -1,6 +1,6 @@
 # Prepared Windows rename reliability audit
 
-[C023 plan](../../../cycles/C023-windows-atomic-write.md) is queued after C020. Production remains unchanged.
+This preparatory audit predates [C023 implementation](../../../cycles/C023-windows-atomic-write.md). The original observations below describe the unmodified single-rename writers; current implementation status and retry tests are recorded in the cycle.
 
 - [Initial controlled reader](initial-controlled.json): actual bound-profile workspace and goal journal both reject rename with EPERM while a .NET reader denies delete; exact authority and prepared temp survive.
 - [Expanded actual-writer proof](controlled-and-node.json): ordinary Node read handle also causes EPERM; old bytes and in-memory journal stay authoritative. Explicit new writes succeed after closing each reader. No failed temp is adopted or deleted.

@@ -1,27 +1,25 @@
 {
   "version": 1,
-  "id": "C020",
+  "id": "C023",
   "stage": "P3",
-  "status": "done",
-  "goal": "Prove coordinator interruption and stop races preserve exact attempt authority and human drafts.",
+  "status": "active",
+  "goal": "Bound transient Windows replacement retries without changing write authority or replaying effects.",
   "scope": [
-    "Headless scheduler and real Windows owned-process coordinator tests",
-    "Only reproduced behavior gaps; preserve C015 baseline",
-    "No Electron until granted, no shared runtime, migration, merge or deployment"
+    "Managed profile JSON and goal journal atomic replacement only",
+    "Controlled failure-first tests, expected target and owned writer lease revalidation",
+    "No arbitrary temp adoption, external replay, migration, merge or deployment"
   ],
   "acceptance": [
-    "Pause/cancel/deadline block late worker or reviewer acceptance",
-    "Interrupted review and summary recover paused without replay",
-    "Explicit shutdown and reconciliation preserve old attempts and drafts"
+    "Transient held reader can release within a bounded retry budget",
+    "Persistent lock and changed target/candidate/lease fail closed with retained prior authority",
+    "Actual managed workspace and goal journal adapters preserve acknowledgement semantics"
   ],
   "checkpoint": "2026-09-22",
-  "handoff": "docs/cycles/C020-coordinator-interruption.md",
-  "nextAction": "Archive C020; begin authorized C023 controlled failure-first Windows replacement retry tests.",
+  "handoff": "docs/cycles/C023-windows-atomic-write.md",
+  "nextAction": "Freeze reviewed narrow retry source, then await parent UI/a544 slot for full desktop and fresh visual/live/root gates.",
   "evidence": [
-    "docs/goals/evidence/17c2cc8/README.md",
-    "docs/goals/evidence/4ca8247/failed-summary-observation.json",
-    "docs/visual/runs/2026-09-22T03-10-25-041Z/comparison.json"
+    "docs/goals/evidence/windows-rename/README.md"
   ],
-  "truthReview": "Full desktop57965 and root4562 PASS on17c2cc8 test source/docs8163c27. No production change; EPERM remains unresolved for C023. README/app guide/PLAN/plan.json/architecture/VALIDATION reviewed; central stages unchanged.",
-  "screenshotReview": "All17 coordinator stills,34 fixture frames and live5 stills/37 GIF frames inspected. Fixture explicitly approved; liveOOIVao real Codex stopped normally. UI released."
+  "truthReview": "20 focused checks,68 goal checks and profile/lease/repository/service/IPC regressions pass. Full desktop and fresh evidence pending; no stage completion.",
+  "screenshotReview": "C020 source-bound evidence remains intact; C023 app changes will require fresh gates after implementation."
 }

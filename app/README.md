@@ -67,3 +67,7 @@ Use [the local-runtime guide](../docs/LOCAL-BARKPARK.md) for setup and [the acce
 - [Goals](../docs/visual/goals/README.md): injected-service component fixtures, distinct from live execution proof.
 
 Each page contains a still, recorded interaction GIF, provenance and changelog. [Rules and coverage limits](../docs/visual/RULES.md) distinguish visual review from functional/runtime proof.
+
+## Managed storage replacement
+
+Managed profile JSON and goal journal writes use an owned lease and guarded atomic replacement. Transient Windows EPERM/EBUSY replacement failures can retry the same prepared candidate up to five attempts, with100ms total synchronous waits; filesystem calls may take longer. Changed target, candidate or ownership stops retries. Goal journals also reject changes to prior acknowledged bytes. Persistent failures retain evidence and never promote orphan temporary files or replay provider work. Registry/adoption publication and the legacy store retain their existing behavior. [C023 evidence and limits](../docs/cycles/C023-windows-atomic-write.md).
