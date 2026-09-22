@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "id": "C026",
+  "stage": "P1",
+  "status": "active",
+  "goal": "Preserve prompt and attachments when a managed turn is rejected before durable dispatch.",
+  "scope": [
+    "Shared main/side composer acceptance lifecycle",
+    "Pending-send duplicate guard and newer-draft preservation",
+    "No auto-retry, provider replay or missing-reference substitution"
+  ],
+  "acceptance": [
+    "Missing attachment rejection survives reload with exact original draft/references",
+    "Newer typing or attachment changes during delayed start remain untouched",
+    "One submitted intent dispatches at most once; successful unchanged draft clears after acceptance",
+    "Actual persistence/renderer regressions then explicit Electron and reviewed evidence"
+  ],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C026-send-preservation.md",
+  "nextAction": "Add failing actual-adapter/shared-composer regression, then implement acceptance guard. No UI grant.",
+  "evidence": [
+    "docs/cycles/evidence/C026-send/before.json"
+  ],
+  "truthReview": "Baseline ece4626; C025 frozen separately. Central C008 queue unchanged.",
+  "screenshotReview": "Pending source and coordinator grant."
+}
