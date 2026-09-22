@@ -93,3 +93,5 @@ Stated 2026-09-20, not yet folded into the PRD:
 
 
 E011 candidate fallback/pin now selects54579debe, with byte-bound shipped notices and preserved host overrides. E009/E010 native source proof passed; new-client/olda544-server fallback compatibility remains pending. Server/cache precedence and G1/G2 remain separate. [Handoff](cycles/E011-fallback-consumption.md).
+
+E012 candidate fallback/pin now selectsbf23f773c (JS3a94), adding stable split/checklist IDs and non-mutating live-attribute projection. Exact connected-source split/checklist/history/reload proof and full upstream pass; new fallback compatibility and combined final visual validation remain pending. Original E011 audit/manifests are archived under docs/archive/editor-consumption.49 shipped notice versions/text remain unchanged and reverified. [Handoff](cycles/E012-block-identity.md).
