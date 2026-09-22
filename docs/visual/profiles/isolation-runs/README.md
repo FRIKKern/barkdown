@@ -8,8 +8,9 @@ C016 remains **in progress**. These are disposable actual Electron/managed Postg
 | [00:45](2026-09-22T00-45-41-998Z/manifest.json) | Concurrent A/B, same-slug media/favorites, late A edit and transcript, B draft/context/scroll, rejected A Undo in B | Fixture incorrectly expected no fuzzy search result; the returned result belonged to B; normal cleanup |
 | [00:49](2026-09-22T00-49-13-146Z/manifest.json) | Above plus credential denial, scoped search, valid A Undo, restarted B draft/side parent/path | Actual restart scroll was **390**, saved value **360**; unresolved geometry/scroll issue; normal cleanup |
 | [00:54](2026-09-22T00-54-58-699Z/manifest.json) | Concurrent A/B and initial ownership assertions | MCP edit returned `fetch failed`; cancellation did not reach driver finalization; explicit owned cleanup required |
+| [01:54](2026-09-22T01-54-53-499Z/manifest.json) | Concurrent A/B, actual A MCP edit acknowledged at revision 2, owned API worker stopped with zero active processes | B scrollTop changed 360→390 before restart; visible paragraph positions appear stable, so anchor/image geometry needs measurement; normal cleanup |
 
-The last run's `stopped: true` means the final resources were stopped, **not** that application shutdown succeeded. [Forced cleanup evidence](2026-09-22T00-54-58-699Z/forced-cleanup.json) records both positively identified private PostgreSQL clusters stopped cleanly before the disposable Electron tree was terminated. No owned process or postmaster marker remained.
+The 00:54 run's `stopped: true` means the final resources were stopped, **not** that application shutdown succeeded. [Forced cleanup evidence](2026-09-22T00-54-58-699Z/forced-cleanup.json) records both positively identified private PostgreSQL clusters stopped cleanly before the disposable Electron tree was terminated. No owned process or postmaster marker remained.
 
 ![B retains its document after A finishes](2026-09-22T00-49-13-146Z/03-B-after-A-completion.png)
 
