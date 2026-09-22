@@ -71,3 +71,5 @@ Each page contains a still, recorded interaction GIF, provenance and changelog. 
 - [Terminal ownership](../docs/visual/terminal-ownership/README.md): C018 native process proof passed; combined actual UI/evidence closeout pending.
 
 - [Project-buffer preservation](../docs/visual/project-buffers/README.md): actual CodeMirror refusal preserves unsaved text until explicit Save.
+
+C026: shared composers preserve draft text and images until start acknowledgement, guard duplicate sends and newer typing, and expose keyboard/touch attachment removal. Human errors retain exact collapsed diagnostics. [Actual managed and legacy evidence](../docs/visual/send-preservation/README.md) covers rejection, restart and explicit retry; unknown dispatch outcomes are never labelled not started.

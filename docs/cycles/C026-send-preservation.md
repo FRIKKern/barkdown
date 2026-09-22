@@ -43,3 +43,13 @@ Full desktop49410 passed before copy correction. Coordinator review withheld UX 
 First friendly-copy actual osHiHv stopped after two frames: fixture asked the accessibility tree for the hover-revealed Remove button without hovering. Preserving failure; fixture now hovers the actual thumbnail before checking the control. No product correction or deletion.
 
 Coordinator accessibility review found the offered Remove recovery was hover-only. The 64px thumbnail now retains a 24px focusable removal control, reveals it on keyboard focus and no-hover devices, and the actual Electron fixture checks Shift+Tab/Enter in both shared composers with missing references and preserved durable text. Earlier mouse proof remains retained; final-source gates will be rerun.
+
+## Final evidence checkpoint
+
+Source `1e138aa` is pushed on `codex/send-preservation-12h`. Full desktop44651 passed against the pre-CSS `80ba196` build. The only later product change is the attachment focus/touch CSS; actual final61539 passed main/side Shift+Tab/Enter removal with durable text, alongside managed missing-reference/restart/one-request proof and legacy real-contextBridge refusal/retry. Final disposable roots cg4lmP and ajPVru stopped normally. All14 full stills and45 samples at2fps inspected; exact originals and hashes are in [send preservation](../visual/send-preservation/README.md). Actual touch hardware was not exercised.
+
+Deterministic30502 captured `2026-09-22T04-44-51-359Z`; all40 stills and40 GIF frames inspected, unchanged geometry and zero changed pixels against the named baseline, explicitly approved. This tour has no attachment recovery scenario; dedicated actual evidence above covers it.
+
+Isolated Paper46428 at final source passed: private culXTs, a5440345caa413087ac6488cac67f19fce58fa0f, real Codex turn after Claude weekly quota refusal. Five full stills and37 GIF frames inspected; Paper/menu/save/table/quick-open layouts remain legible. Runtime stopped normally and postmaster-absence cleanup gate passed; UI/source slot released. Rootverify31568 is running. No user library, CLI config, main branch or deployment changed.
+
+Rootverify31568 passed all source, links, plan/cycle, visual freshness, concept and standalone checks. C026 bounded outcome closes; P1 remains in progress. Parent must preserve package/coverage unions and current integration approvals when importing. Original failed setup/hover and superseded raw-error captures remain linked, not approved as final UX.

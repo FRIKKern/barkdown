@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C026",
   "stage": "P1",
-  "status": "active",
+  "status": "done",
   "goal": "Preserve prompt and attachments when a managed turn is rejected before durable dispatch.",
   "scope": [
     "Shared main/side composer acceptance lifecycle",
@@ -17,10 +17,14 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C026-send-preservation.md",
-  "nextAction": "Add failing actual-adapter/shared-composer regression, then implement acceptance guard. No UI grant.",
+  "nextAction": "Parent selectively imports reviewed final source/evidence and runs combined gates; missing-folder provider behavior remains a separate audit, not C026 completion.",
   "evidence": [
-    "docs/cycles/evidence/C026-send/before.json"
+    "docs/cycles/evidence/C026-send/before.json",
+    "docs/visual/send-preservation/runs/1e138aa-managed/review.json",
+    "docs/visual/send-preservation/runs/1e138aa-legacy/review.json",
+    "docs/visual/runs/2026-09-22T04-44-51-359Z/manifest.json",
+    "docs/images/status/manifest.json"
   ],
-  "truthReview": "Baseline ece4626; C025 frozen separately. Central C008 queue unchanged.",
-  "screenshotReview": "Pending source and coordinator grant."
+  "truthReview": "Final source1e138aa actual61539 passed and stopped. Full44651 passed before CSS-only keyboard/touch correction; final actual keyboard proof covers both composers. Deterministic30502 and private real Paper46428 passed. Rootverify31568 passed. Source/evidence hashes checked before publication.",
+  "screenshotReview": "Reviewed14 actual stills+45 video samples,40 deterministic stills+40 GIF frames and5 live stills+37 GIF frames. Friendly errors/diagnostic wrapping/focus/removal/text preservation pass. Earlier raw-error UX evidence remains unapproved."
 }
