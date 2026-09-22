@@ -15,7 +15,12 @@ const api = window.barkdown;
 // Unsaved buffers are keyed by folder + file so they survive tab switches and chat switches within a session.
 export const buffers = new Map();
 const bufferKey = (root, file) => `${root}::${file}`;
-export function dirtyCount(root) { let n = 0; for (const [key, b] of buffers) if (key.startsWith(root + '::') && b.draft !== b.saved) n++; return n; }
+// No root means every open folder, as required before reloading a profile.
+export function dirtyCount(root) {
+  let n = 0;
+  for (const [key, b] of buffers) if ((root === undefined || key.startsWith(root + '::')) && b.draft !== b.saved) n++;
+  return n;
+}
 
 function languageFor(file) {
   const ext = (file.split('.').pop() || '').toLowerCase();

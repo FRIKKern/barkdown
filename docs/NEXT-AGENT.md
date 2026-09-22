@@ -1,3 +1,7 @@
+# C019 lane checkpoint
+
+Current isolated cycle: [project buffer preservation](cycles/C019-project-buffer-preservation.md). C016 remains active in its separate branch; do not treat its snapshot as closed. No UI/runtime launch until the coordinator grants a window.
+
 # Continue the dependable-workspace plan
 
 **Combined candidate:** this worktree follows [C008 integration](cycles/C008-integration.md) on `codex/integration-12h`. Its checkpoint supersedes historical baseline notes below. Profile switching and saved goal-worker UI exist behind `--profiles`; explicit `--adopt-legacy` now stages and publishes a verified copy with startup recovery, while `--rollback-adoption` retains edited copies. These C010/C011 imports are under combined validation; `faaaf79` is the preceding fully verified checkpoint. Integration evidence and remaining gaps are recorded there. Do not migrate real user data or claim P1 complete.

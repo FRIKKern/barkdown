@@ -1,26 +1,23 @@
 {
   "version": 1,
-  "id": "C016",
+  "id": "C019",
   "stage": "P1",
   "status": "active",
-  "goal": "Prove two real profile runtimes stay isolated through the actual Electron workspace, late edits, Undo and restart.",
+  "goal": "Refuse profile switching while any project-file buffer is unsaved, without saving or discarding it.",
   "scope": [
-    "Disposable profiles only; source runtime slot coordinated",
-    "Actual main IPC, real Paper and PostgreSQL; deterministic HTTP provider decisions explicitly distinguished",
-    "No P1 closure or unrelated recovery/editor changes"
+    "Only the all-folders dirty-buffer guard and direct preservation regression",
+    "Keep root-specific dirty counts for tab badges and close checks",
+    "No autosave, discard, profile migration or C016 scope change"
   ],
   "acceptance": [
-    "Same-slug content/media/search/favorites/cache never substitute across A/B",
-    "Late A captured MCP edit and separately held API transcript remain A while B draft/context/scroll stay intact",
-    "A Undo receipt rejected in B and accepted only in A at matching revision",
-    "Process restart restores selected B draft, side parent and work path/scroll"
+    "Global dirty count includes every dirty buffer while root-filtered counts remain exact",
+    "Actual Settings switch is refused with an unsaved project edit and preserves profile/editor/disk bytes",
+    "After explicit Save, switch succeeds and saved bytes remain intact"
   ],
   "checkpoint": "2026-09-22",
-  "handoff": "docs/cycles/C016-profile-isolation-journey.md",
-  "nextAction": "Validate imported C014 owned-worker path, then rerun actual dual-runtime journey after root grants a544 slot; diagnose exact restart scroll without relaxing assertion.",
-  "evidence": [
-    "docs/visual/profiles/isolation-runs/2026-09-22T00-54-58-699Z/manifest.json"
-  ],
+  "handoff": "docs/cycles/C019-project-buffer-preservation.md",
+  "nextAction": "Reproduce global dirtyCount failure in Node, apply minimal fix, then await actual Electron input window.",
+  "evidence": [],
   "truthReview": "",
   "screenshotReview": ""
 }
