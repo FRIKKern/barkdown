@@ -1,42 +1,42 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-22T22-49-01-330Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-22T22-57-41-217Z/README.md).
 
-Reviewed by Codex integration audit. Reviewed all 40 stills and 40 motion frames at source 77d5726. Eight GIFs and 36 stills are byte-identical to baseline; remaining still differences are one invisible pixel and subthreshold composer-border antialiasing. Geometry, content, controls and narrow layouts are unchanged.
+Reviewed by Codex integration coordinator. Reviewed all 40 stills and all eight motion tours after the status-motion timing-only change. Every still and GIF is byte-identical to the approved 77d5726 baseline; compare reports zero changed pixels and unchanged geometry, including narrow views. Behavior coverage remains the full desktop pass at 1b01bf2 plus 18/18 capture/history checks at 34fb5a1. Live Paper/status evidence is separate and remains pending.
 
-Source commit: 77d57266ab99643c25fc03c2ff4b8ad9178e57ea; platform: win32; Electron: 38.8.6. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: 34fb5a1652c69eff83d8e3687e4224525126d2a8; platform: win32; Electron: 38.8.6. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-09-22T22-49-01-330Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-09-22T22-57-41-217Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-09-22T22-49-01-330Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-09-22T22-57-41-217Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-09-22T22-49-01-330Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-09-22T22-57-41-217Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-09-22T22-49-01-330Z/documents.gif)
+![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-09-22T22-57-41-217Z/documents.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-09-22T22-49-01-330Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-09-22T22-57-41-217Z/settings.gif)
 
 ## [goals](goals/README.md)
 
-![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-09-22T22-49-01-330Z/goals.gif)
+![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-09-22T22-57-41-217Z/goals.gif)
 
 ## [profiles](profiles/README.md)
 
-![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-09-22T22-49-01-330Z/profiles.gif)
+![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-09-22T22-57-41-217Z/profiles.gif)
 
 ## [adoption](adoption/README.md)
 
-![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-09-22T22-49-01-330Z/adoption.gif)
+![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-09-22T22-57-41-217Z/adoption.gif)
 
 ## Dedicated journeys and remaining limits
 
