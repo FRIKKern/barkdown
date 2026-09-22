@@ -1,0 +1,23 @@
+{
+  "source": "31407b6d5226594dad288fa7cf3b81dcd720704d",
+  "hashes": {
+    "app/main/chat-context.js": "10d1adc891d9dda05f52710c81d10685b58a154e24d499b23f93f89ab41bdd3d",
+    "app/main/profile-service.js": "edd53d43c216222137218a27ec31b8c28224933ca432e7193ee9cd0e20e1f76c",
+    "app/main/workspace-repository.js": "a6069ca54317866ec28270e99f557b575891f50f6b2a53634a428f0f09513a0d",
+    "app/main/provider-folder.js": "e927b19c275a889f7ba3ced8aad29ec12cab79a7c0a0ac31fbd6406de9cae66a",
+    "app/main/goal-provider.js": "91cecca929f77717b1a79c15c90363f2a2a6517304ae8acd82a85099cdfc8384"
+  },
+  "existingContextTests": {
+    "passed": 15,
+    "command": "node --test app/tests/context-reservation.test.mjs"
+  },
+  "independentTests": {
+    "passed": 26,
+    "command": "node --test C:\\Users\\Frikk\\AppData\\Local\\Temp\\c033-independent-review-f0j5oeww\\audit.test.mjs",
+    "testSha256": "6fa69b74512bbcc6e26c87e9ff78c417817c074e5e3f2fd799dc8a512e331c3b",
+    "outputSha256": "338756b3336e163b42d48f6ef6e71b5461f1b074ffd9847cec08812b10978586"
+  },
+  "scope": "Controlled fake agent and delayed fake runtime acquisition only. Disposable registries/folders. No native UI, provider, real runtime or repository edits.",
+  "conclusion": "No stale context dispatch reproduced within tested C033 contract. Missing folders refuse ordinary turns before reservation; goals deliberately outside C032. Directory replacement at same pathname is accepted by both. Saved settings defaults stay captured while awaiting acquisition. Model/effort away and back accepted when final context identical; folder/provider version prevents ABA. Deleted chat cannot be resurrected by stale save or worker restaging.",
+  "remaining": "No filesystem identity pin, post-stat removal protection, native behavior or broader combined acceptance established."
+}

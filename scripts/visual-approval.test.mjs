@@ -46,7 +46,7 @@ assert.ok(core.inputs()[futureLive], 'new live fixture must invalidate capture a
 const firstFixtureHash = core.inputs()[futureLive];
 put(futureLive, '// changed live capture');
 assert.notEqual(core.inputs()[futureLive], firstFixtureHash);
-for (const helper of ['app/tests/helpers/new-transport.mjs', 'app/tests/fixtures/new-diagnostics.cjs']) {
+for (const helper of ['app/tests/helpers/new-transport.mjs', 'app/tests/fixtures/new-diagnostics.cjs', 'app/tests/lib/new-paper-driver.mjs']) {
  put(helper, '// capture dependency');
  assert.ok(core.inputs()[helper], 'capture helper must participate in source fingerprints');
 }
