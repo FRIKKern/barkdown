@@ -42,6 +42,7 @@ async function readingSnapshot(label) {
     return { scrollTop: scroller.scrollTop, scrollHeight: scroller.scrollHeight, clientHeight: scroller.clientHeight,
       scroller: rect(scroller), anchor: anchor ? { text: anchor.textContent, ...rect(anchor) } : null,
       text: pane.querySelector('.ProseMirror').innerText,
+      footer: ['links', 'state'].map(id => { const node = pane.querySelector('#' + id); return { id, text: node.innerText, ...rect(node) }; }),
       images: [...pane.querySelectorAll('.ProseMirror img')].map(img => ({ complete: img.complete, naturalWidth: img.naturalWidth, naturalHeight: img.naturalHeight, rect: rect(img), parent: rect(img.parentElement) })),
       blocks: [...pane.querySelectorAll('#title, .ProseMirror > *')].map(node => ({ tag: node.tagName, className: node.className, text: node.textContent.slice(0, 80), ...rect(node) })) };
   });
@@ -50,6 +51,12 @@ async function readingSnapshot(label) {
 async function settleImages() {
   await page.waitForFunction(() => [...document.querySelectorAll('.bw-paper-pane:not([hidden]) .ProseMirror img')].every(img => img.complete && img.naturalWidth));
   await page.evaluate(async () => { await Promise.all([...document.querySelectorAll('.bw-paper-pane:not([hidden]) .ProseMirror img')].map(img => img.decode())); await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))); });
+}
+async function settlePublishedHistory() {
+  // This fixture published revision 1. Its asynchronous History footer is part
+  // of the initial layout, not a consequence of the background A edit.
+  await page.locator('.bw-paper-pane:not([hidden]) #links .bw-rev').first().waitFor();
+  await settleImages();
 }
 async function seed(label) {
   await page.evaluate(async ({ source, label }) => { const api = window.barkdown; window.__barkdown.state.settings = await api.settings.set({ provider: 'api', apiKey: 'fixture-unused', barkpark: { enabled: true, writes: true, viaCli: false, local: { enabled: true, source } } }); }, { source, label });
@@ -99,6 +106,7 @@ try {
   }, path.join(userData, 'folder-B'));
   await page.locator('#bw-prompt').fill('B draft must survive A completion');
   await readingSnapshot('initialBeforeImageSettle'); await settleImages(); await readingSnapshot('initialAfterImageSettle');
+  await settlePublishedHistory(); await readingSnapshot('initialAfterHistorySettle');
   await page.locator('.bw-paper-pane:not([hidden]) #current').evaluate(node => { node.scrollTop = 360; });
   await page.evaluate(() => { const s = window.__barkdown.state, c = s.chats[s.current]; c.tabs.find(t => t.id === c.active).scroll = document.querySelector('.bw-paper-pane:not([hidden]) #current').scrollTop; }); await saveView();
   const bBefore = workspace(b), bScroll = await page.locator('.bw-paper-pane:not([hidden]) #current').evaluate(node => node.scrollTop);
@@ -154,6 +162,7 @@ try {
   const restored = await page.evaluate(() => window.barkdown.state.load()); assert.equal(restored.current, bChat); assert.equal(restored.chats['side-B'].parent, bChat); assert.equal(restored.chats['side-B'].draft, 'B side draft');
   assert.deepEqual(restored.chats[bChat].tabs.find(t => t.id === restored.chats[bChat].active).path, ['same-slug']);
   await readingSnapshot('restartBeforeImageSettle'); await settleImages();
+  await readingSnapshot('restartAfterImagesBeforeHistory'); await settlePublishedHistory();
   const restartReading = await readingSnapshot('restartAfterImageSettle');
   report.restartGeometry = await page.evaluate(() => ({ width: innerWidth, height: innerHeight }));
   assert.deepEqual(report.restartGeometry, report.initialGeometry, 'native content bounds stay identical without late viewport changes');
