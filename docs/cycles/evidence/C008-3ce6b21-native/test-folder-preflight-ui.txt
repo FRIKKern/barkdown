@@ -1,0 +1,34 @@
+
+> barkdown-desktop@0.6.0 test:folder-preflight-ui
+> npm run build && node tests/folder-preflight-ui.live.mjs
+
+
+> barkdown-desktop@0.6.0 build
+> node scripts/build.mjs
+
+
+  renderer\dist\app.js      2.8mb
+  renderer\dist\app.js.map  7.0mb
+
+Done in 346ms
+{"out":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-refusal-ONjRox\\evidence","passed":false,"stopped":true}
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Commit capture source before launching Electron
+
+true !== false
+
+    at file:///C:/Users/Frikk/.codex/worktrees/barkdown-integration-12h/app/tests/folder-preflight-ui.live.mjs:29:10
+    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: true,
+  expected: false,
+  operator: 'strictEqual'
+}
+
+Node.js v22.13.1

@@ -1,0 +1,38 @@
+
+> barkdown-desktop@0.6.0 test:send-preservation
+> npm run build && node tests/send-preservation.test.mjs && node tests/send-boundaries.test.mjs && node tests/legacy-send-preservation.test.mjs && node tests/send-preservation.live.mjs && node tests/legacy-send-preservation.live.mjs
+
+
+> barkdown-desktop@0.6.0 build
+> node scripts/build.mjs
+
+
+  renderer\dist\app.js      2.8mb
+  renderer\dist\app.js.map  7.0mb
+
+Done in 302ms
+(node:7048) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/.codex/worktrees/barkdown-integration-12h/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\Frikk\.codex\worktrees\barkdown-integration-12h\app\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-send-preserve-y80Mp4","dispatches":0,"draft":"Preserve missing-image prompt","images":1,"messages":0,"error":"Attachment same.png is unavailable. Remove it or attach it again, then send."}
+PASS actual shared composer preserves rejected prompt and missing image reference through authoritative reload
+PASS delayed acceptance/rejection, same-chat main/side duplicate guard, newer text, edit-away-and-back and attachment revisions
+(node:512) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/.codex/worktrees/barkdown-integration-12h/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\Frikk\.codex\worktrees\barkdown-integration-12h\app\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-send-boundary-gsiAVt","result":{"value":true},"dispatches":1,"pending":false,"messages":2,"draft":"Newer authoritative draft"}
+PASS refresh during delayed authoritative reservation preserves identity/draft and one dispatch
+PASS real reservation/early event refresh, rejected retry history and forged/replayed/stale correlation refusal without transcript mutation
+PASS managed refresh before rejected validation retains actionable error and newer persisted draft/reference
+(node:60872) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/.codex/worktrees/barkdown-integration-12h/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\Frikk\.codex\worktrees\barkdown-integration-12h\app\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"messages":[{"role":"user","content":"One explicit prompt"}],"catchUp":[],"visibleMessages":4}
+PASS definitely unaccepted legacy prompt stays visible but enters retry request only once
+PASS actual pre-dispatch main classification; unknown and accepted failures remain intact
+PASS actual preload returns serializable positive refusal; renderer never relies on transported Error custom properties
+{"sourceCommit":"3ce6b210e6c2f582ed0a05e955e7016690a3f008","userData":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-send-ui-iMvl2J","frames":["01-rejected-draft.png","02-rejected-narrow.png","02b-diagnostic-narrow.png","03-restart-retains-reference.png","04-accepted-newer-draft.png","05-completed-restart.png","06-main-keyboard-focused.png","06-main-keyboard-removed.png","07-side-keyboard-focused.png","07-side-keyboard-removed.png"],"passed":true,"stopped":true,"scope":"Actual Electron/shared composer + managed persistence/native worker; deterministic HTTP transport, no real provider account.","keyboardRecovery":{"main":true,"side":true,"preservedText":true,"dispatches":1}}
+{"sourceCommit":"3ce6b210e6c2f582ed0a05e955e7016690a3f008","userData":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-legacy-send-ui-Jett4J","frames":["01-definite-refusal.png","01b-diagnostic.png","02-explicit-retry-once.png","03-evidence-retained.png"],"passed":true,"stopped":true,"scope":"Actual legacy Electron IPC classification and explicit retry; nonexistent disposable runtime source, controlled HTTP provider."}

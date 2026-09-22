@@ -244,3 +244,7 @@ Clean source **5e8433e**, session52348: locked root/app npm ci, Chromium install
 ## C036 capture lifecycle consumption
 
 Reviewed source218890c imported fromf070567 with original failing-first logs/handoff and package test union. Root independently reran17controlled cases (session87637) and next_cycle independently passed17 (15476). Source cleanliness/identity rechecked before and after capture; standard status outputs permitted only through exact path and README/hash validation. Signal handlers preserve primary plus cleanup errors and use existing owned runtime stop. Controlled fixtures do not prove actual Windows console interrupt delivery or force-kill recovery. Full desktop52348 remains the preceding5e8433e proof; only capture tooling/test registration changes here. Next actual isolated capture consumes this helper, followed by fresh deterministic/live/root gates.
+
+## Dedicated native checkpoint — 06:51 UTC
+
+Source3ce6b21/session9485: actual two-profile isolation and managed/legacy send preservation **PASS**, all owned processes stopped. [Retained originals and limits](../visual/combined-native/3ce6b21/README.md). Next folder-preflight fixture refused before Electron because the prior new gallery was uncommitted; original failure retained, remaining six commands not run. This evidence commit resolves that checkpoint guard without modifying it. Independent still review pending; no globalapproval or fullA1claim.
