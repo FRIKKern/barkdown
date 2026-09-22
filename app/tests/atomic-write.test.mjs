@@ -149,3 +149,38 @@ test('fsync failure retains prior bytes without any rename attempt', () => {
   try { assert.throws(a.write, { code: 'EIO' }); assert.equal(calls, 0); assert.deepEqual(fs.readFileSync(a.file), before); assert.equal(a.read().revision, 1); }
   finally { fs.fsyncSync = sync; fs.renameSync = rename; a.close(); }
 });
+
+for (const kind of ['workspace', 'journal']) {
+  test(`${kind}: host death before rename keeps authority and never promotes orphan`, { timeout: 15000 }, async () => {
+    const { spawn } = await import('node:child_process');
+    const a = adapter(kind), before = fs.readFileSync(a.file); a.close();
+    const registryModule = require.resolve('../main/profile-registry'), journalModule = require.resolve('../main/goals');
+    const script = `const fs=require('fs');const {createProfileRegistry}=require(${JSON.stringify(registryModule)});const {openJournal}=require(${JSON.stringify(journalModule)});const rename=fs.renameSync;fs.renameSync=(source,destination)=>{if(destination===${JSON.stringify(a.file)}){fs.writeFileSync(${JSON.stringify(path.join(a.root, 'prepared.json'))},JSON.stringify({source,pid:process.pid}));process.stdout.write('prepared\\n');for(;;)Atomics.wait(new Int32Array(new SharedArrayBuffer(4)),0,0,1000);}return rename(source,destination)};if(${JSON.stringify(kind)}==='workspace'){const r=createProfileRegistry(${JSON.stringify(a.root)});r.storeFor(r.load().selectedProfileId).writeJson('workspace.json',{revision:2})}else{openJournal(${JSON.stringify(a.root)}).write({goals:[]})}`;
+    const child = spawn(process.execPath, ['-e', script], { windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
+    let errors = ''; child.stderr.on('data', b => errors += b);
+    const exited = new Promise(resolve => child.once('exit', resolve));
+    try {
+      await new Promise((resolve, reject) => {
+        const timer = setTimeout(() => reject(new Error('Prepared fixture timed out: ' + errors)), 8000);
+        child.stdout.once('data', () => { clearTimeout(timer); resolve(); });
+        child.once('error', error => { clearTimeout(timer); reject(error); });
+        child.once('exit', code => { clearTimeout(timer); reject(new Error('Writer exited before prepared: ' + code + errors)); });
+      });
+      const prepared = JSON.parse(fs.readFileSync(path.join(a.root, 'prepared.json')));
+      assert.equal(prepared.pid, child.pid); assert.ok(fs.existsSync(prepared.source));
+      child.kill('SIGKILL'); await exited;
+      assert.deepEqual(fs.readFileSync(a.file), before, 'unacknowledged candidate never became authority');
+      if (kind === 'workspace') {
+        const registry = createProfileRegistry(a.root), store = registry.storeFor(registry.load().selectedProfileId);
+        assert.equal(store.readJson('workspace.json').revision, 1);
+        store.writeJson('workspace.json', { revision: 3 }); assert.equal(store.readJson('workspace.json').revision, 3);
+      } else {
+        const journal = openJournal(a.root);
+        try { assert.equal(journal.read().revision, 1); journal.write({ goals: [] }); assert.equal(journal.read().revision, 2); }
+        finally { journal.close(); }
+      }
+      assert.ok(fs.existsSync(prepared.source), 'orphan retained after distinct explicit new write');
+      console.log(JSON.stringify({ kind, root: a.root, crashBeforeRename: true, orphanRetained: true }));
+    } finally { if (child.exitCode === null && child.signalCode === null) child.kill('SIGKILL'); await exited; }
+  });
+}
