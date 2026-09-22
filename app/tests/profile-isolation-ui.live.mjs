@@ -34,6 +34,23 @@ const paperText = () => page.locator('.bw-paper-pane:not([hidden]) .ProseMirror'
 const saveView = () => page.evaluate(async () => { const s = window.__barkdown.state; await window.barkdown.state.save({ version: 1, profileId: s.profileId, generation: s.generation, chats: s.chats, order: s.order, favorites: s.favorites, pages: s.pages, current: s.current, mode: s.mode, directTab: s.directTab }); });
 const storeFor = id => path.join(userData, 'profile-data/profiles', id);
 const workspace = id => JSON.parse(fs.readFileSync(path.join(storeFor(id), 'workspace.json')));
+async function readingSnapshot(label) {
+  const value = await page.evaluate(() => {
+    const pane = document.querySelector('.bw-paper-pane:not([hidden])'), scroller = pane.querySelector('#current');
+    const rect = node => { const r = node.getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height }; };
+    const anchor = [...pane.querySelectorAll('.ProseMirror p')].find(node => node.textContent === 'B reading position 4.');
+    return { scrollTop: scroller.scrollTop, scrollHeight: scroller.scrollHeight, clientHeight: scroller.clientHeight,
+      scroller: rect(scroller), anchor: anchor ? { text: anchor.textContent, ...rect(anchor) } : null,
+      text: pane.querySelector('.ProseMirror').innerText,
+      images: [...pane.querySelectorAll('.ProseMirror img')].map(img => ({ complete: img.complete, naturalWidth: img.naturalWidth, naturalHeight: img.naturalHeight, rect: rect(img), parent: rect(img.parentElement) })),
+      blocks: [...pane.querySelectorAll('#title, .ProseMirror > *')].map(node => ({ tag: node.tagName, className: node.className, text: node.textContent.slice(0, 80), ...rect(node) })) };
+  });
+  (report.readingSnapshots ||= {})[label] = value; persistReport(); return value;
+}
+async function settleImages() {
+  await page.waitForFunction(() => [...document.querySelectorAll('.bw-paper-pane:not([hidden]) .ProseMirror img')].every(img => img.complete && img.naturalWidth));
+  await page.evaluate(async () => { await Promise.all([...document.querySelectorAll('.bw-paper-pane:not([hidden]) .ProseMirror img')].map(img => img.decode())); await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))); });
+}
 async function seed(label) {
   await page.evaluate(async ({ source, label }) => { const api = window.barkdown; window.__barkdown.state.settings = await api.settings.set({ provider: 'api', apiKey: 'fixture-unused', barkpark: { enabled: true, writes: true, viaCli: false, local: { enabled: true, source } } }); }, { source, label });
   return app.evaluate(async ({ app, safeStorage }, { label, file }) => {
@@ -81,10 +98,12 @@ try {
     return c.id;
   }, path.join(userData, 'folder-B'));
   await page.locator('#bw-prompt').fill('B draft must survive A completion');
+  await readingSnapshot('initialBeforeImageSettle'); await settleImages(); await readingSnapshot('initialAfterImageSettle');
   await page.locator('.bw-paper-pane:not([hidden]) #current').evaluate(node => { node.scrollTop = 360; });
   await page.evaluate(() => { const s = window.__barkdown.state, c = s.chats[s.current]; c.tabs.find(t => t.id === c.active).scroll = document.querySelector('.bw-paper-pane:not([hidden]) #current').scrollTop; }); await saveView();
   const bBefore = workspace(b), bScroll = await page.locator('.bw-paper-pane:not([hidden]) #current').evaluate(node => node.scrollTop);
   assert(bScroll > 0);
+  const bReading = await readingSnapshot('chosenReadingPosition'); assert(bReading.anchor, 'named B content anchor exists');
   await shot('02-B-before-A-completion');
   const bMedia = await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror img').first().getAttribute('src'); assert.equal(new URL(bMedia).origin, new URL(bRuntime.media).origin);
   assert.deepEqual(Buffer.from(await (await fetch(bRuntime.media)).arrayBuffer()), fs.readFileSync(path.join(userData, 'B.png')));
@@ -102,6 +121,11 @@ try {
   assert.equal(aReceipt.documentId, 'bp:same-slug');
   assert.match(JSON.stringify(transport.requests), /folder-A/);
   assert.equal(await page.locator('#bw-prompt').inputValue(), 'B draft must survive A completion');
+  const afterReading = await readingSnapshot('afterACompletion');
+  assert.equal(afterReading.text, bReading.text);
+  assert(Math.abs(afterReading.anchor.y - bReading.anchor.y) <= 0.5, 'background A completion must preserve the named B paragraph viewport position');
+  assert.equal(afterReading.clientHeight, bReading.clientHeight);
+  assert.equal(afterReading.scrollHeight, bReading.scrollHeight, 'settled B content height remains unchanged');
   assert.equal(await page.locator('.bw-paper-pane:not([hidden]) #current').evaluate(node => node.scrollTop), bScroll);
   const bAfter = workspace(b); assert.deepEqual(bAfter.chats[bChat], bBefore.chats[bChat]);
   assert.doesNotMatch(await paperText(), /amberwitness|A background/);
@@ -129,11 +153,15 @@ try {
   assert.equal(await page.locator('#bw-prompt').inputValue(), 'B draft must survive A completion');
   const restored = await page.evaluate(() => window.barkdown.state.load()); assert.equal(restored.current, bChat); assert.equal(restored.chats['side-B'].parent, bChat); assert.equal(restored.chats['side-B'].draft, 'B side draft');
   assert.deepEqual(restored.chats[bChat].tabs.find(t => t.id === restored.chats[bChat].active).path, ['same-slug']);
-  await page.waitForFunction(() => [...document.querySelectorAll('.bw-paper-pane:not([hidden]) .ProseMirror img')].every(img => img.complete && img.naturalWidth));
+  await readingSnapshot('restartBeforeImageSettle'); await settleImages();
+  const restartReading = await readingSnapshot('restartAfterImageSettle');
   report.restartGeometry = await page.evaluate(() => ({ width: innerWidth, height: innerHeight }));
   assert.deepEqual(report.restartGeometry, report.initialGeometry, 'native content bounds stay identical without late viewport changes');
   report.restartScroll = { expected: bScroll, actual: await page.locator('.bw-paper-pane:not([hidden]) #current').evaluate(node => node.scrollTop) };
   await shot('06-B-process-restart');
+  assert.equal(restartReading.text, bReading.text);
+  assert(Math.abs(restartReading.anchor.y - bReading.anchor.y) <= 0.5, 'process restart must restore the named B paragraph viewport position');
+  assert.equal(restartReading.clientHeight, bReading.clientHeight);
   assert.equal(report.restartScroll.actual, bScroll);
   assert.match(JSON.stringify(restored.favorites), /cobaltwitness/); assert.doesNotMatch(JSON.stringify(restored.favorites), /amberwitness/);
   record('Actual process restart restores selected B draft/side-parent/document path/scroll/favorite and same-slug Paper');
