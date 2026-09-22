@@ -178,6 +178,7 @@ try {
     await app.evaluate(() => globalThis.__nativeRollbackOriginalBytesVerified),
     true,
   );
+  await page.locator('#bw-recent-chats [data-context="chat"]').waitFor();
   await page.screenshot({ path: path.join(out, "verified-rollback.png") });
   await app.close();
   app = null;
