@@ -21,3 +21,11 @@ For Paper changes, test acknowledged revisions, native Undo/Redo, human takeover
 - 22 September: imported C024 file-authority recovery with its original reviewed stills and motion. At that earlier checkpoint, C016 reading-position and newer clipboard/history work still awaited integration; the subsequent entry below supersedes that status.
 
 - 22 September, candidate76b07d3: E011 upstream54579 and C016 reading-position source/evidence are imported. [C032 native refusal/restart motion](../../../../docs/visual/folder-preflight/README.md) retains original8b51fbc; C033 has controlled context-race checks only. C023 original final gates passed. Fresh combined review remains pending; historical images above are not promoted. See [current validation order](../../../../docs/cycles/C008-integration.md#remaining-combined-validation-order). E012 upstream work remains unconsumed.
+
+
+### Health update — 22 September, audited3ce6b21
+
+- Side-chat and goal-worker tabs display full saved conversations, not disposable subpanels. [C015 worker views](../../../../docs/goals/evidence/61eea4d/README.md), [C020 recovery stills](../../../../docs/visual/coordinator-recovery/README.md) and [C032 main/side refusal/restart GIF](../../../../docs/visual/folder-preflight/README.md) link exact original evidence; their distinct provider/transport scopes remain in those galleries.
+- [C016 actual profile-isolation GIF](../../../../docs/visual/profiles/isolation-runs/README.md) covers same-slug ownership, B’s reading position and A-only Undo at34ef068. [C012 recovery stills](../../../../docs/visual/workspace-recovery/README.md) cover unavailable persisted workspace, while C024 above covers individual unavailable project files; neither implies automatic repair.
+- [C035 packaged Electron38 gallery](../../../../docs/visual/packaging38/README.md) now proves terminal profile switching, forced application death and restart without replay at89a0fd2, with all four Job receipts stopped. Original videos are available through its motion map; there is no packaged-install GIF claim or clean-machine/bundled-Barkpark claim.
+- Full desktop52348 passed at5e8433e, before later C036 capture-tool changes. Final combined dedicated/visual/live/root gates remain pending; these links do not promote original screenshots to newer-source approval.
