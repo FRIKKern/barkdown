@@ -1,0 +1,91 @@
+{
+  "source": "01dfdd663",
+  "mechanism": "actual Chromium production ClipboardEvent handler; no server in this audit",
+  "result": {
+    "blocks": [
+      {
+        "id": "m-1-jtypqr7v",
+        "type": "table",
+        "head": [
+          [
+            {
+              "type": "text",
+              "value": "Left"
+            }
+          ],
+          [
+            {
+              "type": "text",
+              "value": "Center"
+            }
+          ],
+          [
+            {
+              "type": "text",
+              "value": "Right"
+            }
+          ]
+        ],
+        "rows": [
+          [
+            [
+              {
+                "type": "text",
+                "value": "one"
+              }
+            ],
+            [
+              {
+                "type": "strong",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "two"
+                  }
+                ]
+              }
+            ],
+            [
+              {
+                "type": "link",
+                "href": "https://example.com",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "three"
+                  }
+                ]
+              }
+            ]
+          ]
+        ]
+      }
+    ],
+    "cells": [
+      {
+        "text": "Left",
+        "align": "center"
+      },
+      {
+        "text": "Center",
+        "align": "center"
+      },
+      {
+        "text": "Right",
+        "align": "center"
+      },
+      {
+        "text": "one",
+        "align": "start"
+      },
+      {
+        "text": "two",
+        "align": "start"
+      },
+      {
+        "text": "three",
+        "align": "start"
+      }
+    ]
+  }
+}
