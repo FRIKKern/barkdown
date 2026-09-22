@@ -152,3 +152,10 @@ C016 lane26d9461 has passing native64864, full51548, deterministic95345, live485
 
 
 C016 original26d9461 evidence is now selectively imported alongside combined16a3b60 Paper position/queued-refresh union. Actual34ef068/a54464864 preserves B exactscroll360/anchor112.453125 through late A work and process restart; full51548,37-still/GIF deterministic, live48539 and root76307 pass in the original lane. All historical failures and unapproved intermediate captures remain;16-manifest chain and review/media hashes verified. Current combined globals remain unchanged; fresh combined gates and broader P1 criteria still apply.
+
+
+## C028 truthful parity-runner integration
+
+Imported C028 source b83efb1 and original failed-first/final evidence through e2ff217. The actual runner now rejects nonzero exits, signals, spawn errors and incomplete or malformed reports even when output contains a success summary. Root independently passed all24 controlled actual-runner cases before import; imported runner/test bytes match that tested source. The observational gaps script has no verified assertions and therefore cannot claim a passing matrix row. Its conversion remains separate work. Original root verification reached the inherited stale screenshot gate, not a combined pass. Current C008 and global visual/status approvals remain unchanged.
+
+Editor consumption audit and49-package reproducible dependency notices are imported through94aa3d7; root independently verified every recorded metadata/notice/provenance hash. No editor pin, bundled asset or source-selection precedence changed. Fresh combined gates remain pending.
