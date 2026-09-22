@@ -1,7 +1,13 @@
-# Stable Paper block identities
+# Stable Paper block identities and native history
 
-E012 fixes a mounted failure in which Enter copied the original paragraph ID and the projected child ID was not written back into the live editor. The first paragraph and unrelated references retain their identities; the new paragraph receives the exact ID sent for saving. Subsequent edits, native history and pending split/reorder/delete cases pass the mounted regression.
+E012 corrects three actual editor defects: duplicated paragraph identities after Enter, missing checklist identity attributes, and recovery projection mutating live nested schema attributes. The last defect created phantom edits that intercepted native Undo.
 
-[Cycle handoff](../../cycles/E012-block-identity.md) · [Failed-first output](baseline/mounted-54579.txt) · [Full upstream validation](validation/full-e7f35117f.txt).
+[Cycle handoff](../../cycles/E012-block-identity.md) · [Failed-first split](baseline/mounted-54579.txt) · [Failed-first recovery ownership](baseline/recovery-attrs-ffb09de73.txt) · [Full upstream validation](validation/full-bf23f773c.txt).
 
-Actual Paper evidence remains pending. The prepared fixture requires the connected server to serve exact600fd7434 editor bytes and compares the complete live snapshot against real acknowledged server blocks, including every ID. No vendored asset or pin changes are part of this cycle; the E011 fallback remains54579. A passing isolated source does not establish upstream merge readiness or combined application validation.
+The final connected source bf23f773c serves JS SHA1 `3a94a2964b37358f3ec791f009a2f52b28cffb0d`. Ten mounted regressions and the full upstream suite pass. The actual native journey preserves complete server/live identities through split, typing, checkbox changes, Undo/Redo and reload at revisions1–9.
+
+![Actual split, typing, checklist history and reload](runs/2026-09-22T07-07-27-792Z/stable-identities.gif)
+
+[Full native review](runs/2026-09-22T07-07-27-792Z/review.json) covers nine stills and30 raw-video samples, including900px narrow layout. [Independent checklist proof](runs/2026-09-22T07-02-22-244Z/review.json) isolates the history correction. Original failed native attempts remain beside these runs. Long titles still clip in the existing single-line title control; this work does not claim a title-layout correction.
+
+These are connected-source proofs. Fallback/pin consumption and final combined application visual validation remain separate; the existing E011 fallback is still54579 at this checkpoint. Nothing here establishes upstream merge readiness or deployment.
