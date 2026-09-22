@@ -197,11 +197,10 @@ function registerIpc() {
   handle('profiles:select', async ({ owner, profileId }) => {
     if (!profileService) throw new Error('Start with --profiles to enable isolated profiles');
     return profileGate.select(owner, profileId, async () => {
-      terminal.stopAll();
       store.init(profileRegistry.storeFor(profileId).storeDir);
       documents.loadAll({ seed: false });
       await reconcileLocal();
-    });
+    }, () => terminal.stopAll(owner.profileId));
   }, true);
   handle('settings:get', () => publicSettings());
   handle('settings:set', async patch => {
@@ -286,12 +285,27 @@ function registerIpc() {
   handle('git:revertFile', ({ root, path: rel }) => git.revertFile(root, rel));
 
   // Terminal work tabs: one shell per tab, output streamed back as term:data events.
-  handle('term:start', ({ id, root }) => {
-    const profileId = profileService?.view().profileId || null;
-    return terminal.start({ id, root, send: event => win?.webContents.send('term:data', { ...event, profileId }) });
-  });
-  handle('term:input', ({ id, line }) => terminal.input(id, line));
-  handle('term:stop', id => terminal.stop(id));
+  let legacyTerminalStore = null;
+  function terminalContext() {
+    if (profileService) return { profileId: profileService.view().profileId, storeDir: store.dir() };
+    // Process control receipts are not legacy library content. Keeping them
+    // outside barkdown preserves the strict shell-adoption inventory contract.
+    if (!legacyTerminalStore) {
+      const root = store.createStore(app.getPath('userData'), { create: false }).filePath('terminal-runtime/legacy');
+      fs.mkdirSync(root, { recursive: true });
+      legacyTerminalStore = store.createStore(root, { create: false });
+    }
+    const file = legacyTerminalStore.filePath('terminal-owner.json');
+    let owner;
+    if (fs.existsSync(file)) owner = JSON.parse(fs.readFileSync(file, 'utf8'));
+    else { owner = { profileId: crypto.randomUUID() }; legacyTerminalStore.writeJson('terminal-owner.json', owner); }
+    require('./profile-registry').validateProfileId(owner?.profileId);
+    return { profileId: owner.profileId, storeDir: legacyTerminalStore.dir() };
+  }
+  handle('term:start', ({ id, chatId, root }) => terminal.start({ id, chatId, root, ...terminalContext(), send: event => win?.webContents.send('term:data', event) }));
+  handle('term:status', ({ id, chatId }) => terminal.status({ id, chatId, ...terminalContext() }));
+  handle('term:input', ({ id, chatId, sessionId, line }) => terminal.input({ id, chatId, sessionId, ...terminalContext() }, line));
+  handle('term:stop', ({ id, chatId, sessionId }) => terminal.stop({ id, chatId, sessionId, ...terminalContext() }));
 
   handle('providers:status', () => providerStatus());
   // Pasted or dropped images land as files under userData/attachments; messages keep the path, and the
@@ -422,17 +436,20 @@ app.whenReady().then(async () => {
 let localQuitDone = false, localQuitting = false;
 app.on('before-quit', event => {
   if (bootBusy) { event.preventDefault(); return; }
-  if (!localQuitDone && (profilePool || localRuntime || require('./providers/runs').runs.size)) {
+  if (!localQuitDone && (profilePool || localRuntime || terminal.hasSessions() || require('./providers/runs').runs.size)) {
     event.preventDefault();
     if (localQuitting) return;
     localQuitting = true;
     const owned = [...require('./providers/runs').runs.values()];
     for (const run of owned) agent.cancel(run.id);
-    Promise.all([goalService?.close(), ...owned.map(run => agent.waitForRunFinish(run.id))]).then(async () => { if (profilePool) await profilePool.shutdown(); else if (localRuntime) await localRuntime.stop(); }).then(() => {
+    Promise.all([terminal.shutdown(), goalService?.close(), ...owned.map(run => agent.waitForRunFinish(run.id))]).then(async () => { if (profilePool) await profilePool.shutdown(); else if (localRuntime) await localRuntime.stop(); }).then(() => {
       localQuitDone = true; app.quit();
-    }).catch(error => { localQuitting = false; console.error('Owned profile shutdown:', error.message); });
+    }).catch(error => {
+      localQuitting = false; console.error('Owned profile shutdown:', error.message);
+      if (win && !win.isDestroyed()) dialog.showMessageBox(win, { type: 'error', title: 'Shutdown not verified', message: 'Barkdown is still open because owned work has not been verified stopped.', detail: `${error.message}\nWait for shutdown, then try quitting again.`, buttons: ['Keep open'] }).catch(() => {});
+    });
     return;
   }
 });
-app.on('will-quit', () => { terminal.stopAll(); adoptionView?.close(); authorityOwnership?.release(); });
+app.on('will-quit', () => { adoptionView?.close(); authorityOwnership?.release(); });
 app.on('window-all-closed', () => { if (process.platform !== 'darwin') app.quit(); });

@@ -40,7 +40,17 @@ async function verifyOwnedWorker(options) {
 }
 // Windows CRT command-line quoting; never a shell command and no string evaluation.
 const quote = value => '"' + String(value).replace(/(\\*)"/g, '$1$1\\"').replace(/(\\+)$/g, '$1$1') + '"';
-async function launchOwnedWorker({ storeDir, profileId, attemptId, script, args = [], onMessage = () => {} }) {
+async function launchOwnedWorker(options) {
+  const dispatch = { started: false };
+  try { return await launchOwnedWorkerInternal(options, dispatch); }
+  catch (error) {
+    // Only the code before the native helper spawn can positively establish
+    // that no process was dispatched. A timeout or missing receipt cannot.
+    if (!dispatch.started) error.ownedProcessNotDispatched = true;
+    throw error;
+  }
+}
+async function launchOwnedWorkerInternal({ storeDir, profileId, attemptId, script, args = [], onMessage = () => {} }, dispatch) {
   check(process.platform === 'win32', 'Owned goal worker host requires Windows');
   const options = { storeDir, profileId, attemptId }, names = files(options), nonce = crypto.randomUUID();
   const launch = { version: 1, profileId, attemptId, nonce, jobName: `Local\\BarkdownGoal-${nonce}` };
@@ -70,6 +80,7 @@ async function launchOwnedWorker({ storeDir, profileId, attemptId, script, args 
   function stop() { if (!closing) { closing = true; helperProcess?.stdin.end('stop\n'); } }
   function send(message) { check(bound && socket && !socket.destroyed, 'Worker connection is unavailable'); const data=JSON.stringify(message); check(data.length<=MAX_MESSAGE_CHARS,'Worker request exceeds the512MiB protocol limit'); socket.write(data + '\n'); }
   const commandLine = [process.execPath, script, pipe, nonce, ...args].map(quote).join(' ');
+  dispatch.started = true;
   helperProcess = spawn(powershell(), ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', helper], {
     windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'], env: { ...process.env, ELECTRON_RUN_AS_NODE: '1' },
   });

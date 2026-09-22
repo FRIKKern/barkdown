@@ -12,6 +12,11 @@ const { launchOwnedWorker, verifyOwnedWorker } = require('../main/goal-process')
 const script = fileURLToPath(new URL('./fixtures/goal-process-tree.cjs', import.meta.url));
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 const alive = pid => { try { process.kill(pid, 0); return true; } catch(e) { if(e.code === 'ESRCH')return false; throw e; } };
+test('invalid pre-dispatch owner reports positively that no new process was launched', { skip: process.platform !== 'win32' }, async () => {
+  const storeDir=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-pre-dispatch-'));
+  await assert.rejects(launchOwnedWorker({storeDir,profileId:'invalid',attemptId:randomUUID(),script}), error => error.ownedProcessNotDispatched === true && /identity/.test(error.message));
+  assert.deepEqual(fs.readdirSync(storeDir), []);
+});
 async function fixture(t) {
   const storeDir = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-owned-goal-'));
   const owner = { storeDir, profileId: randomUUID(), attemptId: randomUUID() }, marker = path.join(storeDir, 'effects.txt');

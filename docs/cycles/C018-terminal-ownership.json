@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "id": "C018",
+  "stage": "P1",
+  "status": "active",
+  "goal": "Prove owned terminal shutdown and profile affinity without orphan descendants or command replay.",
+  "scope": [
+    "Windows pipe terminals",
+    "Existing stop-on-profile-switch semantics",
+    "No background terminal or non-Windows containment claim"
+  ],
+  "acceptance": [
+    "Actual process descendant proof",
+    "Owner/session/cwd isolation",
+    "Real Electron switch and abrupt exit",
+    "Source-bound reviewed evidence and verification"
+  ],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C018-terminal-ownership.md",
+  "nextAction": "Reproduce actual baseline descendant survival in disposable fixtures.",
+  "evidence": [],
+  "truthReview": "Plan only; no behavior changed.",
+  "screenshotReview": "Pending implementation and actual evidence."
+}
