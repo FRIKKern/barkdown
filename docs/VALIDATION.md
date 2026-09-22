@@ -2,6 +2,8 @@
 
 Baseline at the 2026-09-21 roadmap reset. Implementation evidence is separate from the pending journey gates in [ACCEPTANCE.md](ACCEPTANCE.md). [Original concept validation](archive/2026-09-21-validation.md) is archived.
 
+C032 source-specific native handoff: clean `8b51fbc` passes actual main/side missing-folder refusal plus prompt/folder/provider restart preservation, and selected-B missing-reference/no-A-substitution with both Claude/Codex pre-dispatch refusals. [Gallery and original manifests](visual/folder-preflight/8b51fbc/README.md) retain 6 stills and 4 videos; all 234 decoded video frames were inspected. All owned Electron sessions exited0; no provider or Barkpark launched. Root verification still fails inherited global status freshness; fresh combined gates remain coordinator-owned. Original C029 SDK-error evidence is historical and unchanged; this does not prove post-stat disappearance, authenticated CLI execution, combined readiness or P1 completion.
+
 | Baseline | Evidence | Limits |
 |---|---|---|
 | Desktop shell and agent integration | App `npm test`: unit suites, 76 Electron checks, direct-edit, composer-history and side-chat UI checks passed during local-runtime delivery. | Some provider orchestration uses scripted clients; not a new live run of every provider. |
