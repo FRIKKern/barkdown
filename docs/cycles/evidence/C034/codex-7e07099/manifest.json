@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "sourceCommit": "7e070992e6d6961274be82c2aac62ad22dcb1abe",
+  "sourceDirty": false,
+  "command": "node tests/providers.live.mjs codex",
+  "exitCode": 0,
+  "session": 30848,
+  "nodeVersion": "v22.13.1",
+  "sdk": "@openai/codex-sdk 0.155.0",
+  "cli": "codex-cli 0.155.0",
+  "cliSha256": "e4c11374bd9de8ad5c3b7617fd4654bb7839901edb0863f9930666863c7a021b",
+  "privateRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-provider-proof-2U75sV",
+  "provider": "codex",
+  "claudeRun": false,
+  "uiOrPaperRuntimeStarted": false,
+  "reviewedAt": "2026-09-22T06:17:59.173268+00:00",
+  "reviewer": "Codex cycle agent",
+  "findings": [
+    "Actual device-authenticated Codex read rev1, acknowledged append rev2, read rev2; original paragraph and exact unique marker persisted.",
+    "Driver completed and Windows Job receipt stopped with activeProcesses0; runner exit0. Helper60380/child29252 absent on subsequent check.",
+    "All7 retained text artifacts scanned for known environment-secret values and credential token patterns; no findings. Tool outputs manually inspected: synthetic fixture content only. Original bytes retained without redaction.",
+    "Device-authentication policy unchanged; no claim that CLI credentials are profile-isolated. This is a local-document MCP proof, not remote Paper or every-provider coverage."
+  ],
+  "hashes": {
+    "report.json": "2a78cb992d12dfcefa5c4f377475a64b4529d45fe8ee2b91728cf050035f6a7b",
+    "codex/agent-edits/6e2e9ed81e65645175c0241d9c0d4e09734511e065b227e94fa4c4bfcda32ea2.json": "87a0dac8f66d32777ddd049b900bf00c38b5da3e69ad2201d80dc3e09ee56645",
+    "codex/documents/provider-proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021b.json": "bf978935b6c5e7cf0edf11c716afe911908636eb1a59c7cf15ed657fdf8167b0",
+    "codex/documents/provider-proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021b.md": "2e60f01673da448eb9a67a141a732fcbf6b5775a446ce732dec7fbf2c408d93f",
+    "codex/goal-processes/c1b3c431-efec-49cd-bc48-4cd16efb613a.launch.json": "c935908b148d77db5ba507f26f3b296e72dae9c6c1f74b155816e6fcc23e3f0d",
+    "codex/goal-processes/c1b3c431-efec-49cd-bc48-4cd16efb613a.receipt.json": "c44ae61d9cef2d0f3e578aa31e76eb95d9a94a0515957acd286d7f8c33cc03de",
+    "codex/working-folder/fixture-sentinel.txt": "400a2889b898adbd69d7a7611a0e407b6c9cc3ac7e338a65a86f56e3f6727347"
+  }
+}

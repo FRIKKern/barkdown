@@ -1,0 +1,33 @@
+
+> barkdown-desktop@0.6.0 dist
+> npm run build && electron-builder --dir
+
+
+> barkdown-desktop@0.6.0 build
+> node scripts/build.mjs
+
+
+  renderer\dist\app.js      2.8mb
+  renderer\dist\app.js.map  7.0mb
+
+Done in 3112ms
+  • electron-builder  version=26.15.3 os=10.0.26200
+  • loaded configuration  file=package.json ("build" field)
+  • author is missed in the package.json  appPackageFile=C:\Users\Frikk\.codex\worktrees\barkdown-packaging38\app\package.json
+  • executing @electron/rebuild  electronVersion=38.8.6 arch=x64 buildFromSource=false workspaceRoot=C:\Users\Frikk\.codex\worktrees\barkdown-packaging38\app projectDir=./ appDir=./
+  • installing native dependencies  arch=x64
+  • completed installing native dependencies
+  • packaging       platform=win32 arch=x64 electron=38.8.6 appOutDir=release\win-unpacked
+  • downloaded      label=electron progress=100%
+  • downloaded electron zip extracted successfully  output=C:\Users\Frikk\.codex\worktrees\barkdown-packaging38\app\release\win-unpacked
+  • searching for node modules  pm=npm searchDir=C:\Users\Frikk\.codex\worktrees\barkdown-packaging38\app
+  • duplicate dependency references  dependencies=["@anthropic-ai/sdk@0.126.0","@modelcontextprotocol/sdk@1.30.0","@codemirror/language@6.12.4","@codemirror/state@6.7.5","@codemirror/view@6.43.12","@codemirror/language@6.12.4","@codemirror/state@6.7.5","@codemirror/view@6.43.12","@codemirror/language@6.12.4","@codemirror/state@6.7.5","@lezer/highlight@1.2.3","@lezer/lr@1.4.10","@codemirror/autocomplete@6.20.3","@codemirror/lang-css@6.3.1","@codemirror/lang-javascript@6.2.5","@codemirror/language@6.12.4","@codemirror/state@6.7.5","@codemirror/view@6.43.12","@lezer/css@1.3.6","@lezer/highlight@1.2.3","@lezer/lr@1.4.10","@codemirror/autocomplete@6.20.3","@codemirror/language@6.12.4","@codemirror/state@6.7.5","@codemirror/view@6.43.12","@codemirror/state@6.7.5","@codemirror/view@6.43.12","@lezer/highlight@1.2.3","@lezer/lr@1.4.10","@codemirror/language@6.12.4","@lezer/highlight@1.2.3","@lezer/lr@1.4.10","@codemirror/autocomplete@6.20.3","@codemirror/lang-html@6.4.12","@codemirror/language@6.12.4","@codemirror/state@6.7.5","@codemirror/view@6.43.12","@lezer/highlight@1.2.3","@codemirror/state@6.7.5","@codemirror/view@6.43.12","@codemirror/state@6.7.5","ajv@8.20.0","express@5.2.1","debug@4.4.3","http-errors@2.0.1","iconv-lite@0.7.3","on-finished@2.4.1","qs@6.16.0","raw-body@3.0.2","type-is@2.1.0","debug@4.4.3","debug@4.4.3","on-finished@2.4.1","get-intrinsic@1.3.0","call-bind-apply-helpers@1.0.2","call-bind-apply-helpers@1.0.2","es-object-atoms@1.1.2","call-bound@1.0.4","get-intrinsic@1.3.0","side-channel-map@1.0.1","debug@4.4.3","debug@4.4.3","http-errors@2.0.1","on-finished@2.4.1","send@1.2.1","http-errors@2.0.1","@tiptap/pm@3.31.3","@tiptap/pm@3.31.3","@tiptap/pm@3.31.3","@tiptap/pm@3.31.3","@tiptap/pm@3.31.3","prosemirror-transform@1.12.1","prosemirror-model@1.25.11","prosemirror-state@1.4.4","prosemirror-transform@1.12.1","prosemirror-state@1.4.4","prosemirror-transform@1.12.1","prosemirror-view@1.42.3","prosemirror-keymap@1.2.3","prosemirror-model@1.25.11","prosemirror-state@1.4.4","prosemirror-view@1.42.3","prosemirror-state@1.4.4","prosemirror-transform@1.12.1","prosemirror-view@1.42.3","prosemirror-state@1.4.4","prosemirror-transform@1.12.1","prosemirror-state@1.4.4","prosemirror-model@1.25.11","prosemirror-state@1.4.4","prosemirror-transform@1.12.1","prosemirror-model@1.25.11","prosemirror-transform@1.12.1","prosemirror-view@1.42.3","prosemirror-keymap@1.2.3","prosemirror-model@1.25.11","prosemirror-state@1.4.4","prosemirror-transform@1.12.1","prosemirror-view@1.42.3","prosemirror-model@1.25.11","prosemirror-model@1.25.11","prosemirror-state@1.4.4","prosemirror-transform@1.12.1","@tiptap/pm@3.31.3","@tiptap/pm@3.31.3","@tiptap/pm@3.31.3","@tiptap/extension-link@3.31.3","@tiptap/pm@3.31.3","@codemirror/autocomplete@6.20.3","@codemirror/commands@6.11.1","@codemirror/language@6.12.4","@codemirror/lint@6.9.7","@codemirror/state@6.7.5","@codemirror/view@6.43.12","@codemirror/state@6.7.5","@codemirror/view@6.43.12"]
+  • updating asar integrity executable resource  executablePath=release\win-unpacked\Barkdown.exe
+  • default Electron icon is used  reason=application icon is not set
+  • signing with signtool.exe  path=release\win-unpacked\Barkdown.exe
+  • signing with signtool.exe  path=release\win-unpacked\resources\app.asar.unpacked\node_modules\@openai\codex-win32-x64\vendor\x86_64-pc-windows-msvc\codex-resources\codex-command-runner.exe
+  • signing with signtool.exe  path=release\win-unpacked\resources\app.asar.unpacked\node_modules\@openai\codex-win32-x64\vendor\x86_64-pc-windows-msvc\codex-resources\codex-windows-sandbox-setup.exe
+  • signing with signtool.exe  path=release\win-unpacked\resources\app.asar.unpacked\node_modules\@openai\codex-win32-x64\vendor\x86_64-pc-windows-msvc\codex-path\rg.exe
+  • signing with signtool.exe  path=release\win-unpacked\resources\app.asar.unpacked\node_modules\@openai\codex-win32-x64\vendor\x86_64-pc-windows-msvc\bin\codex-code-mode-host.exe
+  • signing with signtool.exe  path=release\win-unpacked\resources\app.asar.unpacked\node_modules\@openai\codex-win32-x64\vendor\x86_64-pc-windows-msvc\bin\codex.exe
+  • signing with signtool.exe  path=release\win-unpacked\resources\app.asar.unpacked\node_modules\@anthropic-ai\claude-agent-sdk-win32-x64\claude.exe

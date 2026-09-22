@@ -1,0 +1,49 @@
+# C034 — Live provider truth gate
+
+Base e8166a5. Original runner resolves on error or done, only logs proposal counts, auto-approves every request and removes its fixture recursively. This cycle replaces those acceptance semantics with a uniquely identifiable direct edit, persisted revision/content verification and owned process completion. Device authentication policy is unchanged. No live provider, UI or runtime has been launched.
+
+Plan: retain failed-first child-runner reproduction; use the existing Windows owned worker and captured disconnected local scope; reject invalid providers before loading an adapter; deny approvals; bound execution and cleanup separately; retain disposable reports and data. Offline transport fixtures prove runner classification, not authenticated provider behavior. Actual signed-in checks and final combined visual/root gates remain pending.
+
+## Source checkpoint
+
+Failed-first452984b records five actual child-runner cases exiting zero incorrectly. The replacement uses the existing Windows owned-worker adapter and an explicit UUID profile/attempt with Barkpark disabled. It requires successful acknowledged read/edit/read of one uniquely named local document, exactly one persisted revision increment with exact preserved/appended content, a matching direct-edit receipt, driver completion and verified owned termination. All approval requests are denied. Invalid provider/options refuse before loading the adapter. A failure stops the provider list; disposable data, events, receipts and report remain on disk. Authentication configuration is unchanged.
+
+Execution and cleanup have separate bounded deadlines. If owned cleanup remains uncertain, the runner exits nonzero and retains that uncertainty; parent exit closes the existing native helper input, but is not reported as verified process termination. No unsigned process is killed or recursive cleanup performed.
+
+Offline actual-runner19/19 passes: error/nonzero diagnostic, empty terminal evidence, no effect despite tool acknowledgements, wrong content/revision, missing receipt/read, denied approval, error after done, error note/tool failure, incomplete driver, cancelled cleanup, unverified termination, normal success and delayed completion, and invalid provider with zero dispatch. Real local document/receipt adapters are used; provider/owned transport is controlled. No authenticated provider or OS process-containment claim follows from these tests. An intermediate denied-approval case exposed an already-settled Promise.race ordering error; sticky failure state now prevents completion from hiding any earlier failure.
+
+Root/app npm ci and Playwright Chromium installation pass; app install reports two inherited high audit findings (no force upgrade). Build passes. Focused agent/run-ownership checks and root verification results are recorded at final handoff. All UI/native authenticated and combined visual gates remain pending, so C034 stays active.
+
+## Final combined validation checklist
+
+Freeze all intended production/capture changes first; Electron43 and E012 were not in audited basee8166a5. Run root/app locked installation and Chromium, then `npm run test:desktop`. Full desktop includes the new offline runner and C033 context races, C032 boundaries/composer, C029 routing seams, C028 parity classification and broad existing ownership/recovery checks; it does not run the following dedicated journeys.
+
+With exclusive UI/runtime ownership and explicit disposable `BARKDOWN_TEST_BP_SOURCE`, run app commands `test:profile-isolation`, `test:rollback-native`, `test:adoption-repeat`, `test:project-file-authority:live`, `test:canvas-cache`, `test:send-preservation`, `test:missing-folder-ui`, `test:folder-preflight-ui`. For editor evidence set `BARKDOWN_EDITOR_CAPTURE=1`, then run `test:rich-clipboard:isolated`, `test:upload-history:isolated`, and `test:fallback-consumption:isolated` (both a544 and54579 server sources for the original compatibility scope). E007 has no package alias: from app run `node tests/status-shots-isolated.mjs tests/paper-html-table-paste.live.mjs`.
+
+Preserve the matrix gate with `node tests/status-shots-isolated.mjs tests/parity.mjs` from app; at this base the observational gaps row cannot pass the strict runner until C030 assertions are consumed. Actual provider proof requires a named grant: `npm --prefix app run test:providers -- claude` and separately `-- codex`; provider failures stay failures. Device CLI login/API environment credential policy remains unresolved and is not changed by this runner.
+
+Then root `visual:capture`, `visual:compare`, actual still/diff/GIF inspection and named `visual:approve`; app `shots:isolated` with real/fallback provenance and stopped-runtime review; finally root `npm run verify` and truth/evidence closeout. Source changes invalidate previous captures. Refresh stale NEXT/VALIDATION/A1/cycle claims about2b2ec11, fallbacka544/E011 pending, C023 gates, and historical C029 versus current C032 refusal coverage. No individual or combined pass automatically closes P1, auth policy, upstream merge or release gates.
+
+## Validation and handoff
+
+Source9350eb9 follows failed-first452984b. Final offline19/19 pass is retained in [offline-final](evidence/C034/offline-final.txt); original five false passes are retained in [failed-first](evidence/C034/failed-first.txt). Build, complete agent checks and all11 run-ownership groups passed. Cycle structure passes. Root `npm run verify` failed the inherited freshness gate: last UI f19a6ef65 versus status e38038577, retained in [root verification](evidence/C034/root-verify.txt). No approval was changed or bypassed. Root check stops before downstream tests; it is not a root pass.
+
+No owned UI/runtime/provider processes remain; only offline child fixtures were executed, all exited. Actual authenticated Claude/Codex checks, owned native process evidence for this runner, full combined desktop and final visual/live/root closure remain pending coordinator grants. C034 stays active. Next: independently review/import source and offline fixtures preserving package command union; execute selected authenticated provider only after explicit grant, retain actual result/error and process receipt, then run the final combined checklist. No main merge/deployment or device-auth policy change.
+
+## Independent review follow-ups
+
+Source6da87af supersedes the provisional9350eb9 checkpoint. Independent review reproduced an extra worker-created document hidden by the parent's stale cache. Failing-firstda609dd preserves that false pass;6d5941c reloads the actual store with `loadAll({seed:false})` and checks the raw JSON filename inventory as well, so malformed extra records cannot hide from parsed inventory.
+
+A second review reproduced unrelated successful tool telemetry and an extra working-folder file being ignored. The first local fixture incorrectly tagged Bash with the fixture document ID and therefore already failed; that diagnostic is retained. Corrected faithful0b5113a removes that ID and preserves both real runner false passes. Final6da87af rejects unexpected tool names, targets or edit payloads immediately, retains the sticky failure, and compares fresh folder entries and exact sentinel content. No actual shell command was executed by the offline reproduction.
+
+Final [offline scope regression](evidence/C034/offline-scope-final.txt):25/25 pass, including valid and malformed extra documents, ignored Bash telemetry, wrong target, extra folder file and modified existing sentinel. Root verification rerun at6da87af retains the same inherited f19a6ef/e380 screenshot-freshness failure in [root-final](evidence/C034/root-final.txt). Prior source/evidence remains unchanged. No authenticated provider or native/UI launch occurred. Production auth configuration and global approvals remain untouched; final named live checks and combined capture gates are still required.
+
+Only synthetic fixture transcripts/results are committed. Future real-provider reports must be inspected for actual credential values before any Git import; retained local metadata or an authenticated pass is not permission to export device settings/secrets.
+
+## Actual single-provider proof
+
+Named single-Codex grant executed clean7e070992 at session30848; runner exited0. SDK/CLI0.155.0 used existing device authentication with no settings changes. Private2U75sV proves actual acknowledged read rev1 → direct append rev2 → read rev2, exact persisted paragraphs and matching edit receipt. Driver completed; owned Job attemptc1b3c431 stopped with activeProcesses0. Helper60380/child29252 were absent on follow-up. No Electron or Barkpark runtime launched, no Claude call, and the exclusive execution slot was released immediately after completion.
+
+[Native manifest and credential review](evidence/C034/codex-7e07099/manifest.json) binds the unmodified report, document, edit receipt, launch/stop receipts and sentinel. All seven retained text files were scanned against known environment-secret values and common credential patterns with zero findings; actual tool outputs were manually inspected and contain only the synthetic fixture. Original private files remain; no redaction was necessary. Final Git blob hashes are verified before evidence commit. Session metadata is retained, not device settings or secrets.
+
+This proves one actual Codex local-document/MCP journey with owned cleanup. It does not prove Claude, remote Paper, all-provider success or profile isolation of device credentials. Combined full/visual/live/root gates remain the coordinator's pending closure; C034 is not broadly marked done from this single pass.
