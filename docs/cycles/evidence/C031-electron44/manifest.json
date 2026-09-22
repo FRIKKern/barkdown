@@ -1,0 +1,128 @@
+{
+  "timestamp": "2026-09-22T05:23:09.869Z",
+  "base": "92f07c06c736cfc2cbe23ba8bb455920bbc94426",
+  "electron": "44.4.3",
+  "scope": "Install/build/Node-only checks and static packaging inventory. No Electron executable launched.",
+  "commands": [
+    {
+      "command": "npm ci",
+      "cwd": "root",
+      "exitCode": 0
+    },
+    {
+      "command": "npm ci",
+      "cwd": "app",
+      "session": 15914,
+      "exitCode": 0
+    },
+    {
+      "command": "node app/node_modules/electron/install.js",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run dist",
+      "cwd": "app",
+      "session": 20894,
+      "exitCode": 0
+    },
+    {
+      "command": "node --test tests/goal-worker-agent.test.mjs tests/credential-durability.test.mjs tests/terminal-ownership.test.mjs tests/goal-process.test.mjs tests/goal-recovery.test.mjs",
+      "cwd": "app",
+      "session": 8987,
+      "exitCode": 0,
+      "passed": 27
+    },
+    {
+      "command": "send-preservation/send-boundaries/legacy-send-preservation Node scripts",
+      "cwd": "app",
+      "exitCode": 0
+    },
+    {
+      "command": "profile-service/profile-ipc/managed-workspace/paper-host Node scripts",
+      "cwd": "app",
+      "exitCode": 0
+    }
+  ],
+  "files": [
+    {
+      "file": "app-ci.txt",
+      "sha256": "d0bbb0a4d2931d5da0cba6a573186051ceb3d6730e0243a7f03fa5e6eb49a4e4"
+    },
+    {
+      "file": "audit.after.json",
+      "sha256": "f6c2663f72dfc098be02fb7f1503d0f87ffea5216598ce22faade390724dbf9d"
+    },
+    {
+      "file": "binary-install.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "binary-installed.json",
+      "sha256": "c0518d1a4c8f93d7c1ff12abd8f40b9244934979bd89c646675b31b13e59fc0f"
+    },
+    {
+      "file": "install-before-binary.json",
+      "sha256": "71a50d948c41a541dfce324ef1a929d0780ec51b112ddf62a3c7f9ed1cf0472c"
+    },
+    {
+      "file": "legacy-send-node.txt",
+      "sha256": "97cd2eaf0e1a848535781c369b11b3c0c0aa8712e49240ae6feb76b514f15de9"
+    },
+    {
+      "file": "lock-delta.json",
+      "sha256": "f4e5140d4eabd5e73f73965ba30a0b8b1f3fa09a15e8b3aab7728b512d8a4df7"
+    },
+    {
+      "file": "managed-workspace-node.txt",
+      "sha256": "38e98dcb17ab1fe2d1648470ec67e50516bb4810ef6733c5bfbe2afa7999f883"
+    },
+    {
+      "file": "native-node-tests.txt",
+      "sha256": "af5fa7521d70d9d38614f929bcb59df8631c958c5c000a38fe4af897079025e6"
+    },
+    {
+      "file": "package-dir.txt",
+      "sha256": "0b7df0223788bfb55ecb5f71ee53b8f0558287c46b65f60d15328481e0382490"
+    },
+    {
+      "file": "package-inspection.json",
+      "sha256": "980d6fbb81330ca7fe04ace4010159eec646bbdb60bbfd33c4302214dabd6cd9"
+    },
+    {
+      "file": "package-lock.after.json",
+      "sha256": "edebfd12574843d306117fc82a2f655ed65b822e3eb55967781ccaedacd853da"
+    },
+    {
+      "file": "package-lock.before.json",
+      "sha256": "d701063665d8991c7775b7868b6333f15955ebafdb6396d93b3a005acfbe136b"
+    },
+    {
+      "file": "paper-host-node.txt",
+      "sha256": "94c3a8595fbf522ad99b7be98e01294e26c4f5f160e2fbb8e93f62b350a8ec8d"
+    },
+    {
+      "file": "playwright-install.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "profile-ipc-node.txt",
+      "sha256": "1a6f6a4e7ef9299d1d4fbc112130f4b5ec65f4b72b6f31ef20720cafce142ad8"
+    },
+    {
+      "file": "profile-service-node.txt",
+      "sha256": "602ae804dbaa25d9733b79ff341c3a400b5db8068e7d7d564ace8d1abe53ace3"
+    },
+    {
+      "file": "root-ci.txt",
+      "sha256": "f770a4a91e0a95b1731b1ec613dd35a49de252ca6b5c6c9a7a72bbd493d52efe"
+    },
+    {
+      "file": "send-boundaries-node.txt",
+      "sha256": "58784de64e002209b836ab46d4eab48887bbe628d33674d1debc9fe622976321"
+    },
+    {
+      "file": "send-preservation-node.txt",
+      "sha256": "24fa2988d2c6097af62d7c7b53b8ced6feda607b9087efe3b5b836f139ed049b"
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+TAP version 13
+# Subtest: new ciphertext cannot be saved until actual protected key appears and is synced
+ok 1 - new ciphertext cannot be saved until actual protected key appears and is synced
+  ---
+  duration_ms: 11.5987
+  ...
+# Subtest: missing file never becomes success from elapsed time
+ok 2 - missing file never becomes success from elapsed time
+  ---
+  duration_ms: 3.1331
+  ...
+# Subtest: malformed key, sync failure and unavailable encryption refuse readiness
+ok 3 - malformed key, sync failure and unavailable encryption refuse readiness
+  ---
+  duration_ms: 3.6273
+  ...
+# Subtest: atomic replacement during flush must verify the current file on another pass
+ok 4 - atomic replacement during flush must verify the current file on another pass
+  ---
+  duration_ms: 4.9137
+  ...
+# Subtest: later saves revalidate persistence instead of relying on cached readiness
+ok 5 - later saves revalidate persistence instead of relying on cached readiness
+  ---
+  duration_ms: 3.8125
+  ...
+# Subtest: truncated or malformed tagged blobs fail closed, including an existing file without a key
+ok 6 - truncated or malformed tagged blobs fail closed, including an existing file without a key
+  ---
+  duration_ms: 5.9234
+  ...
+# Subtest: invalid pre-dispatch owner reports positively that no new process was launched
+ok 7 - invalid pre-dispatch owner reports positively that no new process was launched
+  ---
+  duration_ms: 4.5311
+  ...
+# Subtest: Windows owned job cancellation stops a real child/grandchild tree before acknowledging
+ok 8 - Windows owned job cancellation stops a real child/grandchild tree before acknowledging
+  ---
+  duration_ms: 1712.6722
+  ...
+# Subtest: forced supervisor death closes job and restart verifier proves the entire owned tree stopped
+ok 9 - forced supervisor death closes job and restart verifier proves the entire owned tree stopped
+  ---
+  duration_ms: 2244.6948
+  ...
+# Subtest: normal worker exit drains descendants and duplicate attempt launch is refused
+ok 10 - normal worker exit drains descendants and duplicate attempt launch is refused
+  ---
+  duration_ms: 1128.5706
+  ...
+# Subtest: abrupt main host exit closes its control pipe and restart verifies descendant shutdown
+ok 11 - abrupt main host exit closes its control pipe and restart verifies descendant shutdown
+  ---
+  duration_ms: 1763.5286
+  ...
+# Subtest: real host crash reopens paused goal, trusted default verifier reconciles, explicit retry completes saved worker
+ok 12 - real host crash reopens paused goal, trusted default verifier reconciles, explicit retry completes saved worker
+  ---
+  duration_ms: 2866.4517
+  ...
+# Subtest: verified settled completion retention is bounded without dropping unresolved proof
+ok 13 - verified settled completion retention is bounded without dropping unresolved proof
+  ---
+  duration_ms: 22.8543
+  ...
+# Subtest: real job-owned worker bridges exact owner, approvals, sessions and finalization
+ok 14 - real job-owned worker bridges exact owner, approvals, sessions and finalization
+  ---
+  duration_ms: 650.8042
+  ...
+# Subtest: cancelling an approval-held real worker waits for job drain and releases lease once
+ok 15 - cancelling an approval-held real worker waits for job drain and releases lease once
+  ---
+  duration_ms: 613.1623
+  ...
+# Subtest: 20MiB image descriptor and6MiB history cross the real bridge in both directions without truncation
+ok 16 - 20MiB image descriptor and6MiB history cross the real bridge in both directions without truncation
+  ---
+  duration_ms: 1084.195
+  ...
+# Subtest: malformed post-handshake message overrides an earlier success and persists failed completion
+ok 17 - malformed post-handshake message overrides an earlier success and persists failed completion
+  ---
+  duration_ms: 654.1408
+  ...
+# Subtest: Windows terminal closes its real descendants and same-tab profile B remains alive
+ok 18 - Windows terminal closes its real descendants and same-tab profile B remains alive
+  ---
+  duration_ms: 2893.1844
+  ...
+# Subtest: profile authority does not change on failed terminal drain and can retry
+ok 19 - profile authority does not change on failed terminal drain and can retry
+  ---
+  duration_ms: 1.8501
+  ...
+# Subtest: abrupt terminal host death kills all descendants and does not replay commands
+ok 20 - abrupt terminal host death kills all descendants and does not replay commands
+  ---
+  duration_ms: 3844.0378
+  ...
+# Subtest: uncertain shutdown keeps session blocked, trusted verification permits retry
+ok 21 - uncertain shutdown keeps session blocked, trusted verification permits retry
+  ---
+  duration_ms: 5.7026
+  ...
+# (node:61728) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/.codex/worktrees/barkdown-electron44-trial/app/renderer/src/tabs/terminal.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-electron44-trial\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output
+ok 22 - terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output
+  ---
+  duration_ms: 7873.1843
+  ...
+# Subtest: known pre-dispatch failure permits retry but generic launch failure needs native proof
+ok 23 - known pre-dispatch failure permits retry but generic launch failure needs native proof
+  ---
+  duration_ms: 17.911
+  ...
+# Subtest: late launch after timeout is stopped without dispatching shell commands
+ok 24 - late launch after timeout is stopped without dispatching shell commands
+  ---
+  duration_ms: 53.9047
+  ...
+# Subtest: shutdown admission rejects a new terminal even after the owned map drains
+ok 25 - shutdown admission rejects a new terminal even after the owned map drains
+  ---
+  duration_ms: 1.9295
+  ...
+# Subtest: missing launch folder never falls back to home and failed shell can be explicitly retried
+ok 26 - missing launch folder never falls back to home and failed shell can be explicitly retried
+  ---
+  duration_ms: 1113.2244
+  ...
+# Subtest: corrupt terminal ownership record is preserved and cannot silently seed another shell
+ok 27 - corrupt terminal ownership record is preserved and cannot silently seed another shell
+  ---
+  duration_ms: 12.8129
+  ...
+1..27
+# tests 27
+# suites 0
+# pass 27
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 16034.741

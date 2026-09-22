@@ -1,0 +1,45 @@
+{
+  "timestamp": "2026-09-22T05:18:40.624Z",
+  "node": "v22.13.1",
+  "platform": "win32",
+  "arch": "x64",
+  "electronPackage": {
+    "name": "electron",
+    "version": "44.4.3",
+    "repository": "https://github.com/electron/electron",
+    "description": "Build cross platform desktop apps with JavaScript, HTML, and CSS",
+    "license": "MIT",
+    "author": "Electron Community",
+    "keywords": [
+      "electron"
+    ],
+    "main": "index.js",
+    "types": "electron.d.ts",
+    "bin": {
+      "electron": "cli.js",
+      "install-electron": "install.js"
+    },
+    "files": [
+      "LICENSE",
+      "README.md",
+      "abi_version",
+      "checksums.json",
+      "cli.js",
+      "electron.d.ts",
+      "index.js",
+      "install.js"
+    ],
+    "engines": {
+      "node": ">= 22.12.0"
+    },
+    "dependencies": {
+      "@electron-internal/extract-zip": "^1.0.1",
+      "@electron/get": "^5.0.0",
+      "@types/node": "^24.9.0"
+    }
+  },
+  "pathFileExists": false,
+  "binaryExists": false,
+  "beforeLockSha256": "d701063665d8991c7775b7868b6333f15955ebafdb6396d93b3a005acfbe136b",
+  "afterLockSha256": "edebfd12574843d306117fc82a2f655ed65b822e3eb55967781ccaedacd853da"
+}

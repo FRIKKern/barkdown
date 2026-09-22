@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-09-22T05:22:08.104Z",
+  "artifact": "app/release/win-unpacked/resources/app.asar",
+  "sha256": "ab3fd6471b4f648efb453baa465601347e1c1ba2d83304438312d60da33eae02",
+  "entries": 10128,
+  "required": [
+    {
+      "file": "/main/main.js",
+      "present": true
+    },
+    {
+      "file": "/main/goal-worker-host.ps1",
+      "present": true
+    },
+    {
+      "file": "/main/goal-worker.js",
+      "present": true
+    },
+    {
+      "file": "/main/terminal-worker.js",
+      "present": true
+    },
+    {
+      "file": "/shared/markdown.js",
+      "present": false
+    },
+    {
+      "file": "/shared/portabledoc.js",
+      "present": false
+    },
+    {
+      "file": "/shared/table-edits.js",
+      "present": false
+    },
+    {
+      "file": "/renderer/index.html",
+      "present": true
+    },
+    {
+      "file": "/renderer/dist/app.js",
+      "present": true
+    }
+  ],
+  "note": "Static ASAR inspection; packaged binary not launched. Missing shared modules is inherited build.files configuration, not established Electron44 regression.",
+  "normalization": "ASAR list uses platform separators; normalize backslash to slash before membership comparison. Initial in-memory check without normalization falsely missed all entries; corrected before commit."
+}
