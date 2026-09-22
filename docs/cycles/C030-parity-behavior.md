@@ -1,0 +1,9 @@
+# C030 — Make editor gap evidence assert behavior
+
+Starting source f3e67ac on isolated codex/parity-behavior-proof-12h. The old probe catches step failures and prints shapes, with no verified assertion report; C028 correctly keeps its parity row red.
+
+Preserve its thirteen keyboard/paste interactions but assert intended editor structure and server acknowledgement after each one. Native Undo/Redo must restore the prior rich structure. Failed steps remain failures; do not infer correctness from a Saved label or type-count equality. Retain original probe in Git history and retain raw failure screenshots/video. Always close the owned Electron app, retain disposable data for diagnosis, and use the private-runtime wrapper for local execution. CI already owns a disposable configured server; its explicit CI environment remains supported.
+
+No product, schema, upstream source, provider policy or credential changes. Native UI is currently owned by C023, then E010/E011. This lane may prepare offline only until an explicit grant. Root/app dependencies and Chromium installed; root31/app536 packages, app reports two existing high advisories. No audit fix or lockfile change.
+
+Next: implement strict interaction assertions and exact server comparison; commit before native evidence. P1/G2 remain incomplete and this lane does not configure CI credentials.
