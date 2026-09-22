@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "id": "C021",
+  "stage": "P1",
+  "status": "done",
+  "goal": "Refuse offline profile-authority rollback before state changes while native work remains live or unverified.",
+  "scope": [
+    "Read-only native preflight for every profile, including no-runtime profiles",
+    "Preserve authority lease/cold database guards",
+    "No automatic termination, real-library migration or non-Windows native claim"
+  ],
+  "acceptance": [
+    "Actual live tree refusal leaves active journal and authority unchanged",
+    "Stopped and crashed native proof permits retained rollback",
+    "Unknown, foreign, corrupt and launch-only records refuse; positive terminal not-dispatched classification stays distinct",
+    "Existing adoption/native regressions and reviewed source-bound evidence"
+  ],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C021-rollback-native-preflight.md",
+  "nextAction": "Coordinator review/import; continue read-only same-slug canvas/media/search ownership audit before reserving another cycle. P1 remains open.",
+  "evidence": [
+    "docs/cycles/evidence/C021-native/stopped.json",
+    "docs/cycles/evidence/C021-native/crashed.json",
+    "docs/visual/adoption/native-rollback-f3e92a1/review.json",
+    "docs/visual/runs/2026-09-22T02-41-31-200Z/manifest.json",
+    "docs/images/status/c021-review.json"
+  ],
+  "truthReview": "Product source cb2a3ef; final fixture f3e92a1 actual UI passes with exact preboot/backup bytes and recursively retained original fields. Native5groups/full adoption and19combined checks pass. No whole P1/full final app-suite claim. Root npm run verify passed (32220) after exact historical evidence-link restoration; no new final full desktop-suite claim.",
+  "screenshotReview": "Three actual stills+25video frames and11encoded GIF frames inspected;40deterministic frames/deltas approved; five real Paper stills+37GIFframes reviewed. All owned processes stopped."
+}

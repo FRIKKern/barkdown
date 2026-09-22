@@ -2,6 +2,10 @@
 
 Active on `codex/integration-12h` in the isolated `barkdown-integration-12h` worktree. No main merge or deployment. This branch is a test candidate, not a completed product milestone.
 
+## New source candidate — C021 import
+
+C021 reviewed product cb2a3ef and final fixture f3e92a1 imported from closed21429c6. The source now refuses authority rollback until every profile's native work has verified shutdown evidence. Original exact-source evidence is being imported separately. The previous d8acb82 checkpoint remains the last fully validated combined source; current candidate needs fresh combined gates. Root runs the new native preflight tests first. No main merge or deployment.
+
 ## Current checkpoint — 02:24 UTC
 
 Combined source e380385 is validated: full desktop session64608 exited0 at unchanged app source b083c60, including coordinator crash/retry and stop races, API Paper operations, project-buffer preservation, and terminal shutdown. Later commits changed visual comparison tooling only. Root verify86276 exited0 after restoring original historical evidence dependencies and fixing the retired terminal-draft link.
