@@ -26,6 +26,7 @@ try {
   const a = await page.evaluate(async folder => {
     const api = window.barkdown, ws = await api.state.load();
     ws.chats.same = { id: 'same', title: 'A existing folder', folder, messages: [], draft: 'A draft', tabs: [] }; ws.order = ['same']; ws.current = 'same';
+    Object.assign(window.__barkdown.state, ws); window.__barkdown.switchChat('same');
     await api.state.save(ws); return (await api.profiles.status()).profileId;
   }, folderA);
   const b = await page.evaluate(async () => { const created = await window.barkdown.profiles.create('B missing reference'); return created.id || created.profileId; });
@@ -35,11 +36,14 @@ try {
   await page.evaluate(async folder => {
     const ws = await window.barkdown.state.load();
     ws.chats.same = { id: 'same', title: 'B unavailable folder', folder, provider: 'codex', messages: [], draft: 'B retained draft', tabs: [] };
-    ws.order = ['same']; ws.current = 'same'; await window.barkdown.state.save(ws);
+    ws.order = ['same']; ws.current = 'same';
+    Object.assign(window.__barkdown.state, ws); window.__barkdown.switchChat('same');
+    await window.barkdown.state.save(ws);
   }, folderB);
+  assert.equal(await page.evaluate(() => window.__barkdown.state.current), 'same');
   await app.close(); app = null; await launch();
   const state = await page.evaluate(async () => ({ profile: await window.barkdown.profiles.status(), ws: await window.barkdown.state.load() }));
-  assert.equal(state.profile.profileId, b); assert.equal(state.ws.chats.same.folder, folderB); assert.equal(state.ws.chats.same.draft, 'B retained draft');
+  assert.equal(state.profile.profileId, b); assert.equal(state.ws.current, 'same'); assert.equal(state.ws.chats.same.folder, folderB); assert.equal(state.ws.chats.same.draft, 'B retained draft');
   await page.evaluate(() => window.__barkdown.openTarget({ kind: 'project', path: 'same.txt' }));
   await page.getByText('This file or its working folder is no longer available.', { exact: true }).waitFor();
   assert.equal(await page.locator('.bw-pane:not([hidden]) .cm-content').count(), 0);

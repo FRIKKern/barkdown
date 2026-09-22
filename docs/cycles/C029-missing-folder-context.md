@@ -23,3 +23,7 @@ Next: obtain named UI grant, consume reviewed C026 source as needed, commit sour
 Merged reviewed integration2b2ec11 into this isolated lane, preserving C029 cycle/docs and tests. It includes C0265086bad send preservation and E009 evidence. Package script union verified programmatically: every integration command retained exactly (test command gains only C029 prefix), including C028 and E009.
 
 Routing10/10 passed again; send-preservation.test, send-boundaries.test and legacy-send-preservation.test passed in JSDOM/Node. Desktop build passed. No actual UI/provider/runtime launch. Native C029 fixture remains unrun, queued after E010; pre-ack draft refusal and accepted asynchronous provider errors remain distinct. Source frozen for that grant.
+
+## First native attempt retained
+
+Session24359/source1e1bb50/vsA0ZD exited1 before providers. B folder/draft persisted, but fixture direct IPC seeding had not selected the chat in mounted renderer; normal close saved visible default-chat navigation. Failure screenshot inspected: No working folder, not A fallback. Corrected fixture binds seeded workspace to mounted renderer and uses normal switchChat, asserts current same before quit/restart. No production change. Owned Electron exited normally; no matching process remained. Original report/screenshot retained in evidence/C029-native-1e1bb50-failure.
