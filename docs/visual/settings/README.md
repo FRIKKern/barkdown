@@ -2,13 +2,15 @@
 
 Real Settings navigation. No server connection or credential is configured.
 
-![Current view](../runs/2026-09-22T01-38-38-706Z/settings-3.png)
+![Current view](../runs/2026-09-22T03-10-25-041Z/settings-3.png)
 
-![Recorded interaction](../runs/2026-09-22T01-38-38-706Z/settings.gif)
+![Recorded interaction](../runs/2026-09-22T03-10-25-041Z/settings.gif)
 
-[Full comparison](../runs/2026-09-22T01-38-38-706Z/README.md) · [Capture manifest](../runs/2026-09-22T01-38-38-706Z/manifest.json)
+[Full comparison](../runs/2026-09-22T03-10-25-041Z/README.md) · [Capture manifest](../runs/2026-09-22T03-10-25-041Z/manifest.json)
 
 ## Changelog
+
+- 2026-09-22T03:11:59.388Z: C020: inspected all34 action frames including narrow goal/profile layouts; all pixel comparisons are within tolerance, geometry/environment unchanged. Seven GIFs use the34 reviewed frames. Full desktop57965 passes68 goal checks,76 desktop checks and actual coordinator normal/planning-crash journeys. Native headless review/summary death proof uses main-acknowledged partial response IPC; no runtime behavior change. Prior EPERM failure retained as unresolved reliability concern; no new durability guarantee. Source 8163c2718; [review](../runs/2026-09-22T03-10-25-041Z/comparison.json).
 
 - 2026-09-22T01:40:45.960Z: Inspected all34 candidate action frames, prior goal frames and generated differences, including390px goal form and recovery layouts. Seven GIFs retain the34 reviewed action frames. Three objective-only creation frames extend the goal tour and shift index-based comparisons; changed goal geometry is expected, with readable controls and no overlap. Other25 frames remain within tolerance with unchanged geometry/environment. Full desktop50783 passed57 goal checks and76 desktop checks plus actual normal/crash coordinator journeys; authenticated Codex61ee passed separately. Fixture providers are blocked and do not establish live Paper behavior. Source 61eea4dc8; [review](../runs/2026-09-22T01-38-38-706Z/comparison.json).
 

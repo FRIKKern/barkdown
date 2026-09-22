@@ -151,3 +151,7 @@ C015 follow-up: clean5dc authenticated AoTVC4 safely paused because commentary w
 ## Current checkpoint: C015 verified
 
 Source `61eea4d` and its predecessor `5dc188b` implement the bounded natural-language coordinator. [C015 closeout](../cycles/C015-goal-coordinator.md) supersedes the pending checks above: authenticated Codex plan/three workers/independent reviews/summary, 57 goal checks, full desktop and root verification, actual native planning-crash recovery, 34 approved fixture frames and inspected live Paper all pass. [Evidence](evidence/61eea4d/README.md) preserves the earlier final-message parse failure and unacknowledged journal commit with proven explicit zero-replay recovery. No owned runtime; UI/a544 released. Parent owns combined integration; P1–P5 remain pending. Archive C015 before new implementation work.
+
+## C020 verified; C023 next
+
+[C020](../cycles/C020-coordinator-interruption.md) closes on test source17c2cc8/docs8163c27 with full desktop57965, root4562 and inspected fresh fixture/live evidence. No runtime changes. [Proof](evidence/17c2cc8/README.md) retains earlier EPERM failure; parent authorized [C023](../cycles/C023-windows-atomic-write.md) bounded retry design with controlled failing tests and unchanged target revision/lease. UI released, no owned process.

@@ -1,9 +1,9 @@
 {
-  "manifest": "docs/visual/runs/2026-09-22T01-38-38-706Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-22T01-38-38-706Z/comparison.json",
-  "manifestHash": "3851d9d6dd0edd386dba84faba658628e3e036163ade67acde905966f6f5f63d",
-  "reportHash": "137be47f927294784fcc9f946b40876ee4dbf3e1398e1863b59c3e00fe4bb3e8",
+  "manifest": "docs/visual/runs/2026-09-22T03-10-25-041Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-22T03-10-25-041Z/comparison.json",
+  "manifestHash": "ba360e337e64856b805efdece5ac2df1671b5c229788b0c1d982b0437a833984",
+  "reportHash": "e741c37a556d0fbb0b355e2633765803aacabd862c9ca6085db1a1622648261f",
   "reviewer": "Codex goal-orchestration agent",
-  "note": "Inspected all34 candidate action frames, prior goal frames and generated differences, including390px goal form and recovery layouts. Seven GIFs retain the34 reviewed action frames. Three objective-only creation frames extend the goal tour and shift index-based comparisons; changed goal geometry is expected, with readable controls and no overlap. Other25 frames remain within tolerance with unchanged geometry/environment. Full desktop50783 passed57 goal checks and76 desktop checks plus actual normal/crash coordinator journeys; authenticated Codex61ee passed separately. Fixture providers are blocked and do not establish live Paper behavior.",
-  "reviewedAt": "2026-09-22T01:40:45.960Z"
+  "note": "C020: inspected all34 action frames including narrow goal/profile layouts; all pixel comparisons are within tolerance, geometry/environment unchanged. Seven GIFs use the34 reviewed frames. Full desktop57965 passes68 goal checks,76 desktop checks and actual coordinator normal/planning-crash journeys. Native headless review/summary death proof uses main-acknowledged partial response IPC; no runtime behavior change. Prior EPERM failure retained as unresolved reliability concern; no new durability guarantee.",
+  "reviewedAt": "2026-09-22T03:11:59.388Z"
 }
