@@ -95,3 +95,5 @@ Candidate `2b2ec11` is awaiting fresh combined gates. Global fixture approval/st
 ## C035 packaging resource candidate
 
 [Packaging handoff](../docs/cycles/C035-packaging38.md): Electron38 and both locks remain unchanged. Shared modules are included in ASAR; exactly three native helper files are unpacked and resolved from their actual filesystem location. Native package acceptance awaits the queued real terminal descendant/switch/crash fixture; this is not a clean-machine installation or bundled Barkpark runtime claim. Blocked43/44 trials are excluded.
+
+C035 source89a0fd2 now has [actual packaged terminal evidence](../docs/visual/packaging38/README.md): profile switch, native descendant crash cleanup, no replay and retained drafts pass. Final combined gates remain pending; no installer/Paper runtime claim.

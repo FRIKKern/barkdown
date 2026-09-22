@@ -16,11 +16,12 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C035-packaging38.md",
-  "nextAction": "Port reviewed bounded resource fix, clean install/build and headless package checks; wait named UI grant.",
+  "nextAction": "Selectively import reviewed89a0fd2 source and original packaged native evidence; coordinator performs final combined gates. No dependency upgrade.",
   "evidence": [
     "docs/cycles/evidence/C035-packaging38/baseline.json",
-    "docs/cycles/evidence/C035-packaging38/package-resources.json"
+    "docs/cycles/evidence/C035-packaging38/package-resources.json",
+    "docs/visual/packaging38/89a0fd2/review.json"
   ],
-  "truthReview": "Exact38 locks preserved; offline resource and native checks pass; actual packaged UI pending.",
-  "screenshotReview": "No UI launched; awaiting named grant for new source-bound packaged terminal evidence."
+  "truthReview": "Native package resource/lifecycle acceptance passes; full/global/live/root gates delegated to final integration and remain unclaimed.",
+  "screenshotReview": "7fullstills and30sampledframes from3videos inspected; bounded pass, no global approval changed."
 }
