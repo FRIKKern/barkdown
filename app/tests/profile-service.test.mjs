@@ -56,7 +56,7 @@ freshA = await service.select(ownerB, a.id);
 assert.equal(service.load(freshA).chats.same.messages.at(-1).text, 'A output after B switch');
 assert.equal(service.load(freshA).chats.same.runId, null);
 assert.equal((await service.wait(freshA, started.runId)).status, 'completed');
-await assert.rejects(service.start(freshA, { chatId: 'same', prompt: 'Wrong image', images: [{ path: path.join(root, 'foreign.png') }] }), /ENOENT/);
+await assert.rejects(service.start(freshA, { chatId: 'same', prompt: 'Wrong image', images: [{ path: path.join(root, 'foreign.png') }] }), /Attachment foreign.png is unavailable/);
 assert.equal(dispatched.length, 1);
 const input = { chatId: 'same', prompt: 'Original', images: [] };
 const pending = service.start(freshA, input); input.prompt = 'Mutation';

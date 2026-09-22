@@ -186,7 +186,7 @@ function handle(channel, fn, unowned = false) {
         args = envelope.args;
         return { ok: true, value: await profileGate.request(envelope.owner, execute) };
       }
-      return { ok: true, value: await execute() }; } catch (error) { return { ok: false, error: error.message || String(error), code: error.code }; }
+      return { ok: true, value: await execute() }; } catch (error) { return { ok: false, error: error.message || String(error), code: error.code, diagnostic: error.diagnostic }; }
   });
 }
 
@@ -326,8 +326,8 @@ function registerIpc() {
     return { id, path: file, url: 'file:///' + file.replace(/\\/g, '/').replace(/^\//, ''), name: name || id + '.' + ext, mime: type, size: bytes.length };
   });
   handle('agent:start', ({ chatId, messages, context, provider, session, prompt, images, options }) => {
-    if (profileService) return profileService.start(profileService.view(), { chatId, prompt, images, provider });
-    if (readSettings().barkpark.local?.enabled && localStatus().phase !== 'ready') throw new Error('Local Barkpark is not ready. Check Settings → Barkpark before starting a run.');
+    if (profileService) return profileService.start(profileService.view(), { chatId, prompt, images, provider, attemptId: options?.attemptId });
+    if (readSettings().barkpark.local?.enabled && localStatus().phase !== 'ready') throw Object.assign(new Error('Local Barkpark is not ready. Check Settings → Barkpark before starting a run.'), { code: 'BARKDOWN_SEND_NOT_STARTED' });
     const s = readSettings();
     const chosen = provider || s.provider || defaultProvider();
     const o = options || {};
