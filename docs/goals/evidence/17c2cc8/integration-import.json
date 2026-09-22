@@ -1,0 +1,23 @@
+{
+  "sourceEvidenceCommit": "1367b37",
+  "sourceFixtureCommit": "17c2cc8",
+  "archivedStatusManifest": "docs/images/status/history/C020-17c2cc8.json",
+  "originalFiles": 109,
+  "restoredBaselineFiles": 442,
+  "originalBlobsVerified": true,
+  "fixtureManifestHash": "ba360e337e64856b805efdece5ac2df1671b5c229788b0c1d982b0437a833984",
+  "fixtureReportHash": "e741c37a556d0fbb0b355e2633765803aacabd862c9ca6085db1a1622648261f",
+  "fixtureArtifactsVerified": 41,
+  "protectedCurrentFiles": [
+    "README.md",
+    "docs/images/status/manifest.json",
+    "docs/visual/approved.json",
+    "docs/visual/pending.json"
+  ],
+  "scope": "Original C020 evidence only. Combined gates remain pending; d8acb82 is validated fallback.",
+  "rootVisualReview": [
+    "goal-coordinator-recovery/completed-narrow.png",
+    "goal-coordinator-recovery/reviewed-plan-retry.png"
+  ],
+  "validation": "Cycle structure passes; local references/type checks reach expected stale combined status gate (9b4346463 vs e38038577). New original baseline chain retained; no visual approval transferred."
+}
