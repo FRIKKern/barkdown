@@ -125,7 +125,12 @@ await page.keyboard.press('Enter'); await frame(400);
 await typeSlow('Notes are papers; the canvas is Tiptap.'); await frame(900);
 const cell = pm().locator('.bp-table__td').first(); await cell.click(); await page.keyboard.press('End'); await frame(500);
 await page.keyboard.press('Tab'); await frame(400); await typeSlow('11/11'); await frame(700);
-await page.evaluate(() => window.__barkdown.openPalette()); await frame(600); await typeSlow('stat'); await frame(1200);
+await page.evaluate(() => window.__barkdown.openPalette());
+// Keep the motion proof readable: the palette's short CSS entrance transition
+// paints several intermediate shadow bounds that GIF's 256-colour frames turn
+// into false concentric bands. Let the real transition settle, then record the
+// user's query appearing in the stable modal.
+await page.waitForTimeout(350); await frame(600); await typeSlow('stat'); await frame(1200);
 await page.keyboard.press('Escape'); await settled(); await frame(1500);
 // Encode: one palette from the first frame keeps UI colours steady across frames; the last frame holds.
 const gif = GIFEncoder();
