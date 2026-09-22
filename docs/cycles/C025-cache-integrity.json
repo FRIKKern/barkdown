@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "id": "C025",
+  "stage": "P1",
+  "status": "active",
+  "goal": "Reject damaged or foreign editor cache bytes before selecting executable assets.",
+  "scope": [
+    "Validate metadata, full JS/CSS digests and regular owned paths",
+    "Publish immutable paired builds and atomic pointer without destroying prior evidence",
+    "Prove distinct profile caches and explicit vendored fallback; no upstream parity claim"
+  ],
+  "acceptance": [
+    "Corrupt/truncated/mixed pairs never return as trusted cache",
+    "Links and traversal cannot resolve another profile cache",
+    "Interrupted publication retains a valid prior pair",
+    "Actual consumer reports fallback provenance, followed by reviewed visual/live evidence"
+  ],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C025-cache-integrity.md",
+  "nextAction": "Implement production resolver tests from preserved failing report; no Electron until named grant.",
+  "evidence": [
+    "docs/cycles/evidence/C025-cache/before.json"
+  ],
+  "truthReview": "Read-only reproduction at6796a50; C008 central integration queue unchanged.",
+  "screenshotReview": "Pending source commit and named UI grant."
+}

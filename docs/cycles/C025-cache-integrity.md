@@ -1,0 +1,25 @@
+# C025 — Editor cache integrity
+
+Base6796a50; branch codex/cache-integrity-12h. Central C008 remains coordinator-owned; this bounded lane record is C025-cache-integrity.json.
+
+## Reproduced failure and consumer audit
+
+The production main resolver returned modified JavaScript under its old SHA and an invalid CSS digest, because readCache only checked file presence. Original report retained in evidence/C025-cache/before.json (temporary kaht24). Clean B with no cache used vendored assets, so no ordinary A-to-B fallback is claimed. Profile main IPC supplies each bound store canvas-bundle directory; switching reloads the renderer, resetting its shared bundle promise. Search HTTP has no shared result cache.
+
+Renderer injects the returned file paths and displays source/server/SHA and error. It cannot redefine the custom element within one renderer. Changes must preserve this API and honestly describe fallback; vendored fallback is not upstream equivalence.
+
+## Bounded implementation plan
+
+Validate metadata schema, full JS/CSS digests and regular non-link ancestors/files. A bad cache is preserved but never returned for execution. Cache selection must match the requested server when connected. Publish pairs under both full hashes so a CSS-only update cannot overwrite the previous pair; stage into an owned unique directory and rename, then atomically publish current.json. Retain old pairs and abandoned staging rather than deleting evidence. Reading existing valid eight-character cache directories remains supported after full verification.
+
+Tests use local synthetic HTTP servers and temporary A/B stores: corrupt JS/CSS, malformed/truncated metadata, traversal/junctions, same-slug ownership, CSS-only updates, interrupted publication and offline fallback. Actual UI consumer proof follows source commit and exclusive grant; no main/UI changes planned unless needed to expose error already supplied by resolver. No real content or shared source mutations.
+
+## Checkpoint
+
+Plan/cycle commands read; original failing fixture preserved. Dependencies, implementation, tests and evidence pending.
+
+## Source checkpoint
+
+Root/app npm ci passed (root0 vulnerabilities; app2 existing high), Chromium installed, app build passed. Seven focused Node groups pass, including actual child exits at pair/pointer rename. The resolver preserves valid old eight-character caches after full verification; new pairs use both full digests. A healthy server refetch of a corrupted existing pair now quarantines its verified-owned regular directory before rebuilding; unknown/linked entries refuse without mutation. Added regression covers repair and linked-pair refusal. All abandoned staging and old pairs remain intact. SHA checks establish accidental corruption detection, not source authenticity or adversarial same-user filesystem isolation.
+
+Actual Electron fixture prepared/syntax checked: corrupt A must not execute; Settings must display fallback reason; B loads its separately verified cache on profile switch; restarting selected B with its cache renamed away uses vendor without A fallback. No Electron launched; awaiting coordinator grant after source commit. Current product changes confined to main/canvas-bundle.js; renderer consumer API unchanged. Full visual/live/root verification remain pending.
