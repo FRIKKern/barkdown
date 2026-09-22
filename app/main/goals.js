@@ -17,13 +17,18 @@ const key = (profileId, goalId) => JSON.stringify([profileId, goalId]);
 function validateGoal(g) {
   identity(g.id, 'goal ID'); identity(g.profileId, 'profile ID'); text(g.chatId, 'coordinator chat'); text(g.objective, 'objective');
   assert(GOAL_STATES.includes(g.status), 'Invalid goal state');
+  assert(g.mode === undefined || g.mode === 'coordinated', 'Invalid goal mode');
   assert(Number.isFinite(g.deadline) && Number.isFinite(g.createdAt), 'Invalid deadline');
   assert(Array.isArray(g.tasks) && g.tasks.length > 0 && g.tasks.length <= 100, 'A goal needs 1–100 bounded tasks');
   const ids = new Set(); const chats = new Set();
   for (const t of g.tasks) {
     text(t.id, 'task ID', 128); assert(!ids.has(t.id), 'Duplicate task ID'); ids.add(t.id);
-    text(t.prompt, 'task prompt'); text(t.chatId, 'worker chat'); chats.add(t.chatId);
-    assert(t.chatId !== g.chatId, 'Coordinator cannot be its own worker');
+    text(t.prompt, 'task prompt', t.role && t.role !== 'worker' ? 400000 : 20000); text(t.chatId, 'worker chat');
+    const role = t.role || 'worker';
+    assert(['worker', 'plan', 'review', 'summary'].includes(role), 'Invalid goal task role');
+    if (role === 'worker') { chats.add(t.chatId); assert(t.chatId !== g.chatId, 'Coordinator cannot be its own worker'); }
+    else { assert(g.mode === 'coordinated' && t.chatId === g.chatId, 'Invalid coordinator ownership'); }
+    if (role === 'review') { text(t.reviewOf?.taskId, 'reviewed task'); identity(t.reviewOf?.attemptId, 'reviewed attempt'); }
     assert(TASK_STATES.includes(t.status), 'Invalid task state');
     assert(Array.isArray(t.dependsOn) && t.dependsOn.every(d => typeof d === 'string'), 'Invalid dependencies');
     assert(t.images === undefined || (Array.isArray(t.images) && t.images.length <= 10), 'Invalid task images');
@@ -48,6 +53,22 @@ function validateGoal(g) {
     if (t.status === 'completed') assert(t.review?.accepted === true && t.review.evidence?.length > 0, 'Completion lacks evidence');
   }
   assert(chats.size <= 3, 'A goal supports at most three saved worker chats');
+  if (g.mode === 'coordinated') {
+    const plans = g.tasks.filter(t => t.role === 'plan'), workers = g.tasks.filter(t => (t.role || 'worker') === 'worker');
+    assert(plans.length === 1 && plans[0].id === 'plan', 'Coordinated goal requires one planning task');
+    assert(workers.length === 0 || (workers.length === 3 && workers.every(t => /^task-[123]$/.test(t.id))), 'Invalid coordinated worker topology');
+    assert((plans[0].status === 'completed') === (workers.length === 3), 'Plan and worker staging disagree');
+    assert(g.tasks.filter(t => t.role === 'summary').length <= 1, 'Duplicate coordinator summary');
+    for (const t of g.tasks) {
+      if (t.role === 'summary') assert(t.id === 'summary' && workers.length === 3 && workers.every(worker => worker.status === 'completed'), 'Summary precedes reviewed workers');
+      if (t.role === 'review') {
+        const target = workers.find(worker => worker.id === t.reviewOf.taskId);
+        assert(target?.attempts.some(attempt => attempt.id === t.reviewOf.attemptId) && t.id === `review-${t.reviewOf.attemptId}`, 'Review references an unknown worker attempt');
+      }
+      if ((t.role || 'worker') === 'worker') assert(t.dependsOn.every(id => workers.some(worker => worker.id === id)), 'Worker depends on a coordinator control turn');
+    }
+  }
+
   const visiting = new Set(); const visited = new Set();
   function visit(id) {
     assert(ids.has(id), 'Unknown dependency'); assert(!visiting.has(id), 'Cyclic dependencies');
@@ -119,12 +140,12 @@ function openJournal(root) {
 }
 
 class GoalScheduler {
-  constructor({ journal, adapter, now = Date.now, onChange = () => {}, admission = new GoalAdmission(), verifyTermination }) {
+  constructor({ journal, adapter, now = Date.now, onChange = () => {}, admission = new GoalAdmission(), verifyTermination, captureContext }) {
     assert(adapter && typeof adapter.execute === 'function', 'Missing execution adapter');
     this.journal = journal; this.adapter = adapter; this.now = now; this.onChange = onChange;
     this.live = new Map(); this.closed = false; this.fault = null; this.closePromise = null;
     this.admission = admission;
-    this.verifyTermination = verifyTermination;
+    this.verifyTermination = verifyTermination; this.captureContext = captureContext;
     const data = journal.read(); let changed = false;
     for (const g of data.goals) {
       for (const t of g.tasks) if (t.status === 'running') {
@@ -154,12 +175,13 @@ class GoalScheduler {
     return copy(g);
   }
 
-  create({ id = crypto.randomUUID(), profileId, chatId, objective, deadline, tasks }) {
+  create({ id = crypto.randomUUID(), profileId, chatId, objective, deadline, tasks, mode }) {
     assert(!this.closed, 'Scheduler closed');
     assert(!this.fault, 'Scheduler halted after persistence failure; reopen and reconcile');
     assert(Array.isArray(tasks), 'Invalid tasks');
-    const g = { id, profileId, chatId, objective, deadline, createdAt: this.now(), status: 'planned', tasks: tasks.map(t => ({
-      id: t.id, title: t.title || t.id, chatId: t.chatId, prompt: t.prompt, images: copy(t.images || []), dependsOn: [...(t.dependsOn || [])], status: 'pending', attempts: [],
+    assert(mode === undefined || mode === 'coordinated', 'Invalid goal mode');
+    const g = { id, profileId, chatId, objective, deadline, ...(mode ? { mode } : {}), createdAt: this.now(), status: 'planned', tasks: tasks.map(t => ({
+      id: t.id, title: t.title || t.id, chatId: t.chatId, prompt: t.prompt, ...(t.role ? { role: t.role } : {}), ...(t.reviewOf ? { reviewOf: copy(t.reviewOf) } : {}), images: copy(t.images || []), dependsOn: [...(t.dependsOn || [])], status: 'pending', attempts: [],
       context: { profileId, chatId: t.chatId, folder: t.context?.folder ?? null, provider: t.context?.provider,
         model: t.context?.model ?? null, effort: t.context?.effort ?? null, session: t.context?.session ?? null },
     })) };
@@ -173,10 +195,10 @@ class GoalScheduler {
   start(profileId, id, { contexts = {} } = {}) {
     const g = this.change(profileId, id, g => {
       assert(['planned', 'paused'].includes(g.status), 'Goal cannot start from this state');
-      assert(!g.tasks.some(t => ['running', 'interrupted'].includes(t.status)), 'Reconcile unresolved attempts before resume');
+      assert(!g.tasks.some(t => ['running', 'interrupted'].includes(t.status) || t.needsPerson), 'Reconcile unresolved attempts before resume');
       assert(![...this.live.values()].some(r => r.profileId === profileId && r.goalId === id), 'Prior runs have not stopped');
       assert(this.now() < g.deadline, 'Deadline already passed');
-      for (const task of g.tasks) if (task.status === 'pending' && contexts[task.id]) task.context = copy(contexts[task.id]);
+      for (const task of g.tasks) if ((task.status === 'pending' || task.role === 'plan') && contexts[task.id]) task.context = copy(contexts[task.id]);
       g.status = 'active'; delete g.reason;
     });
     this.tick(); return this.get(profileId, g.id);
@@ -215,17 +237,24 @@ class GoalScheduler {
   }
 
   dispatch(g, t) {
+    if (this.get(g.profileId, g.id).status !== 'active') return;
+    let context = copy(t.context);
+    if (g.mode === 'coordinated' && this.captureContext) {
+      try { context = this.captureContext(copy(g), copy(t)); }
+      catch (error) { this.stop(g.profileId, g.id, 'paused'); this.change(g.profileId, g.id, goal => { goal.reason = error.message; }); return; }
+    }
+    const dependencyResults = t.dependsOn.map(id => { const dependency = g.tasks.find(item => item.id === id); return { taskId: id, attemptId: dependency.attempts.at(-1)?.id, result: copy(dependency.attempts.at(-1)?.result), review: copy(dependency.review) }; });
     const attemptId = crypto.randomUUID(); const abort = new AbortController();
     const releaseAdmission = this.admission.acquire({ profileId: g.profileId, chatId: t.chatId, attemptId });
     if (!releaseAdmission) return;
     try { this.change(g.profileId, g.id, goal => {
       const task = goal.tasks.find(x => x.id === t.id); assert(task.status === 'pending', 'Task already dispatched');
-      task.status = 'running'; task.attempts.push({ id: attemptId, status: 'running', startedAt: this.now(), context: copy(task.context) });
+      task.context = copy(context); task.status = 'running'; task.attempts.push({ id: attemptId, status: 'running', startedAt: this.now(), context: copy(task.context), dependencyResults: copy(dependencyResults), ...(t.review?.accepted === false ? { retryNote: t.review.note } : {}) });
     }); } catch (error) { releaseAdmission(); throw error; }
     const live = { profileId: g.profileId, goalId: g.id, chatId: t.chatId, taskId: t.id, attemptId, abort };
     this.live.set(attemptId, live);
     const dispatch = { profileId: g.profileId, goalId: g.id, coordinatorChatId: g.chatId, taskId: t.id, attemptId,
-      chatId: t.chatId, prompt: t.prompt, images: copy(t.images || []), context: copy(t.context), deadline: g.deadline };
+      chatId: t.chatId, prompt: t.prompt, goalObjective: g.objective, images: copy(t.images || []), context: copy(context), deadline: g.deadline, ...(t.role ? { role: t.role } : {}), dependencyResults: copy(dependencyResults), ...(t.review?.accepted === false ? { retryNote: t.review.note } : {}) };
     // Promise boundary catches synchronous adapter failures. Reservation is durable before this call.
     Promise.resolve().then(() => {
       if (abort.signal.aborted) return { status: 'cancelled', text: 'Stopped before provider launch' };
@@ -234,6 +263,7 @@ class GoalScheduler {
       .catch(error => this.halt(error)).finally(() => {
         this.live.delete(attemptId);
         releaseAdmission();
+        if (!this.closed) queueMicrotask(() => { if (!this.closed) { try { this.onChange(this.get(g.profileId, g.id)); } catch { /* Observers may reload. */ } } });
         if (this.closed) this.releaseWhenDrained();
         else if (!this.fault) { try { this.tick(); } catch (error) { this.halt(error); } }
       }).catch(error => this.halt(error));
@@ -281,11 +311,11 @@ class GoalScheduler {
       assert(Number.isFinite(t.attempts.at(-1)?.stoppedAt), 'Provider termination has not been established');
       assert(!accepted || t.status === 'review' || t.status === 'interrupted', 'Failed provider work cannot be accepted');
       assert(!retry || t.attempts.length < 100, 'Attempt limit reached');
-      t.review = { accepted, note, evidence: copy(evidence), at: this.now() };
+      t.review = { accepted, note, evidence: copy(evidence), at: this.now(), actor: 'person', attemptId: t.attempts.at(-1).id }; t.attempts.at(-1).review = copy(t.review); delete t.needsPerson;
       t.status = accepted ? 'completed' : retry ? 'pending' : 'failed';
       if (retry && context) t.context = copy(context);
       if (accepted) t.attempts.at(-1).status = 'completed';
-      if (!['cancelled', 'expired'].includes(g.status) && g.tasks.every(t => t.status === 'completed')) g.status = 'review';
+      if (g.mode !== 'coordinated' && !['cancelled', 'expired'].includes(g.status) && g.tasks.every(t => t.status === 'completed')) g.status = 'review';
     });
     this.tick(); return g;
   }

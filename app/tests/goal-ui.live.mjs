@@ -22,6 +22,7 @@ try{
  });
  const view=page.getByRole('dialog',{name:'Conversation goals'});await view.locator('[data-create]').waitFor();
  await view.getByLabel('Goal',{exact:true}).fill('Verify a durable three-worker delivery');
+ await view.getByLabel('Planning',{exact:true}).selectOption('manual');
  for(let n=1;n<=3;n++)await view.getByLabel(`Worker ${n} assignment`).fill(['Inspect ownership boundaries','Exercise interruption recovery','Review the resulting evidence'][n-1]);
  await view.getByLabel('Time window in minutes').fill('120');await view.getByRole('button',{name:'Create planned goal'}).click();
  await view.getByText('Ready to start',{exact:true}).waitFor();assert.equal(await page.locator('#bw-prompt').inputValue(),'Keep my main conversation draft.');

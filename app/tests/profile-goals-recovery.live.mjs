@@ -49,6 +49,7 @@ try {
   });
   await openGoals();
   await page.locator('[name="objective"]').fill('Recover interrupted workers without replay');
+  await page.locator('[name="planning"]').selectOption('manual');
   for (let n = 1; n <= 3; n++) await page.locator(`[name="worker${n}"]`).fill(`Return fixture result ${n}`);
   await page.locator('[data-create] button').click();
   await page.locator('[data-command="start"]').click();
