@@ -16,6 +16,7 @@ import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { fileURLToPath } from 'url';
+import { archiveStatusManifest } from './helpers/status-history.mjs';
 const require = createRequire(import.meta.url);
 const { GIFEncoder, quantize, applyPalette } = require('gifenc');
 const { PNG } = require('pngjs');
@@ -27,8 +28,7 @@ fs.mkdirSync(out, { recursive: true });
 // Preserve the reviewed baseline before a new live capture. Prior hashed media stays intact.
 const priorManifest = path.join(out, 'manifest.json');
 if (fs.existsSync(priorManifest)) {
-  const history = path.join(out, 'history'); fs.mkdirSync(history, { recursive: true });
-  fs.copyFileSync(priorManifest, path.join(history, new Date().toISOString().replace(/[:.]/g, '-') + '.json'));
+  archiveStatusManifest(out, JSON.parse(fs.readFileSync(priorManifest, 'utf8')));
 }
 
 const SLUG = 'barkdown-status';
@@ -129,8 +129,10 @@ await page.evaluate(() => window.__barkdown.openPalette()); await frame(600); aw
 await page.keyboard.press('Escape'); await settled(); await frame(1500);
 // Encode: one palette from the first frame keeps UI colours steady across frames; the last frame holds.
 const gif = GIFEncoder();
-const palette = quantize(frames[0].data, 256, { format: 'rgba4444' });
-for (const [i, f] of frames.entries()) { const index = applyPalette(f.data, palette, 'rgba4444'); gif.writeFrame(index, f.width, f.height, { palette: i === 0 ? palette : undefined, delay: i === frames.length - 1 ? 2000 : f.delay, repeat: 0 }); }
+// Screenshots are opaque. An RGBA palette makes semi-transparent shadow colours
+// composite across GIF frames and leaves false modal outlines during motion.
+const palette = quantize(frames[0].data, 256);
+for (const [i, f] of frames.entries()) { const index = applyPalette(f.data, palette); gif.writeFrame(index, f.width, f.height, { palette: i === 0 ? palette : undefined, delay: i === frames.length - 1 ? 2000 : f.delay, repeat: 0 }); }
 gif.finish();
 fs.writeFileSync(path.join(out, 'editing.gif'), Buffer.from(gif.bytes()));
 shots.push({ file: 'editing.gif', caption: 'An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open.' });
@@ -176,6 +178,7 @@ for (const shotEntry of manifest.shots) {
 }
 fs.writeFileSync(readmePath, rootReadme);
 fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
+archiveStatusManifest(out, manifest);
 // Retain temporary capture data for diagnosis; shutdown always runs below.
 console.log(`wrote ${shots.length} pictures + manifest to ${out}`);
 

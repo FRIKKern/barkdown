@@ -73,7 +73,7 @@
     "test:providers-runner": "node --test tests/providers-runner.test.mjs",
     "test:providers": "node tests/providers.live.mjs",
     "test:package-resources": "node tests/package-resources.test.mjs",
-    "test:capture-lifecycle": "node --test tests/capture-lifecycle.test.mjs"
+    "test:capture-lifecycle": "node --test tests/capture-lifecycle.test.mjs tests/status-history.test.mjs"
   },
   "engines": {
     "node": ">=22.13.1"
