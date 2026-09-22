@@ -1,6 +1,8 @@
-# C022 lane checkpoint
+# C022 closed lane checkpoint
 
 Follow [actual repeated cold adoption](cycles/C022-repeat-cold-adoption.md). UI/runtime launch requires the coordinator's named window; C016 is active in another worktree.
+
+C022 dedicated actual repeat/rollback, full desktop, reviewed visual/live and root gates passed. See linked closeout for exact sources and limits. C016 remains active separately with reviewed loading-position fix34ef068 awaiting native proof. P1 remains open. No owned processes remain.
 
 # Inherited integration handoff (historical snapshot)
 

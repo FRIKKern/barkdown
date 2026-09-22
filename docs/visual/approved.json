@@ -1,9 +1,9 @@
 {
-  "manifest": "docs/visual/runs/2026-09-22T02-13-13-738Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-22T02-13-13-738Z/comparison.json",
-  "manifestHash": "ed5ef80111236e05948214c402f84729f6e033adefe891a7f3cc4580eacf34e3",
-  "reportHash": "f9532adfe23e2848a4015f7c8d4c272367b98535ce1358c7cf25f7cb788d0d8e",
-  "reviewer": "Codex root integration review",
-  "note": "Reviewed all 40 stills and all decoded GIF frames. Final recapture matched 43 of 48 reviewed artifacts byte-for-byte; the four changed stills and changed side-chat GIF were inspected again. Named-step comparison shows three new goal planning views and expected tasks-to-workers labels; no unintended geometry or clipping regression found. Combined desktop suite 64608 passed. Fixture capture alone does not prove live provider or persistence behavior.",
-  "reviewedAt": "2026-09-22T02:18:55.981Z"
+  "manifest": "docs/visual/runs/2026-09-22T03-32-11-158Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-22T03-32-11-158Z/comparison.json",
+  "manifestHash": "33c2349f815e106072c1a015b5d4458599d06dbac5b1e0ac8c6173e5e8819e24",
+  "reportHash": "794de64a334c8364d3a86125e8d596bb589813813abfebd73b1af46f732f2a72",
+  "reviewer": "Codex current_cycle",
+  "note": "Final measured C022 review:36 of40 final PNGs are byte-identical to personally inspected preceding capture;4 differ only by maximum RGB-channel delta1 in composer shadows or one quick-open pixel. All4 differing final frames and narrow profile/goals/recovery reopened and inspected; all40 frames have unchanged geometry and0 pixels above comparison threshold. This supersedes prior byte-identical and delta3 wording, retained in immutable review history. Full desktop80620 and actual repeated-adoption58208 PASS;8 dedicated stills reviewed, runtime stopped/no postmasters. No P1 or cross-machine portability claim.",
+  "reviewedAt": "2026-09-22T03:34:36.184Z"
 }

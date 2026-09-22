@@ -71,3 +71,7 @@ Each page contains a still, recorded interaction GIF, provenance and changelog. 
 - [Terminal ownership](../docs/visual/terminal-ownership/README.md): C018 native process proof passed; combined actual UI/evidence closeout pending.
 
 - [Project-buffer preservation](../docs/visual/project-buffers/README.md): actual CodeMirror refusal preserves unsaved text until explicit Save.
+
+### C022 repeated adoption evidence
+
+[Actual repeat/rollback journey](../docs/visual/adoption-repeat/README.md) verifies one profile identity, unchanged originals/backups, exact inventories and a retained acknowledged Paper edit through restart. Full desktop, visual/live and repository gates pass for the recorded source. Same-machine disposable fixtures only; P1 remains open.
