@@ -20,7 +20,7 @@ These are branch-specific results, not a main release or completion of P1–P5.
 | Original `54464ef` / upstream `a5440345c` | [Adopt, edit, restart and roll back](visual/adoption/runs/2026-09-22T00-21-07-265Z/README.md), including drafts/attachment/media and unchanged original content. C010 closed at645c525. | Disposable same-machine library, synthetic plain credential codec; not portability or real-user migration. |
 | Original `87ca623` | [Workspace-loss recovery](visual/workspace-recovery/README.md) refuses missing/corrupt authority and preserves visible drafts instead of seeding empty data. | Explicit manual recovery; no automatic reconstruction. |
 
-Combined root verification currently stops at the intentionally stale status-showcase gate; a fresh capture is queued. Original lane verification is not a substitute. See [C008](cycles/C008-integration.md) for exact sessions and subsequent results.
+Combined root `npm run verify` session20871 now passes after a fresh live status capture at `8cabf36`/`a5440345c`: actual Codex turn, five reviewed stills and all 37 GIF frames. The private runtime stopped normally. Original lane verification is not a substitute. See [C008](cycles/C008-integration.md) for exact sessions and subsequent results.
 
 ## Pending evidence
 

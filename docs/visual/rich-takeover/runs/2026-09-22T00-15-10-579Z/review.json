@@ -1,0 +1,45 @@
+{
+  "reviewer": "Codex editor agent",
+  "reviewedAt": "2026-09-22T00:23:15.333946+00:00",
+  "approved": true,
+  "sourceCommit": "9424b97f3c4cea92b6616fc41feda532ee9f451c",
+  "manifestSha256": "46efd48d3709d0ded084b404b70d5cf7ed19f113610fa4a7952a65467fc12bfb",
+  "artifacts": {
+    "link-saved.png": "f0d6590e76cb99871ba624377616b76488ee207a098befa62f8c4b192fbb238a",
+    "link-selection.png": "21252179d01eee434ec1c7e5e77451bcb47875f436446b494bd5f1f2b9810aec",
+    "list-saved.png": "c66032c430319995977fe118ed5a7e726eef2e9ec66205149ece1830f1a8c8ad",
+    "list-selection.png": "6b702f98fe36463016e3b1f4810b63670a43e3fc10c9a7eaa1135c5f48b9520f",
+    "marks-saved.png": "5bd3afcf046f7fb39181e7401660fdf4b30074816943df88999a1f6c3ab16358",
+    "marks-selection.png": "ed1673e00beac4710bfbeca364a9d125e4d2cdaa61f80cf24e20653e7ba9c600",
+    "multiline-saved.png": "d6aa9f73d6246d642333a379ca12d08fcce385992e51e73335e3fde602bcccd1",
+    "multiline-selection.png": "83332052e594fecf008870526d633b493901e6305900ac04a8df9cd5149e8bf2",
+    "rich-takeover.webm": "2074bf3cdccf2e2d165ef516e038159b46f9181ac5025d7a7471e2cebbeb7e79",
+    "table-saved.png": "255c0aa13bdbd8cc43467980c881da6ee9d1ab2937a5c210fc7e1f00a8d8825c",
+    "table-selection.png": "e2efec8fd7cc646f237a0954544ec5490f4d023c2f213b753e25bb46ebc5a5f9",
+    "rich-takeover.gif": "b1248581b3d7ce1b3f267cf5e76fa6c5e55c8bf73332eafa0b10e47cea6bd8a3",
+    "structured-read.txt": "ce891c03ce30c40d30ea7702504b5323b2921a18aefd9019ee246524a940a6e7"
+  },
+  "inspection": "All 10 stills, all 115 decoded GIF frames and 112 full-video samples at 1fps inspected. Sampled video review, not every source frame.",
+  "derivedGif": {
+    "source": "rich-takeover.webm",
+    "startSeconds": 85,
+    "durationSeconds": 12,
+    "fps": 10,
+    "crop": "720:780:680:80",
+    "encoder": "Pillow",
+    "inputFrames": 120,
+    "decodedFrames": 115
+  },
+  "findings": [
+    "Forward/backward Beta selection retained for mark/link edits and unaffected list/table siblings; human replacement saves alongside actual agent change.",
+    "Table remains intact; receipt keeps metadata row geometry. Table column width changes naturally with longer content.",
+    "Explicit multiline paragraph break and unrelated headerless/multiline-cell tables remain visible; real MCP read exposes structured blocks.",
+    "Formatting bubble is an existing overlay; excerpt crop can trim its left edge. Full video retains the window. Agent label appears above the target block."
+  ],
+  "limitations": [
+    "Disposable fixture through production agent adapter; no model turn in dedicated run.",
+    "Structural shape/type changes retain conservative replacement fallback. Advanced table Markdown conversion intentionally rejects unsupported representations.",
+    "Requires upstream8530a9e23; default older pinned bundle retains safe explicit-reload fallback.",
+    "Existing upstream save-ack:721 and press-answer-watchdog:284 failures remain separate release gates."
+  ]
+}
