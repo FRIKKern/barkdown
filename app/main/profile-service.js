@@ -61,13 +61,25 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
   }
   function validateImages(scope, images) {
     for (const image of images || []) {
-      const root = path.join(scope.storeDir, 'attachments'), actual = fs.realpathSync(image.path), relative = path.relative(root, actual);
-      if (!relative || relative.startsWith('..') || path.isAbsolute(relative) || !fs.statSync(actual).isFile()) throw new Error('Image is not owned by this profile');
+      try {
+        const root = path.join(scope.storeDir, 'attachments'), actual = fs.realpathSync(image.path), relative = path.relative(root, actual);
+        if (!relative || relative.startsWith('..') || path.isAbsolute(relative) || !fs.statSync(actual).isFile()) throw new Error('Image is not owned by this profile');
+      } catch (error) {
+        if (!['ENOENT', 'ENOTDIR', 'EACCES', 'EPERM'].includes(error.code)) throw error;
+        const name = path.basename(image.path || image.name || 'image');
+        throw Object.assign(new Error(`Attachment ${name} is unavailable. Remove it or attach it again, then send.`), {
+          code: 'BARKDOWN_ATTACHMENT_UNAVAILABLE', diagnostic: error.message,
+        });
+      }
     }
   }
   async function start(owner, input) {
     input = structuredClone(input);
-    const profileId = validate(owner), attemptId = input.attemptId || crypto.randomUUID();
+    const profileId = validate(owner), attemptId = input.attemptId === undefined ? crypto.randomUUID() : input.attemptId;
+    // A renderer ID correlates its pending UI only; it grants no ownership and
+    // cannot adopt/replay an existing durable attempt, even with identical text.
+    if (typeof attemptId !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(attemptId)) throw new Error('Invalid attempt identity');
+    if (workspaces.load(profileId).ownership?.attempts?.[attemptId]) throw new Error('This attempt was already reserved; do not dispatch it again');
     recoverOrphans(profileId);
     const resolved = await resolve(profileId, input.chatId, { attemptId });
     let runId = null, began = false, released = false, persistenceFault = null;

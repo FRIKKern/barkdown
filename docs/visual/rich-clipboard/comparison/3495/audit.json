@@ -1,0 +1,503 @@
+{
+  "source": "3495f545c9bdc2be4241b3e5499826cd86733800",
+  "bundleSha1": "c19e9f0d8a4d9f75db653ad59b05b21eaa66e916",
+  "browser": "151.0.7922.34",
+  "cases": [
+    {
+      "name": "table-image-sibling",
+      "html": "<p>Lead</p><table><tr><td>Cell text retained</td></tr></table><img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl6x8kAAAAASUVORK5CYII=\" alt=\"Important diagram\"><p>Tail</p>",
+      "before": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "after": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "pm": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Before selected After"
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "seed",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "notice": "Nothing was pasted. This formatted content includes an image that cannot be pasted together with its text. Paste text with Ctrl+Shift+V, or drag the image file into the editor separately.",
+      "prevented": true
+    },
+    {
+      "name": "table-image-inside",
+      "html": "<table><tr><td>Cell<img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl6x8kAAAAASUVORK5CYII=\" alt=\"Important diagram\"></td></tr></table>",
+      "before": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "after": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "pm": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Before selected After"
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "seed",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "notice": "Nothing was pasted. This formatted content includes an image that cannot be pasted together with its text. Paste text with Ctrl+Shift+V, or drag the image file into the editor separately.",
+      "prevented": true
+    },
+    {
+      "name": "image-only-selected-text",
+      "html": "<img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl6x8kAAAAASUVORK5CYII=\" alt=\"Important diagram\">",
+      "selected": true,
+      "before": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "after": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "pm": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Before selected After"
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "seed",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "notice": "Nothing was pasted. This formatted content includes an image that cannot be pasted together with its text. Paste text with Ctrl+Shift+V, or drag the image file into the editor separately.",
+      "prevented": true
+    },
+    {
+      "name": "mixed-image-file-and-table",
+      "html": "<table><tr><td>Cell text retained</td></tr></table>",
+      "file": true,
+      "before": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "after": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "pm": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Before selected After"
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "seed",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "notice": "Nothing was pasted. The clipboard contains both image files and formatted content or text. Paste text with Ctrl+Shift+V, or drag the image files into the editor separately.",
+      "prevented": true
+    },
+    {
+      "name": "explicit-plain-paste-with-file",
+      "html": "<table><tr><td>Cell text retained</td></tr></table>",
+      "file": true,
+      "plain": true,
+      "before": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "after": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected AfterCLIPBOARD PLAIN CONTENT"
+              }
+            ]
+          }
+        ]
+      },
+      "pm": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Before selected After"
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "seed",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Before selected AfterCLIPBOARD PLAIN CONTENT"
+              }
+            ]
+          }
+        ]
+      },
+      "notice": "",
+      "prevented": true
+    },
+    {
+      "name": "table-nested-details",
+      "html": "<table><tr><td>Cell text retained</td></tr></table><details><summary>Summary</summary><p>Hidden child</p></details>",
+      "before": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "after": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          },
+          {
+            "id": "c-1-f4yh55pn",
+            "type": "table",
+            "rows": [
+              [
+                [
+                  {
+                    "type": "text",
+                    "value": "Cell text retained"
+                  }
+                ]
+              ]
+            ]
+          },
+          {
+            "id": "c-2-cff4huoo",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Summary"
+              }
+            ]
+          },
+          {
+            "id": "c-3-smqo6m3t",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Hidden child"
+              }
+            ]
+          }
+        ]
+      },
+      "pm": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Before selected After"
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "seed",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Before selected After"
+              }
+            ]
+          },
+          {
+            "type": "bpTable",
+            "attrs": {
+              "bpId": null,
+              "bpType": "table",
+              "bpTableSource": null,
+              "colWidths": null,
+              "headCol": false
+            },
+            "content": [
+              {
+                "type": "bpTableRow",
+                "content": [
+                  {
+                    "type": "bpTableCell",
+                    "attrs": {
+                      "bpTableCellSource": null,
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "align": null,
+                      "head": false
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Cell text retained"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": null,
+              "bpType": null,
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Summary"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": null,
+              "bpType": null,
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Hidden child"
+              }
+            ]
+          }
+        ]
+      },
+      "notice": "",
+      "prevented": true
+    }
+  ],
+  "requests": []
+}

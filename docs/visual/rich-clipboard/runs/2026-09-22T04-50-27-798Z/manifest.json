@@ -1,0 +1,93 @@
+{
+  "sourceCommit": "25cb11498cc5dda7682a9665b99cc6c31db7f8cb",
+  "sourceDirty": false,
+  "barkparkCommit": "3495f545c9bdc2be4241b3e5499826cd86733800",
+  "barkparkDirty": "false",
+  "server": "http://127.0.0.1:63292",
+  "buildFingerprint": "253c98f8425d856697edcef7d7a07617fc699435132aa1ae75856c11e43d0732",
+  "editorBundle": {
+    "source": "server",
+    "server": "http://127.0.0.1:63292",
+    "version": "0.2.26.3921",
+    "sha": "c19e9f0d8a4d9f75db653ad59b05b21eaa66e916",
+    "cssSha": "38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "fetchedAt": "2026-09-22T04:50:34.113Z"
+  },
+  "results": [
+    {
+      "name": "rich clipboard preservation, actual media upload, native history and reload",
+      "revisions": {
+        "initial": 1,
+        "plain": 2,
+        "undone": 3,
+        "redone": 4,
+        "uploaded": 6,
+        "fileOnly": 8,
+        "human": 9
+      },
+      "notice": {
+        "x": 492,
+        "y": 369,
+        "width": 344,
+        "height": 97.375
+      },
+      "externalRequests": [],
+      "blocks": [
+        {
+          "id": "block-0",
+          "level": 1,
+          "text": "Clipboard content stays yours",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Before Plain text After human"
+            }
+          ],
+          "id": "block-1",
+          "type": "paragraph"
+        },
+        {
+          "alt": "clipboard",
+          "id": "c-2-4e79e7ab",
+          "src": "http://localhost:63292/media/files/d/3b2c19ca-c9f5-4da8-9dde-4c58549bc0cc/2026/09/clipboard-c982985d.png",
+          "type": "image",
+          "width": null
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "This surrounding paragraph must survive."
+            }
+          ],
+          "id": "block-2",
+          "type": "paragraph"
+        },
+        {
+          "alt": "Copied diagram",
+          "id": "c-1-532bf808",
+          "src": "http://localhost:63292/media/files/d/3b2c19ca-c9f5-4da8-9dde-4c58549bc0cc/2026/09/clipboard-a37368ff.png",
+          "type": "image",
+          "width": null
+        }
+      ]
+    }
+  ],
+  "artifacts": {
+    "01-selected.png": "f78130e8a495094933bd88badf4753690fe1b190d23b7eb67ae925416189b848",
+    "02-image-recovery.png": "3377e6822a9bf29d7cbb1846309e590a43bbdaabcdef35815d109da1a02cbdee",
+    "03-mixed-recovery-narrow.png": "810906ee8309d8d3849ed49d1f28faa0dabe90fed70a97343987a3d3342c4dd6",
+    "04-plain-saved.png": "7dc8eb3330e634a55a3e5531ab6abe59999c82e987110227d776a9660203acaa",
+    "05-undo.png": "adc4dd7688ca7cd781eecbde32ca75394799d8ed1b308186fab01454e24bb02a",
+    "06-equivalent-upload.png": "c50740610b5b141883e8dada9357864669c63c7dde9bbc44b47617638e0da2cc",
+    "07-file-only.png": "5df186583cf8dc00cff302ebf6862c10bdf7166b670c8a6d1d9a92e11e96a287",
+    "08-reloaded.png": "edeee9b5a2f5af10a6517c8ccee4c5efd8f03a7d75a445a560e0d1f9418a3454",
+    "09-narrow.png": "3157a6f268b18b5b4bebd7564b5e4824f03e83f722fb5c0b1eeaf0c437565d03",
+    "rich-clipboard.webm": "39b06816cbe645a7f9649388b1880c7d827caf026fe9791a963b8b2a5980f083",
+    "server.json": "fa132df4025da2e398a7e0f8929a470e3cb9030725ebccb726a97cf7c5d181d1"
+  },
+  "motion": "Actual production ClipboardEvent/DataTransfer, native history keys, real host media upload and Paper saves. Not a model turn or OS clipboard-producer parity claim."
+}

@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "id": "C026",
+  "stage": "P1",
+  "status": "done",
+  "goal": "Preserve prompt and attachments when a managed turn is rejected before durable dispatch.",
+  "scope": [
+    "Shared main/side composer acceptance lifecycle",
+    "Pending-send duplicate guard and newer-draft preservation",
+    "No auto-retry, provider replay or missing-reference substitution"
+  ],
+  "acceptance": [
+    "Missing attachment rejection survives reload with exact original draft/references",
+    "Newer typing or attachment changes during delayed start remain untouched",
+    "One submitted intent dispatches at most once; successful unchanged draft clears after acceptance",
+    "Actual persistence/renderer regressions then explicit Electron and reviewed evidence"
+  ],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C026-send-preservation.md",
+  "nextAction": "Parent selectively imports reviewed final source/evidence and runs combined gates; missing-folder provider behavior remains a separate audit, not C026 completion.",
+  "evidence": [
+    "docs/cycles/evidence/C026-send/before.json",
+    "docs/visual/send-preservation/runs/1e138aa-managed/review.json",
+    "docs/visual/send-preservation/runs/1e138aa-legacy/review.json",
+    "docs/visual/runs/2026-09-22T04-44-51-359Z/manifest.json",
+    "docs/images/status/manifest.json"
+  ],
+  "truthReview": "Final source1e138aa actual61539 passed and stopped. Full44651 passed before CSS-only keyboard/touch correction; final actual keyboard proof covers both composers. Deterministic30502 and private real Paper46428 passed. Rootverify31568 passed. Source/evidence hashes checked before publication.",
+  "screenshotReview": "Reviewed14 actual stills+45 video samples,40 deterministic stills+40 GIF frames and5 live stills+37 GIF frames. Friendly errors/diagnostic wrapping/focus/removal/text preservation pass. Earlier raw-error UX evidence remains unapproved."
+}

@@ -17,3 +17,9 @@ Existing agent suite passes including real missing/non-directory/empty filesyste
 Prepared `app/tests/missing-folder-ui.live.mjs` is NOT RUN. It creates disposable A/B, process-restarts with missing B selected, opens same.txt to require explicit unavailability instead of A substitution, and optionally sends actual installed CLI turns using C029_NATIVE_PROVIDERS=claude,codex. It records real native errors and retained acknowledged user text; SDKs are not replaced. Authentication/login configuration is not modified. Native failures after accepted dispatch must preserve the user transcript; pre-ack failures must preserve unsent drafts and require C026 integration. The fixture presently tests accepted attempts only; do not claim C026 draft coverage from it.
 
 Next: obtain named UI grant, consume reviewed C026 source as needed, commit source before running fixture; inspect native failure semantics without treating routing seams as execution. Then fresh deterministic/status/root gates as assigned. No owned app/runtime processes. C029 stays active.
+
+## Combined source preparation
+
+Merged reviewed integration2b2ec11 into this isolated lane, preserving C029 cycle/docs and tests. It includes C0265086bad send preservation and E009 evidence. Package script union verified programmatically: every integration command retained exactly (test command gains only C029 prefix), including C028 and E009.
+
+Routing10/10 passed again; send-preservation.test, send-boundaries.test and legacy-send-preservation.test passed in JSDOM/Node. Desktop build passed. No actual UI/provider/runtime launch. Native C029 fixture remains unrun, queued after E010; pre-ack draft refusal and accepted asynchronous provider errors remain distinct. Source frozen for that grant.

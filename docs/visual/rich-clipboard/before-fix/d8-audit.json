@@ -1,0 +1,646 @@
+{
+  "source": "d24c7a094 (runtime bytes identical to d8fda9690)",
+  "browser": "151.0.7922.34",
+  "cases": [
+    {
+      "name": "table-image-sibling",
+      "html": "<p>Lead</p><table><tr><td>Cell text retained</td></tr></table><img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl6x8kAAAAASUVORK5CYII=\" alt=\"Important diagram\"><p>Tail</p>",
+      "before": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "after": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          },
+          {
+            "id": "c-1-iqng6ybj",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Lead"
+              }
+            ]
+          },
+          {
+            "id": "c-2-x5sftr3a",
+            "type": "table",
+            "rows": [
+              [
+                [
+                  {
+                    "type": "text",
+                    "value": "Cell text retained"
+                  }
+                ]
+              ]
+            ]
+          },
+          {
+            "id": "c-3-pfgk5n45",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Tail"
+              }
+            ]
+          }
+        ]
+      },
+      "pm": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Before selected After"
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "seed",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Before selected After"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": null,
+              "bpType": null,
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Lead"
+              }
+            ]
+          },
+          {
+            "type": "bpTable",
+            "attrs": {
+              "bpId": null,
+              "bpType": "table",
+              "bpTableSource": null,
+              "colWidths": null,
+              "headCol": false
+            },
+            "content": [
+              {
+                "type": "bpTableRow",
+                "content": [
+                  {
+                    "type": "bpTableCell",
+                    "attrs": {
+                      "bpTableCellSource": null,
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "align": null,
+                      "head": false
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Cell text retained"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": null,
+              "bpType": null,
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Tail"
+              }
+            ]
+          }
+        ]
+      },
+      "notice": "",
+      "prevented": true
+    },
+    {
+      "name": "table-image-inside",
+      "html": "<table><tr><td>Cell<img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl6x8kAAAAASUVORK5CYII=\" alt=\"Important diagram\"></td></tr></table>",
+      "before": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "after": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "pm": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Before selected After"
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "seed",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "notice": "This table contains content that cannot fit inside a table cell. Nothing was pasted. Paste as plain text with Ctrl+Shift+V, or copy the cell text instead.",
+      "prevented": true
+    },
+    {
+      "name": "image-only-selected-text",
+      "html": "<img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl6x8kAAAAASUVORK5CYII=\" alt=\"Important diagram\">",
+      "selected": true,
+      "before": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "after": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before  After"
+              }
+            ]
+          }
+        ]
+      },
+      "pm": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Before selected After"
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "seed",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Before  After"
+              }
+            ]
+          }
+        ]
+      },
+      "notice": "",
+      "prevented": true
+    },
+    {
+      "name": "mixed-image-file-and-table",
+      "html": "<table><tr><td>Cell text retained</td></tr></table>",
+      "file": true,
+      "before": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "after": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          },
+          {
+            "id": "c-4-igxkjcqj",
+            "type": "image",
+            "alt": "clipboard"
+          }
+        ]
+      },
+      "pm": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Before selected After"
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "seed",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Before selected After"
+              }
+            ]
+          },
+          {
+            "type": "bpImage",
+            "attrs": {
+              "bpId": null,
+              "bpType": "image",
+              "src": null,
+              "alt": "clipboard",
+              "locked": null,
+              "role": null,
+              "width": null,
+              "uploading": null,
+              "previewUrl": "blob:null/8b6cb7af-7be8-4e9c-b632-46a0591725a7",
+              "uploadError": "no media uploader is connected",
+              "uploadKey": "up-1-muc3lwv7",
+              "bpRest": null
+            }
+          }
+        ]
+      },
+      "notice": "",
+      "prevented": true
+    },
+    {
+      "name": "explicit-plain-paste-with-file",
+      "html": "<table><tr><td>Cell text retained</td></tr></table>",
+      "file": true,
+      "plain": true,
+      "before": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "after": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          },
+          {
+            "id": "c-5-tp3i4l73",
+            "type": "image",
+            "alt": "clipboard"
+          }
+        ]
+      },
+      "pm": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Before selected After"
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "seed",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Before selected After"
+              }
+            ]
+          },
+          {
+            "type": "bpImage",
+            "attrs": {
+              "bpId": null,
+              "bpType": "image",
+              "src": null,
+              "alt": "clipboard",
+              "locked": null,
+              "role": null,
+              "width": null,
+              "uploading": null,
+              "previewUrl": "blob:null/e81ddbbc-4e64-410c-b395-c5e04995ce69",
+              "uploadError": "no media uploader is connected",
+              "uploadKey": "up-1-muc3lwwn",
+              "bpRest": null
+            }
+          }
+        ]
+      },
+      "notice": "",
+      "prevented": true
+    },
+    {
+      "name": "table-nested-details",
+      "html": "<table><tr><td>Cell text retained</td></tr></table><details><summary>Summary</summary><p>Hidden child</p></details>",
+      "before": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          }
+        ]
+      },
+      "after": {
+        "mode": "rich",
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Before selected After"
+              }
+            ]
+          },
+          {
+            "id": "c-6-qwcl6roi",
+            "type": "table",
+            "rows": [
+              [
+                [
+                  {
+                    "type": "text",
+                    "value": "Cell text retained"
+                  }
+                ]
+              ]
+            ]
+          },
+          {
+            "id": "c-7-xcxwt5j1",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Summary"
+              }
+            ]
+          },
+          {
+            "id": "c-8-svw1u58r",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Hidden child"
+              }
+            ]
+          }
+        ]
+      },
+      "pm": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Before selected After"
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "seed",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Before selected After"
+              }
+            ]
+          },
+          {
+            "type": "bpTable",
+            "attrs": {
+              "bpId": null,
+              "bpType": "table",
+              "bpTableSource": null,
+              "colWidths": null,
+              "headCol": false
+            },
+            "content": [
+              {
+                "type": "bpTableRow",
+                "content": [
+                  {
+                    "type": "bpTableCell",
+                    "attrs": {
+                      "bpTableCellSource": null,
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "align": null,
+                      "head": false
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Cell text retained"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": null,
+              "bpType": null,
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Summary"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": null,
+              "bpType": null,
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Hidden child"
+              }
+            ]
+          }
+        ]
+      },
+      "notice": "",
+      "prevented": true
+    }
+  ]
+}
