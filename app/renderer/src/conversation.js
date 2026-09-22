@@ -2,16 +2,13 @@
 import { el, esc, iconHtml, inlineMarkdownHtml, relativeTime, toast } from './ui.js';
 import { state, touch, save, serialise, chatTitleFrom } from './state.js';
 import { lineDiff, summariseChanges, changeHeadline } from '../../shared/changes.js';
+import { isSubmitting, beginSubmission, acceptSubmission, endSubmission } from './submission-state.js';
+export { isSubmitting, markDraftChanged } from './submission-state.js';
 
 export const PROVIDER_LABEL = { claude: 'Claude Code', codex: 'Codex', api: 'Claude API key' };
 export function providerFor(chat) { return chat.provider || state.settings?.provider || 'api'; }
 
 const api = window.barkdown;
-// Shared across every composer showing the same chat. Keep pending intent out
-// of persisted state; only the main process can reserve a durable attempt.
-const submitting = new WeakMap(), draftRevisions = new WeakMap();
-export const isSubmitting = chat => Boolean(chat && submitting.has(chat));
-export function markDraftChanged(chat) { if (chat) draftRevisions.set(chat, (draftRevisions.get(chat) || 0) + 1); }
 const TARGET_ICON = { doc: 'file-text', web: 'globe', review: 'git-pull-request', project: 'folder-code', chat: 'message-circle' };
 
 export function transcriptHtml(chat, options = {}) {
@@ -203,12 +200,19 @@ export async function sendMessage(chat, text, hooks, images = []) {
   if (chat.interruption) { toast('Review the interrupted turn before sending a new message.', 'error'); return false; }
   const attached = (images || []).map(i => ({ id: i.id, path: i.path, url: i.url, name: i.name, mime: i.mime }));
   if ((!clean && !attached.length) || chat.runId || isSubmitting(chat)) return false;
-  const intent = { revision: draftRevisions.get(chat) || 0, draft: chat.draft, images: JSON.stringify(chat.draftImages || []) };
-  submitting.set(chat, intent);
+  const intent = beginSubmission(chat);
+  if (state.profileId) intent.attemptId = crypto.randomUUID();
   const now = new Date().toISOString();
-  chat.messages.push({ role: 'user', text: clean, at: now, images: attached });
+  const user = { role: 'user', text: clean, at: now, images: attached };
+  chat.messages.push(user);
   if (chat.messages.filter(m => m.role === 'user').length === 1 && (chat.title === 'New chat' || chat.title === 'Side chat' || chat.title === 'Shaping Barkdown' && !chat.side)) chat.title = chatTitleFrom(clean || (attached.length > 1 ? `${attached.length} images` : attached[0].name || 'Image'));
-  chat.messages.push({ role: 'assistant', text: '', at: now, streaming: true, tools: [], events: [], approvals: [] });
+  const reply = { role: 'assistant', text: '', at: now, streaming: true, tools: [], events: [], approvals: [] };
+  if (intent.attemptId) {
+    Object.assign(user, { id: `user-${intent.attemptId}`, attemptId: intent.attemptId });
+    Object.assign(reply, { id: `assistant-${intent.attemptId}`, attemptId: intent.attemptId });
+  }
+  intent.user = user; intent.reply = reply;
+  chat.messages.push(reply);
   chat.following = true;
   chat.closedTargets = [];
   touch(chat);
@@ -223,25 +227,24 @@ export async function sendMessage(chat, text, hooks, images = []) {
     // another provider answered, for a resumed one. The new question and the empty reply are excluded.
     const seen = chat.sessions[provider] ? (chat.sessionSeen?.[provider] || 0) : 0;
     const catchUp = chat.messages.slice(seen, -2).filter(m => m.text).map(m => ({ role: m.role, text: m.text, provider: m.role === 'assistant' ? (PROVIDER_LABEL[m.provider] || m.provider || undefined) : undefined }));
-    const { runId, assistantId, attemptId } = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title, catchUp }, provider, chat.sessions[provider] || null, clean, attached, { model: chat.model || undefined, effort: chat.effort || undefined });
+    const { runId, assistantId, attemptId } = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title, catchUp }, provider, chat.sessions[provider] || null, clean, attached, { model: chat.model || undefined, effort: chat.effort || undefined, attemptId: intent.attemptId });
     // Validation/reservation has acknowledged this intent. Never clear newer
     // input (including editing away and back to the same text) or attachments.
-    if ((draftRevisions.get(chat) || 0) === intent.revision && chat.draft === intent.draft && JSON.stringify(chat.draftImages || []) === intent.images) {
-      chat.draft = ''; chat.draftImages = [];
-    }
-    if (assistantId) { chat.messages.at(-1).id = assistantId; chat.messages.at(-1).attemptId = attemptId; chat.messages.at(-2).id = `user-${attemptId}`; }
+    acceptSubmission(chat, intent);
+    if (assistantId) { reply.id = assistantId; reply.attemptId = attemptId; user.id = `user-${attemptId}`; }
+    const acceptedReply = assistantId ? chat.messages.find(message => message.id === assistantId) || reply : reply;
     chat.runProvider = provider;
-    chat.runId = state.profileId && (chat.messages.at(-1).driverFinished || chat.interruption) ? null : runId;
+    chat.runId = state.profileId && (acceptedReply.driverFinished || chat.interruption) ? null : runId;
     hooks.runChanged(chat);
     return true;
   } catch (error) {
-    const reply = chat.messages.at(-1);
-    reply.streaming = false;
-    reply.error = error.message;
+    const failedReply = reply.id ? chat.messages.find(message => message.id === reply.id) || reply : reply;
+    failedReply.streaming = false;
+    failedReply.error = error.message;
     hooks.render();
     return false;
   } finally {
-    submitting.delete(chat);
+    endSubmission(chat, intent);
     save();
     hooks.render();
   }

@@ -67,7 +67,11 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
   }
   async function start(owner, input) {
     input = structuredClone(input);
-    const profileId = validate(owner), attemptId = input.attemptId || crypto.randomUUID();
+    const profileId = validate(owner), attemptId = input.attemptId === undefined ? crypto.randomUUID() : input.attemptId;
+    // A renderer ID correlates its pending UI only; it grants no ownership and
+    // cannot adopt/replay an existing durable attempt, even with identical text.
+    if (typeof attemptId !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(attemptId)) throw new Error('Invalid attempt identity');
+    if (workspaces.load(profileId).ownership?.attempts?.[attemptId]) throw new Error('This attempt was already reserved; do not dispatch it again');
     recoverOrphans(profileId);
     const resolved = await resolve(profileId, input.chatId, { attemptId });
     let runId = null, began = false, released = false, persistenceFault = null;
