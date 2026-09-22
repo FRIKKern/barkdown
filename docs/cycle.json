@@ -16,10 +16,11 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C020-coordinator-interruption.md",
-  "nextAction": "Add gated stop-race probes and native host-death proof for review/summary before behavior changes.",
+  "nextAction": "After explicit parent UI and a544 grant, run full desktop on4ca8247, capture/compare/inspect/approve fixtures, isolated Paper and root verify; no further behavior edits planned.",
   "evidence": [
-    "docs/cycles/C015-goal-coordinator.md"
+    "docs/cycles/C015-goal-coordinator.md",
+    "docs/goals/evidence/4ca8247/README.md"
   ],
-  "truthReview": "C015 remains verified at2ea6707. C020 audit only; parent owns combined integration.",
-  "screenshotReview": "No new behavior or test source yet. Fresh gates required after any source changes."
+  "truthReview": "Test-only source4ca8247 pushed;68 goal checks pass including9 stop races and2 native review/summary deaths. No runtime defect reproduced. C015 immutable, parent owns combined integration.",
+  "screenshotReview": "Test-only source4ca8247 is frozen. Own-source full desktop and fresh fixture/live/root evidence await explicit UI grant; prior C015 approval remains tied to61ee."
 }

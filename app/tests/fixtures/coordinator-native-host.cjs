@@ -10,7 +10,18 @@ registry.selectProfile(profile.id);
 const profiles = createProfileService({ registry, settingsFor: () => ({ apiKey: 'synthetic-native-key', forceOnline: true }) });
 const owner = { ...profiles.view(), chatId: 'main' };
 profiles.save(owner, { version: 1, chats: { main: { id: 'main', title: 'Native interruption', provider: 'api', folder: null, messages: [], draft: 'Human draft survives native coordinator death', tabs: [] } }, order: ['main'], current: 'main' });
-const service = createGoalService({ registry, profiles });
+const reported = new Set();
+const service = createGoalService({ registry, profiles, sendProviderEvent(event) {
+  const ws = profiles.workspaces.load(profile.id);
+  const attempt = ws.ownership.attempts[event.attemptId];
+  if (!attempt || reported.has(event.attemptId)) return;
+  const partial = attempt.role === 'review' && event.coordinatorRawText === '{"decision":'
+    || attempt.role === 'summary' && event.type === 'text_delta' && event.text === 'All three';
+  if (partial && !attempt.driverFinished) {
+    reported.add(event.attemptId);
+    process.send?.({ type: 'acknowledged-partial', role: attempt.role, attemptId: event.attemptId });
+  }
+} });
 const goal = service.create(owner, { objective: 'Read three fixture inputs and verify exact responses.', durationMinutes: 5, mode: 'coordinated' });
 fs.writeFileSync(path.join(root, 'owner.json'), JSON.stringify({ profileId: profile.id, goalId: goal.id }));
 service.command(owner, goal.id, 'start').catch(error => { console.error(error); process.exit(1); });
