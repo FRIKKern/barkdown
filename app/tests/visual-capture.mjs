@@ -73,7 +73,7 @@ try{
  ]);
  const mainPage=p;
  const recoveryWindow=app.waitForEvent('window');
- await app.evaluate(()=>{global.visualRecovery=process.mainModule.require('./adoption-window').createAdoptionWindow();global.visualRecovery.choose({status:'none',actions:['prepare','quit']});});
+ await app.evaluate(({app})=>{global.visualRecovery=process.getBuiltinModule('module').createRequire(app.getAppPath()+'/main/main.js')('./adoption-window').createAdoptionWindow();global.visualRecovery.choose({status:'none',actions:['prepare','quit']});});
  p=await recoveryWindow;p.on('pageerror',e=>errors.push(e.message));await p.setViewportSize({width:1100,height:740});await p.emulateMedia({colorScheme:'light',reducedMotion:'reduce'});
  await tour('adoption','Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.',[
   ['confirm',()=>p.getByRole('button',{name:'Adopt existing library'}).waitFor()],
