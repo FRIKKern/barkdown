@@ -61,7 +61,7 @@ server.registerTool('read_document', { description: 'Read a Barkdown document (o
     const p = await paper.get(slugOf(id));
     readRevisions.set(id, p.rev);
     const blocks = (p.blocks || []).map((b, n) => `[${n}] ${b.type}${b.level ? ' h' + b.level : ''}`);
-    return text([`# ${p.title}`, `id: ${id} · rev ${p.rev} · updated ${p.updatedAt} · Barkpark paper`, '', 'Top-level blocks: ' + (blocks.join(', ') || '(HTML body, no blocks)'), '', p.markdown || barkpark.htmlToText(p.html)].join('\n'));
+    return text([`# ${p.title}`, `id: ${id} · rev ${p.rev} · updated ${p.updatedAt} · Barkpark paper`, '', 'Top-level blocks: ' + (blocks.join(', ') || '(HTML body, no blocks)'), '', barkpark.readablePaper(p)].join('\n'));
   }
   documents.loadAll();
   const doc = documents.get(id);

@@ -344,6 +344,7 @@ function registerIpc() {
   handle('barkpark:import', async id => {
     const c = barkparkConfig();
     const paper = c.viaCli ? await barkpark.cliGetPaper(id) : await barkpark.getPaper(c, id);
+    if (paper.markdownError) throw new Error('Import would lose content: ' + paper.markdownError + ' Open the original Paper instead.');
     const markdown = paper.markdown || (paper.html ? barkpark.htmlToText(paper.html) : paper.excerpt);
     const doc = documents.create({ title: paper.title, markdown, actor: 'barkpark-import', tags: [...(paper.tags || []), 'barkpark'] });
     return doc;
