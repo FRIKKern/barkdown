@@ -1,0 +1,65 @@
+{
+  "ok": true,
+  "source": {
+    "commit": "61eea4dc87de0f9548ff33d7fafc455f9f265866",
+    "dirty": false
+  },
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-coordinator-owned-deioUa",
+  "provider": "codex",
+  "transport": "authenticated",
+  "goalId": "fc92dbb2-34ad-4efe-9dba-ddb9c87a8fa6",
+  "profileId": "016ecb19-547e-485e-8095-021eaacd401f",
+  "peakRunning": 3,
+  "peakWorkers": 3,
+  "stoppedReceipts": 8,
+  "exactTokenComparisons": 3,
+  "completed": "completed",
+  "summary": "All three worker results matched my independent file reads:\n\n- input-1.txt: `BARKDOWN_COORDINATED_INPUT_1_OBSERVED` — evidence `9c2a9e`\n- input-2.txt: `BARKDOWN_COORDINATED_INPUT_2_OBSERVED` — evidence `cd9cd4`\n- input-3.txt: `BARKDOWN_COORDINATED_INPUT_3_OBSERVED` — evidence `0b67d4`\n\nEach `Get-Content -Raw` read succeeded with exit code 0. No token ambiguity or remaining work; verification was by the coordinator, not a human.\n\n",
+  "reviews": [
+    {
+      "id": "task-1",
+      "title": "Read input-1.txt",
+      "attemptId": "e69f3d41-4dbc-4ce2-bd42-770d64bc0424",
+      "review": {
+        "accepted": true,
+        "actor": "coordinator",
+        "note": "Independently read input-1.txt; its exact token matches the worker report. No remaining work for task-1.",
+        "evidence": [
+          "Coordinator read: Get-Content -Raw on C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-coordinator-owned-deioUa\\inputs\\input-1.txt exited with code 0; evidence chunk 9c2a9e returned exact token BARKDOWN_COORDINATED_INPUT_1_OBSERVED."
+        ],
+        "at": 1790040230416,
+        "attemptId": "e69f3d41-4dbc-4ce2-bd42-770d64bc0424"
+      }
+    },
+    {
+      "id": "task-2",
+      "title": "Read input-2.txt",
+      "attemptId": "7797ae23-4df5-4d5e-8955-66b6c9bca001",
+      "review": {
+        "accepted": true,
+        "actor": "coordinator",
+        "note": "Independently read input-2.txt; its exact token matches the worker report. No remaining work for task-2.",
+        "evidence": [
+          "Get-Content -Raw -LiteralPath 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-coordinator-owned-deioUa\\inputs\\input-2.txt' exited with code 0 and returned token BARKDOWN_COORDINATED_INPUT_2_OBSERVED."
+        ],
+        "at": 1790040190909,
+        "attemptId": "7797ae23-4df5-4d5e-8955-66b6c9bca001"
+      }
+    },
+    {
+      "id": "task-3",
+      "title": "Read input-3.txt",
+      "attemptId": "132d0bf3-4a1e-4f99-ac6e-3713671b1de9",
+      "review": {
+        "accepted": true,
+        "actor": "coordinator",
+        "note": "Independently read input-3.txt; its exact token matches the worker report. No remaining work for task-3.",
+        "evidence": [
+          "Get-Content -Raw -LiteralPath 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-coordinator-owned-deioUa\\inputs\\input-3.txt' exited with code 0 and returned token BARKDOWN_COORDINATED_INPUT_3_OBSERVED."
+        ],
+        "at": 1790040208374,
+        "attemptId": "132d0bf3-4a1e-4f99-ac6e-3713671b1de9"
+      }
+    }
+  ]
+}
