@@ -18,7 +18,6 @@ import fs from 'fs'; import os from 'os'; import path from 'path';
 import { fileURLToPath } from 'url';
 import { archiveStatusManifest } from './helpers/status-history.mjs';
 const require = createRequire(import.meta.url);
-const { GIFEncoder, quantize, applyPalette } = require('gifenc');
 const { PNG } = require('pngjs');
 const here = path.dirname(fileURLToPath(import.meta.url));
 const appDir = path.resolve(here, '..');
@@ -132,18 +131,20 @@ await page.evaluate(() => window.__barkdown.openPalette());
 // user's query appearing in the stable modal.
 await page.waitForTimeout(350); await frame(600); await typeSlow('stat'); await frame(1200);
 await page.keyboard.press('Escape'); await settled(); await frame(1500);
-// Encode: one palette from the first frame keeps UI colours steady across frames; the last frame holds.
-const gif = GIFEncoder();
-// Screenshots are opaque. Use a local RGB palette for every full frame: the
-// first Paper frame does not contain modal-shadow colours, and reusing only its
-// palette turns later Quick Open gradients into broad false halo bands.
+// GIF has only 256 colours per frame. ImageMagick's Floyd-Steinberg conversion
+// preserves the modal shadow as a smooth visual texture; gifenc has no dithering
+// and rendered the same gradient as broad false concentric bands. Keep the lossless
+// source frames in the retained capture directory and pass each real frame delay.
+const gifFramesDir = path.join(userData, 'status-gif-frames');
+fs.mkdirSync(gifFramesDir, { recursive: true });
+const gifArgs = ['-dither', 'FloydSteinberg', '-colors', '256'];
 for (const [i, f] of frames.entries()) {
-  const palette = quantize(f.data, 256);
-  const index = applyPalette(f.data, palette);
-  gif.writeFrame(index, f.width, f.height, { palette, delay: i === frames.length - 1 ? 2000 : f.delay, repeat: 0 });
+  const file = path.join(gifFramesDir, `${String(i).padStart(3, '0')}.png`);
+  fs.writeFileSync(file, PNG.sync.write({ width: f.width, height: f.height, data: f.data }));
+  gifArgs.push('-delay', String(Math.max(1, Math.round((i === frames.length - 1 ? 2000 : f.delay) / 10))), file);
 }
-gif.finish();
-fs.writeFileSync(path.join(out, 'editing.gif'), Buffer.from(gif.bytes()));
+gifArgs.push('-loop', '0', path.join(out, 'editing.gif'));
+execFileSync('magick', gifArgs, { stdio: ['ignore', 'pipe', 'pipe'], maxBuffer: 20e6 });
 shots.push({ file: 'editing.gif', caption: 'An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open.' });
 console.log('gif', frames.length, 'frames,', Math.round(fs.statSync(path.join(out, 'editing.gif')).size / 1024), 'KB');
 
