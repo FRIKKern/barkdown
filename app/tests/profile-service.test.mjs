@@ -108,7 +108,7 @@ transport.setSdkLoader(async () => ({ query({ prompt }) {
   return { async *[Symbol.asyncIterator]() { yield { type: 'result', subtype: 'success', result: 'Continued' }; } };
 } }));
 try {
-  const real = createProfileService({ registry });
+  const real = createProfileService({ registry, agent: require('../main/agent') }); // in-process SDK injection seam
   const actual = await real.start(real.view(), { chatId: 'same', prompt: 'Continue it' });
   await real.wait(real.view(), actual.runId);
   assert.match(sdkPrompt, /Intervening decision/);

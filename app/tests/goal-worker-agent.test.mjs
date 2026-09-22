@@ -11,6 +11,25 @@ const {createGoalWorkerAgent}=require('../main/goal-worker-agent');
 const {captureScope}=require('../main/providers/run-scope');
 const {verifyOwnedWorker}=require('../main/goal-process');
 const script=fileURLToPath(new URL('./fixtures/goal-worker-protocol.cjs',import.meta.url));
+test('verified settled completion retention is bounded without dropping unresolved proof', async () => {
+  const root=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-worker-retention-')),profileId=randomUUID();
+  const scope=captureScope({profileId,storeDir:root,context:{chatId:'worker'},connection:{enabled:false}});
+  let calls=0;
+  const runtime=createGoalWorkerAgent({launch:async ({onMessage})=>{
+    if(++calls===1)throw new Error('Uncertain launch fixture');
+    onMessage({type:'event',event:{profileId,chatId:'worker',provider:'api',type:'done'}});onMessage({type:'complete'});
+    return {ready:Promise.resolve(),finished:Promise.resolve({}),send(){},stop(){}};
+  },verify:async()=>true});
+  const options=()=>({profileId,chatId:'worker',provider:'api',scope,attemptId:randomUUID(),settings:{},messages:[],images:[],send(){}});
+  const unresolvedOptions=options(),uncertain=await runtime.start(unresolvedOptions);await assert.rejects(runtime.waitForRunFinish(uncertain.runId),/Uncertain launch/);
+  let first;
+  for(let i=0;i<202;i++){const r=await runtime.start(options());first ||= r;await runtime.waitForRunFinish(r.runId);}
+  await assert.rejects(runtime.waitForRunFinish(first.runId),/Unknown|unknown|not found|unavailable/);
+  await assert.rejects(runtime.waitForRunFinish(uncertain.runId),/Uncertain launch/);
+  const identity=require('../main/providers/runs').runs.get(uncertain.runId);
+  assert.ok(identity,'unproven registry entry retained');
+  assert.equal(await runtime.verifyTermination({request:{profileId,storeDir:root,attemptId:unresolvedOptions.attemptId},runId:uncertain.runId}),true);
+});
 test('real job-owned worker bridges exact owner, approvals, sessions and finalization', {skip:process.platform!=='win32',timeout:30000}, async()=>{
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-worker-bridge-')),profileId=randomUUID(),attemptId=randomUUID();
   const scope=captureScope({profileId,storeDir:root,context:{chatId:'worker',folder:null},connection:{enabled:false}});

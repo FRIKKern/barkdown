@@ -1,8 +1,8 @@
 // The main process owns durable transcripts; an older response must still yield
 // to renderer actions or stream events that happened while it was in flight.
 const stamp = chat => JSON.stringify([chat.folder, chat.provider, chat.model, chat.effort, chat.sessions, chat.sessionSeen,
-  chat.runId, chat.runProvider, chat.messages.map(message => [message.id, message.runId, message.lastSequence, message.text, message.streaming])]);
-const managed = ['messages', 'events', 'apiHistory', 'sessions', 'sessionSeen', 'runId', 'runProvider', 'workingLabel', 'goalId'];
+  chat.runId, chat.runProvider, chat.interruption, chat.messages.map(message => [message.id, message.runId, message.lastSequence, message.text, message.streaming])]);
+const managed = ['messages', 'events', 'apiHistory', 'sessions', 'sessionSeen', 'runId', 'runProvider', 'workingLabel', 'goalId', 'interruption'];
 export function captureManagedView(state) {
   return new Map(Object.entries(state.chats).map(([id, chat]) => [id, stamp(chat)]));
 }

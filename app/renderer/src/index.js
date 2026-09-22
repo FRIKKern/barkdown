@@ -302,6 +302,13 @@ function openConversationTarget(target, chat, manual = true) {
   return openTarget(target, chat, manual);
 }
 function bindTranscript(transcript, chat) {
+  transcript.querySelectorAll('[data-recover]').forEach(button => button.addEventListener('click', async () => {
+    const card = button.closest('[data-recovery]'); button.disabled = true;
+    try {
+      await api.agent.recover({ chatId: chat.id, attemptId: card.dataset.recovery, action: button.dataset.recover, note: card.querySelector('[data-recovery-note]')?.value });
+      await refreshManagedChats(); renderChatViews(chat);
+    } catch (error) { toast(error.message, 'error'); button.disabled = false; }
+  }));
   transcript.querySelectorAll('[data-event]').forEach(b => { b.onclick = () => { const [mi, ei] = b.dataset.event.split(':').map(Number); const entry = chat.messages[mi]?.events?.[ei]; if (entry) openConversationTarget(entry.target, chat, true); }; });
   transcript.querySelectorAll('[data-approval]').forEach(node => node.querySelectorAll('[data-approve]').forEach(b => { b.onclick = async () => { await respondApproval(chat, node.dataset.approval, b.dataset.approve === '1'); renderChatViews(chat); }; }));
   const latest = transcript.querySelector('#bw-latest');
