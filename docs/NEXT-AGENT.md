@@ -1,3 +1,7 @@
+# C027 visual review tooling lane
+
+This isolated branch adds append-only visual attestations; see [C027](cycles/C027-visual-review-immutability.md). No UI/runtime launch. Actual CLI and concept tests pass; inherited combined screenshot and visual freshness gates remain pending. C008 integration and P1 are not closed. The prior integration handoff follows unchanged.
+
 # Continue the dependable-workspace plan
 
 **New source candidate:** C021 native rollback preflight imported as `9b43464`; root five native groups passed (9pdYSm/Ma6xmE, processes stopped). Original reviewed21429c6 evidence is retained separately. This source is newer than the verified checkpoint below and needs fresh combined full/visual/live/root gates; do not transfer the older approval. E007 reviewed HTML paste fixture/gallery and E008 final fixture-only validation are now selectively imported; their original source claims do not establish combined gates. C024 file-authority source20d6819 and remaining C020 corrections retain separate lane proof.

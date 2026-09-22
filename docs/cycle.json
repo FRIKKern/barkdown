@@ -15,10 +15,11 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C027-visual-review-immutability.md",
-  "nextAction": "Reproduce same-candidate overwrite, implement append-only records, run CLI regression and truth checks.",
+  "nextAction": "Import reviewed d3c8550 tooling, obtain fresh combined visual/live/root gates, then close C027 retaining failed-first4d0a287.",
   "evidence": [
-    "scripts/visual.mjs"
+    "scripts/visual-approval.test.mjs",
+    "docs/cycles/C027-visual-review-immutability.md"
   ],
-  "truthReview": "P1 and C008 remain open; this isolated lane changes review tooling only.",
+  "truthReview": "No app behavior changed. CLI regression and root concept tests pass; inherited status and visual freshness prevent root verify. PLAN/A1 remain open.",
   "screenshotReview": "No UI launch authorized; changed tooling requires fresh combined visual gates after import."
 }
