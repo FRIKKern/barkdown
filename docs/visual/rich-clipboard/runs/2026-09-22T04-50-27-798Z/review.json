@@ -1,0 +1,31 @@
+{
+  "reviewer": "Codex editor agent",
+  "reviewedAt": "2026-09-22T04:59:51.441980+00:00",
+  "stills": 9,
+  "videoSamplesAt2fps": 112,
+  "decodedGifFrames": 46,
+  "result": "accepted bounded clipboard recovery and image upload behavior",
+  "observations": [
+    "Unsupported or ambiguous rich image paste retains selected human text and gives readable recovery; narrow notice remains inside viewport.",
+    "Explicit plain paste, native Undo/redo, two real uploads and later human edit persist after reload.",
+    "Image insertion changes document height as expected; no unexpected displacement observed. Existing format bubble overlays nearby heading when selection is active.",
+    "No arbitrary external source image request; no claim of general image-plus-text HTML fidelity."
+  ],
+  "hashes": {
+    "01-selected.png": "f78130e8a495094933bd88badf4753690fe1b190d23b7eb67ae925416189b848",
+    "02-image-recovery.png": "3377e6822a9bf29d7cbb1846309e590a43bbdaabcdef35815d109da1a02cbdee",
+    "03-mixed-recovery-narrow.png": "810906ee8309d8d3849ed49d1f28faa0dabe90fed70a97343987a3d3342c4dd6",
+    "04-plain-saved.png": "7dc8eb3330e634a55a3e5531ab6abe59999c82e987110227d776a9660203acaa",
+    "05-undo.png": "adc4dd7688ca7cd781eecbde32ca75394799d8ed1b308186fab01454e24bb02a",
+    "06-equivalent-upload.png": "c50740610b5b141883e8dada9357864669c63c7dde9bbc44b47617638e0da2cc",
+    "07-file-only.png": "5df186583cf8dc00cff302ebf6862c10bdf7166b670c8a6d1d9a92e11e96a287",
+    "08-reloaded.png": "edeee9b5a2f5af10a6517c8ccee4c5efd8f03a7d75a445a560e0d1f9418a3454",
+    "09-narrow.png": "3157a6f268b18b5b4bebd7564b5e4824f03e83f722fb5c0b1eeaf0c437565d03",
+    "clipboard-recovery.gif": "c7326eca9db1bc7dddf50541bf430319588ab6df084de02cbfc4a5cb1545860e",
+    "image-uploads.gif": "11a04d4d6f30e914b102f4f1cf03f046ff5f4a2dadd3be813a0edb8481e880d5",
+    "manifest.json": "3c8910752ec83fe46778460365499836d267fa12ff036c30611446fc7181a937",
+    "rich-clipboard.webm": "39b06816cbe645a7f9649388b1880c7d827caf026fe9791a963b8b2a5980f083",
+    "server.json": "fa132df4025da2e398a7e0f8929a470e3cb9030725ebccb726a97cf7c5d181d1",
+    "video-map.json": "6367f6fd3560194874655939a754c5e37d055750899a9e9a2251a2948b81d10c"
+  }
+}

@@ -2,14 +2,15 @@
 
 A real saved side conversation and its independent composer, using disposable fixture state.
 
-![Current view](../runs/2026-09-22T02-53-00-817Z/side-chat-3.png)
+![Current view](../runs/2026-09-22T04-51-49-914Z/side-chat-3.png)
 
-![Recorded interaction](../runs/2026-09-22T02-53-00-817Z/side-chat.gif)
+![Recorded interaction](../runs/2026-09-22T04-51-49-914Z/side-chat.gif)
 
-[Full comparison](../runs/2026-09-22T02-53-00-817Z/README.md) · [Capture manifest](../runs/2026-09-22T02-53-00-817Z/manifest.json)
+[Full comparison](../runs/2026-09-22T04-51-49-914Z/README.md) · [Capture manifest](../runs/2026-09-22T04-51-49-914Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-22T04:58:04.111Z: Inspected all 21 stills, 21 difference images and 21 decoded deterministic GIF frames: within tolerance without unexpected geometry changes. Separately reviewed real E009 Paper nine stills, 112 video samples at 2fps and 46 decoded GIF frames; selected-text recovery, two uploads and reload preserved. Final status five stills and all 37 GIF frames reviewed, real Codex provider. Mixed independent image/text remains explicit refusal; arbitrary media fidelity is not claimed. Source 25cb11498; [review](../runs/2026-09-22T04-51-49-914Z/comparison.json).
 - 2026-09-22T02:54:57.187Z: Inspected 21 stills, 21 difference images and all21 decoded tour GIF frames. No unexpected layout or control loss; deterministic tour unchanged. Separate E007 live proof at fdf6b9e/d8 passed native paste/history/reload and actual 200 percent zoom recovery; reviewed all11 stills and73 video samples. This approval does not claim provider parity or upstream merge readiness. Source fdf6b9ec3; [review](../runs/2026-09-22T02-53-00-817Z/comparison.json).
 - 2026-09-22T01:33:48.889Z: E006: inspected all 21 fixture stills and 21 decoded GIF frames. Environment unchanged, zero pixel or geometry differences. Separate real Paper proof verifies aligned paste, native Undo/redo, subsequent human edit and server reload; no new shell clipping observed. Source c22c0d3aa; [review](../runs/2026-09-22T01-31-05-935Z/comparison.json).
 - 2026-09-22T01:01:13.523Z: E004: inspected all 21 fixture stills and 21 decoded motion frames; unchanged environment, zero changed pixels and geometry. Separate real Paper structured-table proof passes 3/3 including Undo, human save and reload; fixture tour alone is not server proof. Source cd4b5c13c; [review](../runs/2026-09-22T00-55-16-118Z/comparison.json).
