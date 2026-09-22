@@ -160,7 +160,7 @@ function createProfileRegistry(directory, { checkpoint = () => {} } = {}) {
       writeJson(name, value) {
         const file = ownedPath(name);
         fs.mkdirSync(path.dirname(file), { recursive: true });
-        const ownership = acquireFileLease(file + '.write-lease');
+        const ownership = acquireFileLease(file + '.write-lease', { completeOwner: true });
         let failure;
         try {
           atomicWrite(file, JSON.stringify(value, null, 2) + '\n', { assertOwned: () => {

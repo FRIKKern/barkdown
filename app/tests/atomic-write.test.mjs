@@ -184,3 +184,112 @@ for (const kind of ['workspace', 'journal']) {
     } finally { if (child.exitCode === null && child.signalCode === null) child.kill('SIGKILL'); await exited; }
   });
 }
+
+test('workspace: process exit after rename retains committed authority before acknowledgement', { timeout: 15000 }, async () => {
+  const { spawn } = await import('node:child_process');
+  const a = adapter('workspace'), registryModule = require.resolve('../main/profile-registry');
+  const script = `const fs=require('fs');const {createProfileRegistry}=require(${JSON.stringify(registryModule)});const rename=fs.renameSync;fs.renameSync=(source,destination)=>{const result=rename(source,destination);if(destination===${JSON.stringify(a.file)})process.exit(77);return result};const r=createProfileRegistry(${JSON.stringify(a.root)});r.storeFor(r.load().selectedProfileId).writeJson('workspace.json',{revision:2});`;
+  const child = spawn(process.execPath, ['-e', script], { windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
+  let errors = ''; child.stderr.on('data', b => errors += b);
+  assert.equal(await new Promise((resolve, reject) => { child.once('exit', resolve); child.once('error', reject); }), 77, errors);
+  const registry = createProfileRegistry(a.root), store = registry.storeFor(registry.load().selectedProfileId);
+  const leaseBytes = fs.readFileSync(a.lease);
+  assert.equal(store.readJson('workspace.json').revision, 2, 'rename committed despite missing caller acknowledgement');
+  assert.equal(JSON.parse(leaseBytes).pid, child.pid);
+  store.writeJson('workspace.json', { revision: 3 }); assert.equal(store.readJson('workspace.json').revision, 3);
+  assert.equal(fs.existsSync(a.lease), false);
+  console.log(JSON.stringify({ boundary: 'after-rename', root: a.root, restart: 'committed bytes read, valid dead lease recovered, distinct explicit write succeeds' }));
+});
+
+for (const bytes of ['', '{broken', JSON.stringify({ pid: 2147483647 })]) {
+  test('existing malformed per-write lease refuses without changing evidence: ' + JSON.stringify(bytes), () => {
+    const a = adapter('workspace'), before = fs.readFileSync(a.file); fs.writeFileSync(a.lease, bytes);
+    for (let restart = 0; restart < 2; restart++) {
+      const r = createProfileRegistry(a.root), store = r.storeFor(r.load().selectedProfileId);
+      assert.throws(() => store.writeJson('workspace.json', { revision: 3 }), /unreadable|valid owner/);
+      assert.equal(fs.readFileSync(a.lease, 'utf8'), bytes); assert.deepEqual(fs.readFileSync(a.file), before);
+    }
+  });
+}
+
+for (const boundary of ['private-empty', 'private-fsynced', 'published', 'guard-private-empty', 'guard-private-fsynced', 'recovery-published', 'guard-archived', 'stale-archived', 'stale-republished']) {
+  test(`workspace complete-owner publication: real exit at ${boundary}`, { timeout: 15000 }, async () => {
+    const { spawn } = await import('node:child_process');
+    const a = adapter('workspace'), before = fs.readFileSync(a.file), module = require.resolve('../main/profile-registry');
+    if (boundary.startsWith('recovery') || boundary.startsWith('stale-') || boundary.startsWith('guard-')) fs.writeFileSync(a.lease, JSON.stringify({ pid: 2147483647, lease: 'ef97b0da-64c1-4f98-aa71-d282f5b8a111' }));
+    if (boundary === 'guard-archived') fs.writeFileSync(a.lease + '.recovery', JSON.stringify({ pid: 2147483647, lease: 'ef97b0da-64c1-4f98-aa71-d282f5b8a111' }));
+    const script = `const fs=require('fs');const {createProfileRegistry}=require(${JSON.stringify(module)});const open=fs.openSync,link=fs.linkSync,rename=fs.renameSync;const b=${JSON.stringify(boundary)},lock=${JSON.stringify(a.lease)};fs.openSync=(file,...args)=>{const fd=open(file,...args);if(typeof file==='string'&&((b==='private-empty'&&file.startsWith(lock+'.owner-'))||(b==='guard-private-empty'&&file.startsWith(lock+'.recovery.owner-'))))process.exit(77);return fd};fs.linkSync=(source,destination)=>{if((b==='private-fsynced'&&destination===lock)||(b==='guard-private-fsynced'&&destination===lock+'.recovery'))process.exit(77);const result=link(source,destination);if(((b==='published'||b==='stale-republished')&&destination===lock)||(b==='recovery-published'&&destination===lock+'.recovery'))process.exit(77);return result};fs.renameSync=(source,destination)=>{const result=rename(source,destination);if((b==='stale-archived'&&source===lock)||(b==='guard-archived'&&source===lock+'.recovery'))process.exit(77);return result};const r=createProfileRegistry(${JSON.stringify(a.root)});r.storeFor(r.load().selectedProfileId).writeJson('workspace.json',{revision:2});`;
+    const child = spawn(process.execPath, ['-e', script], { windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
+    let errors = ''; child.stderr.on('data', b => errors += b);
+    assert.equal(await new Promise((resolve, reject) => { child.once('exit', resolve); child.once('error', reject); }), 77, errors);
+    assert.deepEqual(fs.readFileSync(a.file), before);
+    if (boundary === 'private-empty' || boundary === 'private-fsynced') assert.equal(fs.existsSync(a.lease), false, 'incomplete private owner is never authoritative');
+    if (boundary === 'published') assert.equal(JSON.parse(fs.readFileSync(a.lease)).pid, child.pid);
+    if (boundary === 'recovery-published' || boundary === 'stale-archived') assert.equal(JSON.parse(fs.readFileSync(a.lease + '.recovery')).pid, child.pid);
+    const r = createProfileRegistry(a.root), store = r.storeFor(r.load().selectedProfileId);
+    assert.equal(store.readJson('workspace.json').revision, 1);
+    store.writeJson('workspace.json', { revision: 3 }); assert.equal(store.readJson('workspace.json').revision, 3);
+    assert.equal(fs.existsSync(a.lease), false);
+    console.log(JSON.stringify({ boundary, root: a.root, restartWrites: 'usable', priorAuthorityRetained: true }));
+  });
+}
+
+test('unsupported hardlink fails without publishing empty owner or changing target', () => {
+  const a = adapter('workspace'), before = fs.readFileSync(a.file), link = fs.linkSync;
+  fs.linkSync = () => { throw injected('ENOTSUP'); };
+  try { assert.throws(a.write, { code: 'ENOTSUP' }); assert.equal(fs.existsSync(a.lease), false); assert.deepEqual(fs.readFileSync(a.file), before); }
+  finally { fs.linkSync = link; }
+});
+
+test('independent contenders recover a dead guard without replacing a live owner', { timeout: 20000 }, async () => {
+  const { spawn } = await import('node:child_process');
+  const a = adapter('workspace'), before = fs.readFileSync(a.file), module = require.resolve('../main/profile-registry');
+  const dead = JSON.stringify({ pid: 2147483647, lease: 'ef97b0da-64c1-4f98-aa71-d282f5b8a111' });
+  fs.writeFileSync(a.lease, dead); fs.writeFileSync(a.lease + '.recovery', dead);
+  const gate = path.join(a.root, 'go'), resumeRecovery = path.join(a.root, 'resume-recovery'), resumeWrite = path.join(a.root, 'resume-write');
+  const children = [];
+  const waitFor = async condition => { const until = Date.now() + 10000; while (!condition()) { assert.ok(Date.now() < until, 'contender fixture timed out'); await new Promise(r => setTimeout(r, 10)); } };
+  try {
+    for (let index = 0; index < 2; index++) {
+      const script = `const fs=require('fs'),path=require('path');const {createProfileRegistry}=require(${JSON.stringify(module)});const root=${JSON.stringify(a.root)},lock=${JSON.stringify(a.lease)},file=${JSON.stringify(a.file)};const wait=p=>{while(!fs.existsSync(p))Atomics.wait(new Int32Array(new SharedArrayBuffer(4)),0,0,5)};fs.writeFileSync(path.join(root,'ready-'+process.pid),'ready');wait(${JSON.stringify(gate)});const rename=fs.renameSync;fs.renameSync=(source,destination)=>{if(source===lock+'.recovery'){fs.writeFileSync(path.join(root,'recovering-'+process.pid),'held');wait(${JSON.stringify(resumeRecovery)})}if(destination===file){fs.writeFileSync(path.join(root,'writing-'+process.pid),'held');wait(${JSON.stringify(resumeWrite)})}return rename(source,destination)};let result;try{const r=createProfileRegistry(root);r.storeFor(r.load().selectedProfileId).writeJson('workspace.json',{revision:2,writer:process.pid});result={status:'wrote',pid:process.pid}}catch(error){result={status:'refused',pid:process.pid,error:error.message}}fs.writeFileSync(path.join(root,'result-'+process.pid),JSON.stringify(result));`;
+      const child = spawn(process.execPath, ['-e', script], { windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
+      const record = { child, errors: '', exited: new Promise(resolve => child.once('exit', resolve)) }; child.stderr.on('data', b => record.errors += b); children.push(record);
+    }
+    await waitFor(() => children.every(({ child }) => fs.existsSync(path.join(a.root, 'ready-' + child.pid)))); fs.writeFileSync(gate, 'go');
+    await waitFor(() => fs.readdirSync(a.root).some(name => name.startsWith('recovering-')) && children.some(({ child }) => fs.existsSync(path.join(a.root, 'result-' + child.pid))));
+    const held = fs.readdirSync(a.root).filter(name => name.startsWith('recovering-')); assert.equal(held.length, 1);
+    const winner = Number(held[0].slice('recovering-'.length));
+    assert.equal(JSON.parse(fs.readFileSync(a.lease + '.recovery.recovery')).pid, winner);
+    assert.equal(fs.readFileSync(a.lease + '.recovery', 'utf8'), dead);
+    assert.throws(a.write, /another writer/);
+    assert.equal(JSON.parse(fs.readFileSync(a.lease + '.recovery.recovery')).pid, winner, 'contender cannot archive live guard');
+    fs.writeFileSync(resumeRecovery, 'go'); await waitFor(() => fs.existsSync(path.join(a.root, 'writing-' + winner)));
+    assert.equal(JSON.parse(fs.readFileSync(a.lease)).pid, winner); assert.throws(a.write, /another writer/);
+    assert.equal(JSON.parse(fs.readFileSync(a.lease)).pid, winner, 'contender cannot replace active writer');
+    assert.deepEqual(fs.readFileSync(a.file), before);
+    fs.writeFileSync(resumeWrite, 'go');
+    for (const record of children) assert.equal(await record.exited, 0, record.errors);
+    const results = children.map(({ child }) => JSON.parse(fs.readFileSync(path.join(a.root, 'result-' + child.pid))));
+    assert.equal(results.filter(r => r.status === 'wrote').length, 1); assert.equal(results.filter(r => r.status === 'refused').length, 1);
+    assert.equal(JSON.parse(fs.readFileSync(a.file)).writer, winner);
+    for (const name of fs.readdirSync(path.dirname(a.lease)).filter(name => name.includes('.abandoned-'))) assert.notEqual(JSON.parse(fs.readFileSync(path.join(path.dirname(a.lease), name))).pid, winner);
+    console.log(JSON.stringify({ root: a.root, results, exactlyOneWriter: true, stopped: true }));
+  } finally {
+    fs.writeFileSync(resumeRecovery, 'go'); fs.writeFileSync(resumeWrite, 'go'); fs.writeFileSync(gate, 'go');
+    for (const record of children) { if (record.child.exitCode === null && record.child.signalCode === null) record.child.kill('SIGKILL'); await record.exited; }
+  }
+});
+
+test('malformed recovery guard and depth limit retain entire authority chain', () => {
+  const dead = JSON.stringify({ pid: 2147483647, lease: 'ef97b0da-64c1-4f98-aa71-d282f5b8a111' });
+  for (const mode of ['malformed', 'depth']) {
+    const a = adapter('workspace'), before = fs.readFileSync(a.file), chain = [];
+    for (let level = 0; level <= (mode === 'depth' ? 8 : 1); level++) {
+      const file = a.lease + '.recovery'.repeat(level), bytes = mode === 'malformed' && level === 1 ? '' : dead;
+      fs.writeFileSync(file, bytes); chain.push({ file, bytes });
+    }
+    assert.throws(a.write, mode === 'depth' ? /depth exceeded; inspect/ : /unreadable; inspect/);
+    assert.deepEqual(fs.readFileSync(a.file), before); for (const { file, bytes } of chain) assert.equal(fs.readFileSync(file, 'utf8'), bytes);
+    console.log(JSON.stringify({ mode, root: a.root, recovery: 'explicit inspection required, all authority retained' }));
+  }
+});
