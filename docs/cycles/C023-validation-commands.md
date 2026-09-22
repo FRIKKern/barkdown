@@ -1,6 +1,6 @@
 # C023 queued validation commands
 
-Prepared offline after parent independent review of3e9c0a9 passed44 focused checks and four default lease groups. These final gates have not run. Source remains frozen. Parent owns shared UI; wait for explicit grant. [Planned evidence fields and source hashes](C023-validation-plan.json) are not passing results.
+Prepared offline after parent independent review of3e9c0a9 passed44 focused checks and four default lease groups. These commands subsequently passed under the explicit parent UI grant; [exact results and source hashes](C023-validation-plan.json) record the executed gates. Source remains frozen and the UI/runtime slot has been released. Commands are retained for reproducibility.
 
 Run from the Barkdown worktree in PowerShell. Run each next gate only after the preceding gate exits successfully; keep exact command exit codes and full logs. Existing locked dependencies/Chromium are installed; no dependency change is planned.
 

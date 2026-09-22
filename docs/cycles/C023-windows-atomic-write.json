@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "id": "C023",
+  "stage": "P3",
+  "status": "done",
+  "goal": "Bound transient Windows replacement retries without changing write authority or replaying effects.",
+  "scope": [
+    "Managed profile JSON and goal journal atomic replacement only",
+    "Controlled failure-first tests, expected target and owned writer lease revalidation",
+    "No arbitrary temp adoption, external replay, migration, merge or deployment"
+  ],
+  "acceptance": [
+    "Transient held reader can release within a bounded retry budget",
+    "Persistent lock and changed target/candidate/lease fail closed with retained prior authority",
+    "Actual managed workspace and goal journal adapters preserve acknowledgement semantics"
+  ],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C023-windows-atomic-write.md",
+  "nextAction": "Publish C023 source-specific evidence; parent selectively imports and validates combined integration with C010 relocation preserved.",
+  "evidence": [
+    "docs/goals/evidence/3e9c0a9/README.md",
+    "docs/cycles/C023-validation-plan.json",
+    "docs/goals/evidence/windows-rename/README.md"
+  ],
+  "truthReview": "Full desktop44980/root85728 and fresh fixture/live gates pass on3e9c0a9 implementation/docs82f13d4. README/app guide/INTEGRATION/HANDOFF/NEXT-AGENT/PLAN/plan.json/architecture/VALIDATION reviewed; central stages unchanged. Original failures and bounded filesystem/recovery limits retained.",
+  "screenshotReview": "All17 actual coordinator stills,34 fixture stills/34 decoded GIF frames and live5 stills/37 GIF frames inspected.34 comparisons within tolerance,zero geometry/environment; explicit approval. RealCodex live MxvyOa stopped/postmasterabsent; UI/source released."
+}

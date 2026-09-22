@@ -66,3 +66,5 @@ Use [ACCEPTANCE.md](ACCEPTANCE.md) for scenario gates and [VALIDATION.md](VALIDA
 ## Delivery cadence
 
 Deliver stages through [bounded cycles](CYCLES.md). On this separate goal-orchestration branch, [C015](cycles/C015-goal-coordinator.md) is verified with source-bound tests and reviewed visuals. Parent integration owns the central P1 queue and combined checks. C015 completes a bounded recovery/coordinator milestone, not P3 or any preceding stage. `npm run plan` prints both the roadmap and current cycle.
+
+On this goal branch, [C023](cycles/C023-windows-atomic-write.md) also closes the bounded guarded-replacement milestone on source3e9c0a9 with source-specific desktop/root and reviewed fixture/live evidence. This does not change the parent-owned P1–P5 acceptance queue or establish combined-source approval.

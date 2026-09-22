@@ -6,7 +6,7 @@ Dedicated user-requested orchestration track, starting at `b8e7bfb` on `codex/go
 
 [C015](../cycles/C015-goal-coordinator.md) is verified on 61eea4d, including authenticated Codex plan/three workers/evidence reviews/summary, actual Electron planning-crash recovery, full desktop/root and inspected fixture/live captures. [C020](../cycles/C020-coordinator-interruption.md) is verified on test source 17c2cc8 with worker/review/summary stop races and native interrupted review/summary proof. See the original [C015 gallery](evidence/61eea4d/README.md), [C020 gallery](evidence/17c2cc8/README.md) and [visual health page](../visual/goals/README.md).
 
-[C023](../cycles/C023-windows-atomic-write.md) is active on frozen implementation 3e9c0a9:44 focused checks,68 goal/native checks and storage regressions pass. Its final desktop, fresh visual/live and root gates are pending; [queued commands](../cycles/C023-validation-commands.md) record the next action. Parent owns combined integration and the shared UI grant; no prior screenshot approval transfers to newer or combined source.
+[C023](../cycles/C023-windows-atomic-write.md) is verified on frozen implementation 3e9c0a9: 44 focused checks,68 goal/native checks, full desktop/root and inspected fresh fixture/live gates pass. [Source-specific evidence](evidence/3e9c0a9/README.md) and [exact results](../cycles/C023-validation-plan.json) record the closeout. Parent owns combined integration; this branch approval does not transfer to it.
 
 Goals remain Windows/profile-only. Workers share the captured folder; use disjoint assignments or dependencies, with no automatic worktrees. Model review is not human verification. Uncertain effects require explicit person reconciliation; there is no general external-effect, power-loss or cross-machine portability guarantee. No broad goal or central stage completion is claimed. The chronology below is retained as historical checkpoints; earlier pending statements are superseded only by linked verified closeouts.
 
@@ -163,3 +163,7 @@ Source `61eea4d` and its predecessor `5dc188b` implement the bounded natural-lan
 ## C020 verified; C023 next
 
 [C020](../cycles/C020-coordinator-interruption.md) closes on test source 17c2cc8/docs8163c27 with full desktop57965, root4562 and inspected fresh fixture/live evidence. No runtime changes. [Proof](evidence/17c2cc8/README.md) retains earlier EPERM failure; parent authorized [C023](../cycles/C023-windows-atomic-write.md) bounded retry design with controlled failing tests and unchanged target revision/lease. UI released, no owned process.
+
+## C023 verified closeout
+
+[Guarded replacement evidence](evidence/3e9c0a9/README.md) closes source3e9c0a9 at docs invocation82f13d4: full44980/root85728,34 approved fixture frames and inspected live real-Codex Paper92760 pass. MxvyOa stopped; UI/source released. Original contention, empty-owner and cleanup failure proofs retained. Parent owns combined validation and C010 relocation integration; no broad stage completion or deployment claim.

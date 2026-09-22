@@ -2,7 +2,7 @@
 
 Goal execution is implemented in opt-in profile mode on Windows; legacy workspace activation remains disabled. [C015](../cycles/C015-goal-coordinator.md) is verified on source 61eea4d: authenticated Codex planning, three workers, independent evidence reviews and summary, actual Electron planning-crash recovery, full desktop/root checks and inspected fixture/live captures. [C020](../cycles/C020-coordinator-interruption.md) closes on test source 17c2cc8 with stop races, native review/summary host death and fresh desktop/root/visual evidence. Original [C015](evidence/61eea4d/README.md) and [C020](evidence/17c2cc8/README.md) galleries remain source-specific.
 
-[C023 storage reliability](../cycles/C023-windows-atomic-write.md) is implemented through 3e9c0a9 with 44 focused checks and 68 goal/native checks passing; final desktop, fixture/live capture and root gates are pending the shared UI slot. Prior approval does not cover this newer source or combined integration. Workers share a captured folder, so assignments must be disjoint or dependency-ordered; no automatic worktrees are created. Model reviews and summaries are not human verification, and uncertain effects require a person. These bounded milestones do not complete the broader goal, portability or delivery stages.
+[C023 storage reliability](../cycles/C023-windows-atomic-write.md) is verified through 3e9c0a9: 44 focused checks,68 goal/native checks, full desktop/root and inspected fresh fixture/live gates pass. [C023 evidence](evidence/3e9c0a9/README.md) is source-specific and does not approve combined integration. Workers share a captured folder, so assignments must be disjoint or dependency-ordered; no automatic worktrees are created. Model reviews and summaries are not human verification, and uncertain effects require a person. These bounded milestones do not complete the broader goal, portability or delivery stages.
 
 ## Authority and startup
 
@@ -28,7 +28,7 @@ Human takeover requests cancellation, waits for the worker to stop, retains its 
 
 ## Integration coverage targets
 
-The original integration targets below are retained. C015/C020 provide the scoped execution, ownership and interruption evidence linked above; this is not a list of entirely unimplemented behavior. Full acceptance still distinguishes those fixtures from general human takeover, continuous-motion lifecycle coverage, external-effect correctness and the pending C023/combined-source gates.
+The original integration targets below are retained. C015/C020 provide the scoped execution, ownership and interruption evidence linked above; this is not a list of entirely unimplemented behavior. Full acceptance still distinguishes those fixtures from general human takeover, continuous-motion lifecycle coverage, external-effect correctness and the separate combined-source gates.
 
 - Actual `agent.start` with three independent captured scopes and truthful finish/cancel events, first with deterministic transport, then authenticated provider integration in disposable folders.
 - Durable full worker transcripts across renderer reload, stale workspace saves and process restart, including human drafts/images and late/out-of-order attempt events.

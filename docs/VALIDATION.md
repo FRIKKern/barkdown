@@ -84,3 +84,7 @@ All 17 actual coordinator stills, 34 deterministic action frames and old/new goa
 ## C020 coordinator interruption
 
 Test source17c2cc8/docs8163c27: full desktop57965 PASS68 goal/76 desktop checks, root4562 PASS. Nine stop races plus native review/summary host deaths preserve exact attempts and drafts. All17 actual coordinator stills,34 fixture frames and live5 stills/37 GIF frames inspected; explicit fixture approval and normal OOIVao shutdown. [Evidence and limitations](goals/evidence/17c2cc8/README.md). No production change; real EPERM failure retained for C023.
+
+## C023 guarded Windows replacement
+
+Implementation3e9c0a9 at clean invocation HEAD82f13d4 passes full desktop44980 (44 atomic checks,6 credential unit checks,68 goal/native checks,76 desktop checks and existing UI journeys), root85728 and fresh fixture/live gates. Actual held-reader, owner-publication/crash, competing-writer and failed-cleanup tests retain authority and evidence. All17 coordinator stills,34 fixture stills/34 decoded GIF frames and five live stills/37 GIF frames inspected; zero geometry/environment changes and explicit fixture approval. Live92760 uses real Codex on clean a544; MxvyOa stopped/postmaster absent and UI released. [Gallery, exact results and limits](goals/evidence/3e9c0a9/README.md). Local NTFS hardlinks required; malformed/deep lease chains need inspection, and no rogue CAS/power-loss/portability/combined-source approval is claimed.

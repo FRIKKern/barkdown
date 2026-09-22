@@ -2,13 +2,15 @@
 
 Real Settings navigation. No server connection or credential is configured.
 
-![Current view](../runs/2026-09-22T03-10-25-041Z/settings-3.png)
+![Current view](../runs/2026-09-22T05-02-07-170Z/settings-3.png)
 
-![Recorded interaction](../runs/2026-09-22T03-10-25-041Z/settings.gif)
+![Recorded interaction](../runs/2026-09-22T05-02-07-170Z/settings.gif)
 
-[Full comparison](../runs/2026-09-22T03-10-25-041Z/README.md) · [Capture manifest](../runs/2026-09-22T03-10-25-041Z/manifest.json)
+[Full comparison](../runs/2026-09-22T05-02-07-170Z/README.md) · [Capture manifest](../runs/2026-09-22T05-02-07-170Z/manifest.json)
 
 ## Changelog
+
+- 2026-09-22T05:04:02.860Z: C023: inspected all34 action frames including intermediate menus, dark editor, narrow goal forms/recovery and profile settings. All comparisons within tolerance; zero geometry or environment changes. Full desktop44980 passes44 atomic storage checks,68 goal/native checks,76 desktop checks and all existing actual UI journeys. All17 actual coordinator normal/planning-crash stills inspected. Bounded Windows retry and complete-owner/cleanup proofs are separate behavior evidence; no power-loss, rogue-writer CAS or combined-source approval claim. Source 82f13d49f; [review](../runs/2026-09-22T05-02-07-170Z/comparison.json).
 
 - 2026-09-22T03:11:59.388Z: C020: inspected all34 action frames including narrow goal/profile layouts; all pixel comparisons are within tolerance, geometry/environment unchanged. Seven GIFs use the34 reviewed frames. Full desktop57965 passes68 goal checks,76 desktop checks and actual coordinator normal/planning-crash journeys. Native headless review/summary death proof uses main-acknowledged partial response IPC; no runtime behavior change. Prior EPERM failure retained as unresolved reliability concern; no new durability guarantee. Source 8163c2718; [review](../runs/2026-09-22T03-10-25-041Z/comparison.json).
 

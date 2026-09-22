@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C023",
   "stage": "P3",
-  "status": "active",
+  "status": "done",
   "goal": "Bound transient Windows replacement retries without changing write authority or replaying effects.",
   "scope": [
     "Managed profile JSON and goal journal atomic replacement only",
@@ -16,10 +16,12 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C023-windows-atomic-write.md",
-  "nextAction": "Await explicit parent UI/a544 grant, then execute docs/cycles/C023-validation-commands.md against frozen3e9c0a9 source.",
+  "nextAction": "Publish C023 source-specific evidence; parent selectively imports and validates combined integration with C010 relocation preserved.",
   "evidence": [
+    "docs/goals/evidence/3e9c0a9/README.md",
+    "docs/cycles/C023-validation-plan.json",
     "docs/goals/evidence/windows-rename/README.md"
   ],
-  "truthReview": "44 focused checks,68 goal/native21714 and default lease/24registry/repository/service/IPC3783 pass. Original guard EBUSY failure retained. Final desktop and fresh UI/live/root evidence pending.",
-  "screenshotReview": "C020 source-bound evidence remains intact; C023 app changes will require fresh gates after implementation."
+  "truthReview": "Full desktop44980/root85728 and fresh fixture/live gates pass on3e9c0a9 implementation/docs82f13d4. README/app guide/INTEGRATION/HANDOFF/NEXT-AGENT/PLAN/plan.json/architecture/VALIDATION reviewed; central stages unchanged. Original failures and bounded filesystem/recovery limits retained.",
+  "screenshotReview": "All17 actual coordinator stills,34 fixture stills/34 decoded GIF frames and live5 stills/37 GIF frames inspected.34 comparisons within tolerance,zero geometry/environment; explicit approval. RealCodex live MxvyOa stopped/postmasterabsent; UI/source released."
 }

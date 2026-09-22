@@ -1,7 +1,7 @@
 {
   "version": 1,
   "cycle": "C023",
-  "status": "planned-not-executed",
+  "status": "verified",
   "implementationCommit": "3e9c0a99b779e42306678bf082f739127f31d811",
   "sourceSha256": {
     "app/main/atomic-write.js": "a3b46178f6457518f7e9030181140ea2bb490abd8ea630429e38808fbdc8b7b9",
@@ -15,7 +15,7 @@
   "gates": [
     {
       "id": "desktop",
-      "status": "pending",
+      "status": "passed",
       "command": "npm run test:desktop",
       "log": "app/test-results/c023-final-desktop.log",
       "required": [
@@ -27,11 +27,29 @@
         "app/test-results/goal-coordinator/manifest.json",
         "app/test-results/goal-coordinator-recovery/manifest.json",
         "proof.json in logged native review/summary temporary roots"
-      ]
+      ],
+      "result": {
+        "session": 44980,
+        "exitCode": 0,
+        "atomicChecks": 44,
+        "credentialUnitChecks": 6,
+        "goalChecks": 68,
+        "desktopChecks": 76,
+        "nativeRoots": {
+          "review": "CzYgwI",
+          "summary": "HqzSjE"
+        },
+        "actualCoordinator": {
+          "normal": "eQiEsT",
+          "planningCrash": "jmqgeJ"
+        },
+        "actualStillsInspected": 17
+      },
+      "logSha256": "857e3e4486d13c6aa2159aec41c2b1481090a71d30b048d01efbb946399804c0"
     },
     {
       "id": "fixture",
-      "status": "pending",
+      "status": "passed",
       "command": "npm run visual:capture; npm run visual:compare (only after capture succeeds)",
       "log": "app/test-results/c023-fixture.log",
       "artifacts": [
@@ -39,39 +57,79 @@
         "docs/visual/runs/<new-run>/manifest.json",
         "docs/visual/runs/<new-run>/comparison.json"
       ],
-      "review": "Actually inspect all new action frames, narrow layouts, geometry and GIF frames; expected current tour has34 frames, verify actual count."
+      "review": "Actually inspect all new action frames, narrow layouts, geometry and GIF frames; expected current tour has34 frames, verify actual count.",
+      "result": {
+        "session": 23472,
+        "exitCode": 0,
+        "run": "2026-09-22T05-02-07-170Z",
+        "frames": 34,
+        "withinTolerance": 34,
+        "geometryChanges": 0,
+        "environmentChanged": false,
+        "stillsInspected": 34,
+        "decodedGifFramesInspected": 34
+      },
+      "logSha256": "2f3fb7022fb62f090fdd533a51a4c6af6a0743e1233496b0388abb30da098df6"
     },
     {
       "id": "approve",
-      "status": "pending",
+      "status": "passed",
       "command": "node scripts/visual.mjs approve --reviewer \"Codex goal-orchestration agent\" --note <actual inspection and behavior findings>",
       "requires": "Complete actual inspection; preserve prior area README changelogs/custom notes",
       "artifacts": [
         "docs/visual/approved.json",
         "docs/visual/reviews/<manifest-hash>.json"
-      ]
+      ],
+      "result": {
+        "status": "explicitly-approved",
+        "manifest": "docs/visual/approved.json",
+        "reviewer": "Codex goal-orchestration agent",
+        "review": "docs/visual/reviews/78f7bcbfefbbdae215ed8104d6573f4f87516761053dd7a8e2906435500a861f.json",
+        "reviewedAt": "2026-09-22T05:04:02.860Z"
+      }
     },
     {
       "id": "paper",
-      "status": "pending",
+      "status": "passed",
       "command": "Set BARKDOWN_TEST_BP_SOURCE=C:/Users/Frikk/Documents/GitHub/barkpark-editor; npm --prefix app run shots:isolated",
       "log": "app/test-results/c023-live-paper.log",
       "artifacts": [
         "docs/images/status/manifest.json",
         "docs/images/status/history/<new-history>.json"
       ],
-      "review": "Inspect all five stills and every actual GIF frame; report chat.real/provider and dirty/source fields exactly. Verify normal stop and absent postmaster.pid in logged private runtime."
+      "review": "Inspect all five stills and every actual GIF frame; report chat.real/provider and dirty/source fields exactly. Verify normal stop and absent postmaster.pid in logged private runtime.",
+      "result": {
+        "session": 92760,
+        "exitCode": 0,
+        "runtime": "C:/Users/Frikk/AppData/Local/Temp/barkdown-shots-runtime-MxvyOa",
+        "normalStopped": true,
+        "postmasterAbsent": true,
+        "provider": "codex",
+        "real": true,
+        "stillsInspected": 5,
+        "gifFramesInspected": 37,
+        "manifest": "docs/images/status/history/C023-3e9c0a9.json",
+        "barkparkCommit": "a5440345caa413087ac6488cac67f19fce58fa0f",
+        "appTreeDirty": false,
+        "barkparkTreeDirty": false
+      },
+      "logSha256": "af4487b77f93341745cadede637329d9759251345e94efa4ef33087e57cb8206"
     },
     {
       "id": "root",
-      "status": "pending",
+      "status": "passed",
       "command": "npm run verify",
       "log": "app/test-results/c023-root.log",
-      "review": "Record exact exit code. Release UI after foreground work ends, independently of offline evidence copying."
+      "review": "Record exact exit code. Release UI after foreground work ends, independently of offline evidence copying.",
+      "result": {
+        "session": 85728,
+        "exitCode": 0
+      },
+      "logSha256": "81a4b191f4cf01209072d02fb134e969dba3ab68d3387999911cd94d81d98d51"
     }
   ],
   "closeout": {
-    "status": "pending",
+    "status": "verified",
     "gallery": "docs/goals/evidence/3e9c0a9/",
     "record": [
       "Exact invocation HEAD and implementation commit",
@@ -80,6 +138,11 @@
       "Actual image inspection and approval",
       "No owned processes; parent UI/a544 release"
     ],
-    "integration": "Parent must preserve C010 prepareRelocation/relocated methods when merging file-lease hunks. This branch approval cannot approve combined source."
-  }
+    "integration": "Parent must preserve C010 prepareRelocation/relocated methods when merging file-lease hunks. This branch approval cannot approve combined source.",
+    "uiReleased": true,
+    "ownedProcesses": []
+  },
+  "invocationHead": "82f13d49f818f7cf275e2db547a44c2bb54f202c",
+  "invocationTreeClean": true,
+  "completedAt": "2026-09-22T05:09:16.633Z"
 }

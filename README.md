@@ -13,7 +13,7 @@ Write, ask, revise, and keep going in one desktop workspace. Barkdown pairs Bark
 
 **Working desktop prototype · Windows runtime first · Powered by Barkpark**
 
-![The real Barkdown desktop: a conversation beside an editable Barkpark paper.](docs/images/status/paper-light.d0b9d54b.png)
+![The real Barkdown desktop: a conversation beside an editable Barkpark paper.](docs/images/status/paper-light.1b5bb1ee.png)
 
 ## Think in notes. Work in conversations.
 
@@ -25,15 +25,15 @@ Write, ask, revise, and keep going in one desktop workspace. Barkdown pairs Bark
 <details>
 <summary><strong>See the editor in motion and explore the desktop</strong></summary>
 
-![Real editing: insert a quote, type, move through table cells, and use quick open.](docs/images/status/editing.60a96163.gif)
+![Real editing: insert a quote, type, move through table cells, and use quick open.](docs/images/status/editing.aedd7bc1.gif)
 
-![Barkdown in dark mode.](docs/images/status/paper-dark.cb562315.png)
+![Barkdown in dark mode.](docs/images/status/paper-dark.86a5a3b5.png)
 
-![Paper slash menu.](docs/images/status/slash-menu.85b0a597.png)
+![Paper slash menu.](docs/images/status/slash-menu.bd536098.png)
 
-![Quick open across the workspace.](docs/images/status/quick-open.4180881a.png)
+![Quick open across the workspace.](docs/images/status/quick-open.8b3eccb0.png)
 
-![Barkpark connection settings.](docs/images/status/settings-barkpark.1e900855.png)
+![Barkpark connection settings.](docs/images/status/settings-barkpark.b0d51861.png)
 
 These are captures of the running app, not mockups. [Capture provenance](docs/images/status/manifest.json) records the source commits and whether the assistant turn was live. The typographic banner above is repository artwork.
 
@@ -51,7 +51,7 @@ We are starting **P1: profile ownership and isolation**. The existing local note
 
 [Read the delivery plan →](docs/PLAN.md) · [See what is verified →](docs/VALIDATION.md)
 
-The experimental Windows profile-mode [goal coordinator](docs/goals/HANDOFF.md) has verified [authenticated execution](docs/goals/evidence/61eea4d/README.md) and [interruption recovery](docs/goals/evidence/17c2cc8/README.md). [Visual health](docs/visual/goals/README.md) identifies the reviewed source; the newer [C023 storage changes](docs/cycles/C023-windows-atomic-write.md) still await final desktop and visual/live gates.
+The experimental Windows profile-mode [goal coordinator](docs/goals/HANDOFF.md) has verified [authenticated execution](docs/goals/evidence/61eea4d/README.md) and [interruption recovery](docs/goals/evidence/17c2cc8/README.md). [Visual health](docs/visual/goals/README.md) identifies the reviewed source; [C023 storage changes](docs/cycles/C023-windows-atomic-write.md) now have [source-specific desktop/root and inspected visual/live evidence](docs/goals/evidence/3e9c0a9/README.md).
 
 ## Run the desktop
 
