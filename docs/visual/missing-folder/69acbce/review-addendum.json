@@ -1,0 +1,9 @@
+{
+  "reason": "Original review hashed CRLF working-tree manifest before Git normalized it to LF. All six inspected artifact hashes match original review. No media or review changed.",
+  "originalReviewManifestHash": "ae5856e3cd4358e8cd63dadd5acf8e76e5790086f31386ea1bef0a58eaf8a91f",
+  "committedLfManifestHash": "8e88bea6ea03c299795e436689bb5e7cec5b8bfa3718a44622b241ade7096ae6",
+  "preservedOriginalManifest": "manifest.captured-crlf.json",
+  "originalBytesSource": "Unchanged original C029 worktree manifest, verified against original review hash",
+  "verifiedTransformation": "Replace every CRLF with LF; exact byte equality to committed manifest. JSON content unchanged.",
+  "sourceCommit": "27f0955"
+}
