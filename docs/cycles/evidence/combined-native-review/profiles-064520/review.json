@@ -1,0 +1,30 @@
+{
+  "source": "3ce6b210e6c2f582ed0a05e955e7016690a3f008",
+  "upstream": "54579debe6ad4579c1a48586805498602867d983",
+  "stillsInspected": 6,
+  "gifFramesInspected": 6,
+  "stopped": true,
+  "cleanupErrors": [],
+  "findings": [
+    "B draft and reading position stable before/after A completion and process restart.",
+    "A-only receipt and Undo visible in A.",
+    "Long A title clips at right pane edge; retained visual limitation, no new ownership failure."
+  ],
+  "limits": [
+    "Six-still GIF is not continuous interaction video.",
+    "Manifest uses deterministic held HTTP plus separate actual MCP, not authenticated model decision.",
+    "Original manifest has no hash index; independent SHA256 index retained and reread verified."
+  ],
+  "hashes": {
+    ".gitattributes": "8b9c3028d6467ff3be7c793141927841d70f47f52d0590677438f488ca154992",
+    "decode.txt": "1e3854fd74ae431880d5ce113026baf84621b9103911cdb6ebd5bc116bc0fd9e",
+    "manifest-original.json": "a15d70490a9f89d8f4837d31e37b22e7df7f58d2f1c5e25ebc4c07dd42c487cc",
+    "original-hashes.json": "5ed77b5455754820217f80f75e9538461cccb2fa88c894cd5e053df0acaf495f",
+    "gif-frames/001.png": "39b91db118491cfaa278416e270c6bea840931a3842cf6b51da6dd680dab82e9",
+    "gif-frames/002.png": "d96693eca166e7423df73da6f70264196987a84ccb15ed71f766429616bcfc3c",
+    "gif-frames/003.png": "98b2a204ba3251d90ee351a2c8ae4068506c5020e9fbe4ae711beb99531f4bec",
+    "gif-frames/004.png": "dcccad2f9729f54dac8fb5cc15825e4e7ade914efedf14f16f016e65d3c45256",
+    "gif-frames/005.png": "fb6c80cf7c9326b9032ff30f074e886e6c04ecf4c160c381b8776f71d4b20071",
+    "gif-frames/006.png": "9ec19cc21ba9c2e1e50a018c5422a102add9859259b40c90161f1380cb5c36aa"
+  }
+}
