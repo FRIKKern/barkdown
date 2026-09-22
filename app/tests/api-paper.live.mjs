@@ -52,7 +52,7 @@ try {
   await page.waitForFunction(() => document.querySelector('#bw-transcript')?.textContent.includes('Table update complete.'), null, { timeout: 60000 });
   await page.waitForFunction(() => document.querySelector('.bw-paper-pane .ProseMirror')?.textContent.includes('API first'), null, { timeout: 60000 });
   await page.waitForFunction(() => !document.querySelector('[data-agent-phase]'));
-  const tableState = read(); assert.equal(tableState.blocks[2].head, undefined); assert.equal(tableState.blocks[2].rows[0][1], original.blocks[2].rows[0][1]); assert.equal(tableState.blocks[2].rows[0][0].align, 'center'); assert.match(JSON.stringify(tableState.blocks[2]), /API first\\nAPI second/);
+  const tableState = read(); assert.equal(tableState.blocks[2].head, undefined); assert.deepEqual(tableState.blocks[2].rows[0][1], original.blocks[2].rows[0][1]); assert.equal(tableState.blocks[2].rows[0][0].align, 'center'); assert.match(JSON.stringify(tableState.blocks[2]), /API first\\nAPI second/);
   await page.screenshot({ path: path.join(out, 'table-saved.png') }); results.push('API edit_table preserves headerless table, multiline value, alignment and untouched cell');
   await page.locator('.bw-paper-pane #agent-edit button').click();
   await page.waitForFunction(() => document.querySelector('.bw-paper-pane .ProseMirror')?.textContent.includes('First line'));
