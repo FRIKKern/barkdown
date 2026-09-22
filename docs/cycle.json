@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C013",
   "stage": "P3",
-  "status": "active",
+  "status": "done",
   "goal": "Prevent acknowledged first-run credential loss after abrupt Windows Electron termination.",
   "scope": [
     "Observe and sync Chromium protected key before new credential writes",
@@ -16,10 +16,14 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C013-credential-durability.md",
-  "nextAction": "Implement durable credential readiness and actual Electron crash test.",
+  "nextAction": "Archive C013 and activate C015 natural-language coordinator.",
   "evidence": [
-    "docs/cycles/C011-goal-recovery.md"
+    "docs/cycles/C013-credential-durability.md",
+    "docs/goals/evidence/f7d91e6/README.md",
+    "app/tests/credential-durability.live.mjs",
+    "docs/visual/runs/2026-09-22T00-21-53-476Z/manifest.json",
+    "docs/images/status/manifest.json"
   ],
-  "truthReview": "C011 verified; encrypted-key persistence explicitly unproved until this fix. P1-P5 and full coordinator goal incomplete.",
-  "screenshotReview": "Fresh visual/live gates required after app changes; no pending capture process."
+  "truthReview": "README, app guide, NEXT-AGENT, VALIDATION, integration contract, PLAN/plan.json and architecture reviewed. Full desktop/root verify pass. P1-P5 and full coordinator remain incomplete.",
+  "screenshotReview": "31 unchanged fixture frames inspected and explicitly approved; two actual credential stills plus five Paper stills/all37 GIF frames inspected. Clean f7d/a544 real Codex; DbndDW stopped."
 }

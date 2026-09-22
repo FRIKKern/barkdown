@@ -1,6 +1,6 @@
 # Goal execution and conversation integration contract
 
-The main-owned service and provider bridge are implemented on the goal branch. Production Electron wiring and native process recovery are implemented in opt-in profile mode on Windows. The actual Electron crash-dialog journey is tested with deterministic HTTP; natural-language coordination and encrypted-key crash durability remain pending. the handoff distinguishes executable proof from the remaining contract.
+The main-owned service and provider bridge are implemented on the goal branch. Production Electron wiring and native process recovery are implemented in opt-in profile mode on Windows. The actual Electron crash-dialog journey is tested with deterministic HTTP; saved encrypted-key crash durability is tested separately in C013; natural-language coordination remains pending. The handoff distinguishes executable proof from the remaining contract.
 
 ## Authority and startup
 
