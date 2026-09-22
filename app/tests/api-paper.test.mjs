@@ -31,6 +31,7 @@ const server = http.createServer(async (req, res) => {
     for (const op of input.ops) {
       if (op.op === 'append-block') paper.blocks.push(op.block);
       else if (op.op === 'remove-block') paper.blocks = paper.blocks.filter(b => b.id !== op.id);
+      else if (op.op === 'patch-block') Object.assign(paper.blocks.find(b => b.id === op.id), op.patch);
       else throw new Error('Unexpected fixture operation ' + op.op);
     }
     paper.rev++; return res.end(JSON.stringify({ rev: paper.rev }));
@@ -74,6 +75,16 @@ try {
   assert.equal(require('../main/agent-edits').latest('bp:same'), null);
   assert(requests.every(r => r.token === 'Bearer fixture-A'));
   await scope.edits.undo('bp:same', receipt.id, scope.connection); assert.deepEqual(paper.blocks, original);
+  const tableEvents = await run([
+    call('read_document', { id: 'bp:same', format: 'structured' }),
+    p => { assert.match(result(p).content, /"id": "table"/); return call('edit_table', { id: 'bp:same', blockId: 'table', cells: [{ row: 0, column: 0, text: 'First\nSecond', align: 'center' }], summary: 'Clarify cell' }); },
+    p => { assert.match(result(p).content, /Saved table edit/); return done(); },
+  ]);
+  assert(tableEvents.some(e => e.agentEdit && e.target.id === 'bp:same'));
+  assert.deepEqual(paper.blocks[1].rows[0][0], { content: [{ type: 'text', value: 'First\nSecond' }], align: 'center' });
+  assert.equal(paper.blocks[1].rows[0][1], original[1].rows[0][1]);
+  await scope.edits.undo('bp:same', scope.edits.latest('bp:same').id, scope.connection);
+  assert.deepEqual(paper.blocks, original);
   let before = writes;
   await run([call('edit_document', { id: 'bp:same', mode: 'append', markdown: 'No read', summary: 'No' }), p => { assert(result(p).is_error); assert.match(result(p).content, /Read the document/); return done(); }]);
   assert.equal(writes, before);

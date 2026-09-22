@@ -37,9 +37,16 @@ function toolDefinitions(context) {
   const tools = [
     { name: 'list_documents', description: 'List local documents and connected Barkpark papers (bp: ids) with ids, titles and excerpts.', input_schema: { type: 'object', properties: {}, additionalProperties: false } },
     { name: 'search_documents', description: 'Search local documents and connected Barkpark papers. Returns ids, titles and snippets.', input_schema: { type: 'object', properties: { query: { type: 'string' } }, required: ['query'], additionalProperties: false } },
-    { name: 'read_document', description: 'Read a local document or connected Barkpark paper (bp:<slug>), with revision and block indexes. Unsupported Markdown content is returned as authoritative structured blocks. Also opens it beside the chat.', input_schema: { type: 'object', properties: { id: { type: 'string' } }, required: ['id'], additionalProperties: false } },
+    { name: 'read_document', description: 'Read a local document or connected Barkpark paper (bp:<slug>), with revision and block indexes. Unsupported Markdown content is returned as authoritative structured blocks. Also opens it beside the chat.', input_schema: { type: 'object', properties: { id: { type: 'string' }, format: { type: 'string', enum: ['markdown', 'structured'], description: 'Use structured for exact blocks and stable table block IDs.' } }, required: ['id'], additionalProperties: false } },
     { name: 'edit_document', description: 'Apply and save a document edit directly, with Undo. Read the document first. mode=append adds blocks at the end, mode=replace rewrites the whole document, mode=replace_block replaces one top-level block by index (0-based, as listed by read_document).', input_schema: { type: 'object', properties: { id: { type: 'string' }, mode: { type: 'string', enum: ['append', 'replace', 'replace_block'] }, blockIndex: { type: 'integer' }, markdown: { type: 'string' }, summary: { type: 'string', description: 'One sentence describing the change' } }, required: ['id', 'mode', 'markdown', 'summary'], additionalProperties: false } },
     { name: 'create_document', description: 'Create a new document in the library from markdown and open it.', input_schema: { type: 'object', properties: { title: { type: 'string' }, markdown: { type: 'string' } }, required: ['title', 'markdown'], additionalProperties: false } },
+    { name: 'edit_table', description: 'Edit existing cells in a Barkpark paper by stable table blockId from read_document with format=structured. Read first. Row and column are zero-based; header=true addresses the header row (row=0). Provide text or PortableDoc inline content, and/or left/center/right alignment. Preserves all untouched cells and table metadata; saves directly with Undo.', input_schema: { type: 'object', properties: {
+      id: { type: 'string' }, blockId: { type: 'string' }, summary: { type: 'string' },
+      cells: { type: 'array', minItems: 1, maxItems: 1000, items: { type: 'object', properties: {
+        row: { type: 'integer', minimum: 0 }, column: { type: 'integer', minimum: 0 }, header: { type: 'boolean' }, text: { type: 'string' }, align: { type: 'string', enum: ['left', 'center', 'right'] },
+        content: { type: 'array', description: 'PortableDoc text/code leaves or strong/em/underline/strikethrough/link wrappers with children. Text leaves use value; links use href.', items: { type: 'object' } },
+      }, required: ['row', 'column'], additionalProperties: false } },
+    }, required: ['id', 'blockId', 'cells', 'summary'], additionalProperties: false } },
     { name: 'open_website', description: 'Open a website in a work tab beside the chat and return its readable text.', input_schema: { type: 'object', properties: { url: { type: 'string' } }, required: ['url'], additionalProperties: false } },
     { name: 'list_conversations', description: 'List the conversations in this workspace: the main chat and its side chats, with their last question and reply, open tabs and working folder.', input_schema: { type: 'object', properties: {}, additionalProperties: false } },
     { name: 'read_conversation', description: 'Read another conversation\'s transcript by id (from list_conversations): the last messages and what each reply opened or used.', input_schema: { type: 'object', properties: { id: { type: 'string' }, limit: { type: 'integer' } }, required: ['id'], additionalProperties: false } },
@@ -116,9 +123,10 @@ async function executeTool(run, name, input) {
       emit({ type: 'activity', target: { kind: 'doc', id: input.id, title: doc.title }, label: `Opened ${doc.title}`, detail: 'Reading the document' });
       (run.readRevisions ||= new Map()).set(input.id, doc.rev);
       (run.readTitles ||= new Map()).set(input.id, doc.title);
-      if (!remote) return describeDocument(doc);
+      if (!remote) return input.format === 'structured' ? JSON.stringify({ id: doc.id, title: doc.title, rev: doc.rev, content: doc.content }) : describeDocument(doc);
+      if (input.format === 'structured') return barkpark.readablePaper(doc, 'structured');
       const blocks = (doc.blocks || []).map((b, n) => `[${n}] ${b.type}${b.level ? ' h' + b.level : ''}`);
-      return [`# ${doc.title}`, `id: ${input.id} · rev ${doc.rev} · updated ${doc.updatedAt} · Barkpark paper`, '', 'Top-level blocks: ' + blocks.join(', '), '', barkpark.readablePaper(doc)].join('\n');
+      return [`# ${doc.title}`, `id: ${input.id} · rev ${doc.rev} · updated ${doc.updatedAt} · Barkpark paper`, '', 'Top-level blocks: ' + blocks.join(', '), '', barkpark.readablePaper(doc, input.format)].join('\n');
     }
     case 'edit_document':
     case 'propose_document_edit': {
@@ -127,6 +135,13 @@ async function executeTool(run, name, input) {
       const title = run.readTitles?.get(input.id) || documents.get(input.id)?.title || input.id;
       emit({ type: 'activity', target: { kind: 'doc', id: input.id, title }, label: `Edited ${title}`, detail: input.summary, libraryChanged: true, agentEdit: true });
       return `Saved edit to "${title}" at revision ${edit.afterRev}. Undo is available in the document.`;
+    }
+    case 'edit_table': {
+      const edit = await edits.applyTable({ ...input, baseRev: run.readRevisions?.get(input.id) }, run.scope.connection);
+      run.readRevisions.set(input.id, edit.afterRev);
+      const title = run.readTitles?.get(input.id) || input.id;
+      emit({ type: 'activity', target: { kind: 'doc', id: input.id, title }, label: `Edited ${title}`, detail: input.summary, libraryChanged: true, agentEdit: true });
+      return `Saved table edit to "${title}" at revision ${edit.afterRev}. Undo is available in the document.`;
     }
     case 'create_document': {
       const doc = documents.create({ title: input.title, markdown: input.markdown, actor: 'agent' });
