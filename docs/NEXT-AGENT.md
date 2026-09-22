@@ -1,5 +1,9 @@
 # Continue the dependable-workspace plan
 
+## Active parallel run
+
+This coordination branch is running the authorized 22 September engineering window. Read [the current run handoff](cycles/RUN-2026-09-22.md) first for live agent ownership, isolated worktrees, verified checkpoints and the capture queue. The baseline notes below predate the run; they do not supersede its current state. The integration candidate and completed lane evidence remain on separate codex branches, with no automatic merge or deployment.
+
 Read [PLAN.md](PLAN.md), [DESIGN-DECISIONS.md](DESIGN-DECISIONS.md), [ARCHITECTURE.md](ARCHITECTURE.md), then the current stage in [ACCEPTANCE.md](ACCEPTANCE.md). Run `npm run plan`. **Next: P1, profile ownership and isolation.** The former lowest-open-editor-issue rule is retired.
 
 ## What exists
