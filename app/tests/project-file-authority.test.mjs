@@ -12,6 +12,7 @@ const bundle=await build({entryPoints:[fileURLToPath(new URL('../renderer/src/ta
 const browser=await chromium.launch({headless:true});const page=await browser.newPage();
 const writes=[];
 try {
+ await page.exposeFunction('readTree',r=>files.tree(r));
  await page.exposeFunction('readFile',(r,f)=>files.read(r,f));
  await page.exposeFunction('writeFile',(r,f,t,m)=>{writes.push({root:r,file:f,text:t});return files.write(r,f,t,m)});
  await page.setContent('<div id="host"></div><div id="bw-toasts"></div><div id="bw-dialog" hidden></div>');
@@ -44,6 +45,8 @@ try {
    window.pendingSave=document.querySelector('[data-act="save"]').onclick();
  });
  await page.waitForFunction(()=>typeof window.releaseSave==='function');
+ await page.locator('.cm-content').fill('A original');
+ assert.equal(await page.evaluate(()=>ProjectPane.dirtyCount()),1,'pending save must block profile switch even when typing restores old saved text');
  await page.locator('.cm-content').fill('A newer draft during save');
  fs.writeFileSync(path.join(root,'b.md'),'B original');
  await page.evaluate(()=>window.pane.openFile('b.md'));
@@ -92,6 +95,16 @@ try {
  assert.equal(fs.readFileSync(path.join(root,'a.md'),'utf8'),'A newer draft during save');
  assert.throws(()=>files.write(path.join(root,'absent-root'),'new.md','text'),/ENOENT/);
  assert.equal(fs.existsSync(path.join(root,'absent-root')),false,'Save cannot resurrect a missing working folder');
+ // Initial unavailable file must not discard its independent sibling tree request.
+ await page.evaluate(()=>{
+  window.pane.destroy();
+  window.barkdown.files.tree=async r=>{const result=await window.readTree(r);await new Promise(resolve=>window.releaseTree=resolve);return result};
+  window.tab={file:'absent-initial.md',treeOpen:true};
+  window.pane=ProjectPane.mountProject(window.tab,document.querySelector('#host'),{folder:()=>window.folder,tabChanged(){},isExpanded:()=>false,startFolderChat(){},toggleExpanded(){},userIsEditing(){},dirtyChanged(){},fileSaved(){}});
+ });
+ await page.waitForFunction(()=>typeof window.releaseTree==='function' && document.querySelector('#status').textContent.startsWith('File unavailable'));
+ await page.evaluate(async()=>{window.releaseTree();await new Promise(requestAnimationFrame)});
+ assert.equal(await page.locator('[data-file="b.md"]').count(),1,'failed initial file must leave sibling files reachable');
  console.log('PASS failed open, preserved draft, delayed save acknowledgement and stale read authority');
 
 } finally {await browser.close()}

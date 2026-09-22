@@ -18,7 +18,7 @@ const bufferKey = (root, file) => `${root}::${file}`;
 // No root means every open folder, as required before reloading a profile.
 export function dirtyCount(root) {
   let n = 0;
-  for (const [key, b] of buffers) if ((root === undefined || key.startsWith(root + '::')) && b.draft !== b.saved) n++;
+  for (const [key, b] of buffers) if ((root === undefined || key.startsWith(root + '::')) && (b.saving || b.draft !== b.saved)) n++;
   return n;
 }
 
@@ -49,16 +49,16 @@ export function mountProject(tab, host, ctx) {
   let tree = null;
   let root = ctx.folder();
   let currentKey = null;
-  let opened = null, lastOpened = null, navigation = 0, destroyed = false;
+  let opened = null, lastOpened = null, navigation = 0, treeGeneration = 0, destroyed = false;
   const language = new Compartment();
 
   function buffer() { return currentKey ? buffers.get(currentKey) : null; }
-  function isDirty() { const b = buffer(); return Boolean(b && b.draft !== b.saved); }
+  function isDirty() { const b = buffer(); return Boolean(b && (b.saving || b.draft !== b.saved)); }
 
   function status(text) { if (!destroyed) q('#status').textContent = text; }
   function controls() {
     q('[data-act="save"]').disabled = !opened || Boolean(buffer()?.saving);
-    q('[data-act="revert"]').disabled = !opened;
+    q('[data-act="revert"]').disabled = !opened || Boolean(buffer()?.saving);
   }
 
   function renderHead() {
@@ -74,15 +74,15 @@ export function mountProject(tab, host, ctx) {
   }
 
   async function loadTree() {
-    const host = q('#tree');
+    const host = q('#tree'), request = ++treeGeneration;
     if (!root) { host.innerHTML = '<p class="bw-small bw-muted" style="padding:10px">Pick a working folder from the composer.</p>'; return; }
-    const requestedRoot = root, request = navigation;
+    const requestedRoot = root;
     try {
       const result = await api.files.tree(requestedRoot);
-      if (destroyed || root !== requestedRoot || navigation !== request) return;
+      if (destroyed || root !== requestedRoot || treeGeneration !== request) return;
       tree = result;
     } catch (error) {
-      if (!destroyed && root === requestedRoot && navigation === request) host.innerHTML = `<p class="bw-error">${esc(error.message)}</p>`;
+      if (!destroyed && root === requestedRoot && treeGeneration === request) host.innerHTML = `<p class="bw-error">${esc(error.message)}</p>`;
       return;
     }
     const render = (nodes, depth = 0) => nodes.map(n => n.type === 'dir'
@@ -164,7 +164,7 @@ export function mountProject(tab, host, ctx) {
     if (!target || !b || b.saving) return;
     const text = b.draft;
     if (text === b.saved) { status('Nothing to save'); return; }
-    b.saving = true; controls();
+    b.saving = true; controls(); ctx.dirtyChanged();
     const stillHere = () => !destroyed && opened?.key === target.key;
     try {
       const result = await api.files.write(target.root, target.file, text, b.mtime);
@@ -181,12 +181,12 @@ export function mountProject(tab, host, ctx) {
       ctx.fileSaved(target.file);
       if (stillHere()) { status(b.draft === text ? `${target.file} · saved` : 'Edited · not saved'); loadTree(); }
     } catch (error) { if (stillHere()) toast('Could not save: ' + error.message, 'error'); }
-    finally { b.saving = false; if (!destroyed) controls(); }
+    finally { b.saving = false; ctx.dirtyChanged(); if (!destroyed) controls(); }
   }
 
   function revert() {
     const b = buffer();
-    if (!b || !view) return;
+    if (!b || !view || b.saving) return;
     view.dispatch({ changes: { from: 0, to: view.state.doc.length, insert: b.saved } });
     b.draft = b.saved;
     status('Reverted to saved');
@@ -209,7 +209,7 @@ export function mountProject(tab, host, ctx) {
     tab,
     navigate() { root = ctx.folder(); renderHead(); loadTree(); if (tab.file) openFile(tab.file); },
     async refresh(file) {
-      if (file && file === tab.file) { const key = bufferKey(root, file); const b = buffers.get(key); if (b && b.draft === b.saved) { buffers.delete(key); openFile(file); } }
+      if (file && file === tab.file) { const key = bufferKey(root, file); const b = buffers.get(key); if (b && !b.saving && b.draft === b.saved) { buffers.delete(key); openFile(file); } }
       else loadTree();
       renderHead();
     },
