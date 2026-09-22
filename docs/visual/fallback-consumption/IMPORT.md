@@ -8,8 +8,12 @@ Verification used committed source blobs and staged destination blobs, rather th
 
 Current global approved/pending pointers, status manifest, root README and active cycle JSON remain byte-identical to the base. C008 receives only an evidence note; coverage gains the dedicated gallery. No original review was rewritten or restamped.
 
-The coordinator independently inspected old-server stills03/05 and new-server stills02/06. They support the bounded content/Undo/reload proof. In narrow06 the save caption is offscreen/not visible in the right pane; only Editing live metadata is visible. This remains a narrow save-status usability gap, not a claim of flawless geometry. The original reviews are preserved unchanged. Neither these galleries nor the deterministic tour prove all PortableDoc operations, unfinished-upload restart recovery, upstream merge readiness or P1 completion.
+The coordinator independently inspected old-server stills03/05 and new-server stills02/06. They support the bounded content/Undo/reload proof. In narrow06 the save caption is offscreen/not visible in the right pane; only Editing live metadata is visible. This records caption absence only; its cause is clarified in the addendum below. The original reviews are preserved unchanged. Neither these galleries nor the deterministic tour prove all PortableDoc operations, unfinished-upload restart recovery, upstream merge readiness or P1 completion.
 
 No UI/runtime was launched for this import. `npm run plan` and `npm run cycle` pass; current combined behavior/visual/root gates remain the coordinator's separate task.
 
 `git diff --cached --check` reports one original trailing blank line in the deterministic run README (line436). That historical file is retained byte-for-byte rather than edited during import.
+
+## Caption observation correction
+
+Subsequent source inspection found that `paper.js` deliberately clears `#save-state` after a fresh server load (line331 in the reviewed source). Narrow06 follows reload05 without another write, and wide05 also lacks the caption. The observed absence therefore does not demonstrate narrow clipping or establish a usability defect. No CSS change is warranted by these images. Original screenshots and reviews remain unchanged.
