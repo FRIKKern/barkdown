@@ -1,0 +1,17 @@
+{
+  "source": "da9bb2e",
+  "fixture": "app/tests/project-file-authority.test.mjs",
+  "runtime": "headless Chromium actual CodeMirror and main/files adapter",
+  "root": "C:/Users/Frikk/AppData/Local/Temp/bd-project-authority-m21t4M",
+  "writes": [
+    {
+      "file": "missing.md",
+      "text": "A unsaved human text"
+    }
+  ],
+  "missingCreated": true,
+  "original": "A original",
+  "selected": "missing.md",
+  "visible": "A unsaved human text",
+  "result": "failed safety assertion; confirmed wrong destination write"
+}

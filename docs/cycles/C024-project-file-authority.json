@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "id": "C024",
+  "stage": "P1",
+  "status": "active",
+  "goal": "Keep project editor reads and saves bound to the exact opened file, preserving drafts across missing references and delayed operations.",
+  "scope": [
+    "Project CodeMirror navigation and explicit saves",
+    "Missing folder error instead of empty successful tree",
+    "No autosave or durable unsaved-buffer claim"
+  ],
+  "acceptance": [
+    "Failed or binary opens cannot redirect a previous draft into the selected destination",
+    "Delayed read cannot replace a newer selected file",
+    "Save acknowledges only captured bytes and destination while newer typing remains dirty",
+    "Declined conflict remains a conflict on the next Save",
+    "Actual Electron missing-file and delayed-save evidence plus reviewed final validation"
+  ],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C024-project-file-authority.md",
+  "nextAction": "Complete actual Electron harness, review source, freeze/push, then capture in named UI window and run full/visual/live/root gates.",
+  "evidence": [
+    "app/tests/project-file-authority.test.mjs",
+    "docs/cycles/evidence/C024-baseline.json"
+  ],
+  "truthReview": "Headless Chromium mounts actual project module and CodeMirror against real disposable files. Actual Electron and source-bound visual proof pending.",
+  "screenshotReview": "Pending; no new visual approval or main merge."
+}

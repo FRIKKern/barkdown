@@ -1,26 +1,28 @@
 {
   "version": 1,
-  "id": "C008",
+  "id": "C024",
   "stage": "P1",
   "status": "active",
-  "goal": "Integrate reviewed profile, goal and editor milestones on an isolated branch and prove their combined behavior without merging main.",
+  "goal": "Keep project editor reads and saves bound to the exact opened file, preserving drafts across missing references and delayed operations.",
   "scope": [
-    "Union reviewed source commits and existing regression gates",
-    "Preserve original lane evidence and create fresh combined evidence",
-    "Exercise combined ownership, worker and Paper journeys as dependencies arrive"
+    "Project CodeMirror navigation and explicit saves",
+    "Missing folder error instead of empty successful tree",
+    "No autosave or durable unsaved-buffer claim"
   ],
   "acceptance": [
-    "Combined desktop and root verification pass",
-    "Live and deterministic visual evidence names the combined source",
-    "Profile/goal integration gaps remain explicit until proven"
+    "Failed or binary opens cannot redirect a previous draft into the selected destination",
+    "Delayed read cannot replace a newer selected file",
+    "Save acknowledges only captured bytes and destination while newer typing remains dirty",
+    "Declined conflict remains a conflict on the next Save",
+    "Actual Electron missing-file and delayed-save evidence plus reviewed final validation"
   ],
   "checkpoint": "2026-09-22",
-  "handoff": "docs/cycles/C008-integration.md",
-  "nextAction": "Freeze combined C014/E004/C015/C017 source, complete pending actual API Undo/reload and original goal lane gates, then run fresh combined desktop and reviewed deterministic/live evidence. Continue C016 full A1 proof and C018/C019 preservation checks without declaring P1 complete.",
+  "handoff": "docs/cycles/C024-project-file-authority.md",
+  "nextAction": "Complete actual Electron harness, review source, freeze/push, then capture in named UI window and run full/visual/live/root gates.",
   "evidence": [
-    "app/package.json",
-    "docs/cycles/C008-integration.md"
+    "app/tests/project-file-authority.test.mjs",
+    "docs/cycles/evidence/C024-baseline.json"
   ],
-  "truthReview": "Active integration only; no P1 or complete goal feature claim.",
-  "screenshotReview": "9c77cb7 has reviewed37 deterministic frames plus real rich Paper and status evidence. New C014 recovery source requires fresh combined evidence; original lane evidence remains separately attributed."
+  "truthReview": "Headless Chromium mounts actual project module and CodeMirror against real disposable files. Actual Electron and source-bound visual proof pending.",
+  "screenshotReview": "Pending; no new visual approval or main merge."
 }
