@@ -2,14 +2,15 @@
 
 Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.
 
-![Current view](../runs/2026-09-22T22-38-28-864Z/documents-2.png)
+![Current view](../runs/2026-09-22T22-49-01-330Z/documents-2.png)
 
-![Recorded interaction](../runs/2026-09-22T22-38-28-864Z/documents.gif)
+![Recorded interaction](../runs/2026-09-22T22-49-01-330Z/documents.gif)
 
-[Full comparison](../runs/2026-09-22T22-38-28-864Z/README.md) · [Capture manifest](../runs/2026-09-22T22-38-28-864Z/manifest.json)
+[Full comparison](../runs/2026-09-22T22-49-01-330Z/README.md) · [Capture manifest](../runs/2026-09-22T22-49-01-330Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-22T22:51:34.373Z: Reviewed all 40 stills and 40 motion frames at source 77d5726. Eight GIFs and 36 stills are byte-identical to baseline; remaining still differences are one invisible pixel and subthreshold composer-border antialiasing. Geometry, content, controls and narrow layouts are unchanged. Source 77d57266a; [review](../reviews/approval-c4d2af8c2ee1e6bbc754bd9fee0859b5880f720b2a2794bde7ea69d347b81603.json) - [comparison](../runs/2026-09-22T22-49-01-330Z/comparison.json).
 - 2026-09-22T22:42:07.627Z: Reviewed all 40 stills and 40 coalesced motion frames at source 08e9722. Eight GIFs are byte-identical to the prior approved run. Four stills contain only imperceptible composer-border antialias noise; all geometry, text, controls and narrow layouts are unchanged. Source 08e972219; [review](../reviews/approval-2e4e193f995215ffe9468c895f06806afd1cac0f7d99ce87fa6f24b284281f73.json) - [comparison](../runs/2026-09-22T22-38-28-864Z/comparison.json).
 - 2026-09-22T22:27:57.332Z: Reviewed all 40 stills and 40 coalesced motion frames at commit 13cba576. Only expected change is Settings Barkpark fallback SHA 62b80526 to 3a94a296; geometry unchanged. Side-chat subpixel encoding noise is not visible. Narrow workspace, goals, profiles and adoption remain usable. Source 13cba576c; [review](../reviews/approval-75491c1265b75f353602a1a916396ef374c3700b81243d99ec0b5cae1d33dbdb.json) - [comparison](../runs/2026-09-22T22-22-12-493Z/comparison.json).
 - 2026-09-22T02:18:55.981Z: Reviewed all 40 stills and all decoded GIF frames. Final recapture matched 43 of 48 reviewed artifacts byte-for-byte; the four changed stills and changed side-chat GIF were inspected again. Named-step comparison shows three new goal planning views and expected tasks-to-workers labels; no unintended geometry or clipping regression found. Combined desktop suite 64608 passed. Fixture capture alone does not prove live provider or persistence behavior. Source e38038577; [review](../runs/2026-09-22T02-13-13-738Z/comparison.json).
