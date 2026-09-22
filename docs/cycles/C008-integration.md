@@ -4,7 +4,7 @@ Active on `codex/integration-12h` in the isolated `barkdown-integration-12h` wor
 
 ## Current checkpoint
 
-Source1971638 combines C014 final recovery and E004 scoped table operations; evidence-onlyd8d666a retains original reviewed galleries. Full desktop91207 passed atfb31be3 before the E004 import; final C014 race and E004 table/MCP/recovery checks pass. New combined full/visual/live gates are pending. Last fully verified fallback9c77cb7 remains valid only for its source. C015/C017 and newer editor work are not integrated yet. Original failure evidence is retained; P1, portability and full editor release are not complete.
+Source now combines C014 final recovery, E004 scoped table operations, C015 coordination through61eea4d and C017 API Paper parity throughd8423e7. Preserve all original lane galleries. Full desktop91207 passed atfb31be3 before E004/C015/C017; subsequent coordinator/provider21, recovery/workspace, API and24host checks pass after imports. New combined full/visual/live gates remain pending. Last fully verified fallback9c77cb7 remains valid only for its source. C017 actual paragraph/table visibility passed before a fixture array-identity assertion stopped its final Undo/reload proof; that assertion is corrected. C015 authenticated proof passed in its lane; final journal-commit failure retains authoritative state and no-replay recovery evidence without inventing the unavailable original OS error. P1, portability and full editor release remain incomplete.
 
 ## Integration history
 

@@ -7,6 +7,7 @@ const files = require('./files');
 const git = require('./git');
 const { docToMarkdown } = require('../shared/markdown');
 const conversations = require('./conversations');
+const barkpark = require('./barkpark');
 
 const providerRuns = require('./providers/runs');
 const { frozenCopy } = require('./providers/run-scope');
@@ -34,11 +35,18 @@ Principles:
 function toolDefinitions(context) {
   const hasFolder = Boolean(context.folder);
   const tools = [
-    { name: 'list_documents', description: 'List the documents in the Barkdown library with ids, titles and excerpts.', input_schema: { type: 'object', properties: {}, additionalProperties: false } },
-    { name: 'search_documents', description: 'Full-text search across the document library. Returns ids, titles and snippets.', input_schema: { type: 'object', properties: { query: { type: 'string' } }, required: ['query'], additionalProperties: false } },
-    { name: 'read_document', description: 'Read a document as markdown, with its revision, references and backlinks. Also opens it beside the chat.', input_schema: { type: 'object', properties: { id: { type: 'string' } }, required: ['id'], additionalProperties: false } },
+    { name: 'list_documents', description: 'List local documents and connected Barkpark papers (bp: ids) with ids, titles and excerpts.', input_schema: { type: 'object', properties: {}, additionalProperties: false } },
+    { name: 'search_documents', description: 'Search local documents and connected Barkpark papers. Returns ids, titles and snippets.', input_schema: { type: 'object', properties: { query: { type: 'string' } }, required: ['query'], additionalProperties: false } },
+    { name: 'read_document', description: 'Read a local document or connected Barkpark paper (bp:<slug>), with revision and block indexes. Unsupported Markdown content is returned as authoritative structured blocks. Also opens it beside the chat.', input_schema: { type: 'object', properties: { id: { type: 'string' }, format: { type: 'string', enum: ['markdown', 'structured'], description: 'Use structured for exact blocks and stable table block IDs.' } }, required: ['id'], additionalProperties: false } },
     { name: 'edit_document', description: 'Apply and save a document edit directly, with Undo. Read the document first. mode=append adds blocks at the end, mode=replace rewrites the whole document, mode=replace_block replaces one top-level block by index (0-based, as listed by read_document).', input_schema: { type: 'object', properties: { id: { type: 'string' }, mode: { type: 'string', enum: ['append', 'replace', 'replace_block'] }, blockIndex: { type: 'integer' }, markdown: { type: 'string' }, summary: { type: 'string', description: 'One sentence describing the change' } }, required: ['id', 'mode', 'markdown', 'summary'], additionalProperties: false } },
     { name: 'create_document', description: 'Create a new document in the library from markdown and open it.', input_schema: { type: 'object', properties: { title: { type: 'string' }, markdown: { type: 'string' } }, required: ['title', 'markdown'], additionalProperties: false } },
+    { name: 'edit_table', description: 'Edit existing cells in a Barkpark paper by stable table blockId from read_document with format=structured. Read first. Row and column are zero-based; header=true addresses the header row (row=0). Provide text or PortableDoc inline content, and/or left/center/right alignment. Preserves all untouched cells and table metadata; saves directly with Undo.', input_schema: { type: 'object', properties: {
+      id: { type: 'string' }, blockId: { type: 'string' }, summary: { type: 'string' },
+      cells: { type: 'array', minItems: 1, maxItems: 1000, items: { type: 'object', properties: {
+        row: { type: 'integer', minimum: 0 }, column: { type: 'integer', minimum: 0 }, header: { type: 'boolean' }, text: { type: 'string' }, align: { type: 'string', enum: ['left', 'center', 'right'] },
+        content: { type: 'array', description: 'PortableDoc text/code leaves or strong/em/underline/strikethrough/link wrappers with children. Text leaves use value; links use href.', items: { type: 'object' } },
+      }, required: ['row', 'column'], additionalProperties: false } },
+    }, required: ['id', 'blockId', 'cells', 'summary'], additionalProperties: false } },
     { name: 'open_website', description: 'Open a website in a work tab beside the chat and return its readable text.', input_schema: { type: 'object', properties: { url: { type: 'string' } }, required: ['url'], additionalProperties: false } },
     { name: 'list_conversations', description: 'List the conversations in this workspace: the main chat and its side chats, with their last question and reply, open tabs and working folder.', input_schema: { type: 'object', properties: {}, additionalProperties: false } },
     { name: 'read_conversation', description: 'Read another conversation\'s transcript by id (from list_conversations): the last messages and what each reply opened or used.', input_schema: { type: 'object', properties: { id: { type: 'string' }, limit: { type: 'integer' } }, required: ['id'], additionalProperties: false } },
@@ -70,6 +78,30 @@ function describeDocument(doc) {
   return [`# ${doc.title}`, `id: ${doc.id} · rev ${doc.rev} · updated ${doc.updatedAt}`, `references: ${(doc.references || []).join(', ') || 'none'} · backlinks: ${(doc.backlinks || []).map(b => b.id).join(', ') || 'none'}`, '', 'Top-level blocks: ' + blocks.join(', '), '', docToMarkdown(doc.content)].join('\n');
 }
 
+const isPaper = id => typeof id === 'string' && id.startsWith('bp:');
+const documentTarget = (id, title) => isPaper(id)
+  ? { kind: 'doc', id: id.slice(3), source: 'barkpark', title }
+  : { kind: 'doc', id, title };
+function paperTools(run) {
+  // This immutable connection belongs to the run, never the foreground profile.
+  const config = run.scope.connection;
+  const enabled = Boolean(config.enabled && (config.viaCli || config.server));
+  return {
+    list: () => !enabled ? [] : config.viaCli ? barkpark.cliListPapers(60) : barkpark.listPapers(config, 60),
+    async search(query) {
+      if (!enabled) return [];
+      const found = await (config.viaCli ? barkpark.cliSearch(query) : barkpark.search(config, query));
+      if (found.length) return found;
+      const listed = await this.list(), needle = query.toLowerCase();
+      return listed.filter(d => (d.title + ' ' + d.excerpt).toLowerCase().includes(needle)).map(d => ({ ...d, snippet: d.excerpt }));
+    },
+    get(slug) {
+      if (!enabled) throw new Error('Barkpark is not connected for this conversation run.');
+      return config.viaCli ? barkpark.cliGetPaper(slug) : barkpark.getPaper(config, slug);
+    },
+  };
+}
+
 async function executeTool(run, name, input) {
   const { documents, conversations, edits } = run.scope;
   const { context, emit } = run;
@@ -77,22 +109,42 @@ async function executeTool(run, name, input) {
   switch (name) {
     case 'list_conversations': return JSON.stringify(conversations.listConversations(), null, 1);
     case 'read_conversation': return conversations.readConversation(input.id, { limit: input.limit || 24 }) || `No conversation with id ${input.id}.`;
-    case 'list_documents': return JSON.stringify(documents.list().map(d => ({ id: d.id, title: d.title, excerpt: d.excerpt, rev: d.rev })), null, 1);
-    case 'search_documents': return JSON.stringify(documents.search(input.query).map(d => ({ id: d.id, title: d.title, snippet: d.snippet })), null, 1);
+    case 'list_documents': {
+      const local = documents.list().map(d => ({ id: d.id, title: d.title, excerpt: d.excerpt, rev: d.rev, source: 'local' }));
+      const remote = await paperTools(run).list();
+      return JSON.stringify([...local, ...remote.map(d => ({ ...d, id: 'bp:' + d.id, source: 'barkpark' }))], null, 1);
+    }
+    case 'search_documents': {
+      const local = documents.search(input.query).map(d => ({ id: d.id, title: d.title, snippet: d.snippet, source: 'local' }));
+      const remote = await paperTools(run).search(input.query);
+      return JSON.stringify([...local, ...remote.map(d => ({ ...d, id: 'bp:' + d.id, source: 'barkpark' }))], null, 1);
+    }
     case 'read_document': {
-      const doc = documents.get(input.id);
+      const remote = isPaper(input.id);
+      const doc = remote ? await paperTools(run).get(input.id.slice(3)) : documents.get(input.id);
       if (!doc) return `No document with id ${input.id}. Use list_documents.`;
-      emit({ type: 'activity', target: { kind: 'doc', id: doc.id, title: doc.title }, label: `Opened ${doc.title}`, detail: 'Reading the document' });
-      (run.readRevisions ||= new Map()).set(doc.id, doc.rev);
-      return describeDocument(doc);
+      emit({ type: 'activity', target: documentTarget(input.id, doc.title), label: `Opened ${doc.title}`, detail: 'Reading the document' });
+      (run.readRevisions ||= new Map()).set(input.id, doc.rev);
+      (run.readTitles ||= new Map()).set(input.id, doc.title);
+      if (!remote) return input.format === 'structured' ? JSON.stringify({ id: doc.id, title: doc.title, rev: doc.rev, content: doc.content }) : describeDocument(doc);
+      if (input.format === 'structured') return barkpark.readablePaper(doc, 'structured');
+      const blocks = (doc.blocks || []).map((b, n) => `[${n}] ${b.type}${b.level ? ' h' + b.level : ''}`);
+      return [`# ${doc.title}`, `id: ${input.id} · rev ${doc.rev} · updated ${doc.updatedAt} · Barkpark paper`, '', 'Top-level blocks: ' + blocks.join(', '), '', barkpark.readablePaper(doc, input.format)].join('\n');
     }
     case 'edit_document':
     case 'propose_document_edit': {
-      const edit = await edits.apply({ ...input, baseRev: run.readRevisions?.get(input.id) });
+      const edit = await edits.apply({ ...input, baseRev: run.readRevisions?.get(input.id) }, run.scope.connection);
       run.readRevisions.set(input.id, edit.afterRev);
-      const doc = documents.get(input.id);
-      emit({ type: 'activity', target: { kind: 'doc', id: doc.id, title: doc.title }, label: `Edited ${doc.title}`, detail: input.summary, libraryChanged: true, agentEdit: true });
-      return `Saved edit to "${doc.title}" at revision ${edit.afterRev}. Undo is available in the document.`;
+      const title = run.readTitles?.get(input.id) || documents.get(input.id)?.title || input.id;
+      emit({ type: 'activity', target: documentTarget(input.id, title), label: `Edited ${title}`, detail: input.summary, libraryChanged: true, agentEdit: true });
+      return `Saved edit to "${title}" at revision ${edit.afterRev}. Undo is available in the document.`;
+    }
+    case 'edit_table': {
+      const edit = await edits.applyTable({ ...input, baseRev: run.readRevisions?.get(input.id) }, run.scope.connection);
+      run.readRevisions.set(input.id, edit.afterRev);
+      const title = run.readTitles?.get(input.id) || input.id;
+      emit({ type: 'activity', target: documentTarget(input.id, title), label: `Edited ${title}`, detail: input.summary, libraryChanged: true, agentEdit: true });
+      return `Saved table edit to "${title}" at revision ${edit.afterRev}. Undo is available in the document.`;
     }
     case 'create_document': {
       const doc = documents.create({ title: input.title, markdown: input.markdown, actor: 'agent' });

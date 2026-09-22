@@ -76,7 +76,8 @@ function markdownView(blocks) {
 function readablePaper(paper, format) {
   if (format === 'structured') {
     if (!Array.isArray(paper.blocks)) throw new Error('This paper has no structured blocks; read its Markdown/HTML representation.');
-    return JSON.stringify({ id: paper.id || paper.slug, title: paper.title, rev: paper.rev, blocks: paper.blocks }, null, 2);
+    const slug = paper.id || paper.slug;
+    return JSON.stringify({ id: slug ? 'bp:' + slug : undefined, title: paper.title, rev: paper.rev, blocks: paper.blocks }, null, 2);
   }
   if (paper.markdownError && paper.blocks) return 'Markdown representation unavailable: ' + paper.markdownError + '\nUse these PortableDoc blocks as authoritative content. For tables, call edit_table with the stable block id after this read; its cells use zero-based row/column and optional header:true. It preserves untouched content and metadata. Do not replace this JSON as Markdown.\n' + JSON.stringify(paper.blocks, null, 2);
   return paper.markdown || htmlToText(paper.html);
