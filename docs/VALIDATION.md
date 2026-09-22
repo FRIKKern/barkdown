@@ -9,9 +9,9 @@ Baseline at the 2026-09-21 roadmap reset. Implementation evidence is separate fr
 | Managed Windows local runtime | Barkdown `930fc2f`: `npm run test:local` passed actual private PostgreSQL/Barkpark startup, authenticated reads, crash recovery and restart. Expanded `local-barkpark-ui.live.mjs` passed editing through recovery, saved state after restart, Settings status, quit/window-close cleanup. | Built checkout/toolchain required. Injected worker-failure log detection is unit-tested; actual OS error 487 is not deterministically reproduced. No packaged install or multi-profile proof. |
 | Repository and screenshots | Root `npm run verify` passed; status image manifest at `5c91d29`. | Concept/build checks are not production storage or sync tests. |
 
-## Combined integration checkpoint — 22 September
+## Combined integration checkpoint â€” 22 September
 
-These are branch-specific results, not a main release or completion of P1–P5.
+These are branch-specific results, not a main release or completion of P1â€“P5.
 
 | Source / scope | Verified evidence | Remaining limits |
 |---|---|---|
