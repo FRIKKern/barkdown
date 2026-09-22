@@ -1,5 +1,13 @@
 # Continue the dependable-workspace plan
 
+## Current checkpoint — 23 September
+
+Integration evidence is committed through `42432cb` on `codex/integration-12h`. Full desktop passed at `1b01bf2`; subsequent changes affect capture tooling only and pass 18 focused lifecycle/history checks. Final root verification passed. Final deterministic and live Paper/Codex captures both identify source `3e8a2aa`; their named reviews cover 40 fixture stills/40 motion frames and five live stills/all 37 GIF frames. E012 now consumes clean upstream `bf23f773` and the C030 strict native matrix passed 13/13. See [C008](cycles/C008-integration.md) for exact source boundaries and retained failures.
+
+The next action is to push outstanding local commits and confirm the remote branch. GitHub HTTPS repeatedly timed out; inspect current Git state before assuming publication. Keep main unchanged. P1 remains incomplete because shared device authentication policy is unresolved; portability, clean-machine installation and external release gates are still separate requirements. Existing evidence applies to this documentation-only reconciliation without recapture.
+
+## Historical 22 September checkpoint (superseded by the checkpoint above)
+
 **Current imported candidate (22 September):** `d20aa09` on `codex/integration-12h` includes E011 production consumption `22ef23b`, C033 context reservation `f19a6ef`, C032 preflight `4c1709a` and native fixture `b585640`, plus their imported original evidence. Earlier C016/C026/C028 and C021/C023/C024/C025/C027 imports remain. Global fixture approval and status images are stale for this candidate; fresh combined gates are pending. See [C008](cycles/C008-integration.md) and [A1](cycles/A1-current-evidence.md).
 
 **Last fully validated combined fallback:** `d8acb82`. Full desktop64608 passed at app source b083c60; visual-tooling source e380385 has 40 reviewed fixture frames/GIFs, actual Codex/Paper status5397, and root verify86276 passed. Original lane proofs retain their source commits. No main merge or deployment; P1 remains incomplete.

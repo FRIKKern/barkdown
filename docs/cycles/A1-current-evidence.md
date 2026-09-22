@@ -1,5 +1,11 @@
 # A1 current evidence - 22 September 2026
 
+## 23 September integration update
+
+The historical table below preserves lane evidence and limitations. Its pending combined-test statements are superseded by [C008's final integration evidence](C008-integration.md): combined desktop passed at `1b01bf2`, all eight dedicated native journeys passed at `3ce6b21`/`41500dc`, final fixture and live Paper/Codex reviews passed at `3e8a2aa`, and root verification passed. The profile credential boundary remains unresolved, so these bounded passes do not close A1. Portability and release acceptance also remain open. No main merge occurred.
+
+## Historical lane checkpoint
+
 This is a coordinator checkpoint, not stage approval. The original [A1 requirements](../ACCEPTANCE.md#a1--profile-ownership-and-isolation) remain unchanged. Combined production candidate `d20aa09` has new source and original lane evidence; `d8acb82` remains the last fully validated combined fallback. Lane passes do not transfer to a different combined source.
 
 | Requirement | Evidence and remaining action |

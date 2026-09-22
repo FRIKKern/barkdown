@@ -1,5 +1,13 @@
 # Evidence and remaining proof
 
+## Current integration evidence — 23 September
+
+The reviewed integration checkpoint is recorded through `42432cb`. Full combined desktop passed at `1b01bf2`; the eight dedicated native journeys passed at `3ce6b21` and `41500dc` with independent media review. E012 consumption and C030 strict native parity (13/13) are retained separately with their original provenance. Old/current server fallback replays passed at `13cba57`.
+
+Final capture source `3e8a2aa` has approved deterministic evidence (40 stills/40 motion frames) and independently approved live Paper/Codex evidence (five stills/all 37 GIF frames). Capture-only changes pass 18 lifecycle/history checks. Root `npm run verify` and the subsequent handoff `npm run check` passed. [C008](cycles/C008-integration.md) records the exact runs and limits. Publication is pending GitHub connectivity; no merge or deployment is claimed. Device authentication, portability and release acceptance remain incomplete.
+
+## Historical ledger (the checkpoint above supersedes older pending combined-gate statements)
+
 Baseline at the 2026-09-21 roadmap reset. Implementation evidence is separate from the pending journey gates in [ACCEPTANCE.md](ACCEPTANCE.md). [Original concept validation](archive/2026-09-21-validation.md) is archived.
 
 | Baseline | Evidence | Limits |
