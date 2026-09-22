@@ -69,3 +69,5 @@ Use [the local-runtime guide](../docs/LOCAL-BARKPARK.md) for setup and [the acce
 Each page contains a still, recorded interaction GIF, provenance and changelog. [Rules and coverage limits](../docs/visual/RULES.md) distinguish visual review from functional/runtime proof.
 
 - [Terminal ownership](../docs/visual/terminal-ownership/README.md): C018 native process proof passed; combined actual UI/evidence closeout pending.
+
+- [Project-buffer preservation](../docs/visual/project-buffers/README.md): actual CodeMirror refusal preserves unsaved text until explicit Save.
