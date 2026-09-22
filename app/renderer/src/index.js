@@ -728,6 +728,9 @@ function wire() {
   }
   if (!state.chats[DIRECT]) directChat();
   wire();
+  // Navigation and unload can save the prompt while library requests are pending.
+  // Restore its owned draft before the first asynchronous library refresh.
+  mainComposer.render();
   await refreshLibrary();
   render();
   if (state.mode === 'chat') q('#bw-transcript').scrollTop = currentChat()?.chatScroll || 0;
