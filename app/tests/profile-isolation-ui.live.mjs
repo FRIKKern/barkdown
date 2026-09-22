@@ -54,7 +54,7 @@ try {
   const a = (await page.evaluate(() => window.barkdown.profiles.status())).profileId;
   const b = (await page.evaluate(() => window.barkdown.profiles.create('Fixture B'))).id;
   const aRuntime = await seed('A'); await openPaper(); assert.match(await paperText(), /Only A owns amberwitness/);
-  await page.locator('.bw-tab.active [data-fav]').click();
+  await page.locator('.bw-tab.active').hover(); await page.locator('.bw-tab.active [data-fav]').click({ timeout: 10000 });
   const capturedA = await app.evaluate(() => globalThis.isolationConfigs.A);
   mcp = new Client({ name: 'profile-isolation-proof', version: '1.0.0' });
   await mcp.connect(new StdioClientTransport({ command: process.execPath, args: [path.resolve('main/mcp-server.js'), aRuntime.storeDir], env: { ...process.env, BARKDOWN_RUN_CONNECTION: JSON.stringify(capturedA), BARKDOWN_BP_TOKEN: capturedA.token } }));
@@ -69,7 +69,7 @@ try {
   assert(fs.existsSync(path.join(aRuntime.storeDir, 'local-barkpark/runtime/pgdata/postmaster.pid')));
   assert(fs.existsSync(path.join(bRuntime.storeDir, 'local-barkpark/runtime/pgdata/postmaster.pid')));
   assert.deepEqual(await page.evaluate(() => window.__barkdown.state.favorites), []);
-  await page.locator('.bw-tab.active [data-fav]').click();
+  await page.locator('.bw-tab.active').hover(); await page.locator('.bw-tab.active [data-fav]').click({ timeout: 10000 });
   const bChat = await page.evaluate(folder => {
     const s = window.__barkdown.state, c = s.chats[s.current]; c.folder = folder; c.provider = 'codex'; c.draft = 'B draft must survive A completion'; c.following = false;
     s.chats['side-B'] = { id: 'side-B', title: 'B saved side chat', side: true, parent: c.id, draft: 'B side draft', messages: [], events: [], apiHistory: [], tabs: [], following: false }; s.order.push('side-B');
