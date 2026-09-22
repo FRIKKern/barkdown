@@ -293,3 +293,75 @@ test('malformed recovery guard and depth limit retain entire authority chain', (
     console.log(JSON.stringify({ mode, root: a.root, recovery: 'explicit inspection required, all authority retained' }));
   }
 });
+
+test('guard unlink refusal does not strand newly acquired writer', { skip: process.platform !== 'win32', timeout: 20000 }, async () => {
+  const { spawn } = await import('node:child_process');
+  const a = adapter('workspace'), before = fs.readFileSync(a.file), guard = a.lease + '.recovery';
+  fs.writeFileSync(a.lease, JSON.stringify({ pid: 2147483647, lease: 'ef97b0da-64c1-4f98-aa71-d282f5b8a111' }));
+  const ready = path.join(a.root, 'reader-ready'), stop = path.join(a.root, 'reader-stop');
+  const script = "$until = [DateTime]::UtcNow.AddSeconds(10); while (-not [System.IO.File]::Exists($env:BD_GUARD)) { if ([DateTime]::UtcNow -gt $until) { throw 'Guard did not appear' }; Start-Sleep -Milliseconds 2 }; $stream = [System.IO.File]::Open($env:BD_GUARD, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [System.IO.FileShare]::ReadWrite); try { [System.IO.File]::WriteAllText($env:BD_READY, 'ready'); while (-not [System.IO.File]::Exists($env:BD_STOP)) { if ([DateTime]::UtcNow -gt $until) { throw 'Reader release timed out' }; Start-Sleep -Milliseconds 2 } } finally { $stream.Dispose() }";
+  const child = spawn('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command', script], { windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'], env: { ...process.env, BD_GUARD: guard, BD_READY: ready, BD_STOP: stop } });
+  let errors = ''; child.stderr.on('data', b => errors += b); const exited = new Promise(resolve => child.once('exit', resolve));
+  const open = fs.openSync, link = fs.linkSync; const descriptors = new Map(); let writerFd;
+  fs.openSync = (file, ...args) => { const fd = open(file, ...args); if (typeof file === 'string' && file.startsWith(a.lease + '.owner-')) descriptors.set(file, fd); return fd; };
+  fs.linkSync = (source, destination) => {
+    const result = link(source, destination);
+    if (destination === a.lease) {
+      writerFd = descriptors.get(source); const until = Date.now() + 10000;
+      while (!fs.existsSync(ready)) { assert.ok(Date.now() < until, 'Reader not ready: ' + errors); Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 5); }
+    }
+    return result;
+  };
+  let failure;
+  try {
+    try { a.write(); } catch (error) { failure = error; }
+    assert.ok(['EPERM', 'EBUSY'].includes(failure?.code)); assert.deepEqual(fs.readFileSync(a.file), before);
+    let descriptorOpen; try { fs.fstatSync(writerFd); descriptorOpen = true; } catch { descriptorOpen = false; }
+    const proof = { root: a.root, error: failure.message, writerLeaseLeft: fs.existsSync(a.lease), writerDescriptorOpen: descriptorOpen };
+    fs.writeFileSync(path.join(a.root, 'guard-release-proof.json'), JSON.stringify(proof, null, 2)); console.log(JSON.stringify(proof));
+    assert.equal(descriptorOpen, false, 'new writer descriptor must close when acquisition cannot return it');
+    assert.equal(fs.existsSync(a.lease), false, 'failed acquisition must not orphan new live-PID writer');
+  } finally { fs.openSync = open; fs.linkSync = link; fs.writeFileSync(stop, 'stop'); assert.equal(await exited, 0, errors); }
+  const alias = createProfileRegistry(a.root.toUpperCase()); alias.storeFor(alias.load().selectedProfileId).writeJson('workspace.json', { revision: 2 });
+  assert.equal(a.read().revision, 2, 'same process can write through a Windows case alias after known reader releases');
+  assert.equal(fs.existsSync(guard), false, 'retained cleanup handle releases its exact guard on next call');
+});
+
+for (const mode of ['primary-error', 'root-cleanup-error', 'foreign-root', 'foreign-guard', 'normal-release']) {
+  test(`complete owner cleanup preserves ${mode} diagnostics and ownership`, () => {
+    const a = adapter('workspace'), before = fs.readFileSync(a.file), guard = a.lease + '.recovery';
+    if (mode !== 'normal-release') fs.writeFileSync(a.lease, JSON.stringify({ pid: 2147483647, lease: 'ef97b0da-64c1-4f98-aa71-d282f5b8a111' }));
+    const unlink = fs.unlinkSync, rename = fs.renameSync, open = fs.openSync, link = fs.linkSync;
+    const descriptors = new Map(); let writerFd, guardRefused = false, rootRefused = false, failure;
+    const primary = injected('EIO'), guardError = injected('EBUSY'), rootError = injected('EACCES');
+    const foreign = JSON.stringify({ pid: process.pid, lease: '8e1d9852-bc2e-4a3d-926d-3c33b7251438' });
+    fs.openSync = (file, ...args) => { const fd = open(file, ...args); if (typeof file === 'string' && file.startsWith(a.lease + '.owner-')) descriptors.set(file, fd); return fd; };
+    fs.linkSync = (source, destination) => { const result = link(source, destination); if (destination === a.lease) writerFd = descriptors.get(source); return result; };
+    fs.renameSync = (source, destination) => { if (mode === 'primary-error' && source === a.lease) throw primary; return rename(source, destination); };
+    fs.unlinkSync = file => {
+      if (file === guard && !guardRefused) {
+        guardRefused = true;
+        if (mode === 'foreign-root') fs.writeFileSync(a.lease, foreign);
+        if (mode === 'foreign-guard') fs.writeFileSync(guard, foreign);
+        throw guardError;
+      }
+      if (file === a.lease && !rootRefused && (mode === 'root-cleanup-error' || mode === 'normal-release')) { rootRefused = true; throw rootError; }
+      return unlink(file);
+    };
+    try { try { a.write(); } catch (error) { failure = error; } }
+    finally { fs.unlinkSync = unlink; fs.renameSync = rename; fs.openSync = open; fs.linkSync = link; }
+    assert.ok(failure);
+    if (writerFd !== undefined) assert.throws(() => fs.fstatSync(writerFd), { code: 'EBADF' }, 'rejected acquisition/release closes its descriptor');
+    if (mode === 'primary-error') { assert.equal(failure, primary); assert.equal(failure.cleanupErrors[0], guardError); }
+    if (mode === 'root-cleanup-error') { assert.equal(failure, guardError); assert.equal(failure.cleanupErrors[0], rootError); }
+    if (mode === 'foreign-root') { assert.equal(failure, guardError); assert.match(failure.cleanupErrors[0].message, /another owner/); assert.equal(fs.readFileSync(a.lease, 'utf8'), foreign); }
+    if (mode !== 'normal-release') assert.deepEqual(fs.readFileSync(a.file), before);
+    else { assert.equal(failure, rootError); assert.equal(a.read().revision, 2, 'rename committed but caller saw cleanup failure'); }
+    if (mode.startsWith('foreign')) {
+      assert.throws(a.write, /another owner/);
+      assert.equal(fs.readFileSync(mode === 'foreign-root' ? a.lease : guard, 'utf8'), foreign, 'cleanup never deletes another owner');
+    } else {
+      a.write(); assert.equal(a.read().revision, 2); assert.equal(fs.existsSync(a.lease), false); assert.equal(fs.existsSync(guard), false);
+    }
+  });
+}

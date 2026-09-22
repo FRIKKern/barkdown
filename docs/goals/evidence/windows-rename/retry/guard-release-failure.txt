@@ -1,0 +1,32 @@
+TAP version 13
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-N8F3Zo","error":"EBUSY: resource busy or locked, unlink 'C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-N8F3Zo\\\\profiles\\\\37ddabaa-be38-4901-a616-f5fe5c831c47\\\\workspace.json.write-lease.recovery'","writerLeaseLeft":true,"writerDescriptorOpen":true}
+# Subtest: guard unlink refusal does not strand newly acquired writer
+not ok 1 - guard unlink refusal does not strand newly acquired writer
+  ---
+  duration_ms: 338.3067
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\fc7e\\barkdown\\app\\tests\\atomic-write.test.mjs:297:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    new writer descriptor must close when acquisition cannot return it
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/fc7e/barkdown/app/tests/atomic-write.test.mjs:322:12)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 460.1383
