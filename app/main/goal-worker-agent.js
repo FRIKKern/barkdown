@@ -5,14 +5,19 @@ const check = (ok, message) => { if (!ok) throw new Error(message); };
 // Main registry remains the authority for UI approvals, cancellation and events.
 // Provider SDKs and all ordinary child processes execute in the owned job.
 function createGoalWorkerAgent({ launch = launchOwnedWorker, verify = verifyOwnedWorker, script = path.join(__dirname, 'goal-worker.js') } = {}) {
-  const active = new Map(), completions = new Map();
+  const active = new Map(), completions = new Map(), settled = [];
   async function start(options) {
-    check(options.goalAttemptId, 'Owned workers require a reserved goal attempt');
-    const run = runs.createRun(options), identity = { storeDir: run.scope.storeDir, profileId: run.scope.profileId, attemptId: options.goalAttemptId };
+    const attemptId = options.attemptId || options.goalAttemptId;
+    check(attemptId, 'Owned workers require a reserved attempt');
+    const run = runs.createRun(options), identity = { storeDir: run.scope.storeDir, profileId: run.scope.profileId, attemptId };
     let host, completed = false, terminal = false, resolveCompletion, rejectCompletion;
     const completion = new Promise((resolve, reject) => { resolveCompletion = resolve; rejectCompletion = reject; }); completion.catch(() => {});
     completions.set(run.id, completion);
-    const record = { run, identity, async finalize() { await runs.finish(run); active.delete(run.id); resolveCompletion(await runs.waitForRunFinish(run.id)); } };
+    let recordedSettlement = false;
+    const record = { run, identity, async finalize() {
+      await runs.finish(run); active.delete(run.id); resolveCompletion(await runs.waitForRunFinish(run.id));
+      if (!recordedSettlement) { recordedSettlement = true; settled.push(run.id); while (settled.length > 200) completions.delete(settled.shift()); }
+    } };
     active.set(run.id, record);
     run.onCancel = () => host?.stop();
     (async () => {
@@ -61,4 +66,4 @@ function createGoalWorkerAgent({ launch = launchOwnedWorker, verify = verifyOwne
   return { start, cancel: runs.cancel, respondApproval: runs.respondApproval,
     waitForRunFinish(id) { return completions.get(id) || runs.waitForRunFinish(id); }, verifyTermination };
 }
-module.exports = { createGoalWorkerAgent };
+module.exports = { createGoalWorkerAgent, createOwnedWorkerAgent: createGoalWorkerAgent };

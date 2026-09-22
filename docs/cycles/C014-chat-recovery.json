@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "id": "C014",
+  "stage": "P1",
+  "status": "active",
+  "goal": "Recover ordinary managed chat interruptions without losing partial work or replaying unsafe effects.",
+  "scope": [
+    "Windows managed ordinary and side chats",
+    "Owned process proof and explicit reviewed recovery",
+    "No legacy nonprofile recovery or automatic replay"
+  ],
+  "acceptance": [
+    "Actual abrupt Electron exit preserves partial work and no replay",
+    "Trusted termination before releasing unfinished attempt",
+    "Explicit new turn after review",
+    "Regression and visual evidence closeout"
+  ],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C014-chat-recovery.md",
+  "nextAction": "Complete full regression, source commit, committed recovery/video and visual/live evidence review.",
+  "evidence": [],
+  "truthReview": "Actual owned-worker parent and side interruption/recovery fixture passed; no legacy nonprofile claim. C012 evidence published fb1ed55.",
+  "screenshotReview": "New actual recovery evidence required after implementation."
+}

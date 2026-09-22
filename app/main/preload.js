@@ -41,6 +41,7 @@ const api = {
   agent: {
     start: (chatId, messages, context, provider, session, prompt, images, options) => call('agent:start', { chatId, messages, context, provider, session, prompt, images, options }),
     cancel: runId => call('agent:cancel', runId),
+    recover: input => call('agent:recover', input),
     approve: (runId, approvalId, approved) => call('agent:approve', { runId, approvalId, approved }),
     onEvent: handler => { const listener = (_e, event) => handler(event); ipcRenderer.on('agent:event', listener); return () => ipcRenderer.removeListener('agent:event', listener); },
   },

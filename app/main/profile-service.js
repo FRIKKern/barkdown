@@ -7,12 +7,16 @@ const { captureScope } = require('./providers/run-scope');
 const runRegistry = require('./providers/runs');
 const { createWorkspaceRepository } = require('./workspace-repository');
 
-function createProfileService({ registry, agent = require('./agent'), workspaces = createWorkspaceRepository({ registry }),
+function createProfileService({ registry, agent = process.platform === 'win32' ? require('./goal-worker-agent').createOwnedWorkerAgent() : require('./agent'), workspaces = createWorkspaceRepository({ registry }),
   settingsFor = store => store.readJson('settings.json', {}), connectionFor = () => ({ enabled: false }), runtimePool = null,
   sendEvent = () => {}, defaultProvider = () => 'api' }) {
   let generation = crypto.randomUUID();
   let switching = false;
   const completions = new Map();
+  const dispatching = new Set();
+  function recoverOrphans(profileId) {
+    return workspaces.interruptOrdinary(profileId, (attemptId, runId, status) => dispatching.has(attemptId) || status !== 'interrupted' && runRegistry.runs.get(runId)?.scope.profileId === profileId);
+  }
   function selected() {
     const data = registry.load();
     if (!data?.selectedProfileId) throw new Error('No profile is selected');
@@ -25,7 +29,7 @@ function createProfileService({ registry, agent = require('./agent'), workspaces
     if (!owner || owner.profileId !== selected() || owner.generation !== generation) throw new Error('Stale or foreign profile view');
     return owner.profileId;
   }
-  function load(owner) { const profileId = validate(owner); return { ...workspaces.load(profileId), profileId, generation }; }
+  function load(owner) { const profileId = validate(owner); return { ...recoverOrphans(profileId), profileId, generation }; }
   function save(owner, snapshot) {
     const profileId = validate(owner);
     if (snapshot.profileId && (snapshot.profileId !== profileId || snapshot.generation !== owner.generation)) throw new Error('Workspace snapshot belongs to a stale profile view');
@@ -64,17 +68,24 @@ function createProfileService({ registry, agent = require('./agent'), workspaces
   async function start(owner, input) {
     input = structuredClone(input);
     const profileId = validate(owner), attemptId = input.attemptId || crypto.randomUUID();
+    recoverOrphans(profileId);
     const resolved = await resolve(profileId, input.chatId, { attemptId });
     let runId = null, began = false, released = false, persistenceFault = null;
     const release = async () => { if (!released) { released = true; await resolved.release(); } };
     const request = { profileId, chatId: input.chatId, attemptId, prompt: input.prompt || '', images: input.images || [], provider: resolved.chat.provider };
+    function notifyDriverState() {
+      const ws = recoverOrphans(profileId), chat = ws.chats[request.chatId], attempt = ws.ownership.attempts[attemptId];
+      if (registry.load()?.selectedProfileId === profileId) sendEvent({ type: 'driver_state', profileId, chatId: request.chatId, runId, attemptId,
+        assistantId: attempt.assistantId, driverFinished: attempt.driverFinished, interruption: chat.interruption || null });
+    }
     function observeCompletion() {
       if (completions.has(runId)) return;
       const completion = agent.waitForRunFinish(runId).then(result => {
         workspaces.finish(request, { ...result, status: persistenceFault ? 'interrupted' : result.status, driverFinished: true });
+        notifyDriverState();
         return result;
       }).catch(error => {
-        try { workspaces.finish(request, { runId, status: 'interrupted', text: error.message, driverFinished: false }); } catch {}
+        try { workspaces.finish(request, { runId, status: 'interrupted', text: error.message, driverFinished: false }); notifyDriverState(); } catch {}
         throw error;
       });
       completions.set(runId, completion);
@@ -88,10 +99,11 @@ function createProfileService({ registry, agent = require('./agent'), workspaces
       const reservation = workspaces.begin(request, resolved);
       if (!reservation.fresh) throw new Error('This attempt was already reserved; do not dispatch it again');
       began = true;
+      dispatching.add(attemptId);
       const model = resolved.chat.model;
       const providerSettings = { ...resolved.settings, effort: resolved.chat.effort || undefined };
       if (model) providerSettings[request.provider === 'api' ? 'model' : request.provider === 'claude' ? 'claudeModel' : 'codexModel'] = model;
-      const result = await agent.start({ profileId, chatId: request.chatId, scope: resolved.scope, storeDir: resolved.scope.storeDir,
+      const result = await agent.start({ attemptId, profileId, chatId: request.chatId, scope: resolved.scope, storeDir: resolved.scope.storeDir,
         context: resolved.scope.context, provider: request.provider, session: resolved.chat.sessions?.[request.provider] || null,
         settings: providerSettings, messages: reservation.history, prompt: request.prompt, images: request.images, onFinish: release,
         send(event) {
@@ -115,7 +127,20 @@ function createProfileService({ registry, agent = require('./agent'), workspaces
         if (began) workspaces.finish(request, { status: 'failed', text: error.message, driverFinished: true });
       }
       throw error;
-    }
+    } finally { dispatching.delete(attemptId); }
+  }
+  async function recover(owner, { chatId, attemptId, action, note }) {
+    const profileId = validate(owner);
+    recoverOrphans(profileId);
+    const { attempt } = workspaces.ordinaryRecovery(profileId, chatId, attemptId);
+    if (!attempt.request || !agent.verifyTermination) throw new Error('This older attempt has no owned-process receipt. Keep it blocked until its process and effects can be verified.');
+    if (!['verify', 'review'].includes(action)) throw new Error('Unknown recovery action');
+    const stopped = await agent.verifyTermination({ request: { profileId, attemptId, storeDir: registry.storeFor(profileId).storeDir }, runId: attempt.runId });
+    validate(owner);
+    if (!stopped) throw new Error('The previous process is not verified stopped. No new turn was allowed.');
+    workspaces.verifyOrdinary(profileId, chatId, attemptId);
+    if (action === 'review') workspaces.releaseOrdinary(profileId, chatId, attemptId, note);
+    return load(owner);
   }
   function ownedRun(owner, runId) {
     const profileId = validate(owner), run = runRegistry.runs.get(runId);
@@ -155,6 +180,6 @@ function createProfileService({ registry, agent = require('./agent'), workspaces
       return { profileId, generation, cleanupWarning };
     } finally { switching = false; }
   }
-  return Object.freeze({ view, validate, load, save, resolve, start, cancel, approve, wait, select, workspaces, settings });
+  return Object.freeze({ view, validate, load, save, resolve, start, cancel, approve, wait, select, recover, workspaces, settings });
 }
 module.exports = { createProfileService };
