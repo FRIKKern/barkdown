@@ -9,9 +9,15 @@ Baseline at the 2026-09-21 roadmap reset. Implementation evidence is separate fr
 | Managed Windows local runtime | Barkdown `930fc2f`: `npm run test:local` passed actual private PostgreSQL/Barkpark startup, authenticated reads, crash recovery and restart. Expanded `local-barkpark-ui.live.mjs` passed editing through recovery, saved state after restart, Settings status, quit/window-close cleanup. | Built checkout/toolchain required. Injected worker-failure log detection is unit-tested; actual OS error 487 is not deterministically reproduced. No packaged install or multi-profile proof. |
 | Repository and screenshots | Root `npm run verify` passed; status image manifest at `5c91d29`. | Concept/build checks are not production storage or sync tests. |
 
-## Latest combined checkpoint
+## Last fully validated combined checkpoint
 
-Source e380385: full desktop64608 and root verify86276 passed. Forty fixture frames plus GIFs reviewed; actual Codex/Paper status5397 passed with private runtime stopped. See [C008 exact scope and limits](cycles/C008-integration.md). No main release; C016, E007 and C021 remain pending.
+Source e380385: full desktop64608 and root verify86276 passed. Forty fixture frames plus GIFs reviewed; actual Codex/Paper status5397 passed with private runtime stopped. See [C008 exact scope and limits](cycles/C008-integration.md). No main release. Newer C016/E007/C021 original lane evidence is now imported; those original passes do not validate the combined candidate.
+
+## Current candidate and release gates
+
+Combined source16a3b60 integrates C016 reading-position restoration with newer queued-edit refresh; all31 host checks pass. C023, C024 and C025 sources and original lane evidence are integrated; full combined desktop, actual native consumption, fixture/live captures and root verification remain pending. The missing-folder API search correction and strengthened fixture assertions pass the complete agent suite. [C008](cycles/C008-integration.md) owns subsequent source/evidence imports.
+
+[Read-only release audit](cycles/evidence/release-gates-2026-09-22.json): upstream PR19579 is still open/blocked at a544, with failing checks. The successful parity job skipped its actual rows; BARKDOWN_READ_TOKEN is absent. G1/G2 remain uncleared. No secret, branch or workflow configuration was changed.
 
 ## Combined integration checkpoint — 22 September
 

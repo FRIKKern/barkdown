@@ -48,6 +48,8 @@ No sync engine, wholesale runtime rewrite or deletion of the old store before mi
 | G1: upstream editor integration | [Barkpark PR #19579](https://github.com/FRIKKern/barkpark/pull/19579) was open at this reset. | Required checks and merge verified; pin and retest the consumed baseline. |
 | G2: cross-repository regression enforcement | [Issue #4](https://github.com/FRIKKern/barkdown/issues/4) needs the private-repo read token and deliberate broken-Tab proof. | Both repositories run the matrix; an intentional regression blocks the upstream PR. Never commit a credential. |
 
+The [22 September read-only gate audit](cycles/evidence/release-gates-2026-09-22.json) confirms PR #19579 remains open/blocked at a5440345c. Its green parity job skipped checkout, build and the actual rows because the read token is absent. It does not establish matrix enforcement. No secret configuration or upstream workflow was changed.
+
 G1/G2 gate the integrated pilot, not isolated P1 implementation. Recheck external state before acting. The editor matrix still records limited server-side undo proof; carry that verification into P2/P3 rather than declaring all rows complete.
 
 ## Existing issue mapping
