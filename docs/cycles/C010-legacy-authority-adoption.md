@@ -16,7 +16,7 @@ Proposed acquireAuthorityLease(userData) is a module-branded, canonical-root-bou
 
 ## Ownership and next action
 
-This lane edits helper/tests/docs only; no main/preload/renderer changes. Central cycle queue remains coordinator-owned. Read-only audit found C003 requires a new registry and auto-selects within it, while C006 currently creates Personal before any adoption gate. Candidate staging isolates that selection until publication. Next: freeze authority lease API with C006, implement storage transaction and fixture corpus, then coordinate real boot proof. No C010 services or code changes exist yet.
+This lane edits helper/tests/docs only; no main/preload/renderer changes. Central cycle queue remains coordinator-owned. Read-only audit found C003 requires a new registry and auto-selects within it, while C006 currently creates Personal before any adoption gate. Candidate staging isolates that selection until publication. The authority lease API is agreed and implemented. Next: coordinated real boot proof and validation closeout. No C010 runtime is running in this lane.
 
 ## Implementation checkpoint
 
@@ -33,3 +33,11 @@ All sixteen composite subprocess exits passed (fixture96ufLr). File-lease regres
 After coordinator review, missing outer journal with retained staging or published adoption marker blocks startup and new preparation; an unrelated ordinary profile registry still inspects as none. Rollback checks every later-created profile runtime, including owner leases and recorded PostgreSQL PIDs, before retiring the entire authority. Every async boundary and journal/reference publication rechecks the branded authority lease. Losing ownership during shell copy, awaited cold validation or streamed candidate verification prevents further publication.
 
 Targeted helper suite passed at fixture barkdown-authority-2qmbQh, including all sixteen actual subprocess exits. File-lease regressions passed at barkdown-file-lease-Ub64VN; cold-adoption regressions passed at barkdown-cold-adoption-lmf30N. git diff --check passed. C006 lane will own the single actual Electron + real runtime adoption/restart/edit/rollback proof using this helper commit; this lane owns helper regression and visual evidence. No actual user data migrated and no C010 runtime is running in this lane.
+
+
+## Source checkpoint e16eaa7 validation
+
+Full npm run test:desktop passed: profile registry24, runtime pool13, cold adoption and composite authority interruption corpus, all backend suites,76 desktop assertions, direct editing/Undo/human takeover, composer history and full side-chat persistence. Deterministic capture2026-09-22T00-00-09-406Z was compared, all21 stills and21 decoded frames in five GIFs actually inspected, and explicitly approved. Zero pixel/geometry differences; pre-existing GIF palette/shadow banding remains. This is existing fixture shell coverage, not real adoption UI evidence.
+
+Root npm run verify failed at the expected live status freshness gate: source e16eaa725 versus captured63def040d. No gate bypass or stale evidence promotion. Parent directed one coordinated real Electron adoption proof in the main/boot lane before redundant source status capture; that lane holds the shared a544 source window. C010 stays active. Root bootstrap correction5a3a502 is known but not imported into this source checkpoint. Next: link actual main-lane runtime evidence, complete appropriate live freshness and root verification on combined source; independently audit remaining A1 ownership/recovery gaps meanwhile.
+Root concept npm test and standalone npm run check:visual both passed after the freshness failure; this does not change the failed aggregate verify result. All reviewed fixture evidence is committed as a checkpoint while C010 remains active.
