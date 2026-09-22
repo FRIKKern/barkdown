@@ -96,7 +96,12 @@ function createProfileService({ registry, agent = require('./agent'), workspaces
         settings: providerSettings, messages: reservation.history, prompt: request.prompt, images: request.images, onFinish: release,
         send(event) {
           if (persistenceFault) return;
-          try { runId ||= event.runId; workspaces.event(request, event); if (selected() === profileId) sendEvent({ ...event, assistantId: reservation.assistantId, attemptId }); }
+          try {
+            runId ||= event.runId; workspaces.event(request, event);
+            // Background ownership is independent of the foreground workspace's
+            // readability. A missing B must not cancel A after persisting its event.
+            if (registry.load()?.selectedProfileId === profileId) sendEvent({ ...event, assistantId: reservation.assistantId, attemptId });
+          }
           catch (error) { persistenceFault = error; if (runId) agent.cancel(runId); }
         } });
       runId = result.runId;
