@@ -162,7 +162,15 @@ finally {
   function scan(dir) { for (const entry of fs.readdirSync(dir, { withFileTypes: true })) { const file = path.join(dir, entry.name); if (entry.isDirectory()) scan(file); else if (entry.name === 'postmaster.pid') pids.push(file); } }
   scan(userData); report.stopped = !pids.length && !cleanupErrors.length; report.cleanupErrors = cleanupErrors; report.finishedAt = new Date().toISOString();
   const { GIFEncoder, quantize, applyPalette } = require('gifenc'), { PNG } = require('pngjs'); const gif = GIFEncoder();
-  for (const file of report.frames) { const png = PNG.sync.read(fs.readFileSync(path.join(out, file))), palette = quantize(png.data, 256); gif.writeFrame(applyPalette(png.data, palette), png.width, png.height, { palette, delay: 1200 }); }
+  const frames = report.frames.map(file => PNG.sync.read(fs.readFileSync(path.join(out, file))));
+  const width = Math.max(0, ...frames.map(frame => frame.width)), height = Math.max(0, ...frames.map(frame => frame.height));
+  for (const frame of frames) {
+    // Recovery and main windows have different native bounds. Letterbox without
+    // rescaling; the original stills retain exact layout and the GIF never clips.
+    const png = new PNG({ width, height }); png.data.fill(255);
+    PNG.bitblt(frame, png, 0, 0, frame.width, frame.height, 0, 0);
+    const palette = quantize(png.data, 256); gif.writeFrame(applyPalette(png.data, palette), width, height, { palette, delay: 1200 });
+  }
   if (report.frames.length) { gif.finish(); fs.writeFileSync(path.join(out, 'adoption.gif'), gif.bytes()); }
   fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify(report, null, 2));
   console.log('Evidence:', out, 'stopped:', report.stopped);
