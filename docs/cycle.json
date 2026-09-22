@@ -15,9 +15,15 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C032-folder-preflight.md",
-  "nextAction": "Record failed-first tests, implement shared trusted preflight, prepare native main/side fixture without launching.",
+  "nextAction": "Run prepared actual main/side refusal fixture under named UI grant, then required evidence and combined gates.",
   "evidence": [
-    "docs/cycles/C032-folder-preflight.md"
+    "docs/cycles/C032-folder-preflight.md",
+    "app/main/provider-folder.js",
+    "app/tests/folder-preflight.test.mjs",
+    "app/tests/folder-preflight-composer.test.mjs",
+    "docs/cycles/evidence/C032-before.txt",
+    "docs/cycles/evidence/C032-focused.txt",
+    "docs/cycles/evidence/C032-verify.txt"
   ],
   "truthReview": "C029 original proof retained unchanged. No authentication policy changes.",
   "screenshotReview": "Pending named UI grant and combined final gates."

@@ -6,6 +6,7 @@ const documents = require('./documents');
 const files = require('./files');
 const git = require('./git');
 const agent = require('./agent');
+const { assertProviderFolder } = require('./provider-folder');
 const barkpark = require('./barkpark');
 const canvasBundle = require('./canvas-bundle');
 const terminal = require('./terminal');
@@ -330,6 +331,7 @@ function registerIpc() {
     if (readSettings().barkpark.local?.enabled && localStatus().phase !== 'ready') throw Object.assign(new Error('Local Barkpark is not ready. Check Settings → Barkpark before starting a run.'), { code: 'BARKDOWN_SEND_NOT_STARTED' });
     const s = readSettings();
     const chosen = provider || s.provider || defaultProvider();
+    assertProviderFolder(chosen, context?.folder);
     const o = options || {};
     // A chat's own model and effort win over the settings defaults.
     const settings = { apiKey: decrypt(s.apiKeyEncrypted), model: chosen === 'api' ? (o.model || s.model) : s.model, claudeModel: chosen === 'claude' ? (o.model || s.claudeModel) : s.claudeModel, codexModel: chosen === 'codex' ? (o.model || s.codexModel) : s.codexModel, effort: o.effort || undefined };

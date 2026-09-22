@@ -1,3 +1,11 @@
 # C032 — ordinary-chat folder preflight
 
 Base b68c42a with original C029 fixtures/evidence retained. No production changes to goals, API folder policy or authentication. Known missing/non-directory/denied-stat external provider folders should refuse with BARKDOWN_SEND_NOT_STARTED before reservation. Stat is not a complete access test and cannot prevent removal after check. Original C029 native SDK errors remain evidence of that later failure boundary.
+
+## Source checkpoint
+
+Failed-first4dab4ec:6/9 boundary cases failed because missing CLI folders dispatched/reserved. Shared provider-folder.js now checks only ordinary Claude/Codex nonempty selected paths. Missing/non-directory/stat EACCES/EPERM raises existing trusted BARKDOWN_SEND_NOT_STARTED before reservation; API/null-folder paths are unaffected. Managed uses resolved persisted provider/folder, not request override. Legacy uses chosen provider and request context at existing main boundary. Existing preload refusal contract preserves draft; no new IPC policy. Goals deliberately unchanged and can still show original SDK errors. Stat does not prove complete accessibility or prevent later removal.
+
+Eleven boundary cases PASS, including actual legacy handler/preload serialization, unknown EIO not mislabeled, trusted model/provider and single-intent retry. Shared main/side composer JSDOM test PASS with real managed repository/preflight: drafts retained, zero reservations, explicit folder restoration followed by exactly one dispatch. Original C02910 routing cases and profile-service suite PASS. Legacy send-preservation regression PASS. Root/app dependency install and Chromium install PASS; inherited app audit reports2high findings, no forced updates. Desktop build and native fixture syntax PASS. Root verify failed inherited screenshot freshness5086bad/e380 before root tests; raw logs retained.
+
+Prepared folder-preflight-ui.live.mjs is NOT RUN. It uses actual main/side UI+IPC, asserts no persisted attempts, both drafts after rejection and process restart, and retains native screenshots. Await named grant; no app/runtime processes owned. C032 remains active until actual/evidence/combined gates. Original C029 capture is historical source69acbce and intentionally unchanged; its old fixture expects accepted CLI failure and is not the new refusal gate.

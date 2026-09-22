@@ -22,3 +22,5 @@ Run the affected real-adapter tests and the required desktop/visual/root gates i
 
 - 22 September: selected-root search errors remain errors, distinct from no matches; [API-loop regression and retained failure](../../docs/cycles/evidence/missing-working-folder/README.md). Combined visual/runtime verification is pending.
 - 22 September: C023 source is integrated with C010 lease relocation preserved; focused combined checks pass, final combined gates remain pending. C024 and C025 original evidence is imported. The handoff above owns current status.
+
+C032: ordinary Claude/Codex sends now refuse known unavailable selected folders before reserving a turn, preserving draft via the existing send-refusal contract. API and folderless turns are unchanged. [Handoff](../../docs/cycles/C032-folder-preflight.md) tracks focused proof and pending native screenshots; goal workers and post-check filesystem races remain outside this change.

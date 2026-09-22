@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import { createRequire } from 'node:module';
+import vm from 'node:vm';
 const require = createRequire(import.meta.url);
 const { createProfileRegistry } = require('../main/profile-registry');
 const { createProfileService } = require('../main/profile-service');
@@ -37,4 +38,38 @@ for (const code of ['EACCES', 'EPERM']) test(`controlled ${code} refuses without
   try { await assert.rejects(x.service.start(x.owner, { chatId: 'chat', prompt: 'Original human prompt' }), e => e.code === 'BARKDOWN_SEND_NOT_STARTED' && e.diagnostic.includes('controlled denial')); }
   finally { fs.statSync = stat; }
   assert.equal(x.calls(), 0);
+});
+test('managed provider override cannot bypass refusal; retry uses owned model and one prompt', async () => {
+  const x = setup('claude', missing);
+  await assert.rejects(x.service.start(x.owner, { chatId: 'chat', provider: 'api', prompt: 'Original human prompt' }), /provider changed/);
+  assert.equal(x.calls(), 0);
+  const ws = x.service.load(x.owner); ws.chats.chat.folder = valid; ws.chats.chat.model = 'owned-model'; x.service.save(x.owner, ws);
+  const started = await x.service.start(x.owner, { chatId: 'chat', prompt: 'Original human prompt', model: 'untrusted-model' }); await x.service.wait(x.owner, started.runId);
+  assert.equal(x.dispatched().settings.claudeModel, 'owned-model');
+  assert.equal(x.dispatched().messages.filter(m => m.role === 'user' && m.content === 'Original human prompt').length, 1);
+});
+test('legacy actual handler and preload expose known refusal, unknown errors stay unknown', async () => {
+  const { assertProviderFolder } = require('../main/provider-folder');
+  const main = fs.readFileSync(new URL('../main/main.js', import.meta.url), 'utf8');
+  let handler, calls = 0;
+  vm.runInNewContext(main.slice(main.indexOf("  handle('agent:start',"), main.indexOf("  handle('agent:cancel',")), {
+    handle: (_name, fn) => handler = fn, profileService: null, readSettings: () => ({ provider: 'codex', barkpark: {} }), defaultProvider: () => 'api',
+    assertProviderFolder, decrypt: () => '', store: { dir: () => root }, barkparkConfig: () => ({ enabled: false }), agent: { start: () => { calls++; return { runId: 'legacy-accepted' }; } },
+  });
+  let exposed;
+  vm.runInNewContext(fs.readFileSync(new URL('../main/preload.js', import.meta.url), 'utf8'), {
+    process: { platform: 'win32' }, require: name => { assert.equal(name, 'electron'); return {
+      contextBridge: { exposeInMainWorld: (_name, api) => exposed = api }, ipcRenderer: { invoke: async (channel, payload) => {
+        if (channel === 'profiles:status') return { ok: true, value: { enabled: false } };
+        try { return { ok: true, value: handler(payload) }; } catch (e) { return { ok: false, error: e.message, code: e.code, diagnostic: e.diagnostic }; }
+      } },
+    }; },
+  });
+  const refused = structuredClone(await exposed.agent.start('legacy', [], { folder: missing }, undefined, null, 'Original human prompt', []));
+  assert.equal(refused.accepted, false); assert.equal(refused.notStarted, true); assert(refused.error.message.includes(missing)); assert.equal(calls, 0);
+  assert.equal((await exposed.agent.start('legacy', [], { folder: missing }, 'api', null, 'Original human prompt', [])).runId, 'legacy-accepted'); assert.equal(calls, 1);
+  const stat = fs.statSync;
+  fs.statSync = (target, ...args) => { if (target === valid) throw Object.assign(Error('I/O failure'), { code: 'EIO' }); return stat(target, ...args); };
+  try { await assert.rejects(exposed.agent.start('legacy', [], { folder: valid }, 'claude', null, 'prompt', []), /I\/O failure/); }
+  finally { fs.statSync = stat; }
 });

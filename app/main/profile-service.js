@@ -6,6 +6,7 @@ const path = require('node:path');
 const { captureScope } = require('./providers/run-scope');
 const runRegistry = require('./providers/runs');
 const { createWorkspaceRepository } = require('./workspace-repository');
+const { assertProviderFolder } = require('./provider-folder');
 
 function createProfileService({ registry, agent = process.platform === 'win32' ? require('./goal-worker-agent').createOwnedWorkerAgent() : require('./agent'), workspaces = createWorkspaceRepository({ registry }),
   settingsFor = store => store.readJson('settings.json', {}), connectionFor = () => ({ enabled: false }), runtimePool = null,
@@ -107,6 +108,7 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
     }
     try {
       if (input.provider && input.provider !== resolved.chat.provider) throw new Error('Conversation provider changed; refresh before sending');
+      assertProviderFolder(resolved.chat.provider, resolved.scope.context.folder);
       validateImages(resolved.scope, request.images);
       const reservation = workspaces.begin(request, resolved);
       if (!reservation.fresh) throw new Error('This attempt was already reserved; do not dispatch it again');
