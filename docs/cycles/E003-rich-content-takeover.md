@@ -1,6 +1,6 @@
 # E003 — Rich-content takeover and caret fidelity
 
-## Final checkpoint — closed 2026-09-22
+## Final checkpoint — closed locally; evidence push pending 2026-09-22
 
 Source9424b97 (conversion guards3af530a, table support9bd1c54) and upstream8530a9e23 are pushed. Final clean-source [live evidence](../visual/rich-takeover/runs/2026-09-22T00-15-10-579Z/review.json) passed all five real production-adapter cases and actual MCP structured read. Server/canvas/visible saved revisions agree; next keyboard replacement preserves the agent change. Own runtime GyDds6 stopped normally. Served bundle SHA1 `6850a97eb9a7af6b9e0af9513c239ee4be19398d` matches the isolated upstream build.
 
@@ -54,3 +54,7 @@ The deterministic00-03-53 run was inspected (all21 stills and21 GIF frames), com
 ## MCP capture environment correction
 
 3af530a capture sQWmhy opened the rich Paper but failed the new real read_document call before edit cases. The SDK stdio transport uses a restricted default environment; the harness had not explicitly inherited the private CLI config/server environment. Corrected the transport to pass the already isolated child process environment, and record read output before assertions. The owned runtime stopped normally. This failed run remains retained and unapproved; no CLI configuration was changed. Final capture must be repeated from the correction commit.
+
+## Publication handoff
+
+Final evidence commit950c774 is local and clean; two push attempts failed connecting to github.com:443 after21seconds. Earlier source9424b97 and upstream8530a9e23 are already pushed. This documentation checkpoint records the network blocker. Next action: retry `git push origin codex/editor-upgrades-12h` when connectivity returns; do not merge or deploy. All validation and runtime cleanup above completed before publication.
