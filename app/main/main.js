@@ -12,6 +12,7 @@ const terminal = require('./terminal');
 const { LocalBarkpark } = require('./local-barkpark');
 const { SourceDriver, validate: validateLocal } = require('./local-barkpark-source');
 const crypto = require('crypto');
+const credentialDurability = require('./credential-durability').createCredentialDurability({ safeStorage, sessionData: () => app.getPath('sessionData') });
 let profileRegistry = null, profileService = null, profileGate = null, profilePool = null, profileConnection = null, appSettingsStore = null, goalService = null;
 const PROFILE_MODE = process.argv.includes('--profiles');
 let localRuntime = null, localConfigKey = '';
@@ -42,7 +43,7 @@ function writeSettings(settings) {
   for (const key of APPEARANCE_KEYS) { appearance[key] = owned[key]; delete owned[key]; }
   store.writeJson('settings.json', owned); appSettingsStore.writeJson('appearance.json', appearance);
 }
-function encrypt(value) { if (!value) return null; return safeStorage.isEncryptionAvailable() ? 'enc:' + safeStorage.encryptString(value).toString('base64') : 'plain:' + Buffer.from(value).toString('base64'); }
+function encrypt(value) { if (!value) return null; credentialDurability.assertReady(); return safeStorage.isEncryptionAvailable() ? 'enc:' + safeStorage.encryptString(value).toString('base64') : 'plain:' + Buffer.from(value).toString('base64'); }
 function decrypt(value) { if (!value) return ''; try { if (value.startsWith('enc:')) return safeStorage.decryptString(Buffer.from(value.slice(4), 'base64')); if (value.startsWith('plain:')) return Buffer.from(value.slice(6), 'base64').toString('utf8'); } catch (error) { console.warn('settings: could not decrypt', error.message); } return ''; }
 function publicSettings() {
   const s = readSettings();
@@ -59,6 +60,12 @@ function localSecrets(source = store) {
   const value = { password: decrypt(saved.password), token: decrypt(saved.token) };
   if (!value.password || !value.token) throw new Error('Cannot unlock this local profile’s credentials.');
   return value;
+}
+async function preparedLocalSecrets(source) {
+  // A bound store survives foreground switches; never look up ambient store
+  // ownership after the first await.
+  if (!source.readJson('local-credentials.json', null)) await credentialDurability.prepare();
+  return localSecrets(source);
 }
 function barkparkConfig() {
   const s = readSettings(), b = s.barkpark;
@@ -94,7 +101,8 @@ function reconcileLocal() {
     if (key === localConfigKey && localRuntime) return;
     await localRuntime?.stop(); localRuntime = null; localConfigKey = '';
     if (!key) return;
-    const driver = new SourceDriver(config, path.join(store.dir(), 'local-barkpark', 'default'), localSecrets());
+    const source = store.createStore(store.dir());
+    const driver = new SourceDriver(config, path.join(source.dir(), 'local-barkpark', 'default'), await preparedLocalSecrets(source));
     localRuntime = new LocalBarkpark(driver); localConfigKey = key;
     localRuntime.on('status', status => emitLocalStatus(status));
     await localRuntime.start();
@@ -186,6 +194,7 @@ function registerIpc() {
   }, true);
   handle('settings:get', () => publicSettings());
   handle('settings:set', async patch => {
+    if (patch.apiKey || patch.barkpark?.token || patch.barkpark?.local?.enabled) await credentialDurability.prepare();
     const s = readSettings();
     if (Number.isFinite(patch.sidebarWidth)) s.sidebarWidth = Math.min(420, Math.max(160, Math.round(patch.sidebarWidth)));
     if (patch.chatWidth != null) s.chatWidth = patch.chatWidth;
@@ -347,7 +356,7 @@ app.whenReady().then(async () => {
     appSettingsStore = store.createStore(path.join(app.getPath('userData'), 'app-settings'));
     profileRegistry = require('./profile-registry').createProfileRegistry(path.join(app.getPath('userData'), 'profile-data'));
     if (!profileRegistry.load()) profileRegistry.createProfile({ name: 'Personal' });
-    profilePool = require('./profile-runtime').createProfileRuntimePool({ registry: profileRegistry, readSecrets: localSecrets });
+    profilePool = require('./profile-runtime').createProfileRuntimePool({ registry: profileRegistry, readSecrets: preparedLocalSecrets });
     profileService = require('./profile-service').createProfileService({ registry: profileRegistry, runtimePool: profilePool,
       settingsFor: source => { const s = readSettings(source); return { ...s, provider: s.provider || defaultProvider(), apiKey: decrypt(s.apiKeyEncrypted) }; },
       connectionFor: s => ({ ...s.barkpark, token: decrypt(s.barkpark.tokenEncrypted), viaCli: false }), defaultProvider,
@@ -358,7 +367,10 @@ app.whenReady().then(async () => {
       sendEvent: event => win?.webContents.send('goals:changed', event),
       sendProviderEvent: event => { if (event.libraryChanged || event.type === 'library_changed') documents.loadAll({ seed: false }); win?.webContents.send('agent:event', event); } });
   } else store.init(path.join(app.getPath('userData'), 'barkdown'));
-  try { syncBarkparkEnv(); } catch (error) { localStartupError = error.message; }
+  try {
+    if (!profileService && readSettings().barkpark.local?.enabled) await preparedLocalSecrets(store.createStore(store.dir()));
+    syncBarkparkEnv();
+  } catch (error) { localStartupError = error.message; }
   if (profileService) await reconcileLocal().catch(error => console.warn('Profile Barkpark:', error.message));
   else reconcileLocal().catch(error => console.warn('Local Barkpark:', error.message));
   for (const word of ['Barkdown', 'Barkpark', 'PortableDoc', 'Codex']) session.defaultSession.addWordToSpellCheckerDictionary(word);

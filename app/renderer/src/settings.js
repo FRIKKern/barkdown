@@ -228,22 +228,32 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
   }).catch(() => { q('#about-version').textContent = ''; });
 
   // dirty tracking and close
-  let dirty = false;
+  let dirty = false, saving = false;
   function markDirty() { dirty = true; q('#dirty').hidden = false; }
   qa('input[type=text], input[type=password], input[type=checkbox], select').forEach(n => n.addEventListener('input', markDirty));
   const dismiss = openDialog(dialog, { onDismiss: () => cancel() });
   const close = () => { unsubscribeLocal(); dismiss(); };
-  const cancel = () => { onChange({ theme: original.theme, chatWidth: original.chatWidth }, true); close(); };
+  const cancel = () => { if (saving) return; onChange({ theme: original.theme, chatWidth: original.chatWidth }, true); close(); };
   q('[data-act="cancel"]').onclick = cancel;
   q('[data-act="save"]').onclick = async () => {
+    if (saving) return;
     const patch = { model: q('#model').value, provider: q('input[name="provider"]:checked').value, claudeModel: modelValue('claude'), codexModel: modelValue('codex'), theme: theme(), chatWidth: Number(q('#width').value), barkpark: { enabled: q('#bp-enabled').checked, viaCli: bpMode() === 'cli', server: q('#bp-server').value.trim(), dataset: q('#bp-dataset').value.trim() || 'production', writes: q('#bp-writes').checked, local: { ...s.barkpark.local, enabled: bpMode() === 'local', source: q('#bp-source').value.trim() } } };
     if (q('#api-key').value.trim()) patch.apiKey = q('#api-key').value.trim(); else if (clearKey) patch.apiKey = '';
     if (q('#bp-token').value.trim()) patch.barkpark.token = q('#bp-token').value.trim();
+    saving = true; dialog.setAttribute('aria-busy', 'true');
+    const controls = qa('input, select, button').map(control => ({ control, disabled: control.disabled }));
+    for (const { control } of controls) control.disabled = true;
+    q('[data-act="save"]').textContent = 'Saving…';
     try {
       state.settings = await api.settings.set(patch); onChange(patch, false); toast('Settings saved'); close();
       // A (re)connected Barkpark: fetch its editor bundle now; if a different build is already running, say so.
       refreshCanvasBundleAfterSettings().then(info => { if (state.canvasBundle?.next) toast(`Barkpark's editor bundle (sha1 ${info.sha.slice(0, 8)}) is fetched — restart Barkdown to use it`); });
     } catch (error) { toast(error.message, 'error'); }
+    finally {
+      saving = false; dialog.removeAttribute('aria-busy');
+      for (const { control, disabled } of controls) control.disabled = disabled;
+      q('[data-act="save"]').textContent = 'Save';
+    }
   };
   setTimeout(() => q('nav [aria-selected="true"]')?.focus(), 30);
 }

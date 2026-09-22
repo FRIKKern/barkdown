@@ -1,29 +1,25 @@
 {
   "version": 1,
-  "id": "C011",
+  "id": "C013",
   "stage": "P3",
-  "status": "done",
-  "goal": "Prove actual Electron goal crash recovery and explicit reconciliation through the user interface.",
+  "status": "active",
+  "goal": "Prevent acknowledged first-run credential loss after abrupt Windows Electron termination.",
   "scope": [
-    "Disposable profile and native Windows workers",
-    "Persisted full worker conversations and explicit retry",
-    "No central queue, live-library migration or coordinator planning changes"
+    "Observe and sync Chromium protected key before new credential writes",
+    "Audit settings and legacy/profile runtime credential creation",
+    "No encryption downgrade, adoption rewrite or source-library changes"
   ],
   "acceptance": [
-    "Reopen interrupted with zero automatic worker replay",
-    "Trusted shutdown verification before evidence review and retry",
-    "Retain partial replies, drafts, parent references and immutable attempts"
+    "Actual first-run acknowledged API/token survives immediate main kill",
+    "Missing/malformed key or flush failure refuses credential writes",
+    "Async waits retain profile ownership and existing ciphertext"
   ],
   "checkpoint": "2026-09-22",
-  "handoff": "docs/cycles/C011-goal-recovery.md",
-  "nextAction": "Archive C011 and start C013 credential durability before natural-language coordinator planning.",
+  "handoff": "docs/cycles/C013-credential-durability.md",
+  "nextAction": "Implement durable credential readiness and actual Electron crash test.",
   "evidence": [
-    "app/tests/profile-goals-recovery.live.mjs",
-    "docs/goals/evidence/e9be019/README.md",
-    "docs/visual/runs/2026-09-22T00-00-37-127Z/manifest.json",
-    "docs/images/status/manifest.json",
     "docs/cycles/C011-goal-recovery.md"
   ],
-  "truthReview": "README, app guide, NEXT-AGENT, VALIDATION, PLAN/plan.json, architecture and integration contract reviewed. Root verify and full desktop pass. No full stage/goal completion; encrypted-key defect and coordinator planning remain.",
-  "screenshotReview": "31 fixture frames explicitly approved unchanged, five actual Electron recovery stills including390px inspected, five real Paper stills plus37 live GIF frames inspected. Distinct deterministic SDK transport, environment credentials and authenticated Paper evidence."
+  "truthReview": "C011 verified; encrypted-key persistence explicitly unproved until this fix. P1-P5 and full coordinator goal incomplete.",
+  "screenshotReview": "Fresh visual/live gates required after app changes; no pending capture process."
 }

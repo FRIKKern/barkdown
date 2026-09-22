@@ -11,7 +11,7 @@ const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-goal-ui-recovery-'));
 const shots = path.resolve('test-results/profile-goals-recovery');
 fs.mkdirSync(shots, { recursive: true });
 const transport = await createAnthropicFixture();
-const launch = () => electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: 'fixture-unused', ANTHROPIC_AUTH_TOKEN: '', ANTHROPIC_BASE_URL: transport.url } });
+const launch = () => electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', ANTHROPIC_BASE_URL: transport.url } });
 let app, page;
 const errors = [];
 async function boot() {
@@ -116,7 +116,7 @@ try {
     source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
     dirty: Boolean(execFileSync('git', ['status', '--porcelain'], { encoding: 'utf8' }).trim()),
     transport: 'Local deterministic Anthropic HTTP; actual SDK and owned Windows workers',
-    credentials: 'Synthetic environment key; encrypted-key restart is not covered',
+    credentials: 'Synthetic API key saved through settings; no environment API key on either launch',
     capturedAt: new Date().toISOString(),
     frames: ['interrupted-before-shutdown-check', 'shutdown-verified-review-required', 'reviewed-retry-ready', 'retry-results-preserved', 'retry-results-narrow'],
   }, null, 2) + '\n');
