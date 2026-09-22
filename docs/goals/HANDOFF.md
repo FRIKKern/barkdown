@@ -1,5 +1,15 @@
 # Goal integration checkpoint — C008
 
+This is the combined candidate on `codex/integration-12h`. Original lane evidence below remains source-specific; [C008](../cycles/C008-integration.md) records combined imports and the last fully validated fallback. Fresh combined validation remains pending.
+
+[C015](../cycles/C015-goal-coordinator.md) is verified on 61eea4d, including authenticated Codex plan/three workers/evidence reviews/summary, actual Electron planning-crash recovery, full desktop/root and inspected fixture/live captures. [C020](../cycles/C020-coordinator-interruption.md) is verified on test source 17c2cc8 with worker/review/summary stop races and native interrupted review/summary proof. See the original [C015 gallery](evidence/61eea4d/README.md), [C020 gallery](evidence/17c2cc8/README.md) and [visual health page](../visual/goals/README.md).
+
+[C023](../cycles/C023-windows-atomic-write.md) is active on frozen implementation 3e9c0a9:44 focused checks,68 goal/native checks and storage regressions pass. Its final desktop, fresh visual/live and root gates are pending; [queued commands](../cycles/C023-validation-commands.md) record the next action. Parent owns combined integration and the shared UI grant; no prior screenshot approval transfers to newer or combined source.
+
+Goals remain Windows/profile-only. Workers share the captured folder; use disjoint assignments or dependencies, with no automatic worktrees. Model review is not human verification. Uncertain effects require explicit person reconciliation; there is no general external-effect, power-loss or cross-machine portability guarantee. No broad goal or central stage completion is claimed. The chronology below is retained as historical checkpoints; earlier pending statements are superseded only by linked verified closeouts.
+
+## Earlier integration checkpoints
+
 Current integration: C015 natural-language planning, three saved workers, exact-attempt evidence review and summary are imported from5dc188b/61eea4d. The follow-up uses explicit provider final-message provenance rather than mixing commentary with structured output. Original authenticated61ee Codex proof passed in its lane; fresh combined full/visual/live gates remain pending. C014 ordinary recovery remains integrated; no automatic replay or legacy activation. See [C015](../cycles/C015-goal-coordinator.md) and [C008](../cycles/C008-integration.md). Historical checkpoints below retain their original scope.
 
 This worktree is the combined candidate on `codex/integration-12h`, not the goal agent's original branch. The historical audit below describes earlier snapshots and does not override this checkpoint. See [C008](../cycles/C008-integration.md) for exact imports and validation.
