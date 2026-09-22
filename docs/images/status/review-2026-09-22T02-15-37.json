@@ -1,0 +1,29 @@
+{
+  "reviewer": "Codex root integration review",
+  "reviewedAt": "2026-09-22T02:20:20.078736+00:00",
+  "sourceCommit": "e38038577d379ef548427b2b4aaea5ea5bdf7d8f",
+  "barkparkCommit": "5fba61f7ed07a7a39a7ff484185463b286ebea70",
+  "manifestSha256": "faddc6e6832a47f586199e8dd20caf349996fc4d22b5210f0e20d6563f61b6e1",
+  "artifacts": {
+    "paper-light.88e8d390.png": "0a795c0655fdc432d86cd57bbb03889994ab12d7d5637d09db42aaf41a16c07e",
+    "paper-dark.8cd03fac.png": "8ca925c0de360e5527b3017ffacba9e4e0b96a5ba003c791c603a5c7125d6c6e",
+    "slash-menu.ab8b6874.png": "0510d4ada344dd3fc70eb762c99af284e3f936316f5fa64394e59379672134b2",
+    "quick-open.8108725f.png": "ea75958565ea0169ff6952d4823e5eb99d028dbf738cf3192753c2b8aaa351c6",
+    "settings-barkpark.108fb3dc.png": "e2641e7e5b6d369dd750f45db7314c08ee31530ee00bc797e10b9eb9ad2f635f",
+    "editing.ca480324.gif": "2b36a413e17f309a0b84b19614af8258cd9173c541bc9a39584fb51ffa5d1ba1"
+  },
+  "inspected": {
+    "stills": 5,
+    "decodedGifFrames": 37
+  },
+  "result": "approved",
+  "findings": [
+    "All five full-resolution stills and 37 decoded GIF frames inspected; readable Paper, menus and settings, expected quote typing/table navigation.",
+    "Actual Codex reply and Paper edit completed. Claude attempt hit weekly quota and is not a passing Claude turn."
+  ],
+  "limits": [
+    "Explicit 36fr showcase split, not default 60 percent proof.",
+    "Not provider parity, portability or full A1 acceptance."
+  ],
+  "cleanup": "Session5397 exited0; ss7Qm9 private runtime stopped normally; launcher checked absence of postmaster.pid; user CLI unchanged."
+}

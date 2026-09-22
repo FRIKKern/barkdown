@@ -47,7 +47,7 @@ First root verify failed on an inherited missing baseline link. Restored the fou
 
 Restored baseline history check: all 200 artifact blobs in the four abbbcee run directories match their original Git blob hashes. No original image or comparison was rewritten.
 
-Read-only follow-up: [terminal ownership candidate](DRAFT-terminal-ownership.md) records unowned descendant cleanup and same-id replacement concerns. No terminal behavior changed or failure claimed from source inspection alone. Coordinator will choose the next bounded cycle after C014 closes.
+Read-only follow-up: [terminal ownership candidate](C018-terminal-ownership.md) records unowned descendant cleanup and same-id replacement concerns. No terminal behavior changed or failure claimed from source inspection alone. Coordinator will choose the next bounded cycle after C014 closes.
 
 Final source e3a6554 fixes a reproduced early-interruption/late-start-acknowledgement UI race; focused failure then pass retained in test. Exact clean actual23139/tp1w78 passes all recovery assertions and all3 owned jobs stopped. Refreshed visual run01-03-52-492 approved after actual inspection:32 video samples,88 raw motion frames (83 encoded GIF),5 stills and unchanged deterministic37-frame geometry. Earlier913 evidence remains intact.
 

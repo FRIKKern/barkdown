@@ -2,13 +2,15 @@
 
 Active on `codex/integration-12h` in the isolated `barkdown-integration-12h` worktree. No main merge or deployment. This branch is a test candidate, not a completed product milestone.
 
-## Current checkpoint
+## Current checkpoint — 02:27 UTC
 
-Candidate now combines C014 recovery, E004 scoped table operations, C015 coordinator through61eea4d, C017 API Paper parity throughd8423e7, E006 paste harness and original evidence, C019 global unsaved-project-buffer guard, and C018 terminal ownership throughdb9b2ca. Original lane evidence remains attributed to its source; no global approval was replaced.
+Combined source e380385 is validated: full desktop session64608 exited0 at unchanged app source b083c60, including coordinator crash/retry and stop races, API Paper operations, project-buffer preservation, and terminal shutdown. Later commits changed visual comparison tooling only. Root verify86276 exited0 after restoring original historical evidence dependencies and fixing the retired terminal-draft link.
 
-Root independently passed25 coordinator/native-host/terminal checks after C018 import, plus profile IPC, ordinary chat recovery and project-buffer tests. C017 actual final97220/rReqHN passed paragraph/table edits, exact visible Undo and reload; reviewed original evidenceb4420b5 imported. C015 full/authenticated/visual/root gates passed in its lane and original2ea6707 evidence is imported. C018 actual final32711 passed with all native jobs stopped; evidence closeout pending. C019 actual UI and C016 dual-runtime retry are running in the current-cycle window.
+Fresh deterministic run [02-13-13](../visual/runs/2026-09-22T02-13-13-738Z/README.md) has40 reviewed stills and all decoded GIF frames reviewed. Named-step comparison handles inserted/reordered/removed views: three new goal planning views and expected workers labels; no unintended geometry regression found. Initial02-09 capture is retained unapproved. Final recapture had43of48 artifacts byte-identical to inspected captures; four differing stills and side-chat GIF inspected again.
 
-Fresh combined full desktop, fixture comparison, live status and root verify remain pending. Last fully verified combined fallback9c77cb7 remains valid only for its source. P1, portability and full editor release are incomplete. Native process preflight before offline rollback remains an audited gap: root actual live-job probe received Windows EPERM at directory rename while three owned processes remained alive; no successful retirement or data loss was reproduced. All audit processes were then positively stopped. Do not rely on OS rename refusal as a substitute for explicit native verification.
+Actual live status5397 passed at clean e380385 with clean Barkpark5fba61f7e. Claude hit weekly quota; actual Codex fallback read and edited Paper successfully. Five full stills and37 GIF frames reviewed in [hash-bound review](../images/status/review-2026-09-22T02-15-37.json). Private ss7Qm9 stopped normally and launcher confirmed postmaster.pid absent; user CLI unchanged.
+
+This checkpoint combines C014, E004, C015, C017, E006, C018, C019 and C020 tests. C019 production project-buffer changes are identical to its original e68a72e source; combined validation supplements its dedicated actual Settings/CodeMirror evidence. Original lane provenance remains distinct. No main merge or deployment. P1–P5, portability and complete editor release remain unfinished. C016 scroll diagnostic, E007 HTML paste visibility and C021 native rollback preflight remain separate pending work. Last prior fully verified fallback9c77cb7 remains historical.
 
 ## Integration history
 
