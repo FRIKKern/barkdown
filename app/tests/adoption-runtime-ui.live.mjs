@@ -21,8 +21,8 @@ fs.writeFileSync(path.join(legacy, 'local-credentials.json'), credentials);
 fs.writeFileSync(path.join(legacy, 'settings.json'), JSON.stringify({ provider: 'api', barkpark: { enabled: true, writes: true, viaCli: false, local: { ...config, enabled: true } } }));
 const attachment = path.join(legacy, 'attachments', 'original.png'); fs.writeFileSync(attachment, tinyPng(32, 32, [40, 140, 80]));
 fs.writeFileSync(path.join(legacy, 'workspace.json'), JSON.stringify({ version: 1, current: 'parent', order: ['parent', 'side'], chats: {
-  parent: { id: 'parent', title: 'Adopted working notes', folder: null, messages: [], tabs: [], draft: 'Preserved parent draft', images: [attachment] },
-  side: { id: 'side', title: 'Saved side conversation', side: true, parent: 'parent', messages: [], tabs: [], draft: 'Preserved side draft' },
+  parent: { id: 'parent', title: 'Adopted working notes', folder: null, messages: [], events: [], apiHistory: [], following: true, tabs: [], draft: 'Preserved parent draft', images: [attachment] },
+  side: { id: 'side', title: 'Saved side conversation', side: true, parent: 'parent', messages: [], events: [], apiHistory: [], following: true, tabs: [], draft: 'Preserved side draft' },
 } }));
 const { LocalBarkpark } = require('../main/local-barkpark'), { SourceDriver } = require('../main/local-barkpark-source');
 const { assertCold } = require('../main/profile-runtime-adoption'), bp = require('../main/barkpark');
