@@ -178,7 +178,7 @@ export function apiMessagesFor(chat) {
   // Prefer the exact history returned by the last run (it includes tool calls); append messages sent since.
   const history = chat.apiHistory?.length ? [...chat.apiHistory] : [];
   const seen = history.length;
-  const userMessages = chat.messages.filter(m => m.role === 'user');
+  const userMessages = chat.messages.filter(m => m.role === 'user' && !m.notDispatched);
   if (!history.length) return userMessagesToApi(chat.messages);
   const last = userMessages.at(-1);
   if (last && !last.sentInHistory) history.push({ role: 'user', content: last.text || 'See the attached image.' });
@@ -188,6 +188,7 @@ export function apiMessagesFor(chat) {
 function userMessagesToApi(messages) {
   const out = [];
   for (const m of messages) {
+    if (m.notDispatched) continue;
     if (m.role === 'user') out.push({ role: 'user', content: m.text || 'See the attached image.' });
     else if (m.text) out.push({ role: 'assistant', content: m.text });
   }
@@ -226,7 +227,7 @@ export async function sendMessage(chat, text, hooks, images = []) {
     // Turns this provider's session has not seen: everything, for a fresh session; what happened while
     // another provider answered, for a resumed one. The new question and the empty reply are excluded.
     const seen = chat.sessions[provider] ? (chat.sessionSeen?.[provider] || 0) : 0;
-    const catchUp = chat.messages.slice(seen, -2).filter(m => m.text).map(m => ({ role: m.role, text: m.text, provider: m.role === 'assistant' ? (PROVIDER_LABEL[m.provider] || m.provider || undefined) : undefined }));
+    const catchUp = chat.messages.slice(seen, -2).filter(m => m.text && !m.notDispatched).map(m => ({ role: m.role, text: m.text, provider: m.role === 'assistant' ? (PROVIDER_LABEL[m.provider] || m.provider || undefined) : undefined }));
     const { runId, assistantId, attemptId } = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title, catchUp }, provider, chat.sessions[provider] || null, clean, attached, { model: chat.model || undefined, effort: chat.effort || undefined, attemptId: intent.attemptId });
     // Validation/reservation has acknowledged this intent. Never clear newer
     // input (including editing away and back to the same text) or attachments.
@@ -239,6 +240,10 @@ export async function sendMessage(chat, text, hooks, images = []) {
     return true;
   } catch (error) {
     const failedReply = reply.id ? chat.messages.find(message => message.id === reply.id) || reply : reply;
+    // Only a positive main-process pre-dispatch refusal permits excluding this
+    // visible failed pair from legacy retry history. Unknown/accepted failures
+    // remain history; never infer no side effects from a missing acknowledgement.
+    if (!state.profileId && error.code === 'BARKDOWN_SEND_NOT_STARTED') { user.notDispatched = true; failedReply.notDispatched = true; }
     failedReply.streaming = false;
     failedReply.error = error.message;
     hooks.render();

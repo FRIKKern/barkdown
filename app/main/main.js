@@ -327,7 +327,7 @@ function registerIpc() {
   });
   handle('agent:start', ({ chatId, messages, context, provider, session, prompt, images, options }) => {
     if (profileService) return profileService.start(profileService.view(), { chatId, prompt, images, provider, attemptId: options?.attemptId });
-    if (readSettings().barkpark.local?.enabled && localStatus().phase !== 'ready') throw new Error('Local Barkpark is not ready. Check Settings → Barkpark before starting a run.');
+    if (readSettings().barkpark.local?.enabled && localStatus().phase !== 'ready') throw Object.assign(new Error('Local Barkpark is not ready. Check Settings → Barkpark before starting a run.'), { code: 'BARKDOWN_SEND_NOT_STARTED' });
     const s = readSettings();
     const chosen = provider || s.provider || defaultProvider();
     const o = options || {};
