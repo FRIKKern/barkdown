@@ -26,6 +26,11 @@ try {
  console.log(JSON.stringify(result,null,2));
  assert.equal(result.missingCreated,false,'failed navigation must never save the previous buffer into the missing destination');
  assert.equal(result.original,'A original','failed navigation must not implicitly save the original');
+ fs.writeFileSync(path.join(root,'binary.bin'),Buffer.from([0,1,2]));
+ await page.evaluate(()=>window.pane.openFile('binary.bin'));
+ assert.equal(await page.locator('.cm-content').count(),0);
+ assert.equal(await page.locator('[data-act="save"]').isDisabled(),true);
+ assert.deepEqual([...fs.readFileSync(path.join(root,'binary.bin'))],[0,1,2]);
  // Returning to the old file restores its unsaved draft; failed read has no authority.
  await page.evaluate(()=>window.pane.openFile('a.md'));
  assert.equal(await page.locator('.cm-content').innerText(),'A unsaved human text');
@@ -75,6 +80,18 @@ try {
  }
  assert.equal(await page.locator('.cm-content').innerText(),'A newer draft during save');
 
+ // A cached draft is retained, but deleting its disk file requires explicit recreation.
+ fs.unlinkSync(path.join(root,'a.md'));
+ await page.evaluate(()=>{window.pendingSave=document.querySelector('[data-act="save"]').onclick()});
+ await page.getByRole('button',{name:'Cancel',exact:true}).click();
+ await page.evaluate(()=>window.pendingSave);
+ assert.equal(fs.existsSync(path.join(root,'a.md')),false);
+ await page.evaluate(()=>{window.pendingSave=document.querySelector('[data-act="save"]').onclick()});
+ await page.getByRole('button',{name:'Recreate',exact:true}).click();
+ await page.evaluate(()=>window.pendingSave);
+ assert.equal(fs.readFileSync(path.join(root,'a.md'),'utf8'),'A newer draft during save');
+ assert.throws(()=>files.write(path.join(root,'absent-root'),'new.md','text'),/ENOENT/);
+ assert.equal(fs.existsSync(path.join(root,'absent-root')),false,'Save cannot resurrect a missing working folder');
  console.log('PASS failed open, preserved draft, delayed save acknowledgement and stale read authority');
 
 } finally {await browser.close()}

@@ -49,12 +49,13 @@ function read(root, relative) {
 }
 
 function write(root, relative, text, expectedMtime) {
+  if (!fs.statSync(path.resolve(root)).isDirectory()) throw new Error('Working folder is not a directory: ' + root);
   const target = resolveInside(root, relative);
   if (expectedMtime != null) {
     try {
       const stat = fs.statSync(target);
       if (Math.abs(stat.mtimeMs - expectedMtime) > 1) return { conflict: true, mtime: stat.mtimeMs, text: fs.readFileSync(target, 'utf8') };
-    } catch (error) { if (error.code !== 'ENOENT') throw error; }
+    } catch (error) { if (error.code !== 'ENOENT') throw error; return { conflict: true, missing: true, mtime: null, text: null }; }
   }
   fs.mkdirSync(path.dirname(target), { recursive: true });
   fs.writeFileSync(target, text, 'utf8');
