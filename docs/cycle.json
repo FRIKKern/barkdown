@@ -16,10 +16,11 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C030-parity-behavior.md",
-  "nextAction": "Implement assertions and cleanup/evidence capture, commit source, then await explicit native UI grant after higher-priority lanes.",
+  "nextAction": "Source6f935be committed; wait explicit UI grant then run strict editor-gaps fixture against final editor source, inspect retained evidence and resolve genuine failures without weakening assertions.",
   "evidence": [
     "app/tests/editor-gaps.live.mjs",
-    "docs/cycles/C030-parity-behavior.md"
+    "docs/cycles/C030-parity-behavior.md",
+    "docs/cycles/evidence/C030-root-before-native.txt"
   ],
   "truthReview": "C028 rejects this observational probe as unverifiable. No actual C030 pass is claimed. Root/app npm ci and Playwright Chromium installation completed; existing app audit reports2high advisories unchanged.",
   "screenshotReview": "Not captured yet; no baseline promotion."
