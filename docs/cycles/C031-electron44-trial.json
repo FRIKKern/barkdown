@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "id": "C031",
+  "stage": "P1",
+  "status": "blocked",
+  "goal": "Trial exact Electron44.4.3 in isolation and prove existing Windows behavior before proposing integration.",
+  "scope": [
+    "Exact Electron dependency update and reviewed lock delta",
+    "Clean install, binary provenance and packaging audit",
+    "Headless gates before named UI grant; native/full/visual/live/root proof afterward",
+    "No integration edits, real user data, vendor pin change, merge or deployment"
+  ],
+  "acceptance": [
+    "Clean install and explicit binary setup are reproducible",
+    "Advisories and lock changes retained with honest remaining limits",
+    "ContextBridge, clipboard/image, profile and native process recovery pass on actual Electron44",
+    "Fresh source-bound full/visual/live/root gates pass before consumption recommendation"
+  ],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C031-electron44-trial.md",
+  "nextAction": "Review actual44 webview crash versus passing38 control; decide minimal engine reproduction or separately authorized43 contingency. Do not consume44 or claim full/runtime validation.",
+  "evidence": [
+    "docs/cycles/evidence/C031-electron44/package-lock.before.json",
+    "docs/cycles/DRAFT-electron-runtime-health.md"
+  ],
+  "truthReview": "Packaged terminal passes; full44 fails on repeated native webview crash. Same source fixture passes with38 executable. All private app processes closed; no Barkpark runtime started. Remaining gates pending.",
+  "screenshotReview": "Dependency change invalidates visuals; fresh capture/review pending named UI grant.",
+  "reason": "Electron44.4.3 repeatedly crashes the A webview renderer after B→A; identical fixture/source passes with38.8.6. Consumption blocked pending upstream diagnosis."
+}

@@ -93,3 +93,5 @@ Candidate `2b2ec11` is awaiting fresh combined gates. Global fixture approval/st
 - [Third-party notices](../THIRD-PARTY.md): 49-package metadata/license/provenance audit imported; no editor asset or pin change.
 
 C031 isolated Electron44.4.3 trial: installer/Node checks pass; packaging now retains shared modules and physically unpacks only three external runtime scripts. Actual Electron44/packaged/native/visual acceptance is pending; Electron38 remains the integration fallback. [Trial handoff](../docs/cycles/C031-electron44-trial.md).
+
+C031 contingency: Electron44 is blocked by reproduced native webview crash with passing38 control. This isolated branch trials exact43.7.3; install/headless checks alone do not establish compatibility. [Current handoff](../docs/cycles/C031-electron43-contingency.md).

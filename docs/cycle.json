@@ -2,8 +2,8 @@
   "version": 1,
   "id": "C031",
   "stage": "P1",
-  "status": "blocked",
-  "goal": "Trial exact Electron44.4.3 in isolation and prove existing Windows behavior before proposing integration.",
+  "status": "active",
+  "goal": "Trial exact Electron43.7.3 as authorized contingency after reproduced44 native guest crash.",
   "scope": [
     "Exact Electron dependency update and reviewed lock delta",
     "Clean install, binary provenance and packaging audit",
@@ -17,13 +17,12 @@
     "Fresh source-bound full/visual/live/root gates pass before consumption recommendation"
   ],
   "checkpoint": "2026-09-22",
-  "handoff": "docs/cycles/C031-electron44-trial.md",
-  "nextAction": "Review actual44 webview crash versus passing38 control; decide minimal engine reproduction or separately authorized43 contingency. Do not consume44 or claim full/runtime validation.",
+  "handoff": "docs/cycles/C031-electron43-contingency.md",
+  "nextAction": "Wait named UI grant; run same profile-ui.live.mjs on43 first. Only after pass proceed packaged/full/contextBridge/Paper/visual/live/root acceptance.",
   "evidence": [
-    "docs/cycles/evidence/C031-electron44/package-lock.before.json",
-    "docs/cycles/DRAFT-electron-runtime-health.md"
+    "docs/cycles/C031-electron44-trial.md",
+    "docs/cycles/evidence/C031-electron43/package-lock.before.json"
   ],
-  "truthReview": "Packaged terminal passes; full44 fails on repeated native webview crash. Same source fixture passes with38 executable. All private app processes closed; no Barkpark runtime started. Remaining gates pending.",
-  "screenshotReview": "Dependency change invalidates visuals; fresh capture/review pending named UI grant.",
-  "reason": "Electron44.4.3 repeatedly crashes the A webview renderer after B→A; identical fixture/source passes with38.8.6. Consumption blocked pending upstream diagnosis."
+  "truthReview": "Exact43 clean install, audit0,build,16 native/resource Node cases, send suites and packaged bytes/PowerShell loading pass. No43 Electron executable launched; compatibility still unproved.",
+  "screenshotReview": "No43 capture exists; all prior44 evidence retains exact version and failures."
 }
