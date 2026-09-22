@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C019",
   "stage": "P1",
-  "status": "active",
+  "status": "done",
   "goal": "Refuse profile switching while any project-file buffer is unsaved, without saving or discarding it.",
   "scope": [
     "Only the all-folders dirty-buffer guard and direct preservation regression",
@@ -16,10 +16,11 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C019-project-buffer-preservation.md",
-  "nextAction": "Link coordinator combined-source full, deterministic visual and live status evidence when complete; actual C019 switch preservation already passed. Do not restamp this branch approvals.",
+  "nextAction": "C019 complete in reviewed combined source; continue C016 reading geometry and original A1 gaps in their own lanes.",
   "evidence": [
-    "docs/visual/project-buffers/runs/C019-e68a72e/manifest.json"
+    "docs/visual/project-buffers/runs/C019-e68a72e/manifest.json",
+    "docs/visual/project-buffers/combined-validation.json"
   ],
-  "truthReview": "",
-  "screenshotReview": ""
+  "truthReview": "README, active plan, A1 audit, handoff and source contract reviewed: this fixes switch refusal only, not durable unsaved buffers or P1 completion.",
+  "screenshotReview": "Dedicated three-frame actual Settings/CodeMirror journey and derived GIF inspected; combined40-frame reviewed fixture and actualCodex live status linked with exact source/blob equality."
 }
