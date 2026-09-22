@@ -184,3 +184,36 @@ test('large retained evidence is bounded in coordinator prompts without replacin
   assert.ok(reviewPrompt(goal, task).length < 400000); assert.ok(summaryPrompt(goal).length < 400000);
   assert.match(reviewPrompt(goal, task), /textTruncated/); assert.equal(task.attempts[0].result.text.length, 100000);
 });
+
+for (const heldRole of ['worker', 'review', 'summary']) for (const action of ['pause', 'cancel', 'deadline']) {
+  test(`${action} during ${heldRole} retains late output without coordinator acceptance or draft replacement`, async t => {
+    let now = Date.now(), release, held = false;
+    const gate = new Promise(resolve => { release = resolve; }); t.after(() => release());
+    const f = setup(t, async prompt => {
+      const role = /Complete only this (plan|review|summary) turn/.exec(prompt)?.[1] || 'worker';
+      if (role === heldRole && !held) { held = true; await gate; }
+      return response(prompt);
+    }, { now: () => now });
+    const initial = f.create(); await f.service.command(f.owner, initial.id, 'start');
+    await until(() => held, Boolean, 'target turn started');
+    const before = f.service.list(f.owner)[0];
+    const target = before.tasks.find(task => (task.role || 'worker') === heldRole && task.status === 'running');
+    assert.ok(target); const attemptId = target.attempts.at(-1).id;
+    if (action === 'deadline') { now = initial.deadline; f.service.tick(); }
+    else await f.service.command(f.owner, initial.id, action);
+    release();
+    const stopped = await until(() => f.service.list(f.owner)[0], goal => goal.tasks.every(task => task.status !== 'interrupted' || Number.isFinite(task.attempts.at(-1)?.stoppedAt)), 'stopped attempts retained');
+    assert.equal(stopped.status, action === 'pause' ? 'paused' : action === 'cancel' ? 'cancelled' : 'expired');
+    const record = stopped.tasks.find(task => task.id === target.id);
+    assert.equal(record.status, 'interrupted'); assert.equal(record.attempts.at(-1).id, attemptId);
+    assert.equal(record.review, undefined); assert.equal(stopped.review, undefined);
+    assert.equal(f.profiles.load(f.owner).chats.main.draft, 'Untouched human draft');
+    const count = f.calls.length; for (let i = 0; i < 5; i++) { f.service.tick(); await flush(); }
+    assert.equal(f.calls.length, count, 'stopped goal never dispatches a follow-up');
+    await assert.rejects(f.service.command(f.owner, initial.id, 'start'), /Reconcile|cannot start/);
+    if (heldRole === 'review') {
+      const worker = stopped.tasks.find(task => task.id === record.reviewOf.taskId);
+      assert.notEqual(worker.status, 'completed', 'late review did not accept its worker');
+    }
+  });
+}

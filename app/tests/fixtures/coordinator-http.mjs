@@ -1,6 +1,6 @@
 import http from 'node:http';
 // Deterministic responses through the real SDK in owned Windows processes.
-export async function createCoordinatorFixture({ allowRetries = false } = {}) {
+export async function createCoordinatorFixture({ allowRetries = false, holdRoles = [] } = {}) {
   const gates = new Map(), requests = [], sockets = new Set();
   const plan = { summary: 'Read three separate fixture inputs, then review their exact results.', assignments: [1, 2, 3].map(n => ({ id: `task-${n}`, title: `Fixture reader ${n}`, prompt: `Read FIXTURE_WORKER_${n} and report its observed evidence.`, dependsOn: [] })) };
   const server = http.createServer(async (req, res) => {
@@ -12,7 +12,7 @@ export async function createCoordinatorFixture({ allowRetries = false } = {}) {
       const role = coordinatorAt > workerAt ? /Complete only this (plan|review|summary) turn/.exec(text.slice(coordinatorAt))?.[1] : 'worker';
       if (req.url !== '/v1/messages' || !role) throw new Error('Unexpected coordinator fixture request');
       const number = role === 'worker' ? Number([...text.slice(workerAt).matchAll(/FIXTURE_WORKER_(\d)/g)].at(-1)?.[1]) : null;
-      const record = role === 'review' ? JSON.parse(text.slice(coordinatorAt).split('Review data:\n').at(-1)) : null;
+      const record = role === 'review' ? JSON.parse(text.slice(coordinatorAt).split('Review data:\n').at(-1).split('\n\nPrior review of this assignment;')[0]) : null;
       const key = role === 'worker' ? `worker-${number}` : role === 'review' ? `review-${record.taskId}` : role;
       if (gates.has(key) && !allowRetries) throw new Error('Unexpected repeated fixture turn');
       requests.push({ role, key, text, at: Date.now() });
@@ -23,13 +23,13 @@ export async function createCoordinatorFixture({ allowRetries = false } = {}) {
       event('content_block_start', { index: 0, content_block: { type: 'text', text: '' } });
       const delta = text => event('content_block_delta', { index: 0, delta: { type: 'text_delta', text } });
       let released = false;
-      const prefix = role === 'plan' ? '{"summary":' : role === 'worker' ? `Worker ${number} started. ` : '';
+      const prefix = role === 'plan' ? '{"summary":' : role === 'worker' ? `Worker ${number} started. ` : role === 'review' ? '{"decision":' : 'All three';
       if (prefix) delta(prefix);
       const gate = { release() {
-        if (released) return; released = true; delta(role === 'plan' ? result.slice(prefix.length) : result);
+        if (released) return; released = true; delta(prefix && result.startsWith(prefix) ? result.slice(prefix.length) : result);
         event('content_block_stop', { index: 0 }); event('message_delta', { delta: { stop_reason: 'end_turn', stop_sequence: null }, usage: { output_tokens: 10 } }); event('message_stop', {}); res.end();
       } };
-      gates.set(key, gate); if (role === 'review' || role === 'summary') gate.release();
+      gates.set(key, gate); if ((role === 'review' || role === 'summary') && !holdRoles.includes(role)) gate.release();
     } catch (error) { res.writeHead(400, { 'content-type': 'application/json' }); res.end(JSON.stringify({ error: { type: 'invalid_request_error', message: error.message } })); }
   });
   server.on('connection', socket => { sockets.add(socket); socket.on('close', () => sockets.delete(socket)); });
