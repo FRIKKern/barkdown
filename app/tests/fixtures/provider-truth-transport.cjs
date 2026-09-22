@@ -9,11 +9,12 @@ const agent = {
   start(options) {
     fs.appendFileSync(process.env.PROVIDER_TRUTH_TRACE, 'dispatch\n');
     queueMicrotask(async () => {
-      const effects = ['success', 'delayed-finish', 'late-error', 'error-note', 'tool-error', 'cleanup-failed', 'unverified', 'approval', 'wrong-content', 'no-receipt', 'wrong-revision', 'no-read', 'no-effect', 'extra-document'];
+      const effects = ['success', 'delayed-finish', 'late-error', 'error-note', 'tool-error', 'cleanup-failed', 'unverified', 'approval', 'wrong-content', 'no-receipt', 'wrong-revision', 'no-read', 'no-effect', 'extra-document', 'malformed-extra', 'unexpected-tool', 'folder-change'];
       if (effects.includes(scenario)) {
         const scope = options.scope;
         const doc = scope.documents.list()[0];
         if (scenario === 'extra-document') scope.documents.create({ title: 'Unexpected second fixture', markdown: 'worker-created extra content' });
+        if (scenario === 'malformed-extra') fs.writeFileSync(scope.store.filePath('documents/extra.json'), 'invalid');
         const marker = JSON.parse(/exactly ("[^"]+")/.exec(options.prompt)[1]);
         const emitTool = (tool, id) => {
           options.send({ type: 'tool_start', tool, toolUseId: id, input: { id: doc.id } });
@@ -25,6 +26,8 @@ const agent = {
         emitTool('read_document', 'read-after');
         if (scenario === 'no-receipt') scope.store.remove('agent-edits/' + require('crypto').createHash('sha256').update(doc.id).digest('hex') + '.json');
         if (scenario === 'wrong-revision') { const current = scope.documents.get(doc.id); scope.documents.save({ id: doc.id, baseRev: current.rev, content: current.content }); }
+        if (scenario === 'unexpected-tool') emitTool('Bash', 'unexpected-command');
+        if (scenario === 'folder-change') fs.writeFileSync(require('path').join(scope.context.folder, 'unexpected.txt'), 'unexpected');
         if (scenario === 'approval') options.send({ type: 'approval', runId: 'controlled-run', approvalId: 'unexpected', request: { kind: 'command', command: 'not authorized' } });
       }
       if (scenario === 'error' || scenario === 'nonzero') options.send({ type: 'error', message: scenario === 'nonzero' ? 'Codex Exec exited with code 1' : 'provider rejected request' });

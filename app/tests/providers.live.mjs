@@ -84,6 +84,13 @@ for (const provider of providers) {
       }
     }
     if (completedTools.join(',') !== 'read_document,edit_document,read_document') throw Error('Expected acknowledged read/edit/read of the fixture');
+    // MCP/worker writes occur through a separate document adapter/cache.
+    // Reload without seeding and also inspect filenames so malformed extras
+    // cannot disappear from the parsed inventory and make it look exclusive.
+    documents.loadAll({ seed: false });
+    const inventory = documents.list();
+    const documentFiles = store.list('documents', '.json');
+    if (inventory.length !== 1 || inventory[0].id !== original.id || documentFiles.length !== 1 || path.basename(documentFiles[0]) !== `${original.id}.json`) throw Error('Persisted document inventory differs from the fixture');
     const saved = documents.get(original.id), receipt = scope.edits.latest(original.id);
     const expected = markdownToDoc(`${seed}\n\n${marker}`);
     if (!saved || saved.rev !== original.rev + 1 || saved.title !== original.title || JSON.stringify(saved.content) !== JSON.stringify(expected) || documents.list().length !== 1) throw Error('Persisted document revision/content did not match the unique edit');

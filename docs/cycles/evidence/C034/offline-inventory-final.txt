@@ -1,0 +1,115 @@
+TAP version 13
+# Subtest: actual live runner classifies error
+ok 1 - actual live runner classifies error
+  ---
+  duration_ms: 147.6437
+  ...
+# Subtest: actual live runner classifies nonzero
+ok 2 - actual live runner classifies nonzero
+  ---
+  duration_ms: 108.1287
+  ...
+# Subtest: actual live runner classifies no-effect
+ok 3 - actual live runner classifies no-effect
+  ---
+  duration_ms: 111.79
+  ...
+# Subtest: actual live runner classifies empty
+ok 4 - actual live runner classifies empty
+  ---
+  duration_ms: 114.279
+  ...
+# Subtest: actual live runner classifies incomplete
+ok 5 - actual live runner classifies incomplete
+  ---
+  duration_ms: 513.9923
+  ...
+# Subtest: actual live runner classifies cancelled-cleanup
+ok 6 - actual live runner classifies cancelled-cleanup
+  ---
+  duration_ms: 371.3089
+  ...
+# Subtest: actual live runner classifies late-error
+ok 7 - actual live runner classifies late-error
+  ---
+  duration_ms: 124.1751
+  ...
+# Subtest: actual live runner classifies error-note
+ok 8 - actual live runner classifies error-note
+  ---
+  duration_ms: 126.4081
+  ...
+# Subtest: actual live runner classifies tool-error
+ok 9 - actual live runner classifies tool-error
+  ---
+  duration_ms: 117.8359
+  ...
+# Subtest: actual live runner classifies cleanup-failed
+ok 10 - actual live runner classifies cleanup-failed
+  ---
+  duration_ms: 135.9499
+  ...
+# Subtest: actual live runner classifies unverified
+ok 11 - actual live runner classifies unverified
+  ---
+  duration_ms: 117.9999
+  ...
+# Subtest: actual live runner classifies approval
+ok 12 - actual live runner classifies approval
+  ---
+  duration_ms: 117.0728
+  ...
+# Subtest: actual live runner classifies wrong-content
+ok 13 - actual live runner classifies wrong-content
+  ---
+  duration_ms: 118.3082
+  ...
+# Subtest: actual live runner classifies no-receipt
+ok 14 - actual live runner classifies no-receipt
+  ---
+  duration_ms: 120.1175
+  ...
+# Subtest: actual live runner classifies wrong-revision
+ok 15 - actual live runner classifies wrong-revision
+  ---
+  duration_ms: 131.5049
+  ...
+# Subtest: actual live runner classifies no-read
+ok 16 - actual live runner classifies no-read
+  ---
+  duration_ms: 116.9686
+  ...
+# Subtest: actual live runner classifies success
+ok 17 - actual live runner classifies success
+  ---
+  duration_ms: 128.2042
+  ...
+# Subtest: actual live runner classifies delayed-finish
+ok 18 - actual live runner classifies delayed-finish
+  ---
+  duration_ms: 197.8651
+  ...
+# Subtest: actual live runner classifies invalid-provider
+ok 19 - actual live runner classifies invalid-provider
+  ---
+  duration_ms: 85.5859
+  ...
+# Subtest: actual live runner classifies extra-document
+ok 20 - actual live runner classifies extra-document
+  ---
+  duration_ms: 136.7041
+  ...
+# Subtest: actual live runner classifies malformed-extra
+ok 21 - actual live runner classifies malformed-extra
+  ---
+  duration_ms: 121.3661
+  ...
+1..21
+# tests 21
+# suites 0
+# pass 21
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3387.0351
