@@ -1,5 +1,16 @@
 # E003 — Rich-content takeover and caret fidelity
 
+## Final checkpoint — closed 2026-09-22
+
+Source9424b97 (conversion guards3af530a, table support9bd1c54) and upstream8530a9e23 are pushed. Final clean-source [live evidence](../visual/rich-takeover/runs/2026-09-22T00-15-10-579Z/review.json) passed all five real production-adapter cases and actual MCP structured read. Server/canvas/visible saved revisions agree; next keyboard replacement preserves the agent change. Own runtime GyDds6 stopped normally. Served bundle SHA1 `6850a97eb9a7af6b9e0af9513c239ee4be19398d` matches the isolated upstream build.
+
+Mounted rich regressions6/6, existing takeover, cross-source echo, lossless list and37 control interactions pass. Full Barkdown app suite passes (including76 desktop checks, direct-edit, composer history and side chats). Final deterministic run00-13-59: all21 stills and21 GIF frames inspected, comparison within tolerance with unchanged geometry/environment, explicitly approved. Dedicated rich evidence: ten stills, all115 decoded GIF frames and112 one-second video samples inspected. Status capture00-18-56 uses a genuine Codex turn after Claude's weekly limit, five stills and37 GIF frames reviewed; non-null live server provenance, cikyuc stopped normally. Final root npm run verify passed: generated outputs, types, local links, source/status freshness, cycle/visual checks and all concept/handoff tests.
+
+Repository truth review: no profile-stage completion, legacy retirement, merge, deployment or upstream-wide green claim. Parent owns central plan/queue. Upstream full test still reaches known save-ack:721; prior posttest press-answer-watchdog:284 remains a release gate. Branch-only upstream checkpoint respects the no-shared-task-DB boundary. Older pinned bundle retains safe explicit reload behavior; new mapping needs8530a9e23.
+
+E004 next: audit real table schema and support alignment/headerless/multiline through structured edits/export, retaining fail-closed boundaries until demonstrated. Structural shape/type changes still use conservative replacement. Historical checkpoints below are chronological records, superseded by this final clean-source evidence; failure and dirty-run artifacts remain retained.
+
+
 Planned editor lane, 2026-09-22, authorized by root after E002. Central profile queue remains root-owned. Same isolated Barkdown and Barkpark branches; no merge/deploy or real library mutation.
 
 ## Audit and bounded acceptance
