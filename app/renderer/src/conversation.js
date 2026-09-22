@@ -105,7 +105,7 @@ function stepHtml(t, mi, n) {
     case 'NotebookEdit': body = `<div class="bw-kv"><b>notebook</b> ${esc(input.notebook_path || '')}</div>${diffHtml(String(input.new_source || '').split('\n').map(text => ({ kind: 'add', text })))}`; break;
     // Barkdown's own tools: show the page or proposal as it will read, not as JSON.
     case 'create_document': body = `<div class="bw-kv"><b>page</b> ${esc(input.title || '')}</div><div class="bw-doc-preview">${inlineMarkdownHtml(String(input.markdown || ''))}</div>${t.output ? `<pre class="bw-out">${esc(clipOut(t.output))}</pre>` : ''}`; break;
-    case 'edit_document': case 'propose_document_edit': body = `${kv({ document: input.id, mode: input.mode, block: input.blockIndex, summary: input.summary })}<div class="bw-doc-preview">${inlineMarkdownHtml(String(input.markdown || ''))}</div>${t.output ? `<pre class="bw-out">${esc(clipOut(t.output))}</pre>` : ''}`; break;
+    case 'edit_table': case 'edit_document': case 'propose_document_edit': body = `${kv({ document: input.id, mode: input.mode, block: input.blockId || input.blockIndex, cells: input.cells?.length, summary: input.summary })}<div class="bw-doc-preview">${inlineMarkdownHtml(String(input.markdown || ''))}</div>${t.output ? `<pre class="bw-out">${esc(clipOut(t.output))}</pre>` : ''}`; break;
     default: body = kv(input) + (t.output != null || t.preview ? `<pre class="bw-out">${esc(clipOut(t.output ?? t.preview))}</pre>` : '');
   }
   return `<details class="bw-step ${state}" data-step="${mi}:${n}" open><summary>${iconHtml(icon, 12)}<span>${esc(t.done ? describeTool(t) : runningLabel(t))}</span>${state === 'running' ? '<i class="bw-pulse"></i>' : ''}${iconHtml('chevron-down', 12)}</summary><div class="bw-step-body">${body}</div></details>`;
@@ -125,7 +125,7 @@ export function runningLabel(t) {
   const input = t.input || {};
   switch (t.tool) {
     case 'create_document': return `Creating page “${input.title || ''}”…`;
-    case 'edit_document': case 'propose_document_edit': return `Editing ${input.id || 'a document'}…`;
+    case 'edit_table': case 'edit_document': case 'propose_document_edit': return `Editing ${input.id || 'a document'}…`;
     case 'read_document': return `Reading ${input.id || 'a document'}…`;
     case 'search_documents': return `Searching documents for “${input.query || ''}”…`;
     case 'list_documents': return 'Listing documents…';
@@ -160,7 +160,7 @@ function describeTool(t) {
     case 'read_document': return `Read document ${input.id}`;
     case 'search_documents': return `Searched documents for “${input.query}”`;
     case 'list_documents': return 'Listed documents';
-    case 'edit_document': case 'propose_document_edit': return `${t.ok === false ? 'Could not edit' : 'Edited'} ${input.id}`;
+    case 'edit_table': case 'edit_document': case 'propose_document_edit': return `${t.ok === false ? 'Could not edit' : 'Edited'} ${input.id}`;
     case 'create_document': return `${t.ok === false ? 'Could not create page' : 'Created page'} “${input.title}”`;
     case 'open_website': return `Opened ${input.url}`;
     case 'list_files': return `Listed files${input.dir ? ' in ' + input.dir : ''}`;

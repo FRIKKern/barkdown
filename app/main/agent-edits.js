@@ -66,6 +66,20 @@ async function apply(input, config) {
   store.writeJson(receiptPath(id), receipt);
   return receipt;
 }
+async function applyTable(input, config) {
+  if (typeof input.id !== 'string' || !input.id.startsWith('bp:')) throw new Error('Structured table edits require a Barkpark paper.');
+  const api = remote(config), slug = input.id.slice(3), before = await api.get(slug);
+  guard(before.rev, input.baseRev);
+  const matches = (before.blocks || []).map((block, index) => ({ block, index })).filter(item => item.block.id === input.blockId);
+  if (typeof input.blockId !== 'string' || !input.blockId || matches.length !== 1) throw new Error('Table identity no longer resolves uniquely. Read it again.');
+  const { block, index } = matches[0];
+  const patch = require('../shared/table-edits').tablePatch(block, input.cells);
+  const result = await api.apply(slug, [{ op: 'patch-block', id: block.id, patch }], input.baseRev);
+  if (!Number.isFinite(result.rev)) throw new Error('Server did not acknowledge a revision; read the paper before retrying.');
+  const receipt = { id: crypto.randomUUID(), documentId: input.id, beforeRev: before.rev, afterRev: result.rev, mode: 'replace_block', blockIndex: index, blockId: block.id, summary: input.summary || 'Edited table cells', at: new Date().toISOString(), before: { blocks: before.blocks } };
+  store.writeJson(receiptPath(input.id), receipt);
+  return receipt;
+}
 async function undo(id, editId, config) {
   const edit = latest(id);
   if (!edit || edit.id !== editId || edit.undone) throw new Error('This edit is no longer available to undo.');
@@ -84,4 +98,4 @@ async function undo(id, editId, config) {
   store.writeJson(receiptPath(id), { ...edit, undone: true });
   return result;
 }
-module.exports = { apply, latest, undo };
+module.exports = { apply, applyTable, latest, undo };

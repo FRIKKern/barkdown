@@ -73,8 +73,12 @@ function markdownView(blocks) {
   try { return { markdown: blocksToMarkdown(blocks) }; }
   catch (error) { return { markdown: null, markdownError: error.message }; }
 }
-function readablePaper(paper) {
-  if (paper.markdownError && paper.blocks) return 'Markdown representation unavailable: ' + paper.markdownError + '\nUse the indexed PortableDoc blocks below as the authoritative content; do not replace them with this JSON as Markdown.\n' + JSON.stringify(paper.blocks, null, 2);
+function readablePaper(paper, format) {
+  if (format === 'structured') {
+    if (!Array.isArray(paper.blocks)) throw new Error('This paper has no structured blocks; read its Markdown/HTML representation.');
+    return JSON.stringify({ id: paper.id || paper.slug, title: paper.title, rev: paper.rev, blocks: paper.blocks }, null, 2);
+  }
+  if (paper.markdownError && paper.blocks) return 'Markdown representation unavailable: ' + paper.markdownError + '\nUse these PortableDoc blocks as authoritative content. For tables, call edit_table with the stable block id after this read; its cells use zero-based row/column and optional header:true. It preserves untouched content and metadata. Do not replace this JSON as Markdown.\n' + JSON.stringify(paper.blocks, null, 2);
   return paper.markdown || htmlToText(paper.html);
 }
 

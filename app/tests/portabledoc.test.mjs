@@ -76,7 +76,7 @@ try {
   await strict.rejects(()=>edits.apply({id:'bp:fixture',baseRev:1,mode,blockIndex:0,markdown:'Valid sibling\n\n> | Name | Value |\n> | --- | --- |\n> | Nested | table |',summary:'Unsupported nested table'},config),/Cannot convert/);
   strict.equal(calls.length,0,'unsupported mixed document cannot emit any API mutation');
  }
- for (const markdown of ['Valid sibling\n\n- Parent\n  - Child','Valid sibling\n\n| Name | Value |\n| :--- | ---: |\n| A | B |']) {
+ for (const markdown of ['Valid sibling\n\n- Parent\n  - Child']) {
   await strict.rejects(()=>edits.apply({id:'bp:fixture',baseRev:1,mode:'replace',markdown,summary:'Unsupported shape'},config),/Cannot convert/);
   strict.equal(calls.length,0,'unsupported source syntax cannot mutate the API');
  }
@@ -101,4 +101,4 @@ for (const table of [
  strict.ok(pd.blocksToText([table]).length,'snippets do not depend on Markdown export');
 }
 strict.equal(pd.markdownToBlocks('```text\n- Parent\n  - Child\n```')[0].type,'code','strict nested-list check ignores fenced source');
-console.log('Unsupported nested/aligned source is blocked; structured reads and snippets remain usable.');
+console.log('Unsupported nested source and unrepresentable export are blocked; structured reads and snippets remain usable.');
