@@ -44,7 +44,7 @@ const ws = {
     },
   },
   favorites: [],
-  pages: [],
+  pages: { layoutVersion: 2, roots: [], children: {}, expanded: {}, archiveOpen: false, archiveFilter: "", cloudArchiveOpen: false, cloudArchiveFilter: "", seeded: true },
 };
 fs.writeFileSync(path.join(source, "workspace.json"), JSON.stringify(ws));
 fs.writeFileSync(
