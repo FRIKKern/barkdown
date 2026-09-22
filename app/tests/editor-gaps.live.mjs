@@ -47,6 +47,8 @@ async function step(name, action, check) {
   try {
     const extra = await action(before);
     const current = await snapshot(); check(current.doc, before.doc);
+    assert.ok(has(current.doc, n => n.type === 'heading' && n.attrs?.level === 1 && textOf(n) === 'Gap probe'), 'seed heading must survive every completed interaction');
+    assert.ok(paragraph(current.doc, 'Start here.'), 'unrelated starting paragraph must survive');
     const ack = await acknowledged(rev);
     check(ack.doc, before.doc);
     results.push({ name, pass: true, beforeRev: rev, afterRev: ack.server.rev, doc: ack.doc, serverBlocks: ack.server.blocks, ...(extra || {}) });
@@ -83,7 +85,7 @@ try {
   await step('native Undo removes HTML paste', async () => { await page.keyboard.press('Control+z'); }, doc => assert.deepEqual(withoutIdentity(doc), withoutIdentity(beforeHtml)));
   await step('native Redo restores exact rich HTML state', async () => { await page.keyboard.press('Control+Shift+z'); }, doc => assert.deepEqual(withoutIdentity(doc), withoutIdentity(afterHtml)));
   await step('Backspace lifts quote to paragraph', async () => { await pm.locator('blockquote[data-bp-type="blockquote"], p[data-bp-type="blockquote"], p.bp-role-blockquote').first().click(); await page.keyboard.press('Home'); await page.keyboard.press('Backspace'); }, doc => assert.ok(paragraph(doc, 'quoted')));
-  await step('Backspace lifts first bullet to paragraph', async () => { await pm.locator('ul:not([data-type="taskList"]) li p').first().click(); await page.keyboard.press('Home'); await page.keyboard.press('Backspace'); }, doc => { assert.ok(paragraph(doc, 'one')); assert.ok(has(doc, n => n.type === 'bulletList' && textOf(n).includes('two'))); });
+  await step('Backspace lifts first bullet to paragraph', async () => { await pm.locator('ul:not([data-type="taskList"]) li p').first().click(); await page.keyboard.press('Home'); await page.keyboard.press('Backspace'); }, doc => { assert.ok(paragraph(doc, 'one')); assert.ok(has(doc, n => n.type === 'bulletList' && n.content?.some(item => textOf(item) === 'two'))); });
   await step('warning callout shorthand', async () => { await pm.locator('p:has-text("Tail paragraph")').first().click(); await page.keyboard.press('End'); await page.keyboard.press('Enter'); await page.keyboard.type('> [!warning] careful'); }, doc => assert.ok(has(doc, n => n.type === 'callout' && n.attrs?.tone === 'warning' && textOf(n) === 'careful')));
   await step('select all replacement and native Undo preserve rich document', async before => { const rev = read().rev; await pm.click(); await page.keyboard.press('Control+a'); await page.keyboard.type('fresh'); const replaced = await snapshot(); assert.equal(replaced.doc.content.length, 1); assert.ok(paragraph(replaced.doc, 'fresh')); const ack = await acknowledged(rev); await page.keyboard.press('Control+z'); return { replacementRev: ack.server.rev }; }, (doc, before) => assert.deepEqual(withoutIdentity(doc), withoutIdentity(before)));
   assert.equal(results.length, 13);
