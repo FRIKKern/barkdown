@@ -21,5 +21,5 @@ export async function createIsolationTransport() {
   });
   server.on('connection', socket => { sockets.add(socket); socket.on('close', () => sockets.delete(socket)); });
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
-  return { url: `http://127.0.0.1:${server.address().port}`, requests, get held() { return held; }, release() { release?.(); }, async close() { release?.(); for (const socket of sockets) socket.destroy(); await new Promise(resolve => server.close(resolve)); } };
+  return { url: `http://127.0.0.1:${server.address().port}`, requests, get held() { return held; }, release() { release?.(); }, disconnect() { for (const socket of sockets) socket.destroy(); }, async close() { release?.(); for (const socket of sockets) socket.destroy(); await new Promise(resolve => server.close(resolve)); } };
 }
