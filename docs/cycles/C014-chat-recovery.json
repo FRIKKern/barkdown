@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C014",
   "stage": "P1",
-  "status": "active",
+  "status": "done",
   "goal": "Recover ordinary managed chat interruptions without losing partial work or replaying unsafe effects.",
   "scope": [
     "Windows managed ordinary and side chats",
@@ -17,8 +17,16 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C014-chat-recovery.md",
-  "nextAction": "Complete full regression, source commit, committed recovery/video and visual/live evidence review.",
-  "evidence": [],
-  "truthReview": "Actual owned-worker parent and side interruption/recovery fixture passed; no legacy nonprofile claim. C012 evidence published fb1ed55.",
-  "screenshotReview": "New actual recovery evidence required after implementation."
+  "nextAction": "Coordinator review/import evidence; choose bounded terminal ownership follow-up. No merge/deploy.",
+  "evidence": [
+    "9135723 implementation",
+    "e3a6554 early interruption acknowledgement correction",
+    "docs/visual/chat-recovery/e3a6554/manifest.json",
+    "docs/visual/chat-recovery/e3a6554/review.json",
+    "docs/visual/runs/2026-09-22T01-03-52-492Z/README.md",
+    "docs/images/status/history/C014-e3a6554.json",
+    "npm run verify session10975 exit0"
+  ],
+  "truthReview": "Bounded managed Windows recovery proven; final root verify10975 passed. Legacy/non-Windows and actual external owned-Codex crash remain excluded; overall P1 is not complete.",
+  "screenshotReview": "Five final recovery stills,32 video samples,88 raw motion frames (83 GIF) reviewed; deterministic37 frames approved; separate live Paper five stills and all37 GIF frames reviewed."
 }

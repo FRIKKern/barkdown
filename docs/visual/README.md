@@ -1,42 +1,42 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-22T00-09-52-577Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-22T01-03-52-492Z/README.md).
 
-Reviewed by Codex integration coordinator. Inspected all37 actual candidate frames:31 shell/goals/profiles and6 recovery-window states. Intended default width60 changes side-chat proportions and background geometry; saved-width behavior passed. Model controls wrap within side-chat composer, no overlapping menus; narrow goal scroll/footer and420px recovery buttons remain legible. Recovery images are explicit fixture states with no migration, not actual runtime adoption proof. Combined full desktop56cc102 passes incl crash/reopen/reconcile/retry and16 adoption process exits; corrected adoption fixture passes atf0d513a. Live Paper freshness for this new source remains pending.
+Reviewed by Codex next-cycle agent. Final C014 e3a6554: compared37 frames; no threshold pixel, geometry or environment changes.33 of45 PNG/GIF artifacts byte-identical to reviewed913 run; inspected all11 changed PNGs and workspace GIF underlying frames. Actual final23139/tp1w78 passed:4 stills byte-identical to prior reviewed capture, new-turn timing still inspected; reviewed32 one-fps video samples and all88 raw8fps frames (83 GIF frames after duplicate coalescing). Preserved draft, legible recovery review and narrow side controls. Actual local HTTP API SDK, no external-model claim; all3 jobs verified stopped. Live Paper separate.
 
-Source commit: f0d513a7335c0b70ef8e7e3fa5982f3e1a473d64; platform: win32; Electron: 38.8.6. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: e3a65542c094f154236952d2e8d75de2c597af78; platform: win32; Electron: 38.8.6. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-09-22T00-09-52-577Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-09-22T01-03-52-492Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-09-22T00-09-52-577Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-09-22T01-03-52-492Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-09-22T00-09-52-577Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-09-22T01-03-52-492Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-09-22T00-09-52-577Z/documents.gif)
+![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-09-22T01-03-52-492Z/documents.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-09-22T00-09-52-577Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-09-22T01-03-52-492Z/settings.gif)
 
 ## [goals](goals/README.md)
 
-![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-09-22T00-09-52-577Z/goals.gif)
+![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-09-22T01-03-52-492Z/goals.gif)
 
 ## [profiles](profiles/README.md)
 
-![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-09-22T00-09-52-577Z/profiles.gif)
+![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-09-22T01-03-52-492Z/profiles.gif)
 
 ## [adoption](adoption/README.md)
 
-![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-09-22T00-09-52-577Z/adoption.gif)
+![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-09-22T01-03-52-492Z/adoption.gif)
 
 ## Live evidence and gaps
 

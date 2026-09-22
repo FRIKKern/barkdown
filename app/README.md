@@ -68,4 +68,4 @@ Use [the local-runtime guide](../docs/LOCAL-BARKPARK.md) for setup and [the acce
 
 Each page contains a still, recorded interaction GIF, provenance and changelog. [Rules and coverage limits](../docs/visual/RULES.md) distinguish visual review from functional/runtime proof.
 
-- [Ordinary chat recovery](../docs/visual/chat-recovery/README.md): C014 actual managed Windows crash/recovery journey; source evidence closeout pending.
+- [Ordinary chat recovery](../docs/visual/chat-recovery/README.md): C014 actual managed Windows crash/recovery journey; source e3a6554 with reviewed crash/recovery motion and separate live Paper regression evidence.

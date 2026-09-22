@@ -59,3 +59,7 @@ Start with `npm run cycle` and [cycle.json](cycle.json). C002 merged through PR 
 ## Visual handoff
 
 The [visual health pages](visual/README.md) now hold reviewed stills, GIFs and comparison reports. Follow [visual rules](visual/RULES.md) for app/dependency/harness changes: capture, compare, inspect, explicitly approve, and preserve old evidence. The main baseline is merge b8e7bfb from PR #29; C002 is merged and P1 remains pending. This workflow update did not implement profiles or change runtime behavior. Dedicated agent-edit/files/recovery motion coverage remains to be added with those journeys. Do not treat fixture screenshots as live integration proof.
+
+## C014 branch checkpoint
+
+This isolated branch adds [ordinary managed chat recovery](cycles/C014-chat-recovery.md) at e3a6554. Source is pushed; actual crash/recovery, deterministic visuals and live Paper evidence are reviewed. Final evidence closeout is recorded in the linked handoff. C008 remains the coordinator's active integration cycle; do not interpret this isolated worktree as the newest combined candidate.
