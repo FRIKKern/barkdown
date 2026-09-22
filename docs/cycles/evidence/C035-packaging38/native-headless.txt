@@ -1,0 +1,119 @@
+TAP version 13
+# Subtest: external resources map only the direct app.asar parent of main
+ok 1 - external resources map only the direct app.asar parent of main
+  ---
+  duration_ms: 2.0488
+  ...
+# Subtest: invalid pre-dispatch owner reports positively that no new process was launched
+ok 2 - invalid pre-dispatch owner reports positively that no new process was launched
+  ---
+  duration_ms: 3.4465
+  ...
+# Subtest: Windows owned job cancellation stops a real child/grandchild tree before acknowledging
+ok 3 - Windows owned job cancellation stops a real child/grandchild tree before acknowledging
+  ---
+  duration_ms: 1679.2286
+  ...
+# Subtest: forced supervisor death closes job and restart verifier proves the entire owned tree stopped
+ok 4 - forced supervisor death closes job and restart verifier proves the entire owned tree stopped
+  ---
+  duration_ms: 2402.2779
+  ...
+# Subtest: normal worker exit drains descendants and duplicate attempt launch is refused
+ok 5 - normal worker exit drains descendants and duplicate attempt launch is refused
+  ---
+  duration_ms: 1217.3571
+  ...
+# Subtest: abrupt main host exit closes its control pipe and restart verifies descendant shutdown
+ok 6 - abrupt main host exit closes its control pipe and restart verifies descendant shutdown
+  ---
+  duration_ms: 1879.2645
+  ...
+# Subtest: verified settled completion retention is bounded without dropping unresolved proof
+ok 7 - verified settled completion retention is bounded without dropping unresolved proof
+  ---
+  duration_ms: 22.5455
+  ...
+# Subtest: real job-owned worker bridges exact owner, approvals, sessions and finalization
+ok 8 - real job-owned worker bridges exact owner, approvals, sessions and finalization
+  ---
+  duration_ms: 643.2756
+  ...
+# Subtest: cancelling an approval-held real worker waits for job drain and releases lease once
+ok 9 - cancelling an approval-held real worker waits for job drain and releases lease once
+  ---
+  duration_ms: 582.4195
+  ...
+# Subtest: 20MiB image descriptor and6MiB history cross the real bridge in both directions without truncation
+ok 10 - 20MiB image descriptor and6MiB history cross the real bridge in both directions without truncation
+  ---
+  duration_ms: 1036.4733
+  ...
+# Subtest: malformed post-handshake message overrides an earlier success and persists failed completion
+ok 11 - malformed post-handshake message overrides an earlier success and persists failed completion
+  ---
+  duration_ms: 734.7043
+  ...
+# Subtest: Windows terminal closes its real descendants and same-tab profile B remains alive
+ok 12 - Windows terminal closes its real descendants and same-tab profile B remains alive
+  ---
+  duration_ms: 2915.3995
+  ...
+# Subtest: profile authority does not change on failed terminal drain and can retry
+ok 13 - profile authority does not change on failed terminal drain and can retry
+  ---
+  duration_ms: 2.8445
+  ...
+# Subtest: abrupt terminal host death kills all descendants and does not replay commands
+ok 14 - abrupt terminal host death kills all descendants and does not replay commands
+  ---
+  duration_ms: 4135.7041
+  ...
+# Subtest: uncertain shutdown keeps session blocked, trusted verification permits retry
+ok 15 - uncertain shutdown keeps session blocked, trusted verification permits retry
+  ---
+  duration_ms: 8.7788
+  ...
+# (node:19668) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/.codex/worktrees/barkdown-packaging38/app/renderer/src/tabs/terminal.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-packaging38\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output
+ok 16 - terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output
+  ---
+  duration_ms: 8799.1239
+  ...
+# Subtest: known pre-dispatch failure permits retry but generic launch failure needs native proof
+ok 17 - known pre-dispatch failure permits retry but generic launch failure needs native proof
+  ---
+  duration_ms: 17.6878
+  ...
+# Subtest: late launch after timeout is stopped without dispatching shell commands
+ok 18 - late launch after timeout is stopped without dispatching shell commands
+  ---
+  duration_ms: 53.2094
+  ...
+# Subtest: shutdown admission rejects a new terminal even after the owned map drains
+ok 19 - shutdown admission rejects a new terminal even after the owned map drains
+  ---
+  duration_ms: 1.6506
+  ...
+# Subtest: missing launch folder never falls back to home and failed shell can be explicitly retried
+ok 20 - missing launch folder never falls back to home and failed shell can be explicitly retried
+  ---
+  duration_ms: 1147.3934
+  ...
+# Subtest: corrupt terminal ownership record is preserved and cannot silently seed another shell
+ok 21 - corrupt terminal ownership record is preserved and cannot silently seed another shell
+  ---
+  duration_ms: 14.6718
+  ...
+1..21
+# tests 21
+# suites 0
+# pass 21
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 17353.9142

@@ -1,0 +1,54 @@
+{
+  "archive": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-packaging38\\app\\release\\win-unpacked\\resources\\app.asar",
+  "checks": [
+    {
+      "file": "shared/changes.js",
+      "sha256": "a7f0348679be92a753b536819a44337b1955e58b4f75a91ec984be6f2c071ffb",
+      "status": "pass"
+    },
+    {
+      "file": "shared/markdown.js",
+      "sha256": "e2879038483f1c9303b13e62eb40b296b1a561d4ea4bf555edef613ea59b917b",
+      "status": "pass"
+    },
+    {
+      "file": "shared/ops.js",
+      "sha256": "d97d8c8c1994fc7b8cf9c9b5a4dc62476b2ab605cc11fef44bd02084e7047f50",
+      "status": "pass"
+    },
+    {
+      "file": "shared/portabledoc.js",
+      "sha256": "cb638ad3def74541c5955c2f4fbfa0d9a0ff400ab8809cf55935f0de0e0d42e7",
+      "status": "pass"
+    },
+    {
+      "file": "shared/table-edits.js",
+      "sha256": "3265150011a2c6c1238ed1733a5f300a60ba9beda092914ebb0411e69036c9a3",
+      "status": "pass"
+    },
+    {
+      "file": "goal-worker-host.ps1",
+      "physical": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-packaging38\\app\\release\\win-unpacked\\resources\\app.asar.unpacked\\main\\goal-worker-host.ps1",
+      "sha256": "351d35517176bfd23e7431fb7d027fde346951bb7407fc5288aa623157e18dd0",
+      "status": "pass"
+    },
+    {
+      "file": "local-barkpark-launch.ps1",
+      "physical": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-packaging38\\app\\release\\win-unpacked\\resources\\app.asar.unpacked\\main\\local-barkpark-launch.ps1",
+      "sha256": "637d0c6ff22c889545d841b52b4758deeea4098ce801a541c80c5cdc8c65535e",
+      "status": "pass"
+    },
+    {
+      "file": "local-barkpark-boot.exs",
+      "physical": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-packaging38\\app\\release\\win-unpacked\\resources\\app.asar.unpacked\\main\\local-barkpark-boot.exs",
+      "sha256": "7eba1f7a4586b84144c647a387d7310002524c948f633161516174533cc798d9",
+      "status": "pass"
+    }
+  ],
+  "scope": "Static packaged bytes and real external PowerShell verifier loading only; no Electron/runtime launched.",
+  "verifier": {
+    "exitCode": 0,
+    "stdout": "true",
+    "note": "Synthetic absent-job query proves packaged PS1 executable/readable; not real job teardown proof."
+  }
+}

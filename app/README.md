@@ -91,3 +91,7 @@ Candidate `2b2ec11` is awaiting fresh combined gates. Global fixture approval/st
 - E009: [native clipboard gallery](../docs/visual/rich-clipboard/runs/2026-09-22T04-50-27-798Z/manifest.json), Barkdown `25cb114` / connected upstream3495. This does not update the vendored a544 fallback.
 - C028: [runner failure enforcement](../docs/cycles/C028-parity-exit.md); 24 controlled runner cases pass, while historical root freshness remains separate.
 - [Third-party notices](../THIRD-PARTY.md): 49-package metadata/license/provenance audit imported; no editor asset or pin change.
+
+## C035 packaging resource candidate
+
+[Packaging handoff](../docs/cycles/C035-packaging38.md): Electron38 and both locks remain unchanged. Shared modules are included in ASAR; exactly three native helper files are unpacked and resolved from their actual filesystem location. Native package acceptance awaits the queued real terminal descendant/switch/crash fixture; this is not a clean-machine installation or bundled Barkpark runtime claim. Blocked43/44 trials are excluded.
