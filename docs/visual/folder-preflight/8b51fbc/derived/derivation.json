@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "sourceCommit": "8b51fbce9dedfe0a619f211ef65467d2295e1ef9",
+  "sourceEvidenceCommit": "5c2938322a3c09b602bb783bbc25a343577e4043",
+  "method": "All 234 original decoded frames retained in sequence, resized within 800x514 and palette-quantized to 128 colors. Session labels are added outside the recording. Playback uses 80ms per 25fps source frame (half speed); encoder merges identical consecutive palette frames while preserving durations. No new capture or UI modification.",
+  "originalIndexSha256": "5e2865604b764f70abb19e7d7952c7f0d66e2ff49aa92e7b933a7c8d1fc174cf",
+  "gifs": [
+    {
+      "file": "main-side-motion.gif",
+      "sha256": "8333981121a7e2905900a3562160fd6e75f1114d978b093ec0049e59cd337de0",
+      "bytes": 2762919,
+      "segments": [
+        {
+          "label": "Session 1: main and side refusal",
+          "sourceVideo": "main-side/01-refusal-session.webm",
+          "sourceSha256": "fd591c4d4cdb2f6ab5eb25a4949d1ff3be6215c769c2075bb263d53cccb7659b",
+          "sourceDecodedFrames": 78,
+          "inputFrameRange": [
+            1,
+            78
+          ]
+        },
+        {
+          "label": "Session 2: process restart; both drafts retained",
+          "sourceVideo": "main-side/02-restart-session.webm",
+          "sourceSha256": "8fcf1e722d36ecc3443a48fdc5d3686ca62ecec7166d27a6e4b0c473ac5ce477",
+          "sourceDecodedFrames": 37,
+          "inputFrameRange": [
+            79,
+            115
+          ]
+        }
+      ],
+      "inputFrames": 115,
+      "decodedGifFrames": 114,
+      "durationMs": 9200,
+      "contactSheets": [
+        "main-side-motion-review-01.jpg",
+        "main-side-motion-review-02.jpg",
+        "main-side-motion-review-03.jpg",
+        "main-side-motion-review-04.jpg",
+        "main-side-motion-review-05.jpg",
+        "main-side-motion-review-06.jpg",
+        "main-side-motion-review-07.jpg",
+        "main-side-motion-review-08.jpg"
+      ]
+    },
+    {
+      "file": "selected-b-motion.gif",
+      "sha256": "3b1ed434e21f7dd78397813adfd448fa2618fb9a6f3e824a48e8c042c6e5647a",
+      "bytes": 2453607,
+      "segments": [
+        {
+          "label": "Session 1: select profile B with unavailable folder",
+          "sourceVideo": "selected-b/01-selected-B-session.webm",
+          "sourceSha256": "e847594c868a5938d2c0c2020c92cfc717350c341deaf15cccc2d13dfb904622",
+          "sourceDecodedFrames": 51,
+          "inputFrameRange": [
+            1,
+            51
+          ]
+        },
+        {
+          "label": "Session 2: restart B; missing reference and refusals",
+          "sourceVideo": "selected-b/02-restart-refusal-session.webm",
+          "sourceSha256": "b79c4948d29bd4e1fa2cf664305e356c02513e46521101779ac354ae01a7960b",
+          "sourceDecodedFrames": 68,
+          "inputFrameRange": [
+            52,
+            119
+          ]
+        }
+      ],
+      "inputFrames": 119,
+      "decodedGifFrames": 115,
+      "durationMs": 9520,
+      "contactSheets": [
+        "selected-b-motion-review-01.jpg",
+        "selected-b-motion-review-02.jpg",
+        "selected-b-motion-review-03.jpg",
+        "selected-b-motion-review-04.jpg",
+        "selected-b-motion-review-05.jpg",
+        "selected-b-motion-review-06.jpg",
+        "selected-b-motion-review-07.jpg",
+        "selected-b-motion-review-08.jpg"
+      ]
+    }
+  ]
+}

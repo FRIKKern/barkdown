@@ -1,0 +1,172 @@
+{
+  "version": 1,
+  "capturedAt": "2026-09-22T05:52:18.644Z",
+  "source": {
+    "commit": "8b51fbce9dedfe0a619f211ef65467d2295e1ef9",
+    "dirty": false,
+    "files": {
+      "app/main/README.md": "1d8c0235cf005c390c30bca852ea58687bb176471fb40cf233c9b7c01c9f3410",
+      "app/main/adoption-boot.js": "75a0a896ad3de2a34108b757a812e0373e9a8ec745407b9f39ab217c1df7260c",
+      "app/main/adoption-preload.js": "e7baf6b55689c256d0aae99380b3b8bf574bd75c5936d4b2bbeb9dece6bc11b0",
+      "app/main/adoption-window.js": "2bdd25285a767e4b28ad7eff822a387e68f4466c4d1dd7446b82c9f81f3c0945",
+      "app/main/agent-edits.js": "69e27730c8426c74b64a94f9df11b409124c5177faaeff1225bf65b7895e80cd",
+      "app/main/agent.js": "ca62c8efe06288168dda6287b21bb63da9782f2f85aa80a2db01015dc71cd3d8",
+      "app/main/atomic-write.js": "a3b46178f6457518f7e9030181140ea2bb490abd8ea630429e38808fbdc8b7b9",
+      "app/main/barkpark.js": "d8092ff0374f7877af1937b0ad3ce3ae0be3a1c194c729009cfa7cb3f52166d4",
+      "app/main/canvas-bundle.js": "2b16a0577b5b1dcef9820917fb79386508df5c5f5a0c8884b5e3e6c875bd0573",
+      "app/main/conversations.js": "b75a038b8adc2c939f02d69c7ec955dab6e4133dd971068314c18c1feebab7e4",
+      "app/main/credential-durability.js": "931ac31e04fc33e9c673b6fe76dcbb7aab4de47c452ebbac55d9ffec0d9290c1",
+      "app/main/documents.js": "7ee31f30e256043cacf7a8a947436543cf22fc36061f619264ff6bcb70774c5d",
+      "app/main/file-lease.js": "b937d9d9e5ab91627f046bfc93faa71ad7b226b77a34b6a86ba647b52052e362",
+      "app/main/files.js": "5267b7a9f49f72322c6a9e864cb84be24ea8ca43c76807339074b4a263721821",
+      "app/main/git.js": "39b9a368ad8bd5a9a433fc45e672768ce2402a4d07533db3f696dfa97ccd3258",
+      "app/main/goal-admission.js": "b5ccb3369141b7711540ed3e4593a36ab4fc20a61f5c32fa2aa5122a483897db",
+      "app/main/goal-coordination.js": "730f442561708696d7ab4dd4d67979216f1de47c41c87c9b27f36dbf0d696e3e",
+      "app/main/goal-coordinator.js": "6af1b68ee220467fba2786392cc4a6ca0b51fac39c1b401e9fd53d419af6805f",
+      "app/main/goal-process.js": "18d453b687dc7b4a4a45eb1a94ca3a0e57c6d3365fff27003b22e1a940324075",
+      "app/main/goal-protocol.js": "e13ff48c8077f36473dd3e45b94c6af4b0751f49e43ac988f12b81ddd102c676",
+      "app/main/goal-provider.js": "91cecca929f77717b1a79c15c90363f2a2a6517304ae8acd82a85099cdfc8384",
+      "app/main/goal-service.js": "e580d24e58595fe00461a74e7d1d9d60d08f29a73e3f1685249fef4c7aad3ff7",
+      "app/main/goal-worker-agent.js": "fa365e76786d2990674e4f4cc0e58cf2e2bc048b46781fa6316e24ba19d8dec9",
+      "app/main/goal-worker-host.ps1": "351d35517176bfd23e7431fb7d027fde346951bb7407fc5288aa623157e18dd0",
+      "app/main/goal-worker.js": "62386b3eb82eaf35968e4e28f27e8434446f71f7870806438cb18896a85d3578",
+      "app/main/goals.js": "34dcaaec10c0ef78c0a205dde961dde64752b0c38fb9198eb9a8b63c193c6e19",
+      "app/main/legacy-authority-adoption.js": "4ab9340de91f728facb92032adc6367b55681c26a8d9089e7dbb450552c52f5d",
+      "app/main/local-barkpark-boot.exs": "7eba1f7a4586b84144c647a387d7310002524c948f633161516174533cc798d9",
+      "app/main/local-barkpark-launch.ps1": "637d0c6ff22c889545d841b52b4758deeea4098ce801a541c80c5cdc8c65535e",
+      "app/main/local-barkpark-source.js": "1cb2f233400edcdc0f6b6a557f0f1366974dfed2de71a913d8126893021178b6",
+      "app/main/local-barkpark.js": "1df302b991afef47c772d63a6bec0b1a0fa8af00d62a701efd9fcbf7900590c3",
+      "app/main/main.js": "640d5c9fd3ac2ef9bf45db1fa02a5c9585a8017ba1f4528b884a4f42bc3c5361",
+      "app/main/mcp-server.js": "66df36b5e8621e0f7dbd4e49ff39bfc9d870071293982baec8ec6d0d14871830",
+      "app/main/preload.js": "01e8bd7a881d5a7eb702c22c4814f28ede6af82b9f9317de5edd1a5b19783270",
+      "app/main/profile-ipc.js": "53fc2e235f99501e960d40b0f36b620435066e700fdb2e10eb465d9da2f99eae",
+      "app/main/profile-native-preflight.js": "b9bcf768e0e4479840117a55e0de5c550e033bc89d1dcc7874db25db1c6bdd8a",
+      "app/main/profile-registry.js": "a05c62331363b03a4769cc20dd9365973beb0449c0b3dd91af95fa6170094179",
+      "app/main/profile-runtime-adoption.js": "a6693c09f47ab392e3c91644d6ae10711b2b793249197ffb3a42a4d8b7411a93",
+      "app/main/profile-runtime.js": "baf6423ed02f89b973f07d326ca58551798e35d93e8ba0cf72f7fcd727e91560",
+      "app/main/profile-service.js": "be5086c8596346002ad4eb66e82bb1a514573ccdc0dacded49cd6100f63ef140",
+      "app/main/provider-folder.js": "e927b19c275a889f7ba3ced8aad29ec12cab79a7c0a0ac31fbd6406de9cae66a",
+      "app/main/providers/claude.js": "e5585e790f8b6702f56fe55e6a0689380834ad7cdab65c1b00969edcff7f316c",
+      "app/main/providers/codex.js": "0c2dc28bb434687cbd5247d1df338573c7f528908644b0f07105329c1eacc740",
+      "app/main/providers/run-scope.js": "d76d6acc681190b5917e90ebff9aa0ae6f5b7af9ec3ee8255fa2a65b97d5ae8b",
+      "app/main/providers/runs.js": "86c10e20734d6543c408556220db83bc6c60fb0eff0d8e219c8d384e87ce6ddf",
+      "app/main/runtime-build.js": "a95dd4d722680f90e725a4d9c1fad2d58286398d42d2774ec3da24d2e7508f4f",
+      "app/main/store.js": "97044743026b3a8841ea1757877d1316706d319ed17543b7898926b6b11bfda7",
+      "app/main/terminal-worker.js": "166d582af228bb191535197aee5a82d7da2f22d7af39d82e0feb98a4d66f9509",
+      "app/main/terminal.js": "2217be3cb74aa5f336d9fc4b7ab854f23753c40af9240433b58471db5b5641e8",
+      "app/main/workspace-repository.js": "c3047d7f41105569dc2a40c5d3fe3d865c1628dab99e9f79dab3b6742593252c",
+      "app/package-lock.json": "d701063665d8991c7775b7868b6333f15955ebafdb6396d93b3a005acfbe136b",
+      "app/package.json": "28e1c21e43e85203f2ab8475e0e448fa4845be882270fbab958950f3ef7dba93",
+      "app/renderer/goals.css": "f3be7b915348ea1e0d2250826b117d062a29fd8688cfef0ca4ac0f32ee959b01",
+      "app/renderer/index.html": "2e880f7be5b5afc2963cd05d86f2e95ee64aeeab66549f9954508b00546f17c2",
+      "app/renderer/paper-notion.css": "567c75ac8223d7303a5b66ec85b1ddc6220667c50153c86e81299e74e25da197",
+      "app/renderer/src/README.md": "90fddc0e526be309b994e4094c8b7d49aeb87577328664a53a025826306d85af",
+      "app/renderer/src/agent-presence.js": "454ebfc8f363e48a28a6e8c65069a34acb0ed8c7e13e36bf17b5ed488b06a0e8",
+      "app/renderer/src/agent-undo.js": "177b209b24ee6936738445afcfb9f1331ba54a8004e2513ad04cb70fd50c8824",
+      "app/renderer/src/canvas-bundle.js": "9e1bc7e6fe61cb9dcac82c0302532f62cd6265303a8c048f067d49e191b579a4",
+      "app/renderer/src/composer-history.js": "a6e9684568ab9aaae614cf84712906e5a774fe1af5470201cd24fe4aa709eb08",
+      "app/renderer/src/composer.js": "f16f82fe463fad88aa4def32724c76ffd51410f625b31ecc7cae216d080d6862",
+      "app/renderer/src/conversation.js": "41c39fda64cddd8304458d3d93427b6ff5cac272be74f7c2ba44dbf382b52336",
+      "app/renderer/src/dialogs.js": "0cf59b04a4344e7ee750eb11cbf926967804a5936ec4e79ee4a017e68979ea86",
+      "app/renderer/src/goals.js": "128cb98d12471167404b37aada178199d0ae44c42853ce1259b424905a1d8e6c",
+      "app/renderer/src/index.js": "fbb1c9c471ce5b66867c50b6e8d9c7bab6d2a094db9978e9622437a126560aff",
+      "app/renderer/src/managed-workspace.js": "6c51aad4c9ff539f8ce36944d2a7b6500cf51402f23eb2decc2f7803de9fa89e",
+      "app/renderer/src/menus.js": "b55ed1af5ef9ddf83eb47ca0440a53512b98bcb64cd930372eb9d970494e5fb5",
+      "app/renderer/src/models.js": "27810f8aaf630de968d61336c221cd43a055b4d221e8b7fa0a17d58264fcfa00",
+      "app/renderer/src/pages.js": "51efac42a6eaf9b05189971365e7be2fb729e2f08064dcd7bf7e1136112ab870",
+      "app/renderer/src/settings.js": "1006d2ce8b7c309baa28accf4c1d3f0e05cfb7ad12eb4fd541d1f43a27ac38d5",
+      "app/renderer/src/state.js": "281c0060de85fafb86d33ad6f66281025482d0afa9387222dbffc7937d95b223",
+      "app/renderer/src/submission-state.js": "ece22de6dd1180be49a2a1b1720cc1a16b9e689331d0a65d6c96ed5f130b1b02",
+      "app/renderer/src/tabs/README.md": "d7f586498bc055ac6fe04d16461c9bd77b504690cbf1ab2ce0b559dd252aa286",
+      "app/renderer/src/tabs/document.js": "356e8dbcaebe79e95a5700d1f26f84f6a7979bf9abe177c98a1d43431d37c8ab",
+      "app/renderer/src/tabs/paper.js": "29c4e10a6875dc41ecd6f5a6ef77d353458e2f677277f08214bcf7df6ae2ecd0",
+      "app/renderer/src/tabs/project.js": "0e9692c91f08085604caf03d1f8fd99a7153367f2ef881db49b1b01509b6022a",
+      "app/renderer/src/tabs/review.js": "55e8039b8b2122e850797701ec2bce014d9aeaa7ae05cceca34d6272400582df",
+      "app/renderer/src/tabs/sidechat.js": "dbd2348d5039d413e3af1aac8259b80789067a15afdba3ac0977b1ef244d791c",
+      "app/renderer/src/tabs/terminal.js": "81fe426af701297a315d5a9ca10965265ea9f58143dc90c943cb36d80e12bbe3",
+      "app/renderer/src/tabs/website.js": "202352dadf8aabfb4b7200a24e8ffca307c41d41d846167af10d31268ca45c87",
+      "app/renderer/src/ui.js": "890908f4ef27b4a1cdafe9a57e9d03070d040895b353b4d5aebec3d05dd36d5a",
+      "app/renderer/styles.css": "c33b6044c4bdc01678acb2d4ed148bfa899fd11eff04bc124caef44b05480cfa",
+      "app/renderer/vendor/BARKPARK-LICENSE": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2",
+      "app/renderer/vendor/bp-flags.js": "b22deb8eacd22ccd01572eb4e09e24c6f97152540b98b59afdfb812821266eb9",
+      "app/renderer/vendor/bp-paper-editor.bundle.js": "fd1e8e6976d60f0bef367c16bf78e1834c7567cb609d03cc754ce7f421c92348",
+      "app/renderer/vendor/bp-paper-editor.css": "d954539dcf5ae815c3a3f6d740aa1fa0309c366c8e07fa078afe7708a0d71226",
+      "app/renderer/vendor/bp-paper-mermaid.js": "bb8702307aff0dfa42580e14b3cc4807dbbf03b7db0fb562de9ab492a493c353",
+      "app/renderer/vendor/bp-paper-popups.css": "1280d31c6ba1d9ba771ace6935144c661497263df73879bb18238cc9a60a5c3a",
+      "app/shared/changes.js": "a7f0348679be92a753b536819a44337b1955e58b4f75a91ec984be6f2c071ffb",
+      "app/shared/markdown.js": "e2879038483f1c9303b13e62eb40b296b1a561d4ea4bf555edef613ea59b917b",
+      "app/shared/ops.js": "d97d8c8c1994fc7b8cf9c9b5a4dc62476b2ab605cc11fef44bd02084e7047f50",
+      "app/shared/portabledoc.js": "cb638ad3def74541c5955c2f4fbfa0d9a0ff400ab8809cf55935f0de0e0d42e7",
+      "app/shared/table-edits.js": "3265150011a2c6c1238ed1733a5f300a60ba9beda092914ebb0411e69036c9a3",
+      "app/tests/missing-folder-ui.live.mjs": "0597130eb8df7f8a431ce566b37d99dff4bc917ced8061d0d4ca4284491c0fbc"
+    }
+  },
+  "environment": {
+    "platform": "win32",
+    "release": "10.0.26200",
+    "arch": "x64",
+    "electron": "38.8.6",
+    "viewport": {
+      "width": 1400,
+      "height": 900
+    }
+  },
+  "capture": {
+    "stills": [
+      "01-selected-B-unavailable-after-restart.png",
+      "02-claude-predispatch-refusal.png",
+      "02-codex-predispatch-refusal.png"
+    ],
+    "videos": [
+      "01-selected-B-session.webm",
+      "02-restart-refusal-session.webm"
+    ],
+    "motion": "actual Playwright video; no reduced-motion override",
+    "transport": "actual Electron IPC; no provider substitution or dispatch"
+  },
+  "artifacts": {
+    "01-selected-B-session.webm": {
+      "bytes": 100027,
+      "sha256": "e847594c868a5938d2c0c2020c92cfc717350c341deaf15cccc2d13dfb904622"
+    },
+    "01-selected-B-unavailable-after-restart.png": {
+      "bytes": 43276,
+      "sha256": "2a5be0864baa91c9f7f3f22f1b63b82bb6c14e4a2fc4fcb1beb33baaa148a9ad"
+    },
+    "02-claude-predispatch-refusal.png": {
+      "bytes": 49295,
+      "sha256": "5c7499857802c2585c05e56f1f816ff3929f6efce3bbda21d4f10f3397c99990"
+    },
+    "02-codex-predispatch-refusal.png": {
+      "bytes": 58656,
+      "sha256": "2606f31e86f8a1bde827e15da3c3c74aeec39d1b7c152b4800d789fac7f0f515"
+    },
+    "02-restart-refusal-session.webm": {
+      "bytes": 139586,
+      "sha256": "b79c4948d29bd4e1fa2cf664305e356c02513e46521101779ac354ae01a7960b"
+    },
+    "after-restart.json": {
+      "bytes": 3318,
+      "sha256": "9d593f6675e577eb576739b2f454bcd8a77806407792132a46c5fba852d76645"
+    },
+    "before-restart.json": {
+      "bytes": 3085,
+      "sha256": "6ca971162050f0a8fc0370b277061d5e492c0793221edf50645498eea0220673"
+    },
+    "claude-refusal.json": {
+      "bytes": 1228,
+      "sha256": "d7d28f5f8d0e8d6360dd891d5d535365d25a594110cf2186c0efb54cddb47a62"
+    },
+    "codex-refusal.json": {
+      "bytes": 1226,
+      "sha256": "80d1aebec3516c6d0917c1e85618a091aecca5c2bc1d3e44c5e1b47766dcc83e"
+    },
+    "report.json": {
+      "bytes": 4077,
+      "sha256": "a2fc14a540a490c034af0d0891ec043475393a99d760fbcf35fbc5b3cb4dbd94"
+    }
+  },
+  "passed": true,
+  "stopped": true,
+  "limits": "Selected B restart/missing reference/no A substitution and known missing ordinary CLI refusal. Original C029 SDK errors are historical; no post-stat removal race or combined-source proof."
+}

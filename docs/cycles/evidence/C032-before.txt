@@ -1,0 +1,109 @@
+TAP version 13
+# Subtest: claude refuses missing before reservation
+not ok 1 - claude refuses missing before reservation
+  ---
+  duration_ms: 193.5678
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-folder-preflight\\app\\tests\\folder-preflight.test.mjs:21:83'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  stack: |-
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-folder-preflight/app/tests/folder-preflight.test.mjs:23:3)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: claude refuses file before reservation
+not ok 2 - claude refuses file before reservation
+  ---
+  duration_ms: 168.97
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-folder-preflight\\app\\tests\\folder-preflight.test.mjs:21:83'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  stack: |-
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-folder-preflight/app/tests/folder-preflight.test.mjs:23:3)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: codex refuses missing before reservation
+not ok 3 - codex refuses missing before reservation
+  ---
+  duration_ms: 164.6212
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-folder-preflight\\app\\tests\\folder-preflight.test.mjs:21:83'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  stack: |-
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-folder-preflight/app/tests/folder-preflight.test.mjs:23:3)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: codex refuses file before reservation
+not ok 4 - codex refuses file before reservation
+  ---
+  duration_ms: 157.5497
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-folder-preflight\\app\\tests\\folder-preflight.test.mjs:21:83'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  stack: |-
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-folder-preflight/app/tests/folder-preflight.test.mjs:23:3)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: api C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-preflight-Xbnzl2\\missing remains dispatchable
+ok 5 - api C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-preflight-Xbnzl2\\missing remains dispatchable
+  ---
+  duration_ms: 156.2975
+  ...
+# Subtest: claude no folder remains dispatchable
+ok 6 - claude no folder remains dispatchable
+  ---
+  duration_ms: 168.5354
+  ...
+# Subtest: codex C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-preflight-Xbnzl2\\valid remains dispatchable
+ok 7 - codex C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-preflight-Xbnzl2\\valid remains dispatchable
+  ---
+  duration_ms: 162.1593
+  ...
+# Subtest: controlled EACCES refuses without changing chosen path
+not ok 8 - controlled EACCES refuses without changing chosen path
+  ---
+  duration_ms: 160.034
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-folder-preflight\\app\\tests\\folder-preflight.test.mjs:34:41'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  stack: |-
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-folder-preflight/app/tests/folder-preflight.test.mjs:37:9)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: controlled EPERM refuses without changing chosen path
+not ok 9 - controlled EPERM refuses without changing chosen path
+  ---
+  duration_ms: 157.6377
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-folder-preflight\\app\\tests\\folder-preflight.test.mjs:34:41'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  stack: |-
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-folder-preflight/app/tests/folder-preflight.test.mjs:37:9)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 3
+# fail 6
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1835.1783
