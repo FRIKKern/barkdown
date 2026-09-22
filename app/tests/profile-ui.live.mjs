@@ -9,7 +9,7 @@ const requests = [];
 const site = http.createServer((request, response) => { requests.push({ url: request.url, at: Date.now() }); response.end('<title>Profile website fixture</title><p>Owned website storage</p>'); });
 await new Promise(resolve => site.listen(0, '127.0.0.1', resolve));
 const siteUrl = `http://127.0.0.1:${site.address().port}`;
-const launch = () => electron.launch({ executablePath: process.env.BARKDOWN_PROFILE_TEST_EXE || require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
+const launch = () => electron.launch({ executablePath: process.env.BARKDOWN_PROFILE_TEST_EXE || require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${userData}`, ...(process.env.BARKDOWN_PROFILE_DIAGNOSTIC_GPU_OFF === '1' ? ['--disable-gpu'] : [])], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 let app = await launch(), page = await app.firstWindow();
 const errors = [];
 async function armDiagnostics() { await app.evaluate(({ webContents, app: electronApp }) => {
