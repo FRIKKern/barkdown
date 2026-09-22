@@ -20,4 +20,5 @@ Run the affected real-adapter tests and the required desktop/visual/root gates i
 
 ## Changelog
 
+- 22 September: selected-root search errors remain errors, distinct from no matches; [API-loop regression and retained failure](../../docs/cycles/evidence/missing-working-folder/README.md). Combined visual/runtime verification is pending.
 - 22 September: C023 source is integrated with C010 lease relocation preserved; focused combined checks pass, final combined gates remain pending. C024 and C025 original evidence is imported. The handoff above owns current status.

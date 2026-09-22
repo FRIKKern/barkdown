@@ -67,12 +67,19 @@ function exists(root, relative) {
 }
 
 function search(root, query, limit = 60) {
+  const absoluteRoot = path.resolve(root);
   const results = [];
   const needle = query.toLowerCase();
   const walk = dir => {
     if (results.length >= limit) return;
     let entries;
-    try { entries = fs.readdirSync(dir, { withFileTypes: true }); } catch { return; }
+    try { entries = fs.readdirSync(dir, { withFileTypes: true }); }
+    catch (error) {
+      // A missing/denied selected root is not a successful empty search.
+      // Descendants may still disappear during this best-effort traversal.
+      if (dir === absoluteRoot) throw error;
+      return;
+    }
     for (const entry of entries) {
       if (results.length >= limit) return;
       if (IGNORE.has(entry.name)) continue;
@@ -91,7 +98,7 @@ function search(root, query, limit = 60) {
       }
     }
   };
-  walk(path.resolve(root));
+  walk(absoluteRoot);
   return results;
 }
 

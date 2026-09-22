@@ -1,0 +1,50 @@
+{
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-audit-VoVcwm",
+  "source": "bde5e23",
+  "cases": [
+    {
+      "provider": "claude",
+      "code": "ENOENT",
+      "passedCwd": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-audit-VoVcwm\\missing-B",
+      "error": "ENOENT: injected SDK cannot use selected folder C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-audit-VoVcwm\\missing-B",
+      "limitation": "Injected SDK failure; not real SDK/OS access denial"
+    },
+    {
+      "provider": "claude",
+      "code": "EACCES",
+      "passedCwd": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-audit-VoVcwm\\missing-B",
+      "error": "EACCES: injected SDK cannot use selected folder C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-audit-VoVcwm\\missing-B",
+      "limitation": "Injected SDK failure; not real SDK/OS access denial"
+    },
+    {
+      "provider": "codex",
+      "code": "ENOENT",
+      "passedCwd": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-audit-VoVcwm\\missing-B",
+      "error": "ENOENT: injected SDK cannot use selected folder C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-audit-VoVcwm\\missing-B",
+      "limitation": "Injected SDK failure; not real SDK/OS access denial"
+    },
+    {
+      "provider": "codex",
+      "code": "EACCES",
+      "passedCwd": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-audit-VoVcwm\\missing-B",
+      "error": "EACCES: injected SDK cannot use selected folder C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-audit-VoVcwm\\missing-B",
+      "limitation": "Injected SDK failure; not real SDK/OS access denial"
+    },
+    {
+      "provider": "api",
+      "missingFolderAccepted": true,
+      "tool": "search_files",
+      "toolResult": {
+        "type": "tool_result",
+        "tool_use_id": "search",
+        "content": "[]"
+      },
+      "observed": "Missing selected folder is returned as successful empty search; no A content or scratch substitution observed"
+    },
+    {
+      "provider": "owned worker transport",
+      "passedFolder": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-audit-VoVcwm\\missing-B",
+      "limitation": "Injected host only; native helper actual cwd is storeDir, child provider receives unchanged selected folder"
+    }
+  ]
+}

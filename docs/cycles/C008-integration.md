@@ -10,6 +10,10 @@ The candidate includes C021 native rollback checks, C024 project-file authority,
 
 C025 source and original evidence are imported at `9e3849c`; its lane approval remains source-specific. C026 send preservation, the C016 reading-position fix and E009 clipboard behavior remain separate lanes. Their required native journeys and/or final evidence gates must finish before import. The [A1 evidence table](A1-current-evidence.md) maps what remains unproved. `d8acb82` is the latest fully validated combined fallback. Main and deployment are unchanged.
 
+## Missing working-folder search correction
+
+The independent real API-adapter audit at e742c40 reproduced successful `[]` for `search_files` when its captured working folder does not exist. That is an unavailable folder, not evidence of no matches. The original audit uses synthetic transport and disposable data; no other profile or scratch fallback was observed. The [retained audit and failure](evidence/missing-working-folder/README.md) now have passing real tool-result regressions for missing/non-directory/empty roots and controlled root read denial. The implementation propagates actual root enumeration errors. The test helper also now rethrows scripted-response assertions rather than accepting a production error event as a test pass. Descendant skip behavior and provider preflight policy remain separate. Combined source and its final visual/runtime gates remain pending.
+
 ## Last fully validated checkpoint — 02:24 UTC
 
 Combined source e380385 is validated: full desktop session64608 exited0 at unchanged app source b083c60, including coordinator crash/retry and stop races, API Paper operations, project-buffer preservation, and terminal shutdown. Later commits changed visual comparison tooling only. Root verify86276 exited0 after restoring original historical evidence dependencies and fixing the retired terminal-draft link.

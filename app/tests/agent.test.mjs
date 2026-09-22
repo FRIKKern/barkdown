@@ -32,11 +32,18 @@ const use = (id, name, input) => ({ type: 'tool_use', id, name, input });
 
 async function runScenario(turns, { context = {}, respond } = {}) {
   const events = [];
-  agent.setClientFactory(() => fakeClient(turns));
+  let scenarioFailure = null;
+  // A model-fixture assertion must fail the test even when the production loop
+  // correctly converts the thrown transport error into an error event.
+  const checkedTurns = turns.map(turn => typeof turn !== 'function' ? turn : params => {
+    try { return turn(params); } catch (error) { scenarioFailure = error; throw error; }
+  });
+  agent.setClientFactory(() => fakeClient(checkedTurns));
   const done = new Promise(resolve => {
     agent.start({ chatId: 'c1', messages: [{ role: 'user', content: 'go' }], context, settings: { apiKey: 'test', model: 'claude-opus-5', forceOnline: true }, send: event => { events.push(event); if (respond) respond(event); if (event.type === 'done' || event.type === 'error') resolve(); } });
   });
   await done;
+  if (scenarioFailure) throw scenarioFailure;
   return events;
 }
 
@@ -74,6 +81,39 @@ events = await runScenario([
   params => { const result = params.messages.at(-1).content[0]; assert(result.is_error && /escapes/.test(result.content), 'path escape was not rejected'); return { stop_reason: 'end_turn', content: [text('Blocked.')] }; },
 ], { context: { folder: repo } });
 console.log('scenario 3 ok: path confinement');
+
+// Missing or inaccessible selected folders are tool errors, not empty search results.
+const missingFolder = path.join(repo, 'missing-working-folder');
+const fileFolder = path.join(repo, 'notes.txt');
+const emptyFolder = path.join(repo, 'empty-working-folder');
+fs.mkdirSync(emptyFolder);
+for (const [folder, code] of [[missingFolder, 'ENOENT'], [fileFolder, 'ENOTDIR'], [emptyFolder, null]]) {
+  await runScenario([
+    { stop_reason: 'tool_use', content: [use('search-root', 'search_files', { query: 'hello' })] },
+    params => {
+      const result = params.messages.at(-1).content[0];
+      assert(code ? result.is_error && result.content.includes(code) : !result.is_error && result.content === '[]', `search root ${code || 'empty'} reported incorrectly: ${JSON.stringify(result)}`);
+      return { stop_reason: 'end_turn', content: [text('Search handled.')] };
+    },
+  ], { context: { folder } });
+}
+assert(!fs.existsSync(missingFolder), 'search must not recreate a missing folder');
+const originalReadDir = fs.readdirSync;
+try {
+  fs.readdirSync = (dir, ...args) => {
+    if (path.resolve(dir) === emptyFolder) throw Object.assign(new Error('EACCES: controlled root enumeration denial'), { code: 'EACCES' });
+    return originalReadDir(dir, ...args);
+  };
+  await runScenario([
+    { stop_reason: 'tool_use', content: [use('search-denied', 'search_files', { query: 'hello' })] },
+    params => {
+      const result = params.messages.at(-1).content[0];
+      assert(result.is_error && result.content.includes('EACCES'), 'denied root must reach the model as a tool error');
+      return { stop_reason: 'end_turn', content: [text('Access unavailable.')] };
+    },
+  ], { context: { folder: emptyFolder } });
+} finally { fs.readdirSync = originalReadDir; }
+console.log('working-folder search roots ok: missing, non-directory, empty and controlled denial');
 
 // 4. Cancellation stops the loop and resolves pending approvals as declined.
 let cancelledEvents = [];
