@@ -9,6 +9,19 @@ Baseline at the 2026-09-21 roadmap reset. Implementation evidence is separate fr
 | Managed Windows local runtime | Barkdown `930fc2f`: `npm run test:local` passed actual private PostgreSQL/Barkpark startup, authenticated reads, crash recovery and restart. Expanded `local-barkpark-ui.live.mjs` passed editing through recovery, saved state after restart, Settings status, quit/window-close cleanup. | Built checkout/toolchain required. Injected worker-failure log detection is unit-tested; actual OS error 487 is not deterministically reproduced. No packaged install or multi-profile proof. |
 | Repository and screenshots | Root `npm run verify` passed; status image manifest at `5c91d29`. | Concept/build checks are not production storage or sync tests. |
 
+## Combined integration checkpoint — 22 September
+
+These are branch-specific results, not a main release or completion of P1–P5.
+
+| Source / scope | Verified evidence | Remaining limits |
+|---|---|---|
+| Combined `82cc622` | Full `npm run test:desktop`44785 passed, including actual Electron credential crash/decrypt, malformed-key refusal, profile ownership, startup drafts, adoption and owned goal recovery.37 deterministic states reviewed and approved. | Ordinary chat crash recovery and full two-runtime UI isolation remain active work. |
+| Combined `abbbcee` / upstream `8530a9e23` | [Real rich Paper saves and motion review](visual/rich-takeover/runs/2026-09-22T00-28-46-068Z/README.md): five cases plus actual MCP structured read, ten stills and sampled continuous video. Private runtime stopped. | Adapter operations without a model turn. Advanced table authoring/export and API-provider remote tool parity remain open. |
+| Original `54464ef` / upstream `a5440345c` | [Adopt, edit, restart and roll back](visual/adoption/runs/2026-09-22T00-21-07-265Z/README.md), including drafts/attachment/media and unchanged original content. C010 closed at645c525. | Disposable same-machine library, synthetic plain credential codec; not portability or real-user migration. |
+| Original `87ca623` | [Workspace-loss recovery](visual/workspace-recovery/README.md) refuses missing/corrupt authority and preserves visible drafts instead of seeding empty data. | Explicit manual recovery; no automatic reconstruction. |
+
+Combined root verification currently stops at the intentionally stale status-showcase gate; a fresh capture is queued. Original lane verification is not a substitute. See [C008](cycles/C008-integration.md) for exact sessions and subsequent results.
+
 ## Pending evidence
 
 P1â€“P5 are pending in [plan.json](plan.json). Existing implementation is the starting point; resetting the roadmap neither invalidates passing tests nor grants the new stages a pass. G1/G2 remain separate release gates.

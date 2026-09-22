@@ -1,6 +1,8 @@
 # Continue the dependable-workspace plan
 
-**Combined candidate:** this worktree follows [C008 integration](cycles/C008-integration.md) on `codex/integration-12h`. Its checkpoint supersedes historical baseline notes below. Profile switching and saved goal-worker UI exist behind `--profiles`; explicit `--adopt-legacy` now stages and publishes a verified copy with startup recovery, while `--rollback-adoption` retains edited copies. These C010/C011 imports are under combined validation; `faaaf79` is the preceding fully verified checkpoint. Integration evidence and remaining gaps are recorded there. Do not migrate real user data or claim P1 complete.
+**Combined candidate:** follow [C008 integration](cycles/C008-integration.md) on `codex/integration-12h`. Source `82cc622` passed the full desktop suite, including startup drafts, saved encrypted credentials after abrupt main death, adoption and three-worker recovery. Fresh37-frame fixtures are approved; actual combined rich Paper proof at `abbbcee` passed and is reviewed. The ordinary status showcase still needs a current capture before root `npm run verify` can pass. `faaaf79` remains the preceding fully verified checkpoint. Original C010/C012 closeouts and evidence are preserved separately; P1 is not complete. Do not migrate real user data.
+
+Current lanes: C014 ordinary managed-chat crash recovery; C015 natural-language goal planning/review; C016 actual UI isolation across two real runtimes; E004 structured table editing/export. API-provider Paper tools remain a known gap: current remote structured reads/edits are MCP paths used by signed CLI providers. Controls alone do not establish provider tool parity.
 
 Read [PLAN.md](PLAN.md), [DESIGN-DECISIONS.md](DESIGN-DECISIONS.md), [ARCHITECTURE.md](ARCHITECTURE.md), then the current stage in [ACCEPTANCE.md](ACCEPTANCE.md). Run `npm run plan`. **Next: P1, profile ownership and isolation.** The former lowest-open-editor-issue rule is retired.
 

@@ -47,7 +47,9 @@ These are captures of the running app, not mockups. [Capture provenance](docs/im
 |---|---|---|
 | Working Paper editor, agent conversations and a managed Windows source runtime | Profile isolation, safe migration of every note to Paper, recovery and portability | Optional two-way sync and installation without a developer toolchain |
 
-We are starting **P1: profile ownership and isolation**. The existing local notes still have a separate editor/store. Profiles, migration and cloud sync are planned capabilities; the managed runtime currently requires a built Barkpark checkout. Upstream integration and CI gates remain tracked separately.
+**P1: profile ownership and isolation is in validation.** This integration branch has opt-in profiles, captured agent ownership, saved goal workers, explicit same-machine library adoption and crash-recovery checks. Complete isolation through two real profile runtimes is still being tested. Local notes retain a separate editor/store; migration of every note to Paper, portability and cloud sync remain pending. The managed runtime requires a built Barkpark checkout; upstream integration and CI gates remain separate.
+
+[Combined checkpoint and remaining checks](docs/cycles/C008-integration.md) · [Rich editor video and screenshots](docs/visual/rich-takeover/README.md) · [Actual library adoption](docs/visual/adoption/runs/2026-09-22T00-21-07-265Z/README.md) · [Workspace recovery](docs/visual/workspace-recovery/README.md)
 
 [Read the delivery plan â†’](docs/PLAN.md) Â· [See what is verified â†’](docs/VALIDATION.md)
 
