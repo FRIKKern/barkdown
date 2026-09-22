@@ -55,7 +55,7 @@
     "test:project-buffer-profile": "node tests/project-buffer-profile.live.mjs",
     "test:terminal-ownership": "npm run build && node --test tests/terminal-ownership.test.mjs && node tests/terminal-ownership.live.mjs",
     "test:rollback-native": "npm run build && node --test tests/profile-native-preflight.test.mjs && node tests/rollback-native.live.mjs",
-    "test:send-preservation": "npm run build && node tests/send-preservation.test.mjs && node tests/send-boundaries.test.mjs && node tests/legacy-send-preservation.test.mjs && node tests/send-preservation.live.mjs"
+    "test:send-preservation": "npm run build && node tests/send-preservation.test.mjs && node tests/send-boundaries.test.mjs && node tests/legacy-send-preservation.test.mjs && node tests/send-preservation.live.mjs && node tests/legacy-send-preservation.live.mjs"
   },
   "engines": {
     "node": ">=22.13.1"
