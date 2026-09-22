@@ -55,11 +55,12 @@ server.registerTool('search_documents', { description: 'Search the Barkdown libr
   return text([...local, ...papers, ...listed]);
 });
 
-server.registerTool('read_document', { description: 'Read a Barkdown document (or a Barkpark paper, id bp:<slug>) as markdown with its revision and block indexes. Opens it beside the chat for the person.', inputSchema: { id: z.string() } }, async ({ id }) => {
+server.registerTool('read_document', { description: 'Read a Barkdown document (or a Barkpark paper, id bp:<slug>) as markdown with its revision and block indexes. Opens it beside the chat for the person.', inputSchema: { id: z.string(), format: z.enum(['markdown', 'structured']).optional().describe('Structured returns exact PortableDoc blocks and revision for Paper export and table edits.') } }, async ({ id, format }) => {
   if (isPaper(id)) {
     if (!barkparkOn()) return text('Barkpark is not connected.');
     const p = await paper.get(slugOf(id));
     readRevisions.set(id, p.rev);
+    if (format === 'structured') return text(barkpark.readablePaper(p, format));
     const blocks = (p.blocks || []).map((b, n) => `[${n}] ${b.type}${b.level ? ' h' + b.level : ''}`);
     return text([`# ${p.title}`, `id: ${id} · rev ${p.rev} · updated ${p.updatedAt} · Barkpark paper`, '', 'Top-level blocks: ' + (blocks.join(', ') || '(HTML body, no blocks)'), '', barkpark.readablePaper(p)].join('\n'));
   }
@@ -75,6 +76,16 @@ for (const name of ['edit_document', 'propose_document_edit']) server.registerTo
     const edit = await agentEdits.apply({ ...input, baseRev: readRevisions.get(input.id) }, { ...bpFlag(), ...bpConfig() });
     readRevisions.set(input.id, edit.afterRev);
     return text(`Saved edit to ${input.id} at revision ${edit.afterRev}. Applied directly; Undo is available in the document.`);
+  } catch (error) { return { ...text(error.message), isError: true }; }
+});
+
+server.registerTool('edit_table', { description: 'Edit existing cells in a Barkpark table without replacing its structure. Read_document first (format=structured gives exact blocks). Use the stable table blockId; row/column are zero-based, header=true addresses its header row (row=0). Text may contain newlines; content accepts PortableDoc text/code and strong/em/underline/strikethrough/link nodes. Omitted content/alignment stays unchanged. Saves directly with Undo.', inputSchema: {
+  id: z.string(), blockId: z.string(), summary: z.string(), cells: z.array(z.object({ row: z.number().int().nonnegative(), column: z.number().int().nonnegative(), header: z.boolean().optional(), text: z.string().optional(), content: z.array(z.record(z.unknown())).optional(), align: z.enum(['left', 'center', 'right']).optional() }).strict()).min(1).max(1000),
+} }, async input => {
+  try {
+    const edit = await agentEdits.applyTable({ ...input, baseRev: readRevisions.get(input.id) }, { ...bpFlag(), ...bpConfig() });
+    readRevisions.set(input.id, edit.afterRev);
+    return text(`Saved table edit to ${input.id} at revision ${edit.afterRev}. Undo is available in the document.`);
   } catch (error) { return { ...text(error.message), isError: true }; }
 });
 
