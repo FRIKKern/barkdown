@@ -1,0 +1,199 @@
+TAP version 13
+# Subtest: actual isolated wrapper: normal
+ok 1 - actual isolated wrapper: normal
+  ---
+  duration_ms: 1175.4623
+  ...
+# Subtest: actual isolated wrapper: dirty-runtime
+not ok 2 - actual isolated wrapper: dirty-runtime
+  ---
+  duration_ms: 1176.8384
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-capture-cleanup\\app\\tests\\capture-lifecycle.test.mjs:11:35'
+  failureType: 'testCodeFailure'
+  error: |-
+    C:\Users\Frikk\AppData\Local\Temp\barkdown-capture-control-b3ui2O
+    Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-kw6h0w
+    Capture runtime: starting 
+    Capture runtime: ready 
+    Capture runtime: stopping 
+    Capture runtime: stopped 
+    Live screenshots complete; private runtime stopped; user CLI configuration unchanged.
+    
+    
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-capture-cleanup/app/tests/capture-lifecycle.test.mjs:45:10)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:629:18)
+    Test.postRun (node:internal/test_runner/test:1042:19)
+    Test.run (node:internal/test_runner/test:970:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: actual isolated wrapper: dirty-host
+not ok 3 - actual isolated wrapper: dirty-host
+  ---
+  duration_ms: 1128.7553
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-capture-cleanup\\app\\tests\\capture-lifecycle.test.mjs:11:35'
+  failureType: 'testCodeFailure'
+  error: |-
+    C:\Users\Frikk\AppData\Local\Temp\barkdown-capture-control-zxD3p8
+    Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-qtbfTu
+    Capture runtime: starting 
+    Capture runtime: ready 
+    Capture runtime: stopping 
+    Capture runtime: stopped 
+    Live screenshots complete; private runtime stopped; user CLI configuration unchanged.
+    
+    
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-capture-cleanup/app/tests/capture-lifecycle.test.mjs:45:10)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:629:18)
+    Test.postRun (node:internal/test_runner/test:1042:19)
+    Test.run (node:internal/test_runner/test:970:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: actual isolated wrapper: signal-start
+not ok 4 - actual isolated wrapper: signal-start
+  ---
+  duration_ms: 1176.4406
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-capture-cleanup\\app\\tests\\capture-lifecycle.test.mjs:11:35'
+  failureType: 'testCodeFailure'
+  error: |-
+    C:\Users\Frikk\AppData\Local\Temp\barkdown-capture-control-u9KAZv
+    Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-w2z0Mx
+    Capture runtime: starting 
+    Capture runtime: ready 
+    Capture runtime: stopping 
+    Capture runtime: stopped 
+    Live screenshots complete; private runtime stopped; user CLI configuration unchanged.
+    
+    
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-capture-cleanup/app/tests/capture-lifecycle.test.mjs:45:10)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:629:18)
+    Test.postRun (node:internal/test_runner/test:1042:19)
+    Test.run (node:internal/test_runner/test:970:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: actual isolated wrapper: signal-capture
+not ok 5 - actual isolated wrapper: signal-capture
+  ---
+  duration_ms: 1198.1241
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-capture-cleanup\\app\\tests\\capture-lifecycle.test.mjs:11:35'
+  failureType: 'testCodeFailure'
+  error: |-
+    C:\Users\Frikk\AppData\Local\Temp\barkdown-capture-control-0gHUN8
+    Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-5sKECl
+    Capture runtime: starting 
+    Capture runtime: ready 
+    Capture runtime: stopping 
+    Capture runtime: stopped 
+    Live screenshots complete; private runtime stopped; user CLI configuration unchanged.
+    
+    
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-capture-cleanup/app/tests/capture-lifecycle.test.mjs:45:10)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:629:18)
+    Test.postRun (node:internal/test_runner/test:1042:19)
+    Test.run (node:internal/test_runner/test:970:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: actual isolated wrapper: child-and-cleanup
+not ok 6 - actual isolated wrapper: child-and-cleanup
+  ---
+  duration_ms: 1224.5576
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-capture-cleanup\\app\\tests\\capture-lifecycle.test.mjs:11:35'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /exit 7/. Input:
+    
+    'C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-capture-control-Uw1SVJ\\host\\app\\main\\local-barkpark-source.js:12\r\n' +
+      "      async stop(){log('stop');if(process.env.CAPTURE_CASE==='child-and-cleanup')throw Error('CONTROLLED CLEANUP FAILURE');if(process.env.CAPTURE_CASE!=='stale-pid'&&fs.existsSync(this.pid))fs.unlinkSync(this.pid);}\r\n" +
+      '                                                                                       ^\r\n' +
+      '\r\n' +
+      'Error: CONTROLLED CLEANUP FAILURE\r\n' +
+      '    at exports.SourceDriver.stop (C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-capture-control-Uw1SVJ\\host\\app\\main\\local-barkpark-source.js:12:88)\r\n' +
+      '    at exports.LocalBarkpark.stop (C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-capture-control-Uw1SVJ\\host\\app\\main\\lifecycle.js:81:29)\r\n' +
+      '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\r\n' +
+      '    at async file:///C:/Users/Frikk/AppData/Local/Temp/barkdown-capture-control-Uw1SVJ/host/app/tests/status-shots-isolated.mjs:38:3\r\n' +
+      '\r\n' +
+      'Node.js v22.13.1\r\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    C:\Users\Frikk\AppData\Local\Temp\barkdown-capture-control-Uw1SVJ\host\app\main\local-barkpark-source.js:12
+          async stop(){log('stop');if(process.env.CAPTURE_CASE==='child-and-cleanup')throw Error('CONTROLLED CLEANUP FAILURE');if(process.env.CAPTURE_CASE!=='stale-pid'&&fs.existsSync(this.pid))fs.unlinkSync(this.pid);}
+                                                                                           ^
+    
+    Error: CONTROLLED CLEANUP FAILURE
+        at exports.SourceDriver.stop (C:\Users\Frikk\AppData\Local\Temp\barkdown-capture-control-Uw1SVJ\host\app\main\local-barkpark-source.js:12:88)
+        at exports.LocalBarkpark.stop (C:\Users\Frikk\AppData\Local\Temp\barkdown-capture-control-Uw1SVJ\host\app\main\lifecycle.js:81:29)
+        at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+        at async file:///C:/Users/Frikk/AppData/Local/Temp/barkdown-capture-control-Uw1SVJ/host/app/tests/status-shots-isolated.mjs:38:3
+    
+    Node.js v22.13.1
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-capture-cleanup/app/tests/capture-lifecycle.test.mjs:50:50)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:629:18)
+    Test.postRun (node:internal/test_runner/test:1042:19)
+    Test.run (node:internal/test_runner/test:970:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: actual isolated wrapper: stale-pid
+ok 7 - actual isolated wrapper: stale-pid
+  ---
+  duration_ms: 1371.9874
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 2
+# fail 5
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8589.4468

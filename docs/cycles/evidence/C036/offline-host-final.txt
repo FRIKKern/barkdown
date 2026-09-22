@@ -1,0 +1,95 @@
+TAP version 13
+# Subtest: actual isolated wrapper: normal
+ok 1 - actual isolated wrapper: normal
+  ---
+  duration_ms: 1659.4723
+  ...
+# Subtest: actual isolated wrapper: append-only-evidence
+ok 2 - actual isolated wrapper: append-only-evidence
+  ---
+  duration_ms: 1795.2892
+  ...
+# Subtest: actual isolated wrapper: dirty-runtime
+ok 3 - actual isolated wrapper: dirty-runtime
+  ---
+  duration_ms: 1018.1219
+  ...
+# Subtest: actual isolated wrapper: dirty-host
+ok 4 - actual isolated wrapper: dirty-host
+  ---
+  duration_ms: 850.5009
+  ...
+# Subtest: actual isolated wrapper: signal-start
+ok 5 - actual isolated wrapper: signal-start
+  ---
+  duration_ms: 1065.4861
+  ...
+# Subtest: actual isolated wrapper: signal-capture
+ok 6 - actual isolated wrapper: signal-capture
+  ---
+  duration_ms: 1726.7746
+  ...
+# Subtest: actual isolated wrapper: signal-cleanup
+ok 7 - actual isolated wrapper: signal-cleanup
+  ---
+  duration_ms: 1791.4113
+  ...
+# Subtest: actual isolated wrapper: child-and-cleanup
+ok 8 - actual isolated wrapper: child-and-cleanup
+  ---
+  duration_ms: 1536.2081
+  ...
+# Subtest: actual isolated wrapper: stale-pid
+ok 9 - actual isolated wrapper: stale-pid
+  ---
+  duration_ms: 1608.8606
+  ...
+# Subtest: actual isolated wrapper: report-failure
+ok 10 - actual isolated wrapper: report-failure
+  ---
+  duration_ms: 1439.1361
+  ...
+# Subtest: actual isolated wrapper: source-mutation
+ok 11 - actual isolated wrapper: source-mutation
+  ---
+  duration_ms: 955.4176
+  ...
+# Subtest: actual isolated wrapper: host-start-mutation
+ok 12 - actual isolated wrapper: host-start-mutation
+  ---
+  duration_ms: 943.3879
+  ...
+# Subtest: actual isolated wrapper: host-capture-mutation
+ok 13 - actual isolated wrapper: host-capture-mutation
+  ---
+  duration_ms: 1664.9257
+  ...
+# Subtest: actual isolated wrapper: host-commit-change
+ok 14 - actual isolated wrapper: host-commit-change
+  ---
+  duration_ms: 1860.6943
+  ...
+# Subtest: actual isolated wrapper: status-output
+ok 15 - actual isolated wrapper: status-output
+  ---
+  duration_ms: 1303.7024
+  ...
+# Subtest: actual isolated wrapper: readme-body-change
+ok 16 - actual isolated wrapper: readme-body-change
+  ---
+  duration_ms: 1231.4264
+  ...
+# Subtest: actual isolated wrapper: coverage-change
+ok 17 - actual isolated wrapper: coverage-change
+  ---
+  duration_ms: 1302.8693
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 23879.9185

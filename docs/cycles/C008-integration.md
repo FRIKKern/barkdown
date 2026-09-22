@@ -240,3 +240,7 @@ Imported C030 source88633ff visual fingerprint change: shared `app/tests/lib` ca
 ## Combined desktop pass — 06:41 UTC
 
 Clean source **5e8433e**, session52348: locked root/app npm ci, Chromium install and full `npm run test:desktop` exited0. [Exact command result/log hash](evidence/C008-5e8433e/result.json). Goal/profile/adoption/recovery/terminal/context/send suites pass together. Dedicated native/editor journeys and final deterministic/live/root gates remain pending. Root audit0; app audit retains two high entries (Electron38 and extract-zip), with43/44 upgrade blockers unchanged. This is not a release or all-stage completion.
+
+## C036 capture lifecycle consumption
+
+Reviewed source218890c imported fromf070567 with original failing-first logs/handoff and package test union. Root independently reran17controlled cases (session87637) and next_cycle independently passed17 (15476). Source cleanliness/identity rechecked before and after capture; standard status outputs permitted only through exact path and README/hash validation. Signal handlers preserve primary plus cleanup errors and use existing owned runtime stop. Controlled fixtures do not prove actual Windows console interrupt delivery or force-kill recovery. Full desktop52348 remains the preceding5e8433e proof; only capture tooling/test registration changes here. Next actual isolated capture consumes this helper, followed by fresh deterministic/live/root gates.
