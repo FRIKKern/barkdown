@@ -13,7 +13,7 @@
   "acceptance": [
     "Clean install and explicit binary setup are reproducible",
     "Advisories and lock changes retained with honest remaining limits",
-    "ContextBridge, clipboard/image, profile and native process recovery pass on actual Electron44",
+    "ContextBridge, clipboard/image, profile and native process recovery pass on actual candidate Electron",
     "Fresh source-bound full/visual/live/root gates pass before consumption recommendation"
   ],
   "checkpoint": "2026-09-22",
@@ -23,7 +23,7 @@
     "docs/cycles/C031-electron44-trial.md",
     "docs/cycles/evidence/C031-electron43/package-lock.before.json"
   ],
-  "truthReview": "43 offline checks pass but first actual profile gate97506 fails. No packaged43/native/full/clipboard/Paper/visual/live/root pass claimed.",
+  "truthReview": "43 offline checks pass but first actual profile gate97506 fails. No packaged43/native/full/clipboard/Paper/visual/live/root pass claimed. Minimal43/38 shell passes; actual43 GPU-disabled diagnostic still crashes. No production workaround.",
   "screenshotReview": "One actual43 failure still inspected: gray guest pane. Failure preserved and not approved.",
   "reason": "43.7.3 reproduces native returning-A webview crash0xC0000005 from44; same fixture on38 passes."
 }
