@@ -5,12 +5,21 @@ import assert from 'node:assert/strict';
 import http from 'node:http';
 const require = createRequire(import.meta.url);
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-profile-ui-'));
-const site = http.createServer((_request, response) => response.end('<title>Profile website fixture</title><p>Owned website storage</p>'));
+const requests = [];
+const site = http.createServer((request, response) => { requests.push({ url: request.url, at: Date.now() }); response.end('<title>Profile website fixture</title><p>Owned website storage</p>'); });
 await new Promise(resolve => site.listen(0, '127.0.0.1', resolve));
 const siteUrl = `http://127.0.0.1:${site.address().port}`;
-const launch = () => electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
+const launch = () => electron.launch({ executablePath: process.env.BARKDOWN_PROFILE_TEST_EXE || require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 let app = await launch(), page = await app.firstWindow();
 const errors = [];
+await app.evaluate(({ webContents }) => {
+  global.profileWebviewEvents = [];
+  const attach = wc => {
+    for (const name of ['did-start-loading','dom-ready','did-stop-loading','did-fail-load','render-process-gone','destroyed']) wc.on(name, (_event, ...args) => global.profileWebviewEvents.push({id:wc.id,name,args,at:Date.now()}));
+  };
+  webContents.getAllWebContents().forEach(attach);
+  require('electron').app.on('web-contents-created', (_event, wc) => attach(wc));
+});
 page.on('pageerror', e => errors.push(e.message));
 async function website(value) {
   await page.evaluate(url => window.__barkdown.openTarget({ kind: 'web', url, title: 'Fixture website' }), siteUrl);
@@ -70,7 +79,8 @@ try {
   assert.deepEqual(errors, []);
   console.log(JSON.stringify({ passed: ['opt-in UUID boot', 'Settings create/switch', 'same-slug documents', 'draft restoration', 'stale snapshot rejection', 'legacy untouched', 'same-URL website storage/cookies', 'selected B process restart with draft/side-parent/tabs'], userData }));
 } catch (error) {
-  const diagnostic = { error: error.stack, userData, siteUrl, pageErrors: errors };
+  const diagnostic = { error: error.stack, userData, siteUrl, requests, pageErrors: errors };
+  diagnostic.events = await app.evaluate(() => global.profileWebviewEvents).catch(e => ({error:e.message}));
   diagnostic.renderer = await page.evaluate(() => ({ profileId: window.__barkdown?.state.profileId,
     current: window.__barkdown?.state.current,
     views: [...document.querySelectorAll('webview')].map(view => {
