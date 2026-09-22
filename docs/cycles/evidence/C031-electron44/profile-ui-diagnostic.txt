@@ -1,0 +1,13 @@
+{"error":"page.waitForFunction: Timeout 30000ms exceeded.\n    at website (C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-electron44-trial\\app\\tests\\profile-ui.live.mjs:17:14)\n    at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-electron44-trial/app/tests/profile-ui.live.mjs:54:20","userData":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-profile-ui-zfQx9K","siteUrl":"http://127.0.0.1:61582","pageErrors":[],"renderer":{"profileId":"438da916-7eef-4531-a2d3-93fed459e154","current":"47347271-5e2a-40a7-a99d-ba5514cbf3e9","views":[{"src":"http://127.0.0.1:61582/","partition":"persist:barkdown-web-438da916-7eef-4531-a2d3-93fed459e154","getTitle":"127.0.0.1:61582","getURL":"http://127.0.0.1:61582/","isLoading":false,"getWebContentsId":4}],"errors":[]},"contents":[{"id":4,"type":"webview","url":"http://127.0.0.1:61582/","title":"127.0.0.1:61582","loading":false,"destroyed":false},{"id":1,"type":"window","url":"file:///C:/Users/Frikk/.codex/worktrees/barkdown-electron44-trial/app/renderer/index.html","title":"Barkdown","loading":false,"destroyed":false}]}
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+page.waitForFunction: Timeout 30000ms exceeded.
+    at website (C:\Users\Frikk\.codex\worktrees\barkdown-electron44-trial\app\tests\profile-ui.live.mjs:17:14)
+    at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-electron44-trial/app/tests/profile-ui.live.mjs:54:20 {
+  log: [],
+  name: 'TimeoutError'
+}
+
+Node.js v22.13.1

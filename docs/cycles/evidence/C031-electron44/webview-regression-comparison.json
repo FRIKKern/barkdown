@@ -1,0 +1,32 @@
+{
+  "fixtureSource": "6b60be4",
+  "sameAppSource": true,
+  "sameInstalledDependencies": true,
+  "trial": {
+    "electron": "44.4.3",
+    "session": 10312,
+    "exitCode": 1,
+    "userData": "bd-profile-ui-MNbE26",
+    "reason": "crashed",
+    "nativeExitCode": -1073741819
+  },
+  "control": {
+    "electron": "38.8.6",
+    "executable": "integration-12h/app/node_modules/electron/dist/electron.exe",
+    "exitCode": 0,
+    "result": {
+      "passed": [
+        "opt-in UUID boot",
+        "Settings create/switch",
+        "same-slug documents",
+        "draft restoration",
+        "stale snapshot rejection",
+        "legacy untouched",
+        "same-URL website storage/cookies",
+        "selected B process restart with draft/side-parent/tabs"
+      ],
+      "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-profile-ui-UjBVOZ"
+    }
+  },
+  "scope": "Controlled Windows Electron executable comparison with fresh disposable userData each time. No product change or title assertion weakening. Native crash isolated to44 in these runs; underlying engine root cause not yet established."
+}

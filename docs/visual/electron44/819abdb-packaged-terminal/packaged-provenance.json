@@ -1,0 +1,23 @@
+{
+  "source": "819abdbc074c18aabde8e3fc10cfe58e66b598d6",
+  "electron": "44.4.3",
+  "command": "BARKDOWN_TEST_PACKAGED_EXE=<checkout>/app/release/win-unpacked/Barkdown.exe BARKDOWN_TERMINAL_OUT=<gallery> node tests/terminal-ownership.live.mjs",
+  "session": 36943,
+  "exitCode": 0,
+  "review": {
+    "stills": 7,
+    "videoSamples": 29,
+    "sampling": "2 fps",
+    "notes": "A/B folder and draft labels remain scoped. Restart explicitly reports verified stopped and no replay. Narrow text wraps without overlap; long terminal input scrolls horizontally and newer draft persists. Actual job receipt checks prove stopped independently of pictures."
+  },
+  "files": [
+    {
+      "file": "app/release/win-unpacked/Barkdown.exe",
+      "sha256": "884bbefd9b0ba2dfad078347d150ce8438f3397197cc767e71bcad71798ed830"
+    },
+    {
+      "file": "app/release/win-unpacked/resources/app.asar",
+      "sha256": "d8fb64a020ba896ea3aea543614eaa62f877195c5cb72bed9babfe0af876f201"
+    }
+  ]
+}

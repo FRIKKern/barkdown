@@ -27,3 +27,11 @@ Next: named exclusive UI grant, then actual packaged terminal/native smoke, full
 ## Direct archive parent correction
 
 Independent review found the first-segment resolver could rewrite an earlier directory named app.asar, including a source checkout. Both exact regressions fail under committed59bd2c6 and pass under direct-parent resolution (path-regression.json). Only main whose immediate parent basename is app.asar maps to the unpacked sibling; every earlier segment remains unchanged. Added both cases and retained Windows separator coverage. Rebuilt package31556 exits0; actual packaged byte inventory and PowerShell loading pass again. Focused native group29833 passes16/16. No Electron/UI launch, no runtime approval.
+
+## Actual Electron44 blocker
+
+Packaged terminal36943 passed at819abdb (32OpfI/L4nHxg), all recorded native jobs verified stopped;7stills and29 video samples reviewed. Full89300 failed at profile-ui.live.mjs54 on returning B→A website. Diagnostic-only commits ee54d08/356c913/6b60be4 retain failure events and allow explicit executable control; one intermediate hook failed before exercise because require was unavailable in Playwright evaluate, corrected via injected Electron module. No product behavior was changed.
+
+Repeated44 failures include zfQx9K/MNbE26: guest render-process-gone reports crashed, exitCode-1073741819 (0xC0000005), aborted navigation-3 and gray pane, with HTTP requests received and no ordinary pageerror. Exact same6b60be4 fixture/source/dependencies using38.8.6 executable passed all profile/localStorage/cookie/restart checks in a fresh private root. See webview-regression-comparison.json and retained actual failure images in docs/visual/electron44/failed-profile-webview. This proves a version-specific failure in tested conditions; engine root cause remains unknown. Full44/Paper/remaining acceptance remains incomplete. No version switch made; root notified to review43 contingency or minimal repro. All owned trial/control Electron processes stopped; no Barkpark runtime started.
+
+UI explicitly released after CIM confirmed no remaining matching Electron/Barkdown process. Root authorized a separate43.7.3 contingency checkout after this checkpoint;44 branch remains blocked and intact. Failed artifacts are not approved baselines.
