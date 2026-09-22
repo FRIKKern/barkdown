@@ -1,8 +1,10 @@
 # C022 lane checkpoint
 
-Follow [actual repeated cold adoption](cycles/C022-repeat-cold-adoption.md). UI/runtime launch requires the coordinator’s named window; C016 is active in another worktree.
+Follow [actual repeated cold adoption](cycles/C022-repeat-cold-adoption.md). UI/runtime launch requires the coordinator's named window; C016 is active in another worktree.
 
-# Continue the dependable-workspace plan
+# Inherited integration handoff (historical snapshot)
+
+The section below is retained from the parent branch. C022 starts from verified combined d8acb82, whose later full/fixture/live/root gates passed; the older pending statuses below are historical, not this lane's active queue. Use the C022 checkpoint above and its linked handoff for current work.
 
 **Combined candidate:** follow [C008 integration](cycles/C008-integration.md) on `codex/integration-12h`. Current source includes C014 ordinary managed-chat recovery, E004 structured table editing, C015 native goal coordination and C017 API Paper parity. Full desktop91207 passed at `fb31be3`; the final recovery race correction and E004 import passed focused recovery, table and MCP tests. Their original reviewed evidence is retained under [chat recovery](visual/chat-recovery/README.md) and [structured tables](visual/structured-table/README.md). The current combined source still needs a fresh full suite and combined visual/live evidence.
 
