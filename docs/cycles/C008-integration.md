@@ -141,3 +141,11 @@ The per-write lease requires exclusive hardlink support; malformed/deep recovery
 
 
 Code-area health pages now sit beside [main-process code](../../app/main/README.md), [the renderer](../../app/renderer/src/README.md) and [tab hosts](../../app/renderer/src/tabs/README.md). They link original screenshots, relevant behavior checks and current handoff limits. All local links were checked. The conservative app-source tripwire includes these pages, so the forthcoming combined capture must include their fingerprints; this documentation does not promote existing media.
+
+## C016 loading-position integration
+
+Imported production34ef068 and its initial bdba800 regression into the newer Paper host, retaining the queued external-edit refresh guard. Queue consumption occurs before human position takeover exits restoration. All31 combined Paper-host cases pass, including a new overlap case: a pointer interaction during loading keeps the chosen position while the queued external edit still reaches revision2. The original29-case lane alone did not cover that newer combined branch.
+
+The first combined test run exposed a fixture extraction boundary: the newer following closeTab declaration is async, so substring extraction left a stray `async` token. Five navigation cases failed explicitly; the helper now excludes the complete following declaration line and validates both source boundaries. The corrected full31-case host suite passes. No production async behavior was changed for this fixture correction.
+
+C016 lane26d9461 has passing native64864, full51548, deterministic95345, live48539 and root76307; source-specific evidence is queued for selective import. Fresh combined native consumption and full/visual/live/root gates remain pending. No lane approval is transferred.
