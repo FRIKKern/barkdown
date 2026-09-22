@@ -42,10 +42,11 @@ try{
  await page.waitForSelector('.bw-paper-pane .ProseMirror',{timeout:60000});
  editorBundle=JSON.parse(fs.readFileSync(path.join(userData,'canvas-bundle/current.json'),'utf8'));assert.equal(editorBundle.source,'server');assert.equal(editorBundle.server,process.env.BARKDOWN_SHOTS_SERVER);assert.ok(editorBundle.version);
  client=new Client({name:'rich-read-proof',version:'1.0.0'});
- await client.connect(new StdioClientTransport({command:process.execPath,args:[path.resolve('main/mcp-server.js'),path.join(userData,'barkdown')]}));
+ await client.connect(new StdioClientTransport({command:process.execPath,args:[path.resolve('main/mcp-server.js'),path.join(userData,'barkdown')],env:process.env}));
  const readTool=await client.callTool({name:'read_document',arguments:{id:'bp:'+slug}});
  const readText=readTool.content.filter(c=>c.type==='text').map(c=>c.text).join('\n');
- assert.ok(!readTool.isError);assert.ok(readText.includes('Markdown representation unavailable'));assert.ok(readText.includes('Headerless content')&&readText.includes('Cell first line')&&readText.includes('Cell second line'),'real read_document retains unsupported Markdown content as structured blocks');
+ fs.writeFileSync(path.join(out,'structured-read.txt'),readText);
+ assert.ok(!readTool.isError,readText);assert.ok(readText.includes('Markdown representation unavailable'));assert.ok(readText.includes('Headerless content')&&readText.includes('Cell first line')&&readText.includes('Cell second line'),'real read_document retains unsupported Markdown content as structured blocks');
  fs.writeFileSync(path.join(out,'structured-read.txt'),readText);
  const read=()=>{const raw=bp(['doc','get','paper',slug,'--perspective','raw']);return raw.document||raw;};
  for(const scenario of scenarios){
