@@ -1,4 +1,4 @@
-// Real Paper + production agent-edit adapter on a disposable server; no model-generated fixtures.
+// Real Paper paste, native history and acknowledged server saves on a disposable runtime.
 import { _electron as electron } from 'playwright';
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
@@ -11,7 +11,7 @@ for(const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]){bp(['do
 const slug='editor-markdown-paste';
 
 const fixtures=[{type:'heading',level:1,text:'Pasted table alignment'},{type:'paragraph',content:[{type:'text',value:'Paste below. These surrounding paragraphs stay intact.'}]},{type:'paragraph',content:[]},{type:'paragraph',content:[{type:'text',value:'This paragraph must survive paste and Undo.'}]}];
-bp(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'Pasted table alignment',description:'Disposable real Paper evidence for aligned Markdown paste, native Undo and redo, a subsequent human edit, acknowledged save and reload.',tags:[{tag:'barkdown',strength:90,rationale:'owned editor regression'},{tag:'scratch',strength:40,rationale:'disposable fixture'}],blocks:fixtures}));
+bp(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'Pasted table alignment',description:'Disposable real Paper evidence for aligned Markdown paste, native Undo and redo, a subsequent human edit, acknowledged save and reload.',tags:[{tag:'barkdown',strength:90,rationale:'owned editor regression'},{tag:'scratch',strength:40,rationale:'disposable editor paste fixture'}],blocks:fixtures}));
 const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-markdown-paste-'));
 const capture=process.env.BARKDOWN_EDITOR_CAPTURE==='1';const out=path.resolve((capture?'../docs/visual/markdown-paste/runs/':'test-results/paper-markdown-paste/')+new Date().toISOString().replace(/[:.]/g,'-'));fs.mkdirSync(out,{recursive:true});
 const app=await electron.launch({executablePath:require('electron'),args:[path.resolve('.'),`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
