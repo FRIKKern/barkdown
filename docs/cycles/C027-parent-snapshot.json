@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "id": "C008",
+  "stage": "P1",
+  "status": "active",
+  "goal": "Integrate reviewed profile, goal and editor milestones on an isolated branch and prove their combined behavior without merging main.",
+  "scope": [
+    "Union reviewed source commits and existing regression gates",
+    "Preserve original lane evidence and create fresh combined evidence",
+    "Exercise combined ownership, worker and Paper journeys as dependencies arrive"
+  ],
+  "acceptance": [
+    "Combined desktop and root verification pass",
+    "Live and deterministic visual evidence names the combined source",
+    "Profile/goal integration gaps remain explicit until proven"
+  ],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C008-integration.md",
+  "nextAction": "Candidate ece4626 includes C021 native rollback, C020 acknowledgement correction and original E007/E008 reviewed evidence. See docs/cycles/A1-current-evidence.md for original A1 gaps. Finish reviewed lane imports then fresh combined full/visual/live/root gates; retain d8acb82 fallback.",
+  "evidence": [
+    "app/package.json",
+    "docs/cycles/C008-integration.md"
+  ],
+  "truthReview": "Full desktop64608, rootverify86276, reviewed40-frame deterministic and actualCodex live5397 passed. C018 original evidence hash normalization is explained by immutable addendum; C019 closure binds identical production source. No main merge or release.",
+  "screenshotReview": "Exact e380385 fixture run2026-09-22T02-13-13-738Z reviewed/approved:40 stills and all GIF frames. Actual status5397 five stills/37GIF frames reviewed; private runtime stopped. Future source changes require fresh proof."
+}
