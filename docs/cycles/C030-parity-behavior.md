@@ -21,3 +21,7 @@ Second actual46068 e8ebae7/600fd failed0/13, retained [diagnosis](../visual/edit
 ## Third native checkpoint — 06:11 UTC
 
 Source `2af7e03` against upstream `f7fb3a46c`: **10/13 passed**, original [report](../visual/editor-gap-assertions/runs/2026-09-22T06-11-22-218Z/result.json) and raw video retained with 15 verified artifact hashes. Full block IDs and server content now agree. HTML Undo did not change the document; Redo comparison captured its expected bpType before acknowledgement; the bullet Backspace expectation differed from the observed lift. These remain failures, not an approval. No renderer errors. Owned Electron and private runtime stopped; postmaster absent. Full motion review remains pending. Next: record focus/history/key delivery, capture post-ack expected HTML, and assert native list lifting without dropping sibling/mark/identity checks.
+
+## Diagnostic fixture and helper tripwire
+
+The next source captures focus, history depth and delivered key events without refocusing or production changes. Expected HTML is recorded after acknowledgement; native list lifting retains sibling and mark checks. A failing-first regression exposed omitted `app/tests/lib` dependencies in screenshot fingerprints. The selector now includes them; approval-history and pixel tests pass. An incorrect working-directory command failed before commit and inadvertently began private startup (`wWdpO2`); it was interrupted before the fixture, with no owned process or postmaster remaining. No capture from that attempt is claimed.
