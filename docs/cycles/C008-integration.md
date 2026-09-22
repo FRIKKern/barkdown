@@ -1,4 +1,4 @@
-# C008 — Combined integration candidate
+# C008 â€” Combined integration candidate
 
 Active on `codex/integration-12h` in the isolated `barkdown-integration-12h` worktree. No main merge or deployment. This branch is a test candidate, not a completed product milestone.
 
@@ -14,7 +14,7 @@ C025 source and original evidence are imported at `9e3849c`; its lane approval r
 
 The independent real API-adapter audit at e742c40 reproduced successful `[]` for `search_files` when its captured working folder does not exist. That is an unavailable folder, not evidence of no matches. The original audit uses synthetic transport and disposable data; no other profile or scratch fallback was observed. The [retained audit and failure](evidence/missing-working-folder/README.md) now have passing real tool-result regressions for missing/non-directory/empty roots and controlled root read denial. The implementation propagates actual root enumeration errors. The test helper also now rethrows scripted-response assertions rather than accepting a production error event as a test pass. Descendant skip behavior and provider preflight policy remain separate. Combined source and its final visual/runtime gates remain pending.
 
-## Last fully validated checkpoint — 02:24 UTC
+## Last fully validated checkpoint â€” 02:24 UTC
 
 Combined source e380385 is validated: full desktop session64608 exited0 at unchanged app source b083c60, including coordinator crash/retry and stop races, API Paper operations, project-buffer preservation, and terminal shutdown. Later commits changed visual comparison tooling only. Root verify86276 exited0 after restoring original historical evidence dependencies and fixing the retired terminal-draft link.
 
@@ -24,7 +24,7 @@ Actual live status5397 passed at clean e380385 with clean Barkpark5fba61f7e. Cla
 
 C018 original final evidence25cb99e is now imported selectively, retaining its db9b2ca provenance and the newer combined visual approval.
 
-This checkpoint combines C014, E004, C015, C017, E006, C018, C019 and C020 tests. C019 production project-buffer changes are identical to its original e68a72e source; combined validation supplements its dedicated actual Settings/CodeMirror evidence. Original lane provenance remains distinct. No main merge or deployment. P1–P5, portability and complete editor release remain unfinished. C016 scroll diagnostic, E007 HTML paste visibility and C021 native rollback preflight remain separate pending work. Last prior fully verified fallback9c77cb7 remains historical.
+This checkpoint combines C014, E004, C015, C017, E006, C018, C019 and C020 tests. C019 production project-buffer changes are identical to its original e68a72e source; combined validation supplements its dedicated actual Settings/CodeMirror evidence. Original lane provenance remains distinct. No main merge or deployment. P1â€“P5, portability and complete editor release remain unfinished. C016 scroll diagnostic, E007 HTML paste visibility and C021 native rollback preflight remain separate pending work. Last prior fully verified fallback9c77cb7 remains historical.
 
 ## Integration history
 
@@ -82,7 +82,7 @@ Sourceae49f97 includes E002 first-receipt geometry correction. All23 Paper host 
 
 Combined actual Paper takeover at clean ae49f97/bb3bd299d passed8/8 in private l87wmz: first receipt geometry, keyboard/IME/pointer preservation, reduced motion, hidden pane and offscreen reading position. Artifacts preserved unchanged under agent-takeover/runs/2026-09-21T23-40-28-032Z; root motion review is pending. Runtime stopped normally and CLI unchanged.
 
-Combined status capture46932/private nlaUf6 failed during initial tag/paper setup after healthy→recovering. No new status manifest was published; the old manifest remains correctly stale. Private runtime stopped and postmaster.pid is absent. Log shows repeated compiled Phoenix.CodeReloader path despite runtime code_reloader:false; investigating explicit reloadable_apps disable before retry. This is an observed failure, not a passing freshness gate.
+Combined status capture46932/private nlaUf6 failed during initial tag/paper setup after healthyâ†’recovering. No new status manifest was published; the old manifest remains correctly stale. Private runtime stopped and postmaster.pid is absent. Log shows repeated compiled Phoenix.CodeReloader path despite runtime code_reloader:false; investigating explicit reloadable_apps disable before retry. This is an observed failure, not a passing freshness gate.
 
 Imported043e472 as9165ee7. Rebuilt actual Electron profile-goals test passes with the real SDK talking to a local deterministic HTTP server inside three default owned Windows jobs; live worker text, late A under B, saved parents/draft and three stopped process receipts pass. No parent-process provider factory bypass. Authenticated provider proof remains separately on the goal lane.
 
@@ -107,7 +107,7 @@ Combined466dfd9 imports C012 strict workspace preservation6205f72/87ca623 and E0
 
 Imported actual startup draft fix74aaf16 and attachment assertion54464ef as8e2d3ab/7248ef8. Rebuilt app and delayed startup regression passes: restored parent draft, early side navigation, human typing during pending library request and reload survive. Initial direct invocation used an old built bundle and failed; after required app build the regression passed. Current source is not yet fully revalidated or visually approved. No freshness provenance was changed. Current-cycle now owns shared a544 runtime slot for actual adoption retry; root owns no runtime. C012 status passed/stopped, editor exact9424/8530 live rich read plus five edit cases passed/stopped with motion review pending; C013 credential persistence source is still in its lane.
 
-Combined82cc622 full desktop44785 finished exit0, including actual Windows API/server-token save→immediate main kill→decrypt, malformed-key refusal retaining both ciphertexts, pending A save across B switch/restart, plus goal crash/retry and draft startup regressions. Fresh37-frame deterministic run2026-09-22T00-23-29-485Z inspected in eight area sheets and approved: zero above-tolerance pixel/geometry changes, no new clipping. Rootverify first exposed missing original editor comparison baselines; restored unchanged original run chain from9424b97. Rootverify now reaches and correctly fails live Paper freshness (old5a3a502 versus82cc622). Fresh live evidence still required; no full verification claim yet. GitHub443 push timed out; commits remain local.
+Combined82cc622 full desktop44785 finished exit0, including actual Windows API/server-token saveâ†’immediate main killâ†’decrypt, malformed-key refusal retaining both ciphertexts, pending A save across B switch/restart, plus goal crash/retry and draft startup regressions. Fresh37-frame deterministic run2026-09-22T00-23-29-485Z inspected in eight area sheets and approved: zero above-tolerance pixel/geometry changes, no new clipping. Rootverify first exposed missing original editor comparison baselines; restored unchanged original run chain from9424b97. Rootverify now reaches and correctly fails live Paper freshness (old5a3a502 versus82cc622). Fresh live evidence still required; no full verification claim yet. GitHub443 push timed out; commits remain local.
 
 Original C010645c525 closeout and actual seven-step adoption evidence imported without replacing the current combined visual approval or status manifest. Root additionally inspected restarted edited Paper and restored original frames; original failure runs retained. C012608fcb4 workspace-loss recovery images/handoff and E003950c774 handoff imported with original attribution. Original-lane passes do not stand in for the pending combined status freshness check. C016 now targets actual UI switching between two real same-slug runtime profiles, including cache/media/search/favorites/Undo and selected-profile restart.
 
@@ -160,7 +160,7 @@ Imported C028 source b83efb1 and original failed-first/final evidence through e2
 
 Editor consumption audit and49-package reproducible dependency notices are imported through94aa3d7; root independently verified every recorded metadata/notice/provenance hash. No editor pin, bundled asset or source-selection precedence changed. Fresh combined gates remain pending.
 
-## Pre-freeze truth checkpoint — 22 September 2026
+## Pre-freeze truth checkpoint â€” 22 September 2026
 
 Candidate `2b2ec11` now includes C016, C026, E009 fixture/evidence, C028 and notices alongside the earlier reviewed imports. C026 source5086bad/evidenceae8090a preserves139 review hashes; its independent switch/early-completion audit is retained in [scope](evidence/C026-independent-audit/scope.json). E009 source2c3fa36/evidence2b2ec11 retains42 bound hashes and the complete original comparison chain in [inventory](evidence/E009-import.json). Connected3495 behavior is separate from the unchanged a544 vendor fallback; E011 consumption remains pending.
 
@@ -200,3 +200,5 @@ C033 trusted-context source100e539 imported with C032 preflight preserved. Indep
 Original C033 source checkpoint and failed-first reproduction/logs preserved in [handoff](C033-context-reservation.md). Root combined15race cases, repository/profile suites, C032 main/side composer and deterministic three-provider goal integration pass at sourcef19a6ef. No native race claim; remaining global gates stay open.
 
 Current missing-folder native command updated from historical C029 accepted SDK failure to C032 known-refusal semantics, preserving selected-B restart and missing-reference/no-A-substitution assertions. Exact8b51fbc source also records main/side restart videos, file/artifact hashes and owned-process exit receipts. Original C029 gallery remains unchanged. Both updated native fixtures remain unrun pending named C032 UI grant; no current native pass claimed.
+
+E011 original evidence imported from d9d36c1 after production import22ef23b: both native fallback galleries, original deterministic review and baseline chain, exact archived status E011-cc17fca and bound media, and original full/root logs. See [import verification](../visual/fallback-consumption/IMPORT.md). Original source boundaries remain cefe312/cc17fca; no combined approval or fresh execution is claimed. Current global status/approval pointers and active C008 queue are preserved.

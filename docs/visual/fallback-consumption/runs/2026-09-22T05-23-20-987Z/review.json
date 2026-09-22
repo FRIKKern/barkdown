@@ -1,0 +1,31 @@
+{
+  "reviewer": "Codex editor agent",
+  "reviewedAt": "2026-09-22T05:28:05.717576+00:00",
+  "sourceCommit": "cefe312a560518cbdcb7a9d0457eed52f7d87436",
+  "serverSource": "a5440345caa413087ac6488cac67f19fce58fa0f",
+  "loadedEditor": "vendored54579",
+  "stills": 6,
+  "videoSamplesAt2fps": 39,
+  "decodedGifFrames": 16,
+  "result": "accepted bounded actual fallback upload/history compatibility",
+  "observations": [
+    "Actual injected vendor paths/hashes asserted; only editor JS/CSS refused, actual Paper/media forwarded.",
+    "One upload survives repeated Undo/Redo, later human revision9 and server reload; surrounding text retained.",
+    "Wide and900px narrow layout inspected; narrow image field text scrolls/truncates inside inputs, paragraph/title wrap without content loss.",
+    "Pending document Saved may coexist with Uploading badge; no unfinished-upload restart recovery claim.",
+    "These image/paragraph operations do not establish every PortableDoc operation or entire parity sweep."
+  ],
+  "hashes": {
+    "01-upload-pending.png": "2de7d6189c17a33cecb5cfcb7d65fd566e5aedc48b1d478523f749d654f77fe3",
+    "02-undo-before-delivery.png": "3de0860d091ae4631c0765baba1a5fafd700f04e663eb00476c689f679a9beaa",
+    "03-redo-acknowledged-image.png": "b1d1d00e869cc93724ceae4efeaf083d56f1d92727475fb5ccf879a9a14425f1",
+    "04-human-saved.png": "5f7546b8bb462a7a9e05efb24428956ed2838c70a7b8cf7205a4d9cdb52890b5",
+    "05-reloaded.png": "ecad9a91c0b0f59493cc10344bd294d8bbee17fe690210f8fcd8d3259684d585",
+    "06-narrow.png": "c126e9c1210585785aba2c66cedf2b74060e8703f91ee9c58d4fe07644c64c91",
+    "fallback-consumption.webm": "dcae338365972cdad0bedcfb2d794551406a3cec612dcffedb3716c2ab5f1cce",
+    "fallback-history.gif": "7e10775547f8690bd8ea8a8db6c2b36c42774a9df0821357630e5d405c22469b",
+    "manifest.json": "1a42ffa8d970bad44069eab493ec61473a6284f3a8bfdd7cd104c183d128f182",
+    "server.json": "1e7423063cfe5169a3bf17e3bc8954df4488d1591354ebc918131ff2fea8ac71",
+    "video-map.json": "8253415f063c923fa42c10409445e2747a9c2c2bc837c72e2e2a266ae788458a"
+  }
+}
