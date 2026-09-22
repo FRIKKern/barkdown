@@ -26,7 +26,7 @@ const agent = {
         emitTool('read_document', 'read-after');
         if (scenario === 'no-receipt') scope.store.remove('agent-edits/' + require('crypto').createHash('sha256').update(doc.id).digest('hex') + '.json');
         if (scenario === 'wrong-revision') { const current = scope.documents.get(doc.id); scope.documents.save({ id: doc.id, baseRev: current.rev, content: current.content }); }
-        if (scenario === 'unexpected-tool') emitTool('Bash', 'unexpected-command');
+        if (scenario === 'unexpected-tool') { options.send({ type: 'tool_start', tool: 'Bash', toolUseId: 'unexpected-command', input: { command: 'fixture-only, never executed' } }); options.send({ type: 'tool_result', tool: 'Bash', toolUseId: 'unexpected-command', ok: true }); }
         if (scenario === 'folder-change') fs.writeFileSync(require('path').join(scope.context.folder, 'unexpected.txt'), 'unexpected');
         if (scenario === 'approval') options.send({ type: 'approval', runId: 'controlled-run', approvalId: 'unexpected', request: { kind: 'command', command: 'not authorized' } });
       }
