@@ -6,7 +6,7 @@ Included: C014 ordinary managed-chat recovery, E004 structured tables, C015 nati
 
 **Current next work:** C016 two-profile diagnostic found image decode caused the initial30px offset; after image settle A completion preserved exact B scroll and text anchor. Async history footer still needs measured settling before retry; prior failed captures and cancellation hang remain recorded. E007 HTML table paste assertions passed but actual review found clipped fallback guidance, so approval is withheld pending visible-notice fix and recapture. C021 native rollback preflight has Node/native proof but actual Electron evidence remains queued. C020 owns the next serialized full/visual/live window. The coordinator run handoff in the primary checkout governs exact UI grants and the12:11Paris deadline.
 
-C018 imported media hashes match the original review except video-map.json, whose committed LF form differs from its originally hashed CRLF bytes; owner is publishing an explicit normalization addendum, preserving the original review. No media mismatch was found. Do not silently rehash historical evidence.
+C018 imported media hashes match the original review except video-map.json, whose committed LF form differs from its originally hashed CRLF bytes; [review addendum](visual/terminal-ownership/db9b2ca/review-addendum.json) proves exact reversible normalization and preserves the original review. No media mismatch was found. Do not silently rehash historical evidence.
 
 Prior `9c77cb7` remains an earlier validated fallback, not the current candidate. P1/A1 still lacks complete cold repeated adoption, cache/folder failure and provider-login policy evidence; portability and full editor/upstream release remain unproven.
 
