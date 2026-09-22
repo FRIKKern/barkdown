@@ -77,7 +77,7 @@ try {
   await scope.edits.undo('bp:same', receipt.id, scope.connection); assert.deepEqual(paper.blocks, original);
   const tableEvents = await run([
     call('read_document', { id: 'bp:same', format: 'structured' }),
-    p => { assert.match(result(p).content, /"id": "table"/); return call('edit_table', { id: 'bp:same', blockId: 'table', cells: [{ row: 0, column: 0, text: 'First\nSecond', align: 'center' }], summary: 'Clarify cell' }); },
+    p => { assert.equal(JSON.parse(result(p).content).id, 'bp:same'); assert.match(result(p).content, /"id": "table"/); return call('edit_table', { id: 'bp:same', blockId: 'table', cells: [{ row: 0, column: 0, text: 'First\nSecond', align: 'center' }], summary: 'Clarify cell' }); },
     p => { assert.match(result(p).content, /Saved table edit/); return done(); },
   ]);
   assert(tableEvents.some(e => e.agentEdit && e.target.id === 'same' && e.target.source === 'barkpark'));

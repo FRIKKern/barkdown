@@ -20,7 +20,7 @@ const transport = await createToolFixture((body, index) => {
   if ([1, 2, 3, 5, 6].includes(index)) assert.ok(result && !result.is_error, JSON.stringify(last));
   if (index === 0) return { name: 'list_documents' };
   if (index === 1) { assert.ok(JSON.parse(result.content).some(d => d.id === 'bp:' + slug)); return { name: 'read_document', input: { id: 'bp:' + slug, format: 'structured' } }; }
-  if (index === 2) { const doc = JSON.parse(result.content); assert.deepEqual(doc.blocks, original.blocks); tableId = doc.blocks[2].id; return { name: 'edit_document', input: { id: 'bp:' + slug, mode: 'replace_block', blockIndex: 1, markdown: 'Paragraph edited through the API.', summary: 'Clarify the paragraph' } }; }
+  if (index === 2) { const doc = JSON.parse(result.content); assert.equal(doc.id, 'bp:' + slug); assert.deepEqual(doc.blocks, original.blocks); tableId = doc.blocks[2].id; return { name: 'edit_document', input: { id: 'bp:' + slug, mode: 'replace_block', blockIndex: 1, markdown: 'Paragraph edited through the API.', summary: 'Clarify the paragraph' } }; }
   if (index === 3) { assert.match(result.content, /Saved edit/); return { text: 'Paragraph update complete.' }; }
   if (index === 4) return { name: 'read_document', input: { id: 'bp:' + slug, format: 'structured' } };
   if (index === 5) { assert.equal(JSON.parse(result.content).blocks[2].id, tableId); return { name: 'edit_table', input: { id: 'bp:' + slug, blockId: tableId, cells: [{ row: 0, column: 0, text: 'API first\nAPI second', align: 'center' }], summary: 'Clarify the table cell' } }; }

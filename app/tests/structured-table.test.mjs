@@ -5,7 +5,7 @@ const require=createRequire(import.meta.url), edits=require('../main/agent-edits
 store.init(fs.mkdtempSync(path.join(os.tmpdir(),'bd-table-unit-')));
 const t=value=>[{type:'text',value}];
 const original=[{id:'intro',type:'paragraph',content:t('Keep prose')},{id:'table',type:'table',caption:'Keep caption',cols:[{width:130},{width:180}],headCol:true,rows:[{note:'Keep row metadata',cells:[{content:[{type:'strong',children:t('First\nSecond')}],align:'right',note:'Keep cell metadata'},t('Human target')]}]},{id:'tail',type:'paragraph',content:t('Keep tail')}];
-let paper={rev:7,blocks:structuredClone(original)},writes=[];
+let paper={id:'fixture',rev:7,blocks:structuredClone(original)},writes=[];
 bp.getPaper=async()=>structuredClone(paper);bp.applyOps=async(c,s,ops,rev)=>{assert.equal(rev,paper.rev);writes.push(structuredClone(ops));for(const op of ops){if(op.op==='patch-block')Object.assign(paper.blocks.find(b=>b.id===op.id),op.patch);else if(op.op==='remove-block')paper.blocks=paper.blocks.filter(b=>b.id!==op.id);else if(op.op==='append-block')paper.blocks.push(structuredClone(op.block));else throw new Error(op.op);}return {rev:++paper.rev};};
 const cfg={enabled:true,writes:true,server:'http://fixture.invalid'};
 const edit=(cells,extra={})=>edits.applyTable({id:'bp:fixture',blockId:'table',baseRev:paper.rev,cells,summary:'Edit a table cell',...extra},cfg);
@@ -15,7 +15,7 @@ assert.equal(paper.blocks[1].rows[0].cells[0].note,'Keep cell metadata');assert.
 await edits.undo('bp:fixture',receipt.id,cfg);assert.deepEqual(paper.blocks,original);
 for(const [cells,extra] of [[[{row:0,column:0,text:'ok'},{row:8,column:0,text:'bad'}],{}],[[{row:0,column:0,text:'bad'}],{baseRev:1}],[[{row:0,column:0,text:'bad'}],{blockId:'missing'}],[[{row:0,column:0,content:[{type:'unsupported',value:'no'}]}],{}],[[{row:0,column:0,text:'x',content:t('y')}],{}],[[{row:0,column:0,align:'justify'}],{}]]){const count=writes.length,before=structuredClone(paper);await assert.rejects(()=>edit(cells,extra));assert.equal(writes.length,count);assert.deepEqual(paper,before);}
 const cleared=await edit([{row:0,column:0,align:'left'}]);assert.equal(paper.blocks[1].rows[0].cells[0].align,undefined);assert.deepEqual(paper.blocks[1].rows[0].cells[0].content,original[1].rows[0].cells[0].content);assert.equal(paper.blocks[1].rows[0].cells[0].note,'Keep cell metadata');
-const exported=JSON.parse(bp.readablePaper(paper,'structured'));assert.deepEqual(exported.blocks,paper.blocks);assert.equal(exported.rev,paper.rev);
+const exported=JSON.parse(bp.readablePaper(paper,'structured'));assert.deepEqual(exported.blocks,paper.blocks);assert.equal(exported.rev,paper.rev);assert.equal(exported.id,'bp:fixture');
 console.log('Structured table adapter: actual patch shape, metadata, multiline/alignment, Undo, stale/invalid zero-write, structured export passed.');
 
 const pd=require('../shared/portabledoc');
