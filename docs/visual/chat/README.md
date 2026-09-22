@@ -2,14 +2,15 @@
 
 Shared main composer: draft, provider chooser and model chooser. No message is sent.
 
-![Current view](../runs/2026-09-22T01-18-22-509Z/chat-4.png)
+![Current view](../runs/2026-09-22T04-19-49-564Z/chat-4.png)
 
-![Recorded interaction](../runs/2026-09-22T01-18-22-509Z/chat.gif)
+![Recorded interaction](../runs/2026-09-22T04-19-49-564Z/chat.gif)
 
-[Full comparison](../runs/2026-09-22T01-18-22-509Z/README.md) · [Capture manifest](../runs/2026-09-22T01-18-22-509Z/manifest.json)
+[Full comparison](../runs/2026-09-22T04-19-49-564Z/README.md) · [Capture manifest](../runs/2026-09-22T04-19-49-564Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-22T04:21:18.967Z: C016: inspected all37 original stills and37 GIF frames at04-14; final04-19 recapture has33 pixel-identical stills, four max-channel1 shadow/one-pixel differences inspected again, seven byte-identical GIFs and all four side-chat GIF frames reinspected. No geometry changes or above-threshold pixels. Full desktop51548 passed; separate actual34ef068/a544 two-runtime journey64864 passed exact scroll360 and anchor112.453125 through A completion and B restart, normal cleanup. Known long Paper heading clipping remains scoped in dedicated evidence. P1 and combined-source gates remain open. Source 6f3c5db53; [review](../reviews/approval-fbef09c1f728ce704e94e83a29f038d37f528fa17bc054cb9553d05d64651a13.json) - [comparison](../runs/2026-09-22T04-19-49-564Z/comparison.json).
 - 2026-09-22T01:20:07.979Z: Inspected all 37 frames across eight sequences including intermediate and narrow layouts. Geometry and content remain stable against the prior approved deterministic tour. Recovery and actual dual-runtime evidence remain separate; C016 scroll and historical network/cancellation findings are still open. Source ea5aa1207; [review](../runs/2026-09-22T01-18-22-509Z/comparison.json).
 - 2026-09-22T00:47:47.128Z: Inspected all37 frames and eight step sequences, including narrow profile/goals/recovery controls, theme contrast and menus. This fixture tour remains distinct from running dual-runtime acceptance. Test-only additions introduce no intended UI change; source and geometry comparison reviewed. Source 5e75a404d; [review](../runs/2026-09-22T00-46-12-892Z/comparison.json).
 - 2026-09-22T00:25:49.206Z: Inspected all37 actual candidate stills in eight area sheets, including menus, both themes, full side chats, narrow profile/goal/adoption recovery views. All comparisons have zero above-tolerance pixel/geometry changes versus preceding combined baseline. No new clipping or displacement observed. These are reduced-motion fixture steps, not live Paper or credential durability evidence; dedicated actual crash tests and live captures remain separate. Full combined desktop44785 is still running; prior466dfd9 full suite and rebuilt7248ef8 delayed-startup draft regression passed. Source 82cc6229a; [review](../runs/2026-09-22T00-23-29-485Z/comparison.json).

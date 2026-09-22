@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C016",
   "stage": "P1",
-  "status": "active",
+  "status": "done",
   "goal": "Prove two real profile runtimes stay isolated through the actual Electron workspace, late edits, Undo and restart.",
   "scope": [
     "Disposable profiles only; source runtime slot coordinated",
@@ -17,11 +17,13 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C016-profile-isolation-journey.md",
-  "nextAction": "Review committed loading-position fix in separate paper-loading-position lane, then named actual C016/native and visual evidence; no closure from host tests.",
+  "nextAction": "Selectively integrate reviewed34ef068 Paper position correction/29 tests and original evidence; preserve newer combined source and run fresh combined gates. P1 remains open.",
   "evidence": [
-    "docs/visual/profiles/isolation-runs/2026-09-22T00-54-58-699Z/manifest.json",
-    "docs/visual/profiles/isolation-runs/2026-09-22T02-57-20-871Z/manifest.json"
+    "docs/visual/profiles/isolation-runs/2026-09-22T04-04-36-864Z/manifest.json",
+    "docs/visual/profiles/isolation-runs/2026-09-22T04-04-36-864Z/review.json",
+    "docs/visual/runs/2026-09-22T04-19-49-564Z/manifest.json",
+    "docs/images/status/manifest.json"
   ],
-  "truthReview": "",
-  "screenshotReview": ""
+  "truthReview": "Full51548, actual64864, reviewed deterministic95345, live48539, rootverify76307 PASS. Source34ef068 actual; final tool6f3c5db standard. P1 unchanged/open; no real data migration or deployment.",
+  "screenshotReview": "Six actual stills/all6GIF frames;37 deterministic stills/all37GIF frames; five standard stills/all37GIF frames inspected. Known older long-title clipping, transient initial restoration and lazy-image scope remain explicit."
 }

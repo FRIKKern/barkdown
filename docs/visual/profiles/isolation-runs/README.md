@@ -1,6 +1,6 @@
 # Actual two-profile Paper journey
 
-C016 actual corrected journey now **passes** at34ef068; final regression/visual/live/root closeout remains in progress. These are disposable actual Electron/managed PostgreSQL journeys, distinct from the deterministic UI tour. No real library was used. Each folder retains its source commit, runtime identity and cleanup outcome in `manifest.json`.
+C016 actual corrected journey now **passes** at34ef068; full regression, visual, live and root closeout now pass; see the cycle handoff. These are disposable actual Electron/managed PostgreSQL journeys, distinct from the deterministic UI tour. No real library was used. Each folder retains its source commit, runtime identity and cleanup outcome in `manifest.json`.
 
 | Run | What passed | Why it stopped |
 | --- | --- | --- |

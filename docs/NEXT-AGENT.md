@@ -1,3 +1,7 @@
+# C016 lane closed - integrate selectively
+
+Actual two-runtime journey34ef068/a544 passes exact reading position and owner isolation; full51548, final deterministic37/37, standard live48539 and rootverify76307 pass. See [C016](cycles/C016-profile-isolation-journey.md). This older isolated branch is not the current combined source. Import only reviewed Paper correction/tests and original evidence, retaining newer integration fixes. P1 remains open; no merge or deploy. Earlier handoff follows as historical context.
+
 # Continue the dependable-workspace plan
 
 **Combined candidate:** this worktree follows [C008 integration](cycles/C008-integration.md) on `codex/integration-12h`. Its checkpoint supersedes historical baseline notes below. Profile switching and saved goal-worker UI exist behind `--profiles`; explicit `--adopt-legacy` now stages and publishes a verified copy with startup recovery, while `--rollback-adoption` retains edited copies. These C010/C011 imports are under combined validation; `faaaf79` is the preceding fully verified checkpoint. Integration evidence and remaining gaps are recorded there. Do not migrate real user data or claim P1 complete.

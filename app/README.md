@@ -73,3 +73,6 @@ Each page contains a still, recorded interaction GIF, provenance and changelog. 
 ### Pending C016 reading-position correction
 
 Paper loading no longer acknowledges an empty scroller over its saved reading position. Detached restoration yields to human interaction and does not block document loading. Host regressions pass; native two-profile and fresh visual evidence remain pending. See [investigation](../docs/cycles/C016-loading-position-investigation.md).
+
+
+C016 reading-position restoration: pending Paper loads no longer overwrite saved reading position from an empty scroller. Human engagement cancels deferred restoration. [Actual two-runtime journey](../docs/visual/profiles/isolation-runs/README.md) records exact position/anchor through late A work, B reselection and process restart, with prior failures retained. Lazy-image geometry beyond this fixture remains a limit.

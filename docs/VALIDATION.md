@@ -85,3 +85,6 @@ Combined E002 motion review is complete:8 stills,92 full-video samples at1fps an
 ## C016 intermediate ownership evidence — 2026-09-22
 
 Source8061e42 (app sourceea5aa12), actual dual-runtime frZiEt: A MCP edit acknowledged revision2 and native API worker stopped with zero active processes, but numeric B reading offset changed360 to390 before restart; C016 remains open. Visible paragraph-region pixels were identical, so anchor/image geometry diagnosis is pending. Both owned PostgreSQL clusters stopped normally. Standard live status on a544/private rLRyfe passed with real Codex; five stills and37 GIF frames inspected. Root verify and full desktop passed; the latter at ea5aa12. No P1/A1 completion claim; see cycles/C016-A1-evidence-audit.md and visual/profiles/isolation-runs/README.md.
+
+
+C016 original-lane proof: [actual two-profile journey](visual/profiles/isolation-runs/README.md) passes at34ef068/a544 with exact B scroll360 and paragraph anchor112.453125 through late A edit and actual process restart. Full desktop51548,37-frame deterministic tour, live48539 actualCodex and rootverify76307 PASS; retained historical failures/limits in [handoff](cycles/C016-profile-isolation-journey.md). This is not approval of newer combined source or full P1.
