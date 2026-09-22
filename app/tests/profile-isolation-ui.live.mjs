@@ -19,6 +19,8 @@ const git = (args, cwd = path.resolve('..')) => execFileSync('git', args, { cwd,
 const report = { sourceCommit: git(['rev-parse', 'HEAD']), sourceDirty: git(['status', '--porcelain', '--', 'app']) !== '', barkparkCommit: git(['rev-parse', 'HEAD'], source), barkparkDirty: git(['status', '--porcelain'], source) !== '', userData, checks: [], frames: [], stopped: false, modelDecisions: 'deterministic HTTP text turn retains real run lease; separate actual stdio MCP read/edit uses immutable A connection, not API remote tool support' };
 const transport = await createIsolationTransport();
 let app, page, mcp;
+const mcpDiagnostics = [];
+const persistReport = () => fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify({ ...report, mcpDiagnostics }, null, 2));
 const launch = () => electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${userData}`], timeout: 180000, env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', ANTHROPIC_BASE_URL: transport.url } });
 const wait = async (predicate, message, timeout = 180000) => { const end = Date.now() + timeout; while (Date.now() < end) { if (await predicate()) return; await new Promise(resolve => setTimeout(resolve, 100)); } throw new Error(message); };
 const record = text => { report.checks.push(text); console.log('PASS', text); };
@@ -50,18 +52,21 @@ async function seed(label) {
 }
 try {
   console.log('Disposable two-profile fixture:', userData);
-  app = await launch(); page = await app.firstWindow({ timeout: 180000 }); page.setDefaultTimeout(180000); await page.setViewportSize({ width: 1400, height: 900 }); await loaded();
+  app = await launch(); page = await app.firstWindow({ timeout: 180000 }); page.setDefaultTimeout(180000); await loaded();
   const a = (await page.evaluate(() => window.barkdown.profiles.status())).profileId;
   const b = (await page.evaluate(() => window.barkdown.profiles.create('Fixture B'))).id;
   const aRuntime = await seed('A'); await openPaper(); assert.match(await paperText(), /Only A owns amberwitness/);
   await page.locator('.bw-tab.active').hover(); await page.locator('.bw-tab.active [data-fav]').click({ timeout: 10000 });
   const capturedA = await app.evaluate(() => globalThis.isolationConfigs.A);
   mcp = new Client({ name: 'profile-isolation-proof', version: '1.0.0' });
-  await mcp.connect(new StdioClientTransport({ command: process.execPath, args: [path.resolve('main/mcp-server.js'), aRuntime.storeDir], env: { ...process.env, BARKDOWN_RUN_CONNECTION: JSON.stringify(capturedA), BARKDOWN_BP_TOKEN: capturedA.token } }));
+  const mcpTransport = new StdioClientTransport({ command: process.execPath, args: ['--require', path.resolve('tests/fixtures/fetch-diagnostics.cjs'), path.resolve('main/mcp-server.js'), aRuntime.storeDir], stderr: 'pipe', env: { ...process.env, BARKDOWN_RUN_CONNECTION: JSON.stringify(capturedA), BARKDOWN_BP_TOKEN: capturedA.token } });
+  mcpTransport.stderr?.on('data', data => { for (const line of String(data).split('\n')) if (line.startsWith('ISOLATION_FETCH_ERROR ')) { mcpDiagnostics.push(line); console.error(line); persistReport(); } });
+  await mcp.connect(mcpTransport);
   const readA = await mcp.callTool({ name: 'read_document', arguments: { id: 'bp:same-slug' } }); assert.match(JSON.stringify(readA), /amberwitness/);
   const aChat = await page.evaluate(folder => { const s = window.__barkdown.state, c = s.chats[s.current]; c.folder = folder; c.provider = 'api'; return c.id; }, path.join(userData, 'folder-A')); await saveView();
   await page.locator('#bw-prompt').fill('Hold this A-owned conversation while I inspect B.'); await page.locator('#bw-prompt').press('Enter');
   await wait(() => transport.held, 'Provider did not reach held text response');
+  report.initialGeometry = await page.evaluate(() => ({ width: innerWidth, height: innerHeight }));
   await shot('01-A-running');
   await select(b); const bRuntime = await seed('B'); await openPaper();
   assert.match(await paperText(), /Only B owns cobaltwitness/); assert.doesNotMatch(await paperText(), /amberwitness/);
@@ -87,6 +92,7 @@ try {
   assert.equal(await app.evaluate(async () => { const { A, B } = globalThis.isolationConfigs; const response = await fetch(B.server + '/v1/data/search/production?q=cobaltwitness&type=paper', { headers: { authorization: 'Bearer ' + A.token } }); return response.status; }), 401);
   record('Actual app runs A/B concurrently; B same-slug Paper/media/favorites and reading position remain B-owned');
   const mcpEdit = await mcp.callTool({ name: 'edit_document', arguments: { id: 'bp:same-slug', mode: 'append', markdown: 'A background amberwitness edit.', summary: 'Captured A MCP edit while B is selected' } });
+  report.mcpEdit = mcpEdit; persistReport();
   assert.match(JSON.stringify(mcpEdit), /Saved edit/); assert(!mcpEdit.isError);
   await mcp.close(); mcp = null;
   transport.release();
@@ -117,29 +123,31 @@ try {
   record('Returning A restores its cache/favorite/receipt; guarded Undo affects only matching A revision');
   await select(b); await openPaper(); assert.match(await paperText(), /Only B owns cobaltwitness/); assert.doesNotMatch(await paperText(), /amberwitness/);
   await app.close(); app = null;
-  app = await launch(); page = await app.firstWindow({ timeout: 180000 }); page.setDefaultTimeout(180000); await page.setViewportSize({ width: 1400, height: 900 }); await loaded(b);
+  app = await launch(); page = await app.firstWindow({ timeout: 180000 }); page.setDefaultTimeout(180000); await loaded(b);
   await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror').waitFor();
   assert.match(await paperText(), /Only B owns cobaltwitness/);
   assert.equal(await page.locator('#bw-prompt').inputValue(), 'B draft must survive A completion');
   const restored = await page.evaluate(() => window.barkdown.state.load()); assert.equal(restored.current, bChat); assert.equal(restored.chats['side-B'].parent, bChat); assert.equal(restored.chats['side-B'].draft, 'B side draft');
   assert.deepEqual(restored.chats[bChat].tabs.find(t => t.id === restored.chats[bChat].active).path, ['same-slug']);
   await page.waitForFunction(() => [...document.querySelectorAll('.bw-paper-pane:not([hidden]) .ProseMirror img')].every(img => img.complete && img.naturalWidth));
+  report.restartGeometry = await page.evaluate(() => ({ width: innerWidth, height: innerHeight }));
+  assert.deepEqual(report.restartGeometry, report.initialGeometry, 'native content bounds stay identical without late viewport changes');
   report.restartScroll = { expected: bScroll, actual: await page.locator('.bw-paper-pane:not([hidden]) #current').evaluate(node => node.scrollTop) };
   await shot('06-B-process-restart');
   assert.equal(report.restartScroll.actual, bScroll);
   assert.match(JSON.stringify(restored.favorites), /cobaltwitness/); assert.doesNotMatch(JSON.stringify(restored.favorites), /amberwitness/);
   record('Actual process restart restores selected B draft/side-parent/document path/scroll/favorite and same-slug Paper');
-} catch (error) { report.error = error.stack; if (page && !page.isClosed()) await shot('failure-state').catch(() => {}); throw error; }
+} catch (error) { report.error = error.stack; console.error('Journey failure before cleanup:', error.stack); persistReport(); if (page && !page.isClosed()) await shot('failure-state').catch(() => {}); throw error; }
 finally {
   transport.release(); const cleanupErrors = [];
   if (mcp) await mcp.close().catch(error => cleanupErrors.push(error.message));
-  if (app) await app.close().catch(error => cleanupErrors.push(error.message));
+  if (app) await Promise.race([app.close(), new Promise((_, reject) => setTimeout(() => reject(new Error('App cleanup exceeded 30s; retain owned-process diagnostics before explicit cleanup')), 30000))]).catch(error => cleanupErrors.push(error.message));
   await transport.close(); const pids = [];
-  function scan(dir) { for (const entry of fs.readdirSync(dir, { withFileTypes: true })) { const file = path.join(dir, entry.name); if (entry.isDirectory()) scan(file); else if (entry.name === 'postmaster.pid') pids.push(file); } }
+  function scan(dir) { for (const entry of fs.readdirSync(dir, { withFileTypes: true })) { const file = path.join(dir, entry.name); if (entry.isDirectory()) scan(file); else if (entry.name === 'postmaster.pid') pids.push(file); else if (entry.name.endsWith('.receipt.json') && file.includes('goal-processes')) { const r = JSON.parse(fs.readFileSync(file)); (report.ownedProcessReceipts ||= []).push({ profileId: r.profileId, attemptId: r.attemptId, phase: r.phase, containment: r.containment, activeProcesses: r.activeProcesses }); } } }
   scan(userData); report.stopped = !pids.length && !cleanupErrors.length; report.cleanupErrors = cleanupErrors; report.finishedAt = new Date().toISOString();
   const { GIFEncoder, quantize, applyPalette } = require('gifenc'), { PNG } = require('pngjs'), gif = GIFEncoder();
   for (const file of report.frames) { const png = PNG.sync.read(fs.readFileSync(path.join(out, file))), palette = quantize(png.data, 256); gif.writeFrame(applyPalette(png.data, palette), png.width, png.height, { palette, delay: 1200 }); }
   if (report.frames.length) { gif.finish(); fs.writeFileSync(path.join(out, 'isolation.gif'), gif.bytes()); }
-  fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify(report, null, 2)); console.log('Evidence:', out, 'stopped:', report.stopped);
+  persistReport(); console.log('Evidence:', out, 'stopped:', report.stopped);
   if (!report.stopped) throw new Error('Owned isolation fixture cleanup incomplete');
 }
