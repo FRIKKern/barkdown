@@ -109,3 +109,7 @@ Combined E002 motion review is complete:8 stills,92 full-video samples at1fps an
 ## E007/E008 original lane proof imported
 
 [HTML paste evidence](visual/html-table-paste/README.md) retains exact fdf6b9e/d8fda9690 live server/history/reload/200% recovery, original failures and reviewed motion. The global status/visual approval remains unchanged; archived E007-fdf6b9e status manifest and its review preserve actual attribution. [E008](cycles/E008-fixture-events.md) records upstream d24c7a094 full-suite success with test-only scheduling repair and unchanged runtime assets. These are original lane passes; combined candidate validation is pending and d8acb82 remains the verified fallback.
+
+## C028 parity runner
+
+Source b83efb1:24 controlled actual-runner cases pass, including exit1 after green output, signals, spawn errors, partial/malformed/missing/zero evidence, Paper structured checks and opaque compound groups. Failed-first0cf23f7 retained10 failures. No actual live matrix rerun. Root verify reached inherited screenshot-freshness failure (UI16a3b6085 vs capturee38038577); combined visual/root gates pending. See [C028 handoff](cycles/C028-parity-exit.md).

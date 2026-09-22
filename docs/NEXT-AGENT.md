@@ -1,5 +1,7 @@
 # Continue the dependable-workspace plan
 
+**C028 isolated lane:** parity runner source b83efb1 rejects process failure and unsupported assertion evidence;24 controlled actual-runner cases pass. Root verify remains blocked by inherited screenshot freshness. See [handoff](cycles/C028-parity-exit.md); combined integration/gates pending.
+
 **New source candidate:** `e3fec49` on `codex/integration-12h` includes reviewed C021 rollback, C023 bounded atomic writes, C024 project-file authority, C025 cache integrity and C027 immutable visual reviews. It retains original C020/C022/E007/E008 evidence. A reproduced missing-folder API search now returns a tool error instead of empty success; the agent test helper also no longer swallows scripted-response assertions. Focused combined checks pass, but fresh combined desktop/visual/live/root gates remain pending. See [C008](cycles/C008-integration.md) and the [A1 evidence table](cycles/A1-current-evidence.md).
 
 **Last fully validated combined fallback:** `d8acb82`. Full desktop64608 passed at app source b083c60; visual-tooling source e380385 has40 reviewed fixture frames/GIFs, actual Codex/Paper status5397, and root verify86276 passed. Original lane proofs retain their own commits. No main merge or deployment; P1 is incomplete and real user data must not be migrated.
