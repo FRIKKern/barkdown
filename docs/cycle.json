@@ -1,26 +1,24 @@
 {
   "version": 1,
-  "id": "C008",
+  "id": "C016",
   "stage": "P1",
   "status": "active",
-  "goal": "Integrate reviewed profile, goal and editor milestones on an isolated branch and prove their combined behavior without merging main.",
+  "goal": "Prove two real profile runtimes stay isolated through the actual Electron workspace, late edits, Undo and restart.",
   "scope": [
-    "Union reviewed source commits and existing regression gates",
-    "Preserve original lane evidence and create fresh combined evidence",
-    "Exercise combined ownership, worker and Paper journeys as dependencies arrive"
+    "Disposable profiles only; source runtime slot coordinated",
+    "Actual main IPC, real Paper and PostgreSQL; deterministic HTTP provider decisions explicitly distinguished",
+    "No P1 closure or unrelated recovery/editor changes"
   ],
   "acceptance": [
-    "Combined desktop and root verification pass",
-    "Live and deterministic visual evidence names the combined source",
-    "Profile/goal integration gaps remain explicit until proven"
+    "Same-slug content/media/search/favorites/cache never substitute across A/B",
+    "Late A provider tool edit and transcript remain A while B draft/context/scroll stay intact",
+    "A Undo receipt rejected in B and accepted only in A at matching revision",
+    "Process restart restores selected B draft, side parent and work path/scroll"
   ],
   "checkpoint": "2026-09-22",
-  "handoff": "docs/cycles/C008-integration.md",
-  "nextAction": "Validate combined C010 explicit adoption/startup and C011 crash reconciliation at56cc102; import subsequent reviewed editor and recovery corrections, then capture/review fresh combined evidence. Preserve fully verified faaaf79 checkpoint.",
-  "evidence": [
-    "app/package.json",
-    "docs/cycles/C008-integration.md"
-  ],
-  "truthReview": "Active integration only; no P1 or complete goal feature claim.",
-  "screenshotReview": "faaaf79 has approved31 deterministic frames, reviewed5 live Paper stills/37 GIF frames and separate E002 motion review. New C010/C011 inputs correctly invalidate current visual approval; fresh combined evidence pending."
+  "handoff": "docs/cycles/C016-profile-isolation-journey.md",
+  "nextAction": "Prepare actual Electron dual-runtime fixture from combinede877428, then await a544 slot after C013 and root status.",
+  "evidence": [],
+  "truthReview": "",
+  "screenshotReview": ""
 }

@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "id": "C008",
+  "stage": "P1",
+  "status": "active",
+  "goal": "Integrate reviewed profile, goal and editor milestones on an isolated branch and prove their combined behavior without merging main.",
+  "scope": [
+    "Union reviewed source commits and existing regression gates",
+    "Preserve original lane evidence and create fresh combined evidence",
+    "Exercise combined ownership, worker and Paper journeys as dependencies arrive"
+  ],
+  "acceptance": [
+    "Combined desktop and root verification pass",
+    "Live and deterministic visual evidence names the combined source",
+    "Profile/goal integration gaps remain explicit until proven"
+  ],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C008-integration.md",
+  "nextAction": "Validate combined C010 explicit adoption/startup and C011 crash reconciliation at56cc102; import subsequent reviewed editor and recovery corrections, then capture/review fresh combined evidence. Preserve fully verified faaaf79 checkpoint.",
+  "evidence": [
+    "app/package.json",
+    "docs/cycles/C008-integration.md"
+  ],
+  "truthReview": "Active integration only; no P1 or complete goal feature claim.",
+  "screenshotReview": "faaaf79 has approved31 deterministic frames, reviewed5 live Paper stills/37 GIF frames and separate E002 motion review. New C010/C011 inputs correctly invalidate current visual approval; fresh combined evidence pending."
+}

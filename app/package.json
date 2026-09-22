@@ -46,7 +46,8 @@
     "test:adoption": "node tests/profile-runtime-adoption.live.mjs",
     "test:agent-takeover:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-agent-takeover.live.mjs",
     "test:adoption-ui-runtime": "node tests/adoption-runtime-ui.live.mjs",
-    "test:rich-takeover:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-rich-takeover.live.mjs"
+    "test:rich-takeover:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-rich-takeover.live.mjs",
+    "test:profile-isolation": "npm run build && node tests/profile-isolation-ui.live.mjs"
   },
   "engines": {
     "node": ">=22.13.1"
