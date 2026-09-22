@@ -21,3 +21,5 @@ Source changes trigger the [capture, comparison and named review workflow](../..
 ## Changelog
 
 - 22 September: linked shell, conversation and recovery evidence beside the owning code. Pending native journeys and combined validation remain explicit in the integration handoff.
+
+- 22 September, candidate76b07d3: E011 upstream54579 and C016 reading-position source/evidence are imported. [C032 native refusal/restart motion](../../../docs/visual/folder-preflight/README.md) retains original8b51fbc; C033 has controlled context-race checks only. C023 original final gates passed. Fresh combined review remains pending; historical images above are not promoted. See [current validation order](../../../docs/cycles/C008-integration.md#remaining-combined-validation-order). E012 upstream work remains unconsumed.

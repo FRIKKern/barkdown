@@ -11,13 +11,15 @@ Baseline at the 2026-09-21 roadmap reset. Implementation evidence is separate fr
 
 ## Last fully validated combined checkpoint
 
-Source e380385: full desktop64608 and root verify86276 passed. Forty fixture frames plus GIFs reviewed; actual Codex/Paper status5397 passed with private runtime stopped. See [C008 exact scope and limits](cycles/C008-integration.md). No main release. Newer C016/E007/C021 original lane evidence is now imported; those original passes do not validate the combined candidate.
+Historical fallback d8acb82 (visual-tooling source e380385): full desktop64608 and root verify86276 passed. Forty fixture frames plus GIFs reviewed; actual Codex/Paper status5397 passed with private runtime stopped. See [C008 exact scope and limits](cycles/C008-integration.md). No main release. Newer C016/E007/C021 original lane evidence is now imported; those original passes do not validate the combined candidate.
 
 ## Current candidate and release gates
 
-Imported candidate2b2ec11 includes C016 reading-position restoration with newer queued-edit refresh (31 host checks), C026 shared send preservation (focused union plus original actual bridge evidence), C028 strict parity runner exit checks and E009 original connected3495 clipboard evidence. Vendor fallback remains a544; E011 consumption is pending. C023, C024 and C025 sources and original lane evidence are integrated; full combined desktop, actual native consumption, fixture/live captures and root verification remain pending. The missing-folder API search correction and strengthened fixture assertions pass the complete agent suite. [C008](cycles/C008-integration.md) owns subsequent source/evidence imports.
+Imported candidate `76b07d3` consumes upstream `54579debe6ad4579c1a48586805498602867d983` via E011 `22ef23b`, C033 `f19a6ef` and C032 source/fixture `4c1709a`/`b585640`. [E011 import](visual/fallback-consumption/IMPORT.md) preserves 755 original blobs and verifies all 53 review hashes, including actual fallback against old/new private servers. [C032](visual/folder-preflight/README.md) retains original native refusals/restart proof, six stills, four videos and two derived GIFs; 64 indexed hashes verified. C033 has 15 controlled context-race checks, not native race proof. [C023 original final gates](goals/evidence/3e9c0a9/README.md) passed and are imported; they are no longer pending lane work. Earlier C016/C024/C025/C026/E009 source-bound evidence remains valid within its recorded scope. Full combined desktop, dedicated native acceptance, fixture/live review and root verification remain pending. [C008 validation order](cycles/C008-integration.md#remaining-combined-validation-order) separates these gates.
 
-[Read-only release audit](cycles/evidence/release-gates-2026-09-22.json): upstream PR19579 is still open/blocked at a544, with failing checks. The successful parity job skipped its actual rows; BARKDOWN_READ_TOKEN is absent. G1/G2 remain uncleared. No secret, branch or workflow configuration was changed.
+Electron 38 remains consumed; coordinator reports real-app webview crashes on 43/44, including 43 with GPU disabled, while minimal 38/43 shells pass. No cause, fix or upstream attribution is established. Isolated C035 packaging and E012 upstream f7fb are unconsumed. C034 review fixes through 6da87af have 25 offline passes; no actual provider acceptance is claimed. Device CLI login and environment credentials remain an unanswered shared-device policy boundary.
+
+[Read-only release audit](cycles/evidence/release-gates-2026-09-22.json): the recorded 22 September audit found upstream PR19579 open/blocked at a544, with failing checks. The successful parity job skipped its actual rows; BARKDOWN_READ_TOKEN is absent. G1/G2 remain uncleared. No secret, branch or workflow configuration was changed.
 
 ## Combined integration checkpoint — 22 September
 
@@ -30,7 +32,7 @@ These are branch-specific results, not a main release or completion of P1–P5.
 | Original `54464ef` / upstream `a5440345c` | [Adopt, edit, restart and roll back](visual/adoption/runs/2026-09-22T00-21-07-265Z/README.md), including drafts/attachment/media and unchanged original content. C010 closed at645c525. | Disposable same-machine library, synthetic plain credential codec; not portability or real-user migration. |
 | Original `87ca623` | [Workspace-loss recovery](visual/workspace-recovery/README.md) refuses missing/corrupt authority and preserves visible drafts instead of seeding empty data. | Explicit manual recovery; no automatic reconstruction. |
 
-Combined root `npm run verify` session20871 now passes after a fresh live status capture at `8cabf36`/`a5440345c`: actual Codex turn, five reviewed stills and all 37 GIF frames. The private runtime stopped normally. Original lane verification is not a substitute. See [C008](cycles/C008-integration.md) for exact sessions and subsequent results.
+At this historical checkpoint, combined root `npm run verify` session20871 passed after a fresh live status capture at `8cabf36`/`a5440345c`: actual Codex turn, five reviewed stills and all 37 GIF frames. The private runtime stopped normally. Original lane verification is not a substitute. See [C008](cycles/C008-integration.md) for exact sessions and subsequent results.
 
 ## Pending evidence
 

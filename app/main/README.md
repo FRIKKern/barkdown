@@ -22,3 +22,5 @@ Run the affected real-adapter tests and the required desktop/visual/root gates i
 
 - 22 September: selected-root search errors remain errors, distinct from no matches; [API-loop regression and retained failure](../../docs/cycles/evidence/missing-working-folder/README.md). Combined visual/runtime verification is pending.
 - 22 September: C023 source is integrated with C010 lease relocation preserved; focused combined checks pass, final combined gates remain pending. C024 and C025 original evidence is imported. The handoff above owns current status.
+
+- 22 September, candidate76b07d3: E011 upstream54579 and C016 reading-position source/evidence are imported. [C032 native refusal/restart motion](../../docs/visual/folder-preflight/README.md) retains original8b51fbc; C033 has controlled context-race checks only. C023 original final gates passed. Fresh combined review remains pending; historical images above are not promoted. See [current validation order](../../docs/cycles/C008-integration.md#remaining-combined-validation-order). E012 upstream work remains unconsumed.
