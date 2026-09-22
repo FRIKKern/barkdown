@@ -33,13 +33,13 @@ async function acknowledged(previousRev) {
   let current, server, save;
   for (let i = 0; i < 40; i++) {
     current = await snapshot(); server = read(); save = await page.locator('.bw-paper-pane:not([hidden]) #save-state').innerText();
-    if (/Saved · rev/.test(save) && server.rev !== previousRev && isDeepStrictEqual(current.blocks, server.blocks)) return { ...current, server, save };
+    if (/Saved Â· rev/.test(save) && server.rev !== previousRev && isDeepStrictEqual(current.blocks, server.blocks)) return { ...current, server, save };
     if (/Not saved|Conflict/.test(save)) throw new Error('Save refused: ' + save);
     await page.waitForTimeout(250);
   }
   assert.deepEqual(current.blocks, server.blocks, 'server must acknowledge the full canvas snapshot, not just block counts');
   assert.notEqual(server.rev, previousRev, 'interaction must produce a newly acknowledged revision');
-  assert.match(save, /Saved · rev/, 'save acknowledgement is visible');
+  assert.match(save, /Saved Â· rev/, 'save acknowledgement is visible');
   return { ...current, server, save };
 }
 async function step(name, action, check) {
@@ -84,7 +84,20 @@ try {
   await step('HTML list paste preserves two items', async () => { const priorRev = read().rev; await page.keyboard.press('Enter'); beforeHtml = (await acknowledged(priorRev)).doc; await paste('a b', '<ul><li>html one</li><li>html two</li></ul>'); afterHtml = (await snapshot()).doc; }, doc => assert.ok(has(doc, n => n.type === 'bulletList' && n.content?.map(textOf).join('|') === 'html one|html two')));
   await step('native Undo removes HTML paste', async () => { await page.keyboard.press('Control+z'); }, doc => assert.deepEqual(withoutIdentity(doc), withoutIdentity(beforeHtml)));
   await step('native Redo restores exact rich HTML state', async () => { await page.keyboard.press('Control+Shift+z'); }, doc => assert.deepEqual(withoutIdentity(doc), withoutIdentity(afterHtml)));
-  await step('Backspace lifts quote to paragraph', async () => { await pm.locator('blockquote[data-bp-type="blockquote"], p[data-bp-type="blockquote"], p.bp-role-blockquote').first().click(); await page.keyboard.press('Home'); await page.keyboard.press('Backspace'); }, doc => assert.ok(paragraph(doc, 'quoted')));
+  await step('Backspace joins ordinary quote preserving rich preceding content', async () => { await pm.locator('blockquote[data-bp-type="blockquote"]').first().click(); await page.keyboard.press('Home'); await page.keyboard.press('Backspace'); }, (doc, before) => {
+    // Ordinary blockquote uses ProseMirror joinBackward. The custom standalone
+    // quote-to-paragraph shortcut applies to pullquote, a different node type.
+    const expected = structuredClone(before), index = expected.content.findIndex(n => n.type === 'blockquote' && textOf(n) === 'quoted');
+    assert.ok(index > 0); const previous = expected.content[index - 1], quote = expected.content[index];
+    assert.equal(previous.type, 'paragraph');
+    for (const inline of quote.content || []) {
+      const last = previous.content.at(-1);
+      if (last?.type === 'text' && inline.type === 'text' && isDeepStrictEqual(last.marks || [], inline.marks || [])) last.text += inline.text;
+      else previous.content.push(inline);
+    }
+    expected.content.splice(index, 1);
+    assert.deepEqual(withoutIdentity(doc), withoutIdentity(expected), 'join retains every mark, link, sibling and seeded identity');
+  });
   await step('Backspace lifts first bullet to paragraph', async () => { await pm.locator('ul:not([data-type="taskList"]) li p').first().click(); await page.keyboard.press('Home'); await page.keyboard.press('Backspace'); }, doc => { assert.ok(paragraph(doc, 'one')); assert.ok(has(doc, n => n.type === 'bulletList' && n.content?.some(item => textOf(item) === 'two'))); });
   await step('warning callout shorthand', async () => { await pm.locator('p:has-text("Tail paragraph")').first().click(); await page.keyboard.press('End'); await page.keyboard.press('Enter'); await page.keyboard.type('> [!warning] careful'); }, doc => assert.ok(has(doc, n => n.type === 'callout' && n.attrs?.tone === 'warning' && textOf(n) === 'careful')));
   await step('select all replacement and native Undo preserve rich document', async before => { const rev = read().rev; await pm.click(); await page.keyboard.press('Control+a'); await page.keyboard.type('fresh'); const replaced = await snapshot(); assert.equal(replaced.doc.content.length, 1); assert.ok(paragraph(replaced.doc, 'fresh')); const ack = await acknowledged(rev); await page.keyboard.press('Control+z'); return { replacementRev: ack.server.rev }; }, (doc, before) => assert.deepEqual(withoutIdentity(doc), withoutIdentity(before)));
@@ -101,7 +114,7 @@ try {
   fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n');
   const artifacts = Object.fromEntries(fs.readdirSync(out).filter(f => /\.(png|webm|json)$/.test(f)).map(f => [f, createHash('sha256').update(fs.readFileSync(path.join(out, f))).digest('hex')]));
   fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify({ sourceCommit, sourceDirty, barkparkCommit: process.env.BARKDOWN_SHOTS_BP_COMMIT, server: process.env.BARKDOWN_SHOTS_SERVER, editorBundle, artifacts, userData, motion: 'Native keyboard and production ClipboardEvent handlers, actual server acknowledgement; no model turn.' }, null, 2) + '\n');
-  console.log(JSON.stringify(report, null, 1));
+  console.log(JSON.stringify({ summary: report.summary, failures: results.filter(r => !r.pass).map(r => ({ name: r.name, error: r.error?.split('\n')[0] })), errors }, null, 1));
   console.log('Evidence: ' + out);
   process.exitCode = results.length === 13 && passed === 13 && errors.length === 0 ? 0 : 1;
 }
