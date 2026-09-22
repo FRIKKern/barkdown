@@ -97,3 +97,6 @@ Upstream `9803bbe5e` preserves GFM center/right alignment, marks, links and lite
 ## E007 HTML table paste
 
 Upstream `d8fda9690` and harness `fdf6b9e` preserve ordinary cell paragraphs/newlines, alignment, marks/links and supported body spans. Actual server-backed paste/history/human-edit/reload/recovery passed, including keyboard guidance at actual Electron 200% zoom. [Reviewed evidence](visual/html-table-paste/README.md) retains original failures and comparison, 11 live stills and continuous motion. Deterministic tour, real Codex status and root verification passed. E008's separate fixture-only full-suite repair does not change these production assets or close upstream merge gates.
+
+
+E010 native0c73c7f/54579 passed one real image upload across repeated native history and human revision9/reload.6stills/99video samples/30GIFframes inspected; deterministic21states within tolerance approved. [Evidence](visual/upload-history/README.md).

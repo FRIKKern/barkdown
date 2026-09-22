@@ -104,3 +104,6 @@ Stated 2026-09-20, not yet folded into the PRD:
 ## E006 aligned Markdown paste
 
 Upstream `9803bbe5e` preserves GFM center/right alignment, marks, links and literal pipes. Actual Paper paste, native Undo/redo, subsequent human edit and server reload passed at Barkdown harness `c22c0d3`. [Reviewed evidence](visual/markdown-paste/README.md). Upstream full-suite JSDOM save-ack baseline and default bundle integration remain open; no merge or deployment.
+
+
+E010: actual pending-upload Undo/Redo, repeated history and later human save/reload passed on54579. [Evidence](visual/upload-history/README.md). In-process history only; unfinished-upload restart recovery remains open.

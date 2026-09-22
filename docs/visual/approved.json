@@ -1,9 +1,9 @@
 {
-  "manifest": "docs/visual/runs/2026-09-22T02-53-00-817Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-22T02-53-00-817Z/comparison.json",
-  "manifestHash": "168111117bb29999571f0347eb496939f54dfcdcf267be8b98df2060c352c668",
-  "reportHash": "29bf40454165cb9ed77716d656cab9e85577dfab0f54ecf124eef34ff198d7d0",
+  "manifest": "docs/visual/runs/2026-09-22T05-12-00-086Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-22T05-12-00-086Z/comparison.json",
+  "manifestHash": "66ffd858257256fbe10c5468318ec06e84788f6a6ce42817fa9291a0cc70f76b",
+  "reportHash": "96ee6d13720f3d67640ec7f87aea664a7a757750c5154e7c382faa489faf3410",
   "reviewer": "Codex editor agent",
-  "note": "Inspected 21 stills, 21 difference images and all21 decoded tour GIF frames. No unexpected layout or control loss; deterministic tour unchanged. Separate E007 live proof at fdf6b9e/d8 passed native paste/history/reload and actual 200 percent zoom recovery; reviewed all11 stills and73 video samples. This approval does not claim provider parity or upstream merge readiness.",
-  "reviewedAt": "2026-09-22T02:54:57.187Z"
+  "note": "Inspected all21 deterministic stills/diffs and21 decodedGIFframes, within tolerance/no geometry changes. Dedicated actual Paper E010 inspected6stills,99video samples at2fps and30decodedGIFframes: native Undo removes pending image, Redo restores actual uploaded URL, repeated history issues no duplicate upload, human edit survives server reload. Narrow layout readable. This is in-process history proof, not restart recovery of unfinished uploads; document Saved and Uploading can coexist.",
+  "reviewedAt": "2026-09-22T05:14:23.903Z"
 }

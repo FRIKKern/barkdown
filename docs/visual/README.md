@@ -1,30 +1,30 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-22T02-53-00-817Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-22T05-12-00-086Z/README.md).
 
-Reviewed by Codex editor agent. Inspected 21 stills, 21 difference images and all21 decoded tour GIF frames. No unexpected layout or control loss; deterministic tour unchanged. Separate E007 live proof at fdf6b9e/d8 passed native paste/history/reload and actual 200 percent zoom recovery; reviewed all11 stills and73 video samples. This approval does not claim provider parity or upstream merge readiness.
+Reviewed by Codex editor agent. Inspected all21 deterministic stills/diffs and21 decodedGIFframes, within tolerance/no geometry changes. Dedicated actual Paper E010 inspected6stills,99video samples at2fps and30decodedGIFframes: native Undo removes pending image, Redo restores actual uploaded URL, repeated history issues no duplicate upload, human edit survives server reload. Narrow layout readable. This is in-process history proof, not restart recovery of unfinished uploads; document Saved and Uploading can coexist.
 
-Source commit: fdf6b9ec3572c3e5777b85e33740c026c26bcb24; platform: win32; Electron: 38.8.6. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: 0c73c7f7327c4e94d1f4341404846eb6a3a881ba; platform: win32; Electron: 38.8.6. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-09-22T02-53-00-817Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-09-22T05-12-00-086Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-09-22T02-53-00-817Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-09-22T05-12-00-086Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-09-22T02-53-00-817Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-09-22T05-12-00-086Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-09-22T02-53-00-817Z/documents.gif)
+![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-09-22T05-12-00-086Z/documents.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-09-22T02-53-00-817Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-09-22T05-12-00-086Z/settings.gif)
 
 ## Live evidence and gaps
 

@@ -1,0 +1,27 @@
+{
+  "reviewer": "Codex editor agent",
+  "reviewedAt": "2026-09-22T05:15:08.204070+00:00",
+  "stills": 6,
+  "videoSamplesAt2fps": 99,
+  "decodedGifFrames": 30,
+  "result": "accepted bounded in-process upload history",
+  "observations": [
+    "Undo removes the pending image; Redo restores its real uploaded URL without pending badge or duplicate upload.",
+    "Repeated native history preserves surrounding paragraphs; later human text survives actual server reload.",
+    "Narrow900px layout retains image and human text; insertion/removal changes height as intended, no unexpected displacement observed.",
+    "Pending image can show document Saved rev2 while Uploading badge remains. This does not prove restart recovery of unfinished uploads or a durable upload receipt."
+  ],
+  "hashes": {
+    "01-upload-pending.png": "6249f5654e682eb9ee5d97b28b2af68f6e27e8a6822b523b87659f0a3140c023",
+    "02-undo-before-delivery.png": "3944fc128379cfd088e2eb18c8c394c35ac465da5c4a90ce98a32900ca067efa",
+    "03-redo-acknowledged-image.png": "a208b3c6b7fc962a8aa99b44746ca8b310ba428ca9b02fdcbc8160f65bf1859c",
+    "04-human-saved.png": "6b8dcb987998add43fad7b4d0beffa2000c94e9ce1d40a89d4717e41d9ef4893",
+    "05-reloaded.png": "627a92f2026899c8384457fae0f6fd94603c211e9f7d11636f1aad0c336faeed",
+    "06-narrow.png": "b4600a250fd1359b039c2647a01ae9c987245308108f69d006e27dc060351901",
+    "manifest.json": "f35174b1ef2b82b3f8f304f0269511a3d580c93c3df6f783e3e217a092983025",
+    "server.json": "6c1a483333112268b25741e3d990112de753d01f62b75acac645e5e7d84cd964",
+    "upload-history.webm": "c25961060f5391fb2a9d2ba71972f37f4e49b154e6250ec15960266680f0aaf6",
+    "upload-undo-redo.gif": "c4337c2feb00dde4437c7870e32f22446cb5d3b9b61ff0a3bb11a4cf186edb45",
+    "video-map.json": "e2f98d6b6f251f6d53bd9f48587338edcd6693fcf820c50f5170893a3fad4dda"
+  }
+}

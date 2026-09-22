@@ -25,3 +25,13 @@ Full54103 passed, but started at508b before the field-intent correction; it is h
 ## Frozen offline gates
 
 Exact clean54579 full upstream npm test19587 passed ([log](../visual/upload-history/diagnostics/full-54579.txt)). Isolated forced server compile59464 passed ([log](../visual/upload-history/diagnostics/compile-54579.txt)); generated editor JS/CSS were copied into this own compiled served tree, not a shared checkout. Actual fixture88358f9 is committed and syntactically checked. No live runtime or foreground UI was started. Next action is the named actual Paper window after E009; then deterministic and live-status review plus final verification.
+
+## Actual Paper checkpoint
+
+E009 closed1a9faf3 before this exclusive window. First3567/GZrw5Z attempt timed out on the empty static app shell because renderer/dist had not been built; [original failure](../visual/upload-history/runs/2026-09-22T05-08-54-282Z/manifest.json) is retained. App build passed, source remained0c73c7f/54579, retry56968/DeVhLc passed. Server61395/version0.2.26.3925 served exact JS c73a0f46c5402178721a9fe334a25a8a6f530d70 and CSS38197e09d17efc468a3dc875dbd59571e3aeb7c8. Native Undo before delivery, Redo, two further Undo/Redo cycles used one actual upload; later human revision9 and reload matched real server blocks. Both private runs stopped and postmaster absence was checked.
+
+[Native review](../visual/upload-history/runs/2026-09-22T05-11-00-573Z/review.json) covers6stills,99continuous-video samples at2fps and all30decodedGIFframes. Root independently reviewed pending/Undo/Redo/narrow stills. Document Saved rev2 while Uploading remains is explicit: this is in-process history behavior, not restart recovery of unfinished uploads or durable receipt persistence. Deterministic05-12-00 all21states within tolerance; allstills/diffs/21GIFframes inspected and explicitly approved. Final live status16401/m9RRaS is running; no success claim until stopped and media reviewed.
+
+Final status16401/m9RRaS exited0, normalstop and postmaster absence checked. Exact0c73/54579 statusserver62532/version0.2.26.3925 used realCodex afterClaude limit;5stills/all37GIFframes inspected. [Original manifest](../images/status/history/E010-0c73c7f.json) and hashreview retained. Explicit UI release sent to root for C029. Repository verify follows; no owned UI/runtime remains.
+
+Final npm run verify5559 passed exit0 (build, links, plan/cycle, visual hashes/review and all concept/handoff checks). Ready for selective integration; combined branch gates remain separate. Root approved proceeding to E011 consumption after reviewing bounded native evidence. No upstream merge or deployment.

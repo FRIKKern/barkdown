@@ -2,14 +2,15 @@
 
 Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.
 
-![Current view](../runs/2026-09-22T02-53-00-817Z/documents-2.png)
+![Current view](../runs/2026-09-22T05-12-00-086Z/documents-2.png)
 
-![Recorded interaction](../runs/2026-09-22T02-53-00-817Z/documents.gif)
+![Recorded interaction](../runs/2026-09-22T05-12-00-086Z/documents.gif)
 
-[Full comparison](../runs/2026-09-22T02-53-00-817Z/README.md) · [Capture manifest](../runs/2026-09-22T02-53-00-817Z/manifest.json)
+[Full comparison](../runs/2026-09-22T05-12-00-086Z/README.md) · [Capture manifest](../runs/2026-09-22T05-12-00-086Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-22T05:14:23.903Z: Inspected all21 deterministic stills/diffs and21 decodedGIFframes, within tolerance/no geometry changes. Dedicated actual Paper E010 inspected6stills,99video samples at2fps and30decodedGIFframes: native Undo removes pending image, Redo restores actual uploaded URL, repeated history issues no duplicate upload, human edit survives server reload. Narrow layout readable. This is in-process history proof, not restart recovery of unfinished uploads; document Saved and Uploading can coexist. Source 0c73c7f73; [review](../runs/2026-09-22T05-12-00-086Z/comparison.json).
 - 2026-09-22T02:54:57.187Z: Inspected 21 stills, 21 difference images and all21 decoded tour GIF frames. No unexpected layout or control loss; deterministic tour unchanged. Separate E007 live proof at fdf6b9e/d8 passed native paste/history/reload and actual 200 percent zoom recovery; reviewed all11 stills and73 video samples. This approval does not claim provider parity or upstream merge readiness. Source fdf6b9ec3; [review](../runs/2026-09-22T02-53-00-817Z/comparison.json).
 - 2026-09-22T01:33:48.889Z: E006: inspected all 21 fixture stills and 21 decoded GIF frames. Environment unchanged, zero pixel or geometry differences. Separate real Paper proof verifies aligned paste, native Undo/redo, subsequent human edit and server reload; no new shell clipping observed. Source c22c0d3aa; [review](../runs/2026-09-22T01-31-05-935Z/comparison.json).
 - 2026-09-22T01:01:13.523Z: E004: inspected all 21 fixture stills and 21 decoded motion frames; unchanged environment, zero changed pixels and geometry. Separate real Paper structured-table proof passes 3/3 including Undo, human save and reload; fixture tour alone is not server proof. Source cd4b5c13c; [review](../runs/2026-09-22T00-55-16-118Z/comparison.json).

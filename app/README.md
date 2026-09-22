@@ -84,3 +84,6 @@ Revision-checked cell patches and exact structured reads preserve headerless/mul
 ## E006 aligned Markdown paste
 
 Upstream `9803bbe5e` preserves GFM center/right alignment, marks, links and literal pipes. Actual Paper paste, native Undo/redo, subsequent human edit and server reload passed at Barkdown harness `c22c0d3`. [Reviewed evidence](../docs/visual/markdown-paste/README.md). Upstream full-suite JSDOM save-ack baseline and default bundle integration remain open; no merge or deployment.
+
+
+E010 [upload history health](../docs/visual/upload-history/README.md): real image completion across Undo/Redo and later saved human reload passed on connected54579. Does not prove restart recovery of unfinished uploads; fallback/pin unchanged.
