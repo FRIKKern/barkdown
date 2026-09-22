@@ -16,12 +16,14 @@ function createProfileIpcGate(service) {
     pending.add(operation);
     try { return await operation; } finally { pending.delete(operation); }
   }
-  async function select(owner, profileId, rebind) {
+  async function select(owner, profileId, rebind, beforeSelect = async () => {}) {
     if (failure) throw new Error('Profile activation failed; restart to recover: ' + failure.message);
     if (switching) throw new Error('Profile switch is in progress');
     service.validate(owner); switching = true;
     try {
       await Promise.allSettled([...pending]);
+      service.validate(owner);
+      await beforeSelect();
       service.validate(owner);
       const result = await service.select(owner, profileId);
       try { await rebind(result); } catch (error) { failure = error; throw error; }

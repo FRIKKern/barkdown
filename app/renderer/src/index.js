@@ -75,6 +75,7 @@ function pauseFollow(chat = currentChat()) { if (chat) chat.following = false; }
 // ---------- tab context passed to tab controllers ----------
 function tabContext(chat) {
   return {
+    chatId: chat.id,
     folder: () => chat.folder || null,
     bindTranscript,
     initials,
@@ -171,13 +172,16 @@ function focusTab(chat, id, manual = true) {
   renderTabs(); renderWorkspace(); save();
 }
 
-function closeTab(chat, id) {
+async function closeTab(chat, id) {
   savePositions();
   pauseFollow(chat);
   const index = chat.tabs.findIndex(t => t.id === id);
   if (index < 0) return;
   const controller = controllers.get(id);
   if (controller?.canClose?.() === false) return;
+  if (controller?.beforeClose && !await controller.beforeClose()) return;
+  // Another close may have completed while native shutdown was being verified.
+  if (chat.tabs[index]?.id !== id) return;
   const [removed] = chat.tabs.splice(index, 1);
   if (controller?.isDirty?.() && removed.type === 'doc') controller.flush?.();
   if (removed.type === 'project' && chat.folder && dirtyCount(chat.folder)) toast('Unsaved file edits stay in this session. Reopen the project editor to save them.');
