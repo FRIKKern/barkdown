@@ -109,7 +109,7 @@ try {
     assert.equal(first.content.length, 1); assert.equal(first.content[0].type, 'paragraph');
     // A nested paragraph has no persistence carrier type. Its new top-level
     // carrier is materialized on save; retain every other field and sibling.
-    if (phase.acknowledged) first.content[0].attrs.bpType = 'paragraph';
+    if (phase.acknowledged) first.content[0].attrs = { ...first.content[0].attrs, bpType: 'paragraph' };
     expected.content.splice(index, 0, first.content[0]);
     assert.deepEqual(withoutIdentity(doc), withoutIdentity(expected), 'native lift preserves heading level, marks, remaining list item and unrelated siblings');
   });
