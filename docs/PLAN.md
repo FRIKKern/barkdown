@@ -65,4 +65,4 @@ Use [ACCEPTANCE.md](ACCEPTANCE.md) for scenario gates and [VALIDATION.md](VALIDA
 
 ## Delivery cadence
 
-Deliver stages through [bounded cycles](CYCLES.md). C001 completed the ownership design; [C004](cycles/C004-captured-run-ownership.md) adds captured provider ownership and finalization. C003 registry/adoption foundation is independently developed on the next-cycle branch. C006 will integrate trusted ownership and workspace persistence before switching UI. [The current cycle](cycle.json) and `npm run plan` retain exact status. C002 merged through PR #29 at `b8e7bfb`; no deployment. These bounded slices do not complete P1.
+Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) is C008 integration on the candidate branch. C001 ownership design and C002 folder context are complete; C002 is merged on main. Subsequent bounded cycles have implemented profile foundations, adoption, recovery and editor improvements, with original evidence linked from [NEXT-AGENT.md](NEXT-AGENT.md). P1 remains unproven until the complete two-profile acceptance journey and combined regression/evidence gates pass. Closing a cycle does not complete a stage.

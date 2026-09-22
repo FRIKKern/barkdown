@@ -2,6 +2,12 @@
 
 Active on `codex/integration-12h` in the isolated `barkdown-integration-12h` worktree. No main merge or deployment. This branch is a test candidate, not a completed product milestone.
 
+## Current checkpoint
+
+Source1971638 combines C014 final recovery and E004 scoped table operations; evidence-onlyd8d666a retains original reviewed galleries. Full desktop91207 passed atfb31be3 before the E004 import; final C014 race and E004 table/MCP/recovery checks pass. New combined full/visual/live gates are pending. Last fully verified fallback9c77cb7 remains valid only for its source. C015/C017 and newer editor work are not integrated yet. Original failure evidence is retained; P1, portability and full editor release are not complete.
+
+## Integration history
+
 Base `6b8af8c` contains C001, C003 registry source and C004 captured ownership/evidence. Imported E001 runtime commits `0e2feca`/`228a008` as `299dfc1`/`02b6bd3`; goals `f9bc9e5`/`f0568b5` as `1ac818b`/`efd18c4`; editor capture fixes `61d0753`/`e19edfa` as `d92e265`/`1fbc9eb`. Package conflicts were resolved by explicitly uniting all lane test scripts. Goal handoff remains historical foundation context; the goals agent continues newer work separately.
 
 Retained E001 recovery media and host results from `096e93e` to preserve linked evidence. Their manifests remain attributed to original lane commits, not this candidate. C004's closed cycle is archived beside this handoff. Fresh combined screenshots are still required.
