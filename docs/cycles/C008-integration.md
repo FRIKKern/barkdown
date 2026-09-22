@@ -4,7 +4,11 @@ Active on `codex/integration-12h` in the isolated `barkdown-integration-12h` wor
 
 ## Current checkpoint
 
-Source now combines C014 final recovery, E004 scoped table operations, C015 coordination through61eea4d and C017 API Paper parity throughd8423e7. Preserve all original lane galleries. Full desktop91207 passed atfb31be3 before E004/C015/C017; subsequent coordinator/provider21, recovery/workspace, API and24host checks pass after imports. New combined full/visual/live gates remain pending. Last fully verified fallback9c77cb7 remains valid only for its source. C017 actual paragraph/table visibility passed before a fixture array-identity assertion stopped its final Undo/reload proof; that assertion is corrected. C015 authenticated proof passed in its lane; final journal-commit failure retains authoritative state and no-replay recovery evidence without inventing the unavailable original OS error. P1, portability and full editor release remain incomplete.
+Candidate now combines C014 recovery, E004 scoped table operations, C015 coordinator through61eea4d, C017 API Paper parity throughd8423e7, E006 paste harness and original evidence, C019 global unsaved-project-buffer guard, and C018 terminal ownership throughdb9b2ca. Original lane evidence remains attributed to its source; no global approval was replaced.
+
+Root independently passed25 coordinator/native-host/terminal checks after C018 import, plus profile IPC, ordinary chat recovery and project-buffer tests. C017 actual final97220/rReqHN passed paragraph/table edits, exact visible Undo and reload; reviewed original evidenceb4420b5 imported. C015 full/authenticated/visual/root gates passed in its lane and original2ea6707 evidence is imported. C018 actual final32711 passed with all native jobs stopped; evidence closeout pending. C019 actual UI and C016 dual-runtime retry are running in the current-cycle window.
+
+Fresh combined full desktop, fixture comparison, live status and root verify remain pending. Last fully verified combined fallback9c77cb7 remains valid only for its source. P1, portability and full editor release are incomplete. Native process preflight before offline rollback remains an audited gap: root actual live-job probe received Windows EPERM at directory rename while three owned processes remained alive; no successful retirement or data loss was reproduced. All audit processes were then positively stopped. Do not rely on OS rename refusal as a substitute for explicit native verification.
 
 ## Integration history
 
