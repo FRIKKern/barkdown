@@ -16,7 +16,7 @@ function createProfileService({ registry, agent = require('./agent'), workspaces
   function selected() {
     const data = registry.load();
     if (!data?.selectedProfileId) throw new Error('No profile is selected');
-    registry.storeFor(data.selectedProfileId).readJson('workspace.json', null); // revalidate actual root
+    workspaces.load(data.selectedProfileId); // validate persisted authority before any foreground request
     return data.selectedProfileId;
   }
   function view() { return { profileId: selected(), generation }; }
@@ -133,7 +133,7 @@ function createProfileService({ registry, agent = require('./agent'), workspaces
     return result;
   }
   async function select(owner, profileId) {
-    validate(owner); registry.storeFor(profileId).readJson('workspace.json', null);
+    validate(owner); workspaces.load(profileId); // reject an unreadable target before committing selection
     switching = true;
     try {
       const s = settings(profileId);

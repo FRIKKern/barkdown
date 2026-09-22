@@ -12,7 +12,6 @@ function attemptId(id) {
   if (typeof id !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(id)) throw new Error('Invalid attempt identity');
   return id;
 }
-function empty() { return { version: 1, chats: {}, order: [], favorites: [], pages: null, current: null, mode: 'chat', directTab: null }; }
 function metadata(ws) {
   if (!ws.ownership) ws.ownership = { version: 1, revision: 0, attempts: {}, deletedChats: {} };
   if (ws.ownership.version !== 1 || !Number.isSafeInteger(ws.ownership.revision) || !object(ws.ownership.attempts) || !object(ws.ownership.deletedChats)) throw new Error('Invalid workspace ownership metadata');
@@ -55,8 +54,13 @@ function applyEvent(chat, reply, event, at) {
 
 function createWorkspaceRepository({ registry, now = () => new Date().toISOString() }) {
   function read(profileId) {
-    const ws = registry.storeFor(profileId).readJson('workspace.json', null) || empty();
-    if (ws.version !== 1 || !object(ws.chats) || !Array.isArray(ws.order)) throw new Error('Invalid workspace; recovery required');
+    const store = registry.storeFor(profileId);
+    const recovery = reason => new Error(`${reason} at ${store.storeDir}/workspace.json. Close Barkdown and restore the original file or a verified backup. No replacement was created.`);
+    let ws;
+    try { ws = store.readJson('workspace.json', null); }
+    catch (error) { throw recovery('Cannot read profile workspace: ' + error.message); }
+    if (!object(ws)) throw recovery('Profile workspace is missing or invalid');
+    if (ws.version !== 1 || !object(ws.chats) || !Array.isArray(ws.order)) throw recovery('Invalid workspace; recovery required');
     for (const [id, chat] of Object.entries(ws.chats)) { identifier(id); if (!object(chat) || chat.id !== id || !Array.isArray(chat.messages)) throw new Error('Invalid workspace conversation'); }
     metadata(ws); return ws;
   }
