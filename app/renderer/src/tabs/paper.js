@@ -372,6 +372,7 @@ export function mountPaper(tab, host, ctx) {
       : paper.blocks ? 'Read-only view of the Barkpark paper. Enable live editing above to edit in place.' : 'Preview converted from the paper\'s HTML body.';
     renderMeta(); renderBanner(); renderPath(); renderProposals(); renderLinks();
     q('#current').scrollTop = tab.scroll || 0;
+    if (refreshAgain) { refreshAgain = false; void controller.refresh(); }
   }
 
   const offLocal = api.barkpark.onLocalStatus(status => {
@@ -386,6 +387,10 @@ export function mountPaper(tab, host, ctx) {
     canClose() { if (!hasUnsavedWork()) return true; canvas?.flushPendingChanges?.(); toast('Finish saving this paper before closing it. If saving failed, retry or discard the unsaved edits.', 'error'); return false; },
     async refresh(changedId) {
       if (changedId && changedId !== 'bp:' + slug() && changedId !== slug()) return;
+      // A read tool may open this pane and finish its edit before the first
+      // bundle/load mounts. Replay that notification once there is a canvas;
+      // absence during loading is not an older editor capability failure.
+      if (!canvas) { refreshAgain = true; return; }
       if (refreshing) { refreshAgain = true; return; }
       if (hasUnsavedWork()) return;
       refreshing = true;

@@ -46,6 +46,15 @@ await test('a cold bundle resolves before committing destination identity or mou
   bundle.resolve({});await tick();
   try {assert.equal(m.canvas().blocks[0].id,'B-p');assert.equal(m.tab.title,'B');} finally {m.close();}
 });
+await test('an external edit during the first paper load is refreshed after mounting', async () => {
+  const first = deferred(); let gets = 0;
+  transport = { get: async id => ++gets === 1 ? first.promise : paper(id, 2) };
+  const m = mount();
+  await m.controller.refresh('bp:A');
+  first.resolve(paper('A', 1)); await tick(); await tick();
+  try { assert.equal(m.canvas().echoes.length, 1); assert.match(m.host.querySelector('#save-state').textContent, /Saved · rev 2/); }
+  finally { m.close(); }
+});
 await test('late initial load cannot replace a newer destination', async () => {
   const a = deferred(); transport = { get: id => id === 'A' ? a.promise : Promise.resolve(paper(id)) };
   const m = mount(); m.tab.path = ['B']; m.controller.navigate(); await tick();
