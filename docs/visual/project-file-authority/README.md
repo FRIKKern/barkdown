@@ -1,7 +1,22 @@
 # Project files: draft and save ownership
 
-C024 proves failed navigation cannot save an old draft into another file, and a delayed save acknowledgement cannot mark newer typing as saved. Missing disk files require explicit recreation.
+C024 preserves the previous file draft when navigation fails. Save acknowledges its captured file and text; newer typing remains dirty. Deleted files require explicit recreation, and Cancel preserves the draft.
 
-First actual Electron journey at e8ace30 passed all assertions and stopped normally: [original manifest](runs/2026-09-22T03-36-13-379Z/manifest.json). Its screenshots exposed duplicated raw filesystem error wording; the wording is being simplified before final capture. This first capture is retained as original evidence, not a current visual approval. Final source-bound stills, motion review and full validation are pending.
+![Unavailable file and recovery](runs/2026-09-22T03-49-16-379Z/02-unavailable.png)
 
-[Cycle handoff](../../cycles/C024-project-file-authority.md). Unsaved buffers remain session-only; physical junction confinement and cross-process file editing are outside this slice.
+![Later typing remains unsaved](runs/2026-09-22T03-49-16-379Z/04-newer-draft-retained.png)
+
+![Narrow recovery](runs/2026-09-22T03-49-16-379Z/07-narrow-unavailable.png)
+
+![Actual recovery sequence, slowed for review](runs/2026-09-22T03-49-16-379Z/file-recovery.gif)
+
+[Original manifest](runs/2026-09-22T03-49-16-379Z/manifest.json) · [Hashed review](runs/2026-09-22T03-49-16-379Z/review.json) · [Cycle handoff](../../cycles/C024-project-file-authority.md).
+
+Source268d5df, actual Electron CodeMirror and real files IPC. The save-delay fixture blocks acknowledgement after a real disk write. All seven stills and22 video samples reviewed; the app stopped normally. GIF is5fps from8fps samples; resizing leaves original video letterboxing.
+
+Unsaved buffers remain session-only. Physical junction confinement and cross-process editing are outside this slice. This evidence does not approve the combined integration branch.
+
+## Changelog
+
+- 22 September: final wide/narrow copy and recovery approved at268d5df. Full desktop passed0fe916c before final display-only fix; final actual assertions cover that fix.
+- Earlier captures03-36-13 and03-37-59 are retained. Their functional checks passed, but raw filesystem error wording was not visually approved; contextBridge stripped custom Error.code.

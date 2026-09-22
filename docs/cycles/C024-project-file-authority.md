@@ -1,4 +1,4 @@
-# C024 — Exact project file authority
+# C024 â€” Exact project file authority
 
 Root-owned isolated codex/project-file-authority-12h from da9bb2e. Read AGENTS, active handoff/plan/A1 and design decisions; preserve per-chat folders and unsaved human text. No shared UI or real data used.
 
@@ -32,3 +32,11 @@ Source16a2f33 independently re-reviewed by next-cycle agent; focused headless re
 First actual Electron journey at e8ace30 passed all assertions in temporaryekZ32O, stoppedtrue. Seven stills/video retained at03-36-13-379Z. Initial visual review found repeated raw ENOENT wording; known missing/access-denied cases now use plain language while preserving explicit unavailable status, full path in header tooltip and Return control. Added dedicated visual coverage/tripwire before final source capture. Full/fixture/live/root gates remain pending.
 
 Full desktop48685 passed at frozen0fe916c including actual coordinator normal/crash recovery, project draft/profile guard, authority regression and terminal ownership. Final copy-only adjustment follows actual contextBridge evidence: custom Error.code is lost; display reads the existing main/preload message prefix without using it for write authority. Actual Electron fixture now explicitly asserts friendly wording in wide/narrow views. Prior03-37-59 capture data assertions passed but copy was not approved; all evidence remains retained. Final targeted actual/file regressions and fresh visual/live/root gates follow this display adjustment; no broad repeat solely for wording.
+
+## Closed lane checkpoint
+
+Final source268d5df passed actual Electron at disposableQrEmJX: all seven assertions/scenes, friendly missing-file message in wide/narrow, stoppedtrue. [Final gallery](../visual/project-file-authority/README.md) retains original manifest, video, slowed GIF and hashed review. Root inspected all seven stills and22 video samples. Earlier copy-rejected captures remain intact.
+
+Full desktop48685 passed0fe916c; the only later production delta is display-code extraction for friendly wording, covered by focused headless and final actual Electron assertions. Deterministic3255 captured40 frames03-49-51;39 are pixel-identical to baseline02-13, quick-open differs one RGB level at one pixel, no geometry changes. All40 stills and40 GIF frames inspected and explicitly approved. Isolated live Paper76614/Dm0JpP passed268d5df with upstreama5440345c and real Codex after Claude weekly quota; five stills and37 GIF frames inspected. Private runtime stopped normally; CLI unchanged. Rootverify29507 passed including freshness, links, types, visual and complete concept tests.
+
+No UI/runtime remains owned. PLAN/ACCEPTANCE/product model unchanged; P1 stays open. No persistent draft, physical junction confinement, cross-process file coordination or combined integration approval is claimed. Next: selective source/evidence import, preserving original provenance, then fresh combined validation. No merge/deploy.

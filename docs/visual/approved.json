@@ -1,9 +1,9 @@
 {
-  "manifest": "docs/visual/runs/2026-09-22T02-13-13-738Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-22T02-13-13-738Z/comparison.json",
-  "manifestHash": "ed5ef80111236e05948214c402f84729f6e033adefe891a7f3cc4580eacf34e3",
-  "reportHash": "f9532adfe23e2848a4015f7c8d4c272367b98535ce1358c7cf25f7cb788d0d8e",
-  "reviewer": "Codex root integration review",
-  "note": "Reviewed all 40 stills and all decoded GIF frames. Final recapture matched 43 of 48 reviewed artifacts byte-for-byte; the four changed stills and changed side-chat GIF were inspected again. Named-step comparison shows three new goal planning views and expected tasks-to-workers labels; no unintended geometry or clipping regression found. Combined desktop suite 64608 passed. Fixture capture alone does not prove live provider or persistence behavior.",
-  "reviewedAt": "2026-09-22T02:18:55.981Z"
+  "manifest": "docs/visual/runs/2026-09-22T03-49-51-339Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-22T03-49-51-339Z/comparison.json",
+  "manifestHash": "ae7174ce345a90ed0a1fc36da693f78b44c612edb1adcbc767cf8e5fc8b9e9fa",
+  "reportHash": "57e1d6415cd69e486fae6346cb16d854ccc969fc84f955704c929fdf1d139468",
+  "reviewer": "Codex root",
+  "note": "C024: inspected all40 deterministic stills and40 GIF frames, menus, dark/light and narrow layouts. Against02-13 baseline39 stills pixel-identical; quick-open differs one RGB level at one pixel, all geometry unchanged. Actual Electron file recovery268d5df separately passed seven scenes and22 motion samples; full desktop passed0fe916c before final display-only wording fix. No migration or combined integration approval implied.",
+  "reviewedAt": "2026-09-22T03:53:43.652Z"
 }

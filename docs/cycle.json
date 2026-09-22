@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C024",
   "stage": "P1",
-  "status": "active",
+  "status": "done",
   "goal": "Keep project editor reads and saves bound to the exact opened file, preserving drafts across missing references and delayed operations.",
   "scope": [
     "Project CodeMirror navigation and explicit saves",
@@ -18,11 +18,15 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C024-project-file-authority.md",
-  "nextAction": "Complete actual Electron harness, review source, freeze/push, then capture in named UI window and run full/visual/live/root gates.",
+  "nextAction": "Import reviewed C024 source and original evidence selectively into integration; run fresh combined gates without inheriting lane approval.",
   "evidence": [
     "app/tests/project-file-authority.test.mjs",
-    "docs/cycles/evidence/C024-baseline.json"
+    "docs/cycles/evidence/C024-baseline.json",
+    "app/tests/project-file-authority.live.mjs",
+    "docs/visual/project-file-authority/runs/2026-09-22T03-49-16-379Z/review.json",
+    "docs/visual/runs/2026-09-22T03-49-51-339Z/manifest.json",
+    "docs/images/status/manifest.json"
   ],
-  "truthReview": "Headless Chromium mounts actual project module and CodeMirror against real disposable files. Actual Electron and source-bound visual proof pending.",
-  "screenshotReview": "Pending; no new visual approval or main merge."
+  "truthReview": "Actual Electron files IPC passed268d5df. Full desktop48685 passed0fe916c before final display-only fix; final focused headless/actual tests passed. Rootverify29507 passed with fresh reviewed evidence. Session-only drafts and physical junction limitation remain.",
+  "screenshotReview": "Seven actual stills and22 video samples,40 deterministic stills and40 GIF frames, five isolated Paper stills and37 GIF frames inspected. No regression observed; final wide/narrow missing-file copy approved. Original rejected-copy captures retained."
 }
