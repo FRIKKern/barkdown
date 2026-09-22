@@ -75,3 +75,10 @@ No focused live folder-question latency/compliance benchmark, profile implementa
 
 Barkdown663a12a / Barkparkbb3bd299d: 8/8 private-server live cases, host23/23 and direct-edit UI passed. Actual server content, IME, selection/scroll and first-receipt geometry covered. [Named motion review and provenance](visual/agent-takeover/runs/2026-09-21T23-35-14-407Z/README.md). Deterministic21-frame comparison unchanged and explicitly reviewed; current status media real Codex. Upstream full test/save-ack:721 and posttest/press-watchdog:284 remain known failures; no all-green upstream or merge-readiness claim. [Handoff](cycles/E002-agent-takeover.md).
 `npm run verify` passed with final current visual approval and exact-source status freshness. `git diff --check` passed.
+
+
+## E003 rich-content takeover - 2026-09-22
+
+Source9424b97/upstream8530a9e23 preserves human selections during formatting/link and neighboring list/table edits. [Reviewed live proof](visual/rich-takeover/runs/2026-09-22T00-15-10-579Z/review.json): five actual server scenarios, keyboard takeover and matching revisions; actual MCP structured read retains headerless/multiline table data. Mounted6/6, full app suite and final root verify pass. Deterministic21 stills/21 GIF frames, dedicated10 stills/115 GIF frames/112 video samples, and genuine Codex status5 stills/37 GIF frames reviewed. Both private runtimes stopped normally.
+
+Unsupported lossy Markdown conversions fail before mutation; this is not complete advanced table support. Existing upstream save-ack and watchdog failures remain release gates. [Handoff and limitations](cycles/E003-rich-content-takeover.md).

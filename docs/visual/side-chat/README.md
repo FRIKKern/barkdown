@@ -2,14 +2,15 @@
 
 A real saved side conversation and its independent composer, using disposable fixture state.
 
-![Current view](../runs/2026-09-22T00-11-56-375Z/side-chat-3.png)
+![Current view](../runs/2026-09-22T00-13-59-011Z/side-chat-3.png)
 
-![Recorded interaction](../runs/2026-09-22T00-11-56-375Z/side-chat.gif)
+![Recorded interaction](../runs/2026-09-22T00-13-59-011Z/side-chat.gif)
 
-[Full comparison](../runs/2026-09-22T00-11-56-375Z/README.md) · [Capture manifest](../runs/2026-09-22T00-11-56-375Z/manifest.json)
+[Full comparison](../runs/2026-09-22T00-13-59-011Z/README.md) · [Capture manifest](../runs/2026-09-22T00-13-59-011Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-22T00:15:17.322Z: 9424b97 deterministic tour reviewed: all21 PNGs and21 decoded GIF frames, readable menus/themes/narrow layouts, within tolerance with stable geometry and environment. Dedicated rich Paper/MCP capture remains separate; this fixture approval does not claim live fidelity. Source 9424b97f3; [review](../runs/2026-09-22T00-13-59-011Z/comparison.json).
 - 2026-09-22T00:13:13.086Z: 3af530a fixture tour: all21 PNG and21 decoded GIF frames inspected; comparison within tolerance, unchanged geometry/environment, readable menus and narrow views. Live rich Paper/MCP proof is separate and pending; this approval covers the deterministic surfaces only. Source 3af530a14; [review](../runs/2026-09-22T00-11-56-375Z/comparison.json).
 - 2026-09-22T00:05:15.275Z: E003 deterministic fixture tour: all21 PNGs and21 decoded GIF frames inspected. Within tolerance with unchanged geometry/environment; menus, focus, themes and narrow views remain intact. Dedicated rich Paper motion/server evidence is separate and still pending; this fixture approval does not establish live editor fidelity. Source 9bd1c544f; [review](../runs/2026-09-22T00-03-53-378Z/comparison.json).
 - 2026-09-21T23:40:30.809Z: Reviewed all 21 PNGs and 21 decoded fixture GIF frames; comparison has zero pixel, geometry or environment changes. Separately inspected final live Paper 8-case evidence, 70-frame normal-motion excerpt, 107 full-video one-second samples, eight stills including narrow layout; first receipt no longer shifts document. Real status five stills and all 37 GIF frames inspected. Host 23/23 and direct-edit UI passed; upstream baseline save-ack/watchdog failures remain. Source 663a12a6e; [review](../runs/2026-09-21T23-34-15-390Z/comparison.json).

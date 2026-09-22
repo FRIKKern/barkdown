@@ -90,3 +90,8 @@ Stated 2026-09-20, not yet folded into the PRD:
 - **Local Barkpark.** The real Barkpark (Elixir release plus its own Postgres cluster) runs beside the app, one per profile. Barkpark is Postgres to the bone (`jsonb`, advisory locks, `tsvector`, `pg_trgm`), so there is no lighter store; a JavaScript reimplementation was considered and rejected.
 - **Profiles.** A profile is a `bp` server entry plus a data folder: cloud-backed, or local-only and never synced.
 - **Sync and portability.** Offline edits sync to bp cloud when online again, building on `bp migrate`, `bp export` and the `ifRev` rebase; all of a profile's data can be zipped and opened on another device. These are Barkpark features that Barkdown orchestrates.
+
+
+## E003 supplementary evidence
+
+[Rich-content takeover](visual/rich-takeover/README.md) proves selections across mark/link and unchanged list/table structure, actual human/server saves and fail-closed conversion. This does not close legacy retirement or all upstream gates.

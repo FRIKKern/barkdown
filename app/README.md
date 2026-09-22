@@ -69,3 +69,8 @@ Each page contains a still, recorded interaction GIF, provenance and changelog. 
 ### Editor takeover health — E002
 
 [Reviewed real Paper motion, narrow receipt and evidence](../docs/visual/agent-takeover/README.md): guarded acceptance preserves acknowledged agent text and immediate human input; first Undo receipt keeps document geometry stable. Requires upstream bb3bd299d; older bundle retains safe reload fallback. See handoff for baseline test limits.
+
+
+## Editor change record - 2026-09-22
+
+E003 preserves selected text across agent mark/link and same-structure list/table updates in the real canvas. Basic rich table Markdown replacement now emits actual table blocks; unsupported conversion refuses before writing. Documents with unsupported Markdown exports stay readable as structured blocks. [Visual health and motion](../docs/visual/rich-takeover/README.md) and [validation](../docs/cycles/E003-rich-content-takeover.md). Requires upstream8530a9e23 for new selection mapping; default older bundle remains guarded.
