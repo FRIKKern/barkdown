@@ -63,3 +63,7 @@ Start with `npm run cycle` and [cycle.json](cycle.json). C008 coordinates review
 ## Visual handoff
 
 The [visual health pages](visual/README.md) hold reviewed stills, GIFs, original recordings and comparison reports. Follow [visual rules](visual/RULES.md): freeze source, capture, compare, inspect, explicitly approve, and preserve attribution. Dedicated rich-edit, structured-table, adoption and recovery evidence now exists; fixture screenshots remain distinct from actual runtime/provider proof. `9c77cb7` is the last fully verified combined checkpoint; newer imports intentionally invalidate combined freshness until recaptured.
+
+## C021 native rollback lane
+
+`codex/rollback-native-preflight-12h` adds read-only native ownership verification across every profile before rollback changes authority state. Actual refusal/retry and native crash proof pass. [Handoff](cycles/C021-rollback-native-preflight.md), [evidence](visual/adoption/native-rollback-f3e92a1/README.md). Root verification passed (32220); bounded evidence closeout ready for coordinator import; keep C008 integration queue authoritative and P1 open. Unknown ownership is preserved, never guessed stopped.

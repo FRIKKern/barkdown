@@ -71,3 +71,5 @@ Each page contains a still, recorded interaction GIF, provenance and changelog. 
 - [Terminal ownership](../docs/visual/terminal-ownership/README.md): C018 native process proof passed; combined actual UI/evidence closeout pending.
 
 - [Project-buffer preservation](../docs/visual/project-buffers/README.md): actual CodeMirror refusal preserves unsaved text until explicit Save.
+
+- C021: [Native rollback refusal and verified retry](../docs/visual/adoption/native-rollback-f3e92a1/README.md) checks native jobs before changing the authority journal, including profiles with no local database. Actual narrow recovery, preserved original bytes/fields and owned shutdown are reviewed; bounded Windows proof, not whole P1.
