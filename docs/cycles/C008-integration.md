@@ -2,13 +2,15 @@
 
 Active on `codex/integration-12h` in the isolated `barkdown-integration-12h` worktree. No main merge or deployment. This branch is a test candidate, not a completed product milestone.
 
-## New source candidate — C021 import
+## Current candidate: 112d92b
 
-C021 reviewed product cb2a3ef and final fixture f3e92a1 imported from closed21429c6. The source now refuses authority rollback until every profile's native work has verified shutdown evidence. Original exact-source evidence is being imported separately. The previous d8acb82 checkpoint remains the last fully validated combined source; current candidate needs fresh combined gates. Root runs the new native preflight tests first. No main merge or deployment.
+The candidate includes C021 native rollback checks, C024 project-file authority, C023 bounded Windows atomic writes, and C027 immutable visual reviews. It also retains original C020, C022 and E007/E008 evidence without replacing their source identities. Focused checks passed after each import, including the C010 lease-relocation path after the C023 merge.
 
-C020 test-only correction17c2cc8 is also imported: the crash fixture requires main-owned acknowledged partial output over IPC, so error text cannot masquerade as streaming. Root native44205 passed reviewLX9r5M and summary0KQGl1 with shutdown and explicit retry; no worker replay. This does not fix the separately reproduced Windows rename contention. Original failed4ca8247 observation and corrected lane provenance remain in the C020 evidence.
+**Fresh combined desktop, visual, live Paper and root verification are still required.** The current global screenshot approval deliberately remains on the earlier source. `node scripts/check.cjs` reaches its expected stale-status failure: source `112d92b`, capture `e380385`. Original lane approvals do not approve this combined candidate.
 
-## Current checkpoint — 02:24 UTC
+C025 cache integrity, C026 send preservation, the C016 reading-position fix and E009 clipboard behavior remain separate lanes. Their required native journeys and/or final evidence gates must finish before import. The [A1 evidence table](A1-current-evidence.md) maps what remains unproved. `d8acb82` is the latest fully validated combined fallback. Main and deployment are unchanged.
+
+## Last fully validated checkpoint — 02:24 UTC
 
 Combined source e380385 is validated: full desktop session64608 exited0 at unchanged app source b083c60, including coordinator crash/retry and stop races, API Paper operations, project-buffer preservation, and terminal shutdown. Later commits changed visual comparison tooling only. Root verify86276 exited0 after restoring original historical evidence dependencies and fixing the retired terminal-draft link.
 
