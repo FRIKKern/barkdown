@@ -12,7 +12,18 @@ Independent C030 review also passed all 13 final stills and 25 samples across th
 
 Full `npm run test:desktop` passed at exact pushed checkpoint `1b01bf2`. It rebuilt the app and completed the entire chained desktop suite, including 76 shell checks, 31 Paper host cases, 100-entry composer history, side-chat parity, profile/adoption/recovery, three-worker coordinator, project-buffer, terminal ownership and send-preservation gates. Only existing Node module-type warnings appeared.
 
-Next: run focused editor/fallback replays on the exact candidate, then perform fresh deterministic capture/compare/review/approval, isolated live Paper status capture and root verification. P1 remains incomplete; authentication policy, portability, G1/G2, Electron dependency advisories and fallback replay remain explicit limits.
+## Final integration evidence — 23 September 2026
+
+The combined behavior and evidence gates are now complete on `codex/integration-12h`; P1 and release readiness remain incomplete.
+
+- Full `npm run test:desktop` passed at exact source `1b01bf2`, covering the combined profile, goals, storage, side-chat, history, terminal and Paper host suites.
+- Old-server `a544` and current-server `bf23f773` fallback replays both passed at source `13cba57`; their retained runs are `2026-09-22T22-19-48-916Z` and `2026-09-22T22-21-27-598Z`.
+- C030 strict native parity retains its complete failed-first history and final 13/13 pass. E012 retains its 12-still/45-frame reviewed source-bound proof.
+- Final deterministic capture `2026-09-22T23-18-09-907Z` is approved at exact source `3e8a2aa`. Independent audit covered all 40 stills and 40 decoded motion frames; all 40 comparisons are within tolerance with unchanged geometry and environment.
+- Final isolated live status capture `2026-09-22T23:15:06.633Z` passed against clean Barkdown `3e8a2aa` and clean Barkpark `bf23f773`. Two independent reviewers inspected all five stills and all 37 full-resolution GIF frames. A real Codex turn read and edited the Paper; the owned runtime stopped and port 61840 closed. The hash-bound review is `docs/images/status/review-2026-09-22T23-15-06.json`.
+- Capture-history ownership is covered by 18/18 focused checks. The rejected halo captures remain preserved as diagnostics; no rejected capture was promoted.
+
+Root `npm run verify` is the final repository gate for this checkpoint. Remaining product limits are unchanged: device/provider authentication policy, portability, G1/G2 external release gates, clean-machine installation and the two locked Electron dependency advisories. Claude hit its weekly quota during live capture, so the passing provider evidence is Codex only. No main merge or deployment occurred.
 
 ## Current candidate: e3fec49
 

@@ -41,3 +41,5 @@ A cycle's closing truth pass includes these pages. CI verifies source/artifact/r
 ## Private Paper capture
 
 For source-runtime verification, use `npm --prefix app run shots:isolated` with a built Barkpark checkout (`BARKDOWN_TEST_BP_SOURCE` may select it). It owns a temporary database, ephemeral ports and temporary CLI config, then stops its runtime. The manifest records the actual server and source baseline. This is the preferred way to satisfy the live Paper freshness gate without changing the person's active CLI or demo library. Temporary data is retained for diagnosis. Real provider calls may be attempted; the existing transcript fallback is explicitly marked in the manifest.
+
+The live status GIF requires ImageMagick's `magick` executable on `PATH`. Its Floyd–Steinberg conversion preserves full-frame modal gradients within GIF's 256-colour limit; the capture fails rather than publishing the non-dithered halo artifacts produced by the prior encoder.

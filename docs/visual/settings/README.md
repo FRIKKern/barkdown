@@ -2,14 +2,15 @@
 
 Real Settings navigation. No server connection or credential is configured.
 
-![Current view](../runs/2026-09-22T23-06-27-174Z/settings-3.png)
+![Current view](../runs/2026-09-22T23-18-09-907Z/settings-3.png)
 
-![Recorded interaction](../runs/2026-09-22T23-06-27-174Z/settings.gif)
+![Recorded interaction](../runs/2026-09-22T23-18-09-907Z/settings.gif)
 
-[Full comparison](../runs/2026-09-22T23-06-27-174Z/README.md) · [Capture manifest](../runs/2026-09-22T23-06-27-174Z/manifest.json)
+[Full comparison](../runs/2026-09-22T23-18-09-907Z/README.md) · [Capture manifest](../runs/2026-09-22T23-18-09-907Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-22T23:20:43.075Z: All 40 stills and 40 decoded GIF frames reviewed at exact source 3e8a2aa. Independent audit found only imperceptible side-chat composer antialiasing and one-pixel motion noise; 40/40 comparisons remain within tolerance with unchanged geometry and environment. Full desktop passed at 1b01bf2, capture/history checks passed 18/18 at 3e8a2aa, and separate live Paper/Codex status evidence at this source passed two independent full-frame reviews. Source 3e8a2aadb; [review](../reviews/approval-60e6ac6b872fe94390fbf6d6993fee66b076929bb44a6b9b2a8d6b0e9a8453b8.json) - [comparison](../runs/2026-09-22T23-18-09-907Z/comparison.json).
 - 2026-09-22T23:08:41.511Z: Reviewed the 40 stills, eight motion tours, comparison report and provenance after the live-status GIF encoder-only change. All 40 entries are within tolerance with unchanged geometry and environment; changes are limited to invisible antialias noise. Product behavior remains covered by the full desktop pass at 1b01bf2 and 18/18 capture/history checks at e28d759. Live Paper/status remains a separate pending gate. Source e28d759db; [review](../reviews/approval-7d03f4e67edb22d704bc6ed7294ba57b67f4be72310f783d018870110c18c173.json) - [comparison](../runs/2026-09-22T23-06-27-174Z/comparison.json).
 - 2026-09-22T23:00:11.374Z: Reviewed all 40 stills and all eight motion tours after the status-motion timing-only change. Every still and GIF is byte-identical to the approved 77d5726 baseline; compare reports zero changed pixels and unchanged geometry, including narrow views. Behavior coverage remains the full desktop pass at 1b01bf2 plus 18/18 capture/history checks at 34fb5a1. Live Paper/status evidence is separate and remains pending. Source 34fb5a165; [review](../reviews/approval-e9748085a84fe261b3c586ae56b015cb80f08b9be694f86744027c5358cff24e.json) - [comparison](../runs/2026-09-22T22-57-41-217Z/comparison.json).
 - 2026-09-22T22:51:34.373Z: Reviewed all 40 stills and 40 motion frames at source 77d5726. Eight GIFs and 36 stills are byte-identical to baseline; remaining still differences are one invisible pixel and subthreshold composer-border antialiasing. Geometry, content, controls and narrow layouts are unchanged. Source 77d57266a; [review](../reviews/approval-c4d2af8c2ee1e6bbc754bd9fee0859b5880f720b2a2794bde7ea69d347b81603.json) - [comparison](../runs/2026-09-22T22-49-01-330Z/comparison.json).
