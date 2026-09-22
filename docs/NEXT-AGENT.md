@@ -59,3 +59,5 @@ Start with `npm run cycle` and [cycle.json](cycle.json). C002 merged through PR 
 ## Visual handoff
 
 The [visual health pages](visual/README.md) now hold reviewed stills, GIFs and comparison reports. Follow [visual rules](visual/RULES.md) for app/dependency/harness changes: capture, compare, inspect, explicitly approve, and preserve old evidence. The main baseline is merge b8e7bfb from PR #29; C002 is merged and P1 remains pending. This workflow update did not implement profiles or change runtime behavior. Dedicated agent-edit/files/recovery motion coverage remains to be added with those journeys. Do not treat fixture screenshots as live integration proof.
+
+C012 source87ca623 now refuses missing saved workspaces instead of seeding replacements; new profiles initialize before becoming visible. [Handoff](cycles/C012-workspace-preservation.md) records actual restart/UI proof and [remaining A1 audit](cycles/C012-A1-AUDIT.md). This isolated correction does not close P1 or the parallel C010 real adoption proof.

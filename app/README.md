@@ -67,3 +67,5 @@ Use [the local-runtime guide](../docs/LOCAL-BARKPARK.md) for setup and [the acce
 - [Settings](../docs/visual/settings/README.md): preferences and connection controls.
 
 Each page contains a still, recorded interaction GIF, provenance and changelog. [Rules and coverage limits](../docs/visual/RULES.md) distinguish visual review from functional/runtime proof.
+
+- [Workspace recovery](../docs/visual/workspace-recovery/README.md): actual missing/corrupt profile startup refusal and retained unsaved draft evidence (C012). These separate restart screenshots have no dedicated GIF yet.
