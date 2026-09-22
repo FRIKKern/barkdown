@@ -25,6 +25,13 @@ const folders = profiles.map((id, index) => {
     folder,
     draft: index ? 'B draft' : 'A draft',
     messages: [],
+    events: [],
+    sessions: {},
+    apiHistory: [],
+    runId: null,
+    following: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
     tabs: [{ id: 'same-terminal', type: 'terminal', title: 'Terminal' }],
     active: 'same-terminal',
     closedTargets: [],
@@ -164,11 +171,12 @@ try {
   );
   legacyData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-terminal-legacy-'));
   await boot(false, legacyData);
+  await page.evaluate(folder => window.__barkdown.setFolder(folder), legacyData);
   await page.evaluate(() => window.__barkdown.openTarget({ kind: 'terminal' }));
   await page.locator('.bw-terminal #in').fill('echo legacy-terminal-proof');
   await page.locator('.bw-terminal #in').press('Enter');
   await page.waitForFunction(() =>
-    document.querySelector('.bw-terminal #out')?.textContent.includes('legacy-terminal-proof\n'),
+    /legacy-terminal-proof\r?\n/.test(document.querySelector('.bw-terminal #out')?.textContent || ''),
   );
   await page.screenshot({ path: path.join(out, 'legacy-terminal.png') });
   await app.close();
@@ -184,6 +192,7 @@ try {
   passed = true;
   console.log(JSON.stringify({ passed, userData, trees }));
 } finally {
+  if(!passed&&page&&!page.isClosed())await page.screenshot({path:path.join(out,'failure.png')}).catch(()=>{});
   await app?.close();
   const stopped = [];
   for (const profileId of profiles) {
@@ -231,6 +240,7 @@ try {
         userData,
         legacyData,
         passed,
+        errors,
         trees,
         stopped,
         reducedMotion: false,
