@@ -11,3 +11,9 @@ Exact43.7.3 lock resolution and clean root/app ci91934 passed. Explicit binary i
 Packaging71125 is in progress; actual ASAR resource verification follows. No UI or app runtime launched. First named-grant action remains same profile webview fixture; retain all prior44 failures and38control.
 
 Packaging71125 exited0; actual packaged shared/native bytes and external PowerShell verifier loading pass. This is static/loading proof, not packaged Electron/native execution. Source ready to freeze for named UI grant; Electron38 fallback unchanged.
+
+## Actual first-gate failure — blocked
+
+Named UI grant used only for same profile-ui.live.mjs at frozen09a3258. Session97506/privateViZWIU exits1 after returning A guest renderer crashed/-1073741819 (0xC0000005), identical44 failure. Actual screenshot inspected: gray guest pane, shell/URL still visible. Original38 same-fixture/source control remains passing. No assertion weakened or additional version selected.
+
+Fixture finally closed app/server; CIM confirms no remaining matching43 Electron. UI explicitly released to coordinator immediately. No packaged43 terminal/full suite or real Paper runtime launched. Retain38 fallback; both43/44 remain unsuitable for consumption until underlying native guest regression is reviewed. [Failure gallery](../visual/electron43/README.md).
