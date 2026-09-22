@@ -200,6 +200,7 @@ h1,h2,h3,p{margin:0}
 .bw-sheet-note{font-size:12px;color:var(--bw-muted);line-height:1.65;margin:4px 0 10px}
 .bw-sheet-note code,.bw-set-text code,.bw-about code{font-size:11px;background:var(--bw-raised);border-radius:4px;padding:1px 5px;overflow-wrap:anywhere}
 .bw-settings-foot{grid-column:2;display:flex;align-items:center;gap:8px;padding:12px 20px;border-top:1px solid var(--bw-border);background:var(--bw-side)}
+.bw-settings[aria-busy="true"] .bw-settings-foot [data-act="save"]{opacity:1;background:var(--bw-accent);color:var(--bw-bg);filter:none}
 .bw-dirty{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--bw-warn)}.bw-dirty[hidden]{display:none}
 
 .bw-set{display:flex;align-items:center;gap:18px;padding:11px 0;border-top:1px solid var(--bw-border)}
