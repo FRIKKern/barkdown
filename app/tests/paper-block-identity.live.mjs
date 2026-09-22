@@ -25,7 +25,7 @@ try{
  page=await app.firstWindow();video=page.video();await page.waitForSelector('#bw-pages .bw-page-row');await page.setViewportSize({width:1400,height:900});
  await page.evaluate(async server=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,viaCli:true,writes:true,server}});await window.__barkdown.refreshLibrary();},process.env.BARKDOWN_SHOTS_SERVER);
  await page.evaluate(id=>window.__barkdown.openTarget({kind:'doc',id,source:'barkpark',title:id}),slug);await page.waitForSelector('.bw-paper-pane .ProseMirror',{timeout:60000});
- bundle=await page.evaluate(()=>window.__barkdown.state.canvasBundle);assert.equal(bundle.source,'server');assert.equal(bundle.sha,'6bda88cdd38b6ab33cb4623bbe75963f2058db60');
+ bundle=await page.evaluate(()=>window.__barkdown.state.canvasBundle);assert.equal(bundle.source,'server');assert.equal(bundle.sha,'eae19e0b329103611ed8c4046f5fc4eb92cfbbb0');
  const initial=read(),pm=page.locator('.bw-paper-pane .ProseMirror');await pm.locator('p').first().click();await page.keyboard.press('Home');for(let i=0;i<7;i++)await page.keyboard.press('ArrowRight');await page.keyboard.press('Enter');
  const split=await saved(initial.rev);assert.equal(split.blocks[0].id,'origin');assert.notEqual(split.blocks[1].id,'origin');assert.deepEqual(split.blocks[2],initial.blocks[1]);assert.equal(split.blocks[0].content[0].value,'Before ');assert.equal(split.blocks[1].content[0].value,'after');
  const ids=split.blocks.map(b=>b.id);assert.equal(new Set(ids).size,3);await page.screenshot({path:path.join(out,'01-split-saved.png')});
