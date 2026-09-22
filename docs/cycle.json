@@ -16,11 +16,11 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C036-capture-lifecycle.md",
-  "nextAction": "Retain failed-first lifecycle tests then fix wrapper and validate offline.",
+  "nextAction": "Review source and11controlled wrapper tests; run root verification, retain freshness limits and await combined actual capture grant.",
   "evidence": [
     "app/tests/status-shots-isolated.mjs",
     "docs/cycles/C036-capture-lifecycle.md"
   ],
-  "truthReview": "Audit confirms no signal handler/source guard and finally masks original failures. No new runtime launched.",
+  "truthReview": "Failed-first5/7 failures retained; final11/11 actualwrapper controlleddriver cases pass. No actual runtime or UI launched; real signal delivery/uninterruptible process termination remain unproven.",
   "screenshotReview": "No UI launched; capture-tool changes require coordinator fresh combined evidence."
 }
