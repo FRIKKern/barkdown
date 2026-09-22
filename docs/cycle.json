@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C011",
   "stage": "P3",
-  "status": "active",
+  "status": "done",
   "goal": "Prove actual Electron goal crash recovery and explicit reconciliation through the user interface.",
   "scope": [
     "Disposable profile and native Windows workers",
@@ -16,10 +16,14 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C011-goal-recovery.md",
-  "nextAction": "Add and run actual Electron crash/reopen/reconciliation journey.",
+  "nextAction": "Archive C011 and start C013 credential durability before natural-language coordinator planning.",
   "evidence": [
-    "docs/goals/HANDOFF.md"
+    "app/tests/profile-goals-recovery.live.mjs",
+    "docs/goals/evidence/e9be019/README.md",
+    "docs/visual/runs/2026-09-22T00-00-37-127Z/manifest.json",
+    "docs/images/status/manifest.json",
+    "docs/cycles/C011-goal-recovery.md"
   ],
-  "truthReview": "Starting from verified5c27845; full goal and P1-P5 remain active/pending.",
-  "screenshotReview": "Starting evidence applies until app source changes; new recovery journey needs dedicated frames."
+  "truthReview": "README, app guide, NEXT-AGENT, VALIDATION, PLAN/plan.json, architecture and integration contract reviewed. Root verify and full desktop pass. No full stage/goal completion; encrypted-key defect and coordinator planning remain.",
+  "screenshotReview": "31 fixture frames explicitly approved unchanged, five actual Electron recovery stills including390px inspected, five real Paper stills plus37 live GIF frames inspected. Distinct deterministic SDK transport, environment credentials and authenticated Paper evidence."
 }

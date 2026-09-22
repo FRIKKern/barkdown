@@ -1,6 +1,6 @@
 # Barkdown desktop
 
-The separate [goal-orchestration track](../docs/goals/HANDOFF.md) provides a durable scheduler, three full worker conversations and owned Windows process recovery in opt-in `--profiles` mode. Legacy workspace activation remains disabled. The full desktop suite includes 46 goal checks and real Electron workers using deterministic HTTP. [Authenticated three-Codex proof](../docs/goals/evidence/beefded/authenticated-codex.json) is separate. Crash-dialog recovery and natural-language coordinator planning/review remain unfinished.
+The separate [goal-orchestration track](../docs/goals/HANDOFF.md) provides a durable scheduler, three full worker conversations and owned Windows process recovery in opt-in `--profiles` mode. Legacy workspace activation remains disabled. The full desktop suite includes 46 goal checks and real Electron workers using deterministic HTTP. [Authenticated three-Codex proof](../docs/goals/evidence/beefded/authenticated-codex.json) is separate. [Crash-dialog recovery](../docs/goals/evidence/e9be019/README.md) passes with deterministic HTTP and environment credentials. Encrypted-key crash durability and natural-language coordinator planning/review remain unfinished.
 
 The working Electron application: notes and conversations on the left, agents and their work alongside them. [Product overview](../README.md) · [Active roadmap](../docs/PLAN.md) · [Contributing](../CONTRIBUTING.md)
 

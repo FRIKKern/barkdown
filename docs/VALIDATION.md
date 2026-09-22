@@ -66,3 +66,7 @@ No focused live folder-question latency/compliance benchmark, profile implementa
 ### Goal service checkpoint cde9794 (2026-09-22)
 
 Root verify and full desktop suite passed.36 goal/provider/service tests include three actual API provider loops over deterministic transport, durable worker transcripts during profile switch/stale save, ordinary side-chat coordinator and recovered-attempt shutdown guard. New27-frame deterministic run23-10-09-960Z inspected and explicitly approved (21 unchanged, six labelled goal fixture frames). Separate isolated Paper capture completed with real Codex turn and clean private-runtime shutdown; five stills/all37 GIF frames inspected. Production goal IPC, native crash-reconciliation path and authenticated three-worker execution remain pending. See [goal handoff](goals/HANDOFF.md).
+
+## C011 actual Electron goal recovery
+
+Source e9be019 passes the full desktop gate, including46 goal checks and actual main-process crash/reopen/shutdown reconciliation/review/retry with three Windows owned workers. [Five recovery stills](goals/evidence/e9be019/README.md) inspected including390px.31 deterministic fixture frames unchanged and explicitly approved. Fresh live Paper e9be019/a544 uses real Codex; five stills and37 GIF frames inspected, isolated ipR4PY runtime stopped. Environment credentials isolate lifecycle proof: first-run encrypted-key crash durability is a separately reproduced defect assigned to C013. No automatic coordinator planning, authenticated crash recovery, full P1-P5 completion or deployment claim.
