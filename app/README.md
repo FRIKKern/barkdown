@@ -77,3 +77,5 @@ Each page contains a still, recorded interaction GIF, provenance and changelog. 
 - [Project-buffer preservation](../docs/visual/project-buffers/README.md): actual CodeMirror refusal preserves unsaved text until explicit Save.
 
 - [Editor cache integrity](../docs/visual/cache-integrity/README.md): C025 corruption refusal, owned repair and profile-isolated fallback reviewed at b93f832; combined source validation remains separate.
+
+C026: shared composers preserve draft text and images until start acknowledgement, guard duplicate sends and newer typing, and expose keyboard/touch attachment removal. Human errors retain exact collapsed diagnostics. [Actual managed and legacy evidence](../docs/visual/send-preservation/README.md) covers rejection, restart and explicit retry; unknown dispatch outcomes are never labelled not started.
