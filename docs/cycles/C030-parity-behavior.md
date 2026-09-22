@@ -1,5 +1,14 @@
 # C030 — Make editor gap evidence assert behavior
 
+## Current checkpoint — 07:15 UTC
+
+**Actual13/13 PASS** at fixture0844b6e/upstreambf23f773c, exact JS3a94. [Passing gallery](../visual/editor-gap-assertions/runs/2026-09-22T07-12-32-901Z/README.md) retains raw stills/video/result,15verified hashes and clean owned shutdown. No renderer errors. Root native session56915 finished successfully; user CLI unchanged. The original observational probe is now an assertion-bearing parity row. All preceding failures remain historical evidence below.
+
+Independent still/video review and final combined import/matrix/visual/root checks remain pending; no global approval or G2 CI enforcement claim. Test source remains isolated until reviewed import. E012 production identity/projection fixes are on their separate source branch and consumed separately.
+
+## Historical checkpoints
+
+
 Starting source f3e67ac on isolated codex/parity-behavior-proof-12h. The old probe catches step failures and prints shapes, with no verified assertion report; C028 correctly keeps its parity row red.
 
 Preserve its thirteen keyboard/paste interactions but assert intended editor structure and server acknowledgement after each one. Native Undo/Redo must restore the prior rich structure. Failed steps remain failures; do not infer correctness from a Saved label or type-count equality. Retain original probe in Git history and retain raw failure screenshots/video. Always close the owned Electron app, retain disposable data for diagnosis, and use the private-runtime wrapper for local execution. CI already owns a disposable configured server; its explicit CI environment remains supported.
