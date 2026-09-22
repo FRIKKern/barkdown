@@ -52,6 +52,14 @@ fs.writeFileSync(
   JSON.stringify({ provider: "api", barkpark: { enabled: false } }),
 );
 const original = fs.readFileSync(path.join(source, "workspace.json"));
+const originalFiles = Object.fromEntries(
+  fs
+    .readdirSync(source)
+    .map((name) => [
+      name,
+      fs.readFileSync(path.join(source, name)).toString("base64"),
+    ]),
+);
 const ownership = acquireAuthorityLease(userData);
 let active;
 try {
@@ -61,6 +69,23 @@ try {
 } finally {
   ownership.release();
 }
+const operation = JSON.parse(
+  fs.readFileSync(path.join(userData, "legacy-adoption.json")),
+).operationId;
+const backup = path.join(
+  userData,
+  "legacy-adoption-work",
+  operation,
+  "shell-original",
+);
+function assertBackup() {
+  for (const [name, bytes] of Object.entries(originalFiles))
+    assert.equal(
+      fs.readFileSync(path.join(backup, name)).toString("base64"),
+      bytes,
+    );
+}
+assertBackup();
 const registry = createProfileRegistry(active.finalRoot),
   store = registry.storeFor(active.profileId),
   owner = {
@@ -114,6 +139,27 @@ try {
   assert.equal(await verifyOwnedWorker(owner), true);
   app = await launch();
   page = await app.firstWindow();
+  await app.evaluate(
+    ({ app }, payload) => {
+      const req = process.mainModule.require.bind(process.mainModule),
+        fs = req("node:fs"),
+        path = req("node:path");
+      const store = req(path.join(app.getAppPath(), "main/store.js")),
+        originalInit = store.init;
+      store.init = function (dir) {
+        if (path.resolve(dir) === path.resolve(payload.source)) {
+          for (const [name, bytes] of Object.entries(payload.files))
+            if (
+              fs.readFileSync(path.join(dir, name)).toString("base64") !== bytes
+            )
+              throw Error("Pre-boot original bytes changed: " + name);
+          globalThis.__nativeRollbackOriginalBytesVerified = true;
+        }
+        return originalInit.apply(this, arguments);
+      };
+    },
+    { source, files: originalFiles },
+  );
   const next = app.waitForEvent("window");
   await page.getByRole("button", { name: "Restore legacy authority" }).click();
   page = await next;
@@ -126,13 +172,47 @@ try {
     await page.evaluate(() => window.__barkdown.state.chats.chat.draft),
     "Original unsent draft",
   );
+  assert.equal(
+    await app.evaluate(() => globalThis.__nativeRollbackOriginalBytesVerified),
+    true,
+  );
   await page.screenshot({ path: path.join(out, "verified-rollback.png") });
   await app.close();
   app = null;
-  assert.deepEqual(
+  const restored = JSON.parse(
     fs.readFileSync(path.join(source, "workspace.json")),
-    original,
   );
+  function preserved(expected, actual, at = "workspace") {
+    if (
+      Array.isArray(expected) ||
+      expected === null ||
+      typeof expected !== "object"
+    ) {
+      assert.deepEqual(actual, expected, at);
+      return;
+    }
+    for (const [key, value] of Object.entries(expected))
+      preserved(value, actual?.[key], at + "." + key);
+  }
+  preserved(JSON.parse(original), restored);
+  const allowedRoot = ["profileId", "generation", "mode", "directTab"];
+  assert.deepEqual(
+    Object.keys(restored)
+      .filter((k) => !(k in ws))
+      .sort(),
+    allowedRoot.sort(),
+  );
+  assert.deepEqual(
+    Object.keys(restored.chats).filter((k) => !(k in ws.chats)),
+    ["direct"],
+  );
+  assert.deepEqual(
+    Object.keys(restored.chats.chat)
+      .filter((k) => !(k in ws.chats.chat))
+      .sort(),
+    ["runId", "closedTargets", "chatScroll"].sort(),
+  );
+  assertBackup();
   passed = true;
 } finally {
   if (app) await app.close();
