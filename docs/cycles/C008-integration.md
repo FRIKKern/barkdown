@@ -8,7 +8,11 @@ Production candidate `806b0ee` already consumes the reviewed E012 Barkpark sourc
 
 E012's dedicated test, handoff and source-bound gallery are imported separately after the production commit. Independent review verified all 12 accepted stills, all 45 GIF frames, recorded hashes, revisions 1–9 and exact upstream/vendor provenance. The known long single-line title clipping is disclosed. These lane proofs do not establish current combined approval.
 
-Next: commit this evidence checkpoint, run the full combined desktop and focused editor/fallback matrices on the exact candidate, then perform fresh deterministic capture/compare/review/approval, isolated live Paper status capture and root verification. P1 remains incomplete; authentication policy, portability, G1/G2, Electron dependency advisories and fallback replay remain explicit limits.
+Independent C030 review also passed all 13 final stills and 25 samples across the complete 25-second recording: rich-content transitions, native Undo/Redo, list lift, whole-document replacement/restoration and pane geometry remained coherent. This is fixture review rather than combined visual approval.
+
+Full `npm run test:desktop` passed at exact pushed checkpoint `1b01bf2`. It rebuilt the app and completed the entire chained desktop suite, including 76 shell checks, 31 Paper host cases, 100-entry composer history, side-chat parity, profile/adoption/recovery, three-worker coordinator, project-buffer, terminal ownership and send-preservation gates. Only existing Node module-type warnings appeared.
+
+Next: run focused editor/fallback replays on the exact candidate, then perform fresh deterministic capture/compare/review/approval, isolated live Paper status capture and root verification. P1 remains incomplete; authentication policy, portability, G1/G2, Electron dependency advisories and fallback replay remain explicit limits.
 
 ## Current candidate: e3fec49
 
