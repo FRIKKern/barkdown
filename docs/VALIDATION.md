@@ -15,7 +15,7 @@ Source e380385: full desktop64608 and root verify86276 passed. Forty fixture fra
 
 ## Current candidate and release gates
 
-Combined source16a3b60 integrates C016 reading-position restoration with newer queued-edit refresh; all31 host checks pass. C023, C024 and C025 sources and original lane evidence are integrated; full combined desktop, actual native consumption, fixture/live captures and root verification remain pending. The missing-folder API search correction and strengthened fixture assertions pass the complete agent suite. [C008](cycles/C008-integration.md) owns subsequent source/evidence imports.
+Imported candidate2b2ec11 includes C016 reading-position restoration with newer queued-edit refresh (31 host checks), C026 shared send preservation (focused union plus original actual bridge evidence), C028 strict parity runner exit checks and E009 original connected3495 clipboard evidence. Vendor fallback remains a544; E011 consumption is pending. C023, C024 and C025 sources and original lane evidence are integrated; full combined desktop, actual native consumption, fixture/live captures and root verification remain pending. The missing-folder API search correction and strengthened fixture assertions pass the complete agent suite. [C008](cycles/C008-integration.md) owns subsequent source/evidence imports.
 
 [Read-only release audit](cycles/evidence/release-gates-2026-09-22.json): upstream PR19579 is still open/blocked at a544, with failing checks. The successful parity job skipped its actual rows; BARKDOWN_READ_TOKEN is absent. G1/G2 remain uncleared. No secret, branch or workflow configuration was changed.
 

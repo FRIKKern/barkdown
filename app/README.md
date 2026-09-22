@@ -81,3 +81,13 @@ Each page contains a still, recorded interaction GIF, provenance and changelog. 
 C026: shared composers preserve draft text and images until start acknowledgement, guard duplicate sends and newer typing, and expose keyboard/touch attachment removal. Human errors retain exact collapsed diagnostics. [Actual managed and legacy evidence](../docs/visual/send-preservation/README.md) covers rejection, restart and explicit retry; unknown dispatch outcomes are never labelled not started.
 
 E009 clipboard fixture and original evidence are imported. The scoped behavior is proven on connected upstream3495, not the currently vendored a544 fallback. Use `test:rich-clipboard:isolated` with the explicitly built3495 source. [Evidence](../docs/visual/rich-clipboard/README.md); vendor consumption remains E011.
+
+## Imported milestone health — 22 September 2026
+
+Candidate `2b2ec11` is awaiting fresh combined gates. Global fixture approval/status still describe the earlier fallback; no new combined approval or P1 completion is implied.
+
+- C016: [actual two-profile restart manifest](../docs/visual/profiles/isolation-runs/2026-09-22T04-04-36-864Z/manifest.json), source `34ef068` with a544; original reading position, draft, media and A-only Undo proof.
+- C026: [managed gallery](../docs/visual/send-preservation/runs/1e138aa-managed/manifest.json) and [legacy gallery](../docs/visual/send-preservation/runs/1e138aa-legacy/manifest.json), final `1e138aa`; full44651 remains attributed to pre-CSS80ba196, with final keyboard removal covered by actual targeted proof.
+- E009: [native clipboard gallery](../docs/visual/rich-clipboard/runs/2026-09-22T04-50-27-798Z/manifest.json), Barkdown `25cb114` / connected upstream3495. This does not update the vendored a544 fallback.
+- C028: [runner failure enforcement](../docs/cycles/C028-parity-exit.md); 24 controlled runner cases pass, while historical root freshness remains separate.
+- [Third-party notices](../THIRD-PARTY.md): 49-package metadata/license/provenance audit imported; no editor asset or pin change.

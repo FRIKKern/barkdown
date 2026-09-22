@@ -1,5 +1,7 @@
 # Visual health
 
+**Current health:** candidate `2b2ec11` has imported lane evidence, but the global approval below remains bound to e380385 and is stale for the new combined source. Fresh combined review is pending. See the [current import checkpoint](../cycles/C008-integration.md#pre-freeze-truth-checkpoint--22-september-2026); imported native galleries never replace this approval implicitly.
+
 Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-22T02-13-13-738Z/README.md).
 
 Reviewed by Codex root integration review. Reviewed all 40 stills and all decoded GIF frames. Final recapture matched 43 of 48 reviewed artifacts byte-for-byte; the four changed stills and changed side-chat GIF were inspected again. Named-step comparison shows three new goal planning views and expected tasks-to-workers labels; no unintended geometry or clipping regression found. Combined desktop suite 64608 passed. Fixture capture alone does not prove live provider or persistence behavior.
