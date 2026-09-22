@@ -1,4 +1,5 @@
 import test from "node:test";
+import { execFileSync } from "node:child_process";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
@@ -249,7 +250,15 @@ for (const crash of [false, true])
         path.join(userData, "native-proof.json"),
         JSON.stringify(
           {
-            sourceCommit: "working C021",
+            sourceCommit: execFileSync("git", ["rev-parse", "HEAD"], {
+              cwd: fileURLToPath(new URL("../..", import.meta.url)),
+              encoding: "utf8",
+            }).trim(),
+            sourceDirty:
+              execFileSync("git", ["status", "--porcelain", "--", "app"], {
+                cwd: fileURLToPath(new URL("../..", import.meta.url)),
+                encoding: "utf8",
+              }).trim() !== "",
             crash,
             profileId: second.id,
             pids,
