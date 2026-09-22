@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "id": "C015",
+  "stage": "P3",
+  "status": "done",
+  "goal": "Turn a natural-language objective into three full saved worker conversations with durable coordinator planning and evidence review.",
+  "scope": [
+    "Goal scheduler/provider/service and bounded coordinator response schemas",
+    "Preserve ordinary chat recovery and profile context ownership",
+    "No recursive agents, deadline expansion, migration or deployment"
+  ],
+  "acceptance": [
+    "Validated three-worker dependency plan from real coordinator turn",
+    "Exact successful stopped-attempt review with evidence before dependencies advance",
+    "Uncertain effects require person reconciliation; crash never replays",
+    "Full transcripts and drafts survive profile switch and restart"
+  ],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C015-goal-coordinator.md",
+  "nextAction": "Parent validates the combined integration candidate; archive C015 before any new bounded implementation cycle.",
+  "evidence": [
+    "docs/cycles/C015-goal-coordinator.md",
+    "docs/goals/evidence/61eea4d/README.md",
+    "docs/visual/runs/2026-09-22T01-38-38-706Z/README.md"
+  ],
+  "truthReview": "Reviewed current guides, roadmap, handoff, validation, integration and visual claims. Full desktop50783 and root verify91235 pass on61ee. P1-P5 remain pending; no merge/deployment. Parent owns combined integration.",
+  "screenshotReview": "All34 fixture frames inspected and explicitly approved at2026-09-22T01-38-38-706Z.17 actual coordinator/recovery stills inspected. Live Paper71461 clean61ee/a544 realCodex:5 stills+37 GIF frames inspected, O8HC2h stopped."
+}
