@@ -39,3 +39,7 @@ Current integration resolver precedence is server, verified profile-owned cache,
 5. Presentation: actual wide/narrow format bubble, slash/link popups,200% recovery notice, table header newlines and image fields. Inspect continuous action frames for clipping or movement with Barkdown's preserved popup and Notion CSS. Then deterministic visual capture/compare, named image approval, live status and full root/app/parity gates as applicable. Implementation commit precedes captures; evidence commit follows review.
 
 This audit changed documentation only in codex/editor-consumption-audit. No fallback, pin, runtime, foreground UI, shared checkout or production source was changed.
+
+## Reproducible notice archive
+
+[Dependency notices](third-party/paper-editor/README.md) now preserve all 49 exact bundled package-version texts, with a reproducible generator and offline hash verification. Installed notices are unchanged; missing Tiptap texts are sourced from official npm release gitHeads and verified package tags/source versions. The 2.27.3 tags are genuinely absent, but its exact release commit and package versions are verified. This resolves the notice-text collection task, not native/fallback validation, G1 or packaging delivery. No assets or pin were changed.
