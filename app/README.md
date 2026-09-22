@@ -69,3 +69,7 @@ Use [the local-runtime guide](../docs/LOCAL-BARKPARK.md) for setup and [the acce
 Each page contains a still, recorded interaction GIF, provenance and changelog. [Rules and coverage limits](../docs/visual/RULES.md) distinguish visual review from functional/runtime proof.
 
 - [Ordinary chat recovery](../docs/visual/chat-recovery/README.md): C014 actual managed Windows crash/recovery journey; source evidence closeout pending.
+
+### Pending C016 reading-position correction
+
+Paper loading no longer acknowledges an empty scroller over its saved reading position. Detached restoration yields to human interaction and does not block document loading. Host regressions pass; native two-profile and fresh visual evidence remain pending. See [investigation](../docs/cycles/C016-loading-position-investigation.md).

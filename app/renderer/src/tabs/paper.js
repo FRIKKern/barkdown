@@ -24,6 +24,13 @@ export function mountPaper(tab, host, ctx) {
   const updateUndo = () => renderAgentUndo(q('#agent-edit'), 'bp:' + slug(), rev, async () => { if (hasUnsavedWork()) throw new Error('Finish saving your edit before Undo.'); presence.stop(); await api.docs.undoAgentEdit('bp:' + slug(), q('#agent-edit').dataset.editId); await controller.refresh(); ctx.libraryChanged(); });
   let paper = null;
   let canvas = null;
+  let positionReady = false, positionIntent = 0, cancelPositionRestore = () => {};
+  const scroller = q('#current');
+  // Loading layout is not a reading position. Explicit scrolling takes over
+  // restoration, including a deliberate return to the top.
+  const takePosition = () => { positionIntent++; positionReady = true; cancelPositionRestore(); };
+  const positionEvents = ['wheel', 'touchstart', 'pointerdown', 'keydown', 'beforeinput'];
+  for (const event of positionEvents) scroller.addEventListener(event, takePosition, { passive: true });
   let rev = null;
   let lastAcked = [];
   let destroyed = false;
@@ -314,7 +321,9 @@ export function mountPaper(tab, host, ctx) {
       toast('Finish saving this paper before reloading or opening another paper.', 'error');
       return false;
     }
+    cancelPositionRestore();
     const generation = ++loadGeneration, path = [...tab.path], source = tab.source, id = path.at(-1);
+    const restorePosition = tab.scroll || 0, restoreIntent = positionIntent;
     const beforeInput = inputVersion, beforeRev = rev;
     const current = () => !destroyed && generation === loadGeneration;
     loadFailed = false;
@@ -363,6 +372,7 @@ export function mountPaper(tab, host, ctx) {
     };
     const editable = writesOn() && Boolean(paper.blocks);
     const blocks = paper.blocks || (paper.html ? htmlToBlocks(paper.html) : []);
+    positionReady = positionIntent !== restoreIntent;
     mountCanvas(blocks, editable, current);
     if (!current()) return;
     syncTitleRow();
@@ -370,8 +380,33 @@ export function mountPaper(tab, host, ctx) {
     q('#state').textContent = editable
       ? 'Edits go straight to Barkpark through the fenced ops endpoint. Each batch is saved with the paper\'s revision; a clash with another writer shows up here instead of overwriting.'
       : paper.blocks ? 'Read-only view of the Barkpark paper. Enable live editing above to edit in place.' : 'Preview converted from the paper\'s HTML body.';
-    renderMeta(); renderBanner(); renderPath(); renderProposals(); renderLinks();
-    q('#current').scrollTop = tab.scroll || 0;
+    renderMeta(); renderBanner(); renderPath(); renderProposals();
+    const linksReady = renderLinks();
+    if (positionIntent === restoreIntent) scroller.scrollTop = restorePosition;
+    else return;
+    // The editor and image dimensions can arrive after its custom element mounts.
+    // Keep the saved value authoritative until that initial layout is usable.
+    void (async () => {
+      const cancelled = new Promise(resolve => { cancelPositionRestore = () => resolve(false); });
+        const ready = (async () => {
+          await new Promise(resolve => requestAnimationFrame(resolve));
+          if (!current()) return;
+          await Promise.all([linksReady, ...[...canvas.querySelectorAll('img')].map(image => {
+            // Offscreen lazy media must not delay the visible editor.
+            if (image.complete || image.loading === 'lazy' || !image.decode) return;
+            return image.decode().catch(() => {});
+          })]);
+          await new Promise(resolve => requestAnimationFrame(resolve));
+          return true;
+        })();
+        const settled = await Promise.race([ready, cancelled]);
+        if (!current() || positionIntent !== restoreIntent) return;
+        // This task never blocks load. Slow successful media can still restore
+        // the saved position; any human engagement cancels that late movement.
+        if (!settled) return;
+        scroller.scrollTop = restorePosition;
+        positionReady = true;
+    })();
   }
 
   const offLocal = api.barkpark.onLocalStatus(status => {
@@ -418,12 +453,12 @@ export function mountPaper(tab, host, ctx) {
       finally { refreshing = false; if (refreshAgain) { refreshAgain = false; controller.refresh(); } }
     },
     navigate() { presence.stop(); return load(); },
-    savePosition() { tab.scroll = q('#current').scrollTop; },
+    savePosition() { if (positionReady && !destroyed) tab.scroll = scroller.scrollTop; },
     focus() { canvas?.querySelector('.ProseMirror')?.focus(); },
     isDirty: hasUnsavedWork,
     flush: () => canvas?.flushPendingChanges?.(),
     markdown: () => blocksToMarkdown(canvas?.blocks || paper?.blocks || []),
-    destroy() { offLocal(); destroyed = true; presence.destroy(); try { canvas?.flushPendingChanges?.(); } catch {} pane.remove(); },
+    destroy() { offLocal(); destroyed = true; cancelPositionRestore(); for (const event of positionEvents) scroller.removeEventListener(event, takePosition); presence.destroy(); try { canvas?.flushPendingChanges?.(); } catch {} pane.remove(); },
   };
   return controller;
 }

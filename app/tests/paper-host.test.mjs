@@ -1,18 +1,26 @@
 // Real Paper host with controlled transport/canvas seams: async ownership, not editor fidelity.
 import assert from 'node:assert/strict';
 import { JSDOM } from 'jsdom';
+import fs from 'node:fs';
 const dom = new JSDOM('<!doctype html><body><div id="bw-toasts"></div><div id="bw-dialog" hidden></div></body>', { url: 'http://localhost', pretendToBeVisual: true });
 for (const name of ['window','document','HTMLElement','customElements','CustomEvent','Node','NodeFilter']) globalThis[name] = dom.window[name];
 globalThis.requestAnimationFrame = fn => setTimeout(fn, 0);
 globalThis.matchMedia = () => ({ matches: false });
 let transport;
 window.barkdown = {
-  barkpark: { get: id => transport.get(id), applyOps: (...args) => transport.applyOps(...args), patchTitle: (...args) => transport.patchTitle(...args), backlinks: async () => [], history: async () => [], bundle: () => transport.bundle?.() || Promise.resolve({}), onLocalStatus: () => () => {} },
+  barkpark: { get: id => transport.get(id), applyOps: (...args) => transport.applyOps(...args), patchTitle: (...args) => transport.patchTitle(...args), backlinks: async () => [], history: () => transport.history?.() || Promise.resolve([]), bundle: () => transport.bundle?.() || Promise.resolve({}), onLocalStatus: () => () => {} },
   docs: { paperProposals: id => transport.proposals?.(id) || Promise.resolve([]), agentEdit: async () => null },
 };
 class Canvas extends HTMLElement {
   pending = false; acknowledgements = []; echoes = [];
-  connectedCallback() { this.innerHTML = '<div class="ProseMirror" tabindex="0"></div>'; }
+  connectedCallback() {
+    this.innerHTML = '<div class="ProseMirror" tabindex="0"></div>';
+    if (transport.imageReady) {
+      const image = document.createElement('img'); Object.defineProperty(image, 'complete', { value: false });
+      if (transport.lazyImage) image.loading = 'lazy';
+      image.decode = () => transport.imageReady; this.querySelector('.ProseMirror').append(image);
+    }
+  }
   hasPendingChanges() { return this.pending; }
   flushPendingChanges() { this.flushed = true; }
   acknowledgeOps(seq) { this.acknowledgements.push(seq); this.pending = false; this.onAck?.(); }
@@ -37,6 +45,23 @@ const mount = (tabState = {}) => {
   return { host, tab, changes, controller, canvas: () => host.querySelector('bp-paper-canvas'), close() { controller.destroy(); host.remove(); } };
 };
 const cases = [];
+const indexSource = fs.readFileSync(new URL('../renderer/src/index.js', import.meta.url), 'utf8');
+const functionSource = (start, end) => indexSource.slice(indexSource.indexOf(start), indexSource.indexOf(end, indexSource.indexOf(start)));
+function normalTabNavigation(m, kind) {
+  const chat = { id: 'chat', active: m.tab.id, tabs: [m.tab], closedTargets: [] };
+  const savePositions = new Function('workspaceChat', 'controllers', 'q', 'DIRECT',
+    functionSource('function savePositions()', '// ---------- chats ----------') + '; return savePositions;')(
+      () => chat, new Map([[m.tab.id, m.controller]]), () => ({ scrollTop: 0, value: '' }), 'direct');
+  if (kind === 'focusTab') {
+    return new Function('savePositions', 'pauseFollow', 'activeTab', 'hideMenus', 'renderTabs', 'renderWorkspace', 'save',
+      functionSource('function focusTab(', 'function closeTab(') + '; return focusTab;')(
+        savePositions, () => {}, () => m.tab, () => {}, () => {}, () => {}, () => {})(chat, m.tab.id);
+  }
+  return new Function('savePositions', 'pauseFollow', 'findTabForTarget', 'controllers', 'state', 'DIRECT', 'render', 'userIsTyping',
+    functionSource('function openTarget(', 'function attachImages(') + '; return openTarget;')(
+      savePositions, () => {}, () => m.tab, new Map([[m.tab.id, m.controller]]), { current: chat.id, mode: 'chat' }, 'direct', () => {}, () => false)(
+        { kind: 'doc', id: 'A', source: 'barkpark' }, chat, true);
+}
 async function test(name, fn) { try { await fn(); cases.push({ name, pass: true }); } catch(error) { cases.push({name, pass:false, error:error.message}); } }
 
 await test('a cold bundle resolves before committing destination identity or mounting either canvas', async () => {
@@ -54,12 +79,14 @@ await test('tab navigation during initial Paper read preserves the saved reading
     assert.equal(m.host.querySelector('#current').scrollTop, 0);
     // Normal focusTab/openTarget/savePositions calls every mounted controller,
     // including a Paper whose initial read has not returned yet.
-    m.controller.savePosition();
+    normalTabNavigation(m, 'focusTab'); normalTabNavigation(m, 'openTarget');
     assert.equal(m.tab.scroll, 360, 'loading DOM must not replace persisted nonzero position');
-    read.resolve(paper('A')); await tick();
+    read.resolve(paper('A')); await tick(); await tick(); await tick();
     assert.equal(m.host.querySelector('#current').scrollTop, 360);
     m.host.querySelector('#current').scrollTop = 240;
     m.controller.savePosition(); assert.equal(m.tab.scroll, 240, 'loaded user scrolling still saves');
+    m.host.querySelector('#current').scrollTop = 0;
+    normalTabNavigation(m, 'focusTab'); assert.equal(m.tab.scroll, 0, 'a loaded return to top is valid');
   } finally { read.resolve(paper('A')); await tick(); m.close(); }
 });
 
@@ -68,6 +95,64 @@ await test('late initial load cannot replace a newer destination', async () => {
   const m = mount(); m.tab.path = ['B']; m.controller.navigate(); await tick();
   a.resolve(paper('A')); await tick();
   try { assert.equal(m.canvas().blocks[0].id, 'B-p'); assert.equal(m.tab.title, 'B'); } finally { m.close(); }
+});
+await test('pending initial layout preserves position but explicit user scrolling wins', async () => {
+  for (const humanScroll of [false, true]) {
+    const history = deferred(); transport = { get: async id => paper(id), history: () => history.promise };
+    const m = mount({ scroll: 360 });
+    try {
+      await tick(); await tick(); assert(m.canvas());
+      const scroller = m.host.querySelector('#current'); scroller.scrollTop = 0;
+      if (humanScroll) scroller.dispatchEvent(new dom.window.WheelEvent('wheel', { deltaY: -360 }));
+      normalTabNavigation(m, 'focusTab'); normalTabNavigation(m, 'openTarget');
+      assert.equal(m.tab.scroll, humanScroll ? 0 : 360);
+      history.resolve([]); await tick(); await tick(); await tick();
+      assert.equal(scroller.scrollTop, humanScroll ? 0 : 360);
+      m.controller.savePosition(); assert.equal(m.tab.scroll, humanScroll ? 0 : 360);
+    } finally { history.resolve([]); await tick(); m.close(); }
+  }
+});
+await test('undecoded initial images cannot acknowledge a clamped loading position', async () => {
+  const image = deferred(); transport = { get: async id => paper(id), imageReady: image.promise };
+  const m = mount({ scroll: 360 });
+  try {
+    await tick(); await tick(); const scroller = m.host.querySelector('#current'); scroller.scrollTop = 0;
+    normalTabNavigation(m, 'openTarget'); assert.equal(m.tab.scroll, 360);
+    image.resolve(); await tick(); await tick(); await tick();
+    assert.equal(scroller.scrollTop, 360);
+    scroller.scrollTop = 0; normalTabNavigation(m, 'focusTab'); assert.equal(m.tab.scroll, 0);
+  } finally { image.resolve(); await tick(); m.close(); }
+});
+await test('human engagement before canvas readiness defeats late restoration', async () => {
+  for (const event of ['pointerdown', 'keydown', 'beforeinput']) {
+    const read = deferred(); transport = { get: () => read.promise };
+    const m = mount({ scroll: 360 });
+    try {
+      const scroller = m.host.querySelector('#current');
+      scroller.dispatchEvent(event === 'keydown' ? new dom.window.KeyboardEvent(event, { key: 'Home' }) : new dom.window.Event(event));
+      normalTabNavigation(m, 'focusTab'); assert.equal(m.tab.scroll, 0);
+      read.resolve(paper('A')); await tick(); await tick(); await tick();
+      assert.equal(scroller.scrollTop, 0, 'late document arrival cannot snap back after engagement');
+    } finally { read.resolve(paper('A')); await tick(); m.close(); }
+  }
+});
+await test('an offscreen lazy image does not block initial restoration', async () => {
+  const image = deferred(); transport = { get: async id => paper(id), imageReady: image.promise, lazyImage: true };
+  const m = mount({ scroll: 360 });
+  try {
+    await tick(); await tick(); await tick();
+    const scroller = m.host.querySelector('#current'); assert.equal(scroller.scrollTop, 360);
+    scroller.scrollTop = 0; normalTabNavigation(m, 'focusTab'); assert.equal(m.tab.scroll, 0);
+  } finally { image.resolve(); m.close(); }
+});
+await test('unresolved metadata never blocks navigation and a destroyed host never restores later', async () => {
+  const history = deferred(); transport = { get: async id => paper(id), history: () => history.promise };
+  const m = mount({ scroll: 360 });
+  await tick();
+  await Promise.race([m.controller.navigate(), new Promise((_, reject) => setTimeout(() => reject(new Error('layout blocked load')), 100))]);
+  const scroller = m.host.querySelector('#current'); m.close(); scroller.scrollTop = 17;
+  history.resolve([]); await tick(); await tick(); await tick();
+  assert.equal(scroller.scrollTop, 17);
 });
 await test('reload preserves a pending human edit and the mounted canvas', async () => {
   transport = { get: async id => paper(id) };
