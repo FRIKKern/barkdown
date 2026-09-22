@@ -48,11 +48,11 @@ async function step(name, action, check) {
   try {
     beforeAction = await snapshot();
     const extra = await action(before);
-    const current = await snapshot(); check(current.doc, before.doc);
+    const current = await snapshot(); check(current.doc, before.doc, { acknowledged: false });
     assert.ok(has(current.doc, n => n.type === 'heading' && n.attrs?.level === 1 && textOf(n) === 'Gap probe'), 'seed heading must survive every completed interaction');
     assert.ok(paragraph(current.doc, 'Start here.'), 'unrelated starting paragraph must survive');
     const ack = await acknowledged(rev);
-    check(ack.doc, before.doc);
+    check(ack.doc, before.doc, { acknowledged: true });
     results.push({ name, pass: true, beforeRev: rev, afterRev: ack.server.rev, doc: ack.doc, serverBlocks: ack.server.blocks, ...(extra || {}) });
   } catch (error) {
     results.push({ name, pass: false, error: error.stack, saveText: await page.locator('.bw-paper-pane:not([hidden]) #save-state').textContent().catch(() => null), before, beforeAction, actionProbe, observed: await snapshot().catch(() => null), server: (() => { try { return read(); } catch (e) { return { error: e.message }; } })() });
@@ -75,6 +75,7 @@ try {
   assert.equal(editorBundle.source, 'server', 'native gap proof must consume the connected editor');
   await page.evaluate(() => { window.__gapKeys = []; document.addEventListener('keydown', event => { window.__gapKeys.push({ key: event.key, ctrl: event.ctrlKey, shift: event.shiftKey, target: event.target?.tagName, focus: document.hasFocus() }); window.__gapKeys = window.__gapKeys.slice(-15); }, true); });
   const pm = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror');
+  const blockStart = async () => { await page.keyboard.press('Home'); await page.waitForFunction(() => document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.state.selection.$from.parentOffset === 0, null, { timeout: 3000 }); };
   const paste = (text, html = '') => page.evaluate(([text, html]) => { const dt = new DataTransfer(); dt.setData('text/plain', text); if (html) dt.setData('text/html', html); document.querySelector('.bw-paper-pane:not([hidden]) .ProseMirror').dispatchEvent(new ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); }, [text, html]);
   await pm.locator('p').last().click(); await page.keyboard.press('End'); await page.keyboard.press('Enter');
   await step('inline markdown marks', async () => { await page.keyboard.type('**bold** and *em* and ~~gone~~ and `mono` end'); }, doc => { for (const [text, mark] of [['bold', 'bold'], ['em', 'italic'], ['gone', 'strike'], ['mono', 'code']]) assert.ok(hasMark(doc, text, mark), `${text} must have ${mark}`); });
@@ -88,7 +89,7 @@ try {
   afterHtml = (await snapshot()).doc;
   await step('native Undo removes HTML paste', async () => { await page.keyboard.press('Control+z'); }, doc => assert.deepEqual(withoutIdentity(doc), withoutIdentity(beforeHtml)));
   await step('native Redo restores exact rich HTML state', async () => { await page.keyboard.press('Control+Shift+z'); }, doc => assert.deepEqual(withoutIdentity(doc), withoutIdentity(afterHtml)));
-  await step('Backspace joins ordinary quote preserving rich preceding content', async () => { await pm.locator('blockquote[data-bp-type="blockquote"]').first().click(); await page.keyboard.press('Home'); await page.keyboard.press('Backspace'); }, (doc, before) => {
+  await step('Backspace joins ordinary quote preserving rich preceding content', async () => { await pm.locator('blockquote[data-bp-type="blockquote"]').first().click(); await blockStart(); await page.keyboard.press('Backspace'); }, (doc, before) => {
     // Ordinary blockquote uses ProseMirror joinBackward. The custom standalone
     // quote-to-paragraph shortcut applies to pullquote, a different node type.
     const expected = structuredClone(before), index = expected.content.findIndex(n => n.type === 'blockquote' && textOf(n) === 'quoted');
@@ -102,10 +103,13 @@ try {
     expected.content.splice(index, 1);
     assert.deepEqual(withoutIdentity(doc), withoutIdentity(expected), 'join retains every mark, link, sibling and seeded identity');
   });
-  await step('Backspace lifts first bullet without losing heading or second item', async () => { await pm.locator('ul:not([data-type="taskList"]) li p').first().click(); await page.keyboard.press('Home'); actionProbe = await snapshot(); await page.keyboard.press('Backspace'); }, (doc, before) => {
+  await step('Backspace lifts first bullet without losing heading or second item', async () => { await pm.locator('ul:not([data-type="taskList"]) li p').first().click(); await blockStart(); actionProbe = await snapshot(); await page.keyboard.press('Backspace'); }, (doc, before, phase) => {
     const expected = structuredClone(before), index = expected.content.findIndex(n => n.type === 'bulletList' && n.content?.map(textOf).join('|') === 'one|two');
     assert.ok(index > 0); const list = expected.content[index], first = list.content.shift();
     assert.equal(first.content.length, 1); assert.equal(first.content[0].type, 'paragraph');
+    // A nested paragraph has no persistence carrier type. Its new top-level
+    // carrier is materialized on save; retain every other field and sibling.
+    if (phase.acknowledged) first.content[0].attrs.bpType = 'paragraph';
     expected.content.splice(index, 0, first.content[0]);
     assert.deepEqual(withoutIdentity(doc), withoutIdentity(expected), 'native lift preserves heading level, marks, remaining list item and unrelated siblings');
   });
