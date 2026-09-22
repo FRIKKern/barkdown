@@ -47,11 +47,8 @@
     "test:agent-takeover:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-agent-takeover.live.mjs",
     "test:adoption-ui-runtime": "node tests/adoption-runtime-ui.live.mjs",
     "test:rich-takeover:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-rich-takeover.live.mjs",
-<<<<<<< HEAD
-    "test:profile-isolation": "npm run build && node tests/profile-isolation-ui.live.mjs"
-=======
+    "test:profile-isolation": "npm run build && node tests/profile-isolation-ui.live.mjs",
     "test:chat-recovery": "npm run build && node tests/chat-recovery.test.mjs && node tests/chat-recovery.live.mjs"
->>>>>>> 9135723 (Recover interrupted managed chats with owned process proof and review)
   },
   "engines": {
     "node": ">=22.13.1"
