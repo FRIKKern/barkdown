@@ -1,0 +1,31 @@
+{
+  "sourceCommit": "d8423e7e103d4dccfcaa5ecdbdc0b49a590bf5de",
+  "sourceDirty": false,
+  "barkparkCommit": "01dfdd66365aeb0ca86fe011cdec019235ea6db9",
+  "barkparkDirty": "false",
+  "buildFingerprint": "efbd5e90bacbef0de204a81134706b7670c98ecd6b47cfab810881126158956e",
+  "isolated": true,
+  "editorBundle": {
+    "source": "server",
+    "server": "http://127.0.0.1:61469",
+    "version": "0.2.26.3908",
+    "sha": "6850a97eb9a7af6b9e0af9513c239ee4be19398d",
+    "cssSha": "8c0dcd8a2d247711e848dfc0c0d0a9d350b1747d",
+    "fetchedAt": "2026-09-22T01:45:50.929Z"
+  },
+  "results": [
+    "Actual API SDK discovery/read/revision-checked paragraph edit visible in real Paper",
+    "API edit_table preserves headerless table, multiline value, alignment and untouched cell",
+    "Visible Undo restores exact prior table and keeps paragraph edit",
+    "Reload retains durable actual server state"
+  ],
+  "artifacts": {
+    "api-paper.webm": "fe4d9863ecb6e89568e0dc6b0f325dac8d1ba13253ec01f4ca74db459a0f3f7e",
+    "paragraph-saved.png": "c9b99a7f3bd41d906b00edb184dd241cbd03be3ef2ea3a73a6191d1dfec0d856",
+    "reloaded.png": "799e293b45a2b04f848a169db77128ec07693b119a745c975a87eeab50bb87c0",
+    "table-saved.png": "51a58e6c862c3571187b4cc75b3350e3a27699eb6e8d6dc5abb30055c32e29f2",
+    "table-undone.png": "e4731c878c36fe2cbd187ecaf9e2228bddd5bbba48bc64ca26f09646e2a42d33"
+  },
+  "model": "Deterministic SSE responses over actual Anthropic SDK; not authenticated model proof",
+  "video": "api-paper.webm"
+}

@@ -1,0 +1,23 @@
+{
+  "approved": true,
+  "reviewer": "Codex root",
+  "sourceCommit": "d8423e7e103d4dccfcaa5ecdbdc0b49a590bf5de",
+  "manifestSha256": "d989c373754d3e162ad7788fa74101a1b3345043182d79052687e69af6c1bc52",
+  "gifSha256": "922b0d76ed0eb2eee8b5108e4d6afb01c15c6b31ad2196c99a5b030f35f56b5b",
+  "reviewed": {
+    "fullResolutionStills": 4,
+    "videoSamplesAt2Fps": 38,
+    "decodedGifFrames": 36
+  },
+  "findings": "Correct paragraph and centered multiline table edit, unchanged neighbor, exact Undo and reload visible. No clipping or persistent blank pane. Brief initial/reload loading states retained in continuous video. Exact server assertions passed.",
+  "limitations": [
+    "Scripted SSE model over actual Anthropic SDK, not authenticated model quality",
+    "Original lane evidence; combined full/visual gates pending"
+  ],
+  "runtime": {
+    "id": "rReqHN",
+    "exitCode": 0,
+    "stopped": true,
+    "postmasterAbsenceGatePassed": true
+  }
+}
