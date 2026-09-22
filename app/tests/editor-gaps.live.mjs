@@ -33,13 +33,13 @@ async function acknowledged(previousRev) {
   let current, server, save;
   for (let i = 0; i < 40; i++) {
     current = await snapshot(); server = read(); save = await page.locator('.bw-paper-pane:not([hidden]) #save-state').innerText();
-    if (/Saved Â· rev/.test(save) && server.rev !== previousRev && isDeepStrictEqual(current.blocks, server.blocks)) return { ...current, server, save };
+    if (/Saved \u00b7 rev/.test(save) && server.rev !== previousRev && isDeepStrictEqual(current.blocks, server.blocks)) return { ...current, server, save };
     if (/Not saved|Conflict/.test(save)) throw new Error('Save refused: ' + save);
     await page.waitForTimeout(250);
   }
   assert.deepEqual(current.blocks, server.blocks, 'server must acknowledge the full canvas snapshot, not just block counts');
   assert.notEqual(server.rev, previousRev, 'interaction must produce a newly acknowledged revision');
-  assert.match(save, /Saved Â· rev/, 'save acknowledgement is visible');
+  assert.match(save, /Saved \u00b7 rev/, 'save acknowledgement is visible');
   return { ...current, server, save };
 }
 async function step(name, action, check) {
@@ -53,7 +53,7 @@ async function step(name, action, check) {
     check(ack.doc, before.doc);
     results.push({ name, pass: true, beforeRev: rev, afterRev: ack.server.rev, doc: ack.doc, serverBlocks: ack.server.blocks, ...(extra || {}) });
   } catch (error) {
-    results.push({ name, pass: false, error: error.stack, before, observed: await snapshot().catch(() => null), server: (() => { try { return read(); } catch (e) { return { error: e.message }; } })() });
+    results.push({ name, pass: false, error: error.stack, saveText: await page.locator('.bw-paper-pane:not([hidden]) #save-state').textContent().catch(() => null), before, observed: await snapshot().catch(() => null), server: (() => { try { return read(); } catch (e) { return { error: e.message }; } })() });
   }
   await page.screenshot({ path: path.join(out, String(results.length).padStart(2, '0') + '.png') });
 }
@@ -98,7 +98,17 @@ try {
     expected.content.splice(index, 1);
     assert.deepEqual(withoutIdentity(doc), withoutIdentity(expected), 'join retains every mark, link, sibling and seeded identity');
   });
-  await step('Backspace lifts first bullet to paragraph', async () => { await pm.locator('ul:not([data-type="taskList"]) li p').first().click(); await page.keyboard.press('Home'); await page.keyboard.press('Backspace'); }, doc => { assert.ok(paragraph(doc, 'one')); assert.ok(has(doc, n => n.type === 'bulletList' && n.content?.some(item => textOf(item) === 'two'))); });
+  await step('Backspace joins first bullet into preceding block without losing second item', async () => { await pm.locator('ul:not([data-type="taskList"]) li p').first().click(); await page.keyboard.press('Home'); await page.keyboard.press('Backspace'); }, (doc, before) => {
+    const expected = structuredClone(before), index = expected.content.findIndex(n => n.type === 'bulletList' && n.content?.map(textOf).join('|') === 'one|two');
+    assert.ok(index > 0); const list = expected.content[index], previous = expected.content[index - 1], first = list.content.shift();
+    assert.equal(previous.type, 'heading'); assert.equal(first.content.length, 1); assert.equal(first.content[0].type, 'paragraph');
+    for (const inline of first.content[0].content || []) {
+      const last = previous.content.at(-1);
+      if (last?.type === 'text' && inline.type === 'text' && isDeepStrictEqual(last.marks || [], inline.marks || [])) last.text += inline.text;
+      else previous.content.push(inline);
+    }
+    assert.deepEqual(withoutIdentity(doc), withoutIdentity(expected), 'native join preserves heading level, marks, remaining list item and unrelated siblings');
+  });
   await step('warning callout shorthand', async () => { await pm.locator('p:has-text("Tail paragraph")').first().click(); await page.keyboard.press('End'); await page.keyboard.press('Enter'); await page.keyboard.type('> [!warning] careful'); }, doc => assert.ok(has(doc, n => n.type === 'callout' && n.attrs?.tone === 'warning' && textOf(n) === 'careful')));
   await step('select all replacement and native Undo preserve rich document', async before => { const rev = read().rev; await pm.click(); await page.keyboard.press('Control+a'); await page.keyboard.type('fresh'); const replaced = await snapshot(); assert.equal(replaced.doc.content.length, 1); assert.ok(paragraph(replaced.doc, 'fresh')); const ack = await acknowledged(rev); await page.keyboard.press('Control+z'); return { replacementRev: ack.server.rev }; }, (doc, before) => assert.deepEqual(withoutIdentity(doc), withoutIdentity(before)));
   assert.equal(results.length, 13);
