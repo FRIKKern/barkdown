@@ -27,3 +27,5 @@ Routing10/10 passed again; send-preservation.test, send-boundaries.test and lega
 ## First native attempt retained
 
 Session24359/source1e1bb50/vsA0ZD exited1 before providers. B folder/draft persisted, but fixture direct IPC seeding had not selected the chat in mounted renderer; normal close saved visible default-chat navigation. Failure screenshot inspected: No working folder, not A fallback. Corrected fixture binds seeded workspace to mounted renderer and uses normal switchChat, asserts current same before quit/restart. No production change. Owned Electron exited normally; no matching process remained. Original report/screenshot retained in evidence/C029-native-1e1bb50-failure.
+
+Second fixture12700b6/FKpRBx stopped immediately: hand-constructed chat lacked renderer default arrays. No provider ran. Replaced setup with actual createChat factory and its returned IDs; assert visible folder/draft/current and no page errors before close. Retained original failure/report; no product defect claim.

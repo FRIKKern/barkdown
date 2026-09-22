@@ -14,36 +14,33 @@ fs.mkdirSync(folderA); fs.writeFileSync(path.join(folderA, 'same.txt'), 'A priva
 const providers = (process.env.C029_NATIVE_PROVIDERS || '').split(',').filter(Boolean);
 assert(providers.every(p => ['claude', 'codex'].includes(p)), 'Only explicit native provider names are supported');
 const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), root, providers, results: [], frames: [], passed: false, stopped: false };
-let app, page;
+let app, page; const pageErrors = [];
 async function launch() {
   app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api' } });
-  page = await app.firstWindow(); await page.waitForFunction(() => window.__barkdown?.state.loaded);
+  page = await app.firstWindow(); page.on('pageerror', e => pageErrors.push(e.message)); await page.waitForFunction(() => window.__barkdown?.state.loaded);
   await page.setViewportSize({ width: 1400, height: 900 });
 }
 async function shot(name) { await page.screenshot({ path: path.join(out, name + '.png') }); report.frames.push(name + '.png'); }
 try {
   await launch();
-  const a = await page.evaluate(async folder => {
-    const api = window.barkdown, ws = await api.state.load();
-    ws.chats.same = { id: 'same', title: 'A existing folder', folder, messages: [], draft: 'A draft', tabs: [] }; ws.order = ['same']; ws.current = 'same';
-    Object.assign(window.__barkdown.state, ws); window.__barkdown.switchChat('same');
-    await api.state.save(ws); return (await api.profiles.status()).profileId;
-  }, folderA);
+  const seed = async (folder, title, draft) => page.evaluate(async ({ folder, title, draft }) => {
+    const ui = window.__barkdown, api = window.barkdown;
+    const chat = ui.createChat({ folder, title }); chat.draft = draft; chat.provider = 'codex'; ui.render();
+    const ws = await api.state.load(); Object.assign(ws, { chats: ui.state.chats, order: ui.state.order, current: chat.id, mode: 'chat' });
+    await api.state.save(ws); return { profileId: (await api.profiles.status()).profileId, chatId: chat.id };
+  }, { folder, title, draft });
+  const first = await seed(folderA, 'A existing folder', 'A draft'), a = first.profileId;
   const b = await page.evaluate(async () => { const created = await window.barkdown.profiles.create('B missing reference'); return created.id || created.profileId; });
   assert(b, 'created profile identity must be explicit');
   await page.evaluate(async id => { await window.barkdown.profiles.select(id); location.reload(); }, b);
   await page.waitForFunction(id => window.__barkdown?.state.loaded && window.__barkdown.state.profileId === id, b);
-  await page.evaluate(async folder => {
-    const ws = await window.barkdown.state.load();
-    ws.chats.same = { id: 'same', title: 'B unavailable folder', folder, provider: 'codex', messages: [], draft: 'B retained draft', tabs: [] };
-    ws.order = ['same']; ws.current = 'same';
-    Object.assign(window.__barkdown.state, ws); window.__barkdown.switchChat('same');
-    await window.barkdown.state.save(ws);
-  }, folderB);
-  assert.equal(await page.evaluate(() => window.__barkdown.state.current), 'same');
+  const second = await seed(folderB, 'B unavailable folder', 'B retained draft'), bChat = second.chatId;
+  const visible = await page.evaluate(() => { const s = window.__barkdown.state; return { current: s.current, folder: s.chats[s.current].folder, draft: document.querySelector('#bw-prompt').value }; });
+  assert.deepEqual(visible, { current: bChat, folder: folderB, draft: 'B retained draft' });
+  assert.deepEqual(pageErrors, []);
   await app.close(); app = null; await launch();
   const state = await page.evaluate(async () => ({ profile: await window.barkdown.profiles.status(), ws: await window.barkdown.state.load() }));
-  assert.equal(state.profile.profileId, b); assert.equal(state.ws.current, 'same'); assert.equal(state.ws.chats.same.folder, folderB); assert.equal(state.ws.chats.same.draft, 'B retained draft');
+  assert.equal(state.profile.profileId, b); assert.equal(state.ws.current, bChat); assert.equal(state.ws.chats[bChat].folder, folderB); assert.equal(state.ws.chats[bChat].draft, 'B retained draft');
   await page.evaluate(() => window.__barkdown.openTarget({ kind: 'project', path: 'same.txt' }));
   await page.getByText('This file or its working folder is no longer available.', { exact: true }).waitFor();
   assert.equal(await page.locator('.bw-pane:not([hidden]) .cm-content').count(), 0);
@@ -58,11 +55,11 @@ try {
     }, provider);
     await page.locator('#bw-prompt').fill(prompt); await page.locator('#bw-prompt').press('Enter');
     await page.waitForFunction(prompt => {
-      const c = window.__barkdown.state.chats.same;
+      const s = window.__barkdown.state, c = s.chats[s.current];
       return c.messages.some(m => m.role === 'user' && m.text === prompt) && !c.runId && !c.messages.at(-1)?.streaming;
     }, prompt, { timeout: 90000 });
     const observed = await page.evaluate(async () => {
-      const ws = await window.barkdown.state.load(); return { chat: ws.chats.same, attempts: ws.ownership?.attempts || {} };
+      const ws = await window.barkdown.state.load(); return { chat: ws.chats[ws.current], attempts: ws.ownership?.attempts || {} };
     });
     report.results.push({ name: provider + ' actual native missing-folder attempt', observed });
     assert.equal(observed.chat.folder, folderB);
@@ -75,8 +72,8 @@ try {
   assert.equal(fs.existsSync(folderB), false); assert.equal(fs.readFileSync(path.join(folderA, 'same.txt'), 'utf8'), 'A private reference');
   await page.evaluate(async id => { await window.barkdown.profiles.select(id); location.reload(); }, a);
   await page.waitForFunction(id => window.__barkdown?.state.loaded && window.__barkdown.state.profileId === id, a);
-  assert.equal(await page.evaluate(() => window.__barkdown.state.chats.same.draft), 'A draft');
-  report.passed = true;
+  assert.equal(await page.evaluate(id => window.__barkdown.state.chats[id].draft, first.chatId), 'A draft');
+  assert.deepEqual(pageErrors, []); report.passed = true;
 } catch (error) { report.error = error.stack; if (page) await shot('failure').catch(() => {}); throw error; }
 finally {
   try { if (app) await app.close(); report.stopped = true; }
