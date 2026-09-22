@@ -141,9 +141,11 @@ try {
   page = await app.firstWindow();
   await app.evaluate(
     ({ app }, payload) => {
-      const req = process.mainModule.require.bind(process.mainModule),
-        fs = req("node:fs"),
-        path = req("node:path");
+      const fs = process.getBuiltinModule("fs"),
+        path = process.getBuiltinModule("path"),
+        req = process
+          .getBuiltinModule("module")
+          .createRequire(path.join(app.getAppPath(), "main/main.js"));
       const store = req(path.join(app.getAppPath(), "main/store.js")),
         originalInit = store.init;
       store.init = function (dir) {
@@ -215,7 +217,15 @@ try {
   assertBackup();
   passed = true;
 } finally {
-  if (app) await app.close();
+  if (app) {
+    const recovery = app.windows().find((p) => p.url().startsWith("data:"));
+    const quit = recovery?.getByRole("button", { name: "Quit", exact: true });
+    if (quit && (await quit.isVisible().catch(() => false))) {
+      const closed = app.waitForEvent("close");
+      await quit.click();
+      await closed;
+    } else await app.close();
+  }
   worker.stop();
   await worker.finished.catch(() => {});
   const stopped = await verifyOwnedWorker(owner).catch(() => false);
