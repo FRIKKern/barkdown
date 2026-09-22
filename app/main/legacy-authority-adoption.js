@@ -9,6 +9,7 @@ const { pipeline } = require('node:stream/promises');
 const { createProfileRegistry, validateProfileId } = require('./profile-registry');
 const { createRuntimeAdoption, assertCold, runtimeInventory } = require('./profile-runtime-adoption');
 const { acquireFileLease } = require('./file-lease');
+const { assertProfileNativeStopped } = require('./profile-native-preflight');
 const owners = new WeakMap();
 const shellEntries = new Set(['workspace.json', 'settings.json', 'barkpark.json', 'local-credentials.json', 'paper-proposals.json', 'documents', 'attachments', 'agent-edits']);
 const phases = new Set(['prepared', 'snapshotted', 'candidate', 'ready', 'activating', 'active', 'rolling-back', 'rolled-back']);
@@ -277,16 +278,20 @@ function createLegacyAdoption({ userData, ownership, readSecrets, checkCold = as
         if (j.phase === 'rolled-back') { const result = inspect(); if (result.status !== 'rolled-back') throw new Error(result.error); return result; }
         if (!['active', 'activating', 'rolling-back'].includes(j.phase)) throw new Error('Only published authority can roll back; private staging is retained for inspection');
         if (fs.existsSync(finalRoot)) {
-          const { registry } = marker(j, finalRoot); const runtimeLeases = [];
+          const { registry } = marker(j, finalRoot); const runtimeLeases = [], nativeProofs = [];
+          const registryBytes = fs.readFileSync(child(finalRoot, 'registry.json'));
           try {
             for (const profile of registry.load().profiles) {
               const store = registry.storeFor(profile.id), data = child(store.storeDir, 'local-barkpark/runtime');
+              nativeProofs.push(await assertProfileNativeStopped({ storeDir: store.storeDir, profileId: profile.id, assertOwned: own }));
               if (!fs.existsSync(data)) continue;
               own(); const lease = acquireFileLease(child(data, 'owner.json')); runtimeLeases.push({ lease, relative: 'profiles/' + profile.id + '/local-barkpark/runtime/owner.json' });
               if (fs.existsSync(child(data, 'pgdata/postmaster.pid'))) throw new Error('A profile database still has a postmaster.pid; rollback refused');
               if (fs.existsSync(child(data, 'pgdata/PG_VERSION'))) await checkCold(data);
               own();
             }
+            for (const proof of nativeProofs) proof.assertUnchanged();
+            if (!fs.readFileSync(child(finalRoot, 'registry.json')).equals(registryBytes)) throw new Error('Profile registry changed during native rollback verification');
             if (fs.existsSync(p.retired)) throw new Error('Retired authority already exists; inspect before rollback');
             j.phase = 'rolling-back'; ownedWrite(journalPath, j); emit('authority-rolling-back'); own();
             if (fs.existsSync(p.retired)) throw new Error('Retired authority appeared during rollback; refused');
