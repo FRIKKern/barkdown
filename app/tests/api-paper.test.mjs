@@ -70,7 +70,7 @@ try {
     p => { assert.match(result(p).content, /Saved edit.*revision 2/); return done(); },
   ]);
   assert.equal(writes, 1); assert.deepEqual(paper.blocks.slice(0, 2), original);
-  assert(events.some(e => e.agentEdit && e.target.id === 'bp:same' && e.profileId === scope.profileId));
+  assert(events.some(e => e.agentEdit && e.target.id === 'same' && e.target.source === 'barkpark' && e.profileId === scope.profileId));
   const receipt = scope.edits.latest('bp:same'); assert.equal(receipt.afterRev, 2);
   assert.equal(require('../main/agent-edits').latest('bp:same'), null);
   assert(requests.every(r => r.token === 'Bearer fixture-A'));
@@ -80,7 +80,7 @@ try {
     p => { assert.match(result(p).content, /"id": "table"/); return call('edit_table', { id: 'bp:same', blockId: 'table', cells: [{ row: 0, column: 0, text: 'First\nSecond', align: 'center' }], summary: 'Clarify cell' }); },
     p => { assert.match(result(p).content, /Saved table edit/); return done(); },
   ]);
-  assert(tableEvents.some(e => e.agentEdit && e.target.id === 'bp:same'));
+  assert(tableEvents.some(e => e.agentEdit && e.target.id === 'same' && e.target.source === 'barkpark'));
   assert.deepEqual(paper.blocks[1].rows[0][0], { content: [{ type: 'text', value: 'First\nSecond' }], align: 'center' });
   assert.equal(paper.blocks[1].rows[0][1], original[1].rows[0][1]);
   await scope.edits.undo('bp:same', scope.edits.latest('bp:same').id, scope.connection);

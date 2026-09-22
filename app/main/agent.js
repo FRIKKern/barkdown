@@ -79,6 +79,9 @@ function describeDocument(doc) {
 }
 
 const isPaper = id => typeof id === 'string' && id.startsWith('bp:');
+const documentTarget = (id, title) => isPaper(id)
+  ? { kind: 'doc', id: id.slice(3), source: 'barkpark', title }
+  : { kind: 'doc', id, title };
 function paperTools(run) {
   // This immutable connection belongs to the run, never the foreground profile.
   const config = run.scope.connection;
@@ -120,7 +123,7 @@ async function executeTool(run, name, input) {
       const remote = isPaper(input.id);
       const doc = remote ? await paperTools(run).get(input.id.slice(3)) : documents.get(input.id);
       if (!doc) return `No document with id ${input.id}. Use list_documents.`;
-      emit({ type: 'activity', target: { kind: 'doc', id: input.id, title: doc.title }, label: `Opened ${doc.title}`, detail: 'Reading the document' });
+      emit({ type: 'activity', target: documentTarget(input.id, doc.title), label: `Opened ${doc.title}`, detail: 'Reading the document' });
       (run.readRevisions ||= new Map()).set(input.id, doc.rev);
       (run.readTitles ||= new Map()).set(input.id, doc.title);
       if (!remote) return input.format === 'structured' ? JSON.stringify({ id: doc.id, title: doc.title, rev: doc.rev, content: doc.content }) : describeDocument(doc);
@@ -133,14 +136,14 @@ async function executeTool(run, name, input) {
       const edit = await edits.apply({ ...input, baseRev: run.readRevisions?.get(input.id) }, run.scope.connection);
       run.readRevisions.set(input.id, edit.afterRev);
       const title = run.readTitles?.get(input.id) || documents.get(input.id)?.title || input.id;
-      emit({ type: 'activity', target: { kind: 'doc', id: input.id, title }, label: `Edited ${title}`, detail: input.summary, libraryChanged: true, agentEdit: true });
+      emit({ type: 'activity', target: documentTarget(input.id, title), label: `Edited ${title}`, detail: input.summary, libraryChanged: true, agentEdit: true });
       return `Saved edit to "${title}" at revision ${edit.afterRev}. Undo is available in the document.`;
     }
     case 'edit_table': {
       const edit = await edits.applyTable({ ...input, baseRev: run.readRevisions?.get(input.id) }, run.scope.connection);
       run.readRevisions.set(input.id, edit.afterRev);
       const title = run.readTitles?.get(input.id) || input.id;
-      emit({ type: 'activity', target: { kind: 'doc', id: input.id, title }, label: `Edited ${title}`, detail: input.summary, libraryChanged: true, agentEdit: true });
+      emit({ type: 'activity', target: documentTarget(input.id, title), label: `Edited ${title}`, detail: input.summary, libraryChanged: true, agentEdit: true });
       return `Saved table edit to "${title}" at revision ${edit.afterRev}. Undo is available in the document.`;
     }
     case 'create_document': {
