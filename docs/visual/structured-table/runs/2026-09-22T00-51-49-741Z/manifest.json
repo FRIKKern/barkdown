@@ -1,0 +1,196 @@
+{
+  "sourceCommit": "cd4b5c13cf4d08ed8465b0d35172b9443c2ac4ff",
+  "sourceDirty": false,
+  "barkparkCommit": "01dfdd66365aeb0ca86fe011cdec019235ea6db9",
+  "barkparkDirty": "false",
+  "server": "http://127.0.0.1:61834",
+  "buildFingerprint": "efbd5e90bacbef0de204a81134706b7670c98ecd6b47cfab810881126158956e",
+  "editorBundle": {
+    "source": "server",
+    "server": "http://127.0.0.1:61834",
+    "version": "0.2.26.3908",
+    "sha": "6850a97eb9a7af6b9e0af9513c239ee4be19398d",
+    "cssSha": "8c0dcd8a2d247711e848dfc0c0d0a9d350b1747d",
+    "fetchedAt": "2026-09-22T00:51:55.075Z"
+  },
+  "results": [
+    {
+      "name": "headerless",
+      "beforeRev": 1,
+      "agentRev": 2,
+      "savedRev": 5,
+      "selection": {
+        "text": "Beta",
+        "backwards": true
+      },
+      "serverBlock": {
+        "id": "block-1",
+        "rows": [
+          [
+            {
+              "align": "right",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Agent first\nAgent second"
+                }
+              ]
+            },
+            [
+              {
+                "type": "text",
+                "value": "Human Gamma"
+              }
+            ]
+          ]
+        ],
+        "type": "table"
+      }
+    },
+    {
+      "name": "rich-multiline",
+      "beforeRev": 5,
+      "agentRev": 6,
+      "savedRev": 9,
+      "selection": {
+        "text": "Beta",
+        "backwards": true
+      },
+      "geometry": {
+        "whiteSpace": "pre-wrap",
+        "first": {
+          "y": 433.40625,
+          "height": 17
+        },
+        "second": {
+          "y": 452.90625,
+          "height": 17
+        }
+      },
+      "narrow": {
+        "height": 95,
+        "lineHeight": 19.5,
+        "text": "Detailed column heading with enough words to wrap naturally",
+        "whiteSpace": "pre-wrap"
+      },
+      "serverBlock": {
+        "cols": [
+          {
+            "width": 220
+          },
+          {
+            "width": 200
+          }
+        ],
+        "head": [
+          [
+            {
+              "type": "text",
+              "value": "Detailed column heading with enough words to wrap naturally"
+            }
+          ],
+          [
+            {
+              "type": "text",
+              "value": "Value"
+            }
+          ]
+        ],
+        "headCol": true,
+        "id": "block-2",
+        "rows": [
+          [
+            {
+              "align": "center",
+              "content": [
+                {
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Agent rich\nSecond"
+                    }
+                  ],
+                  "type": "strong"
+                }
+              ]
+            },
+            [
+              {
+                "type": "text",
+                "value": "Human Gamma"
+              }
+            ]
+          ]
+        ],
+        "type": "table"
+      }
+    },
+    {
+      "name": "alignment-only",
+      "beforeRev": 9,
+      "agentRev": 10,
+      "savedRev": 13,
+      "selection": {
+        "text": "Beta",
+        "backwards": true
+      },
+      "serverBlock": {
+        "head": [
+          {
+            "align": "center",
+            "content": [
+              {
+                "type": "text",
+                "value": "Centered"
+              }
+            ]
+          },
+          [
+            {
+              "type": "text",
+              "value": "Value"
+            }
+          ]
+        ],
+        "id": "block-3",
+        "rows": [
+          [
+            {
+              "align": "right",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Center value"
+                }
+              ]
+            },
+            [
+              {
+                "type": "text",
+                "value": "Human Gamma"
+              }
+            ]
+          ]
+        ],
+        "type": "table"
+      }
+    }
+  ],
+  "artifacts": {
+    "alignment-only-export.json": "848fdea50bff46c949b36bde247f6a3c591bb2d84d76f4e551d7b40b038d3711",
+    "alignment-only-input.json": "bffb5ee839ef63d1aa65136d83b937bcf49c56f3fa32e0e721fee8d9a09e91c6",
+    "alignment-only-saved.png": "9c8a18222e9b33eb0283eccf0898288fd20226b401f63c2acc33ff40e3f84ea8",
+    "alignment-only-selection.png": "20d3194a43a523aa5b71900795dba70b9baba47f2dafebcbaeba89b8683268f8",
+    "headerless-export.json": "223bdaa93e43d2013ed96228287c1e9498334cf13be5d99c69bf4fbae62a2627",
+    "headerless-input.json": "15552def74901a12746bd2d7cb4c67ca72498123e9e2cda793ecf4068fbcc2e1",
+    "headerless-saved.png": "2e92fdebf06c517a73d44b88bcb3e5b8c85a4476a4a110544b9b5707643fc542",
+    "headerless-selection.png": "cdef576be72fc56fac764d84da95379b620ab730447e77d6ff69118fc3451b17",
+    "rich-multiline-export.json": "6ad665ad5d6bd5d62ecc3c97afe1ed6fdb3a128f9544c5c587b87e23b0fed3e8",
+    "rich-multiline-input.json": "6dbc9ce7824d5fa0e0a5a6ce0037c26bf3f928633b5b647778706ce541aa5341",
+    "rich-multiline-narrow.png": "41349bbec7c900413de3b95e89e858328025fa185167470448705b8f6e6e22f2",
+    "rich-multiline-saved.png": "a1ed3c8454878a34f3433f6d17cbaf139793f70cdc0ec26096b7b98b2205c19d",
+    "rich-multiline-selection.png": "2a9e08326088cccf11d9815d42dd6babc993a38d7688222acaf01d4df4018134",
+    "structured-table.webm": "f5708269d59c53fa2e1afeb640b81a0211604ab6756f8415d6f8d9e2db85203a"
+  },
+  "motion": "Continuous Electron recording, real Paper/server and production MCP edit_table; no model turn."
+}
