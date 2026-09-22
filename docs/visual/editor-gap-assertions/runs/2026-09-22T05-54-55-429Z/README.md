@@ -1,0 +1,9 @@
+# C030 second strict run - retained failure
+
+Sourcee8ebae7 against clean upstream600fd7434 (editor sourcee7f35117f), actual loaded JS6bda88cdd38b6ab33cb4623bbe75963f2058db60. Privatehc4Z5K command46068 exited1:0/13 green. Owned Electron closed, wrapper stopped and postmaster absent. Original [report](result.json), [manifest](manifest.json) and [video](editor-gaps.webm) retained; all15 bound artifacts verified.
+
+The paragraph/ordinary quote complete block comparisons now match after upstream duplicate-ID materialization. Those rows instead failed a ROOT FIXTURE bug: a prior Windows default-cp1252 read/rewrite changed the Saved middle-dot regular expression into a two-character mojibake sequence. The visible Saved label in still01 is correct; subsequent source repairs use explicit UTF-8 and ASCII Unicode regex escape.
+
+A separate real schema defect remains: taskList has no identity attributes, unlike bulletList and orderedList. Its generated top-level ID cannot survive in the mounted editor and changes on each projection. Exact task-list ID mismatch continues through later rows. E012 will add the existing identity attributes to taskList with mounted regression coverage; this fixture does not remove IDs from comparisons.
+
+Native Backspace at the first bullet joins its text into the preceding heading, retaining the second item; the fixture originally expected a standalone paragraph. Correct the expected exact document transformation, preserving heading level, marks, list and siblings. HTML history rows still cascade from a failed pre-paste acknowledgement. All failures remain recorded; no visual acceptance. Root inspected still01 and full JSON diagnostics; full motion remains unapproved. A read-only CDP inspection near final replacement confirmed clean acknowledged fresh paragraph with matching live IDs; no state was changed by that diagnostic.
