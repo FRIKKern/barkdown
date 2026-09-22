@@ -48,6 +48,8 @@ for (const provider of providers) {
   const identity = crypto.randomUUID();
   const marker = `Barkdown verified append ${identity}`;
   const seed = `Original fixture ${identity}`;
+  const sentinel = path.join(folder, 'fixture-sentinel.txt');
+  fs.writeFileSync(sentinel, seed, { flag: 'wx' });
   const original = documents.create({ title: `Provider proof ${identity}`, markdown: seed });
   const profileId = crypto.randomUUID(), attemptId = crypto.randomUUID();
   const scope = captureScope({ profileId, storeDir, context: { folder }, connection: { enabled: false, viaCli: false, writes: false } });
@@ -61,6 +63,10 @@ for (const provider of providers) {
       prompt: `Use only Barkdown document MCP tools. Read document ${original.id}. Append exactly one paragraph containing exactly ${JSON.stringify(marker)} with edit_document mode append, preserving the existing paragraph. Then read the same document again to verify the saved change. Do not create another document, use shell commands, change files or request permissions. Finally reply done.`,
       send(event) {
         result.events.push(event); if (event.runId) runId ||= event.runId;
+        if (event.type === 'tool_start') {
+          const tool = String(event.tool || '').replace(/^mcp__barkdown__/, '');
+          if (!['read_document', 'edit_document'].includes(tool) || event.input?.id !== original.id || (tool === 'edit_document' && (event.input.mode !== 'append' || event.input.markdown !== marker))) rejectFailure(Error('Unexpected tool or target outside the fixture contract'));
+        }
         if (event.type === 'approval') { agent.respondApproval(event.runId, event.approvalId, false); rejectFailure(Error('Unexpected approval request denied')); }
         if (event.type === 'error' || event.type === 'error_note') rejectFailure(Error(event.message || 'Provider error'));
         if (event.type === 'tool_result' && event.ok !== true) rejectFailure(Error('Provider tool failed'));
@@ -88,6 +94,9 @@ for (const provider of providers) {
     // Reload without seeding and also inspect filenames so malformed extras
     // cannot disappear from the parsed inventory and make it look exclusive.
     documents.loadAll({ seed: false });
+    const folderEntries = fs.readdirSync(folder);
+    const sentinelStat = fs.lstatSync(sentinel);
+    if (folderEntries.length !== 1 || folderEntries[0] !== 'fixture-sentinel.txt' || !sentinelStat.isFile() || sentinelStat.isSymbolicLink() || fs.readFileSync(sentinel, 'utf8') !== seed) throw Error('Working-folder inventory/content changed outside the fixture contract');
     const inventory = documents.list();
     const documentFiles = store.list('documents', '.json');
     if (inventory.length !== 1 || inventory[0].id !== original.id || documentFiles.length !== 1 || path.basename(documentFiles[0]) !== `${original.id}.json`) throw Error('Persisted document inventory differs from the fixture');

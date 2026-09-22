@@ -9,7 +9,7 @@ const agent = {
   start(options) {
     fs.appendFileSync(process.env.PROVIDER_TRUTH_TRACE, 'dispatch\n');
     queueMicrotask(async () => {
-      const effects = ['success', 'delayed-finish', 'late-error', 'error-note', 'tool-error', 'cleanup-failed', 'unverified', 'approval', 'wrong-content', 'no-receipt', 'wrong-revision', 'no-read', 'no-effect', 'extra-document', 'malformed-extra', 'unexpected-tool', 'folder-change'];
+      const effects = ['success', 'delayed-finish', 'late-error', 'error-note', 'tool-error', 'cleanup-failed', 'unverified', 'approval', 'wrong-content', 'no-receipt', 'wrong-revision', 'no-read', 'no-effect', 'extra-document', 'malformed-extra', 'unexpected-tool', 'folder-change', 'wrong-target', 'sentinel-change'];
       if (effects.includes(scenario)) {
         const scope = options.scope;
         const doc = scope.documents.list()[0];
@@ -17,7 +17,7 @@ const agent = {
         if (scenario === 'malformed-extra') fs.writeFileSync(scope.store.filePath('documents/extra.json'), 'invalid');
         const marker = JSON.parse(/exactly ("[^"]+")/.exec(options.prompt)[1]);
         const emitTool = (tool, id) => {
-          options.send({ type: 'tool_start', tool, toolUseId: id, input: { id: doc.id } });
+          options.send({ type: 'tool_start', tool, toolUseId: id, input: { id: doc.id, ...(tool === 'edit_document' ? { mode: 'append', markdown: marker } : {}) } });
           options.send({ type: 'tool_result', tool, toolUseId: id, ok: true });
         };
         if (scenario !== 'no-read') emitTool('read_document', 'read-before');
@@ -27,6 +27,8 @@ const agent = {
         if (scenario === 'no-receipt') scope.store.remove('agent-edits/' + require('crypto').createHash('sha256').update(doc.id).digest('hex') + '.json');
         if (scenario === 'wrong-revision') { const current = scope.documents.get(doc.id); scope.documents.save({ id: doc.id, baseRev: current.rev, content: current.content }); }
         if (scenario === 'unexpected-tool') { options.send({ type: 'tool_start', tool: 'Bash', toolUseId: 'unexpected-command', input: { command: 'fixture-only, never executed' } }); options.send({ type: 'tool_result', tool: 'Bash', toolUseId: 'unexpected-command', ok: true }); }
+        if (scenario === 'wrong-target') options.send({ type: 'tool_start', tool: 'read_document', toolUseId: 'other-document', input: { id: 'not-the-fixture' } });
+        if (scenario === 'sentinel-change') fs.writeFileSync(require('path').join(scope.context.folder, 'fixture-sentinel.txt'), 'changed');
         if (scenario === 'folder-change') fs.writeFileSync(require('path').join(scope.context.folder, 'unexpected.txt'), 'unexpected');
         if (scenario === 'approval') options.send({ type: 'approval', runId: 'controlled-run', approvalId: 'unexpected', request: { kind: 'command', command: 'not authorized' } });
       }
