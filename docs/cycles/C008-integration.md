@@ -188,4 +188,8 @@ C029 original27f0955 evidence and exact69acbce fixture imported: ten real-adapte
 
 
 C032 ordinary-chat preflight source9f2329b imported selectively. Managed Claude/Codex uses trusted persisted folder/provider; legacy uses chosen context. Missing, non-directory or known stat denial refuses before reservation using the existing draft-preserving not-started contract. API/null-folder paths unchanged; goal workers excluded. Root independently reran all11 boundaries before import. Native main/side restart fixture is prepared but NOT RUN; stat does not prove access or prevent removal after check. All existing package commands and C008/global evidence preserved. Combined focused validation follows; no inherited visual approval claim.
-`nCombined focused pass: all11 C032 boundary cases, actual managed main/side JSDOM draft and retry check, and legacy preload/handler send-preservation regression passed. No native pass yet.
+
+Combined focused pass: all11 C032 boundary cases, actual managed main/side JSDOM draft and retry check, and legacy preload/handler send-preservation regression passed. No native pass yet.
+
+
+E011 production consumption imported from d9d36c1: exact upstream54579 editor JS/CSS and BARKPARK_REF,49 shipped dependency notices and provenance. Host popup/flags/Mermaid/Barkpark license preserved. Connected server and verified cache still precede fallback; this does not upgrade an existing server/cache. Exact fallback proxy/native fixture and distribution fidelity tests imported; package command union preserves all existing checks. Original lane proved actual image/history/save/reload fallback against both a544 and54579, full app and final visual/live/root passed; evidence import follows separately. No combined approval or every-operation/unfinished-upload restart claim.
