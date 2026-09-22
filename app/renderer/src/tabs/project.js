@@ -154,7 +154,7 @@ export function mountProject(tab, host, ctx) {
     try {
       const result = await api.files.write(target.root, target.file, text, b.mtime);
       if (result.conflict) {
-        if (!await askConfirm(result.missing ? `${target.root}/${target.file} was removed from disk. Recreate it with this saved draft?` : `${target.root}/${target.file} changed on disk since you opened it. Overwrite the disk version with yours?`, { title: result.missing ? 'File removed from disk' : 'File changed on disk', confirm: result.missing ? 'Recreate' : 'Overwrite', danger: true })) {
+        if (!await askConfirm(result.missing ? `${target.root}/${target.file} was removed from disk. Recreate it with this draft?` : `${target.root}/${target.file} changed on disk since you opened it. Overwrite the disk version with yours?`, { title: result.missing ? 'File removed from disk' : 'File changed on disk', confirm: result.missing ? 'Recreate' : 'Overwrite', danger: true })) {
           if (stillHere()) status('Not saved · file changed on disk');
           return;
         }
