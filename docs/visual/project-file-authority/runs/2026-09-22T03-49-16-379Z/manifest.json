@@ -1,0 +1,29 @@
+{
+  "sourceCommit": "268d5df41ef91fc4e26124fd412177a53c2b4fd1",
+  "sourceDirty": false,
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-file-authority-ui-QrEmJX",
+  "frames": [
+    "01-draft.png",
+    "02-unavailable.png",
+    "03-draft-restored.png",
+    "04-newer-draft-retained.png",
+    "05-explicit-latest-save.png",
+    "06-explicit-recreation.png",
+    "07-narrow-unavailable.png"
+  ],
+  "passed": true,
+  "stopped": true,
+  "scope": "Actual Electron CodeMirror/files IPC; delayed acknowledgement is a fixture barrier after a real disk write.",
+  "delayedWrites": [
+    {
+      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-file-authority-ui-QrEmJX\\files",
+      "file": "a.md",
+      "text": "A human draft"
+    }
+  ],
+  "finalFiles": {
+    "missingExists": false,
+    "deletedAExists": false,
+    "b": "B original"
+  }
+}
