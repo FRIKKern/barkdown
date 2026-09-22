@@ -10,8 +10,8 @@ fs.mkdirSync(path.join(legacy, 'attachments'), { recursive: true });
 fs.writeFileSync(path.join(legacy, 'attachments', 'note.txt'), 'Retained attachment');
 fs.writeFileSync(path.join(legacy, 'settings.json'), JSON.stringify({ provider: 'api', chatWidth: 43, barkpark: { enabled: true, viaCli: true } }));
 const ws = { version: 1, current: 'parent', order: ['parent', 'side'], chats: {
-  parent: { id: 'parent', title: 'Retained parent', messages: [], tabs: [], draft: 'Unsent parent', images: [path.join(legacy, 'attachments', 'note.txt')] },
-  side: { id: 'side', title: 'Retained side', parent: 'parent', side: true, messages: [], tabs: [], draft: 'Unsent side' },
+  parent: { id: 'parent', title: 'Retained parent', messages: [], events: [], apiHistory: [], following: true, tabs: [], draft: 'Unsent parent', images: [path.join(legacy, 'attachments', 'note.txt')] },
+  side: { id: 'side', title: 'Retained side', parent: 'parent', side: true, messages: [], events: [], apiHistory: [], following: true, tabs: [], draft: 'Unsent side' },
 } };
 fs.writeFileSync(path.join(legacy, 'workspace.json'), JSON.stringify(ws));
 const original = fs.readFileSync(path.join(legacy, 'workspace.json'), 'utf8');
