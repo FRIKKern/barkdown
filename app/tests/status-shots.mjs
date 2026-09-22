@@ -129,10 +129,14 @@ await page.evaluate(() => window.__barkdown.openPalette()); await frame(600); aw
 await page.keyboard.press('Escape'); await settled(); await frame(1500);
 // Encode: one palette from the first frame keeps UI colours steady across frames; the last frame holds.
 const gif = GIFEncoder();
-// Screenshots are opaque. An RGBA palette makes semi-transparent shadow colours
-// composite across GIF frames and leaves false modal outlines during motion.
-const palette = quantize(frames[0].data, 256);
-for (const [i, f] of frames.entries()) { const index = applyPalette(f.data, palette); gif.writeFrame(index, f.width, f.height, { palette: i === 0 ? palette : undefined, delay: i === frames.length - 1 ? 2000 : f.delay, repeat: 0 }); }
+// Screenshots are opaque. Use a local RGB palette for every full frame: the
+// first Paper frame does not contain modal-shadow colours, and reusing only its
+// palette turns later Quick Open gradients into broad false halo bands.
+for (const [i, f] of frames.entries()) {
+  const palette = quantize(f.data, 256);
+  const index = applyPalette(f.data, palette);
+  gif.writeFrame(index, f.width, f.height, { palette, delay: i === frames.length - 1 ? 2000 : f.delay, repeat: 0 });
+}
 gif.finish();
 fs.writeFileSync(path.join(out, 'editing.gif'), Buffer.from(gif.bytes()));
 shots.push({ file: 'editing.gif', caption: 'An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open.' });
