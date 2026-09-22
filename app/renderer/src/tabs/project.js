@@ -130,7 +130,10 @@ export function mountProject(tab, host, ctx) {
         buffers.set(key, buf);
       } catch (error) {
         if (destroyed || request !== navigation) return;
-        unavailable(`Could not open ${file}: ${error.message}`);
+        const reason = error.code === 'ENOENT' ? 'This file or its working folder is no longer available.'
+          : ['EACCES', 'EPERM'].includes(error.code) ? 'Access to this file was denied.'
+          : `Could not open ${file}: ${error.message}`;
+        unavailable(reason);
         status('File unavailable · other unsaved drafts are preserved');
         return;
       }
