@@ -91,3 +91,5 @@ Candidate `2b2ec11` is awaiting fresh combined gates. Global fixture approval/st
 - E009: [native clipboard gallery](../docs/visual/rich-clipboard/runs/2026-09-22T04-50-27-798Z/manifest.json), Barkdown `25cb114` / connected upstream3495. This does not update the vendored a544 fallback.
 - C028: [runner failure enforcement](../docs/cycles/C028-parity-exit.md); 24 controlled runner cases pass, while historical root freshness remains separate.
 - [Third-party notices](../THIRD-PARTY.md): 49-package metadata/license/provenance audit imported; no editor asset or pin change.
+
+C031 isolated Electron44.4.3 trial: installer/Node checks pass; packaging now retains shared modules and physically unpacks only three external runtime scripts. Actual Electron44/packaged/native/visual acceptance is pending; Electron38 remains the integration fallback. [Trial handoff](../docs/cycles/C031-electron44-trial.md).

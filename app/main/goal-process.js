@@ -1,3 +1,4 @@
+const { externalResource } = require('./external-resource');
 const fs = require('node:fs');
 const path = require('node:path');
 const net = require('node:net');
@@ -7,7 +8,7 @@ const { MAX_MESSAGE_CHARS } = require('./goal-protocol');
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 const check = (value, message) => { if (!value) throw new Error(message); };
 const powershell = () => path.join(process.env.SystemRoot || 'C:\\Windows', 'System32', 'WindowsPowerShell', 'v1.0', 'powershell.exe');
-const helper = path.join(__dirname, 'goal-worker-host.ps1');
+const helper = externalResource('goal-worker-host.ps1');
 function files({ storeDir, profileId, attemptId }) {
   check(UUID.test(profileId) && UUID.test(attemptId), 'Invalid owned worker identity');
   const root = path.join(fs.realpathSync(storeDir), 'goal-processes'); fs.mkdirSync(root, { recursive: true });

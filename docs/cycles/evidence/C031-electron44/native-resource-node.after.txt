@@ -1,0 +1,94 @@
+TAP version 13
+# Subtest: external resources retain source paths and map only an exact app.asar segment
+ok 1 - external resources retain source paths and map only an exact app.asar segment
+  ---
+  duration_ms: 2.3739
+  ...
+# Subtest: invalid pre-dispatch owner reports positively that no new process was launched
+ok 2 - invalid pre-dispatch owner reports positively that no new process was launched
+  ---
+  duration_ms: 4.0071
+  ...
+# Subtest: Windows owned job cancellation stops a real child/grandchild tree before acknowledging
+ok 3 - Windows owned job cancellation stops a real child/grandchild tree before acknowledging
+  ---
+  duration_ms: 2081.5875
+  ...
+# Subtest: forced supervisor death closes job and restart verifier proves the entire owned tree stopped
+ok 4 - forced supervisor death closes job and restart verifier proves the entire owned tree stopped
+  ---
+  duration_ms: 2788.4868
+  ...
+# Subtest: normal worker exit drains descendants and duplicate attempt launch is refused
+ok 5 - normal worker exit drains descendants and duplicate attempt launch is refused
+  ---
+  duration_ms: 1476.4279
+  ...
+# Subtest: abrupt main host exit closes its control pipe and restart verifies descendant shutdown
+ok 6 - abrupt main host exit closes its control pipe and restart verifies descendant shutdown
+  ---
+  duration_ms: 1937.8994
+  ...
+# Subtest: Windows terminal closes its real descendants and same-tab profile B remains alive
+ok 7 - Windows terminal closes its real descendants and same-tab profile B remains alive
+  ---
+  duration_ms: 3841.2322
+  ...
+# Subtest: profile authority does not change on failed terminal drain and can retry
+ok 8 - profile authority does not change on failed terminal drain and can retry
+  ---
+  duration_ms: 2.5911
+  ...
+# Subtest: abrupt terminal host death kills all descendants and does not replay commands
+ok 9 - abrupt terminal host death kills all descendants and does not replay commands
+  ---
+  duration_ms: 4773.5854
+  ...
+# Subtest: uncertain shutdown keeps session blocked, trusted verification permits retry
+ok 10 - uncertain shutdown keeps session blocked, trusted verification permits retry
+  ---
+  duration_ms: 10.2322
+  ...
+# (node:7584) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/.codex/worktrees/barkdown-electron44-trial/app/renderer/src/tabs/terminal.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-electron44-trial\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output
+ok 11 - terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output
+  ---
+  duration_ms: 1344.7965
+  ...
+# Subtest: known pre-dispatch failure permits retry but generic launch failure needs native proof
+ok 12 - known pre-dispatch failure permits retry but generic launch failure needs native proof
+  ---
+  duration_ms: 19.0097
+  ...
+# Subtest: late launch after timeout is stopped without dispatching shell commands
+ok 13 - late launch after timeout is stopped without dispatching shell commands
+  ---
+  duration_ms: 51.5
+  ...
+# Subtest: shutdown admission rejects a new terminal even after the owned map drains
+ok 14 - shutdown admission rejects a new terminal even after the owned map drains
+  ---
+  duration_ms: 1.8349
+  ...
+# Subtest: missing launch folder never falls back to home and failed shell can be explicitly retried
+ok 15 - missing launch folder never falls back to home and failed shell can be explicitly retried
+  ---
+  duration_ms: 1217.8743
+  ...
+# Subtest: corrupt terminal ownership record is preserved and cannot silently seed another shell
+ok 16 - corrupt terminal ownership record is preserved and cannot silently seed another shell
+  ---
+  duration_ms: 21.3136
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 11485.2511
