@@ -60,11 +60,12 @@ function markdownToDoc(markdown, options = {}) {
     }
     if (/^(-{3,}|\*{3,}|_{3,})\s*$/.test(line)) { content.push({ type: 'horizontalRule' }); i++; continue; }
     if (isTableRow(line) && i + 1 < lines.length && isTableSeparator(lines[i + 1])) {
-      if (options.strictPortable && lines[i + 1].includes(':')) throw new Error('Cannot convert aligned Markdown table; use structured Paper editing.');
-      const cell = (text, type) => ({ type, content: [paragraph(text)] });
-      const rows = [{ type: 'tableRow', content: splitCells(line).map(c => cell(c, 'tableHeader')) }];
+      const alignments = splitCells(lines[i + 1]).map(value => value.endsWith(':') ? (value.startsWith(':') ? 'center' : 'right') : null);
+      if (options.strictPortable && alignments.length !== splitCells(line).length) throw new Error('Cannot convert table with mismatched separator columns.');
+      const cell = (text, type, column) => ({ type, ...(options.strictPortable && alignments[column] ? { attrs: { align: alignments[column] } } : {}), content: [paragraph(text)] });
+      const rows = [{ type: 'tableRow', content: splitCells(line).map((c, column) => cell(c, 'tableHeader', column)) }];
       i += 2;
-      while (i < lines.length && isTableRow(lines[i])) { rows.push({ type: 'tableRow', content: splitCells(lines[i]).map(c => cell(c, 'tableCell')) }); i++; }
+      while (i < lines.length && isTableRow(lines[i])) { rows.push({ type: 'tableRow', content: splitCells(lines[i]).map((c, column) => cell(c, 'tableCell', column)) }); i++; }
       content.push({ type: 'table', content: rows });
       continue;
     }

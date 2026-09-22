@@ -15,7 +15,7 @@ const client = new Client({ name: 'barkdown-test', version: '0.0.0' });
 await client.connect(transport);
 
 const tools = (await client.listTools()).tools.map(t => t.name).sort();
-assert(['create_document', 'list_conversations', 'list_documents', 'open_project_file', 'open_website', 'propose_document_edit', 'read_conversation', 'read_document', 'search_documents'].every(t => tools.includes(t)), 'tools missing: ' + tools.join(','));
+assert(['edit_table', 'create_document', 'list_conversations', 'list_documents', 'open_project_file', 'open_website', 'propose_document_edit', 'read_conversation', 'read_document', 'search_documents'].every(t => tools.includes(t)), 'tools missing: ' + tools.join(','));
 {
   fs.writeFileSync(path.join(storeDir, 'workspace.json'), JSON.stringify({ version: 1, chats: {
     main1: { id: 'main1', title: 'Trip to Bergen', side: false, parent: null, updatedAt: '2026-09-18T10:00:00Z', tabs: [{ title: 'Overview' }], messages: [{ role: 'user', text: 'Plan a weekend in Bergen.', at: '2026-09-18T09:58:00Z' }, { role: 'assistant', text: 'Two days: Bryggen and Fløyen first.', at: '2026-09-18T09:59:00Z', tools: [{ tool: 'read_document' }], events: [{ label: 'Opened Overview' }] }] },
