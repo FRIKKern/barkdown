@@ -1,0 +1,14 @@
+{
+  "sourceCommit": "a60ede77ad6e019787df1c7c77b1233854b0de72",
+  "sourceDirty": false,
+  "barkparkCommit": "a5440345caa413087ac6488cac67f19fce58fa0f",
+  "barkparkDirty": false,
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-profile-isolation-6xhMWc",
+  "checks": [],
+  "frames": [],
+  "stopped": true,
+  "modelDecisions": "deterministic HTTP text turn retains real run lease; separate actual stdio MCP read/edit uses immutable A connection, not API remote tool support",
+  "error": "locator.click: Timeout 180000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.bw-tab.active [data-fav]')\u001b[22m\n\u001b[2m    - locator resolved to <button class=\"\" title=\"Add to favorites\" aria-label=\"Add to favorites\" data-fav=\"9c30ef69-9d21-4f27-994a-c165253c47ae\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    349 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m        - element is not visible\u001b[22m\n\u001b[2m      - retrying click action\u001b[22m\n\u001b[2m        - waiting 500ms\u001b[22m\n\n    at C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-profile-isolation\\app\\tests\\profile-isolation-ui.live.mjs:57:51",
+  "cleanupErrors": [],
+  "finishedAt": "2026-09-22T00:45:14.909Z"
+}

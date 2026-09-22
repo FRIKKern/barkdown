@@ -149,3 +149,6 @@ Imported production34ef068 and its initial bdba800 regression into the newer Pap
 The first combined test run exposed a fixture extraction boundary: the newer following closeTab declaration is async, so substring extraction left a stray `async` token. Five navigation cases failed explicitly; the helper now excludes the complete following declaration line and validates both source boundaries. The corrected full31-case host suite passes. No production async behavior was changed for this fixture correction.
 
 C016 lane26d9461 has passing native64864, full51548, deterministic95345, live48539 and root76307; source-specific evidence is queued for selective import. Fresh combined native consumption and full/visual/live/root gates remain pending. No lane approval is transferred.
+
+
+C016 original26d9461 evidence is now selectively imported alongside combined16a3b60 Paper position/queued-refresh union. Actual34ef068/a54464864 preserves B exactscroll360/anchor112.453125 through late A work and process restart; full51548,37-still/GIF deterministic, live48539 and root76307 pass in the original lane. All historical failures and unapproved intermediate captures remain;16-manifest chain and review/media hashes verified. Current combined globals remain unchanged; fresh combined gates and broader P1 criteria still apply.

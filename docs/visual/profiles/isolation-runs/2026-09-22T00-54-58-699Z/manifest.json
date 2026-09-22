@@ -1,0 +1,20 @@
+{
+  "sourceCommit": "8c2017005229e3fdf17f97ba430757f98f600cf5",
+  "sourceDirty": false,
+  "barkparkCommit": "a5440345caa413087ac6488cac67f19fce58fa0f",
+  "barkparkDirty": false,
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-profile-isolation-kMygH4",
+  "checks": [
+    "Actual app runs A/B concurrently; B same-slug Paper/media/favorites and reading position remain B-owned"
+  ],
+  "frames": [
+    "01-A-running.png",
+    "02-B-before-A-completion.png",
+    "failure-state.png"
+  ],
+  "stopped": true,
+  "modelDecisions": "deterministic HTTP text turn retains real run lease; separate actual stdio MCP read/edit uses immutable A connection, not API remote tool support",
+  "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Saved edit/. Input:\n\n'{\"content\":[{\"type\":\"text\",\"text\":\"fetch failed\"}],\"isError\":true}'\n\n    at file:///C:/Users/Frikk/.codex/worktrees/barkdown-profile-isolation/app/tests/profile-isolation-ui.live.mjs:90:10\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "cleanupErrors": [],
+  "finishedAt": "2026-09-22T01:03:17.984Z"
+}

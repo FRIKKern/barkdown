@@ -1,0 +1,2799 @@
+{
+  "sourceCommit": "34ef0689981dca68ea5d81e16036b77de7163d13",
+  "sourceDirty": false,
+  "barkparkCommit": "a5440345caa413087ac6488cac67f19fce58fa0f",
+  "barkparkDirty": false,
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-profile-isolation-zBO6Kr",
+  "checks": [
+    "Actual app runs A/B concurrently; B same-slug Paper/media/favorites and reading position remain B-owned",
+    "Late real MCP edit/receipt and separately held API transcript stay A; B draft/context/scroll/search unchanged and A Undo rejected",
+    "Returning A restores its cache/favorite/receipt; guarded Undo affects only matching A revision",
+    "Actual process restart restores selected B draft/side-parent/document path/scroll/favorite and same-slug Paper"
+  ],
+  "frames": [
+    "01-A-running.png",
+    "02-B-before-A-completion.png",
+    "03-B-after-A-completion.png",
+    "04-A-owned-receipt.png",
+    "05-A-undo.png",
+    "06-B-process-restart.png"
+  ],
+  "stopped": true,
+  "modelDecisions": "deterministic HTTP text turn retains real run lease; separate actual stdio MCP read/edit uses immutable A connection, not API remote tool support",
+  "initialGeometry": {
+    "width": 1424,
+    "height": 835
+  },
+  "readingSnapshots": {
+    "initialBeforeImageSettle": {
+      "scrollTop": 0,
+      "scrollHeight": 1409,
+      "clientHeight": 756,
+      "scroller": {
+        "x": 934.390625,
+        "y": 79,
+        "width": 489.59375,
+        "height": 756
+      },
+      "anchor": {
+        "text": "B reading position 4.",
+        "x": 990.390625,
+        "y": 442.453125,
+        "width": 377.59375,
+        "height": 30
+      },
+      "text": "Only B owns cobaltwitness.\n\nB reading position 0.\n\nB reading position 1.\n\nB reading position 2.\n\nB reading position 3.\n\nB reading position 4.\n\nB reading position 5.\n\nB reading position 6.\n\nB reading position 7.\n\nB reading position 8.\n\nB reading position 9.\n\nB reading position 10.\n\nB reading position 11.\n\nB reading position 12.\n\nB reading position 13.\n\nB reading position 14.\n\nB reading position 15.\n\nB reading position 16.\n\nB reading position 17.\n\nB reading position 18.\n\nB reading position 19.\n\nB reading position 20.\n\nB reading position 21.\n\nB reading position 22.\n\nB reading position 23.",
+      "footer": [
+        {
+          "id": "links",
+          "text": "",
+          "x": 990.390625,
+          "y": 1327.953125,
+          "width": 377.59375,
+          "height": 19
+        },
+        {
+          "id": "state",
+          "text": "Edits go straight to Barkpark through the fenced ops endpoint. Each batch is saved with the paper's revision; a clash with another writer shows up here instead of overwriting.",
+          "x": 990.390625,
+          "y": 1378.953125,
+          "width": 377.59375,
+          "height": 49.5
+        }
+      ],
+      "images": [
+        {
+          "complete": false,
+          "naturalWidth": 0,
+          "naturalHeight": 0,
+          "rect": {
+            "x": 974.390625,
+            "y": 272,
+            "width": 32,
+            "height": 2
+          },
+          "parent": {
+            "x": 974.390625,
+            "y": 272,
+            "width": 409.59375,
+            "height": 2
+          }
+        }
+      ],
+      "blocks": [
+        {
+          "tag": "INPUT",
+          "className": "bw-doc-title",
+          "text": "",
+          "x": 990.390625,
+          "y": 177,
+          "width": 377.59375,
+          "height": 48
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "Only B owns cobaltwitness.",
+          "x": 990.390625,
+          "y": 239,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "FIGURE",
+          "className": "bp-canvas-image",
+          "text": "No image yet — paste or drop a picture, or enter a URL below",
+          "x": 974.390625,
+          "y": 269,
+          "width": 409.59375,
+          "height": 53.453125
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 0.",
+          "x": 990.390625,
+          "y": 322.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 1.",
+          "x": 990.390625,
+          "y": 352.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 2.",
+          "x": 990.390625,
+          "y": 382.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 3.",
+          "x": 990.390625,
+          "y": 412.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 4.",
+          "x": 990.390625,
+          "y": 442.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 5.",
+          "x": 990.390625,
+          "y": 472.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 6.",
+          "x": 990.390625,
+          "y": 502.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 7.",
+          "x": 990.390625,
+          "y": 532.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 8.",
+          "x": 990.390625,
+          "y": 562.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 9.",
+          "x": 990.390625,
+          "y": 592.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 10.",
+          "x": 990.390625,
+          "y": 622.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 11.",
+          "x": 990.390625,
+          "y": 652.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 12.",
+          "x": 990.390625,
+          "y": 682.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 13.",
+          "x": 990.390625,
+          "y": 712.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 14.",
+          "x": 990.390625,
+          "y": 742.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 15.",
+          "x": 990.390625,
+          "y": 772.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 16.",
+          "x": 990.390625,
+          "y": 802.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 17.",
+          "x": 990.390625,
+          "y": 832.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 18.",
+          "x": 990.390625,
+          "y": 862.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 19.",
+          "x": 990.390625,
+          "y": 892.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 20.",
+          "x": 990.390625,
+          "y": 922.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 21.",
+          "x": 990.390625,
+          "y": 952.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 22.",
+          "x": 990.390625,
+          "y": 982.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 23.",
+          "x": 990.390625,
+          "y": 1012.453125,
+          "width": 377.59375,
+          "height": 30
+        }
+      ]
+    },
+    "initialAfterImageSettle": {
+      "scrollTop": 0,
+      "scrollHeight": 1439,
+      "clientHeight": 756,
+      "scroller": {
+        "x": 934.390625,
+        "y": 79,
+        "width": 489.59375,
+        "height": 756
+      },
+      "anchor": {
+        "text": "B reading position 4.",
+        "x": 990.390625,
+        "y": 472.453125,
+        "width": 377.59375,
+        "height": 30
+      },
+      "text": "Only B owns cobaltwitness.\n\nB reading position 0.\n\nB reading position 1.\n\nB reading position 2.\n\nB reading position 3.\n\nB reading position 4.\n\nB reading position 5.\n\nB reading position 6.\n\nB reading position 7.\n\nB reading position 8.\n\nB reading position 9.\n\nB reading position 10.\n\nB reading position 11.\n\nB reading position 12.\n\nB reading position 13.\n\nB reading position 14.\n\nB reading position 15.\n\nB reading position 16.\n\nB reading position 17.\n\nB reading position 18.\n\nB reading position 19.\n\nB reading position 20.\n\nB reading position 21.\n\nB reading position 22.\n\nB reading position 23.",
+      "footer": [
+        {
+          "id": "links",
+          "text": "",
+          "x": 990.390625,
+          "y": 1357.953125,
+          "width": 377.59375,
+          "height": 19
+        },
+        {
+          "id": "state",
+          "text": "Edits go straight to Barkpark through the fenced ops endpoint. Each batch is saved with the paper's revision; a clash with another writer shows up here instead of overwriting.",
+          "x": 990.390625,
+          "y": 1408.953125,
+          "width": 377.59375,
+          "height": 49.5
+        }
+      ],
+      "images": [
+        {
+          "complete": true,
+          "naturalWidth": 32,
+          "naturalHeight": 32,
+          "rect": {
+            "x": 974.390625,
+            "y": 272,
+            "width": 32,
+            "height": 32
+          },
+          "parent": {
+            "x": 974.390625,
+            "y": 272,
+            "width": 409.59375,
+            "height": 32
+          }
+        }
+      ],
+      "blocks": [
+        {
+          "tag": "INPUT",
+          "className": "bw-doc-title",
+          "text": "",
+          "x": 990.390625,
+          "y": 177,
+          "width": 377.59375,
+          "height": 48
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "Only B owns cobaltwitness.",
+          "x": 990.390625,
+          "y": 239,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "FIGURE",
+          "className": "bp-canvas-image",
+          "text": "No image yet — paste or drop a picture, or enter a URL below",
+          "x": 974.390625,
+          "y": 269,
+          "width": 409.59375,
+          "height": 83.453125
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 0.",
+          "x": 990.390625,
+          "y": 352.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 1.",
+          "x": 990.390625,
+          "y": 382.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 2.",
+          "x": 990.390625,
+          "y": 412.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 3.",
+          "x": 990.390625,
+          "y": 442.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 4.",
+          "x": 990.390625,
+          "y": 472.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 5.",
+          "x": 990.390625,
+          "y": 502.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 6.",
+          "x": 990.390625,
+          "y": 532.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 7.",
+          "x": 990.390625,
+          "y": 562.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 8.",
+          "x": 990.390625,
+          "y": 592.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 9.",
+          "x": 990.390625,
+          "y": 622.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 10.",
+          "x": 990.390625,
+          "y": 652.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 11.",
+          "x": 990.390625,
+          "y": 682.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 12.",
+          "x": 990.390625,
+          "y": 712.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 13.",
+          "x": 990.390625,
+          "y": 742.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 14.",
+          "x": 990.390625,
+          "y": 772.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 15.",
+          "x": 990.390625,
+          "y": 802.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 16.",
+          "x": 990.390625,
+          "y": 832.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 17.",
+          "x": 990.390625,
+          "y": 862.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 18.",
+          "x": 990.390625,
+          "y": 892.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 19.",
+          "x": 990.390625,
+          "y": 922.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 20.",
+          "x": 990.390625,
+          "y": 952.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 21.",
+          "x": 990.390625,
+          "y": 982.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 22.",
+          "x": 990.390625,
+          "y": 1012.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 23.",
+          "x": 990.390625,
+          "y": 1042.453125,
+          "width": 377.59375,
+          "height": 30
+        }
+      ]
+    },
+    "initialAfterHistorySettle": {
+      "scrollTop": 0,
+      "scrollHeight": 1506,
+      "clientHeight": 756,
+      "scroller": {
+        "x": 934.390625,
+        "y": 79,
+        "width": 489.59375,
+        "height": 756
+      },
+      "anchor": {
+        "text": "B reading position 4.",
+        "x": 990.390625,
+        "y": 472.453125,
+        "width": 377.59375,
+        "height": 30
+      },
+      "text": "Only B owns cobaltwitness.\n\nB reading position 0.\n\nB reading position 1.\n\nB reading position 2.\n\nB reading position 3.\n\nB reading position 4.\n\nB reading position 5.\n\nB reading position 6.\n\nB reading position 7.\n\nB reading position 8.\n\nB reading position 9.\n\nB reading position 10.\n\nB reading position 11.\n\nB reading position 12.\n\nB reading position 13.\n\nB reading position 14.\n\nB reading position 15.\n\nB reading position 16.\n\nB reading position 17.\n\nB reading position 18.\n\nB reading position 19.\n\nB reading position 20.\n\nB reading position 21.\n\nB reading position 22.\n\nB reading position 23.",
+      "footer": [
+        {
+          "id": "links",
+          "text": "HISTORY\nrev 3c20536c\nbarkpark ·",
+          "x": 990.390625,
+          "y": 1357.953125,
+          "width": 377.59375,
+          "height": 85.28125
+        },
+        {
+          "id": "state",
+          "text": "Edits go straight to Barkpark through the fenced ops endpoint. Each batch is saved with the paper's revision; a clash with another writer shows up here instead of overwriting.",
+          "x": 990.390625,
+          "y": 1475.234375,
+          "width": 377.59375,
+          "height": 49.5
+        }
+      ],
+      "images": [
+        {
+          "complete": true,
+          "naturalWidth": 32,
+          "naturalHeight": 32,
+          "rect": {
+            "x": 974.390625,
+            "y": 272,
+            "width": 32,
+            "height": 32
+          },
+          "parent": {
+            "x": 974.390625,
+            "y": 272,
+            "width": 409.59375,
+            "height": 32
+          }
+        }
+      ],
+      "blocks": [
+        {
+          "tag": "INPUT",
+          "className": "bw-doc-title",
+          "text": "",
+          "x": 990.390625,
+          "y": 177,
+          "width": 377.59375,
+          "height": 48
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "Only B owns cobaltwitness.",
+          "x": 990.390625,
+          "y": 239,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "FIGURE",
+          "className": "bp-canvas-image",
+          "text": "No image yet — paste or drop a picture, or enter a URL below",
+          "x": 974.390625,
+          "y": 269,
+          "width": 409.59375,
+          "height": 83.453125
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 0.",
+          "x": 990.390625,
+          "y": 352.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 1.",
+          "x": 990.390625,
+          "y": 382.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 2.",
+          "x": 990.390625,
+          "y": 412.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 3.",
+          "x": 990.390625,
+          "y": 442.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 4.",
+          "x": 990.390625,
+          "y": 472.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 5.",
+          "x": 990.390625,
+          "y": 502.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 6.",
+          "x": 990.390625,
+          "y": 532.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 7.",
+          "x": 990.390625,
+          "y": 562.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 8.",
+          "x": 990.390625,
+          "y": 592.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 9.",
+          "x": 990.390625,
+          "y": 622.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 10.",
+          "x": 990.390625,
+          "y": 652.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 11.",
+          "x": 990.390625,
+          "y": 682.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 12.",
+          "x": 990.390625,
+          "y": 712.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 13.",
+          "x": 990.390625,
+          "y": 742.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 14.",
+          "x": 990.390625,
+          "y": 772.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 15.",
+          "x": 990.390625,
+          "y": 802.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 16.",
+          "x": 990.390625,
+          "y": 832.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 17.",
+          "x": 990.390625,
+          "y": 862.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 18.",
+          "x": 990.390625,
+          "y": 892.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 19.",
+          "x": 990.390625,
+          "y": 922.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 20.",
+          "x": 990.390625,
+          "y": 952.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 21.",
+          "x": 990.390625,
+          "y": 982.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 22.",
+          "x": 990.390625,
+          "y": 1012.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 23.",
+          "x": 990.390625,
+          "y": 1042.453125,
+          "width": 377.59375,
+          "height": 30
+        }
+      ]
+    },
+    "chosenReadingPosition": {
+      "scrollTop": 360,
+      "scrollHeight": 1506,
+      "clientHeight": 756,
+      "scroller": {
+        "x": 934.390625,
+        "y": 79,
+        "width": 489.59375,
+        "height": 756
+      },
+      "anchor": {
+        "text": "B reading position 4.",
+        "x": 990.390625,
+        "y": 112.453125,
+        "width": 377.59375,
+        "height": 30
+      },
+      "text": "Only B owns cobaltwitness.\n\nB reading position 0.\n\nB reading position 1.\n\nB reading position 2.\n\nB reading position 3.\n\nB reading position 4.\n\nB reading position 5.\n\nB reading position 6.\n\nB reading position 7.\n\nB reading position 8.\n\nB reading position 9.\n\nB reading position 10.\n\nB reading position 11.\n\nB reading position 12.\n\nB reading position 13.\n\nB reading position 14.\n\nB reading position 15.\n\nB reading position 16.\n\nB reading position 17.\n\nB reading position 18.\n\nB reading position 19.\n\nB reading position 20.\n\nB reading position 21.\n\nB reading position 22.\n\nB reading position 23.",
+      "footer": [
+        {
+          "id": "links",
+          "text": "HISTORY\nrev 3c20536c\nbarkpark ·",
+          "x": 990.390625,
+          "y": 997.953125,
+          "width": 377.59375,
+          "height": 85.28125
+        },
+        {
+          "id": "state",
+          "text": "Edits go straight to Barkpark through the fenced ops endpoint. Each batch is saved with the paper's revision; a clash with another writer shows up here instead of overwriting.",
+          "x": 990.390625,
+          "y": 1115.234375,
+          "width": 377.59375,
+          "height": 49.5
+        }
+      ],
+      "images": [
+        {
+          "complete": true,
+          "naturalWidth": 32,
+          "naturalHeight": 32,
+          "rect": {
+            "x": 974.390625,
+            "y": -88,
+            "width": 32,
+            "height": 32
+          },
+          "parent": {
+            "x": 974.390625,
+            "y": -88,
+            "width": 409.59375,
+            "height": 32
+          }
+        }
+      ],
+      "blocks": [
+        {
+          "tag": "INPUT",
+          "className": "bw-doc-title",
+          "text": "",
+          "x": 990.390625,
+          "y": -183,
+          "width": 377.59375,
+          "height": 48
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "Only B owns cobaltwitness.",
+          "x": 990.390625,
+          "y": -121,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "FIGURE",
+          "className": "bp-canvas-image",
+          "text": "No image yet — paste or drop a picture, or enter a URL below",
+          "x": 974.390625,
+          "y": -91,
+          "width": 409.59375,
+          "height": 83.453125
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 0.",
+          "x": 990.390625,
+          "y": -7.546875,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 1.",
+          "x": 990.390625,
+          "y": 22.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 2.",
+          "x": 990.390625,
+          "y": 52.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 3.",
+          "x": 990.390625,
+          "y": 82.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 4.",
+          "x": 990.390625,
+          "y": 112.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 5.",
+          "x": 990.390625,
+          "y": 142.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 6.",
+          "x": 990.390625,
+          "y": 172.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 7.",
+          "x": 990.390625,
+          "y": 202.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 8.",
+          "x": 990.390625,
+          "y": 232.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 9.",
+          "x": 990.390625,
+          "y": 262.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 10.",
+          "x": 990.390625,
+          "y": 292.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 11.",
+          "x": 990.390625,
+          "y": 322.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 12.",
+          "x": 990.390625,
+          "y": 352.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 13.",
+          "x": 990.390625,
+          "y": 382.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 14.",
+          "x": 990.390625,
+          "y": 412.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 15.",
+          "x": 990.390625,
+          "y": 442.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 16.",
+          "x": 990.390625,
+          "y": 472.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 17.",
+          "x": 990.390625,
+          "y": 502.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 18.",
+          "x": 990.390625,
+          "y": 532.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 19.",
+          "x": 990.390625,
+          "y": 562.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 20.",
+          "x": 990.390625,
+          "y": 592.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 21.",
+          "x": 990.390625,
+          "y": 622.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 22.",
+          "x": 990.390625,
+          "y": 652.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 23.",
+          "x": 990.390625,
+          "y": 682.453125,
+          "width": 377.59375,
+          "height": 30
+        }
+      ]
+    },
+    "afterACompletion": {
+      "scrollTop": 360,
+      "scrollHeight": 1506,
+      "clientHeight": 756,
+      "scroller": {
+        "x": 934.390625,
+        "y": 79,
+        "width": 489.59375,
+        "height": 756
+      },
+      "anchor": {
+        "text": "B reading position 4.",
+        "x": 990.390625,
+        "y": 112.453125,
+        "width": 377.59375,
+        "height": 30
+      },
+      "text": "Only B owns cobaltwitness.\n\nB reading position 0.\n\nB reading position 1.\n\nB reading position 2.\n\nB reading position 3.\n\nB reading position 4.\n\nB reading position 5.\n\nB reading position 6.\n\nB reading position 7.\n\nB reading position 8.\n\nB reading position 9.\n\nB reading position 10.\n\nB reading position 11.\n\nB reading position 12.\n\nB reading position 13.\n\nB reading position 14.\n\nB reading position 15.\n\nB reading position 16.\n\nB reading position 17.\n\nB reading position 18.\n\nB reading position 19.\n\nB reading position 20.\n\nB reading position 21.\n\nB reading position 22.\n\nB reading position 23.",
+      "footer": [
+        {
+          "id": "links",
+          "text": "HISTORY\nrev 3c20536c\nbarkpark ·",
+          "x": 990.390625,
+          "y": 997.953125,
+          "width": 377.59375,
+          "height": 85.28125
+        },
+        {
+          "id": "state",
+          "text": "Edits go straight to Barkpark through the fenced ops endpoint. Each batch is saved with the paper's revision; a clash with another writer shows up here instead of overwriting.",
+          "x": 990.390625,
+          "y": 1115.234375,
+          "width": 377.59375,
+          "height": 49.5
+        }
+      ],
+      "images": [
+        {
+          "complete": true,
+          "naturalWidth": 32,
+          "naturalHeight": 32,
+          "rect": {
+            "x": 974.390625,
+            "y": -88,
+            "width": 32,
+            "height": 32
+          },
+          "parent": {
+            "x": 974.390625,
+            "y": -88,
+            "width": 409.59375,
+            "height": 32
+          }
+        }
+      ],
+      "blocks": [
+        {
+          "tag": "INPUT",
+          "className": "bw-doc-title",
+          "text": "",
+          "x": 990.390625,
+          "y": -183,
+          "width": 377.59375,
+          "height": 48
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "Only B owns cobaltwitness.",
+          "x": 990.390625,
+          "y": -121,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "FIGURE",
+          "className": "bp-canvas-image",
+          "text": "No image yet — paste or drop a picture, or enter a URL below",
+          "x": 974.390625,
+          "y": -91,
+          "width": 409.59375,
+          "height": 83.453125
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 0.",
+          "x": 990.390625,
+          "y": -7.546875,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 1.",
+          "x": 990.390625,
+          "y": 22.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 2.",
+          "x": 990.390625,
+          "y": 52.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 3.",
+          "x": 990.390625,
+          "y": 82.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 4.",
+          "x": 990.390625,
+          "y": 112.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 5.",
+          "x": 990.390625,
+          "y": 142.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 6.",
+          "x": 990.390625,
+          "y": 172.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 7.",
+          "x": 990.390625,
+          "y": 202.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 8.",
+          "x": 990.390625,
+          "y": 232.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 9.",
+          "x": 990.390625,
+          "y": 262.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 10.",
+          "x": 990.390625,
+          "y": 292.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 11.",
+          "x": 990.390625,
+          "y": 322.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 12.",
+          "x": 990.390625,
+          "y": 352.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 13.",
+          "x": 990.390625,
+          "y": 382.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 14.",
+          "x": 990.390625,
+          "y": 412.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 15.",
+          "x": 990.390625,
+          "y": 442.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 16.",
+          "x": 990.390625,
+          "y": 472.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 17.",
+          "x": 990.390625,
+          "y": 502.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 18.",
+          "x": 990.390625,
+          "y": 532.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 19.",
+          "x": 990.390625,
+          "y": 562.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 20.",
+          "x": 990.390625,
+          "y": 592.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 21.",
+          "x": 990.390625,
+          "y": 622.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 22.",
+          "x": 990.390625,
+          "y": 652.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 23.",
+          "x": 990.390625,
+          "y": 682.453125,
+          "width": 377.59375,
+          "height": 30
+        }
+      ]
+    },
+    "beforeQuit": {
+      "scrollTop": 360,
+      "scrollHeight": 1506,
+      "clientHeight": 756,
+      "scroller": {
+        "x": 934.390625,
+        "y": 79,
+        "width": 489.59375,
+        "height": 756
+      },
+      "anchor": {
+        "text": "B reading position 4.",
+        "x": 990.390625,
+        "y": 112.453125,
+        "width": 377.59375,
+        "height": 30
+      },
+      "text": "Only B owns cobaltwitness.\n\nB reading position 0.\n\nB reading position 1.\n\nB reading position 2.\n\nB reading position 3.\n\nB reading position 4.\n\nB reading position 5.\n\nB reading position 6.\n\nB reading position 7.\n\nB reading position 8.\n\nB reading position 9.\n\nB reading position 10.\n\nB reading position 11.\n\nB reading position 12.\n\nB reading position 13.\n\nB reading position 14.\n\nB reading position 15.\n\nB reading position 16.\n\nB reading position 17.\n\nB reading position 18.\n\nB reading position 19.\n\nB reading position 20.\n\nB reading position 21.\n\nB reading position 22.\n\nB reading position 23.",
+      "footer": [
+        {
+          "id": "links",
+          "text": "HISTORY\nrev 3c20536c\nbarkpark ·",
+          "x": 990.390625,
+          "y": 997.953125,
+          "width": 377.59375,
+          "height": 85.28125
+        },
+        {
+          "id": "state",
+          "text": "Edits go straight to Barkpark through the fenced ops endpoint. Each batch is saved with the paper's revision; a clash with another writer shows up here instead of overwriting.",
+          "x": 990.390625,
+          "y": 1115.234375,
+          "width": 377.59375,
+          "height": 49.5
+        }
+      ],
+      "images": [
+        {
+          "complete": true,
+          "naturalWidth": 32,
+          "naturalHeight": 32,
+          "rect": {
+            "x": 974.390625,
+            "y": -88,
+            "width": 32,
+            "height": 32
+          },
+          "parent": {
+            "x": 974.390625,
+            "y": -88,
+            "width": 409.59375,
+            "height": 32
+          }
+        }
+      ],
+      "blocks": [
+        {
+          "tag": "INPUT",
+          "className": "bw-doc-title",
+          "text": "",
+          "x": 990.390625,
+          "y": -183,
+          "width": 377.59375,
+          "height": 48
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "Only B owns cobaltwitness.",
+          "x": 990.390625,
+          "y": -121,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "FIGURE",
+          "className": "bp-canvas-image",
+          "text": "No image yet — paste or drop a picture, or enter a URL below",
+          "x": 974.390625,
+          "y": -91,
+          "width": 409.59375,
+          "height": 83.453125
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 0.",
+          "x": 990.390625,
+          "y": -7.546875,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 1.",
+          "x": 990.390625,
+          "y": 22.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 2.",
+          "x": 990.390625,
+          "y": 52.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 3.",
+          "x": 990.390625,
+          "y": 82.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 4.",
+          "x": 990.390625,
+          "y": 112.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 5.",
+          "x": 990.390625,
+          "y": 142.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 6.",
+          "x": 990.390625,
+          "y": 172.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 7.",
+          "x": 990.390625,
+          "y": 202.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 8.",
+          "x": 990.390625,
+          "y": 232.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 9.",
+          "x": 990.390625,
+          "y": 262.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 10.",
+          "x": 990.390625,
+          "y": 292.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 11.",
+          "x": 990.390625,
+          "y": 322.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 12.",
+          "x": 990.390625,
+          "y": 352.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 13.",
+          "x": 990.390625,
+          "y": 382.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 14.",
+          "x": 990.390625,
+          "y": 412.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 15.",
+          "x": 990.390625,
+          "y": 442.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 16.",
+          "x": 990.390625,
+          "y": 472.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 17.",
+          "x": 990.390625,
+          "y": 502.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 18.",
+          "x": 990.390625,
+          "y": 532.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 19.",
+          "x": 990.390625,
+          "y": 562.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 20.",
+          "x": 990.390625,
+          "y": 592.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 21.",
+          "x": 990.390625,
+          "y": 622.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 22.",
+          "x": 990.390625,
+          "y": 652.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 23.",
+          "x": 990.390625,
+          "y": 682.453125,
+          "width": 377.59375,
+          "height": 30
+        }
+      ]
+    },
+    "restartBeforeImageSettle": {
+      "scrollTop": 390,
+      "scrollHeight": 1439,
+      "clientHeight": 756,
+      "scroller": {
+        "x": 934.390625,
+        "y": 79,
+        "width": 489.59375,
+        "height": 756
+      },
+      "anchor": {
+        "text": "B reading position 4.",
+        "x": 990.390625,
+        "y": 82.453125,
+        "width": 377.59375,
+        "height": 30
+      },
+      "text": "Only B owns cobaltwitness.\n\nB reading position 0.\n\nB reading position 1.\n\nB reading position 2.\n\nB reading position 3.\n\nB reading position 4.\n\nB reading position 5.\n\nB reading position 6.\n\nB reading position 7.\n\nB reading position 8.\n\nB reading position 9.\n\nB reading position 10.\n\nB reading position 11.\n\nB reading position 12.\n\nB reading position 13.\n\nB reading position 14.\n\nB reading position 15.\n\nB reading position 16.\n\nB reading position 17.\n\nB reading position 18.\n\nB reading position 19.\n\nB reading position 20.\n\nB reading position 21.\n\nB reading position 22.\n\nB reading position 23.",
+      "footer": [
+        {
+          "id": "links",
+          "text": "",
+          "x": 990.390625,
+          "y": 967.953125,
+          "width": 377.59375,
+          "height": 19
+        },
+        {
+          "id": "state",
+          "text": "Edits go straight to Barkpark through the fenced ops endpoint. Each batch is saved with the paper's revision; a clash with another writer shows up here instead of overwriting.",
+          "x": 990.390625,
+          "y": 1018.953125,
+          "width": 377.59375,
+          "height": 49.5
+        }
+      ],
+      "images": [
+        {
+          "complete": true,
+          "naturalWidth": 32,
+          "naturalHeight": 32,
+          "rect": {
+            "x": 974.390625,
+            "y": -118,
+            "width": 32,
+            "height": 32
+          },
+          "parent": {
+            "x": 974.390625,
+            "y": -118,
+            "width": 409.59375,
+            "height": 32
+          }
+        }
+      ],
+      "blocks": [
+        {
+          "tag": "INPUT",
+          "className": "bw-doc-title",
+          "text": "",
+          "x": 990.390625,
+          "y": -213,
+          "width": 377.59375,
+          "height": 48
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "Only B owns cobaltwitness.",
+          "x": 990.390625,
+          "y": -151,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "FIGURE",
+          "className": "bp-canvas-image",
+          "text": "No image yet — paste or drop a picture, or enter a URL below",
+          "x": 974.390625,
+          "y": -121,
+          "width": 409.59375,
+          "height": 83.453125
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 0.",
+          "x": 990.390625,
+          "y": -37.546875,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 1.",
+          "x": 990.390625,
+          "y": -7.546875,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 2.",
+          "x": 990.390625,
+          "y": 22.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 3.",
+          "x": 990.390625,
+          "y": 52.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 4.",
+          "x": 990.390625,
+          "y": 82.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 5.",
+          "x": 990.390625,
+          "y": 112.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 6.",
+          "x": 990.390625,
+          "y": 142.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 7.",
+          "x": 990.390625,
+          "y": 172.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 8.",
+          "x": 990.390625,
+          "y": 202.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 9.",
+          "x": 990.390625,
+          "y": 232.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 10.",
+          "x": 990.390625,
+          "y": 262.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 11.",
+          "x": 990.390625,
+          "y": 292.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 12.",
+          "x": 990.390625,
+          "y": 322.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 13.",
+          "x": 990.390625,
+          "y": 352.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 14.",
+          "x": 990.390625,
+          "y": 382.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 15.",
+          "x": 990.390625,
+          "y": 412.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 16.",
+          "x": 990.390625,
+          "y": 442.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 17.",
+          "x": 990.390625,
+          "y": 472.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 18.",
+          "x": 990.390625,
+          "y": 502.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 19.",
+          "x": 990.390625,
+          "y": 532.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 20.",
+          "x": 990.390625,
+          "y": 562.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 21.",
+          "x": 990.390625,
+          "y": 592.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 22.",
+          "x": 990.390625,
+          "y": 622.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 23.",
+          "x": 990.390625,
+          "y": 652.453125,
+          "width": 377.59375,
+          "height": 30
+        }
+      ]
+    },
+    "restartAfterImagesBeforeHistory": {
+      "scrollTop": 390,
+      "scrollHeight": 1439,
+      "clientHeight": 756,
+      "scroller": {
+        "x": 934.390625,
+        "y": 79,
+        "width": 489.59375,
+        "height": 756
+      },
+      "anchor": {
+        "text": "B reading position 4.",
+        "x": 990.390625,
+        "y": 82.453125,
+        "width": 377.59375,
+        "height": 30
+      },
+      "text": "Only B owns cobaltwitness.\n\nB reading position 0.\n\nB reading position 1.\n\nB reading position 2.\n\nB reading position 3.\n\nB reading position 4.\n\nB reading position 5.\n\nB reading position 6.\n\nB reading position 7.\n\nB reading position 8.\n\nB reading position 9.\n\nB reading position 10.\n\nB reading position 11.\n\nB reading position 12.\n\nB reading position 13.\n\nB reading position 14.\n\nB reading position 15.\n\nB reading position 16.\n\nB reading position 17.\n\nB reading position 18.\n\nB reading position 19.\n\nB reading position 20.\n\nB reading position 21.\n\nB reading position 22.\n\nB reading position 23.",
+      "footer": [
+        {
+          "id": "links",
+          "text": "",
+          "x": 990.390625,
+          "y": 967.953125,
+          "width": 377.59375,
+          "height": 19
+        },
+        {
+          "id": "state",
+          "text": "Edits go straight to Barkpark through the fenced ops endpoint. Each batch is saved with the paper's revision; a clash with another writer shows up here instead of overwriting.",
+          "x": 990.390625,
+          "y": 1018.953125,
+          "width": 377.59375,
+          "height": 49.5
+        }
+      ],
+      "images": [
+        {
+          "complete": true,
+          "naturalWidth": 32,
+          "naturalHeight": 32,
+          "rect": {
+            "x": 974.390625,
+            "y": -118,
+            "width": 32,
+            "height": 32
+          },
+          "parent": {
+            "x": 974.390625,
+            "y": -118,
+            "width": 409.59375,
+            "height": 32
+          }
+        }
+      ],
+      "blocks": [
+        {
+          "tag": "INPUT",
+          "className": "bw-doc-title",
+          "text": "",
+          "x": 990.390625,
+          "y": -213,
+          "width": 377.59375,
+          "height": 48
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "Only B owns cobaltwitness.",
+          "x": 990.390625,
+          "y": -151,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "FIGURE",
+          "className": "bp-canvas-image",
+          "text": "No image yet — paste or drop a picture, or enter a URL below",
+          "x": 974.390625,
+          "y": -121,
+          "width": 409.59375,
+          "height": 83.453125
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 0.",
+          "x": 990.390625,
+          "y": -37.546875,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 1.",
+          "x": 990.390625,
+          "y": -7.546875,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 2.",
+          "x": 990.390625,
+          "y": 22.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 3.",
+          "x": 990.390625,
+          "y": 52.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 4.",
+          "x": 990.390625,
+          "y": 82.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 5.",
+          "x": 990.390625,
+          "y": 112.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 6.",
+          "x": 990.390625,
+          "y": 142.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 7.",
+          "x": 990.390625,
+          "y": 172.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 8.",
+          "x": 990.390625,
+          "y": 202.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 9.",
+          "x": 990.390625,
+          "y": 232.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 10.",
+          "x": 990.390625,
+          "y": 262.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 11.",
+          "x": 990.390625,
+          "y": 292.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 12.",
+          "x": 990.390625,
+          "y": 322.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 13.",
+          "x": 990.390625,
+          "y": 352.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 14.",
+          "x": 990.390625,
+          "y": 382.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 15.",
+          "x": 990.390625,
+          "y": 412.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 16.",
+          "x": 990.390625,
+          "y": 442.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 17.",
+          "x": 990.390625,
+          "y": 472.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 18.",
+          "x": 990.390625,
+          "y": 502.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 19.",
+          "x": 990.390625,
+          "y": 532.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 20.",
+          "x": 990.390625,
+          "y": 562.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 21.",
+          "x": 990.390625,
+          "y": 592.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 22.",
+          "x": 990.390625,
+          "y": 622.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 23.",
+          "x": 990.390625,
+          "y": 652.453125,
+          "width": 377.59375,
+          "height": 30
+        }
+      ]
+    },
+    "restartAfterImageSettle": {
+      "scrollTop": 360,
+      "scrollHeight": 1506,
+      "clientHeight": 756,
+      "scroller": {
+        "x": 934.390625,
+        "y": 79,
+        "width": 489.59375,
+        "height": 756
+      },
+      "anchor": {
+        "text": "B reading position 4.",
+        "x": 990.390625,
+        "y": 112.453125,
+        "width": 377.59375,
+        "height": 30
+      },
+      "text": "Only B owns cobaltwitness.\n\nB reading position 0.\n\nB reading position 1.\n\nB reading position 2.\n\nB reading position 3.\n\nB reading position 4.\n\nB reading position 5.\n\nB reading position 6.\n\nB reading position 7.\n\nB reading position 8.\n\nB reading position 9.\n\nB reading position 10.\n\nB reading position 11.\n\nB reading position 12.\n\nB reading position 13.\n\nB reading position 14.\n\nB reading position 15.\n\nB reading position 16.\n\nB reading position 17.\n\nB reading position 18.\n\nB reading position 19.\n\nB reading position 20.\n\nB reading position 21.\n\nB reading position 22.\n\nB reading position 23.",
+      "footer": [
+        {
+          "id": "links",
+          "text": "HISTORY\nrev 3c20536c\nbarkpark ·",
+          "x": 990.390625,
+          "y": 997.953125,
+          "width": 377.59375,
+          "height": 85.28125
+        },
+        {
+          "id": "state",
+          "text": "Edits go straight to Barkpark through the fenced ops endpoint. Each batch is saved with the paper's revision; a clash with another writer shows up here instead of overwriting.",
+          "x": 990.390625,
+          "y": 1115.234375,
+          "width": 377.59375,
+          "height": 49.5
+        }
+      ],
+      "images": [
+        {
+          "complete": true,
+          "naturalWidth": 32,
+          "naturalHeight": 32,
+          "rect": {
+            "x": 974.390625,
+            "y": -88,
+            "width": 32,
+            "height": 32
+          },
+          "parent": {
+            "x": 974.390625,
+            "y": -88,
+            "width": 409.59375,
+            "height": 32
+          }
+        }
+      ],
+      "blocks": [
+        {
+          "tag": "INPUT",
+          "className": "bw-doc-title",
+          "text": "",
+          "x": 990.390625,
+          "y": -183,
+          "width": 377.59375,
+          "height": 48
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "Only B owns cobaltwitness.",
+          "x": 990.390625,
+          "y": -121,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "FIGURE",
+          "className": "bp-canvas-image",
+          "text": "No image yet — paste or drop a picture, or enter a URL below",
+          "x": 974.390625,
+          "y": -91,
+          "width": 409.59375,
+          "height": 83.453125
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 0.",
+          "x": 990.390625,
+          "y": -7.546875,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 1.",
+          "x": 990.390625,
+          "y": 22.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 2.",
+          "x": 990.390625,
+          "y": 52.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 3.",
+          "x": 990.390625,
+          "y": 82.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 4.",
+          "x": 990.390625,
+          "y": 112.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 5.",
+          "x": 990.390625,
+          "y": 142.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 6.",
+          "x": 990.390625,
+          "y": 172.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 7.",
+          "x": 990.390625,
+          "y": 202.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 8.",
+          "x": 990.390625,
+          "y": 232.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 9.",
+          "x": 990.390625,
+          "y": 262.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 10.",
+          "x": 990.390625,
+          "y": 292.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 11.",
+          "x": 990.390625,
+          "y": 322.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 12.",
+          "x": 990.390625,
+          "y": 352.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 13.",
+          "x": 990.390625,
+          "y": 382.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 14.",
+          "x": 990.390625,
+          "y": 412.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 15.",
+          "x": 990.390625,
+          "y": 442.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 16.",
+          "x": 990.390625,
+          "y": 472.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 17.",
+          "x": 990.390625,
+          "y": 502.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 18.",
+          "x": 990.390625,
+          "y": 532.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 19.",
+          "x": 990.390625,
+          "y": 562.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 20.",
+          "x": 990.390625,
+          "y": 592.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 21.",
+          "x": 990.390625,
+          "y": 622.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 22.",
+          "x": 990.390625,
+          "y": 652.453125,
+          "width": 377.59375,
+          "height": 30
+        },
+        {
+          "tag": "P",
+          "className": "",
+          "text": "B reading position 23.",
+          "x": 990.390625,
+          "y": 682.453125,
+          "width": 377.59375,
+          "height": 30
+        }
+      ]
+    }
+  },
+  "mcpEdit": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Saved edit to bp:same-slug at revision 2. Applied directly; Undo is available in the document."
+      }
+    ]
+  },
+  "searchLimit": "Upstream may return B-owned fuzzy fallback hits for unmatched A term; tested owner/content isolation, not exact-match relevance.",
+  "positionAuthority": {
+    "beforeReturnToB": {
+      "persisted": 360,
+      "renderer": {
+        "profileId": "68c8311d-7cc6-453b-a95c-21c094851040",
+        "saved": 0,
+        "dom": 0,
+        "canvasReady": true
+      }
+    },
+    "returnToBBeforeCanvas": {
+      "persisted": 360,
+      "renderer": {
+        "profileId": "806bd761-a8ba-4ad3-bb06-79d00b2d6c05",
+        "saved": 360,
+        "canvasReady": false
+      }
+    },
+    "returnToBAfterLayout": {
+      "persisted": 360,
+      "renderer": {
+        "profileId": "806bd761-a8ba-4ad3-bb06-79d00b2d6c05",
+        "saved": 360,
+        "dom": 360,
+        "canvasReady": true
+      }
+    },
+    "afterQuit": {
+      "persisted": 360,
+      "renderer": null
+    }
+  },
+  "restartGeometry": {
+    "width": 1424,
+    "height": 835
+  },
+  "restartScroll": {
+    "expected": 360,
+    "actual": 360
+  },
+  "ownedProcessReceipts": [
+    {
+      "profileId": "68c8311d-7cc6-453b-a95c-21c094851040",
+      "attemptId": "7f89051b-acfc-4753-93f4-286855562906",
+      "phase": "stopped",
+      "containment": "job-list-v1",
+      "activeProcesses": 0
+    }
+  ],
+  "cleanupErrors": [],
+  "finishedAt": "2026-09-22T04:08:58.472Z",
+  "mcpDiagnostics": []
+}

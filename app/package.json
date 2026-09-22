@@ -58,7 +58,8 @@
     "test:adoption-repeat": "npm run build && node tests/adoption-repeat-ui.live.mjs",
     "test:project-file-authority": "node tests/project-file-authority.test.mjs",
     "test:project-file-authority:live": "node tests/project-file-authority.live.mjs",
-    "test:canvas-cache": "node --test tests/canvas-bundle.test.mjs && node tests/canvas-bundle.live.mjs"
+    "test:canvas-cache": "node --test tests/canvas-bundle.test.mjs && node tests/canvas-bundle.live.mjs",
+    "test:profile-isolation": "npm run build && node tests/profile-isolation-ui.live.mjs"
   },
   "engines": {
     "node": ">=22.13.1"

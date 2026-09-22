@@ -1,0 +1,42 @@
+{
+  "sourceCommit": "8061e42f56054ad42b910bc4ca663fc302dd9495",
+  "sourceDirty": false,
+  "barkparkCommit": "a5440345caa413087ac6488cac67f19fce58fa0f",
+  "barkparkDirty": false,
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-profile-isolation-frZiEt",
+  "checks": [
+    "Actual app runs A/B concurrently; B same-slug Paper/media/favorites and reading position remain B-owned"
+  ],
+  "frames": [
+    "01-A-running.png",
+    "02-B-before-A-completion.png",
+    "failure-state.png"
+  ],
+  "stopped": true,
+  "modelDecisions": "deterministic HTTP text turn retains real run lease; separate actual stdio MCP read/edit uses immutable A connection, not API remote tool support",
+  "initialGeometry": {
+    "width": 1424,
+    "height": 835
+  },
+  "mcpEdit": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Saved edit to bp:same-slug at revision 2. Applied directly; Undo is available in the document."
+      }
+    ]
+  },
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n390 !== 360\n\n    at file:///C:/Users/Frikk/.codex/worktrees/barkdown-profile-isolation/app/tests/profile-isolation-ui.live.mjs:105:10",
+  "ownedProcessReceipts": [
+    {
+      "profileId": "5756a8f6-07da-4d6a-8ffa-06dcbe262876",
+      "attemptId": "ce2046ba-0421-4592-969f-48f06e678496",
+      "phase": "stopped",
+      "containment": "job-list-v1",
+      "activeProcesses": 0
+    }
+  ],
+  "cleanupErrors": [],
+  "finishedAt": "2026-09-22T01:57:14.520Z",
+  "mcpDiagnostics": []
+}

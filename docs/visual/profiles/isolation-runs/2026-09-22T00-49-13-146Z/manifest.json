@@ -1,0 +1,25 @@
+{
+  "sourceCommit": "aa85a851d05b01c978559cc11ccb10fc610d2707",
+  "sourceDirty": false,
+  "barkparkCommit": "a5440345caa413087ac6488cac67f19fce58fa0f",
+  "barkparkDirty": false,
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-profile-isolation-erK7BA",
+  "checks": [
+    "Actual app runs A/B concurrently; B same-slug Paper/media/favorites and reading position remain B-owned",
+    "Late real MCP edit/receipt and separately held API transcript stay A; B draft/context/scroll/search unchanged and A Undo rejected",
+    "Returning A restores its cache/favorite/receipt; guarded Undo affects only matching A revision"
+  ],
+  "frames": [
+    "01-A-running.png",
+    "02-B-before-A-completion.png",
+    "03-B-after-A-completion.png",
+    "04-A-owned-receipt.png",
+    "05-A-undo.png"
+  ],
+  "stopped": true,
+  "modelDecisions": "deterministic HTTP text turn retains real run lease; separate actual stdio MCP read/edit uses immutable A connection, not API remote tool support",
+  "searchLimit": "Upstream may return B-owned fuzzy fallback hits for unmatched A term; tested owner/content isolation, not exact-match relevance.",
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n390 !== 360\n\n    at file:///C:/Users/Frikk/.codex/worktrees/barkdown-profile-isolation/app/tests/profile-isolation-ui.live.mjs:126:10",
+  "cleanupErrors": [],
+  "finishedAt": "2026-09-22T00:53:38.083Z"
+}
