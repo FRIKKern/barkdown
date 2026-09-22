@@ -92,3 +92,8 @@ Revision-checked cell patches and exact structured reads preserve headerless/mul
 ## E006 aligned Markdown paste
 
 Upstream `9803bbe5e` preserves GFM center/right alignment, marks, links and literal pipes. Actual Paper paste, native Undo/redo, subsequent human edit and server reload passed at Barkdown harness `c22c0d3`. [Reviewed evidence](visual/markdown-paste/README.md). Upstream full-suite JSDOM save-ack baseline and default bundle integration remain open; no merge or deployment.
+
+
+## E007 HTML table paste
+
+Upstream `d8fda9690` and harness `fdf6b9e` preserve ordinary cell paragraphs/newlines, alignment, marks/links and supported body spans. Actual server-backed paste/history/human-edit/reload/recovery passed, including keyboard guidance at actual Electron 200% zoom. [Reviewed evidence](visual/html-table-paste/README.md) retains original failures and comparison, 11 live stills and continuous motion. Deterministic tour, real Codex status and root verification passed. E008's separate fixture-only full-suite repair does not change these production assets or close upstream merge gates.

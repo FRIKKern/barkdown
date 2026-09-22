@@ -1,0 +1,384 @@
+{
+  "_createdAt": "2026-09-22T02:51:36.719000Z",
+  "_draft": false,
+  "_id": "editor-html-table-paste",
+  "_publishedId": "editor-html-table-paste",
+  "_rev": "e13dc6a06a63d6ea62507a53941574d6",
+  "_type": "paper",
+  "_updatedAt": "2026-09-22T02:52:08.824000Z",
+  "blocks": [
+    {
+      "id": "block-0",
+      "level": 1,
+      "text": "Pasted HTML table fidelity",
+      "type": "heading"
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "value": "Paste below. These surrounding paragraphs stay intact."
+        }
+      ],
+      "id": "block-1",
+      "type": "paragraph"
+    },
+    {
+      "head": [
+        [
+          {
+            "type": "text",
+            "value": "Lines"
+          }
+        ],
+        {
+          "align": "center",
+          "content": [
+            {
+              "type": "text",
+              "value": "Center"
+            }
+          ]
+        },
+        {
+          "align": "right",
+          "content": [
+            {
+              "type": "text",
+              "value": "Right"
+            }
+          ]
+        }
+      ],
+      "id": "c-1-a633cab3",
+      "rows": [
+        [
+          [
+            {
+              "type": "text",
+              "value": "First paragraph\nSecond paragraph"
+            }
+          ],
+          {
+            "align": "center",
+            "content": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "bold"
+                  }
+                ],
+                "type": "strong"
+              }
+            ]
+          },
+          {
+            "align": "right",
+            "content": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "link"
+                  }
+                ],
+                "href": "https://example.com",
+                "type": "link"
+              }
+            ]
+          }
+        ],
+        [
+          [
+            {
+              "type": "text",
+              "value": "plain"
+            }
+          ],
+          {
+            "align": "center",
+            "content": [
+              {
+                "type": "text",
+                "value": "center value"
+              }
+            ]
+          },
+          {
+            "align": "right",
+            "content": [
+              {
+                "type": "text",
+                "value": "right value human"
+              }
+            ]
+          }
+        ]
+      ],
+      "type": "table"
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "value": "Between tables"
+        }
+      ],
+      "id": "c-2-0172c5bf",
+      "type": "paragraph"
+    },
+    {
+      "id": "c-3-57a611db",
+      "rows": [
+        [
+          [
+            {
+              "type": "text",
+              "value": "Headerless\nmultiline"
+            }
+          ],
+          [
+            {
+              "type": "text",
+              "value": "Top sibling"
+            }
+          ]
+        ],
+        [
+          [],
+          [
+            {
+              "type": "text",
+              "value": "Bottom sibling"
+            }
+          ]
+        ]
+      ],
+      "spans": [
+        {
+          "col": 0,
+          "colspan": 1,
+          "row": 0,
+          "rowspan": 2
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "value": "This paragraph must survive paste and Nested text retainedUndo."
+        }
+      ],
+      "id": "block-3",
+      "type": "paragraph"
+    }
+  ],
+  "body": {
+    "blocks": [
+      {
+        "id": "block-0",
+        "level": 1,
+        "text": "Pasted HTML table fidelity",
+        "type": "heading"
+      },
+      {
+        "content": [
+          {
+            "type": "text",
+            "value": "Paste below. These surrounding paragraphs stay intact."
+          }
+        ],
+        "id": "block-1",
+        "type": "paragraph"
+      },
+      {
+        "head": [
+          [
+            {
+              "type": "text",
+              "value": "Lines"
+            }
+          ],
+          {
+            "align": "center",
+            "content": [
+              {
+                "type": "text",
+                "value": "Center"
+              }
+            ]
+          },
+          {
+            "align": "right",
+            "content": [
+              {
+                "type": "text",
+                "value": "Right"
+              }
+            ]
+          }
+        ],
+        "id": "c-1-a633cab3",
+        "rows": [
+          [
+            [
+              {
+                "type": "text",
+                "value": "First paragraph\nSecond paragraph"
+              }
+            ],
+            {
+              "align": "center",
+              "content": [
+                {
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "bold"
+                    }
+                  ],
+                  "type": "strong"
+                }
+              ]
+            },
+            {
+              "align": "right",
+              "content": [
+                {
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "link"
+                    }
+                  ],
+                  "href": "https://example.com",
+                  "type": "link"
+                }
+              ]
+            }
+          ],
+          [
+            [
+              {
+                "type": "text",
+                "value": "plain"
+              }
+            ],
+            {
+              "align": "center",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "center value"
+                }
+              ]
+            },
+            {
+              "align": "right",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "right value human"
+                }
+              ]
+            }
+          ]
+        ],
+        "type": "table"
+      },
+      {
+        "content": [
+          {
+            "type": "text",
+            "value": "Between tables"
+          }
+        ],
+        "id": "c-2-0172c5bf",
+        "type": "paragraph"
+      },
+      {
+        "id": "c-3-57a611db",
+        "rows": [
+          [
+            [
+              {
+                "type": "text",
+                "value": "Headerless\nmultiline"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "value": "Top sibling"
+              }
+            ]
+          ],
+          [
+            [],
+            [
+              {
+                "type": "text",
+                "value": "Bottom sibling"
+              }
+            ]
+          ]
+        ],
+        "spans": [
+          {
+            "col": 0,
+            "colspan": 1,
+            "row": 0,
+            "rowspan": 2
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "content": [
+          {
+            "type": "text",
+            "value": "This paragraph must survive paste and Nested text retainedUndo."
+          }
+        ],
+        "id": "block-3",
+        "type": "paragraph"
+      }
+    ],
+    "html": "<h1>Pasted HTML table fidelity</h1><p>Paste below. These surrounding paragraphs stay intact.</p><table role=\"presentation\" class=\"bp-table\"><thead><tr><th class=\"bp-table__th\"><span>Lines</span></th><th class=\"bp-table__th\" style=\"text-align:center\"><span>Center</span></th><th class=\"bp-table__th\" style=\"text-align:right\"><span>Right</span></th></tr></thead><tbody><tr><td class=\"bp-table__td\"><span>First paragraph\nSecond paragraph</span></td><td class=\"bp-table__td\" style=\"text-align:center\"><span style=\"font-weight:bold\">bold</span></td><td class=\"bp-table__td\" style=\"text-align:right\"><a href=\"https://example.com\" style=\"color:var(--paper-accent, #1e5347)\">link</a></td></tr><tr><td class=\"bp-table__td\"><span>plain</span></td><td class=\"bp-table__td\" style=\"text-align:center\"><span>center value</span></td><td class=\"bp-table__td\" style=\"text-align:right\"><span>right value human</span></td></tr></tbody></table><p>Between tables</p><table role=\"presentation\" class=\"bp-table\"><tbody><tr><td class=\"bp-table__td\" rowspan=\"2\"><span>Headerless\nmultiline</span></td><td class=\"bp-table__td\"><span>Top sibling</span></td></tr><tr><td class=\"bp-table__td\"><span>Bottom sibling</span></td></tr></tbody></table><p>This paragraph must survive paste and Nested text retainedUndo.</p>"
+  },
+  "body_html": "<h1>Pasted HTML table fidelity</h1><p>Paste below. These surrounding paragraphs stay intact.</p><table role=\"presentation\" class=\"bp-table\"><thead><tr><th class=\"bp-table__th\"><span>Lines</span></th><th class=\"bp-table__th\" style=\"text-align:center\"><span>Center</span></th><th class=\"bp-table__th\" style=\"text-align:right\"><span>Right</span></th></tr></thead><tbody><tr><td class=\"bp-table__td\"><span>First paragraph\nSecond paragraph</span></td><td class=\"bp-table__td\" style=\"text-align:center\"><span style=\"font-weight:bold\">bold</span></td><td class=\"bp-table__td\" style=\"text-align:right\"><a href=\"https://example.com\" style=\"color:var(--paper-accent, #1e5347)\">link</a></td></tr><tr><td class=\"bp-table__td\"><span>plain</span></td><td class=\"bp-table__td\" style=\"text-align:center\"><span>center value</span></td><td class=\"bp-table__td\" style=\"text-align:right\"><span>right value human</span></td></tr></tbody></table><p>Between tables</p><table role=\"presentation\" class=\"bp-table\"><tbody><tr><td class=\"bp-table__td\" rowspan=\"2\"><span>Headerless\nmultiline</span></td><td class=\"bp-table__td\"><span>Top sibling</span></td></tr><tr><td class=\"bp-table__td\"><span>Bottom sibling</span></td></tr></tbody></table><p>This paragraph must survive paste and Nested text retainedUndo.</p>",
+  "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+  "description": "Disposable real Paper evidence for HTML table paste, native Undo and redo, a subsequent human edit, acknowledged save and reload.",
+  "main_tag": "barkdown",
+  "preview": {
+    "description": "Disposable real Paper evidence for HTML table paste, native Undo and redo, a subsequent human edit,…",
+    "extensions": {
+      "tags": [
+        "barkdown",
+        "scratch"
+      ]
+    },
+    "image": null,
+    "title": "Pasted HTML table fidelity",
+    "type": "paper",
+    "url": "/papers/editor-html-table-paste"
+  },
+  "rev": 6,
+  "style": "article",
+  "tags": [
+    {
+      "rationale": "owned editor regression",
+      "strength": 90,
+      "tag": "barkdown"
+    },
+    {
+      "rationale": "disposable editor paste fixture",
+      "strength": 40,
+      "tag": "scratch"
+    }
+  ],
+  "title": "Pasted HTML table fidelity"
+}

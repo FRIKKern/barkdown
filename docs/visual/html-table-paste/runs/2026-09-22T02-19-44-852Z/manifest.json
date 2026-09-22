@@ -1,0 +1,265 @@
+{
+  "sourceCommit": "f94fc5eea1afd21ac349edec90fde26b271afed0",
+  "sourceDirty": false,
+  "barkparkCommit": "d3ff08eae1b6b6deff8212150f3695dc26c17583",
+  "barkparkDirty": "false",
+  "server": "http://127.0.0.1:57905",
+  "buildFingerprint": "b9d87a3febe5e47d611a3e1d605854f6825e861590ee4a2b2fbf9a8b82552abb",
+  "editorBundle": {
+    "source": "server",
+    "server": "http://127.0.0.1:57905",
+    "version": "0.2.26.3913",
+    "sha": "a6be0468e1141463eb73ed0991f71979b98e2302",
+    "cssSha": "5bbd021c61d93dc167b98af4972149dd806e506c",
+    "fetchedAt": "2026-09-22T02:19:50.168Z"
+  },
+  "results": [
+    {
+      "name": "HTML table paste, native Undo/redo, human edit and reload",
+      "beforeRev": 1,
+      "pasteRev": 2,
+      "undoRev": 3,
+      "redoRev": 4,
+      "savedRev": 5,
+      "geometry": [
+        {
+          "text": "Lines",
+          "align": "left"
+        },
+        {
+          "text": "Center",
+          "align": "center"
+        },
+        {
+          "text": "Right",
+          "align": "right"
+        },
+        {
+          "text": "First paragraph\nSecond paragraph",
+          "align": "start"
+        },
+        {
+          "text": "bold",
+          "align": "center"
+        },
+        {
+          "text": "link",
+          "align": "right"
+        },
+        {
+          "text": "plain",
+          "align": "start"
+        },
+        {
+          "text": "center value",
+          "align": "center"
+        },
+        {
+          "text": "right value",
+          "align": "right"
+        },
+        {
+          "text": "Headerless\nmultiline",
+          "align": "start"
+        },
+        {
+          "text": "Top sibling",
+          "align": "start"
+        },
+        {
+          "text": "Bottom sibling",
+          "align": "start"
+        }
+      ],
+      "lineGeometry": {
+        "first": 348.40625,
+        "second": 368.703125,
+        "whiteSpace": "pre-wrap"
+      },
+      "fallbackRev": 6,
+      "blocks": [
+        {
+          "id": "block-0",
+          "level": 1,
+          "text": "Pasted HTML table fidelity",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Paste below. These surrounding paragraphs stay intact."
+            }
+          ],
+          "id": "block-1",
+          "type": "paragraph"
+        },
+        {
+          "head": [
+            [
+              {
+                "type": "text",
+                "value": "Lines"
+              }
+            ],
+            {
+              "align": "center",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Center"
+                }
+              ]
+            },
+            {
+              "align": "right",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Right"
+                }
+              ]
+            }
+          ],
+          "id": "c-1-3d236aac",
+          "rows": [
+            [
+              [
+                {
+                  "type": "text",
+                  "value": "First paragraph\nSecond paragraph"
+                }
+              ],
+              {
+                "align": "center",
+                "content": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "bold"
+                      }
+                    ],
+                    "type": "strong"
+                  }
+                ]
+              },
+              {
+                "align": "right",
+                "content": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "link"
+                      }
+                    ],
+                    "href": "https://example.com",
+                    "type": "link"
+                  }
+                ]
+              }
+            ],
+            [
+              [
+                {
+                  "type": "text",
+                  "value": "plain"
+                }
+              ],
+              {
+                "align": "center",
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "center value"
+                  }
+                ]
+              },
+              {
+                "align": "right",
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "right value human"
+                  }
+                ]
+              }
+            ]
+          ],
+          "type": "table"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Between tables"
+            }
+          ],
+          "id": "c-2-8e293462",
+          "type": "paragraph"
+        },
+        {
+          "id": "c-3-f6bec5c0",
+          "rows": [
+            [
+              [
+                {
+                  "type": "text",
+                  "value": "Headerless\nmultiline"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "value": "Top sibling"
+                }
+              ]
+            ],
+            [
+              [],
+              [
+                {
+                  "type": "text",
+                  "value": "Bottom sibling"
+                }
+              ]
+            ]
+          ],
+          "spans": [
+            {
+              "col": 0,
+              "colspan": 1,
+              "row": 0,
+              "rowspan": 2
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "This paragraph must survive paste and Undo.Nested text retained"
+            }
+          ],
+          "id": "block-3",
+          "type": "paragraph"
+        }
+      ]
+    }
+  ],
+  "artifacts": {
+    "01-before-paste.png": "76eca07c4515e6198a0983d9f5edb5b0d7bfd05f2f2cee9a36c8553cd9216b15",
+    "02-pasted.png": "653fa4817c98af272c5606145462dc5b39a5d4a737e4f758c0cc415872d85458",
+    "03-undone.png": "483a9a7460c0b6c3f7f29b18a6dd8769cef40666fa3dad74baff937beb9d1dc1",
+    "04-redone.png": "63e1ee7e899a541b19fd1acc7c119588a87c2f49d575cc727c06b3369cb43f9f",
+    "05-reloaded.png": "ba73e456a7af8f021d384b8c28e82d0360dd38b69b670ecd6919fec6e7e7b5e3",
+    "06-safe-fallback.png": "10737788033efb620f31605a6b09fb104d78565aa42185d4f836ff066a16537e",
+    "07-plain-text.png": "301e9fd3b4900c01f8e499da3a93495acc87cb0db06f809fe36453a7f4d1aaed",
+    "08-narrow.png": "096b44cd0f01844701aec04655c65ef365f1e6961d1c90d2f96fe0c4d0ec0cb7",
+    "html-table-paste.webm": "01445d4c5d2e08be04bcf36e4a34496ae1fb6fbfb0c82a9349722ce7553d5e3d",
+    "server.json": "4ec5ddac322ac4a4969795368a23874b266066c70ee366358dbf8462477b899a"
+  },
+  "motion": "Real production ClipboardEvent paste and native keyboard, actual Paper saves; no model turn."
+}
