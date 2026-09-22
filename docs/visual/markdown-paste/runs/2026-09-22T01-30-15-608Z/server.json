@@ -1,0 +1,290 @@
+{
+  "_createdAt": "2026-09-22T01:30:15.586000Z",
+  "_draft": false,
+  "_id": "editor-markdown-paste",
+  "_publishedId": "editor-markdown-paste",
+  "_rev": "3ec702954d7c5db91944694826f0f9df",
+  "_type": "paper",
+  "_updatedAt": "2026-09-22T01:30:37.860000Z",
+  "blocks": [
+    {
+      "id": "block-0",
+      "level": 1,
+      "text": "Pasted table alignment",
+      "type": "heading"
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "value": "Paste below. These surrounding paragraphs stay intact."
+        }
+      ],
+      "id": "block-1",
+      "type": "paragraph"
+    },
+    {
+      "head": [
+        [
+          {
+            "type": "text",
+            "value": "Left"
+          }
+        ],
+        {
+          "align": "center",
+          "content": [
+            {
+              "type": "text",
+              "value": "Center"
+            }
+          ]
+        },
+        {
+          "align": "right",
+          "content": [
+            {
+              "type": "text",
+              "value": "Right"
+            }
+          ]
+        }
+      ],
+      "id": "m-1-4d515c80",
+      "rows": [
+        [
+          [
+            {
+              "type": "text",
+              "value": "pipe | value"
+            }
+          ],
+          {
+            "align": "center",
+            "content": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "bold"
+                  }
+                ],
+                "type": "strong"
+              }
+            ]
+          },
+          {
+            "align": "right",
+            "content": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "link"
+                  }
+                ],
+                "href": "https://example.com",
+                "type": "link"
+              }
+            ]
+          }
+        ],
+        [
+          [
+            {
+              "type": "text",
+              "value": "plain"
+            }
+          ],
+          {
+            "align": "center",
+            "content": [
+              {
+                "type": "text",
+                "value": "center value"
+              }
+            ]
+          },
+          {
+            "align": "right",
+            "content": [
+              {
+                "type": "text",
+                "value": "right value human"
+              }
+            ]
+          }
+        ]
+      ],
+      "type": "table"
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "value": "This paragraph must survive paste and Undo."
+        }
+      ],
+      "id": "block-3",
+      "type": "paragraph"
+    }
+  ],
+  "body": {
+    "blocks": [
+      {
+        "id": "block-0",
+        "level": 1,
+        "text": "Pasted table alignment",
+        "type": "heading"
+      },
+      {
+        "content": [
+          {
+            "type": "text",
+            "value": "Paste below. These surrounding paragraphs stay intact."
+          }
+        ],
+        "id": "block-1",
+        "type": "paragraph"
+      },
+      {
+        "head": [
+          [
+            {
+              "type": "text",
+              "value": "Left"
+            }
+          ],
+          {
+            "align": "center",
+            "content": [
+              {
+                "type": "text",
+                "value": "Center"
+              }
+            ]
+          },
+          {
+            "align": "right",
+            "content": [
+              {
+                "type": "text",
+                "value": "Right"
+              }
+            ]
+          }
+        ],
+        "id": "m-1-4d515c80",
+        "rows": [
+          [
+            [
+              {
+                "type": "text",
+                "value": "pipe | value"
+              }
+            ],
+            {
+              "align": "center",
+              "content": [
+                {
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "bold"
+                    }
+                  ],
+                  "type": "strong"
+                }
+              ]
+            },
+            {
+              "align": "right",
+              "content": [
+                {
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "link"
+                    }
+                  ],
+                  "href": "https://example.com",
+                  "type": "link"
+                }
+              ]
+            }
+          ],
+          [
+            [
+              {
+                "type": "text",
+                "value": "plain"
+              }
+            ],
+            {
+              "align": "center",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "center value"
+                }
+              ]
+            },
+            {
+              "align": "right",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "right value human"
+                }
+              ]
+            }
+          ]
+        ],
+        "type": "table"
+      },
+      {
+        "content": [
+          {
+            "type": "text",
+            "value": "This paragraph must survive paste and Undo."
+          }
+        ],
+        "id": "block-3",
+        "type": "paragraph"
+      }
+    ],
+    "html": "<h1>Pasted table alignment</h1><p>Paste below. These surrounding paragraphs stay intact.</p><table role=\"presentation\" class=\"bp-table\"><thead><tr><th class=\"bp-table__th\"><span>Left</span></th><th class=\"bp-table__th\" style=\"text-align:center\"><span>Center</span></th><th class=\"bp-table__th\" style=\"text-align:right\"><span>Right</span></th></tr></thead><tbody><tr><td class=\"bp-table__td\"><span>pipe | value</span></td><td class=\"bp-table__td\" style=\"text-align:center\"><span style=\"font-weight:bold\">bold</span></td><td class=\"bp-table__td\" style=\"text-align:right\"><a href=\"https://example.com\" style=\"color:var(--paper-accent, #1e5347)\">link</a></td></tr><tr><td class=\"bp-table__td\"><span>plain</span></td><td class=\"bp-table__td\" style=\"text-align:center\"><span>center value</span></td><td class=\"bp-table__td\" style=\"text-align:right\"><span>right value human</span></td></tr></tbody></table><p>This paragraph must survive paste and Undo.</p>"
+  },
+  "body_html": "<h1>Pasted table alignment</h1><p>Paste below. These surrounding paragraphs stay intact.</p><table role=\"presentation\" class=\"bp-table\"><thead><tr><th class=\"bp-table__th\"><span>Left</span></th><th class=\"bp-table__th\" style=\"text-align:center\"><span>Center</span></th><th class=\"bp-table__th\" style=\"text-align:right\"><span>Right</span></th></tr></thead><tbody><tr><td class=\"bp-table__td\"><span>pipe | value</span></td><td class=\"bp-table__td\" style=\"text-align:center\"><span style=\"font-weight:bold\">bold</span></td><td class=\"bp-table__td\" style=\"text-align:right\"><a href=\"https://example.com\" style=\"color:var(--paper-accent, #1e5347)\">link</a></td></tr><tr><td class=\"bp-table__td\"><span>plain</span></td><td class=\"bp-table__td\" style=\"text-align:center\"><span>center value</span></td><td class=\"bp-table__td\" style=\"text-align:right\"><span>right value human</span></td></tr></tbody></table><p>This paragraph must survive paste and Undo.</p>",
+  "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+  "description": "Disposable real Paper evidence for aligned Markdown paste, native Undo and redo, a subsequent human edit, acknowledged save and reload.",
+  "main_tag": "barkdown",
+  "preview": {
+    "description": "Disposable real Paper evidence for aligned Markdown paste, native Undo and redo, a subsequent human edit,…",
+    "extensions": {
+      "tags": [
+        "barkdown",
+        "scratch"
+      ]
+    },
+    "image": null,
+    "title": "Pasted table alignment",
+    "type": "paper",
+    "url": "/papers/editor-markdown-paste"
+  },
+  "rev": 5,
+  "style": "article",
+  "tags": [
+    {
+      "rationale": "owned editor regression",
+      "strength": 90,
+      "tag": "barkdown"
+    },
+    {
+      "rationale": "disposable editor paste fixture",
+      "strength": 40,
+      "tag": "scratch"
+    }
+  ],
+  "title": "Pasted table alignment"
+}

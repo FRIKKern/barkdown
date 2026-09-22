@@ -41,3 +41,7 @@ Source commit: 82cc6229a4c67900d111cd1a700d369b8b757e5f; platform: win32; Electr
 ## Live evidence and gaps
 
 The existing [Paper editor gallery](../images/status/manifest.json) includes a live editor GIF and server provenance. Separate live walkthroughs for agent editing, files/reviews, recovery and profile switching remain outstanding. New behavior must add its journey here before claiming full visual coverage.
+
+## Aligned Markdown table paste — original E006 evidence
+
+[Reviewed paste, save, Undo, redo and reload journey](markdown-paste/README.md) is imported from editor evidence `d2e356c`, captured against Barkdown `c22c0d3` and upstream `9803bbe5e`. It is original lane evidence; combined integration verification remains pending. The upstream mounted JSDOM save-ack baseline failure remains documented.
