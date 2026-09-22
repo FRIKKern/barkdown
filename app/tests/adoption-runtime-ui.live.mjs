@@ -21,7 +21,7 @@ fs.writeFileSync(path.join(legacy, 'local-credentials.json'), credentials);
 fs.writeFileSync(path.join(legacy, 'settings.json'), JSON.stringify({ provider: 'api', barkpark: { enabled: true, writes: true, viaCli: false, local: { ...config, enabled: true } } }));
 const attachment = path.join(legacy, 'attachments', 'original.png'); fs.writeFileSync(attachment, tinyPng(32, 32, [40, 140, 80]));
 fs.writeFileSync(path.join(legacy, 'workspace.json'), JSON.stringify({ version: 1, current: 'parent', order: ['parent', 'side'], chats: {
-  parent: { id: 'parent', title: 'Adopted working notes', folder: null, messages: [], events: [], apiHistory: [], following: true, tabs: [], draft: 'Preserved parent draft', images: [attachment] },
+  parent: { id: 'parent', title: 'Adopted working notes', folder: null, messages: [], events: [], apiHistory: [], following: true, tabs: [], draft: 'Preserved parent draft', images: [attachment], draftImages: [{ id: 'original', path: attachment, url: 'file:///' + attachment.replaceAll('\\', '/'), name: 'original.png', mime: 'image/png', size: fs.statSync(attachment).size }] },
   side: { id: 'side', title: 'Saved side conversation', side: true, parent: 'parent', messages: [], events: [], apiHistory: [], following: true, tabs: [], draft: 'Preserved side draft' },
 } }));
 const { LocalBarkpark } = require('../main/local-barkpark'), { SourceDriver } = require('../main/local-barkpark-source');
@@ -61,6 +61,8 @@ try {
   assert.equal(loaded.ws.chats.side.parent, 'parent'); assert.equal(loaded.ws.chats.side.draft, 'Preserved side draft');
   assert.equal(loaded.ws.chats.parent.draft, 'Preserved parent draft');
   assert(loaded.ws.chats.parent.images[0].startsWith(profileDir)); assert(fs.existsSync(loaded.ws.chats.parent.images[0]));
+  assert(loaded.ws.chats.parent.draftImages[0].path.startsWith(profileDir));
+  await page.waitForFunction(() => { const image = document.querySelector('#bw-attachments img'); return image?.complete && image.naturalWidth === 32; });
   assert.equal(fs.readFileSync(path.join(profileDir, 'local-credentials.json'), 'utf8'), credentials);
   assert.deepEqual(Buffer.from(await (await fetch(media.src)).arrayBuffer()), fs.readFileSync(attachment));
   await shot('03-adopted-paper');
