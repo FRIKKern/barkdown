@@ -33,3 +33,7 @@ Source fc01c02, upstream8eb69ff58, privateKjnh2e/session97860:10/13 failed overa
 ## Native list contract clarification
 
 Upstream canvas/index.js1766 explicitly handles first-item Backspace as a lift, before native ProseMirror joining. Retain the lift oracle; the previous join observation is not grounds to redefine the expected behavior. Next diagnostic captures selection depth, ancestor indices and parent offset immediately after Home/before Backspace. No production modification or new native pass.
+
+## Corrected editor native checkpoint — 07:04 UTC
+
+Sourcec270bdc against builtbf23f773c (bundle3a94), session51082/privateYUZK4y: **12/13**, original15hashes verified. HTML paste Undo/Redo now passes exact rich content and new server revisions. The sole failure is the post-ack list-lift oracle: the new top-level paragraph correctly gains bpType paragraph while the expected nested carrier still says null. Immediate pre-ack comparison passed; full sibling/mark/content/ID/server checks otherwise agree. Also Home selection can settle after key delivery; next fixture waits for actual parentOffset0 rather than assuming synchronous native selection. No product change for that oracle correction. Owned runtime stopped/postmaster absent.
