@@ -111,3 +111,7 @@ Combined E002 motion review is complete:8 stills,92 full-video samples at1fps an
 [HTML paste evidence](visual/html-table-paste/README.md) retains exact fdf6b9e/d8fda9690 live server/history/reload/200% recovery, original failures and reviewed motion. The global status/visual approval remains unchanged; archived E007-fdf6b9e status manifest and its review preserve actual attribution. [E008](cycles/E008-fixture-events.md) records upstream d24c7a094 full-suite success with test-only scheduling repair and unchanged runtime assets. These are original lane passes; combined candidate validation is pending and d8acb82 remains the verified fallback.
 
 E009 imports original1a9faf3 evidence for Barkdown25cb114 and connected upstream3495, including native run38052 and archived status66890. No live test was rerun during import, no fallback/pin changed, and no combined approval inferred. [Native review](visual/rich-clipboard/runs/2026-09-22T04-50-27-798Z/review.json).
+
+## C033 context reservation
+
+Source100e539:15controlled acquisition/dispatch cases PASS for ordinary followup and real goal adapter/repository; stale context refuses, leases release once, newer draft/folder retained, no old-session overwrite. Related goal15cases, workspace/profile/recovery/send and deterministic worker integration pass. Desktop build passed; root verify blocked by source screenshot freshness100e539/e380385. [Handoff and raw logs](cycles/C033-context-reservation.md). No native runtime or final combined pass claimed.

@@ -1,5 +1,7 @@
 # Continue the dependable-workspace plan
 
+**C033 isolated source100e539:** stale chat context across runtime acquisition now refuses before reservation in ordinary and goal paths.15controlled race cases and related suites pass; final combined gates pending. See [C033](cycles/C033-context-reservation.md). Preserve C032 ordinary-folder preflight when combining.
+
 **Current imported candidate:** `2b2ec11` on `codex/integration-12h` includes C016 reading-position restoration, C026 acknowledged send preservation, C028 parity exit enforcement and E009 fixture/original evidence, alongside C021/C023/C024/C025/C027 and the missing-folder API search correction. Original lane approvals retain their source boundaries; global fixture approval and status images are stale for this candidate. Fresh combined desktop, deterministic review, live and root gates remain pending. See [C008](cycles/C008-integration.md) and the [A1 evidence table](cycles/A1-current-evidence.md).
 
 **Last fully validated combined fallback:** `d8acb82`. Full desktop64608 passed at app source b083c60; visual-tooling source e380385 has40 reviewed fixture frames/GIFs, actual Codex/Paper status5397, and root verify86276 passed. Original lane proofs retain their own commits. No main merge or deployment; P1 is incomplete and real user data must not be migrated.
