@@ -42,7 +42,7 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
       const input = images?.length ? [{ type: 'text', text: text || 'See the attached image.' }, ...images.map(image => ({ type: 'local_image', path: image.path }))] : text;
       const { events } = await thread.runStreamed(input, { signal: run.abort.signal });
       const itemText = new Map();
-      let sawText = false;
+      let sawText = false, finalMessage = null;
       for await (const event of events) {
         if (run.cancelled) break;
         if (event.type === 'thread.started') run.emit({ type: 'status', session: event.thread_id });
@@ -54,7 +54,7 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
             else run.emit({ type: 'text_replace', text: item.text });
             itemText.set(item.id, item.text);
             sawText = true;
-            if (event.type === 'item.completed') run.emit({ type: 'text_break' });
+            if (event.type === 'item.completed') { finalMessage = { source: 'codex.item.completed', id: item.id, text: item.text }; run.emit({ type: 'text_break' }); }
           } else if (item.type === 'reasoning') {
             const previous = itemText.get(item.id) || '';
             if (item.text.startsWith(previous)) { const delta = item.text.slice(previous.length); if (delta) run.emit({ type: 'thinking_delta', text: delta }); }
@@ -87,7 +87,7 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
         else if (event.type === 'error') throw new Error(event.message || 'Codex error');
       }
       if (!sawText && !run.cancelled) run.emit({ type: 'text_delta', text: '(Codex finished without a message.)' });
-      run.emit({ type: 'done', cancelled: run.cancelled, session: thread.id, provider: 'codex' });
+      run.emit({ type: 'done', cancelled: run.cancelled, session: thread.id, provider: 'codex', finalMessage });
     } catch (error) {
       if (run.cancelled) run.emit({ type: 'done', cancelled: true, provider: 'codex' });
       else run.emit({ type: 'error', message: /auth|login|401|unauthori/i.test(error.message) ? 'Codex is not logged in. Run `codex login` in a terminal, then try again.' : error.message || String(error) });

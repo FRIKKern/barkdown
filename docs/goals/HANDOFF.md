@@ -1,5 +1,7 @@
 # Goal integration checkpoint — C008
 
+Current integration: C015 natural-language planning, three saved workers, exact-attempt evidence review and summary are imported from5dc188b/61eea4d. The follow-up uses explicit provider final-message provenance rather than mixing commentary with structured output. Original authenticated61ee Codex proof passed in its lane; fresh combined full/visual/live gates remain pending. C014 ordinary recovery remains integrated; no automatic replay or legacy activation. See [C015](../cycles/C015-goal-coordinator.md) and [C008](../cycles/C008-integration.md). Historical checkpoints below retain their original scope.
+
 This worktree is the combined candidate on `codex/integration-12h`, not the goal agent's original branch. The historical audit below describes earlier snapshots and does not override this checkpoint. See [C008](../cycles/C008-integration.md) for exact imports and validation.
 
 The opt-in `--profiles` desktop now exposes Conversation goals in the command palette. Three explicit assignments create saved worker side chats with parent links and shared controls. Main owns durable transcripts, provider context, deadline/dependency admission and review gating. Explicit Start/Resume captures pending workers' current choices; previous attempts retain their captured context. Native recursive delegation is disabled for goal workers.

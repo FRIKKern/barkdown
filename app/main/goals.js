@@ -362,6 +362,7 @@ class GoalScheduler {
   }
 
   halt(error) {
+    if (!this.fault && process.env.BARKDOWN_GOAL_DIAGNOSTICS === '1') console.error('Goal scheduler halted:', error.message);
     this.fault ||= error;
     for (const r of this.live.values()) r.abort.abort();
   }
