@@ -6,7 +6,7 @@ import path from 'node:path';
 import { spawnSync, execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 const app = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const scenarios = ['normal', 'append-only-evidence', 'dirty-runtime', 'dirty-host', 'signal-start', 'signal-capture', 'signal-cleanup', 'child-and-cleanup', 'stale-pid', 'report-failure', 'source-mutation'];
+const scenarios = ['normal', 'append-only-evidence', 'dirty-runtime', 'dirty-host', 'signal-start', 'signal-capture', 'signal-cleanup', 'child-and-cleanup', 'stale-pid', 'report-failure', 'source-mutation', 'host-start-mutation', 'host-capture-mutation', 'host-commit-change'];
 function git(root, ...args) { return execFileSync('git', args, { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }); }
 for (const scenario of scenarios) test(`actual isolated wrapper: ${scenario}`, () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-capture-control-'));
@@ -27,20 +27,20 @@ for (const scenario of scenarios) test(`actual isolated wrapper: ${scenario}`, (
       async start(signal){log('start');fs.mkdirSync(path.dirname(this.pid),{recursive:true});fs.writeFileSync(this.pid,'fixture-only');
         if(process.env.CAPTURE_CASE==='signal-start'){log('signal');process.emit('SIGINT');await new Promise(r=>setTimeout(r,10));signal.throwIfAborted();}
       }
-      async healthy(){if(process.env.CAPTURE_CASE==='source-mutation')fs.appendFileSync(path.join(process.env.BARKDOWN_TEST_BP_SOURCE,'source.txt'),'dirty');if(process.env.CAPTURE_CASE==='signal-capture'&&!this.signalled){this.signalled=true;setTimeout(()=>{log('signal');process.emit('SIGTERM');},150);}return true;}
+      async healthy(){if(process.env.CAPTURE_CASE==='host-start-mutation')fs.appendFileSync(path.join(process.env.CAPTURE_HOST,'app/main/lifecycle.js'),' // changed');if(process.env.CAPTURE_CASE==='source-mutation')fs.appendFileSync(path.join(process.env.BARKDOWN_TEST_BP_SOURCE,'source.txt'),'dirty');if(process.env.CAPTURE_CASE==='signal-capture'&&!this.signalled){this.signalled=true;setTimeout(()=>{log('signal');process.emit('SIGTERM');},150);}return true;}
       async checkFailure(){}
       async stop(){log('stop');if(process.env.CAPTURE_CASE==='signal-cleanup')process.emit('SIGINT');if(process.env.CAPTURE_CASE==='report-failure')fs.mkdirSync(path.join(this.dataDir,'capture-result.json'));if(process.env.CAPTURE_CASE==='child-and-cleanup')throw Error('CONTROLLED CLEANUP FAILURE');if(process.env.CAPTURE_CASE!=='stale-pid'&&fs.existsSync(this.pid))fs.unlinkSync(this.pid);}
       async release(){log('release');}
     };
   `);
-  fs.writeFileSync(path.join(harness, 'tests/child.mjs'), "import fs from 'node:fs';fs.appendFileSync(process.env.CAPTURE_TRACE,'capture\\n');await new Promise(r=>setTimeout(r,400));process.exit(['child-and-cleanup','report-failure'].includes(process.env.CAPTURE_CASE)?7:0);\n");
+  fs.writeFileSync(path.join(harness, 'tests/child.mjs'), "import fs from 'node:fs';fs.appendFileSync(process.env.CAPTURE_TRACE,'capture\\n');if(process.env.CAPTURE_CASE==='host-capture-mutation')fs.appendFileSync(process.env.CAPTURE_HOST+'/app/main/lifecycle.js','// changed');if(process.env.CAPTURE_CASE==='host-commit-change'){const{execFileSync}=await import('node:child_process');execFileSync('git',['-c','user.name=Fixture','-c','user.email=fixture@example.invalid','commit','--allow-empty','-qm','changed'],{cwd:process.env.CAPTURE_HOST});}await new Promise(r=>setTimeout(r,400));process.exit(['child-and-cleanup','report-failure'].includes(process.env.CAPTURE_CASE)?7:0);\n");
   fs.writeFileSync(path.join(runtimeSource, 'source.txt'), 'fixture\n');
   for (const repo of [host, runtimeSource]) { git(repo, 'init', '-q'); git(repo, 'add', '.'); git(repo, '-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-qm', 'fixture'); }
   if (scenario === 'dirty-runtime') fs.appendFileSync(path.join(runtimeSource, 'source.txt'), 'dirty');
   if (scenario === 'dirty-host') fs.writeFileSync(path.join(harness, 'main/untracked.js'), '// dirty');
   if (scenario === 'append-only-evidence') { fs.mkdirSync(path.join(host, 'docs/visual/new-run'), { recursive: true }); fs.writeFileSync(path.join(host, 'docs/visual/new-run/evidence.txt'), 'retained original'); }
   const trace = path.join(root, 'trace.txt');
-  const result = spawnSync(process.execPath, ['tests/status-shots-isolated.mjs', 'tests/child.mjs'], { cwd: harness, encoding: 'utf8', timeout: 15000, env: { ...process.env, CAPTURE_CASE: scenario, CAPTURE_TRACE: trace, BARKDOWN_TEST_BP_SOURCE: runtimeSource } });
+  const result = spawnSync(process.execPath, ['tests/status-shots-isolated.mjs', 'tests/child.mjs'], { cwd: harness, encoding: 'utf8', timeout: 15000, env: { ...process.env, CAPTURE_CASE: scenario, CAPTURE_HOST: host, CAPTURE_TRACE: trace, BARKDOWN_TEST_BP_SOURCE: runtimeSource } });
   fs.writeFileSync(path.join(root, 'result.json'), JSON.stringify({ status: result.status, signal: result.signal, stdout: result.stdout, stderr: result.stderr }, null, 2));
   assert.equal(result.error, undefined, root);
   assert.equal(result.status === 0, ['normal','append-only-evidence'].includes(scenario), `${root}\n${result.stdout}\n${result.stderr}`);
