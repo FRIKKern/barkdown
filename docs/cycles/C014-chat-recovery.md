@@ -38,3 +38,23 @@ Next: final focused/full suite, source commit and push, then exact committed cra
 Full desktop session57346 passed:59 initial tests,76 Electron UI checks, registry/ownership/runtime/workspace/profile/goal/adoption/credential gates. Package registration of the new ordinary fixture happened after that command started; the focused test:chat-recovery24934 subsequently passed its registered command with the final driver acknowledgement implementation (xivhVK, three owned jobs verified stopped). Final unit KEGgPh additionally proves the renderer retains the send gate until trusted driver acknowledgement, rejects foreign acknowledgement, exposes same-process uncertainty and preserves draft. Provider done is distinct from native teardown; this prevents the composer clearing a new message before backend admission. Managed snapshot regression passed. Native adapter retention test passes202 settled entries plus an unresolved launch without evicting pending proof.
 
 The final acknowledgement delta was tested by the focused service/renderer/actual ordinary suite after the full suite, rather than claiming the earlier full run included it. Final source-bound evidence and verify remain pending.
+
+## Source and visual checkpoint
+
+Source commit 9135723 is pushed on codex/chat-recovery-12h. The exact clean committed actual test (94493) passed in Vx9US5: parent and side forced main exit, persisted partial work, no replay, explicit native shutdown checks, review/new turn, and all three owned jobs verified stopped. [Actual screenshots, video, GIF and hashed review](../visual/chat-recovery/README.md) are now captured and inspected. Deterministic run 2026-09-22T00-48-28-913Z has 37 unchanged frames, no geometry or environment changes, and explicit approval after inspection of all underlying GIF frames.
+
+First root verify failed on an inherited missing baseline link. Restored the four original run directories byte-for-byte from abbbcee, preserving this branch's approval. Second verify reaches only the expected stale live status gate (9135723 versus captured 5a3a502). Waiting for coordinator's shared a544 runtime slot; no runtime reserved or started in this lane. Next: source-bound live status, review, final verify and evidence commit.
+
+Restored baseline history check: all 200 artifact blobs in the four abbbcee run directories match their original Git blob hashes. No original image or comparison was rewritten.
+
+Read-only follow-up: [terminal ownership candidate](DRAFT-terminal-ownership.md) records unowned descendant cleanup and same-id replacement concerns. No terminal behavior changed or failure claimed from source inspection alone. Coordinator will choose the next bounded cycle after C014 closes.
+
+Final source e3a6554 fixes a reproduced early-interruption/late-start-acknowledgement UI race; focused failure then pass retained in test. Exact clean actual23139/tp1w78 passes all recovery assertions and all3 owned jobs stopped. Refreshed visual run01-03-52-492 approved after actual inspection:32 video samples,88 raw motion frames (83 encoded GIF),5 stills and unchanged deterministic37-frame geometry. Earlier913 evidence remains intact.
+
+Coordinator granted a544 source window: final live status session8372/private gR99jf started from clean app source e3a6554. Capture and final verify pending; cycle stays active.
+
+## Final evidence closeout
+
+Exact e3a6554 live Paper status passed in session8372/private gR99jf, with real Codex turn, source a5440345c and server0.2.26.3877. Owned runtime stopped normally and CLI unchanged. Reviewed five original PNGs and all37 editing GIF frames; source manifest and review retained under docs/images/status/history/C014-e3a6554*.json. This separate legacy Paper regression does not claim an actual external owned-Codex crash run. Final root verify underway; bounded C014 completion awaits its result.
+
+Final npm run verify session10975 exit0: build, TypeScript/source/links/hashes, plan/cycle, visual evidence freshness and all concept/handoff checks passed. Bounded C014 is complete. Evidence is ready for coordinator import; overall P1 and legacy/non-Windows recovery remain incomplete. No app source changes followed e3a6554. Next action: coordinator review and bounded terminal ownership proof, with no merge/deployment.
