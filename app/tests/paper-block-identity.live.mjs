@@ -32,7 +32,7 @@ try{
   const c=document.querySelector('bp-paper-canvas');window.__identityTrace=[];let context='native';
   const history=()=>{const s=c._editor.state,h=s.plugins.find(p=>p.key.startsWith('history$'))?.getState(s);return{undo:h?.done?.eventCount,redo:h?.undone?.eventCount};};
   for(const name of ['applyServerBlocks','acknowledgeOps','_emitOps','_stampMaterializedIds','_applyExternalContent']){const original=c[name];c[name]=function(...args){const previous=context;context=name;window.__identityTrace.push({kind:'call',name,args:JSON.parse(JSON.stringify(args)),history:history()});try{return original.apply(this,args);}finally{window.__identityTrace.push({kind:'return',name,history:history()});context=previous;}};}
-  c._editor.on('transaction',({transaction})=>{window.__identityTrace.push({kind:'transaction',context,steps:transaction.steps.map(s=>s.toJSON()),meta:transaction.meta,docChanged:transaction.docChanged,history:history(),doc:transaction.doc.toJSON()});});
+  c._editor.on('transaction',({transaction})=>{window.__identityTrace.push({kind:'transaction',context,steps:transaction.steps.map(s=>s.toJSON()),metaKeys:Object.keys(transaction.meta),addToHistory:transaction.getMeta('addToHistory'),uiEvent:transaction.getMeta('uiEvent'),docChanged:transaction.docChanged,history:history(),doc:transaction.doc.toJSON()});});
  });
  const initial=read(),pm=page.locator('.bw-paper-pane .ProseMirror');await pm.locator('p').first().click();await page.keyboard.press('Home');for(let i=0;i<7;i++)await page.keyboard.press('ArrowRight');await page.keyboard.press('Enter');
  const split=await saved(initial.rev);assert.equal(split.blocks[0].id,'origin');assert.notEqual(split.blocks[1].id,'origin');assert.deepEqual(split.blocks[2],initial.blocks[1]);assert.equal(split.blocks[0].content[0].value,'Before ');assert.equal(split.blocks[1].content[0].value,'after');
@@ -48,8 +48,8 @@ try{
  results.push({name:'native split, checklist, subsequent input, Undo/Redo and reload preserve complete server identities',ids,checklistId:list.id,revisions:[initial.rev,split.rev,typed.rev,undone.rev,redone.rev,checklist.rev,checked.rev,checkUndo.rev,final.rev]});fs.writeFileSync(path.join(out,'server.json'),JSON.stringify(final,null,2)+'\n');
 }catch(e){if(page){await page.screenshot({path:path.join(out,'failure.png')}).catch(()=>{});const state=await keyState().catch(()=>null);fs.writeFileSync(path.join(out,'failure-state.json'),JSON.stringify(state,null,2)+'\n');}fs.writeFileSync(path.join(out,'failure.txt'),e.stack);throw e;}
 finally{
- if(page){const trace=await page.evaluate(()=>window.__identityTrace||[]).catch(()=>[]);fs.writeFileSync(path.join(out,'transactions.json'),JSON.stringify(trace,null,2)+'\n');}
- if(app)await app.close();if(video){const f=await video.path();if(fs.existsSync(f))fs.renameSync(f,path.join(out,'block-identity.webm'));}
+ try{if(page){const trace=await page.evaluate(()=>window.__identityTrace||[]).catch(()=>[]);fs.writeFileSync(path.join(out,'transactions.json'),JSON.stringify(trace,null,2)+'\n');}}finally{if(app)await app.close();}
+ if(video){const f=await video.path();if(fs.existsSync(f))fs.renameSync(f,path.join(out,'block-identity.webm'));}
  const artifacts=Object.fromEntries(fs.readdirSync(out).filter(f=>/\.(png|webm|json)$/.test(f)).map(f=>[f,createHash('sha256').update(fs.readFileSync(path.join(out,f))).digest('hex')]));
  fs.writeFileSync(path.join(out,'manifest.json'),JSON.stringify({sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),barkparkCommit:process.env.BARKDOWN_SHOTS_BP_COMMIT,barkparkDirty:process.env.BARKDOWN_SHOTS_BP_DIRTY,server:process.env.BARKDOWN_SHOTS_SERVER,buildFingerprint:process.env.BARKDOWN_SHOTS_BUILD_FINGERPRINT,bundle,results,artifacts},null,2)+'\n');console.log('E012 evidence:',out);
 }
