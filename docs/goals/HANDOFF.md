@@ -53,3 +53,7 @@ Native Windows worker source beefded is imported into C008 for validation. It ad
 
 Imported043e472: actual Electron fixture now uses local SDK HTTP transport inside default owned worker processes; captured environment restored before SDK construction. Current combined validation follows C008.
 
+
+## C015 original evidence imported
+
+Original lane closeout `2ea6707` is preserved under [61eea4d evidence](evidence/61eea4d/README.md) and [C015](../cycles/C015-goal-coordinator.md). Source `61eea4d` passed authenticated Codex eight-turn/three-worker proof, full desktop50783, root91235, actual native planning crash/retry and inspected deterministic/live captures. Root additionally inspected summary, narrow completed and verified-shutdown stills. Historic pending text within original journal investigation describes that earlier checkpoint; the lane final gates passed. Fresh combined integration gates remain pending and its global approval has not been replaced.

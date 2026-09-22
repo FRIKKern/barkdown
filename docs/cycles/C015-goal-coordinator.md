@@ -1,6 +1,6 @@
 # C015: natural-language goal coordinator
 
-Active on verified C013 evidence375763a, sourcef7d91e6. This branch owns goal planning/review, not C014 ordinary chat recovery. The parent integration task coordinates the narrow workspace-repository role/fingerprint overlap; preserve its context/recovery changes. Do not change the ordinary composer, profile-service or owned worker adapter in this slice.
+Verified on source `61eea4d` (built on C013 evidence `375763a`). This branch owns goal planning/review, not C014 ordinary chat recovery. The parent integration task coordinates the narrow workspace-repository role/fingerprint overlap; preserve its context/recovery changes. Do not change the ordinary composer, profile-service or owned worker adapter in this slice.
 
 ## Bounded outcome
 
@@ -58,3 +58,29 @@ Clean5dc188b authenticated AoTVC4 failed safely: all three actual Codex workers 
 Native planning crash5dc188b root1pZCiu proved actual main kill, no replay, trusted visible shutdown check and explicit retry, then timed out with all workers/reviews completed and summary in review. The retained state validates and completes in offline controller replay; the original main had no first-fault diagnostic. Its cause remains unexplained, not declared fixed. Added opt-in first scheduler-fault logging for test diagnosis. Two subsequent actual native crash/retry journeys on follow-up source pass (MvXg3j/MsOwb3), as does final manual goal UI; no scheduler fault logged. These passes do not erase the earlier retained failure. UI slot released to parent/E006 after30763. No owned process or shared Barkpark runtime now.
 
 Next: commit the final-message follow-up, rerun authenticated Codex and full source-bound regression/capture gates. Keep prior native stall visible and investigate if it recurs; no C015 completion claim yet.
+
+## Clean61ee authenticated success and journal failure classification
+
+Clean61eea4dc87de0f9548ff33d7fafc455f9f265866 authenticated retry4097/deioUa passes: real Codex plan,3concurrentworkers,3independent coordinator file checks,summary; exact token comparisons3, peakRunning3/peakWorkers3,eight stopped zero-active receipts,draft retained. Proof retained under docs/goals/evidence/61eea4d.
+
+The earlier1pZCiu stall is now localized: acknowledged goals.json rev44 retained summary review, and goals.28db7c6d-29ab-410a-b31c-52803f1ae194.tmp rev45 contains complete goal/summary. Final journal commit failed after bytes were prepared; the exact OS error/operation is unavailable. This is the intended fail-closed path, not an unacknowledged completion. Both records retained in the evidence gallery. Original fixture untouched; copied profile fixture0IpgUZ reopened paused and completed after explicit Start with zero provider launches, without adopting the temp. Diagnostic reruns passed twice; no claim that arbitrary filesystem errors cannot recur.
+
+Current owned processes:none. Parent rootAPI thirdretry usesUI on01df; wait release, then clean-source full desktop/fixture capture/a544 Paper/rootverify. Existing5dc/61ee tests and galleries remain distinct; no cycle completion until final gates.
+
+Legacy upgrade audit: pre-C015 scheduler/service never persisted or submitted dependencyResults/retryNote. New recovery request uses only immutable attempt fields and defaults absent dependency data to an empty array, which is omitted from the digest. Actual375763a repository module reserved a synthetic legacy worker attempt;61ee current module finalized that exact request with empty dependency data, retained parent draft, and rejected invented nonempty dependency or retry enrichment. Evidence: legacy-fingerprint.json. No compatibility hash fallback or native-shutdown claim. Final57 goal checks plus agent/run ownership pass. UI messages crossed; no new suite was started, awaiting explicit C015 UI START NOW after E006. No owned process.
+
+## Final committed-source regression and visual review
+
+Full desktop50783 passed on61eea4d:57 goal checks,76 desktop checks and all editor/composer/side-chat/profile suites. Actual coordinator8ZrHEw completed eight owned SDK turns; crash variantBbiHiJ killed actual main during planning, reopened without replay, reconciled shutdown and explicitly retried successfully. Saved-key legacy goal recovery8xxTMr and credential rootsP44OnN/ARS0PP pass. All17 coordinator normal/recovery stills copied to immutable61ee gallery and visually inspected, including390px. Their manifests truthfully mark docs-only working-tree changes; app source was frozen.
+
+Deterministic capture45102 at2026-09-22T01-38-38-706Z contains34 frames and seven GIFs. All candidate frames, old goal frames and differences inspected; objective-only creation adds three frames and shifts index-based comparisons. Other25 frames have no changed pixels above tolerance or geometry/environment differences. Explicit named approval recorded. No new clipping/overlap found. Live a544 status71461/privateO8HC2h is running; Claude weekly limit observed, Codex fallback pending. No final root/cycle completion claim until live gate and root verify.
+
+## Verified closeout
+
+C015 is complete as a bounded branch milestone. Source `5dc188b` plus `61eea4d` is pushed. Full desktop `50783` and root `npm run verify` session `91235` passed. Live Paper session `71461` used clean app source `61eea4d`, clean Barkpark `a5440345c`, server 0.2.26.3877 and a real Codex turn after Claude reported its weekly limit. All five stills and 37 GIF frames were inspected; private runtime `O8HC2h` stopped and `pgdata/postmaster.pid` is absent. UI and shared source slots were explicitly released to the parent. No owned process remains.
+
+Truth review covered README, app guide, PLAN/plan.json, NEXT-AGENT, VALIDATION, goal integration contract and visual health pages. Updated current coordinator claims and linked source-bound evidence. The central P1–P5 stages remain pending; old issue/PR state was not rechecked or relabelled. No migration, deployment or merge occurred. Parent owns combined C014/API/editor integration; these branch results are not combined-source approval.
+
+Limits: authenticated proof is a bounded read-only synthetic Codex goal. Native crash journeys use deterministic local SDK HTTP and saved synthetic credentials. Workers share their captured folder; disjoint assignments/dependencies are required, not automatic worktrees. Coordinator evidence checks are model judgments, not human verification. Scheduling stops with the app and does not run through machine sleep. No power-loss or cross-machine portability guarantee. The earlier unacknowledged journal commit failure remains retained with exact OS error unknown; explicit recovery from acknowledged state was proven without provider replay. Continuous-motion coordinator recovery remains unrecorded; inspected stills and behavioral assertions provide the present evidence.
+
+Next: parent consumes this immutable evidence and validates the combined candidate. Do not transfer fixture approval to another app source. If a new behavior slice is requested, archive this completed cycle record before opening the next bounded cycle.
