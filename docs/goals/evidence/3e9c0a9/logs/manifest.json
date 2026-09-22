@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "sourceCommit": "3e9c0a99b779e42306678bf082f739127f31d811",
+  "invocationHead": "82f13d49f818f7cf275e2db547a44c2bb54f202c",
+  "originalValidationPlan": {
+    "path": "docs/cycles/C023-validation-plan.json",
+    "sha256": "0bb682ea962a4b427c8dee9a81daf1bc8090f0b42a6f512ff9b6559edf843fc3",
+    "unchanged": true
+  },
+  "credentialReview": {
+    "result": "No credential values found; all four referenced logs retained.",
+    "methods": [
+      "Scanned private-key markers, provider-token formats, authorization values and credential assignments.",
+      "Compared configured secret values without printing those values.",
+      "Inspected context of long opaque tokens with values withheld; findings were disposable profile IDs and local fixture/module paths."
+    ],
+    "redactions": false,
+    "lineEndingNormalization": false
+  },
+  "omitted": [],
+  "logs": [
+    {
+      "gate": "desktop",
+      "originalPath": "app/test-results/c023-final-desktop.log",
+      "originalRecordedSha256": "857e3e4486d13c6aa2159aec41c2b1481090a71d30b048d01efbb946399804c0",
+      "retainedPath": "docs/goals/evidence/3e9c0a9/logs/c023-final-desktop.log",
+      "retainedSha256": "857e3e4486d13c6aa2159aec41c2b1481090a71d30b048d01efbb946399804c0",
+      "bytes": 52617,
+      "byteIdentical": true,
+      "transformation": "none"
+    },
+    {
+      "gate": "fixture",
+      "originalPath": "app/test-results/c023-fixture.log",
+      "originalRecordedSha256": "2f3fb7022fb62f090fdd533a51a4c6af6a0743e1233496b0388abb30da098df6",
+      "retainedPath": "docs/goals/evidence/3e9c0a9/logs/c023-fixture.log",
+      "retainedSha256": "2f3fb7022fb62f090fdd533a51a4c6af6a0743e1233496b0388abb30da098df6",
+      "bytes": 360,
+      "byteIdentical": true,
+      "transformation": "none"
+    },
+    {
+      "gate": "paper",
+      "originalPath": "app/test-results/c023-live-paper.log",
+      "originalRecordedSha256": "af4487b77f93341745cadede637329d9759251345e94efa4ef33087e57cb8206",
+      "retainedPath": "docs/goals/evidence/3e9c0a9/logs/c023-live-paper.log",
+      "retainedSha256": "af4487b77f93341745cadede637329d9759251345e94efa4ef33087e57cb8206",
+      "bytes": 874,
+      "byteIdentical": true,
+      "transformation": "none"
+    },
+    {
+      "gate": "root",
+      "originalPath": "app/test-results/c023-root.log",
+      "originalRecordedSha256": "81a4b191f4cf01209072d02fb134e969dba3ab68d3387999911cd94d81d98d51",
+      "retainedPath": "docs/goals/evidence/3e9c0a9/logs/c023-root.log",
+      "retainedSha256": "81a4b191f4cf01209072d02fb134e969dba3ab68d3387999911cd94d81d98d51",
+      "bytes": 2906,
+      "byteIdentical": true,
+      "transformation": "none"
+    }
+  ]
+}

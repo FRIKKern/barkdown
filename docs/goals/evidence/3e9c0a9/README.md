@@ -9,3 +9,7 @@ Managed profile JSON and goal journal replacement retries keep the same prepared
 [Fixture comparison](../../../visual/runs/2026-09-22T05-02-07-170Z/comparison.json) has34 frames within tolerance, no geometry/environment changes. All34 stills and34 decoded GIF frames inspected; explicit approval recorded. The seven GIFs use palette quantization and a fixed canvas for narrower captures. [Live Paper manifest](../../../images/status/history/C023-3e9c0a9.json) records real Codex on clean app82f13d4/source3e9c0a9 and clean Barkpark a544, server0.2.26.3877. Five stills and all37 GIF frames inspected. Isolated MxvyOa stopped normally and postmaster.pid is absent. UI/a544 released; no owned process remains.
 
 Local NTFS/hardlink support is required for complete-owner publication. Existing malformed owners or recovery chains beyond eight levels still require explicit inspection; unsupported linking refuses without fallback. No rogue-writer CAS, power-loss, network-filesystem or portability guarantee. No combined-source approval, broad stage completion, merge or deployment is claimed. Parent integration preserves its C010 lease relocation methods and validates the combined source separately.
+
+## Retained gate output
+
+[Original gate logs](logs/README.md) are retained byte-for-byte with an explicit path/SHA-256 mapping. Credential review found no values requiring omission. Existing validation-plan and artifact hashes are unchanged; no gate was rerun for this retention follow-up.
