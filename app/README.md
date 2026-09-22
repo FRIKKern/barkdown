@@ -54,7 +54,7 @@ No-folder conversations remain valid. A folder selected in the composer never sc
 | `shared/` | PortableDoc/Markdown and operation helpers |
 | `tests/` | Unit, Electron and live adapter/editor checks |
 
-The canvas loads from the connected Barkpark, with cached and vendored fallback. The recorded fallback baseline is Barkpark commit `a5440345c`; upstream PR #19579 was still open at the roadmap reset. [The parity matrix](../docs/EDITOR-PARITY.md) carries the exact proof and limitations. Preserve vendored licenses. Selection remains connected server, then verified profile-owned cache, then vendored fallback. Updating the fallback or parity pin does not upgrade an older reachable server or valid old cache; a renderer restart is needed to change its loaded custom element. [The consumption audit](../docs/EDITOR-CONSUMPTION-AUDIT.md) proposes the next update after separate native and fallback-on-a544 compatibility proof.
+The canvas loads from the connected Barkpark, with cached and vendored fallback. The E011 candidate fallback baseline is Barkpark commit `54579debe`; upstream PR #19579 was still open at the roadmap reset. [The parity matrix](../docs/EDITOR-PARITY.md) carries the exact proof and limitations. Preserve vendored licenses. Selection remains connected server, then verified profile-owned cache, then vendored fallback. Updating the fallback or parity pin does not upgrade an older reachable server or valid old cache; a renderer restart is needed to change its loaded custom element. [Shipped asset provenance](renderer/vendor/README.md) binds the candidate bytes and dependency notices. E009/E010 native proof passed; separate fallback-on-a544 compatibility and combined gates remain pending.
 
 ## Remaining work
 

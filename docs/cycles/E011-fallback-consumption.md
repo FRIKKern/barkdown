@@ -21,3 +21,11 @@ Prepared `app/tests/paper-fallback-consumption.live.mjs` from E010fixture88358f9
 Node syntax and three transport checks passed. No Electron or real runtime started; native fixture is unexecuted, full/visual gates pending until approved consumption. After E010native completion, vendor/pin/notices update gets its own source commit. Then run from app with BARKDOWN_EDITOR_CAPTURE=1 and BARKDOWN_TEST_BP_SOURCE pointing to the named built private a544 checkout, `node tests/status-shots-isolated.mjs tests/paper-fallback-consumption.live.mjs`; repeat separately on54579. Required named UI grants, still/video inspection, deterministic comparison/approval and final status remain. Current source precedence server→verified cache→vendor stays unchanged.
 
 Root independently reran all three proxy checks and reviewed the fixture. Cleanup now closes the owned proxy in finally even if Electron close rejects. Native capture remains unexecuted and pin/assets unchanged.
+
+## Authorized consumption source checkpoint
+
+Root accepted E010 actual proof (Barkdown0d5ffa1/upstream54579) and authorized exact assets/pin consumption. JS/CSS now match reviewed54579 byte-for-byte; pin uses its full commit. Popup/flags/Mermaid/Apache license hashes remain unchanged.49 exact package notices plus source provenance now live under renderer/vendor/paper-editor-notices, covered by actual renderer/** packaging. A shipped provenance manifest and vendor README state branch source and unchanged source precedence. No new dependency or Electron version.
+
+Twelve Node checks passed:7 existing cache integrity tests,3 proxy/resolver checks,2 distribution provenance/notices checks. App build passed. Native fallback fixture and its proxy are now visual inputs; new coverage page explicitly remains pending. Source commit must precede olda544 then54579 actual compatibility, deterministic review and final status. Root granted the next exclusive UI window after this source checkpoint; rootC030 follows explicit cleanup/release.
+
+Offline notice verification passed49packages; root build passed. scripts/check.cjs correctly stops at stale inherited status screenshots, an expected pre-capture gate rather than a waived pass. Actual visual/live freshness will be refreshed after source commit.

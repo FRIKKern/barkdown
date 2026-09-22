@@ -90,3 +90,6 @@ Stated 2026-09-20, not yet folded into the PRD:
 - **Local Barkpark.** The real Barkpark (Elixir release plus its own Postgres cluster) runs beside the app, one per profile. Barkpark is Postgres to the bone (`jsonb`, advisory locks, `tsvector`, `pg_trgm`), so there is no lighter store; a JavaScript reimplementation was considered and rejected.
 - **Profiles.** A profile is a `bp` server entry plus a data folder: cloud-backed, or local-only and never synced.
 - **Sync and portability.** Offline edits sync to bp cloud when online again, building on `bp migrate`, `bp export` and the `ifRev` rebase; all of a profile's data can be zipped and opened on another device. These are Barkpark features that Barkdown orchestrates.
+
+
+E011 candidate fallback/pin now selects54579debe, with byte-bound shipped notices and preserved host overrides. E009/E010 native source proof passed; new-client/olda544-server fallback compatibility remains pending. Server/cache precedence and G1/G2 remain separate. [Handoff](cycles/E011-fallback-consumption.md).
