@@ -1,6 +1,6 @@
 # Continue the dependable-workspace plan
 
-**Combined candidate:** this worktree follows [C008 integration](cycles/C008-integration.md) on `codex/integration-12h`. Its checkpoint supersedes historical baseline notes below. Profile switching and saved goal-worker UI exist behind `--profiles`; integration evidence and remaining gaps are recorded there. Do not migrate real user data or claim P1 complete.
+**Combined candidate:** this worktree follows [C008 integration](cycles/C008-integration.md) on `codex/integration-12h`. Its checkpoint supersedes historical baseline notes below. Profile switching and saved goal-worker UI exist behind `--profiles`; explicit `--adopt-legacy` now stages and publishes a verified copy with startup recovery, while `--rollback-adoption` retains edited copies. These C010/C011 imports are under combined validation; `faaaf79` is the preceding fully verified checkpoint. Integration evidence and remaining gaps are recorded there. Do not migrate real user data or claim P1 complete.
 
 Read [PLAN.md](PLAN.md), [DESIGN-DECISIONS.md](DESIGN-DECISIONS.md), [ARCHITECTURE.md](ARCHITECTURE.md), then the current stage in [ACCEPTANCE.md](ACCEPTANCE.md). Run `npm run plan`. **Next: P1, profile ownership and isolation.** The former lowest-open-editor-issue rule is retired.
 
@@ -10,9 +10,9 @@ Read [PLAN.md](PLAN.md), [DESIGN-DECISIONS.md](DESIGN-DECISIONS.md), [ARCHITECTU
 
 Barkpark papers use the real Paper canvas and revision-checked operations. Direct agent edits save without Keep, reveal their intent visually and offer guarded Undo; human input ends the presentation immediately. Local legacy documents still use a separate Tiptap tab/store. Do not remove either before P2 proves migration.
 
-A [managed Windows source runtime](LOCAL-BARKPARK.md) owns private PostgreSQL and Barkpark processes, health/recovery and normal shutdown. It is opt-in and requires a built checkout. It is not yet a multi-profile system, packaged runtime, automatic migration or sync implementation.
+A [managed Windows source runtime](LOCAL-BARKPARK.md) owns private PostgreSQL and Barkpark processes, health/recovery and normal shutdown. It is opt-in and requires a built checkout. The combined candidate has isolated profile runtimes, captured background ownership and explicit same-machine adoption. It still requires a built source checkout; packaged runtime, cross-machine portability, automatic migration and sync remain unproven.
 
-## First implementation slice
+## Original P1 scope and remaining proof
 
 Inventory existing persistence and write down profile ownership for documents, chats, tabs, drafts, favorites, media, credentials, caches, receipts and running tasks. Define stable profile-qualified identities and an idempotent adoption of today's workspace into a default profile, with backup. Prove two profiles with the same paper slug cannot affect each other before wiring the switching UI. Use existing issue #6 for continuity; the active scope and acceptance live in P1/A1.
 
