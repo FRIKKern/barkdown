@@ -2,14 +2,15 @@
 
 Shared main composer: draft, provider chooser and model chooser. No message is sent.
 
-![Current view](../runs/2026-09-22T02-13-13-738Z/chat-4.png)
+![Current view](../runs/2026-09-22T22-22-12-493Z/chat-4.png)
 
-![Recorded interaction](../runs/2026-09-22T02-13-13-738Z/chat.gif)
+![Recorded interaction](../runs/2026-09-22T22-22-12-493Z/chat.gif)
 
-[Full comparison](../runs/2026-09-22T02-13-13-738Z/README.md) · [Capture manifest](../runs/2026-09-22T02-13-13-738Z/manifest.json)
+[Full comparison](../runs/2026-09-22T22-22-12-493Z/README.md) · [Capture manifest](../runs/2026-09-22T22-22-12-493Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-22T22:27:57.332Z: Reviewed all 40 stills and 40 coalesced motion frames at commit 13cba576. Only expected change is Settings Barkpark fallback SHA 62b80526 to 3a94a296; geometry unchanged. Side-chat subpixel encoding noise is not visible. Narrow workspace, goals, profiles and adoption remain usable. Source 13cba576c; [review](../reviews/approval-75491c1265b75f353602a1a916396ef374c3700b81243d99ec0b5cae1d33dbdb.json) - [comparison](../runs/2026-09-22T22-22-12-493Z/comparison.json).
 - 2026-09-22 import checkpoint: C026 final `1e138aa` [actual main/side send-preservation galleries](../send-preservation/README.md) cover rejected draft/images, newer typing, structured acknowledgement and keyboard attachment recovery. This area's existing fixture approval remains historical; combined candidate2b2ec11 needs fresh capture/review.
 
 - 2026-09-22T02:18:55.981Z: Reviewed all 40 stills and all decoded GIF frames. Final recapture matched 43 of 48 reviewed artifacts byte-for-byte; the four changed stills and changed side-chat GIF were inspected again. Named-step comparison shows three new goal planning views and expected tasks-to-workers labels; no unintended geometry or clipping regression found. Combined desktop suite 64608 passed. Fixture capture alone does not prove live provider or persistence behavior. Source e38038577; [review](../runs/2026-09-22T02-13-13-738Z/comparison.json).
