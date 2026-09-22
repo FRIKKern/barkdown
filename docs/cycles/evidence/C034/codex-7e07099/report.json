@@ -1,0 +1,264 @@
+{
+  "version": 1,
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-provider-proof-2U75sV",
+  "authentication": "Existing device provider login; no profile-authentication-isolation claim",
+  "results": [
+    {
+      "provider": "codex",
+      "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+      "attemptId": "c1b3c431-efec-49cd-bc48-4cd16efb613a",
+      "documentId": "provider-proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021b",
+      "marker": "Barkdown verified append 4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+      "beforeRev": 1,
+      "events": [
+        {
+          "type": "status",
+          "session": "01a0c7c1-3059-7082-9618-afa80914de4d",
+          "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+          "chatId": "proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "provider": "codex",
+          "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+          "sequence": 1
+        },
+        {
+          "type": "text_delta",
+          "text": "I’ll read the document, append the paragraph, and read it again to verify.\n",
+          "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+          "chatId": "proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "provider": "codex",
+          "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+          "sequence": 2
+        },
+        {
+          "type": "text_break",
+          "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+          "chatId": "proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "provider": "codex",
+          "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+          "sequence": 3
+        },
+        {
+          "type": "tool_start",
+          "tool": "read_document",
+          "input": {
+            "id": "provider-proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021b"
+          },
+          "toolUseId": "item_1",
+          "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+          "chatId": "proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "provider": "codex",
+          "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+          "sequence": 4
+        },
+        {
+          "type": "activity",
+          "target": {
+            "kind": "doc",
+            "id": "provider-proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021b",
+            "title": "Provider proof 4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a"
+          },
+          "label": "Opened Provider proof 4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "detail": "Reading the document",
+          "agentEdit": false,
+          "libraryChanged": false,
+          "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+          "chatId": "proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "provider": "codex",
+          "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+          "sequence": 5
+        },
+        {
+          "type": "tool_result",
+          "tool": "read_document",
+          "toolUseId": "item_1",
+          "ok": true,
+          "preview": "# Provider proof 4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a\nid: provider-proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021b · rev 1 · updated 2026-09-22T06:15:19.811Z\nreferences: none · backlinks: none\n\nTop-level blocks: [0] paragraph\n\nOriginal fixture 4dc6",
+          "output": "# Provider proof 4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a\nid: provider-proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021b · rev 1 · updated 2026-09-22T06:15:19.811Z\nreferences: none · backlinks: none\n\nTop-level blocks: [0] paragraph\n\nOriginal fixture 4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a\n",
+          "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+          "chatId": "proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "provider": "codex",
+          "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+          "sequence": 6
+        },
+        {
+          "type": "library_changed",
+          "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+          "chatId": "proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "provider": "codex",
+          "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+          "sequence": 7
+        },
+        {
+          "type": "tool_start",
+          "tool": "edit_document",
+          "input": {
+            "id": "provider-proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021b",
+            "mode": "append",
+            "markdown": "Barkdown verified append 4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+            "summary": "Append verification paragraph"
+          },
+          "toolUseId": "item_2",
+          "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+          "chatId": "proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "provider": "codex",
+          "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+          "sequence": 8
+        },
+        {
+          "type": "tool_result",
+          "tool": "edit_document",
+          "toolUseId": "item_2",
+          "ok": true,
+          "preview": "Saved edit to provider-proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021b at revision 2. Applied directly; Undo is available in the document.",
+          "output": "Saved edit to provider-proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021b at revision 2. Applied directly; Undo is available in the document.",
+          "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+          "chatId": "proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "provider": "codex",
+          "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+          "sequence": 9
+        },
+        {
+          "type": "activity",
+          "target": {
+            "kind": "doc",
+            "id": "provider-proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021b",
+            "title": "Provider proof 4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a"
+          },
+          "label": "Edited Provider proof 4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "detail": "Append verification paragraph",
+          "agentEdit": true,
+          "libraryChanged": true,
+          "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+          "chatId": "proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "provider": "codex",
+          "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+          "sequence": 10
+        },
+        {
+          "type": "library_changed",
+          "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+          "chatId": "proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "provider": "codex",
+          "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+          "sequence": 11
+        },
+        {
+          "type": "tool_start",
+          "tool": "read_document",
+          "input": {
+            "id": "provider-proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021b"
+          },
+          "toolUseId": "item_3",
+          "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+          "chatId": "proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "provider": "codex",
+          "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+          "sequence": 12
+        },
+        {
+          "type": "activity",
+          "target": {
+            "kind": "doc",
+            "id": "provider-proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021b",
+            "title": "Provider proof 4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a"
+          },
+          "label": "Opened Provider proof 4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "detail": "Reading the document",
+          "agentEdit": false,
+          "libraryChanged": false,
+          "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+          "chatId": "proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "provider": "codex",
+          "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+          "sequence": 13
+        },
+        {
+          "type": "tool_result",
+          "tool": "read_document",
+          "toolUseId": "item_3",
+          "ok": true,
+          "preview": "# Provider proof 4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a\nid: provider-proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021b · rev 2 · updated 2026-09-22T06:15:40.835Z\nreferences: none · backlinks: none\n\nTop-level blocks: [0] paragraph, [1] paragraph\n\nOrigin",
+          "output": "# Provider proof 4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a\nid: provider-proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021b · rev 2 · updated 2026-09-22T06:15:40.835Z\nreferences: none · backlinks: none\n\nTop-level blocks: [0] paragraph, [1] paragraph\n\nOriginal fixture 4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a\n\nBarkdown verified append 4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a\n",
+          "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+          "chatId": "proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "provider": "codex",
+          "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+          "sequence": 14
+        },
+        {
+          "type": "library_changed",
+          "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+          "chatId": "proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "provider": "codex",
+          "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+          "sequence": 15
+        },
+        {
+          "type": "text_delta",
+          "text": "done",
+          "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+          "chatId": "proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "provider": "codex",
+          "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+          "sequence": 16
+        },
+        {
+          "type": "text_break",
+          "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+          "chatId": "proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "provider": "codex",
+          "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+          "sequence": 17
+        },
+        {
+          "type": "usage",
+          "usage": {
+            "input_tokens": 89038,
+            "cached_input_tokens": 78976,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 270,
+            "reasoning_output_tokens": 0
+          },
+          "tokens": {
+            "input": 89038,
+            "output": 270
+          },
+          "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+          "chatId": "proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "provider": "codex",
+          "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+          "sequence": 18
+        },
+        {
+          "type": "done",
+          "cancelled": false,
+          "session": "01a0c7c1-3059-7082-9618-afa80914de4d",
+          "provider": "codex",
+          "finalMessage": {
+            "source": "codex.item.completed",
+            "id": "item_4",
+            "text": "done"
+          },
+          "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+          "chatId": "proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+          "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+          "sequence": 19
+        }
+      ],
+      "pass": true,
+      "driverFinished": true,
+      "terminationVerified": true,
+      "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+      "completion": {
+        "runId": "0dffa2e8-d1cf-4d3c-9774-ed20071da23a",
+        "profileId": "db03d91d-8d10-4300-a4e2-fd4732e32605",
+        "chatId": "proof-4dc6a6cc-4dc8-47bf-a95a-fc54c021be4a",
+        "provider": "codex",
+        "status": "completed",
+        "cancelled": false
+      },
+      "afterRev": 2,
+      "receiptId": "aeb22e43-f94d-4dbe-ac17-3fe49677ec9b"
+    }
+  ]
+}
