@@ -196,3 +196,5 @@ E011 production consumption imported from d9d36c1: exact upstream54579 editor JS
 
 
 C033 trusted-context source100e539 imported with C032 preflight preserved. Independent review reproduced captured-A session acceptance into new-B while runtime acquisition awaited, for ordinary goal-created side chat and goal worker. Shared context fingerprint rechecked after acquisition and synchronously before reservation; stale context refuses before dispatch, releases lease, retains newer draft/folder and creates no transcript attempt. Draft/navigation-only and raw-null provider defaults remain allowed. New reservations require trusted snapshot; existing duplicate returns fresh:false. Fifteen controlled race regressions cover both adapters, not native runtime proof. Final combined gates pending.
+
+Original C033 source checkpoint and failed-first reproduction/logs preserved in [handoff](C033-context-reservation.md). Root combined15race cases, repository/profile suites, C032 main/side composer and deterministic three-provider goal integration pass at sourcef19a6ef. No native race claim; remaining global gates stay open.

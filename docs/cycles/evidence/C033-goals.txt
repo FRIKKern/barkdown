@@ -1,0 +1,85 @@
+TAP version 13
+# Subtest: real agent.start runs three owned API loops and persists their independent transcripts
+ok 1 - real agent.start runs three owned API loops and persists their independent transcripts
+  ---
+  duration_ms: 46.7628
+  ...
+# Subtest: done event does not release worker before trusted driver cleanup completes
+ok 2 - done event does not release worker before trusted driver cleanup completes
+  ---
+  duration_ms: 17.9926
+  ...
+# Subtest: changed context or mismatched profile fails before a transcript or provider starts
+ok 3 - changed context or mismatched profile fails before a transcript or provider starts
+  ---
+  duration_ms: 5.6332
+  ...
+# Subtest: cancel during real API stream waits for finalization and records partial output
+ok 4 - cancel during real API stream waits for finalization and records partial output
+  ---
+  duration_ms: 15.4625
+  ...
+# Subtest: transcript failure stops the provider and reports uncertain effects instead of success
+ok 5 - transcript failure stops the provider and reports uncertain effects instead of success
+  ---
+  duration_ms: 9.7601
+  ...
+# Subtest: an acknowledged duplicate reservation never launches a second provider
+ok 6 - an acknowledged duplicate reservation never launches a second provider
+  ---
+  duration_ms: 5.6108
+  ...
+# Subtest: Promise-returning transcript sink is rejected before provider dispatch
+ok 7 - Promise-returning transcript sink is rejected before provider dispatch
+  ---
+  duration_ms: 4.5093
+  ...
+# Subtest: unknown finalization retains the execution slot until trusted termination proof
+ok 8 - unknown finalization retains the execution slot until trusted termination proof
+  ---
+  duration_ms: 16.4298
+  ...
+# Subtest: captured assignment images reach actual API transport; another profile path is rejected
+ok 9 - captured assignment images reach actual API transport; another profile path is rejected
+  ---
+  duration_ms: 18.5199
+  ...
+# Subtest: worker provider launches disable native recursive delegation without changing ordinary chats
+ok 10 - worker provider launches disable native recursive delegation without changing ordinary chats
+  ---
+  duration_ms: 70.116
+  ...
+# Subtest: structured coordinator uses acknowledged final provider message while retaining commentary
+ok 11 - structured coordinator uses acknowledged final provider message while retaining commentary
+  ---
+  duration_ms: 51.2321
+  ...
+# Subtest: real provider loops persist three full workers through profile switch, stale save, reload and review
+ok 12 - real provider loops persist three full workers through profile switch, stale save, reload and review
+  ---
+  duration_ms: 1122.6183
+  ...
+# Subtest: Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+ok 13 - Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+  ---
+  duration_ms: 733.2963
+  ...
+# Subtest: goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+ok 14 - goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+  ---
+  duration_ms: 369.9525
+  ...
+# Subtest: recovered reservation cannot be reviewed or retried until trusted shutdown verification
+ok 15 - recovered reservation cannot be reviewed or retried until trusted shutdown verification
+  ---
+  duration_ms: 336.4038
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2783.2845

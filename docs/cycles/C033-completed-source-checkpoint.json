@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "id": "C033",
+  "stage": "P1",
+  "status": "active",
+  "goal": "Reject stale chat context before reservation after delayed runtime acquisition.",
+  "scope": [
+    "Trusted ordinary and goal reservation boundaries; preserve newer drafts",
+    "No UI/runtime launch or authentication policy change"
+  ],
+  "acceptance": [
+    "Both delayed acquisition paths reject before dispatch and release lease",
+    "Reservation repeats context validation",
+    "Draft-only changes still allow captured run; late sessions cannot bind new context"
+  ],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C033-context-reservation.md",
+  "nextAction": "Review and import shared context snapshot guard and test union; final combined visual/root gates pending.",
+  "evidence": [
+    "docs/cycles/C033-context-reservation.md",
+    "docs/cycles/evidence/C033-before.txt",
+    "app/main/chat-context.js",
+    "app/tests/context-reservation.test.mjs",
+    "docs/cycles/evidence/C033-after.txt",
+    "docs/cycles/evidence/C033-goals.txt",
+    "docs/cycles/evidence/C033-verify.txt"
+  ],
+  "truthReview": "15racecases and related focused suites pass; source100e539 build passes; root verify blocked by stale screenshots; final combined gates pending.",
+  "screenshotReview": "No UI grant; final combined gates pending."
+}
