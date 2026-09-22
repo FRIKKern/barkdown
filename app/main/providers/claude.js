@@ -77,7 +77,7 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
       const q = query({ prompt: input, options });
       run.onCancel = () => { q.interrupt().catch(() => {}); };
       let sessionId = session || null;
-      let finalText = '';
+      let finalText = '', finalMessage = null;
       let streamedText = '';
       let streamedThinking = '';
       const blockTypes = new Map(); // stream index -> content block type, to know what a stop closes
@@ -119,13 +119,14 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
           }
         } else if (message.type === 'result') {
           sessionId = message.session_id || sessionId;
+          if (message.subtype === 'success' && typeof message.result === 'string') finalMessage = { source: 'claude.result.success', id: message.uuid || null, text: message.result };
           if (message.subtype !== 'success') run.emit({ type: 'error_note', message: `Claude Code stopped: ${message.subtype}` });
           else if (message.result && !finalText) run.emit({ type: 'text_delta', text: message.result });
           const u = message.usage || {};
           run.emit({ type: 'usage', cost: message.total_cost_usd, turns: message.num_turns, durationMs: message.duration_ms, tokens: { input: (u.input_tokens || 0) + (u.cache_read_input_tokens || 0) + (u.cache_creation_input_tokens || 0), output: u.output_tokens || 0 } });
         }
       }
-      run.emit({ type: 'done', cancelled: run.cancelled, session: sessionId, provider: 'claude' });
+      run.emit({ type: 'done', cancelled: run.cancelled, session: sessionId, provider: 'claude', finalMessage });
     } catch (error) {
       run.emit({ type: 'error', message: /credential|auth|login/i.test(error.message) ? 'Claude Code is not logged in. Run `claude` in a terminal and sign in, then try again.' : error.message || String(error) });
     } finally { await finish(run); }

@@ -147,3 +147,37 @@ test('worker provider launches disable native recursive delegation without chang
     await agent.waitForRunFinish(started.runId);assert.equal(codexOptions.config.agents,undefined);
   }finally{claude.setSdkLoader(null);codex.setSdkLoader(null);}
 });
+
+test('structured coordinator uses acknowledged final provider message while retaining commentary', async () => {
+  const claude = require('../main/providers/claude'), codex = require('../main/providers/codex');
+  const final = JSON.stringify({ decision: 'accept', effects: 'verified', note: 'Compared the actual fixture read.', evidence: ['fixture://read'] });
+  claude.setSdkLoader(async () => ({ query() {
+    const iterator = (async function* () {
+      yield { type: 'assistant', message: { content: [{ type: 'text', text: 'I will inspect the fixture first.' }] } };
+      yield { type: 'result', subtype: 'success', result: final, usage: {} };
+    })(); iterator.interrupt = async () => {}; return iterator;
+  } }));
+  codex.setSdkLoader(async () => ({ Codex: class {
+    startThread() { return { id: 'structured-session', async runStreamed() { return { events: (async function* () {
+      yield { type: 'item.completed', item: { id: 'commentary', type: 'agent_message', text: 'I will inspect the fixture first.' } };
+      yield { type: 'item.completed', item: { id: 'final', type: 'agent_message', text: final } };
+    })() }; } }; }
+  } }));
+  agent.setClientFactory(() => ({ messages: { stream() { let text; return { on(name, fn) { if (name === 'text') text = fn; return this; }, async finalMessage() {
+    text('I will inspect the fixture first.\n' + final);
+    return { id: 'api-final', stop_reason: 'end_turn', usage: {}, content: [{ type: 'text', text: final }] };
+  } }; } } }));
+  try {
+    for (const provider of ['api', 'claude', 'codex']) {
+      const f = setup(), request = { ...f.requests[0], role: 'review', chatId: 'main', context: { ...f.requests[0].context, chatId: 'main', provider } };
+      const resolve = (_profile, chatId) => { const value = f.resolve(_profile, chatId); value.chat = { id: 'main', provider, model: 'test-model', sessions: {} }; return value; };
+      const adapter = createGoalProvider({ resolve, transcripts: f.transcripts });
+      const result = await adapter.execute(request, { signal: new AbortController().signal, progress() {} });
+      assert.equal(result.status, 'succeeded'); assert.equal(result.text, final);
+      assert.ok(f.record.some(row => row.event?.coordinatorRawText?.includes('I will inspect')));
+      assert.match(f.record.find(row => row.kind === 'finish').result.text, /Coordinator review: accepted/);
+      const done = f.record.find(row => row.event?.type === 'done').event;
+      assert.equal(done.finalMessage.text, final); assert.ok(done.finalMessage.source);
+    }
+  } finally { claude.setSdkLoader(null); codex.setSdkLoader(null); }
+});

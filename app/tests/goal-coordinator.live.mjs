@@ -14,7 +14,8 @@ const out = path.join(appDir, crashRecovery ? 'test-results/goal-coordinator-rec
 const transport = await createCoordinatorFixture({ allowRetries: crashRecovery }), errors = [], shots = [];
 let app, page;
 const launch = async () => {
-  app = await electron.launch({ executablePath: require('electron'), args: [appDir, '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', ANTHROPIC_BASE_URL: transport.url } });
+  app = await electron.launch({ executablePath: require('electron'), args: [appDir, '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_GOAL_DIAGNOSTICS: '1', BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', ANTHROPIC_BASE_URL: transport.url } });
+  app.process().stderr?.on('data', chunk => { const text = String(chunk); if (text.includes('Goal scheduler halted:')) console.error(text.trim()); });
   page = await app.firstWindow(); page.on('pageerror', error => errors.push(error.stack || error.message));
   await page.waitForFunction(() => window.__barkdown?.state.loaded); await page.setViewportSize({ width: 1100, height: 800 });
 };

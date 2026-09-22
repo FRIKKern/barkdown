@@ -230,7 +230,7 @@ async function startApi({ chatId, messages, context, settings, send, images, ori
       const history = withImages(messages, images).map(m => ({ role: m.role, content: m.content }));
       const contextNote = context.folder ? `The agent working folder for this chat is ${context.folder}. Paths are relative to it.` : 'This chat has no working folder; file tools are unavailable. Documents are still available.';
       let turns = 0;
-      let finalText = '';
+      let finalText = '', finalMessage = null;
       const tokens = { input: 0, output: 0 };
       while (turns++ < 24 && !run.cancelled) {
         const stream = client.messages.stream({
@@ -248,6 +248,7 @@ async function startApi({ chatId, messages, context, settings, send, images, ori
           if (run.cancelled) break;
           throw error;
         }
+        if (message.stop_reason === 'end_turn' && !message.content.some(b => b.type === 'tool_use')) finalMessage = { source: 'anthropic.end_turn', id: message.id || null, text: message.content.filter(b => b.type === 'text').map(b => b.text).join('') };
         if (message.content.some(b => b.type === 'thinking')) run.emit({ type: 'thinking_break' });
         tokens.input += (message.usage?.input_tokens || 0) + (message.usage?.cache_read_input_tokens || 0) + (message.usage?.cache_creation_input_tokens || 0);
         tokens.output += message.usage?.output_tokens || 0;
@@ -272,7 +273,7 @@ async function startApi({ chatId, messages, context, settings, send, images, ori
         run.emit({ type: 'text_break' });
       }
       if (tokens.input || tokens.output) run.emit({ type: 'usage', tokens });
-      run.emit({ type: 'done', cancelled: run.cancelled, text: finalText.trim(), history });
+      run.emit({ type: 'done', cancelled: run.cancelled, text: finalText.trim(), history, finalMessage });
     } catch (error) {
       const Sdk = loadSdk();
       let message = error?.message || String(error);
