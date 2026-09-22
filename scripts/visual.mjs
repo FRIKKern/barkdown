@@ -50,6 +50,11 @@ if(command==='check') {
   fs.writeFileSync(safe(file),`# ${s.area}\n\n${s.caption}\n\n![Current view](${rel(frame.file)})\n\n![Recorded interaction](${rel(s.file)})\n\n[Full comparison](${rel(path.posix.dirname(report)+'/README.md')}) · [Capture manifest](${rel(manifest)})\n\n## Changelog\n\n- ${approval.reviewedAt}: ${note} Source ${m.commit.slice(0,9)}; [review](${rel(report)}).\n${previous}`);
   md+=`## [${s.area}](${s.area}/README.md)\n\n![${s.caption}](${path.posix.relative(dir,s.file)})\n\n`;
  }
- md+='## Live evidence and gaps\n\nThe existing [Paper editor gallery](../images/status/manifest.json) includes a live editor GIF and server provenance. Separate live walkthroughs for agent editing, files/reviews, recovery and profile switching remain outstanding. New behavior must add its journey here before claiming full visual coverage.\n';
+ md+='## Dedicated journeys and remaining limits\n\nThe [Paper editor gallery](../images/status/manifest.json) records its own live server provenance. Dedicated journeys below retain their original source and review; this fixture approval does not restamp them or prove their remaining acceptance criteria. See each page for failures and coverage limits.\n\n';
+ const fixtureAreas=new Set(m.shots.map(s=>s.area));
+ for(const area of read('docs/visual/coverage.json').areas){
+  if(area.readme&&!fixtureAreas.has(area.id))md+=`- [${area.id}](${path.posix.relative(dir,area.readme)}): ${area.capture}.\n`;
+ }
+
  fs.writeFileSync(safe('docs/visual/README.md'),md);console.log('Approved immutable candidate; prior approvals and captures preserved.');
 } else throw Error('Expected check, compare or approve');
