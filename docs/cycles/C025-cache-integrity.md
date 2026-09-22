@@ -31,3 +31,5 @@ Read-only C024 follow-up: independently reviewed16a2f33 and ran project-file-aut
 Read-only integration ece4626 missing-reference audit recorded in DRAFT-missing-reference-audit.md. Concrete missing-attachment pre-dispatch loss reproduced with actual persistence adapters (r3kG4y), sent to coordinator; separate from frozen cache source. No workers/UI/shared services launched.
 
 Named C025 UI grant received. First npm test:canvas-cache stopped before Electron: actual-exit child fixture resolved app/main relative to root cwd, so standard app cwd failed module lookup (exit1 rather than17). Corrected fixture to require.resolve relative to its module; product unchanged. An initial correction command used wrong cwd and made no edits, repeating the fixture failure; corrected explicitly from repo root.
+
+Actual consumer fixture b5c5fac/TrBILZ passed and stopped. Image inspection found narrow A and B provenance below the fold, so these original frames remain unapproved. Fixture-only correction scrolls the actual diagnostic into view before capture; product unchanged. Full desktop suite 90165 remains in progress before rerun.
