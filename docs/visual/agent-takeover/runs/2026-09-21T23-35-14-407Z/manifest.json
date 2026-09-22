@@ -1,0 +1,101 @@
+{
+  "sourceCommit": "663a12a6e67b629194b670fa34684d1d8124761e",
+  "sourceDirty": false,
+  "barkparkCommit": "bb3bd299dc9d7e4d6a377af4926b3f6a42443c05",
+  "barkparkDirty": "false",
+  "server": "http://127.0.0.1:50563",
+  "buildFingerprint": "89ee64ee883625f816f413292c013834b4e92160dae24ba1ccc142ba7d86698e",
+  "editorBundle": {
+    "source": "server",
+    "server": "http://127.0.0.1:50563",
+    "version": "0.2.26.3908",
+    "sha": "4c7b4292234b343f54ae7431d93e0d16b5841536",
+    "cssSha": "63d19d9fd48133511f3d1feb8c5a15d33acb62c2",
+    "fetchedAt": "2026-09-21T23:35:20.743Z"
+  },
+  "isolated": true,
+  "results": [
+    "focused keyboard takeover retains acknowledged agent text and human input in the intended paragraph",
+    "full presentation and first receipt preserve paragraph geometry without an extra server revision",
+    "beforeinput yields before actual direct text insertion",
+    "Chromium IME takeover preserves the acknowledged sentence and committed Japanese input",
+    "pointer takeover clears presentation and preserves subsequent selection and saved input",
+    "reduced motion applies once without animated caret, including narrow viewport",
+    "hidden pane consumes acknowledged content without cursor or extra writes",
+    "offscreen update preserves focused human selection and scroll without offscreen animation"
+  ],
+  "phaseEvents": [
+    {
+      "at": 14668.800000011921,
+      "phase": "target"
+    },
+    {
+      "at": 14883.200000047684,
+      "phase": "select"
+    },
+    {
+      "at": 15027
+    },
+    {
+      "at": 29255.700000047684,
+      "phase": "target"
+    },
+    {
+      "at": 29456.30000001192,
+      "phase": "select"
+    },
+    {
+      "at": 29894.100000023842,
+      "phase": "write"
+    },
+    {
+      "at": 30960.900000035763
+    },
+    {
+      "at": 41150.40000003576,
+      "phase": "target"
+    },
+    {
+      "at": 41353,
+      "phase": "select"
+    },
+    {
+      "at": 41388.700000047684
+    },
+    {
+      "at": 52260.200000047684,
+      "phase": "target"
+    },
+    {
+      "at": 52465.700000047684,
+      "phase": "select"
+    },
+    {
+      "at": 52516.10000002384
+    },
+    {
+      "at": 63862.80000001192,
+      "phase": "target"
+    },
+    {
+      "at": 64080.700000047684,
+      "phase": "select"
+    },
+    {
+      "at": 64146.90000003576
+    }
+  ],
+  "artifacts": {
+    "after-takeover.png": "e3f999948991f8699c23f5012ae3eda808506dbad568afeeccdf72f098af9ff3",
+    "agent-takeover.webm": "9325f60870f7919e9ff3f2bace337737564e30388463faff9bf64b0b2b3a3e74",
+    "composition-saved.png": "74ef12d5b53cf67847587d080baf2e5d930ddc65c8a8b5b93d5e6be2cfaac98f",
+    "hidden-pane-restored.png": "4272c6cbf17341dcd4242a0b9c9a0ebadf97935e4465c6b30f4bc71edd88c1c6",
+    "reading-position.png": "bec30c44d4301bfc51e11b5d2d3b2cfe246a62f62e81605f38a479eaf2172930",
+    "receipt-stable.png": "7ce3ae4d18ff31193ddc54f8d2f21d6133ed327eb68afe5fb62e8ca401e7cb1b",
+    "reduced-motion-narrow.png": "ad0dccd5f832db4e1efb2e55f8db7018f8836fc16241f7aeb6317799fb4fe703",
+    "selection-before-takeover.png": "946c65d2b63638da7b8d9de445e8111ff27ea1fdb3450a593a218625b5882658",
+    "writing.png": "d07244acd3617e910e1f39461afcbb10427c1dee3cef573b1502f4c19df02c6e"
+  },
+  "video": "agent-takeover.webm",
+  "motion": "Continuous Playwright video of actual Electron actions. Normal motion except explicitly reduced scenario; production agent adapter, no model turn."
+}
