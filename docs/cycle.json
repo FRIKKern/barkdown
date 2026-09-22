@@ -1,26 +1,26 @@
 {
   "version": 1,
-  "id": "C034",
+  "id": "C036",
   "stage": "P1",
   "status": "active",
-  "goal": "Make the live provider runner require verified edits and owned completion.",
+  "goal": "Preserve owned capture cleanup and original failure on cancellation.",
   "scope": [
-    "Actual live-runner failure-first offline tests",
-    "Unique disposable direct edit and captured owned process cleanup",
-    "No provider authentication changes or live calls without named grant"
+    "Source-clean preflight",
+    "SIGINT/SIGTERM cancellation through existing runtime stop",
+    "Controlled offline lifecycle tests; no real runtime/UI"
   ],
   "acceptance": [
-    "Provider errors, absent effects and incomplete cleanup fail",
-    "Read/edit/read plus persisted revision and direct-edit receipt required",
-    "Invalid provider rejected before launch; artifacts retained"
+    "Signals during startup and capture execute owned cleanup",
+    "Dirty source fails before starting",
+    "Original failure survives cleanup errors; stale PID retained"
   ],
   "checkpoint": "2026-09-22",
-  "handoff": "docs/cycles/C034-live-provider-truth.md",
-  "nextAction": "Import exact single-Codex7e07099 proof; coordinator final combined full/visual/live/root gates remain pending. No Claude call without separate grant.",
+  "handoff": "docs/cycles/C036-capture-lifecycle.md",
+  "nextAction": "Retain failed-first lifecycle tests then fix wrapper and validate offline.",
   "evidence": [
-    "app/tests/providers.live.mjs",
-    "docs/cycles/C034-live-provider-truth.md"
+    "app/tests/status-shots-isolated.mjs",
+    "docs/cycles/C036-capture-lifecycle.md"
   ],
-  "truthReview": "25offline cases pass. Named actualCodex30848 passes atclean7e07099, rev1\u21922 read/edit/read, ownedJob stopped activeProcesses0;7text artifacts credentials-scanned, no findings. Root inheritedfreshness failure remains.",
-  "screenshotReview": "No UI/runtime launched; combined capture gates pending."
+  "truthReview": "Audit confirms no signal handler/source guard and finally masks original failures. No new runtime launched.",
+  "screenshotReview": "No UI launched; capture-tool changes require coordinator fresh combined evidence."
 }
