@@ -2,14 +2,15 @@
 
 Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.
 
-![Current view](../runs/2026-09-21T23-39-00-392Z/documents-2.png)
+![Current view](../runs/2026-09-21T23-55-40-140Z/documents-2.png)
 
-![Recorded interaction](../runs/2026-09-21T23-39-00-392Z/documents.gif)
+![Recorded interaction](../runs/2026-09-21T23-55-40-140Z/documents.gif)
 
-[Full comparison](../runs/2026-09-21T23-39-00-392Z/README.md) · [Capture manifest](../runs/2026-09-21T23-39-00-392Z/manifest.json)
+[Full comparison](../runs/2026-09-21T23-55-40-140Z/README.md) · [Capture manifest](../runs/2026-09-21T23-55-40-140Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-21T23:58:19.941Z: Inspected all31 actual frames across seven area sheets. All31 comparisons have zero above-tolerance pixel changes and unchanged geometry. No new clipping, missing controls or overlap; narrow goal scroll/footer and profile forms remain readable. Known inherited40percent default correction is queued separately. Combined full desktop on5a3a502 passed including actual owned SDK worker Electron fixture; deterministic images themselves do not prove live execution. Separate live Paper5stills and37GIF frames reviewed, real Codex turn and owned runtime stopped. E002 eight-still,92sample video and70frame first-receipt review retained separately. Source 5a3a5024f; [review](../runs/2026-09-21T23-55-40-140Z/comparison.json).
 - 2026-09-21T23:41:01.692Z: Inspected all31 actual frames in seven area contact sheets, including profile Settings and goal planned/running/paused/narrow/worker navigation. Existing21 reference frames have zero above-tolerance pixel or geometry differences; new10 frames readable with menus and footer/scroll regions intact. No new clipping or overlap observed. Deterministic providers remain blocked; this does not prove native worker execution or live Paper behavior. Inherited40percent default mismatch is tracked separately. Full pre-native desktop passed;46 native goal tests and23 Paper host tests pass, current native Electron fixture adaptation pending. Source ae49f97b9; [review](../runs/2026-09-21T23-39-00-392Z/comparison.json).
 - 2026-09-21T22:33:31.825Z: C004: inspected all 21 action frames across five areas, including intermediate chooser states, narrow workspace and light/dark documents. Comparison reports no changed pixels above tolerance or geometry changes in the same environment. Bound-run ownership is covered by 11 behavior-test groups, not inferred from screenshots. No profile switching UI is claimed. Source 0086867d2; [review](../runs/2026-09-21T22-32-06-713Z/comparison.json).
 - 2026-09-21T21:50:11.399Z: C002: reviewed all 21 action frames across five areas after folder-context and offline-fallback changes. No pixel differences above tolerance or control-geometry changes; environment unchanged. Request/dispatcher tests cover resumed and cleared folders, image-only turns and original-text offline navigation. Visual evidence does not measure live folder-answer latency. Source 3e2ed6fa0; [review](../runs/2026-09-21T21-48-36-561Z/comparison.json).
