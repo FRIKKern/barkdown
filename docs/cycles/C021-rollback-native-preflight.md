@@ -51,3 +51,5 @@ Root npm run verify passed (32220): build, types, repository links, cycle/visual
 Pre-commit Git-blob audit: all37 actual UI review hashes and current status manifest match staged bytes. The timestamped history file is the prior source8cabf36 manifest archived by capture, not a duplicate current manifest; its contents remain unchanged. Diff whitespace check reports only generated trailing blank lines in six visual README files; historical/generated evidence retained unchanged.
 
 Integration preserves the exact final live-status [manifest](../images/status/history/C021-f3e92a1.json) alongside the original [review](../images/status/c021-review.json), without replacing the current combined status manifest. Original21429c6 artifacts remain attributed to f3e92a1.
+
+[Reviewed screenshot/GIF gallery](../visual/native-rollback/README.md) retains the actual native refusal and restored workspace journey.
