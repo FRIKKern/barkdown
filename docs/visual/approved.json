@@ -1,9 +1,9 @@
 {
-  "manifest": "docs/visual/runs/2026-09-21T23-29-02-248Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-21T23-29-02-248Z/comparison.json",
-  "manifestHash": "69e02f0f1ba9d32e036b94cc20d30a1135f4c67d7a1d4953681a1ac5688a3314",
-  "reportHash": "d7d2361e020499f0ef78c5204eec1813c22ea9db5a1320aaec7f4e20e9d4f68a",
+  "manifest": "docs/visual/runs/2026-09-22T00-16-09-701Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-22T00-16-09-701Z/comparison.json",
+  "manifestHash": "52a43b79e5a05738d157ddf9de34e36d0385c9d8521fea4ba7bae2d725727641",
+  "reportHash": "2fd4db4a043f02c4821f2ab491da2b23dec57b6127641b7d9b333f70ffd79f73",
   "reviewer": "Codex current-cycle agent",
-  "note": "Inspected all 31 PNG frames including narrow geometry and all seven GIF step sequences. Existing 21 frames have zero changed pixels with unchanged environment; ten goal/profile frames are explicit new fixture baselines. Controls remain reachable without clipping. Separately inspected six real Paper profile frames and all 37 live status GIF frames. Real restart, cookie isolation, late worker output, and pending-save switch guard passed; deterministic goals do not claim live model execution.",
-  "reviewedAt": "2026-09-21T23:35:02.650Z"
+  "note": "Inspected all 37 frames across eight captured sequences, including narrow layouts and recovery states. No pixel or geometry differences from the prior reviewed capture. Delayed startup draft regression passed. Recovery fixtures are distinct from the pending real runtime adoption journey.",
+  "reviewedAt": "2026-09-22T00:21:06.346Z"
 }

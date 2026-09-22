@@ -13,7 +13,7 @@ Write, ask, revise, and keep going in one desktop workspace. Barkdown pairs Bark
 
 **Working desktop prototype · Windows runtime first · Powered by Barkpark**
 
-![The real Barkdown desktop: a conversation beside an editable Barkpark paper.](docs/images/status/paper-light.cc7cf587.png)
+![The real Barkdown desktop: a conversation beside an editable Barkpark paper.](docs/images/status/paper-light.4e91cab4.png)
 
 ## Think in notes. Work in conversations.
 
@@ -25,15 +25,15 @@ Write, ask, revise, and keep going in one desktop workspace. Barkdown pairs Bark
 <details>
 <summary><strong>See the editor in motion and explore the desktop</strong></summary>
 
-![Real editing: insert a quote, type, move through table cells, and use quick open.](docs/images/status/editing.eaafec4a.gif)
+![Real editing: insert a quote, type, move through table cells, and use quick open.](docs/images/status/editing.d0ba58eb.gif)
 
-![Barkdown in dark mode.](docs/images/status/paper-dark.95d64fac.png)
+![Barkdown in dark mode.](docs/images/status/paper-dark.52a207b3.png)
 
-![Paper slash menu.](docs/images/status/slash-menu.2d09acc1.png)
+![Paper slash menu.](docs/images/status/slash-menu.f91d58cf.png)
 
-![Quick open across the workspace.](docs/images/status/quick-open.002ab3b9.png)
+![Quick open across the workspace.](docs/images/status/quick-open.25da0436.png)
 
-![Barkpark connection settings.](docs/images/status/settings-barkpark.ce8ad6ea.png)
+![Barkpark connection settings.](docs/images/status/settings-barkpark.c4ce9e40.png)
 
 These are captures of the running app, not mockups. [Capture provenance](docs/images/status/manifest.json) records the source commits and whether the assistant turn was live. The typographic banner above is repository artwork.
 
@@ -47,7 +47,7 @@ These are captures of the running app, not mockups. [Capture provenance](docs/im
 |---|---|---|
 | Working Paper editor, agent conversations and a managed Windows source runtime | Profile isolation, safe migration of every note to Paper, recovery and portability | Optional two-way sync and installation without a developer toolchain |
 
-We are starting **P1: profile ownership and isolation**. The existing local notes still have a separate editor/store. Profiles, migration and cloud sync are planned capabilities; the managed runtime currently requires a built Barkpark checkout. Upstream integration and CI gates remain tracked separately.
+**P1: profile ownership and isolation** is in progress. Verified UUID profiles, owned runtimes, switching and explicit legacy adoption have bounded test evidence; the combined acceptance gate remains pending. Existing local notes still have a separate editor/store, and portability and cloud sync remain planned. The managed runtime requires a built Barkpark checkout. Upstream integration and CI gates remain tracked separately.
 
 [Read the delivery plan →](docs/PLAN.md) · [See what is verified →](docs/VALIDATION.md)
 

@@ -8,11 +8,11 @@ Read [PLAN.md](PLAN.md), [DESIGN-DECISIONS.md](DESIGN-DECISIONS.md), [ARCHITECTU
 
 Barkpark papers use the real Paper canvas and revision-checked operations. Direct agent edits save without Keep, reveal their intent visually and offer guarded Undo; human input ends the presentation immediately. Local legacy documents still use a separate Tiptap tab/store. Do not remove either before P2 proves migration.
 
-A [managed Windows source runtime](LOCAL-BARKPARK.md) owns private PostgreSQL and Barkpark processes, health/recovery and normal shutdown. The [opt-in profile workspace](PROFILE-WORKSPACES.md) now binds separate UUID stores and runtime leases, saved worker conversations, website storage and Settings switching. It requires a built checkout; default legacy adoption, ordinary installation and sync remain pending.
+A [managed Windows source runtime](LOCAL-BARKPARK.md) owns private PostgreSQL and Barkpark processes, health/recovery and normal shutdown. The [opt-in profile workspace](PROFILE-WORKSPACES.md) now binds separate UUID stores and runtime leases, saved worker conversations, website storage and Settings switching. It requires a built checkout. Explicit verified legacy adoption and offline rollback now have actual runtime proof; ordinary installation and sync remain pending.
 
 ## First implementation slice
 
-The ownership inventory, captured runs, registry, runtime pool and explicit profile mode are implemented. Finish default legacy adoption/cutover with backup, interruption/recovery and rollback, then the combined P1/A1 acceptance gate. Use existing issue #6 for continuity. The cycle handoff records exact proof; do not infer default migration readiness from opt-in switching.
+The ownership inventory, captured runs, registry, runtime pool and explicit profile mode are implemented. Review C010 explicit adoption/cutover evidence alongside missing-workspace preservation and first-run credential durability work, then complete the combined P1/A1 acceptance gate. Use existing issue #6 for continuity. The cycle handoff records exact proof; do not infer default migration readiness from opt-in switching.
 
 Do not change the user's actual library to demonstrate isolation. Use temporary user-data roots and private test clusters. Do not stop the shared development server, switch the CLI's server, change another checkout's branch, or migrate real notes as an incidental setup step.
 

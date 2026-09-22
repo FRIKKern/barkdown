@@ -1,6 +1,6 @@
 # Barkdown desktop
 
-The separate [goal-orchestration track](../docs/goals/HANDOFF.md) currently provides a durable scheduler, owned provider bridge and an injected-service goal view. It is not enabled for the legacy workspace. `npm run test:goals` checks execution boundaries; `npm run test:goal-ui` exercises the real component with fixture snapshots. Production profile service integration and authenticated three-worker evidence remain pending.
+The separate [goal-orchestration track](../docs/goals/HANDOFF.md) currently provides a durable scheduler, owned provider bridge and an injected-service goal view. It is not enabled for the legacy workspace. `node --test tests/goals.test.mjs tests/goal-provider.test.mjs tests/goal-service.test.mjs` checks execution boundaries; `node tests/goal-ui.live.mjs` exercises the real component with fixture snapshots. The profile service now connects saved worker conversations to managed profiles; deterministic provider-loop integration is covered. Authenticated three-worker evidence remains separate.
 
 The working Electron application: notes and conversations on the left, agents and their work alongside them. [Product overview](../README.md) · [Active roadmap](../docs/PLAN.md) · [Contributing](../CONTRIBUTING.md)
 
@@ -69,4 +69,4 @@ Each page contains a still, recorded interaction GIF, provenance and changelog. 
 
 ## Profile workspaces and bounded goals
 
-Explicit `--profiles` boot enables independent library profiles in Settings. Chats retain their working folders; ordinary and saved goal-worker conversations share the same transcript UI. See [ownership and launch contract](../docs/PROFILE-WORKSPACES.md), [cycle proof](../docs/cycles/C006-profile-workspace-service.md), [profile visuals](../docs/visual/profiles/README.md), and [goal visuals](../docs/visual/goals/README.md). Legacy adoption is a separate pending gate.
+Explicit `--profiles` boot enables independent library profiles in Settings. Chats retain their working folders; ordinary and saved goal-worker conversations share the same transcript UI. See [ownership and launch contract](../docs/PROFILE-WORKSPACES.md), [cycle proof](../docs/cycles/C006-profile-workspace-service.md), [profile visuals](../docs/visual/profiles/README.md), and [goal visuals](../docs/visual/goals/README.md). Explicit `--adopt-legacy` startup now provides verified same-machine adoption and recovery, with actual Paper edit/restart/rollback evidence in [C010](../docs/cycles/C010-boot-adoption.md). The combined P1 gate remains pending.

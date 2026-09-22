@@ -15,7 +15,7 @@ This is the target for P1–P5, not a claim that profiles and sync already exist
 
 ## Implemented foundation
 
-There is currently one workspace store plus the opt-in `local-barkpark/default` runtime, not a profile registry. Paper references use existing identifiers that need a profile owner. Audit migration across every persisted reference, including tabs, favorites, links, side-chat parents, receipt targets, attachments and caches. Preserve a backup of the original format and keep adoption repeatable.
+Legacy startup retains its original workspace and `local-barkpark/default` runtime. Explicit profile mode uses the versioned UUID registry and independent runtime stores. C010 explicit adoption stages an intact backup, remaps owned shell references and copies only a clean stopped same-machine runtime before changing authority. This is not portable database export; combined migration and isolation acceptance remain pending.
 
 The Paper adapter loads the editor from the connected Barkpark, with cached/vendored fallback. Editor truth stays upstream. The legacy document store remains until P2 migration passes; its continued presence is deliberate compatibility, not the intended final architecture.
 
@@ -32,4 +32,4 @@ Acceptance scenarios are in [ACCEPTANCE.md](ACCEPTANCE.md); unresolved API choic
 
 The [C001 ownership audit](PROFILE-OWNERSHIP.md) maps actual files, caches, sessions and credentials to these owners, specifies the stable profile/resource/run contract, and separates shell-only adoption from unsupported live-database copying. It is design evidence, not implemented isolation.
 
-C004 adds [captured run handles](RUN-OWNERSHIP.md): bound local adapters, immutable provider/MCP connection snapshots, authoritative event owners and awaited driver finalization. Single-workspace boot remains; a verified registry resolver, profile IPC generations and background transcript persistence are still required before switching profiles.
+C004 adds [captured run handles](RUN-OWNERSHIP.md): bound local adapters, immutable provider/MCP connection snapshots, authoritative event owners and awaited driver finalization. C006 supplies the verified registry resolver, profile IPC generations and main-owned background transcripts for switching. C010 gates legacy adoption before startup writers; see [profile workspace contract](PROFILE-WORKSPACES.md) for current behavior and proof limits.

@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C010",
   "stage": "P1",
-  "status": "active",
+  "status": "done",
   "goal": "Gate every startup writer behind authority ownership and explicit verified adoption/recovery.",
   "scope": [
     "Boot and recovery UI lane; storage helper independently owned",
@@ -17,8 +17,16 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C010-boot-adoption.md",
-  "nextAction": "Implement width correction and startup decision seam, then integrate validated storage helper and recovery UI.",
-  "evidence": [],
-  "truthReview": "",
-  "screenshotReview": ""
+  "nextAction": "Audit combined A1 evidence for proposed C016; P1 remains pending. No owned runtime.",
+  "evidence": [
+    "app/tests/adoption-boot.test.mjs",
+    "app/tests/adoption-ui.live.mjs",
+    "docs/visual/runs/2026-09-22T00-02-00-551Z/comparison.json",
+    "app/tests/boot-draft.live.mjs",
+    "docs/visual/runs/2026-09-22T00-16-09-701Z/comparison.json",
+    "docs/visual/adoption/runs/2026-09-22T00-21-07-265Z/manifest.json",
+    "docs/images/status/manifest.json"
+  ],
+  "truthReview": "Reviewed README, app guide, PLAN/plan.json, architecture/decisions, NEXT-AGENT and VALIDATION; corrected stale profile/adoption claims, retained P1 pending and same-machine/DPAPI limits. Root verify passed.",
+  "screenshotReview": "All37 deterministic frames/eight sequences inspected and approved at74a; all7 actual adoption frames and5 status stills/37 GIF frames inspected at544. Real Codex turn; Claude quota failure explicit. Both disposable runtime roots stopped cleanly."
 }
