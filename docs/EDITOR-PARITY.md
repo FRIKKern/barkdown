@@ -90,3 +90,9 @@ Stated 2026-09-20, not yet folded into the PRD:
 - **Local Barkpark.** The real Barkpark (Elixir release plus its own Postgres cluster) runs beside the app, one per profile. Barkpark is Postgres to the bone (`jsonb`, advisory locks, `tsvector`, `pg_trgm`), so there is no lighter store; a JavaScript reimplementation was considered and rejected.
 - **Profiles.** A profile is a `bp` server entry plus a data folder: cloud-backed, or local-only and never synced.
 - **Sync and portability.** Offline edits sync to bp cloud when online again, building on `bp migrate`, `bp export` and the `ifRev` rebase; all of a profile's data can be zipped and opened on another device. These are Barkpark features that Barkdown orchestrates.
+
+### C028 runner evidence contract
+
+A green row requires exit status zero, no termination signal or spawn error, and positive complete assertion evidence. Process failure overrides even a previously printed all-green summary. The runner accepts complete `n/n green` JSON summaries, the opaque row’s three complete count groups plus `bundle.pass`, and Paper’s nonempty boolean `results[].ok` checks. Missing, malformed, ambiguous, zero-count or partial evidence is red. Raw output remains in the row log; JSON/Markdown reports name process failure.
+
+The gaps script currently emits an observational log without verified pass/fail assertions. Its successful exit is not parity evidence; adding real behavior assertions remains a separate matrix task. This correction does not unblock upstream CI credentials or establish a fresh live parity pass.
