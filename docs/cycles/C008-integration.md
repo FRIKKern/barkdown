@@ -172,3 +172,10 @@ Docs checkpoint validation: all5355 local Markdown links passed before the final
 ## C023 original validation imported
 
 Originalca324fe evidence closes bounded source3e9c0a9, invoked clean82f13d4: full44980,34-frame fixture23472, realCodex/live92760 and root85728 pass. All17 native coordinator stills,34 fixture stills/34decodedGIFframes,5 live stills/37GIFframes were inspected in the lane. Root independently inspected worker cards, full parent-linked chat, narrow completion and reviewed-plan retry. Original native deterministic HTTP is distinct from C015 authenticated-provider reasoning. PrivateMxvyOa stopped/postmaster absent. Original comparison chain/review hashes and all copied native/media bytes verified. No combined source approval; global status/approval unchanged. Root retains C010 lease relocation. Local NTFS/hardlink, bounded malformed-owner recovery and no rogue-writer CAS/power-loss/portability guarantees remain explicit. C020 narrative live-manifest link corrected; its existing archived manifest was already exact. See evidence/C023-import.json.
+
+
+## Live-fixture tripwire correction and E010 preparation
+
+The prior named-fixture allowlist omitted newer live capture scripts, including imported rich-clipboard/send journeys. A synthetic future live fixture reproduced the gap: actual visual approval remained unaware of its source. The selector now includes every top-level app/tests/*.live.mjs plus capture helpers/fixtures, alongside existing visual/status and production inputs. The regression verifies new-file coverage, mutation changes and actual CLI stale-approval refusal; original immutable-review/tamper checks and pixel/step comparison tests still pass. Before/after command output is retained under evidence/C008-tripwire-before.txt and -after.txt. No approval or captured media was changed.
+
+Exact E010 paper-upload-history fixture from0d5ffa1/0c73c7f is imported with a build-and-isolated-runtime command. Its behavior comes from connected upstream54579, not the still-unmodified fallbacka544. Original evidence import follows separately; source syntax passes.
