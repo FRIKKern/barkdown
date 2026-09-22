@@ -13,3 +13,11 @@ Real mounted canvas fails: paste image with a delayed injected uploader, Undo be
 Root approved preserving upload completion across history without duplicate network requests. Retain Undo removal, restore the same acknowledged asset on Redo, preserve later human edits/selection and failure recovery. Cover redo before/after completion, repeated history, rejection/late callbacks, deleted/replaced nodes and unrelated upload identities. Only this isolated branch may change; no shared task database, merge or deployment.
 
 Next: implement upload-result ownership/history reconciliation, add targeted mounted/headless cases, then request actual server evidence after E009. No production fix yet. Locked root/app/upstream installs passed; existing app2high/upstream3moderate1high audit remains unchanged.
+
+## Source and targeted checkpoint
+
+Upstream54579debe is pushed. Upload receipts retain only per-editor settled metadata and never restart a request; async settlement is outside native history. Nine mounted cases cover all event orders, repeated history, rejection, untouched human text/caret, manual URL/alt, explicit clear and return-to-original, input not yet debounced, independent upload identities and disposal/remount. Intent flags stay transient and do not serialize into PortableDoc. Existing image conversion and node-view flush checks passed.
+
+Root review exposed URL-clear/alt-return overwrites in the first fix; [failure retained](../visual/upload-history/diagnostics/human-intent-failure.txt). The corrected source retains explicit field intent in native history and flushes island input before repaint. [Final trusted headless evidence](../visual/upload-history/runs/2026-09-22T04-16-50-774Z/review.json) was inspected. Both event orders render the acknowledged image after Redo and one Undo removes the pasted image; no duplicate upload is issued.
+
+Full54103 passed, but started at508b before the field-intent correction; it is historical semantic validation, not an exact final source gate. Exact frozen54579 full run19587 is pending. Source-generated JS is rebuilt; no server build or live runtime was started. E009 still owns the next actual editor slot. Next: finish frozen test, prepare actual Paper upload/history proof in this branch, await named UI grant. No live data durability claim yet.
