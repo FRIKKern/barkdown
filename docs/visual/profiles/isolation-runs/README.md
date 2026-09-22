@@ -10,6 +10,9 @@ C016 remains **in progress**. These are disposable actual Electron/managed Postg
 | [00:54](2026-09-22T00-54-58-699Z/manifest.json) | Concurrent A/B and initial ownership assertions | MCP edit returned `fetch failed`; cancellation did not reach driver finalization; explicit owned cleanup required |
 | [01:54](2026-09-22T01-54-53-499Z/manifest.json) | Concurrent A/B, actual A MCP edit acknowledged at revision 2, owned API worker stopped with zero active processes | B scrollTop changed 360→390 before restart; visible paragraph positions appear stable, so anchor/image geometry needs measurement; normal cleanup |
 
+| [02:22](2026-09-22T02-22-51-651Z/manifest.json) | Exact B scroll/anchor preserved after decoded-image baseline | Total height grew67px from asynchronous revision footer; normal cleanup |
+| [02:57](2026-09-22T02-57-20-871Z/manifest.json) | Full late-A ownership, exact settled B position, scoped search/Undo and A valid Undo | Selected-B process restart position0 versus360; draft/side-parent/path/content intact; normal cleanup |
+
 The 00:54 run's `stopped: true` means the final resources were stopped, **not** that application shutdown succeeded. [Forced cleanup evidence](2026-09-22T00-54-58-699Z/forced-cleanup.json) records both positively identified private PostgreSQL clusters stopped cleanly before the disposable Electron tree was terminated. No owned process or postmaster marker remained.
 
 ![B retains its document after A finishes](2026-09-22T00-49-13-146Z/03-B-after-A-completion.png)
