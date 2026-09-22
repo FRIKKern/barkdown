@@ -54,7 +54,8 @@
     "test:project-buffers": "node tests/project-buffers.test.mjs",
     "test:project-buffer-profile": "node tests/project-buffer-profile.live.mjs",
     "test:terminal-ownership": "npm run build && node --test tests/terminal-ownership.test.mjs && node tests/terminal-ownership.live.mjs",
-    "test:rollback-native": "npm run build && node --test tests/profile-native-preflight.test.mjs && node tests/rollback-native.live.mjs"
+    "test:rollback-native": "npm run build && node --test tests/profile-native-preflight.test.mjs && node tests/rollback-native.live.mjs",
+    "test:adoption-repeat": "npm run build && node tests/adoption-repeat-ui.live.mjs"
   },
   "engines": {
     "node": ">=22.13.1"

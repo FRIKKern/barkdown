@@ -1,10 +1,10 @@
-# A1 current evidence — 22 September 2026
+# A1 current evidence â€” 22 September 2026
 
 This is a coordinator checkpoint, not stage approval. The original [A1 requirements](../ACCEPTANCE.md#a1--profile-ownership-and-isolation) remain unchanged. Combined candidate `ece4626` has new source and original lane evidence; `d8acb82` remains the last fully validated combined fallback. Lane passes do not transfer to a different combined source.
 
 | Requirement | Evidence and remaining action |
 |---|---|
-| Repeated backed-up adoption | C010 real cold adoption/edit/restart/rollback and helper interruption tests exist. C022 source `f18e899` prepares actual repeated cold adoption with complete inventories; actual run is pending. |
+| Repeated backed-up adoption | C022 actual aaeed2c/a544 journey58208 passes literal repeated adoption: one UUID, exact chat/navigation/document/receipt/Paper inventory, original/backup hashes, acknowledged edit, ordinary restart and retained edited rollback. Original evidence78e2e5f and full/visual/live/root gates are selectively imported; this does not transfer approval to combined source. See [exact proof](../visual/adoption-repeat/README.md). |
 | Same-slug document/media/search/Undo isolation | C016 actual concurrent runtimes prove distinct content/media, wrong-token refusal, B-owned search, late A edit and A-only Undo. Exact selected-B reading position after restart still fails; diagnostic `b07fa9f` and a separately reproduced loading-position bug remain active. No complete journey claim. |
 | Credentials | Actual safeStorage and abrupt process-death tests cover app-owned encrypted secrets. Device CLI login remains external shared home-directory authentication, an unresolved policy boundary; do not claim every provider credential is profile-isolated. |
 | Caches | C025 `e95fcb6` verifies complete hashes, server affinity, owned regular paths, interrupted publication and quarantined repair with real filesystem/process tests. Actual renderer fallback and B-without-cache evidence is pending. |
@@ -14,4 +14,4 @@ This is a coordinator checkpoint, not stage approval. The original [A1 requireme
 
 ## Next acceptance attempt
 
-Finish and review C020, C022, C024 and C025 evidence; repair the real Paper loading-position and missing-attachment draft defects; integrate reviewed sources and run fresh combined full, fixture, live and root gates. Re-run the actual two-profile journey on the consumed source. Resolve or explicitly retain the external provider-login boundary before any broad P1 completion claim. No real-library migration, merge or deployment is part of this checkpoint.
+Finish and review C024 and C025 evidence; repair the real Paper loading-position and missing-attachment draft defects; integrate reviewed sources and run fresh combined full, fixture, live and root gates. Re-run the actual two-profile journey on the consumed source. Resolve or explicitly retain the external provider-login boundary before any broad P1 completion claim. No real-library migration, merge or deployment is part of this checkpoint.
