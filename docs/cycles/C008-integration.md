@@ -236,3 +236,7 @@ Truth checkpoint026f49d was applied as a content union; its C008 append conflict
 ## 06:37 UTC helper tripwire and independent context audit
 
 Imported C030 source88633ff visual fingerprint change: shared `app/tests/lib` capture helpers now invalidate approval. Failing-first log retained; approval-history/pixel checks pass. No native C030 acceptance imported. Independent C033 audit at31407b6 retained [review](evidence/C033-independent/review.json) with exact source/test/output hashes:26 controlled cases plus existing15 pass. Missing-folder preflight remains ordinary-only; same-path directory replacement and captured settings defaults are explicitly bounded, not filesystem identity/authentication guarantees. Combined UI/live/root gates remain pending.
+
+## Combined desktop pass — 06:41 UTC
+
+Clean source **5e8433e**, session52348: locked root/app npm ci, Chromium install and full `npm run test:desktop` exited0. [Exact command result/log hash](evidence/C008-5e8433e/result.json). Goal/profile/adoption/recovery/terminal/context/send suites pass together. Dedicated native/editor journeys and final deterministic/live/root gates remain pending. Root audit0; app audit retains two high entries (Electron38 and extract-zip), with43/44 upgrade blockers unchanged. This is not a release or all-stage completion.
