@@ -34,6 +34,17 @@ const paperText = () => page.locator('.bw-paper-pane:not([hidden]) .ProseMirror'
 const saveView = () => page.evaluate(async () => { const s = window.__barkdown.state; await window.barkdown.state.save({ version: 1, profileId: s.profileId, generation: s.generation, chats: s.chats, order: s.order, favorites: s.favorites, pages: s.pages, current: s.current, mode: s.mode, directTab: s.directTab }); });
 const storeFor = id => path.join(userData, 'profile-data/profiles', id);
 const workspace = id => JSON.parse(fs.readFileSync(path.join(storeFor(id), 'workspace.json')));
+async function positionAuthority(label, id) {
+  const ws = workspace(id), chat = ws.chats[ws.current];
+  const value = { persisted: chat?.tabs.find(tab => tab.id === chat.active)?.scroll,
+    renderer: page && !page.isClosed() ? await page.evaluate(() => {
+      const state = window.__barkdown?.state, chat = state?.chats[state.current];
+      return { profileId: state?.profileId, saved: chat?.tabs.find(tab => tab.id === chat.active)?.scroll,
+        dom: document.querySelector('.bw-paper-pane:not([hidden]) #current')?.scrollTop,
+        canvasReady: Boolean(document.querySelector('.bw-paper-pane:not([hidden]) .ProseMirror')) };
+    }) : null };
+  (report.positionAuthority ||= {})[label] = value; persistReport(); return value;
+}
 async function readingSnapshot(label) {
   const value = await page.evaluate(() => {
     const pane = document.querySelector('.bw-paper-pane:not([hidden])'), scroller = pane.querySelector('#current');
@@ -153,8 +164,17 @@ try {
   const undone = await page.evaluate(() => window.barkdown.barkpark.get('same-slug')); assert.doesNotMatch(undone.markdown, /A background/); assert.match(undone.markdown, /Only A owns/);
   await page.reload(); await loaded(a); await openPaper(); assert.doesNotMatch(await paperText(), /A background/); await shot('05-A-undo');
   record('Returning A restores its cache/favorite/receipt; guarded Undo affects only matching A revision');
-  await select(b); await openPaper(); assert.match(await paperText(), /Only B owns cobaltwitness/); assert.doesNotMatch(await paperText(), /amberwitness/);
+  await positionAuthority('beforeReturnToB', b);
+  await select(b); await positionAuthority('returnToBBeforeCanvas', b);
+  // Selection already restores this tab. Reopening it during the async mount
+  // invokes savePositions on a loading scroller and would test a different action.
+  await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror').waitFor();
+  await settlePublishedHistory(); await positionAuthority('returnToBAfterLayout', b);
+  const beforeQuitReading = await readingSnapshot('beforeQuit');
+  assert.equal(beforeQuitReading.scrollTop, bScroll, 'B selection itself restores the saved reading position');
+  assert.match(await paperText(), /Only B owns cobaltwitness/); assert.doesNotMatch(await paperText(), /amberwitness/);
   await app.close(); app = null;
+  await positionAuthority('afterQuit', b);
   app = await launch(); page = await app.firstWindow({ timeout: 180000 }); page.setDefaultTimeout(180000); await loaded(b);
   await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror').waitFor();
   assert.match(await paperText(), /Only B owns cobaltwitness/);
