@@ -69,4 +69,19 @@ try {
   assert.deepEqual(await website(), { storage: 'B', cookie: 'owner=B' });
   assert.deepEqual(errors, []);
   console.log(JSON.stringify({ passed: ['opt-in UUID boot', 'Settings create/switch', 'same-slug documents', 'draft restoration', 'stale snapshot rejection', 'legacy untouched', 'same-URL website storage/cookies', 'selected B process restart with draft/side-parent/tabs'], userData }));
+} catch (error) {
+  const diagnostic = { error: error.stack, userData, siteUrl, pageErrors: errors };
+  diagnostic.renderer = await page.evaluate(() => ({ profileId: window.__barkdown?.state.profileId,
+    current: window.__barkdown?.state.current,
+    views: [...document.querySelectorAll('webview')].map(view => {
+      const result = { src: view.getAttribute('src'), partition: view.getAttribute('partition') };
+      for (const method of ['getTitle', 'getURL', 'isLoading', 'getWebContentsId']) {
+        try { result[method] = view[method](); } catch (e) { result[method] = e.message; }
+      }
+      return result;
+    }), errors: [...document.querySelectorAll('.bw-browser-error')].map(el => el.textContent) })).catch(e => ({ error: e.message }));
+  diagnostic.contents = await app.evaluate(({ webContents }) => webContents.getAllWebContents().map(wc => ({ id: wc.id, type: wc.getType(), url: wc.getURL(), title: wc.getTitle(), loading: wc.isLoading(), destroyed: wc.isDestroyed() }))).catch(e => ({ error: e.message }));
+  fs.writeFileSync(path.join(userData, 'failure.json'), JSON.stringify(diagnostic, null, 2));
+  await page.screenshot({ path: path.join(userData, 'failure.png') }).catch(() => {});
+  console.error(JSON.stringify(diagnostic)); throw error;
 } finally { await app.close(); await new Promise(resolve => site.close(resolve)); }
