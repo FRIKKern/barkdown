@@ -1,6 +1,6 @@
 # Actual two-profile Paper journey
 
-C016 remains **in progress**. These are disposable actual Electron/managed PostgreSQL journeys, distinct from the deterministic UI tour. No real library was used. Each folder retains its source commit, runtime identity and cleanup outcome in `manifest.json`.
+C016 actual corrected journey now **passes** at34ef068; final regression/visual/live/root closeout remains in progress. These are disposable actual Electron/managed PostgreSQL journeys, distinct from the deterministic UI tour. No real library was used. Each folder retains its source commit, runtime identity and cleanup outcome in `manifest.json`.
 
 | Run | What passed | Why it stopped |
 | --- | --- | --- |
@@ -24,3 +24,12 @@ The 00:54 run's `stopped: true` means the final resources were stopped, **not** 
 The HTTP provider uses scripted text through the real SDK to hold A's runtime lease. A **separate actual stdio MCP client** reads and edits with captured A storage/connection. This does not prove API-provider remote tool parity or model decision quality. Unmatched search can return B-owned fuzzy hits; exact-match relevance is not claimed.
 
 All retained live frames were inspected. Controlled actual Electron held-stream cancellation, disconnect/cancellation, and quit checks passed both before and after C014's owned-worker import; they did not reproduce or explain the historical cancellation hang. The next retry uses unchanged native window bounds and records MCP fetch causes before cleanup. P1/A1 is not complete.
+
+
+| [04:04 corrected](2026-09-22T04-04-36-864Z/manifest.json) | All four original journey groups PASS: same-slug/media/search/favorites, late A MCP edit and held transcript, exact B draft/position, guarded Undo, actual B process restart | Normal cleanup; both private postmasters absent; owned Job stopped/active0 |
+
+![B restored after actual process restart](2026-09-22T04-04-36-864Z/06-B-process-restart.png)
+
+![Actual isolated journey](2026-09-22T04-04-36-864Z/isolation.gif)
+
+[Original hashed review](2026-09-22T04-04-36-864Z/review.json). Saved360 survives no-canvas selection, layout and app quit; final restart scroll360 and named B4 paragraph y112.453125 exactly match before/after A. Initial restart transient390 settles to360 after image/history readiness, recorded honestly in manifest. Long Paper title clipping is visible in this older source; no new editor layout-quality claim. All prior failures remain above. No full P1 closure.
