@@ -1,0 +1,37 @@
+[
+  {
+    "name": "extract-zip",
+    "version": "2.0.1",
+    "location": "node_modules/extract-zip",
+    "isWorkspace": false,
+    "dependents": [
+      {
+        "type": "prod",
+        "name": "extract-zip",
+        "spec": "^2.0.1",
+        "from": {
+          "name": "electron",
+          "version": "38.8.6",
+          "location": "node_modules/electron",
+          "isWorkspace": false,
+          "dependents": [
+            {
+              "type": "dev",
+              "name": "electron",
+              "spec": "^38.0.0",
+              "from": {
+                "location": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-integration-12h\\app"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "dev": true,
+    "optional": false,
+    "devOptional": true,
+    "peer": false,
+    "bundled": false,
+    "overridden": false
+  }
+]

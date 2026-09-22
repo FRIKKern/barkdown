@@ -1,0 +1,62 @@
+{
+  "capturedAt": "2026-09-22T05:13:29.775Z",
+  "source": "92f07c06c736cfc2cbe23ba8bb455920bbc94426",
+  "scope": "Read-only npm registry/audit and source inspection. No install, dependency edits or UI.",
+  "appLockSha256": "d701063665d8991c7775b7868b6333f15955ebafdb6396d93b3a005acfbe136b",
+  "node": "v22.13.1",
+  "commands": [
+    {
+      "command": "npm.cmd audit --json",
+      "cwd": "app",
+      "exitCode": 1,
+      "file": "audit.json",
+      "stderr": "",
+      "sha256": "4844c7572bdc85bdd5d6ffc4d98579a398fa45c7d9bb3e40244a12096ae03715"
+    },
+    {
+      "command": "npm.cmd explain extract-zip --json",
+      "cwd": "app",
+      "exitCode": 1,
+      "file": "extract-zip-path.json",
+      "stderr": "npm error No dependencies found matching extract-zip\nnpm error A complete log of this run can be found in: C:\\Users\\Frikk\\AppData\\Local\\npm-cache\\_logs\\2026-09-22T05_13_24_076Z-debug-0.log",
+      "sha256": "feca2297e426f2f7d85215892d1b5051a1c0ad7b70b532d55771a34bdd2f9610"
+    },
+    {
+      "command": "npm.cmd view electron@42.11.6 version dependencies engines scripts bin dist.integrity --json",
+      "cwd": "app",
+      "exitCode": 0,
+      "file": "electron42.json",
+      "stderr": "",
+      "sha256": "fe2de0e4ce781ecb93198dcd68f84aadbf449b8a5ee802d9683549c8a905783a"
+    },
+    {
+      "command": "npm.cmd view electron@43.7.3 version dependencies engines scripts bin dist.integrity --json",
+      "cwd": "app",
+      "exitCode": 0,
+      "file": "electron43.json",
+      "stderr": "",
+      "sha256": "44737ba7cdcbbcd23c84e8fed70c1d5e72d4600a9be8d7ce08dd35b78fbb003a"
+    },
+    {
+      "command": "npm.cmd view electron@44.4.3 version dependencies engines scripts bin dist.integrity --json",
+      "cwd": "app",
+      "exitCode": 0,
+      "file": "electron44.json",
+      "stderr": "",
+      "sha256": "5d3d8f8f96c20ade9429806b2e66fc6e0a2cec3fcc4ec7ed00e20d194fc3cc4c"
+    },
+    {
+      "command": "npm.cmd explain extract-zip --json",
+      "cwd": "existing integration app node_modules (read-only)",
+      "exitCode": 0,
+      "file": "installed-extract-path.json",
+      "sha256": "264e9f00107cd437d8641c8746d50d41143fb711ede25d17b7f98223f2ca776f"
+    }
+  ],
+  "files": [
+    {
+      "file": "lock-paths.json",
+      "sha256": "3b3585a309210920cd163d90e6dc5875bea6e8f060cbb43a207edfa0c3452569"
+    }
+  ]
+}
