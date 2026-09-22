@@ -1,0 +1,25 @@
+PASS  the two batches differ ONLY by the remove-block (and the move it costs) — remove-block IS the discriminant
+
+OK
+mounted pending-change flush regression passed
+mounted paste, undo, redo, and flush payload regression passed
+mounted autocomplete query, selection, and canonical payload passed
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: keep: the remote sibling survives
+
+1 !== 2
+
+    at file:///C:/Users/Frikk/.codex/worktrees/barkpark-html-paste/api/assets/paper-editor/src/canvas/__save_ack_mounted.test.mjs:721:12
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at process.processTimers (node:internal/timers:526:9) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 1,
+  expected: 2,
+  operator: 'strictEqual'
+}
+
+Node.js v22.13.1

@@ -11,7 +11,7 @@ export function safe(p) { const f=path.resolve(root,p);if(!f.startsWith(root+pat
 export function sourceHash(bytes) { const text=bytes.toString('utf8');return hash(!bytes.includes(0)&&Buffer.from(text).equals(bytes)?text.replace(/\r\n/g,'\n'):bytes); }
 export function inputs() {
  const names=execFileSync('git',['ls-files','--cached','--others','--exclude-standard'],{cwd:root,encoding:'utf8'}).trim().split(/\r?\n/);
- const selected=[...new Set(names)].filter(p=>/^(app\/(main\/|renderer\/|shared\/|scripts\/|package(?:-lock)?\.json|BARKPARK_REF)|app\/tests\/(?:visual|status-shots|paper-host\.live|paper-agent-takeover\.live|paper-rich-takeover\.live|paper-structured-table\.live|paper-markdown-paste\.live|api-paper\.live|terminal-ownership\.live|project-buffer-profile\.live|goal-coordinator(?:-recovery)?\.live|fixtures\/(?:anthropic-tools-http|coordinator-http)\.mjs)|scripts\/visual|docs\/visual\/coverage\.json|package(?:-lock)?\.json)/.test(p)).sort();
+ const selected=[...new Set(names)].filter(p=>/^(app\/(main\/|renderer\/|shared\/|scripts\/|package(?:-lock)?\.json|BARKPARK_REF)|app\/tests\/(?:visual|status-shots|paper-host\.live|paper-agent-takeover\.live|paper-rich-takeover\.live|paper-structured-table\.live|paper-markdown-paste\.live|paper-html-table-paste\.live|rollback-native\.live|api-paper\.live|terminal-ownership\.live|project-buffer-profile\.live|goal-coordinator(?:-recovery)?\.live|fixtures\/(?:anthropic-tools-http|coordinator-http)\.mjs)|scripts\/visual|docs\/visual\/coverage\.json|package(?:-lock)?\.json)/.test(p)).sort();
  return Object.fromEntries(selected.map(p=>[p,fs.existsSync(safe(p))?sourceHash(fs.readFileSync(safe(p))):'deleted']));
 }
 export const fingerprint = data => hash(JSON.stringify(data));

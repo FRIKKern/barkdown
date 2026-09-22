@@ -1,0 +1,23 @@
+{
+  "importedAt": "2026-09-22T03:08:58.651106+00:00",
+  "sourceEvidenceCommit": "e989157b0235530de38e43fd2da40f49f26ef166",
+  "sourceFixtureCommit": "fdf6b9ec3572c3e5777b85e33740c026c26bcb24",
+  "upstream": "d8fda969093c6b87582537813a83083e36eb58ac",
+  "e008Closeout": "355c5cb",
+  "archivedStatusManifest": "docs/images/status/history/E007-fdf6b9e.json",
+  "originalReviews": [
+    "docs/visual/html-table-paste/runs/2026-09-22T02-51-36-738Z/review.json",
+    "docs/visual/html-table-paste/status-review.json",
+    "docs/visual/reviews/168111117bb29999571f0347eb496939f54dfcdcf267be8b98df2060c352c668.json"
+  ],
+  "hashVerification": "Dedicated live manifest, every reviewed artifact and GIF; archived status manifest and every media hash; deterministic review manifest/report hashes and every capture artifact all match exactly. No normalization addendum required.",
+  "protectedUnchanged": {
+    "README.md": "a2a4ded28430132acb47cb58c9be2e32f4cf43ce77e681c1141ff801837e9f6a",
+    "docs/images/status/manifest.json": "faddc6e6832a47f586199e8dd20caf349996fc4d22b5210f0e20d6563f61b6e1",
+    "docs/visual/approved.json": "f65f0d7bbc80b50af0d0a0426475c745a9db851b0d6f7aff6d1d8b4da83e265d",
+    "docs/visual/pending.json": "04e66672b9da1296d736aec93c31f3af214bbee676869b9d6cd6241a08c45b06"
+  },
+  "validation": "Fixture syntax, build, TypeScript/local links before status gate, visual comparator tests, artifact hashes, two fixture input coverage assertions, plan and cycle checks pass. Full check correctly stops on existing stale combined status; separate visual check correctly rejects changed source fingerprint. No combined full pass claimed.",
+  "fallback": "d8acb82",
+  "runtime": "No runtime or UI launched for import."
+}

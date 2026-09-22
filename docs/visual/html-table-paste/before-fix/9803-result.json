@@ -1,0 +1,428 @@
+[
+  {
+    "name": "paragraphs",
+    "html": "<table><tr><th>Heading</th></tr><tr><td><p>First paragraph</p><p>Second <strong>paragraph</strong></p></td></tr></table>",
+    "blocks": [
+      {
+        "id": "c-1-40w821ki",
+        "type": "table",
+        "rows": [
+          [
+            []
+          ]
+        ],
+        "head": [
+          [
+            {
+              "type": "text",
+              "value": "Heading"
+            }
+          ]
+        ]
+      },
+      {
+        "id": "c-2-nasl1nmp",
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "value": "First paragraph"
+          }
+        ]
+      },
+      {
+        "id": "c-3-6rxt50il",
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "value": "Second "
+          },
+          {
+            "type": "strong",
+            "children": [
+              {
+                "type": "text",
+                "value": "paragraph"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "pm": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "bpTable",
+          "attrs": {
+            "bpId": null,
+            "bpType": "table",
+            "bpTableSource": null,
+            "colWidths": null,
+            "headCol": false
+          },
+          "content": [
+            {
+              "type": "bpTableRow",
+              "content": [
+                {
+                  "type": "bpTableHeaderCell",
+                  "attrs": {
+                    "bpTableCellSource": null,
+                    "colspan": 1,
+                    "rowspan": 1,
+                    "align": null,
+                    "head": false
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Heading"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "bpTableRow",
+              "content": [
+                {
+                  "type": "bpTableCell",
+                  "attrs": {
+                    "bpTableCellSource": null,
+                    "colspan": 1,
+                    "rowspan": 1,
+                    "align": null,
+                    "head": false
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "attrs": {
+            "bpParagraphSource": null,
+            "textAlign": "left",
+            "bpId": null,
+            "bpType": null,
+            "locked": null,
+            "role": null
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "First paragraph"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "attrs": {
+            "bpParagraphSource": null,
+            "textAlign": "left",
+            "bpId": null,
+            "bpType": null,
+            "locked": null,
+            "role": null
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Second "
+            },
+            {
+              "type": "text",
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "paragraph"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "aligned",
+    "html": "<table><tr><th style=\"text-align:center\">Center</th><th align=\"right\">Right</th></tr><tr><td style=\"text-align:center\">one</td><td align=\"right\">two</td></tr></table>",
+    "blocks": [
+      {
+        "id": "c-4-dp91n18l",
+        "type": "table",
+        "rows": [
+          [
+            [
+              {
+                "type": "text",
+                "value": "one"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "value": "two"
+              }
+            ]
+          ]
+        ],
+        "head": [
+          [
+            {
+              "type": "text",
+              "value": "Center"
+            }
+          ],
+          [
+            {
+              "type": "text",
+              "value": "Right"
+            }
+          ]
+        ]
+      }
+    ],
+    "pm": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "bpTable",
+          "attrs": {
+            "bpId": null,
+            "bpType": "table",
+            "bpTableSource": null,
+            "colWidths": null,
+            "headCol": false
+          },
+          "content": [
+            {
+              "type": "bpTableRow",
+              "content": [
+                {
+                  "type": "bpTableHeaderCell",
+                  "attrs": {
+                    "bpTableCellSource": null,
+                    "colspan": 1,
+                    "rowspan": 1,
+                    "align": null,
+                    "head": false
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Center"
+                    }
+                  ]
+                },
+                {
+                  "type": "bpTableHeaderCell",
+                  "attrs": {
+                    "bpTableCellSource": null,
+                    "colspan": 1,
+                    "rowspan": 1,
+                    "align": null,
+                    "head": false
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Right"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "bpTableRow",
+              "content": [
+                {
+                  "type": "bpTableCell",
+                  "attrs": {
+                    "bpTableCellSource": null,
+                    "colspan": 1,
+                    "rowspan": 1,
+                    "align": null,
+                    "head": false
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "one"
+                    }
+                  ]
+                },
+                {
+                  "type": "bpTableCell",
+                  "attrs": {
+                    "bpTableCellSource": null,
+                    "colspan": 1,
+                    "rowspan": 1,
+                    "align": null,
+                    "head": false
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "two"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "multiline",
+    "html": "<table><tr><td>First<br>Second</td></tr></table>",
+    "blocks": [
+      {
+        "id": "before",
+        "type": "paragraph",
+        "content": []
+      }
+    ],
+    "pm": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "paragraph",
+          "attrs": {
+            "bpParagraphSource": {
+              "content": []
+            },
+            "textAlign": "left",
+            "bpId": "before",
+            "bpType": "paragraph",
+            "locked": null,
+            "role": null
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "list",
+    "html": "<table><tr><td><ul><li>First</li><li>Second</li></ul></td></tr></table>",
+    "blocks": [
+      {
+        "id": "c-5-lmz0dme8",
+        "type": "table",
+        "rows": [
+          [
+            []
+          ]
+        ]
+      },
+      {
+        "id": "c-6-x8sj5scl",
+        "type": "list",
+        "ordered": false,
+        "items": [
+          [
+            {
+              "type": "text",
+              "value": "First"
+            }
+          ],
+          [
+            {
+              "type": "text",
+              "value": "Second"
+            }
+          ]
+        ]
+      }
+    ],
+    "pm": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "bpTable",
+          "attrs": {
+            "bpId": null,
+            "bpType": "table",
+            "bpTableSource": null,
+            "colWidths": null,
+            "headCol": false
+          },
+          "content": [
+            {
+              "type": "bpTableRow",
+              "content": [
+                {
+                  "type": "bpTableCell",
+                  "attrs": {
+                    "bpTableCellSource": null,
+                    "colspan": 1,
+                    "rowspan": 1,
+                    "align": null,
+                    "head": false
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "bulletList",
+          "attrs": {
+            "bpListFrameSource": null,
+            "bpId": null,
+            "bpType": null,
+            "locked": null,
+            "role": null
+          },
+          "content": [
+            {
+              "type": "listItem",
+              "attrs": {
+                "bpListSource": null
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "attrs": {
+                    "textAlign": "left"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "First"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "listItem",
+              "attrs": {
+                "bpListSource": null
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "attrs": {
+                    "textAlign": "left"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Second"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
