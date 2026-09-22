@@ -7,9 +7,15 @@
     "Managed early driver completion does not revive runId or lose text",
     "139 original committed evidence hashes independently verified"
   ],
-  "hashes": {
+  "originalCaptureHashes": {
     "command.mjs.txt": "9e5cb025d30a7b858ae74e9634e2f6e960115cd2c655ec94e560dd307b8bfb85",
     "hash-report.json": "6fc823c553507797c94c34b79acbda44198e8807401ed3c5f9d177ede4821d05",
     "report.json": "c0710615f7534bfe75f3d1a3d2e7e89045f697ed065efbeb0f910405fd6c5bae"
-  }
+  },
+  "archivedHashes": {
+    "command.mjs.txt": "c0b2baa29c11153d9e0c656e276164c55de5105d8767565e8e86e8760f51c9a4",
+    "hash-report.json": "0a4df09e47a32911069c05ed54226bd7feb991fddc299acebe6ceca58255e799",
+    "report.json": "c0710615f7534bfe75f3d1a3d2e7e89045f697ed065efbeb0f910405fd6c5bae"
+  },
+  "lineEndings": "Git normalized original PowerShell command/hash report CRLF to LF on archive. Original capture hashes remain listed separately; archived hashes bind committed bytes. No content or test result changed."
 }

@@ -1,0 +1,41 @@
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: an unsupported HTML image must not erase selected text with an empty parsed slice
++ actual - expected
+
+  [
+    {
+      content: [
+        {
+          type: 'text',
++         value: 'Before  After'
+-         value: 'Before selected After'
+        }
+      ],
+      id: 'seed',
+      type: 'paragraph'
+    }
+
+    at file:///C:/Users/Frikk/.codex/worktrees/barkpark-rich-clipboard/api/assets/paper-editor/src/canvas/__rich_clipboard_preservation.test.mjs:24:52 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: [
+    {
+      id: 'seed',
+      type: 'paragraph',
+      content: [ { type: 'text', value: 'Before  After' } ]
+    }
+  ],
+  expected: [
+    {
+      id: 'seed',
+      type: 'paragraph',
+      content: [ { type: 'text', value: 'Before selected After' } ]
+    }
+  ],
+  operator: 'deepStrictEqual'
+}
+
+Node.js v22.13.1

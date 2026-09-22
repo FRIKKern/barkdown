@@ -79,3 +79,5 @@ Each page contains a still, recorded interaction GIF, provenance and changelog. 
 - [Editor cache integrity](../docs/visual/cache-integrity/README.md): C025 corruption refusal, owned repair and profile-isolated fallback reviewed at b93f832; combined source validation remains separate.
 
 C026: shared composers preserve draft text and images until start acknowledgement, guard duplicate sends and newer typing, and expose keyboard/touch attachment removal. Human errors retain exact collapsed diagnostics. [Actual managed and legacy evidence](../docs/visual/send-preservation/README.md) covers rejection, restart and explicit retry; unknown dispatch outcomes are never labelled not started.
+
+E009 clipboard fixture and original evidence are imported. The scoped behavior is proven on connected upstream3495, not the currently vendored a544 fallback. Use `test:rich-clipboard:isolated` with the explicitly built3495 source. [Evidence](../docs/visual/rich-clipboard/README.md); vendor consumption remains E011.

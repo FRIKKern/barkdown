@@ -96,3 +96,5 @@ Stated 2026-09-20, not yet folded into the PRD:
 A green row requires exit status zero, no termination signal or spawn error, and positive complete assertion evidence. Process failure overrides even a previously printed all-green summary. The runner accepts complete `n/n green` JSON summaries, the opaque row’s three complete count groups plus `bundle.pass`, and Paper’s nonempty boolean `results[].ok` checks. Missing, malformed, ambiguous, zero-count or partial evidence is red. Raw output remains in the row log; JSON/Markdown reports name process failure.
 
 The gaps script currently emits an observational log without verified pass/fail assertions. Its successful exit is not parity evidence; adding real behavior assertions remains a separate matrix task. This correction does not unblock upstream CI credentials or establish a fresh live parity pass.
+
+E009 original clipboard proof imported: connected upstream3495 selected-text refusal, explicit plain paste, equivalent/file-only uploads and reload. Current vendored fallback is unchanged; E011 consumption remains pending. See [rich clipboard](visual/rich-clipboard/README.md).
