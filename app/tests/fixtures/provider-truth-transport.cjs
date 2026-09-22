@@ -9,10 +9,11 @@ const agent = {
   start(options) {
     fs.appendFileSync(process.env.PROVIDER_TRUTH_TRACE, 'dispatch\n');
     queueMicrotask(async () => {
-      const effects = ['success', 'delayed-finish', 'late-error', 'error-note', 'tool-error', 'cleanup-failed', 'unverified', 'approval', 'wrong-content', 'no-receipt', 'wrong-revision', 'no-read', 'no-effect'];
+      const effects = ['success', 'delayed-finish', 'late-error', 'error-note', 'tool-error', 'cleanup-failed', 'unverified', 'approval', 'wrong-content', 'no-receipt', 'wrong-revision', 'no-read', 'no-effect', 'extra-document'];
       if (effects.includes(scenario)) {
         const scope = options.scope;
         const doc = scope.documents.list()[0];
+        if (scenario === 'extra-document') scope.documents.create({ title: 'Unexpected second fixture', markdown: 'worker-created extra content' });
         const marker = JSON.parse(/exactly ("[^"]+")/.exec(options.prompt)[1]);
         const emitTool = (tool, id) => {
           options.send({ type: 'tool_start', tool, toolUseId: id, input: { id: doc.id } });

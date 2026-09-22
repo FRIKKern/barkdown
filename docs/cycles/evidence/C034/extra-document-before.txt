@@ -1,0 +1,36 @@
+TAP version 13
+# Subtest: actual live runner classifies extra-document
+not ok 1 - actual live runner classifies extra-document
+  ---
+  duration_ms: 139.0194
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-live-provider-truth\\app\\tests\\providers-runner.test.mjs:11:31'
+  failureType: 'testCodeFailure'
+  error: |-
+    result retained at C:\Users\Frikk\AppData\Local\Temp\barkdown-provider-runner-XeVE2I: Retained provider evidence: C:\Users\Frikk\AppData\Local\Temp\barkdown-provider-proof-zThsFf\report.json
+    claude: PASS; driverFinished=true; terminationVerified=true
+    
+    
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-live-provider-truth/app/tests/providers-runner.test.mjs:21:10)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.start (node:internal/test_runner/test:829:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 249.7901

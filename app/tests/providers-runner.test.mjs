@@ -7,7 +7,7 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const app = path.dirname(here);
-const cases = ['error', 'nonzero', 'no-effect', 'empty', 'incomplete', 'cancelled-cleanup', 'late-error', 'error-note', 'tool-error', 'cleanup-failed', 'unverified', 'approval', 'wrong-content', 'no-receipt', 'wrong-revision', 'no-read', 'success', 'delayed-finish', 'invalid-provider'];
+const cases = ['error', 'nonzero', 'no-effect', 'empty', 'incomplete', 'cancelled-cleanup', 'late-error', 'error-note', 'tool-error', 'cleanup-failed', 'unverified', 'approval', 'wrong-content', 'no-receipt', 'wrong-revision', 'no-read', 'success', 'delayed-finish', 'invalid-provider', 'extra-document'];
 for (const scenario of cases) test(`actual live runner classifies ${scenario}`, () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-provider-runner-'));
   const trace = path.join(root, 'trace.txt');
