@@ -2,13 +2,13 @@
 
 Active on `codex/integration-12h` in the isolated `barkdown-integration-12h` worktree. No main merge or deployment. This branch is a test candidate, not a completed product milestone.
 
-## Current candidate: 112d92b
+## Current candidate: bde5e23
 
-The candidate includes C021 native rollback checks, C024 project-file authority, C023 bounded Windows atomic writes, and C027 immutable visual reviews. It also retains original C020, C022 and E007/E008 evidence without replacing their source identities. Focused checks passed after each import, including the C010 lease-relocation path after the C023 merge.
+The candidate includes C021 native rollback checks, C024 project-file authority, C023 bounded Windows atomic writes, C025 verified editor-cache integrity, and C027 immutable visual reviews. It also retains original C020, C022 and E007/E008 evidence without replacing their source identities. Focused checks passed after each import, including the C010 lease-relocation path after the C023 merge.
 
-**Fresh combined desktop, visual, live Paper and root verification are still required.** The current global screenshot approval deliberately remains on the earlier source. `node scripts/check.cjs` reaches its expected stale-status failure: source `112d92b`, capture `e380385`. Original lane approvals do not approve this combined candidate.
+**Fresh combined desktop, visual, live Paper and root verification are still required.** The current global screenshot approval deliberately remains on the earlier source. `node scripts/check.cjs` reaches its expected stale-status failure: source newer than capture `e380385`. Original lane approvals do not approve this combined candidate.
 
-C025 cache integrity, C026 send preservation, the C016 reading-position fix and E009 clipboard behavior remain separate lanes. Their required native journeys and/or final evidence gates must finish before import. The [A1 evidence table](A1-current-evidence.md) maps what remains unproved. `d8acb82` is the latest fully validated combined fallback. Main and deployment are unchanged.
+C025 source and original evidence are imported at `9e3849c`; its lane approval remains source-specific. C026 send preservation, the C016 reading-position fix and E009 clipboard behavior remain separate lanes. Their required native journeys and/or final evidence gates must finish before import. The [A1 evidence table](A1-current-evidence.md) maps what remains unproved. `d8acb82` is the latest fully validated combined fallback. Main and deployment are unchanged.
 
 ## Last fully validated checkpoint — 02:24 UTC
 
