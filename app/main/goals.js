@@ -129,7 +129,7 @@ class GoalScheduler {
     for (const g of data.goals) {
       for (const t of g.tasks) if (t.status === 'running') {
         t.status = 'interrupted'; t.attempts.at(-1).status = 'interrupted';
-        t.attempts.at(-1).reason = 'Process stopped; external effects are uncertain. Reconcile before retry.';
+        t.attempts.at(-1).reason = 'Run interrupted; worker shutdown and external effects need reconciliation.';
         changed = true;
       }
       if (g.status === 'active') { g.status = 'paused'; g.reason = 'Recovered after interruption; explicit resume required.'; changed = true; }
