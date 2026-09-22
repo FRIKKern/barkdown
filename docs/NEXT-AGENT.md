@@ -1,6 +1,6 @@
 # Continue the dependable-workspace plan
 
-On `codex/goal-orchestration`, the separate user-requested C005 track is checkpointed in [the goal handoff](goals/HANDOFF.md). C005 proves the bounded scheduler, owned Windows workers and opt-in profile IPC integration; crash-dialog recovery and coordinator planning remain next. This does not supersede the central P1 profile queue. Follow that handoff for unfinished goal work and the shared-profile coordination boundary.
+On `codex/goal-orchestration`, the separate user-requested C005 track is checkpointed in [the goal handoff](goals/HANDOFF.md). C005 proves the bounded scheduler, owned Windows workers and opt-in profile IPC integration; [C011 crash-dialog recovery](cycles/C011-goal-recovery.md) is active; coordinator planning remains next. This does not supersede the central P1 profile queue. Follow that handoff for unfinished goal work and the shared-profile coordination boundary.
 
 Read [PLAN.md](PLAN.md), [DESIGN-DECISIONS.md](DESIGN-DECISIONS.md), [ARCHITECTURE.md](ARCHITECTURE.md), then the current stage in [ACCEPTANCE.md](ACCEPTANCE.md). Run `npm run plan`. **Next: P1, profile ownership and isolation.** The former lowest-open-editor-issue rule is retired.
 

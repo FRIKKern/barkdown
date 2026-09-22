@@ -1,32 +1,25 @@
 {
   "version": 1,
-  "id": "C005",
+  "id": "C011",
   "stage": "P3",
-  "status": "done",
-  "goal": "Build and prove a bounded durable goal scheduler before wiring full worker conversations.",
+  "status": "active",
+  "goal": "Prove actual Electron goal crash recovery and explicit reconciliation through the user interface.",
   "scope": [
-    "Additive goal journal and three-worker scheduler",
-    "Immutable owned dispatch and conservative crash recovery",
-    "No central profile queue changes or live-data activation"
+    "Disposable profile and native Windows workers",
+    "Persisted full worker conversations and explicit retry",
+    "No central queue, live-library migration or coordinator planning changes"
   ],
   "acceptance": [
-    "Three concurrent tasks with dependency and reviewed completion gates",
-    "Restart never replays uncertain external work",
-    "Cancellation deadline and same-ID profile boundaries have executable evidence"
+    "Reopen interrupted with zero automatic worker replay",
+    "Trusted shutdown verification before evidence review and retry",
+    "Retain partial replies, drafts, parent references and immutable attempts"
   ],
   "checkpoint": "2026-09-22",
-  "handoff": "docs/goals/HANDOFF.md",
-  "nextAction": "Archive C005 and open a bounded Electron crash/reopen/reconciliation cycle; then implement coordinator planning and review.",
+  "handoff": "docs/cycles/C011-goal-recovery.md",
+  "nextAction": "Add and run actual Electron crash/reopen/reconciliation journey.",
   "evidence": [
-    "app/tests/goals.test.mjs",
-    "app/tests/goal-recovery.test.mjs",
-    "app/tests/profile-goals.live.mjs",
-    "docs/goals/HANDOFF.md",
-    "docs/goals/evidence/043e472/README.md",
-    "docs/goals/evidence/beefded/authenticated-codex.json",
-    "docs/visual/runs/2026-09-21T23-44-00-349Z/manifest.json",
-    "docs/images/status/manifest.json"
+    "docs/goals/HANDOFF.md"
   ],
-  "truthReview": "README, app guide, integration contract, NEXT-AGENT, VALIDATION, PLAN/plan.json and architecture reviewed. Opt-in profile Windows goal service enabled; central P1-P5 still pending. Full user goal remains active.",
-  "screenshotReview": "31 deterministic frames inspected and explicitly approved, including narrow profile/settings and goal surfaces. Five fresh live Paper stills and 37 GIF frames inspected. Actual owned-worker Electron live/result screenshots inspected; deterministic transport distinct from authenticated Codex proof."
+  "truthReview": "Starting from verified5c27845; full goal and P1-P5 remain active/pending.",
+  "screenshotReview": "Starting evidence applies until app source changes; new recovery journey needs dedicated frames."
 }
