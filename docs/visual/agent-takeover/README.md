@@ -4,7 +4,7 @@ E002 closed with eight passing real-server cases at Barkdown `663a12a` and upstr
 
 ![Real selection and writing with stable receipt](runs/2026-09-21T23-35-14-407Z/agent-takeover.gif)
 
-[Reviewed evidence and continuous video](runs/2026-09-21T23-35-14-407Z/README.md) · [before-fix data-loss diagnosis](before-fix/README.md) · [handoff and limits](../../cycles/E002-agent-takeover.md)
+[Reviewed evidence and continuous video](runs/2026-09-21T23-35-14-407Z/README.md) Â· [before-fix data-loss diagnosis](before-fix/README.md) Â· [handoff and limits](../../cycles/E002-agent-takeover.md)
 
 This uses real Paper, PortableDoc operations and the production revision-checked agent adapter against disposable data. Dedicated motion has no model turn. Keyboard, pointer, beforeinput and Chromium IME take over immediately; reduced motion, hidden panes and focused offscreen reading are covered. A separate current status showcase includes real Codex.
 

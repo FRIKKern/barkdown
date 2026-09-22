@@ -97,7 +97,13 @@ function markdownToDoc(markdown) {
     const buffer = [line];
     i++;
     while (i < lines.length && lines[i].trim() && !/^(#{1,6}\s|```|>|\s*[-*+]\s|\s*\d+[.)]\s)/.test(lines[i]) && !(isTableRow(lines[i]) && isTableSeparator(lines[i + 1] || ''))) { buffer.push(lines[i]); i++; }
-    content.push(paragraph(buffer.join(' ')));
+    const inline = [];
+    for (let lineIndex = 0; lineIndex < buffer.length; lineIndex++) {
+      if (lineIndex) inline.push(/(?: {2,}|\\)$/.test(buffer[lineIndex - 1]) ? { type: 'hardBreak' } : { type: 'text', text: ' ' });
+      const value = lineIndex < buffer.length - 1 ? buffer[lineIndex].replace(/(?: {2,}|\\)$/, '') : buffer[lineIndex];
+      inline.push(...parseInline(value));
+    }
+    content.push(inline.length ? { type: 'paragraph', content: inline } : { type: 'paragraph' });
   }
   return { type: 'doc', content: content.length ? content : [{ type: 'paragraph' }] };
 }

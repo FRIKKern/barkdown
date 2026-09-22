@@ -7,8 +7,9 @@ function pmInlineToPd(nodes) {
   const out = [];
   for (const node of nodes || []) {
     if (node.type === 'hardBreak') { out.push({ type: 'text', value: '\n' }); continue; }
-    if (node.type !== 'text') continue;
+    if (node.type !== 'text') throw new Error('Cannot convert inline node: ' + node.type);
     const marks = node.marks || [];
+    for (const mark of marks) if (!['code', 'link', 'bold', 'italic', 'underline', 'strike'].includes(mark.type)) throw new Error('Cannot convert inline mark: ' + mark.type);
     const code = marks.find(m => m.type === 'code');
     let leaf = code ? { type: 'code', value: node.text || '' } : { type: 'text', value: node.text || '' };
     const wrappers = marks.filter(m => m.type !== 'code');
@@ -41,7 +42,7 @@ function pdInlineToMarkdown(nodes) {
   return (nodes || []).map(n => {
     if (!n || typeof n !== 'object') return String(n ?? '');
     switch (n.type) {
-      case 'text': return n.value || '';
+      case 'text': return (n.value || '').replace(/\n/g, '  \n');
       case 'code': return '`' + (n.value || '') + '`';
       case 'strong': return '**' + pdInlineToMarkdown(n.children) + '**';
       case 'em': return '*' + pdInlineToMarkdown(n.children) + '*';
@@ -62,20 +63,42 @@ function inlineOf(block) {
   return [];
 }
 
-// PM JSON (from markdownToDoc) -> PortableDoc blocks. Only prose kinds are produced; the canvas and server accept these.
+function paragraphContent(nodes, context) {
+  if ((nodes || []).some(node => node.type !== 'paragraph')) throw new Error('Cannot convert nested content in ' + context);
+  return (nodes || []).flatMap((node, index) => [...(index ? [{ type: 'text', value: '\n' }] : []), ...pmInlineToPd(node.content)]);
+}
+
+function pmTableToPd(node) {
+  const rows = node.content || [];
+  if (!rows.length || rows.some(row => row.type !== 'tableRow' || !row.content?.length)) throw new Error('Cannot convert malformed table');
+  const width = rows[0].content.length;
+  if (rows.some(row => row.content.length !== width)) throw new Error('Cannot convert ragged table');
+  const cells = rows.map(row => row.content.map(cell => {
+    if (!['tableHeader', 'tableCell'].includes(cell.type) || (cell.attrs?.colspan || 1) !== 1 || (cell.attrs?.rowspan || 1) !== 1) throw new Error('Cannot convert unsupported table cell');
+    return paragraphContent(cell.content, 'table cell');
+  }));
+  const hasHead = rows[0].content.every(cell => cell.type === 'tableHeader');
+  if (rows.some((row, index) => row.content.some(cell => cell.type !== (hasHead && index === 0 ? 'tableHeader' : 'tableCell')))) throw new Error('Cannot convert mixed table headers');
+  return { type: 'table', ...(hasHead ? { head: cells.shift() } : {}), rows: cells };
+}
+
+// Validate every nested node before constructing operations; unsupported content
+// must never disappear from an otherwise valid mixed document.
+
 function pmDocToBlocks(doc) {
   const blocks = [];
   for (const node of doc?.content || []) {
     switch (node.type) {
       case 'heading': blocks.push({ type: 'heading', level: Math.min(3, Math.max(1, node.attrs?.level || 2)), text: pdInlineToText(pmInlineToPd(node.content)) }); break;
+      case 'table': blocks.push(pmTableToPd(node)); break;
       case 'paragraph': blocks.push({ type: 'paragraph', content: pmInlineToPd(node.content) }); break;
       case 'bulletList': case 'orderedList': case 'taskList':
-        blocks.push({ type: 'list', ordered: node.type === 'orderedList', ...(node.type === 'taskList' ? { task: true } : {}), items: (node.content || []).map(item => { const first = (item.content || []).find(c => c.type === 'paragraph'); const inline = pmInlineToPd(first?.content); return node.type === 'taskList' ? { content: inline, checked: item.attrs?.checked === true } : inline; }) });
+        blocks.push({ type: 'list', ordered: node.type === 'orderedList', ...(node.type === 'taskList' ? { task: true } : {}), items: (node.content || []).map(item => { if ((item.content || []).length !== 1 || item.content[0].type !== 'paragraph') throw new Error('Cannot convert nested or multi-paragraph list item'); const inline = pmInlineToPd(item.content[0].content); return node.type === 'taskList' ? { content: inline, checked: item.attrs?.checked === true } : inline; }) });
         break;
-      case 'blockquote': blocks.push({ type: 'callout', tone: 'note', content: pmInlineToPd((node.content || []).flatMap(p => p.content || [])) }); break;
+      case 'blockquote': blocks.push({ type: 'callout', tone: 'note', content: paragraphContent(node.content, 'blockquote') }); break;
       case 'codeBlock': blocks.push({ type: 'code', language: node.attrs?.language || '', value: (node.content || []).map(t => t.text || '').join('') }); break;
       case 'horizontalRule': blocks.push({ type: 'divider' }); break;
-      default: { const text = pdInlineToText(pmInlineToPd(node.content)); if (text) blocks.push({ type: 'paragraph', content: [{ type: 'text', value: text }] }); }
+      default: throw new Error('Cannot convert block: ' + node.type);
     }
   }
   return blocks;
@@ -95,7 +118,12 @@ function blocksToMarkdown(blocks) {
       case 'code': return '```' + (block.language || '') + '\n' + (block.value || block.code || '') + '\n```';
       case 'divider': return '---';
       case 'eyebrow': case 'byline': case 'ingress': case 'pullquote': return pdInlineToMarkdown(inlineOf(block)) || (Array.isArray(block.items) ? block.items.join(' · ') : '');
-      case 'table': return (block.rows || []).map(row => '| ' + (row.cells || row || []).map(c => pdInlineToMarkdown(Array.isArray(c) ? c : c?.value != null ? [{ type: 'text', value: String(c.value) }] : inlineOf(c || {}))).join(' | ') + ' |').join('\n');
+      case 'table': {
+        const cell = c => pdInlineToMarkdown(Array.isArray(c) ? c : typeof c === 'string' ? [{ type: 'text', value: c }] : c?.value != null ? [{ type: 'text', value: String(c.value) }] : inlineOf(c || {})).replace(/\|/g, '\\|');
+        const row = cells => '| ' + cells.map(cell).join(' | ') + ' |';
+        const head = block.head || [];
+        return [...(head.length ? [row(head), row(head.map(() => '---'))] : []), ...(block.rows || []).map(r => row(r.cells || r || []))].join('\n');
+      }
       default: { const text = pdInlineToText(inlineOf(block)) || (block.title || ''); return `<!-- ${block.type} block -->` + (text ? '\n' + text : ''); }
     }
   }).filter(Boolean).join('\n\n');

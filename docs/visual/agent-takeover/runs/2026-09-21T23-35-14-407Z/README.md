@@ -4,7 +4,7 @@ Clean Barkdown `663a12a` and Barkpark `bb3bd299d`. Eight real-server cases passe
 
 ![Actual target, selection, writing, and stable receipt](agent-takeover.gif)
 
-The GIF is an unretimed 27–34 second excerpt of the real Electron video, cropped to the editor at 720×650, 10fps. It shows normal motion and the first receipt without shifting the document. No model turn or simulated save is used; the production agent adapter supplies acknowledged server edits. The full video also contains real keyboard, beforeinput, Chromium IME and pointer takeover, reduced motion, a hidden pane and offscreen reading.
+The GIF is an unretimed 27â€“34 second excerpt of the real Electron video, cropped to the editor at 720Ã—650, 10fps. It shows normal motion and the first receipt without shifting the document. No model turn or simulated save is used; the production agent adapter supplies acknowledged server edits. The full video also contains real keyboard, beforeinput, Chromium IME and pointer takeover, reduced motion, a hidden pane and offscreen reading.
 
 ![Narrow receipt with reachable Undo](reduced-motion-narrow.png)
 

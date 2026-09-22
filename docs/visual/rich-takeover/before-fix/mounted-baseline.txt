@@ -1,0 +1,62 @@
+FAIL mark-only update preserves a selected word: selected content remains selected
+
+'' !== 'Beta'
+
+FAIL link-only update preserves a backwards selected word: selected content remains selected
+
+'' !== 'Beta'
+
+FAIL list sibling change preserves selected item: selected content remains selected
+
+'' !== 'Beta'
+
+FAIL table sibling change preserves selected cell: selected content remains selected
+
+'' !== 'Beta'
+
+PASS multiline change preserves unaffected paragraph selection
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   'mark-only update preserves a selected word: selected content remains selected\n' +
++     '\n' +
++     "'' !== 'Beta'\n",
++   'link-only update preserves a backwards selected word: selected content remains selected\n' +
++     '\n' +
++     "'' !== 'Beta'\n",
++   'list sibling change preserves selected item: selected content remains selected\n' +
++     '\n' +
++     "'' !== 'Beta'\n",
++   'table sibling change preserves selected cell: selected content remains selected\n' +
++     '\n' +
++     "'' !== 'Beta'\n"
++ ]
+- []
+
+    at file:///C:/Users/Frikk/.codex/worktrees/barkpark-agent-takeover/api/assets/paper-editor/src/canvas/__agent_takeover_rich_mounted.test.mjs:45:23 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [
+    'mark-only update preserves a selected word: selected content remains selected\n' +
+      '\n' +
+      "'' !== 'Beta'\n",
+    'link-only update preserves a backwards selected word: selected content remains selected\n' +
+      '\n' +
+      "'' !== 'Beta'\n",
+    'list sibling change preserves selected item: selected content remains selected\n' +
+      '\n' +
+      "'' !== 'Beta'\n",
+    'table sibling change preserves selected cell: selected content remains selected\n' +
+      '\n' +
+      "'' !== 'Beta'\n"
+  ],
+  expected: [],
+  operator: 'deepStrictEqual'
+}
+
+Node.js v22.13.1
