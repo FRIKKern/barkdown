@@ -74,7 +74,7 @@ function pmTableToPd(node) {
   const width = rows[0].content.length;
   if (rows.some(row => row.content.length !== width)) throw new Error('Cannot convert ragged table');
   const cells = rows.map(row => row.content.map(cell => {
-    if (!['tableHeader', 'tableCell'].includes(cell.type) || (cell.attrs?.colspan || 1) !== 1 || (cell.attrs?.rowspan || 1) !== 1) throw new Error('Cannot convert unsupported table cell');
+    if (!['tableHeader', 'tableCell'].includes(cell.type) || (cell.attrs?.colspan || 1) !== 1 || (cell.attrs?.rowspan || 1) !== 1 || cell.attrs?.align || cell.attrs?.textAlign || cell.attrs?.colwidth) throw new Error('Cannot convert unsupported table cell');
     return paragraphContent(cell.content, 'table cell');
   }));
   const hasHead = rows[0].content.every(cell => cell.type === 'tableHeader');
@@ -104,7 +104,7 @@ function pmDocToBlocks(doc) {
   return blocks;
 }
 
-function markdownToBlocks(markdown) { return pmDocToBlocks(markdownToDoc(markdown)); }
+function markdownToBlocks(markdown) { return pmDocToBlocks(markdownToDoc(markdown, { strictPortable: true })); }
 
 function blocksToMarkdown(blocks) {
   if (!Array.isArray(blocks)) return '';
@@ -119,8 +119,13 @@ function blocksToMarkdown(blocks) {
       case 'divider': return '---';
       case 'eyebrow': case 'byline': case 'ingress': case 'pullquote': return pdInlineToMarkdown(inlineOf(block)) || (Array.isArray(block.items) ? block.items.join(' · ') : '');
       case 'table': {
+        if (!block.head?.length) throw new Error('Markdown export cannot preserve a table without headers.');
+        if (block.spans || block.headCol || block.cols?.some(col => col?.width != null)) throw new Error('Markdown export cannot preserve this table structure.');
         const cell = c => pdInlineToMarkdown(Array.isArray(c) ? c : typeof c === 'string' ? [{ type: 'text', value: c }] : c?.value != null ? [{ type: 'text', value: String(c.value) }] : inlineOf(c || {})).replace(/\|/g, '\\|');
-        const row = cells => '| ' + cells.map(cell).join(' | ') + ' |';
+        const row = cells => '| ' + cells.map(c => {
+          if (c?.align || /[\r\n]/.test(cell(c))) throw new Error('Markdown export cannot preserve aligned or multiline table cells.');
+          return cell(c);
+        }).join(' | ') + ' |';
         const head = block.head || [];
         return [...(head.length ? [row(head), row(head.map(() => '---'))] : []), ...(block.rows || []).map(r => row(r.cells || r || []))].join('\n');
       }
@@ -129,7 +134,16 @@ function blocksToMarkdown(blocks) {
   }).filter(Boolean).join('\n\n');
 }
 
-function blocksToText(blocks) { return blocksToMarkdown(blocks).replace(/[#*`>\-]/g, '').replace(/\s+/g, ' ').trim(); }
+function blocksToText(blocks) {
+  const values = [];
+  const walk = value => {
+    if (typeof value === 'string') values.push(value);
+    else if (Array.isArray(value)) value.forEach(walk);
+    else if (value && typeof value === 'object') for (const key of ['text', 'value', 'title', 'content', 'children', 'items', 'head', 'rows', 'cells']) if (value[key] != null) walk(value[key]);
+  };
+  walk(blocks);
+  return values.join(' ').replace(/\s+/g, ' ').trim();
+}
 
 // Ops for the fenced endpoint: append markdown as new blocks, or replace one block by id.
 function appendOps(markdown) { return markdownToBlocks(markdown).map(block => ({ op: 'append-block', block })); }

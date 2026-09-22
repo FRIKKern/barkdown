@@ -76,6 +76,10 @@ try {
   await strict.rejects(()=>edits.apply({id:'bp:fixture',baseRev:1,mode,blockIndex:0,markdown:'Valid sibling\n\n> | Name | Value |\n> | --- | --- |\n> | Nested | table |',summary:'Unsupported nested table'},config),/Cannot convert/);
   strict.equal(calls.length,0,'unsupported mixed document cannot emit any API mutation');
  }
+ for (const markdown of ['Valid sibling\n\n- Parent\n  - Child','Valid sibling\n\n| Name | Value |\n| :--- | ---: |\n| A | B |']) {
+  await strict.rejects(()=>edits.apply({id:'bp:fixture',baseRev:1,mode:'replace',markdown,summary:'Unsupported shape'},config),/Cannot convert/);
+  strict.equal(calls.length,0,'unsupported source syntax cannot mutate the API');
+ }
  await edits.apply({id:'bp:fixture',baseRev:1,mode:'replace_block',blockIndex:0,markdown:tableMarkdown,summary:'Keep rich table'},config);
  strict.equal(calls.length,1);strict.equal(calls[0][1][0].op,'replace-block');strict.equal(calls[0][1][0].block.type,'table');strict.equal(calls[0][1][0].block.head.length,2);
  console.log('Production agent converter rejects unsupported mixed input before API writes; table uses replace-block.');
@@ -85,3 +89,16 @@ const multiline = pd.markdownToBlocks('First **line**  \nSecond [line](https://e
 strict.equal(pd.pdInlineToText(multiline[0].content),'First line\nSecond line','explicit hard break retained');
 strict.deepEqual(pd.markdownToBlocks(pd.blocksToMarkdown(multiline)),multiline,'hardbreak rich conversion round trip');
 console.log('Explicit multiline rich content is preserved.');
+
+for (const table of [
+ {type:'table',rows:[['No header','Keep me']]},
+ {type:'table',head:['Head'],rows:[['First\nSecond']]},
+ {type:'table',head:['Head'],rows:[[{content:[{type:'text',value:'Aligned'}],align:'right'}]]},
+]) {
+ strict.throws(()=>pd.blocksToMarkdown([table]),/cannot preserve/);
+ const view=bp.markdownView([table]);strict.equal(view.markdown,null);strict.ok(view.markdownError);
+ const readable=bp.readablePaper({...view,blocks:[table]});strict.ok(readable.includes(JSON.stringify([table],null,2)),'read_document keeps full structured content usable');
+ strict.ok(pd.blocksToText([table]).length,'snippets do not depend on Markdown export');
+}
+strict.equal(pd.markdownToBlocks('```text\n- Parent\n  - Child\n```')[0].type,'code','strict nested-list check ignores fenced source');
+console.log('Unsupported nested/aligned source is blocked; structured reads and snippets remain usable.');

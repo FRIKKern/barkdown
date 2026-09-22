@@ -33,8 +33,15 @@ function paragraph(text) {
   return content.length ? { type: 'paragraph', content } : { type: 'paragraph' };
 }
 
-function markdownToDoc(markdown) {
+function markdownToDoc(markdown, options = {}) {
   const lines = String(markdown || '').replace(/\r\n?/g, '\n').split('\n');
+  if (options.strictPortable) {
+    let fenced = false;
+    for (const line of lines) {
+      if (/^```/.test(line)) { fenced = !fenced; continue; }
+      if (!fenced && /^\s+(?:[-*+]|\d+[.)])\s/.test(line)) throw new Error('Cannot convert indented or nested Markdown lists; use structured Paper editing.');
+    }
+  }
   const content = [];
   let i = 0;
   while (i < lines.length) {
@@ -53,6 +60,7 @@ function markdownToDoc(markdown) {
     }
     if (/^(-{3,}|\*{3,}|_{3,})\s*$/.test(line)) { content.push({ type: 'horizontalRule' }); i++; continue; }
     if (isTableRow(line) && i + 1 < lines.length && isTableSeparator(lines[i + 1])) {
+      if (options.strictPortable && lines[i + 1].includes(':')) throw new Error('Cannot convert aligned Markdown table; use structured Paper editing.');
       const cell = (text, type) => ({ type, content: [paragraph(text)] });
       const rows = [{ type: 'tableRow', content: splitCells(line).map(c => cell(c, 'tableHeader')) }];
       i += 2;
@@ -63,7 +71,7 @@ function markdownToDoc(markdown) {
     if (/^>\s?/.test(line)) {
       const quoted = [];
       while (i < lines.length && /^>\s?/.test(lines[i])) { quoted.push(lines[i].replace(/^>\s?/, '')); i++; }
-      content.push({ type: 'blockquote', content: markdownToDoc(quoted.join('\n')).content });
+      content.push({ type: 'blockquote', content: markdownToDoc(quoted.join('\n'), options).content });
       continue;
     }
     if (/^\s*[-*+]\s+\[( |x|X)\]\s+/.test(line)) {
