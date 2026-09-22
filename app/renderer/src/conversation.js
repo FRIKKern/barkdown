@@ -202,6 +202,7 @@ export async function sendMessage(chat, text, hooks, images = []) {
   const attached = (images || []).map(i => ({ id: i.id, path: i.path, url: i.url, name: i.name, mime: i.mime }));
   if ((!clean && !attached.length) || chat.runId || isSubmitting(chat)) return false;
   const intent = beginSubmission(chat);
+  let definitelyNotStarted = false;
   if (state.profileId) intent.attemptId = crypto.randomUUID();
   const now = new Date().toISOString();
   const user = { role: 'user', text: clean, at: now, images: attached };
@@ -228,7 +229,12 @@ export async function sendMessage(chat, text, hooks, images = []) {
     // another provider answered, for a resumed one. The new question and the empty reply are excluded.
     const seen = chat.sessions[provider] ? (chat.sessionSeen?.[provider] || 0) : 0;
     const catchUp = chat.messages.slice(seen, -2).filter(m => m.text && !m.notDispatched).map(m => ({ role: m.role, text: m.text, provider: m.role === 'assistant' ? (PROVIDER_LABEL[m.provider] || m.provider || undefined) : undefined }));
-    const { runId, assistantId, attemptId } = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title, catchUp }, provider, chat.sessions[provider] || null, clean, attached, { model: chat.model || undefined, effort: chat.effort || undefined, attemptId: intent.attemptId });
+    const started = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title, catchUp }, provider, chat.sessions[provider] || null, clean, attached, { model: chat.model || undefined, effort: chat.effort || undefined, attemptId: intent.attemptId });
+    if (started?.accepted === false) {
+      definitelyNotStarted = started.notStarted === true && started.error?.code === 'BARKDOWN_SEND_NOT_STARTED';
+      throw new Error(started.error?.message || 'Turn was not accepted');
+    }
+    const { runId, assistantId, attemptId } = started;
     // Validation/reservation has acknowledged this intent. Never clear newer
     // input (including editing away and back to the same text) or attachments.
     acceptSubmission(chat, intent);
@@ -243,7 +249,7 @@ export async function sendMessage(chat, text, hooks, images = []) {
     // Only a positive main-process pre-dispatch refusal permits excluding this
     // visible failed pair from legacy retry history. Unknown/accepted failures
     // remain history; never infer no side effects from a missing acknowledgement.
-    if (!state.profileId && error.code === 'BARKDOWN_SEND_NOT_STARTED') { user.notDispatched = true; failedReply.notDispatched = true; }
+    if (!state.profileId && definitelyNotStarted) { user.notDispatched = true; failedReply.notDispatched = true; }
     failedReply.streaming = false;
     failedReply.error = error.message;
     hooks.render();

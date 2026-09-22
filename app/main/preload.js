@@ -39,7 +39,15 @@ const api = {
   git: { status: root => call('git:status', root), diff: (root, options = {}) => call('git:diff', { root, ...options }), log: root => call('git:log', root), revertFile: (root, path) => call('git:revertFile', { root, path }) },
   term: { status: (id, chatId) => call('term:status', { id, chatId }), start: (id, root, chatId) => call('term:start', { id, root, chatId }), input: (session, line) => call('term:input', { ...session, line }), stop: session => call('term:stop', session), onData: handler => { const listener = (_e, event) => { if (!owner || event.profileId === owner.profileId) handler(event); }; ipcRenderer.on('term:data', listener); return () => ipcRenderer.removeListener('term:data', listener); } },
   agent: {
-    start: (chatId, messages, context, provider, session, prompt, images, options) => call('agent:start', { chatId, messages, context, provider, session, prompt, images, options }),
+    start: async (chatId, messages, context, provider, session, prompt, images, options) => {
+      try { return await call('agent:start', { chatId, messages, context, provider, session, prompt, images, options }); }
+      catch (error) {
+        // Error custom properties are not preserved by Electron contextBridge.
+        // Convert only this positive main-process refusal before crossing it.
+        if (error.code === 'BARKDOWN_SEND_NOT_STARTED') return { accepted: false, notStarted: true, error: { code: error.code, message: error.message } };
+        throw error;
+      }
+    },
     cancel: runId => call('agent:cancel', runId),
     recover: input => call('agent:recover', input),
     approve: (runId, approvalId, approved) => call('agent:approve', { runId, approvalId, approved }),
