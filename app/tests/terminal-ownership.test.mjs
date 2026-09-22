@@ -240,6 +240,21 @@ test('terminal UI distinguishes fresh/restored shells, keeps launch cwd and reje
   assert.equal(tab.commandDraft, '', 'only accepted explicit submission clears the draft');
   await restored.beforeClose();
   restored.destroy();
+  let releaseStart, releaseInput;
+  const submitted=[];
+  window.barkdown.term.start=(id,cwd,chatId)=>new Promise(resolve=>{releaseStart=()=>resolve({id,cwd,chatId,sessionId:'delayed',shell:'PowerShell',echoes:true})});
+  window.barkdown.term.input=(_session,line)=>{submitted.push(line);return new Promise(resolve=>{releaseInput=resolve})};
+  const delayedTab={id:'delayed-tab'},delayed=mountTerminal(delayedTab,host,ctx);await delay(0);
+  const form=host.querySelector('#form'),input=host.querySelector('#in');input.value='echo first intent';
+  const sent=form.onsubmit({preventDefault(){}});await delay(0);
+  await form.onsubmit({preventDefault(){}});
+  input.value='new draft during launch';input.dispatchEvent(new dom.window.Event('input'));
+  releaseStart();await delay(0);
+  input.value='newer draft during input';input.dispatchEvent(new dom.window.Event('input'));
+  await form.onsubmit({preventDefault(){}});releaseInput(true);await sent;
+  assert.deepEqual(submitted,['echo first intent'],'rapid Enter cannot dispatch duplicate or unacknowledged new intent');
+  assert.equal(input.value,'newer draft during input');assert.equal(delayedTab.commandDraft,input.value);
+  await delayed.beforeClose();delayed.destroy();
   dom.window.close();
 });
 

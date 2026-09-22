@@ -14,6 +14,7 @@ export function mountTerminal(tab, host, ctx) {
   let destroyed = false;
   let starting = null;
   let uncertain = false;
+  let submitting = false;
   let buffer = '';
   const history = [];
   let historyIndex = 0;
@@ -67,14 +68,21 @@ export function mountTerminal(tab, host, ctx) {
 
   q('#form').onsubmit = async e => {
     e.preventDefault();
+    if (submitting) return;
     const line = q('#in').value;
     if (!line.trim()) return;
-    await initializing;
-    if (uncertain) { append('Shutdown is unverified. Use Restart to retry stopping this shell.\n', 'bw-term-err'); return; }
-    if (!session) await start();
-    if (!session || destroyed) return;
-    if (!session?.echoes) append(`$ ${line}\n`, 'bw-term-cmd');
-    try { await api.term.input(session, line); q('#in').value = ''; saveDraft(); history.push(line); historyIndex = history.length; } catch (error) { append(`${error.message}\n`, 'bw-term-err'); }
+    submitting = true; q('#form').setAttribute('aria-busy', 'true');
+    try {
+      await initializing;
+      if (uncertain) { append('Shutdown is unverified. Use Restart to retry stopping this shell.\n', 'bw-term-err'); return; }
+      if (!session) await start();
+      if (!session || destroyed) return;
+      if (!session.echoes) append(`$ ${line}\n`, 'bw-term-cmd');
+      await api.term.input(session, line);
+      if (q('#in').value === line) q('#in').value = '';
+      saveDraft(); history.push(line); historyIndex = history.length;
+    } catch (error) { append(`${error.message}\n`, 'bw-term-err'); }
+    finally { submitting = false; q('#form').removeAttribute('aria-busy'); }
   };
   q('#in').addEventListener('keydown', e => {
     if (e.key === 'ArrowUp' && history.length) { e.preventDefault(); historyIndex = Math.max(0, historyIndex - 1); q('#in').value = history[historyIndex] || ''; saveDraft(); }
