@@ -186,7 +186,7 @@ function handle(channel, fn, unowned = false) {
         args = envelope.args;
         return { ok: true, value: await profileGate.request(envelope.owner, execute) };
       }
-      return { ok: true, value: await execute() }; } catch (error) { return { ok: false, error: error.message || String(error), code: error.code }; }
+      return { ok: true, value: await execute() }; } catch (error) { return { ok: false, error: error.message || String(error), code: error.code, diagnostic: error.diagnostic }; }
   });
 }
 

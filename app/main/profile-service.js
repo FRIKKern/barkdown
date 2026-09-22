@@ -61,8 +61,16 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
   }
   function validateImages(scope, images) {
     for (const image of images || []) {
-      const root = path.join(scope.storeDir, 'attachments'), actual = fs.realpathSync(image.path), relative = path.relative(root, actual);
-      if (!relative || relative.startsWith('..') || path.isAbsolute(relative) || !fs.statSync(actual).isFile()) throw new Error('Image is not owned by this profile');
+      try {
+        const root = path.join(scope.storeDir, 'attachments'), actual = fs.realpathSync(image.path), relative = path.relative(root, actual);
+        if (!relative || relative.startsWith('..') || path.isAbsolute(relative) || !fs.statSync(actual).isFile()) throw new Error('Image is not owned by this profile');
+      } catch (error) {
+        if (!['ENOENT', 'ENOTDIR', 'EACCES', 'EPERM'].includes(error.code)) throw error;
+        const name = path.basename(image.path || image.name || 'image');
+        throw Object.assign(new Error(`Attachment ${name} is unavailable. Remove it or attach it again, then send.`), {
+          code: 'BARKDOWN_ATTACHMENT_UNAVAILABLE', diagnostic: error.message,
+        });
+      }
     }
   }
   async function start(owner, input) {

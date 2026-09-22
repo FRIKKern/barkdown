@@ -23,7 +23,7 @@ export function transcriptHtml(chat, options = {}) {
     const steps = (m.tools || []).map((t, n) => stepHtml(t, index, n)).join('');
     const events = (m.events || []).map((e, n) => `<button class="bw-event" data-event="${index}:${n}">${iconHtml(TARGET_ICON[e.target?.kind] || 'sparkles')}<span>${esc(e.label)}<small>${esc(e.detail || '')}</small></span></button>`).join('');
     const approvals = (m.approvals || []).filter(a => a.status === 'pending').map(a => `<div class="bw-approval" data-approval="${esc(a.approvalId)}"><strong>${a.request.kind === 'command' ? 'Allow running a command?' : a.request.outside ? `Allow ${esc(a.request.tool)} outside the working folder: ${esc(a.request.path)}?` : `Allow writing ${esc(a.request.path || a.request.tool)}?`}</strong><span class="bw-muted">${esc(a.request.summary || '')}</span><pre>${esc(String(a.request.command || a.request.contents || '').slice(0, 4000))}</pre><div class="row"><button class="primary" data-approve="1">Allow</button><button data-approve="0">Decline</button></div></div>`).join('');
-    const error = m.error ? `<p class="bw-error-line">${esc(m.error)}</p>` : '';
+    const error = m.error ? `<p class="bw-error-line">${esc(m.error)}</p>${m.diagnostic ? `<details class="bw-muted"><summary>Technical details</summary><p style="overflow-wrap:anywhere">${esc(m.diagnostic)}</p></details>` : ''}` : '';
     const notes = (m.notes || []).map(n => `<p class="bw-error-line">${esc(n)}</p>`).join('');
     const changes = m.streaming ? '' : changeCardHtml(m, index);
     return `<div class="bw-byline"><span class="bw-avatar bw-agent">b</span>Barkdown<time>${esc(relativeTime(m.at))}</time></div>${timelineHtml(m, index, steps)}${events}${approvals}${changes}${notes}${error}${replyFootHtml(m, chat)}`;
@@ -232,7 +232,7 @@ export async function sendMessage(chat, text, hooks, images = []) {
     const started = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title, catchUp }, provider, chat.sessions[provider] || null, clean, attached, { model: chat.model || undefined, effort: chat.effort || undefined, attemptId: intent.attemptId });
     if (started?.accepted === false) {
       definitelyNotStarted = started.notStarted === true && started.error?.code === 'BARKDOWN_SEND_NOT_STARTED';
-      throw new Error(started.error?.message || 'Turn was not accepted');
+      throw Object.assign(new Error(started.error?.message || 'Turn was not accepted'), { diagnostic: started.error?.diagnostic });
     }
     const { runId, assistantId, attemptId } = started;
     // Validation/reservation has acknowledged this intent. Never clear newer
@@ -252,6 +252,7 @@ export async function sendMessage(chat, text, hooks, images = []) {
     if (!state.profileId && definitelyNotStarted) { user.notDispatched = true; failedReply.notDispatched = true; }
     failedReply.streaming = false;
     failedReply.error = error.message;
+    if (error.diagnostic) failedReply.diagnostic = error.diagnostic;
     hooks.render();
     return false;
   } finally {

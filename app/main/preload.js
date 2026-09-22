@@ -3,7 +3,7 @@ const { contextBridge, ipcRenderer } = require('electron');
 async function rawCall(channel, ...args) {
   const result = await ipcRenderer.invoke(channel, ...args);
   if (!result || result.ok === undefined) return result;
-  if (!result.ok) { const error = new Error(result.code ? `[${result.code}] ${result.error}` : result.error); error.code = result.code; throw error; }
+  if (!result.ok) { const error = new Error(result.code ? `[${result.code}] ${result.error}` : result.error); error.code = result.code; error.displayMessage = result.error; error.diagnostic = result.diagnostic; throw error; }
   return result.value;
 }
 let owner = null;
@@ -43,8 +43,9 @@ const api = {
       try { return await call('agent:start', { chatId, messages, context, provider, session, prompt, images, options }); }
       catch (error) {
         // Error custom properties are not preserved by Electron contextBridge.
-        // Convert only this positive main-process refusal before crossing it.
-        if (error.code === 'BARKDOWN_SEND_NOT_STARTED') return { accepted: false, notStarted: true, error: { code: error.code, message: error.message } };
+        // Preserve only known validation/display envelopes before crossing it.
+        // Attachment copy does not grant legacy not-started authority.
+        if (['BARKDOWN_SEND_NOT_STARTED', 'BARKDOWN_ATTACHMENT_UNAVAILABLE'].includes(error.code)) return { accepted: false, notStarted: error.code === 'BARKDOWN_SEND_NOT_STARTED', error: { code: error.code, message: error.displayMessage, diagnostic: error.diagnostic || error.message } };
         throw error;
       }
     },
