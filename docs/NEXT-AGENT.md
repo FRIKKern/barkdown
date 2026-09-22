@@ -1,5 +1,7 @@
 # Continue the dependable-workspace plan
 
+**New source candidate:** C021 native rollback preflight imported as `9b43464`; root five native groups passed (9pdYSm/Ma6xmE, processes stopped). Original reviewed21429c6 evidence is retained separately. This source is newer than the verified checkpoint below and needs fresh combined full/visual/live/root gates; do not transfer the older approval. C024 file-authority source20d6819 and E007/E008/C020 corrections remain in their lanes pending exact final proof.
+
 **Verified combined checkpoint:** `d8acb82` on `codex/integration-12h`; original C018 evidence subsequently imported as `8549316`. Follow [C008](cycles/C008-integration.md). Full desktop64608 passed at unchanged app source b083c60; visual-tooling source e380385 has40 reviewed fixture frames/GIFs, actual Codex/Paper status5397, and root verify86276 passed. Original lane proofs retain their own commits. No main merge or deployment; P1 is incomplete and real user data must not be migrated.
 
 Included: C014 ordinary managed-chat recovery, E004 structured tables, C015 native goal coordination, C017 API Paper parity, E006 Markdown paste, C018 terminal ownership, C019 unsaved project-buffer guard, and C020 coordinator interruption tests. Native crash proof uses controlled SDK transport; authenticated C015 and live Codex status are separately documented, not provider-wide parity claims.
