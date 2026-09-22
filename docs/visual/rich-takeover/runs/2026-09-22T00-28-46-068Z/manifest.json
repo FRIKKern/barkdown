@@ -1,0 +1,283 @@
+{
+  "sourceCommit": "abbbceec5a72da364bc9349a95704fb9742d303f",
+  "sourceDirty": false,
+  "barkparkCommit": "8530a9e238137c5765844f4bc61d0efb7df56e31",
+  "barkparkDirty": "false",
+  "server": "http://127.0.0.1:58349",
+  "buildFingerprint": "806d0dd2f3dcd37e807d0468f4146bf50f7c48d25f69a3f163373400be55f4ae",
+  "editorBundle": {
+    "source": "server",
+    "server": "http://127.0.0.1:58349",
+    "version": "0.2.26.3908",
+    "sha": "6850a97eb9a7af6b9e0af9513c239ee4be19398d",
+    "cssSha": "63d19d9fd48133511f3d1feb8c5a15d33acb62c2",
+    "fetchedAt": "2026-09-22T00:28:48.284Z"
+  },
+  "results": [
+    {
+      "name": "marks",
+      "beforeRev": 1,
+      "agentRev": 2,
+      "savedRev": 3,
+      "selection": {
+        "text": "Beta",
+        "backwards": false,
+        "pending": false
+      },
+      "serverBlock": {
+        "content": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Alpha Human Gamma"
+              }
+            ],
+            "type": "strong"
+          }
+        ],
+        "id": "block-1",
+        "type": "paragraph"
+      },
+      "humanBlock": {
+        "content": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Alpha Human Gamma"
+              }
+            ],
+            "type": "strong"
+          }
+        ],
+        "id": "block-1",
+        "type": "paragraph"
+      }
+    },
+    {
+      "name": "link",
+      "beforeRev": 3,
+      "agentRev": 4,
+      "savedRev": 5,
+      "selection": {
+        "text": "Beta",
+        "backwards": true,
+        "pending": false
+      },
+      "serverBlock": {
+        "content": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Alpha Human Gamma"
+              }
+            ],
+            "href": "https://example.org/new",
+            "type": "link"
+          }
+        ],
+        "id": "block-2",
+        "type": "paragraph"
+      },
+      "humanBlock": {
+        "content": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Alpha Human Gamma"
+              }
+            ],
+            "href": "https://example.org/new",
+            "type": "link"
+          }
+        ],
+        "id": "block-2",
+        "type": "paragraph"
+      }
+    },
+    {
+      "name": "list",
+      "beforeRev": 5,
+      "agentRev": 6,
+      "savedRev": 7,
+      "selection": {
+        "text": "Beta",
+        "backwards": false,
+        "pending": false
+      },
+      "serverBlock": {
+        "id": "block-3",
+        "items": [
+          [
+            {
+              "type": "text",
+              "value": "An agent expands Alpha"
+            }
+          ],
+          [
+            {
+              "type": "text",
+              "value": "Human Gamma"
+            }
+          ]
+        ],
+        "ordered": false,
+        "type": "list"
+      },
+      "humanBlock": {
+        "id": "block-3",
+        "items": [
+          [
+            {
+              "type": "text",
+              "value": "An agent expands Alpha"
+            }
+          ],
+          [
+            {
+              "type": "text",
+              "value": "Human Gamma"
+            }
+          ]
+        ],
+        "ordered": false,
+        "type": "list"
+      }
+    },
+    {
+      "name": "table",
+      "beforeRev": 7,
+      "agentRev": 8,
+      "savedRev": 9,
+      "selection": {
+        "text": "Beta",
+        "backwards": false,
+        "pending": false
+      },
+      "serverBlock": {
+        "head": [
+          [
+            {
+              "type": "text",
+              "value": "Name"
+            }
+          ],
+          [
+            {
+              "type": "text",
+              "value": "Value"
+            }
+          ]
+        ],
+        "id": "block-4",
+        "rows": [
+          [
+            [
+              {
+                "type": "text",
+                "value": "An agent expands Alpha"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "value": "Human Gamma"
+              }
+            ]
+          ]
+        ],
+        "type": "table"
+      },
+      "humanBlock": {
+        "head": [
+          [
+            {
+              "type": "text",
+              "value": "Name"
+            }
+          ],
+          [
+            {
+              "type": "text",
+              "value": "Value"
+            }
+          ]
+        ],
+        "id": "block-4",
+        "rows": [
+          [
+            [
+              {
+                "type": "text",
+                "value": "An agent expands Alpha"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "value": "Human Gamma"
+              }
+            ]
+          ]
+        ],
+        "type": "table"
+      }
+    },
+    {
+      "name": "multiline",
+      "beforeRev": 9,
+      "agentRev": 10,
+      "savedRev": 11,
+      "selection": {
+        "text": "Beta",
+        "backwards": false,
+        "pending": false
+      },
+      "serverBlock": {
+        "content": [
+          {
+            "type": "text",
+            "value": "First line"
+          },
+          {
+            "type": "text",
+            "value": "\n"
+          },
+          {
+            "type": "text",
+            "value": "Second line"
+          }
+        ],
+        "id": "block-5",
+        "type": "paragraph"
+      },
+      "humanBlock": {
+        "content": [
+          {
+            "type": "text",
+            "value": "Human Gamma"
+          }
+        ],
+        "id": "block-6",
+        "type": "paragraph"
+      }
+    }
+  ],
+  "artifacts": {
+    "link-saved.png": "89889873749bad6cb0a54e65d8586afe785194759c52f4b71a8d3e8c05f6f597",
+    "link-selection.png": "f2512f6c09d333dd6481087e46510d783eaff1b4b643116f47d79ec559a7a805",
+    "list-saved.png": "711f8301b40015a12792a209c4685f18341020bd70ac4fddd57ff3e570dad232",
+    "list-selection.png": "dedf7c5cc6bb9b38e9c68bf16ec82cbcb1ba7efd8c96cafd08837a994cf9e0da",
+    "marks-saved.png": "5334b40f1fb49e586b2d5d192ad8cb576e030b0ce8a0e5bfc7075964f02faa3a",
+    "marks-selection.png": "13ff95a860e20a8b2b4f879e9b01ae870188856ae30eb296e258b095975a79e2",
+    "multiline-saved.png": "a706d51a6e753426bd30dbd4003088039de6a4cff54e3872cacb74de8a23928b",
+    "multiline-selection.png": "76bc79ca23b170231b861d1e9915732be6e19314f0bf3ad69a57b6e7bf431fd7",
+    "rich-takeover.webm": "ca8f249214039baf598833516c7c2a8823661cc561610766e285545cda75c4d5",
+    "table-saved.png": "d3c816002128f1960ef75877b5277011939617c13fe09bbbd5a636ec9d4350ad",
+    "table-selection.png": "f3f5f93dbcceddaddd012e588529a4f7a6935188d5bcede81538a185864a710b"
+  },
+  "motion": "Continuous Electron recording, real Paper/server and production agent adapter; no model turn."
+}
