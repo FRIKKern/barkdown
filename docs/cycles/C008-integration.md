@@ -193,3 +193,6 @@ Combined focused pass: all11 C032 boundary cases, actual managed main/side JSDOM
 
 
 E011 production consumption imported from d9d36c1: exact upstream54579 editor JS/CSS and BARKPARK_REF,49 shipped dependency notices and provenance. Host popup/flags/Mermaid/Barkpark license preserved. Connected server and verified cache still precede fallback; this does not upgrade an existing server/cache. Exact fallback proxy/native fixture and distribution fidelity tests imported; package command union preserves all existing checks. Original lane proved actual image/history/save/reload fallback against both a544 and54579, full app and final visual/live/root passed; evidence import follows separately. No combined approval or every-operation/unfinished-upload restart claim.
+
+
+E011 original evidence imported from d9d36c1 after production import22ef23b: both native fallback galleries, original deterministic review and baseline chain, exact archived status E011-cc17fca and bound media, and original full/root logs. See [import verification](../visual/fallback-consumption/IMPORT.md). Original source boundaries remain cefe312/cc17fca; no combined approval or fresh execution is claimed. Current global status/approval pointers and active C008 queue are preserved.
