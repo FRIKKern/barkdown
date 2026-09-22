@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
-import { root,hash,read,write,safe,inputs,fingerprint,verifyArtifacts,loadApproved } from './visual-core.mjs';
+import { root,hash,read,write,safe,inputs,fingerprint,verifyArtifacts,loadApproved,preserveReview } from './visual-core.mjs';
 const command=process.argv[2]||'check';
 if(command==='check') {
  const current=loadApproved();if(!current)throw Error('No approved visual baseline. Capture, compare and inspect before approving.');
@@ -42,13 +42,14 @@ if(command==='check') {
  const m=read(manifest);verifyArtifacts(m);if(read(report).candidate!==manifest || read(report).candidateHash!==hash(fs.readFileSync(safe(manifest))))throw Error('Compare this exact candidate first');
  if(fingerprint(inputs())!==fingerprint(m.inputs))throw Error('Source changed since capture');
  const approval={manifest,report,manifestHash:hash(fs.readFileSync(safe(manifest))),reportHash:hash(fs.readFileSync(safe(report))),reviewer,note,reviewedAt:new Date().toISOString()};
- const old=loadApproved();if(old)write(`docs/visual/reviews/${old.approval.manifestHash}.json`,old.approval);
- write('docs/visual/approved.json',approval);write(`docs/visual/reviews/${approval.manifestHash}.json`,approval);
+ const old=loadApproved();if(old)preserveReview(old.approval);
+ const recorded=preserveReview(approval);
+ write('docs/visual/approved.json',recorded);
  const dir='docs/visual';let md='# Visual health\n\nApproved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report]('+path.posix.relative(dir,path.posix.dirname(report)+'/README.md')+').\n\n';
  md+=`Reviewed by ${reviewer}. ${note}\n\nSource commit: ${m.commit}; platform: ${m.environment.platform}; Electron: ${m.environment.electron}. Source fingerprints, including dirty capture inputs, are recorded in the manifest.\n\n`;
  for(const s of m.shots){const areaDir=`docs/visual/${s.area}`;fs.mkdirSync(safe(areaDir),{recursive:true});const frame=s.frames.at(-1);const rel=p=>path.posix.relative(areaDir,p);const file=areaDir+'/README.md';
   const previous=fs.existsSync(safe(file))?fs.readFileSync(safe(file),'utf8').split('## Changelog\n\n')[1]||'':'';
-  fs.writeFileSync(safe(file),`# ${s.area}\n\n${s.caption}\n\n![Current view](${rel(frame.file)})\n\n![Recorded interaction](${rel(s.file)})\n\n[Full comparison](${rel(path.posix.dirname(report)+'/README.md')}) · [Capture manifest](${rel(manifest)})\n\n## Changelog\n\n- ${approval.reviewedAt}: ${note} Source ${m.commit.slice(0,9)}; [review](${rel(report)}).\n${previous}`);
+  fs.writeFileSync(safe(file),`# ${s.area}\n\n${s.caption}\n\n![Current view](${rel(frame.file)})\n\n![Recorded interaction](${rel(s.file)})\n\n[Full comparison](${rel(path.posix.dirname(report)+'/README.md')}) · [Capture manifest](${rel(manifest)})\n\n## Changelog\n\n- ${approval.reviewedAt}: ${note} Source ${m.commit.slice(0,9)}; [review](${rel(recorded.reviewPath)}) - [comparison](${rel(report)}).\n${previous}`);
   md+=`## [${s.area}](${s.area}/README.md)\n\n![${s.caption}](${path.posix.relative(dir,s.file)})\n\n`;
  }
  md+='## Dedicated journeys and remaining limits\n\nThe [Paper editor gallery](../images/status/manifest.json) records its own live server provenance. Dedicated journeys below retain their original source and review; this fixture approval does not restamp them or prove their remaining acceptance criteria. See each page for failures and coverage limits.\n\n';
