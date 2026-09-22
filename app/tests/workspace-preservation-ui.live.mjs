@@ -1,0 +1,53 @@
+import { _electron as electron } from 'playwright';
+import { createRequire } from 'node:module';
+import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
+import assert from 'node:assert/strict';
+const require = createRequire(import.meta.url);
+const { createProfileRegistry } = require('../main/profile-registry');
+const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-workspace-preservation-ui-'));
+const registry = createProfileRegistry(path.join(root, 'profile-data'));
+const a = registry.createProfile({ name: 'A' }), b = registry.createProfile({ name: 'B' });
+const ws = label => ({ version: 1, chats: { same: { id: 'same', title: label, messages: [], tabs: [], events: [], draft: label + ' draft' } }, order: ['same'], current: 'same', favorites: [], pages: null });
+registry.storeFor(a.id).writeJson('workspace.json', ws('A')); registry.storeFor(b.id).writeJson('workspace.json', ws('B'));
+const aFile = path.join(registry.storeFor(a.id).storeDir, 'workspace.json'), bFile = path.join(registry.storeFor(b.id).storeDir, 'workspace.json');
+const originalB = fs.readFileSync(bFile);
+const launch = () => electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${root}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
+let app;
+try {
+  app = await launch(); let page = await app.firstWindow();
+  await page.waitForFunction(() => window.__barkdown?.state.loaded);
+  fs.renameSync(bFile, bFile + '.retained');
+  const rejected = await page.evaluate(async id => { try { await window.barkdown.profiles.select(id); return null; } catch (error) { return error.message; } }, b.id);
+  assert.match(rejected, /workspace is missing/);
+  assert.equal(registry.load().selectedProfileId, a.id);
+  assert.equal(await page.evaluate(() => window.__barkdown.state.chats.same.draft), 'A draft');
+  assert.equal(fs.existsSync(bFile), false);
+  fs.renameSync(aFile, aFile + '.retained');
+  const composer = page.locator('textarea').first(); await composer.fill('A live unsaved draft after loss');
+  await page.getByText(/Changes are not saved/).waitFor();
+  assert.equal(await composer.inputValue(), 'A live unsaved draft after loss');
+  assert.equal(fs.existsSync(aFile), false);
+  await page.screenshot({ path: path.join(root, 'runtime-loss.png') });
+  await app.close(); app = null;
+  fs.renameSync(aFile + '.retained', aFile);
+  const originalA = fs.readFileSync(aFile);
+  registry.selectProfile(b.id);
+  for (const scenario of ['missing', 'corrupt']) {
+    if (scenario === 'corrupt') fs.writeFileSync(bFile, '{broken');
+    app = await launch(); page = await app.firstWindow();
+    await page.getByRole('heading', { name: 'Library recovery' }).waitFor();
+    await page.getByRole('button', { name: 'Quit', exact: true }).waitFor();
+    assert.equal(await page.locator('button').count(), 1);
+    assert.match(await page.locator('.detail').innerText(), /workspace.json/);
+    assert.match(await page.locator('.detail').innerText(), /restore the original file or a verified backup/);
+    assert.equal(app.windows().length, 1);
+    assert.equal(registry.load().selectedProfileId, b.id);
+    assert.deepEqual(fs.readFileSync(aFile), originalA);
+    assert.deepEqual(fs.readFileSync(bFile + '.retained'), originalB);
+    if (scenario === 'missing') assert.equal(fs.existsSync(bFile), false);
+    else assert.equal(fs.readFileSync(bFile, 'utf8'), '{broken');
+    await page.screenshot({ path: path.join(root, scenario + '-recovery.png') });
+    await app.close(); app = null;
+  }
+  console.log(JSON.stringify({ passed: ['invalid B switch preserves A draft/selection', 'runtime workspace loss shows unsaved warning and retains draft', 'missing and corrupt selected B restart show actionable Quit-only recovery', 'no workspace replacement or original edits'], root }));
+} finally { await app?.close(); }

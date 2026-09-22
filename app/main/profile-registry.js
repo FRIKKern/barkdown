@@ -170,6 +170,10 @@ function createProfileRegistry(directory, { checkpoint = () => {} } = {}) {
       const id = crypto.randomUUID();
       const profile = { id, name: name.trim(), root: `profiles/${id}`, creationKey: requestId };
       fs.mkdirSync(at(profile.root), { recursive: true });
+      // Publication is the initialization boundary. A visible profile always
+      // owns a workspace; later absence requires recovery, never another seed.
+      write(beneath(at(profile.root), 'workspace.json'), { version: 1, chats: {}, order: [], favorites: [], pages: null, current: null, mode: 'chat', directTab: null });
+      checkpoint('profile-workspace-initialized');
       commit({ ...current, profiles: [...current.profiles, profile], selectedProfileId: current.selectedProfileId || id });
       return clone(profile);
     });

@@ -1,6 +1,6 @@
 import { composerDraft } from './composer-history.js';
 // Workspace state: app-wide navigation plus one workspace per chat. Persisted as a whole to userData/workspace.json.
-import { uid, debounce } from './ui.js';
+import { uid, debounce, toast } from './ui.js';
 
 const api = window.barkdown;
 
@@ -55,7 +55,10 @@ export function serialise() {
   return { version: 1, profileId: state.profileId, generation: state.generation, chats, order: state.order, favorites: state.favorites, pages: state.pages, current: state.current, mode: state.mode, directTab: state.directTab };
 }
 
-export const save = debounce(() => { api.state.save(serialise()).catch(error => console.warn('save failed', error)); }, 400);
+export const save = debounce(() => { api.state.save(serialise()).catch(error => {
+  console.warn('save failed', error);
+  toast('Changes are not saved. Keep this window open to copy your draft. ' + error.message, 'error');
+}); }, 400);
 
 export async function load() {
   const data = await api.state.load();
