@@ -1,0 +1,17 @@
+import {chromium} from 'playwright';
+import fs from 'node:fs';import path from 'node:path';import crypto from 'node:crypto';import {execFileSync} from 'node:child_process';
+const source='C:/Users/Frikk/.codex/worktrees/barkpark-upload-history';
+const out=path.resolve('../docs/visual/upload-history/before-fix');fs.mkdirSync(out,{recursive:true});
+const browser=await chromium.launch();const context=await browser.newContext({permissions:['clipboard-read','clipboard-write'],viewport:{width:1100,height:750}});const page=await context.newPage();
+await page.route('https://upload.test/**',r=>r.fulfill({contentType:'text/html',body:'<!doctype html><body></body>'}));await page.goto('https://upload.test/');await page.evaluate(()=>window.BP_PAPER_EDITOR_NO_INJECT=true);await page.addScriptTag({path:source+'/api/priv/static/assets/bp-paper-editor.bundle.js'});await page.addStyleTag({path:source+'/api/priv/static/assets/bp-paper-editor.css'});
+const results=[];
+try{for(const order of ['undo-complete-redo','complete-undo-redo']){
+ await page.evaluate(async()=>{document.body.replaceChildren();const c=window.canvas=document.createElement('bp-paper-canvas');c.blocks=[{id:'seed',type:'paragraph',content:[{type:'text',value:'Human text stays.'}]}];c.acknowledgedSaves=true;document.body.append(c);window.uploads=0;c.mediaUploader=()=>{window.uploads++;return new Promise(resolve=>window.finishUpload=resolve);};const raster=new OffscreenCanvas(100,60);const g=raster.getContext('2d');g.fillStyle='green';g.fillRect(0,0,100,60);const png=await raster.convertToBlob({type:'image/png'});window.asset=URL.createObjectURL(png);await navigator.clipboard.write([new ClipboardItem({'image/png':png})]);c._editor.commands.focus();});
+ await page.locator('.ProseMirror').click();await page.keyboard.press('End');await page.keyboard.press('Control+v');await page.waitForFunction(()=>window.uploads===1);
+ const snap=()=>page.evaluate(()=>({blocks:canvas.recoverySnapshot().blocks,nodes:canvas._editor.getJSON(),uploads,dom:canvas.textContent}));const pasted=await snap();await page.waitForTimeout(600);
+ if(order==='undo-complete-redo')await page.keyboard.press('Control+z');
+ await page.evaluate(()=>finishUpload({src:asset}));await page.waitForTimeout(50);const completed=await snap();
+ if(order==='complete-undo-redo')await page.keyboard.press('Control+z');
+ const undone=await snap();await page.keyboard.press('Control+Shift+z');await page.waitForTimeout(50);const redone=await snap();await page.screenshot({path:path.join(out,order+'.png')});results.push({order,pasted,completed,undone,redone});
+}fs.writeFileSync(path.join(out,'chromium.json'),JSON.stringify({source:execFileSync('git',['rev-parse','HEAD'],{cwd:source,encoding:'utf8'}).trim(),bundleSha1:crypto.createHash('sha1').update(fs.readFileSync(source+'/api/priv/static/assets/bp-paper-editor.bundle.js')).digest('hex'),browser:browser.version(),scope:'Trusted ClipboardItem and Ctrl+V/Undo/Redo with injected delayed uploader; no actual server upload claim',results},null,2)+'\n');console.log(results.map(r=>({order:r.order,redo:r.redone.blocks,uploads:r.redone.uploads})));}
+finally{await browser.close();}
