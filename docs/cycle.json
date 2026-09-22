@@ -1,27 +1,26 @@
 {
   "version": 1,
-  "id": "C008",
-  "stage": "P1",
+  "id": "C030",
+  "stage": "G2",
   "status": "active",
-  "goal": "Integrate reviewed profile, goal and editor milestones on an isolated branch and prove their combined behavior without merging main.",
+  "goal": "Replace the observational editor gaps probe with explicit native interaction and acknowledged server assertions.",
   "scope": [
-    "Union reviewed source commits and existing regression gates",
-    "Preserve original lane evidence and create fresh combined evidence",
-    "Exercise combined ownership, worker and Paper journeys as dependencies arrive",
-    "Correct reproduced integration error-reporting gaps without widening provider authority"
+    "Only the gaps live fixture and its source-bound evidence; no product or upstream behavior changes",
+    "Keep original thirteen interactions, explicitly assert formatting, structure, native Undo/Redo and server persistence",
+    "Use disposable runtime and retained artifacts; serialize actual UI with coordinator queue"
   ],
   "acceptance": [
-    "Combined desktop and root verification pass",
-    "Live and deterministic visual evidence names the combined source",
-    "Profile/goal integration gaps remain explicit until proven"
+    "Each reported passing step has explicit expected editor state and matching acknowledged server state",
+    "Any failed assertion causes nonzero exit with original diagnostics retained",
+    "Actual private-runtime execution and reviewed stills/video name exact source; remaining failures stay explicit"
   ],
   "checkpoint": "2026-09-22",
-  "handoff": "docs/cycles/C008-integration.md",
-  "nextAction": "Finish C016/C026/E009/C023 lane gates and import reviewed results. Correct reproduced missing working-folder search success, retain evidence, then freeze combined full/visual/live/root validation; d8acb82 remains fallback.",
+  "handoff": "docs/cycles/C030-parity-behavior.md",
+  "nextAction": "Implement assertions and cleanup/evidence capture, commit source, then await explicit native UI grant after higher-priority lanes.",
   "evidence": [
-    "app/package.json",
-    "docs/cycles/C008-integration.md"
+    "app/tests/editor-gaps.live.mjs",
+    "docs/cycles/C030-parity-behavior.md"
   ],
-  "truthReview": "Full desktop64608, rootverify86276, reviewed40-frame deterministic and actualCodex live5397 passed. C018 original evidence hash normalization is explained by immutable addendum; C019 closure binds identical production source. No main merge or release.",
-  "screenshotReview": "Exact e380385 fixture run2026-09-22T02-13-13-738Z reviewed/approved:40 stills and all GIF frames. Actual status5397 five stills/37GIF frames reviewed; private runtime stopped. Future source changes require fresh proof."
+  "truthReview": "C028 rejects this observational probe as unverifiable. No actual C030 pass is claimed. Root/app npm ci and Playwright Chromium installation completed; existing app audit reports2high advisories unchanged.",
+  "screenshotReview": "Not captured yet; no baseline promotion."
 }
