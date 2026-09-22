@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C018",
   "stage": "P1",
-  "status": "active",
+  "status": "done",
   "goal": "Prove owned terminal shutdown and profile affinity without orphan descendants or command replay.",
   "scope": [
     "Windows pipe terminals",
@@ -17,8 +17,13 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C018-terminal-ownership.md",
-  "nextAction": "Reproduce actual baseline descendant survival in disposable fixtures.",
-  "evidence": [],
-  "truthReview": "Plan only; no behavior changed.",
-  "screenshotReview": "Pending implementation and actual evidence."
+  "nextAction": "Integrate reviewed source/evidence; follow C021 native ownership preflight before offline authority rollback. P1 remains open.",
+  "evidence": [
+    "docs/visual/terminal-ownership/db9b2ca/manifest.json",
+    "docs/visual/terminal-ownership/db9b2ca/review.json",
+    "docs/visual/runs/2026-09-22T01-53-12-281Z/manifest.json",
+    "docs/images/status/c018-review.json"
+  ],
+  "truthReview": "Source db9b2ca pushed. Native and focused renderer tests, actual Electron ownership/recovery, reviewed deterministic and live Paper evidence passed. Root npm run verify session33433 exited0. Windows bounded milestone only.",
+  "screenshotReview": "Seven actual stills, 17 video samples, 41 raw recovery frames/38 GIF frames and all37 deterministic frames inspected; explicit deterministic approval recorded."
 }

@@ -2,13 +2,15 @@
 
 Active on `codex/integration-12h` in the isolated `barkdown-integration-12h` worktree. No main merge or deployment. This branch is a test candidate, not a completed product milestone.
 
-## Current checkpoint — 02:27 UTC
+## Current checkpoint — 02:24 UTC
 
 Combined source e380385 is validated: full desktop session64608 exited0 at unchanged app source b083c60, including coordinator crash/retry and stop races, API Paper operations, project-buffer preservation, and terminal shutdown. Later commits changed visual comparison tooling only. Root verify86276 exited0 after restoring original historical evidence dependencies and fixing the retired terminal-draft link.
 
 Fresh deterministic run [02-13-13](../visual/runs/2026-09-22T02-13-13-738Z/README.md) has40 reviewed stills and all decoded GIF frames reviewed. Named-step comparison handles inserted/reordered/removed views: three new goal planning views and expected workers labels; no unintended geometry regression found. Initial02-09 capture is retained unapproved. Final recapture had43of48 artifacts byte-identical to inspected captures; four differing stills and side-chat GIF inspected again.
 
 Actual live status5397 passed at clean e380385 with clean Barkpark5fba61f7e. Claude hit weekly quota; actual Codex fallback read and edited Paper successfully. Five full stills and37 GIF frames reviewed in [hash-bound review](../images/status/review-2026-09-22T02-15-37.json). Private ss7Qm9 stopped normally and launcher confirmed postmaster.pid absent; user CLI unchanged.
+
+C018 original final evidence25cb99e is now imported selectively, retaining its db9b2ca provenance and the newer combined visual approval.
 
 This checkpoint combines C014, E004, C015, C017, E006, C018, C019 and C020 tests. C019 production project-buffer changes are identical to its original e68a72e source; combined validation supplements its dedicated actual Settings/CodeMirror evidence. Original lane provenance remains distinct. No main merge or deployment. P1–P5, portability and complete editor release remain unfinished. C016 scroll diagnostic, E007 HTML paste visibility and C021 native rollback preflight remain separate pending work. Last prior fully verified fallback9c77cb7 remains historical.
 
