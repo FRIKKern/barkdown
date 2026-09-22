@@ -48,7 +48,8 @@
     "test:goal-workspace": "node tests/goal-workspace.integration.mjs",
     "test:adoption": "node tests/profile-runtime-adoption.live.mjs",
     "test:adoption-ui-runtime": "node tests/adoption-runtime-ui.live.mjs",
-    "test:api-paper": "node tests/api-paper.test.mjs"
+    "test:api-paper": "node tests/api-paper.test.mjs",
+    "test:api-paper:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/api-paper.live.mjs"
   },
   "engines": {
     "node": ">=22.13.1"
