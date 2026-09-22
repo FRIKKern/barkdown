@@ -61,7 +61,8 @@
     "test:canvas-cache": "node --test tests/canvas-bundle.test.mjs && node tests/canvas-bundle.live.mjs",
     "test:profile-isolation": "npm run build && node tests/profile-isolation-ui.live.mjs",
     "test:parity-runner": "node --test tests/parity-runner.test.mjs",
-    "test:send-preservation": "npm run build && node tests/send-preservation.test.mjs && node tests/send-boundaries.test.mjs && node tests/legacy-send-preservation.test.mjs && node tests/send-preservation.live.mjs && node tests/legacy-send-preservation.live.mjs"
+    "test:send-preservation": "npm run build && node tests/send-preservation.test.mjs && node tests/send-boundaries.test.mjs && node tests/legacy-send-preservation.test.mjs && node tests/send-preservation.live.mjs && node tests/legacy-send-preservation.live.mjs",
+    "test:rich-clipboard:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-rich-clipboard.live.mjs"
   },
   "engines": {
     "node": ">=22.13.1"

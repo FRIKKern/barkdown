@@ -1,0 +1,15 @@
+{
+  "source": "ae8090a",
+  "scope": "Headless JSDOM renderer plus actual preload executed in Node VM, real profile service/repository/IPC gate and in-process driver registry. No Electron, native child, external request or UI proof. Disposable A/B same-chat-ID data only; no workspace or credential files copied.",
+  "command": "node <temporary-directory>/audit.mjs; preserved command is text for review, not an executable repository test. It names the original checkout and writes disposable data beside its temporary location.",
+  "results": [
+    "Delayed save acknowledgement after A-to-B switch refuses stale owner without B mutation or dispatch",
+    "Managed early driver completion does not revive runId or lose text",
+    "139 original committed evidence hashes independently verified"
+  ],
+  "hashes": {
+    "command.mjs.txt": "9e5cb025d30a7b858ae74e9634e2f6e960115cd2c655ec94e560dd307b8bfb85",
+    "hash-report.json": "6fc823c553507797c94c34b79acbda44198e8807401ed3c5f9d177ede4821d05",
+    "report.json": "c0710615f7534bfe75f3d1a3d2e7e89045f697ed065efbeb0f910405fd6c5bae"
+  }
+}
