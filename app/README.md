@@ -70,4 +70,4 @@ Each page contains a still, recorded interaction GIF, provenance and changelog. 
 
 - [Ordinary chat recovery](../docs/visual/chat-recovery/README.md): C014 actual managed Windows crash/recovery journey; source evidence closeout pending.
 
-- [Terminal ownership](../docs/visual/terminal-ownership/README.md): C018 active; Windows native process proof passed, actual UI/evidence closeout pending.
+- [Terminal ownership](../docs/visual/terminal-ownership/README.md): C018 Windows ownership and actual Electron crash/switch/draft proof passed at db9b2ca; seven stills and motion reviewed. Final live Paper status reviewed and root verification passed (session33433).

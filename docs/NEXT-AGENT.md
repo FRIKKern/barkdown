@@ -61,3 +61,9 @@ Start with `npm run cycle` and [cycle.json](cycle.json). C002 merged through PR 
 ## Visual handoff
 
 The [visual health pages](visual/README.md) now hold reviewed stills, GIFs and comparison reports. Follow [visual rules](visual/RULES.md) for app/dependency/harness changes: capture, compare, inspect, explicitly approve, and preserve old evidence. The main baseline is merge b8e7bfb from PR #29; C002 is merged and P1 remains pending. This workflow update did not implement profiles or change runtime behavior. Dedicated agent-edit/files/recovery motion coverage remains to be added with those journeys. Do not treat fixture screenshots as live integration proof.
+
+## C018 terminal lane checkpoint
+
+`codex/terminal-ownership-12h` source `db9b2ca` captures terminal profile/chat/tab/session/cwd, verifies native drain before authority switches, and restores stopped sessions without replay. Actual Electron crash/switch/draft and rapid-Enter proof passed; all owned processes stopped. [Handoff](cycles/C018-terminal-ownership.md) and [reviewed evidence](visual/terminal-ownership/README.md). Final standard status must run in a coordinator-granted UI/runtime slot, then root verify and evidence commit. Keep the C008 queue authoritative; this does not close P1.
+
+C018 closed: final live Paper79527/EhzxkR passed and stopped, media reviewed; root verify33433 passed. Continue C021 native process preflight for offline rollback in an isolated b083c60-based worktree. The earlier pending checkpoint above is superseded by this closeout.

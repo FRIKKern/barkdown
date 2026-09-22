@@ -43,3 +43,19 @@ Unsent terminal command drafts are retained on their owning tab (without executi
 Actual fixture corrections: first zOcqCX could not mount terminal because its seeded chat omitted normal events metadata; no process was launched. Second AEMJXK passed all managed A/B/crash/draft checks and stopped all4 jobs, then its final legacy echo assertion incorrectly expected LF instead of PowerShell CRLF. The screenshot shows the actual command completed. Both failure artifacts remain in their temporary roots. Corrected fixture data/newline assertion; no product failure inferred. Final source-bound recapture follows.
 
 Coordinator review identified an async submission race: a delayed shell launch/input acknowledgement could clear a newer human draft, and repeated Enter could dispatch twice. Added a single in-flight submission guard and compare-before-clear. The focused delayed-start/input renderer regression passes while preserving the newer draft and dispatching only the captured first intent. Real Electron fixture now additionally counts an explicit append command after rapid Enter and verifies the newer typed draft survives. Source correction awaits final actual recapture.
+
+## Source-bound evidence checkpoint
+
+Final source `db9b2ca` is pushed. Actual Electron session32711 exited0 at disposable IV2WeT (legacy8HScwM), with all4 native jobs verified stopped and nine descendant PIDs absent. Rapid Enter wrote exactly one line while preserving the newer draft. Seven stills, all17 video samples and all41 raw recovery frames (38 encoded GIF frames) were inspected. Deterministic run2026-09-22T01-53-12-281Z has37 reviewed frames, zero pixel/geometry differences and explicit approval. [Actual evidence](../visual/terminal-ownership/README.md).
+
+Relevant verification: 15 terminal/native checks, existing owned-worker/recovery/profile-service/run-owner/IPC regressions, final delayed-submit renderer test and final actual Electron pass. Existing76 desktop checks plus profile UI passed at0bceb40 before the final narrow submit correction; that correction has focused renderer and actual Electron proof. No claim of a full final app-suite run. Final standard Paper status and root verify remain pending. UI was released with all owned processes stopped.
+
+Coordinator independently reproduced the offline rollback follow-up at integrationf99a05f: a live owned three-process native tree was not explicitly preflighted; rollback advanced to rolling-back then Windows rename failed EPERM while all PIDs remained alive. No successful retirement or data loss was reproduced. Owned stop subsequently verified all PIDs absent. Root retained rollback-process-audit.{cjs,json} and disposable mMs7bO. Add explicit native ownership preflight in a subsequent bounded cycle; C018 does not change adoption.
+
+Root verify attempted after visual approval: build passed, check stopped at expected standard-status freshness mismatch (db9b2ca vs8cabf36). No subsequent checks were executed. Coordinator has final status slot request; no UI/runtime remains owned while waiting.
+
+Final standard isolated status session79527/EhzxkR exited0 at clean source db9b2ca and clean Barkpark a5440345c; runtime stopped/postmaster absent, user CLI unchanged. Manifest records real Codex turn after Claude weekly-limit fallback. All five stills and37 GIF frames inspected; hash-bound c018-review.json records approval. Shared UI/runtime released before root combined tests.
+
+## Bounded closeout
+
+Root npm run verify session33433 exited0: build, source/links/fresh status, active plan/cycle, visual hashes/review and all headless concept/handoff checks passed. C018 is complete as the bounded Windows terminal milestone. Source commits78af101,0bceb40,db9b2ca; evidence commit follows. No merge/deploy or real-library mutation. Next: C021 explicit native job preflight before offline authority rollback, preserving existing cold DB and lease guards.
