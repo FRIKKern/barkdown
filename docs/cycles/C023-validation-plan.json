@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "cycle": "C023",
+  "status": "planned-not-executed",
+  "implementationCommit": "3e9c0a99b779e42306678bf082f739127f31d811",
+  "sourceSha256": {
+    "app/main/atomic-write.js": "a3b46178f6457518f7e9030181140ea2bb490abd8ea630429e38808fbdc8b7b9",
+    "app/main/file-lease.js": "a63776a0c6de54e3c1ff6d763564853811ed5dbe4702bec566cf620aef02f7c2",
+    "app/main/profile-registry.js": "4863931f0dbfc1b4c5292bf034fed021f3ebf759363a18797ce81654c7b42c48",
+    "app/main/goals.js": "0a8d602d5a27dddd4231e43a7ccf4487fbb6aaa1e9e489ea348071847d2779e2",
+    "app/tests/atomic-write.test.mjs": "9e05168e23fb3d6bada3e572f83f037926ab0517ddf211ea31fd762798ed10bc",
+    "app/package.json": "997e7d896f06e8690f57de6912e6cbbb9888d8ea971391ebaedb48a2f84bbe9a"
+  },
+  "prerequisite": "Explicit parent UI/a544 grant; all other foreground lanes released",
+  "gates": [
+    {
+      "id": "desktop",
+      "status": "pending",
+      "command": "npm run test:desktop",
+      "log": "app/test-results/c023-final-desktop.log",
+      "required": [
+        "44 focused atomic checks",
+        "68 goal/native checks",
+        "76 desktop checks and existing integration suites"
+      ],
+      "artifacts": [
+        "app/test-results/goal-coordinator/manifest.json",
+        "app/test-results/goal-coordinator-recovery/manifest.json",
+        "proof.json in logged native review/summary temporary roots"
+      ]
+    },
+    {
+      "id": "fixture",
+      "status": "pending",
+      "command": "npm run visual:capture; npm run visual:compare (only after capture succeeds)",
+      "log": "app/test-results/c023-fixture.log",
+      "artifacts": [
+        "docs/visual/pending.json",
+        "docs/visual/runs/<new-run>/manifest.json",
+        "docs/visual/runs/<new-run>/comparison.json"
+      ],
+      "review": "Actually inspect all new action frames, narrow layouts, geometry and GIF frames; expected current tour has34 frames, verify actual count."
+    },
+    {
+      "id": "approve",
+      "status": "pending",
+      "command": "node scripts/visual.mjs approve --reviewer \"Codex goal-orchestration agent\" --note <actual inspection and behavior findings>",
+      "requires": "Complete actual inspection; preserve prior area README changelogs/custom notes",
+      "artifacts": [
+        "docs/visual/approved.json",
+        "docs/visual/reviews/<manifest-hash>.json"
+      ]
+    },
+    {
+      "id": "paper",
+      "status": "pending",
+      "command": "Set BARKDOWN_TEST_BP_SOURCE=C:/Users/Frikk/Documents/GitHub/barkpark-editor; npm --prefix app run shots:isolated",
+      "log": "app/test-results/c023-live-paper.log",
+      "artifacts": [
+        "docs/images/status/manifest.json",
+        "docs/images/status/history/<new-history>.json"
+      ],
+      "review": "Inspect all five stills and every actual GIF frame; report chat.real/provider and dirty/source fields exactly. Verify normal stop and absent postmaster.pid in logged private runtime."
+    },
+    {
+      "id": "root",
+      "status": "pending",
+      "command": "npm run verify",
+      "log": "app/test-results/c023-root.log",
+      "review": "Record exact exit code. Release UI after foreground work ends, independently of offline evidence copying."
+    }
+  ],
+  "closeout": {
+    "status": "pending",
+    "gallery": "docs/goals/evidence/3e9c0a9/",
+    "record": [
+      "Exact invocation HEAD and implementation commit",
+      "Actual test sessions/exit codes and retained failures",
+      "Exact fixture/live/native manifests and runtime roots",
+      "Actual image inspection and approval",
+      "No owned processes; parent UI/a544 release"
+    ],
+    "integration": "Parent must preserve C010 prepareRelocation/relocated methods when merging file-lease hunks. This branch approval cannot approve combined source."
+  }
+}

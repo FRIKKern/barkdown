@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const { acquireFileLease } = require('./file-lease');
+const { atomicWrite } = require('./atomic-write');
 
 const VERSION = 1;
 const ID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
@@ -156,7 +157,21 @@ function createProfileRegistry(directory, { checkpoint = () => {} } = {}) {
         const file = ownedPath(name);
         try { return read(file); } catch (error) { if (error.code === 'ENOENT') return clone(fallback); throw error; }
       },
-      writeJson(name, value) { const file = ownedPath(name); write(file, value); },
+      writeJson(name, value) {
+        const file = ownedPath(name);
+        fs.mkdirSync(path.dirname(file), { recursive: true });
+        const ownership = acquireFileLease(file + '.write-lease', { completeOwner: true });
+        let failure;
+        try {
+          atomicWrite(file, JSON.stringify(value, null, 2) + '\n', { assertOwned: () => {
+            ownedPath(name); ownership.assertOwned();
+          } });
+        } catch (error) { failure = error; throw error; }
+        finally {
+          try { ownership.release(); }
+          catch (error) { if (failure) failure.releaseError = error; else throw error; }
+        }
+      },
     });
   }
   function createProfile({ name, requestId = crypto.randomUUID() }) {

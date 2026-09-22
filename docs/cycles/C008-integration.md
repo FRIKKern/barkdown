@@ -125,3 +125,10 @@ Two original review manifest/report hashes, all capture media and12-manifest com
 
 
 C024 source268d5df and original evidence6654f34 are selectively imported: unavailable-file navigation clears write authority while retaining prior drafts; saves acknowledge captured file/text, newer typing remains dirty, and removed files require explicit recreation. Exact original dedicated captures, deterministic review and11-manifest chain verified; original live status is archived at docs/images/status/history/C024-268d5df.json. Post-import headless file-authority and global/root buffer checks plus app build pass. Current global status/approval remains unchanged and stale for the combined candidate; fresh full/visual/live/root gates are still required. C027 append-only review tooling remains intact. No native UI/runtime launched during import.
+
+
+### C023 reviewed source integration, 22 September
+
+Imported bounded replacement/complete-owner/cleanup source through3e9c0a9 and44 focused cases, preserving the integration-only C010 lease relocation methods and profile initialization boundary. Original crash/reader failures and validation plan9cf3bf6 remain source-bound; final lane and combined full/visual/live/root gates are pending. Independently44 atomic checks passed on this combined working tree, including actual held-reader Z8POYa with no stranded writer descriptor/lease and dead-guard5TJJaw exactly-one-writer. Four default lease checks (oygMuQ) and24 registry checks (EsQguP) passed. Legacy authority adoption test6206 passed, including verified lease relocation and sixteen actual process exits; fixtures iox2FB retained. No UI/runtime launched by root.
+
+The per-write lease requires exclusive hardlink support; malformed/deep recovery chains remain explicit inspection. Snapshot checks plus cooperating leases are not rogue-writer compare-and-swap or a power-loss durability proof. Main/P1 status unchanged; new source must receive fresh combined validation.

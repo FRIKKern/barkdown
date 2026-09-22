@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const { GoalAdmission } = require('./goal-admission');
+const { atomicWrite } = require('./atomic-write');
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 const GOAL_STATES = ['planned', 'active', 'paused', 'cancelled', 'expired', 'review', 'completed'];
@@ -99,11 +100,16 @@ function acquireLease(root) {
     }
     fs.writeFileSync(file, JSON.stringify(owner), { flag: 'wx' });
   } finally { fs.closeSync(fd); fs.unlinkSync(guard); }
-  return () => {
+  const assertOwned = () => {
     const current = JSON.parse(fs.readFileSync(file, 'utf8'));
-    assert(current.nonce === owner.nonce, 'Journal lease changed unexpectedly');
+    assert(current.nonce === owner.nonce && current.pid === owner.pid, 'Journal lease changed unexpectedly');
+  };
+  const release = () => {
+    assertOwned();
     fs.unlinkSync(file);
   };
+  release.assertOwned = assertOwned;
+  return release;
 }
 
 const openRoots = new Set();
@@ -114,8 +120,10 @@ function openJournal(root) {
   const release = acquireLease(root);
   const file = path.join(root, 'goals.json');
   let data = { version: 1, revision: 0, goals: [] };
+  let acknowledgedBytes = null;
   try { if (fs.existsSync(file)) {
-    data = JSON.parse(fs.readFileSync(file, 'utf8'));
+    acknowledgedBytes = fs.readFileSync(file);
+    data = JSON.parse(acknowledgedBytes);
     assert(data.version === 1 && Number.isSafeInteger(data.revision) && data.revision >= 0 && Array.isArray(data.goals), 'Unsupported goal journal');
     const keys = new Set();
     for (const g of data.goals) { validateGoal(g); const k = key(g.profileId, g.id); assert(!keys.has(k), 'Duplicate goal ownership'); keys.add(k); }
@@ -128,11 +136,10 @@ function openJournal(root) {
       assert(!closed, 'Journal closed');
       next.goals.forEach(validateGoal);
       const value = { version: 1, revision: data.revision + 1, goals: copy(next.goals) };
-      const temp = path.join(root, `goals.${crypto.randomUUID()}.tmp`);
-      const fd = fs.openSync(temp, 'wx');
-      try { fs.writeFileSync(fd, JSON.stringify(value, null, 2)); fs.fsyncSync(fd); } finally { fs.closeSync(fd); }
+      const bytes = JSON.stringify(value, null, 2);
       // Failed writes leave previous authority intact and retain temporary evidence.
-      fs.renameSync(temp, file); data = value;
+      atomicWrite(file, bytes, { assertOwned: release.assertOwned, expectedBytes: acknowledgedBytes, tempPrefix: path.join(root, 'goals') });
+      acknowledgedBytes = bytes; data = value;
       return copy(data);
     },
     close() { if (closed) return; release(); closed = true; openRoots.delete(root); },

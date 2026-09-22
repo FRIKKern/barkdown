@@ -15,3 +15,8 @@ This is a coordinator checkpoint, not stage approval. The original [A1 requireme
 ## Next acceptance attempt
 
 C024 original source/evidence is imported; finish C025/C023/C026 proof and review; repair the real Paper loading-position and missing-attachment draft defects; integrate reviewed sources and run fresh combined full, fixture, live and root gates. Re-run the actual two-profile journey on the consumed source. Resolve or explicitly retain the external provider-login boundary before any broad P1 completion claim. No real-library migration, merge or deployment is part of this checkpoint.
+
+
+### Device credential boundary audit
+
+The [reproducible audit](evidence/provider-credential-boundary.cjs) runs the actual API adapter with two temporary owned scopes and a controlled client, so no network or real credentials are used. At retained g71jcL, A uses its supplied profile key; B with no supplied key uses the device ANTHROPIC_API_KEY environment default, not A's supplied key. Thus environment authentication joins home-directory CLI login as an external shared-device boundary. This is not evidence of profile-to-profile encrypted-key leakage, and it does not settle the required isolation/consent policy. UI and stage claims must continue to distinguish profile-owned secrets from device authentication. No provider configuration was changed.
