@@ -1,0 +1,11 @@
+# C022 actual repeated cold adoption
+
+Isolated codex/repeated-cold-adoption-12h from verified combined d8acb82. C016 remains active separately; C019 closed b3881cd against dedicated and combined proof. Parent coordinator reserved C022 and requires named grant before UI/runtime launch.
+
+Goal: satisfy A1 literal repeated-adoption clause with a genuine private PostgreSQL/Paper runtime, retained original workspace, real edit receipt, stable UUID/inventory and backup hashes. Keep exact source and original credential bytes; same-machine base64 fixture credentials are not encrypted/cross-machine portability proof. Preserve C010 original fixture/evidence.
+
+Plan: seed Paper/media and real revision receipt; cleanly stop source; snapshot original and backup hashes; actual first adoption, acknowledged human save, quit; actual second --adopt-legacy, compare one UUID and captured inventories, saved revision/media; ordinary restart then explicit rollback, original unchanged and edited profile retained. Capture and inspect steps/GIF. No migration implementation change expected.
+
+Dependencies root npm ci PASS (31 packages,0 advisories), app npm ci running. No runtime/UI launched. Next prepare bounded fixture and syntax/helper validation, commit source before actual run.
+
+Fixture prepared: genuine pre-adoption Paper receipt via revision-checked agent-edits.apply, local note, nested Pages/favorite/saved tab and parent/side conversations. Cold original shell/runtime inventory, immutable shell/runtime backup hashes, repeated explicit adoption oneUUID/exact Paper/chat/navigation/local-doc/receipt inventory, acknowledged Paper edit/media, ordinary restart and rollback with byte-identical retained edited DB are asserted. Synthetic plain credentials remain explicitly same-machine only. Existing C010 fixture unchanged; no production edit. App npm ci PASS (536 packages,2 existing high advisories); Chromium installed. Build, syntax, cycle checks and legacy-authority helper including16 real process-exit cases15422 PASS. Rootverify64466 reached and failed expected visual fingerprint after adding package script; fresh visual capture/approval pending named UI window. No Electron/runtime launch and no processes remain. Commit fixture before actual run.

@@ -53,7 +53,8 @@
     "test:api-paper:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/api-paper.live.mjs",
     "test:project-buffers": "node tests/project-buffers.test.mjs",
     "test:project-buffer-profile": "node tests/project-buffer-profile.live.mjs",
-    "test:terminal-ownership": "npm run build && node --test tests/terminal-ownership.test.mjs && node tests/terminal-ownership.live.mjs"
+    "test:terminal-ownership": "npm run build && node --test tests/terminal-ownership.test.mjs && node tests/terminal-ownership.live.mjs",
+    "test:adoption-repeat": "npm run build && node tests/adoption-repeat-ui.live.mjs"
   },
   "engines": {
     "node": ">=22.13.1"
