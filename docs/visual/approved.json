@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-09-22T22-57-41-217Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-22T22-57-41-217Z/comparison.json",
-  "manifestHash": "5481ed3af2a308818f0b8455605866660300d7ca3acbb0d9f573c215e9962a72",
-  "reportHash": "7981e6b8f39320adca40862b0de0ba2ca70d7449b77eb0d3895bdecb552a74a2",
+  "manifest": "docs/visual/runs/2026-09-22T23-06-27-174Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-22T23-06-27-174Z/comparison.json",
+  "manifestHash": "09714516b5c3c8afce69426969c7e30db8da54542a2a33b2c8f157b51e50e5bf",
+  "reportHash": "6d1dc707d813b96c70186601a6f37db8e2959af5f396f06127b98a9518fe5970",
   "reviewer": "Codex integration coordinator",
-  "note": "Reviewed all 40 stills and all eight motion tours after the status-motion timing-only change. Every still and GIF is byte-identical to the approved 77d5726 baseline; compare reports zero changed pixels and unchanged geometry, including narrow views. Behavior coverage remains the full desktop pass at 1b01bf2 plus 18/18 capture/history checks at 34fb5a1. Live Paper/status evidence is separate and remains pending.",
-  "reviewedAt": "2026-09-22T23:00:11.374Z",
-  "reviewPath": "docs/visual/reviews/approval-e9748085a84fe261b3c586ae56b015cb80f08b9be694f86744027c5358cff24e.json",
-  "reviewHash": "e9748085a84fe261b3c586ae56b015cb80f08b9be694f86744027c5358cff24e"
+  "note": "Reviewed the 40 stills, eight motion tours, comparison report and provenance after the live-status GIF encoder-only change. All 40 entries are within tolerance with unchanged geometry and environment; changes are limited to invisible antialias noise. Product behavior remains covered by the full desktop pass at 1b01bf2 and 18/18 capture/history checks at e28d759. Live Paper/status remains a separate pending gate.",
+  "reviewedAt": "2026-09-22T23:08:41.511Z",
+  "reviewPath": "docs/visual/reviews/approval-7d03f4e67edb22d704bc6ed7294ba57b67f4be72310f783d018870110c18c173.json",
+  "reviewHash": "7d03f4e67edb22d704bc6ed7294ba57b67f4be72310f783d018870110c18c173"
 }
