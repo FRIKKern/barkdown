@@ -219,7 +219,7 @@ export async function sendMessage(chat, text, hooks, images = []) {
     const { runId, assistantId, attemptId } = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title, catchUp }, provider, chat.sessions[provider] || null, clean, attached, { model: chat.model || undefined, effort: chat.effort || undefined });
     if (assistantId) { chat.messages.at(-1).id = assistantId; chat.messages.at(-1).attemptId = attemptId; chat.messages.at(-2).id = `user-${attemptId}`; }
     chat.runProvider = provider;
-    chat.runId = state.profileId && chat.messages.at(-1).driverFinished ? null : runId;
+    chat.runId = state.profileId && (chat.messages.at(-1).driverFinished || chat.interruption) ? null : runId;
     hooks.runChanged(chat);
   } catch (error) {
     const reply = chat.messages.at(-1);
