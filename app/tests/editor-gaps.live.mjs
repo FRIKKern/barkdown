@@ -15,7 +15,7 @@ const out = path.resolve((capture ? '../docs/visual/editor-gap-assertions/runs/'
 fs.mkdirSync(out, { recursive: true });
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-gaps-'));
 const results = [], errors = [];
-let app, page, video, editorBundle;
+let app, page, video, editorBundle, actionProbe;
 const seededIds = new Set();
 const sourceCommit = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 const sourceDirty = Boolean(execFileSync('git', ['status', '--porcelain', '--', '.'], { encoding: 'utf8' }).trim());
@@ -27,7 +27,7 @@ const textOf = root => root.text || (root.content || []).map(textOf).join('');
 const has = (doc, predicate) => nodes(doc).some(predicate);
 const hasMark = (doc, text, mark, href) => has(doc, n => n.type === 'text' && n.text === text && n.marks?.some(m => m.type === mark && (!href || m.attrs?.href === href)));
 const paragraph = (doc, text) => has(doc, n => n.type === 'paragraph' && textOf(n) === text && (!n.attrs?.bpType || n.attrs.bpType === 'paragraph'));
-const snapshot = () => page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); const recovery = c.recoverySnapshot(); if (recovery.serialization_error || !Array.isArray(recovery.blocks)) throw new Error('Cannot serialize current canvas: ' + JSON.stringify(recovery)); const e = c._editor, h = e.state.plugins.find(p => p.key.startsWith('history$'))?.getState(e.state); return { doc: e.getJSON(), blocks: recovery.blocks, diagnostic: { documentFocus: document.hasFocus(), editorFocus: e.isFocused, activeElement: document.activeElement?.outerHTML.slice(0, 350), selection: e.state.selection.toJSON(), done: h?.done.eventCount, undone: h?.undone.eventCount, canUndo: e.can().undo(), keys: window.__gapKeys || [] } };  });
+const snapshot = () => page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); const recovery = c.recoverySnapshot(); if (recovery.serialization_error || !Array.isArray(recovery.blocks)) throw new Error('Cannot serialize current canvas: ' + JSON.stringify(recovery)); const e = c._editor, h = e.state.plugins.find(p => p.key.startsWith('history$'))?.getState(e.state); return { doc: e.getJSON(), blocks: recovery.blocks, diagnostic: { documentFocus: document.hasFocus(), editorFocus: e.isFocused, activeElement: document.activeElement?.outerHTML.slice(0, 350), selection: e.state.selection.toJSON(), selectionPath: Array.from({ length: e.state.selection.$from.depth + 1 }, (_, depth) => ({ depth, type: e.state.selection.$from.node(depth).type.name, index: e.state.selection.$from.index(depth) })), parentOffset: e.state.selection.$from.parentOffset, done: h?.done.eventCount, undone: h?.undone.eventCount, canUndo: e.can().undo(), keys: window.__gapKeys || [] } };  });
 const read = () => getPaper(SLUG);
 async function acknowledged(previousRev) {
   let current, server, save;
@@ -44,7 +44,7 @@ async function acknowledged(previousRev) {
 }
 async function step(name, action, check) {
   const before = await snapshot(), rev = read().rev;
-  let beforeAction;
+  let beforeAction; actionProbe = null;
   try {
     beforeAction = await snapshot();
     const extra = await action(before);
@@ -55,7 +55,7 @@ async function step(name, action, check) {
     check(ack.doc, before.doc);
     results.push({ name, pass: true, beforeRev: rev, afterRev: ack.server.rev, doc: ack.doc, serverBlocks: ack.server.blocks, ...(extra || {}) });
   } catch (error) {
-    results.push({ name, pass: false, error: error.stack, saveText: await page.locator('.bw-paper-pane:not([hidden]) #save-state').textContent().catch(() => null), before, beforeAction, observed: await snapshot().catch(() => null), server: (() => { try { return read(); } catch (e) { return { error: e.message }; } })() });
+    results.push({ name, pass: false, error: error.stack, saveText: await page.locator('.bw-paper-pane:not([hidden]) #save-state').textContent().catch(() => null), before, beforeAction, actionProbe, observed: await snapshot().catch(() => null), server: (() => { try { return read(); } catch (e) { return { error: e.message }; } })() });
   }
   await page.screenshot({ path: path.join(out, String(results.length).padStart(2, '0') + '.png') });
 }
@@ -102,7 +102,7 @@ try {
     expected.content.splice(index, 1);
     assert.deepEqual(withoutIdentity(doc), withoutIdentity(expected), 'join retains every mark, link, sibling and seeded identity');
   });
-  await step('Backspace lifts first bullet without losing heading or second item', async () => { await pm.locator('ul:not([data-type="taskList"]) li p').first().click(); await page.keyboard.press('Home'); await page.keyboard.press('Backspace'); }, (doc, before) => {
+  await step('Backspace lifts first bullet without losing heading or second item', async () => { await pm.locator('ul:not([data-type="taskList"]) li p').first().click(); await page.keyboard.press('Home'); actionProbe = await snapshot(); await page.keyboard.press('Backspace'); }, (doc, before) => {
     const expected = structuredClone(before), index = expected.content.findIndex(n => n.type === 'bulletList' && n.content?.map(textOf).join('|') === 'one|two');
     assert.ok(index > 0); const list = expected.content[index], first = list.content.shift();
     assert.equal(first.content.length, 1); assert.equal(first.content[0].type, 'paragraph');

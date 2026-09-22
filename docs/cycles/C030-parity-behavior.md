@@ -29,3 +29,7 @@ The next source captures focus, history depth and delivered key events without r
 ## Native focus/history diagnostic — 06:27 UTC
 
 Source fc01c02, upstream8eb69ff58, privateKjnh2e/session97860:10/13 failed overall. All15 original hashes verified. HTMLUndo received Ctrl+Z with document/editor focus true; history changed23/0 to22/1, while full PM document remained identical. Before the next user action history returned23/0. This rules out a missed key for this attempt and motivates transaction/echo tracing; no cause or fix is claimed. Native bullet now joined the preceding heading, unlike the prior lift; oracle/caret determinism remains unresolved. Renderer errors empty. Wrapper stopped and postmaster absent. Editor granted next diagnostic; no combined approval.
+
+## Native list contract clarification
+
+Upstream canvas/index.js1766 explicitly handles first-item Backspace as a lift, before native ProseMirror joining. Retain the lift oracle; the previous join observation is not grounds to redefine the expected behavior. Next diagnostic captures selection depth, ancestor indices and parent offset immediately after Home/before Backspace. No production modification or new native pass.
