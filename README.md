@@ -51,6 +51,8 @@ We are starting **P1: profile ownership and isolation**. The existing local note
 
 [Read the delivery plan →](docs/PLAN.md) · [See what is verified →](docs/VALIDATION.md)
 
+The experimental Windows profile-mode [goal coordinator](docs/goals/HANDOFF.md) has verified [authenticated execution](docs/goals/evidence/61eea4d/README.md) and [interruption recovery](docs/goals/evidence/17c2cc8/README.md). [Visual health](docs/visual/goals/README.md) identifies the reviewed source; the newer [C023 storage changes](docs/cycles/C023-windows-atomic-write.md) still await final desktop and visual/live gates.
+
 ## Run the desktop
 
 Use Node 22.13+ and a desktop session. From the repository root:

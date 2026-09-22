@@ -8,6 +8,8 @@ Goal component with explicitly injected fixture snapshots and providers blocked.
 
 [Full comparison](../runs/2026-09-22T03-10-25-041Z/README.md) · [Capture manifest](../runs/2026-09-22T03-10-25-041Z/manifest.json)
 
+These approved captures belong to C020. The newer C023 implementation 3e9c0a9 still requires fresh source-bound desktop, visual/live and root gates.
+
 ## Changelog
 
 - 2026-09-22T03:11:59.388Z: C020: inspected all34 action frames including narrow goal/profile layouts; all pixel comparisons are within tolerance, geometry/environment unchanged. Seven GIFs use the34 reviewed frames. Full desktop57965 passes68 goal checks,76 desktop checks and actual coordinator normal/planning-crash journeys. Native headless review/summary death proof uses main-acknowledged partial response IPC; no runtime behavior change. Prior EPERM failure retained as unresolved reliability concern; no new durability guarantee. Source 8163c2718; [review](../runs/2026-09-22T03-10-25-041Z/comparison.json).
@@ -17,8 +19,8 @@ Goal component with explicitly injected fixture snapshots and providers blocked.
 
 ## Actual coordinator execution evidence
 
-[Source61ee gallery](../../goals/evidence/61eea4d/README.md) is distinct from this injected-service fixture tour: 17 actual Electron normal/crash stills, saved synthetic SDK transport and separate authenticated Codex proof. All images inspected after full desktop50783. No continuous-motion crash recording is claimed.
+[Source61ee gallery](../../goals/evidence/61eea4d/README.md) is distinct from this injected-service fixture tour: 17 actual Electron normal/crash stills, saved synthetic SDK transport and separate authenticated Codex proof. All images inspected after full desktop50783. [C020 gallery](../../goals/evidence/17c2cc8/README.md) adds native review/summary interruption proof and17 inspected normal/planning-crash stills after full desktop57965. Both cycles include verified root and separately inspected live Paper captures. No continuous-motion crash recording is claimed.
 
 ### C023 storage implementation checkpoint
 
-Goal journal replacement retries preserve expected acknowledged bytes and lifetime writer lease.68 goal checks and20 focused storage checks pass; fresh source-bound desktop/live/fixture gates remain pending. No orphan temp is adopted.
+Goal journal replacement retries preserve expected acknowledged bytes and lifetime writer lease.Frozen source 3e9c0a9 passes68 goal/native checks and44 focused storage checks; fresh source-bound desktop/live/fixture/root gates remain pending. No orphan temp is adopted.

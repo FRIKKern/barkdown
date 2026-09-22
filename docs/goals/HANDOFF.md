@@ -2,7 +2,15 @@
 
 Dedicated user-requested orchestration track, starting at `b8e7bfb` on `codex/goal-orchestration`. The central P1 queue remains owned by the profile agents. Run window ends 2026-09-22T10:11:17Z; unfinished work must remain explicit.
 
-## Audit and first bounded slice
+## Current state
+
+[C015](../cycles/C015-goal-coordinator.md) is verified on 61eea4d, including authenticated Codex plan/three workers/evidence reviews/summary, actual Electron planning-crash recovery, full desktop/root and inspected fixture/live captures. [C020](../cycles/C020-coordinator-interruption.md) is verified on test source 17c2cc8 with worker/review/summary stop races and native interrupted review/summary proof. See the original [C015 gallery](evidence/61eea4d/README.md), [C020 gallery](evidence/17c2cc8/README.md) and [visual health page](../visual/goals/README.md).
+
+[C023](../cycles/C023-windows-atomic-write.md) is active on frozen implementation 3e9c0a9:44 focused checks,68 goal/native checks and storage regressions pass. Its final desktop, fresh visual/live and root gates are pending; [queued commands](../cycles/C023-validation-commands.md) record the next action. Parent owns combined integration and the shared UI grant; no prior screenshot approval transfers to newer or combined source.
+
+Goals remain Windows/profile-only. Workers share the captured folder; use disjoint assignments or dependencies, with no automatic worktrees. Model review is not human verification. Uncertain effects require explicit person reconciliation; there is no general external-effect, power-loss or cross-machine portability guarantee. No broad goal or central stage completion is claimed. The chronology below is retained as historical checkpoints; earlier pending statements are superseded only by linked verified closeouts.
+
+## Historical audit and first bounded slice
 
 `state.js` owns renderer-written workspace snapshots and strips run IDs on save. `conversations.js` reads those snapshots without mutation. Side chats already have parent references and full shared controls. `providers/runs.js` holds process-local runs only; no recovery journal, durable dispatcher or cross-process lease exists. `agent.start` returns a run ID and streams terminal `done`/`error`; offline `done` is navigation fallback, not goal success. Provider termination is not verified goal completion. The current main process can continue only while alive; there is no OS scheduler or sleep execution service.
 
@@ -154,4 +162,4 @@ Source `61eea4d` and its predecessor `5dc188b` implement the bounded natural-lan
 
 ## C020 verified; C023 next
 
-[C020](../cycles/C020-coordinator-interruption.md) closes on test source17c2cc8/docs8163c27 with full desktop57965, root4562 and inspected fresh fixture/live evidence. No runtime changes. [Proof](evidence/17c2cc8/README.md) retains earlier EPERM failure; parent authorized [C023](../cycles/C023-windows-atomic-write.md) bounded retry design with controlled failing tests and unchanged target revision/lease. UI released, no owned process.
+[C020](../cycles/C020-coordinator-interruption.md) closes on test source 17c2cc8/docs8163c27 with full desktop57965, root4562 and inspected fresh fixture/live evidence. No runtime changes. [Proof](evidence/17c2cc8/README.md) retains earlier EPERM failure; parent authorized [C023](../cycles/C023-windows-atomic-write.md) bounded retry design with controlled failing tests and unchanged target revision/lease. UI released, no owned process.
