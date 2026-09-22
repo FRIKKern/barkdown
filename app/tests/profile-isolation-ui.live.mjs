@@ -50,7 +50,7 @@ async function seed(label) {
 }
 try {
   console.log('Disposable two-profile fixture:', userData);
-  app = await launch(); page = await app.firstWindow({ timeout: 180000 }); page.setDefaultTimeout(180000); await loaded(); await page.setViewportSize({ width: 1400, height: 900 });
+  app = await launch(); page = await app.firstWindow({ timeout: 180000 }); page.setDefaultTimeout(180000); await page.setViewportSize({ width: 1400, height: 900 }); await loaded();
   const a = (await page.evaluate(() => window.barkdown.profiles.status())).profileId;
   const b = (await page.evaluate(() => window.barkdown.profiles.create('Fixture B'))).id;
   const aRuntime = await seed('A'); await openPaper(); assert.match(await paperText(), /Only A owns amberwitness/);
@@ -72,7 +72,7 @@ try {
   await page.locator('.bw-tab.active').hover(); await page.locator('.bw-tab.active [data-fav]').click({ timeout: 10000 });
   const bChat = await page.evaluate(folder => {
     const s = window.__barkdown.state, c = s.chats[s.current]; c.folder = folder; c.provider = 'codex'; c.draft = 'B draft must survive A completion'; c.following = false;
-    s.chats['side-B'] = { id: 'side-B', title: 'B saved side chat', side: true, parent: c.id, draft: 'B side draft', messages: [], events: [], apiHistory: [], tabs: [], following: false }; s.order.push('side-B');
+    s.chats['side-B'] = { id: 'side-B', title: 'B saved side chat', side: true, parent: c.id, draft: 'B side draft', messages: [], events: [], apiHistory: [], tabs: [], following: false }; s.order.push('side-B'); window.__barkdown.render();
     return c.id;
   }, path.join(userData, 'folder-B'));
   await page.locator('#bw-prompt').fill('B draft must survive A completion');
@@ -117,16 +117,19 @@ try {
   record('Returning A restores its cache/favorite/receipt; guarded Undo affects only matching A revision');
   await select(b); await openPaper(); assert.match(await paperText(), /Only B owns cobaltwitness/); assert.doesNotMatch(await paperText(), /amberwitness/);
   await app.close(); app = null;
-  app = await launch(); page = await app.firstWindow({ timeout: 180000 }); page.setDefaultTimeout(180000); await loaded(b); await page.setViewportSize({ width: 1400, height: 900 });
+  app = await launch(); page = await app.firstWindow({ timeout: 180000 }); page.setDefaultTimeout(180000); await page.setViewportSize({ width: 1400, height: 900 }); await loaded(b);
   await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror').waitFor();
   assert.match(await paperText(), /Only B owns cobaltwitness/);
   assert.equal(await page.locator('#bw-prompt').inputValue(), 'B draft must survive A completion');
   const restored = await page.evaluate(() => window.barkdown.state.load()); assert.equal(restored.current, bChat); assert.equal(restored.chats['side-B'].parent, bChat); assert.equal(restored.chats['side-B'].draft, 'B side draft');
   assert.deepEqual(restored.chats[bChat].tabs.find(t => t.id === restored.chats[bChat].active).path, ['same-slug']);
-  assert.equal(await page.locator('.bw-paper-pane:not([hidden]) #current').evaluate(node => node.scrollTop), bScroll);
+  await page.waitForFunction(() => [...document.querySelectorAll('.bw-paper-pane:not([hidden]) .ProseMirror img')].every(img => img.complete && img.naturalWidth));
+  report.restartScroll = { expected: bScroll, actual: await page.locator('.bw-paper-pane:not([hidden]) #current').evaluate(node => node.scrollTop) };
+  await shot('06-B-process-restart');
+  assert.equal(report.restartScroll.actual, bScroll);
   assert.match(JSON.stringify(restored.favorites), /cobaltwitness/); assert.doesNotMatch(JSON.stringify(restored.favorites), /amberwitness/);
-  await shot('06-B-process-restart'); record('Actual process restart restores selected B draft/side-parent/document path/scroll/favorite and same-slug Paper');
-} catch (error) { report.error = error.stack; throw error; }
+  record('Actual process restart restores selected B draft/side-parent/document path/scroll/favorite and same-slug Paper');
+} catch (error) { report.error = error.stack; if (page && !page.isClosed()) await shot('failure-state').catch(() => {}); throw error; }
 finally {
   transport.release(); const cleanupErrors = [];
   if (mcp) await mcp.close().catch(error => cleanupErrors.push(error.message));
