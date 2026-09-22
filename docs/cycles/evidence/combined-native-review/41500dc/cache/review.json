@@ -1,0 +1,63 @@
+{
+  "sourceCommit": "41500dc1f282182cbbd0539193376826a3c9475b",
+  "upstreamCommit": null,
+  "originalDirectory": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-cache-ui-JLhSLA\\evidence",
+  "stoppedFromManifest": true,
+  "manifestChecks": [
+    "A corrupted executable rejected; real vendor element defined; explicit wide/narrow diagnostic",
+    "A to B real switch loads only B executable cache",
+    "B selected restart with absent cache uses vendor; A original metadata unchanged"
+  ],
+  "inspectedStills": [
+    "A-corrupt-fallback.png",
+    "A-corrupt-narrow.png",
+    "B-owned-cache.png",
+    "B-missing-cache-restart.png"
+  ],
+  "motion": [
+    {
+      "original": "page@5ea04137bd2606285f3b9d9a11a9b848.webm",
+      "sha256": "3294ba1c26960beb450e9137e380ebf3680d33c552429563f511b8d8c2dd64d5",
+      "mode": "2 fps sampled raw WebM",
+      "frames": 5,
+      "directory": "motion-0"
+    },
+    {
+      "original": "page@e2faaf61cf56ed22ce966669b3e7ce8e.webm",
+      "sha256": "936e2cf5c3f807161d492a509ee89e650d1b836b975072ed5647af6e316440b1",
+      "mode": "2 fps sampled raw WebM",
+      "frames": 6,
+      "directory": "motion-1"
+    }
+  ],
+  "findings": [
+    "All four full stills and all eleven 2 fps samples across two distinct raw WebM sessions inspected.",
+    "Corrupted A cache has explicit hash-mismatch rejection and vendored-fallback provenance in wide and narrow settings. B has its own Cache-B.invalid cached-bundle provenance; B restart without cache explicitly uses vendored fallback.",
+    "Startup empty-shell frames and gray recording padding during resize are transitional recording content, not a settled product failure. No new visual blocker."
+  ],
+  "limits": [
+    "Offline independent media review; did not rerun product behavior or launch UI.",
+    "Neither manifest contains an original media hash index; all original files independently SHA256 indexed and reread unchanged.",
+    "Not a combined global visual approval or full P1 acceptance.",
+    "Raw WebM sampled at 2 fps, not every encoded frame. Controlled cache fixture, no live server/authenticated provider claim. Vendored fallback is not claimed to equal connected upstream 545."
+  ],
+  "derivedHashes": {
+    "motion-0/001.png": "1c0498c07c46dbbc5aaf69b19c93a2be5e226aa324545dedac5b33365184e2b1",
+    "motion-0/002.png": "57732be1474e5f1b749045a6146d70d63d958528a7e2351e228e7f5cae0c2379",
+    "motion-0/003.png": "34eda92626fda17de3a3f7fabebbd0778b547d458d6776c1feec0fb7851eb7bd",
+    "motion-0/004.png": "ff294d0a5b9563dd3a60130e0d603e72977322a657b3e5b5d4d227e1ba442f8f",
+    "motion-0/005.png": "c37dd19ba47c9900cc624d70de4059fc8c7bbc5970e89f4088f58e275b6db2cd",
+    "motion-0/contact-0.png": "ffabd2a95604669c1c7b011c72d5e477f423e06aa323f3c74e8b6a4897a14ff3",
+    "motion-0/decode.txt": "a1085a7d8b2be1ef5eef10bee34e05d8b0ecfc0ce35f3139405fe53e18e63a7a",
+    "motion-1/001.png": "1c0498c07c46dbbc5aaf69b19c93a2be5e226aa324545dedac5b33365184e2b1",
+    "motion-1/002.png": "57732be1474e5f1b749045a6146d70d63d958528a7e2351e228e7f5cae0c2379",
+    "motion-1/003.png": "3f60fcaceed6016c47ad4a9f0a1e5f5a2ba03938c5e5c40794dd97bd5914ba28",
+    "motion-1/004.png": "1ebcc6b15c53f4b415ed560ba15a28ab5dec3e224672528fd283162d9d4c1499",
+    "motion-1/005.png": "f3b5629579d5273e119063dd829cf5c12d74e0f251c8d4e511cbe5fbea255810",
+    "motion-1/006.png": "7df8f40dd57240a9c41733f12ed46189b433bcb08bd3462092d171cdcfbd0c3f",
+    "motion-1/contact-0.png": "f322a98e8a67c45a7ba0364456e9e0accb6d85042234e1ac94406f7a256f8cb9",
+    "motion-1/decode.txt": "e4a0d515b83e5a39303ae53bd2474d8d8ba6aa0d52775c648fde69bfb49256e6",
+    "motion-map.json": "12a1aac1b4da17ebd85e9ad2c1d9ec893bf59298ad82567fa18dad82e76f0092",
+    "original-hashes.json": "63dcf5f5cfdd4833613bfd35aaf7072d0ffd30de448bf47f45f6d2db8c77b907"
+  }
+}
