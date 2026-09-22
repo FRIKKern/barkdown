@@ -5,3 +5,7 @@ E009 is in progress. [Baseline failures](before-fix/d8-audit.json) reproduce sel
 [Trusted headless Chromium proof](native-headless/2026-09-22T03-30-10-747Z/result.json) verifies clean upstream3495f545c. One file plus image-only HTML uses the host uploader and retains alt text; explicit plain paste wins; ambiguous table/text plus images preserves the draft. No original external image URL is fetched. This is not every OS clipboard producer or arbitrary HTML media fidelity.
 
 Actual Paper server uploads, history/reload, motion and narrow recovery evidence remain queued. [Cycle handoff](../../cycles/E009-rich-clipboard.md).
+
+### Frozen headless comparison
+
+[Six-case comparison and recorded image review](comparison/3495/comparison.json) uses the existing tolerance20/local32px tile comparator and retains exact before/after/difference hashes. Changes were visually inspected; the nested-details control is pixel-identical. [Exact3495 full upstream log](upstream-3495-full.txt) passed. Actual Paper upload and durability evidence remains pending.
