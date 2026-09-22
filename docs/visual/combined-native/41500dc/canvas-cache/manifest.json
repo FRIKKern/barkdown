@@ -1,0 +1,20 @@
+{
+  "sourceCommit": "41500dc1f282182cbbd0539193376826a3c9475b",
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-cache-ui-JLhSLA",
+  "profiles": {
+    "A": "aea6ae57-176f-4c51-bc48-707cf45693d4",
+    "B": "646c97c7-4e6c-4781-b519-4d481d93cd80"
+  },
+  "screenshots": [
+    "A-corrupt-fallback.png",
+    "A-corrupt-narrow.png",
+    "B-owned-cache.png",
+    "B-missing-cache-restart.png"
+  ],
+  "passed": [
+    "A corrupted executable rejected; real vendor element defined; explicit wide/narrow diagnostic",
+    "A to B real switch loads only B executable cache",
+    "B selected restart with absent cache uses vendor; A original metadata unchanged"
+  ],
+  "stopped": true
+}

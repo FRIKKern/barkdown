@@ -248,3 +248,7 @@ Reviewed source218890c imported fromf070567 with original failing-first logs/han
 ## Dedicated native checkpoint — 06:51 UTC
 
 Source3ce6b21/session9485: actual two-profile isolation and managed/legacy send preservation **PASS**, all owned processes stopped. [Retained originals and limits](../visual/combined-native/3ce6b21/README.md). Next folder-preflight fixture refused before Electron because the prior new gallery was uncommitted; original failure retained, remaining six commands not run. This evidence commit resolves that checkpoint guard without modifying it. Independent still review pending; no globalapproval or fullA1claim.
+
+## Remaining dedicated native checks — 07:01 UTC
+
+Source41500dc/session33901: all six queued commands **PASS** (main/side folder preflight, selectedB missing references, project-file authority, native rollback, repeated real-runtime adoption, profile canvas-cache fallback). All owned processes stopped. [Original media/hash index and exact logs](../visual/combined-native/41500dc/README.md). Together with3ce6b21 isolation/send, all eight required non-editor dedicated commands now pass on the reviewed product code; independent media review is completing. Actual provider-account isolation, portability, new E012 editor consumption, fresh global deterministic/live/root gates remain unproved.

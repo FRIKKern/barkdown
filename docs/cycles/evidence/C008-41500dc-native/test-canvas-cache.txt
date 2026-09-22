@@ -1,0 +1,50 @@
+
+> barkdown-desktop@0.6.0 test:canvas-cache
+> node --test tests/canvas-bundle.test.mjs && node tests/canvas-bundle.live.mjs
+
+TAP version 13
+# Subtest: legacy full hashes verified; malformed/truncated metadata and altered JS/CSS reject without modifying evidence
+ok 1 - legacy full hashes verified; malformed/truncated metadata and altered JS/CSS reject without modifying evidence
+  ---
+  duration_ms: 35.7115
+  ...
+# Subtest: A/B same slug caches stay separate; foreign origin refuses and missing B never borrows A
+ok 2 - A/B same slug caches stay separate; foreign origin refuses and missing B never borrows A
+  ---
+  duration_ms: 12.596
+  ...
+# Subtest: junction to other profile and linked build directory are rejected without writes
+ok 3 - junction to other profile and linked build directory are rejected without writes
+  ---
+  duration_ms: 11.4404
+  ...
+# Subtest: CSS-only refresh publishes distinct immutable pair; offline restart uses verified latest pair
+ok 4 - CSS-only refresh publishes distinct immutable pair; offline restart uses verified latest pair
+  ---
+  duration_ms: 91.7744
+  ...
+# Subtest: interrupted pair/pointer publication retains old pair; changed old bytes during fetch cannot become fallback
+ok 5 - interrupted pair/pointer publication retains old pair; changed old bytes during fetch cannot become fallback
+  ---
+  duration_ms: 105.2877
+  ...
+# Subtest: actual child exit before pair or pointer rename keeps previous authoritative bytes
+ok 6 - actual child exit before pair or pointer rename keeps previous authoritative bytes
+  ---
+  duration_ms: 427.7828
+  ...
+# Subtest: healthy same-build fetch repairs owned corrupt pair by retaining quarantine, never mutates linked pair
+ok 7 - healthy same-build fetch repairs owned corrupt pair by retaining quarantine, never mutates linked pair
+  ---
+  duration_ms: 49.9485
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 898.2055
+{"sourceCommit":"41500dc1f282182cbbd0539193376826a3c9475b","userData":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-cache-ui-JLhSLA","profiles":{"A":"aea6ae57-176f-4c51-bc48-707cf45693d4","B":"646c97c7-4e6c-4781-b519-4d481d93cd80"},"screenshots":["A-corrupt-fallback.png","A-corrupt-narrow.png","B-owned-cache.png","B-missing-cache-restart.png"],"passed":["A corrupted executable rejected; real vendor element defined; explicit wide/narrow diagnostic","A to B real switch loads only B executable cache","B selected restart with absent cache uses vendor; A original metadata unchanged"],"stopped":true}

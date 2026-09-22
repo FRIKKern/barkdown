@@ -1,0 +1,26 @@
+
+> barkdown-desktop@0.6.0 test:adoption-repeat
+> npm run build && node tests/adoption-repeat-ui.live.mjs
+
+
+> barkdown-desktop@0.6.0 build
+> node scripts/build.mjs
+
+
+  renderer\dist\app.js      2.8mb
+  renderer\dist\app.js.map  7.0mb
+
+Done in 338ms
+Disposable adoption runtime: C:\Users\Frikk\AppData\Local\Temp\bd-repeat-adoption-GHGhBt
+source: starting 
+source: ready 
+source: stopping 
+source: stopped 
+PASS original real runtime published note/media and revision-checked receipt, then stopped cleanly
+PASS actual startup activated UUID profile with original credentials/media origin, draft/side-parent and remapped attachment
+PASS second explicit adoption retains one UUID, exact inventories/source/backup hashes and acknowledged Paper revision/media
+PASS human Paper edit acknowledged and actual process restart without flags restored adopted authority and edit
+PASS rollback restarted original unchanged revision/content/media, preserved backups and retained edited profile
+source: stopping 
+source: stopped 
+Evidence: C:\Users\Frikk\.codex\worktrees\barkdown-integration-12h\docs\visual\adoption-repeat\runs\2026-09-22T06-55-19-085Z stopped: true
