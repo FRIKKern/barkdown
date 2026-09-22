@@ -1,0 +1,17 @@
+{
+  "scope": "Separate pre-existing project-files physical confinement gap; not a C025 cache failure or C024 regression",
+  "reviewedSource": "20d6819",
+  "disposableRoot": "C:/Users/Frikk/AppData/Local/Temp/bd-file-authority-audit-5zoY7d",
+  "steps": [
+    "Created inside and outside directories in temporary root",
+    "Created inside/linked Windows junction to outside",
+    "Read inside/linked/note.md then wrote using returned mtime"
+  ],
+  "observed": {
+    "writeOk": true,
+    "outsideText": "outside overwritten"
+  },
+  "realUserFilesTouched": false,
+  "productionChanges": false,
+  "next": "Coordinator separately scopes physical path identity and link policy after C025 closes"
+}

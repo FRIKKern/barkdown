@@ -71,3 +71,5 @@ Each page contains a still, recorded interaction GIF, provenance and changelog. 
 - [Terminal ownership](../docs/visual/terminal-ownership/README.md): C018 native process proof passed; combined actual UI/evidence closeout pending.
 
 - [Project-buffer preservation](../docs/visual/project-buffers/README.md): actual CodeMirror refusal preserves unsaved text until explicit Save.
+
+- [Editor cache integrity](../docs/visual/cache-integrity/README.md): C025 corruption refusal, owned repair and profile-isolated fallback reviewed at b93f832; combined source validation remains separate.
