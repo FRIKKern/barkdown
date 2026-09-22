@@ -32,7 +32,7 @@ try {
  assert.equal(await page.locator('[data-act="save"]').isDisabled(),true);
  assert.deepEqual([...fs.readFileSync(path.join(root,'binary.bin'))],[0,1,2]);
  // Returning to the old file restores its unsaved draft; failed read has no authority.
- await page.evaluate(()=>window.pane.openFile('a.md'));
+ await page.getByRole('button',{name:'Return to a.md',exact:true}).click();
  assert.equal(await page.locator('.cm-content').innerText(),'A unsaved human text');
  // Delay acknowledgement after the actual write, then type more and navigate.
  await page.evaluate(()=>{

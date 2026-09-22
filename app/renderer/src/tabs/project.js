@@ -49,7 +49,7 @@ export function mountProject(tab, host, ctx) {
   let tree = null;
   let root = ctx.folder();
   let currentKey = null;
-  let opened = null, navigation = 0, destroyed = false;
+  let opened = null, lastOpened = null, navigation = 0, destroyed = false;
   const language = new Compartment();
 
   function buffer() { return currentKey ? buffers.get(currentKey) : null; }
@@ -93,6 +93,20 @@ export function mountProject(tab, host, ctx) {
     host.querySelectorAll('[data-file]').forEach(b => { b.onclick = () => openFile(b.dataset.file); });
   }
 
+  function unavailable(message) {
+    const empty = q('#empty');
+    empty.hidden = false; empty.textContent = '';
+    const detail = document.createElement('p'); detail.textContent = message; empty.appendChild(detail);
+    const previous = lastOpened;
+    if (previous && previous.root === root && previous.file !== tab.file && buffers.has(previous.key)) {
+      const back = document.createElement('button');
+      back.type = 'button'; back.dataset.act = 'previous-file';
+      back.textContent = `Return to ${previous.file}`;
+      back.onclick = () => openFile(previous.file);
+      empty.appendChild(back);
+    }
+  }
+
   async function openFile(file) {
     const request = ++navigation, requestedRoot = root;
     saveSelection();
@@ -111,12 +125,12 @@ export function mountProject(tab, host, ctx) {
       try {
         const data = await api.files.read(requestedRoot, file);
         if (destroyed || request !== navigation) return;
-        if (data.binary) { q('#empty').textContent = `${file} is binary (${data.size} bytes)`; status('This file cannot be edited as text.'); return; }
+        if (data.binary) { unavailable(`${file} is binary (${data.size} bytes)`); status('This file cannot be edited as text.'); return; }
         buf = { draft: data.text, saved: data.text, mtime: data.mtime, selection: 0, scroll: 0 };
         buffers.set(key, buf);
       } catch (error) {
         if (destroyed || request !== navigation) return;
-        q('#empty').textContent = `Could not open ${file}: ${error.message}`;
+        unavailable(`Could not open ${file}: ${error.message}`);
         status('File unavailable · other unsaved drafts are preserved');
         return;
       }
@@ -124,6 +138,7 @@ export function mountProject(tab, host, ctx) {
     if (destroyed || request !== navigation) return;
     currentKey = key;
     opened = { root: requestedRoot, file, key };
+    lastOpened = opened;
     q('#empty').hidden = true;
     controls();
     view = new EditorView({

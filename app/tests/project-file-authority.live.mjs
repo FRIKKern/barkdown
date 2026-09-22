@@ -22,7 +22,7 @@ try {
  await open('missing.md');await page.getByText('File unavailable · other unsaved drafts are preserved',{exact:true}).waitFor();
  assert.equal(await editor().count(),0);assert.equal(await page.locator('.bw-pane:not([hidden]) [data-act="save"]').isDisabled(),true);await shot('02-unavailable');
  assert.equal(fs.existsSync(path.join(folder,'missing.md')),false);assert.equal(fs.readFileSync(path.join(folder,'a.md'),'utf8'),'A original');
- await open('a.md');await editor().waitFor();assert.equal(await editor().innerText(),'A human draft');await shot('03-draft-restored');
+ await page.getByRole('button',{name:'Return to a.md',exact:true}).click();await editor().waitFor();assert.equal(await editor().innerText(),'A human draft');await shot('03-draft-restored');
  // Install a barrier around the real writer. It changes response timing only.
  await app.evaluate(({app})=>{const req=process.getBuiltinModule('module').createRequire(app.getAppPath()+'/package.json');const files=req('./main/files');const original=files.write;globalThis.authorityFixture={writes:[]};files.write=async(...args)=>{const result=original(...args);globalThis.authorityFixture.writes.push({root:args[0],file:args[1],text:args[2]});await new Promise(resolve=>globalThis.authorityFixture.release=resolve);return result};globalThis.authorityFixture.restore=()=>files.write=original});
  await editor().click();await page.keyboard.press('Control+s');
