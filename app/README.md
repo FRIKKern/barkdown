@@ -74,3 +74,8 @@ Each page contains a still, recorded interaction GIF, provenance and changelog. 
 ## Editor change record - 2026-09-22
 
 E003 preserves selected text across agent mark/link and same-structure list/table updates in the real canvas. Basic rich table Markdown replacement now emits actual table blocks; unsupported conversion refuses before writing. Documents with unsupported Markdown exports stay readable as structured blocks. [Visual health and motion](../docs/visual/rich-takeover/README.md) and [validation](../docs/cycles/E003-rich-content-takeover.md). Requires upstream8530a9e23 for new selection mapping; default older bundle remains guarded.
+
+
+## E004 structured table checkpoint
+
+Revision-checked cell patches and exact structured reads preserve headerless/multiline/alignment metadata. Three real Paper MCP cases pass Undo, human save and reload; full app suite and focused upstream rich/header checks pass. See [E004 evidence](../docs/visual/structured-table/README.md). API parity is separate root E005 work; upstream full-suite baseline failures and default bundle pin remain explicit limits.

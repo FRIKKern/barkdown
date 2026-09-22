@@ -95,3 +95,7 @@ Stated 2026-09-20, not yet folded into the PRD:
 ## E003 supplementary evidence
 
 [Rich-content takeover](visual/rich-takeover/README.md) proves selections across mark/link and unchanged list/table structure, actual human/server saves and fail-closed conversion. This does not close legacy retirement or all upstream gates.
+
+## E004 structured table fidelity
+
+[Structured table evidence](visual/structured-table/README.md) adds stable-block revision-checked cell edits, exact structured read/export, headerless and multiline tables, heterogeneous alignment, rich marks, guarded Undo and saved human takeover. Uniform representable GFM roundtrips; unsupported Markdown representations stay available through structured data. This is a bounded MCP/editor result; root E005 owns API parity.

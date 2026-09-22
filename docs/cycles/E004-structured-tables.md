@@ -25,3 +25,15 @@ API audit confirmed local-only documents in current agent.js, including root e87
 Second diagnostic qc43nN passed headerless edit/Undo/reload/export, then actual computed row-header style remained nowrap. Correct CSS bytes were served, but the selector used reader-only .bp-paper-surface absent in Barkdown host. Runtime stopped; failure retained. Corrected selector scopes to actual bp-paper-canvas .ProseMirror .bp-table__th. Next live run must measure geometry before source commit.
 
 Third diagnostic7ZsJf6 proved pre-wrap/line geometry and narrow long-header wrap, then actual typed Human appeared uman. Full app UI suite overlapped and Tiptap focus was RAF-deferred, so this is not yet attributed to product source. Retained failure; next run serializes own UI suite, waits actual DOM focus and records keyboard/beforeinput/selection traces. Runtime stopped cleanly.
+
+## Validated source and evidence closeout
+
+Source cd4b5c1 and upstream01dfdd663 are pushed. Final served JS6850a97eb9a7af6b9e0af9513c239ee4be19398d and CSS8c0dcd8a2d247711e848dfc0c0d0a9d350b1747d match the isolated build. DFG3Tq passed3/3 with complete Human traces, exact structured exports, Undo/reload and backwards selection. Actual DOM focus wait resolved the diagnostic input ambiguity; no product typing workaround. Runtime and owned postmaster stopped. [Evidence](../visual/structured-table/runs/2026-09-22T00-51-49-741Z/README.md).
+
+Full app suite passed (76desktop plus direct-edit/composer/side-chat and units); latest converter/table tests passed. Upstream rich6/6, header/alignment6/6 and controlmatrix37/37 passed. Known upstream full-suite save-ack721/posttest watchdog284 remain separate baseline gates; not claimed green.
+
+Deterministic00-55-16 has unchanged environment, zero pixel/geometry differences; all21stills and21GIF frames inspected and approved. Live status nBFvv0 uses clean cd4b/01df, non-null server metadata and genuine Codex; all5stills/37frames reviewed, stopped normally. Dedicated7stills/139full-video1fps samples/decoded excerpt frames reviewed, full video retained. Narrow header95px/line19.5 wraps and multiline cell19.5px separation retained.
+
+Repository truth: central profile stage/queue remains root-owned and unchanged. Default upstream pin is not advanced; branch-only upstream CSS/JS require integration. This slice exposes edit_table through existing Paper-capable MCP providers; root E005/C017 separately implements API parity. No schema-changing table operations or arbitrary new rich node support claimed. No merge/deploy. Next: root verification, evidence commit/push and integration review.
+
+Final npm run verify passed at source cd4b5c1 (build, TypeScript, links/fresh screenshots, plan/cycle/visual gates and all concept/handoff checks). Evidence-only closeout ready; no uncommitted product source.

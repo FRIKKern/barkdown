@@ -1,30 +1,30 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-22T00-13-59-011Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-22T00-55-16-118Z/README.md).
 
-Reviewed by Codex editor agent. 9424b97 deterministic tour reviewed: all21 PNGs and21 decoded GIF frames, readable menus/themes/narrow layouts, within tolerance with stable geometry and environment. Dedicated rich Paper/MCP capture remains separate; this fixture approval does not claim live fidelity.
+Reviewed by Codex editor agent. E004: inspected all 21 fixture stills and 21 decoded motion frames; unchanged environment, zero changed pixels and geometry. Separate real Paper structured-table proof passes 3/3 including Undo, human save and reload; fixture tour alone is not server proof.
 
-Source commit: 9424b97f3c4cea92b6616fc41feda532ee9f451c; platform: win32; Electron: 38.8.6. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: cd4b5c13cf4d08ed8465b0d35172b9443c2ac4ff; platform: win32; Electron: 38.8.6. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-09-22T00-13-59-011Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-09-22T00-55-16-118Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-09-22T00-13-59-011Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-09-22T00-55-16-118Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-09-22T00-13-59-011Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-09-22T00-55-16-118Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-09-22T00-13-59-011Z/documents.gif)
+![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-09-22T00-55-16-118Z/documents.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-09-22T00-13-59-011Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-09-22T00-55-16-118Z/settings.gif)
 
 ## Live evidence and gaps
 

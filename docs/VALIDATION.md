@@ -82,3 +82,8 @@ Barkdown663a12a / Barkparkbb3bd299d: 8/8 private-server live cases, host23/23 an
 Source9424b97/upstream8530a9e23 preserves human selections during formatting/link and neighboring list/table edits. [Reviewed live proof](visual/rich-takeover/runs/2026-09-22T00-15-10-579Z/review.json): five actual server scenarios, keyboard takeover and matching revisions; actual MCP structured read retains headerless/multiline table data. Mounted6/6, full app suite and final root verify pass. Deterministic21 stills/21 GIF frames, dedicated10 stills/115 GIF frames/112 video samples, and genuine Codex status5 stills/37 GIF frames reviewed. Both private runtimes stopped normally.
 
 Unsupported lossy Markdown conversions fail before mutation; this is not complete advanced table support. Existing upstream save-ack and watchdog failures remain release gates. [Handoff and limitations](cycles/E003-rich-content-takeover.md).
+
+
+## E004 structured table checkpoint
+
+Revision-checked cell patches and exact structured reads preserve headerless/multiline/alignment metadata. Three real Paper MCP cases pass Undo, human save and reload; full app suite and focused upstream rich/header checks pass. See [E004 evidence](visual/structured-table/README.md). API parity is separate root E005 work; upstream full-suite baseline failures and default bundle pin remain explicit limits.
