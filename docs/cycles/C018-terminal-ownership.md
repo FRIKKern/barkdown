@@ -59,3 +59,9 @@ Final standard isolated status session79527/EhzxkR exited0 at clean source db9b2
 ## Bounded closeout
 
 Root npm run verify session33433 exited0: build, source/links/fresh status, active plan/cycle, visual hashes/review and all headless concept/handoff checks passed. C018 is complete as the bounded Windows terminal milestone. Source commits78af101,0bceb40,db9b2ca; evidence commit follows. No merge/deploy or real-library mutation. Next: C021 explicit native job preflight before offline authority rollback, preserving existing cold DB and lease guards.
+
+## Evidence addendum
+
+Coordinator import found the video-map.json hash differed. Direct original-worktree/Git comparison established exact CRLF350bytes-to-LF333bytes normalization (17 CRLF pairs), with identical JSON semantics. All17 mapped samples were re-extracted from the three original committed videos and matched byte-for-byte; contact sheets inspected again. Additive review-addendum.json binds the committed LF hash and preserves historical review/media. All other original review hashes match. An initial audit helper hit its default1MB output buffer on the GIF before writing any changes; rechecked all committed blobs with a32MB buffer.
+
+The final status capture also updated six root README image links inadvertently left unstaged by the original docs-only add command; this correction commits those already-reviewed links separately from combined integration README ownership. No app change or new capture is needed.
