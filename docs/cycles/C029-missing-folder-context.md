@@ -29,3 +29,11 @@ Routing10/10 passed again; send-preservation.test, send-boundaries.test and lega
 Session24359/source1e1bb50/vsA0ZD exited1 before providers. B folder/draft persisted, but fixture direct IPC seeding had not selected the chat in mounted renderer; normal close saved visible default-chat navigation. Failure screenshot inspected: No working folder, not A fallback. Corrected fixture binds seeded workspace to mounted renderer and uses normal switchChat, asserts current same before quit/restart. No production change. Owned Electron exited normally; no matching process remained. Original report/screenshot retained in evidence/C029-native-1e1bb50-failure.
 
 Second fixture12700b6/FKpRBx stopped immediately: hand-constructed chat lacked renderer default arrays. No provider ran. Replaced setup with actual createChat factory and its returned IDs; assert visible folder/draft/current and no page errors before close. Retained original failure/report; no product defect claim.
+
+## Actual native proof
+
+Frozen69acbce, GGgmox: actual fixture exited0, selected-B process restart and missing-reference isolation passed; native Claude and Codex accepted then failed before model output. Exact errors retained in ../../visual/missing-folder/69acbce/report.json. User text persisted; same missing folder remained; driverFinished true. Both owned native Job receipts stopped/activeProcesses0. App normal close and no matching Electron processes; UI explicitly released for E011.
+
+All three original screenshots reviewed full-size. No A file substitution, missing folder/draft visible; native errors readable. Claude’s diagnostic inaccurately suggests libc mismatch on Windows, a remaining error-quality limitation. Two earlier fixture setup failures remain original. No production behavior change. Real Windows ACL denial and successful native location response remain unproven.
+
+Cycle evidence is ready for import; final combined gates remain pending and C029 is active. Next coordinator action: selectively import test/package union and exact native gallery, consume in final combined validation; do not overwrite C008 or current global approvals.

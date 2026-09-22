@@ -111,3 +111,7 @@ Combined E002 motion review is complete:8 stills,92 full-video samples at1fps an
 [HTML paste evidence](visual/html-table-paste/README.md) retains exact fdf6b9e/d8fda9690 live server/history/reload/200% recovery, original failures and reviewed motion. The global status/visual approval remains unchanged; archived E007-fdf6b9e status manifest and its review preserve actual attribution. [E008](cycles/E008-fixture-events.md) records upstream d24c7a094 full-suite success with test-only scheduling repair and unchanged runtime assets. These are original lane passes; combined candidate validation is pending and d8acb82 remains the verified fallback.
 
 E009 imports original1a9faf3 evidence for Barkdown25cb114 and connected upstream3495, including native run38052 and archived status66890. No live test was rerun during import, no fallback/pin changed, and no combined approval inferred. [Native review](visual/rich-clipboard/runs/2026-09-22T04-50-27-798Z/review.json).
+
+## C029 missing-folder native observation
+
+Source69acbce, disposable GGgmox: selected B process restart retained draft and missing folder; project file stayed explicitly unavailable instead of substituting A. Actual installed Claude/Codex dispatches failed and retained exact errors and user text; both owned Jobs stopped/activeProcesses0. All three stills inspected; [original evidence](visual/missing-folder/69acbce/README.md). Ten controlled SDK-routing cases separately pass. No native model response, real ACL denial or final combined gate claim.
