@@ -24,8 +24,9 @@ for (const role of ['review', 'summary']) test(`native host death during coordin
   let releaseAll = false;
   const release = setInterval(() => { for (const [key, gate] of transport.gates) if (releaseAll || !key.startsWith(role)) gate.release(); }, 20);
   const child = spawn(process.execPath, [fileURLToPath(new URL('./fixtures/coordinator-native-host.cjs', import.meta.url)), root], {
-    windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'], env: { ...process.env, ANTHROPIC_BASE_URL: transport.url, ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', BARKDOWN_GOAL_DIAGNOSTICS: '1' },
+    windowsHide: true, stdio: ['ignore', 'pipe', 'pipe', 'ipc'], env: { ...process.env, ANTHROPIC_BASE_URL: transport.url, ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', BARKDOWN_GOAL_DIAGNOSTICS: '1' },
   });
+  const partials = []; child.on('message', message => { if (message.type === 'acknowledged-partial') partials.push(message); });
   let stderr = ''; child.stderr.on('data', data => { stderr += data; }); const exited = once(child, 'exit');
   let service;
   const originalUrl = process.env.ANTHROPIC_BASE_URL;
@@ -35,8 +36,11 @@ for (const role of ['review', 'summary']) test(`native host death during coordin
   const registry = createProfileRegistry(path.join(root, 'registry'));
   const store = registry.storeFor(profileId);
   await until(() => transport.requests, requests => requests.some(request => request.role === role), `held ${role} HTTP response`);
-  const interrupted = await until(() => store.readJson('workspace.json').ownership.attempts, attempts => Object.values(attempts).some(attempt => attempt.role === role && (role === 'review' ? attempt.coordinatorResponse : store.readJson('workspace.json').chats.main.messages.some(message => message.id === attempt.assistantId && message.text))), 'partial response persisted');
-  const heldAttemptId = Object.entries(interrupted).find(([, attempt]) => attempt.role === role && !attempt.driverFinished)[0];
+  const partial = await until(() => {
+    if (child.exitCode !== null || child.signalCode !== null) throw new Error(`Native host exited before partial acknowledgement: ${stderr}`);
+    return partials.find(message => message.role === role);
+  }, Boolean, 'main-owned acknowledged partial response');
+  const heldAttemptId = partial.attemptId;
   child.kill('SIGKILL'); await exited;
   assert.doesNotMatch(stderr, /Goal scheduler halted:/);
   process.env.ANTHROPIC_BASE_URL = transport.url;
