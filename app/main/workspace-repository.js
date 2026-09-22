@@ -88,7 +88,7 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
   function chatFor(ws, id) { identifier(id); const chat = ws.chats[id]; if (!chat) throw new Error('Conversation not found in this profile'); return chat; }
   function requestFingerprint(request) {
     return crypto.createHash('sha256').update(JSON.stringify({ profileId: request.profileId, chatId: request.chatId, coordinatorChatId: request.coordinatorChatId || null,
-      goalId: request.goalId || null, taskId: request.taskId || null, prompt: request.prompt || '', images: request.images || [], provider: request.provider || null })).digest('hex');
+      goalId: request.goalId || null, taskId: request.taskId || null, prompt: request.prompt || '', images: request.images || [], provider: request.provider || null, ...(request.role ? { role: request.role } : {}), ...(request.dependencyResults?.length ? { dependencyResults: request.dependencyResults } : {}), ...(request.retryNote ? { retryNote: request.retryNote } : {}) })).digest('hex');
   }
   function begin(request, resolved) {
     const { profileId, chatId } = request; attemptId(request.attemptId);
@@ -100,16 +100,22 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
     }
     const chat = chatFor(ws, chatId);
     if (Object.values(meta.attempts).some(a => a.chatId === chatId && !a.driverFinished)) throw new Error('This conversation already has an unfinished attempt');
-    if (request.coordinatorChatId && chat.parent !== request.coordinatorChatId) throw new Error('Worker parent does not match its coordinator');
-    if (request.goalId && chat.goalId !== request.goalId) throw new Error('Worker goal does not match its assignment');
+    if (request.role && !['worker', 'plan', 'review', 'summary'].includes(request.role)) throw new Error('Invalid managed goal role');
+    const coordinator = request.role && request.role !== 'worker';
+    if (coordinator) {
+      if (!request.goalId || chat.id !== request.coordinatorChatId || chat.goalId) throw new Error('Coordinator conversation ownership mismatch');
+    } else {
+      if (request.coordinatorChatId && chat.parent !== request.coordinatorChatId) throw new Error('Worker parent does not match its coordinator');
+      if (request.goalId && chat.goalId !== request.goalId) throw new Error('Worker goal does not match its assignment');
+    }
     const at = now(), userId = `user-${request.attemptId}`, assistantId = `assistant-${request.attemptId}`;
-    const user = { id: userId, role: 'user', text: String(request.prompt || ''), images: clone(request.images || []), at, attemptId: request.attemptId };
+    const user = { id: userId, role: 'user', text: String(coordinator ? request.role === 'plan' ? `Plan this goal: ${request.goalObjective}` : request.role === 'review' ? 'Review the completed worker assignment and its evidence.' : 'Summarize this goal and the reviewed results.' : request.prompt || ''), images: clone(request.images || []), at, attemptId: request.attemptId };
     const reply = { id: assistantId, role: 'assistant', text: '', at, streaming: true, tools: [], events: [], approvals: [], attemptId: request.attemptId };
     chat.messages.push(user, reply);
     const history = chat.apiHistory?.length ? [...clone(chat.apiHistory), { role: 'user', content: user.text || 'See the attached image.' }]
       : chat.messages.filter(m => m.id !== assistantId && (m.text || m.role === 'user')).map(m => ({ role: m.role, content: m.text || 'See the attached image.' }));
     meta.attempts[request.attemptId] = { chatId, assistantId, userId, fingerprint, history, status: 'reserved', driverFinished: false, sequence: 0, runId: null,
-      contextVersion: chat.contextVersion || 0, goalId: request.goalId || null, taskId: request.taskId || null, coordinatorChatId: request.coordinatorChatId || null };
+      ...(request.role ? { role: request.role } : {}), contextVersion: chat.contextVersion || 0, goalId: request.goalId || null, taskId: request.taskId || null, coordinatorChatId: request.coordinatorChatId || null };
     if (!request.goalId) Object.assign(meta.attempts[request.attemptId], { request: clone(request), capturedContext: clone(resolved.scope.context || {}), model: resolved.chat?.model || null, effort: resolved.chat?.effort || null });
     chat.runProvider = request.provider; chat.updatedAt = at;
     write(profileId, ws);
@@ -131,6 +137,7 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
     if (!Number.isSafeInteger(value.sequence) || value.sequence < 1) throw new Error('Provider event requires a sequence');
     if (value.sequence <= attempt.sequence) return { accepted: false, revision: metadata(ws).revision };
     if (value.sequence !== attempt.sequence + 1) throw new Error('Provider event sequence gap');
+    if (['plan', 'review'].includes(request.role) && typeof value.coordinatorRawText === 'string' && value.coordinatorRawText.length <= 100000) attempt.coordinatorResponse = value.coordinatorRawText;
     attempt.runId = value.runId; attempt.sequence = value.sequence; attempt.status = 'running'; chat.runId = value.runId;
     reply.runId = value.runId; reply.lastSequence = value.sequence;
     applyEvent(chat, reply, value.type === 'done' && (chat.contextVersion || 0) !== attempt.contextVersion ? { ...value, session: null } : value, now());
@@ -158,7 +165,7 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
     attempt.runId ||= result.runId || null; attempt.driverFinished = true; attempt.status = result.status || 'finished';
     reply.streaming = false; reply.finishedAt ||= now(); chat.runId = null; chat.workingLabel = '';
     // Never duplicate streamed text by appending a final summary. It only fills an empty reply.
-    if (!reply.text && result.text) reply.text = String(result.text);
+    if (!reply.text && result.text) { reply.text = String(result.text); part(reply, 'text').text = reply.text; }
     write(request.profileId, ws); return { fresh: true, state: attempt.status };
   }
   function stageWorkerChats(goal, choices) {

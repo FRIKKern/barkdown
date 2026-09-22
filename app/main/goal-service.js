@@ -3,6 +3,8 @@ const crypto = require('node:crypto');
 const { GoalScheduler, openJournal } = require('./goals');
 const { GoalAdmission } = require('./goal-admission');
 const { createGoalProvider } = require('./goal-provider');
+const { planningPrompt } = require('./goal-coordinator');
+const { advanceCoordinated } = require('./goal-coordination');
 const check = (condition, message) => { if (!condition) throw new Error(message); };
 const boundedText = (value, label, max = 20000) => {
   check(typeof value === 'string' && value.trim() && value.length <= max, `Invalid ${label}`); return value;
@@ -15,11 +17,20 @@ function createGoalService({ registry, profiles, agent, sendEvent = () => {}, se
     request: { ...request, storeDir: registry.storeFor(request.profileId).storeDir }, runId,
   }) : null);
   const schedulers = new Map(), admission = new GoalAdmission(), workspaces = profiles.workspaces;
-  let closed = false;
+  let closed = false; const queued = new Set();
+  function pump(profileId) {
+    if (closed || queued.has(profileId)) return; queued.add(profileId);
+    queueMicrotask(() => {
+      queued.delete(profileId); if (closed) return;
+      const engine = schedulers.get(profileId); if (!engine || engine.fault) return;
+      try { advanceCoordinated({ engine, profileId, stage, now }); engine.tick(); } catch (error) { engine.halt(error); }
+      notify(profileId);
+    });
+  }
   const notify = profileId => { try { sendEvent({ profileId }); } catch { /* Views can reload acknowledged state. */ } };
   function requestFor(goal, task, attempt) {
     return { profileId: goal.profileId, goalId: goal.id, coordinatorChatId: goal.chatId, taskId: task.id, chatId: task.chatId,
-      attemptId: attempt.id, prompt: task.prompt, images: task.images || [], provider: task.context.provider, context: task.context, deadline: goal.deadline };
+      attemptId: attempt.id, prompt: task.prompt, goalObjective: goal.objective, images: task.images || [], provider: (attempt.context || task.context).provider, context: attempt.context || task.context, deadline: goal.deadline, ...(task.role ? { role: task.role } : {}), dependencyResults: attempt.dependencyResults || [], ...(attempt.retryNote ? { retryNote: attempt.retryNote } : {}) };
   }
   async function establish(request, runId) {
     const attempt = workspaces.load(request.profileId).ownership.attempts[request.attemptId];
@@ -47,7 +58,7 @@ function createGoalService({ registry, profiles, agent, sendEvent = () => {}, se
     check(!closed, 'Goal service is closed');
     if (!schedulers.has(profileId)) {
       const journal = openJournal(registry.storeFor(profileId).storeDir);
-      try { schedulers.set(profileId, new GoalScheduler({ journal, adapter, admission, now, onChange: () => notify(profileId),
+      try { schedulers.set(profileId, new GoalScheduler({ journal, adapter, admission, now, onChange: () => { notify(profileId); pump(profileId); }, captureContext: captureAutomatic,
         verifyTermination: ({ goal, task, attempt }) => establish(requestFor(goal, task, attempt)) })); }
       catch (error) { journal.close(); throw error; }
     }
@@ -64,14 +75,20 @@ function createGoalService({ registry, profiles, agent, sendEvent = () => {}, se
     return { profileId, engine, goal };
   }
   function stage(goal) {
-    workspaces.stageWorkerChats(goal, goal.tasks.map(t => ({ chatId: t.chatId, title: t.title, ...t.context })));
+    workspaces.stageWorkerChats(goal, goal.tasks.filter(t => !t.role || t.role === 'worker').map(t => ({ chatId: t.chatId, title: t.title, ...t.context })));
   }
   function captureWorker(profileId, goal, task) {
     const chat = workspaces.load(profileId).chats[task?.chatId];
-    check(chat && chat.goalId === goal.id && chat.parent === goal.chatId, 'Worker conversation ownership changed');
+    const coordinator = task?.role && task.role !== 'worker';
+    check(chat && (coordinator ? chat.id === goal.chatId && !chat.goalId : chat.goalId === goal.id && chat.parent === goal.chatId), 'Worker conversation ownership changed');
     check(!chat.runId, 'Worker conversation still has a run');
     const provider = chat.provider || profiles.settings(profileId).provider || 'api';
     return { profileId, chatId: chat.id, provider, folder: chat.folder || null, model: chat.model || null, effort: chat.effort || null, session: chat.sessions?.[provider] || null };
+  }
+  function captureAutomatic(goal, task) {
+    const context = captureWorker(goal.profileId, goal, task);
+    for (const field of ['folder', 'provider', 'model', 'effort']) check(context[field] === task.context[field], 'Conversation context changed; explicitly resume to capture the new choices.');
+    return context;
   }
   function list(owner) {
     const { profileId } = ownerChat(owner), engine = scheduler(profileId);
@@ -82,6 +99,13 @@ function createGoalService({ registry, profiles, agent, sendEvent = () => {}, se
     const { profileId, chat } = ownerChat(owner), settings = profiles.settings(profileId);
     boundedText(input.objective, 'objective');
     check(Number.isFinite(input.durationMinutes) && input.durationMinutes >= 1 && input.durationMinutes <= 10080, 'Time window must be 1–10080 minutes');
+    check(input.mode === undefined || input.mode === 'coordinated', 'Invalid goal mode');
+    if (input.mode === 'coordinated') {
+      check(input.assignments === undefined, 'Coordinator planning cannot also accept manual assignments');
+      const context = { provider: chat.provider || settings.provider || 'api', folder: chat.folder || null, model: chat.model || null, effort: chat.effort || null, session: chat.sessions?.[chat.provider || settings.provider || 'api'] || null };
+      const goal = scheduler(profileId).create({ profileId, chatId: chat.id, objective: input.objective, deadline: now() + input.durationMinutes * 60000, mode: 'coordinated', tasks: [{ id: 'plan', role: 'plan', title: 'Coordinator plan', chatId: chat.id, prompt: planningPrompt(input.objective), context }] });
+      notify(profileId); return goal;
+    }
     check(Array.isArray(input.assignments) && input.assignments.length === 3, 'Provide three bounded worker assignments');
     const tasks = input.assignments.map((item, i) => ({ id: `task-${i + 1}`, chatId: crypto.randomUUID(), title: boundedText(item.title || `Worker ${i + 1}`, 'worker title', 200),
       prompt: boundedText(item.prompt, 'assignment'), images: structuredClone(item.images || []), dependsOn: structuredClone(item.dependsOn || []),
@@ -104,12 +128,13 @@ function createGoalService({ registry, profiles, agent, sendEvent = () => {}, se
         check(!other.list(profile.id).some(g => g.tasks.some(t => t.status === 'interrupted' && !Number.isFinite(t.attempts.at(-1)?.stoppedAt))), 'Reconcile interrupted workers before starting more work');
       }
       stage(goal);
-      const contexts = Object.fromEntries(goal.tasks.filter(t => t.status === 'pending').map(t => [t.id, captureWorker(profileId, goal, t)]));
+      const contexts = Object.fromEntries(goal.tasks.filter(t => t.status === 'pending' || t.role === 'plan').map(t => [t.id, captureWorker(profileId, goal, t)]));
       result = engine.start(profileId, id, { contexts });
     }
     else if (action === 'pause' || action === 'cancel') result = engine.stop(profileId, id, action === 'pause' ? 'paused' : 'cancelled');
     else if (action === 'reviewTask') {
       const task = goal.tasks.find(t => t.id === payload.taskId);
+      check(!task?.role || task.role === 'worker' || payload.accepted !== true, 'Coordinator control responses must pass schema validation; reconcile and retry instead');
       let context;
       if (payload.retry) {
         context = captureWorker(profileId, goal, task);
@@ -128,7 +153,7 @@ function createGoalService({ registry, profiles, agent, sendEvent = () => {}, se
     } else throw new Error('Unknown goal command');
     notify(profileId); return result;
   }
-  function tick() { for (const engine of schedulers.values()) { try { engine.tick(); } catch (error) { engine.halt(error); } } }
+  function tick() { for (const [profileId, engine] of schedulers) { try { advanceCoordinated({ engine, profileId, stage, now }); engine.tick(); } catch (error) { engine.halt(error); } } }
   const timer = heartbeatMs > 0 ? setInterval(tick, heartbeatMs) : null; timer?.unref();
   async function close() { if (closed) return; closed = true; if (timer) clearInterval(timer); await Promise.all([...schedulers.values()].map(s => s.close())); }
   return Object.freeze({ list, create, command, tick, close });

@@ -1,6 +1,6 @@
 # Goal execution and conversation integration contract
 
-The main-owned service and provider bridge are implemented on the goal branch. Production Electron wiring and native restart proof remain pending; this document distinguishes the required end-to-end contract from that source checkpoint.
+The main-owned service and provider bridge are implemented on the goal branch. Production Electron wiring and native process recovery are implemented in opt-in profile mode on Windows. The actual Electron crash-dialog journey is tested with deterministic HTTP; saved encrypted-key crash durability is tested separately in C013; natural-language coordination is implemented in C015 with deterministic owned-process Electron proof; authenticated and final visual gates remain pending. The handoff distinguishes executable proof from the remaining contract.
 
 ## Authority and startup
 
@@ -31,3 +31,11 @@ Human takeover requests cancellation, waits for the worker to stop, retains its 
 - Same chat/goal IDs in two profiles; a foreground switch never redirects result, tool activity, approval or content access.
 - Human takeover and context change cannot overlap the old worker; failed/late results remain inspectable.
 - Desktop screenshot/GIF journeys of creation, three workers, full side-chat controls, pause/recovery/deadline/review. Separate deterministic transport evidence from live-provider proof.
+
+## C015 coordinator authority
+
+Objective-only creation reserves a planning turn in the ordinary coordinator chat. A strict schema validates exactly three assignments and an acyclic graph before main creates worker identities and stages their full saved side chats. Model output cannot choose profile, folder, provider, permissions or deadline. Planning, review and summary share the existing admission cap and persisted attempt lifecycle; native delegation remains disabled. Manual assignment mode remains available.
+
+A coordinator review names one exact worker attempt. Only clean successful stopped results qualify for automatic review. It requires explicit evidence and verified effects for accept/retry; uncertain/blocked results pause for a person. Retry is bounded to three worker attempts. Failed, cancelled and interrupted work never auto-retries. Per-attempt person reviews override late model decisions; superseded coordinator replies are recorded without applying their decisions. Readable coordinator messages retain raw structured partial responses in owned attempt metadata. Large evidence excerpts are bounded and explicitly marked; full source evidence remains retained.
+
+Restart pauses active goals without replay. Control responses cannot be manually accepted around schema validation. Explicit shutdown reconciliation and reviewed retry are required. Changed runtime choices pause automatic dispatch; explicit Start recaptures future choices without mutating historical attempts. Dependency results are immutable evidence data, not scope authorization. A final summary is a coordinator account, not human verification or a claim that every underlying artifact is correct.

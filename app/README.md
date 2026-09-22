@@ -1,6 +1,6 @@
 # Barkdown desktop
 
-The separate [goal-orchestration track](../docs/goals/HANDOFF.md) currently provides a durable scheduler, owned provider bridge and an injected-service goal view. It is not enabled for the legacy workspace. `npm run test:goals` checks execution boundaries; `npm run test:goal-ui` exercises the real component with fixture snapshots. Production profile service integration and authenticated three-worker evidence remain pending.
+The separate [goal-orchestration track](../docs/goals/HANDOFF.md) provides a durable scheduler, three full worker conversations and owned Windows process recovery in opt-in `--profiles` mode. Legacy workspace activation remains disabled. The full desktop suite includes goal regression checks and real Electron workers using deterministic HTTP. [Authenticated three-Codex proof](../docs/goals/evidence/beefded/authenticated-codex.json) is separate. [Crash-dialog recovery](../docs/goals/evidence/e9be019/README.md) now also passes using a saved encrypted key. [C013 credential proof](../docs/goals/evidence/f7d91e6/README.md) verifies first-run API/server-token save followed by immediate Windows main-process kill and reopen, malformed-key refusal, and profile ownership during a pending save. C015 adds objective-only coordinator planning, evidence review and summary with three full saved workers. Ten focused checks and an actual eight-turn Electron journey through owned Windows jobs pass with deterministic HTTP, including background profile completion and restart. Authenticated coordinator proof, native planning-crash UI proof and fresh committed-source visual gates are still pending. These are same-machine process-crash checks, not power-loss or cross-machine portability proof.
 
 The working Electron application: notes and conversations on the left, agents and their work alongside them. [Product overview](../README.md) · [Active roadmap](../docs/PLAN.md) · [Contributing](../CONTRIBUTING.md)
 
@@ -63,9 +63,7 @@ Use [the local-runtime guide](../docs/LOCAL-BARKPARK.md) for setup and [the acce
 - [Workspace navigation](../docs/visual/workspace/README.md): renderer shell, sidebar, tabs and quick open.
 - [Main chat](../docs/visual/chat/README.md) and [side chat](../docs/visual/side-chat/README.md): shared composer and conversation controls.
 - [Local documents](../docs/visual/documents/README.md): the legacy editor retained pending P2; live Paper evidence remains in the root gallery.
-- [Paper save safety](../docs/visual/paper-save/README.md): retained drafts during delayed writes, navigation and close, server-backed Undo/redo, Retry and explicit discard. Run `npm run test:paper-host` in `app/` for controlled host races; `npm run test:paper-host:isolated` adds a disposable real server (set `BARKDOWN_TEST_BP_SOURCE` to a built checkout).
 - [Settings](../docs/visual/settings/README.md): preferences and connection controls.
+- [Goals](../docs/visual/goals/README.md): injected-service component fixtures, distinct from live execution proof.
 
 Each page contains a still, recorded interaction GIF, provenance and changelog. [Rules and coverage limits](../docs/visual/RULES.md) distinguish visual review from functional/runtime proof.
-
-- [Ordinary chat recovery](../docs/visual/chat-recovery/README.md): C014 actual managed Windows crash/recovery journey; source evidence closeout pending.

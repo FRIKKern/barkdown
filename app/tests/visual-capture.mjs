@@ -48,7 +48,10 @@ try{
  ]);
  await p.keyboard.press('Escape');
  await tour('goals','Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.',[
-  ['planned',async()=>{await p.evaluate(()=>{
+  ['new-goal',async()=>{await p.evaluate(()=>window.__barkdown.openGoalView({owner:{profileId:'11111111-1111-4111-8111-111111111111',chatId:window.__barkdown.state.current,generation:1},service:{list:async()=>[],create:async()=>{throw Error('Visual fixture creation disabled');}},openChat:()=>{}}));await p.locator('[data-create]').waitFor();await p.locator('[name="objective"]').fill('Fixture: inspect three independent inputs and review their evidence.');}],
+  ['new-goal-narrow',()=>p.setViewportSize({width:390,height:740})],
+  ['new-goal-restore',()=>p.setViewportSize({width:1100,height:740})],
+  ['planned',async()=>{await p.keyboard.press('Escape');await p.evaluate(()=>{
    const ui=window.__barkdown,parent=ui.state.current,profileId='11111111-1111-4111-8111-111111111111';
    const workers=[1,2,3].map(n=>{const chat=ui.createChat({title:`Fixture worker ${n}`});Object.assign(chat,{side:true,parent,parentTitle:ui.state.chats[parent].title,provider:'api'});return chat;});ui.switchChat(parent);
    const goal={id:'fixture-goal',objective:'Fixture: review a bounded delivery',status:'planned',deadline:Date.parse('2026-09-22T10:00:00Z'),tasks:workers.map((chat,i)=>({id:`task-${i+1}`,title:chat.title,chatId:chat.id,prompt:['Inspect ownership boundaries','Exercise interrupted work','Review the resulting evidence'][i],dependsOn:[],status:'pending',context:{provider:'api',folder:null,model:null,effort:null},attempts:[]}))};

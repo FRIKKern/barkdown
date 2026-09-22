@@ -22,6 +22,7 @@ try {
   await page.keyboard.press('Control+k'); await page.locator('#bw-palette-input').fill('Conversation goals'); await page.keyboard.press('Enter');
   await page.locator('.bw-goals').waitFor();
   await page.locator('[name="objective"]').fill('Prove saved parallel worker conversations');
+  await page.locator('[name="planning"]').selectOption('manual');
   for (let n = 1; n <= 3; n++) await page.locator(`[name="worker${n}"]`).fill(`Return fixture result ${n}`);
   await page.locator('[data-create] button').click();
   await page.locator('[data-command="start"]').click();
