@@ -87,3 +87,8 @@ Unsupported lossy Markdown conversions fail before mutation; this is not complet
 ## E004 structured table checkpoint
 
 Revision-checked cell patches and exact structured reads preserve headerless/multiline/alignment metadata. Three real Paper MCP cases pass Undo, human save and reload; full app suite and focused upstream rich/header checks pass. See [E004 evidence](visual/structured-table/README.md). API parity is separate root E005 work; upstream full-suite baseline failures and default bundle pin remain explicit limits.
+
+
+## E006 aligned Markdown paste
+
+Upstream `9803bbe5e` preserves GFM center/right alignment, marks, links and literal pipes. Actual Paper paste, native Undo/redo, subsequent human edit and server reload passed at Barkdown harness `c22c0d3`. [Reviewed evidence](visual/markdown-paste/README.md). Upstream full-suite JSDOM save-ack baseline and default bundle integration remain open; no merge or deployment.

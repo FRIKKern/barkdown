@@ -99,3 +99,8 @@ Stated 2026-09-20, not yet folded into the PRD:
 ## E004 structured table fidelity
 
 [Structured table evidence](visual/structured-table/README.md) adds stable-block revision-checked cell edits, exact structured read/export, headerless and multiline tables, heterogeneous alignment, rich marks, guarded Undo and saved human takeover. Uniform representable GFM roundtrips; unsupported Markdown representations stay available through structured data. This is a bounded MCP/editor result; root E005 owns API parity.
+
+
+## E006 aligned Markdown paste
+
+Upstream `9803bbe5e` preserves GFM center/right alignment, marks, links and literal pipes. Actual Paper paste, native Undo/redo, subsequent human edit and server reload passed at Barkdown harness `c22c0d3`. [Reviewed evidence](visual/markdown-paste/README.md). Upstream full-suite JSDOM save-ack baseline and default bundle integration remain open; no merge or deployment.

@@ -1,0 +1,198 @@
+{
+  "sourceCommit": "c22c0d3aa079e515ad09c73bb75ab7fbcf615ae9",
+  "sourceDirty": false,
+  "barkparkCommit": "9803bbe5e53b9dcaa434a4a87ef989ac7944d025",
+  "barkparkDirty": "false",
+  "server": "http://127.0.0.1:52237",
+  "buildFingerprint": "d988b799b6cb8ee8d74b4953cc3aa20baf4144bc34e51a943558854e8dd2e7ee",
+  "editorBundle": {
+    "source": "server",
+    "server": "http://127.0.0.1:52237",
+    "version": "0.2.26.3911",
+    "sha": "7aa0734ed80fcb408b7bda919cc874a4b7caf92b",
+    "cssSha": "8c0dcd8a2d247711e848dfc0c0d0a9d350b1747d",
+    "fetchedAt": "2026-09-22T01:30:20.440Z"
+  },
+  "results": [
+    {
+      "name": "aligned GFM paste, native Undo/redo, human edit and reload",
+      "beforeRev": 1,
+      "pasteRev": 2,
+      "undoRev": 3,
+      "redoRev": 4,
+      "savedRev": 5,
+      "geometry": [
+        {
+          "text": "Left",
+          "align": "left"
+        },
+        {
+          "text": "Center",
+          "align": "center"
+        },
+        {
+          "text": "Right",
+          "align": "right"
+        },
+        {
+          "text": "pipe | value",
+          "align": "start"
+        },
+        {
+          "text": "bold",
+          "align": "center"
+        },
+        {
+          "text": "link",
+          "align": "right"
+        },
+        {
+          "text": "plain",
+          "align": "start"
+        },
+        {
+          "text": "center value",
+          "align": "center"
+        },
+        {
+          "text": "right value",
+          "align": "right"
+        }
+      ],
+      "blocks": [
+        {
+          "id": "block-0",
+          "level": 1,
+          "text": "Pasted table alignment",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Paste below. These surrounding paragraphs stay intact."
+            }
+          ],
+          "id": "block-1",
+          "type": "paragraph"
+        },
+        {
+          "head": [
+            [
+              {
+                "type": "text",
+                "value": "Left"
+              }
+            ],
+            {
+              "align": "center",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Center"
+                }
+              ]
+            },
+            {
+              "align": "right",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Right"
+                }
+              ]
+            }
+          ],
+          "id": "m-1-4d515c80",
+          "rows": [
+            [
+              [
+                {
+                  "type": "text",
+                  "value": "pipe | value"
+                }
+              ],
+              {
+                "align": "center",
+                "content": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "bold"
+                      }
+                    ],
+                    "type": "strong"
+                  }
+                ]
+              },
+              {
+                "align": "right",
+                "content": [
+                  {
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "link"
+                      }
+                    ],
+                    "href": "https://example.com",
+                    "type": "link"
+                  }
+                ]
+              }
+            ],
+            [
+              [
+                {
+                  "type": "text",
+                  "value": "plain"
+                }
+              ],
+              {
+                "align": "center",
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "center value"
+                  }
+                ]
+              },
+              {
+                "align": "right",
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "right value human"
+                  }
+                ]
+              }
+            ]
+          ],
+          "type": "table"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "This paragraph must survive paste and Undo."
+            }
+          ],
+          "id": "block-3",
+          "type": "paragraph"
+        }
+      ]
+    }
+  ],
+  "artifacts": {
+    "01-before-paste.png": "270c4653051641fdf6e90af024a0341633e2b6eddeef3559d9502971cdff0160",
+    "02-pasted.png": "8222498b06c1e4d6b64b0995ccf6152d1860ee537ab2416b31252f85bb49124d",
+    "03-undone.png": "0216255be601ddd39adc907c2b31e96f48027736eaf4fc501276636e94191051",
+    "04-redone.png": "0e490c3de9298f6df50317d21784234a3aed13df1c348ae6a7dffdd290aab4ce",
+    "05-reloaded.png": "85708dde4594e16af79728d9b5313abc80e9229520f22fb8e64212aa6ea276f6",
+    "06-narrow.png": "4d928799fc2ca573bae9bfd55e9f2e67f051f877a16a516f879f2a5c7915154b",
+    "markdown-paste.webm": "f307d1aded6f54aeabbe971ff4183ca573572e5a3aa6209718d01e70b4960226",
+    "server.json": "376a463beee979ebf65f6fd37a9d96c5e8f654f591f02d5eaaef6aabe03c6d47"
+  },
+  "motion": "Real production ClipboardEvent paste and native keyboard, actual Paper saves; no model turn."
+}

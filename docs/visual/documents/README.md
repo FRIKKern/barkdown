@@ -2,14 +2,15 @@
 
 Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.
 
-![Current view](../runs/2026-09-22T00-55-16-118Z/documents-2.png)
+![Current view](../runs/2026-09-22T01-31-05-935Z/documents-2.png)
 
-![Recorded interaction](../runs/2026-09-22T00-55-16-118Z/documents.gif)
+![Recorded interaction](../runs/2026-09-22T01-31-05-935Z/documents.gif)
 
-[Full comparison](../runs/2026-09-22T00-55-16-118Z/README.md) · [Capture manifest](../runs/2026-09-22T00-55-16-118Z/manifest.json)
+[Full comparison](../runs/2026-09-22T01-31-05-935Z/README.md) · [Capture manifest](../runs/2026-09-22T01-31-05-935Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-22T01:33:48.889Z: E006: inspected all 21 fixture stills and 21 decoded GIF frames. Environment unchanged, zero pixel or geometry differences. Separate real Paper proof verifies aligned paste, native Undo/redo, subsequent human edit and server reload; no new shell clipping observed. Source c22c0d3aa; [review](../runs/2026-09-22T01-31-05-935Z/comparison.json).
 - 2026-09-22T01:01:13.523Z: E004: inspected all 21 fixture stills and 21 decoded motion frames; unchanged environment, zero changed pixels and geometry. Separate real Paper structured-table proof passes 3/3 including Undo, human save and reload; fixture tour alone is not server proof. Source cd4b5c13c; [review](../runs/2026-09-22T00-55-16-118Z/comparison.json).
 - 2026-09-22T00:15:17.322Z: 9424b97 deterministic tour reviewed: all21 PNGs and21 decoded GIF frames, readable menus/themes/narrow layouts, within tolerance with stable geometry and environment. Dedicated rich Paper/MCP capture remains separate; this fixture approval does not claim live fidelity. Source 9424b97f3; [review](../runs/2026-09-22T00-13-59-011Z/comparison.json).
 - 2026-09-22T00:13:13.086Z: 3af530a fixture tour: all21 PNG and21 decoded GIF frames inspected; comparison within tolerance, unchanged geometry/environment, readable menus and narrow views. Live rich Paper/MCP proof is separate and pending; this approval covers the deterministic surfaces only. Source 3af530a14; [review](../runs/2026-09-22T00-11-56-375Z/comparison.json).

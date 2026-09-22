@@ -1,0 +1,42 @@
+Upstream source9803bbe5e; npm test, exit1. Tail of the actual full-suite output. Known mounted JSDOM blur baseline; actual Chromium keep/blur audit preserved sibling. This is not a passing whole-suite result.
+
+ is insert-after+12 moves
+PASS  Enter at tail (divider (bpDivider leaf atom), node-selection): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (code (bpCode attr-atom), focus-end): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (code (bpCode attr-atom), node-selection): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (embed (bpEmbed read-only atom), focus-end): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (embed (bpEmbed read-only atom), node-selection): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (field-image (bpField picker atom), focus-end): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (field-image (bpField picker atom), node-selection): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (notes (bpFleet server-painted atom), focus-end): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (notes (bpFleet server-painted atom), node-selection): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (composite (bpOpaque verbatim carry), focus-end): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (composite (bpOpaque verbatim carry), node-selection): NO remove-block, tail id survives, batch is insert-after+12 moves
+
+── B) discriminant: the filed remove-block batch = a tail that never mounted ──
+PASS  runToOps: a live doc MISSING the tail node reproduces the FILED batch exactly (remove-block + insert-after + 11 moves)
+PASS  the two batches differ ONLY by the remove-block (and the move it costs) — remove-block IS the discriminant
+
+OK
+mounted pending-change flush regression passed
+mounted paste, undo, redo, and flush payload regression passed
+mounted autocomplete query, selection, and canonical payload passed
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: keep: the remote sibling survives
+
+1 !== 2
+
+    at file:///C:/Users/Frikk/.codex/worktrees/barkpark-conflict-settlement/api/assets/paper-editor/src/canvas/__save_ack_mounted.test.mjs:721:12
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at process.processTimers (node:internal/timers:526:9) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 1,
+  expected: 2,
+  operator: 'strictEqual'
+}
+
+Node.js v22.13.1

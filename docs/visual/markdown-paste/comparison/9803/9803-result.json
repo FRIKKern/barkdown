@@ -1,0 +1,103 @@
+{
+  "source": "9803bbe5e",
+  "mechanism": "actual Chromium production ClipboardEvent handler; no server in this audit",
+  "result": {
+    "blocks": [
+      {
+        "id": "m-1-fr2lg7f8",
+        "type": "table",
+        "head": [
+          [
+            {
+              "type": "text",
+              "value": "Left"
+            }
+          ],
+          {
+            "content": [
+              {
+                "type": "text",
+                "value": "Center"
+              }
+            ],
+            "align": "center"
+          },
+          {
+            "content": [
+              {
+                "type": "text",
+                "value": "Right"
+              }
+            ],
+            "align": "right"
+          }
+        ],
+        "rows": [
+          [
+            [
+              {
+                "type": "text",
+                "value": "one"
+              }
+            ],
+            {
+              "content": [
+                {
+                  "type": "strong",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "two"
+                    }
+                  ]
+                }
+              ],
+              "align": "center"
+            },
+            {
+              "content": [
+                {
+                  "type": "link",
+                  "href": "https://example.com",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "three"
+                    }
+                  ]
+                }
+              ],
+              "align": "right"
+            }
+          ]
+        ]
+      }
+    ],
+    "cells": [
+      {
+        "text": "Left",
+        "align": "center"
+      },
+      {
+        "text": "Center",
+        "align": "center"
+      },
+      {
+        "text": "Right",
+        "align": "right"
+      },
+      {
+        "text": "one",
+        "align": "start"
+      },
+      {
+        "text": "two",
+        "align": "center"
+      },
+      {
+        "text": "three",
+        "align": "right"
+      }
+    ]
+  }
+}
