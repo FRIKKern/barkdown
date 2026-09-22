@@ -1,0 +1,34 @@
+{
+  "reviewer": "Codex editor agent",
+  "reviewedAt": "2026-09-22T07:09:41.205470+00:00",
+  "sourceCommit": "a4fb8a006c6ff7e44940400b15bbd8c451efe2fc",
+  "serverSource": "bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f",
+  "stills": 9,
+  "videoSamplesAt2fps": 30,
+  "result": "accepted bounded native split, checklist, history and reload identity proof",
+  "observations": [
+    "Native split/type/Undo/Redo and checklist create/check/Undo/Redo preserve full server/live blocks and IDs at revisions1 through9.",
+    "Nine full-size stills and30 raw-video samples inspected. Human text, reference link, checkbox and siblings survive reload and900px viewport.",
+    "No unexpected body displacement observed through acknowledgement/history. Initial load and intentional narrow resize change geometry.",
+    "Long title remains clipped in its existing single-line title control; no title-layout correction claimed.",
+    "No global deterministic visual approval or upstream merge readiness is implied."
+  ],
+  "hashes": {
+    "01-split-saved.png": "e5ef0b219bcf446d5c75ea3eff1e80482a2d9aa6ee19f28438c585b0d16283f9",
+    "02-human-saved.png": "82a828526426767f41e37d89b7b2007180f81386c465821bb1e8b6af7af5c1f9",
+    "03-undo.png": "ca6390c3dac0968a9e5e1593caa0caf60bc5dac415955b9f2f276257b267b52a",
+    "04-redo.png": "d5c7f0dabcccac2139b74ca2ffa9e549ec52885c1dcd5fcf68511c221ba34407",
+    "05-checklist.png": "8e438f946a3c16b40d1fffc2bc2b2e6c6f819ae666719de25d75d58fa507de2a",
+    "06-checked.png": "eb7b6665b2991e6d2af8ed34140dd85a596caa4e6a85d38e8d7ebc60f8150b4c",
+    "07-checklist-redo.png": "00bb638d360ebaf3faadbcc83548a8d775a2c01601238606dd5075f8193e22bd",
+    "08-reloaded.png": "558f3bb003aac81a38f84afa4c62bc68e6badad83d90900c46219991974e9d68",
+    "09-narrow.png": "eab1734043659b60318d965543e0cea29ca0dfadcf390ce19e0530507b7fb3c6",
+    "acknowledgements.json": "073f175130b21293accd045dbef83b2592ace645dc6fc4d23768eb5802b11ea3",
+    "block-identity.webm": "5b3dca0d5af145458af3e4d613dbb876c1b5566e81f4ab93b07ab752f7da2527",
+    "keyboard.json": "1e203e98a3ab265a6b24cc1ae50d852ca7d5b26dd1ac7aaa6afb5b7930e5592b",
+    "manifest.json": "d89f1a09fd2dac0c24d9b23b9687c493da9bac8ee7ed5db7f4869daeeff30956",
+    "server.json": "56f9dabe2e9f1136d4a09b99905aa6630af72213a88937476ca792370515cadf",
+    "stable-identities.gif": "93664599acb1b39f46dcc362f79692964f117a7c2a90c804b03455419a7ddf56",
+    "transactions.json": "b0148a3567799a32e758899bdc170368381c13af2181246c69d108c1d80e45b3"
+  }
+}

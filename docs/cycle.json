@@ -17,11 +17,13 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C008-integration.md",
-  "nextAction": "Freeze reviewed candidate after C034/C035 imports and run final combined desktop, native, deterministic, live and root gates in C008 order. Original lane passes do not establish combined completion.",
+  "nextAction": "Validate the C030 and E012 evidence-integrated candidate with the full desktop and focused editor/fallback matrices, then run fresh deterministic, live Paper and root gates in C008 order.",
   "evidence": [
     "app/package.json",
-    "docs/cycles/C008-integration.md"
+    "docs/cycles/C008-integration.md",
+    "docs/cycles/C030-parity-behavior.md",
+    "docs/cycles/E012-block-identity.md"
   ],
-  "truthReview": "Candidate d20aa09 imports C034 runner and actual Codex evidence, C035 Electron38 packaging and original native terminal proof, plus prior E011/C032/C033. 57 C035 review,12 offline and7 C034 hashes verified; focused native21/21 pass. No fresh combined pass or stage promotion.",
-  "screenshotReview": "Exact e380385 fixture run2026-09-22T02-13-13-738Z reviewed/approved:40 stills and all GIF frames. Actual status5397 five stills/37GIF frames reviewed; private runtime stopped. Future source changes require fresh proof."
+  "truthReview": "Production candidate806b0ee consumes reviewed E012 bf23f773c/JS3a94. C030 history is imported through53bbef2 with final private native13/13 pass and earlier failures preserved. E012 source-bound evidence is independently hash/provenance checked. Fresh combined validation is pending; no stage promotion.",
+  "screenshotReview": "Independent E012 review verified12 accepted stills and all45 GIF frames; long-title clipping remains disclosed. C030 final passing media review and fresh combined deterministic/live approval remain pending."
 }

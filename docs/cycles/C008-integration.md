@@ -2,6 +2,14 @@
 
 Active on `codex/integration-12h` in the isolated `barkdown-integration-12h` worktree. No main merge or deployment. This branch is a test candidate, not a completed product milestone.
 
+## Continuation checkpoint — 23 September 2026
+
+Production candidate `806b0ee` already consumes the reviewed E012 Barkpark source `bf23f773c` and exact JS SHA1 `3a94a2964b37358f3ec791f009a2f52b28cffb0d`. The complete C030 strict parity history is now imported on this branch through `53bbef2`: all earlier failed diagnostics remain, and the final private native run passed 13/13 with exact acknowledged server state and clean shutdown. C008 remains the active cycle; C030 is retained as child evidence rather than replacing the integration queue.
+
+E012's dedicated test, handoff and source-bound gallery are imported separately after the production commit. Independent review verified all 12 accepted stills, all 45 GIF frames, recorded hashes, revisions 1–9 and exact upstream/vendor provenance. The known long single-line title clipping is disclosed. These lane proofs do not establish current combined approval.
+
+Next: commit this evidence checkpoint, run the full combined desktop and focused editor/fallback matrices on the exact candidate, then perform fresh deterministic capture/compare/review/approval, isolated live Paper status capture and root verification. P1 remains incomplete; authentication policy, portability, G1/G2, Electron dependency advisories and fallback replay remain explicit limits.
+
 ## Current candidate: e3fec49
 
 The candidate includes C021 native rollback checks, C024 project-file authority, C023 bounded Windows atomic writes, C025 verified editor-cache integrity, and C027 immutable visual reviews. It also retains original C020, C022 and E007/E008 evidence without replacing their source identities. Focused checks passed after each import, including the C010 lease-relocation path after the C023 merge.

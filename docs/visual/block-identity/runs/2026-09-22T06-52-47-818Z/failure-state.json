@@ -1,0 +1,60 @@
+{
+  "active": "<div contenteditable=\"true\" role=\"textbox\" translate=\"no\" class=\"tiptap ProseMirror ProseMirror-focused\" tabindex=\"0\" style=\"\"><ul data-bp-id=\"checklist\" data-bp-type=\"list\" data-type=\"taskList\"><li data-checked=\"true\"><label contenteditable=\"false\">",
+  "documentFocus": true,
+  "editorFocus": true,
+  "selection": {
+    "type": "text",
+    "anchor": 3,
+    "head": 3
+  },
+  "undo": 2,
+  "redo": 0,
+  "keys": [
+    {
+      "key": "Control",
+      "ctrl": true,
+      "shift": false,
+      "target": "DIV",
+      "documentFocus": true,
+      "prevented": false
+    },
+    {
+      "key": "z",
+      "ctrl": true,
+      "shift": false,
+      "target": "DIV",
+      "documentFocus": true,
+      "prevented": false
+    }
+  ],
+  "save": "Saved · rev 2",
+  "blocks": [
+    {
+      "id": "checklist",
+      "type": "list",
+      "ordered": false,
+      "items": [
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Checklist intent"
+            }
+          ],
+          "checked": true
+        }
+      ],
+      "task": true
+    },
+    {
+      "id": "reference",
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "value": "Unrelated reference"
+        }
+      ]
+    }
+  ]
+}
