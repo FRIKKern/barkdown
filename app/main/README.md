@@ -22,3 +22,5 @@ Run the affected real-adapter tests and the required desktop/visual/root gates i
 
 - 22 September: selected-root search errors remain errors, distinct from no matches; [API-loop regression and retained failure](../../docs/cycles/evidence/missing-working-folder/README.md). Combined visual/runtime verification is pending.
 - 22 September: C023 source is integrated with C010 lease relocation preserved; focused combined checks pass, final combined gates remain pending. C024 and C025 original evidence is imported. The handoff above owns current status.
+
+C033: delayed runtime acquisition cannot reserve against a changed chat context. The trusted resolver and repository both check the captured snapshot; stale starts refuse before dispatch, retain drafts and release their lease. [Regression handoff](../../docs/cycles/C033-context-reservation.md) distinguishes controlled transport evidence from pending combined gates.

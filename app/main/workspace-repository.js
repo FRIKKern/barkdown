@@ -1,6 +1,7 @@
 // The main process is the only writer of managed transcripts. Renderer snapshots
 // own navigation/drafts; they cannot replace late provider output or goal attempts.
 const crypto = require('node:crypto');
+const { assertChatContext } = require('./chat-context');
 const clone = value => structuredClone(value);
 const object = value => value && typeof value === 'object' && !Array.isArray(value);
 const NAV = ['title', 'folder', 'tabs', 'active', 'draft', 'draftImages', 'following', 'editorExpanded', 'chatScroll', 'closedTargets', 'provider', 'model', 'effort', 'parent', 'parentTitle', 'side', 'createdAt', 'updatedAt'];
@@ -100,6 +101,7 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
     }
     const chat = chatFor(ws, chatId);
     if (Object.values(meta.attempts).some(a => a.chatId === chatId && !a.driverFinished)) throw new Error('This conversation already has an unfinished attempt');
+    assertChatContext(resolved.chatContext, chat);
     if (request.role && !['worker', 'plan', 'review', 'summary'].includes(request.role)) throw new Error('Invalid managed goal role');
     const coordinator = request.role && request.role !== 'worker';
     if (coordinator) {
@@ -115,7 +117,7 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
     const history = chat.apiHistory?.length ? [...clone(chat.apiHistory), { role: 'user', content: user.text || 'See the attached image.' }]
       : chat.messages.filter(m => m.id !== assistantId && (m.text || m.role === 'user')).map(m => ({ role: m.role, content: m.text || 'See the attached image.' }));
     meta.attempts[request.attemptId] = { chatId, assistantId, userId, fingerprint, history, status: 'reserved', driverFinished: false, sequence: 0, runId: null,
-      ...(request.role ? { role: request.role } : {}), contextVersion: chat.contextVersion || 0, goalId: request.goalId || null, taskId: request.taskId || null, coordinatorChatId: request.coordinatorChatId || null };
+      ...(request.role ? { role: request.role } : {}), contextVersion: resolved.chatContext.version, goalId: request.goalId || null, taskId: request.taskId || null, coordinatorChatId: request.coordinatorChatId || null };
     if (!request.goalId) Object.assign(meta.attempts[request.attemptId], { request: clone(request), capturedContext: clone(resolved.scope.context || {}), model: resolved.chat?.model || null, effort: resolved.chat?.effort || null });
     chat.runProvider = request.provider; chat.updatedAt = at;
     write(profileId, ws);

@@ -6,6 +6,7 @@ const path = require('node:path');
 const { captureScope } = require('./providers/run-scope');
 const runRegistry = require('./providers/runs');
 const { createWorkspaceRepository } = require('./workspace-repository');
+const { captureChatContext, assertChatContext } = require('./chat-context');
 
 function createProfileService({ registry, agent = process.platform === 'win32' ? require('./goal-worker-agent').createOwnedWorkerAgent() : require('./agent'), workspaces = createWorkspaceRepository({ registry }),
   settingsFor = store => store.readJson('settings.json', {}), connectionFor = () => ({ enabled: false }), runtimePool = null,
@@ -39,6 +40,7 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
   async function resolve(profileId, chatId, request = {}) {
     const store = registry.storeFor(profileId), ws = workspaces.load(profileId), chat = ws.chats[chatId];
     if (!chat) throw new Error('Conversation is not owned by this profile');
+    const chatContext = captureChatContext(chat);
     const s = structuredClone(settings(profileId));
     let lease = null;
     try {
@@ -47,6 +49,7 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
         if (!runtimePool) throw new Error('Profile runtime support is unavailable');
         lease = await runtimePool.acquire(profileId, { source: local.source, writes: Boolean(s.barkpark.writes), ownerId: request.attemptId || crypto.randomUUID() });
       }
+      assertChatContext(chatContext, workspaces.load(profileId).chats[chatId]);
       const connection = lease?.connection || connectionFor(s, store);
       const provider = chat.provider || s.provider || defaultProvider();
       const seen = chat.sessions?.[provider] ? (chat.sessionSeen?.[provider] || 0) : 0;
@@ -55,7 +58,7 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
         provider: m.role === 'assistant' ? labels[m.provider] || m.provider || undefined : undefined }));
       const scope = captureScope({ profileId, storeDir: store.storeDir, connection,
         context: { profileId, chatId, title: chat.title, folder: chat.folder || null, catchUp } });
-      return { scope, chat: { ...structuredClone(chat), provider }, settings: s,
+      return { scope, chat: { ...structuredClone(chat), provider }, chatContext, settings: s,
         release: async () => { await lease?.release(); } };
     } catch (error) { await lease?.release(); throw error; }
   }

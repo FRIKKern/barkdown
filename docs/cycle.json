@@ -15,10 +15,14 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C033-context-reservation.md",
-  "nextAction": "Fix failed-first7/9 stale-context cases then validate related suites.",
+  "nextAction": "Review and import shared context snapshot guard and test union; final combined visual/root gates pending.",
   "evidence": [
     "docs/cycles/C033-context-reservation.md",
-    "docs/cycles/evidence/C033-before.txt"
+    "docs/cycles/evidence/C033-before.txt",
+    "app/main/chat-context.js",
+    "app/tests/context-reservation.test.mjs",
+    "docs/cycles/evidence/C033-after.txt",
+    "docs/cycles/evidence/C033-goals.txt"
   ],
   "truthReview": "Actual adapter/repository with controlled transport/acquisition; no native runtime claims.",
   "screenshotReview": "No UI grant; final combined gates pending."

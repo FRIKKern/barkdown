@@ -7,6 +7,7 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { createProfileRegistry } = require('../main/profile-registry');
 const { createWorkspaceRepository } = require('../main/workspace-repository');
+const { captureChatContext } = require('../main/chat-context');
 const { createStore } = require('../main/store');
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-workspace-repo-'));
 const registry = createProfileRegistry(path.join(root, 'registry'));
@@ -16,7 +17,7 @@ const view = text => ({ version: 1, chats: { same: { id: 'same', title: text, me
 repo.saveView(a.id, view('A')); repo.saveView(b.id, view('B'));
 const checks = [];
 const request = { profileId: a.id, chatId: 'same', attemptId: crypto.randomUUID(), prompt: 'Work in A', provider: 'api', images: [] };
-const resolved = { scope: { profileId: a.id } };
+const resolved = { scope: { profileId: a.id }, chatContext: captureChatContext(repo.load(a.id).chats.same) };
 const first = repo.begin(request, resolved);
 assert.equal(first.fresh, true); assert.deepEqual(first.history, [{ role: 'user', content: 'Work in A' }]);
 const replay = repo.begin(request, resolved);
@@ -71,7 +72,7 @@ assert(repo.load(a.id).chats.worker);
 repo.stageWorkerChats(goal, [{ chatId: 'worker', title: 'ignored rename' }]);
 assert.equal(repo.load(a.id).chats.worker.title, 'Worker');
 const workerRequest = { ...request, chatId: 'worker', coordinatorChatId: 'same', goalId: goal.id, taskId: crypto.randomUUID(), attemptId: crypto.randomUUID(), prompt: 'Worker task' };
-repo.begin(workerRequest, resolved);
+repo.begin(workerRequest, { ...resolved, chatContext: captureChatContext(repo.load(a.id).chats.worker) });
 assert.equal(repo.finish(workerRequest, { status: 'interrupted', driverFinished: false }).driverFinished, false);
 assert.throws(() => repo.begin({ ...workerRequest, attemptId: crypto.randomUUID() }, resolved), /unfinished/);
 assert.equal(repo.load(a.id).chats.same.draft, 'A old snapshot draft');
@@ -91,7 +92,7 @@ repo.saveView(a.id, view('old resurrect')); assert.equal(repo.load(a.id).chats.s
 checks.push('revision-checked explicit transcript actions and parent deletion preserve children and prevent resurrection');
 
 const contextRequest = { ...request, profileId: b.id, attemptId: crypto.randomUUID() };
-repo.begin(contextRequest, { scope: { profileId: b.id } });
+repo.begin(contextRequest, { scope: { profileId: b.id }, chatContext: captureChatContext(repo.load(b.id).chats.same) });
 const moved = repo.load(b.id); moved.chats.same.folder = '/new-folder';
 repo.saveView(b.id, moved);
 repo.event(contextRequest, { ...event(1, 'done', { session: 'old-folder-session' }), profileId: b.id });

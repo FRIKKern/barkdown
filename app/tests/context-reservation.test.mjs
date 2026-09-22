@@ -15,24 +15,32 @@ function fixture() {
   profiles.workspaces.stageWorkerChats(goal, [{ chatId: 'worker', title: 'Worker', folder: 'C:/captured-A', provider: 'api' }]);
   let ws = profiles.load(owner); ws.chats.worker.draft = 'human worker draft'; profiles.save(owner, ws);
   const request = { profileId: profile.id, chatId: 'worker', attemptId: crypto.randomUUID(), prompt: 'bounded fixture', images: [], provider: 'api', goalId: goal.id, taskId: 'task-1', coordinatorChatId: 'main', context: { folder: 'C:/captured-A', provider: 'api', model: null, effort: null, session: null }, deadline: Date.now() + 60000 };
-  return { profiles, owner, request, agent, unblock: () => unblock(), ready: () => Boolean(unblock), dispatches: () => dispatches, releases: () => releases };
+  return { profiles, owner, request, agent, writeOwned: ws => registry.storeFor(profile.id).writeJson('workspace.json', ws), unblock: () => unblock(), ready: () => Boolean(unblock), dispatches: () => dispatches, releases: () => releases };
 }
-for (const mode of ['ordinary-followup', 'goal-worker']) for (const change of ['folder', 'away-and-back', 'model', 'draft-only']) test(`${mode}: ${change} during runtime acquisition`, async () => {
+for (const mode of ['ordinary-followup', 'goal-worker']) for (const change of ['folder', 'away-and-back', 'model', 'provider', 'session', 'draft-only', 'default-provider']) test(`${mode}: ${change} during runtime acquisition`, async () => {
   const f = fixture(), { profiles, owner, request } = f;
+  const allowed = ['draft-only', 'default-provider'].includes(change);
+  if (change === 'default-provider') { const initial = profiles.load(owner); initial.chats.worker.provider = null; profiles.save(owner, initial); }
   const pending = mode === 'ordinary-followup' ? profiles.start(owner, { chatId: 'worker', prompt: request.prompt, provider: 'api', attemptId: request.attemptId })
     : createGoalProvider({ agent: f.agent, resolve: profiles.resolve, transcripts: profiles.workspaces }).execute(request, { signal: new AbortController().signal, progress() {} });
   assert(f.ready());
   let ws = profiles.load(owner); ws.chats.worker.draft = 'newer human draft';
   if (change === 'folder' || change === 'away-and-back') ws.chats.worker.folder = 'C:/new-B';
   if (change === 'model') ws.chats.worker.model = 'new-model';
+  if (change === 'provider') ws.chats.worker.provider = 'codex';
   profiles.save(owner, ws);
+  if (change === 'session') {
+    // A concurrent owned receipt, not renderer session forgery.
+    const current = profiles.workspaces.load(request.profileId); current.chats.worker.sessions = { api: 'newer-session' };
+    f.writeOwned(current);
+  }
   if (change === 'away-and-back') { ws = profiles.load(owner); ws.chats.worker.folder = 'C:/captured-A'; profiles.save(owner, ws); }
   f.unblock();
-  if (change !== 'draft-only') await assert.rejects(pending, error => error.code === 'BARKDOWN_SEND_NOT_STARTED' && /context changed/i.test(error.message));
+  if (!allowed) await assert.rejects(pending, error => error.code === 'BARKDOWN_SEND_NOT_STARTED' && /context changed/i.test(error.message));
   else { const result = await pending; if (mode === 'ordinary-followup') await profiles.wait(owner, result.runId); }
   await new Promise(resolve => setImmediate(resolve));
   ws = profiles.load(owner); assert.equal(ws.chats.worker.draft, 'newer human draft'); assert.equal(f.releases(), 1);
-  if (change !== 'draft-only') { assert.equal(f.dispatches(), 0); assert.equal(Object.keys(ws.ownership.attempts).length, 0); assert.equal(ws.chats.worker.messages.length, 0); assert.equal(ws.chats.worker.sessions?.api, undefined); }
+  if (!allowed) { assert.equal(f.dispatches(), 0); assert.equal(Object.keys(ws.ownership.attempts).length, 0); assert.equal(ws.chats.worker.messages.length, 0); assert.equal(ws.chats.worker.sessions?.api, change === 'session' ? 'newer-session' : undefined); }
   else { assert.equal(f.dispatches(), 1); assert.equal(ws.chats.worker.sessions.api, 'CAPTURED-A-SESSION'); }
   assert.equal(ws.chats.worker.folder, change === 'folder' ? 'C:/new-B' : 'C:/captured-A');
 });
