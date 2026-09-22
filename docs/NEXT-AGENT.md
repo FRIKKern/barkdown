@@ -1,3 +1,7 @@
+# API Paper parity lane
+
+This isolated worktree follows [E005](cycles/E005-api-paper-parity.md). The inherited combined checkpoint below is historical context.
+
 # Continue the dependable-workspace plan
 
 **Combined candidate:** follow [C008 integration](cycles/C008-integration.md) on `codex/integration-12h`. Source `82cc622` passed the full desktop suite, including startup drafts, saved encrypted credentials after abrupt main death, adoption and three-worker recovery. Fresh37-frame fixtures are approved; actual combined rich Paper proof at `abbbcee` passed and is reviewed. The live status showcase at `8cabf36` passed with a real Codex turn; five stills and all 37 GIF frames were reviewed. Root `npm run verify` session20871 passed. This is the new fully verified combined checkpoint, with unchanged app source `82cc622`. Original C010/C012 closeouts and evidence are preserved separately; P1 is not complete. Do not migrate real user data.

@@ -7,6 +7,7 @@ const files = require('./files');
 const git = require('./git');
 const { docToMarkdown } = require('../shared/markdown');
 const conversations = require('./conversations');
+const barkpark = require('./barkpark');
 
 const providerRuns = require('./providers/runs');
 const { frozenCopy } = require('./providers/run-scope');
@@ -70,6 +71,27 @@ function describeDocument(doc) {
   return [`# ${doc.title}`, `id: ${doc.id} · rev ${doc.rev} · updated ${doc.updatedAt}`, `references: ${(doc.references || []).join(', ') || 'none'} · backlinks: ${(doc.backlinks || []).map(b => b.id).join(', ') || 'none'}`, '', 'Top-level blocks: ' + blocks.join(', '), '', docToMarkdown(doc.content)].join('\n');
 }
 
+const isPaper = id => typeof id === 'string' && id.startsWith('bp:');
+function paperTools(run) {
+  // This immutable connection belongs to the run, never the foreground profile.
+  const config = run.scope.connection;
+  const enabled = Boolean(config.enabled && (config.viaCli || config.server));
+  return {
+    list: () => !enabled ? [] : config.viaCli ? barkpark.cliListPapers(60) : barkpark.listPapers(config, 60),
+    async search(query) {
+      if (!enabled) return [];
+      const found = await (config.viaCli ? barkpark.cliSearch(query) : barkpark.search(config, query));
+      if (found.length) return found;
+      const listed = await this.list(), needle = query.toLowerCase();
+      return listed.filter(d => (d.title + ' ' + d.excerpt).toLowerCase().includes(needle)).map(d => ({ ...d, snippet: d.excerpt }));
+    },
+    get(slug) {
+      if (!enabled) throw new Error('Barkpark is not connected for this conversation run.');
+      return config.viaCli ? barkpark.cliGetPaper(slug) : barkpark.getPaper(config, slug);
+    },
+  };
+}
+
 async function executeTool(run, name, input) {
   const { documents, conversations, edits } = run.scope;
   const { context, emit } = run;
@@ -77,22 +99,34 @@ async function executeTool(run, name, input) {
   switch (name) {
     case 'list_conversations': return JSON.stringify(conversations.listConversations(), null, 1);
     case 'read_conversation': return conversations.readConversation(input.id, { limit: input.limit || 24 }) || `No conversation with id ${input.id}.`;
-    case 'list_documents': return JSON.stringify(documents.list().map(d => ({ id: d.id, title: d.title, excerpt: d.excerpt, rev: d.rev })), null, 1);
-    case 'search_documents': return JSON.stringify(documents.search(input.query).map(d => ({ id: d.id, title: d.title, snippet: d.snippet })), null, 1);
+    case 'list_documents': {
+      const local = documents.list().map(d => ({ id: d.id, title: d.title, excerpt: d.excerpt, rev: d.rev, source: 'local' }));
+      const remote = await paperTools(run).list();
+      return JSON.stringify([...local, ...remote.map(d => ({ ...d, id: 'bp:' + d.id, source: 'barkpark' }))], null, 1);
+    }
+    case 'search_documents': {
+      const local = documents.search(input.query).map(d => ({ id: d.id, title: d.title, snippet: d.snippet, source: 'local' }));
+      const remote = await paperTools(run).search(input.query);
+      return JSON.stringify([...local, ...remote.map(d => ({ ...d, id: 'bp:' + d.id, source: 'barkpark' }))], null, 1);
+    }
     case 'read_document': {
-      const doc = documents.get(input.id);
+      const remote = isPaper(input.id);
+      const doc = remote ? await paperTools(run).get(input.id.slice(3)) : documents.get(input.id);
       if (!doc) return `No document with id ${input.id}. Use list_documents.`;
-      emit({ type: 'activity', target: { kind: 'doc', id: doc.id, title: doc.title }, label: `Opened ${doc.title}`, detail: 'Reading the document' });
-      (run.readRevisions ||= new Map()).set(doc.id, doc.rev);
-      return describeDocument(doc);
+      emit({ type: 'activity', target: { kind: 'doc', id: input.id, title: doc.title }, label: `Opened ${doc.title}`, detail: 'Reading the document' });
+      (run.readRevisions ||= new Map()).set(input.id, doc.rev);
+      (run.readTitles ||= new Map()).set(input.id, doc.title);
+      if (!remote) return describeDocument(doc);
+      const blocks = (doc.blocks || []).map((b, n) => `[${n}] ${b.type}${b.level ? ' h' + b.level : ''}`);
+      return [`# ${doc.title}`, `id: ${input.id} · rev ${doc.rev} · updated ${doc.updatedAt} · Barkpark paper`, '', 'Top-level blocks: ' + blocks.join(', '), '', barkpark.readablePaper(doc)].join('\n');
     }
     case 'edit_document':
     case 'propose_document_edit': {
-      const edit = await edits.apply({ ...input, baseRev: run.readRevisions?.get(input.id) });
+      const edit = await edits.apply({ ...input, baseRev: run.readRevisions?.get(input.id) }, run.scope.connection);
       run.readRevisions.set(input.id, edit.afterRev);
-      const doc = documents.get(input.id);
-      emit({ type: 'activity', target: { kind: 'doc', id: doc.id, title: doc.title }, label: `Edited ${doc.title}`, detail: input.summary, libraryChanged: true, agentEdit: true });
-      return `Saved edit to "${doc.title}" at revision ${edit.afterRev}. Undo is available in the document.`;
+      const title = run.readTitles?.get(input.id) || documents.get(input.id)?.title || input.id;
+      emit({ type: 'activity', target: { kind: 'doc', id: input.id, title }, label: `Edited ${title}`, detail: input.summary, libraryChanged: true, agentEdit: true });
+      return `Saved edit to "${title}" at revision ${edit.afterRev}. Undo is available in the document.`;
     }
     case 'create_document': {
       const doc = documents.create({ title: input.title, markdown: input.markdown, actor: 'agent' });
