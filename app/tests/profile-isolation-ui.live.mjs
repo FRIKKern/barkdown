@@ -84,6 +84,7 @@ try {
   const bMedia = await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror img').first().getAttribute('src'); assert.equal(new URL(bMedia).origin, new URL(bRuntime.media).origin);
   assert.deepEqual(Buffer.from(await (await fetch(bRuntime.media)).arrayBuffer()), fs.readFileSync(path.join(userData, 'B.png')));
   assert.notEqual((await fetch(new URL(new URL(aRuntime.media).pathname, bRuntime.media))).status, 200);
+  assert.equal(await app.evaluate(async () => { const { A, B } = globalThis.isolationConfigs; const response = await fetch(B.server + '/v1/data/search/production?q=cobaltwitness&type=paper', { headers: { authorization: 'Bearer ' + A.token } }); return response.status; }), 401);
   record('Actual app runs A/B concurrently; B same-slug Paper/media/favorites and reading position remain B-owned');
   const mcpEdit = await mcp.callTool({ name: 'edit_document', arguments: { id: 'bp:same-slug', mode: 'append', markdown: 'A background amberwitness edit.', summary: 'Captured A MCP edit while B is selected' } });
   assert.match(JSON.stringify(mcpEdit), /Saved edit/); assert(!mcpEdit.isError);
@@ -101,7 +102,9 @@ try {
   assert.equal(await page.evaluate(() => window.barkdown.docs.agentEdit('bp:same-slug')), null);
   const refused = await page.evaluate(async id => { try { await window.barkdown.docs.undoAgentEdit('bp:same-slug', id); return ''; } catch (e) { return e.message; } }, aReceipt.id); assert.match(refused, /no longer available/);
   await wait(async () => JSON.stringify(await page.evaluate(() => window.barkdown.barkpark.search('cobaltwitness'))).includes('same-slug'), 'B search did not index own paper');
-  assert.doesNotMatch(JSON.stringify(await page.evaluate(() => window.barkdown.barkpark.search('amberwitness'))), /same-slug/);
+  const unmatched = await page.evaluate(() => window.barkdown.barkpark.search('amberwitness'));
+  for (const hit of unmatched) { assert.match(hit.title, /Profile B/); assert.doesNotMatch(JSON.stringify(hit), /Only A|A background|Profile A/); }
+  report.searchLimit = 'Upstream may return B-owned fuzzy fallback hits for unmatched A term; tested owner/content isolation, not exact-match relevance.';
   await shot('03-B-after-A-completion'); record('Late real MCP edit/receipt and separately held API transcript stay A; B draft/context/scroll/search unchanged and A Undo rejected');
   await select(a); await openPaper(); assert.match(await paperText(), /A background amberwitness edit/);
   assert.match(JSON.stringify(await page.evaluate(() => window.__barkdown.state.favorites)), /amberwitness/);
