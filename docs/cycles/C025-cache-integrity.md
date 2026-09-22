@@ -33,3 +33,11 @@ Read-only integration ece4626 missing-reference audit recorded in DRAFT-missing-
 Named C025 UI grant received. First npm test:canvas-cache stopped before Electron: actual-exit child fixture resolved app/main relative to root cwd, so standard app cwd failed module lookup (exit1 rather than17). Corrected fixture to require.resolve relative to its module; product unchanged. An initial correction command used wrong cwd and made no edits, repeating the fixture failure; corrected explicitly from repo root.
 
 Actual consumer fixture b5c5fac/TrBILZ passed and stopped. Image inspection found narrow A and B provenance below the fold, so these original frames remain unapproved. Fixture-only correction scrolls the actual diagnostic into view before capture; product unchanged. Full desktop suite 90165 remains in progress before rerun.
+
+## Evidence closeout checkpoint
+
+Full desktop suite 90165 passed at b5c5fac (same product source e95fcb6). Fixture-only b93f832 corrected narrow framing; actual Electron UnDaEH passed, normal close/stopped. [Consumer evidence](../visual/cache-integrity/README.md): four full stills and all 19 samples at 4fps from two retained WebM files reviewed. Corrupt A never executed, B loaded only its cache, selected B restart without cache used vendor. Earlier TrBILZ framing remains unapproved/preserved.
+
+Deterministic 71099 capture 2026-09-22T04-00-49-160Z passed; all40 stills and40 GIF frames reviewed. Comparison has only Settings not-connected provenance text, no geometry change; explicit approval recorded. Live status80551 against clean a544 private B3FvWn exited0, stopped and postmaster absence confirmed. Five full stills and37 GIF frames inspected. Claude hit weekly limit; fallback to real Codex succeeded (manifest chat.real=true/provider=codex), not a fabricated transcript. App source b93f832 and server provenance retained in status manifest. No unintended clipping or overlap in reviewed views. Root verify66376 passed; no P1/upstream-parity/portability completion claim.
+
+Root verify66376 exited0: generated outputs, local links, status freshness, cycle checks, visual review hashes and all concept/handoff checks passed. C025 bounded outcome complete; C026 still awaits its own actual bridge/UI proof. No merge or deploy.

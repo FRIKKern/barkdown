@@ -1,0 +1,20 @@
+{
+  "sourceCommit": "b5c5fac9f7d1a26360773a6b4745c2c4c3a37a69",
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-cache-ui-TrBILZ",
+  "profiles": {
+    "A": "507f0aaf-9df7-485c-b679-b1f2ee41a0df",
+    "B": "03dc4f90-5e9d-4263-97aa-3f1e42d2f2d1"
+  },
+  "screenshots": [
+    "A-corrupt-fallback.png",
+    "A-corrupt-narrow.png",
+    "B-owned-cache.png",
+    "B-missing-cache-restart.png"
+  ],
+  "passed": [
+    "A corrupted executable rejected; real vendor element defined; explicit wide/narrow diagnostic",
+    "A to B real switch loads only B executable cache",
+    "B selected restart with absent cache uses vendor; A original metadata unchanged"
+  ],
+  "stopped": true
+}

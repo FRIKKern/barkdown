@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C025",
   "stage": "P1",
-  "status": "active",
+  "status": "done",
   "goal": "Reject damaged or foreign editor cache bytes before selecting executable assets.",
   "scope": [
     "Validate metadata, full JS/CSS digests and regular owned paths",
@@ -17,10 +17,13 @@
   ],
   "checkpoint": "2026-09-22",
   "handoff": "docs/cycles/C025-cache-integrity.md",
-  "nextAction": "Implement production resolver tests from preserved failing report; no Electron until named grant.",
+  "nextAction": "Coordinator imports reviewed source/evidence. Continue separately queued C026 actual bridge proof; P1 remains incomplete.",
   "evidence": [
-    "docs/cycles/evidence/C025-cache/before.json"
+    "docs/cycles/evidence/C025-cache/before.json",
+    "docs/visual/cache-integrity/runs/b93f832/review.json",
+    "docs/visual/runs/2026-09-22T04-00-49-160Z/manifest.json",
+    "docs/images/status/manifest.json"
   ],
-  "truthReview": "Read-only reproduction at6796a50; C008 central integration queue unchanged.",
-  "screenshotReview": "Pending source commit and named UI grant."
+  "truthReview": "Cache corruption/repair/isolation passed with original failures retained. Full desktop passed; actual consumer and clean private Paper evidence reviewed. P1 remains incomplete.",
+  "screenshotReview": "Four consumer stills/19 video samples,40 deterministic stills/40 GIF frames and five Paper stills/37 GIF frames actually inspected; no unintended geometry regression."
 }

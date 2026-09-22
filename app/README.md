@@ -71,3 +71,7 @@ Each page contains a still, recorded interaction GIF, provenance and changelog. 
 - [Terminal ownership](../docs/visual/terminal-ownership/README.md): C018 native process proof passed; combined actual UI/evidence closeout pending.
 
 - [Project-buffer preservation](../docs/visual/project-buffers/README.md): actual CodeMirror refusal preserves unsaved text until explicit Save.
+
+### C025 cache integrity
+
+Editor bundle selection now validates metadata, full JS/CSS digests and owned regular paths. Atomic pair publication preserves the previous cache; a verified healthy refetch quarantines owned corruption. [Actual corruption/profile-switch evidence](../docs/visual/cache-integrity/README.md) retains visible fallback provenance and narrow layouts. Hash validation is not upstream equivalence or authenticity.
