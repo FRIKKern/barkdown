@@ -11,17 +11,18 @@ if(command==='check') {
  console.log('Visual evidence hashes, source coverage and agent review are current. External/live coverage limits remain in docs/visual/README.md.');
 } else if(command==='compare') {
  const { PNG }=createRequire(path.join(root,'app/package.json'))('pngjs');
- const {comparePixels}=await import('./visual-diff.mjs');
+ const {comparePixels,pairFrames}=await import('./visual-diff.mjs');
  const candidate='docs/visual/runs/'+read('docs/visual/pending.json').run+'/manifest.json';
  const m=read(candidate);verifyArtifacts(m);const previous=loadApproved();if(previous?.approval.manifest===candidate)throw Error('This candidate is already approved; capture a new run instead of rewriting its review.');const entries=[];
- for(const shot of m.shots){
-  const old=previous?.manifest.shots.find(s=>s.area===shot.area);
-  for(const [index,frame] of shot.frames.entries()){
-   const before=old?.frames[index];let metrics={kind:'new-coverage'};let diff=null;
-   if(before){const a=PNG.sync.read(fs.readFileSync(safe(before.file))),b=PNG.sync.read(fs.readFileSync(safe(frame.file)));const result=comparePixels(a,b);const {diff:bytes,...rest}=result;metrics=rest;
-    if(bytes){diff=path.posix.dirname(candidate)+`/${shot.area}-${index}-diff.png`;fs.writeFileSync(safe(diff),PNG.sync.write({width:b.width,height:b.height,data:bytes}));}
+ const areas=new Set([...m.shots,...(previous?.manifest.shots||[])].map(s=>s.area));
+ for(const area of areas){
+  const shot=m.shots.find(s=>s.area===area),old=previous?.manifest.shots.find(s=>s.area===area);
+  for(const [index,pair] of pairFrames(shot?.frames,old?.frames).entries()){
+   const {before,after:frame,step}=pair;let metrics={kind:frame?'new-coverage':'removed-coverage'};let diff=null;
+   if(before&&frame){const a=PNG.sync.read(fs.readFileSync(safe(before.file))),b=PNG.sync.read(fs.readFileSync(safe(frame.file)));const result=comparePixels(a,b);const {diff:bytes,...rest}=result;metrics=rest;
+    if(bytes){diff=path.posix.dirname(candidate)+`/${area}-${index}-diff.png`;fs.writeFileSync(safe(diff),PNG.sync.write({width:b.width,height:b.height,data:bytes}));}
    }
-   entries.push({area:shot.area,step:frame.step,before:before?.file||null,after:frame.file,diff,metrics,geometryChanged:before?JSON.stringify(before.geometry)!==JSON.stringify(frame.geometry):true});
+   entries.push({area,step,before:before?.file||null,after:frame?.file||null,diff,metrics,geometryChanged:before&&frame?JSON.stringify(before.geometry)!==JSON.stringify(frame.geometry):true});
   }
  }
  const reportPath=path.posix.dirname(candidate)+'/comparison.json';

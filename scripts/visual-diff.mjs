@@ -12,3 +12,17 @@ export function comparePixels(a,b,{tolerance=20,tile=32}={}) {
  const ratio=changed/(a.width*a.height),hotTiles=[...tiles].filter(([,v])=>v.changed/v.pixels>.05).map(([at,v])=>({at,ratio:v.changed/v.pixels}));
  return {kind:ratio===0?'within-tolerance':hotTiles.length||ratio>.001?'review-required':'small-difference',changedRatio:ratio,meanError:error/(a.width*a.height*3),hotTiles,diff};
 }
+// Compare the same semantic step even when a tour adds or removes intermediate views.
+export function pairFrames(current = [], previous = []) {
+ const keyed = frames => {
+  const result = new Map();
+  for (const frame of frames) {
+   if (typeof frame.step !== 'string' || !frame.step || result.has(frame.step)) throw Error('Visual frame steps must be unique nonempty names');
+   result.set(frame.step, frame);
+  }
+  return result;
+ };
+ const after = keyed(current), before = keyed(previous);
+ return [...after].map(([step, frame]) => ({ step, after: frame, before: before.get(step) || null }))
+  .concat([...before].filter(([step]) => !after.has(step)).map(([step, frame]) => ({ step, after: null, before: frame })));
+}
