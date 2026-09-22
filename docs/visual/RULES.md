@@ -2,7 +2,7 @@
 
 ## What triggers review
 
-The [coverage map](coverage.json) currently takes a conservative approach: every app main/renderer/shared change, dependency or Barkpark pin change, or capture/comparison harness change invalidates visual approval. New files count too. This deliberately over-captures rather than guessing that a backend change cannot affect UI. `npm run check:visual` runs in root verification and CI. Capture from the branch being reviewed, with locked dependencies and disposable data.
+The [coverage map](coverage.json) currently takes a conservative approach: every app main/renderer/shared change, dependency or Barkpark pin change, or capture/comparison harness change invalidates visual approval. New files count too. Every top-level `app/tests/*.live.mjs` and every capture helper/fixture under `app/tests/helpers/` or `app/tests/fixtures/` participates automatically, including new journeys; maintain no per-journey allowlist. This deliberately over-captures rather than guessing that a backend change cannot affect UI. `npm run check:visual` runs in root verification and CI. Capture from the branch being reviewed, with locked dependencies and disposable data.
 
 ## Capture → compare → inspect → accept
 

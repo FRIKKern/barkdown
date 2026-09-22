@@ -39,6 +39,21 @@ assert.equal(second.reviewer,'Reviewer two');assert.equal(second.note,'Second ac
 assert.equal(fs.readdirSync(path.join(dir,'docs/visual/reviews')).filter(n=>n.startsWith('approval-')).length,3,'original pointer plus two distinct reviews retained');
 execFileSync(process.execPath,['scripts/visual.mjs','check'],{cwd:dir});
 assert.deepEqual(core.preserveReview(second),second,'identical attestation is idempotent');
+// A future capture fixture must not need a hard-coded selector update.
+const futureLive = 'app/tests/future-owned-journey.live.mjs';
+put(futureLive, '// original live capture');
+assert.ok(core.inputs()[futureLive], 'new live fixture must invalidate capture approval');
+const firstFixtureHash = core.inputs()[futureLive];
+put(futureLive, '// changed live capture');
+assert.notEqual(core.inputs()[futureLive], firstFixtureHash);
+for (const helper of ['app/tests/helpers/new-transport.mjs', 'app/tests/fixtures/new-diagnostics.cjs']) {
+ put(helper, '// capture dependency');
+ assert.ok(core.inputs()[helper], 'capture helper must participate in source fingerprints');
+}
+const staleCapture = spawnSync(process.execPath, ['scripts/visual.mjs', 'check'], { cwd: dir, encoding: 'utf8' });
+assert.notEqual(staleCapture.status, 0);
+assert.match(staleCapture.stderr, /Visual tripwire:.*inputs changed/);
+console.log('Future live fixtures and capture helpers invalidate existing approval.');
 fs.appendFileSync(path.join(dir,second.reviewPath),' ');
 assert.throws(()=>core.preserveReview(second),/attestation changed/,'exclusive file collision must never overwrite mismatched bytes');
 const bad=spawnSync(process.execPath,['scripts/visual.mjs','check'],{cwd:dir,encoding:'utf8'});
