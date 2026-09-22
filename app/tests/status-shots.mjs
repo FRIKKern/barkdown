@@ -137,13 +137,13 @@ await page.keyboard.press('Escape'); await settled(); await frame(1500);
 // source frames in the retained capture directory and pass each real frame delay.
 const gifFramesDir = path.join(userData, 'status-gif-frames');
 fs.mkdirSync(gifFramesDir, { recursive: true });
-const gifArgs = ['-dither', 'FloydSteinberg', '-colors', '256'];
+const gifArgs = [];
 for (const [i, f] of frames.entries()) {
   const file = path.join(gifFramesDir, `${String(i).padStart(3, '0')}.png`);
   fs.writeFileSync(file, PNG.sync.write({ width: f.width, height: f.height, data: f.data }));
   gifArgs.push('-delay', String(Math.max(1, Math.round((i === frames.length - 1 ? 2000 : f.delay) / 10))), file);
 }
-gifArgs.push('-loop', '0', path.join(out, 'editing.gif'));
+gifArgs.push('-dither', 'FloydSteinberg', '-colors', '256', '-loop', '0', path.join(out, 'editing.gif'));
 execFileSync('magick', gifArgs, { stdio: ['ignore', 'pipe', 'pipe'], maxBuffer: 20e6 });
 shots.push({ file: 'editing.gif', caption: 'An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open.' });
 console.log('gif', frames.length, 'frames,', Math.round(fs.statSync(path.join(out, 'editing.gif')).size / 1024), 'KB');
