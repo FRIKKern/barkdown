@@ -29,9 +29,9 @@ state.settings = { barkpark: { writes: true } };
 const tick = () => new Promise(resolve => setTimeout(resolve, 5));
 const deferred = () => { let resolve, reject; const promise = new Promise((a,b) => { resolve=a; reject=b; }); return { promise, resolve, reject }; };
 const paper = (id, rev = 1) => ({ id, slug: id, title: id, rev, blocks: [{ id: id + '-p', type: 'paragraph', content: [{ type: 'text', value: id }] }] });
-const mount = () => {
+const mount = (tabState = {}) => {
   const host = document.createElement('div'); document.body.append(host);
-  const tab = { id: 'test', source: 'barkpark', path: ['A'] };
+  const tab = { id: 'test', source: 'barkpark', path: ['A'], ...tabState };
   const changes = [];
   const controller = mountPaper(tab, host, { tabChanged() {}, libraryChanged() {}, userIsEditing() {}, documentChanged: d => changes.push(d.id) });
   return { host, tab, changes, controller, canvas: () => host.querySelector('bp-paper-canvas'), close() { controller.destroy(); host.remove(); } };
@@ -46,6 +46,23 @@ await test('a cold bundle resolves before committing destination identity or mou
   bundle.resolve({});await tick();
   try {assert.equal(m.canvas().blocks[0].id,'B-p');assert.equal(m.tab.title,'B');} finally {m.close();}
 });
+await test('tab navigation during initial Paper read preserves the saved reading position', async () => {
+  const read = deferred(); transport = { get: () => read.promise };
+  const m = mount({ scroll: 360 });
+  try {
+    await tick(); assert.equal(m.canvas(), null);
+    assert.equal(m.host.querySelector('#current').scrollTop, 0);
+    // Normal focusTab/openTarget/savePositions calls every mounted controller,
+    // including a Paper whose initial read has not returned yet.
+    m.controller.savePosition();
+    assert.equal(m.tab.scroll, 360, 'loading DOM must not replace persisted nonzero position');
+    read.resolve(paper('A')); await tick();
+    assert.equal(m.host.querySelector('#current').scrollTop, 360);
+    m.host.querySelector('#current').scrollTop = 240;
+    m.controller.savePosition(); assert.equal(m.tab.scroll, 240, 'loaded user scrolling still saves');
+  } finally { read.resolve(paper('A')); await tick(); m.close(); }
+});
+
 await test('late initial load cannot replace a newer destination', async () => {
   const a = deferred(); transport = { get: id => id === 'A' ? a.promise : Promise.resolve(paper(id)) };
   const m = mount(); m.tab.path = ['B']; m.controller.navigate(); await tick();
