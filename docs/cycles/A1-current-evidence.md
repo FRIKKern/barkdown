@@ -1,6 +1,6 @@
 # A1 current evidence - 22 September 2026
 
-This is a coordinator checkpoint, not stage approval. The original [A1 requirements](../ACCEPTANCE.md#a1--profile-ownership-and-isolation) remain unchanged. Combined candidate `bde5e23` has new source and original lane evidence; `d8acb82` remains the last fully validated combined fallback. Lane passes do not transfer to a different combined source.
+This is a coordinator checkpoint, not stage approval. The original [A1 requirements](../ACCEPTANCE.md#a1--profile-ownership-and-isolation) remain unchanged. Combined candidate `e3fec49` has new source and original lane evidence; `d8acb82` remains the last fully validated combined fallback. Lane passes do not transfer to a different combined source.
 
 | Requirement | Evidence and remaining action |
 |---|---|

@@ -2,7 +2,7 @@
 
 Active on `codex/integration-12h` in the isolated `barkdown-integration-12h` worktree. No main merge or deployment. This branch is a test candidate, not a completed product milestone.
 
-## Current candidate: bde5e23
+## Current candidate: e3fec49
 
 The candidate includes C021 native rollback checks, C024 project-file authority, C023 bounded Windows atomic writes, C025 verified editor-cache integrity, and C027 immutable visual reviews. It also retains original C020, C022 and E007/E008 evidence without replacing their source identities. Focused checks passed after each import, including the C010 lease-relocation path after the C023 merge.
 
