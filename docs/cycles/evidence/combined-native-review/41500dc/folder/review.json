@@ -1,0 +1,46 @@
+{
+  "source": "41500dc1f282182cbbd0539193376826a3c9475b",
+  "stillsInspected": [
+    "01-main-refusal.png",
+    "02-side-refusal.png",
+    "03-restart-retained-drafts.png"
+  ],
+  "videos": [
+    {
+      "file": "01-refusal-session.webm",
+      "framesInspected": 7,
+      "fps": 2
+    },
+    {
+      "file": "02-restart-session.webm",
+      "framesInspected": 4,
+      "fps": 2
+    }
+  ],
+  "originalManifestArtifactHashesVerified": 10,
+  "originalHashCount": 11,
+  "passed": true,
+  "stopped": true,
+  "finding": "Missing working folder refused in main/side with prompt and chosen folder retained after restart; refusal text wraps.",
+  "limits": "Known missing ordinary Claude/Codex folder only. No provider launched; no API, stat-denied, post-check removal or combined-source acceptance claim.",
+  "reviewLimits": "2fps sample inspection plus all fullsize stills; source-bound bounded journey, no global approval or authenticated provider acceptance. Original media unchanged.",
+  "derivedHashes": {
+    "motion-map.json": "e7bd2da10580db276ec71333a510d2fd70de5ad12dd43e4d47be36816235b530",
+    "original-hashes.json": "26f0d76f1a72f82480ba45aeb9cb67786b184f7207d931cf16304c6349cc26df",
+    "motion-0/001.png": "41e062e419b3c11fb721d47e3a33e80f64b5db2028943aa422d0e7450cefc585",
+    "motion-0/002.png": "daf3bad895fff7f767bf9488601b192cab51a81caefcb9d49fc767862cf14d9a",
+    "motion-0/003.png": "5d4d9df11b3a413000528aed9c927908af3c90023e05fb67dad834d5ddb596d3",
+    "motion-0/004.png": "b256b67a457825aab24bd950fc08c74b8dda3aa5cb929042da29d48e89ded0ed",
+    "motion-0/005.png": "71da3aa831e55c58fc6e2d62753fe40711b1e2df186cc0f79acbd3506eb6cabe",
+    "motion-0/006.png": "aebcc420f4cd504b9f634e7dc6ca63eee7b7f0a338ce968efceea46e71301af8",
+    "motion-0/007.png": "7c36e7d977cca6a5d69986e8c42cc753b779d1fe607bb8e46d27634c4bd2631a",
+    "motion-0/contact-0.png": "eaed5924b24540790068cd47168901dbe8718d81901d21555bfcda8ee2d93287",
+    "motion-0/decode.txt": "d560d43330d44b7e69dc279c9d969256bb6c62b88133d91e2d53d7fbd0e94afd",
+    "motion-1/001.png": "41e062e419b3c11fb721d47e3a33e80f64b5db2028943aa422d0e7450cefc585",
+    "motion-1/002.png": "daf3bad895fff7f767bf9488601b192cab51a81caefcb9d49fc767862cf14d9a",
+    "motion-1/003.png": "b1ecd1939d9b71e9c51d382664cb299831a393364218da3f8d88266041dfdbda",
+    "motion-1/004.png": "e4133e58731d4d8f3f7bc77b0210bdf326505c79febec38bb6a9a3a56e6878f3",
+    "motion-1/contact-0.png": "3999e19a29912c07995a5b5ea5cc28b9c9752579d4579b419742792633f6a987",
+    "motion-1/decode.txt": "2b242ff89d3acc5af4b96e3b07aec909a12c28c65c79818cabfe48b72d1668c8"
+  }
+}
