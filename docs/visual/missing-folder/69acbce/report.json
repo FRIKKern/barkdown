@@ -1,0 +1,304 @@
+{
+  "source": "69acbce9931c90e2f4244acc6be174963efb2102",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-missing-reference-GGgmox",
+  "providers": [
+    "claude",
+    "codex"
+  ],
+  "results": [
+    {
+      "name": "selected B restart preserves exact unavailable folder and draft; same-path A content is not substituted",
+      "passed": true
+    },
+    {
+      "name": "claude actual native missing-folder attempt",
+      "observed": {
+        "chat": {
+          "id": "8e65f0a1-1355-478a-bfa6-97e10c295870",
+          "messages": [
+            {
+              "id": "user-4ddfaa5a-be0a-488d-8613-1f12e23dfde4",
+              "role": "user",
+              "text": "C029 claude: identify only the selected working folder. Do not run tools or change files.",
+              "images": [],
+              "at": "2026-09-22T05:19:20.573Z",
+              "attemptId": "4ddfaa5a-be0a-488d-8613-1f12e23dfde4"
+            },
+            {
+              "id": "assistant-4ddfaa5a-be0a-488d-8613-1f12e23dfde4",
+              "role": "assistant",
+              "text": "",
+              "at": "2026-09-22T05:19:20.573Z",
+              "streaming": false,
+              "tools": [],
+              "events": [],
+              "approvals": [],
+              "attemptId": "4ddfaa5a-be0a-488d-8613-1f12e23dfde4",
+              "runId": "62b47429-37ef-440b-8b1d-e8f7bf165857",
+              "lastSequence": 1,
+              "error": "Claude Code native binary at C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-missing-folder-context\\app\\node_modules\\@anthropic-ai\\claude-agent-sdk-win32-x64\\claude.exe exists but failed to launch. This usually means the binary does not match this system's libc — e.g. spawning a musl-linked binary on a glibc Linux host fails because the musl dynamic loader (/lib/ld-musl-*) is missing. Specify a matching binary with options.pathToClaudeCodeExecutable.",
+              "finishedAt": "2026-09-22T05:19:21.824Z"
+            }
+          ],
+          "events": [],
+          "apiHistory": [],
+          "runId": null,
+          "sessions": {},
+          "sessionSeen": {},
+          "contextVersion": 2,
+          "title": "B unavailable folder",
+          "folder": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-missing-reference-GGgmox\\missing-B",
+          "tabs": [
+            {
+              "id": "488f0884-5911-4bdc-8d25-c74f69374764",
+              "type": "project",
+              "title": "same.txt",
+              "path": [],
+              "url": "",
+              "file": "same.txt",
+              "treeOpen": false,
+              "scroll": 0,
+              "unread": false
+            }
+          ],
+          "active": "488f0884-5911-4bdc-8d25-c74f69374764",
+          "draft": "",
+          "following": true,
+          "editorExpanded": false,
+          "chatScroll": 0,
+          "closedTargets": [],
+          "provider": "claude",
+          "parent": null,
+          "side": false,
+          "createdAt": "2026-09-22T05:19:18.885Z",
+          "updatedAt": "2026-09-22T05:19:21.738Z",
+          "runProvider": "claude",
+          "draftImages": [],
+          "workingLabel": ""
+        },
+        "attempts": {
+          "4ddfaa5a-be0a-488d-8613-1f12e23dfde4": {
+            "chatId": "8e65f0a1-1355-478a-bfa6-97e10c295870",
+            "assistantId": "assistant-4ddfaa5a-be0a-488d-8613-1f12e23dfde4",
+            "userId": "user-4ddfaa5a-be0a-488d-8613-1f12e23dfde4",
+            "fingerprint": "464893a0f60839ba2df70357c3ec22758e6e7de09b46b349e33f54210673330e",
+            "history": [
+              {
+                "role": "user",
+                "content": "C029 claude: identify only the selected working folder. Do not run tools or change files."
+              }
+            ],
+            "status": "failed",
+            "driverFinished": true,
+            "sequence": 1,
+            "runId": "62b47429-37ef-440b-8b1d-e8f7bf165857",
+            "contextVersion": 2,
+            "goalId": null,
+            "taskId": null,
+            "coordinatorChatId": null,
+            "request": {
+              "profileId": "e60573d0-c71a-4ae9-802e-89b28c2ec1a0",
+              "chatId": "8e65f0a1-1355-478a-bfa6-97e10c295870",
+              "attemptId": "4ddfaa5a-be0a-488d-8613-1f12e23dfde4",
+              "prompt": "C029 claude: identify only the selected working folder. Do not run tools or change files.",
+              "images": [],
+              "provider": "claude"
+            },
+            "capturedContext": {
+              "profileId": "e60573d0-c71a-4ae9-802e-89b28c2ec1a0",
+              "chatId": "8e65f0a1-1355-478a-bfa6-97e10c295870",
+              "title": "B unavailable folder",
+              "folder": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-missing-reference-GGgmox\\missing-B",
+              "catchUp": []
+            },
+            "model": null,
+            "effort": null
+          }
+        }
+      }
+    },
+    {
+      "name": "codex actual native missing-folder attempt",
+      "observed": {
+        "chat": {
+          "id": "8e65f0a1-1355-478a-bfa6-97e10c295870",
+          "messages": [
+            {
+              "id": "user-4ddfaa5a-be0a-488d-8613-1f12e23dfde4",
+              "role": "user",
+              "text": "C029 claude: identify only the selected working folder. Do not run tools or change files.",
+              "images": [],
+              "at": "2026-09-22T05:19:20.573Z",
+              "attemptId": "4ddfaa5a-be0a-488d-8613-1f12e23dfde4"
+            },
+            {
+              "id": "assistant-4ddfaa5a-be0a-488d-8613-1f12e23dfde4",
+              "role": "assistant",
+              "text": "",
+              "at": "2026-09-22T05:19:20.573Z",
+              "streaming": false,
+              "tools": [],
+              "events": [],
+              "approvals": [],
+              "attemptId": "4ddfaa5a-be0a-488d-8613-1f12e23dfde4",
+              "runId": "62b47429-37ef-440b-8b1d-e8f7bf165857",
+              "lastSequence": 1,
+              "error": "Claude Code native binary at C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-missing-folder-context\\app\\node_modules\\@anthropic-ai\\claude-agent-sdk-win32-x64\\claude.exe exists but failed to launch. This usually means the binary does not match this system's libc — e.g. spawning a musl-linked binary on a glibc Linux host fails because the musl dynamic loader (/lib/ld-musl-*) is missing. Specify a matching binary with options.pathToClaudeCodeExecutable.",
+              "finishedAt": "2026-09-22T05:19:21.824Z"
+            },
+            {
+              "id": "user-8bfb3562-992f-49d5-87ce-12af0741f1bb",
+              "role": "user",
+              "text": "C029 codex: identify only the selected working folder. Do not run tools or change files.",
+              "images": [],
+              "at": "2026-09-22T05:19:22.256Z",
+              "attemptId": "8bfb3562-992f-49d5-87ce-12af0741f1bb"
+            },
+            {
+              "id": "assistant-8bfb3562-992f-49d5-87ce-12af0741f1bb",
+              "role": "assistant",
+              "text": "",
+              "at": "2026-09-22T05:19:22.256Z",
+              "streaming": false,
+              "tools": [],
+              "events": [],
+              "approvals": [],
+              "attemptId": "8bfb3562-992f-49d5-87ce-12af0741f1bb",
+              "runId": "2eb4ccd7-a81f-42b6-a51a-00ea9762a547",
+              "lastSequence": 1,
+              "error": "Codex Exec exited with code 1: Error: The system cannot find the file specified. (os error 2)\n",
+              "finishedAt": "2026-09-22T05:19:23.942Z"
+            }
+          ],
+          "events": [],
+          "apiHistory": [],
+          "runId": null,
+          "sessions": {},
+          "sessionSeen": {},
+          "contextVersion": 3,
+          "title": "B unavailable folder",
+          "folder": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-missing-reference-GGgmox\\missing-B",
+          "tabs": [
+            {
+              "id": "488f0884-5911-4bdc-8d25-c74f69374764",
+              "type": "project",
+              "title": "same.txt",
+              "path": [],
+              "url": "",
+              "file": "same.txt",
+              "treeOpen": false,
+              "scroll": 0,
+              "unread": false
+            }
+          ],
+          "active": "488f0884-5911-4bdc-8d25-c74f69374764",
+          "draft": "",
+          "following": true,
+          "editorExpanded": false,
+          "chatScroll": 0,
+          "closedTargets": [],
+          "provider": "codex",
+          "parent": null,
+          "side": false,
+          "createdAt": "2026-09-22T05:19:18.885Z",
+          "updatedAt": "2026-09-22T05:19:23.864Z",
+          "runProvider": "codex",
+          "draftImages": [],
+          "workingLabel": ""
+        },
+        "attempts": {
+          "4ddfaa5a-be0a-488d-8613-1f12e23dfde4": {
+            "chatId": "8e65f0a1-1355-478a-bfa6-97e10c295870",
+            "assistantId": "assistant-4ddfaa5a-be0a-488d-8613-1f12e23dfde4",
+            "userId": "user-4ddfaa5a-be0a-488d-8613-1f12e23dfde4",
+            "fingerprint": "464893a0f60839ba2df70357c3ec22758e6e7de09b46b349e33f54210673330e",
+            "history": [
+              {
+                "role": "user",
+                "content": "C029 claude: identify only the selected working folder. Do not run tools or change files."
+              }
+            ],
+            "status": "failed",
+            "driverFinished": true,
+            "sequence": 1,
+            "runId": "62b47429-37ef-440b-8b1d-e8f7bf165857",
+            "contextVersion": 2,
+            "goalId": null,
+            "taskId": null,
+            "coordinatorChatId": null,
+            "request": {
+              "profileId": "e60573d0-c71a-4ae9-802e-89b28c2ec1a0",
+              "chatId": "8e65f0a1-1355-478a-bfa6-97e10c295870",
+              "attemptId": "4ddfaa5a-be0a-488d-8613-1f12e23dfde4",
+              "prompt": "C029 claude: identify only the selected working folder. Do not run tools or change files.",
+              "images": [],
+              "provider": "claude"
+            },
+            "capturedContext": {
+              "profileId": "e60573d0-c71a-4ae9-802e-89b28c2ec1a0",
+              "chatId": "8e65f0a1-1355-478a-bfa6-97e10c295870",
+              "title": "B unavailable folder",
+              "folder": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-missing-reference-GGgmox\\missing-B",
+              "catchUp": []
+            },
+            "model": null,
+            "effort": null
+          },
+          "8bfb3562-992f-49d5-87ce-12af0741f1bb": {
+            "chatId": "8e65f0a1-1355-478a-bfa6-97e10c295870",
+            "assistantId": "assistant-8bfb3562-992f-49d5-87ce-12af0741f1bb",
+            "userId": "user-8bfb3562-992f-49d5-87ce-12af0741f1bb",
+            "fingerprint": "d3dd4743d33d11fc5cc36f89d0afd60812e11800825f3e61315f9748f40d2bb5",
+            "history": [
+              {
+                "role": "user",
+                "content": "C029 claude: identify only the selected working folder. Do not run tools or change files."
+              },
+              {
+                "role": "user",
+                "content": "C029 codex: identify only the selected working folder. Do not run tools or change files."
+              }
+            ],
+            "status": "failed",
+            "driverFinished": true,
+            "sequence": 1,
+            "runId": "2eb4ccd7-a81f-42b6-a51a-00ea9762a547",
+            "contextVersion": 3,
+            "goalId": null,
+            "taskId": null,
+            "coordinatorChatId": null,
+            "request": {
+              "profileId": "e60573d0-c71a-4ae9-802e-89b28c2ec1a0",
+              "chatId": "8e65f0a1-1355-478a-bfa6-97e10c295870",
+              "attemptId": "8bfb3562-992f-49d5-87ce-12af0741f1bb",
+              "prompt": "C029 codex: identify only the selected working folder. Do not run tools or change files.",
+              "images": [],
+              "provider": "codex"
+            },
+            "capturedContext": {
+              "profileId": "e60573d0-c71a-4ae9-802e-89b28c2ec1a0",
+              "chatId": "8e65f0a1-1355-478a-bfa6-97e10c295870",
+              "title": "B unavailable folder",
+              "folder": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-missing-reference-GGgmox\\missing-B",
+              "catchUp": [
+                {
+                  "role": "user",
+                  "text": "C029 claude: identify only the selected working folder. Do not run tools or change files."
+                }
+              ]
+            },
+            "model": null,
+            "effort": null
+          }
+        }
+      }
+    }
+  ],
+  "frames": [
+    "01-selected-B-unavailable-after-restart.png",
+    "02-claude-native-failure.png",
+    "02-codex-native-failure.png"
+  ],
+  "passed": true,
+  "stopped": true
+}

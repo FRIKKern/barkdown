@@ -1,0 +1,20 @@
+{
+  "source": "69acbce9931c90e2f4244acc6be174963efb2102",
+  "manifestHash": "ae5856e3cd4358e8cd63dadd5acf8e76e5790086f31386ea1bef0a58eaf8a91f",
+  "reviewer": "Codex current_cycle",
+  "inspected": {
+    "01-selected-B-unavailable-after-restart.png": "2a5be0864baa91c9f7f3f22f1b63b82bb6c14e4a2fc4fcb1beb33baaa148a9ad",
+    "02-claude-native-failure.png": "4302bae8f62e184c36666c33abc64a3878bc8ea89a9678615a5732bf08480a70",
+    "02-codex-native-failure.png": "0a9c314e86148ee89704b35b547e51073a15402ee742f79ef551df9e7709bdc2",
+    "4ddfaa5a-be0a-488d-8613-1f12e23dfde4.receipt.json": "7b1ee04b1493dc6037002db387eb44840fb438691b0dfe377cf6c0ee91b2e921",
+    "8bfb3562-992f-49d5-87ce-12af0741f1bb.receipt.json": "b91696dc10c39b586f75851b3370425246a80797dd37e5dca34fda4e93078250",
+    "report.json": "ce7a016198dab8089575f6e35bc7bc541620ca3e45dd632d1071f56e6a8ecec3"
+  },
+  "result": "Accepted as exact observed missing-reference/failure evidence, not successful provider reasoning",
+  "notes": [
+    "All three stills inspected full size: B draft/folder and explicit unavailable file; original prompts and distinct native errors readable.",
+    "Claude SDK emits misleading libc/binary diagnostic on Windows. Retained as limitation, not rewritten. Codex reports OS error2.",
+    "Both attempts durably failed, driverFinished=true and stopped native Job receipts activeProcesses0.",
+    "Two earlier fixture setup failures remain retained; no production defect claim."
+  ]
+}
