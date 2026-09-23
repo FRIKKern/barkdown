@@ -50,7 +50,8 @@ No-folder conversations remain valid. A folder selected in the composer never sc
 | `main/main.js`, `preload.js` | Native window, settings and IPC boundary |
 | `main/profile-registry.js`, `profile-service.js`, `workspace-repository.js` | Main-owned profile identity, workspace persistence and captured conversation context |
 | `main/store.js`, `documents.js`, `conversations.js` | Bound local stores, document revisions and conversation reads; legacy data remains until explicit adoption |
-| `main/migration-preflight.js` | Offline P2 inventory, structural refusals, exact backups and restartable preparation; no UI wiring, server writes or authority switch |
+| `main/migration-preflight.js` | Offline P2 inventory, structural refusals, exact backups and restartable preparation |
+| `main/migration-staging.js` | Durable intent, insert-only Paper staging and exact readback/restart reconciliation; no UI wiring or authority switch |
 | `main/local-barkpark*` | Private runtime lifecycle and Windows source bootstrap |
 | `main/barkpark.js`, `canvas-bundle.js`, `agent-edits.js` | Barkpark adapter, editor delivery and edit receipts |
 | `main/providers/`, `agent.js`, `mcp-server.js` | Provider orchestration and document tools |
@@ -62,7 +63,7 @@ The canvas loads from the connected Barkpark, with cached and vendored fallback.
 
 ## Remaining work
 
-P1–P5 deliver profile isolation, migration to one editor, interruption recovery and portability, optional sync, and clean-machine installation. Unsaved project buffers are still session memory. The Windows runtime still requires a source checkout. Original native checks cover bounded profile isolation and process-death recovery; C035 additionally proves the unpacked Electron38 application’s terminal ownership. Clean-machine installation, bundled Barkpark, other platforms, whole-profile portability and sync remain unproved. These results do not complete P1 or P5.
+P1–P5 deliver profile isolation, migration to one editor, interruption recovery and portability, optional sync, and clean-machine installation. Unsaved project buffers are still session memory. The Windows runtime still requires a source checkout. Original native checks cover bounded profile isolation and process-death recovery; C035 additionally proves the unpacked Electron38 application’s terminal ownership. Clean-machine installation, bundled Barkpark, other platforms, whole-profile portability and sync remain unproved. P1 is accepted at C039; P2–P5 remain unfinished.
 
 Use [the local-runtime guide](../docs/LOCAL-BARKPARK.md) for setup and [the acceptance scenarios](../docs/ACCEPTANCE.md) to decide when a stage is complete. The prototype uses direct provider adapters; no T3 runtime import is claimed.
 

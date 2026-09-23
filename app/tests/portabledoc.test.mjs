@@ -102,3 +102,14 @@ for (const table of [
 }
 strict.equal(pd.markdownToBlocks('```text\n- Parent\n  - Child\n```')[0].type,'code','strict nested-list check ignores fenced source');
 console.log('Unsupported nested source and unrepresentable export are blocked; structured reads and snippets remain usable.');
+
+// Paper's native code shape is lang; retain read compatibility for older data.
+const nativeCode = pd.pmDocToBlocks({type:'doc',content:[{type:'codeBlock',attrs:{language:'js'},content:[{type:'text',text:'const n = 1;\n'}]}]})[0];
+assert(nativeCode.lang === 'js' && !Object.hasOwn(nativeCode, 'language'), 'code language uses the actual Paper field');
+assert(nativeCode.value === 'const n = 1;\n', 'code trailing newline retained');
+const plainCode = pd.pmDocToBlocks({type:'doc',content:[{type:'codeBlock',attrs:{language:''},content:[{type:'text',text:'plain'}]}]})[0];
+assert(!Object.hasOwn(plainCode, 'lang') && !Object.hasOwn(plainCode, 'language'), 'empty code language has no carrier');
+assert(pd.blocksToMarkdown([{type:'code',lang:'js',value:'run();'}]) === '```js\nrun();\n```', 'native language exported');
+assert(pd.blocksToMarkdown([{type:'code',language:'js',value:'run();'}]) === '```js\nrun();\n```', 'legacy language remains readable');
+assert(pd.blocksToMarkdown([{type:'code',lang:'',language:'old',value:'run();'}]) === '```\nrun();\n```', 'explicit native empty language takes precedence');
+console.log('Native Paper code language, empty language, trailing newline and legacy export compatibility passed.');

@@ -97,7 +97,9 @@ function pmDocToBlocks(doc) {
         blocks.push({ type: 'list', ordered: node.type === 'orderedList', ...(node.type === 'taskList' ? { task: true } : {}), items: (node.content || []).map(item => { if ((item.content || []).length !== 1 || item.content[0].type !== 'paragraph') throw new Error('Cannot convert nested or multi-paragraph list item'); const inline = pmInlineToPd(item.content[0].content); return node.type === 'taskList' ? { content: inline, checked: item.attrs?.checked === true } : inline; }) });
         break;
       case 'blockquote': blocks.push({ type: 'callout', tone: 'note', content: paragraphContent(node.content, 'blockquote') }); break;
-      case 'codeBlock': blocks.push({ type: 'code', language: node.attrs?.language || '', value: (node.content || []).map(t => t.text || '').join('') }); break;
+      // Paper's code node and ops contract use `lang`, not `language`.
+      // Omit an empty language just as the native editor does on save.
+      case 'codeBlock': blocks.push({ type: 'code', ...(node.attrs?.language ? { lang: node.attrs.language } : {}), value: (node.content || []).map(t => t.text || '').join('') }); break;
       case 'horizontalRule': blocks.push({ type: 'divider' }); break;
       default: throw new Error('Cannot convert block: ' + node.type);
     }
@@ -140,7 +142,7 @@ function blocksToMarkdown(blocks) {
       case 'paragraph': return pdInlineToMarkdown(inlineOf(block));
       case 'list': return (block.items || []).map((item, n) => (block.task ? (item && item.checked === true ? '- [x] ' : '- [ ] ') : block.ordered ? `${n + 1}. ` : '- ') + pdInlineToMarkdown(Array.isArray(item) ? item : typeof item === 'string' ? [{ type: 'text', value: item }] : inlineOf(item || {}))).join('\n');
       case 'callout': case 'note': return '> ' + (block.title ? '**' + block.title + '** ' : '') + pdInlineToMarkdown(inlineOf(block));
-      case 'code': return '```' + (block.language || '') + '\n' + (block.value || block.code || '') + '\n```';
+      case 'code': return '```' + (block.lang ?? block.language ?? '') + '\n' + (block.value || block.code || '') + '\n```';
       case 'divider': return '---';
       case 'eyebrow': case 'byline': case 'ingress': case 'pullquote': return pdInlineToMarkdown(inlineOf(block)) || (Array.isArray(block.items) ? block.items.join(' · ') : '');
       case 'table': {

@@ -1,11 +1,11 @@
 {
   "version": 1,
   "purpose": "Synthetic preparation only; no Paper writes, save/reload, migration, retry or rollback was executed.",
-  "sourceCommit": "ab9ce678b7e2565cb1cbe76d8c73e11ac45c56a7",
+  "sourceCommit": "215a002021b3cbfc971e82c520f20a554c6f0f67",
   "inputs": {
-    "docs/migration/corpus.mjs": "6664efc0e5e65dd441867f8c1093a076596bec2ecb212df811f499dbc8fe491b",
+    "docs/migration/corpus.mjs": "7b209281fe6e02e1de01ff34dd9dc3308f09f7940be093f572373f3ef347a7c3",
     "docs/migration/audit.mjs": "4fb0ac6fedb30be5ef3741b1a6cc95265e6cbe29932db776be61e28aec1586fb",
-    "app/shared/portabledoc.js": "cb638ad3def74541c5955c2f4fbfa0d9a0ff400ab8809cf55935f0de0e0d42e7"
+    "app/shared/portabledoc.js": "9690d0f3871595ae2f7206d114ce214bc41330e9054cb4c3c33a44f77d5c0be1"
   },
   "summary": {
     "representation-preserved": 10,
@@ -361,13 +361,13 @@
       "blocks": [
         {
           "type": "code",
-          "language": "js",
+          "lang": "js",
           "value": "const value = 1;\n"
         }
       ],
-      "outputHash": "3c637057329f5434efb4b35fbce4396f3c4ff7211174c478091cbc46b32550f4",
+      "outputHash": "b176b3e1e8d5459539d85b84a1adb813e78f011a39347a06007525dbe692f9f3",
       "concerns": [],
-      "note": "Language and trailing newline retained."
+      "note": "Paper uses lang; C046 found and corrected the old language carrier. Trailing newline remains intact."
     },
     {
       "id": "table-header-align",
