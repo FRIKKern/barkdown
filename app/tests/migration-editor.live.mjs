@@ -132,7 +132,10 @@ try {
     if (block.type === 'code') {
       const area = canvas().locator('.bp-canvas-code-area'); await area.click(); await area.evaluate(el => el.setSelectionRange(1, 1));
     } else {
-      await canvas().evaluate((c, needle) => { const e = c._editor; let at; e.state.doc.descendants((node, pos) => { if (at === undefined && node.isText && node.text.includes(needle)) at = pos + node.text.indexOf(needle) + 1; }); if (at === undefined) throw Error('Missing editable corpus text: ' + needle); e.view.focus(); e.commands.setTextSelection(at); }, needle);
+      // Literal LF may already be projected as a hardBreak after another native
+      // DOM edit. Locate its first line; saved expectations still cover every
+      // original character, mark and exact Undo carrier.
+      await canvas().evaluate((c, needle) => { const e = c._editor; let at; e.state.doc.descendants((node, pos) => { if (at === undefined && node.isText && node.text.includes(needle)) at = pos + node.text.indexOf(needle) + 1; }); if (at === undefined) throw Error('Missing editable corpus text: ' + needle); e.view.focus(); e.commands.setTextSelection(at); }, needle.split('\n')[0]);
       await page.waitForFunction(() => document.activeElement === document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.view.dom);
     }
     await page.keyboard.type('X');
