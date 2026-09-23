@@ -1,0 +1,30 @@
+{
+  "reviewer": "Codex Paper polish review",
+  "reviewedAt": "2026-09-23T00:20:07.547Z",
+  "sourceCommit": "0b2501491eac103677082b7b9489ef7c96f83eb1",
+  "barkparkCommit": "bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f",
+  "manifestSha256": "8605c4814f61844ab6bb7cf9996a74697b453ea7fe7fb8d4d632027a29281a1c",
+  "artifacts": {
+    "paper-light.1c1f1f10.png": "897e7fb8ab16b0cc53fb85dc61080313702946b04f6e06cd8fb391937255185a",
+    "paper-dark.3f197809.png": "a545ccdc995b3e8dff281f192ffdcba08b0ac2bf2b19cc552fcde87c2c2c1778",
+    "slash-menu.c39a6288.png": "8332ab6595210e8e4529416388f452444d128641ebb0510073500d675497d6a5",
+    "quick-open.59d5aaa8.png": "b00f3bd2f59d5e627790351ee951bbac244e2f73f7210540f10754500bb9a5ac",
+    "settings-barkpark.c30e8467.png": "54440357c3f7a7379efc5c89d6885b41ac10b6088f6b1a0a45edae5913a27e15",
+    "editing.44c0c473.gif": "48c0ea45c688ac461c8266e0ae3d4138be2f4bdf0cca81c2f9377f4b029c3bf3"
+  },
+  "inspected": {
+    "stills": 5,
+    "decodedGifFrames": 37
+  },
+  "result": "approved",
+  "findings": [
+    "Reduced heading scale and section spacing; rule removed; table fits content without empty trailing band.",
+    "Code input remains transparent over aligned highlighted text.",
+    "Light/dark menus and real editing motion reviewed; real Codex turn completed."
+  ],
+  "limits": [
+    "Narrow Paper behavior still requires the dedicated host check.",
+    "Fixture tours remain separate from live evidence."
+  ],
+  "cleanup": "Isolated runtime 143Lz9 stopped; CLI configuration unchanged."
+}
