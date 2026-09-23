@@ -17,7 +17,7 @@ const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-stage-live-'))
 const profileId = crypto.randomUUID(), sourceDir = path.join(temporary, profileId), destinationDir = path.join(temporary, 'backup');
 fs.mkdirSync(path.join(sourceDir, 'documents'), { recursive: true });
 const safe = cases.filter(sample => inspectContent(sample.source).length === 0);
-assert.equal(safe.length, 10);
+assert.equal(safe.length, 9);
 const source = { id: 'corpus', title: 'Structured migration rehearsal preserves the audited note corpus', rev: 4, content: { type: 'doc', content: safe.flatMap(sample => sample.source.content) }, revisions: [{ rev: 1, title: 'Retained history' }], proposals: [{ id: 'retained-proposal' }] };
 const sourceBytes = JSON.stringify(source, null, 2) + '\n';
 fs.writeFileSync(path.join(sourceDir, 'documents/corpus.json'), sourceBytes);

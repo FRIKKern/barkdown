@@ -13,13 +13,16 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 function inspectContent(content) {
   const issues = [];
   const issue = (at, reason) => issues.push({ path: at, reason });
-  function walk(node, at) {
+  function walk(node, at, parentType) {
     if (!node || typeof node !== 'object' || Array.isArray(node)) { issue(at, 'Invalid node'); return; }
     const known = ['doc', 'paragraph', 'text', 'hardBreak', 'heading', 'codeBlock', 'bulletList', 'orderedList', 'listItem', 'taskList', 'taskItem', 'table', 'tableRow', 'tableHeader', 'tableCell', 'horizontalRule'];
     if (!known.includes(node.type)) issue(at, 'Unsupported block or inline type: ' + node.type);
     for (const key of Object.keys(node)) if (!['type', 'content', 'text', 'marks', 'attrs'].includes(key)) issue(at + '.' + key, 'Unknown structural field');
     if (node.text !== undefined && (node.type !== 'text' || typeof node.text !== 'string')) issue(at + '.text', 'Invalid text carrier');
     if (node.type === 'text' && typeof node.text !== 'string') issue(at, 'Text must be a string');
+    // C046: native DOM input reparses embedded newlines as hardBreak nodes,
+    // which Paper refuses to serialize. Representation alone is insufficient.
+    if (node.type === 'hardBreak' || (node.type === 'text' && parentType !== 'codeBlock' && /[\r\n]/.test(node.text || ''))) issue(at, 'Inline line breaks are not safely editable in Paper yet; retain the source');
     if (node.attrs != null && (typeof node.attrs !== 'object' || Array.isArray(node.attrs))) issue(at + '.attrs', 'Invalid attributes');
     const attrs = node.attrs || {};
     if (typeof attrs !== 'object' || Array.isArray(attrs)) issue(at + '.attrs', 'Invalid attributes');
@@ -53,7 +56,7 @@ function inspectContent(content) {
     for (const [i, child] of (Array.isArray(node.content) ? node.content : []).entries()) {
       if (!children.includes(child?.type)) issue(at + '.content[' + i + ']', 'Unsupported child structure');
       if (['heading', 'codeBlock'].includes(node.type) && (child?.marks?.length || child?.type !== 'text')) issue(at, 'Heading/code inline structure is not preserved');
-      walk(child, at + '.content[' + i + ']');
+      walk(child, at + '.content[' + i + ']', node.type);
     }
   }
   if (content?.type !== 'doc' || !Array.isArray(content?.content)) issue('$', 'Expected a document with content');
