@@ -4,7 +4,7 @@ C039/P1 is accepted for the Windows source prototype at source `27ea120`, with e
 
 ## Current work
 
-C044 is active on `codex/p2-migration`: [safe Paper creation](cycles/C044-paper-create-contract.md). C043's offline preparation is complete and pushed through `dfee78b`, not merged. The user authorized automatic work through at least 2026-09-23 21:43:38 UTC; inspect the existing goal/heartbeat instead of duplicating them. Test concurrent creation, pre-existing published/draft IDs and lost acknowledgement against an owned disposable runtime before allowing migration writes. No real-library migration or authority switch. Full desktop/root checks and reviewed C043 evidence remain the starting baseline.
+C044 is complete on `codex/p2-migration`: [safe Paper creation](cycles/C044-paper-create-contract.md). Upstream route is pushed in draft PR #20020 on `codex/paper-create-only`; 63 controller tests and real collision/concurrency/lost-response tests pass. Root verification and fresh visual review pass. Next: archive C044 and implement C045 durable staging and reconciliation. The user authorized automatic work through at least 2026-09-23 21:43:38 UTC; inspect the existing goal/heartbeat instead of duplicating them. No real-library migration, authority switch, merge or deployment.
 
 ## Evidence and limits
 

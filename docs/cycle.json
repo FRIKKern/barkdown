@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C044",
   "stage": "P2",
-  "status": "active",
+  "status": "done",
   "goal": "Establish and test a non-overwriting Paper creation contract and explicit lost-response reconciliation for migration.",
   "scope": [
     "Probe real generic and Paper API creation in an owned disposable runtime",
@@ -18,10 +18,12 @@
   ],
   "checkpoint": "2026-09-23",
   "handoff": "docs/cycles/C044-paper-create-contract.md",
-  "nextAction": "Build a disposable-runtime contract probe; reproduce collision and replay semantics before selecting an adapter.",
+  "nextAction": "Archive C044 and plan C045 durable staging and uncertain-write reconciliation; continue the existing two-hour run.",
   "evidence": [
-    "docs/cycles/C044-paper-create-contract.md"
+    "docs/cycles/C044-paper-create-contract.md",
+    "docs/cycles/evidence/C044/results.json",
+    "docs/cycles/evidence/C044/create-contract-1790193904428.json"
   ],
-  "truthReview": "",
-  "screenshotReview": ""
+  "truthReview": "Reviewed entry points and migration contract; P2 and G1/G2 remain unfinished; upstream PR #20020 is stacked and unmerged.",
+  "screenshotReview": "Five live stills, 37 live GIF frames, 40 deterministic frames and eight fixture GIF sequences inspected; no new visual regressions; explicit approval retained."
 }

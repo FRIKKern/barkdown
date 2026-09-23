@@ -2,14 +2,15 @@
 
 A real saved side conversation and its independent composer, using disposable fixture state.
 
-![Current view](../runs/2026-09-23T19-35-02-755Z/side-chat-3.png)
+![Current view](../runs/2026-09-23T20-09-10-716Z/side-chat-3.png)
 
-![Recorded interaction](../runs/2026-09-23T19-35-02-755Z/side-chat.gif)
+![Recorded interaction](../runs/2026-09-23T20-09-10-716Z/side-chat.gif)
 
-[Full comparison](../runs/2026-09-23T19-35-02-755Z/README.md) · [Capture manifest](../runs/2026-09-23T19-35-02-755Z/manifest.json)
+[Full comparison](../runs/2026-09-23T20-09-10-716Z/README.md) · [Capture manifest](../runs/2026-09-23T20-09-10-716Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-23T20:13:37.606Z: Inspected all 40 fixture frames and eight decoded GIF sequences, including narrow goals/profiles/recovery. Zero pixel or geometry changes; no clipping or missing controls introduced. Separate live Paper review inspected five stills and 37 GIF frames with a real Claude edit and saved revision. Creation proof comes from real collision/concurrency/lost-response tests, not these fixture tours. Source b1cd732e7; [review](../reviews/approval-859308019d745381a698c4a3f5f420b56bf52fa4d6db8212dc76e7e2bcf760be.json) - [comparison](../runs/2026-09-23T20-09-10-716Z/comparison.json).
 - 2026-09-23T19:38:39.829Z: Inspected all 40 stills and decoded frames from eight fixture GIFs at f109601: zero pixel, geometry or environment differences; narrow layouts and controls remain intact. Six offline migration integration tests pass. Separate live Paper capture passed with a real Claude turn; five stills and all 37 motion frames reviewed. No UI migration, cutover or portability claim. Source f109601fa; [review](../reviews/approval-f48839bc4c0f82b34a76d0777813d9190d7233b063794b7f61d6e2f6485cdd8b.json) - [comparison](../runs/2026-09-23T19-35-02-755Z/comparison.json).
 - 2026-09-23T09:45:36.441Z: Reviewed changed Assistant Settings still and all four decoded Settings GIF frames: checked login state replaces idle controls, lower cards remain scrollable. Other 39 stills and seven GIFs byte-identical to reviewed 2026-09-23T09-06-36-021Z baseline. Also inspected five live Paper stills/all 37 decoded frames and ten login stills/19 decoded motion frames. Native login and goal UI checks pass; frozen-source full desktop still running. Controlled login transport is not real browser account login; live Paper has actual Codex completion. No new clipping or geometry regression. Source 27ea120dd; [review](../reviews/approval-615d3ff9bae41fc03b2bbd11f952e159d525257d768cc4cd9ca423275b18b088.json) - [comparison](../runs/2026-09-23T09-42-11-954Z/comparison.json).
 - 2026-09-23T09:08:42.607Z: App source 1c94f8d, capture head e2a4723 with coverage/README checkpoint. Reviewed 40 stills and 40 decoded GIF frames: 33 final stills and all GIFs byte-identical to the inspected 08-58-53 candidate; separately inspected the seven changed final stills. Same environment; only expected Assistant Settings controls differ from approved baseline (3.316% pixels). Native login gallery has nine inspected stills, goal dialog opening frame and 17 video samples; draft/image preservation and explicit retry passed. Full desktop passes, plus focused authentication and six native A/B worker credential transports. Isolated live Paper capture e2a4723 passed with a real Codex turn after Claude quota refusal; five stills/all 37 GIF frames inspected, private runtime stopped. No seeded transcript. POSIX/package smoke and initial keyring-only selection remain limitations; C039/P1 not closed. Source e2a47238b; [review](../reviews/approval-7f7918de91c0840cb477dd7c414d2297f6dccf582c54100a08b3c771e056c83b.json) - [comparison](../runs/2026-09-23T09-06-36-021Z/comparison.json).

@@ -1,0 +1,42 @@
+{
+  "recordedAt": "2026-09-23T20:17:12.285Z",
+  "barkdownSource": "b1cd732e705413e910abd42690bd99c80cba5e72",
+  "barkparkImplementation": "15bfe254aa1c55dbcdfd12a6a64b609800f5178c",
+  "barkparkReviewTip": "844ecd321",
+  "upstreamPR": "https://github.com/FRIKKern/barkpark/pull/20020",
+  "controllerTests": {
+    "passed": 63,
+    "failed": 0,
+    "privatePostgres": true
+  },
+  "rootVerify": "passed",
+  "logsEncoding": "UTF-8; CRLF normalized to LF, matching committed Git blobs",
+  "artifacts": [
+    {
+      "file": "docs/cycles/evidence/C044/controller-tests.txt",
+      "sha256": "c17ed5a08246fd2adf929b2070d6bd23333e7a3df9f65807f393dce1b8298b38"
+    },
+    {
+      "file": "docs/cycles/evidence/C044/verify.txt",
+      "sha256": "2f718d11639e7eb2e0049f31add0401c40d4661e2ebe57ef2e3372897e7f5a17"
+    },
+    {
+      "file": "docs/cycles/evidence/C044/live-contract.txt",
+      "sha256": "b468f122cd4c1d11dd7e56b594217c8cab9769f1adb51f2a29d902cdbbcdde15"
+    },
+    {
+      "file": "docs/cycles/evidence/C044/live-shots.txt",
+      "sha256": "451c7c87adda9f4f2cfa11b091adf1169bddacb8e1e54ca2d38951a778c1113d"
+    },
+    {
+      "file": "docs/cycles/evidence/C044/isolated-exunit-runner.mjs",
+      "sha256": "369be3dbe2c029ccd40595542c574cce01cead7fc786746ff93668f6cee987e7"
+    }
+  ],
+  "limits": [
+    "No real library, migration activation or deployment",
+    "Build has existing upstream compiler warnings",
+    "Upstream inherited docs budgets and Windows anchor audit are not passing",
+    "Stacked dependency remains unmerged"
+  ]
+}

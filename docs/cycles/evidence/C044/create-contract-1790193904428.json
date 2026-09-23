@@ -1,0 +1,79 @@
+{
+  "capturedAt": "2026-09-23T20:05:04.427Z",
+  "barkdownCommit": "b1cd732e705413e910abd42690bd99c80cba5e72",
+  "barkparkCommit": "15bfe254aa1c55dbcdfd12a6a64b609800f5178c",
+  "isolatedRuntime": true,
+  "observations": [
+    {
+      "boundary": "published-collision",
+      "created": 201,
+      "refused": 409,
+      "completeDocumentUnchanged": true
+    },
+    {
+      "boundary": "draft-collision",
+      "refused": 409,
+      "completeDraftUnchanged": true,
+      "publishedTwinAbsent": true
+    },
+    {
+      "boundary": "concurrent-create",
+      "round": 0,
+      "statuses": [
+        201,
+        409,
+        409,
+        409,
+        409,
+        409
+      ],
+      "winnerContentRetained": true
+    },
+    {
+      "boundary": "concurrent-create",
+      "round": 1,
+      "statuses": [
+        201,
+        409,
+        409,
+        409,
+        409,
+        409
+      ],
+      "winnerContentRetained": true
+    },
+    {
+      "boundary": "concurrent-create",
+      "round": 2,
+      "statuses": [
+        409,
+        201,
+        409,
+        409,
+        409,
+        409
+      ],
+      "winnerContentRetained": true
+    },
+    {
+      "boundary": "lost-response",
+      "clientConnectionDestroyed": true,
+      "serverCommitted": 201,
+      "scopedReadbackMatches": true,
+      "createReplays": 0
+    },
+    {
+      "boundary": "policy",
+      "unauthorized": 401,
+      "draftNamespace": 400,
+      "htmlOnly": 400,
+      "publishWall": 422,
+      "absentAfterRefusals": true
+    }
+  ],
+  "limits": [
+    "No real-library migration or authority switch",
+    "Concurrent generic draft writers are not namespace-reserved",
+    "Three contention samples complement insert-only database constraints; they do not prove all schedules"
+  ]
+}
