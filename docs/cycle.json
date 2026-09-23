@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C046",
   "stage": "P2",
-  "status": "active",
+  "status": "done",
   "goal": "Prove staged corpus through real Paper editing, saved Undo and app reopen without legacy authority changes.",
   "scope": [
     "Disposable ten-case source corpus staged through C045 into owned private Paper",
@@ -17,13 +17,14 @@
   ],
   "checkpoint": "2026-09-23",
   "handoff": "docs/cycles/C046-migrated-paper.md",
-  "nextAction": "Validate the candidate upstream inline-break serializer through the ten-case real migration rehearsal, then review fresh motion and regression evidence before C046 acceptance.",
+  "nextAction": "Archive this completed cycle and plan C047 lossless heading and paragraph migration, with real edit/save/Undo/restart proof before widening preflight.",
   "evidence": [
     "docs/cycles/C046-migrated-paper.md",
-    "docs/visual/migration/runs/2026-09-23T21-26-20-905Z/manifest.json",
-    "docs/visual/migration/runs/2026-09-23T21-26-20-905Z/motion-review.json",
-    "docs/cycles/evidence/C046/results.json"
+    "docs/cycles/evidence/C046/six-hour/results.json",
+    "docs/visual/migration/runs/2026-09-23T22-35-37-547Z/manifest.json",
+    "docs/visual/migration/runs/2026-09-23T22-35-37-547Z/motion-review.json",
+    "docs/visual/approved.json"
   ],
-  "truthReview": "Reviewed README, app/code-area health, migration contract, PLAN, NEXT-AGENT, VALIDATION and A2. Nine permitted cases are proved; original ten-case acceptance and activation remain blocked. Historical source-bound evidence is retained.",
-  "screenshotReview": "Fresh live stills/37 GIF frames at 68fbdf5 reviewed; fixture comparison has zero threshold/geometry differences. Named final approval recorded. Migration review inspected 14 stills, 51 editing GIF frames and eight restart samples; clipping fixed."
+  "truthReview": "Reviewed README, app guide/code-area health, PLAN/plan.json, NEXT-AGENT, VALIDATION, migration contract, A2 and branch inventory. Ten initial cases pass; P2 remains open for expanded content, references/media, activation and rollback. No merge or real-data changes. Upstream doc budgets fixed; full upstream CI remains separate.",
+  "screenshotReview": "Actual inspection: migration 16 stills, 55 GIF frames and eight restart samples; live five stills and 37 GIF frames with real Claude turn; fixture 40 stills and all 40 GIF frames. Zero fixture pixel/geometry differences. Explicit immutable approval b78e5353; palette banding in fixture modal shadows recorded as encoding limit."
 }

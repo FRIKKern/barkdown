@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-09-23T22-51-45-914Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-23T22-51-45-914Z/comparison.json",
+  "manifestHash": "e7799488189cf24d94b5617e4510061d1bb25807bedd56379ee0bf44c4b9dbd3",
+  "reportHash": "9229e21b0d730cbf253a031b273b3dda6f552a5d8fd7752de761a4eb81be1ff6",
+  "reviewer": "Codex",
+  "note": "Inspected all 40 source stills and all 40 decoded frames across eight fixture GIFs, including menus, focus, themes, narrow layouts, goal states and adoption recovery. Comparison shows zero changed pixels or geometry differences. Controls remain reachable; fixture GIF palette banding around blurred modal shadows remains an encoding limitation visible in prior evidence, not a layout change. Separately reviewed five live Paper stills and 37 live GIF frames, plus migration 16 stills, 55 editing GIF frames and eight restart samples. Full desktop tests, ten-case native migration with Shift+Enter and saved Undo, and Linux parity run 35929675673 pass. Fixture tours do not prove live saves; those are covered by the private runtime tests.",
+  "reviewedAt": "2026-09-23T22:58:43.087Z"
+}

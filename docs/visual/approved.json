@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-09-23T21-41-47-377Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-23T21-41-47-377Z/comparison.json",
-  "manifestHash": "b55ba148a261711b21c973bb9f72883ceeda4fcd5e8efb9d6d3b4827778929f4",
-  "reportHash": "e6ca8fe7e1013804a47bfac71feacbf12a49821efa48c8ce55c3e81441811cee",
-  "reviewer": "Codex C046 final review",
-  "note": "Final capture follows the code-area health cleanup. Reviewed current workspace and decoded side-chat sequence; 44 of 48 media files are byte-identical to the immediately preceding fully inspected 40-frame/eight-GIF tour. Three side-chat PNGs and their GIF differ in bytes but comparison reports zero changed pixels at its threshold and no geometry change; visual inspection found no regression. Separately inspected all five fresh live Paper stills and 37 GIF frames at 68fbdf5 / 844ecd321 after a real Claude edit. Migration media review covers 14 stills, 51 GIF frames and eight restart samples at fe8696c. Full Windows desktop suite passed with one POSIX-only skip; nine native migration edit/Undo/restart cases and 29 preflight/staging tests passed. Hard-break migration remains explicitly refused; no authority switch or full P2 acceptance.",
-  "reviewedAt": "2026-09-23T21:43:28.599Z",
-  "reviewPath": "docs/visual/reviews/approval-fe99197d5c0e83b91920cc79aaf675e531d5bddbc5f30cb6cdea7224c16b00e2.json",
-  "reviewHash": "fe99197d5c0e83b91920cc79aaf675e531d5bddbc5f30cb6cdea7224c16b00e2"
+  "manifest": "docs/visual/runs/2026-09-23T22-51-45-914Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-23T22-51-45-914Z/comparison.json",
+  "manifestHash": "e7799488189cf24d94b5617e4510061d1bb25807bedd56379ee0bf44c4b9dbd3",
+  "reportHash": "9229e21b0d730cbf253a031b273b3dda6f552a5d8fd7752de761a4eb81be1ff6",
+  "reviewer": "Codex",
+  "note": "Inspected all 40 source stills and all 40 decoded frames across eight fixture GIFs, including menus, focus, themes, narrow layouts, goal states and adoption recovery. Comparison shows zero changed pixels or geometry differences. Controls remain reachable; fixture GIF palette banding around blurred modal shadows remains an encoding limitation visible in prior evidence, not a layout change. Separately reviewed five live Paper stills and 37 live GIF frames, plus migration 16 stills, 55 editing GIF frames and eight restart samples. Full desktop tests, ten-case native migration with Shift+Enter and saved Undo, and Linux parity run 35929675673 pass. Fixture tours do not prove live saves; those are covered by the private runtime tests.",
+  "reviewedAt": "2026-09-23T22:58:43.087Z",
+  "reviewPath": "docs/visual/reviews/approval-b78e5353796bf89459a280083b2efaabab4e6dfff4d750a87916516b20fefbff.json",
+  "reviewHash": "b78e5353796bf89459a280083b2efaabab4e6dfff4d750a87916516b20fefbff"
 }

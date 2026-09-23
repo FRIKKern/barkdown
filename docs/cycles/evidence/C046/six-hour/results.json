@@ -1,0 +1,110 @@
+{
+  "recordedAt": "2026-09-23T23:01:00.054Z",
+  "cycle": "C046",
+  "applicationSourceCommit": "2f4a1dc914c2903bff180653e9b40c646a2cd10e",
+  "captureSourceCommit": "5aafb68aaa26b19146b0404ff59381291973634f",
+  "upstreamImplementationCommit": "2edf8c411b6ed0a8d4b1c78ed15d721416f9d486",
+  "upstreamCaptureCommit": "8d48ae6613917259f4376b061d603a6e37043c28",
+  "checks": {
+    "migrationUnit": {
+      "passed": 29,
+      "log": "c046-ten-preflight.log"
+    },
+    "upstreamEditor": {
+      "exit": 0,
+      "log": "c046-upstream-inline-suite2.log"
+    },
+    "desktop": {
+      "exit": 0,
+      "log": "c046-sixhour-desktop.log",
+      "skip": "Existing POSIX-only authentication test on Windows"
+    },
+    "nativeMigration": {
+      "exit": 0,
+      "cases": 10,
+      "nativeShiftEnter": true,
+      "savedUndo": true,
+      "reload": true,
+      "restart": true,
+      "sourceBackupWorkspaceUnchanged": true,
+      "log": "c046-ten-native3.log",
+      "manifest": "docs/visual/migration/runs/2026-09-23T22-35-37-547Z/manifest.json"
+    },
+    "highlight": {
+      "exit": 0,
+      "passed": 6,
+      "log": "c046-highlight-fixed.log"
+    },
+    "root": {
+      "exit": 0,
+      "log": "c046-sixhour-verify.log"
+    },
+    "upstreamDocBudgets": {
+      "exit": 0,
+      "log": "c046-upstream-docbudgets4.log"
+    },
+    "closeout": {
+      "exit": 0,
+      "log": "c046-sixhour-closeout.log"
+    }
+  },
+  "ci": {
+    "linuxParity": {
+      "run": 35929675673,
+      "commit": "5f371ad52254dfe7f1284c31156da320a6650907",
+      "conclusion": "success"
+    },
+    "limits": "Subsequent documentation/evidence commits need their own checks. Upstream full CI and G1/G2 remain separate."
+  },
+  "visual": {
+    "fixtureStillsReviewed": 40,
+    "fixtureGifFramesReviewed": 40,
+    "fixtureChangedPixels": 0,
+    "fixtureGeometryChanges": false,
+    "liveStillsReviewed": 5,
+    "liveGifFramesReviewed": 37,
+    "realProviderTurn": true,
+    "migrationStillsReviewed": 16,
+    "migrationGifFramesReviewed": 55,
+    "restartSamplesReviewed": 8,
+    "limitation": "Fixture GIF palette banding remains around blurred modal shadows; full-motion Paper evidence is separate."
+  },
+  "artifactHashes": {
+    "docs/images/status/history/2026-09-23T22-51-08-874Z.json": "e8ca03ff6484754ab4ce71ca619244ee16d7df42ed3d85612743c3dd22eceb1e",
+    "docs/visual/runs/2026-09-23T22-51-45-914Z/manifest.json": "e7799488189cf24d94b5617e4510061d1bb25807bedd56379ee0bf44c4b9dbd3",
+    "docs/visual/runs/2026-09-23T22-51-45-914Z/comparison.json": "9229e21b0d730cbf253a031b273b3dda6f552a5d8fd7752de761a4eb81be1ff6",
+    "docs/visual/reviews/approval-b78e5353796bf89459a280083b2efaabab4e6dfff4d750a87916516b20fefbff.json": "b78e5353796bf89459a280083b2efaabab4e6dfff4d750a87916516b20fefbff",
+    "docs/visual/migration/runs/2026-09-23T22-35-37-547Z/manifest.json": "7f813c1e4988b80070c900152320833be63361b978a321a1ce5cc60024ae957c",
+    "docs/visual/migration/runs/2026-09-23T22-35-37-547Z/motion-review.json": "ea3eb19282801c04fd626297b4a73c5c7196ec4a8d1a2f0294b68ed1f4043f7e"
+  },
+  "logs": {
+    "c046-highlight-fixed.log": "753b7122bf3628fc59fa5c00cff3800e1451867d0ab1852b140578a88cf56053",
+    "c046-sixhour-compare.log": "ed0b52cb680a2955e8fb4eac27d7b3fa7e712be4cc745a479fb76df3b4075b49",
+    "c046-sixhour-desktop.log": "db48cd6e4c2810ca4e7b12596e2062647ac807b11b94ea32561989c19678ce98",
+    "c046-sixhour-fixture.log": "507c133ebb8125d058d95a5dec30ddbd5174565e7ea66ac59faf220dc0441e0e",
+    "c046-sixhour-live.log": "5214f55941e226c8f79c06c34acf3e18ab29b7a553624e9f94553b3cc0bdf871",
+    "c046-sixhour-live2.log": "6b20bc3f8975777944833b0ec3ec528a52eabddd36b5b77d703d8913cbba6271",
+    "c046-sixhour-verify.log": "1a076ee8e51bed6ed569c7438bd2e3c41dcd0c23d41b00d1de5eb1ac5b67f0a3",
+    "c046-ten-native.log": "cddf80115d0a2bb64cd024240960e9832b124664e5a9553518250aeddf661f0e",
+    "c046-ten-native2.log": "d7773d472db33ef7f688c8604f823174450e2fff52bb464c106ce2021bbc50b2",
+    "c046-ten-native3.log": "33e60a1925833156aebded88167567a2771fb48dbe1c83ffdf56ea733121d892",
+    "c046-ten-preflight.log": "c753a29c0935c8c44e5fae5a9b4cb7e4d86202dff28d5f0d8d8b10b3b6f03023",
+    "c046-upstream-docbudgets.log": "bff820a14eb36865cec8ad681cf2c228c3ea9dc00523a6d88236bc40445e0ffa",
+    "c046-upstream-docbudgets4.log": "cc38780d3934fe82277b1f42d0b825b9c640f77472ab29321a1eb6ef2e11e61a",
+    "c046-upstream-inline-build.log": "f58f5f452f0531224e190ba724ea75aedd3c3e196bdf55a3f5ef2c310e971f23",
+    "c046-upstream-inline-suite.log": "09fff0faa1c4ddcde7a9a7e3e2277df882f5f7748b892f70b7ef548681f510d4",
+    "c046-upstream-inline-suite2.log": "bb45728bd90fe7d29b86c8c71faea3c1e44da2357a948e50bb67612516212c0a",
+    "c046-sixhour-closeout.log": "7ee16e81a4faaff5a968ea5b978606c56f70dea464e839c208926e2acbb168f2"
+  },
+  "retainedFailures": [
+    "c046-ten-native.log: stale owned compiled bundle detected; refreshed and hash-bound successful runs retained",
+    "c046-sixhour-live.log: dirty-source guard refused capture before runtime allocation",
+    "c046-upstream-inline-suite.log: prior nested-list refusal assertion updated for supported LF"
+  ],
+  "limits": [
+    "Disposable data only; no real library or authority switch",
+    "Inline CR and other unproved structures remain refused",
+    "Internal references/media, legacy history activation and rollback still gate P2",
+    "No merge or deployment; upstream dependency is stacked and unmerged"
+  ]
+}
