@@ -30,6 +30,11 @@ function inspectContent(content) {
     if (node.type === 'orderedList' && attrs.start != null && attrs.start !== 1) issue(at, 'List start is not preserved');
     if (node.type === 'taskItem' && typeof attrs.checked !== 'boolean') issue(at, 'Task state must be boolean');
     if (node.type === 'codeBlock' && attrs.language != null && typeof attrs.language !== 'string') issue(at, 'Invalid code language');
+    if (['tableCell', 'tableHeader'].includes(node.type)) {
+      for (const key of ['colspan', 'rowspan']) if (attrs[key] != null && attrs[key] !== 1) issue(at + '.attrs.' + key, 'Only an unmerged cell is preserved');
+      if (attrs.colwidth != null || attrs.textAlign != null) issue(at, 'Cell width or textAlign is not preserved');
+      if (attrs.align != null && !['left', 'center', 'right'].includes(attrs.align)) issue(at, 'Invalid cell alignment');
+    }
     if (node.marks !== undefined && !Array.isArray(node.marks)) issue(at, 'Invalid marks');
     for (const [i, mark] of (Array.isArray(node.marks) ? node.marks : []).entries()) {
       const loc = at + '.marks[' + i + ']';

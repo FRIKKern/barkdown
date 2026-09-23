@@ -34,6 +34,10 @@ test('all audited losses, unsupported structures and internal references refuse'
   assert.deepEqual(inspectContent(plain), []);
   const hidden = structuredClone(plain); hidden.content[0].content[0].content = [{ type: 'text', text: 'must not vanish' }];
   assert.ok(inspectContent(hidden).some(x => /child structure/.test(x.reason)));
+  for (const attrs of [{ colspan: 0 }, { rowspan: false }, { colwidth: false }, { textAlign: '' }]) {
+    const doc = { type: 'doc', content: [{ type: 'table', content: [{ type: 'tableRow', content: [{ type: 'tableCell', attrs, content: [{ type: 'paragraph', content: [] }] }] }] }] };
+    assert.ok(inspectContent(doc).length, JSON.stringify(attrs));
+  }
 });
 test('exact backup preserves organization, proposals, history, binary media and receipts; excludes credentials', () => {
   const f = fixture(), before = inventoryProfile(f);
