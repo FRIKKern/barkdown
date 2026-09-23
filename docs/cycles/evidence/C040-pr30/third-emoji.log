@@ -1,0 +1,33 @@
+{
+ "summary": "3/4 green",
+ "results": [
+  {
+   "name": "\":smi\" opens the emoji picker with smile listed first",
+   "pass": true,
+   "popup": "Emoji😄  smileemoji😃  smileyemoji😏  smirkemoji😅  sweat_smileemoji🙂  slightly_smiling_faceemoji↵ "
+  },
+  {
+   "name": "Enter inserts 😄 as plain text; the \":smi\" is gone; the server holds it",
+   "pass": false,
+   "text": "Smile after this:"
+  },
+  {
+   "name": "a time (\"12:30\") and a URL (\"http://\") never open the picker",
+   "pass": true,
+   "afterTime": null,
+   "afterUrl": null,
+   "p1": "The meeting is at 12:30",
+   "p2": "A link: http://example.org"
+  },
+  {
+   "name": "a bare \":\" or one letter does not open; Esc closes an open picker and keeps the typed text",
+   "pass": true,
+   "oneLetter": null,
+   "open": "Emoji😍  heart_eyesemoji❤️  heartemoji✔️  heavy_check_markem",
+   "closed": null,
+   "text": "Smile after this: :hea"
+  }
+ ],
+ "errors": []
+}
+bp: published to http://localhost:4000 (POST /v1/plugins/bulldocs/papers)
