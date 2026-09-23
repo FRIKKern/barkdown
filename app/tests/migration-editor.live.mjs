@@ -69,6 +69,7 @@ try {
   await page.evaluate(id => window.__barkdown.openTarget({ kind: 'doc', id, source: 'barkpark', title: 'Migrated corpus' }), id); await ready();
   editorBundle = JSON.parse(fs.readFileSync(path.join(userData, 'canvas-bundle/current.json'))); assert.equal(editorBundle.source, 'server'); assert.equal(editorBundle.server, server);
   assert.deepEqual(await blocks(), expected); await shot('01-staged-original');
+  await canvas().evaluate(c => { window.__migrationInputs = []; const e = c._editor; for (const name of ['keydown', 'beforeinput', 'input']) e.view.dom.addEventListener(name, event => window.__migrationInputs.push({ event: name, key: event.key, data: event.data, ctrl: event.ctrlKey, shift: event.shiftKey, selection: e.state.selection.toJSON(), text: e.state.doc.textContent, dom: e.view.dom.textContent }), true); e.on('transaction', ({ transaction }) => { if (transaction.docChanged) window.__migrationInputs.push({ event: 'transaction', text: e.state.doc.textContent }); }); });
   const lineGeometry = await canvas().evaluate(c => {
     const p = [...c.querySelectorAll('.ProseMirror > p')].find(p => p.textContent.includes('Line one'));
     const walker = document.createTreeWalker(p, NodeFilter.SHOW_TEXT); const points = {};
@@ -77,7 +78,7 @@ try {
   });
   assert.ok(lineGeometry['Line two'] > lineGeometry['Line one'], 'migrated hard break renders on a separate line');
   let revision = original.rev;
-  for (const [index, sample] of safe.entries()) {
+  for (const [index, sample] of [...safe.entries()].sort((a, b) => Number(b[1].id === 'hard-break') - Number(a[1].id === 'hard-break'))) {
     const block = expected[index], needle = block.type === 'heading' ? block.text : firstText(block);
     if (block.type === 'code') {
       const area = canvas().locator('.bp-canvas-code-area'); await area.click(); await area.evaluate(el => el.setSelectionRange(1, 1));
@@ -118,7 +119,7 @@ try {
 } catch (error) {
   if (page) await page.screenshot({ path: path.join(out, 'failure.png') }).catch(() => {});
   if (page) {
-    const state = await page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); return { active: document.activeElement?.outerHTML.slice(0, 500), focused: document.hasFocus(), selection: c?._editor?.state.selection.toJSON(), editor: c?._editor?.getJSON(), blocks: c?.recoverySnapshot().blocks, status: document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent, notices: [...(c?.querySelectorAll('[role=status], [data-bp-text-boundary]') || [])].map(n => n.textContent), html: c?._editor?.view.dom.innerHTML }; }).catch(() => null);
+    const state = await page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); return { active: document.activeElement?.outerHTML.slice(0, 500), focused: document.hasFocus(), inputs: window.__migrationInputs, selection: c?._editor?.state.selection.toJSON(), editor: c?._editor?.getJSON(), blocks: c?.recoverySnapshot().blocks, status: document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent, notices: [...(c?.querySelectorAll('[role=status], [data-bp-text-boundary]') || [])].map(n => n.textContent), html: c?._editor?.view.dom.innerHTML }; }).catch(() => null);
     fs.writeFileSync(path.join(out, 'failure-state.json'), JSON.stringify({ state, server: await read().catch(() => null) }, null, 2));
   }
   fs.writeFileSync(path.join(out, 'failure.txt'), error.stack); throw error;
