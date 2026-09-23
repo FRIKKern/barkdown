@@ -27,18 +27,18 @@
   "logs": [
     {
       "file": "app-tests.txt",
-      "sha256": "15f33cb5913ad9a857dbfa4bf3944b799ed1b65601cb4af5019a319a82684cee",
-      "bytes": 99236
+      "sha256": "cb284b3be013882efe617cebc791aceddec16834ca2898c49d15cc2795fa9ec2",
+      "bytes": 96984
     },
     {
       "file": "root-verify.txt",
-      "sha256": "0685c24676818fc9c275179019dd83ee515cd49ae5c27c8915a4c324bea897ab",
-      "bytes": 3305
+      "sha256": "6d1daaec4fdb3aa7f5b1f6a4dc9dac408689110794eadbc38932cffff91d0ff5",
+      "bytes": 3265
     },
     {
       "file": "paper-capture.txt",
-      "sha256": "457f2be718fd4f0266bc36700f65d6b3f78af5a3b34425132db78bff4cd3f7e8",
-      "bytes": 778
+      "sha256": "1c50afe1230d47e3e8374a3bf7297e411201c21da78646e45f546117de336f5f",
+      "bytes": 752
     }
   ],
   "limits": [
@@ -46,5 +46,6 @@
     "No server migration writes or authority switch",
     "No power-loss or portability claim",
     "Two high-severity existing app dependency audit findings"
-  ]
+  ],
+  "logHashEncoding": "UTF-8 with CRLF normalized to LF, matching Git text blobs"
 }
