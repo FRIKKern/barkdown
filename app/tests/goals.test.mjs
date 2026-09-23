@@ -25,6 +25,15 @@ function fixture(t, adapter) {
   return { scheduler, journal, root, calls, create, setNow(value) { now = value; } };
 }
 
+test('missing authentication persists assistance without retrying or marking work complete', async t => {
+  let dispatched=0;
+  const f=fixture(t,{async execute(){dispatched++;throw Object.assign(Error('Sign in to Codex to continue.'),{code:'BARKDOWN_SEND_NOT_STARTED',authProvider:'codex'});}});
+  const g=f.create();f.scheduler.start(A,g.id);await flush();await flush();
+  assert.equal(dispatched,3);
+  assert.ok(f.scheduler.get(A,g.id).tasks.every(task=>task.status==='failed'&&task.attempts.at(-1).result.authProvider==='codex'));
+  f.scheduler.tick();await flush();assert.equal(dispatched,3);
+});
+
 test('three reserved workers run concurrently, snapshots cannot mutate owners, results require review', async t => {
   const f = fixture(t); const g = f.create(); f.scheduler.start(A, g.id); f.scheduler.tick(); await flush();
   assert.equal(f.calls.length, 3);

@@ -6,7 +6,7 @@ name: Editor parity
 # test, and a green row going red fails this check. The rows' table lands in the job summary.
 on:
   push:
-    branches: [main, codex/electron-prototype]
+    branches: [main]
     paths: ['app/**', '.github/workflows/parity.yml']
   pull_request:
     paths: ['app/**', '.github/workflows/parity.yml']

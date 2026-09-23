@@ -41,7 +41,7 @@ function applyEvent(chat, reply, event, at) {
     case 'tool_result': { const tool = reply.tools.find(t => t.id === event.toolUseId); if (tool) Object.assign(tool, { done: true, ok: event.ok, preview: event.preview, ...(event.output != null ? { output: event.output } : {}) }); break; }
     case 'activity': { const entry = { label: event.label, detail: event.detail, target: clone(event.target), at }; reply.events.push(entry); (chat.events ||= []).push(entry); break; }
     case 'approval': reply.approvals.push({ approvalId: event.approvalId, runId: event.runId, request: clone(event.request), status: 'pending' }); break;
-    case 'error': reply.streaming = false; reply.error = event.message; chat.workingLabel = ''; break;
+    case 'error': reply.streaming = false; reply.error = event.message; if (['api','claude','codex'].includes(event.authProvider)) reply.authProvider = event.authProvider; chat.workingLabel = ''; break;
     case 'done':
       reply.streaming = false; reply.provider = event.provider; reply.finishedAt = at;
       if (event.history) { chat.apiHistory = clone(event.history); chat.messages.filter(m => m.role === 'user').forEach(m => { m.sentInHistory = true; }); }

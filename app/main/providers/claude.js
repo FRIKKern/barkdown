@@ -45,8 +45,8 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
       const folder = context.folder || null;
       const cwd = folder || scratchFolder(storeDir);
       const env = { ...run.scope.env };
-      delete env.ANTHROPIC_API_KEY;
-      delete env.ANTHROPIC_AUTH_TOKEN;
+      // The captured computer authentication is available by default. Profile API
+      // keys belong to the API adapter and are never injected into this environment.
       const canUseTool = async (toolName, input, options) => {
         if (run.cancelled) return { behavior: 'deny', message: 'The run was cancelled.', interrupt: true };
         if (settings.goalWorker && ['Task', 'Agent'].includes(toolName)) return { behavior: 'deny', message: 'Goal workers cannot create more workers.' };
@@ -93,6 +93,7 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
           else if (event.type === 'content_block_delta' && event.delta?.type === 'thinking_delta' && event.delta.thinking) { streamedThinking += event.delta.thinking; run.emit({ type: 'thinking_delta', text: event.delta.thinking }); }
           else if (event.type === 'content_block_stop' && blockTypes.get(event.index) === 'thinking') run.emit({ type: 'thinking_break' });
         } else if (message.type === 'assistant') {
+          if (message.error === 'authentication_failed' && message.parent_tool_use_id == null) throw Object.assign(new Error('Provider authentication failed'), {code:'authentication_error'});
           if (message.error) run.emit({ type: 'error_note', message: message.error });
           for (const block of message.message.content || []) {
             if (block.type === 'tool_use' && message.parent_tool_use_id == null) {
@@ -128,7 +129,7 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
       }
       run.emit({ type: 'done', cancelled: run.cancelled, session: sessionId, provider: 'claude', finalMessage });
     } catch (error) {
-      run.emit({ type: 'error', message: /credential|auth|login/i.test(error.message) ? 'Claude Code is not logged in. Run `claude` in a terminal and sign in, then try again.' : error.message || String(error) });
+      run.emit(require('./auth-error').providerError('claude', error));
     } finally { await finish(run); }
   })();
   return { runId: run.id };

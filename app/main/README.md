@@ -20,6 +20,8 @@ Run the affected real-adapter tests and the required desktop/visual/root gates i
 
 ## Changelog
 
+- 23 September: [provider sign-in assistance](../../docs/visual/provider-login/README.md), source `1c94f8d`, adds owned login processes and pre-dispatch checks. Native A/B worker transport checks verify captured credentials; full desktop passes. Live Paper/root freshness remains pending in C039.
+
 - 22 September: selected-root search errors remain errors, distinct from no matches; [API-loop regression and retained failure](../../docs/cycles/evidence/missing-working-folder/README.md). Combined visual/runtime verification is pending.
 - 22 September: C023 source is integrated with C010 lease relocation preserved; focused combined checks pass, final combined gates remain pending. C024 and C025 original evidence is imported. The handoff above owns current status.
 

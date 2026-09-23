@@ -22,7 +22,7 @@ Keep credentials and real content out of the handoff. Do not enable public hosti
 
 ## Active delivery rules
 
-- P1 profile isolation is next; the blocked legacy CI issue is a separate release gate. Consult `docs/ACCEPTANCE.md` for measurable exits and `docs/VALIDATION.md` for actual evidence.
+- P1 profile isolation is accepted for the Windows source prototype (C039); P2 Paper migration is next. The blocked legacy CI issue is a separate release gate. Consult `docs/ACCEPTANCE.md` for measurable exits and `docs/VALIDATION.md` for actual evidence.
 - Profile ownership is distinct from per-chat working folders. Capture profile identity in documents, tabs, drafts, favorites, caches and runs; switching must not rebind work or substitute same-slug content.
 - Preserve source data and backups. Do not retire the legacy editor/store until migration comparison, interruption/resume and rollback are proven. Audit actual export/sync APIs; do not zip a live database and claim portability.
 - Keep existing tests and editor matrix as regression gates. Closed issues and prior local passes do not establish a new stage’s completion or upstream merge readiness.
@@ -37,6 +37,10 @@ Run `npm ci`, install Playwright Chromium, then `npm run verify`. Add production
 Do not install or copy the paid Tiptap Notion template by default. It is an interaction reference. Preserve upstream and dependency licenses when code is introduced.
 
 ## Delivery cycles
+
+Repository hygiene is a delivery requirement. Keep `main` plus at most three active delivery branches per repository; temporary exceptions must name an owner, reason and next review in the current handoff. Reuse a suitable existing lane before creating another. Inventory local/remote branches, worktrees and related tasks at cycle closeout. Retire merged branches after checking remote tips and open PRs; preserve unique commits, dirty files and evidence before retiring anything else. Never confuse cherry-picked work with fully merged history. Do not interfere with another Barkpark contributor's checkout or open PR.
+
+Keep one current plan, one current cycle and a concise current handoff. Replace superseded instructions instead of appending competing checkpoints. Completed tasks belong in historical evidence, not the active queue. Read archives only for a concrete evidence question. Remove dead code/docs only after checking references and retaining recoverable history. Every cycle must state remaining repository clutter and its next cleanup action; do not call a repository clean solely because `git status` is clean.
 
 Follow `docs/CYCLES.md` and run `npm run cycle` before implementation. Plan one bounded outcome in `docs/cycle.json`; keep its linked handoff current after meaningful slices, failed checks, blockers and before yielding. Every cycle closes with a repository truth review, relevant tests and screenshot review. App-source changes retain the implementation-commit → screenshots → evidence-commit sequence. Never mark a cycle or stage done without evidence. Archive completed cycle records before starting the next one; interrupted work must name the exact next action and any uncommitted/untested state.
 

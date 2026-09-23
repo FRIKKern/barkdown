@@ -1,0 +1,533 @@
+{
+  "version": 1,
+  "purpose": "Synthetic preparation only; no Paper writes, save/reload, migration, retry or rollback was executed.",
+  "sourceCommit": "ab9ce678b7e2565cb1cbe76d8c73e11ac45c56a7",
+  "inputs": {
+    "docs/migration/corpus.mjs": "6664efc0e5e65dd441867f8c1093a076596bec2ecb212df811f499dbc8fe491b",
+    "docs/migration/audit.mjs": "4fb0ac6fedb30be5ef3741b1a6cc95265e6cbe29932db776be61e28aec1586fb",
+    "app/shared/portabledoc.js": "cb638ad3def74541c5955c2f4fbfa0d9a0ff400ab8809cf55935f0de0e0d42e7"
+  },
+  "summary": {
+    "representation-preserved": 10,
+    "lossy": 5,
+    "unresolved-reference": 1,
+    "rejected": 6
+  },
+  "cutoverReady": false,
+  "cases": [
+    {
+      "id": "plain-unicode",
+      "classification": "representation-preserved",
+      "sourceHash": "902cc7c7a7b22a8e2b0e9dd3a5410d9b4c6a988e4fb05b87920b4ec267bd4970",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "value": "Notes — café 日本語 🐕"
+            }
+          ]
+        }
+      ],
+      "outputHash": "f4960075dc954ad520e5a20e815604b2dec99a90f6f7977a1aa3d8d938b8446d",
+      "concerns": [],
+      "note": "Exact Unicode text; no Markdown detour."
+    },
+    {
+      "id": "nested-marks",
+      "classification": "representation-preserved",
+      "sourceHash": "6af8593866c574e1357efb4547cd08679eaaf71f765f3e441328547db021ee25",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "strong",
+              "children": [
+                {
+                  "type": "em",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Keep emphasis"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "outputHash": "441b06687ac2ec826939b26376f3cb1190427cc3af063f5b62982b3303a1bf6c",
+      "concerns": [],
+      "note": "Nested marks have a canonical wrapper order."
+    },
+    {
+      "id": "underline",
+      "classification": "representation-preserved",
+      "sourceHash": "c7fa6353892291ef9ae660147ae85ec6f6edcd7c47b5e642774e6e284f132772",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "underline",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Keep underline"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "outputHash": "642ae6ceeafdc01ccdda5e670c8c31e5ae7e6505a446f30ceef2e93a22734097",
+      "concerns": [],
+      "note": "Structured conversion retains underline; Markdown export alone cannot prove it."
+    },
+    {
+      "id": "strike-code",
+      "classification": "representation-preserved",
+      "sourceHash": "981b2113ca9193fe55df9e5fff08c441523cfc263da412f61e0a9508f774c133",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "strikethrough",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "removed"
+                }
+              ]
+            },
+            {
+              "type": "code",
+              "value": " literal "
+            }
+          ]
+        }
+      ],
+      "outputHash": "397f093bf4dbb41819de2e35c2ed91bc47a466a89a09a1ce05a58a781df233a9",
+      "concerns": [],
+      "note": "Inline code and strike remain distinct."
+    },
+    {
+      "id": "external-link",
+      "classification": "representation-preserved",
+      "sourceHash": "ad9b818d82fff3768fab4a76c1e25669e73c1533fb3f145ab703dea7cff6df5c",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "link",
+              "href": "https://example.invalid/reference",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "outputHash": "2cf10f8645f80c133d262581726af44bbad04602209d45794d5cee4b93303b50",
+      "concerns": [],
+      "note": "URL retained; no network request."
+    },
+    {
+      "id": "internal-link",
+      "classification": "unresolved-reference",
+      "sourceHash": "2ca4d92207101effda522efcf4039532e6ad5e0e3cac4f5d4120e25fdd0de47b",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "link",
+              "href": "barkdown://doc/overview",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Overview"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "outputHash": "71c218a149768dea5e25bc8e2fcd42400b77554eb173ebdc936e44801a924e0e",
+      "concerns": [
+        "internal-link-target"
+      ],
+      "note": "Representation survives, but the legacy scheme needs an audited target-ID rewrite before cutover."
+    },
+    {
+      "id": "hard-break",
+      "classification": "representation-preserved",
+      "sourceHash": "a1f09d6b33f17259d7f000fc85d32d2ced18130de66a0722208bc6233bff06fa",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "value": "Line one"
+            },
+            {
+              "type": "text",
+              "value": "\n"
+            },
+            {
+              "type": "text",
+              "value": "Line two"
+            }
+          ]
+        }
+      ],
+      "outputHash": "8accc7a13a33368167f9f31eaa685ac82c093b44751e355ada24d5c2e731b3a3",
+      "concerns": [],
+      "note": "Hard break maps to a newline; later Paper save/reload must prove display semantics."
+    },
+    {
+      "id": "heading-plain",
+      "classification": "representation-preserved",
+      "sourceHash": "e1cfd51570a7dcf249a1dc0a6a60f84f081ad5e329ff1f70c4d6fb85828df2cb",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Section"
+        }
+      ],
+      "outputHash": "b6382f31888f4e061fe4472b99e096d0729a0eca7edcb00d21a0dea0fda5bfb2",
+      "concerns": [],
+      "note": "Plain level-two heading."
+    },
+    {
+      "id": "heading-formatted",
+      "classification": "lossy",
+      "sourceHash": "1065cc1f959cb2ee200641f45b3a0cdf08c92a6597cc2ab81c84cdd2c659bc43",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Linked heading"
+        }
+      ],
+      "outputHash": "be2897eaa1a2f71bb29a5002b7cd508f8d5d9ab2d32e031ad0475120beaa98ff",
+      "concerns": [
+        "heading-marks",
+        "internal-link-target"
+      ],
+      "note": "Current converter silently flattens heading marks and links. Migration must refuse this case until mapped."
+    },
+    {
+      "id": "heading-deep",
+      "classification": "lossy",
+      "sourceHash": "62d863d474a9d37de4b60d6daf7a723471dce95e30a9a11038272b61aa35ac64",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Deep section"
+        }
+      ],
+      "outputHash": "1e259185fc4a8e1a97018bc49708777e5f6e46622655daf82c8a74eb58ad6471",
+      "concerns": [
+        "heading-level"
+      ],
+      "note": "Current converter clamps level 6 to 3 even though upstream retains source levels."
+    },
+    {
+      "id": "paragraph-alignment",
+      "classification": "lossy",
+      "sourceHash": "2dcbf6af97644fc4d2f7d436dc214080810938db8c0abb3fb43405ce9d1248c4",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "value": "Centered"
+            }
+          ]
+        }
+      ],
+      "outputHash": "006b3dea24b7474922a917fc95543914204c36a9bf688be8459d78d8fc3cc03a",
+      "concerns": [
+        "paragraph-alignment"
+      ],
+      "note": "Current converter ignores paragraph alignment."
+    },
+    {
+      "id": "ordered-offset",
+      "classification": "lossy",
+      "sourceHash": "3eede924e036a2517d0d721c6bb2b03726f186eacdcd4f40d65ec3fc4b7cdef3",
+      "blocks": [
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            [
+              {
+                "type": "text",
+                "value": "Seventh"
+              }
+            ]
+          ]
+        }
+      ],
+      "outputHash": "dc233046f437a86aeb9049784ce6d535601259c97e7c7cae0c53141d7c98445f",
+      "concerns": [
+        "list-start"
+      ],
+      "note": "Current converter drops non-default ordered-list start."
+    },
+    {
+      "id": "checklist",
+      "classification": "representation-preserved",
+      "sourceHash": "9e2d6d0c9464ec0a903b44541264a50ee29c3fef8fd33af03ecf711af09c0cc0",
+      "blocks": [
+        {
+          "type": "list",
+          "ordered": false,
+          "task": true,
+          "items": [
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Done"
+                }
+              ],
+              "checked": true
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Remaining"
+                }
+              ],
+              "checked": false
+            }
+          ]
+        }
+      ],
+      "outputHash": "65e4746156febc01fbd2c697e41c4f1ff3f8dcdc180aeca53212f91b0bada1a7",
+      "concerns": [],
+      "note": "Task state is retained."
+    },
+    {
+      "id": "nested-list",
+      "classification": "rejected",
+      "sourceHash": "7cdfa3bc6421619ec90d8f11c37b5ae73724a75a938543fc2aa561eb1d584391",
+      "error": "Cannot convert nested or multi-paragraph list item",
+      "concerns": [],
+      "note": "Must fail as a whole, without publishing the valid prefix."
+    },
+    {
+      "id": "quotation",
+      "classification": "lossy",
+      "sourceHash": "840316ac597d5ecd38596c74f0050fc703b8a2efe5ed535d483d6ff0ad618dc4",
+      "blocks": [
+        {
+          "type": "callout",
+          "tone": "note",
+          "content": [
+            {
+              "type": "text",
+              "value": "Quoted words"
+            }
+          ]
+        }
+      ],
+      "outputHash": "441d2f5b3b425462cf1c979d9f008c5f8c878e015fb84e3e86f1e1b7f6602c75",
+      "concerns": [
+        "quote-block-kind"
+      ],
+      "note": "The convenience converter changes a quote into a note callout. Migration needs a genuine blockquote mapping."
+    },
+    {
+      "id": "code-language",
+      "classification": "representation-preserved",
+      "sourceHash": "50767a787d9cda4fa99bd4c4d6ea4001e9aa403fde466a79d6c700bb99ea5fc2",
+      "blocks": [
+        {
+          "type": "code",
+          "language": "js",
+          "value": "const value = 1;\n"
+        }
+      ],
+      "outputHash": "3c637057329f5434efb4b35fbce4396f3c4ff7211174c478091cbc46b32550f4",
+      "concerns": [],
+      "note": "Language and trailing newline retained."
+    },
+    {
+      "id": "table-header-align",
+      "classification": "representation-preserved",
+      "sourceHash": "4c033af0750238cf38f038d9ea119730d2b26b6f4ee6bb043c7688cf825b4cbd",
+      "blocks": [
+        {
+          "type": "table",
+          "head": [
+            [
+              {
+                "type": "text",
+                "value": "Label"
+              }
+            ],
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Value"
+                }
+              ],
+              "align": "right"
+            }
+          ],
+          "rows": [
+            [
+              [
+                {
+                  "type": "text",
+                  "value": "A"
+                }
+              ],
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "1"
+                  }
+                ],
+                "align": "right"
+              }
+            ]
+          ]
+        }
+      ],
+      "outputHash": "537a53880db9d3332a4b77b39b4aedd74e8a3375686e00f8cb7bd5781c4770e2",
+      "concerns": [],
+      "note": "Header and per-cell alignment are explicit structured data."
+    },
+    {
+      "id": "table-span",
+      "classification": "rejected",
+      "sourceHash": "254a33deb09204652451cb5a705bc4115ad5d6a4cbcee1d00d8bc4c0830decfd",
+      "error": "Cannot convert unsupported table cell",
+      "concerns": [],
+      "note": "Merged spans cannot pass through the existing converter."
+    },
+    {
+      "id": "table-width",
+      "classification": "rejected",
+      "sourceHash": "cd57ca44b4ca30408a4892aa82e774c22456ea395e31cfd5adfeef71c7def744",
+      "error": "Cannot convert unsupported table cell",
+      "concerns": [],
+      "note": "Column width cannot be discarded."
+    },
+    {
+      "id": "image-local",
+      "classification": "rejected",
+      "sourceHash": "ca87e0bcbc211c887345a14e8dcce8901bdb79f48290ad788ddbe9986d51220b",
+      "error": "Cannot convert block: image",
+      "concerns": [],
+      "note": "Upload, digest mapping and rewritten media URL are separate unimplemented work."
+    },
+    {
+      "id": "unknown-block",
+      "classification": "rejected",
+      "sourceHash": "c68bd5e87ac96cbdd3e63c84ce48baf42e7d6fe23ba57c345ca5ba2acc1dad94",
+      "error": "Cannot convert block: futureWidget",
+      "concerns": [],
+      "note": "Unknown data must remain readable in the retained source, never disappear."
+    },
+    {
+      "id": "unknown-mark",
+      "classification": "rejected",
+      "sourceHash": "a360c166d3e70a08c970d030016850b9cf42d23e52ed6ca6c5a8d1e6e95a41c5",
+      "error": "Cannot convert inline mark: highlight",
+      "concerns": [],
+      "note": "Unsupported mark is a refusal rather than a flattening pass."
+    }
+  ],
+  "inventory": [
+    {
+      "profileId": "11111111-1111-4111-8111-111111111111",
+      "mapping": [
+        {
+          "source": "overview",
+          "proposedTarget": "local-140445ae891aacb0924929714ea81414",
+          "caseId": "plain-unicode"
+        },
+        {
+          "source": "linked-note",
+          "proposedTarget": "local-45b7fb6c9bda7b8d6fd0821f5673bfdf",
+          "caseId": "internal-link"
+        },
+        {
+          "source": "unplaced",
+          "proposedTarget": "local-1d54880c7223ef3792fe0c367adc3a59",
+          "caseId": "image-local"
+        }
+      ],
+      "documentCount": 3,
+      "revisionCount": 2,
+      "proposalCount": 1,
+      "receiptCount": 1,
+      "workspaceHash": "4db62beb529764b80dea14d4f3601b0941418a20b162f11656c973ffe61446c3",
+      "media": [
+        {
+          "path": "attachments/synthetic.png",
+          "sha256": "3c0cdef5d7a0c907406173870f875d440086404e4182e9560dd08198b76cafd5"
+        }
+      ],
+      "backlinks": [
+        {
+          "id": "overview",
+          "from": [
+            "linked-note"
+          ]
+        },
+        {
+          "id": "linked-note",
+          "from": []
+        },
+        {
+          "id": "unplaced",
+          "from": []
+        }
+      ]
+    },
+    {
+      "profileId": "22222222-2222-4222-8222-222222222222",
+      "mapping": [
+        {
+          "source": "overview",
+          "proposedTarget": "local-a52880557a7994f4971a2359514b91fa",
+          "caseId": "code-language"
+        }
+      ],
+      "documentCount": 1,
+      "revisionCount": 0,
+      "proposalCount": 0,
+      "receiptCount": 0,
+      "workspaceHash": "be2f2ac6f7e759f0f7f94cf4641736969c6c9011bc39c024c284610c41395b1e",
+      "media": [],
+      "backlinks": [
+        {
+          "id": "overview",
+          "from": []
+        }
+      ]
+    }
+  ]
+}

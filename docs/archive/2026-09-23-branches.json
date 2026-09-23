@@ -1,0 +1,205 @@
+{
+  "purpose": "Historical recovery inventory, not active tasks. Restore with git switch -c codex/recovery archive/2026-09-23/<original-branch>.",
+  "branches": [
+    {
+      "name": "codex/api-paper-parity-12h",
+      "sha": "b4420b5414f393783804dea2730bf9d2e1e4007e",
+      "tag": "archive/2026-09-23/codex/api-paper-parity-12h"
+    },
+    {
+      "name": "codex/cache-integrity-12h",
+      "sha": "955c0fbd75e6b62b75459f9f89fd0246f4715ace",
+      "tag": "archive/2026-09-23/codex/cache-integrity-12h"
+    },
+    {
+      "name": "codex/capture-cleanup-12h",
+      "sha": "f0705674fa5eb2ede9f22f5cd224237fa358fd4f",
+      "tag": "archive/2026-09-23/codex/capture-cleanup-12h"
+    },
+    {
+      "name": "codex/chat-recovery-12h",
+      "sha": "08ede9d4530e8fb33e19e1f210881d95bf1617de",
+      "tag": "archive/2026-09-23/codex/chat-recovery-12h"
+    },
+    {
+      "name": "codex/context-reservation-12h",
+      "sha": "4ca5b8fa4db97cb27fef9da940c803ddaec07553",
+      "tag": "archive/2026-09-23/codex/context-reservation-12h"
+    },
+    {
+      "name": "codex/cycle-current-12h",
+      "sha": "645c525d7224afeedfbd626360e6c399657926c6",
+      "tag": "archive/2026-09-23/codex/cycle-current-12h"
+    },
+    {
+      "name": "codex/cycle-next-12h",
+      "sha": "395b02224f28bbc8902e109591e3c16da79362c7",
+      "tag": "archive/2026-09-23/codex/cycle-next-12h"
+    },
+    {
+      "name": "codex/dependency-health-audit-12h",
+      "sha": "aa500daf3ed3f17fbbbbaca6f999dc8f6fd3e903",
+      "tag": "archive/2026-09-23/codex/dependency-health-audit-12h"
+    },
+    {
+      "name": "codex/e011-evidence-import-12h",
+      "sha": "30c15b96ca446f782081614e7f718ce600269472",
+      "tag": "archive/2026-09-23/codex/e011-evidence-import-12h"
+    },
+    {
+      "name": "codex/editor-consumption-audit",
+      "sha": "eddba9d9074f9f9f8cb1c35c26c328d690117688",
+      "tag": "archive/2026-09-23/codex/editor-consumption-audit"
+    },
+    {
+      "name": "codex/editor-fallback-consumption",
+      "sha": "d9d36c1df9cd9b385ab16f525576d61dcf0ed0d4",
+      "tag": "archive/2026-09-23/codex/editor-fallback-consumption"
+    },
+    {
+      "name": "codex/editor-fixture-events",
+      "sha": "355c5cb50fbae17044053c9156a3ecad40b38b1b",
+      "tag": "archive/2026-09-23/codex/editor-fixture-events"
+    },
+    {
+      "name": "codex/editor-html-paste",
+      "sha": "e989157b0235530de38e43fd2da40f49f26ef166",
+      "tag": "archive/2026-09-23/codex/editor-html-paste"
+    },
+    {
+      "name": "codex/editor-markdown-paste",
+      "sha": "d2e356c167ec01a3690b20599babaa444876640a",
+      "tag": "archive/2026-09-23/codex/editor-markdown-paste"
+    },
+    {
+      "name": "codex/editor-rich-clipboard",
+      "sha": "1a9faf34ae341d5e14519c1ff40363a2ed35ac04",
+      "tag": "archive/2026-09-23/codex/editor-rich-clipboard"
+    },
+    {
+      "name": "codex/editor-structured-tables",
+      "sha": "d8e8260ec4dc312282ba6c3cd611f10661bc64e4",
+      "tag": "archive/2026-09-23/codex/editor-structured-tables"
+    },
+    {
+      "name": "codex/editor-upgrades-12h",
+      "sha": "d5b76ef90b2c4b86430b7d62ce7aff589180dda9",
+      "tag": "archive/2026-09-23/codex/editor-upgrades-12h"
+    },
+    {
+      "name": "codex/editor-upload-history",
+      "sha": "0d5ffa17c966fe7433070962292b4d6603cde93f",
+      "tag": "archive/2026-09-23/codex/editor-upload-history"
+    },
+    {
+      "name": "codex/electron-repro-plan-12h",
+      "sha": "3b276e31b1ff120d715fda77f8e29f07cafba76e",
+      "tag": "archive/2026-09-23/codex/electron-repro-plan-12h"
+    },
+    {
+      "name": "codex/electron43-contingency-12h",
+      "sha": "010c1b04ec494788c0cfc2faac0bb89d97efeafc",
+      "tag": "archive/2026-09-23/codex/electron43-contingency-12h"
+    },
+    {
+      "name": "codex/electron44-trial-12h",
+      "sha": "57ee09c5be4ac4cb85599412a77543950ac9af80",
+      "tag": "archive/2026-09-23/codex/electron44-trial-12h"
+    },
+    {
+      "name": "codex/folder-preflight-12h",
+      "sha": "6e142befb259174f9931346cc0bb124cc8155188",
+      "tag": "archive/2026-09-23/codex/folder-preflight-12h"
+    },
+    {
+      "name": "codex/goal-orchestration",
+      "sha": "8632d694f1b471c3d36e3c82d94580ea02f356a4",
+      "tag": "archive/2026-09-23/codex/goal-orchestration"
+    },
+    {
+      "name": "codex/live-provider-truth-12h",
+      "sha": "d58a38b0b02d0ef6fec164a0f06d074ebad07385",
+      "tag": "archive/2026-09-23/codex/live-provider-truth-12h"
+    },
+    {
+      "name": "codex/missing-folder-context-12h",
+      "sha": "27f09557ecb1642571a84c1f1e9aa036455f3de3",
+      "tag": "archive/2026-09-23/codex/missing-folder-context-12h"
+    },
+    {
+      "name": "codex/paper-loading-position-12h",
+      "sha": "26d94614f4fc61461408782d6b27f5ef2f6a6be6",
+      "tag": "archive/2026-09-23/codex/paper-loading-position-12h"
+    },
+    {
+      "name": "codex/parity-behavior-proof-12h",
+      "sha": "069e36aa2a462c277a00a043a4f6ea6dd23833d6",
+      "tag": "archive/2026-09-23/codex/parity-behavior-proof-12h"
+    },
+    {
+      "name": "codex/parity-exit-guard-12h",
+      "sha": "e2ff217627bb94e9c1a2b7b4827201fc40c7eb90",
+      "tag": "archive/2026-09-23/codex/parity-exit-guard-12h"
+    },
+    {
+      "name": "codex/profile-isolation-journey-12h",
+      "sha": "b07fa9ffc0059729802f30a97a8ed46dc447c652",
+      "tag": "archive/2026-09-23/codex/profile-isolation-journey-12h"
+    },
+    {
+      "name": "codex/project-buffer-preservation-12h",
+      "sha": "b3881cd9a687101cc474ac90778906c7ea3a2064",
+      "tag": "archive/2026-09-23/codex/project-buffer-preservation-12h"
+    },
+    {
+      "name": "codex/project-file-authority-12h",
+      "sha": "6654f34988c0b1ae84c296d6d689c19777f879f5",
+      "tag": "archive/2026-09-23/codex/project-file-authority-12h"
+    },
+    {
+      "name": "codex/readme-health-truth-12h",
+      "sha": "8dd6045883ef06d8adf1af0b7b51e2ebb86ac3a7",
+      "tag": "archive/2026-09-23/codex/readme-health-truth-12h"
+    },
+    {
+      "name": "codex/repeated-cold-adoption-12h",
+      "sha": "78e2e5f9f29b7de8e3add3a2902c5b5692e4ea66",
+      "tag": "archive/2026-09-23/codex/repeated-cold-adoption-12h"
+    },
+    {
+      "name": "codex/rollback-native-preflight-12h",
+      "sha": "21429c6e5ceb56036beb5af07e881e36a662b962",
+      "tag": "archive/2026-09-23/codex/rollback-native-preflight-12h"
+    },
+    {
+      "name": "codex/run-coordination-12h",
+      "sha": "6be84a98b541563fd45e1203234bc5fdfdd4d32e",
+      "tag": "archive/2026-09-23/codex/run-coordination-12h"
+    },
+    {
+      "name": "codex/send-preservation-12h",
+      "sha": "c3568c0a14b214797d7f1d85ddffbe07208582e4",
+      "tag": "archive/2026-09-23/codex/send-preservation-12h"
+    },
+    {
+      "name": "codex/terminal-ownership-12h",
+      "sha": "6669eb7a804ed5ed5f27d71b7323aea79a45e500",
+      "tag": "archive/2026-09-23/codex/terminal-ownership-12h"
+    },
+    {
+      "name": "codex/truth-checkpoint",
+      "sha": "026f49dded4cc1210758552135a3e98ce9ac0cdb",
+      "tag": "archive/2026-09-23/codex/truth-checkpoint"
+    },
+    {
+      "name": "codex/visual-review-immutability-12h",
+      "sha": "5e2b5b552e4cc0539e5aac3e117b286fcfaf26e3",
+      "tag": "archive/2026-09-23/codex/visual-review-immutability-12h"
+    },
+    {
+      "name": "codex/workspace-preservation-12h",
+      "sha": "fb1ed5510b3f4d0351558c6ec463e41eb936f4a8",
+      "tag": "archive/2026-09-23/codex/workspace-preservation-12h"
+    }
+  ]
+}

@@ -83,14 +83,14 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
           } else if (item.type === 'web_search' && event.type === 'item.started') run.emit({ type: 'tool_start', tool: 'WebSearch', input: { query: item.query }, toolUseId: item.id });
           else if (item.type === 'error') run.emit({ type: 'error_note', message: item.message });
         } else if (event.type === 'turn.completed') { const u = event.usage || {}; run.emit({ type: 'usage', usage: u, tokens: { input: (u.input_tokens || 0), output: (u.output_tokens || 0) } }); }
-        else if (event.type === 'turn.failed') throw new Error(event.error?.message || 'Codex turn failed');
+        else if (event.type === 'turn.failed') throw Object.assign(new Error(event.error?.message || 'Codex turn failed'), event.error || {});
         else if (event.type === 'error') throw new Error(event.message || 'Codex error');
       }
       if (!sawText && !run.cancelled) run.emit({ type: 'text_delta', text: '(Codex finished without a message.)' });
       run.emit({ type: 'done', cancelled: run.cancelled, session: thread.id, provider: 'codex', finalMessage });
     } catch (error) {
       if (run.cancelled) run.emit({ type: 'done', cancelled: true, provider: 'codex' });
-      else run.emit({ type: 'error', message: /auth|login|401|unauthori/i.test(error.message) ? 'Codex is not logged in. Run `codex login` in a terminal, then try again.' : error.message || String(error) });
+      else run.emit(require('./auth-error').providerError('codex', error));
     } finally { await finish(run); }
   })();
   return { runId: run.id };

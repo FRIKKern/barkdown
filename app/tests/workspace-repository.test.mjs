@@ -111,3 +111,19 @@ fs.renameSync(replaced, replaced + '-retained'); fs.mkdirSync(replaced);
 assert.throws(() => second.writeJson('new.json', {}), /root changed/);
 checks.push('bound handles reject ancestor links and root replacement without touching redirected profile');
 console.log(JSON.stringify({ checks, root, retained: true }));
+
+// A late authentication error belongs to its reserved owner even after B is selected.
+const authA=registry.createProfile({name:'Auth A'}),authB=registry.createProfile({name:'Auth B'});
+repo.saveView(authA.id,view('Auth A'));repo.saveView(authB.id,view('Auth B'));
+const expired={profileId:authA.id,chatId:'same',attemptId:crypto.randomUUID(),prompt:'Retained expired request',provider:'codex',images:[]};
+const beforeExpired=repo.load(authA.id).chats.same;
+repo.begin(expired,{scope:{profileId:authA.id},chatContext:captureChatContext(beforeExpired)});
+registry.selectProfile(authB.id);
+const bBefore=JSON.stringify(repo.load(authB.id));
+repo.event(expired,{profileId:authA.id,chatId:'same',runId:'expired-A',sequence:1,type:'error',provider:'codex',authProvider:'codex',message:'Sign-in needed'});
+repo.finish(expired,{runId:'expired-A',status:'failed',driverFinished:true});
+const reloadAuth=createWorkspaceRepository({registry:createProfileRegistry(path.join(root,'registry'))});
+assert.equal(reloadAuth.load(authA.id).chats.same.messages.at(-1).authProvider,'codex');
+assert.equal(reloadAuth.load(authA.id).chats.same.messages.at(-2).text,'Retained expired request');
+assert.equal(JSON.stringify(reloadAuth.load(authB.id)),bBefore);
+console.log('PASS authentication recovery metadata survives restart in A without changing selected B');

@@ -1,3 +1,4 @@
+import { mountProviderLogin } from './provider-login.js';
 // Settings sheet: a navigation column and one pane at a time, in the app's own controls.
 // General (appearance, storage), Assistant (providers and models), Barkpark (connection),
 // Shortcuts (reference) and About. Appearance changes preview live and are reverted on Cancel;
@@ -62,7 +63,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
             <div class="bw-card-body">
               ${setting('Model', 'Leave on the default to use what Claude Code itself is set to.', `<div class="bw-model">${selectHtml('claude-model', modelOptions('claude', s))}<input id="claude-model-custom" type="text" placeholder="model id" aria-label="Claude model id" hidden></div>`)}
               ${setting('Reasoning effort', `Claude Code's own default is <b>${esc(p.claude?.effort || 'high')}</b>${p.claude?.effortSeen && p.claude.effortSeen !== p.claude.effort ? ` (the last run reported ${esc(p.claude.effortSeen)})` : ''}. Change it per chat from the Effort chip.`, '')}
-              ${p.claude?.loggedIn ? '' : '<p class="bw-sheet-note">Run <code>claude</code> in a terminal once and sign in; Barkdown reads the same credentials.</p>'}
+              <div data-login-provider="claude"></div>
             </div>
           </article>
           <article class="bw-card" data-provider="codex">
@@ -70,7 +71,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
             <div class="bw-card-body">
               ${setting('Model', 'Leave on the default to use <code>~/.codex/config.toml</code>.', `<div class="bw-model">${selectHtml('codex-model', modelOptions('codex', s))}<input id="codex-model-custom" type="text" placeholder="model id" aria-label="Codex model id" hidden></div>`)}
               ${setting('Reasoning effort', `Codex's own default is <b>${esc(p.codex?.effort || 'medium')}</b>. Change it per chat from the Effort chip.`, '')}
-              ${p.codex?.loggedIn ? '' : '<p class="bw-sheet-note">Run <code>codex login</code> once; Barkdown reads the same credentials.</p>'}
+              <div data-login-provider="codex"></div>
             </div>
           </article>
           <article class="bw-card" data-provider="api">
@@ -122,6 +123,8 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
   </div>`);
   const q = sel => dialog.querySelector(sel);
   const qa = sel => [...dialog.querySelectorAll(sel)];
+
+  const loginDisposers = qa('[data-login-provider]').map(host => mountProviderLogin(host, host.dataset.loginProvider, result => { const badge = host.closest('[data-provider]').querySelector('.bw-badge'); const ok = result.state === 'signed-in'; badge.textContent = ok ? 'Signed in' : 'Not signed in'; badge.classList.toggle('ok', ok); badge.classList.toggle('off', !ok); }));
 
   // navigation
   const showPane = id => { qa('[data-pane]').forEach(n => { if (n.tagName === 'BUTTON') n.setAttribute('aria-selected', String(n.dataset.pane === id)); else n.hidden = n.dataset.pane !== id; }); q('.bw-settings-body').scrollTop = 0; };
@@ -232,7 +235,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
   function markDirty() { dirty = true; q('#dirty').hidden = false; }
   qa('input[type=text], input[type=password], input[type=checkbox], select').forEach(n => n.addEventListener('input', markDirty));
   const dismiss = openDialog(dialog, { onDismiss: () => cancel() });
-  const close = () => { unsubscribeLocal(); dismiss(); };
+  const close = () => { loginDisposers.forEach(dispose => dispose()); unsubscribeLocal(); dismiss(); };
   const cancel = () => { if (saving) return; onChange({ theme: original.theme, chatWidth: original.chatWidth }, true); close(); };
   q('[data-act="cancel"]').onclick = cancel;
   q('[data-act="save"]').onclick = async () => {

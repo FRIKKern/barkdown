@@ -3,7 +3,7 @@ const { contextBridge, ipcRenderer } = require('electron');
 async function rawCall(channel, ...args) {
   const result = await ipcRenderer.invoke(channel, ...args);
   if (!result || result.ok === undefined) return result;
-  if (!result.ok) { const error = new Error(result.code ? `[${result.code}] ${result.error}` : result.error); error.code = result.code; error.displayMessage = result.error; error.diagnostic = result.diagnostic; throw error; }
+  if (!result.ok) { const error = new Error(result.code ? `[${result.code}] ${result.error}` : result.error); error.code = result.code; error.displayMessage = result.error; error.diagnostic = result.diagnostic; error.authProvider = result.authProvider; throw error; }
   return result.value;
 }
 let owner = null;
@@ -45,7 +45,7 @@ const api = {
         // Error custom properties are not preserved by Electron contextBridge.
         // Preserve only known validation/display envelopes before crossing it.
         // Attachment copy does not grant legacy not-started authority.
-        if (['BARKDOWN_SEND_NOT_STARTED', 'BARKDOWN_ATTACHMENT_UNAVAILABLE'].includes(error.code)) return { accepted: false, notStarted: error.code === 'BARKDOWN_SEND_NOT_STARTED', error: { code: error.code, message: error.displayMessage, diagnostic: error.diagnostic || error.message } };
+        if (['BARKDOWN_SEND_NOT_STARTED', 'BARKDOWN_ATTACHMENT_UNAVAILABLE'].includes(error.code)) return { accepted: false, notStarted: error.code === 'BARKDOWN_SEND_NOT_STARTED', error: { code: error.code, message: error.displayMessage, diagnostic: error.diagnostic || error.message, authProvider: error.authProvider } };
         throw error;
       }
     },
@@ -54,7 +54,7 @@ const api = {
     approve: (runId, approvalId, approved) => call('agent:approve', { runId, approvalId, approved }),
     onEvent: handler => { const listener = (_e, event) => handler(event); ipcRenderer.on('agent:event', listener); return () => ipcRenderer.removeListener('agent:event', listener); },
   },
-  providers: { status: () => call('providers:status') },
+  providers: { status: () => call('providers:status'), login: provider => call('providers:login', provider), loginStatus: provider => call('providers:loginStatus', provider), checkLogin: provider => call('providers:loginCheck', provider), cancelLogin: (provider, id) => call('providers:loginCancel', { provider, id }) },
   web: { fetchTitle: url => call('web:fetchTitle', url) },
   barkpark: { localStatus: () => call('barkpark:localStatus'), localRetry: () => call('barkpark:localRetry'), onLocalStatus: handler => { const listener = (_e, status) => handler(status); ipcRenderer.on('barkpark:localStatus', listener); return () => ipcRenderer.removeListener('barkpark:localStatus', listener); }, test: config => call('barkpark:test', config), importCli: () => call('barkpark:importCli'), bundle: () => call('barkpark:bundle'), uploadMedia: payload => call('barkpark:uploadMedia', payload), list: () => call('barkpark:list'), get: id => call('barkpark:get', id), search: q => call('barkpark:search', q), backlinks: id => call('barkpark:backlinks', id), related: id => call('barkpark:related', id), history: id => call('barkpark:history', id), import: id => call('barkpark:import', id), applyOps: (slug, ops, ifRev) => call('barkpark:applyOps', { slug, ops, ifRev }), publish: payload => call('barkpark:publish', payload), patchTitle: (slug, title) => call('barkpark:patchTitle', { slug, title }) },
   onMenu: handler => { const listener = (_e, command) => handler(command); ipcRenderer.on('menu', listener); return () => ipcRenderer.removeListener('menu', listener); },

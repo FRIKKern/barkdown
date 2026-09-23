@@ -266,7 +266,7 @@ class GoalScheduler {
     Promise.resolve().then(() => {
       if (abort.signal.aborted) return { status: 'cancelled', text: 'Stopped before provider launch' };
       return this.adapter.execute(copy(dispatch), { signal: abort.signal, progress: event => this.progress(live, event) });
-    }).then(result => this.settle(live, result), error => this.settle(live, { status: 'failed', text: String(error?.message || error) }))
+    }).then(result => this.settle(live, result), error => this.settle(live, { status: 'failed', text: String(error?.message || error), ...(error?.code === 'BARKDOWN_SEND_NOT_STARTED' && ['api','claude','codex'].includes(error.authProvider) ? { authProvider: error.authProvider } : {}) }))
       .catch(error => this.halt(error)).finally(() => {
         this.live.delete(attemptId);
         releaseAdmission();
@@ -297,6 +297,7 @@ class GoalScheduler {
       if (a.id !== owner.attemptId) return;
       const status = result?.status === 'succeeded' && !result.offline ? 'review' : result?.status === 'cancelled' ? 'cancelled' : result?.status === 'interrupted' ? 'interrupted' : 'failed';
       a.result = { status, text: typeof result?.text === 'string' ? result.text.slice(0, 100000) : '', offline: Boolean(result?.offline) };
+      if (status === 'failed' && ['api','claude','codex'].includes(result?.authProvider)) a.result.authProvider = result.authProvider;
       a.stoppedAt = this.now();
       if (t.status === 'running') {
         if (this.now() >= g.deadline || g.status !== 'active') { t.status = a.status = 'interrupted'; a.reason = 'Stopped outside active goal window; reconcile effects'; }

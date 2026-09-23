@@ -1,0 +1,39 @@
+
+> barkdown-desktop@0.6.0 shots:isolated
+> npm run build && node tests/status-shots-isolated.mjs
+
+
+> barkdown-desktop@0.6.0 build
+> node scripts/build.mjs
+
+
+  renderer\dist\app.js      2.8mb
+  renderer\dist\app.js.map  7.0mb
+
+Done in 366ms
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-bX6145
+Capture runtime: starting 
+Capture runtime: ready 
+Capture runtime: stopping 
+Capture runtime: stopped 
+file:///C:/Users/Frikk/.codex/worktrees/barkdown-finish-profile-isolation/app/tests/helpers/capture-lifecycle.mjs:98
+    throw new AggregateError(errors, errors.map(error => error.message).join('\n'));
+          ^
+
+AggregateError: Evidence capture requires clean source: C:\Users\Frikk\.codex\worktrees\barkdown-finish-profile-isolation
+ M docs/visual/pending.json
+    at captureWithCleanup (file:///C:/Users/Frikk/.codex/worktrees/barkdown-finish-profile-isolation/app/tests/helpers/capture-lifecycle.mjs:98:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-finish-profile-isolation/app/tests/status-shots-isolated.mjs:33:1 {
+  [errors]: [
+    Error: Evidence capture requires clean source: C:\Users\Frikk\.codex\worktrees\barkdown-finish-profile-isolation
+     M docs/visual/pending.json
+        at cleanSource (file:///C:/Users/Frikk/.codex/worktrees/barkdown-finish-profile-isolation/app/tests/helpers/capture-lifecycle.mjs:21:27)
+        at verifySource (file:///C:/Users/Frikk/.codex/worktrees/barkdown-finish-profile-isolation/app/tests/status-shots-isolated.mjs:37:9)
+        at captureWithCleanup (file:///C:/Users/Frikk/.codex/worktrees/barkdown-finish-profile-isolation/app/tests/helpers/capture-lifecycle.mjs:75:5)
+        at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+        at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-finish-profile-isolation/app/tests/status-shots-isolated.mjs:33:1
+  ]
+}
+
+Node.js v22.13.1

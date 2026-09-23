@@ -59,14 +59,23 @@ try {
   await page.setViewportSize({ width: 1400, height: 880 });
   await page.screenshot({ path: path.join(out, '01-start.png') });
 
-  // Offline assistant run: message sent with Enter, reply arrives, and the named document opens beside the chat.
+  // Missing authentication is a refused send with a retained draft, not a fake assistant run.
   await page.locator('#bw-prompt').fill('Open the Interaction notes and the website barkpark.cloud');
   await page.locator('#bw-prompt').press('Enter');
   await page.waitForFunction(() => document.querySelector('#bw-working')?.hidden === true && document.querySelectorAll('.bw-user-message').length === 1, null, { timeout: 20000 });
-  step('offline reply rendered', (await page.locator('.bw-agent-copy').last().innerText()).includes('No Claude API key'));
-  step('activity opened a document tab', (await page.locator('#bw-tabs [data-tab]').count()) >= 2);
+  step('missing API authentication explains the next action', (await page.locator('.bw-error-line').last().innerText()).includes('Add a Claude API key'));
+  step('missing authentication retains the original draft', (await page.locator('#bw-prompt').inputValue()).startsWith('Open the Interaction'));
+  // Direct navigation remains available without any provider authentication.
+  await page.evaluate(()=>{window.__barkdown.openTarget({kind:'doc',id:'interaction-notes',title:'Interaction notes'});window.__barkdown.openTarget({kind:'web',url:'https://barkpark.cloud',title:'barkpark.cloud'});});
+  step('direct navigation opened work tabs without authentication', (await page.locator('#bw-tabs [data-tab]').count()) >= 2);
   step('chat title derived from first message', (await page.locator('#bw-chat-title').innerText()).startsWith('Open the Interaction'));
-  await page.screenshot({ path: path.join(out, '02-offline-run.png') });
+  await page.screenshot({ path: path.join(out, '02-missing-auth.png') });
+  // Subsequent composer checks use the real API adapter with a controlled client.
+  await app.evaluate(({app})=>{
+    process.env.ANTHROPIC_API_KEY='synthetic-ui-key';
+    const require=process.getBuiltinModule('module').createRequire(app.getAppPath()+'/main/main.js');
+    require('./agent').setClientFactory(()=>({messages:{stream(){const handlers={};return{on(name,fn){handlers[name]=fn;return this;},async finalMessage(){handlers.text?.('Controlled composer response.');return{stop_reason:'end_turn',content:[{type:'text',text:'Controlled composer response.'}],usage:{}};}};}}}));
+  });
 
   // Image attachments: a pasted image shows as a thumbnail in the composer, is saved under userData, and
   // renders inside the sent message.
@@ -224,7 +233,7 @@ try {
   await page.locator('#bw-model').click();
   await page.locator('#bw-model-menu [data-choice="claude-sonnet-5"]').click();
   step('model chip stores the chat model', (await page.locator('#bw-model-label').innerText()) === 'Sonnet 5' && (await page.evaluate(() => window.__barkdown.state.chats[window.__barkdown.state.current].model)) === 'claude-sonnet-5');
-  // Effort exists for the login providers only; the offline run uses the API loop, so switch the chat to Claude Code for the chip.
+  // Effort exists for the login providers only; the controlled run uses the API loop, so switch the chat to Claude Code for the chip.
   await page.evaluate(() => { const chat = window.__barkdown.state.chats[window.__barkdown.state.current]; chat.provider = 'claude'; chat.model = null; chat.effort = null; window.__barkdown.render(); });
   step('the chips name the defaults in force instead of saying Model and Effort', (await page.locator('#bw-model-label').innerText()).endsWith(' (default)') && /^(Low|Medium|High|Extra high|Max) [(]default[)]$/.test(await page.locator('#bw-effort-label').innerText()));
   await page.locator('#bw-effort').click();
@@ -319,7 +328,7 @@ try {
   step('cancel reverts the preview', (await page.evaluate(() => document.documentElement.dataset.theme || '')) === '' && (await page.locator('.bw-settings').count()) === 0);
   await page.locator('#bw-settings').click();
   await page.locator('.bw-settings-nav [data-pane="assistant"]').click();
-  step('the Assistant pane shows the three providers with their status', await page.locator('section[data-pane="assistant"]').isVisible() && await page.locator('section[data-pane="general"]').isHidden() && (await page.locator('.bw-card').count()) === 3 && (await page.locator('.bw-card[data-provider="api"] .bw-badge').innerText()) === 'No key');
+  step('the Assistant pane shows the three providers with their status', await page.locator('section[data-pane="assistant"]').isVisible() && await page.locator('section[data-pane="general"]').isHidden() && (await page.locator('.bw-card').count()) === 3 && (await page.locator('.bw-card[data-provider="api"] .bw-badge').innerText()) === 'From ANTHROPIC_API_KEY');
   await page.locator('.bw-settings-nav [data-pane="shortcuts"]').click();
   step('the Shortcuts pane lists the app shortcuts', (await page.locator('section[data-pane="shortcuts"] .bw-keys tr').count()) >= 15);
   await page.locator('.bw-settings-nav [data-pane="general"]').click();

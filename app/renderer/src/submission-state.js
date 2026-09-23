@@ -16,6 +16,15 @@ export function acceptSubmission(chat, intent) {
   }
 }
 export function endSubmission(chat, intent) { if (pending.get(chat) === intent) pending.delete(chat); }
+export function restoreFailedMessage(chat, index) {
+  if (isSubmitting(chat) || chat.runId || chat.interruption || chat.draft || chat.draftImages?.length) return false;
+  const reply = chat.messages[index], user = chat.messages[index - 1];
+  if (!['api','claude','codex'].includes(reply?.authProvider) || user?.role !== 'user') return false;
+  chat.draft = user.text || '';
+  chat.draftImages = structuredClone(user.images || []);
+  markDraftChanged(chat);
+  return true;
+}
 export function mergeSubmissionMessages(chat, authoritative) {
   const intent = pending.get(chat);
   if (!intent?.attemptId || !intent.user || !intent.reply) return authoritative;

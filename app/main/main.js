@@ -7,6 +7,7 @@ const files = require('./files');
 const git = require('./git');
 const agent = require('./agent');
 const { assertProviderFolder } = require('./provider-folder');
+const { captureScope } = require('./providers/run-scope');
 const barkpark = require('./barkpark');
 const canvasBundle = require('./canvas-bundle');
 const terminal = require('./terminal');
@@ -21,9 +22,14 @@ let localRuntime = null, localConfigKey = '';
 let localTransition = Promise.resolve(), localStartupError = null;
 const claudeProvider = require('./providers/claude');
 const codexProvider = require('./providers/codex');
+let providerLogin = null;
+function loginService() { return providerLogin ||= require('./provider-login').createProviderLogin({ storeDir: app.getPath('userData') }); }
+const assertProviderAuthentication = require('./provider-authentication').createProviderAuthentication({ checkLogin: provider => loginService().check(provider) });
 
+const providerDiscovery = require('./provider-discovery').createProviderDiscovery({ service: loginService });
+function deviceSignedIn(provider) { return providerDiscovery.available(provider); }
 function providerStatus() {
-  return { claude: { loggedIn: claudeProvider.loggedIn(), effort: claudeProvider.defaultEffort(), model: claudeProvider.defaultModel() }, codex: { loggedIn: codexProvider.loggedIn(), model: codexProvider.defaultModel(), effort: codexProvider.defaultEffort() }, api: { hasKey: Boolean(readSettings().apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY) } };
+  return { claude: { loggedIn: deviceSignedIn('claude'), effort: claudeProvider.defaultEffort(), model: claudeProvider.defaultModel() }, codex: { loggedIn: deviceSignedIn('codex'), model: codexProvider.defaultModel(), effort: codexProvider.defaultEffort() }, api: { hasKey: Boolean(readSettings().apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN) } };
 }
 function defaultProvider() {
   if (process.env.BARKDOWN_PROVIDER) return process.env.BARKDOWN_PROVIDER;
@@ -50,7 +56,7 @@ function decrypt(value) { if (!value) return ''; try { if (value.startsWith('enc
 function publicSettings() {
   const s = readSettings();
   if (profileConnection && s.barkpark.local?.enabled) s.barkpark.local = { ...s.barkpark.local, port: Number(new URL(profileConnection.server).port) };
-  return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY) && !s.apiKeyEncrypted, barkpark: { effectiveServer: s.barkpark.local?.enabled ? `http://127.0.0.1:${s.barkpark.local.port}` : s.barkpark.server, enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, local: s.barkpark.local || DEFAULT_SETTINGS.barkpark.local }, recentFolders: s.recentFolders, userData: store.dir() };
+  return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN) && !s.apiKeyEncrypted, barkpark: { effectiveServer: s.barkpark.local?.enabled ? `http://127.0.0.1:${s.barkpark.local.port}` : s.barkpark.server, enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, local: s.barkpark.local || DEFAULT_SETTINGS.barkpark.local }, recentFolders: s.recentFolders, userData: store.dir() };
 }
 // What the MCP server and the context note need to know about Barkpark, refreshed on every save.
 function localSecrets(source = store) {
@@ -187,7 +193,7 @@ function handle(channel, fn, unowned = false) {
         args = envelope.args;
         return { ok: true, value: await profileGate.request(envelope.owner, execute) };
       }
-      return { ok: true, value: await execute() }; } catch (error) { return { ok: false, error: error.message || String(error), code: error.code, diagnostic: error.diagnostic }; }
+      return { ok: true, value: await execute() }; } catch (error) { return { ok: false, error: error.message || String(error), code: error.code, diagnostic: error.diagnostic, authProvider: error.authProvider }; }
   });
 }
 
@@ -203,7 +209,7 @@ function registerIpc() {
       await reconcileLocal();
     }, () => terminal.stopAll(owner.profileId));
   }, true);
-  handle('settings:get', () => publicSettings());
+  handle('settings:get', async () => { await providerDiscovery.initialize(); return publicSettings(); });
   handle('settings:set', async patch => {
     if (patch.apiKey || patch.barkpark?.token || patch.barkpark?.local?.enabled) await credentialDurability.prepare();
     const s = readSettings();
@@ -309,6 +315,10 @@ function registerIpc() {
   handle('term:stop', ({ id, chatId, sessionId }) => terminal.stop({ id, chatId, sessionId, ...terminalContext() }));
 
   handle('providers:status', () => providerStatus());
+  handle('providers:login', provider => loginService().start(provider));
+  handle('providers:loginStatus', provider => loginService().status(provider));
+  handle('providers:loginCheck', provider => loginService().start(provider, 'status'));
+  handle('providers:loginCancel', ({ provider, id }) => loginService().cancel(provider, id));
   // Pasted or dropped images land as files under userData/attachments; messages keep the path, and the
   // providers read the bytes when the prompt is sent (base64 blocks for Claude, local_image for Codex).
   handle('attachments:save', ({ name, mime, dataUrl }) => {
@@ -326,7 +336,7 @@ function registerIpc() {
     fs.writeFileSync(file, bytes);
     return { id, path: file, url: 'file:///' + file.replace(/\\/g, '/').replace(/^\//, ''), name: name || id + '.' + ext, mime: type, size: bytes.length };
   });
-  handle('agent:start', ({ chatId, messages, context, provider, session, prompt, images, options }) => {
+  handle('agent:start', async ({ chatId, messages, context, provider, session, prompt, images, options }) => {
     if (profileService) return profileService.start(profileService.view(), { chatId, prompt, images, provider, attemptId: options?.attemptId });
     if (readSettings().barkpark.local?.enabled && localStatus().phase !== 'ready') throw Object.assign(new Error('Local Barkpark is not ready. Check Settings → Barkpark before starting a run.'), { code: 'BARKDOWN_SEND_NOT_STARTED' });
     const s = readSettings();
@@ -336,7 +346,10 @@ function registerIpc() {
     // A chat's own model and effort win over the settings defaults.
     const settings = { apiKey: decrypt(s.apiKeyEncrypted), model: chosen === 'api' ? (o.model || s.model) : s.model, claudeModel: chosen === 'claude' ? (o.model || s.claudeModel) : s.claudeModel, codexModel: chosen === 'codex' ? (o.model || s.codexModel) : s.codexModel, effort: o.effort || undefined };
     const runStoreDir = store.dir();
-    return agent.start({ chatId, messages, prompt, images, context, provider: chosen, session, storeDir: runStoreDir, connection: barkparkConfig(), settings, send: event => { if ((event.type === 'library_changed' || event.libraryChanged) && store.dir() === runStoreDir) documents.loadAll(); win?.webContents.send('agent:event', event); } });
+    const scope = captureScope({ storeDir: runStoreDir, context, connection: barkparkConfig() });
+    await assertProviderAuthentication(chosen, settings, scope);
+    assertProviderFolder(chosen, scope.context.folder);
+    return agent.start({ chatId, messages, prompt, images, context: scope.context, scope, provider: chosen, session, storeDir: runStoreDir, connection: scope.connection, settings, send: event => { if ((event.type === 'library_changed' || event.libraryChanged) && store.dir() === runStoreDir) documents.loadAll(); win?.webContents.send('agent:event', event); } });
   });
   handle('agent:cancel', runId => profileService ? profileService.cancel(profileService.view(), runId) : agent.cancel(runId));
   handle('agent:recover', input => { if (!profileService) throw new Error('Recovery requires a managed profile'); return profileService.recover(profileService.view(), input); });
@@ -401,7 +414,7 @@ app.whenReady().then(async () => {
       profileRegistry.createProfile({ name: 'Personal' });
     }
     profilePool = require('./profile-runtime').createProfileRuntimePool({ registry: profileRegistry, readSecrets: preparedLocalSecrets });
-    profileService = require('./profile-service').createProfileService({ registry: profileRegistry, runtimePool: profilePool,
+    profileService = require('./profile-service').createProfileService({ registry: profileRegistry, runtimePool: profilePool, assertAuthentication: assertProviderAuthentication,
       settingsFor: source => { const s = readSettings(source); return { ...s, provider: s.provider || defaultProvider(), apiKey: decrypt(s.apiKeyEncrypted) }; },
       connectionFor: s => ({ ...s.barkpark, token: decrypt(s.barkpark.tokenEncrypted), viaCli: false }), defaultProvider,
       sendEvent: event => { if (event.libraryChanged || event.type === 'library_changed') documents.loadAll({ seed: false }); win?.webContents.send('agent:event', event); } });
@@ -438,13 +451,13 @@ app.whenReady().then(async () => {
 let localQuitDone = false, localQuitting = false;
 app.on('before-quit', event => {
   if (bootBusy) { event.preventDefault(); return; }
-  if (!localQuitDone && (profilePool || localRuntime || terminal.hasSessions() || require('./providers/runs').runs.size)) {
+  if (!localQuitDone && (profilePool || localRuntime || terminal.hasSessions() || providerLogin?.hasSessions() || require('./providers/runs').runs.size)) {
     event.preventDefault();
     if (localQuitting) return;
     localQuitting = true;
     const owned = [...require('./providers/runs').runs.values()];
     for (const run of owned) agent.cancel(run.id);
-    Promise.all([terminal.shutdown(), goalService?.close(), ...owned.map(run => agent.waitForRunFinish(run.id))]).then(async () => { if (profilePool) await profilePool.shutdown(); else if (localRuntime) await localRuntime.stop(); }).then(() => {
+    Promise.all([providerLogin?.shutdown(), terminal.shutdown(), goalService?.close(), ...owned.map(run => agent.waitForRunFinish(run.id))]).then(async () => { if (profilePool) await profilePool.shutdown(); else if (localRuntime) await localRuntime.stop(); }).then(() => {
       localQuitDone = true; app.quit();
     }).catch(error => {
       localQuitting = false; console.error('Owned profile shutdown:', error.message);

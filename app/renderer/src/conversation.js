@@ -1,3 +1,4 @@
+import { openProviderLogin } from './provider-login.js';
 // Conversation rendering and agent runs, shared by the main chat and side chats.
 import { el, esc, iconHtml, inlineMarkdownHtml, relativeTime, toast } from './ui.js';
 import { state, touch, save, serialise, chatTitleFrom } from './state.js';
@@ -24,9 +25,10 @@ export function transcriptHtml(chat, options = {}) {
     const events = (m.events || []).map((e, n) => `<button class="bw-event" data-event="${index}:${n}">${iconHtml(TARGET_ICON[e.target?.kind] || 'sparkles')}<span>${esc(e.label)}<small>${esc(e.detail || '')}</small></span></button>`).join('');
     const approvals = (m.approvals || []).filter(a => a.status === 'pending').map(a => `<div class="bw-approval" data-approval="${esc(a.approvalId)}"><strong>${a.request.kind === 'command' ? 'Allow running a command?' : a.request.outside ? `Allow ${esc(a.request.tool)} outside the working folder: ${esc(a.request.path)}?` : `Allow writing ${esc(a.request.path || a.request.tool)}?`}</strong><span class="bw-muted">${esc(a.request.summary || '')}</span><pre>${esc(String(a.request.command || a.request.contents || '').slice(0, 4000))}</pre><div class="row"><button class="primary" data-approve="1">Allow</button><button data-approve="0">Decline</button></div></div>`).join('');
     const error = m.error ? `<p class="bw-error-line">${esc(m.error)}</p>${m.diagnostic ? `<details class="bw-muted"><summary>Technical details</summary><p style="overflow-wrap:anywhere">${esc(m.diagnostic)}</p></details>` : ''}` : '';
+    const recovery = m.error && ['api','claude','codex'].includes(m.authProvider) ? `<div class="row"><button data-auth-help="${index}">${m.authProvider === 'api' ? 'Check API key' : 'Sign-in help'}</button><button data-auth-restore="${index}">Copy message to empty draft</button></div>` : '';
     const notes = (m.notes || []).map(n => `<p class="bw-error-line">${esc(n)}</p>`).join('');
     const changes = m.streaming ? '' : changeCardHtml(m, index);
-    return `<div class="bw-byline"><span class="bw-avatar bw-agent">b</span>Barkdown<time>${esc(relativeTime(m.at))}</time></div>${timelineHtml(m, index, steps)}${events}${approvals}${changes}${notes}${error}${replyFootHtml(m, chat)}`;
+    return `<div class="bw-byline"><span class="bw-avatar bw-agent">b</span>Barkdown<time>${esc(relativeTime(m.at))}</time></div>${timelineHtml(m, index, steps)}${events}${approvals}${changes}${notes}${error}${recovery}${replyFootHtml(m, chat)}`;
   }).join('') + (chat.interruption ? `<div class="bw-approval" data-recovery="${esc(chat.interruption.attemptId)}"><strong>This turn was interrupted</strong><p>The partial response is saved. Nothing was resent. Check that the previous process stopped, then review any file or document changes before starting a new turn.</p>${chat.interruption.shutdownVerified ? '<p>Previous process stopped.</p><label>What did you review?<textarea data-recovery-note placeholder="Describe any changes you checked"></textarea></label><button data-recover="review">Allow a new turn</button>' : '<button data-recover="verify">Check stopped process</button>'}</div>` : '') + (options.footer || '');
 }
 
@@ -197,6 +199,8 @@ function userMessagesToApi(messages) {
 }
 
 export async function sendMessage(chat, text, hooks, images = []) {
+  const authOriginProfile = state.profileId;
+  const authOriginChat = state.current;
   const clean = text.trim();
   if (chat.interruption) { toast('Review the interrupted turn before sending a new message.', 'error'); return false; }
   const attached = (images || []).map(i => ({ id: i.id, path: i.path, url: i.url, name: i.name, mime: i.mime }));
@@ -232,7 +236,7 @@ export async function sendMessage(chat, text, hooks, images = []) {
     const started = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title, catchUp }, provider, chat.sessions[provider] || null, clean, attached, { model: chat.model || undefined, effort: chat.effort || undefined, attemptId: intent.attemptId });
     if (started?.accepted === false) {
       definitelyNotStarted = started.notStarted === true && started.error?.code === 'BARKDOWN_SEND_NOT_STARTED';
-      throw Object.assign(new Error(started.error?.message || 'Turn was not accepted'), { diagnostic: started.error?.diagnostic });
+      throw Object.assign(new Error(started.error?.message || 'Turn was not accepted'), { diagnostic: started.error?.diagnostic, authProvider: started.error?.authProvider });
     }
     const { runId, assistantId, attemptId } = started;
     // Validation/reservation has acknowledged this intent. Never clear newer
@@ -241,7 +245,7 @@ export async function sendMessage(chat, text, hooks, images = []) {
     if (assistantId) { reply.id = assistantId; reply.attemptId = attemptId; user.id = `user-${attemptId}`; }
     const acceptedReply = assistantId ? chat.messages.find(message => message.id === assistantId) || reply : reply;
     chat.runProvider = provider;
-    chat.runId = state.profileId && (acceptedReply.driverFinished || chat.interruption) ? null : runId;
+    chat.runId = state.profileId ? (acceptedReply.driverFinished || chat.interruption ? null : runId) : (acceptedReply.streaming === false ? null : runId);
     hooks.runChanged(chat);
     return true;
   } catch (error) {
@@ -254,6 +258,7 @@ export async function sendMessage(chat, text, hooks, images = []) {
     failedReply.error = error.message;
     if (error.diagnostic) failedReply.diagnostic = error.diagnostic;
     hooks.render();
+    if (state.profileId === authOriginProfile && state.current === authOriginChat && state.chats[chat.id] === chat && ['claude','codex'].includes(error.authProvider)) openProviderLogin(error.authProvider, () => hooks.render());
     return false;
   } finally {
     endSubmission(chat, intent);
@@ -323,7 +328,7 @@ export function handleAgentEvent(event, hooks) {
       break;
     }
     case 'approval': reply.approvals.push({ approvalId: event.approvalId, runId: event.runId, request: event.request, status: 'pending' }); hooks.render(chat); hooks.attention(chat); break;
-    case 'error': reply.streaming = false; reply.error = event.message; chat.runId = state.profileId ? event.runId : null; chat.workingLabel = ''; hooks.render(chat); hooks.runChanged(chat); break;
+    case 'error': reply.streaming = false; reply.error = event.message; if (['api','claude','codex'].includes(event.authProvider)) reply.authProvider = event.authProvider; chat.runId = state.profileId ? event.runId : null; chat.workingLabel = ''; hooks.render(chat); hooks.runChanged(chat); break;
     case 'done':
       reply.streaming = false;
       if (event.history) { chat.apiHistory = event.history; chat.messages.filter(m => m.role === 'user').forEach(m => { m.sentInHistory = true; }); }

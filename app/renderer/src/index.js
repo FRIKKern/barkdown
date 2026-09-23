@@ -1,4 +1,6 @@
 import { mountComposer } from './composer.js';
+import { openProviderLogin } from './provider-login.js';
+import { restoreFailedMessage } from './submission-state.js';
 import { openGoalView } from './goals.js';
 import { captureManagedView, mergeManagedView } from './managed-workspace.js';
 // Barkdown desktop renderer: app-wide navigation, per-chat workspaces, agent runs, pins, quick open.
@@ -44,6 +46,11 @@ async function openConversationGoals() {
   try {
     await api.state.save(serialise());
     openGoalView({ owner: { profileId: state.profileId, generation: state.generation, chatId: chat.id }, service: api.goals,
+      openAuthentication: (owner, provider) => {
+        if (owner.profileId !== state.profileId || owner.generation !== state.generation) return toast('Return to the goal’s profile to update authentication.', 'error');
+        if (provider === 'api') openSettings(() => render(), {pane:'assistant'});
+        else openProviderLogin(provider);
+      },
       onSaved: () => refreshManagedChats().catch(error => toast(error.message, 'error')),
       openChat: async (owner, id) => { if (owner.profileId !== state.profileId) return; await refreshManagedChats(); switchChat(id); } });
   } catch (error) { toast(error.message, 'error'); }
@@ -306,6 +313,17 @@ function openConversationTarget(target, chat, manual = true) {
   return openTarget(target, chat, manual);
 }
 function bindTranscript(transcript, chat) {
+  transcript.querySelectorAll('[data-auth-help]').forEach(button => { button.onclick = () => {
+    if (state.chats[chat.id] !== chat) return;
+    const provider = chat.messages[Number(button.dataset.authHelp)]?.authProvider;
+    if (provider === 'api') openSettings(() => renderChatViews(chat), {pane:'assistant'});
+    else if (['claude','codex'].includes(provider)) openProviderLogin(provider, () => renderChatViews(chat));
+  }; });
+  transcript.querySelectorAll('[data-auth-restore]').forEach(button => { button.onclick = () => {
+    if (state.chats[chat.id] !== chat) return;
+    if (!restoreFailedMessage(chat, Number(button.dataset.authRestore))) return toast('Finish the current turn or save your current draft first. The original message is still above.', 'error');
+    touch(chat); save(); renderChatViews(chat);
+  }; });
   transcript.querySelectorAll('[data-recover]').forEach(button => button.addEventListener('click', async () => {
     const card = button.closest('[data-recovery]'); button.disabled = true;
     try {
