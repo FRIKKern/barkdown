@@ -1,8 +1,10 @@
 # Acceptance: complete user journeys
 
-These are pending gates for [the active plan](PLAN.md), not passing test claims. Keep the [historical requirement map](archive/2026-09-21-acceptance.md) for traceability and the [editor matrix](EDITOR-PARITY.md) for regressions. Record actual results in [VALIDATION.md](VALIDATION.md).
+These are scenario gates for [the active plan](PLAN.md), not passing test claims. Keep the [historical requirement map](archive/2026-09-21-acceptance.md) for traceability and the [editor matrix](EDITOR-PARITY.md) for regressions. Record actual results in [VALIDATION.md](VALIDATION.md).
 
 ## A1 — Profile ownership and isolation
+
+Accepted for the Windows source prototype at `27ea120`; see [completion audit](cycles/C039-completion-audit.md) for evidence, reuse boundaries and limitations. A2–A5 remain pending.
 
 - Adopt an existing workspace into a default profile twice; backup remains intact and no content, navigation, receipt or chat duplicates.
 - Create profiles A/B with identical paper slugs. Documents, media, profile-owned credentials, caches, search results, chats, side-chat parents, drafts, favorites and Undo cannot cross owners.

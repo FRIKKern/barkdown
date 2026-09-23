@@ -8,7 +8,7 @@ Active direction, set 2026-09-21. This replaces the editor-feature backlog as th
 
 Local-only use stands on its own. Cloud connection is optional. People organize Pages; cloud discovery stays in Cloud archive. Agents visibly edit the same documents people edit, with revision checks, human takeover and guarded Undo.
 
-This journey is not complete today. The Paper editor and Windows source runtime work; profile ownership has bounded implementation evidence, while combined isolation acceptance, migration and portability remain pending. Do not express progress as closed-issue percentages: integration and failure handling are the remaining work.
+This journey is not complete today. The Paper editor and Windows source runtime work; P1 profile isolation is accepted at source27ea120, while migration and portability remain pending. Do not express progress as closed-issue percentages: integration and failure handling are the remaining work.
 
 ## Delivery sequence
 
@@ -67,10 +67,10 @@ Use [ACCEPTANCE.md](ACCEPTANCE.md) for scenario gates and [VALIDATION.md](VALIDA
 
 ## Prepared tasks
 
-[Four ready-to-start briefs](tasks/2026-09-23-next-four.md) define scope, dependencies, ownership, acceptance and evidence for the next work. C039 stays active; the P2 migration task is preparatory until P1 closes.
+[Four ready-to-start briefs](tasks/2026-09-23-next-four.md) define scope, dependencies, ownership, acceptance and evidence for the next work. C039/P1 are accepted; the four task briefs are complete at their stated preparation scope. The real migration rehearsal is P2 work.
 
 ## Delivery cadence
 
-Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) is C039, closing the provider authentication boundary. C008 integration and C037/C038 Paper polish have completed source-bound validation; PR #30 is merged; main includes the cycle handoff at 7c3a325. Device authentication is shared by default without asking, per the user’s 23 September decision. C001 ownership design and C002 folder context are complete; C002 is merged on main. Subsequent bounded cycles have implemented profile foundations, adoption, recovery and editor improvements, with original evidence linked from [NEXT-AGENT.md](NEXT-AGENT.md). P1 remains unproven until the complete two-profile acceptance journey and combined regression/evidence gates pass. Closing a cycle does not complete a stage.
+Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) is C039, now done with its completed record archived. P2 preparation identifies the next bounded cycle. C008 integration and C037/C038 Paper polish have completed source-bound validation; PR #30 is merged; main includes the cycle handoff at 7c3a325. Device authentication is shared by default without asking, per the user’s 23 September decision. C001 ownership design and C002 folder context are complete; C002 is merged on main. Subsequent bounded cycles have implemented profile foundations, adoption, recovery and editor improvements, with original evidence linked from [NEXT-AGENT.md](NEXT-AGENT.md). P1 acceptance is recorded in [the final audit](cycles/C039-completion-audit.md), combining retained native journeys with final authentication and regression evidence. Closing a cycle does not complete a stage.
 
 Historical 22 September checkpoint (superseded): combined candidate `d20aa09` consumes E011 upstream54579, C032 refusal/restart evidence and C033 controlled context-race fixes. C023 original final gates are complete; combined acceptance remains pending. Follow the [remaining validation order](cycles/C008-integration.md#remaining-combined-validation-order) and [A1 evidence table](cycles/A1-current-evidence.md). C008 stays active and P1–P5 retain their current queue status; device CLI/environment authentication policy remains unanswered.

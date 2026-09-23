@@ -1,5 +1,17 @@
 # Provider sign-in assistance
 
+## Current recovery checkpoint — 27ea120
+
+The [clean-source journey](27ea120/manifest.json) now includes expired-session assistance and explicit recovery into an empty draft. Initial supported CLI status discovery replaces file-existence detection, including keyring-only sessions; native bootstrap tests prove existing explicit provider choices survive. Controlled failures distinguish authentication from quota/network/tool-permission errors. Goal assistance also routes API-key failures to the captured profile's Settings without resuming work.
+
+![Expired-session recovery preserves both conversation drafts](27ea120/10-expired-session.png)
+
+![Current native journey, sampled at two frames per second](27ea120/journey.gif)
+
+Ten source-bound stills were inspected (the unchanged first still was hash-compared with the prior reviewed image), along with 19 video samples. Cancellation, retained images, explicit retry, newer-draft refusal and light/dark/narrow controls remain visible. Normal startup and draft-protection toasts are retained, including their short-lived overlap with underlying composer controls. Original video is named in the manifest. All 19 decoded GIF frames were also inspected and the global deterministic candidate is explicitly approved. Final desktop and root verification pass; see [the acceptance audit](../../cycles/C039-completion-audit.md) for C039/P1 scope and limits. The following earlier checkpoint retains its original limits and evidence.
+
+## Earlier login checkpoint — 1c94f8d
+
 Source `1c94f8d`, Windows Electron, 23 September 2026. Actual main/preload, shared main/side composers, Settings and login lifecycle; the process transport and Codex SDK are controlled. This is not evidence of completing a real browser account login. [Manifest and hashes](1c94f8d/manifest.json), [full recorded video](1c94f8d/journey.webm), [desktop regression log](1c94f8d/desktop.log), [focused checks](1c94f8d/focused.log), [four-role goal preflight checks](1c94f8d/goal-provider.log).
 
 ![Main conversation with retained draft and sign-in help](1c94f8d/01-main-needs-login.png)

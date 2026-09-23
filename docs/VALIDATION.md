@@ -1,5 +1,10 @@
 # Evidence and remaining proof
 
+## C039 / P1 acceptance — source27ea120
+
+[Completion audit](cycles/C039-completion-audit.md) maps all four task requirements and A1 exits to evidence. Final frozen-source desktop37384 and root49277 pass. [Log hashes](visual/provider-login/27ea120/validation.json), [login recovery gallery](visual/provider-login/README.md) and [live Paper review](images/status/review-C039-recovery.json) retain source boundaries. Deterministic candidate09-42-11 is explicitly approved. All102 retained combined-native hashes verify. P1 is accepted; P2–P5 and separate release gates remain open. Migration preparation is complete, actual migration/rehearsal is not. No merge/deployment. Earlier entries retain historical states.
+
+
 ## Main merge checkpoint — 23 September
 
 PR #30 merged as `3903288`. Final candidate `5325300` passes all 20 Linux editor groups (run 35806239614), both repository CI checks and Windows visual candidate. Root verify passes locally. [C040](cycles/C040-linux-parity.md) retains original failures, fixture repairs, final report and reviewed evidence. This closes the integration merge gate; C039 provider authentication and remaining P1–P5 acceptance stay open. No deployment.

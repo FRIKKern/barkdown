@@ -1,5 +1,12 @@
 # Continue the dependable-workspace plan
 
+## Accepted checkpoint — 23 September, source27ea120
+
+C039 and P1 are accepted on codex/finish-profile-isolation; see [requirement-by-requirement audit](cycles/C039-completion-audit.md). Final Windows desktop and root verification pass, current visual review is explicit, and retained native isolation/adoption evidence is hash-verified. Main remains unchanged; no deployment or migration. The four prepared tasks are complete at their stated scope. P2 is next: [migration preparation](migration/README.md) defines the bounded inventory/preflight/manifest slice and unresolved content/write contracts. Create a new cycle before implementation; preserve source/backups and do not bulk-migrate real data. The current C039 record is done and archived as cycles/C039-completed.json.
+
+Earlier checkpoints below are historical and superseded by this audit.
+
+
 ## Current checkpoint — 23 September
 
 [PR #30](https://github.com/FRIKKern/barkdown/pull/30) is merged into main as `3903288`. C040 is complete: all 20 Linux parity groups, both repository checks and Windows visual CI pass at `5325300`, with explicitly reviewed evidence. No deployment. Continue [C039 provider authentication](cycles/C039-provider-authentication.md) on `codex/finish-profile-isolation`. The user chose shared computer authentication by default, without a per-profile prompt. Verify ordinary and goal dispatch against this boundary; profile-owned keys and workspace data remain isolated. P1 remains active; do not restart finished editor polish or treat the merge as full-stage completion. The selected policy and remaining evidence map are in C039.

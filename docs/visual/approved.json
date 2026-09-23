@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-09-23T09-06-36-021Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-23T09-06-36-021Z/comparison.json",
-  "manifestHash": "adc28c4641af92997a68d657e40e88f419aee21efbbd9fd4aeab045035c28850",
-  "reportHash": "6b1a1bb1c42a737f0db2fd1b10c5d3af5e39040fd97daa0c83d34066171d989d",
+  "manifest": "docs/visual/runs/2026-09-23T09-42-11-954Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-23T09-42-11-954Z/comparison.json",
+  "manifestHash": "9ea918112e62cade58fb5876b28c445783c5b83f73f0c881687411b1fc8a352b",
+  "reportHash": "3a58a343a7036cd9484617b6065f059cfcd18986a255a52c9e3ba67fc312c0a6",
   "reviewer": "Codex",
-  "note": "App source 1c94f8d, capture head e2a4723 with coverage/README checkpoint. Reviewed 40 stills and 40 decoded GIF frames: 33 final stills and all GIFs byte-identical to the inspected 08-58-53 candidate; separately inspected the seven changed final stills. Same environment; only expected Assistant Settings controls differ from approved baseline (3.316% pixels). Native login gallery has nine inspected stills, goal dialog opening frame and 17 video samples; draft/image preservation and explicit retry passed. Full desktop passes, plus focused authentication and six native A/B worker credential transports. Isolated live Paper capture e2a4723 passed with a real Codex turn after Claude quota refusal; five stills/all 37 GIF frames inspected, private runtime stopped. No seeded transcript. POSIX/package smoke and initial keyring-only selection remain limitations; C039/P1 not closed.",
-  "reviewedAt": "2026-09-23T09:08:42.607Z",
-  "reviewPath": "docs/visual/reviews/approval-7f7918de91c0840cb477dd7c414d2297f6dccf582c54100a08b3c771e056c83b.json",
-  "reviewHash": "7f7918de91c0840cb477dd7c414d2297f6dccf582c54100a08b3c771e056c83b"
+  "note": "Reviewed changed Assistant Settings still and all four decoded Settings GIF frames: checked login state replaces idle controls, lower cards remain scrollable. Other 39 stills and seven GIFs byte-identical to reviewed 2026-09-23T09-06-36-021Z baseline. Also inspected five live Paper stills/all 37 decoded frames and ten login stills/19 decoded motion frames. Native login and goal UI checks pass; frozen-source full desktop still running. Controlled login transport is not real browser account login; live Paper has actual Codex completion. No new clipping or geometry regression.",
+  "reviewedAt": "2026-09-23T09:45:36.441Z",
+  "reviewPath": "docs/visual/reviews/approval-615d3ff9bae41fc03b2bbd11f952e159d525257d768cc4cd9ca423275b18b088.json",
+  "reviewHash": "615d3ff9bae41fc03b2bbd11f952e159d525257d768cc4cd9ca423275b18b088"
 }

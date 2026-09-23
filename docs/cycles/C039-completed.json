@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "id": "C039",
+  "stage": "P1",
+  "status": "done",
+  "goal": "Verify shared device authentication by default while preserving profile-owned credentials and run ownership.",
+  "scope": [
+    "Use existing computer logins and supported environment keys without a per-profile prompt",
+    "Keep profile-owned API-key precedence and captured workspace ownership across ordinary and goal runs",
+    "Reconcile P1 evidence with the chosen device/profile boundary; no migration or deployment"
+  ],
+  "acceptance": [
+    "Main chats, side chats and goal runs use device authentication by default without a consent prompt",
+    "A profile-owned API key takes precedence and is never borrowed by another profile",
+    "Runs retain their captured profile, folder and conversation; missing authentication preserves drafts",
+    "Relevant provider/profile/goal evidence and root verification support the declared boundary"
+  ],
+  "checkpoint": "2026-09-23",
+  "handoff": "docs/cycles/C039-provider-authentication.md",
+  "nextAction": "P2 is next: plan the bounded synthetic inventory/preflight/durable-manifest slice from docs/migration/README.md. Resolve safe target creation before any Paper writes; no real-library migration.",
+  "evidence": [
+    "docs/cycles/C039-provider-authentication.md",
+    "docs/cycles/evidence/provider-credential-boundary.cjs",
+    "docs/tasks/2026-09-23-next-four.md",
+    "docs/visual/provider-login/README.md",
+    "docs/images/status/review-C039-login.json",
+    "docs/visual/provider-login/27ea120/validation.json",
+    "docs/migration/README.md",
+    "docs/cycles/C039-completion-audit.md"
+  ],
+  "truthReview": "C039 acceptance and A1 reconciled at source27ea120: full Windows desktop37384 and root49277 pass, prior native isolation/adoption evidence retains 102 verified hashes, shared login/owned-key boundary and explicit recovery verified. Migration and portability remain pending.",
+  "screenshotReview": "Approved deterministic candidate 2026-09-23T09-42-11-954Z after changed Settings still/four GIF frames inspected; 39 stills/seven GIFs equal reviewed baseline. Five live Paper stills/37 frames and ten login stills/19 frames inspected. Actual Codex live turn; controlled authentication failures remain labelled."
+}

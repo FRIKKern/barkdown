@@ -1,5 +1,10 @@
 # A1 current evidence - 22 September 2026
 
+## Final decision — source27ea120
+
+A1/P1 is accepted for the Windows source prototype. The [completion audit](C039-completion-audit.md) supersedes pending decisions below: frozen-source full desktop37384 and root49277 pass; current auth/recovery proof and explicitly reviewed visuals are complete; all102 retained native artifact hashes verify. Shared computer authentication is intentional, while owned keys and workspace data remain isolated. Native POSIX, installation, migration and portability are separate scope.
+
+
 ## 23 September integration update
 
 The historical table below preserves lane evidence and limitations. Its pending combined-test statements are superseded by [C008's final integration evidence](C008-integration.md): combined desktop passed at `1b01bf2`, all eight dedicated native journeys passed at `3ce6b21`/`41500dc`, final fixture and live Paper/Codex reviews passed at `3e8a2aa`, and root verification passed. [PR #30](https://github.com/FRIKKern/barkdown/pull/30) subsequently merged at `3903288`; C040 records the `5325300` editor/visual gates. The user resolved the credential policy: existing device authentication is shared by default, while explicitly configured profile keys and all workspace data retain their owners. [C039](C039-provider-authentication.md) owns current authentication implementation and proof. Its new source still needs fresh combined and visual evidence before A1 can close. Portability and release acceptance remain separate open gates.
