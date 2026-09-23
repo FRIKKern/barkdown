@@ -17,3 +17,5 @@ Source `0b25014` repairs the locally resolved typography aliases and transparent
 - `npm run verify`: passes build, repository/cycle/visual checks and concept suites. Both private runtimes stopped normally; user CLI unchanged.
 
 The look is ready for user feedback. This is a host-skin refinement, not a new editor engine or P1 completion. Existing fixture GIF quantization remains outside this scope. Next: publish this reviewable branch for hands-on testing; no merge or deployment.
+
+Final documentation recertification: renderer README changes correctly triggered both freshness checks. Deterministic00-22-54 is explicitly approved; live status was recaptured at e57b019 with five stills/all37 frames reviewed in docs/images/status/review-C037-final.json. Product CSS remains0b25014.
