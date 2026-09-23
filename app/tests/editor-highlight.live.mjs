@@ -37,14 +37,37 @@ const compare = async () => { const save = await waitSaved(); await settle(); co
 const results = [];
 const row = async (name, fn) => { try { const r = await fn(); results.push({ name, pass: !!r.pass, ...r }); } catch (e) { results.push({ name, pass: false, error: e.message.slice(0, 200) }); } };
 const pm = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror');
+// End targets a visual line, not the paragraph. Pin this mark probe to its
+// intended text so wrapping cannot turn a correct toggle into a false failure.
+const selectFirstParagraph = async (word = null) => {
+  await pm.locator('p:has-text("first paragraph")').first().click();
+  await page.evaluate(word => {
+    const editor = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor;
+    let range;
+    editor.state.doc.descendants((node, pos) => {
+      if (node.type.name !== 'paragraph' || !node.textContent.includes('first paragraph')) return;
+      const offset = word == null ? node.content.size : node.textContent.lastIndexOf(word);
+      if (offset < 0) throw Error(`Missing selection text: ${word}`);
+      range = { from: pos + 1 + offset, to: pos + 1 + offset + (word?.length || 0) };
+    });
+    if (!range) throw Error('Missing fixture paragraph');
+    editor.commands.setTextSelection(range);
+    editor.view.focus();
+  }, word);
+  await page.waitForFunction(word => {
+    const editor = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor;
+    const { from, to } = editor.state.selection;
+    return editor.view.hasFocus() && editor.state.doc.textBetween(from, to) === (word || '');
+  }, word);
+};
 
 await row('a highlight stored on the server mounts as a highlight mark in the canvas', async () => { const c = await canvasShape(); return { pass: c.some(s => s.includes('<h>marked</h>')), canvas: c }; });
 await row('==text== makes a highlight; the server stores the highlight wrapper', async () => {
-  await pm.locator('p:has-text("first paragraph")').first().click(); await page.keyboard.press('End'); await page.keyboard.type(' and ==bright== words'); await settle();
+  await selectFirstParagraph(); await page.keyboard.type(' and ==bright== words'); await settle();
   const r = await compare(); return { ...r, pass: r.pass && r.canvas.some(s => s.includes('<h>bright</h>')) };
 });
 await row('the bubble’s H toggles a highlight on a selection; server follows', async () => {
-  await pm.locator('p:has-text("first paragraph")').first().click(); await page.keyboard.press('End'); for (let i = 0; i < 5; i++) await page.keyboard.press('Shift+ArrowLeft'); await page.waitForTimeout(300);
+  await selectFirstParagraph('words');
   await page.locator('body .bp-paper-format__btn--highlight').first().click(); await settle();
   const r = await compare(); return { ...r, pass: r.pass && r.canvas.some(s => s.includes('<h>words</h>')) };
 });
