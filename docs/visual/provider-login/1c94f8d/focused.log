@@ -1,0 +1,265 @@
+TAP version 13
+# Subtest: real agent.start runs three owned API loops and persists their independent transcripts
+ok 1 - real agent.start runs three owned API loops and persists their independent transcripts
+  ---
+  duration_ms: 47.9215
+  ...
+# Subtest: done event does not release worker before trusted driver cleanup completes
+ok 2 - done event does not release worker before trusted driver cleanup completes
+  ---
+  duration_ms: 17.9665
+  ...
+# Subtest: changed context or mismatched profile fails before a transcript or provider starts
+ok 3 - changed context or mismatched profile fails before a transcript or provider starts
+  ---
+  duration_ms: 6.2349
+  ...
+# Subtest: cancel during real API stream waits for finalization and records partial output
+ok 4 - cancel during real API stream waits for finalization and records partial output
+  ---
+  duration_ms: 15.7688
+  ...
+# Subtest: transcript failure stops the provider and reports uncertain effects instead of success
+ok 5 - transcript failure stops the provider and reports uncertain effects instead of success
+  ---
+  duration_ms: 11.3326
+  ...
+# Subtest: an acknowledged duplicate reservation never launches a second provider
+ok 6 - an acknowledged duplicate reservation never launches a second provider
+  ---
+  duration_ms: 5.8808
+  ...
+# Subtest: Promise-returning transcript sink is rejected before provider dispatch
+ok 7 - Promise-returning transcript sink is rejected before provider dispatch
+  ---
+  duration_ms: 3.8892
+  ...
+# Subtest: unknown finalization retains the execution slot until trusted termination proof
+ok 8 - unknown finalization retains the execution slot until trusted termination proof
+  ---
+  duration_ms: 14.605
+  ...
+# Subtest: captured assignment images reach actual API transport; another profile path is rejected
+ok 9 - captured assignment images reach actual API transport; another profile path is rejected
+  ---
+  duration_ms: 18.2662
+  ...
+# Subtest: worker provider launches disable native recursive delegation without changing ordinary chats
+ok 10 - worker provider launches disable native recursive delegation without changing ordinary chats
+  ---
+  duration_ms: 42.3013
+  ...
+# Subtest: structured coordinator uses acknowledged final provider message while retaining commentary
+ok 11 - structured coordinator uses acknowledged final provider message while retaining commentary
+  ---
+  duration_ms: 53.314
+  ...
+# Subtest: missing authentication persists assistance without retrying or marking work complete
+ok 12 - missing authentication persists assistance without retrying or marking work complete
+  ---
+  duration_ms: 47.521
+  ...
+# Subtest: three reserved workers run concurrently, snapshots cannot mutate owners, results require review
+ok 13 - three reserved workers run concurrently, snapshots cannot mutate owners, results require review
+  ---
+  duration_ms: 50.1398
+  ...
+# Subtest: dependencies wait for evidence, cap is global, same chat is serialized across goals
+ok 14 - dependencies wait for evidence, cap is global, same chat is serialized across goals
+  ---
+  duration_ms: 43.1854
+  ...
+# Subtest: same IDs in different profiles retain independent progress and result ownership
+ok 15 - same IDs in different profiles retain independent progress and result ownership
+  ---
+  duration_ms: 36.2671
+  ...
+# Subtest: pause stops new work, waits for actual termination, and does not silently replay
+ok 16 - pause stops new work, waits for actual termination, and does not silently replay
+  ---
+  duration_ms: 63.1825
+  ...
+# Subtest: deadline handles sleep/wake and prevents late success or new dispatch
+ok 17 - deadline handles sleep/wake and prevents late success or new dispatch
+  ---
+  duration_ms: 29.7727
+  ...
+# Subtest: cancel before adapter microtask prevents provider launch
+ok 18 - cancel before adapter microtask prevents provider launch
+  ---
+  duration_ms: 34.765
+  ...
+# Subtest: reopen interrupts reserved attempts and requires explicit reconciliation
+ok 19 - reopen interrupts reserved attempts and requires explicit reconciliation
+  ---
+  duration_ms: 32.0974
+  ...
+# Subtest: cycles, recursive coordinator workers, unknown dependencies and fourth worker are rejected
+ok 20 - cycles, recursive coordinator workers, unknown dependencies and fourth worker are rejected
+  ---
+  duration_ms: 4.0867
+  ...
+# Subtest: offline and failed runs cannot satisfy dependencies
+ok 21 - offline and failed runs cannot satisfy dependencies
+  ---
+  duration_ms: 29.6827
+  ...
+# Subtest: corrupt journal fails closed without replacing original data
+ok 22 - corrupt journal fails closed without replacing original data
+  ---
+  duration_ms: 3.9101
+  ...
+# Subtest: lost persistence acknowledgement halts all dispatch and leaves reserved work recoverable
+ok 23 - lost persistence acknowledgement halts all dispatch and leaves reserved work recoverable
+  ---
+  duration_ms: 19.0502
+  ...
+# Subtest: failed reservation never launches the provider
+ok 24 - failed reservation never launches the provider
+  ---
+  duration_ms: 10.4393
+  ...
+# Subtest: reentrant observers cannot overlap a chat or dispatch past stop
+ok 25 - reentrant observers cannot overlap a chat or dispatch past stop
+  ---
+  duration_ms: 37.3408
+  ...
+# Subtest: close retains the journal lease until actual adapter termination
+ok 26 - close retains the journal lease until actual adapter termination
+  ---
+  duration_ms: 25.9883
+  ...
+# Subtest: post-deadline reconciliation preserves terminal goal without permitting retry
+ok 27 - post-deadline reconciliation preserves terminal goal without permitting retry
+  ---
+  duration_ms: 39.7288
+  ...
+# Subtest: another process cannot acquire the journal while its owner lives
+ok 28 - another process cannot acquire the journal while its owner lives
+  ---
+  duration_ms: 123.4627
+  ...
+# Subtest: dead journal owner is recovered with lease evidence retained
+ok 29 - dead journal owner is recovered with lease evidence retained
+  ---
+  duration_ms: 96.0754
+  ...
+# Subtest: real three-process execution integrates independent outputs with the persistent scheduler
+ok 30 - real three-process execution integrates independent outputs with the persistent scheduler
+  ---
+  duration_ms: 278.6125
+  ...
+# Subtest: uncertain termination is visibly interrupted and cannot be reviewed while slot remains live
+ok 31 - uncertain termination is visibly interrupted and cannot be reviewed while slot remains live
+  ---
+  duration_ms: 28.713
+  ...
+# Subtest: assignment attachments are captured independently and survive restart
+ok 32 - assignment attachments are captured independently and survive restart
+  ---
+  duration_ms: 15.7551
+  ...
+# Subtest: abrupt process death after an external effect never replays the reserved attempt
+ok 33 - abrupt process death after an external effect never replays the reserved attempt
+  ---
+  duration_ms: 138.2836
+  ...
+# Subtest: shared admission caps profile-local schedulers at three and holds uncertain termination
+ok 34 - shared admission caps profile-local schedulers at three and holds uncertain termination
+  ---
+  duration_ms: 48.6515
+  ...
+# Subtest: failed reservation and cancelled-before-launch release shared admission exactly once
+ok 35 - failed reservation and cancelled-before-launch release shared admission exactly once
+  ---
+  duration_ms: 10.9115
+  ...
+# Subtest: device authentication is allowed without opt-in, missing auth is a positive pre-dispatch refusal
+ok 36 - device authentication is allowed without opt-in, missing auth is a positive pre-dispatch refusal
+  ---
+  duration_ms: 1.4579
+  ...
+# Subtest: actual API adapter uses its owned key before the captured device fallback; no B-to-A borrowing
+ok 37 - actual API adapter uses its owned key before the captured device fallback; no B-to-A borrowing
+  ---
+  duration_ms: 14.8209
+  ...
+# Subtest: ordinary main and side missing-auth refusals preserve durable drafts without transcript reservation
+ok 38 - ordinary main and side missing-auth refusals preserve durable drafts without transcript reservation
+  ---
+  duration_ms: 199.4528
+  ...
+# Subtest: context changed while checking authentication refuses before ordinary or goal reservation
+ok 39 - context changed while checking authentication refuses before ordinary or goal reservation
+  ---
+  duration_ms: 166.8077
+  ...
+# Subtest: actual CLI adapters retain captured device authentication through delayed SDK loading
+ok 40 - actual CLI adapters retain captured device authentication through delayed SDK loading
+  ---
+  duration_ms: 16.5071
+  ...
+# Subtest: production child worker protocol preserves A/B credentials through native owned jobs
+ok 41 - production child worker protocol preserves A/B credentials through native owned jobs
+  ---
+  duration_ms: 3534.8954
+  ...
+# Subtest: fixed commands and strict successful status avoid shell input and malformed status
+ok 42 - fixed commands and strict successful status avoid shell input and malformed status
+  ---
+  duration_ms: 2.213
+  ...
+# Subtest: resolver ignores relative PATH and Windows shell wrappers
+ok 43 - resolver ignores relative PATH and Windows shell wrappers
+  ---
+  duration_ms: 2.1403
+  ...
+# Subtest: double start reuses one operation and success waits for verified job drain
+ok 44 - double start reuses one operation and success waits for verified job drain
+  ---
+  duration_ms: 5.4534
+  ...
+# Subtest: cancel during launch prevents login dispatch and waits for cleanup
+ok 45 - cancel during launch prevents login dispatch and waits for cleanup
+  ---
+  duration_ms: 1.2403
+  ...
+# Subtest: stale cancellation cannot stop a later login and shutdown prevents new launches
+ok 46 - stale cancellation cannot stop a later login and shutdown prevents new launches
+  ---
+  duration_ms: 1.6077
+  ...
+# Subtest: unverified cleanup remains visible and cannot be replaced by another operation
+ok 47 - unverified cleanup remains visible and cannot be replaced by another operation
+  ---
+  duration_ms: 0.7564
+  ...
+# Subtest: missing executable and provider failure remain explicit without emitting raw output
+ok 48 - missing executable and provider failure remain explicit without emitting raw output
+  ---
+  duration_ms: 1.0661
+  ...
+# Subtest: timeout waits for owned cleanup and cannot turn a late successful result into success
+ok 49 - timeout waits for owned cleanup and cannot turn a late successful result into success
+  ---
+  duration_ms: 26.7409
+  ...
+# Subtest: startup known not dispatched permits retry, uncertain startup remains blocked
+ok 50 - startup known not dispatched permits retry, uncertain startup remains blocked
+  ---
+  duration_ms: 1.3432
+  ...
+# Subtest: POSIX authentication host verifies its own process group stopped
+ok 51 - POSIX authentication host verifies its own process group stopped # SKIP
+  ---
+  duration_ms: 0.3857
+  ...
+1..51
+# tests 51
+# suites 0
+# pass 50
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 4103.8265
