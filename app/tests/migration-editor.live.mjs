@@ -55,12 +55,12 @@ const saved = async previous => {
 };
 const shot = async name => { await page.screenshot({ path: path.join(out, name + '.png') }); frames.push(name + '.png'); };
 const firstText = value => { if (Array.isArray(value)) { for (const v of value) { const found = firstText(v); if (found) return found; } } else if (value && typeof value === 'object') { if (value.type === 'text') return value.value; for (const [k, v] of Object.entries(value)) { if (!['id', 'type'].includes(k)) { const found = firstText(v); if (found) return found; } } } return null; };
-function changeFirstText(block, needle) {
+function changeFirstText(block, needle, inserted = 'X') {
   const copy = structuredClone(block);
   if (copy.type === 'code') { copy.value = copy.value.slice(0, 1) + 'X' + copy.value.slice(1); return copy; }
   if (copy.type === 'heading' && typeof copy.text === 'string') { copy.text = copy.text.slice(0, 1) + 'X' + copy.text.slice(1); return copy; }
   let changed = false;
-  const visit = value => { if (Array.isArray(value)) value.forEach(visit); else if (value && typeof value === 'object') { if (!changed && value.type === 'text' && value.value === needle) { value.value = value.value.slice(0, 1) + 'X' + value.value.slice(1); changed = true; } else Object.values(value).forEach(visit); } };
+  const visit = value => { if (Array.isArray(value)) value.forEach(visit); else if (value && typeof value === 'object') { if (!changed && value.type === 'text' && value.value === needle) { value.value = value.value.slice(0, 1) + inserted + value.value.slice(1); changed = true; } else Object.values(value).forEach(visit); } };
   visit(copy); assert.equal(changed, true); return copy;
 }
 // Native DOM input may split one literal-LF carrier into three marked runs.
@@ -84,6 +84,23 @@ function inlineRuns(nodes) {
   }
   walk(nodes); return runs;
 }
+async function presentation() {
+  const shown = await canvas().evaluate(c => {
+    const nodes = [...c._editor.view.dom.querySelectorAll('p,h1,h2,h3')];
+    const aligned = ['Centered', 'Right paragraph', 'Right heading'].map(text => {
+      const el = nodes.find(n => n.textContent === text);
+      return { text, tag: el?.tagName, align: el ? getComputedStyle(el).textAlign : null };
+    });
+    const heading = nodes.find(n => n.textContent === 'Rich heading');
+    return { aligned, richHeading: { tag: heading?.tagName, link: heading?.querySelector('a')?.getAttribute('href'), boldItalic: !!heading?.querySelector('strong em,em strong') } };
+  });
+  assert.deepEqual(shown, { aligned: [
+    { text: 'Centered', tag: 'P', align: 'center' },
+    { text: 'Right paragraph', tag: 'P', align: 'right' },
+    { text: 'Right heading', tag: 'H3', align: 'right' },
+  ], richHeading: { tag: 'H1', link: 'https://example.invalid/heading', boldItalic: true } });
+  return shown;
+}
 try {
   await launch();
   await page.evaluate(async connection => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, writes: true, viaCli: false, ...connection } }); await window.__barkdown.refreshLibrary(); }, { server, token });
@@ -93,6 +110,7 @@ try {
   assert.equal(editorBundle.sha, crypto.createHash('sha1').update(fs.readFileSync(selectedBundle)).digest('hex'),
     'private runtime must serve the selected checkout editor; refresh stale built assets before claiming native proof');
   assert.deepEqual(await blocks(), expected);
+  const originalPresentation = await presentation();
   const titleGeometry = await page.locator('.bw-paper-pane:not([hidden]) #title').evaluate(el => ({ width: el.clientWidth, scrollWidth: el.scrollWidth, height: el.clientHeight, scrollHeight: el.scrollHeight, lineHeight: parseFloat(getComputedStyle(el).lineHeight) }));
   assert.ok(titleGeometry.height > titleGeometry.lineHeight * 1.5, 'long title wraps');
   assert.ok(titleGeometry.scrollWidth <= titleGeometry.width + 1 && titleGeometry.scrollHeight <= titleGeometry.height + 1, 'title has no hidden text');
@@ -123,6 +141,24 @@ try {
     await page.keyboard.press('Control+z'); const undone = await saved(edited.rev);
     assert.deepEqual(undone.blocks, expected, sample.id + ': Undo restores exact staged structure');
     results.push({ case: sample.id, beforeRev: revision, editedRev: edited.rev, undoneRev: undone.rev }); revision = undone.rev;
+    if (sample.id === 'heading-rich-external') {
+      await canvas().evaluate((c, text) => {
+        const e = c._editor; let at;
+        e.state.doc.descendants((node, pos) => { if (node.isText && node.text === text) at = pos + 1; });
+        if (at === undefined) throw Error('Missing marked heading');
+        e.view.focus(); e.commands.setTextSelection(at);
+      }, needle);
+      await page.keyboard.press('Shift+Enter');
+      const inserted = await saved(revision), desired = changeFirstText(block, needle, '\n');
+      assert.deepEqual({ ...inserted.blocks[index], content: inlineRuns(inserted.blocks[index].content) },
+        { ...desired, content: inlineRuns(desired.content) }, 'native heading break preserves link, emphasis and level');
+      assert.deepEqual(inserted.blocks.filter((_, i) => i !== index), expected.filter((_, i) => i !== index));
+      await shot('native-heading-break-inserted');
+      await page.keyboard.press('Control+z'); const restored = await saved(inserted.rev);
+      assert.deepEqual(restored.blocks, expected, 'native heading break Undo restores exact source carriers');
+      Object.assign(results.at(-1), { breakInsertedRev: inserted.rev, breakUndoneRev: restored.rev });
+      revision = restored.rev;
+    }
     if (sample.id === 'hard-break') {
       await canvas().evaluate((c, text) => {
         const e = c._editor; let at;
@@ -148,19 +184,19 @@ try {
   await canvas().evaluate(c => { c.__migrationBeforeReload = true; });
   await page.locator('.bw-paper-pane:not([hidden]) button[title="Reload from server"]').click();
   await page.waitForFunction(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); return c && !c.__migrationBeforeReload && c._editor; });
-  assert.deepEqual(await blocks(), expected); await shot('03-reloaded');
+  assert.deepEqual(await blocks(), expected); await presentation(); await shot('03-reloaded');
   await page.setViewportSize({ width: 760, height: 900 }); await shot('04-narrow');
   const geometry = await page.evaluate(() => ({ viewport: innerWidth, page: document.documentElement.scrollWidth })); assert.ok(geometry.page <= geometry.viewport);
   await close('editing-and-undo');
-  await launch(); await ready(); assert.deepEqual(await blocks(), expected); assert.deepEqual((await read()).blocks, expected); await shot('05-restarted');
+  await launch(); await ready(); assert.deepEqual(await blocks(), expected); assert.deepEqual((await read()).blocks, expected); await presentation(); await shot('05-restarted');
   assert.equal(fs.readFileSync(path.join(sourceDir, 'documents/corpus.json'), 'utf8'), sourceBytes);
   assert.equal(fs.readFileSync(path.join(sourceDir, 'workspace.json'), 'utf8'), workspaceBytes);
   assert.equal(fs.readFileSync(path.join(destinationDir, 'source/documents/corpus.json'), 'utf8'), sourceBytes);
   await assert.rejects(stageMigration(options, target), { code: 'journal_changed' }); // Undo restores content, not an old revision identity.
   assert.deepEqual((await read()).blocks, expected); assert.deepEqual(errors, []);
   fs.writeFileSync(path.join(out, 'server.json'), JSON.stringify(await read(), null, 2) + '\n');
-  fs.writeFileSync(path.join(out, 'geometry.json'), JSON.stringify({ title: titleGeometry, narrow: geometry }, null, 2) + '\n');
-  console.log('PASS ten migrated cases including native inline breaks: keyboard edit, exact saved Undo, reload and Electron restart; source/navigation unchanged');
+  fs.writeFileSync(path.join(out, 'geometry.json'), JSON.stringify({ title: titleGeometry, narrow: geometry, presentation: originalPresentation }, null, 2) + '\n');
+  console.log(`PASS ${safe.length} migrated cases including native inline breaks: keyboard edit, exact saved Undo, reload and Electron restart; source/navigation unchanged`);
 } catch (error) {
   if (page) await page.screenshot({ path: path.join(out, 'failure.png') }).catch(() => {});
   if (page) {
@@ -171,6 +207,6 @@ try {
 } finally {
   if (app) await close(results.length === safe.length ? 'restart' : 'failed-rehearsal');
   const artifacts = Object.fromEntries(fs.readdirSync(out).filter(f => /\.(png|webm|json|txt)$/.test(f)).map(f => [f, crypto.createHash('sha256').update(fs.readFileSync(path.join(out, f))).digest('hex')]));
-  fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify({ capturedAt: new Date().toISOString(), barkdownCommit: process.env.BARKDOWN_SHOTS_HOST_COMMIT, barkparkCommit: process.env.BARKDOWN_SHOTS_BP_COMMIT, isolatedRuntime: true, editorBundle, cases: results, frames, artifacts, authority: 'legacy', motion: 'Real keyboard editing and native Paper history with acknowledged private server writes; actual Electron video, no model turn.', limits: ['No navigation activation or real-library migration', 'Ten structured corpus cases; media and internal references remain separate gates', 'Clean Electron restart, not database/power loss', 'Legacy edit receipts remain legacy; staging refuses later revisions even after Undo restores content'] }, null, 2) + '\n');
+  fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify({ capturedAt: new Date().toISOString(), barkdownCommit: process.env.BARKDOWN_SHOTS_HOST_COMMIT, barkparkCommit: process.env.BARKDOWN_SHOTS_BP_COMMIT, isolatedRuntime: true, editorBundle, cases: results, frames, artifacts, authority: 'legacy', motion: 'Real keyboard editing and native Paper history with acknowledged private server writes; actual Electron video, no model turn.', limits: ['No navigation activation or real-library migration', `${safe.length} structured corpus cases; media and internal references remain separate gates`, 'Clean Electron restart, not database/power loss', 'Legacy edit receipts remain legacy; staging refuses later revisions even after Undo restores content'] }, null, 2) + '\n');
   console.log('Migration editor evidence:', out);
 }
