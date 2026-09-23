@@ -20,9 +20,9 @@ function inspectContent(content) {
     for (const key of Object.keys(node)) if (!['type', 'content', 'text', 'marks', 'attrs'].includes(key)) issue(at + '.' + key, 'Unknown structural field');
     if (node.text !== undefined && (node.type !== 'text' || typeof node.text !== 'string')) issue(at + '.text', 'Invalid text carrier');
     if (node.type === 'text' && typeof node.text !== 'string') issue(at, 'Text must be a string');
-    // C046: native DOM input reparses embedded newlines as hardBreak nodes,
-    // which Paper refuses to serialize. Representation alone is insufficient.
-    if (node.type === 'hardBreak' || (node.type === 'text' && parentType !== 'codeBlock' && /[\r\n]/.test(node.text || ''))) issue(at, 'Inline line breaks are not safely editable in Paper yet; retain the source');
+    // Paper serializes native breaks as LF text. Preserve unproved CR carriers
+    // rather than silently normalizing the original source during migration.
+    if (node.type === 'text' && parentType !== 'codeBlock' && /\r/.test(node.text || '')) issue(at, 'Inline carriage returns are not safely editable in Paper; retain the source');
     if (node.attrs != null && (typeof node.attrs !== 'object' || Array.isArray(node.attrs))) issue(at + '.attrs', 'Invalid attributes');
     const attrs = node.attrs || {};
     if (typeof attrs !== 'object' || Array.isArray(attrs)) issue(at + '.attrs', 'Invalid attributes');

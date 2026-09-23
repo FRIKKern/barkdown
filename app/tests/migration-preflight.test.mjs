@@ -27,7 +27,7 @@ function fixture(id = profileId) {
 test('all audited losses, unsupported structures and internal references refuse', () => {
   for (const sample of cases) {
     const before = structuredClone(sample.source), issues = inspectContent(sample.source);
-    if (sample.expected.loss || sample.expected.error || sample.expected.unresolved || ['internal-link', 'hard-break'].includes(sample.id)) assert.ok(issues.length, sample.id);
+    if (sample.expected.loss || sample.expected.error || sample.expected.unresolved || sample.id === 'internal-link') assert.ok(issues.length, sample.id);
     else assert.deepEqual(issues, [], sample.id);
     assert.deepEqual(sample.source, before);
   }
@@ -39,8 +39,9 @@ test('all audited losses, unsupported structures and internal references refuse'
     assert.ok(inspectContent(doc).length, JSON.stringify(attrs));
   }
 });
-test('uneditable inline newlines retain exact blocked backups while code newlines remain supported', () => {
-  for (const content of [cases.find(c => c.id === 'hard-break').source, {type:'doc',content:[{type:'paragraph',content:[{type:'text',text:'Line one\nLine two'}]}]}]) {
+test('inline carriage returns retain exact blocked backups while LF breaks remain supported', () => {
+  for (const text of ['Line one\rLine two', 'Line one\r\nLine two']) {
+    const content = {type:'doc',content:[{type:'paragraph',content:[{type:'text',text}]}]};
     const f=fixture(), file=path.join(f.sourceDir,'documents/note.json');
     const value=JSON.parse(fs.readFileSync(file)); value.content=content; fs.writeFileSync(file,JSON.stringify(value));
     const original=fs.readFileSync(file), result=prepareMigration(f);
@@ -50,6 +51,8 @@ test('uneditable inline newlines retain exact blocked backups while code newline
     assert.deepEqual(fs.readFileSync(path.join(f.destinationDir,'source/documents/note.json')),original);
   }
   assert.deepEqual(inspectContent(cases.find(c=>c.id==='code-language').source),[]);
+  assert.deepEqual(inspectContent(cases.find(c=>c.id==='hard-break').source),[]);
+  assert.deepEqual(inspectContent({type:'doc',content:[{type:'paragraph',content:[{type:'text',text:'Line one\nLine two'}]}]}),[]);
 });
 test('exact backup preserves organization, proposals, history, binary media and receipts; excludes credentials', () => {
   const f = fixture(), before = inventoryProfile(f);
