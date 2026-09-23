@@ -4,7 +4,7 @@
 
 P1/C039 is accepted for the Windows source prototype at source `27ea120`, with evidence through `f65c0c6`. The [completion audit](cycles/C039-completion-audit.md) maps acceptance requirements to full desktop and root passes, authentication/recovery proof, reviewed captures and 102 verified retained native artifact hashes. [Validation hashes](visual/provider-login/27ea120/validation.json) bind the recorded logs.
 
-Main remains `9c623d5`; this acceptance checkpoint is not merged. Earlier integration/editor work landed through PR #30; [C040](cycles/C040-linux-parity.md) records the passing Linux and Windows gates.
+[PR #31](https://github.com/FRIKKern/barkdown/pull/31) carries this acceptance checkpoint and the repository cleanup; its state records main integration. Earlier integration/editor work landed through PR #30; [C040](cycles/C040-linux-parity.md) records the passing Linux and Windows gates.
 
 ## Open work
 

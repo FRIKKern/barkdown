@@ -1,10 +1,10 @@
 # Current handoff
 
-C039/P1 is accepted for the Windows source prototype at source `27ea120`, with evidence through `f65c0c6` on `codex/finish-profile-isolation`. Main remains `9c623d5`; the checkpoint is not merged. See the [acceptance audit](cycles/C039-completion-audit.md). No deployment or real-library migration occurred.
+C039/P1 is accepted for the Windows source prototype at source `27ea120`, with evidence through `f65c0c6` on `codex/finish-profile-isolation`. [PR #31](https://github.com/FRIKKern/barkdown/pull/31) carries this checkpoint and repository cleanup; consult its state for main integration. See the [acceptance audit](cycles/C039-completion-audit.md). No deployment or real-library migration occurred.
 
 ## Current work
 
-Repository cleanup is on `codex/repository-hygiene`, based on the accepted checkpoint. See [the cleanup handoff](cycles/C042-retirement-closeout.md) for verified retirements and remaining debt. Do not reopen completed authentication or Paper polish tasks.
+C042 repository cleanup is delivered through `codex/repository-hygiene`, based on the accepted checkpoint. See [the cleanup handoff](cycles/C042-retirement-closeout.md) for verified retirements and remaining debt. Do not reopen completed authentication or Paper polish tasks.
 
 P2 is the next product stage. [Migration preparation](migration/README.md) defines the synthetic inventory, preflight and durable-manifest slice. Resolve safe target creation before any Paper writes. Preserve the legacy store, source data and backups until comparison, interruption/resume and rollback are proven.
 
