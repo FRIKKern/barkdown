@@ -26,3 +26,11 @@ Barkdown has main plus this delivery branch. Upstream has main plus three delive
 The Linux full matrix at `962a28e` was 19/20 due to a tablehead alignment-click timeout. [Targeted rerun](https://github.com/FRIKKern/barkdown/actions/runs/35920198439) passed; the original log, report and screenshot are retained in C046 evidence. New push CI must be checked independently; the targeted retry is not a full-matrix pass.
 
 All owned private capture runtimes stopped and the final desktop suite exited. Shared services, the user's app and original libraries were preserved. This handoff accompanies the reviewed evidence commit; verify remote head/CI before further work. C046 stays blocked for the named tenth-case gate, P2 stays active, and no old acceptance record is promoted.
+
+## Six-hour continuation, 2026-09-23 22:17 UTC
+
+The user authorized autonomous work through at least 2026-09-24 04:17:20 UTC (06:17 Paris). The active goal and twenty-minute heartbeat carry that deadline; finish the current bounded slice after the minimum. No merge or deployment is authorized by this run.
+
+Fresh PR #32 CI at d2228c3 passes repository and visual checks, but Linux parity is 19/20: highlight row 3 fails, while tablehead is 6/6. Downloaded run 35924631718 artifacts are retained at C:/Users/Frikk/AppData/Local/Temp/c046-sixhour-ci-artifacts. Its highlight log shows the first End placed typing before the final `n.` of the wrapped paragraph; the later five-character selection is `rdsn.`, not `words`. Canvas and server agree. Next: make the probe select and assert its intended range, then run real parity again; do not waive the failure.
+
+Upstream inline-break work is registered and claimed on Guerrilla as task-46160685b0b510c7, worker codex-barkdown-c046, epoch 1, initial lease through 23:05 UTC. Three criteria cover native input/marks, exact saved Undo/reopen, and preservation of other boundaries plus regression/evidence. No implementation changes yet. Editor dependencies installed successfully in barkpark-paper-create/api/assets/paper-editor. Reuse the controlled delivery lane, add code refs to the task, and keep claims renewed. The original create-only task remains separate. No owned test service is running.
