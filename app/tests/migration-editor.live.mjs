@@ -55,12 +55,12 @@ const saved = async previous => {
 };
 const shot = async name => { await page.screenshot({ path: path.join(out, name + '.png') }); frames.push(name + '.png'); };
 const firstText = value => { if (Array.isArray(value)) { for (const v of value) { const found = firstText(v); if (found) return found; } } else if (value && typeof value === 'object') { if (value.type === 'text') return value.value; for (const [k, v] of Object.entries(value)) { if (!['id', 'type'].includes(k)) { const found = firstText(v); if (found) return found; } } } return null; };
-function changeFirstText(block, needle, inserted = 'X') {
+function changeFirstText(block, needle) {
   const copy = structuredClone(block);
   if (copy.type === 'code') { copy.value = copy.value.slice(0, 1) + 'X' + copy.value.slice(1); return copy; }
   if (copy.type === 'heading' && typeof copy.text === 'string') { copy.text = copy.text.slice(0, 1) + 'X' + copy.text.slice(1); return copy; }
   let changed = false;
-  const visit = value => { if (Array.isArray(value)) value.forEach(visit); else if (value && typeof value === 'object') { if (!changed && value.type === 'text' && value.value === needle) { value.value = value.value.slice(0, 1) + inserted + value.value.slice(1); changed = true; } else Object.values(value).forEach(visit); } };
+  const visit = value => { if (Array.isArray(value)) value.forEach(visit); else if (value && typeof value === 'object') { if (!changed && value.type === 'text' && value.value === needle) { value.value = value.value.slice(0, 1) + 'X' + value.value.slice(1); changed = true; } else Object.values(value).forEach(visit); } };
   visit(copy); assert.equal(changed, true); return copy;
 }
 // Native DOM input may split one literal-LF carrier into three marked runs.
@@ -149,9 +149,12 @@ try {
         e.view.focus(); e.commands.setTextSelection(at);
       }, needle);
       await page.keyboard.press('Shift+Enter');
-      const inserted = await saved(revision), desired = changeFirstText(block, needle, '\n');
+      const inserted = await saved(revision), [originalRun] = inlineRuns(block.content);
+      // Tiptap inserts an unmarked hardBreak; both existing text runs must keep
+      // their link/emphasis. Do not invent link marks on the new break itself.
+      const desiredRuns = [{ ...originalRun, text: needle.slice(0, 1) }, { marks: '[]', text: '\n' }, { ...originalRun, text: needle.slice(1) }];
       assert.deepEqual({ ...inserted.blocks[index], content: inlineRuns(inserted.blocks[index].content) },
-        { ...desired, content: inlineRuns(desired.content) }, 'native heading break preserves link, emphasis and level');
+        { ...block, content: desiredRuns }, 'native heading break preserves existing link, emphasis and level');
       assert.deepEqual(inserted.blocks.filter((_, i) => i !== index), expected.filter((_, i) => i !== index));
       await shot('native-heading-break-inserted');
       await page.keyboard.press('Control+z'); const restored = await saved(inserted.rev);
