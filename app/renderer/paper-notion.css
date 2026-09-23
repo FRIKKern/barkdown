@@ -147,7 +147,7 @@
 
 /* Paper header: one big title, the state line beneath it, no kicker shouting. */
 .bw-paper-document .bw-kicker { font-size: 11px; letter-spacing: .4px; text-transform: none; color: var(--bw-muted); margin-bottom: 26px; }
-.bw-paper-document .bw-doc-title { font-size: 40px; line-height: 1.2; font-weight: 700; letter-spacing: -.5px; margin: 0 0 4px; font-family: "Inter", "Segoe UI", system-ui, sans-serif; }
+.bw-paper-document .bw-doc-title { display: block; field-sizing: content; resize: none; overflow: hidden; white-space: pre-wrap; overflow-wrap: anywhere; min-height: 1.2em; font-size: clamp(28px, 4cqw, 40px); line-height: 1.2; font-weight: 700; letter-spacing: -.5px; margin: 0 0 4px; font-family: "Inter", "Segoe UI", system-ui, sans-serif; }
 .bw-paper-document .bw-doc-title::placeholder { color: light-dark(rgba(55, 53, 47, 0.25), rgba(231, 235, 223, 0.3)); }
 .bw-paper-document .bw-doc-meta { font-size: 12px; margin-bottom: 18px; color: var(--bw-muted); }
 /* The reading column: Notion's page is ~708px of text; 760px here minus the inset left 640px, which wrapped a

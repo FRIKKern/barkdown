@@ -69,7 +69,11 @@ try {
   await page.evaluate(async connection => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, writes: true, viaCli: false, ...connection } }); await window.__barkdown.refreshLibrary(); }, { server, token });
   await page.evaluate(id => window.__barkdown.openTarget({ kind: 'doc', id, source: 'barkpark', title: 'Migrated corpus' }), id); await ready();
   editorBundle = JSON.parse(fs.readFileSync(path.join(userData, 'canvas-bundle/current.json'))); assert.equal(editorBundle.source, 'server'); assert.equal(editorBundle.server, server);
-  assert.deepEqual(await blocks(), expected); await shot('01-staged-original');
+  assert.deepEqual(await blocks(), expected);
+  const titleGeometry = await page.locator('.bw-paper-pane:not([hidden]) #title').evaluate(el => ({ width: el.clientWidth, scrollWidth: el.scrollWidth, height: el.clientHeight, scrollHeight: el.scrollHeight, lineHeight: parseFloat(getComputedStyle(el).lineHeight) }));
+  assert.ok(titleGeometry.height > titleGeometry.lineHeight * 1.5, 'long title wraps');
+  assert.ok(titleGeometry.scrollWidth <= titleGeometry.width + 1 && titleGeometry.scrollHeight <= titleGeometry.height + 1, 'title has no hidden text');
+  await shot('01-staged-original');
   await canvas().evaluate(c => { window.__migrationInputs = []; const e = c._editor; for (const plugin of e.state.plugins) { const filter = plugin.spec.filterTransaction; if (filter) plugin.spec.filterTransaction = function(tr, state) { const allowed = filter.call(this, tr, state); if (tr.docChanged) window.__migrationInputs.push({ event: 'filter', plugin: plugin.key, allowed, before: state.doc.toJSON(), after: tr.doc.toJSON(), steps: tr.steps.map(s => s.toJSON()) }); return allowed; }; } for (const name of ['keydown', 'beforeinput', 'input']) e.view.dom.addEventListener(name, event => window.__migrationInputs.push({ event: name, key: event.key, data: event.data, ctrl: event.ctrlKey, shift: event.shiftKey, selection: e.state.selection.toJSON(), text: e.state.doc.textContent, dom: e.view.dom.textContent }), true); e.on('transaction', ({ transaction }) => { if (transaction.docChanged) window.__migrationInputs.push({ event: 'transaction', text: e.state.doc.textContent, after: transaction.doc.toJSON(), steps: transaction.steps.map(s => s.toJSON()) }); }); });
   let revision = original.rev;
   for (const [index, sample] of safe.entries()) {
@@ -108,7 +112,7 @@ try {
   await assert.rejects(stageMigration(options, target), { code: 'journal_changed' }); // Undo restores content, not an old revision identity.
   assert.deepEqual((await read()).blocks, expected); assert.deepEqual(errors, []);
   fs.writeFileSync(path.join(out, 'server.json'), JSON.stringify(await read(), null, 2) + '\n');
-  fs.writeFileSync(path.join(out, 'geometry.json'), JSON.stringify({ narrow: geometry }, null, 2) + '\n');
+  fs.writeFileSync(path.join(out, 'geometry.json'), JSON.stringify({ title: titleGeometry, narrow: geometry }, null, 2) + '\n');
   console.log('PASS nine supported migrated cases; hard-break explicitly refused: keyboard edit, exact saved Undo, reload and Electron restart; source/navigation unchanged');
 } catch (error) {
   if (page) await page.screenshot({ path: path.join(out, 'failure.png') }).catch(() => {});

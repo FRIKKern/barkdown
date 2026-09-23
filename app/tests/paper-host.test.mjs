@@ -231,6 +231,18 @@ await test('a chained acknowledgement cannot clear the next batch save guard', a
   try { assert.equal(m.canvas(),canvas); assert.equal(m.controller.isDirty(),true); }
   finally { second.resolve({rev:3}); await tick(); m.close(); }
 });
+await test('wrapped titles retain single-line input and Enter respects composition', async () => {
+  transport={get:async id=>paper(id),patchTitle:async()=>{}};
+  const m=mount(); await tick(); const title=m.host.querySelector('#title');
+  try {
+    title.value='A\nlong\rtitle';title.setSelectionRange(11,11);title.oninput();
+    assert.equal(title.value,'Alongtitle');assert.equal(m.controller.isDirty(),true);
+    title.focus(); const composing=new dom.window.KeyboardEvent('keydown',{key:'Enter',isComposing:true,cancelable:true});title.dispatchEvent(composing);
+    assert.equal(composing.defaultPrevented,false);assert.equal(document.activeElement,title);
+    const enter=new dom.window.KeyboardEvent('keydown',{key:'Enter',cancelable:true});title.dispatchEvent(enter);
+    assert.equal(enter.defaultPrevented,true);assert.notEqual(document.activeElement,title);
+  } finally { m.close(); }
+});
 await test('pending title save prevents navigation and remains owned by its paper', async () => {
   const save = deferred(); const writes=[];
   transport = { get: async id => paper(id), patchTitle: (...args) => { writes.push(args); return save.promise; } };
