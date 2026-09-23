@@ -1,0 +1,45 @@
+
+> barkdown-desktop@0.6.0 test:migration-staging:isolated
+> node tests/status-shots-isolated.mjs tests/migration-staging.live.mjs
+
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-UyCwxT
+Capture runtime: starting 
+Capture runtime: ready 
+{
+  "capturedAt": "2026-09-23T20:41:55.258Z",
+  "barkdownCommit": "cf0612c32eeff73e3e37da19d28035ddf3861338",
+  "barkparkCommit": "844ecd321716c3f8dda5db3478e7af3bba0faae8",
+  "isolatedRuntime": true,
+  "cases": [
+    "plain-unicode",
+    "nested-marks",
+    "underline",
+    "strike-code",
+    "external-link",
+    "hard-break",
+    "heading-plain",
+    "checklist",
+    "code-language",
+    "table-header-align"
+  ],
+  "casesCompared": 10,
+  "processExit": {
+    "boundary": "response:corpus",
+    "code": 77,
+    "resumedByReadback": true
+  },
+  "documentsStaged": 1,
+  "repeatedResultUnchanged": true,
+  "sourceAndWorkspaceBytesUnchanged": true,
+  "laterHumanEditPreserved": true,
+  "authority": "legacy",
+  "limits": [
+    "No UI wiring, navigation activation, media or internal-link migration",
+    "Source writers must be stopped by the caller",
+    "One owned loopback production dataset; no cloud migration",
+    "Crash is the staging process, not database/power loss"
+  ]
+}
+Capture runtime: stopping 
+Capture runtime: stopped 
+Live screenshots complete; private runtime stopped; user CLI configuration unchanged.

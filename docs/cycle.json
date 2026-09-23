@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C045",
   "stage": "P2",
-  "status": "active",
+  "status": "done",
   "goal": "Stage prepared local notes through insert-only Paper creation with durable intent and conservative restart reconciliation.",
   "scope": [
     "Offline prepared disposable profiles with explicitly supplied publishing metadata",
@@ -18,10 +18,11 @@
   ],
   "checkpoint": "2026-09-23",
   "handoff": "docs/cycles/C045-migration-staging.md",
-  "nextAction": "Rerun the private Paper staging probe after journal hardening, finish desktop/root validation and review fresh live and deterministic captures.",
+  "nextAction": "Start a bounded real Paper open/edit/save/Undo/reopen rehearsal for staged corpus; keep source authority legacy.",
   "evidence": [
-    "docs/cycles/C045-migration-staging.md"
+    "docs/cycles/C045-migration-staging.md",
+    "docs/cycles/evidence/C045/results.json"
   ],
-  "truthReview": "",
-  "screenshotReview": ""
+  "truthReview": "Reviewed active roadmap/handoff/validation, README/app guide/architecture/decisions and branch ownership; P2 and upstream release gates remain unfinished.",
+  "screenshotReview": "Fresh cf0612c live Paper stills and all 37 GIF frames inspected; 40 deterministic frames/eight sequences reviewed with zero differences and explicit approval 2ab722e2."
 }

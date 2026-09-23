@@ -1,6 +1,6 @@
-# Local notes → Paper: preparation, not migration
+# Local notes → Paper: staged rehearsal, no cutover
 
-Preparation for Task 4, 2026-09-23. C039/P1 are accepted and merged. C043 now implements the first bounded offline preparation slice. No real library was read or modified. No Paper publish, media upload, server round trip, interruption recovery or rollback was performed by this harness.
+C039/P1 are accepted and merged. C043 implements offline preparation; C044 proves a create-only upstream route; [C045](../cycles/C045-migration-staging.md) stages the ten supported cases into a disposable Paper runtime with durable intent and post-commit process-exit reconciliation. No real library was read or modified. Editor roundtrip, references/media, navigation activation and rollback remain gates. The converter audit below is a separate preparation harness.
 
 Run from the repository root:
 
@@ -58,3 +58,7 @@ At each boundary the later harness must crash/restart, run twice, compare counts
 [C043](../cycles/C043-migration-preflight.md) implements the disposable-profile **inventory + preflight + durable manifest** slice in `app/main/migration-preflight.js`. Callers must stop source writers; an explicit offline assertion is not a live lease adapter. Preparation preserves source bytes, reports unsupported structures, binds stable target IDs to the profile and detects changed source/corrupt backups on repeat. No authority switch or server writes. Workspace/reference schemas, missing-media reconciliation, target creation and actual Paper save/reload remain subsequent gates.
 
 Preparation changelog: added the 22-case converter audit, two-profile identity/organization inventory, API limitations and proposed recovery boundaries. Runtime/capture inputs are unchanged; existing approved login/Paper evidence is reused. Task 4's later migration rehearsal remains outstanding.
+
+## Durable staging checkpoint
+
+`app/main/migration-staging.js` accepts a prepared offline profile, explicitly reviewed description/tags and captured owned loopback runtime. It validates every existing journal record before target access, records intent before create, compares exact structured readback and revision, and preserves unknown/edited/draft targets. Repeat and six process-exit boundaries are tested. `retryAbsent: true` is an explicit reconciliation decision, never an automatic recovery default. Callers still supply source quiescence and ownership assertions; no production migration UI invokes this module. Originals/history/proposals/workspace remain readable and unchanged.

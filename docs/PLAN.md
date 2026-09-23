@@ -26,7 +26,7 @@ Packaging research may proceed alongside earlier stages. The local-only pilot do
 
 ## Current next stage
 
-P1 is accepted at the [C039 audit](cycles/C039-completion-audit.md) and merged through PR #31. P2 is active: [C043](cycles/C043-migration-preflight.md) provides offline inventory/preflight/backup; [C044](cycles/C044-paper-create-contract.md) proves an insert-only upstream creation route and lost-response readback on disposable data. The [migration contract](migration/README.md) still requires durable staging, reconciliation and navigation proof. Preserve the legacy store; the new upstream route is unmerged.
+P1 is accepted at the [C039 audit](cycles/C039-completion-audit.md) and merged through PR #31. P2 is active: [C043](cycles/C043-migration-preflight.md) provides offline inventory/preflight/backup; [C044](cycles/C044-paper-create-contract.md) proves an insert-only upstream creation route and lost-response readback on disposable data. [C045](cycles/C045-migration-staging.md) adds durable intent and conservative staging/readback recovery. The [migration contract](migration/README.md) still requires real editor roundtrip, reference and navigation proof. Preserve the legacy store; the new upstream route is unmerged.
 
 ## Carry forward
 
