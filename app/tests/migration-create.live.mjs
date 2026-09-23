@@ -50,7 +50,8 @@ observations.push({ boundary: 'draft-collision', refused: 409, completeDraftUnch
 
 for (let round = 0; round < 3; round++) {
   const slug = `${prefix}-race-${round}`;
-  const inputs = Array.from({ length: 6 }, (_, i) => paper(slug, `Concurrent ledger ${round} caller ${i} retains its own entry`));
+  const topics = ['Maritime navigation bearings chart coastal tidal currents', 'Garden pollination experiments record seasonal insect observations', 'Astronomy telescope calibration tracks distant planetary orbits'];
+  const inputs = Array.from({ length: 6 }, (_, i) => paper(slug, `${topics[round]} ${i}`));
   const replies = await Promise.all(inputs.map(create));
   assert.equal(replies.filter(r => r.status === 201).length, 1, JSON.stringify(replies));
   assert.equal(replies.filter(r => r.status === 409).length, 5, JSON.stringify(replies));
