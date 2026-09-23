@@ -1,0 +1,82 @@
+{
+  "recordedAt": "2026-09-23T21:45:42.579Z",
+  "applicationSourceCommit": "fe8696c",
+  "captureSourceCommit": "68fbdf5fa604fdf9b47f77be7f9be08aa62578ab",
+  "upstreamCommit": "844ecd321716c3f8dda5db3478e7af3bba0faae8",
+  "cycleStatus": "blocked",
+  "reason": "Nine permitted cases pass; original hard-break case remains refused after native-input/serializer failure.",
+  "checks": {
+    "desktop": {
+      "command": "npm --prefix app test",
+      "exit": 0,
+      "skip": "One existing POSIX-only authentication check on Windows",
+      "log": "c046-final-desktop.log"
+    },
+    "migrationUnit": {
+      "command": "node --test app/tests/migration-preflight.test.mjs app/tests/migration-staging.test.mjs",
+      "passed": 29,
+      "log": "c046-safe-migration-tests.log"
+    },
+    "paperHost": {
+      "command": "node app/tests/paper-host.test.mjs",
+      "exit": 0,
+      "log": "c046-title-host.log"
+    },
+    "migrationEditor": {
+      "command": "npm --prefix app run test:migration-editor:isolated",
+      "exit": 0,
+      "cases": 9,
+      "sourceBackupWorkspaceUnchanged": true,
+      "manifest": "docs/visual/migration/runs/2026-09-23T21-26-20-905Z/manifest.json"
+    },
+    "root": {
+      "command": "npm run verify",
+      "exit": 0,
+      "log": "c046-final-root.log"
+    },
+    "closeout": {
+      "command": "npm run check",
+      "exit": 0,
+      "log": "c046-closeout-check.log"
+    }
+  },
+  "visual": {
+    "liveManifest": "docs/images/status/history/2026-09-23T21-41-09-664Z.json",
+    "fixtureManifest": "docs/visual/runs/2026-09-23T21-41-47-377Z/manifest.json",
+    "approval": "docs/visual/reviews/approval-fe99197d5c0e83b91920cc79aaf675e531d5bddbc5f30cb6cdea7224c16b00e2.json",
+    "migrationReview": "docs/visual/migration/runs/2026-09-23T21-26-20-905Z/motion-review.json",
+    "retainedMigrationArtifactHashesVerified": 83,
+    "liveManifestSha256": "fff2974e2289ab0cd45944eec0e76919f44b588e4583f07ea6bd8cdd5fb0439c",
+    "fixtureManifestSha256": "b55ba148a261711b21c973bb9f72883ceeda4fcd5e8efb9d6d3b4827778929f4",
+    "approvalSha256": "fe99197d5c0e83b91920cc79aaf675e531d5bddbc5f30cb6cdea7224c16b00e2",
+    "migrationReviewSha256": "7c3f61dc8eb59ab9328190c6409bd175d8a6836c395a8086655a16aefe60c55b"
+  },
+  "ci": {
+    "fullPriorHead": "962a28e",
+    "fullRun": "https://github.com/FRIKKern/barkdown/actions/runs/35918556537",
+    "fullResult": "19/20; tablehead toolbar click timeout",
+    "targetedRerun": "https://github.com/FRIKKern/barkdown/actions/runs/35920198439",
+    "targetedResult": "passed",
+    "currentHead": "Not yet pushed at evidence recording"
+  },
+  "limits": [
+    "No real-library migration or authority switch",
+    "No media/internal-reference migration or legacy-history conversion",
+    "No database or power-loss proof",
+    "Unmerged stacked upstream route and separate upstream CI failures",
+    "Prior full Linux matrix failure retained despite passing targeted retry"
+  ],
+  "logHashes": {
+    "c046-final-desktop.log": "e1d3d060902c2ff7acaa08477a96bbb725f53553dca15424e930f9553263d837",
+    "c046-safe-migration-tests.log": "3a945c52ab37ad1a60150ed96fec6c96c92dd6e0668da8c91a592879f2fa30ff",
+    "c046-title-host.log": "033d3535b86e14cfcb0ef52b06bf7791ad65f6da2c1287dda92378d595b99bac",
+    "c046-editor-title.log": "399ffcb24fc9c678ff4b9207c348a352d1886249375fa3b54cec40ab1d6d9276",
+    "c046-editor-veto.log": "4067577f2d34878654bbdaa0c69994f41a1be66adf329a1d61d146539606a8c7",
+    "c046-root-before-evidence.log": "5e8ad2d7bbaa8a012f978d33e1e163cceac36df5b706cfaf42afac309a889863",
+    "c046-final-root.log": "3cf03955af917d50680cb34566787ced9187a55d8ebf2b3244b2b39bebe7bc8a",
+    "c046-root-checkpoint-date.log": "fe2087ba8d62a54e37d04921a343b0d53b32727c3cb3ae5c157f4bf4e0ccdb3b",
+    "c046-final-live-status.log": "ae4b1221c7547d5732266df883a4853c4c99aec017226099b7d0992eeb055638",
+    "c046-final-visual-capture.log": "e75526005d97de8b650de6fd4f9ec0baa3bfd518cec2520ab5bf9fa8f4ad3d7a",
+    "c046-closeout-check.log": "c5b6a4de47fc19dedb758681a46c57182e22bd1e381e5ceab30d011bb5c1b721"
+  }
+}

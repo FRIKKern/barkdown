@@ -1,42 +1,42 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-23T21-30-48-878Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-23T21-41-47-377Z/README.md).
 
-Reviewed by Codex C046 review. Inspected all 40 deterministic frames through eight decoded GIF sequences; comparison shows zero pixel and geometry differences. Separately reviewed five live Paper stills and all 37 editing GIF frames after a real Claude edit at 25a61d5 / 844ecd321. Migration evidence at fe8696c includes 14 stills, 51 decoded editing GIF frames and eight restart video samples; nine native edit/save/Undo cases and reload/restart passed. Long titles wrap without hidden text. Seven preflight plus 22 staging tests and Paper-host tests passed. Hard-break input remains explicitly refused with retained failure trace; no migration UI activation or whole-P2 completion is claimed.
+Reviewed by Codex C046 final review. Final capture follows the code-area health cleanup. Reviewed current workspace and decoded side-chat sequence; 44 of 48 media files are byte-identical to the immediately preceding fully inspected 40-frame/eight-GIF tour. Three side-chat PNGs and their GIF differ in bytes but comparison reports zero changed pixels at its threshold and no geometry change; visual inspection found no regression. Separately inspected all five fresh live Paper stills and 37 GIF frames at 68fbdf5 / 844ecd321 after a real Claude edit. Migration media review covers 14 stills, 51 GIF frames and eight restart samples at fe8696c. Full Windows desktop suite passed with one POSIX-only skip; nine native migration edit/Undo/restart cases and 29 preflight/staging tests passed. Hard-break migration remains explicitly refused; no authority switch or full P2 acceptance.
 
-Source commit: 25a61d5a69d33313edcf54e5d5bb11d5c9ea661a; platform: win32; Electron: 38.8.6. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: 68fbdf5fa604fdf9b47f77be7f9be08aa62578ab; platform: win32; Electron: 38.8.6. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-09-23T21-30-48-878Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-09-23T21-41-47-377Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-09-23T21-30-48-878Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-09-23T21-41-47-377Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-09-23T21-30-48-878Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-09-23T21-41-47-377Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-09-23T21-30-48-878Z/documents.gif)
+![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-09-23T21-41-47-377Z/documents.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-09-23T21-30-48-878Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-09-23T21-41-47-377Z/settings.gif)
 
 ## [goals](goals/README.md)
 
-![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-09-23T21-30-48-878Z/goals.gif)
+![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-09-23T21-41-47-377Z/goals.gif)
 
 ## [profiles](profiles/README.md)
 
-![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-09-23T21-30-48-878Z/profiles.gif)
+![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-09-23T21-41-47-377Z/profiles.gif)
 
 ## [adoption](adoption/README.md)
 
-![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-09-23T21-30-48-878Z/adoption.gif)
+![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-09-23T21-41-47-377Z/adoption.gif)
 
 ## Dedicated journeys and remaining limits
 

@@ -10,7 +10,7 @@ The tenth case is blocked: native inline newline input becomes a PM hardBreak re
 
 ## Next action
 
-Finish the current final desktop/root and screenshot evidence checkpoint and push; exact results belong in [C046](cycles/C046-migrated-paper.md). Then register/claim an upstream inline-break task and prove native DOM input, serialization, saved Undo and reopen before lifting the refusal. Media/internal links, reference-map activation and rollback remain separate A2 gates. Keep the legacy editor/store and readable history/receipts.
+The final desktop/root checks and reviewed screenshot checkpoint pass; [C046 results](cycles/evidence/C046/results.json) bind the evidence. Register/claim an upstream inline-break task and prove native DOM input, serialization, saved Undo and reopen before lifting the refusal. Media/internal links, reference-map activation and rollback remain separate A2 gates. Keep the legacy editor/store and readable history/receipts.
 
 Consume upstream worktree `barkpark-paper-create` at `844ecd321`, branch `codex/paper-create-only`, stacked draft [PR #20020](https://github.com/FRIKKern/barkpark/pull/20020). This route is unmerged and carries separate upstream CI gates. Do not modify the shared Barkpark checkout or stop shared services. Barkdown has main plus one delivery branch; upstream has main plus three. The user's running app is separate from these disposable test runtimes.
 

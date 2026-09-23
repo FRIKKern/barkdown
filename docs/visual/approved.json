@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-09-23T21-30-48-878Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-23T21-30-48-878Z/comparison.json",
-  "manifestHash": "9ed2152ad84a3ef722cb3a2ea98953f3ab2295a94424acab015b24d0241ec8a0",
-  "reportHash": "fc2bcf4d6880ae43432520be2a0e539f97b054b51912863ceb67c7e47d10a359",
-  "reviewer": "Codex C046 review",
-  "note": "Inspected all 40 deterministic frames through eight decoded GIF sequences; comparison shows zero pixel and geometry differences. Separately reviewed five live Paper stills and all 37 editing GIF frames after a real Claude edit at 25a61d5 / 844ecd321. Migration evidence at fe8696c includes 14 stills, 51 decoded editing GIF frames and eight restart video samples; nine native edit/save/Undo cases and reload/restart passed. Long titles wrap without hidden text. Seven preflight plus 22 staging tests and Paper-host tests passed. Hard-break input remains explicitly refused with retained failure trace; no migration UI activation or whole-P2 completion is claimed.",
-  "reviewedAt": "2026-09-23T21:32:51.978Z",
-  "reviewPath": "docs/visual/reviews/approval-fa51678920b95456edef99a835391e9ca6ac956c1b7c0dfe73a01c2e74f8bfda.json",
-  "reviewHash": "fa51678920b95456edef99a835391e9ca6ac956c1b7c0dfe73a01c2e74f8bfda"
+  "manifest": "docs/visual/runs/2026-09-23T21-41-47-377Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-23T21-41-47-377Z/comparison.json",
+  "manifestHash": "b55ba148a261711b21c973bb9f72883ceeda4fcd5e8efb9d6d3b4827778929f4",
+  "reportHash": "e6ca8fe7e1013804a47bfac71feacbf12a49821efa48c8ce55c3e81441811cee",
+  "reviewer": "Codex C046 final review",
+  "note": "Final capture follows the code-area health cleanup. Reviewed current workspace and decoded side-chat sequence; 44 of 48 media files are byte-identical to the immediately preceding fully inspected 40-frame/eight-GIF tour. Three side-chat PNGs and their GIF differ in bytes but comparison reports zero changed pixels at its threshold and no geometry change; visual inspection found no regression. Separately inspected all five fresh live Paper stills and 37 GIF frames at 68fbdf5 / 844ecd321 after a real Claude edit. Migration media review covers 14 stills, 51 GIF frames and eight restart samples at fe8696c. Full Windows desktop suite passed with one POSIX-only skip; nine native migration edit/Undo/restart cases and 29 preflight/staging tests passed. Hard-break migration remains explicitly refused; no authority switch or full P2 acceptance.",
+  "reviewedAt": "2026-09-23T21:43:28.599Z",
+  "reviewPath": "docs/visual/reviews/approval-fe99197d5c0e83b91920cc79aaf675e531d5bddbc5f30cb6cdea7224c16b00e2.json",
+  "reviewHash": "fe99197d5c0e83b91920cc79aaf675e531d5bddbc5f30cb6cdea7224c16b00e2"
 }

@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-09-23T21-41-47-377Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-23T21-41-47-377Z/comparison.json",
+  "manifestHash": "b55ba148a261711b21c973bb9f72883ceeda4fcd5e8efb9d6d3b4827778929f4",
+  "reportHash": "e6ca8fe7e1013804a47bfac71feacbf12a49821efa48c8ce55c3e81441811cee",
+  "reviewer": "Codex C046 final review",
+  "note": "Final capture follows the code-area health cleanup. Reviewed current workspace and decoded side-chat sequence; 44 of 48 media files are byte-identical to the immediately preceding fully inspected 40-frame/eight-GIF tour. Three side-chat PNGs and their GIF differ in bytes but comparison reports zero changed pixels at its threshold and no geometry change; visual inspection found no regression. Separately inspected all five fresh live Paper stills and 37 GIF frames at 68fbdf5 / 844ecd321 after a real Claude edit. Migration media review covers 14 stills, 51 GIF frames and eight restart samples at fe8696c. Full Windows desktop suite passed with one POSIX-only skip; nine native migration edit/Undo/restart cases and 29 preflight/staging tests passed. Hard-break migration remains explicitly refused; no authority switch or full P2 acceptance.",
+  "reviewedAt": "2026-09-23T21:43:28.599Z"
+}

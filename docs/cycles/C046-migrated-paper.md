@@ -1,20 +1,28 @@
-# C046 — Real migrated Paper checkpoint
+# C046 — Verified subset; inline-break gate remains blocked
 
-Active on `codex/p2-migration`; draft PR #32. No merge, deployment or real-library writes. Consume private upstream `barkpark-paper-create` at `844ecd321` (stacked draft PR #20020). Preserve shared services and the user's app. The automatic run continues through at least 2026-09-23 21:43:38 UTC.
+`codex/p2-migration`, draft [PR #32](https://github.com/FRIKKern/barkdown/pull/32). Nine permitted migrated cases are verified; the original ten-case acceptance is **not complete**. No real-library write, authority switch, merge or deployment occurred. The autonomous run continued beyond its two-hour minimum of 2026-09-23 21:43:38 UTC.
 
-## Verified implementation
+## What changed and passed
 
-- `4b7a25d`: real Paper projection exposed the incorrect code `language` carrier. Production conversion now emits native `lang`; Markdown export retains legacy read compatibility. Full desktop regression passed, with the existing POSIX-only skip.
-- `2b64534`: native input/filter trace proved inline newlines become rejected PM hardBreak nodes. Preflight now refuses hardBreak and literal inline CR/LF, retaining exact readable source/backup; code newlines remain supported. Seven preflight plus 22 staging tests passed. The original ten-case acceptance is still incomplete.
-- `fe8696c`: native title field wraps with content sizing and responsive typography, preserving single-line stored titles, IME Enter, dirty/save ownership and retry/discard. Paper-host tests pass.
-- Live nine-case rehearsal passes at `fe8696c`: real keyboard edits, exact saved Undo, server equality, reload and Electron restart; source, backup and workspace unchanged. [Gallery and failure trail](../visual/migration/README.md). No direct editor commands replace typing or native Undo.
+- `4b7a25d` corrects production code language to Paper's native `lang` carrier; legacy Markdown export compatibility remains.
+- `2b64534` refuses hardBreak and literal inline CR/LF after real native-input proof exposed an upstream serializer boundary. Exact source and backup remain readable; code-block newlines remain supported.
+- `fe8696c` wraps long Paper titles in normal/narrow panes, preserving single-line stored values, IME Enter, dirty/save ownership and retry/discard.
+- The real server-supplied Paper rehearsal at `fe8696c` passes all nine permitted cases: keyboard edits, exact saved Undo, server equality, reload and Electron restart. Source, backup and workspace bytes stay identical. [Media, failure trace and review](../visual/migration/README.md).
+- Full `npm --prefix app test` passes, including seven preflight and 22 staging tests; one existing POSIX-only authentication check skips on Windows. Paper-host and converter checks pass.
+- `npm run verify` passes after correcting the cycle's checkpoint field from an ISO timestamp to its required date format. Earlier freshness/date failures are retained in [results and logs](evidence/C046/results.json).
 
-## Remaining gate and exact next action
+Final live evidence uses clean source `68fbdf5` / private Barkpark `844ecd321`; five stills and all 37 GIF frames were inspected after a real Claude edit. The final 40-frame fixture tour reports no threshold/geometry changes. Forty-four of 48 media files exactly match the preceding fully inspected tour; the changed side-chat sequence was inspected again. Migration review inspected 14 stills, 51 GIF frames and eight restart video samples. All 83 retained migration artifact hashes verified. Named visual approval and source hashes are linked from the results.
 
-Finish fresh live status/deterministic captures, actual image/video inspection, root verification, evidence commit and push. Then keep C046 open for the tenth case: upstream must preserve hard breaks across native DOM parsing, PortableDoc serialization and Undo before preflight can permit them. Register/claim an upstream work item before implementation; never simply remove its serializer guard. Keep media, references, navigation activation and rollback as separate unproved P2 gates.
+## Exact continuation
 
-The Linux full parity run at pushed `962a28e` was 19/20 due to tablehead alignment-click timeout. Targeted rerun [35920198439](https://github.com/FRIKKern/barkdown/actions/runs/35920198439) passed; retain the intermittent failure, not a blanket clean full-matrix claim. Root verification before new captures correctly failed freshness at the code-language change; rerun after review.
+Register/claim an upstream task for native inline-break support before implementation. The retained trace shows Chromium replaces the embedded newline with a PM hardBreak during actual typing; Paper's boundary rejects it because serialization would lose it. A later valid transaction can clear its notice. Do not simply remove that guard. Prove native DOM input, structured serialization, saved Undo and reopen before allowing the tenth case in preflight. Keep media, internal links, reference-map activation and rollback as subsequent unproved A2 gates.
 
-Repository truth review and final process/commit state will be recorded before yielding. The most recent private rehearsal runtime stopped. No source changes are left outside the implementation commits; capture artifacts remain to be reviewed and committed.
+Reproduce the supported editor subset from this worktree with `BARKDOWN_TEST_BP_SOURCE=C:/Users/Frikk/.codex/worktrees/barkpark-paper-create` and `npm --prefix app run test:migration-editor:isolated`. Commit source first; follow live then deterministic captures, inspect images/motion and explicitly approve. Dependencies and Playwright are installed here. Use only disposable data and retain failed evidence.
 
-Visual checkpoint at 25a61d5 reviewed five live Paper stills and 37 GIF frames after a real Claude edit, plus all 40 deterministic frames/eight GIF sequences (zero differences). Migration review inspected 14 stills, 51 editing GIF frames and eight restart video samples. The repository truth pass corrected historical anchors and added the current code-area changelog; conservative tripwires require one fresh capture after this documentation commit. Full final desktop regression remains running; no shared runtime was stopped.
+## Repository and process state
+
+Barkdown has main plus this delivery branch. Upstream has main plus three delivery branches; no new branch was added in this cycle. The create-only source remains clean at `844ecd321`, branch `codex/paper-create-only`, stacked draft [PR #20020](https://github.com/FRIKKern/barkpark/pull/20020). Its canonical Guerrilla task is `task-0974164b66eea275`, worker `codex-barkdown-c044` (pulse epoch 6 during closeout); use explicit `bp -s Guerrilla`, never change the user's default server. The route is unmerged, with separate upstream CI failures.
+
+The Linux full matrix at `962a28e` was 19/20 due to a tablehead alignment-click timeout. [Targeted rerun](https://github.com/FRIKKern/barkdown/actions/runs/35920198439) passed; the original log, report and screenshot are retained in C046 evidence. New push CI must be checked independently; the targeted retry is not a full-matrix pass.
+
+All owned private capture runtimes stopped and the final desktop suite exited. Shared services, the user's app and original libraries were preserved. This handoff accompanies the reviewed evidence commit; verify remote head/CI before further work. C046 stays blocked for the named tenth-case gate, P2 stays active, and no old acceptance record is promoted.
