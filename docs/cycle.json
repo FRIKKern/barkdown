@@ -1,26 +1,27 @@
 {
   "version": 1,
-  "id": "C041",
+  "id": "C042",
   "stage": "P2",
-  "status": "done",
-  "goal": "Keep the active delivery surface small and current while preserving historical work and evidence.",
+  "status": "active",
+  "goal": "Finish recoverable checkout retirement and prepare the accepted checkpoint for main.",
   "scope": [
-    "Retire completed Barkdown branch lanes recoverably",
-    "Replace contradictory active handoff instructions",
-    "Make branch, task and documentation reconciliation a cycle-closeout requirement"
+    "Preserve unique untracked evidence and retire both exception branches",
+    "Move inactive owned worktrees out of the active workspace without deleting files",
+    "Audit Barkpark cleanup PR and retire superseded owned editor lanes",
+    "Validate and publish the consolidated checkpoint"
   ],
   "acceptance": [
-    "Preserved archive refs resolve to original tips before retirement",
-    "Only named delivery lanes and explicit dirty-evidence exceptions remain",
-    "Current handoff and roadmap agree; root verification passes"
+    "Unique evidence has verified remote recovery refs and hashes",
+    "Retired checkout inventory provides restore commands; running app/runtime paths remain untouched",
+    "Barkpark open PRs and unrelated files are preserved",
+    "Root checks pass and integration state is recorded honestly"
   ],
   "checkpoint": "2026-09-23",
-  "handoff": "docs/cycles/C041-repository-hygiene.md",
-  "nextAction": "Review the two retained dirty-evidence checkouts and retire them recoverably; coordinate Barkpark cleanup with existing PR #19963. Then plan the bounded P2 migration slice.",
+  "handoff": "docs/cycles/C042-retirement-closeout.md",
+  "nextAction": "Archive the unique evidence, move idle worktrees recoverably, audit upstream cleanup and validate the checkpoint.",
   "evidence": [
-    "docs/cycles/C041-repository-hygiene.md",
-    "docs/archive/2026-09-23-branches.json"
+    "docs/cycles/C042-retirement-closeout.md"
   ],
-  "truthReview": "Remote archive tags were SHA-verified before retirement; five local delivery/exception branches remain. Root verify and final check passed. Active handoff, plan, A1 and validation now agree. Barkpark open PRs and dirty checkouts are preserved; old checkout directories remain for recovery.",
-  "screenshotReview": "Documentation and Git housekeeping only; existing accepted C039 captures remain applicable."
+  "truthReview": "",
+  "screenshotReview": "No app behavior changes planned; preserved historical captures are not new visual acceptance."
 }
