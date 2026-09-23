@@ -114,7 +114,7 @@
   background: var(--paper-bg-deep); border-radius: var(--bp-codeblock-radius); padding: var(--bp-codeblock-pad);
   margin: 4px 0 0; tab-size: 2; position: relative;
 }
-.bp-paper-host .bp-canvas-code-area { resize: none; min-height: 1.6em; font-size: var(--bp-codeblock-size); line-height: var(--bp-codeblock-lh); color: var(--paper-ink); }
+.bp-paper-host .bp-canvas-code-area { resize: none; min-height: 1.6em; font-size: var(--bp-codeblock-size); line-height: var(--bp-codeblock-lh); color: transparent; }
 .bp-paper-host .bp-canvas-code-area:focus { outline: none; }
 .bp-paper-host .bp-canvas-code-lang { top: 6px; right: 8px; font: 11px/1.4 var(--paper-font-sans); color: var(--paper-ink-soft); background: transparent; border: 0; text-align: right; }
 .bp-paper-host .ProseMirror code { font-family: var(--paper-font-mono); font-size: var(--bp-code-size); background: light-dark(rgba(135, 131, 120, 0.15), rgba(255, 255, 255, 0.1)); color: light-dark(#eb5757, #ff8f8f); border-radius: 4px; padding: var(--bp-code-pad); }
@@ -244,3 +244,75 @@
 .bp-paper-host .ProseMirror ul[data-type="taskList"] > li > label { margin-top: 5px; }
 .bp-paper-host .ProseMirror ul[data-type="taskList"] > li > label input { width: 16px; height: 16px; border-radius: 3px; accent-color: var(--paper-accent); }
 .bp-paper-host .ProseMirror ul[data-type="taskList"] > li[data-checked="true"] > div > p { color: var(--paper-ink-faint); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--paper-ink-faint) 40%, transparent); text-decoration-thickness: 1px; }
+
+/* Host reading scale. Upstream defines these aliases on :root; inherited custom
+ * properties have already resolved there, so rebind them where our tokens live. */
+.bw-paper-document .bp-paper-host {
+  --bp-body-size: 16px;
+  --bp-body-lh: 1.65;
+  --bp-body-tracking: 0;
+  --bp-h2-size: 24px;
+  --bp-h2-lh: 1.35;
+  --bp-h2-weight: 600;
+  --bp-h2-tracking: -.02em;
+  --bp-h3-size: 19px;
+  --bp-h3-lh: 1.4;
+  --bp-heading-weight: 650;
+  --bp-section-beat: 28px;
+  --bp-section-rule: 0px;
+  --bp-section-gap: 0px;
+  --bp-evidence-width: 100%;
+  --bp-evidence-pull: 0px;
+  --bp-air-table: 18px;
+  --bp-air-code: 16px;
+  --bp-air-callout: 16px;
+  --bp-rule-hairline: 1px;
+  --bp-codeblock-pad: 28px 20px 18px;
+  --bp-codeblock-radius: 10px;
+  --paper-accent: light-dark(#557346, #a9c496);
+  --paper-bg-deep: light-dark(#f3f3ef, #252923);
+  --paper-rule: light-dark(#dedfd6, #42483d);
+}
+.bw-paper-document { padding-top: 32px; }
+.bw-paper-document .bw-kicker { margin-bottom: 18px; letter-spacing: 0; }
+.bw-paper-document .bp-paper-host .ProseMirror { line-height: 1.65; }
+.bw-paper-document .bp-paper-host .ProseMirror > h2 {
+  margin: 28px 0 8px; padding: 0; border: 0; width: auto;
+}
+.bw-paper-document .bp-paper-host .ProseMirror > h3 { margin: 22px 0 6px; }
+.bw-paper-document .bp-paper-host--titled .ProseMirror > :is(h1,h2,h3):first-child {
+  font-size: clamp(28px, 3.4cqw, 36px); line-height: 1.22;
+  font-weight: 650; letter-spacing: -.035em; margin: 0 0 18px;
+  border: 0; padding: 0; overflow-wrap: anywhere;
+}
+.bw-paper-document .bp-paper-host .ProseMirror > p { margin-bottom: 8px; }
+.bw-paper-document .bp-paper-host .ProseMirror blockquote {
+  margin: 16px 0; padding: 4px 0 4px 18px;
+  border-left: 2px solid var(--paper-accent); color: var(--paper-ink-soft);
+}
+.bw-paper-document .bp-paper-host .ProseMirror ul[data-type="taskList"] > li { padding: 3px 0; gap: 10px; }
+.bw-paper-document .bp-paper-host .ProseMirror ul[data-type="taskList"] > li[data-checked="true"] > div > p {
+  color: var(--paper-ink-soft); text-decoration-color: var(--paper-rule);
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-table {
+  width: fit-content; max-width: 100%; margin: 18px 0;
+  border-radius: 8px; background: transparent;
+}
+.bw-paper-document .bp-paper-host .ProseMirror :is(.bp-table__th,.bp-table__td) { padding: 10px 14px; }
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout {
+  margin: 16px 0; padding: 16px 18px; border-radius: 8px; border-left-width: 2px;
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout--info {
+  background: light-dark(#eef2e9, #293226); border-left-color: var(--paper-accent);
+}
+.bw-paper-document .bp-paper-host .ProseMirror pre.bp-canvas-code {
+  margin: 16px 0; padding: var(--bp-codeblock-pad); border: 1px solid var(--paper-rule);
+}
+/* Highlight and input are two coincident layers of the same editable code.
+ * Inline-code decoration must never move or recolour the highlighted layer. */
+.bw-paper-document .bp-paper-host .ProseMirror .bp-canvas-code-hl {
+  padding: var(--bp-codeblock-pad); background: transparent; color: var(--paper-ink);
+  font-size: var(--bp-codeblock-size); line-height: var(--bp-codeblock-lh);
+  border-radius: 0; font-family: var(--paper-font-mono);
+}
+.bw-paper-document .bp-paper-host .bp-canvas-code-area { color: transparent; caret-color: var(--paper-ink); }
