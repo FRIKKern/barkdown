@@ -1,0 +1,34 @@
+concept	Run npm run verify	﻿2026-09-23T23:24:30.4620628Z ##[group]Run npm run verify
+concept	Run npm run verify	2026-09-23T23:24:30.4620828Z [36;1mnpm run verify[0m
+concept	Run npm run verify	2026-09-23T23:24:30.4652041Z shell: /usr/bin/bash -e {0}
+concept	Run npm run verify	2026-09-23T23:24:30.4652209Z ##[endgroup]
+concept	Run npm run verify	2026-09-23T23:24:30.7105244Z 
+concept	Run npm run verify	2026-09-23T23:24:30.7115587Z > barkdown-workspace@0.5.0 verify
+concept	Run npm run verify	2026-09-23T23:24:30.7116043Z > npm run build && npm run check && npm test
+concept	Run npm run verify	2026-09-23T23:24:30.7124484Z 
+concept	Run npm run verify	2026-09-23T23:24:30.7807669Z 
+concept	Run npm run verify	2026-09-23T23:24:30.7808633Z > barkdown-workspace@0.5.0 build
+concept	Run npm run verify	2026-09-23T23:24:30.7809288Z > node scripts/build.cjs
+concept	Run npm run verify	2026-09-23T23:24:30.7809681Z 
+concept	Run npm run verify	2026-09-23T23:24:31.3562410Z Built portable previews, GitHub-readable PRD, and source hashes.
+concept	Run npm run verify	2026-09-23T23:24:31.4459092Z 
+concept	Run npm run verify	2026-09-23T23:24:31.4460060Z > barkdown-workspace@0.5.0 check
+concept	Run npm run verify	2026-09-23T23:24:31.4461123Z > tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && npm run check:cycle && npm run check:visual
+concept	Run npm run verify	2026-09-23T23:24:31.4461783Z 
+concept	Run npm run verify	2026-09-23T23:24:32.3128893Z /home/runner/work/barkdown/barkdown/scripts/check.cjs:3
+concept	Run npm run verify	2026-09-23T23:24:32.3130083Z function fail(message){throw Error(message)}
+concept	Run npm run verify	2026-09-23T23:24:32.3130648Z                        ^
+concept	Run npm run verify	2026-09-23T23:24:32.3130970Z 
+concept	Run npm run verify	2026-09-23T23:24:32.3131744Z Error: Status screenshots are older than the last UI change (c9ac427bc; captured at 5aafb68aa): commit the UI change, then `cd app && npm run shots`, then commit the pictures
+concept	Run npm run verify	2026-09-23T23:24:32.3132715Z     at fail (/home/runner/work/barkdown/barkdown/scripts/check.cjs:3:30)
+concept	Run npm run verify	2026-09-23T23:24:32.3133406Z     at Object.<anonymous> (/home/runner/work/barkdown/barkdown/scripts/check.cjs:35:12)
+concept	Run npm run verify	2026-09-23T23:24:32.3134022Z     at Module._compile (node:internal/modules/cjs/loader:1781:14)
+concept	Run npm run verify	2026-09-23T23:24:32.3134934Z     at Object..js (node:internal/modules/cjs/loader:1913:10)
+concept	Run npm run verify	2026-09-23T23:24:32.3135496Z     at Module.load (node:internal/modules/cjs/loader:1505:32)
+concept	Run npm run verify	2026-09-23T23:24:32.3136015Z     at Function._load (node:internal/modules/cjs/loader:1309:12)
+concept	Run npm run verify	2026-09-23T23:24:32.3136547Z     at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+concept	Run npm run verify	2026-09-23T23:24:32.3137171Z     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+concept	Run npm run verify	2026-09-23T23:24:32.3137748Z     at node:internal/main/run_main_module:36:49
+concept	Run npm run verify	2026-09-23T23:24:32.3138072Z 
+concept	Run npm run verify	2026-09-23T23:24:32.3138294Z Node.js v22.23.2
+concept	Run npm run verify	2026-09-23T23:24:32.5430599Z ##[error]Process completed with exit code 1.

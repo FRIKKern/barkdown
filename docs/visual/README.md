@@ -1,42 +1,42 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-23T22-51-45-914Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-23T23-28-38-198Z/README.md).
 
-Reviewed by Codex. Inspected all 40 source stills and all 40 decoded frames across eight fixture GIFs, including menus, focus, themes, narrow layouts, goal states and adoption recovery. Comparison shows zero changed pixels or geometry differences. Controls remain reachable; fixture GIF palette banding around blurred modal shadows remains an encoding limitation visible in prior evidence, not a layout change. Separately reviewed five live Paper stills and 37 live GIF frames, plus migration 16 stills, 55 editing GIF frames and eight restart samples. Full desktop tests, ten-case native migration with Shift+Enter and saved Undo, and Linux parity run 35929675673 pass. Fixture tours do not prove live saves; those are covered by the private runtime tests.
+Reviewed by Codex. C047: inspected before/after side-chat frames 0, 1 and 3; no visible clipping, movement or control loss. SHA256 comparison confirms remaining 37 stills and all eight GIFs byte-identical to fully reviewed C046 candidate 2026-09-23T22-51-45-914Z (approval b78e5353796bf89459a280083b2efaabab4e6dfff4d750a87916516b20fefbff); carry its narrow, intermediate and 40 decoded GIF frame review. Comparator reports zero changed pixels above RGB tolerance and no geometry/environment changes across 40 frames. Also inspected five fresh live stills and all 37 decoded live GIF frames: menus, themes, table selection and quick-open remain usable. Dedicated migration review covers 23 stills, 77 video/GIF samples and eight restart samples; native 16-case typing/save/exact Undo/restart, alignment checks, staging recovery and full desktop suite pass. Fixture GIF shadow banding remains an encoding limitation; real libraries and cutover remain untested.
 
-Source commit: 5aafb68aaa26b19146b0404ff59381291973634f; platform: win32; Electron: 38.8.6. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: b837e13a084eba22f44a98fb4d94434c3e5d2bfe; platform: win32; Electron: 38.8.6. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-09-23T22-51-45-914Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-09-23T23-28-38-198Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-09-23T22-51-45-914Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-09-23T23-28-38-198Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-09-23T22-51-45-914Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-09-23T23-28-38-198Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-09-23T22-51-45-914Z/documents.gif)
+![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-09-23T23-28-38-198Z/documents.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-09-23T22-51-45-914Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-09-23T23-28-38-198Z/settings.gif)
 
 ## [goals](goals/README.md)
 
-![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-09-23T22-51-45-914Z/goals.gif)
+![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-09-23T23-28-38-198Z/goals.gif)
 
 ## [profiles](profiles/README.md)
 
-![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-09-23T22-51-45-914Z/profiles.gif)
+![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-09-23T23-28-38-198Z/profiles.gif)
 
 ## [adoption](adoption/README.md)
 
-![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-09-23T22-51-45-914Z/adoption.gif)
+![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-09-23T23-28-38-198Z/adoption.gif)
 
 ## Dedicated journeys and remaining limits
 

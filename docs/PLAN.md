@@ -26,7 +26,7 @@ Packaging research may proceed alongside earlier stages. The local-only pilot do
 
 ## Current next stage
 
-P1 is accepted at the [C039 audit](cycles/C039-completion-audit.md) and merged through PR #31. P2 is active: [C043](cycles/C043-migration-preflight.md) provides offline inventory/preflight/backup; [C044](cycles/C044-paper-create-contract.md) proves an insert-only upstream creation route and lost-response readback on disposable data. [C045](cycles/C045-migration-staging.md) adds durable intent and conservative staging/readback recovery. [C046](cycles/C046-migrated-paper.md) proves ten initial cases through native editing, exact saved Undo, Shift+Enter and restart after correcting upstream inline-break serialization. The [migration contract](migration/README.md) still requires full corpus, reference and navigation proof. Preserve the legacy store; the new upstream route is unmerged.
+P1 is accepted at the [C039 audit](cycles/C039-completion-audit.md) and merged through PR #31. P2 is active: [C043](cycles/C043-migration-preflight.md) provides offline inventory/preflight/backup; [C044](cycles/C044-paper-create-contract.md) proves an insert-only upstream creation route and lost-response readback on disposable data. [C045](cycles/C045-migration-staging.md) adds durable intent and conservative staging/readback recovery. [C046](cycles/C046-migrated-paper.md) proves ten initial cases through native editing, exact saved Undo, Shift+Enter and restart after correcting upstream inline-break serialization. [C047](cycles/C047-heading-alignment.md) extends this to sixteen cases with heading formatting/alignment and full reviewed validation. The [migration contract](migration/README.md) still requires full corpus, reference and navigation proof. Preserve the legacy store; the new upstream route is unmerged.
 
 ## Carry forward
 
@@ -66,6 +66,6 @@ Use [ACCEPTANCE.md](ACCEPTANCE.md) for scenario gates and [VALIDATION.md](VALIDA
 
 ## Delivery cadence
 
-Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) is C047 heading formatting and paragraph alignment, following completed C046 ten-case native editor proof, C043 preparation, C044 creation-contract proof, C045 durable staging and merged P1 acceptance. Device authentication is shared by default without asking, per the user’s 23 September decision. Original integration, profile and editor evidence remains linked from [NEXT-AGENT.md](NEXT-AGENT.md) and the [P1 audit](cycles/C039-completion-audit.md). Closing a cycle does not complete a stage.
+Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) is completed C047 heading formatting and paragraph alignment, following completed C046 ten-case native editor proof, C043 preparation, C044 creation-contract proof, C045 durable staging and merged P1 acceptance. Device authentication is shared by default without asking, per the user’s 23 September decision. Original integration, profile and editor evidence remains linked from [NEXT-AGENT.md](NEXT-AGENT.md) and the [P1 audit](cycles/C039-completion-audit.md). Closing a cycle does not complete a stage.
 
 Historical integration checkpoints remain in [C008](cycles/C008-integration.md); they are evidence, not an active queue.

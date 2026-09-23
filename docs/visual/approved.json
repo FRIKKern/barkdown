@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-09-23T22-51-45-914Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-23T22-51-45-914Z/comparison.json",
-  "manifestHash": "e7799488189cf24d94b5617e4510061d1bb25807bedd56379ee0bf44c4b9dbd3",
-  "reportHash": "9229e21b0d730cbf253a031b273b3dda6f552a5d8fd7752de761a4eb81be1ff6",
+  "manifest": "docs/visual/runs/2026-09-23T23-28-38-198Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-23T23-28-38-198Z/comparison.json",
+  "manifestHash": "7b5ec8174641b69fd498d73c37cfc26f654c9ebf1f773241e716aee6c8a1622d",
+  "reportHash": "aa82a1dc4eea01a73a92c74b845a5696d1102fce40e42c46eb94e896f0965b1a",
   "reviewer": "Codex",
-  "note": "Inspected all 40 source stills and all 40 decoded frames across eight fixture GIFs, including menus, focus, themes, narrow layouts, goal states and adoption recovery. Comparison shows zero changed pixels or geometry differences. Controls remain reachable; fixture GIF palette banding around blurred modal shadows remains an encoding limitation visible in prior evidence, not a layout change. Separately reviewed five live Paper stills and 37 live GIF frames, plus migration 16 stills, 55 editing GIF frames and eight restart samples. Full desktop tests, ten-case native migration with Shift+Enter and saved Undo, and Linux parity run 35929675673 pass. Fixture tours do not prove live saves; those are covered by the private runtime tests.",
-  "reviewedAt": "2026-09-23T22:58:43.087Z",
-  "reviewPath": "docs/visual/reviews/approval-b78e5353796bf89459a280083b2efaabab4e6dfff4d750a87916516b20fefbff.json",
-  "reviewHash": "b78e5353796bf89459a280083b2efaabab4e6dfff4d750a87916516b20fefbff"
+  "note": "C047: inspected before/after side-chat frames 0, 1 and 3; no visible clipping, movement or control loss. SHA256 comparison confirms remaining 37 stills and all eight GIFs byte-identical to fully reviewed C046 candidate 2026-09-23T22-51-45-914Z (approval b78e5353796bf89459a280083b2efaabab4e6dfff4d750a87916516b20fefbff); carry its narrow, intermediate and 40 decoded GIF frame review. Comparator reports zero changed pixels above RGB tolerance and no geometry/environment changes across 40 frames. Also inspected five fresh live stills and all 37 decoded live GIF frames: menus, themes, table selection and quick-open remain usable. Dedicated migration review covers 23 stills, 77 video/GIF samples and eight restart samples; native 16-case typing/save/exact Undo/restart, alignment checks, staging recovery and full desktop suite pass. Fixture GIF shadow banding remains an encoding limitation; real libraries and cutover remain untested.",
+  "reviewedAt": "2026-09-23T23:34:36.527Z",
+  "reviewPath": "docs/visual/reviews/approval-8abbcc1bd829c0b3de2885fc7af95b6f977883716d4f0776353bcf035eef0e98.json",
+  "reviewHash": "8abbcc1bd829c0b3de2885fc7af95b6f977883716d4f0776353bcf035eef0e98"
 }
