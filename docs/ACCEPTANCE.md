@@ -5,7 +5,8 @@ These are pending gates for [the active plan](PLAN.md), not passing test claims.
 ## A1 — Profile ownership and isolation
 
 - Adopt an existing workspace into a default profile twice; backup remains intact and no content, navigation, receipt or chat duplicates.
-- Create profiles A/B with identical paper slugs. Documents, media, credentials, caches, search results, chats, side-chat parents, drafts, favorites and Undo cannot cross owners.
+- Create profiles A/B with identical paper slugs. Documents, media, profile-owned credentials, caches, search results, chats, side-chat parents, drafts, favorites and Undo cannot cross owners.
+- Device provider logins and supported environment keys are shared defaults without a per-profile prompt. A configured profile API key takes precedence; an empty profile must never borrow another profile's owned key. Shared login does not authorize cross-profile content access.
 - Start a run in A, switch to B, and complete it. Its folder, document edits and events remain in A. Preserve B’s draft and reading position.
 - Restart with B selected; restore only B’s workspace. Missing folders and inaccessible references remain explicit, with no fallback to A.
 - Corrupt or interrupt registry/adoption writes: recover to a valid prior state without dropping the old workspace.

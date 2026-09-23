@@ -1,33 +1,27 @@
-# C039 — Finish the provider authentication boundary
+# C039 — Verify shared device authentication and profile ownership
 
-Active on codex/finish-profile-isolation, continuing merged checkpoint 3903288. The user authorized merging the existing combined checkpoint and focusing on remaining goals on 23 September. PR #30 merged on 2026-09-23 as 3903288 after all checks passed. C040 fixture repairs and evidence are carried forward. No deployment.
+The user decided on 23 September: use the computer's existing provider authentication by default, without asking. This supersedes the [opt-in proposal](../archive/C039-device-auth-opt-in-proposal.md). No per-profile consent prompt or separate-account requirement is planned.
+
+## Selected boundary
+
+- Main chats, side chats, goal coordinators and workers may use the computer's existing Claude/Codex login and supported environment keys by default.
+- An explicitly configured profile API key takes precedence in the API provider. It remains owned by that profile; an empty profile must never fall back to another profile's key.
+- Shared device authentication does not share documents, chats, drafts, folders, caches or run results. Runs keep their captured profile and conversation ownership.
+- Do not copy login files into profiles or portable exports, sign out the device, or change real credentials as test setup. Provider command/file approval rules are unchanged.
 
 ## Current evidence
 
-The actual API adapter audit was rerun with synthetic credentials and a controlled client: A used its own key, empty B used the device environment key, and B did not use A's owned key. No network or real credentials were used. Command: node docs/cycles/evidence/provider-credential-boundary.cjs. Retained fixture: bd-provider-key-boundary-pfTzmC. CLI providers currently inherit the run environment and device home login.
+Existing runtime behavior already matches the chosen default: run-scope captures the device environment, CLI adapters use device login, and goal-worker IPC carries the captured environment. The controlled actual API adapter audit was rerun on 23 September at source 5325300 with synthetic keys: A used its owned key, empty B used the device environment key, and B did not use A's owned key. Fixture: bd-provider-key-boundary-9IMqo1. No network requests or real credentials were used.
 
-The combined P1 native journeys pass as recorded in C008/A1-current-evidence. They do not establish separate provider accounts. Keep P1 open until the declared boundary and evidence agree.
+Command: node docs/cycles/evidence/provider-credential-boundary.cjs. This audit is evidence for API precedence, not a fresh live authentication test of every provider or goal path.
 
-## Choice and implementation map
+## Remaining proof
 
-Recommended policy: an explicit per-profile opt-in to device Claude/Codex login and environment keys; profile-owned encrypted API keys remain usable independently. The user's preference question is pending. Do not relabel device login as a profile-owned credential, manufacture separate accounts, copy login files, sign out the device or change real user settings as test setup.
-
-- main/main.js: settings validation, persistence, public status and default-provider selection currently expose device availability unconditionally. UI must distinguish available on this computer from allowed for this profile.
-- renderer/src/settings.js: put the choice with provider settings; main and side composers must show truthful availability.
-- main/profile-service.js resolve/start: capture policy from the authoritative owning store, refuse before conversation reservation/provider launch where possible, and preserve the unsent draft.
-- main/providers/run-scope.js: captures process.env. Environment-key fallback must obey captured policy; do not rely on clearing renderer flags.
-- main/agent.js and providers/claude.js, codex.js: guard actual dispatch, including direct adapter paths. Reject unsupported or malformed policy, and do not silently substitute a provider.
-- main/goal-provider.js, goal-worker-agent.js, goal-worker.js: queued and child-process runs must receive the same captured policy. Revalidate before launch after a user revokes permission; do not substitute the selected profile's settings. Define already-running behavior explicitly.
-
-## Proof before closing
-
-1. Controlled actual adapters: owned key works with device access denied; empty denied profile cannot consume environment keys or load CLI SDKs; A permission cannot authorize B; main/side and coordinator/worker use the same decision.
-2. Native UI: save per-profile choice, switch A/B, refuse with retained text/images, change policy and explicitly retry once, then quit/restart. Preserve legacy content and login files.
-3. Race cases: settings revocation during delayed scope/runtime acquisition, queued goal dispatch, background A completion while B is foreground.
-4. Existing provider, profile, send-preservation and goal regression gates; real two-profile journey; source commit, reviewed screenshots/GIFs and evidence commit, root verify.
+1. Reconcile the A1 evidence table against the chosen shared-device boundary, retaining all workspace ownership gates.
+2. Verify main/side and coordinator/worker dispatch preserve profile-key precedence and captured ownership while using shared device authentication by default.
+3. Verify missing authentication reports the provider's normal unavailable state and preserves drafts; switching profiles must not borrow another profile's owned key.
+4. Run relevant provider/profile/goal regression checks and close C039 only with recorded evidence. P1 remains active until its remaining acceptance evidence is reconciled.
 
 ## Checkpoint
 
-No app behavior changed. No new services running. Next action is policy implementation after the preference is settled. The main merge is a working checkpoint, not P1 completion. Subsequent sequence remains P2 one Paper engine, P3 recovery/portability, then P5 installation; optional sync is P4.
-
-Planning checkpoint validation: root npm run verify passed after the documentation and cycle update. Read-only upstream refresh confirms PR #19579 OPEN/BLOCKED at a5440345c and no BARKDOWN_READ_TOKEN in Barkpark repository secrets. P1 is now accurately marked active with evidence links; it is not complete.
+This is a policy/documentation change; no runtime or UI change is required to enable the default, and no opt-in prompt is being introduced. C040 reviewed screenshots remain applicable. No services started. Root npm run verify passed for this update; controlled API evidence is recorded above. Continue on codex/finish-profile-isolation from merged main 7c3a325. Subsequent goals remain P2 one Paper engine, P3 recovery/portability and P5 installation; optional sync is P4.

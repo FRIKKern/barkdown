@@ -3,25 +3,25 @@
   "id": "C039",
   "stage": "P1",
   "status": "active",
-  "goal": "Close the P1 provider authentication boundary with explicit profile ownership and acceptance evidence.",
+  "goal": "Verify shared device authentication by default while preserving profile-owned credentials and run ownership.",
   "scope": [
-    "Make device authentication distinct from profile-owned encrypted keys",
-    "Apply the same policy to main chats, side chats and goal workers",
-    "Preserve drafts, existing credentials and captured run ownership; no migration, sync or deployment"
+    "Use existing computer logins and supported environment keys without a per-profile prompt",
+    "Keep profile-owned API-key precedence and captured workspace ownership across ordinary and goal runs",
+    "Reconcile P1 evidence with the chosen device/profile boundary; no migration or deployment"
   ],
   "acceptance": [
-    "Per-profile device-authentication choice is durable and accurately shown",
-    "Disallowed provider launch is refused before SDK dispatch without losing the draft",
-    "Profile A permission or keys never authorize B; queued goals and background runs retain captured policy",
-    "Native restart, reviewed visual evidence, relevant provider/profile/goal suites and root verify pass"
+    "Main chats, side chats and goal runs use device authentication by default without a consent prompt",
+    "A profile-owned API key takes precedence and is never borrowed by another profile",
+    "Runs retain their captured profile, folder and conversation; missing authentication preserves drafts",
+    "Relevant provider/profile/goal evidence and root verification support the declared boundary"
   ],
   "checkpoint": "2026-09-23",
   "handoff": "docs/cycles/C039-provider-authentication.md",
-  "nextAction": "Settle the device-authentication choice, implement authoritative policy and refusal before dispatch, then prove ordinary and goal paths.",
+  "nextAction": "Verify ordinary and goal-provider dispatch against shared device defaults, then reconcile the remaining A1 acceptance evidence.",
   "evidence": [
     "docs/cycles/C039-provider-authentication.md",
     "docs/cycles/evidence/provider-credential-boundary.cjs"
   ],
-  "truthReview": "Existing controlled API audit rerun on f00b489 reproduces device environment fallback in an empty profile; this is not cross-profile encrypted-key leakage. P1 remains open.",
-  "screenshotReview": "Documentation-only continuation of merged 3903288; current C040 reviewed captures remain applicable. Policy UI changes require fresh evidence."
+  "truthReview": "User selected shared computer authentication by default on 2026-09-23. Existing API audit confirms owned-key precedence and device fallback without cross-profile key reuse; broader acceptance remains open.",
+  "screenshotReview": "Policy/documentation update only. Runtime and UI are unchanged; C040 reviewed screenshots still apply."
 }

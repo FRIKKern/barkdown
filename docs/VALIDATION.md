@@ -137,3 +137,7 @@ The actual API credential-boundary audit rerun at f00b489 reproduced device-envi
 ## C040 Linux merge gate — 23 September
 
 PR30 fresh parity failed 17/20 at f00b489. Source e32482f corrects fixture caret preconditions and installs Playwright video runtime in CI; no product behavior changed and original assertions remain. Isolated local repaired groups pass row14 4/4, gaps 13/13 and find 6/6. Native stills/video, fresh status and deterministic captures reviewed; see [C040](cycles/C040-linux-parity.md). Full Linux CI and root verify remain pending at this checkpoint.
+
+## C039 device-authentication decision — 23 September
+
+The user chose computer authentication by default without asking. Existing actual API adapter audit rerun with synthetic keys at 5325300: owned A key used; empty B device environment used; B did not borrow A key. No network. Runtime and visual inputs unchanged. This settles policy, not all P1 or goal-provider acceptance; see C039 for remaining proof.

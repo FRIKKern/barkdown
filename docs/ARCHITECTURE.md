@@ -15,7 +15,7 @@ This describes the implemented profile foundation and the remaining P1–P5 targ
 
 ## Implemented foundation
 
-The app now has a versioned profile registry, backed-up adoption of the legacy workspace, profile-qualified document and run ownership, and owned local runtimes. The original single-workspace store remains an adoption/rollback source. Combined native evidence covers profile switching, repeated adoption, recovery, caches and missing references; see [C008](cycles/C008-integration.md). Device provider authentication remains the next unresolved P1 boundary in [C039](cycles/C039-provider-authentication.md). These implemented foundations do not establish migration to one note engine or cross-machine portability.
+The app now has a versioned profile registry, backed-up adoption of the legacy workspace, profile-qualified document and run ownership, and owned local runtimes. The original single-workspace store remains an adoption/rollback source. Combined native evidence covers profile switching, repeated adoption, recovery, caches and missing references; see [C008](cycles/C008-integration.md). Device provider authentication is shared by default without a per-profile prompt; profile-owned API keys remain isolated and take precedence. [C039](cycles/C039-provider-authentication.md) verifies this declared boundary across ordinary and goal runs. These implemented foundations do not establish migration to one note engine or cross-machine portability.
 
 The Paper adapter loads the editor from the connected Barkpark, with cached/vendored fallback. Editor truth stays upstream. The legacy document store remains until P2 migration passes; its continued presence is deliberate compatibility, not the intended final architecture.
 

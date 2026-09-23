@@ -2,7 +2,7 @@
 
 ## Current checkpoint — 23 September
 
-[PR #30](https://github.com/FRIKKern/barkdown/pull/30) is merged into main as `3903288`. C040 is complete: all 20 Linux parity groups, both repository checks and Windows visual CI pass at `5325300`, with explicitly reviewed evidence. No deployment. Continue [C039 provider authentication](cycles/C039-provider-authentication.md) on `codex/finish-profile-isolation`. The next gap is device authentication policy across ordinary and goal-provider dispatch. P1 remains active; do not restart finished editor polish or treat the merge as full-stage completion. The pending preference and implementation/test map are in C039.
+[PR #30](https://github.com/FRIKKern/barkdown/pull/30) is merged into main as `3903288`. C040 is complete: all 20 Linux parity groups, both repository checks and Windows visual CI pass at `5325300`, with explicitly reviewed evidence. No deployment. Continue [C039 provider authentication](cycles/C039-provider-authentication.md) on `codex/finish-profile-isolation`. The user chose shared computer authentication by default, without a per-profile prompt. Verify ordinary and goal dispatch against this boundary; profile-owned keys and workspace data remain isolated. P1 remains active; do not restart finished editor polish or treat the merge as full-stage completion. The selected policy and remaining evidence map are in C039.
 
 ## Earlier checkpoints (superseded; retained evidence)
 
