@@ -21,3 +21,5 @@ Root verification pending. Truth review: PLAN, acceptance, design decisions and 
 ## Closeout
 
 Root `npm run verify` passed (build, types/source/link/freshness/cycle/visual checks and concept/handoff suites). `git diff --check` passed. No app source changed after captures. C038 is done; next action is user review on `codex/paper-polish`. Commit and push this evidence checkpoint, then confirm remote HEAD. All owned capture services stopped. No main merge or deployment. Full desktop, cross-machine portability and stage acceptance were not rerun or claimed by this CSS cycle.
+
+Publication confirmed: `git push origin codex/paper-polish` advanced remote from `6bd8fcf` to evidence commit `1621d45`. This final documentation acknowledgement does not change app or capture inputs.

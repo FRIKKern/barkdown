@@ -2,7 +2,7 @@
 
 ## Current checkpoint — 23 September
 
-C038 is complete: [callout refinement](cycles/C038-callout-polish.md) on `codex/paper-polish`. C037 is archived; its completed source/evidence was pushed through `6bd8fcf`. C038 source is `ae8024f`; 31 host checks, four real-server callout checks and root verification passed, with reviewed light/dark/narrow gallery and current live/deterministic evidence. Push this evidence checkpoint and confirm the remote; keep main unchanged.
+C038 is complete: [callout refinement](cycles/C038-callout-polish.md) on `codex/paper-polish`. C037 is archived; its completed source/evidence was pushed through `6bd8fcf`. C038 source is `ae8024f`; 31 host checks, four real-server callout checks and root verification passed, with reviewed light/dark/narrow gallery and current live/deterministic evidence. Source and evidence were pushed through `1621d45`; keep main unchanged.
 
 ## Previous C037 checkpoint
 
