@@ -82,7 +82,8 @@ try {
     if (block.type === 'code') {
       const area = canvas().locator('.bp-canvas-code-area'); await area.click(); await area.evaluate(el => el.setSelectionRange(1, 1));
     } else {
-      await canvas().evaluate((c, needle) => { const e = c._editor; let at; e.state.doc.descendants((node, pos) => { if (at === undefined && node.isText && node.text.includes(needle)) at = pos + node.text.indexOf(needle) + 1; }); if (at === undefined) throw Error('Missing editable corpus text: ' + needle); e.commands.focus(); e.commands.setTextSelection(at); }, needle);
+      await canvas().evaluate((c, needle) => { const e = c._editor; let at; e.state.doc.descendants((node, pos) => { if (at === undefined && node.isText && node.text.includes(needle)) at = pos + node.text.indexOf(needle) + 1; }); if (at === undefined) throw Error('Missing editable corpus text: ' + needle); e.view.focus(); e.commands.setTextSelection(at); }, needle);
+      await page.waitForFunction(() => document.activeElement === document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.view.dom);
     }
     await page.keyboard.type('X'); const edited = await saved(revision);
     const changed = structuredClone(expected); changed[index] = changeFirstText(block, needle);
@@ -114,6 +115,10 @@ try {
   console.log('PASS ten migrated cases: keyboard edit, exact saved Undo, reload and Electron restart; source/navigation unchanged');
 } catch (error) {
   if (page) await page.screenshot({ path: path.join(out, 'failure.png') }).catch(() => {});
+  if (page) {
+    const state = await page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); return { active: document.activeElement?.outerHTML.slice(0, 500), focused: document.hasFocus(), selection: c?._editor?.state.selection.toJSON(), editor: c?._editor?.getJSON(), blocks: c?.recoverySnapshot().blocks, status: document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent }; }).catch(() => null);
+    fs.writeFileSync(path.join(out, 'failure-state.json'), JSON.stringify({ state, server: await read().catch(() => null) }, null, 2));
+  }
   fs.writeFileSync(path.join(out, 'failure.txt'), error.stack); throw error;
 } finally {
   if (app) await close(results.length === 10 ? 'restart' : 'failed-rehearsal');
