@@ -1,28 +1,26 @@
 {
   "version": 1,
-  "id": "C045",
+  "id": "C046",
   "stage": "P2",
-  "status": "done",
-  "goal": "Stage prepared local notes through insert-only Paper creation with durable intent and conservative restart reconciliation.",
+  "status": "active",
+  "goal": "Prove staged corpus through real Paper editing, saved Undo and app reopen without legacy authority changes.",
   "scope": [
-    "Offline prepared disposable profiles with explicitly supplied publishing metadata",
-    "Bind each staging plan to source hashes and a captured local runtime identity",
-    "Preserve unknown, edited or ambiguous targets and all legacy navigation",
-    "No media upload, internal-link rewrite, authority switch, real-library migration, merge or deployment"
+    "Disposable ten-case source corpus staged through C045 into owned private Paper",
+    "Actual Electron editor, acknowledged server comparisons, native Undo and restart",
+    "No real library, media/internal links, navigation activation, merge or deployment"
   ],
   "acceptance": [
-    "Intent is durable before every create; same prepared source and target resume without duplicate or overwrite",
-    "Process interruption after commit and before receipt reconciles exact content without blind replay",
-    "Changed source, corrupt plan or receipt, retargeted runtime and edited/draft targets stop safely",
-    "Actual private Paper API readback, relevant tests, root verification and reviewed visual evidence pass"
+    "Staged structured corpus opens intact in the server-supplied real Paper bundle",
+    "Actual keyboard edits and Undo persist exact expected structured content without collateral changes",
+    "Reload and app restart restore acknowledged Paper and leave source/backup/workspace unchanged",
+    "Fresh screenshots/video and explicit visual review accompany relevant tests and root verification"
   ],
   "checkpoint": "2026-09-23",
-  "handoff": "docs/cycles/C045-migration-staging.md",
-  "nextAction": "Start a bounded real Paper open/edit/save/Undo/reopen rehearsal for staged corpus; keep source authority legacy.",
+  "handoff": "docs/cycles/C046-migrated-paper.md",
+  "nextAction": "Implement a private-runtime Electron rehearsal over C045 staging; record failures without weakening exact comparisons.",
   "evidence": [
-    "docs/cycles/C045-migration-staging.md",
-    "docs/cycles/evidence/C045/results.json"
+    "docs/cycles/C046-migrated-paper.md"
   ],
-  "truthReview": "Reviewed active roadmap/handoff/validation, README/app guide/architecture/decisions and branch ownership; P2 and upstream release gates remain unfinished.",
-  "screenshotReview": "Fresh cf0612c live Paper stills and all 37 GIF frames inspected; 40 deterministic frames/eight sequences reviewed with zero differences and explicit approval 2ab722e2."
+  "truthReview": "",
+  "screenshotReview": ""
 }

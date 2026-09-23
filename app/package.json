@@ -77,7 +77,8 @@
     "test:provider-login": "npm run build && node --test tests/provider-authentication.test.mjs tests/provider-discovery.test.mjs tests/provider-auth-error.test.mjs tests/provider-login.test.mjs && node tests/provider-discovery.live.mjs && node tests/provider-login.live.mjs",
     "test:migration-preflight": "node --test tests/migration-preflight.test.mjs",
     "test:migration-staging": "node --test tests/migration-staging.test.mjs",
-    "test:migration-staging:isolated": "node tests/status-shots-isolated.mjs tests/migration-staging.live.mjs"
+    "test:migration-staging:isolated": "node tests/status-shots-isolated.mjs tests/migration-staging.live.mjs",
+    "test:migration-editor:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/migration-editor.live.mjs"
   },
   "engines": {
     "node": ">=22.13.1"

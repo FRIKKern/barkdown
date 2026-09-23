@@ -66,6 +66,6 @@ Use [ACCEPTANCE.md](ACCEPTANCE.md) for scenario gates and [VALIDATION.md](VALIDA
 
 ## Delivery cadence
 
-Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) is C045 durable staging, following completed C043 preparation, C044 creation-contract proof and merged P1 acceptance. Device authentication is shared by default without asking, per the user’s 23 September decision. Original integration, profile and editor evidence remains linked from [NEXT-AGENT.md](NEXT-AGENT.md) and the [P1 audit](cycles/C039-completion-audit.md). Closing a cycle does not complete a stage.
+Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) is C046 real migrated Paper editing/reopen, following completed C043 preparation, C044 creation-contract proof, C045 durable staging and merged P1 acceptance. Device authentication is shared by default without asking, per the user’s 23 September decision. Original integration, profile and editor evidence remains linked from [NEXT-AGENT.md](NEXT-AGENT.md) and the [P1 audit](cycles/C039-completion-audit.md). Closing a cycle does not complete a stage.
 
 Historical integration checkpoints remain in [C008](cycles/C008-integration.md); they are evidence, not an active queue.
