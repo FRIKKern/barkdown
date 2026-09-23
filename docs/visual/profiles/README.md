@@ -2,14 +2,15 @@
 
 Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.
 
-![Current view](../runs/2026-09-23T00-18-21-531Z/profiles-3.png)
+![Current view](../runs/2026-09-23T00-22-54-157Z/profiles-3.png)
 
-![Recorded interaction](../runs/2026-09-23T00-18-21-531Z/profiles.gif)
+![Recorded interaction](../runs/2026-09-23T00-22-54-157Z/profiles.gif)
 
-[Full comparison](../runs/2026-09-23T00-18-21-531Z/README.md) · [Capture manifest](../runs/2026-09-23T00-18-21-531Z/manifest.json)
+[Full comparison](../runs/2026-09-23T00-22-54-157Z/README.md) · [Capture manifest](../runs/2026-09-23T00-22-54-157Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-23T00:24:01.186Z: Documentation-only recertification after code-area README update. All eight GIFs and36 stills are byte-identical to reviewed 00-18-21; four differing stills inspected again and retain the same geometry with subthreshold raster noise. Paper source remains0b25014; real live status and save/recovery evidence apply unchanged. Source fee803ab7; [review](../reviews/approval-a1179ec8da9432f56977574d6349b1d876d1dfe6d9d5968db53acaca37030b20.json) - [comparison](../runs/2026-09-23T00-22-54-157Z/comparison.json).
 - 2026-09-23T00:20:07.416Z: Reviewed 40 fixture stills and decoded motion tours; comparison has no changed geometry or pixels above tolerance. Paper-only styling is demonstrated separately by current real Paper light/dark/status captures and 37 editing frames. Fixture GIF quantization remains as in the baseline. Paper host 31 cases pass. Source 0b2501491; [review](../reviews/approval-bb85389ac6f86e6e4126c3841cf72d42da5755ad7bf234a0d075a424dc205466.json) - [comparison](../runs/2026-09-23T00-18-21-531Z/comparison.json).
 - 2026-09-22T23:20:43.075Z: All 40 stills and 40 decoded GIF frames reviewed at exact source 3e8a2aa. Independent audit found only imperceptible side-chat composer antialiasing and one-pixel motion noise; 40/40 comparisons remain within tolerance with unchanged geometry and environment. Full desktop passed at 1b01bf2, capture/history checks passed 18/18 at 3e8a2aa, and separate live Paper/Codex status evidence at this source passed two independent full-frame reviews. Source 3e8a2aadb; [review](../reviews/approval-60e6ac6b872fe94390fbf6d6993fee66b076929bb44a6b9b2a8d6b0e9a8453b8.json) - [comparison](../runs/2026-09-22T23-18-09-907Z/comparison.json).
 - 2026-09-22T23:08:41.511Z: Reviewed the 40 stills, eight motion tours, comparison report and provenance after the live-status GIF encoder-only change. All 40 entries are within tolerance with unchanged geometry and environment; changes are limited to invisible antialias noise. Product behavior remains covered by the full desktop pass at 1b01bf2 and 18/18 capture/history checks at e28d759. Live Paper/status remains a separate pending gate. Source e28d759db; [review](../reviews/approval-7d03f4e67edb22d704bc6ed7294ba57b67f4be72310f783d018870110c18c173.json) - [comparison](../runs/2026-09-22T23-06-27-174Z/comparison.json).
