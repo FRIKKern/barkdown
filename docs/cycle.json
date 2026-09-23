@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C038",
   "stage": "P1",
-  "status": "active",
+  "status": "done",
   "goal": "Refine real Paper callouts into elegant, readable tonal cards.",
   "scope": [
     "Host CSS only; preserve editable titles, bodies, folding and all seven tones",
@@ -15,11 +15,13 @@
   ],
   "checkpoint": "2026-09-23",
   "handoff": "docs/cycles/C038-callout-polish.md",
-  "nextAction": "Implement the callout skin and real Paper gallery; commit before capture.",
+  "nextAction": "User review of refined callouts on codex/paper-polish; push verified checkpoint. No merge or deployment.",
   "evidence": [
     "app/renderer/paper-notion.css",
-    "docs/cycles/C038-callout-polish.md"
+    "docs/cycles/C038-callout-polish.md",
+    "docs/visual/callouts/README.md",
+    "docs/images/status/review-C038.json"
   ],
-  "truthReview": "In progress; P1 remains incomplete.",
-  "screenshotReview": "Pending new source-bound captures."
+  "truthReview": "Build, 31 Paper host checks, four real-server callout checks and root npm run verify passed. Host CSS only; PLAN, architecture, design decisions and acceptance remain accurate; P1 remains incomplete.",
+  "screenshotReview": "Eight callout stills and six GIF frames inspected, including light/dark and 760px wrapping. Five fresh live status stills and all 37 GIF frames inspected. Deterministic 40 frames approved; unchanged geometry, 36 stills/eight GIFs identical to prior review and four differing stills inspected."
 }
