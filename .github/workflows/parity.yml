@@ -87,6 +87,7 @@ jobs:
       - name: Barkdown app (root holds playwright; app holds electron and the app's deps)
         run: |
           npm ci
+          npx playwright install ffmpeg
           cd app && npm ci && npm run build
       - name: Parity rows
         working-directory: app
@@ -107,4 +108,5 @@ jobs:
             app/test-results/parity.json
             app/test-results/parity-*.log
             app/test-results/*.png
+            app/test-results/editor-gap-assertions/
           if-no-files-found: ignore

@@ -1,0 +1,6754 @@
+{
+  "summary": "13/13 green",
+  "results": [
+    {
+      "name": "inline markdown marks",
+      "pass": true,
+      "beforeRev": 1,
+      "afterRev": 3,
+      "doc": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Gap probe"
+              },
+              "textAlign": "left",
+              "bpId": "block-0",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 1
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Gap probe"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Start here."
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "block-1",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Start here."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-2-67705335",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "bold"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "italic"
+                  }
+                ],
+                "text": "em"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "strike"
+                  }
+                ],
+                "text": "gone"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "mono"
+              },
+              {
+                "type": "text",
+                "text": " end"
+              }
+            ]
+          }
+        ]
+      },
+      "serverBlocks": [
+        {
+          "id": "block-0",
+          "level": 1,
+          "text": "Gap probe",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Start here."
+            }
+          ],
+          "id": "block-1",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "bold"
+                }
+              ],
+              "type": "strong"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "em"
+                }
+              ],
+              "type": "em"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "gone"
+                }
+              ],
+              "type": "strikethrough"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "type": "code",
+              "value": "mono"
+            },
+            {
+              "type": "text",
+              "value": " end"
+            }
+          ],
+          "id": "c-2-67705335",
+          "type": "paragraph"
+        }
+      ]
+    },
+    {
+      "name": "blockquote shorthand",
+      "pass": true,
+      "beforeRev": 3,
+      "afterRev": 4,
+      "doc": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Gap probe"
+              },
+              "textAlign": "left",
+              "bpId": "block-0",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 1
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Gap probe"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Start here."
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "block-1",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Start here."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-2-67705335",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "bold"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "italic"
+                  }
+                ],
+                "text": "em"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "strike"
+                  }
+                ],
+                "text": "gone"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "mono"
+              },
+              {
+                "type": "text",
+                "text": " end"
+              }
+            ]
+          },
+          {
+            "type": "blockquote",
+            "attrs": {
+              "bpId": "c-5-dc8849cb",
+              "bpType": "blockquote",
+              "cite": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "quoted"
+              }
+            ]
+          }
+        ]
+      },
+      "serverBlocks": [
+        {
+          "id": "block-0",
+          "level": 1,
+          "text": "Gap probe",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Start here."
+            }
+          ],
+          "id": "block-1",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "bold"
+                }
+              ],
+              "type": "strong"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "em"
+                }
+              ],
+              "type": "em"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "gone"
+                }
+              ],
+              "type": "strikethrough"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "type": "code",
+              "value": "mono"
+            },
+            {
+              "type": "text",
+              "value": " end"
+            }
+          ],
+          "id": "c-2-67705335",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "quoted"
+            }
+          ],
+          "id": "c-5-dc8849cb",
+          "type": "blockquote"
+        }
+      ]
+    },
+    {
+      "name": "task shorthand and checked item",
+      "pass": true,
+      "beforeRev": 4,
+      "afterRev": 5,
+      "doc": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Gap probe"
+              },
+              "textAlign": "left",
+              "bpId": "block-0",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 1
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Gap probe"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Start here."
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "block-1",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Start here."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-2-67705335",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "bold"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "italic"
+                  }
+                ],
+                "text": "em"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "strike"
+                  }
+                ],
+                "text": "gone"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "mono"
+              },
+              {
+                "type": "text",
+                "text": " end"
+              }
+            ]
+          },
+          {
+            "type": "blockquote",
+            "attrs": {
+              "bpId": "c-5-dc8849cb",
+              "bpType": "blockquote",
+              "cite": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "quoted"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-c-6a9fe87d",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "taskList",
+            "attrs": {
+              "bpId": "c-d-80f0fbb1",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": true
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "todo"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": false
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "second todo"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-e-d16c1c79",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          }
+        ]
+      },
+      "serverBlocks": [
+        {
+          "id": "block-0",
+          "level": 1,
+          "text": "Gap probe",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Start here."
+            }
+          ],
+          "id": "block-1",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "bold"
+                }
+              ],
+              "type": "strong"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "em"
+                }
+              ],
+              "type": "em"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "gone"
+                }
+              ],
+              "type": "strikethrough"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "type": "code",
+              "value": "mono"
+            },
+            {
+              "type": "text",
+              "value": " end"
+            }
+          ],
+          "id": "c-2-67705335",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "quoted"
+            }
+          ],
+          "id": "c-5-dc8849cb",
+          "type": "blockquote"
+        },
+        {
+          "content": [],
+          "id": "c-c-6a9fe87d",
+          "type": "paragraph"
+        },
+        {
+          "id": "c-d-80f0fbb1",
+          "items": [
+            {
+              "checked": true,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "todo"
+                }
+              ]
+            },
+            {
+              "checked": false,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "second todo"
+                }
+              ]
+            }
+          ],
+          "ordered": false,
+          "task": true,
+          "type": "list"
+        },
+        {
+          "content": [],
+          "id": "c-e-d16c1c79",
+          "type": "paragraph"
+        }
+      ]
+    },
+    {
+      "name": "typed URL autolinks",
+      "pass": true,
+      "beforeRev": 5,
+      "afterRev": 6,
+      "doc": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Gap probe"
+              },
+              "textAlign": "left",
+              "bpId": "block-0",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 1
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Gap probe"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Start here."
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "block-1",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Start here."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-2-67705335",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "bold"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "italic"
+                  }
+                ],
+                "text": "em"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "strike"
+                  }
+                ],
+                "text": "gone"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "mono"
+              },
+              {
+                "type": "text",
+                "text": " end"
+              }
+            ]
+          },
+          {
+            "type": "blockquote",
+            "attrs": {
+              "bpId": "c-5-dc8849cb",
+              "bpType": "blockquote",
+              "cite": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "quoted"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-c-6a9fe87d",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "taskList",
+            "attrs": {
+              "bpId": "c-d-80f0fbb1",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": true
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "todo"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": false
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "second todo"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-e-d16c1c79",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-h-e8096c3c",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "see "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://example.com/x",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "https://example.com/x"
+              },
+              {
+                "type": "text",
+                "text": " now"
+              }
+            ]
+          }
+        ]
+      },
+      "serverBlocks": [
+        {
+          "id": "block-0",
+          "level": 1,
+          "text": "Gap probe",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Start here."
+            }
+          ],
+          "id": "block-1",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "bold"
+                }
+              ],
+              "type": "strong"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "em"
+                }
+              ],
+              "type": "em"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "gone"
+                }
+              ],
+              "type": "strikethrough"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "type": "code",
+              "value": "mono"
+            },
+            {
+              "type": "text",
+              "value": " end"
+            }
+          ],
+          "id": "c-2-67705335",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "quoted"
+            }
+          ],
+          "id": "c-5-dc8849cb",
+          "type": "blockquote"
+        },
+        {
+          "content": [],
+          "id": "c-c-6a9fe87d",
+          "type": "paragraph"
+        },
+        {
+          "id": "c-d-80f0fbb1",
+          "items": [
+            {
+              "checked": true,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "todo"
+                }
+              ]
+            },
+            {
+              "checked": false,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "second todo"
+                }
+              ]
+            }
+          ],
+          "ordered": false,
+          "task": true,
+          "type": "list"
+        },
+        {
+          "content": [],
+          "id": "c-e-d16c1c79",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "see "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "https://example.com/x"
+                }
+              ],
+              "href": "https://example.com/x",
+              "type": "link"
+            },
+            {
+              "type": "text",
+              "value": " now"
+            }
+          ],
+          "id": "c-h-e8096c3c",
+          "type": "paragraph"
+        }
+      ]
+    },
+    {
+      "name": "URL paste preserves selected link label",
+      "pass": true,
+      "beforeRev": 6,
+      "afterRev": 7,
+      "doc": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Gap probe"
+              },
+              "textAlign": "left",
+              "bpId": "block-0",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 1
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Gap probe"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Start here."
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "block-1",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Start here."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-2-67705335",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "bold"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "italic"
+                  }
+                ],
+                "text": "em"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "strike"
+                  }
+                ],
+                "text": "gone"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "mono"
+              },
+              {
+                "type": "text",
+                "text": " end"
+              }
+            ]
+          },
+          {
+            "type": "blockquote",
+            "attrs": {
+              "bpId": "c-5-dc8849cb",
+              "bpType": "blockquote",
+              "cite": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "quoted"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-c-6a9fe87d",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "taskList",
+            "attrs": {
+              "bpId": "c-d-80f0fbb1",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": true
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "todo"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": false
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "second todo"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-e-d16c1c79",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-h-e8096c3c",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "see "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://example.com/x",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "https://example.com/x"
+              },
+              {
+                "type": "text",
+                "text": " now"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-k-f348aa3b",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://example.org/",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "linked words"
+              }
+            ]
+          }
+        ]
+      },
+      "serverBlocks": [
+        {
+          "id": "block-0",
+          "level": 1,
+          "text": "Gap probe",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Start here."
+            }
+          ],
+          "id": "block-1",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "bold"
+                }
+              ],
+              "type": "strong"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "em"
+                }
+              ],
+              "type": "em"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "gone"
+                }
+              ],
+              "type": "strikethrough"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "type": "code",
+              "value": "mono"
+            },
+            {
+              "type": "text",
+              "value": " end"
+            }
+          ],
+          "id": "c-2-67705335",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "quoted"
+            }
+          ],
+          "id": "c-5-dc8849cb",
+          "type": "blockquote"
+        },
+        {
+          "content": [],
+          "id": "c-c-6a9fe87d",
+          "type": "paragraph"
+        },
+        {
+          "id": "c-d-80f0fbb1",
+          "items": [
+            {
+              "checked": true,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "todo"
+                }
+              ]
+            },
+            {
+              "checked": false,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "second todo"
+                }
+              ]
+            }
+          ],
+          "ordered": false,
+          "task": true,
+          "type": "list"
+        },
+        {
+          "content": [],
+          "id": "c-e-d16c1c79",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "see "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "https://example.com/x"
+                }
+              ],
+              "href": "https://example.com/x",
+              "type": "link"
+            },
+            {
+              "type": "text",
+              "value": " now"
+            }
+          ],
+          "id": "c-h-e8096c3c",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "linked words"
+                }
+              ],
+              "href": "https://example.org/",
+              "type": "link"
+            }
+          ],
+          "id": "c-k-f348aa3b",
+          "type": "paragraph"
+        }
+      ]
+    },
+    {
+      "name": "Markdown paste keeps heading, list and tail",
+      "pass": true,
+      "beforeRev": 7,
+      "afterRev": 8,
+      "doc": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Gap probe"
+              },
+              "textAlign": "left",
+              "bpId": "block-0",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 1
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Gap probe"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Start here."
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "block-1",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Start here."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-2-67705335",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "bold"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "italic"
+                  }
+                ],
+                "text": "em"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "strike"
+                  }
+                ],
+                "text": "gone"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "mono"
+              },
+              {
+                "type": "text",
+                "text": " end"
+              }
+            ]
+          },
+          {
+            "type": "blockquote",
+            "attrs": {
+              "bpId": "c-5-dc8849cb",
+              "bpType": "blockquote",
+              "cite": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "quoted"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-c-6a9fe87d",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "taskList",
+            "attrs": {
+              "bpId": "c-d-80f0fbb1",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": true
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "todo"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": false
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "second todo"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-e-d16c1c79",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-h-e8096c3c",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "see "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://example.com/x",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "https://example.com/x"
+              },
+              {
+                "type": "text",
+                "text": " now"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-k-f348aa3b",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://example.org/",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "linked words"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Pasted heading"
+              },
+              "textAlign": "left",
+              "bpId": "m-1-4e2066f3",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Pasted heading"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "attrs": {
+              "bpListFrameSource": null,
+              "bpId": "m-2-7b9e1de0",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": {
+                    "item": [
+                      {
+                        "type": "text",
+                        "value": "one"
+                      }
+                    ]
+                  }
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "one"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": {
+                    "item": [
+                      {
+                        "type": "text",
+                        "value": "two"
+                      }
+                    ]
+                  }
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "two"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Tail paragraph"
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "m-3-33e16211",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Tail paragraph"
+              }
+            ]
+          }
+        ]
+      },
+      "serverBlocks": [
+        {
+          "id": "block-0",
+          "level": 1,
+          "text": "Gap probe",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Start here."
+            }
+          ],
+          "id": "block-1",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "bold"
+                }
+              ],
+              "type": "strong"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "em"
+                }
+              ],
+              "type": "em"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "gone"
+                }
+              ],
+              "type": "strikethrough"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "type": "code",
+              "value": "mono"
+            },
+            {
+              "type": "text",
+              "value": " end"
+            }
+          ],
+          "id": "c-2-67705335",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "quoted"
+            }
+          ],
+          "id": "c-5-dc8849cb",
+          "type": "blockquote"
+        },
+        {
+          "content": [],
+          "id": "c-c-6a9fe87d",
+          "type": "paragraph"
+        },
+        {
+          "id": "c-d-80f0fbb1",
+          "items": [
+            {
+              "checked": true,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "todo"
+                }
+              ]
+            },
+            {
+              "checked": false,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "second todo"
+                }
+              ]
+            }
+          ],
+          "ordered": false,
+          "task": true,
+          "type": "list"
+        },
+        {
+          "content": [],
+          "id": "c-e-d16c1c79",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "see "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "https://example.com/x"
+                }
+              ],
+              "href": "https://example.com/x",
+              "type": "link"
+            },
+            {
+              "type": "text",
+              "value": " now"
+            }
+          ],
+          "id": "c-h-e8096c3c",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "linked words"
+                }
+              ],
+              "href": "https://example.org/",
+              "type": "link"
+            }
+          ],
+          "id": "c-k-f348aa3b",
+          "type": "paragraph"
+        },
+        {
+          "id": "m-1-4e2066f3",
+          "level": 2,
+          "text": "Pasted heading",
+          "type": "heading"
+        },
+        {
+          "id": "m-2-7b9e1de0",
+          "items": [
+            [
+              {
+                "type": "text",
+                "value": "one"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "value": "two"
+              }
+            ]
+          ],
+          "ordered": false,
+          "type": "list"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Tail paragraph"
+            }
+          ],
+          "id": "m-3-33e16211",
+          "type": "paragraph"
+        }
+      ]
+    },
+    {
+      "name": "HTML list paste preserves two items",
+      "pass": true,
+      "beforeRev": 8,
+      "afterRev": 10,
+      "doc": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Gap probe"
+              },
+              "textAlign": "left",
+              "bpId": "block-0",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 1
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Gap probe"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Start here."
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "block-1",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Start here."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-2-67705335",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "bold"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "italic"
+                  }
+                ],
+                "text": "em"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "strike"
+                  }
+                ],
+                "text": "gone"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "mono"
+              },
+              {
+                "type": "text",
+                "text": " end"
+              }
+            ]
+          },
+          {
+            "type": "blockquote",
+            "attrs": {
+              "bpId": "c-5-dc8849cb",
+              "bpType": "blockquote",
+              "cite": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "quoted"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-c-6a9fe87d",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "taskList",
+            "attrs": {
+              "bpId": "c-d-80f0fbb1",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": true
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "todo"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": false
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "second todo"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-e-d16c1c79",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-h-e8096c3c",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "see "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://example.com/x",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "https://example.com/x"
+              },
+              {
+                "type": "text",
+                "text": " now"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-k-f348aa3b",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://example.org/",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "linked words"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Pasted heading"
+              },
+              "textAlign": "left",
+              "bpId": "m-1-4e2066f3",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Pasted heading"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "attrs": {
+              "bpListFrameSource": null,
+              "bpId": "m-2-7b9e1de0",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": {
+                    "item": [
+                      {
+                        "type": "text",
+                        "value": "one"
+                      }
+                    ]
+                  }
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "one"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": {
+                    "item": [
+                      {
+                        "type": "text",
+                        "value": "two"
+                      }
+                    ]
+                  }
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "two"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Tail paragraph"
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "m-3-33e16211",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Tail paragraph"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "attrs": {
+              "bpListFrameSource": null,
+              "bpId": "c-p-baf0d0b6",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "html one"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "html two"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "serverBlocks": [
+        {
+          "id": "block-0",
+          "level": 1,
+          "text": "Gap probe",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Start here."
+            }
+          ],
+          "id": "block-1",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "bold"
+                }
+              ],
+              "type": "strong"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "em"
+                }
+              ],
+              "type": "em"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "gone"
+                }
+              ],
+              "type": "strikethrough"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "type": "code",
+              "value": "mono"
+            },
+            {
+              "type": "text",
+              "value": " end"
+            }
+          ],
+          "id": "c-2-67705335",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "quoted"
+            }
+          ],
+          "id": "c-5-dc8849cb",
+          "type": "blockquote"
+        },
+        {
+          "content": [],
+          "id": "c-c-6a9fe87d",
+          "type": "paragraph"
+        },
+        {
+          "id": "c-d-80f0fbb1",
+          "items": [
+            {
+              "checked": true,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "todo"
+                }
+              ]
+            },
+            {
+              "checked": false,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "second todo"
+                }
+              ]
+            }
+          ],
+          "ordered": false,
+          "task": true,
+          "type": "list"
+        },
+        {
+          "content": [],
+          "id": "c-e-d16c1c79",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "see "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "https://example.com/x"
+                }
+              ],
+              "href": "https://example.com/x",
+              "type": "link"
+            },
+            {
+              "type": "text",
+              "value": " now"
+            }
+          ],
+          "id": "c-h-e8096c3c",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "linked words"
+                }
+              ],
+              "href": "https://example.org/",
+              "type": "link"
+            }
+          ],
+          "id": "c-k-f348aa3b",
+          "type": "paragraph"
+        },
+        {
+          "id": "m-1-4e2066f3",
+          "level": 2,
+          "text": "Pasted heading",
+          "type": "heading"
+        },
+        {
+          "id": "m-2-7b9e1de0",
+          "items": [
+            [
+              {
+                "type": "text",
+                "value": "one"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "value": "two"
+              }
+            ]
+          ],
+          "ordered": false,
+          "type": "list"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Tail paragraph"
+            }
+          ],
+          "id": "m-3-33e16211",
+          "type": "paragraph"
+        },
+        {
+          "id": "c-p-baf0d0b6",
+          "items": [
+            [
+              {
+                "type": "text",
+                "value": "html one"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "value": "html two"
+              }
+            ]
+          ],
+          "ordered": false,
+          "type": "list"
+        }
+      ]
+    },
+    {
+      "name": "native Undo removes HTML paste",
+      "pass": true,
+      "beforeRev": 10,
+      "afterRev": 11,
+      "doc": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Gap probe"
+              },
+              "textAlign": "left",
+              "bpId": "block-0",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 1
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Gap probe"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Start here."
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "block-1",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Start here."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-2-67705335",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "bold"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "italic"
+                  }
+                ],
+                "text": "em"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "strike"
+                  }
+                ],
+                "text": "gone"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "mono"
+              },
+              {
+                "type": "text",
+                "text": " end"
+              }
+            ]
+          },
+          {
+            "type": "blockquote",
+            "attrs": {
+              "bpId": "c-5-dc8849cb",
+              "bpType": "blockquote",
+              "cite": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "quoted"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-c-6a9fe87d",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "taskList",
+            "attrs": {
+              "bpId": "c-d-80f0fbb1",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": true
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "todo"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": false
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "second todo"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-e-d16c1c79",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-h-e8096c3c",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "see "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://example.com/x",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "https://example.com/x"
+              },
+              {
+                "type": "text",
+                "text": " now"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-k-f348aa3b",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://example.org/",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "linked words"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Pasted heading"
+              },
+              "textAlign": "left",
+              "bpId": "m-1-4e2066f3",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Pasted heading"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "attrs": {
+              "bpListFrameSource": null,
+              "bpId": "m-2-7b9e1de0",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": {
+                    "item": [
+                      {
+                        "type": "text",
+                        "value": "one"
+                      }
+                    ]
+                  }
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "one"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": {
+                    "item": [
+                      {
+                        "type": "text",
+                        "value": "two"
+                      }
+                    ]
+                  }
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "two"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Tail paragraph"
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "m-3-33e16211",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Tail paragraph"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-m-9c52671d",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            }
+          }
+        ]
+      },
+      "serverBlocks": [
+        {
+          "id": "block-0",
+          "level": 1,
+          "text": "Gap probe",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Start here."
+            }
+          ],
+          "id": "block-1",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "bold"
+                }
+              ],
+              "type": "strong"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "em"
+                }
+              ],
+              "type": "em"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "gone"
+                }
+              ],
+              "type": "strikethrough"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "type": "code",
+              "value": "mono"
+            },
+            {
+              "type": "text",
+              "value": " end"
+            }
+          ],
+          "id": "c-2-67705335",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "quoted"
+            }
+          ],
+          "id": "c-5-dc8849cb",
+          "type": "blockquote"
+        },
+        {
+          "content": [],
+          "id": "c-c-6a9fe87d",
+          "type": "paragraph"
+        },
+        {
+          "id": "c-d-80f0fbb1",
+          "items": [
+            {
+              "checked": true,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "todo"
+                }
+              ]
+            },
+            {
+              "checked": false,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "second todo"
+                }
+              ]
+            }
+          ],
+          "ordered": false,
+          "task": true,
+          "type": "list"
+        },
+        {
+          "content": [],
+          "id": "c-e-d16c1c79",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "see "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "https://example.com/x"
+                }
+              ],
+              "href": "https://example.com/x",
+              "type": "link"
+            },
+            {
+              "type": "text",
+              "value": " now"
+            }
+          ],
+          "id": "c-h-e8096c3c",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "linked words"
+                }
+              ],
+              "href": "https://example.org/",
+              "type": "link"
+            }
+          ],
+          "id": "c-k-f348aa3b",
+          "type": "paragraph"
+        },
+        {
+          "id": "m-1-4e2066f3",
+          "level": 2,
+          "text": "Pasted heading",
+          "type": "heading"
+        },
+        {
+          "id": "m-2-7b9e1de0",
+          "items": [
+            [
+              {
+                "type": "text",
+                "value": "one"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "value": "two"
+              }
+            ]
+          ],
+          "ordered": false,
+          "type": "list"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Tail paragraph"
+            }
+          ],
+          "id": "m-3-33e16211",
+          "type": "paragraph"
+        },
+        {
+          "content": [],
+          "id": "c-m-9c52671d",
+          "type": "paragraph"
+        }
+      ]
+    },
+    {
+      "name": "native Redo restores exact rich HTML state",
+      "pass": true,
+      "beforeRev": 11,
+      "afterRev": 12,
+      "doc": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Gap probe"
+              },
+              "textAlign": "left",
+              "bpId": "block-0",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 1
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Gap probe"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Start here."
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "block-1",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Start here."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-2-67705335",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "bold"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "italic"
+                  }
+                ],
+                "text": "em"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "strike"
+                  }
+                ],
+                "text": "gone"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "mono"
+              },
+              {
+                "type": "text",
+                "text": " end"
+              }
+            ]
+          },
+          {
+            "type": "blockquote",
+            "attrs": {
+              "bpId": "c-5-dc8849cb",
+              "bpType": "blockquote",
+              "cite": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "quoted"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-c-6a9fe87d",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "taskList",
+            "attrs": {
+              "bpId": "c-d-80f0fbb1",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": true
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "todo"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": false
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "second todo"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-e-d16c1c79",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-h-e8096c3c",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "see "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://example.com/x",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "https://example.com/x"
+              },
+              {
+                "type": "text",
+                "text": " now"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-k-f348aa3b",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://example.org/",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "linked words"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Pasted heading"
+              },
+              "textAlign": "left",
+              "bpId": "m-1-4e2066f3",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Pasted heading"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "attrs": {
+              "bpListFrameSource": null,
+              "bpId": "m-2-7b9e1de0",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": {
+                    "item": [
+                      {
+                        "type": "text",
+                        "value": "one"
+                      }
+                    ]
+                  }
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "one"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": {
+                    "item": [
+                      {
+                        "type": "text",
+                        "value": "two"
+                      }
+                    ]
+                  }
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "two"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Tail paragraph"
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "m-3-33e16211",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Tail paragraph"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "attrs": {
+              "bpListFrameSource": null,
+              "bpId": "c-p-baf0d0b6",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "html one"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "html two"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "serverBlocks": [
+        {
+          "id": "block-0",
+          "level": 1,
+          "text": "Gap probe",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Start here."
+            }
+          ],
+          "id": "block-1",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "bold"
+                }
+              ],
+              "type": "strong"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "em"
+                }
+              ],
+              "type": "em"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "gone"
+                }
+              ],
+              "type": "strikethrough"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "type": "code",
+              "value": "mono"
+            },
+            {
+              "type": "text",
+              "value": " end"
+            }
+          ],
+          "id": "c-2-67705335",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "quoted"
+            }
+          ],
+          "id": "c-5-dc8849cb",
+          "type": "blockquote"
+        },
+        {
+          "content": [],
+          "id": "c-c-6a9fe87d",
+          "type": "paragraph"
+        },
+        {
+          "id": "c-d-80f0fbb1",
+          "items": [
+            {
+              "checked": true,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "todo"
+                }
+              ]
+            },
+            {
+              "checked": false,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "second todo"
+                }
+              ]
+            }
+          ],
+          "ordered": false,
+          "task": true,
+          "type": "list"
+        },
+        {
+          "content": [],
+          "id": "c-e-d16c1c79",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "see "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "https://example.com/x"
+                }
+              ],
+              "href": "https://example.com/x",
+              "type": "link"
+            },
+            {
+              "type": "text",
+              "value": " now"
+            }
+          ],
+          "id": "c-h-e8096c3c",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "linked words"
+                }
+              ],
+              "href": "https://example.org/",
+              "type": "link"
+            }
+          ],
+          "id": "c-k-f348aa3b",
+          "type": "paragraph"
+        },
+        {
+          "id": "m-1-4e2066f3",
+          "level": 2,
+          "text": "Pasted heading",
+          "type": "heading"
+        },
+        {
+          "id": "m-2-7b9e1de0",
+          "items": [
+            [
+              {
+                "type": "text",
+                "value": "one"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "value": "two"
+              }
+            ]
+          ],
+          "ordered": false,
+          "type": "list"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Tail paragraph"
+            }
+          ],
+          "id": "m-3-33e16211",
+          "type": "paragraph"
+        },
+        {
+          "id": "c-p-baf0d0b6",
+          "items": [
+            [
+              {
+                "type": "text",
+                "value": "html one"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "value": "html two"
+              }
+            ]
+          ],
+          "ordered": false,
+          "type": "list"
+        }
+      ]
+    },
+    {
+      "name": "Backspace joins ordinary quote preserving rich preceding content",
+      "pass": true,
+      "beforeRev": 12,
+      "afterRev": 13,
+      "doc": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Gap probe"
+              },
+              "textAlign": "left",
+              "bpId": "block-0",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 1
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Gap probe"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Start here."
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "block-1",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Start here."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-2-67705335",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "bold"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "italic"
+                  }
+                ],
+                "text": "em"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "strike"
+                  }
+                ],
+                "text": "gone"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "mono"
+              },
+              {
+                "type": "text",
+                "text": " endquoted"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-c-6a9fe87d",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "taskList",
+            "attrs": {
+              "bpId": "c-d-80f0fbb1",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": true
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "todo"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": false
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "second todo"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-e-d16c1c79",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-h-e8096c3c",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "see "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://example.com/x",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "https://example.com/x"
+              },
+              {
+                "type": "text",
+                "text": " now"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-k-f348aa3b",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://example.org/",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "linked words"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Pasted heading"
+              },
+              "textAlign": "left",
+              "bpId": "m-1-4e2066f3",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Pasted heading"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "attrs": {
+              "bpListFrameSource": null,
+              "bpId": "m-2-7b9e1de0",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": {
+                    "item": [
+                      {
+                        "type": "text",
+                        "value": "one"
+                      }
+                    ]
+                  }
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "one"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": {
+                    "item": [
+                      {
+                        "type": "text",
+                        "value": "two"
+                      }
+                    ]
+                  }
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "two"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Tail paragraph"
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "m-3-33e16211",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Tail paragraph"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "attrs": {
+              "bpListFrameSource": null,
+              "bpId": "c-p-baf0d0b6",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "html one"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "html two"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "serverBlocks": [
+        {
+          "id": "block-0",
+          "level": 1,
+          "text": "Gap probe",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Start here."
+            }
+          ],
+          "id": "block-1",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "bold"
+                }
+              ],
+              "type": "strong"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "em"
+                }
+              ],
+              "type": "em"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "gone"
+                }
+              ],
+              "type": "strikethrough"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "type": "code",
+              "value": "mono"
+            },
+            {
+              "type": "text",
+              "value": " endquoted"
+            }
+          ],
+          "id": "c-2-67705335",
+          "type": "paragraph"
+        },
+        {
+          "content": [],
+          "id": "c-c-6a9fe87d",
+          "type": "paragraph"
+        },
+        {
+          "id": "c-d-80f0fbb1",
+          "items": [
+            {
+              "checked": true,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "todo"
+                }
+              ]
+            },
+            {
+              "checked": false,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "second todo"
+                }
+              ]
+            }
+          ],
+          "ordered": false,
+          "task": true,
+          "type": "list"
+        },
+        {
+          "content": [],
+          "id": "c-e-d16c1c79",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "see "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "https://example.com/x"
+                }
+              ],
+              "href": "https://example.com/x",
+              "type": "link"
+            },
+            {
+              "type": "text",
+              "value": " now"
+            }
+          ],
+          "id": "c-h-e8096c3c",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "linked words"
+                }
+              ],
+              "href": "https://example.org/",
+              "type": "link"
+            }
+          ],
+          "id": "c-k-f348aa3b",
+          "type": "paragraph"
+        },
+        {
+          "id": "m-1-4e2066f3",
+          "level": 2,
+          "text": "Pasted heading",
+          "type": "heading"
+        },
+        {
+          "id": "m-2-7b9e1de0",
+          "items": [
+            [
+              {
+                "type": "text",
+                "value": "one"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "value": "two"
+              }
+            ]
+          ],
+          "ordered": false,
+          "type": "list"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Tail paragraph"
+            }
+          ],
+          "id": "m-3-33e16211",
+          "type": "paragraph"
+        },
+        {
+          "id": "c-p-baf0d0b6",
+          "items": [
+            [
+              {
+                "type": "text",
+                "value": "html one"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "value": "html two"
+              }
+            ]
+          ],
+          "ordered": false,
+          "type": "list"
+        }
+      ]
+    },
+    {
+      "name": "Backspace lifts first bullet without losing heading or second item",
+      "pass": true,
+      "beforeRev": 13,
+      "afterRev": 14,
+      "doc": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Gap probe"
+              },
+              "textAlign": "left",
+              "bpId": "block-0",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 1
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Gap probe"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Start here."
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "block-1",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Start here."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-2-67705335",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "bold"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "italic"
+                  }
+                ],
+                "text": "em"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "strike"
+                  }
+                ],
+                "text": "gone"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "mono"
+              },
+              {
+                "type": "text",
+                "text": " endquoted"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-c-6a9fe87d",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "taskList",
+            "attrs": {
+              "bpId": "c-d-80f0fbb1",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": true
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "todo"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": false
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "second todo"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-e-d16c1c79",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-h-e8096c3c",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "see "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://example.com/x",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "https://example.com/x"
+              },
+              {
+                "type": "text",
+                "text": " now"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-k-f348aa3b",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://example.org/",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "linked words"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Pasted heading"
+              },
+              "textAlign": "left",
+              "bpId": "m-1-4e2066f3",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Pasted heading"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-s-3e6480a0",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "one"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "attrs": {
+              "bpListFrameSource": null,
+              "bpId": "m-2-7b9e1de0",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": {
+                    "item": [
+                      {
+                        "type": "text",
+                        "value": "two"
+                      }
+                    ]
+                  }
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "two"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Tail paragraph"
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "m-3-33e16211",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Tail paragraph"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "attrs": {
+              "bpListFrameSource": null,
+              "bpId": "c-p-baf0d0b6",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "html one"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "html two"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "serverBlocks": [
+        {
+          "id": "block-0",
+          "level": 1,
+          "text": "Gap probe",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Start here."
+            }
+          ],
+          "id": "block-1",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "bold"
+                }
+              ],
+              "type": "strong"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "em"
+                }
+              ],
+              "type": "em"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "gone"
+                }
+              ],
+              "type": "strikethrough"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "type": "code",
+              "value": "mono"
+            },
+            {
+              "type": "text",
+              "value": " endquoted"
+            }
+          ],
+          "id": "c-2-67705335",
+          "type": "paragraph"
+        },
+        {
+          "content": [],
+          "id": "c-c-6a9fe87d",
+          "type": "paragraph"
+        },
+        {
+          "id": "c-d-80f0fbb1",
+          "items": [
+            {
+              "checked": true,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "todo"
+                }
+              ]
+            },
+            {
+              "checked": false,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "second todo"
+                }
+              ]
+            }
+          ],
+          "ordered": false,
+          "task": true,
+          "type": "list"
+        },
+        {
+          "content": [],
+          "id": "c-e-d16c1c79",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "see "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "https://example.com/x"
+                }
+              ],
+              "href": "https://example.com/x",
+              "type": "link"
+            },
+            {
+              "type": "text",
+              "value": " now"
+            }
+          ],
+          "id": "c-h-e8096c3c",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "linked words"
+                }
+              ],
+              "href": "https://example.org/",
+              "type": "link"
+            }
+          ],
+          "id": "c-k-f348aa3b",
+          "type": "paragraph"
+        },
+        {
+          "id": "m-1-4e2066f3",
+          "level": 2,
+          "text": "Pasted heading",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "one"
+            }
+          ],
+          "id": "c-s-3e6480a0",
+          "type": "paragraph"
+        },
+        {
+          "id": "m-2-7b9e1de0",
+          "items": [
+            [
+              {
+                "type": "text",
+                "value": "two"
+              }
+            ]
+          ],
+          "ordered": false,
+          "type": "list"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Tail paragraph"
+            }
+          ],
+          "id": "m-3-33e16211",
+          "type": "paragraph"
+        },
+        {
+          "id": "c-p-baf0d0b6",
+          "items": [
+            [
+              {
+                "type": "text",
+                "value": "html one"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "value": "html two"
+              }
+            ]
+          ],
+          "ordered": false,
+          "type": "list"
+        }
+      ]
+    },
+    {
+      "name": "warning callout shorthand",
+      "pass": true,
+      "beforeRev": 14,
+      "afterRev": 15,
+      "doc": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Gap probe"
+              },
+              "textAlign": "left",
+              "bpId": "block-0",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 1
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Gap probe"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Start here."
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "block-1",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Start here."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-2-67705335",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "bold"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "italic"
+                  }
+                ],
+                "text": "em"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "strike"
+                  }
+                ],
+                "text": "gone"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "mono"
+              },
+              {
+                "type": "text",
+                "text": " endquoted"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-c-6a9fe87d",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "taskList",
+            "attrs": {
+              "bpId": "c-d-80f0fbb1",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": true
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "todo"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": false
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "second todo"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-e-d16c1c79",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-h-e8096c3c",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "see "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://example.com/x",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "https://example.com/x"
+              },
+              {
+                "type": "text",
+                "text": " now"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-k-f348aa3b",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://example.org/",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "linked words"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Pasted heading"
+              },
+              "textAlign": "left",
+              "bpId": "m-1-4e2066f3",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Pasted heading"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-s-3e6480a0",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "one"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "attrs": {
+              "bpListFrameSource": null,
+              "bpId": "m-2-7b9e1de0",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": {
+                    "item": [
+                      {
+                        "type": "text",
+                        "value": "two"
+                      }
+                    ]
+                  }
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "two"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Tail paragraph"
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "m-3-33e16211",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Tail paragraph"
+              }
+            ]
+          },
+          {
+            "type": "callout",
+            "attrs": {
+              "bpId": "c-v-d1b103af",
+              "bpType": "callout",
+              "tone": "warning",
+              "title": null,
+              "collapsible": true,
+              "collapsed": false
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "careful"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "attrs": {
+              "bpListFrameSource": null,
+              "bpId": "c-p-baf0d0b6",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "html one"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "html two"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "serverBlocks": [
+        {
+          "id": "block-0",
+          "level": 1,
+          "text": "Gap probe",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Start here."
+            }
+          ],
+          "id": "block-1",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "bold"
+                }
+              ],
+              "type": "strong"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "em"
+                }
+              ],
+              "type": "em"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "gone"
+                }
+              ],
+              "type": "strikethrough"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "type": "code",
+              "value": "mono"
+            },
+            {
+              "type": "text",
+              "value": " endquoted"
+            }
+          ],
+          "id": "c-2-67705335",
+          "type": "paragraph"
+        },
+        {
+          "content": [],
+          "id": "c-c-6a9fe87d",
+          "type": "paragraph"
+        },
+        {
+          "id": "c-d-80f0fbb1",
+          "items": [
+            {
+              "checked": true,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "todo"
+                }
+              ]
+            },
+            {
+              "checked": false,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "second todo"
+                }
+              ]
+            }
+          ],
+          "ordered": false,
+          "task": true,
+          "type": "list"
+        },
+        {
+          "content": [],
+          "id": "c-e-d16c1c79",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "see "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "https://example.com/x"
+                }
+              ],
+              "href": "https://example.com/x",
+              "type": "link"
+            },
+            {
+              "type": "text",
+              "value": " now"
+            }
+          ],
+          "id": "c-h-e8096c3c",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "linked words"
+                }
+              ],
+              "href": "https://example.org/",
+              "type": "link"
+            }
+          ],
+          "id": "c-k-f348aa3b",
+          "type": "paragraph"
+        },
+        {
+          "id": "m-1-4e2066f3",
+          "level": 2,
+          "text": "Pasted heading",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "one"
+            }
+          ],
+          "id": "c-s-3e6480a0",
+          "type": "paragraph"
+        },
+        {
+          "id": "m-2-7b9e1de0",
+          "items": [
+            [
+              {
+                "type": "text",
+                "value": "two"
+              }
+            ]
+          ],
+          "ordered": false,
+          "type": "list"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Tail paragraph"
+            }
+          ],
+          "id": "m-3-33e16211",
+          "type": "paragraph"
+        },
+        {
+          "collapsible": true,
+          "content": [
+            {
+              "type": "text",
+              "value": "careful"
+            }
+          ],
+          "id": "c-v-d1b103af",
+          "tone": "warning",
+          "type": "callout"
+        },
+        {
+          "id": "c-p-baf0d0b6",
+          "items": [
+            [
+              {
+                "type": "text",
+                "value": "html one"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "value": "html two"
+              }
+            ]
+          ],
+          "ordered": false,
+          "type": "list"
+        }
+      ]
+    },
+    {
+      "name": "select all replacement and native Undo preserve rich document",
+      "pass": true,
+      "beforeRev": 15,
+      "afterRev": 17,
+      "doc": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Gap probe"
+              },
+              "textAlign": "left",
+              "bpId": "block-0",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 1
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Gap probe"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Start here."
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "block-1",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Start here."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-2-67705335",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ],
+                "text": "bold"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "italic"
+                  }
+                ],
+                "text": "em"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "strike"
+                  }
+                ],
+                "text": "gone"
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ],
+                "text": "mono"
+              },
+              {
+                "type": "text",
+                "text": " endquoted"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-c-6a9fe87d",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "taskList",
+            "attrs": {
+              "bpId": "c-d-80f0fbb1",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": true
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "todo"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": false
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": "c-5-dc8849cb",
+                      "bpType": "blockquote",
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "second todo"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-e-d16c1c79",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            }
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-h-e8096c3c",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "see "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://example.com/x",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "https://example.com/x"
+              },
+              {
+                "type": "text",
+                "text": " now"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-k-f348aa3b",
+              "bpType": "blockquote",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://example.org/",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null
+                    }
+                  }
+                ],
+                "text": "linked words"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "bpHeadingSource": {
+                "text": "Pasted heading"
+              },
+              "textAlign": "left",
+              "bpId": "m-1-4e2066f3",
+              "bpType": "heading",
+              "locked": null,
+              "role": null,
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Pasted heading"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": null,
+              "textAlign": "left",
+              "bpId": "c-s-3e6480a0",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "one"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "attrs": {
+              "bpListFrameSource": null,
+              "bpId": "m-2-7b9e1de0",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": {
+                    "item": [
+                      {
+                        "type": "text",
+                        "value": "two"
+                      }
+                    ]
+                  }
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "two"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Tail paragraph"
+                  }
+                ]
+              },
+              "textAlign": "left",
+              "bpId": "m-3-33e16211",
+              "bpType": "paragraph",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Tail paragraph"
+              }
+            ]
+          },
+          {
+            "type": "callout",
+            "attrs": {
+              "bpId": "c-v-d1b103af",
+              "bpType": "callout",
+              "tone": "warning",
+              "title": null,
+              "collapsible": true,
+              "collapsed": false
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "careful"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "attrs": {
+              "bpListFrameSource": null,
+              "bpId": "c-p-baf0d0b6",
+              "bpType": "list",
+              "locked": null,
+              "role": null
+            },
+            "content": [
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "html one"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "attrs": {
+                  "bpListSource": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "bpParagraphSource": null,
+                      "textAlign": "left",
+                      "bpId": null,
+                      "bpType": null,
+                      "locked": null,
+                      "role": null
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "html two"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "serverBlocks": [
+        {
+          "id": "block-0",
+          "level": 1,
+          "text": "Gap probe",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Start here."
+            }
+          ],
+          "id": "block-1",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "bold"
+                }
+              ],
+              "type": "strong"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "em"
+                }
+              ],
+              "type": "em"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "gone"
+                }
+              ],
+              "type": "strikethrough"
+            },
+            {
+              "type": "text",
+              "value": " and "
+            },
+            {
+              "type": "code",
+              "value": "mono"
+            },
+            {
+              "type": "text",
+              "value": " endquoted"
+            }
+          ],
+          "id": "c-2-67705335",
+          "type": "paragraph"
+        },
+        {
+          "content": [],
+          "id": "c-c-6a9fe87d",
+          "type": "paragraph"
+        },
+        {
+          "id": "c-d-80f0fbb1",
+          "items": [
+            {
+              "checked": true,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "todo"
+                }
+              ]
+            },
+            {
+              "checked": false,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "second todo"
+                }
+              ]
+            }
+          ],
+          "ordered": false,
+          "task": true,
+          "type": "list"
+        },
+        {
+          "content": [],
+          "id": "c-e-d16c1c79",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "see "
+            },
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "https://example.com/x"
+                }
+              ],
+              "href": "https://example.com/x",
+              "type": "link"
+            },
+            {
+              "type": "text",
+              "value": " now"
+            }
+          ],
+          "id": "c-h-e8096c3c",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "linked words"
+                }
+              ],
+              "href": "https://example.org/",
+              "type": "link"
+            }
+          ],
+          "id": "c-k-f348aa3b",
+          "type": "paragraph"
+        },
+        {
+          "id": "m-1-4e2066f3",
+          "level": 2,
+          "text": "Pasted heading",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "one"
+            }
+          ],
+          "id": "c-s-3e6480a0",
+          "type": "paragraph"
+        },
+        {
+          "id": "m-2-7b9e1de0",
+          "items": [
+            [
+              {
+                "type": "text",
+                "value": "two"
+              }
+            ]
+          ],
+          "ordered": false,
+          "type": "list"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Tail paragraph"
+            }
+          ],
+          "id": "m-3-33e16211",
+          "type": "paragraph"
+        },
+        {
+          "collapsible": true,
+          "content": [
+            {
+              "type": "text",
+              "value": "careful"
+            }
+          ],
+          "id": "c-v-d1b103af",
+          "tone": "warning",
+          "type": "callout"
+        },
+        {
+          "id": "c-p-baf0d0b6",
+          "items": [
+            [
+              {
+                "type": "text",
+                "value": "html one"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "value": "html two"
+              }
+            ]
+          ],
+          "ordered": false,
+          "type": "list"
+        }
+      ],
+      "replacementRev": 16
+    }
+  ],
+  "errors": []
+}

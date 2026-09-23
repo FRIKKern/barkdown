@@ -1,6 +1,6 @@
 # Ownership for the next delivery
 
-This is the target for P1–P5, not a claim that profiles and sync already exist. The real modules in `app/` and audited Barkpark contracts govern implementation. The [previous architecture proposal](archive/2026-09-21-architecture.md) and [typed sketch](contracts/workspace.ts) remain historical references.
+This describes the implemented profile foundation and the remaining P1–P5 targets. Migration, portability and sync are not complete. The real modules in `app/` and audited Barkpark contracts govern implementation. The [previous architecture proposal](archive/2026-09-21-architecture.md) and [typed sketch](contracts/workspace.ts) remain historical references.
 
 ## Separate the owners
 

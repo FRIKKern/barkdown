@@ -27,7 +27,22 @@ const pm = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirr
 const paragraph = (i) => { const d = getPaper(SLUG); return d.blocks.filter(b => b.type === 'paragraph')[i]; };
 const textOf = p => (p?.content || []).map(n => n.type === 'text' ? n.value : '').join('');
 const waitParagraph = async (i, pred) => { for (let k = 0; k < 20; k++) { const p = paragraph(i); if (p && pred(p)) return p; await page.waitForTimeout(1000); } return paragraph(i); };
-const caretEnd = async (text) => { await pm.locator(`p:has-text("${text}")`).first().click(); await page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); const ed = c._editor; const $f = ed.state.selection.$from; ed.commands.setTextSelection($f.end($f.depth)); ed.commands.focus(); }); await page.waitForTimeout(100); };
+const caretEnd = async (text) => {
+  const target = pm.locator('p').filter({ hasText: text }).first();
+  await target.click();
+  const expected = await target.evaluate(element => {
+    const ed = element.closest('bp-paper-canvas')._editor;
+    const end = ed.view.posAtDOM(element, element.childNodes.length);
+    ed.view.focus(); ed.commands.setTextSelection(end); return end;
+  });
+  await page.waitForFunction(({ expected, text }) => {
+    const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor;
+    const s = ed.state.selection;
+    return ed.view.hasFocus() && s.empty && s.from === expected &&
+      s.$from.parent.type.name === 'paragraph' && s.$from.parent.textContent.includes(text) &&
+      s.$from.parentOffset === s.$from.parent.content.size;
+  }, { expected, text });
+};
 const menuText = () => page.evaluate(() => { const el = document.querySelector('body .bp-wikilink-menu[data-kind="emoji"]'); return el && el.getBoundingClientRect().height > 0 ? el.textContent : null; });
 
 await row('":smi" opens the emoji picker with smile listed first', async () => {

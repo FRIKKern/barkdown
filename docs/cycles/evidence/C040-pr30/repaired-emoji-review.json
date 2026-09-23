@@ -1,0 +1,15 @@
+{
+  "reviewer": "Codex C040 merge review",
+  "reviewedAt": "2026-09-23T01:31:53.959Z",
+  "sourceCommit": "5325300",
+  "implementationCommit": "3364143",
+  "file": "docs/cycles/evidence/C040-pr30/repaired-emoji.png",
+  "sha256": "78fa1eb4417dc23d638c9e09b947dd976bf434867ea48ecbb9440afc7505b26c",
+  "result": "approved",
+  "findings": [
+    "Emoji appears in the target paragraph, heading unchanged. Time and URL remain literal; escaped shortcode text remains after Escape. Four actual-server assertions pass."
+  ],
+  "limits": [
+    "Final still only; keyboard behavior is covered by the native assertions, not inferred from this screenshot."
+  ]
+}

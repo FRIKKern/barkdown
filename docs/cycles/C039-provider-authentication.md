@@ -1,6 +1,6 @@
 # C039 — Finish the provider authentication boundary
 
-Active on codex/finish-profile-isolation, based on verified checkpoint f00b489. The user authorized merging the existing combined checkpoint and focusing on remaining goals on 23 September. PR #30 carries the merge; inspect its current state before reporting it as merged. No deployment.
+Active on codex/finish-profile-isolation, continuing merged checkpoint 3903288. The user authorized merging the existing combined checkpoint and focusing on remaining goals on 23 September. PR #30 merged on 2026-09-23 as 3903288 after all checks passed. C040 fixture repairs and evidence are carried forward. No deployment.
 
 ## Current evidence
 

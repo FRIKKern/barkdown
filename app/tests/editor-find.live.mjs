@@ -31,7 +31,7 @@ const occurrences = (s, w) => (s.match(new RegExp(w, 'g')) || []).length;
 const waitServer = async (pred) => { for (let i = 0; i < 20; i++) { const t = serverText(); if (pred(t)) return t; await page.waitForTimeout(1000); } return serverText(); };
 
 await row('Ctrl+F inside the paper opens the bar; typing "alpha" counts four matches (case-insensitive, starting from the caret) and highlights them', async () => {
-  await pm.locator('p').first().click(); await page.keyboard.press('Home'); await page.waitForTimeout(150); await page.keyboard.press('Control+f');
+  await pm.locator('p').first().click(); await page.keyboard.press('Control+Home'); await page.waitForFunction(() => document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.state.selection.from === 1);  await page.keyboard.press('Control+f');
   const open = await page.locator(`${pane} #find`).isVisible();
   await page.locator(`${pane} #find-q`).fill('alpha'); await page.waitForTimeout(200);
   const c = await count();
@@ -61,7 +61,7 @@ await row('Ctrl+Z restores all four in ONE step, and the server follows', async 
   return { pass: occurrences(t.toLowerCase(), 'alpha') === 4 && occurrences(t, 'omega') === 0, server: t };
 });
 await row('Ctrl+H opens with replace; Replace (one) changes only the active match and moves on', async () => {
-  await pm.locator('p').first().click(); await page.keyboard.press('Home'); await page.waitForTimeout(150); await page.keyboard.press('Control+h');
+  await pm.locator('p').first().click(); await page.keyboard.press('Control+Home'); await page.waitForFunction(() => document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.state.selection.from === 1);  await page.keyboard.press('Control+h');
   await page.locator(`${pane} #find-q`).fill('alpha'); await page.waitForTimeout(200);
   await page.locator(`${pane} #find-r`).fill('beta');
   await page.locator(`${pane} #find-replace`).click();

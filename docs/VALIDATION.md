@@ -1,6 +1,10 @@
 # Evidence and remaining proof
 
-## Current integration evidence — 23 September
+## Main merge checkpoint — 23 September
+
+PR #30 merged as `3903288`. Final candidate `5325300` passes all 20 Linux editor groups (run 35806239614), both repository CI checks and Windows visual candidate. Root verify passes locally. [C040](cycles/C040-linux-parity.md) retains original failures, fixture repairs, final report and reviewed evidence. This closes the integration merge gate; C039 provider authentication and remaining P1–P5 acceptance stay open. No deployment.
+
+## Earlier integration evidence (superseded status; retained provenance)
 
 The reviewed integration checkpoint is recorded through `42432cb`. Full combined desktop passed at `1b01bf2`; the eight dedicated native journeys passed at `3ce6b21` and `41500dc` with independent media review. E012 consumption and C030 strict native parity (13/13) are retained separately with their original provenance. Old/current server fallback replays passed at `13cba57`.
 
@@ -129,3 +133,7 @@ Source `ae8024f` on `codex/paper-polish`: build and 31 Paper host checks pass; i
 ## C039 planning checkpoint — 23 September
 
 The actual API credential-boundary audit rerun at f00b489 reproduced device-environment fallback for an empty profile, without using A's profile key. Synthetic inputs and a controlled client made no network requests. C039 now names exact ordinary/goal implementation boundaries and acceptance tests; no authentication behavior has changed. Root npm run verify passed for the documentation checkpoint.
+
+## C040 Linux merge gate — 23 September
+
+PR30 fresh parity failed 17/20 at f00b489. Source e32482f corrects fixture caret preconditions and installs Playwright video runtime in CI; no product behavior changed and original assertions remain. Isolated local repaired groups pass row14 4/4, gaps 13/13 and find 6/6. Native stills/video, fresh status and deterministic captures reviewed; see [C040](cycles/C040-linux-parity.md). Full Linux CI and root verify remain pending at this checkpoint.

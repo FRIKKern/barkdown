@@ -68,8 +68,10 @@ const selectBetween = (fromText, fromOffset, toText, toOffset) => page.evaluate(
 await row('baseline: canvas and server agree on open', async () => { const server = serverShape(); return { pass: same(server, original) && original.length === 6, canvas: original, server }; });
 
 await row('select across two paragraphs and type: they merge; server matches', async () => {
-  await clickText('First paragraph', 'End'); for (let i = 0; i < 5; i++) await page.keyboard.press('Shift+ArrowLeft');
-  await page.keyboard.press('Shift+ArrowDown'); await page.keyboard.type('joined'); await settle();
+  await pm.click();
+  const selected = await selectBetween('First paragraph here.', 'First paragraph here.'.length - 5, 'Second paragraph here.', 5);
+  await page.waitForFunction(({from,to}) => { const s=document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.state.selection; return s.from===from && s.to===to && s.$from.parent!==s.$to.parent; }, selected);
+  await page.keyboard.type('joined'); await settle();
   const r = await compare(); return { ...r, pass: r.pass && r.canvas.length === 5 && r.canvas.some(s => s.includes('joined')) };
 });
 await row('undo the merge; server follows', async () => { await page.keyboard.press('Control+z'); await settle(); const r = await compare(); return { ...r, pass: r.pass && same(r.canvas, original) }; });

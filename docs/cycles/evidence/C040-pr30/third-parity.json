@@ -1,0 +1,307 @@
+{
+  "at": "2026-09-23T01:23:00.337Z",
+  "greens": 19,
+  "total": 20,
+  "rows": [
+    {
+      "name": "tables",
+      "script": "editor-tables.live.mjs",
+      "proves": "row 10",
+      "summary": "11/11 green",
+      "green": true,
+      "seconds": 23,
+      "status": 0,
+      "signal": null,
+      "processFailure": null,
+      "evidence": {
+        "green": true,
+        "summary": "11/11 green"
+      }
+    },
+    {
+      "name": "multiblock",
+      "script": "editor-multiblock.live.mjs",
+      "proves": "row 11",
+      "summary": "11/11 green",
+      "green": true,
+      "seconds": 21,
+      "status": 0,
+      "signal": null,
+      "processFailure": null,
+      "evidence": {
+        "green": true,
+        "summary": "11/11 green"
+      }
+    },
+    {
+      "name": "opaque",
+      "script": "editor-opaque.live.mjs",
+      "proves": "row 12",
+      "summary": "22/22 note block types mount editable; 10/10 edits held by the server; 9/9 slash inserts land on the server; editor bundle from the server",
+      "green": true,
+      "seconds": 47,
+      "status": 0,
+      "signal": null,
+      "processFailure": null,
+      "evidence": {
+        "green": true,
+        "summary": "22/22 note block types mount editable; 10/10 edits held by the server; 9/9 slash inserts land on the server; editor bundle from the server"
+      }
+    },
+    {
+      "name": "images",
+      "script": "editor-images.live.mjs",
+      "proves": "row 13",
+      "summary": "6/6 green",
+      "green": true,
+      "seconds": 16,
+      "status": 0,
+      "signal": null,
+      "processFailure": null,
+      "evidence": {
+        "green": true,
+        "summary": "6/6 green"
+      }
+    },
+    {
+      "name": "row14",
+      "script": "editor-row14.live.mjs",
+      "proves": "row 14",
+      "summary": "4/4 green",
+      "green": true,
+      "seconds": 13,
+      "status": 0,
+      "signal": null,
+      "processFailure": null,
+      "evidence": {
+        "green": true,
+        "summary": "4/4 green"
+      }
+    },
+    {
+      "name": "ime",
+      "script": "editor-ime.live.mjs",
+      "proves": "row 15",
+      "summary": "4/4 green",
+      "green": true,
+      "seconds": 12,
+      "status": 0,
+      "signal": null,
+      "processFailure": null,
+      "evidence": {
+        "green": true,
+        "summary": "4/4 green"
+      }
+    },
+    {
+      "name": "perf",
+      "script": "editor-perf.live.mjs",
+      "proves": "row 16",
+      "summary": "3/3 green",
+      "green": true,
+      "seconds": 11,
+      "status": 0,
+      "signal": null,
+      "processFailure": null,
+      "evidence": {
+        "green": true,
+        "summary": "3/3 green"
+      }
+    },
+    {
+      "name": "gaps",
+      "script": "editor-gaps.live.mjs",
+      "proves": "rows 1–7 (Notion behaviours)",
+      "summary": "13/13 green",
+      "green": true,
+      "seconds": 40,
+      "status": 0,
+      "signal": null,
+      "processFailure": null,
+      "evidence": {
+        "green": true,
+        "summary": "13/13 green"
+      }
+    },
+    {
+      "name": "paper",
+      "script": "paper.live.mjs",
+      "proves": "row 9 (ifRev, 412, re-apply)",
+      "summary": "11/11 paper checks",
+      "green": true,
+      "seconds": 11,
+      "status": 0,
+      "signal": null,
+      "processFailure": null,
+      "evidence": {
+        "green": true,
+        "summary": "11/11 paper checks"
+      }
+    },
+    {
+      "name": "highlight",
+      "script": "editor-highlight.live.mjs",
+      "proves": "#15",
+      "summary": "6/6 green",
+      "green": true,
+      "seconds": 11,
+      "status": 0,
+      "signal": null,
+      "processFailure": null,
+      "evidence": {
+        "green": true,
+        "summary": "6/6 green"
+      }
+    },
+    {
+      "name": "find",
+      "script": "editor-find.live.mjs",
+      "proves": "#17",
+      "summary": "6/6 green",
+      "green": true,
+      "seconds": 10,
+      "status": 0,
+      "signal": null,
+      "processFailure": null,
+      "evidence": {
+        "green": true,
+        "summary": "6/6 green"
+      }
+    },
+    {
+      "name": "emoji",
+      "script": "editor-emoji.live.mjs",
+      "proves": "#18",
+      "summary": "exit 1; 3/4 green",
+      "green": false,
+      "seconds": 34,
+      "status": 1,
+      "signal": null,
+      "processFailure": "exit 1",
+      "evidence": {
+        "green": false,
+        "summary": "3/4 green"
+      }
+    },
+    {
+      "name": "mention",
+      "script": "editor-mention.live.mjs",
+      "proves": "#19",
+      "summary": "4/4 green",
+      "green": true,
+      "seconds": 11,
+      "status": 0,
+      "signal": null,
+      "processFailure": null,
+      "evidence": {
+        "green": true,
+        "summary": "4/4 green"
+      }
+    },
+    {
+      "name": "subsup",
+      "script": "editor-subsup.live.mjs",
+      "proves": "#20",
+      "summary": "6/6 green",
+      "green": true,
+      "seconds": 12,
+      "status": 0,
+      "signal": null,
+      "processFailure": null,
+      "evidence": {
+        "green": true,
+        "summary": "6/6 green"
+      }
+    },
+    {
+      "name": "align",
+      "script": "editor-align.live.mjs",
+      "proves": "#21",
+      "summary": "6/6 green",
+      "green": true,
+      "seconds": 12,
+      "status": 0,
+      "signal": null,
+      "processFailure": null,
+      "evidence": {
+        "green": true,
+        "summary": "6/6 green"
+      }
+    },
+    {
+      "name": "linkpreview",
+      "script": "editor-linkpreview.live.mjs",
+      "proves": "#23",
+      "summary": "6/6 green",
+      "green": true,
+      "seconds": 13,
+      "status": 0,
+      "signal": null,
+      "processFailure": null,
+      "evidence": {
+        "green": true,
+        "summary": "6/6 green"
+      }
+    },
+    {
+      "name": "codehl",
+      "script": "editor-codehl.live.mjs",
+      "proves": "#27",
+      "summary": "4/4 green",
+      "green": true,
+      "seconds": 10,
+      "status": 0,
+      "signal": null,
+      "processFailure": null,
+      "evidence": {
+        "green": true,
+        "summary": "4/4 green"
+      }
+    },
+    {
+      "name": "tablespans",
+      "script": "editor-tablespans.live.mjs",
+      "proves": "#24",
+      "summary": "7/7 green",
+      "green": true,
+      "seconds": 12,
+      "status": 0,
+      "signal": null,
+      "processFailure": null,
+      "evidence": {
+        "green": true,
+        "summary": "7/7 green"
+      }
+    },
+    {
+      "name": "tablewidths",
+      "script": "editor-tablewidths.live.mjs",
+      "proves": "#25",
+      "summary": "5/5 green",
+      "green": true,
+      "seconds": 10,
+      "status": 0,
+      "signal": null,
+      "processFailure": null,
+      "evidence": {
+        "green": true,
+        "summary": "5/5 green"
+      }
+    },
+    {
+      "name": "tablehead",
+      "script": "editor-tablehead.live.mjs",
+      "proves": "#26",
+      "summary": "6/6 green",
+      "green": true,
+      "seconds": 14,
+      "status": 0,
+      "signal": null,
+      "processFailure": null,
+      "evidence": {
+        "green": true,
+        "summary": "6/6 green"
+      }
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+ "summary": "3/4 green",
+ "results": [
+  {
+   "name": "headings: the canvas offers three levels; a stored level-4 heading shows at the nearest level, a text edit keeps level 4 on the server; \"#### \" stays text",
+   "pass": true,
+   "levels": [
+    1,
+    2,
+    3
+   ],
+   "mounted": 3,
+   "h4": {
+    "id": "block-1",
+    "level": 4,
+    "text": "A level-four heading an agent wrote, edited",
+    "type": "heading"
+   },
+   "literal": "#### four hashes stay text"
+  },
+  {
+   "name": "nested checklist: \"[ ] first\", Enter, \"second\", Tab nests it; the server holds the nested task list; ticking the nested box lands checked:true",
+   "pass": false,
+   "list": {
+    "id": "c-2-0cfda3bb",
+    "items": [
+     {
+      "checked": false,
+      "children": [
+       {
+        "items": [
+         {
+          "checked": true,
+          "content": [
+           {
+            "type": "text",
+            "value": "seconde:"
+           }
+          ]
+         }
+        ],
+        "ordered": false,
+        "task": true,
+        "type": "list"
+       }
+      ],
+      "content": [
+       {
+        "type": "text",
+        "value": "first"
+       }
+      ]
+     }
+    ],
+    "ordered": false,
+    "task": true,
+    "type": "list"
+   }
+  },
+  {
+   "name": "link edit-in-place: the bubble’s link button opens seeded with the current href; a new href lands on the server",
+   "pass": true,
+   "seeded": "https://old.example.org/page",
+   "link": {
+    "children": [
+     {
+      "type": "text",
+      "value": "the link"
+     }
+    ],
+    "href": "https://new.example.org/page",
+    "type": "link"
+   }
+  },
+  {
+   "name": "placeholder: a new empty block shows a placeholder, an empty heading its own; text removes it",
+   "pass": true,
+   "para": {
+    "empty": true,
+    "placeholder": "Start typing, or press / for blocks…"
+   },
+   "heading": {
+    "empty": true,
+    "placeholder": "Heading 1"
+   },
+   "filled": false
+  }
+ ],
+ "errors": []
+}
+bp: published to http://localhost:4000 (POST /v1/plugins/bulldocs/papers)
