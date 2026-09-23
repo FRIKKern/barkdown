@@ -1,0 +1,118 @@
+{
+  "_createdAt": "2026-09-22T07:15:39.637000Z",
+  "_draft": false,
+  "_id": "editor-fallback-consumption",
+  "_publishedId": "editor-fallback-consumption",
+  "_rev": "fe9fe21f90ef52abf9eb601e260b2f6e",
+  "_type": "paper",
+  "_updatedAt": "2026-09-22T07:15:57.651000Z",
+  "blocks": [
+    {
+      "id": "block-0",
+      "level": 1,
+      "text": "Image uploads survive Undo",
+      "type": "heading"
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "value": "Human text stays. Next human edit."
+        }
+      ],
+      "id": "block-1",
+      "type": "paragraph"
+    },
+    {
+      "alt": "history",
+      "id": "c-1-5693afe8",
+      "src": "http://127.0.0.1:51084/media/files/d/07b831f7-ba80-4b00-9780-e68a1e737ec7/2026/09/history-963127b8.png",
+      "type": "image"
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "value": "This surrounding paragraph must survive."
+        }
+      ],
+      "id": "block-2",
+      "type": "paragraph"
+    }
+  ],
+  "body": {
+    "blocks": [
+      {
+        "id": "block-0",
+        "level": 1,
+        "text": "Image uploads survive Undo",
+        "type": "heading"
+      },
+      {
+        "content": [
+          {
+            "type": "text",
+            "value": "Human text stays. Next human edit."
+          }
+        ],
+        "id": "block-1",
+        "type": "paragraph"
+      },
+      {
+        "alt": "history",
+        "id": "c-1-5693afe8",
+        "src": "http://127.0.0.1:51084/media/files/d/07b831f7-ba80-4b00-9780-e68a1e737ec7/2026/09/history-963127b8.png",
+        "type": "image"
+      },
+      {
+        "content": [
+          {
+            "type": "text",
+            "value": "This surrounding paragraph must survive."
+          }
+        ],
+        "id": "block-2",
+        "type": "paragraph"
+      }
+    ],
+    "html": "<h1>Image uploads survive Undo</h1><p>Human text stays. Next human edit.</p><img src=\"http://127.0.0.1:51084/media/files/d/07b831f7-ba80-4b00-9780-e68a1e737ec7/2026/09/history-963127b8.png\" alt=\"history\" data-bp-lightboxable=\"true\" style=\"max-width:100%;height:auto\"><p>This surrounding paragraph must survive.</p>"
+  },
+  "body_html": "<h1>Image uploads survive Undo</h1><p>Human text stays. Next human edit.</p><img src=\"http://127.0.0.1:51084/media/files/d/07b831f7-ba80-4b00-9780-e68a1e737ec7/2026/09/history-963127b8.png\" alt=\"history\" data-bp-lightboxable=\"true\" style=\"max-width:100%;height:auto\"><p>This surrounding paragraph must survive.</p>",
+  "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+  "description": "Disposable real Paper clipboard policy, host media uploads, native history and acknowledged reload proof.",
+  "main_tag": "barkdown",
+  "preview": {
+    "description": "Disposable real Paper clipboard policy, host media uploads, native history and acknowledged reload proof.",
+    "extensions": {
+      "tags": [
+        "barkdown",
+        "scratch"
+      ]
+    },
+    "image": {
+      "alt": "history",
+      "height": null,
+      "type": null,
+      "url": "http://127.0.0.1:51084/media/files/d/07b831f7-ba80-4b00-9780-e68a1e737ec7/2026/09/history-963127b8.png",
+      "width": null
+    },
+    "title": "Image uploads survive Undo",
+    "type": "paper",
+    "url": "/papers/editor-fallback-consumption"
+  },
+  "rev": 9,
+  "style": "article",
+  "tags": [
+    {
+      "rationale": "owned clipboard regression",
+      "strength": 90,
+      "tag": "barkdown"
+    },
+    {
+      "rationale": "disposable clipboard fixture",
+      "strength": 40,
+      "tag": "scratch"
+    }
+  ],
+  "title": "Image uploads survive Undo"
+}
