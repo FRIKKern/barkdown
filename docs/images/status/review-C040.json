@@ -1,0 +1,29 @@
+{
+  "reviewer": "Codex C040 merge review",
+  "reviewedAt": "2026-09-23T01:07:52.845Z",
+  "sourceCommit": "e32482f97ddc2e3a2e3b22c8b676855286b62875",
+  "barkparkCommit": "bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f",
+  "manifestSha256": "48dada085759229f35c28f5e51bc900da0fa3899d86e2be58ca2ddac62f9b6c4",
+  "artifacts": {
+    "paper-light.5bda215e.png": "7c5b7ed2c5b17a31478bcdf0f4677b44c6a4e3682a8b2b7b15cb70b6b89845f0",
+    "paper-dark.435ae703.png": "e6c6b4b548d6ca0ef2f4f615e8aa03888877cf50c3ae10be5300158bfce261e9",
+    "slash-menu.77936d02.png": "2dfbb9c60d2d9144d78fc810b5c2a31135498f5aa42b80042a54f6357acaa88b",
+    "quick-open.e2698e14.png": "6a0d367c5e9030c40335497eaaaa3e47057b3e0be9facc56812f576667567bde",
+    "settings-barkpark.c3aa70e6.png": "6951bc8848ad4d69e1d6abe73f369363f795bc2330f21e85481f8a4cb648325c",
+    "editing.6166c9fb.gif": "62ba8e9ccbdd7fb5d6f8e32ff9357530bc2c99556576735068435e7f374b932a"
+  },
+  "result": "approved",
+  "inspected": {
+    "stills": 5,
+    "decodedGifFrames": 37
+  },
+  "findings": [
+    "Actual Codex turn succeeded; Paper layout and menus unchanged by fixture repairs.",
+    "Contact-sheet inspection of quote entry, typing, table navigation and quick open shows intact content and controls."
+  ],
+  "limits": [
+    "Live status is distinct from full Linux editor parity.",
+    "Claude quota refusal retained; Codex succeeded."
+  ],
+  "cleanup": "Private runtime stopped."
+}

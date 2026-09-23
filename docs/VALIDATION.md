@@ -125,3 +125,7 @@ E009 imports original1a9faf3 evidence for Barkdown25cb114 and connected upstream
 ## C038 callout refinement — 23 September
 
 Source `ae8024f` on `codex/paper-polish`: build and 31 Paper host checks pass; isolated real-server callout gallery 4/4 passes. [Reviewed gallery](visual/callouts/README.md) covers seven tones, editable titles, body saves, folding/reload and 760px wrapping. Fresh status stills and 37 GIF frames are reviewed in `images/status/review-C038.json`; a real Codex turn succeeded after Claude quota refusal. Deterministic 00-42-44 capture approved after image inspection; all 40 frames within tolerance with unchanged geometry. Root `npm run verify` passed; no P1/full-desktop/release-completion claim.
+
+## C040 Linux merge gate — 23 September
+
+PR30 fresh parity failed 17/20 at f00b489. Source e32482f corrects fixture caret preconditions and installs Playwright video runtime in CI; no product behavior changed and original assertions remain. Isolated local repaired groups pass row14 4/4, gaps 13/13 and find 6/6. Native stills/video, fresh status and deterministic captures reviewed; see [C040](cycles/C040-linux-parity.md). Full Linux CI and root verify remain pending at this checkpoint.

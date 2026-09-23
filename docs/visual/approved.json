@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-09-23T00-42-44-837Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-23T00-42-44-837Z/comparison.json",
-  "manifestHash": "9436bcc0f96693fb7df14f95771e95ef013626f48660cac316b3037302b0b511",
-  "reportHash": "1e6c30f99ef0d82e806c2de3872010cd5d4bbed73fd3ba816091cda95f934a8d",
-  "reviewer": "Codex callout visual review",
-  "note": "C038 source ae8024f. All 40 frames remain within tolerance with unchanged geometry. 36 stills and all eight GIFs are byte-identical to the prior reviewed baseline; four changed stills inspected and show only subthreshold raster variation. Dedicated real Paper gallery separately reviews seven tones, light/dark and 760px wrapping with four native server assertions. Five fresh live status stills and all 37 decoded editing frames inspected. No full desktop, portability or stage-completion claim.",
-  "reviewedAt": "2026-09-23T00:44:26.669Z",
-  "reviewPath": "docs/visual/reviews/approval-c3ed51bcefc146d492faa9407bcc27284c32d22b0c70f4024670c525653ee356.json",
-  "reviewHash": "c3ed51bcefc146d492faa9407bcc27284c32d22b0c70f4024670c525653ee356"
+  "manifest": "docs/visual/runs/2026-09-23T01-06-12-129Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-23T01-06-12-129Z/comparison.json",
+  "manifestHash": "35e83e38a8458f7db8e303cc8e7b47468e6934f4500f61a6f2a9a53dedc1e07e",
+  "reportHash": "9fcd1ee2b47d751c6841a5c91338345ed55c898ccd2d33b4a1d8e9463ccfd85b",
+  "reviewer": "Codex C040 merge review",
+  "note": "Source e32482f changes test caret setup and video reporting only. All 40 fixture frames retain geometry and are within tolerance; 37 stills and all eight GIFs are byte-identical to the prior reviewed baseline. Three differing side-chat stills inspected with subthreshold raster differences only. Separately reviewed five fresh live Paper/Codex stills and all 37 GIF frames, plus 13 real editor-gap stills and 53 video samples. Native repaired groups pass row14 4/4, gaps 13/13, find 6/6; full Linux CI remains a separate merge gate.",
+  "reviewedAt": "2026-09-23T01:07:52.663Z",
+  "reviewPath": "docs/visual/reviews/approval-3ca6450df9011b45462835b04a53f7ad77c9947eb58bc87fde894b36aeec1ea6.json",
+  "reviewHash": "3ca6450df9011b45462835b04a53f7ad77c9947eb58bc87fde894b36aeec1ea6"
 }
