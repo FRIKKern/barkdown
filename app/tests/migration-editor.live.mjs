@@ -98,6 +98,26 @@ try {
     await page.keyboard.press('Control+z'); const undone = await saved(edited.rev);
     assert.deepEqual(undone.blocks, expected, sample.id + ': Undo restores exact staged structure');
     results.push({ case: sample.id, beforeRev: revision, editedRev: edited.rev, undoneRev: undone.rev }); revision = undone.rev;
+    if (sample.id === 'hard-break') {
+      await canvas().evaluate((c, text) => {
+        const e = c._editor; let at;
+        e.state.doc.descendants((n, pos) => { if (n.isText && n.text.startsWith(text)) at = pos + text.length; });
+        if (at === undefined) throw Error('Missing native break insertion point');
+        e.view.focus(); e.commands.setTextSelection(at);
+      }, needle);
+      await page.keyboard.press('Shift+Enter');
+      const inserted = await saved(revision);
+      const content = inserted.blocks[index].content;
+      assert.ok(content.every(n => n.type === 'text' && typeof n.value === 'string'), 'new break keeps plain inline text');
+      assert.equal(content.map(n => n.value).join(''), 'Line one\n\nLine two', 'native Shift Enter adds exactly one newline');
+      assert.deepEqual(inserted.blocks.filter((_, i) => i !== index), expected.filter((_, i) => i !== index), 'native break leaves every other block exact');
+      await shot('native-break-inserted');
+      await page.keyboard.press('Control+z');
+      const restored = await saved(inserted.rev);
+      assert.deepEqual(restored.blocks, expected, 'native break Undo restores exact staged carriers');
+      Object.assign(results.at(-1), { breakInsertedRev: inserted.rev, breakUndoneRev: restored.rev });
+      revision = restored.rev;
+    }
   }
   await shot('02-all-undo-saved');
   await canvas().evaluate(c => { c.__migrationBeforeReload = true; });
