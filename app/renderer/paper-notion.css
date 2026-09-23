@@ -334,12 +334,12 @@
   --callout-accent: light-dark(#6b7298, #b3b9d6);
   --callout-surface: light-dark(#f3f3f9, #2a2b36);
 }
-.bw-paper-document .bp-paper-host .ProseMirror .bp-callout > strong,
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout > :is(strong, span[contenteditable="false"] > strong),
 .bw-paper-document .bp-paper-host .ProseMirror .bp-callout__summary {
   font-size: .9375em; font-weight: 650; line-height: 1.45;
   color: var(--callout-accent); letter-spacing: .005em;
 }
-.bw-paper-document .bp-paper-host .ProseMirror .bp-callout > strong {
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout > :is(strong, span[contenteditable="false"] > strong) {
   display: block; margin-bottom: 5px;
 }
 .bw-paper-document .bp-paper-host .ProseMirror .bp-callout__body {
