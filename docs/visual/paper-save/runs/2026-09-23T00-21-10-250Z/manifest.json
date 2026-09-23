@@ -1,0 +1,25 @@
+{
+  "sourceCommit": "ff0a1636b0c9450902bd54b22a4c8f0773b1b604",
+  "sourceDirty": false,
+  "barkparkCommit": "bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f",
+  "server": "http://127.0.0.1:49481",
+  "isolated": true,
+  "results": [
+    "delayed real save: reload, navigation and close retain the human edit in its original paper",
+    "Undo and redo persist the same text the real canvas shows",
+    "refused write survives reload and Retry saves the retained edit",
+    "explicit discard is cancelable and restores the real saved paper without writing the draft"
+  ],
+  "frames": [
+    "01-original.png",
+    "02-saving.png",
+    "03-retained-during-navigation.png",
+    "04-acknowledged.png",
+    "05-undo-saved.png",
+    "06-offline-narrow.png",
+    "07-retry-saved.png",
+    "08-discard-confirmation.png",
+    "09-discarded-to-saved.png"
+  ],
+  "motion": "Step captures of actual UI actions; transport delays/failures are explicitly injected around real server calls. No live model turn."
+}

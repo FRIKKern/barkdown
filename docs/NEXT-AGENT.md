@@ -2,6 +2,8 @@
 
 ## Current checkpoint — 23 September
 
+The user requested Paper visual refinement after C008. The current cycle is [C037](cycles/C037-paper-polish.md) on `codex/paper-polish`, based on the preserved integration branch. Its skin changes, reviewed live light/dark captures and real save/recovery checks are recorded there. C008 is archived as completed in `cycles/C008-completed.json`; no main merge or deployment occurred.
+
 Integration evidence is committed through `42432cb` on `codex/integration-12h`. Full desktop passed at `1b01bf2`; subsequent changes affect capture tooling only and pass 18 focused lifecycle/history checks. Final root verification passed. Final deterministic and live Paper/Codex captures both identify source `3e8a2aa`; their named reviews cover 40 fixture stills/40 motion frames and five live stills/all 37 GIF frames. E012 now consumes clean upstream `bf23f773` and the C030 strict native matrix passed 13/13. See [C008](cycles/C008-integration.md) for exact source boundaries and retained failures.
 
 The next action is to push outstanding local commits and confirm the remote branch. GitHub HTTPS repeatedly timed out; inspect current Git state before assuming publication. Keep main unchanged. P1 remains incomplete because shared device authentication policy is unresolved; portability, clean-machine installation and external release gates are still separate requirements. Existing evidence applies to this documentation-only reconciliation without recapture.

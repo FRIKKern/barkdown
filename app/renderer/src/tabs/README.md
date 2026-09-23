@@ -18,6 +18,8 @@ For Paper changes, test acknowledged revisions, native Undo/Redo, human takeover
 
 ## Changelog
 
+- 23 September, C037: [Paper visual polish](../../../../docs/cycles/C037-paper-polish.md) repairs inherited heading spacing and double-rendered code, with smaller headings, readable tasks, compact tables and muted callouts. [Light capture](../../../../docs/images/status/paper-light.1c1f1f10.png), [dark capture](../../../../docs/images/status/paper-dark.3f197809.png), [editing GIF](../../../../docs/images/status/editing.44c0c473.gif). Real save/Undo/retry/discard and narrow layout pass separately in the linked cycle.
+
 - 22 September: imported C024 file-authority recovery with its original reviewed stills and motion. At that earlier checkpoint, C016 reading-position and newer clipboard/history work still awaited integration; the subsequent entry below supersedes that status.
 
 - 22 September, candidate76b07d3: E011 upstream54579 and C016 reading-position source/evidence are imported. [C032 native refusal/restart motion](../../../../docs/visual/folder-preflight/README.md) retains original8b51fbc; C033 has controlled context-race checks only. C023 original final gates passed. Fresh combined review remains pending; historical images above are not promoted. See [current validation order](../../../../docs/cycles/C008-integration.md#remaining-combined-validation-order). E012 upstream work remains unconsumed.
