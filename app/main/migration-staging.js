@@ -33,7 +33,11 @@ function record(store, name, value) {
 function read(store, name) {
   const file = store.filePath(name);
   if (!fs.existsSync(file)) return null;
-  try { return JSON.parse(fs.readFileSync(file, 'utf8')); }
+  try {
+    const value = JSON.parse(fs.readFileSync(file, 'utf8'));
+    if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('Expected a journal object');
+    return value;
+  }
   catch { fail('journal_corrupt', 'Unreadable staging record: ' + name); }
 }
 
@@ -82,6 +86,28 @@ async function stageMigration(options, target, { checkpoint = () => {}, retryAbs
     record(store, 'staging/plan.json', plan);
     await checkpoint('plan');
     const planHash = hash(plan), receipts = [];
+    // Validate the entire recovery journal before touching any target. In
+    // particular, null is corruption, not a missing record, and a completed
+    // batch may never fill in missing receipts by publishing again.
+    const journal = documents.map(doc => {
+      const intentName = 'staging/' + doc.targetId + '.intent.json';
+      const receiptName = 'staging/' + doc.targetId + '.receipt.json';
+      const intent = { version: 1, planHash, id: doc.id, targetId: doc.targetId, payloadHash: hash(doc.payload) };
+      const existingIntent = read(store, intentName), existingReceipt = read(store, receiptName);
+      if (existingIntent) record(store, intentName, intent);
+      if (existingReceipt) {
+        if (!existingIntent) fail('journal_corrupt', 'A receipt has no durable write intent');
+        if (typeof existingReceipt.revision !== 'string' || !existingReceipt.revision || !Number.isSafeInteger(existingReceipt.paperRevision) || existingReceipt.paperRevision < 1) fail('journal_corrupt', 'Invalid recorded Paper revision');
+        const expected = { ...doc.payload }; delete expected.slug;
+        record(store, receiptName, { ...intent, payloadHash: hash(expected), revision: existingReceipt.revision, paperRevision: existingReceipt.paperRevision });
+      }
+      return { doc, intentName, receiptName, intent, existingIntent, existingReceipt };
+    });
+    const completed = read(store, 'staging/complete.json');
+    if (completed) {
+      if (journal.some(item => !item.existingReceipt)) fail('journal_corrupt', 'Completed staging has missing receipts');
+      record(store, 'staging/complete.json', { version: 1, planHash, status: 'staged', authority: 'legacy', documents: journal.map(item => item.existingReceipt) });
+    }
     function unchanged() {
       lease.assertOwned();
       if (inventoryProfile(options).sourceHash !== manifest.sourceHash) fail('source_changed', 'Source changed during staging; retain staged Papers for reconciliation');
@@ -107,14 +133,8 @@ async function stageMigration(options, target, { checkpoint = () => {}, retryAbs
       if (!Number.isSafeInteger(saved.rev) || saved.rev < 1 || typeof saved._rev !== 'string' || !saved._rev) fail('invalid_revision', 'Saved Paper has no valid acknowledged revision');
       return { version: 1, planHash, id: doc.id, targetId: doc.targetId, payloadHash: hash(expected), revision: saved._rev, paperRevision: saved.rev };
     }
-    for (const doc of documents) {
+    for (const { doc, intentName, receiptName, intent, existingIntent, existingReceipt } of journal) {
       unchanged();
-      const intentName = 'staging/' + doc.targetId + '.intent.json';
-      const receiptName = 'staging/' + doc.targetId + '.receipt.json';
-      const intent = { version: 1, planHash, id: doc.id, targetId: doc.targetId, payloadHash: hash(doc.payload) };
-      const existingIntent = read(store, intentName), existingReceipt = read(store, receiptName);
-      if (existingReceipt && !existingIntent) fail('journal_corrupt', 'A receipt has no durable write intent');
-      if (existingIntent) record(store, intentName, intent);
       let saved = await current(doc);
       if (existingReceipt) {
         if (!saved) fail('target_missing', 'A previously verified Paper is missing; do not recreate it');

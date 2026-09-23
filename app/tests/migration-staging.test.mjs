@@ -147,3 +147,53 @@ test('two stagers cannot own the same durable plan concurrently', async t => {
   try { await assert.rejects(f.stage(), /Another migration staging process/); } finally { release(); }
   await first; assert.equal(f.writes(), 1);
 });
+
+for (const value of [null, [], false]) {
+  test('non-object journal records are corrupt, never absent: ' + JSON.stringify(value), async t => {
+    const f = await fixture(t); await f.stage();
+    const names = [f.id() + '.intent.json', f.id() + '.receipt.json', 'complete.json'];
+    for (const name of names) {
+      const file = path.join(f.destinationDir, 'staging', name), bytes = fs.readFileSync(file);
+      fs.writeFileSync(file, JSON.stringify(value));
+      const requestCount = f.requests.length;
+      await assert.rejects(f.stage({ retryAbsent: true }), { code: 'journal_corrupt' });
+      assert.equal(f.requests.length, requestCount, 'damaged journals fail before any remote access');
+      fs.writeFileSync(file, bytes);
+    }
+  });
+}
+
+test('a corrupt later-document journal prevents writes for the entire batch', async t => {
+  const f = await fixture(t);
+  fs.writeFileSync(path.join(f.sourceDir, 'documents/z-later.json'), JSON.stringify({ ...f.document, id: 'z-later', title: 'Later source' }));
+  f.options.metadata['z-later'] = structuredClone(f.options.metadata.note);
+  await assert.rejects(f.stage({ checkpoint(name) { if (name === 'plan') throw new Error('stop before writing'); } }), /stop before writing/);
+  const later = f.manifest().documents.find(doc => doc.id === 'z-later');
+  fs.writeFileSync(path.join(f.destinationDir, 'staging', later.targetId + '.receipt.json'), '{}');
+  await assert.rejects(f.stage({ retryAbsent: true }), { code: 'journal_corrupt' });
+  assert.equal(f.requests.length, 0); assert.equal(f.writes(), 0);
+});
+
+test('a completion record with missing receipts cannot republish deleted targets', async t => {
+  const f = await fixture(t); await f.stage(); f.rows.clear();
+  const receipt = path.join(f.destinationDir, 'staging', f.id() + '.receipt.json');
+  fs.renameSync(receipt, receipt + '.retained-for-test');
+  const requestCount = f.requests.length;
+  await assert.rejects(f.stage({ retryAbsent: true }), { code: 'journal_corrupt' });
+  assert.equal(f.requests.length, requestCount); assert.equal(f.writes(), 1);
+});
+
+for (const boundary of ['after-create', 'before-complete']) {
+  test('source edited at ' + boundary + ' retains originals and refuses completion', async t => {
+    const f = await fixture(t);
+    const source = path.join(f.sourceDir, 'documents/note.json');
+    const original = fs.readFileSync(source);
+    const edit = () => fs.writeFileSync(source, JSON.stringify({ ...f.document, title: 'New human source title' }));
+    if (boundary === 'after-create') f.state.afterCreate = edit;
+    await assert.rejects(f.stage({ checkpoint(name) { if (boundary === name) edit(); } }), { code: 'source_changed' });
+    assert.equal(JSON.parse(fs.readFileSync(source)).title, 'New human source title');
+    assert.deepEqual(fs.readFileSync(path.join(f.destinationDir, 'source/documents/note.json')), original);
+    assert.ok(!fs.existsSync(path.join(f.destinationDir, 'staging/complete.json')));
+    assert.equal(f.writes(), 1);
+  });
+}
