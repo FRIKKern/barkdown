@@ -63,6 +63,27 @@ function changeFirstText(block, needle) {
   const visit = value => { if (Array.isArray(value)) value.forEach(visit); else if (value && typeof value === 'object') { if (!changed && value.type === 'text' && value.value === needle) { value.value = value.value.slice(0, 1) + 'X' + value.value.slice(1); changed = true; } else Object.values(value).forEach(visit); } };
   visit(copy); assert.equal(changed, true); return copy;
 }
+// Native DOM input may split one literal-LF carrier into three marked runs.
+// Compare that edited inline value semantically, while requiring exact source
+// carriers on Undo and exact untouched blocks throughout the document.
+function inlineRuns(nodes) {
+  const runs = [];
+  function walk(items, marks = []) {
+    for (const node of items) {
+      if (node.type === 'text') {
+        assert.deepEqual(Object.keys(node).sort(), ['type', 'value']);
+        const key = JSON.stringify(marks);
+        if (runs.at(-1)?.marks === key) runs.at(-1).text += node.value;
+        else runs.push({ marks: key, text: node.value });
+      } else {
+        assert.ok(['strong', 'em', 'underline', 'strikethrough', 'link'].includes(node.type));
+        assert.deepEqual(Object.keys(node).sort(), (node.type === 'link' ? ['children', 'href', 'type'] : ['children', 'type']));
+        walk(node.children, [...marks, { type: node.type, ...(node.type === 'link' ? { href: node.href } : {}) }]);
+      }
+    }
+  }
+  walk(nodes); return runs;
+}
 try {
   await launch();
   await page.evaluate(async connection => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, writes: true, viaCli: false, ...connection } }); await window.__barkdown.refreshLibrary(); }, { server, token });
@@ -90,7 +111,11 @@ try {
     await page.waitForFunction(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); return c?._editor?.getText().includes('X') || c?.querySelector('.bp-canvas-code-area')?.value.includes('X'); }, null, { timeout: 3000 });
     const edited = await saved(revision);
     const changed = structuredClone(expected); changed[index] = changeFirstText(block, needle);
-    assert.deepEqual(edited.blocks, changed, sample.id + ': only the intended text changes');
+    if (sample.id === 'paragraph-literal-break') {
+      assert.deepEqual(edited.blocks.filter((_, i) => i !== index), changed.filter((_, i) => i !== index), 'literal LF edit leaves all other blocks exact');
+      assert.deepEqual({ ...edited.blocks[index], content: inlineRuns(edited.blocks[index].content) },
+        { ...changed[index], content: inlineRuns(changed[index].content) }, 'literal LF edit preserves text, newline, marks and metadata across native carrier segmentation');
+    } else assert.deepEqual(edited.blocks, changed, sample.id + ': only the intended text changes');
     await shot('edit-' + sample.id);
     // The code island records its edit in the owning Paper history. Focus the
     // real PM surface without another transaction before the native Undo key.
