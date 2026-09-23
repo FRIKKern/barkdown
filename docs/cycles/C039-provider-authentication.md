@@ -15,13 +15,19 @@ Existing runtime behavior already matches the chosen default: run-scope captures
 
 Command: node docs/cycles/evidence/provider-credential-boundary.cjs. This audit is evidence for API precedence, not a fresh live authentication test of every provider or goal path.
 
+## Prepared work
+
+[Four prepared task briefs](../tasks/2026-09-23-next-four.md) define login assistance, shared-authentication proof, P1 closeout and safe Paper migration preparation. The user also requires help signing in when existing computer authentication is unavailable, with drafts preserved. This is a requirement to implement/verify, not a claim that the integrated login flow already exists.
+
 ## Remaining proof
 
 1. Reconcile the A1 evidence table against the chosen shared-device boundary, retaining all workspace ownership gates.
 2. Verify main/side and coordinator/worker dispatch preserve profile-key precedence and captured ownership while using shared device authentication by default.
-3. Verify missing authentication reports the provider's normal unavailable state and preserves drafts; switching profiles must not borrow another profile's owned key.
+3. Implement and verify assistance for missing authentication, preserving drafts through sign-in/cancel and explicit retry; switching profiles must not borrow another profile's owned key.
 4. Run relevant provider/profile/goal regression checks and close C039 only with recorded evidence. P1 remains active until its remaining acceptance evidence is reconciled.
 
 ## Checkpoint
 
 This is a policy/documentation change; no runtime or UI change is required to enable the default, and no opt-in prompt is being introduced. C040 reviewed screenshots remain applicable. No services started. Root npm run verify passed for this update; controlled API evidence is recorded above. Continue on codex/finish-profile-isolation from merged main 7c3a325. Subsequent goals remain P2 one Paper engine, P3 recovery/portability and P5 installation; optional sync is P4.
+
+Prepared four task briefs on 23 September, including the missing-login assistance requirement. Preparation is documentation only; no tasks dispatched, runtime changed or services started. Root npm run verify passed. Next: start Task 1 and Task 2 from the linked briefs, retaining separate ownership and combining their proof before Task 3.

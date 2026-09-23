@@ -65,6 +65,10 @@ P3 recovery and P5 installation have local backlog entries; separate GitHub issu
 
 Use [ACCEPTANCE.md](ACCEPTANCE.md) for scenario gates and [VALIDATION.md](VALIDATION.md) for evidence. Record the source commit, exact command, result and limitations. Update `plan.json`, this plan and the handoff together. A stage becomes done only with linked evidence; blocked gates stay visible while other useful work proceeds.
 
+## Prepared tasks
+
+[Four ready-to-start briefs](tasks/2026-09-23-next-four.md) define scope, dependencies, ownership, acceptance and evidence for the next work. C039 stays active; the P2 migration task is preparatory until P1 closes.
+
 ## Delivery cadence
 
 Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) is C039, closing the provider authentication boundary. C008 integration and C037/C038 Paper polish have completed source-bound validation; PR #30 is merged; main includes the cycle handoff at 7c3a325. Device authentication is shared by default without asking, per the user’s 23 September decision. C001 ownership design and C002 folder context are complete; C002 is merged on main. Subsequent bounded cycles have implemented profile foundations, adoption, recovery and editor improvements, with original evidence linked from [NEXT-AGENT.md](NEXT-AGENT.md). P1 remains unproven until the complete two-profile acceptance journey and combined regression/evidence gates pass. Closing a cycle does not complete a stage.
