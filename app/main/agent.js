@@ -332,7 +332,7 @@ async function startApi({ chatId, messages, context, settings, send, images, ori
       let message = error?.message || String(error);
       if (Sdk && error instanceof Sdk.AuthenticationError) message = 'The Claude API key was rejected. Check Settings.';
       else if (Sdk && error instanceof Sdk.RateLimitError) message = 'Rate limited by the Claude API. Try again shortly.';
-      run.emit({ type: 'error', message });
+      run.emit({ type: 'error', message, ...(require('./providers/auth-error').authenticationFailure(error) ? {authProvider:'api'} : {}) });
     } finally {
       await providerRuns.finish(run);
     }

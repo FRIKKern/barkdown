@@ -101,7 +101,7 @@ function createGoalProvider({ agent = require('./agent'), resolve, transcripts, 
             }
             acknowledged(transcripts.event(request, visibleEvent));
             if (event.type === 'text_delta' || event.type === 'activity') progress({ text: event.type === 'activity' ? event.label || '' : structured ? (request.role === 'plan' ? 'Preparing the plan' : 'Reviewing evidence') : text.slice(-20000) });
-            if (event.type === 'error' || event.type === 'error_note') terminal = { status: 'failed', text: event.message || 'Provider reported an error' };
+            if (event.type === 'error' || event.type === 'error_note') terminal = { status: 'failed', text: event.message || 'Provider reported an error', ...(['api','claude','codex'].includes(event.authProvider) ? {authProvider:event.authProvider} : {}) };
             if (event.type === 'done' && structured) {
               const source = { api: 'anthropic.end_turn', codex: 'codex.item.completed', claude: 'claude.result.success' }[request.context.provider];
               if (event.finalMessage?.source === source && typeof event.finalMessage.text === 'string' && event.finalMessage.text.length <= 100000) finalMessage = event.finalMessage.text;
@@ -122,7 +122,7 @@ function createGoalProvider({ agent = require('./agent'), resolve, transcripts, 
         if (fault) outcome = { status: 'interrupted', text: `Transcript acknowledgement failed: ${fault.message}` };
         else if (finished.status === 'cleanup-failed' || finished.status === 'finished' || !terminal) outcome = { status: 'interrupted', text: 'Provider ended without a clean, acknowledged terminal result; reconcile before retry.' };
         else if (signal.aborted || finished.cancelled || finished.status === 'cancelled') outcome = { status: 'cancelled', text };
-        else if (finished.status === 'failed' || terminal.status === 'failed') outcome = { status: 'failed', text: terminal.text || text };
+        else if (finished.status === 'failed' || terminal.status === 'failed') outcome = { ...terminal, status: 'failed', text: terminal.text || text };
         else if (structured && finalMessage === null) outcome = { status: 'failed', text: 'Provider did not acknowledge a final coordinator message; inspect the retained response.' };
         else outcome = { ...terminal, text: structured ? finalMessage : text };
         acknowledged(transcripts.finish(request, { ...outcome, ...(structured && outcome.status === 'succeeded' ? { text: readableReply(request.role, outcome.text) } : {}), runId, driverFinished: true }));

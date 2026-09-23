@@ -95,3 +95,20 @@ test('production child worker protocol preserves A/B credentials through native 
     assert.doesNotMatch(JSON.stringify(events),/synthetic-owned-A|synthetic-shared-device|synthetic-captured-oauth|synthetic-captured-codex/);
   }
 });
+
+test('actual CLI failures preserve captured owner and only authentication failures offer recovery',async()=>{
+  const {captureScope}=require('../main/providers/run-scope');
+  for(const provider of ['claude','codex']) for(const authentication of [true,false]) {
+    const root=fs.mkdtempSync(path.join(os.tmpdir(),'bd-expired-')),profileId=crypto.randomUUID();require('../main/store').createStore(root);
+    const scope=captureScope({profileId,storeDir:root,context:{chatId:'saved-side',folder:null},connection:{enabled:false}}),events=[];
+    const transport=require('../main/providers/'+provider);
+    transport.setSdkLoader(async()=>provider==='claude'?{query(){return(async function*(){yield{type:'assistant',error:authentication?'authentication_failed':'rate_limit',message:{content:[]}};yield{type:'result',subtype:'error_during_execution',usage:{}};})();}}:{Codex:class{startThread(){return{id:'expired-thread',async runStreamed(){return{events:(async function*(){yield{type:'turn.failed',error:{status:authentication?401:429,message:authentication?'private provider detail':'Rate limited'}};})()};}};}}});
+    try {
+      const run=await agent.start({profileId,storeDir:root,scope,chatId:'saved-side',context:scope.context,provider,prompt:'Keep my message',messages:[],settings:{},send:event=>events.push(event)});
+      await agent.waitForRunFinish(run.runId);
+      assert.ok(events.every(event=>event.profileId===profileId&&event.chatId==='saved-side'));
+      assert.equal(events.some(event=>event.authProvider===provider),authentication);
+      if(authentication){assert.equal(events.some(event=>event.type==='done'),false);assert.doesNotMatch(JSON.stringify(events),/private provider detail/);}
+    } finally {transport.setSdkLoader(null);}
+  }
+});

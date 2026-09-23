@@ -191,3 +191,16 @@ test('structured coordinator uses acknowledged final provider message while reta
     }
   } finally { claude.setSdkLoader(null); codex.setSdkLoader(null); }
 });
+
+test('expired goal provider session retains authentication assistance after terminal settlement',async()=>{
+  const f=setup(),provider=require('../main/providers/codex');
+  const request={...f.requests[0],context:{...f.requests[0].context,provider:'codex'}};
+  const adapter=createGoalProvider({resolve:(owner,chat)=>{const value=f.resolve(owner,chat);value.chat.provider='codex';return value;},transcripts:f.transcripts});
+  provider.setSdkLoader(async()=>({Codex:class{startThread(){return{id:'goal-expired',async runStreamed(){throw Object.assign(Error('Private auth detail'),{status:401});}};}}}));
+  try {
+    const result=await adapter.execute(request,{signal:new AbortController().signal,progress(){}});
+    assert.equal(result.status,'failed');assert.equal(result.authProvider,'codex');
+    assert.equal(f.record.find(row=>row.kind==='finish').result.authProvider,'codex');
+    assert.doesNotMatch(JSON.stringify(f.record),/Private auth detail/);
+  } finally {provider.setSdkLoader(null);}
+});

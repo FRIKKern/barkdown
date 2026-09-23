@@ -4,6 +4,22 @@
 
 The historical table below preserves lane evidence and limitations. Its pending combined-test statements are superseded by [C008's final integration evidence](C008-integration.md): combined desktop passed at `1b01bf2`, all eight dedicated native journeys passed at `3ce6b21`/`41500dc`, final fixture and live Paper/Codex reviews passed at `3e8a2aa`, and root verification passed. [PR #30](https://github.com/FRIKKern/barkdown/pull/30) subsequently merged at `3903288`; C040 records the `5325300` editor/visual gates. The user resolved the credential policy: existing device authentication is shared by default, while explicitly configured profile keys and all workspace data retain their owners. [C039](C039-provider-authentication.md) owns current authentication implementation and proof. Its new source still needs fresh combined and visual evidence before A1 can close. Portability and release acceptance remain separate open gates.
 
+## Current acceptance reconciliation — C039 candidate
+
+The policy is resolved; shared device authentication is intentional. A1 does not require separate CLI accounts per profile. The implementation must instead prove owned-key precedence, no cross-profile borrowing, and captured workspace ownership. The following is the current checklist; the older ledger below is retained for provenance rather than executable next steps.
+
+| A1 exit | Authoritative evidence to retain | Current decision |
+| --- | --- | --- |
+| Repeated adoption and intact backup | C008 combined native `41500dc`, repeated runtime adoption gallery; registry/adoption and rollback suites | Existing bounded journey proves repetition and original/backup retention. Recheck combined suite on final C039 source. |
+| Colliding slugs, media, search, Undo and reading position | C008 combined native `3ce6b21`, real two-profile journey and six reviewed frames | Existing actual-runtime evidence covers the data boundary. Authentication changes do not replace this proof. |
+| Profile keys versus shared device login | `provider-authentication.test.mjs`: actual API/CLI adapters, delayed capture and native worker transport; `provider-discovery.live.mjs`; login gallery | Final discovery/expired-session changes are uncommitted and not yet approved. Closure pending full suite and source-bound visual review. |
+| Caches | C008 combined native `41500dc`, profile cache fallback journey plus C025 corruption/publication checks | Existing native evidence covers A refusal, B fallback and selected-B restart; retain vendor fallback limitation. |
+| Chats, parents, drafts, favorites and background ownership | Profile/workspace repository suites; C008/C015 native goal and profile journeys; C033 context reservation checks | Combined regression rerun in progress. New recovery must retain auth metadata across reload and protect captured owners; explicit recovery never resends. |
+| Selected B restart and missing references | C008 combined native `41500dc`, folder-preflight and missing-reference galleries | Explicit refusal/no A substitution proven for enumerated cases. No universal filesystem accessibility or identity claim. |
+| Corrupt/interrupted registry/adoption | C008 combined native rollback, C023 atomic/lease/adoption checks | Retained prior authority proven for enumerated crash boundaries; malformed-owner/manual recovery limitations remain. |
+
+No A1 row is newly approved by this reconciliation. Before closing: freeze the final C039 implementation, finish the combined desktop run, review authentication persistence/goal outcomes, complete clean-source login and live/deterministic visual evidence, and pass root verification. The synthetic migration preparation is available in [its audited report](../migration/README.md); no P2 authority change has begun.
+
 ## Historical lane checkpoint
 
 This is a coordinator checkpoint, not stage approval. The original [A1 requirements](../ACCEPTANCE.md#a1--profile-ownership-and-isolation) remain unchanged. Combined production candidate `d20aa09` has new source and original lane evidence; `d8acb82` remains the last fully validated combined fallback. Lane passes do not transfer to a different combined source.

@@ -26,9 +26,10 @@ let providerLogin = null;
 function loginService() { return providerLogin ||= require('./provider-login').createProviderLogin({ storeDir: app.getPath('userData') }); }
 const assertProviderAuthentication = require('./provider-authentication').createProviderAuthentication({ checkLogin: provider => loginService().check(provider) });
 
-function deviceSignedIn(provider, fallback) { const status = providerLogin?.status(provider); return status?.state === 'signed-in' ? true : status?.state === 'signed-out' ? false : fallback(); }
+const providerDiscovery = require('./provider-discovery').createProviderDiscovery({ service: loginService });
+function deviceSignedIn(provider) { return providerDiscovery.available(provider); }
 function providerStatus() {
-  return { claude: { loggedIn: deviceSignedIn('claude', claudeProvider.loggedIn), effort: claudeProvider.defaultEffort(), model: claudeProvider.defaultModel() }, codex: { loggedIn: deviceSignedIn('codex', codexProvider.loggedIn), model: codexProvider.defaultModel(), effort: codexProvider.defaultEffort() }, api: { hasKey: Boolean(readSettings().apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY) } };
+  return { claude: { loggedIn: deviceSignedIn('claude'), effort: claudeProvider.defaultEffort(), model: claudeProvider.defaultModel() }, codex: { loggedIn: deviceSignedIn('codex'), model: codexProvider.defaultModel(), effort: codexProvider.defaultEffort() }, api: { hasKey: Boolean(readSettings().apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN) } };
 }
 function defaultProvider() {
   if (process.env.BARKDOWN_PROVIDER) return process.env.BARKDOWN_PROVIDER;
@@ -55,7 +56,7 @@ function decrypt(value) { if (!value) return ''; try { if (value.startsWith('enc
 function publicSettings() {
   const s = readSettings();
   if (profileConnection && s.barkpark.local?.enabled) s.barkpark.local = { ...s.barkpark.local, port: Number(new URL(profileConnection.server).port) };
-  return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY) && !s.apiKeyEncrypted, barkpark: { effectiveServer: s.barkpark.local?.enabled ? `http://127.0.0.1:${s.barkpark.local.port}` : s.barkpark.server, enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, local: s.barkpark.local || DEFAULT_SETTINGS.barkpark.local }, recentFolders: s.recentFolders, userData: store.dir() };
+  return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN) && !s.apiKeyEncrypted, barkpark: { effectiveServer: s.barkpark.local?.enabled ? `http://127.0.0.1:${s.barkpark.local.port}` : s.barkpark.server, enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, local: s.barkpark.local || DEFAULT_SETTINGS.barkpark.local }, recentFolders: s.recentFolders, userData: store.dir() };
 }
 // What the MCP server and the context note need to know about Barkpark, refreshed on every save.
 function localSecrets(source = store) {
@@ -208,7 +209,7 @@ function registerIpc() {
       await reconcileLocal();
     }, () => terminal.stopAll(owner.profileId));
   }, true);
-  handle('settings:get', () => publicSettings());
+  handle('settings:get', async () => { await providerDiscovery.initialize(); return publicSettings(); });
   handle('settings:set', async patch => {
     if (patch.apiKey || patch.barkpark?.token || patch.barkpark?.local?.enabled) await credentialDurability.prepare();
     const s = readSettings();

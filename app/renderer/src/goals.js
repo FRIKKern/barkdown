@@ -5,7 +5,7 @@ import { openProviderLogin } from './provider-login.js';
 const states = { planned:'Ready to start', active:'In progress', paused:'Paused', cancelled:'Cancelled', expired:'Time window ended', review:'Ready for review', completed:'Completed' };
 const tasks = { pending:'Waiting', running:'Running', interrupted:'Needs reconciliation', failed:'Failed', cancelled:'Stopped', review:'Result to review', completed:'Reviewed' };
 
-export function openGoalView({ owner, service, openChat, onSaved = () => {} }) {
+export function openGoalView({ owner, service, openChat, openAuthentication, onSaved = () => {} }) {
   const captured = Object.freeze({ ...owner }), previousFocus = document.activeElement;
   const node = el(`<section class="bw-sheet bw-goals" role="dialog" aria-modal="true" aria-label="Conversation goals"><header><div><h2>Conversation goals</h2><p>Bounded work, with each worker in a full side chat.</p></div><button data-close aria-label="Close goals">×</button></header><div class="bw-goal-error" role="alert" hidden></div><main data-content><p>Loading goals…</p></main><footer><span>Work continues while Barkdown is open and the computer is awake. Deadlines use the clock.</span><button data-refresh>Refresh</button></footer></section>`);
   let disposed = false, busy = false, revision = 0, goals = [], unsubscribe;
@@ -50,10 +50,10 @@ export function openGoalView({ owner, service, openChat, onSaved = () => {} }) {
       <details class="bw-goal-create" ${goals.length?'':'open'}><summary>New goal</summary><form data-create><label>Goal<textarea name="objective" rows="3" required placeholder="What should this conversation accomplish?"></textarea></label><label>Time window in minutes<input name="minutes" type="number" min="1" max="10080" value="60" required></label><label>Planning<select name="planning" aria-label="Planning"><option value="coordinated">Coordinator plans the work</option><option value="manual">I’ll assign three workers</option></select></label><p>The coordinator plans and reviews three full worker conversations using this conversation’s folder and model choices. Uncertain results pause for your review.</p><fieldset data-assignments hidden disabled>${[1,2,3].map(n=>`<label>Worker ${n} assignment<textarea name="worker${n}" rows="2" required></textarea></label>`).join('')}</fieldset><button class="primary" data-create-label>Plan and start</button></form></details>`;
     for (const goal of goals) for (const task of goal.tasks) {
       const provider = task.attempts.at(-1)?.result?.authProvider;
-      if (task.status !== 'failed' || !['claude','codex'].includes(provider)) continue;
+      if (task.status !== 'failed' || !['api','claude','codex'].includes(provider)) continue;
       const card = [...node.querySelectorAll('[data-task]')].find(item => item.dataset.task === task.id && item.closest('[data-goal]').dataset.goal === goal.id);
-      const help = el('<button type="button">Sign-in help</button>');
-      help.onclick = () => { close(); openProviderLogin(provider); };
+      const help = el(`<button type="button">${provider === 'api' ? 'Check API key' : 'Sign-in help'}</button>`);
+      help.onclick = () => { if (provider === 'api' && !openAuthentication) return error('Open Settings → Assistant to check the API key.'); close(); if (openAuthentication) openAuthentication(captured, provider); else openProviderLogin(provider); };
       card?.append(help);
     }
     node.querySelectorAll('[data-chat]').forEach(button=>button.onclick=()=>{ const id=button.dataset.chat; close(); openChat(captured,id); });
