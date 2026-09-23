@@ -15,7 +15,7 @@ This is the target for P1–P5, not a claim that profiles and sync already exist
 
 ## Implemented foundation
 
-There is currently one workspace store plus the opt-in `local-barkpark/default` runtime, not a profile registry. Paper references use existing identifiers that need a profile owner. Audit migration across every persisted reference, including tabs, favorites, links, side-chat parents, receipt targets, attachments and caches. Preserve a backup of the original format and keep adoption repeatable.
+The app now has a versioned profile registry, backed-up adoption of the legacy workspace, profile-qualified document and run ownership, and owned local runtimes. The original single-workspace store remains an adoption/rollback source. Combined native evidence covers profile switching, repeated adoption, recovery, caches and missing references; see [C008](cycles/C008-integration.md). Device provider authentication remains the next unresolved P1 boundary in [C039](cycles/C039-provider-authentication.md). These implemented foundations do not establish migration to one note engine or cross-machine portability.
 
 The Paper adapter loads the editor from the connected Barkpark, with cached/vendored fallback. Editor truth stays upstream. The legacy document store remains until P2 migration passes; its continued presence is deliberate compatibility, not the intended final architecture.
 

@@ -2,6 +2,10 @@
 
 ## Current checkpoint — 23 September
 
+The user authorized the main checkpoint in PR #30. Continue [C039 provider authentication](cycles/C039-provider-authentication.md) on codex/finish-profile-isolation. C038 is archived. The concrete next gap is device authentication policy across ordinary and goal-provider dispatch; do not restart finished editor polish or mark all of P1 done. Read the cycle for the pending preference and exact implementation/test map.
+
+## Previous C038 checkpoint
+
 C038 is complete: [callout refinement](cycles/C038-callout-polish.md) on `codex/paper-polish`. C037 is archived; its completed source/evidence was pushed through `6bd8fcf`. C038 source is `ae8024f`; 31 host checks, four real-server callout checks and root verification passed, with reviewed light/dark/narrow gallery and current live/deterministic evidence. Source and evidence were pushed through `1621d45`; keep main unchanged.
 
 ## Previous C037 checkpoint

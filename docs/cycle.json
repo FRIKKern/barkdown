@@ -1,27 +1,27 @@
 {
   "version": 1,
-  "id": "C038",
+  "id": "C039",
   "stage": "P1",
-  "status": "done",
-  "goal": "Refine real Paper callouts into elegant, readable tonal cards.",
+  "status": "active",
+  "goal": "Close the P1 provider authentication boundary with explicit profile ownership and acceptance evidence.",
   "scope": [
-    "Host CSS only; preserve editable titles, bodies, folding and all seven tones",
-    "Dedicated real-server light/dark/narrow callout evidence"
+    "Make device authentication distinct from profile-owned encrypted keys",
+    "Apply the same policy to main chats, side chats and goal workers",
+    "Preserve drafts, existing credentials and captured run ownership; no migration, sync or deployment"
   ],
   "acceptance": [
-    "Review all seven tones, titled and untitled callouts and folded content",
-    "Verify native body editing and server persistence",
-    "Fresh live and deterministic evidence and root verification"
+    "Per-profile device-authentication choice is durable and accurately shown",
+    "Disallowed provider launch is refused before SDK dispatch without losing the draft",
+    "Profile A permission or keys never authorize B; queued goals and background runs retain captured policy",
+    "Native restart, reviewed visual evidence, relevant provider/profile/goal suites and root verify pass"
   ],
   "checkpoint": "2026-09-23",
-  "handoff": "docs/cycles/C038-callout-polish.md",
-  "nextAction": "User review of refined callouts on codex/paper-polish; verified source/evidence pushed through 1621d45. No merge or deployment.",
+  "handoff": "docs/cycles/C039-provider-authentication.md",
+  "nextAction": "Settle the device-authentication choice, implement authoritative policy and refusal before dispatch, then prove ordinary and goal paths.",
   "evidence": [
-    "app/renderer/paper-notion.css",
-    "docs/cycles/C038-callout-polish.md",
-    "docs/visual/callouts/README.md",
-    "docs/images/status/review-C038.json"
+    "docs/cycles/C039-provider-authentication.md",
+    "docs/cycles/evidence/provider-credential-boundary.cjs"
   ],
-  "truthReview": "Build, 31 Paper host checks, four real-server callout checks and root npm run verify passed. Host CSS only; PLAN, architecture, design decisions and acceptance remain accurate; P1 remains incomplete.",
-  "screenshotReview": "Eight callout stills and six GIF frames inspected, including light/dark and 760px wrapping. Five fresh live status stills and all 37 GIF frames inspected. Deterministic 40 frames approved; unchanged geometry, 36 stills/eight GIFs identical to prior review and four differing stills inspected."
+  "truthReview": "Existing controlled API audit rerun on f00b489 reproduces device environment fallback in an empty profile; this is not cross-profile encrypted-key leakage. P1 remains open.",
+  "screenshotReview": "No app or capture source changed in the planning checkpoint. C038 reviewed evidence remains current; new policy UI will require fresh capture and review."
 }

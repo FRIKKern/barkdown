@@ -2,14 +2,88 @@
   "version": 1,
   "goal": "Create a local profile, write and edit with an agent, restart safely, move the profile to another machine and continue.",
   "stages": [
-    { "id": "P1", "title": "Profile ownership and isolation", "status": "todo", "dependsOn": [], "issues": [6], "acceptance": "A1", "evidence": [] },
-    { "id": "P2", "title": "Every note on Paper", "status": "todo", "dependsOn": ["P1"], "issues": [13], "acceptance": "A2", "evidence": [] },
-    { "id": "P3", "title": "Recovery and portable profiles", "status": "todo", "dependsOn": ["P2"], "issues": [6], "acceptance": "A3", "evidence": [] },
-    { "id": "P4", "title": "Optional two-way cloud sync", "status": "todo", "dependsOn": ["P3"], "issues": [7], "acceptance": "A4", "evidence": [] },
-    { "id": "P5", "title": "Ordinary installation and daily-use pilot", "status": "todo", "dependsOn": ["P3"], "issues": [], "acceptance": "A5", "evidence": [] }
+    {
+      "id": "P1",
+      "title": "Profile ownership and isolation",
+      "status": "active",
+      "dependsOn": [],
+      "issues": [
+        6
+      ],
+      "acceptance": "A1",
+      "evidence": [
+        "docs/cycles/C008-integration.md",
+        "docs/cycles/A1-current-evidence.md",
+        "docs/cycles/C039-provider-authentication.md"
+      ]
+    },
+    {
+      "id": "P2",
+      "title": "Every note on Paper",
+      "status": "todo",
+      "dependsOn": [
+        "P1"
+      ],
+      "issues": [
+        13
+      ],
+      "acceptance": "A2",
+      "evidence": []
+    },
+    {
+      "id": "P3",
+      "title": "Recovery and portable profiles",
+      "status": "todo",
+      "dependsOn": [
+        "P2"
+      ],
+      "issues": [
+        6
+      ],
+      "acceptance": "A3",
+      "evidence": []
+    },
+    {
+      "id": "P4",
+      "title": "Optional two-way cloud sync",
+      "status": "todo",
+      "dependsOn": [
+        "P3"
+      ],
+      "issues": [
+        7
+      ],
+      "acceptance": "A4",
+      "evidence": []
+    },
+    {
+      "id": "P5",
+      "title": "Ordinary installation and daily-use pilot",
+      "status": "todo",
+      "dependsOn": [
+        "P3"
+      ],
+      "issues": [],
+      "acceptance": "A5",
+      "evidence": []
+    }
   ],
   "gates": [
-    { "id": "G1", "title": "Land and pin the upstream editor baseline", "status": "blocked", "reason": "Checked 2026-09-22: PR #19579 remains OPEN/BLOCKED at a5440345c with failing checks; newer editor lanes are not merged.", "url": "https://github.com/FRIKKern/barkpark/pull/19579", "evidence": [] },
-    { "id": "G2", "title": "Enforce the matrix in both repositories", "status": "blocked", "reason": "Checked 2026-09-22: BARKDOWN_READ_TOKEN absent; parity run35636254280 reports success with actual parity steps skipped. Deliberate broken-Tab proof outstanding.", "url": "https://github.com/FRIKKern/barkdown/issues/4", "evidence": [] }
+    {
+      "id": "G1",
+      "title": "Land and pin the upstream editor baseline",
+      "status": "blocked",
+      "reason": "Checked 2026-09-23: upstream PR #19579 remains OPEN/BLOCKED at a5440345c; consumed editor baseline is bf23f773 with separate local integration proof.",
+      "url": "https://github.com/FRIKKern/barkpark/pull/19579",
+      "evidence": []
+    },
+    {
+      "id": "G2",
+      "title": "Enforce the matrix in both repositories",
+      "status": "blocked",
+      "reason": "Checked 2026-09-23: Barkpark repository secret listing contains no BARKDOWN_READ_TOKEN. Deliberate broken-Tab proof remains outstanding; a Barkdown-side parity run does not establish upstream enforcement.",
+      "url": "https://github.com/FRIKKern/barkdown/issues/4",
+      "evidence": []
+    }
   ]
 }
