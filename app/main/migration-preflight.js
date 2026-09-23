@@ -15,7 +15,7 @@ function inspectContent(content) {
   const issue = (at, reason) => issues.push({ path: at, reason });
   function walk(node, at, parentType) {
     if (!node || typeof node !== 'object' || Array.isArray(node)) { issue(at, 'Invalid node'); return; }
-    const known = ['doc', 'paragraph', 'text', 'hardBreak', 'heading', 'codeBlock', 'bulletList', 'orderedList', 'listItem', 'taskList', 'taskItem', 'table', 'tableRow', 'tableHeader', 'tableCell', 'horizontalRule'];
+    const known = ['doc', 'paragraph', 'text', 'hardBreak', 'heading', 'codeBlock', 'blockquote', 'bulletList', 'orderedList', 'listItem', 'taskList', 'taskItem', 'table', 'tableRow', 'tableHeader', 'tableCell', 'horizontalRule'];
     if (!known.includes(node.type)) issue(at, 'Unsupported block or inline type: ' + node.type);
     for (const key of Object.keys(node)) if (!['type', 'content', 'text', 'marks', 'attrs'].includes(key)) issue(at + '.' + key, 'Unknown structural field');
     if (node.text !== undefined && (node.type !== 'text' || typeof node.text !== 'string')) issue(at + '.text', 'Invalid text carrier');
@@ -55,7 +55,8 @@ function inspectContent(content) {
       }
     }
     if (node.content !== undefined && !Array.isArray(node.content)) issue(at, 'Invalid content array');
-    const children = { doc: ['paragraph', 'heading', 'codeBlock', 'bulletList', 'orderedList', 'taskList', 'table', 'horizontalRule'], paragraph: ['text', 'hardBreak'], heading: ['text', 'hardBreak'], codeBlock: ['text'], bulletList: ['listItem'], orderedList: ['listItem'], taskList: ['taskItem'], listItem: ['paragraph'], taskItem: ['paragraph'], table: ['tableRow'], tableRow: ['tableHeader', 'tableCell'], tableHeader: ['paragraph'], tableCell: ['paragraph'] }[node.type] || [];
+    if (node.type === 'blockquote' && Array.isArray(node.content) && node.content.some(p => Array.isArray(p?.content) && p.content.some(n => n?.type === 'hardBreak' || /[\r\n]/.test(n?.text || '')))) issue(at, 'Quote inline breaks lack native editing proof; retain the source');
+    const children = { doc: ['paragraph', 'heading', 'codeBlock', 'blockquote', 'bulletList', 'orderedList', 'taskList', 'table', 'horizontalRule'], paragraph: ['text', 'hardBreak'], heading: ['text', 'hardBreak'], codeBlock: ['text'], blockquote: ['paragraph'], bulletList: ['listItem'], orderedList: ['listItem'], taskList: ['taskItem'], listItem: ['paragraph', 'bulletList', 'orderedList', 'taskList'], taskItem: ['paragraph', 'bulletList', 'orderedList', 'taskList'], table: ['tableRow'], tableRow: ['tableHeader', 'tableCell'], tableHeader: ['paragraph'], tableCell: ['paragraph'] }[node.type] || [];
     for (const [i, child] of (Array.isArray(node.content) ? node.content : []).entries()) {
       if (!children.includes(child?.type)) issue(at + '.content[' + i + ']', 'Unsupported child structure');
       if (node.type === 'codeBlock' && (child?.marks?.length || child?.type !== 'text')) issue(at, 'Code inline structure is not preserved');

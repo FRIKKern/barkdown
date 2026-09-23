@@ -24,8 +24,30 @@ export const cases = [
   sample('paragraph-literal-break', paragraph(text('Literal first\nLiteral second',[{type:'bold'}])), {blocks:[{type:'paragraph',content:[{type:'strong',children:[pdText('Literal first\nLiteral second')]}]}]}, 'A literal LF inside one marked carrier exercises DOM normalization and exact saved Undo.'),
   sample('ordered-offset', {type:'orderedList',attrs:{start:7},content:[{type:'listItem',content:[paragraph(text('Seventh'))]}]}, {blocks:[{type:'list',ordered:true,items:[[pdText('Seventh')]]}],loss:['list-start']}, 'Current converter drops non-default ordered-list start.'),
   sample('checklist', {type:'taskList',content:[{type:'taskItem',attrs:{checked:true},content:[paragraph(text('Done'))]},{type:'taskItem',attrs:{checked:false},content:[paragraph(text('Remaining'))]}]}, {blocks:[{type:'list',ordered:false,task:true,items:[{content:[pdText('Done')],checked:true},{content:[pdText('Remaining')],checked:false}]}]}, 'Task state is retained.'),
-  sample('nested-list', {type:'bulletList',content:[{type:'listItem',content:[paragraph(text('Parent')),{type:'bulletList',content:[{type:'listItem',content:[paragraph(text('Child'))]}]}]}]}, {error:'nested or multi-paragraph list item'}, 'Must fail as a whole, without publishing the valid prefix.'),
-  sample('quotation', {type:'blockquote',content:[paragraph(text('Quoted words'))]}, {blocks:[{type:'callout',tone:'note',content:[pdText('Quoted words')]}],loss:['quote-block-kind']}, 'The convenience converter changes a quote into a note callout. Migration needs a genuine blockquote mapping.'),
+  sample('nested-list', {type:'bulletList',content:[{type:'listItem',content:[paragraph(text('Parent')),{type:'bulletList',content:[{type:'listItem',content:[paragraph(text('Child'))]}]}]}]}, {blocks:[{type:'list',ordered:false,items:[{content:[pdText('Parent')],children:[{type:'list',ordered:false,items:[[pdText('Child')]]}]}]}]}, 'Parent and child retain their native list hierarchy.'),
+  sample('quotation', {type:'blockquote',content:[paragraph(text('Quoted words'))]}, {blocks:[{type:'blockquote',content:[pdText('Quoted words')]}]}, 'Genuine quote identity uses the native blockquote carrier.'),
+  sample('nested-mixed-task', {
+    type:'orderedList', attrs:{start:1}, content:[
+      {type:'listItem',content:[paragraph(text('Mixed parent',[{type:'bold'}])),
+        {type:'taskList',content:[{type:'taskItem',attrs:{checked:true},content:[
+          paragraph(text('Checked child')),
+          {type:'bulletList',content:[{type:'listItem',content:[paragraph(text('Deep leaf'))]}]}
+        ]}]}
+      ]},
+      {type:'listItem',content:[paragraph(text('Ordered sibling'))]}
+    ]
+  }, {blocks:[{type:'list',ordered:true,items:[
+    {content:[{type:'strong',children:[pdText('Mixed parent')]}],children:[
+      {type:'list',ordered:false,task:true,items:[{content:[pdText('Checked child')],checked:true,children:[
+        {type:'list',ordered:false,items:[[pdText('Deep leaf')]]}
+      ]}]}
+    ]},
+    [pdText('Ordered sibling')]
+  ]}]}, 'Three levels preserve rich parent, mixed markers, task checked state and plain sibling.'),
+  sample('list-break', {type:'bulletList',content:[{type:'listItem',content:[paragraph(text('List first'),{type:'hardBreak'},text('List second'))]}]}, {blocks:[{type:'list',ordered:false,items:[[pdText('List first'),pdText('\n'),pdText('List second')]]}]}, 'Native list inline break and exact carriers need browser save/Undo proof.'),
+  sample('quotation-rich', {type:'blockquote',content:[paragraph(text('Rich quotation',[{type:'bold'},{type:'italic'}]))]}, {blocks:[{type:'blockquote',content:[{type:'strong',children:[{type:'em',children:[pdText('Rich quotation')]}]}]}]}, 'Quote body retains nested marks without becoming a callout.'),
+  sample('list-multi-paragraph', {type:'bulletList',content:[{type:'listItem',content:[paragraph(text('First item paragraph')),paragraph(text('Second item paragraph'))]}]}, {error:'multi-paragraph'}, 'Unsupported item paragraphs refuse the entire document.'),
+  sample('quote-multi-paragraph', {type:'blockquote',content:[paragraph(text('First quote paragraph')),paragraph(text('Second quote paragraph'))]}, {error:'multi-paragraph'}, 'Separate quote paragraphs cannot be silently flattened into one inline carrier.'),
   sample('code-language', {type:'codeBlock',attrs:{language:'js'},content:[text('const value = 1;\n')]}, {blocks:[{type:'code',lang:'js',value:'const value = 1;\n'}]}, 'Paper uses lang; C046 found and corrected the old language carrier. Trailing newline remains intact.'),
   sample('table-header-align', {type:'table',content:[row(cell('Label',true),cell('Value',true,{align:'right'})),row(cell('A'),cell('1',false,{align:'right'}))]}, {blocks:[{type:'table',head:[[pdText('Label')],{content:[pdText('Value')],align:'right'}],rows:[[[pdText('A')],{content:[pdText('1')],align:'right'}]]}]}, 'Header and per-cell alignment are explicit structured data.'),
   sample('table-span', {type:'table',content:[row(cell('Merged',false,{colspan:2}))]}, {error:'unsupported table cell'}, 'Merged spans cannot pass through the existing converter.'),

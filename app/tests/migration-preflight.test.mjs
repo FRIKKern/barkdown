@@ -77,6 +77,33 @@ test('heading marks and top-level alignment retain structure while unmapped alig
   assert.ok(inspectContent(foreign).some(issue => /Unmapped attribute/.test(issue.reason)));
   assert.ok(inspectContent(cases.find(sample => sample.id === 'heading-formatted').source).some(issue => /Internal link/.test(issue.reason)));
 });
+test('nested lists and genuine quotes prepare exact backups while unmapped structures refuse', () => {
+  for (const id of ['nested-list','nested-mixed-task','list-break','quotation','quotation-rich']) {
+    const f=fixture(), file=path.join(f.sourceDir,'documents/note.json');
+    const value=JSON.parse(fs.readFileSync(file)); value.content=cases.find(c=>c.id===id).source;
+    fs.writeFileSync(file,JSON.stringify(value)); const original=fs.readFileSync(file);
+    assert.equal(prepareMigration(f).status,'prepared',id);
+    assert.deepEqual(fs.readFileSync(file),original);
+    assert.deepEqual(fs.readFileSync(path.join(f.destinationDir,'source/documents/note.json')),original);
+  }
+  const quote=cases.find(c=>c.id==='quotation').source;
+  for (const modify of [
+    d=>d.content[0].content.push(structuredClone(d.content[0].content[0])),
+    d=>d.content[0].content[0].content.push({type:'hardBreak'}),
+    d=>d.content[0].content[0].content[0].text+='\nsecond',
+    d=>d.content[0].content[0].attrs={textAlign:'center'},
+    d=>d.content[0].attrs={cite:'Unmapped source attribution'},
+    d=>d.content[0].content='Malformed quote',
+  ]) { const d=structuredClone(quote);modify(d);assert.ok(inspectContent(d).length); }
+  const nested=cases.find(c=>c.id==='nested-list').source;
+  for (const modify of [
+    d=>d.content[0].content[0].content.reverse(),
+    d=>d.content[0].content[0].content.push({type:'paragraph',content:[]}),
+    d=>d.content[0].content[0].content[1]={type:'orderedList',attrs:{start:7},content:[{type:'listItem',content:[{type:'paragraph',content:[]}]}]},
+    d=>d.content[0].content[0].attrs={unmapped:'Keep me'},
+    d=>d.content[0].content[0].content[1].content[0].content[0].attrs={textAlign:'right'},
+  ]) { const d=structuredClone(nested);modify(d);assert.ok(inspectContent(d).length); }
+});
 test('exact backup preserves organization, proposals, history, binary media and receipts; excludes credentials', () => {
   const f = fixture(), before = inventoryProfile(f);
   const result = prepareMigration(f);

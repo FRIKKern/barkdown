@@ -16,7 +16,7 @@ assert(inline.some(n => n.type === 'code' && n.value === 'code'), 'code leaf');
 assert(inline.some(n => n.type === 'link' && n.href === 'https://x.y' && n.children[0].value === 'a link'), 'link wrapper');
 assert(blocks[2].type === 'list' && blocks[2].ordered === false && blocks[2].items.length === 2 && blocks[2].items[1][1].type === 'strong', 'bullet list with nested strong');
 assert(blocks[3].type === 'list' && blocks[3].ordered === true, 'ordered list');
-assert(blocks[4].type === 'callout', 'quote -> callout');
+assert(blocks[4].type === 'blockquote', 'quote retains native blockquote identity');
 assert(blocks[5].type === 'code' && blocks[5].value === 'run();', 'code block');
 assert(blocks[6].type === 'divider', 'divider');
 
@@ -42,7 +42,7 @@ const fromHtml = pd.htmlToBlocks(html);
 assert(fromHtml[0].type === 'heading' && fromHtml[0].text === 'Head', 'html heading');
 assert(fromHtml[1].type === 'paragraph' && pd.pdInlineToText(fromHtml[1].content) === 'Para with bold & more', 'html paragraph: ' + pd.pdInlineToText(fromHtml[1].content));
 assert(fromHtml[2].type === 'list' && fromHtml[2].items.length === 2, 'html list');
-assert(fromHtml[3].type === 'callout', 'html quote');
+assert(fromHtml[3].type === 'blockquote', 'html quote');
 console.log('PortableDoc checks passed.');
 
 const strict = require('node:assert/strict');
@@ -57,7 +57,7 @@ for (const bad of [
  {type:'unknown',content:[{type:'text',text:'must survive'}]},
  {type:'paragraph',content:[{type:'image',attrs:{src:'private-image'}}]},
  {type:'paragraph',content:[{type:'text',text:'marked',marks:[{type:'unknown'}]}]},
- {type:'bulletList',content:[{type:'listItem',content:[{type:'paragraph',content:[{type:'text',text:'parent'}]},{type:'bulletList',content:[]}]}]},
+ {type:'bulletList',content:[{type:'listItem',content:[{type:'paragraph',content:[{type:'text',text:'parent'}]},{type:'paragraph',content:[]}]}]},
  {type:'blockquote',content:[{type:'table',content:[]}]},
  {type:'table',content:[{type:'tableRow',content:[{type:'tableCell',content:[{type:'unknown'}]}]}]},
 ]) strict.throws(()=>pd.pmDocToBlocks({type:'doc',content:[{type:'paragraph',content:[{type:'text',text:'valid sibling'}]},bad]}),/Cannot convert/,'mixed unsupported nested content must fail before yielding partial blocks');
@@ -113,3 +113,11 @@ assert(pd.blocksToMarkdown([{type:'code',lang:'js',value:'run();'}]) === '```js\
 assert(pd.blocksToMarkdown([{type:'code',language:'js',value:'run();'}]) === '```js\nrun();\n```', 'legacy language remains readable');
 assert(pd.blocksToMarkdown([{type:'code',lang:'',language:'old',value:'run();'}]) === '```\nrun();\n```', 'explicit native empty language takes precedence');
 console.log('Native Paper code language, empty language, trailing newline and legacy export compatibility passed.');
+
+const nested = pd.pmDocToBlocks({type:'doc',content:[{type:'bulletList',content:[{type:'listItem',content:[{type:'paragraph',content:[{type:'text',text:'Parent'}]},{type:'orderedList',content:[{type:'listItem',content:[{type:'paragraph',content:[{type:'text',text:'Child'}]}]}]}]}]}]});
+strict.equal(nested[0].items[0].children[0].ordered,true);
+strict.ok(pd.blocksToText(nested).includes('Child'));
+strict.throws(()=>pd.blocksToMarkdown(nested),/cannot preserve nested lists/);
+strict.equal(bp.markdownView(nested).markdown,null);
+strict.deepEqual(pd.markdownToBlocks(pd.blocksToMarkdown([{type:'blockquote',content:[{type:'strong',children:[{type:'text',value:'Keep quote'}]}]}])),[{type:'blockquote',content:[{type:'strong',children:[{type:'text',value:'Keep quote'}]}]}]);
+console.log('Native quote identity and nested structured fallback preserve child content.');

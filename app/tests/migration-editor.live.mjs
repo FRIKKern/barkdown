@@ -18,7 +18,7 @@ const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-migrated-edito
 const profileId = crypto.randomUUID(), sourceDir = path.join(temporary, profileId), destinationDir = path.join(temporary, 'backup'), userData = path.join(temporary, 'electron');
 fs.mkdirSync(path.join(sourceDir, 'documents'), { recursive: true });
 const safe = cases.filter(sample => inspectContent(sample.source).length === 0);
-assert.equal(safe.length, 16);
+assert.equal(safe.length, 21);
 const source = { id: 'corpus', title: 'Migrated notes remain editable and recoverable in Paper', rev: 4, content: { type: 'doc', content: safe.flatMap(sample => sample.source.content) }, revisions: [{ rev: 1, title: 'Retained original history' }], proposals: [{ id: 'retained-proposal' }] };
 const sourceBytes = JSON.stringify(source, null, 2) + '\n';
 fs.writeFileSync(path.join(sourceDir, 'documents/corpus.json'), sourceBytes);
@@ -30,7 +30,7 @@ async function request(method, route, body) {
 }
 const tag = 'migrated-editor-proof';
 assert.equal((await request('POST', '/v1/data/mutate/production', { mutations: [{ create: { _id: tag, _type: 'tag', title: 'Migrated editor proof' } }, { publish: { id: tag, type: 'tag' } }] })).status, 200);
-const options = { profileId, sourceDir, destinationDir, quiesced: true, metadata: { corpus: { description: 'Disposable ten-case migrated corpus proves actual Paper editing, exact saved Undo and reopen without source authority changes', tags: [{ tag, strength: 95, rationale: 'Registered private migrated editor rehearsal category' }] } } };
+const options = { profileId, sourceDir, destinationDir, quiesced: true, metadata: { corpus: { description: 'Disposable migrated corpus proves actual Paper editing, exact saved Undo and reopen without source authority changes', tags: [{ tag, strength: 95, rationale: 'Registered private migrated editor rehearsal category' }] } } };
 const target = { profileId, runtimeId: 'private-editor-' + profileId, server, dataset: 'production', token, assertOwned: binding => binding.profileId === profileId && binding.server === server };
 const staged = await stageMigration(options, target), id = staged.documents[0].targetId;
 const read = async () => { const r = await request('GET', `/v1/data/doc/production/paper/${id}?perspective=published`); assert.equal(r.status, 200); return r.data.result || r.data; };
@@ -99,6 +99,16 @@ async function presentation() {
     { text: 'Right paragraph', tag: 'P', align: 'right' },
     { text: 'Right heading', tag: 'H3', align: 'right' },
   ], richHeading: { tag: 'H1', link: 'https://example.invalid/heading', boldItalic: true } });
+  const nested = await canvas().evaluate(c => {
+    const dom = c._editor.view.dom;
+    const leaf = [...dom.querySelectorAll('p')].find(p => p.textContent === 'Deep leaf');
+    const parents = []; for (let el = leaf?.parentElement; el && el !== dom; el = el.parentElement) {
+      if (['UL','OL'].includes(el.tagName)) parents.push(el.tagName);
+    }
+    const quote = [...dom.querySelectorAll('[data-bp-type="blockquote"]')].find(q => q.textContent === 'Rich quotation');
+    return { parents, quote: !!quote, richQuote: !!quote?.querySelector('strong em,em strong') };
+  });
+  assert.deepEqual(nested, { parents: ['UL','UL','OL'], quote: true, richQuote: true }, 'nested marker hierarchy and genuine rich quote remain rendered');
   return shown;
 }
 try {
@@ -141,6 +151,40 @@ try {
     await page.keyboard.press('Control+z'); const undone = await saved(edited.rev);
     assert.deepEqual(undone.blocks, expected, sample.id + ': Undo restores exact staged structure');
     results.push({ case: sample.id, beforeRev: revision, editedRev: edited.rev, undoneRev: undone.rev }); revision = undone.rev;
+    if (sample.id === 'nested-mixed-task') {
+      await canvas().evaluate(c => {
+        const e=c._editor; let at;
+        e.state.doc.descendants((n,pos)=>{if(n.isText && n.text === 'Deep leaf') at=pos+1;});
+        if(at === undefined) throw Error('Missing deepest nested list body');
+        e.view.focus(); e.commands.setTextSelection(at);
+      });
+      await page.keyboard.type('X'); const nestedEdit=await saved(revision);
+      const changed=structuredClone(expected); changed[index]=changeFirstText(block,'Deep leaf');
+      assert.deepEqual(nestedEdit.blocks,changed,'deep child edit preserves sibling order, parent marks and checked state');
+      await shot('edit-deep-list-child');
+      await page.keyboard.press('Control+z'); const restored=await saved(nestedEdit.rev);
+      assert.deepEqual(restored.blocks,expected,'deep child Undo restores exact nested source');
+      Object.assign(results.at(-1),{nestedEditedRev:nestedEdit.rev,nestedUndoneRev:restored.rev}); revision=restored.rev;
+    }
+    if (sample.id === 'list-break') {
+      await canvas().evaluate(c => {
+        const e=c._editor; let at;
+        e.state.doc.descendants((n,pos)=>{if(n.isText && n.text === 'List first') at=pos+n.text.length;});
+        if(at === undefined) throw Error('Missing list break insertion point');
+        e.view.focus(); e.commands.setTextSelection(at);
+      });
+      await page.keyboard.press('Shift+Enter'); const inserted=await saved(revision);
+      const item=inserted.blocks[index].items[0];
+      assert.ok(Array.isArray(item),'list break retains inline-array item carrier');
+      assert.deepEqual(inlineRuns(item),[{marks:'[]',text:'List first\n\nList second'}]);
+      assert.deepEqual({...inserted.blocks[index],items:[]},{...block,items:[]});
+      assert.equal(inserted.blocks[index].items.length,1);
+      assert.deepEqual(inserted.blocks.filter((_,i)=>i!==index),expected.filter((_,i)=>i!==index));
+      await shot('native-list-break-inserted');
+      await page.keyboard.press('Control+z'); const restored=await saved(inserted.rev);
+      assert.deepEqual(restored.blocks,expected,'native list break Undo restores exact source carriers');
+      Object.assign(results.at(-1),{breakInsertedRev:inserted.rev,breakUndoneRev:restored.rev}); revision=restored.rev;
+    }
     if (sample.id === 'heading-rich-external') {
       await canvas().evaluate((c, text) => {
         const e = c._editor; let at;
