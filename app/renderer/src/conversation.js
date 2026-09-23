@@ -2,6 +2,8 @@
 import { el, esc, iconHtml, inlineMarkdownHtml, relativeTime, toast } from './ui.js';
 import { state, touch, save, serialise, chatTitleFrom } from './state.js';
 import { lineDiff, summariseChanges, changeHeadline } from '../../shared/changes.js';
+import { isSubmitting, beginSubmission, acceptSubmission, endSubmission } from './submission-state.js';
+export { isSubmitting, markDraftChanged } from './submission-state.js';
 
 export const PROVIDER_LABEL = { claude: 'Claude Code', codex: 'Codex', api: 'Claude API key' };
 export function providerFor(chat) { return chat.provider || state.settings?.provider || 'api'; }
@@ -21,11 +23,11 @@ export function transcriptHtml(chat, options = {}) {
     const steps = (m.tools || []).map((t, n) => stepHtml(t, index, n)).join('');
     const events = (m.events || []).map((e, n) => `<button class="bw-event" data-event="${index}:${n}">${iconHtml(TARGET_ICON[e.target?.kind] || 'sparkles')}<span>${esc(e.label)}<small>${esc(e.detail || '')}</small></span></button>`).join('');
     const approvals = (m.approvals || []).filter(a => a.status === 'pending').map(a => `<div class="bw-approval" data-approval="${esc(a.approvalId)}"><strong>${a.request.kind === 'command' ? 'Allow running a command?' : a.request.outside ? `Allow ${esc(a.request.tool)} outside the working folder: ${esc(a.request.path)}?` : `Allow writing ${esc(a.request.path || a.request.tool)}?`}</strong><span class="bw-muted">${esc(a.request.summary || '')}</span><pre>${esc(String(a.request.command || a.request.contents || '').slice(0, 4000))}</pre><div class="row"><button class="primary" data-approve="1">Allow</button><button data-approve="0">Decline</button></div></div>`).join('');
-    const error = m.error ? `<p class="bw-error-line">${esc(m.error)}</p>` : '';
+    const error = m.error ? `<p class="bw-error-line">${esc(m.error)}</p>${m.diagnostic ? `<details class="bw-muted"><summary>Technical details</summary><p style="overflow-wrap:anywhere">${esc(m.diagnostic)}</p></details>` : ''}` : '';
     const notes = (m.notes || []).map(n => `<p class="bw-error-line">${esc(n)}</p>`).join('');
     const changes = m.streaming ? '' : changeCardHtml(m, index);
     return `<div class="bw-byline"><span class="bw-avatar bw-agent">b</span>Barkdown<time>${esc(relativeTime(m.at))}</time></div>${timelineHtml(m, index, steps)}${events}${approvals}${changes}${notes}${error}${replyFootHtml(m, chat)}`;
-  }).join('') + (options.footer || '');
+  }).join('') + (chat.interruption ? `<div class="bw-approval" data-recovery="${esc(chat.interruption.attemptId)}"><strong>This turn was interrupted</strong><p>The partial response is saved. Nothing was resent. Check that the previous process stopped, then review any file or document changes before starting a new turn.</p>${chat.interruption.shutdownVerified ? '<p>Previous process stopped.</p><label>What did you review?<textarea data-recovery-note placeholder="Describe any changes you checked"></textarea></label><button data-recover="review">Allow a new turn</button>' : '<button data-recover="verify">Check stopped process</button>'}</div>` : '') + (options.footer || '');
 }
 
 // The reply as it happened: thinking, steps and text in order. Replies saved before the timeline existed
@@ -105,7 +107,7 @@ function stepHtml(t, mi, n) {
     case 'NotebookEdit': body = `<div class="bw-kv"><b>notebook</b> ${esc(input.notebook_path || '')}</div>${diffHtml(String(input.new_source || '').split('\n').map(text => ({ kind: 'add', text })))}`; break;
     // Barkdown's own tools: show the page or proposal as it will read, not as JSON.
     case 'create_document': body = `<div class="bw-kv"><b>page</b> ${esc(input.title || '')}</div><div class="bw-doc-preview">${inlineMarkdownHtml(String(input.markdown || ''))}</div>${t.output ? `<pre class="bw-out">${esc(clipOut(t.output))}</pre>` : ''}`; break;
-    case 'edit_document': case 'propose_document_edit': body = `${kv({ document: input.id, mode: input.mode, block: input.blockIndex, summary: input.summary })}<div class="bw-doc-preview">${inlineMarkdownHtml(String(input.markdown || ''))}</div>${t.output ? `<pre class="bw-out">${esc(clipOut(t.output))}</pre>` : ''}`; break;
+    case 'edit_table': case 'edit_document': case 'propose_document_edit': body = `${kv({ document: input.id, mode: input.mode, block: input.blockId || input.blockIndex, cells: input.cells?.length, summary: input.summary })}<div class="bw-doc-preview">${inlineMarkdownHtml(String(input.markdown || ''))}</div>${t.output ? `<pre class="bw-out">${esc(clipOut(t.output))}</pre>` : ''}`; break;
     default: body = kv(input) + (t.output != null || t.preview ? `<pre class="bw-out">${esc(clipOut(t.output ?? t.preview))}</pre>` : '');
   }
   return `<details class="bw-step ${state}" data-step="${mi}:${n}" open><summary>${iconHtml(icon, 12)}<span>${esc(t.done ? describeTool(t) : runningLabel(t))}</span>${state === 'running' ? '<i class="bw-pulse"></i>' : ''}${iconHtml('chevron-down', 12)}</summary><div class="bw-step-body">${body}</div></details>`;
@@ -125,7 +127,7 @@ export function runningLabel(t) {
   const input = t.input || {};
   switch (t.tool) {
     case 'create_document': return `Creating page “${input.title || ''}”…`;
-    case 'edit_document': case 'propose_document_edit': return `Editing ${input.id || 'a document'}…`;
+    case 'edit_table': case 'edit_document': case 'propose_document_edit': return `Editing ${input.id || 'a document'}…`;
     case 'read_document': return `Reading ${input.id || 'a document'}…`;
     case 'search_documents': return `Searching documents for “${input.query || ''}”…`;
     case 'list_documents': return 'Listing documents…';
@@ -160,7 +162,7 @@ function describeTool(t) {
     case 'read_document': return `Read document ${input.id}`;
     case 'search_documents': return `Searched documents for “${input.query}”`;
     case 'list_documents': return 'Listed documents';
-    case 'edit_document': case 'propose_document_edit': return `${t.ok === false ? 'Could not edit' : 'Edited'} ${input.id}`;
+    case 'edit_table': case 'edit_document': case 'propose_document_edit': return `${t.ok === false ? 'Could not edit' : 'Edited'} ${input.id}`;
     case 'create_document': return `${t.ok === false ? 'Could not create page' : 'Created page'} “${input.title}”`;
     case 'open_website': return `Opened ${input.url}`;
     case 'list_files': return `Listed files${input.dir ? ' in ' + input.dir : ''}`;
@@ -176,7 +178,7 @@ export function apiMessagesFor(chat) {
   // Prefer the exact history returned by the last run (it includes tool calls); append messages sent since.
   const history = chat.apiHistory?.length ? [...chat.apiHistory] : [];
   const seen = history.length;
-  const userMessages = chat.messages.filter(m => m.role === 'user');
+  const userMessages = chat.messages.filter(m => m.role === 'user' && !m.notDispatched);
   if (!history.length) return userMessagesToApi(chat.messages);
   const last = userMessages.at(-1);
   if (last && !last.sentInHistory) history.push({ role: 'user', content: last.text || 'See the attached image.' });
@@ -186,6 +188,7 @@ export function apiMessagesFor(chat) {
 function userMessagesToApi(messages) {
   const out = [];
   for (const m of messages) {
+    if (m.notDispatched) continue;
     if (m.role === 'user') out.push({ role: 'user', content: m.text || 'See the attached image.' });
     else if (m.text) out.push({ role: 'assistant', content: m.text });
   }
@@ -195,38 +198,68 @@ function userMessagesToApi(messages) {
 
 export async function sendMessage(chat, text, hooks, images = []) {
   const clean = text.trim();
+  if (chat.interruption) { toast('Review the interrupted turn before sending a new message.', 'error'); return false; }
   const attached = (images || []).map(i => ({ id: i.id, path: i.path, url: i.url, name: i.name, mime: i.mime }));
-  if ((!clean && !attached.length) || chat.runId) return false;
+  if ((!clean && !attached.length) || chat.runId || isSubmitting(chat)) return false;
+  const intent = beginSubmission(chat);
+  let definitelyNotStarted = false;
+  if (state.profileId) intent.attemptId = crypto.randomUUID();
   const now = new Date().toISOString();
-  chat.messages.push({ role: 'user', text: clean, at: now, images: attached });
+  const user = { role: 'user', text: clean, at: now, images: attached };
+  chat.messages.push(user);
   if (chat.messages.filter(m => m.role === 'user').length === 1 && (chat.title === 'New chat' || chat.title === 'Side chat' || chat.title === 'Shaping Barkdown' && !chat.side)) chat.title = chatTitleFrom(clean || (attached.length > 1 ? `${attached.length} images` : attached[0].name || 'Image'));
-  chat.messages.push({ role: 'assistant', text: '', at: now, streaming: true, tools: [], events: [], approvals: [] });
+  const reply = { role: 'assistant', text: '', at: now, streaming: true, tools: [], events: [], approvals: [] };
+  if (intent.attemptId) {
+    Object.assign(user, { id: `user-${intent.attemptId}`, attemptId: intent.attemptId });
+    Object.assign(reply, { id: `assistant-${intent.attemptId}`, attemptId: intent.attemptId });
+  }
+  intent.user = user; intent.reply = reply;
+  chat.messages.push(reply);
   chat.following = true;
   chat.closedTargets = [];
   touch(chat);
   hooks.render();
   try {
     // The run reads the other conversations from workspace.json; write it now rather than after the debounce.
-    try { await api.state.save(serialise()); } catch {}
+    try { await api.state.save(serialise()); } catch (error) { if (state.profileId) throw error; }
     const messages = apiMessagesFor(chat);
     const provider = providerFor(chat);
     chat.sessions = chat.sessions || {};
     // Turns this provider's session has not seen: everything, for a fresh session; what happened while
     // another provider answered, for a resumed one. The new question and the empty reply are excluded.
     const seen = chat.sessions[provider] ? (chat.sessionSeen?.[provider] || 0) : 0;
-    const catchUp = chat.messages.slice(seen, -2).filter(m => m.text).map(m => ({ role: m.role, text: m.text, provider: m.role === 'assistant' ? (PROVIDER_LABEL[m.provider] || m.provider || undefined) : undefined }));
-    const { runId } = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title, catchUp }, provider, chat.sessions[provider] || null, clean, attached, { model: chat.model || undefined, effort: chat.effort || undefined });
+    const catchUp = chat.messages.slice(seen, -2).filter(m => m.text && !m.notDispatched).map(m => ({ role: m.role, text: m.text, provider: m.role === 'assistant' ? (PROVIDER_LABEL[m.provider] || m.provider || undefined) : undefined }));
+    const started = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title, catchUp }, provider, chat.sessions[provider] || null, clean, attached, { model: chat.model || undefined, effort: chat.effort || undefined, attemptId: intent.attemptId });
+    if (started?.accepted === false) {
+      definitelyNotStarted = started.notStarted === true && started.error?.code === 'BARKDOWN_SEND_NOT_STARTED';
+      throw Object.assign(new Error(started.error?.message || 'Turn was not accepted'), { diagnostic: started.error?.diagnostic });
+    }
+    const { runId, assistantId, attemptId } = started;
+    // Validation/reservation has acknowledged this intent. Never clear newer
+    // input (including editing away and back to the same text) or attachments.
+    acceptSubmission(chat, intent);
+    if (assistantId) { reply.id = assistantId; reply.attemptId = attemptId; user.id = `user-${attemptId}`; }
+    const acceptedReply = assistantId ? chat.messages.find(message => message.id === assistantId) || reply : reply;
     chat.runProvider = provider;
-    chat.runId = runId;
+    chat.runId = state.profileId && (acceptedReply.driverFinished || chat.interruption) ? null : runId;
     hooks.runChanged(chat);
+    return true;
   } catch (error) {
-    const reply = chat.messages.at(-1);
-    reply.streaming = false;
-    reply.error = error.message;
+    const failedReply = reply.id ? chat.messages.find(message => message.id === reply.id) || reply : reply;
+    // Only a positive main-process pre-dispatch refusal permits excluding this
+    // visible failed pair from legacy retry history. Unknown/accepted failures
+    // remain history; never infer no side effects from a missing acknowledgement.
+    if (!state.profileId && definitelyNotStarted) { user.notDispatched = true; failedReply.notDispatched = true; }
+    failedReply.streaming = false;
+    failedReply.error = error.message;
+    if (error.diagnostic) failedReply.diagnostic = error.diagnostic;
+    hooks.render();
+    return false;
+  } finally {
+    endSubmission(chat, intent);
+    save();
     hooks.render();
   }
-  save();
-  return true;
 }
 
 // Timeline bookkeeping: the open part of a kind, or a fresh one once the previous was closed.
@@ -241,10 +274,27 @@ function part(reply, kind) {
 function closePart(reply) { const last = reply.parts?.at(-1); if (last && last.kind !== 'tool') last.closed = true; }
 
 export function handleAgentEvent(event, hooks) {
+  if (state.profileId && event.profileId !== state.profileId) return;
   const chat = state.chats[event.chatId];
   if (!chat) return;
-  const reply = [...chat.messages].reverse().find(m => m.role === 'assistant');
+  let reply = event.assistantId ? chat.messages.find(m => m.id === event.assistantId) : [...chat.messages].reverse().find(m => m.role === 'assistant');
+  if (!reply && event.assistantId) {
+    const pending = chat.messages.at(-1);
+    if (pending?.role === 'assistant' && pending.streaming && !pending.id) { pending.id = event.assistantId; pending.attemptId = event.attemptId; reply = pending; }
+  }
   if (!reply) return;
+  if (state.profileId && event.type === 'driver_state') {
+    if (reply.runId && reply.runId !== event.runId) return;
+    reply.driverFinished = event.driverFinished;
+    chat.interruption = event.interruption;
+    chat.runId = event.driverFinished || event.interruption ? null : event.runId;
+    chat.workingLabel = ''; reply.streaming = false;
+    hooks.render(chat); hooks.runChanged(chat); save(); return;
+  }
+  if (state.profileId && event.sequence) {
+    if (reply.runId && reply.runId !== event.runId || event.sequence <= (reply.lastSequence || 0)) return;
+    reply.runId = event.runId; reply.lastSequence = event.sequence;
+  }
   switch (event.type) {
     case 'text_delta': reply.text = (reply.text || '') + event.text; part(reply, 'text').text += event.text; hooks.renderDelta(chat); break;
     case 'text_replace': { const p = part(reply, 'text'); reply.text = (reply.text || '').slice(0, reply.text.length - p.text.length) + event.text; p.text = event.text; hooks.renderDelta(chat); break; }
@@ -273,7 +323,7 @@ export function handleAgentEvent(event, hooks) {
       break;
     }
     case 'approval': reply.approvals.push({ approvalId: event.approvalId, runId: event.runId, request: event.request, status: 'pending' }); hooks.render(chat); hooks.attention(chat); break;
-    case 'error': reply.streaming = false; reply.error = event.message; chat.runId = null; chat.workingLabel = ''; hooks.render(chat); hooks.runChanged(chat); break;
+    case 'error': reply.streaming = false; reply.error = event.message; chat.runId = state.profileId ? event.runId : null; chat.workingLabel = ''; hooks.render(chat); hooks.runChanged(chat); break;
     case 'done':
       reply.streaming = false;
       if (event.history) { chat.apiHistory = event.history; chat.messages.filter(m => m.role === 'user').forEach(m => { m.sentInHistory = true; }); }
@@ -281,7 +331,7 @@ export function handleAgentEvent(event, hooks) {
       if (event.session && event.provider) { chat.sessions = chat.sessions || {}; chat.sessions[event.provider] = event.session; chat.sessionSeen = chat.sessionSeen || {}; chat.sessionSeen[event.provider] = chat.messages.length; }
       reply.provider = event.provider;
       reply.finishedAt = new Date().toISOString();
-      chat.runId = null;
+      chat.runId = state.profileId ? event.runId : null;
       chat.workingLabel = '';
       touch(chat);
       hooks.render(chat);

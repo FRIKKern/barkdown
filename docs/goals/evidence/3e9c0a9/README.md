@@ -1,0 +1,15 @@
+# C023 verified Windows replacement reliability
+
+Implementation3e9c0a9 (preceded by33c70c8,458efb6,fca408b), invoked from clean docs HEAD82f13d4. [Commands and exact results](../../../cycles/C023-validation-plan.json) retain the source hashes, sessions and log hashes. Full desktop44980 PASS:44 focused atomic checks,6 credential unit checks,68 goal/native checks,76 desktop checks and all existing UI journeys. Root verify85728 PASS.
+
+Managed profile JSON and goal journal replacement retries keep the same prepared candidate, target identity/hash and owned lease. Windows EPERM/EBUSY retries use at most five attempts and100ms cumulative waits. Complete-owner publication prevents new empty per-write leases; exact-owned cleanup closes descriptors and remains retryable in the same process after held-reader release. Actual host-death, concurrent contender, malformed/deep-chain, uncertain post-rename and cleanup-failure proofs remain in the [storage audit](../windows-rename/README.md) and [cycle](../../../cycles/C023-windows-atomic-write.md). Prior failure artifacts are preserved.
+
+[Native review](native-review.json) and [native summary](native-summary.json) prove interrupted SDK turns through actual owned Windows processes with deterministic local HTTP. Their JSON does not embed a Git commit; the frozen suite invocation establishes source attribution. [Normal coordinator](goal-coordinator/manifest.json) and [planning-crash recovery](goal-coordinator-recovery/manifest.json) retain17 actual Electron stills; every image inspected, including narrow layouts and preserved draft. These are deterministic provider lifecycle checks, not new authenticated coordinator reasoning proof. C015 retains that separate evidence.
+
+[Fixture comparison](../../../visual/runs/2026-09-22T05-02-07-170Z/comparison.json) has34 frames within tolerance, no geometry/environment changes. All34 stills and34 decoded GIF frames inspected; explicit approval recorded. The seven GIFs use palette quantization and a fixed canvas for narrower captures. [Live Paper manifest](../../../images/status/history/C023-3e9c0a9.json) records real Codex on clean app82f13d4/source3e9c0a9 and clean Barkpark a544, server0.2.26.3877. Five stills and all37 GIF frames inspected. Isolated MxvyOa stopped normally and postmaster.pid is absent. UI/a544 released; no owned process remains.
+
+Local NTFS/hardlink support is required for complete-owner publication. Existing malformed owners or recovery chains beyond eight levels still require explicit inspection; unsupported linking refuses without fallback. No rogue-writer CAS, power-loss, network-filesystem or portability guarantee. No combined-source approval, broad stage completion, merge or deployment is claimed. Parent integration preserves its C010 lease relocation methods and validates the combined source separately.
+
+## Retained gate output
+
+[Original gate logs](logs/README.md) are retained byte-for-byte with an explicit path/SHA-256 mapping. Credential review found no values requiring omission. Existing validation-plan and artifact hashes are unchanged; no gate was rerun for this retention follow-up.

@@ -1,0 +1,26 @@
+PASS undo-complete-redo restores one asset and one paste history action
+PASS undo-redo-complete restores one asset and one paste history action
+PASS complete-undo-redo restores one asset and one paste history action
+PASS late rejection survives absent node and Redo as an explicit error
+PASS completion preserves later human text, caret and manual metadata
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ '/media/upload.png'
+- null
+
+    at file:///C:/Users/Frikk/.codex/worktrees/barkpark-upload-history/api/assets/paper-editor/src/canvas/__upload_history_audit.test.mjs:64:10
+    at async test (file:///C:/Users/Frikk/.codex/worktrees/barkpark-upload-history/api/assets/paper-editor/src/canvas/__upload_history_audit.test.mjs:37:53)
+    at async file:///C:/Users/Frikk/.codex/worktrees/barkpark-upload-history/api/assets/paper-editor/src/canvas/__upload_history_audit.test.mjs:58:2 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '/media/upload.png',
+  expected: null,
+  operator: 'strictEqual'
+}
+
+Node.js v22.13.1

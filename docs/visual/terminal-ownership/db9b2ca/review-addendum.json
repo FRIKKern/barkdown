@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "reviewer": "Codex next-cycle agent",
+  "reviewedAt": "2026-09-22T02:28:32.887Z",
+  "originalEvidenceCommit": "25cb99e",
+  "originalReview": "review.json",
+  "originalReviewSha256": "99b350a0ceb6b20501d53970faf4519cee648d8855b249112fa04dd88377be8d",
+  "scope": "Only video-map.json byte hash normalization; historical review/media remain unmodified.",
+  "originalReviewedBytes": {
+    "size": 350,
+    "sha256": "5c7b0b110800ac37917eb426f84cd1ff5ceceebe22c2788ef73f1a002ce5ba22",
+    "lineEndings": "CRLF"
+  },
+  "committedBytes": {
+    "size": 333,
+    "sha256": "4d1102b8a389be22392a0cc52b58628d4936ede813ba2b06ce1c5ba0b2b94645",
+    "lineEndings": "LF"
+  },
+  "normalizationProof": {
+    "crlfToLfExact": true,
+    "lfToCrlfExact": true,
+    "jsonSemanticsEqual": true
+  },
+  "correctedHashEntry": {
+    "file": "video-map.json",
+    "sha256": "4d1102b8a389be22392a0cc52b58628d4936ede813ba2b06ce1c5ba0b2b94645"
+  },
+  "mappingRevalidation": [
+    {
+      "video": "page@20a25ad2b659db690b9cf88d8045fda4.webm",
+      "prefix": "video-1",
+      "samples": 7,
+      "matching": true
+    },
+    {
+      "video": "page@645084400bcc50d9134138d436b19eea.webm",
+      "prefix": "video-2",
+      "samples": 6,
+      "matching": true
+    },
+    {
+      "video": "page@67e6e5ebb697c1fd3beea0226689ff7b.webm",
+      "prefix": "video-3",
+      "samples": 4,
+      "matching": true
+    }
+  ],
+  "inspection": "Viewed both original sample contact sheets again. Re-extracted all17 one-second 700x450 samples from the three committed original videos using the original ffmpeg runtime; all17 PNG byte hashes exactly match retained samples and mapping counts7/6/4. Video1 is A-to-B, video2 restart/narrow/explicit command, video3 legacy shell.",
+  "otherOriginalReviewHashes": {
+    "count": 76,
+    "allMatch": true
+  },
+  "finding": "Git normalized17 CRLF pairs on first commit. Review hashed working-tree CRLF bytes; no mapping or raw media changed. This addendum supplies committed LF hash without rewriting historical review.",
+  "approved": true
+}

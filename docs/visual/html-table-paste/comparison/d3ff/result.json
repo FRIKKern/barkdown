@@ -1,0 +1,400 @@
+[
+  {
+    "name": "paragraphs",
+    "html": "<table><tr><th>Heading</th></tr><tr><td><p>First paragraph</p><p>Second <strong>paragraph</strong></p></td></tr></table>",
+    "blocks": [
+      {
+        "id": "c-1-jr7kwv1j",
+        "type": "table",
+        "rows": [
+          [
+            [
+              {
+                "type": "text",
+                "value": "First paragraph\nSecond "
+              },
+              {
+                "type": "strong",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "paragraph"
+                  }
+                ]
+              }
+            ]
+          ]
+        ],
+        "head": [
+          [
+            {
+              "type": "text",
+              "value": "Heading"
+            }
+          ]
+        ]
+      }
+    ],
+    "pm": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "bpTable",
+          "attrs": {
+            "bpId": null,
+            "bpType": "table",
+            "bpTableSource": null,
+            "colWidths": null,
+            "headCol": false
+          },
+          "content": [
+            {
+              "type": "bpTableRow",
+              "content": [
+                {
+                  "type": "bpTableHeaderCell",
+                  "attrs": {
+                    "bpTableCellSource": null,
+                    "colspan": 1,
+                    "rowspan": 1,
+                    "align": null,
+                    "head": false
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Heading"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "bpTableRow",
+              "content": [
+                {
+                  "type": "bpTableCell",
+                  "attrs": {
+                    "bpTableCellSource": null,
+                    "colspan": 1,
+                    "rowspan": 1,
+                    "align": null,
+                    "head": false
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "First paragraph\nSecond "
+                    },
+                    {
+                      "type": "text",
+                      "marks": [
+                        {
+                          "type": "bold"
+                        }
+                      ],
+                      "text": "paragraph"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "geometry": [
+      {
+        "tag": "DIV",
+        "space": "break-spaces",
+        "text": "HeadingFirst paragraph\nSecond paragraphConfigure table+ col− colheader col+ row− rowheadermergemerge ↓split"
+      },
+      {
+        "tag": "TABLE",
+        "space": "normal",
+        "text": "HeadingFirst paragraph\nSecond paragraph"
+      },
+      {
+        "tag": "TD",
+        "space": "pre-wrap",
+        "text": "First paragraph\nSecond paragraph"
+      }
+    ]
+  },
+  {
+    "name": "aligned",
+    "html": "<table><tr><th style=\"text-align:center\">Center</th><th align=\"right\">Right</th></tr><tr><td style=\"text-align:center\">one</td><td align=\"right\">two</td></tr></table>",
+    "blocks": [
+      {
+        "id": "c-2-f0zywwcu",
+        "type": "table",
+        "rows": [
+          [
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "one"
+                }
+              ],
+              "align": "center"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "two"
+                }
+              ],
+              "align": "right"
+            }
+          ]
+        ],
+        "head": [
+          {
+            "content": [
+              {
+                "type": "text",
+                "value": "Center"
+              }
+            ],
+            "align": "center"
+          },
+          {
+            "content": [
+              {
+                "type": "text",
+                "value": "Right"
+              }
+            ],
+            "align": "right"
+          }
+        ]
+      }
+    ],
+    "pm": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "bpTable",
+          "attrs": {
+            "bpId": null,
+            "bpType": "table",
+            "bpTableSource": null,
+            "colWidths": null,
+            "headCol": false
+          },
+          "content": [
+            {
+              "type": "bpTableRow",
+              "content": [
+                {
+                  "type": "bpTableHeaderCell",
+                  "attrs": {
+                    "bpTableCellSource": null,
+                    "colspan": 1,
+                    "rowspan": 1,
+                    "align": "center",
+                    "head": false
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Center"
+                    }
+                  ]
+                },
+                {
+                  "type": "bpTableHeaderCell",
+                  "attrs": {
+                    "bpTableCellSource": null,
+                    "colspan": 1,
+                    "rowspan": 1,
+                    "align": "right",
+                    "head": false
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Right"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "bpTableRow",
+              "content": [
+                {
+                  "type": "bpTableCell",
+                  "attrs": {
+                    "bpTableCellSource": null,
+                    "colspan": 1,
+                    "rowspan": 1,
+                    "align": "center",
+                    "head": false
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "one"
+                    }
+                  ]
+                },
+                {
+                  "type": "bpTableCell",
+                  "attrs": {
+                    "bpTableCellSource": null,
+                    "colspan": 1,
+                    "rowspan": 1,
+                    "align": "right",
+                    "head": false
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "two"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "geometry": [
+      {
+        "tag": "DIV",
+        "space": "break-spaces",
+        "text": "CenterRightonetwoConfigure table+ col− colheader col+ row− rowheadermergemerge ↓split"
+      },
+      {
+        "tag": "TABLE",
+        "space": "normal",
+        "text": "CenterRightonetwo"
+      },
+      {
+        "tag": "TD",
+        "space": "pre-wrap",
+        "text": "one"
+      },
+      {
+        "tag": "TD",
+        "space": "pre-wrap",
+        "text": "two"
+      }
+    ]
+  },
+  {
+    "name": "multiline",
+    "html": "<table><tr><td>First<br>Second</td></tr></table>",
+    "blocks": [
+      {
+        "id": "c-3-kt344kr7",
+        "type": "table",
+        "rows": [
+          [
+            [
+              {
+                "type": "text",
+                "value": "First\nSecond"
+              }
+            ]
+          ]
+        ]
+      }
+    ],
+    "pm": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "bpTable",
+          "attrs": {
+            "bpId": null,
+            "bpType": "table",
+            "bpTableSource": null,
+            "colWidths": null,
+            "headCol": false
+          },
+          "content": [
+            {
+              "type": "bpTableRow",
+              "content": [
+                {
+                  "type": "bpTableCell",
+                  "attrs": {
+                    "bpTableCellSource": null,
+                    "colspan": 1,
+                    "rowspan": 1,
+                    "align": null,
+                    "head": false
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "First\nSecond"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "geometry": [
+      {
+        "tag": "DIV",
+        "space": "break-spaces",
+        "text": "First\nSecondConfigure table+ col− colheader col+ row− rowheadermergemerge ↓split"
+      },
+      {
+        "tag": "TABLE",
+        "space": "normal",
+        "text": "First\nSecond"
+      },
+      {
+        "tag": "TD",
+        "space": "pre-wrap",
+        "text": "First\nSecond"
+      }
+    ]
+  },
+  {
+    "name": "list",
+    "html": "<table><tr><td><ul><li>First</li><li>Second</li></ul></td></tr></table>",
+    "blocks": [
+      {
+        "id": "before",
+        "type": "paragraph",
+        "content": []
+      }
+    ],
+    "pm": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "paragraph",
+          "attrs": {
+            "bpParagraphSource": {
+              "content": []
+            },
+            "textAlign": "left",
+            "bpId": "before",
+            "bpType": "paragraph",
+            "locked": null,
+            "role": null
+          }
+        }
+      ]
+    },
+    "geometry": [
+      {
+        "tag": "DIV",
+        "space": "break-spaces",
+        "text": "+"
+      }
+    ]
+  }
+]

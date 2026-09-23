@@ -1,0 +1,36 @@
+{
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-rename-contention-0JG17d",
+  "source": "17c2cc8d879c77923d6e7b604d5e06255efe2416",
+  "platform": "win32",
+  "results": [
+    {
+      "label": "bound profile workspace",
+      "failure": {
+        "code": "EPERM",
+        "syscall": "rename",
+        "message": "EPERM: operation not permitted, rename 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-rename-contention-0JG17d\\registry\\profiles\\28f9af0c-d365-4c4e-8817-50890c60b517\\workspace.json.bde2f273-6044-41f6-a556-2e20464e6d77.tmp' -> 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-rename-contention-0JG17d\\registry\\profiles\\28f9af0c-d365-4c4e-8817-50890c60b517\\workspace.json'"
+      },
+      "priorAuthorityHash": "928e0eb43e4e26a1475921dcaea62e87e4145e8f0f0fbcb56b558d696e4e50c6",
+      "retainedTemp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-rename-contention-0JG17d\\registry\\profiles\\28f9af0c-d365-4c4e-8817-50890c60b517\\workspace.json.bde2f273-6044-41f6-a556-2e20464e6d77.tmp",
+      "explicitPostUnlockWrite": "passed",
+      "nodeReadHandleWrite": "EPERM"
+    },
+    {
+      "label": "goal journal",
+      "failure": {
+        "code": "EPERM",
+        "syscall": "rename",
+        "message": "EPERM: operation not permitted, rename 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-rename-contention-0JG17d\\journal\\goals.a6421ba9-4224-4bbe-bae4-6b921ab6a973.tmp' -> 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-rename-contention-0JG17d\\journal\\goals.json'"
+      },
+      "priorAuthorityHash": "c148040455f2032562c917e27bec476512b27d360a142fced666c15582491987",
+      "retainedTemp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-rename-contention-0JG17d\\journal\\goals.a6421ba9-4224-4bbe-bae4-6b921ab6a973.tmp",
+      "explicitPostUnlockWrite": "passed",
+      "nodeReadHandleWrite": "EPERM"
+    }
+  ],
+  "limitations": [
+    "Controlled .NET reader deliberately denies delete; origin of naturally observed EPERM remains unknown.",
+    "No production retry or automatic temporary-file adoption is implemented.",
+    "Explicit post-unlock calls prove availability only after the known handle closes; not power-loss durability."
+  ]
+}

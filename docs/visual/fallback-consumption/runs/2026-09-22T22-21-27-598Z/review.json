@@ -1,0 +1,28 @@
+{
+  "reviewer": "Codex parity review agent",
+  "reviewedAt": "2026-09-22T22:31:00Z",
+  "sourceCommit": "13cba576c1a13c50e5dea6303ae39c5c79ee1b76",
+  "serverSource": "bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f",
+  "vendorSource": "bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f",
+  "stills": 6,
+  "videoSamples": 21,
+  "result": "accepted bounded current-server fallback upload/history/reload proof",
+  "observations": [
+    "All six full stills and 21 samples covering the complete recording were inspected.",
+    "Upload pending, Undo before delivery, acknowledged Redo, repeated history, human edit, reload and narrow resize preserve complete content and stable wide geometry.",
+    "The proxy refused both live editor assets and forwarded 36 other requests; the host loaded vendored JS 3a94a296 against clean server bf23f773.",
+    "No clipping, overlap, error toast, blank post-load frame or unexplained displacement was observed.",
+    "Narrow metadata values truncate within their controls; persistence is established by the still, server and fixture assertions rather than sampled motion alone."
+  ],
+  "hashes": {
+    "manifest.json": "85f1738695939db573682d3152fe25d665b20bace5a37525083a9086126c9dab",
+    "01-upload-pending.png": "8795594ac40be90d6585b39ab1807a317dbebfd5571f37e2fba9b7e099b597eb",
+    "02-undo-before-delivery.png": "d40256c0eed14d185c427b12ebbc9ee224e2da4de14a484c59dfeee67e40e12a",
+    "03-redo-acknowledged-image.png": "74289737264fa37ede6a83dbdf56c2fbbeadb48348feb877768d134df450914c",
+    "04-human-saved.png": "45e72327edcdab93ec102a91cedbbec939fc7247b268a38fad81f8ed348321f8",
+    "05-reloaded.png": "431e886c861b219e5f4cc1b2a6a65a40faa15822c4d9ff2c25e23c4cbda3799d",
+    "06-narrow.png": "ef9bf03ce69333de918996553ad7713d41d76ac590cbb921db9a6707be61963f",
+    "fallback-consumption.webm": "e6e3a1af7220d0b318dbab00bff921b42e79f59e388f83adcfc2561c13309ab7",
+    "server.json": "a068ca1176cf4641e5c93db328030815128171967b4ea62ff73fffcfff12fa70"
+  }
+}

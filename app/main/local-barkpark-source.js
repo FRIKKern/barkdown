@@ -1,3 +1,4 @@
+const { externalResource } = require('./external-resource');
 const fs = require('fs');
 const path = require('path');
 const net = require('net');
@@ -5,6 +6,8 @@ const crypto = require('crypto');
 const { spawn, execFile } = require('child_process');
 const { promisify } = require('util');
 const exec = promisify(execFile);
+const { acquireFileLease } = require('./file-lease');
+const { prepareRuntimeBuild } = require('./runtime-build');
 
 function freePort(port) {
   return new Promise((resolve, reject) => {
@@ -38,22 +41,16 @@ class SourceDriver {
     for (const file of [this.mix, path.join(this.pgBin, 'initdb.exe'), path.join(this.pgBin, 'pg_ctl.exe')]) if (!fs.existsSync(file)) throw new Error(`Missing local tool: ${file}. Install the Barkpark Windows toolchain first.`);
     if (!fs.existsSync(path.join(this.config.source, 'api', '_build', 'dev', 'lib', 'barkpark', 'ebin', 'barkpark.app'))) throw new Error('Build the Barkpark checkout first using its Windows setup and Visual Studio compiler environment.');
     fs.mkdirSync(this.dataDir, { recursive: true });
-    if (fs.existsSync(this.lockPath)) {
-      const owner = JSON.parse(fs.readFileSync(this.lockPath, 'utf8'));
-      try { process.kill(owner.pid, 0); throw new Error('This local profile is owned by another running Barkdown.'); }
-      catch (error) { if (error.code !== 'ESRCH') throw error; }
-      // Retain stale ownership evidence; do not kill processes named by a stale file.
-      fs.renameSync(this.lockPath, this.lockPath + '.stale-' + Date.now());
-    }
-    this.lease = crypto.randomUUID();
-    try { fs.writeFileSync(this.lockPath, JSON.stringify({ pid: process.pid, lease: this.lease }), { flag: 'wx' }); }
-    catch (error) { this.lease = null; throw error; }
+    this.ownership = acquireFileLease(this.lockPath, { busy: 'This local profile is owned by another running Barkdown.' });
+    this.lease = this.ownership.lease;
+    try { this.build = await prepareRuntimeBuild(this.config.source, this.dataDir); }
+    catch (error) { this.ownership.release(); this.ownership = null; this.lease = null; throw error; }
   }
   async release() {
     if (!this.lease) return;
     if (this.pgOwned || (this.child && this.child.exitCode == null)) throw new Error('Local runtime did not stop; ownership is retained.');
-    const owner = JSON.parse(fs.readFileSync(this.lockPath, 'utf8'));
-    if (owner.lease === this.lease) fs.unlinkSync(this.lockPath);
+    this.ownership.release();
+    this.ownership = null;
     this.lease = null;
   }
   async start(signal) {
@@ -74,16 +71,16 @@ class SourceDriver {
     await this.run('pg_ctl', ['-D', this.pgData, '-l', this.pgLog, '-o', `-h 127.0.0.1 -p ${this.config.pgPort}`, '-w', '-t', '20', 'start'], signal);
     signal.throwIfAborted();
     this.bootId = crypto.randomUUID();
-    const env = { ...process.env, MIX_ENV: 'dev', PORT: String(this.config.port),
+    const env = { ...process.env, MIX_ENV: 'dev', MIX_BUILD_PATH: this.build.path, PORT: String(this.config.port),
       BARKDOWN_LOCAL_DATA: this.dataDir, BARKDOWN_PG_PORT: String(this.config.pgPort), BARKDOWN_PG_PASSWORD: this.secrets.password,
       BARKDOWN_BOOT_ID: this.bootId, BARKDOWN_API_DIR: path.join(this.config.source, 'api'), BARKDOWN_MIX_PATH: this.mix,
-      BARKDOWN_TOOL_PATH: this.toolPath, BARKDOWN_BOOT_SCRIPT: path.join(__dirname, 'local-barkpark-boot.exs'),
+      BARKDOWN_TOOL_PATH: this.toolPath, BARKDOWN_BOOT_SCRIPT: externalResource('local-barkpark-boot.exs'),
       BARKPARK_INGEST_TOKEN: this.secrets.token, BARKPARK_SEED_PROFILE: 'clean', BARKPARK_SEED_ADMIN_TOKEN: this.secrets.token, BARKPARK_PLUGINS: 'bulldocs,media',
       BARKPARK_MEDIA_DIR: path.join(this.dataDir, 'media'), BARKPARK_INDX_STATE_DIR: path.join(this.dataDir, 'indx'),
       BARKPARK_BUNDLE_SPILL_DIR: path.join(this.dataDir, 'bundles'),
     };
     this.processError = null;
-    this.child = spawn('powershell.exe', ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', path.join(__dirname, 'local-barkpark-launch.ps1')], { env, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
+    this.child = spawn('powershell.exe', ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', externalResource('local-barkpark-launch.ps1')], { env, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
     const log = text => fs.appendFileSync(path.join(this.dataDir, 'server.log'), String(text).split(this.secrets.password).join('[redacted]').split(this.secrets.token).join('[redacted]'));
     this.child.stdout.on('data', log); this.child.stderr.on('data', log);
     this.child.on('error', error => { this.processError = error.message; });

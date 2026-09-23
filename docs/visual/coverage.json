@@ -23,12 +23,139 @@
       "capture": "deterministic"
     },
     {
+      "id": "goals",
+      "capture": "deterministic"
+    },
+    {
+      "id": "profiles",
+      "capture": "deterministic"
+    },
+    {
       "id": "paper",
       "capture": "live-status-shots"
     },
     {
+      "id": "agent-takeover",
+      "capture": "live-paper-agent-adapter-with-human-takeover",
+      "readme": "docs/visual/agent-takeover/README.md"
+    },
+    {
+      "id": "rich-takeover",
+      "capture": "live-paper-rich-content-takeover",
+      "readme": "docs/visual/rich-takeover/README.md"
+    },
+    {
       "id": "agent-edits-files-recovery",
       "capture": "pending-live-journeys"
+    },
+    {
+      "id": "adoption",
+      "capture": "deterministic"
+    },
+    {
+      "id": "chat-recovery",
+      "capture": "actual-electron-owned-job-crash-and-recovery",
+      "readme": "docs/visual/chat-recovery/README.md"
+    },
+    {
+      "id": "paper-save",
+      "capture": "live-paper-with-injected-transport-faults",
+      "readme": "docs/visual/paper-save/README.md"
+    },
+    {
+      "id": "structured-table",
+      "capture": "live-paper-MCP-structured-table-edits",
+      "readme": "docs/visual/structured-table/README.md"
+    },
+    {
+      "id": "api-paper",
+      "capture": "actual-API-SDK-and-live-Paper-with-scripted-model",
+      "readme": "docs/visual/api-paper/README.md"
+    },
+    {
+      "id": "markdown-paste",
+      "capture": "live-paper-Markdown-paste-native-history",
+      "readme": "docs/visual/markdown-paste/README.md"
+    },
+    {
+      "id": "terminal-ownership",
+      "capture": "actual-electron-owned-terminal-switch-and-crash",
+      "readme": "docs/visual/terminal-ownership/README.md"
+    },
+    {
+      "id": "project-buffers",
+      "capture": "actual-CodeMirror-profile-switch-preservation",
+      "readme": "docs/visual/project-buffers/README.md"
+    },
+    {
+      "id": "native-rollback",
+      "capture": "actual-electron-owned-work-refusal-and-explicit-rollback",
+      "readme": "docs/visual/native-rollback/README.md"
+    },
+    {
+      "id": "html-table-paste",
+      "capture": "live-paper-HTML-paste-native-history-and-keyboard-recovery",
+      "readme": "docs/visual/html-table-paste/README.md"
+    },
+    {
+      "id": "coordinator-recovery",
+      "capture": "actual-electron-coordinator-interruption-and-explicit-retry",
+      "readme": "docs/visual/coordinator-recovery/README.md"
+    },
+    {
+      "id": "adoption-repeat",
+      "capture": "actual-Electron-cold-repeat-adoption-and-rollback",
+      "readme": "docs/visual/adoption-repeat/README.md"
+    },
+    {
+      "id": "project-file-authority",
+      "capture": "actual-electron-file-navigation-and-explicit-save",
+      "readme": "docs/visual/project-file-authority/README.md"
+    },
+    {
+      "id": "cache-integrity",
+      "capture": "actual-electron-corrupt-cache-profile-switch-and-restart",
+      "readme": "docs/visual/cache-integrity/README.md"
+    },
+    {
+      "id": "profile-isolation",
+      "capture": "actual-Electron-two-runtime-late-edit-Undo-restart",
+      "readme": "docs/visual/profiles/isolation-runs/README.md"
+    },
+    {
+      "id": "send-preservation",
+      "capture": "actual-Electron-managed-and-legacy-send-rejection-keyboard-recovery",
+      "readme": "docs/visual/send-preservation/README.md"
+    },
+    {
+      "id": "rich-clipboard",
+      "capture": "live-connected-Paper-3495-clipboard-recovery-and-image-upload",
+      "readme": "docs/visual/rich-clipboard/README.md"
+    },
+    {
+      "id": "upload-history",
+      "capture": "live-connected-Paper-54579-upload-completion-native-Undo-Redo-save-reload",
+      "readme": "docs/visual/upload-history/README.md"
+    },
+    {
+      "id": "missing-folder",
+      "capture": "historical-C029-accepted-CLI-failure-before-C032-predispatch-refusal",
+      "readme": "docs/visual/missing-folder/69acbce/README.md"
+    },
+    {
+      "id": "fallback-consumption",
+      "capture": "actual-vendored-Paper-upload-history-against-a544-and-54579",
+      "readme": "docs/visual/fallback-consumption/README.md"
+    },
+    {
+      "id": "folder-preflight",
+      "capture": "actual-main-side-refusal-restart-and-selected-B-missing-reference",
+      "readme": "docs/visual/folder-preflight/README.md"
+    },
+    {
+      "id": "paper-callouts",
+      "capture": "live-isolated-Paper-seven-tones-title-body-fold-reload",
+      "readme": "docs/visual/callouts/README.md"
     }
   ]
 }

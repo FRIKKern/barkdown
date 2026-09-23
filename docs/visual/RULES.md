@@ -2,7 +2,7 @@
 
 ## What triggers review
 
-The [coverage map](coverage.json) currently takes a conservative approach: every app main/renderer/shared change, dependency or Barkpark pin change, or capture/comparison harness change invalidates visual approval. New files count too. This deliberately over-captures rather than guessing that a backend change cannot affect UI. `npm run check:visual` runs in root verification and CI. Capture from the branch being reviewed, with locked dependencies and disposable data.
+The [coverage map](coverage.json) currently takes a conservative approach: every app main/renderer/shared change, dependency or Barkpark pin change, or capture/comparison harness change invalidates visual approval. New files count too. Every top-level `app/tests/*.live.mjs` and every capture helper/fixture under `app/tests/helpers/` or `app/tests/fixtures/` participates automatically, including new journeys; maintain no per-journey allowlist. This deliberately over-captures rather than guessing that a backend change cannot affect UI. `npm run check:visual` runs in root verification and CI. Capture from the branch being reviewed, with locked dependencies and disposable data.
 
 ## Capture → compare → inspect → accept
 
@@ -28,7 +28,7 @@ The default Electron tour uses temporary local fixture data, blocked provider ca
 
 ## Preserve evidence
 
-Run folders and approvals are append-only history. Never overwrite an approved PNG/GIF, silently promote candidates, restamp old media as current, delete a prior baseline, or auto-update snapshots in CI. If repository size grows, design an explicitly reviewed retention/archive strategy with durable links. `visual:approve` retains the previous approval and appends area README changelogs.
+Run folders and approvals are append-only history. Never overwrite an approved PNG/GIF, silently promote candidates, restamp old media as current, delete a prior baseline, or auto-update snapshots in CI. If repository size grows, design an explicitly reviewed retention/archive strategy with durable links. `visual:approve` archives every distinct attestation as `reviews/approval-<sha256>.json`, including the previous current approval, and appends area README changelogs linking that exact review. The SHA-256 covers the entire serialized attestation (reviewer, note, timestamp and evidence hashes). Only `approved.json` selects the latest review; its `reviewPath` and `reviewHash` must match the immutable record. Existing legacy `reviews/<manifestHash>.json` files remain readable and are never rewritten. Earlier tool versions overwrote same-candidate records; this change preserves surviving records but cannot reconstruct already-lost attestations.
 
 The existing live `npm --prefix app run shots` remains a separate Paper/server evidence path. Run only against an explicitly selected disposable/test Barkpark; it writes a showcase paper and must not be aimed at a person's library. Commit app source before that capture; inspect media and commit evidence after. It retains prior hashed images and manifest history. A live capture failure is a gap, not permission to relabel a fixture as live.
 
@@ -41,3 +41,5 @@ A cycle's closing truth pass includes these pages. CI verifies source/artifact/r
 ## Private Paper capture
 
 For source-runtime verification, use `npm --prefix app run shots:isolated` with a built Barkpark checkout (`BARKDOWN_TEST_BP_SOURCE` may select it). It owns a temporary database, ephemeral ports and temporary CLI config, then stops its runtime. The manifest records the actual server and source baseline. This is the preferred way to satisfy the live Paper freshness gate without changing the person's active CLI or demo library. Temporary data is retained for diagnosis. Real provider calls may be attempted; the existing transcript fallback is explicitly marked in the manifest.
+
+The live status GIF requires ImageMagick's `magick` executable on `PATH`. Its Floyd–Steinberg conversion preserves full-frame modal gradients within GIF's 256-colour limit; the capture fails rather than publishing the non-dithered halo artifacts produced by the prior encoder.

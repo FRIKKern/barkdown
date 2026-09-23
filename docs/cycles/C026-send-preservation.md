@@ -1,0 +1,55 @@
+# C026 — Rejected-send draft preservation
+
+Baseece4626, codex/send-preservation-12h, separate from frozen C025. Original adapter reproduction in evidence/C026-send/before.json: missing attachment validates before durable reservation; cleared draft/images plus ignored optimistic messages leaves no persisted human input, dispatch0.
+
+Plan: leave submitted draft/references in composer and durable view until start acknowledges acceptance. Shared per-chat pending guard prevents duplicate main/side submissions. Capture draft revision and exact submitted values; clear only an unchanged draft after acceptance, preserve newer typing/attachments/history changes. Failure leaves original or newer draft with visible existing error, no automatic retry. Successful durable transcript remains main-owned. Do not infer no-dispatch from an unknown error or replay an attempt.
+
+First tests: actual shared composer plus actual profile persistence in JSDOM, missing image rejection/reload, delayed successful/failed start with newer typing, duplicate submits and main/side shared ownership. Actual Electron later after implementation checkpoint and named UI grant. Dependencies and tests pending.
+
+## Implementation checkpoint
+
+Baseline failing actual-composer/persistence testVg9Kvo reproduced empty durable draft/images/messages with dispatch0. New shared per-chat pending intent and draft revision guard passes atDPXknR: missing image retains exact draft and reference after service reload. Five delayed controlled-ack cases pass through real main/side composer handlers and repository saves: unchanged success clears, newer text stays on success/rejection, editing away/back stays, attachment removal stays, duplicate submits dispatch once. Provider transport acceptance in these five cases is a controlled promise, not a native run claim.
+
+Root/app npm ci and Chromium pass (root0 vulnerabilities/app2 existing high); app build and live-fixture syntax pass. Product changes limited to shared composer and conversation modules; no profile/provider/IPC changes. Draft remains durably saved until acknowledged start, and errors retain existing visible transcript error. Successful unchanged clearing uses existing debounced workspace persistence; no new claim about power loss between acknowledgement and that save. No automatic replay.
+
+Actual Electron fixture prepared: selected B missing image with identical A name, explicit failed send/restart preserving prompt/reference/no HTTP request, restore only B image then one actual managed owned API run with controlled HTTP, verify B image bytes and newer draft on completed restart. No Electron launched yet; C025 and C026 each await named slots/evidence.
+
+## Async boundary review correction
+
+Coordinator review prompted actual service/renderer regressionWWLDiO: managed refresh preserves chat object identity but replaced the optimistic messages during delayed runtime acquisition; the accepted callback then threw on positional last-message access (dispatch1). Replaced positional accesses with captured intent references and deterministic renderer attempt UUID correlation. Main profile handler forwards this correlation only; profile service validates UUID shape, selected owner/generation and replay/collision before recovery/transcript changes. Caller UUID grants no ownership.
+
+Managed refresh retains only the current optimistic pair until its authoritative matching IDs exist; then it adopts the main transcript, including early text/tool/event state, rather than freezing refresh. Shared submission state has no DOM or persistence dependency. Root state.load replaces objects only during boot; runtime managed refresh retains existing objects and tests assert identity and duplicate guards.
+
+Final controlled boundary testyL7vJV passes real reservation and early text before delayed start acknowledgement, failed missing-image refresh with newer persisted draft, and retry history excludes the rejected unsent prompt (one actual adapter-dispatched user message, no failed catch-up). Forged/null/traversal/replayed UUID and stale generation all refuse with exact workspace bytes unchanged and no second dispatch. Existing profile-service, workspace-repository, managed-workspace and chat-recovery tests pass; fixtures do not launch native workers. Legacy failed-turn history is not established by the managed-history test. C026 now also has narrow main/profile-service forwarding/validation and managed-refresh helper changes; no provider/folder behavior change.
+
+Boundary fixtureRLegI6 additionally emits actual early tool_start/tool_result through run persistence before acknowledgement; managed refresh and final acceptance retain done=true and exact Owned early result output, alongside early text. Passed. Product source remains9bbbef4; test-only extension committed separately before capture.
+
+## Legacy rejection compatibility
+
+Actual sendMessage legacy test reproduced a definitely rejected local-runtime-not-ready prompt twice in next API messages and once in catch-up. Main now marks only that positive pre-dispatch guard with BARKDOWN_SEND_NOT_STARTED; visible user/error evidence remains with notDispatched metadata and is excluded from later provider history/catch-up. No generic exception is assumed unstarted. Test executes actual main registration callback in Node VM without Electron: blocked runtime throws tagged error before agent.start (dispatch0), ready runtime dispatches normally. Retry has exactly one prompt/catch-up0 and four visible message rows; unknown acknowledgement failure remains unclassified, and accepted partial/error history remains intact. Managed preservation/boundary and conversation regressions continue to pass. No provider behavior refactor or automatic retry introduced.
+
+Actual legacy Electron fixture added for queued capture: only a nonexistent disposable local source is configured, then real main/preload refusal code must preserve draft and mark visible failed pair, disable local source explicitly, and one controlled HTTP retry must contain the prompt once while both visible attempts remain. No Electron run yet; VM proof is not substituted for this pending boundary.
+
+## Context bridge correction before capture
+
+Coordinator actual C024 evidence demonstrated Electron contextBridge can drop Error.code, invalidating the earlier assumption that reconstructed preload errors carry custom properties into renderer. C026 now converts only known BARKDOWN_SEND_NOT_STARTED inside preload to plain structured {accepted:false,notStarted:true,error:{code,message}}. Renderer classifies only this positive result; it does not parse messages or rely on custom error properties. Actual main+preload functions and structuredClone renderer orchestration pass offline; real Electron legacy fixture remains required. One new test initially had a missing object brace (syntax-only fixture failure), corrected before rerunning. Managed boundary regression remains passing.
+
+Actual managed YBYqKE passed at1434527 with five inspected stills. First legacy kCAExw attempt failed fixture setup: settings validation rejected missing source, swallowed by harness, so ordinary offline send correctly ran. Original video/report retained; normal stop=true. Fixture now seeds only disposable legacy persisted missing-source settings before boot and asserts failed/stopped status plus separately saved synthetic API key. No production change.
+
+Actual managed21747/YBYqKE passed at1434527; legacy58857/Md2y6g passed after fixture-only9cc5f8a correction. Both stopped normally. Eight full stills and46 video samples inspected, originals and failed kCAExw video/report retained in docs/visual/send-preservation. Broken-image references remain visibly broken until restored/removed; preserving them is the bounded behavior. Legacy toast reports expected unavailable source. Full desktop49410 running; deterministic/Paper/root gates pending.
+
+Full desktop49410 passed before copy correction. Coordinator review withheld UX approval for raw error codes/paths; original captures retained as unapproved. Bounded correction classifies only filesystem failures inside attachment validation, sends human message and exact diagnostic separately through IPC, renders collapsed Technical details. Legacy display uses the known structured refusal without its transport prefix. Authority still requires the unchanged exact notStarted/code condition; unrelated failures remain untouched. Focused preservation/boundary/legacy/profile tests passed. Final-source actual/capture gates follow source commit.
+
+First friendly-copy actual osHiHv stopped after two frames: fixture asked the accessibility tree for the hover-revealed Remove button without hovering. Preserving failure; fixture now hovers the actual thumbnail before checking the control. No product correction or deletion.
+
+Coordinator accessibility review found the offered Remove recovery was hover-only. The 64px thumbnail now retains a 24px focusable removal control, reveals it on keyboard focus and no-hover devices, and the actual Electron fixture checks Shift+Tab/Enter in both shared composers with missing references and preserved durable text. Earlier mouse proof remains retained; final-source gates will be rerun.
+
+## Final evidence checkpoint
+
+Source `1e138aa` is pushed on `codex/send-preservation-12h`. Full desktop44651 passed against the pre-CSS `80ba196` build. The only later product change is the attachment focus/touch CSS; actual final61539 passed main/side Shift+Tab/Enter removal with durable text, alongside managed missing-reference/restart/one-request proof and legacy real-contextBridge refusal/retry. Final disposable roots cg4lmP and ajPVru stopped normally. All14 full stills and45 samples at2fps inspected; exact originals and hashes are in [send preservation](../visual/send-preservation/README.md). Actual touch hardware was not exercised.
+
+Deterministic30502 captured `2026-09-22T04-44-51-359Z`; all40 stills and40 GIF frames inspected, unchanged geometry and zero changed pixels against the named baseline, explicitly approved. This tour has no attachment recovery scenario; dedicated actual evidence above covers it.
+
+Isolated Paper46428 at final source passed: private culXTs, a5440345caa413087ac6488cac67f19fce58fa0f, real Codex turn after Claude weekly quota refusal. Five full stills and37 GIF frames inspected; Paper/menu/save/table/quick-open layouts remain legible. Runtime stopped normally and postmaster-absence cleanup gate passed; UI/source slot released. Rootverify31568 is running. No user library, CLI config, main branch or deployment changed.
+
+Rootverify31568 passed all source, links, plan/cycle, visual freshness, concept and standalone checks. C026 bounded outcome closes; P1 remains in progress. Parent must preserve package/coverage unions and current integration approvals when importing. Original failed setup/hover and superseded raw-error captures remain linked, not approved as final UX.

@@ -9,7 +9,7 @@
     { "id": "P5", "title": "Ordinary installation and daily-use pilot", "status": "todo", "dependsOn": ["P3"], "issues": [], "acceptance": "A5", "evidence": [] }
   ],
   "gates": [
-    { "id": "G1", "title": "Land and pin the upstream editor baseline", "status": "blocked", "reason": "Upstream PR #19579 was open at the roadmap reset; recheck checks and merge state.", "url": "https://github.com/FRIKKern/barkpark/pull/19579", "evidence": [] },
-    { "id": "G2", "title": "Enforce the matrix in both repositories", "status": "blocked", "reason": "Private-repository CI token and deliberate broken-Tab proof outstanding.", "url": "https://github.com/FRIKKern/barkdown/issues/4", "evidence": [] }
+    { "id": "G1", "title": "Land and pin the upstream editor baseline", "status": "blocked", "reason": "Checked 2026-09-22: PR #19579 remains OPEN/BLOCKED at a5440345c with failing checks; newer editor lanes are not merged.", "url": "https://github.com/FRIKKern/barkpark/pull/19579", "evidence": [] },
+    { "id": "G2", "title": "Enforce the matrix in both repositories", "status": "blocked", "reason": "Checked 2026-09-22: BARKDOWN_READ_TOKEN absent; parity run35636254280 reports success with actual parity steps skipped. Deliberate broken-Tab proof outstanding.", "url": "https://github.com/FRIKKern/barkdown/issues/4", "evidence": [] }
   ]
 }

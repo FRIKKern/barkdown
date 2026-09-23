@@ -1,0 +1,18 @@
+{
+  "source": "5e8433e5944c3e23b40a8ef2ae86e837e0fd67d4",
+  "session": 52348,
+  "command": "npm ci; npm --prefix app ci; npx playwright install chromium; npm run test:desktop",
+  "exitCode": 0,
+  "desktopSha256": "2503e34db2987f7d07c2973d746edde63d8b0a3a08d8f8e41c010044b5f6a0e5",
+  "dependencyAudit": {
+    "rootVulnerabilities": 0,
+    "appHigh": 2,
+    "affected": [
+      "electron",
+      "extract-zip"
+    ],
+    "electron": "38.8.6",
+    "limits": "Electron43/44 trials remain blocked by actual app webview crashes; no forced upgrade or security clearance claimed."
+  },
+  "limits": "Full desktop does not include all dedicated native/editor/runtime journeys. Vendor remains upstream54579. No fresh global visual/live/root approval."
+}

@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "cycle": "C019",
+  "dedicatedSource": "e68a72e6c3f409bf2ebf7203c33e7671fe4f3816",
+  "combinedEvidenceCommit": "d8acb82b8c542b231fdb8ecb84b9435c78d0c9f4",
+  "combinedAppSource": "e38038577d379ef548427b2b4aaea5ea5bdf7d8f",
+  "productionFile": "app/renderer/src/tabs/project.js",
+  "identicalGitBlob": "8b1181992c7f3a3dc1587486ea016d5856f99b8a",
+  "desktop": {
+    "session": 64608,
+    "result": "pass",
+    "reviewer": "root coordinator"
+  },
+  "rootVerify": {
+    "session": 86276,
+    "result": "pass",
+    "reviewer": "root coordinator"
+  },
+  "visual": {
+    "manifest": "docs/visual/runs/2026-09-22T02-13-13-738Z/manifest.json",
+    "reviewer": "Codex root integration review",
+    "frames": 40,
+    "result": "approved"
+  },
+  "liveStatus": {
+    "session": 5397,
+    "manifest": "docs/images/status/manifest.json",
+    "barkparkCommit": "5fba61f7ed07a7a39a7ff484185463b286ebea70",
+    "provider": "codex",
+    "result": "pass; private runtime stopped"
+  },
+  "limits": "Combined gates were run/reviewed by root coordinator. Dedicated C019 actual Settings/CodeMirror test and three images were run/inspected in this lane. This lane global approval was not restamped; its historical standalone verify failed stale status before combined closeout."
+}

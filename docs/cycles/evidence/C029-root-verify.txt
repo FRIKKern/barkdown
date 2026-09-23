@@ -1,0 +1,30 @@
+
+> barkdown-workspace@0.5.0 verify
+> npm run build && npm run check && npm test
+
+
+> barkdown-workspace@0.5.0 build
+> node scripts/build.cjs
+
+Built portable previews, GitHub-readable PRD, and source hashes.
+
+> barkdown-workspace@0.5.0 check
+> tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && npm run check:cycle && npm run check:visual
+
+C:\Users\Frikk\.codex\worktrees\barkdown-missing-folder-context\scripts\check.cjs:3
+function fail(message){throw Error(message)}
+                       ^
+
+Error: Status screenshots are older than the last UI change (16a3b6085; captured at e38038577): commit the UI change, then `cd app && npm run shots`, then commit the pictures
+    at fail (C:\Users\Frikk\.codex\worktrees\barkdown-missing-folder-context\scripts\check.cjs:3:30)
+    at Object.<anonymous> (C:\Users\Frikk\.codex\worktrees\barkdown-missing-folder-context\scripts\check.cjs:35:12)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+    at Function._load (node:internal/modules/cjs/loader:1123:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)
+    at node:internal/main/run_main_module:36:49
+
+Node.js v22.13.1

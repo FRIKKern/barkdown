@@ -1,0 +1,135 @@
+{
+  "browser": "151.0.7922.34",
+  "clipboard": "ClipboardItem write and trusted Ctrl+V in isolated headless Chromium; not a claim about every OS clipboard producer",
+  "results": [
+    {
+      "name": "equivalent",
+      "clipboard": {
+        "trusted": true,
+        "types": [
+          "text/html",
+          "Files"
+        ],
+        "files": [
+          {
+            "name": "image.png",
+            "type": "image/png",
+            "size": 88
+          }
+        ],
+        "html": "<html><head></head><body><div><img src=\"https://external.test/original.png\" alt=\"Copied diagram\"></div></body></html>",
+        "text": ""
+      },
+      "uploads": [
+        {
+          "name": "image.png",
+          "type": "image/png",
+          "size": 88
+        }
+      ],
+      "blocks": [
+        {
+          "id": "seed",
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "value": "Keep selected text"
+            }
+          ]
+        },
+        {
+          "id": "c-2-c5926f78",
+          "type": "image",
+          "src": "/media/copied.png",
+          "alt": "Copied diagram"
+        }
+      ],
+      "notice": ""
+    },
+    {
+      "name": "equivalent-url",
+      "clipboard": {
+        "trusted": true,
+        "types": [
+          "text/plain",
+          "text/html",
+          "Files"
+        ],
+        "files": [
+          {
+            "name": "image.png",
+            "type": "image/png",
+            "size": 88
+          }
+        ],
+        "html": "<html><head></head><body><img src=\"https://external.test/original.png\" alt=\"Copied diagram\"></body></html>",
+        "text": "https://external.test/original.png"
+      },
+      "uploads": [
+        {
+          "name": "image.png",
+          "type": "image/png",
+          "size": 88
+        }
+      ],
+      "blocks": [
+        {
+          "id": "seed",
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "value": "Keep selected text"
+            }
+          ]
+        },
+        {
+          "id": "c-4-eb15abfd",
+          "type": "image",
+          "src": "/media/copied.png",
+          "alt": "Copied diagram"
+        }
+      ],
+      "notice": ""
+    },
+    {
+      "name": "mixed-table",
+      "clipboard": {
+        "trusted": true,
+        "types": [
+          "text/plain",
+          "text/html",
+          "Files"
+        ],
+        "files": [
+          {
+            "name": "image.png",
+            "type": "image/png",
+            "size": 88
+          }
+        ],
+        "html": "<html><head></head><body><table><tbody><tr><td>Table text</td></tr></tbody></table></body></html>",
+        "text": "Table text"
+      },
+      "uploads": [],
+      "blocks": [
+        {
+          "id": "seed",
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "value": "Keep selected text"
+            }
+          ]
+        }
+      ],
+      "notice": "Nothing was pasted. The clipboard contains both image files and formatted content or text. Paste text with Ctrl+Shift+V, or drag the image files into the editor separately."
+    }
+  ],
+  "requests": [
+    "https://clipboard.test/media/copied.png",
+    "https://clipboard.test/media/copied.png"
+  ]
+}

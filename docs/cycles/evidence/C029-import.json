@@ -1,0 +1,41 @@
+{
+  "sourceEvidence": "27f0955",
+  "nativeSource": "69acbce",
+  "sourceImport": "e77233a",
+  "files": [
+    "docs/cycles/C029-missing-folder-context.md",
+    "docs/cycles/evidence/C029-agent.txt",
+    "docs/cycles/evidence/C029-native-12700b6-failure/failure.png",
+    "docs/cycles/evidence/C029-native-12700b6-failure/report.json",
+    "docs/cycles/evidence/C029-native-1e1bb50-failure/failure.png",
+    "docs/cycles/evidence/C029-native-1e1bb50-failure/report.json",
+    "docs/cycles/evidence/C029-root-verify.txt",
+    "docs/cycles/evidence/C029-routing.txt",
+    "docs/cycles/evidence/C029-union-routing.txt",
+    "docs/visual/missing-folder/69acbce/01-selected-B-unavailable-after-restart.png",
+    "docs/visual/missing-folder/69acbce/02-claude-native-failure.png",
+    "docs/visual/missing-folder/69acbce/02-codex-native-failure.png",
+    "docs/visual/missing-folder/69acbce/4ddfaa5a-be0a-488d-8613-1f12e23dfde4.receipt.json",
+    "docs/visual/missing-folder/69acbce/8bfb3562-992f-49d5-87ce-12af0741f1bb.receipt.json",
+    "docs/visual/missing-folder/69acbce/README.md",
+    "docs/visual/missing-folder/69acbce/manifest.json",
+    "docs/visual/missing-folder/69acbce/report.json",
+    "docs/visual/missing-folder/69acbce/review.json",
+    "docs/cycles/C029-missing-folder-context.json",
+    "docs/visual/missing-folder/69acbce/manifest.captured-crlf.json",
+    "docs/visual/missing-folder/69acbce/.gitattributes",
+    "docs/visual/missing-folder/69acbce/review-addendum.json"
+  ],
+  "verifiedHashes": {
+    "docs/visual/missing-folder/69acbce/01-selected-B-unavailable-after-restart.png": "2a5be0864baa91c9f7f3f22f1b63b82bb6c14e4a2fc4fcb1beb33baaa148a9ad",
+    "docs/visual/missing-folder/69acbce/02-claude-native-failure.png": "4302bae8f62e184c36666c33abc64a3878bc8ea89a9678615a5732bf08480a70",
+    "docs/visual/missing-folder/69acbce/02-codex-native-failure.png": "0a9c314e86148ee89704b35b547e51073a15402ee742f79ef551df9e7709bdc2",
+    "docs/visual/missing-folder/69acbce/4ddfaa5a-be0a-488d-8613-1f12e23dfde4.receipt.json": "7b1ee04b1493dc6037002db387eb44840fb438691b0dfe377cf6c0ee91b2e921",
+    "docs/visual/missing-folder/69acbce/8bfb3562-992f-49d5-87ce-12af0741f1bb.receipt.json": "b91696dc10c39b586f75851b3370425246a80797dd37e5dca34fda4e93078250",
+    "docs/visual/missing-folder/69acbce/report.json": "ce7a016198dab8089575f6e35bc7bc541620ca3e45dd632d1071f56e6a8ecec3",
+    "docs/visual/missing-folder/69acbce/manifest.json": "8e88bea6ea03c299795e436689bb5e7cec5b8bfa3718a44622b241ade7096ae6",
+    "docs/visual/missing-folder/69acbce/manifest.captured-crlf.json": "ae5856e3cd4358e8cd63dadd5acf8e76e5790086f31386ea1bef0a58eaf8a91f"
+  },
+  "manifestNormalizationAddendum": "docs/visual/missing-folder/69acbce/review-addendum.json",
+  "limits": "Native failures preserve captured unavailable folder and acknowledged user text. Claude libc/binary diagnostic is misleading; C032 followup is separate. SDK-seam tests are routing only; no successful provider reasoning or actual Windows ACL denial claim. Combined final gates pending."
+}

@@ -1,0 +1,118 @@
+TAP version 13
+# Subtest: ordinary-followup: folder during runtime acquisition
+not ok 1 - ordinary-followup: folder during runtime acquisition
+  ---
+  duration_ms: 324.547
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-context-reservation\\app\\tests\\context-reservation.test.mjs:20:131'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  stack: |-
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-context-reservation/app/tests/context-reservation.test.mjs:31:32)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: ordinary-followup: away-and-back during runtime acquisition
+not ok 2 - ordinary-followup: away-and-back during runtime acquisition
+  ---
+  duration_ms: 302.673
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-context-reservation\\app\\tests\\context-reservation.test.mjs:20:131'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  stack: |-
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-context-reservation/app/tests/context-reservation.test.mjs:31:32)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: ordinary-followup: model during runtime acquisition
+not ok 3 - ordinary-followup: model during runtime acquisition
+  ---
+  duration_ms: 259.0878
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-context-reservation\\app\\tests\\context-reservation.test.mjs:20:131'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  stack: |-
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-context-reservation/app/tests/context-reservation.test.mjs:31:32)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: ordinary-followup: draft-only during runtime acquisition
+ok 4 - ordinary-followup: draft-only during runtime acquisition
+  ---
+  duration_ms: 273.6764
+  ...
+# Subtest: goal-worker: folder during runtime acquisition
+not ok 5 - goal-worker: folder during runtime acquisition
+  ---
+  duration_ms: 234.7065
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-context-reservation\\app\\tests\\context-reservation.test.mjs:20:131'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  stack: |-
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-context-reservation/app/tests/context-reservation.test.mjs:31:32)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: goal-worker: away-and-back during runtime acquisition
+not ok 6 - goal-worker: away-and-back during runtime acquisition
+  ---
+  duration_ms: 296.3698
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-context-reservation\\app\\tests\\context-reservation.test.mjs:20:131'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  stack: |-
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-context-reservation/app/tests/context-reservation.test.mjs:31:32)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: goal-worker: model during runtime acquisition
+not ok 7 - goal-worker: model during runtime acquisition
+  ---
+  duration_ms: 236.8698
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-context-reservation\\app\\tests\\context-reservation.test.mjs:20:131'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  stack: |-
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-context-reservation/app/tests/context-reservation.test.mjs:31:32)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: goal-worker: draft-only during runtime acquisition
+ok 8 - goal-worker: draft-only during runtime acquisition
+  ---
+  duration_ms: 234.6592
+  ...
+# Subtest: reservation rechecks a resolved snapshot after later context mutation
+not ok 9 - reservation rechecks a resolved snapshot after later context mutation
+  ---
+  duration_ms: 183.0262
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-context-reservation\\app\\tests\\context-reservation.test.mjs:39:1'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected exception.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-context-reservation/app/tests/context-reservation.test.mjs:42:16)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 2
+# fail 7
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2726.884

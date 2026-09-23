@@ -1,0 +1,30 @@
+{
+  "reviewer": "Codex editor agent",
+  "reviewedAt": "2026-09-22T01:35:43.987866+00:00",
+  "manifestSha256": "a9aa2af7e623e1cd857ee2cfdd51dd66c7628014828a10844b2f789c5fffbbdc",
+  "artifactsVerified": {
+    "01-before-paste.png": "270c4653051641fdf6e90af024a0341633e2b6eddeef3559d9502971cdff0160",
+    "02-pasted.png": "8222498b06c1e4d6b64b0995ccf6152d1860ee537ab2416b31252f85bb49124d",
+    "03-undone.png": "0216255be601ddd39adc907c2b31e96f48027736eaf4fc501276636e94191051",
+    "04-redone.png": "0e490c3de9298f6df50317d21784234a3aed13df1c348ae6a7dffdd290aab4ce",
+    "05-reloaded.png": "85708dde4594e16af79728d9b5313abc80e9229520f22fb8e64212aa6ea276f6",
+    "06-narrow.png": "4d928799fc2ca573bae9bfd55e9f2e67f051f877a16a516f879f2a5c7915154b",
+    "markdown-paste.webm": "f307d1aded6f54aeabbe971ff4183ca573572e5a3aa6209718d01e70b4960226",
+    "server.json": "376a463beee979ebf65f6fd37a9d96c5e8f654f591f02d5eaaef6aabe03c6d47"
+  },
+  "gifSha256": "49ea81479025e1d1812ffa1edfd2ee5f9683f17181f9a09be0450d4f1589cb79",
+  "inspected": {
+    "stills": 6,
+    "videoSamplesAt2fps": 56,
+    "originalSeconds": 26.96,
+    "gifFrames": 65,
+    "gifExcerptSeconds": [
+      6,
+      19
+    ],
+    "gifRate": 5,
+    "crop": "720:750:680:80"
+  },
+  "findings": "Center/right alignment is visible in headers/body; bold, link and literal pipe remain. Paste, Undo, redo and subsequent human input preserve surrounding paragraphs. Narrow view wraps without clipped cells. Expected structural content-height and history-footer changes remain visible; no source-related clipping observed. Full video includes load and intentional viewport resize. Samples are not every25fps original frame.",
+  "result": "approved"
+}

@@ -1,0 +1,60 @@
+TAP version 13
+# Subtest: api persists and dispatches missing-B without A fallback
+ok 1 - api persists and dispatches missing-B without A fallback
+  ---
+  duration_ms: 86.504
+  ...
+# Subtest: api persists and dispatches not-a-folder-B without A fallback
+ok 2 - api persists and dispatches not-a-folder-B without A fallback
+  ---
+  duration_ms: 75.8721
+  ...
+# Subtest: api persists and dispatches no folder without A fallback
+ok 3 - api persists and dispatches no folder without A fallback
+  ---
+  duration_ms: 80.5195
+  ...
+# Subtest: claude persists and dispatches missing-B without A fallback
+ok 4 - claude persists and dispatches missing-B without A fallback
+  ---
+  duration_ms: 75.9563
+  ...
+# Subtest: claude persists and dispatches not-a-folder-B without A fallback
+ok 5 - claude persists and dispatches not-a-folder-B without A fallback
+  ---
+  duration_ms: 77.1816
+  ...
+# Subtest: claude persists and dispatches no folder without A fallback
+ok 6 - claude persists and dispatches no folder without A fallback
+  ---
+  duration_ms: 82.0081
+  ...
+# Subtest: codex persists and dispatches missing-B without A fallback
+ok 7 - codex persists and dispatches missing-B without A fallback
+  ---
+  duration_ms: 83.4586
+  ...
+# Subtest: codex persists and dispatches not-a-folder-B without A fallback
+ok 8 - codex persists and dispatches not-a-folder-B without A fallback
+  ---
+  duration_ms: 91.7359
+  ...
+# Subtest: codex persists and dispatches no folder without A fallback
+ok 9 - codex persists and dispatches no folder without A fallback
+  ---
+  duration_ms: 81.132
+  ...
+# Subtest: changing the persisted folder clears stale native sessions
+ok 10 - changing the persisted folder clears stale native sessions
+  ---
+  duration_ms: 91.4459
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1210.3554

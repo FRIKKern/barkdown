@@ -1,0 +1,21 @@
+{
+  "source": "218890cc36cf9d92841487764689b52a90b142c0",
+  "command": "node --test app/tests/capture-lifecycle.test.mjs",
+  "session": 15476,
+  "passed": 17,
+  "failed": 0,
+  "uiOrDatabaseLaunched": false,
+  "blockers": [],
+  "findings": [
+    "Host and runtime source checked before and after capture, same HEAD and permitted dirty paths.",
+    "README changes verified as exact computed status-image link rewrites with referenced bytes hashed; coverage/source edits refused.",
+    "Cancellation primary retained alongside cleanup/report errors; LocalBarkpark.stop aborts and awaits pending boot."
+  ],
+  "limits": [
+    "Controlled driver and plain Node children do not prove actual Electron/PostgreSQL descendant cleanup.",
+    "No fresh combined/global approval implied; native final capture remains required."
+  ],
+  "hashes": {
+    "controlled-tests.txt": "e257d4a52e45cd3ec7c62713f3f29d1c2e8fe2221d9e1ce8ca864f4ddfb30ef0"
+  }
+}

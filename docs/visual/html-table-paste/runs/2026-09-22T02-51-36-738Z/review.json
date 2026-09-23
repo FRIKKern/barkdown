@@ -1,0 +1,35 @@
+{
+  "reviewer": "Codex editor agent",
+  "reviewedAt": "2026-09-22T02:55:58.222311+00:00",
+  "manifestSha256": "c7dd911ab9931a8734ccf27fd9feecd3da47a26c0cd7bde3746f589d953477c4",
+  "artifactsVerified": {
+    "01-before-paste.png": "76eca07c4515e6198a0983d9f5edb5b0d7bfd05f2f2cee9a36c8553cd9216b15",
+    "02-pasted.png": "653fa4817c98af272c5606145462dc5b39a5d4a737e4f758c0cc415872d85458",
+    "03-undone.png": "dce42924d587f866dfcf1617e6e2c1254ba2143471b97f889f5782675907fe9f",
+    "04-redone.png": "63e1ee7e899a541b19fd1acc7c119588a87c2f49d575cc727c06b3369cb43f9f",
+    "05-reloaded.png": "ba73e456a7af8f021d384b8c28e82d0360dd38b69b670ecd6919fec6e7e7b5e3",
+    "06-safe-fallback.png": "7823b035f72d4c13f893bcf1bac2d95691f20a234e6363d7581999ccf1be0483",
+    "07-fallback-narrow.png": "97809ed8e9eb5da99608152c1364f99c272e1bfe11db462922880e8cd054546b",
+    "08-fallback-dark.png": "21722a640697dd0d9fe694d413ea6356decab0a9001789a8611f4154444a2a32",
+    "09-fallback-zoom.png": "3c47b4e9b946af472733a68a3b3e40b3bc8f68a3c657827b308cabed3091eb08",
+    "10-plain-text-zoom.png": "66c672a8493f3f9a8b2dccc421ef3ab7347a52e09c521886d3f9a07187d364a1",
+    "11-narrow.png": "8956496686188ec6b67a119a618b71e64376cd3a2c1b561ccdb4008368222fb1",
+    "html-table-paste.webm": "78647452ff4c9be86ad8b3a65442bfa9a2279fe1a246820464084e69b80696d1",
+    "server.json": "63d07f47834ef4d520910f47c05d23ffa3eb4224bb32923ad37881d9987d1677"
+  },
+  "gifSha256": "ea5b27768f39bc5cdf894e409e063bf58089fc8ab543a6fb29075d79021b8ed6",
+  "inspected": {
+    "stills": 11,
+    "videoSamplesAt2fps": 73,
+    "originalSeconds": 35.56,
+    "gifFrames": 62,
+    "gifExcerptSeconds": [
+      6,
+      21
+    ],
+    "gifRate": 4,
+    "crop": "720:750:680:80"
+  },
+  "findings": "Paragraph and BR boundaries, marks, link, alignment and body rowspan remain visible after paste/history/reload. Expected structural content height and history footer change during Undo. Guidance is fully visible in light/dark/narrow and actual Electron200% zoom, with keyboard focus ring. Rejection does not shift document geometry. Zoom stills capture the brief focused warning that 2fps samples can skip. Full video includes intentional startup/resize/zoom/scroll; no claim to inspect every original frame. Server assertions separately establish revisions1 through6 and unchanged tables after plain-text fallback.",
+  "result": "approved"
+}

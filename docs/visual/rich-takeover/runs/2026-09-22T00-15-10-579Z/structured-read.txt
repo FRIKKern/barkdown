@@ -1,0 +1,156 @@
+# Rich editor takeover
+id: bp:editor-rich-takeover · rev 1 · updated 2026-09-22T00:15:10.554000Z · Barkpark paper
+
+Top-level blocks: [0] heading h1, [1] paragraph, [2] paragraph, [3] list, [4] table, [5] paragraph, [6] paragraph, [7] table, [8] table
+
+Markdown representation unavailable: Markdown export cannot preserve a table without headers.
+Use the indexed PortableDoc blocks below as the authoritative content; do not replace them with this JSON as Markdown.
+[
+  {
+    "id": "block-0",
+    "level": 1,
+    "text": "Rich editor takeover",
+    "type": "heading"
+  },
+  {
+    "content": [
+      {
+        "type": "text",
+        "value": "Alpha Beta Gamma"
+      }
+    ],
+    "id": "block-1",
+    "type": "paragraph"
+  },
+  {
+    "content": [
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "Alpha Beta Gamma"
+          }
+        ],
+        "href": "https://example.org/old",
+        "type": "link"
+      }
+    ],
+    "id": "block-2",
+    "type": "paragraph"
+  },
+  {
+    "id": "block-3",
+    "items": [
+      [
+        {
+          "type": "text",
+          "value": "Alpha"
+        }
+      ],
+      [
+        {
+          "type": "text",
+          "value": "Beta Gamma"
+        }
+      ]
+    ],
+    "ordered": false,
+    "type": "list"
+  },
+  {
+    "head": [
+      [
+        {
+          "type": "text",
+          "value": "Name"
+        }
+      ],
+      [
+        {
+          "type": "text",
+          "value": "Value"
+        }
+      ]
+    ],
+    "id": "block-4",
+    "rows": [
+      [
+        [
+          {
+            "type": "text",
+            "value": "Alpha"
+          }
+        ],
+        [
+          {
+            "type": "text",
+            "value": "Beta Gamma"
+          }
+        ]
+      ]
+    ],
+    "type": "table"
+  },
+  {
+    "content": [
+      {
+        "type": "text",
+        "value": "Original multiline target"
+      }
+    ],
+    "id": "block-5",
+    "type": "paragraph"
+  },
+  {
+    "content": [
+      {
+        "type": "text",
+        "value": "Beta Gamma"
+      }
+    ],
+    "id": "block-6",
+    "type": "paragraph"
+  },
+  {
+    "id": "block-7",
+    "rows": [
+      [
+        [
+          {
+            "type": "text",
+            "value": "Headerless content"
+          }
+        ],
+        [
+          {
+            "type": "text",
+            "value": "Keep this table"
+          }
+        ]
+      ]
+    ],
+    "type": "table"
+  },
+  {
+    "head": [
+      [
+        {
+          "type": "text",
+          "value": "Multiline cell"
+        }
+      ]
+    ],
+    "id": "block-8",
+    "rows": [
+      [
+        [
+          {
+            "type": "text",
+            "value": "Cell first line\nCell second line"
+          }
+        ]
+      ]
+    ],
+    "type": "table"
+  }
+]

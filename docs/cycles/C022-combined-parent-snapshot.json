@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "id": "C008",
+  "stage": "P1",
+  "status": "active",
+  "goal": "Integrate reviewed profile, goal and editor milestones on an isolated branch and prove their combined behavior without merging main.",
+  "scope": [
+    "Union reviewed source commits and existing regression gates",
+    "Preserve original lane evidence and create fresh combined evidence",
+    "Exercise combined ownership, worker and Paper journeys as dependencies arrive"
+  ],
+  "acceptance": [
+    "Combined desktop and root verification pass",
+    "Live and deterministic visual evidence names the combined source",
+    "Profile/goal integration gaps remain explicit until proven"
+  ],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C008-integration.md",
+  "nextAction": "Freeze combined C014/E004/C015/C017 source, complete pending actual API Undo/reload and original goal lane gates, then run fresh combined desktop and reviewed deterministic/live evidence. Continue C016 full A1 proof and C018/C019 preservation checks without declaring P1 complete.",
+  "evidence": [
+    "app/package.json",
+    "docs/cycles/C008-integration.md"
+  ],
+  "truthReview": "Active integration only; no P1 or complete goal feature claim.",
+  "screenshotReview": "9c77cb7 has reviewed37 deterministic frames plus real rich Paper and status evidence. New C014 recovery source requires fresh combined evidence; original lane evidence remains separately attributed."
+}

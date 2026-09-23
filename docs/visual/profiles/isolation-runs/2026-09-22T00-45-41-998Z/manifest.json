@@ -1,0 +1,19 @@
+{
+  "sourceCommit": "5e75a404d9a0d8b33d89c0270624110efd6508dd",
+  "sourceDirty": false,
+  "barkparkCommit": "a5440345caa413087ac6488cac67f19fce58fa0f",
+  "barkparkDirty": false,
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-profile-isolation-IBtCkF",
+  "checks": [
+    "Actual app runs A/B concurrently; B same-slug Paper/media/favorites and reading position remain B-owned"
+  ],
+  "frames": [
+    "01-A-running.png",
+    "02-B-before-A-completion.png"
+  ],
+  "stopped": true,
+  "modelDecisions": "deterministic HTTP text turn retains real run lease; separate actual stdio MCP read/edit uses immutable A connection, not API remote tool support",
+  "error": "AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /same-slug/. Input:\n\n'[{\"id\":\"same-slug\",\"title\":\"Profile B cobaltwitness\",\"updatedAt\":\"2026-09-22T00:47:59.743000Z\",\"createdAt\":\"2026-09-22T00:47:59.743000Z\",\"rev\":\"3bd5812d67c448c47ed6b651d4330141\",\"source\":\"barkpark\",\"excerpt\":\"Only B owns cobaltwitness. B reading position 0. B reading position 1. B reading position 2. B reading position 3. B reading position 4. B reading position 5. B\",\"references\":[],\"proposals\":0,\"tags\":[{\"rationale\":\"Temporary profile isolation fixture\",\"strength\":95,\"tag\":\"isolation-fixture\"}],\"slug\":\"same-slug\",\"draft\":false,\"snippet\":\"Only B owns cobaltwitness. B reading position 0. B reading position 1. B reading position 2. B reading position 3. B reading position 4. B reading position 5. B\",\"score\":0}]'\n\n    at file:///C:/Users/Frikk/.codex/worktrees/barkdown-profile-isolation/app/tests/profile-isolation-ui.live.mjs:104:10",
+  "cleanupErrors": [],
+  "finishedAt": "2026-09-22T00:48:05.536Z"
+}

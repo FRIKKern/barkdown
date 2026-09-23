@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "id": "C012",
+  "stage": "P1",
+  "status": "done",
+  "goal": "Refuse missing saved profile workspaces without silently seeding replacements.",
+  "scope": [
+    "Registry initial workspace publication",
+    "Repository failclosed reads and process restart fixtures"
+  ],
+  "acceptance": [
+    "Missing saved B load/save refuses without replacement",
+    "New profiles initialize before registry visibility",
+    "Existing valid/adopted state preserved",
+    "Relevant regression and evidence closeout"
+  ],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C012-workspace-preservation.md",
+  "nextAction": "Coordinator review/import of6205f72 and87ca623; separate ordinary-chat crash reconciliation proof and remaining A1 audit.",
+  "evidence": [
+    "app/tests/workspace-preservation.test.mjs",
+    "app/tests/workspace-preservation-ui.live.mjs",
+    "docs/visual/workspace-recovery/README.md",
+    "docs/visual/runs/2026-09-22T00-18-43-302Z/README.md",
+    "docs/images/status/history/C012-87ca623.json",
+    "docs/cycles/C012-A1-AUDIT.md"
+  ],
+  "truthReview": "Bounded C012 complete: actual missing/corrupt workspace rejection and retained drafts; full desktop and final root verify passed. No automatic repair, P1 completion or real user migration.",
+  "screenshotReview": "Actual3 recovery images,37 deterministic stills and37 frames in8GIFs reviewed/approved; actual Paper5stills and37GIFframes inspected. Earlier unapproved captures retained."
+}

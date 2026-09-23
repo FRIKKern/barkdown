@@ -9,9 +9,11 @@
     "watch": "node scripts/build.mjs --watch",
     "start": "npm run build && electron .",
     "dev": "node scripts/build.mjs && electron . --dev",
-    "test": "node tests/local-barkpark.test.mjs && node tests/portabledoc.test.mjs && node tests/opsrewrite.test.mjs && node tests/attachments.test.mjs && node tests/conversations.test.mjs && node tests/changes.test.mjs && node tests/agent.test.mjs && node tests/mcp.test.mjs && node tests/pages.test.mjs && node tests/run.mjs && node tests/agent-edit.live.mjs && node tests/composer-history.live.mjs && node tests/sidechat-ui.live.mjs",
+    "test": "node --test tests/capture-lifecycle.test.mjs && node --test tests/external-resource.test.mjs && node --test tests/providers-runner.test.mjs && node --test tests/context-reservation.test.mjs && node --test tests/editor-vendor.test.mjs tests/editor-asset-proxy.test.mjs && node --test tests/folder-preflight.test.mjs && node tests/folder-preflight-composer.test.mjs && node --test tests/missing-folder-context.test.mjs && node --test tests/parity-runner.test.mjs && node tests/atomic-write.test.mjs && node --test tests/canvas-bundle.test.mjs tests/terminal-ownership.test.mjs tests/goals.test.mjs tests/goal-provider.test.mjs tests/goal-service.test.mjs tests/goal-process.test.mjs tests/goal-worker-agent.test.mjs tests/goal-recovery.test.mjs tests/adoption-boot.test.mjs tests/credential-durability.test.mjs tests/goal-coordinator.test.mjs tests/goal-coordinator-native.test.mjs && node tests/profile-registry.test.mjs && node tests/run-ownership.test.mjs && node tests/local-barkpark.test.mjs && node tests/portabledoc.test.mjs && node tests/opsrewrite.test.mjs && node tests/attachments.test.mjs && node tests/conversations.test.mjs && node tests/changes.test.mjs && node tests/agent.test.mjs && node tests/mcp.test.mjs && node tests/pages.test.mjs && node tests/run.mjs && node tests/agent-edit.live.mjs && node tests/composer-history.live.mjs && node tests/sidechat-ui.live.mjs && node tests/paper-host.test.mjs && node tests/workspace-preservation.test.mjs && node tests/workspace-preservation-ui.live.mjs && node tests/workspace-repository.test.mjs && node tests/profile-service.test.mjs && node tests/profile-runtime.test.mjs && node tests/file-lease.test.mjs && node tests/runtime-build.test.mjs && node tests/media-upload.test.mjs && node tests/goal-ui.live.mjs && node tests/goal-workspace.integration.mjs && node tests/profile-ipc.test.mjs && node tests/profile-ui.live.mjs && node tests/profile-goals.live.mjs && node tests/profile-runtime-adoption.test.mjs && node tests/managed-workspace.test.mjs && node tests/chat-width.live.mjs && node --test tests/profile-native-preflight.test.mjs && node tests/legacy-authority-adoption.test.mjs && node tests/adoption-window.live.mjs && node tests/adoption-ui.live.mjs && node tests/profile-goals-recovery.live.mjs && node tests/boot-draft.live.mjs && node tests/credential-durability.live.mjs && node tests/chat-recovery.test.mjs && node tests/chat-recovery.live.mjs && node tests/structured-table.test.mjs && node tests/goal-coordinator.live.mjs && node tests/goal-coordinator-recovery.live.mjs && node tests/api-paper.test.mjs && node tests/project-buffers.test.mjs && node tests/project-buffer-profile.live.mjs && node tests/terminal-ownership.live.mjs && node tests/project-file-authority.test.mjs && node tests/send-preservation.test.mjs && node tests/send-boundaries.test.mjs && node tests/legacy-send-preservation.test.mjs",
     "dist": "npm run build && electron-builder --dir",
     "test:live": "node tests/providers.live.mjs && node tests/paper.live.mjs && node tests/paper-proposal.live.mjs && node tests/editor.live.mjs && node tests/editor-code.live.mjs && node tests/image.live.mjs && node tests/sidechat.live.mjs",
+    "test:profiles": "node tests/profile-runtime.live.mjs",
+    "test:profile-paper": "node tests/profile-paper.live.mjs",
     "test:local": "node tests/local-barkpark.live.mjs && node tests/local-barkpark-ui.live.mjs",
     "test:paper": "node tests/paper.live.mjs",
     "test:editor": "node tests/editor.live.mjs && node tests/editor-code.live.mjs",
@@ -35,7 +37,43 @@
     "test:tablehead": "node tests/editor-tablehead.live.mjs",
     "test:parity": "node tests/parity.mjs",
     "shots": "node tests/status-shots.mjs",
-    "shots:isolated": "npm run build && node tests/status-shots-isolated.mjs"
+    "shots:isolated": "npm run build && node tests/status-shots-isolated.mjs",
+    "test:goals": "node --test tests/goals.test.mjs tests/goal-provider.test.mjs tests/goal-service.test.mjs tests/goal-process.test.mjs tests/goal-worker-agent.test.mjs tests/goal-recovery.test.mjs tests/goal-coordinator.test.mjs tests/goal-coordinator-native.test.mjs",
+    "test:goal-ui": "npm run build && node tests/goal-ui.live.mjs",
+    "test:paper-host": "node tests/paper-host.test.mjs",
+    "test:paper-host:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-host.live.mjs",
+    "test:goal-workspace": "node tests/goal-workspace.integration.mjs",
+    "test:adoption": "node tests/profile-runtime-adoption.live.mjs",
+    "test:agent-takeover:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-agent-takeover.live.mjs",
+    "test:adoption-ui-runtime": "node tests/adoption-runtime-ui.live.mjs",
+    "test:rich-takeover:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-rich-takeover.live.mjs",
+    "test:chat-recovery": "npm run build && node tests/chat-recovery.test.mjs && node tests/chat-recovery.live.mjs",
+    "test:structured-table:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-structured-table.live.mjs",
+    "test:api-paper": "node tests/api-paper.test.mjs",
+    "test:api-paper:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/api-paper.live.mjs",
+    "test:project-buffers": "node tests/project-buffers.test.mjs",
+    "test:project-buffer-profile": "node tests/project-buffer-profile.live.mjs",
+    "test:terminal-ownership": "npm run build && node --test tests/terminal-ownership.test.mjs && node tests/terminal-ownership.live.mjs",
+    "test:rollback-native": "npm run build && node --test tests/profile-native-preflight.test.mjs && node tests/rollback-native.live.mjs",
+    "test:adoption-repeat": "npm run build && node tests/adoption-repeat-ui.live.mjs",
+    "test:project-file-authority": "node tests/project-file-authority.test.mjs",
+    "test:project-file-authority:live": "node tests/project-file-authority.live.mjs",
+    "test:canvas-cache": "node --test tests/canvas-bundle.test.mjs && node tests/canvas-bundle.live.mjs",
+    "test:profile-isolation": "npm run build && node tests/profile-isolation-ui.live.mjs",
+    "test:parity-runner": "node --test tests/parity-runner.test.mjs",
+    "test:send-preservation": "npm run build && node tests/send-preservation.test.mjs && node tests/send-boundaries.test.mjs && node tests/legacy-send-preservation.test.mjs && node tests/send-preservation.live.mjs && node tests/legacy-send-preservation.live.mjs",
+    "test:rich-clipboard:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-rich-clipboard.live.mjs",
+    "test:upload-history:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-upload-history.live.mjs",
+    "test:missing-folder-context": "node --test tests/missing-folder-context.test.mjs",
+    "test:missing-folder-ui": "npm run build && node tests/missing-folder-ui.live.mjs",
+    "test:folder-preflight": "node --test tests/folder-preflight.test.mjs && node tests/folder-preflight-composer.test.mjs",
+    "test:folder-preflight-ui": "npm run build && node tests/folder-preflight-ui.live.mjs",
+    "test:fallback-consumption:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-fallback-consumption.live.mjs",
+    "test:context-reservation": "node --test tests/context-reservation.test.mjs",
+    "test:providers-runner": "node --test tests/providers-runner.test.mjs",
+    "test:providers": "node tests/providers.live.mjs",
+    "test:package-resources": "node tests/package-resources.test.mjs",
+    "test:capture-lifecycle": "node --test tests/capture-lifecycle.test.mjs tests/status-history.test.mjs"
   },
   "engines": {
     "node": ">=22.13.1"
@@ -82,8 +120,14 @@
     },
     "files": [
       "main/**",
+      "shared/**",
       "renderer/**",
       "package.json"
+    ],
+    "asarUnpack": [
+      "main/goal-worker-host.ps1",
+      "main/local-barkpark-launch.ps1",
+      "main/local-barkpark-boot.exs"
     ]
   }
 }

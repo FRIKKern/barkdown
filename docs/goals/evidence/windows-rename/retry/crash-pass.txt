@@ -1,0 +1,122 @@
+TAP version 13
+# Subtest: workspace: transient reader releases after first refused replacement
+ok 1 - workspace: transient reader releases after first refused replacement
+  ---
+  duration_ms: 95.3583
+  ...
+# Subtest: journal: transient reader releases after first refused replacement
+ok 2 - journal: transient reader releases after first refused replacement
+  ---
+  duration_ms: 22.3704
+  ...
+# Subtest: workspace: persistent real reader has bounded attempts and retains candidate
+ok 3 - workspace: persistent real reader has bounded attempts and retains candidate
+  ---
+  duration_ms: 227.7546
+  ...
+# Subtest: workspace: refuses target ambiguity without a second rename
+ok 4 - workspace: refuses target ambiguity without a second rename
+  ---
+  duration_ms: 225.9612
+  ...
+# Subtest: workspace: refuses candidate ambiguity without a second rename
+ok 5 - workspace: refuses candidate ambiguity without a second rename
+  ---
+  duration_ms: 78.4637
+  ...
+# Subtest: workspace: refuses lease ambiguity without a second rename
+ok 6 - workspace: refuses lease ambiguity without a second rename
+  ---
+  duration_ms: 77.1225
+  ...
+# Subtest: workspace: refuses post-rename ambiguity without a second rename
+ok 7 - workspace: refuses post-rename ambiguity without a second rename
+  ---
+  duration_ms: 77.7856
+  ...
+# Subtest: workspace: refuses nonretry ambiguity without a second rename
+ok 8 - workspace: refuses nonretry ambiguity without a second rename
+  ---
+  duration_ms: 195.1861
+  ...
+# Subtest: journal: persistent real reader has bounded attempts and retains candidate
+ok 9 - journal: persistent real reader has bounded attempts and retains candidate
+  ---
+  duration_ms: 97.1846
+  ...
+# Subtest: journal: refuses target ambiguity without a second rename
+ok 10 - journal: refuses target ambiguity without a second rename
+  ---
+  duration_ms: 29.8616
+  ...
+# Subtest: journal: refuses candidate ambiguity without a second rename
+ok 11 - journal: refuses candidate ambiguity without a second rename
+  ---
+  duration_ms: 30.1066
+  ...
+# Subtest: journal: refuses lease ambiguity without a second rename
+ok 12 - journal: refuses lease ambiguity without a second rename
+  ---
+  duration_ms: 30.1235
+  ...
+# Subtest: journal: refuses post-rename ambiguity without a second rename
+ok 13 - journal: refuses post-rename ambiguity without a second rename
+  ---
+  duration_ms: 31.1959
+  ...
+# Subtest: journal: refuses nonretry ambiguity without a second rename
+ok 14 - journal: refuses nonretry ambiguity without a second rename
+  ---
+  duration_ms: 8.0775
+  ...
+# Subtest: journal refuses authority changed between calls
+ok 15 - journal refuses authority changed between calls
+  ---
+  duration_ms: 6.2664
+  ...
+# Subtest: managed store serializes cooperating target writers during retry
+ok 16 - managed store serializes cooperating target writers during retry
+  ---
+  duration_ms: 147.0114
+  ...
+# Subtest: workspace: independent reader closes while retry waits
+ok 17 - workspace: independent reader closes while retry waits
+  ---
+  duration_ms: 205.515
+  ...
+# Subtest: journal: independent reader closes while retry waits
+ok 18 - journal: independent reader closes while retry waits
+  ---
+  duration_ms: 85.7202
+  ...
+# Subtest: atomic writer refuses newly created or same-byte replaced target
+ok 19 - atomic writer refuses newly created or same-byte replaced target
+  ---
+  duration_ms: 44.8807
+  ...
+# Subtest: fsync failure retains prior bytes without any rename attempt
+ok 20 - fsync failure retains prior bytes without any rename attempt
+  ---
+  duration_ms: 6.3474
+  ...
+# {"kind":"workspace","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-8ACyTR","crashBeforeRename":true,"orphanRetained":true}
+# Subtest: workspace: host death before rename keeps authority and never promotes orphan
+ok 21 - workspace: host death before rename keeps authority and never promotes orphan
+  ---
+  duration_ms: 181.5355
+  ...
+# {"kind":"journal","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-Uyacop","crashBeforeRename":true,"orphanRetained":true}
+# Subtest: journal: host death before rename keeps authority and never promotes orphan
+ok 22 - journal: host death before rename keeps authority and never promotes orphan
+  ---
+  duration_ms: 107.6208
+  ...
+1..22
+# tests 22
+# suites 0
+# pass 22
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2140.8362

@@ -1,0 +1,28 @@
+{
+  "reviewer": "Codex editor review agent",
+  "reviewedAt": "2026-09-22T22:31:00Z",
+  "sourceCommit": "13cba576c1a13c50e5dea6303ae39c5c79ee1b76",
+  "serverSource": "a5440345caa413087ac6488cac67f19fce58fa0f",
+  "vendorSource": "bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f",
+  "stills": 6,
+  "videoSamples": 34,
+  "result": "accepted bounded old-server fallback upload/history/reload proof",
+  "observations": [
+    "All six full stills and 34 samples across the complete recording were inspected.",
+    "Upload pending, Undo before delivery, acknowledged Redo, repeated history, human edit, reload and narrow resize preserve the heading, image and both surrounding paragraphs.",
+    "The proxy refused both live editor assets and forwarded 36 other requests; the host loaded vendored JS 3a94a296 against clean old server a5440345.",
+    "No unexpected displacement, overlap, missing sibling, stale upload badge or reload loss was observed.",
+    "Narrow media metadata values truncate within their controls; no input-usability correction or global visual approval is claimed."
+  ],
+  "hashes": {
+    "manifest.json": "0f08e447358ea1eb96221816cf6efeb75bd9ca23b65f62493aaf7fa0af813b06",
+    "01-upload-pending.png": "31dd64f5b11fa2883b21abeed474536632b00070c6dc476c47ea91ba247810b7",
+    "02-undo-before-delivery.png": "2586909ac0241990c58d09d4d0ecc3c73abef17cacea577b21db7648ed651bd9",
+    "03-redo-acknowledged-image.png": "8b1485eada7aca20e87d0f3134eee868c61f741873641f2b08684870fc3efe71",
+    "04-human-saved.png": "fd90805b95e3bda27f3ddab7a2b51e93bc7ce6022c010f091b12078977939757",
+    "05-reloaded.png": "4696b6efaeee8ae3711fb1ffd11bb038d5c223db75caf388ab789834a0e1ed23",
+    "06-narrow.png": "ef9bf03ce69333de918996553ad7713d41d76ac590cbb921db9a6707be61963f",
+    "fallback-consumption.webm": "072b2318101b4a815f61b7046b88ed3944685fa22a82c51a849659973abb319a",
+    "server.json": "7e899ff07e6041ca64f5b34042d9eba389eb80aca7578d8963d3e22f8b87d579"
+  }
+}

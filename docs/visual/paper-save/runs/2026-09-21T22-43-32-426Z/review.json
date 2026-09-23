@@ -1,0 +1,19 @@
+{
+  "reviewer": "Codex editor agent",
+  "reviewedAt": "2026-09-21T22:45:26.409Z",
+  "sourceCommit": "e19edfa6dbe60475adc0f26bf5782066250478d6",
+  "hashes": {
+    "manifest.json": "f05cce4d08503711c1b4494e2e7d51b9db2c3db0d7bf779c4f57b5b65f54e68f",
+    "save-recovery.gif": "4f4c60b2cad3aac2c83726d89d286a9b30dc88f91d12b58d24d67983bdd2898c",
+    "01-original.png": "fbfa81e3428cba4f120fee08132d890c3bfa145fb1261af240e947a1922aa8d7",
+    "02-saving.png": "7cb3c30f927c2181a708672c3d2c4c09f86e13288207d44e11a673ac71011938",
+    "03-retained-during-navigation.png": "79d444839cdba439fe5fb0a271ef0ad5fac41d1fedeedd2b6491fe14b238982c",
+    "04-acknowledged.png": "88d9b9e2a92f68397ad8f576a104811fbc7bddf22a58b68cc8dd7d19b9105d06",
+    "05-undo-saved.png": "a828a668c96c68c9593d87541d20177697bc9f2850dbd26a52e689d9048cc274",
+    "06-offline-narrow.png": "5d61cf66bfaadd0424ba2ddf3f2e77b46415ccfaf9b10aa4a91a2d53bf8722ca",
+    "07-retry-saved.png": "fb790742232621286490f2409dfce9f33122f01db5dc274845f196f051fcd780",
+    "08-discard-confirmation.png": "86de90a456c98c3663e50d9b00ea1c7235e0e98c70bd432b7ac6939c490f2629",
+    "09-discarded-to-saved.png": "6cc04eebac480881e538ca74ccf13f860b5b635f2da1fbab9874925bd93ea40d"
+  },
+  "notes": "Inspected all nine stills and all eight action-GIF frames. Confirmation now settled after actual finite animation completion; dialog text/buttons crisp, intended background blur preserved. Narrow 760px recovery controls remain readable; retained text, server Undo, Retry and cancelable discard match four passing integration journeys. No profile or crash recovery claim."
+}

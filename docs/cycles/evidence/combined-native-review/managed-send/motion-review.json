@@ -1,0 +1,87 @@
+{
+  "source": "3ce6b210e6c2f582ed0a05e955e7016690a3f008",
+  "videos": [
+    {
+      "file": "page@660d2be40c494933bf9b2e615a8e2160.webm",
+      "framesInspected": 8,
+      "fps": 2
+    },
+    {
+      "file": "page@8405e2ee35aa7710f30e186edac3b020.webm",
+      "framesInspected": 24,
+      "fps": 2
+    },
+    {
+      "file": "page@a878b858a708b551450bb7ba8813f987.webm",
+      "framesInspected": 9,
+      "fps": 2
+    }
+  ],
+  "totalFramesInspected": 41,
+  "findings": [
+    "All retained sessions sampled separately; no unrelated owner content or new draft disappearance observed.",
+    "Startup blank-shell frames and viewport-resize gray padding are recording transitions, distinct from settled fullsize stills.",
+    "Managed rejection/restart/retry and keyboard main/side recovery consistent with stills."
+  ],
+  "limits": [
+    "2fps sampling does not review every encoded frame.",
+    "Deterministic HTTP transport, no authenticated model/provider claim."
+  ],
+  "rootOriginalHashIndexVerified": 37,
+  "originalVideoHashes": {
+    "page@660d2be40c494933bf9b2e615a8e2160.webm": "d90ef43c308853dfce44c9ac9a4882817df2fa42aa9b3e0ce95a974be02e2fb8",
+    "page@8405e2ee35aa7710f30e186edac3b020.webm": "176dea6cb855547795efa615abadea2b030ad7b8122db332b1ad183ea6a554d4",
+    "page@a878b858a708b551450bb7ba8813f987.webm": "b1594037c0dedb75937fa5fce4be2f4337f3f90945e42bc7e0eb1aeeaf86c331"
+  },
+  "derivedHashes": {
+    "motion-map.json": "bb5c512a08a09fa16ba7d74989b440de1cd2692be4e717f6d1c694b2963a850c",
+    "motion-0/001.png": "5be4e19bf93e0e12e676fbf38a4769eadc079c72d477b05a9a6f1eec37deee13",
+    "motion-0/002.png": "56b0921ed47bccf6edc34fac18bdb8541249d08f6b831072f6aeaec52bb36416",
+    "motion-0/003.png": "78e6afde027c39da7c629055949bc4af0ae8cc2bdd4574652aef219903beb02d",
+    "motion-0/004.png": "26bccd3fb83d0abeafd5ac4cba3bbc2427fc718868ff7f680c55fccf58cdabe9",
+    "motion-0/005.png": "c76e3f3f4f925ac52c484d04bef2686805d611d21fb3f37f90d451b53e86d467",
+    "motion-0/006.png": "1c1460e72f536a14bf90c02ea0b11a59d0ec0c9f4182943e49e27ebd3e920026",
+    "motion-0/007.png": "67e189712341dcf16f44493db064d889ab08aab50cd5ebb4d5d1b77d8940a862",
+    "motion-0/008.png": "34ef1142fab47933b67e7c4db55274e78e423decc8e7ad922017f153f37f915c",
+    "motion-0/contact-0.png": "43a0a50d54b48f1df248b560ffe4c5692d603c6a94fc4646ffc9c02768fe6ec8",
+    "motion-0/decode.txt": "a3fb380a0af1ed9146b567aefa7d6ec40c6ba53def63d52c2414ed66bc71373f",
+    "motion-1/001.png": "5be4e19bf93e0e12e676fbf38a4769eadc079c72d477b05a9a6f1eec37deee13",
+    "motion-1/002.png": "90e47269a9c6538f5a409c2d56398e105de2a77a7b0432032a1cc877d7f2b8c3",
+    "motion-1/003.png": "3da10bd57c624964afcabc83bf9c79bb6160307a3a144548092d0046bb12538e",
+    "motion-1/004.png": "2575242d52ceec39bf65f9877d2fa7a2a74666332262817069a36c4aaa746f6c",
+    "motion-1/005.png": "07a8167362afe0b05dd86fa4471e27bb24130980be0ae9af6e695c749bd2b93f",
+    "motion-1/006.png": "9b6647fc467fbf6d3f5161fc4d4966484b89b6bb9e745f2db9de53fb88e3f0fd",
+    "motion-1/007.png": "ec55683fa5efe745968c9ea5cbc6804bc15c5fd5561eafd23fc01edee85a0857",
+    "motion-1/008.png": "7c5b3d6f47038f14f7386aa547fb8c37955cb3425e6f2c7cc5e056a8d86adb89",
+    "motion-1/009.png": "7c5b3d6f47038f14f7386aa547fb8c37955cb3425e6f2c7cc5e056a8d86adb89",
+    "motion-1/010.png": "322bb3dcd8f03ab8568565813081a254c2cd8f69a2b34d7ae964e79987f4331e",
+    "motion-1/011.png": "ea76ea9d82652082e89db4ae3f9659a04b45c51544d065be54732675d8f15f95",
+    "motion-1/012.png": "5ec1ac50ea0499a078c78c2196d8ef54cde2fefd20310d3fc00d48109b3c01f4",
+    "motion-1/013.png": "b475676fb4b7d2bc37df3724339308f65e4662e3dfc4f607111dd316056a590d",
+    "motion-1/014.png": "2dc63922c794e3e087ab4368d0f1cb2aaecadb20b26f5677677edacca1e3ed9c",
+    "motion-1/015.png": "eb1e79a67d5af25e47b105a220d00d048b0dcf77debc0c2912f0b4f175ddb63b",
+    "motion-1/016.png": "748914b14ba414b84e2310f648c65a934520edce7407a1ad1c80fbbb28fef3eb",
+    "motion-1/017.png": "1862bfb831cf9e6317be55ea078a1bec7d6478cba09f89fe92e54d740f60b9dc",
+    "motion-1/018.png": "69211cab0b86965c0dbb6b6ce14ce6757c7a69d524d7839b2f1011abb61bf49d",
+    "motion-1/019.png": "d2e1f144c390659cee113cc76cb25a56afad2b04f99825ef15c2869e0544cd42",
+    "motion-1/020.png": "beda5f8354bdf8d8b47e24923a5eb1f702b78bc3473ad1a35803abd995fe311d",
+    "motion-1/021.png": "ad25bc061330e728e4cc21b53e5d60889ea7f34e641b18995c3d03e76384aa25",
+    "motion-1/022.png": "93d9a43b2f9f53ea163ce9f70742b3cbca8a099c7f2ecfdcd3da2b0cfcdcb52f",
+    "motion-1/023.png": "325b48600dcaa726de4f0dca1a05c81adebbe14189ca3a81726c8b5bb0727e66",
+    "motion-1/024.png": "ce06ddbe11370467e7406ad3787fe42af7a70fdf0f2589de2c83872b2869c6b6",
+    "motion-1/contact-0.png": "a0e741377d47363dcd8b8435b7e0f88fb90fc16fe6f0fc40b71de5b4488d8035",
+    "motion-1/contact-16.png": "71247cc6640d92b451a57177126d795ad8c53aad549ecfcb7a88888fbcb5b3fa",
+    "motion-1/decode.txt": "020c33070e2769898689048b49eeaa135c4f05f7e45a4ce34861860c16d62934",
+    "motion-2/001.png": "5be4e19bf93e0e12e676fbf38a4769eadc079c72d477b05a9a6f1eec37deee13",
+    "motion-2/002.png": "56b0921ed47bccf6edc34fac18bdb8541249d08f6b831072f6aeaec52bb36416",
+    "motion-2/003.png": "014a66dec24304f9446084f86481e1f36ba482f1eba62e5045b814a77f51c9ad",
+    "motion-2/004.png": "fe3b1f64bedc20eff324187d236f5c9e4df0483fb5a9d192754d7626f86e38e2",
+    "motion-2/005.png": "9715188db9b9d204446ea69e85c7e33baa1c52537af2e3be7b1eb3cd99490f7a",
+    "motion-2/006.png": "2ae209b1279f7e7b25f5808b10fcc64ab8fcb9e5f29b35bcb5d375a981fb694f",
+    "motion-2/007.png": "be5e6edfcca1a4091b5c9e83447a250a4d2f7964005061578f9f54d64541c69b",
+    "motion-2/008.png": "32a5e943f5f1723759156109dc72cc39d59e19ce81ba2e7264ed4ebea3d4fc8c",
+    "motion-2/009.png": "44bbeab95679fd49a4ce3d6b9a64b1b3c6ddf7a2a0d4ff4cc61c619895ab0ed3",
+    "motion-2/contact-0.png": "46721ab2a383470f98261d93c52205cb38cefe744b16b20cf277c17cb0f74574",
+    "motion-2/decode.txt": "08496ad9232a6bb09ef7811827ee259a3f1033cd57ccc071ae21a5891175d468"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "reviewer": "Codex C040 review",
+  "reviewedAt": "2026-09-23T01:05:18.763Z",
+  "sourceCommit": "e32482f97ddc2e3a2e3b22c8b676855286b62875",
+  "manifestSha256": "f5d34023966e86142ca72d0f9e3b004b6ee7a7a200370a7f1dbcba7da9bdf94f",
+  "artifacts": {
+    "01.png": "718e45ff1359bb764d11d077a1d13ff0bbf8083ddbe9e71c210d2d6314c68708",
+    "02.png": "2af5b7daeeea233ce99f9bfed1e1d73a459132bbb5b2154f8ac5b2d9c6e01821",
+    "03.png": "8ec763be097ba5c67d3b17b5db85ca7b0ec3fce95ed9d2294a88f15c799581ca",
+    "04.png": "760490654bcee71155eb30f99beb498963e1931987e08ad83885c77da03ba558",
+    "05.png": "04ba8850c3d3af2f3bf6bdd1e2840ad7338c1eeedcb579d34681b3f6b5759a0a",
+    "06.png": "73e1c73a06383e6e7f4149e3ec4160074d2fc9c48c2403476d7b667bffb53d3f",
+    "07.png": "bee48561d19ee166c16a1cece2425d36339236c72b4a28228bcf7e0a65effef8",
+    "08.png": "4dfefb8aa37c66f5591db85da7b4f9e61b4a3b4a44b61485d371ac6a792bb64b",
+    "09.png": "1ce54e5b51a47ec3bd883215665f61dfd34ae32bd58ffa0ca8f154e72eb35534",
+    "10.png": "b2fb55eb44cacbf15752a77bbf22528870d026e2885f74aa7e2c094faa2d6f1c",
+    "11.png": "96a57e382334e2723286fda1e536bf3968c8cf75aae8e03a2bfa20b9e2f16a59",
+    "12.png": "205a61f1b41341143ebba5484dbdd08bb9c79c8b54d3ef7be8b00a402497ccc4",
+    "13.png": "2edcfa3e743072dce9419214b3c33825185c2998e3140db858223794bd219ec9",
+    "editor-gaps.webm": "2865549340f8e82471de391375f070c8b8989c093bc5c94f402e49ae6c3d0af9",
+    "result.json": "d0fc910b4d24ca5aa0d8996983ae0993fe2d56002eb130d061df34895ca10328"
+  },
+  "result": "approved",
+  "inspected": {
+    "stills": 13,
+    "videoSamples": 53,
+    "sampling": "2 frames/second across the 26.5-second recording"
+  },
+  "findings": [
+    "Inspected all action stills and sampled intermediate video frames: rich paste, native Undo/Redo, list lift, quote join, callout shorthand and full replacement/Undo preserve visible content as asserted against the server.",
+    "Separate row14 and find final stills inspected; nested checklist has exact second text and only nested checkbox selected."
+  ],
+  "limits": [
+    "Sampled video review, not every encoded frame. No provider turn in this native fixture."
+  ],
+  "cleanup": "Isolated capture wrapper stopped owned Electron and Barkpark."
+}

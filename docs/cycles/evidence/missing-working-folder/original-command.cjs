@@ -1,0 +1,19 @@
+const fs=require('fs'),path=require('path'),os=require('os'),assert=require('assert'),crypto=require('crypto');
+const base='C:/Users/Frikk/.codex/worktrees/barkdown-integration-12h/app/main';
+const agent=require(base+'/agent'),runs=require(base+'/providers/runs');
+const root=fs.mkdtempSync(path.join(os.tmpdir(),'bd-folder-audit-')),storeDir=path.join(root,'store-B'),folder=path.join(root,'missing-B'),a=path.join(root,'folder-A');fs.mkdirSync(storeDir);fs.mkdirSync(a);fs.writeFileSync(path.join(a,'same.txt'),'A_ONLY');
+const profileId=crypto.randomUUID(),report={root,source:'bde5e23',cases:[]};
+(async()=>{
+for(const provider of ['claude','codex'])for(const code of ['ENOENT','EACCES']){
+ const t=require(base+'/providers/'+provider),events=[];let cwd;
+ const err=()=>{let e=new Error(code+': injected SDK cannot use selected folder '+folder);e.code=code;throw e;};
+ t.setSdkLoader(async()=>provider==='claude'?{query({options}){cwd=options.cwd;err();}}:{Codex:class{startThread(o){cwd=o.workingDirectory;return{runStreamed:async()=>err()}}}});
+ let result=await agent.start({provider,profileId,storeDir,chatId:'same',context:{folder},prompt:'audit',messages:[{role:'user',content:'audit'}],settings:{},connection:{enabled:false},send:e=>events.push(e)});await runs.waitForRunFinish(result.runId);assert.equal(cwd,folder);assert(events.some(e=>e.type==='error'&&e.message.includes(code)));assert(!fs.existsSync(folder));report.cases.push({provider,code,passedCwd:cwd,error:events.find(e=>e.type==='error').message,limitation:'Injected SDK failure; not real SDK/OS access denial'});t.setSdkLoader(null);
+}
+let calls=[];agent.setClientFactory(()=>({messages:{stream(request){calls.push(structuredClone(request));return{on(){return this;},async finalMessage(){return calls.length===1?{content:[{type:'tool_use',id:'search',name:'search_files',input:{query:'A_ONLY'}}],stop_reason:'tool_use',usage:{}}:{content:[{type:'text',text:'fixture finished'}],stop_reason:'end_turn',usage:{}};}}}}}));
+const events=[];let result=await agent.start({provider:'api',profileId,storeDir,chatId:'same',context:{folder},messages:[{role:'user',content:'search A_ONLY'}],settings:{apiKey:'synthetic-only'},connection:{enabled:false},send:e=>events.push(e)});await runs.waitForRunFinish(result.runId);assert.equal(calls.length,2);const toolResult=calls[1].messages.at(-1).content[0];assert.equal(toolResult.content,'[]');assert(!toolResult.is_error);assert(calls[0].system[0].text.includes(folder));assert(!fs.existsSync(folder));report.cases.push({provider:'api',missingFolderAccepted:true,tool:'search_files',toolResult,observed:'Missing selected folder is returned as successful empty search; no A content or scratch substitution observed'});agent.setClientFactory(null);
+const scope=runs.captureScope({profileId,storeDir,context:{chatId:'same',folder},connection:{enabled:false}});let sent;
+const {createOwnedWorkerAgent}=require(base+'/goal-worker-agent');const owned=createOwnedWorkerAgent({launch:async options=>{let finish;return{ready:Promise.resolve(),finished:new Promise(r=>finish=r),stop(){finish({});},send(message){sent=message;options.onMessage({type:'event',event:{type:'done',profileId,chatId:'same',provider:'api'}});options.onMessage({type:'complete'});finish({});}};}});
+result=await owned.start({scope,provider:'api',chatId:'same',attemptId:crypto.randomUUID(),context:scope.context,prompt:'audit',settings:{goalWorker:true},send(){}});await owned.waitForRunFinish(result.runId);assert.equal(sent.params.scope.context.folder,folder);report.cases.push({provider:'owned worker transport',passedFolder:sent.params.scope.context.folder,limitation:'Injected host only; native helper actual cwd is storeDir, child provider receives unchanged selected folder'});
+fs.writeFileSync(path.join(root,'report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
+})().catch(e=>{console.error(e);process.exitCode=1});

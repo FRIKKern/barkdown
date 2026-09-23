@@ -1,0 +1,1505 @@
+
+> bp-paper-editor@0.2.0 pretest
+> node src/__test_chain_census.mjs && node src/__card_media_bridge.test.mjs && node src/__card_action_label_inline.test.mjs && node src/__paper_link_ref_copy_controls.test.mjs && node src/__contextual_history.test.mjs && node src/canvas/__resting_scaffolds.test.mjs && node src/canvas/__nested_list_authoring.test.mjs && node src/canvas/__paragraph_carriers.test.mjs && node src/canvas/__heading_carriers.test.mjs && node src/canvas/__cards_inline_mounted.test.mjs && node src/canvas/__stats_inline_mounted.test.mjs && node src/canvas/__list_lossless.test.mjs && node src/canvas/__callout_input_mounted.test.mjs && node src/canvas/__callout_title_mounted.test.mjs && node src/canvas/__card_title_mounted.test.mjs
+
+test-chain census: 121 test files on disk, 123 paths named across pretest+test+posttest — reconciled, 0 drift
+PASS Card media bridge: trusted activation, source-only replay, refresh, inert, teardown
+PASS Card media ordering: latest intent, exact retry, frozen owner, unknown fail-closed
+PASS Card action label: canonical focus, exact FIFO, retry, ACK safety, conflict recovery
+related-card copy controls preserve separate editing and navigation ownership
+related-card copy morph ownership follows the admitted identity guard
+related-card copy serializes same-field and sibling-field saves without broad source payloads
+related-card attempted detached drafts remain receipt-owned and export-only
+related-card recovery ignores connected, malformed, and cross-scope sources
+related-card local-only recovery fences direct conflict actions
+related-card focused sibling rebasing stays narrow and fail-closed
+PASS contextual history: FIFO, opaque retry, redo policy, terminal state, identity reset, native keys
+reconnect mode hint is live, document-bound, and contains no draft data
+resting scaffolds preserve geometry, access, and source history
+nested list carrier projection and serialization passed
+mounted nested list authoring and source ownership passed
+paragraph carrier preservation passed
+mounted paragraph carrier editing and split preservation passed
+heading carrier projection and serialization passed
+mounted canvas and single heading carriers passed
+legacy Cards inline: title/body, native selection/history, paint, fallback and exact conflict preservation passed
+stats inline: authored values/labels, native focus, repaint, undo/redo, exact preservation and locked/query guards passed
+list carrier conversion preservation passed
+mounted list losslessness regression passed
+mounted list carrier identity and split preservation passed
+mounted typed callout, undo/redo and lossless save passed
+mounted callout variants, literal quote preservation and single-block input passed
+mounted callout title: in-place input, fold isolation, immediate flush, undo/redo, absence and composition passed
+mounted Card title boundary, immediate settlement, composition, Enter, undo and source preservation passed
+
+> bp-paper-editor@0.2.0 test
+> node src/canvas/__agent_takeover_mounted.test.mjs && node src/canvas/__agent_takeover_rich_mounted.test.mjs && node src/__no_raw_nul.test.mjs && node src/__smoke.mjs && node src/canvas/__technical_atoms.test.mjs && node src/__fallback_rich_body.test.mjs && node src/__callout_shorthand.test.mjs && node src/__callout_parity.test.mjs && node src/__wikilink.test.mjs && node src/__locked.test.mjs && node src/__locked_mounted.test.mjs && node src/__source_locked.test.mjs && node src/__featured_placeholder.test.mjs && node src/__picker_chrome.test.mjs && node src/__fleet.test.mjs && node src/__one_surface.test.mjs && node src/__keyboard_reach.test.mjs && node src/canvas/__sheet_embed_retarget_audit.test.mjs && node src/__format_bubble_focus.test.mjs && node src/__constraint_slots.test.mjs && node src/__atom_chrome.test.mjs && node src/__divider_parity.test.mjs && node src/__role.test.mjs && node src/__code_interior.test.mjs && node src/__table.test.mjs && node src/__columns.test.mjs && node src/__figure.test.mjs && node src/__image.test.mjs && node src/__expandable.test.mjs && node src/__rows.test.mjs && node src/__island.test.mjs && node src/__heading_levels.test.mjs && node src/__align.test.mjs && node src/canvas/__link_preview.test.mjs && node src/canvas/__ime_composition.test.mjs && node src/__code_highlight.test.mjs && node src/canvas/__table_spans.test.mjs && node src/canvas/__table_widths.test.mjs && node src/canvas/__table_head_align.test.mjs && node src/canvas/__markdown_table_paste.test.mjs && node src/canvas/__html_table_paste.test.mjs && node src/canvas/__rich_clipboard_preservation.test.mjs && node src/__terminal.test.mjs && node src/canvas/__slots.test.mjs && node src/__cards.test.mjs && node src/canvas/__tasklist.test.mjs && node src/canvas/__enter_tail.test.mjs && node src/canvas/__flush_pending.test.mjs && node src/canvas/__paste_undo_redo.test.mjs && node src/canvas/__autocomplete_selection.test.mjs && node src/canvas/__save_ack_mounted.test.mjs && node src/canvas/__reject_ack_mounted.test.mjs && node src/canvas/__node_flush.test.mjs && node src/canvas/__node_view_flush.test.mjs && node src/canvas/__reference_picker_mounted.test.mjs && node src/canvas/__media_picker_mounted.test.mjs && node src/canvas/__diagram_preview.test.mjs && node src/__reader_hooks.test.mjs && node src/__field_flush.test.mjs && node src/__generic_field_flush.test.mjs && node src/__mutation_concurrency.test.mjs && node src/__note.test.mjs && node src/__stage.test.mjs && node src/__role_parity.test.mjs && node src/__table_parity.test.mjs && node src/__section_parity.test.mjs && node src/__card_parity.test.mjs && node src/__dataviz.test.mjs && node src/canvas/__datum_grid_mounted.test.mjs && node src/__narrow_overflow_guards.test.mjs && node src/__narrow_heading_guards.test.mjs && node src/__narrow_title_guards.test.mjs && node src/__narrow_stat_guards.test.mjs && node src/canvas/__vocabulary.test.mjs && node src/canvas/__section_presets_mounted.test.mjs && node src/__picker_focal.test.mjs && node src/__picker_metadata.test.mjs && node src/__picker_strings.test.mjs && node src/__heading_carriers.test.mjs && node src/__list_carriers.test.mjs && node src/__nested_list_carriers.test.mjs && node src/__paragraph_carriers.test.mjs && node src/__reconnect_mode.test.mjs
+
+PASS idle focused external content, mapped caret, next human input and busy refusals
+PASS mark-only update preserves a selected word
+PASS link-only update preserves a backwards selected word
+PASS partial nested marks preserve selected word
+PASS list sibling change preserves selected item
+PASS table sibling change preserves selected cell
+PASS multiline change preserves unaffected paragraph selection
+__no_raw_nul: 210 tracked files swept, 0 raw NUL, detector control fired
+PASS  paragraph round-trip (text + bold + em + code)
+PASS  heading round-trip (text + level)
+PASS  bullet list round-trip
+PASS  ordered list flag preserved
+PASS  list with FLAT-STRING items projects WITHOUT throwing (defensive coercion)
+PASS  list with FLAT-STRING items round-trips without migrating carriers
+      emitted op: {"op":"patch-block","id":"p-9","patch":{"content":[{"type":"text","value":"Hello "},{"type":"strong","children":[{"type":"text","value":"world"}]}]}}
+PASS  patch-block op shape for 'Hello **world**'
+PASS  paragraph round-trip (strikethrough)
+PASS  paragraph round-trip (underline)
+PASS  paragraph round-trip (bold > strikethrough)
+PASS  paragraph round-trip (wikilink + alias)
+PASS  paragraph round-trip (wikilink, no alias)
+PASS  paragraph round-trip (wikilink + docId)
+PASS  paragraph round-trip (wikilink, no docId)
+PASS  paragraph round-trip (task-chip wikilink: target + alias + docId)
+PASS  paragraph round-trip (blockref)
+PASS  paragraph round-trip (tag)
+PASS  paragraph round-trip (valueref, full wire shape + D6 fallback child)
+PASS  paragraph round-trip (valueref, childless minimal — no stray keys)
+PASS  per-block: editing an ADJACENT word round-trips the valueref unchanged
+PASS  paragraph round-trip (bold inside wikilink)
+PASS  round-trip is idempotent (double-pass, all kinds)
+PASS  editor mark schemas match convert.js attrs
+PASS  contract exposes CONTRACT_VERSION
+PASS  blockToTiptap is identical regardless of editability
+PASS  S0 runToTiptap: 3 blocks → 3 stamped nodes in order
+PASS  S0 runToOps: interior edit → one patch-block (byte-identical)
+PASS  S0 runToOps: split → insert-after(minted id) then patch-block
+PASS  S0 runToOps: merge → remove-block then patch-block
+PASS  S0 runToOps: reorder → single move-block, no patches
+PASS  S0 non-prose block: opaque carry-through, zero ops on round-trip
+PASS  S0 runToTiptap: a FLAT-STRING-item list projects WITHOUT throwing
+PASS  S0 runToOps: a NORMALIZED inline-array list round-trips with ZERO ops (no churn)
+PASS  S0 runToOps: marked blocks are NOT spuriously patched (key-order robust)
+PASS  S0 canvas: valueref paragraph projects + round-trips with ZERO ops
+PASS  S0 canvas: editing an ADJACENT word round-trips the valueref unchanged
+PASS  S0 runToOps: front insert → folds to position 0 (was: landed at END)
+PASS  S0 runToOps: insert + reorder → [c(new), b, a] folds correctly
+PASS  S0 runToOps: two consecutive new front blocks fold in order
+PASS  S0 runToOps: empty prev → all-new appends fold in order
+PASS  S0 runToOps: reorder-only [a,b,c] → [c,a,b] folds, no inserts/patches
+PASS  S3 runToTiptap: a divider → { type:'divider', attrs:{bpId,bpType} } (NOT bpOpaque)
+PASS  S3 runToOps: an untouched divider round-trips with ZERO ops
+PASS  S3 runToOps: inserting a divider → insert-after with a {type:'divider'} block
+PASS  S3 runToOps: removing a divider → remove-block
+PASS  S3 runToOps: a divider between edited prose emits only the prose patches
+PASS  S3 runToTiptap: a composite field is STILL opaque (native + picker fields became canvas-handled, nested-structure fields did not)
+PASS  S3.2 runToTiptap: a callout → { type:'callout', content:[…], attrs:{tone,title,collapsible} } (NOT bpOpaque)
+PASS  S3.2 runToOps: an untouched callout round-trips with ZERO ops (canonical compare)
+PASS  S3.2 runToOps: editing the callout BODY → one patch-block with the new content
+PASS  S3.2 runToOps: changing tone → a patch-block carrying the new tone
+PASS  S3.2 runToOps: changing title → a patch-block carrying the new title
+PASS  S3.2 runToOps: toggling the fold (collapsed) → a patch-block carrying collapsed
+PASS  S3.2 runToOps: EXPANDING a collapsed callout (true→false) actually persists
+PASS  S3.2 runToOps: CLEARING a title (set→null) actually persists
+PASS  S3.2 runToOps: inserting a callout → insert-after with a {type:'callout'} block
+PASS  S3.2 runToOps: removing a callout → remove-block
+PASS  S3.2 runToOps: a callout between edited prose emits only the prose patches
+PASS  S3.3 runToTiptap: a code block → { type:'bpCode', attrs:{bpId,bpType,value,lang} } (NOT bpOpaque)
+PASS  S3.3 runToTiptap: a lang-less code block carries NO lang attr
+PASS  S3.3 runToOps: an untouched code block round-trips with ZERO ops (multi-line + reordered keys)
+PASS  S3.3 runToOps: an untouched lang-less code block round-trips with ZERO ops
+PASS  S3.3 runToOps: editing the code VALUE → one patch-block with the new value
+PASS  S3.3 runToOps: changing the code LANG → a patch-block carrying the new lang
+PASS  S3.3 runToOps: CLEARING the lang (set→'') persists lang:'' in the patch
+PASS  S3.3 runToOps: inserting a code block → insert-after with a {type:'code', value} block
+PASS  S3.3 runToOps: inserting a lang-less code block → block carries no lang key
+PASS  S3.3 runToOps: removing a code block → remove-block
+PASS  S3.3 runToOps: a code block between edited prose emits only the prose patches
+PASS  S3.3 runToTiptap: a composite field is STILL opaque (native + picker fields canvas-handled, nested-structure fields not)
+PASS  S3.4 runToTiptap: a diagram block → { type:'bpDiagram', attrs:{bpId,bpType,source,caption} } (NOT bpOpaque)
+PASS  S3.4 runToTiptap: a caption-less diagram block carries NO caption attr
+PASS  S3.4 runToOps: an untouched diagram block round-trips with ZERO ops (multi-line + reordered keys)
+PASS  S3.4 runToOps: an untouched caption-less diagram block round-trips with ZERO ops
+PASS  S3.4 runToOps: editing the diagram SOURCE → one patch-block with the new source
+PASS  S3.4 runToOps: setting the diagram CAPTION → a patch-block carrying the new caption
+PASS  S3.4 runToOps: CLEARING the caption (set→'') persists caption:'' in the patch
+PASS  S3.4 runToOps: inserting a diagram block → insert-after with a {type:'diagram', source} block
+PASS  S3.4 runToOps: inserting a caption-less diagram block → block carries no caption key
+PASS  S3.4 runToOps: removing a diagram block → remove-block
+PASS  S3.4 runToOps: a diagram block between edited prose emits only the prose patches
+PASS  S3.4 runToOps: a diagram + code + callout in ONE run all round-trip with ZERO ops
+PASS  S3.5 runToTiptap: a field-string block → { type:'bpField', attrs:{bpType,value,fieldName} } (NOT bpOpaque)
+PASS  S3.5 runToTiptap: a field-slug block → { type:'bpField', attrs:{bpType,value,fieldName} } (NOT bpOpaque)
+PASS  S3.5 runToTiptap: a field-text block → { type:'bpField', attrs:{bpType,value,fieldName} } (NOT bpOpaque)
+PASS  S3.5 runToTiptap: a field-boolean block → { type:'bpField', attrs:{bpType,value,fieldName} } (NOT bpOpaque)
+PASS  S3.5 runToTiptap: a field-select block → { type:'bpField', attrs:{bpType,value,fieldName} } (NOT bpOpaque)
+PASS  S3.5 runToTiptap: a field-datetime block → { type:'bpField', attrs:{bpType,value,fieldName} } (NOT bpOpaque)
+PASS  S3.5 runToTiptap: a field-color block → { type:'bpField', attrs:{bpType,value,fieldName} } (NOT bpOpaque)
+PASS  S3.5 runToOps: an untouched field-string block round-trips with ZERO ops (config preserved)
+PASS  S3.5 runToOps: an untouched field-slug block round-trips with ZERO ops (config preserved)
+PASS  S3.5 runToOps: an untouched field-text block round-trips with ZERO ops (config preserved)
+PASS  S3.5 runToOps: an untouched field-boolean block round-trips with ZERO ops (config preserved)
+PASS  S3.5 runToOps: an untouched field-select block round-trips with ZERO ops (config preserved)
+PASS  S3.5 runToOps: an untouched field-datetime block round-trips with ZERO ops (config preserved)
+PASS  S3.5 runToOps: an untouched field-color block round-trips with ZERO ops (config preserved)
+PASS  S3.5 runToOps: editing a field-string value → one patch-block with the COERCED value
+PASS  S3.5 runToOps: editing a field-slug value → one patch-block with the COERCED value
+PASS  S3.5 runToOps: editing a field-text value → one patch-block with the COERCED value
+PASS  S3.5 runToOps: editing a field-boolean value → one patch-block with the COERCED value
+PASS  S3.5 runToOps: editing a field-select value → one patch-block with the COERCED value
+PASS  S3.5 runToOps: editing a field-datetime value → one patch-block with the COERCED value
+PASS  S3.5 runToOps: editing a field-color value → one patch-block with the COERCED value
+PASS  S3.5 coerceFieldValue matches BarkparkFieldBlockBridge (boolean→checked; else→value)
+PASS  S3.5 runToOps: inserting a field-string block → insert-after with a {type:'field-string', value, fieldName} block
+PASS  S3.5 runToOps: inserting a field-boolean block → the inserted value is a BOOLEAN
+PASS  S3.5 runToOps: removing a field-select block → remove-block
+PASS  S3.5 runToOps: a field between edited prose emits only the prose patches
+PASS  S3.5 runToOps: a field + code + callout + diagram in ONE run all round-trip with ZERO ops
+PASS  S3.6 runToTiptap: a sheet block → the READ-ONLY atom node (NOT bpOpaque), carrying bpBlock VERBATIM
+PASS  S3.6 runToTiptap: a embed block → the READ-ONLY atom node (NOT bpOpaque), carrying bpBlock VERBATIM
+PASS  S3.6 read-only representation: sheet → summary chip 'Sheet · <ref> · NxM'
+PASS  S3.6 read-only representation: embed → reference chip '↪ <target>'
+PASS  S3.6 runToOps: an untouched sheet round-trips with ZERO ops (verbatim, deep-equal)
+PASS  S3.6 runToOps: an untouched embed round-trips with ZERO ops (verbatim, deep-equal)
+PASS  S3.6 runToOps: a sheet NEVER emits a value patch even if an attr is touched (read-only)
+PASS  S3.6 runToOps: a embed NEVER emits a value patch even if an attr is touched (read-only)
+PASS  S3.6 runToOps: inserting a sheet → insert-after carrying the VERBATIM block
+PASS  S3.6 runToOps: inserting a embed → insert-after carrying the VERBATIM block
+PASS  S3.6 runToOps: removing a sheet → remove-block (Backspace deletes the atom)
+PASS  S3.6 runToOps: removing a embed → remove-block (Backspace deletes the atom)
+PASS  S3.6 runToOps: a sheet between edited prose emits only the prose patches (none for the sheet)
+PASS  S3.6 runToOps: a embed between edited prose emits only the prose patches (none for the embed)
+PASS  S3.6 runToOps: [paragraph, sheet, embed, paragraph] round-trips with ZERO ops (one run, no split)
+PASS  S3.6 runToTiptap: a composite field is STILL opaque (sheet/embed + pickers became canvas-eligible, nested-structure fields did not)
+PASS  editable-action runToTiptap: an action → { type:'bpAction', attrs:{bpId,bpType,href,label,priority} } (NOT bpOpaque)
+PASS  editable-action runToTiptap: a no-keys action carries NO href/label/priority attrs
+PASS  editable-action runToOps: an untouched action round-trips with ZERO ops (reordered keys)
+PASS  editable-action runToOps: a no-keys action round-trips to exactly {id,type:'action'} with ZERO ops
+PASS  editable-action runToOps: selecting Secondary on a never-set-priority action → ZERO ops (nil≡secondary)
+PASS  editable-action runToOps: selecting Primary → one patch-block carrying priority:'primary'
+PASS  editable-action runToOps: editing label + href → one coarse patch-block with both
+PASS  editable-action runToOps: inserting an action → insert-after with a {type:'action'} block
+PASS  editable-action runToOps: removing an action → remove-block; flanking prose edits emit only their patches
+PASS  S6 strictInt: canvas span/order coercion mirrors the reader's Integer.parse (no parseInt lenience)
+PASS  section runToTiptap: a top-level section → { type:'bpSection', content:[…] } (NOT bpOpaque)
+PASS  section runToTiptap: an ABSENT title round-trips as ABSENT (present-only)
+PASS  section runToOps: an untouched section round-trips with ZERO ops
+PASS  section content-expression LOCKSTEP: forbids bpSection, allows the child roster + bpOpaque
+PASS  section runToTiptap: a NESTED section child is carried bpOpaque VERBATIM (not bpSection)
+PASS  section runToOps: editing a nested child's interior → ONE patch-block{childId} (not replace-block)
+PASS  section runToOps: editing the section TITLE (children unchanged) → ONE patch-block{title}, no replace-block
+PASS  section runToOps: CLEARING the title → patch-block{title:null}
+PASS  section runToOps: UNCHANGED title + unchanged children → ZERO ops (no spurious title churn)
+PASS  section runToOps: adding a nested child (null id) → ONE replace-block of the whole section
+PASS  section runToOps: reordering nested children → ONE replace-block (nested reorder rides inside)
+PASS  section runToOps: removing a nested child → ONE replace-block
+PASS  section runToOps: inserting a NEW section (null id, null-id children) → insert carrying the rebuilt subtree
+PASS  section duplicate_id guard: minting a new top-level block never collides with a nested id (full-tree seed)
+PASS  section docToBlocks: projects a live section doc back to blocks, minting nested null ids
+PASS  section reconcileServerEcho: an untouched section own-echoes (+ no idWrites)
+PASS  section reconcileServerEcho: a section holding a canvas-CREATED child does NOT own-echo (v1 coarse cost)
+PASS  section node-name constant matches the projector
+PASS  S2 backward-compat: a no-layout section adds NO layout/cells attr and is zero-ops
+PASS  S2 grid round-trip: a {mode:grid,tracks:2} section survives blocks→node→docToBlocks byte-equal
+PASS  S2 grid zero-ops: an untouched grid section round-trips with ZERO ops
+PASS  S2 mode toggle: grid→stack emits exactly ONE patch-block{layout:{mode:stack}} and folds
+PASS  S2 clear layout: removing the layout attr → patch-block{layout:null}
+PASS  S2 span/order: a child span/order survives blocks→node→docToBlocks and is zero-ops
+PASS  S2 reorder regression (THE BUG): span/order stays on its OWN child after a canvas reorder
+PASS  S2 reorder regression (non-symmetric): span/order tracks its child through a rotation
+PASS  S2 explicit-stack ≡ absent: {mode:stack} and no-layout project children identically
+PASS  S2 echo: a layout-bearing section own-echoes (stableSectionKey includes layout)
+PASS  D34 variant round-trip: variant:'framed' survives blocks→node→docToBlocks byte-equal
+PASS  D34 variant zero-ops: an untouched framed section round-trips with ZERO ops
+PASS  D34 variant reorder: a structural reorder's replace-block CARRIES variant:'framed'
+PASS  D34 backward-compat: a no-variant section adds NO variant attr and is zero-ops
+PASS  D34 echo key: framed own-echoes; a variant mismatch is NOT an own-echo
+PASS  card runToTiptap: a top-level card → { type:'bpCard', content:[inline…] } (folds INTO a run)
+PASS  card runToTiptap: tone/title/media/action are PRESENT-ONLY (a bare card gains nothing)
+PASS  card runToOps: an untouched top-level card round-trips with ZERO ops (+ real body)
+PASS  card runToOps: an untouched grid SECTION-OF-CARDS round-trips with ZERO ops (+ real bpCard children)
+PASS  card default: canvasDefaultBlock('card') projects to bpCard and reconstructs to the cardNodeToBlock shape
+PASS  card default: the PERSISTED default card round-trips at ZERO ops (+ real bpCard)
+PASS  card docToBlocks: a card round-trips blocks→node→docToBlocks BYTE-EQUAL
+PASS  card slot fidelity: opaque slots and title/body metadata round-trip exactly at top level and nested
+PASS  card slot fidelity: an authoritative opaque-slot change is not mistaken for an own echo
+PASS  card slot fidelity: explicit tone:null is byte-exact top-level and nested, and differs from absent tone
+PASS  card: a card with POPULATED media+action slots round-trips BYTE-EQUAL (type keys intact)
+PASS  card mediaUrlFromValue: a serialized {url,assetId} pick → the bare URL (never the JSON blob); a bare URL passes through
+PASS  card runToOps: SETTING media (the picker's asset-ref) → ONE patch{slots.media type:'image',src}
+PASS  card runToOps: SETTING action label/href/priority → ONE patch{slots.action type:'action'} (type never dropped)
+PASS  card: a never-set action priority stays ABSENT on round-trip (nil≡secondary — no spurious priority:'secondary')
+PASS  card runToOps: editing the BODY → ONE patch-block{slots} carrying the new body (title preserved)
+PASS  card slot fidelity: a body edit retains opaque slots and title/body element metadata
+PASS  card runToOps: swapping the TONE → ONE patch-block carrying the new tone
+PASS  card runToOps: editing the TITLE → ONE patch-block{slots} carrying the new title
+PASS  card runToOps: CLEARING the tone → patch-block emits tone:null EXPLICITLY (removal lands)
+PASS  card runToOps: CLEARING the title retains its authored element metadata and empties text
+PASS  card slot fidelity: known slot clears land without deleting opaque slots or body metadata
+PASS  card slot fidelity: media/action edits overlay known fields without deleting element metadata
+PASS  card slot fidelity: a tone-only edit emits only tone and preserves exact empty slot representations
+PASS  card slot fidelity: a body edit on a tone-less Card does not write tone:null
+PASS  card slot fidelity: malformed known slots stay opaque and byte-exact
+PASS  card runToOps: editing a card child's body in a grid section → ONE patch-block{childId} (not replace-block)
+PASS  card runToOps: inserting a NEW card (null id) → insert carrying the rebuilt slots-native block
+PASS  card reconcileServerEcho: an untouched card own-echoes (+ no idWrites)
+PASS  card reconcileServerEcho: an EDITED card does NOT own-echo (external path → re-emit)
+PASS  note runToTiptap: a top-level note → { type:'note', content:[inline…] } (folds INTO a run)
+PASS  note runToTiptap: lead is PRESENT-ONLY (a lead-less note gains no lead attr)
+PASS  note byte-align: flat and materialized display the same strings while retaining their carriers
+PASS  note runToOps: an untouched top-level note round-trips with ZERO ops (+ real body)
+PASS  note docToBlocks: a note round-trips blocks→node→docToBlocks BYTE-EQUAL (flat wire form)
+PASS  note runToOps: editing the BODY → ONE patch-block{text} (label + lead preserved)
+PASS  note runToOps: editing the LABEL → ONE patch-block{label} (lead + body preserved)
+PASS  note runToOps: editing the LEAD → ONE patch-block{lead} (label + body preserved)
+PASS  note runToOps: CLEARING the lead → patch-block emits lead:null EXPLICITLY (removal lands)
+PASS  note runToOps: inserting a NEW note (null id) → insert carrying the rebuilt flat block
+PASS  note reconcileServerEcho: an untouched note own-echoes (+ no idWrites)
+PASS  note reconcileServerEcho: an EDITED note does NOT own-echo (external path → re-emit)
+PASS  note materialized label: full tree with shadow undefined → "Meaningful edit"
+PASS  note materialized label: full tree with shadow undefined → ""
+PASS  note materialized label: full tree with shadow null → "Meaningful edit"
+PASS  note materialized label: full tree with shadow null → ""
+PASS  note materialized label: full tree with shadow  → "Meaningful edit"
+PASS  note materialized label: full tree with shadow  → ""
+PASS  note materialized label: full tree with shadow 7 → "Meaningful edit"
+PASS  note materialized label: full tree with shadow 7 → ""
+PASS  note materialized label: full tree with shadow divergent → "Meaningful edit"
+PASS  note materialized label: full tree with shadow divergent → ""
+PASS  note materialized label: full tree with shadow alive → "Meaningful edit"
+PASS  note materialized label: full tree with shadow alive → ""
+PASS  note materialized lead: full tree with shadow undefined → "Meaningful edit"
+PASS  note materialized lead: full tree with shadow undefined → ""
+PASS  note materialized lead: full tree with shadow null → "Meaningful edit"
+PASS  note materialized lead: full tree with shadow null → ""
+PASS  note materialized lead: full tree with shadow  → "Meaningful edit"
+PASS  note materialized lead: full tree with shadow  → ""
+PASS  note materialized lead: full tree with shadow 7 → "Meaningful edit"
+PASS  note materialized lead: full tree with shadow 7 → ""
+PASS  note materialized lead: full tree with shadow divergent → "Meaningful edit"
+PASS  note materialized lead: full tree with shadow divergent → ""
+PASS  note materialized lead: full tree with shadow Kept → "Meaningful edit"
+PASS  note materialized lead: full tree with shadow Kept → ""
+PASS  note materialized body: full tree with shadow undefined → "Meaningful edit"
+PASS  note materialized body: full tree with shadow undefined → ""
+PASS  note materialized body: full tree with shadow null → "Meaningful edit"
+PASS  note materialized body: full tree with shadow null → ""
+PASS  note materialized body: full tree with shadow  → "Meaningful edit"
+PASS  note materialized body: full tree with shadow  → ""
+PASS  note materialized body: full tree with shadow 7 → "Meaningful edit"
+PASS  note materialized body: full tree with shadow 7 → ""
+PASS  note materialized body: full tree with shadow divergent → "Meaningful edit"
+PASS  note materialized body: full tree with shadow divergent → ""
+PASS  note materialized body: full tree with shadow the body → "Meaningful edit"
+PASS  note materialized body: full tree with shadow the body → ""
+PASS  note no-op and single-field edit preserve missing/null/empty/integer {}
+PASS  note no-op and single-field edit preserve missing/null/empty/integer {"label":null,"lead":null,"text":null}
+PASS  note no-op and single-field edit preserve missing/null/empty/integer {"label":"","lead":"","text":""}
+PASS  note no-op and single-field edit preserve missing/null/empty/integer {"label":7,"lead":8,"text":9}
+PASS  note no-op and single-field edit preserve missing/null/empty/integer {"slots":null}
+PASS  note no-op and single-field edit preserve missing/null/empty/integer {"slots":{}}
+PASS  note no-op and single-field edit preserve missing/null/empty/integer {"slots":{"lead":[]}}
+PASS  note direct content fallback edits and clears without changing primary {}
+PASS  note direct content fallback edits and clears without changing primary {"text":null}
+PASS  note direct content fallback edits and clears without changing primary {"text":""}
+PASS  note direct content fallback edits and clears without changing primary {"slots":{"body":[{"id":"paragraph-id","type":"paragraph","custom":{"keep":[null,7]},"content":[{"type":"link","href":"/kept","custom":"wrapper","children":[{"type":"code","value":"","custom":{"leaf":true}}]}]}]},"text":"dormant"}
+PASS  note nested materialized edit uses the same carrier patch
+PASS  note unsupported carrier is read-only and lossless {"slots":{"body":[{"type":"paragraph","content":[{"type":"text","value":"one"},{"type":"text","value":"two"}]}]}}
+PASS  note unsupported carrier is read-only and lossless {"slots":{"label":[{"type":"paragraph","content":[{"type":"image","src":"kept"}]}]}}
+PASS  note unsupported carrier is read-only and lossless {"slots":{"body":[{"id":"paragraph-id","type":"paragraph","custom":{"keep":[null,7]},"content":[{"type":"link","href":"/kept","custom":"wrapper","children":[{"type":"code","value":"first","custom":{"leaf":true}}]}]},{"id":"paragraph-id","type":"paragraph","custom":{"keep":[null,7]},"content":[{"type":"link","href":"/kept","custom":"wrapper","children":[{"type":"code","value":"second","custom":{"leaf":true}}]}]}]}}
+PASS  note unsupported carrier is read-only and lossless {"text":"Primary","content":[{"type":"text","value":"Dormant fallback"}]}
+PASS  note unsupported carrier is read-only and lossless {"content":"opaque scalar"}
+PASS  note empty terminal keeps paragraph/leaf keys when first authored undefined
+PASS  note empty terminal keeps paragraph/leaf keys when first authored null
+PASS  note empty terminal keeps paragraph/leaf keys when first authored []
+PASS  note empty terminal keeps paragraph/leaf keys when first authored ""
+PASS  note empty terminal keeps paragraph/leaf keys when first authored [""]
+PASS  note empty terminal keeps paragraph/leaf keys when first authored [{"type":"text","value":null,"keep":9}]
+PASS  note multiple changed fields share a full slots map without losing siblings
+PASS  note structural section reconstruction retains original note carrier
+PASS  note empty content fallback can be authored, cleared and reauthored without creating a competing primary
+PASS  stage runToTiptap: a top-level stage → { type:'bpStage', attrs:{…} } (folds INTO a run)
+PASS  stage runToTiptap: every field is PRESENT-ONLY (a bare stage gains nothing but title)
+PASS  stage runToTiptap: a SLOTS-form stage reads through the slot API + DROPS marks (plain text)
+PASS  stage runToOps: an untouched top-level stage round-trips with ZERO ops (+ real attrs)
+PASS  stage runToOps: a SLOTS-form stage round-trips with ZERO ops (slots read is stable)
+PASS  stage runToOps: an untouched SECTION-OF-STAGES round-trips with ZERO ops (+ real bpStage children)
+PASS  stage docToBlocks: a scalar stage round-trips blocks→node→docToBlocks BYTE-EQUAL
+PASS  stage docToBlocks: a hand-authored source:'true' (string) round-trips VERBATIM (not coerced to bool)
+PASS  stage runToOps: editing the TITLE → ONE patch-block carrying the new title (others preserved)
+PASS  stage runToOps: editing the DETAIL → ONE patch-block carrying the new detail
+PASS  stage runToOps: toggling SOURCE off → ONE patch-block carrying source:null (accent drops)
+PASS  stage runToOps: CLEARING the detail → patch emits detail:null EXPLICITLY (removal lands)
+PASS  stage runToOps: editing a stage child in a section → ONE patch-block{childId} (not replace-block)
+PASS  stage runToOps: inserting a NEW stage (null id) → insert carrying the present-only scalar block
+PASS  stage reconcileServerEcho: an untouched stage own-echoes (+ no idWrites)
+PASS  stage reconcileServerEcho: an EDITED stage does NOT own-echo (external path → re-emit)
+PASS  TAIL runToTiptap: a field-image block → { type:'bpField', attrs:{bpType,value,...} } (NOT bpOpaque)
+PASS  TAIL runToTiptap: a field-reference block → { type:'bpField', attrs:{bpType,value,...} } (NOT bpOpaque)
+PASS  TAIL runToOps: an untouched field-image block round-trips with ZERO ops (config preserved)
+PASS  TAIL runToOps: an untouched field-reference block round-trips with ZERO ops (config preserved)
+PASS  TAIL runToOps: editing a field-image value → one patch-block{value} (bridge shape)
+PASS  TAIL runToOps: editing a field-reference value → one patch-block{value} (bridge shape)
+PASS  TAIL coercePickerValue matches BarkparkFieldBlockBridge picker branch (identity on detail.value)
+PASS  TAIL runToOps: inserting a field-image block → insert-after with a {type:'field-image', value} block
+PASS  TAIL runToOps: inserting a field-reference block → insert-after with {type, value, refType}
+PASS  TAIL runToOps: removing a field-reference block → remove-block
+PASS  TAIL runToOps: a picker between edited prose emits only the prose patches
+PASS  TAIL runToOps: field-image + field-reference + native field + code + callout in ONE run → ZERO ops
+PASS  TAIL runToOps: a field-image with a per-block dataset round-trips the dataset (config), value edit is still {value}
+PASS  S4a runToOps: an echo of the same blocks is a NO-OP (own-echo match gate)
+PASS  S4a baseline reset: the 2nd batch is INCREMENTAL, not cumulative (echo shrinks the diff)
+PASS  S4a runToOps: a confirmed echo that DIFFERS from the live doc is detected (external edit)
+PASS  S4a-d new-block echo: id-tolerant reconcile recognizes the OWN echo + makes the next diff incremental
+PASS  S-slash: /paragraph → one insert-after carrying a paragraph block
+PASS  S-slash: /heading → one insert-after carrying a heading block
+PASS  S-slash: /list → one insert-after carrying a list block
+PASS  S-slash: /callout → one insert-after carrying a callout block
+PASS  S-slash: /code → one insert-after carrying a code block
+PASS  S-slash: /divider → one insert-after carrying a divider block
+PASS  S-slash: /diagram → one insert-after carrying a diagram block
+PASS  S-slash: /action → one insert-after carrying a action block
+PASS  S-slash: /figure → one insert-after carrying a figure block
+PASS  S-slash: /columns → one insert-after carrying a columns block
+PASS  S-slash: /terminal → one insert-after carrying a terminal block
+PASS  S-slash: /table → one insert-after carrying a table block
+PASS  S-slash: /card → one insert-after carrying a card block
+PASS  S-slash: /field-string → one insert-after carrying a field-string block
+PASS  S-slash: /field-boolean → one insert-after carrying a field-boolean block
+PASS  S-slash: non-empty defaults survive (heading/callout/field labels+values)
+PASS  S-slash: /field-boolean default value is boolean false
+PASS  S-slash: /field-string default value is empty string
+PASS  S-slash: /action inserts a bpAction → { type:action, href, label }
+PASS  S-slash: /figure inserts a bpFigure wrapping ONE child, no caption
+PASS  S-slash: /columns inserts a bpColumns of two empty columns
+PASS  S-slash: /section inserts a bpSection whose child gets a minted id
+PASS  S-slash: /terminal inserts a bpTerminal with an empty body
+PASS  S-slash: /table inserts a bpTable headed 1-body 2-col grid
+PASS  S-slash: /card inserts a bpCard → slots-native { title, body }, no tone
+PASS  S-slash: /divider into an EMPTY run → append-block of a divider
+PASS  S-slash: CANVAS_SLASH_TYPES holds exactly the insertable set
+PASS  S-slash: `> [!warn]- ` → a warning callout (collapsed) insert
+PASS  S-slash: `> [!note] ` → an info callout (not collapsed)
+PASS  S-slash: CANVAS_SLASH_TEXTABLE_NODES classifies body vs atom nodes
+PASS  S-slash: slashTriggerAllowsParent rejects a callout body, accepts prose
+PASS  P5 palette: registry is well-formed (id/label/group/run on every command)
+PASS  P5 palette: one Insert command per CANVAS_SLASH_TYPES entry
+PASS  P5 palette: Format + Turn-into commands present (canvas StarterKit set)
+PASS  P5 palette: Insert command default block == slash-menu default block (parity)
+PASS  P5 palette: fuzzy filter returns the expected matches
+PASS  P5 palette: fuzzyMatch is a subsequence match (order-sensitive, case-insensitive)
+PASS  P5 palette: editor-filtered registry hides unregistered commands (underline)
+PASS  compound: registry ⇄ palette Starters lockstep (one command per kind, none in Insert)
+PASS  compound: cards-grid block = section{grid,2 tracks} + 2 default cards (id-less)
+PASS  compound: inserting cards-grid → ONE insert-after, every id minted, fold reproduces
+PASS  compound: the INSERTED cards-grid round-trips at ZERO ops (+ real bpCard children)
+PASS  preset: registry ⇄ palette Presets lockstep (four DISTINCT presets, none in Insert/Starters)
+PASS  preset: each assembly is the documented ordered block sequence (the Paper's recipes)
+PASS  preset: every block is an EXISTING portable-doc type (no new block types) and id-less
+PASS  preset: a fresh deep structure per call (two inserts never share a nested ref)
+PASS  preset: inserting each preset → one insert PER block, ids minted, fold reproduces
+PASS  preset: the INSERTED preset round-trips at ZERO ops (projection fixed point)
+PASS  preset: every caret target names a real block, and its placeholder IS that block's text
+PASS  FUZZ property-1 LOAD IDENTITY: 1000 random runs project→diff to ZERO ops + block round-trip
+PASS  FUZZ property-2 EDIT FOLD: 1000 random stable-id mutations fold back EXACTLY
+PASS  FUZZ determinism: same seed → identical run, ops, and fold (reproducible)
+PASS  markdown: paragraph with bold/italic/strike/code round-trips render-equal
+PASS  markdown: heading round-trips ('#'*level + text)
+PASS  markdown: bullet + ordered lists round-trip
+PASS  markdown: callout admonition (tone + title + collapsed) round-trips
+PASS  markdown: callout with a NON-CANONICAL tone ('note'/'tip') round-trips verbatim
+PASS  markdown: code fence (lang) + a value CONTAINING ``` bumps the fence length
+PASS  markdown: diagram fence (mermaid) round-trips source + caption losslessly
+PASS  markdown: a code block with lang='mermaid' sentinels (never becomes a diagram)
+PASS  markdown: divider round-trips to ---
+PASS  markdown: nested same-family emphasis (***x*** bug) round-trips to a stable fixed point
+PASS  markdown: paragraph led by a 3+-backtick inline-code span (fence-block bug) round-trips
+PASS  markdown: a paragraph that is JUST a 3-backtick inline-code span round-trips
+PASS  markdown: link / wikilink (alias) / tag inline round-trip
+PASS  markdown: adversarial literal markdown chars round-trip as TEXT, not markup
+PASS  markdown: empty paragraph + empty block edge cases round-trip
+PASS  markdown: NON-PROSE blocks (field-*/sheet/embed) ride a byte-lossless sentinel
+PASS  markdown: LOSSY prose (underline / wikilink+docId / blockref) falls back to the sentinel
+PASS  markdown: a multi-block doc round-trips block-for-block + is a FIXED POINT
+PASS  markdown FUZZ FIXED-POINT: 2000 random runs are a stable fixed point + lossless
+PASS  markdown FUZZ determinism: same seed → identical run + identical markdown
+PASS  P5 source: NO-EDIT toggle is op-free (md unchanged → ZERO bp-canvas-ops)
+PASS  P5 source: edited heading text → EXACTLY ONE patch-block for that block
+PASS  P5 source: an INSERTED block → one insert/append; surviving blocks untouched
+PASS  P5 source: a REMOVED block → one remove-block; survivors keep their ids
+PASS  P5 source: realignBlockIds never assigns a baseline id twice
+PASS  P5 source: empty run round-trips to an empty doc with ZERO ops
+PASS  P5 source: docToBlocks projects a live doc back to its run (ids preserved)
+PASS  P5 source: docToBlocks MINTS an id for a just-typed (bpId:null) live node
+PASS  P5 source: lag — an L0 block absent from C is NOT re-emitted by the source diff
+PASS  P5 source: a duplicate-signature run does NOT churn on a single in-place edit
+PASS  P5 source: (documented) external echo + source edit are both expressed against L0
+PASS  P5 palette: View 'Toggle Markdown source' command appears only with onToggleSource
+
+all round-trips PASS
+PASS  diff: projects to its bpDiff attr-atom node with every field
+PASS  diff: an UNTOUCHED block emits ZERO ops (no-op settlement)
+PASS  diff: a BODY edit emits exactly one patch-block with the form's key set
+PASS  diff: CLEARING a metadata field emits it as "" (removal-safe merge)
+PASS  diff: docToBlocks reconstructs the ORIGINAL block byte-for-byte
+PASS  diff: an ABSENT metadata key round-trips as ABSENT (no stray "")
+PASS  filetree: projects to its bpFiletree attr-atom node with every field
+PASS  filetree: an UNTOUCHED block emits ZERO ops (no-op settlement)
+PASS  filetree: a BODY edit emits exactly one patch-block with the form's key set
+PASS  filetree: CLEARING a metadata field emits it as "" (removal-safe merge)
+PASS  filetree: docToBlocks reconstructs the ORIGINAL block byte-for-byte
+PASS  filetree: an ABSENT metadata key round-trips as ABSENT (no stray "")
+PASS  diff + filetree in ONE run keep distinct node types and both round-trip
+PASS  CONTROL: runToOps DOES emit for a real edit (the zero-op checks have teeth)
+
+ALL PASS
+mounted fallback rich-body regression passed
+PASS  fires on `> [!note] ` (space-separated, no modifier)
+PASS  fires on `>[!warn]- ` (no space after >, collapse modifier)
+PASS  fires on `> [!info]+ ` (expand modifier)
+PASS  does NOT fire without the committing trailing space
+PASS  does NOT fire with trailing prose after the space
+PASS  does NOT fire on a plain blockquote or a slash trigger
+PASS  is anchored at offset 0 (no mid-line match)
+PASS  collapsed iff modifier is '-'
+PASS  aliases remap (note->info, warn->warning, error->danger)
+PASS  canonical tones pass through unchanged
+PASS  case-insensitive
+PASS  unknown / empty / non-string falls back to info
+PASS  `> [!warn]- ` yields tone=warning, collapsed=true
+
+all callout-shorthand checks PASS
+PASS  callout binds tone via bp-callout--<tone> class, not inline paint
+PASS  callout resolves its tone class with the reader-vocabulary-or-info helper (no alias expansion)
+PASS  callout builds a run-in <strong> title and NO icon
+PASS  collapsible callout builds a native <details>/<summary> disclosure (not a <button> fold)
+      reader modifiers (paper-surface.css): danger, info, loss, neutral, peace, success, warning
+      editor modifiers (styles.css):        danger, info, loss, neutral, peace, success, warning
+PASS  the reader's callout tone modifiers each have a byte-equal embedder twin
+      walk.ex callout_tone_class/1: danger, info, loss, neutral, peace, success, warning
+      editor calloutToneClass():    danger, info, loss, neutral, peace, success, warning
+PASS  the editor's tone vocabulary equals the reader's callout_tone_class/1 clauses
+      walk.ex tone_label/1: loss=>Loss, peace=>Peace, success=>Success, warning=>Warning, danger=>Danger, neutral=>Neutral
+PASS  every reader tone has the reader's own <summary> label in the editor
+
+ALL PASS
+PASS  opens on `[[ab` with caret at end
+PASS  opens MID-PROSE (not just start-of-block)
+PASS  empty query immediately after `[[`
+PASS  caret inside the query yields the prefix only
+PASS  nearest unclosed `[[` wins after a closed one
+PASS  a second `[[` resets the query (no nesting)
+PASS  closed `]]` before the caret => null
+PASS  an intervening newline => null
+PASS  no `[[` at all => null
+PASS  a single `[` is not a trigger
+PASS  caret BEFORE the `[[` => null
+PASS  non-string / non-number args => null
+PASS  caretOffset is clamped into range
+PASS  `:smi` at block start opens with query 'smi'
+PASS  `see :sm` mid-prose opens (after whitespace); one letter does not
+PASS  a time (12:30), a URL (http://) and a bare `:` never open
+PASS  emoji replace range backs up one char for the colon
+PASS  `@Mult` at block start opens with query 'Mult' and trigger '@'
+PASS  `see @Mult` mid-prose opens (after whitespace)
+PASS  a bare `@` opens with an empty query
+PASS  an address (`me@example`) does NOT open — the `@` is inside a word
+PASS  `[[` still wins over an `@` inside it, and carries trigger '[['
+PASS  replace range for '@': caretPos 8, query 'Mult' => from 3 (the one `@`)
+PASS  caretPos 7, query 'abc' => { from: 2, to: 7 }
+PASS  empty query => from = caretPos - 2 (just the `[[`)
+PASS  mid-doc caret keeps the to anchored at caretPos
+PASS  from is clamped at 0 (never negative)
+PASS  non-number caretPos / non-string query degrade safely
+PASS  opens on `#des` with caret at end => query 'des'
+PASS  a bare `#` (empty query) does NOT open — needs a letter
+PASS  a pure-numeric `#5` does NOT open (Obsidian tags need a letter)
+PASS  a numeric-led tag with a letter `#2024-recap` opens
+PASS  opens MID-PROSE after whitespace (sigil after a space)
+PASS  opens after a newline (newline is whitespace => sigil)
+PASS  nested tag `#a/b` => query 'a/b' (slash allowed)
+PASS  digits / dash / underscore are valid query chars
+PASS  caret inside the query yields the prefix only
+PASS  nearest sigil `#` wins after an earlier completed tag
+PASS  a trailing space ends the query => null
+PASS  mid-word `#` (C# / C-sharp) => null
+PASS  mid-word `#` with a query after it => null
+PASS  `##` (heading shorthand) never triggers => null
+PASS  `##h` (heading + text) never triggers => null
+PASS  an embedded space in the span => null
+PASS  an embedded newline in the span => null
+PASS  non-tag punctuation in the span => null
+PASS  no `#` at all => null
+PASS  caret BEFORE the `#` => null
+PASS  non-string / non-number args => null
+PASS  caretOffset is clamped into range
+PASS  tag: caretPos 5, query 'des' => { from: 1, to: 5 }
+PASS  tag: empty query => from = caretPos - 1 (just the `#`)
+PASS  tag: mid-doc caret keeps `to` anchored at caretPos
+PASS  tag: from is clamped at 0 (never negative)
+PASS  tag: non-number caretPos / non-string query degrade safely
+
+all wikilink-trigger checks PASS
+PASS  locked title (prose) round-trips locked + role
+PASS  locked featured image (opaque) round-trips locked + role verbatim
+PASS  stamped node carries locked/role on its attrs (feeds the live veto)
+PASS  UNLOCKED prose block round-trips with NO locked/role key (D3)
+PASS  UNLOCKED prose node carries no locked/role attrs (D3 stamp is additive)
+PASS  a locked title MISSING from the edited doc emits NO remove-block
+PASS  a locked block REORDERED in the edited doc emits NO move-block
+PASS  the guard is SURGICAL — an unlocked block still removes normally
+PASS  no spurious ops when a locked doc is edited-in-place (title text patched)
+PASS  lockedNodeId detects prose/field lock and opaque-image lock
+PASS  lockedIndexMap indexes only locked nodes
+PASS  veto: deleting a locked node is rejected
+PASS  veto: moving a locked node (index change) is rejected
+PASS  veto: opaque featured-image move is rejected
+PASS  veto PASSES a content edit inside the locked node (title text editable)
+PASS  veto PASSES on a doc with NO locked blocks (D3 additive)
+PASS  veto PASSES a selection-only transaction (no doc change)
+PASS  lockedTail: growing the run (Enter at the locked title's end) is vetoed
+PASS  no lockedTail: the same growth passes (nothing locked follows the run)
+PASS  lockedTail: an in-place content edit (same node count) still passes
+PASS  lockedTail: SHRINKING the run passes (a merge/delete displaces nothing after it)
+PASS  lockedTail: growth is vetoed even when the run itself holds no locked node
+
+all locked-doctrine tests passed
+mounted locked-editor jsdom regression passed
+PASS  EDIT the locked title in source → the retitle RIDES THROUGH, placement pinned
+PASS  EDIT a body block in source → body edit survives, title untouched
+PASS  DELETE the locked title in source → restored verbatim at the head
+PASS  MOVE the locked title below the body → pinned back to the head
+PASS  INSERT a block before the title → the locked prefix holds position 0
+PASS  DELETE the title + type a NEW paragraph at the top → BOTH survive
+PASS  RETYPE the title to a paragraph → title restored, user text kept as content
+PASS  runToOps after a retitle emits EXACTLY one patch-block, no remove/move
+PASS  runToOps after a pure displacement emits NO op touching the locked id
+PASS  no locked prefix → realigned blocks returned untouched (D3 additive)
+PASS  non-array inputs degrade to a safe empty/passthrough
+
+All source-locked clamp checks passed.
+PASS  isEmptyPickerValue: null / undefined / '' / whitespace are all empty
+PASS  isEmptyPickerValue: any real value is NOT empty
+PASS  canvasScope carries scoped picker confinement from the canvas host
+PASS  imagePlaceholderModel: field-image with NO asset → show the frame
+PASS  imagePlaceholderModel: field-image with an asset → NO frame (WC preview shows)
+PASS  imagePlaceholderModel: a whitespace-only value still shows the frame
+PASS  imagePlaceholderModel: field-reference NEVER shows the image frame
+PASS  imagePlaceholderModel copy is the calm doctrine chrome (not a raw/empty look)
+PASS  imagePlaceholderModel: the aria-label carries the FIELD label when present
+PASS  coercePickerValue: a chosen asset's bp-change value IS the committed value
+PASS  coercePickerValue: a CLEAR (missing/empty detail) coerces to '' → frame returns
+
+all featured-placeholder checks passed
+PASS  the WC exposes the __bpMediaPickerTestHook pure model
+PASS  showsActions: ghost hides the actions row
+PASS  showsActions: default variant (attr absent / other values) keeps the row
+PASS  menuItems: EMPTY field → Upload + Browse, NO Remove
+PASS  menuItems: SET field → Upload + Browse + Remove
+PASS  menuItems: Remove is ABSENT whenever there is no value
+PASS  menuItems: canUpload:false drops the Upload item
+PASS  menuItems: default args (no canUpload) still offer Upload
+PASS  menuItems: busy disables EVERY item (mirror of default chrome's _setBusy)
+PASS  menuItems: not busy leaves every item enabled
+PASS  menuItems: every item carries an id + a human label
+
+all picker-chrome checks passed
+PASS  runToTiptap: each fleet kind projects to a bpFleet node with the whole block on bpBlock
+PASS  a fleet kind is NOT the generic bpOpaque placeholder (it is canvas-eligible)
+PASS  runToOps: an unedited run of fleet + prose blocks emits ZERO ops (D3 byte-stability)
+PASS  runToOps: editing cards items emits ONE patch-block{items} (add/remove/edit persists)
+PASS  runToOps: editing notes items emits patch-block{items}
+PASS  runToOps: editing pipeline nodes emits patch-block{nodes}
+PASS  runToOps: editing a task-* query/id config emits patch-block{query}
+PASS  runToOps: an UNEDITED fleet block (even when its node is re-projected) emits ZERO patch-block (D3)
+PASS  docToBlocks: reconstructs each fleet block byte-identically from its bpFleet node
+PASS  runToOps: removing a fleet block emits remove-block (structural)
+PASS  runToOps: inserting a fleet block emits an insert carrying the block VERBATIM (minted id)
+PASS  runToOps: reordering a fleet block past prose emits move-block by id (structural only)
+PASS  fleetChipLabel: each fleet kind has a terse human label for the loading chip
+
+all fleet-in-canvas checks passed
+PASS  isBlockLocked: only literal true is locked; everything else is not
+PASS  atomAriaLabel: an unlocked atom's name IS its chip text (no decoration)
+PASS  atomAriaLabel: a locked atom appends the immovable-template clause
+PASS  atomAriaLabel: a missing/blank chip degrades to a legible name, never empty
+PASS  atomAriaLabel: stays in lockstep with each atom's own chip-label helper
+PASS  isActivateKey: Enter and both Space spellings activate; nothing else does
+
+all one-surface parity-polish checks passed
+PASS  §1 every read-only atom is a keyboard tab stop with a role and a name
+PASS  §1 a tab stop is real focus: .focus() lands on the atom wrapper itself
+PASS  §2 a locked template atom announces its lock in the accessible name
+PASS  §3 Enter on a focused atom selects it (focus → NodeSelection bridge)
+PASS  §3 Space is an equal activation key on a focused atom
+PASS  §3 an ordinary key on a focused atom is NOT swallowed
+PASS  §3 Backspace after a keyboard selection DELETES the atom (structural op, no mouse)
+PASS  §4 a keystroke inside an interior control is NOT hijacked into atom selection
+PASS  §5 the featured-image placeholder is a named button-role tab stop
+PASS  §5 Enter and Space activate the featured-image picker; a plain key does not
+PASS  §6 Mod-p alone opens the command palette (context-menu ops, no mouse)
+PASS  §6 the palette carries the whole block-op catalogue (insert / turn-into / format / view)
+PASS  §6 ArrowDown moves the palette selection and Escape closes it
+PASS  §6 Mod-Shift-m reaches the markdown source surface from the keyboard
+
+mounted keyboard-reach proof passed — every canvas edit affordance is reachable without a mouse
+PASS  §1 the sheet atom mounts and its chip CARRIES the ref (not the empty fallback)
+PASS  §1 the embed atom mounts and its chip CARRIES the target (not '(untitled)')
+PASS  §2 POSITIVE CONTROL: the query finds a real editable control in this document
+PASS  §2 the sheet atom exposes EXACTLY ONE control and it is the reference picker
+PASS  §2 the embed atom exposes EXACTLY ONE control and it is the PAPER-scoped picker
+PASS  §2 neither atom's NODE grew a top-level ref/target attr — the value still rides bpBlock
+PASS  §3 sheet: keyboard select → Backspace deletes → undo restores the ref VERBATIM
+PASS  §3 embed: keyboard select → Backspace deletes → undo restores the target VERBATIM
+PASS  §3b sheet: a real click on the chip mutates nothing and reveals nothing new
+PASS  §3b embed: a real click on the chip mutates nothing and reveals nothing new
+PASS  §4 the mounted block is BYTE-identical to the seed (stringify, key order included)
+PASS  §4 preserved-until-touched: nothing has moved the reference, and only ONE thing can
+PASS  §5 a real picker selection emits EXACTLY patch-block{ref, snapshot:null}
+PASS  §5 the patch names the PAPER's block, never the sheet document
+PASS  §5 the browse fetch is the scoped, sheet-typed read the picker already does
+PASS  §5 the chip and the carried block both moved to the new ref
+PASS  §5 re-picking the SAME sheet emits ZERO ops
+PASS  §5 CLEARING the picker is a no-op — a retarget cannot blank a reference
+PASS  §5c a real embed picker selection emits EXACTLY patch-block{target}
+PASS  §5c the committed target is the paper's TITLE, not the doc id the picker emits
+PASS  §5c the browse fetch is the scoped, PAPER-typed read the picker already does
+PASS  §5c the chip moved to the new target and the node grew no top-level attr
+PASS  §5c the canvas never RESOLVES the transclusion — it reads no paper's content
+PASS  §5c re-picking the SAME paper emits ZERO ops
+PASS  §5c CLEARING the embed picker is a no-op — a retarget cannot blank a target
+PASS  §5c a BARE TYPED title commits verbatim — an unresolved target still SAVES
+PASS  §5c the SHEET picker has no free-text door — ids are not typed by hand
+PASS  §5d sheet: the retarget MOVED the ref (precondition — an undo needs something to undo)
+PASS  §5d sheet: undo restores the PREVIOUS ref, on the block and on the chip
+PASS  §5d embed: the retarget MOVED the target (precondition)
+PASS  §5d embed: undo restores the PREVIOUS target, on the block and on the chip
+PASS  §5d neither undo touched the OTHER atom's reference
+PASS  §5b the predicate allows BOTH atoms and refuses a read-only editor, a locked block, a no-browse host, and an atom with no reference
+PASS  §5b MOUNTED: data-picker-browse=false mounts no retarget picker on EITHER atom
+
+sheet/embed retarget audit passed
+PASS  selection floats the bubble (precondition, unpinned hasFocus)
+PASS  bold: native click activates the focused toolbar button
+PASS  bold: a full pointer click toggles exactly once
+PASS  italic: native click activates the focused toolbar button
+PASS  italic: a full pointer click toggles exactly once
+PASS  code: native click activates the focused toolbar button
+PASS  code: a full pointer click toggles exactly once
+PASS  link button opens the URL row and the row SURVIVES the editor blur
+PASS  the link input HOLDS focus (the editor is blurred, the bubble is alive)
+PASS  Enter in the input applies the link over the held selection
+PASS  native click on Remove clears the link and returns editor focus
+PASS  Escape closes the row, refocuses the editor, bubble alive
+PASS  Escape in the link input does not double-fire a window bubble-phase Escape handler
+PASS  ...while a capture-phase Escape listener (palette precedence) still fires
+PASS  focus landing outside editor AND bubble still hides it (settled hide)
+PASS  remote text waits while the contextual link field holds focus
+PASS  leaving the contextual toolbar releases the pending remote update
+
+mounted format-bubble focus proof passed — the link input holds focus and every hide path still hides
+PASS  parseConstraints(null) → [] (additive default)
+PASS  parseConstraints('') → []
+PASS  parseConstraints(garbage) → [] (never throws)
+PASS  parseConstraints(non-array) → []
+PASS  parseConstraints(json) → the 3 decls
+PASS  nodeRole reads attrs.role
+PASS  nodeRole falls back to attrs.bpBlock.role (opaque/fleet)
+PASS  nodeRole → null when no role
+PASS  nodeRole(null) → null
+PASS  blockRole reads a plain block's role
+PASS  blockRole → null when absent
+PASS  ghostSlots: both optionals absent → 2 ghosts
+PASS  ghostSlots: ordered by declaration order (ingress before featured)
+PASS  featured ghost: after(title) + locked
+PASS  ingress ghost: after(title) before(featured) + unlocked
+PASS  ghostSlots: present optional drops its ghost
+PASS  ghostSlots: all optionals present → no ghosts
+PASS  ghostSlots: no declarations → no ghosts (D3)
+PASS  ghostSlots: empty doc → both optional ghosts
+PASS  veto: a doc-unchanged tx never vetoes
+PASS  veto: a null tx never vetoes
+PASS  veto: no declarations → no veto (additive)
+PASS  veto: removing the required title (1→0 below floor) is vetoed
+PASS  veto: growing the run without dropping a floored kind passes
+PASS  veto: min-2 kind dropping 2→1 is vetoed
+PASS  veto: min-2 kind dropping 3→2 (still at floor) passes
+PASS  veto: removing an optional (no floor) is allowed
+PASS  veto: moving ingress before the title breaks after(title) → vetoed
+PASS  veto: moving ingress after featured breaks before(featured) → vetoed
+PASS  veto: reordering unpositioned prose passes
+PASS  veto: in-run after(title) still enforced even when featured is out of run
+
+all constraint-slots checks passed
+PASS  configControlHidden: an empty, idle control is HIDDEN (no resting chrome)
+PASS  configControlHidden: an empty control REVEALS on hover or focus
+PASS  configControlHidden: a NON-empty control is always shown (idle or not)
+PASS  leaf atom node-views construct no bare <button> chrome
+PASS  callout fold is a native <summary> disclosure, not a <button> (guard is not vacuous)
+PASS  code config keeps its hover/focus resting-chrome gate
+PASS  diagram controls stay in a closed, editable-only native disclosure
+
+ALL PASS
+PASS  renderHTML outer element is the reader's <div>, NOT a bare <hr>
+PASS  outer <div> carries the .bp-section-divider class + surviving bp-attrs stamp
+PASS  inner mark is a <span> holding the literal § glyph (figures.ex:36)
+PASS  Divider stays an ATOM (no editable interior)
+PASS  parseHTML round-trips the § div AND legacy <hr> (paste + old content)
+
+ALL PASS
+PASS  unedited eyebrow/byline/ingress/pullquote each emit ZERO ops
+PASS  docToBlocks reconstructs each role block byte-identically
+PASS  each role node carries bpId/bpType and its bp-role class type
+PASS  eyebrow body edit → one patch { text }
+PASS  byline body edit → one patch { items } (split on ·)
+PASS  ingress body edit → one patch { content } (inline)
+PASS  pullquote body edit → one patch { content } (inline)
+PASS  byline items → ' · '-joined node text → split back to items (zero ops)
+PASS  legacy text-only byline: unedited emits ZERO ops (no spurious migration)
+PASS  legacy text-only byline reconstructs to items form (docToBlocks migration)
+PASS  editing a legacy byline emits a single { items } patch; reload then zero ops
+PASS  empty eyebrow projects to a contentless node and emits ZERO ops
+PASS  reconcileServerEcho treats an unchanged role run as an own echo
+
+all role-node checks PASS
+PASS  code-node.js sets NO inline font-family on the <pre> frame or <textarea>
+PASS  code-node.js sets NO inline font-size/line-height/whiteSpace on the interior
+PASS  .bp-canvas-code-area rule exists in BOTH sinks and is byte-identical
+PASS  .bp-canvas-code-area binds the code interior to the shared tokens (not literals)
+PASS  paper-surface.css defines a distinct --bp-codeblock-* family (not a --bp-pre-* reuse)
+
+ALL PASS
+PASS  unedited table (head + body) emits ZERO ops
+PASS  unedited head-less / scalar / bold / empty tables each emit ZERO ops
+PASS  docToBlocks reconstructs a table with header byte-identically
+PASS  a head-less table reconstructs with NO head key
+PASS  inline MARKS in a cell round-trip (bold not stripped)
+PASS  an EMPTY cell round-trips as an empty inline array
+PASS  a SCALAR cell remains byte-identical while projecting editable text
+PASS  mixed untouched cell carriers and table metadata reconstruct byte-identically
+PASS  schema-default link attrs do not falsely rewrite an untouched opaque carrier
+PASS  bpTable carries bpId/bpType; header/body cells use the right node types
+PASS  a body-cell edit → one patch-block { rows, head }
+PASS  editing one cell preserves every untouched raw cell carrier
+PASS  editing a content-map cell replaces only content and preserves opaque metadata
+PASS  structural reconstruction preserves table metadata and never copies a cell source
+PASS  legacy header aliases fail closed as opaque instead of becoming a head-less table
+PASS  malformed grids and unsupported cells stay opaque
+PASS  toggling the header row off → patch emits head:[] explicitly
+PASS  a fresh table (bpId:null) → append-block with the reconstructed block
+PASS  reconcileServerEcho treats an unchanged table run as an own echo
+PASS  reconcileServerEcho accepts an edited mixed-carrier table without rewriting neighbours
+PASS  deleting a table emits remove-block (type-agnostic structural op)
+
+all table-node checks PASS
+PASS  section-cell columns reset the page evidence band in reader and editor mirrors
+PASS  wrapperless canvas grid columns reset evidence at the direct-child boundary
+PASS  top-level columns still inherit the evidence width and pull
+PASS  nested tables use their column width, not the page evidence band
+PASS  unedited columns (prose/callout/empty/gap/divider/list) each emit ZERO ops
+PASS  docToBlocks reconstructs prose columns (children id-less, keys stable)
+PASS  docToBlocks carries a callout child VERBATIM through bpColumnAtom
+PASS  docToBlocks collapses an empty column's sentinel back to []
+PASS  docToBlocks reconstructs divider + list children
+PASS  bpColumns node carries bpId/bpType and cols = column count
+PASS  a column-body edit → ONE patch-block { columns } with the whole array
+PASS  an unknown top-level key (gap) never rides the coarse patch (survives merge)
+PASS  a phantom nested null bpId/bpType on a child paragraph emits ZERO ops
+PASS  a new columns block (bpId null) → append-block with a minted id
+PASS  reconcileServerEcho treats an unchanged columns run as an own echo
+PASS  reconcileServerEcho falls through to external on a real columns edit
+
+all columns-node checks PASS
+PASS  runToTiptap: each figure projects to a bpFigure node (child verbatim, caption+id stamped)
+PASS  a figure is NOT the generic bpOpaque placeholder (it is canvas-eligible)
+PASS  docToBlocks: reconstructs each figure byte-identically (child verbatim, empty caption absent)
+PASS  runToOps: an unedited run of figures + prose emits ZERO ops (D3 byte-stability)
+PASS  runToOps: editing the caption emits EXACTLY one patch-block{caption} and nothing else
+PASS  runToOps: clearing the caption emits patch{caption:null}; a cleared figure re-projects to zero ops
+PASS  the child never appears as a value/content op on a caption edit OR a reorder
+PASS  docToBlocks child is a deep clone — mutating the returned block's child never touches the node attr
+PASS  runToOps: removing a figure emits remove-block (structural, id-keyed)
+PASS  runToOps: inserting a figure carries the child VERBATIM under a minted id
+PASS  runToOps: a colliding figure id is minted fresh (taken seeded from the whole prev tree)
+PASS  reconcileServerEcho: an unchanged figure run is an own echo
+PASS  reconcileServerEcho: a just-minted figure (bpId:null) own-echoes with an id write
+PASS  reconcileServerEcho: a REAL caption change is NOT an own echo (falls to the external path)
+
+all editable-figure checks passed
+PASS  runToTiptap: an image projects to a bpImage node with src/alt as attrs, never bpOpaque
+PASS  docToBlocks: every image reconstructs byte-identically (absent alt stays absent, rest and template attrs carried)
+PASS  runToOps: an unedited run of images + prose emits ZERO ops
+PASS  runToOps: editing alt emits EXACTLY one patch-block{src, alt}
+PASS  runToOps: setting a url on the featured template image patches src only (locked/role never ride a patch)
+PASS  runToOps: a reorder of an unedited image is a move, not a patch
+PASS  runToOps: a freshly inserted image reconstructs with src/alt and a minted id
+PASS  reconcileServerEcho: the echo of an alt edit is recognized as our own (no re-emit)
+PASS  markdown: ![alt](src) ⇄ a plain image block; a sized image rides the sentinel
+
+OK
+PASS  runToTiptap: an expandable projects to a bpExpandable container with its children as content
+PASS  a legacy `children` body and `open` ride the attrs; a nested container child is bpOpaque
+PASS  docToBlocks: every shape reconstructs byte-identically (summary absent stays absent, children key kept)
+PASS  runToOps: an unedited run emits ZERO ops
+PASS  runToOps: a summary edit is ONE patch-block{summary} on the toggle
+PASS  runToOps: a child paragraph edit is a nested patch-block on the child's id (no replace of the toggle)
+PASS  runToOps: a child edit under a legacy `children` body still patches the child
+PASS  runToOps: adding a child replaces the whole toggle with minted child ids, under the persisted key
+PASS  runToOps: a freshly inserted toggle reconstructs with summary and its child
+
+OK
+PASS  runToTiptap: steps and tabs project to row containers with titles and nested content
+PASS  a container child inside a row is bpOpaque (V1 forbid-nesting)
+PASS  docToBlocks: rows reconstruct byte-identically (ids, titles, body keys; an empty row stays empty)
+PASS  runToOps: unedited steps + tabs emit ZERO ops
+PASS  runToOps: a step title edit is ONE patch-block{steps} carrying the whole rows array with ids kept
+PASS  runToOps: a tab body edit patches {tabs} with the label kept under `label`
+PASS  runToOps: a new row and a new child get minted ids
+PASS  runToOps: a freshly inserted steps block reconstructs with its row
+
+OK
+PASS  runToTiptap: each island block projects to its node, never bpOpaque, with fields on attrs and the rest carried
+PASS  docToBlocks: every island reconstructs byte-identically (a bare toc stays bare)
+PASS  runToOps: an unedited run emits ZERO ops
+PASS  runToOps: a tex edit is ONE patch-block{tex, display}; the rest never rides a patch
+PASS  runToOps: clearing the notes patches notes:[]; a video src edit patches src/poster/loop
+PASS  runToOps: a freshly inserted equation reconstructs with its tex and a minted id
+PASS  codecs: notes ⇄ lines keep ids by position; outline ⇄ lines keep level and anchor
+
+OK
+PASS  a level-4 heading is shown at level 3 and round-trips as level 4
+PASS  editing the text of a level-4 heading keeps level 4 on the patch
+PASS  turning a level-4 heading into level 2 is the author's change and wins
+PASS  a level-2 heading carries no level on its source and patches as level 2
+
+OK
+PASS  align projects to textAlign; a plain block has none; everything round-trips byte-identically
+PASS  centring a plain paragraph is ONE patch carrying align:center
+PASS  back to left on a centred paragraph patches align:null (the key is dropped, not stored as left)
+PASS  back to left when only the BASELINE holds align:center (aligned earlier this session) still patches align:null
+PASS  a heading flushed right patches align:right and keeps its level
+PASS  an inserted left-aligned block carries no align key; an inserted centred one does
+PASS  markdown: an aligned block rides the sentinel and comes back byte-identical
+
+OK
+PASS  describe(): a link's href, a wikilink's target and docId
+PASS  hovering the link shows its host and address; Edit shows in edit mode
+PASS  hovering the wikilink shows [[target]] at once, then the resolved title and first line
+PASS  Open on a wikilink dispatches bp-canvas-open-link with target, docId and the resolved href; a handled event opens no window
+PASS  Open on a plain link that nobody handles falls back to a new window
+PASS  Edit on the link selects the whole link and opens the bubble's link row seeded with the href
+PASS  Edit on the wikilink selects the whole wikilink text
+PASS  read-only: the card still shows the address but no Edit
+PASS  mouseover shows after the delay, mouseout hides after its delay; a keypress hides at once; destroy removes the card
+
+OK
+PASS  compositionstart on the editable sets ProseMirror's composing flag
+PASS  a change made while composing is NOT emitted past the debounce; compositionend releases one batch with the whole run
+PASS  without a composition the debounce behaves as before (one batch after DEBOUNCE_MS)
+
+OK
+PASS  resolveLang: aliases land on registered grammars; unknown and empty give null
+PASS  JavaScript and Elixir get hljs tokens; the text round-trips byte-exact
+PASS  an unknown or empty lang gives escaped text and nothing else
+PASS  the reader pass paints the same signature into a server-shaped <pre data-lang>
+PASS  emphasis spans survive: tokens are painted inside each line span
+PASS  a block is painted once; a lang-less block is left alone
+
+OK
+PASS  a plain table mounts with colspan/rowspan 1 everywhere and round-trips byte-identically
+PASS  a merged table mounts WITHOUT the covered cell and with colspan on the origin; round-trips byte-identically
+PASS  a rowspan covers the cell below: it has no node; round-trips byte-identically
+PASS  merging two cells in the live doc emits ONE patch-block carrying rows (with the placeholder) and spans
+PASS  splitting a merged cell emits a patch with spans: [] so the server drops the old list
+PASS  grid transforms: remove the last column shrinks a span reaching it; remove the last row shrinks a rowspan; add keeps spans
+PASS  grid merge widens to swallow a touched span and reports the origin; split clears it; visible rows follow
+PASS  toggling the header off shifts span rows down; toggling it on splits the first row's spans
+PASS  normalizeSpans drops malformed, out-of-grid and overlapping entries
+
+OK
+PASS  widths mount as colWidths (null where unset) and round-trip byte-identically; a plain table has none
+PASS  dragging a column (colWidths changes) emits ONE patch carrying cols with the width beside the existing type
+PASS  a plain table gaining a width emits cols; clearing every width on a width-only table emits cols: []
+
+OK
+PASS  headCol marks the first body cells as row headers and round-trips byte-identically
+PASS  toggling the header column on / off emits one patch with headCol true / false
+PASS  aligned cells mount with the align attr and round-trip byte-identically
+PASS  aligning a plain cell stores { content, align }; back to left returns the plain inline array
+PASS  untouched explicit false and unknown cell alignment retain source metadata
+PASS  a spanning row header does not make the next row's second column a header
+
+OK
+PASS aligned Markdown parse, empty/short rows, mounted paste, Undo and redo
+PASS headerless HTML multiline cell
+PASS paragraph boundaries and empty lines stay inside cells with marks/links
+PASS HTML alignment and row headers survive without source identities
+PASS existing body span schema retains cells and rectangular placeholders
+PASS ragged ordinary rows retain every source cell with empty padding
+PASS selection replacement keeps surrounding text and undo restores the selection
+PASS acknowledged paste Undo and redo preserve exact cells
+PASS unsupported structure keeps draft/clipboard and explains plain-text fallback
+PASS unsupported structure keeps draft/clipboard and explains plain-text fallback
+PASS unsupported structure keeps draft/clipboard and explains plain-text fallback
+PASS unsupported structure keeps draft/clipboard and explains plain-text fallback
+PASS unsupported structure keeps draft/clipboard and explains plain-text fallback
+PASS unsupported structure keeps draft/clipboard and explains plain-text fallback
+PASS paste recovery notice dismisses without changing the draft
+14 HTML table paste cases passed
+PASS unsupported or empty rich paste preserves selection and emits no mutation
+PASS unsupported or empty rich paste preserves selection and emits no mutation
+PASS unsupported or empty rich paste preserves selection and emits no mutation
+PASS unsupported or empty rich paste preserves selection and emits no mutation
+PASS unsupported or empty rich paste preserves selection and emits no mutation
+PASS unsupported or empty rich paste preserves selection and emits no mutation
+PASS mixed clipboard files and rich content are explicit no-op
+PASS mixed clipboard files and rich content are explicit no-op
+PASS mixed clipboard files and rich content are explicit no-op
+PASS explicit plain paste wins over images and supports native Undo
+PASS plain paste without text preserves draft and does not upload
+PASS file-only paste retains the host upload path
+PASS one image file with equivalent HTML uses upload and preserves alt
+PASS one image file with equivalent HTML uses upload and preserves alt
+PASS one image file with equivalent HTML uses upload and preserves alt
+PASS distinct images and rich metadata are not silently discarded
+PASS distinct images and rich metadata are not silently discarded
+PASS distinct images and rich metadata are not silently discarded
+PASS native image wrapper remains a represented image
+PASS Shift Insert keeps ordinary rich table paste
+20 rich clipboard preservation cases passed
+PASS  unedited terminals (chrome/bare/legacy/nested/empty/divider) each emit ZERO ops
+PASS  bpTerminal node carries bpId/bpType + normalized title/footer/live attrs
+PASS  docToBlocks reconstructs a chrome terminal (children id-less, keys stable)
+PASS  docToBlocks reconstructs a BARE terminal with NO chrome keys
+PASS  docToBlocks reconstructs divider children
+PASS  legacy `blocks` key loads and reconstructs under `children`
+PASS  a body-child edit → ONE patch-block { title, footer, live, children }
+PASS  a title edit → patch.title updated
+PASS  a title CLEAR (node-view writes null) → patch.title === null
+PASS  a footer CLEAR → patch.footer === null
+PASS  a live toggle true→false → patch.live === false (explicit, not omitted)
+PASS  a BARE terminal body edit → patch.title/footer null, live false
+PASS  non-first-class children (callout/terminal/tasks) ride bpTerminalAtom deep-equal
+PASS  editing a verbatim-carried child sibling still round-trips it untouched
+PASS  an empty body seeds a paragraph then reconstructs to children:[]
+PASS  a new chrome terminal (bpId null) → append-block with minted id + carried chrome
+PASS  a new BARE terminal insert OMITS title/footer/live (live only when true)
+PASS  reconcileServerEcho treats an unchanged terminal run as an own echo
+PASS  reconcileServerEcho falls through to external on a real terminal edit
+
+all terminal-node checks PASS
+PASS  slot-form and legacy-form callout project to the IDENTICAL node (equivalence, not identity)
+PASS  a loaded slot-form callout emits ZERO ops (no phantom dirty)
+PASS  a loaded legacy-form callout emits ZERO ops (compat path exercised)
+PASS  slot-stored server block vs legacy-derived live node → ZERO ops (cross-encoding)
+PASS  editing a slot-form callout body → one patch-block preserving tone+title+collapsed
+PASS  empty-body callout: slot-form and legacy-form both omit node.content and diff EQUAL
+
+all slot-model checks passed
+PASS  card runToTiptap: a top-level card → { type:'bpCard', content:[inline…] } (folds INTO a run)
+PASS  card runToTiptap: tone/title/media/action are PRESENT-ONLY (a bare card gains nothing)
+PASS  card runToOps: an untouched top-level card round-trips with ZERO ops (+ real body)
+PASS  card runToOps: an untouched grid SECTION-OF-CARDS round-trips with ZERO ops (+ real bpCard children)
+PASS  card default: canvasDefaultBlock('card') projects to bpCard and reconstructs to the cardNodeToBlock shape
+PASS  card default: the PERSISTED default card round-trips at ZERO ops (+ real bpCard)
+PASS  card docToBlocks: a card round-trips blocks→node→docToBlocks BYTE-EQUAL
+PASS  card slot fidelity: opaque slots and title/body metadata round-trip exactly at top level and nested
+PASS  card slot fidelity: an authoritative opaque-slot change is not mistaken for an own echo
+PASS  card slot fidelity: explicit tone:null is byte-exact top-level and nested, and differs from absent tone
+PASS  card: a card with POPULATED media+action slots round-trips BYTE-EQUAL (type keys intact)
+PASS  card mediaUrlFromValue: a serialized {url,assetId} pick → the bare URL (never the JSON blob); a bare URL passes through
+PASS  card runToOps: SETTING media (the picker's asset-ref) → ONE patch{slots.media type:'image',src}
+PASS  card runToOps: SETTING action label/href/priority → ONE patch{slots.action type:'action'} (type never dropped)
+PASS  card: a never-set action priority stays ABSENT on round-trip (nil≡secondary — no spurious priority:'secondary')
+PASS  card runToOps: editing the BODY → ONE patch-block{slots} carrying the new body (title preserved)
+PASS  card slot fidelity: a body edit retains opaque slots and title/body element metadata
+PASS  card runToOps: swapping the TONE → ONE patch-block carrying the new tone
+PASS  card runToOps: editing the TITLE → ONE patch-block{slots} carrying the new title
+PASS  card runToOps: CLEARING the tone → patch-block emits tone:null EXPLICITLY (removal lands)
+PASS  card runToOps: CLEARING the title retains its authored element metadata and empties text
+PASS  card slot fidelity: known slot clears land without deleting opaque slots or body metadata
+PASS  card slot fidelity: media/action edits overlay known fields without deleting element metadata
+PASS  card slot fidelity: a tone-only edit emits only tone and preserves exact empty slot representations
+PASS  card slot fidelity: a body edit on a tone-less Card does not write tone:null
+PASS  card slot fidelity: malformed known slots stay opaque and byte-exact
+PASS  card runToOps: editing a card child's body in a grid section → ONE patch-block{childId} (not replace-block)
+PASS  card runToOps: inserting a NEW card (null id) → insert carrying the rebuilt slots-native block
+PASS  card reconcileServerEcho: an untouched card own-echoes (+ no idWrites)
+PASS  card reconcileServerEcho: an EDITED card does NOT own-echo (external path → re-emit)
+
+all round-trips PASS
+PASS  runToTiptap: a query-carrying task-list projects to a bpTaskList widget (query+title on attrs, NO snapshot)
+PASS  runToTiptap: a snapshot-only task-list routes to the READ-ONLY bpFleet atom (NOT bpTaskList)
+PASS  docToBlocks: reconstructs a live task-list byte-identically (title present, no snapshot)
+PASS  docToBlocks: a title-less live task-list gains NO title key
+PASS  runToOps: an unedited run of task-lists + prose emits ZERO ops (D3 byte-stability)
+PASS  runToOps: editing query.label (proj:x → proj:y) emits EXACTLY one patch-block{query} and nothing else
+PASS  runToOps: editing query.label on a MULTI-key query carries the OTHER keys VERBATIM (parent_id/status kept)
+PASS  runToOps: clearing query.label DROPS the label key but keeps sibling keys (empty label → drop, not {})
+PASS  runToOps: emptying the WHOLE query → patch carries query:null (the configure-me empty state)
+PASS  runToOps: clearing the title emits patch carrying title:"" (shallow-merge overwrite of a stale title)
+PASS  config round-trips VERBATIM and only rides the patch when it changed
+PASS  runToOps: removing a task-list emits remove-block (structural, id-keyed)
+PASS  runToOps: inserting a live task-list carries the query under a minted id (no snapshot)
+PASS  runToOps: a pure reorder emits move-block only, never a query patch
+PASS  reconcileServerEcho: an unchanged task-list run is an own echo
+PASS  reconcileServerEcho: a just-minted task-list (bpId:null) own-echoes with an id write
+PASS  reconcileServerEcho: a REAL query change is NOT an own echo (falls to the external path)
+
+all live-data task-list checks passed
+── A) mounted: Enter at the tail of a run ending in a node-view ──
+PASS  Enter at tail (divider (bpDivider leaf atom), focus-end): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (divider (bpDivider leaf atom), node-selection): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (code (bpCode attr-atom), focus-end): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (code (bpCode attr-atom), node-selection): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (embed (bpEmbed read-only atom), focus-end): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (embed (bpEmbed read-only atom), node-selection): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (field-image (bpField picker atom), focus-end): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (field-image (bpField picker atom), node-selection): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (notes (bpFleet server-painted atom), focus-end): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (notes (bpFleet server-painted atom), node-selection): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (composite (bpOpaque verbatim carry), focus-end): NO remove-block, tail id survives, batch is insert-after+12 moves
+PASS  Enter at tail (composite (bpOpaque verbatim carry), node-selection): NO remove-block, tail id survives, batch is insert-after+12 moves
+
+── B) discriminant: the filed remove-block batch = a tail that never mounted ──
+PASS  runToOps: a live doc MISSING the tail node reproduces the FILED batch exactly (remove-block + insert-after + 11 moves)
+PASS  the two batches differ ONLY by the remove-block (and the move it costs) — remove-block IS the discriminant
+
+OK
+mounted pending-change flush regression passed
+mounted paste, undo, redo, and flush payload regression passed
+mounted autocomplete query, selection, and canonical payload passed
+mounted canvas acknowledgement, stable-id, and source retry regressions passed
+PASS a rejected acknowledgement frees the pipeline without losing the edit
+mounted node-view pending flush regression passed
+mounted node-view pending-change flush regression passed
+mounted public reference picker search/select/flush regression passed
+mounted public field-image browse/select/upload regression passed
+mounted diagram reader-preview regression passed
+PASS reader canvas: late paint, flush-before-view, Studio button navigation, save reply, refusal, in-flight save, teardown
+PASS field bridge: flush, acknowledgement, refusal, repeat, picker, teardown
+PASS generic field bridge: correlated persistence, retry, native input, teardown
+PASS shared mutation FIFO: immutable base, exact ack, retry, rebase, quarantine, recovery
+PASS  note runToTiptap: a top-level note → { type:'note', content:[inline…] } (folds INTO a run)
+PASS  note runToTiptap: lead is PRESENT-ONLY (a lead-less note gains no lead attr)
+PASS  note byte-align: flat and materialized display the same strings while retaining their carriers
+PASS  note runToOps: an untouched top-level note round-trips with ZERO ops (+ real body)
+PASS  note docToBlocks: a note round-trips blocks→node→docToBlocks BYTE-EQUAL (flat wire form)
+PASS  note runToOps: editing the BODY → ONE patch-block{text} (label + lead preserved)
+PASS  note runToOps: editing the LABEL → ONE patch-block{label} (lead + body preserved)
+PASS  note runToOps: editing the LEAD → ONE patch-block{lead} (label + body preserved)
+PASS  note runToOps: CLEARING the lead → patch-block emits lead:null EXPLICITLY (removal lands)
+PASS  note runToOps: inserting a NEW note (null id) → insert carrying the rebuilt flat block
+PASS  note reconcileServerEcho: an untouched note own-echoes (+ no idWrites)
+PASS  note reconcileServerEcho: an EDITED note does NOT own-echo (external path → re-emit)
+PASS  note materialized label: full tree with shadow undefined → "Meaningful edit"
+PASS  note materialized label: full tree with shadow undefined → ""
+PASS  note materialized label: full tree with shadow null → "Meaningful edit"
+PASS  note materialized label: full tree with shadow null → ""
+PASS  note materialized label: full tree with shadow  → "Meaningful edit"
+PASS  note materialized label: full tree with shadow  → ""
+PASS  note materialized label: full tree with shadow 7 → "Meaningful edit"
+PASS  note materialized label: full tree with shadow 7 → ""
+PASS  note materialized label: full tree with shadow divergent → "Meaningful edit"
+PASS  note materialized label: full tree with shadow divergent → ""
+PASS  note materialized label: full tree with shadow alive → "Meaningful edit"
+PASS  note materialized label: full tree with shadow alive → ""
+PASS  note materialized lead: full tree with shadow undefined → "Meaningful edit"
+PASS  note materialized lead: full tree with shadow undefined → ""
+PASS  note materialized lead: full tree with shadow null → "Meaningful edit"
+PASS  note materialized lead: full tree with shadow null → ""
+PASS  note materialized lead: full tree with shadow  → "Meaningful edit"
+PASS  note materialized lead: full tree with shadow  → ""
+PASS  note materialized lead: full tree with shadow 7 → "Meaningful edit"
+PASS  note materialized lead: full tree with shadow 7 → ""
+PASS  note materialized lead: full tree with shadow divergent → "Meaningful edit"
+PASS  note materialized lead: full tree with shadow divergent → ""
+PASS  note materialized lead: full tree with shadow Kept → "Meaningful edit"
+PASS  note materialized lead: full tree with shadow Kept → ""
+PASS  note materialized body: full tree with shadow undefined → "Meaningful edit"
+PASS  note materialized body: full tree with shadow undefined → ""
+PASS  note materialized body: full tree with shadow null → "Meaningful edit"
+PASS  note materialized body: full tree with shadow null → ""
+PASS  note materialized body: full tree with shadow  → "Meaningful edit"
+PASS  note materialized body: full tree with shadow  → ""
+PASS  note materialized body: full tree with shadow 7 → "Meaningful edit"
+PASS  note materialized body: full tree with shadow 7 → ""
+PASS  note materialized body: full tree with shadow divergent → "Meaningful edit"
+PASS  note materialized body: full tree with shadow divergent → ""
+PASS  note materialized body: full tree with shadow the body → "Meaningful edit"
+PASS  note materialized body: full tree with shadow the body → ""
+PASS  note no-op and single-field edit preserve missing/null/empty/integer {}
+PASS  note no-op and single-field edit preserve missing/null/empty/integer {"label":null,"lead":null,"text":null}
+PASS  note no-op and single-field edit preserve missing/null/empty/integer {"label":"","lead":"","text":""}
+PASS  note no-op and single-field edit preserve missing/null/empty/integer {"label":7,"lead":8,"text":9}
+PASS  note no-op and single-field edit preserve missing/null/empty/integer {"slots":null}
+PASS  note no-op and single-field edit preserve missing/null/empty/integer {"slots":{}}
+PASS  note no-op and single-field edit preserve missing/null/empty/integer {"slots":{"lead":[]}}
+PASS  note direct content fallback edits and clears without changing primary {}
+PASS  note direct content fallback edits and clears without changing primary {"text":null}
+PASS  note direct content fallback edits and clears without changing primary {"text":""}
+PASS  note direct content fallback edits and clears without changing primary {"slots":{"body":[{"id":"paragraph-id","type":"paragraph","custom":{"keep":[null,7]},"content":[{"type":"link","href":"/kept","custom":"wrapper","children":[{"type":"code","value":"","custom":{"leaf":true}}]}]}]},"text":"dormant"}
+PASS  note nested materialized edit uses the same carrier patch
+PASS  note unsupported carrier is read-only and lossless {"slots":{"body":[{"type":"paragraph","content":[{"type":"text","value":"one"},{"type":"text","value":"two"}]}]}}
+PASS  note unsupported carrier is read-only and lossless {"slots":{"label":[{"type":"paragraph","content":[{"type":"image","src":"kept"}]}]}}
+PASS  note unsupported carrier is read-only and lossless {"slots":{"body":[{"id":"paragraph-id","type":"paragraph","custom":{"keep":[null,7]},"content":[{"type":"link","href":"/kept","custom":"wrapper","children":[{"type":"code","value":"first","custom":{"leaf":true}}]}]},{"id":"paragraph-id","type":"paragraph","custom":{"keep":[null,7]},"content":[{"type":"link","href":"/kept","custom":"wrapper","children":[{"type":"code","value":"second","custom":{"leaf":true}}]}]}]}}
+PASS  note unsupported carrier is read-only and lossless {"text":"Primary","content":[{"type":"text","value":"Dormant fallback"}]}
+PASS  note unsupported carrier is read-only and lossless {"content":"opaque scalar"}
+PASS  note empty terminal keeps paragraph/leaf keys when first authored undefined
+PASS  note empty terminal keeps paragraph/leaf keys when first authored null
+PASS  note empty terminal keeps paragraph/leaf keys when first authored []
+PASS  note empty terminal keeps paragraph/leaf keys when first authored ""
+PASS  note empty terminal keeps paragraph/leaf keys when first authored [""]
+PASS  note empty terminal keeps paragraph/leaf keys when first authored [{"type":"text","value":null,"keep":9}]
+PASS  note multiple changed fields share a full slots map without losing siblings
+PASS  note structural section reconstruction retains original note carrier
+PASS  note empty content fallback can be authored, cleared and reauthored without creating a competing primary
+PASS  note mounted: schema retains full carrier and label input emits lossless folded edit
+PASS  note mounted: body contentDOM edit preserves leaf metadata
+PASS  note mounted: unsupported rich input is an exact read-only carry without note controls
+PASS  note slot admission: malformed maps and non-lead empty slots stay opaque without normalization
+PASS  note slot admission: absent/null maps and fields plus empty optional lead preserve exact source on edit
+PASS  note admission: invalid scalars, leaves and wrapper shapes remain exact opaque carries
+PASS  note body admission: retain conservative non-list readonly guard and safe null/empty edit
+PASS  note body admission: competing content including equal text stays opaque; empty-render lists stay inert
+PASS  note rich shadows: label text stays opaque with exact source
+PASS  note rich shadows: label code stays opaque with exact source
+PASS  note rich shadows: label wrapper stays opaque with exact source
+PASS  note rich shadows: label paragraph stays opaque with exact source
+PASS  note terminal grammar: label raw strings stay opaque and exact
+PASS  note rich shadows: label single chain preserves "missing" empties on edit
+PASS  note rich shadows: label single chain preserves null empties on edit
+PASS  note rich shadows: label single chain preserves "" empties on edit
+PASS  note rich shadows: label single chain preserves [] empties on edit
+PASS  note rich shadows: lead text stays opaque with exact source
+PASS  note rich shadows: lead code stays opaque with exact source
+PASS  note rich shadows: lead wrapper stays opaque with exact source
+PASS  note rich shadows: lead paragraph stays opaque with exact source
+PASS  note terminal grammar: lead raw strings stay opaque and exact
+PASS  note rich shadows: lead single chain preserves "missing" empties on edit
+PASS  note rich shadows: lead single chain preserves null empties on edit
+PASS  note rich shadows: lead single chain preserves "" empties on edit
+PASS  note rich shadows: lead single chain preserves [] empties on edit
+PASS  note rich shadows: body text stays opaque with exact source
+PASS  note rich shadows: body code stays opaque with exact source
+PASS  note rich shadows: body wrapper stays opaque with exact source
+PASS  note rich shadows: body paragraph stays opaque with exact source
+PASS  note terminal grammar: body raw strings stay opaque and exact
+PASS  note rich shadows: body single chain preserves "missing" empties on edit
+PASS  note rich shadows: body single chain preserves null empties on edit
+PASS  note rich shadows: body single chain preserves "" empties on edit
+PASS  note rich shadows: body single chain preserves [] empties on edit
+PASS  note rich shadows: content text stays opaque with exact source
+PASS  note rich shadows: content code stays opaque with exact source
+PASS  note rich shadows: content wrapper stays opaque with exact source
+PASS  note terminal grammar: content raw strings stay opaque and exact
+PASS  note rich shadows: content single chain preserves "missing" empties on edit
+PASS  note rich shadows: content single chain preserves null empties on edit
+PASS  note rich shadows: content single chain preserves "" empties on edit
+PASS  note rich shadows: content single chain preserves [] empties on edit
+PASS  note resting DOM uses reader-shaped inline lead and body undefined
+PASS  note resting DOM uses reader-shaped inline lead and body ""
+PASS  note resting DOM uses reader-shaped inline lead and body "  "
+PASS  note resting DOM uses reader-shaped inline lead and body "Short lead"
+PASS  note resting DOM uses reader-shaped inline lead and body "A long lead that wraps across several lines alongside the body at narrow widths"
+PASS  note CSS mirrors the reader contract and current root-linked shell without claiming geometry
+PASS  note preview nested surface neutralizes only page geometry in both CSS copies
+PASS  note canvas: focused label draft survives foreign echo before private debounce and intentional exit
+PASS  note canvas: focused lead draft survives foreign echo before private debounce and intentional exit
+PASS  note canvas: IME draft is pending before PM transaction and cannot be replaced on exit
+PASS  note canvas: lead visual trim/focus is a no-op and native history updates the island
+PASS  note canvas: focused clean island queues foreign echo until actual focus release
+PASS  note canvas: same-visible flat-to-slots echo replaces the source carrier before the next edit
+PASS  note canvas: same-visible carrier metadata refresh survives later edit and coarse section replacement
+PASS  note history: label undo/redo retains refreshed carrier
+PASS  note history: lead undo/redo retains refreshed carrier
+PASS  note history: remote visible label replaces conflicting local history
+PASS  note history: remote visible lead replaces conflicting local history
+PASS  note history: pre-ACK new note label retains stable ID through own echo and undo/redo
+PASS  note history: pre-ACK new note label retains stable ID through materialization and undo/redo
+PASS  note history: pre-ACK new note lead retains stable ID through own echo and undo/redo
+PASS  note history: pre-ACK new note lead retains stable ID through materialization and undo/redo
+PASS  note readonly paint: canonical server HTML is display-only and stale or empty paint is guarded
+PASS  note readonly paint: installed LiveView hook routes and replays source-bound HTML without saving
+PASS  note conflict recovery: cached latest paint survives opaque source update
+PASS  note conflict recovery: cached latest paint survives safe-to-opaque mount
+PASS  note empty-body click: committed lead collapses AllSelection without replacing siblings
+PASS  note empty-body click: live composed absent lead collapses AllSelection without replacing siblings
+PASS  note empty-body click: leaves no lead gesture native
+PASS  note empty-body click: leaves blank lead gesture native
+PASS  note empty-body click: leaves nonempty body gesture native
+PASS  note empty-body click: leaves noneditable gesture native
+PASS  note empty-body click: leaves middle button gesture native
+PASS  note empty-body click: leaves secondary button gesture native
+PASS  note empty-body click: leaves shiftKey gesture native
+PASS  note empty-body click: leaves ctrlKey gesture native
+PASS  note empty-body click: leaves metaKey gesture native
+PASS  note empty-body click: leaves altKey gesture native
+PASS  note empty-body click: leaves body child target gesture native
+
+all round-trips PASS
+PASS  stage runToTiptap: a top-level stage → { type:'bpStage', attrs:{…} } (folds INTO a run)
+PASS  stage runToTiptap: every field is PRESENT-ONLY (a bare stage gains nothing but title)
+PASS  stage runToTiptap: a SLOTS-form stage reads through the slot API + DROPS marks (plain text)
+PASS  stage runToOps: an untouched top-level stage round-trips with ZERO ops (+ real attrs)
+PASS  stage runToOps: a SLOTS-form stage round-trips with ZERO ops (slots read is stable)
+PASS  stage runToOps: an untouched SECTION-OF-STAGES round-trips with ZERO ops (+ real bpStage children)
+PASS  stage docToBlocks: a scalar stage round-trips blocks→node→docToBlocks BYTE-EQUAL
+PASS  stage docToBlocks: a hand-authored source:'true' (string) round-trips VERBATIM (not coerced to bool)
+PASS  stage runToOps: editing the TITLE → ONE patch-block carrying the new title (others preserved)
+PASS  stage runToOps: editing the DETAIL → ONE patch-block carrying the new detail
+PASS  stage runToOps: toggling SOURCE off → ONE patch-block carrying source:null (accent drops)
+PASS  stage runToOps: CLEARING the detail → patch emits detail:null EXPLICITLY (removal lands)
+PASS  stage runToOps: editing a stage child in a section → ONE patch-block{childId} (not replace-block)
+PASS  stage runToOps: inserting a NEW stage (null id) → insert carrying the present-only scalar block
+PASS  stage reconcileServerEcho: an untouched stage own-echoes (+ no idWrites)
+PASS  stage reconcileServerEcho: an EDITED stage does NOT own-echo (external path → re-emit)
+
+all round-trips PASS
+PASS  opening canvas preserves paragraph rhythm in both editor stylesheets
+PASS  eyebrow: renderHTML emits the reader's <p> element (walk.ex paragraph/3)
+PASS  eyebrow: element carries the reader's bp-role-eyebrow class (byte-locked in view_edit_parity_test §7)
+PASS  eyebrow: the reader class is the ONLY class — no edit-only chrome leaks
+PASS  eyebrow: bp-attrs id/type stamp survives onto the emitted element
+PASS  eyebrow: renderHTML exposes a "0" content hole (editable prose, matches reader inline body)
+PASS  eyebrow: inline author-mark style matches the reader (none)
+PASS  byline: renderHTML emits the reader's <p> element (walk.ex paragraph/3)
+PASS  byline: element carries the reader's bp-role-byline class (byte-locked in view_edit_parity_test §7)
+PASS  byline: the reader class is the ONLY class — no edit-only chrome leaks
+PASS  byline: bp-attrs id/type stamp survives onto the emitted element
+PASS  byline: renderHTML exposes a "0" content hole (editable prose, matches reader inline body)
+PASS  byline: inline author-mark style matches the reader (none)
+PASS  ingress: renderHTML emits the reader's <p> element (walk.ex paragraph/3)
+PASS  ingress: element carries the reader's bp-role-ingress class (byte-locked in view_edit_parity_test §7)
+PASS  ingress: the reader class is the ONLY class — no edit-only chrome leaks
+PASS  ingress: bp-attrs id/type stamp survives onto the emitted element
+PASS  ingress: renderHTML exposes a "0" content hole (editable prose, matches reader inline body)
+PASS  ingress: inline author-mark style matches the reader (none)
+PASS  pullquote: renderHTML emits the reader's <p> element (walk.ex paragraph/3)
+PASS  pullquote: element carries the reader's bp-role-pullquote class (byte-locked in view_edit_parity_test §7)
+PASS  pullquote: the reader class is the ONLY class — no edit-only chrome leaks
+PASS  pullquote: bp-attrs id/type stamp survives onto the emitted element
+PASS  pullquote: renderHTML exposes a "0" content hole (editable prose, matches reader inline body)
+PASS  pullquote: inline author-mark style matches the reader (font-style:italic)
+
+ALL PASS
+PASS  bpTable renderHTML emits <table class="bp-table"> (reader walk.ex table/3)
+PASS  bpTable schema fallback carries the bp-attrs stamp on the <table>
+PASS  bpTable node-view paints the shared .bp-table class on the live <table> element
+PASS  bpTable content hole nests under a single <tbody> — the thead-drop, structurally
+PASS  bpTableCell renderHTML emits <td class="bp-table__td"> (reader shared class)
+PASS  row headers retain scope, spans and alignment through HTML
+PASS  bpTableHeaderCell renderHTML emits <th class="bp-table__th"> (reader shared class)
+PASS  bpTableRow renderHTML emits a bare <tr> with a content hole (no class chrome)
+PASS  the thead-drop justification comment is present (walk.ex splits thead/tbody; edit keeps one tbody)
+PASS  the edit chrome is namespaced .bp-canvas-table* (never a reader .bp-table* class)
+PASS  chrome rails are contentEditable=false and live OUTSIDE the contentDOM (tbody)
+PASS  chrome events are swallowed (stopEvent on the rails) — the island never becomes content
+
+ALL PASS
+PASS  BP_SECTION_CONTENT forbids nesting bpSection (schema is the guard)
+PASS  schema-fallback renderHTML is a chrome-free div + one content hole
+PASS  title attr is present-only — null renders no data-title (reader emits no title)
+PASS  contentDOM is the bp-section__body hole (chrome is outside PM content)
+PASS  grid mode uses the SHARED bp-section__grid class, not a hand-rolled grid
+PASS  wrapper carries the reader's inline display:flex;flex-direction:column
+PASS  (a) title binds font-weight:bold — typography byte-matches the reader span
+PASS  (b) layout controls are edit-only — display:none when not editable (view = reader)
+PASS  (c) grid items mirror the reader cell's min-width:0 (reconciled this slice)
+PASS  (c) placement keyed by data-bp-id — reorder-safe, same key as reader/run-convert
+PASS  grid layout rides the shared class, not a hand-rolled inline display:grid
+
+ALL PASS
+PASS  card-node.js carries NO bp-card__ literal (model-A chrome is dead)
+PASS  schema-fallback renderHTML is a chrome-free div + one content hole
+PASS  tone/title/media/action attrs are present-only (null renders NO data-attr)
+PASS  title slot keeps its semantic heading around a separately editable island
+PASS  body slot: the contentDOM IS a <p> (reader: classless PdParagraph)
+PASS  media slot is a BARE <img> with the reader's inline geometry (no wrapper)
+PASS  action slot is the reader's PdButton anchor with the binary priority collapse
+PASS  mounted order keeps reader slots before the edit-only action-label twin
+PASS  direct media editing keeps the bare image and adds a sibling native control
+PASS  direct action-label editing uses a non-link plaintext sibling
+PASS  root carries bp-card + tone modifier via the reader's exact allowlist
+PASS  controls are edit-only — display:none when not editable (view = reader)
+PASS  absent media/action slots hide their elements (reader omits them)
+
+ALL PASS
+PASS  runToTiptap: each data-viz kind projects to a bpFleet node with the whole block on bpBlock
+PASS  a data-viz kind is NOT the generic bpOpaque placeholder (it folds into the run, not the catch-all)
+PASS  runToOps: an unedited run of data-viz + prose blocks emits ZERO ops (D3 byte-stability)
+PASS  fleetKindEditable: every data-viz kind is editable in-canvas
+PASS  fleetEditorText(stat): serializes ONLY the present config keys (no null padding)
+PASS  fleetEditorParse(stat): edits config keys, deletes removed ones, never clobbers id/type
+PASS  fleetEditorParse: a mid-edit invalid JSON returns null (keep the last good state)
+PASS  fleetEditorText/Parse(stats + stat-grid): the items array island round-trips (cards precedent)
+PASS  fleetEditorText/Parse(heatmap): the v1 JSON island covers cells/rowLabels/colLabels/mode/marginals/values
+PASS  fleetEditorText/Parse(chart): the v1 JSON island covers series/axes
+PASS  runToOps: a stat config island edit emits ONE patch-block carrying the edited config
+PASS  runToOps: a stats/stat-grid items island edit emits patch-block{items}
+PASS  runToOps: a heatmap island edit emits patch-block with the edited grid
+PASS  runToOps: a chart island edit emits patch-block with the edited series
+PASS  runToOps: an UNEDITED data-viz block (re-projected) emits ZERO patch-block (D3)
+PASS  docToBlocks: reconstructs each data-viz block byte-identically from its bpFleet node
+PASS  runToOps: removing a data-viz block emits remove-block (structural)
+PASS  fleetChipLabel: each data-viz kind has a terse human label for the loading chip
+PASS  D4: data-viz kinds are NOT slash-insertable and CANVAS_SLASH_TYPES stays at 33
+PASS  the datum array left the JSON config island — the scalars stayed
+PASS  datumEditorSpec: duel edits rows, lineage edits nodes, and nothing else has a grid
+PASS  datumEditorRows: reads the authored data, and REFUSES a shape it cannot show
+PASS  datumEditorSet: EDIT one field of one datum, leaving its siblings alone
+PASS  datumEditorSet: the per-datum KILDE is editable on both kinds
+PASS  datumEditorSet: ADD — typing in the trailing scaffold appends a datum
+PASS  datumEditorSet: REMOVE — clearing the last non-blank field drops the datum
+PASS  datumEditorMove: REORDER by position, and a no-op move emits nothing
+PASS  datumEditorSet: refuses a field the reader does not read, and an unshowable array
+PASS  runToOps: a duel row edit emits ONE patch-block carrying the whole edited rows array
+PASS  runToOps: an added lineage stop, a per-stop kilde, and a reorder each emit ONE patch-block
+PASS  runToOps: a duel row REMOVED via the grid emits ONE patch-block with the shorter array
+PASS  the structured grid builds NO <button> (rule 6) and mounts on both kinds
+
+all data-viz canvas checks passed
+PASS  the grid MOUNTS on both kinds: one control per reader field, plus an add scaffold
+PASS  EDIT: typing in a duel row's field emits ONE patch-block with just that field changed
+PASS  SOURCE: the per-datum kilde is editable from the grid on both kinds
+PASS  ADD: typing in the trailing scaffold appends a stop and regrows the scaffold
+PASS  REMOVE: clearing a duel row's only non-blank fields drops it from the array
+PASS  REORDER: picking a position on the <select> moves the stop and repaints the grid
+PASS  NO-OP: mounting, and re-picking a datum's own position, emit ZERO ops (D3)
+PASS  the JSON island stays as the scalar escape hatch — and no longer shows the array
+
+all mounted per-datum grid checks passed
+PASS  .bp-lineage__body carries an overflow-wrap guard
+PASS  .bp-lineage__nodes is a self-scrolling strip on one continuous spine
+PASS  .bp-duel__table self-contains horizontally, .bp-table's own escape hatch
+PASS  .bp-task-chip does not force an unguarded single-line overflow
+PASS  .bp-crit__t carries an overflow-wrap guard
+PASS  .bp-bcard__t carries an overflow-wrap guard
+PASS  .bp-tdetail__deps carries an overflow-wrap guard
+PASS  .bp-tdetail__labels carries an overflow-wrap guard
+PASS  .bp-rail__paper carries an overflow-wrap guard
+PASS  .bp-legend__n carries an overflow-wrap guard
+PASS  running prose (p, li) carries a long-token break guard
+
+ALL PASS
+PASS  the shared h1–h6 rule can break a long word
+PASS  .bp-role-eyebrow can break a long word
+PASS  .bp-role-ingress is left unguarded on purpose
+PASS  .bp-role-pullquote is left unguarded on purpose
+
+ALL PASS
+PASS  .bp-tdetail__title can break a long word
+PASS  .bp-card__t breaks a long permalink
+PASS  .bp-tasks__title breaks a long permalink
+
+ALL PASS
+PASS  .bp-stat__v renders a value as ONE unbroken value
+PASS  .bp-stat__v cannot push the document sideways
+PASS  a STANDALONE .bp-stat is bounded by the reading column
+PASS  .bp-stat__v is sized by a clamp whose ceiling is the authored 1.7rem
+PASS  .bp-stat__l can break a long label
+PASS  .bp-stats still lays out on a 140px auto-fit floor
+
+ALL PASS
+PASS  absent / empty / malformed declaration → null (no restriction at all)
+PASS  the agency vocabulary maps onto exactly the portable-doc types it names
+PASS  an in-vocabulary doc has no violation
+PASS  violations are named: h1, a wrong mark, an un-listed block, a wrong list kind
+PASS  THE CALM VETO: a user edit that introduces an h1 is vetoed; a no-worse edit passes
+PASS  the slash menu offers only the vocabulary's block types and never a compound starter
+
+vocabulary: all checks passed
+PASS  masthead: the palette carries an "Insert Masthead" command
+PASS  masthead: the command inserts the whole 7-block assembly
+PASS  masthead: the caret lands on block 0 (eyebrow)
+PASS  masthead: the placeholder text is SELECTED, not merely caret-adjacent
+PASS  masthead: the NEXT keystroke overtypes the selection
+PASS  annotated-figure: the palette carries an "Insert Annotated figure" command
+PASS  annotated-figure: the command inserts the whole 1-block assembly
+PASS  annotated-figure: the caret lands on block 0 (chart)
+PASS  annotated-figure: the data-viz atom is SELECTED (NodeSelection, no text hole)
+PASS  annotated-figure: the NEXT keystroke overtypes the selection
+PASS  live-dashboard: the palette carries an "Insert Live dashboard section" command
+PASS  live-dashboard: the command inserts the whole 4-block assembly
+PASS  live-dashboard: the caret lands on block 0 (eyebrow)
+PASS  live-dashboard: the placeholder text is SELECTED, not merely caret-adjacent
+PASS  live-dashboard: the NEXT keystroke overtypes the selection
+PASS  runbook-step: the palette carries an "Insert Runbook step" command
+PASS  runbook-step: the command inserts the whole 2-block assembly
+PASS  runbook-step: the caret lands on block 1 (callout)
+PASS  runbook-step: the placeholder text is SELECTED, not merely caret-adjacent
+PASS  runbook-step: the NEXT keystroke overtypes the selection
+PASS  masthead: from inside a callout body the preset is inserted AFTER it
+PASS  masthead: the degraded insert still moves the caret onto the preset
+PASS  masthead: the degraded insert is overtypeable too
+PASS  annotated-figure: from inside a callout body the preset is inserted AFTER it
+PASS  annotated-figure: the degraded insert still moves the caret onto the preset
+PASS  annotated-figure: the degraded insert is overtypeable too
+PASS  live-dashboard: from inside a callout body the preset is inserted AFTER it
+PASS  live-dashboard: the degraded insert still moves the caret onto the preset
+PASS  live-dashboard: the degraded insert is overtypeable too
+PASS  runbook-step: from inside a callout body the preset is inserted AFTER it
+PASS  runbook-step: the degraded insert still moves the caret onto the preset
+PASS  runbook-step: the degraded insert is overtypeable too
+PASS  slash menu: the four presets are offered as Presets rows
+PASS  slash menu: picking the Masthead row inserts the 7-block assembly, placeholder selected
+
+section presets: caret + overtype PASS for all four presets
+PASS  parse: bare URL, {url,assetId}, and the rich shape all read; focal is clamped; garbage is null
+PASS  serialize: legacy shapes stay byte-identical; alt / focal are written only when set
+PASS  round trip: parse(serialize(x)) == x for the rich shape
+PASS  focalFromClick: the fraction inside the box, clamped; a degenerate box is null
+
+picker focal: all checks passed
+PASS  parse: width / height / lqip read back as numbers and a string
+PASS  parse: fileInfo-style string dimensions become numbers; junk is null
+PASS  serialize: legacy shapes stay byte-identical when no metadata is known
+PASS  serialize: width / height / lqip are written when known — an alt edit keeps them
+PASS  serialize: a fresh pick with dimensions but no lqip writes the dimensions only
+PASS  round trip: parse(serialize(x)) == x for the full shape
+
+picker metadata: all checks passed
+PASS  no data-strings: the menu keeps its English literals byte-for-byte
+PASS  data-strings from the server: the menu speaks the workspace's language
+PASS  the default chrome carries no English literal the workspace locale cannot reach
+PASS  a partial or malformed data-strings falls back per key, never throws
+picker strings: all checks passed
+heading carrier projection and serialization passed
+list carrier conversion preservation passed
+nested list carrier projection and serialization passed
+paragraph carrier preservation passed
+reconnect mode hint is live, document-bound, and contains no draft data
+
+> bp-paper-editor@0.2.0 posttest
+> node src/__inline_text.test.mjs && node src/__section_title_inline.test.mjs && node src/__card_title_contextual_inline.test.mjs && node src/__paper_links_header_inline.test.mjs && node src/__figure_image_bridge.test.mjs && node src/__card_inline_body.test.mjs && node src/__card_noop_settlement.test.mjs && node src/__table_contextual.test.mjs && node src/__table_control_focus.test.mjs && node src/canvas/__cross_source_echo_debounce.test.mjs && node src/canvas/__responsive_reparent_focus.test.mjs && node src/canvas/__resume_focus.test.mjs && node src/canvas/__figure_singleton_guard.test.mjs && node src/canvas/__card_media_admission.test.mjs && node src/canvas/__control_matrix.test.mjs && node src/__public_layout_bootstrap.test.mjs && node src/__nested_canvas_context.test.mjs && node src/__collection_focus.test.mjs && node src/__columns_track_controls.test.mjs && node src/__form_collection_controls.test.mjs && node src/__contextual_controls.test.mjs && node src/__fallback_validation_recovery.test.mjs && node src/__terminal_external_echo.test.mjs && node src/__press_answer_watchdog.test.mjs && node src/canvas/__harness_lock.test.mjs
+
+PASS inline text: native selection, grow/shrink, cleanup and acknowledged immediate View
+PASS Section title: one scalar field, exact FIFO, native undo, and clean View drain
+PASS Card title: canonical focus, exact IME/FIFO, ACK retention, replay and View drain
+PASS paper-links header: isolated scalars, FIFO, receipt protocol, live-copy guard, and conflict recovery
+PASS contextual Figure image: rendered activation, source-only save, no-op, flush, inert, teardown
+Card inline-body mounted contract passed
+Card mounted no-op settlement contract passed
+PASS  contextual Table projection, editing, sequencing, echo, and fail-closed boundary
+PASS Table controls retain keyboard focus through authoritative repaints
+cross-source echo preserves a blurred debounced canvas draft
+responsive canvas focus restoration and non-stealing guards passed
+canvas reconnect focus restoration and cancellation guards passed
+Figure singleton canvas keyboard guard passed
+PASS Card media admission: absent/image exact; null and malformed preserved opaque
+mounted control matrix: 37 interaction/payload cases passed
+public layout editor bootstrap scenarios passed
+nested canvas context: expandable/steps/tabs/figure/section/columns/terminal retry + top-level + strict fail-closed cases passed
+PASS collection focus: reorder, add, remove, failure, and no focus stealing
+PASS Columns tracks: cross-source FIFO, exact retry, focus, and surviving canvas identity
+PASS form collections: stable question focus, fresh add ids, option guards, and snapshot safety
+PASS contextual labels: scoped readable token and light/dark contrast
+PASS fallback validation recovery: safe restore, exact retry, and positional conflict guard
+terminal external echo boundary: ok
+press answer watchdog: native disclosure and fast mode-reply scenarios passed
+(node:22088) ExperimentalWarning: The MockTimers API is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS  __harness.html is byte-locked (S1 assertions unchanged)
+PASS  __harness.html still carries its hardcoded three-block S1 RUN
+      18 blocks, 10 block types, paper mechanical-spacing-doctrine @ rev 5564536550cf44ca5f88b86ff41122be
+PASS  the committed fixture is a versioned capture of a published paper
+
+OK  __harness_lock.test.mjs

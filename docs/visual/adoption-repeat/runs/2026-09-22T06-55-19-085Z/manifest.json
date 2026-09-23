@@ -1,0 +1,69 @@
+{
+  "sourceCommit": "41500dc1f282182cbbd0539193376826a3c9475b",
+  "sourceDirty": false,
+  "barkparkCommit": "54579debe6ad4579c1a48586805498602867d983",
+  "barkparkDirty": false,
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-repeat-adoption-GHGhBt",
+  "frames": [
+    "01-confirm-adoption.png",
+    "02-preparing.png",
+    "03-adopted-paper.png",
+    "04-adopted-save.png",
+    "05-repeated-adoption.png",
+    "06-restarted-profile.png",
+    "07-confirm-rollback.png",
+    "08-restored-original.png"
+  ],
+  "checks": [
+    "original real runtime published note/media and revision-checked receipt, then stopped cleanly",
+    "actual startup activated UUID profile with original credentials/media origin, draft/side-parent and remapped attachment",
+    "second explicit adoption retains one UUID, exact inventories/source/backup hashes and acknowledged Paper revision/media",
+    "human Paper edit acknowledged and actual process restart without flags restored adopted authority and edit",
+    "rollback restarted original unchanged revision/content/media, preserved backups and retained edited profile"
+  ],
+  "stopped": true,
+  "portability": false,
+  "originalInventory": {
+    "shell": {
+      "entries": 7,
+      "sha256": "d2a9b20443811c70f82fd636f03d19c6c4eea75dec42c165643ff95d3ec5a09d"
+    },
+    "runtime": {
+      "entries": 1915,
+      "sha256": "36b0e751efa6f6a1876337224e885e6abb7cee5d26c757d3fd0b78b6e48c84e9"
+    }
+  },
+  "repetition": {
+    "profileId": "3649cb6a-c8f7-404b-98d0-9ec75030ef79",
+    "profileCount": 1,
+    "paperIds": [
+      "adopted-paper",
+      "welcome"
+    ],
+    "chatCount": 3,
+    "workspace": {
+      "entries": 5,
+      "sha256": "8a52fcebe9071a468fd0eda1981bfdd181b047ade57dbec514e31c51174053be"
+    },
+    "receipts": {
+      "entries": 1,
+      "sha256": "9935ff9b0f471558b9940e210c0afdaf6e7b726d4adbdaccc2a79de796bf873e"
+    },
+    "localDocuments": {
+      "entries": 2,
+      "sha256": "215c773a6bfcc808e15ac69dec42aa2996aea510bf0d2626d7e15fe6d30acd5d"
+    },
+    "shellBackup": {
+      "entries": 7,
+      "sha256": "d2a9b20443811c70f82fd636f03d19c6c4eea75dec42c165643ff95d3ec5a09d"
+    },
+    "runtimeBackup": {
+      "entries": 1917,
+      "sha256": "9e67d67d8a9f51d661a3eb8d9c241f85a00a30c32bdbe0e203bafba320041f34"
+    },
+    "originalRev": 2,
+    "savedRev": 3
+  },
+  "cleanupErrors": [],
+  "finishedAt": "2026-09-22T07:00:38.262Z"
+}

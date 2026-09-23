@@ -1,0 +1,43 @@
+{
+  "sourceEvidenceCommit": "78e2e5f",
+  "actualJourneyCommit": "aaeed2cecf19f91228eab60f130da6fd6d7ac89f",
+  "statusCommit": "89f9af20b85e8ba0954b18aead9326e647bb458a",
+  "protectedUnchanged": {
+    "README.md": "a2a4ded28430132acb47cb58c9be2e32f4cf43ce77e681c1141ff801837e9f6a",
+    "docs/images/status/manifest.json": "faddc6e6832a47f586199e8dd20caf349996fc4d22b5210f0e20d6563f61b6e1",
+    "docs/visual/approved.json": "f65f0d7bbc80b50af0d0a0426475c745a9db851b0d6f7aff6d1d8b4da83e265d",
+    "docs/visual/pending.json": "04e66672b9da1296d736aec93c31f3af214bbee676869b9d6cd6241a08c45b06",
+    "docs/cycle.json": "e2d883d6a29cf8fdb7d07fe78c44e55543f71c8fa6b612940b0d007e85b984a6"
+  },
+  "archivedStatusManifest": "docs/images/status/history/C022-89f9af2.json",
+  "hashVerification": "Two original deterministic review manifest/report hashes and complete media hashes pass; baseline chain and all links retained. Original dedicated source fixture, dedicated media/report, archived status manifest and six hashed status media exactly match source78e2e5f working tree bytes.",
+  "verifiedRunChain": [
+    "docs/visual/runs/2026-09-21T21-24-32-164Z/manifest.json",
+    "docs/visual/runs/2026-09-21T21-26-13-874Z/manifest.json",
+    "docs/visual/runs/2026-09-21T21-33-30-215Z/manifest.json",
+    "docs/visual/runs/2026-09-21T21-48-36-561Z/manifest.json",
+    "docs/visual/runs/2026-09-21T22-32-06-713Z/manifest.json",
+    "docs/visual/runs/2026-09-21T23-39-00-392Z/manifest.json",
+    "docs/visual/runs/2026-09-21T23-55-40-140Z/manifest.json",
+    "docs/visual/runs/2026-09-22T00-09-52-577Z/manifest.json",
+    "docs/visual/runs/2026-09-22T00-23-29-485Z/manifest.json",
+    "docs/visual/runs/2026-09-22T02-13-13-738Z/manifest.json",
+    "docs/visual/runs/2026-09-22T03-25-12-172Z/manifest.json",
+    "docs/visual/runs/2026-09-22T03-32-11-158Z/manifest.json"
+  ],
+  "missingOriginalFilesRestored": [],
+  "originalArtifactHashes": {
+    "docs/visual/adoption-repeat/runs/2026-09-22T03-18-44-678Z/01-confirm-adoption.png": "505d3f5e0100c0e125f1e97ce16ab5d8cb567a4bd376ffd48e797feff0ced90f",
+    "docs/visual/adoption-repeat/runs/2026-09-22T03-18-44-678Z/02-preparing.png": "411f2898ee9f88116e6748607e6acdbe7318a7f07265d115c57ed5959b93d605",
+    "docs/visual/adoption-repeat/runs/2026-09-22T03-18-44-678Z/03-adopted-paper.png": "c6ab819767f782c90622737967a2e7601dfba5282ab2730c7a6c1c81cea86dab",
+    "docs/visual/adoption-repeat/runs/2026-09-22T03-18-44-678Z/04-adopted-save.png": "1d233a31ca72193bb9dcf6a3f4ba2da88625cbbf5e14d59e9c4313283a8a94d4",
+    "docs/visual/adoption-repeat/runs/2026-09-22T03-18-44-678Z/05-repeated-adoption.png": "698f7fcdaa7c1e967b4ffe19e6102e8076f66a6f6ca5c28dc39ee1def48c3728",
+    "docs/visual/adoption-repeat/runs/2026-09-22T03-18-44-678Z/06-restarted-profile.png": "ffc8d3bac2f56db952fca2f32cff055a616afd15b20992204dbe7f1056fd30fd",
+    "docs/visual/adoption-repeat/runs/2026-09-22T03-18-44-678Z/07-confirm-rollback.png": "66cebbce310e2a1e2bb13c9b2d667e0d212a1a8341d0f1b343c56f6ad47394da",
+    "docs/visual/adoption-repeat/runs/2026-09-22T03-18-44-678Z/08-restored-original.png": "5f997e9222bcc49a42a9a564f86025aad601d24856fd8f495855610f312910e7",
+    "docs/visual/adoption-repeat/runs/2026-09-22T03-18-44-678Z/adoption.gif": "916b367b9b09b8183ce39df3854236a30776d0fcfbca90bbdc26363fdc897b18",
+    "docs/visual/adoption-repeat/runs/2026-09-22T03-18-44-678Z/manifest.json": "e1ea76c9781944b3b43a5350c94da645050582606e0e28f9978d4af1bf5d19f9"
+  },
+  "reviewCorrection": "Original same-candidate review JSON was overwritten by approve tooling. Earlier inaccurate byte-identical/delta3 notes survive in original-visual-changelog.txt (exact original area README bytes), not as separate immutable JSON reviews. Final original review says36 identical/4 maxchannel1. This import preserves original JSON unchanged and explicitly corrects its broad immutable-history wording.",
+  "validation": "Fixture syntax/build, existing script union, visual comparator tests, tripwire inclusion, original review/media hashes,12 comparison manifests and plan/cycle checks PASS. Root check reaches expected pre-existing stale combined status (9b4346463 versus e38038577); visual check rejects changed combined fingerprint. Current global README/status/approved/pending/C008 cycle remain byte-identical. No UI/runtime launched or combined full pass claimed."
+}

@@ -1,0 +1,156 @@
+{
+  "checkedAt": "2026-09-22T04:37:24.423275+00:00",
+  "commands": [
+    "gh pr view 19579 --repo FRIKKern/barkpark --json state,headRefOid,mergeStateStatus,statusCheckRollup,url",
+    "gh run view 35636254280 --repo FRIKKern/barkpark --json conclusion,jobs,url",
+    "gh secret list --repo FRIKKern/barkpark --json name"
+  ],
+  "upstream": {
+    "state": "OPEN",
+    "headRefOid": "a5440345caa413087ac6488cac67f19fce58fa0f",
+    "mergeStateStatus": "BLOCKED",
+    "url": "https://github.com/FRIKKern/barkpark/pull/19579"
+  },
+  "failedChecks": [
+    {
+      "name": "Build + test + gates",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/35636254222/job/106454265423"
+    },
+    {
+      "name": "PR meta gates",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/35636254355/job/106454264847"
+    },
+    {
+      "name": "Elixir path-escape ratchet",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/35636254212/job/106454264497"
+    },
+    {
+      "name": "pipefail SIGPIPE scan",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/35636254023/job/106455150762"
+    },
+    {
+      "name": "Every workflow job has runs-on+steps or uses",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/35636254377/job/106454264854"
+    },
+    {
+      "name": "Vendored SDK freshness",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/35636254227/job/106454263941"
+    },
+    {
+      "name": "Security gate shape ratchet",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/35636254449/job/106454266038"
+    },
+    {
+      "name": "Format (mix format --check-formatted, diff-scoped) (27.0, 1.19.5)",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/35636254212/job/106455321861"
+    },
+    {
+      "name": "Test (Elixir 1.18.4 / OTP 27.0)",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/35636254212/job/106455322053"
+    },
+    {
+      "name": "Prod compile gate (Elixir 1.18.4 / OTP 27.0)",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/35636254212/job/106455321892"
+    },
+    {
+      "name": "Required-check spec drift (advisory)",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/35636254377/job/106454592331"
+    },
+    {
+      "name": "Elixir gate",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/35636254212/job/106456932209"
+    },
+    {
+      "name": "Security gate",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/35636254449/job/106456521362"
+    }
+  ],
+  "parityRun": {
+    "url": "https://github.com/FRIKKern/barkpark/actions/runs/35636254280",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "Barkdown parity rows",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Initialize containers",
+            "conclusion": "success"
+          },
+          {
+            "name": "Is the Barkdown read token configured?",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Run erlef/setup-beam@v1",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Run actions/setup-go@v5",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "npm 11 (the lockfiles are written by npm 11; npm 10's ci demands optional peers it never installs)",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Cache deps and build",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "System libraries (libvips, Xvfb, Electron's shared libraries)",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Boot this checkout's Barkpark",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Barkdown app (root holds playwright; app holds electron and the app's deps)",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Parity rows",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Phoenix log",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Stop containers",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ]
+      }
+    ]
+  },
+  "barkdownReadTokenConfigured": false,
+  "workflowSource": "a5440345c:.github/workflows/barkdown-parity.yml",
+  "workflowSha256": "4987acb6a22b23ccfae512a5cee679eecb12a9307a8ce91f43338c4ee02b1ab1",
+  "interpretation": "The parity job is green while checkout, build and Parity rows were skipped. This is not a passing editor matrix or deliberate broken-Tab enforcement proof. No secret value was read, created or changed. No upstream branch was changed and no workflow was dispatched."
+}

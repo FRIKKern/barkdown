@@ -1,0 +1,23 @@
+PASS split IDs, complete recovery equality, repeated edits, caret, references and Undo/Redo
+PASS in-flight split preserves posted identities and rejects stale positional stamping
+PASS in-flight reorder preserves posted identities and rejects stale positional stamping
+PASS in-flight delete preserves posted identities and rejects stale positional stamping
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: task list schema must retain its materialized identity
++ actual - expected
+
++ undefined
+- 'c-7-6eca18f9'
+
+    at file:///C:/Users/Frikk/.codex/worktrees/barkpark-block-identity/api/assets/paper-editor/src/canvas/__block_identity_mounted.test.mjs:74:10 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: 'c-7-6eca18f9',
+  operator: 'strictEqual'
+}
+
+Node.js v22.13.1

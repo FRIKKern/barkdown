@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "id": "C028",
+  "stage": "P1",
+  "status": "active",
+  "goal": "Make child process failure authoritative in the editor parity runner.",
+  "scope": [
+    "Actual runner classification and controlled child regressions; no UI/runtime or CI changes"
+  ],
+  "acceptance": [
+    "Nonzero exit, signal and spawn error always fail",
+    "Positive complete supported evidence required",
+    "Actual runner regression covers malformed, partial and absent evidence"
+  ],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C028-parity-exit.md",
+  "nextAction": "Import reviewed source/test union and rerun controlled cases; final combined visual/root gates remain pending.",
+  "evidence": [
+    "app/tests/parity.mjs",
+    "docs/cycles/C028-parity-exit.md",
+    "docs/cycles/evidence/C028-parity-before.txt",
+    "docs/cycles/evidence/C028-parity-after.txt",
+    "docs/cycles/evidence/C028-root-verify.txt"
+  ],
+  "truthReview": "24 controlled runner cases pass at b83efb1; root verify fails inherited screenshot freshness; no live matrix or stage completion.",
+  "screenshotReview": "Offline gate-only task; combined visual/root freshness pending integration."
+}

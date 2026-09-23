@@ -33,8 +33,15 @@ function paragraph(text) {
   return content.length ? { type: 'paragraph', content } : { type: 'paragraph' };
 }
 
-function markdownToDoc(markdown) {
+function markdownToDoc(markdown, options = {}) {
   const lines = String(markdown || '').replace(/\r\n?/g, '\n').split('\n');
+  if (options.strictPortable) {
+    let fenced = false;
+    for (const line of lines) {
+      if (/^```/.test(line)) { fenced = !fenced; continue; }
+      if (!fenced && /^\s+(?:[-*+]|\d+[.)])\s/.test(line)) throw new Error('Cannot convert indented or nested Markdown lists; use structured Paper editing.');
+    }
+  }
   const content = [];
   let i = 0;
   while (i < lines.length) {
@@ -53,17 +60,19 @@ function markdownToDoc(markdown) {
     }
     if (/^(-{3,}|\*{3,}|_{3,})\s*$/.test(line)) { content.push({ type: 'horizontalRule' }); i++; continue; }
     if (isTableRow(line) && i + 1 < lines.length && isTableSeparator(lines[i + 1])) {
-      const cell = (text, type) => ({ type, content: [paragraph(text)] });
-      const rows = [{ type: 'tableRow', content: splitCells(line).map(c => cell(c, 'tableHeader')) }];
+      const alignments = splitCells(lines[i + 1]).map(value => value.endsWith(':') ? (value.startsWith(':') ? 'center' : 'right') : null);
+      if (options.strictPortable && alignments.length !== splitCells(line).length) throw new Error('Cannot convert table with mismatched separator columns.');
+      const cell = (text, type, column) => ({ type, ...(options.strictPortable && alignments[column] ? { attrs: { align: alignments[column] } } : {}), content: [paragraph(text)] });
+      const rows = [{ type: 'tableRow', content: splitCells(line).map((c, column) => cell(c, 'tableHeader', column)) }];
       i += 2;
-      while (i < lines.length && isTableRow(lines[i])) { rows.push({ type: 'tableRow', content: splitCells(lines[i]).map(c => cell(c, 'tableCell')) }); i++; }
+      while (i < lines.length && isTableRow(lines[i])) { rows.push({ type: 'tableRow', content: splitCells(lines[i]).map((c, column) => cell(c, 'tableCell', column)) }); i++; }
       content.push({ type: 'table', content: rows });
       continue;
     }
     if (/^>\s?/.test(line)) {
       const quoted = [];
       while (i < lines.length && /^>\s?/.test(lines[i])) { quoted.push(lines[i].replace(/^>\s?/, '')); i++; }
-      content.push({ type: 'blockquote', content: markdownToDoc(quoted.join('\n')).content });
+      content.push({ type: 'blockquote', content: markdownToDoc(quoted.join('\n'), options).content });
       continue;
     }
     if (/^\s*[-*+]\s+\[( |x|X)\]\s+/.test(line)) {
@@ -97,7 +106,13 @@ function markdownToDoc(markdown) {
     const buffer = [line];
     i++;
     while (i < lines.length && lines[i].trim() && !/^(#{1,6}\s|```|>|\s*[-*+]\s|\s*\d+[.)]\s)/.test(lines[i]) && !(isTableRow(lines[i]) && isTableSeparator(lines[i + 1] || ''))) { buffer.push(lines[i]); i++; }
-    content.push(paragraph(buffer.join(' ')));
+    const inline = [];
+    for (let lineIndex = 0; lineIndex < buffer.length; lineIndex++) {
+      if (lineIndex) inline.push(/(?: {2,}|\\)$/.test(buffer[lineIndex - 1]) ? { type: 'hardBreak' } : { type: 'text', text: ' ' });
+      const value = lineIndex < buffer.length - 1 ? buffer[lineIndex].replace(/(?: {2,}|\\)$/, '') : buffer[lineIndex];
+      inline.push(...parseInline(value));
+    }
+    content.push(inline.length ? { type: 'paragraph', content: inline } : { type: 'paragraph' });
   }
   return { type: 'doc', content: content.length ? content : [{ type: 'paragraph' }] };
 }

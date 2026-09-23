@@ -1,6 +1,6 @@
 import { el, esc, iconHtml, toast, basename, errorMessage } from './ui.js';
 import { state, save } from './state.js';
-import { sendMessage, cancelRun, PROVIDER_LABEL, providerFor } from './conversation.js';
+import { sendMessage, cancelRun, PROVIDER_LABEL, providerFor, isSubmitting, markDraftChanged } from './conversation.js';
 import { CLAUDE_MODELS, CODEX_MODELS, EFFORT_LEVELS, defaultModelLabel, defaultModelId, modelName } from './models.js';
 import { toggleMenu, hideMenus } from './menus.js';
 import { askText } from './dialogs.js';
@@ -82,6 +82,7 @@ async function attachImages(files) {
       const dataUrl = await imageDataUrl(file);
       const saved = await api.attachments.save({ name: file.name || 'pasted-image.png', mime: dataUrl.slice(5, dataUrl.indexOf(';')), dataUrl });
       chat.draftImages = [...(chat.draftImages || []), saved];
+      markDraftChanged(chat);
       if (currentChat()?.id === chat.id) renderAttachments(chat);
       save();
     } catch (error) { toast(errorMessage(error), 'error'); }
@@ -129,6 +130,7 @@ function renderProjectMenu() {
 
   function renderControls() { const chat = currentChat(); if (!chat) return;
   q('#bw-prompt').value = chat.draft || '';
+  q('#bw-send').disabled = isSubmitting(chat);
   renderAttachments(chat);
   q('#bw-folder-label').textContent = chat.folder ? basename(chat.folder) : 'No working folder';
   q('#bw-folder-context').title = chat.folder || 'Choose an agent working folder for this chat';
@@ -167,7 +169,7 @@ function renderProjectMenu() {
   q('#bw-effort').onclick = () => { const chat = currentChat(); const provider = providerFor(chat); chipMenu('#bw-effort', '#bw-effort-menu', effortChoices(provider), chat.effort, v => { chat.effort = v; }, { title: 'Reasoning effort' }); };
   q('#bw-provider').onclick = () => { const chat = currentChat(); const p = state.settings?.providers || {}; const ready = { claude: p.claude?.loggedIn, codex: p.codex?.loggedIn, api: p.api?.hasKey }; const choices = ['claude', 'codex', 'api'].map(id => [id, `${PROVIDER_LABEL[id]}${ready[id] ? '' : ' · not signed in'}`]); chipMenu('#bw-provider', '#bw-provider-menu', choices, providerFor(chat), v => { chat.provider = v; chat.sessions = {}; }, { title: 'Provider for this chat' }); };
   q('#bw-stop').onclick = () => cancelRun(currentChat());
-  q('#bw-compose').onsubmit = e => { e.preventDefault(); const chat = currentChat(); const text = q('#bw-prompt').value; const images = chat.draftImages || []; if (!text.trim() && !images.length) return; if (chat.runId) { toast('Wait for the current run to finish, or stop it.'); return; } resetComposerHistory(chat); chat.draft = ''; chat.draftImages = []; q('#bw-prompt').value = ''; renderAttachments(chat); sendMessage(chat, text, { render: () => { renderChat(); renderSidebar(); }, runChanged: () => { renderChat(); renderSidebar(); } }, images); };
+  q('#bw-compose').onsubmit = e => { e.preventDefault(); const chat = currentChat(); const text = q('#bw-prompt').value; const images = chat.draftImages || []; if ((!text.trim() && !images.length) || isSubmitting(chat)) return; if (chat.interruption) { toast('Review the interrupted turn before sending a new message.', 'error'); return; } if (chat.runId) { toast('Wait for the current run to finish, or stop it.'); return; } resetComposerHistory(chat); chat.draft = text; sendMessage(chat, text, { render: () => { renderChat(); renderSidebar(); }, runChanged: () => { renderChat(); renderSidebar(); } }, images); };
   // Images: paste into the prompt, drop on the composer, or pick with the attach button. Each is saved
   // under userData/attachments right away so the chat only keeps a path.
   q('#bw-prompt').addEventListener('paste', e => { const files = [...(e.clipboardData?.files || [])].filter(f => f.type.startsWith('image/')); if (files.length) { e.preventDefault(); attachImages(files); } });
@@ -177,8 +179,8 @@ function renderProjectMenu() {
   composer.addEventListener('drop', e => { composer.classList.remove('drop'); const files = [...(e.dataTransfer?.files || [])].filter(f => f.type.startsWith('image/')); if (files.length) { e.preventDefault(); attachImages(files); } });
   q('#bw-attach').onclick = () => q('#bw-attach-input').click();
   q('#bw-attach-input').onchange = () => { attachImages([...q('#bw-attach-input').files]); q('#bw-attach-input').value = ''; };
-  q('#bw-attachments').addEventListener('click', e => { const remove = e.target.closest('[data-remove]'); if (!remove) return; const chat = currentChat(); chat.draftImages = (chat.draftImages || []).filter(i => i.id !== remove.dataset.remove); renderAttachments(chat); save(); q('#bw-prompt').focus(); });
-  q('#bw-prompt').addEventListener('keydown', e => { if (recallComposer(e, q('#bw-prompt'), currentChat(), save)) return; if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); q('#bw-compose').requestSubmit(); } });
-  q('#bw-prompt').addEventListener('input', () => { const chat = currentChat(); if (chat) { chat.draft = q('#bw-prompt').value; save(); } });
+  q('#bw-attachments').addEventListener('click', e => { const remove = e.target.closest('[data-remove]'); if (!remove) return; const chat = currentChat(); chat.draftImages = (chat.draftImages || []).filter(i => i.id !== remove.dataset.remove); markDraftChanged(chat); renderAttachments(chat); save(); q('#bw-prompt').focus(); });
+  q('#bw-prompt').addEventListener('keydown', e => { if (recallComposer(e, q('#bw-prompt'), currentChat(), save)) { markDraftChanged(currentChat()); return; } if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); q('#bw-compose').requestSubmit(); } });
+  q('#bw-prompt').addEventListener('input', () => { const chat = currentChat(); if (chat) { chat.draft = q('#bw-prompt').value; markDraftChanged(chat); save(); } });
   return {render:renderControls,attachImages,chooseFolder,renderProjectMenu,destroy(){if(Object.values(menus).some(menu => !menu.hidden)) hideMenus(); for(const menu of Object.values(menus)) if(!main) menu.remove();}};
 }

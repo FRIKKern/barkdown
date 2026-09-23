@@ -1,0 +1,888 @@
+[
+  {
+    "kind": "input-event",
+    "type": "input",
+    "target": "INPUT",
+    "prevented": false,
+    "doc": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "taskList",
+          "attrs": {
+            "bpId": "checklist",
+            "bpType": "list",
+            "locked": null,
+            "role": null
+          },
+          "content": [
+            {
+              "type": "taskItem",
+              "attrs": {
+                "checked": false
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "attrs": {
+                    "textAlign": "left"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Checklist intent"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "attrs": {
+            "bpParagraphSource": {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Unrelated reference"
+                }
+              ]
+            },
+            "textAlign": "left",
+            "bpId": "reference",
+            "bpType": "paragraph",
+            "locked": null,
+            "role": null
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Unrelated reference"
+            }
+          ]
+        }
+      ]
+    },
+    "dom": "<ul data-bp-id=\"checklist\" data-bp-type=\"list\" data-type=\"taskList\"><li data-checked=\"false\"><label contenteditable=\"false\"><input aria-label=\"Task item checkbox for Checklist intent\" type=\"checkbox\"><span></span></label><div><p style=\"text-align: left;\">Checklist intent</p></div></li></ul><p data-bp-id=\"reference\" data-bp-type=\"paragraph\" style=\"text-align: left;\">Unrelated reference</p>"
+  },
+  {
+    "kind": "transaction",
+    "context": "native",
+    "steps": [
+      {
+        "stepType": "replaceAround",
+        "from": 1,
+        "to": 21,
+        "gapFrom": 2,
+        "gapTo": 20,
+        "insert": 1,
+        "slice": {
+          "content": [
+            {
+              "type": "taskItem",
+              "attrs": {
+                "checked": true
+              }
+            }
+          ]
+        },
+        "structure": true
+      }
+    ],
+    "metaKeys": [],
+    "docChanged": true,
+    "selection": {
+      "type": "text",
+      "anchor": 3,
+      "head": 3
+    },
+    "history": {
+      "undo": 1,
+      "redo": 0
+    },
+    "doc": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "taskList",
+          "attrs": {
+            "bpId": "checklist",
+            "bpType": "list",
+            "locked": null,
+            "role": null
+          },
+          "content": [
+            {
+              "type": "taskItem",
+              "attrs": {
+                "checked": true
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "attrs": {
+                    "textAlign": "left"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Checklist intent"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "attrs": {
+            "bpParagraphSource": {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Unrelated reference"
+                }
+              ]
+            },
+            "textAlign": "left",
+            "bpId": "reference",
+            "bpType": "paragraph",
+            "locked": null,
+            "role": null
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Unrelated reference"
+            }
+          ]
+        }
+      ]
+    },
+    "dom": "<ul data-bp-id=\"checklist\" data-bp-type=\"list\" data-type=\"taskList\"><li data-checked=\"true\"><label contenteditable=\"false\"><input aria-label=\"Task item checkbox for Checklist intent\" type=\"checkbox\"><span></span></label><div><p style=\"text-align: left;\">Checklist intent</p></div></li></ul><p data-bp-id=\"reference\" data-bp-type=\"paragraph\" style=\"text-align: left;\">Unrelated reference</p>"
+  },
+  {
+    "kind": "transaction",
+    "context": "native",
+    "steps": [],
+    "metaKeys": [
+      "focus",
+      "addToHistory"
+    ],
+    "addToHistory": false,
+    "docChanged": false,
+    "selection": {
+      "type": "text",
+      "anchor": 3,
+      "head": 3
+    },
+    "history": {
+      "undo": 1,
+      "redo": 0
+    },
+    "doc": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "taskList",
+          "attrs": {
+            "bpId": "checklist",
+            "bpType": "list",
+            "locked": null,
+            "role": null
+          },
+          "content": [
+            {
+              "type": "taskItem",
+              "attrs": {
+                "checked": true
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "attrs": {
+                    "textAlign": "left"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Checklist intent"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "attrs": {
+            "bpParagraphSource": {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Unrelated reference"
+                }
+              ]
+            },
+            "textAlign": "left",
+            "bpId": "reference",
+            "bpType": "paragraph",
+            "locked": null,
+            "role": null
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Unrelated reference"
+            }
+          ]
+        }
+      ]
+    },
+    "dom": "<ul data-bp-id=\"checklist\" data-bp-type=\"list\" data-type=\"taskList\"><li data-checked=\"true\"><label contenteditable=\"false\"><input aria-label=\"Task item checkbox for Checklist intent\" type=\"checkbox\"><span></span></label><div><p style=\"text-align: left;\">Checklist intent</p></div></li></ul><p data-bp-id=\"reference\" data-bp-type=\"paragraph\" style=\"text-align: left;\">Unrelated reference</p>"
+  },
+  {
+    "kind": "call",
+    "name": "_emitOps",
+    "args": [],
+    "history": {
+      "undo": 1,
+      "redo": 0
+    }
+  },
+  {
+    "kind": "call",
+    "name": "_stampMaterializedIds",
+    "args": [
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "taskList",
+            "content": [
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "bpListSource": {
+                    "item": {
+                      "content": [
+                        {
+                          "type": "text",
+                          "value": "Checklist intent"
+                        }
+                      ],
+                      "checked": true
+                    }
+                  },
+                  "checked": true
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Checklist intent"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "attrs": {
+              "bpId": "checklist",
+              "bpType": "list"
+            }
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Unrelated reference"
+                  }
+                ]
+              },
+              "bpId": "reference",
+              "bpType": "paragraph"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Unrelated reference"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "history": {
+      "undo": 1,
+      "redo": 0
+    }
+  },
+  {
+    "kind": "return",
+    "name": "_stampMaterializedIds",
+    "history": {
+      "undo": 1,
+      "redo": 0
+    }
+  },
+  {
+    "kind": "return",
+    "name": "_emitOps",
+    "history": {
+      "undo": 1,
+      "redo": 0
+    }
+  },
+  {
+    "kind": "call",
+    "name": "acknowledgeOps",
+    "args": [
+      1,
+      true
+    ],
+    "history": {
+      "undo": 1,
+      "redo": 0
+    }
+  },
+  {
+    "kind": "return",
+    "name": "acknowledgeOps",
+    "history": {
+      "undo": 1,
+      "redo": 0
+    }
+  },
+  {
+    "kind": "call",
+    "name": "applyServerBlocks",
+    "args": [
+      [
+        {
+          "id": "checklist",
+          "items": [
+            {
+              "checked": true,
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Checklist intent"
+                }
+              ]
+            }
+          ],
+          "ordered": false,
+          "task": true,
+          "type": "list"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Unrelated reference"
+            }
+          ],
+          "id": "reference",
+          "type": "paragraph"
+        }
+      ]
+    ],
+    "history": {
+      "undo": 1,
+      "redo": 0
+    }
+  },
+  {
+    "kind": "return",
+    "name": "applyServerBlocks",
+    "history": {
+      "undo": 1,
+      "redo": 0
+    }
+  },
+  {
+    "kind": "transaction",
+    "context": "native",
+    "steps": [
+      {
+        "stepType": "replace",
+        "from": 2,
+        "to": 20,
+        "slice": {
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "textAlign": "left"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Checklist intent"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "metaKeys": [],
+    "docChanged": true,
+    "selection": {
+      "type": "text",
+      "anchor": 3,
+      "head": 3
+    },
+    "history": {
+      "undo": 2,
+      "redo": 0
+    },
+    "doc": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "taskList",
+          "attrs": {
+            "bpId": "checklist",
+            "bpType": "list",
+            "locked": null,
+            "role": null
+          },
+          "content": [
+            {
+              "type": "taskItem",
+              "attrs": {
+                "checked": true
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "attrs": {
+                    "textAlign": "left"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Checklist intent"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "attrs": {
+            "bpParagraphSource": {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Unrelated reference"
+                }
+              ]
+            },
+            "textAlign": "left",
+            "bpId": "reference",
+            "bpType": "paragraph",
+            "locked": null,
+            "role": null
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Unrelated reference"
+            }
+          ]
+        }
+      ]
+    },
+    "dom": "<ul data-bp-id=\"checklist\" data-bp-type=\"list\" data-type=\"taskList\"><li data-checked=\"true\"><label contenteditable=\"false\"><input aria-label=\"Task item checkbox for Checklist intent\" type=\"checkbox\"><span></span></label><div><p style=\"text-align: left;\">Checklist intent</p></div></li></ul><p data-bp-id=\"reference\" data-bp-type=\"paragraph\" style=\"text-align: left;\">Unrelated reference</p>"
+  },
+  {
+    "kind": "transaction",
+    "context": "native",
+    "steps": [],
+    "metaKeys": [
+      "pointer"
+    ],
+    "docChanged": false,
+    "selection": {
+      "type": "text",
+      "anchor": 19,
+      "head": 19
+    },
+    "history": {
+      "undo": 2,
+      "redo": 0
+    },
+    "doc": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "taskList",
+          "attrs": {
+            "bpId": "checklist",
+            "bpType": "list",
+            "locked": null,
+            "role": null
+          },
+          "content": [
+            {
+              "type": "taskItem",
+              "attrs": {
+                "checked": true
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "attrs": {
+                    "textAlign": "left"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Checklist intent"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "attrs": {
+            "bpParagraphSource": {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Unrelated reference"
+                }
+              ]
+            },
+            "textAlign": "left",
+            "bpId": "reference",
+            "bpType": "paragraph",
+            "locked": null,
+            "role": null
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Unrelated reference"
+            }
+          ]
+        }
+      ]
+    },
+    "dom": "<ul data-bp-id=\"checklist\" data-bp-type=\"list\" data-type=\"taskList\"><li data-checked=\"true\"><label contenteditable=\"false\"><input aria-label=\"Task item checkbox for Checklist intent\" type=\"checkbox\"><span></span></label><div><p style=\"text-align: left;\">Checklist intent</p></div></li></ul><p data-bp-id=\"reference\" data-bp-type=\"paragraph\" style=\"text-align: left;\">Unrelated reference</p>"
+  },
+  {
+    "kind": "transaction",
+    "context": "native",
+    "steps": [
+      {
+        "stepType": "replace",
+        "from": 2,
+        "to": 20,
+        "slice": {
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "textAlign": "left"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Checklist intent"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "metaKeys": [
+      "history$"
+    ],
+    "docChanged": true,
+    "selection": {
+      "type": "text",
+      "anchor": 3,
+      "head": 3
+    },
+    "history": {
+      "undo": 1,
+      "redo": 1
+    },
+    "doc": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "taskList",
+          "attrs": {
+            "bpId": "checklist",
+            "bpType": "list",
+            "locked": null,
+            "role": null
+          },
+          "content": [
+            {
+              "type": "taskItem",
+              "attrs": {
+                "checked": true
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "attrs": {
+                    "textAlign": "left"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Checklist intent"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "attrs": {
+            "bpParagraphSource": {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Unrelated reference"
+                }
+              ]
+            },
+            "textAlign": "left",
+            "bpId": "reference",
+            "bpType": "paragraph",
+            "locked": null,
+            "role": null
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Unrelated reference"
+            }
+          ]
+        }
+      ]
+    },
+    "dom": "<ul data-bp-id=\"checklist\" data-bp-type=\"list\" data-type=\"taskList\"><li data-checked=\"true\"><label contenteditable=\"false\"><input aria-label=\"Task item checkbox for Checklist intent\" type=\"checkbox\"><span></span></label><div><p style=\"text-align: left;\">Checklist intent</p></div></li></ul><p data-bp-id=\"reference\" data-bp-type=\"paragraph\" style=\"text-align: left;\">Unrelated reference</p>"
+  },
+  {
+    "kind": "call",
+    "name": "_emitOps",
+    "args": [],
+    "history": {
+      "undo": 1,
+      "redo": 1
+    }
+  },
+  {
+    "kind": "call",
+    "name": "_stampMaterializedIds",
+    "args": [
+      {
+        "type": "doc",
+        "content": [
+          {
+            "type": "taskList",
+            "content": [
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "bpListSource": {
+                    "item": {
+                      "content": [
+                        {
+                          "type": "text",
+                          "value": "Checklist intent"
+                        }
+                      ],
+                      "checked": true
+                    }
+                  },
+                  "checked": true
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Checklist intent"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "attrs": {
+              "bpId": "checklist",
+              "bpType": "list"
+            }
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "bpParagraphSource": {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Unrelated reference"
+                  }
+                ]
+              },
+              "bpId": "reference",
+              "bpType": "paragraph"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Unrelated reference"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "history": {
+      "undo": 1,
+      "redo": 1
+    }
+  },
+  {
+    "kind": "return",
+    "name": "_stampMaterializedIds",
+    "history": {
+      "undo": 1,
+      "redo": 1
+    }
+  },
+  {
+    "kind": "return",
+    "name": "_emitOps",
+    "history": {
+      "undo": 1,
+      "redo": 1
+    }
+  },
+  {
+    "kind": "transaction",
+    "context": "native",
+    "steps": [
+      {
+        "stepType": "replace",
+        "from": 2,
+        "to": 20,
+        "slice": {
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "textAlign": "left"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Checklist intent"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "metaKeys": [],
+    "docChanged": true,
+    "selection": {
+      "type": "text",
+      "anchor": 3,
+      "head": 3
+    },
+    "history": {
+      "undo": 2,
+      "redo": 0
+    },
+    "doc": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "taskList",
+          "attrs": {
+            "bpId": "checklist",
+            "bpType": "list",
+            "locked": null,
+            "role": null
+          },
+          "content": [
+            {
+              "type": "taskItem",
+              "attrs": {
+                "checked": true
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "attrs": {
+                    "textAlign": "left"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Checklist intent"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "attrs": {
+            "bpParagraphSource": {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Unrelated reference"
+                }
+              ]
+            },
+            "textAlign": "left",
+            "bpId": "reference",
+            "bpType": "paragraph",
+            "locked": null,
+            "role": null
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "Unrelated reference"
+            }
+          ]
+        }
+      ]
+    },
+    "dom": "<ul data-bp-id=\"checklist\" data-bp-type=\"list\" data-type=\"taskList\"><li data-checked=\"true\"><label contenteditable=\"false\"><input aria-label=\"Task item checkbox for Checklist intent\" type=\"checkbox\"><span></span></label><div><p style=\"text-align: left;\">Checklist intent</p></div></li></ul><p data-bp-id=\"reference\" data-bp-type=\"paragraph\" style=\"text-align: left;\">Unrelated reference</p>"
+  }
+]

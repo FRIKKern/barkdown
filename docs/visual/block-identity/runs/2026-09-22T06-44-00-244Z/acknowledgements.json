@@ -1,0 +1,122 @@
+[
+  {
+    "_createdAt": "2026-09-22T06:44:01.920000Z",
+    "_draft": false,
+    "_id": "stable-native-split",
+    "_publishedId": "stable-native-split",
+    "_rev": "63b126550ef667b930fe444bd8bebde7",
+    "_type": "paper",
+    "_updatedAt": "2026-09-22T06:44:05.263000Z",
+    "blocks": [
+      {
+        "content": [
+          {
+            "type": "text",
+            "value": "Before"
+          }
+        ],
+        "id": "origin",
+        "type": "paragraph"
+      },
+      {
+        "content": [
+          {
+            "type": "text",
+            "value": " after"
+          }
+        ],
+        "id": "c-1-eea28006",
+        "type": "paragraph"
+      },
+      {
+        "content": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Reference stays"
+              }
+            ],
+            "href": "https://example.org/#origin",
+            "type": "link"
+          }
+        ],
+        "id": "reference",
+        "type": "paragraph"
+      }
+    ],
+    "body": {
+      "blocks": [
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": "Before"
+            }
+          ],
+          "id": "origin",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "value": " after"
+            }
+          ],
+          "id": "c-1-eea28006",
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Reference stays"
+                }
+              ],
+              "href": "https://example.org/#origin",
+              "type": "link"
+            }
+          ],
+          "id": "reference",
+          "type": "paragraph"
+        }
+      ],
+      "html": "<p>Before</p><p> after</p><p><a href=\"https://example.org/#origin\" style=\"color:var(--paper-accent, #1e5347)\">Reference stays</a></p>"
+    },
+    "body_html": "<p>Before</p><p> after</p><p><a href=\"https://example.org/#origin\" style=\"color:var(--paper-accent, #1e5347)\">Reference stays</a></p>",
+    "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+    "description": "Disposable real native paragraph split, stable block identity, subsequent edit and reload proof.",
+    "main_tag": "barkdown",
+    "preview": {
+      "description": "Disposable real native paragraph split, stable block identity, subsequent edit and reload proof.",
+      "extensions": {
+        "tags": [
+          "barkdown",
+          "scratch"
+        ]
+      },
+      "image": null,
+      "title": "Stable native split identities",
+      "type": "paper",
+      "url": "/papers/stable-native-split"
+    },
+    "rev": 2,
+    "style": "article",
+    "tags": [
+      {
+        "rationale": "owned by the Barkdown editor suite",
+        "strength": 90,
+        "tag": "barkdown"
+      },
+      {
+        "rationale": "disposable test fixture, rewritten on every run",
+        "strength": 40,
+        "tag": "scratch"
+      }
+    ],
+    "title": "Stable native split identities"
+  }
+]

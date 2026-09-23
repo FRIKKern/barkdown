@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "id": "C029",
+  "stage": "P1",
+  "status": "active",
+  "goal": "Prove missing selected folders remain owned and explicit through provider dispatch and restart.",
+  "scope": [
+    "Provider routing regressions and prepared actual Electron missing-reference journey",
+    "No authentication policy change or live provider claim from SDK seams"
+  ],
+  "acceptance": [
+    "Persisted missing B folder never falls back to A across provider dispatch",
+    "API file errors remain explicit and do not create missing folders",
+    "Actual Electron restart and failed-send preservation demonstrated before closure"
+  ],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C029-missing-folder-context.md",
+  "nextAction": "Import native source69acbce/evidence and run final combined gates; native missing-folder journey passes, no P1 closure.",
+  "evidence": [
+    "docs/cycles/C029-missing-folder-context.md",
+    "app/tests/missing-folder-context.test.mjs",
+    "app/tests/missing-folder-ui.live.mjs",
+    "docs/cycles/evidence/C029-routing.txt",
+    "docs/cycles/evidence/C029-agent.txt",
+    "docs/cycles/evidence/C029-root-verify.txt",
+    "docs/visual/missing-folder/69acbce/README.md",
+    "docs/visual/missing-folder/69acbce/manifest.json",
+    "docs/visual/missing-folder/69acbce/review.json"
+  ],
+  "truthReview": "A1 remains open. Existing source appears to preserve selected paths; execution failure semantics still need native evidence.",
+  "screenshotReview": "All3 native69acbce stills inspected full-size; exact errors retained. Final combined tripwire gates pending; no global baseline changed."
+}

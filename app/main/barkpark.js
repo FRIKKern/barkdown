@@ -68,6 +68,20 @@ function blocksToText(blocks) {
 }
 
 function blocksToMarkdown(blocks) { return portabledoc.blocksToMarkdown(blocks); }
+function markdownView(blocks) {
+  if (!blocks) return { markdown: null };
+  try { return { markdown: blocksToMarkdown(blocks) }; }
+  catch (error) { return { markdown: null, markdownError: error.message }; }
+}
+function readablePaper(paper, format) {
+  if (format === 'structured') {
+    if (!Array.isArray(paper.blocks)) throw new Error('This paper has no structured blocks; read its Markdown/HTML representation.');
+    const slug = paper.id || paper.slug;
+    return JSON.stringify({ id: slug ? 'bp:' + slug : undefined, title: paper.title, rev: paper.rev, blocks: paper.blocks }, null, 2);
+  }
+  if (paper.markdownError && paper.blocks) return 'Markdown representation unavailable: ' + paper.markdownError + '\nUse these PortableDoc blocks as authoritative content. For tables, call edit_table with the stable block id after this read; its cells use zero-based row/column and optional header:true. It preserves untouched content and metadata. Do not replace this JSON as Markdown.\n' + JSON.stringify(paper.blocks, null, 2);
+  return paper.markdown || htmlToText(paper.html);
+}
 
 async function test(config) {
   const { server, dataset } = normalise(config);
@@ -85,8 +99,8 @@ async function getPaper(config, id) {
   const { dataset } = normalise(config);
   const doc = unwrap(await request(config, 'GET', `/v1/data/doc/${encodeURIComponent(dataset)}/paper/${encodeURIComponent(id)}?perspective=raw`));
   const paper = doc?.document || doc;
-  const markdown = paper.blocks ? blocksToMarkdown(paper.blocks) : null;
-  return { ...paperToSummary(paper), raw: paper, markdown, html: paper.body_html || null, blocks: paper.blocks || null, revision: paper._rev, rev: paper.rev ?? null, description: paper.description || '' };
+  const view = markdownView(paper.blocks);
+  return { ...paperToSummary(paper), raw: paper, ...view, html: paper.body_html || null, blocks: paper.blocks || null, revision: paper._rev, rev: paper.rev ?? null, description: paper.description || '' };
 }
 
 async function search(config, query, limit = 20) {
@@ -153,7 +167,10 @@ async function uploadMedia(config, { name, mime, dataUrl, filePath }) {
     const d = unwrap(data) || {};
     const info = d.asset?.fileInfo || {};
     const server = String(config.server || '').replace(/\/+$/, '');
-    const src = d.absoluteUrl || (info.url ? (server ? server + info.url : info.url) : '');
+    // The dataset-less /media/upload endpoint returns {url, assetDocId};
+    // v1/CLI responses expose absoluteUrl or asset.fileInfo.url instead.
+    const mediaUrl = d.absoluteUrl || info.url || d.url;
+    const src = mediaUrl ? (server ? new URL(mediaUrl, server + '/').href : mediaUrl) : '';
     if (!src) throw new Error('the upload returned no url');
     return { src, id: d.asset?._publishedId || d.assetDocId || null, width: info.width ? Number(info.width) : null, height: info.height ? Number(info.height) : null, alt: d.asset?.altText || null };
   } finally {
@@ -201,7 +218,7 @@ async function cliListPapers(limit = 60) {
 async function cliGetPaper(id) {
   const data = unwrap(await cli(['doc', 'get', 'paper', id, '--perspective', 'raw']));
   const paper = data?.document || data;
-  return { ...paperToSummary(paper), raw: paper, markdown: paper.blocks ? blocksToMarkdown(paper.blocks) : null, html: paper.body_html || null, blocks: paper.blocks || null, revision: paper._rev, rev: paper.rev ?? null, description: paper.description || '' };
+  return { ...paperToSummary(paper), raw: paper, ...markdownView(paper.blocks), html: paper.body_html || null, blocks: paper.blocks || null, revision: paper._rev, rev: paper.rev ?? null, description: paper.description || '' };
 }
 
 // Writes through the bp CLI. The fenced ops verb rejects a stale rev with precondition_failed.
@@ -223,4 +240,4 @@ async function cliSearch(query, limit = 20) {
 async function cliBacklinks(id) { try { return envelopeDocs(await cli(['doc', 'backlinks', id])).map(paperToSummary); } catch { return []; } }
 async function cliHistory(id) { try { return envelopeDocs(await cli(['doc', 'history', 'paper', id])).map(rev => ({ rev: rev._rev || rev.rev, at: rev._createdAt || rev.at, actor: rev.actor || rev.author || 'barkpark', summary: rev.summary || rev.message || '' })); } catch { return []; } }
 
-module.exports = { uploadMedia, test, listPapers, getPaper, search, backlinks, related, history, applyOps, publish, propose, importFromCli, cliListPapers, cliGetPaper, cliSearch, cliBacklinks, cliHistory, cliApplyOps, cliPublish, cliPatchTitle, blocksToMarkdown, htmlToText };
+module.exports = { uploadMedia, test, listPapers, getPaper, search, backlinks, related, history, applyOps, publish, propose, importFromCli, cliListPapers, cliGetPaper, cliSearch, cliBacklinks, cliHistory, cliApplyOps, cliPublish, cliPatchTitle, blocksToMarkdown, markdownView, readablePaper, htmlToText };

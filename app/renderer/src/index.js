@@ -1,7 +1,9 @@
 import { mountComposer } from './composer.js';
+import { openGoalView } from './goals.js';
+import { captureManagedView, mergeManagedView } from './managed-workspace.js';
 // Barkdown desktop renderer: app-wide navigation, per-chat workspaces, agent runs, pins, quick open.
 import { el, esc, iconHtml, renderIcons, toast, basename, relativeTime, errorMessage } from './ui.js';
-import { state, load, save, newChat, newTab, currentChat, activeTab, touch, chatTitleFrom } from './state.js';
+import { state, load, save, serialise, newChat, newTab, currentChat, activeTab, touch, chatTitleFrom } from './state.js';
 import { transcriptHtml, handleAgentEvent, respondApproval, providerFor, formatDuration } from './conversation.js';
 import { mountDocument } from './tabs/document.js';
 import { mountPaper } from './tabs/paper.js';
@@ -10,7 +12,7 @@ import { mountReview } from './tabs/review.js';
 import { mountProject, buffers, dirtyCount } from './tabs/project.js';
 import { mountSideChat } from './tabs/sidechat.js';
 import { mountTerminal } from './tabs/terminal.js';
-import { openSettings } from './settings.js';
+import { openSettings as openSettingsSheet } from './settings.js';
 import { ensureCanvasBundle } from './canvas-bundle.js';
 import { toggleMenu, hideMenus as closeMenus, installMenuDismissal } from './menus.js';
 import { askText, askConfirm } from './dialogs.js';
@@ -25,6 +27,35 @@ const TYPE_ICON = { doc: 'file-text', web: 'globe', review: 'git-pull-request', 
 let mainComposer;
 const controllers = new Map(); // tab.id -> mounted controller
 const DIRECT = 'direct';
+let managedRefreshRequest = 0;
+async function refreshManagedChats() {
+  if (!state.profileId) return;
+  const request = ++managedRefreshRequest, profileId = state.profileId;
+  const before = captureManagedView(state);
+  const data = await api.state.load();
+  if (request !== managedRefreshRequest || data.profileId !== profileId || state.profileId !== profileId) return;
+  mergeManagedView(state, data, before);
+  render();
+  for (const controller of controllers.values()) if (controller.type === 'chat') controller.render?.();
+}
+async function openConversationGoals() {
+  const chat = currentChat();
+  if (!state.profileId || !chat || chat.goalId) return;
+  try {
+    await api.state.save(serialise());
+    openGoalView({ owner: { profileId: state.profileId, generation: state.generation, chatId: chat.id }, service: api.goals,
+      onSaved: () => refreshManagedChats().catch(error => toast(error.message, 'error')),
+      openChat: async (owner, id) => { if (owner.profileId !== state.profileId) return; await refreshManagedChats(); switchChat(id); } });
+  } catch (error) { toast(error.message, 'error'); }
+}
+function openSettings(onChange, options = {}) {
+  return openSettingsSheet(onChange, { ...options, beforeProfileSwitch: async () => {
+    if ([...controllers.values()].some(controller => controller.canClose?.() === false)) return false;
+    if (dirtyCount()) { toast('Save your project files before switching profiles.', 'error'); return false; }
+    await api.state.save(serialise());
+    return true;
+  } });
+}
 
 // ---------- helpers ----------
 function directChat() {
@@ -44,6 +75,7 @@ function pauseFollow(chat = currentChat()) { if (chat) chat.following = false; }
 // ---------- tab context passed to tab controllers ----------
 function tabContext(chat) {
   return {
+    chatId: chat.id,
     folder: () => chat.folder || null,
     bindTranscript,
     initials,
@@ -140,13 +172,17 @@ function focusTab(chat, id, manual = true) {
   renderTabs(); renderWorkspace(); save();
 }
 
-function closeTab(chat, id) {
+async function closeTab(chat, id) {
   savePositions();
   pauseFollow(chat);
   const index = chat.tabs.findIndex(t => t.id === id);
   if (index < 0) return;
-  const [removed] = chat.tabs.splice(index, 1);
   const controller = controllers.get(id);
+  if (controller?.canClose?.() === false) return;
+  if (controller?.beforeClose && !await controller.beforeClose()) return;
+  // Another close may have completed while native shutdown was being verified.
+  if (chat.tabs[index]?.id !== id) return;
+  const [removed] = chat.tabs.splice(index, 1);
   if (controller?.isDirty?.() && removed.type === 'doc') controller.flush?.();
   if (removed.type === 'project' && chat.folder && dirtyCount(chat.folder)) toast('Unsaved file edits stay in this session. Reopen the project editor to save them.');
   unmountTab(id);
@@ -270,6 +306,13 @@ function openConversationTarget(target, chat, manual = true) {
   return openTarget(target, chat, manual);
 }
 function bindTranscript(transcript, chat) {
+  transcript.querySelectorAll('[data-recover]').forEach(button => button.addEventListener('click', async () => {
+    const card = button.closest('[data-recovery]'); button.disabled = true;
+    try {
+      await api.agent.recover({ chatId: chat.id, attemptId: card.dataset.recovery, action: button.dataset.recover, note: card.querySelector('[data-recovery-note]')?.value });
+      await refreshManagedChats(); renderChatViews(chat);
+    } catch (error) { toast(error.message, 'error'); button.disabled = false; }
+  }));
   transcript.querySelectorAll('[data-event]').forEach(b => { b.onclick = () => { const [mi, ei] = b.dataset.event.split(':').map(Number); const entry = chat.messages[mi]?.events?.[ei]; if (entry) openConversationTarget(entry.target, chat, true); }; });
   transcript.querySelectorAll('[data-approval]').forEach(node => node.querySelectorAll('[data-approve]').forEach(b => { b.onclick = async () => { await respondApproval(chat, node.dataset.approval, b.dataset.approve === '1'); renderChatViews(chat); }; }));
   const latest = transcript.querySelector('#bw-latest');
@@ -322,9 +365,16 @@ function renderSidebar() {
 
 function isOpenDoc(id) { const chat = workspaceChat(); const tab = activeTab(chat); return tab?.type === 'doc' && tab.path.at(-1) === id; }
 
-function deleteChat(id) {
+async function deleteChat(id) {
   const chat = state.chats[id];
   if (!chat) return;
+  if (chat.tabs.some(t => controllers.get(t.id)?.canClose?.() === false)) return;
+  if (state.profileId) {
+    try {
+      const latest = await api.state.load();
+      await api.state.command({ type: 'delete-chat', chatId: id, expectedRevision: latest.ownership.revision });
+    } catch (error) { toast(error.message, 'error'); return; }
+  }
   for (const t of chat.tabs) unmountTab(t.id);
   for (const owner of Object.values(state.chats)) {
     const removed = owner.tabs.filter(t => t.type === 'chat' && t.sideChatId === id);
@@ -480,7 +530,8 @@ async function collectPalette(query) {
   if (activeTab(ws)) items.push({ group: 'Actions', icon: 'star', label: favoriteFor(activeTab(ws)) ? 'Remove this tab from favorites' : 'Add this tab to favorites', hint: activeTab(ws).title, run: () => toggleFavorite(ws.active) });
   state.favorites.forEach(f => items.push({ group: 'Favorites', icon: TYPE_ICON[f.target.kind] || 'sparkles', label: f.label, hint: FAVORITE_KIND[f.target.kind] || f.target.kind, run: () => openFavorite(f.id) }));
   items.push({ group: 'Actions', icon: 'settings-2', label: 'Settings', hint: 'Ctrl+,', run: () => openSettings(applySettings) });
-  items.push({ group: 'Actions', icon: 'columns-2', label: 'Reset conversation width to 40%', hint: (state.settings?.chatWidth || 40) + '% now', run: () => setChatWidth(40) });
+  if (state.profileId && chat && !chat.goalId) items.push({ group: 'Actions', icon: 'list-checks', label: 'Conversation goals', hint: 'Plan three workers', run: openConversationGoals });
+  items.push({ group: 'Actions', icon: 'columns-2', label: 'Reset conversation width to 60%', hint: (state.settings?.chatWidth || 60) + '% now', run: () => setChatWidth(60) });
   if (query.length >= 2 && chat?.folder) {
     try { const hits = await api.files.search(chat.folder, query); hits.slice(0, 8).forEach(h => items.push({ group: 'Files in ' + basename(chat.folder), icon: 'file-code', label: `${h.path}:${h.line}  ${h.text}`, hint: 'Open', run: () => openTarget({ kind: 'project', path: h.path, title: basename(h.path) }, chat, true), noFilter: true })); } catch {}
   }
@@ -619,7 +670,7 @@ function wireSplitter() {
     splitter.addEventListener('pointermove', move); splitter.addEventListener('pointerup', stop, { once: true }); splitter.addEventListener('pointercancel', stop, { once: true });
   });
   splitter.addEventListener('dblclick', () => setChatWidth(60));
-  splitter.addEventListener('keydown', e => { const d = { ArrowLeft: -5, ArrowRight: 5 }[e.key]; if (d) { e.preventDefault(); setChatWidth(state.settings.chatWidth + d); } else if (e.key === 'Home') setChatWidth(40); });
+  splitter.addEventListener('keydown', e => { const d = { ArrowLeft: -5, ArrowRight: 5 }[e.key]; if (d) { e.preventDefault(); setChatWidth(state.settings.chatWidth + d); } else if (e.key === 'Home') setChatWidth(60); });
 }
 
 // ---------- events ----------
@@ -679,11 +730,18 @@ function wire() {
   // be redefined, so the bundle must not be pinned to the vendored copy before the connection is known).
   if (state.settings?.barkpark?.enabled) ensureCanvasBundle().catch(() => {});
   applySidebarWidth(state.settings.sidebarWidth);
-  applyChatWidth(state.settings.chatWidth || 40);
+  applyChatWidth(state.settings.chatWidth || 60);
   applyTheme(state.settings.theme || 'system');
   await load();
+  if (state.profileId) {
+    let refreshTimer;
+    api.goals.subscribe({ profileId: state.profileId }, () => { clearTimeout(refreshTimer); refreshTimer = setTimeout(() => refreshManagedChats().catch(error => console.warn('Goal transcript refresh:', error)), 80); });
+  }
   if (!state.chats[DIRECT]) directChat();
   wire();
+  // Navigation and unload can save the prompt while library requests are pending.
+  // Restore its owned draft before the first asynchronous library refresh.
+  mainComposer.render();
   await refreshLibrary();
   render();
   if (state.mode === 'chat') q('#bw-transcript').scrollTop = currentChat()?.chatScroll || 0;
@@ -692,4 +750,4 @@ function wire() {
 })();
 
 // Test and debugging hooks (no UI depends on these).
-window.__barkdown = { attachImages,  state, controllers, openTarget, render, refreshLibrary, expandArchive: () => { ensurePages().archiveOpen = true; ensurePages().cloudArchiveOpen = true; renderSidebar(); }, addPage, pagePath, setFolder: folder => { const chat = currentChat(); chat.folder = folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }, openProject, openDirect, openPalette, createChat, switchChat };
+window.__barkdown = { openGoalView, attachImages,  state, controllers, openTarget, render, refreshLibrary, expandArchive: () => { ensurePages().archiveOpen = true; ensurePages().cloudArchiveOpen = true; renderSidebar(); }, addPage, pagePath, setFolder: folder => { const chat = currentChat(); chat.folder = folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }, openProject, openDirect, openPalette, createChat, switchChat };

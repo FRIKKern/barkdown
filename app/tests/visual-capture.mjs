@@ -9,7 +9,7 @@ const profile=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-visual-'));
 const app=await electron.launch({executablePath:require('electron'),args:[path.join(root,'app'),`--user-data=${profile}`],env:{...process.env,ANTHROPIC_API_KEY:'',ANTHROPIC_AUTH_TOKEN:'',BARKDOWN_PROVIDER:'api'}});
 const errors=[],shots=[],hashes={};
 try{
- const p=await app.firstWindow();p.on('pageerror',e=>errors.push(e.message));await p.waitForFunction(()=>window.__barkdown?.state.loaded);await p.setViewportSize({width:1100,height:740});
+ let p=await app.firstWindow();p.on('pageerror',e=>errors.push(e.message));await p.waitForFunction(()=>window.__barkdown?.state.loaded);await p.setViewportSize({width:1100,height:740});
  // Initial sign-in notices are delayed; let them appear and expire rather than masking UI.
  await p.waitForTimeout(1000);await p.locator('.bw-toast').waitFor({state:'hidden',timeout:15000});
  await app.evaluate(({ipcMain})=>{ipcMain.removeHandler('agent:start');ipcMain.handle('agent:start',()=>{throw Error('Visual fixtures must not invoke providers');});});
@@ -46,6 +46,47 @@ try{
  await tour('settings','Real Settings navigation. No server connection or credential is configured.',[
   ['general',()=>p.locator('#bw-settings').click()],['assistant',()=>p.locator('.bw-settings-nav [data-pane="assistant"]').click()],['barkpark',()=>p.locator('.bw-settings-nav [data-pane="barkpark"]').click()],['shortcuts',()=>p.locator('.bw-settings-nav [data-pane="shortcuts"]').click()]
  ]);
+ await p.keyboard.press('Escape');
+ await tour('goals','Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.',[
+  ['new-goal',async()=>{await p.evaluate(()=>window.__barkdown.openGoalView({owner:{profileId:'11111111-1111-4111-8111-111111111111',chatId:window.__barkdown.state.current,generation:1},service:{list:async()=>[],create:async()=>{throw Error('Visual fixture creation disabled');}},openChat:()=>{}}));await p.locator('[data-create]').waitFor();await p.locator('[name="objective"]').fill('Fixture: inspect three independent inputs and review their evidence.');}],
+  ['new-goal-narrow',()=>p.setViewportSize({width:390,height:740})],
+  ['new-goal-restore',()=>p.setViewportSize({width:1100,height:740})],
+  ['planned',async()=>{await p.keyboard.press('Escape');await p.evaluate(()=>{
+   const ui=window.__barkdown,parent=ui.state.current,profileId='11111111-1111-4111-8111-111111111111';
+   const workers=[1,2,3].map(n=>{const chat=ui.createChat({title:`Fixture worker ${n}`});Object.assign(chat,{side:true,parent,parentTitle:ui.state.chats[parent].title,provider:'api'});return chat;});ui.switchChat(parent);
+   const goal={id:'fixture-goal',objective:'Fixture: review a bounded delivery',status:'planned',deadline:Date.parse('2026-09-22T10:00:00Z'),tasks:workers.map((chat,i)=>({id:`task-${i+1}`,title:chat.title,chatId:chat.id,prompt:['Inspect ownership boundaries','Exercise interrupted work','Review the resulting evidence'][i],dependsOn:[],status:'pending',context:{provider:'api',folder:null,model:null,effort:null},attempts:[]}))};
+   const service={list:async()=>structuredClone([goal]),create:async()=>{throw Error('Visual fixture creation disabled');},command:async(_owner,_id,action)=>{if(action==='start'){goal.status='active';goal.tasks.forEach(t=>{t.status='running';t.attempts=[{id:'fixture-'+t.id,status:'running',progress:{text:'Fixture event; provider calls are blocked.'}}];});}else if(action==='pause'){goal.status='paused';goal.tasks.forEach(t=>{t.status='interrupted';Object.assign(t.attempts[0],{status:'interrupted',stoppedAt:1,reason:'Fixture provider stopped; inspect effects before retry.'});});}}};
+   ui.openGoalView({owner:{profileId,chatId:parent,generation:1},service,openChat:(_owner,id)=>ui.switchChat(id)});
+  });await p.locator('.bw-goal-card').waitFor();}],
+  ['running',()=>p.locator('.bw-goals [data-command="start"]').click()],
+  ['paused',()=>p.locator('.bw-goals [data-command="pause"]').click()],
+  ['narrow',()=>p.setViewportSize({width:390,height:740})],
+  ['restore',()=>p.setViewportSize({width:1100,height:740})],
+  ['worker-chat',()=>p.locator('.bw-goals [data-chat]').first().click()]
+ ]);
+ await app.evaluate(({ipcMain})=>{
+  ipcMain.removeHandler('profiles:status');
+  ipcMain.handle('profiles:status',()=>({ok:true,value:{enabled:true,profileId:'11111111-1111-4111-8111-111111111111',generation:'fixture',profiles:[{id:'11111111-1111-4111-8111-111111111111',name:'Personal'},{id:'22222222-2222-4222-8222-222222222222',name:'Research'}]}}));
+ });
+ await tour('profiles','Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.',[
+  ['settings',async()=>{await p.keyboard.press('Control+,');await p.locator('#profile-choice').waitFor();}],
+  ['new-name',()=>p.locator('#profile-name').fill('Writing')],
+  ['narrow',()=>p.setViewportSize({width:740,height:740})],
+  ['restore',()=>p.setViewportSize({width:1100,height:740})]
+ ]);
+ const mainPage=p;
+ const recoveryWindow=app.waitForEvent('window');
+ await app.evaluate(({app})=>{global.visualRecovery=process.getBuiltinModule('module').createRequire(app.getAppPath()+'/main/main.js')('./adoption-window').createAdoptionWindow();global.visualRecovery.choose({status:'none',actions:['prepare','quit']});});
+ p=await recoveryWindow;p.on('pageerror',e=>errors.push(e.message));await p.setViewportSize({width:1100,height:740});await p.emulateMedia({colorScheme:'light',reducedMotion:'reduce'});
+ await tour('adoption','Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.',[
+  ['confirm',()=>p.getByRole('button',{name:'Adopt existing library'}).waitFor()],
+  ['busy',async()=>{await p.getByRole('button',{name:'Adopt existing library'}).click();await p.getByRole('heading',{name:'Preparing your library'}).waitFor();}],
+  ['interrupted',async()=>{await app.evaluate(()=>{global.visualRecovery.choose({status:'staged',actions:['resume','quit'],error:'Preparation was interrupted. The original library and verified backup are retained.'});});await p.getByRole('button',{name:'Resume preparation'}).waitFor();}],
+  ['narrow',()=>p.setViewportSize({width:420,height:740})],
+  ['blocked',async()=>{await p.getByRole('button',{name:'Resume preparation'}).click();await app.evaluate(()=>{global.visualRecovery.choose({status:'blocked',actions:['quit'],error:'The registry does not match this recovery record. No library has been opened.'});});await p.getByRole('button',{name:'Quit'}).waitFor();}],
+  ['restore',()=>p.setViewportSize({width:1100,height:740})]
+ ]);
+ await app.evaluate(()=>{global.visualRecovery.close();delete global.visualRecovery;});p=mainPage;
  if(errors.length)throw Error(errors.join('\n'));
  const environment={platform:process.platform,osRelease:os.release(),arch:process.arch,font:await p.evaluate(()=>getComputedStyle(document.body).fontFamily),electron:await app.evaluate(()=>process.versions.electron),viewport:'1100x740, workspace narrow 740x740',scale:await p.evaluate(()=>devicePixelRatio),fixture:'temporary seeded local profile; providers blocked; reduced motion; caret hidden'};
  write(`${dir}/manifest.json`,{version:1,commit:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),capturedAt:new Date().toISOString(),environment,sourceDirty:execFileSync('git',['status','--porcelain','--','app','scripts','package.json','package-lock.json'],{cwd:root,encoding:'utf8'}).trim()!=='',inputs:inputs(),shots,hashes});write('docs/visual/pending.json',{run});console.log(`Captured ${dir}; run npm run visual:compare. Not approved.`);

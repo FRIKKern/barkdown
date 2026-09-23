@@ -1,5 +1,6 @@
 // Website work tab: a real <webview> with an address bar, navigation history and an external-open fallback.
 import { el, esc, toast } from '../ui.js';
+import { state } from '../state.js';
 
 const api = window.barkdown;
 
@@ -12,7 +13,7 @@ function normaliseUrl(value) {
 }
 
 export function mountWebsite(tab, host, ctx) {
-  const pane = el(`<div class="bw-pane"><form class="bw-browserbar" id="bar"><button type="button" data-nav="back" title="Back"><i data-lucide="arrow-left"></i></button><button type="button" data-nav="forward" title="Forward"><i data-lucide="arrow-right"></i></button><button type="button" data-nav="reload" title="Reload"><i data-lucide="rotate-cw"></i></button><input id="address" aria-label="Website address" spellcheck="false"><span class="bw-preview-label" id="status"></span><button type="button" data-nav="external" title="Open in your browser"><i data-lucide="external-link"></i></button></form><div class="bw-error" id="error" hidden></div><div class="bw-webview"><webview id="view" allowpopups="false" partition="persist:barkdown-web"></webview></div></div>`);
+  const pane = el(`<div class="bw-pane"><form class="bw-browserbar" id="bar"><button type="button" data-nav="back" title="Back"><i data-lucide="arrow-left"></i></button><button type="button" data-nav="forward" title="Forward"><i data-lucide="arrow-right"></i></button><button type="button" data-nav="reload" title="Reload"><i data-lucide="rotate-cw"></i></button><input id="address" aria-label="Website address" spellcheck="false"><span class="bw-preview-label" id="status"></span><button type="button" data-nav="external" title="Open in your browser"><i data-lucide="external-link"></i></button></form><div class="bw-error" id="error" hidden></div><div class="bw-webview"><webview id="view" allowpopups="false" partition="${state.profileId ? 'persist:barkdown-web-' + esc(state.profileId) : 'persist:barkdown-web'}"></webview></div></div>`);
   host.appendChild(pane);
   const q = s => pane.querySelector(s);
   const view = q('#view');

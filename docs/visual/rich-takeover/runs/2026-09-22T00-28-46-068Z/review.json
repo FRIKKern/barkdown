@@ -1,0 +1,30 @@
+{
+  "reviewer": "Codex root integration review",
+  "reviewedAt": "2026-09-22T00:31:31.341263+00:00",
+  "sourceCommit": "abbbceec5a72da364bc9349a95704fb9742d303f",
+  "manifestSha256": "f608bfd5f6c841feeb23d4a0e0e264be404894374d836360f29458a0401d2f5e",
+  "artifacts": {
+    "rich-takeover.gif": "c068c8460c078b418d1cb121c60fb0f3a34f530031218e0d7dee3a540c4de76b",
+    "structured-read.txt": "3bbb9b34bb807edaf0c3896035c5b30ceb4b596640af2b5fbda2a809c64b8bfc"
+  },
+  "result": "approved for the five captured rich takeover cases",
+  "inspection": {
+    "stills": 10,
+    "fullVideoSamples": 26,
+    "fullVideoSamplingFps": 1,
+    "tableTransitionSamples": 42,
+    "tableTransitionStartSeconds": 17,
+    "tableTransitionRequestedDurationSeconds": 4,
+    "tableTransitionSamplingFps": 10,
+    "gifDecodedFrames": 26
+  },
+  "findings": [
+    "Formatting, link, list, table and multiline changes retain selected human text; subsequent typing reaches acknowledged server revisions.",
+    "Sampled table writing, receipt, human takeover and saved state retain title/body geometry; no new displacement or clipping observed.",
+    "Real MCP structured read retains headerless and multiline table blocks with an explicit Markdown limitation."
+  ],
+  "limits": [
+    "Video reviewed through stated samples, not every source frame. GIF is full-window 1fps summary, not original-speed motion.",
+    "Production adapter is exercised without a model turn. Full rich table authoring/export remains E004; upstream baseline failures remain separate."
+  ]
+}

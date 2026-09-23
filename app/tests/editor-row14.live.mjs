@@ -34,7 +34,18 @@ const pm = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirr
 const blocks = () => getPaper(SLUG).blocks;
 const inl = a => (a || []).map(x => x.type === 'text' ? x.value : inl(x.children)).join('');
 const waitBlocks = async (pred) => { for (let k = 0; k < 20; k++) { const b = blocks(); if (pred(b)) return b; await page.waitForTimeout(1000); } return blocks(); };
-const caretEnd = async (sel) => { await pm.locator(sel).first().click(); await page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); const ed = c._editor; const $f = ed.state.selection.$from; ed.commands.setTextSelection($f.end($f.depth)); ed.commands.focus(); }); await page.waitForTimeout(120); };
+const caretEnd = async sel => {
+  const target = pm.locator(sel).first(); await target.click();
+  const expected = await target.evaluate(element => {
+    const ed = element.closest('bp-paper-canvas')._editor;
+    const end = ed.view.posAtDOM(element, element.childNodes.length);
+    ed.view.focus(); ed.commands.setTextSelection(end); return end;
+  });
+  await page.waitForFunction(expected => {
+    const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor;
+    return ed.view.hasFocus() && ed.state.selection.empty && ed.state.selection.from === expected && ed.state.selection.$from.parentOffset === ed.state.selection.$from.parent.content.size;
+  }, expected);
+};
 
 await row('headings: the canvas offers three levels; a stored level-4 heading shows at the nearest level, a text edit keeps level 4 on the server; "#### " stays text', async () => {
   const levels = await page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); return c._editor.extensionManager.extensions.find(e => e.name === 'heading')?.options?.levels; });

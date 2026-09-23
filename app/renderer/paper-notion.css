@@ -114,7 +114,7 @@
   background: var(--paper-bg-deep); border-radius: var(--bp-codeblock-radius); padding: var(--bp-codeblock-pad);
   margin: 4px 0 0; tab-size: 2; position: relative;
 }
-.bp-paper-host .bp-canvas-code-area { resize: none; min-height: 1.6em; font-size: var(--bp-codeblock-size); line-height: var(--bp-codeblock-lh); color: var(--paper-ink); }
+.bp-paper-host .bp-canvas-code-area { resize: none; min-height: 1.6em; font-size: var(--bp-codeblock-size); line-height: var(--bp-codeblock-lh); color: transparent; }
 .bp-paper-host .bp-canvas-code-area:focus { outline: none; }
 .bp-paper-host .bp-canvas-code-lang { top: 6px; right: 8px; font: 11px/1.4 var(--paper-font-sans); color: var(--paper-ink-soft); background: transparent; border: 0; text-align: right; }
 .bp-paper-host .ProseMirror code { font-family: var(--paper-font-mono); font-size: var(--bp-code-size); background: light-dark(rgba(135, 131, 120, 0.15), rgba(255, 255, 255, 0.1)); color: light-dark(#eb5757, #ff8f8f); border-radius: 4px; padding: var(--bp-code-pad); }
@@ -221,6 +221,15 @@
 }
 .bp-paper-host--titled .ProseMirror > h1:first-child + *, .bp-paper-host--titled .ProseMirror > h2:first-child + *, .bp-paper-host--titled .ProseMirror > h3:first-child + * { margin-top: 0; }
 .bw-paper-document .bw-kicker .bw-doc-meta { margin: 0; font-size: 11px; color: var(--bw-muted); }
+.bw-paper-document .bw-kicker { height: 24px; min-height: 24px; flex-wrap: nowrap; }
+.bw-paper-document .bw-kicker #kicker:empty { display: none; }
+.bw-paper-document .bw-kicker .bw-doc-meta { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bw-paper-document .bw-kicker #agent-edit { flex: 1; min-width: 42px; }
+.bw-paper-document .bw-kicker #agent-edit:empty { display: none; }
+.bw-paper-document .bw-kicker .bw-agent-edit { margin: 0; gap: 8px; font-size: 11px; letter-spacing: 0; }
+.bw-paper-document .bw-kicker .bw-agent-edit span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bw-paper-document .bw-kicker .bw-agent-edit button { flex-shrink: 0; min-height: 24px; padding: 2px 4px; font-size: 11px; }
+.bw-paper-document .bw-kicker .bw-save-state { flex-shrink: 0; max-width: 38%; line-height: 12px; }
 .bw-paper-document .bw-kicker #kicker:not(:empty) + .bw-doc-meta:not(:empty)::before { content: "·"; margin-right: 10px; opacity: .6; }
 .bw-paper-document .bw-doc-title { margin-bottom: 14px; }
 .bp-paper-host { margin-top: 0; }
@@ -235,3 +244,121 @@
 .bp-paper-host .ProseMirror ul[data-type="taskList"] > li > label { margin-top: 5px; }
 .bp-paper-host .ProseMirror ul[data-type="taskList"] > li > label input { width: 16px; height: 16px; border-radius: 3px; accent-color: var(--paper-accent); }
 .bp-paper-host .ProseMirror ul[data-type="taskList"] > li[data-checked="true"] > div > p { color: var(--paper-ink-faint); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--paper-ink-faint) 40%, transparent); text-decoration-thickness: 1px; }
+
+/* Host reading scale. Upstream defines these aliases on :root; inherited custom
+ * properties have already resolved there, so rebind them where our tokens live. */
+.bw-paper-document .bp-paper-host {
+  --bp-body-size: 16px;
+  --bp-body-lh: 1.65;
+  --bp-body-tracking: 0;
+  --bp-h2-size: 24px;
+  --bp-h2-lh: 1.35;
+  --bp-h2-weight: 600;
+  --bp-h2-tracking: -.02em;
+  --bp-h3-size: 19px;
+  --bp-h3-lh: 1.4;
+  --bp-heading-weight: 650;
+  --bp-section-beat: 28px;
+  --bp-section-rule: 0px;
+  --bp-section-gap: 0px;
+  --bp-evidence-width: 100%;
+  --bp-evidence-pull: 0px;
+  --bp-air-table: 18px;
+  --bp-air-code: 16px;
+  --bp-air-callout: 16px;
+  --bp-rule-hairline: 1px;
+  --bp-codeblock-pad: 28px 20px 18px;
+  --bp-codeblock-radius: 10px;
+  --paper-accent: light-dark(#557346, #a9c496);
+  --paper-bg-deep: light-dark(#f3f3ef, #252923);
+  --paper-rule: light-dark(#dedfd6, #42483d);
+}
+.bw-paper-document { padding-top: 32px; }
+.bw-paper-document .bw-kicker { margin-bottom: 18px; letter-spacing: 0; }
+.bw-paper-document .bp-paper-host .ProseMirror { line-height: 1.65; }
+.bw-paper-document .bp-paper-host .ProseMirror > h2 {
+  margin: 28px 0 8px; padding: 0; border: 0; width: auto;
+}
+.bw-paper-document .bp-paper-host .ProseMirror > h3 { margin: 22px 0 6px; }
+.bw-paper-document .bp-paper-host--titled .ProseMirror > :is(h1,h2,h3):first-child {
+  font-size: clamp(28px, 3.4cqw, 36px); line-height: 1.22;
+  font-weight: 650; letter-spacing: -.035em; margin: 0 0 18px;
+  border: 0; padding: 0; overflow-wrap: anywhere;
+}
+.bw-paper-document .bp-paper-host .ProseMirror > p { margin-bottom: 8px; }
+.bw-paper-document .bp-paper-host .ProseMirror blockquote {
+  margin: 16px 0; padding: 4px 0 4px 18px;
+  border-left: 2px solid var(--paper-accent); color: var(--paper-ink-soft);
+}
+.bw-paper-document .bp-paper-host .ProseMirror ul[data-type="taskList"] > li { padding: 3px 0; gap: 10px; }
+.bw-paper-document .bp-paper-host .ProseMirror ul[data-type="taskList"] > li[data-checked="true"] > div > p {
+  color: var(--paper-ink-soft); text-decoration-color: var(--paper-rule);
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-table {
+  width: fit-content; max-width: 100%; margin: 18px 0;
+  border-radius: 8px; background: transparent;
+}
+.bw-paper-document .bp-paper-host .ProseMirror :is(.bp-table__th,.bp-table__td) { padding: 10px 14px; }
+/* Callouts are quiet tonal cards. Keep the native title/body and details
+ * structure; decoration never adds text or intercepts the editing surface. */
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout {
+  --callout-accent: light-dark(#64705b, #b4bea8);
+  --callout-surface: light-dark(#f4f5f0, #272c24);
+  margin: 18px 0; padding: 17px 21px; border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--callout-accent) 18%, transparent);
+  border-left: 3px solid color-mix(in srgb, var(--callout-accent) 65%, var(--callout-surface));
+  background: var(--callout-surface); color: var(--paper-ink);
+  line-height: 1.6; overflow-wrap: anywhere;
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout--info {
+  --callout-accent: light-dark(#56736b, #a3c1b6);
+  --callout-surface: light-dark(#f0f5f1, #252f2a);
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout--success {
+  --callout-accent: light-dark(#557343, #aecb96);
+  --callout-surface: light-dark(#f2f5ec, #2a3023);
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout--warning {
+  --callout-accent: light-dark(#947234, #d5b67a);
+  --callout-surface: light-dark(#faf6eb, #332e23);
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout--danger {
+  --callout-accent: light-dark(#a05c62, #d6a0a5);
+  --callout-surface: light-dark(#faf1f1, #342629);
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout--loss {
+  --callout-accent: light-dark(#a06a4c, #d6af91);
+  --callout-surface: light-dark(#f9f2ed, #332b25);
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout--peace {
+  --callout-accent: light-dark(#6b7298, #b3b9d6);
+  --callout-surface: light-dark(#f3f3f9, #2a2b36);
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout strong[aria-label="Callout title"],
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout__summary {
+  font-size: .9375em; font-weight: 650; line-height: 1.45;
+  color: var(--callout-accent); letter-spacing: .005em;
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout strong[aria-label="Callout title"] {
+  display: block; margin-bottom: 5px;
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout__body {
+  margin-top: 7px;
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout__summary::marker {
+  color: var(--callout-accent); font-size: .8em;
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout__summary:focus-visible {
+  outline: 2px solid var(--callout-accent); outline-offset: 5px; border-radius: 2px;
+}
+.bw-paper-document .bp-paper-host .ProseMirror pre.bp-canvas-code {
+  margin: 16px 0; padding: var(--bp-codeblock-pad); border: 1px solid var(--paper-rule);
+}
+/* Highlight and input are two coincident layers of the same editable code.
+ * Inline-code decoration must never move or recolour the highlighted layer. */
+.bw-paper-document .bp-paper-host .ProseMirror .bp-canvas-code-hl {
+  padding: var(--bp-codeblock-pad); background: transparent; color: var(--paper-ink);
+  font-size: var(--bp-codeblock-size); line-height: var(--bp-codeblock-lh);
+  border-radius: 0; font-family: var(--paper-font-mono);
+}
+.bw-paper-document .bp-paper-host .bp-canvas-code-area { color: transparent; caret-color: var(--paper-ink); }

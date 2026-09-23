@@ -6,14 +6,18 @@ Application.put_env(:barkpark, Barkpark.Repo, Keyword.merge(repo,
   hostname: "127.0.0.1", port: String.to_integer(System.fetch_env!("BARKDOWN_PG_PORT")),
   username: "postgres", password: System.fetch_env!("BARKDOWN_PG_PASSWORD"),
   database: "barkdown", pool_size: 3, show_sensitive_data_on_connection_error: false))
+# A dev-built Endpoint may already contain the CodeReloader plug. Its runtime
+# reloadable_apps list must also be empty to prevent request-time compilation.
 endpoint = Application.fetch_env!(:barkpark, BarkparkWeb.Endpoint)
 Application.put_env(:barkpark, BarkparkWeb.Endpoint, Keyword.merge(endpoint,
-  server: true, code_reloader: false, debug_errors: false,
+  server: true, code_reloader: false, reloadable_apps: [], debug_errors: false,
   secret_key_base: System.fetch_env!("BARKDOWN_PG_PASSWORD"),
   http: [ip: {127, 0, 0, 1}, port: String.to_integer(System.fetch_env!("PORT"))]))
 Application.put_env(:barkpark, :dev_browser_token, nil)
-Mix.Task.run("ecto.create", ["--quiet"])
-Mix.Task.run("ecto.migrate", ["--quiet"])
+# The launcher supplies a private copy of built artifacts. Never compile or
+# mutate the sibling checkout while creating/migrating this owned database.
+Mix.Task.run("ecto.create", ["--quiet", "--no-compile", "--no-deps-check"])
+Mix.Task.run("ecto.migrate", ["--quiet", "--no-compile", "--no-deps-check"])
 {:ok, _} = Application.ensure_all_started(:barkpark)
 unless File.exists?(Path.join(root, "seeded")) do
   Barkpark.Seeds.run()

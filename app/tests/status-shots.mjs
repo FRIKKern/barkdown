@@ -16,8 +16,8 @@ import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { fileURLToPath } from 'url';
+import { archiveStatusManifest } from './helpers/status-history.mjs';
 const require = createRequire(import.meta.url);
-const { GIFEncoder, quantize, applyPalette } = require('gifenc');
 const { PNG } = require('pngjs');
 const here = path.dirname(fileURLToPath(import.meta.url));
 const appDir = path.resolve(here, '..');
@@ -27,8 +27,7 @@ fs.mkdirSync(out, { recursive: true });
 // Preserve the reviewed baseline before a new live capture. Prior hashed media stays intact.
 const priorManifest = path.join(out, 'manifest.json');
 if (fs.existsSync(priorManifest)) {
-  const history = path.join(out, 'history'); fs.mkdirSync(history, { recursive: true });
-  fs.copyFileSync(priorManifest, path.join(history, new Date().toISOString().replace(/[:.]/g, '-') + '.json'));
+  archiveStatusManifest(out, JSON.parse(fs.readFileSync(priorManifest, 'utf8')));
 }
 
 const SLUG = 'barkdown-status';
@@ -125,14 +124,27 @@ await page.keyboard.press('Enter'); await frame(400);
 await typeSlow('Notes are papers; the canvas is Tiptap.'); await frame(900);
 const cell = pm().locator('.bp-table__td').first(); await cell.click(); await page.keyboard.press('End'); await frame(500);
 await page.keyboard.press('Tab'); await frame(400); await typeSlow('11/11'); await frame(700);
-await page.evaluate(() => window.__barkdown.openPalette()); await frame(600); await typeSlow('stat'); await frame(1200);
+await page.evaluate(() => window.__barkdown.openPalette());
+// Keep the motion proof readable: the palette's short CSS entrance transition
+// paints several intermediate shadow bounds that GIF's 256-colour frames turn
+// into false concentric bands. Let the real transition settle, then record the
+// user's query appearing in the stable modal.
+await page.waitForTimeout(350); await frame(600); await typeSlow('stat'); await frame(1200);
 await page.keyboard.press('Escape'); await settled(); await frame(1500);
-// Encode: one palette from the first frame keeps UI colours steady across frames; the last frame holds.
-const gif = GIFEncoder();
-const palette = quantize(frames[0].data, 256, { format: 'rgba4444' });
-for (const [i, f] of frames.entries()) { const index = applyPalette(f.data, palette, 'rgba4444'); gif.writeFrame(index, f.width, f.height, { palette: i === 0 ? palette : undefined, delay: i === frames.length - 1 ? 2000 : f.delay, repeat: 0 }); }
-gif.finish();
-fs.writeFileSync(path.join(out, 'editing.gif'), Buffer.from(gif.bytes()));
+// GIF has only 256 colours per frame. ImageMagick's Floyd-Steinberg conversion
+// preserves the modal shadow as a smooth visual texture; gifenc has no dithering
+// and rendered the same gradient as broad false concentric bands. Keep the lossless
+// source frames in the retained capture directory and pass each real frame delay.
+const gifFramesDir = path.join(userData, 'status-gif-frames');
+fs.mkdirSync(gifFramesDir, { recursive: true });
+const gifArgs = [];
+for (const [i, f] of frames.entries()) {
+  const file = path.join(gifFramesDir, `${String(i).padStart(3, '0')}.png`);
+  fs.writeFileSync(file, PNG.sync.write({ width: f.width, height: f.height, data: f.data }));
+  gifArgs.push('-delay', String(Math.max(1, Math.round((i === frames.length - 1 ? 2000 : f.delay) / 10))), file);
+}
+gifArgs.push('-dither', 'FloydSteinberg', '-colors', '256', '-loop', '0', path.join(out, 'editing.gif'));
+execFileSync('magick', gifArgs, { stdio: ['ignore', 'pipe', 'pipe'], maxBuffer: 20e6 });
 shots.push({ file: 'editing.gif', caption: 'An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open.' });
 console.log('gif', frames.length, 'frames,', Math.round(fs.statSync(path.join(out, 'editing.gif')).size / 1024), 'KB');
 
@@ -176,6 +188,7 @@ for (const shotEntry of manifest.shots) {
 }
 fs.writeFileSync(readmePath, rootReadme);
 fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
+archiveStatusManifest(out, manifest);
 // Retain temporary capture data for diagnosis; shutdown always runs below.
 console.log(`wrote ${shots.length} pictures + manifest to ${out}`);
 

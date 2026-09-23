@@ -1,5 +1,13 @@
 # Evidence and remaining proof
 
+## Current integration evidence — 23 September
+
+The reviewed integration checkpoint is recorded through `42432cb`. Full combined desktop passed at `1b01bf2`; the eight dedicated native journeys passed at `3ce6b21` and `41500dc` with independent media review. E012 consumption and C030 strict native parity (13/13) are retained separately with their original provenance. Old/current server fallback replays passed at `13cba57`.
+
+Final capture source `3e8a2aa` has approved deterministic evidence (40 stills/40 motion frames) and independently approved live Paper/Codex evidence (five stills/all 37 GIF frames). Capture-only changes pass 18 lifecycle/history checks. Root `npm run verify` and the subsequent handoff `npm run check` passed. [C008](cycles/C008-integration.md) records the exact runs and limits. Publication is pending GitHub connectivity; no merge or deployment is claimed. Device authentication, portability and release acceptance remain incomplete.
+
+## Historical ledger (the checkpoint above supersedes older pending combined-gate statements)
+
 Baseline at the 2026-09-21 roadmap reset. Implementation evidence is separate from the pending journey gates in [ACCEPTANCE.md](ACCEPTANCE.md). [Original concept validation](archive/2026-09-21-validation.md) is archived.
 
 | Baseline | Evidence | Limits |
@@ -8,6 +16,31 @@ Baseline at the 2026-09-21 roadmap reset. Implementation evidence is separate fr
 | Shared editor features | [EDITOR-PARITY.md](EDITOR-PARITY.md) records live comparisons and counts, including tables, media, IME, multi-block editing and large documents. Upstream branch `a5440345c`. | PR #19579 still open at reset; matrix contains partial/limited proof. No claim of all upstream gates passing. |
 | Managed Windows local runtime | Barkdown `930fc2f`: `npm run test:local` passed actual private PostgreSQL/Barkpark startup, authenticated reads, crash recovery and restart. Expanded `local-barkpark-ui.live.mjs` passed editing through recovery, saved state after restart, Settings status, quit/window-close cleanup. | Built checkout/toolchain required. Injected worker-failure log detection is unit-tested; actual OS error 487 is not deterministically reproduced. No packaged install or multi-profile proof. |
 | Repository and screenshots | Root `npm run verify` passed; status image manifest at `5c91d29`. | Concept/build checks are not production storage or sync tests. |
+
+## Last fully validated combined checkpoint
+
+Historical fallback d8acb82 (visual-tooling source e380385): full desktop64608 and root verify86276 passed. Forty fixture frames plus GIFs reviewed; actual Codex/Paper status5397 passed with private runtime stopped. See [C008 exact scope and limits](cycles/C008-integration.md). No main release. Newer C016/E007/C021 original lane evidence is now imported; those original passes do not validate the combined candidate.
+
+## Current candidate and release gates
+
+Imported candidate `d20aa09` consumes upstream `54579debe6ad4579c1a48586805498602867d983` via E011 `22ef23b`, C033 `f19a6ef` and C032 source/fixture `4c1709a`/`b585640`. [E011 import](visual/fallback-consumption/IMPORT.md) preserves 755 original blobs and verifies all 53 review hashes, including actual fallback against old/new private servers. [C032](visual/folder-preflight/README.md) retains original native refusals/restart proof, six stills, four videos and two derived GIFs; 64 indexed hashes verified. C033 has 15 controlled context-race checks, not native race proof. [C023 original final gates](goals/evidence/3e9c0a9/README.md) passed and are imported; they are no longer pending lane work. Earlier C016/C024/C025/C026/E009 source-bound evidence remains valid within its recorded scope. Full combined desktop, dedicated native acceptance, fixture/live review and root verification remain pending. [C008 validation order](cycles/C008-integration.md#remaining-combined-validation-order) separates these gates.
+
+Electron 38 remains consumed; coordinator reports real-app webview crashes on 43/44, including 43 with GPU disabled, while minimal 38/43 shells pass. No cause, fix or upstream attribution is established. C035 packaging is imported as d20aa09 with original89a0fd2 packaged terminal proof; Electron38 locks unchanged. E012 upstream f7fb remains unconsumed. C034 original7e07099 authenticated Codex/local-document revision and native shutdown proof passes; other providers and remote Paper remain unproven. Device CLI login and environment credentials remain an unanswered shared-device policy boundary.
+
+[Read-only release audit](cycles/evidence/release-gates-2026-09-22.json): the recorded 22 September audit found upstream PR19579 open/blocked at a544, with failing checks. The successful parity job skipped its actual rows; BARKDOWN_READ_TOKEN is absent. G1/G2 remain uncleared. No secret, branch or workflow configuration was changed.
+
+## Combined integration checkpoint — 22 September
+
+These are branch-specific results, not a main release or completion of P1–P5.
+
+| Source / scope | Verified evidence | Remaining limits |
+|---|---|---|
+| Combined `82cc622` | Full `npm run test:desktop`44785 passed, including actual Electron credential crash/decrypt, malformed-key refusal, profile ownership, startup drafts, adoption and owned goal recovery.37 deterministic states reviewed and approved. | Ordinary chat crash recovery and full two-runtime UI isolation remain active work. |
+| Combined `abbbcee` / upstream `8530a9e23` | [Real rich Paper saves and motion review](visual/rich-takeover/runs/2026-09-22T00-28-46-068Z/README.md): five cases plus actual MCP structured read, ten stills and sampled continuous video. Private runtime stopped. | Adapter operations without a model turn. Advanced table authoring/export and API-provider remote tool parity remain open. |
+| Original `54464ef` / upstream `a5440345c` | [Adopt, edit, restart and roll back](visual/adoption/runs/2026-09-22T00-21-07-265Z/README.md), including drafts/attachment/media and unchanged original content. C010 closed at645c525. | Disposable same-machine library, synthetic plain credential codec; not portability or real-user migration. |
+| Original `87ca623` | [Workspace-loss recovery](visual/workspace-recovery/README.md) refuses missing/corrupt authority and preserves visible drafts instead of seeding empty data. | Explicit manual recovery; no automatic reconstruction. |
+
+At this historical checkpoint, combined root `npm run verify` session20871 passed after a fresh live status capture at `8cabf36`/`a5440345c`: actual Codex turn, five reviewed stills and all 37 GIF frames. The private runtime stopped normally. Original lane verification is not a substitute. See [C008](cycles/C008-integration.md) for exact sessions and subsequent results.
 
 ## Pending evidence
 
@@ -60,3 +93,39 @@ Branch `codex/fast-folder-context`, implementation `c66744b` plus regression cor
 `npm run test:desktop` passed all unit suites, 76 Electron checks, direct-edit UI, composer-history/restart and side-chat ownership/restart cases. `npm run verify` passed. The [live Paper capture](images/status/history/C002-3e2ed6f.json) used private Barkpark `a5440345c` with clean app/source trees and a real Codex turn; the private runtime stopped normally. Five stills and 37 GIF frames were inspected. The [deterministic comparison](visual/runs/2026-09-21T21-48-36-561Z/comparison.json) has no differences above tolerance or geometry changes across 21 frames; named review and current hashes pass.
 
 No focused live folder-question latency/compliance benchmark, profile implementation, merge or deployment is claimed. The [C002 handoff](cycles/C002-folder-context.md) preserves the initial failures, recovery steps and final evidence; C001 remains planned.
+
+## C001 ownership design — 2026-09-22
+
+Audited merged baseline b8e7bfb; [inventory and contract](PROFILE-OWNERSHIP.md) covers actual storage/cache/session/credential/run boundaries, safe adoption and named A1 fixtures. Root npm ci, app npm ci and Playwright installation passed; npm run verify passed. This is documentation-only proof. Existing C002 visual approval remains current; narrow workspace image inspected and capture coverage reviewed. No profile storage, switching, adoption or background-run isolation is claimed. C002 is now merged through PR #29; earlier no-merge claims describe its historical push checkpoint. P1 remains pending. See [C001 handoff](cycles/C001-profile-ownership.md).
+
+## C004 captured run ownership — 2026-09-22
+
+Source 0086867 on codex/cycle-current-12h adds immutable run/MCP context and bound local adapters, exact created-document activity, authoritative event ownership and awaited finalization. Eleven [ownership test groups](../app/tests/run-ownership.test.mjs) pass with real stdio MCP and scripted SDK/API seams. Final npm run test:desktop passes existing units, 76 Electron checks and direct-edit/history/side-chat suites. Root npm run verify passes.
+
+[Live Paper evidence](images/status/history/C004-0086867.json) used an isolated private runtime on Barkpark a5440345c with clean source trees and a real Codex turn; five stills and 37 GIF frames reviewed, private runtime stopped. [Deterministic comparison](visual/runs/2026-09-21T22-32-06-713Z/comparison.json) has 21 frames with no above-tolerance pixel or geometry changes; explicit review recorded. [Lifecycle contract and limits](RUN-OWNERSHIP.md): no switching UI, durable scheduler, full profile credential isolation or OS process-stop guarantee. Roots are trusted input pending resolver/ancestor hardening. P1 remains pending; see [C004 handoff](cycles/C004-captured-run-ownership.md).
+
+## C008 combined integration — active
+
+The isolated `codex/integration-12h` candidate includes C003/C004/C006/C007, goal-service/UI and E001. Full desktop validation on4c88a49 passed37 goal tests,76 shell checks, chat/editor regressions, trusted workspace/runtime suites and profile/goal Electron journeys. These include a real app process restart; model transport is deterministic. C009 cold-adoption and E002 host imports subsequently passed focused adoption/runtime/Paper tests. Their original lane live reports are distinct from combined evidence.
+
+See [C008 handoff](cycles/C008-integration.md) for exact sources, failures, corrections and pending work. Combined screenshots/root verification are not yet current. The real improved E002 canvas requires upstreambb3bd299d; pinned a544 uses the safe explicit-reload fallback. Native goal crash recovery and full shell/runtime adoption authority are still separate unfinished slices. No P1 completion, merge, deployment or actual-library migration is claimed.
+
+
+Combined source `5a3a502` full desktop session13618 passed, including46 goal tests and the actual default-owned SDK worker Electron journey. Fresh deterministic31-frame run2026-09-21T23-55-40-140Z was inspected and approved; all31 comparisons show zero above-tolerance pixel/geometry changes. Live status session95727/private poMoAd passed with actual Codex turn after Claude weekly limit;5 stills and37 GIF frames inspected. Runtime stopped and postmaster.pid absent; CLI unchanged. The empty reloadable_apps fix prevents application compilation by the audited Phoenix source path, but missing Mix listener warnings persist; one passing run does not establish the prior intermittent health failure eliminated.
+
+Combined E002 motion review is complete:8 stills,92 full-video samples at1fps and70 samples at10fps covering target/select/write and first receipt. No first-receipt displacement observed; see agent-takeover/runs/2026-09-21T23-40-28-032Z review and GIF. E003 separately reproduced rich-selection collapse and Markdown table conversion loss; its active lane is fixing these, so full editor completeness is not claimed. C010 adoption/boot and C011 native goal crash UI remain active and not imported yet. Natural-language goal planning remains incomplete.
+
+
+## E007/E008 original lane proof imported
+
+[HTML paste evidence](visual/html-table-paste/README.md) retains exact fdf6b9e/d8fda9690 live server/history/reload/200% recovery, original failures and reviewed motion. The global status/visual approval remains unchanged; archived E007-fdf6b9e status manifest and its review preserve actual attribution. [E008](cycles/E008-fixture-events.md) records upstream d24c7a094 full-suite success with test-only scheduling repair and unchanged runtime assets. These are original lane passes; combined candidate validation is pending and d8acb82 remains the verified fallback.
+
+E009 imports original1a9faf3 evidence for Barkdown25cb114 and connected upstream3495, including native run38052 and archived status66890. No live test was rerun during import, no fallback/pin changed, and no combined approval inferred. [Native review](visual/rich-clipboard/runs/2026-09-22T04-50-27-798Z/review.json).
+
+## C038 callout refinement — 23 September
+
+Source `ae8024f` on `codex/paper-polish`: build and 31 Paper host checks pass; isolated real-server callout gallery 4/4 passes. [Reviewed gallery](visual/callouts/README.md) covers seven tones, editable titles, body saves, folding/reload and 760px wrapping. Fresh status stills and 37 GIF frames are reviewed in `images/status/review-C038.json`; a real Codex turn succeeded after Claude quota refusal. Deterministic 00-42-44 capture approved after image inspection; all 40 frames within tolerance with unchanged geometry. Root `npm run verify` passed; no P1/full-desktop/release-completion claim.
+
+## C040 Linux merge gate — 23 September
+
+PR30 fresh parity failed 17/20 at f00b489. Source e32482f corrects fixture caret preconditions and installs Playwright video runtime in CI; no product behavior changed and original assertions remain. Isolated local repaired groups pass row14 4/4, gaps 13/13 and find 6/6. Native stills/video, fresh status and deterministic captures reviewed; see [C040](cycles/C040-linux-parity.md). Full Linux CI and root verify remain pending at this checkpoint.

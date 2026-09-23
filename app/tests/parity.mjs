@@ -14,6 +14,45 @@ import { fileURLToPath } from 'url';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const appDir = path.resolve(here, '..');
 
+// Read complete emitted JSON reports, not a success-looking fragment in a log.
+function reportsIn(output) {
+  const reports = [];
+  const lines = output.split(/\r?\n/);
+  for (let i = 0; i < lines.length; i++) {
+    if (!lines[i].startsWith('{')) continue;
+    let candidate = '';
+    for (let j = i; j < lines.length; j++) {
+      candidate += (j === i ? '' : '\n') + lines[j];
+      if (!lines[j].trimEnd().endsWith('}')) continue;
+      try { reports.push(JSON.parse(candidate)); i = j; break; } catch { /* incomplete JSON */ }
+    }
+  }
+  return reports;
+}
+function completeCount(a, b) {
+  const passed = Number(a), total = Number(b);
+  return Number.isSafeInteger(passed) && Number.isSafeInteger(total) && total > 0 && passed === total;
+}
+function evidenceFor(name, output) {
+  const reports = reportsIn(output).filter(r => Object.hasOwn(r, 'summary') || (name === 'paper' && Object.hasOwn(r, 'results')));
+  if (reports.length !== 1) return { green: false, summary: reports.length ? 'ambiguous result reports' : 'no verified assertion report' };
+  const report = reports[0];
+  if (name === 'paper' && !Object.hasOwn(report, 'summary')) {
+    const checks = report.results;
+    const valid = Array.isArray(checks) && checks.length > 0 && checks.every(r => r && typeof r.name === 'string' && typeof r.ok === 'boolean');
+    const passed = valid ? checks.filter(r => r.ok).length : 0;
+    return { green: Boolean(valid && passed === checks.length), summary: valid ? `${passed}/${checks.length} paper checks` : 'invalid or empty paper assertions' };
+  }
+  if (typeof report.summary !== 'string') return { green: false, summary: 'malformed summary' };
+  let counts = /^(\d+)\/(\d+) green$/.exec(report.summary);
+  if (counts && name !== 'opaque' && name !== 'paper') return { green: completeCount(counts[1], counts[2]), summary: report.summary };
+  if (name === 'opaque') {
+    counts = /^(\d+)\/(\d+) note block types mount editable; (\d+)\/(\d+) edits held by the server; (\d+)\/(\d+) slash inserts land on the server; editor bundle from the server$/.exec(report.summary);
+    if (counts) return { green: completeCount(counts[1], counts[2]) && completeCount(counts[3], counts[4]) && completeCount(counts[5], counts[6]) && report.bundle?.pass === true, summary: report.summary };
+  }
+  return { green: false, summary: 'malformed or unsupported summary', reportedSummary: report.summary };
+}
+
 // Name → script, with the matrix row or plan item it proves. Order: the matrix first, then the plan's items.
 const ROWS = [
   ['tables', 'editor-tables.live.mjs', 'row 10'],
@@ -49,11 +88,12 @@ for (const [name, script, proves] of rows) {
   const started = Date.now();
   const r = spawnSync(process.execPath, [path.join(here, script)], { cwd: appDir, encoding: 'utf8', maxBuffer: 64e6, env: { ...process.env, BARKDOWN_PROVIDER: process.env.BARKDOWN_PROVIDER || 'api' } });
   const out = (r.stdout || '') + (r.stderr || '');
-  const m = /"summary":\s*"([^"]+)"/.exec(out);
-  const summary = m ? m[1] : (r.status === 0 ? 'green (no summary line)' : `exit ${r.status ?? r.signal}`);
-  const green = m ? /^(\d+)\/(\d+)/.exec(m[1]) && RegExp.$1 === RegExp.$2 : r.status === 0;
+  const evidence = evidenceFor(name, out);
+  const failure = r.error ? `spawn error: ${r.error.code || r.error.message || 'unknown'}` : r.signal ? `signal ${r.signal}` : r.status !== 0 ? `exit ${r.status ?? 'unknown'}` : null;
+  const summary = failure ? `${failure}; ${evidence.summary}` : evidence.summary;
+  const green = failure === null && evidence.green;
   const seconds = Math.round((Date.now() - started) / 1000);
-  results.push({ name, script, proves, summary, green, seconds, status: r.status });
+  results.push({ name, script, proves, summary, green, seconds, status: r.status, signal: r.signal || null, processFailure: failure, evidence });
   console.log(`${green ? 'GREEN' : 'RED  '} ${name.padEnd(12)} ${summary.padEnd(28)} ${seconds}s  (${proves})`);
   if (!green) {
     // The failing rows' details, so the CI log says which behaviour broke, not just "red".

@@ -1,0 +1,335 @@
+TAP version 13
+# Subtest: normal pass
+ok 1 - normal pass
+  ---
+  duration_ms: 158.5986
+  ...
+# Subtest: green summary then cleanup exit 1
+not ok 2 - green summary then cleanup exit 1
+  ---
+  duration_ms: 155.2169
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-parity-exit-guard\\app\\tests\\parity-runner.test.mjs:46:45'
+  failureType: 'testCodeFailure'
+  error: |-
+    green summary then cleanup exit 1: GREEN tables       11/11 green                  0s  (row 10)
+    
+    1/1 rows green
+    
+    
+    fixture retained: C:\Users\Frikk\AppData\Local\Temp\bd-parity-runner-gbO8yf
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-parity-exit-guard/app/tests/parity-runner.test.mjs:48:10)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:629:18)
+    Test.postRun (node:internal/test_runner/test:1042:19)
+    Test.run (node:internal/test_runner/test:970:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: green summary then signal
+not ok 3 - green summary then signal
+  ---
+  duration_ms: 81.724
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-parity-exit-guard\\app\\tests\\parity-runner.test.mjs:46:45'
+  failureType: 'testCodeFailure'
+  error: |-
+    green summary then signal: GREEN tables       11/11 green                  0s  (row 10)
+    
+    1/1 rows green
+    
+    
+    fixture retained: C:\Users\Frikk\AppData\Local\Temp\bd-parity-runner-mIY80d
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-parity-exit-guard/app/tests/parity-runner.test.mjs:48:10)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:629:18)
+    Test.postRun (node:internal/test_runner/test:1042:19)
+    Test.run (node:internal/test_runner/test:970:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: spawn error
+not ok 4 - spawn error
+  ---
+  duration_ms: 102.1555
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-parity-exit-guard\\app\\tests\\parity-runner.test.mjs:46:45'
+  failureType: 'testCodeFailure'
+  error: |-
+    spawn error: GREEN tables       11/11 green                  0s  (row 10)
+    
+    1/1 rows green
+    
+    
+    fixture retained: C:\Users\Frikk\AppData\Local\Temp\bd-parity-runner-XYVl3R
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-parity-exit-guard/app/tests/parity-runner.test.mjs:48:10)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:629:18)
+    Test.postRun (node:internal/test_runner/test:1042:19)
+    Test.run (node:internal/test_runner/test:970:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: partial
+ok 5 - partial
+  ---
+  duration_ms: 148.8195
+  ...
+# Subtest: missing
+not ok 6 - missing
+  ---
+  duration_ms: 144.8808
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-parity-exit-guard\\app\\tests\\parity-runner.test.mjs:46:45'
+  failureType: 'testCodeFailure'
+  error: |-
+    missing: GREEN tables       green (no summary line)      0s  (row 10)
+    
+    1/1 rows green
+    
+    
+    fixture retained: C:\Users\Frikk\AppData\Local\Temp\bd-parity-runner-Tn5Ro0
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-parity-exit-guard/app/tests/parity-runner.test.mjs:48:10)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:629:18)
+    Test.postRun (node:internal/test_runner/test:1042:19)
+    Test.run (node:internal/test_runner/test:970:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: zero
+not ok 7 - zero
+  ---
+  duration_ms: 137.6664
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-parity-exit-guard\\app\\tests\\parity-runner.test.mjs:46:45'
+  failureType: 'testCodeFailure'
+  error: |-
+    zero: GREEN tables       0/0 green                    0s  (row 10)
+    
+    1/1 rows green
+    
+    
+    fixture retained: C:\Users\Frikk\AppData\Local\Temp\bd-parity-runner-Fb0dT8
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-parity-exit-guard/app/tests/parity-runner.test.mjs:48:10)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:629:18)
+    Test.postRun (node:internal/test_runner/test:1042:19)
+    Test.run (node:internal/test_runner/test:970:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: malformed trailing evidence
+not ok 8 - malformed trailing evidence
+  ---
+  duration_ms: 155.9133
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-parity-exit-guard\\app\\tests\\parity-runner.test.mjs:46:45'
+  failureType: 'testCodeFailure'
+  error: |-
+    malformed trailing evidence: GREEN tables       11/11 garbage                0s  (row 10)
+    
+    1/1 rows green
+    
+    
+    fixture retained: C:\Users\Frikk\AppData\Local\Temp\bd-parity-runner-M9aSAS
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-parity-exit-guard/app/tests/parity-runner.test.mjs:48:10)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:629:18)
+    Test.postRun (node:internal/test_runner/test:1042:19)
+    Test.run (node:internal/test_runner/test:970:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: overcount
+ok 9 - overcount
+  ---
+  duration_ms: 167.6066
+  ...
+# Subtest: unsafe counts
+not ok 10 - unsafe counts
+  ---
+  duration_ms: 155.9436
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-parity-exit-guard\\app\\tests\\parity-runner.test.mjs:46:45'
+  failureType: 'testCodeFailure'
+  error: |-
+    unsafe counts: GREEN tables       9007199254740993/9007199254740993 green 0s  (row 10)
+    
+    1/1 rows green
+    
+    
+    fixture retained: C:\Users\Frikk\AppData\Local\Temp\bd-parity-runner-q61P5o
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-parity-exit-guard/app/tests/parity-runner.test.mjs:48:10)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:629:18)
+    Test.postRun (node:internal/test_runner/test:1042:19)
+    Test.run (node:internal/test_runner/test:970:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: paper structured checks
+ok 11 - paper structured checks
+  ---
+  duration_ms: 193.9231
+  ...
+# Subtest: paper failed check
+not ok 12 - paper failed check
+  ---
+  duration_ms: 158.4169
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-parity-exit-guard\\app\\tests\\parity-runner.test.mjs:46:45'
+  failureType: 'testCodeFailure'
+  error: |-
+    paper failed check: GREEN paper        green (no summary line)      0s  (row 9 (ifRev, 412, re-apply))
+    
+    1/1 rows green
+    
+    
+    fixture retained: C:\Users\Frikk\AppData\Local\Temp\bd-parity-runner-d0k6wi
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-parity-exit-guard/app/tests/parity-runner.test.mjs:48:10)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:629:18)
+    Test.postRun (node:internal/test_runner/test:1042:19)
+    Test.run (node:internal/test_runner/test:970:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: paper empty checks
+not ok 13 - paper empty checks
+  ---
+  duration_ms: 168.9739
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-parity-exit-guard\\app\\tests\\parity-runner.test.mjs:46:45'
+  failureType: 'testCodeFailure'
+  error: |-
+    paper empty checks: GREEN paper        green (no summary line)      0s  (row 9 (ifRev, 412, re-apply))
+    
+    1/1 rows green
+    
+    
+    fixture retained: C:\Users\Frikk\AppData\Local\Temp\bd-parity-runner-woRVyX
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-parity-exit-guard/app/tests/parity-runner.test.mjs:48:10)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:629:18)
+    Test.postRun (node:internal/test_runner/test:1042:19)
+    Test.run (node:internal/test_runner/test:970:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: opaque compound pass
+ok 14 - opaque compound pass
+  ---
+  duration_ms: 157.1026
+  ...
+# Subtest: opaque partial later group
+not ok 15 - opaque partial later group
+  ---
+  duration_ms: 186.3994
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-parity-exit-guard\\app\\tests\\parity-runner.test.mjs:46:45'
+  failureType: 'testCodeFailure'
+  error: |-
+    opaque partial later group: GREEN opaque       3/3 note block types mount editable; 1/2 edits held by the server; 1/1 slash inserts land on the server; editor bundle from the server 0s  (row 12)
+    
+    1/1 rows green
+    
+    
+    fixture retained: C:\Users\Frikk\AppData\Local\Temp\bd-parity-runner-VGs0iH
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-parity-exit-guard/app/tests/parity-runner.test.mjs:48:10)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:629:18)
+    Test.postRun (node:internal/test_runner/test:1042:19)
+    Test.run (node:internal/test_runner/test:970:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 5
+# fail 10
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2424.481

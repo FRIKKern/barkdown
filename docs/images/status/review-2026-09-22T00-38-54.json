@@ -1,0 +1,31 @@
+{
+  "reviewer": "Codex root integration review",
+  "reviewedAt": "2026-09-22T00:40:58.628735+00:00",
+  "sourceCommit": "8cabf36663006176e2c8c41c6c4651338d087a0f",
+  "barkparkCommit": "a5440345caa413087ac6488cac67f19fce58fa0f",
+  "manifestSha256": "5f066de5fa3a75bc7223249b50612f41a096f7f04b6a842d3a03c3ca410e9eb0",
+  "artifacts": {
+    "paper-light.8989f003.png": "ef84728914b7817b035b5c4d3c13c88ac9a3b548a7c09fbf7cf13f50335a2637",
+    "paper-dark.8e32c7c0.png": "c98fa7f293295b45e6dcd7158e6f22e3b08b493744a8cf39fc789e336dd35030",
+    "slash-menu.18675d64.png": "44dc401da4424ca65b550bcab90d18ea7814deadb9121ad0ad483ea1ba9ac387",
+    "quick-open.3de80591.png": "592898c8884e8c79925f21e7b4d0064101fd8096d6cfedb5a443e299f3254e68",
+    "settings-barkpark.0d933793.png": "f6e1a94b781a091716f27995ebebf98fce048008ca1928d7b67e676c3cf1f799",
+    "editing.4fce2a43.gif": "2812d5cc70535f82e8f906019e8afdcac715c147934f3c1496ff7bbf82ca2162"
+  },
+  "inspected": {
+    "stills": 5,
+    "decodedGifFrames": 37
+  },
+  "result": "approved",
+  "findings": [
+    "Light/dark Paper, slash menu, quick-open and settings controls remain readable.",
+    "All37 GIF frames inspected: actual quote insertion, text growth, table selection/navigation and quick-open preserve usable layout.",
+    "Actual Codex turn; earlier Claude attempt hit weekly quota, not a passing Claude turn."
+  ],
+  "limits": [
+    "Showcase uses explicit36fr split, not default60percent proof.",
+    "This runtime uses a5440345c; rich takeover8530a9e23 evidence remains separate.",
+    "Not a provider parity, portability or full A1 acceptance proof."
+  ],
+  "cleanup": "Private pajcVS runtime stopped normally; launcher verified postmaster.pid absent; user CLI unchanged."
+}

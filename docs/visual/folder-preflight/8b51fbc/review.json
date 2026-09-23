@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "reviewer": "Codex goal-orchestration agent",
+  "reviewedAt": "2026-09-22T05:55:07.335Z",
+  "sourceCommit": "8b51fbce9dedfe0a619f211ef65467d2295e1ef9",
+  "manifestSha256": {
+    "main-side": "41fb2181f70f28138558fce80af78f85daeb975a8c202addab1bfbc3b4aa4cc0",
+    "selected-b": "26c0432f13eb116ab78337f304aacdc63644ae01a5e440768485ccd6d8dcc0bd"
+  },
+  "stillsInspected": 6,
+  "videoFramesInspected": 234,
+  "method": "Every decoded frame inspected in sequential numbered contact sheets, alongside all full-resolution original stills. No sampling or skipped frames; 25 fps originals retained.",
+  "videos": [
+    {
+      "video": "01-refusal-session.webm",
+      "sha256": "fd591c4d4cdb2f6ab5eb25a4949d1ff3be6215c769c2075bb263d53cccb7659b",
+      "frames": 78,
+      "contactSheets": [
+        "main1-01.jpg",
+        "main1-02.jpg",
+        "main1-03.jpg",
+        "main1-04.jpg",
+        "main1-05.jpg"
+      ]
+    },
+    {
+      "video": "02-restart-session.webm",
+      "sha256": "8fcf1e722d36ecc3443a48fdc5d3686ca62ecec7166d27a6e4b0c473ac5ce477",
+      "frames": 37,
+      "contactSheets": [
+        "main2-01.jpg",
+        "main2-02.jpg",
+        "main2-03.jpg"
+      ]
+    },
+    {
+      "video": "01-selected-B-session.webm",
+      "sha256": "e847594c868a5938d2c0c2020c92cfc717350c341deaf15cccc2d13dfb904622",
+      "frames": 51,
+      "contactSheets": [
+        "reference1-01.jpg",
+        "reference1-02.jpg",
+        "reference1-03.jpg",
+        "reference1-04.jpg"
+      ]
+    },
+    {
+      "video": "02-restart-refusal-session.webm",
+      "sha256": "b79c4948d29bd4e1fa2cf664305e356c02513e46521101779ac354ae01a7960b",
+      "frames": 68,
+      "contactSheets": [
+        "reference2-01.jpg",
+        "reference2-02.jpg",
+        "reference2-03.jpg",
+        "reference2-04.jpg",
+        "reference2-05.jpg"
+      ]
+    }
+  ],
+  "gifFrames": 0,
+  "result": "No blocker in tested journeys",
+  "observations": [
+    "Main/side errors wrap without clipping; both selected provider/folder controls and human prompts remain visible.",
+    "Restart retains both prompts and exact folders/providers; no durable failed optimistic turn or reservation.",
+    "Selected B retains unavailable reference after restart and never substitutes same-path A content.",
+    "Initial empty shell and viewport settling, profile-reload shell and provider-menu transitions are retained. A preservation is state-asserted, not a final rendered A screenshot."
+  ],
+  "limits": [
+    "Source-specific native IPC refusal with no CLI/provider launch. Not authenticated provider execution.",
+    "Only known missing folders exercised natively; stat-denied/non-directory remain headless checks; post-stat disappearance remains a later native-error boundary.",
+    "No narrow-theme matrix, API/goal behavior, packaged runtime or combined-stage completion claim.",
+    "Root owns combined global capture/comparison/approval; this local review does not alter global approval."
+  ],
+  "failures": [],
+  "originalsTransformed": false
+}

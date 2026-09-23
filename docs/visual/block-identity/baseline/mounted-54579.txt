@@ -1,0 +1,19 @@
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: live split must carry its exact acknowledged identity
++ actual - expected
+
++ 'origin'
+- 'c-1-447fea85'
+
+    at file:///C:/Users/Frikk/.codex/worktrees/barkpark-block-identity/api/assets/paper-editor/src/canvas/__block_identity_mounted.test.mjs:24:9 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'origin',
+  expected: 'c-1-447fea85',
+  operator: 'strictEqual'
+}
+
+Node.js v22.13.1

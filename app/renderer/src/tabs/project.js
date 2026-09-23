@@ -15,7 +15,12 @@ const api = window.barkdown;
 // Unsaved buffers are keyed by folder + file so they survive tab switches and chat switches within a session.
 export const buffers = new Map();
 const bufferKey = (root, file) => `${root}::${file}`;
-export function dirtyCount(root) { let n = 0; for (const [key, b] of buffers) if (key.startsWith(root + '::') && b.draft !== b.saved) n++; return n; }
+// No root means every open folder, as required before reloading a profile.
+export function dirtyCount(root) {
+  let n = 0;
+  for (const [key, b] of buffers) if ((root === undefined || key.startsWith(root + '::')) && (b.saving || b.draft !== b.saved)) n++;
+  return n;
+}
 
 function languageFor(file) {
   const ext = (file.split('.').pop() || '').toLowerCase();
@@ -44,12 +49,17 @@ export function mountProject(tab, host, ctx) {
   let tree = null;
   let root = ctx.folder();
   let currentKey = null;
+  let opened = null, lastOpened = null, navigation = 0, treeGeneration = 0, destroyed = false;
   const language = new Compartment();
 
   function buffer() { return currentKey ? buffers.get(currentKey) : null; }
-  function isDirty() { const b = buffer(); return Boolean(b && b.draft !== b.saved); }
+  function isDirty() { const b = buffer(); return Boolean(b && (b.saving || b.draft !== b.saved)); }
 
-  function status(text) { q('#status').textContent = text; }
+  function status(text) { if (!destroyed) q('#status').textContent = text; }
+  function controls() {
+    q('[data-act="save"]').disabled = !opened || Boolean(buffer()?.saving);
+    q('[data-act="revert"]').disabled = !opened || Boolean(buffer()?.saving);
+  }
 
   function renderHead() {
     q('#path').textContent = root ? `${basename(root)}${tab.file ? ' / ' + tab.file : ''}` : 'No working folder';
@@ -64,9 +74,17 @@ export function mountProject(tab, host, ctx) {
   }
 
   async function loadTree() {
-    const host = q('#tree');
+    const host = q('#tree'), request = ++treeGeneration;
     if (!root) { host.innerHTML = '<p class="bw-small bw-muted" style="padding:10px">Pick a working folder from the composer.</p>'; return; }
-    try { tree = await api.files.tree(root); } catch (error) { host.innerHTML = `<p class="bw-error">${esc(error.message)}</p>`; return; }
+    const requestedRoot = root;
+    try {
+      const result = await api.files.tree(requestedRoot);
+      if (destroyed || root !== requestedRoot || treeGeneration !== request) return;
+      tree = result;
+    } catch (error) {
+      if (!destroyed && root === requestedRoot && treeGeneration === request) host.innerHTML = `<p class="bw-error">${esc(error.message)}</p>`;
+      return;
+    }
     const render = (nodes, depth = 0) => nodes.map(n => n.type === 'dir'
       ? `<details ${depth === 0 || tab.file && tab.file.startsWith(n.path + '/') ? 'open' : ''}><summary>${esc(n.name)}</summary>${render(n.children, depth + 1)}</details>`
       : `<button class="bw-tree-file ${n.path === tab.file ? 'selected' : ''}" data-file="${esc(n.path)}">${iconHtml('file-code', 12)}<span>${esc(n.name)}</span>${(buffers.get(bufferKey(root, n.path))?.draft ?? null) !== null && buffers.get(bufferKey(root, n.path)).draft !== buffers.get(bufferKey(root, n.path)).saved ? '<span class="dirty">●</span>' : ''}</button>`).join('');
@@ -75,25 +93,60 @@ export function mountProject(tab, host, ctx) {
     host.querySelectorAll('[data-file]').forEach(b => { b.onclick = () => openFile(b.dataset.file); });
   }
 
+  function unavailable(message) {
+    const empty = q('#empty');
+    empty.hidden = false; empty.textContent = '';
+    const detail = document.createElement('p'); detail.textContent = message; empty.appendChild(detail);
+    const previous = lastOpened;
+    if (previous && previous.root === root && previous.file !== tab.file && buffers.has(previous.key)) {
+      const back = document.createElement('button');
+      back.type = 'button'; back.dataset.act = 'previous-file';
+      back.textContent = `Return to ${previous.file}`;
+      back.onclick = () => openFile(previous.file);
+      empty.appendChild(back);
+    }
+  }
+
   async function openFile(file) {
-    if (!root) return;
+    const request = ++navigation, requestedRoot = root;
     saveSelection();
+    view?.destroy(); view = null; currentKey = null; opened = null;
     tab.file = file;
     tab.title = basename(file);
     ctx.tabChanged(tab);
-    const key = bufferKey(root, file);
+    renderHead(); controls();
+    q('#empty').hidden = false;
+    q('#empty').textContent = requestedRoot ? `Opening ${file}…` : 'Choose a working folder to open this file.';
+    status(requestedRoot ? `Opening ${file}…` : 'No working folder');
+    if (!requestedRoot) return;
+    const key = bufferKey(requestedRoot, file);
     let buf = buffers.get(key);
     if (!buf) {
       try {
-        const data = await api.files.read(root, file);
-        if (data.binary) { status(`${file} is binary (${data.size} bytes)`); return; }
+        const data = await api.files.read(requestedRoot, file);
+        if (destroyed || request !== navigation) return;
+        if (data.binary) { unavailable(`${file} is binary (${data.size} bytes)`); status('This file cannot be edited as text.'); return; }
         buf = { draft: data.text, saved: data.text, mtime: data.mtime, selection: 0, scroll: 0 };
         buffers.set(key, buf);
-      } catch (error) { toast(error.message, 'error'); return; }
+      } catch (error) {
+        if (destroyed || request !== navigation) return;
+        // contextBridge retains the formatted message, not custom Error fields.
+        // This code is used only for display, never to infer whether a write ran.
+        const displayCode = error.code || /^\[([A-Z_]+)\]/.exec(error.message || '')?.[1];
+        const reason = displayCode === 'ENOENT' ? 'This file or its working folder is no longer available.'
+          : ['EACCES', 'EPERM'].includes(displayCode) ? 'Access to this file was denied.'
+          : `Could not open ${file}: ${error.message}`;
+        unavailable(reason);
+        status('File unavailable · other unsaved drafts are preserved');
+        return;
+      }
     }
+    if (destroyed || request !== navigation) return;
     currentKey = key;
+    opened = { root: requestedRoot, file, key };
+    lastOpened = opened;
     q('#empty').hidden = true;
-    if (view) view.destroy();
+    controls();
     view = new EditorView({
       parent: q('#editor'),
       state: EditorState.create({ doc: buf.draft, selection: { anchor: Math.min(buf.selection, buf.draft.length) }, extensions: [
@@ -113,27 +166,33 @@ export function mountProject(tab, host, ctx) {
   function saveSelection() { const b = buffer(); if (b && view) { b.selection = view.state.selection.main.head; b.scroll = view.scrollDOM.scrollTop; } }
 
   async function save() {
-    const b = buffer();
-    if (!b || !root || !tab.file) return;
-    if (b.draft === b.saved) { status('Nothing to save'); return; }
+    const target = opened, b = buffer();
+    if (!target || !b || b.saving) return;
+    const text = b.draft;
+    if (text === b.saved) { status('Nothing to save'); return; }
+    b.saving = true; controls(); ctx.dirtyChanged();
+    const stillHere = () => !destroyed && opened?.key === target.key;
     try {
-      const result = await api.files.write(root, tab.file, b.draft, b.mtime);
+      const result = await api.files.write(target.root, target.file, text, b.mtime);
       if (result.conflict) {
-        if (!await askConfirm(`${tab.file} changed on disk since you opened it. Overwrite the disk version with yours?`, { title: 'File changed on disk', confirm: 'Overwrite', danger: true })) { b.mtime = result.mtime; status('Not saved · file changed on disk'); return; }
-        const forced = await api.files.write(root, tab.file, b.draft);
+        if (!await askConfirm(result.missing ? `${target.root}/${target.file} was removed from disk. Recreate it with this draft?` : `${target.root}/${target.file} changed on disk since you opened it. Overwrite the disk version with yours?`, { title: result.missing ? 'File removed from disk' : 'File changed on disk', confirm: result.missing ? 'Recreate' : 'Overwrite', danger: true })) {
+          if (stillHere()) status('Not saved · file changed on disk');
+          return;
+        }
+        const forced = await api.files.write(target.root, target.file, text);
         b.mtime = forced.mtime;
       } else b.mtime = result.mtime;
-      b.saved = b.draft;
-      status(`${tab.file} · saved`);
+      b.saved = text;
       ctx.dirtyChanged();
-      ctx.fileSaved(tab.file);
-      loadTree();
-    } catch (error) { toast('Could not save: ' + error.message, 'error'); }
+      ctx.fileSaved(target.file);
+      if (stillHere()) { status(b.draft === text ? `${target.file} · saved` : 'Edited · not saved'); loadTree(); }
+    } catch (error) { if (stillHere()) toast('Could not save: ' + error.message, 'error'); }
+    finally { b.saving = false; ctx.dirtyChanged(); if (!destroyed) controls(); }
   }
 
   function revert() {
     const b = buffer();
-    if (!b || !view) return;
+    if (!b || !view || b.saving) return;
     view.dispatch({ changes: { from: 0, to: view.state.doc.length, insert: b.saved } });
     b.draft = b.saved;
     status('Reverted to saved');
@@ -146,6 +205,7 @@ export function mountProject(tab, host, ctx) {
   q('[data-act="revert"]').onclick = revert;
 
   renderHead();
+  controls();
   loadTree();
   if (tab.file) openFile(tab.file); else if (!root) status('Pick a working folder to browse and edit files.'); else status('Session buffers keep unsaved edits while you switch files and tabs.');
 
@@ -155,7 +215,7 @@ export function mountProject(tab, host, ctx) {
     tab,
     navigate() { root = ctx.folder(); renderHead(); loadTree(); if (tab.file) openFile(tab.file); },
     async refresh(file) {
-      if (file && file === tab.file) { const key = bufferKey(root, file); const b = buffers.get(key); if (b && b.draft === b.saved) { buffers.delete(key); openFile(file); } }
+      if (file && file === tab.file) { const key = bufferKey(root, file); const b = buffers.get(key); if (b && !b.saving && b.draft === b.saved) { buffers.delete(key); openFile(file); } }
       else loadTree();
       renderHead();
     },
@@ -163,6 +223,6 @@ export function mountProject(tab, host, ctx) {
     savePosition() { saveSelection(); },
     focus() { view?.focus(); },
     isDirty,
-    destroy() { saveSelection(); view?.destroy(); pane.remove(); },
+    destroy() { saveSelection(); destroyed = true; navigation++; view?.destroy(); pane.remove(); },
   };
 }

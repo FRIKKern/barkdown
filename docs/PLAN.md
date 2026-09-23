@@ -8,7 +8,7 @@ Active direction, set 2026-09-21. This replaces the editor-feature backlog as th
 
 Local-only use stands on its own. Cloud connection is optional. People organize Pages; cloud discovery stays in Cloud archive. Agents visibly edit the same documents people edit, with revision checks, human takeover and guarded Undo.
 
-This journey is not complete today. The Paper editor and Windows source runtime work; profile ownership, migration and portability are next. Do not express progress as closed-issue percentages: integration and failure handling are the remaining work.
+This journey is not complete today. The Paper editor and Windows source runtime work; profile ownership has bounded implementation evidence, while combined isolation acceptance, migration and portability remain pending. Do not express progress as closed-issue percentages: integration and failure handling are the remaining work.
 
 ## Delivery sequence
 
@@ -24,7 +24,7 @@ The machine-readable queue is [plan.json](plan.json). `npm run plan` prints the 
 
 Packaging research may proceed alongside earlier stages. The local-only pilot does not depend on P4. Other platforms follow the Windows pilot, not assumed compatibility.
 
-## Start P1 with a bounded slice
+## Original P1 implementation sequence — 21 September
 
 1. Inventory persisted and cached objects in `app/main/store.js`, `documents.js`, `conversations.js`, `canvas-bundle.js`, `local-barkpark*.js`, and renderer `state.js`. Record current keys and migration rules before changing them.
 2. Define stable profile IDs and qualify document, tab and run identities with their owner. A mutable server URL or bare slug is not an identity. Audit actual Barkpark tenancy/export APIs; [architecture](ARCHITECTURE.md) is a target, not an upstream contract.
@@ -48,6 +48,8 @@ No sync engine, wholesale runtime rewrite or deletion of the old store before mi
 | G1: upstream editor integration | [Barkpark PR #19579](https://github.com/FRIKKern/barkpark/pull/19579) was open at this reset. | Required checks and merge verified; pin and retest the consumed baseline. |
 | G2: cross-repository regression enforcement | [Issue #4](https://github.com/FRIKKern/barkdown/issues/4) needs the private-repo read token and deliberate broken-Tab proof. | Both repositories run the matrix; an intentional regression blocks the upstream PR. Never commit a credential. |
 
+The [22 September read-only gate audit](cycles/evidence/release-gates-2026-09-22.json) recorded PR #19579 open/blocked at a5440345c. Its green parity job skipped checkout, build and the actual rows because the read token is absent. It does not establish matrix enforcement. No secret configuration or upstream workflow was changed.
+
 G1/G2 gate the integrated pilot, not isolated P1 implementation. Recheck external state before acting. The editor matrix still records limited server-side undo proof; carry that verification into P2/P3 rather than declaring all rows complete.
 
 ## Existing issue mapping
@@ -65,4 +67,6 @@ Use [ACCEPTANCE.md](ACCEPTANCE.md) for scenario gates and [VALIDATION.md](VALIDA
 
 ## Delivery cadence
 
-Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) is planned C001: profile ownership inventory. The user-requested C002 interruption is [completed and validated on its branch](cycles/C002-folder-context.md), without merge or deployment. `npm run plan` prints both roadmap and current cycle; finishing C002 does not complete P1.
+Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) is C008 integration on the candidate branch. C001 ownership design and C002 folder context are complete; C002 is merged on main. Subsequent bounded cycles have implemented profile foundations, adoption, recovery and editor improvements, with original evidence linked from [NEXT-AGENT.md](NEXT-AGENT.md). P1 remains unproven until the complete two-profile acceptance journey and combined regression/evidence gates pass. Closing a cycle does not complete a stage.
+
+Current 22 September checkpoint: combined candidate `d20aa09` consumes E011 upstream54579, C032 refusal/restart evidence and C033 controlled context-race fixes. C023 original final gates are complete; combined acceptance remains pending. Follow the [remaining validation order](cycles/C008-integration.md#remaining-combined-validation-order) and [A1 evidence table](cycles/A1-current-evidence.md). C008 stays active and P1–P5 retain their current queue status; device CLI/environment authentication policy remains unanswered.

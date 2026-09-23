@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "id": "C010",
+  "stage": "P1",
+  "status": "active",
+  "goal": "Publish a verified legacy shell/runtime candidate through explicit recoverable authority activation.",
+  "scope": [
+    "Private candidate and original backup",
+    "Owned-reference remap and atomic absent-target publication",
+    "Storage helper only; C006 owns boot UI; disposable data only"
+  ],
+  "acceptance": [
+    "Preserve full fixture identities/content/references",
+    "Actual prepare/activate/rollback interruption recovery",
+    "Real adopted boot/edit/restart and original rollback",
+    "Regression, truth and visual closeout"
+  ],
+  "checkpoint": "2026-09-22",
+  "handoff": "docs/cycles/C010-legacy-authority-adoption.md",
+  "nextAction": "Coordinate actual Electron real-runtime adoption/edit/restart/rollback proof in C006 lane; finish full desktop, live source screenshots and root verification before closeout.",
+  "evidence": [
+    "docs/cycles/DRAFT-legacy-authority-adoption.md",
+    "Source e001638 and e16eaa7",
+    "Helper sixteen process exits plus ownership-loss/orphan/later-profile runtime tests passed",
+    "https://github.com/FRIKKern/barkdown/blob/395b022/docs/visual/runs/2026-09-22T00-00-09-406Z/README.md"
+  ],
+  "truthReview": "Storage bridge implemented and targeted tests pass; actual Electron integration and final validation remain pending. No real user data touched; P1 not complete.",
+  "screenshotReview": "e16eaa7 deterministic21 stills and21 GIF frames inspected and approved; zero geometry/pixel differences. Live source freshness still pending."
+}

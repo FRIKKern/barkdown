@@ -1,0 +1,487 @@
+{
+  "source": "508b384cddb8d6e748d45e34315b286afc12cb4f",
+  "bundleSha1": "3070be86b7bf653afcc6ed3f68daa73dfe9cbb06",
+  "browser": "151.0.7922.34",
+  "scope": "Trusted ClipboardItem and Ctrl+V/Undo/Redo with injected delayed uploader; no actual server upload claim",
+  "results": [
+    {
+      "order": "undo-complete-redo",
+      "pasted": {
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Human text stays."
+              }
+            ]
+          },
+          {
+            "id": "c-1-5afeea78",
+            "type": "image",
+            "alt": "image"
+          }
+        ],
+        "nodes": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "bpParagraphSource": {
+                  "content": [
+                    {
+                      "type": "text",
+                      "value": "Human text stays."
+                    }
+                  ]
+                },
+                "textAlign": "left",
+                "bpId": "seed",
+                "bpType": "paragraph",
+                "locked": null,
+                "role": null
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Human text stays."
+                }
+              ]
+            },
+            {
+              "type": "bpImage",
+              "attrs": {
+                "bpId": null,
+                "bpType": "image",
+                "src": null,
+                "alt": "image",
+                "locked": null,
+                "role": null,
+                "width": null,
+                "uploading": true,
+                "previewUrl": "blob:https://upload.test/2afb8bdb-eaf0-42ec-a009-a455db14540d",
+                "uploadError": null,
+                "uploadKey": "up-1-muc5tnah",
+                "bpRest": null
+              }
+            }
+          ]
+        },
+        "uploads": 1,
+        "dom": "Human text stays.No image yet — paste or drop a picture, or enter a URL belowUploading…+⠿"
+      },
+      "completed": {
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Human text stays."
+              }
+            ]
+          }
+        ],
+        "nodes": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "bpParagraphSource": {
+                  "content": [
+                    {
+                      "type": "text",
+                      "value": "Human text stays."
+                    }
+                  ]
+                },
+                "textAlign": "left",
+                "bpId": "seed",
+                "bpType": "paragraph",
+                "locked": null,
+                "role": null
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Human text stays."
+                }
+              ]
+            }
+          ]
+        },
+        "uploads": 1,
+        "dom": "Human text stays.+⠿"
+      },
+      "undone": {
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Human text stays."
+              }
+            ]
+          }
+        ],
+        "nodes": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "bpParagraphSource": {
+                  "content": [
+                    {
+                      "type": "text",
+                      "value": "Human text stays."
+                    }
+                  ]
+                },
+                "textAlign": "left",
+                "bpId": "seed",
+                "bpType": "paragraph",
+                "locked": null,
+                "role": null
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Human text stays."
+                }
+              ]
+            }
+          ]
+        },
+        "uploads": 1,
+        "dom": "Human text stays.+⠿"
+      },
+      "redone": {
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Human text stays."
+              }
+            ]
+          },
+          {
+            "id": "c-2-25de8879",
+            "type": "image",
+            "src": "blob:https://upload.test/24351fd7-fb8d-4f2c-84b5-b3df9aaf3a56",
+            "alt": "image"
+          }
+        ],
+        "nodes": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "bpParagraphSource": {
+                  "content": [
+                    {
+                      "type": "text",
+                      "value": "Human text stays."
+                    }
+                  ]
+                },
+                "textAlign": "left",
+                "bpId": "seed",
+                "bpType": "paragraph",
+                "locked": null,
+                "role": null
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Human text stays."
+                }
+              ]
+            },
+            {
+              "type": "bpImage",
+              "attrs": {
+                "bpId": "c-2-25de8879",
+                "bpType": "image",
+                "src": "blob:https://upload.test/24351fd7-fb8d-4f2c-84b5-b3df9aaf3a56",
+                "alt": "image",
+                "locked": null,
+                "role": null,
+                "width": null,
+                "uploading": null,
+                "previewUrl": null,
+                "uploadError": null,
+                "uploadKey": null,
+                "bpRest": null
+              }
+            }
+          ]
+        },
+        "uploads": 1,
+        "dom": "Human text stays.No image yet — paste or drop a picture, or enter a URL belowUploading…+⠿"
+      }
+    },
+    {
+      "order": "complete-undo-redo",
+      "pasted": {
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Human text stays."
+              }
+            ]
+          },
+          {
+            "id": "c-3-28b28986",
+            "type": "image",
+            "alt": "image"
+          }
+        ],
+        "nodes": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "bpParagraphSource": {
+                  "content": [
+                    {
+                      "type": "text",
+                      "value": "Human text stays."
+                    }
+                  ]
+                },
+                "textAlign": "left",
+                "bpId": "seed",
+                "bpType": "paragraph",
+                "locked": null,
+                "role": null
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Human text stays."
+                }
+              ]
+            },
+            {
+              "type": "bpImage",
+              "attrs": {
+                "bpId": null,
+                "bpType": "image",
+                "src": null,
+                "alt": "image",
+                "locked": null,
+                "role": null,
+                "width": null,
+                "uploading": true,
+                "previewUrl": "blob:https://upload.test/19799c18-7c34-440b-bd45-1cdde36efc46",
+                "uploadError": null,
+                "uploadKey": "up-1-muc5to02",
+                "bpRest": null
+              }
+            }
+          ]
+        },
+        "uploads": 1,
+        "dom": "Human text stays.No image yet — paste or drop a picture, or enter a URL belowUploading…+⠿"
+      },
+      "completed": {
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Human text stays."
+              }
+            ]
+          },
+          {
+            "id": "c-4-a0697ab4",
+            "type": "image",
+            "src": "blob:https://upload.test/d0728d9f-4fae-463b-8d6c-0db4e8dc9211",
+            "alt": "image"
+          }
+        ],
+        "nodes": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "bpParagraphSource": {
+                  "content": [
+                    {
+                      "type": "text",
+                      "value": "Human text stays."
+                    }
+                  ]
+                },
+                "textAlign": "left",
+                "bpId": "seed",
+                "bpType": "paragraph",
+                "locked": null,
+                "role": null
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Human text stays."
+                }
+              ]
+            },
+            {
+              "type": "bpImage",
+              "attrs": {
+                "bpId": "c-4-a0697ab4",
+                "bpType": "image",
+                "src": "blob:https://upload.test/d0728d9f-4fae-463b-8d6c-0db4e8dc9211",
+                "alt": "image",
+                "locked": null,
+                "role": null,
+                "width": null,
+                "uploading": null,
+                "previewUrl": null,
+                "uploadError": null,
+                "uploadKey": null,
+                "bpRest": null
+              }
+            }
+          ]
+        },
+        "uploads": 1,
+        "dom": "Human text stays.No image yet — paste or drop a picture, or enter a URL belowUploading…+⠿"
+      },
+      "undone": {
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Human text stays."
+              }
+            ]
+          }
+        ],
+        "nodes": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "bpParagraphSource": {
+                  "content": [
+                    {
+                      "type": "text",
+                      "value": "Human text stays."
+                    }
+                  ]
+                },
+                "textAlign": "left",
+                "bpId": "seed",
+                "bpType": "paragraph",
+                "locked": null,
+                "role": null
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Human text stays."
+                }
+              ]
+            }
+          ]
+        },
+        "uploads": 1,
+        "dom": "Human text stays.+⠿"
+      },
+      "redone": {
+        "blocks": [
+          {
+            "id": "seed",
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "value": "Human text stays."
+              }
+            ]
+          },
+          {
+            "id": "c-4-a0697ab4",
+            "type": "image",
+            "src": "blob:https://upload.test/d0728d9f-4fae-463b-8d6c-0db4e8dc9211",
+            "alt": "image"
+          }
+        ],
+        "nodes": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "bpParagraphSource": {
+                  "content": [
+                    {
+                      "type": "text",
+                      "value": "Human text stays."
+                    }
+                  ]
+                },
+                "textAlign": "left",
+                "bpId": "seed",
+                "bpType": "paragraph",
+                "locked": null,
+                "role": null
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Human text stays."
+                }
+              ]
+            },
+            {
+              "type": "bpImage",
+              "attrs": {
+                "bpId": "c-4-a0697ab4",
+                "bpType": "image",
+                "src": "blob:https://upload.test/d0728d9f-4fae-463b-8d6c-0db4e8dc9211",
+                "alt": "image",
+                "locked": null,
+                "role": null,
+                "width": null,
+                "uploading": null,
+                "previewUrl": null,
+                "uploadError": null,
+                "uploadKey": null,
+                "bpRest": null
+              }
+            }
+          ]
+        },
+        "uploads": 1,
+        "dom": "Human text stays.No image yet — paste or drop a picture, or enter a URL below+⠿"
+      }
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "source": "41500dc1f282182cbbd0539193376826a3c9475b",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-missing-reference-jRRxP4",
+  "providers": [
+    "claude",
+    "codex"
+  ],
+  "results": [
+    {
+      "name": "selected B restart preserves exact unavailable folder and draft; same-path A content is not substituted",
+      "passed": true
+    },
+    {
+      "name": "claude actual IPC refusal before reservation",
+      "observed": {
+        "chat": {
+          "id": "e6aadb2d-52aa-4ac1-bf6c-e1f37285384f",
+          "messages": [],
+          "events": [],
+          "apiHistory": [],
+          "runId": null,
+          "sessions": {},
+          "sessionSeen": {},
+          "contextVersion": 2,
+          "title": "B unavailable folder",
+          "folder": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-missing-reference-jRRxP4\\missing-B",
+          "tabs": [
+            {
+              "id": "f91ff4e3-a64a-4a4c-a362-5ac49edbe70f",
+              "type": "project",
+              "title": "same.txt",
+              "path": [],
+              "url": "",
+              "file": "same.txt",
+              "treeOpen": false,
+              "scroll": 0,
+              "unread": false
+            }
+          ],
+          "active": "f91ff4e3-a64a-4a4c-a362-5ac49edbe70f",
+          "draft": "Keep this claude prompt for the selected missing folder.",
+          "following": true,
+          "editorExpanded": false,
+          "chatScroll": 0,
+          "closedTargets": [],
+          "provider": "claude",
+          "parent": null,
+          "side": false,
+          "createdAt": "2026-09-22T06:54:55.845Z",
+          "updatedAt": "2026-09-22T06:54:57.899Z"
+        },
+        "attempts": {},
+        "visibleError": "Selected working folder \"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-missing-reference-jRRxP4\\missing-B\" is unavailable. Choose an available folder or clear it, then send."
+      }
+    },
+    {
+      "name": "codex actual IPC refusal before reservation",
+      "observed": {
+        "chat": {
+          "id": "e6aadb2d-52aa-4ac1-bf6c-e1f37285384f",
+          "messages": [],
+          "events": [],
+          "apiHistory": [],
+          "runId": null,
+          "sessions": {},
+          "sessionSeen": {},
+          "contextVersion": 3,
+          "title": "B unavailable folder",
+          "folder": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-missing-reference-jRRxP4\\missing-B",
+          "tabs": [
+            {
+              "id": "f91ff4e3-a64a-4a4c-a362-5ac49edbe70f",
+              "type": "project",
+              "title": "same.txt",
+              "path": [],
+              "url": "",
+              "file": "same.txt",
+              "treeOpen": false,
+              "scroll": 0,
+              "unread": false
+            }
+          ],
+          "active": "f91ff4e3-a64a-4a4c-a362-5ac49edbe70f",
+          "draft": "Keep this codex prompt for the selected missing folder.",
+          "following": true,
+          "editorExpanded": false,
+          "chatScroll": 0,
+          "closedTargets": [],
+          "provider": "codex",
+          "parent": null,
+          "side": false,
+          "createdAt": "2026-09-22T06:54:55.845Z",
+          "updatedAt": "2026-09-22T06:54:58.407Z"
+        },
+        "attempts": {},
+        "visibleError": "Selected working folder \"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-missing-reference-jRRxP4\\missing-B\" is unavailable. Choose an available folder or clear it, then send."
+      }
+    }
+  ],
+  "frames": [
+    "01-selected-B-unavailable-after-restart.png",
+    "02-claude-predispatch-refusal.png",
+    "02-codex-predispatch-refusal.png"
+  ],
+  "passed": true,
+  "stopped": true,
+  "videos": [
+    "01-selected-B-session.webm",
+    "02-restart-refusal-session.webm"
+  ],
+  "processes": [
+    {
+      "phase": "01-selected-B-session",
+      "pid": 58216,
+      "stopped": true,
+      "exitCode": 0,
+      "signalCode": null
+    },
+    {
+      "phase": "02-restart-refusal-session",
+      "pid": 61200,
+      "stopped": true,
+      "exitCode": 0,
+      "signalCode": null
+    }
+  ],
+  "pageErrors": []
+}

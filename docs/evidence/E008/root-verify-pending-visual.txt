@@ -1,0 +1,36 @@
+
+> barkdown-workspace@0.5.0 verify
+> npm run build && npm run check && npm test
+
+
+> barkdown-workspace@0.5.0 build
+> node scripts/build.cjs
+
+Built portable previews, GitHub-readable PRD, and source hashes.
+
+> barkdown-workspace@0.5.0 check
+> tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && npm run check:cycle && npm run check:visual
+
+Source syntax, 24 requirements, local links, portable previews, source references, hashes, and fresh status screenshots passed.
+Active roadmap: structure, dependencies, acceptance links, evidence and next-stage selection passed.
+
+> barkdown-workspace@0.5.0 check:cycle
+> node scripts/check-cycle.mjs
+
+Cycle structure, handoff paths and completion requirements passed; evidence contents require review.
+
+> barkdown-workspace@0.5.0 check:visual
+> node scripts/visual.test.mjs && node scripts/visual.mjs check
+
+Visual diff: identical images, low color noise, localized deletion and resize checked.
+file:///C:/Users/Frikk/.codex/worktrees/barkdown-editor-fixtures/scripts/visual.mjs:8
+ if(fingerprint(inputs())!==fingerprint(current.manifest.inputs))throw Error('Visual tripwire: app/dependency/capture inputs changed. Run npm run visual:capture, visual:compare, inspect the report and approve.');
+                                                                       ^
+
+Error: Visual tripwire: app/dependency/capture inputs changed. Run npm run visual:capture, visual:compare, inspect the report and approve.
+    at file:///C:/Users/Frikk/.codex/worktrees/barkdown-editor-fixtures/scripts/visual.mjs:8:72
+    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5)
+
+Node.js v22.13.1

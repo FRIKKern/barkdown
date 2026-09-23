@@ -1,0 +1,40 @@
+{
+  "reviewer": "Codex editor agent",
+  "reviewedAt": "2026-09-21T23:41:45.031082+00:00",
+  "approved": true,
+  "sourceCommit": "663a12a6e67b629194b670fa34684d1d8124761e",
+  "manifestSha256": "6ca063958655c74aefefc4b9d1cff31186ecd43d2e0195d1e910823a74444c89",
+  "artifacts": {
+    "after-takeover.png": "e3f999948991f8699c23f5012ae3eda808506dbad568afeeccdf72f098af9ff3",
+    "agent-takeover.webm": "9325f60870f7919e9ff3f2bace337737564e30388463faff9bf64b0b2b3a3e74",
+    "composition-saved.png": "74ef12d5b53cf67847587d080baf2e5d930ddc65c8a8b5b93d5e6be2cfaac98f",
+    "hidden-pane-restored.png": "4272c6cbf17341dcd4242a0b9c9a0ebadf97935e4465c6b30f4bc71edd88c1c6",
+    "reading-position.png": "bec30c44d4301bfc51e11b5d2d3b2cfe246a62f62e81605f38a479eaf2172930",
+    "receipt-stable.png": "7ce3ae4d18ff31193ddc54f8d2f21d6133ed327eb68afe5fb62e8ca401e7cb1b",
+    "reduced-motion-narrow.png": "ad0dccd5f832db4e1efb2e55f8db7018f8836fc16241f7aeb6317799fb4fe703",
+    "selection-before-takeover.png": "946c65d2b63638da7b8d9de445e8111ff27ea1fdb3450a593a218625b5882658",
+    "writing.png": "d07244acd3617e910e1f39461afcbb10427c1dee3cef573b1502f4c19df02c6e",
+    "agent-takeover.gif": "8f93e9ed07fe1e6bbb0d7b1b978666e628da68999afea6b0c3f32dee010e9112"
+  },
+  "inspection": "All eight PNGs, 70 extracted excerpt frames at 10fps, and 107 full-video samples at 1fps inspected. Narrow still additionally inspected at full resolution. This is sampled video inspection, not every 25fps source frame.",
+  "derivedGif": {
+    "source": "agent-takeover.webm",
+    "startSeconds": 27,
+    "durationSeconds": 7,
+    "fps": 10,
+    "crop": "720:650:680:80",
+    "encoder": "Pillow",
+    "frames": 70
+  },
+  "findings": [
+    "Target/select/write visible; first receipt retains paragraph geometry.",
+    "Narrow receipt ellipsizes summary while Undo and saved revision remain readable.",
+    "Keyboard, pointer, beforeinput and IME takeover preserve agent and human text; actual server assertions passed.",
+    "Hidden pane remains hidden; focused offscreen update preserves selection and scroll."
+  ],
+  "limitations": [
+    "Disposable fixtures and production agent adapter, no model turn in this dedicated run.",
+    "Requires upstream bb3bd299d guarded canvas; a544 fallback deliberately retains old revision and offers reload.",
+    "Upstream full npm test and posttest remain blocked by documented save-ack and press-watchdog baseline failures."
+  ]
+}

@@ -7,8 +7,9 @@ function pmInlineToPd(nodes) {
   const out = [];
   for (const node of nodes || []) {
     if (node.type === 'hardBreak') { out.push({ type: 'text', value: '\n' }); continue; }
-    if (node.type !== 'text') continue;
+    if (node.type !== 'text') throw new Error('Cannot convert inline node: ' + node.type);
     const marks = node.marks || [];
+    for (const mark of marks) if (!['code', 'link', 'bold', 'italic', 'underline', 'strike'].includes(mark.type)) throw new Error('Cannot convert inline mark: ' + mark.type);
     const code = marks.find(m => m.type === 'code');
     let leaf = code ? { type: 'code', value: node.text || '' } : { type: 'text', value: node.text || '' };
     const wrappers = marks.filter(m => m.type !== 'code');
@@ -41,7 +42,7 @@ function pdInlineToMarkdown(nodes) {
   return (nodes || []).map(n => {
     if (!n || typeof n !== 'object') return String(n ?? '');
     switch (n.type) {
-      case 'text': return n.value || '';
+      case 'text': return (n.value || '').replace(/\n/g, '  \n');
       case 'code': return '`' + (n.value || '') + '`';
       case 'strong': return '**' + pdInlineToMarkdown(n.children) + '**';
       case 'em': return '*' + pdInlineToMarkdown(n.children) + '*';
@@ -62,26 +63,73 @@ function inlineOf(block) {
   return [];
 }
 
-// PM JSON (from markdownToDoc) -> PortableDoc blocks. Only prose kinds are produced; the canvas and server accept these.
+function paragraphContent(nodes, context) {
+  if ((nodes || []).some(node => node.type !== 'paragraph')) throw new Error('Cannot convert nested content in ' + context);
+  return (nodes || []).flatMap((node, index) => [...(index ? [{ type: 'text', value: '\n' }] : []), ...pmInlineToPd(node.content)]);
+}
+
+function pmTableToPd(node) {
+  const rows = node.content || [];
+  if (!rows.length || rows.some(row => row.type !== 'tableRow' || !row.content?.length)) throw new Error('Cannot convert malformed table');
+  const width = rows[0].content.length;
+  if (rows.some(row => row.content.length !== width)) throw new Error('Cannot convert ragged table');
+  const cells = rows.map(row => row.content.map(cell => {
+    if (!['tableHeader', 'tableCell'].includes(cell.type) || (cell.attrs?.colspan || 1) !== 1 || (cell.attrs?.rowspan || 1) !== 1 || cell.attrs?.textAlign || cell.attrs?.colwidth || (cell.attrs?.align != null && !['left', 'center', 'right'].includes(cell.attrs.align))) throw new Error('Cannot convert unsupported table cell');
+    const content = paragraphContent(cell.content, 'table cell');
+    return ['center', 'right'].includes(cell.attrs?.align) ? { content, align: cell.attrs.align } : content;
+  }));
+  const hasHead = rows[0].content.every(cell => cell.type === 'tableHeader');
+  if (rows.some((row, index) => row.content.some(cell => cell.type !== (hasHead && index === 0 ? 'tableHeader' : 'tableCell')))) throw new Error('Cannot convert mixed table headers');
+  return { type: 'table', ...(hasHead ? { head: cells.shift() } : {}), rows: cells };
+}
+
+// Validate every nested node before constructing operations; unsupported content
+// must never disappear from an otherwise valid mixed document.
+
 function pmDocToBlocks(doc) {
   const blocks = [];
   for (const node of doc?.content || []) {
     switch (node.type) {
       case 'heading': blocks.push({ type: 'heading', level: Math.min(3, Math.max(1, node.attrs?.level || 2)), text: pdInlineToText(pmInlineToPd(node.content)) }); break;
+      case 'table': blocks.push(pmTableToPd(node)); break;
       case 'paragraph': blocks.push({ type: 'paragraph', content: pmInlineToPd(node.content) }); break;
       case 'bulletList': case 'orderedList': case 'taskList':
-        blocks.push({ type: 'list', ordered: node.type === 'orderedList', ...(node.type === 'taskList' ? { task: true } : {}), items: (node.content || []).map(item => { const first = (item.content || []).find(c => c.type === 'paragraph'); const inline = pmInlineToPd(first?.content); return node.type === 'taskList' ? { content: inline, checked: item.attrs?.checked === true } : inline; }) });
+        blocks.push({ type: 'list', ordered: node.type === 'orderedList', ...(node.type === 'taskList' ? { task: true } : {}), items: (node.content || []).map(item => { if ((item.content || []).length !== 1 || item.content[0].type !== 'paragraph') throw new Error('Cannot convert nested or multi-paragraph list item'); const inline = pmInlineToPd(item.content[0].content); return node.type === 'taskList' ? { content: inline, checked: item.attrs?.checked === true } : inline; }) });
         break;
-      case 'blockquote': blocks.push({ type: 'callout', tone: 'note', content: pmInlineToPd((node.content || []).flatMap(p => p.content || [])) }); break;
+      case 'blockquote': blocks.push({ type: 'callout', tone: 'note', content: paragraphContent(node.content, 'blockquote') }); break;
       case 'codeBlock': blocks.push({ type: 'code', language: node.attrs?.language || '', value: (node.content || []).map(t => t.text || '').join('') }); break;
       case 'horizontalRule': blocks.push({ type: 'divider' }); break;
-      default: { const text = pdInlineToText(pmInlineToPd(node.content)); if (text) blocks.push({ type: 'paragraph', content: [{ type: 'text', value: text }] }); }
+      default: throw new Error('Cannot convert block: ' + node.type);
     }
   }
   return blocks;
 }
 
-function markdownToBlocks(markdown) { return pmDocToBlocks(markdownToDoc(markdown)); }
+function markdownToBlocks(markdown) { return pmDocToBlocks(markdownToDoc(markdown, { strictPortable: true })); }
+
+// Markdown export is offered only when parsing it back preserves each table cell.
+// Normalize carrier/string and adjacent text segmentation, not content or marks.
+function tableCellSignature(cell) {
+  if (cell != null && !['string', 'number', 'object'].includes(typeof cell)) throw new Error('Markdown export cannot preserve this cell value.');
+  const nodes = Array.isArray(cell) ? cell : typeof cell === 'string' || typeof cell === 'number' ? [{ type: 'text', value: String(cell) }] : inlineOf(cell || {});
+  const runs = [];
+  function walk(items, marks = []) {
+    for (const node of items) {
+      if (!node || typeof node !== 'object') throw new Error('Markdown export cannot preserve this table inline value.');
+      if (['text', 'code'].includes(node.type)) {
+        if (typeof node.value !== 'string' || Object.keys(node).some(key => !['type', 'value'].includes(key))) throw new Error('Markdown export cannot preserve table inline metadata.');
+        const signature = JSON.stringify([...marks, ...(node.type === 'code' ? ['code'] : [])].sort());
+        if (runs.at(-1)?.marks === signature) runs.at(-1).text += node.value;
+        else if (node.value) runs.push({ text: node.value, marks: signature });
+      } else if (['strong', 'em', 'strikethrough', 'link'].includes(node.type) && Array.isArray(node.children)) {
+        if (Object.keys(node).some(key => !['type', 'children', ...(node.type === 'link' ? ['href'] : [])].includes(key))) throw new Error('Markdown export cannot preserve table inline metadata.');
+        walk(node.children, [...marks, node.type === 'link' ? 'link:' + node.href : node.type]);
+      } else throw new Error('Markdown export cannot preserve table inline type ' + node.type);
+    }
+  }
+  walk(nodes);
+  return { align: cell?.align || 'left', runs };
+}
 
 function blocksToMarkdown(blocks) {
   if (!Array.isArray(blocks)) return '';
@@ -95,13 +143,44 @@ function blocksToMarkdown(blocks) {
       case 'code': return '```' + (block.language || '') + '\n' + (block.value || block.code || '') + '\n```';
       case 'divider': return '---';
       case 'eyebrow': case 'byline': case 'ingress': case 'pullquote': return pdInlineToMarkdown(inlineOf(block)) || (Array.isArray(block.items) ? block.items.join(' · ') : '');
-      case 'table': return (block.rows || []).map(row => '| ' + (row.cells || row || []).map(c => pdInlineToMarkdown(Array.isArray(c) ? c : c?.value != null ? [{ type: 'text', value: String(c.value) }] : inlineOf(c || {}))).join(' | ') + ' |').join('\n');
+      case 'table': {
+        if (!block.head?.length) throw new Error('Markdown export cannot preserve a table without headers.');
+        if (block.spans || block.headCol || block.cols?.some(col => col?.width != null)) throw new Error('Markdown export cannot preserve this table structure.');
+        const cell = c => pdInlineToMarkdown(Array.isArray(c) ? c : typeof c === 'string' || typeof c === 'number' ? [{ type: 'text', value: String(c) }] : c?.value != null ? [{ type: 'text', value: String(c.value) }] : inlineOf(c || {})).replace(/\|/g, '\\|');
+        if (Object.keys(block).some(key => !['id', 'type', 'head', 'rows', 'spans', 'headCol', 'cols'].includes(key)) || block.cols?.length || (block.rows || []).some(row => !Array.isArray(row) && Object.keys(row).some(key => key !== 'cells'))) throw new Error('Markdown export cannot preserve table metadata; use structured export.');
+        const allRows = [block.head, ...(block.rows || []).map(r => r.cells || r)];
+        const alignments = block.head.map((c, column) => {
+          const align = c?.align || 'left';
+          if (!['left', 'center', 'right'].includes(align) || allRows.some(row => !Array.isArray(row) || row.length !== block.head.length || (row[column]?.align || 'left') !== align)) throw new Error('Markdown export cannot preserve mixed cell alignment or ragged rows.');
+          return align;
+        });
+        const row = cells => '| ' + cells.map(c => {
+          if (c && typeof c === 'object' && !Array.isArray(c) && Object.keys(c).some(key => !['content', 'align'].includes(key))) throw new Error('Markdown export cannot preserve cell metadata; use structured export.');
+          if (/[\r\n]/.test(cell(c))) throw new Error('Markdown export cannot preserve multiline table cells.');
+          return cell(c);
+        }).join(' | ') + ' |';
+        const head = block.head || [];
+        const markdown = [...(head.length ? [row(head), row(alignments.map(align => align === 'center' ? ':---:' : align === 'right' ? '---:' : '---'))] : []), ...(block.rows || []).map(r => row(r.cells || r || []))].join('\n');
+        const reparsed = markdownToBlocks(markdown);
+        const parsed = reparsed[0];
+        if (reparsed.length !== 1 || parsed?.type !== 'table' || JSON.stringify(allRows.map(cells => cells.map(tableCellSignature))) !== JSON.stringify([parsed.head, ...parsed.rows].map(cells => cells.map(tableCellSignature)))) throw new Error('Markdown export cannot preserve table text or marks; use structured export.');
+        return markdown;
+      }
       default: { const text = pdInlineToText(inlineOf(block)) || (block.title || ''); return `<!-- ${block.type} block -->` + (text ? '\n' + text : ''); }
     }
   }).filter(Boolean).join('\n\n');
 }
 
-function blocksToText(blocks) { return blocksToMarkdown(blocks).replace(/[#*`>\-]/g, '').replace(/\s+/g, ' ').trim(); }
+function blocksToText(blocks) {
+  const values = [];
+  const walk = value => {
+    if (typeof value === 'string') values.push(value);
+    else if (Array.isArray(value)) value.forEach(walk);
+    else if (value && typeof value === 'object') for (const key of ['text', 'value', 'title', 'content', 'children', 'items', 'head', 'rows', 'cells']) if (value[key] != null) walk(value[key]);
+  };
+  walk(blocks);
+  return values.join(' ').replace(/\s+/g, ' ').trim();
+}
 
 // Ops for the fenced endpoint: append markdown as new blocks, or replace one block by id.
 function appendOps(markdown) { return markdownToBlocks(markdown).map(block => ({ op: 'append-block', block })); }

@@ -1,0 +1,32 @@
+{
+  "reviewer": "Codex editor and parity independent review",
+  "reviewedAt": "2026-09-22T23:18:00.000Z",
+  "sourceCommit": "3e8a2aadb5b863ab277de39dc0d6341e3ec0d91e",
+  "barkparkCommit": "bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f",
+  "manifestSha256": "26a078b4c85035fc9a291624635245b595908116661a43efaaf0cf3f2b1638e5",
+  "artifacts": {
+    "paper-light.891f8bf3.png": "c713a60d44d0a1642e2ae7ec19a027c3c703414c184ef7ba619ecd6797d59f60",
+    "paper-dark.ec5e0d11.png": "362a7026726f964cf75fa32ebac7bdf66f6af843199b1b389c6dbb991aa5416f",
+    "slash-menu.991aec9c.png": "90d21c745743cb8e8f47046984957cbd9f3c6279f388e508d94c433aa3629450",
+    "quick-open.4759d2b9.png": "0d6fe1e1b0e20a3707deae756bd470a2d0ad2defc4771cc00b4a0f1211216f2f",
+    "settings-barkpark.312d70cc.png": "633c5ff22e8ee50778b3e66ef2f6ea91b6232064b44694c12fddbbb250583690",
+    "editing.e52e6a4e.gif": "fd22709dd0773a9f1f039325cc3c25213594fc5cef0107017326135e0952f990"
+  },
+  "inspected": {
+    "stills": 5,
+    "decodedGifFrames": 37,
+    "independentReviewers": 2
+  },
+  "result": "approved",
+  "findings": [
+    "Both independent reviewers inspected all five full-resolution stills and all 37 full-resolution GIF frames.",
+    "The dithered encoder removed the prior Quick Open halo bands; frames 32–35 are stable and frame 36 closes cleanly.",
+    "The earlier frame-20 compositing tear is absent. Quote insertion, typing, table navigation and save motion remain coherent.",
+    "A real Codex turn searched, read and edited the live Paper. Claude reached its weekly quota and is not counted as a passing Claude turn."
+  ],
+  "limits": [
+    "The 36fr showcase split is explicit and does not prove every user-resized split.",
+    "This is live Paper and Codex evidence, not Claude parity, provider-account isolation, portability or release acceptance."
+  ],
+  "cleanup": "The isolated Barkpark runtime stopped normally, port 61840 has no listener, and user CLI configuration was unchanged."
+}
