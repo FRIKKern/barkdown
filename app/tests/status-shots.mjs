@@ -55,7 +55,11 @@ const page = await app.firstWindow();
 await page.waitForSelector('#bw-pages .bw-page-row');
 await page.setViewportSize({ width: 1760, height: 1000 });
 // The paper gets most of the width (about a thousand pixels of pane, so its 900px column is not squeezed); the chat keeps ~560px to read a turn.
-await page.evaluate(async server => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true, server }, chatWidth: 36, provider: 'claude' }); await window.__barkdown.refreshLibrary(); }, captureServer);
+const isolated = process.env.BARKDOWN_SHOTS_ISOLATED === '1';
+if (isolated && !process.env.BARKPARK_API_TOKEN) throw Error('Isolated capture requires its owned server credential');
+// Provider subprocesses intentionally discard ambient CLI connection variables.
+// Bind the disposable fixture to its owned server through ordinary saved settings.
+await page.evaluate(async connection => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, writes: true, ...connection }, chatWidth: 36, provider: 'claude' }); await window.__barkdown.refreshLibrary(); }, { server: captureServer, viaCli: !isolated, ...(isolated ? { token: process.env.BARKPARK_API_TOKEN } : {}) });
 await page.waitForFunction(() => window.__barkdown.state.barkparkDocs.length > 0, null, { timeout: 90000 });
 // The chat/work split, applied the way the splitter applies it (two CSS variables on the root).
 const split = w => page.evaluate(v => { const r = document.getElementById("app"); r.style.setProperty("--bw-chat", v + "fr"); r.style.setProperty("--bw-work", (100 - v) + "fr"); document.querySelector("#bw-splitter")?.setAttribute("aria-valuenow", v); }, w);
@@ -80,7 +84,7 @@ for (const provider of ['claude', 'codex']) {
     await page.locator('#bw-prompt').press('Enter');
     // A finished reply has a footer without the `live` class (time · tokens · cost · provider).
     await page.waitForFunction(() => document.querySelector('#bw-working')?.hidden === true && document.querySelectorAll('.bw-user-message').length === 1 && document.querySelectorAll('.bw-reply-foot:not(.live)').length >= 1, null, { timeout: 180000 });
-    const reply = await page.evaluate(() => { const s = window.__barkdown.state; const c = s.chats[s.current]; const m = c.messages.filter(x => x.role === 'assistant').pop(); return { text: (m?.text || '') + ' ' + JSON.stringify(m?.tools || []).slice(0, 400), error: !!m?.error }; });
+    const reply = await page.evaluate(() => { const s = window.__barkdown.state; const c = s.chats[s.current]; const m = c.messages.filter(x => x.role === 'assistant').pop(); return { text: (m?.text || '') + ' ' + JSON.stringify(m?.tools || []).slice(0, 400), error: !!m?.error || (m?.tools || []).some(t => t.ok === false) }; });
     if (reply.error || /error result|rate.?limit|weekly limit|not signed in|unauthori[sz]ed/i.test(reply.text)) { console.error(provider + ' replied with an error: ' + reply.text.slice(0, 90)); continue; }
     chat = { real: true, provider };
     break;
@@ -93,6 +97,8 @@ if (!chat.real) {
   chat = { real: false, seeded: true, provider: 'claude' };
 }
 await page.waitForTimeout(600);
+// Agent tools may select another tab. Capture the showcase, not that incidental tab.
+await openPaper();
 await settled();
 
 // Fold the tool steps (their summaries still say what was read and edited) and scroll the transcript.
