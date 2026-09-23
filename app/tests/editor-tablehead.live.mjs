@@ -30,7 +30,24 @@ const open = async () => { await page.evaluate(slug => window.__barkdown.openTar
 await open();
 
 const results = [];
-const row = async (name, fn) => { try { const r = await fn(); results.push({ name, pass: !!r.pass, ...r }); } catch (e) { results.push({ name, pass: false, error: e.message.slice(0, 240) }); } };
+const row = async (name, fn) => {
+  try { const r = await fn(); results.push({ name, pass: !!r.pass, ...r }); }
+  catch (e) {
+    const failureImage = `test-results/tablehead-failure-${results.length}.png`;
+    await page.screenshot({ path: failureImage });
+    const state = await page.evaluate(() => {
+      const canvas = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas');
+      return { focused: document.hasFocus(), active: document.activeElement?.tagName,
+        selection: canvas?._editor?.state.selection.toJSON(),
+        buttons: [...document.querySelectorAll('.bp-paper-format__btn--align-left')].map(b => {
+          const r=b.getBoundingClientRect(), hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);
+          return { display:getComputedStyle(b).display, rect:{x:r.x,y:r.y,width:r.width,height:r.height},
+            bubbleDisplay:getComputedStyle(b.parentElement).display, hit:hit?.outerHTML.slice(0,600) };
+        }) };
+    });
+    results.push({ name, pass: false, error: e.message, failureImage, state });
+  }
+};
 const settled = async () => { await page.waitForFunction(() => !/Saving/.test(document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent || ''), null, { timeout: 20000 }).catch(() => {}); await page.waitForTimeout(400); };
 const canon = v => Array.isArray(v) ? v.map(canon) : (v && typeof v === 'object') ? Object.fromEntries(Object.keys(v).sort().map(k => [k, canon(v[k])])) : v;
 const same = (a, b) => JSON.stringify(canon(a)) === JSON.stringify(canon(b));
