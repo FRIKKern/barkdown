@@ -10,7 +10,7 @@ node docs/migration/audit.mjs docs/migration/report.json
 
 The checked report records the source commit and normalized source hashes. The harness imports the production converter, checks hand-authored expected structures/refusals, checks source immutability and refuses unsupported documents even after a valid prefix. It also checks a **proposed** deterministic profile-qualified identity mapping against two synthetic profiles with colliding document slugs. This is not proof of production allocation, navigation rewriting or server idempotence.
 
-Current result: **22 cases: 10 representation-preserved, 5 lossy, 1 unresolved reference, 6 rejected. Cutover is not ready.** A passing audit means the limitations remain visible; it does not make the lossy cases acceptable.
+Current converter result: **22 cases: 10 representation-preserved, 5 lossy, 1 unresolved reference, 6 rejected. Cutover is not ready.** A passing audit means the limitations remain visible; it does not make the lossy cases acceptable.
 
 ## Content and identity inventory
 
@@ -62,3 +62,5 @@ Preparation changelog: added the 22-case converter audit, two-profile identity/o
 ## Durable staging checkpoint
 
 `app/main/migration-staging.js` accepts a prepared offline profile, explicitly reviewed description/tags and captured owned loopback runtime. It validates every existing journal record before target access, records intent before create, compares exact structured readback and revision, and preserves unknown/edited/draft targets. Repeat and six process-exit boundaries are tested. `retryAbsent: true` is an explicit reconciliation decision, never an automatic recovery default. Callers still supply source quiescence and ownership assertions; no production migration UI invokes this module. Originals/history/proposals/workspace remain readable and unchanged.
+
+C046 editor rehearsal found that the old code converter wrote `language`, while real Paper expects `lang`. The converter now emits the native field (omitting empty values); Markdown export still reads historical `language` data. API equality alone did not catch this loss. Existing staging plans whose payload changes are refused, never silently rewritten or replayed. The active C046 handoff records real editor validation and any remaining failures.
