@@ -2,14 +2,15 @@
 
 Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.
 
-![Current view](../runs/2026-09-23T20-45-18-730Z/goals-8.png)
+![Current view](../runs/2026-09-23T21-30-48-878Z/goals-8.png)
 
-![Recorded interaction](../runs/2026-09-23T20-45-18-730Z/goals.gif)
+![Recorded interaction](../runs/2026-09-23T21-30-48-878Z/goals.gif)
 
-[Full comparison](../runs/2026-09-23T20-45-18-730Z/README.md) · [Capture manifest](../runs/2026-09-23T20-45-18-730Z/manifest.json)
+[Full comparison](../runs/2026-09-23T21-30-48-878Z/README.md) · [Capture manifest](../runs/2026-09-23T21-30-48-878Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-23T21:32:51.978Z: Inspected all 40 deterministic frames through eight decoded GIF sequences; comparison shows zero pixel and geometry differences. Separately reviewed five live Paper stills and all 37 editing GIF frames after a real Claude edit at 25a61d5 / 844ecd321. Migration evidence at fe8696c includes 14 stills, 51 decoded editing GIF frames and eight restart video samples; nine native edit/save/Undo cases and reload/restart passed. Long titles wrap without hidden text. Seven preflight plus 22 staging tests and Paper-host tests passed. Hard-break input remains explicitly refused with retained failure trace; no migration UI activation or whole-P2 completion is claimed. Source 25a61d5a6; [review](../reviews/approval-fa51678920b95456edef99a835391e9ca6ac956c1b7c0dfe73a01c2e74f8bfda.json) - [comparison](../runs/2026-09-23T21-30-48-878Z/comparison.json).
 - 2026-09-23T20:46:48.649Z: Inspected all 40 deterministic frames through eight decoded GIF sequences, including menus, narrow goals/profiles/recovery and both document themes. Comparison reports zero pixel and geometry changes. Separately inspected five live Paper stills and all 37 decoded editing frames at cf0612c / 844ecd321; real Claude edit acknowledged. Full desktop suite, 22 staging tests and ten-case real API interruption/readback proof pass. These captures are regression evidence; no migration UI or authority switch is claimed. Source cf0612c32; [review](../reviews/approval-2ab722e21dfe11c2b1b1883ad7a9ad18f765f1807ea8c35f878f885fa24102b5.json) - [comparison](../runs/2026-09-23T20-45-18-730Z/comparison.json).
 - 2026-09-23T20:13:37.606Z: Inspected all 40 fixture frames and eight decoded GIF sequences, including narrow goals/profiles/recovery. Zero pixel or geometry changes; no clipping or missing controls introduced. Separate live Paper review inspected five stills and 37 GIF frames with a real Claude edit and saved revision. Creation proof comes from real collision/concurrency/lost-response tests, not these fixture tours. Source b1cd732e7; [review](../reviews/approval-859308019d745381a698c4a3f5f420b56bf52fa4d6db8212dc76e7e2bcf760be.json) - [comparison](../runs/2026-09-23T20-09-10-716Z/comparison.json).
 - 2026-09-23T19:38:39.829Z: Inspected all 40 stills and decoded frames from eight fixture GIFs at f109601: zero pixel, geometry or environment differences; narrow layouts and controls remain intact. Six offline migration integration tests pass. Separate live Paper capture passed with a real Claude turn; five stills and all 37 motion frames reviewed. No UI migration, cutover or portability claim. Source f109601fa; [review](../reviews/approval-f48839bc4c0f82b34a76d0777813d9190d7233b063794b7f61d6e2f6485cdd8b.json) - [comparison](../runs/2026-09-23T19-35-02-755Z/comparison.json).

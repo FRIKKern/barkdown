@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-09-23T21-30-48-878Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-23T21-30-48-878Z/comparison.json",
+  "manifestHash": "9ed2152ad84a3ef722cb3a2ea98953f3ab2295a94424acab015b24d0241ec8a0",
+  "reportHash": "fc2bcf4d6880ae43432520be2a0e539f97b054b51912863ceb67c7e47d10a359",
+  "reviewer": "Codex C046 review",
+  "note": "Inspected all 40 deterministic frames through eight decoded GIF sequences; comparison shows zero pixel and geometry differences. Separately reviewed five live Paper stills and all 37 editing GIF frames after a real Claude edit at 25a61d5 / 844ecd321. Migration evidence at fe8696c includes 14 stills, 51 decoded editing GIF frames and eight restart video samples; nine native edit/save/Undo cases and reload/restart passed. Long titles wrap without hidden text. Seven preflight plus 22 staging tests and Paper-host tests passed. Hard-break input remains explicitly refused with retained failure trace; no migration UI activation or whole-P2 completion is claimed.",
+  "reviewedAt": "2026-09-23T21:32:51.978Z"
+}

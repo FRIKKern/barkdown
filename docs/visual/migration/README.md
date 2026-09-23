@@ -6,7 +6,7 @@ Source `fe8696c` / private Barkpark `844ecd321`. [Manifest](runs/2026-09-23T21-2
 
 ![Actual keyboard editing and saved native Undo](runs/2026-09-23T21-26-20-905Z/editing-and-undo.gif)
 
-The GIF is a 2 fps, 840×540 derivative of the full [Electron recording](runs/2026-09-23T21-26-20-905Z/editing-and-undo.webm). [Restart video](runs/2026-09-23T21-26-20-905Z/restart.webm). [Narrow view](runs/2026-09-23T21-26-20-905Z/04-narrow.png). Detailed frame review and derivative hashes accompany the final evidence checkpoint.
+The GIF is a 2 fps, 840×540 derivative of the full [Electron recording](runs/2026-09-23T21-26-20-905Z/editing-and-undo.webm). [Restart video](runs/2026-09-23T21-26-20-905Z/restart.webm). [Narrow view](runs/2026-09-23T21-26-20-905Z/04-narrow.png). [Named motion review and derivative hashes](runs/2026-09-23T21-26-20-905Z/motion-review.json): 14 stills, all 51 decoded editing GIF frames and eight restart video samples inspected.
 
 ## What failed and remains blocked
 
