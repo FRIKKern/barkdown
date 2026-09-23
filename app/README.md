@@ -50,6 +50,7 @@ No-folder conversations remain valid. A folder selected in the composer never sc
 | `main/main.js`, `preload.js` | Native window, settings and IPC boundary |
 | `main/profile-registry.js`, `profile-service.js`, `workspace-repository.js` | Main-owned profile identity, workspace persistence and captured conversation context |
 | `main/store.js`, `documents.js`, `conversations.js` | Bound local stores, document revisions and conversation reads; legacy data remains until explicit adoption |
+| `main/migration-preflight.js` | Offline P2 inventory, structural refusals, exact backups and restartable preparation; no UI wiring, server writes or authority switch |
 | `main/local-barkpark*` | Private runtime lifecycle and Windows source bootstrap |
 | `main/barkpark.js`, `canvas-bundle.js`, `agent-edits.js` | Barkpark adapter, editor delivery and edit receipts |
 | `main/providers/`, `agent.js`, `mcp-server.js` | Provider orchestration and document tools |

@@ -26,7 +26,7 @@ Packaging research may proceed alongside earlier stages. The local-only pilot do
 
 ## Current next stage
 
-P1 is accepted at the [C039 audit](cycles/C039-completion-audit.md). P2 begins with the [migration preparation](migration/README.md); the original P1 sequence is retained in Git history. Preserve the legacy store until migration proof.
+P1 is accepted at the [C039 audit](cycles/C039-completion-audit.md) and merged through PR #31. P2 is active: [C043](cycles/C043-migration-preflight.md) implements offline inventory, strict preflight and resumable exact-byte backup. The [migration contract](migration/README.md) still blocks target writes until safe creation and uncertain-response reconciliation are proven. Preserve the legacy store until migration proof.
 
 ## Carry forward
 

@@ -1,0 +1,50 @@
+{
+  "source": "f109601fa86a510f00f2e790f1c1b1f25c7079ab",
+  "platform": "Windows",
+  "commands": [
+    {
+      "command": "npm --prefix app test",
+      "exitCode": 0,
+      "note": "Suite began before final table-attribute hardening; affected six migration tests rerun after it. One POSIX-only authentication test skipped."
+    },
+    {
+      "command": "npm --prefix app run test:migration-preflight",
+      "exitCode": 0,
+      "tests": 6
+    },
+    {
+      "command": "npm --prefix app run shots:isolated",
+      "exitCode": 0,
+      "upstream": "bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f",
+      "realProvider": "claude",
+      "runtimeStopped": true
+    },
+    {
+      "command": "npm run verify",
+      "exitCode": 0
+    }
+  ],
+  "logs": [
+    {
+      "file": "app-tests.txt",
+      "sha256": "15f33cb5913ad9a857dbfa4bf3944b799ed1b65601cb4af5019a319a82684cee",
+      "bytes": 99236
+    },
+    {
+      "file": "root-verify.txt",
+      "sha256": "0685c24676818fc9c275179019dd83ee515cd49ae5c27c8915a4c324bea897ab",
+      "bytes": 3305
+    },
+    {
+      "file": "paper-capture.txt",
+      "sha256": "457f2be718fd4f0266bc36700f65d6b3f78af5a3b34425132db78bff4cd3f7e8",
+      "bytes": 778
+    }
+  ],
+  "limits": [
+    "Offline preparation only; caller must stop writers",
+    "No server migration writes or authority switch",
+    "No power-loss or portability claim",
+    "Two high-severity existing app dependency audit findings"
+  ]
+}
