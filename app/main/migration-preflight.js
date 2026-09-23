@@ -26,10 +26,13 @@ function inspectContent(content) {
     if (node.attrs != null && (typeof node.attrs !== 'object' || Array.isArray(node.attrs))) issue(at + '.attrs', 'Invalid attributes');
     const attrs = node.attrs || {};
     if (typeof attrs !== 'object' || Array.isArray(attrs)) issue(at + '.attrs', 'Invalid attributes');
-    const allowed = { heading: ['level'], paragraph: ['textAlign'], orderedList: ['start'], taskItem: ['checked'], codeBlock: ['language'], tableCell: ['colspan', 'rowspan', 'colwidth', 'align', 'textAlign'], tableHeader: ['colspan', 'rowspan', 'colwidth', 'align', 'textAlign'] }[node.type] || [];
+    const allowed = { heading: ['level', 'textAlign'], paragraph: ['textAlign'], orderedList: ['start'], taskItem: ['checked'], codeBlock: ['language'], tableCell: ['colspan', 'rowspan', 'colwidth', 'align', 'textAlign'], tableHeader: ['colspan', 'rowspan', 'colwidth', 'align', 'textAlign'] }[node.type] || [];
     for (const key of Object.keys(attrs)) if (!allowed.includes(key)) issue(at + '.attrs.' + key, 'Unmapped attribute');
     if (node.type === 'heading' && ![1, 2, 3].includes(attrs.level)) issue(at, 'Heading level is not preserved');
-    if (node.type === 'paragraph' && attrs.textAlign != null && attrs.textAlign !== 'left') issue(at, 'Paragraph alignment is not preserved');
+    if (['paragraph', 'heading'].includes(node.type) && attrs.textAlign != null) {
+      if (!['left', 'center', 'right'].includes(attrs.textAlign)) issue(at, 'Unsupported text alignment');
+      if (parentType !== 'doc' && attrs.textAlign !== 'left') issue(at, 'Nested paragraph alignment is not preserved');
+    }
     if (node.type === 'orderedList' && attrs.start != null && attrs.start !== 1) issue(at, 'List start is not preserved');
     if (node.type === 'taskItem' && typeof attrs.checked !== 'boolean') issue(at, 'Task state must be boolean');
     if (node.type === 'codeBlock' && attrs.language != null && typeof attrs.language !== 'string') issue(at, 'Invalid code language');
@@ -52,10 +55,10 @@ function inspectContent(content) {
       }
     }
     if (node.content !== undefined && !Array.isArray(node.content)) issue(at, 'Invalid content array');
-    const children = { doc: ['paragraph', 'heading', 'codeBlock', 'bulletList', 'orderedList', 'taskList', 'table', 'horizontalRule'], paragraph: ['text', 'hardBreak'], heading: ['text'], codeBlock: ['text'], bulletList: ['listItem'], orderedList: ['listItem'], taskList: ['taskItem'], listItem: ['paragraph'], taskItem: ['paragraph'], table: ['tableRow'], tableRow: ['tableHeader', 'tableCell'], tableHeader: ['paragraph'], tableCell: ['paragraph'] }[node.type] || [];
+    const children = { doc: ['paragraph', 'heading', 'codeBlock', 'bulletList', 'orderedList', 'taskList', 'table', 'horizontalRule'], paragraph: ['text', 'hardBreak'], heading: ['text', 'hardBreak'], codeBlock: ['text'], bulletList: ['listItem'], orderedList: ['listItem'], taskList: ['taskItem'], listItem: ['paragraph'], taskItem: ['paragraph'], table: ['tableRow'], tableRow: ['tableHeader', 'tableCell'], tableHeader: ['paragraph'], tableCell: ['paragraph'] }[node.type] || [];
     for (const [i, child] of (Array.isArray(node.content) ? node.content : []).entries()) {
       if (!children.includes(child?.type)) issue(at + '.content[' + i + ']', 'Unsupported child structure');
-      if (['heading', 'codeBlock'].includes(node.type) && (child?.marks?.length || child?.type !== 'text')) issue(at, 'Heading/code inline structure is not preserved');
+      if (node.type === 'codeBlock' && (child?.marks?.length || child?.type !== 'text')) issue(at, 'Code inline structure is not preserved');
       walk(child, at + '.content[' + i + ']', node.type);
     }
   }

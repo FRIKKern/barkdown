@@ -90,9 +90,18 @@ function pmDocToBlocks(doc) {
   const blocks = [];
   for (const node of doc?.content || []) {
     switch (node.type) {
-      case 'heading': blocks.push({ type: 'heading', level: Math.min(3, Math.max(1, node.attrs?.level || 2)), text: pdInlineToText(pmInlineToPd(node.content)) }); break;
+      case 'heading': {
+        const content = pmInlineToPd(node.content);
+        // Plain headings keep their established text carrier. Formatting needs
+        // the native inline carrier; flattening it silently loses marks/links.
+        blocks.push({ type: 'heading', level: Math.min(3, Math.max(1, node.attrs?.level || 2)),
+          ...(content.some(part => part.type !== 'text') ? { content } : { text: pdInlineToText(content) }),
+          ...(['center', 'right'].includes(node.attrs?.textAlign) ? { align: node.attrs.textAlign } : {}) });
+        break;
+      }
       case 'table': blocks.push(pmTableToPd(node)); break;
-      case 'paragraph': blocks.push({ type: 'paragraph', content: pmInlineToPd(node.content) }); break;
+      case 'paragraph': blocks.push({ type: 'paragraph', content: pmInlineToPd(node.content),
+        ...(['center', 'right'].includes(node.attrs?.textAlign) ? { align: node.attrs.textAlign } : {}) }); break;
       case 'bulletList': case 'orderedList': case 'taskList':
         blocks.push({ type: 'list', ordered: node.type === 'orderedList', ...(node.type === 'taskList' ? { task: true } : {}), items: (node.content || []).map(item => { if ((item.content || []).length !== 1 || item.content[0].type !== 'paragraph') throw new Error('Cannot convert nested or multi-paragraph list item'); const inline = pmInlineToPd(item.content[0].content); return node.type === 'taskList' ? { content: inline, checked: item.attrs?.checked === true } : inline; }) });
         break;

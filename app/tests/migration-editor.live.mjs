@@ -18,7 +18,7 @@ const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-migrated-edito
 const profileId = crypto.randomUUID(), sourceDir = path.join(temporary, profileId), destinationDir = path.join(temporary, 'backup'), userData = path.join(temporary, 'electron');
 fs.mkdirSync(path.join(sourceDir, 'documents'), { recursive: true });
 const safe = cases.filter(sample => inspectContent(sample.source).length === 0);
-assert.equal(safe.length, 10);
+assert.equal(safe.length, 16);
 const source = { id: 'corpus', title: 'Migrated notes remain editable and recoverable in Paper', rev: 4, content: { type: 'doc', content: safe.flatMap(sample => sample.source.content) }, revisions: [{ rev: 1, title: 'Retained original history' }], proposals: [{ id: 'retained-proposal' }] };
 const sourceBytes = JSON.stringify(source, null, 2) + '\n';
 fs.writeFileSync(path.join(sourceDir, 'documents/corpus.json'), sourceBytes);
@@ -58,7 +58,7 @@ const firstText = value => { if (Array.isArray(value)) { for (const v of value) 
 function changeFirstText(block, needle) {
   const copy = structuredClone(block);
   if (copy.type === 'code') { copy.value = copy.value.slice(0, 1) + 'X' + copy.value.slice(1); return copy; }
-  if (copy.type === 'heading') { copy.text = copy.text.slice(0, 1) + 'X' + copy.text.slice(1); return copy; }
+  if (copy.type === 'heading' && typeof copy.text === 'string') { copy.text = copy.text.slice(0, 1) + 'X' + copy.text.slice(1); return copy; }
   let changed = false;
   const visit = value => { if (Array.isArray(value)) value.forEach(visit); else if (value && typeof value === 'object') { if (!changed && value.type === 'text' && value.value === needle) { value.value = value.value.slice(0, 1) + 'X' + value.value.slice(1); changed = true; } else Object.values(value).forEach(visit); } };
   visit(copy); assert.equal(changed, true); return copy;
@@ -79,7 +79,7 @@ try {
   await canvas().evaluate(c => { window.__migrationInputs = []; const e = c._editor; for (const plugin of e.state.plugins) { const filter = plugin.spec.filterTransaction; if (filter) plugin.spec.filterTransaction = function(tr, state) { const allowed = filter.call(this, tr, state); if (tr.docChanged) window.__migrationInputs.push({ event: 'filter', plugin: plugin.key, allowed, before: state.doc.toJSON(), after: tr.doc.toJSON(), steps: tr.steps.map(s => s.toJSON()) }); return allowed; }; } for (const name of ['keydown', 'beforeinput', 'input']) e.view.dom.addEventListener(name, event => window.__migrationInputs.push({ event: name, key: event.key, data: event.data, ctrl: event.ctrlKey, shift: event.shiftKey, selection: e.state.selection.toJSON(), text: e.state.doc.textContent, dom: e.view.dom.textContent }), true); e.on('transaction', ({ transaction }) => { if (transaction.docChanged) window.__migrationInputs.push({ event: 'transaction', text: e.state.doc.textContent, after: transaction.doc.toJSON(), steps: transaction.steps.map(s => s.toJSON()) }); }); });
   let revision = original.rev;
   for (const [index, sample] of safe.entries()) {
-    const block = expected[index], needle = block.type === 'heading' ? block.text : firstText(block);
+    const block = expected[index], needle = block.type === 'heading' && typeof block.text === 'string' ? block.text : firstText(block);
     if (block.type === 'code') {
       const area = canvas().locator('.bp-canvas-code-area'); await area.click(); await area.evaluate(el => el.setSelectionRange(1, 1));
     } else {

@@ -1,16 +1,16 @@
 {
   "version": 1,
   "purpose": "Synthetic preparation only; no Paper writes, save/reload, migration, retry or rollback was executed.",
-  "sourceCommit": "b7684e067ecf239754ce2800c239ee52a98d38ee",
+  "sourceCommit": "e4d1d7000fa0f6eb652ec2c3e18b508ce9fd5894",
   "inputs": {
-    "docs/migration/corpus.mjs": "7b209281fe6e02e1de01ff34dd9dc3308f09f7940be093f572373f3ef347a7c3",
+    "docs/migration/corpus.mjs": "da04b9a26cd6dc285ac15619d83ccbd4bc83c1b8f981f7435c5669068cb196e6",
     "docs/migration/audit.mjs": "4fb0ac6fedb30be5ef3741b1a6cc95265e6cbe29932db776be61e28aec1586fb",
-    "app/shared/portabledoc.js": "9690d0f3871595ae2f7206d114ce214bc41330e9054cb4c3c33a44f77d5c0be1"
+    "app/shared/portabledoc.js": "59523b0b1670d74ced33d56274e9ec9823f0c2715f86b6c95bd478de0e7e916c"
   },
   "summary": {
-    "representation-preserved": 10,
-    "lossy": 5,
-    "unresolved-reference": 1,
+    "representation-preserved": 16,
+    "lossy": 3,
+    "unresolved-reference": 2,
     "rejected": 6
   },
   "cutoverReady": false,
@@ -211,21 +211,121 @@
     },
     {
       "id": "heading-formatted",
-      "classification": "lossy",
+      "classification": "unresolved-reference",
       "sourceHash": "1065cc1f959cb2ee200641f45b3a0cdf08c92a6597cc2ab81c84cdd2c659bc43",
       "blocks": [
         {
           "type": "heading",
           "level": 2,
-          "text": "Linked heading"
+          "content": [
+            {
+              "type": "link",
+              "href": "barkdown://doc/overview",
+              "children": [
+                {
+                  "type": "strong",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Linked heading"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ],
-      "outputHash": "be2897eaa1a2f71bb29a5002b7cd508f8d5d9ab2d32e031ad0475120beaa98ff",
+      "outputHash": "0eabc3872af39ec4504cfd3a0ecb1d3cc3288baf3e96993764bc7a7f4a1a14df",
       "concerns": [
-        "heading-marks",
         "internal-link-target"
       ],
-      "note": "Current converter silently flattens heading marks and links. Migration must refuse this case until mapped."
+      "note": "Heading marks survive; internal destinations still need reference-map activation."
+    },
+    {
+      "id": "heading-rich-external",
+      "classification": "representation-preserved",
+      "sourceHash": "5cd011d9833c5585d0eaa44eb8f9c8abaf2f085b0a90ba17933982d3c2c4fa2f",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 1,
+          "content": [
+            {
+              "type": "link",
+              "href": "https://example.invalid/heading",
+              "children": [
+                {
+                  "type": "strong",
+                  "children": [
+                    {
+                      "type": "em",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "Rich heading"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "outputHash": "2f38a4814b11db892af4faa4996bf81ceb8a98e351053cf26471e93ae60cb196",
+      "concerns": [],
+      "note": "External link and nested emphasis retain the native heading content carrier."
+    },
+    {
+      "id": "heading-aligned",
+      "classification": "representation-preserved",
+      "sourceHash": "a36ffc55d71117dcd19e7b116a2d7fa34c236eef72c7ad43402fa8fa94276589",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Right heading",
+          "align": "right"
+        }
+      ],
+      "outputHash": "5689dbd6cd81a61ccc313c28561a8f98fb57f09202241bf3a00005f3bb0d328b",
+      "concerns": [],
+      "note": "Plain heading alignment uses native align without changing its text carrier."
+    },
+    {
+      "id": "heading-break",
+      "classification": "representation-preserved",
+      "sourceHash": "d97208a733eff705663c38665e0b4f372e6f8be93c84cbe51f0113e2d7fcdaff",
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 2,
+          "content": [
+            {
+              "type": "strong",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Heading first"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "value": "\n"
+            },
+            {
+              "type": "text",
+              "value": "Heading second"
+            }
+          ]
+        }
+      ],
+      "outputHash": "fa97fa5ebf009225c224027d48298a22714ba62a92fed57d8a0e91df991b4f71",
+      "concerns": [],
+      "note": "Marked heading with a native inline break; source split carriers stay exact through Undo."
     },
     {
       "id": "heading-deep",
@@ -246,7 +346,7 @@
     },
     {
       "id": "paragraph-alignment",
-      "classification": "lossy",
+      "classification": "representation-preserved",
       "sourceHash": "2dcbf6af97644fc4d2f7d436dc214080810938db8c0abb3fb43405ce9d1248c4",
       "blocks": [
         {
@@ -256,14 +356,62 @@
               "type": "text",
               "value": "Centered"
             }
+          ],
+          "align": "center"
+        }
+      ],
+      "outputHash": "3ace153cd21a6b018657df7ff92a91eb4061ced4c752923ff42fa79c2d4a0f46",
+      "concerns": [],
+      "note": "Centered paragraph retains native alignment."
+    },
+    {
+      "id": "paragraph-right",
+      "classification": "representation-preserved",
+      "sourceHash": "edeb38f851690988255abfce8fe9726d22b7732a5f56011829f1db1650272b8f",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "underline",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Right paragraph"
+                }
+              ]
+            }
+          ],
+          "align": "right"
+        }
+      ],
+      "outputHash": "8e75156a8a534c923e6a4b1a4d248790c2d211c7ce46ca35e2f1e8ef023871aa",
+      "concerns": [],
+      "note": "Right alignment and underline remain independent."
+    },
+    {
+      "id": "paragraph-literal-break",
+      "classification": "representation-preserved",
+      "sourceHash": "7da87935360c97be13e44bfc694dc080aca7bce4b1b360c8e5e95365fa05c812",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "strong",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Literal first\nLiteral second"
+                }
+              ]
+            }
           ]
         }
       ],
-      "outputHash": "006b3dea24b7474922a917fc95543914204c36a9bf688be8459d78d8fc3cc03a",
-      "concerns": [
-        "paragraph-alignment"
-      ],
-      "note": "Current converter ignores paragraph alignment."
+      "outputHash": "9a41275dc7b75efeb4747634dd75d6f65a1ba70b1da9ee51766188ef85ccbe9e",
+      "concerns": [],
+      "note": "A literal LF inside one marked carrier exercises DOM normalization and exact saved Undo."
     },
     {
       "id": "ordered-offset",

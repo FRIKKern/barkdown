@@ -10,7 +10,7 @@ node docs/migration/audit.mjs docs/migration/report.json
 
 The checked report records the source commit and normalized source hashes. The harness imports the production converter, checks hand-authored expected structures/refusals, checks source immutability and refuses unsupported documents even after a valid prefix. It also checks a **proposed** deterministic profile-qualified identity mapping against two synthetic profiles with colliding document slugs. This is not proof of production allocation, navigation rewriting or server idempotence.
 
-Current converter result: **22 cases: 10 representation-preserved, 5 lossy, 1 unresolved reference, 6 rejected. Cutover is not ready.** All ten representation-preserved corpus cases pass C046 native-editor proof and preflight. Other structures and unresolved references remain refused. A passing audit means the limitations remain visible; it does not make the lossy cases acceptable.
+Current converter result: **27 cases: 16 representation-preserved, 3 lossy, 2 unresolved references, 6 rejected. Cutover is not ready.** The original ten cases pass C046 native-editor proof. C047 candidate mappings preserve marked headings and top-level alignment; expanded sixteen-case native verification is pending. Other structures and unresolved references remain refused. A passing audit means the limitations remain visible; it does not make the lossy cases acceptable.
 
 ## Content and identity inventory
 
@@ -18,7 +18,7 @@ Current converter result: **22 cases: 10 representation-preserved, 5 lossy, 1 un
 | --- | --- | --- |
 | Identity | Local `documents/<id>.json`; target proposal hashes profile UUID + source document ID, not title | Persist mapping before any write, check target collisions and owner; never adopt unrelated same-slug content |
 | Text/marks | Unicode, nested emphasis, underline, strike, code, link and hard-break fixtures | Actual Paper save/reload semantic comparison, not Markdown equality |
-| Headings/paragraphs/lists | Current converter drops heading marks, clamps level 6, drops paragraph alignment and list start | Lossless mappings or preflight refusal; no silent conversion |
+| Headings/paragraphs/lists | C047 candidate preserves heading marks and top-level center/right alignment; deep heading display and list start remain refused | Lossless mappings or preflight refusal; no silent conversion |
 | Quotes | Existing convenience converter changes quote to note callout | Genuine quote mapping and visual verification |
 | Tables | Header and cell alignment structured; spans/widths rejected | Real editor/server persistence and geometry; preserve unsupported source |
 | Media | Synthetic attachment bytes and SHA-256; image conversion currently rejected | Upload acknowledgement, target readback and interrupted-upload reconciliation |

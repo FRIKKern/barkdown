@@ -54,6 +54,29 @@ test('inline carriage returns retain exact blocked backups while LF breaks remai
   assert.deepEqual(inspectContent(cases.find(c=>c.id==='hard-break').source),[]);
   assert.deepEqual(inspectContent({type:'doc',content:[{type:'paragraph',content:[{type:'text',text:'Line one\nLine two'}]}]}),[]);
 });
+test('heading marks and top-level alignment retain structure while unmapped alignment refuses', () => {
+  for (const id of ['heading-rich-external', 'heading-aligned', 'heading-break', 'paragraph-alignment', 'paragraph-right', 'paragraph-literal-break']) {
+    const f = fixture(), file = path.join(f.sourceDir, 'documents/note.json');
+    const source = cases.find(sample => sample.id === id).source;
+    const value = JSON.parse(fs.readFileSync(file)); value.content = source;
+    fs.writeFileSync(file, JSON.stringify(value)); const original = fs.readFileSync(file);
+    assert.equal(prepareMigration(f).status, 'prepared', id);
+    assert.deepEqual(fs.readFileSync(file), original);
+    assert.deepEqual(fs.readFileSync(path.join(f.destinationDir, 'source/documents/note.json')), original);
+  }
+  for (const type of ['heading', 'paragraph']) {
+    for (const textAlign of ['justify', '', false, 1]) {
+      const content = { type: 'doc', content: [{ type, attrs: { ...(type === 'heading' ? { level: 2 } : {}), textAlign }, content: [{ type: 'text', text: 'Retain invalid alignment' }] }] };
+      assert.ok(inspectContent(content).some(issue => /alignment/.test(issue.reason)));
+    }
+  }
+  const nested = { type: 'doc', content: [{ type: 'bulletList', content: [{ type: 'listItem', content: [{ type: 'paragraph', attrs: { textAlign: 'right' }, content: [{ type: 'text', text: 'Do not flatten nested alignment' }] }] }] }] };
+  assert.ok(inspectContent(nested).some(issue => /Nested paragraph alignment/.test(issue.reason)));
+  const foreign = structuredClone(cases.find(sample => sample.id === 'heading-rich-external').source);
+  foreign.content[0].attrs.unmapped = 'preserve';
+  assert.ok(inspectContent(foreign).some(issue => /Unmapped attribute/.test(issue.reason)));
+  assert.ok(inspectContent(cases.find(sample => sample.id === 'heading-formatted').source).some(issue => /Internal link/.test(issue.reason)));
+});
 test('exact backup preserves organization, proposals, history, binary media and receipts; excludes credentials', () => {
   const f = fixture(), before = inventoryProfile(f);
   const result = prepareMigration(f);
