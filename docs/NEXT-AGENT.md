@@ -6,7 +6,7 @@ P1/C039 is accepted and merged through PR #31. P2 remains active. No real-librar
 
 Work in C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration on codex/p2-migration, draft [PR #32](https://github.com/FRIKKern/barkdown/pull/32). C043 preserves exact offline backups; C044 supplies create-only Paper writes; C045 stages with durable intent and conservative recovery. [C046](cycles/C046-migrated-paper.md) now proves all ten initial cases through real typing/save/Undo, native Shift+Enter, reload and Electron restart. The served editor hash matches the selected upstream artifact. Source, backup and workspace remain unchanged.
 
-C046 is accepted with full desktop/root checks and reviewed fresh live/fixture evidence. Archive its completed JSON, then plan C047 lossless heading/paragraph mapping and native save/Undo/restart proof. [Migration media](visual/migration/README.md) is reviewed; P2 remains open for other content, internal references/media, activation and rollback.
+C046 is accepted at pushed 8abb615 and its cycle JSON is archived. [C047](cycles/C047-heading-alignment.md) is active: preserve heading marks and paragraph alignment through real editor save/Undo/restart. No implementation yet. P2 remains open for other content, internal references/media, activation and rollback.
 
 Upstream source is barkpark-paper-create at 8d48ae661, codex/paper-create-only, stacked draft [PR #20020](https://github.com/FRIKKern/barkpark/pull/20020). Full editor tests pass; API/table/list document budgets now pass. Local anchors validation needs a corrected Python environment; full upstream CI gates remain separate. Use explicit Guerrilla task claims recorded in C046. Keep the user's app, shared services and real libraries untouched. Branch counts remain controlled.
 
