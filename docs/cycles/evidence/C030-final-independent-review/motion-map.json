@@ -1,0 +1,22 @@
+{
+  "rawVideo": "editor-gaps.webm",
+  "rawSha256": "b25519c2ff55e05a24180b6407b3f4692921bf14286470f5189783c15b0cc034",
+  "samplingFps": 2,
+  "rawSamples": 52,
+  "gifFrames": 52,
+  "gifDurationMs": 500,
+  "gifCrop": "rightmost 36% of raw frame (editor pane), scaled to fit560x900; entire recording at2fps, no omitted intervals",
+  "rawDimensions": [
+    1400,
+    900
+  ],
+  "command": [
+    "C:/Users/Frikk/AppData/Local/ms-playwright/ffmpeg-1011/ffmpeg-win64.exe",
+    "-y",
+    "-i",
+    "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-parity-behavior-proof\\docs\\visual\\editor-gap-assertions\\runs\\2026-09-22T07-12-32-901Z\\editor-gaps.webm",
+    "-r",
+    "2",
+    "docs\\cycles\\evidence\\C030-final-independent-review\\samples\\%03d.png"
+  ]
+}
