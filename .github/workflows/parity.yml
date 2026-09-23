@@ -87,6 +87,7 @@ jobs:
       - name: Barkdown app (root holds playwright; app holds electron and the app's deps)
         run: |
           npm ci
+          npx playwright install ffmpeg
           cd app && npm ci && npm run build
       - name: Parity rows
         working-directory: app

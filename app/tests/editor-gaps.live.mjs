@@ -122,7 +122,7 @@ try {
   if (page) await page.screenshot({ path: path.join(out, 'failure.png') }).catch(() => {});
 } finally {
   if (app) { try { await app.close(); } catch (error) { results.push({ name: 'owned Electron cleanup', pass: false, error: error.stack }); } }
-  if (video) { const recorded = await video.path(); if (fs.existsSync(recorded)) fs.renameSync(recorded, path.join(out, 'editor-gaps.webm')); }
+  if (video) { try { const recorded = await video.path(); if (fs.existsSync(recorded)) fs.renameSync(recorded, path.join(out, 'editor-gaps.webm')); } catch (error) { results.push({ name: 'video evidence finalization', pass: false, error: error.stack }); } }
   const passed = results.filter(r => r.pass).length;
   const report = { summary: `${passed}/${results.length} green`, results, errors };
   fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n');
