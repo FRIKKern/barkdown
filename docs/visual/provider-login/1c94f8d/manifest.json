@@ -1,0 +1,56 @@
+{
+  "sourceCommit": "1c94f8d3b20f27d23b7296c0c2d6925f450bfa1d",
+  "scope": "Actual Electron main/preload/composer/settings and production login state machine. Controlled owned-process transport and Codex SDK; no real sign-in or provider network request.",
+  "frames": [
+    "01-main-needs-login.png",
+    "02-browser-pending.png",
+    "03-cancelled.png",
+    "04-side-narrow.png",
+    "05-signed-in.png",
+    "06-retry-once.png",
+    "07-settings-status.png",
+    "08-settings-dark.png",
+    "09-login-dark-narrow.png"
+  ],
+  "checks": [
+    "Main refusal preserves draft without provider dispatch",
+    "Cancelled login leaves draft intact",
+    "Side text/image retained, no auto-send, explicit retry dispatches once",
+    "Settings recheck leaves both chat drafts intact",
+    "Dark Settings and narrow sign-in dialog remain reachable without horizontal overflow"
+  ],
+  "passed": true,
+  "stopped": true,
+  "dirtySource": false,
+  "video": "journey.webm",
+  "hashes": {
+    "01-main-needs-login.png": "f685d780f2cdfc81266d61334696b9993b4c2d4308248f280c179082c0df099e",
+    "02-browser-pending.png": "5ec02136991185a162e86e7b2c4b592f2da81074f41da65c3472f0af664cce6a",
+    "03-cancelled.png": "9c1b43f1a0383ca1210b5aee4b5227a07457a91d63defd5cf272414c6577caa8",
+    "04-side-narrow.png": "61a69b351c4fe6ec9d3c1ecd891114e2ef87f37374031f8dc9f09122c104eb8e",
+    "05-signed-in.png": "6cea5656fb22d135d8f1a3a45e4ed2d97534e8e50c3b54c6fdeffdf27ea7a787",
+    "06-retry-once.png": "ce7c26b0b50170a1514eee87d262579dade03baf3f1253f530fa20e4d0e13a40",
+    "07-settings-status.png": "20a7eee4d11ed48723b38252943d8d749080cc66e4b744afe65d75db9498d5b0",
+    "08-settings-dark.png": "f2bb70b4d55f42217793eb518109d641db09cb117de605449761463b6522d282",
+    "09-login-dark-narrow.png": "1a7310a89129054e82b93fae0af700c66f9aaed8a06483a8a5d9b8eb9741af3f",
+    "journey.webm": "24bd063021310f3cc3eba64333098f2ec5c6645f90f9aff20d044da656085984",
+    "journey.gif": "1895415fed0ce65ca4dc72bcb5f061b593ec51053e6da9722e6b4292e37afa8d",
+    "goal-assistance.png": "a308ff937d15ac805dc84231c956263bf3d5d589b8409fcc5eb4706412d650a6",
+    "desktop.log": "832717b94820377cf4431f79cd08d62e177104eb6ca2bf30f01b28237b41749e",
+    "focused.log": "f288fa418835a6256ccda878b00bf288aa1130fd376cecaa8d43d58ab87dc660",
+    "goal-provider.log": "3db3eb22f00e09e972ce8934892b6e4eb4052b96f3a30ff55079048832478f09",
+    "live-capture-refusal.log": "8f97b1e2d96f1ad93e98592b6cc31e69ead73bbb05ddd51196b414970e2177e4"
+  },
+  "review": {
+    "reviewer": "Codex",
+    "stills": 9,
+    "videoSampleRate": 2,
+    "videoSamples": 17,
+    "findings": "Dialog controls, dark and narrow geometry, preserved draft and image, pending/cancel/success and explicit retry reviewed. Native video includes startup and resizing; no masking. Full-resolution source video retained.",
+    "limitations": [
+      "Controlled transport; no browser account login performed",
+      "POSIX native and packaged-app smoke tests remain unperformed",
+      "Initial keyring-only provider badge/default detection remains limited"
+    ]
+  }
+}
