@@ -14,7 +14,7 @@ Original C024 Electron evidence: an unavailable destination has no write authori
 | Terminal | [Owned-process evidence](../../../../docs/visual/terminal-ownership/README.md). Closing UI alone does not prove descendant shutdown. |
 | Side chats | [Full conversation controls](../../../../docs/visual/side-chat/README.md). Saved conversation identity and parent links survive tab closure. |
 
-For Paper changes, test acknowledged revisions, native Undo/Redo, human takeover and actual reload. For file changes, test failed opens, late reads, a save resolving after newer typing, and declined conflicts. Preserve failed evidence. Follow the [visual rules](../../../../docs/visual/RULES.md), and use the [integration handoff](../../../../docs/cycles/C008-integration.md) for current gate status.
+For Paper changes, test acknowledged revisions, native Undo/Redo, human takeover and actual reload. For file changes, test failed opens, late reads, a save resolving after newer typing, and declined conflicts. Preserve failed evidence. Follow the [visual rules](../../../../docs/visual/RULES.md), and use the [current handoff](../../../../docs/NEXT-AGENT.md) for current gate status.
 
 ## Changelog
 
@@ -22,7 +22,7 @@ For Paper changes, test acknowledged revisions, native Undo/Redo, human takeover
 
 - 22 September: imported C024 file-authority recovery with its original reviewed stills and motion. At that earlier checkpoint, C016 reading-position and newer clipboard/history work still awaited integration; the subsequent entry below supersedes that status.
 
-- 22 September, candidate76b07d3: E011 upstream54579 and C016 reading-position source/evidence are imported. [C032 native refusal/restart motion](../../../../docs/visual/folder-preflight/README.md) retains original8b51fbc; C033 has controlled context-race checks only. C023 original final gates passed. Fresh combined review remains pending; historical images above are not promoted. See [current validation order](../../../../docs/cycles/C008-integration.md#remaining-combined-validation-order). E012 upstream work remains unconsumed.
+- 22 September, candidate76b07d3: E011 upstream54579 and C016 reading-position source/evidence are imported. [C032 native refusal/restart motion](../../../../docs/visual/folder-preflight/README.md) retains original8b51fbc; C033 has controlled context-race checks only. C023 original final gates passed. Fresh combined review remains pending; historical images above are not promoted. See [current validation order](../../../../docs/NEXT-AGENT.md#remaining-combined-validation-order). E012 upstream work remains unconsumed.
 
 
 ### Health update — 22 September, audited3ce6b21

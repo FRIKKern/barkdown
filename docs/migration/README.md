@@ -1,6 +1,6 @@
 # Local notes → Paper: staged rehearsal, no cutover
 
-C039/P1 are accepted and merged. C043 implements offline preparation; C044 proves a create-only upstream route; [C045](../cycles/C045-migration-staging.md) stages the ten supported cases into a disposable Paper runtime with durable intent and post-commit process-exit reconciliation. No real library was read or modified. Editor roundtrip, references/media, navigation activation and rollback remain gates. The converter audit below is a separate preparation harness.
+C039/P1 are accepted and merged. C043 implements offline preparation; C044 proves a create-only upstream route; [C045](../cycles/C045-migration-staging.md) staged the then-permitted ten cases into a disposable Paper runtime with durable intent and post-commit process-exit reconciliation. No real library was read or modified. C046 now proves nine cases through native editing, exact saved Undo, reload and Electron restart. Inline line breaks are explicitly refused after a real edit failure; references/media, complete editor coverage, navigation activation and rollback remain gates. The converter audit below is a separate preparation harness.
 
 Run from the repository root:
 
@@ -10,7 +10,7 @@ node docs/migration/audit.mjs docs/migration/report.json
 
 The checked report records the source commit and normalized source hashes. The harness imports the production converter, checks hand-authored expected structures/refusals, checks source immutability and refuses unsupported documents even after a valid prefix. It also checks a **proposed** deterministic profile-qualified identity mapping against two synthetic profiles with colliding document slugs. This is not proof of production allocation, navigation rewriting or server idempotence.
 
-Current converter result: **22 cases: 10 representation-preserved, 5 lossy, 1 unresolved reference, 6 rejected. Cutover is not ready.** A passing audit means the limitations remain visible; it does not make the lossy cases acceptable.
+Current converter result: **22 cases: 10 representation-preserved, 5 lossy, 1 unresolved reference, 6 rejected. Cutover is not ready.** Representation-preserved is not the staging allowlist: C046 refuses the hard-break case because native Paper input cannot safely edit it. Nine corpus cases currently pass preflight. A passing audit means the limitations remain visible; it does not make the lossy cases acceptable.
 
 ## Content and identity inventory
 

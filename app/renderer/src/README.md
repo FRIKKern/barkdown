@@ -16,13 +16,13 @@ This retained fixture illustrates the shell at its recorded source. Use the [wor
 
 Keep human-organized Pages, the separate Cloud archive, the 60% default chat width and per-chat navigation. Closing a side-chat tab does not delete its conversation. Persist the original unsent draft while browsing history. Use owner/generation checks for asynchronous work; never infer ownership from whichever chat is visible when a promise settles.
 
-Source changes trigger the [capture, comparison and named review workflow](../../../docs/visual/RULES.md). Inspect intermediate states, narrow widths, keyboard focus and menus. Pair those images with actual send, restart and save checks; the [integration handoff](../../../docs/cycles/C008-integration.md) distinguishes original lane evidence from combined approval.
+Source changes trigger the [capture, comparison and named review workflow](../../../docs/visual/RULES.md). Inspect intermediate states, narrow widths, keyboard focus and menus. Pair those images with actual send, restart and save checks; the [current handoff](../../../docs/NEXT-AGENT.md) distinguishes original lane evidence from combined approval.
 
 ## Changelog
 
-- 22 September: linked shell, conversation and recovery evidence beside the owning code. Pending native journeys and combined validation remain explicit in the integration handoff.
+- 22 September: linked shell, conversation and recovery evidence beside the owning code. Pending native journeys and combined validation remain explicit in the current handoff.
 
-- 22 September, candidate76b07d3: E011 upstream54579 and C016 reading-position source/evidence are imported. [C032 native refusal/restart motion](../../../docs/visual/folder-preflight/README.md) retains original8b51fbc; C033 has controlled context-race checks only. C023 original final gates passed. Fresh combined review remains pending; historical images above are not promoted. See [current validation order](../../../docs/cycles/C008-integration.md#remaining-combined-validation-order). E012 upstream work remains unconsumed.
+- 22 September, candidate76b07d3: E011 upstream54579 and C016 reading-position source/evidence are imported. [C032 native refusal/restart motion](../../../docs/visual/folder-preflight/README.md) retains original8b51fbc; C033 has controlled context-race checks only. C023 original final gates passed. Fresh combined review remains pending; historical images above are not promoted. See [current validation order](../../../docs/NEXT-AGENT.md#remaining-combined-validation-order). E012 upstream work remains unconsumed.
 
 
 ## Ordinary and worker side chats

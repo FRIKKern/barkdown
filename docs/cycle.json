@@ -17,10 +17,11 @@
   ],
   "checkpoint": "2026-09-23",
   "handoff": "docs/cycles/C046-migrated-paper.md",
-  "nextAction": "Implement a private-runtime Electron rehearsal over C045 staging; record failures without weakening exact comparisons.",
+  "nextAction": "Review and publish the nine-case Paper checkpoint; restore hard-break support only after upstream native-input and serialization proof.",
   "evidence": [
     "docs/cycles/C046-migrated-paper.md"
   ],
   "truthReview": "",
-  "screenshotReview": ""
+  "screenshotReview": "",
+  "reason": "Original ten-case acceptance is incomplete: native inline newline input becomes a rejected PM hardBreak. Preflight now refuses it and preserves source/backup."
 }
