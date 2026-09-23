@@ -299,11 +299,57 @@
   border-radius: 8px; background: transparent;
 }
 .bw-paper-document .bp-paper-host .ProseMirror :is(.bp-table__th,.bp-table__td) { padding: 10px 14px; }
+/* Callouts are quiet tonal cards. Keep the native title/body and details
+ * structure; decoration never adds text or intercepts the editing surface. */
 .bw-paper-document .bp-paper-host .ProseMirror .bp-callout {
-  margin: 16px 0; padding: 16px 18px; border-radius: 8px; border-left-width: 2px;
+  --callout-accent: light-dark(#64705b, #b4bea8);
+  --callout-surface: light-dark(#f4f5f0, #272c24);
+  margin: 18px 0; padding: 17px 21px; border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--callout-accent) 18%, transparent);
+  border-left: 3px solid color-mix(in srgb, var(--callout-accent) 65%, var(--callout-surface));
+  background: var(--callout-surface); color: var(--paper-ink);
+  line-height: 1.6; overflow-wrap: anywhere;
 }
 .bw-paper-document .bp-paper-host .ProseMirror .bp-callout--info {
-  background: light-dark(#eef2e9, #293226); border-left-color: var(--paper-accent);
+  --callout-accent: light-dark(#56736b, #a3c1b6);
+  --callout-surface: light-dark(#f0f5f1, #252f2a);
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout--success {
+  --callout-accent: light-dark(#557343, #aecb96);
+  --callout-surface: light-dark(#f2f5ec, #2a3023);
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout--warning {
+  --callout-accent: light-dark(#947234, #d5b67a);
+  --callout-surface: light-dark(#faf6eb, #332e23);
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout--danger {
+  --callout-accent: light-dark(#a05c62, #d6a0a5);
+  --callout-surface: light-dark(#faf1f1, #342629);
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout--loss {
+  --callout-accent: light-dark(#a06a4c, #d6af91);
+  --callout-surface: light-dark(#f9f2ed, #332b25);
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout--peace {
+  --callout-accent: light-dark(#6b7298, #b3b9d6);
+  --callout-surface: light-dark(#f3f3f9, #2a2b36);
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout > strong,
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout__summary {
+  font-size: .9375em; font-weight: 650; line-height: 1.45;
+  color: var(--callout-accent); letter-spacing: .005em;
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout > strong {
+  display: block; margin-bottom: 5px;
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout__body {
+  margin-top: 7px;
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout__summary::marker {
+  color: var(--callout-accent); font-size: .8em;
+}
+.bw-paper-document .bp-paper-host .ProseMirror .bp-callout__summary:focus-visible {
+  outline: 2px solid var(--callout-accent); outline-offset: 5px; border-radius: 2px;
 }
 .bw-paper-document .bp-paper-host .ProseMirror pre.bp-canvas-code {
   margin: 16px 0; padding: var(--bp-codeblock-pad); border: 1px solid var(--paper-rule);

@@ -1,25 +1,25 @@
 {
   "version": 1,
-  "id": "C037",
+  "id": "C038",
   "stage": "P1",
-  "status": "done",
-  "goal": "Polish real Paper typography and block composition while preserving editing and acknowledged saves.",
+  "status": "active",
+  "goal": "Refine real Paper callouts into elegant, readable tonal cards.",
   "scope": [
-    "Paper host skin only; preserve vendor source, persisted content and runtime behavior",
-    "Heading rhythm, readable tasks, tables, quotes, callouts and code alignment"
+    "Host CSS only; preserve editable titles, bodies, folding and all seven tones",
+    "Dedicated real-server light/dark/narrow callout evidence"
   ],
   "acceptance": [
-    "Real Paper light/dark/narrow views reviewed",
-    "Typing, code, table keyboard and acknowledged saving preserved",
-    "Fresh deterministic and live visual review plus root verification"
+    "Review all seven tones, titled and untitled callouts and folded content",
+    "Verify native body editing and server persistence",
+    "Fresh live and deterministic evidence and root verification"
   ],
   "checkpoint": "2026-09-23",
-  "handoff": "docs/cycles/C037-paper-polish.md",
-  "nextAction": "User review of Paper visual polish on codex/paper-polish; no merge or deployment.",
+  "handoff": "docs/cycles/C038-callout-polish.md",
+  "nextAction": "Implement the callout skin and real Paper gallery; commit before capture.",
   "evidence": [
     "app/renderer/paper-notion.css",
-    "docs/cycles/C037-paper-polish.md"
+    "docs/cycles/C038-callout-polish.md"
   ],
-  "truthReview": "Host31 and real-server save/recovery4 pass; root verify passes. C008 archived after verified push; P1 remains incomplete.",
-  "screenshotReview": "Five live light/dark/menu stills and37 GIF frames reviewed; deterministic40 stills/tours approved. Nine real save/recovery stills include narrow760px heading/body/error controls; rich-block narrow coverage remains limited."
+  "truthReview": "In progress; P1 remains incomplete.",
+  "screenshotReview": "Pending new source-bound captures."
 }
