@@ -6,6 +6,8 @@
 
 Prepared next work: [four task briefs](tasks/2026-09-23-next-four.md). Start with login assistance and cross-path authentication proof; P1 closeout depends on both. Migration preparation may proceed, but cutover waits for P1. The goal is active; Tasks 1/2 are in implementation on codex/finish-profile-isolation. Read the latest C039 checkpoint for uncommitted work and remaining evidence.
 
+Current branch checkpoint: implementation `1c94f8d`, login evidence/coverage `345b5e8`, retained validation logs `e2a4723`, followed by final reviewed evidence. Full desktop and root verification pass; native login and A/B credential transport checks pass. Live Paper at `e2a4723` includes a real Codex turn and verified runtime cleanup. Continue C039 with initial keyring-only provider selection and expired-session draft preservation before its acceptance closeout; then reconcile A1 and build the audited synthetic migration preparation. Main remains `9c623d5`; no deployment or real-library migration. See [login evidence](visual/provider-login/README.md) and the latest cycle checkpoint for exact scope.
+
 ## Earlier checkpoints (superseded; retained evidence)
 
 ### Previous C038 checkpoint

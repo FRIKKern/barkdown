@@ -18,7 +18,7 @@ The missing-auth send retains the main draft. Cancelling sign-in keeps it intact
 ![Settings status after recheck](1c94f8d/07-settings-status.png)
 ![Dark Settings](1c94f8d/08-settings-dark.png)
 ![Dark narrow dialog](1c94f8d/09-login-dark-narrow.png)
-![Goal assistance preserves the conversation draft](1c94f8d/goal-assistance.png)
+![Goal assistance during its opening animation, with the conversation draft retained](1c94f8d/goal-assistance.png)
 
 ## Review and limits
 
@@ -26,7 +26,7 @@ Codex inspected all nine stills, the goal assistance still and 17 intermediate v
 
 Behavior tests additionally exercise native Windows worker Jobs with synthetic credentials for A/B across API, Claude and Codex. No real device credentials were changed. Real read-only login-status probes were successful, but are distinct from the controlled sign-in journey. POSIX native containment and packaged-app execution remain unverified here. Initial provider badges/default selection still rely on file detection until a fresh status check, so keyring-only detection is a remaining limitation.
 
-The first isolated Paper attempt [refused a dirty evidence pointer and stopped its runtime](1c94f8d/live-capture-refusal.log). Live Paper freshness and root verification are still required; this gallery does not close C039/P1. The [cycle handoff](../../cycles/C039-provider-authentication.md) owns current status.
+The first isolated Paper attempt [refused a dirty evidence pointer and stopped its runtime](1c94f8d/live-capture-refusal.log). The [clean retry passed](1c94f8d/live-capture-success.txt), with a real Codex turn after Claude quota refusal; five Paper stills and all 37 GIF frames were reviewed. [Read-only device status](1c94f8d/device-status.json) verified both providers and owned-process cleanup. [Root verification passed](1c94f8d/root-verify.txt). This gallery does not close C039/P1: initial keyring-only selection and expired-session draft handling still need explicit acceptance. The [cycle handoff](../../cycles/C039-provider-authentication.md) owns current status.
 
 ## Changelog
 

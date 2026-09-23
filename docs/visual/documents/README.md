@@ -2,14 +2,15 @@
 
 Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.
 
-![Current view](../runs/2026-09-23T01-24-15-073Z/documents-2.png)
+![Current view](../runs/2026-09-23T09-06-36-021Z/documents-2.png)
 
-![Recorded interaction](../runs/2026-09-23T01-24-15-073Z/documents.gif)
+![Recorded interaction](../runs/2026-09-23T09-06-36-021Z/documents.gif)
 
-[Full comparison](../runs/2026-09-23T01-24-15-073Z/README.md) · [Capture manifest](../runs/2026-09-23T01-24-15-073Z/manifest.json)
+[Full comparison](../runs/2026-09-23T09-06-36-021Z/README.md) · [Capture manifest](../runs/2026-09-23T09-06-36-021Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-23T09:08:42.607Z: App source 1c94f8d, capture head e2a4723 with coverage/README checkpoint. Reviewed 40 stills and 40 decoded GIF frames: 33 final stills and all GIFs byte-identical to the inspected 08-58-53 candidate; separately inspected the seven changed final stills. Same environment; only expected Assistant Settings controls differ from approved baseline (3.316% pixels). Native login gallery has nine inspected stills, goal dialog opening frame and 17 video samples; draft/image preservation and explicit retry passed. Full desktop passes, plus focused authentication and six native A/B worker credential transports. Isolated live Paper capture e2a4723 passed with a real Codex turn after Claude quota refusal; five stills/all 37 GIF frames inspected, private runtime stopped. No seeded transcript. POSIX/package smoke and initial keyring-only selection remain limitations; C039/P1 not closed. Source e2a47238b; [review](../reviews/approval-7f7918de91c0840cb477dd7c414d2297f6dccf582c54100a08b3c771e056c83b.json) - [comparison](../runs/2026-09-23T09-06-36-021Z/comparison.json).
 - 2026-09-23T01:25:16.602Z: Inspected four changed stills and all four side-chat GIF frames. 36 stills and seven GIFs match previously inspected bytes. All 40 comparisons preserve geometry and remain within tolerance. Fixture-only emoji caret change; native and CI behavior results recorded separately. Source c3947f3ed; [review](../reviews/approval-1a351aa1a11b9d05bcd2f4a918f54d3ba784d832799759da6fa08352c708c49b.json) - [comparison](../runs/2026-09-23T01-24-15-073Z/comparison.json).
 - 2026-09-23T01:19:48.318Z: Reviewed four changed stills and all four frames of changed side-chat GIF; 36 stills and seven GIFs byte-identical to previously reviewed baseline. All 40 comparison frames within tolerance with unchanged geometry. Separately reviewed 13 native stills and 56 video samples at 2fps; multiblock 11/11 and gaps 13/13 locally. Full Linux CI separate. Source 71d0d3755; [review](../reviews/approval-a95809c0dd2f5655cb386eb7c5fefc324a9c5d9d04eb5a83aaa7e26c5d31b8f8.json) - [comparison](../runs/2026-09-23T01-15-19-599Z/comparison.json).
 - 2026-09-23T01:07:52.663Z: Source e32482f changes test caret setup and video reporting only. All 40 fixture frames retain geometry and are within tolerance; 37 stills and all eight GIFs are byte-identical to the prior reviewed baseline. Three differing side-chat stills inspected with subthreshold raster differences only. Separately reviewed five fresh live Paper/Codex stills and all 37 GIF frames, plus 13 real editor-gap stills and 53 video samples. Native repaired groups pass row14 4/4, gaps 13/13, find 6/6; full Linux CI remains a separate merge gate. Source e32482f97; [review](../reviews/approval-3ca6450df9011b45462835b04a53f7ad77c9947eb58bc87fde894b36aeec1ea6.json) - [comparison](../runs/2026-09-23T01-06-12-129Z/comparison.json).
