@@ -2,14 +2,15 @@
 
 Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.
 
-![Current view](../runs/2026-09-23T01-06-12-129Z/adoption-5.png)
+![Current view](../runs/2026-09-23T01-15-19-599Z/adoption-5.png)
 
-![Recorded interaction](../runs/2026-09-23T01-06-12-129Z/adoption.gif)
+![Recorded interaction](../runs/2026-09-23T01-15-19-599Z/adoption.gif)
 
-[Full comparison](../runs/2026-09-23T01-06-12-129Z/README.md) · [Capture manifest](../runs/2026-09-23T01-06-12-129Z/manifest.json)
+[Full comparison](../runs/2026-09-23T01-15-19-599Z/README.md) · [Capture manifest](../runs/2026-09-23T01-15-19-599Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-23T01:19:48.318Z: Reviewed four changed stills and all four frames of changed side-chat GIF; 36 stills and seven GIFs byte-identical to previously reviewed baseline. All 40 comparison frames within tolerance with unchanged geometry. Separately reviewed 13 native stills and 56 video samples at 2fps; multiblock 11/11 and gaps 13/13 locally. Full Linux CI separate. Source 71d0d3755; [review](../reviews/approval-a95809c0dd2f5655cb386eb7c5fefc324a9c5d9d04eb5a83aaa7e26c5d31b8f8.json) - [comparison](../runs/2026-09-23T01-15-19-599Z/comparison.json).
 - 2026-09-23T01:07:52.663Z: Source e32482f changes test caret setup and video reporting only. All 40 fixture frames retain geometry and are within tolerance; 37 stills and all eight GIFs are byte-identical to the prior reviewed baseline. Three differing side-chat stills inspected with subthreshold raster differences only. Separately reviewed five fresh live Paper/Codex stills and all 37 GIF frames, plus 13 real editor-gap stills and 53 video samples. Native repaired groups pass row14 4/4, gaps 13/13, find 6/6; full Linux CI remains a separate merge gate. Source e32482f97; [review](../reviews/approval-3ca6450df9011b45462835b04a53f7ad77c9947eb58bc87fde894b36aeec1ea6.json) - [comparison](../runs/2026-09-23T01-06-12-129Z/comparison.json).
 - 2026-09-23T00:44:26.669Z: C038 source ae8024f. All 40 frames remain within tolerance with unchanged geometry. 36 stills and all eight GIFs are byte-identical to the prior reviewed baseline; four changed stills inspected and show only subthreshold raster variation. Dedicated real Paper gallery separately reviews seven tones, light/dark and 760px wrapping with four native server assertions. Five fresh live status stills and all 37 decoded editing frames inspected. No full desktop, portability or stage-completion claim. Source ae8024f74; [review](../reviews/approval-c3ed51bcefc146d492faa9407bcc27284c32d22b0c70f4024670c525653ee356.json) - [comparison](../runs/2026-09-23T00-42-44-837Z/comparison.json).
 - 2026-09-23T00:24:01.186Z: Documentation-only recertification after code-area README update. All eight GIFs and36 stills are byte-identical to reviewed 00-18-21; four differing stills inspected again and retain the same geometry with subthreshold raster noise. Paper source remains0b25014; real live status and save/recovery evidence apply unchanged. Source fee803ab7; [review](../reviews/approval-a1179ec8da9432f56977574d6349b1d876d1dfe6d9d5968db53acaca37030b20.json) - [comparison](../runs/2026-09-23T00-22-54-157Z/comparison.json).
