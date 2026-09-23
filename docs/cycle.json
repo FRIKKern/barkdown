@@ -1,30 +1,27 @@
 {
   "version": 1,
-  "id": "C043",
+  "id": "C044",
   "stage": "P2",
-  "status": "done",
-  "goal": "Build a fail-closed offline migration inventory, exact backup and restartable manifest for disposable profiles.",
+  "status": "active",
+  "goal": "Establish and test a non-overwriting Paper creation contract and explicit lost-response reconciliation for migration.",
   "scope": [
-    "Strict structured preflight with path-specific refusals",
-    "Profile-bound inventory of notes, workspace, attachments and edit receipts",
-    "Exact-byte backup, source-change detection and interrupted preparation recovery",
-    "No server writes, authority switch, legacy deletion or real-library migration"
+    "Probe real generic and Paper API creation in an owned disposable runtime",
+    "Preserve existing published and draft content and test concurrent attempts",
+    "Implement the smallest safe contract or record a reproduced upstream blocker",
+    "No real-library migration, authority switch, merge or deployment"
   ],
   "acceptance": [
-    "All known lossy converter cases refuse without partial output",
-    "Backup readback matches exact source bytes and metadata remains untouched",
-    "Repeat and interrupted preparation retain stable profile-qualified target IDs",
-    "Changed source, corrupt backup, invalid ownership and unsafe paths refuse",
-    "Relevant tests, root verification and required visual evidence pass"
+    "Existing target content is never replaced by migration creation",
+    "Concurrent creation and repeated delivery have a single owned result or explicit refusal",
+    "A lost response is reconciled by durable identity and content rather than blind replay",
+    "Relevant integration tests, root verification and required visual review pass"
   ],
   "checkpoint": "2026-09-23",
-  "handoff": "docs/cycles/C043-migration-preflight.md",
-  "nextAction": "Archive C043 and plan C044 on codex/p2-migration: prove non-overwriting Paper creation and lost-acknowledgement reconciliation in a disposable runtime.",
+  "handoff": "docs/cycles/C044-paper-create-contract.md",
+  "nextAction": "Build a disposable-runtime contract probe; reproduce collision and replay semantics before selecting an adapter.",
   "evidence": [
-    "docs/cycles/C043-migration-preflight.md",
-    "docs/cycles/evidence/C043/results.json",
-    "docs/visual/runs/2026-09-23T19-35-02-755Z/README.md"
+    "docs/cycles/C044-paper-create-contract.md"
   ],
-  "truthReview": "Reviewed README, docs index, app guide, PLAN, NEXT-AGENT, VALIDATION, architecture and decisions; replaced stale P1-active claims. P2 remains active; only main and codex/p2-migration are active Barkdown branches.",
-  "screenshotReview": "Inspected all 40 fixture stills and eight decoded GIF sequences with zero differences; explicit approval retained. Inspected five live Paper stills and 37 GIF frames from real Claude edit; private runtime stopped."
+  "truthReview": "",
+  "screenshotReview": ""
 }

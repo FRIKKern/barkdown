@@ -4,7 +4,7 @@ C039/P1 is accepted for the Windows source prototype at source `27ea120`, with e
 
 ## Current work
 
-C043 is complete on `codex/p2-migration`, not merged: [offline migration preparation](cycles/C043-migration-preflight.md), implementation through `f109601`. P1 and C042 are merged through PR #31. Full desktop/root checks, six migration tests and reviewed fixture/live Paper evidence pass. No real-library migration or authority switch. Continue on this delivery branch; archive C043 before opening C044 for safe target creation and uncertain-write reconciliation. Test concurrent creation, pre-existing published/draft IDs and lost acknowledgement against an owned disposable runtime before allowing any migration writes. The current generic create audit does not establish a non-overwriting contract.
+C044 is active on `codex/p2-migration`: [safe Paper creation](cycles/C044-paper-create-contract.md). C043's offline preparation is complete and pushed through `dfee78b`, not merged. The user authorized automatic work through at least 2026-09-23 21:43:38 UTC; inspect the existing goal/heartbeat instead of duplicating them. Test concurrent creation, pre-existing published/draft IDs and lost acknowledgement against an owned disposable runtime before allowing migration writes. No real-library migration or authority switch. Full desktop/root checks and reviewed C043 evidence remain the starting baseline.
 
 ## Evidence and limits
 
