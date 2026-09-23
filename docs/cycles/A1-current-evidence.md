@@ -2,7 +2,7 @@
 
 ## 23 September integration update
 
-The historical table below preserves lane evidence and limitations. Its pending combined-test statements are superseded by [C008's final integration evidence](C008-integration.md): combined desktop passed at `1b01bf2`, all eight dedicated native journeys passed at `3ce6b21`/`41500dc`, final fixture and live Paper/Codex reviews passed at `3e8a2aa`, and root verification passed. The profile credential boundary remains unresolved, so these bounded passes do not close A1. Portability and release acceptance also remain open. No main merge occurred.
+The historical table below preserves lane evidence and limitations. Its pending combined-test statements are superseded by [C008's final integration evidence](C008-integration.md): combined desktop passed at `1b01bf2`, all eight dedicated native journeys passed at `3ce6b21`/`41500dc`, final fixture and live Paper/Codex reviews passed at `3e8a2aa`, and root verification passed. [PR #30](https://github.com/FRIKKern/barkdown/pull/30) subsequently merged at `3903288`; C040 records the `5325300` editor/visual gates. The user resolved the credential policy: existing device authentication is shared by default, while explicitly configured profile keys and all workspace data retain their owners. [C039](C039-provider-authentication.md) owns current authentication implementation and proof. Its new source still needs fresh combined and visual evidence before A1 can close. Portability and release acceptance remain separate open gates.
 
 ## Historical lane checkpoint
 

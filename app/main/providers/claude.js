@@ -45,8 +45,8 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
       const folder = context.folder || null;
       const cwd = folder || scratchFolder(storeDir);
       const env = { ...run.scope.env };
-      delete env.ANTHROPIC_API_KEY;
-      delete env.ANTHROPIC_AUTH_TOKEN;
+      // The captured computer authentication is available by default. Profile API
+      // keys belong to the API adapter and are never injected into this environment.
       const canUseTool = async (toolName, input, options) => {
         if (run.cancelled) return { behavior: 'deny', message: 'The run was cancelled.', interrupt: true };
         if (settings.goalWorker && ['Task', 'Agent'].includes(toolName)) return { behavior: 'deny', message: 'Goal workers cannot create more workers.' };

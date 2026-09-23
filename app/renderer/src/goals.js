@@ -1,6 +1,7 @@
 // Acknowledged goal snapshots. Worker destinations remain ordinary full conversations.
 import { el, esc } from './ui.js';
 import { openDialog } from './dialogs.js';
+import { openProviderLogin } from './provider-login.js';
 const states = { planned:'Ready to start', active:'In progress', paused:'Paused', cancelled:'Cancelled', expired:'Time window ended', review:'Ready for review', completed:'Completed' };
 const tasks = { pending:'Waiting', running:'Running', interrupted:'Needs reconciliation', failed:'Failed', cancelled:'Stopped', review:'Result to review', completed:'Reviewed' };
 
@@ -47,6 +48,14 @@ export function openGoalView({ owner, service, openChat, onSaved = () => {} }) {
     const openDetails = new Set([...node.querySelectorAll('details[open]')].map(detail=>[detail.closest('[data-goal]')?.dataset.goal || 'new',detail.closest('[data-task]')?.dataset.task || '',detail.className].join('|')));
     q('[data-content]').innerHTML = `${goals.map(goal=>`<section class="bw-goal-card" data-goal="${esc(goal.id)}"><div class="bw-goal-heading"><h3>${esc(goal.objective)}</h3><span class="bw-goal-state" data-state="${esc(goal.status)}">${esc(states[goal.status])}</span></div><p class="bw-goal-deadline">Deadline ${esc(new Date(goal.deadline).toLocaleString())} · ${goal.tasks.filter(t=>(!t.role||t.role==='worker')&&t.status==='completed').length} of ${goal.mode==='coordinated'?3:goal.tasks.length} workers reviewed</p>${goal.reason?`<p>${esc(goal.reason)}</p>`:''}${goal.status==='completed'&&goal.review?.note?`<p class="bw-goal-reason">${esc(goal.review.note)}</p>`:''}<div class="bw-goal-actions">${['planned','paused'].includes(goal.status)?`<button class="primary" data-command="start">${goal.status==='paused'?'Resume':'Start'}</button>`:''}${goal.status==='active'?'<button data-command="pause">Pause</button>':''}${!['completed','cancelled','expired'].includes(goal.status)?'<button data-command="cancel">Cancel goal</button>':''}</div>${goal.tasks.map(t=>taskHtml(goal,t)).join('')}${goal.status==='review'?`<form data-complete>${reviewFields()}<button class="primary">Mark verified goal complete</button></form>`:''}</section>`).join('')}
       <details class="bw-goal-create" ${goals.length?'':'open'}><summary>New goal</summary><form data-create><label>Goal<textarea name="objective" rows="3" required placeholder="What should this conversation accomplish?"></textarea></label><label>Time window in minutes<input name="minutes" type="number" min="1" max="10080" value="60" required></label><label>Planning<select name="planning" aria-label="Planning"><option value="coordinated">Coordinator plans the work</option><option value="manual">I’ll assign three workers</option></select></label><p>The coordinator plans and reviews three full worker conversations using this conversation’s folder and model choices. Uncertain results pause for your review.</p><fieldset data-assignments hidden disabled>${[1,2,3].map(n=>`<label>Worker ${n} assignment<textarea name="worker${n}" rows="2" required></textarea></label>`).join('')}</fieldset><button class="primary" data-create-label>Plan and start</button></form></details>`;
+    for (const goal of goals) for (const task of goal.tasks) {
+      const provider = task.attempts.at(-1)?.result?.authProvider;
+      if (task.status !== 'failed' || !['claude','codex'].includes(provider)) continue;
+      const card = [...node.querySelectorAll('[data-task]')].find(item => item.dataset.task === task.id && item.closest('[data-goal]').dataset.goal === goal.id);
+      const help = el('<button type="button">Sign-in help</button>');
+      help.onclick = () => { close(); openProviderLogin(provider); };
+      card?.append(help);
+    }
     node.querySelectorAll('[data-chat]').forEach(button=>button.onclick=()=>{ const id=button.dataset.chat; close(); openChat(captured,id); });
     node.querySelectorAll('[data-command]').forEach(button=>button.onclick=()=>invoke(()=>service.command(captured,button.closest('[data-goal]').dataset.goal,button.dataset.command,button.closest('[data-task]')?{taskId:button.closest('[data-task]').dataset.task}:undefined)));
     node.querySelectorAll('[data-review]').forEach(form=>form.onsubmit=event=>{ event.preventDefault(); const decision=event.submitter?.value; if(decision) invoke(()=>service.command(captured,form.closest('[data-goal]').dataset.goal,'reviewTask',{taskId:form.dataset.review,accepted:decision==='accept',retry:decision==='retry',...evidence(form)})); });

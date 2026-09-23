@@ -11,7 +11,7 @@ const { assertProviderFolder } = require('./provider-folder');
 
 function createProfileService({ registry, agent = process.platform === 'win32' ? require('./goal-worker-agent').createOwnedWorkerAgent() : require('./agent'), workspaces = createWorkspaceRepository({ registry }),
   settingsFor = store => store.readJson('settings.json', {}), connectionFor = () => ({ enabled: false }), runtimePool = null,
-  sendEvent = () => {}, defaultProvider = () => 'api' }) {
+  sendEvent = () => {}, assertAuthentication = async () => {}, defaultProvider = () => 'api' }) {
   let generation = crypto.randomUUID();
   let switching = false;
   const completions = new Map();
@@ -60,6 +60,7 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
       const scope = captureScope({ profileId, storeDir: store.storeDir, connection,
         context: { profileId, chatId, title: chat.title, folder: chat.folder || null, catchUp } });
       return { scope, chat: { ...structuredClone(chat), provider }, chatContext, settings: s,
+        assertAuthentication: async () => { await assertAuthentication(provider, s, scope); assertChatContext(chatContext, workspaces.load(profileId).chats[chatId]); },
         release: async () => { await lease?.release(); } };
     } catch (error) { await lease?.release(); throw error; }
   }
@@ -113,6 +114,8 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
       if (input.provider && input.provider !== resolved.chat.provider) throw new Error('Conversation provider changed; refresh before sending');
       assertProviderFolder(resolved.chat.provider, resolved.scope.context.folder);
       validateImages(resolved.scope, request.images);
+      await resolved.assertAuthentication();
+      assertChatContext(resolved.chatContext, workspaces.load(profileId).chats[request.chatId]);
       const reservation = workspaces.begin(request, resolved);
       if (!reservation.fresh) throw new Error('This attempt was already reserved; do not dispatch it again');
       began = true;

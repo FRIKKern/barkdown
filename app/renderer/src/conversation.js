@@ -1,3 +1,4 @@
+import { openProviderLogin } from './provider-login.js';
 // Conversation rendering and agent runs, shared by the main chat and side chats.
 import { el, esc, iconHtml, inlineMarkdownHtml, relativeTime, toast } from './ui.js';
 import { state, touch, save, serialise, chatTitleFrom } from './state.js';
@@ -197,6 +198,8 @@ function userMessagesToApi(messages) {
 }
 
 export async function sendMessage(chat, text, hooks, images = []) {
+  const authOriginProfile = state.profileId;
+  const authOriginChat = state.current;
   const clean = text.trim();
   if (chat.interruption) { toast('Review the interrupted turn before sending a new message.', 'error'); return false; }
   const attached = (images || []).map(i => ({ id: i.id, path: i.path, url: i.url, name: i.name, mime: i.mime }));
@@ -232,7 +235,7 @@ export async function sendMessage(chat, text, hooks, images = []) {
     const started = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title, catchUp }, provider, chat.sessions[provider] || null, clean, attached, { model: chat.model || undefined, effort: chat.effort || undefined, attemptId: intent.attemptId });
     if (started?.accepted === false) {
       definitelyNotStarted = started.notStarted === true && started.error?.code === 'BARKDOWN_SEND_NOT_STARTED';
-      throw Object.assign(new Error(started.error?.message || 'Turn was not accepted'), { diagnostic: started.error?.diagnostic });
+      throw Object.assign(new Error(started.error?.message || 'Turn was not accepted'), { diagnostic: started.error?.diagnostic, authProvider: started.error?.authProvider });
     }
     const { runId, assistantId, attemptId } = started;
     // Validation/reservation has acknowledged this intent. Never clear newer
@@ -254,6 +257,7 @@ export async function sendMessage(chat, text, hooks, images = []) {
     failedReply.error = error.message;
     if (error.diagnostic) failedReply.diagnostic = error.diagnostic;
     hooks.render();
+    if (state.profileId === authOriginProfile && state.current === authOriginChat && state.chats[chat.id] === chat && ['claude','codex'].includes(error.authProvider)) openProviderLogin(error.authProvider, () => hooks.render());
     return false;
   } finally {
     endSubmission(chat, intent);

@@ -17,7 +17,7 @@ try{
    create:async(request,input)=>{calls.push({method:'create',owner:request,input});goals=[{id:'fixture-goal',objective:input.objective,status:'planned',deadline:Date.now()+input.durationMinutes*60000,tasks:input.assignments.map((a,i)=>({id:`task-${i+1}`,title:a.title,chatId:`worker-${i+1}`,prompt:a.prompt,dependsOn:i===2?['task-1']:[],status:'pending',context:{provider:'api',model:'test-model',effort:'high',folder:null},attempts:[]}))}];},
    command:async(request,id,action,payload)=>{calls.push({method:'command',owner:request,id,action,payload});const goal=goals[0];if(action==='start'){goal.status='active';goal.tasks.slice(0,2).forEach(t=>{t.status='running';t.attempts.push({id:'fixture-attempt-'+t.id,status:'running',progress:{text:'Observed fixture progress'}});});}if(action==='pause'){goal.status='paused';goal.tasks.filter(t=>t.status==='running').forEach(t=>{t.status='interrupted';t.attempts.at(-1).reason='Provider stopped; inspect effects before retry.';t.attempts.at(-1).stoppedAt=Date.now();});}if(action==='reviewTask'){goal.tasks.find(t=>t.id===payload.taskId).status=payload.accepted?'completed':'pending';}if(action==='cancel')goal.status='cancelled';},
   };
-  window.__goalFixture={calls,service,owner,open:()=>window.__barkdown.openGoalView({owner,service,openChat:(captured,id)=>calls.push({method:'open',owner:captured,id})}),notify:()=>notify?.(),setExpired:()=>{goals[0].status='expired';notify?.();}};
+  window.__goalFixture={calls,service,owner,setAuthFailure:()=>{goals[0].status='paused';const t=goals[0].tasks[0];t.status='failed';t.attempts.at(-1).result={status:'failed',text:'Sign in to Codex to continue.',authProvider:'codex'};},open:()=>window.__barkdown.openGoalView({owner,service,openChat:(captured,id)=>calls.push({method:'open',owner:captured,id})}),notify:()=>notify?.(),setExpired:()=>{goals[0].status='expired';notify?.();}};
   window.__goalFixture.open();
  });
  const view=page.getByRole('dialog',{name:'Conversation goals'});await view.locator('[data-create]').waitFor();
@@ -48,6 +48,13 @@ try{
  const calls=await page.evaluate(()=>window.__goalFixture.calls);assert.ok(calls.every(c=>c.owner.profileId==='11111111-1111-4111-8111-111111111111'));
  const accepted=calls.find(c=>c.action==='reviewTask');assert.deepEqual(accepted.payload.evidence,['test-results/ownership.json','revision 4']);
  assert.equal(calls.at(-1).id,'worker-2');assert.deepEqual(errors,[]);
+ await page.evaluate(()=>{window.__goalFixture.setAuthFailure();window.__goalFixture.open();});
+ await view.getByRole('button',{name:'Sign-in help',exact:true}).click();
+ await page.getByRole('dialog',{name:'Sign in to Codex',exact:true}).waitFor();
+ assert.equal(await page.locator('#bw-prompt').inputValue(),'Keep my main conversation draft.');
+ assert.equal((await page.evaluate(()=>window.__goalFixture.calls)).filter(c=>c.action==='start').length,1,'sign-in assistance does not resume a goal');
+ await page.screenshot({path:path.join(out,'sign-in-assistance.png')});
+ await page.locator('[data-login-close]').click();
  console.log('Goal UI fixture passed: create, observed progress, dependency wait, pause, evidence review/draft preservation, deadline, owned full-chat link, narrow layout.');
 }finally{await app.close();}
 

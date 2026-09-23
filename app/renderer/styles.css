@@ -298,3 +298,8 @@ h1,h2,h3,p{margin:0}
 .bw-chat-pane .bw-side-compose { flex-shrink:0; margin:12px; }
 .bw-compose-foot { flex-wrap:wrap; }
 .bw-chat-pane .bw-side-compose textarea { min-height:58px; }
+
+/* Provider authentication controls remain compact at narrow dialog widths. */
+.bw-provider-login [hidden] { display: none !important; }
+.bw-provider-login .bw-inline { flex-wrap: wrap; gap: 8px; }
+.bw-provider-login .bw-sheet-note { margin: 10px 0; }

@@ -74,6 +74,7 @@ function createGoalProvider({ agent = require('./agent'), resolve, transcripts, 
           check(relative && !relative.startsWith('..') && !path.isAbsolute(relative), 'Assignment image is outside its profile attachments');
           check(fs.statSync(actual).isFile() && fs.statSync(actual).size <= 20 * 1024 * 1024, 'Invalid assignment image');
         }
+        await resolved.assertAuthentication?.();
         if (signal.aborted) return { status: 'cancelled', text: 'Stopped before provider launch' };
         const reservation = acknowledged(transcripts.begin(request, resolved));
         check(Array.isArray(reservation?.history) && typeof reservation.fresh === 'boolean', 'Transcript writer did not acknowledge assignment history');

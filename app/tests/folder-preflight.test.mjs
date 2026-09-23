@@ -54,14 +54,14 @@ test('legacy actual handler and preload expose known refusal, unknown errors sta
   let handler, calls = 0;
   vm.runInNewContext(main.slice(main.indexOf("  handle('agent:start',"), main.indexOf("  handle('agent:cancel',")), {
     handle: (_name, fn) => handler = fn, profileService: null, readSettings: () => ({ provider: 'codex', barkpark: {} }), defaultProvider: () => 'api',
-    assertProviderFolder, decrypt: () => '', store: { dir: () => root }, barkparkConfig: () => ({ enabled: false }), agent: { start: () => { calls++; return { runId: 'legacy-accepted' }; } },
+    assertProviderFolder, assertProviderAuthentication: async()=>{}, captureScope: options=>({...options,context:options.context||{}}), decrypt: () => '', store: { dir: () => root }, barkparkConfig: () => ({ enabled: false }), agent: { start: () => { calls++; return { runId: 'legacy-accepted' }; } },
   });
   let exposed;
   vm.runInNewContext(fs.readFileSync(new URL('../main/preload.js', import.meta.url), 'utf8'), {
     process: { platform: 'win32' }, require: name => { assert.equal(name, 'electron'); return {
       contextBridge: { exposeInMainWorld: (_name, api) => exposed = api }, ipcRenderer: { invoke: async (channel, payload) => {
         if (channel === 'profiles:status') return { ok: true, value: { enabled: false } };
-        try { return { ok: true, value: handler(payload) }; } catch (e) { return { ok: false, error: e.message, code: e.code, diagnostic: e.diagnostic }; }
+        try { return { ok: true, value: await handler(payload) }; } catch (e) { return { ok: false, error: e.message, code: e.code, diagnostic: e.diagnostic }; }
       } },
     }; },
   });

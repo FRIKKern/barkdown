@@ -277,7 +277,8 @@ async function startApi({ chatId, messages, context, settings, send, images, ori
         run.emit({ type: 'done', offline: true, text: reply });
         return;
       }
-      const client = clientFactory({ apiKey: apiKey || undefined, maxRetries: 2 });
+      // Resolve both credential forms from the captured run, never a later environment.
+      const client = clientFactory({ apiKey: apiKey || null, authToken: apiKey ? null : run.scope.env.ANTHROPIC_AUTH_TOKEN || null, maxRetries: 2 });
       const tools = toolDefinitions(context).map(t => ({ ...t, eager_input_streaming: true }));
       const history = withImages(messages, images).map(m => ({ role: m.role, content: m.content }));
       const contextNote = context.folder ? `The agent working folder for this chat is ${context.folder}. Paths are relative to it.` : 'This chat has no working folder; file tools are unavailable. Documents are still available.';

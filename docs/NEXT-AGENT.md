@@ -4,7 +4,7 @@
 
 [PR #30](https://github.com/FRIKKern/barkdown/pull/30) is merged into main as `3903288`. C040 is complete: all 20 Linux parity groups, both repository checks and Windows visual CI pass at `5325300`, with explicitly reviewed evidence. No deployment. Continue [C039 provider authentication](cycles/C039-provider-authentication.md) on `codex/finish-profile-isolation`. The user chose shared computer authentication by default, without a per-profile prompt. Verify ordinary and goal dispatch against this boundary; profile-owned keys and workspace data remain isolated. P1 remains active; do not restart finished editor polish or treat the merge as full-stage completion. The selected policy and remaining evidence map are in C039.
 
-Prepared next work: [four task briefs](tasks/2026-09-23-next-four.md). Start with login assistance and cross-path authentication proof; P1 closeout depends on both. Migration preparation may proceed, but cutover waits for P1. Tasks are prepared, not running.
+Prepared next work: [four task briefs](tasks/2026-09-23-next-four.md). Start with login assistance and cross-path authentication proof; P1 closeout depends on both. Migration preparation may proceed, but cutover waits for P1. The goal is active; Tasks 1/2 are in implementation on codex/finish-profile-isolation. Read the latest C039 checkpoint for uncommitted work and remaining evidence.
 
 ## Earlier checkpoints (superseded; retained evidence)
 

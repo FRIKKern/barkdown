@@ -30,6 +30,16 @@ function setup({ release } = {}) {
   return { root, store, record, requests, transcripts, resolve, adapter: createGoalProvider({ resolve, transcripts }) };
 }
 
+test('planning, worker, review and summary all authenticate before durable reservation or dispatch', async()=>{
+  for(const role of ['plan','worker','review','summary']) {
+    const f=setup();let checked=0,released=0;
+    const coordinator=role!=='worker',request={...f.requests[0],role,...(coordinator?{chatId:'main',context:{...f.requests[0].context,chatId:'main'}}:{})};
+    const adapter=createGoalProvider({resolve:(profile,chat)=>{const resolved=f.resolve(profile,chat);if(coordinator)resolved.chat={id:'main',provider:'api',sessions:{},model:'test-model'};resolved.assertAuthentication=async()=>{checked++;throw Object.assign(Error('fixture missing credentials'),{code:'BARKDOWN_SEND_NOT_STARTED',authProvider:'api'});};resolved.release=()=>{released++;};return resolved;},transcripts:f.transcripts});
+    await assert.rejects(adapter.execute(request,{signal:new AbortController().signal,progress(){}}),e=>e.code==='BARKDOWN_SEND_NOT_STARTED');
+    assert.equal(checked,1);assert.equal(released,1);assert.equal(f.record.length,0);
+  }
+});
+
 test('real agent.start runs three owned API loops and persists their independent transcripts', async () => {
   const f = setup(); const gate = deferred(); let active = 0, max = 0, reached = 0;
   agent.setClientFactory(() => ({ messages: { stream(params) {
