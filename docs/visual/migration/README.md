@@ -1,17 +1,17 @@
-# Migrated Paper: nine cases verified, cutover blocked
+# Migrated Paper: ten cases verified
 
-Source `fe8696c` / private Barkpark `844ecd321`. [Manifest](runs/2026-09-23T21-26-20-905Z/manifest.json) binds the actual server bundle, screenshots, two Electron videos and nine native edit/Undo revision pairs. [Geometry](runs/2026-09-23T21-26-20-905Z/geometry.json) verifies the wrapped title and narrow page. Source documents, backups and workspace bytes remained unchanged after save, reload and Electron restart. No provider turn or navigation activation was simulated or claimed.
+Source `2f4a1dc` / private Barkpark `dc97bef1b`. [Manifest](runs/2026-09-23T22-35-37-547Z/manifest.json) records the served editor hash, ten native typing/save/Undo pairs, native Shift+Enter and Undo, reload and Electron restart. Source, backup and workspace bytes remain unchanged. The rehearsal checks the served bundle against the selected source artifact.
 
-![Wrapped long title beside chat](runs/2026-09-23T21-26-20-905Z/01-staged-original.png)
+![Migrated source](runs/2026-09-23T22-35-37-547Z/01-staged-original.png)
 
-![Actual keyboard editing and saved native Undo](runs/2026-09-23T21-26-20-905Z/editing-and-undo.gif)
+![Native editing and saved Undo](runs/2026-09-23T22-35-37-547Z/editing-and-undo.gif)
 
-The GIF is a 2 fps, 840×540 derivative of the full [Electron recording](runs/2026-09-23T21-26-20-905Z/editing-and-undo.webm). [Restart video](runs/2026-09-23T21-26-20-905Z/restart.webm). [Narrow view](runs/2026-09-23T21-26-20-905Z/04-narrow.png). [Named motion review and derivative hashes](runs/2026-09-23T21-26-20-905Z/motion-review.json): 14 stills, all 51 decoded editing GIF frames and eight restart video samples inspected.
+The GIF derives from the full [Electron recording](runs/2026-09-23T22-35-37-547Z/editing-and-undo.webm) at 2 fps, 840×540, without masking or cropping. [Restart recording](runs/2026-09-23T22-35-37-547Z/restart.webm), [narrow view](runs/2026-09-23T22-35-37-547Z/04-narrow.png), [native inserted break](runs/2026-09-23T22-35-37-547Z/native-break-inserted.png). [Named review](runs/2026-09-23T22-35-37-547Z/motion-review.json) covers 16 stills, 55 video samples, all 55 decoded GIF frames and eight restart samples.
 
-## What failed and remains blocked
+## Retained failures and limits
 
-The original ten-case acceptance is not complete. Native typing beside a literal newline makes Chromium emit a PM hardBreak; Paper's serializer safety guard refuses that node. The following valid transaction can dismiss the notice. [Exact native input/filter trace](runs/2026-09-23T21-20-49-208Z/failure-state.json) and [failed view](runs/2026-09-23T21-20-49-208Z/failure.png) retain the diagnosis. Preflight now refuses both hardBreak nodes and literal inline CR/LF, retaining exact source/backup. Code-block newlines remain supported. Do not remove the upstream guard without serializer and native-input proof.
+The [original native-input trace](runs/2026-09-23T21-20-49-208Z/failure-state.json) showed newline text becoming a rejected ProseMirror hardBreak. Upstream now serializes it as LF text, retaining original carriers on Undo. Inline CR carriers remain refused.
 
-Earlier immutable runs retain the code-language mismatch (20:54), five successful text pairs followed by the newline failure (20:57, 21:07, 21:11), and first-case input traces (21:14, 21:19, 21:20). The 21:23 run first proved all nine permitted cases but exposed title clipping; 21:26 fixes that presentation and repeats all nine. Every run records its own source; failed runs are not promoted to passing evidence.
+The [first corrected-source rehearsal](runs/2026-09-23T22-29-49-100Z/manifest.json) still served stale compiled assets and failed; it is not passing evidence. Refreshing this private worktree's built editor artifact produced the [first ten-case pass](runs/2026-09-23T22-32-55-161Z/manifest.json). The current run adds the hash tripwire and native Shift+Enter proof. Earlier code-language, title-clipping and nine-case runs remain immutable history.
 
-No media/internal-reference migration, authority switch, legacy-history conversion, real-library migration or power-loss durability is established. See [C046](../../cycles/C046-migrated-paper.md) for the active gate and [migration contract](../../migration/README.md) for the wider P2 boundary.
+No media/internal-reference migration, navigation authority switch, legacy-history conversion, real-library migration or power-loss durability is established. [C046](../../cycles/C046-migrated-paper.md) tracks remaining closeout; [migration contract](../../migration/README.md) owns wider P2 gates.

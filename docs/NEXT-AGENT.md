@@ -1,19 +1,13 @@
 # Current handoff
 
-P1/C039 is accepted and merged through PR #31. P2 remains active; no real-library migration, authority switch or deployment has occurred.
+P1/C039 is accepted and merged through PR #31. P2 remains active. No real-library migration, authority switch or deployment has occurred.
 
-## Current work
+## Current checkpoint
 
-Branch `codex/p2-migration`, worktree `C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration`, draft [PR #32](https://github.com/FRIKKern/barkdown/pull/32). C043 prepares exact offline backups; C044 establishes a create-only route; C045 provides durable staging and interrupted-write reconciliation. [C046](cycles/C046-migrated-paper.md) proves nine permitted corpus cases through native typing, exact saved Undo, reload and Electron restart. Source, backup and workspace remain unchanged.
+Work in C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration on codex/p2-migration, draft [PR #32](https://github.com/FRIKKern/barkdown/pull/32). C043 preserves exact offline backups; C044 supplies create-only Paper writes; C045 stages with durable intent and conservative recovery. [C046](cycles/C046-migrated-paper.md) now proves all ten initial cases through real typing/save/Undo, native Shift+Enter, reload and Electron restart. The served editor hash matches the selected upstream artifact. Source, backup and workspace remain unchanged.
 
-The tenth case is blocked: native inline newline input becomes a PM hardBreak rejected by Paper's serializer boundary. Preflight now explicitly refuses it. Code language uses the correct native `lang` field; long standalone titles wrap fully in narrow panes. [Evidence and failed-run diagnosis](visual/migration/README.md). No whole-P2 completion claim.
+Next: finish C046's desktop/root checks and fresh standard visual capture/comparison/inspection/approval, commit and push the evidence, then archive the cycle before the next bounded P2 outcome. The cycle handoff names the live test session and logs. [Migration media](visual/migration/README.md) is already reviewed; full P2 acceptance remains open for other content, internal references/media, activation and rollback.
 
-## Next action
+Upstream source is barkpark-paper-create at dc97bef1b, codex/paper-create-only, stacked draft [PR #20020](https://github.com/FRIKKern/barkpark/pull/20020). Full editor tests pass; inherited API/table document-budget failures and other upstream CI gates remain separate. Use explicit Guerrilla task claims recorded in C046. Keep the user's app, shared services and real libraries untouched. Branch counts remain controlled.
 
-The final desktop/root checks and reviewed screenshot checkpoint pass; [C046 results](cycles/evidence/C046/results.json) bind the evidence. Register/claim an upstream inline-break task and prove native DOM input, serialization, saved Undo and reopen before lifting the refusal. Media/internal links, reference-map activation and rollback remain separate A2 gates. Keep the legacy editor/store and readable history/receipts.
-
-Consume upstream worktree `barkpark-paper-create` at `844ecd321`, branch `codex/paper-create-only`, stacked draft [PR #20020](https://github.com/FRIKKern/barkpark/pull/20020). This route is unmerged and carries separate upstream CI gates. Do not modify the shared Barkpark checkout or stop shared services. Barkdown has main plus one delivery branch; upstream has main plus three. The user's running app is separate from these disposable test runtimes.
-
-The full Linux matrix at `962a28e` reported 19/20 (tablehead click timeout); its targeted rerun passed. This is an intermittent failure record, not proof that the full matrix passed on the current head.
-
-Read [PLAN](PLAN.md), [decisions](DESIGN-DECISIONS.md), [A2 acceptance](ACCEPTANCE.md), [cycles](CYCLES.md) and [visual rules](visual/RULES.md); run `npm run plan` and `npm run cycle`. Current evidence supersedes historical pending work; older handoffs are not additional queues.
+The six-hour run continues through at least 2026-09-24 04:17:20 UTC (06:17 Paris). Goal and heartbeat remain active. Read [PLAN](PLAN.md), [decisions](DESIGN-DECISIONS.md), [A2 acceptance](ACCEPTANCE.md), [cycles](CYCLES.md) and [visual rules](visual/RULES.md); run npm run plan and npm run cycle. Historical handoffs are evidence, not extra queues.

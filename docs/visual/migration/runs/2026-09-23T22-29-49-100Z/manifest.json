@@ -1,0 +1,75 @@
+{
+  "capturedAt": "2026-09-23T22:30:11.074Z",
+  "barkdownCommit": "078024cb1a061b1f2c707bda729550af9ff40ac9",
+  "barkparkCommit": "2edf8c411b6ed0a8d4b1c78ed15d721416f9d486",
+  "isolatedRuntime": true,
+  "editorBundle": {
+    "source": "server",
+    "server": "http://127.0.0.1:55693",
+    "version": "0.2.26.3938",
+    "sha": "3a94a2964b37358f3ec791f009a2f52b28cffb0d",
+    "cssSha": "38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "folder": "3a94a2964b37358f3ec791f009a2f52b28cffb0d-38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "fetchedAt": "2026-09-23T22:29:59.801Z"
+  },
+  "cases": [
+    {
+      "case": "plain-unicode",
+      "beforeRev": 1,
+      "editedRev": 2,
+      "undoneRev": 3
+    },
+    {
+      "case": "nested-marks",
+      "beforeRev": 3,
+      "editedRev": 4,
+      "undoneRev": 5
+    },
+    {
+      "case": "underline",
+      "beforeRev": 5,
+      "editedRev": 6,
+      "undoneRev": 7
+    },
+    {
+      "case": "strike-code",
+      "beforeRev": 7,
+      "editedRev": 8,
+      "undoneRev": 9
+    },
+    {
+      "case": "external-link",
+      "beforeRev": 9,
+      "editedRev": 10,
+      "undoneRev": 11
+    }
+  ],
+  "frames": [
+    "01-staged-original.png",
+    "edit-plain-unicode.png",
+    "edit-nested-marks.png",
+    "edit-underline.png",
+    "edit-strike-code.png",
+    "edit-external-link.png"
+  ],
+  "artifacts": {
+    "01-staged-original.png": "5032a523782cfc3fcaae0eb3ea03deb1e86c20672c7b458a37b2fa417f6b9d6e",
+    "edit-external-link.png": "802edd510c91a8d517e04814967d76b8efb4b5c9af7f9eaa19d3ed036364f6d8",
+    "edit-nested-marks.png": "971fd231dcb509fc5ad4b3c8e14f2bbc16b312ee2ddd1a5cf0dc3a506874dcbb",
+    "edit-plain-unicode.png": "510e23469d5cdfc1c93680f9937e581ae5a7b0c230145b9e1135608f3684521b",
+    "edit-strike-code.png": "2cf3c9ba47823816db3a967fe2acb6e7b62c8642d69175ff5aba23345277ce30",
+    "edit-underline.png": "ce1f8ea3b67ce75586b44c99251ee56077643d4757ad74b4f3a16be5573f78a2",
+    "failed-rehearsal.webm": "beec1bf801697a7e8595f5917acb9ee39c521512af37084c6548912ed0818052",
+    "failure-state.json": "e2e661c8c98f642137aedd16c1db46a39afb2ce3baf2c81e698abcbdf4c57007",
+    "failure.png": "c251ee532c3155ac0611b7a954718866549e4f4fee7007069faeee56485e162b",
+    "failure.txt": "150a57012615d93f536c307d8a7730f44a3b168b64f157ac607d6eed8a0417d2"
+  },
+  "authority": "legacy",
+  "motion": "Real keyboard editing and native Paper history with acknowledged private server writes; actual Electron video, no model turn.",
+  "limits": [
+    "No navigation activation or real-library migration",
+    "Ten structured corpus cases; media and internal references remain separate gates",
+    "Clean Electron restart, not database/power loss",
+    "Legacy edit receipts remain legacy; staging refuses later revisions even after Undo restores content"
+  ]
+}
