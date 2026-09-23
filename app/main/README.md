@@ -42,3 +42,5 @@ Packaging includes shared modules and resolves the three fixed external native r
 ### Health update — 22 September, audited3ce6b21
 
 Full desktop52348 passed at5e8433e before C036’s later capture-tool import. [C036](../../docs/cycles/C036-capture-lifecycle.md) has17 independently passing controlled wrapper cases; actual interrupted private-runtime evidence and final combined gates remain pending. This update links existing source-bound media only; the earlier changelog entries and original approvals remain unchanged.
+
+Migration preparation: `migration-preflight.js` is an offline-only adapter for explicitly quiesced disposable profile stores. It preserves exact note/workspace/attachment/receipt bytes and refuses unsupported structures before any Paper write. It is not wired to the live UI or a migration authority switch. See [C043](../../docs/cycles/C043-migration-preflight.md).

@@ -1,0 +1,5 @@
+# C043 — Offline migration preparation
+
+Active on codex/p2-migration from merged main 136a459. Only disposable profile data is authorized for this run. Implement strict preflight, bounded exact-byte capture, durable preparation and corruption/source-change refusals. No server mutation or cutover. Tests and captures are pending. No owned services started.
+
+Implementation checkpoint: strict inspection preserves the 10 audited representation-safe cases and refuses all 12 lossy, unresolved or unsupported cases. Six filesystem integration tests pass, including process exit at four durable boundaries, repeated preparation, exact binary/JSON backup, corrupt backup/manifest refusal and source change before commit. Source writers must be stopped by the caller; this module is not a live quiescence/lease adapter. Navigation/reference rewriting and missing-media reconciliation remain future gates. Locked dependencies installed; app audit reports two high-severity existing dependency findings (not force-upgraded). Visual and full regression gates pending.

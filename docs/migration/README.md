@@ -1,6 +1,6 @@
 # Local notes → Paper: preparation, not migration
 
-Preparation for Task 4, 2026-09-23. C039/P1 remain active. No real library was read or modified. No Paper publish, media upload, server round trip, interruption recovery or rollback was performed by this harness.
+Preparation for Task 4, 2026-09-23. C039/P1 are accepted and merged. C043 now implements the first bounded offline preparation slice. No real library was read or modified. No Paper publish, media upload, server round trip, interruption recovery or rollback was performed by this harness.
 
 Run from the repository root:
 

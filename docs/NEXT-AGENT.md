@@ -4,9 +4,7 @@ C039/P1 is accepted for the Windows source prototype at source `27ea120`, with e
 
 ## Current work
 
-C042 repository cleanup is delivered through `codex/repository-hygiene`, based on the accepted checkpoint. See [the cleanup handoff](cycles/C042-retirement-closeout.md) for verified retirements and remaining debt. Do not reopen completed authentication or Paper polish tasks.
-
-P2 is the next product stage. [Migration preparation](migration/README.md) defines the synthetic inventory, preflight and durable-manifest slice. Resolve safe target creation before any Paper writes. Preserve the legacy store, source data and backups until comparison, interruption/resume and rollback are proven.
+C043 is active on `codex/p2-migration`: [offline migration preparation](cycles/C043-migration-preflight.md). P1 and C042 are merged through PR #31. Build the disposable-profile inventory, strict preflight, exact backup and durable manifest first. No real-library migration or authority switch. Resolve safe target creation before any Paper writes.
 
 ## Evidence and limits
 

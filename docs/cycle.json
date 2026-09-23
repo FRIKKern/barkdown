@@ -1,29 +1,28 @@
 {
   "version": 1,
-  "id": "C042",
+  "id": "C043",
   "stage": "P2",
-  "status": "done",
-  "goal": "Finish recoverable checkout retirement and prepare the accepted checkpoint for main.",
+  "status": "active",
+  "goal": "Build a fail-closed offline migration inventory, exact backup and restartable manifest for disposable profiles.",
   "scope": [
-    "Preserve unique untracked evidence and retire both exception branches",
-    "Move inactive owned worktrees out of the active workspace without deleting files",
-    "Audit Barkpark cleanup PR and retire superseded owned editor lanes",
-    "Validate and publish the consolidated checkpoint"
+    "Strict structured preflight with path-specific refusals",
+    "Profile-bound inventory of notes, workspace, attachments and edit receipts",
+    "Exact-byte backup, source-change detection and interrupted preparation recovery",
+    "No server writes, authority switch, legacy deletion or real-library migration"
   ],
   "acceptance": [
-    "Unique evidence has verified remote recovery refs and hashes",
-    "Retired checkout inventory provides restore commands; running app/runtime paths remain untouched",
-    "Barkpark open PRs and unrelated files are preserved",
-    "Root checks pass and integration state is recorded honestly"
+    "All known lossy converter cases refuse without partial output",
+    "Backup readback matches exact source bytes and metadata remains untouched",
+    "Repeat and interrupted preparation retain stable profile-qualified target IDs",
+    "Changed source, corrupt backup, invalid ownership and unsafe paths refuse",
+    "Relevant tests, root verification and required visual evidence pass"
   ],
   "checkpoint": "2026-09-23",
-  "handoff": "docs/cycles/C042-retirement-closeout.md",
-  "nextAction": "Follow integration PR #31 and upstream cleanup PR #19963. After normal app shutdown retire the remaining in-use checkout; P2 synthetic migration is the next product cycle.",
+  "handoff": "docs/cycles/C043-migration-preflight.md",
+  "nextAction": "Implement and test the offline preparation adapter; resolve target creation separately before any server write.",
   "evidence": [
-    "docs/cycles/C042-retirement-closeout.md",
-    "docs/archive/2026-09-23-untracked-evidence.json",
-    "docs/archive/2026-09-23-checkout-retirement.json"
+    "docs/cycles/C043-migration-preflight.md"
   ],
-  "truthReview": "Root verify passed; 80 exact archived file hashes and 48 original checkout heads verified, plus the isolated tested snapshot correction checkout retired. Live app and consumed runtime preserved. PRs carry outstanding integration checks; no deployment or full repository-wide cleanup claim.",
-  "screenshotReview": "No app behavior changes planned; preserved historical captures are not new visual acceptance."
+  "truthReview": "",
+  "screenshotReview": ""
 }
