@@ -1,29 +1,27 @@
 {
   "version": 1,
-  "id": "C044",
+  "id": "C045",
   "stage": "P2",
-  "status": "done",
-  "goal": "Establish and test a non-overwriting Paper creation contract and explicit lost-response reconciliation for migration.",
+  "status": "active",
+  "goal": "Stage prepared local notes through insert-only Paper creation with durable intent and conservative restart reconciliation.",
   "scope": [
-    "Probe real generic and Paper API creation in an owned disposable runtime",
-    "Preserve existing published and draft content and test concurrent attempts",
-    "Implement the smallest safe contract or record a reproduced upstream blocker",
-    "No real-library migration, authority switch, merge or deployment"
+    "Offline prepared disposable profiles with explicitly supplied publishing metadata",
+    "Bind each staging plan to source hashes and a captured local runtime identity",
+    "Preserve unknown, edited or ambiguous targets and all legacy navigation",
+    "No media upload, internal-link rewrite, authority switch, real-library migration, merge or deployment"
   ],
   "acceptance": [
-    "Existing target content is never replaced by migration creation",
-    "Concurrent creation and repeated delivery have a single owned result or explicit refusal",
-    "A lost response is reconciled by durable identity and content rather than blind replay",
-    "Relevant integration tests, root verification and required visual review pass"
+    "Intent is durable before every create; same prepared source and target resume without duplicate or overwrite",
+    "Process interruption after commit and before receipt reconciles exact content without blind replay",
+    "Changed source, corrupt plan or receipt, retargeted runtime and edited/draft targets stop safely",
+    "Actual private Paper API readback, relevant tests, root verification and reviewed visual evidence pass"
   ],
   "checkpoint": "2026-09-23",
-  "handoff": "docs/cycles/C044-paper-create-contract.md",
-  "nextAction": "Archive C044 and plan C045 durable staging and uncertain-write reconciliation; continue the existing two-hour run.",
+  "handoff": "docs/cycles/C045-migration-staging.md",
+  "nextAction": "Implement the offline staging module and interruption tests; keep it outside UI until the full migration contract is proven.",
   "evidence": [
-    "docs/cycles/C044-paper-create-contract.md",
-    "docs/cycles/evidence/C044/results.json",
-    "docs/cycles/evidence/C044/create-contract-1790193904428.json"
+    "docs/cycles/C045-migration-staging.md"
   ],
-  "truthReview": "Reviewed entry points and migration contract; P2 and G1/G2 remain unfinished; upstream PR #20020 is stacked and unmerged.",
-  "screenshotReview": "Five live stills, 37 live GIF frames, 40 deterministic frames and eight fixture GIF sequences inspected; no new visual regressions; explicit approval retained."
+  "truthReview": "",
+  "screenshotReview": ""
 }

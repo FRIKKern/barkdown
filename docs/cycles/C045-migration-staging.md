@@ -1,0 +1,9 @@
+# C045 — Durable migration staging
+
+Active on `codex/p2-migration`, starting from pushed C044 `b0ef8cd`. C044's completion record is archived. The existing autonomous goal/heartbeat continues through at least 2026-09-23 21:43:38 UTC. Upstream create-only route is `15bfe254a`, review tip `844ecd321`, draft PR #20020; consume only a built isolated checkout. No real library or UI cutover.
+
+Build an offline staging module over C043 preparation: verify the prepared source/backup, require explicit publish metadata, capture local runtime/profile identity, persist a plan and per-document intent before creating, then compare exact saved content and revision before recording completion. Existing/ambiguous/edited targets refuse. An interrupted intent first reads back; it must not blindly publish again. Keep original data and human organization untouched. Media, internal links, navigation activation and legacy retirement remain out of scope.
+
+Implemented immutable staging plans/intents/receipts, exact structured comparison and captured local runtime ownership. All 21 combined preparation/staging tests pass, including six real process exits, dropped committed response, source/backup/journal corruption, edits/missing/draft targets and competing stagers. Next: commit source and exercise the real private Paper endpoint before visual closeout. No owned runtime services currently running.
+
+Upstream tracking correction: the initial task was accidentally created on the active local CLI server. Its local placeholder is now cancelled with a transfer reason. Canonical task `task-0974164b66eea275` is published and claimed on **Guerrilla**, linked to PR #20020. All three exact-text criteria were stamped and read back; the old CLI requires file bytes passed as a literal PowerShell argument. Always use explicit `-s Guerrilla` for this task; inspect its current epoch before stamping. PR gate rerun is pending.
