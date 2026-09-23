@@ -1,19 +1,19 @@
 # Current handoff
 
-C039/P1 is accepted for the Windows source prototype at source `27ea120`, with evidence through `f65c0c6` on `codex/finish-profile-isolation`. [PR #31](https://github.com/FRIKKern/barkdown/pull/31) carries this checkpoint and repository cleanup; consult its state for main integration. See the [acceptance audit](cycles/C039-completion-audit.md). No deployment or real-library migration occurred.
+P1/C039 is accepted and merged through PR #31. P2 remains active; no real-library migration, authority switch or deployment has occurred.
 
 ## Current work
 
-C046 is active on `codex/p2-migration`: [real migrated Paper rehearsal](cycles/C046-migrated-paper.md), starting from pushed C045 `962a28e`. C045 durable staging passed full desktop/root tests, ten-case real API interruption/readback and reviewed visual evidence. Draft PR #32 carries the branch; upstream draft PR #20020 supplies the unmerged create-only route. The existing automatic run continues through at least 2026-09-23 21:43:38 UTC. No real-library cutover, merge or deployment.
+Branch `codex/p2-migration`, worktree `C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration`, draft [PR #32](https://github.com/FRIKKern/barkdown/pull/32). C043 prepares exact offline backups; C044 establishes a create-only route; C045 provides durable staging and interrupted-write reconciliation. [C046](cycles/C046-migrated-paper.md) proves nine permitted corpus cases through native typing, exact saved Undo, reload and Electron restart. Source, backup and workspace remain unchanged.
 
-## Evidence and limits
+The tenth case is blocked: native inline newline input becomes a PM hardBreak rejected by Paper's serializer boundary. Preflight now explicitly refuses it. Code language uses the correct native `lang` field; long standalone titles wrap fully in narrow panes. [Evidence and failed-run diagnosis](visual/migration/README.md). No whole-P2 completion claim.
 
-Full Windows desktop and root verification passed for the accepted checkpoint. Native isolation/adoption evidence retains 102 verified hashes. Reviewed login, real Paper and deterministic captures are linked from the acceptance audit. This proves the stated prototype boundary; migration, portability, sync and ordinary installation remain unfinished.
+## Next action
 
-Barkpark's consumed editor source is `bf23f773`. Upstream integration and cross-repository enforcement remain separate release gates; recheck their actual state before landing or releasing. Never modify the shared Barkpark checkout or stop shared services incidentally.
+Finish the current final desktop/root and screenshot evidence checkpoint and push; exact results belong in [C046](cycles/C046-migrated-paper.md). Then register/claim an upstream inline-break task and prove native DOM input, serialization, saved Undo and reopen before lifting the refusal. Media/internal links, reference-map activation and rollback remain separate A2 gates. Keep the legacy editor/store and readable history/receipts.
 
-## Resume
+Consume upstream worktree `barkpark-paper-create` at `844ecd321`, branch `codex/paper-create-only`, stacked draft [PR #20020](https://github.com/FRIKKern/barkpark/pull/20020). This route is unmerged and carries separate upstream CI gates. Do not modify the shared Barkpark checkout or stop shared services. Barkdown has main plus one delivery branch; upstream has main plus three. The user's running app is separate from these disposable test runtimes.
 
-Read [PLAN.md](PLAN.md), [DESIGN-DECISIONS.md](DESIGN-DECISIONS.md) and the relevant [acceptance stage](ACCEPTANCE.md); run `npm run plan` and `npm run cycle`. Follow [cycle closeout](CYCLES.md) and [visual rules](visual/RULES.md). Keep this handoff current by replacement, not accumulated historical checkpoints.
+The full Linux matrix at `962a28e` reported 19/20 (tablehead click timeout); its targeted rerun passed. This is an intermittent failure record, not proof that the full matrix passed on the current head.
 
-Earlier investigations remain in [the archived handoff](archive/2026-09-23-next-agent.md) and source-bound cycle evidence. Consult them only for a specific evidence question; they are not another task queue.
+Read [PLAN](PLAN.md), [decisions](DESIGN-DECISIONS.md), [A2 acceptance](ACCEPTANCE.md), [cycles](CYCLES.md) and [visual rules](visual/RULES.md); run `npm run plan` and `npm run cycle`. Current evidence supersedes historical pending work; older handoffs are not additional queues.
