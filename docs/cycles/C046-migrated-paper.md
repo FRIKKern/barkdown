@@ -6,7 +6,7 @@ The original ten-case editor gate now passes on Barkdown `2f4a1dc` and upstream 
 
 All 29 migration preparation/staging checks pass. The full upstream editor suite passes, including mounted newline, list-shape guards and source-carrier Undo. The corrected highlight probe (`c144f5e`) passes all six private-server checks; Linux CI had selected the wrong wrapped-line characters with End, while canvas/server agreed. The ten-case rehearsal is hash-bound to the selected checkout's actual editor bytes.
 
-Full Barkdown desktop validation is running (session 73480; log C:/Users/Frikk/AppData/Local/Temp/c046-sixhour-desktop.log). Next: poll that process, complete fresh live status capture and deterministic visual comparison/review/approval, run root verification, publish immutable evidence and close C046 only if its gates pass. Then archive cycle.json and plan the next bounded P2 slice. Wider A2 gates remain: unsupported content mappings, internal references/media, navigation activation, readable legacy history and rollback.
+Full Barkdown desktop validation passed (session 73480 exited 0; log evidence/C046/six-hour/c046-sixhour-desktop.log). Next: complete fresh live status capture and deterministic visual comparison/review/approval, run root verification, publish immutable evidence and close C046 only if its gates pass. Then archive cycle.json and plan the next bounded P2 slice. Wider A2 gates remain: unsupported content mappings, internal references/media, navigation activation, readable legacy history and rollback.
 
 ## Retained diagnosis
 
@@ -24,4 +24,4 @@ Barkdown: C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration, codex/p2-migrat
 
 Guerrilla task task-46160685b0b510c7 owns inline breaks, worker codex-barkdown-c046, pulse epoch 2 with lease through 23:15 UTC. Create-only task task-0974164b66eea275 was reclaimed by codex-barkdown-c044 through 23:18 UTC. Inspect fresh epochs before stamps, renew both while their PR remains open, and use explicit bp -s Guerrilla. Do not close unmerged tasks.
 
-All private migration runtimes stopped. Only the owned desktop validation session named above is running. Temporary C046 logs are under C:/Users/Frikk/AppData/Local/Temp/; preserve relevant logs and failed captures in final evidence. Current uncommitted work is reviewed migration evidence and truth-document updates; production source is committed. No other agent or shared service needs stopping.
+All private migration runtimes stopped. No owned desktop or migration test service remains running. Temporary C046 logs are under C:/Users/Frikk/AppData/Local/Temp/; preserve relevant logs and failed captures in final evidence. Reviewed migration evidence is committed and pushed through 5f371ad. Current pending work is standard visual closeout and final evidence; production source is committed. No other agent or shared service needs stopping.

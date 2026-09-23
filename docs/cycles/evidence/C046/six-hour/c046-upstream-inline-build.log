@@ -1,0 +1,16 @@
+
+> bp-paper-editor@0.2.0 build
+> esbuild src/index.js --bundle --format=iife --outfile=../../priv/static/assets/bp-paper-editor.bundle.js --minify && esbuild src/styles.css --bundle --outfile=../../priv/static/assets/bp-paper-editor.css --minify && esbuild src/reader-code.js --bundle --format=iife --outfile=../../priv/static/assets/bp-paper-code.js --minify
+
+
+  ..\..\priv\static\assets\bp-paper-editor.bundle.js  786.6kb
+
+Done in 111ms
+
+  ..\..\priv\static\assets\bp-paper-editor.css  58.8kb
+
+Done in 34ms
+
+  ..\..\priv\static\assets\bp-paper-code.js  105.7kb
+
+Done in 56ms
