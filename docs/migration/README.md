@@ -10,7 +10,7 @@ node docs/migration/audit.mjs docs/migration/report.json
 
 The checked report records the source commit and normalized source hashes. The harness imports the production converter, checks hand-authored expected structures/refusals, checks source immutability and refuses unsupported documents even after a valid prefix. It also checks a **proposed** deterministic profile-qualified identity mapping against two synthetic profiles with colliding document slugs. This is not proof of production allocation, navigation rewriting or server idempotence.
 
-Current converter result: **27 cases: 16 representation-preserved, 3 lossy, 2 unresolved references, 6 rejected. Cutover is not ready.** The original ten cases pass C046 native-editor proof. C047 candidate mappings preserve marked headings and top-level alignment; expanded sixteen-case native verification is pending. Other structures and unresolved references remain refused. A passing audit means the limitations remain visible; it does not make the lossy cases acceptable.
+Current converter result: **27 cases: 16 representation-preserved, 3 lossy, 2 unresolved references, 6 rejected. Cutover is not ready.** The original ten cases pass C046 native-editor proof. C047 mappings preserve marked headings and top-level alignment; all sixteen cases pass native editing, exact saved Undo, reload/restart and interrupted API staging. Final standard visual/root closeout is tracked in its handoff. Other structures and unresolved references remain refused. A passing audit means the limitations remain visible; it does not make the lossy cases acceptable.
 
 ## Content and identity inventory
 

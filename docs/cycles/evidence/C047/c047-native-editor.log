@@ -1,0 +1,326 @@
+
+> barkdown-desktop@0.6.0 test:migration-editor:isolated
+> npm run build && node tests/status-shots-isolated.mjs tests/migration-editor.live.mjs
+
+
+> barkdown-desktop@0.6.0 build
+> node scripts/build.mjs
+
+
+  renderer\dist\app.js      2.8mb
+  renderer\dist\app.js.map  7.0mb
+
+Done in 416ms
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-pLApdv
+Capture runtime: starting 
+Capture runtime: ready 
+Migration editor evidence: C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\docs\visual\migration\runs\2026-09-23T23-07-55-168Z
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: paragraph-literal-break: only the intended text changes
++ actual - expected
+... Skipped lines
+
+  [
+    {
+      content: [
+        {
+          type: 'text',
+...
+              type: 'text',
++             value: 'LXiteral first'
+-             value: 'LXiteral first\nLiteral second'
+            }
+          ],
+          type: 'strong'
+        },
++       {
++         children: [
++           {
++             type: 'text',
++             value: '\n'
++           }
++         ],
++         type: 'strong'
++       },
++       {
++         children: [
++           {
++             type: 'text',
++             value: 'Literal second'
++           }
++         ],
++         type: 'strong'
++       }
+      ],
+      id: 'migration-12',
+      type: 'paragraph'
+    },
+    {
+
+    at file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-editor.live.mjs:93:12 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: [
+    {
+      content: [ { type: 'text', value: 'Notes — café 日本語 🐕' } ],
+      id: 'migration-0',
+      type: 'paragraph'
+    },
+    {
+      content: [ { children: [ [Object] ], type: 'strong' } ],
+      id: 'migration-1',
+      type: 'paragraph'
+    },
+    {
+      content: [ { children: [ [Object] ], type: 'underline' } ],
+      id: 'migration-2',
+      type: 'paragraph'
+    },
+    {
+      content: [
+        { children: [ [Object] ], type: 'strikethrough' },
+        { type: 'code', value: ' literal ' }
+      ],
+      id: 'migration-3',
+      type: 'paragraph'
+    },
+    {
+      content: [
+        {
+          children: [ [Object] ],
+          href: 'https://example.invalid/reference',
+          type: 'link'
+        }
+      ],
+      id: 'migration-4',
+      type: 'paragraph'
+    },
+    {
+      content: [
+        { type: 'text', value: 'Line one' },
+        { type: 'text', value: '\n' },
+        { type: 'text', value: 'Line two' }
+      ],
+      id: 'migration-5',
+      type: 'paragraph'
+    },
+    { id: 'migration-6', level: 2, text: 'Section', type: 'heading' },
+    {
+      content: [
+        {
+          children: [ [Object] ],
+          href: 'https://example.invalid/heading',
+          type: 'link'
+        }
+      ],
+      id: 'migration-7',
+      level: 1,
+      type: 'heading'
+    },
+    {
+      align: 'right',
+      id: 'migration-8',
+      level: 3,
+      text: 'Right heading',
+      type: 'heading'
+    },
+    {
+      content: [
+        { children: [ [Object] ], type: 'strong' },
+        { type: 'text', value: '\n' },
+        { type: 'text', value: 'Heading second' }
+      ],
+      id: 'migration-9',
+      level: 2,
+      type: 'heading'
+    },
+    {
+      align: 'center',
+      content: [ { type: 'text', value: 'Centered' } ],
+      id: 'migration-10',
+      type: 'paragraph'
+    },
+    {
+      align: 'right',
+      content: [ { children: [ [Object] ], type: 'underline' } ],
+      id: 'migration-11',
+      type: 'paragraph'
+    },
+    {
+      content: [
+        { children: [ [Object] ], type: 'strong' },
+        { children: [ [Object] ], type: 'strong' },
+        { children: [ [Object] ], type: 'strong' }
+      ],
+      id: 'migration-12',
+      type: 'paragraph'
+    },
+    {
+      id: 'migration-13',
+      items: [
+        { checked: true, content: [ [Object] ] },
+        { checked: false, content: [ [Object] ] }
+      ],
+      ordered: false,
+      task: true,
+      type: 'list'
+    },
+    {
+      id: 'migration-14',
+      lang: 'js',
+      type: 'code',
+      value: 'const value = 1;\n'
+    },
+    {
+      head: [
+        [ { type: 'text', value: 'Label' } ],
+        { align: 'right', content: [ [Object] ] }
+      ],
+      id: 'migration-15',
+      rows: [ [ [ [Object] ], { align: 'right', content: [Array] } ] ],
+      type: 'table'
+    }
+  ],
+  expected: [
+    {
+      type: 'paragraph',
+      content: [ { type: 'text', value: 'Notes — café 日本語 🐕' } ],
+      id: 'migration-0'
+    },
+    {
+      type: 'paragraph',
+      content: [ { type: 'strong', children: [ [Object] ] } ],
+      id: 'migration-1'
+    },
+    {
+      type: 'paragraph',
+      content: [ { type: 'underline', children: [ [Object] ] } ],
+      id: 'migration-2'
+    },
+    {
+      type: 'paragraph',
+      content: [
+        { type: 'strikethrough', children: [ [Object] ] },
+        { type: 'code', value: ' literal ' }
+      ],
+      id: 'migration-3'
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'link',
+          href: 'https://example.invalid/reference',
+          children: [ [Object] ]
+        }
+      ],
+      id: 'migration-4'
+    },
+    {
+      type: 'paragraph',
+      content: [
+        { type: 'text', value: 'Line one' },
+        { type: 'text', value: '\n' },
+        { type: 'text', value: 'Line two' }
+      ],
+      id: 'migration-5'
+    },
+    { type: 'heading', level: 2, text: 'Section', id: 'migration-6' },
+    {
+      type: 'heading',
+      level: 1,
+      content: [
+        {
+          type: 'link',
+          href: 'https://example.invalid/heading',
+          children: [ [Object] ]
+        }
+      ],
+      id: 'migration-7'
+    },
+    {
+      type: 'heading',
+      level: 3,
+      text: 'Right heading',
+      align: 'right',
+      id: 'migration-8'
+    },
+    {
+      type: 'heading',
+      level: 2,
+      content: [
+        { type: 'strong', children: [ [Object] ] },
+        { type: 'text', value: '\n' },
+        { type: 'text', value: 'Heading second' }
+      ],
+      id: 'migration-9'
+    },
+    {
+      type: 'paragraph',
+      content: [ { type: 'text', value: 'Centered' } ],
+      align: 'center',
+      id: 'migration-10'
+    },
+    {
+      type: 'paragraph',
+      content: [ { type: 'underline', children: [ [Object] ] } ],
+      align: 'right',
+      id: 'migration-11'
+    },
+    {
+      type: 'paragraph',
+      content: [ { type: 'strong', children: [ [Object] ] } ],
+      id: 'migration-12'
+    },
+    {
+      type: 'list',
+      ordered: false,
+      task: true,
+      items: [
+        { content: [ [Object] ], checked: true },
+        { content: [ [Object] ], checked: false }
+      ],
+      id: 'migration-13'
+    },
+    {
+      type: 'code',
+      lang: 'js',
+      value: 'const value = 1;\n',
+      id: 'migration-14'
+    },
+    {
+      type: 'table',
+      head: [
+        [ { type: 'text', value: 'Label' } ],
+        { content: [ [Object] ], align: 'right' }
+      ],
+      rows: [ [ [ [Object] ], { content: [Array], align: 'right' } ] ],
+      id: 'migration-15'
+    }
+  ],
+  operator: 'deepStrictEqual'
+}
+
+Node.js v22.13.1
+Capture runtime: stopping 
+Capture runtime: stopped 
+file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:98
+    throw new AggregateError(errors, errors.map(error => error.message).join('\n'));
+          ^
+
+AggregateError: Live screenshot capture failed with exit 1
+    at captureWithCleanup (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:98:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/status-shots-isolated.mjs:33:1 {
+  [errors]: [
+    Error: Live screenshot capture failed with exit 1
+        at captureWithCleanup (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:82:51)
+        at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+        at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/status-shots-isolated.mjs:33:1
+  ]
+}
+
+Node.js v22.13.1

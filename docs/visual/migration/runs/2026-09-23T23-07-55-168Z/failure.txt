@@ -1,0 +1,42 @@
+AssertionError [ERR_ASSERTION]: paragraph-literal-break: only the intended text changes
++ actual - expected
+... Skipped lines
+
+  [
+    {
+      content: [
+        {
+          type: 'text',
+...
+              type: 'text',
++             value: 'LXiteral first'
+-             value: 'LXiteral first\nLiteral second'
+            }
+          ],
+          type: 'strong'
+        },
++       {
++         children: [
++           {
++             type: 'text',
++             value: '\n'
++           }
++         ],
++         type: 'strong'
++       },
++       {
++         children: [
++           {
++             type: 'text',
++             value: 'Literal second'
++           }
++         ],
++         type: 'strong'
++       }
+      ],
+      id: 'migration-12',
+      type: 'paragraph'
+    },
+    {
+
+    at file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-editor.live.mjs:93:12

@@ -1,0 +1,98 @@
+
+> barkdown-desktop@0.6.0 test:migration-editor:isolated
+> npm run build && node tests/status-shots-isolated.mjs tests/migration-editor.live.mjs
+
+
+> barkdown-desktop@0.6.0 build
+> node scripts/build.mjs
+
+
+  renderer\dist\app.js      2.8mb
+  renderer\dist\app.js.map  7.0mb
+
+Done in 360ms
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-BaQZYD
+Capture runtime: starting 
+Capture runtime: ready 
+Migration editor evidence: C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\docs\visual\migration\runs\2026-09-23T23-14-15-739Z
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: native heading break preserves link, emphasis and level
++ actual - expected
+
+  {
+    content: [
+      {
+        marks: '[{"type":"link","href":"https://example.invalid/heading"},{"type":"strong"},{"type":"em"}]',
++       text: 'R'
+-       text: 'R\nich heading'
+      },
++     {
++       marks: '[]',
++       text: '\n'
++     },
++     {
++       marks: '[{"type":"link","href":"https://example.invalid/heading"},{"type":"strong"},{"type":"em"}]',
++       text: 'ich heading'
++     }
+    ],
+    id: 'migration-7',
+    level: 1,
+    type: 'heading'
+  }
+
+    at file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-editor.live.mjs:153:14 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: {
+    content: [
+      {
+        marks: '[{"type":"link","href":"https://example.invalid/heading"},{"type":"strong"},{"type":"em"}]',
+        text: 'R'
+      },
+      { marks: '[]', text: '\n' },
+      {
+        marks: '[{"type":"link","href":"https://example.invalid/heading"},{"type":"strong"},{"type":"em"}]',
+        text: 'ich heading'
+      }
+    ],
+    id: 'migration-7',
+    level: 1,
+    type: 'heading'
+  },
+  expected: {
+    type: 'heading',
+    level: 1,
+    content: [
+      {
+        marks: '[{"type":"link","href":"https://example.invalid/heading"},{"type":"strong"},{"type":"em"}]',
+        text: 'R\nich heading'
+      }
+    ],
+    id: 'migration-7'
+  },
+  operator: 'deepStrictEqual'
+}
+
+Node.js v22.13.1
+Capture runtime: stopping 
+Capture runtime: stopped 
+file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:98
+    throw new AggregateError(errors, errors.map(error => error.message).join('\n'));
+          ^
+
+AggregateError: Live screenshot capture failed with exit 1
+    at captureWithCleanup (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:98:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/status-shots-isolated.mjs:33:1 {
+  [errors]: [
+    Error: Live screenshot capture failed with exit 1
+        at captureWithCleanup (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:82:51)
+        at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+        at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/status-shots-isolated.mjs:33:1
+  ]
+}
+
+Node.js v22.13.1

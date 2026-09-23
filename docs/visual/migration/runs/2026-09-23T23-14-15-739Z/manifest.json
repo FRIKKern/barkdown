@@ -1,0 +1,103 @@
+{
+  "capturedAt": "2026-09-23T23:14:42.174Z",
+  "barkdownCommit": "b1b05cdd08101e2f123339b1e1f7aad79494a1c8",
+  "barkparkCommit": "8d48ae6613917259f4376b061d603a6e37043c28",
+  "isolatedRuntime": true,
+  "editorBundle": {
+    "source": "server",
+    "server": "http://127.0.0.1:58979",
+    "version": "0.2.26.3938",
+    "sha": "d5fe523117527ebd29b66ff42915bb42b1036f3a",
+    "cssSha": "38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "folder": "d5fe523117527ebd29b66ff42915bb42b1036f3a-38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "fetchedAt": "2026-09-23T23:14:26.512Z"
+  },
+  "cases": [
+    {
+      "case": "plain-unicode",
+      "beforeRev": 1,
+      "editedRev": 2,
+      "undoneRev": 3
+    },
+    {
+      "case": "nested-marks",
+      "beforeRev": 3,
+      "editedRev": 4,
+      "undoneRev": 5
+    },
+    {
+      "case": "underline",
+      "beforeRev": 5,
+      "editedRev": 6,
+      "undoneRev": 7
+    },
+    {
+      "case": "strike-code",
+      "beforeRev": 7,
+      "editedRev": 8,
+      "undoneRev": 9
+    },
+    {
+      "case": "external-link",
+      "beforeRev": 9,
+      "editedRev": 10,
+      "undoneRev": 11
+    },
+    {
+      "case": "hard-break",
+      "beforeRev": 11,
+      "editedRev": 12,
+      "undoneRev": 13,
+      "breakInsertedRev": 14,
+      "breakUndoneRev": 15
+    },
+    {
+      "case": "heading-plain",
+      "beforeRev": 15,
+      "editedRev": 16,
+      "undoneRev": 17
+    },
+    {
+      "case": "heading-rich-external",
+      "beforeRev": 17,
+      "editedRev": 18,
+      "undoneRev": 19
+    }
+  ],
+  "frames": [
+    "01-staged-original.png",
+    "edit-plain-unicode.png",
+    "edit-nested-marks.png",
+    "edit-underline.png",
+    "edit-strike-code.png",
+    "edit-external-link.png",
+    "edit-hard-break.png",
+    "native-break-inserted.png",
+    "edit-heading-plain.png",
+    "edit-heading-rich-external.png"
+  ],
+  "artifacts": {
+    "01-staged-original.png": "01212e95dade83376413122610199504ed3b9645707c46e4013e56e7419975a1",
+    "edit-external-link.png": "861d6b8b1fe2b6c7ffdb79fbd36e7f5ba43d0a61409aa72ef97c508af7b4dd14",
+    "edit-hard-break.png": "4f79d1c176a6dd72d9a8d9c60308e514e91b943a995034b77ae9569dc3a914c9",
+    "edit-heading-plain.png": "4ee8ebeb068e8266dd4059987bebd31901e540700fac0c7e138c48c2a0b85d08",
+    "edit-heading-rich-external.png": "99f417f303dee73e8590bc3d72fbab65e13c73605a23488c0e72c074fa1f40ef",
+    "edit-nested-marks.png": "8103160710469daa9d9b906509c94a3b599e296f79d11708119b214b8d273beb",
+    "edit-plain-unicode.png": "725f23ac15e963c481caf38bc083eaa72914f3dddd202e8d97ccf9000c2fd0f1",
+    "edit-strike-code.png": "de7d197ac9d01eae0127ffbed1b228df9b80619c0896e48c2ee15829ea46bfde",
+    "edit-underline.png": "32352d3a4f144c0e59115294e5076c5c0bfc4ec7c3db6b06966a9c150203c264",
+    "failed-rehearsal.webm": "ec1f37d2ac0ac57335cc09ec9868ca71c1d78fc743d897719e836cbadb8d1835",
+    "failure-state.json": "1f39a3a9065b80eeb7983bf2002264c696208142e80117330bfe15810acca65e",
+    "failure.png": "ed7e28b9be60a05ce889961def50645b6f282ea06b334d8549a8afe46c807ad6",
+    "failure.txt": "b1d2055227eeb7cf4b6fee244fbc4306d8fca023c72faadf59b394c8f7dc07cc",
+    "native-break-inserted.png": "9ec13565f05d4698c09a1eb1c2848ca69152dd88e7b35474978ac64e593a42e1"
+  },
+  "authority": "legacy",
+  "motion": "Real keyboard editing and native Paper history with acknowledged private server writes; actual Electron video, no model turn.",
+  "limits": [
+    "No navigation activation or real-library migration",
+    "16 structured corpus cases; media and internal references remain separate gates",
+    "Clean Electron restart, not database/power loss",
+    "Legacy edit receipts remain legacy; staging refuses later revisions even after Undo restores content"
+  ]
+}

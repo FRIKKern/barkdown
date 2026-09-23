@@ -1,0 +1,25 @@
+AssertionError [ERR_ASSERTION]: native heading break preserves link, emphasis and level
++ actual - expected
+
+  {
+    content: [
+      {
+        marks: '[{"type":"link","href":"https://example.invalid/heading"},{"type":"strong"},{"type":"em"}]',
++       text: 'R'
+-       text: 'R\nich heading'
+      },
++     {
++       marks: '[]',
++       text: '\n'
++     },
++     {
++       marks: '[{"type":"link","href":"https://example.invalid/heading"},{"type":"strong"},{"type":"em"}]',
++       text: 'ich heading'
++     }
+    ],
+    id: 'migration-7',
+    level: 1,
+    type: 'heading'
+  }
+
+    at file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-editor.live.mjs:153:14

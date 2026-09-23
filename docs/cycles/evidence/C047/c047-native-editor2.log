@@ -1,0 +1,21 @@
+
+> barkdown-desktop@0.6.0 test:migration-editor:isolated
+> npm run build && node tests/status-shots-isolated.mjs tests/migration-editor.live.mjs
+
+
+> barkdown-desktop@0.6.0 build
+> node scripts/build.mjs
+
+
+  renderer\dist\app.js      2.8mb
+  renderer\dist\app.js.map  7.0mb
+
+Done in 386ms
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-wS9vGy
+Capture runtime: starting 
+Capture runtime: ready 
+PASS ten migrated cases including native inline breaks: keyboard edit, exact saved Undo, reload and Electron restart; source/navigation unchanged
+Migration editor evidence: C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\docs\visual\migration\runs\2026-09-23T23-10-28-832Z
+Capture runtime: stopping 
+Capture runtime: stopped 
+Live screenshots complete; private runtime stopped; user CLI configuration unchanged.

@@ -1,0 +1,155 @@
+TAP version 13
+# Subtest: all audited losses, unsupported structures and internal references refuse
+ok 1 - all audited losses, unsupported structures and internal references refuse
+  ---
+  duration_ms: 10.1864
+  ...
+# Subtest: inline carriage returns retain exact blocked backups while LF breaks remain supported
+ok 2 - inline carriage returns retain exact blocked backups while LF breaks remain supported
+  ---
+  duration_ms: 112.7829
+  ...
+# Subtest: exact backup preserves organization, proposals, history, binary media and receipts; excludes credentials
+ok 3 - exact backup preserves organization, proposals, history, binary media and receipts; excludes credentials
+  ---
+  duration_ms: 150.8608
+  ...
+# Subtest: lossy content is recorded as blocked and never produces a partial conversion
+ok 4 - lossy content is recorded as blocked and never produces a partial conversion
+  ---
+  duration_ms: 51.3487
+  ...
+# Subtest: process interruption at each durable boundary resumes without duplicate files or IDs
+ok 5 - process interruption at each durable boundary resumes without duplicate files or IDs
+  ---
+  duration_ms: 745.4239
+  ...
+# Subtest: changed source and corrupt backups or manifests refuse, retaining original data
+ok 6 - changed source and corrupt backups or manifests refuse, retaining original data
+  ---
+  duration_ms: 340.697
+  ...
+# Subtest: owner, quiescence, malformed records and unsafe destinations fail closed
+ok 7 - owner, quiescence, malformed records and unsafe destinations fail closed
+  ---
+  duration_ms: 87.4819
+  ...
+# Subtest: stages once, revalidates on repeat, retains source/navigation and excludes credentials
+ok 8 - stages once, revalidates on repeat, retains source/navigation and excludes credentials
+  ---
+  duration_ms: 284.7504
+  ...
+# Subtest: real process exit at plan retains a recoverable intent without duplicates
+ok 9 - real process exit at plan retains a recoverable intent without duplicates
+  ---
+  duration_ms: 363.5872
+  ...
+# Subtest: real process exit at intent:note retains a recoverable intent without duplicates
+ok 10 - real process exit at intent:note retains a recoverable intent without duplicates
+  ---
+  duration_ms: 478.0164
+  ...
+# Subtest: real process exit at response:note retains a recoverable intent without duplicates
+ok 11 - real process exit at response:note retains a recoverable intent without duplicates
+  ---
+  duration_ms: 525.0095
+  ...
+# Subtest: real process exit at readback:note retains a recoverable intent without duplicates
+ok 12 - real process exit at readback:note retains a recoverable intent without duplicates
+  ---
+  duration_ms: 448.8394
+  ...
+# Subtest: real process exit at receipt:note retains a recoverable intent without duplicates
+ok 13 - real process exit at receipt:note retains a recoverable intent without duplicates
+  ---
+  duration_ms: 511.4599
+  ...
+# Subtest: real process exit at before-complete retains a recoverable intent without duplicates
+ok 14 - real process exit at before-complete retains a recoverable intent without duplicates
+  ---
+  duration_ms: 436.7821
+  ...
+# Subtest: lost response after commit reconciles without create replay
+ok 15 - lost response after commit reconciles without create replay
+  ---
+  duration_ms: 152.1989
+  ...
+# Subtest: existing same-content paper without this backup intent is not adopted
+ok 16 - existing same-content paper without this backup intent is not adopted
+  ---
+  duration_ms: 85.353
+  ...
+# Subtest: drafts present before or during creation stop completion without overwriting either row
+ok 17 - drafts present before or during creation stop completion without overwriting either row
+  ---
+  duration_ms: 138.1573
+  ...
+# Subtest: changed content, changed revision with restored content, or missing target never overwrites/recreates
+ok 18 - changed content, changed revision with restored content, or missing target never overwrites/recreates
+  ---
+  duration_ms: 222.0589
+  ...
+# Subtest: changed source or corrupt backup/plan/receipt is refused without another create
+ok 19 - changed source or corrupt backup/plan/receipt is refused without another create
+  ---
+  duration_ms: 181.1498
+  ...
+# Subtest: target and metadata changes are fenced before network writes
+ok 20 - target and metadata changes are fenced before network writes
+  ---
+  duration_ms: 194.7481
+  ...
+# Subtest: source or target changes at the last checkpoint prevent completion
+ok 21 - source or target changes at the last checkpoint prevent completion
+  ---
+  duration_ms: 132.5122
+  ...
+# Subtest: two stagers cannot own the same durable plan concurrently
+ok 22 - two stagers cannot own the same durable plan concurrently
+  ---
+  duration_ms: 155.3572
+  ...
+# Subtest: non-object journal records are corrupt, never absent: null
+ok 23 - non-object journal records are corrupt, never absent: null
+  ---
+  duration_ms: 220.6682
+  ...
+# Subtest: non-object journal records are corrupt, never absent: []
+ok 24 - non-object journal records are corrupt, never absent: []
+  ---
+  duration_ms: 189.2058
+  ...
+# Subtest: non-object journal records are corrupt, never absent: false
+ok 25 - non-object journal records are corrupt, never absent: false
+  ---
+  duration_ms: 173.3875
+  ...
+# Subtest: a corrupt later-document journal prevents writes for the entire batch
+ok 26 - a corrupt later-document journal prevents writes for the entire batch
+  ---
+  duration_ms: 72.1317
+  ...
+# Subtest: a completion record with missing receipts cannot republish deleted targets
+ok 27 - a completion record with missing receipts cannot republish deleted targets
+  ---
+  duration_ms: 142.6361
+  ...
+# Subtest: source edited at after-create retains originals and refuses completion
+ok 28 - source edited at after-create retains originals and refuses completion
+  ---
+  duration_ms: 100.8776
+  ...
+# Subtest: source edited at before-complete retains originals and refuses completion
+ok 29 - source edited at before-complete retains originals and refuses completion
+  ---
+  duration_ms: 120.2051
+  ...
+1..29
+# tests 29
+# suites 0
+# pass 29
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5535.0013
