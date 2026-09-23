@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "id": "C047",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Preserve heading marks and paragraph alignment through staged Paper editing, saved Undo and restart.",
+  "scope": [
+    "Lossless heading inline carriers and center/right paragraph alignment in the existing converter",
+    "Expand synthetic migration corpus and native editor save/Undo/reload/restart checks",
+    "Retain refusal for unresolved links, deep headings with clamped display, unsupported lists/media, and all real-library cutover"
+  ],
+  "acceptance": [
+    "Hand-authored structured expectations retain heading marks/links and paragraph alignment without source mutation",
+    "Preflight admits only mapped and editor-proved structures; unknown metadata and unresolved references remain refused",
+    "Real Paper typing/save/Undo/reload/restart preserves intended structured content and source backups",
+    "Full relevant tests, root verification and fresh reviewed screenshots/motion accompany source and evidence commits"
+  ],
+  "checkpoint": "2026-09-23",
+  "handoff": "docs/cycles/C047-heading-alignment.md",
+  "nextAction": "Archive C047 and plan bounded native quote/nested-list migration coverage, including list Shift+Enter.",
+  "evidence": [
+    "docs/cycles/C047-heading-alignment.md",
+    "docs/visual/migration/runs/2026-09-23T23-16-54-605Z/manifest.json",
+    "docs/visual/migration/runs/2026-09-23T23-16-54-605Z/motion-review.json",
+    "docs/cycles/evidence/C045/staging-1790205542558.json",
+    "docs/cycles/evidence/C047/results.json"
+  ],
+  "truthReview": "Current product and ownership decisions unchanged; README, guide, plan, handoff, validation and migration contract reviewed. P2 remains active; source and backup stay authoritative. Branches controlled; no merge/deploy.",
+  "screenshotReview": "All new/changed fixture stills visually compared; identical media carries the prior full 40-still/40-GIF-frame review. Minor GIF palette banding around modal shadows retained. No visual regression observed. Live 5 stills/37 frames and migration 23 stills/77 motion frames/8 restart samples reviewed; explicit fixture approval linked in results."
+}
