@@ -20,7 +20,19 @@ documents.addPaperProposal(id,{id:'legacy-proposal',mode:'append',markdown:'An o
 const legacyPath='agent-edits/'+crypto.createHash('sha256').update('bp:'+id).digest('hex')+'.json';
 store.writeJson(legacyPath,{id:'legacy-receipt',documentId:'bp:'+id,beforeRev:baseline.rev,afterRev:receipt.afterRev,summary:'Earlier unowned edit',before:{blocks:baseline.blocks}});
 const legacyBytes=fs.readFileSync(store.filePath(legacyPath)),proposalBytes=fs.readFileSync(store.filePath('paper-proposals.json')),before=await bp.getPaper(config,id);
-const foreign=http.createServer(async(req,res)=>{for await(const _ of req){}requests.push({method:req.method,url:req.url});res.writeHead(200,{'content-type':'application/json'});res.end(JSON.stringify({...before.raw,_id:id,title:'A different library',rev:before.rev,blocks:[{id:'foreign-body',type:'paragraph',content:[{type:'text',value:'Same identifier and revision, different library.'}]}]}));});await new Promise(r=>foreign.listen(0,'127.0.0.1',r));const foreignServer='http://127.0.0.1:'+foreign.address().port;
+const foreignPaper={...before.raw,_id:id,title:'A different library',rev:before.rev,blocks:[{id:'foreign-body',type:'paragraph',content:[{type:'text',value:'Same identifier and revision, different library.'}]}]};
+const foreign=http.createServer(async(req,res)=>{
+ for await(const _ of req){}requests.push({method:req.method,url:req.url});
+ // The foreign recorder has no storage. Serve only the real editor assets from
+ // the owned fixture runtime; never forward a data read or mutation there.
+ if(req.method==='GET'&&['/assets/bp-paper-editor.bundle.js','/assets/bp-paper-editor.css'].includes(req.url)){
+  const asset=await fetch(server+req.url);res.writeHead(asset.status,{'content-type':asset.headers.get('content-type')});res.end(Buffer.from(await asset.arrayBuffer()));return;
+ }
+ res.writeHead(200,{'content-type':'application/json'});
+ if(req.url.startsWith('/v1/data/query/')){res.end(JSON.stringify({documents:[foreignPaper],perspective:'published',limit:200,offset:0,count:1,total:1,hasMore:false}));return;}
+ if(req.url==='/status.json'){res.end('{}');return;}
+ res.end(JSON.stringify({document:foreignPaper}));
+});await new Promise(r=>foreign.listen(0,'127.0.0.1',r));const foreignServer='http://127.0.0.1:'+foreign.address().port;
 const shot=async name=>{await page.evaluate(()=>document.fonts.ready);await page.screenshot({path:path.join(out,name+'.png')});frames.push(name+'.png');};
 const configure=async extra=>page.evaluate(async values=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:values});for(const c of window.__barkdown.controllers.values())c.connectionChanged?.();},{...config,...extra});
 const pm=()=>page.locator('.bw-paper-pane:not([hidden]) .ProseMirror');
