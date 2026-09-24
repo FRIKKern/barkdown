@@ -179,7 +179,7 @@ async function uploadMedia(config, { name, mime, dataUrl, filePath }) {
   try {
     let data;
     if (config.viaCli) {
-      data = await cli(['media', 'upload', file, '--yes']);
+      data = await cli([...(config.cliRouting || []), 'media', 'upload', file, '--yes']);
     } else {
       const { server, token, dataset } = normalise(config);
       if (!server) throw new Error('No Barkpark server configured');
@@ -242,7 +242,7 @@ async function cliListPapers(limit = 60) {
   return envelopeDocs(data).map(paperToSummary);
 }
 
-async function cliListAllPapers(config) {
+async function cliScope(config) {
   const captured = normalise(config);
   // Windows bp currently needs a shell. Accept only safe literal routing values;
   // never let saved connection text become shell syntax or ambient CLI routing.
@@ -252,33 +252,38 @@ async function cliListAllPapers(config) {
   if (String(who?.server || '').replace(/\/+$/, '') !== captured.server || who?.dataset !== captured.dataset ||
       !/^[a-zA-Z0-9_-]+$/.test(who?.workspace || '') || !/^[a-zA-Z0-9_-]+$/.test(who?.project || '')) throw new Error('The CLI could not confirm the configured library scope. Choose a direct connection in Settings.');
   routing.push('-w', who.workspace, '-p', who.project);
+  return routing;
+}
+
+async function cliListAllPapers(config) {
+  const routing = await cliScope(config);
   const documents = await readCatalog(({ limit, offset }) => cli([...routing, 'doc', 'query', 'paper', '--limit', String(limit), '--offset', String(offset), '--order', '_createdAt:asc', '--perspective', 'published', '--count', '--fields', catalogFields]));
   return catalogSummaries(documents);
 }
 
-async function cliGetPaper(id) {
-  const data = unwrap(await cli(['doc', 'get', 'paper', id, '--perspective', 'raw']));
+async function cliGetPaper(id, routing = []) {
+  const data = unwrap(await cli([...routing, 'doc', 'get', 'paper', id, '--perspective', 'raw']));
   const paper = data?.document || data;
   return { ...paperToSummary(paper), raw: paper, ...markdownView(paper.blocks), html: paper.body_html || null, blocks: paper.blocks || null, revision: paper._rev, rev: paper.rev ?? null, description: paper.description || '' };
 }
 
 // Writes through the bp CLI. The fenced ops verb rejects a stale rev with precondition_failed.
-async function cliApplyOps(slug, ops, ifRev) {
+async function cliApplyOps(slug, ops, ifRev, routing = []) {
   // The guard travels in the body as ifRev (the CLI's --if-rev flag is not honoured by the server).
-  const result = await cli(['bulldocs', 'patch', slug, '--file', '-', '--yes'], ifRev != null ? { ifRev, ops } : { ops });
+  const result = await cli([...routing, 'bulldocs', 'patch', slug, '--file', '-', '--yes'], ifRev != null ? { ifRev, ops } : { ops });
   return { ok: true, rev: result.rev != null ? Number(result.rev) : null, unchanged: Boolean(result.unchanged), opCount: result.op_count ?? ops.length };
 }
-async function cliPublish(payload) { return cli(['bulldocs', 'publish', payload.slug, '--file', '-', '--yes'], payload); }
-async function cliPatchTitle(slug, title) { return cli(['doc', 'patch', 'paper', slug, '--set', 'title=' + title, '--yes']); }
+async function cliPublish(payload, routing = []) { return cli([...routing, 'bulldocs', 'publish', payload.slug, '--file', '-', '--yes'], payload); }
+async function cliPatchTitle(slug, title, routing = []) { return cli([...routing, 'doc', 'patch', 'paper', slug, '--set', 'title=' + title, '--yes']); }
 
-async function cliSearch(query, limit = 20) {
+async function cliSearch(query, limit = 20, routing = []) {
   try {
-    const data = await cli(['doc', 'query', 'paper', '--filter', `title*=${query}`, '--limit', String(limit), '--fields', 'title,slug,tags,body_html,blocks']);
+    const data = await cli([...routing, 'doc', 'query', 'paper', '--filter', `title*=${query}`, '--limit', String(limit), '--fields', 'title,slug,tags,body_html,blocks']);
     return envelopeDocs(data).map(doc => ({ ...paperToSummary(doc), snippet: paperToSummary(doc).excerpt }));
   } catch (error) { return []; }
 }
 
-async function cliBacklinks(id) { try { return envelopeDocs(await cli(['doc', 'backlinks', id])).map(paperToSummary); } catch { return []; } }
-async function cliHistory(id) { try { return envelopeDocs(await cli(['doc', 'history', 'paper', id])).map(rev => ({ rev: rev._rev || rev.rev, at: rev._createdAt || rev.at, actor: rev.actor || rev.author || 'barkpark', summary: rev.summary || rev.message || '' })); } catch { return []; } }
+async function cliBacklinks(id, routing = []) { try { return envelopeDocs(await cli([...routing, 'doc', 'backlinks', id])).map(paperToSummary); } catch { return []; } }
+async function cliHistory(id, routing = []) { try { return envelopeDocs(await cli([...routing, 'doc', 'history', 'paper', id])).map(rev => ({ rev: rev._rev || rev.rev, at: rev._createdAt || rev.at, actor: rev.actor || rev.author || 'barkpark', summary: rev.summary || rev.message || '' })); } catch { return []; } }
 
-module.exports = { uploadMedia, test, listPapers, listAllPapers, getPaper, search, backlinks, related, history, applyOps, publish, propose, importFromCli, cliListPapers, cliListAllPapers, cliGetPaper, cliSearch, cliBacklinks, cliHistory, cliApplyOps, cliPublish, cliPatchTitle, blocksToMarkdown, markdownView, readablePaper, htmlToText };
+module.exports = { cliScope, uploadMedia, test, listPapers, listAllPapers, getPaper, search, backlinks, related, history, applyOps, publish, propose, importFromCli, cliListPapers, cliListAllPapers, cliGetPaper, cliSearch, cliBacklinks, cliHistory, cliApplyOps, cliPublish, cliPatchTitle, blocksToMarkdown, markdownView, readablePaper, htmlToText };

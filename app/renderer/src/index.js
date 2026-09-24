@@ -583,8 +583,8 @@ function runPalette(n, alt = false) { const item = paletteItems[n]; if (!item) r
 // ---------- documents ----------
 const refreshLibrary = createLibraryRefresh({ state, api, render: () => { renderSidebar(); renderTabs(); }, report: message => toast(message, 'error') });
 
-async function importPaper(id) {
-  const doc = await api.barkpark.import(id);
+async function importPaper(id, binding) {
+  const doc = await api.barkpark.import(id, binding);
   addPage(doc.id);
   await refreshLibrary();
   return doc;
@@ -675,7 +675,7 @@ function setChatWidth(value) { const width = Math.min(70, Math.max(30, Math.roun
 let widthTimer = null;
 function persistWidth() { clearTimeout(widthTimer); widthTimer = setTimeout(() => api.settings.set({ chatWidth: state.settings.chatWidth }).catch(() => {}), 500); }
 function applyTheme(theme) { document.documentElement.dataset.theme = theme === 'system' ? '' : theme; }
-function applySettings(patch, live) { if (patch.chatWidth != null) { state.settings.chatWidth = patch.chatWidth; applyChatWidth(patch.chatWidth); } if (patch.theme) applyTheme(patch.theme); if (!live) { refreshLibrary(); renderChat(); for (const c of controllers.values()) if (c.type === 'chat') c.render?.(); } }
+function applySettings(patch, live) { if (patch.chatWidth != null) { state.settings.chatWidth = patch.chatWidth; applyChatWidth(patch.chatWidth); } if (patch.theme) applyTheme(patch.theme); if (!live) { refreshLibrary(); renderChat(); for (const c of controllers.values()) { if (c.type === 'chat') c.render?.(); c.connectionChanged?.(); } } }
 
 function wireSplitter() {
   const splitter = q('#bw-splitter');

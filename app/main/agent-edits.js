@@ -10,8 +10,8 @@ function latest(id) { return store.readJson(receiptPath(id), null); }
 function remote(config) {
   if (!config?.enabled || !config.writes) throw new Error('Live editing is off. Enable Barkpark live editing before changing this paper.');
   return {
-    get: slug => config.viaCli ? barkpark.cliGetPaper(slug) : barkpark.getPaper(config, slug),
-    apply: (slug, ops, rev) => config.viaCli ? barkpark.cliApplyOps(slug, ops, rev) : barkpark.applyOps(config, slug, ops, rev),
+    get: slug => config.viaCli ? barkpark.cliGetPaper(slug, config.cliRouting) : barkpark.getPaper(config, slug),
+    apply: (slug, ops, rev) => config.viaCli ? barkpark.cliApplyOps(slug, ops, rev, config.cliRouting) : barkpark.applyOps(config, slug, ops, rev),
   };
 }
 function validate(input, blocks) {

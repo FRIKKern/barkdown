@@ -8,7 +8,7 @@ globalThis.requestAnimationFrame = fn => setTimeout(fn, 0);
 globalThis.matchMedia = () => ({ matches: false });
 let transport;
 window.barkdown = {
-  barkpark: { get: id => transport.get(id), applyOps: (...args) => transport.applyOps(...args), patchTitle: (...args) => transport.patchTitle(...args), backlinks: async () => [], history: () => transport.history?.() || Promise.resolve([]), bundle: () => transport.bundle?.() || Promise.resolve({}), onLocalStatus: () => () => {} },
+  barkpark: { get: (...args) => transport.get(...args), applyOps: (...args) => transport.applyOps(...args), patchTitle: (...args) => transport.patchTitle(...args), backlinks: async () => [], history: () => transport.history?.() || Promise.resolve([]), bundle: () => transport.bundle?.() || Promise.resolve({}), onLocalStatus: () => () => {} },
   docs: { paperProposals: id => transport.proposals?.(id) || Promise.resolve([]), agentEdit: async () => null },
 };
 class Canvas extends HTMLElement {
@@ -36,7 +36,7 @@ const { state } = await import('../renderer/src/state.js');
 state.settings = { barkpark: { writes: true } };
 const tick = () => new Promise(resolve => setTimeout(resolve, 5));
 const deferred = () => { let resolve, reject; const promise = new Promise((a,b) => { resolve=a; reject=b; }); return { promise, resolve, reject }; };
-const paper = (id, rev = 1) => ({ id, slug: id, title: id, rev, blocks: [{ id: id + '-p', type: 'paragraph', content: [{ type: 'text', value: id }] }] });
+const paper = (id, rev = 1) => ({ id, slug: id, title: id, rev, binding: 'connection-A', blocks: [{ id: id + '-p', type: 'paragraph', content: [{ type: 'text', value: id }] }] });
 const mount = (tabState = {}) => {
   const host = document.createElement('div'); document.body.append(host);
   const tab = { id: 'test', source: 'barkpark', path: ['A'], ...tabState };
@@ -274,7 +274,7 @@ await test('pending title save prevents navigation and remains owned by its pape
   transport = { get: async id => paper(id), patchTitle: (...args) => { writes.push(args); return save.promise; } };
   const m=mount(); await tick(); const title=m.host.querySelector('#title');title.value='Renamed A';title.onchange();
   m.tab.path=['B'];m.controller.navigate();await tick();
-  try { assert.deepEqual(m.tab.path,['A']); assert.deepEqual(writes,[['A','Renamed A']]); save.resolve();await tick();assert.equal(m.tab.title,'Renamed A'); }
+  try { assert.deepEqual(m.tab.path,['A']); assert.deepEqual(writes,[['A','Renamed A','connection-A']]); save.resolve();await tick();assert.equal(m.tab.title,'Renamed A'); }
   finally {save.resolve();m.close();}
 });
 await test('failed title remains editable until retry or explicit discard', async () => {
@@ -306,9 +306,9 @@ await test('discard waits for a saved copy and cannot overwrite intervening inpu
 });
 await test('title writes serialize while retaining a newer typed title', async () => {
   const first=deferred(),second=deferred(),writes=[];
-  transport={get:async id=>paper(id),patchTitle:(id,title)=>{writes.push([id,title]);return writes.length===1?first.promise:second.promise;}};
+  transport={get:async id=>paper(id),patchTitle:(id,title,binding)=>{writes.push([id,title,binding]);return writes.length===1?first.promise:second.promise;}};
   const m=mount();await tick();const title=m.host.querySelector('#title');title.value='First title';title.onchange();title.value='Latest title';title.oninput();title.onchange();
-  try {assert.equal(writes.length,1);first.resolve();await tick();assert.deepEqual(writes,[['A','First title'],['A','Latest title']]);assert.equal(title.value,'Latest title');second.resolve();await tick();assert.equal(m.tab.title,'Latest title');assert.equal(m.controller.isDirty(),false);}finally{first.resolve();second.resolve();m.close();}
+  try {assert.equal(writes.length,1);first.resolve();await tick();assert.deepEqual(writes,[['A','First title','connection-A'],['A','Latest title','connection-A']]);assert.equal(title.value,'Latest title');second.resolve();await tick();assert.equal(m.tab.title,'Latest title');assert.equal(m.controller.isDirty(),false);}finally{first.resolve();second.resolve();m.close();}
 });
 await test('choosing the server conflict version clears the dirty navigation guard', async () => {
   transport={get:async id=>paper(id,2),applyOps:async()=>{const error=new Error('conflict');error.status=412;throw error;}};
@@ -351,6 +351,21 @@ await test('an outstanding own echo finishes before a newer external revision ca
   oldEcho.resolve(paper('A',2));await tick();
   await m.controller.refresh();
   try {assert.equal(canvas.echoes.length,2);canvas.emit(2);await tick();assert.equal(writes[1][2],3);}finally{m.close();}
+});
+await test('connection change keeps the mounted buffer and forwards its original binding on retry and reload', async () => {
+  const reads=[], writes=[]; let other=false;
+  const failure=()=>Object.assign(new Error('Restore original connection'),{code:'paper_connection_changed'});
+  transport={get:async(id,binding)=>{reads.push(binding);if(other&&binding)throw failure();return paper(id);},applyOps:async(...args)=>{writes.push(args);if(other)throw failure();return{rev:2};}};
+  const m=mount();await tick();const canvas=m.canvas();other=true;canvas.emit();await tick();
+  try {assert.equal(m.canvas(),canvas);assert.equal(m.controller.isDirty(),true);assert.equal(writes[0][3],'connection-A');assert.match(m.host.querySelector('#conflict').textContent,/Restore original connection/);
+    other=false;canvas.emit(2);await tick();assert.equal(writes[1][3],'connection-A');assert.ok(reads.slice(1).every(b=>b==='connection-A'));
+  } finally {m.close();}
+});
+await test('connection-change banner never labels the old paper as editing the new library', async () => {
+  const old=state.settings;state.settings={barkpark:{writes:true,connectionIdentity:'A'}};transport={get:async id=>({...paper(id),connectionIdentity:'A'})};
+  const m=mount();await tick();try {state.settings={barkpark:{writes:true,connectionIdentity:'B'}};m.controller.connectionChanged();assert.match(m.host.querySelector('#banner').textContent,/Connection changed/);assert.doesNotMatch(m.host.querySelector('#meta').textContent,/Editing live/);
+    state.settings={barkpark:{writes:true,connectionIdentity:'A'}};m.controller.connectionChanged();assert.match(m.host.querySelector('#meta').textContent,/Editing live/);
+  } finally {m.close();state.settings=old;}
 });
 console.log(JSON.stringify(cases, null, 2));
 dom.window.close();

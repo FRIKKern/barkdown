@@ -149,7 +149,7 @@ try {
   const bAfter = workspace(b); assert.deepEqual(bAfter.chats[bChat], bBefore.chats[bChat]);
   assert.doesNotMatch(await paperText(), /amberwitness|A background/);
   assert.equal(await page.evaluate(() => window.barkdown.docs.agentEdit('bp:same-slug')), null);
-  const refused = await page.evaluate(async id => { try { await window.barkdown.docs.undoAgentEdit('bp:same-slug', id); return ''; } catch (e) { return e.message; } }, aReceipt.id); assert.match(refused, /no longer available/);
+  const refused = await page.evaluate(async id => { try { await window.barkdown.docs.undoAgentEdit('bp:same-slug', id, (await window.barkdown.barkpark.get('same-slug')).binding); return ''; } catch (e) { return e.message; } }, aReceipt.id); assert.match(refused, /no longer available/);
   await wait(async () => JSON.stringify(await page.evaluate(() => window.barkdown.barkpark.search('cobaltwitness'))).includes('same-slug'), 'B search did not index own paper');
   const unmatched = await page.evaluate(() => window.barkdown.barkpark.search('amberwitness'));
   for (const hit of unmatched) { assert.match(hit.title, /Profile B/); assert.doesNotMatch(JSON.stringify(hit), /Only A|A background|Profile A/); }
@@ -160,7 +160,7 @@ try {
   assert.doesNotMatch(JSON.stringify(await page.evaluate(() => window.__barkdown.state.favorites)), /cobaltwitness/);
   assert.equal((await page.evaluate(() => window.barkdown.docs.agentEdit('bp:same-slug'))).id, aReceipt.id);
   await shot('04-A-owned-receipt');
-  await page.evaluate(id => window.barkdown.docs.undoAgentEdit('bp:same-slug', id), aReceipt.id);
+  await page.evaluate(async id => window.barkdown.docs.undoAgentEdit('bp:same-slug', id, (await window.barkdown.barkpark.get('same-slug')).binding), aReceipt.id);
   const undone = await page.evaluate(() => window.barkdown.barkpark.get('same-slug')); assert.doesNotMatch(undone.markdown, /A background/); assert.match(undone.markdown, /Only A owns/);
   await page.reload(); await loaded(a); await openPaper(); assert.doesNotMatch(await paperText(), /A background/); await shot('05-A-undo');
   record('Returning A restores its cache/favorite/receipt; guarded Undo affects only matching A revision');
