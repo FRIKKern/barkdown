@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C060",
   "stage": "P2",
-  "status": "active",
+  "status": "done",
   "goal": "Put verified profile-owned Paper discoveries in local Archive while connected libraries remain in Cloud archive, preserving human organization.",
   "scope": [
     "Stamp catalog origins only from the selected managed runtime and profile in main; ignore server-provided origin claims.",
@@ -16,13 +16,14 @@
   ],
   "checkpoint": "2026-09-24",
   "handoff": "docs/cycles/C060-owned-paper-archive.md",
-  "nextAction": "Complete root verification, commit/push reviewed C060 evidence and inspect fresh exact-head Linux; then audit ordinary draft-note lifecycle.",
+  "nextAction": "Push reviewed checkpoint, inspect exact-head Linux, then audit ordinary draft-note lifecycle without activating real libraries.",
   "evidence": [
     "docs/visual/paper-archive/runs/2026-09-24T09-25-42-927Z/review.json",
     "docs/cycles/evidence/C060/desktop.log",
     "docs/cycles/evidence/C060/tables.log",
-    "docs/cycles/evidence/C060/repository-truth.json"
+    "docs/cycles/evidence/C060/repository-truth.json",
+    "docs/cycles/evidence/C060/review.json"
   ],
   "truthReview": "One delivery branch/draftPR33;43 locked historical worktrees retained. Upstream30c007 clean; G1/G2 unresolved. Active handoff/queue/code health updated.",
-  "screenshotReview": "Native8/333/29,live5/37,standard40/40/40 actually inspected; explicit approval02751c395fc227a997f001470a494feb69008efb481a432d313e281abfc9404f."
+  "screenshotReview": "Native8/333/29,live5/37,standard40/40/40 actually inspected; explicit approval 2bb61600b319788053fc26837e4aa6478c26e2883dafd5b8ab3d3dac1fb9c899. Final live5/37 also reviewed."
 }

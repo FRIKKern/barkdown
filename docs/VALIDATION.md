@@ -1,6 +1,6 @@
 # Evidence and remaining proof
 
-[C060](cycles/C060-owned-paper-archive.md), final source7e15949: full desktop, targeted tables11/11, native two-profile Archive/restart/manual-loopback/503 Retry passed. Native8/333/29, live5/37 and standard40/40/40 actually reviewed and explicitly approved. Root verification pending; fresh exact-head Linux required. A2 remains unfinished.
+[C060](cycles/C060-owned-paper-archive.md), final source7e15949: full desktop, targeted tables11/11, native two-profile Archive/restart/manual-loopback/503 Retry passed. Native8/333/29, live5/37 and standard40/40/40 actually reviewed and explicitly approved. Root verification passed after documentation-triggered fresh standard/live review (a7431bf/6b3c664); fresh exact-head Linux required. A2 remains unfinished.
 
 [C059](cycles/C059-saved-paper-navigation.md) is locally accepted at final capture source a11621d (application385d072): full rebuilt desktop/root,20/20 local parity, native saved-navigation, retained-evidence and open-buffer regression proof pass. All native9/45,11/58,9/48; live5/37; standard40 stills/40 diffs/40 GIF frames actually inspected and explicitly approved. [Closing review](cycles/evidence/C059/review.json). Saved unknown references stay preserved; titles and authority activation remain unsupported. C058 Linux18/20 failure is retained; C059 exact-head Linux35979091296 subsequently failed19/20 (table-paste fixture setup); failure and correction are retained in C060.
 
