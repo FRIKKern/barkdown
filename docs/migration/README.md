@@ -10,7 +10,7 @@ node docs/migration/audit.mjs docs/migration/report.json
 
 The checked report records the source commit and normalized source hashes. The harness imports the production converter, checks hand-authored expected structures/refusals, checks source immutability and refuses unsupported documents even after a valid prefix. It also checks a **proposed** deterministic profile-qualified identity mapping against two synthetic profiles with colliding document slugs. This is not proof of production allocation, navigation rewriting or server idempotence.
 
-Current converter result: **27 cases: 16 representation-preserved, 3 lossy, 2 unresolved references, 6 rejected. Cutover is not ready.** The original ten cases pass C046 native-editor proof. C047 mappings preserve marked headings and top-level alignment; all sixteen cases pass native editing, exact saved Undo, reload/restart and interrupted API staging. Full desktop/root and fresh live/fixture visual closeout pass; [C047 results](../cycles/evidence/C047/results.json) retain proof and limitations. Other structures and unresolved references remain refused. A passing audit means the limitations remain visible; it does not make the lossy cases acceptable.
+Current converter result: **32 cases: 21 representation-preserved, 2 lossy, 2 unresolved references, 7 rejected. Cutover is not ready.** The original ten cases pass C046 native-editor proof. C047 mappings preserve marked headings and top-level alignment; all sixteen cases pass native editing, exact saved Undo, reload/restart and interrupted API staging. Full desktop/root and fresh live/fixture visual closeout pass; [C047 results](../cycles/evidence/C047/results.json) retain proof and limitations. C048 adds genuine rich quotes and recursive mixed lists: all 21 cases pass native typing/save/exact Undo/reload/restart and interrupted staging. Reviewed motion includes full list Shift+Enter and narrow nested hierarchy; standard visual/root closeout remains active. Other structures and unresolved references remain refused. A passing audit means the limitations remain visible; it does not make the lossy cases acceptable.
 
 ## Content and identity inventory
 
@@ -18,8 +18,8 @@ Current converter result: **27 cases: 16 representation-preserved, 3 lossy, 2 un
 | --- | --- | --- |
 | Identity | Local `documents/<id>.json`; target proposal hashes profile UUID + source document ID, not title | Persist mapping before any write, check target collisions and owner; never adopt unrelated same-slug content |
 | Text/marks | Unicode, nested emphasis, underline, strike, code, link and hard-break fixtures | Actual Paper save/reload semantic comparison, not Markdown equality |
-| Headings/paragraphs/lists | C047 preserves heading marks and top-level center/right alignment; deep heading display and list start remain refused | Lossless mappings or preflight refusal; no silent conversion |
-| Quotes | Existing convenience converter changes quote to note callout | Genuine quote mapping and visual verification |
+| Headings/paragraphs/lists | C047 preserves heading marks/alignment; C048 preserves recursive list children and checked state; deep headings and custom starts remain refused | Lossless mappings or preflight refusal; no silent conversion |
+| Quotes | C048 uses genuine native blockquote content and preserves rich marks | Multiple paragraphs and inline quote breaks remain refused |
 | Tables | Header and cell alignment structured; spans/widths rejected | Real editor/server persistence and geometry; preserve unsupported source |
 | Media | Synthetic attachment bytes and SHA-256; image conversion currently rejected | Upload acknowledgement, target readback and interrupted-upload reconciliation |
 | Links/backlinks | Legacy `barkdown://doc/<id>` and references require profile-qualified resolution; backlinks derived | Rewrite only resolvable targets, retain unresolved source, compare graph after reload |
