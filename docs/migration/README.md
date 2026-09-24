@@ -15,6 +15,8 @@ P1 is accepted. P2 remains active: the app still uses legacy local documents alo
 
 | Human navigation preview | C053 maps typed document paths, direct tabs, favorites and human Pages without changing opaque history; [navigation checkpoint](../cycles/C053-workspace-projection.md) |32 projection checks and actual disposable Paper navigation/restart pass. Unplaced local archives and source-less closed document targets refuse. No activation or writer fencing. |
 
+| Retained legacy evidence | C054 reads exact original history/proposals and the canonical local receipt from a fully verified, caller-pinned backup; [reader checkpoint](../cycles/C054-retained-evidence.md) | 24 targeted checks pass, including stale/undone receipts and a backup changed during reading. Offline API only: no native history viewer, executable action or Paper revision mapping. |
+
 [Reviewed screenshots and motion](../visual/migration/README.md) keep content, references, images and restored-legacy evidence distinct. Actual server readback and filesystem checks establish preservation; screenshots alone do not.
 
 ## Audited target contract
@@ -34,19 +36,19 @@ Runtime bindings, source/backup hashes and existing journal records are checked 
 1. C052 accepts only actual audited default link attributes and null ordered-list type, with75 checks and a real legacy-save → Paper edit/Undo/restart rehearsal. Custom metadata still refuses. Other unsupported corpus shapes remain blocked.
 2. C053 projects typed local destinations and preserves human organization in a disposable native rehearsal. Existing `bp:` destinations remain independent. Add an owned-local-Paper archive adapter before unplaced local notes can migrate; reconcile source-less closed targets explicitly. Event references and old receipts remain historical, not navigation rewrites.
 3. Bind the C053 versioned preview to newly verified target/backup state. Atomically select one complete map only after all comparisons and writer fencing pass; crash/restart must never select a mixture. The current preview has activationAllowed:false and no adapter activates it.
-4. Keep original history, proposals and edit receipts readable. Legacy revision numbers cannot become Paper revision numbers. Do not reinterpret an old guarded Undo against a staged Paper.
+4. C054 provides verified read-only access to original document history, proposals and the canonical local receipt. A native historical viewer still needs to render those records safely and clearly separate original revisions from Paper. Do not reinterpret an old guarded Undo or pending proposal against a staged Paper.
 5. Prove activation and rollback with interrupted writes and concurrent human edits. Rollback selects retained legacy authority; it does not delete or overwrite possibly edited Paper targets. Retire the separate editor only after the full supported corpus and A2 journey pass.
 
 Other content formats, live writer fencing, target conflict resolution and cross-machine paths remain explicit gates. Cross-machine export/import and database portability belong to P3; a copy of live database files is not an export contract.
 
 ## Reproduction and source boundaries
 
-`app/main/migration-preflight.js` owns inventory/eligibility; `migration-staging.js`, `migration-media.js` and `migration-journal.js` own durable target staging; `migration-restore.js` owns exact no-overwrite legacy recovery; `migration-workspace.js` owns the non-mutating navigation preview. These are offline adapters, not a user-facing migration flow. `app/shared/portabledoc.js` remains a convenience converter whose context-free acceptance is not migration eligibility.
+`app/main/migration-preflight.js` owns inventory/eligibility; `migration-staging.js`, `migration-media.js` and `migration-journal.js` own durable target staging; `migration-restore.js` owns exact no-overwrite legacy recovery; `migration-workspace.js` owns the non-mutating navigation preview; `migration-evidence.js` reads retained legacy records without mutation. These are offline adapters, not a user-facing migration flow. `app/shared/portabledoc.js` remains a convenience converter whose context-free acceptance is not migration eligibility.
 
 Run targeted checks from the repository root:
 
 ```sh
-node --test app/tests/migration-preflight.test.mjs app/tests/migration-staging.test.mjs app/tests/migration-media.test.mjs app/tests/migration-restore.test.mjs app/tests/migration-native-source.test.mjs app/tests/migration-workspace.test.mjs
+node --test app/tests/migration-preflight.test.mjs app/tests/migration-staging.test.mjs app/tests/migration-media.test.mjs app/tests/migration-restore.test.mjs app/tests/migration-native-source.test.mjs app/tests/migration-workspace.test.mjs app/tests/migration-evidence.test.mjs
 node docs/migration/audit.mjs
 ```
 

@@ -1,5 +1,5 @@
-// Opt-in storage foundation. Deliberately not wired to app startup: adoption must
-// run with the old workspace quiescent, and database/browser migration is separate.
+// Profile registry used by managed startup. Shell adoption requires a quiescent
+// legacy workspace; cold runtime adoption is coordinated by legacy-authority-adoption.
 const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
