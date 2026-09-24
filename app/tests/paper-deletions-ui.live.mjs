@@ -74,6 +74,7 @@ try {
   await shot('05-after-restart');
   await page.setViewportSize({width:820,height:900}); await shot('06-narrow-recovery');
   await page.getByRole('button',{name:'Recover a copy',exact:true}).click();
+  await page.getByRole('dialog',{name:'Deleted notes'}).waitFor({state:'hidden'});
   await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror').waitFor();
   const copy = await currentPaper();
   assert.notEqual(copy.id,original.id); assert.equal(copy.title,original.title);
@@ -86,6 +87,7 @@ try {
   const later = await currentPaper();
   await page.locator('#bw-deleted-notes').click();
   await page.getByRole('button',{name:'Open recovered copy',exact:true}).click();
+  await page.getByRole('dialog',{name:'Deleted notes'}).waitFor({state:'hidden'});
   await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror').waitFor();
   assert.deepEqual((await currentPaper()).raw,later.raw);
   assert.deepEqual(await state(),organization); await shot('08-later-edit-preserved');
