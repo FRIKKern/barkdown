@@ -40,7 +40,7 @@ try{
   await request('POST','/v1/plugins/bulldocs/papers/alpha/create',{slug:'alpha',title:'Cloud Alpha',style:'article',description:'A deliberately separate cloud paper sharing the legacy slug, whose identity and existing placement must remain independent',tags:[{tag:'navproof',strength:95,rationale:'Existing cloud identity proof'}],blocks:[{id:'cloud-original',type:'paragraph',content:[{type:'text',value:'This is the existing cloud Alpha, never the migrated local note.'}]}]},201);
   const target={profileId,runtimeId:'private-navigation-'+profileId,server,dataset:'production',token,assertOwned:b=>b.profileId===profileId&&b.server===server};await stageMigration(options,target);
   const papers=Object.fromEntries(await Promise.all([ids.alpha,ids.beta,'alpha'].map(async id=>[id,await read(id)])));
-  createStore(userData).writeJson('workspace.json',projection.workspace);
+  createStore(path.join(userData,'barkdown')).writeJson('workspace.json',projection.workspace);
   await launch();await page.evaluate(async c=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,writes:true,viaCli:false,...c}});await window.__barkdown.refreshLibrary();},{server,token});
   await page.locator('.bw-side-chat').waitFor();await unchangedOrganization();assert.equal(await page.locator('#bw-prompt').inputValue(),original.chats.main.draft);assert.equal(await page.locator('.bw-side-chat textarea').inputValue(),original.chats.side.draft);await shot('01-projected-sidechat-and-pages');
   await page.locator('.bw-side-chat #open-chat').click();await arrived(ids.beta);assert.equal(await page.locator('#bw-prompt').inputValue(),original.chats.side.draft);await shot('02-sidechat-owned-path');

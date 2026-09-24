@@ -1,0 +1,272 @@
+{
+  "version": 1,
+  "kind": "navigation-preview",
+  "profileId": "5f7dd1c7-ba41-4e3d-ba07-eeee3007868a",
+  "sourceHash": "dcac4a73ad65aa552c27e7312010c93b3b19c47adb5b9df3857dd5ac38c78b68",
+  "workspaceHash": "094b5b6a7d46adf626dc891ca9f2d0a3dc8c3b180168084ce51c5871fa255b53",
+  "documentMap": [
+    {
+      "id": "alpha",
+      "targetId": "local-ad28182294865a117a749e9b3e803cdf"
+    },
+    {
+      "id": "beta",
+      "targetId": "local-3ab91f8d3274fc3bd676bc2db16a859d"
+    }
+  ],
+  "authority": "legacy",
+  "activationAllowed": false,
+  "status": "preview",
+  "issues": [],
+  "changes": [
+    {
+      "path": "$.chats.main.tabs[0].path",
+      "before": [
+        "alpha",
+        "beta"
+      ],
+      "after": [
+        "local-ad28182294865a117a749e9b3e803cdf",
+        "local-3ab91f8d3274fc3bd676bc2db16a859d"
+      ]
+    },
+    {
+      "path": "$.chats.main.tabs[0].source",
+      "before": "local",
+      "after": "barkpark"
+    },
+    {
+      "path": "$.chats.side.tabs[0].path",
+      "before": [
+        "beta"
+      ],
+      "after": [
+        "local-3ab91f8d3274fc3bd676bc2db16a859d"
+      ]
+    },
+    {
+      "path": "$.chats.side.tabs[0].source",
+      "before": null,
+      "after": "barkpark"
+    },
+    {
+      "path": "$.directTab.path",
+      "before": [
+        "alpha"
+      ],
+      "after": [
+        "local-ad28182294865a117a749e9b3e803cdf"
+      ]
+    },
+    {
+      "path": "$.directTab.source",
+      "before": "local",
+      "after": "barkpark"
+    },
+    {
+      "path": "$.favorites[0].target.id",
+      "before": "alpha",
+      "after": "local-ad28182294865a117a749e9b3e803cdf"
+    },
+    {
+      "path": "$.favorites[0].target.source",
+      "before": "local",
+      "after": "barkpark"
+    },
+    {
+      "path": "$.pages.roots",
+      "before": [
+        "alpha",
+        "bp:alpha"
+      ],
+      "after": [
+        "bp:local-ad28182294865a117a749e9b3e803cdf",
+        "bp:alpha"
+      ]
+    },
+    {
+      "path": "$.pages.children",
+      "before": {
+        "alpha": [
+          "beta"
+        ]
+      },
+      "after": {
+        "bp:local-ad28182294865a117a749e9b3e803cdf": [
+          "bp:local-3ab91f8d3274fc3bd676bc2db16a859d"
+        ]
+      }
+    },
+    {
+      "path": "$.pages.expanded",
+      "before": {
+        "alpha": true,
+        "bp:alpha": false
+      },
+      "after": {
+        "bp:local-ad28182294865a117a749e9b3e803cdf": true,
+        "bp:alpha": false
+      }
+    }
+  ],
+  "workspace": {
+    "version": 1,
+    "chats": {
+      "main": {
+        "id": "main",
+        "title": "Writing room",
+        "messages": [
+          {
+            "id": "message-main",
+            "role": "assistant",
+            "text": "A retained conversation about alpha.",
+            "at": "2026-09-20T12:00:00Z"
+          }
+        ],
+        "events": [],
+        "apiHistory": [],
+        "tabs": [
+          {
+            "id": "path-main",
+            "type": "doc",
+            "source": "barkpark",
+            "path": [
+              "local-ad28182294865a117a749e9b3e803cdf",
+              "local-3ab91f8d3274fc3bd676bc2db16a859d"
+            ],
+            "title": "My local path",
+            "scroll": 0
+          },
+          {
+            "id": "side-view",
+            "type": "chat",
+            "sideChatId": "side",
+            "title": "Side reflection"
+          },
+          {
+            "id": "cloud-view",
+            "type": "doc",
+            "source": "barkpark",
+            "path": [
+              "alpha"
+            ],
+            "title": "Cloud Alpha"
+          }
+        ],
+        "active": "side-view",
+        "draft": "Keep my main draft.",
+        "draftImages": [],
+        "closedTargets": [],
+        "runId": null,
+        "folder": null,
+        "following": true
+      },
+      "side": {
+        "id": "side",
+        "title": "Side reflection",
+        "messages": [
+          {
+            "id": "message-side",
+            "role": "assistant",
+            "text": "A retained conversation about alpha.",
+            "at": "2026-09-20T12:00:00Z"
+          }
+        ],
+        "events": [],
+        "apiHistory": [],
+        "tabs": [
+          {
+            "id": "path-side",
+            "type": "doc",
+            "path": [
+              "local-3ab91f8d3274fc3bd676bc2db16a859d"
+            ],
+            "title": "Beta",
+            "source": "barkpark"
+          }
+        ],
+        "active": "path-side",
+        "draft": "Keep my independent side draft.",
+        "draftImages": [],
+        "closedTargets": [],
+        "runId": null,
+        "folder": null,
+        "following": true,
+        "parent": "main",
+        "parentTitle": "Writing room",
+        "side": true
+      }
+    },
+    "order": [
+      "main",
+      "side"
+    ],
+    "current": "main",
+    "mode": "chat",
+    "directTab": {
+      "id": "saved-direct",
+      "type": "doc",
+      "source": "barkpark",
+      "path": [
+        "local-ad28182294865a117a749e9b3e803cdf"
+      ],
+      "title": "Alpha"
+    },
+    "favorites": [
+      {
+        "id": "local-fav",
+        "label": "My local Alpha",
+        "target": {
+          "kind": "doc",
+          "id": "local-ad28182294865a117a749e9b3e803cdf",
+          "source": "barkpark",
+          "title": "Alpha"
+        },
+        "chatId": "main"
+      },
+      {
+        "id": "cloud-fav",
+        "label": "Existing cloud Alpha",
+        "target": {
+          "kind": "doc",
+          "id": "alpha",
+          "source": "barkpark",
+          "title": "Cloud Alpha"
+        },
+        "chatId": "main"
+      }
+    ],
+    "pages": {
+      "layoutVersion": 2,
+      "seeded": true,
+      "roots": [
+        "bp:local-ad28182294865a117a749e9b3e803cdf",
+        "bp:alpha"
+      ],
+      "children": {
+        "bp:local-ad28182294865a117a749e9b3e803cdf": [
+          "bp:local-3ab91f8d3274fc3bd676bc2db16a859d"
+        ]
+      },
+      "expanded": {
+        "bp:local-ad28182294865a117a749e9b3e803cdf": true,
+        "bp:alpha": false
+      },
+      "archiveOpen": false,
+      "archiveFilter": "",
+      "cloudArchiveOpen": false,
+      "cloudArchiveFilter": "",
+      "archived": {
+        "bp:unplaced-cloud": true
+      },
+      "cloudLayoutMigration": {
+        "previousRoots": [
+          "alpha",
+          "bp:alpha"
+        ],
+        "moved": []
+      }
+    }
+  },
+  "projectionHash": "12cccbe75ebd6aeab1d2476a3b9c8653f69c4898b9e1061a21a1bc0f20822da4"
+}
