@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "id": "C059",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Keep saved Paper navigation attached to its original library instead of reopening same-slug content from another connection.",
+  "scope": [
+    "Persist opaque connection ownership in new Paper tabs and favorites and enforce it before a reopened Paper read.",
+    "Keep explicitly typed local/Paper summaries separate; preserve unknown legacy navigation without assigning it to the current connection.",
+    "Carry owner identity through human Pages and linked navigation where required by this boundary. No origin classification, real-library migration, title support or authority activation."
+  ],
+  "acceptance": [
+    "Saved A navigation refuses B same-slug content before transmission, survives restart and opens again on A.",
+    "A and B same-slug targets remain distinct; legacy unattributed targets remain preserved and visibly unavailable.",
+    "Current library selection remains usable; original human ordering and main/side-chat context remain intact.",
+    "Focused, full desktop/root and native reviewed evidence pass; standard/live tripwires follow source commit."
+  ],
+  "checkpoint": "2026-09-24",
+  "handoff": "docs/cycles/C059-saved-paper-navigation.md",
+  "nextAction": "Push accepted C059 evidence and inspect exact-head CI; archive this cycle, then plan trusted managed-local Archive classification.",
+  "evidence": [
+    "docs/cycles/evidence/C058/remaining-navigation-audit.json",
+    "docs/visual/paper-navigation/runs/2026-09-24T08-28-41-875Z/review.json",
+    "docs/cycles/evidence/C059/parity-385d072/parity.json",
+    "docs/cycles/evidence/C059/review.json"
+  ],
+  "truthReview": "README, app guide, plan, handoff, validation and migration queue reviewed together. Main plus sole codex/paper-library/draftPR33;43 locked historical worktrees retained for reviewed retention. Upstream30c007 clean; G1 conflicts and G2 missing token remain.",
+  "screenshotReview": "Native navigation9/45, evidence11/58, connection9/48, live5/37 and standard40/40 differences/40 GIF frames actually reviewed. Immutable explicit approval at09:02; root verify passes."
+}

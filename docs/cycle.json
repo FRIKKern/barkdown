@@ -1,29 +1,25 @@
 {
   "version": 1,
-  "id": "C059",
+  "id": "C060",
   "stage": "P2",
-  "status": "done",
-  "goal": "Keep saved Paper navigation attached to its original library instead of reopening same-slug content from another connection.",
+  "status": "active",
+  "goal": "Put verified profile-owned Paper discoveries in local Archive while connected libraries remain in Cloud archive, preserving human organization.",
   "scope": [
-    "Persist opaque connection ownership in new Paper tabs and favorites and enforce it before a reopened Paper read.",
-    "Keep explicitly typed local/Paper summaries separate; preserve unknown legacy navigation without assigning it to the current connection.",
-    "Carry owner identity through human Pages and linked navigation where required by this boundary. No origin classification, real-library migration, title support or authority activation."
+    "Stamp catalog origins only from the selected managed runtime and profile in main; ignore server-provided origin claims.",
+    "Partition unplaced Paper rows by trusted owner/profile metadata; preserve existing Page order, nesting, labels and drafts.",
+    "No blank-note lifecycle, legacy editor retirement, migration projection activation, physical database identity or real-library cutover. Legacy unmanaged local mode remains unclassified/cloud."
   ],
   "acceptance": [
-    "Saved A navigation refuses B same-slug content before transmission, survives restart and opens again on A.",
-    "A and B same-slug targets remain distinct; legacy unattributed targets remain preserved and visibly unavailable.",
-    "Current library selection remains usable; original human ordering and main/side-chat context remain intact.",
-    "Focused, full desktop/root and native reviewed evidence pass; standard/live tripwires follow source commit."
+    "Managed profile A/B same-slug catalogs enter their own local Archive; a manually connected loopback recorder cannot claim local ownership.",
+    "Discovery, missing/failed refresh, placement and restart do not reorganize Pages or confuse source labels.",
+    "Native two-profile/manual-connection rehearsal with reviewed light/dark/narrow stills and recording; focused/full desktop/root and required live/standard capture approval."
   ],
   "checkpoint": "2026-09-24",
-  "handoff": "docs/cycles/C059-saved-paper-navigation.md",
-  "nextAction": "Push accepted C059 evidence and inspect exact-head CI; archive this cycle, then plan trusted managed-local Archive classification.",
+  "handoff": "docs/cycles/C060-owned-paper-archive.md",
+  "nextAction": "Implement trusted main catalog classification and renderer partition, then prove with two private managed profiles and a manual loopback recorder.",
   "evidence": [
-    "docs/cycles/evidence/C058/remaining-navigation-audit.json",
-    "docs/visual/paper-navigation/runs/2026-09-24T08-28-41-875Z/review.json",
-    "docs/cycles/evidence/C059/parity-385d072/parity.json",
     "docs/cycles/evidence/C059/review.json"
   ],
-  "truthReview": "README, app guide, plan, handoff, validation and migration queue reviewed together. Main plus sole codex/paper-library/draftPR33;43 locked historical worktrees retained for reviewed retention. Upstream30c007 clean; G1 conflicts and G2 missing token remain.",
-  "screenshotReview": "Native navigation9/45, evidence11/58, connection9/48, live5/37 and standard40/40 differences/40 GIF frames actually reviewed. Immutable explicit approval at09:02; root verify passes."
+  "truthReview": "C059 accepted and pushed7e79467; exact-head Linux pending. One branch/PR33;43 locked historical worktrees preserved.",
+  "screenshotReview": "Pending new managed-local/archive native journey and fresh required captures."
 }
