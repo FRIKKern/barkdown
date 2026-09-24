@@ -1,0 +1,74 @@
+{
+  "reviewedAt": "2026-09-24T05:22:29.659759+00:00",
+  "nativeSource": "0321161ae734a47395694c4d933f174244d50e46",
+  "standardSource": "744123fb94b1171e5a97420fc4f9edfda141e616",
+  "upstream": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "nativeArtifactHashesVerified": 32,
+  "artifactPaths": [
+    "docs/visual/catalog/runs/2026-09-24T04-48-04-776Z/failure.txt",
+    "docs/visual/catalog/runs/2026-09-24T04-50-56-730Z/failure.txt",
+    "docs/visual/catalog/runs/2026-09-24T04-53-39-475Z/01-complete-library.png",
+    "docs/visual/catalog/runs/2026-09-24T04-53-39-475Z/02-paper-beyond-first-page.png",
+    "docs/visual/catalog/runs/2026-09-24T04-53-39-475Z/03-failed-refresh-preserves-library.png",
+    "docs/visual/catalog/runs/2026-09-24T04-53-39-475Z/04-retry-recovers.png",
+    "docs/visual/catalog/runs/2026-09-24T04-53-39-475Z/05-new-connection-does-not-borrow.png",
+    "docs/visual/catalog/runs/2026-09-24T04-53-39-475Z/06-narrow-retry.png",
+    "docs/visual/catalog/runs/2026-09-24T04-53-39-475Z/07-narrow-paper.png",
+    "docs/visual/catalog/runs/2026-09-24T04-53-39-475Z/08-restarted-library.png",
+    "docs/visual/catalog/runs/2026-09-24T04-53-39-475Z/discovery-and-recovery.webm",
+    "docs/visual/catalog/runs/2026-09-24T04-53-39-475Z/restart-or-failure.webm",
+    "docs/visual/catalog/runs/2026-09-24T04-57-19-096Z/01-complete-library.png",
+    "docs/visual/catalog/runs/2026-09-24T04-57-19-096Z/02-paper-beyond-first-page.png",
+    "docs/visual/catalog/runs/2026-09-24T04-57-19-096Z/03-failed-refresh-preserves-library.png",
+    "docs/visual/catalog/runs/2026-09-24T04-57-19-096Z/04-retry-recovers.png",
+    "docs/visual/catalog/runs/2026-09-24T04-57-19-096Z/05-new-connection-does-not-borrow.png",
+    "docs/visual/catalog/runs/2026-09-24T04-57-19-096Z/06-narrow-retry.png",
+    "docs/visual/catalog/runs/2026-09-24T04-57-19-096Z/07-narrow-paper.png",
+    "docs/visual/catalog/runs/2026-09-24T04-57-19-096Z/08-restarted-library.png",
+    "docs/visual/catalog/runs/2026-09-24T04-57-19-096Z/discovery-and-recovery.webm",
+    "docs/visual/catalog/runs/2026-09-24T04-57-19-096Z/restart-or-failure.webm",
+    "docs/visual/catalog/runs/2026-09-24T05-08-29-090Z/01-complete-library.png",
+    "docs/visual/catalog/runs/2026-09-24T05-08-29-090Z/02-paper-beyond-first-page.png",
+    "docs/visual/catalog/runs/2026-09-24T05-08-29-090Z/03-failed-refresh-preserves-library.png",
+    "docs/visual/catalog/runs/2026-09-24T05-08-29-090Z/04-retry-recovers.png",
+    "docs/visual/catalog/runs/2026-09-24T05-08-29-090Z/05-new-connection-does-not-borrow.png",
+    "docs/visual/catalog/runs/2026-09-24T05-08-29-090Z/06-narrow-retry.png",
+    "docs/visual/catalog/runs/2026-09-24T05-08-29-090Z/07-narrow-paper.png",
+    "docs/visual/catalog/runs/2026-09-24T05-08-29-090Z/08-restarted-library.png",
+    "docs/visual/catalog/runs/2026-09-24T05-08-29-090Z/discovery-and-recovery.webm",
+    "docs/visual/catalog/runs/2026-09-24T05-08-29-090Z/restart-or-failure.webm"
+  ],
+  "fixtureReview": {
+    "stillsAndDiffs": 40,
+    "decodedGifFrames": 40,
+    "geometryChanged": false,
+    "comparison": "all within tolerance"
+  },
+  "liveReview": {
+    "stills": 5,
+    "decodedGifFrames": 37,
+    "realProviderTurn": true,
+    "tablehead": "6/6"
+  },
+  "approval": {
+    "manifest": "docs/visual/runs/2026-09-24T05-16-53-692Z/manifest.json",
+    "report": "docs/visual/runs/2026-09-24T05-16-53-692Z/comparison.json",
+    "manifestHash": "a039b0e5b86164ea53fefa274a31c8f3643d833156a2ca60a71dec53dd1c139f",
+    "reportHash": "c840ed6a5cd8c7741f4735386ad2d3674dac2763b78f65d155dcd6be389197bc",
+    "reviewer": "Codex agent",
+    "note": "C056: reviewed all 40 fixture stills/diffs and 40 decoded GIF frames, five live Paper stills and 37 live GIF frames at744123f; native0321161 reviewed eight stills and37 decoded frames. Native200/201 HTTP+CLI, failure/retry, connection ordering, Pages/drafts/restart and39 focused/full desktop checks pass. Geometry unchanged and all fixture comparisons within tolerance. Offset discovery is not an atomic snapshot; no authority activation.",
+    "reviewedAt": "2026-09-24T05:20:50.829Z",
+    "reviewPath": "docs/visual/reviews/approval-a035fffceec0d30e99a0fbc61dde2c35bba2825a50a600475ee4ff62e1a6ecbf.json",
+    "reviewHash": "a035fffceec0d30e99a0fbc61dde2c35bba2825a50a600475ee4ff62e1a6ecbf"
+  },
+  "tests": {
+    "focused": 39,
+    "fullDesktop": "pass",
+    "rootFinal": "pass"
+  },
+  "truthReview": [
+    "README refreshed with actual live captures; app/README product guide still accurately describes legacy/local and Paper behavior.",
+    "PLAN/plan.json/NEXT/VALIDATION/migration and code-area health reviewed and updated.",
+    "P2 remains active; no authority activation, deployment or data retirement."
+  ]
+}

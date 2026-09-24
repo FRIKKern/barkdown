@@ -1,0 +1,21 @@
+
+> barkdown-desktop@0.6.0 test:paper-catalog:isolated
+> npm run build && node tests/status-shots-isolated.mjs tests/paper-catalog.live.mjs
+
+
+> barkdown-desktop@0.6.0 build
+> node scripts/build.mjs
+
+
+  renderer\dist\app.js      2.8mb
+  renderer\dist\app.js.map  7.0mb
+
+Done in 372ms
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-UrQOzm
+Capture runtime: starting 
+Capture runtime: ready 
+PASS native complete catalog: exact200,201,two adapters,failure/retry,connection ordering,Pages/drafts/restart
+Catalog evidence: C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\docs\visual\catalog\runs\2026-09-24T05-08-29-090Z
+Capture runtime: stopping 
+Capture runtime: stopped 
+Live screenshots complete; private runtime stopped; user CLI configuration unchanged.

@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-09-24T03-50-53-994Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-24T03-50-53-994Z/comparison.json",
-  "manifestHash": "4bf4493552eac067610858e200a91133ce0eb9c40bfb2ac7e8ec0755f22da783",
-  "reportHash": "3123140f792fd85d488b4068d90656caf15d23882f618b6375ca781e7e2850d8",
-  "reviewer": "Codex C054 review",
-  "note": "Inspected three changed side-chat stills; only 1/255 RGB shadow at y731, no clipping or geometry change. Other 37 fixture stills and all eight GIFs byte-identical to reviewed C053. Inspected five fresh live Paper stills, full-size light view and all 37 decoded GIF frames: menus, typing, table selection, quick-open and modal geometry remain sound. Full desktop suite passes including 131 migration checks; reader has no UI and these captures do not claim a history viewer or authority cutover.",
-  "reviewedAt": "2026-09-24T03:54:56.220Z",
-  "reviewPath": "docs/visual/reviews/approval-42476f73fb3e6a34cbd13dc074887a20ec6dfdf858df59e2c305f28728414725.json",
-  "reviewHash": "42476f73fb3e6a34cbd13dc074887a20ec6dfdf858df59e2c305f28728414725"
+  "manifest": "docs/visual/runs/2026-09-24T05-16-53-692Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-24T05-16-53-692Z/comparison.json",
+  "manifestHash": "a039b0e5b86164ea53fefa274a31c8f3643d833156a2ca60a71dec53dd1c139f",
+  "reportHash": "c840ed6a5cd8c7741f4735386ad2d3674dac2763b78f65d155dcd6be389197bc",
+  "reviewer": "Codex agent",
+  "note": "C056: reviewed all 40 fixture stills/diffs and 40 decoded GIF frames, five live Paper stills and 37 live GIF frames at744123f; native0321161 reviewed eight stills and37 decoded frames. Native200/201 HTTP+CLI, failure/retry, connection ordering, Pages/drafts/restart and39 focused/full desktop checks pass. Geometry unchanged and all fixture comparisons within tolerance. Offset discovery is not an atomic snapshot; no authority activation.",
+  "reviewedAt": "2026-09-24T05:20:50.829Z",
+  "reviewPath": "docs/visual/reviews/approval-a035fffceec0d30e99a0fbc61dde2c35bba2825a50a600475ee4ff62e1a6ecbf.json",
+  "reviewHash": "a035fffceec0d30e99a0fbc61dde2c35bba2825a50a600475ee4ff62e1a6ecbf"
 }

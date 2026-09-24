@@ -28,7 +28,7 @@ Packaging research may proceed alongside earlier stages. The local-only pilot do
 
 P1 is accepted at the [C039 audit](cycles/C039-completion-audit.md) and merged through PR #31. P2 has verified preparation/staging,21 native content cases, internal links/backlinks, owned PNG recovery, exact retained-backup restore, native persisted defaults, navigation projection and read-only original evidence. [The migration contract](migration/README.md) maps each result and its limits. C054 at aa97781 passes 131 migration checks, full desktop/root and reviewed standard visuals; C053 Linux parity passes 20/20.
 
-C055 audits the remaining cutover contracts. Next is a complete owned-local catalog and correct Archive classification, followed by ordinary blank-note lifecycle, a retained-evidence viewer, writer fencing/sealed activation, and rollback/retirement. These are prepared slices inside P2, not completed features. Preserve the legacy store; no real library or authority has moved, and the upstream creation route remains unmerged.
+C055 audits the remaining cutover contracts. C056 implements complete foreground catalog discovery and honest refresh failure handling, with native200/201 HTTP/CLI proof. Review identified an open-Paper connection-binding risk to address before owned-local Archive classification. Ordinary blank-note lifecycle, a retained-evidence viewer, writer fencing/sealed activation, and rollback/retirement follow. These are prepared slices inside P2, not completed features. Preserve the legacy store; no real library or authority has moved, and the upstream creation route remains unmerged.
 
 ## Carry forward
 

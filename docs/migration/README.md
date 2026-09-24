@@ -17,6 +17,8 @@ P1 is accepted. P2 remains active: the app still uses legacy local documents alo
 
 [Reviewed screenshots and motion](../visual/migration/README.md) keep content, references, images and restored-legacy evidence distinct. Actual server readback and filesystem checks establish preservation; screenshots alone do not.
 
+C056 now proves [complete foreground discovery and honest refresh failure handling](../cycles/C056-complete-catalog.md) over real HTTP/CLI200/201 catalogs. This completes the discovery portion of order1 below; owned-local Archive classification remains pending. The next bounded cycle first addresses the open-Paper connection-binding risk found during review.
+
 ## Audited target contract
 
 The implementation calls the selected owned loopback runtime and production dataset. It never changes global CLI configuration or silently enables writes.
@@ -31,7 +33,7 @@ Runtime bindings, source/backup hashes and existing journal records are checked 
 
 ## Ordered cutover work — prepared, not implemented
 
-The [C055 source audit](../cycles/evidence/C055/source-audit.json) pins the inspected files to Barkdown aa97781 and upstream30c007. These are the next bounded slices inside P2, not parallel active cycles. Start only the first one; replan later slices from its evidence.
+The [C055 source audit](../cycles/evidence/C055/source-audit.json) pins the inspected files to Barkdown aa97781 and upstream30c007. These are the next bounded slices inside P2, not parallel active cycles. Keep one active cycle; replan later slices from its evidence.
 
 | Order | Bounded outcome | Required acceptance before advancing |
 |---|---|---|
@@ -41,11 +43,11 @@ The [C055 source audit](../cycles/evidence/C055/source-audit.json) pins the insp
 | 4 — Quiescence and sealed activation | Fence every foreground, API, MCP and goal writer with a captured engine generation. Save or explicitly retain human drafts, verify child termination, then seal the complete source/backup/targets/media/workspace map. | A pre-cutover handle or surviving child cannot write after selection. IPC drain alone is insufficient. Crash at each seal/selector boundary and restart chooses one complete authority, never mixed stores. Final comparison refuses any changed source/target, missing/ambiguous Paper or media. |
 | 5 — Rollback and retirement | Prove rollback to retained legacy ownership without overwriting post-migration edits or deleting staged Papers; retire legacy editing only after full A2 passes. | Process interruption and uncertain acknowledgements; edits before/after activation; repeated resume/rollback; retained old evidence; one engine for every newly created and migrated note. A changed target triggers explicit reconciliation, never a blind reverse-conversion. Keep recoverable originals until acceptance. |
 
-The next implementation starts with order 1. The existing preview refuses unplaced local notes precisely because current Pages code classifies all `bp:` keys as cloud. Ownership must come from validated profile/runtime metadata, not a slug prefix, guessed server URL or remote self-claim. Existing cloud discoveries must stay unplaced until the person organizes them. Closed source-less targets remain explicit ambiguity; do not guess a same-slug replacement.
+After the open-Paper connection fence, resume the remaining Archive/source-identity portion of order1. The existing preview refuses unplaced local notes precisely because current Pages code classifies all `bp:` keys as cloud. Ownership must come from validated profile/runtime metadata, not a slug prefix, guessed server URL or remote self-claim. Existing cloud discoveries must stay unplaced until the person organizes them. Closed source-less targets remain explicit ambiguity; do not guess a same-slug replacement.
 
 ### Actual read contract and limits
 
-`barkpark.listPapers` currently requests one 60-row page. Upstream `QueryController` does support `limit`, `offset`, `hasMore` and `nextOffset` with a 1000-row limit and 100000 offset ceiling. Runtime-validate the envelope, strictly advancing offsets, IDs and completion; a missing nextOffset with hasMore:true is incomplete. Existing upstream tests demonstrate stable traversal on fixed data, but they were only inspected in C055. Offset traversal is not a transaction snapshot: concurrent updates can move rows. Migration must reconcile against the complete pinned source-to-target inventory under a proven writer fence; do not infer completeness from a count or one page.
+Provider `barkpark.listPapers` still requests one60-row page. Foreground `listAllPapers`/`cliListAllPapers` now validate complete bounded traversal with one-identity page overlap; native200/201 proof is accepted in C056. Upstream `QueryController` does support `limit`, `offset`, `hasMore` and `nextOffset` with a 1000-row limit and 100000 offset ceiling. Runtime-validate the envelope, strictly advancing offsets, IDs and completion; a missing nextOffset with hasMore:true is incomplete. Existing upstream tests demonstrate stable traversal on fixed data, but they were only inspected in C055. Offset traversal is not a transaction snapshot: concurrent updates can move rows. Migration must reconcile against the complete pinned source-to-target inventory under a proven writer fence; do not infer completeness from a count or one page.
 
 `getPaper` already asks for raw perspective. In the audited upstream raw read, the exact row wins; only an absent bare row falls back to its draft twin. Draft perspective instead prefers the twin. Do not label raw as newest-draft semantics or silently merge their revision domains. Audit the real managed runtime and authority identity when implementing the catalog; a mutable endpoint is not sufficient ownership.
 

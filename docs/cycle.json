@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C056",
   "stage": "P2",
-  "status": "active",
+  "status": "done",
   "goal": "Discover the complete Paper catalog without silently truncating or treating failed reads as an empty library.",
   "scope": [
     "Read audited offset-pagination metadata and bound the work; preserve the last same-owner catalog on failure.",
@@ -18,10 +18,12 @@
   ],
   "checkpoint": "2026-09-24",
   "handoff": "docs/cycles/C056-complete-catalog.md",
-  "nextAction": "Finish C056 reader/refresh implementation and native proof, then full tests and reviewed visuals.",
+  "nextAction": "Push the accepted milestone, then plan C057 open-Paper connection fencing on the same controlled lane.",
   "evidence": [
-    "docs/cycles/evidence/C055/source-audit.json"
+    "docs/cycles/evidence/C056/review.json",
+    "docs/visual/catalog/runs/2026-09-24T05-08-29-090Z/manifest.json",
+    "docs/visual/approved.json"
   ],
-  "truthReview": "PR32 merged as d126875 after all exact-head gates passed, including Linux20/20 and tablehead6/6. codex/paper-library is based on merged main; old codex/p2-migration local/remote branches retired after ancestry verification. Root/app dependencies, Chromium and baseline root verify passed.",
-  "screenshotReview": "Source changes require native >60-note discovery proof plus standard capture/compare/actual review/explicit approval."
+  "truthReview": "PR32 merged d126875; exact-head and post-merge main checks pass.39 focused tests, full desktop and native200/201 HTTP+CLI pass. No authority activation. Root final verify passed.",
+  "screenshotReview": "Eight native stills/37 GIF frames, five live stills/37 GIF frames,40 fixture stills/diffs and40 GIF frames inspected. Explicit approval recorded at source744123f; all comparisons within tolerance."
 }

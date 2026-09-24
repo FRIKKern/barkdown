@@ -2,14 +2,15 @@
 
 Real desktop navigation with disposable local notes; no cloud or provider.
 
-![Current view](../runs/2026-09-24T03-50-53-994Z/workspace-4.png)
+![Current view](../runs/2026-09-24T05-16-53-692Z/workspace-4.png)
 
-![Recorded interaction](../runs/2026-09-24T03-50-53-994Z/workspace.gif)
+![Recorded interaction](../runs/2026-09-24T05-16-53-692Z/workspace.gif)
 
-[Full comparison](../runs/2026-09-24T03-50-53-994Z/README.md) · [Capture manifest](../runs/2026-09-24T03-50-53-994Z/manifest.json)
+[Full comparison](../runs/2026-09-24T05-16-53-692Z/README.md) · [Capture manifest](../runs/2026-09-24T05-16-53-692Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-24T05:20:50.829Z: C056: reviewed all 40 fixture stills/diffs and 40 decoded GIF frames, five live Paper stills and 37 live GIF frames at744123f; native0321161 reviewed eight stills and37 decoded frames. Native200/201 HTTP+CLI, failure/retry, connection ordering, Pages/drafts/restart and39 focused/full desktop checks pass. Geometry unchanged and all fixture comparisons within tolerance. Offset discovery is not an atomic snapshot; no authority activation. Source 744123fb9; [review](../reviews/approval-a035fffceec0d30e99a0fbc61dde2c35bba2825a50a600475ee4ff62e1a6ecbf.json) - [comparison](../runs/2026-09-24T05-16-53-692Z/comparison.json).
 - 2026-09-24T03:54:56.220Z: Inspected three changed side-chat stills; only 1/255 RGB shadow at y731, no clipping or geometry change. Other 37 fixture stills and all eight GIFs byte-identical to reviewed C053. Inspected five fresh live Paper stills, full-size light view and all 37 decoded GIF frames: menus, typing, table selection, quick-open and modal geometry remain sound. Full desktop suite passes including 131 migration checks; reader has no UI and these captures do not claim a history viewer or authority cutover. Source 37635038d; [review](../reviews/approval-42476f73fb3e6a34cbd13dc074887a20ec6dfdf858df59e2c305f28728414725.json) - [comparison](../runs/2026-09-24T03-50-53-994Z/comparison.json).
 - 2026-09-24T03:33:29.346Z: C053: inspected all three byte-changed side-chat stills; only 1/255 RGB at y731 shadow, no content/geometry/environment change. Other37stills and all8GIFs byte-identical to reviewed C052. Five fresh live stills and37decodedGIFframes inspected after real Claude turn; dedicated native navigation review covers10stills/30video+GIFsamples/8restart samples at af9d982. Full desktop exit0,107migration checks and35host checks pass. No authority switch; archive-origin and ambiguous closed-target blockers remain. Source a81695870; [review](../reviews/approval-cac19803051c269dd77f1f93aae22ab7f51d906a44599883333659a02977dea1.json) - [comparison](../runs/2026-09-24T03-31-52-310Z/comparison.json).
 - 2026-09-24T02:55:27.847Z: C052 at18dbf8b: full desktop exited0 before capture. Compared40 fixture stills/eight GIFs to C051; only side-chat0/1/3 shadows differ by1 RGB level at741,570-1099,735 and side-chat GIF encoding differs. Actually inspected all three changed stills and all four decoded side-chat GIF frames; other37stills/sevenGIFs byte-identical to reviewed C051. Zero thresholded pixel, geometry or environment changes. Also inspected five fresh live Paper stills and all37 decoded live GIF frames from real Claude/private30c007, plus native source migration14stills,11source/38Paper/7restart video samples and38GIF frames. Ordinary default links/lists retain native save, exact Undo and restart; no activation or real-library migration. Existing narrow tab/provider truncation and loading placeholders remain limits. Source 18dbf8bc7; [review](../reviews/approval-58b08f0a7c8996556600972d34e49f5c139839c0f9c19dab495ff9c6a82a9e43.json) - [comparison](../runs/2026-09-24T02-53-10-440Z/comparison.json).
