@@ -1,29 +1,27 @@
 {
   "version": 1,
-  "id": "C057",
+  "id": "C058",
   "stage": "P2",
-  "status": "done",
-  "goal": "Keep an open Paper bound to its original connection so settings changes cannot redirect its reads or writes.",
+  "status": "active",
+  "goal": "Keep remote Undo receipts and retained proposals attached to their original connection across reopen and restart.",
   "scope": [
-    "Capture opaque main-process connection identity with the read; validate foreground follow-up reads/writes before access and keep captured routing across awaits.",
-    "Preserve visible unsaved blocks/title and allow guarded retry after restoring the original connection. Audit CLI explicit routing rather than ambient defaults.",
-    "Cover body edits, title, media, HTML conversion, proposal acceptance and foreground Undo; keep provider scopes intact.",
-    "Prove same-ID/revision foreign destination receives no editor mutation in a disposable native rehearsal. No authority switch or durable cross-connection bookmark migration."
+    "Derive an opaque durable connection owner inside the owning store; never persist a raw token or infer ownership for legacy evidence.",
+    "Keep same-slug receipts from different destinations separate; refuse foreign or unattributed execution before any remote access, while retaining originals.",
+    "Capture explicit CLI routing for provider tools and retain captured HTTP/profile context. Preserve local document edits and guarded revision checks.",
+    "Prove native same-ID/revision refusal with a newly opened foreign Paper, A/B/A and restart recovery; no authority activation or real-library cutover."
   ],
   "acceptance": [
-    "A Paper opened on connection A never sends its edits or refresh reads to B after settings change; same ID/revision does not weaken the boundary.",
-    "Missing/stale binding refuses before mutation; A-to-B-to-A permits guarded retry without losing the local buffer.",
-    "Routing is captured before awaits; settings changed during a request cannot redirect a later step.",
-    "Full relevant tests, native isolation proof, fresh live/fixture capture and actual review pass; maintain repository truth and push evidence."
+    "A fresh valid B editor binding cannot execute an A receipt/proposal, even with equal document ID/revision.",
+    "Separate A/B receipts remain available only to the corresponding owner; restart preserves owner identity. Unknown old evidence remains readable and unmodified, with no executable Undo/Keep.",
+    "API and MCP edits produce scoped receipts using the same captured route as their read/write; local edits remain compatible.",
+    "Relevant full tests, native zero-request proof, fresh live/fixture evidence and actual review/approval pass."
   ],
   "checkpoint": "2026-09-24",
-  "handoff": "docs/cycles/C057-paper-connection.md",
-  "nextAction": "Push reviewed C057 evidence, inspect exact-head CI, then plan the durable remote receipt/proposal ownership boundary.",
+  "handoff": "docs/cycles/C058-remote-evidence-owner.md",
+  "nextAction": "Reproduce the retained same-slug receipt risk without user data; audit durable owner creation and provider CLI route propagation before coding.",
   "evidence": [
-    "docs/cycles/evidence/C057/review.json",
-    "docs/visual/paper-connection/runs/2026-09-24T05-53-21-002Z/review.json",
-    "docs/visual/reviews/approval-19569a6c0bc997857f06d9c56e9821a4c6c7502328161d3e347ba1759f8d7d88.json"
+    "docs/cycles/evidence/C057/review.json"
   ],
-  "truthReview": "Reviewed README/app guide, main/renderer health, PLAN/plan.json, handoff, validation, decisions and A2. One delivery lane; user data/services preserved. P2 remains active.",
-  "screenshotReview": "Inspected9 native stills/47 GIF frames,5 live stills/37 GIF frames,40 standard stills/diffs and40 GIF frames. Explicit approval19569a6c; first native presentation superseded after actual review."
+  "truthReview": "C057 accepted/pushed1f58c0a; one draftPR33 lane. C058 closes a separate persisted-evidence risk; P2 remains active.",
+  "screenshotReview": "New visible refused evidence needs native screenshots/video plus current standard/live review."
 }

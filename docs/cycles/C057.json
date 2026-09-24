@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "id": "C057",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Keep an open Paper bound to its original connection so settings changes cannot redirect its reads or writes.",
+  "scope": [
+    "Capture opaque main-process connection identity with the read; validate foreground follow-up reads/writes before access and keep captured routing across awaits.",
+    "Preserve visible unsaved blocks/title and allow guarded retry after restoring the original connection. Audit CLI explicit routing rather than ambient defaults.",
+    "Cover body edits, title, media, HTML conversion, proposal acceptance and foreground Undo; keep provider scopes intact.",
+    "Prove same-ID/revision foreign destination receives no editor mutation in a disposable native rehearsal. No authority switch or durable cross-connection bookmark migration."
+  ],
+  "acceptance": [
+    "A Paper opened on connection A never sends its edits or refresh reads to B after settings change; same ID/revision does not weaken the boundary.",
+    "Missing/stale binding refuses before mutation; A-to-B-to-A permits guarded retry without losing the local buffer.",
+    "Routing is captured before awaits; settings changed during a request cannot redirect a later step.",
+    "Full relevant tests, native isolation proof, fresh live/fixture capture and actual review pass; maintain repository truth and push evidence."
+  ],
+  "checkpoint": "2026-09-24",
+  "handoff": "docs/cycles/C057-paper-connection.md",
+  "nextAction": "Push reviewed C057 evidence, inspect exact-head CI, then plan the durable remote receipt/proposal ownership boundary.",
+  "evidence": [
+    "docs/cycles/evidence/C057/review.json",
+    "docs/visual/paper-connection/runs/2026-09-24T05-53-21-002Z/review.json",
+    "docs/visual/reviews/approval-19569a6c0bc997857f06d9c56e9821a4c6c7502328161d3e347ba1759f8d7d88.json"
+  ],
+  "truthReview": "Reviewed README/app guide, main/renderer health, PLAN/plan.json, handoff, validation, decisions and A2. One delivery lane; user data/services preserved. P2 remains active.",
+  "screenshotReview": "Inspected9 native stills/47 GIF frames,5 live stills/37 GIF frames,40 standard stills/diffs and40 GIF frames. Explicit approval19569a6c; first native presentation superseded after actual review."
+}
