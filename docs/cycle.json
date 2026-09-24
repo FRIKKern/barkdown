@@ -1,29 +1,27 @@
 {
   "version": 1,
-  "id": "C067",
+  "id": "C068",
   "stage": "P2",
   "status": "done",
-  "goal": "Create, edit, find and reopen ordinary owned notes in real Paper.",
+  "goal": "Reduce avoidable validation rework with fail-fast checks and precise evidence checkpoints.",
   "scope": [
-    "Private owned draft adapter, then managed-local New Page integration after native proof.",
-    "Exact draft identity and perspective in reads, writes, library/search and saved tabs.",
-    "Preserve profiles, human organization and legacy data; no migration activation, deletion/restore, agent extension, merge or deployment."
+    "Local check runner and assertion/review guidance; preserve all required gates.",
+    "Refresh active handoff; no app changes, merge, deployment or historical-worktree deletion."
   ],
   "acceptance": [
-    "Create an ordinary empty note, edit its title/body through guarded Paper ops, discover/search it and reopen the exact row after restart.",
-    "Profile switching and same-ID published/draft rows cannot redirect writes or leak results; refusal preserves existing data.",
-    "Durable creation request identity reconciles uncertain responses without duplicate writes.",
-    "Targeted/full suites and reviewed native, standard and live Paper media support the actual journey."
+    "Failed commands stop the sequence and preserve diagnostics; invalid plans fail before running.",
+    "Explicit cwd and literal argv work independently of shell location.",
+    "Existing root verification covers the runner; current claims and evidence remain truthful."
   ],
   "checkpoint": "2026-09-24",
-  "handoff": "docs/cycles/C067-ordinary-paper-notes.md",
-  "nextAction": "Follow the C067 evidence checkpoint on PR33 without merging; archive C067 before the agent ordinary-note creation/edit/guarded Undo slice.",
+  "handoff": "docs/cycles/C068-efficient-checkpoints.md",
+  "nextAction": "Follow PR33 hosted checks; archive C068 and start the owned agent-note create/edit/guarded Undo slice.",
   "evidence": [
-    "docs/cycles/C067-ordinary-paper-notes.md",
-    "docs/cycles/evidence/C067/review.json",
-    "docs/visual/paper-notes/runs/2026-09-24T18-55-34-677Z/manifest.json",
-    "docs/visual/paper-notes/README.md"
+    "docs/cycles/C068-efficient-checkpoints.md",
+    "docs/cycles/evidence/C068/validation/result.json",
+    "docs/cycles/evidence/C068/validation/runner-tests.log",
+    "docs/cycles/evidence/C068/validation/root-verify.log"
   ],
-  "truthReview": "Human create/edit/search/profile/restart journey proven; P2/A2 and agent/recovery/activation remain open. One delivery branch plus main;43 locked historical worktrees require coordinator recovery review. No merge/deploy.",
-  "screenshotReview": "Codex inspected native8/354/22, live5/37, standard40/40/40; explicit source-bound approval and provenance retained in review.json."
+  "truthReview": "Workflow and active product claims reviewed; C067 hosted acceptance recorded, stale handoff replaced, required gates retained. Main plus one delivery branch; historical worktrees remain preserved for recovery review.",
+  "screenshotReview": "No app, dependency or capture/comparison inputs changed; existing C067 visual approval passes. Generated roadmap reviewed separately; no new application capture claimed."
 }

@@ -1,5 +1,9 @@
 # Evidence and remaining proof
 
+[C068](cycles/C068-efficient-checkpoints.md): checked command sequence validates every cwd before execution, preserves literal arguments and stops on failure without overwriting evidence. Negative tests and actual root verification passed; [timings and logs](cycles/evidence/C068/validation/result.json) record 46.36 seconds for root verification. No application or visual inputs changed; C067 acceptance remains applicable. This improves failure handling, not a measured guarantee of faster future delivery.
+
+[C067](cycles/C067-ordinary-paper-notes.md): managed-local human create/edit/body-search/profile/restart accepted with [reviewed native media](visual/paper-notes/README.md), 66 focused checks, full desktop/root and isolated real tables11/11. Checkpoint fae4fac passed [Verify](https://github.com/FRIKKern/barkdown/actions/runs/36045969677), [Visual](https://github.com/FRIKKern/barkdown/actions/runs/36045969736) and [Linux parity20/20](https://github.com/FRIKKern/barkdown/actions/runs/36045969680). Agent ordinary-note creation/Undo and deletion/recovery remain unproved; P2/A2 remain open.
+
 [C066](cycles/C066-review-bundle.md): selective visual transport, integrity/failure tests and root verification passed. Real retained-evidence repack234 files/16.3MB; ZIP extraction14.1MB preserves gallery links and hashes. Local fixture size is distinct from hosted artifact measurements. History, captures and approval rules remain unchanged.
 
 [C065](cycles/C065-ci-effort.md): C064 hosted deduplication confirmed;714a575 passed Verify, Visual and Linux20/20. Read-only timing collector tested with real/offline metadata and failure cases. Root verification passed in43.81s. Measured20m29s across three cancelled parity jobs and a436,624,363-byte visual artifact; neither is an agent-idle or billing estimate.

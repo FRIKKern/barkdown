@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1030" viewBox="0 0 1600 1030" role="img" aria-labelledby="title desc">
 <title id="title">Barkdown delivery roadmap</title>
-<desc id="desc">P1: Profile ownership and isolation, done, depends on existing runtime. P2: Every note on Paper, active, depends on P1. P3: Recovery and portable profiles, todo, depends on P2. P4: Optional two-way cloud sync, todo, depends on P3. P5: Ordinary installation and daily-use pilot, todo, depends on P3. Phases are acceptance gates, not dates. C067: Create, edit, find and reopen ordinary owned notes in real Paper.</desc>
+<desc id="desc">P1: Profile ownership and isolation, done, depends on existing runtime. P2: Every note on Paper, active, depends on P1. P3: Recovery and portable profiles, todo, depends on P2. P4: Optional two-way cloud sync, todo, depends on P3. P5: Ordinary installation and daily-use pilot, todo, depends on P3. Phases are acceptance gates, not dates. C068: Reduce avoidable validation rework with fail-fast checks and precise evidence checkpoints.</desc>
 <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#20271e"/><stop offset="1" stop-color="#111813"/></linearGradient><linearGradient id="active" x2="0" y2="1"><stop stop-color="#34432a"/><stop offset="1" stop-color="#222d20"/></linearGradient><linearGradient id="band"><stop stop-color="#7b9656"/><stop offset=".4" stop-color="#bcda82"/><stop offset="1" stop-color="#4c6050"/></linearGradient></defs>
 <g font-family="Segoe UI, Arial, sans-serif"><rect width="1600" height="1030" rx="24" fill="url(#bg)"/>
 <path d="M1100 0L1600 350M1260 0L1600 220M1380 0L1600 140" stroke="#a6c775" stroke-opacity=".06" stroke-width="80"/>
@@ -72,8 +72,8 @@
 <path d="M70 713H1530" stroke="url(#band)" stroke-width="3"/>
 <text x="58" y="754" font-size="19" fill="#c2ceae" font-weight="400" >P4 and P5 branch after P3. Local installation does not have to wait for cloud sync.</text>
 <rect x="58" y="792" width="1484" height="124" rx="12" fill="#273223" stroke="#4b5d3e"/>
-<text x="80" y="826" font-size="14" fill="#bed59b" font-weight="700" letter-spacing="1.5">CURRENT CYCLE  /  C067  ·  DONE</text>
-<text x="80" y="861" font-size="21" fill="#edf0e5" font-weight="500" >Create, edit, find and reopen ordinary owned notes in real Paper.</text>
+<text x="80" y="826" font-size="14" fill="#bed59b" font-weight="700" letter-spacing="1.5">CURRENT CYCLE  /  C068  ·  DONE</text>
+<text x="80" y="861" font-size="21" fill="#edf0e5" font-weight="500" >Reduce avoidable validation rework with fail-fast checks and precise evidence checkpoints.</text>
 <text x="58" y="958" font-size="17" fill="#aebaa4" font-weight="400" >Phases, not release dates. Status comes from docs/plan.json; the current cycle comes from docs/cycle.json.</text>
 <text x="58" y="993" font-size="17" fill="#aebaa4" font-weight="400" >Separate release gates: G1 blocked · G2 blocked. An accepted phase is not a production release.</text>
 </g></svg>

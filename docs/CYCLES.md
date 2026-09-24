@@ -54,6 +54,23 @@ Choose a new output path; existing snapshots are never overwritten. This uses Gi
 
 Compare finished job minutes, cancelled job minutes, duplicate-event candidates and repeated setup steps. Also record which useful result was produced during the CI interval. These are distinct from agent idle time, critical-path delay and money; overlapping jobs do not add to elapsed delivery time. Missing/running timestamps are not zero-cost successes. A cheaper pipeline must still catch deliberate regressions before narrowing coverage. Prefer one measured improvement at a time; automatic proof reuse remains unimplemented. If small documentation/process pushes repeatedly restart full CI without advancing a user journey, consolidate the next change and return to product work after the bounded improvement. Avoid making process maintenance its own endless backlog.
 
+## Execute checks without losing the failure
+
+For a dependent sequence, use `node scripts/run-steps.mjs <plan.json> <new-output-directory>` from the checkout (or invoke that script by absolute path). Each `cwd` is relative to the runner's repository, regardless of the calling shell directory. All directories and arguments are checked before the first command; the runner stops on the first failure and retains each log, exit code and measured duration in `result.json`. Existing output directories are refused. Interrupted reports remain `running`, never passed. This is a convenience for trusted local Node/npm commands, not a sandbox or a replacement for required gates.
+
+```json
+{"version":1,"steps":[
+  {"name":"focused","cwd":".","argv":["node","scripts/run-steps.test.mjs"]},
+  {"name":"verify","cwd":".","argv":["npm","run","verify"]}
+]}
+```
+
+Keep a reusable sequence in the current cycle evidence only when useful; do not invent a second queue of checks. `node` uses the running Node executable; `npm` resolves its CLI beside Node or through `npm_execpath`. Both run without a shell. Arguments are literal: no pipes, redirection or shell interpolation. Logs/arguments can contain data, so use disposable fixtures and no credentials. The runner does not retry, select coverage, approve media, stop shared services or prove that an assertion is meaningful. For individual shell commands, set the working directory explicitly and check the exit code before the dependent command; a PowerShell semicolon does not stop after a native-command failure.
+
+Before an expensive native capture, identify the observable that could falsely pass. Scope a search assertion to the actual result and matching content, not an already-open tab with the same title. After an action, assert the resulting identity/content; do not use a helper that independently opens or repairs the expected state as proof the action succeeded. Persistence claims need readback/restart. Exercise the assertion during targeted development, then finalize the harness before the implementation commit. Verify media-tool capabilities with a short sample before a full conversion; retain originals and derivation details.
+
+Use one source-bound review record linking behavior logs, native motion, standard comparisons and live Paper evidence. Inspect the gallery/contact sheets together; enlarge changed or uncertain frames and meaningful transitions. Record actual inspection and limits, without repeating the same review in every README. The [visual rules](visual/RULES.md) still govern required coverage and explicit approval. Push the coherent code/evidence checkpoint once; record subsequent hosted check results on the PR when no source claim needs changing, so a status-only commit does not restart the same expensive jobs.
+
 ## Keep a checkpoint while working
 
 Update the cycle handoff after a meaningful implementation slice, a failed check, a scope change, a blocker, and before yielding or changing tasks. Record what changed, exact commands/results, uncommitted work, owned running processes and the next concrete action. Save the checkpoint before long or risky operations. The current handoff should fit roughly one screen: current outcome/status, branch and source, strongest evidence and limits, uncommitted work/owned services, and exact next action. Detailed chronology belongs in the linked cycle record. A handoff must work without chat history; do not wait for completion to write it. Sudden interruption can still happen between checkpoints—inspect Git and process ownership when resuming.

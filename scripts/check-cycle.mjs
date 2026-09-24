@@ -25,3 +25,5 @@ console.log('Agent entry routing, current handoff and tracked completion evidenc
 await import('./ci-effort.test.mjs');
 
 await import('./ci-review-bundle.test.mjs');
+
+await import('./run-steps.test.mjs');
