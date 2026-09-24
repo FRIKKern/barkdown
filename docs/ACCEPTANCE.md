@@ -15,9 +15,13 @@ Accepted for the Windows source prototype at `27ea120`; see [completion audit](c
 
 ## A2 — One engine without lost notes
 
+- Create an ordinary empty local note and continue through human and agent editing, save, search, delete/recovery and restart on the same Paper engine. Verify a complete owned library beyond the normal60-item page, with no fallback to legacy creation.
+- Preserve the distinction between owned local Archive and Cloud archive, including unavailable/partial listings and identical slugs in separate sources. Human Pages order and placement never change because of discovery.
+
 - Migrate fixtures covering supported blocks, marks, media, internal links, backlinks, titles, human page organization, agent edit receipts and pending proposals. Specify any history/receipt conversion limits before cutover; retain readable originals where semantics cannot transfer.
 - Compare structured content and references against the source, open/edit/save/reopen through real Paper, and verify server state, including Undo.
 - Interrupt each migration phase, resume, and repeat. No duplicate notes, broken references, dangling media or changed organization.
+- Fence all foreground and captured provider/MCP/goal writers before selecting the new authority; interrupted selection must recover one complete engine and retain human drafts.
 - Roll back a failed migration from the retained source/backup. Switch authority and retire the separate editor only after the whole corpus passes.
 
 ## A3 — Recovery and portability

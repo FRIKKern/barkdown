@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "id": "C054",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Expose verified retained legacy history, proposals and receipts as read-only evidence without translating their revision semantics.",
+  "scope": [
+    "Read only a caller-pinned committed backup using the existing complete-byte validator.",
+    "Return exact captured local document/history/proposal data and source-qualified receipt evidence; never invoke restore, Undo, proposal acceptance or Paper.",
+    "Reject wrong owner/hash, invalid identities, mismatched receipts and backup changes; retain unsupported historical shapes without conversion.",
+    "Prove actual document/agent-edit generated records, exact bytes and no writes; complete repository and visual closeout."
+  ],
+  "acceptance": [
+    "Pinned backup identity and all file hashes validate before any data is returned.",
+    "Actual legacy history, pending proposals and applied/undone receipts remain exact and explicitly read-only.",
+    "No Paper revision, operation, target write or authority switch is synthesized.",
+    "Relevant integration/unit checks, full desktop/root and reviewed standard visuals pass; no native viewer UI is claimed."
+  ],
+  "checkpoint": "2026-09-24",
+  "handoff": "docs/cycles/C054-retained-evidence.md",
+  "nextAction": "Archive C054 and prepare the bounded cutover-readiness audit; do not activate Paper authority.",
+  "evidence": [
+    "docs/cycles/evidence/C054/results.json"
+  ],
+  "truthReview": "Full desktop/root pass; fresh release gates and owned branches reviewed. Source/data remain legacy-owned; no merge/deploy.",
+  "screenshotReview": "Five live stills and37GIFframes reviewed, three fixture shadow differences inspected; explicit approval42476f73. No native history viewer claim."
+}

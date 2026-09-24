@@ -1,21 +1,11 @@
 # Current handoff
 
-C039/P1 is accepted for the Windows source prototype at source `27ea120`, with evidence through `f65c0c6` on `codex/finish-profile-isolation`. [PR #31](https://github.com/FRIKKern/barkdown/pull/31) carries this checkpoint and repository cleanup; consult its state for main integration. See the [acceptance audit](cycles/C039-completion-audit.md). No deployment or real-library migration occurred.
+P1/C039 is accepted and merged through PR #31. P2 remains active; no real-library migration, authority switch or deployment has occurred.
 
-## Current work
+Work in `C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration`, branch `codex/p2-migration`, draft [PR #32](https://github.com/FRIKKern/barkdown/pull/32). C054 is accepted at source3763503:24 retained-evidence checks, full desktop (131 migration checks), root verification and reviewed live/fixture media pass. [Results](cycles/evidence/C054/results.json). C053 Linux35952092824 passes 20/20; native projection/navigation evidence remains in the [migration contract](migration/README.md). [C055](cycles/C055-cutover-readiness.md) is accepted at documentation scope, with 20 source findings and five ordered task briefs in the migration contract. Next: archive C055 and plan only order 1, complete owned catalog/local Archive. C054 is pushed at `aa97781`; C055 is pushed at `2162ac0`, with a final documentation/evidence supplement. Linux run35954150162 passes20/20 on2162ac0; repository and visual CI also pass. [Run closeout](cycles/evidence/C055/run-closeout.json) retains the final evidence. No native historical viewer exists; unplaced local archives and ambiguous closed targets still refuse.
 
-C042 repository cleanup is delivered through `codex/repository-hygiene`, based on the accepted checkpoint. See [the cleanup handoff](cycles/C042-retirement-closeout.md) for verified retirements and remaining debt. Do not reopen completed authentication or Paper polish tasks.
+Upstream worktree `barkpark-paper-create` at 30c007e43, branch `codex/paper-create-only`, stacked draft [PR #20020](https://github.com/FRIKKern/barkpark/pull/20020). No upstream source change in C049–C055; fallback/parity pin remains bf23f773. The [fresh gate audit](cycles/evidence/C054/release-gates.json) records editor PR #19579 open with merge conflicts, creation PR #20020 open/unstable, missing upstream read-token name and issue #4 open. Do not treat Barkdown-side parity as upstream enforcement.
 
-P2 is the next product stage. [Migration preparation](migration/README.md) defines the synthetic inventory, preflight and durable-manifest slice. Resolve safe target creation before any Paper writes. Preserve the legacy store, source data and backups until comparison, interruption/resume and rollback are proven.
+Keep user app, shared services and real libraries untouched. Main plus one Barkdown delivery branch; three owned upstream lanes.43 retired worktrees remain locked/recoverable. Guerrilla claims at 03:33 UTC: inline-break epoch14, create-only epoch20, nested-checklist epoch9; expire 04:18 UTC. No owned test service remains. Repository clutter:43 retired locked worktrees are retained evidence, not active tasks. At the next hygiene review, verify their remote/PR state and retained handoffs before any recoverable retirement; no deletion is authorized by this audit.
 
-## Evidence and limits
-
-Full Windows desktop and root verification passed for the accepted checkpoint. Native isolation/adoption evidence retains 102 verified hashes. Reviewed login, real Paper and deterministic captures are linked from the acceptance audit. This proves the stated prototype boundary; migration, portability, sync and ordinary installation remain unfinished.
-
-Barkpark's consumed editor source is `bf23f773`. Upstream integration and cross-repository enforcement remain separate release gates; recheck their actual state before landing or releasing. Never modify the shared Barkpark checkout or stop shared services incidentally.
-
-## Resume
-
-Read [PLAN.md](PLAN.md), [DESIGN-DECISIONS.md](DESIGN-DECISIONS.md) and the relevant [acceptance stage](ACCEPTANCE.md); run `npm run plan` and `npm run cycle`. Follow [cycle closeout](CYCLES.md) and [visual rules](visual/RULES.md). Keep this handoff current by replacement, not accumulated historical checkpoints.
-
-Earlier investigations remain in [the archived handoff](archive/2026-09-23-next-agent.md) and source-bound cycle evidence. Consult them only for a specific evidence question; they are not another task queue.
+Six-hour run completed after2026-09-24 04:17:20UTC (06:17Paris). All owned test services stopped; scheduled follow-up is disabled. Read [PLAN](PLAN.md), [decisions](DESIGN-DECISIONS.md), [A2 acceptance](ACCEPTANCE.md), [cycles](CYCLES.md), [visual rules](visual/RULES.md); run npm run plan and npm run cycle. Historical handoffs are evidence, not extra queues. No merge/deploy.

@@ -1,0 +1,34 @@
+{
+  "recordedAt": "2026-09-23T23:14:55.571Z",
+  "upstreamCommit": "8d48ae6613917259f4376b061d603a6e37043c28",
+  "anchors": {
+    "exit": 0,
+    "command": "Git Bash scripts/docs-anchors-check.sh with python3 bound to bundled Python",
+    "log": "c046-upstream-anchors-python.log",
+    "sha256": "9b7803bc269ddff9a1f04af68cbdf90c879361c19b6e361fe95f8018fd7bca33",
+    "warnings": 2
+  },
+  "retainedEnvironmentFailure": {
+    "log": "c046-upstream-anchors-gitbash.log",
+    "exit": 1,
+    "reason": "Unavailable python3 alias prevented relative link resolution; corrected run passed."
+  },
+  "ciFailures": [
+    {
+      "name": "Every workflow job has runs-on+steps or uses",
+      "job": 107418617704,
+      "reason": "Unledgered workflow population grew from 22 to 23"
+    },
+    {
+      "name": "Elixir path-escape ratchet",
+      "job": 107418618643,
+      "reason": "React vendored template tarballs do not match source and source is newer than artifact"
+    },
+    {
+      "name": "Security gate shape ratchet",
+      "job": 107418618833,
+      "reason": "Sobelow header census declares 24 findings/9 traversal but file has 23/8; baseline-grew mutation expectation also fails"
+    }
+  ],
+  "scope": "These CI inputs are unchanged between stacked base bf23f773 and 8d48ae661. They remain integration gates, not waived by editor validation. No merge or deployment."
+}

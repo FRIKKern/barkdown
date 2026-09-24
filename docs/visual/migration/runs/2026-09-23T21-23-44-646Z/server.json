@@ -1,0 +1,359 @@
+{
+  "_createdAt": "2026-09-23T21:23:44.258000Z",
+  "_draft": false,
+  "_id": "local-d4feadb9e6a2377a45f5972513586d0b",
+  "_publishedId": "local-d4feadb9e6a2377a45f5972513586d0b",
+  "_rev": "8919b30c0df25713f15b2ed1b8c1d22d",
+  "_type": "paper",
+  "_updatedAt": "2026-09-23T21:24:08.561000Z",
+  "blocks": [
+    {
+      "content": [
+        {
+          "type": "text",
+          "value": "Notes — café 日本語 🐕"
+        }
+      ],
+      "id": "migration-0",
+      "type": "paragraph"
+    },
+    {
+      "content": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Keep emphasis"
+                }
+              ],
+              "type": "em"
+            }
+          ],
+          "type": "strong"
+        }
+      ],
+      "id": "migration-1",
+      "type": "paragraph"
+    },
+    {
+      "content": [
+        {
+          "children": [
+            {
+              "type": "text",
+              "value": "Keep underline"
+            }
+          ],
+          "type": "underline"
+        }
+      ],
+      "id": "migration-2",
+      "type": "paragraph"
+    },
+    {
+      "content": [
+        {
+          "children": [
+            {
+              "type": "text",
+              "value": "removed"
+            }
+          ],
+          "type": "strikethrough"
+        },
+        {
+          "type": "code",
+          "value": " literal "
+        }
+      ],
+      "id": "migration-3",
+      "type": "paragraph"
+    },
+    {
+      "content": [
+        {
+          "children": [
+            {
+              "type": "text",
+              "value": "Reference"
+            }
+          ],
+          "href": "https://example.invalid/reference",
+          "type": "link"
+        }
+      ],
+      "id": "migration-4",
+      "type": "paragraph"
+    },
+    {
+      "id": "migration-5",
+      "level": 2,
+      "text": "Section",
+      "type": "heading"
+    },
+    {
+      "id": "migration-6",
+      "items": [
+        {
+          "checked": true,
+          "content": [
+            {
+              "type": "text",
+              "value": "Done"
+            }
+          ]
+        },
+        {
+          "checked": false,
+          "content": [
+            {
+              "type": "text",
+              "value": "Remaining"
+            }
+          ]
+        }
+      ],
+      "ordered": false,
+      "task": true,
+      "type": "list"
+    },
+    {
+      "id": "migration-7",
+      "lang": "js",
+      "type": "code",
+      "value": "const value = 1;\n"
+    },
+    {
+      "head": [
+        [
+          {
+            "type": "text",
+            "value": "Label"
+          }
+        ],
+        {
+          "align": "right",
+          "content": [
+            {
+              "type": "text",
+              "value": "Value"
+            }
+          ]
+        }
+      ],
+      "id": "migration-8",
+      "rows": [
+        [
+          [
+            {
+              "type": "text",
+              "value": "A"
+            }
+          ],
+          {
+            "align": "right",
+            "content": [
+              {
+                "type": "text",
+                "value": "1"
+              }
+            ]
+          }
+        ]
+      ],
+      "type": "table"
+    }
+  ],
+  "body": {
+    "blocks": [
+      {
+        "content": [
+          {
+            "type": "text",
+            "value": "Notes — café 日本語 🐕"
+          }
+        ],
+        "id": "migration-0",
+        "type": "paragraph"
+      },
+      {
+        "content": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Keep emphasis"
+                  }
+                ],
+                "type": "em"
+              }
+            ],
+            "type": "strong"
+          }
+        ],
+        "id": "migration-1",
+        "type": "paragraph"
+      },
+      {
+        "content": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Keep underline"
+              }
+            ],
+            "type": "underline"
+          }
+        ],
+        "id": "migration-2",
+        "type": "paragraph"
+      },
+      {
+        "content": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "removed"
+              }
+            ],
+            "type": "strikethrough"
+          },
+          {
+            "type": "code",
+            "value": " literal "
+          }
+        ],
+        "id": "migration-3",
+        "type": "paragraph"
+      },
+      {
+        "content": [
+          {
+            "children": [
+              {
+                "type": "text",
+                "value": "Reference"
+              }
+            ],
+            "href": "https://example.invalid/reference",
+            "type": "link"
+          }
+        ],
+        "id": "migration-4",
+        "type": "paragraph"
+      },
+      {
+        "id": "migration-5",
+        "level": 2,
+        "text": "Section",
+        "type": "heading"
+      },
+      {
+        "id": "migration-6",
+        "items": [
+          {
+            "checked": true,
+            "content": [
+              {
+                "type": "text",
+                "value": "Done"
+              }
+            ]
+          },
+          {
+            "checked": false,
+            "content": [
+              {
+                "type": "text",
+                "value": "Remaining"
+              }
+            ]
+          }
+        ],
+        "ordered": false,
+        "task": true,
+        "type": "list"
+      },
+      {
+        "id": "migration-7",
+        "lang": "js",
+        "type": "code",
+        "value": "const value = 1;\n"
+      },
+      {
+        "head": [
+          [
+            {
+              "type": "text",
+              "value": "Label"
+            }
+          ],
+          {
+            "align": "right",
+            "content": [
+              {
+                "type": "text",
+                "value": "Value"
+              }
+            ]
+          }
+        ],
+        "id": "migration-8",
+        "rows": [
+          [
+            [
+              {
+                "type": "text",
+                "value": "A"
+              }
+            ],
+            {
+              "align": "right",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "1"
+                }
+              ]
+            }
+          ]
+        ],
+        "type": "table"
+      }
+    ],
+    "html": "<p>Notes — café 日本語 🐕</p><p><span style=\"font-weight:bold\"><span style=\"font-style:italic\">Keep emphasis</span></span></p><p><span style=\"text-decoration:underline\">Keep underline</span></p><p><span style=\"text-decoration:line-through\">removed</span><code> literal </code></p><p><a href=\"https://example.invalid/reference\" style=\"color:var(--paper-accent, #1e5347)\">Reference</a></p><h2>Section</h2><ul class=\"bp-checklist\"><li class=\"bp-checklist__item\" data-checked=\"true\"><input type=\"checkbox\" class=\"bp-checklist__box\" disabled checked aria-label=\"Done\"><span class=\"bp-checklist__body\"><span>Done</span></span></li><li class=\"bp-checklist__item\" data-checked=\"false\"><input type=\"checkbox\" class=\"bp-checklist__box\" disabled aria-label=\"To do\"><span class=\"bp-checklist__body\"><span>Remaining</span></span></li></ul><pre data-lang=\"js\" style=\"background:var(--paper-bg-deep, #eaf1ee);border:0;border-radius:var(--bp-codeblock-radius, 0);color:var(--paper-ink, #15211d);padding:var(--bp-codeblock-pad, 0.9rem 1.1rem);margin:var(--bp-codeblock-margin, 1.2rem 0);font-family:var(--paper-font-mono, ui-monospace,Menlo,monospace);font-size:var(--bp-codeblock-size, 0.9rem);line-height:var(--bp-codeblock-lh, 1.5);overflow-x:auto;white-space:pre\">const value = 1;\n</pre><table role=\"presentation\" class=\"bp-table\"><thead><tr><th class=\"bp-table__th\"><span>Label</span></th><th class=\"bp-table__th\" style=\"text-align:right\"><span>Value</span></th></tr></thead><tbody><tr><td class=\"bp-table__td\"><span>A</span></td><td class=\"bp-table__td\" style=\"text-align:right\"><span>1</span></td></tr></tbody></table>"
+  },
+  "body_html": "<p>Notes — café 日本語 🐕</p><p><span style=\"font-weight:bold\"><span style=\"font-style:italic\">Keep emphasis</span></span></p><p><span style=\"text-decoration:underline\">Keep underline</span></p><p><span style=\"text-decoration:line-through\">removed</span><code> literal </code></p><p><a href=\"https://example.invalid/reference\" style=\"color:var(--paper-accent, #1e5347)\">Reference</a></p><h2>Section</h2><ul class=\"bp-checklist\"><li class=\"bp-checklist__item\" data-checked=\"true\"><input type=\"checkbox\" class=\"bp-checklist__box\" disabled checked aria-label=\"Done\"><span class=\"bp-checklist__body\"><span>Done</span></span></li><li class=\"bp-checklist__item\" data-checked=\"false\"><input type=\"checkbox\" class=\"bp-checklist__box\" disabled aria-label=\"To do\"><span class=\"bp-checklist__body\"><span>Remaining</span></span></li></ul><pre data-lang=\"js\" style=\"background:var(--paper-bg-deep, #eaf1ee);border:0;border-radius:var(--bp-codeblock-radius, 0);color:var(--paper-ink, #15211d);padding:var(--bp-codeblock-pad, 0.9rem 1.1rem);margin:var(--bp-codeblock-margin, 1.2rem 0);font-family:var(--paper-font-mono, ui-monospace,Menlo,monospace);font-size:var(--bp-codeblock-size, 0.9rem);line-height:var(--bp-codeblock-lh, 1.5);overflow-x:auto;white-space:pre\">const value = 1;\n</pre><table role=\"presentation\" class=\"bp-table\"><thead><tr><th class=\"bp-table__th\"><span>Label</span></th><th class=\"bp-table__th\" style=\"text-align:right\"><span>Value</span></th></tr></thead><tbody><tr><td class=\"bp-table__td\"><span>A</span></td><td class=\"bp-table__td\" style=\"text-align:right\"><span>1</span></td></tr></tbody></table>",
+  "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+  "description": "Disposable nine-case migrated corpus proves actual Paper editing, exact saved Undo and reopen without source authority changes",
+  "main_tag": "migrated-editor-proof",
+  "preview": {
+    "description": "Disposable nine-case migrated corpus proves actual Paper editing, exact saved Undo and reopen without source…",
+    "extensions": {
+      "tags": [
+        "migrated-editor-proof"
+      ]
+    },
+    "image": null,
+    "title": "Migrated notes remain editable and recoverable in Paper",
+    "type": "paper",
+    "url": "/papers/local-d4feadb9e6a2377a45f5972513586d0b"
+  },
+  "rev": 19,
+  "source_doc": "barkdown-migration:v1:7a33d439-4b46-40d8-8044-8529a4fccc7b:corpus:4a52736d28bebc6411c6e112123751fcae5a377dcb78d677a746041dc850a5bb",
+  "style": "article",
+  "tags": [
+    {
+      "rationale": "Registered private migrated editor rehearsal category",
+      "strength": 95,
+      "tag": "migrated-editor-proof"
+    }
+  ],
+  "title": "Migrated notes remain editable and recoverable in Paper"
+}

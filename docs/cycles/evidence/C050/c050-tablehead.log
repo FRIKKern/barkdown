@@ -1,0 +1,371 @@
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-gRdoLX
+Capture runtime: starting 
+Capture runtime: ready 
+{
+ "summary": "6/6 green",
+ "results": [
+  {
+   "name": "the chrome's header-column toggle makes each body row's first cell a row header; the server holds headCol: true",
+   "pass": true,
+   "canvas": [
+    [
+     [
+      "th",
+      "Item",
+      null
+     ],
+     [
+      "th",
+      "Qty",
+      null
+     ],
+     [
+      "th",
+      "Price",
+      null
+     ]
+    ],
+    [
+     [
+      "th[row]",
+      "Apple",
+      null
+     ],
+     [
+      "td",
+      "3",
+      null
+     ],
+     [
+      "td",
+      "1.20",
+      null
+     ]
+    ],
+    [
+     [
+      "th[row]",
+      "Pear",
+      null
+     ],
+     [
+      "td",
+      "5",
+      null
+     ],
+     [
+      "td",
+      "0.90",
+      null
+     ]
+    ]
+   ],
+   "server": {
+    "headCol": true,
+    "rows": [
+     [
+      [
+       {
+        "type": "text",
+        "value": "Apple"
+       }
+      ],
+      [
+       {
+        "type": "text",
+        "value": "3"
+       }
+      ],
+      [
+       {
+        "type": "text",
+        "value": "1.20"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "type": "text",
+        "value": "Pear"
+       }
+      ],
+      [
+       {
+        "type": "text",
+        "value": "5"
+       }
+      ],
+      [
+       {
+        "type": "text",
+        "value": "0.90"
+       }
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "the bubble's align-right button on the Qty cell aligns the CELL; the server holds { content, align: \"right\" }",
+   "pass": true,
+   "canvas": [
+    [
+     "th[row]",
+     "Apple",
+     null
+    ],
+    [
+     "td",
+     "3",
+     "right"
+    ],
+    [
+     "td",
+     "1.20",
+     null
+    ]
+   ],
+   "server": [
+    [
+     {
+      "type": "text",
+      "value": "Apple"
+     }
+    ],
+    {
+     "align": "right",
+     "content": [
+      {
+       "type": "text",
+       "value": "3"
+      }
+     ]
+    },
+    [
+     {
+      "type": "text",
+      "value": "1.20"
+     }
+    ]
+   ]
+  },
+  {
+   "name": "the paper page renders <th scope=\"row\"> for the header column and text-align on the aligned cell",
+   "pass": true,
+   "reader": [
+    [
+     [
+      "th",
+      "Item",
+      null
+     ],
+     [
+      "th",
+      "Qty",
+      null
+     ],
+     [
+      "th",
+      "Price",
+      null
+     ]
+    ],
+    [
+     [
+      "th[row]",
+      "Apple",
+      null
+     ],
+     [
+      "td",
+      "3",
+      "right"
+     ],
+     [
+      "td",
+      "1.20",
+      null
+     ]
+    ],
+    [
+     [
+      "th[row]",
+      "Pear",
+      null
+     ],
+     [
+      "td",
+      "5",
+      null
+     ],
+     [
+      "td",
+      "0.90",
+      null
+     ]
+    ]
+   ]
+  },
+  {
+   "name": "align-left on the same cell drops the attribute: the server holds the plain cell again",
+   "pass": true,
+   "server": [
+    [
+     {
+      "type": "text",
+      "value": "Apple"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "value": "3"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "value": "1.20"
+     }
+    ]
+   ]
+  },
+  {
+   "name": "centre the Price cell, reload: header column and alignment come back from the server as shown",
+   "pass": true,
+   "before": [
+    [
+     [
+      "th",
+      "Item",
+      null
+     ],
+     [
+      "th",
+      "Qty",
+      null
+     ],
+     [
+      "th",
+      "Price",
+      null
+     ]
+    ],
+    [
+     [
+      "th[row]",
+      "Apple",
+      null
+     ],
+     [
+      "td",
+      "3",
+      null
+     ],
+     [
+      "td",
+      "1.20",
+      null
+     ]
+    ],
+    [
+     [
+      "th[row]",
+      "Pear",
+      null
+     ],
+     [
+      "td",
+      "5",
+      null
+     ],
+     [
+      "td",
+      "0.90",
+      "center"
+     ]
+    ]
+   ],
+   "after": [
+    [
+     [
+      "th",
+      "Item",
+      null
+     ],
+     [
+      "th",
+      "Qty",
+      null
+     ],
+     [
+      "th",
+      "Price",
+      null
+     ]
+    ],
+    [
+     [
+      "th[row]",
+      "Apple",
+      null
+     ],
+     [
+      "td",
+      "3",
+      null
+     ],
+     [
+      "td",
+      "1.20",
+      null
+     ]
+    ],
+    [
+     [
+      "th[row]",
+      "Pear",
+      null
+     ],
+     [
+      "td",
+      "5",
+      null
+     ],
+     [
+      "td",
+      "0.90",
+      "center"
+     ]
+    ]
+   ]
+  },
+  {
+   "name": "toggling the header column off lands as headCol: false; the cells are plain <td> again",
+   "pass": true,
+   "canvas": [
+    [
+     "td",
+     "Apple",
+     null
+    ],
+    [
+     "td",
+     "3",
+     null
+    ],
+    [
+     "td",
+     "1.20",
+     null
+    ]
+   ],
+   "server": false
+  }
+ ],
+ "errors": []
+}
+Capture runtime: stopping 
+Capture runtime: stopped 
+Live screenshots complete; private runtime stopped; user CLI configuration unchanged.

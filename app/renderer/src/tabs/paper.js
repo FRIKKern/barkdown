@@ -13,7 +13,7 @@ import { ensureCanvasBundle } from '../canvas-bundle.js';
 const api = window.barkdown;
 
 export function mountPaper(tab, host, ctx) {
-  const pane = el(`<div class="bw-pane bw-doc-pane bw-paper-pane"><div class="bw-path" id="path"></div><div class="bw-current-pane" id="current"><div class="bw-document bw-paper-document"><div class="bw-kicker"><span id="kicker">Barkpark / Paper</span><span class="bw-doc-meta" id="meta"></span><span class="bw-save-state" id="save-state"></span></div><input class="bw-doc-title" id="title" aria-label="Paper title" placeholder="Untitled"><div id="banner"></div><div id="agent-edit"></div><div id="proposals"></div><div id="conflict"></div><div class="bw-find" id="find" hidden><input id="find-q" type="text" placeholder="Find" aria-label="Find in paper"><span class="bw-find-count" id="find-count"></span><button type="button" class="bw-btn" id="find-prev" title="Previous (Shift+Enter)" aria-label="Previous match">↑</button><button type="button" class="bw-btn" id="find-next" title="Next (Enter)" aria-label="Next match">↓</button><input id="find-r" type="text" placeholder="Replace with" aria-label="Replace with"><button type="button" class="bw-btn" id="find-replace">Replace</button><button type="button" class="bw-btn" id="find-replace-all">All</button><button type="button" class="bw-btn" id="find-close" title="Close (Esc)" aria-label="Close find">×</button></div><div class="bp-paper-host" id="canvas-host"></div><div class="bw-doc-links" id="links"></div><div class="bw-doc-state" id="state"></div></div></div></div>`);
+  const pane = el(`<div class="bw-pane bw-doc-pane bw-paper-pane"><div class="bw-path" id="path"></div><div class="bw-current-pane" id="current"><div class="bw-document bw-paper-document"><div class="bw-kicker"><span id="kicker">Barkpark / Paper</span><span class="bw-doc-meta" id="meta"></span><span class="bw-save-state" id="save-state"></span></div><textarea class="bw-doc-title" id="title" rows="1" aria-label="Paper title" placeholder="Untitled"></textarea><div id="banner"></div><div id="agent-edit"></div><div id="proposals"></div><div id="conflict"></div><div class="bw-find" id="find" hidden><input id="find-q" type="text" placeholder="Find" aria-label="Find in paper"><span class="bw-find-count" id="find-count"></span><button type="button" class="bw-btn" id="find-prev" title="Previous (Shift+Enter)" aria-label="Previous match">↑</button><button type="button" class="bw-btn" id="find-next" title="Next (Enter)" aria-label="Next match">↓</button><input id="find-r" type="text" placeholder="Replace with" aria-label="Replace with"><button type="button" class="bw-btn" id="find-replace">Replace</button><button type="button" class="bw-btn" id="find-replace-all">All</button><button type="button" class="bw-btn" id="find-close" title="Close (Esc)" aria-label="Close find">×</button></div><div class="bp-paper-host" id="canvas-host"></div><div class="bw-doc-links" id="links"></div><div class="bw-doc-state" id="state"></div></div></div></div>`);
   host.appendChild(pane);
   const q = s => pane.querySelector(s);
   // The receipt shares the existing metadata line; its arrival must not move
@@ -352,7 +352,13 @@ export function mountPaper(tab, host, ctx) {
     ctx.tabChanged(tab);
     q('#title').value = paper.title;
     q('#title').disabled = !writesOn();
-    q('#title').oninput = () => { inputVersion++; titleDirty = q('#title').value.trim() !== paper.title; };
+    q('#title').oninput = () => {
+      const field = q('#title');
+      // Retain the old single-line title contract while allowing visual wrapping.
+      if (/[\r\n]/.test(field.value)) { const caret = field.value.slice(0, field.selectionStart).replace(/[\r\n]/g, '').length; field.value = field.value.replace(/[\r\n]/g, ''); field.setSelectionRange(caret, caret); }
+      inputVersion++; titleDirty = field.value.trim() !== paper.title;
+    };
+    q('#title').onkeydown = event => { if (event.key === 'Enter' && !event.isComposing) { event.preventDefault(); q('#title').blur(); } };
     q('#title').onchange = async () => {
       if (titleSaving) return;
       const title = q('#title').value.trim() || paper.title;

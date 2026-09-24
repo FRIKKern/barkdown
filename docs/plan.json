@@ -20,7 +20,7 @@
     {
       "id": "P2",
       "title": "Every note on Paper",
-      "status": "todo",
+      "status": "active",
       "dependsOn": [
         "P1"
       ],
@@ -28,7 +28,21 @@
         13
       ],
       "acceptance": "A2",
-      "evidence": []
+      "evidence": [
+        "docs/cycles/C043-migration-preflight.md",
+        "docs/cycles/C044-paper-create-contract.md",
+        "docs/cycles/C045-migration-staging.md",
+        "docs/cycles/C046-migrated-paper.md",
+        "docs/cycles/C047-heading-alignment.md",
+        "docs/cycles/C048-quotes-nested-lists.md",
+        "docs/cycles/C049-internal-references.md",
+        "docs/cycles/C050-owned-images.md",
+        "docs/cycles/C051-backup-restore.md",
+        "docs/cycles/C052-native-source-shapes.md",
+        "docs/cycles/C053-workspace-projection.md",
+        "docs/cycles/C054-retained-evidence.md",
+        "docs/cycles/C055-cutover-readiness.md"
+      ]
     },
     {
       "id": "P3",
@@ -73,17 +87,21 @@
       "id": "G1",
       "title": "Land and pin the upstream editor baseline",
       "status": "blocked",
-      "reason": "Checked 2026-09-23: upstream PR #19579 remains OPEN/BLOCKED at a5440345c; consumed editor baseline is bf23f773 with separate local integration proof.",
+      "reason": "Checked 2026-09-24: upstream PR #19579 remains OPEN at a5440345c and now reports DIRTY (merge conflicts). Consumed parity baseline remains bf23f773; isolated migration runtime is30c007e43.",
       "url": "https://github.com/FRIKKern/barkpark/pull/19579",
-      "evidence": []
+      "evidence": [
+        "docs/cycles/evidence/C054/release-gates.json"
+      ]
     },
     {
       "id": "G2",
       "title": "Enforce the matrix in both repositories",
       "status": "blocked",
-      "reason": "Checked 2026-09-23: Barkpark repository secret listing contains no BARKDOWN_READ_TOKEN. Deliberate broken-Tab proof remains outstanding; a Barkdown-side parity run does not establish upstream enforcement.",
+      "reason": "Checked 2026-09-24: upstream repository secret names still omit BARKDOWN_READ_TOKEN; issue #4 is open. Deliberate broken-Tab proof remains outstanding; Barkdown-side parity is not upstream enforcement.",
       "url": "https://github.com/FRIKKern/barkdown/issues/4",
-      "evidence": []
+      "evidence": [
+        "docs/cycles/evidence/C054/release-gates.json"
+      ]
     }
   ]
 }

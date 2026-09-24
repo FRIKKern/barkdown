@@ -1,6 +1,6 @@
 # Barkdown documentation
 
-**Current phase: dependable workspaces.** Prove a local profile can hold notes and agent work, survive restart, and move to another machine. The desktop and Paper editor are the foundation; profile isolation is next.
+**Current phase: one note engine.** Profile isolation is accepted for the Windows source prototype. P2 has verified disposable Paper staging, native editing, links/media, backup restore, navigation preview and retained-history reading. Legacy authority remains in place. The next slice is complete owned-note discovery and archive classification; see the [migration contract](migration/README.md) and [current handoff](NEXT-AGENT.md). Portability, optional sync and ordinary installation follow.
 
 ## Find your starting point
 

@@ -68,6 +68,21 @@ function paragraphContent(nodes, context) {
   return (nodes || []).flatMap((node, index) => [...(index ? [{ type: 'text', value: '\n' }] : []), ...pmInlineToPd(node.content)]);
 }
 
+function pmListToPd(node) {
+  const task = node.type === 'taskList';
+  return { type: 'list', ordered: node.type === 'orderedList', ...(task ? { task: true } : {}),
+    items: (node.content || []).map(item => {
+      const [body, ...children] = item.content || [];
+      if (item.type !== (task ? 'taskItem' : 'listItem') || body?.type !== 'paragraph' ||
+          children.some(child => !['bulletList', 'orderedList', 'taskList'].includes(child.type))) {
+        throw new Error('Cannot convert multi-paragraph or non-list child in list item');
+      }
+      const content = pmInlineToPd(body.content);
+      return task || children.length ? { content, ...(task ? { checked: item.attrs?.checked === true } : {}),
+        ...(children.length ? { children: children.map(pmListToPd) } : {}) } : content;
+    }) };
+}
+
 function pmTableToPd(node) {
   const rows = node.content || [];
   if (!rows.length || rows.some(row => row.type !== 'tableRow' || !row.content?.length)) throw new Error('Cannot convert malformed table');
@@ -90,14 +105,27 @@ function pmDocToBlocks(doc) {
   const blocks = [];
   for (const node of doc?.content || []) {
     switch (node.type) {
-      case 'heading': blocks.push({ type: 'heading', level: Math.min(3, Math.max(1, node.attrs?.level || 2)), text: pdInlineToText(pmInlineToPd(node.content)) }); break;
-      case 'table': blocks.push(pmTableToPd(node)); break;
-      case 'paragraph': blocks.push({ type: 'paragraph', content: pmInlineToPd(node.content) }); break;
-      case 'bulletList': case 'orderedList': case 'taskList':
-        blocks.push({ type: 'list', ordered: node.type === 'orderedList', ...(node.type === 'taskList' ? { task: true } : {}), items: (node.content || []).map(item => { if ((item.content || []).length !== 1 || item.content[0].type !== 'paragraph') throw new Error('Cannot convert nested or multi-paragraph list item'); const inline = pmInlineToPd(item.content[0].content); return node.type === 'taskList' ? { content: inline, checked: item.attrs?.checked === true } : inline; }) });
+      case 'heading': {
+        const content = pmInlineToPd(node.content);
+        // Plain headings keep their established text carrier. Formatting needs
+        // the native inline carrier; flattening it silently loses marks/links.
+        blocks.push({ type: 'heading', level: Math.min(3, Math.max(1, node.attrs?.level || 2)),
+          ...(content.some(part => part.type !== 'text') ? { content } : { text: pdInlineToText(content) }),
+          ...(['center', 'right'].includes(node.attrs?.textAlign) ? { align: node.attrs.textAlign } : {}) });
         break;
-      case 'blockquote': blocks.push({ type: 'callout', tone: 'note', content: paragraphContent(node.content, 'blockquote') }); break;
-      case 'codeBlock': blocks.push({ type: 'code', language: node.attrs?.language || '', value: (node.content || []).map(t => t.text || '').join('') }); break;
+      }
+      case 'table': blocks.push(pmTableToPd(node)); break;
+      case 'paragraph': blocks.push({ type: 'paragraph', content: pmInlineToPd(node.content),
+        ...(['center', 'right'].includes(node.attrs?.textAlign) ? { align: node.attrs.textAlign } : {}) }); break;
+      case 'bulletList': case 'orderedList': case 'taskList':
+        blocks.push(pmListToPd(node));
+        break;
+      case 'blockquote':
+        if (node.content?.length !== 1 || node.content[0].type !== 'paragraph') throw new Error('Cannot convert multi-paragraph or nested blockquote');
+        blocks.push({ type: 'blockquote', content: pmInlineToPd(node.content[0].content) }); break;
+      // Paper's code node and ops contract use `lang`, not `language`.
+      // Omit an empty language just as the native editor does on save.
+      case 'codeBlock': blocks.push({ type: 'code', ...(node.attrs?.language ? { lang: node.attrs.language } : {}), value: (node.content || []).map(t => t.text || '').join('') }); break;
       case 'horizontalRule': blocks.push({ type: 'divider' }); break;
       default: throw new Error('Cannot convert block: ' + node.type);
     }
@@ -138,9 +166,14 @@ function blocksToMarkdown(blocks) {
     switch (block.type) {
       case 'heading': return '#'.repeat(Math.min(6, block.level || 2)) + ' ' + (typeof block.text === 'string' ? block.text : pdInlineToMarkdown(inlineOf(block)));
       case 'paragraph': return pdInlineToMarkdown(inlineOf(block));
-      case 'list': return (block.items || []).map((item, n) => (block.task ? (item && item.checked === true ? '- [x] ' : '- [ ] ') : block.ordered ? `${n + 1}. ` : '- ') + pdInlineToMarkdown(Array.isArray(item) ? item : typeof item === 'string' ? [{ type: 'text', value: item }] : inlineOf(item || {}))).join('\n');
+      case 'list':
+        // The Markdown importer deliberately rejects nested syntax. Keep the
+        // structured fallback instead of exporting only each parent's body.
+        if ((block.items || []).some(item => item?.children != null)) throw new Error('Markdown export cannot preserve nested lists; use structured export.');
+        return (block.items || []).map((item, n) => (block.task ? (item && item.checked === true ? '- [x] ' : '- [ ] ') : block.ordered ? `${n + 1}. ` : '- ') + pdInlineToMarkdown(Array.isArray(item) ? item : typeof item === 'string' ? [{ type: 'text', value: item }] : inlineOf(item || {}))).join('\n');
+      case 'blockquote': return pdInlineToMarkdown(inlineOf(block)).split('\n').map(line => '> ' + line).join('\n');
       case 'callout': case 'note': return '> ' + (block.title ? '**' + block.title + '** ' : '') + pdInlineToMarkdown(inlineOf(block));
-      case 'code': return '```' + (block.language || '') + '\n' + (block.value || block.code || '') + '\n```';
+      case 'code': return '```' + (block.lang ?? block.language ?? '') + '\n' + (block.value || block.code || '') + '\n```';
       case 'divider': return '---';
       case 'eyebrow': case 'byline': case 'ingress': case 'pullquote': return pdInlineToMarkdown(inlineOf(block)) || (Array.isArray(block.items) ? block.items.join(' · ') : '');
       case 'table': {

@@ -1,0 +1,76 @@
+{
+  "capturedAt": "2026-09-24T02:42:18.569Z",
+  "barkdownCommit": "aa1f1c4800325d587bcd50f9e3ebb00dba560116",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "profileId": "3a86eb7c-8660-40de-8996-a1e50922e656",
+  "sourceHash": "7c97cf81059dac8887ab8201dc76f31e6aed1729bff4b18b628c18d12fce0602",
+  "editorBundle": {
+    "source": "server",
+    "server": "http://127.0.0.1:57260",
+    "version": "0.2.26.3938",
+    "sha": "b5004305fd3b99700457c3602b53003561f619c4",
+    "cssSha": "38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "folder": "b5004305fd3b99700457c3602b53003561f619c4-38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "fetchedAt": "2026-09-24T02:42:07.808Z"
+  },
+  "cases": [
+    {
+      "case": "external",
+      "editedRev": 2,
+      "undoneRev": 3
+    },
+    {
+      "case": "numbered-list",
+      "editedRev": 4,
+      "undoneRev": 5
+    },
+    {
+      "case": "parser",
+      "editedRev": 2,
+      "undoneRev": 3
+    }
+  ],
+  "frames": [
+    "01-legacy-original.png",
+    "02-legacy-saved-defaults.png",
+    "03-migrated-native-source.png",
+    "04-edit-external.png",
+    "05-undo-external.png",
+    "04-edit-numbered-list.png",
+    "05-undo-numbered-list.png",
+    "04-edit-parser.png",
+    "05-undo-parser.png",
+    "06-native-link-preview.png",
+    "07-linked-note.png",
+    "08-reloaded.png",
+    "09-narrow.png",
+    "10-restarted.png"
+  ],
+  "artifacts": {
+    "01-legacy-original.png": "ee8ace069012f879ef3311ce815436aa8c03e1f167b9dc7ecaa1ebef04d2972e",
+    "02-legacy-saved-defaults.png": "22ea831e49821cc687bf1d488f9ae65351be60c675c043d14938fdd4d423aeef",
+    "03-migrated-native-source.png": "0e3ddf47e11968d2073b576294ccdeaa3d8567db57ea1b24db32d2643fa435fd",
+    "04-edit-external.png": "cbb8a5e5285f10cca940bc2cb0e4d305aa9f72e507d606b939539e4b60188d01",
+    "04-edit-numbered-list.png": "d6e4ef317b54635b13a77e9118267b3c6f80a6ebfcafebc13b59a0192f1d036e",
+    "04-edit-parser.png": "9d08d0651d513bb515f746bc789689066d26d672ea65c57e0d5002d3b356f38b",
+    "05-undo-external.png": "1677a4f2c9bb082bf9d4ebfed6f82c6bf22264e1d4eb673a5a85293e7296cb38",
+    "05-undo-numbered-list.png": "94b4fa52c04ff83388f7c4f708d70f50a51fe3dc9dc5557789f1f196e6531d3b",
+    "05-undo-parser.png": "60a865c0e3a988803082030e8675c05d5f195bd7e6c0f5c2c055e8040dc0640c",
+    "06-native-link-preview.png": "f02edbaa22167ba8733f25dbc1ad12877a149f0f75287d83a3808afa0859065f",
+    "07-linked-note.png": "a8d89e0edf18d810e6ef0d4c18bdec344359a2fd72826eb54e430f23aa06a36f",
+    "08-reloaded.png": "75d282989f568a235aac58ce193a9c341503fca4395cf92cd1afed6df4d32d1c",
+    "09-narrow.png": "a855e9640b81ab773cddb30b558b857a2f81eb31abc867be59cf1076cabcaee9",
+    "10-restarted.png": "3322b63e9fd95bb80cb9c08c0aeb734538603e9f8e7bbd8354eb1a096baba47b",
+    "legacy-source-writing.webm": "8c7640ef40f74781f84cb7dedf53a79fca3295fb8ce8196cf656457fdc50970d",
+    "native-source-paper-editing.webm": "fa66ce88693ccf998558fad50300eaa93374cc8c5e2887284c591f3b95f7906d",
+    "native-source.json": "e4f4617f37b718e08761cf08cfd37e2e7f98a3424b3a4559d855e5e735a5c7b3",
+    "restart-or-failure.webm": "a67589fe4847480b46f5a5e6230347807e1a44951adabe3a8b34ba98de0cbf99"
+  },
+  "authority": "legacy",
+  "limits": [
+    "Exact audited default link attributes and null list type only; custom values refuse",
+    "Disposable closed source and separate target app; no authority activation",
+    "Clean restart and native saved Undo, not power-loss or portability proof"
+  ]
+}

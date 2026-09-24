@@ -1,0 +1,122 @@
+
+> bp-paper-editor@0.2.0 pretest
+> node src/__test_chain_census.mjs && node src/__card_media_bridge.test.mjs && node src/__card_action_label_inline.test.mjs && node src/__paper_link_ref_copy_controls.test.mjs && node src/__contextual_history.test.mjs && node src/canvas/__resting_scaffolds.test.mjs && node src/canvas/__nested_list_authoring.test.mjs && node src/canvas/__paragraph_carriers.test.mjs && node src/canvas/__heading_carriers.test.mjs && node src/canvas/__cards_inline_mounted.test.mjs && node src/canvas/__stats_inline_mounted.test.mjs && node src/canvas/__list_lossless.test.mjs && node src/canvas/__callout_input_mounted.test.mjs && node src/canvas/__callout_title_mounted.test.mjs && node src/canvas/__card_title_mounted.test.mjs
+
+test-chain census: 124 test files on disk, 126 paths named across pretest+test+posttest — reconciled, 0 drift
+PASS Card media bridge: trusted activation, source-only replay, refresh, inert, teardown
+PASS Card media ordering: latest intent, exact retry, frozen owner, unknown fail-closed
+PASS Card action label: canonical focus, exact FIFO, retry, ACK safety, conflict recovery
+related-card copy controls preserve separate editing and navigation ownership
+related-card copy morph ownership follows the admitted identity guard
+related-card copy serializes same-field and sibling-field saves without broad source payloads
+related-card attempted detached drafts remain receipt-owned and export-only
+related-card recovery ignores connected, malformed, and cross-scope sources
+related-card local-only recovery fences direct conflict actions
+related-card focused sibling rebasing stays narrow and fail-closed
+PASS contextual history: FIFO, opaque retry, redo policy, terminal state, identity reset, native keys
+reconnect mode hint is live, document-bound, and contains no draft data
+resting scaffolds preserve geometry, access, and source history
+nested list carrier projection and serialization passed
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: hard breaks remain rejected
++ actual - expected
+... Skipped lines
+
+  {
+    content: [
+      {
+        attrs: [Object: null prototype] {
+          bpId: 'nested-list',
+...
+                          {
++                           text: 'Bu',
+-                           text: 'Build',
+                            type: 'text'
+                          },
++                         {
++                           type: 'hardBreak'
++                         },
++                         {
++                           text: 'ild',
++                           type: 'text'
++                         }
+                        ],
+                        type: 'paragraph'
+                      },
+                      {
+                        attrs: [Object: null prototype] {
+
+    at file:///C:/Users/Frikk/.codex/worktrees/barkpark-paper-create/api/assets/paper-editor/src/canvas/__nested_list_authoring.test.mjs:78:14 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: {
+    type: 'doc',
+    content: [
+      {
+        type: 'bulletList',
+        attrs: [Object: null prototype] {
+          bpListFrameSource: null,
+          bpId: 'nested-list',
+          bpType: 'list',
+          locked: null,
+          role: null
+        },
+        content: [
+          {
+            type: 'listItem',
+            attrs: [Object: null prototype],
+            content: [Array]
+          },
+          {
+            type: 'listItem',
+            attrs: [Object: null prototype],
+            content: [Array]
+          },
+          {
+            type: 'listItem',
+            attrs: [Object: null prototype],
+            content: [Array]
+          }
+        ]
+      }
+    ]
+  },
+  expected: {
+    type: 'doc',
+    content: [
+      {
+        type: 'bulletList',
+        attrs: [Object: null prototype] {
+          bpListFrameSource: null,
+          bpId: 'nested-list',
+          bpType: 'list',
+          locked: null,
+          role: null
+        },
+        content: [
+          {
+            type: 'listItem',
+            attrs: [Object: null prototype],
+            content: [Array]
+          },
+          {
+            type: 'listItem',
+            attrs: [Object: null prototype],
+            content: [Array]
+          },
+          {
+            type: 'listItem',
+            attrs: [Object: null prototype],
+            content: [Array]
+          }
+        ]
+      }
+    ]
+  },
+  operator: 'deepStrictEqual'
+}
+
+Node.js v22.13.1

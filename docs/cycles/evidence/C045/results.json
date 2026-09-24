@@ -1,0 +1,38 @@
+{
+  "recordedAt": "2026-09-23T20:48:43.241Z",
+  "barkdownSource": "cf0612c32eeff73e3e37da19d28035ddf3861338",
+  "barkparkSource": "844ecd321716c3f8dda5db3478e7af3bba0faae8",
+  "desktopSuite": "passed; one POSIX-only skip",
+  "stagingTests": 22,
+  "realCorpusCases": 10,
+  "rootVerify": "passed",
+  "logsEncoding": "UTF-8 with CRLF normalized to LF",
+  "artifacts": [
+    {
+      "file": "docs/cycles/evidence/C045/desktop-tests.txt",
+      "sha256": "230e95168cf4d1a48ded0449cdd3ad7cdd0a95db106204de46336e026a4c317d"
+    },
+    {
+      "file": "docs/cycles/evidence/C045/staging-tests.txt",
+      "sha256": "65a1b3a53e62da06d940548142b3366579fb84398dbd2c4662a6458d3e2044ae"
+    },
+    {
+      "file": "docs/cycles/evidence/C045/real-staging.txt",
+      "sha256": "357235005538751ba0a8a353554add47776ccf405a4565230a7165dfb935ae80"
+    },
+    {
+      "file": "docs/cycles/evidence/C045/live-shots.txt",
+      "sha256": "e8b247a773f5266e4dcc61620e29c0c69bf413342f47d25fbfc518ce49da7eef"
+    },
+    {
+      "file": "docs/cycles/evidence/C045/verify.txt",
+      "sha256": "703187ddc08152703572bdc178cfa3047ebc63db090450e23a15f6f48e21b04a"
+    }
+  ],
+  "limits": [
+    "offline staging only; no UI authority change",
+    "caller supplies quiescence and runtime ownership assertion",
+    "no media/internal links or power-loss proof",
+    "upstream dependency unmerged"
+  ]
+}

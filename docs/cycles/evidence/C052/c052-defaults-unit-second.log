@@ -1,0 +1,80 @@
+TAP version 13
+# Subtest: actual configured legacy schema defaults prepare without changing native content or backup bytes
+ok 1 - actual configured legacy schema defaults prepare without changing native content or backup bytes
+  ---
+  duration_ms: 148.5286
+  ...
+# Subtest: default link attributes resolve canonical internal references without mutating the source
+ok 2 - default link attributes resolve canonical internal references without mutating the source
+  ---
+  duration_ms: 41.0799
+  ...
+# Subtest: custom link values are retained in blocked backups and staging performs no target access
+ok 3 - custom link values are retained in blocked backups and staging performs no target access
+  ---
+  duration_ms: 352.0545
+  ...
+# Subtest: null list marker type is eligible recursively; custom or malformed markers never disappear
+ok 4 - null list marker type is eligible recursively; custom or malformed markers never disappear
+  ---
+  duration_ms: 13.2794
+  ...
+# Subtest: foreign attributes and non-link mark metadata still refuse even when values are null
+ok 5 - foreign attributes and non-link mark metadata still refuse even when values are null
+  ---
+  duration_ms: 19.6036
+  ...
+# Subtest: all audited losses, unsupported structures and internal references refuse
+ok 6 - all audited losses, unsupported structures and internal references refuse
+  ---
+  duration_ms: 6.5901
+  ...
+# Subtest: inline carriage returns retain exact blocked backups while LF breaks remain supported
+ok 7 - inline carriage returns retain exact blocked backups while LF breaks remain supported
+  ---
+  duration_ms: 87.8805
+  ...
+# Subtest: heading marks and top-level alignment retain structure while unmapped alignment refuses
+ok 8 - heading marks and top-level alignment retain structure while unmapped alignment refuses
+  ---
+  duration_ms: 229.9359
+  ...
+# Subtest: nested lists and genuine quotes prepare exact backups while unmapped structures refuse
+ok 9 - nested lists and genuine quotes prepare exact backups while unmapped structures refuse
+  ---
+  duration_ms: 187.301
+  ...
+# Subtest: exact backup preserves organization, proposals, history, binary media and receipts; excludes credentials
+ok 10 - exact backup preserves organization, proposals, history, binary media and receipts; excludes credentials
+  ---
+  duration_ms: 106.063
+  ...
+# Subtest: lossy content is recorded as blocked and never produces a partial conversion
+ok 11 - lossy content is recorded as blocked and never produces a partial conversion
+  ---
+  duration_ms: 36.2943
+  ...
+# Subtest: process interruption at each durable boundary resumes without duplicate files or IDs
+ok 12 - process interruption at each durable boundary resumes without duplicate files or IDs
+  ---
+  duration_ms: 563.3387
+  ...
+# Subtest: changed source and corrupt backups or manifests refuse, retaining original data
+ok 13 - changed source and corrupt backups or manifests refuse, retaining original data
+  ---
+  duration_ms: 231.653
+  ...
+# Subtest: owner, quiescence, malformed records and unsafe destinations fail closed
+ok 14 - owner, quiescence, malformed records and unsafe destinations fail closed
+  ---
+  duration_ms: 56.4881
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 14
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1641.6861

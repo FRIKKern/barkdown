@@ -1,0 +1,96 @@
+{
+  "capturedAt": "2026-09-24T00:50:33.697Z",
+  "barkdownCommit": "c3127bbc92ab73790affc094bec1fb138246d1a2",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "profile": "Coast",
+  "profileId": "281ebe49-1961-492b-b40f-2d168fb9d803",
+  "sourceIds": {
+    "origin": "local-d7f51ab57b5aff6af961c01e533e1428",
+    "z-destination": "local-fee500c8252583c500924255e59b9d66"
+  },
+  "editorBundle": {
+    "source": "server",
+    "server": "http://127.0.0.1:63986",
+    "version": "0.2.26.3938",
+    "sha": "b5004305fd3b99700457c3602b53003561f619c4",
+    "cssSha": "38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "folder": "b5004305fd3b99700457c3602b53003561f619c4-38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "fetchedAt": "2026-09-24T00:50:16.444Z"
+  },
+  "cases": [
+    {
+      "label": "Marked destination",
+      "editedRev": 2,
+      "undoneRev": 3
+    },
+    {
+      "label": "Heading destination",
+      "editedRev": 4,
+      "undoneRev": 5
+    },
+    {
+      "label": "Quoted destination",
+      "editedRev": 6,
+      "undoneRev": 7
+    },
+    {
+      "label": "List destination",
+      "editedRev": 8,
+      "undoneRev": 9
+    },
+    {
+      "label": "Task destination",
+      "editedRev": 10,
+      "undoneRev": 11
+    },
+    {
+      "label": "Cell destination",
+      "editedRev": 12,
+      "undoneRev": 13
+    }
+  ],
+  "frames": [
+    "01-staged-linked-library.png",
+    "edit-marked.png",
+    "edit-heading.png",
+    "edit-quoted.png",
+    "edit-list.png",
+    "edit-task.png",
+    "edit-cell.png",
+    "Coast-origin-preview.png",
+    "Coast-z-destination-opened.png",
+    "Coast-z-destination-preview.png",
+    "Coast-origin-opened.png",
+    "02-reloaded.png",
+    "03-narrow.png",
+    "04-restarted.png",
+    "Coast-origin-preview.png",
+    "Coast-z-destination-opened.png"
+  ],
+  "artifacts": {
+    "01-staged-linked-library.png": "9a5af08f51dabab34b35d24d4bcc1c8c59cd1b0c6b62c8a70ca5649a58387826",
+    "02-reloaded.png": "9f8d22fddb726d030b448f99025bf98f9362f92b5a91f50b8c029d793ed66cd2",
+    "03-narrow.png": "2db59376d7e4f4120c8d379d694f4eff2f168c9a9ba9c709e920d00cb73fde99",
+    "04-restarted.png": "9a5af08f51dabab34b35d24d4bcc1c8c59cd1b0c6b62c8a70ca5649a58387826",
+    "Coast-origin-opened.png": "9a5af08f51dabab34b35d24d4bcc1c8c59cd1b0c6b62c8a70ca5649a58387826",
+    "Coast-origin-preview.png": "cd2d1f4b936aa8705af055ff0ac79fa39b5665feb8dd18609b2ec83954121a30",
+    "Coast-z-destination-opened.png": "7f56ffb2681fa2f710fc6ae67fa45a8e0e514642ff2738b0a9f0e68ab49abcfa",
+    "Coast-z-destination-preview.png": "d05d369c6887011e60b656d0163d4eef60c4a171ee7107bd10c7f59dfcfead01",
+    "edit-cell.png": "e75864710b41dd21661edd07cb8e038577750f4bf6b08d59966ffdfa6eea8b51",
+    "edit-heading.png": "6fa80446577d611aaded6e3c862bc4c1a8122f4f9832900552f0d4065c6b5310",
+    "edit-list.png": "f5e572d24277fed1379843ec9172dbb79d3e716e30007593476f7d3f2da0491b",
+    "edit-marked.png": "11b35a53f20579c029942e6e3a2092ba837473a2b0b93bcb00579fb5690b4b22",
+    "edit-quoted.png": "c0cd0a3316b05156ece1a9aa368d984f1177fa69ce7afe2c2b2065709a93dd59",
+    "edit-task.png": "c69fc593da5c8fb8f5d04da24bd1dcc442d09f2d0e38d49568df19ca33747864",
+    "graph.json": "624fe83d6aa8be318410aca5b5573bfb704f6b8316956625c3f2369962f3a8d7",
+    "links-editing-navigation.webm": "a059b43c1522868e519c16c587d3f4d4aef5a44a2e397e0e01aa6b006c54db5c",
+    "restart-or-failure.webm": "4e7b89a49795d5da2a846a3ba33a8ad7bfdb7887036fd71de72ee31daba120ed"
+  },
+  "authority": "legacy",
+  "limits": [
+    "Disposable library only; paired isolated runs prove same-title cross-profile separation; no real-library activation",
+    "Native references preserve links to current content; history/receipts remain legacy",
+    "Clean Electron restart and process-exit recovery, not database power loss"
+  ]
+}

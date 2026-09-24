@@ -1,0 +1,135 @@
+{
+  "capturedAt": "2026-09-23T23:08:29.931Z",
+  "barkdownCommit": "f5895b5feed5c9024cc44a87ebdcbb655b914931",
+  "barkparkCommit": "8d48ae6613917259f4376b061d603a6e37043c28",
+  "isolatedRuntime": true,
+  "editorBundle": {
+    "source": "server",
+    "server": "http://127.0.0.1:51038",
+    "version": "0.2.26.3938",
+    "sha": "d5fe523117527ebd29b66ff42915bb42b1036f3a",
+    "cssSha": "38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "folder": "d5fe523117527ebd29b66ff42915bb42b1036f3a-38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "fetchedAt": "2026-09-23T23:08:06.062Z"
+  },
+  "cases": [
+    {
+      "case": "plain-unicode",
+      "beforeRev": 1,
+      "editedRev": 2,
+      "undoneRev": 3
+    },
+    {
+      "case": "nested-marks",
+      "beforeRev": 3,
+      "editedRev": 4,
+      "undoneRev": 5
+    },
+    {
+      "case": "underline",
+      "beforeRev": 5,
+      "editedRev": 6,
+      "undoneRev": 7
+    },
+    {
+      "case": "strike-code",
+      "beforeRev": 7,
+      "editedRev": 8,
+      "undoneRev": 9
+    },
+    {
+      "case": "external-link",
+      "beforeRev": 9,
+      "editedRev": 10,
+      "undoneRev": 11
+    },
+    {
+      "case": "hard-break",
+      "beforeRev": 11,
+      "editedRev": 12,
+      "undoneRev": 13,
+      "breakInsertedRev": 14,
+      "breakUndoneRev": 15
+    },
+    {
+      "case": "heading-plain",
+      "beforeRev": 15,
+      "editedRev": 16,
+      "undoneRev": 17
+    },
+    {
+      "case": "heading-rich-external",
+      "beforeRev": 17,
+      "editedRev": 18,
+      "undoneRev": 19
+    },
+    {
+      "case": "heading-aligned",
+      "beforeRev": 19,
+      "editedRev": 20,
+      "undoneRev": 21
+    },
+    {
+      "case": "heading-break",
+      "beforeRev": 21,
+      "editedRev": 22,
+      "undoneRev": 23
+    },
+    {
+      "case": "paragraph-alignment",
+      "beforeRev": 23,
+      "editedRev": 24,
+      "undoneRev": 25
+    },
+    {
+      "case": "paragraph-right",
+      "beforeRev": 25,
+      "editedRev": 26,
+      "undoneRev": 27
+    }
+  ],
+  "frames": [
+    "01-staged-original.png",
+    "edit-plain-unicode.png",
+    "edit-nested-marks.png",
+    "edit-underline.png",
+    "edit-strike-code.png",
+    "edit-external-link.png",
+    "edit-hard-break.png",
+    "native-break-inserted.png",
+    "edit-heading-plain.png",
+    "edit-heading-rich-external.png",
+    "edit-heading-aligned.png",
+    "edit-heading-break.png",
+    "edit-paragraph-alignment.png",
+    "edit-paragraph-right.png"
+  ],
+  "artifacts": {
+    "01-staged-original.png": "99731ed4c3c9791d8f92cf9d2211058506b063732230c98f495e4912b4c0d359",
+    "edit-external-link.png": "b4bc415231fa2ed013405f2142714daac4e357456f76e0417c4a8394e3289f72",
+    "edit-hard-break.png": "6a4679a62d369cb2ad38459b3846fc5315664a8b63d80ae01f5e96352457486d",
+    "edit-heading-aligned.png": "d1c162cf7df9e19ccaec6dfb0148bf6450f614b5ab7f0301ccb86d18b1ffa3ad",
+    "edit-heading-break.png": "e1759b0a5215de6cd1792fe47d2b811e0ea2eb994a392401ae4c6977d8bd0e86",
+    "edit-heading-plain.png": "8cb2a55f0641ebabf0e9d1e7e6ad8fb8397879f78a05645716f67a28a847dc70",
+    "edit-heading-rich-external.png": "a8ff377c7da1960c6399fe9dc97a9390519454b12f189258be6138aee1eca55f",
+    "edit-nested-marks.png": "38b0a464ff9feb83b2eaba820d5649b9fe48cb735dca9236e01c1b928cafa98c",
+    "edit-paragraph-alignment.png": "16639855c5058427cf9fa1ff13cc75adc000bb1bba61ed069c6f111a1b71ad2d",
+    "edit-paragraph-right.png": "3a171c81e7df6b782e3f81c8ed99f4195540227f6a7d111810dec741eae6c7a0",
+    "edit-plain-unicode.png": "e60bfd8d2fb593d189a1949e3416356e00b6d2ddbf1890842cc300f9add1b9f9",
+    "edit-strike-code.png": "29c3b9c9265f1bd1621fbeb95d2d2a288b41b29657ffe9cbf22669b78f34ae86",
+    "edit-underline.png": "cfa010f4ea7a6979ed22d5e69c4372c65e9db3db0e6f43e75f5b59e469abb94e",
+    "failed-rehearsal.webm": "64b67b64b269446fbeb04e36e6a8bc34e3baa81727ef0dda8d80bb06a56db40f",
+    "failure-state.json": "2c3ed717cec2ace0707272f66086181fa7f6b6d845ae6aad2826e827693d9cb5",
+    "failure.png": "477165a8317fc773ad05bf61e71f49b96d769c5ce60fa4cd08b8b29ccae94301",
+    "failure.txt": "209302c15042fabf06ec7ad9c3cbe14c4834704b3767094e5fde31fe437f7d18",
+    "native-break-inserted.png": "6bacd0ed4283eab2a9ce3580a5c8e4a123b86dfd20b5938dad233b2a633a526f"
+  },
+  "authority": "legacy",
+  "motion": "Real keyboard editing and native Paper history with acknowledged private server writes; actual Electron video, no model turn.",
+  "limits": [
+    "No navigation activation or real-library migration",
+    "Ten structured corpus cases; media and internal references remain separate gates",
+    "Clean Electron restart, not database/power loss",
+    "Legacy edit receipts remain legacy; staging refuses later revisions even after Undo restores content"
+  ]
+}

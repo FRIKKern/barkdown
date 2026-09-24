@@ -1,0 +1,84 @@
+{
+  "capturedAt": "2026-09-24T00:43:52.976Z",
+  "barkdownCommit": "925477a0d2e27c4bd399208d7ce0463a5a8b8b14",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "profile": "Orchard",
+  "profileId": "556d01ed-24b3-44cd-96d7-06cc366d4af5",
+  "sourceIds": {
+    "origin": "local-09e933a551dacc41d10f08c9520efbdd",
+    "z-destination": "local-157d8558981676e5b1987e12e96d2bf7"
+  },
+  "editorBundle": {
+    "source": "server",
+    "server": "http://127.0.0.1:50272",
+    "version": "0.2.26.3938",
+    "sha": "b5004305fd3b99700457c3602b53003561f619c4",
+    "cssSha": "38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "folder": "b5004305fd3b99700457c3602b53003561f619c4-38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "fetchedAt": "2026-09-24T00:43:42.408Z"
+  },
+  "cases": [
+    {
+      "label": "Marked destination",
+      "editedRev": 2,
+      "undoneRev": 3
+    },
+    {
+      "label": "Heading destination",
+      "editedRev": 4,
+      "undoneRev": 5
+    },
+    {
+      "label": "Quoted destination",
+      "editedRev": 6,
+      "undoneRev": 7
+    },
+    {
+      "label": "List destination",
+      "editedRev": 8,
+      "undoneRev": 9
+    },
+    {
+      "label": "Task destination",
+      "editedRev": 10,
+      "undoneRev": 11
+    },
+    {
+      "label": "Cell destination",
+      "editedRev": 12,
+      "undoneRev": 13
+    }
+  ],
+  "frames": [
+    "01-staged-linked-library.png",
+    "edit-marked.png",
+    "edit-heading.png",
+    "edit-quoted.png",
+    "edit-list.png",
+    "edit-task.png",
+    "edit-cell.png",
+    "Orchard-origin-preview.png"
+  ],
+  "artifacts": {
+    "01-staged-linked-library.png": "90d1ad56055d3b2455ff5e842324350a07910f501129b9e0cca9ceb5018d08c8",
+    "edit-cell.png": "d332a41800ecb913a71de004b390cd91f9dc979bc2ca08c5a785383677dda1ab",
+    "edit-heading.png": "0621d26af784f17aa736bfc27a8aa6af1fd753128b9c4ecdbf20e9967db83457",
+    "edit-list.png": "43b09cfe8b90342046842db8d98b3debe7fbca052e9c197e6ae0baf01bbace22",
+    "edit-marked.png": "a2c29dc8714ba85a2bdb5239c9474a677e8252c1e6730b3e439eb25e5f07656d",
+    "edit-quoted.png": "745eb313989222f236315bea7d009e4801801cbee3a1705ec2b1f3c8b0c8831a",
+    "edit-task.png": "8484d3a5c14df53675fe46cd9d91053702d30c51809fc508bee17c0fa267e594",
+    "failure-server.json": "a2da4d1cc7e939e62a1caad786a145eb9de1556218b7849c90ca3bb1525b453d",
+    "failure-state.json": "184e1db6707f00d9e0540ec02339d6cc7338b045566e67dc3972bd38ead758e6",
+    "failure.png": "88b6209c162735f561e006d9e098557a7c4b498f46eca24fad5322fd79b44c33",
+    "failure.txt": "1e8f9fda115846bc1621043aea8de6f0ae4af533a38ba7f77e95d00bc69f1389",
+    "Orchard-origin-preview.png": "bacbcb3aaabfad6c76c3667f71152a299585083367e819ec27635480ba1635bd",
+    "restart-or-failure.webm": "b2e518f05162cdcadd697488a3f494c209210ebe3c08666a3e2cc15d3b2ac36e"
+  },
+  "authority": "legacy",
+  "limits": [
+    "Disposable library only; paired isolated runs prove same-title cross-profile separation; no real-library activation",
+    "Native references preserve links to current content; history/receipts remain legacy",
+    "Clean Electron restart and process-exit recovery, not database power loss"
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "recordedAt": "2026-09-24T04:00:40.120159+00:00",
+  "barkdown": "aa97781",
+  "barkpark": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "mode": "read-only source and existing-test inspection; no new endpoint experiment",
+  "findings": [
+    {
+      "id": "catalog",
+      "repository": "barkdown",
+      "path": "app/main/barkpark.js",
+      "line": 92,
+      "sha256": "d8092ff0374f7877af1937b0ad3ce3ae0be3a1c194c729009cfa7cb3f52166d4",
+      "finding": "listPapers reads one limit60 page; getPaper uses raw perspective at100. No complete owned-catalog traversal."
+    },
+    {
+      "id": "archive",
+      "repository": "barkdown",
+      "path": "app/renderer/src/pages.js",
+      "line": 124,
+      "sha256": "51efac42a6eaf9b05189971365e7be2fb729e2f08064dcd7bf7e1136112ab870",
+      "finding": "Archive classifies every bp: key as cloud; remote missing keys are retained at88-94. Local origin cannot be inferred from transport."
+    },
+    {
+      "id": "unavailable",
+      "repository": "barkdown",
+      "path": "app/renderer/src/index.js",
+      "line": 582,
+      "sha256": "4d77605d719bdc225b22f49a6f4b4229e0fe99fdf3e778ed07df3da6cfe8d156",
+      "finding": "Refresh replaces Barkpark summaries with an empty array on request failure. documentSummary at77 also falls back across local/Paper sources for labels."
+    },
+    {
+      "id": "agent-catalog",
+      "repository": "barkdown",
+      "path": "app/main/mcp-server.js",
+      "line": 27,
+      "sha256": "66df36b5e8621e0f7dbd4e49ff39bfc9d870071293982baec8ec6d0d14871830",
+      "finding": "paperListing catches every read failure as an empty list; startup/loadAll can seed legacy documents. create_document still writes legacy records."
+    },
+    {
+      "id": "api-agent",
+      "repository": "barkdown",
+      "path": "app/main/agent.js",
+      "line": 104,
+      "sha256": "5490f92d2644b9740acfcecbe4ef1ed9ea773dc9d93213817c6d8c513c8d83b5",
+      "finding": "API tools use captured legacy documents and separate Paper adapters; create_document writes legacy. Default Paper list remains60."
+    },
+    {
+      "id": "captured-writers",
+      "repository": "barkdown",
+      "path": "app/main/providers/run-scope.js",
+      "line": 18,
+      "sha256": "d76d6acc681190b5917e90ebff9aa0ae6f5b7af9ec3ee8255fa2a65b97d5ae8b",
+      "finding": "Run captures actual store/documents/edits handles. Foreground rebind does not replace them."
+    },
+    {
+      "id": "ipc-drain",
+      "repository": "barkdown",
+      "path": "app/main/profile-ipc.js",
+      "line": 1,
+      "sha256": "53fc2e235f99501e960d40b0f36b620435066e700fdb2e10eb465d9da2f99eae",
+      "finding": "IPC drain explicitly does not cover provider work that outlives start handler."
+    },
+    {
+      "id": "child-writers",
+      "repository": "barkdown",
+      "path": "app/main/providers/runs.js",
+      "line": 130,
+      "sha256": "86c10e20734d6543c408556220db83bc6c60fb0eff0d8e219c8d384e87ce6ddf",
+      "finding": "MCP receives captured store path/connection/profile in a child process; engine epoch is not transmitted."
+    },
+    {
+      "id": "goal-workers",
+      "repository": "barkdown",
+      "path": "app/main/goal-worker-agent.js",
+      "line": 40,
+      "sha256": "fa365e76786d2990674e4f4cc0e58cf2e2bc048b46781fa6316e24ba19d8dec9",
+      "finding": "Goal child gets captured scope; goal-provider separately waits for verified driver termination."
+    },
+    {
+      "id": "mutation-entry",
+      "repository": "barkdown",
+      "path": "app/main/main.js",
+      "line": 259,
+      "sha256": "728c08d8817eb91bb4e158e1077b0a5a6744b7deb80d64450b22af543f8169fd",
+      "finding": "Foreground docs create/save/delete/proposal routes still use legacy documents."
+    },
+    {
+      "id": "legacy-history",
+      "repository": "barkdown",
+      "path": "app/main/documents.js",
+      "line": 8,
+      "sha256": "7ee31f30e256043cacf7a8a947436543cf22fc36061f619264ff6bcb70774c5d",
+      "finding": "MAX_REVISIONS60; loadAll seeds empty store by default. Retained evidence cannot reconstruct older pruned history."
+    },
+    {
+      "id": "staging",
+      "repository": "barkdown",
+      "path": "app/main/migration-staging.js",
+      "line": null,
+      "sha256": "350d0a522a760560164deabc75ecec7b06921099180f42c8966fccd6e1301a4b",
+      "finding": "Final complete record still explicitly status staged/authority legacy after target/media/source checks."
+    },
+    {
+      "id": "preview",
+      "repository": "barkdown",
+      "path": "app/main/migration-workspace.js",
+      "line": null,
+      "sha256": "31c01f53283d93409b5bd1d238e17c2edd8e23ed6c4d0af2b3c952c146227746",
+      "finding": "activationAllowed false; unplaced local notes refuse until local Paper archive classification is implemented."
+    },
+    {
+      "id": "runtime-identity",
+      "repository": "barkdown",
+      "path": "app/main/profile-runtime.js",
+      "line": 14,
+      "sha256": "baf6423ed02f89b973f07d326ca58551798e35d93e8ba0cf72f7fcd727e91560",
+      "finding": "Persisted descriptor binds profile/source/ports; an endpoint URL alone is not immutable engine authority."
+    },
+    {
+      "id": "retained-reader",
+      "repository": "barkdown",
+      "path": "app/main/migration-evidence.js",
+      "line": 9,
+      "sha256": "9fb2d3de5f8b1594a1216ae98ef82589a9a751f9bf0807d757964aa2f8640b66",
+      "finding": "Read-only full-backup validated legacy records; no target revisions/actions or native viewer."
+    },
+    {
+      "id": "upstream-create",
+      "repository": "barkpark",
+      "path": "api/lib/barkpark_web/controllers/bulldocs_ingest_controller.ex",
+      "line": 719,
+      "sha256": "6aad7adc036cdc252cd61d196fe1643ad684fdd03225cb8ec5b88dadf2382056",
+      "finding": "Native published create-only route delegates full ingest/publish walls; draft-prefixed slug is refused. No ordinary blank-note lifecycle proof."
+    },
+    {
+      "id": "upstream-create-tests",
+      "repository": "barkpark",
+      "path": "api/test/barkpark_web/controllers/bulldocs_ingest_controller_test.exs",
+      "line": 1055,
+      "sha256": "dde171e999daad93fb157194e50e6de81c3e1c44479e65213d0d7e060c256b54",
+      "finding": "Existing tagless ingest refusal and fresh create wall-refusal coverage; inspected, not rerun in C055."
+    },
+    {
+      "id": "pagination",
+      "repository": "barkpark",
+      "path": "api/lib/barkpark_web/controllers/query_controller.ex",
+      "line": 140,
+      "sha256": "0f4e6b3a53d0557804fa0530bdfe08291f97e8b08a2bd5ff87e1dd7ac9d0f2eb",
+      "finding": "Actual offset pagination: limit1..1000/offset0..100000, hasMore, optional nextOffset. At ceiling hasMore may remain true with no nextOffset; must refuse completeness. raw exact-id wins over draft twin, while drafts prefers twin."
+    },
+    {
+      "id": "pagination-tests",
+      "repository": "barkpark",
+      "path": "api/test/barkpark_web/controllers/query_controller_truncation_signal_test.exs",
+      "line": 112,
+      "sha256": "37711fee12bf72a0730a4c35ad6558c9c50e915c43c46ca63cd89ca4a04de539",
+      "finding": "Tests cover exact-full versus truncated, traversal and1001rows; inspected, not rerun in C055."
+    },
+    {
+      "id": "pagination-order",
+      "repository": "barkpark",
+      "path": "api/lib/barkpark/content/query.ex",
+      "line": 500,
+      "sha256": "95edeb21f175e91f8cdadb51c28b0a9b3dd940d983e245da09689651eeb0fa0b",
+      "finding": "Unique database-id tie-breaker provides total order within stable dataset; not a snapshot under concurrent mutations."
+    }
+  ]
+}

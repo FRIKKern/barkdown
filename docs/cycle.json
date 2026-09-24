@@ -1,29 +1,26 @@
 {
   "version": 1,
-  "id": "C042",
+  "id": "C055",
   "stage": "P2",
   "status": "done",
-  "goal": "Finish recoverable checkout retirement and prepare the accepted checkpoint for main.",
+  "goal": "Prepare a source-audited path from staged migration to a single authoritative Paper library.",
   "scope": [
-    "Preserve unique untracked evidence and retire both exception branches",
-    "Move inactive owned worktrees out of the active workspace without deleting files",
-    "Audit Barkpark cleanup PR and retire superseded owned editor lanes",
-    "Validate and publish the consolidated checkpoint"
+    "Read actual note creation/catalog, Pages origin, provider scope and authority contracts.",
+    "Prepare ordered bounded tasks with explicit acceptance and rollback prerequisites in the existing migration contract.",
+    "Reconcile current plan, handoff, acceptance, external gates and branch evidence; no app behavior or shared-service changes."
   ],
   "acceptance": [
-    "Unique evidence has verified remote recovery refs and hashes",
-    "Retired checkout inventory provides restore commands; running app/runtime paths remain untouched",
-    "Barkpark open PRs and unrelated files are preserved",
-    "Root checks pass and integration state is recorded honestly"
+    "Each cutover dependency names actual source evidence and measurable tests.",
+    "No staged or read-only checkpoint is described as activated; no invented upstream API.",
+    "One active queue and clear next implementation slice, root verification and current unchanged visual provenance."
   ],
-  "checkpoint": "2026-09-23",
-  "handoff": "docs/cycles/C042-retirement-closeout.md",
-  "nextAction": "Follow integration PR #31 and upstream cleanup PR #19963. After normal app shutdown retire the remaining in-use checkout; P2 synthetic migration is the next product cycle.",
+  "checkpoint": "2026-09-24",
+  "handoff": "docs/cycles/C055-cutover-readiness.md",
+  "nextAction": "Plan the next bounded cycle for order1: complete profile-owned Paper catalog and local Archive; no authority activation.",
   "evidence": [
-    "docs/cycles/C042-retirement-closeout.md",
-    "docs/archive/2026-09-23-untracked-evidence.json",
-    "docs/archive/2026-09-23-checkout-retirement.json"
+    "docs/cycles/evidence/C055/results.json",
+    "docs/cycles/evidence/C055/source-audit.json"
   ],
-  "truthReview": "Root verify passed; 80 exact archived file hashes and 48 original checkout heads verified, plus the isolated tested snapshot correction checkout retired. Live app and consumed runtime preserved. PRs carry outstanding integration checks; no deployment or full repository-wide cleanup claim.",
-  "screenshotReview": "No app behavior changes planned; preserved historical captures are not new visual acceptance."
+  "truthReview": "Twenty source files inspected; twenty findings and five ordered task briefs retained. Full root/final check pass;387 retained artifact hashes verified. Entry-point docs updated; no source behavior changes.",
+  "screenshotReview": "C054 reviewed live and fixture media remain valid: no app/dependency/capture changes. Approval42476f73 remains current."
 }

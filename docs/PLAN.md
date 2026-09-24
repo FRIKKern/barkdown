@@ -26,7 +26,9 @@ Packaging research may proceed alongside earlier stages. The local-only pilot do
 
 ## Current next stage
 
-P1 is accepted at the [C039 audit](cycles/C039-completion-audit.md). P2 begins with the [migration preparation](migration/README.md); the original P1 sequence is retained in Git history. Preserve the legacy store until migration proof.
+P1 is accepted at the [C039 audit](cycles/C039-completion-audit.md) and merged through PR #31. P2 has verified preparation/staging,21 native content cases, internal links/backlinks, owned PNG recovery, exact retained-backup restore, native persisted defaults, navigation projection and read-only original evidence. [The migration contract](migration/README.md) maps each result and its limits. C054 at aa97781 passes 131 migration checks, full desktop/root and reviewed standard visuals; C053 Linux parity passes 20/20.
+
+C055 audits the remaining cutover contracts. Next is a complete owned-local catalog and correct Archive classification, followed by ordinary blank-note lifecycle, a retained-evidence viewer, writer fencing/sealed activation, and rollback/retirement. These are prepared slices inside P2, not completed features. Preserve the legacy store; no real library or authority has moved, and the upstream creation route remains unmerged.
 
 ## Carry forward
 
@@ -40,10 +42,12 @@ P1 is accepted at the [C039 audit](cycles/C039-completion-audit.md). P2 begins w
 
 | Gate | Current evidence | How it clears |
 |---|---|---|
-| G1: upstream editor integration | [Barkpark PR #19579](https://github.com/FRIKKern/barkpark/pull/19579) was open at this reset. | Required checks and merge verified; pin and retest the consumed baseline. |
+| G1: upstream editor integration | [Barkpark PR #19579](https://github.com/FRIKKern/barkpark/pull/19579) is open with merge conflicts in the 24 September audit. | Required checks and merge verified; pin and retest the consumed baseline. |
 | G2: cross-repository regression enforcement | [Issue #4](https://github.com/FRIKKern/barkdown/issues/4) needs the private-repo read token and deliberate broken-Tab proof. | Both repositories run the matrix; an intentional regression blocks the upstream PR. Never commit a credential. |
 
 The [22 September read-only gate audit](cycles/evidence/release-gates-2026-09-22.json) recorded PR #19579 open/blocked at a5440345c. Its green parity job skipped checkout, build and the actual rows because the read token is absent. It does not establish matrix enforcement. No secret configuration or upstream workflow was changed.
+
+The [24 September gate audit](cycles/evidence/C054/release-gates.json) supersedes that external-state snapshot: PR #19579 now reports merge conflicts (DIRTY); PR #20020 is open/unstable. The upstream read-token name remains absent. No secret or workflow was changed.
 
 G1/G2 gate the integrated pilot, not isolated P1 implementation. Recheck external state before acting. The editor matrix still records limited server-side undo proof; carry that verification into P2/P3 rather than declaring all rows complete.
 
@@ -62,10 +66,10 @@ Use [ACCEPTANCE.md](ACCEPTANCE.md) for scenario gates and [VALIDATION.md](VALIDA
 
 ## Prepared tasks
 
-[Four completed task briefs](tasks/2026-09-23-next-four.md) define scope, dependencies, ownership, acceptance and evidence for the next work. C039/P1 are accepted; the four task briefs are complete at their stated preparation scope. The real migration rehearsal is P2 work.
+The ordered next P2 slices and acceptance are in the [migration contract](migration/README.md#ordered-cutover-work--prepared-not-implemented). The [four completed September23 briefs](tasks/2026-09-23-next-four.md) are historical preparation evidence; they are not the next queue.
 
 ## Delivery cadence
 
-Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) is C042 retirement closeout, following archived C039 acceptance. P2 preparation identifies the next product cycle. C008 integration and C037/C038 Paper polish have completed source-bound validation; PR #30 is merged; main includes the cycle handoff at 7c3a325. Device authentication is shared by default without asking, per the user’s 23 September decision. C001 ownership design and C002 folder context are complete; C002 is merged on main. Subsequent bounded cycles have implemented profile foundations, adoption, recovery and editor improvements, with original evidence linked from [NEXT-AGENT.md](NEXT-AGENT.md). P1 acceptance is recorded in [the final audit](cycles/C039-completion-audit.md), combining retained native journeys with final authentication and regression evidence. Closing a cycle does not complete a stage.
+Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) is C055 cutover readiness after accepted C054. The ordered next slices live in the [migration contract](migration/README.md); original preparation/editor/profile evidence remains linked there and in the [P1 audit](cycles/C039-completion-audit.md). Device authentication is shared by default without asking. Closing a cycle does not complete a stage.
 
 Historical integration checkpoints remain in [C008](cycles/C008-integration.md); they are evidence, not an active queue.

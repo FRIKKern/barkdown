@@ -1,0 +1,20 @@
+
+> barkdown-workspace@0.5.0 check
+> tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && npm run check:cycle && npm run check:visual
+
+Source syntax, 24 requirements, local links, portable previews, source references, hashes, and fresh status screenshots passed.
+Active roadmap: structure, dependencies, acceptance links, evidence and next-stage selection passed.
+
+> barkdown-workspace@0.5.0 check:cycle
+> node scripts/check-cycle.mjs
+
+Cycle structure, handoff paths and completion requirements passed; evidence contents require review.
+
+> barkdown-workspace@0.5.0 check:visual
+> node scripts/visual.test.mjs && node scripts/visual-approval.test.mjs && node scripts/visual.mjs check
+
+Visual diff: identical images, low color noise, localized deletion and resize checked.
+Visual step matching: insertion, reordering, deletion and duplicate identities checked.
+Future live fixtures and capture helpers invalidate existing approval.
+Actual approval CLI: same candidate retains original and both reviewers; latest pointer and tamper refusal pass. Fixture retained: C:\Users\Frikk\AppData\Local\Temp\barkdown-review-history-KUco2o
+Visual evidence hashes, source coverage and agent review are current. External/live coverage limits remain in docs/visual/README.md.

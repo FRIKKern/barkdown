@@ -1,0 +1,75 @@
+{
+  "capturedAt": "2026-09-23T19:50:04.261Z",
+  "barkdownCommit": "c21024c90d4ed4d826911b665d7d1b2a994629bd",
+  "barkparkCommit": "bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f",
+  "isolatedRuntime": true,
+  "migrationWritesAuthorized": false,
+  "observations": [
+    {
+      "boundary": "existing-draft",
+      "createStatus": 409,
+      "createIfNotExists": "noop",
+      "originalRetained": true
+    },
+    {
+      "boundary": "existing-published",
+      "status": 200,
+      "error": null,
+      "beforeTitle": "Published content belongs to the original author",
+      "afterTitle": "A generic create followed by publish has different content",
+      "originalRetained": false
+    },
+    {
+      "boundary": "same-key-replay",
+      "originalStatus": 200,
+      "repeatedStatus": 200,
+      "byteEquivalentJson": true
+    },
+    {
+      "boundary": "different-key-concurrency",
+      "results": [
+        {
+          "status": 200,
+          "operation": "create",
+          "error": null
+        },
+        {
+          "status": 200,
+          "operation": "noop",
+          "error": null
+        },
+        {
+          "status": 200,
+          "operation": "noop",
+          "error": null
+        },
+        {
+          "status": 200,
+          "operation": "create",
+          "error": null
+        },
+        {
+          "status": 200,
+          "operation": "noop",
+          "error": null
+        },
+        {
+          "status": 422,
+          "error": {
+            "code": "validation_failed",
+            "message": "document failed validation",
+            "hint": "Fix the listed validation errors to match the schema, then resubmit.",
+            "details": {
+              "doc_id": [
+                "has already been taken"
+              ]
+            },
+            "request_id": "GNgLDWnm90Ar6iIAAAqE"
+          }
+        }
+      ],
+      "finalTitle": "Concurrent isolated attempt number 3",
+      "limitation": "One timing sample cannot establish race freedom."
+    }
+  ]
+}

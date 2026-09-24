@@ -1,0 +1,51 @@
+{
+  "source": "f109601fa86a510f00f2e790f1c1b1f25c7079ab",
+  "platform": "Windows",
+  "commands": [
+    {
+      "command": "npm --prefix app test",
+      "exitCode": 0,
+      "note": "Suite began before final table-attribute hardening; affected six migration tests rerun after it. One POSIX-only authentication test skipped."
+    },
+    {
+      "command": "npm --prefix app run test:migration-preflight",
+      "exitCode": 0,
+      "tests": 6
+    },
+    {
+      "command": "npm --prefix app run shots:isolated",
+      "exitCode": 0,
+      "upstream": "bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f",
+      "realProvider": "claude",
+      "runtimeStopped": true
+    },
+    {
+      "command": "npm run verify",
+      "exitCode": 0
+    }
+  ],
+  "logs": [
+    {
+      "file": "app-tests.txt",
+      "sha256": "cb284b3be013882efe617cebc791aceddec16834ca2898c49d15cc2795fa9ec2",
+      "bytes": 96984
+    },
+    {
+      "file": "root-verify.txt",
+      "sha256": "6d1daaec4fdb3aa7f5b1f6a4dc9dac408689110794eadbc38932cffff91d0ff5",
+      "bytes": 3265
+    },
+    {
+      "file": "paper-capture.txt",
+      "sha256": "1c50afe1230d47e3e8374a3bf7297e411201c21da78646e45f546117de336f5f",
+      "bytes": 752
+    }
+  ],
+  "limits": [
+    "Offline preparation only; caller must stop writers",
+    "No server migration writes or authority switch",
+    "No power-loss or portability claim",
+    "Two high-severity existing app dependency audit findings"
+  ],
+  "logHashEncoding": "UTF-8 with CRLF normalized to LF, matching Git text blobs"
+}

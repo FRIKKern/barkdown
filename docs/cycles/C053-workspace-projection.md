@@ -1,0 +1,21 @@
+# C053 — Preserve human organization in a Paper preview
+
+Accepted on codex/p2-migration. Implementation/native source af9d982, standard capture a816958, private Barkpark30c007. [Results and hashes](evidence/C053/results.json), [repository review](evidence/C053/repository-review.json), [native gallery](../visual/migration/README.md#human-organization-preview--c053). No merge, deployment, real-library write or authority switch.
+
+The offline projection maps only typed local document destinations and human Page keys to profile-qualified Paper identities. It preserves ordered paths, direct tabs, favorites, nesting/expansion/archive markers, parent relationships, drafts/images and opaque historical records. It is deterministic and bound to profile/source/workspace hashes. Missing/foreign/colliding identities, malformed chat order, unfinished runs, cycles, source-less closed document targets and unplaced local archives refuse without a partial candidate. The current renderer classifies unplaced Paper as cloud; an owned-local-Paper archive adapter remains required.
+
+32 projection checks,107 combined migration checks and35 Paper-host checks pass. Actual disposable Paper navigation/restart proves nested Pages, same-slug cloud identity, side/parent drafts and paths, direct navigation and favorites. The rehearsal exposed a real stale-editor ancestor-favorite bug, fixed via controller navigation and the existing unsaved-work guard; tab reuse now also checks source. Original source/backup files and all staged Paper objects remain exact.
+
+Full desktop/root exited0 (one existing POSIX-only authentication skip on Windows). Ten native stills,30video samples,30decodedGIFframes and eight restart samples inspected. Fresh standard five live stills/37GIFframes after a real Claude turn and the three changed fixture stills inspected. Only1/255RGB shadow noise; other37fixture stills/eightGIFs byte-identical to reviewed C052. Explicit immutable approval linked in results. Native target-app default seeds account for Archive2; no cutover claim.
+
+The truth review consolidated the active handoff and corrected superseded architecture backlog. C052 Linux35949427460 passed20/20 including tablehead6/6. Main plus one Barkdown delivery branch and three owned upstream lanes remain;46registered/43retired locked worktrees retain evidence. All owned test runtimes stopped. Claims renewed03:33UTC, epochs14/20/9, expire04:18UTC. Six-hour run continues until at least04:17:20UTC.
+
+Next: provide read-only access to verified retained legacy history, proposals and receipts without reinterpreting legacy revisions as Paper revisions. Then address owned local archive origin, writer fencing and atomic activation/rollback; do not retire the original engine before full A2 proof.
+
+## Retained failures
+
+First native attempt03-07-44-303Z failed waiting for the seeded side chat: fixture wrote workspace.json at userData instead of the actual legacy userData/barkdown store. Screenshot and captured public state inspected; default seeded workspace proves the fixture was not loaded. Corrected fixture path only. Staged private Papers and exact source remain retained; owned runtime stopped. Next: rerun corrected committed harness.
+
+Second native attempt03-10-20-986Z loaded the projected workspace and opened Beta, but timed out in the block comparison. Actual screenshot/public state inspected. The harness used JSON.stringify, which depends on object key order; replaced with a content-ready wait followed by strict deep structural equality. This correction does not relax the complete block comparison. Failure retained; owned runtime stopped. Next: rerun committed harness.
+
+Third native attempt03-16-54-898Z passed side/parent paths and direct nested Pages, then exposed a real favorite bug: openTarget truncated a mounted path from Alpha/Beta to Alpha without navigating its controller, leaving Beta visible while state named Alpha. Failure screenshot and public state inspected. Fixed mounted path navigation through the existing unsaved-work guard; also source-qualified tab lookup so same-slug local/cloud targets cannot reuse the wrong editor. Added actual host regressions for ancestor navigation, dirty refusal and source matching. Native evidence remains failed until rerun.

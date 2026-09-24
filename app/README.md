@@ -49,7 +49,14 @@ No-folder conversations remain valid. A folder selected in the composer never sc
 |---|---|
 | `main/main.js`, `preload.js` | Native window, settings and IPC boundary |
 | `main/profile-registry.js`, `profile-service.js`, `workspace-repository.js` | Main-owned profile identity, workspace persistence and captured conversation context |
-| `main/store.js`, `documents.js`, `conversations.js` | Bound local stores, document revisions and conversation reads; legacy data remains until explicit adoption |
+| `main/store.js`, `documents.js`, `conversations.js` | Bound local stores, document revisions and conversation reads; legacy note authority remains until verified P2 cutover |
+| `main/migration-preflight.js` | Offline P2 inventory, structural refusals, exact backups and restartable preparation |
+| `main/migration-references.js` | Canonical same-profile references resolved before staging and rewritten to native ID-pinned wikilinks |
+| `main/migration-images.js` / `migration-media.js` | Captured owned PNG validation and single-attempt upload reconciliation with exact binary readback; unsupported sources refuse |
+| `main/migration-staging.js` | Durable intent, insert-only Paper staging and exact readback/restart reconciliation; no UI wiring or authority switch |
+| `main/migration-restore.js` | Verified committed-backup restoration into an empty closed legacy profile; never overwrites later human data |
+| `main/migration-workspace.js` | Hash-bound offline navigation preview preserving human Pages, favorites and chat paths; explicit blockers, no authority switch |
+| `main/migration-evidence.js` | Read-only original history/proposals/receipts from a verified pinned backup; no revision translation or executable historical actions |
 | `main/local-barkpark*` | Private runtime lifecycle and Windows source bootstrap |
 | `main/barkpark.js`, `canvas-bundle.js`, `agent-edits.js` | Barkpark adapter, editor delivery and edit receipts |
 | `main/providers/`, `agent.js`, `mcp-server.js` | Provider orchestration and document tools |
@@ -57,11 +64,11 @@ No-folder conversations remain valid. A folder selected in the composer never sc
 | `shared/` | PortableDoc/Markdown and operation helpers |
 | `tests/` | Unit, Electron and live adapter/editor checks |
 
-The canvas loads from the connected Barkpark, with cached and vendored fallback. The consumed fallback baseline is Barkpark commit `bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f` through E012; upstream PR #19579 was still open at the roadmap reset. [The parity matrix](../docs/EDITOR-PARITY.md) carries the exact proof and limitations. Preserve vendored licenses. Selection remains connected server, then verified profile-owned cache, then vendored fallback. Updating the fallback or parity pin does not upgrade an older reachable server or valid old cache; a renderer restart is needed to change its loaded custom element. [The historical consumption audit](../docs/EDITOR-CONSUMPTION-AUDIT.md) preceded E011; [original consumption evidence](../docs/visual/fallback-consumption/IMPORT.md) now proves bounded fallback compatibility against private a544 and54579 servers.
+The canvas loads from the connected Barkpark, with cached and vendored fallback. The consumed fallback baseline is Barkpark commit `bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f` through E012; the 24 September gate audit records upstream PR #19579 open with merge conflicts. [The parity matrix](../docs/EDITOR-PARITY.md) carries the exact proof and limitations. Preserve vendored licenses. Selection remains connected server, then verified profile-owned cache, then vendored fallback. Updating the fallback or parity pin does not upgrade an older reachable server or valid old cache; a renderer restart is needed to change its loaded custom element. [The historical consumption audit](../docs/EDITOR-CONSUMPTION-AUDIT.md) preceded E011; [original consumption evidence](../docs/visual/fallback-consumption/IMPORT.md) now proves bounded fallback compatibility against private a544 and54579 servers.
 
 ## Remaining work
 
-P1–P5 deliver profile isolation, migration to one editor, interruption recovery and portability, optional sync, and clean-machine installation. Unsaved project buffers are still session memory. The Windows runtime still requires a source checkout. Original native checks cover bounded profile isolation and process-death recovery; C035 additionally proves the unpacked Electron38 application’s terminal ownership. Clean-machine installation, bundled Barkpark, other platforms, whole-profile portability and sync remain unproved. These results do not complete P1 or P5.
+P1–P5 deliver profile isolation, migration to one editor, interruption recovery and portability, optional sync, and clean-machine installation. Unsaved project buffers are still session memory. The Windows runtime still requires a source checkout. Original native checks cover bounded profile isolation and process-death recovery; C035 additionally proves the unpacked Electron38 application’s terminal ownership. Clean-machine installation, bundled Barkpark, other platforms, whole-profile portability and sync remain unproved. P1 is accepted at C039; P2–P5 remain unfinished.
 
 Use [the local-runtime guide](../docs/LOCAL-BARKPARK.md) for setup and [the acceptance scenarios](../docs/ACCEPTANCE.md) to decide when a stage is complete. The prototype uses direct provider adapters; no T3 runtime import is claimed.
 

@@ -1,0 +1,385 @@
+TAP version 13
+# Subtest: owned PNG stages once, exact bytes and dimensions survive, repeated refs share one upload
+ok 1 - owned PNG stages once, exact bytes and dimensions survive, repeated refs share one upload
+  ---
+  duration_ms: 553.0133
+  ...
+# Subtest: absolute and file URL references resolve only through captured profile files
+ok 2 - absolute and file URL references resolve only through captured profile files
+  ---
+  duration_ms: 280.9812
+  ...
+# Subtest: bad sources and unsupported image metadata refuse before all target access
+ok 3 - bad sources and unsupported image metadata refuse before all target access
+  ---
+  duration_ms: 345.4447
+  ...
+# Subtest: corrupt PNG bytes and nested images refuse before target access
+ok 4 - corrupt PNG bytes and nested images refuse before target access
+  ---
+  duration_ms: 78.916
+  ...
+# Subtest: post-commit lost response reconciles exact attempt without another upload
+ok 5 - post-commit lost response reconciles exact attempt without another upload
+  ---
+  duration_ms: 403.5409
+  ...
+# Subtest: actual process exit at media-plan
+ok 6 - actual process exit at media-plan
+  ---
+  duration_ms: 482.7665
+  ...
+# Subtest: actual process exit at media-intent:attachments/orchard.png
+ok 7 - actual process exit at media-intent:attachments/orchard.png
+  ---
+  duration_ms: 298.8331
+  ...
+# Subtest: actual process exit at media-response:attachments/orchard.png
+ok 8 - actual process exit at media-response:attachments/orchard.png
+  ---
+  duration_ms: 555.5713
+  ...
+# Subtest: actual process exit at media-receipt:attachments/orchard.png
+ok 9 - actual process exit at media-receipt:attachments/orchard.png
+  ---
+  duration_ms: 616.1764
+  ...
+# Subtest: absent, ambiguous and incomplete upload lookup never retries
+ok 10 - absent, ambiguous and incomplete upload lookup never retries
+  ---
+  duration_ms: 349.8988
+  ...
+# Subtest: changed or redirected binary and wrong identity refuse before Paper write
+ok 11 - changed or redirected binary and wrong identity refuse before Paper write
+  ---
+  duration_ms: 339.6736
+  ...
+# Subtest: local journal tampering refuses before any further target access
+ok 12 - local journal tampering refuses before any further target access
+  ---
+  duration_ms: 277.8363
+  ...
+# Subtest: later missing/changed uploaded bytes or changed source never recreate or overwrite
+ok 13 - later missing/changed uploaded bytes or changed source never recreate or overwrite
+  ---
+  duration_ms: 290.7251
+  ...
+# Subtest: media changed after Paper creation prevents completion without replay or cleanup
+ok 14 - media changed after Paper creation prevents completion without replay or cleanup
+  ---
+  duration_ms: 517.5671
+  ...
+# Subtest: two-file partial upload resumes only the interrupted attempt and preserves both identities
+ok 15 - two-file partial upload resumes only the interrupted attempt and preserves both identities
+  ---
+  duration_ms: 496.8777
+  ...
+# Subtest: actual configured legacy schema defaults prepare without changing native content or backup bytes
+ok 16 - actual configured legacy schema defaults prepare without changing native content or backup bytes
+  ---
+  duration_ms: 184.3048
+  ...
+# Subtest: default link attributes resolve canonical internal references without mutating the source
+ok 17 - default link attributes resolve canonical internal references without mutating the source
+  ---
+  duration_ms: 59.693
+  ...
+# Subtest: custom link values are retained in blocked backups and staging performs no target access
+ok 18 - custom link values are retained in blocked backups and staging performs no target access
+  ---
+  duration_ms: 411.1317
+  ...
+# Subtest: null list marker type is eligible recursively; custom or malformed markers never disappear
+ok 19 - null list marker type is eligible recursively; custom or malformed markers never disappear
+  ---
+  duration_ms: 15.4492
+  ...
+# Subtest: foreign attributes and non-link mark metadata still refuse even when values are null
+ok 20 - foreign attributes and non-link mark metadata still refuse even when values are null
+  ---
+  duration_ms: 23.118
+  ...
+# Subtest: all audited losses, unsupported structures and internal references refuse
+ok 21 - all audited losses, unsupported structures and internal references refuse
+  ---
+  duration_ms: 7.6935
+  ...
+# Subtest: inline carriage returns retain exact blocked backups while LF breaks remain supported
+ok 22 - inline carriage returns retain exact blocked backups while LF breaks remain supported
+  ---
+  duration_ms: 108.7291
+  ...
+# Subtest: heading marks and top-level alignment retain structure while unmapped alignment refuses
+ok 23 - heading marks and top-level alignment retain structure while unmapped alignment refuses
+  ---
+  duration_ms: 350.8168
+  ...
+# Subtest: nested lists and genuine quotes prepare exact backups while unmapped structures refuse
+ok 24 - nested lists and genuine quotes prepare exact backups while unmapped structures refuse
+  ---
+  duration_ms: 231.6418
+  ...
+# Subtest: exact backup preserves organization, proposals, history, binary media and receipts; excludes credentials
+ok 25 - exact backup preserves organization, proposals, history, binary media and receipts; excludes credentials
+  ---
+  duration_ms: 134.4631
+  ...
+# Subtest: lossy content is recorded as blocked and never produces a partial conversion
+ok 26 - lossy content is recorded as blocked and never produces a partial conversion
+  ---
+  duration_ms: 42.0868
+  ...
+# Subtest: process interruption at each durable boundary resumes without duplicate files or IDs
+ok 27 - process interruption at each durable boundary resumes without duplicate files or IDs
+  ---
+  duration_ms: 658.4359
+  ...
+# Subtest: changed source and corrupt backups or manifests refuse, retaining original data
+ok 28 - changed source and corrupt backups or manifests refuse, retaining original data
+  ---
+  duration_ms: 266.4164
+  ...
+# Subtest: owner, quiescence, malformed records and unsafe destinations fail closed
+ok 29 - owner, quiescence, malformed records and unsafe destinations fail closed
+  ---
+  duration_ms: 66.7928
+  ...
+# Subtest: exact restore preserves legacy history/proposals/media/workspace and excludes credentials
+ok 30 - exact restore preserves legacy history/proposals/media/workspace and excludes credentials
+  ---
+  duration_ms: 773.5882
+  ...
+# Subtest: pinned source/profile and fully committed backup are required before destination writes
+ok 31 - pinned source/profile and fully committed backup are required before destination writes
+  ---
+  duration_ms: 640.1962
+  ...
+# Subtest: blocked migration backup remains recoverable without converting its unsupported content
+ok 32 - blocked migration backup remains recoverable without converting its unsupported content
+  ---
+  duration_ms: 510.1673
+  ...
+# Subtest: existing destinations, disjointness and quiescence refuse without overwriting
+ok 33 - existing destinations, disjointness and quiescence refuse without overwriting
+  ---
+  duration_ms: 267.7296
+  ...
+# Subtest: real process exit resumes at restore-plan
+ok 34 - real process exit resumes at restore-plan
+  ---
+  duration_ms: 688.4847
+  ...
+# Subtest: real process exit resumes at restore-root
+ok 35 - real process exit resumes at restore-root
+  ---
+  duration_ms: 636.9661
+  ...
+# Subtest: real process exit resumes at restore-intent:attachments/blob.bin
+ok 36 - real process exit resumes at restore-intent:attachments/blob.bin
+  ---
+  duration_ms: 673.7922
+  ...
+# Subtest: real process exit resumes at restore-chunk:attachments/blob.bin
+ok 37 - real process exit resumes at restore-chunk:attachments/blob.bin
+  ---
+  duration_ms: 683.8645
+  ...
+# Subtest: real process exit resumes at restore-temp:attachments/blob.bin
+ok 38 - real process exit resumes at restore-temp:attachments/blob.bin
+  ---
+  duration_ms: 689.4937
+  ...
+# Subtest: real process exit resumes at restore-published:attachments/blob.bin
+ok 39 - real process exit resumes at restore-published:attachments/blob.bin
+  ---
+  duration_ms: 661.948
+  ...
+# Subtest: real process exit resumes at restore-receipt:attachments/blob.bin
+ok 40 - real process exit resumes at restore-receipt:attachments/blob.bin
+  ---
+  duration_ms: 611.0718
+  ...
+# Subtest: real process exit resumes at restore-before-complete
+ok 41 - real process exit resumes at restore-before-complete
+  ---
+  duration_ms: 707.6934
+  ...
+# Subtest: changed/extra/missing restored data is retained and never overwritten or recreated
+ok 42 - changed/extra/missing restored data is retained and never overwritten or recreated
+  ---
+  duration_ms: 1271.3347
+  ...
+# Subtest: partial-copy tampering, replaced root and changed backup stop conservatively
+ok 43 - partial-copy tampering, replaced root and changed backup stop conservatively
+  ---
+  duration_ms: 652.3153
+  ...
+# Subtest: missing/tampered journals refuse and never adopt pre-existing restored content
+ok 44 - missing/tampered journals refuse and never adopt pre-existing restored content
+  ---
+  duration_ms: 1644.8258
+  ...
+# Subtest: linked backup and destination paths refuse
+ok 45 - linked backup and destination paths refuse
+  ---
+  duration_ms: 139.9993
+  ...
+# Subtest: validator rejects traversing or credential paths even with matching edited manifest hashes
+ok 46 - validator rejects traversing or credential paths even with matching edited manifest hashes
+  ---
+  duration_ms: 333.0854
+  ...
+# Subtest: an active restore lease excludes a second process and recovers only after owner exit
+ok 47 - an active restore lease excludes a second process and recovers only after owner exit
+  ---
+  duration_ms: 492.8117
+  ...
+# Subtest: a human change at the final boundary is retained instead of receiving a completion stamp
+ok 48 - a human change at the final boundary is retained instead of receiving a completion stamp
+  ---
+  duration_ms: 364.4885
+  ...
+# Subtest: stages once, revalidates on repeat, retains source/navigation and excludes credentials
+ok 49 - stages once, revalidates on repeat, retains source/navigation and excludes credentials
+  ---
+  duration_ms: 347.038
+  ...
+# Subtest: real process exit at plan retains a recoverable intent without duplicates
+ok 50 - real process exit at plan retains a recoverable intent without duplicates
+  ---
+  duration_ms: 358.6244
+  ...
+# Subtest: real process exit at intent:note retains a recoverable intent without duplicates
+ok 51 - real process exit at intent:note retains a recoverable intent without duplicates
+  ---
+  duration_ms: 484.0535
+  ...
+# Subtest: real process exit at response:note retains a recoverable intent without duplicates
+ok 52 - real process exit at response:note retains a recoverable intent without duplicates
+  ---
+  duration_ms: 493.1859
+  ...
+# Subtest: real process exit at readback:note retains a recoverable intent without duplicates
+ok 53 - real process exit at readback:note retains a recoverable intent without duplicates
+  ---
+  duration_ms: 464.2675
+  ...
+# Subtest: real process exit at receipt:note retains a recoverable intent without duplicates
+ok 54 - real process exit at receipt:note retains a recoverable intent without duplicates
+  ---
+  duration_ms: 446.7258
+  ...
+# Subtest: real process exit at before-complete retains a recoverable intent without duplicates
+ok 55 - real process exit at before-complete retains a recoverable intent without duplicates
+  ---
+  duration_ms: 463.4915
+  ...
+# Subtest: lost response after commit reconciles without create replay
+ok 56 - lost response after commit reconciles without create replay
+  ---
+  duration_ms: 143.7452
+  ...
+# Subtest: existing same-content paper without this backup intent is not adopted
+ok 57 - existing same-content paper without this backup intent is not adopted
+  ---
+  duration_ms: 61.0639
+  ...
+# Subtest: drafts present before or during creation stop completion without overwriting either row
+ok 58 - drafts present before or during creation stop completion without overwriting either row
+  ---
+  duration_ms: 111.5586
+  ...
+# Subtest: changed content, changed revision with restored content, or missing target never overwrites/recreates
+ok 59 - changed content, changed revision with restored content, or missing target never overwrites/recreates
+  ---
+  duration_ms: 226.0575
+  ...
+# Subtest: changed source or corrupt backup/plan/receipt is refused without another create
+ok 60 - changed source or corrupt backup/plan/receipt is refused without another create
+  ---
+  duration_ms: 162.0752
+  ...
+# Subtest: target and metadata changes are fenced before network writes
+ok 61 - target and metadata changes are fenced before network writes
+  ---
+  duration_ms: 176.852
+  ...
+# Subtest: source or target changes at the last checkpoint prevent completion
+ok 62 - source or target changes at the last checkpoint prevent completion
+  ---
+  duration_ms: 90.4017
+  ...
+# Subtest: two stagers cannot own the same durable plan concurrently
+ok 63 - two stagers cannot own the same durable plan concurrently
+  ---
+  duration_ms: 123.3167
+  ...
+# Subtest: non-object journal records are corrupt, never absent: null
+ok 64 - non-object journal records are corrupt, never absent: null
+  ---
+  duration_ms: 173.7803
+  ...
+# Subtest: non-object journal records are corrupt, never absent: []
+ok 65 - non-object journal records are corrupt, never absent: []
+  ---
+  duration_ms: 171.6995
+  ...
+# Subtest: non-object journal records are corrupt, never absent: false
+ok 66 - non-object journal records are corrupt, never absent: false
+  ---
+  duration_ms: 172.4721
+  ...
+# Subtest: a corrupt later-document journal prevents writes for the entire batch
+ok 67 - a corrupt later-document journal prevents writes for the entire batch
+  ---
+  duration_ms: 74.0628
+  ...
+# Subtest: a completion record with missing receipts cannot republish deleted targets
+ok 68 - a completion record with missing receipts cannot republish deleted targets
+  ---
+  duration_ms: 125.3558
+  ...
+# Subtest: source edited at after-create retains originals and refuses completion
+ok 69 - source edited at after-create retains originals and refuses completion
+  ---
+  duration_ms: 78.7573
+  ...
+# Subtest: source edited at before-complete retains originals and refuses completion
+ok 70 - source edited at before-complete retains originals and refuses completion
+  ---
+  duration_ms: 77.8307
+  ...
+# Subtest: forward and cyclic references pin profile IDs, preserve marked labels and resume after a partial batch
+ok 71 - forward and cyclic references pin profile IDs, preserve marked labels and resume after a partial batch
+  ---
+  duration_ms: 504.7234
+  ...
+# Subtest: missing, malformed and foreign-profile links refuse the entire batch before target access
+ok 72 - missing, malformed and foreign-profile links refuse the entire batch before target access
+  ---
+  duration_ms: 270.94
+  ...
+# Subtest: a changed reference payload in a recovery plan refuses without network access
+ok 73 - a changed reference payload in a recovery plan refuses without network access
+  ---
+  duration_ms: 74.4425
+  ...
+# Subtest: publish-policy conflicts are explicit refusals, never mistaken for existing owned papers
+ok 74 - publish-policy conflicts are explicit refusals, never mistaken for existing owned papers
+  ---
+  duration_ms: 96.4363
+  ...
+# Subtest: self references retain the same profile identity and ambiguous double-link marks refuse
+ok 75 - self references retain the same profile identity and ambiguous double-link marks refuse
+  ---
+  duration_ms: 179.2547
+  ...
+1..75
+# tests 75
+# suites 0
+# pass 75
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 12630.9662

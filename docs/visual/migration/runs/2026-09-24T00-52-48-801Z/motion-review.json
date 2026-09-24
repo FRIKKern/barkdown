@@ -1,0 +1,36 @@
+{
+  "reviewedAt": "2026-09-24T01:01:02.729625+00:00",
+  "reviewer": "Codex",
+  "manifestSha256": "1c783d83e0ed1d04cb59476f68c0b44281c43f7f7a37d71286e01fde1595aba0",
+  "source": "1e57023e43a93817a7b52e73aeedd0b50c1c2e11",
+  "upstream": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "stillsInspected": 19,
+  "editingVideoSamplesInspected": 51,
+  "decodedGifFramesInspected": 51,
+  "restartVideoSamplesInspected": 10,
+  "derivative": {
+    "file": "links-editing-navigation.gif",
+    "sha256": "0e425f4cc95baa6ad6651b5d220b7ac1941402a8a820d631ef4a9d93823b1d8d",
+    "source": "links-editing-navigation.webm",
+    "sourceSha256": "8a0f73669860cc785528bf15e2e2fe8e34ab1bb6aba7113bdefaf820a3314eb9",
+    "fps": 2,
+    "size": [
+      840,
+      540
+    ],
+    "palette": "256 colors, Floyd-Steinberg",
+    "cropped": false,
+    "masked": false
+  },
+  "findings": [
+    "All seven marked links across paragraph, heading, quote, bullet, task, cell and self-reference retain content through native save and exact Undo.",
+    "Hover cards show the correct title and excerpt within the viewport; cyclic/self navigation reaches the expected content.",
+    "Narrow 760px capture wraps the heading and retains accessible controls without horizontal overflow.",
+    "Reload and clean restart retain the expected content; startup/loading and viewport padding remain visible."
+  ],
+  "limits": [
+    "Disposable isolated profile; no provider turn or real-library activation.",
+    "Two-fps samples are not every raw video frame. Raw videos and dedicated hover stills are retained.",
+    "Clean restart and child-process interruption do not prove database power-loss durability."
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "reviewedAt": "2026-09-23T23:21:45.175Z",
+  "reviewer": "Codex",
+  "manifestSha256": "9e9415f6b99b98c3edaec513d46bd272ce714510eec80233d6fc5660066958d7",
+  "source": "2aee376f604d79ded9bb7ae976368b0621e85ded",
+  "upstream": "8d48ae6613917259f4376b061d603a6e37043c28",
+  "stillsInspected": 23,
+  "editingVideoSamplesInspected": 77,
+  "decodedGifFramesInspected": 77,
+  "restartVideoSamplesInspected": 8,
+  "derivative": {
+    "file": "editing-and-undo.gif",
+    "sha256": "5697bbe698ce872494c99217ed3f04fbd160fe3f9b6b479552cccb11d12c0261",
+    "source": "editing-and-undo.webm",
+    "sourceSha256": "5a1bc9669df9324745c69473c99484001fd0ef22f213301ef3e7b9136e859ce0",
+    "fps": 2,
+    "size": [
+      840,
+      540
+    ],
+    "palette": "256 colors, Floyd-Steinberg",
+    "cropped": false,
+    "masked": false
+  },
+  "findings": [
+    "Marked linked heading visibly retains bold/italic and its hierarchy; right heading and centered/right paragraphs remain aligned through typing and Undo.",
+    "Native marked-heading Shift Enter adds the visible line break while existing letters retain formatting; exact saved Undo restores the source.",
+    "Literal LF marked paragraph renders two lines through native edits and exact saved Undo.",
+    "Normal and narrow long titles wrap within the pane; lower content scrolls naturally, code/table remain intact.",
+    "Startup/loading frames are retained; clean restart restores the acknowledged document."
+  ],
+  "limits": [
+    "Disposable profile, no provider turn or navigation activation",
+    "Clean Electron restart, not power loss or database death",
+    "Full video retained; sampled review is not every source video frame"
+  ]
+}

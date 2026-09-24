@@ -1,0 +1,36 @@
+{
+  "reviewedAt": "2026-09-23T22:39:14.402Z",
+  "reviewer": "Codex",
+  "manifestSha256": "7f813c1e4988b80070c900152320833be63361b978a321a1ce5cc60024ae957c",
+  "source": "2f4a1dc914c2903bff180653e9b40c646a2cd10e",
+  "upstream": "dc97bef1bf00152f710dde4eba7f061edd63f505",
+  "stillsInspected": 16,
+  "editingVideoSamplesInspected": 55,
+  "decodedGifFramesInspected": 55,
+  "restartVideoSamplesInspected": 8,
+  "derivative": {
+    "file": "editing-and-undo.gif",
+    "sha256": "33a62ad8a973adc8b192abe5a619f8e76e0e6a58e497d3a184db490c2b381186",
+    "source": "editing-and-undo.webm",
+    "sourceSha256": "14f61c0dc0e03b8b42eb28acb6cdc44482d5d7cd301e0fcbed932afa66ad6a69",
+    "fps": 2,
+    "size": [
+      840,
+      540
+    ],
+    "palette": "256 colors, Floyd-Steinberg",
+    "cropped": false,
+    "masked": false
+  },
+  "findings": [
+    "All ten native text edits and saved Undo pairs preserve surrounding layout.",
+    "Native Shift Enter visibly adds one blank line; saved Undo restores the original two lines.",
+    "Long title wraps without clipping in normal and 760px views. Table and code remain within the pane; lower content is scrollable.",
+    "Restart restores the same acknowledged document after ordinary loading frames."
+  ],
+  "limits": [
+    "Disposable profile only; no provider turn or navigation activation",
+    "Clean Electron restart, not power loss or database death",
+    "Full recording retained; sampled motion review is not inspection of every source video frame"
+  ]
+}

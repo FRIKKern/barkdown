@@ -1,0 +1,97 @@
+{
+  "recordedAt": "2026-09-24T01:09:03.257607+00:00",
+  "cycle": "C049",
+  "applicationSourceCommit": "4f240e2",
+  "finalNativeAndDesktopCommit": "1e57023e43a93817a7b52e73aeedd0b50c1c2e11",
+  "standardCaptureCommit": "fff3110229d85d6a951843f364ea61faece84f61",
+  "upstreamCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "checks": {
+    "migrationUnits": {
+      "passed": 36
+    },
+    "pairedNative": {
+      "profiles": 2,
+      "casesEach": 7,
+      "carriers": 6,
+      "selfAndCyclicNavigation": true,
+      "actualBacklinks": true,
+      "interruptedResume": true,
+      "nativeSaveExactUndoReloadRestart": true,
+      "sourceBackupWorkspaceUnchanged": true
+    },
+    "desktop": {
+      "exit": 0,
+      "skip": "Existing POSIX-only authentication test on Windows"
+    },
+    "tablehead": {
+      "passed": 6,
+      "total": 6,
+      "platform": "Windows",
+      "linux": "Pending fresh CI after push"
+    },
+    "root": {
+      "exit": 0
+    }
+  },
+  "visual": {
+    "nativeStillsInspected": 38,
+    "nativeVideoSamplesInspected": 103,
+    "decodedGifFramesInspected": 103,
+    "restartSamplesInspected": 20,
+    "fixtureManifest": "docs/visual/runs/2026-09-24T01-06-09-705Z/manifest.json",
+    "approval": "docs/visual/reviews/approval-56030e542634e0f7cb1a86a895945251ab9662b94a909da69ab6b8e29642b51e.json",
+    "fixtureChangedArtifacts": 0,
+    "fixtureFrames": 40,
+    "fixtureGifs": 8,
+    "liveManifest": "docs/images/status/history/2026-09-24T01-06-05-686Z.json",
+    "liveRealProvider": {
+      "real": true,
+      "provider": "claude"
+    },
+    "liveStillsInspected": 5,
+    "liveGifFramesInspected": 37
+  },
+  "limits": [
+    "Offline adapters, not a migration UI or authority activation.",
+    "Media and remaining unsupported structures still refuse.",
+    "No legacy history/receipt conversion or rollback of edited targets.",
+    "Upstream dependency is stacked and unmerged; independent upstream gates still fail.",
+    "Process interruption and clean restart are not power-loss durability."
+  ],
+  "files": {
+    "docs/cycles/evidence/C049/48-tablehead.png": "758786c2ca65c74215e576d017ff407f68745ed299025b3026729088545bb643",
+    "docs/cycles/evidence/C049/c049-desktop.log": "da229162904f74d99d023d0f5498075d7cf363647b9125df1041e3ccf7aa20b6",
+    "docs/cycles/evidence/C049/c049-migration-unit-final.log": "01f898d8aaa05637743efb82a5cfed2b7f315a0586bef7f37e4304994c6cfb6a",
+    "docs/cycles/evidence/C049/c049-migration-unit.log": "1e33e5fffe951b0cc36a3c238a9906dbd4b8bc4ed5b9330ce9acb52fd495acd7",
+    "docs/cycles/evidence/C049/c049-native-coast-final.log": "921da94a8fe191a9cc2686b2200300df72f25a96c9cc2914a3d94ac58847afdc",
+    "docs/cycles/evidence/C049/c049-native-links.log": "30659dc180afc50a3e50406a49eb04f9abd8e6c46aca596c2590705280ececaa",
+    "docs/cycles/evidence/C049/c049-native-links2.log": "9520e5639413870b063b141ca6129b796ec98f7bf1cbabdc79616b13d4614c10",
+    "docs/cycles/evidence/C049/c049-native-links3.log": "86181991ded83005434232506a5ef453fe5924cdd8c1ef97d876b4c374079b7d",
+    "docs/cycles/evidence/C049/c049-native-links4.log": "7a653c339e2b1ce0b57bfb3943eba00f335e7a55cafafc1552bcfccf6185d3cb",
+    "docs/cycles/evidence/C049/c049-native-orchard-final.log": "0bcf7044834de99208bd3cd0c588869bfb29b3d01f7cddb5cb116cb1b66efe13",
+    "docs/cycles/evidence/C049/c049-root-verify.log": "e892aa6951ac5bb298542eeca8ec7b35ec9748babdae7cc0de9dbe566a1a67f5",
+    "docs/cycles/evidence/C049/c049-staging.log": "b100dfe9c4caaeef13506c5e3db6672271dd91f020088f8c9999c2030f61ba5a",
+    "docs/cycles/evidence/C049/c049-standard-live.log": "f3a20b5943736c944e26742f0f4ee95acb04b5104417424037620192cf281467",
+    "docs/cycles/evidence/C049/c049-tablehead.log": "827749c8db075b51eb0a9aadc6c91fc4badc6edeb3a7875aa443f22efb6edd42",
+    "docs/cycles/evidence/C049/c049-upstream-elixir.log": "91272395a5d7e7aea6315b51dec5d5ab0979375eb5d6f357bf54dcf43d1faddc",
+    "docs/cycles/evidence/C049/c049-upstream-security.log": "91fbc8e551e3b1acc554ef7812f83e87438dc780240fc1fe4293093ce69c3138",
+    "docs/cycles/evidence/C049/c049-visual-capture.log": "98963c5e47792ad356bca3471478d2b67e9b62468435f60a4ccfb1e6be2e4364",
+    "docs/cycles/evidence/C049/c049-visual-compare.log": "ee2f45f24fc485361ec7ec775d047c5d34d226bfdfe89ebe157b32a1d6d97d61",
+    "docs/cycles/evidence/C049/linux-table-selection-failure.log": "537b707f1f0603a2706d8474efeee2840de0c696057733d044f8c3dc8042aab5",
+    "docs/cycles/evidence/C049/linux-table-selection-failure.png": "eaff3fa79c467aa4ca48832a5e98eee36486bfd37ee80325c8a47a3180e85a86",
+    "docs/cycles/evidence/C049/paired-profiles.json": "d16f1bc76ffa3a80da362b5391a8d76ce9383a21050a269ac8c4fc10ffeb9399",
+    "docs/cycles/evidence/C049/repository-truth.json": "073b893283d4d1de6bdee727b68c46a711fb2bc9d6a142a3b3cbc0ba1c24156e",
+    "docs/cycles/evidence/C049/tablehead.json": "6f841e2707acf0bb4efa8d2a414d146cce6c6890192c0a2bc991b2dc260d895e",
+    "docs/cycles/evidence/C049/upstream-gate-inputs.json": "7d19076c6bab262167405cd12a1a6fab1b115263fc3ede8743e48ac014eed135",
+    "docs/visual/runs/2026-09-24T01-06-09-705Z/manifest.json": "c15ccd2593389fc7f784371f38c439889fcf5c8e768da6a57f4949be10b5d661",
+    "docs/visual/runs/2026-09-24T01-06-09-705Z/comparison.json": "07e474213c621116b636e88ab7be64dc0d45cf4b7f3bac62890f36f4d8868113",
+    "docs/visual/reviews/approval-56030e542634e0f7cb1a86a895945251ab9662b94a909da69ab6b8e29642b51e.json": "56030e542634e0f7cb1a86a895945251ab9662b94a909da69ab6b8e29642b51e",
+    "docs/images/status/history/2026-09-24T01-06-05-686Z.json": "87c106340f0182518ec089f4c0548c08d36b6ed51a2c2ab61b7f3259e39ccb6b",
+    "docs/visual/migration/runs/2026-09-24T00-52-48-801Z/graph.json": "456215c5a12ce3c3c3754768769528667dce735a53927d864abfd83a281f8549",
+    "docs/visual/migration/runs/2026-09-24T00-52-48-801Z/manifest.json": "1c783d83e0ed1d04cb59476f68c0b44281c43f7f7a37d71286e01fde1595aba0",
+    "docs/visual/migration/runs/2026-09-24T00-52-48-801Z/motion-review.json": "0fc364f53c416ed834bf0da1c886786dc0652fac38a636645db90f3c833bc9aa",
+    "docs/visual/migration/runs/2026-09-24T00-54-54-614Z/graph.json": "a7a04694a4b31f7f8cf712a49ca68f4ced1fe041b5fa939a35d34ec680817036",
+    "docs/visual/migration/runs/2026-09-24T00-54-54-614Z/manifest.json": "b39197b90b6b9ae285aeaf5fa94e9c9da8f5caf87269eda076fbd4a393ed489e",
+    "docs/visual/migration/runs/2026-09-24T00-54-54-614Z/motion-review.json": "85b0dd9295f7105fa381f25812503afb20976419af77626d6b50c878608476e2"
+  }
+}

@@ -1,0 +1,357 @@
+{
+  "recordedAt": "2026-09-23T23:37:04.535Z",
+  "cycle": "C047",
+  "applicationSourceCommit": "2aee376f604d79ded9bb7ae976368b0621e85ded",
+  "standardCaptureCommit": "b837e13a084eba22f44a98fb4d94434c3e5d2bfe",
+  "upstreamImplementationCommit": "2edf8c411b6ed0a8d4b1c78ed15d721416f9d486",
+  "upstreamMigrationCommit": "8d48ae6613917259f4376b061d603a6e37043c28",
+  "upstreamStandardCaptureCommit": "2289cf270398708fb92bb35fed7559a602259835",
+  "checks": {
+    "migrationUnits": {
+      "passed": 30
+    },
+    "nativeMigration": {
+      "exit": 0,
+      "cases": 16,
+      "paragraphAndHeadingShiftEnter": true,
+      "exactSavedUndo": true,
+      "reload": true,
+      "restart": true,
+      "renderedHeadingAndAlignmentChecks": true,
+      "sourceBackupWorkspaceUnchanged": true
+    },
+    "stagingRecovery": {
+      "exit": 0,
+      "cases": 16,
+      "humanEditsPreserved": true
+    },
+    "desktop": {
+      "exit": 0,
+      "skip": "Existing POSIX-only authentication test on Windows"
+    },
+    "root": {
+      "exit": 0
+    },
+    "upstreamDocBudgets": {
+      "exit": 0
+    },
+    "closeout": {
+      "exit": 0
+    },
+    "upstreamAnchors": {
+      "exit": 0,
+      "commit": "2289cf270398708fb92bb35fed7559a602259835",
+      "environment": "Explicit Git Bash with bundled Python; default Windows Store alias avoided"
+    }
+  },
+  "ci": {
+    "linuxParity": {
+      "run": 35933360649,
+      "head": "c9ac427bc14a1d35bb343c6b8730b04a314f353e",
+      "conclusion": "success"
+    },
+    "preEvidenceRoot": {
+      "run": 35933360526,
+      "conclusion": "failure",
+      "reason": "Expected stale status captures before the implementation-to-evidence sequence completed; retained log. Current local root verification passes with fresh evidence."
+    }
+  },
+  "visual": {
+    "fixtureManifest": "docs/visual/runs/2026-09-23T23-28-38-198Z/manifest.json",
+    "fixtureComparison": "docs/visual/runs/2026-09-23T23-28-38-198Z/comparison.json",
+    "fixturePriorReviewed": "docs/visual/runs/2026-09-23T22-51-45-914Z",
+    "fixtureReview": "docs/visual/reviews/approval-8abbcc1bd829c0b3de2885fc7af95b6f977883716d4f0776353bcf035eef0e98.json",
+    "fixtureMediaHashes": [
+      {
+        "file": "adoption-0.png",
+        "before": "6440fb34d15e3e19d7bcd33f0f3e52b2cde76a60252b847ae428f9f8fbfde261",
+        "after": "6440fb34d15e3e19d7bcd33f0f3e52b2cde76a60252b847ae428f9f8fbfde261"
+      },
+      {
+        "file": "adoption-1.png",
+        "before": "3324fcea9bc06bbb44b77d4a788bb3809e4e271ab331c947388865e6eadb0cc1",
+        "after": "3324fcea9bc06bbb44b77d4a788bb3809e4e271ab331c947388865e6eadb0cc1"
+      },
+      {
+        "file": "adoption-2.png",
+        "before": "9f6cf032c17ca9753537cbce6edc688884d224fa5a06ab4ea50b639a5111f072",
+        "after": "9f6cf032c17ca9753537cbce6edc688884d224fa5a06ab4ea50b639a5111f072"
+      },
+      {
+        "file": "adoption-3.png",
+        "before": "fd98404df0d0eafef05ccd58553d8fd749f6044c67c90b9f9b1ad4a0a8434e26",
+        "after": "fd98404df0d0eafef05ccd58553d8fd749f6044c67c90b9f9b1ad4a0a8434e26"
+      },
+      {
+        "file": "adoption-4.png",
+        "before": "02e551072609974277a29d2c88a8f219a0191c59722ce4627f9ac5fd5bb8dd99",
+        "after": "02e551072609974277a29d2c88a8f219a0191c59722ce4627f9ac5fd5bb8dd99"
+      },
+      {
+        "file": "adoption-5.png",
+        "before": "5460ec81a3de8c35a1dbb9e634d15c7218d31c243af5726f2280815ca4573c46",
+        "after": "5460ec81a3de8c35a1dbb9e634d15c7218d31c243af5726f2280815ca4573c46"
+      },
+      {
+        "file": "adoption.gif",
+        "before": "5279dcc6030f2376aab552104ab6d2367291d43fb0e449e7043236c8f760f83c",
+        "after": "5279dcc6030f2376aab552104ab6d2367291d43fb0e449e7043236c8f760f83c"
+      },
+      {
+        "file": "chat-0.png",
+        "before": "1ca9b64605af3dc827f45ffce4aceb609aac92f88582b4a42283ee7e0147ccc0",
+        "after": "1ca9b64605af3dc827f45ffce4aceb609aac92f88582b4a42283ee7e0147ccc0"
+      },
+      {
+        "file": "chat-1.png",
+        "before": "387824346137d0c9c68fb85cffbe9b26c56ce32be5167f360ed963aaefca1081",
+        "after": "387824346137d0c9c68fb85cffbe9b26c56ce32be5167f360ed963aaefca1081"
+      },
+      {
+        "file": "chat-2.png",
+        "before": "92e869e22bc5f150d63b2b80379163ff3b4c94f0b7fa67c21798df08e24808c4",
+        "after": "92e869e22bc5f150d63b2b80379163ff3b4c94f0b7fa67c21798df08e24808c4"
+      },
+      {
+        "file": "chat-3.png",
+        "before": "73b213ba6540d32349777ea8efed6af999eb51a6444db6bc8719e437d697017e",
+        "after": "73b213ba6540d32349777ea8efed6af999eb51a6444db6bc8719e437d697017e"
+      },
+      {
+        "file": "chat-4.png",
+        "before": "d787cd7856ad4929e8993d4deebc2c223dcb3b1446c3644ba679b30857cbbcd4",
+        "after": "d787cd7856ad4929e8993d4deebc2c223dcb3b1446c3644ba679b30857cbbcd4"
+      },
+      {
+        "file": "chat.gif",
+        "before": "5c0cd2974cd0da8262a4064d7a09cfc95ccbb4dffad62f2cfbddeeeb948eea70",
+        "after": "5c0cd2974cd0da8262a4064d7a09cfc95ccbb4dffad62f2cfbddeeeb948eea70"
+      },
+      {
+        "file": "documents-0.png",
+        "before": "bd26de8d568a8f458fe45f04a73736de3494fb0af1d5a9d8f50bea5339d3164c",
+        "after": "bd26de8d568a8f458fe45f04a73736de3494fb0af1d5a9d8f50bea5339d3164c"
+      },
+      {
+        "file": "documents-1.png",
+        "before": "37b014b0b02f25c2f434b7b773636d431e3732dc1016be283840d3759969bf9d",
+        "after": "37b014b0b02f25c2f434b7b773636d431e3732dc1016be283840d3759969bf9d"
+      },
+      {
+        "file": "documents-2.png",
+        "before": "bd26de8d568a8f458fe45f04a73736de3494fb0af1d5a9d8f50bea5339d3164c",
+        "after": "bd26de8d568a8f458fe45f04a73736de3494fb0af1d5a9d8f50bea5339d3164c"
+      },
+      {
+        "file": "documents.gif",
+        "before": "1d8a932af6a4cefc9460bae78da2f486fc0fa19ad35b4d07e2e7b0d91d982e37",
+        "after": "1d8a932af6a4cefc9460bae78da2f486fc0fa19ad35b4d07e2e7b0d91d982e37"
+      },
+      {
+        "file": "goals-0.png",
+        "before": "47bddfea4bf9917eea221eeecf6abf800bc778cef974c1a4df4d0ffb399a185c",
+        "after": "47bddfea4bf9917eea221eeecf6abf800bc778cef974c1a4df4d0ffb399a185c"
+      },
+      {
+        "file": "goals-1.png",
+        "before": "907977b505dc6a8fd10f126e1107b141b5b7db35659b434024d3b0fe65163287",
+        "after": "907977b505dc6a8fd10f126e1107b141b5b7db35659b434024d3b0fe65163287"
+      },
+      {
+        "file": "goals-2.png",
+        "before": "47bddfea4bf9917eea221eeecf6abf800bc778cef974c1a4df4d0ffb399a185c",
+        "after": "47bddfea4bf9917eea221eeecf6abf800bc778cef974c1a4df4d0ffb399a185c"
+      },
+      {
+        "file": "goals-3.png",
+        "before": "e0584d7015e77f7e63672fd4d92f7827801d312b17638bb678e24c56bfaf1a1f",
+        "after": "e0584d7015e77f7e63672fd4d92f7827801d312b17638bb678e24c56bfaf1a1f"
+      },
+      {
+        "file": "goals-4.png",
+        "before": "e74d28103cf848c60dbe1fc78e9107b91e2f8abd2705870990f9ab528e5e9c4f",
+        "after": "e74d28103cf848c60dbe1fc78e9107b91e2f8abd2705870990f9ab528e5e9c4f"
+      },
+      {
+        "file": "goals-5.png",
+        "before": "62279a01cd7118ada6c2c7659d44119214d6932557fbf6f6d35c78e7808048b9",
+        "after": "62279a01cd7118ada6c2c7659d44119214d6932557fbf6f6d35c78e7808048b9"
+      },
+      {
+        "file": "goals-6.png",
+        "before": "4547148d83bd18acabc8e70dac6242b5f39ba56dbbefac145f27c99347feb57f",
+        "after": "4547148d83bd18acabc8e70dac6242b5f39ba56dbbefac145f27c99347feb57f"
+      },
+      {
+        "file": "goals-7.png",
+        "before": "62279a01cd7118ada6c2c7659d44119214d6932557fbf6f6d35c78e7808048b9",
+        "after": "62279a01cd7118ada6c2c7659d44119214d6932557fbf6f6d35c78e7808048b9"
+      },
+      {
+        "file": "goals-8.png",
+        "before": "6c0f518415b615ad87404bd421986145f8d91bab0033cd432417cbe63f8344df",
+        "after": "6c0f518415b615ad87404bd421986145f8d91bab0033cd432417cbe63f8344df"
+      },
+      {
+        "file": "goals.gif",
+        "before": "0eba89c796163efa1c56636f5b322ea2410abe05f3a0154746741106758245fe",
+        "after": "0eba89c796163efa1c56636f5b322ea2410abe05f3a0154746741106758245fe"
+      },
+      {
+        "file": "profiles-0.png",
+        "before": "a4708c4a62d2c1bdd74882d25bddbe8a9a59c37446780eb20fbcfef47c20a67b",
+        "after": "a4708c4a62d2c1bdd74882d25bddbe8a9a59c37446780eb20fbcfef47c20a67b"
+      },
+      {
+        "file": "profiles-1.png",
+        "before": "61ac92020aadc7b51d9d4911223cc003dce71833ebd93e641679314bd0249de2",
+        "after": "61ac92020aadc7b51d9d4911223cc003dce71833ebd93e641679314bd0249de2"
+      },
+      {
+        "file": "profiles-2.png",
+        "before": "8ccca4f368fb6cc4328b163cbbc087a4e4c31b46a4b0240f5177858549ce7a4a",
+        "after": "8ccca4f368fb6cc4328b163cbbc087a4e4c31b46a4b0240f5177858549ce7a4a"
+      },
+      {
+        "file": "profiles-3.png",
+        "before": "61ac92020aadc7b51d9d4911223cc003dce71833ebd93e641679314bd0249de2",
+        "after": "61ac92020aadc7b51d9d4911223cc003dce71833ebd93e641679314bd0249de2"
+      },
+      {
+        "file": "profiles.gif",
+        "before": "edc81246ec10ccf82efebdc3f04ee5baca02f5a4eb06a932ee1a51036fa32aad",
+        "after": "edc81246ec10ccf82efebdc3f04ee5baca02f5a4eb06a932ee1a51036fa32aad"
+      },
+      {
+        "file": "settings-0.png",
+        "before": "f7446ea806c115fb063e639056f353fd33fdc6799277df80dcaccad438904010",
+        "after": "f7446ea806c115fb063e639056f353fd33fdc6799277df80dcaccad438904010"
+      },
+      {
+        "file": "settings-1.png",
+        "before": "cfda3f0b4a6b86e92abc0fd9be27315ad09acd411e04a0cd9ce5a287184a0ce5",
+        "after": "cfda3f0b4a6b86e92abc0fd9be27315ad09acd411e04a0cd9ce5a287184a0ce5"
+      },
+      {
+        "file": "settings-2.png",
+        "before": "a09491cea0aae32533062fd10d6786c5726e29963f8d10e8473d72106459f41b",
+        "after": "a09491cea0aae32533062fd10d6786c5726e29963f8d10e8473d72106459f41b"
+      },
+      {
+        "file": "settings-3.png",
+        "before": "369cbf757891e3d5bd8a27ed99c67cb1b1e247f688d17f66f8c430823beb7f34",
+        "after": "369cbf757891e3d5bd8a27ed99c67cb1b1e247f688d17f66f8c430823beb7f34"
+      },
+      {
+        "file": "settings.gif",
+        "before": "d02be401f4b073dddf7badaed4c7437352d3b4614030967a9a174a5a2f7d9140",
+        "after": "d02be401f4b073dddf7badaed4c7437352d3b4614030967a9a174a5a2f7d9140"
+      },
+      {
+        "file": "side-chat-0.png",
+        "before": "6093850236c232bb7cfb6628a83d55298fdba059ba27c8aa41cdb62321159077",
+        "after": "2b170def93a42adb4760f3652b00927a16f62a4d0874153da311c192da5aef0b"
+      },
+      {
+        "file": "side-chat-1.png",
+        "before": "032e800584f90f93d96cbdba8b5004fd3610af21ee8c6ed4f5082247b346e85c",
+        "after": "75d675d1858d4c8c90508f595509d2c143b03d9667b2b2fa6821e16dc7aeb27d"
+      },
+      {
+        "file": "side-chat-2.png",
+        "before": "567f2186f188d4f8c4a1ce13489c836914305fed044a108be4730f4a5a7ac873",
+        "after": "567f2186f188d4f8c4a1ce13489c836914305fed044a108be4730f4a5a7ac873"
+      },
+      {
+        "file": "side-chat-3.png",
+        "before": "1bd8b6f2c9ecfb0015dd13e44ce2be21f899d706b136bb3576a0a68175c0fc9f",
+        "after": "fde834d8834f9fe38f382bd01a0e606c2c67935d2a75e0636fdb5b6343ed4ab6"
+      },
+      {
+        "file": "side-chat.gif",
+        "before": "0b1a945e0cd1f866162ab83c3c1ec2ed46d0db66a8c91e2f2b253ec65aab8979",
+        "after": "0b1a945e0cd1f866162ab83c3c1ec2ed46d0db66a8c91e2f2b253ec65aab8979"
+      },
+      {
+        "file": "workspace-0.png",
+        "before": "919b39e68490c96f490fd783192ab290c4a1a31ed968d87df60799f42f6ca076",
+        "after": "919b39e68490c96f490fd783192ab290c4a1a31ed968d87df60799f42f6ca076"
+      },
+      {
+        "file": "workspace-1.png",
+        "before": "588d128ea7d4a7243b751854aa6e2ddfbc55fd1143883cc722d9ab27127172b1",
+        "after": "588d128ea7d4a7243b751854aa6e2ddfbc55fd1143883cc722d9ab27127172b1"
+      },
+      {
+        "file": "workspace-2.png",
+        "before": "0814c117bc6f338a5fc5bd1181d80e970f43dd44924b91b288380055cf894eec",
+        "after": "0814c117bc6f338a5fc5bd1181d80e970f43dd44924b91b288380055cf894eec"
+      },
+      {
+        "file": "workspace-3.png",
+        "before": "5a6c7ffcac87828b67c7a764549f2aaf5557293290f5cfbc8b64f166b00827a3",
+        "after": "5a6c7ffcac87828b67c7a764549f2aaf5557293290f5cfbc8b64f166b00827a3"
+      },
+      {
+        "file": "workspace-4.png",
+        "before": "0814c117bc6f338a5fc5bd1181d80e970f43dd44924b91b288380055cf894eec",
+        "after": "0814c117bc6f338a5fc5bd1181d80e970f43dd44924b91b288380055cf894eec"
+      },
+      {
+        "file": "workspace.gif",
+        "before": "ab38254487a0e5b76fca29e4c59c90fb27c14fdeb1008140961fd5f7ff744e90",
+        "after": "ab38254487a0e5b76fca29e4c59c90fb27c14fdeb1008140961fd5f7ff744e90"
+      }
+    ],
+    "fixtureChangedPngsReviewed": [
+      "side-chat-0.png",
+      "side-chat-1.png",
+      "side-chat-3.png"
+    ],
+    "fixtureUnchangedStills": 37,
+    "fixtureUnchangedGifs": 8,
+    "fixtureAboveTolerancePixelChange": 0,
+    "fixtureGeometryChange": false,
+    "liveStillsReviewed": 5,
+    "liveGifFramesReviewed": 37,
+    "realProviderTurn": true,
+    "migrationStillsReviewed": 23,
+    "migrationVideoSamplesReviewed": 77,
+    "migrationGifFramesReviewed": 77,
+    "restartVideoSamplesReviewed": 8,
+    "limits": "All new/changed fixture stills visually compared; identical media carries the prior full 40-still/40-GIF-frame review. Minor GIF palette banding around modal shadows retained. No visual regression observed."
+  },
+  "artifactHashes": {
+    "docs/visual/runs/2026-09-23T23-28-38-198Z/manifest.json": "7b5ec8174641b69fd498d73c37cfc26f654c9ebf1f773241e716aee6c8a1622d",
+    "docs/visual/runs/2026-09-23T23-28-38-198Z/comparison.json": "aa82a1dc4eea01a73a92c74b845a5696d1102fce40e42c46eb94e896f0965b1a",
+    "docs/visual/reviews/approval-8abbcc1bd829c0b3de2885fc7af95b6f977883716d4f0776353bcf035eef0e98.json": "8abbcc1bd829c0b3de2885fc7af95b6f977883716d4f0776353bcf035eef0e98",
+    "docs/images/status/history/2026-09-23T23-28-17-371Z.json": "9397ef578fed54d8345f47c9899d7a191392ab0984ed694a1838fef38f129053",
+    "docs/visual/migration/runs/2026-09-23T23-16-54-605Z/manifest.json": "9e9415f6b99b98c3edaec513d46bd272ce714510eec80233d6fc5660066958d7",
+    "docs/visual/migration/runs/2026-09-23T23-16-54-605Z/motion-review.json": "43cf4dd73563ee5295dc78d5705f4f0bb00c9116695c6e8b36e2e959bdedda08",
+    "docs/cycles/evidence/C045/staging-1790205542558.json": "4e0473ceb43c59727bbd4d51a602d148068b10370fab0da54daf456ba4be00bc"
+  },
+  "logs": {
+    "c047-ci-checkpoint.log": "b648fef619e9ee7b45b60596533033a3b87a808b3cc7f4839eed2c15297317e2",
+    "c047-compare.log": "2ffe93e58427bc5eb3b4eeb21e3b8b801d13c88dbe64ea59574b68d5049cbcbd",
+    "c047-desktop.log": "9523ad74394cb38d9d615d873769d585a592d264e7c4a9d3bf53083cf3905d2c",
+    "c047-fixture.log": "9fbcfa14d3bbb9a62afd69e4f4390c2b5176fef16ef4b2cc60ae36d96d2dbdc3",
+    "c047-live-status.log": "f06723c7724d16ea1a484fd2be68caaec69cf928ee671c6ddf71693d8e86eaa1",
+    "c047-migration-unit.log": "64357d6730a5c8bfc8e7a9c211675911d45a88f193a5b745d442f44e1f2e0569",
+    "c047-migration-unit2.log": "8e767de3f46469e53e6ba766e5c3b2521d37e01d39054a49b85a39dd5223400e",
+    "c047-native-editor.log": "ed5aa3ca0d61a48c9e3a62dbc40301019369fdfb8728a2b57b4d7b499e7f8ab4",
+    "c047-native-editor2.log": "c638645f1d4b4defbb4cd1a6de0e37c6f941ea50269b8e4d7a1399821c56e482",
+    "c047-native-editor3.log": "f509c1116e1f2a64db4dc328b6e35c0c784d27da99012d048608b57aca0c5206",
+    "c047-native-editor4.log": "355d1207747547d3e6b42af05082bc21cfa095e78f7222f35a9578afa4dbaec5",
+    "c047-root-verify.log": "9c535fd5297b89b741db9b4301ec265c33b812424c104b5374a09185a61bac5a",
+    "c047-staging-live.log": "c43f8cdc315fe0cf5f1454ae8c943efed68185adfe808ae6f3f3e00d568ed89e",
+    "c047-upstream-docbudgets.log": "5b6b4a61466f43ff58b847b72de802db799a170cf294bcb07368b25a7984e000",
+    "c047-closeout.log": "22ea93f3b2ac93b441e0472645374fe7e6ee7025314a5f426b1ba27e1a55f81a",
+    "c047-upstream-anchors.log": "9b7803bc269ddff9a1f04af68cbdf90c879361c19b6e361fe95f8018fd7bca33"
+  },
+  "limitations": [
+    "Legacy remains authoritative. No real library was accessed or migrated.",
+    "Deep headings/custom numbering, unsupported structures, internal references/media, activation and rollback remain open.",
+    "Upstream draft PR is stacked and unmerged; G1/G2 and unrelated upstream workflow/SDK/security failures remain separate gates.",
+    "Native list Shift+Enter still needs dedicated browser proof."
+  ]
+}

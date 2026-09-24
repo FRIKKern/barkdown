@@ -13,7 +13,7 @@ Write, ask, revise, and keep going in one desktop workspace. Barkdown pairs Bark
 
 **Working desktop prototype · Windows runtime first · Powered by Barkpark**
 
-![The real Barkdown desktop: a conversation beside an editable Barkpark paper.](docs/images/status/paper-light.a801b641.png)
+![The real Barkdown desktop: a conversation beside an editable Barkpark paper.](docs/images/status/paper-light.09676a22.png)
 
 ## Think in notes. Work in conversations.
 
@@ -25,15 +25,15 @@ Write, ask, revise, and keep going in one desktop workspace. Barkdown pairs Bark
 <details>
 <summary><strong>See the editor in motion and explore the desktop</strong></summary>
 
-![Real editing: insert a quote, type, move through table cells, and use quick open.](docs/images/status/editing.34ec1792.gif)
+![Real editing: insert a quote, type, move through table cells, and use quick open.](docs/images/status/editing.afac02fc.gif)
 
-![Barkdown in dark mode.](docs/images/status/paper-dark.e1494dc2.png)
+![Barkdown in dark mode.](docs/images/status/paper-dark.3a7e9704.png)
 
-![Paper slash menu.](docs/images/status/slash-menu.547fe3c1.png)
+![Paper slash menu.](docs/images/status/slash-menu.e1ba7c66.png)
 
-![Quick open across the workspace.](docs/images/status/quick-open.77f972f3.png)
+![Quick open across the workspace.](docs/images/status/quick-open.479112de.png)
 
-![Barkpark connection settings.](docs/images/status/settings-barkpark.e1c0b124.png)
+![Barkpark connection settings.](docs/images/status/settings-barkpark.3f629a49.png)
 
 These are captures of the running app, not mockups. [Capture provenance](docs/images/status/manifest.json) records the source commits and whether the assistant turn was live. The typographic banner above is repository artwork.
 
@@ -45,9 +45,9 @@ These are captures of the running app, not mockups. [Capture provenance](docs/im
 
 | Today | Next | After that |
 |---|---|---|
-| Working Paper editor, agent conversations and a managed Windows source runtime | Profile isolation, safe migration of every note to Paper, recovery and portability | Optional two-way sync and installation without a developer toolchain |
+| Working Paper editor, agent conversations and accepted profile isolation on the managed Windows source runtime | Safe migration of every note to Paper, recovery and portability | Optional two-way sync and installation without a developer toolchain |
 
-**P1: profile ownership and isolation remains active.** The integrated app has opt-in profiles, captured agent ownership, saved goal workers, explicit same-machine library adoption and tested recovery journeys. The next boundary is provider authentication: device login and environment keys must be distinguished from profile-owned credentials. Local notes retain a separate editor/store; migrating every note to Paper, portability and cloud sync remain pending. The managed runtime requires a built Barkpark checkout; upstream integration and release gates remain separate.
+**P1 profile isolation is accepted; P2 Paper migration is active.** The integrated Windows source prototype has profiles, captured agent ownership, saved goal workers, explicit same-machine library adoption and tested authentication/recovery boundaries. [C043](docs/cycles/C043-migration-preflight.md) adds strict preflight and exact-byte backups; [C045](docs/cycles/C045-migration-staging.md) adds durable staging and interrupted-write reconciliation on disposable notes. [C048](docs/cycles/C048-quotes-nested-lists.md) extends native Paper proof to 21 supported cases: rich headings and quotes, aligned paragraphs, nested lists/checklists and inline line breaks survive editing, acknowledged save, exact Undo and restart. [C049](docs/cycles/C049-internal-references.md) now preserves profile-qualified internal references through native editing, previews, navigation and interrupted staging in two isolated profiles. [C050](docs/cycles/C050-owned-images.md) adds bounded owned PNG upload recovery and native image editing/Undo/restart proof. [C051](docs/cycles/C051-backup-restore.md) proves exact retained-backup restore and continued legacy editing; [C052](docs/cycles/C052-native-source-shapes.md) proves ordinary native-saved link/list defaults through Paper editing and restart. Other media and activation remain open. These modules are not connected to a migration UI and do not switch library authority. Local notes retain their separate editor/store until real Paper comparison and rollback are proven. Portability and cloud sync remain pending. The managed runtime requires a built Barkpark checkout; upstream integration and release gates remain separate.
 
 [Combined checkpoint and remaining checks](docs/cycles/C008-integration.md) · [Rich editor video and screenshots](docs/visual/rich-takeover/README.md) · [Actual library adoption](docs/visual/adoption/runs/2026-09-22T00-21-07-265Z/README.md) · [Workspace recovery](docs/visual/workspace-recovery/README.md)
 

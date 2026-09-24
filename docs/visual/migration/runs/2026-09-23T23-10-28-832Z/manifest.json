@@ -1,0 +1,175 @@
+{
+  "capturedAt": "2026-09-23T23:11:14.897Z",
+  "barkdownCommit": "e4cb5e7edb3614c630fe0bf60267238107812bfa",
+  "barkparkCommit": "8d48ae6613917259f4376b061d603a6e37043c28",
+  "isolatedRuntime": true,
+  "editorBundle": {
+    "source": "server",
+    "server": "http://127.0.0.1:64410",
+    "version": "0.2.26.3938",
+    "sha": "d5fe523117527ebd29b66ff42915bb42b1036f3a",
+    "cssSha": "38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "folder": "d5fe523117527ebd29b66ff42915bb42b1036f3a-38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "fetchedAt": "2026-09-23T23:10:39.656Z"
+  },
+  "cases": [
+    {
+      "case": "plain-unicode",
+      "beforeRev": 1,
+      "editedRev": 2,
+      "undoneRev": 3
+    },
+    {
+      "case": "nested-marks",
+      "beforeRev": 3,
+      "editedRev": 4,
+      "undoneRev": 5
+    },
+    {
+      "case": "underline",
+      "beforeRev": 5,
+      "editedRev": 6,
+      "undoneRev": 7
+    },
+    {
+      "case": "strike-code",
+      "beforeRev": 7,
+      "editedRev": 8,
+      "undoneRev": 9
+    },
+    {
+      "case": "external-link",
+      "beforeRev": 9,
+      "editedRev": 10,
+      "undoneRev": 11
+    },
+    {
+      "case": "hard-break",
+      "beforeRev": 11,
+      "editedRev": 12,
+      "undoneRev": 13,
+      "breakInsertedRev": 14,
+      "breakUndoneRev": 15
+    },
+    {
+      "case": "heading-plain",
+      "beforeRev": 15,
+      "editedRev": 16,
+      "undoneRev": 17
+    },
+    {
+      "case": "heading-rich-external",
+      "beforeRev": 17,
+      "editedRev": 18,
+      "undoneRev": 19
+    },
+    {
+      "case": "heading-aligned",
+      "beforeRev": 19,
+      "editedRev": 20,
+      "undoneRev": 21
+    },
+    {
+      "case": "heading-break",
+      "beforeRev": 21,
+      "editedRev": 22,
+      "undoneRev": 23
+    },
+    {
+      "case": "paragraph-alignment",
+      "beforeRev": 23,
+      "editedRev": 24,
+      "undoneRev": 25
+    },
+    {
+      "case": "paragraph-right",
+      "beforeRev": 25,
+      "editedRev": 26,
+      "undoneRev": 27
+    },
+    {
+      "case": "paragraph-literal-break",
+      "beforeRev": 27,
+      "editedRev": 28,
+      "undoneRev": 29
+    },
+    {
+      "case": "checklist",
+      "beforeRev": 29,
+      "editedRev": 30,
+      "undoneRev": 31
+    },
+    {
+      "case": "code-language",
+      "beforeRev": 31,
+      "editedRev": 32,
+      "undoneRev": 33
+    },
+    {
+      "case": "table-header-align",
+      "beforeRev": 33,
+      "editedRev": 34,
+      "undoneRev": 35
+    }
+  ],
+  "frames": [
+    "01-staged-original.png",
+    "edit-plain-unicode.png",
+    "edit-nested-marks.png",
+    "edit-underline.png",
+    "edit-strike-code.png",
+    "edit-external-link.png",
+    "edit-hard-break.png",
+    "native-break-inserted.png",
+    "edit-heading-plain.png",
+    "edit-heading-rich-external.png",
+    "edit-heading-aligned.png",
+    "edit-heading-break.png",
+    "edit-paragraph-alignment.png",
+    "edit-paragraph-right.png",
+    "edit-paragraph-literal-break.png",
+    "edit-checklist.png",
+    "edit-code-language.png",
+    "edit-table-header-align.png",
+    "02-all-undo-saved.png",
+    "03-reloaded.png",
+    "04-narrow.png",
+    "05-restarted.png"
+  ],
+  "artifacts": {
+    "01-staged-original.png": "c5fbc9a409379496b2c23acdfefcf322e8382f49078ea9db62f104b7d925a557",
+    "02-all-undo-saved.png": "1caaf447e7656275e44c4d5e5364d51572d5faf7183172d2974373c7e3cde3c6",
+    "03-reloaded.png": "9af5dadfc3856b7680c636c6070668e26ada7f058f1785d56c9f7dba24392886",
+    "04-narrow.png": "58179e807f11167d348d92826e55ed9c1dde22d480ec0865570de5fdbf1bd714",
+    "05-restarted.png": "8afaa552a9a1ac94c19ccc4003fbc0c2dcbac44dd78ba664290dd942d0efb678",
+    "edit-checklist.png": "ca9e8d754bc36c34a1f9731046e57f74e4299c489ae3efbe6eef6b4d4cf46dfa",
+    "edit-code-language.png": "1542a51d4ddfdca6609cbe317573b50a859797621c119f33273efb312b15dbac",
+    "edit-external-link.png": "4e0dc14420fc8d9bb10a9b1683b6f3e154b71bcd0c80c0ccc1a489c3c18d9fa1",
+    "edit-hard-break.png": "e131bffc131a9efe0d0af9f9f5c36bf59424d7e5577a7be85abe9091949c6fb2",
+    "edit-heading-aligned.png": "80544b479fd6e65b027b31f51b7ee92215b12120f631c15435ace4c9717f7f08",
+    "edit-heading-break.png": "0c53c7d48979465eebf39e84abe86838628c30d24c768b38408a049a7368c9a5",
+    "edit-heading-plain.png": "065477f1f35187678f1d287f20b2cd44ae6cb9c35cfcfeb04a15d3f82ce4e03f",
+    "edit-heading-rich-external.png": "0b50807ca3442498501875fc9a69a44f47342ccf8f10e3063fc6b75150b15942",
+    "edit-nested-marks.png": "1c82e48c62f41fb0508a0223b07a311998d3ad3d895e67e73f92e891367004ef",
+    "edit-paragraph-alignment.png": "41b2ffc4ee19f3e924fc5502d684370006747924192346ad47df58e0347d734c",
+    "edit-paragraph-literal-break.png": "e54a9917e8a5865ba45fd6940862df8a04447dbd8d8c7953af66a1ad3f0f4def",
+    "edit-paragraph-right.png": "81e9d097b62d8d95b0632767a9602491c83a45af642da9294b355f9eb83332ff",
+    "edit-plain-unicode.png": "dc7106aa9759d63df32167134bfc570e0a14e3a78239ff56237bfdf4671069f6",
+    "edit-strike-code.png": "9df01a89077082e8e33627ee3ef1bb4052ce857b8347e70a324883fa13ed271b",
+    "edit-table-header-align.png": "934eaf86663286ea7941aa0f8630ed2c29f52c955eb0c9f041e10a596f2bdd68",
+    "edit-underline.png": "3e56e63b9f3a633358f7aee66941e8812fc7bc65b0804ec83288adc019633147",
+    "editing-and-undo.webm": "c1310126660f3c57d338e5cf4e8b48a59f9c0a6002a2da7b1faecdd4fc481735",
+    "geometry.json": "0dfa9e6b4082e3a84b4fb38bb21ce54532d28c9086ec713609c9aa0dd655fcd2",
+    "native-break-inserted.png": "a41194ae82f0804f91d1c804a380d59d0c66bfb6fcc969546b1e125d0a5cc1dc",
+    "restart.webm": "5dc042d76fc35c310a105a8db98fb3ee2122c5c488c845642a41c417dc9e8442",
+    "server.json": "5eef73fe57ff32eaa2589be382306326b9fdf8be3959f3c5bb68ad2e5efa80d1"
+  },
+  "authority": "legacy",
+  "motion": "Real keyboard editing and native Paper history with acknowledged private server writes; actual Electron video, no model turn.",
+  "limits": [
+    "No navigation activation or real-library migration",
+    "Ten structured corpus cases; media and internal references remain separate gates",
+    "Clean Electron restart, not database/power loss",
+    "Legacy edit receipts remain legacy; staging refuses later revisions even after Undo restores content"
+  ]
+}

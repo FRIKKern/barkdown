@@ -1,0 +1,38 @@
+{
+  "capturedAt": "2026-09-24T00:41:01.408Z",
+  "barkdownCommit": "fc1c4716b59c4bc497c258945594873efb002ade",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "profile": "Orchard",
+  "profileId": "7af56ed2-b673-4cc1-9042-cbf84a4bd85b",
+  "sourceIds": {
+    "origin": "local-7bb4575604822c85ecd81c63c152c42a",
+    "z-destination": "local-bf645357a663f72ffd4baf2c9ee6bd6e"
+  },
+  "editorBundle": {
+    "source": "server",
+    "server": "http://127.0.0.1:52333",
+    "version": "0.2.26.3938",
+    "sha": "b5004305fd3b99700457c3602b53003561f619c4",
+    "cssSha": "38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "folder": "b5004305fd3b99700457c3602b53003561f619c4-38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "fetchedAt": "2026-09-24T00:40:15.270Z"
+  },
+  "cases": [],
+  "frames": [
+    "01-staged-linked-library.png"
+  ],
+  "artifacts": {
+    "01-staged-linked-library.png": "cdd23e69265ed769e518d85a15a49f3bb70db58f688e999d2df88695681f25f8",
+    "failure-state.json": "d4d27ece7037a049a13fa2958013ba85a9ee8ba26da2b0fbe08455f15c6ef651",
+    "failure.png": "da5bd8f2f143bfdfca73f85e206220cca53ced349cd3524871f320c20f7516ea",
+    "failure.txt": "38095f46e4a44907afb43b3845acb3cb4626a5ebccb1cce00dafe2f24af6ee50",
+    "restart-or-failure.webm": "16856a7c1ea4c4ac97dd61fd6c5767caf02d7f0b693864d42a9f3378609ad436"
+  },
+  "authority": "legacy",
+  "limits": [
+    "Disposable library only; paired isolated runs prove same-title cross-profile separation; no real-library activation",
+    "Native references preserve links to current content; history/receipts remain legacy",
+    "Clean Electron restart and process-exit recovery, not database power loss"
+  ]
+}

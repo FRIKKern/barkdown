@@ -76,6 +76,32 @@ await test('a cold bundle resolves before committing destination identity or mou
   bundle.resolve({});await tick();
   try {assert.equal(m.canvas().blocks[0].id,'B-p');assert.equal(m.tab.title,'B');} finally {m.close();}
 });
+await test('document targets reuse only tabs with the same explicit source', async () => {
+  const find = new Function(functionSource('function findTabForTarget(', '// Open (or reuse)') + '; return findTabForTarget;')();
+  const local={type:'doc',path:['A']},cloud={type:'doc',source:'barkpark',path:['A','B']};
+  const chat={tabs:[local,cloud]};
+  assert.equal(find(chat,{kind:'doc',id:'A'}),local);
+  assert.equal(find(chat,{kind:'doc',id:'A',source:'barkpark'}),cloud);
+  assert.equal(find({tabs:[local]},{kind:'doc',id:'A',source:'barkpark'}),undefined);
+});
+await test('opening an earlier target in a mounted Paper path changes the actual canvas', async () => {
+  transport={get:async id=>paper(id)};
+  const m=mount({path:['A','B']});await tick();await tick();
+  try {
+    assert.equal(m.canvas().blocks[0].id,'B-p');
+    normalTabNavigation(m,'openTarget');await tick();await tick();
+    assert.deepEqual(m.tab.path,['A']);assert.equal(m.canvas().blocks[0].id,'A-p');
+  } finally {m.close();}
+});
+await test('opening an earlier target retains the current Paper when native changes are pending', async () => {
+  transport={get:async id=>paper(id)};
+  const m=mount({path:['A','B']});await tick();await tick();
+  try {
+    m.canvas().pending=true;normalTabNavigation(m,'openTarget');await tick();
+    assert.deepEqual(m.tab.path,['A','B']);assert.equal(m.canvas().blocks[0].id,'B-p');assert.equal(m.canvas().pending,true);
+  } finally {m.close();}
+});
+
 await test('an external edit during the first paper load is refreshed after mounting', async () => {
   const first = deferred(); let gets = 0;
   transport = { get: async id => ++gets === 1 ? first.promise : paper(id, 2) };
@@ -230,6 +256,18 @@ await test('a chained acknowledgement cannot clear the next batch save guard', a
   m.host.querySelector('[title="Reload from server"]').click(); await tick();
   try { assert.equal(m.canvas(),canvas); assert.equal(m.controller.isDirty(),true); }
   finally { second.resolve({rev:3}); await tick(); m.close(); }
+});
+await test('wrapped titles retain single-line input and Enter respects composition', async () => {
+  transport={get:async id=>paper(id),patchTitle:async()=>{}};
+  const m=mount(); await tick(); const title=m.host.querySelector('#title');
+  try {
+    title.value='A\nlong\rtitle';title.setSelectionRange(11,11);title.oninput();
+    assert.equal(title.value,'Alongtitle');assert.equal(m.controller.isDirty(),true);
+    title.focus(); const composing=new dom.window.KeyboardEvent('keydown',{key:'Enter',isComposing:true,cancelable:true});title.dispatchEvent(composing);
+    assert.equal(composing.defaultPrevented,false);assert.equal(document.activeElement,title);
+    const enter=new dom.window.KeyboardEvent('keydown',{key:'Enter',cancelable:true});title.dispatchEvent(enter);
+    assert.equal(enter.defaultPrevented,true);assert.notEqual(document.activeElement,title);
+  } finally { m.close(); }
 });
 await test('pending title save prevents navigation and remains owned by its paper', async () => {
   const save = deferred(); const writes=[];

@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "id": "C052",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Migrate the audited defaults actually persisted by Barkdown legacy editors without discarding custom link/list semantics.",
+  "scope": [
+    "Accept only schema-audited default link attributes and null ordered-list type; preserve exact source/backup.",
+    "Use actual Tiptap schema and native Electron save output, not only hand-authored JSON.",
+    "Prove parser-created and native-saved content through real Paper typing/save/Undo/reload/restart, links and list structure.",
+    "Keep custom values, unknown metadata, unsupported structures and authority activation blocked."
+  ],
+  "acceptance": [
+    "Actual local editor/Markdown default shapes pass preflight without mutation; custom target/rel/class/title/list type still refuse before writes.",
+    "Native saved source JSON and immutable backup agree, target structured content and references match the reviewed mapping.",
+    "Real Paper typing/save/exact Undo and restart preserve eligible native defaults and original source remains exact.",
+    "Relevant/full desktop/root tests and actual native/standard visual inspection with explicit approval pass."
+  ],
+  "checkpoint": "2026-09-24",
+  "handoff": "docs/cycles/C052-native-source-shapes.md",
+  "nextAction": "Plan C053 exact workspace-navigation projection with ambiguity refusals; preserve legacy authority and opaque history.",
+  "evidence": [
+    "docs/cycles/evidence/C052/results.json",
+    "docs/visual/migration/runs/2026-09-24T02-41-48-208Z/manifest.json",
+    "docs/visual/reviews/approval-58b08f0a7c8996556600972d34e49f5c139839c0f9c19dab495ff9c6a82a9e43.json"
+  ],
+  "truthReview": "75 migration checks, native source-to-Paper rehearsal, full desktop/root and reviewed standard/native visual evidence pass. Repository inventory/limits retained in C052 results.",
+  "screenshotReview": "Three changed side-chat stills and four decoded side-chat GIF frames inspected; other37stills/sevenGIFs byte-identical to reviewed C051. Only1/255 RGB shadows; zero thresholded pixel/geometry/environment changes. Native14stills/11source/38Paper/7restart samples/38GIFframes and live5stills/37GIFframes inspected."
+}

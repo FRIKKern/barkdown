@@ -1,0 +1,42 @@
+{
+  "recordedAt": "2026-09-24T02:15:11.286722+00:00",
+  "barkdown": {
+    "sourceCheckpoint": "02e938bc7b36761bca1707e1a5f8eed8616c11ae",
+    "localBranches": "codex/p2-migration 02e938bc7b36761bca1707e1a5f8eed8616c11ae\nmain 136a4592809f57d31070b82486a17219db3bb9a2",
+    "remoteHeads": "fef4d664be079ce28b0a441da3c003882e6d5b92\trefs/heads/codex/p2-migration\n136a4592809f57d31070b82486a17219db3bb9a2\trefs/heads/main",
+    "registeredWorktrees": 46,
+    "retiredLockedWorktrees": 43,
+    "pr": {
+      "baseRefName": "main",
+      "headRefOid": "fef4d664be079ce28b0a441da3c003882e6d5b92",
+      "isDraft": true,
+      "state": "OPEN",
+      "url": "https://github.com/FRIKKern/barkdown/pull/32"
+    }
+  },
+  "barkpark": {
+    "ownedRemoteHeadsAndMain": "a5440345caa413087ac6488cac67f19fce58fa0f\trefs/heads/barkdown/editor-quality\nbf23f773ce59ef148a6e6eeb1374f64d9e2aa81f\trefs/heads/codex/canvas-block-identity\n30c007e43a74f899bd1b1310e6165eb50fc3eb86\trefs/heads/codex/paper-create-only\n6b5b53fc0f1e2080de4d2584a4a4862f47af1dd5\trefs/heads/main",
+    "worktreeClean": true,
+    "pr": {
+      "baseRefName": "codex/canvas-block-identity",
+      "headRefOid": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+      "isDraft": true,
+      "state": "OPEN",
+      "url": "https://github.com/FRIKKern/barkpark/pull/20020"
+    }
+  },
+  "claims": {
+    "renewedAt": "2026-09-24T02:00:27Z",
+    "expiresAt": "2026-09-24T02:45:27Z",
+    "inlineBreak": 11,
+    "createOnly": 17,
+    "nestedChecklist": 6
+  },
+  "cleanup": "Main plus one Barkdown delivery lane; three owned upstream lanes. Retired locked worktrees, unique histories and evidence remain recoverable. No merge/deploy or other contributor checkout changes. Review again at next cycle closeout.",
+  "truthReview": [
+    "README/app guide architecture retain legacy/Paper distinction; no activation or portability claim.",
+    "Migration README rewritten to one current implemented contract and remaining activation gates; historical evidence stays linked.",
+    "PLAN/queue/A2 unchanged; C051 is a bounded rollback prerequisite, not completed P2.",
+    "Fresh C050 Linux parity20/20 supplements historical19/20 failure; upstream gates remain separate."
+  ]
+}

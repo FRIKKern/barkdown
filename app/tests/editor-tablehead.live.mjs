@@ -15,7 +15,9 @@ publishFixture({ slug: SLUG, title: 'Row headers and aligned cells', description
   para('A table:'),
   { type: 'table', head: [t('Item'), t('Qty'), t('Price')], rows: [[t('Apple'), t('3'), t('1.20')], [t('Pear'), t('5'), t('0.90')]] },
 ] });
-const server = (JSON.parse(execFileSync('bp', ['use', '-o', 'json'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], shell: true })).active || {}).server || 'http://localhost:4000';
+// Match the CLI request override used by the isolated runtime. `bp use` reports
+// saved configuration, which can point the reader check at another server.
+const server = process.env.BARKPARK_API_URL || (JSON.parse(execFileSync('bp', ['use', '-o', 'json'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], shell: true })).active || {}).server || 'http://localhost:4000';
 const base = server.replace(/\/$/, '');
 
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-tablehead-'));
@@ -30,7 +32,24 @@ const open = async () => { await page.evaluate(slug => window.__barkdown.openTar
 await open();
 
 const results = [];
-const row = async (name, fn) => { try { const r = await fn(); results.push({ name, pass: !!r.pass, ...r }); } catch (e) { results.push({ name, pass: false, error: e.message.slice(0, 240) }); } };
+const row = async (name, fn) => {
+  try { const r = await fn(); results.push({ name, pass: !!r.pass, ...r }); }
+  catch (e) {
+    const failureImage = `test-results/tablehead-failure-${results.length}.png`;
+    await page.screenshot({ path: failureImage });
+    const state = await page.evaluate(() => {
+      const canvas = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas');
+      return { focused: document.hasFocus(), active: document.activeElement?.tagName,
+        selection: canvas?._editor?.state.selection.toJSON(),
+        buttons: [...document.querySelectorAll('.bp-paper-format__btn--align-left')].map(b => {
+          const r=b.getBoundingClientRect(), hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);
+          return { display:getComputedStyle(b).display, rect:{x:r.x,y:r.y,width:r.width,height:r.height},
+            bubbleDisplay:getComputedStyle(b.parentElement).display, hit:hit?.outerHTML.slice(0,600) };
+        }) };
+    });
+    results.push({ name, pass: false, error: e.message, failureImage, state });
+  }
+};
 const settled = async () => { await page.waitForFunction(() => !/Saving/.test(document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent || ''), null, { timeout: 20000 }).catch(() => {}); await page.waitForTimeout(400); };
 const canon = v => Array.isArray(v) ? v.map(canon) : (v && typeof v === 'object') ? Object.fromEntries(Object.keys(v).sort().map(k => [k, canon(v[k])])) : v;
 const same = (a, b) => JSON.stringify(canon(a)) === JSON.stringify(canon(b));
@@ -39,12 +58,28 @@ const pm = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirr
 const domGrid = () => page.evaluate(() => Array.from(document.querySelectorAll('.bw-paper-pane:not([hidden]) bp-paper-canvas table.bp-table tr')).map(tr => Array.from(tr.cells).map(c => [c.tagName.toLowerCase() + (c.getAttribute('scope') ? '[' + c.getAttribute('scope') + ']' : ''), c.textContent, c.style.textAlign || null])));
 const serverTable = () => { const b = getPaper(SLUG).blocks.find(x => x.type === 'table'); return { headCol: b.headCol ?? null, rows: b.rows }; };
 const waitServer = async pred => { for (let i = 0; i < 20; i++) { const s = serverTable(); if (pred(s)) return s; await page.waitForTimeout(1000); } return serverTable(); };
-const clickCell = async (rowIndex, cellIndex) => { const cell = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas table.bp-table tr').nth(rowIndex).locator('td, th').nth(cellIndex); await cell.click(); await page.evaluate(([r, c]) => { const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor; let target = null; ed.state.doc.descendants((node, pos) => { if (target) return false; if (node.type.name === 'bpTable') { let ri = 0; node.forEach((rowNode, rowOff) => { let ci = 0; rowNode.forEach((cellNode, cellOff) => { if (ri === r && ci === c) target = pos + 1 + rowOff + 1 + cellOff + 1 + cellNode.content.size; ci++; }); ri++; }); return false; } }); if (target != null) { ed.commands.setTextSelection({ from: target - 1, to: target }); ed.commands.focus(); } }, [rowIndex, cellIndex]); await page.waitForTimeout(300); };
+// Use the keyboard selection a person makes. An immediate synthetic PM
+// selection after pointerup can be replaced by Chromium's queued DOM selection
+// change (observed on Linux), leaving a caret and correctly hidden toolbar.
+const clickCell = async (rowIndex, cellIndex, selectText = true) => {
+  const cell = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas table.bp-table tr').nth(rowIndex).locator('td, th').nth(cellIndex);
+  await cell.click();
+  // Table chrome works at a caret; only the formatting bubble needs selected text.
+  if (!selectText) return;
+  await page.keyboard.press('Home');
+  await page.keyboard.press('Shift+End');
+  const expected = await cell.textContent();
+  await page.waitForFunction(text => {
+    const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor;
+    const { from, to } = ed.state.selection;
+    return from < to && ed.state.doc.textBetween(from, to) === text;
+  }, expected);
+};
 const chromeBtn = async name => { const d = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas details:has(summary:has-text("Configure table"))').first(); if (!(await d.evaluate(el => el.open).catch(() => false))) await d.locator('summary').click(); return page.locator(`.bw-paper-pane:not([hidden]) bp-paper-canvas [data-table-action="${name}"]`).first(); };
 const readerRows = async () => { const html = await (await fetch(`${base}/papers/${SLUG}`)).text(); const table = /<table[^>]*class="bp-table"[\s\S]*?<\/table>/.exec(html)?.[0] || ''; return [...table.matchAll(/<tr>([\s\S]*?)<\/tr>/g)].map(m => [...m[1].matchAll(/<(t[dh])([^>]*)>([\s\S]*?)<\/t[dh]>/g)].map(x => [x[1] + (/scope="row"/.test(x[2]) ? '[row]' : ''), x[3].replace(/<[^>]+>/g, ''), /text-align:(\w+)/.exec(x[2])?.[1] || null])); };
 
 await row('the chrome\'s header-column toggle makes each body row\'s first cell a row header; the server holds headCol: true', async () => {
-  await clickCell(1, 0);
+  await clickCell(1, 0, false);
   await (await chromeBtn('toggleHeadCol')).click();
   await settled();
   const g = await domGrid();
@@ -84,7 +119,7 @@ await row('centre the Price cell, reload: header column and alignment come back 
   return { pass: same(before, after) && after[2][2][2] === 'center' && after[1][0][0] === 'th[row]', before, after };
 });
 await row('toggling the header column off lands as headCol: false; the cells are plain <td> again', async () => {
-  await clickCell(1, 0);
+  await clickCell(1, 0, false);
   await (await chromeBtn('toggleHeadCol')).click();
   await settled();
   const g = await domGrid();
