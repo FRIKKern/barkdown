@@ -40,7 +40,7 @@ Use your Claude Code or Codex login, or an API key in Settings. Paper needs a co
 
 We believe agent chat apps are settling into a standard that’s hard to beat: a left sidebar, a chat and a browser.
 
-**The shared browser is the heart of the app.** It brings websites, documents, files and tools into one place where people and agents can work on the same things. We can discuss an idea, try it out and see the result together, with the conversation right beside the work.
+**The chat and shared browser together are the heart of the app.** People and agents can talk while working with the same websites, documents, files and tools. We can discuss an idea, try it out and see the result together, with the conversation right beside the work.
 
 We want to see each other at work: cursors moving, text being selected, an idea taking shape. Those movements should help us read each other’s intentions and bring clarity and joy to working together.
 
