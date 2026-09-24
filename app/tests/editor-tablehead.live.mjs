@@ -15,7 +15,9 @@ publishFixture({ slug: SLUG, title: 'Row headers and aligned cells', description
   para('A table:'),
   { type: 'table', head: [t('Item'), t('Qty'), t('Price')], rows: [[t('Apple'), t('3'), t('1.20')], [t('Pear'), t('5'), t('0.90')]] },
 ] });
-const server = (JSON.parse(execFileSync('bp', ['use', '-o', 'json'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], shell: true })).active || {}).server || 'http://localhost:4000';
+// Match the CLI request override used by the isolated runtime. `bp use` reports
+// saved configuration, which can point the reader check at another server.
+const server = process.env.BARKPARK_API_URL || (JSON.parse(execFileSync('bp', ['use', '-o', 'json'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], shell: true })).active || {}).server || 'http://localhost:4000';
 const base = server.replace(/\/$/, '');
 
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-tablehead-'));
