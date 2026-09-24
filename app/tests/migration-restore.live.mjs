@@ -75,9 +75,9 @@ try{
   const editor=pane().locator('.ProseMirror');await editor.click();await page.keyboard.press('Control+End');await page.keyboard.type(' A human continued writing after recovery.',{delay:35});
   await page.waitForFunction(()=>document.querySelector('.bw-doc-pane:not([hidden]) #save-state')?.textContent.includes('Saved · rev 3'));
   const edited=await page.evaluate(id=>window.barkdown.docs.get(id),first.id);assert.equal(edited.rev,3);assert.match(edited.text,/human continued writing/);assert.equal(edited.proposals[0].id,proposal.id);await shot('03-native-save');
-  await pane().locator('[data-restore="1"]').click();await page.waitForFunction(()=>document.querySelector('.bw-doc-pane:not([hidden]) #save-state')?.textContent.includes('Restored · rev 4'));
+  await pane().locator('[data-restore="1"]').click();await page.waitForFunction(()=>document.querySelector('.bw-doc-pane:not([hidden]) #save-state')?.textContent.match(/^(?:Saved|Restored) · rev 4$/));
   assert.match(await editor.innerText(),/first version remains readable/);await shot('04-native-history-restore');
-  await pane().locator('[data-restore="3"]').click();await page.waitForFunction(()=>document.querySelector('.bw-doc-pane:not([hidden]) #save-state')?.textContent.includes('Restored · rev 5'));
+  await pane().locator('[data-restore="3"]').click();await page.waitForFunction(()=>document.querySelector('.bw-doc-pane:not([hidden]) #save-state')?.textContent.match(/^(?:Saved|Restored) · rev 5$/));
   assert.match(await editor.innerText(),/human continued writing/);await shot('05-return-to-human-version');
   await page.setViewportSize({width:760,height:900});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await shot('06-narrow');
   await close('restored-profile-editing');await launch();await checkWorkspace();await pane().locator('.ProseMirror').waitFor();
