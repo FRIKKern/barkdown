@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "id": "C049",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Preserve profile-qualified internal note links through staged Paper migration and native navigation.",
+  "scope": [
+    "Resolve only canonical legacy document links against the complete captured source profile before any target write",
+    "Convert resolved links to native ID-pinned wikilinks, preserving visible text/marks and deterministic target identities",
+    "Prove cyclic/forward links, missing-target refusal, two-profile isolation, interrupted staging, native edit/Undo/restart and link navigation/backlinks",
+    "Keep real-library activation, media migration and legacy retirement excluded"
+  ],
+  "acceptance": [
+    "Missing/malformed/foreign-profile references refuse the whole batch before writes; source and backups remain exact",
+    "Native target IDs remain stable within a profile and differ across profiles with the same source slugs",
+    "Actual Paper save/Undo/reload/restart retains linked text/marks and navigation reaches the intended target",
+    "Server backlinks and interrupted resume agree with the staged graph without duplicate notes",
+    "Relevant tests, root verification and reviewed dedicated plus standard screenshot/GIF evidence pass"
+  ],
+  "checkpoint": "2026-09-24",
+  "handoff": "docs/cycles/C049-internal-references.md",
+  "nextAction": "Push C049 evidence, inspect fresh Linux parity, archive this cycle and plan bounded owned-image staging/recovery.",
+  "evidence": [
+    "docs/cycles/evidence/C049/results.json",
+    "docs/cycles/evidence/C049/paired-profiles.json",
+    "docs/cycles/evidence/C049/repository-truth.json"
+  ],
+  "truthReview": "Reviewed roadmap, README/app guide, handoff, validation, migration contract, product decisions and acceptance. A2 remains open; controlled owned branches and recoverable retired worktrees inventoried. No real-library activation or upstream merge.",
+  "screenshotReview": "Dedicated paired native stills/motion, fresh real-provider live status and unchanged fixture tour inspected. Explicit visual approval 56030e542634e0f7cb1a86a895945251ab9662b94a909da69ab6b8e29642b51e. Root verification and full desktop pass."
+}

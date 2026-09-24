@@ -1,30 +1,28 @@
 {
   "version": 1,
-  "id": "C049",
+  "id": "C050",
   "stage": "P2",
-  "status": "done",
-  "goal": "Preserve profile-qualified internal note links through staged Paper migration and native navigation.",
+  "status": "active",
+  "goal": "Stage owned local PNG images with exact byte verification and conservative interrupted-upload reconciliation before native Paper editing.",
   "scope": [
-    "Resolve only canonical legacy document links against the complete captured source profile before any target write",
-    "Convert resolved links to native ID-pinned wikilinks, preserving visible text/marks and deterministic target identities",
-    "Prove cyclic/forward links, missing-target refusal, two-profile isolation, interrupted staging, native edit/Undo/restart and link navigation/backlinks",
-    "Keep real-library activation, media migration and legacy retirement excluded"
+    "Accept only reviewed top-level images resolving to captured same-profile attachment files; preserve original bytes and image alt/dimensions",
+    "Persist a unique upload attempt before multipart POST; reconcile only a single exact owned filename and verified bytes through audited media APIs",
+    "Prove normal and post-commit interrupted upload, repeat without duplicates, native image rendering/edit/Undo/restart and changed/missing/ambiguous refusal",
+    "No external URL downloads, unsupported image metadata, real libraries, authority activation or automatic retry of absent uncertain uploads"
   ],
   "acceptance": [
-    "Missing/malformed/foreign-profile references refuse the whole batch before writes; source and backups remain exact",
-    "Native target IDs remain stable within a profile and differ across profiles with the same source slugs",
-    "Actual Paper save/Undo/reload/restart retains linked text/marks and navigation reaches the intended target",
-    "Server backlinks and interrupted resume agree with the staged graph without duplicate notes",
-    "Relevant tests, root verification and reviewed dedicated plus standard screenshot/GIF evidence pass"
+    "Invalid/missing/foreign/unowned image sources and unsupported metadata refuse before writes",
+    "Every acknowledged upload is read back through scoped media metadata and exact SHA-256 bytes before a Paper references it",
+    "Interrupted uploads reconcile a unique owned attempt without a second POST; absent/ambiguous/changed candidates refuse",
+    "Actual Paper image rendering, alt/width changes and exact Undo/restart agree with server and retain originals",
+    "Relevant unit/integration checks, full desktop/root and fresh reviewed live/fixture/media evidence pass"
   ],
   "checkpoint": "2026-09-24",
-  "handoff": "docs/cycles/C049-internal-references.md",
-  "nextAction": "Push C049 evidence, inspect fresh Linux parity, archive this cycle and plan bounded owned-image staging/recovery.",
+  "handoff": "docs/cycles/C050-owned-images.md",
+  "nextAction": "Implement strict captured-attachment mapping and immutable upload intent/receipt with exact scoped media readback, then test against a disposable runtime.",
   "evidence": [
-    "docs/cycles/evidence/C049/results.json",
-    "docs/cycles/evidence/C049/paired-profiles.json",
-    "docs/cycles/evidence/C049/repository-truth.json"
+    "docs/cycles/evidence/C049/results.json"
   ],
-  "truthReview": "Reviewed roadmap, README/app guide, handoff, validation, migration contract, product decisions and acceptance. A2 remains open; controlled owned branches and recoverable retired worktrees inventoried. No real-library activation or upstream merge.",
-  "screenshotReview": "Dedicated paired native stills/motion, fresh real-provider live status and unchanged fixture tour inspected. Explicit visual approval 56030e542634e0f7cb1a86a895945251ab9662b94a909da69ab6b8e29642b51e. Root verification and full desktop pass."
+  "truthReview": "Planned from pushed C049 a08b901. Audited upstream30c007 versioned upload/list/get and original binary delivery. Upload is non-idempotent; no automatic absent-target replay.",
+  "screenshotReview": "C049 remains the reviewed baseline. New image journey requires dedicated native motion plus standard live/fixture tripwires."
 }
