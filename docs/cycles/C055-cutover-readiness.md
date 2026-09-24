@@ -9,3 +9,7 @@ Accepted documentation-only checkpoint: source audit and five ordered task brief
 Updated A2 to make ordinary note creation, complete owned discovery and captured-writer fencing explicit. Replaced stale documentation-index/plan entry points and labeled the completed September23 task snapshot historical. No app code changed. Root verification and final documentation checks pass. All 387 declared artifact hashes in accepted C046–C054 result ledgers verify; this is an integrity check, not a behavioral rerun. [Results](evidence/C055/results.json). C054 visual approval42476f73 and live source3763503 remain current because app/dependency/capture inputs are unchanged.
 
 Next implementation: archive C055 and plan order 1 (owned catalog/archive) as the only active slice. Final run closeout will record current CI and remote tips. No owned test service is running; no merge/deploy. Six-hour run minimum ends04:17:20UTC.
+
+Final truth review also found an obsolete active C008/C023 queue in docs/goals/HANDOFF.md. Preserved its full narrative under goals/archive with rebased, checked links and replaced the entry point with a concise current evidence index. No goal behavior changed.
+
+Final Linux run35954150162 at2162ac0 passes20/20 rows; root/visual CI also pass. The earlier aa97781 run was superseded/cancelled, not failed. [Run closeout](evidence/C055/run-closeout.json) retains CI, repository and archive-preservation evidence. App source is unchanged by the final documentation supplement.
