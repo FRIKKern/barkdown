@@ -35,3 +35,13 @@ npm run desktop
 Use your Claude Code or Codex login, or an API key in Settings. Paper needs a connected Barkpark; [local setup](docs/LOCAL-BARKPARK.md) requires a built checkout.
 
 [Contributing](CONTRIBUTING.md) · [Agent instructions](AGENTS.md) · [Docs](docs/README.md) · [Capture source](docs/images/status/manifest.json) · [Third-party notices](THIRD-PARTY.md)
+
+## Dreams for Barkdown
+
+We believe agent chat apps are settling into a standard that’s hard to beat: a left sidebar, a chat and a browser. **The browser is the heart of the app.**
+
+Chat should bring people together, much like Slack—with humans, agents, or both in the same conversation. We want to share the browser, work in documents and files, and code together. Share your own session, join someone else’s, or jump into a chat running on a remote server.
+
+We want those connections to be as direct and secure as possible, without unnecessary middlemen or middleware.
+
+How far can we go? What are the dangers ahead? Where will we land?
