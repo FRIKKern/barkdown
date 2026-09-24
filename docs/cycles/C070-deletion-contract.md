@@ -1,0 +1,21 @@
+# C070 — Exact-note deletion and recovery contract
+
+**Outcome / status:** contract audit complete; destructive note deletion remains blocked on an upstream contract. A real exact-draft delete removed its published twin and returned the published identity. Replaying retained restore overwrote a newer human title. Do not expose these generic operations as safe note deletion/Undo.
+
+**Source / delivery:** codex/paper-library, draft PR33; audited Barkdown d8af2fd with unchanged app source and Barkpark30c007e43. The reusable probe is hash-bound in the [report](evidence/C070/deletion-audit/audit.json). Preserve independent README vision commits. No sibling source change, merge or deployment.
+
+**Proof:**33 HTTP exchanges,56.574seconds including private runtime startup/teardown. Stale-before-request deletion refuses412; retained history remains readable; create-only recovery of one native snapshot into a new identity preserves later human edits on original and copy, and repeated create refuses. The [named review](evidence/C070/review.json) also compares retained revision content with the copy request. Four invalid argument/output cases refuse before startup. Root verification passes in47.249seconds; [validation log](evidence/C070/validation/root-verify.log). The script exits0 for successful observation; its deletion-readiness result is explicitly false.
+
+**Limits:** the caller-revision check precedes a lifecycle reread; an intervening-write risk is source-inferred, not a forced race proof. The existing upstream integration test intentionally expects both-variant deletion, so changing its semantics globally is inappropriate. A new exact-row contract needs server-side interleaving, missing-draft/twin, permission, atomic snapshot/event and lost-reply tests. Copy recovery does not restore original identity, links or placement; no owned recovery adapter/native UI, restart or media recovery was implemented.
+
+**Implementation brief:** [ordinary-note contract](../migration/ordinary-notes.md#deletion-prerequisite--c070). Add an exact-draft operation that compares the caller opaque revision at deletion, preserves its published sibling and commits recoverable evidence atomically. Then implement the owned durable deletion journal and explicit Recover a copy action. Never bridge the server gap with a client preflight or unconditional restore.
+
+**Delivery budget / cost:** estimated ceiling45minutes for one contract audit/brief; no extra feature scope. Probe56.574s and root47.249s are measured tool runtimes; total active/waiting time and token usage are unavailable. No failed runtime or test rerun. Efficiency lesson: checking exact identity before UI work caught an API semantic mismatch; existing C069 screenshots were not recaptured because no product/capture input changed.
+
+- **Affected boundaries:** exact draft identity, published twins, caller revisions, retained history and recovery over newer content. Audit only; product behavior unchanged.
+- **During work:** real HTTP state comparisons, readback/collision assertions and four invalid invocation cases. Source-inferred races stay distinct from executed results.
+- **Ready checkpoint:** root verification, evidence/source review, queue/contract/handoff reconciliation and visual applicability check. A subsequent app/capture/pin change requires the ordinary implementation→capture/review→evidence workflow.
+
+**Repository / services:** main plus one delivery branch, draft PR33.46 worktrees include43 locked historical recovery checkouts; preserve them and review retirement after upstream integration. Private audit runtime stopped; disposable data retained. Shared services and real content untouched. C069 app captures retain approval; no deletion UI is visually proven. Remote main is d126875 (an ancestor of this lane); local main136a459 is stale and was not switched. Earlier d8af2fd Verify/Visual are green, parity still running at the observed checkpoint; final-head CI remains separate.
+
+**Next action:** implement the additive upstream exact-row contract in an isolated, narrowly owned change and test the guard-to-delete interleaving. Do not edit another contributor’s checkout. After proving it, plan the native deletion/recovery adapter. P2/A2 remains open.

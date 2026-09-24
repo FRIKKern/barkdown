@@ -1,29 +1,30 @@
 {
   "version": 1,
-  "id": "C069",
+  "id": "C070",
   "stage": "P2",
   "status": "done",
-  "goal": "Let agents create and edit owned ordinary Paper notes with revision-checked Undo.",
+  "goal": "Establish a safe exact-note deletion and recovery contract before exposing destructive Paper actions.",
   "scope": [
-    "Share the owned ordinary-note path across API and MCP tools; preserve exact draft identity, owner and captured run.",
-    "Prove native edit/Undo/restart and stale/foreign refusal; preserve manual connections and legacy data.",
-    "No deletion/recovery, activation, merge or deployment."
+    "Audit the consumed upstream delete/restore behavior in a disposable real runtime; preserve both row identities and later human edits.",
+    "Turn discovered safety gaps into reproducible acceptance checks and a precise adapter prerequisite.",
+    "No production deletion UI, sibling-source edits, migration activation, merge or deployment until the contract is safe."
   ],
   "acceptance": [
-    "API and MCP creation target the managed local Paper library, with durable creation identity and no legacy fallback.",
-    "Agent edit receipts retain owner/exact draft row; guarded Undo preserves locked title structure and refuses later human edits.",
-    "Read/list/search and native activity reach the same owned note across profile switches and restart.",
-    "Focused/full checks, real runtime and reviewed native/standard/live evidence support the bounded journey."
+    "Probe stale revision refusal and exact draft/published twin isolation against the consumed source.",
+    "Verify retained revision recovery and whether replay can overwrite a later human edit.",
+    "Demonstrate a new-identity copy alternative without overwriting the original, and distinguish it from full restoration.",
+    "Retain source hashes, actual HTTP evidence, cleanup and an actionable next implementation boundary."
   ],
   "checkpoint": "2026-09-24",
-  "handoff": "docs/cycles/C069-agent-paper-notes.md",
-  "nextAction": "Review exact-head hosted checks on PR33, then scope guarded ordinary-note deletion/recovery from C061. Do not replay unconditional restore or activate migration.",
+  "handoff": "docs/cycles/C070-deletion-contract.md",
+  "nextAction": "Implement and test an additive exact-draft delete contract upstream: atomically compare the caller opaque revision, preserve published twins and commit deletion evidence together. Then add the owned journal and native Recover a copy journey; no blind restore.",
   "evidence": [
-    "docs/cycles/evidence/C069/review.json",
-    "docs/cycles/evidence/C069/desktop/result.json",
-    "docs/visual/agent-notes/README.md",
-    "docs/cycles/evidence/C069/closeout/result.json"
+    "docs/cycles/evidence/C070/deletion-audit/audit.json",
+    "docs/cycles/evidence/C070/review.json",
+    "docs/cycles/evidence/C070/validation/result.json",
+    "docs/cycles/evidence/C070/argument-checks.json",
+    "docs/cycles/evidence/C070/closeout/result.json"
   ],
-  "truthReview": "Reviewed current queue, handoff, architecture, migration boundaries, README claims, source diff and retained evidence. P2/A2 remains open; unrelated README vision commits preserved; main plus one lane, historical locked worktrees retained.",
-  "screenshotReview": "Codex inspected native6 stills/407 motion samples/41 excerpt frames, standard40 stills/40 differences/40 GIF frames and live5 stills/37 GIF frames. Standard explicit approval341bbd4; source8a277bb. Narrow-column and fixture palette limits remain explicit."
+  "truthReview": "Audited source and33 HTTP exchanges; reconciled PLAN/plan.json, migration contract, validation and handoff. Contract audit complete; destructive feature blocked. Existing generic both-variant behavior is intentional upstream, so require an additive exact-row contract. Preserve independent README changes, legacy source and43 historical locked worktrees.",
+  "screenshotReview": "No app, dependency, upstream pin or capture input changes. Existing C069 native/standard/live reviewed evidence remains applicable; root visual freshness passes. No deletion UI or new screenshot acceptance claimed."
 }

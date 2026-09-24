@@ -1,0 +1,2200 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-24T20:59:24.927Z",
+  "host": "d8af2fd7cdf0f1ee4a351bfd12a244c558296cdf",
+  "upstream": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "sourceHashes": {
+    "api/lib/barkpark/content/mutations.ex": "3f05e3ebb5a40be4c101def188a2a4cc7b3cf1f3c8bc71308467f9065c3610fe",
+    "api/lib/barkpark/content/lifecycle.ex": "b918195ce68488df34e8f08607fff976299c5696c33fbb9ad4ae9960bbc3d7bc",
+    "api/lib/barkpark/content/revisions.ex": "66e7a97b27df78f98fa26a7e948815602fb358a79daacf82276539d12c792b06"
+  },
+  "scriptSha256": "fe235c21bc61834ea1cd9ca1bb3d537672a160939c95bd4a2017917dd4fbaf1c",
+  "appSourceDirty": false,
+  "scope": "New disposable local database only; no external library, source edits or provider calls",
+  "execution": "passed",
+  "safeToExposeDeletion": false,
+  "observations": [
+    {
+      "name": "stale-before-request",
+      "holds": true,
+      "detail": "A revision already stale when delete starts refuses with412 and preserves the exact human row."
+    },
+    {
+      "name": "history-survives-delete",
+      "holds": true,
+      "detail": "Deleted draft is absent and its exact revision remains retrievable."
+    },
+    {
+      "name": "restore-preserves-later-human-edit",
+      "holds": false,
+      "detail": "Later title \"New human title after recovery\" became \"Human edit before deletion\" after replay."
+    },
+    {
+      "name": "create-only-copy-preserves-both-rows",
+      "holds": true,
+      "detail": "New identity preserves exact native blocks/title; repeated create refuses and retains later edits on both original and copy. Links are not retargeted."
+    },
+    {
+      "name": "exact-delete-preserves-published-twin",
+      "holds": false,
+      "detail": "Exact drafts.welcome delete returned200; published welcome read returned404."
+    },
+    {
+      "name": "delete-receipt-names-requested-row",
+      "holds": false,
+      "detail": "Requested drafts.welcome; receipt named welcome."
+    },
+    {
+      "name": "atomic-caller-revision-delete",
+      "holds": null,
+      "detail": "Not executed: mutation revision check precedes lifecycle reread. Server-side interleaving test required."
+    }
+  ],
+  "exchanges": [
+    {
+      "label": "Create ordinary draft",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "create": {
+              "_id": "delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+              "_type": "paper",
+              "title": "Original title",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "type": "heading",
+                  "level": 1,
+                  "role": "title",
+                  "locked": true,
+                  "text": "Original title"
+                },
+                {
+                  "id": "tpl-body",
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "value": "Retained native content",
+                      "bold": true
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "results": [
+          {
+            "id": "drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+            "operation": "create",
+            "document": {
+              "_createdAt": "2026-09-24T21:00:17.493000Z",
+              "_draft": true,
+              "_id": "drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+              "_publishedId": "delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+              "_rev": "d637479a2989c4b25895641d67e25682",
+              "_type": "paper",
+              "_updatedAt": "2026-09-24T21:00:17.493000Z",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "Original title",
+                  "type": "heading"
+                },
+                {
+                  "content": [
+                    {
+                      "bold": true,
+                      "type": "text",
+                      "value": "Retained native content"
+                    }
+                  ],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                }
+              ],
+              "body_html": "<h1>Original title</h1><p>Retained native content</p>",
+              "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+              "style": "article",
+              "title": "Original title"
+            }
+          }
+        ],
+        "transactionId": "ddea1e8e77ccf9a041eb78e53402eb20"
+      }
+    },
+    {
+      "label": "Read drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92 (drafts)",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92?perspective=drafts",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T21:00:17.493000Z",
+          "_draft": true,
+          "_id": "drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_publishedId": "delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_rev": "d637479a2989c4b25895641d67e25682",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T21:00:17.493000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Original title",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "bold": true,
+                  "type": "text",
+                  "value": "Retained native content"
+                }
+              ],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body_html": "<h1>Original title</h1><p>Retained native content</p>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "style": "article",
+          "title": "Original title"
+        },
+        "schemaHash": "878043ba2ef5be47",
+        "syncTags": [
+          "bp:ds:production:doc:delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "d637479a2989c4b25895641d67e25682",
+        "ms": 10
+      }
+    },
+    {
+      "label": "Later human title edit",
+      "method": "POST",
+      "route": "/v1/plugins/bulldocs/papers/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92/ops",
+      "body": {
+        "ifRev": 0,
+        "ops": [
+          {
+            "op": "patch-block",
+            "id": "tpl-title",
+            "patch": {
+              "text": "Human edit before deletion"
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "ok": true,
+        "rev": 1,
+        "slug": "drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+        "block_ids": [
+          "tpl-title"
+        ],
+        "op_count": 1
+      }
+    },
+    {
+      "label": "Read drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92 (drafts)",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92?perspective=drafts",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T21:00:17.493000Z",
+          "_draft": true,
+          "_id": "drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_publishedId": "delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_rev": "5e7a4cd59abb965c2a7167b07476dc0d",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T21:00:18.059000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Human edit before deletion",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "bold": true,
+                  "type": "text",
+                  "value": "Retained native content"
+                }
+              ],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Human edit before deletion",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "bold": true,
+                    "type": "text",
+                    "value": "Retained native content"
+                  }
+                ],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>Human edit before deletion</h1><p>Retained native content</p>"
+          },
+          "body_html": "<h1>Human edit before deletion</h1><p>Retained native content</p>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "Retained native content",
+            "extensions": {},
+            "image": null,
+            "title": "Human edit before deletion",
+            "type": "paper",
+            "url": "/papers/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92"
+          },
+          "rev": 1,
+          "style": "article",
+          "title": "Human edit before deletion"
+        },
+        "schemaHash": "878043ba2ef5be47",
+        "syncTags": [
+          "bp:ds:production:doc:delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "5e7a4cd59abb965c2a7167b07476dc0d",
+        "ms": 3
+      }
+    },
+    {
+      "label": "Delete with stale caller revision",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "delete": {
+              "id": "drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+              "type": "paper",
+              "ifRevisionID": "d637479a2989c4b25895641d67e25682"
+            }
+          }
+        ]
+      },
+      "status": 412,
+      "data": {
+        "error": {
+          "code": "precondition_failed",
+          "message": "document revision mismatch",
+          "hint": "Re-fetch the document and retry with the current revision — it changed under you.",
+          "details": {
+            "actual": "5e7a4cd59abb965c2a7167b07476dc0d",
+            "expected": "d637479a2989c4b25895641d67e25682"
+          },
+          "request_id": "GNhddyYyU8B3_MoAACNB"
+        }
+      }
+    },
+    {
+      "label": "Read drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92 (drafts)",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92?perspective=drafts",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T21:00:17.493000Z",
+          "_draft": true,
+          "_id": "drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_publishedId": "delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_rev": "5e7a4cd59abb965c2a7167b07476dc0d",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T21:00:18.059000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Human edit before deletion",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "bold": true,
+                  "type": "text",
+                  "value": "Retained native content"
+                }
+              ],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Human edit before deletion",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "bold": true,
+                    "type": "text",
+                    "value": "Retained native content"
+                  }
+                ],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>Human edit before deletion</h1><p>Retained native content</p>"
+          },
+          "body_html": "<h1>Human edit before deletion</h1><p>Retained native content</p>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "Retained native content",
+            "extensions": {},
+            "image": null,
+            "title": "Human edit before deletion",
+            "type": "paper",
+            "url": "/papers/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92"
+          },
+          "rev": 1,
+          "style": "article",
+          "title": "Human edit before deletion"
+        },
+        "schemaHash": "878043ba2ef5be47",
+        "syncTags": [
+          "bp:ds:production:doc:delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "5e7a4cd59abb965c2a7167b07476dc0d",
+        "ms": 2
+      }
+    },
+    {
+      "label": "Delete current draft without a twin",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "delete": {
+              "id": "drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+              "type": "paper",
+              "ifRevisionID": "5e7a4cd59abb965c2a7167b07476dc0d"
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "results": [
+          {
+            "id": "drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+            "operation": "delete",
+            "document": {
+              "_createdAt": "2026-09-24T21:00:17.493000Z",
+              "_draft": true,
+              "_id": "drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+              "_publishedId": "delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+              "_rev": "5e7a4cd59abb965c2a7167b07476dc0d",
+              "_type": "paper",
+              "_updatedAt": "2026-09-24T21:00:18.059000Z",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "Human edit before deletion",
+                  "type": "heading"
+                },
+                {
+                  "content": [
+                    {
+                      "bold": true,
+                      "type": "text",
+                      "value": "Retained native content"
+                    }
+                  ],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                }
+              ],
+              "body": {
+                "blocks": [
+                  {
+                    "id": "tpl-title",
+                    "level": 1,
+                    "locked": true,
+                    "role": "title",
+                    "text": "Human edit before deletion",
+                    "type": "heading"
+                  },
+                  {
+                    "content": [
+                      {
+                        "bold": true,
+                        "type": "text",
+                        "value": "Retained native content"
+                      }
+                    ],
+                    "id": "tpl-body",
+                    "type": "paragraph"
+                  }
+                ],
+                "html": "<h1>Human edit before deletion</h1><p>Retained native content</p>"
+              },
+              "body_html": "<h1>Human edit before deletion</h1><p>Retained native content</p>",
+              "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+              "preview": {
+                "description": "Retained native content",
+                "extensions": {},
+                "image": null,
+                "title": "Human edit before deletion",
+                "type": "paper",
+                "url": "/papers/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92"
+              },
+              "rev": 1,
+              "style": "article",
+              "title": "Human edit before deletion"
+            }
+          }
+        ],
+        "transactionId": "436d076ce2abbd33663914d71fe2fa5b"
+      }
+    },
+    {
+      "label": "Read drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92 (drafts)",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92?perspective=drafts",
+      "status": 404,
+      "data": {
+        "error": {
+          "code": "not_found",
+          "message": "document not found",
+          "hint": "Check the document _id, type, and dataset in the URL — the resource does not exist in this scope.",
+          "request_id": "GNhddzW5U8B3_MoAACRB"
+        }
+      }
+    },
+    {
+      "label": "Retained history after delete",
+      "method": "GET",
+      "route": "/v1/data/history/production/paper/delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92?limit=20",
+      "status": 200,
+      "data": {
+        "count": 2,
+        "offset": 0,
+        "limit": 20,
+        "revisions": [
+          {
+            "id": "9c0c2238-d37c-45d3-9c75-d6ab0bd0926b",
+            "status": "draft",
+            "timestamp": "2026-09-24T21:00:18.377000Z",
+            "rev": "5e7a4cd59abb965c2a7167b07476dc0d",
+            "title": "Human edit before deletion",
+            "action": "delete",
+            "actor_user_id": null,
+            "actor_id": null,
+            "actor_kind": null,
+            "actor_label": null
+          },
+          {
+            "id": "e5fc9a5e-2f3a-4a62-adb9-40b712ff8205",
+            "status": "draft",
+            "timestamp": "2026-09-24T21:00:17.498000Z",
+            "rev": "d637479a2989c4b25895641d67e25682",
+            "title": "Original title",
+            "action": "create",
+            "actor_user_id": null,
+            "actor_id": null,
+            "actor_kind": null,
+            "actor_label": null
+          }
+        ],
+        "has_more": false
+      }
+    },
+    {
+      "label": "Read retained revision",
+      "method": "GET",
+      "route": "/v1/data/revision/production/9c0c2238-d37c-45d3-9c75-d6ab0bd0926b",
+      "status": 200,
+      "data": {
+        "revision": {
+          "id": "9c0c2238-d37c-45d3-9c75-d6ab0bd0926b",
+          "status": "draft",
+          "timestamp": "2026-09-24T21:00:18.377000Z",
+          "type": "paper",
+          "rev": "5e7a4cd59abb965c2a7167b07476dc0d",
+          "title": "Human edit before deletion",
+          "action": "delete",
+          "dataset": "production",
+          "doc_id": "delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "content": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Human edit before deletion",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "bold": true,
+                    "type": "text",
+                    "value": "Retained native content"
+                  }
+                ],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "body": {
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "Human edit before deletion",
+                  "type": "heading"
+                },
+                {
+                  "content": [
+                    {
+                      "bold": true,
+                      "type": "text",
+                      "value": "Retained native content"
+                    }
+                  ],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                }
+              ],
+              "html": "<h1>Human edit before deletion</h1><p>Retained native content</p>"
+            },
+            "body_html": "<h1>Human edit before deletion</h1><p>Retained native content</p>",
+            "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+            "preview": {
+              "description": "Retained native content",
+              "extensions": {},
+              "image": null,
+              "title": "Human edit before deletion",
+              "type": "paper",
+              "url": "/papers/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92"
+            },
+            "rev": 1,
+            "style": "article"
+          },
+          "actor_user_id": null,
+          "actor_id": null,
+          "actor_kind": null,
+          "actor_label": null
+        }
+      }
+    },
+    {
+      "label": "Restore deleted draft",
+      "method": "POST",
+      "route": "/v1/data/revision/production/9c0c2238-d37c-45d3-9c75-d6ab0bd0926b/restore",
+      "body": {
+        "type": "paper"
+      },
+      "status": 200,
+      "data": {
+        "document": {
+          "_createdAt": "2026-09-24T21:00:18.697000Z",
+          "_draft": true,
+          "_id": "drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_publishedId": "delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_rev": "b8bba6c75b3db02ea20c0819ef11ba13",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T21:00:18.697000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Human edit before deletion",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "bold": true,
+                  "type": "text",
+                  "value": "Retained native content"
+                }
+              ],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Human edit before deletion",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "bold": true,
+                    "type": "text",
+                    "value": "Retained native content"
+                  }
+                ],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>Human edit before deletion</h1><p>Retained native content</p>"
+          },
+          "body_html": "<h1>Human edit before deletion</h1><p>Retained native content</p>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "Retained native content",
+            "extensions": {},
+            "image": null,
+            "title": "Human edit before deletion",
+            "type": "paper",
+            "url": "/papers/delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92"
+          },
+          "rev": 1,
+          "style": "article",
+          "title": "Human edit before deletion"
+        },
+        "restored": true
+      }
+    },
+    {
+      "label": "Read drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92 (drafts)",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92?perspective=drafts",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T21:00:18.697000Z",
+          "_draft": true,
+          "_id": "drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_publishedId": "delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_rev": "b8bba6c75b3db02ea20c0819ef11ba13",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T21:00:18.697000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Human edit before deletion",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "bold": true,
+                  "type": "text",
+                  "value": "Retained native content"
+                }
+              ],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Human edit before deletion",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "bold": true,
+                    "type": "text",
+                    "value": "Retained native content"
+                  }
+                ],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>Human edit before deletion</h1><p>Retained native content</p>"
+          },
+          "body_html": "<h1>Human edit before deletion</h1><p>Retained native content</p>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "Retained native content",
+            "extensions": {},
+            "image": null,
+            "title": "Human edit before deletion",
+            "type": "paper",
+            "url": "/papers/delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92"
+          },
+          "rev": 1,
+          "style": "article",
+          "title": "Human edit before deletion"
+        },
+        "schemaHash": "878043ba2ef5be47",
+        "syncTags": [
+          "bp:ds:production:doc:delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "b8bba6c75b3db02ea20c0819ef11ba13",
+        "ms": 1
+      }
+    },
+    {
+      "label": "Later human title edit",
+      "method": "POST",
+      "route": "/v1/plugins/bulldocs/papers/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92/ops",
+      "body": {
+        "ifRev": 1,
+        "ops": [
+          {
+            "op": "patch-block",
+            "id": "tpl-title",
+            "patch": {
+              "text": "New human title after recovery"
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "ok": true,
+        "rev": 2,
+        "slug": "drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+        "block_ids": [
+          "tpl-title"
+        ],
+        "op_count": 1
+      }
+    },
+    {
+      "label": "Read drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92 (drafts)",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92?perspective=drafts",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T21:00:18.697000Z",
+          "_draft": true,
+          "_id": "drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_publishedId": "delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_rev": "8928082cebacc74136d63bb7bf608852",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T21:00:18.855000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "New human title after recovery",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "bold": true,
+                  "type": "text",
+                  "value": "Retained native content"
+                }
+              ],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "New human title after recovery",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "bold": true,
+                    "type": "text",
+                    "value": "Retained native content"
+                  }
+                ],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>New human title after recovery</h1><p>Retained native content</p>"
+          },
+          "body_html": "<h1>New human title after recovery</h1><p>Retained native content</p>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "Retained native content",
+            "extensions": {},
+            "image": null,
+            "title": "New human title after recovery",
+            "type": "paper",
+            "url": "/papers/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92"
+          },
+          "rev": 2,
+          "style": "article",
+          "title": "New human title after recovery"
+        },
+        "schemaHash": "878043ba2ef5be47",
+        "syncTags": [
+          "bp:ds:production:doc:delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "8928082cebacc74136d63bb7bf608852",
+        "ms": 2
+      }
+    },
+    {
+      "label": "Replay earlier restore over later human edit",
+      "method": "POST",
+      "route": "/v1/data/revision/production/9c0c2238-d37c-45d3-9c75-d6ab0bd0926b/restore",
+      "body": {
+        "type": "paper"
+      },
+      "status": 200,
+      "data": {
+        "document": {
+          "_createdAt": "2026-09-24T21:00:18.697000Z",
+          "_draft": true,
+          "_id": "drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_publishedId": "delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_rev": "abd8272f1b4d71acecd2b6e09c8582c0",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T21:00:19.000000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Human edit before deletion",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "bold": true,
+                  "type": "text",
+                  "value": "Retained native content"
+                }
+              ],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Human edit before deletion",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "bold": true,
+                    "type": "text",
+                    "value": "Retained native content"
+                  }
+                ],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>Human edit before deletion</h1><p>Retained native content</p>"
+          },
+          "body_html": "<h1>Human edit before deletion</h1><p>Retained native content</p>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "Retained native content",
+            "extensions": {},
+            "image": null,
+            "title": "Human edit before deletion",
+            "type": "paper",
+            "url": "/papers/delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92"
+          },
+          "rev": 1,
+          "style": "article",
+          "title": "Human edit before deletion"
+        },
+        "restored": true
+      }
+    },
+    {
+      "label": "Read drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92 (drafts)",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92?perspective=drafts",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T21:00:18.697000Z",
+          "_draft": true,
+          "_id": "drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_publishedId": "delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_rev": "abd8272f1b4d71acecd2b6e09c8582c0",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T21:00:19.000000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Human edit before deletion",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "bold": true,
+                  "type": "text",
+                  "value": "Retained native content"
+                }
+              ],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Human edit before deletion",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "bold": true,
+                    "type": "text",
+                    "value": "Retained native content"
+                  }
+                ],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>Human edit before deletion</h1><p>Retained native content</p>"
+          },
+          "body_html": "<h1>Human edit before deletion</h1><p>Retained native content</p>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "Retained native content",
+            "extensions": {},
+            "image": null,
+            "title": "Human edit before deletion",
+            "type": "paper",
+            "url": "/papers/delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92"
+          },
+          "rev": 1,
+          "style": "article",
+          "title": "Human edit before deletion"
+        },
+        "schemaHash": "878043ba2ef5be47",
+        "syncTags": [
+          "bp:ds:production:doc:delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "abd8272f1b4d71acecd2b6e09c8582c0",
+        "ms": 1
+      }
+    },
+    {
+      "label": "Later human title edit",
+      "method": "POST",
+      "route": "/v1/plugins/bulldocs/papers/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92/ops",
+      "body": {
+        "ifRev": 1,
+        "ops": [
+          {
+            "op": "patch-block",
+            "id": "tpl-title",
+            "patch": {
+              "text": "Human original remains intact"
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "ok": true,
+        "rev": 2,
+        "slug": "drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+        "block_ids": [
+          "tpl-title"
+        ],
+        "op_count": 1
+      }
+    },
+    {
+      "label": "Read drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92 (drafts)",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92?perspective=drafts",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T21:00:18.697000Z",
+          "_draft": true,
+          "_id": "drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_publishedId": "delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_rev": "ef438be359b8a456bebbd692a86d1c0f",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T21:00:19.149000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Human original remains intact",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "bold": true,
+                  "type": "text",
+                  "value": "Retained native content"
+                }
+              ],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Human original remains intact",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "bold": true,
+                    "type": "text",
+                    "value": "Retained native content"
+                  }
+                ],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>Human original remains intact</h1><p>Retained native content</p>"
+          },
+          "body_html": "<h1>Human original remains intact</h1><p>Retained native content</p>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "Retained native content",
+            "extensions": {},
+            "image": null,
+            "title": "Human original remains intact",
+            "type": "paper",
+            "url": "/papers/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92"
+          },
+          "rev": 2,
+          "style": "article",
+          "title": "Human original remains intact"
+        },
+        "schemaHash": "878043ba2ef5be47",
+        "syncTags": [
+          "bp:ds:production:doc:delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "ef438be359b8a456bebbd692a86d1c0f",
+        "ms": 2
+      }
+    },
+    {
+      "label": "Recover retained native snapshot to new identity",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "create": {
+              "_id": "recovered-877598af-c188-40c1-be4f-152fefb699d4",
+              "_type": "paper",
+              "title": "Human edit before deletion",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "Human edit before deletion",
+                  "type": "heading"
+                },
+                {
+                  "content": [
+                    {
+                      "bold": true,
+                      "type": "text",
+                      "value": "Retained native content"
+                    }
+                  ],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "results": [
+          {
+            "id": "drafts.recovered-877598af-c188-40c1-be4f-152fefb699d4",
+            "operation": "create",
+            "document": {
+              "_createdAt": "2026-09-24T21:00:19.291000Z",
+              "_draft": true,
+              "_id": "drafts.recovered-877598af-c188-40c1-be4f-152fefb699d4",
+              "_publishedId": "recovered-877598af-c188-40c1-be4f-152fefb699d4",
+              "_rev": "ef04fd10cec43060b7059998085b5054",
+              "_type": "paper",
+              "_updatedAt": "2026-09-24T21:00:19.291000Z",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "Human edit before deletion",
+                  "type": "heading"
+                },
+                {
+                  "content": [
+                    {
+                      "bold": true,
+                      "type": "text",
+                      "value": "Retained native content"
+                    }
+                  ],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                }
+              ],
+              "body_html": "<h1>Human edit before deletion</h1><p>Retained native content</p>",
+              "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+              "style": "article",
+              "title": "Human edit before deletion"
+            }
+          }
+        ],
+        "transactionId": "4ee5826dbe353fc77857a57edd4df966"
+      }
+    },
+    {
+      "label": "Read drafts.recovered-877598af-c188-40c1-be4f-152fefb699d4 (drafts)",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.recovered-877598af-c188-40c1-be4f-152fefb699d4?perspective=drafts",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T21:00:19.291000Z",
+          "_draft": true,
+          "_id": "drafts.recovered-877598af-c188-40c1-be4f-152fefb699d4",
+          "_publishedId": "recovered-877598af-c188-40c1-be4f-152fefb699d4",
+          "_rev": "ef04fd10cec43060b7059998085b5054",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T21:00:19.291000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Human edit before deletion",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "bold": true,
+                  "type": "text",
+                  "value": "Retained native content"
+                }
+              ],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body_html": "<h1>Human edit before deletion</h1><p>Retained native content</p>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "style": "article",
+          "title": "Human edit before deletion"
+        },
+        "schemaHash": "878043ba2ef5be47",
+        "syncTags": [
+          "bp:ds:production:doc:recovered-877598af-c188-40c1-be4f-152fefb699d4",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "ef04fd10cec43060b7059998085b5054",
+        "ms": 1
+      }
+    },
+    {
+      "label": "Read drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92 (drafts)",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92?perspective=drafts",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T21:00:18.697000Z",
+          "_draft": true,
+          "_id": "drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_publishedId": "delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_rev": "ef438be359b8a456bebbd692a86d1c0f",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T21:00:19.149000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Human original remains intact",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "bold": true,
+                  "type": "text",
+                  "value": "Retained native content"
+                }
+              ],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Human original remains intact",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "bold": true,
+                    "type": "text",
+                    "value": "Retained native content"
+                  }
+                ],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>Human original remains intact</h1><p>Retained native content</p>"
+          },
+          "body_html": "<h1>Human original remains intact</h1><p>Retained native content</p>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "Retained native content",
+            "extensions": {},
+            "image": null,
+            "title": "Human original remains intact",
+            "type": "paper",
+            "url": "/papers/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92"
+          },
+          "rev": 2,
+          "style": "article",
+          "title": "Human original remains intact"
+        },
+        "schemaHash": "878043ba2ef5be47",
+        "syncTags": [
+          "bp:ds:production:doc:delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "ef438be359b8a456bebbd692a86d1c0f",
+        "ms": 1
+      }
+    },
+    {
+      "label": "Later human title edit",
+      "method": "POST",
+      "route": "/v1/plugins/bulldocs/papers/drafts.recovered-877598af-c188-40c1-be4f-152fefb699d4/ops",
+      "body": {
+        "ifRev": 0,
+        "ops": [
+          {
+            "op": "patch-block",
+            "id": "tpl-title",
+            "patch": {
+              "text": "Human edit on recovered copy"
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "ok": true,
+        "rev": 1,
+        "slug": "drafts.recovered-877598af-c188-40c1-be4f-152fefb699d4",
+        "block_ids": [
+          "tpl-title"
+        ],
+        "op_count": 1
+      }
+    },
+    {
+      "label": "Read drafts.recovered-877598af-c188-40c1-be4f-152fefb699d4 (drafts)",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.recovered-877598af-c188-40c1-be4f-152fefb699d4?perspective=drafts",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T21:00:19.291000Z",
+          "_draft": true,
+          "_id": "drafts.recovered-877598af-c188-40c1-be4f-152fefb699d4",
+          "_publishedId": "recovered-877598af-c188-40c1-be4f-152fefb699d4",
+          "_rev": "79fadb1a67d33dcbfdcd639cd676582a",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T21:00:19.510000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Human edit on recovered copy",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "bold": true,
+                  "type": "text",
+                  "value": "Retained native content"
+                }
+              ],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Human edit on recovered copy",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "bold": true,
+                    "type": "text",
+                    "value": "Retained native content"
+                  }
+                ],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>Human edit on recovered copy</h1><p>Retained native content</p>"
+          },
+          "body_html": "<h1>Human edit on recovered copy</h1><p>Retained native content</p>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "Retained native content",
+            "extensions": {},
+            "image": null,
+            "title": "Human edit on recovered copy",
+            "type": "paper",
+            "url": "/papers/drafts.recovered-877598af-c188-40c1-be4f-152fefb699d4"
+          },
+          "rev": 1,
+          "style": "article",
+          "title": "Human edit on recovered copy"
+        },
+        "schemaHash": "878043ba2ef5be47",
+        "syncTags": [
+          "bp:ds:production:doc:recovered-877598af-c188-40c1-be4f-152fefb699d4",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "79fadb1a67d33dcbfdcd639cd676582a",
+        "ms": 1
+      }
+    },
+    {
+      "label": "Replay create-only copy after human edit",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "create": {
+              "_id": "recovered-877598af-c188-40c1-be4f-152fefb699d4",
+              "_type": "paper",
+              "title": "Human edit before deletion",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "Human edit before deletion",
+                  "type": "heading"
+                },
+                {
+                  "content": [
+                    {
+                      "bold": true,
+                      "type": "text",
+                      "value": "Retained native content"
+                    }
+                  ],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "status": 409,
+      "data": {
+        "error": {
+          "code": "conflict",
+          "message": "document already exists",
+          "hint": "The document already exists — use a createOrReplace/patch mutation instead of create.",
+          "request_id": "GNhdd3xrw8B3_MoAACjB"
+        }
+      }
+    },
+    {
+      "label": "Read drafts.recovered-877598af-c188-40c1-be4f-152fefb699d4 (drafts)",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.recovered-877598af-c188-40c1-be4f-152fefb699d4?perspective=drafts",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T21:00:19.291000Z",
+          "_draft": true,
+          "_id": "drafts.recovered-877598af-c188-40c1-be4f-152fefb699d4",
+          "_publishedId": "recovered-877598af-c188-40c1-be4f-152fefb699d4",
+          "_rev": "79fadb1a67d33dcbfdcd639cd676582a",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T21:00:19.510000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Human edit on recovered copy",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "bold": true,
+                  "type": "text",
+                  "value": "Retained native content"
+                }
+              ],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Human edit on recovered copy",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "bold": true,
+                    "type": "text",
+                    "value": "Retained native content"
+                  }
+                ],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>Human edit on recovered copy</h1><p>Retained native content</p>"
+          },
+          "body_html": "<h1>Human edit on recovered copy</h1><p>Retained native content</p>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "Retained native content",
+            "extensions": {},
+            "image": null,
+            "title": "Human edit on recovered copy",
+            "type": "paper",
+            "url": "/papers/drafts.recovered-877598af-c188-40c1-be4f-152fefb699d4"
+          },
+          "rev": 1,
+          "style": "article",
+          "title": "Human edit on recovered copy"
+        },
+        "schemaHash": "878043ba2ef5be47",
+        "syncTags": [
+          "bp:ds:production:doc:recovered-877598af-c188-40c1-be4f-152fefb699d4",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "79fadb1a67d33dcbfdcd639cd676582a",
+        "ms": 1
+      }
+    },
+    {
+      "label": "Read drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92 (drafts)",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92?perspective=drafts",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T21:00:18.697000Z",
+          "_draft": true,
+          "_id": "drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_publishedId": "delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "_rev": "ef438be359b8a456bebbd692a86d1c0f",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T21:00:19.149000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Human original remains intact",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "bold": true,
+                  "type": "text",
+                  "value": "Retained native content"
+                }
+              ],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Human original remains intact",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "bold": true,
+                    "type": "text",
+                    "value": "Retained native content"
+                  }
+                ],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>Human original remains intact</h1><p>Retained native content</p>"
+          },
+          "body_html": "<h1>Human original remains intact</h1><p>Retained native content</p>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "Retained native content",
+            "extensions": {},
+            "image": null,
+            "title": "Human original remains intact",
+            "type": "paper",
+            "url": "/papers/drafts.delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92"
+          },
+          "rev": 2,
+          "style": "article",
+          "title": "Human original remains intact"
+        },
+        "schemaHash": "878043ba2ef5be47",
+        "syncTags": [
+          "bp:ds:production:doc:delete-audit-0fca8781-1c80-438b-962b-b413ab32fe92",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "ef438be359b8a456bebbd692a86d1c0f",
+        "ms": 1
+      }
+    },
+    {
+      "label": "Read welcome (raw)",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/welcome?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T21:00:15.605000Z",
+          "_draft": false,
+          "_id": "welcome",
+          "_publishedId": "welcome",
+          "_rev": "02bcf6833d90895d421ab17f1fa5b790",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T21:00:15.605000Z",
+          "blocks": [
+            {
+              "id": "h1",
+              "level": 1,
+              "text": "Welcome to Barkpark",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome."
+                }
+              ],
+              "id": "p1",
+              "type": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Your media library is at Studio → Media. Everything else starts empty on purpose."
+                }
+              ],
+              "id": "p2",
+              "type": "paragraph"
+            },
+            {
+              "id": "code1",
+              "type": "code",
+              "value": "bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "h1",
+                "level": 1,
+                "text": "Welcome to Barkpark",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome."
+                  }
+                ],
+                "id": "p1",
+                "type": "paragraph"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Your media library is at Studio → Media. Everything else starts empty on purpose."
+                  }
+                ],
+                "id": "p2",
+                "type": "paragraph"
+              },
+              {
+                "id": "code1",
+                "type": "code",
+                "value": "bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure"
+              }
+            ],
+            "html": "<h1>Welcome to Barkpark</h1><p>This is a paper — Barkpark&#39;s first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome.</p><p>Your media library is at Studio → Media. Everything else starts empty on purpose.</p><pre style=\"background:var(--paper-bg-deep, #eaf1ee);border:0;border-radius:var(--bp-codeblock-radius, 0);color:var(--paper-ink, #15211d);padding:var(--bp-codeblock-pad, 0.9rem 1.1rem);margin:var(--bp-codeblock-margin, 1.2rem 0);font-family:var(--paper-font-mono, ui-monospace,Menlo,monospace);font-size:var(--bp-codeblock-size, 0.9rem);line-height:var(--bp-codeblock-lh, 1.5);overflow-x:auto;white-space:pre\">bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure</pre>"
+          },
+          "body_html": "<h1>Welcome to Barkpark</h1><p>This is a paper — Barkpark&#39;s first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome.</p><p>Your media library is at Studio → Media. Everything else starts empty on purpose.</p><pre style=\"background:var(--paper-bg-deep, #eaf1ee);border:0;border-radius:var(--bp-codeblock-radius, 0);color:var(--paper-ink, #15211d);padding:var(--bp-codeblock-pad, 0.9rem 1.1rem);margin:var(--bp-codeblock-margin, 1.2rem 0);font-family:var(--paper-font-mono, ui-monospace,Menlo,monospace);font-size:var(--bp-codeblock-size, 0.9rem);line-height:var(--bp-codeblock-lh, 1.5);overflow-x:auto;white-space:pre\">bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure</pre>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the…",
+            "extensions": {},
+            "image": null,
+            "title": null,
+            "type": "paper",
+            "url": "/papers/welcome"
+          },
+          "rev": 1,
+          "style": "article",
+          "title": "Welcome to Barkpark"
+        },
+        "schemaHash": "878043ba2ef5be47",
+        "syncTags": [
+          "bp:ds:production:doc:welcome",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "02bcf6833d90895d421ab17f1fa5b790",
+        "ms": 1
+      }
+    },
+    {
+      "label": "Create separate draft beside published fixture",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "create": {
+              "_id": "welcome",
+              "_type": "paper",
+              "title": "Separate draft twin",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "type": "heading",
+                  "level": 1,
+                  "role": "title",
+                  "locked": true,
+                  "text": "Separate draft twin"
+                },
+                {
+                  "id": "tpl-body",
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "value": "Retained native content",
+                      "bold": true
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "results": [
+          {
+            "id": "drafts.welcome",
+            "operation": "create",
+            "document": {
+              "_createdAt": "2026-09-24T21:00:19.928000Z",
+              "_draft": true,
+              "_id": "drafts.welcome",
+              "_publishedId": "welcome",
+              "_rev": "633c89eace428ef0167f9da8e608e909",
+              "_type": "paper",
+              "_updatedAt": "2026-09-24T21:00:19.928000Z",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "Separate draft twin",
+                  "type": "heading"
+                },
+                {
+                  "content": [
+                    {
+                      "bold": true,
+                      "type": "text",
+                      "value": "Retained native content"
+                    }
+                  ],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                }
+              ],
+              "body_html": "<h1>Separate draft twin</h1><p>Retained native content</p>",
+              "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+              "style": "article",
+              "title": "Separate draft twin"
+            }
+          }
+        ],
+        "transactionId": "55f20a9a2450e184f895289ddb753213"
+      }
+    },
+    {
+      "label": "Read drafts.welcome (drafts)",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.welcome?perspective=drafts",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T21:00:19.928000Z",
+          "_draft": true,
+          "_id": "drafts.welcome",
+          "_publishedId": "welcome",
+          "_rev": "633c89eace428ef0167f9da8e608e909",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T21:00:19.928000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Separate draft twin",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "bold": true,
+                  "type": "text",
+                  "value": "Retained native content"
+                }
+              ],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body_html": "<h1>Separate draft twin</h1><p>Retained native content</p>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "style": "article",
+          "title": "Separate draft twin"
+        },
+        "schemaHash": "878043ba2ef5be47",
+        "syncTags": [
+          "bp:ds:production:doc:welcome",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "633c89eace428ef0167f9da8e608e909",
+        "ms": 1
+      }
+    },
+    {
+      "label": "Read welcome (raw)",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/welcome?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T21:00:15.605000Z",
+          "_draft": false,
+          "_id": "welcome",
+          "_publishedId": "welcome",
+          "_rev": "02bcf6833d90895d421ab17f1fa5b790",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T21:00:15.605000Z",
+          "blocks": [
+            {
+              "id": "h1",
+              "level": 1,
+              "text": "Welcome to Barkpark",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome."
+                }
+              ],
+              "id": "p1",
+              "type": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Your media library is at Studio → Media. Everything else starts empty on purpose."
+                }
+              ],
+              "id": "p2",
+              "type": "paragraph"
+            },
+            {
+              "id": "code1",
+              "type": "code",
+              "value": "bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "h1",
+                "level": 1,
+                "text": "Welcome to Barkpark",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome."
+                  }
+                ],
+                "id": "p1",
+                "type": "paragraph"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Your media library is at Studio → Media. Everything else starts empty on purpose."
+                  }
+                ],
+                "id": "p2",
+                "type": "paragraph"
+              },
+              {
+                "id": "code1",
+                "type": "code",
+                "value": "bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure"
+              }
+            ],
+            "html": "<h1>Welcome to Barkpark</h1><p>This is a paper — Barkpark&#39;s first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome.</p><p>Your media library is at Studio → Media. Everything else starts empty on purpose.</p><pre style=\"background:var(--paper-bg-deep, #eaf1ee);border:0;border-radius:var(--bp-codeblock-radius, 0);color:var(--paper-ink, #15211d);padding:var(--bp-codeblock-pad, 0.9rem 1.1rem);margin:var(--bp-codeblock-margin, 1.2rem 0);font-family:var(--paper-font-mono, ui-monospace,Menlo,monospace);font-size:var(--bp-codeblock-size, 0.9rem);line-height:var(--bp-codeblock-lh, 1.5);overflow-x:auto;white-space:pre\">bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure</pre>"
+          },
+          "body_html": "<h1>Welcome to Barkpark</h1><p>This is a paper — Barkpark&#39;s first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome.</p><p>Your media library is at Studio → Media. Everything else starts empty on purpose.</p><pre style=\"background:var(--paper-bg-deep, #eaf1ee);border:0;border-radius:var(--bp-codeblock-radius, 0);color:var(--paper-ink, #15211d);padding:var(--bp-codeblock-pad, 0.9rem 1.1rem);margin:var(--bp-codeblock-margin, 1.2rem 0);font-family:var(--paper-font-mono, ui-monospace,Menlo,monospace);font-size:var(--bp-codeblock-size, 0.9rem);line-height:var(--bp-codeblock-lh, 1.5);overflow-x:auto;white-space:pre\">bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure</pre>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the…",
+            "extensions": {},
+            "image": null,
+            "title": null,
+            "type": "paper",
+            "url": "/papers/welcome"
+          },
+          "rev": 1,
+          "style": "article",
+          "title": "Welcome to Barkpark"
+        },
+        "schemaHash": "878043ba2ef5be47",
+        "syncTags": [
+          "bp:ds:production:doc:welcome",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "02bcf6833d90895d421ab17f1fa5b790",
+        "ms": 1
+      }
+    },
+    {
+      "label": "Delete exact draft using only its revision",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "delete": {
+              "id": "drafts.welcome",
+              "type": "paper",
+              "ifRevisionID": "633c89eace428ef0167f9da8e608e909"
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "results": [
+          {
+            "id": "welcome",
+            "operation": "delete",
+            "document": {
+              "_createdAt": "2026-09-24T21:00:15.605000Z",
+              "_draft": false,
+              "_id": "welcome",
+              "_publishedId": "welcome",
+              "_rev": "02bcf6833d90895d421ab17f1fa5b790",
+              "_type": "paper",
+              "_updatedAt": "2026-09-24T21:00:15.605000Z",
+              "blocks": [
+                {
+                  "id": "h1",
+                  "level": 1,
+                  "text": "Welcome to Barkpark",
+                  "type": "heading"
+                },
+                {
+                  "content": [
+                    {
+                      "type": "text",
+                      "value": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome."
+                    }
+                  ],
+                  "id": "p1",
+                  "type": "paragraph"
+                },
+                {
+                  "content": [
+                    {
+                      "type": "text",
+                      "value": "Your media library is at Studio → Media. Everything else starts empty on purpose."
+                    }
+                  ],
+                  "id": "p2",
+                  "type": "paragraph"
+                },
+                {
+                  "id": "code1",
+                  "type": "code",
+                  "value": "bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure"
+                }
+              ],
+              "body": {
+                "blocks": [
+                  {
+                    "id": "h1",
+                    "level": 1,
+                    "text": "Welcome to Barkpark",
+                    "type": "heading"
+                  },
+                  {
+                    "content": [
+                      {
+                        "type": "text",
+                        "value": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome."
+                      }
+                    ],
+                    "id": "p1",
+                    "type": "paragraph"
+                  },
+                  {
+                    "content": [
+                      {
+                        "type": "text",
+                        "value": "Your media library is at Studio → Media. Everything else starts empty on purpose."
+                      }
+                    ],
+                    "id": "p2",
+                    "type": "paragraph"
+                  },
+                  {
+                    "id": "code1",
+                    "type": "code",
+                    "value": "bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure"
+                  }
+                ],
+                "html": "<h1>Welcome to Barkpark</h1><p>This is a paper — Barkpark&#39;s first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome.</p><p>Your media library is at Studio → Media. Everything else starts empty on purpose.</p><pre style=\"background:var(--paper-bg-deep, #eaf1ee);border:0;border-radius:var(--bp-codeblock-radius, 0);color:var(--paper-ink, #15211d);padding:var(--bp-codeblock-pad, 0.9rem 1.1rem);margin:var(--bp-codeblock-margin, 1.2rem 0);font-family:var(--paper-font-mono, ui-monospace,Menlo,monospace);font-size:var(--bp-codeblock-size, 0.9rem);line-height:var(--bp-codeblock-lh, 1.5);overflow-x:auto;white-space:pre\">bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure</pre>"
+              },
+              "body_html": "<h1>Welcome to Barkpark</h1><p>This is a paper — Barkpark&#39;s first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome.</p><p>Your media library is at Studio → Media. Everything else starts empty on purpose.</p><pre style=\"background:var(--paper-bg-deep, #eaf1ee);border:0;border-radius:var(--bp-codeblock-radius, 0);color:var(--paper-ink, #15211d);padding:var(--bp-codeblock-pad, 0.9rem 1.1rem);margin:var(--bp-codeblock-margin, 1.2rem 0);font-family:var(--paper-font-mono, ui-monospace,Menlo,monospace);font-size:var(--bp-codeblock-size, 0.9rem);line-height:var(--bp-codeblock-lh, 1.5);overflow-x:auto;white-space:pre\">bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure</pre>",
+              "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+              "preview": {
+                "description": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the…",
+                "extensions": {},
+                "image": null,
+                "title": null,
+                "type": "paper",
+                "url": "/papers/welcome"
+              },
+              "rev": 1,
+              "style": "article",
+              "title": "Welcome to Barkpark"
+            }
+          }
+        ],
+        "transactionId": "aba60d7ef4a9a9f5be5e7f01e442f82a"
+      }
+    },
+    {
+      "label": "Published twin after exact draft delete",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/welcome?perspective=raw",
+      "status": 404,
+      "data": {
+        "error": {
+          "code": "not_found",
+          "message": "document not found",
+          "hint": "Check the document _id, type, and dataset in the URL — the resource does not exist in this scope.",
+          "request_id": "GNhdd55vk8B3_MoAACrB"
+        }
+      }
+    },
+    {
+      "label": "Read drafts.welcome (drafts)",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.welcome?perspective=drafts",
+      "status": 404,
+      "data": {
+        "error": {
+          "code": "not_found",
+          "message": "document not found",
+          "hint": "Check the document _id, type, and dataset in the URL — the resource does not exist in this scope.",
+          "request_id": "GNhdd6KDU8B3_MoAACsB"
+        }
+      }
+    }
+  ],
+  "cleanup": {
+    "stopped": true
+  },
+  "limits": [
+    "HTTP contract evidence, not a native deletion/recovery feature or stage acceptance.",
+    "The caller-revision/reread interval is a source-inferred race; this probe does not force that interleaving.",
+    "Copy recovery tests one native block snapshot; media, references, Pages placement, durable retry journals and profile isolation need adapter proof."
+  ],
+  "finishedAt": "2026-09-24T21:00:21.501Z",
+  "elapsedSeconds": 56.574
+}

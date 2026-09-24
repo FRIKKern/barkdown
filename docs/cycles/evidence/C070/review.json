@@ -1,0 +1,52 @@
+{
+  "reviewer": "Codex",
+  "reviewedAt": "2026-09-24T21:02:13.988Z",
+  "audit": "docs/cycles/evidence/C070/deletion-audit/audit.json",
+  "scriptHash": "fe235c21bc61834ea1cd9ca1bb3d537672a160939c95bd4a2017917dd4fbaf1c",
+  "upstream": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "observations": [
+    {
+      "name": "stale-before-request",
+      "holds": true,
+      "detail": "A revision already stale when delete starts refuses with412 and preserves the exact human row."
+    },
+    {
+      "name": "history-survives-delete",
+      "holds": true,
+      "detail": "Deleted draft is absent and its exact revision remains retrievable."
+    },
+    {
+      "name": "restore-preserves-later-human-edit",
+      "holds": false,
+      "detail": "Later title \"New human title after recovery\" became \"Human edit before deletion\" after replay."
+    },
+    {
+      "name": "create-only-copy-preserves-both-rows",
+      "holds": true,
+      "detail": "New identity preserves exact native blocks/title; repeated create refuses and retains later edits on both original and copy. Links are not retargeted."
+    },
+    {
+      "name": "exact-delete-preserves-published-twin",
+      "holds": false,
+      "detail": "Exact drafts.welcome delete returned200; published welcome read returned404."
+    },
+    {
+      "name": "delete-receipt-names-requested-row",
+      "holds": false,
+      "detail": "Requested drafts.welcome; receipt named welcome."
+    },
+    {
+      "name": "atomic-caller-revision-delete",
+      "holds": null,
+      "detail": "Not executed: mutation revision check precedes lifecycle reread. Server-side interleaving test required."
+    }
+  ],
+  "retainedSnapshotMatchesCopy": true,
+  "safetyDecision": "Do not expose generic delete or unconditional restore; implement exact-row atomic caller-revision deletion upstream before the native adapter.",
+  "visualReview": "No application, dependency, pin or capture input changed. C069 reviewed evidence remains applicable; no new deletion UI is claimed.",
+  "limits": [
+    "HTTP contract evidence, not a native deletion/recovery feature or stage acceptance.",
+    "The caller-revision/reread interval is a source-inferred race; this probe does not force that interleaving.",
+    "Copy recovery tests one native block snapshot; media, references, Pages placement, durable retry journals and profile isolation need adapter proof."
+  ]
+}

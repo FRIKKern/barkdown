@@ -11,7 +11,7 @@ C061 inspected upstream `30c007e43` and made 58 HTTP exchanges across four dispo
 | Search | Default search omits drafts; explicit `perspective=drafts` finds their body content. | Local draft discovery and search need deliberate perspective-aware adapters; do not change connected/cloud semantics implicitly. |
 | Creation collision | Existing draft `create` refuses409 unchanged; one concurrent pair produced200/422. An existing published ID still allows a distinct draft twin. | This is not whole-namespace reservation. Do not infer safe retry or create-only semantics from the verb name. |
 | Lost response | A proxy drops the response after one committed create; two exact draft reads return identical content without another write. | This proves a reconciliation primitive, not an app retry journal or power-loss safety. |
-| Recovery | Guarded delete removes the draft; retained revision detail restores it as a draft. Repeating unconditional restore over a newer human title overwrites it. | Do not expose this restore as guarded Undo. Recovery needs an atomic current-state guard or safe new-identity recovery. |
+| Deletion and recovery | C070 confirms an exact draft delete also removes its published twin and returns the published identity in its receipt. A stale revision at request start refuses, but the caller check precedes a separate lifecycle reread. Repeated restore overwrites a newer human title. | Generic delete/restore cannot implement safe exact-note deletion. See the required server contract below. |
 
 ## Implemented human journey — C067
 
@@ -19,7 +19,30 @@ The profile-owned `app/main/draft-notes.js` service now retains library owner, e
 
 The native journey creates through New Page, types title/body in the real canvas, selects a body-search result, switches between profiles with identical draft IDs, and restarts into the original row. Creation persists the request before dispatch and a nonce before the POST; uncertain retries only read the same row, including after service reconstruction. A real lost-response probe confirms no second mutation. Missing readback remains unresolved; it never authorizes a fresh POST. Manual/cloud creation and legacy data keep their existing paths.
 
-C069 connects API and MCP creation/edit/Undo to this same owned service, with atomic receipts and exact row/revision checks. The new shared paper-tools adapter captures the runtime profile; managed MCP tools do not seed legacy notes. [C069 native acceptance](../visual/agent-notes/README.md) proves chat activity, profile return, restart and visible Undo; later human edits remain unchanged when stale Undo refuses. Before deletion/recovery, prove that a later human edit cannot be overwritten by replay or restore. Do not bypass publishing walls, republish draft notes automatically, or translate opaque revisions into Paper integer revisions.
+C069 connects API and MCP creation/edit/Undo to this same owned service, with atomic receipts and exact row/revision checks. The new shared paper-tools adapter captures the runtime profile; managed MCP tools do not seed legacy notes. [C069 native acceptance](../visual/agent-notes/README.md) proves chat activity, profile return, restart and visible Undo; later human edits remain unchanged when stale Undo refuses. Do not bypass publishing walls, republish draft notes automatically, or translate opaque revisions into Paper integer revisions.
+
+## Deletion prerequisite — C070
+
+The [disposable audit](../cycles/evidence/C070/deletion-audit/audit.json) made33 HTTP exchanges against30c007e43. It reproduced three unsafe results: deleting `drafts.welcome` also removed published `welcome`; the receipt named `welcome`; replaying retained restore replaced a newer human title. Stale-before-request deletion correctly refused412. That passing case does not prove a race is fenced: `Mutations.apply_one` checks the caller's opaque revision, then `Lifecycle.do_delete_document` reads both rows again and fences against those newer reads. The intervening-write risk is inferred from source, not a forced race result.
+
+The next upstream change must provide an **exact-row, atomic caller-revision delete**, without changing the legacy both-variant operation for its other callers. This is a required contract, not an endpoint that exists today:
+
+- Require the exact draft row and nonempty opaque `_rev`; no bare-ID normalization, sibling fallback or integer-revision conversion.
+- Compare the caller's revision at the actual delete boundary. A human write between initial read and delete must either survive or cause a precondition refusal. Test that interleaving on the server; a client preflight cannot close it.
+- Retain the deleted snapshot and return the exact removed identity/revision. Row removal, revision evidence and mutation event must succeed or roll back together. Never infer which row was removed from a200 response alone.
+- Distinguish missing, stale, inaccessible and uncertain outcomes. A lost reply never authorizes another destructive request against a recreated identity. Test a missing draft beside a published twin, two twins, concurrent edits, snapshot/event failure and lost acknowledgement.
+
+Once that contract passes, implement the owned Barkdown journal and native journey. Persist profile/library/exact row/revision and deletion intent before dispatch; preserve Pages, favorites, tabs, media and receipts as recovery evidence. Disable deletion while unsaved canvas/title work exists. A server refusal must retain the note and organization. Archive still means unplaced notes, not deleted notes.
+
+For the first recovery action, use **Recover a copy** with an explicitly new identity and creation-only collision handling. The audit proves one native-block snapshot can be copied while preserving later human edits on both original and copy; repeating create refuses409/422 rather than replacing either. It does not prove a durable recovery adapter. Persist one request identity and content nonce before the create, reconcile a lost reply by exact readback, and refuse a changed intent. Do not serialize through Markdown or claim original links/placement are restored. Let the person choose where to place the copy; retain the original recovery record. Same-identity restore requires a separate atomic guard before it can be offered.
+
+Reproduce on Windows with a built, clean source checkout; the script creates and stops its own private database and has no remote-server option:
+
+```powershell
+node scripts/audit-paper-deletion.mjs --source C:/path/to/built-barkpark --output C:/path/to/new-audit-directory
+```
+
+Exit0 means the audit executed successfully. Read `safeToExposeDeletion` and each observation: the current result is **false**, not acceptance of the destructive feature. `atomic-caller-revision-delete` remains explicitly unproved. Preserve this generic-operation compatibility audit. Add separate assertions for the new exact-row operation when it exists; passing those tests must not silently change existing both-variant semantics.
 
 ## Remaining acceptance
 
