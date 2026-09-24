@@ -1,0 +1,54 @@
+{
+  "sources": [
+    {
+      "file": "../create-edit-profile-switch.webm",
+      "sha256": "162daa3610620e37b0697fae7ac1e7f6192a67c707802cfcc10cfae9e9e08d8f",
+      "startSeconds": 75.5,
+      "endSeconds": 81.375,
+      "sampledFrames": 47
+    },
+    {
+      "file": "../restart-undo-human-edit.webm",
+      "sha256": "521f9dcaff8b49a20e976ea7ad78c4766027c2e48bf7733346c2afc9ff34e25b",
+      "startSeconds": 3.0,
+      "endSeconds": 12.0,
+      "sampledFrames": 66
+    }
+  ],
+  "encoding": {
+    "width": 1120,
+    "height": 720,
+    "sampleFps": 8,
+    "palette": "Shared 256 colors; Pillow median-cut palette from ten evenly spaced frames; no dithering",
+    "loop": true,
+    "disposal": 1,
+    "durationMs": 14120,
+    "sampledFrames": 113,
+    "encodedFrames": 108,
+    "duplicateFrames": "Combined by GIF encoder; durations preserved"
+  },
+  "output": {
+    "file": "readme.gif",
+    "bytes": 2484923,
+    "sha256": "c7ad391de328c3087c02ed125df3627d322570bf5533cdec0c63675f7cf34f2e"
+  },
+  "omissions": "Startup, profile switch, narrow-window check and application restart are omitted between excerpts. Full source videos retain them. No pixels cropped, masked or recolored; no invented motion.",
+  "decode": {
+    "command": "ffmpeg -ss START -i SOURCE -t DURATION -r 8 -vf scale=1120:-1 clip-%03d.png",
+    "note": "End is the requested cutoff; decoding stops at EOF if earlier. Samples stay in order. No speed change.",
+    "pythonPillow": "12.3.0",
+    "paletteSampleIndices": [
+      0,
+      12,
+      25,
+      37,
+      50,
+      62,
+      75,
+      87,
+      100,
+      112
+    ],
+    "frameDelaysMs": "Alternate 120 and 130, starting with 120. Identical frames combine with summed duration."
+  }
+}

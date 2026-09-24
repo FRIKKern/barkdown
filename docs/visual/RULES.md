@@ -62,6 +62,12 @@ The present freshness rules remain conservative, including documentation under a
 
 A cycle's closing truth pass includes these pages. CI verifies source/artifact/review freshness and local links; the named reviewer verifies meaning. Main is the integration baseline, not proof that every P1â€“P5 journey is complete.
 
+## README demo
+
+The cycle owner keeps the root README GIF current. Refresh it in the same evidence commit whenever a change affects the layout, controls or interactions it shows, or when a new core workflow should replace the featured journey. For unrelated changes, record why the existing demo still applies in the handoff. Reuse that cycle's reviewed recording instead of running a second showcase suite.
+
+Use a short dark-mode journey with readable text and visible actions: roughly 15-25 seconds, at least 8 fps, about 1120 pixels wide and under 5 MB. Show the result, not just menus. Keep a still-view option. Use disposable content, identify scripted model responses, and link the source manifest and full video. Retain exact excerpt times and encoding settings; never hide a failed action or fabricate motion. Inspect every output frame and the README-sized result before replacing the embed. Automated checks do not replace this review.
+
 ## Private Paper capture
 
 For source-runtime verification, use `npm --prefix app run shots:isolated` with a built Barkpark checkout (`BARKDOWN_TEST_BP_SOURCE` may select it). It owns a temporary database, ephemeral ports and temporary CLI config, then stops its runtime. The manifest records the actual server and source baseline. This is the preferred way to satisfy the live Paper freshness gate without changing the person's active CLI or demo library. Temporary data is retained for diagnosis. Real provider calls may be attempted; the existing transcript fallback is explicitly marked in the manifest.
