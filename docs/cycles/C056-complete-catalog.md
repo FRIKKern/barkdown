@@ -16,3 +16,6 @@ First native attempt at f401267 refused its fixture assumption (fresh runtime ha
 
 
 Second native attempt at21da2cd hit the real publication deduplication wall: numbered "Library note" titles were near-duplicates. The private runtime stopped and refusal evidence remains in docs/visual/catalog/runs/2026-09-24T04-50-56-730Z. Fixtures now use distinct named specimens, without bypass/supersedes flags or upstream validation changes. This is another reason ordinary blank-note lifecycle still needs a separately audited contract.
+
+
+Third native run at51f52b3 passed all real HTTP/CLI200/201 checks and desktop failure/retry/connection/draft/Pages/restart assertions. Its private runtime stopped; evidence is docs/visual/catalog/runs/2026-09-24T04-53-39-475Z (pending image review). Final reader review adds a one-identity overlap between pages: unchanged total counts can hide delete+insert boundary shifts.39 focused tests pass, including that previously silent gap and duplicated rows after the overlap. Fresh native and standard evidence will target the final reader source.

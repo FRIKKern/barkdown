@@ -14,7 +14,7 @@ for (const size of [0, 1, 60, 61, 200, 201, 400, 401]) test(`complete catalog of
   const all = papers(size), calls = [];
   const actual = await readCatalog(({ limit, offset }) => { calls.push(offset); return page(all, limit, offset); });
   assert.deepEqual(actual, all);
-  assert.equal(calls.length, Math.max(1, Math.ceil(size / 200)));
+  assert.equal(calls.length, Math.max(1, Math.ceil((size - 1) / 199)));
 });
 const invalid = {
   'old response without pagination': p => ({ documents: p.documents }),
@@ -63,7 +63,7 @@ test('HTTP adapter captures connection, uses audited pagination and preserves bo
   try {
     const actual = await listAllPapers(config);
     assert.equal(actual.length, 401); assert.equal(actual[0].id, 'paper-400');
-    assert.deepEqual(requests.map(r => r.query.offset), ['0', '200', '400']);
+    assert.deepEqual(requests.map(r => r.query.offset), ['0', '199', '398']);
     for (const r of requests) { assert.equal(r.auth, 'Bearer fixture-token'); assert.equal(r.path, '/v1/data/query/fixture/paper'); assert.equal(r.query.order, '_createdAt:asc'); assert.equal(r.query.count, 'true'); assert.equal(r.query.perspective, 'published'); assert.equal(r.query.fields, 'title,slug,tags'); }
     assert.equal((await listPapers(initial)).length, 60);
     assert.equal(requests.length, 4);
@@ -75,4 +75,19 @@ test('HTTP catalog stops an oversized page before parsing or publishing it', asy
   await new Promise(r => server.listen(0, '127.0.0.1', r));
   try { await assert.rejects(listAllPapers({ server: `http://127.0.0.1:${server.address().port}` }), /page size budget/); }
   finally { server.closeAllConnections(); await new Promise(r => server.close(r)); }
+});
+test('refuses a constant-count deletion/insertion that would silently skip a boundary paper', async () => {
+  const all = papers(401);
+  await assert.rejects(readCatalog(({ limit, offset }) => {
+    if (offset) { all.shift(); all.push({ _id: 'replacement' }); }
+    return page(all, limit, offset);
+  }), /shifted between pages/);
+});
+test('boundary overlap does not excuse duplicate identities later in a page', async () => {
+  const all = papers(401);
+  await assert.rejects(readCatalog(({ limit, offset }) => {
+    const p = page(all, limit, offset);
+    if (offset) p.result.documents[1] = all[0];
+    return p;
+  }), /repeated paper/);
 });
