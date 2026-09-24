@@ -1,0 +1,11 @@
+Source syntax, 24 requirements, local links, portable previews, source references, hashes, and fresh status screenshots passed.
+
+> barkdown-workspace@0.5.0 check:visual
+> node scripts/visual.test.mjs && node scripts/visual-approval.test.mjs && node scripts/visual.mjs check
+
+Visual diff: identical images, low color noise, localized deletion and resize checked.
+Visual step matching: insertion, reordering, deletion and duplicate identities checked.
+Future live fixtures and capture helpers invalidate existing approval.
+Actual approval CLI: same candidate retains original and both reviewers; latest pointer and tamper refusal pass. Fixture retained: C:\Users\Frikk\AppData\Local\Temp\barkdown-review-history-3kBlFe
+Visual evidence hashes, source coverage and agent review are current. External/live coverage limits remain in docs/visual/README.md.
+Capture artifact hashes, final GIF hash, native assertions and scoped git diff --check passed. All 230 decoded GIF frames and four native stills visually inspected by Codex. Full root verify was not repeated for this documentation/media-only refresh.

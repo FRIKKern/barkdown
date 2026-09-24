@@ -10,9 +10,9 @@ The dark excerpt uses41 actual video samples at2fps. It omits startup, profile w
 
 ## README demo
 
-[The root README loop](runs/2026-09-24T22-38-56-443Z/derived/readme-color-corrected.gif) shows a visible agent edit, Undo after restart, and human typing. Fresh native capture at Barkdown `299e14d` and private Barkpark `f2528db`: dark mode, 1120 x 720, 8 fps, 14 seconds, 3 MB. Model responses are scripted through the actual SDK and Paper server.
+[The root README loop](runs/2026-09-24T23-33-22-364Z-notebook/readme-notebook.gif) shows a populated notebook beside the conversation: a targeted agent rewrite, Undo, checklist and table edits, then finding a note. Dark mode, 1200 × 750, 8 fps, 30 seconds. Real Electron and private Paper server; scripted model responses. Captured at Barkdown `a772217` using the preserved Barkpark `f2528db` runtime.
 
-[Color review](runs/2026-09-24T22-38-56-443Z/COLOR-REVIEW.md), [capture review](runs/2026-09-24T22-38-56-443Z/REVIEW.md), [manifest](runs/2026-09-24T22-38-56-443Z/manifest.json), [full creation/profile video](runs/2026-09-24T22-38-56-443Z/create-edit-profile-switch.webm), [full restart/Undo video](runs/2026-09-24T22-38-56-443Z/restart-undo-human-edit.webm), and [excerpt recipe](runs/2026-09-24T22-38-56-443Z/derived/readme-derivation.json). Setup, profile checks and restart waits are omitted. Refresh with visible product changes using the [README demo rule](../RULES.md#readme-demo).
+[Review](runs/2026-09-24T23-33-22-364Z-notebook/REVIEW.md) · [Still](runs/2026-09-24T23-33-22-364Z-notebook/01-notebook.png) · [Full recording](runs/2026-09-24T23-33-22-364Z-notebook/full-session.webm) · [Capture](runs/2026-09-24T23-33-22-364Z-notebook/manifest.json) · [Cuts and colors](runs/2026-09-24T23-33-22-364Z-notebook/readme-encoding.json). Setup and a settled save wait are omitted. Refresh with visible product changes using the [README demo rule](../RULES.md#readme-demo).
 
 ## What the evidence establishes
 
@@ -24,6 +24,8 @@ The dark excerpt uses41 actual video samples at2fps. It omits startup, profile w
 Body replacement preserves the locked title. Additional locked slots require targeted edits. Agent title editing, deletion/recovery, uncertain edit-response recovery, in-flight creation/profile switching, migration activation and legacy retirement remain unproved. Expanded API tool traces and the existing opaque history label are visible; this does not establish a revision browser. P2/A2 remains open.
 
 ## Changelog
+
+- 25 September: filled out the README demo with an actual notebook, wider Paper pane, folded tool details, checklist/table editing and note search. Earlier [capture](runs/2026-09-24T22-38-56-443Z/REVIEW.md) and [color review](runs/2026-09-24T22-38-56-443Z/COLOR-REVIEW.md) remain available.
 
 - 25 September: corrected the README GIF palette mapping after a reported brown tint. Background colors now match the recording exactly; cuts and timing are unchanged.
 
