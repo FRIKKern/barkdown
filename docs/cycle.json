@@ -16,9 +16,10 @@
   ],
   "checkpoint": "2026-09-24",
   "handoff": "docs/cycles/C061-ordinary-note-contract.md",
-  "nextAction": "Run the committed HTTP probe through the owned isolated runtime, inspect actual responses and document safe adapter requirements.",
+  "nextAction": "Run root verification, push the contract audit with explicitly included logs, then prepare the private draft-note adapter and inspect CI.",
   "evidence": [
-    "docs/cycles/evidence/C060/review.json"
+    "docs/cycles/evidence/C061/assessment.json",
+    "docs/migration/ordinary-notes.md"
   ],
   "truthReview": "One delivery branch/draftPR33; C060 pushed ada4cbb with exact-head CI running. Upstream remains read-only.",
   "screenshotReview": "Documentation/API-contract audit only; no app/capture input changes. C060 native/live/standard evidence remains applicable and is not relabeled as draft-note UI proof."

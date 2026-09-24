@@ -1,0 +1,904 @@
+{
+  "capturedAt": "2026-09-24T09:59:29.925Z",
+  "barkdownCommit": "c88bfd61e36fb3a66c37213b3d4fd80333d0f054",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "records": [
+    {
+      "label": "create empty title fixture",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "create": {
+              "_id": "draft-title-ops",
+              "_type": "paper",
+              "title": "",
+              "blocks": []
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "results": [
+          {
+            "id": "drafts.draft-title-ops",
+            "operation": "create",
+            "document": {
+              "_createdAt": "2026-09-24T09:59:27.614000Z",
+              "_draft": true,
+              "_id": "drafts.draft-title-ops",
+              "_publishedId": "draft-title-ops",
+              "_rev": "8bccf2507d7d1a812766b2eff72b458b",
+              "_type": "paper",
+              "_updatedAt": "2026-09-24T09:59:27.614000Z",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "",
+                  "type": "heading"
+                },
+                {
+                  "content": [],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                }
+              ],
+              "body_html": "<h1></h1>",
+              "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+              "style": "article",
+              "title": null
+            }
+          }
+        ],
+        "transactionId": "55f328a053306e1b48a4f11831b0208b"
+      }
+    },
+    {
+      "label": "title block ops",
+      "method": "POST",
+      "route": "/v1/plugins/bulldocs/papers/drafts.draft-title-ops/ops",
+      "body": {
+        "ifRev": 0,
+        "ops": [
+          {
+            "op": "patch-block",
+            "id": "tpl-title",
+            "patch": {
+              "text": "Human Paper title"
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "ok": true,
+        "rev": 1,
+        "slug": "drafts.draft-title-ops",
+        "block_ids": [
+          "tpl-title"
+        ],
+        "op_count": 1
+      }
+    },
+    {
+      "label": "after title block ops",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/draft-title-ops?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:59:27.614000Z",
+          "_draft": true,
+          "_id": "drafts.draft-title-ops",
+          "_publishedId": "draft-title-ops",
+          "_rev": "5eb6d6244b51190fd99e91ad09e5e7da",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:59:28.130000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Human Paper title",
+              "type": "heading"
+            },
+            {
+              "content": [],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Human Paper title",
+                "type": "heading"
+              },
+              {
+                "content": [],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>Human Paper title</h1>"
+          },
+          "body_html": "<h1>Human Paper title</h1>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": null,
+            "extensions": {},
+            "image": null,
+            "title": "Human Paper title",
+            "type": "paper",
+            "url": "/papers/drafts.draft-title-ops"
+          },
+          "rev": 1,
+          "style": "article",
+          "title": "Human Paper title"
+        },
+        "schemaHash": "5595e36c39d0817b",
+        "syncTags": [
+          "bp:ds:production:doc:draft-title-ops",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "5eb6d6244b51190fd99e91ad09e5e7da",
+        "ms": 9
+      }
+    },
+    {
+      "label": "body after title ops",
+      "method": "POST",
+      "route": "/v1/plugins/bulldocs/papers/drafts.draft-title-ops/ops",
+      "body": {
+        "ifRev": 1,
+        "ops": [
+          {
+            "op": "patch-block",
+            "id": "tpl-body",
+            "patch": {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Human body after title"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "ok": true,
+        "rev": 2,
+        "slug": "drafts.draft-title-ops",
+        "block_ids": [
+          "tpl-body"
+        ],
+        "op_count": 1
+      }
+    },
+    {
+      "label": "after body and title ops",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/draft-title-ops?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:59:27.614000Z",
+          "_draft": true,
+          "_id": "drafts.draft-title-ops",
+          "_publishedId": "draft-title-ops",
+          "_rev": "bf2958f638c4d32cbed2422bdc22ddb8",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:59:28.316000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Human Paper title",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Human body after title"
+                }
+              ],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Human Paper title",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Human body after title"
+                  }
+                ],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>Human Paper title</h1><p>Human body after title</p>"
+          },
+          "body_html": "<h1>Human Paper title</h1><p>Human body after title</p>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "Human body after title",
+            "extensions": {},
+            "image": null,
+            "title": "Human Paper title",
+            "type": "paper",
+            "url": "/papers/drafts.draft-title-ops"
+          },
+          "rev": 2,
+          "style": "article",
+          "title": "Human Paper title"
+        },
+        "schemaHash": "5595e36c39d0817b",
+        "syncTags": [
+          "bp:ds:production:doc:draft-title-ops",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "bf2958f638c4d32cbed2422bdc22ddb8",
+        "ms": 4
+      }
+    },
+    {
+      "label": "stale title block ops",
+      "method": "POST",
+      "route": "/v1/plugins/bulldocs/papers/drafts.draft-title-ops/ops",
+      "body": {
+        "ifRev": 0,
+        "ops": [
+          {
+            "op": "patch-block",
+            "id": "tpl-title",
+            "patch": {
+              "text": "Stale title"
+            }
+          }
+        ]
+      },
+      "status": 412,
+      "data": {
+        "error": {
+          "code": "precondition_failed",
+          "message": "ifRev did not match the paper's current rev; no ops applied",
+          "hint": "Re-fetch the document and retry with the current revision — it changed under you.",
+          "request_id": "GNg5Z3oU4sAjfe0AAEHB"
+        }
+      }
+    },
+    {
+      "label": "after stale title block refusal",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/draft-title-ops?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:59:27.614000Z",
+          "_draft": true,
+          "_id": "drafts.draft-title-ops",
+          "_publishedId": "draft-title-ops",
+          "_rev": "bf2958f638c4d32cbed2422bdc22ddb8",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:59:28.316000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Human Paper title",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Human body after title"
+                }
+              ],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Human Paper title",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Human body after title"
+                  }
+                ],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>Human Paper title</h1><p>Human body after title</p>"
+          },
+          "body_html": "<h1>Human Paper title</h1><p>Human body after title</p>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "Human body after title",
+            "extensions": {},
+            "image": null,
+            "title": "Human Paper title",
+            "type": "paper",
+            "url": "/papers/drafts.draft-title-ops"
+          },
+          "rev": 2,
+          "style": "article",
+          "title": "Human Paper title"
+        },
+        "schemaHash": "5595e36c39d0817b",
+        "syncTags": [
+          "bp:ds:production:doc:draft-title-ops",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "bf2958f638c4d32cbed2422bdc22ddb8",
+        "ms": 3
+      }
+    },
+    {
+      "label": "duplicate create refuses existing draft",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "create": {
+              "_id": "draft-title-ops",
+              "_type": "paper",
+              "title": "Replacement",
+              "blocks": []
+            }
+          }
+        ]
+      },
+      "status": 409,
+      "data": {
+        "error": {
+          "code": "conflict",
+          "message": "document already exists",
+          "hint": "The document already exists — use a createOrReplace/patch mutation instead of create.",
+          "request_id": "GNg5Z4NGAsAjfe0AAEJB"
+        }
+      }
+    },
+    {
+      "label": "after duplicate create",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/draft-title-ops?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:59:27.614000Z",
+          "_draft": true,
+          "_id": "drafts.draft-title-ops",
+          "_publishedId": "draft-title-ops",
+          "_rev": "bf2958f638c4d32cbed2422bdc22ddb8",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:59:28.316000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Human Paper title",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Human body after title"
+                }
+              ],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Human Paper title",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Human body after title"
+                  }
+                ],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>Human Paper title</h1><p>Human body after title</p>"
+          },
+          "body_html": "<h1>Human Paper title</h1><p>Human body after title</p>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "Human body after title",
+            "extensions": {},
+            "image": null,
+            "title": "Human Paper title",
+            "type": "paper",
+            "url": "/papers/drafts.draft-title-ops"
+          },
+          "rev": 2,
+          "style": "article",
+          "title": "Human Paper title"
+        },
+        "schemaHash": "5595e36c39d0817b",
+        "syncTags": [
+          "bp:ds:production:doc:draft-title-ops",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "bf2958f638c4d32cbed2422bdc22ddb8",
+        "ms": 2
+      }
+    },
+    {
+      "label": "published collision before",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/welcome?perspective=published",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:59:25.340000Z",
+          "_draft": false,
+          "_id": "welcome",
+          "_publishedId": "welcome",
+          "_rev": "5ae9ebf91f4473ead005e2aba179b365",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:59:25.340000Z",
+          "blocks": [
+            {
+              "id": "h1",
+              "level": 1,
+              "text": "Welcome to Barkpark",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome."
+                }
+              ],
+              "id": "p1",
+              "type": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Your media library is at Studio → Media. Everything else starts empty on purpose."
+                }
+              ],
+              "id": "p2",
+              "type": "paragraph"
+            },
+            {
+              "id": "code1",
+              "type": "code",
+              "value": "bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "h1",
+                "level": 1,
+                "text": "Welcome to Barkpark",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome."
+                  }
+                ],
+                "id": "p1",
+                "type": "paragraph"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Your media library is at Studio → Media. Everything else starts empty on purpose."
+                  }
+                ],
+                "id": "p2",
+                "type": "paragraph"
+              },
+              {
+                "id": "code1",
+                "type": "code",
+                "value": "bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure"
+              }
+            ],
+            "html": "<h1>Welcome to Barkpark</h1><p>This is a paper — Barkpark&#39;s first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome.</p><p>Your media library is at Studio → Media. Everything else starts empty on purpose.</p><pre style=\"background:var(--paper-bg-deep, #eaf1ee);border:0;border-radius:var(--bp-codeblock-radius, 0);color:var(--paper-ink, #15211d);padding:var(--bp-codeblock-pad, 0.9rem 1.1rem);margin:var(--bp-codeblock-margin, 1.2rem 0);font-family:var(--paper-font-mono, ui-monospace,Menlo,monospace);font-size:var(--bp-codeblock-size, 0.9rem);line-height:var(--bp-codeblock-lh, 1.5);overflow-x:auto;white-space:pre\">bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure</pre>"
+          },
+          "body_html": "<h1>Welcome to Barkpark</h1><p>This is a paper — Barkpark&#39;s first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome.</p><p>Your media library is at Studio → Media. Everything else starts empty on purpose.</p><pre style=\"background:var(--paper-bg-deep, #eaf1ee);border:0;border-radius:var(--bp-codeblock-radius, 0);color:var(--paper-ink, #15211d);padding:var(--bp-codeblock-pad, 0.9rem 1.1rem);margin:var(--bp-codeblock-margin, 1.2rem 0);font-family:var(--paper-font-mono, ui-monospace,Menlo,monospace);font-size:var(--bp-codeblock-size, 0.9rem);line-height:var(--bp-codeblock-lh, 1.5);overflow-x:auto;white-space:pre\">bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure</pre>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the…",
+            "extensions": {},
+            "image": null,
+            "title": null,
+            "type": "paper",
+            "url": "/papers/welcome"
+          },
+          "rev": 1,
+          "style": "article",
+          "title": "Welcome to Barkpark"
+        },
+        "schemaHash": "5595e36c39d0817b",
+        "syncTags": [
+          "bp:ds:production:doc:welcome",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "5ae9ebf91f4473ead005e2aba179b365",
+        "ms": 2
+      }
+    },
+    {
+      "label": "create same id as published fixture",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "create": {
+              "_id": "welcome",
+              "_type": "paper",
+              "title": "Distinct draft twin",
+              "blocks": []
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "results": [
+          {
+            "id": "drafts.welcome",
+            "operation": "create",
+            "document": {
+              "_createdAt": "2026-09-24T09:59:29.691000Z",
+              "_draft": true,
+              "_id": "drafts.welcome",
+              "_publishedId": "welcome",
+              "_rev": "3e6e3fe62058c5b94b9f6faa513cdb44",
+              "_type": "paper",
+              "_updatedAt": "2026-09-24T09:59:29.691000Z",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "Distinct draft twin",
+                  "type": "heading"
+                },
+                {
+                  "content": [],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                }
+              ],
+              "body_html": "<h1>Distinct draft twin</h1>",
+              "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+              "style": "article",
+              "title": "Distinct draft twin"
+            }
+          }
+        ],
+        "transactionId": "3a4495c37f9f1ded07bcb065eaccde5f"
+      }
+    },
+    {
+      "label": "collision raw exact published wins",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/welcome?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:59:25.340000Z",
+          "_draft": false,
+          "_id": "welcome",
+          "_publishedId": "welcome",
+          "_rev": "5ae9ebf91f4473ead005e2aba179b365",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:59:25.340000Z",
+          "blocks": [
+            {
+              "id": "h1",
+              "level": 1,
+              "text": "Welcome to Barkpark",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome."
+                }
+              ],
+              "id": "p1",
+              "type": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Your media library is at Studio → Media. Everything else starts empty on purpose."
+                }
+              ],
+              "id": "p2",
+              "type": "paragraph"
+            },
+            {
+              "id": "code1",
+              "type": "code",
+              "value": "bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "h1",
+                "level": 1,
+                "text": "Welcome to Barkpark",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome."
+                  }
+                ],
+                "id": "p1",
+                "type": "paragraph"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Your media library is at Studio → Media. Everything else starts empty on purpose."
+                  }
+                ],
+                "id": "p2",
+                "type": "paragraph"
+              },
+              {
+                "id": "code1",
+                "type": "code",
+                "value": "bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure"
+              }
+            ],
+            "html": "<h1>Welcome to Barkpark</h1><p>This is a paper — Barkpark&#39;s first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome.</p><p>Your media library is at Studio → Media. Everything else starts empty on purpose.</p><pre style=\"background:var(--paper-bg-deep, #eaf1ee);border:0;border-radius:var(--bp-codeblock-radius, 0);color:var(--paper-ink, #15211d);padding:var(--bp-codeblock-pad, 0.9rem 1.1rem);margin:var(--bp-codeblock-margin, 1.2rem 0);font-family:var(--paper-font-mono, ui-monospace,Menlo,monospace);font-size:var(--bp-codeblock-size, 0.9rem);line-height:var(--bp-codeblock-lh, 1.5);overflow-x:auto;white-space:pre\">bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure</pre>"
+          },
+          "body_html": "<h1>Welcome to Barkpark</h1><p>This is a paper — Barkpark&#39;s first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome.</p><p>Your media library is at Studio → Media. Everything else starts empty on purpose.</p><pre style=\"background:var(--paper-bg-deep, #eaf1ee);border:0;border-radius:var(--bp-codeblock-radius, 0);color:var(--paper-ink, #15211d);padding:var(--bp-codeblock-pad, 0.9rem 1.1rem);margin:var(--bp-codeblock-margin, 1.2rem 0);font-family:var(--paper-font-mono, ui-monospace,Menlo,monospace);font-size:var(--bp-codeblock-size, 0.9rem);line-height:var(--bp-codeblock-lh, 1.5);overflow-x:auto;white-space:pre\">bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure</pre>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the…",
+            "extensions": {},
+            "image": null,
+            "title": null,
+            "type": "paper",
+            "url": "/papers/welcome"
+          },
+          "rev": 1,
+          "style": "article",
+          "title": "Welcome to Barkpark"
+        },
+        "schemaHash": "5595e36c39d0817b",
+        "syncTags": [
+          "bp:ds:production:doc:welcome",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "5ae9ebf91f4473ead005e2aba179b365",
+        "ms": 1
+      }
+    },
+    {
+      "label": "collision drafts prefers twin",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/welcome?perspective=drafts",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:59:29.691000Z",
+          "_draft": true,
+          "_id": "drafts.welcome",
+          "_publishedId": "welcome",
+          "_rev": "3e6e3fe62058c5b94b9f6faa513cdb44",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:59:29.691000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Distinct draft twin",
+              "type": "heading"
+            },
+            {
+              "content": [],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body_html": "<h1>Distinct draft twin</h1>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "style": "article",
+          "title": "Distinct draft twin"
+        },
+        "schemaHash": "5595e36c39d0817b",
+        "syncTags": [
+          "bp:ds:production:doc:welcome",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "3e6e3fe62058c5b94b9f6faa513cdb44",
+        "ms": 1
+      }
+    },
+    {
+      "label": "published collision after",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/welcome?perspective=published",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:59:25.340000Z",
+          "_draft": false,
+          "_id": "welcome",
+          "_publishedId": "welcome",
+          "_rev": "5ae9ebf91f4473ead005e2aba179b365",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:59:25.340000Z",
+          "blocks": [
+            {
+              "id": "h1",
+              "level": 1,
+              "text": "Welcome to Barkpark",
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome."
+                }
+              ],
+              "id": "p1",
+              "type": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Your media library is at Studio → Media. Everything else starts empty on purpose."
+                }
+              ],
+              "id": "p2",
+              "type": "paragraph"
+            },
+            {
+              "id": "code1",
+              "type": "code",
+              "value": "bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "h1",
+                "level": 1,
+                "text": "Welcome to Barkpark",
+                "type": "heading"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome."
+                  }
+                ],
+                "id": "p1",
+                "type": "paragraph"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Your media library is at Studio → Media. Everything else starts empty on purpose."
+                  }
+                ],
+                "id": "p2",
+                "type": "paragraph"
+              },
+              {
+                "id": "code1",
+                "type": "code",
+                "value": "bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure"
+              }
+            ],
+            "html": "<h1>Welcome to Barkpark</h1><p>This is a paper — Barkpark&#39;s first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome.</p><p>Your media library is at Studio → Media. Everything else starts empty on purpose.</p><pre style=\"background:var(--paper-bg-deep, #eaf1ee);border:0;border-radius:var(--bp-codeblock-radius, 0);color:var(--paper-ink, #15211d);padding:var(--bp-codeblock-pad, 0.9rem 1.1rem);margin:var(--bp-codeblock-margin, 1.2rem 0);font-family:var(--paper-font-mono, ui-monospace,Menlo,monospace);font-size:var(--bp-codeblock-size, 0.9rem);line-height:var(--bp-codeblock-lh, 1.5);overflow-x:auto;white-space:pre\">bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure</pre>"
+          },
+          "body_html": "<h1>Welcome to Barkpark</h1><p>This is a paper — Barkpark&#39;s first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome.</p><p>Your media library is at Studio → Media. Everything else starts empty on purpose.</p><pre style=\"background:var(--paper-bg-deep, #eaf1ee);border:0;border-radius:var(--bp-codeblock-radius, 0);color:var(--paper-ink, #15211d);padding:var(--bp-codeblock-pad, 0.9rem 1.1rem);margin:var(--bp-codeblock-margin, 1.2rem 0);font-family:var(--paper-font-mono, ui-monospace,Menlo,monospace);font-size:var(--bp-codeblock-size, 0.9rem);line-height:var(--bp-codeblock-lh, 1.5);overflow-x:auto;white-space:pre\">bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure</pre>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the…",
+            "extensions": {},
+            "image": null,
+            "title": null,
+            "type": "paper",
+            "url": "/papers/welcome"
+          },
+          "rev": 1,
+          "style": "article",
+          "title": "Welcome to Barkpark"
+        },
+        "schemaHash": "5595e36c39d0817b",
+        "syncTags": [
+          "bp:ds:production:doc:welcome",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "5ae9ebf91f4473ead005e2aba179b365",
+        "ms": 2
+      }
+    }
+  ],
+  "limits": [
+    "Private HTTP title/content and draft-versus-published identity observations only",
+    "No native editing, replay-after-lost-response, namespace fencing or app title support claimed"
+  ]
+}

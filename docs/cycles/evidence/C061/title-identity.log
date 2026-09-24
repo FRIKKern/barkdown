@@ -1,0 +1,64 @@
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-El5tGA
+Capture runtime: starting 
+Capture runtime: ready 
+[
+  {
+    "label": "create empty title fixture",
+    "status": 200
+  },
+  {
+    "label": "title block ops",
+    "status": 200
+  },
+  {
+    "label": "after title block ops",
+    "status": 200
+  },
+  {
+    "label": "body after title ops",
+    "status": 200
+  },
+  {
+    "label": "after body and title ops",
+    "status": 200
+  },
+  {
+    "label": "stale title block ops",
+    "status": 412
+  },
+  {
+    "label": "after stale title block refusal",
+    "status": 200
+  },
+  {
+    "label": "duplicate create refuses existing draft",
+    "status": 409
+  },
+  {
+    "label": "after duplicate create",
+    "status": 200
+  },
+  {
+    "label": "published collision before",
+    "status": 200
+  },
+  {
+    "label": "create same id as published fixture",
+    "status": 200
+  },
+  {
+    "label": "collision raw exact published wins",
+    "status": 200
+  },
+  {
+    "label": "collision drafts prefers twin",
+    "status": 200
+  },
+  {
+    "label": "published collision after",
+    "status": 200
+  }
+]
+Capture runtime: stopping 
+Capture runtime: stopped 
+Live screenshots complete; private runtime stopped; user CLI configuration unchanged.

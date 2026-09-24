@@ -1,0 +1,25 @@
+# Ordinary Paper notes: audited contract
+
+C061 inspected upstream `30c007e43` and made 55 HTTP exchanges across three disposable runtimes. [Verified observations and raw responses](../cycles/evidence/C061/assessment.json) distinguish actual API behavior from the proposed adapter below. No app feature, native draft-note journey or migration activation is accepted by this audit.
+
+| Operation | Observed behavior | Integration consequence |
+|---|---|---|
+| Empty creation | Generic `create` with empty title and blocks succeeds as `drafts.<id>`, with a locked empty title block and empty body paragraph. No tags or description are required for this draft. | Use a genuine draft; never fabricate publication metadata. |
+| Identity and discovery | Published catalog/read omit drafts. Drafts catalog includes them. Raw bare-ID reads prefer an existing published row; drafts perspective prefers its twin. | Carry exact row ID, library owner and perspective. A canonical slug alone cannot identify the editing target. |
+| Content edits | Bare-ID Paper ops return404 for a draft-only note; exact `drafts.<id>` ops work, increment integer rev0→1 and reject stale0 with412. | Preserve the exact draft ID through canvas, tools, receipts and Undo. Keep integer Paper revision separate from opaque document `_rev`. |
+| Title edits | Generic title patch changes metadata but leaves the title block unchanged. Paper `patch-block` on `tpl-title` updates both; subsequent body ops preserve the title and stale ops refuse. | Prefer one Paper operation path for title/body. Existing published notes without this title role need separate handling; current Barkdown title refusal remains. |
+| Search | Default search omits drafts; explicit `perspective=drafts` finds their body content. | Local draft discovery and search need deliberate perspective-aware adapters; do not change connected/cloud semantics implicitly. |
+| Creation collision | Existing draft `create` refuses409 unchanged; one concurrent pair produced200/422. An existing published ID still allows a distinct draft twin. | This is not whole-namespace reservation. Do not infer safe retry or create-only semantics from the verb name. |
+| Recovery | Guarded delete removes the draft; retained revision detail restores it as a draft. Repeating unconditional restore over a newer human title overwrites it. | Do not expose this restore as guarded Undo. Recovery needs an atomic current-state guard or safe new-identity recovery. |
+
+## Next bounded implementation
+
+Build a private, profile-owned draft-note adapter first. Its proposed handle retains library owner, exact document ID, canonical published ID, selected perspective, integer Paper revision and opaque document revision. Validate every remote envelope; never strip `drafts.` before a write or substitute a same-slug row. This shape is a proposal, not a persisted contract today.
+
+The first proof should open an ordinary empty draft in the real Paper canvas, edit title and body through guarded operations, discover/search it, restart and reopen exactly that draft. Connect foreground, API and MCP to the same service only after captured handles preserve profile and row identity. Keep new-note UI on the existing implementation until this private journey passes. Preserve human Pages and all legacy data.
+
+Before enabling creation broadly, settle namespace collision and lost-response reconciliation with request identity and exact readback. A preliminary absence check is not an atomic reservation. Before enabling deletion/recovery, prove that a later human edit cannot be overwritten by replay or restore. Do not bypass publishing walls, republish draft notes automatically, or translate opaque revisions into Paper integer revisions.
+
+## Remaining acceptance
+
+Native typing/restart, agent creation/edit/Undo, lost responses, multi-writer conflicts, profile switches with in-flight operations, deletion recovery and migration activation are unproved for ordinary notes. C060 Archive classification and C059 ownership remain separate accepted boundaries. A2 stays open.
