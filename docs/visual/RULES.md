@@ -34,7 +34,20 @@ The existing live `npm --prefix app run shots` remains a separate Paper/server e
 
 ## READMEs are health views
 
-[Visual health](README.md) links area READMEs for workspace, chat, side chat, local documents and Settings. Each carries a still, an interaction GIF, source provenance, comparison report and local changelog. Link these from code-area READMEs. New journeys require coverage-map entries, captures and descriptive captions before being described as covered. Paper has existing live evidence; agent edits, files/reviews, runtime recovery and future profiles still need dedicated motion tours. Keep those gaps visible.
+[Visual health](README.md) links area READMEs for workspace, chat, side chat, local documents and Settings. Each carries a still, an interaction GIF, source provenance, comparison report and local changelog. Link these from code-area READMEs. New journeys require coverage-map entries, captures and descriptive captions before being described as covered. The coverage map and linked journey pages distinguish fixture, private-runtime and live-provider proof. Coverage of one recovery or profile scenario does not cover every related journey; keep each remaining gap explicit.
+
+Each area README should let a reviewer answer these questions without reading implementation:
+
+1. What currently works here, and what is still unsupported?
+2. What does it look like? Embed a representative real still and, for interactions, a short GIF; link full recording and intermediate frames. Captions identify the action and data scope (fixture, private real server, live provider or fallback).
+3. What proves it? Link source commit(s), platform/capture manifest, comparison, named review and behavior results. Clearly label older evidence that remains applicable; never imply a new capture date.
+4. What changed? Keep concise dated entries describing user-visible changes or regressions, with cycle/evidence links. Keep detailed logs in run folders, not the README.
+
+Use existing area pages as the visual authority; code-area READMEs embed or link those same assets rather than copy media. Root README is a representative overview, not a second evidence ledger. Do not add decorative screenshots to nonvisual modules or label a missing journey as covered. Distinguish latest capture from latest accepted capture; an unreviewed candidate cannot replace the accepted view.
+
+Review all new/changed stills, differences and meaningful motion frames, including intermediate states, narrow geometry and failures. Automated comparison directs attention but does not approve differences. An unchanged capture still needs an applicability review; record what was actually inspected without inventing frame counts. Preserve raw motion and document excerpting so transitions are not hidden.
+
+The present freshness rules remain conservative, including documentation under app source directories. Batch those README edits before captures. Narrower invalidation is a future tooling change requiring its own regression proof; this policy does not exempt files or bypass current checks.
 
 A cycle's closing truth pass includes these pages. CI verifies source/artifact/review freshness and local links; the named reviewer verifies meaning. Main is the integration baseline, not proof that every P1–P5 journey is complete.
 

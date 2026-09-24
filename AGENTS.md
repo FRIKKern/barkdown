@@ -32,11 +32,13 @@ Keep credentials and real content out of the handoff. Do not enable public hosti
 
 Create a `codex/` branch for subsequent implementation work. Do not switch branches or alter unrelated files in the sibling Barkpark checkout. Do not run destructive cleanup commands; use recoverable trash if cleanup is necessary. No production deployment is part of this handoff.
 
-Run `npm ci`, install Playwright Chromium, then `npm run verify`. Add production integration checks as real adapters are built; concept tests alone cannot prove production behavior. Keep CI and generated outputs consistent. Commit and push work, report exact validation and limitations, and update the handoff when a milestone changes status.
+For initial setup or dependency repair, run `npm ci` and install Playwright Chromium. Reuse healthy locked dependencies otherwise; run `npm run verify` at cycle closeout. Add production integration checks as real adapters are built; concept tests alone cannot prove production behavior. Keep CI and generated outputs consistent. Commit and push work, report exact validation and limitations, and update the handoff when a milestone changes status.
 
 Do not install or copy the paid Tiptap Notion template by default. It is an interaction reference. Preserve upstream and dependency licenses when code is introduced.
 
 ## Delivery cycles
+
+Use `docs/CYCLES.md` as the workflow authority and `docs/visual/RULES.md` as the visual-evidence authority. Plan an outcome, a stopping condition and a proportionate validation budget. Keep active context small; link evidence instead of copying run histories. Record measured time/token usage when available, never estimated usage as fact. README capability claims must link applicable reviewed evidence and state limitations.
 
 Repository hygiene is a delivery requirement. Keep `main` plus at most three active delivery branches per repository; temporary exceptions must name an owner, reason and next review in the current handoff. Reuse a suitable existing lane before creating another. Inventory local/remote branches, worktrees and related tasks at cycle closeout. Retire merged branches after checking remote tips and open PRs; preserve unique commits, dirty files and evidence before retiring anything else. Never confuse cherry-picked work with fully merged history. Do not interfere with another Barkpark contributor's checkout or open PR.
 

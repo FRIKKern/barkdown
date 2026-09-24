@@ -2,7 +2,9 @@
 
 Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-24T09-45-10-153Z/README.md).
 
-Reviewed by Codex. C060 after code-health README checkpoint a7431bf: all40 stills,40 difference images and40 decoded GIF frames actually inspected again; unchanged pixels and geometry. Behavior source7e15949 remains identical: full desktop, tables11/11 and two-profile Archive/native restart503 Retry passed;8 native stills/333 full GIF frames/29 excerpts reviewed. Prior live5/37 reviewed with real Claude/tablehead6/6; another live capture follows to satisfy conservative directory freshness. Palette banding remains in fixture modal shadows. No ordinary blank-note or migration activation claim; fresh Linux pending.
+**Capture-time review (historical checkpoint):** Reviewed by Codex. C060 after code-health README checkpoint a7431bf: all40 stills,40 difference images and40 decoded GIF frames actually inspected again; unchanged pixels and geometry. Behavior source7e15949 remains identical: full desktop, tables11/11 and two-profile Archive/native restart503 Retry passed;8 native stills/333 full GIF frames/29 excerpts reviewed. Prior live5/37 reviewed with real Claude/tablehead6/6; another live capture follows to satisfy conservative directory freshness. Palette banding remains in fixture modal shadows. No ordinary blank-note or migration activation claim; fresh Linux pending.
+
+Current delivery/CI state is maintained in the [handoff](../NEXT-AGENT.md); the capture-time note above is preserved as provenance, not a live status report.
 
 Source commit: a7431bfc09726c2789e930f9aaab287f695e4d91; platform: win32; Electron: 38.8.6. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 

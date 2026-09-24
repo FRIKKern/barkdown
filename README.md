@@ -77,7 +77,7 @@ npm run verify                 # roadmap, docs, types and concept checks
 npm run test:desktop            # build + desktop regression suite
 ```
 
-The [contribution guide](CONTRIBUTING.md) covers real-runtime tests, upstream ownership, data safety and screenshot evidence. The [continuation brief](docs/NEXT-AGENT.md) takes you directly into P1.
+The [contribution guide](CONTRIBUTING.md) covers real-runtime tests, upstream ownership, data safety and screenshot evidence. The [continuation brief](docs/NEXT-AGENT.md) identifies the current P2 slice.
 
 | Place | Purpose |
 |---|---|

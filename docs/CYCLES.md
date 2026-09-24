@@ -6,9 +6,19 @@ A cycle is a bounded outcome with proof and a restartable handoff. It is driven 
 
 Keep one current cycle. Give it a stable ID, stage, goal, scope exclusions, acceptance checks and a handoff file under `docs/cycles/`. Identify the tested starting commit, relevant data boundaries and prerequisites. Break a stage into reviewable outcomes; do not promise the whole stage in one cycle. Future slices remain provisional until current evidence informs them.
 
+## Spend effort on the outcome
+
+Before starting, put a short delivery budget in the cycle handoff: the user journey or concrete maintenance result, what is excluded, the stopping condition, an estimated time ceiling (not a promise), relevant targeted checks, and the final validation/capture checkpoint. A time ceiling is not a reason to fill the time with extra work; an explicit user minimum still takes precedence. On unexpected scope or repeated failure, checkpoint the cause and choose the smallest useful next action before expanding the run.
+
+Use targeted checks during development and the required full gates at stable milestones. Repeat a passing check only for a relevant change, failure or unresolved concern. Reuse installed locked dependencies when unchanged and healthy; run `npm ci` for setup, dependency changes or repair. Batch code-area documentation before the implementation commit and captures. Push coherent checkpoints rather than restarting expensive CI for each wording change. Do not weaken a gate to save tokens. Documentation-only checks do not establish new application acceptance.
+
+Delegate only when authorized and when independent deliverables justify coordination cost. Read the current handoff and relevant files first; search old records for a specific question. Keep tool output focused on failures, decisions and evidence locations. Avoid repeated unchanged status polling.
+
+At closeout, record outcomes delivered, checks and captures run, significant retries and their cause, elapsed time, and token usage if the tool supplies a trustworthy value. Label estimates and unavailable measurements. Separate active work, waiting and tool runtime only when measured; do not invent a breakdown. A tracker total may include replayed context and is not automatically billable tokens or a price. Record one concrete efficiency lesson when there was avoidable rework; do not create a separate metrics backlog.
+
 ## Keep a checkpoint while working
 
-Update the cycle handoff after a meaningful implementation slice, a failed check, a scope change, a blocker, and before yielding or changing tasks. Record what changed, exact commands/results, uncommitted work, owned running processes and the next concrete action. Save the checkpoint before long or risky operations. A handoff must work without chat history; do not wait for completion to write it. Sudden interruption can still happen between checkpoints—inspect Git and process ownership when resuming.
+Update the cycle handoff after a meaningful implementation slice, a failed check, a scope change, a blocker, and before yielding or changing tasks. Record what changed, exact commands/results, uncommitted work, owned running processes and the next concrete action. Save the checkpoint before long or risky operations. The current handoff should fit roughly one screen: current outcome/status, branch and source, strongest evidence and limits, uncommitted work/owned services, and exact next action. Detailed chronology belongs in the linked cycle record. A handoff must work without chat history; do not wait for completion to write it. Sudden interruption can still happen between checkpoints—inspect Git and process ownership when resuming.
 
 ## Close with a repository truth pass
 
@@ -18,6 +28,20 @@ Update the cycle handoff after a meaningful implementation slice, a failed check
 4. Record source commits, evidence paths and limitations in the handoff and validation ledger. Commit and push on the authorized branch; report push failures honestly. Check the final diff and generated outputs. Do not deploy or merge merely to close a cycle.
 5. Set the cycle to `done` only with evidence, screenshot review and truth review. Leave the next exact action in the handoff. Archive the completed JSON beside its handoff before replacing `cycle.json` with the next planned cycle; retain old evidence. Update NEXT-AGENT to point to the new cycle.
 6. Reconcile branches, worktrees and related tasks. Target `main` plus at most three active delivery branches, each with a current goal and next action. Record exceptions with an owner and next review. Verify remote tips and open PRs before retirement; preserve unique source, dirty files and evidence. Close or archive completed tasks only after retaining their handoff. Replace obsolete instructions in active documents rather than appending another checkpoint. Check both repositories when a cycle crosses Barkdown and Barkpark.
+
+## Keep one source for each claim
+
+| Question | Authority | Other pages should do |
+|---|---|---|
+| What is next? | PLAN/plan.json and current cycle | Link it; avoid separate task lists in READMEs or comments. |
+| What is implemented? | Actual source and API contracts | Describe the supported scope, not the desired design. |
+| What passed? | VALIDATION and immutable cycle/run evidence | Name source, environment, result and limits; never equate local pass with merged/released. |
+| What should I see? | Area README and its reviewed capture | Show actual UI, with provenance and behavior-test links. |
+| How do I resume? | NEXT-AGENT and the current cycle handoff | Replace stale instructions; link older failures rather than replay their history. |
+
+README and app-guide claims must distinguish current behavior, verified scope and future work. Date external observations and link the exact CI run or source. CI can validate links, hashes and freshness; reviewers must judge meaning and whether the scenario supports the claim. A screenshot is not save/recovery proof. A green suite is not proof of an untested journey.
+
+At closure, check task references in active docs, relevant source comments and any Barkpark planning notes explicitly in scope. Every outstanding task needs a current owner/next action or an archive pointer. Never search or delete a person's unrelated notes for tidiness. Retire stale instructions while preserving historical evidence. Record unresolved worktree/branch clutter with an owner and next review; do not delete unique or locked work simply to meet a count.
 
 ## Interrupted or blocked work
 
@@ -30,3 +54,14 @@ Keep the cycle `active` when unfinished, or `blocked` with the concrete dependen
 ## Visual closeout
 
 Follow [visual rules](visual/RULES.md). Any visual tripwire requires fresh candidate capture, comparison and actual image review before explicit approval. Area READMEs carry current stills/GIFs and changelogs; preserve earlier evidence. Add coverage for a new visible journey and pair visual inspection with relevant behavior checks. Unreviewed differences keep the cycle open.
+
+## Compact handoff template
+
+Use these fields in the existing cycle handoff; no extra report file is required:
+
+- **Outcome / status:** what someone can now do, or the concrete blocker.
+- **Source / delivery:** branch, tested source, pushed checkpoint, merge/release state.
+- **Proof / limits:** commands, results, reviewed visual links, unsupported cases.
+- **Cost / rework:** measured duration/tokens or unavailable; expensive retries and why.
+- **Repository / services:** dirty files, owned processes, retained clutter and next review.
+- **Next action:** one exact starting action and stopping condition.
