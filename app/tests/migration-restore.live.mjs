@@ -21,7 +21,9 @@ const store=createStore(sourceDir),docs=createDocuments(store);docs.loadAll({see
 const first=docs.create({title:'A thought worth keeping',markdown:'The first version remains readable.'});
 docs.save({id:first.id,baseRev:first.rev,content:{type:'doc',content:[{type:'paragraph',content:[{type:'text',text:'This note came back from its retained backup.'}]}]},summary:'A deliberate second version'});
 const proposal=docs.addProposal(first.id,{mode:'append',actor:'agent',baseRev:2,summary:'An old proposal, still yours to decide',markdown:'A suggested ending retained without applying it.'});
-const second=docs.create({title:'Connected thought',markdown:'Read [the original thought](barkdown://doc/'+first.id+').'});
+// Restore proof uses the already-reviewed reference shape. The Markdown parser's
+// extra target attribute remains a separately recorded migration compatibility gate.
+const second=docs.create({title:'Connected thought',content:{type:'doc',content:[{type:'paragraph',content:[{type:'text',text:'Read '},{type:'text',text:'the original thought',marks:[{type:'link',attrs:{href:'barkdown://doc/'+first.id}}]},{type:'text',text:'.'}]}]}});
 const png=new PNG({width:480,height:320});
 for(let y=0;y<320;y++)for(let x=0;x<480;x++){const hill=y>205+Math.sin(x/60)*25,sun=(x-365)**2+(y-76)**2<42**2;png.data.set([...(sun?[237,194,93]:hill?[76,112,76]:[206,223,221]),255],(y*480+x)*4);}
 const imageBytes=PNG.sync.write(png),imageFile=path.join(sourceDir,'attachments/landscape.png');fs.mkdirSync(path.dirname(imageFile));fs.writeFileSync(imageFile,imageBytes);
