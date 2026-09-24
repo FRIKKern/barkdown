@@ -1,29 +1,27 @@
 {
   "version": 1,
-  "id": "C056",
+  "id": "C057",
   "stage": "P2",
-  "status": "done",
-  "goal": "Discover the complete Paper catalog without silently truncating or treating failed reads as an empty library.",
+  "status": "active",
+  "goal": "Keep an open Paper bound to its original connection so settings changes cannot redirect its reads or writes.",
   "scope": [
-    "Read audited offset-pagination metadata and bound the work; preserve the last same-owner catalog on failure.",
-    "Keep the existing limited provider queries separate; add complete foreground catalog reads for direct HTTP and CLI connections.",
-    "Test real adapter requests, malformed/truncated/moving pages, superseded refreshes and connection changes; prove a disposable native library beyond60notes.",
-    "No migration authority switch, origin reclassification, new-note lifecycle change or real-library write."
+    "Capture opaque main-process connection identity with the read; validate foreground follow-up reads/writes before access and keep captured routing across awaits.",
+    "Preserve visible unsaved blocks/title and allow guarded retry after restoring the original connection. Audit CLI explicit routing rather than ambient defaults.",
+    "Cover body edits, title, media, HTML conversion, proposal acceptance and foreground Undo; keep provider scopes intact.",
+    "Prove same-ID/revision foreign destination receives no editor mutation in a disposable native rehearsal. No authority switch or durable cross-connection bookmark migration."
   ],
   "acceptance": [
-    "A stable catalog beyond60notes is returned exactly once per identity, including an exactly-full final page.",
-    "Missing pagination metadata, duplicate IDs, non-advancing offsets, changing totals, errors and bounds refuse without publishing a partial successful catalog.",
-    "Same-owner failures retain known notes; a different connection/profile never borrows them, and an older request cannot overwrite a newer refresh.",
-    "Full desktop/root and fresh reviewed native/standard evidence pass; no atomic-snapshot or migration activation claim."
+    "A Paper opened on connection A never sends its edits or refresh reads to B after settings change; same ID/revision does not weaken the boundary.",
+    "Missing/stale binding refuses before mutation; A-to-B-to-A permits guarded retry without losing the local buffer.",
+    "Routing is captured before awaits; settings changed during a request cannot redirect a later step.",
+    "Full relevant tests, native isolation proof, fresh live/fixture capture and actual review pass; maintain repository truth and push evidence."
   ],
   "checkpoint": "2026-09-24",
-  "handoff": "docs/cycles/C056-complete-catalog.md",
-  "nextAction": "Push the accepted milestone, then plan C057 open-Paper connection fencing on the same controlled lane.",
+  "handoff": "docs/cycles/C057-paper-connection.md",
+  "nextAction": "Audit foreground handlers/CLI routing and reproduce the current redirection privately before implementing the bound adapter.",
   "evidence": [
-    "docs/cycles/evidence/C056/review.json",
-    "docs/visual/catalog/runs/2026-09-24T05-08-29-090Z/manifest.json",
-    "docs/visual/approved.json"
+    "docs/cycles/evidence/C056/review.json"
   ],
-  "truthReview": "PR32 merged d126875; exact-head and post-merge main checks pass.39 focused tests, full desktop and native200/201 HTTP+CLI pass. No authority activation. Root final verify passed.",
-  "screenshotReview": "Eight native stills/37 GIF frames, five live stills/37 GIF frames,40 fixture stills/diffs and40 GIF frames inspected. Explicit approval recorded at source744123f; all comparisons within tolerance."
+  "truthReview": "C056 accepted and pushed6303ddf; draftPR33 is the sole delivery lane. Main contains PR32 merge d126875. P2 remains active; no deployment.",
+  "screenshotReview": "New source requires native connection-change evidence and fresh standard/live capture/compare/inspection/approval."
 }
