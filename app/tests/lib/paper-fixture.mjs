@@ -52,13 +52,20 @@ export function getPaper(slug) { const r = bp(['doc', 'get', 'paper', slug, '--p
 
 // The suite publishes through the selected disposable CLI, then explicitly binds
 // the desktop to that same destination. Blank settings are not a connection.
-export async function connectPaperFixture(page) {
+export function paperFixtureScope() {
   const scope = bp(['whoami']);
   if (typeof scope.server !== 'string' || !/^https?:\/\//.test(scope.server) || typeof scope.dataset !== 'string' || !scope.dataset) throw new Error('Fixture CLI did not report its server and dataset');
+  const expected = process.env.BARKDOWN_SHOTS_SERVER || process.env.BARKPARK_API_URL;
+  if (expected && scope.server.replace(/\/$/, '') !== expected.replace(/\/$/, '')) throw new Error('Fixture CLI does not match the selected private server');
+  return { server: scope.server, dataset: scope.dataset };
+}
+export async function connectPaperFixture(page) {
+  const scope = paperFixtureScope();
   await page.evaluate(async connection => {
     window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true, ...connection } });
     // Surface setup refusals at this boundary, before waiting90s for a row.
     await window.barkdown.barkpark.list();
     await window.__barkdown.refreshLibrary();
-  }, { server: scope.server, dataset: scope.dataset });
+  }, scope);
+  return scope;
 }

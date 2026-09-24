@@ -1,4 +1,4 @@
-import { connectPaperFixture } from './lib/paper-fixture.mjs';
+import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs';
 // Row for the highlight mark (plan #15, the pipeline proof): ==text== and the bubble's H make a highlight in
 // the canvas; the server stores a `highlight` inline wrapper; the reader renders <mark class="bp-highlight">.
 // Live against the bp-connected server; not part of npm test. Red until every layer is in.
@@ -77,7 +77,7 @@ await row('Ctrl+Shift+H removes it again; server follows', async () => {
   const r = await compare(); return { ...r, pass: r.pass && !r.canvas.some(s => s.includes('<h>words</h>')) };
 });
 await row('the reader renders the highlight as <mark class="bp-highlight">', async () => {
-  const server = (JSON.parse(execFileSync('bp', ['use', '-o', 'json'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], shell: true })).active || {}).server || 'http://localhost:4000';
+  const server = paperFixtureScope().server.replace(/\/$/, '');
   const html = await (await fetch(`${server.replace(/\/$/, '')}/papers/${SLUG}`)).text();
   return { pass: /<mark class="bp-highlight">bright<\/mark>/.test(html), sample: (html.match(/.{0,60}bright.{0,60}/) || [''])[0] };
 });

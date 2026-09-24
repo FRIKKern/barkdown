@@ -1,4 +1,4 @@
-import { connectPaperFixture } from './lib/paper-fixture.mjs';
+import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs';
 // Plan #26: tables — header column and per-cell alignment. The chrome's header-column toggle turns each
 // body row's first cell into a row header; the bubble's align buttons align the cell the caret sits in.
 // The server holds `headCol` and the cell's `{ content, align }`, the paper page renders <th scope="row">
@@ -18,7 +18,7 @@ publishFixture({ slug: SLUG, title: 'Row headers and aligned cells', description
 ] });
 // Match the CLI request override used by the isolated runtime. `bp use` reports
 // saved configuration, which can point the reader check at another server.
-const server = process.env.BARKPARK_API_URL || (JSON.parse(execFileSync('bp', ['use', '-o', 'json'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], shell: true })).active || {}).server || 'http://localhost:4000';
+const server = paperFixtureScope().server.replace(/\/$/, '');
 const base = server.replace(/\/$/, '');
 
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-tablehead-'));

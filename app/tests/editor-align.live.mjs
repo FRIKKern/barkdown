@@ -1,4 +1,4 @@
-import { connectPaperFixture } from './lib/paper-fixture.mjs';
+import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs';
 // Plan #21: text alignment on paragraphs and headings — the bubble's align buttons in the canvas, an `align`
 // block attribute on the server, text-align on the paper page. Live against the bp-connected server.
 import { _electron as electron } from 'playwright';
@@ -45,7 +45,7 @@ await row('the bubble’s right button flushes a heading right; the server holds
   return { pass: s[2] === 'right' && same(await shape(), s), server: s };
 });
 await row('the paper page renders text-align on both', async () => {
-  const server = (JSON.parse(execFileSync('bp', ['use', '-o', 'json'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], shell: true })).active || {}).server || 'http://localhost:4000';
+  const server = paperFixtureScope().server.replace(/\/$/, '');
   const html = await (await fetch(`${server.replace(/\/$/, '')}/papers/${SLUG}`)).text();
   const centred = /<p[^>]*text-align:center[^>]*>This paragraph will be centred\./.test(html);
   const right = /<h2[^>]*text-align:right[^>]*>This heading goes right/.test(html);

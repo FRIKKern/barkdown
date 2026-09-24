@@ -1,4 +1,4 @@
-import { connectPaperFixture } from './lib/paper-fixture.mjs';
+import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs';
 // Plan #24: tables — merge and split cells. Select two cells and merge: the canvas shows one cell spanning
 // two columns and the server holds the same grid (a placeholder for the covered position) plus `spans`;
 // type into the merged cell; Tab skips the covered position; the reader page renders colspan on the
@@ -17,7 +17,7 @@ publishFixture({ slug: SLUG, title: 'Cells that merge and split', description: '
   para('A table:'),
   { type: 'table', head: [t('A'), t('B'), t('C')], rows: [[t('a1'), t('b1'), t('c1')], [t('a2'), t('b2'), t('c2')], [t('a3'), t('b3'), t('c3')]] },
 ] });
-const server = (JSON.parse(execFileSync('bp', ['use', '-o', 'json'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], shell: true })).active || {}).server || 'http://localhost:4000';
+const server = paperFixtureScope().server.replace(/\/$/, '');
 const base = server.replace(/\/$/, '');
 
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-tablespans-'));

@@ -1,4 +1,4 @@
-import { connectPaperFixture } from './lib/paper-fixture.mjs';
+import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs';
 // Plan #27: code blocks highlight in the canvas and on the reader page from ONE tokenizer. A JavaScript
 // and an Elixir block: the canvas paints hljs-* tokens in the code node's highlight layer; the server
 // renders `<pre data-lang>` and ships /assets/bp-paper-code.js, which paints the same tokens on the
@@ -24,7 +24,7 @@ publishFixture({ slug: SLUG, title: 'Two code blocks, one tokenizer', descriptio
   { type: 'code', lang: 'klingon', value: 'def hello, do: "nuqneH" # <tokens only once the lang is known>' },
 ] });
 
-const server = (JSON.parse(execFileSync('bp', ['use', '-o', 'json'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], shell: true })).active || {}).server || 'http://localhost:4000';
+const server = paperFixtureScope().server.replace(/\/$/, '');
 const base = server.replace(/\/$/, '');
 
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-codehl-'));

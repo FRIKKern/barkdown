@@ -42,4 +42,4 @@ Real Paper callouts use softly tinted cards, restrained tonal borders and a sepa
 
 ### C058 — Bound edit evidence and tab titles
 
-Remote receipts and retained proposals belong to their original connection; unknown older records remain reference-only. Renaming a Paper tab uses the mounted editor owner, retains failed title drafts, and updates favorite labels only after acknowledgement. [Native evidence](../../../../docs/visual/paper-evidence/README.md) and the [current handoff](../../../../docs/NEXT-AGENT.md) record validation and limits.
+Remote receipts and retained proposals belong to their original connection; unknown older records remain reference-only. Paper tab title attempts use the mounted editor owner and retain failed text without relabelling favorites. The current Paper API has no guarded title operation: title changes explicitly refuse before writing, because generic document patch only creates a draft twin. [Native evidence](../../../../docs/visual/paper-evidence/README.md) and the [current handoff](../../../../docs/NEXT-AGENT.md) record validation and limits.

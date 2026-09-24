@@ -1,4 +1,4 @@
-import { connectPaperFixture } from './lib/paper-fixture.mjs';
+import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs';
 // Row 12 of docs/EDITOR-PARITY.md: the opaque set for note content. Barkdown mounts the WHOLE paper in the
 // canvas, so any block the canvas projector cannot dispatch shows the author a read-only bpOpaque chip. This row
 // publishes a paper holding every block type a note can plausibly contain (the server registers them; agents,
@@ -72,7 +72,7 @@ await page.waitForTimeout(800);
 const bundle = await (async () => {
   try {
     const info = await page.evaluate(() => window.__barkdown.state.canvasBundle);
-    const server = (JSON.parse(execFileSync('bp', ['use', '-o', 'json'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], shell: true })).active || {}).server || 'http://localhost:4000';
+    const server = paperFixtureScope().server.replace(/\/$/, '');
     const bytes = Buffer.from(await (await fetch(server.replace(/\/$/, '') + '/assets/bp-paper-editor.bundle.js')).arrayBuffer());
     const sha = (await import('crypto')).createHash('sha1').update(bytes).digest('hex');
     return { pass: info?.source === 'server' && info?.sha === sha, source: info?.source, appSha: info?.sha?.slice(0, 8), serverSha: sha.slice(0, 8), version: info?.version };

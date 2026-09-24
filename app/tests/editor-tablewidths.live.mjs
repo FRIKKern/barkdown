@@ -1,4 +1,4 @@
-import { connectPaperFixture } from './lib/paper-fixture.mjs';
+import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs';
 // Plan #25: tables — column resize. Drag a column's edge in the canvas: the column takes the new width at
 // once, the server holds it as `cols[i].width`, a reload shows the same width, and the paper page renders
 // a <colgroup> with it. Live against the bp-connected server.
@@ -15,7 +15,7 @@ publishFixture({ slug: SLUG, title: 'Columns that take a width', description: 'S
   para('A table:'),
   { type: 'table', head: [t('Name'), t('Qty'), t('Note')], rows: [[t('Apple'), t('3'), t('crisp')], [t('Pear'), t('5'), t('soft')]] },
 ] });
-const server = (JSON.parse(execFileSync('bp', ['use', '-o', 'json'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], shell: true })).active || {}).server || 'http://localhost:4000';
+const server = paperFixtureScope().server.replace(/\/$/, '');
 const base = server.replace(/\/$/, '');
 
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-tablewidths-'));

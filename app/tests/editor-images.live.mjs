@@ -1,4 +1,4 @@
-import { connectPaperFixture } from './lib/paper-fixture.mjs';
+import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs';
 // Row 13 (plan #9, with #14): a picture pasted or dropped onto the canvas becomes an image block whose
 // src is a media asset on the connected Barkpark; alt and width round-trip; a reload shows the same.
 // Live against the bp-connected server; not part of npm test. Red until the paste/drop + upload path is in.
@@ -11,7 +11,7 @@ const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-images';
 publishFixture({ slug: SLUG, title: 'Pictures on the canvas', description: 'Scratch paper for the Barkdown image row: a picture pasted or dropped onto the canvas uploads to Barkpark media and lands as an image block; alt and width round-trip. Rewritten on every run of tests/editor-images.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Pictures on the canvas' }, para('Paste a picture after this paragraph.'), para('Drop a picture onto this paragraph.')] });
 
-const server = ((JSON.parse(require('child_process').execFileSync('bp', ['use', '-o', 'json'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], shell: true })).active || {}).server || 'http://localhost:4000').replace(/\/$/, '');
+const server = paperFixtureScope().server.replace(/\/$/, '');
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-images-'));
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();

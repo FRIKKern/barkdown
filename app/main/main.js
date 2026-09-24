@@ -399,7 +399,7 @@ function registerIpc() {
   handle('barkpark:applyOps', ({ slug, ops, ifRev, binding }) => paperConnection.write(binding, c => c.viaCli ? barkpark.cliApplyOps(slug, ops, ifRev, c.cliRouting) : barkpark.applyOps(c, slug, ops, ifRev)));
   handle('barkpark:uploadMedia', ({ binding, ...payload }) => paperConnection.write(binding, c => barkpark.uploadMedia(c, payload)));
   handle('barkpark:publish', ({ binding, ...payload }) => paperConnection.write(binding, c => c.viaCli ? barkpark.cliPublish(payload, c.cliRouting) : barkpark.publish(c, payload)));
-  handle('barkpark:patchTitle', ({ slug, title, binding }) => paperConnection.write(binding, c => { if (!c.viaCli) throw new Error('Title edits need the bp CLI connection'); return barkpark.cliPatchTitle(slug, title, c.cliRouting); }));
+  handle('barkpark:patchTitle', ({ slug, title, binding }) => paperConnection.write(binding, c => barkpark.cliPatchTitle(slug, title, c.cliRouting)));
   handle('barkpark:import', async value => {
     const { id, binding } = input(value);
     const { value: paper } = await paperConnection.read(binding, c => c.viaCli ? barkpark.cliGetPaper(id, c.cliRouting) : barkpark.getPaper(c, id));
