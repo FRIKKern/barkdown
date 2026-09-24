@@ -1,0 +1,104 @@
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-m7sVgf
+Capture runtime: starting 
+Capture runtime: ready 
+[
+  {
+    "label": "empty draft without publication metadata",
+    "status": 200
+  },
+  {
+    "label": "bare raw",
+    "status": 200
+  },
+  {
+    "label": "bare draft",
+    "status": 200
+  },
+  {
+    "label": "bare published",
+    "status": 404
+  },
+  {
+    "label": "exact draft raw",
+    "status": 200
+  },
+  {
+    "label": "published catalog",
+    "status": 200
+  },
+  {
+    "label": "draft catalog",
+    "status": 200
+  },
+  {
+    "label": "existing draft createIfNotExists",
+    "status": 200
+  },
+  {
+    "label": "guarded draft Paper ops",
+    "status": 404
+  },
+  {
+    "label": "after draft ops",
+    "status": 200
+  },
+  {
+    "label": "stale draft Paper ops",
+    "status": 404
+  },
+  {
+    "label": "guarded title patch",
+    "status": 200
+  },
+  {
+    "label": "after title patch",
+    "status": 200
+  },
+  {
+    "label": "stale title patch",
+    "status": 412
+  },
+  {
+    "label": "after stale title refusal",
+    "status": 200
+  },
+  {
+    "label": "draft title search",
+    "status": 200
+  },
+  {
+    "label": "concurrent create 0",
+    "status": 200
+  },
+  {
+    "label": "concurrent create 1",
+    "status": 422
+  },
+  {
+    "label": "race final",
+    "status": 200
+  },
+  {
+    "label": "delete fixture create",
+    "status": 200
+  },
+  {
+    "label": "before delete",
+    "status": 200
+  },
+  {
+    "label": "guarded delete",
+    "status": 200
+  },
+  {
+    "label": "after delete",
+    "status": 404
+  },
+  {
+    "label": "history after delete",
+    "status": 200
+  }
+]
+Capture runtime: stopping 
+Capture runtime: stopped 
+Live screenshots complete; private runtime stopped; user CLI configuration unchanged.

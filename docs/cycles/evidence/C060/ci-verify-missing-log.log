@@ -1,0 +1,38 @@
+concept	Run npm run verify	﻿2026-09-24T09:51:50.8904047Z ##[group]Run npm run verify
+concept	Run npm run verify	2026-09-24T09:51:50.8904235Z [36;1mnpm run verify[0m
+concept	Run npm run verify	2026-09-24T09:51:50.8933574Z shell: /usr/bin/bash -e {0}
+concept	Run npm run verify	2026-09-24T09:51:50.8933719Z ##[endgroup]
+concept	Run npm run verify	2026-09-24T09:51:51.1240737Z 
+concept	Run npm run verify	2026-09-24T09:51:51.1241406Z > barkdown-workspace@0.5.0 verify
+concept	Run npm run verify	2026-09-24T09:51:51.1241883Z > npm run build && npm run check && npm test
+concept	Run npm run verify	2026-09-24T09:51:51.1242151Z 
+concept	Run npm run verify	2026-09-24T09:51:51.1833918Z 
+concept	Run npm run verify	2026-09-24T09:51:51.1834677Z > barkdown-workspace@0.5.0 build
+concept	Run npm run verify	2026-09-24T09:51:51.1835139Z > node scripts/build.cjs
+concept	Run npm run verify	2026-09-24T09:51:51.1835359Z 
+concept	Run npm run verify	2026-09-24T09:51:51.3986969Z Built portable previews, GitHub-readable PRD, and source hashes.
+concept	Run npm run verify	2026-09-24T09:51:51.4820354Z 
+concept	Run npm run verify	2026-09-24T09:51:51.4821027Z > barkdown-workspace@0.5.0 check
+concept	Run npm run verify	2026-09-24T09:51:51.4821821Z > tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && npm run check:cycle && npm run check:visual
+concept	Run npm run verify	2026-09-24T09:51:51.4832288Z 
+concept	Run npm run verify	2026-09-24T09:51:52.3041449Z Source syntax, 24 requirements, local links, portable previews, source references, hashes, and fresh status screenshots passed.
+concept	Run npm run verify	2026-09-24T09:51:52.3521837Z Active roadmap: structure, dependencies, acceptance links, evidence and next-stage selection passed.
+concept	Run npm run verify	2026-09-24T09:51:52.4160564Z 
+concept	Run npm run verify	2026-09-24T09:51:52.4161431Z > barkdown-workspace@0.5.0 check:cycle
+concept	Run npm run verify	2026-09-24T09:51:52.4161977Z > node scripts/check-cycle.mjs
+concept	Run npm run verify	2026-09-24T09:51:52.4162264Z 
+concept	Run npm run verify	2026-09-24T09:51:52.4400348Z file:///home/runner/work/barkdown/barkdown/scripts/cycle.mjs:6
+concept	Run npm run verify	2026-09-24T09:51:52.4400874Z   const fail = message => { throw new Error('Cycle: ' + message); };
+concept	Run npm run verify	2026-09-24T09:51:52.4401207Z                                   ^
+concept	Run npm run verify	2026-09-24T09:51:52.4401362Z 
+concept	Run npm run verify	2026-09-24T09:51:52.4401663Z Error: Cycle: missing/outside-repo record docs/cycles/evidence/C060/desktop.log
+concept	Run npm run verify	2026-09-24T09:51:52.4402150Z     at fail (file:///home/runner/work/barkdown/barkdown/scripts/cycle.mjs:6:35)
+concept	Run npm run verify	2026-09-24T09:51:52.4403031Z     at validateCycle (file:///home/runner/work/barkdown/barkdown/scripts/cycle.mjs:18:99)
+concept	Run npm run verify	2026-09-24T09:51:52.4403407Z     at loadCycle (file:///home/runner/work/barkdown/barkdown/scripts/cycle.mjs:22:38)
+concept	Run npm run verify	2026-09-24T09:51:52.4403712Z     at file:///home/runner/work/barkdown/barkdown/scripts/check-cycle.mjs:3:15
+concept	Run npm run verify	2026-09-24T09:51:52.4403988Z     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+concept	Run npm run verify	2026-09-24T09:51:52.4404277Z     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+concept	Run npm run verify	2026-09-24T09:51:52.4404601Z     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+concept	Run npm run verify	2026-09-24T09:51:52.4404780Z 
+concept	Run npm run verify	2026-09-24T09:51:52.4404835Z Node.js v22.23.2
+concept	Run npm run verify	2026-09-24T09:51:52.4593213Z ##[error]Process completed with exit code 1.

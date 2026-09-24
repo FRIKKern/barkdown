@@ -1,0 +1,16 @@
+node:fs:1021
+  binding.rename(
+          ^
+
+Error: ENOENT: no such file or directory, rename 'C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\docs\visual\paper-archive\runs\2026-09-24T09-20-21-582Z\page@57c940f9de57dfe0ef0a109c3b615f0d.webm' -> 'C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\docs\visual\paper-archive\runs\2026-09-24T09-20-21-582Z\restart-and-connection.webm'
+    at Object.renameSync (node:fs:1021:11)
+    at close (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/paper-archive.live.mjs:15:56)
+    at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/paper-archive.live.mjs:38:16 {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'rename',
+  path: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\docs\\visual\\paper-archive\\runs\\2026-09-24T09-20-21-582Z\\page@57c940f9de57dfe0ef0a109c3b615f0d.webm',
+  dest: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\docs\\visual\\paper-archive\\runs\\2026-09-24T09-20-21-582Z\\restart-and-connection.webm'
+}
+
+Node.js v22.13.1

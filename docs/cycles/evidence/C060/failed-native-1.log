@@ -1,0 +1,22 @@
+Archive gallery: C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\docs\visual\paper-archive\runs\2026-09-24T09-14-28-461Z
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  [
+    'Profile A private paper',
++   'Welcome to Barkpark'
+  ]
+
+    at file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/paper-archive.live.mjs:28:146 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [ 'Profile A private paper', 'Welcome to Barkpark' ],
+  expected: [ 'Profile A private paper' ],
+  operator: 'deepStrictEqual'
+}
+
+Node.js v22.13.1
