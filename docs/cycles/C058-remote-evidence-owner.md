@@ -6,7 +6,7 @@ Active on `codex/paper-library`, draft PR33, starting at pushed `1f58c0a`. C057 
 
 The [private HTTP reproduction](evidence/C058/before-owner-reproduction.json) at `0ae9538` confirmed that a fresh foreign connection with the same Paper ID/revision could execute an original-library Undo. The recorder stored nothing; no user library was used.
 
-Uncommitted code derives an opaque HMAC owner from the captured server/dataset/credential or explicit CLI route using a durable per-store key under agent-edits. Separate remote receipt files preserve each connection's latest Undo. Missing, corrupt, foreign and unknown owners refuse execution before remote access. Older unowned receipts/proposals remain unchanged and readable as reference-only; their controls cannot execute. Foreground evidence lookups require the open Paper binding. API/MCP tool sessions capture CLI routing once before their first read and reuse it for edits.
+Source `56c94a8` derives an opaque HMAC owner from the captured server/dataset/credential or explicit CLI route using a durable per-store key under agent-edits. Separate remote receipt files preserve each connection's latest Undo. Missing, corrupt, foreign and unknown owners refuse execution before remote access. Older unowned receipts/proposals remain unchanged and readable as reference-only; their controls cannot execute. Foreground evidence lookups require the open Paper binding. API/MCP tool sessions capture CLI routing once before their first read and reuse it for edits.
 
 Credentials are absent from persisted receipts. Credential rotation or HTTP/CLI mode changes deliberately create another owner; no automatic reassignment or remote database identity guarantee. Profile transfer and migration authority remain separate contracts. The ownership key is retained with agent-edits backups.
 
@@ -15,7 +15,9 @@ Credentials are absent from persisted receipts. Credential rotation or HTTP/CLI 
 - 11 ownership checks pass: persistent identity, dimension/store separation, corrupt-key refusal, zero-request foreign Undo, separate A/B/restart receipts, immutable legacy evidence, captured configuration, proposals, CLI route reuse and local compatibility.
 - Actual API tool-loop, conversion, structured table, MCP and 37 host checks pass.
 - Full rebuilt desktop passed as session71824, log `Temp/c058-desktop.log`. Source has not changed during that compiled UI run; later changes affect fixture setup, native harness and health documentation.
-- Native harness is prepared for fresh B binding, six zero-request refusals, readable legacy records, HTTP return/restart/exact Undo, real stdio MCP CLI edit and restart/exact Undo. Not run yet.
+- Native run at56c94a8 failed because the foreign recorder served JSON as editor assets; failed gallery06:24:50 is retained and its two stills inspected. Fixture correction def8b85 passes at `docs/visual/paper-evidence/runs/2026-09-24T06-31-10-092Z`: fresh foreign binding, six zero-request refusals, preserved legacy bytes and exact HTTP/MCP-CLI Undo after restart.
+- C057 connection regression passes at `docs/visual/paper-connection/runs/2026-09-24T06-32-34-882Z` (13 refusals, Retry, exact Undo, CLI and restart).
+- Eight native stills inspected, including full-size foreign/narrow views. Narrow unknown-owner explanation was clipped; a CSS wrapping correction remains uncommitted and needs recapture. Derived55-frame GIF prepared but not yet reviewed; no visual acceptance yet.
 - No capture runtime is currently owned. Do not run native UI suites concurrently with the desktop suite.
 
 ## Linux setup failure
@@ -24,4 +26,4 @@ C056 Linux run35959845676 finished 1/20: 19 suites enabled CLI with an empty ser
 
 ## Next action
 
-Full desktop passed. Review and commit source. Run isolated C058 and C057 native suites, selected/full parity as needed, then final live/fixture capture, actual image/GIF inspection, explicit approval and root verification. Update handoff/evidence, commit/push and inspect fresh exact-head CI. Preserve one lane, user checkouts, upstream source and shared services.
+Commit the wrapping correction and recapture C058; run profile isolation and corrected full parity, then final live/fixture capture, actual image/GIF inspection, explicit approval and root verification. Update handoff/evidence, commit/push and inspect fresh exact-head CI. Preserve one lane, user checkouts, upstream source and shared services.

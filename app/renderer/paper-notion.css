@@ -229,6 +229,9 @@
 .bw-paper-document .bw-kicker .bw-agent-edit { margin: 0; gap: 8px; font-size: 11px; letter-spacing: 0; }
 .bw-paper-document .bw-kicker .bw-agent-edit span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .bw-paper-document .bw-kicker .bw-agent-edit button { flex-shrink: 0; min-height: 24px; padding: 2px 4px; font-size: 11px; }
+.bw-paper-document .bw-kicker:has(.bw-agent-edit--reference) { height: auto; flex-wrap: wrap; }
+.bw-paper-document .bw-kicker:has(.bw-agent-edit--reference) #agent-edit { flex-basis: 100%; order: 1; }
+.bw-paper-document .bw-kicker .bw-agent-edit--reference span { overflow: visible; white-space: normal; line-height: 1.5; }
 .bw-paper-document .bw-kicker .bw-save-state { flex-shrink: 0; max-width: 38%; line-height: 12px; }
 .bw-paper-document .bw-kicker #kicker:not(:empty) + .bw-doc-meta:not(:empty)::before { content: "·"; margin-right: 10px; opacity: .6; }
 .bw-paper-document .bw-doc-title { margin-bottom: 14px; }

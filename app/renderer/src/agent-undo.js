@@ -6,7 +6,7 @@ export async function renderAgentUndo(host, id, rev, undo, binding) {
   if (!host.isConnected || host.request !== token) return;
   host.replaceChildren();
   if (!edit || edit.undone || !edit.undoUnavailable && edit.afterRev !== rev) return;
-  if (edit.undoUnavailable) { host.append(el(`<div class="bw-agent-edit"><span>${esc(edit.undoUnavailable)}</span></div>`)); return; }
+  if (edit.undoUnavailable) { host.append(el(`<div class="bw-agent-edit bw-agent-edit--reference"><span>${esc(edit.undoUnavailable)}</span></div>`)); return; }
   host.dataset.editId = edit.id;
   const row = el(`<div class="bw-agent-edit"><span>${esc(edit.summary || 'Edited by Barkdown')}</span><button type="button">Undo</button></div>`);
   row.querySelector('span').title = edit.summary || 'Edited by Barkdown';
