@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C069",
   "stage": "P2",
-  "status": "active",
+  "status": "done",
   "goal": "Let agents create and edit owned ordinary Paper notes with revision-checked Undo.",
   "scope": [
     "Share the owned ordinary-note path across API and MCP tools; preserve exact draft identity, owner and captured run.",
@@ -17,8 +17,13 @@
   ],
   "checkpoint": "2026-09-24",
   "handoff": "docs/cycles/C069-agent-paper-notes.md",
-  "nextAction": "Audit draft template/ops semantics and implement the shared owned tool adapter before provider wiring.",
-  "evidence": [],
-  "truthReview": "",
-  "screenshotReview": ""
+  "nextAction": "Review exact-head hosted checks on PR33, then scope guarded ordinary-note deletion/recovery from C061. Do not replay unconditional restore or activate migration.",
+  "evidence": [
+    "docs/cycles/evidence/C069/review.json",
+    "docs/cycles/evidence/C069/desktop/result.json",
+    "docs/visual/agent-notes/README.md",
+    "docs/cycles/evidence/C069/closeout/result.json"
+  ],
+  "truthReview": "Reviewed current queue, handoff, architecture, migration boundaries, README claims, source diff and retained evidence. P2/A2 remains open; unrelated README vision commits preserved; main plus one lane, historical locked worktrees retained.",
+  "screenshotReview": "Codex inspected native6 stills/407 motion samples/41 excerpt frames, standard40 stills/40 differences/40 GIF frames and live5 stills/37 GIF frames. Standard explicit approval341bbd4; source8a277bb. Narrow-column and fixture palette limits remain explicit."
 }

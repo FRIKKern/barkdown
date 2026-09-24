@@ -17,7 +17,7 @@ The excerpt samples actual native video at2fps and omits runtime startup/waits. 
 
 App source7e1c51c; native run records sourceDirty:true because the only pending app change was the stronger search assertion, subsequently committed unchanged as46854ef. The earlier clean-source capture is retained separately; no manifest is restamped. Standard and live Paper galleries have their own provenance.
 
-Agent ordinary-note creation/Undo, deletion/recovery, migration activation and legacy retirement remain unproved. Missing readback after uncertain creation never authorizes another POST. P2/A2 remain open.
+[C069](../agent-notes/README.md) separately proves agent creation/body edits/Undo. Deletion/recovery, migration activation and legacy retirement remain unproved. Missing readback after uncertain creation never authorizes another POST. P2/A2 remain open.
 
 ## Changelog
 
