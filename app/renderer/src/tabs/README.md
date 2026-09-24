@@ -18,6 +18,8 @@ For Paper changes, test acknowledged revisions, native Undo/Redo, human takeover
 
 ## Changelog
 
+- 24 September, C071: owned local drafts have revision-checked Delete and a retained unavailable original tab. [Deleted notes](../../../../docs/visual/paper-deletions/README.md) recovers a separate copy after restart, without rewiring original references or overwriting later edits. Dirty panes refuse deletion; unconfirmed requests remain explicit.
+
 - 24 September, C067: [ordinary Paper notes](../../../../docs/visual/paper-notes/README.md) retain their exact draft identity. The empty body stays visible when the upstream stylesheet loads; Enter at the locked title boundary selects the existing body without copying the title lock. Native development proof passes; final journey acceptance is recorded in the linked gallery.
 
 - 24 September, C053: ancestor favorites navigate the mounted editor through its existing unsaved-work guard. Tab reuse now includes local/Barkpark source identity. [Native Pages/favorites/side-chat rehearsal](../../../../docs/visual/migration/README.md#human-organization-preview--c053) proves the corrected destination and restart; original source stays authoritative.

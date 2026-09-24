@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "id": "C070",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Establish a safe exact-note deletion and recovery contract before exposing destructive Paper actions.",
+  "scope": [
+    "Audit the consumed upstream delete/restore behavior in a disposable real runtime; preserve both row identities and later human edits.",
+    "Turn discovered safety gaps into reproducible acceptance checks and a precise adapter prerequisite.",
+    "No production deletion UI, sibling-source edits, migration activation, merge or deployment until the contract is safe."
+  ],
+  "acceptance": [
+    "Probe stale revision refusal and exact draft/published twin isolation against the consumed source.",
+    "Verify retained revision recovery and whether replay can overwrite a later human edit.",
+    "Demonstrate a new-identity copy alternative without overwriting the original, and distinguish it from full restoration.",
+    "Retain source hashes, actual HTTP evidence, cleanup and an actionable next implementation boundary."
+  ],
+  "checkpoint": "2026-09-24",
+  "handoff": "docs/cycles/C070-deletion-contract.md",
+  "nextAction": "Implement and test an additive exact-draft delete contract upstream: atomically compare the caller opaque revision, preserve published twins and commit deletion evidence together. Then add the owned journal and native Recover a copy journey; no blind restore.",
+  "evidence": [
+    "docs/cycles/evidence/C070/deletion-audit/audit.json",
+    "docs/cycles/evidence/C070/review.json",
+    "docs/cycles/evidence/C070/validation/result.json",
+    "docs/cycles/evidence/C070/argument-checks.json",
+    "docs/cycles/evidence/C070/closeout/result.json"
+  ],
+  "truthReview": "Audited source and33 HTTP exchanges; reconciled PLAN/plan.json, migration contract, validation and handoff. Contract audit complete; destructive feature blocked. Existing generic both-variant behavior is intentional upstream, so require an additive exact-row contract. Preserve independent README changes, legacy source and43 historical locked worktrees.",
+  "screenshotReview": "No app, dependency, upstream pin or capture input changes. Existing C069 native/standard/live reviewed evidence remains applicable; root visual freshness passes. No deletion UI or new screenshot acceptance claimed."
+}

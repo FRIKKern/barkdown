@@ -64,12 +64,15 @@ function paperOrigin(config) {
   return require('./paper-origin').catalogOrigin(config, profileService && readSettings().barkpark.local?.enabled ? { profileId: profileService.view().profileId, connectionProfileId: profileConnectionOwner, connection: profileConnection } : null);
 }
 function draftNotes(config) {
+  return require('./draft-notes').createDraftNotes(ordinaryNoteOptions(config));
+}
+function ordinaryNoteOptions(config) {
   const origin = paperOrigin(config);
   if (origin.kind !== 'local') throw new Error('Ordinary Paper notes require this profile’s managed local library.');
-  return require('./draft-notes').createDraftNotes({
+  return {
     store: store.createStore(store.dir()), config, profileId: origin.profileId, paperOwner: paperNavigation.identify(config),
     assertOwned: () => { authorityOwnership?.assertOwned(); if (profileService.view().profileId !== origin.profileId) throw new Error('The note’s profile is no longer active.'); },
-  });
+  };
 }
 function publicSettings() {
   const s = readSettings();
@@ -201,7 +204,7 @@ function handle(channel, fn, unowned = false) {
       if (!win || event.sender !== win.webContents || event.senderFrame !== win.webContents.mainFrame) throw new Error('Only the main application window may use this request');
       const execute = async () => {
         authorityOwnership?.assertOwned();
-        if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|createNote|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
+        if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|createNote|deletedNotes|deleteNote|checkDeletion|recoverNote|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
         authorityOwnership?.assertOwned();
         return fn(...args);
       };
@@ -412,6 +415,17 @@ function registerIpc() {
     const captured = await paperConnection.read(undefined, c => { draftNotes(c); });
     const paper = await paperConnection.write(captured.binding, c => draftNotes(c).create(requestId));
     return { ...paper, binding: captured.binding, connectionIdentity: captured.connectionIdentity };
+  });
+  const deletions = c => require('./paper-deletions').createPaperDeletions(ordinaryNoteOptions(c));
+  handle('barkpark:deletedNotes', async () => {
+    const result = await paperConnection.read(undefined, c => deletions(c).list());
+    return { records: result.value, binding: result.binding };
+  });
+  handle('barkpark:deleteNote', ({ id, revision, binding }) => paperConnection.write(binding, c => deletions(c).remove(id, revision)));
+  handle('barkpark:checkDeletion', ({ key, binding }) => paperConnection.read(binding, c => deletions(c).reconcile(key)).then(r => r.value));
+  handle('barkpark:recoverNote', async ({ key, binding }) => {
+    const paper = await paperConnection.write(binding, c => deletions(c).recover(key));
+    return { ...paper, binding };
   });
   handle('barkpark:get', async value => {
     const request = input(value), { id, binding } = request;

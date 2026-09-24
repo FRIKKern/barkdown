@@ -1,0 +1,73 @@
+// Real HTTP proof of the durable deletion adapter; all data belongs to this run.
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import net from 'node:net';
+import crypto from 'node:crypto';
+import { execFileSync } from 'node:child_process';
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
+const { LocalBarkpark } = require('../main/local-barkpark');
+const { SourceDriver } = require('../main/local-barkpark-source');
+const { createDraftNotes } = require('../main/draft-notes');
+const { createPaperDeletions } = require('../main/paper-deletions');
+const { createStore } = require('../main/store');
+const bp = require('../main/barkpark');
+const source = process.env.BARKDOWN_TEST_BP_SOURCE;
+if (!source) throw Error('Explicit disposable runtime source required');
+const root = path.resolve('..'), data = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-delete-contract-'));
+const git = (args, cwd = root) => execFileSync('git', args, { cwd, encoding: 'utf8' }).trim();
+const free = () => new Promise(resolve => { const s = net.createServer(); s.listen(0, '127.0.0.1', () => { const p = s.address().port; s.close(() => resolve(p)); }); });
+const port = await free(); let pgPort = await free(); while (port === pgPort) pgPort = await free();
+const secrets = { password: crypto.randomBytes(32).toString('hex'), token: 'bp_admin_' + crypto.randomBytes(24).toString('base64url') };
+const runtime = new LocalBarkpark(new SourceDriver({ source, port, pgPort }, data, secrets));
+const config = { enabled: true, writes: true, server: `http://127.0.0.1:${port}`, token: secrets.token, dataset: 'production' };
+const results = [], requests = [], profileId = crypto.randomUUID(), paperOwner = 'a'.repeat(64);
+const report = { host: git(['rev-parse', 'HEAD']), upstream: git(['rev-parse', 'HEAD'], source), sourceDirty: git(['status', '--porcelain', '--', 'app']) !== '', results, requests, failure: null };
+let drop = false;
+const options = { store: createStore(path.join(data, 'note-store')), config, profileId, paperOwner, assertOwned: () => {},
+  request: async (...args) => { requests.push({ method: args[1], route: args[2] }); const r = await bp.request(...args); if (drop && args[1] === 'POST') throw Error('Lost real committed response'); return r; } };
+runtime.on('status', s => console.log('Private deletion runtime:', s.phase, s.error || ''));
+try {
+  await runtime.start(); await runtime.ready();
+  const notes = createDraftNotes(options), service = () => createPaperDeletions(options);
+  const published = (await bp.getPaper(config, 'welcome')).raw;
+  await bp.request(config, 'POST', '/v1/data/mutate/production', { mutations: [{ create: { _id: 'welcome', _type: 'paper', title: 'Owned draft', blocks: [] } }] });
+  const old = await notes.read('drafts.welcome');
+  await notes.apply(old.id, [{ op: 'patch-block', id: 'tpl-title', patch: { text: 'Later human words' } }], old.rev);
+  await assert.rejects(service().remove(old.id, old.revision), /changed/);
+  const paper = await notes.read(old.id);
+  assert.equal(paper.title, 'Later human words');
+  drop = true;
+  const deleted = await service().remove(paper.id, paper.revision);
+  assert.equal(deleted.status, 'deleted');
+  await assert.rejects(notes.read(paper.id), e => e.status === 404);
+  assert.deepEqual((await bp.getPaper(config, 'welcome')).raw, published);
+  assert.equal(service().list()[0].key, deleted.key);
+  results.push('Stale revision refuses deletion; exact draft deletion preserves published twin; lost reply reconciles committed history after service reconstruction');
+  const copy = await service().recover(deleted.key);
+  assert.notEqual(copy.id, paper.id); assert.deepEqual(copy.raw.blocks, paper.raw.blocks);
+  assert.equal(copy.title, paper.title);
+  drop = false;
+  await notes.apply(copy.id, [{ op: 'patch-block', id: 'tpl-title', patch: { text: 'Edited after recovery' } }], copy.rev);
+  const human = await notes.read(copy.id);
+  const posts = requests.filter(r => r.method === 'POST').length;
+  assert.deepEqual((await service().recover(deleted.key)).raw, human.raw);
+  assert.equal(requests.filter(r => r.method === 'POST').length, posts);
+  results.push('Lost copy response recovers one native new identity; repeated recovery returns later human changes without replaying a mutation');
+  await bp.request(config, 'POST', '/v1/data/mutate/production', { mutations: [{ create: { _id: 'welcome', _type: 'paper', title: 'Recreated original', blocks: [] } }] });
+  const recreated = await notes.read(paper.id);
+  await service().remove(paper.id, paper.revision);
+  await service().reconcile(deleted.key);
+  assert.deepEqual((await notes.read(paper.id)).raw, recreated.raw);
+  assert.deepEqual((await bp.getPaper(config, 'welcome')).raw, published);
+  results.push('Retrying the prior deletion never removes a later recreated original; both original and published twin remain unchanged');
+  console.log('PASS', results);
+} catch (error) { report.failure = error.stack; throw error; }
+finally {
+  await runtime.stop();
+  const out = path.join(root, 'docs/cycles/evidence/C071'); fs.mkdirSync(out, { recursive: true });
+  const file = path.join(out, `deletion-contract-${Date.now()}.json`); fs.writeFileSync(file, JSON.stringify(report, null, 2) + '\n');
+  console.log('Private API evidence:', file, 'Retained temporary data:', data);
+}

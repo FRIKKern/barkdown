@@ -37,14 +37,14 @@ function createDraftNotes({ store, config, paperOwner, profileId, assertOwned, r
     return { ...summary(d), raw: d, ...barkpark.markdownView(d.blocks), blocks: d.blocks,
       html: d.body_html || null, revision: d._rev, rev: d.rev ?? 0, description: d.description || '' };
   }
-  async function create(requestId, { title = '', markdown = '' } = {}) {
+  async function create(requestId, { title = '', markdown = '' } = {}, native = null) {
     assertOwned();
     if (!captured.writes) throw Object.assign(new Error('Enable local Paper writes before creating a note.'), { code: 'writes_disabled' });
     if (!uuid.test(requestId || '')) throw invalid('Creation request identity required.');
     if (typeof title !== 'string' || typeof markdown !== 'string') throw new TypeError('Note title and markdown must be strings.');
-    const contentHash = crypto.createHash('sha256').update(JSON.stringify([title, markdown])).digest('hex');
+    const contentHash = crypto.createHash('sha256').update(JSON.stringify(native ? [title, native] : [title, markdown])).digest('hex');
     const body = markdown ? require('../shared/portabledoc').markdownToBlocks(markdown).map((b, i) => ({ ...b, id: `initial-${i}` })) : [];
-    const blocks = body.length ? [{ id: 'tpl-title', type: 'heading', level: 1, role: 'title', locked: true, text: title }, ...body] : [];
+    const blocks = native ? native.blocks : body.length ? [{ id: 'tpl-title', type: 'heading', level: 1, role: 'title', locked: true, text: title }, ...body] : [];
     const name = `paper-creation/${requestId}.json`, file = store.filePath(name), flightKey = `${file}:${profileId}:${paperOwner}:${contentHash}`;
     // Same-process calls coalesce; the request lease also serializes MCP processes.
     if (flights.has(flightKey)) return flights.get(flightKey);
@@ -82,7 +82,7 @@ function createDraftNotes({ store, config, paperOwner, profileId, assertOwned, r
       record.status = 'sent'; persist();
       try {
         await request(captured, 'POST', `/v1/data/mutate/${dataset}`, { mutations: [{ create: {
-          _id: record.id.slice(7), _type: 'paper', title, blocks, barkdownCreation: record.nonce,
+          ...(native || {}), _id: record.id.slice(7), _type: 'paper', title, blocks, barkdownCreation: record.nonce,
         } }] });
       } catch (error) {
         if ([400, 401, 403, 409, 422].includes(error.status)) { record.status = 'refused'; persist(); throw error; }
@@ -122,7 +122,15 @@ function createDraftNotes({ store, config, paperOwner, profileId, assertOwned, r
     assertOwned();
     return rows.filter(d => d._draft === true || d._id.startsWith('drafts.')).map(summary);
   }
-  return { read, create, list, search, apply, summary };
+  async function createCopy(requestId, snapshot) {
+    exactDraft(snapshot, snapshot?._id);
+    // Native content retains marks, media and reference carriers. Transport
+    // identity, computed projections and the old creation nonce cannot transfer.
+    const native = Object.fromEntries(Object.entries(snapshot).filter(([key]) =>
+      !key.startsWith('_') && !['rev', 'barkdownCreation', 'body_html', 'body_html_sv', 'preview'].includes(key)));
+    return create(requestId, { title: snapshot.title || '' }, native);
+  }
+  return { read, create, createCopy, list, search, apply, summary };
 }
 // Only trusted runtime configuration carries this marker. A loopback URL alone is insufficient.
 function ownedDraftNotes(store, config, profileId = config?.managedProfileId) {

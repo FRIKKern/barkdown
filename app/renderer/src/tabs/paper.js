@@ -23,6 +23,7 @@ export function mountPaper(tab, host, ctx) {
   let refreshing = false, refreshAgain = false;
   const updateUndo = () => renderAgentUndo(q('#agent-edit'), 'bp:' + slug(), rev, async () => { if (hasUnsavedWork()) throw new Error('Finish saving your edit before Undo.'); presence.stop(); await api.docs.undoAgentEdit('bp:' + slug(), q('#agent-edit').dataset.editId, paper?.binding); await controller.refresh(); ctx.libraryChanged(); }, paper?.binding);
   let paper = null;
+  let deletionPending = false, deleted = false;
   let canvas = null;
   let positionReady = false, positionIntent = 0, cancelPositionRestore = () => {};
   const scroller = q('#current');
@@ -45,9 +46,9 @@ export function mountPaper(tab, host, ctx) {
   let latestSeq = null;
   let mergeAfterSave = false;
   const slug = () => mountedPath.at(-1);
-  const hasUnsavedWork = () => Boolean(saving || titleDirty || pendingRetry || canvas?.hasPendingChanges?.());
+  const hasUnsavedWork = () => Boolean(deletionPending || saving || titleDirty || pendingRetry || canvas?.hasPendingChanges?.());
   const connectionChanged = () => Boolean(paper?.connectionIdentity && paper.connectionIdentity !== state.settings?.barkpark?.connectionIdentity);
-  const writesOn = () => Boolean(state.settings?.barkpark?.writes) && !connectionChanged();
+  const writesOn = () => Boolean(state.settings?.barkpark?.writes) && !connectionChanged() && !deletionPending && !deleted;
   const writeUnavailable = () => connectionChanged() ? 'Restore this Paper’s original connection to use this action.' : 'Barkpark writes are off';
 
   // Find and replace: Ctrl+F / Ctrl+H inside the pane open the bar; the canvas paints the matches and
@@ -126,6 +127,21 @@ export function mountPaper(tab, host, ctx) {
     const reload = el(`<button title="Reload from server">${iconHtml('rotate-cw')}</button>`);
     reload.onclick = () => load();
     actions.append(ask, open, copy, reload);
+    if (paper?.paperOrigin?.kind === 'local' && slug().startsWith('drafts.') && !deleted) {
+      const remove = el(`<button title="Delete note" aria-label="Delete note">${iconHtml('trash')}</button>`);
+      remove.disabled = !writesOn();
+      remove.onclick = async () => {
+        if (hasUnsavedWork()) return toast('Finish saving this note before deleting it.', 'error');
+        const captured = paper, beforeInput = inputVersion, beforeRev = rev;
+        if (!await askConfirm('A retained snapshot can be recovered as a separate copy. Existing links and page placement stay with this note.', { title: `Delete “${paper.title}”?`, confirm: 'Delete note', danger: true })) return;
+        if (destroyed || paper !== captured || rev !== beforeRev || inputVersion !== beforeInput || hasUnsavedWork()) return toast('The note changed. Review it before deleting.', 'error');
+        try {
+          const result = await ctx.deletePaper(captured);
+          toast(result.status === 'deleted' ? 'Note deleted. Its snapshot is retained.' : 'Deletion is unconfirmed. Check Deleted notes.');
+        } catch (error) { toast(errorMessage(error), 'error'); }
+      };
+      actions.appendChild(remove);
+    }
     bar.appendChild(actions);
   }
 
@@ -356,6 +372,11 @@ export function mountPaper(tab, host, ctx) {
           q('#canvas-host').innerHTML = `<div class="bw-reference-notice" role="status"><p class="bw-error">${esc(errorMessage(error))}</p>${tab.paperOwner ? '<button class="bw-btn" data-navigation-retry>Retry original library</button>' : ''}</div>`;
           const retry = q('[data-navigation-retry]');
           if (retry) retry.onclick = () => load();
+          if (state.settings?.barkpark?.catalogKind === 'local') {
+            const recovery = el('<button class="bw-btn" data-deleted-notes>Deleted notes</button>');
+            recovery.onclick = () => ctx.openDeletedNotes?.();
+            q('#canvas-host').appendChild(recovery);
+          }
         }
       }
       return;
@@ -369,6 +390,7 @@ export function mountPaper(tab, host, ctx) {
     if (hasUnsavedWork() || inputVersion !== beforeInput || rev !== beforeRev) { tab.path = [...mountedPath]; tab.source = mountedSource; ctx.tabChanged(tab); return false; }
     q('.bw-paper-document').classList.remove('bw-paper-unavailable');
     paper = fetched; mountedPath = path; mountedSource = source;
+    deleted = false;
     rev = paper.rev;
     lastAcked = paper.blocks || [];
     tab.title = paper.title;
@@ -448,6 +470,28 @@ export function mountPaper(tab, host, ctx) {
 
   const controller = {
     el: pane, type: 'doc', tab,
+    setDeletionPending(value) {
+      if (destroyed) return;
+      deletionPending = value;
+      canvas?.setAttribute('editable', String(writesOn()));
+      q('#title').disabled = !writesOn();
+      renderPath();
+    },
+    showDeletion(result) {
+      if (destroyed) return;
+      if (result.status !== 'deleted') {
+        q('#banner').innerHTML = '<div class="bw-conflict">Deletion is unconfirmed. Open Deleted notes to check it or recover a separate copy.</div>';
+        return;
+      }
+      deleted = true; presence.stop(); canvas?.remove(); canvas = null;
+      q('#title').disabled = true;
+      q('#agent-edit').innerHTML = ''; q('#proposals').innerHTML = ''; q('#links').innerHTML = '';
+      q('#banner').innerHTML = ''; q('#meta').textContent = '';
+      setSaveState('Deleted');
+      q('#canvas-host').innerHTML = '<div class="bw-reference-notice" role="status"><p>This note was deleted. Its snapshot is retained; you can recover a separate copy.</p><button class="bw-btn" data-deleted-notes>Deleted notes</button></div>';
+      q('[data-deleted-notes]').onclick = () => ctx.openDeletedNotes?.();
+      renderPath();
+    },
     async renameTitle(title) {
       if (destroyed || !paper || !canvas) throw new Error('Wait for this Paper to open before renaming it.');
       if (hasUnsavedWork()) throw new Error('Finish saving your Paper edits before renaming the tab.');

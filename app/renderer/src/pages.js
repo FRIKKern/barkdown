@@ -144,7 +144,7 @@ export function renderPages(host, deps) {
   };
   const libraryNotice = state.settings?.barkpark?.enabled && state.barkparkLibraryError ? `<div class="bw-library-notice" role="status" title="${esc(state.barkparkLibraryError)}"><span>${state.barkparkDocs.length ? 'Showing last known papers.' : 'Paper library unavailable.'}</span><button id="bw-library-retry" type="button">Retry</button></div>` : '';
   const creationNotice = pages.noteCreation ? '<div class="bw-library-notice" role="status"><span>New page not confirmed.</span><button id="bw-note-retry" type="button">Retry</button></div>' : '';
-  host.innerHTML = `<div class="bw-label bw-pages-label"><span>Pages</span><span class="bw-spacer"></span><button class="bw-icon-button" id="bw-new-page" title="New page" aria-label="New page">${iconHtml('plus', 13)}</button></div><div class="bw-pages" id="bw-pages">${treeHtml}</div>${creationNotice}${archiveSection(false)}${archiveSection(true)}${libraryNotice}`;
+  host.innerHTML = `<div class="bw-label bw-pages-label"><span>Pages</span><span class="bw-spacer"></span>${state.profileId && state.settings?.barkpark?.catalogKind === 'local' ? '<button class="bw-icon-button" id="bw-deleted-notes" title="Deleted notes" aria-label="Deleted notes">' + iconHtml('trash', 13) + '</button>' : ''}<button class="bw-icon-button" id="bw-new-page" title="New page" aria-label="New page">${iconHtml('plus', 13)}</button></div><div class="bw-pages" id="bw-pages">${treeHtml}</div>${creationNotice}${archiveSection(false)}${archiveSection(true)}${libraryNotice}`;
   const retry = host.querySelector('#bw-library-retry');
   if (retry) retry.onclick = async () => { retry.disabled = true; retry.textContent = 'Refreshing…'; try { await deps.onRefresh?.(); } finally { retry.disabled = false; retry.textContent = 'Retry'; } };
 
@@ -160,6 +160,7 @@ export function renderPages(host, deps) {
     };
     b.oncontextmenu = e => { e.preventDefault(); showMenu(b, b.dataset.open, host, deps); };
   });
+  host.querySelector('#bw-deleted-notes')?.addEventListener('click', () => deps.onDeletedNotes?.());
   host.querySelector('#bw-new-page').onclick = () => onNewPage(null);
   const retryNote = host.querySelector('#bw-note-retry');
   if (retryNote) retryNote.onclick = () => onNewPage(null);

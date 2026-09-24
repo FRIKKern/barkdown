@@ -11,6 +11,7 @@ import { state, load, save, serialise, newChat, newTab, currentChat, activeTab, 
 import { transcriptHtml, handleAgentEvent, respondApproval, providerFor, formatDuration } from './conversation.js';
 import { mountDocument } from './tabs/document.js';
 import { mountPaper } from './tabs/paper.js';
+import { openDeletedNotes } from './paper-recovery.js';
 import { mountWebsite } from './tabs/website.js';
 import { mountReview } from './tabs/review.js';
 import { mountProject, buffers, dirtyCount } from './tabs/project.js';
@@ -111,6 +112,19 @@ function tabContext(chat) {
     openWebsite: url => openTarget({ kind: 'web', url, title: hostname(url) }, chat, true),
     askAbout: text => { q('#bw-prompt').value = text; q('#bw-prompt').focus(); if (state.mode !== 'chat') { state.mode = 'chat'; render(); } },
     libraryChanged: () => refreshLibrary(),
+    openDeletedNotes: showDeletedNotes,
+    deletePaper: async paper => {
+      const sameNote = c => c.tab?.source === 'barkpark' && c.tab.paperOwner === paper.paperOwner && c.tab.path.at(-1) === paper.id;
+      const panes = [...controllers.values()].filter(sameNote);
+      if (panes.some(c => c.isDirty?.())) throw new Error('Finish saving this note in every open tab before deleting it.');
+      panes.forEach(c => c.setDeletionPending?.(true));
+      try {
+        const result = await api.barkpark.deleteNote(paper.id, paper.revision, paper.binding);
+        for (const c of controllers.values()) if (sameNote(c)) c.showDeletion?.(result);
+        await refreshLibrary();
+        return result;
+      } finally { panes.forEach(c => c.setDeletionPending?.(false)); }
+    },
     importPaper,
     closeTab: tab => closeTab(chat, tab.id),
     documentChanged: doc => { refreshLibrary(); for (const c of controllers.values()) if (c.type === 'doc' && c.tab.path.at(-1) === String(doc.id).replace(/^bp:/, '')) c.refresh?.(doc.id); },
@@ -372,10 +386,13 @@ function renderChat() {
 
 function initials() { return 'FJ'; }
 
+function showDeletedNotes() { return openDeletedNotes({ refresh: refreshLibrary, openPaper: paper => openDirect(paper.id, 'barkpark', paper.paperOwner) }); }
+
 function renderSidebar() {
   seedTree();
   renderPages(q('#bw-documents'), {
     onRefresh: () => refreshLibrary(),
+    onDeletedNotes: showDeletedNotes,
     openKey: (id, source, paperOwner) => openDirect(id, source, paperOwner),
     openBeside: (id, source, paperOwner) => openDocTab(currentChat(), id, source, paperOwner),
     isOpen: key => { const chat = workspaceChat(); const tab = activeTab(chat); return tab?.type === 'doc' && pageKey(tab.path.at(-1), tab.source, tab.paperOwner) === key; },

@@ -1,30 +1,24 @@
 {
   "version": 1,
-  "id": "C070",
+  "id": "C071",
   "stage": "P2",
-  "status": "done",
-  "goal": "Establish a safe exact-note deletion and recovery contract before exposing destructive Paper actions.",
+  "status": "active",
+  "goal": "Delete an owned local Paper note safely and recover a separate copy after restart.",
   "scope": [
-    "Audit the consumed upstream delete/restore behavior in a disposable real runtime; preserve both row identities and later human edits.",
-    "Turn discovered safety gaps into reproducible acceptance checks and a precise adapter prerequisite.",
-    "No production deletion UI, sibling-source edits, migration activation, merge or deployment until the contract is safe."
+    "Add atomic exact-draft deletion upstream without changing generic both-variant deletion.",
+    "Build profile-owned deletion/recovery records, guarded foreground controls and native restart proof.",
+    "Preserve original organization/references and newer human edits; no migration activation, merge or deployment."
   ],
   "acceptance": [
-    "Probe stale revision refusal and exact draft/published twin isolation against the consumed source.",
-    "Verify retained revision recovery and whether replay can overwrite a later human edit.",
-    "Demonstrate a new-identity copy alternative without overwriting the original, and distinguish it from full restoration.",
-    "Retain source hashes, actual HTTP evidence, cleanup and an actionable next implementation boundary."
+    "Exact draft deletion atomically checks the caller revision, preserves a published twin and retains evidence; interleaving and rollback tests pass.",
+    "Owned deletion intent survives lost replies/restart; retries cannot delete a recreated row or cross profiles.",
+    "Recover a copy retains native blocks under one durable new identity; retry preserves later human edits.",
+    "Native human journey, targeted/full checks and reviewed standard/live/native media pass; commit and push both owned lanes."
   ],
   "checkpoint": "2026-09-24",
-  "handoff": "docs/cycles/C070-deletion-contract.md",
-  "nextAction": "Implement and test an additive exact-draft delete contract upstream: atomically compare the caller opaque revision, preserve published twins and commit deletion evidence together. Then add the owned journal and native Recover a copy journey; no blind restore.",
-  "evidence": [
-    "docs/cycles/evidence/C070/deletion-audit/audit.json",
-    "docs/cycles/evidence/C070/review.json",
-    "docs/cycles/evidence/C070/validation/result.json",
-    "docs/cycles/evidence/C070/argument-checks.json",
-    "docs/cycles/evidence/C070/closeout/result.json"
-  ],
-  "truthReview": "Audited source and33 HTTP exchanges; reconciled PLAN/plan.json, migration contract, validation and handoff. Contract audit complete; destructive feature blocked. Existing generic both-variant behavior is intentional upstream, so require an additive exact-row contract. Preserve independent README changes, legacy source and43 historical locked worktrees.",
-  "screenshotReview": "No app, dependency, upstream pin or capture input changes. Existing C069 native/standard/live reviewed evidence remains applicable; root visual freshness passes. No deletion UI or new screenshot acceptance claimed."
+  "handoff": "docs/cycles/C071-paper-deletion-recovery.md",
+  "nextAction": "Implement and test upstream exact-draft deletion, then wire the owned recovery journal and native actions.",
+  "evidence": [],
+  "truthReview": "",
+  "screenshotReview": ""
 }
