@@ -37,30 +37,38 @@ function createDraftNotes({ store, config, paperOwner, profileId, assertOwned, r
     return { ...summary(d), raw: d, ...barkpark.markdownView(d.blocks), blocks: d.blocks,
       html: d.body_html || null, revision: d._rev, rev: d.rev ?? 0, description: d.description || '' };
   }
-  async function create(requestId) {
+  async function create(requestId, { title = '', markdown = '' } = {}) {
     assertOwned();
     if (!captured.writes) throw Object.assign(new Error('Enable local Paper writes before creating a note.'), { code: 'writes_disabled' });
     if (!uuid.test(requestId || '')) throw invalid('Creation request identity required.');
-    const name = `paper-creation/${requestId}.json`, file = store.filePath(name), flightKey = `${file}:${profileId}:${paperOwner}`;
-    // Cooperating foreground calls share one write; the process owns the profile lease.
+    if (typeof title !== 'string' || typeof markdown !== 'string') throw new TypeError('Note title and markdown must be strings.');
+    const contentHash = crypto.createHash('sha256').update(JSON.stringify([title, markdown])).digest('hex');
+    const body = markdown ? require('../shared/portabledoc').markdownToBlocks(markdown).map((b, i) => ({ ...b, id: `initial-${i}` })) : [];
+    const blocks = body.length ? [{ id: 'tpl-title', type: 'heading', level: 1, role: 'title', locked: true, text: title }, ...body] : [];
+    const name = `paper-creation/${requestId}.json`, file = store.filePath(name), flightKey = `${file}:${profileId}:${paperOwner}:${contentHash}`;
+    // Same-process calls coalesce; the request lease also serializes MCP processes.
     if (flights.has(flightKey)) return flights.get(flightKey);
     const work = (async () => {
+      fs.mkdirSync(path.dirname(file), { recursive: true });
+      const lease = require('./file-lease').acquireFileLease(store.filePath(name + '.lock'), { completeOwner: true, busy: 'This creation request is already running. Retry the same request after it finishes.' });
+      try {
       let record, bytes = null;
       try { bytes = fs.readFileSync(file); record = JSON.parse(bytes); }
       catch (error) { if (error.code !== 'ENOENT') throw invalid('Creation record is unreadable; it was retained for recovery.'); }
       const persist = () => {
-        assertOwned(); fs.mkdirSync(path.dirname(file), { recursive: true });
+        assertOwned(); lease.assertOwned(); fs.mkdirSync(path.dirname(file), { recursive: true });
         const next = Buffer.from(JSON.stringify(record, null, 2) + '\n');
-        atomicWrite(file, next, { assertOwned, expectedBytes: bytes }); bytes = next;
+        atomicWrite(file, next, { assertOwned: () => { assertOwned(); lease.assertOwned(); }, expectedBytes: bytes }); bytes = next;
       };
       if (!record) {
         record = { version: 1, requestId, profileId, paperOwner, id: `drafts.bd-note-${requestId}`,
-          nonce: crypto.randomUUID(), status: 'prepared' };
+          nonce: crypto.randomUUID(), contentHash, status: 'prepared' };
         persist();
       }
       if (record.version !== 1 || record.requestId !== requestId || record.profileId !== profileId ||
           record.paperOwner !== paperOwner || record.id !== `drafts.bd-note-${requestId}` || !uuid.test(record.nonce || '') ||
           !['prepared', 'sent', 'complete', 'refused'].includes(record.status)) throw invalid('Creation record belongs to another or unknown owner.');
+      if (record.contentHash ? record.contentHash !== contentHash : title !== '' || markdown !== '') throw invalid('This creation request has different content. Read its original note instead of replaying it.');
       if (record.status === 'refused') throw invalid('The server refused this creation. Its existing note was not changed.');
       const reconcile = async () => {
         const paper = await read(record.id);
@@ -70,18 +78,19 @@ function createDraftNotes({ store, config, paperOwner, profileId, assertOwned, r
       };
       // A sent intent is read-only on every retry, including after process restart.
       // Missing readback remains uncertain; it never authorizes another create.
-      if (record.status !== 'prepared') return reconcile();
+      if (record.status !== 'prepared') return await reconcile();
       record.status = 'sent'; persist();
       try {
         await request(captured, 'POST', `/v1/data/mutate/${dataset}`, { mutations: [{ create: {
-          _id: record.id.slice(7), _type: 'paper', title: '', blocks: [], barkdownCreation: record.nonce,
+          _id: record.id.slice(7), _type: 'paper', title, blocks, barkdownCreation: record.nonce,
         } }] });
       } catch (error) {
         if ([400, 401, 403, 409, 422].includes(error.status)) { record.status = 'refused'; persist(); throw error; }
         // A transport error may follow a committed create. Read the exact row once.
         try { return await reconcile(); } catch { throw Object.assign(new Error('Creation is unconfirmed. Retry this request to check the same note; no second note will be created.'), { code: 'draft_creation_uncertain' }); }
       }
-      return reconcile();
+      return await reconcile();
+      } finally { lease.release(); }
     })();
     flights.set(flightKey, work);
     try { return await work; } finally { flights.delete(flightKey); }
@@ -115,4 +124,13 @@ function createDraftNotes({ store, config, paperOwner, profileId, assertOwned, r
   }
   return { read, create, list, search, apply, summary };
 }
-module.exports = { createDraftNotes, exactDraft };
+// Only trusted runtime configuration carries this marker. A loopback URL alone is insufficient.
+function ownedDraftNotes(store, config, profileId = config?.managedProfileId) {
+  if (!config?.managedProfileId) return null;
+  if (config.managedProfileId !== profileId) throw invalid('The note runtime belongs to another profile.');
+  const navigation = require('./paper-navigation').createPaperNavigation(store);
+  const paperOwner = navigation.identify(config);
+  return createDraftNotes({ store, config, profileId, paperOwner,
+    assertOwned: () => { store.filePath('paper-creation'); navigation.assert(paperOwner, config); } });
+}
+module.exports = { createDraftNotes, exactDraft, ownedDraftNotes };

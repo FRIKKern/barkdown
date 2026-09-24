@@ -131,7 +131,7 @@ function createProfileRuntimePool({ registry, readSecrets, createRuntime = ({ de
       releasePromise = drain(entry).catch(error => { releasePromise = null; throw error; });
       return releasePromise;
     };
-    return Object.freeze({ profileId, storeDir: entry.store.storeDir, connection: Object.freeze({ ...entry.connection, writes }), release });
+    return Object.freeze({ profileId, storeDir: entry.store.storeDir, connection: Object.freeze({ ...entry.connection, writes, managedProfileId: profileId }), release });
   }
   function select(profileId, options = {}) {
     const operation = selection.catch(() => {}).then(async () => {

@@ -2,7 +2,7 @@
 
 This directory owns persisted data, provider execution, native processes and the IPC authority boundary. Start with the [current handoff](../../docs/NEXT-AGENT.md) and [A1 evidence table](../../docs/cycles/A1-current-evidence.md): a passing lane does not approve a newer combined source.
 
-![Current live Paper checkpoint](../../docs/images/status/paper-light.png)
+![Current live Paper checkpoint in dark mode](../../docs/images/status/paper-dark.png)
 
 The [capture manifest](../../docs/images/status/manifest.json) identifies this live Paper checkpoint. Use the boundary galleries below for ownership, process and recovery proof; one screenshot does not validate every module.
 
@@ -12,7 +12,7 @@ The [capture manifest](../../docs/images/status/manifest.json) identifies this l
 | Provider dispatch or conversations | [Chat recovery](../../docs/visual/chat-recovery/README.md), [goal integration](../../docs/goals/INTEGRATION.md) and the captured run scope |
 | File reads and saves | [Exact file authority](../../docs/visual/project-file-authority/README.md); unavailable navigation must not redirect a retained draft |
 | Editor bundle loading | [Cache integrity](../../docs/visual/cache-integrity/README.md); verify both assets and preserve rejected originals |
-| Ordinary local Paper notes | [Draft-note journey](../../docs/visual/paper-notes/README.md): exact rows, opaque versus Paper revisions, durable creation intents and lost-response readback. C067 final acceptance remains in that gallery. |
+| Ordinary local Paper notes | [Human draft-note journey](../../docs/visual/paper-notes/README.md) and [agent-note journey](../../docs/visual/agent-notes/README.md): exact rows, distinct revision domains, durable creation identity and guarded Undo. `paper-tools.js` shares captured API/MCP access; `paper-edit-ops.js` preserves the locked title. |
 | Native processes or storage | [Terminal ownership](../../docs/visual/terminal-ownership/README.md), [C023 write recovery](../../docs/cycles/C023-windows-atomic-write.md) |
 
 Resolve profile identity in main before using a store, connection or run. A foreground switch cannot rebind captured work. A failed acknowledgement does not authorize replay. Shutdown claims require the owned process receipt, not merely a closed window. Device provider login and environment credentials remain distinct from profile-owned encrypted secrets.
@@ -57,3 +57,5 @@ C058 scopes persisted remote edit evidence to an opaque original-connection owne
 C059 carries durable Paper navigation owners from catalog reads through saved targets and provider activity. Foreign/unknown saved references refuse before Paper reads; provider CLI routing is captured once and passed to its MCP process. [Navigation evidence](../../docs/visual/paper-navigation/README.md). Validation is tracked in the current handoff.
 
 C060: [Owned Paper Archive](../../docs/visual/paper-archive/README.md) records trusted main-process origin, local/cloud partition and preserved human organization across two profiles, failure and restart.
+
+- 24 September, C069: [Agent notes](../../docs/visual/agent-notes/README.md) shares managed-local API/MCP creation/discovery, preserves locked titles during body replacement and retains revision-checked Undo receipts across restart. Creation retries retain the original request and content; managed tools no longer seed legacy notes. Native acceptance and remaining recovery limits are tracked in C069.

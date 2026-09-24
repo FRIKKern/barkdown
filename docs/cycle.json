@@ -1,27 +1,24 @@
 {
   "version": 1,
-  "id": "C068",
+  "id": "C069",
   "stage": "P2",
-  "status": "done",
-  "goal": "Reduce avoidable validation rework with fail-fast checks and precise evidence checkpoints.",
+  "status": "active",
+  "goal": "Let agents create and edit owned ordinary Paper notes with revision-checked Undo.",
   "scope": [
-    "Local check runner and assertion/review guidance; preserve all required gates.",
-    "Refresh active handoff; no app changes, merge, deployment or historical-worktree deletion."
+    "Share the owned ordinary-note path across API and MCP tools; preserve exact draft identity, owner and captured run.",
+    "Prove native edit/Undo/restart and stale/foreign refusal; preserve manual connections and legacy data.",
+    "No deletion/recovery, activation, merge or deployment."
   ],
   "acceptance": [
-    "Failed commands stop the sequence and preserve diagnostics; invalid plans fail before running.",
-    "Explicit cwd and literal argv work independently of shell location.",
-    "Existing root verification covers the runner; current claims and evidence remain truthful."
+    "API and MCP creation target the managed local Paper library, with durable creation identity and no legacy fallback.",
+    "Agent edit receipts retain owner/exact draft row; guarded Undo preserves locked title structure and refuses later human edits.",
+    "Read/list/search and native activity reach the same owned note across profile switches and restart.",
+    "Focused/full checks, real runtime and reviewed native/standard/live evidence support the bounded journey."
   ],
   "checkpoint": "2026-09-24",
-  "handoff": "docs/cycles/C068-efficient-checkpoints.md",
-  "nextAction": "Follow PR33 hosted checks; archive C068 and start the owned agent-note create/edit/guarded Undo slice.",
-  "evidence": [
-    "docs/cycles/C068-efficient-checkpoints.md",
-    "docs/cycles/evidence/C068/validation/result.json",
-    "docs/cycles/evidence/C068/validation/runner-tests.log",
-    "docs/cycles/evidence/C068/validation/root-verify.log"
-  ],
-  "truthReview": "Workflow and active product claims reviewed; C067 hosted acceptance recorded, stale handoff replaced, required gates retained. Main plus one delivery branch; historical worktrees remain preserved for recovery review.",
-  "screenshotReview": "No app, dependency or capture/comparison inputs changed; existing C067 visual approval passes. Generated roadmap reviewed separately; no new application capture claimed."
+  "handoff": "docs/cycles/C069-agent-paper-notes.md",
+  "nextAction": "Audit draft template/ops semantics and implement the shared owned tool adapter before provider wiring.",
+  "evidence": [],
+  "truthReview": "",
+  "screenshotReview": ""
 }

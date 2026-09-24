@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "id": "C068",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Reduce avoidable validation rework with fail-fast checks and precise evidence checkpoints.",
+  "scope": [
+    "Local check runner and assertion/review guidance; preserve all required gates.",
+    "Refresh active handoff; no app changes, merge, deployment or historical-worktree deletion."
+  ],
+  "acceptance": [
+    "Failed commands stop the sequence and preserve diagnostics; invalid plans fail before running.",
+    "Explicit cwd and literal argv work independently of shell location.",
+    "Existing root verification covers the runner; current claims and evidence remain truthful."
+  ],
+  "checkpoint": "2026-09-24",
+  "handoff": "docs/cycles/C068-efficient-checkpoints.md",
+  "nextAction": "Follow PR33 hosted checks; archive C068 and start the owned agent-note create/edit/guarded Undo slice.",
+  "evidence": [
+    "docs/cycles/C068-efficient-checkpoints.md",
+    "docs/cycles/evidence/C068/validation/result.json",
+    "docs/cycles/evidence/C068/validation/runner-tests.log",
+    "docs/cycles/evidence/C068/validation/root-verify.log"
+  ],
+  "truthReview": "Workflow and active product claims reviewed; C067 hosted acceptance recorded, stale handoff replaced, required gates retained. Main plus one delivery branch; historical worktrees remain preserved for recovery review.",
+  "screenshotReview": "No app, dependency or capture/comparison inputs changed; existing C067 visual approval passes. Generated roadmap reviewed separately; no new application capture claimed."
+}

@@ -23,7 +23,7 @@ function fixture() {
         const d = body.mutations[0].create, id = 'drafts.' + d._id;
         assert(!rows.has(id), 'Must never replay create');
         rows.set(id, { ...d, _id: id, _draft: true, _publishedId: d._id, _rev: 'opaque-revision',
-          blocks: [{ id: 'tpl-title', role: 'title', type: 'heading', level: 1, text: '' }, { id: 'tpl-body', type: 'paragraph', content: [] }] });
+          blocks: d.blocks.length ? d.blocks : [{ id: 'tpl-title', role: 'title', locked: true, type: 'heading', level: 1, text: d.title }, { id: 'tpl-body', type: 'paragraph', content: [] }] });
         if (drop) throw Error('Response lost after commit');
         return { results: [{ document: rows.get(id) }] };
       }
@@ -49,6 +49,59 @@ test('lost response reconciles once without duplicate create', async () => {
   const result = await f.service().create(f.requestId);
   assert.equal(result.id, 'drafts.bd-note-' + f.requestId);
   assert.equal(f.requests.filter(r => r.method === 'POST').length, 1);
+});
+
+test('agent initial content is one create with a locked title; replay cannot change intent or later human content', async () => {
+  const f = fixture(), input = { title: 'An agent note', markdown: 'Original **words**.' };
+  f.drop();
+  const paper = await f.service().create(f.requestId, input);
+  assert.equal(paper.title, input.title); assert.equal(paper.blocks[0].locked, true);
+  assert.match(paper.markdown, /Original \*\*words\*\*/);
+  await assert.rejects(f.service().create(f.requestId, { ...input, title: 'Changed' }), /different content/);
+  f.rows.get(paper.id).blocks[1].content = [{ type: 'text', value: 'Later human words' }];
+  assert.match((await f.service().create(f.requestId, input)).markdown, /Later human words/);
+  assert.equal(f.requests.filter(r => r.method === 'POST').length, 1);
+});
+
+test('a cooperating process holding the request lease prevents any network mutation', async () => {
+  const f = fixture(), file = f.store.filePath(`paper-creation/${f.requestId}.json.lock`);
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  const lease = require('../main/file-lease').acquireFileLease(file, { completeOwner: true });
+  try { await assert.rejects(f.service().create(f.requestId), /already running/); assert.equal(f.requests.length, 0); }
+  finally { lease.release(); }
+  assert.equal((await f.service().create(f.requestId)).rev, 0);
+});
+
+test('replacement and Undo retain locked title; append Undo retains other locked slots', () => {
+  const { replaceBody, restoreBlocks } = require('../main/paper-edit-ops');
+  const title = { id: 'title', type: 'heading', role: 'title', locked: true, text: 'Keep title' };
+  const body = { id: 'body', type: 'paragraph', content: [{ type: 'text', value: 'Original' }] };
+  const added = { ...body, id: 'new' }, featured = { id: 'featured', role: 'featured', locked: true, type: 'image' };
+  assert.deepEqual(replaceBody([title, body], [added]), [{ op: 'remove-block', id: 'body' }, { op: 'append-block', block: added }]);
+  assert.deepEqual(restoreBlocks([title, added], [title, body]), [{ op: 'remove-block', id: 'new' }, { op: 'append-block', block: body }]);
+  assert.deepEqual(restoreBlocks([title, featured, body, added], [title, featured, body]), [{ op: 'remove-block', id: 'new' }]);
+  assert.throws(() => replaceBody([title, featured, body], [added]), /additional locked/);
+  assert.throws(() => restoreBlocks([{ ...title, text: 'Human title' }, added], [title, body]), /title changed/);
+});
+
+test('owned tool access refuses a foreign runtime profile and disabled creation without legacy fallback', async () => {
+  const f = fixture(), { createPaperTools } = require('../main/paper-tools');
+  const connection = { ...f.options.config, token: 'fixture-only', managedProfileId: f.options.profileId };
+  const foreign = createPaperTools({ store: f.store, connection, profileId: crypto.randomUUID() });
+  await assert.rejects(foreign.create({ title: 'Refused', markdown: '' }), /another profile/);
+  const disabled = createPaperTools({ store: f.store, connection: { ...connection, writes: false }, profileId: f.options.profileId });
+  await assert.rejects(disabled.create({ title: 'Refused', markdown: '' }), /Enable local Paper writes/);
+  assert.equal(f.store.list('documents', '.json').length, 0);
+  assert.equal(f.store.list('paper-creation', '.json').length, 0);
+});
+
+test('MCP creation activity follows the acknowledged exact Paper ID, never a title lookup', () => {
+  const { activityForTool } = require('../main/providers/runs');
+  const profileId = crypto.randomUUID(), id = 'drafts.bd-note-' + crypto.randomUUID();
+  const run = { context: {}, scope: { profileId, connection: { managedProfileId: profileId }, documents: {} } };
+  const event = activityForTool(run, 'mcp__barkdown__create_document', { title: 'Same title' }, `Created document bp:${id} ("Same title") at rev 0.`);
+  assert.equal(event.target.id, id); assert.equal(event.target.source, 'barkpark');
+  assert.equal(activityForTool(run, 'mcp__barkdown__create_document', { title: 'Same title' }, 'Creation unconfirmed'), null);
 });
 test('uncertain missing row stays read-only on retry after restart', async () => {
   const f = fixture(); f.offline(true);

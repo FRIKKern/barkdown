@@ -109,6 +109,10 @@ function activityForTool(run, toolName, input = {}, resultText = '') {
     }
     if (name === 'create_document') {
       // The MCP acknowledgement identifies the created record. Titles are not identities.
+      const paperId = /^Created document bp:(drafts\.[\w-]+) \(/.exec(String(resultText))?.[1];
+      if (paperId && run.scope?.connection.managedProfileId === run.scope?.profileId) {
+        return { type: 'activity', target: { kind: 'doc', id: paperId, source: 'barkpark', title: input.title || 'Untitled' }, label: 'Created ' + (input.title || 'Untitled'), detail: 'New Paper note in the library', libraryChanged: true };
+      }
       const id = /^Created document ([\w-]+) \(/.exec(String(resultText))?.[1];
       if (!id) return null;
       documents.reload(id);

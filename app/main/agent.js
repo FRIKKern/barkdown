@@ -38,8 +38,8 @@ function toolDefinitions(context) {
     { name: 'list_documents', description: 'List local documents and connected Barkpark papers (bp: ids) with ids, titles and excerpts.', input_schema: { type: 'object', properties: {}, additionalProperties: false } },
     { name: 'search_documents', description: 'Search local documents and connected Barkpark papers. Returns ids, titles and snippets.', input_schema: { type: 'object', properties: { query: { type: 'string' } }, required: ['query'], additionalProperties: false } },
     { name: 'read_document', description: 'Read a local document or connected Barkpark paper (bp:<slug>), with revision and block indexes. Unsupported Markdown content is returned as authoritative structured blocks. Also opens it beside the chat.', input_schema: { type: 'object', properties: { id: { type: 'string' }, format: { type: 'string', enum: ['markdown', 'structured'], description: 'Use structured for exact blocks and stable table block IDs.' } }, required: ['id'], additionalProperties: false } },
-    { name: 'edit_document', description: 'Apply and save a document edit directly, with Undo. Read the document first. mode=append adds blocks at the end, mode=replace rewrites the whole document, mode=replace_block replaces one top-level block by index (0-based, as listed by read_document).', input_schema: { type: 'object', properties: { id: { type: 'string' }, mode: { type: 'string', enum: ['append', 'replace', 'replace_block'] }, blockIndex: { type: 'integer' }, markdown: { type: 'string' }, summary: { type: 'string', description: 'One sentence describing the change' } }, required: ['id', 'mode', 'markdown', 'summary'], additionalProperties: false } },
-    { name: 'create_document', description: 'Create a new document in the library from markdown and open it.', input_schema: { type: 'object', properties: { title: { type: 'string' }, markdown: { type: 'string' } }, required: ['title', 'markdown'], additionalProperties: false } },
+    { name: 'edit_document', description: 'Apply and save a document edit directly, with Undo. Read the document first. mode=append adds blocks at the end, mode=replace rewrites the body while preserving a locked title, mode=replace_block replaces one top-level block by index (0-based, as listed by read_document).', input_schema: { type: 'object', properties: { id: { type: 'string' }, mode: { type: 'string', enum: ['append', 'replace', 'replace_block'] }, blockIndex: { type: 'integer' }, markdown: { type: 'string' }, summary: { type: 'string', description: 'One sentence describing the change' } }, required: ['id', 'mode', 'markdown', 'summary'], additionalProperties: false } },
+    { name: 'create_document', description: 'Create a new document in the library from markdown and open it.', input_schema: { type: 'object', properties: { title: { type: 'string' }, markdown: { type: 'string' }, requestId: { type: 'string', description: 'Reuse the request UUID from an uncertain creation with the original title/markdown; never retry as a new creation.' } }, required: ['title', 'markdown'], additionalProperties: false } },
     { name: 'edit_table', description: 'Edit existing cells in a Barkpark paper by stable table blockId from read_document with format=structured. Read first. Row and column are zero-based; header=true addresses the header row (row=0). Provide text or PortableDoc inline content, and/or left/center/right alignment. Preserves all untouched cells and table metadata; saves directly with Undo.', input_schema: { type: 'object', properties: {
       id: { type: 'string' }, blockId: { type: 'string' }, summary: { type: 'string' },
       cells: { type: 'array', minItems: 1, maxItems: 1000, items: { type: 'object', properties: {
@@ -83,28 +83,8 @@ const documentTarget = (id, title) => isPaper(id)
   ? { kind: 'doc', id: id.slice(3), source: 'barkpark', title }
   : { kind: 'doc', id, title };
 function paperTools(run) {
-  // This immutable connection belongs to the run, never the foreground profile.
-  const config = run.scope.connection;
-  const enabled = Boolean(config.enabled && (config.viaCli || config.server));
-  const resolve = run.paperConnection ||= require('./paper-tool-connection').paperToolConnection(config);
-  const captured = async () => { const c = await resolve(); run.paperOwner = require('./paper-navigation').createPaperNavigation(run.scope.store).identify(c); return c; };
-  return {
-    async list() { if (!enabled) return []; const c = await captured(); return c.viaCli ? barkpark.cliListPapers(60, c.cliRouting) : barkpark.listPapers(c, 60); },
-    async search(query) {
-      if (!enabled) return [];
-      const c = await captured();
-      const found = await (c.viaCli ? barkpark.cliSearch(query, 20, c.cliRouting) : barkpark.search(c, query));
-      if (found.length) return found;
-      const listed = await this.list(), needle = query.toLowerCase();
-      return listed.filter(d => (d.title + ' ' + d.excerpt).toLowerCase().includes(needle)).map(d => ({ ...d, snippet: d.excerpt }));
-    },
-    async get(slug) {
-      if (!enabled) throw new Error('Barkpark is not connected for this conversation run.');
-      const c = await captured();
-      return c.viaCli ? barkpark.cliGetPaper(slug, c.cliRouting) : barkpark.getPaper(c, slug);
-    },
-    connection: captured,
-  };
+  return run.paperTools ||= require('./paper-tools').createPaperTools({ ...run.scope,
+    onConnection: c => { run.paperOwner = require('./paper-navigation').createPaperNavigation(run.scope.store).identify(c); } });
 }
 
 async function executeTool(run, name, input) {
@@ -152,6 +132,14 @@ async function executeTool(run, name, input) {
       return `Saved table edit to "${title}" at revision ${edit.afterRev}. Undo is available in the document.`;
     }
     case 'create_document': {
+      const papers = paperTools(run);
+      if (papers.managed) {
+        const doc = await papers.create(input), id = 'bp:' + doc.id;
+        (run.readRevisions ||= new Map()).set(id, doc.rev);
+        (run.readTitles ||= new Map()).set(id, doc.title);
+        emit({ type: 'activity', target: documentTarget(id, doc.title), label: 'Created ' + doc.title, detail: 'New Paper note in the library', libraryChanged: true });
+        return 'Created document ' + id + ' (' + JSON.stringify(doc.title) + ') at rev ' + doc.rev + '.';
+      }
       const doc = documents.create({ title: input.title, markdown: input.markdown, actor: 'agent' });
       (run.readRevisions ||= new Map()).set(doc.id, doc.rev);
       emit({ type: 'activity', target: { kind: 'doc', id: doc.id, title: doc.title }, label: `Created ${doc.title}`, detail: 'New document in the library', libraryChanged: true });

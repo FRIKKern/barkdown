@@ -26,7 +26,7 @@ From `app/`, `npm start` builds and launches; `npm run dev` also opens DevTools.
 
 | Surface | Implementation |
 |---|---|
-| Notes | Real Barkpark Paper canvas, PortableDoc ops, acknowledged save, revision conflicts, server echo and guarded assistant Undo. Managed local New Page now uses exact draft rows; [ordinary-note acceptance](../docs/visual/paper-notes/README.md) records proof and remaining limits. Legacy local documents remain on their separate store until migration; ordinary-note agent creation/Undo are a later integration slice. |
+| Notes | Real Barkpark Paper canvas, PortableDoc ops, acknowledged save, revision conflicts, server echo and guarded assistant Undo. Managed local New Page and API/MCP creation use exact drafts; [human proof](../docs/visual/paper-notes/README.md) and [agent proof](../docs/visual/agent-notes/README.md) distinguish accepted scope and remaining limits. Legacy documents stay on their separate store until P2 migration passes. |
 | Conversations | Shared main/side composer, provider/model/effort controls, images, 100-message recall, independent drafts and saved parent links. |
 | Workspaces | Per-chat working folders and tabs for notes, project files, websites, terminal, reviews and side chats. Favorites reopen individual destinations. |
 | Pages | Human-controlled nesting and order. Cloud discovery stays in Cloud archive; opening a paper does not place it. |
