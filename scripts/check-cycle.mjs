@@ -23,3 +23,5 @@ console.log('Agent entry routing, current handoff and tracked completion evidenc
 
 // The advisory timing report must not turn missing or unfinished jobs into cheap successes.
 await import('./ci-effort.test.mjs');
+
+await import('./ci-review-bundle.test.mjs');

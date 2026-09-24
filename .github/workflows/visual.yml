@@ -1,7 +1,7 @@
 name: Visual candidates
 on:
   pull_request:
-    paths: ['app/**', 'scripts/visual*', 'docs/visual/**', 'package*.json', '.github/workflows/visual.yml']
+    paths: ['app/**', 'scripts/visual*', 'scripts/ci-review-bundle*', 'docs/visual/**', 'package*.json', '.github/workflows/visual.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -19,14 +19,23 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm --prefix app ci
+      - name: Record the artifact boundary
+        id: bundle_start
+        run: node scripts/ci-review-bundle.mjs prepare "$env:RUNNER_TEMP/barkdown-visual-review"
       - run: npm run visual:capture
+        id: capture
       - run: npm run visual:compare
+        id: compare
+      - name: Package current review or failure diagnostics
+        if: always() && steps.bundle_start.outcome == 'success'
+        env:
+          CAPTURE_OUTCOME: ${{ steps.capture.outcome }}
+          COMPARE_OUTCOME: ${{ steps.compare.outcome }}
+        run: node scripts/ci-review-bundle.mjs pack "$env:RUNNER_TEMP/barkdown-visual-review"
       # CI only publishes candidates. It cannot approve or update baselines.
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && steps.bundle_start.outcome == 'success'
         with:
           name: visual-candidate-${{ github.sha }}
-          path: |
-            docs/visual/runs/
-            docs/visual/pending.json
+          path: ${{ runner.temp }}/barkdown-visual-review/artifact
           if-no-files-found: error

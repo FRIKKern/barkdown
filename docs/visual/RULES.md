@@ -4,7 +4,7 @@
 
 The [coverage map](coverage.json) currently takes a conservative approach: every app main/renderer/shared change, dependency or Barkpark pin change, or capture/comparison harness change invalidates visual approval. New files count too. Every top-level `app/tests/*.live.mjs` and every capture helper/fixture under `app/tests/helpers/` or `app/tests/fixtures/` participates automatically, including new journeys; maintain no per-journey allowlist. This deliberately over-captures rather than guessing that a backend change cannot affect UI. `npm run check:visual` runs in root verification and CI. Capture from the branch being reviewed, with locked dependencies and disposable data.
 
-## Capture → compare → inspect → accept
+## Capture â†’ compare â†’ inspect â†’ accept
 
 ```sh
 npm ci
@@ -49,10 +49,18 @@ Review all new/changed stills, differences and meaningful motion frames, includi
 
 The present freshness rules remain conservative, including documentation under app source directories. Batch those README edits before captures. Narrower invalidation is a future tooling change requiring its own regression proof; this policy does not exempt files or bypass current checks.
 
-A cycle's closing truth pass includes these pages. CI verifies source/artifact/review freshness and local links; the named reviewer verifies meaning. Main is the integration baseline, not proof that every P1–P5 journey is complete.
+A cycle's closing truth pass includes these pages. CI verifies source/artifact/review freshness and local links; the named reviewer verifies meaning. Main is the integration baseline, not proof that every P1â€“P5 journey is complete.
 
 ## Private Paper capture
 
 For source-runtime verification, use `npm --prefix app run shots:isolated` with a built Barkpark checkout (`BARKDOWN_TEST_BP_SOURCE` may select it). It owns a temporary database, ephemeral ports and temporary CLI config, then stops its runtime. The manifest records the actual server and source baseline. This is the preferred way to satisfy the live Paper freshness gate without changing the person's active CLI or demo library. Temporary data is retained for diagnosis. Real provider calls may be attempted; the existing transcript fallback is explicitly marked in the manifest.
 
-The live status GIF requires ImageMagick's `magick` executable on `PATH`. Its Floyd–Steinberg conversion preserves full-frame modal gradients within GIF's 256-colour limit; the capture fails rather than publishing the non-dithered halo artifacts produced by the prior encoder.
+The live status GIF requires ImageMagick's `magick` executable on `PATH`. Its Floydâ€“Steinberg conversion preserves full-frame modal gradients within GIF's 256-colour limit; the capture fails rather than publishing the non-dithered halo artifacts produced by the prior encoder.
+
+## CI review downloads
+
+Visual CI packages the fresh candidate gallery, its manifests/comparison/media, the approved baseline and immutable review provenance. Direct media referenced by the baseline's own approval comparison is included so its recorded comparison remains inspectable; unrelated historical runs stay in Git. Open the artifact's root README, then its before/after/difference gallery. `bundle.json` inventories paths, byte sizes and SHA-256 hashes; `node scripts/ci-review-bundle.mjs verify <extracted-artifact>` checks every packaged file and review link.
+
+The workflow records the pre-capture run inventory and source. A failed capture/comparison produces **diagnostic-only** output containing partial new-run data, never an old pending run presented as fresh. A stale candidate, changed approval, unsafe path, missing media or hash/link mismatch fails packaging. CI cannot approve a baseline. Source paths inside capture manifests describe repository inputs and do not imply that application source is bundled.
+
+This changes transport packaging only: no existing history is deleted, and capture, comparison, approval fingerprints and behavior gates are unchanged. Packaging has its own tests and CI trigger; it does not alter captured pixels. Published bundle hashes detect corruption, not malicious replacement of both files and their index.

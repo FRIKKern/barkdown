@@ -1,29 +1,28 @@
 {
   "version": 1,
-  "id": "C065",
+  "id": "C066",
   "stage": "P2",
   "status": "done",
-  "goal": "Measure CI effort and improve useful work during validation without weakening required proof.",
+  "goal": "Upload a small, self-contained visual review bundle with verified links and preserved provenance.",
   "scope": [
-    "Read actual recent CI job timings and verify C064 event deduplication.",
-    "Add a small reusable CI timing audit and explicit useful-work guidance while CI runs.",
-    "No application changes, automated proof reuse, skipped suites or branch-protection changes."
+    "Package current candidate, comparison/baseline media and approved-baseline provenance for CI upload.",
+    "Preserve repository history, current capture/comparison/approval rules and all suites.",
+    "Diagnostic-only output on failed/stale capture; no old candidate promoted as fresh."
   ],
   "acceptance": [
-    "Report measured job time separately from delivery latency, unfinished runs and unproved agent idle time.",
-    "Timing calculation tests cover missing timestamps, failed/cancelled/running jobs and duplicate event candidates.",
-    "Use current CI wait for useful audit work; finish root verification, review roadmap and push only after the existing parity run completes."
+    "Current comparison links and manifest media hashes survive extraction without unrelated historical runs.",
+    "Tests reject stale candidate, missing/tampered media, escaped paths and changed approval; failure artifacts stay diagnostic-only.",
+    "Real retained-evidence repack, full root verification and generated roadmap review pass; CI uploads only the prepared bundle."
   ],
   "checkpoint": "2026-09-24",
-  "handoff": "docs/cycles/C065-ci-effort.md",
-  "nextAction": "Review final-head CI; archive C065 and return to the owned ordinary draft-note journey. Next measured CI optimization is self-contained candidate/baseline artifact packaging.",
+  "handoff": "docs/cycles/C066-review-bundle.md",
+  "nextAction": "Inspect hosted visual artifact size and verify its extraction; archive C066 before returning to owned ordinary draft-note work.",
   "evidence": [
-    "docs/cycles/evidence/C065/root.log",
-    "docs/cycles/evidence/C065/root-timing.json",
-    "docs/cycles/evidence/C065/assessment.json",
-    "docs/cycles/evidence/C065/timing-tests.txt",
-    "docs/cycles/evidence/C065/parity-completed.json"
+    "docs/cycles/evidence/C066/root.log",
+    "docs/cycles/evidence/C066/bundle-tests.txt",
+    "docs/cycles/evidence/C066/real-repack.json",
+    "docs/cycles/evidence/C066/transport-check.json"
   ],
-  "truthReview": "C064 actual PR Verify deduplication confirmed; all714a575 checks passed including Linux20/20. Measured cancellation churn and artifact scope; no unmeasured agent-idle/billing claims. One lane, no upstream/app/data changes; 43 locked worktrees preserved.",
-  "screenshotReview": "App and visual-input fingerprints unchanged, existing approval checks pass. Generated roadmap updated/reviewed for the current cycle only; no new application capture claimed."
+  "truthReview": "Current gallery/baseline/provenance preserved with selective transport; all history and gates retained. No app/upstream/user-data changes. Existing lane and 43 locked worktrees preserved; hosted validation is distinct from local repack.",
+  "screenshotReview": "No capture input/pixel changes. Existing freshness gates pass; representative extracted real still and regenerated roadmap inspected. No new UI approval claimed; CI still captures/compares normally."
 }
