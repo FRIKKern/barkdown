@@ -1,42 +1,42 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-24T02-20-44-771Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-24T02-53-10-440Z/README.md).
 
-Reviewed by Codex agent. C051: full desktop command exited0 before either capture. Inspected all three changed side-chat stills; only1/255 RGB shadow noise at740,570–1100,739, with zero thresholded pixel, geometry or environment changes. Other37stills and all8GIFs are byte-identical to the reviewed C050 baseline. Inspected all5fresh live Paper stills and all37decoded GIF frames after a real Claude turn. Separately inspected restored-profile7stills,15raw and15GIF frames,7restart samples;70migration checks and native restored drafts/media/history/proposals/save/restart pass. Existing narrow legacy title/provider truncation remains. No authority switch, portability or power-loss claim.
+Reviewed by Codex agent. C052 at18dbf8b: full desktop exited0 before capture. Compared40 fixture stills/eight GIFs to C051; only side-chat0/1/3 shadows differ by1 RGB level at741,570-1099,735 and side-chat GIF encoding differs. Actually inspected all three changed stills and all four decoded side-chat GIF frames; other37stills/sevenGIFs byte-identical to reviewed C051. Zero thresholded pixel, geometry or environment changes. Also inspected five fresh live Paper stills and all37 decoded live GIF frames from real Claude/private30c007, plus native source migration14stills,11source/38Paper/7restart video samples and38GIF frames. Ordinary default links/lists retain native save, exact Undo and restart; no activation or real-library migration. Existing narrow tab/provider truncation and loading placeholders remain limits.
 
-Source commit: 50b8fa154e6ee2c1b18dc1aabe9551fc7e0f804b; platform: win32; Electron: 38.8.6. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: 18dbf8bc73e8af9696ee4c55814a551aa8a0b2dc; platform: win32; Electron: 38.8.6. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-09-24T02-20-44-771Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-09-24T02-53-10-440Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-09-24T02-20-44-771Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-09-24T02-53-10-440Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-09-24T02-20-44-771Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-09-24T02-53-10-440Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-09-24T02-20-44-771Z/documents.gif)
+![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-09-24T02-53-10-440Z/documents.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-09-24T02-20-44-771Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-09-24T02-53-10-440Z/settings.gif)
 
 ## [goals](goals/README.md)
 
-![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-09-24T02-20-44-771Z/goals.gif)
+![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-09-24T02-53-10-440Z/goals.gif)
 
 ## [profiles](profiles/README.md)
 
-![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-09-24T02-20-44-771Z/profiles.gif)
+![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-09-24T02-53-10-440Z/profiles.gif)
 
 ## [adoption](adoption/README.md)
 
-![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-09-24T02-20-44-771Z/adoption.gif)
+![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-09-24T02-53-10-440Z/adoption.gif)
 
 ## Dedicated journeys and remaining limits
 
@@ -68,3 +68,4 @@ The [Paper editor gallery](../images/status/manifest.json) records its own live 
 - [provider-login](provider-login/README.md): actual-Electron-shared-login-lifecycle-with-controlled-process-and-SDK.
 - [migration](migration/README.md): live-isolated-staged-Paper-keyboard-Undo-reload-Electron-restart.
 - [migration-restore](migration/README.md): actual-Electron-restored-legacy-profile-history-drafts-media-save-restart.
+- [migration-native-source](migration/README.md): actual-legacy-save-to-Paper-link-list-edit-Undo-navigation-restart.

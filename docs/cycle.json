@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C052",
   "stage": "P2",
-  "status": "active",
+  "status": "done",
   "goal": "Migrate the audited defaults actually persisted by Barkdown legacy editors without discarding custom link/list semantics.",
   "scope": [
     "Accept only schema-audited default link attributes and null ordered-list type; preserve exact source/backup.",
@@ -18,11 +18,12 @@
   ],
   "checkpoint": "2026-09-24",
   "handoff": "docs/cycles/C052-native-source-shapes.md",
-  "nextAction": "Wait for full desktop exit, capture/review standard live and fixture evidence, approve explicitly, run root verify and push C052 closeout.",
+  "nextAction": "Plan C053 exact workspace-navigation projection with ambiguity refusals; preserve legacy authority and opaque history.",
   "evidence": [
-    "docs/cycles/evidence/C051/results.json",
-    "docs/visual/migration/runs/2026-09-24T02-41-48-208Z/manifest.json"
+    "docs/cycles/evidence/C052/results.json",
+    "docs/visual/migration/runs/2026-09-24T02-41-48-208Z/manifest.json",
+    "docs/visual/reviews/approval-58b08f0a7c8996556600972d34e49f5c139839c0f9c19dab495ff9c6a82a9e43.json"
   ],
-  "truthReview": "Starts from pushed49c938e, same delivery branch. C051 restore accepted but P2 activation still open. Source defaults were audited from installed Tiptap3.31.3.",
-  "screenshotReview": "Native14stills,11source/38Paper/7restart video samples and38decoded GIF frames actually inspected; standard capture pending."
+  "truthReview": "75 migration checks, native source-to-Paper rehearsal, full desktop/root and reviewed standard/native visual evidence pass. Repository inventory/limits retained in C052 results.",
+  "screenshotReview": "Three changed side-chat stills and four decoded side-chat GIF frames inspected; other37stills/sevenGIFs byte-identical to reviewed C051. Only1/255 RGB shadows; zero thresholded pixel/geometry/environment changes. Native14stills/11source/38Paper/7restart samples/38GIFframes and live5stills/37GIFframes inspected."
 }

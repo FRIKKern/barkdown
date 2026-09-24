@@ -56,7 +56,7 @@ Retained first attempts: [unsupported Markdown link target](runs/2026-09-24T02-0
 
 ## C052 native source compatibility
 
-Actual legacy editor save → strict staging → Paper link/list/parser edits, exact saved Undo, internal reference preview/navigation and restart pass at aa1f1c4/private30c007. Closed source and backup bytes remain exact; no workspace activation. [Manifest](runs/2026-09-24T02-41-48-208Z/manifest.json), [actual motion review](runs/2026-09-24T02-41-48-208Z/motion-review.json). Standard visual/root closeout pending.
+Actual legacy editor save → strict staging → Paper link/list/parser edits, exact saved Undo, internal reference preview/navigation and restart pass at aa1f1c4/private30c007. Closed source and backup bytes remain exact; no workspace activation. [Manifest](runs/2026-09-24T02-41-48-208Z/manifest.json), [actual motion review](runs/2026-09-24T02-41-48-208Z/motion-review.json). Full desktop/root and standard live/fixture closeout pass; [C052 results](../../cycles/evidence/C052/results.json).
 
 ![Migrated native source](runs/2026-09-24T02-41-48-208Z/03-migrated-native-source.png)
 
