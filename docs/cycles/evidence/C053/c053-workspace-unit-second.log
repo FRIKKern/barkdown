@@ -1,0 +1,135 @@
+TAP version 13
+# Subtest: exact typed paths map while human order, cloud identity and opaque history remain intact
+ok 1 - exact typed paths map while human order, cloud identity and opaque history remain intact
+  ---
+  duration_ms: 73.6466
+  ...
+# Subtest: empty document pickers stay empty; non-document paths and missing optional collections are not invented
+ok 2 - empty document pickers stay empty; non-document paths and missing optional collections are not invented
+  ---
+  duration_ms: 16.4505
+  ...
+# Subtest: profile-qualified projections never substitute another profile with matching slugs
+ok 3 - profile-qualified projections never substitute another profile with matching slugs
+  ---
+  duration_ms: 36.6612
+  ...
+# Subtest: unknown local tab refuses without partial projection or filesystem mutation
+ok 4 - unknown local tab refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 20.3943
+  ...
+# Subtest: unknown favorite refuses without partial projection or filesystem mutation
+ok 5 - unknown favorite refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 19.6678
+  ...
+# Subtest: missing Page refuses without partial projection or filesystem mutation
+ok 6 - missing Page refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 20.2779
+  ...
+# Subtest: source-less closed local refuses without partial projection or filesystem mutation
+ok 7 - source-less closed local refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 21.5823
+  ...
+# Subtest: source-less closed cloud refuses without partial projection or filesystem mutation
+ok 8 - source-less closed cloud refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 19.3387
+  ...
+# Subtest: unknown source refuses without partial projection or filesystem mutation
+ok 9 - unknown source refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 18.8084
+  ...
+# Subtest: malformed path refuses without partial projection or filesystem mutation
+ok 10 - malformed path refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 19.7865
+  ...
+# Subtest: duplicate placement refuses without partial projection or filesystem mutation
+ok 11 - duplicate placement refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 19.4706
+  ...
+# Subtest: cycle refuses without partial projection or filesystem mutation
+ok 12 - cycle refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 18.2664
+  ...
+# Subtest: orphan parent refuses without partial projection or filesystem mutation
+ok 13 - orphan parent refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 18.7973
+  ...
+# Subtest: unknown layout refuses without partial projection or filesystem mutation
+ok 14 - unknown layout refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 21.8624
+  ...
+# Subtest: unseeded layout refuses without partial projection or filesystem mutation
+ok 15 - unseeded layout refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 19.2712
+  ...
+# Subtest: bad expansion refuses without partial projection or filesystem mutation
+ok 16 - bad expansion refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 18.7034
+  ...
+# Subtest: projected cloud collision refuses without partial projection or filesystem mutation
+ok 17 - projected cloud collision refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 19.1666
+  ...
+# Subtest: expansion collision refuses without partial projection or filesystem mutation
+ok 18 - expansion collision refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 18.8771
+  ...
+# Subtest: old pins refuses without partial projection or filesystem mutation
+ok 19 - old pins refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 19.901
+  ...
+# Subtest: recorded run refuses without partial projection or filesystem mutation
+ok 20 - recorded run refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 18.191
+  ...
+# Subtest: unfinished attempt refuses without partial projection or filesystem mutation
+ok 21 - unfinished attempt refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 18.5119
+  ...
+# Subtest: bad ownership refuses without partial projection or filesystem mutation
+ok 22 - bad ownership refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 19.5854
+  ...
+# Subtest: unplaced local archive refuses without partial projection or filesystem mutation
+ok 23 - unplaced local archive refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 19.8608
+  ...
+# Subtest: source content blockers are carried forward without a candidate
+ok 24 - source content blockers are carried forward without a candidate
+  ---
+  duration_ms: 7.8883
+  ...
+# Subtest: archive marker keys preserve their exact state without moving unplaced cloud papers
+ok 25 - archive marker keys preserve their exact state without moving unplaced cloud papers
+  ---
+  duration_ms: 14.783
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 692.3406

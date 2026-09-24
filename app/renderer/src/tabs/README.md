@@ -18,6 +18,8 @@ For Paper changes, test acknowledged revisions, native Undo/Redo, human takeover
 
 ## Changelog
 
+- 24 September, C053: ancestor favorites navigate the mounted editor through its existing unsaved-work guard. Tab reuse now includes local/Barkpark source identity. [Native Pages/favorites/side-chat rehearsal](../../../../docs/visual/migration/README.md#human-organization-preview--c053) proves the corrected destination and restart; original source stays authoritative.
+
 - 23 September, C046: [migrated Paper evidence](../../../../docs/visual/migration/README.md) proves nine native edit/save/Undo cases and restart. Long titles now wrap in narrow panes without changing title-save ownership. The tenth inline-break case remains explicitly refused; this is not migration activation.
 
 - 23 September, C037: [Paper visual polish](../../../../docs/cycles/C037-paper-polish.md) repairs inherited heading spacing and double-rendered code, with smaller headings, readable tasks, compact tables and muted callouts. [Light capture](../../../../docs/images/status/paper-light.1c1f1f10.png), [dark capture](../../../../docs/images/status/paper-dark.3f197809.png), [editing GIF](../../../../docs/images/status/editing.44c0c473.gif). Real save/Undo/retry/discard and narrow layout pass separately in the linked cycle.

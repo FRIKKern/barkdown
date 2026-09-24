@@ -13,6 +13,8 @@ P1 is accepted. P2 remains active: the app still uses legacy local documents alo
 | Owned media | C050 journals a single PNG upload attempt, reconciles scoped metadata and exact bytes, and checks media again before completion; [image proof](../cycles/C050-owned-images.md) | Top-level eight-bit non-interlaced grayscale/RGB PNG±alpha, alt and width only. Height/captions, external downloads and other formats refuse. Origin must remain stable. |
 | Retained backup restore | C051 validates all committed backup bytes before restoring to an empty owned destination. Process interruption/resume and actual restored-profile editing/restart pass; [restore checkpoint](../cycles/C051-backup-restore.md) | Closed same-machine profile at its original path; no live restore UI, authority switch, Paper edit rollback or power-loss claim. Full desktop/root and reviewed standard visual closeout pass. |
 
+| Human navigation preview | C053 maps typed document paths, direct tabs, favorites and human Pages without changing opaque history; [navigation checkpoint](../cycles/C053-workspace-projection.md) |32 projection checks and actual disposable Paper navigation/restart pass. Unplaced local archives and source-less closed document targets refuse. No activation or writer fencing. |
+
 [Reviewed screenshots and motion](../visual/migration/README.md) keep content, references, images and restored-legacy evidence distinct. Actual server readback and filesystem checks establish preservation; screenshots alone do not.
 
 ## Audited target contract
@@ -30,8 +32,8 @@ Runtime bindings, source/backup hashes and existing journal records are checked 
 ## Remaining activation and recovery work
 
 1. C052 accepts only actual audited default link attributes and null ordered-list type, with75 checks and a real legacy-save → Paper edit/Undo/restart rehearsal. Custom metadata still refuses. Other unsupported corpus shapes remain blocked.
-2. Inventory and validate every real workspace destination: human Pages order/nesting/expansion/archive state, favorites, document tab paths, side-chat parents, drafts/images and event references. Existing `bp:` destinations are not new imports.
-3. Prepare a versioned reference map. Rewrite exact local document destinations only, retaining all unrelated state. Atomically select one complete map after all target comparisons pass; crash/restart must never select a mixture. No adapter currently activates this map.
+2. C053 projects typed local destinations and preserves human organization in a disposable native rehearsal. Existing `bp:` destinations remain independent. Add an owned-local-Paper archive adapter before unplaced local notes can migrate; reconcile source-less closed targets explicitly. Event references and old receipts remain historical, not navigation rewrites.
+3. Bind the C053 versioned preview to newly verified target/backup state. Atomically select one complete map only after all comparisons and writer fencing pass; crash/restart must never select a mixture. The current preview has activationAllowed:false and no adapter activates it.
 4. Keep original history, proposals and edit receipts readable. Legacy revision numbers cannot become Paper revision numbers. Do not reinterpret an old guarded Undo against a staged Paper.
 5. Prove activation and rollback with interrupted writes and concurrent human edits. Rollback selects retained legacy authority; it does not delete or overwrite possibly edited Paper targets. Retire the separate editor only after the full supported corpus and A2 journey pass.
 
@@ -39,15 +41,15 @@ Other content formats, live writer fencing, target conflict resolution and cross
 
 ## Reproduction and source boundaries
 
-`app/main/migration-preflight.js` owns inventory/eligibility; `migration-staging.js`, `migration-media.js` and `migration-journal.js` own durable target staging; `migration-restore.js` owns exact no-overwrite legacy recovery. These are offline adapters, not a user-facing migration flow. `app/shared/portabledoc.js` remains a convenience converter whose context-free acceptance is not migration eligibility.
+`app/main/migration-preflight.js` owns inventory/eligibility; `migration-staging.js`, `migration-media.js` and `migration-journal.js` own durable target staging; `migration-restore.js` owns exact no-overwrite legacy recovery; `migration-workspace.js` owns the non-mutating navigation preview. These are offline adapters, not a user-facing migration flow. `app/shared/portabledoc.js` remains a convenience converter whose context-free acceptance is not migration eligibility.
 
 Run targeted checks from the repository root:
 
 ```sh
-node --test app/tests/migration-preflight.test.mjs app/tests/migration-staging.test.mjs app/tests/migration-media.test.mjs app/tests/migration-restore.test.mjs app/tests/migration-native-source.test.mjs
+node --test app/tests/migration-preflight.test.mjs app/tests/migration-staging.test.mjs app/tests/migration-media.test.mjs app/tests/migration-restore.test.mjs app/tests/migration-native-source.test.mjs app/tests/migration-workspace.test.mjs
 node docs/migration/audit.mjs
 ```
 
-Native scripts `test:migration-editor:isolated`, `test:migration-references:isolated`, `test:migration-media:isolated` `test:migration-restore:isolated` and `test:migration-native-source:isolated` use a clean built private Barkpark selected with `BARKDOWN_TEST_BP_SOURCE`. They create disposable data and stop only their owned runtime. Follow the implementation-commit → capture → actual review → evidence-commit workflow.
+Native scripts `test:migration-editor:isolated`, `test:migration-references:isolated`, `test:migration-media:isolated` `test:migration-restore:isolated` `test:migration-native-source:isolated` and `test:migration-workspace:isolated` use a clean built private Barkpark selected with `BARKDOWN_TEST_BP_SOURCE`. They create disposable data and stop only their owned runtime. Follow the implementation-commit → capture → actual review → evidence-commit workflow.
 
 The separate [converter report](report.json) has32 synthetic cases:21 representation-preserved,2 lossy,2 unresolved references and7 rejected. It records hand-authored expectations/source hashes and proposed identity inventory; it is not native save or workspace activation evidence. C049/C050 resolve selected references/media only inside the complete captured-profile migration path. Historical cycle records preserve earlier findings and failures; they are not extra active queues.

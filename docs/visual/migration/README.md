@@ -61,3 +61,15 @@ Actual legacy editor save → strict staging → Paper link/list/parser edits, e
 ![Migrated native source](runs/2026-09-24T02-41-48-208Z/03-migrated-native-source.png)
 
 ![Native Paper editing and navigation](runs/2026-09-24T02-41-48-208Z/native-source-paper-editing.gif)
+
+## Human organization preview — C053
+
+Source `af9d982` / private Barkpark `30c007e43` loads an offline projected copy into a separate disposable app. Nested Pages, local/cloud identity, side-chat parent/drafts/paths, direct navigation, favorites and clean restart pass; all original source/backup bytes and staged Paper objects remain unchanged. [Manifest](runs/2026-09-24T03-20-50-258Z/manifest.json).
+
+![Nested Pages and independent side-chat draft](runs/2026-09-24T03-20-50-258Z/01-projected-sidechat-and-pages.png)
+
+![Native projected navigation](runs/2026-09-24T03-20-50-258Z/projected-navigation.gif)
+
+[Review](runs/2026-09-24T03-20-50-258Z/motion-review.json) covers ten stills,30 native video samples,30 decoded GIF frames and eight restart samples. GIF is full-frame2fps at840×540; [raw recording](runs/2026-09-24T03-20-50-258Z/projected-navigation.webm) retains intermediate loading. [Narrow view](runs/2026-09-24T03-20-50-258Z/09-narrow.png). Target legacy boot seeds two unrelated archive fixtures; this is not source activation.
+
+Retained failures: [wrong fixture directory](runs/2026-09-24T03-07-44-303Z/manifest.json), [object-key-order comparison](runs/2026-09-24T03-10-20-986Z/manifest.json), and [real stale-editor favorite navigation](runs/2026-09-24T03-16-54-898Z/manifest.json). The latter updated the tab path without navigating its mounted editor; corrected through the existing unsaved-work guard, with source-qualified reuse. Unplaced local archives, ambiguous closed targets and malformed navigation explicitly refuse. Original history/receipts remain opaque legacy evidence; no migration authority changes.

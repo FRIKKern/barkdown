@@ -69,6 +69,13 @@ function normalTabNavigation(m, kind) {
 }
 async function test(name, fn) { try { await fn(); cases.push({ name, pass: true }); } catch(error) { cases.push({name, pass:false, error:error.message}); } }
 
+await test('a cold bundle resolves before committing destination identity or mounting either canvas', async () => {
+  const bundle=deferred();transport={get:async id=>paper(id),bundle:()=>bundle.promise};
+  const m=mount();await tick();assert.equal(m.canvas(),null);assert.equal(m.tab.title,undefined);
+  m.tab.path=['B'];m.controller.navigate();await tick();assert.equal(m.canvas(),null);assert.equal(m.tab.title,undefined);
+  bundle.resolve({});await tick();
+  try {assert.equal(m.canvas().blocks[0].id,'B-p');assert.equal(m.tab.title,'B');} finally {m.close();}
+});
 await test('document targets reuse only tabs with the same explicit source', async () => {
   const find = new Function(functionSource('function findTabForTarget(', '// Open (or reuse)') + '; return findTabForTarget;')();
   const local={type:'doc',path:['A']},cloud={type:'doc',source:'barkpark',path:['A','B']};
@@ -95,13 +102,6 @@ await test('opening an earlier target retains the current Paper when native chan
   } finally {m.close();}
 });
 
-await test('a cold bundle resolves before committing destination identity or mounting either canvas', async () => {
-  const bundle=deferred();transport={get:async id=>paper(id),bundle:()=>bundle.promise};
-  const m=mount();await tick();assert.equal(m.canvas(),null);assert.equal(m.tab.title,undefined);
-  m.tab.path=['B'];m.controller.navigate();await tick();assert.equal(m.canvas(),null);assert.equal(m.tab.title,undefined);
-  bundle.resolve({});await tick();
-  try {assert.equal(m.canvas().blocks[0].id,'B-p');assert.equal(m.tab.title,'B');} finally {m.close();}
-});
 await test('an external edit during the first paper load is refreshed after mounting', async () => {
   const first = deferred(); let gets = 0;
   transport = { get: async id => ++gets === 1 ? first.promise : paper(id, 2) };
