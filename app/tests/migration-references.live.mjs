@@ -18,7 +18,7 @@ const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-linked-migrati
 const userData = path.join(temporary, 'electron');
 const out = path.resolve(appDir, '../docs/visual/migration/runs', new Date().toISOString().replace(/[:.]/g, '-'));
 fs.mkdirSync(out, { recursive: true });
-const tag = 'linked-migration-proof';
+const tag = 'linkproof';
 async function request(method, route, body) {
   const response = await fetch(server + route, { method, headers: { authorization: 'Bearer ' + token, 'content-type': 'application/json' }, ...(body ? { body: JSON.stringify(body) } : {}), signal: AbortSignal.timeout(30000) });
   return { status: response.status, data: await response.json() };
@@ -49,7 +49,11 @@ function library(label) {
   const snapshot=inventoryProfile(options);
   return {label,options,target,snapshot,ids:Object.fromEntries(snapshot.documents.map(d=>[d.id,d.targetId]))};
 }
-const libraries=[library('Orchard'),library('Coast')];
+// Each source profile owns a separate private runtime; run both labels through
+// the isolated wrapper, never pretend a shared server is two profile stores.
+const label=process.env.BARKDOWN_LINK_PROFILE || 'Orchard';
+assert.ok(['Orchard','Coast'].includes(label));
+const libraries=[library(label)];
 let app,page,video,editorBundle;
 const frames=[],results=[],errors=[];
 const canvas=()=>page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas');
@@ -71,7 +75,7 @@ async function graph() {
   return values;
 }
 async function saved(id, previous) {
-  await page.waitForFunction(rev=>{const c=document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas');const host=[...window.__barkdown.controllers.values()].find(x=>x.el?.contains(c));const status=document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent||'';return c&&host&&!host.isDirty()&&!c.hasPendingChanges()&&Number(status.match(/Saved Â· rev (\d+)/)?.[1])>rev;},previous,{timeout:45000});
+  await page.waitForFunction(rev=>{const c=document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas');const host=[...window.__barkdown.controllers.values()].find(x=>x.el?.contains(c));const status=document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent||'';return c&&host&&!host.isDirty()&&!c.hasPendingChanges()&&Number(status.match(/Saved · rev (\d+)/)?.[1])>rev;},previous,{timeout:45000});
   const value=await read(id);assert.deepEqual(await blocks(),value.blocks);return value;
 }
 async function navigate(lib, from, label, destination) {
@@ -124,13 +128,13 @@ try {
   for(const lib of libraries)for(const file of lib.snapshot.files){assert.deepEqual(fs.readFileSync(path.join(lib.options.sourceDir,file.path)),file.data);assert.deepEqual(fs.readFileSync(path.join(lib.options.destinationDir,'source',file.path)),file.data);}
   await assert.rejects(stageMigration(libraries[0].options,libraries[0].target),{code:'journal_changed'});assert.deepEqual((await read(id)).blocks,original.blocks);
   assert.deepEqual(errors,[]);fs.writeFileSync(path.join(out,'graph.json'),JSON.stringify({initialGraph,afterRestart:await graph(),geometry,interruptedResume:true},null,2)+'\n');
-  console.log('PASS six marked link carriers, cyclic native navigation, two-profile same-title isolation, exact Undo/reload/restart, graph and process-interrupted resume');
+  console.log('PASS six marked link carriers, cyclic native navigation, profile-pinned navigation, exact Undo/reload/restart, graph and process-interrupted resume');
 } catch(error) {
   if(page){await page.screenshot({path:path.join(out,'failure.png')}).catch(()=>{});const state=await canvas().evaluate(c=>({editor:c._editor?.getJSON(),blocks:c.recoverySnapshot().blocks,html:c._editor?.view.dom.innerHTML})).catch(()=>null);fs.writeFileSync(path.join(out,'failure-state.json'),JSON.stringify(state,null,2));}
   fs.writeFileSync(path.join(out,'failure.txt'),error.stack);throw error;
 } finally {
   if(app)await close('restart-or-failure');
   const artifacts=Object.fromEntries(fs.readdirSync(out).map(f=>[f,crypto.createHash('sha256').update(fs.readFileSync(path.join(out,f))).digest('hex')]));
-  fs.writeFileSync(path.join(out,'manifest.json'),JSON.stringify({capturedAt:new Date().toISOString(),barkdownCommit:process.env.BARKDOWN_SHOTS_HOST_COMMIT,barkparkCommit:process.env.BARKDOWN_SHOTS_BP_COMMIT,isolatedRuntime:true,editorBundle,cases:results,frames,artifacts,authority:'legacy',limits:['Disposable libraries only; no activation or real-library migration','Native references preserve links to current content; history/receipts remain legacy','Clean Electron restart and process-exit recovery, not database power loss']},null,2)+'\n');
+  fs.writeFileSync(path.join(out,'manifest.json'),JSON.stringify({capturedAt:new Date().toISOString(),barkdownCommit:process.env.BARKDOWN_SHOTS_HOST_COMMIT,barkparkCommit:process.env.BARKDOWN_SHOTS_BP_COMMIT,isolatedRuntime:true,profile:label,profileId:libraries[0].options.profileId,sourceIds:libraries[0].ids,editorBundle,cases:results,frames,artifacts,authority:'legacy',limits:['Disposable library only; paired isolated runs prove same-title cross-profile separation; no real-library activation','Native references preserve links to current content; history/receipts remain legacy','Clean Electron restart and process-exit recovery, not database power loss']},null,2)+'\n');
   console.log('Linked migration evidence:',out);
 }

@@ -158,7 +158,10 @@ async function stageMigration(options, target, { checkpoint = () => {}, retryAbs
           fail('write_uncertain', 'Paper response was lost; durable intent retained (' + (error.code || 'transport') + ')');
         }
         await checkpoint('response:' + doc.id);
-        if (![201, 409].includes(response.status)) fail('create_refused', 'Create-only Paper write refused: ' + response.status);
+        if (response.status !== 201 && !(response.status === 409 && response.data?.error?.code === 'paper_exists')) {
+          const code = response.data?.error?.code;
+          fail('create_refused', 'Create-only Paper write refused: ' + response.status + (typeof code === 'string' && /^[a-z_]+$/.test(code) ? ' (' + code + ')' : ''));
+        }
         saved = await current(doc);
         if (!saved) fail('write_uncertain', 'Create returned without a readable target; retain intent');
         if (response.status === 201 && (response.data.slug !== doc.targetId || String(response.data.rev) !== String(saved.rev))) fail('invalid_receipt', 'Create acknowledgement disagrees with readback');

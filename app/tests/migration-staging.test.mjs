@@ -35,6 +35,7 @@ async function fixture(t) {
       assert.equal(req.url, `/v1/plugins/bulldocs/papers/${id}/create`);
       assert.ok(fs.existsSync(path.join(destinationDir, 'staging', id + '.intent.json')), 'intent precedes the network write');
       if (state.beforeCreate) await state.beforeCreate(payload);
+      if (state.refusal) return send(409, { error: { code: state.refusal } });
       if (rows.has(id) || rows.has('drafts.' + id)) return send(409, { error: { code: 'paper_exists' } });
       const saved = { ...payload, _id: id, _type: 'paper', rev: 1, _rev: 'revision-1' };
       rows.set(id, saved);
@@ -250,4 +251,12 @@ test('a changed reference payload in a recovery plan refuses without network acc
   plan.documents[0].payload.blocks[0].content[0].docId='a-different-profile';
   fs.writeFileSync(file,JSON.stringify(plan));
   await assert.rejects(f.stage(),{code:'journal_changed'});assert.equal(f.requests.length,0);
+});
+
+test('publish-policy conflicts are explicit refusals, never mistaken for existing owned papers', async t => {
+  const f=await fixture(t);f.state.refusal='duplicate_of';
+  await assert.rejects(f.stage(),{code:'create_refused',message:'Create-only Paper write refused: 409 (duplicate_of)'});
+  assert.equal(f.rows.size,0);assert.equal(f.writes(),1);
+  await assert.rejects(f.stage(),{code:'write_uncertain'});assert.equal(f.writes(),1);
+  assert.ok(fs.existsSync(path.join(f.destinationDir,'staging',f.id()+'.intent.json')));
 });

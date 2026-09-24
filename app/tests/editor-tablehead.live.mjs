@@ -58,7 +58,21 @@ const pm = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirr
 const domGrid = () => page.evaluate(() => Array.from(document.querySelectorAll('.bw-paper-pane:not([hidden]) bp-paper-canvas table.bp-table tr')).map(tr => Array.from(tr.cells).map(c => [c.tagName.toLowerCase() + (c.getAttribute('scope') ? '[' + c.getAttribute('scope') + ']' : ''), c.textContent, c.style.textAlign || null])));
 const serverTable = () => { const b = getPaper(SLUG).blocks.find(x => x.type === 'table'); return { headCol: b.headCol ?? null, rows: b.rows }; };
 const waitServer = async pred => { for (let i = 0; i < 20; i++) { const s = serverTable(); if (pred(s)) return s; await page.waitForTimeout(1000); } return serverTable(); };
-const clickCell = async (rowIndex, cellIndex) => { const cell = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas table.bp-table tr').nth(rowIndex).locator('td, th').nth(cellIndex); await cell.click(); await page.evaluate(([r, c]) => { const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor; let target = null; ed.state.doc.descendants((node, pos) => { if (target) return false; if (node.type.name === 'bpTable') { let ri = 0; node.forEach((rowNode, rowOff) => { let ci = 0; rowNode.forEach((cellNode, cellOff) => { if (ri === r && ci === c) target = pos + 1 + rowOff + 1 + cellOff + 1 + cellNode.content.size; ci++; }); ri++; }); return false; } }); if (target != null) { ed.commands.setTextSelection({ from: target - 1, to: target }); ed.commands.focus(); } }, [rowIndex, cellIndex]); await page.waitForTimeout(300); };
+// Use the keyboard selection a person makes. An immediate synthetic PM
+// selection after pointerup can be replaced by Chromium's queued DOM selection
+// change (observed on Linux), leaving a caret and correctly hidden toolbar.
+const clickCell = async (rowIndex, cellIndex) => {
+  const cell = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas table.bp-table tr').nth(rowIndex).locator('td, th').nth(cellIndex);
+  await cell.click();
+  await page.keyboard.press('Home');
+  await page.keyboard.press('Shift+End');
+  const expected = await cell.textContent();
+  await page.waitForFunction(text => {
+    const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor;
+    const { from, to } = ed.state.selection;
+    return from < to && ed.state.doc.textBetween(from, to) === text;
+  }, expected);
+};
 const chromeBtn = async name => { const d = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas details:has(summary:has-text("Configure table"))').first(); if (!(await d.evaluate(el => el.open).catch(() => false))) await d.locator('summary').click(); return page.locator(`.bw-paper-pane:not([hidden]) bp-paper-canvas [data-table-action="${name}"]`).first(); };
 const readerRows = async () => { const html = await (await fetch(`${base}/papers/${SLUG}`)).text(); const table = /<table[^>]*class="bp-table"[\s\S]*?<\/table>/.exec(html)?.[0] || ''; return [...table.matchAll(/<tr>([\s\S]*?)<\/tr>/g)].map(m => [...m[1].matchAll(/<(t[dh])([^>]*)>([\s\S]*?)<\/t[dh]>/g)].map(x => [x[1] + (/scope="row"/.test(x[2]) ? '[row]' : ''), x[3].replace(/<[^>]+>/g, ''), /text-align:(\w+)/.exec(x[2])?.[1] || null])); };
 
