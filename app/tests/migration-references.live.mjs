@@ -66,11 +66,20 @@ const close=async name=>{await app.close();app=null;if(video)fs.renameSync(await
 async function graph() {
   const values=[];
   for(const lib of libraries)for(const [sourceId,id] of Object.entries(lib.ids)) {
-    const r=await request('GET','/v1/data/backlinks/production/'+id);assert.equal(r.status,200);
-    const value=r.data.result;assert.ok(Array.isArray(value?.backlinks));
+    // The actual endpoint reads the asynchronously projected graph. Its source
+    // identity is from_doc_id (not a document _id); projection debounces 5s.
     const expected=sourceId==='origin'?lib.ids['z-destination']:lib.ids.origin;
-    assert.equal(value.count,1);assert.deepEqual(value.backlinks.map(d=>d._id),[expected]);
-    values.push({profile:lib.label,id,backlinks:value.backlinks.map(d=>d._id)});
+    let value;const started=Date.now();
+    do {
+      const r=await request('GET','/v1/data/backlinks/production/'+id);assert.equal(r.status,200);
+      value=r.data.result;assert.ok(Array.isArray(value?.backlinks));
+      if(value.count===1&&value.backlinks[0]?.from_doc_id===expected)break;
+      if(Date.now()-started>45000){fs.writeFileSync(path.join(out,'graph-failure.json'),JSON.stringify({id,expected,value},null,2));break;}
+      await new Promise(resolve=>setTimeout(resolve,500));
+    } while(true);
+    assert.equal(value.count,1);assert.deepEqual(value.backlinks.map(d=>d.from_doc_id),[expected]);
+    assert.equal(value.backlinks[0].kind,'references');
+    values.push({profile:lib.label,id,backlinks:value.backlinks.map(d=>d.from_doc_id)});
   }
   return values;
 }
