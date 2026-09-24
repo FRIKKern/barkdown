@@ -13,3 +13,6 @@ Implementation checkpoint:16 binding tests and37 host tests pass after adapting 
 
 
 Review added refusal when writes are revoked during capture and when a disabled connection finishes a read. Missing bindings also refuse retained-proposal discard before removal. Reads/import/links/Ask keep the original context; no foreign content is substituted into the open buffer.55 combined catalog/refresh/binding tests and37 host tests pass. Full desktop remains in progress; final targeted host tests include the later action-copy guards. Native proof and global visual approval remain pending.
+
+
+Native38f1290 passed at visual/paper-connection/runs/2026-09-24T05-43-15-377Z: zero foreign requests for13 operations, preserved original/proposal/receipt, A-to-B-to-A Retry, exact original-library Undo, explicit CLI native save/refusal and restart. Runtime stopped; images pending review. The initial full desktop pass used a pre-existing renderer bundle for some UI suites; do not treat it as final compiled-UI acceptance. Added npm pretest build and rerun the full suite before acceptance.55 combined unit and37 source-host tests pass. No capture result was restamped.

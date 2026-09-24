@@ -87,7 +87,8 @@
     "test:paper-catalog": "node --test tests/paper-catalog.test.mjs tests/library-refresh.test.mjs",
     "test:paper-catalog:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-catalog.live.mjs",
     "test:paper-connection": "node --test tests/paper-connection.test.mjs",
-    "test:paper-connection:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-connection.live.mjs"
+    "test:paper-connection:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-connection.live.mjs",
+    "pretest": "npm run build"
   },
   "engines": {
     "node": ">=22.13.1"
