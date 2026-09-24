@@ -54,6 +54,18 @@ const saved = async previous => {
   const value = await read(); assert.deepEqual(await blocks(), value.blocks, 'acknowledged canvas and server agree'); return value;
 };
 const shot = async name => { await page.screenshot({ path: path.join(out, name + '.png') }); frames.push(name + '.png'); };
+// Bring the whole target into the frame, not merely the caret at its first line.
+const revealParagraph = async text => {
+  const paragraph = canvas().locator('.ProseMirror p').filter({ hasText: text }).first();
+  await paragraph.evaluate(el => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
+  const geometry = await paragraph.evaluate(el => {
+    const r = el.getBoundingClientRect();
+    return { top: r.top, bottom: r.bottom, left: r.left, right: r.right, width: innerWidth, height: innerHeight };
+  });
+  assert.ok(geometry.top >= 0 && geometry.bottom <= geometry.height && geometry.left >= 0 && geometry.right <= geometry.width,
+    'entire target paragraph is visible for evidence');
+  return geometry;
+};
 const firstText = value => { if (Array.isArray(value)) { for (const v of value) { const found = firstText(v); if (found) return found; } } else if (value && typeof value === 'object') { if (value.type === 'text') return value.value; for (const [k, v] of Object.entries(value)) { if (!['id', 'type'].includes(k)) { const found = firstText(v); if (found) return found; } } } return null; };
 function changeFirstText(block, needle) {
   const copy = structuredClone(block);
@@ -183,6 +195,7 @@ try {
       assert.deepEqual({...inserted.blocks[index],items:[]},{...block,items:[]});
       assert.equal(inserted.blocks[index].items.length,1);
       assert.deepEqual(inserted.blocks.filter((_,i)=>i!==index),expected.filter((_,i)=>i!==index));
+      await revealParagraph('List first');
       await shot('native-list-break-inserted');
       await page.keyboard.press('Control+z'); const restored=await saved(inserted.rev);
       assert.deepEqual(restored.blocks,expected,'native list break Undo restores exact source carriers');
@@ -237,6 +250,8 @@ try {
   assert.deepEqual(await blocks(), expected); await presentation(); await shot('03-reloaded');
   await page.setViewportSize({ width: 760, height: 900 }); await shot('04-narrow');
   const geometry = await page.evaluate(() => ({ viewport: innerWidth, page: document.documentElement.scrollWidth })); assert.ok(geometry.page <= geometry.viewport);
+  const nestedGeometry = await revealParagraph('Deep leaf');
+  await presentation(); await shot('04-narrow-nested-lists');
   await close('editing-and-undo');
   await launch(); await ready(); assert.deepEqual(await blocks(), expected); assert.deepEqual((await read()).blocks, expected); await presentation(); await shot('05-restarted');
   assert.equal(fs.readFileSync(path.join(sourceDir, 'documents/corpus.json'), 'utf8'), sourceBytes);
@@ -245,7 +260,7 @@ try {
   await assert.rejects(stageMigration(options, target), { code: 'journal_changed' }); // Undo restores content, not an old revision identity.
   assert.deepEqual((await read()).blocks, expected); assert.deepEqual(errors, []);
   fs.writeFileSync(path.join(out, 'server.json'), JSON.stringify(await read(), null, 2) + '\n');
-  fs.writeFileSync(path.join(out, 'geometry.json'), JSON.stringify({ title: titleGeometry, narrow: geometry, presentation: originalPresentation }, null, 2) + '\n');
+  fs.writeFileSync(path.join(out, 'geometry.json'), JSON.stringify({ title: titleGeometry, narrow: geometry, narrowNested: nestedGeometry, presentation: originalPresentation }, null, 2) + '\n');
   console.log(`PASS ${safe.length} migrated cases including native inline breaks: keyboard edit, exact saved Undo, reload and Electron restart; source/navigation unchanged`);
 } catch (error) {
   if (page) await page.screenshot({ path: path.join(out, 'failure.png') }).catch(() => {});
