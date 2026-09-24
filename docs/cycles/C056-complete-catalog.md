@@ -1,0 +1,9 @@
+# C056 — Complete Paper discovery
+
+New six-hour run starts2026-09-24 04:18:54UTC and continues through at least10:18:54UTC (12:18Paris). User authorized merging PR32. Its427909c exact-head root/visual checks pass; Linux parity is running. Work is prepared on `codex/paper-library` in the existing owned worktree, preserving PR32 unchanged. Base this lane on the verified main merge before evidence capture.
+
+Bounded outcome: complete foreground catalog discovery and honest failed/partial reads. Actual upstream query supports offset/limit/hasMore/nextOffset and optional total. Use a stable creation-time traversal and validate every page; preserve recent-first display separately. Runtime scopes are captured, never taken from remote document metadata. Offset traversal is observed discovery, not an atomic snapshot or cutover proof.
+
+Implement bounded HTTP/CLI reads and same-owner refresh ordering. Keep limited provider list tools unchanged in this slice; their disclosure/pagination is later work. A failed refresh must retain the current connection's known notes, but changing connection/profile must clear them before any response. Refuse malformed pages, duplicates, changing counts, unsupported metadata and non-advancing/over-budget reads. Prove real native discovery beyond60notes, latest-refresh ordering and preserved human Pages/drafts.
+
+No local/cloud origin reclassification, authority activation, ordinary note creation or real-library migration in this cycle. Next bounded slice is owned local Archive classification. npm ci (root/app), Chromium install and baseline root verification completed; existing app audit still reports two known high dependency findings, not changed by this work. No test server is running. Current next action: implement and test the reader and refresh state boundary; preserve failed checks in the handoff.

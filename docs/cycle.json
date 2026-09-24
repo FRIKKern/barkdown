@@ -1,26 +1,27 @@
 {
   "version": 1,
-  "id": "C055",
+  "id": "C056",
   "stage": "P2",
-  "status": "done",
-  "goal": "Prepare a source-audited path from staged migration to a single authoritative Paper library.",
+  "status": "active",
+  "goal": "Discover the complete Paper catalog without silently truncating or treating failed reads as an empty library.",
   "scope": [
-    "Read actual note creation/catalog, Pages origin, provider scope and authority contracts.",
-    "Prepare ordered bounded tasks with explicit acceptance and rollback prerequisites in the existing migration contract.",
-    "Reconcile current plan, handoff, acceptance, external gates and branch evidence; no app behavior or shared-service changes."
+    "Read audited offset-pagination metadata and bound the work; preserve the last same-owner catalog on failure.",
+    "Keep the existing limited provider queries separate; add complete foreground catalog reads for direct HTTP and CLI connections.",
+    "Test real adapter requests, malformed/truncated/moving pages, superseded refreshes and connection changes; prove a disposable native library beyond60notes.",
+    "No migration authority switch, origin reclassification, new-note lifecycle change or real-library write."
   ],
   "acceptance": [
-    "Each cutover dependency names actual source evidence and measurable tests.",
-    "No staged or read-only checkpoint is described as activated; no invented upstream API.",
-    "One active queue and clear next implementation slice, root verification and current unchanged visual provenance."
+    "A stable catalog beyond60notes is returned exactly once per identity, including an exactly-full final page.",
+    "Missing pagination metadata, duplicate IDs, non-advancing offsets, changing totals, errors and bounds refuse without publishing a partial successful catalog.",
+    "Same-owner failures retain known notes; a different connection/profile never borrows them, and an older request cannot overwrite a newer refresh.",
+    "Full desktop/root and fresh reviewed native/standard evidence pass; no atomic-snapshot or migration activation claim."
   ],
   "checkpoint": "2026-09-24",
-  "handoff": "docs/cycles/C055-cutover-readiness.md",
-  "nextAction": "Plan the next bounded cycle for order1: complete profile-owned Paper catalog and local Archive; no authority activation.",
+  "handoff": "docs/cycles/C056-complete-catalog.md",
+  "nextAction": "Implement bounded validated pagination and owned refresh ordering; PR32 merge waits for its exact-head Linux check.",
   "evidence": [
-    "docs/cycles/evidence/C055/results.json",
     "docs/cycles/evidence/C055/source-audit.json"
   ],
-  "truthReview": "Twenty source files inspected; twenty findings and five ordered task briefs retained. Full root/final check pass;387 retained artifact hashes verified. Entry-point docs updated; no source behavior changes.",
-  "screenshotReview": "C054 reviewed live and fixture media remain valid: no app/dependency/capture changes. Approval42476f73 remains current."
+  "truthReview": "Starts at427909c; PR32 is ready with root/visual green and exact-head parity running. New controlled codex/paper-library lane; base it on the verified main merge before capture. Dependencies restored, Chromium installed and baseline root verify passed.",
+  "screenshotReview": "Source changes require native >60-note discovery proof plus standard capture/compare/actual review/explicit approval."
 }
