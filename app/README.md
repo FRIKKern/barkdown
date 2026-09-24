@@ -52,6 +52,7 @@ No-folder conversations remain valid. A folder selected in the composer never sc
 | `main/store.js`, `documents.js`, `conversations.js` | Bound local stores, document revisions and conversation reads; legacy data remains until explicit adoption |
 | `main/migration-preflight.js` | Offline P2 inventory, structural refusals, exact backups and restartable preparation |
 | `main/migration-references.js` | Canonical same-profile references resolved before staging and rewritten to native ID-pinned wikilinks |
+| `main/migration-images.js` / `migration-media.js` | Captured owned PNG validation and single-attempt upload reconciliation with exact binary readback; unsupported sources refuse |
 | `main/migration-staging.js` | Durable intent, insert-only Paper staging and exact readback/restart reconciliation; no UI wiring or authority switch |
 | `main/local-barkpark*` | Private runtime lifecycle and Windows source bootstrap |
 | `main/barkpark.js`, `canvas-bundle.js`, `agent-edits.js` | Barkpark adapter, editor delivery and edit receipts |

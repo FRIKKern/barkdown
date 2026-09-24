@@ -1,4 +1,4 @@
-# Migrated Paper: content and internal references
+# Migrated Paper: content, references and owned images
 
 Source `d92898f` / private Barkpark `30c007e43`. [Manifest](runs/2026-09-24T00-08-01-504Z/manifest.json) records the served editor hash, 21 native typing/save/Undo pairs and a deep nested child edit, native paragraph, marked-heading and list Shift+Enter and Undo, reload and Electron restart. Source, backup and workspace bytes remain unchanged. The rehearsal checks the served bundle against the selected source artifact.
 
@@ -14,7 +14,7 @@ The [original native-input trace](runs/2026-09-23T21-20-49-208Z/failure-state.js
 
 The [first corrected-source rehearsal](runs/2026-09-23T22-29-49-100Z/manifest.json) still served stale compiled assets and failed; it is not passing evidence. Refreshing this private worktree's built editor artifact produced the [first ten-case pass](runs/2026-09-23T22-32-55-161Z/manifest.json). The C046 ten-case checkpoint added the hash tripwire and native Shift+Enter proof. C047 adds heading formatting/alignment, literal marked LF and marked-heading line insertion. Earlier code-language, title-clipping and nine-case runs remain immutable history.
 
-No media migration, navigation authority switch, legacy-history conversion, real-library migration or power-loss durability is established. [C049](../../cycles/C049-internal-references.md) tracks current closeout; [migration contract](../../migration/README.md) owns wider P2 gates.
+The content/reference checkpoints do not establish media migration, navigation authority switch, legacy-history conversion, real-library migration or power-loss durability. The C050 image proof below extends only the bounded media scope; [migration contract](../../migration/README.md) owns wider P2 gates.
 
 C047 retained assertion failures: [literal LF segmentation](runs/2026-09-23T23-07-55-168Z/manifest.json) and [new heading-break marks](runs/2026-09-23T23-14-15-739Z/manifest.json). Both preserved existing text/marks; expectations now reflect native carrier splitting and unmarked new breaks while retaining exact saved Undo requirements. [First sixteen-case pass](runs/2026-09-23T23-10-28-832Z/manifest.json) precedes the final rendered-style and marked-heading Shift+Enter checks.
 
@@ -29,3 +29,15 @@ Source `1e57023` / private Barkpark `30c007e43`. Two isolated profiles preserve 
 ![Editing, Undo and navigation](runs/2026-09-24T00-54-54-614Z/links-editing-navigation.gif)
 
 The unmasked full-frame GIF is derived at 2 fps and 840×540 from [the native Electron recording](runs/2026-09-24T00-54-54-614Z/links-editing-navigation.webm). Named reviews cover all 19 stills per profile, [51 Orchard video/GIF samples](runs/2026-09-24T00-52-48-801Z/motion-review.json), [52 Coast video/GIF samples](runs/2026-09-24T00-54-54-614Z/motion-review.json), and ten restart samples each. [Narrow view](runs/2026-09-24T00-54-54-614Z/03-narrow.png) retains content and reachable controls. Two-fps sampling is not every raw video frame; dedicated hover stills retain brief preview states. These are disposable native editor rehearsals, with no model turn or real-library activation.
+
+## Owned PNG images — C050
+
+Source `bc1dc82` / private Barkpark `30c007e43`. [Native manifest](runs/2026-09-24T01-32-14-944Z/manifest.json) and [recovery assertions](runs/2026-09-24T01-32-14-944Z/recovery.json) prove an actual child exit after upload, exact scoped reconciliation and one uploaded object shared by two references. Alt/width/deletion save and exact native Undo, reload and restart preserve source/backup/workspace bytes.
+
+![Migrated image](runs/2026-09-24T01-32-14-944Z/01-migrated-images.png)
+
+![Image editing and saved Undo](runs/2026-09-24T01-32-14-944Z/images-editing-and-undo.gif)
+
+[Full Electron recording](runs/2026-09-24T01-32-14-944Z/images-editing-and-undo.webm), [restart recording](runs/2026-09-24T01-32-14-944Z/restart-or-failure.webm), [narrow view](runs/2026-09-24T01-32-14-944Z/07-narrow.png). The [named review](runs/2026-09-24T01-32-14-944Z/motion-review.json) covers ten stills, all35 raw2fps samples, all35 decoded GIF frames and eight restart samples. Full-frame conversion uses840×540 with no masking/cropping. Narrow image ALT/URL fields expose only part of their text; controls remain reachable, but this is not a polished narrow configuration claim.
+
+Scope: owned top-level eight-bit non-interlaced grayscale/RGB PNG with optional alpha, alt and width. Explicit height, captions, animated/paletted/interlaced PNG, other formats and external downloads refuse. [First deletion-test failure](runs/2026-09-24T01-23-25-081Z/manifest.json) retained original content: the harness now uses the existing accessible figure focus + Enter selection before Backspace. [First pass](runs/2026-09-24T01-29-38-039Z/manifest.json) predates final post-Paper media revalidation. These are disposable offline adapter rehearsals, not real-library activation, general media portability or power-loss proof.
