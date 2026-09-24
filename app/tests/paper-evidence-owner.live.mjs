@@ -60,7 +60,7 @@ try{
  // The tab strip must use its mounted Paper owner too, and only rename a
  // favorite after acknowledgement. A refused attempt remains a title draft.
  const rename=async title=>{await page.locator('#bw-tabs .bw-tab.active [data-tab]').dblclick();await page.locator('.bw-tab-rename').fill(title);await page.locator('.bw-tab-rename').press('Enter');};
- await page.locator('#bw-tabs .bw-tab.active [data-fav]').click();
+ await page.locator('#bw-tabs .bw-tab.active').hover();await page.locator('#bw-tabs .bw-tab.active [data-fav]').click();
  await rename('A title saved in its own library');
  await page.waitForFunction(()=>window.__barkdown.state.favorites.some(f=>f.label==='A title saved in its own library'));
  assert.equal((await bp.getPaper(config,id)).title,'A title saved in its own library');await shot('09-acknowledged-tab-and-favorite');

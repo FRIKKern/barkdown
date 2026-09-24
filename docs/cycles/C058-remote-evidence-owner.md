@@ -30,3 +30,5 @@ C056 Linux run35959845676 finished 1/20: 19 suites enabled CLI with an empty ser
 ## Next action
 
 Commit the bound tab-rename correction and run expanded native C058 plus corrected full parity. Then final live/fixture capture, actual image/GIF inspection, explicit approval and root verification. Update handoff/evidence, commit/push and inspect fresh exact-head CI. Preserve one lane, user checkouts, upstream source and shared services.
+
+Native extension checkpoint: source bb59d11 passed the existing ownership/restart/Undo steps but timed out clicking the favorite control before hovering its tab. Gallery06:54:28 and the inspected failure screenshot are retained. Correct the fixture to perform the ordinary hover, then rerun; no app change or forced hidden click.
