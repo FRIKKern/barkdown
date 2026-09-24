@@ -4,7 +4,7 @@ Start with the [active plan](docs/PLAN.md), [agent instructions](AGENTS.md) and 
 
 ## Prepare the workspace
 
-Use Node 22.13+ and a desktop session. Windows is the current local-runtime target.
+Use Node 22.13+ and a desktop session. Windows is the current local-runtime target. These installation commands are for initial setup or dependency repair; reuse healthy locked installs otherwise. Follow the [toolchain and integration preflight](docs/CYCLES.md#preflight-and-integration-first) before expensive checks.
 
 ```sh
 npm ci

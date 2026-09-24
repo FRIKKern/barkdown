@@ -18,7 +18,7 @@ The Barkpark capabilities we’re exploring:
 
 ## What we’re working on
 
-One dependable Paper note engine. [Human note creation, editing, search and restart work](docs/visual/paper-notes/README.md); next is bringing agents through that same path with safe Undo. Migration, recovery and portability follow. Sync, multiplayer and spreadsheets are part of the wider exploration, not completed app features.
+One dependable Paper note engine. Managed-local [human note creation, editing, search and restart](docs/visual/paper-notes/README.md), [agent editing with guarded Undo](docs/visual/agent-notes/README.md), and [deletion with recovery into a separate copy](docs/visual/paper-deletions/README.md) have source-prototype evidence. Upstream integration and migration remain unfinished; portable profiles follow. Sync, multiplayer and spreadsheets are part of the wider exploration, not completed app features.
 
 [Current work](docs/NEXT-AGENT.md) · [Plan](docs/PLAN.md) · [Verified results](docs/VALIDATION.md) · [Screenshots & recordings](docs/visual/README.md)
 

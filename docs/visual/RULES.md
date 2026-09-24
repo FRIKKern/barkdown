@@ -7,6 +7,7 @@ The [coverage map](coverage.json) currently takes a conservative approach: every
 ## Capture â†’ compare â†’ inspect â†’ accept
 
 ```sh
+# Initial setup or dependency repair only; otherwise reuse healthy locked installs.
 npm ci
 npm --prefix app ci
 npm run visual:capture
@@ -19,6 +20,10 @@ npm run verify
 Capture never updates approval. Comparison never decides whether a change is good. Approval is a named human/agent attestation, bound to the exact candidate manifest and report hashes. This is an engineering guard, not a security boundary against someone intentionally fabricating a review. Review every new/changed frame, not just the last screen. If a regression is found, fix it, recapture and compare again; do not bless it to clear CI. If uncertainty remains, leave approval blocked with a cycle checkpoint.
 
 Review clipping, overlapping controls, missing content, theme contrast, menus, focus/selection, narrow layouts and unwanted movement. Pair this with behavior checks for saves, ownership, Undo, keyboard access and recovery. Screenshots cannot prove that data was preserved. Record actual commands/results and limitations in the cycle handoff and validation ledger.
+
+## Before broad capture
+
+Run one focused smoke journey through the changed UI first: confirmation, in-flight state, completed navigation, error/refusal, restart when claimed, and a narrow viewport. Inspect dialog padding and reachable actions. Assert completion through the real user action (for example, the recovery dialog closes and the intended copy is visible), not only through already-present content. Finish the harness and related code-area README edits before committing capture inputs. Then run all required native, standard and live captures; this preparation does not substitute for them or permit reusing invalidated evidence.
 
 ## Comparison contract
 

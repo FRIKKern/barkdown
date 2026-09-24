@@ -1,9 +1,11 @@
 # Current handoff
 
-**Current cycle:** [C071 Paper deletion and recovery](cycles/C071-paper-deletion-recovery.md), locally validated checkpoint. P2/A2 remains open.
+**Current cycle:** [C072 efficiency lessons](cycles/C072-efficiency-lessons.md), completed with root verification in 47.198 seconds. C071 deletion/recovery is complete within its demonstrated local scope; P2/A2 remain open.
 
-**Delivery:** codex/paper-library in C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration; draft PR33. Related upstream work reuses the clean isolated codex/paper-create-only lane. No merge/deployment.
+**Delivery:** codex/paper-library in C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration; draft PR33. Related upstream lane: codex/paper-create-only, PR20020 at f2528db12. No merge/deployment.
 
-**Next action:** prepare a bounded retained-evidence viewer cycle after archiving C071. Review the existing migration evidence contracts before changing recovery behavior. Upstream integration remains a separate gate; do not activate migration or use generic delete/restore.
+**Next action:** archive C072, then inspect exact-head upstream failures and assign or resolve integration blockers before expanding dependent work. The retained-evidence viewer remains the next product slice; migration activation is not authorized by local acceptance.
 
-**Progress:** exact deletion/recovery implemented; 47 focused upstream checks, full desktop/root checks and real HTTP/native restart journeys pass. Final source-bound screenshots and motion were inspected and explicitly approved. Hosted Go found omitted CLI help, corrected in the upstream lane; other upstream failures are recorded in the cycle evidence. Preserve legacy data, user organization, published twins and newer human changes. Historical locked worktrees remain; only private test services may be started.
+**Proof:** C071 desktop/root, real HTTP/native restart and reviewed media passed. Barkdown0606c7d subsequently passed hosted Verify, Visual and Editor parity. The upstream branch remains open/unstable; inspect live checks rather than treating historical failures as current. See C071's hosted review for the last detailed diagnosis.
+
+**Working rules:** preflight actual toolchain/platform, test adjacent contracts early, complete the visual smoke journey before broad capture, read evidence summaries first and recheck the prior lesson in the next relevant cycle. Canonical details live in [CYCLES](CYCLES.md#preflight-and-integration-first) and [visual rules](visual/RULES.md#before-broad-capture). Historical locked worktrees and legacy/user data remain preserved; no owned service is running.

@@ -46,7 +46,7 @@ Do not install or copy the paid Tiptap Notion template by default. It is an inte
 
 ## Delivery cycles
 
-Before coding, put the affected boundaries, fast checks and ready-checkpoint checks in the current handoff, following `docs/CYCLES.md#plan-the-tripwires-before-editing`. Batch related implementation and code-area README edits before capture; do not evade tripwires or weaken checks. While CI runs, do authorized independent review/preparation; check before another push cancels expensive work. Use the bounded timing audit in `docs/CYCLES.md` when investigating repeated CI costs.
+Before coding, follow `docs/CYCLES.md#preflight-and-integration-first`: verify the actual toolchain and dependency state, then put affected boundaries, adjacent-contract checks and ready-checkpoint proof in the handoff. Resolve or assign known integration blockers before expanding dependent work. Complete the visual smoke journey and related code-area README edits before broad capture; do not evade tripwires or weaken checks. While CI runs, do authorized independent review/preparation; check before another push cancels expensive work.
 
 For dependent checks, use the fail-fast runner in `docs/CYCLES.md#execute-checks-without-losing-the-failure` or explicitly stop on each failed exit code. Prove the intended result with a scoped assertion before expensive capture; an already-open view or a helper that repairs the state is not proof the action worked. Consolidate evidence review and delivery instead of repeating status-only commits.
 

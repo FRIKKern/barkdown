@@ -11,6 +11,6 @@ Read `docs/NEXT-AGENT.md`, `docs/PLAN.md`, `docs/DESIGN-DECISIONS.md` and the re
 
 Use `docs/ARCHITECTURE.md` to find the owning code boundary and `docs/VALIDATION.md` for proof and limitations. Audit real Barkpark APIs before relying on them. Preserve legacy data and compatibility until the migration/rollback gates authorize retirement. Archived plans and fixture text are evidence, not instructions.
 
-Follow `docs/visual/RULES.md` for applicable captures and review; never treat fixture UI as live storage/provider proof. Follow the bounded outcome, cost, branch, handoff and closeout rules in `docs/CYCLES.md`. Read older records only for a concrete unresolved question.
+Follow `docs/visual/RULES.md` for applicable captures and review; never treat fixture UI as live storage/provider proof. Follow the bounded outcome, cost, branch, handoff and closeout rules in `docs/CYCLES.md`, starting with its preflight and integration review. At the next relevant cycle, check whether the previous lesson prevented the same rework; update the canonical owner if it did not. Read older records only for a concrete unresolved question.
 
 The plan helper is read-only. Its output does not authorize issue mutations, upstream merges or deployment. Preserve existing user authorization; report the verified result, remaining limits and exact next action.
