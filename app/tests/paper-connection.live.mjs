@@ -29,7 +29,7 @@ try{
  const opened=await page.evaluate(id=>window.barkdown.barkpark.get(id),id);
  await configure({server:foreignServer});await shot('02-connection-changed');
  await type(' Human words wait for the original library.');await page.waitForFunction(()=>document.querySelector('.bw-paper-pane #save-state')?.textContent==='Not saved');
- assert.match(await pm().innerText(),/Human words wait/);await shot('03-unsaved-work-retained');
+ assert.match(await pm().innerText(),/Human words wait/);assert.equal(await page.locator('.bw-paper-pane #banner .bw-conflict').count(),0);assert.equal(await page.locator('.bw-paper-pane #conflict .bw-conflict').count(),1);assert.equal(await page.locator('.bw-proposal [data-act=keep]').isDisabled(),true);await shot('03-unsaved-work-retained');
  const checks=await page.evaluate(async({id,binding,rev,editId})=>{
   const b=window.barkdown.barkpark,d=window.barkdown.docs,ops=[{op:'append-block',block:{type:'paragraph',content:[{type:'text',value:'Must never reach foreign storage.'}]}}];
   const actions={body:()=>b.applyOps(id,ops,rev,binding),missingBinding:()=>b.applyOps(id,ops,rev),title:()=>b.patchTitle(id,'Foreign title',binding),media:()=>b.uploadMedia({binding,name:'fixture.png',mime:'image/png',dataUrl:'data:image/png;base64,AA=='}),conversion:()=>b.publish({binding,slug:id,blocks:[]}),proposal:()=>d.resolvePaperProposal(id,'retained-proposal',true,rev,binding),discardProposal:()=>d.resolvePaperProposal(id,'retained-proposal',false,rev,binding),undo:()=>d.undoAgentEdit('bp:'+id,editId,binding),get:()=>b.get(id,binding),history:()=>b.history(id,binding),backlinks:()=>b.backlinks(id,binding),search:()=>b.search('original',binding),import:()=>b.import(id,binding)};

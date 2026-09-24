@@ -96,6 +96,7 @@ export function mountPaper(tab, host, ctx) {
   function renderBanner() {
     const banner = q('#banner');
     banner.innerHTML = '';
+    if (connectionChanged() && pendingRetry?.connectionChanged) return;
     if (connectionChanged()) {
       banner.appendChild(el('<div class="bw-conflict"><strong>Connection changed.</strong> This Paper stays with its original library. Restore that connection in Settings to save or reload it. Unsaved edits stay in this window.</div>'));
     } else if (!writesOn()) {
@@ -147,7 +148,7 @@ export function mountPaper(tab, host, ctx) {
     const host = q('#proposals');
     host.innerHTML = '';
     for (const p of paper?.proposals || []) {
-      const node = el(`<div class="bw-proposal" data-id="${esc(p.id)}"><small>Proposed by the assistant · ${esc(p.mode)} · ${esc(relativeTime(p.createdAt))}</small><div class="bw-proposal-head"><strong>${esc(p.summary || 'Change')}</strong><span><button class="primary" data-act="keep" ${writesOn() ? '' : 'disabled title="Enable live editing first"'}>Keep</button><button data-act="discard">Discard</button></span></div><details><summary>Show the change</summary><div class="body">${inlineMarkdownHtml(p.markdown || '')}</div></details></div>`);
+      const node = el(`<div class="bw-proposal" data-id="${esc(p.id)}"><small>Proposed by the assistant · ${esc(p.mode)} · ${esc(relativeTime(p.createdAt))}</small><div class="bw-proposal-head"><strong>${esc(p.summary || 'Change')}</strong><span><button class="primary" data-act="keep" ${writesOn() ? '' : 'disabled title="Enable live editing first"'}>Keep</button><button data-act="discard" ${connectionChanged() ? 'disabled title="Restore the original connection first"' : ''}>Discard</button></span></div><details><summary>Show the change</summary><div class="body">${inlineMarkdownHtml(p.markdown || '')}</div></details></div>`);
       node.querySelector('[data-act="keep"]').onclick = () => resolveProposal(p.id, true);
       node.querySelector('[data-act="discard"]').onclick = () => resolveProposal(p.id, false);
       host.appendChild(node);
@@ -234,7 +235,7 @@ export function mountPaper(tab, host, ctx) {
         renderBanner();
       } else {
         setSaveState('Not saved', 'error');
-        pendingRetry = { ops, seq };
+        pendingRetry = { ops, seq, connectionChanged: code === 'paper_connection_changed' };
         // Tell the canvas the batch was refused, or every later edit stays queued behind it. It keeps the author's
         // state and, on the next edit, diffs against the last saved blocks, so the refused change rides along —
         // a vetoed batch (say, one that would empty the paper) then saves as soon as the author writes again.
@@ -260,6 +261,7 @@ export function mountPaper(tab, host, ctx) {
           } catch (failure) { toast('Could not load the saved paper: ' + errorMessage(failure), 'error'); }
         };
         box.appendChild(node);
+        renderBanner();
       }
     } finally { saving--; }
   }
@@ -429,7 +431,7 @@ export function mountPaper(tab, host, ctx) {
 
   const controller = {
     el: pane, type: 'doc', tab,
-    connectionChanged() { renderBanner(); renderMeta(); },
+    connectionChanged() { renderBanner(); renderMeta(); renderProposals(); },
     canClose() { if (!hasUnsavedWork()) return true; canvas?.flushPendingChanges?.(); toast('Finish saving this paper before closing it. If saving failed, retry or discard the unsaved edits.', 'error'); return false; },
     async refresh(changedId) {
       if (changedId && changedId !== 'bp:' + slug() && changedId !== slug()) return;
