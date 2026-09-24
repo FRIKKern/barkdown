@@ -1,68 +1,53 @@
 # Local notes → Paper: staged rehearsal, no cutover
 
-C039/P1 are accepted and merged. C043 implements offline preparation; C044 proves a create-only upstream route; [C045](../cycles/C045-migration-staging.md) staged the then-permitted ten cases into a disposable Paper runtime with durable intent and post-commit process-exit reconciliation. No real library was read or modified. C048 proves 21 supported cases through native editing, exact saved Undo, reload and Electron restart, including paragraph/heading/list Shift+Enter. C049 adds canonical internal links resolved against the complete captured profile, with native cyclic/self navigation and backlinks in two isolated runtimes. LF inline breaks use the corrected upstream serializer; unproved CR carriers remain refused. C050 proves bounded owned PNG upload recovery and native alt/width/delete Undo plus restart. Other media, remaining structures, navigation activation and rollback remain gates. The converter audit below is a separate preparation harness.
+P1 is accepted. P2 remains active: the app still uses legacy local documents alongside real Paper. No real library has been migrated and the legacy editor remains available. [Current cycle](../cycle.json), [handoff](../NEXT-AGENT.md), [A2 acceptance](../ACCEPTANCE.md) and [validation](../VALIDATION.md) own the current queue and evidence.
 
-Run from the repository root:
+## Implemented and demonstrated
 
-```powershell
-node docs/migration/audit.mjs docs/migration/report.json
+| Boundary | Implementation and evidence | Limits |
+|---|---|---|
+| Inventory and exact backup | C043 captures documents, workspace, attachments, receipts and proposals with a pinned source hash; [preparation](../cycles/C043-migration-preflight.md) | Caller must close source writers; unsupported content blocks staging. Settings, credentials and runtime database are excluded. |
+| Profile-qualified identities and creation | C044/C045 use an immutable plan, source/profile-qualified IDs, an upstream create-only route, durable intents and exact readback; [staging](../cycles/C045-migration-staging.md) | Unmerged upstream dependency. Existing unowned, changed, missing or draft targets refuse; no automatic replay of an uncertain absent write. |
+| Native content | C046–C048 prove21 supported cases through actual typing, acknowledged save, exact saved Undo, reload and restart; [content proof](../cycles/C048-quotes-nested-lists.md) | Plain/rich text, marks, H1–H3, alignment, code language, bounded tables, quotes and recursive mixed/check lists. Deeper headings, custom list starts, table spans/widths, multi-paragraph quotes and inline CR remain refused. |
+| Internal links/backlinks | C049 resolves canonical same-profile links against the complete captured library; [reference proof](../cycles/C049-internal-references.md) | Missing/malformed/foreign targets refuse. Native source link-default attributes need separate compatibility proof; source navigation is not activated. |
+| Owned media | C050 journals a single PNG upload attempt, reconciles scoped metadata and exact bytes, and checks media again before completion; [image proof](../cycles/C050-owned-images.md) | Top-level eight-bit non-interlaced grayscale/RGB PNG±alpha, alt and width only. Height/captions, external downloads and other formats refuse. Origin must remain stable. |
+| Retained backup restore | C051 validates all committed backup bytes before restoring to an empty owned destination. Process interruption/resume and actual restored-profile editing/restart pass; [restore checkpoint](../cycles/C051-backup-restore.md) | Closed same-machine profile at its original path; no live restore UI, authority switch, Paper edit rollback or power-loss claim. Full cycle closeout is still pending. |
+
+[Reviewed screenshots and motion](../visual/migration/README.md) keep content, references, images and restored-legacy evidence distinct. Actual server readback and filesystem checks establish preservation; screenshots alone do not.
+
+## Audited target contract
+
+The implementation calls the selected owned loopback runtime and production dataset. It never changes global CLI configuration or silently enables writes.
+
+- `POST /v1/plugins/bulldocs/papers/:slug/create` is the native-block insert-only route in stacked draft [PR #20020](https://github.com/FRIKKern/barkpark/pull/20020), currently tested at30c007e43. Existing published/draft targets refuse. C044 tested three six-caller races and dropped post-commit responses. A concurrent generic draft is not namespace-reserved; final verification still checks ambiguity.
+- The older `POST /v1/plugins/bulldocs/papers` route is create-or-replace without an `ifRev` fence. Generic createIfNotExists+publish also overwrote published content in the C044 audit. Neither is a migration retry mechanism.
+- Paper `/ops` requires a captured valid revision for guarded editing. Stale revisions return412. A response is not a content comparison; read back the structured blocks and acknowledged revision.
+- Existing multipart media upload has no audited idempotency key. C050 records a random owned filename before one POST, searches that exact scoped name, requires a complete single match and verifies MIME/size/path/original bytes. Absent or ambiguous interrupted uploads stop for reconciliation; they are never replayed automatically.
+- Quality, registered tags, scope and deduplication can refuse publishing. Supply reviewed metadata; do not bypass those checks or reinterpret every409 as an existing owned Paper.
+
+Runtime bindings, source/backup hashes and existing journal records are checked before requests and again at completion. This is observed validation under caller-provided quiescence, not a cross-service atomic snapshot or power-loss guarantee.
+
+## Remaining activation and recovery work
+
+1. Audit content actually persisted by the legacy editor and Markdown parser, including default link/list attributes. C051 found ordinary Markdown links carry `target="_blank"`, currently refused; do not silently strip custom metadata.
+2. Inventory and validate every real workspace destination: human Pages order/nesting/expansion/archive state, favorites, document tab paths, side-chat parents, drafts/images and event references. Existing `bp:` destinations are not new imports.
+3. Prepare a versioned reference map. Rewrite exact local document destinations only, retaining all unrelated state. Atomically select one complete map after all target comparisons pass; crash/restart must never select a mixture. No adapter currently activates this map.
+4. Keep original history, proposals and edit receipts readable. Legacy revision numbers cannot become Paper revision numbers. Do not reinterpret an old guarded Undo against a staged Paper.
+5. Prove activation and rollback with interrupted writes and concurrent human edits. Rollback selects retained legacy authority; it does not delete or overwrite possibly edited Paper targets. Retire the separate editor only after the full supported corpus and A2 journey pass.
+
+Other content formats, live writer fencing, target conflict resolution and cross-machine paths remain explicit gates. Cross-machine export/import and database portability belong to P3; a copy of live database files is not an export contract.
+
+## Reproduction and source boundaries
+
+`app/main/migration-preflight.js` owns inventory/eligibility; `migration-staging.js`, `migration-media.js` and `migration-journal.js` own durable target staging; `migration-restore.js` owns exact no-overwrite legacy recovery. These are offline adapters, not a user-facing migration flow. `app/shared/portabledoc.js` remains a convenience converter whose context-free acceptance is not migration eligibility.
+
+Run targeted checks from the repository root:
+
+```sh
+node --test app/tests/migration-preflight.test.mjs app/tests/migration-staging.test.mjs app/tests/migration-media.test.mjs app/tests/migration-restore.test.mjs
+node docs/migration/audit.mjs
 ```
 
-The checked report records the source commit and normalized source hashes. The harness imports the production converter, checks hand-authored expected structures/refusals, checks source immutability and refuses unsupported documents even after a valid prefix. It also checks a **proposed** deterministic profile-qualified identity mapping against two synthetic profiles with colliding document slugs. This is not proof of production allocation, navigation rewriting or server idempotence.
+Native scripts `test:migration-editor:isolated`, `test:migration-references:isolated`, `test:migration-media:isolated` and `test:migration-restore:isolated` use a clean built private Barkpark selected with `BARKDOWN_TEST_BP_SOURCE`. They create disposable data and stop only their owned runtime. Follow the implementation-commit → capture → actual review → evidence-commit workflow.
 
-Current converter result: **32 cases: 21 representation-preserved, 2 lossy, 2 unresolved references, 7 rejected. Cutover is not ready.** The original ten cases pass C046 native-editor proof. C047 mappings preserve marked headings and top-level alignment; all sixteen cases pass native editing, exact saved Undo, reload/restart and interrupted API staging. Full desktop/root and fresh live/fixture visual closeout pass; [C047 results](../cycles/evidence/C047/results.json) retain proof and limitations. C048 adds genuine rich quotes and recursive mixed lists: all 21 cases pass native typing/save/exact Undo/reload/restart and interrupted staging. Reviewed motion includes full list Shift+Enter and narrow nested hierarchy; standard visual/root closeout now passes. Other structures and unresolved references remain refused. The context-free converter still reports two unresolved references; C049 resolves canonical internal links only when the complete same-profile library is available to preflight. It does not make the general converter an unconditional migration path. A passing audit means the limitations remain visible; it does not make the lossy cases acceptable.
-
-## Content and identity inventory
-
-| Area | Current authority / preparation decision | Remaining proof |
-| --- | --- | --- |
-| Identity | Local `documents/<id>.json`; target proposal hashes profile UUID + source document ID, not title | Persist mapping before any write, check target collisions and owner; never adopt unrelated same-slug content |
-| Text/marks | Unicode, nested emphasis, underline, strike, code, link and hard-break fixtures | Actual Paper save/reload semantic comparison, not Markdown equality |
-| Headings/paragraphs/lists | C047 preserves heading marks/alignment; C048 preserves recursive list children and checked state; deep headings and custom starts remain refused | Lossless mappings or preflight refusal; no silent conversion |
-| Quotes | C048 uses genuine native blockquote content and preserves rich marks | Multiple paragraphs and inline quote breaks remain refused |
-| Tables | Header and cell alignment structured; spans/widths rejected | Real editor/server persistence and geometry; preserve unsupported source |
-| Media | C050 resolves same-profile top-level PNG attachments, journals one upload attempt, verifies exact bytes before Paper creation and again before completion; native alt/width/delete saved Undo and restart pass | Explicit height/captions, external URLs, unsupported PNG encodings and non-PNG still refuse; no authority activation or cross-machine transfer |
-| Links/backlinks | C049 resolves canonical local links to profile-qualified native `docId` wikilinks; cyclic/self navigation and actual backlinks tested | Missing/malformed/foreign-profile targets refuse before writes; source and backup remain exact |
-| Pages | Preserve v2 roots, child order, expanded and archived state; existing `bp:` destinations are not new imports | Atomic reference-map activation, no automatic placement of loose cloud content |
-| Favorites/tabs/chats | Inventory local destinations, document paths, parent side chat, drafts/images and event references | Rewrite exact document references only; retain chat/run ownership and draft content |
-| History/proposals | Local snapshots (bounded history, currently 60), pending proposals carry legacy revision semantics | Retain readable originals; no claim that Paper recreates historical revision identities |
-| Edit receipts | Before/after revisions and original content support guarded Undo | Do not reinterpret old receipts against Paper revisions; retain legacy reader/Undo boundary |
-
-The synthetic library is intentionally small. Its workspace is an inventory fixture, not a validated production workspace serialization. `report.json` records source hashes, output blocks, limitations, proposed IDs, backlinks and attachment digests. It does not claim a workspace migration adapter exists.
-
-## Audited API contract
-
-Read-only upstream audit: Barkpark commit `bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f`, `api/lib/barkpark_web/controllers/bulldocs_ingest_controller.ex`, router and `api/assets/paper-editor/src/convert.js`. Local boundaries: `app/main/documents.js`, `agent-edits.js`, `barkpark.js`, `app/shared/portabledoc.js`, `app/renderer/src/pages.js`.
-
-* `POST /v1/plugins/bulldocs/papers` is **create-or-replace without a revision fence**. The controller explicitly rejects `ifRev`/`if_rev`. Its slug/rev response is an acknowledgement, not a content comparison. Do not use blind retries or pretend a prior GET makes creation atomic. A create-only/idempotency or equivalent exclusive-ownership contract remains unresolved.
-* C044 reproduced the generic mutation hazard at `bf23f773`: createIfNotExists + publish replaced existing published content; six concurrent draft attempts returned two distinct create receipts. Do not use these verbs for migration.
-* [C044](../cycles/C044-paper-create-contract.md) tests the new native-block `POST /v1/plugins/bulldocs/papers/:slug/create` at upstream `15bfe254a`, [draft PR #20020](https://github.com/FRIKKern/barkpark/pull/20020). Existing published/draft targets refuse; the row write only inserts. Three six-caller races had one winner each, and a dropped post-commit response was reconciled by exact readback without replay. This is an unmerged upstream dependency, not a production migration adapter. Concurrent generic draft creation is not namespace-reserved; staging must detect ambiguous or changed targets before activation.
-* `POST /v1/plugins/bulldocs/papers/:slug/ops` supports `ifRev`; stale revisions return 412 before any operation applies. Capture and validate the returned revision and read back the resulting blocks. Do not treat missing/non-finite adapter revisions as a successful migration checkpoint.
-* Media uses the existing multipart upload or CLI media adapter. No audited content-hash deduplication or lookup contract establishes safe retry after a lost response. Stop for reconciliation instead of uploading duplicates speculatively.
-* Upstream conversion retains heading/paragraph source metadata that the local convenience converter discards. The current local converter therefore cannot be the unconditional migration path.
-* Authentication, dataset scope, quality checks and deduplication can refuse a publish. Do not silently enable `dedup_bypass`, change scope or weaken checks to make a rehearsal pass.
-
-## Proposed durable boundaries and recovery
-
-1. **Inventory and backup:** quiesce writes to the disposable source profile, capture exact authoritative JSON, workspace references, referenced attachment bytes and receipts with checksums. Record schema/source versions. Preserve the original tree and verify the backup can be read. Do not package a live database and call it portable.
-2. **Preflight:** compare every structured field and reference. Unsupported or lossy cases stop before mutation. Persist a versioned manifest with source hashes, profile identity, proposed targets and planned dependencies. Reject a changed source on resume.
-3. **Stage media/content:** only after an audited safe target-write contract exists. Persist intent before request and acknowledgement after validated response. A crash between request and acknowledgement is an **uncertain write**, requiring readback/reconciliation; it is not permission to repeat create-or-replace.
-4. **Compare:** reload actual Paper blocks/media and compare identities, marks, semantics and graph. Record target revisions. No navigation authority changes before all comparisons pass.
-5. **Activate:** atomically swap a versioned reference map with the old map retained. Interruption must select one complete map. Never remove source documents or backups. Preserve existing cloud placements and human hierarchy.
-6. **Rollback:** restore the old map and readable local authority. Retain staged Paper data for reconciliation; do not delete possibly edited targets. If a target changed after comparison, stop automatic rollback of target content and report the conflict.
-
-At each boundary the later harness must crash/restart, run twice, compare counts/IDs/content, and prove no duplicate target or misplaced reference. Include lost acknowledgements, stale revisions, changed source, corrupt manifest, missing media, profile switches and a concurrently edited target. The preparation harness does **not** execute this state machine.
-
-## First bounded P2 slice
-
-[C043](../cycles/C043-migration-preflight.md) implements the disposable-profile **inventory + preflight + durable manifest** slice in `app/main/migration-preflight.js`. Callers must stop source writers; an explicit offline assertion is not a live lease adapter. Preparation preserves source bytes, reports unsupported structures, binds stable target IDs to the profile and detects changed source/corrupt backups on repeat. No authority switch or server writes. Workspace/reference schemas, missing-media reconciliation, target creation and actual Paper save/reload remain subsequent gates.
-
-Preparation changelog: added the 22-case converter audit, two-profile identity/organization inventory, API limitations and proposed recovery boundaries. Runtime/capture inputs are unchanged; existing approved login/Paper evidence is reused. Task 4's later migration rehearsal remains outstanding.
-
-## Durable staging checkpoint
-
-`app/main/migration-staging.js` accepts a prepared offline profile, explicitly reviewed description/tags and captured owned loopback runtime. It validates every existing journal record before target access, records intent before create, compares exact structured readback and revision, and preserves unknown/edited/draft targets. Repeat and six process-exit boundaries are tested. `retryAbsent: true` is an explicit reconciliation decision, never an automatic recovery default. Callers still supply source quiescence and ownership assertions; no production migration UI invokes this module. Originals/history/proposals/workspace remain readable and unchanged.
-
-C046 editor rehearsal found that the old code converter wrote `language`, while real Paper expects `lang`. The converter now emits the native field (omitting empty values); Markdown export still reads historical `language` data. API equality alone did not catch this loss. Existing staging plans whose payload changes are refused, never silently rewritten or replayed. The retained C046 handoff records the correction; C047 adds the sixteen-case proof.
-
-C049 uses two-pass reference inventory and staging-only rewriting. The durable plan binds the exact mapped payload, so changed or old incompatible plans refuse before target access. A 409 is reconciled as an existing paper only when its code is `paper_exists`; quality/deduplication refusals remain explicit and are never bypassed. [Paired-profile evidence](../cycles/evidence/C049/paired-profiles.json) binds the same source slugs to different target IDs and private runtimes.
+The separate [converter report](report.json) has32 synthetic cases:21 representation-preserved,2 lossy,2 unresolved references and7 rejected. It records hand-authored expectations/source hashes and proposed identity inventory; it is not native save or workspace activation evidence. C049/C050 resolve selected references/media only inside the complete captured-profile migration path. Historical cycle records preserve earlier findings and failures; they are not extra active queues.

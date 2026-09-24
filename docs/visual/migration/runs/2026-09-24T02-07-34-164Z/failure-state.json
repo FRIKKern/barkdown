@@ -1,0 +1,199 @@
+{
+  "state": {
+    "chats": {
+      "main": {
+        "messages": [],
+        "tabs": [],
+        "active": null,
+        "folder": null,
+        "following": true,
+        "draftImages": [],
+        "apiHistory": [],
+        "events": [],
+        "closedTargets": [],
+        "id": "main",
+        "title": "Main conversation",
+        "draft": "The main unsent thought."
+      },
+      "side": {
+        "messages": [],
+        "tabs": [
+          {
+            "id": "4827779e-a8fb-447e-8f96-207cd619e4f0",
+            "type": "doc",
+            "title": "A thought worth keeping",
+            "path": [
+              "a-thought-worth-keeping"
+            ],
+            "url": "",
+            "file": "",
+            "treeOpen": false,
+            "scroll": 0,
+            "unread": false,
+            "source": "local"
+          }
+        ],
+        "active": "4827779e-a8fb-447e-8f96-207cd619e4f0",
+        "folder": null,
+        "following": false,
+        "draftImages": [
+          {
+            "id": "landscape",
+            "name": "landscape.png",
+            "mime": "image/png",
+            "size": 2490,
+            "path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-restored-profile-dXKn2k\\electron\\profile-data\\profiles\\344dc515-5f11-4707-84b2-d321e29cff29\\attachments\\landscape.png",
+            "url": "file:///C:/Users/Frikk/AppData/Local/Temp/bd-restored-profile-dXKn2k/electron/profile-data/profiles/344dc515-5f11-4707-84b2-d321e29cff29/attachments/landscape.png"
+          }
+        ],
+        "apiHistory": [],
+        "events": [],
+        "closedTargets": [],
+        "id": "side",
+        "title": "A separate thought",
+        "side": true,
+        "parent": "main",
+        "parentTitle": "Main conversation",
+        "draft": "This side-chat draft and its picture survived.",
+        "chatScroll": 0
+      },
+      "direct": {
+        "id": "direct",
+        "title": "Documents",
+        "createdAt": "2026-09-24T02:07:38.911Z",
+        "updatedAt": "2026-09-24T02:07:38.911Z",
+        "folder": null,
+        "messages": [],
+        "apiHistory": [],
+        "events": [],
+        "tabs": [],
+        "active": null,
+        "draft": "",
+        "following": true,
+        "editorExpanded": false,
+        "chatScroll": 0,
+        "side": true,
+        "parent": null,
+        "runId": null,
+        "closedTargets": []
+      }
+    },
+    "order": [
+      "main",
+      "side"
+    ],
+    "favorites": [
+      {
+        "id": "kept-favorite",
+        "label": "A thought worth keeping",
+        "target": {
+          "kind": "doc",
+          "id": "a-thought-worth-keeping",
+          "source": "local",
+          "title": "A thought worth keeping"
+        },
+        "chatId": "main",
+        "chatTitle": "Main conversation"
+      }
+    ],
+    "pages": {
+      "layoutVersion": 2,
+      "seeded": true,
+      "roots": [
+        "a-thought-worth-keeping"
+      ],
+      "children": {
+        "a-thought-worth-keeping": [
+          "connected-thought"
+        ]
+      },
+      "expanded": {
+        "a-thought-worth-keeping": true
+      },
+      "archiveOpen": false,
+      "archiveFilter": "",
+      "cloudArchiveOpen": false,
+      "cloudArchiveFilter": ""
+    },
+    "current": "side",
+    "mode": "chat",
+    "directTab": null,
+    "settings": {
+      "sidebarWidth": 200,
+      "chatWidth": 60,
+      "theme": "system",
+      "model": "claude-opus-5",
+      "provider": "api",
+      "providerChosen": false,
+      "claudeModel": "",
+      "codexModel": "",
+      "providers": {
+        "claude": {
+          "loggedIn": true,
+          "effort": "high",
+          "model": "fable[1m]"
+        },
+        "codex": {
+          "loggedIn": true,
+          "model": "gpt-6-astra",
+          "effort": "medium"
+        },
+        "api": {
+          "hasKey": false
+        }
+      },
+      "hasApiKey": false,
+      "apiKeyFromEnv": false,
+      "barkpark": {
+        "effectiveServer": "",
+        "enabled": false,
+        "server": "",
+        "hasToken": false,
+        "dataset": "production",
+        "writes": false,
+        "viaCli": false,
+        "local": {
+          "enabled": false,
+          "source": "",
+          "port": 4540,
+          "pgPort": 5540
+        }
+      },
+      "recentFolders": [],
+      "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-restored-profile-dXKn2k\\electron\\profile-data\\profiles\\344dc515-5f11-4707-84b2-d321e29cff29"
+    },
+    "documents": [
+      {
+        "id": "a-thought-worth-keeping",
+        "title": "A thought worth keeping",
+        "updatedAt": "2026-09-24T02:07:42.312Z",
+        "createdAt": "2026-09-24T02:07:34.058Z",
+        "rev": 4,
+        "source": "local",
+        "excerpt": "The first version remains readable.",
+        "references": [],
+        "proposals": 1,
+        "tags": []
+      },
+      {
+        "id": "connected-thought",
+        "title": "Connected thought",
+        "updatedAt": "2026-09-24T02:07:34.075Z",
+        "createdAt": "2026-09-24T02:07:34.075Z",
+        "rev": 1,
+        "source": "local",
+        "excerpt": "Read the original thought.",
+        "references": [
+          "a-thought-worth-keeping"
+        ],
+        "proposals": 0,
+        "tags": []
+      }
+    ],
+    "barkparkDocs": [],
+    "loaded": true,
+    "profileId": "344dc515-5f11-4707-84b2-d321e29cff29",
+    "generation": "0cdeba93-5af7-4ce7-9661-bf234d96781e"
+  },
+  "text": "b\nBarkdown\nA separate thought\nA thought worth keeping\nFavorites\nPAGES\nA thought worth keeping\nConnected thought\nARCHIVE\n0\nRECENT CHATS\nMain conversation\nno folder ·\nA separate thought\n↳ Main conversation · no folder ·\nFJ\nBarkdown\nLocal\nFrom Main conversation\nb\nBarkdown\n\nStart with a question, a document, or a website. I can open documents beside this chat, edit them directly with Undo, browse websites, and work in a folder you give me.\n\n×\nNo working folder\nClaude API key · not signed in\nOpus 5 (default)\nEffort\n↑\nLibrary document\n Ask\nPAGES\nSaved · rev 4\nrev 4 · updated just now · 0 reference(s) · 1 backlink(s)\nProposed by the assistant · append · just now\n\nAn old proposal, still yours to decide\n\nA suggested ending retained without applying it.\nKeepDiscard\n\nThe first version remains readable.\n\nBACKLINKS\nConnected thought\nlinks here\nRELATED\nConnected thought\nlinks here\nHISTORY\nrev 4\nRestored revision 1\nyou · just now\nrev 3\nEdited in Barkdown\nyou · just now\nRestore\nrev 2\nA deliberate second version\nyou · just now\nRestore\nrev 1\nCreated\nyou · just now\nRestore\nEdits save automatically to the local library with revision history. Assistant edits save directly. Undo the latest change above or restore a revision from History."
+}

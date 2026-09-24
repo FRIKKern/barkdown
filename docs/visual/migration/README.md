@@ -41,3 +41,15 @@ Source `bc1dc82` / private Barkpark `30c007e43`. [Native manifest](runs/2026-09-
 [Full Electron recording](runs/2026-09-24T01-32-14-944Z/images-editing-and-undo.webm), [restart recording](runs/2026-09-24T01-32-14-944Z/restart-or-failure.webm), [narrow view](runs/2026-09-24T01-32-14-944Z/07-narrow.png). The [named review](runs/2026-09-24T01-32-14-944Z/motion-review.json) covers ten stills, all35 raw2fps samples, all35 decoded GIF frames and eight restart samples. Full-frame conversion uses840×540 with no masking/cropping. Narrow image ALT/URL fields expose only part of their text; controls remain reachable, but this is not a polished narrow configuration claim.
 
 Scope: owned top-level eight-bit non-interlaced grayscale/RGB PNG with optional alpha, alt and width. Explicit height, captions, animated/paletted/interlaced PNG, other formats and external downloads refuse. [First deletion-test failure](runs/2026-09-24T01-23-25-081Z/manifest.json) retained original content: the harness now uses the existing accessible figure focus + Enter selection before Backspace. [First pass](runs/2026-09-24T01-29-38-039Z/manifest.json) predates final post-Paper media revalidation. These are disposable offline adapter rehearsals, not real-library activation, general media portability or power-loss proof.
+
+## Retained backup restoration
+
+C051 source `02e938b` restores a closed disposable legacy profile at its original path after a mid-file child exit, then opens the real app. The [manifest](runs/2026-09-24T02-09-49-913Z/manifest.json) records exact backup/source preservation, unchanged staged Paper and native revisions3/4/5. Side-chat parent/draft/image, nested Pages, favorite, pending proposal, backlinks and readable history survive; a repeat after human changes refuses.
+
+![Restored draft and image](runs/2026-09-24T02-09-49-913Z/01-restored-sidechat-and-image.png)
+
+![Native restored-profile editing](runs/2026-09-24T02-09-49-913Z/restored-profile-editing.gif)
+
+[Raw recording](runs/2026-09-24T02-09-49-913Z/restored-profile-editing.webm), [restart](runs/2026-09-24T02-09-49-913Z/restored-profile-restarted.webm), [narrow](runs/2026-09-24T02-09-49-913Z/06-narrow.png), [named review](runs/2026-09-24T02-09-49-913Z/motion-review.json). All7stills,15raw samples,15decoded GIF frames and7restart samples were inspected. Existing narrow legacy title clipping/provider truncation remains; this is recovery proof, not editor polish. Credentials/settings/runtime are excluded. No live restore UI, authority switch, later Paper edit rollback, power-loss or portability claim.
+
+Retained first attempts: [unsupported Markdown link target](runs/2026-09-24T02-04-23-049Z/manifest.json) stopped before Paper writes; [missing fixture initialization flag](runs/2026-09-24T02-05-54-275Z/manifest.json) and [transient revision-label wait](runs/2026-09-24T02-07-34-164Z/manifest.json) were harness corrections. Their failure stills were inspected; the original parser/native link-attribute compatibility gap remains a separate migration gate.

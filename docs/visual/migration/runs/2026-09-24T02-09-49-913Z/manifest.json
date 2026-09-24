@@ -1,0 +1,49 @@
+{
+  "capturedAt": "2026-09-24T02:10:02.271Z",
+  "barkdownCommit": "02e938bc7b36761bca1707e1a5f8eed8616c11ae",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "profileId": "35fe2cdc-1d0f-4677-b4d2-2a8c186d5245",
+  "sourceHash": "ce30ea046934f330217aa9e68777bdcb00be687b189f99cea7b8dd0b50a5e62c",
+  "results": {
+    "interruptedExit": 77,
+    "exactBeforeLaunch": true,
+    "registryUnchanged": true,
+    "postHumanRepeatRefused": true,
+    "stagedPaperUnchanged": true,
+    "nativeRevisions": [
+      3,
+      4,
+      5
+    ],
+    "sourceBackupUnchanged": true,
+    "draftsParentPagesFavoriteAndMediaPreserved": true
+  },
+  "frames": [
+    "01-restored-sidechat-and-image.png",
+    "02-retained-proposal-and-history.png",
+    "03-native-save.png",
+    "04-native-history-restore.png",
+    "05-return-to-human-version.png",
+    "06-narrow.png",
+    "07-restarted.png"
+  ],
+  "artifacts": {
+    "01-restored-sidechat-and-image.png": "5f5f478f2391afe3f9bac18a9e6bd30f2b27688ba7e92e9498c8f909baa87283",
+    "02-retained-proposal-and-history.png": "687506e94af18c060519b369c99dd49b1c7933dbbec3ac4de0342a92be2611a6",
+    "03-native-save.png": "f9f27b0281bc8bfdbb66fe2fd0f72d4abfecc704ec3378ffda7ee8a9226677e1",
+    "04-native-history-restore.png": "cb73612347bb60f8d6f2ae3fdb7abccedd16f9bc509a056fce5db5bc540e464b",
+    "05-return-to-human-version.png": "4e894bc45546068d3a78a01ca1c05f0f6805e21fe4c590483166e41aee0bc052",
+    "06-narrow.png": "dda3676e95fdd40b8dc1ee4e7e0093216163156b22d1d6d0b2a9160be7f4d368",
+    "07-restarted.png": "ceda64813589d92756bd93f69408b2f689e1105a43d03ff026a74276a3cd93a0",
+    "restored-profile-editing.webm": "5d3d1d7b5def7cf7d1e06dc3ac205c642574c63fecee5af93329236024548fb2",
+    "restored-profile-restarted.webm": "5dc33388d47f04e31cf08e78db42deb40d9c2e350433f481f62db684401b759b"
+  },
+  "authority": "legacy",
+  "limits": [
+    "Closed disposable profile restored at its original path; no live restore UI or authority switch",
+    "Credentials/settings/runtime excluded; same-machine recovery only",
+    "Actual process interruption and clean restart, not power-loss durability",
+    "Staged Paper remains unchanged; later Paper edits are not rolled back"
+  ]
+}

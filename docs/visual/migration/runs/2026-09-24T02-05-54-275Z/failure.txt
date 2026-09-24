@@ -1,0 +1,16 @@
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+... Skipped lines
+
+  {
+    archiveFilter: '',
+    archiveOpen: false,
+    children: {
+      'a-thought-worth-keeping': [
+...
+    ],
++   seeded: true
+  }
+
+    at checkWorkspace (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-restore.live.mjs:51:396)
+    at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-restore.live.mjs:67:18

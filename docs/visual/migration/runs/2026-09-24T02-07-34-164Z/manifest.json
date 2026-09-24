@@ -1,0 +1,34 @@
+{
+  "capturedAt": "2026-09-24T02:08:17.807Z",
+  "barkdownCommit": "6682315c91d08dc53650f0da2417fa646047c840",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "profileId": "344dc515-5f11-4707-84b2-d321e29cff29",
+  "sourceHash": "8b14be6e13d6f2c0e7591d8b5546dc5d5e8499d5baad6023efd3237b0b22e073",
+  "results": {
+    "interruptedExit": 77,
+    "exactBeforeLaunch": true,
+    "registryUnchanged": true
+  },
+  "frames": [
+    "01-restored-sidechat-and-image.png",
+    "02-retained-proposal-and-history.png",
+    "03-native-save.png"
+  ],
+  "artifacts": {
+    "01-restored-sidechat-and-image.png": "5f5f478f2391afe3f9bac18a9e6bd30f2b27688ba7e92e9498c8f909baa87283",
+    "02-retained-proposal-and-history.png": "687506e94af18c060519b369c99dd49b1c7933dbbec3ac4de0342a92be2611a6",
+    "03-native-save.png": "f9f27b0281bc8bfdbb66fe2fd0f72d4abfecc704ec3378ffda7ee8a9226677e1",
+    "failure-state.json": "7fa5b66ea1f8c1d975774af138a8b5d5884f182ef676c0707a5a33b04be06fb4",
+    "failure.png": "cb73612347bb60f8d6f2ae3fdb7abccedd16f9bc509a056fce5db5bc540e464b",
+    "failure.txt": "840e86aecae4b25cb442ce84bd668d74ec2d6d5aa75a2a607493e221d5dcf81e",
+    "restart-or-failure.webm": "f3572531aee6512b1184e61ace1738922865b9ae693034abc703967c12012a0d"
+  },
+  "authority": "legacy",
+  "limits": [
+    "Closed disposable profile restored at its original path; no live restore UI or authority switch",
+    "Credentials/settings/runtime excluded; same-machine recovery only",
+    "Actual process interruption and clean restart, not power-loss durability",
+    "Staged Paper remains unchanged; later Paper edits are not rolled back"
+  ]
+}
