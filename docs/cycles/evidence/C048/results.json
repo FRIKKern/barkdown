@@ -1,0 +1,126 @@
+{
+  "recordedAt": "2026-09-24T00:22:05.759Z",
+  "cycle": "C048",
+  "applicationSourceCommit": "cbea3f9057e90a8e792fdc158c6a7cb74453efa6",
+  "nativeCaptureCommit": "d92898f0acefa4565855725b4980667c8f4860ec",
+  "tableTestCommit": "b4f0fa08ce91f3e9744e843e6ae33fdbdd7979b7",
+  "standardCaptureCommit": "5e0e5800860705ba4f9fbcf898a9f93f220ded07",
+  "upstreamCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "checks": {
+    "migrationUnits": {
+      "passed": 31
+    },
+    "nativeMigration": {
+      "exit": 0,
+      "cases": 21,
+      "deepChildEdit": true,
+      "paragraphHeadingListShiftEnter": true,
+      "exactSavedUndo": true,
+      "reload": true,
+      "restart": true,
+      "sourceBackupWorkspaceUnchanged": true
+    },
+    "stagingRecovery": {
+      "exit": 0,
+      "cases": 21,
+      "evidence": "docs/cycles/evidence/C045/staging-1790207918837.json",
+      "humanEditsPreserved": true
+    },
+    "desktop": {
+      "exit": 0,
+      "source": "e28315e",
+      "skip": "Existing POSIX-only authentication check on Windows"
+    },
+    "root": {
+      "exit": 0
+    },
+    "tablehead": {
+      "exit": 0,
+      "passed": 6,
+      "total": 6
+    },
+    "upstreamEditor": {
+      "exit": 0,
+      "focusedNestedJoin": true,
+      "build": 0,
+      "docBudgets": 0,
+      "anchors": 0,
+      "anchorWarnings": 2
+    },
+    "closeout": {
+      "exit": 0
+    }
+  },
+  "visual": {
+    "nativeRun": "docs/visual/migration/runs/2026-09-24T00-08-01-504Z",
+    "nativeStills": 31,
+    "nativeVideoSamples": 96,
+    "nativeGifFrames": 96,
+    "restartSamples": 8,
+    "fixtureManifest": "docs/visual/runs/2026-09-24T00-18-02-364Z/manifest.json",
+    "fixtureComparison": "docs/visual/runs/2026-09-24T00-18-02-364Z/comparison.json",
+    "fixtureApproval": "docs/visual/reviews/approval-1e288e06025a5439cd4508e65145332a59ecf2885af161667947f92caccff528.json",
+    "fixturePriorReviewed": "docs/visual/runs/2026-09-23T23-28-38-198Z",
+    "fixtureChanges": "Three side-chat PNGs and four decoded GIF frames inspected; 37 PNGs and seven GIFs identical to reviewed prior capture; no above-tolerance pixel/geometry/environment changes",
+    "liveManifest": "docs/images/status/history/2026-09-24T00-17-16-926Z.json",
+    "liveStills": 5,
+    "liveGifFrames": 37,
+    "liveProviderTurn": true
+  },
+  "retainedFailures": [
+    "Native taskList boundary and missing checklist source attrs: first run 2026-09-23T23-44-05-666Z",
+    "Native literal-LF locator: second run 2026-09-23T23-52-41-023Z",
+    "First 21-case pass has limited list-break/narrow framing, corrected in final capture",
+    "Isolated table reader used saved CLI server rather than environment override; corrected and 6/6 passes",
+    "Doc budget intermediate attempts exceeded cap; prose shortened without raising it"
+  ],
+  "ci": {
+    "priorLinuxParityFailure": 35934541002,
+    "priorFailure": "Align left click timeout; diagnostic patch retains full failure state; not reproduced in local isolated corrected run",
+    "newLinuxParity": 35937387264,
+    "newLinuxStatus": "in progress at checkpoint",
+    "upstreamDocGate": 35935669539,
+    "upstreamDocGateState": "Style mirror and design token drift in named inputs unchanged against stacked base; budgets and anchors pass separately",
+    "upstreamWorkflowLedger": 35935669730,
+    "upstreamWorkflowLedgerState": "Unledgered workflow population 22 to 23; integration gate retained"
+  },
+  "limits": [
+    "Legacy authority unchanged; offline adapters are not UI-wired",
+    "Internal references/media, navigation activation and rollback remain P2 gates",
+    "No real-library migration, merge or deployment",
+    "Clean Electron restart is not power-loss durability",
+    "Upstream dependency remains stacked and unmerged; G1/G2 remain open"
+  ],
+  "hashes": {
+    "c048-compare.log": "e5f689d560d77960aef52dbc49626e4f8fbbf4c25188ec6a3eee13a05fbe92a6",
+    "c048-desktop.log": "faec47cd5f63f6ca595cfb752ef67104bc490fe03f9b7e50cd632e2195a2eefe",
+    "c048-fixture.log": "174a5d52ad1f9d9c27d2b310657440e77ba51655254d567d8ef295922962d489",
+    "c048-live-shots.log": "67bb4f84b5b81f21b6cccef7ac3f6ed080f82517563f295e9c11b715719bdee6",
+    "c048-native-editor.log": "e15dd5d1190eb33320130fca56c1ef1205f0930d0ca84e2198ff5b726ea0f072",
+    "c048-native-editor2.log": "838a756e5ef2147a7fb98b2ad42a3a3dbac68c4b67cf09c841efb896e2ee8db6",
+    "c048-native-editor3.log": "9b8e863e2f8a1df623eb8d3664d21e53b159a813ac4f81ef1ee63ef99befd2a8",
+    "c048-native-editor4.log": "5cd023fe3a605be2c8162b8ce1b787055943ba012f97ed6f47a2adf0f5823cf2",
+    "c048-portabledoc.log": "e3cb99bd530e5aebfb4dff8a2a1629d0bcc7407e718b78976c2d176d0b3a5369",
+    "c048-root.log": "1d8d14c628eb64fb4ac22459378c127033a11b344774ccf04936270f5177adae",
+    "c048-staging.log": "db3a54d45b7868473ab33d879bd953e35fcf07bd8d8d50cdc900f5753541a418",
+    "c048-tablehead.log": "f498d4c84268c366dacf8e7a0ede6cd65fdfc449d127650a81efdf717a99aa42",
+    "c048-tablehead2.log": "1bd1fdeecff5ec563d98b82e88b48f69f22326b22d2a29178f8c6c628ad007e2",
+    "c048-unit2.log": "c86616089c7cbce1f801517734563913eec0bb7f08a60907ae517b869aaa1411",
+    "c048-upstream-anchors.log": "9b7803bc269ddff9a1f04af68cbdf90c879361c19b6e361fe95f8018fd7bca33",
+    "c048-upstream-build.log": "1c7897b2af2b079a96405d9e8a11a1ce26ffec9357f3912e8ef7c8019d87d28b",
+    "c048-upstream-docbudgets.log": "e2184f55a766464b71776afc40dc9300f3d2084e3f7429a8fc798eed753c6294",
+    "c048-upstream-docbudgets2.log": "17ef86aa31d3d80137c29042aac452511a835d88b1645bd12975bdaeb575d300",
+    "c048-upstream-docbudgets3.log": "5fd6b4d360fdb6880c6fe559842bf5c72e80c4c6177ebd899486576759f0e20d",
+    "c048-upstream-docgate-ci.log": "bdda53ec77340aa56c72c288f800c26011f50d6f031e407bd0ce7ed9fc3347f7",
+    "c048-upstream-drift-ci.log": "80d66735f66e5b223810744025bfb2c2102c59ad2d6a324a6228179edaebfed6",
+    "c048-upstream-nested2.log": "501ea6966518d62121613ff497e18b77361e7c1fcf694718d9dd7fea010ec379",
+    "c048-upstream-suite.log": "0b2debb992760cffa00a93d76d4feb50971ba7ab0bad8fc62b418620890a3f66",
+    "fixture-media-hashes.json": "fd0c3c70e660357c5b217e66735bf801e12b5be281dbed7fdd9bb70dae9a99d6",
+    "repository-inventory.json": "b99fb86358842e8b7a18bcee0db8a20921d28b3bb5685e31c1210a23e74f9fa0",
+    "tablehead-failure.json": "f400c7e1f6b03d33c09309308e67bb15c693c209f24a379787ff04f72947386d",
+    "tablehead-pass.json": "6f841e2707acf0bb4efa8d2a414d146cce6c6890192c0a2bc991b2dc260d895e",
+    "tablehead-pass.png": "1f6975eb7a58c23a88556d696b37f1c89d1a12fa03c5d59ee493e4cbe95f3439",
+    "upstream-style-inputs.json": "0ea74786ad21ce2afa42af75cdf983af1b65e47deaae93b62bbfb7153117a938",
+    "c048-closeout-check.log": "a84420d1eefb5455c309c700130b78d6b30978084f201716719c3257f635ba71"
+  }
+}

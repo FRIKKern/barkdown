@@ -13,7 +13,7 @@ Write, ask, revise, and keep going in one desktop workspace. Barkdown pairs Bark
 
 **Working desktop prototype · Windows runtime first · Powered by Barkpark**
 
-![The real Barkdown desktop: a conversation beside an editable Barkpark paper.](docs/images/status/paper-light.e5df46ab.png)
+![The real Barkdown desktop: a conversation beside an editable Barkpark paper.](docs/images/status/paper-light.f3d91466.png)
 
 ## Think in notes. Work in conversations.
 
@@ -25,15 +25,15 @@ Write, ask, revise, and keep going in one desktop workspace. Barkdown pairs Bark
 <details>
 <summary><strong>See the editor in motion and explore the desktop</strong></summary>
 
-![Real editing: insert a quote, type, move through table cells, and use quick open.](docs/images/status/editing.9a6694d2.gif)
+![Real editing: insert a quote, type, move through table cells, and use quick open.](docs/images/status/editing.9ea47489.gif)
 
-![Barkdown in dark mode.](docs/images/status/paper-dark.ebe0ac28.png)
+![Barkdown in dark mode.](docs/images/status/paper-dark.133e799b.png)
 
-![Paper slash menu.](docs/images/status/slash-menu.4599c743.png)
+![Paper slash menu.](docs/images/status/slash-menu.beb13f12.png)
 
-![Quick open across the workspace.](docs/images/status/quick-open.a6b5028e.png)
+![Quick open across the workspace.](docs/images/status/quick-open.07b70728.png)
 
-![Barkpark connection settings.](docs/images/status/settings-barkpark.9a844fe3.png)
+![Barkpark connection settings.](docs/images/status/settings-barkpark.04b7f013.png)
 
 These are captures of the running app, not mockups. [Capture provenance](docs/images/status/manifest.json) records the source commits and whether the assistant turn was live. The typographic banner above is repository artwork.
 
@@ -47,7 +47,7 @@ These are captures of the running app, not mockups. [Capture provenance](docs/im
 |---|---|---|
 | Working Paper editor, agent conversations and a managed Windows source runtime | Profile isolation, safe migration of every note to Paper, recovery and portability | Optional two-way sync and installation without a developer toolchain |
 
-**P1 profile isolation is accepted; P2 Paper migration is active.** The integrated Windows source prototype has profiles, captured agent ownership, saved goal workers, explicit same-machine library adoption and tested authentication/recovery boundaries. [C043](docs/cycles/C043-migration-preflight.md) adds strict preflight and exact-byte backups; [C045](docs/cycles/C045-migration-staging.md) adds durable staging and interrupted-write reconciliation on disposable notes. [C046](docs/cycles/C046-migrated-paper.md) proves nine permitted cases through real Paper editing, saved Undo and restart; inline line breaks are explicitly refused after a native-input failure. These modules are not connected to a migration UI and do not switch library authority. Local notes retain their separate editor/store until real Paper comparison and rollback are proven. Portability and cloud sync remain pending. The managed runtime requires a built Barkpark checkout; upstream integration and release gates remain separate.
+**P1 profile isolation is accepted; P2 Paper migration is active.** The integrated Windows source prototype has profiles, captured agent ownership, saved goal workers, explicit same-machine library adoption and tested authentication/recovery boundaries. [C043](docs/cycles/C043-migration-preflight.md) adds strict preflight and exact-byte backups; [C045](docs/cycles/C045-migration-staging.md) adds durable staging and interrupted-write reconciliation on disposable notes. [C048](docs/cycles/C048-quotes-nested-lists.md) extends native Paper proof to 21 supported cases: rich headings and quotes, aligned paragraphs, nested lists/checklists and inline line breaks survive editing, acknowledged save, exact Undo and restart. References/media and activation remain open. These modules are not connected to a migration UI and do not switch library authority. Local notes retain their separate editor/store until real Paper comparison and rollback are proven. Portability and cloud sync remain pending. The managed runtime requires a built Barkpark checkout; upstream integration and release gates remain separate.
 
 [Combined checkpoint and remaining checks](docs/cycles/C008-integration.md) · [Rich editor video and screenshots](docs/visual/rich-takeover/README.md) · [Actual library adoption](docs/visual/adoption/runs/2026-09-22T00-21-07-265Z/README.md) · [Workspace recovery](docs/visual/workspace-recovery/README.md)
 

@@ -1,0 +1,38 @@
+{
+  "reviewedAt": "2026-09-24T00:11:31.552Z",
+  "reviewer": "Codex",
+  "manifestSha256": "d2b940e833cb2e720954836344d8952c82a698b27e681350c17a3cf667f757a1",
+  "source": "d92898f0acefa4565855725b4980667c8f4860ec",
+  "upstream": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "stillsInspected": 31,
+  "editingVideoSamplesInspected": 96,
+  "decodedGifFramesInspected": 96,
+  "restartVideoSamplesInspected": 8,
+  "derivative": {
+    "file": "editing-and-undo.gif",
+    "sha256": "7f9a98ec72d5644b821e1481b07bcdc45cf9d7a1f98e3b85c129cf42c1cca1f1",
+    "source": "editing-and-undo.webm",
+    "sourceSha256": "ad97d631e3ea0d97814ca77eb398a1b8d8c1d147a668ba5216109143bd685178",
+    "fps": 2,
+    "size": [
+      840,
+      540
+    ],
+    "palette": "256 colors, Floyd-Steinberg",
+    "cropped": false,
+    "masked": false
+  },
+  "findings": [
+    "Genuine rich quotes retain a plain left rule, bold/italic and their identity.",
+    "Mixed ordered/checklist/bullet hierarchy retains marker nesting, checked state and sibling order through deep child edits and exact saved Undo.",
+    "Native list Shift Enter shows both text lines and the inserted blank line in full; Undo restores adjacent original lines.",
+    "Narrow nested-list capture shows the complete hierarchy within the pane; target geometry and viewport overflow checks pass.",
+    "Heading marks/alignment, wrapped title, code and table remain intact. Loading and clean restart are retained."
+  ],
+  "limits": [
+    "Disposable profile; no provider turn, navigation activation or real-library cutover.",
+    "Two-fps review is not every source video frame; original recordings retained.",
+    "Some individual edit stills put the caret near the viewport bottom; targeted list-break/narrow stills supply full-context evidence.",
+    "Clean Electron restart does not prove power-loss durability."
+  ]
+}

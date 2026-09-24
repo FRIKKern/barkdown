@@ -1,0 +1,33 @@
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	﻿2026-09-23T23:54:30.5808081Z ##[group]Run bash scripts/unaccounted-workflow-ratchet.sh
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:30.5808601Z [36;1mbash scripts/unaccounted-workflow-ratchet.sh[0m
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:30.5874296Z shell: /usr/bin/bash -e {0}
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:30.5874600Z ##[endgroup]
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0868050Z ── fully-unledgered workflows (no job name carries a status in .github/required-checks.json) ──
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0882307Z    absent-context-census.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0883099Z    barkdown-parity.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0883554Z    bp-graph-drift.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0883991Z    codebase-intel.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0884434Z    connectors.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0884863Z    cp-ops.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0885333Z    create-quickstart-smoke.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0885811Z    deploy.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0886197Z    deprecate.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0886716Z    elixir-main-red-attribution.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0887343Z    elixir-nightly.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0887853Z    grip-suite.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0888725Z    landed-open-report.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0889326Z    paper-readers.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0889669Z    pds-scratch-round-trip.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0890026Z    plugin-node.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0890317Z    release.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0890581Z    retag.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0890867Z    scaffy-catalog-drift.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0891329Z    scheduled-arm-health.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0891867Z    sdk-tests.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0892335Z    weekly-changelog.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0893009Z    windows-smoke.yml
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0893676Z FAIL: the unledgered-workflow population GREW (22 -> 23).
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0894846Z       A workflow with no row at all is judged by nothing until a sampled head happens to render one of its names, so this red is the ONLY thing that sees it at PR time.
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0897073Z       FIX: add a row to .exclusions in .github/required-checks.json for at least one job name in the new workflow, saying WHAT the check is and WHY it does not gate (S2 advisory / S3 subsumed / S4 paths-filtered or structurally absent on a PR head / S6 leaf of an excluded aggregator / S7 by decision), or register it.
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0898785Z    count=23 baseline=22
+Every workflow job has runs-on+steps or uses	No NEW workflow joins the tree with no row in the required-checks ledger	2026-09-23T23:54:31.0911395Z ##[error]Process completed with exit code 1.

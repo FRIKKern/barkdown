@@ -1,0 +1,227 @@
+{
+  "capturedAt": "2026-09-23T23:56:19.258Z",
+  "barkdownCommit": "8319282eb6d0b2e74e348b3a86f4954e2fd5a0f8",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "editorBundle": {
+    "source": "server",
+    "server": "http://127.0.0.1:53847",
+    "version": "0.2.26.3938",
+    "sha": "b5004305fd3b99700457c3602b53003561f619c4",
+    "cssSha": "38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "folder": "b5004305fd3b99700457c3602b53003561f619c4-38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "fetchedAt": "2026-09-23T23:55:30.900Z"
+  },
+  "cases": [
+    {
+      "case": "plain-unicode",
+      "beforeRev": 1,
+      "editedRev": 2,
+      "undoneRev": 3
+    },
+    {
+      "case": "nested-marks",
+      "beforeRev": 3,
+      "editedRev": 4,
+      "undoneRev": 5
+    },
+    {
+      "case": "underline",
+      "beforeRev": 5,
+      "editedRev": 6,
+      "undoneRev": 7
+    },
+    {
+      "case": "strike-code",
+      "beforeRev": 7,
+      "editedRev": 8,
+      "undoneRev": 9
+    },
+    {
+      "case": "external-link",
+      "beforeRev": 9,
+      "editedRev": 10,
+      "undoneRev": 11
+    },
+    {
+      "case": "hard-break",
+      "beforeRev": 11,
+      "editedRev": 12,
+      "undoneRev": 13,
+      "breakInsertedRev": 14,
+      "breakUndoneRev": 15
+    },
+    {
+      "case": "heading-plain",
+      "beforeRev": 15,
+      "editedRev": 16,
+      "undoneRev": 17
+    },
+    {
+      "case": "heading-rich-external",
+      "beforeRev": 17,
+      "editedRev": 18,
+      "undoneRev": 19,
+      "breakInsertedRev": 20,
+      "breakUndoneRev": 21
+    },
+    {
+      "case": "heading-aligned",
+      "beforeRev": 21,
+      "editedRev": 22,
+      "undoneRev": 23
+    },
+    {
+      "case": "heading-break",
+      "beforeRev": 23,
+      "editedRev": 24,
+      "undoneRev": 25
+    },
+    {
+      "case": "paragraph-alignment",
+      "beforeRev": 25,
+      "editedRev": 26,
+      "undoneRev": 27
+    },
+    {
+      "case": "paragraph-right",
+      "beforeRev": 27,
+      "editedRev": 28,
+      "undoneRev": 29
+    },
+    {
+      "case": "paragraph-literal-break",
+      "beforeRev": 29,
+      "editedRev": 30,
+      "undoneRev": 31
+    },
+    {
+      "case": "checklist",
+      "beforeRev": 31,
+      "editedRev": 32,
+      "undoneRev": 33
+    },
+    {
+      "case": "nested-list",
+      "beforeRev": 33,
+      "editedRev": 34,
+      "undoneRev": 35
+    },
+    {
+      "case": "quotation",
+      "beforeRev": 35,
+      "editedRev": 36,
+      "undoneRev": 37
+    },
+    {
+      "case": "nested-mixed-task",
+      "beforeRev": 37,
+      "editedRev": 38,
+      "undoneRev": 39,
+      "nestedEditedRev": 40,
+      "nestedUndoneRev": 41
+    },
+    {
+      "case": "list-break",
+      "beforeRev": 41,
+      "editedRev": 42,
+      "undoneRev": 43,
+      "breakInsertedRev": 44,
+      "breakUndoneRev": 45
+    },
+    {
+      "case": "quotation-rich",
+      "beforeRev": 45,
+      "editedRev": 46,
+      "undoneRev": 47
+    },
+    {
+      "case": "code-language",
+      "beforeRev": 47,
+      "editedRev": 48,
+      "undoneRev": 49
+    },
+    {
+      "case": "table-header-align",
+      "beforeRev": 49,
+      "editedRev": 50,
+      "undoneRev": 51
+    }
+  ],
+  "frames": [
+    "01-staged-original.png",
+    "edit-plain-unicode.png",
+    "edit-nested-marks.png",
+    "edit-underline.png",
+    "edit-strike-code.png",
+    "edit-external-link.png",
+    "edit-hard-break.png",
+    "native-break-inserted.png",
+    "edit-heading-plain.png",
+    "edit-heading-rich-external.png",
+    "native-heading-break-inserted.png",
+    "edit-heading-aligned.png",
+    "edit-heading-break.png",
+    "edit-paragraph-alignment.png",
+    "edit-paragraph-right.png",
+    "edit-paragraph-literal-break.png",
+    "edit-checklist.png",
+    "edit-nested-list.png",
+    "edit-quotation.png",
+    "edit-nested-mixed-task.png",
+    "edit-deep-list-child.png",
+    "edit-list-break.png",
+    "native-list-break-inserted.png",
+    "edit-quotation-rich.png",
+    "edit-code-language.png",
+    "edit-table-header-align.png",
+    "02-all-undo-saved.png",
+    "03-reloaded.png",
+    "04-narrow.png",
+    "05-restarted.png"
+  ],
+  "artifacts": {
+    "01-staged-original.png": "72db462203ff7f3bf91f268bd245ef014a6d9024c897448382544f0e68544cbd",
+    "02-all-undo-saved.png": "ab26b950a18cbfa44b2d511af68b01763be8faa1563f3a4801a100c709ced595",
+    "03-reloaded.png": "5ecd1cd8d282fea6cf45b045956c164b61dfc4501706348c80aa3697fb4373d3",
+    "04-narrow.png": "08984290ac95df94a113e7191cee120f2c7e8f593843bc0f048def02b0d82a8d",
+    "05-restarted.png": "d0f2f084cf2060ac062b6af3db84486e6be77ed607e2bccba0dff92b09b28843",
+    "edit-checklist.png": "1359639f08801a855a98420e3ec21f8da53cc693def5168a72b54711fe52c115",
+    "edit-code-language.png": "b790311ea8f7e01f599e7a3322c45d56799de9c0627e779beb051c2e5930f354",
+    "edit-deep-list-child.png": "4e11a4be120ce0b117088816993ba9781331aa440366b3ef34cbb34b2c9348e8",
+    "edit-external-link.png": "a1fc6f171dc791b1a625a15b5a444457746a2684928b14def10112362c7477f2",
+    "edit-hard-break.png": "c9d25462f22dad0a12de1aa48ef64d00e489fcfb370bac89667b319e2550b5b4",
+    "edit-heading-aligned.png": "d3e8f8211c52843335b3acfc545efefd3758757c67245077a32080a981c78cb7",
+    "edit-heading-break.png": "54ff7724a9559775c81b63296ad5d12946371cc5a1310d93670e47812c7d079d",
+    "edit-heading-plain.png": "3dce52ce7f7ab96bf65c76386c59e0911969eacfd8b7370e908062ebbde62fe2",
+    "edit-heading-rich-external.png": "f400dab9cc0a3f94d38d734205e2aa7c652d13ed742a1284f8e96e55ea140af0",
+    "edit-list-break.png": "ed59c36fd6edb6a34bb638a00a78a27b5689f173c4140a94e8391ca070a6fdfa",
+    "edit-nested-list.png": "34c7f3edcb6bb09f21faf0f2453c67d77d7f66f3df4b584568d469af3f4ae5fd",
+    "edit-nested-marks.png": "08ba9146972aa7de48d75c698653444244f1576955a346169869a82b6a485796",
+    "edit-nested-mixed-task.png": "010c423b646f744a0000199a1d859f1f99d35981ac9b785e70b6a21719dc2d14",
+    "edit-paragraph-alignment.png": "199529a04a43647fdafca41362378592f286dc010d1dbdc73f7e054bec28b3ea",
+    "edit-paragraph-literal-break.png": "27343d22f0ada0f9fd187a1d7e31734dd65609ae14422be28ff7186ee067bcc9",
+    "edit-paragraph-right.png": "bc3df83e89c0ad29d8fb3fca1831734d8d8a0fc4c1367ec780854c1d6096eedd",
+    "edit-plain-unicode.png": "4ba0a7652e593580af9b85fc7e01f1ccb97aaead59a2950a890b768f5850cf05",
+    "edit-quotation-rich.png": "bc70ebde8a9b25918d4223a966538080e4b8b96df31ab4db52a89252c5807f94",
+    "edit-quotation.png": "aaa12b3e5fb20753c31169c3ba73664e7cd3cccf0da90e66045ee476d308a6ed",
+    "edit-strike-code.png": "a3ac1cea7cd93d530b261fa5573989c7b47908b09a3fbaebb43caae13146240c",
+    "edit-table-header-align.png": "8e0df811259faffaa54435617f10e3951d292b85c0571c86fd05376e8911a2fc",
+    "edit-underline.png": "42e4f781c7de287398e4e9344296783e815de5e411d6ff4d35d2a4e5ad9a6e8a",
+    "editing-and-undo.webm": "7ac59c3171279a9fac87bd993d436968b6c83c245492793bb9a9995b1a2e823f",
+    "geometry.json": "55bfbf4c167420435fc0ca2cce579c591280e2a6739781db9b000069f21696e8",
+    "native-break-inserted.png": "fb08426f942ee5b4111f18f54208c9990139131f6c69402e111d27458ca5f31a",
+    "native-heading-break-inserted.png": "51dfccf8218fe049dde0b0d251481bee40feb7c2ff7f5bf54fd7b08b91e0f2c2",
+    "native-list-break-inserted.png": "b5e1ebcc6bce751c2795ad43695dff1aef863771fd74c612f682e9eb4400d467",
+    "restart.webm": "31f597a047118942ec827c3c276211dfaff1e5d3e2c9dbbf2b8eaf497a89fecc",
+    "server.json": "5dd6342164669e58eebe26d596ec0e31116306369af40653df2ea1bc3d2e0948"
+  },
+  "authority": "legacy",
+  "motion": "Real keyboard editing and native Paper history with acknowledged private server writes; actual Electron video, no model turn.",
+  "limits": [
+    "No navigation activation or real-library migration",
+    "21 structured corpus cases; media and internal references remain separate gates",
+    "Clean Electron restart, not database/power loss",
+    "Legacy edit receipts remain legacy; staging refuses later revisions even after Undo restores content"
+  ]
+}

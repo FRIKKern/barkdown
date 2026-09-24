@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C048",
   "stage": "P2",
-  "status": "active",
+  "status": "done",
   "goal": "Preserve genuine quotes and nested lists through migration and native Paper editing.",
   "scope": [
     "Map one-paragraph quotes to native blockquote carriers and recursive list children to the audited upstream representation",
@@ -17,10 +17,12 @@
   ],
   "checkpoint": "2026-09-24",
   "handoff": "docs/cycles/C048-quotes-nested-lists.md",
-  "nextAction": "Fresh isolated live screenshots, deterministic comparison/review/approval, root verification, evidence commit and push; inspect Linux table diagnostics.",
+  "nextAction": "Publish accepted C048 evidence, archive its cycle JSON, then begin profile-qualified internal-reference migration and continue Linux table diagnostics.",
   "evidence": [
-    "docs/cycles/C047-heading-alignment.md"
+    "docs/cycles/evidence/C048/results.json",
+    "docs/visual/migration/runs/2026-09-24T00-08-01-504Z/manifest.json",
+    "docs/visual/reviews/approval-1e288e06025a5439cd4508e65145332a59ecf2885af161667947f92caccff528.json"
   ],
-  "truthReview": "31 migration tests, full desktop, 21-case native/staging and local table 6/6 pass. Upstream full editor tests/build/budgets/anchors pass. Linux click timeout remains open.",
-  "screenshotReview": "31 migration stills, 96 video samples/decoded GIF frames and eight restart samples inspected, including full list break and narrow nesting. Standard captures pending."
+  "truthReview": "README, app guide, plan, handoff, validation, migration contract and branch/task inventory reviewed. Full desktop/root, 31 migration units, 21 native/staging cases and local table 6/6 pass. G1/G2 and Linux table timeout remain separate.",
+  "screenshotReview": "Actual migration 31 stills/96 video and GIF samples/eight restart samples; live five stills/37 GIF frames; changed fixture frames inspected and immutable approval recorded. No layout regression observed."
 }

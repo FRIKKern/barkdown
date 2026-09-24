@@ -1,0 +1,36 @@
+{
+  "reviewedAt": "2026-09-24T00:05:59.578Z",
+  "reviewer": "Codex",
+  "manifestSha256": "9b1dc230dfdd5e4819c8e0a8a1ab0966afc8e7b750f8012ffc0dcf101dcaf71d",
+  "source": "8319282eb6d0b2e74e348b3a86f4954e2fd5a0f8",
+  "upstream": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "stillsInspected": 30,
+  "editingVideoSamplesInspected": 108,
+  "decodedGifFramesInspected": 108,
+  "restartVideoSamplesInspected": 10,
+  "derivative": {
+    "file": "editing-and-undo.gif",
+    "sha256": "06e290936e95b8f46433c3f8c84127ba0656d0b7013fe9b1bd1c81078a4db361",
+    "source": "editing-and-undo.webm",
+    "sourceSha256": "7ac59c3171279a9fac87bd993d436968b6c83c245492793bb9a9995b1a2e823f",
+    "fps": 2,
+    "size": [
+      840,
+      540
+    ],
+    "palette": "256 colors, Floyd-Steinberg",
+    "cropped": false,
+    "masked": false
+  },
+  "findings": [
+    "Genuine quotes retain plain left rule and rich marks; mixed ordered/checklist/bullet hierarchy retains markers and checked state.",
+    "Deep child typing and Undo preserve the hierarchy, source carriers and siblings.",
+    "Heading alignment, long-title wrapping, code/table remain intact; loading and clean restart frames are retained."
+  ],
+  "limits": [
+    "List Shift Enter is semantically verified, but its lower lines are outside the captured viewport: supplemental targeted capture required.",
+    "Narrow capture covers the upper document, not nested lists: supplemental narrow list geometry required.",
+    "Disposable profile; no provider turn, navigation activation or real-library cutover.",
+    "Full video retained; two-fps sampling is not every source video frame."
+  ]
+}
