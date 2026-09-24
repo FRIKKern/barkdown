@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C050",
   "stage": "P2",
-  "status": "active",
+  "status": "done",
   "goal": "Stage owned local PNG images with exact byte verification and conservative interrupted-upload reconciliation before native Paper editing.",
   "scope": [
     "Accept only reviewed top-level images resolving to captured same-profile attachment files; preserve original bytes and image alt and width",
@@ -19,11 +19,12 @@
   ],
   "checkpoint": "2026-09-24",
   "handoff": "docs/cycles/C050-owned-images.md",
-  "nextAction": "Capture standard live/fixture views, compare and inspect, explicitly approve, run root verification, then commit/push reviewed evidence and rerun Linux parity.",
+  "nextAction": "Push the reviewed checkpoint; recheck Linux parity while starting bounded retained-backup restoration proof. A2 remains active.",
   "evidence": [
-    "docs/cycles/evidence/C049/results.json",
-    "docs/visual/migration/runs/2026-09-24T01-32-14-944Z/motion-review.json"
+    "docs/cycles/evidence/C050/results.json",
+    "docs/visual/migration/runs/2026-09-24T01-32-14-944Z/motion-review.json",
+    "docs/visual/reviews/approval-a272bdd133d02da31d393abf8359302cb096e788c9a675b49430b8b5012ce9ee.json"
   ],
-  "truthReview": "Planned from pushed C049 a08b901. Audited upstream30c007 versioned upload/list/get and original binary delivery. Upload is non-idempotent; no automatic absent-target replay.",
-  "screenshotReview": "C049 remains the reviewed baseline. New image journey requires dedicated native motion plus standard live/fixture tripwires."
+  "truthReview": "Current READMEs, plan, handoff and evidence distinguish bounded PNG proof from unfinished A2. Main plus one Barkdown lane; three owned upstream lanes;43 historical worktrees retained recoverably.",
+  "screenshotReview": "Ten native stills,35 video/GIF frames and eight restart frames reviewed. Final five live stills/all37 GIF frames reviewed; all changed fixture frames and GIF reviewed, explicitly approved. Earlier overlap candidates remain unapproved."
 }

@@ -1,0 +1,44 @@
+Parity rows against a local Barkpark	Parity rows	﻿2026-09-24T01:15:25.7151456Z ##[group]Run xvfb-run -a --server-args="-screen 0 1600x1000x24" node tests/parity.mjs
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:15:25.7152093Z [36;1mxvfb-run -a --server-args="-screen 0 1600x1000x24" node tests/parity.mjs[0m
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:15:25.7193306Z shell: /usr/bin/bash -e {0}
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:15:25.7193579Z env:
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:15:25.7193877Z   INSTALL_DIR_FOR_OTP: /home/runner/work/_temp/.setup-beam/otp
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:15:25.7194330Z   INSTALL_DIR_FOR_ELIXIR: /home/runner/work/_temp/.setup-beam/elixir
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:15:25.7194708Z   PARITY_ROWS: 
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:15:25.7194937Z   BARKDOWN_PROVIDER: api
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:15:25.7195208Z   ELECTRON_DISABLE_SANDBOX: 1
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:15:25.7195467Z ##[endgroup]
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:15:49.7505864Z GREEN tables       11/11 green                  24s  (row 10)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:16:13.7118484Z GREEN multiblock   11/11 green                  24s  (row 11)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:17:07.4474593Z GREEN opaque       22/22 note block types mount editable; 10/10 edits held by the server; 9/9 slash inserts land on the server; editor bundle from the server 54s  (row 12)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:17:26.0208259Z GREEN images       6/6 green                    19s  (row 13)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:17:41.3410463Z GREEN row14        4/4 green                    15s  (row 14)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:17:54.8828480Z GREEN ime          4/4 green                    14s  (row 15)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:18:08.1410222Z GREEN perf         3/3 green                    13s  (row 16)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:18:54.9693164Z GREEN gaps         13/13 green                  47s  (rows 1–7 (Notion behaviours))
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:19:08.4855365Z GREEN paper        11/11 paper checks           14s  (row 9 (ifRev, 412, re-apply))
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:19:20.8072474Z GREEN highlight    6/6 green                    12s  (#15)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:19:32.7377074Z GREEN find         6/6 green                    12s  (#17)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:19:43.4718422Z GREEN emoji        4/4 green                    11s  (#18)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:19:56.9151735Z GREEN mention      4/4 green                    13s  (#19)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:20:10.8325558Z GREEN subsup       6/6 green                    14s  (#20)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:20:24.3167573Z GREEN align        6/6 green                    13s  (#21)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:20:39.0140211Z GREEN linkpreview  6/6 green                    15s  (#23)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:20:50.1215553Z GREEN codehl       4/4 green                    11s  (#27)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:21:06.1260479Z GREEN tablespans   7/7 green                    16s  (#24)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:21:17.1320160Z GREEN tablewidths  5/5 green                    11s  (#25)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:22:27.6637065Z RED   tablehead    exit 1; 2/6 green            71s  (#26)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:22:27.6639785Z        "name": "the chrome's header-column toggle makes each body row's first cell a row header; the server holds headCol: true",
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:22:27.6641212Z        "pass": false,
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:22:27.6642580Z        "error": "page.waitForFunction: Timeout 30000ms exceeded.",
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:22:27.6644235Z        "name": "the bubble's align-right button on the Qty cell aligns the CELL; the server holds { content, align: \"right\" }",
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:22:27.6646193Z        "name": "the paper page renders <th scope=\"row\"> for the header column and text-align on the aligned cell",
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:22:27.6647569Z        "pass": false,
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:22:27.6648934Z        "name": "align-left on the same cell drops the attribute: the server holds the plain cell again",
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:22:27.6650712Z        "name": "centre the Price cell, reload: header column and alignment come back from the server as shown",
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:22:27.6651786Z        "pass": false,
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:22:27.6653118Z        "name": "toggling the header column off lands as headCol: false; the cells are plain <td> again",
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:22:27.6654226Z        "pass": false,
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:22:27.6654709Z 
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:22:27.6655117Z 19/20 rows green
+Parity rows against a local Barkpark	Parity rows	2026-09-24T01:22:27.6742082Z ##[error]Process completed with exit code 1.

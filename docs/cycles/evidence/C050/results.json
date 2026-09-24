@@ -1,0 +1,99 @@
+{
+  "recordedAt": "2026-09-24T01:48:03.434055+00:00",
+  "cycle": "C050",
+  "implementationCommit": "96c1c8c",
+  "finalNativeAndDesktopSource": "bc1dc8289a6235b5a97ce62e55f3a19935243a77",
+  "standardCaptureCommit": "d53a5a73effe7ffd4740116b34c7de3d611198c9",
+  "upstreamCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "checks": {
+    "migrationUnits": {
+      "passed": 51
+    },
+    "nativeImages": {
+      "postUploadProcessExit": 77,
+      "oneUploadForTwoReferences": true,
+      "exactBytes": true,
+      "altWidthDeleteSavedUndo": true,
+      "reloadRestart": true,
+      "sourceBackupWorkspaceUnchanged": true
+    },
+    "desktop": {
+      "exit": 0,
+      "skip": "Existing POSIX-only authentication test on Windows"
+    },
+    "root": {
+      "exit": 0
+    },
+    "tablehead": {
+      "passed": 6,
+      "total": 6,
+      "platform": "Windows",
+      "linux": "Pending fresh push; previous C049 run35941746300 failed19/20 on chrome selection and was corrected"
+    }
+  },
+  "visual": {
+    "nativeManifest": "docs/visual/migration/runs/2026-09-24T01-32-14-944Z/manifest.json",
+    "nativeStillsInspected": 10,
+    "rawVideoSamplesInspected": 35,
+    "decodedGifFramesInspected": 35,
+    "restartSamplesInspected": 8,
+    "fixtureManifest": "docs/visual/runs/2026-09-24T01-44-01-947Z/manifest.json",
+    "approval": "docs/visual/reviews/approval-a272bdd133d02da31d393abf8359302cb096e788c9a675b49430b8b5012ce9ee.json",
+    "fixtureFrames": 40,
+    "fixtureGifs": 8,
+    "fixtureChangedArtifacts": 4,
+    "fixtureDifference": "Three side-chat PNGs and one GIF differ only by1/255 RGB shadow pixels; inspected all changed stills and all four decoded GIF frames. Zero thresholded pixel/geometry/environment changes; all other artifacts byte-identical.",
+    "liveManifest": "docs/images/status/history/2026-09-24T01-43-58-021Z.json",
+    "liveRealProvider": {
+      "real": true,
+      "provider": "claude"
+    },
+    "liveStillsInspected": 5,
+    "liveGifFramesInspected": 37,
+    "sequencing": "Final standard captures ran after the entire desktop command exited. Earlier overlap candidates retained unapproved."
+  },
+  "limits": [
+    "Offline adapter, not a migration UI or authority switch.",
+    "Only captured owned top-level eight-bit non-interlaced grayscale/RGB PNG with optional alpha, alt and width. Explicit height/captions and other sources/encodings refuse.",
+    "Narrow native image ALT/URL controls are cramped; no UI polish claim.",
+    "Final readbacks detect observed changes; caller quiescence/ownership remains required, not a cross-service atomic snapshot.",
+    "Runtime origin must remain stable; no media portability claim.",
+    "No legacy history/receipt conversion or rollback of later Paper edits.",
+    "Unmerged stacked upstream dependency and separate upstream CI/enforcement gates remain.",
+    "Process exit and clean restart are not power-loss durability."
+  ],
+  "files": {
+    "docs/cycles/evidence/C050/48-tablehead.png": "a5b1809cadd0ceef4cabac5e9561966fa30c6b7d7e3fe4cf63995faea24d1649",
+    "docs/cycles/evidence/C050/c049-linux-parity.log": "443f40867fc9da6db58e63d5c81806760f2dc5d0ca0b295a06637afde427f4f2",
+    "docs/cycles/evidence/C050/c049-linux-tablehead-failure.png": "2e074c018a9e6e95155387dc83252feace61c65090735ffb137f72928c848208",
+    "docs/cycles/evidence/C050/c050-desktop.log": "80ee2bd127b42b8f4257773315bc247233d80280e267931ab7348f3ee763a86c",
+    "docs/cycles/evidence/C050/c050-existing-tests.log": "468058c4dc38ccdb4483ac1ee6c0d4a75c2d2790c5c74081202a904a4d4f584d",
+    "docs/cycles/evidence/C050/c050-ffmpeg.log": "b2f200f835008fb6c6d361f0c642b052e71ceebed67bff98da6349473c8e9eb9",
+    "docs/cycles/evidence/C050/c050-media-unit.log": "cd2a2b1737ffeb0d7e98b674e2777304d21a79a77ae00779349772e33ffa48fc",
+    "docs/cycles/evidence/C050/c050-migration-final-readback.log": "da98d3d15806b6d4a7c7bc8af5f7c337ef6f9a654afe9f67b0f854dbd9810753",
+    "docs/cycles/evidence/C050/c050-migration-unit-final.log": "d3f6d0db4f72fbce5dfe5b8564af8640d98de809a0864c88e0f4ac2a74b249b0",
+    "docs/cycles/evidence/C050/c050-migration-unit.log": "bf8c7ab883d3264df56f6625f81f485c185d215b5a7e18359b5c406f530e22b0",
+    "docs/cycles/evidence/C050/c050-native-images-final.log": "ed4f2123863c05cd453cbb94b227fa9516d6fbc9476707f35448798391dfbb16",
+    "docs/cycles/evidence/C050/c050-native-images-second.log": "dfada86c7ac8e804a6f7e08b20731f5c581ee35ec5de744b3f86c42586a1a9b6",
+    "docs/cycles/evidence/C050/c050-native-images.log": "0d4e8528a9ae54d3bd34959976783912bf35f7eed93bc5a97288c2d062deb823",
+    "docs/cycles/evidence/C050/c050-preflight-initial.log": "bad814722bd06e250c74c652e4a669f75845f9bf90b4e99b70493277aa168ea7",
+    "docs/cycles/evidence/C050/c050-root-verify.log": "b2c443ccf0285ac5762aa9ead8b115cf8861238cf959a9ce02f933aee6a1728b",
+    "docs/cycles/evidence/C050/c050-standard-live-final.log": "86d616e8f2310ce1750252e137677e8d4f39551a1186f175835776ab9043ac88",
+    "docs/cycles/evidence/C050/c050-standard-live.log": "81bae5cf79b1de6c59b03824bc37f80b5637651cf50bbcf70e9d0d046a86d738",
+    "docs/cycles/evidence/C050/c050-tablehead.log": "0d5f117cfbc738e3959996151729a010057221451c8f06eb1e58dad2fa2d4a7e",
+    "docs/cycles/evidence/C050/c050-visual-capture-final.log": "efb0c6a2dd466183ba272c1540f47e867f096cfdae5d76d8722e08958e994b28",
+    "docs/cycles/evidence/C050/c050-visual-capture.log": "cb97ca62648b779f9d95b649c510ee38f953bec1cff1b05b8f000cfcf058cc53",
+    "docs/cycles/evidence/C050/c050-visual-compare-final.log": "0d7cfea256d20a4bfbcb5e4317779b4f5cbbd54020aa94539280107f57b4a88c",
+    "docs/cycles/evidence/C050/c050-visual-compare.log": "66ded13a313bd4bdd07f73c18fddd47dd408b19f34df2e1a6766fec01b7bc1f7",
+    "docs/cycles/evidence/C050/capture-sequencing.json": "cfe88a35a9d34105a7ad7afd12eca599a5b3e72bcbed99344600d540387ca15d",
+    "docs/cycles/evidence/C050/repository-truth.json": "1470ac07fb997cbbb3610117452cf10b00bb74785ddbd07c25e091ddce64025e",
+    "docs/cycles/evidence/C050/tablehead.json": "6f841e2707acf0bb4efa8d2a414d146cce6c6890192c0a2bc991b2dc260d895e",
+    "docs/visual/migration/runs/2026-09-24T01-32-14-944Z/manifest.json": "e63f5b761ef68feaa2238d3cd1fb76be2a5b9936dfcfded245b083220ad19f11",
+    "docs/visual/migration/runs/2026-09-24T01-32-14-944Z/motion-review.json": "e5d8ed44c4e377dd9c874ad2c736d6c99b84b2012a2dded77c0d4eddaa220735",
+    "docs/visual/migration/runs/2026-09-24T01-32-14-944Z/recovery.json": "5d205c497f2c0a7d4df9d0ae995c29cb848911d00487920acc04c99dfd70ef93",
+    "docs/images/status/history/2026-09-24T01-43-58-021Z.json": "b93e82d79892ba4d3ad724966764cf4edcbd279afd57eb46775dfabb8ea882ea",
+    "docs/visual/runs/2026-09-24T01-44-01-947Z/manifest.json": "38712dd737985713b54bce9be05f20753bf3fd8a2acf0c5f6d3fde7084a4fe4f",
+    "docs/visual/runs/2026-09-24T01-44-01-947Z/comparison.json": "33e1455ba492fd5bd3f8d8d42bc8de19679e62befc77cf12d52e4f61093780cf",
+    "docs/visual/reviews/approval-a272bdd133d02da31d393abf8359302cb096e788c9a675b49430b8b5012ce9ee.json": "a272bdd133d02da31d393abf8359302cb096e788c9a675b49430b8b5012ce9ee"
+  }
+}
