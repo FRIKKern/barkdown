@@ -59,7 +59,15 @@ const frames=[],results=[],errors=[];
 const canvas=()=>page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas');
 const blocks=()=>canvas().evaluate(c=>c.recoverySnapshot().blocks);
 const ready=async()=>{await canvas().locator('.ProseMirror').waitFor({timeout:60000});await page.waitForFunction(()=>document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent.includes('Editing live'));};
-const arrived=async id=>{await page.waitForFunction(id=>document.querySelector('.bw-paper-pane:not([hidden]) #kicker')?.textContent.includes(id),id,{timeout:20000});await ready();};
+const arrived=async id=>{
+  const expected=await read(id),lead=expected.blocks[0].content[0].value;
+  await page.waitForFunction(({id,lead})=>{
+    const pane=document.querySelector('.bw-paper-pane:not([hidden])');
+    const c=pane?.querySelector('bp-paper-canvas');
+    return pane?.querySelector('#path')?.textContent.includes(id)&&c?._editor&&c.recoverySnapshot().blocks[0]?.content?.[0]?.value===lead;
+  },{id,lead},{timeout:20000});
+  await ready();
+};
 const open=async id=>{await page.evaluate(id=>window.__barkdown.openTarget({kind:'doc',id,source:'barkpark',title:id}),id);await arrived(id);assert.deepEqual(await blocks(),(await read(id)).blocks);};
 const shot=async name=>{await page.screenshot({path:path.join(out,name+'.png')});frames.push(name+'.png');};
 const launch=async()=>{app=await electron.launch({executablePath:require('electron'),args:[appDir,`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});page=await app.firstWindow();video=page.video();page.on('pageerror',e=>errors.push(e.message));await page.waitForSelector('#bw-pages .bw-page-row');await page.setViewportSize({width:1400,height:900});};
