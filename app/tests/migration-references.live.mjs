@@ -84,7 +84,7 @@ async function graph() {
   return values;
 }
 async function saved(id, previous) {
-  await page.waitForFunction(rev=>{const c=document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas');const host=[...window.__barkdown.controllers.values()].find(x=>x.el?.contains(c));const status=document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent||'';return c&&host&&!host.isDirty()&&!c.hasPendingChanges()&&Number(status.match(/Saved · rev (\d+)/)?.[1])>rev;},previous,{timeout:45000});
+  await page.waitForFunction(rev=>{const c=document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas');const host=[...window.__barkdown.controllers.values()].find(x=>x.el?.contains(c));const status=document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent||'';return c&&host&&!host.isDirty()&&!c.hasPendingChanges()&&Number(status.match(/Saved \u00b7 rev (\d+)/)?.[1])>rev;},previous,{timeout:45000});
   const value=await read(id);assert.deepEqual(await blocks(),value.blocks);return value;
 }
 async function navigate(lib, from, label, destination) {
@@ -139,7 +139,8 @@ try {
   assert.deepEqual(errors,[]);fs.writeFileSync(path.join(out,'graph.json'),JSON.stringify({initialGraph,afterRestart:await graph(),geometry,interruptedResume:true},null,2)+'\n');
   console.log('PASS six marked link carriers, cyclic native navigation, profile-pinned navigation, exact Undo/reload/restart, graph and process-interrupted resume');
 } catch(error) {
-  if(page){await page.screenshot({path:path.join(out,'failure.png')}).catch(()=>{});const state=await canvas().evaluate(c=>({editor:c._editor?.getJSON(),blocks:c.recoverySnapshot().blocks,html:c._editor?.view.dom.innerHTML})).catch(()=>null);fs.writeFileSync(path.join(out,'failure-state.json'),JSON.stringify(state,null,2));}
+  if(page){await page.screenshot({path:path.join(out,'failure.png')}).catch(()=>{});const state=await canvas().evaluate(c=>({editor:c._editor?.getJSON(),blocks:c.recoverySnapshot().blocks,pending:c.hasPendingChanges(),saveState:document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent,html:c._editor?.view.dom.innerHTML})).catch(()=>null);fs.writeFileSync(path.join(out,'failure-state.json'),JSON.stringify(state,null,2));}
+  fs.writeFileSync(path.join(out,'failure-server.json'),JSON.stringify(await read(libraries[0].ids.origin).catch(()=>null),null,2));
   fs.writeFileSync(path.join(out,'failure.txt'),error.stack);throw error;
 } finally {
   if(app)await close('restart-or-failure');

@@ -114,7 +114,7 @@ function inventoryProfile({ profileId, sourceDir, quiesced }) {
   for (const [i, { file, value }] of sources.entries()) {
     const references = new Map();
     issues.push(...inspectContent(value.content, { documents: lookup, references }).map(issue => ({ file: file.path, ...issue })));
-    if (references.size) documents[i].references = [...references.values()].sort((a, b) => a.sourceId.localeCompare(b.sourceId));
+    if (references.size) documents[i].references = [...references.values()].sort((a, b) => a.sourceId < b.sourceId ? -1 : a.sourceId > b.sourceId ? 1 : 0);
   }
   const entries = files.map(({ data, ...metadata }) => metadata);
   return { profileId, sourceDir: store.dir(), sourceHash: digest({ profileId, files: entries }), files, entries, documents, issues };
