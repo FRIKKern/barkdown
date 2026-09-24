@@ -44,3 +44,11 @@ assert.deepEqual(state.pages.children,{mine:['bp:nested'],'bp:group':['bp:child'
 assert.deepEqual(state.pages.cloudLayoutMigration.previousRoots,['mine','bp:loose','bp:group']);
 addPage('bp:loose');ensurePages();assert.ok(state.pages.roots.includes('bp:loose'),'migration runs only once');
 console.log('Page organization checks passed: archive discovery, browse, placement, nesting, refresh, persistence, disconnect, import routing and recoverable migration.');
+
+// Same-slug Pages and bookmarks must keep distinct durable owners.
+const {pageKey,splitKey}=await import('../renderer/src/pages.js');
+const {tabToTarget,favoriteKey}=await import('../renderer/src/state.js');
+const ownerA='a'.repeat(64),ownerB='b'.repeat(64),keyA=pageKey('same','barkpark',ownerA),keyB=pageKey('same','barkpark',ownerB);
+state.barkparkDocs=[{id:'same',title:'Original title',paperOwner:ownerA}];state.pages={layoutVersion:2,roots:['mine','bp:old'],children:{'bp:old':['bp:nested']},expanded:{'bp:old':true},seeded:true};addPage(keyA);render();assert.equal(host.querySelector(`[data-open="${keyA}"] .bw-page-title`).textContent,'Original title');
+state.barkparkDocs=[{id:'same',title:'Foreign title',paperOwner:ownerB}];addPage(keyB);render();assert.equal(host.querySelector(`[data-open="${keyA}"] .bw-page-title`).textContent,'Original title');assert.equal(host.querySelector(`[data-open="${keyB}"] .bw-page-title`).textContent,'Foreign title');assert.deepEqual(state.pages.children['bp:old'],['bp:nested']);assert.deepEqual(splitKey(keyA),{id:'same',source:'barkpark',paperOwner:ownerA});assert.equal(splitKey('bp:old').paperOwner,null);
+const targetA=tabToTarget({type:'doc',path:['same'],source:'barkpark',paperOwner:ownerA,title:'Original'}),targetB={...targetA,paperOwner:ownerB};assert.notEqual(favoriteKey(targetA),favoriteKey(targetB));assert.equal(tabToTarget({type:'doc',path:['same'],source:'barkpark'}).paperOwner,null);assert.deepEqual(serialise().pages.roots,['mine','bp:old',keyA,keyB]);console.log('PASS owner-qualified Pages, preserved legacy nesting, original labels and distinct favorites');

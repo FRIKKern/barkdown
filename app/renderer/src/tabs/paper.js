@@ -74,12 +74,12 @@ export function mountPaper(tab, host, ctx) {
   function setSaveState(text, kind = '') { q('#save-state').textContent = text; q('#save-state').dataset.kind = kind; }
   function themeAttr() { const t = document.documentElement.dataset.theme; return t || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); }
 
-  async function fetchPaper() { return api.barkpark.get(slug(), paper?.binding); }
+  async function fetchPaper() { return api.barkpark.get(slug(), paper?.binding, tab.paperOwner || null); }
 
   function renderMeta() {
     updateUndo();
     if (!paper) return;
-    const crumbs = ctx.pagePath ? ctx.pagePath(slug(), 'barkpark') : [];
+    const crumbs = ctx.pagePath ? ctx.pagePath(slug(), 'barkpark', tab.paperOwner) : [];
     q('#kicker').textContent = crumbs.length > 1 ? crumbs.join(' / ') : '';
     q('#meta').textContent = `${connectionChanged() ? 'Original connection required' : writesOn() ? 'Editing live' : 'Read-only'} · edited ${relativeTime(paper.updatedAt)}${paper.draft ? ' · draft' : ''}${paper.blocks ? '' : ' · HTML body'}`;
   }
@@ -204,7 +204,7 @@ export function mountPaper(tab, host, ctx) {
       // Echo: minted ids for new blocks come back on the paper itself.
       try {
         const echoRev = rev;
-        const fresh = await api.barkpark.get(id, paper?.binding);
+        const fresh = await api.barkpark.get(id, paper?.binding, tab.paperOwner || null);
         // An older echo may arrive after the next acknowledged batch. Never roll its baseline back.
         if (current() && echoRev === rev && seq === latestSeq && fresh?.blocks) {
           lastAcked = fresh.blocks;
@@ -224,7 +224,7 @@ export function mountPaper(tab, host, ctx) {
       const code = errorCode(error);
       if (code === 'precondition_failed' || error.status === 412) {
         let server = null;
-        try { server = await api.barkpark.get(id, paper?.binding); } catch {}
+        try { server = await api.barkpark.get(id, paper?.binding, tab.paperOwner || null); } catch {}
         if (!current()) return;
         pendingRetry = { ops, seq };
         setSaveState('Conflict', 'error');
@@ -253,7 +253,7 @@ export function mountPaper(tab, host, ctx) {
           // Fetch before discarding; an offline read must leave the draft and Retry available.
           const expected = latestSeq, expectedInput = inputVersion;
           try {
-            const fresh = await api.barkpark.get(id, paper?.binding);
+            const fresh = await api.barkpark.get(id, paper?.binding, tab.paperOwner || null);
             if (!current() || saving || latestSeq !== expected || inputVersion !== expectedInput) return;
             editor.resolveConflictWithServerBlocks(fresh.blocks || []);
             paper = fresh; rev = fresh.rev; lastAcked = fresh.blocks || []; pendingRetry = null;
@@ -284,7 +284,7 @@ export function mountPaper(tab, host, ctx) {
       const id = info.docId || info.target;
       if (!id) return null;
       try {
-        const p = await api.barkpark.get(id, paper?.binding);
+        const p = await api.barkpark.get(id, paper?.binding, tab.paperOwner || null);
         // The first line is the first paragraph, not the title again; the summary's excerpt is the fallback.
         const inline = nodes => (Array.isArray(nodes) ? nodes : []).map(n => typeof n === 'string' ? n : (n?.value ?? n?.text ?? inline(n?.children || n?.content))).join('');
         const first = (p.blocks || []).find(b => b?.type === 'paragraph');
@@ -336,11 +336,11 @@ export function mountPaper(tab, host, ctx) {
     q('#conflict').innerHTML = '';
     setSaveState('');
     let fetched;
-    try { fetched = await api.barkpark.get(id, paper?.binding); } catch (error) {
+    try { fetched = await api.barkpark.get(id, paper?.binding, tab.paperOwner || null); } catch (error) {
       if (current()) {
         loadFailed = true;
         if (canvas) { tab.path = [...mountedPath]; tab.source = mountedSource; ctx.tabChanged(tab); toast('Could not open ' + id + ': ' + errorMessage(error), 'error'); }
-        else q('#canvas-host').innerHTML = `<p class="bw-error">Could not open ${esc(id)}: ${esc(error.message)}</p>`;
+        else { q('#title').value = tab.title || id; q('#title').disabled = true; q('#canvas-host').innerHTML = `<p class="bw-error">Could not open ${esc(id)}: ${esc(errorMessage(error))}</p>`; }
       }
       return;
     }

@@ -273,7 +273,7 @@ async function cliScope(config) {
 }
 
 async function cliListAllPapers(config) {
-  const routing = await cliScope(config);
+  const routing = config.cliRouting || await cliScope(config);
   const documents = await readCatalog(({ limit, offset }) => cli([...routing, 'doc', 'query', 'paper', '--limit', String(limit), '--offset', String(offset), '--order', '_createdAt:asc', '--perspective', 'published', '--count', '--fields', catalogFields]));
   return catalogSummaries(documents);
 }

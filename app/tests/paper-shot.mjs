@@ -12,7 +12,7 @@ await page.waitForSelector('#bw-pages .bw-page-row');
 await page.setViewportSize({ width: 1400, height: 900 });
 await page.evaluate(async () => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true } }); await window.__barkdown.refreshLibrary(); });
 await page.waitForFunction(() => window.__barkdown.state.barkparkDocs.length > 0, null, { timeout: 90000 });
-await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug }), SLUG);
+await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug, paperOwner: window.__barkdown.state.barkparkDocs.find(d => d.id === slug)?.paperOwner }), SLUG);
 await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 });
 await page.waitForTimeout(800);
 const pm = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror');

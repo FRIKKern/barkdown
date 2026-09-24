@@ -1,0 +1,12 @@
+{
+ "summary": "0/1 green",
+ "failures": [
+  {
+   "name": "fixture execution",
+   "error": "page.waitForSelector: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror') to be visible\n\n    at /home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:72:14"
+  }
+ ],
+ "errors": []
+}
+Evidence: /home/runner/work/barkdown/barkdown/app/test-results/editor-gap-assertions/2026-09-24T07-56-13-426Z
+bp: published to http://localhost:4000 (POST /v1/plugins/bulldocs/papers)

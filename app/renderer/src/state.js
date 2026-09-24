@@ -35,14 +35,14 @@ export function newTab(type, extra = {}) {
 
 // A work tab as the target that reopens it later, in any chat: the thing, not the tab record.
 export function tabToTarget(t) {
-  if (t.type === 'doc') return { kind: 'doc', id: t.path.at(-1), source: t.source || 'local', title: t.title };
+  if (t.type === 'doc') return { kind: 'doc', id: t.path.at(-1), source: t.source || 'local', title: t.title, ...(t.source === 'barkpark' ? { paperOwner: t.paperOwner || null } : {}) };
   if (t.type === 'web') return { kind: 'web', url: t.url, title: t.title };
   if (t.type === 'project') return { kind: 'project', path: t.file || '', title: t.title };
   if (t.type === 'review') return { kind: 'review', path: t.path || '', title: t.title };
   if (t.type === 'chat') return { kind: 'chat', id: t.sideChatId, title: t.title };
   return { kind: t.type, title: t.title };
 }
-export function favoriteKey(target) { return `${target.kind}:${target.source || ''}:${target.id || target.url || target.path || ''}`; }
+export function favoriteKey(target) { return `${target.kind}:${target.source || ''}:${target.source === 'barkpark' ? (target.paperOwner || 'unknown') + ':' : ''}${target.id || target.url || target.path || ''}`; }
 
 export function currentChat() { return state.chats[state.current] || null; }
 export function activeTab(chat = currentChat()) { return chat?.tabs.find(t => t.id === chat.active) || null; }

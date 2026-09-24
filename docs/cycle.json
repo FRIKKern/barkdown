@@ -1,28 +1,26 @@
 {
   "version": 1,
-  "id": "C058",
+  "id": "C059",
   "stage": "P2",
-  "status": "done",
-  "goal": "Keep remote Undo receipts and retained proposals attached to their original connection across reopen and restart.",
+  "status": "active",
+  "goal": "Keep saved Paper navigation attached to its original library instead of reopening same-slug content from another connection.",
   "scope": [
-    "Derive an opaque durable connection owner inside the owning store; never persist a raw token or infer ownership for legacy evidence.",
-    "Keep same-slug receipts from different destinations separate; refuse foreign or unattributed execution before any remote access, while retaining originals.",
-    "Capture explicit CLI routing for provider tools and retain captured HTTP/profile context. Preserve local document edits and guarded revision checks.",
-    "Prove native same-ID/revision refusal with a newly opened foreign Paper, A/B/A and restart recovery; no authority activation or real-library cutover."
+    "Persist opaque connection ownership in new Paper tabs and favorites and enforce it before a reopened Paper read.",
+    "Keep explicitly typed local/Paper summaries separate; preserve unknown legacy navigation without assigning it to the current connection.",
+    "Carry owner identity through human Pages and linked navigation where required by this boundary. No origin classification, real-library migration, title support or authority activation."
   ],
   "acceptance": [
-    "A fresh valid B editor binding cannot execute an A receipt/proposal, even with equal document ID/revision.",
-    "Separate A/B receipts remain available only to the corresponding owner; restart preserves owner identity. Unknown old evidence remains readable and unmodified, with no executable Undo/Keep.",
-    "API and MCP edits produce scoped receipts using the same captured route as their read/write; local edits remain compatible.",
-    "Relevant full tests, native zero-request proof, fresh live/fixture evidence and actual review/approval pass."
+    "Saved A navigation refuses B same-slug content before transmission, survives restart and opens again on A.",
+    "A and B same-slug targets remain distinct; legacy unattributed targets remain preserved and visibly unavailable.",
+    "Current library selection remains usable; original human ordering and main/side-chat context remain intact.",
+    "Focused, full desktop/root and native reviewed evidence pass; standard/live tripwires follow source commit."
   ],
   "checkpoint": "2026-09-24",
-  "handoff": "docs/cycles/C058-remote-evidence-owner.md",
-  "nextAction": "Push the accepted C058 checkpoint, inspect exact-head Linux CI, then archive this record and plan bounded saved-navigation ownership.",
+  "handoff": "docs/cycles/C059-saved-paper-navigation.md",
+  "nextAction": "Audit actual catalog, tab/favorite/Page and provider-target routes; implement durable owner propagation with zero-request refusal and native restart proof.",
   "evidence": [
-    "docs/cycles/evidence/C058/review.json",
-    "docs/cycles/C058-remote-evidence-owner.md"
+    "docs/cycles/evidence/C058/remaining-navigation-audit.json"
   ],
-  "truthReview": "Full desktop/root and20/20 local parity pass; final native/live/fixture media reviewed. One delivery branch/draft PR33. Historical43 locked worktrees preserved; review recoverable retention after delivery, no destructive cleanup. Upstream title support, G1/G2 and P2 cutover remain open.",
-  "screenshotReview": "Reviewed native11 stills/58 decoded frames, live5/37, standard40 stills/40 diffs/40 GIF frames; explicit approval, unchanged fixture pixels/geometry."
+  "truthReview": "C058 accepted/pushed6d89372; exact-head Linux CI running. One delivery branch/PR33;43 locked historical worktrees preserved.",
+  "screenshotReview": "Pending new native same-slug saved-navigation proof and fresh standard/live review."
 }

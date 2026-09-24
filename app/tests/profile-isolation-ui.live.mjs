@@ -29,7 +29,7 @@ const loaded = async id => { await page.waitForFunction(id => window.__barkdown?
 const select = async id => {
   await page.keyboard.press('Control+,'); await page.locator('#profile-choice').selectOption(id); await page.locator('#profile-switch').click(); await loaded(id);
 };
-const openPaper = async () => { await page.evaluate(async () => { await window.__barkdown.refreshLibrary(); window.__barkdown.openTarget({ kind: 'doc', id: 'same-slug', source: 'barkpark', title: 'Owned paper' }); }); await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror').waitFor({ timeout: 180000 }); };
+const openPaper = async () => { await page.evaluate(async () => { await window.__barkdown.refreshLibrary(); window.__barkdown.openTarget({ kind: 'doc', id: 'same-slug', source: 'barkpark', title: 'Owned paper', paperOwner: window.__barkdown.state.barkparkDocs.find(d => d.id === 'same-slug')?.paperOwner }); }); await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror').waitFor({ timeout: 180000 }); };
 const paperText = () => page.locator('.bw-paper-pane:not([hidden]) .ProseMirror').innerText();
 const saveView = () => page.evaluate(async () => { const s = window.__barkdown.state; await window.barkdown.state.save({ version: 1, profileId: s.profileId, generation: s.generation, chats: s.chats, order: s.order, favorites: s.favorites, pages: s.pages, current: s.current, mode: s.mode, directTab: s.directTab }); });
 const storeFor = id => path.join(userData, 'profile-data/profiles', id);

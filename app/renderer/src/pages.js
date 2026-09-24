@@ -25,16 +25,20 @@ export function ensurePages() {
   return state.pages;
 }
 
-export function pageKey(id, source) { return source === 'barkpark' ? 'bp:' + id : id; }
-export function splitKey(key) { return key.startsWith('bp:') ? { id: key.slice(3), source: 'barkpark' } : { id: key, source: 'local' }; }
+export function pageKey(id, source, paperOwner) { return source === 'barkpark' ? (/^[a-f0-9]{64}$/.test(paperOwner || '') ? `bp:v1:${paperOwner}:${encodeURIComponent(id)}` : 'bp:' + id) : id; }
+export function splitKey(key) {
+  const owned = /^bp:v1:([a-f0-9]{64}):(.*)$/.exec(key);
+  if (owned) { try { return { id: decodeURIComponent(owned[2]), source: 'barkpark', paperOwner: owned[1] }; } catch {} }
+  return key.startsWith('bp:') ? { id: key.slice(3), source: 'barkpark', paperOwner: null } : { id: key, source: 'local' };
+}
 
 function allKeys() {
-  return [...state.documents.map(d => d.id), ...state.barkparkDocs.map(d => 'bp:' + d.id)];
+  return [...state.documents.map(d => d.id), ...state.barkparkDocs.map(d => pageKey(d.id, 'barkpark', d.paperOwner))];
 }
 
 function summaryFor(key) {
-  const { id, source } = splitKey(key);
-  return source === 'barkpark' ? state.barkparkDocs.find(d => d.id === id) : state.documents.find(d => d.id === id);
+  const { id, source, paperOwner } = splitKey(key);
+  return source === 'barkpark' ? state.barkparkDocs.find(d => d.id === id && (d.paperOwner || null) === paperOwner) : state.documents.find(d => d.id === id);
 }
 
 export function parentOf(key) {
@@ -47,7 +51,7 @@ export function pagePath(key) {
   const path = [];
   let current = key;
   let guard = 0;
-  while (current && guard++ < 20) { const s = summaryFor(current); path.unshift(s ? s.title : current); current = parentOf(current); }
+  while (current && guard++ < 20) { const s = summaryFor(current); path.unshift(s ? s.title : ensurePages().labels?.[current] || splitKey(current).id); current = parentOf(current); }
   return path;
 }
 
@@ -62,6 +66,8 @@ export function removeFromTree(key) {
 export function addPage(key, parent = null, index = null) {
   const pages = ensurePages();
   if (key === parent) return;
+  const summary = summaryFor(key);
+  if (summary) (pages.labels ||= {})[key] = summary.title;
   if (parent && !inTree(parent)) pages.roots.push(parent);
   removeFromTree(key);
   const list = parent ? (pages.children[parent] = pages.children[parent] || []) : pages.roots;
@@ -104,7 +110,7 @@ export function renderPages(host, deps) {
     const kids = pages.children[key] || [];
     const expanded = Boolean(pages.expanded[key]);
     const { source } = splitKey(key);
-    const title = s?.title || (key.startsWith('bp:') ? key.slice(3) : key);
+    const title = s?.title || pages.labels?.[key] || splitKey(key).id;
     return `<div class="bw-page" data-page="${esc(key)}" data-depth="${depth}" draggable="true" style="--depth:${depth}">
       <button class="bw-nav bw-page-row ${isOpen(key) ? 'selected' : ''}" data-open="${esc(key)}" data-source="${source}" title="${esc(s?.excerpt || title)}">
         <span class="bw-page-toggle ${kids.length ? '' : 'empty'}" data-toggle="${esc(key)}" aria-label="${expanded ? 'Collapse' : 'Expand'}">${iconHtml(expanded ? 'chevron-down' : 'chevron-right', 12)}</span>
@@ -141,8 +147,8 @@ export function renderPages(host, deps) {
       if (t?.dataset.add != null) { onNewSubpage(t.dataset.add); return; }
       if (t?.dataset.place != null) { delete (ensurePages().archived ||= {})[t.dataset.place]; addPage(t.dataset.place, null); renderPages(host, deps); toast('Added to pages'); return; }
       if (t?.dataset.more != null) { showMenu(t, t.dataset.more, host, deps); return; }
-      const { id, source } = splitKey(b.dataset.open);
-      openKey(id, source);
+      const { id, source, paperOwner } = splitKey(b.dataset.open);
+      openKey(id, source, paperOwner);
     };
     b.oncontextmenu = e => { e.preventDefault(); showMenu(b, b.dataset.open, host, deps); };
   });
@@ -196,10 +202,10 @@ function showMenu(anchor, key, host, deps) {
   const onDown = e => { if (!menu.contains(e.target)) close(); };
   setTimeout(() => document.addEventListener('pointerdown', onDown, true), 0);
   const importButton = menu.querySelector('[data-act="import"]');
-  if (importButton) importButton.onclick = () => { close(); deps.onImport(splitKey(key).id); };
+  if (importButton) importButton.onclick = () => { close(); deps.onImport(splitKey(key).id, splitKey(key).paperOwner); };
   menu.querySelector('[data-act="sub"]').onclick = () => { close(); deps.onNewSubpage(key); };
   menu.querySelector('[data-act="archive"]') && (menu.querySelector('[data-act="archive"]').onclick = () => { close(); const pages = ensurePages(); const kids = pages.children[key] || []; const parent = parentOf(key); removeFromTree(key); for (const k of kids) addPage(k, parent); delete pages.children[key]; (pages.archived ||= {})[key] = true; save(); renderPages(host, deps); });
   menu.querySelector('[data-act="place"]') && (menu.querySelector('[data-act="place"]').onclick = () => { close(); delete (ensurePages().archived ||= {})[key]; addPage(key, null); renderPages(host, deps); });
-  menu.querySelector('[data-act="side"]').onclick = () => { close(); const { id, source: s } = splitKey(key); deps.openBeside(id, s); };
+  menu.querySelector('[data-act="side"]').onclick = () => { close(); const { id, source: s, paperOwner } = splitKey(key); deps.openBeside(id, s, paperOwner); };
   menu.querySelector('[data-act="delete"]') && (menu.querySelector('[data-act="delete"]').onclick = () => { close(); deps.onDelete(splitKey(key).id); });
 }

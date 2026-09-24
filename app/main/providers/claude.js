@@ -37,10 +37,11 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
   context = run.context;
   storeDir = run.scope.storeDir;
   settings = frozenCopy(settings || {}); images = frozenCopy(images || []);
-  const spec = mcpServerSpec(storeDir, run.scope);
   (async () => {
     try {
       const { query } = await loadSdk();
+      await require('./runs').preparePaperNavigation(run);
+      const spec = mcpServerSpec(storeDir, run.scope);
       if (run.cancelled) { run.emit({ type: 'done', cancelled: true, provider: 'claude' }); return; }
       const folder = context.folder || null;
       const cwd = folder || scratchFolder(storeDir);

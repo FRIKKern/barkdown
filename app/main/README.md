@@ -52,3 +52,5 @@ The [migration contract](../../docs/migration/README.md) owns the current P2 lim
 - Earlier ownership, login, recovery and editor integration checkpoints are retained in [the P1 completion audit](../../docs/cycles/C039-completion-audit.md), [integration history](../../docs/cycles/C008-integration.md) and their linked galleries. Historical pending statements are not an additional active queue.
 
 C058 scopes persisted remote edit evidence to an opaque original-connection owner. Unknown older receipts/proposals remain reference-only; foreign same-slug records cannot execute. [Native evidence and limits](../../docs/visual/paper-evidence/README.md). The cycle handoff records current validation; it does not authorize migration cutover.
+
+C059 carries durable Paper navigation owners from catalog reads through saved targets and provider activity. Foreign/unknown saved references refuse before Paper reads; provider CLI routing is captured once and passed to its MCP process. [Navigation evidence](../../docs/visual/paper-navigation/README.md). Validation is tracked in the current handoff.

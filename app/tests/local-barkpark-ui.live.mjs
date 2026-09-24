@@ -24,7 +24,7 @@ async function waitFor(predicate, timeout = 180000) {
 try {
   await waitFor(() => page.evaluate(async () => (await window.barkdown.barkpark.localStatus()).phase === 'ready'), 240000);
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
-  await page.evaluate(() => window.__barkdown.openTarget({ kind: 'doc', id: 'welcome', source: 'barkpark', title: 'Welcome' }));
+  await page.evaluate(async () => { await window.__barkdown.refreshLibrary(); const d = window.__barkdown.state.barkparkDocs.find(d => d.id === 'welcome'); if (!d?.paperOwner) throw Error('Fixture catalog owner missing'); window.__barkdown.openTarget({ kind: 'doc', source: 'barkpark', id: d.id, title: d.title, paperOwner: d.paperOwner }); });
   await page.waitForSelector('bp-paper-canvas .ProseMirror', { timeout: 60000 });
   const before = await page.evaluate(() => window.barkdown.barkpark.get('welcome'));
   execFileSync(pgCtl, ['-D', pgData, '-m', 'immediate', '-w', 'stop'], { windowsHide: true, stdio: 'pipe' });

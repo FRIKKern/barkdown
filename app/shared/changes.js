@@ -62,10 +62,10 @@ export function summariseChanges(tools = [], events = []) {
     const proposed = /^Proposed/.test(e.label || '');
     const edited = /^Edited/.test(e.label || '');
     if (!created && !proposed && !edited) continue;
-    const key = `${e.target.source || 'local'}:${e.target.id}`;
+    const key = `${e.target.source || 'local'}:${e.target.paperOwner || ''}:${e.target.id}`;
     if (seenDocs.has(key)) continue;
     seenDocs.add(key);
-    docs.push({ id: e.target.id, source: e.target.source || 'local', title: e.target.title || e.target.id, kind: created ? 'created' : edited ? 'edited' : 'proposed' });
+    docs.push({ id: e.target.id, source: e.target.source || 'local', ...(e.target.source === 'barkpark' ? { paperOwner: e.target.paperOwner || null } : {}), title: e.target.title || e.target.id, kind: created ? 'created' : edited ? 'edited' : 'proposed' });
   }
   const rows = [...files.values()].map(r => ({ ...r, kinds: [...r.kinds] }));
   const additions = rows.reduce((n, r) => n + r.additions, 0);

@@ -20,6 +20,7 @@ const PROFILE_MODE = process.argv.includes('--profiles');
 let authorityOwnership = null, adoptionView = null, bootBusy = false;
 let localRuntime = null, localConfigKey = '';
 let catalogGeneration = 0;
+const paperNavigation = require('./paper-navigation').createPaperNavigation(store);
 const paperConnection = require('./paper-connection').createPaperConnection({
   config: () => ({ ...barkparkConfig(), connectionOwner: [store.dir(), profileService?.view()?.profileId || null, readSettings().barkpark.local?.enabled ? readSettings().barkpark.local : null] }),
   cliScope: c => barkpark.cliScope(c),
@@ -385,13 +386,26 @@ function registerIpc() {
   // The canvas bundle comes from the connected Barkpark (cached under userData); vendored is the fallback.
   handle('barkpark:bundle', () => canvasBundle.resolve({ config: barkparkConfig(), cacheDir: path.join(profileService ? store.dir() : app.getPath('userData'), 'canvas-bundle'), vendorDir: path.join(__dirname, '..', 'renderer', 'vendor') }));
   handle('barkpark:list', async () => {
-    const c = barkparkConfig(), generation = catalogGeneration;
-    const papers = await (c.viaCli ? barkpark.cliListAllPapers(c) : barkpark.listAllPapers(c));
+    const generation = catalogGeneration;
+    const { value } = await paperConnection.read(undefined, async c => {
+      const paperOwner = paperNavigation.identify(c);
+      const papers = await (c.viaCli ? barkpark.cliListAllPapers(c) : barkpark.listAllPapers(c));
+      return papers.map(paper => ({ ...paper, paperOwner }));
+    });
     if (generation !== catalogGeneration) throw new Error('The library connection changed during refresh; refresh again.');
-    return papers;
+    return value;
   });
   const input = value => typeof value === 'string' ? { id: value } : value;
-  handle('barkpark:get', async value => { const { id, binding } = input(value); const result = await paperConnection.read(binding, c => c.viaCli ? barkpark.cliGetPaper(id, c.cliRouting) : barkpark.getPaper(c, id)); return { ...result.value, binding: result.binding, connectionIdentity: result.connectionIdentity }; });
+  handle('barkpark:get', async value => {
+    const request = input(value), { id, binding } = request;
+    const result = await paperConnection.read(binding, async c => {
+      if (Object.hasOwn(request, 'paperOwner')) paperNavigation.assert(request.paperOwner, c);
+      const paperOwner = paperNavigation.identify(c);
+      const paper = await (c.viaCli ? barkpark.cliGetPaper(id, c.cliRouting) : barkpark.getPaper(c, id));
+      return { ...paper, paperOwner };
+    });
+    return { ...result.value, binding: result.binding, connectionIdentity: result.connectionIdentity };
+  });
   handle('barkpark:search', async value => { const { id: query, binding } = input(value); return (await paperConnection.read(binding, c => c.viaCli ? barkpark.cliSearch(query, 20, c.cliRouting) : barkpark.search(c, query))).value; });
   handle('barkpark:backlinks', async value => { const { id, binding } = input(value); return (await paperConnection.read(binding, c => c.viaCli ? barkpark.cliBacklinks(id, c.cliRouting) : barkpark.backlinks(c, id))).value; });
   handle('barkpark:related', async value => { const { id, binding } = input(value); return (await paperConnection.read(binding, c => c.viaCli ? [] : barkpark.related(c, id))).value; });

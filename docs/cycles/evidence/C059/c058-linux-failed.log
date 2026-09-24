@@ -1,0 +1,48 @@
+Parity rows against a local Barkpark	Parity rows	﻿2026-09-24T07:52:43.2811090Z ##[group]Run xvfb-run -a --server-args="-screen 0 1600x1000x24" node tests/parity.mjs
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:52:43.2811729Z [36;1mxvfb-run -a --server-args="-screen 0 1600x1000x24" node tests/parity.mjs[0m
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:52:43.2866809Z shell: /usr/bin/bash -e {0}
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:52:43.2867381Z env:
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:52:43.2867677Z   INSTALL_DIR_FOR_OTP: /home/runner/work/_temp/.setup-beam/otp
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:52:43.2868135Z   INSTALL_DIR_FOR_ELIXIR: /home/runner/work/_temp/.setup-beam/elixir
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:52:43.2868510Z   PARITY_ROWS: 
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:52:43.2868733Z   BARKDOWN_PROVIDER: api
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:52:43.2868985Z   ELECTRON_DISABLE_SANDBOX: 1
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:52:43.2869240Z ##[endgroup]
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:53:15.7902128Z RED   tables       exit 1; 9/11 green           32s  (row 10)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:53:15.7906619Z        "name": "slash /table inserts a table with a header row",
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:53:15.7907938Z        "name": "typing in cells; Tab and Shift+Tab move between cells",
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:53:15.7909379Z        "name": "server holds the typed cells after save",
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:53:15.7910747Z        "name": "Tab in the last cell adds a row (as TableKit does)",
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:53:15.7911835Z        "name": "chrome: add column, add row",
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:53:15.7912866Z        "name": "chrome: remove column, remove row",
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:53:15.7914019Z        "name": "server matches the canvas after structural edits",
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:53:15.7915783Z        "name": "undo a cell edit; server follows",
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:53:15.7917090Z        "name": "paste a GFM pipe table as a table block",
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:53:15.7917920Z        "pass": false,
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:53:15.7918872Z        "name": "Enter inside a cell does not split the table",
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:53:15.7920236Z        "name": "reload: the tables come back from the server as edited",
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:53:15.7921201Z        "pass": false,
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:53:44.7868093Z GREEN multiblock   11/11 green                  29s  (row 11)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:54:54.9944196Z GREEN opaque       22/22 note block types mount editable; 10/10 edits held by the server; 9/9 slash inserts land on the server; editor bundle from the server 70s  (row 12)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:55:16.9206873Z GREEN images       6/6 green                    22s  (row 13)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:55:38.1361414Z GREEN row14        4/4 green                    21s  (row 14)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:55:55.7964253Z GREEN ime          4/4 green                    18s  (row 15)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:56:12.8232181Z GREEN perf         3/3 green                    17s  (row 16)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:57:30.7905397Z RED   gaps         exit 1; 0/1 green            78s  (rows 1–7 (Notion behaviours))
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:57:30.7907353Z        "name": "fixture execution",
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:57:30.7918385Z        "error": "page.waitForSelector: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror') to be visible\n\n    at /home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:72:14"
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:57:51.2312006Z GREEN paper        11/11 paper checks           20s  (row 9 (ifRev, 412, re-apply))
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:58:09.1254803Z GREEN highlight    6/6 green                    18s  (#15)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:58:26.2302730Z GREEN find         6/6 green                    17s  (#17)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:58:43.6912098Z GREEN emoji        4/4 green                    17s  (#18)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:59:01.4889659Z GREEN mention      4/4 green                    18s  (#19)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:59:20.3498027Z GREEN subsup       6/6 green                    19s  (#20)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:59:40.5047341Z GREEN align        6/6 green                    20s  (#21)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T07:59:58.9606372Z GREEN linkpreview  6/6 green                    18s  (#23)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T08:00:15.1456484Z GREEN codehl       4/4 green                    16s  (#27)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T08:00:38.1621996Z GREEN tablespans   7/7 green                    23s  (#24)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T08:00:53.5676929Z GREEN tablewidths  5/5 green                    15s  (#25)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T08:01:16.9744879Z GREEN tablehead    6/6 green                    23s  (#26)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T08:01:16.9755807Z 
+Parity rows against a local Barkpark	Parity rows	2026-09-24T08:01:16.9756615Z 18/20 rows green
+Parity rows against a local Barkpark	Parity rows	2026-09-24T08:01:16.9857512Z ##[error]Process completed with exit code 1.

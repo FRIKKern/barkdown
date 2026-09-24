@@ -43,3 +43,5 @@ Real Paper callouts use softly tinted cards, restrained tonal borders and a sepa
 ### C058 — Bound edit evidence and tab titles
 
 Remote receipts and retained proposals belong to their original connection; unknown older records remain reference-only. Paper tab title attempts use the mounted editor owner and retain failed text without relabelling favorites. The current Paper API has no guarded title operation: title changes explicitly refuse before writing, because generic document patch only creates a draft twin. [Native evidence](../../../../docs/visual/paper-evidence/README.md) and the [current handoff](../../../../docs/NEXT-AGENT.md) record validation and limits.
+
+C059 sends the saved owner on every Paper read. A refused saved reference keeps its label and explains how to restore the original connection; it cannot silently become the current library's same-slug Paper. [Navigation evidence](../../../../docs/visual/paper-navigation/README.md). Validation is tracked in the current handoff.

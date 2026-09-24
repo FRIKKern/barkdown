@@ -21,7 +21,7 @@ await page.waitForSelector('#bw-pages .bw-page-row');
 await page.setViewportSize({ width: 1400, height: 900 });
 await connectPaperFixture(page);
 await page.waitForFunction(() => window.__barkdown.state.barkparkDocs.length > 0, null, { timeout: 90000 });
-const open = async () => { await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug }), SLUG); await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 }); await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 }); };
+const open = async () => { await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug, paperOwner: window.__barkdown.state.barkparkDocs.find(d => d.id === slug)?.paperOwner }), SLUG); await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 }); await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 }); };
 await open();
 
 // The canvas table as a grid of cell texts: [['Name','Qty'],['Apple','3']]; header cells prefixed with '#'.
@@ -49,9 +49,26 @@ const paste = (text, html) => page.evaluate(([t, h]) => { const dt = new DataTra
 const clickCell = async i => { const cells = pm.locator('.bp-table__td'); const n = await cells.count(); const idx = i < 0 ? n + i : i; await cells.nth(idx).click(); await page.evaluate(k => { const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor; const found = []; ed.state.doc.descendants((node, pos) => { if (node.type.name === 'bpTableCell') found.push({ pos, node }); }); const cell = found[k]; if (!cell) return; const $f = ed.state.selection.$from; let inside = false; for (let d = $f.depth; d > 0; d--) if ($f.before(d) === cell.pos) inside = true; if (inside && ed.state.selection.empty) return; ed.commands.setTextSelection(cell.pos + cell.node.nodeSize - 1); ed.commands.focus(); }, idx); };
 const chrome = async name => { const d = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas details:has(summary:has-text("Configure table"))').first(); if (!(await d.evaluate(el => el.open).catch(() => false))) await d.locator('summary').click(); return page.locator(`.bw-paper-pane:not([hidden]) bp-paper-canvas [aria-label*="${name}" i]`).first(); };
 const settle = () => page.waitForTimeout(600);
+// Paste conversion starts in a top-level paragraph, never a leftover whole-cell
+// selection. CI can retain table selection after a paragraph click; validate the
+// actual editor selection and place the fixture caret explicitly if necessary.
+const startParagraph = async () => {
+  await pm.locator('p:has-text("Start here")').first().click();
+  await page.evaluate(() => {
+    const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor;
+    let position = null; ed.state.doc.forEach((node, offset) => { if (node.type.name === 'paragraph' && node.textContent.includes('Start here')) position = offset + 1; });
+    if (position === null) throw Error('Top-level Start here paragraph missing');
+    if (ed.state.selection.$from.depth !== 1 || !ed.state.selection.$from.parent.textContent.includes('Start here') || !ed.state.selection.empty) ed.commands.setTextSelection(position);
+    ed.commands.focus();
+  });
+  await page.waitForFunction(() => { const s = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.state.selection; return s.empty && s.$from.depth === 1 && s.$from.parent.textContent.includes('Start here'); });
+  await page.keyboard.press('End'); await page.keyboard.press('Enter');
+  await page.waitForFunction(() => { const s = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.state.selection; return s.empty && s.$from.depth === 1 && s.$from.parent.type.name === 'paragraph' && !s.$from.parent.textContent; });
+};
+
 
 await row('slash /table inserts a table with a header row', async () => {
-  await pm.locator('p:has-text("Start here")').first().click(); await page.keyboard.press('End'); await page.keyboard.press('Enter');
+  await startParagraph();
   await page.keyboard.type('/table'); await page.waitForTimeout(400); await page.keyboard.press('Enter'); await settle();
   const g = await grids(); return { pass: g.length === 1 && g[0].length >= 1 && g[0][0].every(c => c.startsWith('#')), grid: g[0] };
 });
@@ -88,7 +105,7 @@ await row('undo a cell edit; server follows', async () => {
   return { ...r, pass: r.pass && !JSON.stringify(r.canvas).includes('XYZ') };
 });
 await row('paste a GFM pipe table as a table block', async () => {
-  await pm.locator('p:has-text("Start here")').first().click(); await page.keyboard.press('End'); await page.keyboard.press('Enter');
+  await startParagraph();
   await paste('| City | Pop |\n|---|---|\n| Oslo | 700k |\n| Bergen | 290k |'); await settle();
   const g = await grids(); const k = await kinds(); return { pass: g.length === 2 && same(g.find(t => t[0]?.[0] === '#City'), [['#City', '#Pop'], ['Oslo', '700k'], ['Bergen', '290k']]), tables: g.length, kinds: k };
 });
@@ -100,7 +117,7 @@ await row('Enter inside a cell does not split the table', async () => {
 });
 await row('reload: the tables come back from the server as edited', async () => {
   await waitSaved(); const before = await grids();
-  await page.evaluate(() => window.__barkdown.openTarget({ kind: 'chat' })).catch(() => {}); await page.waitForTimeout(500); await open(); await settle();
+  await page.reload(); await page.waitForFunction(() => window.__barkdown?.state.loaded); await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 }); await settle();
   const after = await grids(); return { pass: same(before, after) && same(after, serverGrids()), before, after };
 });
 

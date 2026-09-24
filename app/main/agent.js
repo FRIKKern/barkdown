@@ -86,7 +86,8 @@ function paperTools(run) {
   // This immutable connection belongs to the run, never the foreground profile.
   const config = run.scope.connection;
   const enabled = Boolean(config.enabled && (config.viaCli || config.server));
-  const captured = run.paperConnection ||= require('./paper-tool-connection').paperToolConnection(config);
+  const resolve = run.paperConnection ||= require('./paper-tool-connection').paperToolConnection(config);
+  const captured = async () => { const c = await resolve(); run.paperOwner = require('./paper-navigation').createPaperNavigation(run.scope.store).identify(c); return c; };
   return {
     async list() { if (!enabled) return []; const c = await captured(); return c.viaCli ? barkpark.cliListPapers(60, c.cliRouting) : barkpark.listPapers(c, 60); },
     async search(query) {

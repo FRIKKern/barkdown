@@ -37,7 +37,7 @@ const launch = flags => electron.launch({ executablePath: require('electron'), a
 const shot = async name => { const file = name + '.png'; await page.setViewportSize({ width: 1400, height: 900 }); await page.screenshot({ path: path.join(out, file) }); report.frames.push(file); };
 async function openPaper() {
   await page.waitForFunction(() => window.__barkdown?.state.loaded, null, { timeout: 180000 });
-  await page.evaluate(() => window.__barkdown.openTarget({ kind: 'doc', source: 'barkpark', id: 'adopted-paper', title: 'A retained paper' }));
+  await page.evaluate(async () => { await window.__barkdown.refreshLibrary(); const d = window.__barkdown.state.barkparkDocs.find(d => d.id === 'adopted-paper'); if (!d?.paperOwner) throw Error('Fixture catalog owner missing'); window.__barkdown.openTarget({ kind: 'doc', source: 'barkpark', id: d.id, title: d.title, paperOwner: d.paperOwner }); });
   await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror').waitFor({ timeout: 180000 });
 }
 try {

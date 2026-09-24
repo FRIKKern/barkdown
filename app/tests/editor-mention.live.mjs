@@ -19,7 +19,7 @@ await page.waitForSelector('#bw-pages .bw-page-row');
 await page.setViewportSize({ width: 1400, height: 900 });
 await connectPaperFixture(page);
 await page.waitForFunction(() => window.__barkdown.state.barkparkDocs.length > 0, null, { timeout: 90000 });
-await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug }), SLUG);
+await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug, paperOwner: window.__barkdown.state.barkparkDocs.find(d => d.id === slug)?.paperOwner }), SLUG);
 await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 });
 await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 });
 await page.waitForTimeout(500);
@@ -66,7 +66,7 @@ await row('an address stays plain text: "@" inside a word never opens the popup'
 });
 await row('reload: the wikilink comes back from the server as shown', async () => {
   await page.evaluate(() => window.__barkdown.openTarget({ kind: 'chat' })).catch(() => {}); await page.waitForTimeout(400);
-  await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug }), SLUG);
+  await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug, paperOwner: window.__barkdown.state.barkparkDocs.find(d => d.id === slug)?.paperOwner }), SLUG);
   await page.waitForSelector(`${pane} bp-paper-canvas .ProseMirror`, { timeout: 60000 }); await page.waitForTimeout(500);
   const canvas = await page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); const p = c._editor.getJSON().content.filter(n => n.type === 'paragraph')[0]; return (p.content || []).map(n => n.marks?.map(m => m.type).join('+') || n.type); });
   return { pass: canvas.some(t => /wikilink/.test(t)), canvas };
