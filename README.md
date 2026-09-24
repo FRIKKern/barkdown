@@ -48,4 +48,4 @@ People should also be able to chat and collaborate with each other. Groups can i
 
 Connections should be as direct and secure as possible, without unnecessary middlemen or middleware.
 
-AI and collaboration should remain optional. Barkdown should also be worth using simply for notes and browsing, fully offline.
+AI and collaboration should remain optional. Barkdown should also be worth using simply for notes and browsing, fully offline. We also want it to offer an elegant, efficient way to host your app or website.
