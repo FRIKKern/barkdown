@@ -73,8 +73,9 @@ try {
   // Ctrl+K belongs to link editing while the Paper canvas has focus.
   await page.locator('#bw-new-page').focus();
   await page.keyboard.press('Control+k'); await page.locator('#bw-palette-input').fill('Saffron');
-  await page.getByRole('option').filter({ hasText: title }).first().waitFor(); await shot('02b-body-search');
-  await page.getByRole('option').filter({ hasText: title }).first().click();
+  // The already-open tab has the same title: wait for the actual body-search excerpt.
+  await page.getByRole('option').filter({ hasText: text }).first().waitFor(); await shot('02b-body-search');
+  await page.getByRole('option').filter({ hasText: text }).first().click();
   await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror').waitFor();
   await open(paper);
   await save();
