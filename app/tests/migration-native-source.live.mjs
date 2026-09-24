@@ -31,14 +31,14 @@ const canvas=()=>page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas');
 const blocks=()=>canvas().evaluate(c=>c.recoverySnapshot().blocks);
 const ready=async()=>{await canvas().locator('.ProseMirror').waitFor({timeout:60000});await page.waitForFunction(()=>document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent.includes('Editing live'));};
 const open=async id=>{await page.evaluate(id=>window.__barkdown.openTarget({kind:'doc',id,source:'barkpark',title:id}),id);await ready();};
-async function saved(id,rev){await page.waitForFunction(rev=>{const c=document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'),host=[...window.__barkdown.controllers.values()].find(x=>x.el?.contains(c)),s=document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent||'';return c&&host&&!host.isDirty()&&!c.hasPendingChanges()&&Number(s.match(/Saved Ã‚Â· rev (\d+)/)?.[1])>rev;},rev,{timeout:45000});const value=await read(id);assert.deepEqual(await blocks(),value.blocks);return value;}
+async function saved(id,rev){await page.waitForFunction(rev=>{const c=document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'),host=[...window.__barkdown.controllers.values()].find(x=>x.el?.contains(c)),s=document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent||'';return c&&host&&!host.isDirty()&&!c.hasPendingChanges()&&Number(s.match(/Saved · rev (\d+)/)?.[1])>rev;},rev,{timeout:45000});const value=await read(id);assert.deepEqual(await blocks(),value.blocks);return value;}
 function insertX(blocks,needle){const value=structuredClone(blocks);let done=false;function visit(v){if(Array.isArray(v))v.forEach(visit);else if(v&&typeof v==='object'){if(!done&&v.type==='text'&&v.value===needle){v.value=v.value.slice(0,1)+'X'+v.value.slice(1);done=true;}else Object.values(v).forEach(visit);}}visit(value);assert.ok(done);return value;}
 try{
   await launch(true);assert.equal(await page.evaluate(()=>window.__barkdown.state.profileId),profileId);
   await page.evaluate(d=>window.__barkdown.openTarget({kind:'doc',id:d.id,title:d.title,source:'local'}),main);
   const editor=page.locator('.bw-doc-pane:visible .ProseMirror');await editor.waitFor();await shot('01-legacy-original');
   await editor.locator('p').filter({hasText:'Tail paragraph.'}).click();await page.keyboard.press('Control+End');await page.keyboard.type(' Written in the original editor.',{delay:30});
-  await page.waitForFunction(()=>document.querySelector('.bw-doc-pane:not([hidden]) #save-state')?.textContent.includes('Saved Ã‚Â· rev 2'));
+  await page.waitForFunction(()=>document.querySelector('.bw-doc-pane:not([hidden]) #save-state')?.textContent.includes('Saved · rev 2'));
   const source=await page.evaluate(id=>window.barkdown.docs.get(id),main.id);assert.equal(source.rev,2);
   const links=source.content.content[1].content.filter(n=>n.marks?.some(m=>m.type==='link'));
   assert.equal(links.length,2);for(const node of links){const a=node.marks.find(m=>m.type==='link').attrs;assert.equal(a.target,'_blank');assert.equal(a.rel,'noopener noreferrer nofollow');assert.equal(a.class,null);assert.equal(a.title,null);}
