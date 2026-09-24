@@ -1,0 +1,115 @@
+TAP version 13
+# Subtest: actual configured legacy schema defaults prepare without changing native content or backup bytes
+not ok 1 - actual configured legacy schema defaults prepare without changing native content or backup bytes
+  ---
+  duration_ms: 114.7305
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-native-source.test.mjs:25:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + [Object: null prototype] {
+    - {
+        class: null,
+        href: 'https://example.org',
+        rel: 'noopener noreferrer nofollow',
+        target: '_blank',
+        title: null
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    href: 'https://example.org'
+    target: '_blank'
+    rel: 'noopener noreferrer nofollow'
+    class: ~
+    title: ~
+  actual:
+    href: 'https://example.org'
+    target: '_blank'
+    rel: 'noopener noreferrer nofollow'
+    class: ~
+    title: ~
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-native-source.test.mjs:27:10)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.start (node:internal/test_runner/test:829:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: default link attributes resolve canonical internal references without mutating the source
+ok 2 - default link attributes resolve canonical internal references without mutating the source
+  ---
+  duration_ms: 46.898
+  ...
+# Subtest: custom link values are retained in blocked backups and staging performs no target access
+ok 3 - custom link values are retained in blocked backups and staging performs no target access
+  ---
+  duration_ms: 346.9235
+  ...
+# Subtest: null list marker type is eligible recursively; custom or malformed markers never disappear
+ok 4 - null list marker type is eligible recursively; custom or malformed markers never disappear
+  ---
+  duration_ms: 15.1668
+  ...
+# Subtest: foreign attributes and non-link mark metadata still refuse even when values are null
+ok 5 - foreign attributes and non-link mark metadata still refuse even when values are null
+  ---
+  duration_ms: 22.2952
+  ...
+# Subtest: all audited losses, unsupported structures and internal references refuse
+ok 6 - all audited losses, unsupported structures and internal references refuse
+  ---
+  duration_ms: 9.7788
+  ...
+# Subtest: inline carriage returns retain exact blocked backups while LF breaks remain supported
+ok 7 - inline carriage returns retain exact blocked backups while LF breaks remain supported
+  ---
+  duration_ms: 88.5392
+  ...
+# Subtest: heading marks and top-level alignment retain structure while unmapped alignment refuses
+ok 8 - heading marks and top-level alignment retain structure while unmapped alignment refuses
+  ---
+  duration_ms: 231.8337
+  ...
+# Subtest: nested lists and genuine quotes prepare exact backups while unmapped structures refuse
+ok 9 - nested lists and genuine quotes prepare exact backups while unmapped structures refuse
+  ---
+  duration_ms: 193.7189
+  ...
+# Subtest: exact backup preserves organization, proposals, history, binary media and receipts; excludes credentials
+ok 10 - exact backup preserves organization, proposals, history, binary media and receipts; excludes credentials
+  ---
+  duration_ms: 103.4769
+  ...
+# Subtest: lossy content is recorded as blocked and never produces a partial conversion
+ok 11 - lossy content is recorded as blocked and never produces a partial conversion
+  ---
+  duration_ms: 44.0119
+  ...
+# Subtest: process interruption at each durable boundary resumes without duplicate files or IDs
+ok 12 - process interruption at each durable boundary resumes without duplicate files or IDs
+  ---
+  duration_ms: 541.7356
+  ...
+# Subtest: changed source and corrupt backups or manifests refuse, retaining original data
+ok 13 - changed source and corrupt backups or manifests refuse, retaining original data
+  ---
+  duration_ms: 226.7669
+  ...
+# Subtest: owner, quiescence, malformed records and unsafe destinations fail closed
+ok 14 - owner, quiescence, malformed records and unsafe destinations fail closed
+  ---
+  duration_ms: 56.9954
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 13
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1631.6308

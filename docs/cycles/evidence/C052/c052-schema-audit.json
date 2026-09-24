@@ -1,0 +1,259 @@
+{
+  "actual": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 1
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "A heading"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "link",
+                "attrs": {
+                  "href": "https://example.org",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer nofollow",
+                  "class": null,
+                  "title": null
+                }
+              }
+            ],
+            "text": "An external link"
+          },
+          {
+            "type": "text",
+            "text": " and "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "text": "rich"
+          },
+          {
+            "type": "text",
+            "text": " text."
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "start": 1,
+          "type": null
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "First"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Second"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "blockquote",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "A quote"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null,
+                  "align": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Header"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null,
+                  "align": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Value"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null,
+                  "align": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Cell"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null,
+                  "align": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "More"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "taskList",
+        "content": [
+          {
+            "type": "taskItem",
+            "attrs": {
+              "checked": true
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Done"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "codeBlock",
+        "attrs": {
+          "language": "js"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "const value=1;"
+          }
+        ]
+      }
+    ]
+  },
+  "issues": [
+    {
+      "path": "$.content[1].content[0].marks[0]",
+      "reason": "Unmapped mark attribute: target"
+    },
+    {
+      "path": "$.content[1].content[0].marks[0]",
+      "reason": "Unmapped mark attribute: rel"
+    },
+    {
+      "path": "$.content[1].content[0].marks[0]",
+      "reason": "Unmapped mark attribute: class"
+    },
+    {
+      "path": "$.content[1].content[0].marks[0]",
+      "reason": "Unmapped mark attribute: title"
+    },
+    {
+      "path": "$.content[2].attrs.type",
+      "reason": "Unmapped attribute"
+    }
+  ]
+}
