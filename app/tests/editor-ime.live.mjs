@@ -1,3 +1,5 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
+import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // Row 15: IME composition does not produce stray ops — a dead key ("¨" then "u" → "ü") and a CJK run
 // composed through the IME (にほん → 日本) emit nothing mid-composition, land on the server once,
 // as one patch per composed run, and undo removes the whole run in one step. Composition is driven
@@ -17,9 +19,9 @@ const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });
 await page.waitForSelector('#bw-pages .bw-page-row');
 await page.setViewportSize({ width: 1400, height: 900 });
-await page.evaluate(async () => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true } }); await window.__barkdown.refreshLibrary(); });
+await connectPaperFixture(page);
 await page.waitForFunction(() => window.__barkdown.state.barkparkDocs.length > 0, null, { timeout: 90000 });
-const open = async () => { await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug }), SLUG); await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 }); await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 }); await page.waitForTimeout(500); };
+const open = async () => { await openFixturePaper(page, SLUG); await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 }); await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 }); await page.waitForTimeout(500); };
 await open();
 // Count every ops batch the canvas emits, with the text it carried, so a batch sent mid-composition is named.
 await page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); window.__ops = []; c.addEventListener('bp-canvas-ops', e => { const ops = e.detail?.ops || e.detail || []; window.__ops.push({ at: Date.now(), ops: JSON.parse(JSON.stringify(ops)), composing: !!c._editor?.view?.composing }); }); });

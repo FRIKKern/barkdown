@@ -1,3 +1,5 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
+import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // Live check of the Barkpark paper tab: edits typed into <bp-paper-canvas> land on the connected server
 // through the fenced ops endpoint, and a stale revision surfaces as a conflict instead of overwriting.
 // Uses the scratch paper `barkdown-editor-test` on the bp-connected server. Not part of `npm test`.
@@ -22,13 +24,13 @@ await page.setViewportSize({ width: 1400, height: 900 });
 const results = [];
 const step = (name, ok) => { results.push({ name, ok }); if (!ok) throw new Error('Failed: ' + name); };
 try {
-  await page.evaluate(async () => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true } }); await window.__barkdown.refreshLibrary(); });
+  await connectPaperFixture(page);
   await page.evaluate(() => window.__barkdown.expandArchive());
   await page.waitForSelector('#bw-pages [data-source="barkpark"], #bw-cloud-archive [data-source="barkpark"]', { timeout: 90000 });
   // Reset the scratch paper to a known shape (unfenced publish) so earlier runs cannot skew the checks.
   publishFixture({ slug: SLUG, title: 'Fenced ops round trip', description: 'Scratch paper for the Barkdown paper tab: a typed change lands through the fenced ops endpoint under a revision guard, an injected external edit forces a 412 and the conflict card keeps both edits; rewritten on every run of tests/paper.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Barkdown editor test' }, { type: 'paragraph', content: [{ type: 'text', value: 'Type here; the change lands through the fenced ops endpoint with a revision guard.' }] }, { type: 'list', ordered: false, items: [[{ type: 'text', value: 'Cross-block caret and Enter split' }], [{ type: 'text', value: 'Server-acknowledged saves' }], [{ type: 'text', value: 'Conflicts surface instead of overwriting' }]] }] });
   const before = serverPaper();
-  await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug }), SLUG);
+  await openFixturePaper(page, SLUG);
   await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 });
   await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 });
   step('paper opened in the Barkpark canvas with live editing', true);
@@ -71,16 +73,17 @@ try {
   // Clean up the appended external block so the scratch paper does not grow unbounded.
   const extra = merged.blocks.filter(b => JSON.stringify(b).includes('External edit from another writer.')).map(b => ({ op: 'remove-block', id: b.id }));
   if (extra.length) bp(['bulldocs', 'patch', SLUG, '--file', '-', '--yes'], JSON.stringify({ ifRev: merged.rev, ops: extra }));
-  step('opening a cloud paper never places it in Pages', await page.evaluate(slug => !window.__barkdown.state.pages.roots.includes('bp:' + slug), SLUG));
+  step('opening a cloud paper never places it in Pages', await page.evaluate(slug => !window.__barkdown.state.pages.roots.some(key => key === 'bp:' + slug || key.endsWith(':' + encodeURIComponent(slug))), SLUG));
   await page.evaluate(async () => { await window.__barkdown.refreshLibrary(); window.__barkdown.expandArchive(); });
   const cloudTitle = await page.evaluate(slug => window.__barkdown.state.barkparkDocs.find(d => d.id === slug)?.title, SLUG);
   if (!cloudTitle) throw new Error('Scratch paper missing from listing');
   await page.locator('#bw-cloud-archive-filter').fill(cloudTitle);
-  await page.locator('#bw-cloud-archive [data-open="bp:' + SLUG + '"]').hover();
-  await page.locator('#bw-cloud-archive [data-more="bp:' + SLUG + '"]').click({timeout:10000});
+  const cloudKey = await page.evaluate(slug => { const d = window.__barkdown.state.barkparkDocs.find(d => d.id === slug); return `bp:v1:${d.paperOwner}:${encodeURIComponent(slug)}`; }, SLUG);
+  await page.locator('#bw-cloud-archive [data-open="' + cloudKey + '"]').hover();
+  await page.locator('#bw-cloud-archive [data-more="' + cloudKey + '"]').click({timeout:10000});
   await page.locator('[data-act="import"]').click();
   await page.waitForFunction(title => window.__barkdown.state.documents.some(d => d.title === title && window.__barkdown.state.pages.roots.includes(d.id)), cloudTitle, {timeout:30000});
-  step('import creates a local Page and leaves the cloud original unplaced', await page.evaluate(slug => !window.__barkdown.state.pages.roots.includes('bp:' + slug), SLUG));
+  step('import creates a local Page and leaves the cloud original unplaced', await page.evaluate(slug => !window.__barkdown.state.pages.roots.some(key => key === 'bp:' + slug || key.endsWith(':' + encodeURIComponent(slug))), SLUG));
   const relevant = errors.filter(e => !/Autofill|devtools|ERR_BLOCKED_BY_RESPONSE|Electron Security Warning|CSP/i.test(e));
   step('no renderer errors', relevant.length === 0 || (console.error(relevant), false));
 } finally {

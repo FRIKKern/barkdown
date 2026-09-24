@@ -1,0 +1,19 @@
+locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('#bw-tabs .bw-tab.active [data-fav]')[22m
+[2m    - locator resolved to <button class="" title="Add to favorites" aria-label="Add to favorites" data-fav="d1456a27-9276-473c-b73e-66c7a8a3f799">…</button>[22m
+[2m  - attempting click action[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not visible[22m
+[2m    - retrying click action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not visible[22m
+[2m    - retrying click action[22m
+[2m      - waiting 100ms[22m
+[2m    58 × waiting for element to be visible, enabled and stable[22m
+[2m       - element is not visible[22m
+[2m     - retrying click action[22m
+[2m       - waiting 500ms[22m
+
+    at C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\tests\paper-evidence-owner.live.mjs:63:59

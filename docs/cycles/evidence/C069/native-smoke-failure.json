@@ -1,0 +1,27 @@
+{
+  "host": "7052c177b177adc653babae3b2dfe8122516c4b8",
+  "upstream": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "sourceDirty": true,
+  "model": "Scripted SSE through actual API SDK; not live model proof",
+  "theme": "dark",
+  "frames": [
+    "01-created-through-chat.png",
+    "02-agent-edit-with-undo.png",
+    "03-narrow-agent-edit.png",
+    "04-restarted-with-undo.png",
+    "05-undone-after-restart.png"
+  ],
+  "results": [],
+  "errors": [],
+  "failure": "page.evaluate: Error: [paper_connection_changed] This Paper belongs to a different connection. Restore its original connection in Settings to continue. Your unsaved edits stay in this window.\n    at C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\agent-notes-ui.live.mjs:75:28",
+  "artifacts": {
+    "01-created-through-chat.png": "96feeb56ed1e729211c494f8000d56a5900b56dd665fc5628b653ea052fcf300",
+    "02-agent-edit-with-undo.png": "a7884ace7a7b3899310287ee825031494ab51ff1d4eee78f4eb3f861a20254fd",
+    "03-narrow-agent-edit.png": "7bcdc84f545b2dd9b6ff1a6265397c76ae5815a449fd17f2d54faae26107e8bc",
+    "04-restarted-with-undo.png": "a5e386f70e79683995f8f868bdda7778651dac4133ac3c6f92b161e2be8fe51a",
+    "05-undone-after-restart.png": "cc9fe7852cb804657b5bdd1ad87bfdcf791cb91532b1ee7f5ba978487cd20b6f",
+    "create-edit-profile-switch.webm": "96977f6781a0ed119e6baba3dd535020b646db2dac417c7b7af18a8775b97b2f",
+    "failure.png": "dba90187a60e8a3c23af5d56d9495a7fc044e3d660339ee22b8c24a6239bcf6b",
+    "restart-undo-human-edit.webm": "24ec8a343699a837b82cae974e83d182bcea2b05d9d90ed69b4af0ecc6bdc44b"
+  }
+}

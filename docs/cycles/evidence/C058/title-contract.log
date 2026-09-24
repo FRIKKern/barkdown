@@ -1,0 +1,336 @@
+TAP version 13
+# Subtest: CLI preserves search arguments and pipes only explicit bodies; Paper rename refuses before writing
+ok 1 - CLI preserves search arguments and pipes only explicit bodies; Paper rename refuses before writing
+  ---
+  duration_ms: 4.5099
+  ...
+# Subtest: complete catalog of 0 papers
+ok 2 - complete catalog of 0 papers
+  ---
+  duration_ms: 0.5317
+  ...
+# Subtest: complete catalog of 1 papers
+ok 3 - complete catalog of 1 papers
+  ---
+  duration_ms: 0.8819
+  ...
+# Subtest: complete catalog of 60 papers
+ok 4 - complete catalog of 60 papers
+  ---
+  duration_ms: 0.5602
+  ...
+# Subtest: complete catalog of 61 papers
+ok 5 - complete catalog of 61 papers
+  ---
+  duration_ms: 0.3296
+  ...
+# Subtest: complete catalog of 200 papers
+ok 6 - complete catalog of 200 papers
+  ---
+  duration_ms: 0.5566
+  ...
+# Subtest: complete catalog of 201 papers
+ok 7 - complete catalog of 201 papers
+  ---
+  duration_ms: 0.4675
+  ...
+# Subtest: complete catalog of 400 papers
+ok 8 - complete catalog of 400 papers
+  ---
+  duration_ms: 0.8132
+  ...
+# Subtest: complete catalog of 401 papers
+ok 9 - complete catalog of 401 papers
+  ---
+  duration_ms: 1.5391
+  ...
+# Subtest: refuses old response without pagination
+ok 10 - refuses old response without pagination
+  ---
+  duration_ms: 1.5834
+  ...
+# Subtest: refuses missing total
+ok 11 - refuses missing total
+  ---
+  duration_ms: 0.6977
+  ...
+# Subtest: refuses wrong offset
+ok 12 - refuses wrong offset
+  ---
+  duration_ms: 0.573
+  ...
+# Subtest: refuses wrong limit
+ok 13 - refuses wrong limit
+  ---
+  duration_ms: 0.5815
+  ...
+# Subtest: refuses wrong count
+ok 14 - refuses wrong count
+  ---
+  duration_ms: 0.605
+  ...
+# Subtest: refuses unknown perspective
+ok 15 - refuses unknown perspective
+  ---
+  duration_ms: 0.5697
+  ...
+# Subtest: refuses nonboolean hasMore
+ok 16 - refuses nonboolean hasMore
+  ---
+  duration_ms: 0.5337
+  ...
+# Subtest: refuses missing next offset
+ok 17 - refuses missing next offset
+  ---
+  duration_ms: 0.6137
+  ...
+# Subtest: refuses nonadvancing next offset
+ok 18 - refuses nonadvancing next offset
+  ---
+  duration_ms: 0.9657
+  ...
+# Subtest: refuses overlapping page
+ok 19 - refuses overlapping page
+  ---
+  duration_ms: 0.6639
+  ...
+# Subtest: refuses short intermediate page
+ok 20 - refuses short intermediate page
+  ---
+  duration_ms: 0.5862
+  ...
+# Subtest: refuses invalid paper id
+ok 21 - refuses invalid paper id
+  ---
+  duration_ms: 0.5558
+  ...
+# Subtest: refuses draft in published catalog
+ok 22 - refuses draft in published catalog
+  ---
+  duration_ms: 0.6716
+  ...
+# Subtest: refuses duplicate inside page
+ok 23 - refuses duplicate inside page
+  ---
+  duration_ms: 0.5341
+  ...
+# Subtest: refuses over budget total
+ok 24 - refuses over budget total
+  ---
+  duration_ms: 0.5096
+  ...
+# Subtest: refuses changing totals and repeated ids across pages
+ok 25 - refuses changing totals and repeated ids across pages
+  ---
+  duration_ms: 2.0884
+  ...
+# Subtest: refuses false finality, extra final offset and failed later pages
+ok 26 - refuses false finality, extra final offset and failed later pages
+  ---
+  duration_ms: 0.931
+  ...
+# Subtest: byte and elapsed budgets refuse instead of returning a prefix
+ok 27 - byte and elapsed budgets refuse instead of returning a prefix
+  ---
+  duration_ms: 30.1621
+  ...
+# Subtest: HTTP adapter captures connection, uses audited pagination and preserves bounded provider listing
+ok 28 - HTTP adapter captures connection, uses audited pagination and preserves bounded provider listing
+  ---
+  duration_ms: 58.1594
+  ...
+# Subtest: HTTP catalog stops an oversized page before parsing or publishing it
+ok 29 - HTTP catalog stops an oversized page before parsing or publishing it
+  ---
+  duration_ms: 104.2648
+  ...
+# Subtest: refuses a constant-count deletion/insertion that would silently skip a boundary paper
+ok 30 - refuses a constant-count deletion/insertion that would silently skip a boundary paper
+  ---
+  duration_ms: 0.843
+  ...
+# Subtest: boundary overlap does not excuse duplicate identities later in a page
+ok 31 - boundary overlap does not excuse duplicate identities later in a page
+  ---
+  duration_ms: 0.7624
+  ...
+# (node:22988) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/renderer/src/tabs/paper.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# [
+#   {
+#     "name": "a cold bundle resolves before committing destination identity or mounting either canvas",
+#     "pass": true
+#   },
+#   {
+#     "name": "document targets reuse only tabs with the same explicit source",
+#     "pass": true
+#   },
+#   {
+#     "name": "opening an earlier target in a mounted Paper path changes the actual canvas",
+#     "pass": true
+#   },
+#   {
+#     "name": "opening an earlier target retains the current Paper when native changes are pending",
+#     "pass": true
+#   },
+#   {
+#     "name": "an external edit during the first paper load is refreshed after mounting",
+#     "pass": true
+#   },
+#   {
+#     "name": "human position takeover during loading still consumes a queued external edit",
+#     "pass": true
+#   },
+#   {
+#     "name": "tab navigation during initial Paper read preserves the saved reading position",
+#     "pass": true
+#   },
+#   {
+#     "name": "late initial load cannot replace a newer destination",
+#     "pass": true
+#   },
+#   {
+#     "name": "pending initial layout preserves position but explicit user scrolling wins",
+#     "pass": true
+#   },
+#   {
+#     "name": "undecoded initial images cannot acknowledge a clamped loading position",
+#     "pass": true
+#   },
+#   {
+#     "name": "human engagement before canvas readiness defeats late restoration",
+#     "pass": true
+#   },
+#   {
+#     "name": "an offscreen lazy image does not block initial restoration",
+#     "pass": true
+#   },
+#   {
+#     "name": "unresolved metadata never blocks navigation and a destroyed host never restores later",
+#     "pass": true
+#   },
+#   {
+#     "name": "reload preserves a pending human edit and the mounted canvas",
+#     "pass": true
+#   },
+#   {
+#     "name": "navigation refuses to discard pending content and restores the source path",
+#     "pass": true
+#   },
+#   {
+#     "name": "a rejected batch stays on screen during reload",
+#     "pass": true
+#   },
+#   {
+#     "name": "reload requested during an in-flight write retains that document until acknowledgement",
+#     "pass": true
+#   },
+#   {
+#     "name": "out-of-order save echoes cannot roll the acknowledged baseline back",
+#     "pass": true
+#   },
+#   {
+#     "name": "human typing during a reload wins over its delayed response",
+#     "pass": true
+#   },
+#   {
+#     "name": "a chained acknowledgement cannot clear the next batch save guard",
+#     "pass": true
+#   },
+#   {
+#     "name": "wrapped titles retain single-line input and Enter respects composition",
+#     "pass": true
+#   },
+#   {
+#     "name": "pending title save prevents navigation and remains owned by its paper",
+#     "pass": true
+#   },
+#   {
+#     "name": "failed title remains editable until retry or explicit discard",
+#     "pass": true
+#   },
+#   {
+#     "name": "tab rename waits for captured-owner acknowledgement before changing tab and favorite",
+#     "pass": true
+#   },
+#   {
+#     "name": "refused tab rename retains title draft without relabelling the tab or favorite",
+#     "pass": true
+#   },
+#   {
+#     "name": "tab rename cannot replace an unsaved human title",
+#     "pass": true
+#   },
+#   {
+#     "name": "destroyed host ignores late failed writes",
+#     "pass": true
+#   },
+#   {
+#     "name": "failed navigation read retains the old editor including input made during the read",
+#     "pass": true
+#   },
+#   {
+#     "name": "failed navigation does not invalidate the retained title editor",
+#     "pass": true
+#   },
+#   {
+#     "name": "discard waits for a saved copy and cannot overwrite intervening input",
+#     "pass": true
+#   },
+#   {
+#     "name": "title writes serialize while retaining a newer typed title",
+#     "pass": true
+#   },
+#   {
+#     "name": "choosing the server conflict version clears the dirty navigation guard",
+#     "pass": true
+#   },
+#   {
+#     "name": "a fully acknowledged human edit during reload also defeats its stale snapshot",
+#     "pass": true
+#   },
+#   {
+#     "name": "a fully saved title during reload defeats the stale title snapshot",
+#     "pass": true
+#   },
+#   {
+#     "name": "a refused external application never advances the next write revision",
+#     "pass": true
+#   },
+#   {
+#     "name": "an accepted external application advances the next write revision",
+#     "pass": true
+#   },
+#   {
+#     "name": "older bundles retain their original revision and offer an explicit reload",
+#     "pass": true
+#   },
+#   {
+#     "name": "an outstanding own echo finishes before a newer external revision can be accepted",
+#     "pass": true
+#   },
+#   {
+#     "name": "connection change keeps the mounted buffer and forwards its original binding on retry and reload",
+#     "pass": true
+#   },
+#   {
+#     "name": "connection-change banner never labels the old paper as editing the new library",
+#     "pass": true
+#   }
+# ]
+# Subtest: app\\tests\\paper-host.test.mjs
+ok 2 - app\\tests\\paper-host.test.mjs
+  ---
+  duration_ms: 5986.3355
+  ...
+1..32
+# tests 32
+# suites 0
+# pass 32
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6006.0106

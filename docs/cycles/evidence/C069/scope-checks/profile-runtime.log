@@ -1,0 +1,14 @@
+PASS A run retains A while B selected, with independent descriptors, stores and credentials
+PASS parallel acquire starts each profile only once and allocator sees prior reservations
+PASS restart reuses descriptor and selection without rebinding source or ports
+PASS failed B startup preserves selected A and cleans only B
+PASS failed selection persistence releases new lease and leaves old foreground running
+PASS shutdown waits for run cleanup and refuses new work instead of stopping another run
+PASS stop failure retains entry, reports failure and release retry stops owned runtime
+PASS old runtime cleanup failure returns committed B with warning, never an ambiguous rejected switch
+PASS writes remain explicit when selecting the same profile again
+PASS new leases check current runtime readiness after initial startup
+PASS selecting a profile without local runtime releases foreground only and preserves A run
+PASS invalid/foreign/colliding descriptors fail before runtime creation
+PASS descriptor lease refuses another writer and does not change its ownership
+13 runtime-pool checks passed; fixtures retained at C:\Users\Frikk\AppData\Local\Temp\barkdown-profile-runtime-RIgldf

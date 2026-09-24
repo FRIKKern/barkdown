@@ -1,0 +1,78 @@
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-llt3ZE
+Capture runtime: starting 
+Capture runtime: ready 
+GREEN tables       11/11 green                  19s  (row 10)
+GREEN multiblock   11/11 green                  23s  (row 11)
+RED   opaque       exit 1; malformed or unsupported summary 48s  (row 12)
+      "pass": false,
+GREEN images       6/6 green                    16s  (row 13)
+GREEN row14        4/4 green                    16s  (row 14)
+GREEN ime          4/4 green                    15s  (row 15)
+GREEN perf         3/3 green                    14s  (row 16)
+GREEN gaps         13/13 green                  29s  (rows 1–7 (Notion behaviours))
+GREEN paper        11/11 paper checks           13s  (row 9 (ifRev, 412, re-apply))
+GREEN highlight    6/6 green                    13s  (#15)
+GREEN find         6/6 green                    12s  (#17)
+GREEN emoji        4/4 green                    11s  (#18)
+GREEN mention      4/4 green                    13s  (#19)
+RED   subsup       exit 1; 5/6 green            13s  (#20)
+       "name": "a sup stored on the server mounts as the superscript mark",
+       "name": "Ctrl+, makes the 2 of H2O a subscript; the server holds a sub wrapper",
+       "name": "the bubble’s x² makes the 2 of mc2 a superscript; the server follows",
+       "name": "the paper page renders <sub>2</sub> and <sup>2</sup>",
+       "pass": false,
+       "name": "Ctrl+. on the superscript removes it again; server follows",
+       "name": "reload: the marks come back from the server as shown",
+RED   align        exit 1; 5/6 green            15s  (#21)
+       "name": "a paragraph stored with align:center mounts centred",
+       "name": "the bubble’s centre button centres a paragraph; the server holds align:center",
+       "name": "the bubble’s right button flushes a heading right; the server holds align:right",
+       "name": "the paper page renders text-align on both",
+       "pass": false,
+       "name": "back to left drops the attribute on the server (no align:left is stored)",
+       "name": "reload: alignment comes back from the server as shown",
+GREEN linkpreview  6/6 green                    15s  (#23)
+RED   codehl       exit 1; 3/4 green            13s  (#27)
+       "name": "the canvas paints hljs tokens for the JavaScript and Elixir blocks and nothing for an unknown language; the layer text is the code",
+       "name": "the reader page carries data-lang and the tokenizer asset; run there it paints the SAME token signatures as the canvas",
+       "pass": false,
+       "name": "typing into the JavaScript block repaints the layer at once and the server holds the new value",
+       "name": "changing the lang from klingon to elixir paints tokens; the server holds the new lang",
+RED   tablespans   exit 1; 6/7 green            14s  (#24)
+       "name": "select two cells across columns and merge: the canvas shows one cell with colspan 2; the server holds the placeholder and the span",
+       "name": "typing into the merged cell lands on the server; Tab from it moves to the cell after the covered position",
+       "name": "the reader page renders colspan=\"2\" on the origin and no cell for the covered position",
+       "pass": false,
+       "name": "merge down from a cell makes a rowspan; the row below loses that cell in the canvas; the server holds both spans",
+       "name": "split the column span: the placeholder becomes a plain cell again; the server keeps only the rowspan",
+       "name": "split the last span: the server drops the list (spans: [] on the patch)",
+       "name": "merge again, then reload: the merged grid comes back from the server as shown",
+RED   tablewidths  exit 1; 4/5 green            12s  (#25)
+       "name": "a fresh table has no column widths in the canvas or on the server",
+       "name": "dragging the first column's edge 80px to the right widens it at once; the server holds cols[0].width",
+       "name": "the paper page renders a colgroup with the width",
+       "pass": false,
+       "name": "reload: the width comes back from the server as shown",
+       "name": "the reader's column types survive beside the width: a second drag keeps cols as one list",
+GREEN tablehead    6/6 green                    13s  (#26)
+
+14/20 rows green
+Capture runtime: stopping 
+Capture runtime: stopped 
+file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:98
+    throw new AggregateError(errors, errors.map(error => error.message).join('\n'));
+          ^
+
+AggregateError: Live screenshot capture failed with exit 1
+    at captureWithCleanup (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:98:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/status-shots-isolated.mjs:33:1 {
+  [errors]: [
+    Error: Live screenshot capture failed with exit 1
+        at captureWithCleanup (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:82:51)
+        at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+        at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/status-shots-isolated.mjs:33:1
+  ]
+}
+
+Node.js v22.13.1

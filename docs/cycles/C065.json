@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "id": "C065",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Measure CI effort and improve useful work during validation without weakening required proof.",
+  "scope": [
+    "Read actual recent CI job timings and verify C064 event deduplication.",
+    "Add a small reusable CI timing audit and explicit useful-work guidance while CI runs.",
+    "No application changes, automated proof reuse, skipped suites or branch-protection changes."
+  ],
+  "acceptance": [
+    "Report measured job time separately from delivery latency, unfinished runs and unproved agent idle time.",
+    "Timing calculation tests cover missing timestamps, failed/cancelled/running jobs and duplicate event candidates.",
+    "Use current CI wait for useful audit work; finish root verification, review roadmap and push only after the existing parity run completes."
+  ],
+  "checkpoint": "2026-09-24",
+  "handoff": "docs/cycles/C065-ci-effort.md",
+  "nextAction": "Review final-head CI; archive C065 and return to the owned ordinary draft-note journey. Next measured CI optimization is self-contained candidate/baseline artifact packaging.",
+  "evidence": [
+    "docs/cycles/evidence/C065/root.log",
+    "docs/cycles/evidence/C065/root-timing.json",
+    "docs/cycles/evidence/C065/assessment.json",
+    "docs/cycles/evidence/C065/timing-tests.txt",
+    "docs/cycles/evidence/C065/parity-completed.json"
+  ],
+  "truthReview": "C064 actual PR Verify deduplication confirmed; all714a575 checks passed including Linux20/20. Measured cancellation churn and artifact scope; no unmeasured agent-idle/billing claims. One lane, no upstream/app/data changes; 43 locked worktrees preserved.",
+  "screenshotReview": "App and visual-input fingerprints unchanged, existing approval checks pass. Generated roadmap updated/reviewed for the current cycle only; no new application capture claimed."
+}

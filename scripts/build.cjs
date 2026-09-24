@@ -26,3 +26,6 @@ const files=['concepts/workspace.html','concepts/editor-study.html','docs/prd.so
 const manifest={formatVersion:1,release:'0.5.0',sourceOfTruth:{workspace:'concepts/workspace.html',editor:'concepts/editor-study.html',prd:'docs/prd.source.html'},files:files.map(file=>({file,sha256:crypto.createHash('sha256').update(read(file)).digest('hex')}))};
 write('evidence/artifact-manifest.json',JSON.stringify(manifest,null,2)+'\n');
 console.log('Built portable previews, GitHub-readable PRD, and source hashes.');
+
+// Keep the README roadmap tied to the delivery plan.
+require('node:child_process').execFileSync(process.execPath, [path.join(root,'scripts/generate-roadmap.mjs'), root, path.join(root,'docs/images/roadmap.svg')], {stdio:'inherit'});

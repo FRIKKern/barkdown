@@ -1,3 +1,5 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
+import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // Plan #19: "@" opens the wikilink autocomplete like "[[" and the pick lands a wikilink on the server.
 // Live against the bp-connected server; not part of npm test.
 import { _electron as electron } from 'playwright';
@@ -16,9 +18,9 @@ const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });
 await page.waitForSelector('#bw-pages .bw-page-row');
 await page.setViewportSize({ width: 1400, height: 900 });
-await page.evaluate(async () => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true } }); await window.__barkdown.refreshLibrary(); });
+await connectPaperFixture(page);
 await page.waitForFunction(() => window.__barkdown.state.barkparkDocs.length > 0, null, { timeout: 90000 });
-await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug }), SLUG);
+await openFixturePaper(page, SLUG);
 await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 });
 await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 });
 await page.waitForTimeout(500);
@@ -65,7 +67,7 @@ await row('an address stays plain text: "@" inside a word never opens the popup'
 });
 await row('reload: the wikilink comes back from the server as shown', async () => {
   await page.evaluate(() => window.__barkdown.openTarget({ kind: 'chat' })).catch(() => {}); await page.waitForTimeout(400);
-  await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug }), SLUG);
+  await openFixturePaper(page, SLUG);
   await page.waitForSelector(`${pane} bp-paper-canvas .ProseMirror`, { timeout: 60000 }); await page.waitForTimeout(500);
   const canvas = await page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); const p = c._editor.getJSON().content.filter(n => n.type === 'paragraph')[0]; return (p.content || []).map(n => n.marks?.map(m => m.type).join('+') || n.type); });
   return { pass: canvas.some(t => /wikilink/.test(t)), canvas };

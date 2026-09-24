@@ -1,0 +1,28 @@
+{
+  "source": "0ae953813ca4277f81a5226394e4c4b5f34bb7a1",
+  "scope": "Actual HTTP adapter against non-persisting fixture, no user library",
+  "result": "Confirmed foreign same-ID/revision Undo reached B",
+  "requests": [
+    {
+      "phase": "A",
+      "method": "GET",
+      "url": "/v1/data/doc/production/paper/same?perspective=raw"
+    },
+    {
+      "phase": "A",
+      "method": "POST",
+      "url": "/v1/plugins/bulldocs/papers/same/ops"
+    },
+    {
+      "phase": "B",
+      "method": "GET",
+      "url": "/v1/data/doc/production/paper/same?perspective=raw"
+    },
+    {
+      "phase": "B",
+      "method": "POST",
+      "url": "/v1/plugins/bulldocs/papers/same/ops"
+    }
+  ],
+  "foreignPosts": 1
+}

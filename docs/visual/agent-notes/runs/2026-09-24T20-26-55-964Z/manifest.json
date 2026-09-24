@@ -1,0 +1,29 @@
+{
+  "host": "74f61a889a4a0d565c9039bcc062e2dea73eed43",
+  "upstream": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "sourceDirty": false,
+  "model": "Scripted SSE through actual API SDK; not live model proof",
+  "theme": "dark",
+  "frames": [
+    "01-created-through-chat.png",
+    "02-agent-edit-with-undo.png",
+    "03-narrow-agent-edit.png",
+    "04-restarted-with-undo.png",
+    "05-undone-after-restart.png",
+    "06-human-edit-protected.png"
+  ],
+  "results": [],
+  "errors": [],
+  "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   'Unexpected end of JSON input',\n+   'Unexpected end of JSON input'\n+ ]\n- []\n\n    at file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/agent-notes-ui.live.mjs:82:48",
+  "artifacts": {
+    "01-created-through-chat.png": "f1f679401775e723414cf4abeb665e761273ce6bcc2bb2887c66cae998c73f0d",
+    "02-agent-edit-with-undo.png": "53abb73623fd82419a965a758e36a5f4ce7e3f04424bc12241841736b0ae53ab",
+    "03-narrow-agent-edit.png": "f9e353e92bb993358710b96a0c147122a4dad4d9c55fd6681fbf8d23187a6b41",
+    "04-restarted-with-undo.png": "6bc1463ca3c0f938113b23f1c54a8d8050a05c036e7e287850be98f9ea0504ec",
+    "05-undone-after-restart.png": "7f289fc44f663abbc994ece37a61bc22b759f5dca24d875fe9c22fff65f326ea",
+    "06-human-edit-protected.png": "df25582e8dfbe8da396fdd54cd01f4fa77b60c3a69922b9c18a5b18d4df1c9bb",
+    "create-edit-profile-switch.webm": "9b43053228ea336ea0e73a8d585af42d0cebe6f9531f797681f39d8f195d6a53",
+    "failure.png": "df25582e8dfbe8da396fdd54cd01f4fa77b60c3a69922b9c18a5b18d4df1c9bb",
+    "restart-undo-human-edit.webm": "9bd2c7b50b6f678ad4a5ed5d608bc652b886455c2f4627b07ec39913a0b99f9a"
+  }
+}

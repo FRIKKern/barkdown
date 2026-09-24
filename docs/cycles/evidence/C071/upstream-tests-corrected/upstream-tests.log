@@ -1,0 +1,5290 @@
+Owned ExUnit data: C:\Users\Frikk\AppData\Local\Temp\c071-exunit-8oBL6y
+The files belonging to this database system will be owned by user "Frikk".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "English_United Kingdom.1252".
+The default text search configuration will be set to "english".
+
+Data page checksums are enabled.
+
+creating directory C:/Users/Frikk/AppData/Local/Temp/c071-exunit-8oBL6y/pgdata ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... windows
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Paris
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    ^"C^:^\Users^\Frikk^\scoop^\apps^\postgresql^\current^\bin^\pg^_ctl^" -D ^"C^:^\Users^\Frikk^\AppData^\Local^\Temp^\c071^-exunit^-8oBL6y^\pgdata^" -l logfile start
+
+waiting for server to start.... done
+server started
+     warning: this clause of defp doc_constraints/1 is never used (or it will always fail/warn when invoked)
+     │
+ 742 │   defp doc_constraints(_), do: nil
+     │        ~
+     │
+     └─ lib/barkpark_web/live/studio/studio_live/components/paper_editor.ex:742:8: BarkparkWeb.Studio.StudioLive.Components.PaperEditor.doc_constraints/1
+
+     warning: this clause of defp walk_fields/4 is never used (or it will always fail/warn when invoked)
+     │
+ 109 │   defp walk_fields(params, _fields, _dataset, _opts), do: params
+     │        ~
+     │
+     └─ lib/barkpark/media/image_metadata.ex:109:8: Barkpark.Media.ImageMetadata.walk_fields/4
+
+      warning: this clause of defp plan_title/1 is never used (or it will always fail/warn when invoked)
+      │
+ 6826 │   defp plan_title(_), do: "Proposed plan"
+      │        ~
+      │
+      └─ lib/barkpark_web/live/studio/chat_live.ex:6826:8: BarkparkWeb.Studio.ChatLive.plan_title/1
+
+      warning: the following conditional expression:
+
+          msg.doc
+
+      will always evaluate to:
+
+          dynamic(map())
+
+      where "msg" was given the types:
+
+          # type: dynamic(%{..., doc: map(), type: binary()})
+          # from: lib/barkpark_web/live/studio/chat_live.ex:2105:65
+          %{type: "task", doc: doc} = msg
+
+          # type: dynamic(%{..., doc: map(), doc_id: term(), type: binary()})
+          # from: lib/barkpark_web/live/studio/chat_live.ex:2107:8
+          id = msg.doc_id
+
+          # type: dynamic(%{..., doc: map(), type: binary()})
+          # from: lib/barkpark_web/live/studio/chat_live.ex
+          {:document_changed, %{type: "task", doc: doc} = msg}
+
+      type warning found at:
+      │
+ 2123 │       content = (msg.doc && msg.doc.content) || %{}
+      │       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      │
+      └─ lib/barkpark_web/live/studio/chat_live.ex:2123: BarkparkWeb.Studio.ChatLive.handle_info/2
+
+    warning: unused require Logger
+    │
+ 49 │   require Logger
+    │   ~
+    │
+    └─ lib/barkpark/plugins/registry.ex:49:3
+
+     warning: the following clause will never match:
+
+         {:error, :invalid_role} ->
+
+     because it attempts to match on the result of:
+
+         Barkpark.Scim.replace_group_members(org, updated, member_ids(members))
+
+     which has type:
+
+         dynamic(
+           ({...} and not {term(), term()}) or atom() or bitstring() or empty_list() or float() or fun() or
+             integer() or map() or non_empty_list(term(), term()) or pid() or port() or reference() or
+             {:ok, %{added: term(), removed: term(), unmatched: term()}}
+         )
+
+     type warning found at:
+     │
+ 217 │                 {:error, :invalid_role} -> Repo.rollback(:invalid_role)
+     │                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     │
+     └─ lib/barkpark_web/controllers/scim_groups_controller.ex:217: BarkparkWeb.ScimGroupsController.whole_resource/3
+
+     warning: the following clause will never match:
+
+         {:error, :invalid_role} ->
+
+     because it attempts to match on the result of:
+
+         Barkpark.Scim.replace_group_members(org, updated, member_ids(params["members"]))
+
+     which has type:
+
+         dynamic(
+           ({...} and not {term(), term()}) or atom() or bitstring() or empty_list() or float() or fun() or
+             integer() or map() or non_empty_list(term(), term()) or pid() or port() or reference() or
+             {:ok, %{added: term(), removed: term(), unmatched: term()}}
+         )
+
+     type warning found at:
+     │
+ 290 │                 {:error, :invalid_role} ->
+     │                 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+     │
+     └─ lib/barkpark_web/controllers/scim_groups_controller.ex:290: BarkparkWeb.ScimGroupsController.do_replace/4
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/github.ex:70
+        result = Barkpark.Plugins.Github.api_tests()
+
+    type warning found at:
+    │
+ 70 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/github/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/github.ex:70: Barkpark.Plugins.Github.resolve_api_tests/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/github.ex:70
+        result = Barkpark.Plugins.Github.checkers()
+
+    type warning found at:
+    │
+ 70 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/github/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/github.ex:70: Barkpark.Plugins.Github.resolve_checkers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/github.ex:70
+        result = Barkpark.Plugins.Github.codelist_seeders()
+
+    type warning found at:
+    │
+ 70 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/github/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/github.ex:70: Barkpark.Plugins.Github.resolve_codelist_seeders/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(non_empty_list(%{icon: binary(), label: binary(), path: binary(), type: :link}))
+        # from: lib/barkpark/plugins/github.ex:70
+        result = Barkpark.Plugins.Github.desk_items(dataset)
+
+    type warning found at:
+    │
+ 70 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/github/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/github.ex:70: Barkpark.Plugins.Github.resolve_desk_items/2
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/github.ex:70
+        result = Barkpark.Plugins.Github.external_sync_entries()
+
+    type warning found at:
+    │
+ 70 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/github/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/github.ex:70: Barkpark.Plugins.Github.resolve_external_sync_entries/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/github.ex:70
+        result = Barkpark.Plugins.Github.extract_edges(Map.get(ctx, :doc), ctx)
+
+    type warning found at:
+    │
+ 70 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/github/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/github.ex:70: Barkpark.Plugins.Github.resolve_extract_edges/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(
+          non_empty_list(
+            %{
+              group: binary(),
+              hint: binary(),
+              label: binary(),
+              masked: true,
+              name: binary(),
+              required: true,
+              type: :password
+            } or
+              %{
+                group: binary(),
+                hint: binary(),
+                label: binary(),
+                name: binary(),
+                placeholder: binary(),
+                required: true,
+                type: :string
+              } or
+              %{
+                group: binary(),
+                hint: binary(),
+                label: binary(),
+                name: binary(),
+                required: boolean(),
+                type: :string
+              }
+          )
+        )
+        # from: lib/barkpark/plugins/github.ex:70
+        result = Barkpark.Plugins.Github.settings_schema()
+
+    type warning found at:
+    │
+ 70 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/github/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/github.ex:70: Barkpark.Plugins.Github.resolve_settings_schema/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/github.ex:70
+        result = Barkpark.Plugins.Github.top_menu_entries()
+
+    type warning found at:
+    │
+ 70 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/github/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/github.ex:70: Barkpark.Plugins.Github.resolve_top_menu_entries/2
+
+     warning: clauses with the same name and arity (number of arguments) should be grouped together, "defp build_block/4" was previously defined (lib/barkpark/portable_doc/bpml/parser.ex:244)
+     │
+ 851 │   defp build_block("section", attrs, sc, cur) do
+     │        ~
+     │
+     └─ lib/barkpark/portable_doc/bpml/parser.ex:851:8
+
+     warning: this clause of defp get/2 is never used (or it will always fail/warn when invoked)
+     │
+ 231 │   defp get(_, _), do: nil
+     │        ~
+     │
+     └─ lib/barkpark/portable_doc/render/panels_email.ex:231:8: Barkpark.PortableDoc.Render.PanelsEmail.get/2
+
+     warning: this clause of defp stamped_scope/1 is never used (or it will always fail/warn when invoked)
+     │
+ 161 │   defp stamped_scope(_attrs), do: []
+     │        ~
+     │
+     └─ lib/barkpark/content/writer.ex:161:8: Barkpark.Content.Writer.stamped_scope/1
+
+    warning: unused require Logger
+    │
+ 34 │   require Logger
+    │   ~
+    │
+    └─ lib/barkpark/api_test_runner.ex:34:3
+
+     warning: this clause of defp redact_secret/1 is never used (or it will always fail/warn when invoked)
+     │
+ 283 │   defp redact_secret(other), do: other
+     │        ~
+     │
+     └─ lib/barkpark/api_test_runner.ex:283:8: Barkpark.ApiTestRunner.redact_secret/1
+
+     warning: clauses with the same name and arity (number of arguments) should be grouped together, "defp heading/3" was previously defined (lib/barkpark/portable_doc/render/walk.ex:538)
+     │
+ 564 │   defp heading(n, width, pal) do
+     │        ~
+     │
+     └─ lib/barkpark/portable_doc/render/walk.ex:564:8
+
+      warning: clauses with the same name and arity (number of arguments) should be grouped together, "defp table/3" was previously defined (lib/barkpark/portable_doc/render/walk.ex:1200)
+      │
+ 1291 │   defp table(n, width, pal) do
+      │        ~
+      │
+      └─ lib/barkpark/portable_doc/render/walk.ex:1291:8
+
+     warning: clauses with the same name and arity (number of arguments) should be grouped together, "def compose_block/2" was previously defined (lib/barkpark/portable_doc/render/compose.ex:188)
+     │
+ 340 │   def compose_block(%{"type" => t} = b, style) when t in @unordered_list_aliases,
+     │       ~
+     │
+     └─ lib/barkpark/portable_doc/render/compose.ex:340:7
+
+     warning: this clause of defp get/2 is never used (or it will always fail/warn when invoked)
+     │
+ 231 │   defp get(_, _), do: nil
+     │        ~
+     │
+     └─ lib/barkpark/portable_doc/render/panels_email.ex:231:8: Barkpark.PortableDoc.Render.PanelsEmail.get/2
+
+      warning: the right-hand side of || will never be executed:
+
+          description_source || ...
+
+      because the left-hand side always evaluates to:
+
+          binary()
+
+      where "description_source" was given the type:
+
+          # type: binary()
+          # from: lib/barkpark/portable_doc/render/compose.ex:3081:24
+          description_source = paper_links_form_text(Map.get(block, "description"))
+
+      type warning found at:
+      │
+ 3094 │       description_source: description_source || "",
+      │       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      │
+      └─ lib/barkpark/portable_doc/render/compose.ex:3094: Barkpark.PortableDoc.Render.Compose.paper_links_presentation/2
+
+      warning: this clause of defp chat_plan_title/1 is never used (or it will always fail/warn when invoked)
+      │
+ 1443 │   defp chat_plan_title(_), do: "Proposed plan"
+      │        ~
+      │
+      └─ lib/barkpark/portable_doc/render/components.ex:1443:8: Barkpark.PortableDoc.Render.Components.chat_plan_title/1
+
+      warning: this clause of defp chat_plan_preview/1 is never used (or it will always fail/warn when invoked)
+      │
+ 1457 │   defp chat_plan_preview(_), do: ""
+      │        ~
+      │
+      └─ lib/barkpark/portable_doc/render/components.ex:1457:8: Barkpark.PortableDoc.Render.Components.chat_plan_preview/1
+
+     warning: this clause of defp emitted_title/2 is never used (or it will always fail/warn when invoked)
+     │
+ 196 │   defp emitted_title(column, _content), do: column
+     │        ~
+     │
+     └─ lib/barkpark/content/envelope.ex:196:8: Barkpark.Content.Envelope.emitted_title/2
+
+    warning: unused require Logger
+    │
+ 65 │   require Logger
+    │   ~
+    │
+    └─ lib/barkpark/sites/build_log_scrub.ex:65:3
+
+    warning: this clause of defp initial_form_state/1 is never used (or it will always fail/warn when invoked)
+    │
+ 68 │   defp initial_form_state(nil), do: %{}
+    │        ~
+    │
+    └─ lib/barkpark_web/live/studio/api_tester_live.ex:68:8: BarkparkWeb.Studio.ApiTesterLive.initial_form_state/1
+
+     warning: this clause of defp bypass?/1 is never used (or it will always fail/warn when invoked)
+     │
+ 374 │   defp bypass?(_), do: false
+     │        ~
+     │
+     └─ lib/barkpark/content/dedup_wall.ex:374:8: Barkpark.Content.DedupWall.bypass?/1
+
+     warning: this clause of defp reason_phrase/2 is never used (or it will always fail/warn when invoked)
+     │
+ 709 │   defp reason_phrase(_, _timeout), do: "the duplicate scan failed"
+     │        ~
+     │
+     └─ lib/barkpark/content/dedup_wall.ex:709:8: Barkpark.Content.DedupWall.reason_phrase/2
+
+      warning: the following conditional expression:
+
+          is_binary(log_file)
+
+      will always evaluate to:
+
+          dynamic(true)
+
+      where "log_file" was given the type:
+
+          # type: binary()
+          # from: lib/barkpark/sites/deploy_runner.ex:3396:24
+          Barkpark.Sites.BuildLogScrub.scrub_file(log_file)
+
+      type warning found at:
+      │
+ 3398 │         if is_binary(log_file), do: BuildLogScrub.version(), else: nil
+      │         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      │
+      └─ lib/barkpark/sites/deploy_runner.ex:3398: Barkpark.Sites.DeployRunner.scrub_recorded_log/1
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/media.ex:14
+        result = Barkpark.Plugins.Media.action_handlers()
+
+    type warning found at:
+    │
+ 14 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/media.ex:14: Barkpark.Plugins.Media.resolve_action_handlers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/media.ex:14
+        result = Barkpark.Plugins.Media.checkers()
+
+    type warning found at:
+    │
+ 14 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/media.ex:14: Barkpark.Plugins.Media.resolve_checkers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/media.ex:14
+        result = Barkpark.Plugins.Media.cli_commands()
+
+    type warning found at:
+    │
+ 14 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/media.ex:14: Barkpark.Plugins.Media.resolve_cli_commands/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(non_empty_list((-> term())))
+        # from: lib/barkpark/plugins/media.ex:14
+        result = Barkpark.Plugins.Media.codelist_seeders()
+
+    type warning found at:
+    │
+ 14 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/media.ex:14: Barkpark.Plugins.Media.resolve_codelist_seeders/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/media.ex:14
+        result = Barkpark.Plugins.Media.desk_items(dataset)
+
+    type warning found at:
+    │
+ 14 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/media.ex:14: Barkpark.Plugins.Media.resolve_desk_items/2
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/media.ex:14
+        result = Barkpark.Plugins.Media.external_sync_entries()
+
+    type warning found at:
+    │
+ 14 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/media.ex:14: Barkpark.Plugins.Media.resolve_external_sync_entries/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/media.ex:14
+        result = Barkpark.Plugins.Media.extract_edges(Map.get(ctx, :doc), ctx)
+
+    type warning found at:
+    │
+ 14 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/media.ex:14: Barkpark.Plugins.Media.resolve_extract_edges/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/media.ex:14
+        result = Barkpark.Plugins.Media.settings_schema()
+
+    type warning found at:
+    │
+ 14 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/media.ex:14: Barkpark.Plugins.Media.resolve_settings_schema/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/media.ex:14
+        result = Barkpark.Plugins.Media.top_menu_entries()
+
+    type warning found at:
+    │
+ 14 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/media.ex:14: Barkpark.Plugins.Media.resolve_top_menu_entries/2
+
+     warning: this clause of defp life_state/1 is never used (or it will always fail/warn when invoked)
+     │
+ 861 │   defp life_state(_), do: nil
+     │        ~
+     │
+     └─ lib/barkpark_web/live/studio/chat_tool_renderer.ex:861:8: BarkparkWeb.Studio.ChatToolRenderer.life_state/1
+
+     warning: this clause of defp engagement_object/1 is never used (or it will always fail/warn when invoked)
+     │
+ 879 │   defp engagement_object(_), do: nil
+     │        ~
+     │
+     └─ lib/barkpark_web/live/studio/chat_tool_renderer.ex:879:8: BarkparkWeb.Studio.ChatToolRenderer.engagement_object/1
+
+      warning: this clause of defp chip_glyph/1 is never used (or it will always fail/warn when invoked)
+      │
+ 1197 │   defp chip_glyph(_), do: "●"
+      │        ~
+      │
+      └─ lib/barkpark_web/live/studio/chat_tool_renderer.ex:1197:8: BarkparkWeb.Studio.ChatToolRenderer.chip_glyph/1
+
+      warning: this clause of defp chip_kind_label/1 is never used (or it will always fail/warn when invoked)
+      │
+ 1201 │   defp chip_kind_label(_), do: ""
+      │        ~
+      │
+      └─ lib/barkpark_web/live/studio/chat_tool_renderer.ex:1201:8: BarkparkWeb.Studio.ChatToolRenderer.chip_kind_label/1
+
+      warning: incompatible types given to Map.fetch!/2:
+
+          Map.fetch!(Barkpark.Tenancy.WorkspaceBundle.Catalog.allowlist(), table)
+
+      the map:
+
+          dynamic(empty_map())
+
+      does not have all required keys:
+
+          dynamic()
+
+      therefore this function will always raise
+
+      where "table" was given the type:
+
+          # type: dynamic()
+          # from: lib/barkpark/tenancy/workspace_bundle.ex:1686:26
+          table
+
+      type warning found at:
+      │
+ 1687 │     prefix = Map.fetch!(Catalog.allowlist(), table)
+      │                  ~
+      │
+      └─ lib/barkpark/tenancy/workspace_bundle.ex:1687:18: Barkpark.Tenancy.WorkspaceBundle.tenant_scope_where/4
+
+      warning: the following clause will never match:
+
+          {:error, reason} ->
+
+      because it attempts to match on the result of:
+
+          IO.binwrite(io, rows)
+
+      which has type:
+
+          dynamic(not {:error, term()})
+
+      type warning found at:
+      │
+ 1996 │                     {:error, reason} ->
+      │                     ~~~~~~~~~~~~~~~~~~~
+      │
+      └─ lib/barkpark/tenancy/workspace_bundle.ex:1996: Barkpark.Tenancy.WorkspaceBundle.run_copy_out/3
+
+      warning: the following clause will never match:
+
+          {:error, reason} ->
+
+      because it attempts to match on the result of:
+
+          IO.binwrite(io, chunk)
+
+      which has type:
+
+          dynamic(not {:error, term()})
+
+      type warning found at:
+      │
+ 1321 │         {:error, reason} -> {:write_failed, reason}
+      │         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      │
+      └─ lib/barkpark_web/controllers/workspace_controller.ex:1321: BarkparkWeb.WorkspaceController.write_chunk/3
+
+     warning: the following clause is redundant:
+
+         def prune_retained(%MapSet{}, _blocks)
+
+     it has type:
+
+         %MapSet{}, dynamic()
+
+     previous clauses have already matched on the following types:
+
+         %MapSet{}, term()
+         map(), empty_list() or non_empty_list(term(), term())
+
+     │
+ 372 │   def prune_retained(%MapSet{}, _blocks), do: MapSet.new()
+     │       ~
+     │
+     └─ lib/barkpark_web/live/studio/studio_live/paper_canvas.ex:372:7: BarkparkWeb.Studio.StudioLive.PaperCanvas.prune_retained/2
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/scaffy.ex:44
+        result = Barkpark.Plugins.Scaffy.action_handlers()
+
+    type warning found at:
+    │
+ 44 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/scaffy/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/scaffy.ex:44: Barkpark.Plugins.Scaffy.resolve_action_handlers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/scaffy.ex:44
+        result = Barkpark.Plugins.Scaffy.api_tests()
+
+    type warning found at:
+    │
+ 44 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/scaffy/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/scaffy.ex:44: Barkpark.Plugins.Scaffy.resolve_api_tests/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/scaffy.ex:44
+        result = Barkpark.Plugins.Scaffy.checkers()
+
+    type warning found at:
+    │
+ 44 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/scaffy/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/scaffy.ex:44: Barkpark.Plugins.Scaffy.resolve_checkers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/scaffy.ex:44
+        result = Barkpark.Plugins.Scaffy.cli_commands()
+
+    type warning found at:
+    │
+ 44 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/scaffy/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/scaffy.ex:44: Barkpark.Plugins.Scaffy.resolve_cli_commands/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/scaffy.ex:44
+        result = Barkpark.Plugins.Scaffy.codelist_seeders()
+
+    type warning found at:
+    │
+ 44 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/scaffy/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/scaffy.ex:44: Barkpark.Plugins.Scaffy.resolve_codelist_seeders/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/scaffy.ex:44
+        result = Barkpark.Plugins.Scaffy.desk_items(dataset)
+
+    type warning found at:
+    │
+ 44 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/scaffy/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/scaffy.ex:44: Barkpark.Plugins.Scaffy.resolve_desk_items/2
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/scaffy.ex:44
+        result = Barkpark.Plugins.Scaffy.external_sync_entries()
+
+    type warning found at:
+    │
+ 44 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/scaffy/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/scaffy.ex:44: Barkpark.Plugins.Scaffy.resolve_external_sync_entries/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/scaffy.ex:44
+        result = Barkpark.Plugins.Scaffy.extract_edges(Map.get(ctx, :doc), ctx)
+
+    type warning found at:
+    │
+ 44 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/scaffy/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/scaffy.ex:44: Barkpark.Plugins.Scaffy.resolve_extract_edges/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/scaffy.ex:44
+        result = Barkpark.Plugins.Scaffy.settings_schema()
+
+    type warning found at:
+    │
+ 44 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/scaffy/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/scaffy.ex:44: Barkpark.Plugins.Scaffy.resolve_settings_schema/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/scaffy.ex:44
+        result = Barkpark.Plugins.Scaffy.top_menu_entries()
+
+    type warning found at:
+    │
+ 44 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/scaffy/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/scaffy.ex:44: Barkpark.Plugins.Scaffy.resolve_top_menu_entries/2
+
+      warning: this clause of defp paper_rev/1 is never used (or it will always fail/warn when invoked)
+      │
+ 1031 │   defp paper_rev(nil), do: 0
+      │        ~
+      │
+      └─ lib/barkpark_web/live/bulldocs_live.ex:1031:8: BarkparkWeb.BulldocsLive.paper_rev/1
+
+      warning: this clause of defp paper_wide?/1 is never used (or it will always fail/warn when invoked)
+      │
+ 1076 │   defp paper_wide?(_), do: false
+      │        ~
+      │
+      └─ lib/barkpark_web/live/bulldocs_live.ex:1076:8: BarkparkWeb.BulldocsLive.paper_wide?/1
+
+     warning: the following conditional expression:
+
+         paper
+
+     will always evaluate to:
+
+         dynamic(%Barkpark.Content.Document{content: term()})
+
+     where "paper" was given the types:
+
+         # type: dynamic(not false and not nil)
+         # from: lib/barkpark_web/live/bulldocs_live.ex:105:5
+         paper
+
+         # type: dynamic(%{..., workspace_id: term()})
+         # from: lib/barkpark_web/live/bulldocs_live.ex:112:40
+         BarkparkWeb.PaperViewer.can_edit?(socket.assigns, paper.workspace_id)
+
+         # type: dynamic(%Barkpark.Content.Document{content: term()})
+         # from: lib/barkpark_web/live/bulldocs_live.ex:151:27
+         Barkpark.Content.Papers.reader_source(paper, dataset, reader_scope)
+
+     type warning found at:
+     │
+ 188 │     task_ws = (paper && paper.workspace_id) || reader_scope[:workspace_id]
+     │     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     │
+     └─ lib/barkpark_web/live/bulldocs_live.ex:188: BarkparkWeb.BulldocsLive.mount/3
+
+     warning: this clause of defp resolve_dataset_id/2 is never used (or it will always fail/warn when invoked)
+     │
+ 245 │   defp resolve_dataset_id(_dataset, _opts), do: nil
+     │        ~
+     │
+     └─ lib/barkpark/media/delivery/search.ex:245:8: Barkpark.Media.Delivery.Search.resolve_dataset_id/2
+
+     warning: clauses with the same name and arity (number of arguments) should be grouped together, "defp heading/3" was previously defined (lib/barkpark/portable_doc/render/walk.ex:538)
+     │
+ 564 │   defp heading(n, width, pal) do
+     │        ~
+     │
+     └─ lib/barkpark/portable_doc/render/walk.ex:564:8
+
+      warning: clauses with the same name and arity (number of arguments) should be grouped together, "defp table/3" was previously defined (lib/barkpark/portable_doc/render/walk.ex:1200)
+      │
+ 1291 │   defp table(n, width, pal) do
+      │        ~
+      │
+      └─ lib/barkpark/portable_doc/render/walk.ex:1291:8
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/tickets.ex:55
+        result = Barkpark.Plugins.Tickets.action_handlers()
+
+    type warning found at:
+    │
+ 55 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/tickets/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/tickets.ex:55: Barkpark.Plugins.Tickets.resolve_action_handlers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/tickets.ex:55
+        result = Barkpark.Plugins.Tickets.api_tests()
+
+    type warning found at:
+    │
+ 55 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/tickets/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/tickets.ex:55: Barkpark.Plugins.Tickets.resolve_api_tests/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/tickets.ex:55
+        result = Barkpark.Plugins.Tickets.checkers()
+
+    type warning found at:
+    │
+ 55 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/tickets/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/tickets.ex:55: Barkpark.Plugins.Tickets.resolve_checkers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/tickets.ex:55
+        result = Barkpark.Plugins.Tickets.codelist_seeders()
+
+    type warning found at:
+    │
+ 55 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/tickets/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/tickets.ex:55: Barkpark.Plugins.Tickets.resolve_codelist_seeders/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(list(%{doc_type: binary(), icon: binary(), label: binary(), type: :document_list}))
+        # from: lib/barkpark/plugins/tickets.ex:55
+        result = Barkpark.Plugins.Tickets.desk_items(dataset)
+
+    type warning found at:
+    │
+ 55 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/tickets/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/tickets.ex:55: Barkpark.Plugins.Tickets.resolve_desk_items/2
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/tickets.ex:55
+        result = Barkpark.Plugins.Tickets.external_sync_entries()
+
+    type warning found at:
+    │
+ 55 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/tickets/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/tickets.ex:55: Barkpark.Plugins.Tickets.resolve_external_sync_entries/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/tickets.ex:55
+        result = Barkpark.Plugins.Tickets.extract_edges(Map.get(ctx, :doc), ctx)
+
+    type warning found at:
+    │
+ 55 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/tickets/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/tickets.ex:55: Barkpark.Plugins.Tickets.resolve_extract_edges/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/tickets.ex:55
+        result = Barkpark.Plugins.Tickets.settings_schema()
+
+    type warning found at:
+    │
+ 55 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/tickets/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/tickets.ex:55: Barkpark.Plugins.Tickets.resolve_settings_schema/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(
+          non_empty_list(%{
+            active_when: %Regex{source: binary(), opts: empty_list()},
+            icon: binary(),
+            label: binary(),
+            order: integer(),
+            path: binary()
+          })
+        )
+        # from: lib/barkpark/plugins/tickets.ex:55
+        result = Barkpark.Plugins.Tickets.top_menu_entries()
+
+    type warning found at:
+    │
+ 55 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/tickets/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/tickets.ex:55: Barkpark.Plugins.Tickets.resolve_top_menu_entries/2
+
+     warning: the right-hand side of || (shown as ... below) will never be executed:
+
+         (paper && Map.get(paper, :title)) || slug || ...
+
+     because the left-hand side always evaluates to:
+
+         dynamic(not false and not nil)
+
+     where "paper" was given the type:
+
+         # type: dynamic()
+         # from: lib/barkpark_web/live/studio/studio_live/components.ex:640:15
+         paper
+
+     where "slug" was given the type:
+
+         # type: dynamic(not false and not nil)
+         # from: lib/barkpark_web/live/studio/studio_live/components.ex:641:10
+         slug = assigns.slug_draft || (paper && Map.get(paper, :doc_id)) || ""
+
+     type warning found at:
+     │
+ 670 │     destination_title = (paper && Map.get(paper, :title)) || slug || "Paper"
+     │     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     │
+     └─ lib/barkpark_web/live/studio/studio_live/components.ex:670: BarkparkWeb.Studio.StudioLive.Components."paper_metadata_sidebar (overridable 1)"/1
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/quiz.ex:41
+        result = Barkpark.Plugins.Quiz.action_handlers()
+
+    type warning found at:
+    │
+ 41 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/quiz/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/quiz.ex:41: Barkpark.Plugins.Quiz.resolve_action_handlers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/quiz.ex:41
+        result = Barkpark.Plugins.Quiz.api_tests()
+
+    type warning found at:
+    │
+ 41 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/quiz/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/quiz.ex:41: Barkpark.Plugins.Quiz.resolve_api_tests/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/quiz.ex:41
+        result = Barkpark.Plugins.Quiz.checkers()
+
+    type warning found at:
+    │
+ 41 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/quiz/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/quiz.ex:41: Barkpark.Plugins.Quiz.resolve_checkers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/quiz.ex:41
+        result = Barkpark.Plugins.Quiz.cli_commands()
+
+    type warning found at:
+    │
+ 41 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/quiz/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/quiz.ex:41: Barkpark.Plugins.Quiz.resolve_cli_commands/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/quiz.ex:41
+        result = Barkpark.Plugins.Quiz.codelist_seeders()
+
+    type warning found at:
+    │
+ 41 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/quiz/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/quiz.ex:41: Barkpark.Plugins.Quiz.resolve_codelist_seeders/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/quiz.ex:41
+        result = Barkpark.Plugins.Quiz.desk_items(dataset)
+
+    type warning found at:
+    │
+ 41 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/quiz/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/quiz.ex:41: Barkpark.Plugins.Quiz.resolve_desk_items/2
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/quiz.ex:41
+        result = Barkpark.Plugins.Quiz.external_sync_entries()
+
+    type warning found at:
+    │
+ 41 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/quiz/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/quiz.ex:41: Barkpark.Plugins.Quiz.resolve_external_sync_entries/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/quiz.ex:41
+        result = Barkpark.Plugins.Quiz.extract_edges(Map.get(ctx, :doc), ctx)
+
+    type warning found at:
+    │
+ 41 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/quiz/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/quiz.ex:41: Barkpark.Plugins.Quiz.resolve_extract_edges/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/quiz.ex:41
+        result = Barkpark.Plugins.Quiz.settings_schema()
+
+    type warning found at:
+    │
+ 41 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/quiz/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/quiz.ex:41: Barkpark.Plugins.Quiz.resolve_settings_schema/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/quiz.ex:41
+        result = Barkpark.Plugins.Quiz.top_menu_entries()
+
+    type warning found at:
+    │
+ 41 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/quiz/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/quiz.ex:41: Barkpark.Plugins.Quiz.resolve_top_menu_entries/2
+
+    warning: unused require Logger
+    │
+ 55 │   require Logger
+    │   ~
+    │
+    └─ lib/barkpark/plugins/github/merge_events.ex:55:3
+
+    warning: unused require Logger
+    │
+  4 │   require Logger
+    │   ~
+    │
+    └─ lib/barkpark_web/endpoint.ex:4:3
+
+      warning: the right-hand side of || will never be executed:
+
+          String.slice(txt, st - 1, ln) || ...
+
+      because the left-hand side always evaluates to:
+
+          binary()
+
+      where "ln" was given the type:
+
+          # type: integer()
+          # from: lib/barkpark/plugins/sheets/engine.ex:3290:10
+          ln = trunc(ln)
+
+      where "st" was given the type:
+
+          # type: integer()
+          # from: lib/barkpark/plugins/sheets/engine.ex:3289:10
+          st = trunc(st)
+
+      where "txt" was given the types:
+
+          # type: binary()
+          # from: lib/barkpark/plugins/sheets/engine.ex:3286:19
+          is_binary(txt)
+
+          # type: binary()
+          # from: lib/barkpark/plugins/sheets/engine.ex:3286:34
+          txt when is_binary(txt) <- eval_text(s, ctx)
+
+      type warning found at:
+      │
+ 3291 │       if st < 1 or ln < 0, do: err(:value), else: String.slice(txt, st - 1, ln) || ""
+      │       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      │
+      └─ lib/barkpark/plugins/sheets/engine.ex:3291: Barkpark.Plugins.Sheets.Engine.call/3
+
+    warning: this clause of defp put_locale_for/1 is never used (or it will always fail/warn when invoked)
+    │
+ 38 │   defp put_locale_for(_), do: BarkparkWeb.StudioLocale.put_named(nil)
+    │        ~
+    │
+    └─ lib/barkpark_web/controllers/session_controller.ex:38:8: BarkparkWeb.SessionController.put_locale_for/1
+
+    warning: unused require Logger
+    │
+ 34 │   require Logger
+    │   ~
+    │
+    └─ lib/barkpark/idempotency.ex:34:3
+
+    warning: unused require Logger
+    │
+ 51 │   require Logger
+    │   ~
+    │
+    └─ lib/barkpark_web/plugs/tenant_log_metadata.ex:51:3
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/grip.ex:55
+        result = Barkpark.Plugins.Grip.action_handlers()
+
+    type warning found at:
+    │
+ 55 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/grip/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/grip.ex:55: Barkpark.Plugins.Grip.resolve_action_handlers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/grip.ex:55
+        result = Barkpark.Plugins.Grip.api_tests()
+
+    type warning found at:
+    │
+ 55 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/grip/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/grip.ex:55: Barkpark.Plugins.Grip.resolve_api_tests/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/grip.ex:55
+        result = Barkpark.Plugins.Grip.checkers()
+
+    type warning found at:
+    │
+ 55 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/grip/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/grip.ex:55: Barkpark.Plugins.Grip.resolve_checkers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/grip.ex:55
+        result = Barkpark.Plugins.Grip.cli_commands()
+
+    type warning found at:
+    │
+ 55 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/grip/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/grip.ex:55: Barkpark.Plugins.Grip.resolve_cli_commands/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/grip.ex:55
+        result = Barkpark.Plugins.Grip.codelist_seeders()
+
+    type warning found at:
+    │
+ 55 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/grip/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/grip.ex:55: Barkpark.Plugins.Grip.resolve_codelist_seeders/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/grip.ex:55
+        result = Barkpark.Plugins.Grip.desk_items(dataset)
+
+    type warning found at:
+    │
+ 55 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/grip/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/grip.ex:55: Barkpark.Plugins.Grip.resolve_desk_items/2
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/grip.ex:55
+        result = Barkpark.Plugins.Grip.external_sync_entries()
+
+    type warning found at:
+    │
+ 55 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/grip/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/grip.ex:55: Barkpark.Plugins.Grip.resolve_external_sync_entries/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/grip.ex:55
+        result = Barkpark.Plugins.Grip.extract_edges(Map.get(ctx, :doc), ctx)
+
+    type warning found at:
+    │
+ 55 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/grip/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/grip.ex:55: Barkpark.Plugins.Grip.resolve_extract_edges/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/grip.ex:55
+        result = Barkpark.Plugins.Grip.settings_schema()
+
+    type warning found at:
+    │
+ 55 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/grip/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/grip.ex:55: Barkpark.Plugins.Grip.resolve_settings_schema/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/grip.ex:55
+        result = Barkpark.Plugins.Grip.top_menu_entries()
+
+    type warning found at:
+    │
+ 55 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/grip/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/grip.ex:55: Barkpark.Plugins.Grip.resolve_top_menu_entries/2
+
+     warning: this clause of defp scope_audit/2 is never used (or it will always fail/warn when invoked)
+     │
+ 212 │   defp scope_audit(query, _fail_closed), do: where(query, false)
+     │        ~
+     │
+     └─ lib/barkpark_web/controllers/secret_controller.ex:212:8: BarkparkWeb.SecretController.scope_audit/2
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/bulldocs.ex:35
+        result = Barkpark.Plugins.Bulldocs.action_handlers()
+
+    type warning found at:
+    │
+ 35 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/bulldocs/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/bulldocs.ex:35: Barkpark.Plugins.Bulldocs.resolve_action_handlers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/bulldocs.ex:35
+        result = Barkpark.Plugins.Bulldocs.api_tests()
+
+    type warning found at:
+    │
+ 35 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/bulldocs/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/bulldocs.ex:35: Barkpark.Plugins.Bulldocs.resolve_api_tests/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/bulldocs.ex:35
+        result = Barkpark.Plugins.Bulldocs.checkers()
+
+    type warning found at:
+    │
+ 35 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/bulldocs/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/bulldocs.ex:35: Barkpark.Plugins.Bulldocs.resolve_checkers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(
+          non_empty_list(
+            %{
+              args: empty_list(),
+              auth_tier: binary(),
+              batch: false,
+              default_output: binary(),
+              dry_run: false,
+              flags: empty_list(),
+              http: %{method: binary(), path_template: binary()},
+              id: binary(),
+              noun: binary(),
+              paginated: false,
+              scoped_prefix: nil,
+              summary: binary(),
+              verb: binary(),
+              writes: false
+            } or
+              %{
+                args:
+                  non_empty_list(%{name: binary(), required: true, summary: binary(), type: binary()}),
+                auth_tier: binary(),
+                batch: false,
+                default_output: binary(),
+                dry_run: false,
+                flags: empty_list(),
+                http: %{method: binary(), path_template: binary()},
+                id: binary(),
+                noun: binary(),
+                paginated: false,
+                scoped_prefix: nil,
+                summary: binary(),
+                verb: binary(),
+                writes: boolean()
+              } or
+              %{
+                args:
+                  non_empty_list(%{name: binary(), required: true, summary: binary(), type: binary()}),
+                auth_tier: binary(),
+                batch: boolean(),
+                default_output: binary(),
+                dry_run: false,
+                flags: non_empty_list(%{name: binary(), summary: binary(), type: binary()}),
+                http: %{method: binary(), path_template: binary()},
+                id: binary(),
+                noun: binary(),
+                paginated: false,
+                scoped_prefix: nil,
+                summary: binary(),
+                verb: binary(),
+                writes: true
+              }
+          )
+        )
+        # from: lib/barkpark/plugins/bulldocs.ex:35
+        result = Barkpark.Plugins.Bulldocs.cli_commands()
+
+    type warning found at:
+    │
+ 35 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/bulldocs/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/bulldocs.ex:35: Barkpark.Plugins.Bulldocs.resolve_cli_commands/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/bulldocs.ex:35
+        result = Barkpark.Plugins.Bulldocs.codelist_seeders()
+
+    type warning found at:
+    │
+ 35 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/bulldocs/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/bulldocs.ex:35: Barkpark.Plugins.Bulldocs.resolve_codelist_seeders/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/bulldocs.ex:35
+        result = Barkpark.Plugins.Bulldocs.desk_items(dataset)
+
+    type warning found at:
+    │
+ 35 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/bulldocs/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/bulldocs.ex:35: Barkpark.Plugins.Bulldocs.resolve_desk_items/2
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/bulldocs.ex:35
+        result = Barkpark.Plugins.Bulldocs.external_sync_entries()
+
+    type warning found at:
+    │
+ 35 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/bulldocs/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/bulldocs.ex:35: Barkpark.Plugins.Bulldocs.resolve_external_sync_entries/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/bulldocs.ex:35
+        result = Barkpark.Plugins.Bulldocs.settings_schema()
+
+    type warning found at:
+    │
+ 35 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/bulldocs/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/bulldocs.ex:35: Barkpark.Plugins.Bulldocs.resolve_settings_schema/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/bulldocs.ex:35
+        result = Barkpark.Plugins.Bulldocs.top_menu_entries()
+
+    type warning found at:
+    │
+ 35 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/bulldocs/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/bulldocs.ex:35: Barkpark.Plugins.Bulldocs.resolve_top_menu_entries/2
+
+     warning: this clause of defp unrendered_container_paths_in/2 is never used (or it will always fail/warn when invoked)
+     │
+ 527 │   defp unrendered_container_paths_in(_block, _path), do: []
+     │        ~
+     │
+     └─ lib/barkpark/content/authoring_wall.ex:527:8: Barkpark.Content.AuthoringWall.unrendered_container_paths_in/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/onixedit.ex:31
+        result = Barkpark.Plugins.OnixEdit.checkers()
+
+    type warning found at:
+    │
+ 31 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/onixedit.ex:31: Barkpark.Plugins.OnixEdit.resolve_checkers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/onixedit.ex:31
+        result = Barkpark.Plugins.OnixEdit.extract_edges(Map.get(ctx, :doc), ctx)
+
+    type warning found at:
+    │
+ 31 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/onixedit.ex:31: Barkpark.Plugins.OnixEdit.resolve_extract_edges/2
+
+     warning: this clause of defp corpus_truncation/1 is never used (or it will always fail/warn when invoked)
+     │
+ 158 │   defp corpus_truncation(_), do: nil
+     │        ~
+     │
+     └─ lib/barkpark_web/live/studio/graph_view.ex:158:8: BarkparkWeb.Studio.GraphView.corpus_truncation/1
+
+     warning: this clause of defp send_notification/3 is never used (or it will always fail/warn when invoked)
+     │
+ 403 │   defp send_notification(port, method, params),
+     │        ~
+     │
+     └─ lib/barkpark/studio_chat/runtime/codex/session.ex:403:8: Barkpark.StudioChat.Runtime.Codex.Session.send_notification/3
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/sheets.ex:59
+        result = Barkpark.Plugins.Sheets.action_handlers()
+
+    type warning found at:
+    │
+ 59 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/sheets/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/sheets.ex:59: Barkpark.Plugins.Sheets.resolve_action_handlers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/sheets.ex:59
+        result = Barkpark.Plugins.Sheets.api_tests()
+
+    type warning found at:
+    │
+ 59 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/sheets/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/sheets.ex:59: Barkpark.Plugins.Sheets.resolve_api_tests/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/sheets.ex:59
+        result = Barkpark.Plugins.Sheets.checkers()
+
+    type warning found at:
+    │
+ 59 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/sheets/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/sheets.ex:59: Barkpark.Plugins.Sheets.resolve_checkers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/sheets.ex:59
+        result = Barkpark.Plugins.Sheets.codelist_seeders()
+
+    type warning found at:
+    │
+ 59 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/sheets/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/sheets.ex:59: Barkpark.Plugins.Sheets.resolve_codelist_seeders/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/sheets.ex:59
+        result = Barkpark.Plugins.Sheets.desk_items(dataset)
+
+    type warning found at:
+    │
+ 59 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/sheets/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/sheets.ex:59: Barkpark.Plugins.Sheets.resolve_desk_items/2
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/sheets.ex:59
+        result = Barkpark.Plugins.Sheets.external_sync_entries()
+
+    type warning found at:
+    │
+ 59 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/sheets/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/sheets.ex:59: Barkpark.Plugins.Sheets.resolve_external_sync_entries/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/sheets.ex:59
+        result = Barkpark.Plugins.Sheets.extract_edges(Map.get(ctx, :doc), ctx)
+
+    type warning found at:
+    │
+ 59 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/sheets/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/sheets.ex:59: Barkpark.Plugins.Sheets.resolve_extract_edges/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/sheets.ex:59
+        result = Barkpark.Plugins.Sheets.settings_schema()
+
+    type warning found at:
+    │
+ 59 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/sheets/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/sheets.ex:59: Barkpark.Plugins.Sheets.resolve_settings_schema/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/sheets.ex:59
+        result = Barkpark.Plugins.Sheets.top_menu_entries()
+
+    type warning found at:
+    │
+ 59 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/sheets/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/sheets.ex:59: Barkpark.Plugins.Sheets.resolve_top_menu_entries/2
+
+      warning: this clause of defp reason_phrase/2 is never used (or it will always fail/warn when invoked)
+      │
+ 1098 │   defp reason_phrase(_, _timeout), do: "the backlog scan failed"
+      │        ~
+      │
+      └─ lib/barkpark/tasks/dedup.ex:1098:8: Barkpark.Tasks.Dedup.reason_phrase/2
+
+      warning: this clause of defp code_error?/1 is never used (or it will always fail/warn when invoked)
+      │
+ 1129 │   defp code_error?(_), do: false
+      │        ~
+      │
+      └─ lib/barkpark/tasks/dedup.ex:1129:8: Barkpark.Tasks.Dedup.code_error?/1
+
+     warning: clauses with the same name and arity (number of arguments) should be grouped together, "defp block/2" was previously defined (lib/barkpark/portable_doc/bpml/printer.ex:52)
+     │
+ 273 │   defp block(%{"type" => "section"} = b, d) do
+     │        ~
+     │
+     └─ lib/barkpark/portable_doc/bpml/printer.ex:273:8
+
+      warning: this clause of defp type_name/1 is never used (or it will always fail/warn when invoked)
+      │
+ 1227 │   defp type_name(%{__struct__: mod}), do: "%#{inspect(mod)}{}"
+      │        ~
+      │
+      └─ lib/barkpark/content/errors.ex:1227:8: Barkpark.Content.Errors.type_name/1
+
+      warning: this clause of defp type_name/1 is never used (or it will always fail/warn when invoked)
+      │
+ 1234 │   defp type_name(_v), do: "term"
+      │        ~
+      │
+      └─ lib/barkpark/content/errors.ex:1234:8: Barkpark.Content.Errors.type_name/1
+
+    warning: unused require Logger
+    │
+ 40 │   require Logger
+    │   ~
+    │
+    └─ lib/barkpark/quiz/room.ex:40:3
+
+     warning: this clause in cond will never match:
+
+         is_boolean(expr)
+
+     since it has type:
+
+         dynamic(false)
+
+     where "expr" was given the types:
+
+         # type: dynamic(not binary())
+         # from: test/support/attr_escape_scan.ex:225:7
+         is_binary(expr)
+
+         # type: dynamic(not binary() and not float() and not integer())
+         # from: test/support/attr_escape_scan.ex:226:7
+         is_number(expr)
+
+         # type: dynamic(not atom() and not binary() and not float() and not integer())
+         # from: test/support/attr_escape_scan.ex:227:7
+         is_atom(expr)
+
+     type warning found at:
+     │
+ 228 │       is_boolean(expr) -> :literal
+     │                        ~
+     │
+     └─ test/support/attr_escape_scan.ex:228:24: Barkpark.PortableDoc.Render.AttrEscapeScan.classify/2
+
+     warning: this clause of defp respond_error/2 is never used (or it will always fail/warn when invoked)
+     │
+ 474 │   defp respond_error(conn, _reason), do: enveloped(conn, {:error, :storage_unavailable})
+     │        ~
+     │
+     └─ lib/barkpark_web/controllers/tickets_attachments_controller.ex:474:8: BarkparkWeb.TicketsAttachmentsController.respond_error/2
+
+     warning: this clause of defp error_summary/3 is never used (or it will always fail/warn when invoked)
+     │
+ 570 │   defp error_summary(nil, _doc_id, _set), do: "—"
+     │        ~
+     │
+     └─ lib/barkpark/plugins/onixedit/web/bokbasen_live.ex:570:8: Barkpark.Plugins.OnixEdit.Web.BokbasenLive.error_summary/3
+
+     warning: this clause of defp checklist_field?/1 is never used (or it will always fail/warn when invoked)
+     │
+ 642 │   defp checklist_field?(_), do: false
+     │        ~
+     │
+     └─ lib/barkpark_web/components/fields/array_field.ex:642:8: BarkparkWeb.Components.Fields.ArrayField.checklist_field?/1
+
+      warning: the following clause cannot match because the previous clauses already matched all possible values:
+
+          _ ->
+
+      it attempts to match on the result of:
+
+          content_of(task_doc)
+
+      which has the already matched type:
+
+          dynamic(map())
+
+      type warning found at:
+      │
+ 1159 │       _ ->
+      │         ~
+      │
+      └─ lib/barkpark/plugins/github/mirror_job.ex:1159:9: Barkpark.Plugins.Github.MirrorJob.parent_id_of/1
+
+     warning: the following conditional expression will always succeed:
+
+         p.ok
+
+     because it evaluates to:
+
+         dynamic(not false)
+
+     where "p" was given the types:
+
+         # type: dynamic(%{..., ok: term()})
+         # from: lib/barkpark_web/live/studio/sheet_grid.ex:432:12
+         p.ok == false
+
+         # type: dynamic(%{..., ok: not false})
+         # from: lib/barkpark_web/live/studio/sheet_grid.ex:432:12
+         p.ok == false
+
+     type warning found at:
+     │
+ 435 │       p.ok and socket.assigns.epoch in [nil, p.epoch] and p.rev >= socket.assigns.rev ->
+     │       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     │
+     └─ lib/barkpark_web/live/studio/sheet_grid.ex:435: BarkparkWeb.Studio.SheetGrid.update/2
+
+      warning: this clause of defp cell_menu_style/1 is never used (or it will always fail/warn when invoked)
+      │
+ 2605 │   defp cell_menu_style(_), do: nil
+      │        ~
+      │
+      └─ lib/barkpark_web/live/studio/sheet_grid.ex:2605:8: BarkparkWeb.Studio.SheetGrid.cell_menu_style/1
+
+     warning: clauses with the same name and arity (number of arguments) should be grouped together, "def compose_block/2" was previously defined (lib/barkpark/portable_doc/render/compose.ex:188)
+     │
+ 340 │   def compose_block(%{"type" => t} = b, style) when t in @unordered_list_aliases,
+     │       ~
+     │
+     └─ lib/barkpark/portable_doc/render/compose.ex:340:7
+
+      warning: the right-hand side of || will never be executed:
+
+          description_source || ...
+
+      because the left-hand side always evaluates to:
+
+          binary()
+
+      where "description_source" was given the type:
+
+          # type: binary()
+          # from: lib/barkpark/portable_doc/render/compose.ex:3081:24
+          description_source = paper_links_form_text(Map.get(block, "description"))
+
+      type warning found at:
+      │
+ 3094 │       description_source: description_source || "",
+      │       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      │
+      └─ lib/barkpark/portable_doc/render/compose.ex:3094: Barkpark.PortableDoc.Render.Compose.paper_links_presentation/2
+
+     warning: the variable "take" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 577 │       <<data::binary-size(take), rest::binary>> = state.buf
+     │                           ~
+     │
+     └─ lib/barkpark/sites/prebuilt_artifact.ex:577:27: Barkpark.Sites.PrebuiltArtifact.parse/1
+
+     warning: the variable "take" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 598 │       <<data::binary-size(take), rest::binary>> = state.buf
+     │                           ~
+     │
+     └─ lib/barkpark/sites/prebuilt_artifact.ex:598:27: Barkpark.Sites.PrebuiltArtifact.parse/1
+
+     warning: the variable "padding" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 631 │       <<_pad::binary-size(padding), rest::binary>> = state.buf
+     │                           ~
+     │
+     └─ lib/barkpark/sites/prebuilt_artifact.ex:631:27: Barkpark.Sites.PrebuiltArtifact.parse/1
+
+      warning: the variable "len" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+      │
+ 1111 │         <<record::binary-size(len), rest::binary>> = block
+      │                               ~
+      │
+      └─ lib/barkpark/sites/prebuilt_artifact.ex:1111:31: Barkpark.Sites.PrebuiltArtifact.pax_split_record/2
+
+     warning: the following clause will never match:
+
+         {:error, reason} ->
+
+     because it attempts to match on the result of:
+
+         IO.binwrite(state.io, data)
+
+     which has type:
+
+         dynamic(not {:error, term()})
+
+     type warning found at:
+     │
+ 583 │         {:error, reason} ->
+     │         ~~~~~~~~~~~~~~~~~~~
+     │
+     └─ lib/barkpark/sites/prebuilt_artifact.ex:583: Barkpark.Sites.PrebuiltArtifact.parse/1
+
+     warning: the following conditional expression will never succeed:
+
+         state.halted
+
+     because it evaluates to:
+
+         dynamic(not true)
+
+     where "state" was given the types:
+
+         # type: dynamic(
+           %{..., buf: binary(), phase: :header} and
+             not %{..., buf: binary(), halted: true, phase: :header}
+         )
+         # from: lib/barkpark/sites/prebuilt_artifact.ex:648:13
+         state = %{state | buf: rest}
+
+         # type: dynamic(
+           %{..., buf: binary(), pax: term(), phase: :header} and
+             not %{..., buf: binary(), halted: true, phase: :header}
+         )
+         # from: lib/barkpark/sites/prebuilt_artifact.ex:651:18
+         state.pax
+
+         # type: dynamic(
+           %{..., buf: binary(), pax: false or nil, phase: :header} and
+             not %{..., buf: binary(), halted: true, phase: :header}
+         )
+         # from: lib/barkpark/sites/prebuilt_artifact.ex:651:18
+         state.pax
+
+         # type: dynamic(
+           %{..., buf: binary(), pax: false or nil, phase: :header, zero_blocks: float() or integer()} and
+             not %{..., buf: binary(), halted: true, phase: :header}
+         )
+         # from: lib/barkpark/sites/prebuilt_artifact.ex:661:43
+         state.zero_blocks + 1
+
+     type warning found at:
+     │
+ 662 │           state = %{state | zero_blocks: zero_blocks, halted: state.halted or zero_blocks >= 2}
+     │           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     │
+     └─ lib/barkpark/sites/prebuilt_artifact.ex:662: Barkpark.Sites.PrebuiltArtifact.parse/1
+
+     warning: this clause of defp sanitize_egress_host/1 is never used (or it will always fail/warn when invoked)
+     │
+ 309 │   defp sanitize_egress_host(_), do: :skip
+     │        ~
+     │
+     └─ lib/barkpark/connectors/cloud_policy.ex:309:8: Barkpark.Connectors.CloudPolicy.sanitize_egress_host/1
+
+     warning: this clause of defp truncate_text/2 is never used (or it will always fail/warn when invoked)
+     │
+ 366 │   defp truncate_text(nil, _max), do: ""
+     │        ~
+     │
+     └─ lib/barkpark_web/components/studio_components/editor_fields.ex:366:8: BarkparkWeb.StudioComponents.EditorFields.truncate_text/2
+
+     warning: this clause of defp fetch_task/1 is never used (or it will always fail/warn when invoked)
+     │
+ 467 │   defp fetch_task(_), do: nil
+     │        ~
+     │
+     └─ lib/barkpark/tasks/close.ex:467:8: Barkpark.Tasks.Close.fetch_task/1
+
+      warning: this clause of defp merge_discrepancy_record/3 is never used (or it will always fail/warn when invoked)
+      │
+ 1922 │   defp merge_discrepancy_record(_content, _landed, _ts_iso), do: nil
+      │        ~
+      │
+      └─ lib/barkpark/tasks/close.ex:1922:8: Barkpark.Tasks.Close.merge_discrepancy_record/3
+
+     warning: this clause of defp stringify/1 is never used (or it will always fail/warn when invoked)
+     │
+ 311 │   defp stringify(other), do: other
+     │        ~
+     │
+     └─ lib/barkpark/content/validation/rules.ex:311:8: Barkpark.Content.Validation.Rules.stringify/1
+
+     warning: this clause of defp submission_id_of/1 is never used (or it will always fail/warn when invoked)
+     │
+ 561 │   defp submission_id_of(_), do: nil
+     │        ~
+     │
+     └─ lib/barkpark/plugins/onixedit/bokbasen/publish_worker.ex:561:8: Barkpark.Plugins.OnixEdit.Bokbasen.PublishWorker.submission_id_of/1
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/pulse.ex:82
+        result = Barkpark.Plugins.Pulse.action_handlers()
+
+    type warning found at:
+    │
+ 82 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/pulse/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/pulse.ex:82: Barkpark.Plugins.Pulse.resolve_action_handlers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/pulse.ex:82
+        result = Barkpark.Plugins.Pulse.api_tests()
+
+    type warning found at:
+    │
+ 82 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/pulse/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/pulse.ex:82: Barkpark.Plugins.Pulse.resolve_api_tests/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/pulse.ex:82
+        result = Barkpark.Plugins.Pulse.checkers()
+
+    type warning found at:
+    │
+ 82 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/pulse/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/pulse.ex:82: Barkpark.Plugins.Pulse.resolve_checkers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/pulse.ex:82
+        result = Barkpark.Plugins.Pulse.cli_commands()
+
+    type warning found at:
+    │
+ 82 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/pulse/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/pulse.ex:82: Barkpark.Plugins.Pulse.resolve_cli_commands/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/pulse.ex:82
+        result = Barkpark.Plugins.Pulse.codelist_seeders()
+
+    type warning found at:
+    │
+ 82 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/pulse/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/pulse.ex:82: Barkpark.Plugins.Pulse.resolve_codelist_seeders/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(non_empty_list(%{icon: binary(), label: binary(), path: binary(), type: :link}))
+        # from: lib/barkpark/plugins/pulse.ex:82
+        result = Barkpark.Plugins.Pulse.desk_items(dataset)
+
+    type warning found at:
+    │
+ 82 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/pulse/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/pulse.ex:82: Barkpark.Plugins.Pulse.resolve_desk_items/2
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/pulse.ex:82
+        result = Barkpark.Plugins.Pulse.external_sync_entries()
+
+    type warning found at:
+    │
+ 82 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/pulse/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/pulse.ex:82: Barkpark.Plugins.Pulse.resolve_external_sync_entries/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/pulse.ex:82
+        result = Barkpark.Plugins.Pulse.extract_edges(Map.get(ctx, :doc), ctx)
+
+    type warning found at:
+    │
+ 82 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/pulse/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/pulse.ex:82: Barkpark.Plugins.Pulse.resolve_extract_edges/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/pulse.ex:82
+        result = Barkpark.Plugins.Pulse.settings_schema()
+
+    type warning found at:
+    │
+ 82 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/pulse/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/pulse.ex:82: Barkpark.Plugins.Pulse.resolve_settings_schema/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/pulse.ex:82
+        result = Barkpark.Plugins.Pulse.top_menu_entries()
+
+    type warning found at:
+    │
+ 82 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/pulse/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/pulse.ex:82: Barkpark.Plugins.Pulse.resolve_top_menu_entries/2
+
+     warning: incompatible types given to Map.get/2:
+
+         Map.get(schema, :validations)
+
+     the map:
+
+         dynamic(%Barkpark.Content.SchemaDefinition{fields: term()})
+
+     does not have all required keys:
+
+         :validations
+
+     therefore this function will always return nil
+
+     where "schema" was given the types:
+
+         # type: dynamic(%Barkpark.Content.SchemaDefinition{})
+         # from: lib/barkpark/content/validation.ex:351:39
+         %Barkpark.Content.SchemaDefinition{} = schema
+
+         # type: dynamic(%Barkpark.Content.SchemaDefinition{fields: term()})
+         # from: lib/barkpark/content/validation.ex:355:26
+         schema.fields
+
+     type warning found at:
+     │
+ 356 │       "validations" => Map.get(schema, :validations) || []
+     │                            ~
+     │
+     └─ lib/barkpark/content/validation.ex:356:28: Barkpark.Content.Validation.schema_map/1
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/frt.ex:45
+        result = Barkpark.Plugins.Frt.action_handlers()
+
+    type warning found at:
+    │
+ 45 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/frt.ex:45: Barkpark.Plugins.Frt.resolve_action_handlers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/frt.ex:45
+        result = Barkpark.Plugins.Frt.api_tests()
+
+    type warning found at:
+    │
+ 45 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/frt.ex:45: Barkpark.Plugins.Frt.resolve_api_tests/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/frt.ex:45
+        result = Barkpark.Plugins.Frt.checkers()
+
+    type warning found at:
+    │
+ 45 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/frt.ex:45: Barkpark.Plugins.Frt.resolve_checkers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/frt.ex:45
+        result = Barkpark.Plugins.Frt.cli_commands()
+
+    type warning found at:
+    │
+ 45 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/frt.ex:45: Barkpark.Plugins.Frt.resolve_cli_commands/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/frt.ex:45
+        result = Barkpark.Plugins.Frt.codelist_seeders()
+
+    type warning found at:
+    │
+ 45 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/frt.ex:45: Barkpark.Plugins.Frt.resolve_codelist_seeders/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(non_empty_list(%{icon: term(), items: term(), label: term(), type: :nested}))
+        # from: lib/barkpark/plugins/frt.ex:45
+        result = Barkpark.Plugins.Frt.desk_items(dataset)
+
+    type warning found at:
+    │
+ 45 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/frt.ex:45: Barkpark.Plugins.Frt.resolve_desk_items/2
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/frt.ex:45
+        result = Barkpark.Plugins.Frt.external_sync_entries()
+
+    type warning found at:
+    │
+ 45 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/frt.ex:45: Barkpark.Plugins.Frt.resolve_external_sync_entries/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/frt.ex:45
+        result = Barkpark.Plugins.Frt.extract_edges(Map.get(ctx, :doc), ctx)
+
+    type warning found at:
+    │
+ 45 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/frt.ex:45: Barkpark.Plugins.Frt.resolve_extract_edges/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/frt.ex:45
+        result = Barkpark.Plugins.Frt.settings_schema()
+
+    type warning found at:
+    │
+ 45 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/frt.ex:45: Barkpark.Plugins.Frt.resolve_settings_schema/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/frt.ex:45
+        result = Barkpark.Plugins.Frt.top_menu_entries()
+
+    type warning found at:
+    │
+ 45 │   use Barkpark.Plugin,
+    │   ~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/frt.ex:45: Barkpark.Plugins.Frt.resolve_top_menu_entries/2
+
+     warning: this clause of defp changelog_present?/1 is never used (or it will always fail/warn when invoked)
+     │
+ 252 │   defp changelog_present?(_), do: false
+     │        ~
+     │
+     └─ lib/barkpark_web/components/studio_components/nav.ex:252:8: BarkparkWeb.StudioComponents.Nav.changelog_present?/1
+
+     warning: this clause of defp textarea_class/1 is never used (or it will always fail/warn when invoked)
+     │
+ 154 │   defp textarea_class(:rich), do: "bp-input bp-textarea bp-localized-rich"
+     │        ~
+     │
+     └─ lib/barkpark_web/components/fields/localized_text_field.ex:154:8: BarkparkWeb.Components.Fields.LocalizedTextField.textarea_class/1
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/tasks.ex:57
+        result = Barkpark.Plugins.Tasks.action_handlers()
+
+    type warning found at:
+    │
+ 57 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/tasks/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/tasks.ex:57: Barkpark.Plugins.Tasks.resolve_action_handlers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/tasks.ex:57
+        result = Barkpark.Plugins.Tasks.api_tests()
+
+    type warning found at:
+    │
+ 57 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/tasks/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/tasks.ex:57: Barkpark.Plugins.Tasks.resolve_api_tests/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/tasks.ex:57
+        result = Barkpark.Plugins.Tasks.checkers()
+
+    type warning found at:
+    │
+ 57 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/tasks/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/tasks.ex:57: Barkpark.Plugins.Tasks.resolve_checkers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/tasks.ex:57
+        result = Barkpark.Plugins.Tasks.codelist_seeders()
+
+    type warning found at:
+    │
+ 57 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/tasks/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/tasks.ex:57: Barkpark.Plugins.Tasks.resolve_codelist_seeders/2
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: lib/barkpark/plugins/tasks.ex:57
+        result = Barkpark.Plugins.Tasks.external_sync_entries()
+
+    type warning found at:
+    │
+ 57 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/tasks/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/tasks.ex:57: Barkpark.Plugins.Tasks.resolve_external_sync_entries/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: lib/barkpark/plugins/tasks.ex:57
+        result = Barkpark.Plugins.Tasks.settings_schema()
+
+    type warning found at:
+    │
+ 57 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/tasks/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/tasks.ex:57: Barkpark.Plugins.Tasks.resolve_settings_schema/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(
+          non_empty_list(%{
+            active_when: binary(),
+            icon: binary(),
+            label: binary(),
+            order: integer(),
+            path: binary()
+          })
+        )
+        # from: lib/barkpark/plugins/tasks.ex:57
+        result = Barkpark.Plugins.Tasks.top_menu_entries()
+
+    type warning found at:
+    │
+ 57 │   use Barkpark.Plugin, manifest_path: "../../../priv/plugins/tasks/plugin.json"
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/barkpark/plugins/tasks.ex:57: Barkpark.Plugins.Tasks.resolve_top_menu_entries/2
+
+     warning: the variable "pos" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 558 │       <<_::binary-size(pos), 0x50, 0x4B, 0x05, 0x06, _disk::little-16, _cd_disk::little-16,
+     │                        ~
+     │
+     └─ lib/barkpark/plugins/sheets/xlsx_export.ex:558:24: Barkpark.Plugins.Sheets.XlsxExport.scan_eocd/4
+
+     warning: the variable "loc" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 581 │     match?(<<_::binary-size(loc), 0x50, 0x4B, 0x06, 0x07, _::binary>>, binary)
+     │                             ~
+     │
+     └─ lib/barkpark/plugins/sheets/xlsx_export.ex:581:29: Barkpark.Plugins.Sheets.XlsxExport.zip64_locator?/2
+
+     warning: the variable "offset" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 595 │       <<_::binary-size(offset), 0x50, 0x4B, 0x01, 0x02, _::binary-size(24), fname_len::little-16,
+     │                        ~
+     │
+     └─ lib/barkpark/plugins/sheets/xlsx_export.ex:595:24: Barkpark.Plugins.Sheets.XlsxExport.walk_cdh/4
+
+     warning: the variable "offset" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 613 │     match?(<<_::binary-size(offset), 0x50, 0x4B, 0x03, 0x04, _::binary>>, binary)
+     │                             ~
+     │
+     └─ lib/barkpark/plugins/sheets/xlsx_export.ex:613:29: Barkpark.Plugins.Sheets.XlsxExport.lfh_signature?/2
+
+      warning: the following clause will never match:
+
+          false ->
+
+      it is expected to match on type:
+
+          dynamic(not nil and not boolean())
+
+      type warning found at:
+      │
+ 3873 │       false -> {:error, :invalid_build_unit_ids}
+      │       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      │
+      └─ lib/barkpark/cycle_fleet.ex:3873: Barkpark.CycleFleet.validate_build_assignment/3
+
+      warning: the following clause will never match:
+
+          false ->
+
+      it is expected to match on type:
+
+          dynamic(
+            ({:error, :invalid_build_unit_ids} and not {:ok, empty_list() or non_empty_list(term(), term())}) or
+              {:error, :build_outcome_overlap or :build_outcomes_do_not_partition_assignment}
+          )
+
+      type warning found at:
+      │
+ 4457 │       false -> {:error, :invalid_build_outcome_unit_ids}
+      │       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      │
+      └─ lib/barkpark/cycle_fleet.ex:4457: Barkpark.CycleFleet.validate_completed_build_result/2
+
+    warning: unused require Logger
+    │
+ 29 │   require Logger
+    │   ~
+    │
+    └─ lib/barkpark/tasks/judge.ex:29:3
+
+     warning: the right-hand side of || will never be executed:
+
+         entry.reader_behaviour || ...
+
+     because the left-hand side always evaluates to:
+
+         binary()
+
+     where "entry" was given the types:
+
+         # type: dynamic(%{
+           class: binary(),
+           error_count: integer(),
+           first_error: binary(),
+           id: binary(),
+           reader_behaviour: binary(),
+           reader_impact: binary()
+         })
+         # from: lib/barkpark/content/papers/pre_gate_register.ex:133:14
+         %{} = entry
+
+         # type: dynamic(%{
+           class: binary(),
+           error_count: integer(),
+           first_error: binary(),
+           id: binary(),
+           reader_behaviour: binary(),
+           reader_impact: binary()
+         })
+         # from: lib/barkpark/content/papers/pre_gate_register.ex:133:22
+         %{} = entry <- entry(paper_id)
+
+     type warning found at:
+     │
+ 137 │         title: entry.reader_behaviour || @label_none,
+     │         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     │
+     └─ lib/barkpark/content/papers/pre_gate_register.ex:137: Barkpark.Content.Papers.PreGateRegister.badge/2
+
+     warning: this clause of defp to_string_or_nil/1 is never used (or it will always fail/warn when invoked)
+     │
+ 158 │   defp to_string_or_nil(_), do: nil
+     │        ~
+     │
+     └─ lib/barkpark/external_sync.ex:158:8: Barkpark.ExternalSync.to_string_or_nil/1
+
+      warning: this clause of defp chat_plan_title/1 is never used (or it will always fail/warn when invoked)
+      │
+ 1443 │   defp chat_plan_title(_), do: "Proposed plan"
+      │        ~
+      │
+      └─ lib/barkpark/portable_doc/render/components.ex:1443:8: Barkpark.PortableDoc.Render.Components.chat_plan_title/1
+
+      warning: this clause of defp chat_plan_preview/1 is never used (or it will always fail/warn when invoked)
+      │
+ 1457 │   defp chat_plan_preview(_), do: ""
+      │        ~
+      │
+      └─ lib/barkpark/portable_doc/render/components.ex:1457:8: Barkpark.PortableDoc.Render.Components.chat_plan_preview/1
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: test/support/fixtures/plugins/hello/lib/hello.ex:11
+        result = Barkpark.Plugins.Hello.action_handlers()
+
+    type warning found at:
+    │
+ 11 │   use Barkpark.Plugin
+    │   ~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/support/fixtures/plugins/hello/lib/hello.ex:11: Barkpark.Plugins.Hello.resolve_action_handlers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: test/support/fixtures/plugins/hello/lib/hello.ex:11
+        result = Barkpark.Plugins.Hello.api_tests()
+
+    type warning found at:
+    │
+ 11 │   use Barkpark.Plugin
+    │   ~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/support/fixtures/plugins/hello/lib/hello.ex:11: Barkpark.Plugins.Hello.resolve_api_tests/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(non_empty_list({binary(), Barkpark.Plugins.Hello.AlwaysOk}))
+        # from: test/support/fixtures/plugins/hello/lib/hello.ex:11
+        result = Barkpark.Plugins.Hello.checkers()
+
+    type warning found at:
+    │
+ 11 │   use Barkpark.Plugin
+    │   ~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/support/fixtures/plugins/hello/lib/hello.ex:11: Barkpark.Plugins.Hello.resolve_checkers/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: test/support/fixtures/plugins/hello/lib/hello.ex:11
+        result = Barkpark.Plugins.Hello.cli_commands()
+
+    type warning found at:
+    │
+ 11 │   use Barkpark.Plugin
+    │   ~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/support/fixtures/plugins/hello/lib/hello.ex:11: Barkpark.Plugins.Hello.resolve_cli_commands/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: test/support/fixtures/plugins/hello/lib/hello.ex:11
+        result = Barkpark.Plugins.Hello.codelist_seeders()
+
+    type warning found at:
+    │
+ 11 │   use Barkpark.Plugin
+    │   ~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/support/fixtures/plugins/hello/lib/hello.ex:11: Barkpark.Plugins.Hello.resolve_codelist_seeders/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: test/support/fixtures/plugins/hello/lib/hello.ex:11
+        result = Barkpark.Plugins.Hello.desk_items(dataset)
+
+    type warning found at:
+    │
+ 11 │   use Barkpark.Plugin
+    │   ~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/support/fixtures/plugins/hello/lib/hello.ex:11: Barkpark.Plugins.Hello.resolve_desk_items/2
+
+    warning: the following conditional expression:
+
+        is_map(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: dynamic(empty_map())
+        # from: test/support/fixtures/plugins/hello/lib/hello.ex:11
+        result = Barkpark.Plugins.Hello.external_sync_entries()
+
+    type warning found at:
+    │
+ 11 │   use Barkpark.Plugin
+    │   ~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/support/fixtures/plugins/hello/lib/hello.ex:11: Barkpark.Plugins.Hello.resolve_external_sync_entries/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: test/support/fixtures/plugins/hello/lib/hello.ex:11
+        result = Barkpark.Plugins.Hello.extract_edges(Map.get(ctx, :doc), ctx)
+
+    type warning found at:
+    │
+ 11 │   use Barkpark.Plugin
+    │   ~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/support/fixtures/plugins/hello/lib/hello.ex:11: Barkpark.Plugins.Hello.resolve_extract_edges/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: test/support/fixtures/plugins/hello/lib/hello.ex:11
+        result = Barkpark.Plugins.Hello.settings_schema()
+
+    type warning found at:
+    │
+ 11 │   use Barkpark.Plugin
+    │   ~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/support/fixtures/plugins/hello/lib/hello.ex:11: Barkpark.Plugins.Hello.resolve_settings_schema/2
+
+    warning: the following conditional expression:
+
+        is_list(result)
+
+    will always evaluate to:
+
+        dynamic(true)
+
+    where "result" (context Barkpark.Plugin) was given the type:
+
+        # type: empty_list()
+        # from: test/support/fixtures/plugins/hello/lib/hello.ex:11
+        result = Barkpark.Plugins.Hello.top_menu_entries()
+
+    type warning found at:
+    │
+ 11 │   use Barkpark.Plugin
+    │   ~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/support/fixtures/plugins/hello/lib/hello.ex:11: Barkpark.Plugins.Hello.resolve_top_menu_entries/2
+
+    warning: the following clause cannot match because the previous clauses already matched all possible values:
+
+        window ->
+
+    it attempts to match on the result of:
+
+        idle_timeout_seconds()
+
+    which has the already matched type:
+
+        dynamic(nil)
+
+    where "window" was given the type:
+
+        # type: dynamic(nil)
+        # from: lib/barkpark/accounts/user_session.ex:92:7
+        window
+
+    type warning found at:
+    │
+ 92 │       window ->
+    │              ~
+    │
+    └─ lib/barkpark/accounts/user_session.ex:92:14: Barkpark.Accounts.UserSession.idle_expired?/2
+
+    warning: incompatible types given to DateTime.add/3:
+
+        DateTime.add(base, window, :second)
+
+    given types:
+
+        dynamic(), -dynamic(nil)-, :second
+
+    but expected one of:
+
+        #1
+        term(), integer(), :day or :hour or :minute
+
+        #2
+        (
+          %{
+            ...,
+            calendar: atom(),
+            day: term(),
+            hour: term(),
+            microsecond: {term(), term()},
+            minute: term(),
+            month: term(),
+            second: term(),
+            std_offset: term(),
+            time_zone: term(),
+            utc_offset: term(),
+            year: term()
+          },
+          integer(),
+          :microsecond or :millisecond or :nanosecond or :second or integer()
+        )
+
+    where "base" was given the type:
+
+        # type: dynamic()
+        # from: lib/barkpark/accounts/user_session.ex:93:14
+        base = last || now
+
+    where "window" was given the type:
+
+        # type: dynamic(nil)
+        # from: lib/barkpark/accounts/user_session.ex:92:7
+        window
+
+    type warning found at:
+    │
+ 94 │         DateTime.compare(now, DateTime.add(base, window, :second)) != :lt
+    │                                        ~
+    │
+    └─ lib/barkpark/accounts/user_session.ex:94:40: Barkpark.Accounts.UserSession.idle_expired?/2
+
+     warning: the following clause will never match:
+
+         {:ok, {:scrub_fields, fields}} ->
+
+     because it attempts to match on the result of:
+
+         Map.fetch(
+           %{
+             "access_grants" => :deny,
+             "api_tokens" => :deny,
+             "audit_events" => :deny,
+             "audit_export_sinks" => :deny,
+             "authoring_exemptions" => :copy,
+             "chat_execution_events" => :deny,
+             "chat_execution_leases" => :deny,
+             "chat_runtime_usage_receipts" => :deny,
+             "content_edges" => :copy,
+             "cycle_build_plans" => :deny,
+             "cycle_correction_admissions" => :deny,
+             "cycle_correction_promotion_events" => :deny,
+             "cycle_correction_quarantines" => :deny,
+             "cycle_correction_roots" => :deny,
+             "cycle_correction_targets" => :deny,
+             "cycle_release_gate_admissions" => :deny,
+             "cycle_release_gate_captures" => :deny,
+             "cycle_release_gate_challenges" => :deny,
+             "cycle_release_gate_consumptions" => :deny,
+             "cycle_release_paper_candidates" => :deny,
+             "cycle_release_public_smokes" => :deny,
+             "cycle_waves" => :deny,
+             "data_keys" => :deny,
+             "datasets" => :copy,
+             "documents" => {:copy, deny_types: ["ticket"]},
+             "epic_assignment_results" => :deny,
+             "epic_assignment_runtime_attempts" => :deny,
+             "epic_assignment_tasks" => :deny,
+             "epic_assignments" => :deny,
+             "epic_benchmark_attempts" => :deny,
+             "epic_benchmark_experiments" => :deny,
+             "github_sync_conflicts" => :deny,
+             "media_files" => :copy,
+             "mutation_events" => :deny,
+             "paper_access_log" => :deny,
+             "paper_events" => :copy,
+             "plugin_doc_state" => :deny,
+             "preview_token_jti" => :deny,
+             "projects" => :copy,
+             "registered_chat_hosts" => :deny,
+             "revisions" => :deny,
+             "role_permissions" => :copy,
+             "roles" => :copy,
+             "schema_definitions" => :copy,
+             "search_intel_crystals" => :copy,
+             "search_intel_events" => :deny,
+             "search_intel_merge_patterns" => :copy,
+             "search_surface_config" => :copy,
+             "search_synonyms" => :copy,
+             "secrets" => :deny,
+             "secrets_audit" => :deny,
+             "share_links" => :deny,
+             "shares" => :deny,
+             "sync_cursors" => :deny,
+             "sync_dead_letters" => :deny,
+             "sync_push_conflicts" => :deny,
+             "sync_push_cursors" => :deny,
+             "sync_push_doc_revs" => :deny,
+             "task_edges" => :copy,
+             "webhook_deliveries" => :deny,
+             "webhooks" => :deny,
+             "workspace_memberships" => :deny,
+             "workspaces" => :copy
+           },
+           table
+         )
+
+     which has type:
+
+         dynamic(
+           :error or
+             {:ok, :copy or :deny or {:copy, non_empty_list({:deny_types, non_empty_list(binary())})}}
+         )
+
+     type warning found at:
+     │
+ 784 │       {:ok, {:scrub_fields, fields}} -> {:scrub_fields, fields}
+     │       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     │
+     └─ lib/barkpark/tenancy/workspace_bundle/catalog.ex:784: Barkpark.Tenancy.WorkspaceBundle.Catalog.dev_action/1
+
+
+23:18:20.424 [debug] QUERY OK db=0.9ms
+UPDATE documents SET rev = encode(gen_random_bytes(16), 'hex') WHERE rev IS NULL []
+
+23:18:20.621 [debug] QUERY OK db=0.6ms
+SELECT id, content::text FROM documents WHERE content ? 'bp_export_status' []
+
+23:18:20.623 [debug] QUERY OK db=0.5ms
+SELECT id, to_jsonb(fields)::text FROM schema_definitions []
+
+23:18:20.624 [debug] QUERY OK db=0.2ms
+SELECT id, content::text FROM documents []
+
+23:18:20.649 [debug] QUERY OK db=0.6ms
+DELETE FROM documents pf
+WHERE pf.type = 'paper'
+  AND pf.dataset = 'paperflow'
+  AND EXISTS (
+    SELECT 1 FROM documents prod
+    WHERE prod.type = 'paper'
+      AND prod.dataset = 'production'
+      AND prod.doc_id = pf.doc_id
+  )
+ []
+
+23:18:20.649 [debug] QUERY OK db=0.2ms
+UPDATE documents
+SET dataset = 'production', updated_at = updated_at
+WHERE type = 'paper' AND dataset = 'paperflow'
+ []
+
+23:18:20.651 [debug] QUERY OK db=0.9ms
+UPDATE revisions
+SET dataset = 'production'
+WHERE type = 'paper' AND dataset = 'paperflow'
+ []
+
+23:18:20.652 [debug] QUERY OK db=0.8ms
+INSERT INTO schema_definitions
+  (id, name, title, icon, visibility, fields, dataset, inserted_at, updated_at)
+VALUES (
+  gen_random_uuid(),
+  'paper',
+  'Papers',
+  '📰',
+  'public',
+  ARRAY(SELECT jsonb_array_elements($1::text::jsonb))::jsonb[],
+  $2,
+  now(),
+  now()
+)
+ON CONFLICT (name, dataset) DO NOTHING
+ ["[{\"name\":\"title\",\"title\":\"Title\",\"type\":\"string\"},{\"name\":\"event_type\",\"title\":\"Event Type\",\"type\":\"string\"},{\"name\":\"source_doc\",\"title\":\"Source Doc\",\"type\":\"string\"},{\"name\":\"goal_id\",\"title\":\"Goal\",\"type\":\"string\"}]", "production"]
+
+23:18:20.659 [debug] QUERY OK db=0.2ms
+SELECT to_regclass('public.papers') IS NOT NULL []
+
+23:18:20.664 [debug] QUERY OK db=3.2ms
+SELECT column_name
+FROM information_schema.columns
+WHERE table_schema = 'public' AND table_name = 'papers'
+ []
+
+23:18:20.666 [debug] QUERY OK db=1.8ms
+SELECT data_type
+FROM information_schema.columns
+WHERE table_schema = 'public' AND table_name = $1 AND column_name = $2
+ ["papers", "rev"]
+
+23:18:20.668 [debug] QUERY OK db=0.8ms
+INSERT INTO documents (id, doc_id, type, dataset, title, status, content, rev, inserted_at, updated_at)
+SELECT
+  gen_random_uuid(),
+  p.slug,
+  'paper',
+  p.dataset,
+  COALESCE(
+    (
+      SELECT b->>'text'
+      FROM jsonb_array_elements(COALESCE(p.blocks_val, '[]'::jsonb)) AS b
+      WHERE b->>'type' = 'heading' AND COALESCE(b->>'text', '') <> ''
+      LIMIT 1
+    ),
+    p.slug
+  ),
+  'published',
+  (
+    jsonb_strip_nulls(
+      jsonb_build_object(
+        'body_html', COALESCE(p.body_html, ''),
+        'blocks', p.blocks_val,
+        'source_doc', p.source_doc_val,
+        'goal_id', p.goal_id_val,
+        'event_type', p.event_type_val
+      )
+    )
+    || jsonb_build_object('rev', p.rev_val)
+  ),
+  md5(random()::text || clock_timestamp()::text),
+  p.inserted_at,
+  p.updated_at
+FROM (
+  SELECT
+    slug,
+    dataset,
+    body_html,
+    blocks AS blocks_val,
+    source_doc AS source_doc_val,
+    goal_id AS goal_id_val,
+    event_type AS event_type_val,
+    (GREATEST(COALESCE(rev, 0), 1)) AS rev_val,
+    inserted_at,
+    updated_at
+  FROM papers
+) p
+ON CONFLICT (doc_id, type, dataset) DO NOTHING
+ []
+
+23:18:20.668 [debug] QUERY OK db=0.3ms
+SELECT DISTINCT dataset FROM documents WHERE type = 'paper' []
+
+23:18:20.670 [debug] QUERY OK db=0.6ms
+INSERT INTO schema_definitions
+  (id, name, title, icon, visibility, fields, dataset, inserted_at, updated_at)
+VALUES (
+  gen_random_uuid(),
+  'paper',
+  'Papers',
+  $1,
+  'public',
+  ARRAY(SELECT jsonb_array_elements($2::text::jsonb))::jsonb[],
+  $3,
+  now(),
+  now()
+)
+ON CONFLICT (name, dataset) DO NOTHING
+ ["📰", "[{\"name\":\"title\",\"title\":\"Title\",\"type\":\"string\"},{\"name\":\"event_type\",\"title\":\"Event Type\",\"type\":\"string\"},{\"name\":\"source_doc\",\"title\":\"Source Doc\",\"type\":\"string\"},{\"name\":\"goal_id\",\"title\":\"Goal\",\"type\":\"string\"}]", "paperflow"]
+
+23:18:20.935 [debug] QUERY OK db=0.8ms
+INSERT INTO workspaces (id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), 'default', 'Default Workspace', now(), now()
+WHERE NOT EXISTS (SELECT 1 FROM workspaces WHERE slug = 'default')
+ []
+
+23:18:20.936 [debug] QUERY OK db=0.9ms
+INSERT INTO projects (id, workspace_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), w.id, 'default', 'Default Project', now(), now()
+FROM workspaces w
+WHERE w.slug = 'default'
+  AND NOT EXISTS (
+    SELECT 1 FROM projects p
+    WHERE p.workspace_id = w.id AND p.slug = 'default'
+  )
+ []
+
+23:18:20.936 [debug] QUERY OK db=0.2ms
+SELECT w.id, p.id
+FROM workspaces w
+JOIN projects p ON p.workspace_id = w.id AND p.slug = 'default'
+WHERE w.slug = 'default'
+ []
+
+23:18:20.940 [debug] QUERY OK db=0.5ms
+UPDATE documents
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<67, 78, 218, 97, 162, 109, 69, 106, 136, 128, 111, 244, 255, 65, 192, 255>>, <<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:20.941 [debug] QUERY OK db=0.6ms
+UPDATE revisions
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<67, 78, 218, 97, 162, 109, 69, 106, 136, 128, 111, 244, 255, 65, 192, 255>>, <<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:20.942 [debug] QUERY OK db=0.5ms
+UPDATE mutation_events
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<67, 78, 218, 97, 162, 109, 69, 106, 136, 128, 111, 244, 255, 65, 192, 255>>, <<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:20.943 [debug] QUERY OK db=0.5ms
+UPDATE media_files
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<67, 78, 218, 97, 162, 109, 69, 106, 136, 128, 111, 244, 255, 65, 192, 255>>, <<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:20.944 [debug] QUERY OK db=0.7ms
+UPDATE schema_definitions
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<67, 78, 218, 97, 162, 109, 69, 106, 136, 128, 111, 244, 255, 65, 192, 255>>, <<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:20.945 [debug] QUERY OK db=0.5ms
+UPDATE webhooks
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<67, 78, 218, 97, 162, 109, 69, 106, 136, 128, 111, 244, 255, 65, 192, 255>>, <<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:20.946 [debug] QUERY OK db=0.8ms
+UPDATE search_intel_events
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<67, 78, 218, 97, 162, 109, 69, 106, 136, 128, 111, 244, 255, 65, 192, 255>>, <<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:20.947 [debug] QUERY OK db=0.8ms
+UPDATE search_intel_crystals
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<67, 78, 218, 97, 162, 109, 69, 106, 136, 128, 111, 244, 255, 65, 192, 255>>, <<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:20.948 [debug] QUERY OK db=0.6ms
+UPDATE search_intel_merge_patterns
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<67, 78, 218, 97, 162, 109, 69, 106, 136, 128, 111, 244, 255, 65, 192, 255>>, <<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:20.948 [debug] QUERY OK db=0.5ms
+UPDATE search_synonyms
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<67, 78, 218, 97, 162, 109, 69, 106, 136, 128, 111, 244, 255, 65, 192, 255>>, <<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:20.950 [debug] QUERY OK db=0.3ms
+UPDATE api_tokens
+SET workspace_id = $1
+WHERE workspace_id IS NULL
+ [<<67, 78, 218, 97, 162, 109, 69, 106, 136, 128, 111, 244, 255, 65, 192, 255>>]
+
+23:18:20.952 [debug] QUERY OK db=0.7ms
+INSERT INTO workspace_memberships
+  (id, workspace_id, principal_type, principal_id, role, inserted_at, updated_at)
+SELECT
+  gen_random_uuid(),
+  t.workspace_id,
+  'api_token',
+  t.id,
+  CASE WHEN 'admin' = ANY(t.permissions) THEN 'admin' ELSE 'member' END,
+  now(),
+  now()
+FROM api_tokens t
+WHERE t.workspace_id IS NOT NULL
+  AND NOT EXISTS (
+    SELECT 1 FROM workspace_memberships m
+    WHERE m.workspace_id = t.workspace_id
+      AND m.principal_type = 'api_token'
+      AND m.principal_id = t.id
+  )
+ []
+
+23:18:20.960 [debug] QUERY OK db=0.9ms
+UPDATE paper_events pe
+SET workspace_id = d.workspace_id, project_id = d.project_id
+FROM documents d
+WHERE pe.paper_slug IS NOT NULL
+  AND d.doc_id = pe.paper_slug
+  AND d.type = 'paper'
+  AND d.workspace_id IS NOT NULL
+  AND pe.workspace_id IS NULL
+ []
+
+23:18:20.961 [debug] QUERY OK db=0.5ms
+SELECT w.id, p.id
+FROM workspaces w
+JOIN projects p ON p.workspace_id = w.id AND p.slug = 'default'
+WHERE w.slug = 'default'
+ []
+
+23:18:20.962 [debug] QUERY OK db=0.3ms
+UPDATE paper_events
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<67, 78, 218, 97, 162, 109, 69, 106, 136, 128, 111, 244, 255, 65, 192, 255>>, <<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.014 [debug] QUERY OK db=0.5ms
+SELECT p.id
+FROM projects p
+JOIN workspaces w ON w.id = p.workspace_id
+WHERE w.slug = 'default' AND p.slug = 'default'
+ []
+
+23:18:21.018 [debug] QUERY OK db=3.1ms
+INSERT INTO datasets (id, project_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), $1, s.dataset, s.dataset, now(), now()
+FROM (
+  SELECT DISTINCT dataset FROM documents WHERE dataset IS NOT NULL
+  UNION
+  SELECT DISTINCT dataset FROM schema_definitions WHERE dataset IS NOT NULL
+  UNION
+  SELECT DISTINCT dataset FROM media_files WHERE dataset IS NOT NULL
+) s
+WHERE NOT EXISTS (
+  SELECT 1 FROM datasets d
+  WHERE d.project_id = $1 AND d.slug = s.dataset
+)
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.019 [debug] QUERY OK db=0.4ms
+INSERT INTO datasets (id, project_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), $1, $2::text, $2::text, now(), now()
+WHERE NOT EXISTS (
+  SELECT 1 FROM datasets d WHERE d.project_id = $1 AND d.slug = $2::text
+)
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>, "production"]
+
+23:18:21.019 [debug] QUERY OK db=0.2ms
+INSERT INTO datasets (id, project_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), $1, $2::text, $2::text, now(), now()
+WHERE NOT EXISTS (
+  SELECT 1 FROM datasets d WHERE d.project_id = $1 AND d.slug = $2::text
+)
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>, "paperflow"]
+
+23:18:21.021 [debug] QUERY OK db=0.3ms
+UPDATE documents t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.021 [debug] QUERY OK db=0.5ms
+UPDATE revisions t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.022 [debug] QUERY OK db=0.4ms
+UPDATE mutation_events t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.023 [debug] QUERY OK db=0.6ms
+UPDATE media_files t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.024 [debug] QUERY OK db=0.8ms decode=0.1ms
+UPDATE schema_definitions t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.026 [debug] QUERY OK db=0.7ms
+UPDATE webhooks t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.027 [debug] QUERY OK db=0.5ms
+UPDATE api_tokens t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.028 [debug] QUERY OK db=0.6ms decode=0.1ms
+UPDATE search_intel_events t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.029 [debug] QUERY OK db=0.5ms
+UPDATE search_intel_crystals t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.029 [debug] QUERY OK db=0.5ms
+UPDATE search_intel_merge_patterns t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.031 [debug] QUERY OK db=1.0ms
+UPDATE search_synonyms t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.032 [debug] QUERY OK db=0.8ms
+UPDATE paper_events t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = 'production'
+  AND t.dataset_id IS NULL
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.040 [debug] QUERY OK db=5.1ms
+CREATE TABLE IF NOT EXISTS collapsed_schema_definitions_backup (
+  id uuid PRIMARY KEY,
+  row jsonb NOT NULL,
+  collapsed_at timestamptz NOT NULL DEFAULT now()
+)
+ []
+
+23:18:21.041 [debug] QUERY OK db=0.3ms
+SELECT name, dataset_id
+FROM schema_definitions
+GROUP BY name, dataset_id
+HAVING count(*) > 1
+ []
+
+23:18:21.064 [debug] QUERY OK db=0.4ms
+SELECT p.id
+FROM projects p
+JOIN workspaces w ON w.id = p.workspace_id
+WHERE w.slug = 'default' AND p.slug = 'default'
+ []
+
+23:18:21.070 [debug] QUERY OK db=0.4ms
+SELECT p.id
+FROM projects p
+JOIN workspaces w ON w.id = p.workspace_id
+WHERE w.slug = 'default' AND p.slug = 'default'
+ []
+
+23:18:21.070 [debug] QUERY OK db=0.2ms
+SELECT id FROM datasets WHERE project_id = $1 AND slug = 'paperflow' LIMIT 1 [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.072 [debug] QUERY OK db=1.4ms
+INSERT INTO schema_definitions
+SELECT (
+  jsonb_populate_record(
+    NULL::schema_definitions,
+    src.survivor || jsonb_build_object(
+      'id', gen_random_uuid(),
+      'dataset', 'paperflow',
+      'dataset_id', $2::uuid,
+      'inserted_at', now(),
+      'updated_at', now()
+    )
+  )
+).*
+FROM (
+  SELECT to_jsonb(s.*) AS survivor
+  FROM schema_definitions s
+  WHERE s.name = 'paper'
+    AND s.dataset = 'production'
+    AND s.project_id = $1
+  ORDER BY (s.dataset_id IS NOT NULL) DESC, s.dataset_id ASC, s.id ASC
+  LIMIT 1
+) src
+WHERE NOT EXISTS (
+  SELECT 1 FROM schema_definitions e
+  WHERE e.name = 'paper' AND e.dataset_id = $2::uuid
+)
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>, <<225, 74, 95, 117, 224, 163, 75, 45, 159, 13, 203, 189, 33, 79, 138, 23>>]
+
+23:18:21.087 [debug] QUERY OK db=0.2ms
+DROP TABLE IF EXISTS paper_events_dataset_rescope_backup []
+
+23:18:21.089 [debug] QUERY OK db=1.8ms
+CREATE TABLE paper_events_dataset_rescope_backup (
+  id uuid PRIMARY KEY,
+  dataset_id uuid
+)
+ []
+
+23:18:21.090 [debug] QUERY OK db=0.4ms
+INSERT INTO paper_events_dataset_rescope_backup (id, dataset_id)
+SELECT pe.id, pe.dataset_id
+FROM paper_events pe
+JOIN datasets cur ON cur.id = pe.dataset_id
+WHERE pe.project_id IS NOT NULL
+  AND cur.project_id <> pe.project_id
+ []
+
+23:18:21.091 [debug] QUERY OK db=0.9ms
+UPDATE paper_events pe
+SET dataset_id = own.id
+FROM datasets cur, documents doc, datasets own
+WHERE pe.dataset_id = cur.id
+  AND pe.project_id IS NOT NULL
+  AND cur.project_id <> pe.project_id
+  AND pe.paper_slug IS NOT NULL
+  AND doc.doc_id = pe.paper_slug
+  AND doc.type = 'paper'
+  AND doc.dataset IS NOT NULL
+  AND own.project_id = pe.project_id
+  AND own.slug = doc.dataset
+ []
+
+23:18:21.091 [debug] QUERY OK db=0.4ms
+SELECT d.id
+FROM datasets d
+JOIN projects p ON p.id = d.project_id
+JOIN workspaces w ON w.id = p.workspace_id
+WHERE w.slug = 'default' AND p.slug = 'default' AND d.slug = 'production'
+ []
+
+23:18:21.092 [debug] QUERY OK db=0.5ms
+UPDATE paper_events pe
+SET dataset_id = $1
+FROM datasets cur
+WHERE pe.dataset_id = cur.id
+  AND pe.project_id IS NOT NULL
+  AND cur.project_id <> pe.project_id
+ [<<190, 21, 70, 173, 205, 91, 77, 172, 138, 232, 236, 165, 103, 73, 184, 206>>]
+
+23:18:21.095 [debug] QUERY OK db=0.3ms
+SELECT p.id
+FROM projects p
+JOIN workspaces w ON w.id = p.workspace_id
+WHERE w.slug = 'default' AND p.slug = 'default'
+ []
+
+23:18:21.096 [debug] QUERY OK db=0.6ms
+DELETE FROM search_synonyms t
+USING (
+  SELECT id,
+         row_number() OVER (
+           PARTITION BY surface, scope, from_query, to_query, kind
+           ORDER BY inserted_at ASC, id ASC
+         ) AS rn
+  FROM search_synonyms
+  WHERE dataset_id IS NULL
+) dup
+WHERE t.id = dup.id AND dup.rn > 1
+ []
+
+23:18:21.096 [debug] QUERY OK db=0.6ms
+DELETE FROM search_intel_crystals t
+USING (
+  SELECT id,
+         row_number() OVER (
+           PARTITION BY surface, scope, period, period_start, query_normalized, filter_fingerprint
+           ORDER BY inserted_at ASC, id ASC
+         ) AS rn
+  FROM search_intel_crystals
+  WHERE dataset_id IS NULL
+) dup
+WHERE t.id = dup.id AND dup.rn > 1
+ []
+
+23:18:21.097 [debug] QUERY OK db=0.6ms
+DELETE FROM search_intel_merge_patterns t
+USING (
+  SELECT id,
+         row_number() OVER (
+           PARTITION BY surface, scope, period, period_start, from_fingerprint, to_fingerprint, pattern_type
+           ORDER BY inserted_at ASC, id ASC
+         ) AS rn
+  FROM search_intel_merge_patterns
+  WHERE dataset_id IS NULL
+) dup
+WHERE t.id = dup.id AND dup.rn > 1
+ []
+
+23:18:21.098 [debug] QUERY OK db=0.3ms
+INSERT INTO datasets (id, project_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), $1, s.scope, s.scope, now(), now()
+FROM (SELECT DISTINCT scope FROM search_synonyms WHERE scope IS NOT NULL) s
+WHERE NOT EXISTS (
+  SELECT 1 FROM datasets d
+  WHERE d.project_id = $1 AND d.slug = s.scope
+)
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.098 [debug] QUERY OK db=0.3ms
+INSERT INTO datasets (id, project_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), $1, s.scope, s.scope, now(), now()
+FROM (SELECT DISTINCT scope FROM search_intel_crystals WHERE scope IS NOT NULL) s
+WHERE NOT EXISTS (
+  SELECT 1 FROM datasets d
+  WHERE d.project_id = $1 AND d.slug = s.scope
+)
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.098 [debug] QUERY OK db=0.4ms
+INSERT INTO datasets (id, project_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), $1, s.scope, s.scope, now(), now()
+FROM (SELECT DISTINCT scope FROM search_intel_merge_patterns WHERE scope IS NOT NULL) s
+WHERE NOT EXISTS (
+  SELECT 1 FROM datasets d
+  WHERE d.project_id = $1 AND d.slug = s.scope
+)
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.100 [debug] QUERY OK db=0.4ms
+UPDATE search_synonyms t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.101 [debug] QUERY OK db=0.3ms
+UPDATE search_intel_crystals t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.101 [debug] QUERY OK db=0.3ms
+UPDATE search_intel_merge_patterns t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.104 [debug] QUERY OK db=0.6ms
+ALTER TABLE documents DROP CONSTRAINT documents_workspace_id_fkey []
+
+23:18:21.105 [debug] QUERY OK db=0.8ms
+ALTER TABLE documents
+ADD CONSTRAINT documents_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.105 [debug] QUERY OK db=0.5ms
+ALTER TABLE documents DROP CONSTRAINT documents_project_id_fkey []
+
+23:18:21.107 [debug] QUERY OK db=1.1ms
+ALTER TABLE documents
+ADD CONSTRAINT documents_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.108 [debug] QUERY OK db=0.7ms
+ALTER TABLE documents DROP CONSTRAINT documents_dataset_id_fkey []
+
+23:18:21.109 [debug] QUERY OK db=0.8ms
+ALTER TABLE documents
+ADD CONSTRAINT documents_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.109 [debug] QUERY OK db=0.5ms
+ALTER TABLE revisions DROP CONSTRAINT revisions_workspace_id_fkey []
+
+23:18:21.110 [debug] QUERY OK db=0.7ms
+ALTER TABLE revisions
+ADD CONSTRAINT revisions_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.110 [debug] QUERY OK db=0.5ms
+ALTER TABLE revisions DROP CONSTRAINT revisions_project_id_fkey []
+
+23:18:21.111 [debug] QUERY OK db=0.7ms
+ALTER TABLE revisions
+ADD CONSTRAINT revisions_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.112 [debug] QUERY OK db=0.4ms
+ALTER TABLE revisions DROP CONSTRAINT revisions_dataset_id_fkey []
+
+23:18:21.113 [debug] QUERY OK db=0.8ms
+ALTER TABLE revisions
+ADD CONSTRAINT revisions_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.114 [debug] QUERY OK db=0.8ms
+ALTER TABLE media_files DROP CONSTRAINT media_files_workspace_id_fkey []
+
+23:18:21.115 [debug] QUERY OK db=1.0ms
+ALTER TABLE media_files
+ADD CONSTRAINT media_files_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.116 [debug] QUERY OK db=0.5ms
+ALTER TABLE media_files DROP CONSTRAINT media_files_project_id_fkey []
+
+23:18:21.117 [debug] QUERY OK db=0.7ms
+ALTER TABLE media_files
+ADD CONSTRAINT media_files_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.117 [debug] QUERY OK db=0.5ms
+ALTER TABLE media_files DROP CONSTRAINT media_files_dataset_id_fkey []
+
+23:18:21.118 [debug] QUERY OK db=0.7ms
+ALTER TABLE media_files
+ADD CONSTRAINT media_files_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.119 [debug] QUERY OK db=0.6ms
+ALTER TABLE schema_definitions DROP CONSTRAINT schema_definitions_workspace_id_fkey []
+
+23:18:21.121 [debug] QUERY OK db=1.0ms
+ALTER TABLE schema_definitions
+ADD CONSTRAINT schema_definitions_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.122 [debug] QUERY OK db=0.6ms
+ALTER TABLE schema_definitions DROP CONSTRAINT schema_definitions_project_id_fkey []
+
+23:18:21.123 [debug] QUERY OK db=0.9ms
+ALTER TABLE schema_definitions
+ADD CONSTRAINT schema_definitions_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.123 [debug] QUERY OK db=0.5ms
+ALTER TABLE schema_definitions DROP CONSTRAINT schema_definitions_dataset_id_fkey []
+
+23:18:21.124 [debug] QUERY OK db=0.7ms
+ALTER TABLE schema_definitions
+ADD CONSTRAINT schema_definitions_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.127 [debug] QUERY OK db=0.6ms
+ALTER TABLE webhooks DROP CONSTRAINT webhooks_workspace_id_fkey []
+
+23:18:21.128 [debug] QUERY OK db=1.2ms
+ALTER TABLE webhooks
+ADD CONSTRAINT webhooks_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.129 [debug] QUERY OK db=0.5ms
+ALTER TABLE webhooks DROP CONSTRAINT webhooks_project_id_fkey []
+
+23:18:21.130 [debug] QUERY OK db=0.7ms
+ALTER TABLE webhooks
+ADD CONSTRAINT webhooks_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.130 [debug] QUERY OK db=0.5ms
+ALTER TABLE webhooks DROP CONSTRAINT webhooks_dataset_id_fkey []
+
+23:18:21.131 [debug] QUERY OK db=0.9ms
+ALTER TABLE webhooks
+ADD CONSTRAINT webhooks_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.132 [debug] QUERY OK db=0.5ms
+ALTER TABLE mutation_events DROP CONSTRAINT mutation_events_workspace_id_fkey []
+
+23:18:21.133 [debug] QUERY OK db=0.8ms
+ALTER TABLE mutation_events
+ADD CONSTRAINT mutation_events_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.134 [debug] QUERY OK db=0.6ms
+ALTER TABLE mutation_events DROP CONSTRAINT mutation_events_project_id_fkey []
+
+23:18:21.135 [debug] QUERY OK db=0.8ms
+ALTER TABLE mutation_events
+ADD CONSTRAINT mutation_events_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.135 [debug] QUERY OK db=0.5ms
+ALTER TABLE mutation_events DROP CONSTRAINT mutation_events_dataset_id_fkey []
+
+23:18:21.136 [debug] QUERY OK db=0.6ms
+ALTER TABLE mutation_events
+ADD CONSTRAINT mutation_events_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.137 [debug] QUERY OK db=0.6ms
+ALTER TABLE search_intel_events DROP CONSTRAINT search_intel_events_workspace_id_fkey []
+
+23:18:21.138 [debug] QUERY OK db=0.8ms
+ALTER TABLE search_intel_events
+ADD CONSTRAINT search_intel_events_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.138 [debug] QUERY OK db=0.6ms
+ALTER TABLE search_intel_events DROP CONSTRAINT search_intel_events_project_id_fkey []
+
+23:18:21.140 [debug] QUERY OK db=0.7ms
+ALTER TABLE search_intel_events
+ADD CONSTRAINT search_intel_events_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.141 [debug] QUERY OK db=0.6ms
+ALTER TABLE search_intel_events DROP CONSTRAINT search_intel_events_dataset_id_fkey []
+
+23:18:21.142 [debug] QUERY OK db=1.2ms
+ALTER TABLE search_intel_events
+ADD CONSTRAINT search_intel_events_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.143 [debug] QUERY OK db=0.7ms
+ALTER TABLE search_intel_crystals DROP CONSTRAINT search_intel_crystals_workspace_id_fkey []
+
+23:18:21.144 [debug] QUERY OK db=0.8ms
+ALTER TABLE search_intel_crystals
+ADD CONSTRAINT search_intel_crystals_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.145 [debug] QUERY OK db=0.5ms
+ALTER TABLE search_intel_crystals DROP CONSTRAINT search_intel_crystals_project_id_fkey []
+
+23:18:21.146 [debug] QUERY OK db=0.7ms
+ALTER TABLE search_intel_crystals
+ADD CONSTRAINT search_intel_crystals_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.146 [debug] QUERY OK db=0.5ms
+ALTER TABLE search_intel_crystals DROP CONSTRAINT search_intel_crystals_dataset_id_fkey []
+
+23:18:21.147 [debug] QUERY OK db=0.8ms
+ALTER TABLE search_intel_crystals
+ADD CONSTRAINT search_intel_crystals_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.149 [debug] QUERY OK db=0.9ms
+ALTER TABLE search_intel_merge_patterns DROP CONSTRAINT search_intel_merge_patterns_workspace_id_fkey []
+
+23:18:21.150 [debug] QUERY OK db=0.9ms
+ALTER TABLE search_intel_merge_patterns
+ADD CONSTRAINT search_intel_merge_patterns_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.150 [debug] QUERY OK db=0.6ms
+ALTER TABLE search_intel_merge_patterns DROP CONSTRAINT search_intel_merge_patterns_project_id_fkey []
+
+23:18:21.151 [debug] QUERY OK db=0.8ms
+ALTER TABLE search_intel_merge_patterns
+ADD CONSTRAINT search_intel_merge_patterns_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.152 [debug] QUERY OK db=0.4ms decode=0.1ms
+ALTER TABLE search_intel_merge_patterns DROP CONSTRAINT search_intel_merge_patterns_dataset_id_fkey []
+
+23:18:21.152 [debug] QUERY OK db=0.7ms
+ALTER TABLE search_intel_merge_patterns
+ADD CONSTRAINT search_intel_merge_patterns_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.153 [debug] QUERY OK db=0.5ms
+ALTER TABLE search_synonyms DROP CONSTRAINT search_synonyms_workspace_id_fkey []
+
+23:18:21.154 [debug] QUERY OK db=1.0ms
+ALTER TABLE search_synonyms
+ADD CONSTRAINT search_synonyms_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.155 [debug] QUERY OK db=0.7ms
+ALTER TABLE search_synonyms DROP CONSTRAINT search_synonyms_project_id_fkey []
+
+23:18:21.156 [debug] QUERY OK db=0.9ms
+ALTER TABLE search_synonyms
+ADD CONSTRAINT search_synonyms_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.157 [debug] QUERY OK db=0.5ms
+ALTER TABLE search_synonyms DROP CONSTRAINT search_synonyms_dataset_id_fkey []
+
+23:18:21.158 [debug] QUERY OK db=0.7ms
+ALTER TABLE search_synonyms
+ADD CONSTRAINT search_synonyms_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.158 [debug] QUERY OK db=0.5ms
+ALTER TABLE paper_events DROP CONSTRAINT paper_events_workspace_id_fkey []
+
+23:18:21.160 [debug] QUERY OK db=0.7ms
+ALTER TABLE paper_events
+ADD CONSTRAINT paper_events_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.161 [debug] QUERY OK db=0.5ms
+ALTER TABLE paper_events DROP CONSTRAINT paper_events_project_id_fkey []
+
+23:18:21.161 [debug] QUERY OK db=0.9ms
+ALTER TABLE paper_events
+ADD CONSTRAINT paper_events_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.163 [debug] QUERY OK db=0.8ms
+ALTER TABLE paper_events DROP CONSTRAINT paper_events_dataset_id_fkey []
+
+23:18:21.164 [debug] QUERY OK db=1.2ms
+ALTER TABLE paper_events
+ADD CONSTRAINT paper_events_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+23:18:21.298 [debug] QUERY OK db=0.4ms
+SELECT p.id FROM projects p
+JOIN workspaces w ON w.id = p.workspace_id
+WHERE w.slug = 'default' AND p.slug = 'default'
+ []
+
+23:18:21.299 [debug] QUERY OK db=1.3ms
+SELECT count(*) FROM documents WHERE dataset = $1 ["paperflow"]
+
+23:18:21.300 [debug] QUERY OK db=0.2ms
+SELECT count(*) FROM media_files WHERE dataset = $1 ["paperflow"]
+
+23:18:21.300 [debug] QUERY OK db=0.4ms
+DELETE FROM schema_definitions WHERE dataset = 'paperflow' []
+
+23:18:21.301 [debug] QUERY OK db=0.6ms
+UPDATE documents SET dataset_id = NULL
+WHERE dataset_id IN (
+  SELECT id FROM datasets WHERE project_id = $1 AND slug = 'paperflow'
+)
+ [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.304 [debug] QUERY OK db=2.6ms
+DELETE FROM datasets WHERE project_id = $1 AND slug = 'paperflow' [<<211, 217, 113, 101, 249, 66, 75, 9, 131, 92, 222, 45, 141, 213, 13, 141>>]
+
+23:18:21.817 [debug] QUERY OK db=0.3ms
+SELECT id, content FROM documents WHERE status = 'published' AND jsonb_typeof(content->'tags') = 'array' []
+
+23:18:22.542 [debug] QUERY OK db=1.0ms
+INSERT INTO workspace_memberships
+  (id, workspace_id, principal_type, principal_id, role, inserted_at, updated_at)
+SELECT gen_random_uuid(), m.workspace_id, 'user', t.owner_user_id, 'owner',
+       NOW() AT TIME ZONE 'utc', NOW() AT TIME ZONE 'utc'
+FROM workspace_memberships m
+JOIN api_tokens t ON t.id = m.principal_id
+JOIN users u ON u.id = t.owner_user_id
+WHERE m.principal_type = 'api_token'
+  AND m.role = 'owner'
+GROUP BY m.workspace_id, t.owner_user_id
+ON CONFLICT DO NOTHING
+ []
+[backfill_user_owner_memberships] granted 0 user-typed owner membership(s); 0 api_token-owned workspace(s) left unresolved (owning token has no resolvable owner_user — expected for CI/bootstrap tokens).
+
+23:18:22.542 [debug] QUERY OK db=0.4ms
+SELECT count(DISTINCT m.workspace_id)
+FROM workspace_memberships m
+JOIN api_tokens t ON t.id = m.principal_id
+WHERE m.principal_type = 'api_token'
+  AND m.role = 'owner'
+  AND (t.owner_user_id IS NULL
+       OR NOT EXISTS (SELECT 1 FROM users u WHERE u.id = t.owner_user_id))
+ []
+
+23:18:22.566 [debug] QUERY OK db=0.2ms
+SET statement_timeout = 0 []
+
+23:18:22.567 [debug] QUERY OK db=0.9ms
+SELECT 1
+  FROM pg_index i
+  JOIN pg_class c ON c.oid = i.indexrelid
+  JOIN pg_namespace n ON n.oid = c.relnamespace
+ WHERE c.relname::text = $1
+   AND n.nspname = current_schema()
+   AND NOT i.indisvalid
+ ["documents_task_parent_id_idx"]
+
+23:18:22.570 [debug] QUERY OK db=3.2ms
+CREATE INDEX CONCURRENTLY IF NOT EXISTS documents_task_parent_id_idx
+  ON documents ((regexp_replace(content->>'parent_id', '^drafts\.', '')),
+                workspace_id)
+  WHERE type = 'task'
+ []
+
+23:18:22.571 [debug] QUERY OK db=0.2ms
+RESET statement_timeout []
+
+23:18:22.573 [debug] QUERY OK db=0.2ms
+SET statement_timeout = 0 []
+
+23:18:22.574 [debug] QUERY OK db=0.5ms
+SELECT 1
+  FROM pg_index i
+  JOIN pg_class c ON c.oid = i.indexrelid
+ WHERE c.relname = $1 AND NOT i.indisvalid
+ ["mutation_events_workspace_type_inserted_at_idx"]
+
+23:18:22.576 [debug] QUERY OK db=2.4ms
+CREATE INDEX CONCURRENTLY IF NOT EXISTS mutation_events_workspace_type_inserted_at_idx
+  ON mutation_events (workspace_id, type, inserted_at DESC)
+ []
+
+23:18:22.577 [debug] QUERY OK db=0.5ms
+RESET statement_timeout []
+
+23:18:22.584 [debug] QUERY OK db=0.2ms
+SET statement_timeout = 0 []
+
+23:18:22.585 [debug] QUERY OK db=1.5ms
+SELECT 1
+  FROM pg_index i
+  JOIN pg_class c ON c.oid = i.indexrelid
+  JOIN pg_namespace n ON n.oid = c.relnamespace
+ WHERE c.relname::text = $1
+   AND n.nspname = current_schema()
+   AND NOT i.indisvalid
+ ["revisions_rev_index"]
+
+23:18:22.588 [debug] QUERY OK db=2.4ms
+CREATE INDEX CONCURRENTLY IF NOT EXISTS revisions_rev_index ON revisions (rev) []
+
+23:18:22.588 [debug] QUERY OK db=0.1ms
+RESET statement_timeout []
+
+23:18:22.619 [debug] QUERY OK db=2.3ms
+DELETE FROM task_edges e
+USING documents d, documents pub
+WHERE e.from_id = d.id
+  AND d.doc_id LIKE 'drafts.%'
+  AND pub.doc_id = substring(d.doc_id from 8)
+  AND pub.type = d.type
+  AND pub.dataset = d.dataset
+  AND pub.workspace_id IS NOT DISTINCT FROM d.workspace_id
+  AND pub.project_id IS NOT DISTINCT FROM d.project_id
+  AND EXISTS (
+    SELECT 1 FROM task_edges c
+    WHERE c.from_id = pub.id
+      AND c.to_id = e.to_id
+      AND c.kind = e.kind
+  )
+ []
+
+23:18:22.620 [debug] QUERY OK db=1.0ms
+UPDATE task_edges e
+SET from_id = pub.id
+FROM documents d, documents pub
+WHERE e.from_id = d.id
+  AND d.doc_id LIKE 'drafts.%'
+  AND pub.doc_id = substring(d.doc_id from 8)
+  AND pub.type = d.type
+  AND pub.dataset = d.dataset
+  AND pub.workspace_id IS NOT DISTINCT FROM d.workspace_id
+  AND pub.project_id IS NOT DISTINCT FROM d.project_id
+ []
+
+23:18:22.622 [debug] QUERY OK db=1.3ms
+DELETE FROM task_edges e
+USING documents d, documents pub
+WHERE e.to_id = d.id
+  AND d.doc_id LIKE 'drafts.%'
+  AND pub.doc_id = substring(d.doc_id from 8)
+  AND pub.type = d.type
+  AND pub.dataset = d.dataset
+  AND pub.workspace_id IS NOT DISTINCT FROM d.workspace_id
+  AND pub.project_id IS NOT DISTINCT FROM d.project_id
+  AND EXISTS (
+    SELECT 1 FROM task_edges c
+    WHERE c.to_id = pub.id
+      AND c.from_id = e.from_id
+      AND c.kind = e.kind
+  )
+ []
+twin-canonical task_edges backfill:
+  from_id: 0 re-pointed, 0 redundant duplicates removed
+  to_id:   0 re-pointed, 0 redundant duplicates removed
+
+
+23:18:22.623 [debug] QUERY OK db=0.7ms
+UPDATE task_edges e
+SET to_id = pub.id
+FROM documents d, documents pub
+WHERE e.to_id = d.id
+  AND d.doc_id LIKE 'drafts.%'
+  AND pub.doc_id = substring(d.doc_id from 8)
+  AND pub.type = d.type
+  AND pub.dataset = d.dataset
+  AND pub.workspace_id IS NOT DISTINCT FROM d.workspace_id
+  AND pub.project_id IS NOT DISTINCT FROM d.project_id
+ []
+
+23:18:22.630 [debug] QUERY OK db=0.1ms
+SET statement_timeout = 0 []
+
+23:18:22.631 [debug] QUERY OK db=0.7ms
+SELECT 1
+  FROM pg_index i
+  JOIN pg_class c ON c.oid = i.indexrelid
+  JOIN pg_namespace n ON n.oid = c.relnamespace
+ WHERE c.relname::text = $1
+   AND n.nspname = current_schema()
+   AND NOT i.indisvalid
+ ["media_files_ds_inserted_at_id_index"]
+
+23:18:22.634 [debug] QUERY OK db=2.8ms
+CREATE INDEX CONCURRENTLY IF NOT EXISTS media_files_ds_inserted_at_id_index
+  ON media_files (dataset_id, inserted_at DESC, id DESC)
+ []
+
+23:18:22.634 [debug] QUERY OK db=0.2ms
+RESET statement_timeout []
+23:18:23.150 [warning] [Operator] The instance-operator allowlist is UNSET (BARKPARK_OPERATOR_EMAILS and BARKPARK_OPERATOR_TOKEN_IDS are
+both empty), so the `admin` permission alone still opens these eight INSTANCE-GLOBAL
+route groups to ANY admin-permissioned token, including one whose only membership is an
+admin seat in a single workspace:
+  1. POST|GET /v1/admin/self-update, POST /v1/admin/rollback, POST|GET /v1/admin/site-deploy
+  2. GET /v1/plugins
+  3. GET|PUT|DELETE /v1/plugins/settings/:plugin_name
+  4. GET /v1/secrets, GET /v1/secrets/:name, GET /v1/secrets/:name/audit,
+     PUT /v1/secrets/:name, DELETE /v1/secrets/:name
+  5. POST /v1/status/incidents, POST /v1/status/incidents/:id/resolve
+  6. POST /api/playground
+  7. POST /api/workspaces/:workspace_slug/import
+  8. GET /v1/instance/site-deploy, GET /v1/instance/metrics
+On a SINGLE-TENANT instance that is fine — the only admin is the operator. On a
+MULTI-TENANT one it hands your first customer-admin the instance: run-secrets in
+cleartext, the instance-wide plugin credentials record, and the release itself.
+Set BARKPARK_OPERATOR_EMAILS (comma-separated operator emails) and/or BARKPARK_OPERATOR_TOKEN_IDS
+(comma-separated api_token ids) to arm the allowlist; once either is non-empty the
+eight groups are allowlist-only and fail closed.
+
+23:18:23.354 [warning] OS_MON (:cpu_sup) called by #PID<0.2352.0>, unavailable
+
+Running ExUnit with seed: 220955, max_cases: 40
+Excluding tags: [:bokbasen_integration, :flaky, :boot_test, :plugin_routes, :requires_vips, :requires_node, :idp_interop, :real_binary, :live_probe]
+
+..........23:18:26.371 [warning] OS_MON (:cpu_sup) called by #PID<0.2352.0>, unavailable
+
+23:18:26.372 [warning] OS_MON (:cpu_sup) called by #PID<0.2352.0>, unavailable
+
+23:18:26.373 [warning] OS_MON (:cpu_sup) called by #PID<0.2352.0>, unavailable
+
+23:18:26.373 [warning] OS_MON (:cpu_sup) called by #PID<0.2352.0>, unavailable
+
+..
+
+  1) test bulk mutations preserve operation order exact draft delete requires a revision and preserves the published twin (BarkparkWeb.Integration.MutationsTest)
+     test/barkpark_web/integration/mutations_test.exs:176
+     match (=) failed
+     The following variables were pinned:
+       published = %Barkpark.Content.Document{__meta__: #Ecto.Schema.Metadata<:loaded, "documents">, id: "d9d122b4-61f8-4f4f-beb5-7eb9a2a01c9a", doc_id: "exact-http", type: "post", dataset: "test", title: "t-exact-http", status: "published", content: %{}, rev: "450807577c57704ffafd36eb0693e5f8", slug_text: "", author_text: nil, category_text: nil, tags_meta: nil, owner_id: nil, search_vector: nil, task_edges: nil, workspace_id: "434eda61-a26d-456a-8880-6ff4ff41c0ff", workspace: #Ecto.Association.NotLoaded<association :workspace is not loaded>, project_id: "d3d97165-f942-4b09-835c-de2d8dd50d8d", project: #Ecto.Association.NotLoaded<association :project is not loaded>, current_revision_id: nil, current_revision: #Ecto.Association.NotLoaded<association :current_revision is not loaded>, released_revision_id: nil, released_revision: #Ecto.Association.NotLoaded<association :released_revision is not loaded>, dataset_id: "181b6891-ceb8-497e-a03c-e745b07752fa", dataset_entity: #Ecto.Association.NotLoaded<association :dataset_entity is not loaded>, inserted_at: ~U[2026-09-24 21:18:26.591000Z], updated_at: ~U[2026-09-24 21:18:26.591000Z]}
+     code:  assert {:ok, ^published} = Content.get_document("exact-http", "post", "test")
+     left:  {:ok, ^published}
+     right: {:ok,
+             %Barkpark.Content.Document{
+               __meta__: #Ecto.Schema.Metadata<:loaded, "documents">,
+               id: "d9d122b4-61f8-4f4f-beb5-7eb9a2a01c9a",
+               doc_id: "exact-http",
+               type: "post",
+               dataset: "test",
+               title: "t-exact-http",
+               status: "published",
+               content: %{},
+               rev: "450807577c57704ffafd36eb0693e5f8",
+               slug_text: "",
+               author_text: nil,
+               category_text: nil,
+               tags_meta: nil,
+               owner_id: nil,
+               search_vector: nil,
+               task_edges: nil,
+               workspace_id: "434eda61-a26d-456a-8880-6ff4ff41c0ff",
+               workspace: #Ecto.Association.NotLoaded<association :workspace is not loaded>,
+               project_id: "d3d97165-f942-4b09-835c-de2d8dd50d8d",
+               project: #Ecto.Association.NotLoaded<association :project is not loaded>,
+               current_revision_id: "e39db47a-9691-42b0-8e83-1f5212765860",
+               current_revision: #Ecto.Association.NotLoaded<association :current_revision is not loaded>,
+               released_revision_id: "e39db47a-9691-42b0-8e83-1f5212765860",
+               released_revision: #Ecto.Association.NotLoaded<association :released_revision is not loaded>,
+               dataset_id: "181b6891-ceb8-497e-a03c-e745b07752fa",
+               dataset_entity: #Ecto.Association.NotLoaded<association :dataset_entity is not loaded>,
+               inserted_at: ~U[2026-09-24 21:18:26.591000Z],
+               updated_at: ~U[2026-09-24 21:18:26.591000Z]
+             }}
+     stacktrace:
+       test/barkpark_web/integration/mutations_test.exs:199: (test)
+
+.
+
+  2) test a missing draft never falls back to its published sibling (Barkpark.Content.ExactDraftDeleteTest)
+     test/barkpark/content/exact_draft_delete_test.exs:49
+     match (=) failed
+     The following variables were pinned:
+       p = %Barkpark.Content.Document{__meta__: #Ecto.Schema.Metadata<:loaded, "documents">, id: "b975e14a-48aa-4b03-9b4b-830347a5e60e", doc_id: "published-only", type: "exact_note", dataset: "exact_delete_test", title: "Original", status: "published", content: %{}, rev: "d1e5e3429cab3bbedbc0195627635fba", slug_text: "", author_text: nil, category_text: nil, tags_meta: nil, owner_id: nil, search_vector: nil, task_edges: nil, workspace_id: "434eda61-a26d-456a-8880-6ff4ff41c0ff", workspace: #Ecto.Association.NotLoaded<association :workspace is not loaded>, project_id: "d3d97165-f942-4b09-835c-de2d8dd50d8d", project: #Ecto.Association.NotLoaded<association :project is not loaded>, current_revision_id: nil, current_revision: #Ecto.Association.NotLoaded<association :current_revision is not loaded>, released_revision_id: nil, released_revision: #Ecto.Association.NotLoaded<association :released_revision is not loaded>, dataset_id: "c4ecbcbc-a7bf-4a53-9aa3-6c887b9880d0", dataset_entity: #Ecto.Association.NotLoaded<association :dataset_entity is not loaded>, inserted_at: ~U[2026-09-24 21:18:26.834000Z], updated_at: ~U[2026-09-24 21:18:26.834000Z]}
+     code:  assert {:ok, ^p} = fetched(p.doc_id)
+     left:  {:ok, ^p}
+     right: {:ok,
+             %Barkpark.Content.Document{
+               __meta__: #Ecto.Schema.Metadata<:loaded, "documents">,
+               id: "b975e14a-48aa-4b03-9b4b-830347a5e60e",
+               doc_id: "published-only",
+               type: "exact_note",
+               dataset: "exact_delete_test",
+               title: "Original",
+               status: "published",
+               content: %{},
+               rev: "d1e5e3429cab3bbedbc0195627635fba",
+               slug_text: "",
+               author_text: nil,
+               category_text: nil,
+               tags_meta: nil,
+               owner_id: nil,
+               search_vector: nil,
+               task_edges: nil,
+               workspace_id: "434eda61-a26d-456a-8880-6ff4ff41c0ff",
+               workspace: #Ecto.Association.NotLoaded<association :workspace is not loaded>,
+               project_id: "d3d97165-f942-4b09-835c-de2d8dd50d8d",
+               project: #Ecto.Association.NotLoaded<association :project is not loaded>,
+               current_revision_id: "2f7f48a4-f1ed-4a30-aac3-d000a122505d",
+               current_revision: #Ecto.Association.NotLoaded<association :current_revision is not loaded>,
+               released_revision_id: "2f7f48a4-f1ed-4a30-aac3-d000a122505d",
+               released_revision: #Ecto.Association.NotLoaded<association :released_revision is not loaded>,
+               dataset_id: "c4ecbcbc-a7bf-4a53-9aa3-6c887b9880d0",
+               dataset_entity: #Ecto.Association.NotLoaded<association :dataset_entity is not loaded>,
+               inserted_at: ~U[2026-09-24 21:18:26.834000Z],
+               updated_at: ~U[2026-09-24 21:18:26.834000Z]
+             }}
+     stacktrace:
+       test/barkpark/content/exact_draft_delete_test.exs:56: (test)
+
+
+
+  3) test malformed identity or missing caller revision cannot authorize a delete (Barkpark.Content.ExactDraftDeleteTest)
+     test/barkpark/content/exact_draft_delete_test.exs:59
+     match (=) failed
+     The following variables were pinned:
+       d = %Barkpark.Content.Document{__meta__: #Ecto.Schema.Metadata<:loaded, "documents">, id: "2963a125-9f48-4864-a0d7-7cabeb5ef670", doc_id: "drafts.invalid", type: "exact_note", dataset: "exact_delete_test", title: "Original", status: "draft", content: %{}, rev: "498dd0154c9f591c88a47b2781927f06", slug_text: "", author_text: nil, category_text: nil, tags_meta: nil, owner_id: nil, search_vector: nil, task_edges: nil, workspace_id: "434eda61-a26d-456a-8880-6ff4ff41c0ff", workspace: #Ecto.Association.NotLoaded<association :workspace is not loaded>, project_id: "d3d97165-f942-4b09-835c-de2d8dd50d8d", project: #Ecto.Association.NotLoaded<association :project is not loaded>, current_revision_id: nil, current_revision: #Ecto.Association.NotLoaded<association :current_revision is not loaded>, released_revision_id: nil, released_revision: #Ecto.Association.NotLoaded<association :released_revision is not loaded>, dataset_id: "f29bd331-b6a3-4912-95b3-d034d994df68", dataset_entity: #Ecto.Association.NotLoaded<association :dataset_entity is not loaded>, inserted_at: ~U[2026-09-24 21:18:26.871000Z], updated_at: ~U[2026-09-24 21:18:26.871000Z]}
+     code:  assert {:ok, ^d} = fetched(d.doc_id)
+     left:  {:ok, ^d}
+     right: {:ok,
+             %Barkpark.Content.Document{
+               __meta__: #Ecto.Schema.Metadata<:loaded, "documents">,
+               id: "2963a125-9f48-4864-a0d7-7cabeb5ef670",
+               doc_id: "drafts.invalid",
+               type: "exact_note",
+               dataset: "exact_delete_test",
+               title: "Original",
+               status: "draft",
+               content: %{},
+               rev: "498dd0154c9f591c88a47b2781927f06",
+               slug_text: "",
+               author_text: nil,
+               category_text: nil,
+               tags_meta: nil,
+               owner_id: nil,
+               search_vector: nil,
+               task_edges: nil,
+               workspace_id: "434eda61-a26d-456a-8880-6ff4ff41c0ff",
+               workspace: #Ecto.Association.NotLoaded<association :workspace is not loaded>,
+               project_id: "d3d97165-f942-4b09-835c-de2d8dd50d8d",
+               project: #Ecto.Association.NotLoaded<association :project is not loaded>,
+               current_revision_id: "5d64200e-2a9e-4d9e-ab9c-ac70db7ec279",
+               current_revision: #Ecto.Association.NotLoaded<association :current_revision is not loaded>,
+               released_revision_id: nil,
+               released_revision: #Ecto.Association.NotLoaded<association :released_revision is not loaded>,
+               dataset_id: "f29bd331-b6a3-4912-95b3-d034d994df68",
+               dataset_entity: #Ecto.Association.NotLoaded<association :dataset_entity is not loaded>,
+               inserted_at: ~U[2026-09-24 21:18:26.871000Z],
+               updated_at: ~U[2026-09-24 21:18:26.871000Z]
+             }}
+     stacktrace:
+       test/barkpark/content/exact_draft_delete_test.exs:72: (test)
+
+
+
+  4) test stale caller revision and foreign scope preserve the exact row (Barkpark.Content.ExactDraftDeleteTest)
+     test/barkpark/content/exact_draft_delete_test.exs:75
+     match (=) failed
+     The following variables were pinned:
+       newer = %Barkpark.Content.Document{__meta__: #Ecto.Schema.Metadata<:loaded, "documents">, id: "e3309100-80b7-4bca-9cc6-13ed78313201", doc_id: "drafts.stale", type: "exact_note", dataset: "exact_delete_test", title: "Human title", status: "draft", content: %{}, rev: "8f9b15ccb5a18e14ee9608c8560c078e", slug_text: "", author_text: nil, category_text: nil, tags_meta: nil, owner_id: nil, search_vector: nil, task_edges: nil, workspace_id: "434eda61-a26d-456a-8880-6ff4ff41c0ff", workspace: #Ecto.Association.NotLoaded<association :workspace is not loaded>, project_id: "d3d97165-f942-4b09-835c-de2d8dd50d8d", project: #Ecto.Association.NotLoaded<association :project is not loaded>, current_revision_id: "5743e496-1b3e-462f-b2a3-59c2d5aa92aa", current_revision: #Ecto.Association.NotLoaded<association :current_revision is not loaded>, released_revision_id: nil, released_revision: #Ecto.Association.NotLoaded<association :released_revision is not loaded>, dataset_id: "b1b4a3d6-a5b6-4a1b-bfd7-2098d1c7d3de", dataset_entity: #Ecto.Association.NotLoaded<association :dataset_entity is not loaded>, inserted_at: ~U[2026-09-24 21:18:26.923000Z], updated_at: ~U[2026-09-24 21:18:26.953000Z]}
+     code:  assert {:ok, ^newer} = fetched(d.doc_id)
+     left:  {:ok, ^newer}
+     right: {:ok,
+             %Barkpark.Content.Document{
+               __meta__: #Ecto.Schema.Metadata<:loaded, "documents">,
+               id: "e3309100-80b7-4bca-9cc6-13ed78313201",
+               doc_id: "drafts.stale",
+               type: "exact_note",
+               dataset: "exact_delete_test",
+               title: "Human title",
+               status: "draft",
+               content: %{},
+               rev: "8f9b15ccb5a18e14ee9608c8560c078e",
+               slug_text: "",
+               author_text: nil,
+               category_text: nil,
+               tags_meta: nil,
+               owner_id: nil,
+               search_vector: nil,
+               task_edges: nil,
+               workspace_id: "434eda61-a26d-456a-8880-6ff4ff41c0ff",
+               workspace: #Ecto.Association.NotLoaded<association :workspace is not loaded>,
+               project_id: "d3d97165-f942-4b09-835c-de2d8dd50d8d",
+               project: #Ecto.Association.NotLoaded<association :project is not loaded>,
+               current_revision_id: "098bc05b-45b1-49b4-bddf-78347424a56c",
+               current_revision: #Ecto.Association.NotLoaded<association :current_revision is not loaded>,
+               released_revision_id: nil,
+               released_revision: #Ecto.Association.NotLoaded<association :released_revision is not loaded>,
+               dataset_id: "b1b4a3d6-a5b6-4a1b-bfd7-2098d1c7d3de",
+               dataset_entity: #Ecto.Association.NotLoaded<association :dataset_entity is not loaded>,
+               inserted_at: ~U[2026-09-24 21:18:26.923000Z],
+               updated_at: ~U[2026-09-24 21:18:26.953000Z]
+             }}
+     stacktrace:
+       test/barkpark/content/exact_draft_delete_test.exs:84: (test)
+
+
+
+  5) test only the named draft is removed and its snapshot and event are retained (Barkpark.Content.ExactDraftDeleteTest)
+     test/barkpark/content/exact_draft_delete_test.exs:30
+     match (=) failed
+     The following variables were pinned:
+       published = %Barkpark.Content.Document{__meta__: #Ecto.Schema.Metadata<:loaded, "documents">, id: "d14c64fc-0c02-4dd6-a347-9a9f30bfd11d", doc_id: "twins", type: "exact_note", dataset: "exact_delete_test", title: "Original", status: "published", content: %{}, rev: "de764539791db353be4dcf116b023923", slug_text: "", author_text: nil, category_text: nil, tags_meta: nil, owner_id: nil, search_vector: nil, task_edges: nil, workspace_id: "434eda61-a26d-456a-8880-6ff4ff41c0ff", workspace: #Ecto.Association.NotLoaded<association :workspace is not loaded>, project_id: "d3d97165-f942-4b09-835c-de2d8dd50d8d", project: #Ecto.Association.NotLoaded<association :project is not loaded>, current_revision_id: nil, current_revision: #Ecto.Association.NotLoaded<association :current_revision is not loaded>, released_revision_id: nil, released_revision: #Ecto.Association.NotLoaded<association :released_revision is not loaded>, dataset_id: "fe1ce4e6-6995-4455-8522-aac60090c2eb", dataset_entity: #Ecto.Association.NotLoaded<association :dataset_entity is not loaded>, inserted_at: ~U[2026-09-24 21:18:27.016000Z], updated_at: ~U[2026-09-24 21:18:27.016000Z]}
+     code:  assert {:ok, ^published} = fetched("twins")
+     left:  {:ok, ^published}
+     right: {:ok,
+             %Barkpark.Content.Document{
+               __meta__: #Ecto.Schema.Metadata<:loaded, "documents">,
+               id: "d14c64fc-0c02-4dd6-a347-9a9f30bfd11d",
+               doc_id: "twins",
+               type: "exact_note",
+               dataset: "exact_delete_test",
+               title: "Original",
+               status: "published",
+               content: %{},
+               rev: "de764539791db353be4dcf116b023923",
+               slug_text: "",
+               author_text: nil,
+               category_text: nil,
+               tags_meta: nil,
+               owner_id: nil,
+               search_vector: nil,
+               task_edges: nil,
+               workspace_id: "434eda61-a26d-456a-8880-6ff4ff41c0ff",
+               workspace: #Ecto.Association.NotLoaded<association :workspace is not loaded>,
+               project_id: "d3d97165-f942-4b09-835c-de2d8dd50d8d",
+               project: #Ecto.Association.NotLoaded<association :project is not loaded>,
+               current_revision_id: "1876cc94-e827-4bec-a27c-28ae87e7fa0d",
+               current_revision: #Ecto.Association.NotLoaded<association :current_revision is not loaded>,
+               released_revision_id: "1876cc94-e827-4bec-a27c-28ae87e7fa0d",
+               released_revision: #Ecto.Association.NotLoaded<association :released_revision is not loaded>,
+               dataset_id: "fe1ce4e6-6995-4455-8522-aac60090c2eb",
+               dataset_entity: #Ecto.Association.NotLoaded<association :dataset_entity is not loaded>,
+               inserted_at: ~U[2026-09-24 21:18:27.016000Z],
+               updated_at: ~U[2026-09-24 21:18:27.016000Z]
+             }}
+     stacktrace:
+       test/barkpark/content/exact_draft_delete_test.exs:37: (test)
+
+
+
+  6) test a separately committed human edit between read and delete survives (Barkpark.Content.ExactDraftDeleteTest)
+     test/barkpark/content/exact_draft_delete_test.exs:109
+     ** (Postgrex.Error) ERROR P0001 (raise_exception) revision history is append-only
+     code: Ecto.Adapters.SQL.Sandbox.unboxed_run(Repo, fn ->
+     stacktrace:
+       (ecto_sql 3.13.5) lib/ecto/adapters/sql.ex:1113: Ecto.Adapters.SQL.raise_sql_call_error/1
+       (ecto_sql 3.13.5) lib/ecto/adapters/sql.ex:1011: Ecto.Adapters.SQL.execute/6
+       test/barkpark/content/exact_draft_delete_test.exs:140: anonymous fn/0 in Barkpark.Content.ExactDraftDeleteTest."test a separately committed human edit between read and delete survives"/1
+       (ecto_sql 3.13.5) lib/ecto/adapters/sql/sandbox.ex:629: Ecto.Adapters.SQL.Sandbox.unboxed_run/2
+       test/barkpark/content/exact_draft_delete_test.exs:113: (test)
+
+
+
+  7) test an outer mutation failure rolls exact deletion back (Barkpark.Content.ExactDraftDeleteTest)
+     test/barkpark/content/exact_draft_delete_test.exs:181
+     match (=) failed
+     The following variables were pinned:
+       d = %Barkpark.Content.Document{__meta__: #Ecto.Schema.Metadata<:loaded, "documents">, id: "dec77e30-4be9-468c-98c1-cede64ac51a3", doc_id: "drafts.batch", type: "exact_note", dataset: "exact_delete_test", title: "Original", status: "draft", content: %{}, rev: "8496c20140cc430d29f32e6bd54ff7ff", slug_text: "", author_text: nil, category_text: nil, tags_meta: nil, owner_id: nil, search_vector: nil, task_edges: nil, workspace_id: "434eda61-a26d-456a-8880-6ff4ff41c0ff", workspace: #Ecto.Association.NotLoaded<association :workspace is not loaded>, project_id: "d3d97165-f942-4b09-835c-de2d8dd50d8d", project: #Ecto.Association.NotLoaded<association :project is not loaded>, current_revision_id: nil, current_revision: #Ecto.Association.NotLoaded<association :current_revision is not loaded>, released_revision_id: nil, released_revision: #Ecto.Association.NotLoaded<association :released_revision is not loaded>, dataset_id: "2134911d-3459-4309-baf4-ec1edc71cda2", dataset_entity: #Ecto.Association.NotLoaded<association :dataset_entity is not loaded>, inserted_at: ~U[2026-09-24 21:18:27.168000Z], updated_at: ~U[2026-09-24 21:18:27.168000Z]}
+     code:  assert {:ok, ^d} = fetched(d.doc_id)
+     left:  {:ok, ^d}
+     right: {:ok,
+             %Barkpark.Content.Document{
+               __meta__: #Ecto.Schema.Metadata<:loaded, "documents">,
+               id: "dec77e30-4be9-468c-98c1-cede64ac51a3",
+               doc_id: "drafts.batch",
+               type: "exact_note",
+               dataset: "exact_delete_test",
+               title: "Original",
+               status: "draft",
+               content: %{},
+               rev: "8496c20140cc430d29f32e6bd54ff7ff",
+               slug_text: "",
+               author_text: nil,
+               category_text: nil,
+               tags_meta: nil,
+               owner_id: nil,
+               search_vector: nil,
+               task_edges: nil,
+               workspace_id: "434eda61-a26d-456a-8880-6ff4ff41c0ff",
+               workspace: #Ecto.Association.NotLoaded<association :workspace is not loaded>,
+               project_id: "d3d97165-f942-4b09-835c-de2d8dd50d8d",
+               project: #Ecto.Association.NotLoaded<association :project is not loaded>,
+               current_revision_id: "96bc0dca-93bc-448c-874c-4ce6aa5d9c15",
+               current_revision: #Ecto.Association.NotLoaded<association :current_revision is not loaded>,
+               released_revision_id: nil,
+               released_revision: #Ecto.Association.NotLoaded<association :released_revision is not loaded>,
+               dataset_id: "2134911d-3459-4309-baf4-ec1edc71cda2",
+               dataset_entity: #Ecto.Association.NotLoaded<association :dataset_entity is not loaded>,
+               inserted_at: ~U[2026-09-24 21:18:27.168000Z],
+               updated_at: ~U[2026-09-24 21:18:27.168000Z]
+             }}
+     stacktrace:
+       test/barkpark/content/exact_draft_delete_test.exs:199: (test)
+
+
+
+  8) test revisions insertion failure rolls the delete and evidence back (Barkpark.Content.ExactDraftDeleteTest)
+     test/barkpark/content/exact_draft_delete_test.exs:161
+     match (=) failed
+     The following variables were pinned:
+       d = %Barkpark.Content.Document{__meta__: #Ecto.Schema.Metadata<:loaded, "documents">, id: "03915aae-a900-4396-bc06-c2b5c81ef373", doc_id: "drafts.fault-revisions", type: "exact_note", dataset: "exact_delete_test", title: "Original", status: "draft", content: %{}, rev: "9ec5df17cd7b2aa88b6029a9fe206e87", slug_text: "", author_text: nil, category_text: nil, tags_meta: nil, owner_id: nil, search_vector: nil, task_edges: nil, workspace_id: "434eda61-a26d-456a-8880-6ff4ff41c0ff", workspace: #Ecto.Association.NotLoaded<association :workspace is not loaded>, project_id: "d3d97165-f942-4b09-835c-de2d8dd50d8d", project: #Ecto.Association.NotLoaded<association :project is not loaded>, current_revision_id: nil, current_revision: #Ecto.Association.NotLoaded<association :current_revision is not loaded>, released_revision_id: nil, released_revision: #Ecto.Association.NotLoaded<association :released_revision is not loaded>, dataset_id: "87999dd0-6ae4-4198-8982-06ec2cb87e90", dataset_entity: #Ecto.Association.NotLoaded<association :dataset_entity is not loaded>, inserted_at: ~U[2026-09-24 21:18:27.206000Z], updated_at: ~U[2026-09-24 21:18:27.206000Z]}
+     code:  assert {:ok, ^d} = fetched(d.doc_id)
+     left:  {:ok, ^d}
+     right: {:ok,
+             %Barkpark.Content.Document{
+               __meta__: #Ecto.Schema.Metadata<:loaded, "documents">,
+               id: "03915aae-a900-4396-bc06-c2b5c81ef373",
+               doc_id: "drafts.fault-revisions",
+               type: "exact_note",
+               dataset: "exact_delete_test",
+               title: "Original",
+               status: "draft",
+               content: %{},
+               rev: "9ec5df17cd7b2aa88b6029a9fe206e87",
+               slug_text: "",
+               author_text: nil,
+               category_text: nil,
+               tags_meta: nil,
+               owner_id: nil,
+               search_vector: nil,
+               task_edges: nil,
+               workspace_id: "434eda61-a26d-456a-8880-6ff4ff41c0ff",
+               workspace: #Ecto.Association.NotLoaded<association :workspace is not loaded>,
+               project_id: "d3d97165-f942-4b09-835c-de2d8dd50d8d",
+               project: #Ecto.Association.NotLoaded<association :project is not loaded>,
+               current_revision_id: "c968cdb7-2521-4442-a2ab-ee363092f4d0",
+               current_revision: #Ecto.Association.NotLoaded<association :current_revision is not loaded>,
+               released_revision_id: nil,
+               released_revision: #Ecto.Association.NotLoaded<association :released_revision is not loaded>,
+               dataset_id: "87999dd0-6ae4-4198-8982-06ec2cb87e90",
+               dataset_entity: #Ecto.Association.NotLoaded<association :dataset_entity is not loaded>,
+               inserted_at: ~U[2026-09-24 21:18:27.206000Z],
+               updated_at: ~U[2026-09-24 21:18:27.206000Z]
+             }}
+     stacktrace:
+       test/barkpark/content/exact_draft_delete_test.exs:176: (test)
+
+
+
+  9) test mutation_events insertion failure rolls the delete and evidence back (Barkpark.Content.ExactDraftDeleteTest)
+     test/barkpark/content/exact_draft_delete_test.exs:161
+     match (=) failed
+     The following variables were pinned:
+       d = %Barkpark.Content.Document{__meta__: #Ecto.Schema.Metadata<:loaded, "documents">, id: "e6dadc2e-efa1-475e-8517-b0b6fcce5b2a", doc_id: "drafts.fault-mutation_events", type: "exact_note", dataset: "exact_delete_test", title: "Original", status: "draft", content: %{}, rev: "77ad9368c8c0a00f099d8bac29e09559", slug_text: "", author_text: nil, category_text: nil, tags_meta: nil, owner_id: nil, search_vector: nil, task_edges: nil, workspace_id: "434eda61-a26d-456a-8880-6ff4ff41c0ff", workspace: #Ecto.Association.NotLoaded<association :workspace is not loaded>, project_id: "d3d97165-f942-4b09-835c-de2d8dd50d8d", project: #Ecto.Association.NotLoaded<association :project is not loaded>, current_revision_id: nil, current_revision: #Ecto.Association.NotLoaded<association :current_revision is not loaded>, released_revision_id: nil, released_revision: #Ecto.Association.NotLoaded<association :released_revision is not loaded>, dataset_id: "2ca8a3a2-0ad1-4b8e-b9f8-de86c4a78742", dataset_entity: #Ecto.Association.NotLoaded<association :dataset_entity is not loaded>, inserted_at: ~U[2026-09-24 21:18:27.243000Z], updated_at: ~U[2026-09-24 21:18:27.243000Z]}
+     code:  assert {:ok, ^d} = fetched(d.doc_id)
+     left:  {:ok, ^d}
+     right: {:ok,
+             %Barkpark.Content.Document{
+               __meta__: #Ecto.Schema.Metadata<:loaded, "documents">,
+               id: "e6dadc2e-efa1-475e-8517-b0b6fcce5b2a",
+               doc_id: "drafts.fault-mutation_events",
+               type: "exact_note",
+               dataset: "exact_delete_test",
+               title: "Original",
+               status: "draft",
+               content: %{},
+               rev: "77ad9368c8c0a00f099d8bac29e09559",
+               slug_text: "",
+               author_text: nil,
+               category_text: nil,
+               tags_meta: nil,
+               owner_id: nil,
+               search_vector: nil,
+               task_edges: nil,
+               workspace_id: "434eda61-a26d-456a-8880-6ff4ff41c0ff",
+               workspace: #Ecto.Association.NotLoaded<association :workspace is not loaded>,
+               project_id: "d3d97165-f942-4b09-835c-de2d8dd50d8d",
+               project: #Ecto.Association.NotLoaded<association :project is not loaded>,
+               current_revision_id: "58de8c1d-537c-4dfc-8d1e-1a3b751697ca",
+               current_revision: #Ecto.Association.NotLoaded<association :current_revision is not loaded>,
+               released_revision_id: nil,
+               released_revision: #Ecto.Association.NotLoaded<association :released_revision is not loaded>,
+               dataset_id: "2ca8a3a2-0ad1-4b8e-b9f8-de86c4a78742",
+               dataset_entity: #Ecto.Association.NotLoaded<association :dataset_entity is not loaded>,
+               inserted_at: ~U[2026-09-24 21:18:27.243000Z],
+               updated_at: ~U[2026-09-24 21:18:27.243000Z]
+             }}
+     stacktrace:
+       test/barkpark/content/exact_draft_delete_test.exs:176: (test)
+
+........................
+Finished in 4.2 seconds (0.00s async, 4.2s sync)
+
+Result: 37/46 passed
+Failed: 9 tests
+[os_mon] win32 supervisor port (win32sysinfo): Erlang has closed
+waiting for server to shut down.... done
+server stopped
+file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/docs/cycles/evidence/C071/isolated-exunit-runner.mjs:15
+function run(exe, args) { return new Promise((resolve, reject) => { const p = spawn(exe, args, { cwd: source, env, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] }); p.stdout.on('data', d => process.stdout.write(String(d).split(password).join('[redacted]'))); p.stderr.on('data', d => process.stderr.write(String(d).split(password).join('[redacted]'))); p.on('error', reject); p.on('exit', code => code === 0 ? resolve() : reject(Error(`Owned command exited ${code}`))); }); }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                    ^
+
+Error: Owned command exited 2
+    at ChildProcess.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/docs/cycles/evidence/C071/isolated-exunit-runner.mjs:15:437)
+    at ChildProcess.emit (node:events:524:28)
+    at ChildProcess._handle.onexit (node:internal/child_process:293:12)
+
+Node.js v22.13.1

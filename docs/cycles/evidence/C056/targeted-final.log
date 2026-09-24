@@ -1,0 +1,209 @@
+TAP version 13
+# (node:39284) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/renderer/src/library-refresh.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: failed same-scope refresh preserves known notes and human organization
+ok 1 - failed same-scope refresh preserves known notes and human organization
+  ---
+  duration_ms: 3.2159
+  ...
+# Subtest: latest refresh wins even when an earlier response arrives last
+ok 2 - latest refresh wins even when an earlier response arrives last
+  ---
+  duration_ms: 0.3245
+  ...
+# Subtest: superseded errors do not toast or clear newer results
+ok 3 - superseded errors do not toast or clear newer results
+  ---
+  duration_ms: 0.2409
+  ...
+# Subtest: server change clears prior catalog before awaiting and rejects stale results
+ok 4 - server change clears prior catalog before awaiting and rejects stale results
+  ---
+  duration_ms: 0.3071
+  ...
+# Subtest: dataset change clears prior catalog before awaiting and rejects stale results
+ok 5 - dataset change clears prior catalog before awaiting and rejects stale results
+  ---
+  duration_ms: 0.3861
+  ...
+# Subtest: catalogGeneration change clears prior catalog before awaiting and rejects stale results
+ok 6 - catalogGeneration change clears prior catalog before awaiting and rejects stale results
+  ---
+  duration_ms: 0.1961
+  ...
+# Subtest: profile change clears prior catalog before awaiting and rejects stale results
+ok 7 - profile change clears prior catalog before awaiting and rejects stale results
+  ---
+  duration_ms: 0.2813
+  ...
+# Subtest: scope changing without another refresh still rejects an in-flight result
+ok 8 - scope changing without another refresh still rejects an in-flight result
+  ---
+  duration_ms: 0.2222
+  ...
+# Subtest: initial render waits for local documents before Pages can be seeded
+ok 9 - initial render waits for local documents before Pages can be seeded
+  ---
+  duration_ms: 0.4445
+  ...
+# Subtest: complete catalog of 0 papers
+ok 10 - complete catalog of 0 papers
+  ---
+  duration_ms: 2.8917
+  ...
+# Subtest: complete catalog of 1 papers
+ok 11 - complete catalog of 1 papers
+  ---
+  duration_ms: 1.2893
+  ...
+# Subtest: complete catalog of 60 papers
+ok 12 - complete catalog of 60 papers
+  ---
+  duration_ms: 0.4677
+  ...
+# Subtest: complete catalog of 61 papers
+ok 13 - complete catalog of 61 papers
+  ---
+  duration_ms: 0.3395
+  ...
+# Subtest: complete catalog of 200 papers
+ok 14 - complete catalog of 200 papers
+  ---
+  duration_ms: 0.5523
+  ...
+# Subtest: complete catalog of 201 papers
+ok 15 - complete catalog of 201 papers
+  ---
+  duration_ms: 0.5059
+  ...
+# Subtest: complete catalog of 400 papers
+ok 16 - complete catalog of 400 papers
+  ---
+  duration_ms: 0.9579
+  ...
+# Subtest: complete catalog of 401 papers
+ok 17 - complete catalog of 401 papers
+  ---
+  duration_ms: 0.9641
+  ...
+# Subtest: refuses old response without pagination
+ok 18 - refuses old response without pagination
+  ---
+  duration_ms: 3.2092
+  ...
+# Subtest: refuses missing total
+ok 19 - refuses missing total
+  ---
+  duration_ms: 1.0051
+  ...
+# Subtest: refuses wrong offset
+ok 20 - refuses wrong offset
+  ---
+  duration_ms: 0.7641
+  ...
+# Subtest: refuses wrong limit
+ok 21 - refuses wrong limit
+  ---
+  duration_ms: 0.6255
+  ...
+# Subtest: refuses wrong count
+ok 22 - refuses wrong count
+  ---
+  duration_ms: 0.6687
+  ...
+# Subtest: refuses unknown perspective
+ok 23 - refuses unknown perspective
+  ---
+  duration_ms: 1.0262
+  ...
+# Subtest: refuses nonboolean hasMore
+ok 24 - refuses nonboolean hasMore
+  ---
+  duration_ms: 0.6847
+  ...
+# Subtest: refuses missing next offset
+ok 25 - refuses missing next offset
+  ---
+  duration_ms: 0.7924
+  ...
+# Subtest: refuses nonadvancing next offset
+ok 26 - refuses nonadvancing next offset
+  ---
+  duration_ms: 0.7655
+  ...
+# Subtest: refuses overlapping page
+ok 27 - refuses overlapping page
+  ---
+  duration_ms: 0.6919
+  ...
+# Subtest: refuses short intermediate page
+ok 28 - refuses short intermediate page
+  ---
+  duration_ms: 1.0451
+  ...
+# Subtest: refuses invalid paper id
+ok 29 - refuses invalid paper id
+  ---
+  duration_ms: 0.6225
+  ...
+# Subtest: refuses draft in published catalog
+ok 30 - refuses draft in published catalog
+  ---
+  duration_ms: 0.7604
+  ...
+# Subtest: refuses duplicate inside page
+ok 31 - refuses duplicate inside page
+  ---
+  duration_ms: 0.6448
+  ...
+# Subtest: refuses over budget total
+ok 32 - refuses over budget total
+  ---
+  duration_ms: 0.5724
+  ...
+# Subtest: refuses changing totals and repeated ids across pages
+ok 33 - refuses changing totals and repeated ids across pages
+  ---
+  duration_ms: 2.1555
+  ...
+# Subtest: refuses false finality, extra final offset and failed later pages
+ok 34 - refuses false finality, extra final offset and failed later pages
+  ---
+  duration_ms: 0.8768
+  ...
+# Subtest: byte and elapsed budgets refuse instead of returning a prefix
+ok 35 - byte and elapsed budgets refuse instead of returning a prefix
+  ---
+  duration_ms: 30.8194
+  ...
+# Subtest: HTTP adapter captures connection, uses audited pagination and preserves bounded provider listing
+ok 36 - HTTP adapter captures connection, uses audited pagination and preserves bounded provider listing
+  ---
+  duration_ms: 65.6455
+  ...
+# Subtest: HTTP catalog stops an oversized page before parsing or publishing it
+ok 37 - HTTP catalog stops an oversized page before parsing or publishing it
+  ---
+  duration_ms: 140.0876
+  ...
+# Subtest: refuses a constant-count deletion/insertion that would silently skip a boundary paper
+ok 38 - refuses a constant-count deletion/insertion that would silently skip a boundary paper
+  ---
+  duration_ms: 0.9347
+  ...
+# Subtest: boundary overlap does not excuse duplicate identities later in a page
+ok 39 - boundary overlap does not excuse duplicate identities later in a page
+  ---
+  duration_ms: 0.9522
+  ...
+1..39
+# tests 39
+# suites 0
+# pass 39
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 457.5214

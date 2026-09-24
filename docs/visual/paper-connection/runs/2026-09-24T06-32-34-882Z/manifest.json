@@ -1,0 +1,43 @@
+{
+  "capturedAt": "2026-09-24T06:32:58.421Z",
+  "barkdownCommit": "def8b855d0bd18245eddbc2a89035c018ccd3910",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "foreignRequests": [],
+  "results": [
+    "Foreign same-ID/revision recorder receives zero requests across13 foreground operations; original Paper, receipt and proposal unchanged",
+    "A-to-B-to-A Retry saves preserved human text; a fresh original-library receipt Undo restores exact blocks",
+    "Actual explicitly scoped CLI native read/edit/save passes; changing configured CLI destination refuses before lookup or transmission",
+    "Restart on the original connection restores acknowledged native content"
+  ],
+  "frames": [
+    "01-original-library.png",
+    "02-connection-changed.png",
+    "03-unsaved-work-retained.png",
+    "04-narrow-retained-work.png",
+    "05-original-connection-retry.png",
+    "06-original-guarded-undo.png",
+    "07-explicit-cli-save.png",
+    "08-cli-original-restored.png",
+    "09-restarted-original-paper.png"
+  ],
+  "artifacts": {
+    "01-original-library.png": "0faeddc68d8fd9b17b577e124c600d6067ebc447fc7d761993374fcb2b7840b8",
+    "02-connection-changed.png": "8cbeae028648462363146e74c330679c81d513fd7736db6d1ceaf1d3aed150a7",
+    "03-unsaved-work-retained.png": "700cca02caa190ab3a90663e8b30cccfe7fe0491f8d30a004e0ae2b36b68b7ef",
+    "04-narrow-retained-work.png": "5b6769c175760babcb29e8d59d539d45272a29c17c4bf799f1b6c9f919cdfbee",
+    "05-original-connection-retry.png": "e31e30f3e986d6b1c2fefb5cad7d92ba152452ca9f9dab3915fa68af0bf72601",
+    "06-original-guarded-undo.png": "334707b9cbc0e1de94dca5d4503d46b253b2f95dde8d318aab398faf4d9dc7a6",
+    "07-explicit-cli-save.png": "b0db2e5a56f1f210eab536edbb868c31dbfd0a2746f5798273899d18187bcabb",
+    "08-cli-original-restored.png": "b0db2e5a56f1f210eab536edbb868c31dbfd0a2746f5798273899d18187bcabb",
+    "09-restarted-original-paper.png": "70da651e1bfdef43215aa7b63cc84283a614a4f2ab401dd0eeff93a25d935b81",
+    "connection-recovery.webm": "2943feea77f800b633a958de7ee50cb551ef1f312da0a92bab258331f4721b1a",
+    "restart-or-failure.webm": "8583042debcafed73c4c54c1cc70adfb1f85a9f5679a93b464adc2cd62985155"
+  },
+  "limits": [
+    "Real owned Paper plus non-persisting foreign recorder; no real user library",
+    "Binding is in-session; durable cross-connection tabs/bookmarks and provider receipt identity are separate contracts",
+    "CLI route is explicitly captured; externally changed CLI credentials are not frozen",
+    "No migration authority activation or deployment"
+  ]
+}

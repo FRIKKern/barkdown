@@ -1,0 +1,27 @@
+{
+  "upstreamCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "files": {
+    "api/lib/barkpark_web/controllers/bulldocs_ingest_controller.ex": "6aad7adc036cdc252cd61d196fe1643ad684fdd03225cb8ec5b88dadf2382056",
+    "api/lib/barkpark_web/controllers/mutate_controller.ex": "eff0e547e5f4846cfcdec73eead648c09dceff6a3c1fb2b55e9ff078b9c7cbb5",
+    "api/lib/barkpark/content/mutations.ex": "3f05e3ebb5a40be4c101def188a2a4cc7b3cf1f3c8bc71308467f9065c3610fe",
+    "api/lib/barkpark/content/writer.ex": "b951fc2fd90353b3b08a1e69ac399a9dff960d095640c3543262aee0a1fde2a4",
+    "api/lib/barkpark/content/lifecycle.ex": "b918195ce68488df34e8f08607fff976299c5696c33fbb9ad4ae9960bbc3d7bc",
+    "api/lib/barkpark/content/papers.ex": "58e75208f3eb462af642ad562dee5620a95f3f715724b12019bd9d7d96dd2e71",
+    "api/lib/barkpark/content/papers/block_ops.ex": "6c47eeb73a6ca47eeb7e163f3e2f94614d3d1843746f2e736e567e2222ee7105"
+  },
+  "findings": [
+    "Published create-only route requires slug/native blocks and runs publication walls; it is not an ordinary empty note contract.",
+    "Generic create_document always targets drafts.<id>; explicit blocks=[] may seed article template and derive title. Draft shape is distinct from published identity.",
+    "Generic createIfNotExists only checks draft twin; it cannot establish namespace reservation against published content.",
+    "Paper block-op loader uses scoped get_paper; inspect/probe draft fallback and integer content revision separately from document _rev.",
+    "Generic delete removes both draft/published variants with per-row read-revision fences. No user-facing recovery/soft-delete contract demonstrated.",
+    "Current Barkdown foreground catalog asks published perspective and source-preserving get raw; draft-only visibility and guarded title semantics need adapter design."
+  ],
+  "nextProbe": [
+    "Fresh empty draft without fabricated tags/description; inspect exact raw/draft/published rows and generated blocks/title.",
+    "Two concurrent create calls and retry after lost response; verify no replacement or duplicates.",
+    "Guarded ops on draft-only row, stale refusal, title field via generic revision versus integer Paper revision.",
+    "Catalog/search/read identity, published/draft collision and deletion/recovery limits."
+  ],
+  "status": "read-only preparation; no production change or HTTP probe yet"
+}

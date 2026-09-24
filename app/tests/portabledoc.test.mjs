@@ -71,7 +71,7 @@ const calls=[];
 try {
  bp.cliGetPaper=async()=>({rev:1,blocks:[{id:'existing',type:'paragraph',content:[{type:'text',value:'Keep existing content'}]}]});
  bp.cliApplyOps=async(...args)=>{calls.push(args);return{rev:2};};
- const config={enabled:true,writes:true,viaCli:true};
+ const config={enabled:true,writes:true,viaCli:true,server:'https://fixture.invalid',dataset:'production',cliRouting:['-s','https://fixture.invalid','-d','production','-w','fixture','-p','fixture']};
  for(const mode of ['replace','replace_block','append']) {
   await strict.rejects(()=>edits.apply({id:'bp:fixture',baseRev:1,mode,blockIndex:0,markdown:'Valid sibling\n\n> | Name | Value |\n> | --- | --- |\n> | Nested | table |',summary:'Unsupported nested table'},config),/Cannot convert/);
   strict.equal(calls.length,0,'unsupported mixed document cannot emit any API mutation');

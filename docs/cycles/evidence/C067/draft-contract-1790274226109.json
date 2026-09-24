@@ -1,0 +1,49 @@
+{
+  "host": "43938c2163f07175a9c7d153f56f6e346db25a14",
+  "upstream": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "sourceDirty": true,
+  "results": [
+    "Empty draft created without publication metadata; request nonce survives real server readback",
+    "Title/body ops, stale refusal, exact draft discovery/search and service reconstruction preserve identity",
+    "Lost response after real committed create reconciles exact nonce/row without a second write"
+  ],
+  "requests": [
+    {
+      "method": "POST",
+      "route": "/v1/data/mutate/production"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.bd-note-0ee6b445-dedd-4975-9b4a-8d689335ee40?perspective=drafts"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.bd-note-0ee6b445-dedd-4975-9b4a-8d689335ee40?perspective=drafts"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.bd-note-0ee6b445-dedd-4975-9b4a-8d689335ee40?perspective=drafts"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=drafts&count=true&fields=title,slug,tags"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/search/production?q=Saffron&limit=20&type=paper&perspective=drafts"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.bd-note-0ee6b445-dedd-4975-9b4a-8d689335ee40?perspective=drafts"
+    },
+    {
+      "method": "POST",
+      "route": "/v1/data/mutate/production"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.bd-note-0678e604-1c06-4d4e-afba-0fb235df25e2?perspective=drafts"
+    }
+  ],
+  "failure": null
+}

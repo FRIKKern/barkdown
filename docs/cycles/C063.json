@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "id": "C063",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Remove conflicting agent guidance and clarify source ownership, with mechanical checks for routing and evidence integrity.",
+  "scope": [
+    "Audit active instructions, planning skill and key app ownership/compatibility boundaries.",
+    "No application behavior, migration authority, media or dependency changes; no whole-codebase correctness claim."
+  ],
+  "acceptance": [
+    "Codex and Claude enter through the same canonical rules; planning skill uses live queue rather than stale stage instructions.",
+    "Superseded decisions and preserved compatibility paths are clearly distinguished from current implementation work.",
+    "Root verification rejects stale handoff routing and untracked completion evidence; negative cases are tested."
+  ],
+  "checkpoint": "2026-09-24",
+  "handoff": "docs/cycles/C063-agent-guidance.md",
+  "nextAction": "Review PR33 final-head CI; archive C063 and plan the owned ordinary draft-note adapter/native journey.",
+  "evidence": [
+    "docs/cycles/evidence/C063/root.log",
+    "docs/cycles/evidence/C063/skill-validation.txt",
+    "scripts/agent-guidance.mjs"
+  ],
+  "truthReview": "Canonical entry points and planning skill aligned; superseded decision conflicts corrected; source ownership and compatibility audited/documented. No application behavior changes. One delivery lane; 43 locked worktrees preserved for next coordinator inventory.",
+  "screenshotReview": "No app/dependency/capture/approval changes. Existing visual freshness/hash checks passed; no new media or runtime claims."
+}

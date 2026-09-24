@@ -1,6 +1,6 @@
 # Barkdown documentation
 
-**Current phase: one note engine.** Profile isolation is accepted for the Windows source prototype. P2 has verified disposable Paper staging, native editing, links/media, backup restore, navigation preview and retained-history reading. Legacy authority remains in place. The next slice is complete owned-note discovery and archive classification; see the [migration contract](migration/README.md) and [current handoff](NEXT-AGENT.md). Portability, optional sync and ordinary installation follow.
+**Current phase: one note engine.** Profile isolation is accepted for the Windows source prototype. P2 has verified disposable Paper staging, native editing, links/media, backup restore, navigation preview and retained-history reading. Legacy authority remains in place. Owned discovery and Archive classification are verified. The next product slice is ordinary draft-note creation/editing/restart; see the [migration contract](migration/README.md) and [current handoff](NEXT-AGENT.md). Portability, optional sync and ordinary installation follow.
 
 ## Find your starting point
 

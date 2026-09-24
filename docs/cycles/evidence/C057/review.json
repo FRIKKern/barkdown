@@ -1,0 +1,55 @@
+{
+  "reviewer": "Codex",
+  "reviewedAt": "2026-09-24T06:01:23.293304+00:00",
+  "source": "0e4b8913c261321cf8653a23c86c69ef8fb88238",
+  "upstream": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "nativeManifestHash": "e6ac5090c69f1c86ad5ebb7514c97a03fc135291ee27fbd00bb1e2b0c0bb5ca7",
+  "verifiedOriginalArtifacts": 11,
+  "inspected": {
+    "nativeStills": 9,
+    "nativeDecodedGifFrames": 47,
+    "standardStillsAndDiffs": 80,
+    "standardGifFrames": 40,
+    "liveStills": 5,
+    "liveGifFrames": 37
+  },
+  "result": "accepted",
+  "findings": [
+    "One recovery warning; retained unsaved words and disabled proposal controls visible at normal and820px widths. Original connection Retry/Undo, scoped CLI and restart pass.",
+    "All standard still pixels and geometry unchanged. Existing fixture GIF palette banding retained; live/native evidence remains separate.",
+    "Startup and brief loading frames remain in native recordings.2fps derivative may omit brief refused-save/narrow states; corresponding full-size stills inspected."
+  ],
+  "behavior": [
+    "Foreign same-ID/revision recorder receives zero requests across13 foreground operations; original Paper, receipt and proposal unchanged",
+    "A-to-B-to-A Retry saves preserved human text; a fresh original-library receipt Undo restores exact blocks",
+    "Actual explicitly scoped CLI native read/edit/save passes; changing configured CLI destination refuses before lookup or transmission",
+    "Restart on the original connection restores acknowledged native content"
+  ],
+  "limits": [
+    "Real owned Paper plus non-persisting foreign recorder; no real user library",
+    "Binding is in-session; durable cross-connection tabs/bookmarks and provider receipt identity are separate contracts",
+    "CLI route is explicitly captured; externally changed CLI credentials are not frozen",
+    "No migration authority activation or deployment"
+  ],
+  "standardApproval": "docs/visual/reviews/approval-19569a6c0bc997857f06d9c56e9821a4c6c7502328161d3e347ba1759f8d7d88.json",
+  "commands": {
+    "npm --prefix app test": "PASS rebuilt8da8d0f; final notice-only changes have37 focused host checks and exact-source0e4b891 native evidence. Earlier prebuild run retained but not final UI acceptance.",
+    "npm --prefix app run test:paper-connection:isolated": "PASS exact0e4b891",
+    "npm --prefix app run shots:isolated": "PASS exact0e4b891, real Claude, tablehead6/6",
+    "npm run visual:capture; npm run visual:compare; explicit approve": "PASS after actual inspection",
+    "npm run verify": "PASS"
+  },
+  "logs": {
+    "before-fence-reproduce.log": "621acf2792cac93f81da92d96d773a566d1ba29bb121082e3e41302f2f66eea4",
+    "connection-unit-final.log": "2a566365167afb262f14f0045be182623fc2d221815295a52ccf7b30b0fcb3a5",
+    "desktop-final.log": "8e64c1da99fd79d59b7f6e4863e3dee31606ee11f8f100c12dfb8f7ddf89135d",
+    "desktop.log": "322b1a0013303cda7ff16c8d7aaa47a1c7ee531ec284bc6296f7782404b8e7de",
+    "host-reviewed.log": "7cd6d7d9c91e7164c94e375eb22de9c58bb12d49eb38f8f68c37826702a69772",
+    "live-shots.log": "51283795aba2de204aa4ae2b10757547af70d4c76a10259dd5919c054170795d",
+    "native-reviewed.log": "c361abe36cdcbf4e6a8646647f8a8451d211ab033e0b0412700f62d89075f5e0",
+    "root-final.log": "c002c7876e0a94fc52dcd907bfebca8fb3122e689e2647a4fb27294fedcef971",
+    "targeted.log": "ce49d89c087736f756188f85b8faae7f289ebb153d09665e0d456630ba1812c4",
+    "visual-capture.log": "c17916b9557a1bcd573b8fe6699037342fb97d4a73a45e38d402fd36d80f6aca",
+    "visual-compare.log": "c60251fe677dc16dc3782ef57ece125124b36b07e621f4db71d4408b867601ac"
+  }
+}

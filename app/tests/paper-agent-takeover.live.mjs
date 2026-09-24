@@ -1,3 +1,4 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Real Paper + production agent-edit adapter on a disposable server; no model-generated fixtures.
 import { _electron as electron } from 'playwright';
 import assert from 'node:assert/strict';
@@ -18,7 +19,7 @@ const results=[];let video,page,editorBundle,phaseEvents=[];
 try{
   page=await app.firstWindow();video=page.video();await page.waitForSelector('#bw-pages .bw-page-row');await page.setViewportSize({width:1400,height:900});await page.emulateMedia({reducedMotion:'no-preference'});
   await page.evaluate(async server=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,viaCli:true,writes:true,server}});await window.__barkdown.refreshLibrary();},process.env.BARKDOWN_SHOTS_SERVER);
-  await page.evaluate(slug=>window.__barkdown.openTarget({kind:'doc',id:slug,source:'barkpark',title:slug}),slug);
+  await openFixturePaper(page, slug);
   const pm=page.locator('.bw-paper-pane .ProseMirror');await pm.waitFor({timeout:60000});
   editorBundle=JSON.parse(fs.readFileSync(path.join(userData,'canvas-bundle/current.json'),'utf8'));
   assert.equal(editorBundle.source,'server');assert.equal(editorBundle.server,process.env.BARKDOWN_SHOTS_SERVER);assert.ok(editorBundle.version);assert.ok(process.env.BARKDOWN_SHOTS_BUILD_FINGERPRINT);
@@ -29,7 +30,7 @@ try{
   assert.equal(await page.evaluate(()=>document.querySelector('bp-paper-canvas')._editor.isFocused),true);
   assert.equal(await page.evaluate(()=>document.querySelector('bp-paper-canvas').hasPendingChanges()),false);
   const beforeFirst=await geometry();
-  const receipt=await app.evaluate(async({app},slug)=>{const require=process.getBuiltinModule('module').createRequire(app.getAppPath()+'/main/main.js');const bp=require('./barkpark');const before=await bp.cliGetPaper(slug);return require('./agent-edits').apply({id:'bp:'+slug,baseRev:before.rev,mode:'replace_block',blockIndex:1,markdown:'Acknowledged agent sentence.',summary:'Clarify the target sentence'},{enabled:true,writes:true,viaCli:true});},slug);
+  const receipt=await app.evaluate(async({app},slug)=>{const require=process.getBuiltinModule('module').createRequire(app.getAppPath()+'/main/main.js');const bp=require('./barkpark');const config={enabled:true,writes:true,viaCli:true,server:process.env.BARKDOWN_SHOTS_SERVER,dataset:'production'};config.cliRouting=await bp.cliScope(config);const before=await bp.cliGetPaper(slug,config.cliRouting);return require('./agent-edits').apply({id:'bp:'+slug,baseRev:before.rev,mode:'replace_block',blockIndex:1,markdown:'Acknowledged agent sentence.',summary:'Clarify the target sentence'},config);},slug);
   await page.evaluate(()=>{for(const c of window.__barkdown.controllers.values())if(c.el.matches('.bw-paper-pane'))void c.refresh();});
   await phase('select');assert.deepEqual(await geometry(),beforeFirst,'first presentation retains the visible paragraph position');await page.screenshot({path:path.join(out,'selection-before-takeover.png')});
   await page.keyboard.type(' Human follows.');
@@ -44,7 +45,7 @@ try{
   results.push('focused keyboard takeover retains acknowledged agent text and human input in the intended paragraph');
   const focus=async()=>{await pm.locator('p').first().click();await page.keyboard.press('End');};
   const readServer=()=>{const raw=bp(['doc','get','paper',slug,'--perspective','raw']);return raw.document||raw;};
-  const edit=async text=>app.evaluate(async({app},{slug,text})=>{const req=process.getBuiltinModule('module').createRequire(app.getAppPath()+'/main/main.js');const before=await req('./barkpark').cliGetPaper(slug);return req('./agent-edits').apply({id:'bp:'+slug,baseRev:before.rev,mode:'replace_block',blockIndex:1,markdown:text,summary:'Clarify the target sentence'},{enabled:true,writes:true,viaCli:true});},{slug,text});
+  const edit=async text=>app.evaluate(async({app},{slug,text})=>{const req=process.getBuiltinModule('module').createRequire(app.getAppPath()+'/main/main.js');const config={enabled:true,writes:true,viaCli:true,server:process.env.BARKDOWN_SHOTS_SERVER,dataset:'production'};config.cliRouting=await req('./barkpark').cliScope(config);const before=await req('./barkpark').cliGetPaper(slug,config.cliRouting);return req('./agent-edits').apply({id:'bp:'+slug,baseRev:before.rev,mode:'replace_block',blockIndex:1,markdown:text,summary:'Clarify the target sentence'},config);},{slug,text});
   const refresh=()=>page.evaluate(()=>{window.__takeoverRefresh=[...window.__barkdown.controllers.values()].find(c=>c.el.matches('.bw-paper-pane')).refresh();});
   const settled=()=>page.evaluate(()=>window.__takeoverRefresh);
   const both=async(agent,human)=>{await page.waitForFunction(()=>/Saved · rev/.test(document.querySelector('.bw-paper-pane #save-state')?.textContent||'')&&!document.querySelector('bp-paper-canvas').hasPendingChanges(),null,{timeout:30000});await settled();const actual=JSON.stringify(readServer().blocks),visible=await pm.innerText();assert.ok(actual.includes(agent)&&visible.includes(agent));assert.ok(actual.includes(human)&&visible.includes(human));};

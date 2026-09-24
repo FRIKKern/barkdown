@@ -1,0 +1,125 @@
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	﻿2026-09-24T21:50:30.0648283Z ##[group]Run bash scripts/run-instrument.sh elixir-impacted-tests-selftest -- bash scripts/elixir-impacted-tests.sh --selftest
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:30.0649279Z [36;1mbash scripts/run-instrument.sh elixir-impacted-tests-selftest -- bash scripts/elixir-impacted-tests.sh --selftest[0m
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:30.0715271Z shell: /usr/bin/bash -e {0}
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:30.0715611Z env:
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:30.0715858Z   BP_STEP_VERDICT: MEASURED-CLEAN
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:30.0716162Z ##[endgroup]
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:30.0909944Z === §1  FAIL-SAFE: an unclassifiable path must WIDEN, never narrow
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:30.1088628Z   ok   — api/config/runtime.exs selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:30.1265154Z   ok   — api/config/config.exs selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:30.1441328Z   ok   — api/mix.lock selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:30.1617678Z   ok   — api/mix.exs selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:30.1791179Z   ok   — api/test/test_helper.exs selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:30.1965558Z   ok   — api/test/support/**.ex (a case template) selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:30.2137717Z   ok   — api/test/fixtures/** selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:30.2316577Z   ok   — api/priv/repo/migrations/** selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:30.2494299Z   ok   — a .heex template under api/lib selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:30.2697359Z   ok   — api/assets/** selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:30.3355341Z   ok   — the workflow itself (COMPILE set) selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:30.4022168Z   ok   — design/** (COMPILE set) selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:32.4381985Z   ok   — an unclassified path (some/brand/new/tree/thing.txt) contributes NO tests of its own — the selection is exactly the ALWAYS set
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:34.4212052Z   ok   — an unclassified path (.tool-versions) contributes NO tests of its own — the selection is exactly the ALWAYS set
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:36.4007972Z   ok   — an unclassified path (scripts/canonical-marker-bindings.pin) contributes NO tests of its own — the selection is exactly the ALWAYS set
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:38.4270191Z   ok   — docs/openapi.json selects the test that guards it
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:42.0178315Z   ok   — a cloud/test-only change NO LONGER selects ALL (277 of 1900 api test files)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:42.0201617Z   ok   — …and it selects the seam guard, the api test that actually reads cloud/test
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:43.7810971Z   FAIL — the selector's derived readers EQUAL an independent one-hop join
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:43.7811966Z          selector: [api/test/barkpark/async_global_seam_guard_test.exs api/test/barkpark/paper_editor_vendor_drift_test.exs] independent: [api/test/barkpark/async_global_seam_guard_test.exs]
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:47.3023029Z   ok   — (d2) internal/taskboard/board.go — a TEST-set path whose SIBLINGS are censused but which nothing reads — still selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:50.8169139Z   ok   — (d2) cmd/barkpark/testdata/** with no censused reader still selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:54.3236584Z   ok   — (d2) web/node_modules/** still selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:54.3899047Z   ok   — (a) scripts/elixir-impacted-tests.sh still selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:54.4552548Z   ok   — (a) scripts/elixir-path-escape-check.sh still selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:50:58.0064502Z   ok   — (a) a cloud/test change PLUS a gate-script change still selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:01.5086405Z   ok   — (a) a cloud/test change PLUS an api/ non-narrowable path still selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:01.5195837Z   ok   — an EMPTY changed-path set selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:01.5387059Z   ok   — harness setup: using api/lib/barkpark/accounts.ex as the leaf fixture
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:01.5620508Z   ok   — a narrowable lib file PLUS api/mix.lock still selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:01.5869413Z   ok   — a lib file with NO defmodule selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:01.6110316Z   ok   — a FAILED mix xref selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:01.6111012Z 
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:01.6111461Z === §2  NARROWING HAPPENS (without these, a selector hard-wired to ALL passes §1)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:01.8655848Z   ok   — a leaf lib change does NOT select ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:02.1221857Z   ok   — a leaf lib change selects its convention test
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:02.1913854Z   ok   — a changed test file selects ITSELF
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:02.2563157Z   ok   — a changed test file alone does NOT select ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:02.5117451Z   ok   — a leaf lib change selects 467 of 1900 test files (a strict, non-empty subset)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:02.9875627Z   ok   — the BY-NAME net reaches a non-convention caller: lib/barkpark/api_test_runner.ex -> test/barkpark_web/live/studio/api_tester_live_plugin_asserts_test.exs
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:02.9876604Z 
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:02.9877311Z === §2b  RULE 3 — the web-surface hop (the #17153 blind spot)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.0166582Z   ok   — the #17153 specimen is now a RULE 4 door — it selects ALL, a superset of RULE 3's answer
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.2266684Z   ok   — derived RULE-3-only specimen: api/lib/barkpark/access/claim_flow.ex -> test/barkpark_web/controllers/access_controller_oracle_crash_test.exs (not in ALWAYS, names no module of the change)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.3434389Z   ok   — the derived specimen's web test IS selected by the lib->lib hop
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.4614164Z   ok   — the derived specimen selects 112 of 856 web tests — a family, not the directory
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.4645711Z   ok   — the planted contract test names neither the context nor its controller
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.5157806Z   ok   — a planted ConnCase contract test for a lib module IS selected (the lib->lib hop, then the name family)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.5170937Z   ok   — an unrelated controller test in the same directory stays out
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.5641731Z   ok   — a lib module NO web surface names drags in no controller test (the hop is a hop, not a default)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.5642527Z 
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.5643048Z === §2c  RULE 4 — the fail-closed door (the #18085 blind spot)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.5658441Z   ok   — precondition: test/barkpark/search/indx_engine_scope_test.exs names no module of the door it calls through (so only RULE 4 can reach it)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.5742691Z   ok   — the predicate classifies api/lib/barkpark/content/write_scope.ex as a door
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.5948201Z   ok   — a change confined to the door selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.6213855Z   ok   — REPLAY #18085: its twelve-path diff selects ALL — test/barkpark/search/indx_engine_scope_test.exs runs
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.6438348Z   ok   — a module returning a policy refusal selects ALL (the derived arm)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.6636296Z   ok   — a module carrying '@impact door' selects ALL even with no known refusal atom (the declared arm)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.7116931Z   ok   — an ordinary lib module in the same tree still NARROWS (12 files) — RULE 4 is keyed on the refusal, not on being a lib file
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.7596273Z   ok   — the door census is 60 of 921 lib modules (< 15%, so narrowing still buys something)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.7596907Z 
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.7597076Z === §3  THE ALWAYS SET
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.8099653Z   ok   — the ALWAYS set is non-empty (277 files)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.8213721Z   ok   — every ALWAYS file exists on disk
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.8475191Z   ok   — every PINNED entry is in the ALWAYS set
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.8571843Z   ok   — --check-pins REFUSES when a pinned file is absent
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:03.8684849Z   ok   — --check-pins PASSES on the real tree
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:04.6810000Z   ok   — the whole ALWAYS set rides a narrowed selection
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:06.3343979Z   ok   — all 43 escape-census api/test readers are in the ALWAYS set
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:06.3406391Z   ok   — the ALWAYS set is 277 of 1900 test files (< 25%, so narrowing still buys something)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:06.3407069Z 
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:06.3407652Z === §4  PAST-DEFECT REPLAY — would this selection have caught real merged bugs?
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:06.4590488Z   ok   — one-envelope reader: the internal sentinel — the narrowed set contains test/barkpark/content/envelope_internal_sentinel_test.exs
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:06.4804117Z   ok   — the dedup 409 named a required id it withheld — selects ALL (trivially caught)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:06.5948408Z   ok   — claim epoch CAS — the narrowed set contains test/barkpark/tasks/claim_test.exs
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:06.7139426Z   ok   — search insights 500 / nil-workspace synonym read — the narrowed set contains test/barkpark/search/documents_retriever_tags_meta_parity_test.exs
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:06.8665001Z   ok   — plugin route registration — the narrowed set contains test/barkpark_web/plugin_routes_test.exs
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:07.0480819Z   ok   — media anonymous read clamp — the narrowed set contains test/barkpark/media_test.exs
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:07.2132685Z   ok   — plugin registry resolution — the narrowed set contains test/barkpark/plugins/registry_test.exs
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:07.4046687Z   ok   — PortableDoc render — the narrowed set contains test/barkpark/portable_doc/render_test.exs
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:07.4048475Z   skip — POST /papers refuses ifRev (renamed or removed: lib/barkpark/papers/paper.ex / test/barkpark/papers/paper_test.exs)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:07.4049984Z   ok   — 8 past-defect replays exercised (1 skipped as renamed)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:07.4050425Z 
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:07.4050618Z === §5  REFUSALS
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:07.4104772Z   ok   — an unknown flag is refused with exit 2
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:07.4105309Z 
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:07.4106068Z === §6  A CHILD THAT READS STDIN MUST NOT TRUNCATE THE CHANGED-PATH LIST
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:07.5950526Z   ok   — §6 control: a child that does NOT read stdin leaves the list intact (test/barkpark/tasks/queue_test.exs selected)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:07.7807955Z   ok   — §6 a stdin-reading child cannot reach the list (test/barkpark/tasks/queue_test.exs still selected)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:07.7821056Z 
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:07.7821384Z === 72 passed, 1 failed
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:07.7847158Z instrument elixir-impacted-tests-selftest: exit 1 -> MEASURED-DEFECT
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-24T21:51:07.7896966Z ##[error]Process completed with exit code 1.
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	﻿2026-09-24T21:51:11.7231848Z ##[group]Run node scripts/check-vendor-freshness.mjs
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.7232326Z [36;1mnode scripts/check-vendor-freshness.mjs[0m
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.7294378Z shell: /usr/bin/bash -e {0}
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.7294952Z env:
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.7295207Z   BP_STEP_VERDICT: MEASURED-DEFECT
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.7295517Z ##[endgroup]
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.9820814Z ok   @barkpark/core 1.0.0-preview.3 — source sha256:75f621f9c1662d22… vs stamped sha256:75f621f9c1662d22…
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.9822726Z FAIL @barkpark/react 1.0.0-preview.1 — source sha256:d54fe416ee59e3bf… vs stamped sha256:7e80f98c7c9e7477…
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.9824997Z FAIL SOURCE-ARTIFACT-MISMATCH @barkpark/react: templates/search-starter/vendor/barkpark-react.tgz does not correspond to its source
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.9827063Z        COPIED-ASSET package/dist/paper-surface.css is NOT the current api/assets/paper-surface/paper-surface.css
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.9828068Z        source   sha256:19464556895c4492… (175336 bytes)
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.9828617Z        artifact sha256:00dddb31cd727d89… (174909 bytes)
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.9829475Z        the vendored SDK ships a stale copy of a file the repo has since changed
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.9830576Z FAIL SOURCE-ARTIFACT-MISMATCH @barkpark/react: templates/astro-search-starter/vendor/barkpark-react.tgz does not correspond to its source
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.9831886Z        COPIED-ASSET package/dist/paper-surface.css is NOT the current api/assets/paper-surface/paper-surface.css
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.9832843Z        source   sha256:19464556895c4492… (175336 bytes)
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.9833419Z        artifact sha256:00dddb31cd727d89… (174909 bytes)
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.9834056Z        the vendored SDK ships a stale copy of a file the repo has since changed
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.9835530Z FAIL STALE-SOURCE @barkpark/react: js/packages/react changed since the tarball was cut on 2026-09-18
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.9836614Z        stamped source digest sha256:7e80f98c7c9e7477573aa154d06d7a86eb95e1a47ef46f482d9f0d8632850f03
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.9837708Z        current source digest sha256:d54fe416ee59e3bf486c17cdc3c04d51fd220042820125a147ec1835d8531b71
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.9838940Z        the vendored SDK is BEHIND main; every scaffolded user gets the old bytes.
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.9839451Z        re-cut: bash scripts/recut-vendor-tarballs.sh
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.9839786Z 3 freshness failure(s)
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-24T21:51:11.9885678Z ##[error]Process completed with exit code 1.

@@ -13,23 +13,20 @@ const conversations = require('./conversations');
 
 // The main process keeps barkpark.json current (server, dataset, mode) and hands a stored token over as
 // BARKDOWN_BP_TOKEN when it starts this server; published papers read fine without one.
-const capturedConnection = process.env.BARKDOWN_RUN_CONNECTION ? Object.freeze(JSON.parse(process.env.BARKDOWN_RUN_CONNECTION)) : null;
-function bpFlag() { return capturedConnection || store.readJson('barkpark.json', null) || {}; }
+let capturedConnection = process.env.BARKDOWN_RUN_CONNECTION ? Object.freeze(JSON.parse(process.env.BARKDOWN_RUN_CONNECTION)) : null;
+function bpFlag() { return capturedConnection || {}; }
 function barkparkOn() { const f = bpFlag(); return Boolean(f.enabled && (f.viaCli || f.server)); }
-function bpConfig() { const f = bpFlag(); return { server: f.server, dataset: f.dataset || 'production', token: capturedConnection ? capturedConnection.token || '' : process.env.BARKDOWN_BP_TOKEN || '' }; }
-const paper = {
-  list: limit => bpFlag().viaCli ? barkpark.cliListPapers(limit) : barkpark.listPapers(bpConfig(), limit),
-  get: id => bpFlag().viaCli ? barkpark.cliGetPaper(id) : barkpark.getPaper(bpConfig(), id),
-  search: query => bpFlag().viaCli ? barkpark.cliSearch(query) : barkpark.search(bpConfig(), query),
-};
 const isPaper = id => typeof id === 'string' && id.startsWith('bp:');
 const slugOf = id => id.slice(3);
-async function paperListing() { if (!barkparkOn()) return []; try { return (await paper.list(60)).map(d => ({ id: 'bp:' + d.id, title: d.title, excerpt: d.excerpt, rev: d.rev, source: 'barkpark' })); } catch { return []; } }
+async function paperListing() { if (!barkparkOn()) return []; try { return (await paper.list()).map(d => ({ id: 'bp:' + d.id, title: d.title, excerpt: d.excerpt, rev: d.rev, source: 'barkpark' })); } catch (error) { if (paper.managed) throw error; return []; } }
 
 const storeDir = process.argv[2];
 if (!storeDir) { console.error('usage: mcp-server.js <storeDir>'); process.exit(2); }
 store.init(storeDir);
-documents.loadAll();
+capturedConnection ||= Object.freeze({ ...(store.readJson('barkpark.json', null) || {}), token: process.env.BARKDOWN_BP_TOKEN || '' });
+const paper = require('./paper-tools').createPaperTools({ store, connection: capturedConnection, profileId: process.env.BARKDOWN_PROFILE_ID || null });
+const toolConnection = paper.connection;
+documents.loadAll({ seed: !paper.managed });
 
 const text = value => ({ content: [{ type: 'text', text: typeof value === 'string' ? value : JSON.stringify(value, null, 1) }] });
 
@@ -41,18 +38,16 @@ function describe(doc) {
 const server = new McpServer({ name: 'barkdown', version: '0.6.0' });
 
 server.registerTool('list_documents', { description: 'List the documents in the Barkdown library with ids, titles and excerpts. Ids starting with bp: are Barkpark papers on the connected server; the rest are local documents.', inputSchema: {} }, async () => {
-  documents.loadAll();
+  documents.loadAll({ seed: !paper.managed });
   const local = documents.list().map(d => ({ id: d.id, title: d.title, excerpt: d.excerpt, rev: d.rev, source: 'local' }));
   return text([...local, ...(await paperListing())]);
 });
 
 server.registerTool('search_documents', { description: 'Search the Barkdown library and, when connected, Barkpark papers (ids starting with bp:). Returns ids, titles and snippets.', inputSchema: { query: z.string() } }, async ({ query }) => {
-  documents.loadAll();
+  documents.loadAll({ seed: !paper.managed });
   const local = documents.search(query).map(d => ({ id: d.id, title: d.title, snippet: d.snippet, source: 'local' }));
-  const papers = barkparkOn() ? (await paper.search(query).catch(() => [])).map(d => ({ id: 'bp:' + d.id, title: d.title, snippet: d.snippet, source: 'barkpark' })) : [];
-  const needle = query.toLowerCase();
-  const listed = barkparkOn() && !papers.length ? (await paperListing()).filter(d => (d.title + ' ' + d.excerpt).toLowerCase().includes(needle)).map(d => ({ id: d.id, title: d.title, snippet: d.excerpt, source: 'barkpark' })) : [];
-  return text([...local, ...papers, ...listed]);
+  const papers = barkparkOn() ? (await paper.search(query).catch(error => { if (paper.managed) throw error; return []; })).map(d => ({ id: 'bp:' + d.id, title: d.title, snippet: d.snippet, source: 'barkpark' })) : [];
+  return text([...local, ...papers]);
 });
 
 server.registerTool('read_document', { description: 'Read a Barkdown document (or a Barkpark paper, id bp:<slug>) as markdown with its revision and block indexes. Opens it beside the chat for the person.', inputSchema: { id: z.string(), format: z.enum(['markdown', 'structured']).optional().describe('Structured returns exact PortableDoc blocks and revision for Paper export and table edits.') } }, async ({ id, format }) => {
@@ -64,16 +59,16 @@ server.registerTool('read_document', { description: 'Read a Barkdown document (o
     const blocks = (p.blocks || []).map((b, n) => `[${n}] ${b.type}${b.level ? ' h' + b.level : ''}`);
     return text([`# ${p.title}`, `id: ${id} · rev ${p.rev} · updated ${p.updatedAt} · Barkpark paper`, '', 'Top-level blocks: ' + (blocks.join(', ') || '(HTML body, no blocks)'), '', barkpark.readablePaper(p)].join('\n'));
   }
-  documents.loadAll();
+  documents.loadAll({ seed: !paper.managed });
   const doc = documents.get(id);
   if (doc) readRevisions.set(id, doc.rev);
   return text(doc ? describe(doc) : `No document with id ${id}. Use list_documents.`);
 });
 
 // Keep the old tool name as an alias for resumed provider sessions.
-for (const name of ['edit_document', 'propose_document_edit']) server.registerTool(name, { description: 'Apply a document edit directly and save it, with Undo available in the document. Read the document first. No Keep step. Prefer replace_block for targeted edits; append adds blocks, replace rewrites the document.', inputSchema: { id: z.string(), mode: z.enum(['append', 'replace', 'replace_block']), blockIndex: z.number().int().optional(), markdown: z.string(), summary: z.string() } }, async input => {
+for (const name of ['edit_document', 'propose_document_edit']) server.registerTool(name, { description: 'Apply a document edit directly and save it, with Undo available in the document. Read the document first. No Keep step. Prefer replace_block for targeted edits; append adds blocks, replace rewrites the body while preserving a locked title.', inputSchema: { id: z.string(), mode: z.enum(['append', 'replace', 'replace_block']), blockIndex: z.number().int().optional(), markdown: z.string(), summary: z.string() } }, async input => {
   try {
-    const edit = await agentEdits.apply({ ...input, baseRev: readRevisions.get(input.id) }, { ...bpFlag(), ...bpConfig() });
+    const edit = await agentEdits.apply({ ...input, baseRev: readRevisions.get(input.id) }, isPaper(input.id) ? await toolConnection() : bpFlag());
     readRevisions.set(input.id, edit.afterRev);
     return text(`Saved edit to ${input.id} at revision ${edit.afterRev}. Applied directly; Undo is available in the document.`);
   } catch (error) { return { ...text(error.message), isError: true }; }
@@ -83,14 +78,21 @@ server.registerTool('edit_table', { description: 'Edit existing cells in a Barkp
   id: z.string(), blockId: z.string(), summary: z.string(), cells: z.array(z.object({ row: z.number().int().nonnegative(), column: z.number().int().nonnegative(), header: z.boolean().optional(), text: z.string().optional(), content: z.array(z.record(z.unknown())).optional(), align: z.enum(['left', 'center', 'right']).optional() }).strict()).min(1).max(1000),
 } }, async input => {
   try {
-    const edit = await agentEdits.applyTable({ ...input, baseRev: readRevisions.get(input.id) }, { ...bpFlag(), ...bpConfig() });
+    const edit = await agentEdits.applyTable({ ...input, baseRev: readRevisions.get(input.id) }, await toolConnection());
     readRevisions.set(input.id, edit.afterRev);
     return text(`Saved table edit to ${input.id} at revision ${edit.afterRev}. Undo is available in the document.`);
   } catch (error) { return { ...text(error.message), isError: true }; }
 });
 
-server.registerTool('create_document', { description: 'Create a new document in the Barkdown library from markdown. It opens beside the chat.', inputSchema: { title: z.string(), markdown: z.string() } }, async ({ title, markdown }) => {
-  documents.loadAll();
+server.registerTool('create_document', { description: 'Create a new document in the Barkdown library from markdown. It opens beside the chat.', inputSchema: { title: z.string(), markdown: z.string(), requestId: z.string().uuid().optional().describe('Reuse an uncertain creation request UUID with its original content; never retry as a new creation.') } }, async ({ title, markdown, requestId }) => {
+  if (paper.managed) {
+    try {
+      const doc = await paper.create({ title, markdown, requestId }), id = 'bp:' + doc.id;
+      readRevisions.set(id, doc.rev);
+      return text('Created document ' + id + ' (' + JSON.stringify(doc.title) + ') at rev ' + doc.rev + '.');
+    } catch (error) { return { ...text(error.message), isError: true }; }
+  }
+  documents.loadAll({ seed: !paper.managed });
   const doc = documents.create({ title, markdown, actor: 'agent' });
   readRevisions.set(doc.id, doc.rev);
   return text(`Created document ${doc.id} ("${doc.title}") at rev 1.`);

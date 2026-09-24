@@ -1,0 +1,1 @@
+{"version":1,"steps":[{"name":"build","cwd":".","argv":["npm","run","build"]},{"name":"documents","cwd":".","argv":["node","scripts/check.cjs"]},{"name":"plan","cwd":".","argv":["node","scripts/check-plan.mjs"]},{"name":"cycle-and-evidence","cwd":".","argv":["node","scripts/check-cycle.mjs"]},{"name":"visual-freshness","cwd":".","argv":["node","scripts/visual.mjs","check"]}]}

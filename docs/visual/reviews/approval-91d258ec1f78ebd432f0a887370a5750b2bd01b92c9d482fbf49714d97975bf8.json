@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-09-24T21-50-50-790Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-24T21-50-50-790Z/comparison.json",
+  "manifestHash": "c9951e28f73d083cc0f7c2812f0162a7a598e8c4762ffb007aa1ed722421a3b3",
+  "reportHash": "3748d502427c7a09108ac040128df344c100940a067536b4b999e031449b92bf",
+  "reviewer": "Codex",
+  "note": "C071: inspected all 40 fixture stills, 40 differences and 40 GIF frames; no visual or geometry changes. Inspected 8 native deletion/restart/copy stills and all 195 sampled video frames, including narrow dialog and completed repeated recovery navigation. Reviewed 5 live Paper stills and 37 editing GIF frames; real Claude/private upstream ae6065545. Fixed missing recovery dialog padding and corrected premature native navigation assertion; earlier candidate retained unapproved. Full desktop suite, 47 upstream tests and real HTTP lost-response/recreated-original/later-copy-edit checks pass. This accepts the bounded local draft recovery journey, not general crash recovery, migration activation or portability.",
+  "reviewedAt": "2026-09-24T21:54:31.595Z"
+}

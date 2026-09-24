@@ -1,0 +1,20 @@
+{
+  "host": "43938c2163f07175a9c7d153f56f6e346db25a14",
+  "upstream": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "sourceDirty": true,
+  "frames": [
+    "01-empty-paper.png",
+    "02a-enter-body.png",
+    "02-human-title-and-body.png"
+  ],
+  "results": [],
+  "errors": [],
+  "failure": "locator.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#bw-palette-input')\u001b[22m\n\u001b[2m    - locator resolved to <input type=\"text\" autocomplete=\"off\" spellcheck=\"false\" id=\"bw-palette-input\" aria-label=\"Quick open\" placeholder=\"Jump to a tab, document, chat, file, or action…\"/>\u001b[22m\n\u001b[2m    - fill(\"Saffron\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    58 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying fill action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\draft-notes-ui.live.mjs:73:83",
+  "artifacts": {
+    "01-empty-paper.png": "1b03870207ac836dcfaad55e1007593b0577f8fde733707af022ed23dc3d9d81",
+    "02-human-title-and-body.png": "e945fc160b4ee91a52cca27845e6b0f0525f19203b46fb66b4cc1f16bcc44c1d",
+    "02a-enter-body.png": "50448ab59eac1e99aa146d7a6e7f7a422f2242aeae8ee2a7f31a896740445ffa",
+    "failure.png": "e945fc160b4ee91a52cca27845e6b0f0525f19203b46fb66b4cc1f16bcc44c1d",
+    "restarted.webm": "1978afc9bbf530653837297ab436b50a07e66adf5630c9fc0c859cf65f405d04"
+  }
+}

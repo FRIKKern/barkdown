@@ -1,3 +1,4 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Real Paper + production agent-edit adapter on a disposable server; no model-generated fixtures.
 import { _electron as electron } from 'playwright';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
@@ -38,7 +39,7 @@ const scenarios=[
 try{
  page=await app.firstWindow();video=page.video();await page.waitForSelector('#bw-pages .bw-page-row');await page.setViewportSize({width:1400,height:900});await page.emulateMedia({reducedMotion:'no-preference'});
  await page.evaluate(async server=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,viaCli:true,writes:true,server}});await window.__barkdown.refreshLibrary();},process.env.BARKDOWN_SHOTS_SERVER);
- await page.evaluate(slug=>window.__barkdown.openTarget({kind:'doc',id:slug,source:'barkpark',title:slug}),slug);
+ await openFixturePaper(page, slug);
  await page.waitForSelector('.bw-paper-pane .ProseMirror',{timeout:60000});
  editorBundle=JSON.parse(fs.readFileSync(path.join(userData,'canvas-bundle/current.json'),'utf8'));assert.equal(editorBundle.source,'server');assert.equal(editorBundle.server,process.env.BARKDOWN_SHOTS_SERVER);assert.ok(editorBundle.version);
  client=new Client({name:'rich-read-proof',version:'1.0.0'});
@@ -51,7 +52,7 @@ try{
  const read=()=>{const raw=bp(['doc','get','paper',slug,'--perspective','raw']);return raw.document||raw;};
  for(const scenario of scenarios){
   await page.evaluate(({select,backwards})=>{const e=document.querySelector('bp-paper-canvas')._editor;let base=0;for(let i=0;i<select;i++)base+=e.state.doc.child(i).nodeSize;let found;e.state.doc.child(select).descendants((node,pos)=>{if(node.isText&&node.text.includes('Beta'))found=base+1+pos+node.text.indexOf('Beta');});if(found===undefined)throw new Error('Selection fixture missing');e.commands.focus();e.commands.setTextSelection({from:backwards?found+4:found,to:backwards?found:found+4});e.view.dispatch(e.state.tr.scrollIntoView());},scenario);
-  const receipt=await app.evaluate(async({app},{slug,scenario})=>{const req=process.getBuiltinModule('module').createRequire(app.getAppPath()+'/main/main.js');const before=await req('./barkpark').cliGetPaper(slug);return req('./agent-edits').apply({id:'bp:'+slug,baseRev:before.rev,mode:'replace_block',blockIndex:scenario.index,markdown:scenario.markdown,summary:'Refine '+scenario.name},{enabled:true,writes:true,viaCli:true});},{slug,scenario});
+  const receipt=await app.evaluate(async({app},{slug,scenario})=>{const req=process.getBuiltinModule('module').createRequire(app.getAppPath()+'/main/main.js');const config={enabled:true,writes:true,viaCli:true,server:process.env.BARKDOWN_SHOTS_SERVER,dataset:'production'};config.cliRouting=await req('./barkpark').cliScope(config);const before=await req('./barkpark').cliGetPaper(slug,config.cliRouting);return req('./agent-edits').apply({id:'bp:'+slug,baseRev:before.rev,mode:'replace_block',blockIndex:scenario.index,markdown:scenario.markdown,summary:'Refine '+scenario.name},config);},{slug,scenario});
   await page.evaluate(async()=>{await [...window.__barkdown.controllers.values()].find(c=>c.el.matches('.bw-paper-pane')).refresh();});
   const selection=await page.evaluate(()=>{const e=document.querySelector('bp-paper-canvas')._editor,s=e.state.selection;return{text:e.state.doc.textBetween(s.from,s.to),backwards:s.anchor>s.head,pending:document.querySelector('bp-paper-canvas').hasPendingChanges()};});
   assert.equal(selection.text,'Beta',scenario.name+' retains selected word');assert.equal(selection.backwards,!!scenario.backwards);assert.equal(selection.pending,false);assert.equal(read().rev,receipt.afterRev,'presentation adds no write');

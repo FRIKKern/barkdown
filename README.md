@@ -1,61 +1,39 @@
-![Barkdown — Notes. Agents. Your workspace.](docs/images/barkdown-banner.svg)
+[![Barkdown roadmap: accepted profile isolation, current Paper migration, then recovery, optional sync and installation.](docs/images/roadmap.svg)](docs/PLAN.md)
 
-<p align="center">
-  <a href="docs/PLAN.md"><strong>The next chapter</strong></a> ·
-  <a href="CONTRIBUTING.md">Build & contribute</a> ·
-  <a href="docs/README.md">Documentation</a> ·
-  <a href="docs/VALIDATION.md">Evidence</a>
-</p>
+# Barkdown
 
-# A place for your notes and the work around them
+Barkdown is an experiment in what Barkpark can do, and a tool for figuring out what Barkpark should become.
 
-Write, ask, revise, and keep going in one desktop workspace. Barkdown pairs Barkpark’s real Paper editor with agents that can read your notes, make visible edits, and work in folders you choose for each conversation.
+We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT, taking the parts we love from each. We’re doing this for fun and learning, with no plans to make money from it. The aim is an excellent app shaped by our taste and Barkpark.
 
-**Working desktop prototype · Windows runtime first · Powered by Barkpark**
+![An agent edits a Paper note beside the chat, Undo restores it, and a person adds a finishing touch.](docs/visual/agent-notes/runs/2026-09-24T22-38-56-443Z/derived/readme-color-corrected.gif)
 
-![The real Barkdown desktop: a conversation beside an editable Barkpark paper.](docs/images/status/paper-light.09676a22.png)
-
-## Think in notes. Work in conversations.
-
-- **One workspace, many kinds of work.** Notes, websites, project files, reviews and side conversations open beside the chat.
-- **Edits you can follow.** Direct assistant edits show their target and writing, respect human takeover, and offer revision-checked Undo.
-- **Your organization stays yours.** Arrange Pages how you want. Cloud discoveries stay in Cloud archive until you place them.
-- **Conversations keep their context.** Main and side chats have model controls, images, drafts and history. Each agent has its own working folder.
+See edits happen beside the conversation. Real app, scripted agent responses. [Recording details](docs/visual/agent-notes/README.md#readme-demo).
 
 <details>
-<summary><strong>See the editor in motion and explore the desktop</strong></summary>
+<summary>Still view</summary>
 
-![Real editing: insert a quote, type, move through table cells, and use quick open.](docs/images/status/editing.afac02fc.gif)
-
-![Barkdown in dark mode.](docs/images/status/paper-dark.3a7e9704.png)
-
-![Paper slash menu.](docs/images/status/slash-menu.e1ba7c66.png)
-
-![Quick open across the workspace.](docs/images/status/quick-open.479112de.png)
-
-![Barkpark connection settings.](docs/images/status/settings-barkpark.3f629a49.png)
-
-These are captures of the running app, not mockups. [Capture provenance](docs/images/status/manifest.json) records the source commits and whether the assistant turn was live. The typographic banner above is repository artwork.
+![Barkdown: a conversation beside a Paper document in dark mode.](docs/images/status/paper-dark.ed1d0ec5.png)
 
 </details>
 
-## The next chapter: a workspace you can depend on
+The Barkpark capabilities we’re exploring:
 
-**Create a local profile → write with an agent → restart safely → move to another machine and continue.**
+- Authentication
+- Local/remote sync, with offline-first use
+- Media
+- Multiplayer, sharing and access
+- Document and spreadsheet editors
 
-| Today | Next | After that |
-|---|---|---|
-| Working Paper editor, agent conversations and accepted profile isolation on the managed Windows source runtime | Safe migration of every note to Paper, recovery and portability | Optional two-way sync and installation without a developer toolchain |
+## What we’re working on
 
-**P1 profile isolation is accepted; P2 Paper migration is active.** The integrated Windows source prototype has profiles, captured agent ownership, saved goal workers, explicit same-machine library adoption and tested authentication/recovery boundaries. [C043](docs/cycles/C043-migration-preflight.md) adds strict preflight and exact-byte backups; [C045](docs/cycles/C045-migration-staging.md) adds durable staging and interrupted-write reconciliation on disposable notes. [C048](docs/cycles/C048-quotes-nested-lists.md) extends native Paper proof to 21 supported cases: rich headings and quotes, aligned paragraphs, nested lists/checklists and inline line breaks survive editing, acknowledged save, exact Undo and restart. [C049](docs/cycles/C049-internal-references.md) now preserves profile-qualified internal references through native editing, previews, navigation and interrupted staging in two isolated profiles. [C050](docs/cycles/C050-owned-images.md) adds bounded owned PNG upload recovery and native image editing/Undo/restart proof. [C051](docs/cycles/C051-backup-restore.md) proves exact retained-backup restore and continued legacy editing; [C052](docs/cycles/C052-native-source-shapes.md) proves ordinary native-saved link/list defaults through Paper editing and restart. Other media and activation remain open. These modules are not connected to a migration UI and do not switch library authority. Local notes retain their separate editor/store until real Paper comparison and rollback are proven. Portability and cloud sync remain pending. The managed runtime requires a built Barkpark checkout; upstream integration and release gates remain separate.
+One dependable Paper note engine. Managed-local [human note creation, editing, search and restart](docs/visual/paper-notes/README.md), [agent editing with guarded Undo](docs/visual/agent-notes/README.md), and [deletion with recovery into a separate copy](docs/visual/paper-deletions/README.md) have source-prototype evidence. Upstream integration and migration remain unfinished; portable profiles follow. Sync, multiplayer and spreadsheets are part of the wider exploration, not completed app features.
 
-[Combined checkpoint and remaining checks](docs/cycles/C008-integration.md) · [Rich editor video and screenshots](docs/visual/rich-takeover/README.md) · [Actual library adoption](docs/visual/adoption/runs/2026-09-22T00-21-07-265Z/README.md) · [Workspace recovery](docs/visual/workspace-recovery/README.md)
+[Current work](docs/NEXT-AGENT.md) · [Plan](docs/PLAN.md) · [Verified results](docs/VALIDATION.md) · [Screenshots & recordings](docs/visual/README.md)
 
-[Read the delivery plan →](docs/PLAN.md) · [See what is verified →](docs/VALIDATION.md)
+## Run it
 
-## Run the desktop
-
-Use Node 22.13+ and a desktop session. From the repository root:
+Windows source prototype. Node 22.13+ and a desktop session:
 
 ```sh
 npm ci
@@ -63,33 +41,20 @@ npm --prefix app ci
 npm run desktop
 ```
 
-Use your existing Claude Code or Codex login, or configure an API key in Settings. To edit Barkpark papers, connect a server in Settings → Barkpark or follow the [managed local runtime setup](docs/LOCAL-BARKPARK.md). There is no packaged installer yet.
+Use your Claude Code or Codex login, or an API key in Settings. Paper needs a connected Barkpark; [local setup](docs/LOCAL-BARKPARK.md) requires a built checkout.
 
-## Build the next slice
+[Contributing](CONTRIBUTING.md) · [Agent instructions](AGENTS.md) · [Docs](docs/README.md) · [Capture source](docs/images/status/manifest.json) · [Third-party notices](THIRD-PARTY.md)
 
-```sh
-npm run plan                   # next stage and current delivery cycle
-npm run cycle                  # bounded goal, handoff and next action
-npx playwright install chromium
-npm run verify                 # roadmap, docs, types and concept checks
-npm run test:desktop            # build + desktop regression suite
-```
+## Dreams for Barkdown
 
-The [contribution guide](CONTRIBUTING.md) covers real-runtime tests, upstream ownership, data safety and screenshot evidence. The [continuation brief](docs/NEXT-AGENT.md) takes you directly into P1.
+We believe agent chat apps are settling into a standard that's hard to beat. A navigation sidebar, chat and browser give each part of the work a place.
 
-| Place | Purpose |
-|---|---|
-| [app/](app/README.md) | The real Electron desktop and its tests |
-| [docs/](docs/README.md) | Active plan, acceptance, architecture and evidence |
-| [AGENTS.md](AGENTS.md) | Repository rules and product decisions to preserve |
-| [Historical material](docs/archive/README.md) | Original plans, concepts and provenance; retained for reference |
+The sidebar should use a conventional file tree, like File Explorer or Finder. Organize documents, spreadsheets, media and custom Barkpark document types into folders. Share a file, a folder or an entire workspace. Sync it to a private or public cloud, choose who has access, and revoke access when needed.
 
-Barkpark owns the content format, revisions and shared editor. Barkdown owns the desktop experience and workspace orchestration. A profile owns library data; an agent’s working folder belongs to its conversation.
+People should also be able to chat and collaborate with each other. Groups can invite agents into the conversation and work in the same browser window. Share your session, join someone else's, or connect to a session on a remote server.
 
----
+The browser should give us a clear view of what an agent is working on. We should see the documents, files and pages it uses, understand what it intends to do, and follow changes as they happen. We believe this view into the agent's work will become a central part of how people use AI.
 
-Private development repository. No production deployment is implied by a passing check or a source build. Original material has no public open-source license; dependencies retain their [third-party notices](THIRD-PARTY.md).
+Connections should be as direct and secure as possible, without unnecessary middlemen or middleware.
 
-## Review the health of the app
-
-Browse [visual health](docs/visual/README.md) for area READMEs with current screenshots, interaction GIFs, provenance and changelogs. Code changes trigger fresh capture and comparison; an agent or person must inspect the evidence before approval. [Review rules and known coverage gaps](docs/visual/RULES.md) keep screenshots separate from functional proof.
+AI and collaboration should remain optional. Barkdown should also be worth using simply for notes and browsing, fully offline. We also want it to offer an elegant, efficient way to host your app or website.

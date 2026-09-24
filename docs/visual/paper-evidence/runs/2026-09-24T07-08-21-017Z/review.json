@@ -1,0 +1,15 @@
+{
+  "reviewedAt": "2026-09-24T07:12:47.697657+00:00",
+  "reviewer": "Codex",
+  "status": "failed",
+  "source": "d7077af9b900c0b16e2e392b5b141798e846d172",
+  "manifestSha256": "0da6b1b9759f18fafee9e522ea3ebaa0fcfc50358355cd6bc36fac59ee778ca4",
+  "originalHashesVerified": 13,
+  "stillsInspected": [
+    "failure.png"
+  ],
+  "notes": "Actual native rename exposed false acknowledgement: UI/favorite changed but raw published Paper retained its old title. Generic document patch creates a draft twin. Source77b3a24 refuses unsupported Paper title writes before invoking the CLI. This run is a regression capture, not accepted behavior.",
+  "limits": [
+    "Failure still inspected; raw motion retained, not claimed as reviewed."
+  ]
+}

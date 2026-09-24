@@ -1,3 +1,4 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Actual legacy-editor persistence -> strict staging -> actual Paper editing.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -30,7 +31,7 @@ const read=id=>request('GET','/v1/data/doc/production/paper/'+id+'?perspective=p
 const canvas=()=>page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas');
 const blocks=()=>canvas().evaluate(c=>c.recoverySnapshot().blocks);
 const ready=async()=>{await canvas().locator('.ProseMirror').waitFor({timeout:60000});await page.waitForFunction(()=>document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent.includes('Editing live'));};
-const open=async id=>{await page.evaluate(id=>window.__barkdown.openTarget({kind:'doc',id,source:'barkpark',title:id}),id);await ready();};
+const open=async id=>{await openFixturePaper(page, id);await ready();};
 async function saved(id,rev){await page.waitForFunction(rev=>{const c=document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'),host=[...window.__barkdown.controllers.values()].find(x=>x.el?.contains(c)),s=document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent||'';return c&&host&&!host.isDirty()&&!c.hasPendingChanges()&&Number(s.match(/Saved · rev (\d+)/)?.[1])>rev;},rev,{timeout:45000});const value=await read(id);assert.deepEqual(await blocks(),value.blocks);return value;}
 function insertX(blocks,needle){const value=structuredClone(blocks);let done=false;function visit(v){if(Array.isArray(v))v.forEach(visit);else if(v&&typeof v==='object'){if(!done&&v.type==='text'&&v.value===needle){v.value=v.value.slice(0,1)+'X'+v.value.slice(1);done=true;}else Object.values(v).forEach(visit);}}visit(value);assert.ok(done);return value;}
 try{

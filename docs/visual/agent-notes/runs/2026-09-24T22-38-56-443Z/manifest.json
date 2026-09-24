@@ -1,0 +1,46 @@
+{
+  "host": "299e14d37d754b19edc60e8a02a4fc955df29db8",
+  "upstream": "f2528db1291aa40c05d41e8cabf7c44cb751a481",
+  "sourceDirty": false,
+  "model": "Scripted SSE through actual API SDK; not live model proof",
+  "theme": "dark",
+  "frames": [
+    "01-created-through-chat.png",
+    "02-agent-edit-with-undo.png",
+    "03-narrow-agent-edit.png",
+    "04-restarted-with-undo.png",
+    "05-undone-after-restart.png",
+    "06-human-edit-protected.png"
+  ],
+  "results": [
+    "Actual SDK creates and opens the exact owned Paper note through chat activity; agent replacement preserves locked title",
+    "Same-ID second profile remains isolated; return and restart preserve original note and durable Undo",
+    "Native Undo after restart restores exact blocks; a later human edit blocks stale Undo without overwriting content"
+  ],
+  "errors": [],
+  "failure": null,
+  "transport": {
+    "modelRequests": 8,
+    "probes": [
+      {
+        "method": "HEAD",
+        "path": "/api/hello"
+      },
+      {
+        "method": "HEAD",
+        "path": "/api/hello"
+      }
+    ],
+    "errors": []
+  },
+  "artifacts": {
+    "01-created-through-chat.png": "cb8ab359f049c261730e9e6aa7db776297a1ed140bb2578e36e810cefd8d709c",
+    "02-agent-edit-with-undo.png": "5cc3dbc746533ef4d3014f51a6964c07bda6bc369e2b8e99af039590d465ad13",
+    "03-narrow-agent-edit.png": "70f4736edce2d9bb79212d5d080fd395ddfa9ec548e56bb4b7ff8e7fdf312dcc",
+    "04-restarted-with-undo.png": "5b6669c72aa4075e18b5885f09f0725ec35c7fec39ce165fd94c8bb944a0ea09",
+    "05-undone-after-restart.png": "ea81c8c248289ef723f211a90a5072536396efa24918170770d550947c53a8b0",
+    "06-human-edit-protected.png": "ead782c74b551d66ce6199ade30d40af0738915fe37306bb40fe97bd823099c3",
+    "create-edit-profile-switch.webm": "162daa3610620e37b0697fae7ac1e7f6192a67c707802cfcc10cfae9e9e08d8f",
+    "restart-undo-human-edit.webm": "521f9dcaff8b49a20e976ea7ad78c4766027c2e48bf7733346c2afc9ff34e25b"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "source": "bb59d11",
+  "scope": "Read-only execution of the actual documentSummary function with in-memory catalogs; no renderer session, network or user data",
+  "functionSha256": "7436fdad1136345ed7a29de37f312b94ad55da92936d43e5719a765d6aa3ab2b",
+  "results": {
+    "missingTypedPaper": {
+      "id": "same-slug",
+      "title": "Local-only label"
+    },
+    "missingTypedLocal": {
+      "id": "same-slug",
+      "title": "Remote-only label"
+    }
+  },
+  "finding": "A missing explicitly typed destination borrows another source same-slug label. Persisted Paper keys/tabs/favorites also lack a durable connection owner; C057/C058 do not claim to solve navigation identity.",
+  "next": "Plan a separate source/navigation ownership slice before owned-local Archive classification; preserve human organization and unknown legacy references without guessed reassignment."
+}

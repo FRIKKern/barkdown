@@ -1,0 +1,340 @@
+TAP version 13
+# Subtest: ordinary empty create keeps exact row, distinct revisions and durable read-only replay
+ok 1 - ordinary empty create keeps exact row, distinct revisions and durable read-only replay
+  ---
+  duration_ms: 25.3507
+  ...
+# Subtest: lost response reconciles once without duplicate create
+ok 2 - lost response reconciles once without duplicate create
+  ---
+  duration_ms: 23.155
+  ...
+# Subtest: uncertain missing row stays read-only on retry after restart
+ok 3 - uncertain missing row stays read-only on retry after restart
+  ---
+  duration_ms: 17.8281
+  ...
+# Subtest: published twins, wrong row, lost nonce and invalid revisions are refused
+ok 4 - published twins, wrong row, lost nonce and invalid revisions are refused
+  ---
+  duration_ms: 100.7494
+  ...
+# Subtest: corrupt journal and owner change cannot create or open a replacement
+ok 5 - corrupt journal and owner change cannot create or open a replacement
+  ---
+  duration_ms: 16.3741
+  ...
+# Subtest: refused creation, read-only mode and lost lease do not write again
+ok 6 - refused creation, read-only mode and lost lease do not write again
+  ---
+  duration_ms: 16.4591
+  ...
+# Subtest: draft discovery uses complete pagination and rejects malformed identities and envelopes
+ok 7 - draft discovery uses complete pagination and rejects malformed identities and envelopes
+  ---
+  duration_ms: 5.8599
+  ...
+# Subtest: draft ops require an exact row and integer Paper revision, and reject invalid acknowledgements
+ok 8 - draft ops require an exact row and integer Paper revision, and reject invalid acknowledgements
+  ---
+  duration_ms: 3.1531
+  ...
+# Subtest: new-page intent is saved before creation and preserves requested placement
+ok 9 - new-page intent is saved before creation and preserves requested placement
+  ---
+  duration_ms: 2.4955
+  ...
+# Subtest: unconfirmed reply survives reconstruction and reuses original request and parent
+ok 10 - unconfirmed reply survives reconstruction and reuses original request and parent
+  ---
+  duration_ms: 0.5769
+  ...
+# Subtest: late result after profile switch cannot place or open into the new profile
+ok 11 - late result after profile switch cannot place or open into the new profile
+  ---
+  duration_ms: 0.3796
+  ...
+# Subtest: failed durable intent save prevents server creation
+ok 12 - failed durable intent save prevents server creation
+  ---
+  duration_ms: 0.2479
+  ...
+# Subtest: CLI preserves search arguments and pipes only explicit bodies; Paper rename refuses before writing
+ok 13 - CLI preserves search arguments and pipes only explicit bodies; Paper rename refuses before writing
+  ---
+  duration_ms: 7.4269
+  ...
+# Subtest: complete catalog of 0 papers
+ok 14 - complete catalog of 0 papers
+  ---
+  duration_ms: 0.8988
+  ...
+# Subtest: complete catalog of 1 papers
+ok 15 - complete catalog of 1 papers
+  ---
+  duration_ms: 1.8009
+  ...
+# Subtest: complete catalog of 60 papers
+ok 16 - complete catalog of 60 papers
+  ---
+  duration_ms: 0.9541
+  ...
+# Subtest: complete catalog of 61 papers
+ok 17 - complete catalog of 61 papers
+  ---
+  duration_ms: 0.6319
+  ...
+# Subtest: complete catalog of 200 papers
+ok 18 - complete catalog of 200 papers
+  ---
+  duration_ms: 1.0566
+  ...
+# Subtest: complete catalog of 201 papers
+ok 19 - complete catalog of 201 papers
+  ---
+  duration_ms: 0.9626
+  ...
+# Subtest: complete catalog of 400 papers
+ok 20 - complete catalog of 400 papers
+  ---
+  duration_ms: 1.2976
+  ...
+# Subtest: complete catalog of 401 papers
+ok 21 - complete catalog of 401 papers
+  ---
+  duration_ms: 2.6003
+  ...
+# Subtest: refuses old response without pagination
+ok 22 - refuses old response without pagination
+  ---
+  duration_ms: 2.3117
+  ...
+# Subtest: refuses missing total
+ok 23 - refuses missing total
+  ---
+  duration_ms: 1.2585
+  ...
+# Subtest: refuses wrong offset
+ok 24 - refuses wrong offset
+  ---
+  duration_ms: 0.7416
+  ...
+# Subtest: refuses wrong limit
+ok 25 - refuses wrong limit
+  ---
+  duration_ms: 0.6745
+  ...
+# Subtest: refuses wrong count
+ok 26 - refuses wrong count
+  ---
+  duration_ms: 0.9788
+  ...
+# Subtest: refuses unknown perspective
+ok 27 - refuses unknown perspective
+  ---
+  duration_ms: 0.6877
+  ...
+# Subtest: refuses nonboolean hasMore
+ok 28 - refuses nonboolean hasMore
+  ---
+  duration_ms: 0.6309
+  ...
+# Subtest: refuses missing next offset
+ok 29 - refuses missing next offset
+  ---
+  duration_ms: 1.4282
+  ...
+# Subtest: refuses nonadvancing next offset
+ok 30 - refuses nonadvancing next offset
+  ---
+  duration_ms: 1.3934
+  ...
+# Subtest: refuses overlapping page
+ok 31 - refuses overlapping page
+  ---
+  duration_ms: 0.6866
+  ...
+# Subtest: refuses short intermediate page
+ok 32 - refuses short intermediate page
+  ---
+  duration_ms: 0.6341
+  ...
+# Subtest: refuses invalid paper id
+ok 33 - refuses invalid paper id
+  ---
+  duration_ms: 0.8116
+  ...
+# Subtest: refuses draft in published catalog
+ok 34 - refuses draft in published catalog
+  ---
+  duration_ms: 0.7925
+  ...
+# Subtest: refuses duplicate inside page
+ok 35 - refuses duplicate inside page
+  ---
+  duration_ms: 0.6507
+  ...
+# Subtest: refuses over budget total
+ok 36 - refuses over budget total
+  ---
+  duration_ms: 0.6339
+  ...
+# Subtest: refuses changing totals and repeated ids across pages
+ok 37 - refuses changing totals and repeated ids across pages
+  ---
+  duration_ms: 2.1424
+  ...
+# Subtest: refuses false finality, extra final offset and failed later pages
+ok 38 - refuses false finality, extra final offset and failed later pages
+  ---
+  duration_ms: 1.2679
+  ...
+# Subtest: byte and elapsed budgets refuse instead of returning a prefix
+ok 39 - byte and elapsed budgets refuse instead of returning a prefix
+  ---
+  duration_ms: 16.2012
+  ...
+# Subtest: HTTP adapter captures connection, uses audited pagination and preserves bounded provider listing
+ok 40 - HTTP adapter captures connection, uses audited pagination and preserves bounded provider listing
+  ---
+  duration_ms: 70.2034
+  ...
+# Subtest: HTTP catalog stops an oversized page before parsing or publishing it
+ok 41 - HTTP catalog stops an oversized page before parsing or publishing it
+  ---
+  duration_ms: 125.572
+  ...
+# Subtest: refuses a constant-count deletion/insertion that would silently skip a boundary paper
+ok 42 - refuses a constant-count deletion/insertion that would silently skip a boundary paper
+  ---
+  duration_ms: 0.9477
+  ...
+# Subtest: boundary overlap does not excuse duplicate identities later in a page
+ok 43 - boundary overlap does not excuse duplicate identities later in a page
+  ---
+  duration_ms: 0.728
+  ...
+# Subtest: missing, forged and foreign bindings refuse before any write
+ok 44 - missing, forged and foreign bindings refuse before any write
+  ---
+  duration_ms: 3.8313
+  ...
+# Subtest: server changes refuse old reads and writes before access
+ok 45 - server changes refuse old reads and writes before access
+  ---
+  duration_ms: 0.7284
+  ...
+# Subtest: dataset changes refuse old reads and writes before access
+ok 46 - dataset changes refuse old reads and writes before access
+  ---
+  duration_ms: 0.8096
+  ...
+# Subtest: token changes refuse old reads and writes before access
+ok 47 - token changes refuse old reads and writes before access
+  ---
+  duration_ms: 0.548
+  ...
+# Subtest: viaCli changes refuse old reads and writes before access
+ok 48 - viaCli changes refuse old reads and writes before access
+  ---
+  duration_ms: 0.5265
+  ...
+# Subtest: connectionOwner changes refuse old reads and writes before access
+ok 49 - connectionOwner changes refuse old reads and writes before access
+  ---
+  duration_ms: 1.5041
+  ...
+# Subtest: A to B to A allows guarded retry with original routing
+ok 50 - A to B to A allows guarded retry with original routing
+  ---
+  duration_ms: 0.559
+  ...
+# Subtest: writes permission is checked without changing connection identity
+ok 51 - writes permission is checked without changing connection identity
+  ---
+  duration_ms: 0.804
+  ...
+# Subtest: settings changed during read cannot publish its result under a new connection
+ok 52 - settings changed during read cannot publish its result under a new connection
+  ---
+  duration_ms: 0.9413
+  ...
+# Subtest: multi-step operation holds original config across settings changes
+ok 53 - multi-step operation holds original config across settings changes
+  ---
+  duration_ms: 2.6946
+  ...
+# Subtest: CLI routing is captured once and never falls back to ambient defaults
+ok 54 - CLI routing is captured once and never falls back to ambient defaults
+  ---
+  duration_ms: 4.1193
+  ...
+# Subtest: CLI scope lookup completing after settings change is refused
+ok 55 - CLI scope lookup completing after settings change is refused
+  ---
+  duration_ms: 0.7281
+  ...
+# Subtest: bindings contain neither secrets nor destination and cannot cross sessions
+ok 56 - bindings contain neither secrets nor destination and cannot cross sessions
+  ---
+  duration_ms: 0.9368
+  ...
+# Subtest: permission revoked while capture yields refuses before access
+ok 57 - permission revoked while capture yields refuses before access
+  ---
+  duration_ms: 0.4734
+  ...
+# Subtest: disabled connection during a read cannot publish the result
+ok 58 - disabled connection during a read cannot publish the result
+  ---
+  duration_ms: 0.5622
+  ...
+# Subtest: retained local mutations can demand a binding without requiring server write permission
+ok 59 - retained local mutations can demand a binding without requiring server write permission
+  ---
+  duration_ms: 0.5649
+  ...
+# Subtest: actual IPC handler preserves durable A ownership across restart and refuses B before read
+ok 60 - actual IPC handler preserves durable A ownership across restart and refuses B before read
+  ---
+  duration_ms: 34.5924
+  ...
+# Subtest: unknown and malformed saved targets never read or create an ownership key
+ok 61 - unknown and malformed saved targets never read or create an ownership key
+  ---
+  duration_ms: 5.9681
+  ...
+# Subtest: catalog owner is generated locally and distinct for same-slug libraries
+ok 62 - catalog owner is generated locally and distinct for same-slug libraries
+  ---
+  duration_ms: 11.033
+  ...
+# Subtest: explicitly typed source summaries never borrow another source or owner
+ok 63 - explicitly typed source summaries never borrow another source or owner
+  ---
+  duration_ms: 2.8844
+  ...
+# Subtest: CLI provider route and activity share one captured owner, independent of foreground settings
+ok 64 - CLI provider route and activity share one captured owner, independent of foreground settings
+  ---
+  duration_ms: 24.6019
+  ...
+# Subtest: direct Page ancestor navigation trims the original-owner path and invokes its mounted controller
+ok 65 - direct Page ancestor navigation trims the original-owner path and invokes its mounted controller
+  ---
+  duration_ms: 2.316
+  ...
+# Subtest: only the current managed lease proves local ownership
+ok 66 - only the current managed lease proves local ownership
+  ---
+  duration_ms: 2.2438
+  ...
+1..66
+# tests 66
+# suites 0
+# pass 66
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 466.6085

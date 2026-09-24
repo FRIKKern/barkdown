@@ -1,0 +1,47 @@
+{
+ "summary": "6/6 green",
+ "results": [
+  {
+   "name": "resting on an address shows its host and the address, with Open and Edit",
+   "pass": true,
+   "title": "example.org",
+   "addr": "https://example.org/docs/page",
+   "edit": true
+  },
+  {
+   "name": "moving away hides the card",
+   "pass": true
+  },
+  {
+   "name": "resting on a wikilink shows the target paper’s title and first line, fetched through the adapter",
+   "pass": true,
+   "title": "Where the wikilink lands",
+   "excerpt": "The first line of the target paper, shown in the hover card.",
+   "addr": "[[Where the wikilink lands]]"
+  },
+  {
+   "name": "Edit on the address selects the link and opens the bubble’s link row seeded with the href",
+   "pass": true,
+   "seeded": "https://example.org/docs/page",
+   "selected": "the docs"
+  },
+  {
+   "name": "Open on an address asks the shell to open it externally (no in-app navigation)",
+   "pass": true,
+   "opened": [
+    "https://example.org/docs/page"
+   ],
+   "before": 1,
+   "after": 1
+  },
+  {
+   "name": "Open on the wikilink opens the target paper in a tab",
+   "pass": true,
+   "heading": "Where the wikilink lands",
+   "tabs": [
+    "Where the wikilink lands"
+   ]
+  }
+ ],
+ "errors": []
+}

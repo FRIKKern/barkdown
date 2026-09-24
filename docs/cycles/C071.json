@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "id": "C071",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Delete an owned local Paper note safely and recover a separate copy after restart.",
+  "scope": [
+    "Add atomic exact-draft deletion upstream without changing generic both-variant deletion.",
+    "Build profile-owned deletion/recovery records, guarded foreground controls and native restart proof.",
+    "Preserve original organization/references and newer human edits; no migration activation, merge or deployment."
+  ],
+  "acceptance": [
+    "Exact draft deletion atomically checks the caller revision, preserves a published twin and retains evidence; interleaving and rollback tests pass.",
+    "Owned deletion intent survives lost replies/restart; retries cannot delete a recreated row or cross profiles.",
+    "Recover a copy retains native blocks under one durable new identity; retry preserves later human edits.",
+    "Native human journey, targeted/full checks and reviewed standard/live/native media pass; commit and push both owned lanes."
+  ],
+  "checkpoint": "2026-09-25",
+  "handoff": "docs/cycles/C071-paper-deletion-recovery.md",
+  "nextAction": "Archive C071 and prepare a bounded retained-evidence viewer cycle. Resolve stacked upstream integration gates separately before merge; do not activate migration.",
+  "evidence": [
+    "docs/cycles/evidence/C071/upstream-permissions/result.json",
+    "docs/cycles/evidence/C071/desktop/result.json",
+    "docs/cycles/evidence/C071/deletion-contract-1790285839665.json",
+    "docs/cycles/evidence/C071/review.json",
+    "docs/visual/paper-deletions/runs/2026-09-24T21-48-23-203Z/manifest.json",
+    "docs/cycles/evidence/C071/root/result.json"
+  ],
+  "truthReview": "Existing delivery lanes reused; README vision preserved; legacy/user data unchanged. P2 and upstream integration remain open.",
+  "screenshotReview": "Codex inspected native8/195, standard40/40/40 and live5/37; final approval recorded. Superseded candidates retained."
+}

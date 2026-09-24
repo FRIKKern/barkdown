@@ -44,3 +44,34 @@ assert.deepEqual(state.pages.children,{mine:['bp:nested'],'bp:group':['bp:child'
 assert.deepEqual(state.pages.cloudLayoutMigration.previousRoots,['mine','bp:loose','bp:group']);
 addPage('bp:loose');ensurePages();assert.ok(state.pages.roots.includes('bp:loose'),'migration runs only once');
 console.log('Page organization checks passed: archive discovery, browse, placement, nesting, refresh, persistence, disconnect, import routing and recoverable migration.');
+
+// Same-slug Pages and bookmarks must keep distinct durable owners.
+const {pageKey,splitKey}=await import('../renderer/src/pages.js');
+const {tabToTarget,favoriteKey}=await import('../renderer/src/state.js');
+const ownerA='a'.repeat(64),ownerB='b'.repeat(64),keyA=pageKey('same','barkpark',ownerA),keyB=pageKey('same','barkpark',ownerB);
+state.barkparkDocs=[{id:'same',title:'Original title',paperOwner:ownerA}];state.pages={layoutVersion:2,roots:['mine','bp:old'],children:{'bp:old':['bp:nested']},expanded:{'bp:old':true},seeded:true};addPage(keyA);render();assert.equal(host.querySelector(`[data-open="${keyA}"] .bw-page-title`).textContent,'Original title');
+state.barkparkDocs=[{id:'same',title:'Foreign title',paperOwner:ownerB}];addPage(keyB);render();assert.equal(host.querySelector(`[data-open="${keyA}"] .bw-page-title`).textContent,'Original title');assert.equal(host.querySelector(`[data-open="${keyB}"] .bw-page-title`).textContent,'Foreign title');assert.deepEqual(state.pages.children['bp:old'],['bp:nested']);assert.deepEqual(splitKey(keyA),{id:'same',source:'barkpark',paperOwner:ownerA});assert.equal(splitKey('bp:old').paperOwner,null);
+const targetA=tabToTarget({type:'doc',path:['same'],source:'barkpark',paperOwner:ownerA,title:'Original'}),targetB={...targetA,paperOwner:ownerB};assert.notEqual(favoriteKey(targetA),favoriteKey(targetB));assert.equal(tabToTarget({type:'doc',path:['same'],source:'barkpark'}).paperOwner,null);assert.deepEqual(serialise().pages.roots,['mine','bp:old',keyA,keyB]);console.log('PASS owner-qualified Pages, preserved legacy nesting, original labels and distinct favorites');
+
+// Managed Paper discovery belongs to Archive; a foreign profile claim stays cloud.
+state.profileId='11111111-1111-4111-8111-111111111111';
+state.settings.barkpark.catalogKind='local';
+state.pages={layoutVersion:2,roots:['mine'],children:{},expanded:{},seeded:true,archiveOpen:true,cloudArchiveOpen:true};
+state.barkparkDocs=[{id:'owned',title:'Owned paper',paperOwner:ownerA,paperOrigin:{kind:'local',profileId:state.profileId}},{id:'foreign',title:'Foreign paper',paperOwner:ownerB,paperOrigin:{kind:'local',profileId:'22222222-2222-4222-8222-222222222222'}},{id:'unknown',title:'Unknown paper',paperOrigin:{kind:'local',profileId:state.profileId}}];
+render();
+assert.equal(host.querySelectorAll('#bw-archive .bw-page-row').length,1);
+assert.equal(host.querySelectorAll('#bw-cloud-archive .bw-page-row').length,2);
+assert(host.querySelector('#bw-archive [data-more]'),'owned Paper retains its options without a legacy delete action');
+const ownedKey=pageKey('owned','barkpark',ownerA);
+host.querySelector('#bw-archive [data-place]').click();
+assert.deepEqual(state.pages.roots,['mine',ownedKey]);
+addPage(ownedKey,'mine');
+const before=structuredClone(serialise().pages);
+state.barkparkDocs=[];state.barkparkLibraryError='fixture unavailable';render();
+assert.match(host.querySelector('#bw-archive-toggle').textContent,/—/);
+assert(!host.querySelector('#bw-cloud-archive-toggle').textContent.includes('—'));
+assert.equal(host.querySelector(`[data-open="${ownedKey}"] .bw-page-title`).textContent,'Owned paper');
+assert.deepEqual(state.pages.roots,before.roots);assert.deepEqual(state.pages.children,before.children);
+state.pages=structuredClone(before);state.barkparkLibraryError=null;render();
+assert.deepEqual(state.pages.children.mine,[ownedKey]);
+console.log('PASS managed Archive, foreign/unknown Cloud archive, options, human nesting, unavailable count and restored labels');

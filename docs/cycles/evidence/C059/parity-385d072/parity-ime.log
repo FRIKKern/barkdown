@@ -1,0 +1,37 @@
+{
+ "summary": "4/4 green",
+ "results": [
+  {
+   "name": "a dead key (¨ held, then u → ü): nothing is emitted while the composition is open; one patch lands; the server holds \"ü\"",
+   "pass": true,
+   "during": 0,
+   "batches": 1,
+   "patches": 1,
+   "text": "Dead key: ü",
+   "server": "Dead key: ü"
+  },
+  {
+   "name": "a CJK run (にほん over three updates → 日本): nothing while composing, one patch, the server holds the committed text",
+   "pass": true,
+   "during": 0,
+   "batches": 1,
+   "patches": 1,
+   "midCompositionTexts": [],
+   "text": "CJK: 日本",
+   "server": "CJK: 日本"
+  },
+  {
+   "name": "undo removes the whole composed run in one step; the server follows",
+   "pass": true,
+   "text": "CJK: ",
+   "server": "CJK: "
+  },
+  {
+   "name": "reload: the composed text comes back from the server as committed",
+   "pass": true,
+   "dead": "Dead key: ü",
+   "cjk": "CJK: "
+  }
+ ],
+ "errors": []
+}

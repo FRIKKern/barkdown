@@ -1,3 +1,5 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
+import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs';
 // Plan #20: subscript and superscript marks — Ctrl+, / Ctrl+. and the bubble in the canvas, `sub` / `sup`
 // inline wrappers on the server, <sub>/<sup> on the paper page. Live against the bp-connected server.
 import { _electron as electron } from 'playwright';
@@ -15,9 +17,9 @@ const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });
 await page.waitForSelector('#bw-pages .bw-page-row');
 await page.setViewportSize({ width: 1400, height: 900 });
-await page.evaluate(async () => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true } }); await window.__barkdown.refreshLibrary(); });
+await connectPaperFixture(page);
 await page.waitForFunction(() => window.__barkdown.state.barkparkDocs.length > 0, null, { timeout: 90000 });
-const open = async () => { await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug }), SLUG); await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 }); await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 }); await page.waitForTimeout(500); };
+const open = async () => { await openFixturePaper(page, SLUG); await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 }); await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 }); await page.waitForTimeout(500); };
 await open();
 
 const results = [];
@@ -43,7 +45,7 @@ await row('the bubble’s x² makes the 2 of mc2 a superscript; the server follo
   const r = await waitAgree(); return { ...r, pass: sel && r.agree && r.canvas[0].includes('mc<sup>2</sup>') };
 });
 await row('the paper page renders <sub>2</sub> and <sup>2</sup>', async () => {
-  const server = (JSON.parse(execFileSync('bp', ['use', '-o', 'json'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], shell: true })).active || {}).server || 'http://localhost:4000';
+  const server = paperFixtureScope().server.replace(/\/$/, '');
   const html = await (await fetch(`${server.replace(/\/$/, '')}/papers/${SLUG}`)).text();
   return { pass: /H<span>?<sub>2<\/sub>/.test(html.replace(/<span[^>]*>/g, '<span>')) && /<sup>2<\/sup>/.test(html), sample: (html.match(/.{0,40}<sub>.{0,60}/) || [''])[0] };
 });

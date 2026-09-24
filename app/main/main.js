@@ -15,10 +15,16 @@ const { LocalBarkpark } = require('./local-barkpark');
 const { SourceDriver, validate: validateLocal } = require('./local-barkpark-source');
 const crypto = require('crypto');
 const credentialDurability = require('./credential-durability').createCredentialDurability({ safeStorage, sessionData: () => app.getPath('sessionData') });
-let profileRegistry = null, profileService = null, profileGate = null, profilePool = null, profileConnection = null, appSettingsStore = null, goalService = null;
+let profileRegistry = null, profileService = null, profileGate = null, profilePool = null, profileConnection = null, profileConnectionOwner = null, appSettingsStore = null, goalService = null;
 const PROFILE_MODE = process.argv.includes('--profiles');
 let authorityOwnership = null, adoptionView = null, bootBusy = false;
 let localRuntime = null, localConfigKey = '';
+let catalogGeneration = 0;
+const paperNavigation = require('./paper-navigation').createPaperNavigation(store);
+const paperConnection = require('./paper-connection').createPaperConnection({
+  config: () => ({ ...barkparkConfig(), connectionOwner: [store.dir(), profileService?.view()?.profileId || null, readSettings().barkpark.local?.enabled ? readSettings().barkpark.local : null] }),
+  cliScope: c => barkpark.cliScope(c),
+});
 let localTransition = Promise.resolve(), localStartupError = null;
 const claudeProvider = require('./providers/claude');
 const codexProvider = require('./providers/codex');
@@ -53,10 +59,25 @@ function writeSettings(settings) {
 }
 function encrypt(value) { if (!value) return null; credentialDurability.assertReady(); return safeStorage.isEncryptionAvailable() ? 'enc:' + safeStorage.encryptString(value).toString('base64') : 'plain:' + Buffer.from(value).toString('base64'); }
 function decrypt(value) { if (!value) return ''; try { if (value.startsWith('enc:')) return safeStorage.decryptString(Buffer.from(value.slice(4), 'base64')); if (value.startsWith('plain:')) return Buffer.from(value.slice(6), 'base64').toString('utf8'); } catch (error) { console.warn('settings: could not decrypt', error.message); } return ''; }
+function catalogSettingsKey(b) { return JSON.stringify([b.enabled, b.server, b.tokenEncrypted, b.dataset, b.viaCli, b.local?.enabled, b.local?.source, b.local?.port, b.local?.pgPort]); }
+function paperOrigin(config) {
+  return require('./paper-origin').catalogOrigin(config, profileService && readSettings().barkpark.local?.enabled ? { profileId: profileService.view().profileId, connectionProfileId: profileConnectionOwner, connection: profileConnection } : null);
+}
+function draftNotes(config) {
+  return require('./draft-notes').createDraftNotes(ordinaryNoteOptions(config));
+}
+function ordinaryNoteOptions(config) {
+  const origin = paperOrigin(config);
+  if (origin.kind !== 'local') throw new Error('Ordinary Paper notes require this profile’s managed local library.');
+  return {
+    store: store.createStore(store.dir()), config, profileId: origin.profileId, paperOwner: paperNavigation.identify(config),
+    assertOwned: () => { authorityOwnership?.assertOwned(); if (profileService.view().profileId !== origin.profileId) throw new Error('The note’s profile is no longer active.'); },
+  };
+}
 function publicSettings() {
   const s = readSettings();
   if (profileConnection && s.barkpark.local?.enabled) s.barkpark.local = { ...s.barkpark.local, port: Number(new URL(profileConnection.server).port) };
-  return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN) && !s.apiKeyEncrypted, barkpark: { effectiveServer: s.barkpark.local?.enabled ? `http://127.0.0.1:${s.barkpark.local.port}` : s.barkpark.server, enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, local: s.barkpark.local || DEFAULT_SETTINGS.barkpark.local }, recentFolders: s.recentFolders, userData: store.dir() };
+  return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN) && !s.apiKeyEncrypted, barkpark: { catalogKind: profileService && s.barkpark.local?.enabled ? 'local' : 'cloud', connectionIdentity: paperConnection.currentIdentity(), catalogGeneration, effectiveServer: s.barkpark.local?.enabled ? `http://127.0.0.1:${s.barkpark.local.port}` : s.barkpark.server, enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, local: s.barkpark.local || DEFAULT_SETTINGS.barkpark.local }, recentFolders: s.recentFolders, userData: store.dir() };
 }
 // What the MCP server and the context note need to know about Barkpark, refreshed on every save.
 function localSecrets(source = store) {
@@ -104,7 +125,7 @@ function reconcileLocal() {
     localTransition = localTransition.catch(() => {}).then(async () => {
       const profileId = profileService.view().profileId, s = readSettings();
       const result = s.barkpark.local?.enabled ? await profilePool.select(profileId, { source: s.barkpark.local.source, writes: Boolean(s.barkpark.writes) }) : await profilePool.selectWithoutRuntime(profileId);
-      profileConnection = result.connection; localStartupError = null; syncBarkparkEnv(); emitLocalStatus(localStatus());
+      profileConnection = result.connection; profileConnectionOwner = result.profileId; localStartupError = null; syncBarkparkEnv(); emitLocalStatus(localStatus());
     }).catch(error => { localStartupError = error.message; emitLocalStatus(localStatus()); throw error; });
     return localTransition;
   }
@@ -183,7 +204,7 @@ function handle(channel, fn, unowned = false) {
       if (!win || event.sender !== win.webContents || event.senderFrame !== win.webContents.mainFrame) throw new Error('Only the main application window may use this request');
       const execute = async () => {
         authorityOwnership?.assertOwned();
-        if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
+        if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|createNote|deletedNotes|deleteNote|checkDeletion|recoverNote|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
         authorityOwnership?.assertOwned();
         return fn(...args);
       };
@@ -213,6 +234,7 @@ function registerIpc() {
   handle('settings:set', async patch => {
     if (patch.apiKey || patch.barkpark?.token || patch.barkpark?.local?.enabled) await credentialDurability.prepare();
     const s = readSettings();
+    const previousCatalog = catalogSettingsKey(s.barkpark);
     if (Number.isFinite(patch.sidebarWidth)) s.sidebarWidth = Math.min(420, Math.max(160, Math.round(patch.sidebarWidth)));
     if (patch.chatWidth != null) s.chatWidth = patch.chatWidth;
     if (patch.theme) s.theme = patch.theme;
@@ -238,6 +260,7 @@ function registerIpc() {
     }
     if (patch.recentFolder) s.recentFolders = [patch.recentFolder, ...s.recentFolders.filter(f => f !== patch.recentFolder)].slice(0, 8);
     writeSettings(s);
+    if (previousCatalog !== catalogSettingsKey(s.barkpark)) catalogGeneration++;
     if (!profileService) syncBarkparkEnv();
     if (profileService) await reconcileLocal();
     else reconcileLocal().catch(error => console.warn('Local Barkpark:', error.message));
@@ -252,8 +275,11 @@ function registerIpc() {
   handle('state:save', state => { if (profileService) return profileService.save(profileService.view(), state); store.writeJson('workspace.json', state); return true; });
   handle('state:command', command => { if (!profileService) throw new Error('Managed transcripts require profiles'); return profileService.workspaces.command(profileService.view().profileId, command); });
 
-  handle('docs:agentEdit', id => require('./agent-edits').latest(id));
-  handle('docs:undoAgentEdit', ({ id, editId }) => require('./agent-edits').undo(id, editId, barkparkConfig()));
+  handle('docs:agentEdit', async input => {
+    const { id, binding } = typeof input === 'string' ? { id: input } : input;
+    return id.startsWith('bp:') ? (await paperConnection.read(binding, c => require('./agent-edits').latest(id, c), true)).value : require('./agent-edits').latest(id);
+  });
+  handle('docs:undoAgentEdit', ({ id, editId, binding }) => id.startsWith('bp:') ? paperConnection.write(binding, c => require('./agent-edits').undo(id, editId, c)) : require('./agent-edits').undo(id, editId, barkparkConfig()));
   handle('docs:list', () => documents.list());
   handle('docs:get', id => documents.get(id));
   handle('docs:create', input => documents.create(input));
@@ -264,19 +290,23 @@ function registerIpc() {
   handle('docs:history', id => documents.history(id));
   handle('docs:restore', ({ id, rev }) => documents.restore(id, rev));
   handle('docs:proposal', ({ id, proposalId, accept }) => documents.resolveProposal(id, proposalId, accept));
-  handle('docs:paperProposals', slug => documents.paperProposals(slug));
-  handle('docs:resolvePaperProposal', async ({ slug, proposalId, accept, rev }) => {
-    const proposal = documents.takePaperProposal(slug, proposalId);
-    if (!accept) return { ok: true };
-    const c = barkparkConfig();
-    if (!c.writes) { documents.addPaperProposal(slug, proposal); const e = new Error('Barkpark writes are off. Enable them in Settings to apply proposals.'); e.code = 'writes_disabled'; throw e; }
-    const current = c.viaCli ? await barkpark.cliGetPaper(slug) : await barkpark.getPaper(c, slug);
-    if (rev != null && current.rev !== rev) { documents.addPaperProposal(slug, proposal); return { conflict: true, rev: current.rev }; }
-    const { appendOps, replaceBlockOps, replaceAllOps } = require('../shared/portabledoc');
-    const blocks = current.blocks || [];
-    const ops = proposal.mode === 'replace' ? replaceAllOps(blocks, proposal.markdown) : proposal.mode === 'replace_block' && blocks[proposal.blockIndex ?? -1]?.id ? replaceBlockOps(blocks[proposal.blockIndex].id, proposal.markdown) : appendOps(proposal.markdown);
-    try { const result = c.viaCli ? await barkpark.cliApplyOps(slug, ops, current.rev) : await barkpark.applyOps(c, slug, ops, current.rev); return { ok: true, rev: result.rev }; }
-    catch (error) { documents.addPaperProposal(slug, proposal); throw error; }
+  handle('docs:paperProposals', async ({ slug, binding }) => (await paperConnection.read(binding, c => documents.paperProposals(slug, c), true)).value);
+  handle('docs:resolvePaperProposal', async ({ slug, proposalId, accept, rev, binding }) => {
+    // Refuse a stale connection before taking the retained proposal.
+    const execute = async c => {
+      const proposal = documents.takePaperProposal(slug, proposalId, c);
+      if (!accept) return { ok: true };
+      try {
+        const current = c.viaCli ? await barkpark.cliGetPaper(slug, c.cliRouting) : await barkpark.getPaper(c, slug);
+        if (rev != null && current.rev !== rev) { documents.addPaperProposal(slug, proposal); return { conflict: true, rev: current.rev }; }
+        const { appendOps, replaceBlockOps, replaceAllOps } = require('../shared/portabledoc');
+        const blocks = current.blocks || [];
+        const ops = proposal.mode === 'replace' ? replaceAllOps(blocks, proposal.markdown) : proposal.mode === 'replace_block' && blocks[proposal.blockIndex ?? -1]?.id ? replaceBlockOps(blocks[proposal.blockIndex].id, proposal.markdown) : appendOps(proposal.markdown);
+        const result = c.viaCli ? await barkpark.cliApplyOps(slug, ops, current.rev, c.cliRouting) : await barkpark.applyOps(c, slug, ops, current.rev);
+        return { ok: true, rev: result.rev };
+      } catch (error) { documents.addPaperProposal(slug, proposal); throw error; }
+    };
+    return accept ? paperConnection.write(binding, execute) : (await paperConnection.read(binding, execute, true)).value;
   });
   handle('docs:exportMarkdown', async id => { const doc = documents.get(id); const r = await dialog.showSaveDialog(win, { defaultPath: doc.id + '.md', filters: [{ name: 'Markdown', extensions: ['md'] }] }); if (r.canceled) return null; fs.writeFileSync(r.filePath, `# ${doc.title}\n\n${doc.markdown}`); return r.filePath; });
 
@@ -369,20 +399,63 @@ function registerIpc() {
   handle('barkpark:importCli', () => barkpark.importFromCli());
   // The canvas bundle comes from the connected Barkpark (cached under userData); vendored is the fallback.
   handle('barkpark:bundle', () => canvasBundle.resolve({ config: barkparkConfig(), cacheDir: path.join(profileService ? store.dir() : app.getPath('userData'), 'canvas-bundle'), vendorDir: path.join(__dirname, '..', 'renderer', 'vendor') }));
-  handle('barkpark:list', () => { const c = barkparkConfig(); return c.viaCli ? barkpark.cliListPapers() : barkpark.listPapers(c); });
-  handle('barkpark:get', id => { const c = barkparkConfig(); return c.viaCli ? barkpark.cliGetPaper(id) : barkpark.getPaper(c, id); });
-  handle('barkpark:search', q => { const c = barkparkConfig(); return c.viaCli ? barkpark.cliSearch(q) : barkpark.search(c, q); });
-  handle('barkpark:backlinks', id => { const c = barkparkConfig(); return c.viaCli ? barkpark.cliBacklinks(id) : barkpark.backlinks(c, id); });
-  handle('barkpark:related', id => { const c = barkparkConfig(); return c.viaCli ? [] : barkpark.related(c, id); });
-  handle('barkpark:history', id => { const c = barkparkConfig(); return c.viaCli ? barkpark.cliHistory(id) : barkpark.history(c, id); });
-  const requireWrites = () => { if (!barkparkConfig().writes) { const e = new Error('Barkpark writes are off. Enable them in Settings to edit papers.'); e.code = 'writes_disabled'; throw e; } };
-  handle('barkpark:applyOps', ({ slug, ops, ifRev }) => { requireWrites(); const c = barkparkConfig(); return c.viaCli ? barkpark.cliApplyOps(slug, ops, ifRev) : barkpark.applyOps(c, slug, ops, ifRev); });
-  handle('barkpark:uploadMedia', async payload => { requireWrites(); const c = barkparkConfig(); if (c.viaCli && !c.server) { const cli = await barkpark.importFromCli(); if (cli.ok) c.server = cli.server; } return barkpark.uploadMedia(c, payload); });
-  handle('barkpark:publish', payload => { requireWrites(); const c = barkparkConfig(); return c.viaCli ? barkpark.cliPublish(payload) : barkpark.publish(c, payload); });
-  handle('barkpark:patchTitle', ({ slug, title }) => { requireWrites(); const c = barkparkConfig(); if (!c.viaCli) throw new Error('Title edits need the bp CLI connection'); return barkpark.cliPatchTitle(slug, title); });
-  handle('barkpark:import', async id => {
-    const c = barkparkConfig();
-    const paper = c.viaCli ? await barkpark.cliGetPaper(id) : await barkpark.getPaper(c, id);
+  handle('barkpark:list', async () => {
+    const generation = catalogGeneration;
+    const { value } = await paperConnection.read(undefined, async c => {
+      const paperOwner = paperNavigation.identify(c), origin = paperOrigin(c);
+      const papers = await (c.viaCli ? barkpark.cliListAllPapers(c) : barkpark.listAllPapers(c));
+      if (origin.kind === 'local') papers.push(...await draftNotes(c).list());
+      return papers.map(paper => ({ ...paper, paperOwner, paperOrigin: origin }));
+    });
+    if (generation !== catalogGeneration) throw new Error('The library connection changed during refresh; refresh again.');
+    return value;
+  });
+  const input = value => typeof value === 'string' ? { id: value } : value;
+  handle('barkpark:createNote', async requestId => {
+    const captured = await paperConnection.read(undefined, c => { draftNotes(c); });
+    const paper = await paperConnection.write(captured.binding, c => draftNotes(c).create(requestId));
+    return { ...paper, binding: captured.binding, connectionIdentity: captured.connectionIdentity };
+  });
+  const deletions = c => require('./paper-deletions').createPaperDeletions(ordinaryNoteOptions(c));
+  handle('barkpark:deletedNotes', async () => {
+    const result = await paperConnection.read(undefined, c => deletions(c).list());
+    return { records: result.value, binding: result.binding };
+  });
+  handle('barkpark:deleteNote', ({ id, revision, binding }) => paperConnection.write(binding, c => deletions(c).remove(id, revision)));
+  handle('barkpark:checkDeletion', ({ key, binding }) => paperConnection.read(binding, c => deletions(c).reconcile(key)).then(r => r.value));
+  handle('barkpark:recoverNote', async ({ key, binding }) => {
+    const paper = await paperConnection.write(binding, c => deletions(c).recover(key));
+    return { ...paper, binding };
+  });
+  handle('barkpark:get', async value => {
+    const request = input(value), { id, binding } = request;
+    const result = await paperConnection.read(binding, async c => {
+      if (Object.hasOwn(request, 'paperOwner')) paperNavigation.assert(request.paperOwner, c);
+      const paperOwner = paperNavigation.identify(c);
+      const paper = await (id.startsWith('drafts.') && paperOrigin(c).kind === 'local' ? draftNotes(c).read(id) : c.viaCli ? barkpark.cliGetPaper(id, c.cliRouting) : barkpark.getPaper(c, id));
+      return { ...paper, paperOwner };
+    });
+    return { ...result.value, binding: result.binding, connectionIdentity: result.connectionIdentity };
+  });
+  handle('barkpark:search', async value => {
+    const { id: query, binding } = input(value);
+    return (await paperConnection.read(binding, async c => {
+      const rows = await (c.viaCli ? barkpark.cliSearch(query, 20, c.cliRouting) : barkpark.search(c, query));
+      if (paperOrigin(c).kind === 'local') rows.push(...await draftNotes(c).search(query));
+      const paperOwner = paperNavigation.identify(c);
+      return rows.map(row => ({ ...row, paperOwner }));
+    })).value;
+  });
+  handle('barkpark:backlinks', async value => { const { id, binding } = input(value); return (await paperConnection.read(binding, c => c.viaCli ? barkpark.cliBacklinks(id, c.cliRouting) : barkpark.backlinks(c, id))).value; });
+  handle('barkpark:related', async value => { const { id, binding } = input(value); return (await paperConnection.read(binding, c => c.viaCli ? [] : barkpark.related(c, id))).value; });
+  handle('barkpark:history', async value => { const { id, binding } = input(value); return (await paperConnection.read(binding, c => c.viaCli ? barkpark.cliHistory(id, c.cliRouting) : barkpark.history(c, id))).value; });
+  handle('barkpark:applyOps', ({ slug, ops, ifRev, binding }) => paperConnection.write(binding, c => slug.startsWith('drafts.') && paperOrigin(c).kind === 'local' ? draftNotes(c).apply(slug, ops, ifRev) : c.viaCli ? barkpark.cliApplyOps(slug, ops, ifRev, c.cliRouting) : barkpark.applyOps(c, slug, ops, ifRev)));
+  handle('barkpark:uploadMedia', ({ binding, ...payload }) => paperConnection.write(binding, c => barkpark.uploadMedia(c, payload)));
+  handle('barkpark:publish', ({ binding, ...payload }) => paperConnection.write(binding, c => c.viaCli ? barkpark.cliPublish(payload, c.cliRouting) : barkpark.publish(c, payload)));
+  handle('barkpark:patchTitle', ({ slug, title, binding }) => paperConnection.write(binding, c => barkpark.cliPatchTitle(slug, title, c.cliRouting)));
+  handle('barkpark:import', async value => {
+    const { id, binding } = input(value);
+    const { value: paper } = await paperConnection.read(binding, c => c.viaCli ? barkpark.cliGetPaper(id, c.cliRouting) : barkpark.getPaper(c, id));
     if (paper.markdownError) throw new Error('Import would lose content: ' + paper.markdownError + ' Open the original Paper instead.');
     const markdown = paper.markdown || (paper.html ? barkpark.htmlToText(paper.html) : paper.excerpt);
     const doc = documents.create({ title: paper.title, markdown, actor: 'barkpark-import', tags: [...(paper.tags || []), 'barkpark'] });

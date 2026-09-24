@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "id": "C067",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Create, edit, find and reopen ordinary owned notes in real Paper.",
+  "scope": [
+    "Private owned draft adapter, then managed-local New Page integration after native proof.",
+    "Exact draft identity and perspective in reads, writes, library/search and saved tabs.",
+    "Preserve profiles, human organization and legacy data; no migration activation, deletion/restore, agent extension, merge or deployment."
+  ],
+  "acceptance": [
+    "Create an ordinary empty note, edit its title/body through guarded Paper ops, discover/search it and reopen the exact row after restart.",
+    "Profile switching and same-ID published/draft rows cannot redirect writes or leak results; refusal preserves existing data.",
+    "Durable creation request identity reconciles uncertain responses without duplicate writes.",
+    "Targeted/full suites and reviewed native, standard and live Paper media support the actual journey."
+  ],
+  "checkpoint": "2026-09-24",
+  "handoff": "docs/cycles/C067-ordinary-paper-notes.md",
+  "nextAction": "Follow the C067 evidence checkpoint on PR33 without merging; archive C067 before the agent ordinary-note creation/edit/guarded Undo slice.",
+  "evidence": [
+    "docs/cycles/C067-ordinary-paper-notes.md",
+    "docs/cycles/evidence/C067/review.json",
+    "docs/visual/paper-notes/runs/2026-09-24T18-55-34-677Z/manifest.json",
+    "docs/visual/paper-notes/README.md"
+  ],
+  "truthReview": "Human create/edit/search/profile/restart journey proven; P2/A2 and agent/recovery/activation remain open. One delivery branch plus main;43 locked historical worktrees require coordinator recovery review. No merge/deploy.",
+  "screenshotReview": "Codex inspected native8/354/22, live5/37, standard40/40/40; explicit source-bound approval and provenance retained in review.json."
+}

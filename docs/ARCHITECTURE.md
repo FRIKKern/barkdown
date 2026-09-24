@@ -32,4 +32,18 @@ Acceptance scenarios are in [ACCEPTANCE.md](ACCEPTANCE.md); unresolved API choic
 
 The [C001 ownership audit](PROFILE-OWNERSHIP.md) and [C004 captured-run contract](RUN-OWNERSHIP.md) retain the original design evidence. Their historical single-workspace and pending-registry statements are superseded by the accepted [P1 completion audit](cycles/C039-completion-audit.md). The implemented main process owns profile resolution, IPC generations, background transcript persistence and captured provider/MCP contexts.
 
-P2 currently provides closed-source inventory/backup, durable create-only staging, supported content/reference/PNG comparison, no-overwrite legacy restore and an offline navigation projection. The [migration contract](migration/README.md) defines their exact boundaries. There is no migration authority selector or legacy-engine retirement; C054 now reads original history/receipts as verified offline evidence, but its native viewer, complete owned-local catalog/archive, ordinary note lifecycle, live writer fencing and atomic activation/rollback still require proof.
+P2 currently provides closed-source inventory/backup, durable create-only staging, supported content/reference/PNG comparison, no-overwrite legacy restore and an offline navigation projection. The [migration contract](migration/README.md) defines their exact boundaries. There is no migration authority selector or legacy-engine retirement; C054 now reads original history/receipts as verified offline evidence, but its native viewer, ordinary note lifecycle, live writer fencing and atomic activation/rollback still require proof. C056–C060 now verify complete catalog discovery, connection-owned navigation/edit evidence and managed-local Archive classification; this does not activate migration.
+
+## Read the code by authority boundary
+
+| Concern | Entry points | Avoid confusing it with |
+|---|---|---|
+| Profile identity and runtime | `app/main/profile-registry.js`, `profile-service.js`, `profile-runtime.js` | A chat's working folder or the currently visible tab. |
+| Open Paper connection and captured tool access | `app/main/paper-connection.js`, `paper-tool-connection.js` | Physical database identity or a completed migration-generation fence. Connection binding is a narrower guarantee. |
+| Saved Paper destinations and edit evidence | `app/main/paper-navigation.js`, `paper-evidence-owner.js` | A bare slug, an endpoint URL or whichever profile is active later. |
+| Complete catalog and local/cloud classification | `app/main/paper-catalog.js`, `paper-origin.js` | Server-claimed origin; only a trusted managed runtime lease classifies local Archive. |
+| Agent edits and resumed tool compatibility | `app/main/agent-edits.js`, `mcp-server.js` | The old `propose_document_edit` name: it aliases direct edits for resumed sessions, not a new Keep requirement. |
+| Legacy documents and migration | `app/main/documents.js`, `migration-*.js` | Dead code. Legacy storage, historical proposals and recovery records remain required until A2 proves retirement. |
+| Rendered Paper and human organization | `app/renderer/src/tabs/paper.js`, `pages.js` | Content authority. Main/upstream enforce writes; Pages placement belongs to the person. |
+
+Before removing a path, trace current callers, stored records and resumed sessions. Existing Keep/Discard rendering can serve retained historical proposals; it does not reverse D28 for new agent edits. Current local documents and remote Papers intentionally coexist. The [ordinary-note service](migration/ordinary-notes.md), `app/main/draft-notes.js`, now owns managed-local foreground creation/read/search/ops and durable creation intents. C069 wires API/MCP creation, draft discovery and title-preserving edits/Undo through the same service; acceptance is tracked in its cycle. Migration activation remains separate work. Keep ownership, transport revisions, Paper revisions and UI navigation distinct.

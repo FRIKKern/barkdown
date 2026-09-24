@@ -1,0 +1,116 @@
+{
+  "capturedAt": "2026-09-24T10:05:12.288Z",
+  "barkdownCommit": "187264eedd5ed383c487c93c9e29cbe1d4411333",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "records": [
+    {
+      "label": "response dropped after actual create commit",
+      "status": 200,
+      "transportErrorObserved": true,
+      "forwardedWrites": 1,
+      "body": {
+        "mutations": [
+          {
+            "create": {
+              "_id": "lost-response-draft",
+              "_type": "paper",
+              "title": "Reconcile this owned draft",
+              "blocks": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "exact draft readback after lost response",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.lost-response-draft?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T10:05:12.062000Z",
+          "_draft": true,
+          "_id": "drafts.lost-response-draft",
+          "_publishedId": "lost-response-draft",
+          "_rev": "b5e3347d59937623af3af6de879d3e24",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T10:05:12.062000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Reconcile this owned draft",
+              "type": "heading"
+            },
+            {
+              "content": [],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body_html": "<h1>Reconcile this owned draft</h1>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "style": "article",
+          "title": "Reconcile this owned draft"
+        },
+        "schemaHash": "274fb3e3a3fbb26c",
+        "syncTags": [
+          "bp:ds:production:doc:lost-response-draft",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "b5e3347d59937623af3af6de879d3e24",
+        "ms": 7
+      }
+    },
+    {
+      "label": "second readback without create replay",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.lost-response-draft?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T10:05:12.062000Z",
+          "_draft": true,
+          "_id": "drafts.lost-response-draft",
+          "_publishedId": "lost-response-draft",
+          "_rev": "b5e3347d59937623af3af6de879d3e24",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T10:05:12.062000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Reconcile this owned draft",
+              "type": "heading"
+            },
+            {
+              "content": [],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body_html": "<h1>Reconcile this owned draft</h1>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "style": "article",
+          "title": "Reconcile this owned draft"
+        },
+        "schemaHash": "274fb3e3a3fbb26c",
+        "syncTags": [
+          "bp:ds:production:doc:lost-response-draft",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "b5e3347d59937623af3af6de879d3e24",
+        "ms": 2
+      }
+    }
+  ],
+  "limits": [
+    "Disposable HTTP reconciliation probe only; no app retry implementation or durable client request journal",
+    "One known request and exact scoped readback; not a namespace reservation or power-loss claim"
+  ]
+}

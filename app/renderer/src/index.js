@@ -1,4 +1,6 @@
 import { mountComposer } from './composer.js';
+import { createLibraryRefresh, libraryScope } from './library-refresh.js';
+import { createNoteAction } from './note-creation.js';
 import { openProviderLogin } from './provider-login.js';
 import { restoreFailedMessage } from './submission-state.js';
 import { openGoalView } from './goals.js';
@@ -9,6 +11,7 @@ import { state, load, save, serialise, newChat, newTab, currentChat, activeTab, 
 import { transcriptHtml, handleAgentEvent, respondApproval, providerFor, formatDuration } from './conversation.js';
 import { mountDocument } from './tabs/document.js';
 import { mountPaper } from './tabs/paper.js';
+import { openDeletedNotes } from './paper-recovery.js';
 import { mountWebsite } from './tabs/website.js';
 import { mountReview } from './tabs/review.js';
 import { mountProject, buffers, dirtyCount } from './tabs/project.js';
@@ -74,8 +77,9 @@ function directChat() {
   return state.chats[DIRECT];
 }
 function workspaceChat() { return state.mode === 'document' ? directChat() : currentChat(); }
-function documentSummary(id, source) {
-  return (source === 'barkpark' ? state.barkparkDocs : state.documents).find(d => d.id === id) || state.documents.find(d => d.id === id) || state.barkparkDocs.find(d => d.id === id) || null;
+function documentSummary(id, source, paperOwner) {
+  const documents = source === 'barkpark' ? state.barkparkDocs : state.documents;
+  return documents.find(d => d.id === id && (source !== 'barkpark' || paperOwner === undefined || (d.paperOwner || null) === paperOwner)) || null;
 }
 function pauseFollow(chat = currentChat()) { if (chat) chat.following = false; }
 
@@ -92,10 +96,13 @@ function tabContext(chat) {
     folderChanged: owner => { for (const c of controllers.values()) if (owner.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); },
     tabChanged: tab => { renderTabs(); save(); },
     documentSummary,
-    pagePath: (id, source) => pagePath(pageKey(id, source)),
+    pagePath: (id, source, paperOwner) => pagePath(pageKey(id, source, paperOwner)),
     openLinked: (fromTab, id, source = 'local', replace = false) => {
       pauseFollow(chat);
-      if (replace) { fromTab.path = [id]; fromTab.source = source; }
+      // A copy in another engine gets its own controller; keep the original
+      // Paper and any pending human edit mounted under its original owner.
+      if (source !== (fromTab.source || 'local')) { openDocTab(chat, id, source); return; }
+      if (replace) { fromTab.path = [id]; fromTab.source = source; if (source !== 'barkpark') delete fromTab.paperOwner; }
       else if (fromTab.type === 'doc' && fromTab.source === (source || 'local') && !fromTab.path.includes(id)) fromTab.path = [...fromTab.path, id];
       else if (fromTab.type === 'doc' && fromTab.source !== source) { openDocTab(chat, id, source); return; }
       else if (fromTab.path.includes(id)) fromTab.path = fromTab.path.slice(0, fromTab.path.indexOf(id) + 1);
@@ -105,6 +112,19 @@ function tabContext(chat) {
     openWebsite: url => openTarget({ kind: 'web', url, title: hostname(url) }, chat, true),
     askAbout: text => { q('#bw-prompt').value = text; q('#bw-prompt').focus(); if (state.mode !== 'chat') { state.mode = 'chat'; render(); } },
     libraryChanged: () => refreshLibrary(),
+    openDeletedNotes: showDeletedNotes,
+    deletePaper: async paper => {
+      const sameNote = c => c.tab?.source === 'barkpark' && c.tab.paperOwner === paper.paperOwner && c.tab.path.at(-1) === paper.id;
+      const panes = [...controllers.values()].filter(sameNote);
+      if (panes.some(c => c.isDirty?.())) throw new Error('Finish saving this note in every open tab before deleting it.');
+      panes.forEach(c => c.setDeletionPending?.(true));
+      try {
+        const result = await api.barkpark.deleteNote(paper.id, paper.revision, paper.binding);
+        for (const c of controllers.values()) if (sameNote(c)) c.showDeletion?.(result);
+        await refreshLibrary();
+        return result;
+      } finally { panes.forEach(c => c.setDeletionPending?.(false)); }
+    },
     importPaper,
     closeTab: tab => closeTab(chat, tab.id),
     documentChanged: doc => { refreshLibrary(); for (const c of controllers.values()) if (c.type === 'doc' && c.tab.path.at(-1) === String(doc.id).replace(/^bp:/, '')) c.refresh?.(doc.id); },
@@ -161,7 +181,7 @@ function renderTabs() {
   const html = (chat?.tabs || []).map(t => {
     const dirty = t.type === 'project' && chat.folder && dirtyCount(chat.folder) > 0;
     if (t.type === 'chat' && state.chats[t.sideChatId]?.title) t.title = state.chats[t.sideChatId].title;
-    const title = t.type === 'doc' ? t.path.map(id => documentSummary(id, t.source)?.title || id).join(' → ') : t.type === 'web' ? t.url || t.title : t.title;
+    const title = t.type === 'doc' ? t.path.map(id => documentSummary(id, t.source, t.paperOwner || null)?.title || id).join(' → ') : t.type === 'web' ? t.url || t.title : t.title;
     return `<div class="bw-tab ${t.id === chat.active ? 'active' : ''}"><button data-tab="${t.id}" aria-current="${t.id === chat.active ? 'page' : 'false'}" title="${esc(title)}">${iconHtml(TYPE_ICON[t.type])}<span class="bw-tab-label">${esc(t.title)}</span>${t.unread ? '<span class="bw-dot" aria-label="Updated by the assistant"></span>' : dirty ? '<span class="bw-dot bw-dot-dirty" aria-label="Unsaved edits"></span>' : ''}</button><div class="bw-tab-actions"><button data-fav="${t.id}" class="${favoriteFor(t) ? 'on' : ''}" aria-label="${favoriteFor(t) ? 'Remove from favorites' : 'Add to favorites'}" title="${favoriteFor(t) ? 'Remove from favorites' : 'Add to favorites'}">${iconHtml('star', 12)}</button><button data-close="${t.id}" aria-label="Close ${esc(t.title)}">${iconHtml('x', 12)}</button></div></div>`;
   }).join('');
   // Only touch the DOM when the strip changed: keeps double-clicks (rename) and hover states intact.
@@ -200,16 +220,16 @@ async function closeTab(chat, id) {
 }
 
 function tabTarget(tab) {
-  if (tab.type === 'doc') return { kind: 'doc', id: tab.path.at(-1) };
+  if (tab.type === 'doc') return tabToTarget(tab);
   if (tab.type === 'web') return { kind: 'web', url: tab.url };
   if (tab.type === 'project') return { kind: 'project' };
   if (tab.type === 'review') return { kind: 'review' };
   return { kind: 'chat', id: tab.sideChatId };
 }
-function targetKey(target) { return target.kind === 'doc' ? `doc:${target.id}` : target.kind === 'web' ? 'web:' + hostname(target.url || '') : target.kind === 'chat' ? `chat:${target.id}` : target.kind; }
+function targetKey(target) { return target.kind === 'doc' ? favoriteKey(target) : target.kind === 'web' ? 'web:' + hostname(target.url || '') : target.kind === 'chat' ? `chat:${target.id}` : target.kind; }
 
 function findTabForTarget(chat, target) {
-  if (target.kind === 'doc') return chat.tabs.find(t => t.type === 'doc' && (t.source || 'local') === (target.source || 'local') && t.path.includes(target.id));
+  if (target.kind === 'doc') return chat.tabs.find(t => t.type === 'doc' && (t.source || 'local') === (target.source || 'local') && (target.source !== 'barkpark' || (t.paperOwner || null) === (target.paperOwner || null)) && t.path.includes(target.id));
   if (target.kind === 'web') return chat.tabs.find(t => t.type === 'web' && hostname(t.url) === hostname(target.url));
   if (target.kind === 'chat') return chat.tabs.find(t => t.type === 'chat' && t.sideChatId === target.id);
   return chat.tabs.find(t => t.type === target.kind);
@@ -223,7 +243,7 @@ function openTarget(target, chat = currentChat(), manual = true, options = {}) {
   let tab = findTabForTarget(chat, target);
   if (!tab && !manual && chat.closedTargets.includes(targetKey(target))) return null; // deliberately closed during this run
   if (!tab) {
-    if (target.kind === 'doc') tab = newTab('doc', { title: target.title || documentSummary(target.id, target.source)?.title || 'Document', path: [target.id], source: target.source || 'local' });
+    if (target.kind === 'doc') tab = newTab('doc', { title: target.title || documentSummary(target.id, target.source, target.paperOwner || null)?.title || 'Document', path: [target.id], source: target.source || 'local', ...(target.source === 'barkpark' ? { paperOwner: target.paperOwner || null } : {}) });
     else if (target.kind === 'web') tab = newTab('web', { title: target.title || hostname(target.url), url: target.url });
     else if (target.kind === 'project') tab = newTab('project', { title: target.path ? basename(target.path) : 'Project', file: target.path || '', treeOpen: !target.path });
     else if (target.kind === 'review') tab = newTab('review', { title: 'Review', path: target.path || '' });
@@ -253,7 +273,7 @@ function attachImages(files) { return mainComposer.attachImages(files); }
 
 function userIsTyping() { const a = document.activeElement; return Boolean(a && a.closest('#bw-workspace') && (a.matches('textarea, input, [contenteditable="true"], .cm-content') || a.closest('.ProseMirror'))); }
 
-function openDocTab(chat, id, source = 'local') { return openTarget({ kind: 'doc', id, source }, chat, true); }
+function openDocTab(chat, id, source = 'local', paperOwner = null) { return openTarget({ kind: 'doc', id, source, ...(source === 'barkpark' ? { paperOwner } : {}) }, chat, true); }
 
 function openNewTab(type) {
   const chat = currentChat();
@@ -340,7 +360,7 @@ function bindTranscript(transcript, chat) {
   if (latest) latest.onclick = () => { const last = chat.events.at(-1); if (last) { chat.following = true; openConversationTarget(last.target, chat, false); focusTab(chat, findTabForTarget(chat, last.target)?.id || chat.active, false); chat.following = true; renderChat(); } };
   transcript.querySelectorAll('a[href]').forEach(a => { a.onclick = e => { e.preventDefault(); openConversationTarget({ kind: 'web', url: a.href, title: hostname(a.href) }, chat, true); }; });
   transcript.querySelectorAll('[data-view-file]').forEach(b => { b.onclick = () => openConversationTarget({ kind: 'project', path: b.dataset.viewFile, title: basename(b.dataset.viewFile) }, chat, true); });
-  transcript.querySelectorAll('[data-view-doc]').forEach(b => { b.onclick = () => openConversationTarget({ kind: 'doc', id: b.dataset.viewDoc, source: b.dataset.docSource || 'local' }, chat, true); });
+  transcript.querySelectorAll('[data-view-doc]').forEach(b => { b.onclick = () => openConversationTarget({ kind: 'doc', id: b.dataset.viewDoc, source: b.dataset.docSource || 'local', paperOwner: b.dataset.paperOwner || null }, chat, true); });
   transcript.querySelectorAll('[data-undo-file]').forEach(b => { b.onclick = async () => { const rel = b.dataset.undoFile; if (!chat.folder) { toast('No working folder on this chat.', 'error'); return; } if (!await askConfirm(`Undo the assistant's change to ${rel}? A tracked file goes back to the last commit; a new file is removed.`, { title: 'Undo this change?', confirm: 'Undo', danger: true })) return; try { const r = await api.git.revertFile(chat.folder, rel); toast(r.action === 'restored' ? `Restored ${r.path} from git` : r.action === 'removed' ? `Removed ${r.path}` : `${r.path} was already gone`); controllers.forEach(c => { if (c.type === 'project') c.refresh(rel); if (c.type === 'review') c.refresh(); }); } catch (error) { toast(errorMessage(error), 'error'); } }; });
   // Remember which steps the person opened across re-renders while a run streams.
   transcript.querySelectorAll('details.bw-step').forEach(d => { const key = chat.id + ':' + d.dataset.step; if (closedSteps.has(key)) d.open = false; d.addEventListener('toggle', () => { if (d.open) closedSteps.delete(key); else closedSteps.add(key); }); });
@@ -366,15 +386,19 @@ function renderChat() {
 
 function initials() { return 'FJ'; }
 
+function showDeletedNotes() { return openDeletedNotes({ refresh: refreshLibrary, openPaper: paper => openDirect(paper.id, 'barkpark', paper.paperOwner) }); }
+
 function renderSidebar() {
   seedTree();
   renderPages(q('#bw-documents'), {
-    openKey: (id, source) => openDirect(id, source),
-    openBeside: (id, source) => openDocTab(currentChat(), id, source),
-    isOpen: key => { const chat = workspaceChat(); const tab = activeTab(chat); return tab?.type === 'doc' && pageKey(tab.path.at(-1), tab.source) === key; },
+    onRefresh: () => refreshLibrary(),
+    onDeletedNotes: showDeletedNotes,
+    openKey: (id, source, paperOwner) => openDirect(id, source, paperOwner),
+    openBeside: (id, source, paperOwner) => openDocTab(currentChat(), id, source, paperOwner),
+    isOpen: key => { const chat = workspaceChat(); const tab = activeTab(chat); return tab?.type === 'doc' && pageKey(tab.path.at(-1), tab.source, tab.paperOwner) === key; },
     onNewPage: parent => createDocument(parent),
     onNewSubpage: parent => createDocument(parent),
-    onImport: async id => { try { const doc = await importPaper(id); openDirect(doc.id); toast('Imported as ' + doc.title); } catch (error) { toast(error.message, 'error'); } },
+    onImport: async (id, paperOwner) => { try { const bound = await api.barkpark.get(id, undefined, paperOwner || null); const doc = await importPaper(id, bound.binding); openDirect(doc.id); toast('Imported as ' + doc.title); } catch (error) { toast(error.message, 'error'); } },
     onDelete: async id => { const d = state.documents.find(x => x.id === id); if (!d || !await askConfirm(`Delete "${d.title}"? This cannot be undone.`, { title: 'Delete page?', confirm: 'Delete', danger: true })) return; await api.docs.delete(id); for (const c of [...controllers.values()]) if (c.type === 'doc' && c.tab.path.at(-1) === id) closeTab(workspaceChat(), c.tab.id); refreshLibrary(); },
   });
   const recents = q('#bw-recent-chats');
@@ -410,13 +434,14 @@ async function deleteChat(id) {
   render();
 }
 
-function openDirect(id, source = 'local') {
+function openDirect(id, source = 'local', paperOwner = null) {
   savePositions();
   const direct = directChat();
   direct.folder = currentChat()?.folder || null;
-  let tab = direct.tabs.find(t => t.type === 'doc');
-  if (!tab) { tab = newTab('doc', { title: 'Document', path: [id], source }); direct.tabs.push(tab); }
-  else { tab.path = [id]; tab.source = source; controllers.get(tab.id)?.navigate(); }
+  const target = { kind: 'doc', id, source, ...(source === 'barkpark' ? { paperOwner } : {}) };
+  let tab = findTabForTarget(direct, target);
+  if (!tab) { tab = newTab('doc', { title: documentSummary(id, source, paperOwner)?.title || id, path: [id], source, ...(source === 'barkpark' ? { paperOwner } : {}) }); direct.tabs.push(tab); }
+  if (tab.path.at(-1) !== id) { tab.path = tab.path.slice(0, tab.path.indexOf(id) + 1); controllers.get(tab.id)?.navigate(); }
   direct.active = tab.id;
   state.mode = 'document';
   state.directTab = tab.id;
@@ -499,16 +524,23 @@ async function renameTab(chat, tabId, value) {
   const tab = chat?.tabs.find(t => t.id === tabId);
   const title = String(value || '').trim();
   if (!tab || !title || title === tab.title) return;
-  tab.title = title;
-  if (tab.type === 'chat' && state.chats[tab.sideChatId]) state.chats[tab.sideChatId].title = title;
   // A document tab's name is the document's title, so renaming the tab renames the document.
   if (tab.type === 'doc' && tab.path.at(-1)) {
     const id = tab.path.at(-1);
     try {
-      if (tab.source === 'barkpark') await api.barkpark.patchTitle(id, title); else await api.docs.save({ id, title, actor: 'you', summary: 'Renamed' });
+      if (tab.source === 'barkpark') {
+        const controller = controllers.get(tabId);
+        if (!controller?.renameTitle) throw new Error('Open this Paper before renaming its tab.');
+        await controller.renameTitle(title);
+      } else {
+        const result = await api.docs.save({ id, title, actor: 'you', summary: 'Renamed' });
+        if (result?.conflict) throw new Error('The document changed. Read it again before renaming.');
+      }
       refreshLibrary();
-    } catch (error) { toast(errorMessage(error), 'error'); }
+    } catch (error) { toast(errorMessage(error), 'error'); renderTabs(); return; }
   }
+  tab.title = title;
+  if (tab.type === 'chat' && state.chats[tab.sideChatId]) state.chats[tab.sideChatId].title = title;
   const key = favoriteKey(tabToTarget(tab));
   for (const f of state.favorites) if (favoriteKey(f.target) === key) f.label = title;
   controllers.get(tabId)?.refresh?.();
@@ -540,9 +572,9 @@ async function collectPalette(query) {
   const chat = currentChat();
   const items = [];
   const ws = workspaceChat();
-  (ws?.tabs || []).forEach(t => items.push({ group: 'Work tabs', icon: TYPE_ICON[t.type], label: t.type === 'doc' ? t.path.map(id => documentSummary(id, t.source)?.title || id).join(' → ') : t.title, hint: t.id === ws.active ? 'Current' : 'Switch', run: () => focusTab(ws, t.id) }));
+  (ws?.tabs || []).forEach(t => items.push({ group: 'Work tabs', icon: TYPE_ICON[t.type], label: t.type === 'doc' ? t.path.map(id => documentSummary(id, t.source, t.paperOwner || null)?.title || id).join(' → ') : t.title, hint: t.id === ws.active ? 'Current' : 'Switch', run: () => focusTab(ws, t.id) }));
   state.documents.forEach(d => items.push({ group: 'Documents', icon: 'file-text', label: d.title, hint: 'Open beside chat', run: () => openDocTab(chat, d.id, 'local'), alt: { hint: 'Open alone', run: () => openDirect(d.id, 'local') } }));
-  state.barkparkDocs.forEach(d => items.push({ group: 'Barkpark papers', icon: 'cloud', label: d.title, hint: 'Open', run: () => openDocTab(chat, d.id, 'barkpark') }));
+  state.barkparkDocs.forEach(d => items.push({ group: 'Barkpark papers', icon: 'cloud', label: d.title, hint: 'Open', run: () => openDocTab(chat, d.id, 'barkpark', d.paperOwner || null) }));
   state.order.map(id => state.chats[id]).filter(Boolean).forEach(c => items.push({ group: 'Recent chats', icon: 'message-circle', label: c.title, hint: c.id === state.current ? 'Current' : (c.folder ? basename(c.folder) : 'Switch'), run: () => switchChat(c.id) }));
   items.push({ group: 'New', icon: 'message-circle-plus', label: 'New chat', hint: 'Ctrl+N', run: () => createChat() });
   items.push({ group: 'New', icon: 'file-plus', label: 'New document', hint: 'Ctrl+Shift+N', run: () => createDocument() });
@@ -558,6 +590,13 @@ async function collectPalette(query) {
   }
   if (query.length >= 2) {
     try { const hits = await api.docs.search(query); hits.slice(0, 6).forEach(h => items.push({ group: 'Document text', icon: 'search', label: `${h.title}: ${h.snippet}`, hint: 'Open', run: () => openDocTab(chat, h.id, 'local'), noFilter: true })); } catch {}
+    if (state.settings?.barkpark?.enabled) {
+      try {
+        const hits = await api.barkpark.search(query);
+        hits.slice(0, 8).forEach(h => items.push({ group: 'Paper text', icon: 'search', label: `${h.title}: ${h.snippet || h.excerpt || ''}`, hint: 'Open',
+          run: () => openDocTab(chat, h.id, 'barkpark', h.paperOwner), noFilter: true }));
+      } catch {}
+    }
   }
   return items;
 }
@@ -566,8 +605,9 @@ async function renderPalette() {
   const input = q('#bw-palette-input');
   const list = q('#bw-palette-list');
   const query = input.value.trim().toLowerCase();
+  const scope = libraryScope(state);
   const all = await collectPalette(query);
-  if (q('#bw-palette').hidden) return;
+  if (q('#bw-palette').hidden || input.value.trim().toLowerCase() !== query || libraryScope(state) !== scope) return;
   paletteItems = all.filter(i => i.noFilter || !query || (i.label + ' ' + i.group + ' ' + i.hint).toLowerCase().includes(query));
   paletteIndex = Math.min(paletteIndex, Math.max(0, paletteItems.length - 1));
   let group = '';
@@ -579,20 +619,28 @@ function openPalette(prefill = '') { hideMenus(); const palette = q('#bw-palette
 function runPalette(n, alt = false) { const item = paletteItems[n]; if (!item) return; q('#bw-palette').hidden = true; (alt && item.alt ? item.alt.run : item.run)(); }
 
 // ---------- documents ----------
-async function refreshLibrary() {
-  try { state.documents = await api.docs.list(); } catch (error) { toast(error.message, 'error'); }
-  if (state.settings?.barkpark?.enabled) { try { state.barkparkDocs = await api.barkpark.list(); } catch (error) { state.barkparkDocs = []; toast('Barkpark: ' + error.message, 'error'); } } else state.barkparkDocs = [];
-  renderSidebar(); renderTabs();
-}
+const refreshLibrary = createLibraryRefresh({ state, api, render: () => { renderSidebar(); renderTabs(); }, report: message => toast(message, 'error') });
+const createLocalPaper = createNoteAction({
+  state, api, serialise, pages: ensurePages, refresh: refreshLibrary, render: renderSidebar,
+  place: (note, parent) => addPage(pageKey(note.id, 'barkpark', note.paperOwner), parent),
+  captureDestination: () => ({ mode: state.mode, chat: currentChat()?.id }),
+  open: (note, destination) => {
+    if (state.mode !== destination.mode || currentChat()?.id !== destination.chat) return;
+    if (state.mode === 'document') openDirect(note.id, 'barkpark', note.paperOwner);
+    else openDocTab(currentChat(), note.id, 'barkpark', note.paperOwner);
+  },
+  report: message => toast(message, 'error'),
+});
 
-async function importPaper(id) {
-  const doc = await api.barkpark.import(id);
+async function importPaper(id, binding) {
+  const doc = await api.barkpark.import(id, binding);
   addPage(doc.id);
   await refreshLibrary();
   return doc;
 }
 
 async function createDocument(parent = null) {
+  if (state.profileId && state.settings?.barkpark?.local?.enabled) return createLocalPaper(parent);
   const title = await askText({ title: parent ? 'New sub-page' : 'New page', label: 'Title', value: 'Untitled', confirm: 'Create' });
   if (title === null) return;
   const doc = await api.docs.create({ title: title || 'Untitled', markdown: '' });
@@ -677,7 +725,7 @@ function setChatWidth(value) { const width = Math.min(70, Math.max(30, Math.roun
 let widthTimer = null;
 function persistWidth() { clearTimeout(widthTimer); widthTimer = setTimeout(() => api.settings.set({ chatWidth: state.settings.chatWidth }).catch(() => {}), 500); }
 function applyTheme(theme) { document.documentElement.dataset.theme = theme === 'system' ? '' : theme; }
-function applySettings(patch, live) { if (patch.chatWidth != null) { state.settings.chatWidth = patch.chatWidth; applyChatWidth(patch.chatWidth); } if (patch.theme) applyTheme(patch.theme); if (!live) { refreshLibrary(); renderChat(); for (const c of controllers.values()) if (c.type === 'chat') c.render?.(); } }
+function applySettings(patch, live) { if (patch.chatWidth != null) { state.settings.chatWidth = patch.chatWidth; applyChatWidth(patch.chatWidth); } if (patch.theme) applyTheme(patch.theme); if (!live) { refreshLibrary(); renderChat(); for (const c of controllers.values()) { if (c.type === 'chat') c.render?.(); c.connectionChanged?.(); } } }
 
 function wireSplitter() {
   const splitter = q('#bw-splitter');

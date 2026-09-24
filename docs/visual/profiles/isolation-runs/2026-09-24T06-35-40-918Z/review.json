@@ -1,0 +1,26 @@
+{
+  "reviewer": "Codex",
+  "reviewedAt": "2026-09-24T06:42:21.422598+00:00",
+  "source": "944e251165c793227e8ec150728ee2ed963119ca",
+  "status": "accepted-regression",
+  "stillsInspected": [
+    "01-A-running.png",
+    "02-B-before-A-completion.png",
+    "03-B-after-A-completion.png",
+    "04-A-owned-receipt.png",
+    "05-A-undo.png",
+    "06-B-process-restart.png"
+  ],
+  "gifFramesInspected": 6,
+  "notes": "All6 full-journey stills and6 decoded GIF frames inspected. B reading position and draft remain stable across A completion and restart. A-only receipt/Undo and actual MCP isolation assertions pass. The GIF is a step tour, not continuous video.",
+  "artifacts": {
+    "01-A-running.png": "1aac72d202e3b43f9a6f01c8f1dd8df5ee1fed9003f4964f63912b7c05c1748b",
+    "02-B-before-A-completion.png": "c529bc7d1364dd516d3fc4a70d1ca1f7c03722611be11f7bee54d90198e4c030",
+    "03-B-after-A-completion.png": "f3e37cd314cc7968c11f4b8d748fd3e6871cc88d11a8e76acd27896a1642495a",
+    "04-A-owned-receipt.png": "e0ffd63c6dbbf99354d1aea786982c154f68659555ada0c0a7597e4a3db7734d",
+    "05-A-undo.png": "39b9e162b8d4cc6f613dcd47c67aa33fbee649640ac4e4d78b8f74c2de979742",
+    "06-B-process-restart.png": "c78ec4319dc606cdd94f6540fe7a5324d900271c436b5777ee31170a9ed855c4",
+    "isolation.gif": "bad3a887ced0d587c20ae9411c8e6d66684e476db2469178cba6e8fd28797435",
+    "manifest.json": "6efa5ad8fd43741198e757a283ac004c8c5b6597c21d495a8cb4d539129d2f62"
+  }
+}

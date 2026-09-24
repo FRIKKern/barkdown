@@ -1,0 +1,46 @@
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-JWwqeb
+Capture runtime: starting 
+Capture runtime: ready 
+GREEN tables       11/11 green                  21s  (row 10)
+GREEN multiblock   11/11 green                  24s  (row 11)
+GREEN opaque       22/22 note block types mount editable; 10/10 edits held by the server; 9/9 slash inserts land on the server; editor bundle from the server 51s  (row 12)
+GREEN images       6/6 green                    18s  (row 13)
+GREEN row14        4/4 green                    16s  (row 14)
+GREEN ime          4/4 green                    15s  (row 15)
+GREEN perf         3/3 green                    14s  (row 16)
+GREEN gaps         13/13 green                  30s  (rows 1–7 (Notion behaviours))
+GREEN paper        11/11 paper checks           14s  (row 9 (ifRev, 412, re-apply))
+GREEN highlight    6/6 green                    13s  (#15)
+GREEN find         6/6 green                    13s  (#17)
+GREEN emoji        4/4 green                    11s  (#18)
+GREEN mention      4/4 green                    14s  (#19)
+GREEN subsup       6/6 green                    14s  (#20)
+GREEN align        6/6 green                    17s  (#21)
+RED   linkpreview  exit 1; no verified assertion report 68s  (#23)
+      name: 'TimeoutError'
+    
+GREEN codehl       4/4 green                    14s  (#27)
+GREEN tablespans   7/7 green                    15s  (#24)
+GREEN tablewidths  5/5 green                    12s  (#25)
+GREEN tablehead    6/6 green                    14s  (#26)
+
+19/20 rows green
+Capture runtime: stopping 
+Capture runtime: stopped 
+file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:98
+    throw new AggregateError(errors, errors.map(error => error.message).join('\n'));
+          ^
+
+AggregateError: Live screenshot capture failed with exit 1
+    at captureWithCleanup (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:98:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/status-shots-isolated.mjs:33:1 {
+  [errors]: [
+    Error: Live screenshot capture failed with exit 1
+        at captureWithCleanup (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:82:51)
+        at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+        at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/status-shots-isolated.mjs:33:1
+  ]
+}
+
+Node.js v22.13.1

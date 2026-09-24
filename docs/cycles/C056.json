@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "id": "C056",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Discover the complete Paper catalog without silently truncating or treating failed reads as an empty library.",
+  "scope": [
+    "Read audited offset-pagination metadata and bound the work; preserve the last same-owner catalog on failure.",
+    "Keep the existing limited provider queries separate; add complete foreground catalog reads for direct HTTP and CLI connections.",
+    "Test real adapter requests, malformed/truncated/moving pages, superseded refreshes and connection changes; prove a disposable native library beyond60notes.",
+    "No migration authority switch, origin reclassification, new-note lifecycle change or real-library write."
+  ],
+  "acceptance": [
+    "A stable catalog beyond60notes is returned exactly once per identity, including an exactly-full final page.",
+    "Missing pagination metadata, duplicate IDs, non-advancing offsets, changing totals, errors and bounds refuse without publishing a partial successful catalog.",
+    "Same-owner failures retain known notes; a different connection/profile never borrows them, and an older request cannot overwrite a newer refresh.",
+    "Full desktop/root and fresh reviewed native/standard evidence pass; no atomic-snapshot or migration activation claim."
+  ],
+  "checkpoint": "2026-09-24",
+  "handoff": "docs/cycles/C056-complete-catalog.md",
+  "nextAction": "Push the accepted milestone, then plan C057 open-Paper connection fencing on the same controlled lane.",
+  "evidence": [
+    "docs/cycles/evidence/C056/review.json",
+    "docs/visual/catalog/runs/2026-09-24T05-08-29-090Z/manifest.json",
+    "docs/visual/approved.json"
+  ],
+  "truthReview": "PR32 merged d126875; exact-head and post-merge main checks pass.39 focused tests, full desktop and native200/201 HTTP+CLI pass. No authority activation. Root final verify passed.",
+  "screenshotReview": "Eight native stills/37 GIF frames, five live stills/37 GIF frames,40 fixture stills/diffs and40 GIF frames inspected. Explicit approval recorded at source744123f; all comparisons within tolerance."
+}

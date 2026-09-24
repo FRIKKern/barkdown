@@ -1,10 +1,10 @@
 # Working on Barkdown
 
-Start with the [active plan](docs/PLAN.md), [agent instructions](AGENTS.md) and [accepted decisions](docs/DESIGN-DECISIONS.md). The current slice is P1: profile ownership and isolation. The [handoff](docs/NEXT-AGENT.md) identifies the relevant source files and first proof to build.
+Start with the [active plan](docs/PLAN.md), [agent instructions](AGENTS.md) and [accepted decisions](docs/DESIGN-DECISIONS.md). P1 is accepted; P2 moves ordinary notes onto the Paper engine. The [handoff](docs/NEXT-AGENT.md) identifies the relevant source files and first proof to build.
 
 ## Prepare the workspace
 
-Use Node 22.13+ and a desktop session. Windows is the current local-runtime target.
+Use Node 22.13+ and a desktop session. Windows is the current local-runtime target. These installation commands are for initial setup or dependency repair; reuse healthy locked installs otherwise. Follow the [toolchain and integration preflight](docs/CYCLES.md#preflight-and-integration-first) before expensive checks.
 
 ```sh
 npm ci
@@ -47,7 +47,7 @@ Original material remains private; preserve [third-party notices](THIRD-PARTY.md
 
 ## Work in delivery cycles
 
-Follow [the cycle protocol](docs/CYCLES.md). Run `npm run cycle` to find the current bounded goal, acceptance and handoff. Checkpoint during work and before yielding; close with tests, a repository truth pass and screenshot review. Root verification checks cycle structure, but cannot certify prose or replace real integration proof.
+Follow [the cycle protocol](docs/CYCLES.md), the single workflow reference for outcome budgets, proportionate validation, concise handoffs and repository truth. Run `npm run cycle` to find the current bounded goal, acceptance and handoff. Checkpoint during work and before yielding; close with tests, a repository truth pass and screenshot review. Root verification checks cycle structure, but cannot certify prose or replace real integration proof.
 
 ## Review what the code looks like
 

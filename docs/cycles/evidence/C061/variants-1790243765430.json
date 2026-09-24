@@ -1,0 +1,1094 @@
+{
+  "capturedAt": "2026-09-24T09:56:05.430Z",
+  "barkdownCommit": "6b864848cee108a930373c4a8dae5e45bbb159b6",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "records": [
+    {
+      "label": "blank draft",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "create": {
+              "_id": "draft-address-probe",
+              "_type": "paper",
+              "title": "",
+              "blocks": []
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "results": [
+          {
+            "id": "drafts.draft-address-probe",
+            "operation": "create",
+            "document": {
+              "_createdAt": "2026-09-24T09:56:02.478000Z",
+              "_draft": true,
+              "_id": "drafts.draft-address-probe",
+              "_publishedId": "draft-address-probe",
+              "_rev": "b92570135da35a850b7c8ec45dbaea36",
+              "_type": "paper",
+              "_updatedAt": "2026-09-24T09:56:02.478000Z",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "",
+                  "type": "heading"
+                },
+                {
+                  "content": [],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                }
+              ],
+              "body_html": "<h1></h1>",
+              "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+              "style": "article",
+              "title": null
+            }
+          }
+        ],
+        "transactionId": "6725d1d873852e46792289b350598aed"
+      }
+    },
+    {
+      "label": "exact draft ops",
+      "method": "POST",
+      "route": "/v1/plugins/bulldocs/papers/drafts.draft-address-probe/ops",
+      "body": {
+        "ifRev": 0,
+        "ops": [
+          {
+            "op": "append-block",
+            "block": {
+              "id": "first-line",
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Exact draft body line"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "ok": true,
+        "rev": 1,
+        "slug": "drafts.draft-address-probe",
+        "block_ids": [
+          "first-line"
+        ],
+        "op_count": 1
+      }
+    },
+    {
+      "label": "after exact draft ops",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/draft-address-probe?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:56:02.478000Z",
+          "_draft": true,
+          "_id": "drafts.draft-address-probe",
+          "_publishedId": "draft-address-probe",
+          "_rev": "bee409cd122313ba68d3b1b636cead9b",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:56:02.974000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "",
+              "type": "heading"
+            },
+            {
+              "content": [],
+              "id": "tpl-body",
+              "type": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Exact draft body line"
+                }
+              ],
+              "id": "first-line",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "",
+                "type": "heading"
+              },
+              {
+                "content": [],
+                "id": "tpl-body",
+                "type": "paragraph"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Exact draft body line"
+                  }
+                ],
+                "id": "first-line",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1></h1><p>Exact draft body line</p>"
+          },
+          "body_html": "<h1></h1><p>Exact draft body line</p>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "Exact draft body line",
+            "extensions": {},
+            "image": null,
+            "title": null,
+            "type": "paper",
+            "url": "/papers/drafts.draft-address-probe"
+          },
+          "rev": 1,
+          "style": "article",
+          "title": "drafts.draft-address-probe"
+        },
+        "schemaHash": "e92185249cf1c9a4",
+        "syncTags": [
+          "bp:ds:production:doc:draft-address-probe",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "bee409cd122313ba68d3b1b636cead9b",
+        "ms": 17
+      }
+    },
+    {
+      "label": "exact draft stale ops",
+      "method": "POST",
+      "route": "/v1/plugins/bulldocs/papers/drafts.draft-address-probe/ops",
+      "body": {
+        "ifRev": 0,
+        "ops": [
+          {
+            "op": "append-block",
+            "block": {
+              "id": "stale-line",
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Must not land stale line"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "status": 412,
+      "data": {
+        "error": {
+          "code": "precondition_failed",
+          "message": "ifRev did not match the paper's current rev; no ops applied",
+          "hint": "Re-fetch the document and retry with the current revision — it changed under you.",
+          "request_id": "GNg5N6zbd4DFWAQAACJB"
+        }
+      }
+    },
+    {
+      "label": "after stale exact draft ops",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/draft-address-probe?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:56:02.478000Z",
+          "_draft": true,
+          "_id": "drafts.draft-address-probe",
+          "_publishedId": "draft-address-probe",
+          "_rev": "bee409cd122313ba68d3b1b636cead9b",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:56:02.974000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "",
+              "type": "heading"
+            },
+            {
+              "content": [],
+              "id": "tpl-body",
+              "type": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Exact draft body line"
+                }
+              ],
+              "id": "first-line",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "",
+                "type": "heading"
+              },
+              {
+                "content": [],
+                "id": "tpl-body",
+                "type": "paragraph"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Exact draft body line"
+                  }
+                ],
+                "id": "first-line",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1></h1><p>Exact draft body line</p>"
+          },
+          "body_html": "<h1></h1><p>Exact draft body line</p>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": "Exact draft body line",
+            "extensions": {},
+            "image": null,
+            "title": null,
+            "type": "paper",
+            "url": "/papers/drafts.draft-address-probe"
+          },
+          "rev": 1,
+          "style": "article",
+          "title": "drafts.draft-address-probe"
+        },
+        "schemaHash": "e92185249cf1c9a4",
+        "syncTags": [
+          "bp:ds:production:doc:draft-address-probe",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "bee409cd122313ba68d3b1b636cead9b",
+        "ms": 6
+      }
+    },
+    {
+      "label": "search drafts explicitly",
+      "method": "GET",
+      "route": "/v1/data/search/production?q=Exact%20draft%20body%20line&limit=20&type=paper&perspective=drafts",
+      "status": 200,
+      "data": {
+        "count": 1,
+        "offset": 0,
+        "query": "Exact draft body line",
+        "documents": [
+          {
+            "_createdAt": "2026-09-24T09:56:02.478000Z",
+            "_draft": true,
+            "_id": "drafts.draft-address-probe",
+            "_publishedId": "draft-address-probe",
+            "_rev": "bee409cd122313ba68d3b1b636cead9b",
+            "_type": "paper",
+            "_updatedAt": "2026-09-24T09:56:02.974000Z",
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "",
+                "type": "heading"
+              },
+              {
+                "content": [],
+                "id": "tpl-body",
+                "type": "paragraph"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "value": "Exact draft body line"
+                  }
+                ],
+                "id": "first-line",
+                "type": "paragraph"
+              }
+            ],
+            "body": {
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "",
+                  "type": "heading"
+                },
+                {
+                  "content": [],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                },
+                {
+                  "content": [
+                    {
+                      "type": "text",
+                      "value": "Exact draft body line"
+                    }
+                  ],
+                  "id": "first-line",
+                  "type": "paragraph"
+                }
+              ],
+              "html": "<h1></h1><p>Exact draft body line</p>"
+            },
+            "body_html": "<h1></h1><p>Exact draft body line</p>",
+            "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+            "preview": {
+              "description": "Exact draft body line",
+              "extensions": {},
+              "image": null,
+              "title": null,
+              "type": "paper",
+              "url": "/papers/drafts.draft-address-probe"
+            },
+            "rev": 1,
+            "style": "article",
+            "title": "drafts.draft-address-probe"
+          }
+        ],
+        "facets": {
+          "status": [
+            {
+              "count": 1,
+              "label": "draft"
+            }
+          ],
+          "type": [
+            {
+              "count": 1,
+              "label": "paper"
+            }
+          ]
+        },
+        "ms": 65,
+        "nextOffset": null,
+        "hasMore": false,
+        "searchEventId": "266cae5e-9049-4f57-8beb-830f817238de",
+        "recovery": null,
+        "highlights": {
+          "drafts.draft-address-probe": {
+            "title": "<mark>draft</mark>s.<mark>draft</mark>-address-probe"
+          }
+        },
+        "truncation": null,
+        "correctedTo": null,
+        "engineUsed": "postgres",
+        "parsedQuery": {
+          "prefixes": [],
+          "terms": [
+            "Exact",
+            "draft",
+            "body",
+            "line",
+            "exact"
+          ],
+          "phrases": [],
+          "excludes": []
+        }
+      }
+    },
+    {
+      "label": "create recovery fixture",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "create": {
+              "_id": "restore-contract-probe",
+              "_type": "paper",
+              "title": "Original recovery title",
+              "blocks": []
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "results": [
+          {
+            "id": "drafts.restore-contract-probe",
+            "operation": "create",
+            "document": {
+              "_createdAt": "2026-09-24T09:56:03.510000Z",
+              "_draft": true,
+              "_id": "drafts.restore-contract-probe",
+              "_publishedId": "restore-contract-probe",
+              "_rev": "8206aa2c8f28854e651b96be7f1eee2e",
+              "_type": "paper",
+              "_updatedAt": "2026-09-24T09:56:03.510000Z",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "Original recovery title",
+                  "type": "heading"
+                },
+                {
+                  "content": [],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                }
+              ],
+              "body_html": "<h1>Original recovery title</h1>",
+              "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+              "style": "article",
+              "title": "Original recovery title"
+            }
+          }
+        ],
+        "transactionId": "5166da33bc0937455ac830339d473b57"
+      }
+    },
+    {
+      "label": "before recovery deletion",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/restore-contract-probe?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:56:03.510000Z",
+          "_draft": true,
+          "_id": "drafts.restore-contract-probe",
+          "_publishedId": "restore-contract-probe",
+          "_rev": "8206aa2c8f28854e651b96be7f1eee2e",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:56:03.510000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Original recovery title",
+              "type": "heading"
+            },
+            {
+              "content": [],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body_html": "<h1>Original recovery title</h1>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "style": "article",
+          "title": "Original recovery title"
+        },
+        "schemaHash": "e92185249cf1c9a4",
+        "syncTags": [
+          "bp:ds:production:doc:restore-contract-probe",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "8206aa2c8f28854e651b96be7f1eee2e",
+        "ms": 3
+      }
+    },
+    {
+      "label": "delete recovery fixture",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "delete": {
+              "id": "restore-contract-probe",
+              "type": "paper",
+              "ifRevisionID": "8206aa2c8f28854e651b96be7f1eee2e"
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "results": [
+          {
+            "id": "drafts.restore-contract-probe",
+            "operation": "delete",
+            "document": {
+              "_createdAt": "2026-09-24T09:56:03.510000Z",
+              "_draft": true,
+              "_id": "drafts.restore-contract-probe",
+              "_publishedId": "restore-contract-probe",
+              "_rev": "8206aa2c8f28854e651b96be7f1eee2e",
+              "_type": "paper",
+              "_updatedAt": "2026-09-24T09:56:03.510000Z",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "Original recovery title",
+                  "type": "heading"
+                },
+                {
+                  "content": [],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                }
+              ],
+              "body_html": "<h1>Original recovery title</h1>",
+              "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+              "style": "article",
+              "title": "Original recovery title"
+            }
+          }
+        ],
+        "transactionId": "7a36a78e6dd203031e8c2c145c15075f"
+      }
+    },
+    {
+      "label": "recovery history",
+      "method": "GET",
+      "route": "/v1/data/history/production/paper/restore-contract-probe?limit=20",
+      "status": 200,
+      "data": {
+        "count": 2,
+        "offset": 0,
+        "limit": 20,
+        "revisions": [
+          {
+            "id": "0aca5c6a-6271-4bff-9109-3c3a4bde9c9b",
+            "status": "draft",
+            "timestamp": "2026-09-24T09:56:03.692000Z",
+            "rev": "8206aa2c8f28854e651b96be7f1eee2e",
+            "title": "Original recovery title",
+            "action": "delete",
+            "actor_user_id": null,
+            "actor_id": null,
+            "actor_kind": null,
+            "actor_label": null
+          },
+          {
+            "id": "8520909c-d553-44f4-a3e6-4c9d62be508f",
+            "status": "draft",
+            "timestamp": "2026-09-24T09:56:03.511000Z",
+            "rev": "8206aa2c8f28854e651b96be7f1eee2e",
+            "title": "Original recovery title",
+            "action": "create",
+            "actor_user_id": null,
+            "actor_id": null,
+            "actor_kind": null,
+            "actor_label": null
+          }
+        ],
+        "has_more": false
+      }
+    },
+    {
+      "label": "read retained revision",
+      "method": "GET",
+      "route": "/v1/data/revision/production/8520909c-d553-44f4-a3e6-4c9d62be508f",
+      "status": 200,
+      "data": {
+        "revision": {
+          "id": "8520909c-d553-44f4-a3e6-4c9d62be508f",
+          "status": "draft",
+          "timestamp": "2026-09-24T09:56:03.511000Z",
+          "type": "paper",
+          "rev": "8206aa2c8f28854e651b96be7f1eee2e",
+          "title": "Original recovery title",
+          "action": "create",
+          "dataset": "production",
+          "doc_id": "restore-contract-probe",
+          "content": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Original recovery title",
+                "type": "heading"
+              },
+              {
+                "content": [],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "body_html": "<h1>Original recovery title</h1>",
+            "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+            "style": "article"
+          },
+          "actor_user_id": null,
+          "actor_id": null,
+          "actor_kind": null,
+          "actor_label": null
+        }
+      }
+    },
+    {
+      "label": "restore absent draft",
+      "method": "POST",
+      "route": "/v1/data/revision/production/8520909c-d553-44f4-a3e6-4c9d62be508f/restore",
+      "body": {
+        "type": "paper"
+      },
+      "status": 200,
+      "data": {
+        "document": {
+          "_createdAt": "2026-09-24T09:56:05.034000Z",
+          "_draft": true,
+          "_id": "drafts.restore-contract-probe",
+          "_publishedId": "restore-contract-probe",
+          "_rev": "5a12de9d1dd40d304b918b10c11e7287",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:56:05.034000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Original recovery title",
+              "type": "heading"
+            },
+            {
+              "content": [],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Original recovery title",
+                "type": "heading"
+              },
+              {
+                "content": [],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>Original recovery title</h1>"
+          },
+          "body_html": "<h1>Original recovery title</h1>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": null,
+            "extensions": {},
+            "image": null,
+            "title": "Original recovery title",
+            "type": "paper",
+            "url": "/papers/restore-contract-probe"
+          },
+          "style": "article",
+          "title": "Original recovery title"
+        },
+        "restored": true
+      }
+    },
+    {
+      "label": "after restore",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/restore-contract-probe?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:56:05.034000Z",
+          "_draft": true,
+          "_id": "drafts.restore-contract-probe",
+          "_publishedId": "restore-contract-probe",
+          "_rev": "5a12de9d1dd40d304b918b10c11e7287",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:56:05.034000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Original recovery title",
+              "type": "heading"
+            },
+            {
+              "content": [],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Original recovery title",
+                "type": "heading"
+              },
+              {
+                "content": [],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>Original recovery title</h1>"
+          },
+          "body_html": "<h1>Original recovery title</h1>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": null,
+            "extensions": {},
+            "image": null,
+            "title": "Original recovery title",
+            "type": "paper",
+            "url": "/papers/restore-contract-probe"
+          },
+          "style": "article",
+          "title": "Original recovery title"
+        },
+        "schemaHash": "e92185249cf1c9a4",
+        "syncTags": [
+          "bp:ds:production:doc:restore-contract-probe",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "5a12de9d1dd40d304b918b10c11e7287",
+        "ms": 2
+      }
+    },
+    {
+      "label": "new human title after restore",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "patch": {
+              "id": "restore-contract-probe",
+              "type": "paper",
+              "ifRevisionID": "5a12de9d1dd40d304b918b10c11e7287",
+              "set": {
+                "title": "Later human title"
+              }
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "results": [
+          {
+            "id": "drafts.restore-contract-probe",
+            "operation": "update",
+            "document": {
+              "_createdAt": "2026-09-24T09:56:05.034000Z",
+              "_draft": true,
+              "_id": "drafts.restore-contract-probe",
+              "_publishedId": "restore-contract-probe",
+              "_rev": "119c264ec59f417a6c686ddcbe1dbb00",
+              "_type": "paper",
+              "_updatedAt": "2026-09-24T09:56:05.200000Z",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "Original recovery title",
+                  "type": "heading"
+                },
+                {
+                  "content": [],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                }
+              ],
+              "body": {
+                "blocks": [
+                  {
+                    "id": "tpl-title",
+                    "level": 1,
+                    "locked": true,
+                    "role": "title",
+                    "text": "Original recovery title",
+                    "type": "heading"
+                  },
+                  {
+                    "content": [],
+                    "id": "tpl-body",
+                    "type": "paragraph"
+                  }
+                ],
+                "html": "<h1>Original recovery title</h1>"
+              },
+              "body_html": "<h1>Original recovery title</h1>",
+              "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+              "preview": {
+                "description": null,
+                "extensions": {},
+                "image": null,
+                "title": "Original recovery title",
+                "type": "paper",
+                "url": "/papers/restore-contract-probe"
+              },
+              "style": "article",
+              "title": "Later human title"
+            }
+          }
+        ],
+        "transactionId": "56214475b3b181ed5c266766477c96e3"
+      }
+    },
+    {
+      "label": "before repeated restore",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/restore-contract-probe?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:56:05.034000Z",
+          "_draft": true,
+          "_id": "drafts.restore-contract-probe",
+          "_publishedId": "restore-contract-probe",
+          "_rev": "119c264ec59f417a6c686ddcbe1dbb00",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:56:05.200000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Original recovery title",
+              "type": "heading"
+            },
+            {
+              "content": [],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Original recovery title",
+                "type": "heading"
+              },
+              {
+                "content": [],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>Original recovery title</h1>"
+          },
+          "body_html": "<h1>Original recovery title</h1>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": null,
+            "extensions": {},
+            "image": null,
+            "title": "Original recovery title",
+            "type": "paper",
+            "url": "/papers/restore-contract-probe"
+          },
+          "style": "article",
+          "title": "Later human title"
+        },
+        "schemaHash": "e92185249cf1c9a4",
+        "syncTags": [
+          "bp:ds:production:doc:restore-contract-probe",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "119c264ec59f417a6c686ddcbe1dbb00",
+        "ms": 2
+      }
+    },
+    {
+      "label": "repeat old restore over newer draft",
+      "method": "POST",
+      "route": "/v1/data/revision/production/8520909c-d553-44f4-a3e6-4c9d62be508f/restore",
+      "body": {
+        "type": "paper"
+      },
+      "status": 200,
+      "data": {
+        "document": {
+          "_createdAt": "2026-09-24T09:56:05.034000Z",
+          "_draft": true,
+          "_id": "drafts.restore-contract-probe",
+          "_publishedId": "restore-contract-probe",
+          "_rev": "697640cad0dbd4dac584b47f6805c894",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:56:05.353000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Original recovery title",
+              "type": "heading"
+            },
+            {
+              "content": [],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Original recovery title",
+                "type": "heading"
+              },
+              {
+                "content": [],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>Original recovery title</h1>"
+          },
+          "body_html": "<h1>Original recovery title</h1>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": null,
+            "extensions": {},
+            "image": null,
+            "title": "Original recovery title",
+            "type": "paper",
+            "url": "/papers/restore-contract-probe"
+          },
+          "style": "article",
+          "title": "Original recovery title"
+        },
+        "restored": true
+      }
+    },
+    {
+      "label": "after repeated restore",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/restore-contract-probe?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:56:05.034000Z",
+          "_draft": true,
+          "_id": "drafts.restore-contract-probe",
+          "_publishedId": "restore-contract-probe",
+          "_rev": "697640cad0dbd4dac584b47f6805c894",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:56:05.353000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Original recovery title",
+              "type": "heading"
+            },
+            {
+              "content": [],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "Original recovery title",
+                "type": "heading"
+              },
+              {
+                "content": [],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1>Original recovery title</h1>"
+          },
+          "body_html": "<h1>Original recovery title</h1>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": null,
+            "extensions": {},
+            "image": null,
+            "title": "Original recovery title",
+            "type": "paper",
+            "url": "/papers/restore-contract-probe"
+          },
+          "style": "article",
+          "title": "Original recovery title"
+        },
+        "schemaHash": "e92185249cf1c9a4",
+        "syncTags": [
+          "bp:ds:production:doc:restore-contract-probe",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "697640cad0dbd4dac584b47f6805c894",
+        "ms": 2
+      }
+    }
+  ],
+  "limits": [
+    "Disposable HTTP observations only; no app UI or real library changes",
+    "Restore is tested as its documented unconditional operation, not falsely assumed to support a revision guard"
+  ]
+}

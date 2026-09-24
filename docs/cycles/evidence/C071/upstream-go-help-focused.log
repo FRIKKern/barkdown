@@ -1,0 +1,48 @@
+=== RUN   TestMutateBatchOnClaimedRowSendsNoMutation
+=== RUN   TestMutateBatchOnClaimedRowSendsNoMutation/createOrReplace_op
+=== RUN   TestMutateBatchOnClaimedRowSendsNoMutation/patch_op
+=== RUN   TestMutateBatchOnClaimedRowSendsNoMutation/batch-level_type,_op_states_none
+=== RUN   TestMutateBatchOnClaimedRowSendsNoMutation/claimed_target_hidden_behind_an_innocent_first_op
+--- PASS: TestMutateBatchOnClaimedRowSendsNoMutation (0.03s)
+    --- PASS: TestMutateBatchOnClaimedRowSendsNoMutation/createOrReplace_op (0.01s)
+    --- PASS: TestMutateBatchOnClaimedRowSendsNoMutation/patch_op (0.01s)
+    --- PASS: TestMutateBatchOnClaimedRowSendsNoMutation/batch-level_type,_op_states_none (0.01s)
+    --- PASS: TestMutateBatchOnClaimedRowSendsNoMutation/claimed_target_hidden_behind_an_innocent_first_op (0.01s)
+=== RUN   TestMutateDraftOnlyWriteSaysThePublishedRowIsUnchanged
+=== RUN   TestMutateDraftOnlyWriteSaysThePublishedRowIsUnchanged/minimal
+=== RUN   TestMutateDraftOnlyWriteSaysThePublishedRowIsUnchanged/table
+=== RUN   TestMutateDraftOnlyWriteSaysThePublishedRowIsUnchanged/json
+=== RUN   TestMutateDraftOnlyWriteSaysThePublishedRowIsUnchanged/yaml
+--- PASS: TestMutateDraftOnlyWriteSaysThePublishedRowIsUnchanged (0.02s)
+    --- PASS: TestMutateDraftOnlyWriteSaysThePublishedRowIsUnchanged/minimal (0.00s)
+    --- PASS: TestMutateDraftOnlyWriteSaysThePublishedRowIsUnchanged/table (0.00s)
+    --- PASS: TestMutateDraftOnlyWriteSaysThePublishedRowIsUnchanged/json (0.00s)
+    --- PASS: TestMutateDraftOnlyWriteSaysThePublishedRowIsUnchanged/yaml (0.01s)
+=== RUN   TestMutatePublishedChangePrintsTheOtherWording
+--- PASS: TestMutatePublishedChangePrintsTheOtherWording (0.00s)
+=== RUN   TestMutatePerspectiveKeepsJSONByteIdentical
+--- PASS: TestMutatePerspectiveKeepsJSONByteIdentical (0.00s)
+=== RUN   TestMutatePerspectiveSilentWhereItMustBe
+=== RUN   TestMutatePerspectiveSilentWhereItMustBe/another_write_verb
+=== RUN   TestMutatePerspectiveSilentWhereItMustBe/no_draft_key
+=== RUN   TestMutatePerspectiveSilentWhereItMustBe/no_results
+=== RUN   TestMutatePerspectiveSilentWhereItMustBe/unrecognised_receipt
+--- PASS: TestMutatePerspectiveSilentWhereItMustBe (0.01s)
+    --- PASS: TestMutatePerspectiveSilentWhereItMustBe/another_write_verb (0.00s)
+    --- PASS: TestMutatePerspectiveSilentWhereItMustBe/no_draft_key (0.00s)
+    --- PASS: TestMutatePerspectiveSilentWhereItMustBe/no_results (0.00s)
+    --- PASS: TestMutatePerspectiveSilentWhereItMustBe/unrecognised_receipt (0.00s)
+=== RUN   TestMutateStaleDraftBaseIsNamed
+--- PASS: TestMutateStaleDraftBaseIsNamed (0.00s)
+=== RUN   TestMutateHelpNamesEveryServerMutationClause
+--- PASS: TestMutateHelpNamesEveryServerMutationClause (0.00s)
+=== RUN   TestMutateShapeLinesRenderEveryOp
+--- PASS: TestMutateShapeLinesRenderEveryOp (0.00s)
+=== RUN   TestDocMutateHelpShowsEveryMutationShape
+--- PASS: TestDocMutateHelpShowsEveryMutationShape (0.00s)
+=== RUN   TestDocMutateClientFlagsStayOffTheWire
+--- PASS: TestDocMutateClientFlagsStayOffTheWire (0.00s)
+=== RUN   TestMutateWarningsToleratesBothWireShapes
+--- PASS: TestMutateWarningsToleratesBothWireShapes (0.00s)
+PASS
+ok  	github.com/FRIKKern/barkpark/internal/cli	0.148s

@@ -158,8 +158,9 @@
  * negative margin never leaves the pane (the pane clips nothing, so it would land over the chat). */
 .bw-paper-document { padding-inline: clamp(56px, 6cqw, 84px); }
 /* Empty paragraphs and dividers stay visible rows (Notion), not collapsed scaffolds with a + control. */
-.bp-paper-host .ProseMirror > .bp-resting-scaffold { display: block; }
+.bw-paper-document .bp-paper-host .ProseMirror > .bp-resting-scaffold { display: block; }
 .bp-paper-host .bp-scaffold-control { display: none; }
+.bw-paper-document .bp-paper-host .ProseMirror > [data-bp-role="title"].is-empty::before { content: "Untitled"; }
 
 /* Popups rendered into <body>: slash menu, command palette, format bubble, block menu. Same
  * neutral surface as Notion's menus: app ground, 8px radius, one soft shadow, blue accent. */
@@ -229,6 +230,9 @@
 .bw-paper-document .bw-kicker .bw-agent-edit { margin: 0; gap: 8px; font-size: 11px; letter-spacing: 0; }
 .bw-paper-document .bw-kicker .bw-agent-edit span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .bw-paper-document .bw-kicker .bw-agent-edit button { flex-shrink: 0; min-height: 24px; padding: 2px 4px; font-size: 11px; }
+.bw-paper-document .bw-kicker:has(.bw-agent-edit--reference) { height: auto; flex-wrap: wrap; }
+.bw-paper-document .bw-kicker:has(.bw-agent-edit--reference) #agent-edit { flex-basis: 100%; order: 1; }
+.bw-paper-document .bw-kicker .bw-agent-edit--reference span { overflow: visible; white-space: normal; line-height: 1.5; }
 .bw-paper-document .bw-kicker .bw-save-state { flex-shrink: 0; max-width: 38%; line-height: 12px; }
 .bw-paper-document .bw-kicker #kicker:not(:empty) + .bw-doc-meta:not(:empty)::before { content: "·"; margin-right: 10px; opacity: .6; }
 .bw-paper-document .bw-doc-title { margin-bottom: 14px; }
@@ -362,3 +366,9 @@
   border-radius: 0; font-family: var(--paper-font-mono);
 }
 .bw-paper-document .bp-paper-host .bp-canvas-code-area { color: transparent; caret-color: var(--paper-ink); }
+
+/* Unavailable references have no canvas gutter; keep recovery readable in a narrow work pane. */
+.bw-paper-document.bw-paper-unavailable { padding-inline: clamp(20px, 6cqw, 56px); }
+.bw-paper-unavailable .bw-reference-notice { margin-top: 18px; padding: 14px 16px; border: 1px solid var(--bw-border); border-radius: 8px; background: var(--bw-side); }
+.bw-reference-notice .bw-error { padding: 0; color: var(--bw-muted); font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.bw-reference-notice .bw-btn { margin-top: 12px; max-width: 100%; white-space: normal; }

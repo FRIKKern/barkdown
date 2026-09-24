@@ -1,0 +1,23 @@
+{
+  "reviewedAt": "2026-09-24T05:22:29.659759+00:00",
+  "reviewer": "Codex agent",
+  "result": "accepted for C056 observed discovery",
+  "inspected": {
+    "stills": 8,
+    "decodedGifFrames": 37
+  },
+  "observations": [
+    "Restart still waits for real Paper title and content, correcting the previous rejected placeholder capture.",
+    "At820px Retry is visible and keyboard reachable;760px keeps existing sidebar hiding behavior.",
+    "Injected rapid failures retain transient stacked toasts; these are not masked.",
+    "GIF retains startup/loading and resize letterboxing; final native Paper content is restored."
+  ],
+  "limits": [
+    "Disposable legacy-mode app with real private Paper storage; no authority switch",
+    "Relay injects transport failures and delay; never replaces server paper data",
+    "Offset discovery is not an atomic snapshot; bounded to10000papers/32MiB/60seconds after routing",
+    "Provider list tool remains limited; source origin classification is the next cycle"
+  ],
+  "manifestHash": "2d2aed951451be2e490689f91b0f06773478935385489b2566c9e7fe2251e4bd",
+  "derivedManifestHash": "c450a0e983b470e74c0ce6cc46b5207ceabbc9b281a70b2ac3c30bd826b195b1"
+}

@@ -1,0 +1,75 @@
+TAP version 13
+# Subtest: ordinary empty create keeps exact row, distinct revisions and durable read-only replay
+ok 1 - ordinary empty create keeps exact row, distinct revisions and durable read-only replay
+  ---
+  duration_ms: 29.7407
+  ...
+# Subtest: lost response reconciles once without duplicate create
+ok 2 - lost response reconciles once without duplicate create
+  ---
+  duration_ms: 15.8466
+  ...
+# Subtest: agent initial content is one create with a locked title; replay cannot change intent or later human content
+ok 3 - agent initial content is one create with a locked title; replay cannot change intent or later human content
+  ---
+  duration_ms: 28.8338
+  ...
+# Subtest: a cooperating process holding the request lease prevents any network mutation
+ok 4 - a cooperating process holding the request lease prevents any network mutation
+  ---
+  duration_ms: 24.8436
+  ...
+# Subtest: replacement and Undo retain locked title; append Undo retains other locked slots
+ok 5 - replacement and Undo retain locked title; append Undo retains other locked slots
+  ---
+  duration_ms: 1.5351
+  ...
+# Subtest: owned tool access refuses a foreign runtime profile and disabled creation without legacy fallback
+ok 6 - owned tool access refuses a foreign runtime profile and disabled creation without legacy fallback
+  ---
+  duration_ms: 11.0077
+  ...
+# Subtest: MCP creation activity follows the acknowledged exact Paper ID, never a title lookup
+ok 7 - MCP creation activity follows the acknowledged exact Paper ID, never a title lookup
+  ---
+  duration_ms: 4.7172
+  ...
+# Subtest: uncertain missing row stays read-only on retry after restart
+ok 8 - uncertain missing row stays read-only on retry after restart
+  ---
+  duration_ms: 22.3259
+  ...
+# Subtest: published twins, wrong row, lost nonce and invalid revisions are refused
+ok 9 - published twins, wrong row, lost nonce and invalid revisions are refused
+  ---
+  duration_ms: 120.6277
+  ...
+# Subtest: corrupt journal and owner change cannot create or open a replacement
+ok 10 - corrupt journal and owner change cannot create or open a replacement
+  ---
+  duration_ms: 24.6781
+  ...
+# Subtest: refused creation, read-only mode and lost lease do not write again
+ok 11 - refused creation, read-only mode and lost lease do not write again
+  ---
+  duration_ms: 21.233
+  ...
+# Subtest: draft discovery uses complete pagination and rejects malformed identities and envelopes
+ok 12 - draft discovery uses complete pagination and rejects malformed identities and envelopes
+  ---
+  duration_ms: 4.0208
+  ...
+# Subtest: draft ops require an exact row and integer Paper revision, and reject invalid acknowledgements
+ok 13 - draft ops require an exact row and integer Paper revision, and reject invalid acknowledgements
+  ---
+  duration_ms: 2.3803
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 488.4845

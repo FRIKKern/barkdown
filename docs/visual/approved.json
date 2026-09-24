@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-09-24T03-50-53-994Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-24T03-50-53-994Z/comparison.json",
-  "manifestHash": "4bf4493552eac067610858e200a91133ce0eb9c40bfb2ac7e8ec0755f22da783",
-  "reportHash": "3123140f792fd85d488b4068d90656caf15d23882f618b6375ca781e7e2850d8",
-  "reviewer": "Codex C054 review",
-  "note": "Inspected three changed side-chat stills; only 1/255 RGB shadow at y731, no clipping or geometry change. Other 37 fixture stills and all eight GIFs byte-identical to reviewed C053. Inspected five fresh live Paper stills, full-size light view and all 37 decoded GIF frames: menus, typing, table selection, quick-open and modal geometry remain sound. Full desktop suite passes including 131 migration checks; reader has no UI and these captures do not claim a history viewer or authority cutover.",
-  "reviewedAt": "2026-09-24T03:54:56.220Z",
-  "reviewPath": "docs/visual/reviews/approval-42476f73fb3e6a34cbd13dc074887a20ec6dfdf858df59e2c305f28728414725.json",
-  "reviewHash": "42476f73fb3e6a34cbd13dc074887a20ec6dfdf858df59e2c305f28728414725"
+  "manifest": "docs/visual/runs/2026-09-24T21-50-50-790Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-24T21-50-50-790Z/comparison.json",
+  "manifestHash": "c9951e28f73d083cc0f7c2812f0162a7a598e8c4762ffb007aa1ed722421a3b3",
+  "reportHash": "3748d502427c7a09108ac040128df344c100940a067536b4b999e031449b92bf",
+  "reviewer": "Codex",
+  "note": "C071: inspected all 40 fixture stills, 40 differences and 40 GIF frames; no visual or geometry changes. Inspected 8 native deletion/restart/copy stills and all 195 sampled video frames, including narrow dialog and completed repeated recovery navigation. Reviewed 5 live Paper stills and 37 editing GIF frames; real Claude/private upstream ae6065545. Fixed missing recovery dialog padding and corrected premature native navigation assertion; earlier candidate retained unapproved. Full desktop suite, 47 upstream tests and real HTTP lost-response/recreated-original/later-copy-edit checks pass. This accepts the bounded local draft recovery journey, not general crash recovery, migration activation or portability.",
+  "reviewedAt": "2026-09-24T21:54:31.595Z",
+  "reviewPath": "docs/visual/reviews/approval-91d258ec1f78ebd432f0a887370a5750b2bd01b92c9d482fbf49714d97975bf8.json",
+  "reviewHash": "91d258ec1f78ebd432f0a887370a5750b2bd01b92c9d482fbf49714d97975bf8"
 }

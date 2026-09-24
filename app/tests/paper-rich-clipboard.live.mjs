@@ -1,3 +1,4 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Actual Paper clipboard policy, media upload, native history and acknowledged reload.
 import { _electron as electron } from 'playwright';
 import assert from 'node:assert/strict';
@@ -27,7 +28,7 @@ try{
  page=await app.firstWindow();video=page.video();await page.route('https://clipboard-original.invalid/**',route=>{externalRequests.push(route.request().url());return route.abort();});
  await page.waitForSelector('#bw-pages .bw-page-row');await page.setViewportSize({width:1400,height:900});
  await page.evaluate(async server=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,viaCli:true,writes:true,server}});await window.__barkdown.refreshLibrary();},process.env.BARKDOWN_SHOTS_SERVER);
- await page.evaluate(slug=>window.__barkdown.openTarget({kind:'doc',id:slug,source:'barkpark',title:slug}),slug);await page.waitForSelector('.bw-paper-pane .ProseMirror',{timeout:60000});
+ await openFixturePaper(page, slug);await page.waitForSelector('.bw-paper-pane .ProseMirror',{timeout:60000});
  editorBundle=JSON.parse(fs.readFileSync(path.join(userData,'canvas-bundle/current.json'),'utf8'));assert.equal(editorBundle.source,'server');assert.equal(editorBundle.server,process.env.BARKDOWN_SHOTS_SERVER);
  const saved=async previous=>{
   await page.waitForFunction(rev=>{const c=document.querySelector('bp-paper-canvas');const host=[...window.__barkdown.controllers.values()].find(x=>x.el?.contains(c));const status=document.querySelector('.bw-paper-pane #save-state')?.textContent||'';return c&&host&&!host.isDirty()&&!c.hasPendingChanges()&&c.recoverySnapshot().blocks.filter(b=>b.type==='image').every(b=>b.src)&&Number(status.match(/Saved · rev (\d+)/)?.[1])>rev;},previous,{timeout:45000});return read();

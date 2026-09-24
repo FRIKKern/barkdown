@@ -26,3 +26,7 @@ fixture.stages[0].status='done'; assert.throws(() => validatePlan(fixture), /wit
 fixture.stages[0].evidence=['proof']; assert.equal(nextStage(fixture).id,'Y');
 fixture.stages[0].status='todo'; fixture.stages[0].dependsOn=['Y']; assert.throws(() => validatePlan(fixture), /cycle/);
 console.log('Active roadmap: structure, dependencies, acceptance links, evidence and next-stage selection passed.');
+
+// Standalone check refuses a stale roadmap without rewriting it.
+const roadmapRoot = (await import('node:path')).resolve((await import('node:url')).fileURLToPath(new URL('..', import.meta.url)));
+(await import('node:child_process')).execFileSync(process.execPath, [roadmapRoot + '/scripts/generate-roadmap.mjs', roadmapRoot, roadmapRoot + '/docs/images/roadmap.svg', '--check'], {stdio:'inherit'});

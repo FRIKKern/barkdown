@@ -1,0 +1,58 @@
+{
+  "reviewer": "Codex",
+  "at": "2026-09-24T20:43:40.594866+00:00",
+  "implementation": [
+    "74f61a889a4a0d565c9039bcc062e2dea73eed43",
+    "8a277bb7c8ef9bec02e396f04478e19b9c51ef85"
+  ],
+  "upstream": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "native": {
+    "manifest": "docs/visual/agent-notes/runs/2026-09-24T20-35-36-323Z/manifest.json",
+    "sha256": "56e87bddb73eac08584c76d2e9bb0f827fa38845b4f8bb93b685d13a566b5378",
+    "stillsReviewed": 6,
+    "sampledMotionFramesReviewed": 407,
+    "excerptFramesReviewed": 41,
+    "verifiedRawArtifactHashesAcrossCandidates": 17,
+    "observations": "Created note opens from acknowledged chat activity. Locked title remains while body changes. Restart restores Undo; clicking it restores exact prior blocks. Human text remains after stale Undo refusal. Wide and820px layouts inspected: controls remain reachable, narrow reading column is cramped and summary truncates. Initial light startup and long private-runtime waits remain in full video; accepted stills and excerpt are dark. Expanded API tool traces and existing opaque history label remain; this is bounded functional acceptance, not a polished narrow layout or recovery UI claim."
+  },
+  "standard": {
+    "approval": "docs/visual/reviews/approval-341bbd4d754ca600ab2765eef89e764a7fd7e11b868c9847a843e787796e6f96.json",
+    "stillsReviewed": 40,
+    "differencesReviewed": 40,
+    "gifFramesReviewed": 40,
+    "pixelOrGeometryChanges": false,
+    "environmentChanged": false,
+    "limitations": "Existing GIF palette banding in modal shadows; PNGs retain actual gradients."
+  },
+  "live": {
+    "manifest": "docs/images/status/manifest.json",
+    "sha256": "12d1e8dec7b2528130e8af629d2a67d298ec9b62d8f7ef6b39fdd819172b043f",
+    "stillsReviewed": 5,
+    "gifFramesReviewed": 37,
+    "provider": "Real Claude on isolated runtime; showcase paper, separate from scripted native ordinary-note model decisions."
+  },
+  "behavior": [
+    "docs/cycles/evidence/C069/desktop/result.json",
+    "docs/cycles/evidence/C069/final-focused/result.json",
+    "docs/cycles/evidence/C069/scope-checks/result.json",
+    "docs/cycles/evidence/C069/agent-contract-1790282294968.json"
+  ],
+  "limits": [
+    "P2/A2 remains open; no deletion/recovery, migration activation, legacy retirement or portability.",
+    "Native model choices are scripted through actual SDK; actual stdio MCP transport is tested separately.",
+    "Uncertain create readback never replays POST; uncertain edit-response recovery and arbitrary crash boundaries remain unproved.",
+    "Additional locked slots refuse whole-body replacement. Agent title editing remains unsupported.",
+    "Profile switch during an in-flight ordinary-note creation is not covered.",
+    "No merge or deployment; fresh hosted results apply only to pushed head."
+  ],
+  "rootVerification": "docs/cycles/evidence/C069/closeout/result.json",
+  "efficiency": "Perform cheap fixture/probe checks before native recordings. Serialize standard pending-pointer mutation after isolated capture source checks. Group code-area README edits before source commit; reuse unchanged passing suites and rerun affected scope tests for the final settings correction.",
+  "accounting": {
+    "desktopMs": 490872,
+    "rootVerificationMs": 46871,
+    "firstRetainedFocusedCheck": "2026-09-24T20:12:30.361Z",
+    "closeoutAt": "2026-09-24T20:46:25.171525+00:00",
+    "note": "Timestamp interval covers retained final-check work only, not all implementation time. Total active/wait time and trustworthy token usage are unavailable. Earlier fixture and assertion retries retained in the handoff."
+  },
+  "finalDocuments": "docs/cycles/evidence/C069/final-documents/result.json"
+}

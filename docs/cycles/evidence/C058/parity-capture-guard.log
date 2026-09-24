@@ -1,0 +1,20 @@
+file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:21
+  if (dirty.length) throw Error(`Evidence capture requires clean source: ${directory}\n${dirty.join('\n')}`);
+                          ^
+
+Error: Evidence capture requires clean source: C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration
+?? docs/visual/profiles/isolation-runs/2026-09-24T06-35-40-918Z/01-A-running.png
+?? docs/visual/profiles/isolation-runs/2026-09-24T06-35-40-918Z/02-B-before-A-completion.png
+?? docs/visual/profiles/isolation-runs/2026-09-24T06-35-40-918Z/03-B-after-A-completion.png
+?? docs/visual/profiles/isolation-runs/2026-09-24T06-35-40-918Z/04-A-owned-receipt.png
+?? docs/visual/profiles/isolation-runs/2026-09-24T06-35-40-918Z/05-A-undo.png
+?? docs/visual/profiles/isolation-runs/2026-09-24T06-35-40-918Z/06-B-process-restart.png
+?? docs/visual/profiles/isolation-runs/2026-09-24T06-35-40-918Z/isolation.gif
+?? docs/visual/profiles/isolation-runs/2026-09-24T06-35-40-918Z/manifest.json
+    at cleanSource (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:21:27)
+    at file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/status-shots-isolated.mjs:18:14
+    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5)
+
+Node.js v22.13.1

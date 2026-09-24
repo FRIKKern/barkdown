@@ -303,3 +303,13 @@ h1,h2,h3,p{margin:0}
 .bw-provider-login [hidden] { display: none !important; }
 .bw-provider-login .bw-inline { flex-wrap: wrap; gap: 8px; }
 .bw-provider-login .bw-sheet-note { margin: 10px 0; }
+.bw-library-notice{margin:6px 4px;padding:7px 8px;border:1px solid var(--bw-border);border-radius:6px;color:var(--bw-muted);font-size:11px;line-height:1.5}.bw-library-notice button{display:block;margin-top:4px;color:var(--bw-accent);font-size:11px}.bw-library-notice button:disabled{opacity:.6}
+/* Recovery retains original destinations; copies are placed explicitly. */
+.bw-paper-recovery { width: min(560px, calc(100vw - 32px)); padding: 24px; }
+.bw-paper-recovery h2 { font-size: 17px; margin: 0 0 8px; }
+.bw-paper-recovery .bw-sheet-hint { line-height: 1.6; margin-bottom: 8px; }
+.bw-recovery-list { max-height: 55vh; overflow: auto; }
+.bw-recovery-row { padding: 16px 0; border-bottom: 1px solid var(--bw-border); }
+.bw-recovery-row:last-child { border-bottom: 0; }
+.bw-recovery-row strong { overflow-wrap: anywhere; }
+.bw-recovery-row p { margin: 6px 0; }

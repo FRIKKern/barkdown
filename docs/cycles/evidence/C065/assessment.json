@@ -1,0 +1,22 @@
+{
+  "sampleCapturedAt": "2026-09-24T17:28:19.456Z",
+  "runCount": 15,
+  "latestVerify": {
+    "id": 36033770189,
+    "event": "pull_request",
+    "conclusion": "success"
+  },
+  "cancelledParityJobSeconds": 1229,
+  "preJobDelayMedianSeconds": 4,
+  "preJobDelayMaxSeconds": 40,
+  "visualArtifactBytes": 436624363,
+  "inputsCompared": [
+    "app/",
+    ".github/workflows/parity.yml",
+    "package.json",
+    "package-lock.json"
+  ],
+  "inputRange": "f3514cc..714a575",
+  "inputDiffEmpty": true,
+  "limits": "Same app/harness inputs do not establish identical runners or safe automatic result reuse. Agent idle time was not measured."
+}

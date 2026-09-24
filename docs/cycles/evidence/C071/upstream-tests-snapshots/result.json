@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-24T21:21:11.099Z",
+  "source": "da788c512bfda8c15d783e860bfb6ee9c876fe7c",
+  "sourceStatus": "M app/main/draft-notes.js\n M docs/NEXT-AGENT.md\n M docs/cycle.json\n?? app/main/paper-deletions.js\n?? docs/cycles/C070.json\n?? docs/cycles/C071-paper-deletion-recovery.md\n?? docs/cycles/evidence/C071/",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "upstream-tests",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C071/isolated-exunit-runner.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-09-24T21:21:11.218Z",
+      "log": "upstream-tests.log",
+      "elapsedMs": 18126,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-09-24T21:21:29.351Z"
+}

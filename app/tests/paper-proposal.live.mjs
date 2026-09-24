@@ -1,3 +1,5 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
+import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // Live check: MCP edits save directly, show intention in the paper, and support fenced Undo.
 import { _electron as electron } from 'playwright';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
@@ -19,7 +21,7 @@ const page = await app.firstWindow();
 await page.waitForSelector('#bw-documents .bw-nav');
 await page.setViewportSize({ width: 1400, height: 900 });
 try {
-  await page.evaluate(async () => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true } }); await window.__barkdown.refreshLibrary(); });
+  await connectPaperFixture(page);
   await page.evaluate(() => window.__barkdown.expandArchive());
   await page.waitForSelector('#bw-pages [data-source="barkpark"], #bw-cloud-archive [data-source="barkpark"]', { timeout: 90000 });
   const storeDir = await page.evaluate(() => window.__barkdown.state.settings.userData);
@@ -33,7 +35,7 @@ try {
   const read = (await client.callTool({ name: 'read_document', arguments: { id: 'bp:' + SLUG } })).content[0].text;
   step('MCP read_document returns the paper as markdown', read.includes('Barkpark paper') && read.includes('Top-level blocks'));
   const before = serverPaper();
-  await page.evaluate(slug => window.__barkdown.openTarget({kind:'doc',id:slug,source:'barkpark',title:slug}), SLUG);
+  await openFixturePaper(page, SLUG);
   await page.waitForSelector('.bw-paper-pane:not([hidden]) .ProseMirror', {timeout:60000});
   const marker = 'direct-' + Date.now().toString(36);
   const result = await client.callTool({name:'edit_document',arguments:{id:'bp:'+SLUG,mode:'replace_block',blockIndex:1,markdown:`Agent edit ${marker} with **bold** text.\n\nA second replacement block.\n\nA third replacement block.`,summary:'Live direct edit check'}});

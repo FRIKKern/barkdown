@@ -23,5 +23,6 @@ export function loadCycle() { return validateCycle(JSON.parse(fs.readFileSync(pa
 export function printCycle() {
   const c = loadCycle();
   console.log(`Cycle ${c.id} [${c.status}] — ${c.goal}\nParent: ${c.stage}; checkpoint: ${c.checkpoint}\nHandoff: ${c.handoff}\nNext action: ${c.nextAction}`);
+  console.log('Tripwire plan: record affected boundaries, fast checks and ready-checkpoint proof in the handoff. Batch related code/README edits before captures. Rerun for changed inputs or unresolved failures; never bypass a gate. See docs/CYCLES.md#plan-the-tripwires-before-editing.');
 }
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) printCycle();

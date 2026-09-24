@@ -1,0 +1,45 @@
+Archive gallery: C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\docs\visual\paper-archive\runs\2026-09-24T09-16-18-696Z
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator('#bw-archive [data-place="bp:v1:98373f80f0b11502c04b5d3fdcf0338b28aee9eb846bcf751b9b51a7d3972e74:same-slug"]')
+    - locator resolved to <span title="Add to Pages" data-place="bp:v1:98373f80f0b11502c04b5d3fdcf0338b28aee9eb846bcf751b9b51a7d3972e74:same-slug">…</span>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is not visible
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is not visible
+    - retrying click action
+      - waiting 100ms
+    58 × waiting for element to be visible, enabled and stable
+       - element is not visible
+     - retrying click action
+       - waiting 500ms
+
+    at C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\tests\paper-archive.live.mjs:29:87 {
+  log: [
+    `  - waiting for locator('#bw-archive [data-place="bp:v1:98373f80f0b11502c04b5d3fdcf0338b28aee9eb846bcf751b9b51a7d3972e74:same-slug"]')`,
+    '    - locator resolved to <span title="Add to Pages" data-place="bp:v1:98373f80f0b11502c04b5d3fdcf0338b28aee9eb846bcf751b9b51a7d3972e74:same-slug">…</span>',
+    '  - attempting click action',
+    '    2 × waiting for element to be visible, enabled and stable',
+    '      - element is not visible',
+    '    - retrying click action',
+    '    - waiting 20ms',
+    '    2 × waiting for element to be visible, enabled and stable',
+    '      - element is not visible',
+    '    - retrying click action',
+    '      - waiting 100ms',
+    '    58 × waiting for element to be visible, enabled and stable',
+    '       - element is not visible',
+    '     - retrying click action',
+    '       - waiting 500ms'
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v22.13.1

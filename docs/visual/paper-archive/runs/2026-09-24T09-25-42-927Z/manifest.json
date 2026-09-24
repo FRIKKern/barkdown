@@ -1,0 +1,52 @@
+{
+  "barkdownCommit": "7e15949f976c48898339103ca0cec011ee082292",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "sourceDirty": false,
+  "capturedAt": "2026-09-24T09:29:19.486Z",
+  "results": [
+    "Two real managed profiles classify same-slug discoveries in their own Archive with distinct owners; placement/nesting/draft preserved through refresh, profile changes and restart",
+    "Manual loopback catalog cannot spoof local origin; real HTTP503 retains last known cloud catalog and Retry recovers",
+    "Light, dark and narrow Archive views captured; no existing user data or provider calls"
+  ],
+  "frames": [
+    "01-profile-A-local-archive.png",
+    "02-human-group-preserved.png",
+    "03-profile-B-local-archive.png",
+    "04-restarted-B-dark.png",
+    "05-restarted-B-narrow.png",
+    "06-manual-loopback-cloud-archive.png",
+    "07-failed-refresh-retains-cloud-catalog.png",
+    "08-original-profile-organization-restored.png"
+  ],
+  "artifacts": {
+    "01-profile-A-local-archive.png": "fe4cd572078acfac8b1c547c2b157890228f1fb3b597255af9b54801f040b6cf",
+    "02-human-group-preserved.png": "0dea644d204e2bceb6e4853dcf72693d16738ab2d23bed6954cd48bf5ff982ad",
+    "03-profile-B-local-archive.png": "13abcf0aaf3a4c7f211064404381653d3c1f872ccdfb33cb5786811ea8b223be",
+    "04-restarted-B-dark.png": "f7e24a28211ec0cd679b537cb173cb12de5b9dbc6505e82549c398e044f67941",
+    "05-restarted-B-narrow.png": "35199caeeeac95746702eb8f1cdaac3ff9292a5cb1ff1ef584e50f94816d1333",
+    "06-manual-loopback-cloud-archive.png": "df7eb042084070b336917d9d6e267d327cd5e619a766e30d61cf51db0f7525bc",
+    "07-failed-refresh-retains-cloud-catalog.png": "47239fbe2be0573873dc32c70c748fb85b5d003dc3db3f69610547d10c7b40ac",
+    "08-original-profile-organization-restored.png": "26a368d0b6af2f6c362554a317bb95c352e861bf9c54f2e1a560e68dce758c96",
+    "managed-profiles.webm": "90ad1826d1a0d72a29444a814414246278f4b43c7ed48d3cdf2076965a8e649f",
+    "restart-and-connection.webm": "88cbe771a74701160f62ca8cb297d801a3a294192fdccd3ceead4c8ec42be6a6"
+  },
+  "requests": [
+    {
+      "method": "GET",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    }
+  ],
+  "primaryError": null,
+  "limits": [
+    "Managed runtime classification only; legacy unmanaged local remains cloud",
+    "Private published fixtures do not prove ordinary blank-note lifecycle, migration authority activation or portable database identity"
+  ]
+}

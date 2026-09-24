@@ -1,0 +1,78 @@
+{
+  "host": "43938c2163f07175a9c7d153f56f6e346db25a14",
+  "upstream": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "sourceDirty": true,
+  "results": [
+    "Empty draft created without publication metadata; request nonce survives real server readback",
+    "Title/body ops, stale refusal, exact draft discovery/search and service reconstruction preserve identity",
+    "Lost response after real committed create reconciles exact nonce/row without a second write",
+    "Exact draft read/write leaves an existing same-ID published twin byte-equivalent"
+  ],
+  "requests": [
+    {
+      "method": "POST",
+      "route": "/v1/data/mutate/production"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.bd-note-0c17b87a-b66f-4354-ae44-f9a5a2743886?perspective=drafts"
+    },
+    {
+      "method": "POST",
+      "route": "/v1/plugins/bulldocs/papers/drafts.bd-note-0c17b87a-b66f-4354-ae44-f9a5a2743886/ops"
+    },
+    {
+      "method": "POST",
+      "route": "/v1/plugins/bulldocs/papers/drafts.bd-note-0c17b87a-b66f-4354-ae44-f9a5a2743886/ops"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.bd-note-0c17b87a-b66f-4354-ae44-f9a5a2743886?perspective=drafts"
+    },
+    {
+      "method": "POST",
+      "route": "/v1/plugins/bulldocs/papers/drafts.bd-note-0c17b87a-b66f-4354-ae44-f9a5a2743886/ops"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.bd-note-0c17b87a-b66f-4354-ae44-f9a5a2743886?perspective=drafts"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=drafts&count=true&fields=title,slug,tags"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/search/production?q=Saffron&limit=20&type=paper&perspective=drafts"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.bd-note-0c17b87a-b66f-4354-ae44-f9a5a2743886?perspective=drafts"
+    },
+    {
+      "method": "POST",
+      "route": "/v1/data/mutate/production"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.bd-note-75cdc22d-d6d3-4217-b578-3c09ea125967?perspective=drafts"
+    },
+    {
+      "method": "POST",
+      "route": "/v1/data/mutate/production"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.welcome?perspective=drafts"
+    },
+    {
+      "method": "POST",
+      "route": "/v1/plugins/bulldocs/papers/drafts.welcome/ops"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.welcome?perspective=drafts"
+    }
+  ],
+  "failure": null
+}

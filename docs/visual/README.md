@@ -1,42 +1,42 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-24T03-50-53-994Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-24T21-50-50-790Z/README.md).
 
-Reviewed by Codex C054 review. Inspected three changed side-chat stills; only 1/255 RGB shadow at y731, no clipping or geometry change. Other 37 fixture stills and all eight GIFs byte-identical to reviewed C053. Inspected five fresh live Paper stills, full-size light view and all 37 decoded GIF frames: menus, typing, table selection, quick-open and modal geometry remain sound. Full desktop suite passes including 131 migration checks; reader has no UI and these captures do not claim a history viewer or authority cutover.
+Reviewed by Codex. C071: inspected all 40 fixture stills, 40 differences and 40 GIF frames; no visual or geometry changes. Inspected 8 native deletion/restart/copy stills and all 195 sampled video frames, including narrow dialog and completed repeated recovery navigation. Reviewed 5 live Paper stills and 37 editing GIF frames; real Claude/private upstream ae6065545. Fixed missing recovery dialog padding and corrected premature native navigation assertion; earlier candidate retained unapproved. Full desktop suite, 47 upstream tests and real HTTP lost-response/recreated-original/later-copy-edit checks pass. This accepts the bounded local draft recovery journey, not general crash recovery, migration activation or portability.
 
-Source commit: 37635038d7fe37710e50ebbe884b443faa2dd340; platform: win32; Electron: 38.8.6. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: aa8c6dc00b59fd1689306c93a71b69540fa54e89; platform: win32; Electron: 38.8.6. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-09-24T03-50-53-994Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-09-24T21-50-50-790Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-09-24T03-50-53-994Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-09-24T21-50-50-790Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-09-24T03-50-53-994Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-09-24T21-50-50-790Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-09-24T03-50-53-994Z/documents.gif)
+![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-09-24T21-50-50-790Z/documents.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-09-24T03-50-53-994Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-09-24T21-50-50-790Z/settings.gif)
 
 ## [goals](goals/README.md)
 
-![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-09-24T03-50-53-994Z/goals.gif)
+![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-09-24T21-50-50-790Z/goals.gif)
 
 ## [profiles](profiles/README.md)
 
-![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-09-24T03-50-53-994Z/profiles.gif)
+![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-09-24T21-50-50-790Z/profiles.gif)
 
 ## [adoption](adoption/README.md)
 
-![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-09-24T03-50-53-994Z/adoption.gif)
+![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-09-24T21-50-50-790Z/adoption.gif)
 
 ## Dedicated journeys and remaining limits
 
@@ -70,3 +70,11 @@ The [Paper editor gallery](../images/status/manifest.json) records its own live 
 - [migration-restore](migration/README.md): actual-Electron-restored-legacy-profile-history-drafts-media-save-restart.
 - [migration-native-source](migration/README.md): actual-legacy-save-to-Paper-link-list-edit-Undo-navigation-restart.
 - [migration-workspace](migration/README.md): actual-projected-Pages-favorites-sidechat-paths-and-restart.
+- [paper-catalog](catalog/README.md): actual-private-Paper-201-note-discovery-failure-retry-and-restart.
+- [paper-connection](paper-connection/README.md): native-open-Paper-foreign-connection-refusal-original-retry-CLI-restart.
+- [paper-evidence](paper-evidence/README.md): native-fresh-foreign-binding-readonly-legacy-evidence-and-original-HTTP-CLI-Undo-restart.
+- [paper-navigation](paper-navigation/README.md): native-saved-same-slug-tabs-favorites-Pages-foreign-refusal-and-restart.
+- [paper-archive](paper-archive/README.md): native-managed-profiles-and-manual-loopback.
+- [paper-notes](paper-notes/README.md): native-managed-local-empty-note-typing-search-and-profile-restart.
+- [agent-notes](agent-notes/README.md): native-managed-agent-create-body-edit-Undo-profile-restart.
+- [paper-deletions](paper-deletions/README.md): private-real-runtime-native-restart-and-copy.

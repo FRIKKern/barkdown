@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "id": "C061",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Establish the actual ordinary empty-note lifecycle contract and its blockers before wiring one owned Paper service.",
+  "scope": [
+    "Read-only audit of pinned upstream draft/create/ops/title/delete contracts.",
+    "Disposable private HTTP probe only; preserve requests/responses without credentials.",
+    "No app behavior, publishing-wall bypass, upstream implementation, real data or migration activation."
+  ],
+  "acceptance": [
+    "Record empty/untitled draft shape, catalog/read visibility and revisions from actual HTTP responses.",
+    "Probe guarded content/title edits, stale refusal, duplicate/concurrent creation and deletion/history limits without assuming safety.",
+    "Publish a concrete next implementation contract, reconcile active queue/handoff and run root verification; distinguish API observations from UI proof."
+  ],
+  "checkpoint": "2026-09-24",
+  "handoff": "docs/cycles/C061-ordinary-note-contract.md",
+  "nextAction": "Prepare the private profile-owned draft-note adapter and native empty-draft journey described in docs/migration/ordinary-notes.md; inspect final-head CI before merging PR33.",
+  "evidence": [
+    "docs/cycles/evidence/C061/assessment.json",
+    "docs/migration/ordinary-notes.md",
+    "docs/cycles/evidence/C061/root.log",
+    "docs/cycles/evidence/C061/lost-response.log",
+    "docs/cycles/evidence/C060/linux-parity-passed.json"
+  ],
+  "truthReview": "C060 Linux parity35983714483 passed. One delivery branch and draftPR33; upstream clean/read-only at30c007e43. All referenced evidence logs explicitly tracked. No real data or shared service changed.",
+  "screenshotReview": "Documentation/API-contract audit only; no app/capture input changes. C060 native/live/standard evidence remains applicable and is not relabeled as draft-note UI proof."
+}

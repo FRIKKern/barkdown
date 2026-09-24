@@ -1,0 +1,12 @@
+{
+  "yamlParser": "PyYAML 6.0.3",
+  "eventPolicy": {
+    "mainPush": true,
+    "featureBranchPush": false,
+    "pullRequestUpdate": true,
+    "manualDispatch": true
+  },
+  "jobStepsAndPermissionsUnchanged": true,
+  "concurrency": "Same workflow/ref replaces obsolete running work; cancellation is not a pass",
+  "limits": "Parsed workflow configuration and compared job definitions; hosted scheduler behavior remains CI validation."
+}

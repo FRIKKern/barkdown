@@ -1,3 +1,5 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
+import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs';
 // Row 13 (plan #9, with #14): a picture pasted or dropped onto the canvas becomes an image block whose
 // src is a media asset on the connected Barkpark; alt and width round-trip; a reload shows the same.
 // Live against the bp-connected server; not part of npm test. Red until the paste/drop + upload path is in.
@@ -10,16 +12,16 @@ const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-images';
 publishFixture({ slug: SLUG, title: 'Pictures on the canvas', description: 'Scratch paper for the Barkdown image row: a picture pasted or dropped onto the canvas uploads to Barkpark media and lands as an image block; alt and width round-trip. Rewritten on every run of tests/editor-images.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Pictures on the canvas' }, para('Paste a picture after this paragraph.'), para('Drop a picture onto this paragraph.')] });
 
-const server = ((JSON.parse(require('child_process').execFileSync('bp', ['use', '-o', 'json'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], shell: true })).active || {}).server || 'http://localhost:4000').replace(/\/$/, '');
+const server = paperFixtureScope().server.replace(/\/$/, '');
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-images-'));
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });
 await page.waitForSelector('#bw-pages .bw-page-row');
 await page.setViewportSize({ width: 1400, height: 900 });
-await page.evaluate(async () => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true } }); await window.__barkdown.refreshLibrary(); });
+await connectPaperFixture(page);
 await page.waitForFunction(() => window.__barkdown.state.barkparkDocs.length > 0, null, { timeout: 90000 });
-const open = async () => { await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug }), SLUG); await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 }); await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 }); await page.waitForTimeout(500); };
+const open = async () => { await openFixturePaper(page, SLUG); await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 }); await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 }); await page.waitForTimeout(500); };
 await open();
 
 const results = [];

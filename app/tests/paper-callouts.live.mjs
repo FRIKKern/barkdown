@@ -1,3 +1,4 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Real callout styling and native edit journey; disposable server only.
 import { _electron as electron } from 'playwright';
 import assert from 'node:assert/strict';
@@ -19,7 +20,7 @@ const frames=[],results=[];
 try{
  const page=await app.firstWindow();await page.waitForSelector('#bw-pages .bw-page-row');await page.setViewportSize({width:1400,height:1200});
  await page.evaluate(async server=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,viaCli:true,writes:true,server}});await window.__barkdown.refreshLibrary();},process.env.BARKDOWN_SHOTS_SERVER);
- await page.evaluate(id=>window.__barkdown.openTarget({kind:'doc',id,source:'barkpark',title:'Notes worth noticing'}),slug);
+ await openFixturePaper(page, slug);
  await page.evaluate(()=>{const r=document.getElementById('app');r.style.setProperty('--bw-chat','36fr');r.style.setProperty('--bw-work','64fr');document.querySelector('#bw-splitter')?.setAttribute('aria-valuenow','36');});
  const pm=page.locator('.bw-paper-pane:not([hidden]) .ProseMirror');await pm.waitFor({timeout:60000});
  const shot=async name=>{await page.evaluate(async()=>{await Promise.all(document.getAnimations().filter(a=>a.effect?.getComputedTiming().iterations!==Infinity).map(a=>a.finished.catch(()=>{})));});await page.screenshot({path:path.join(out,name+'.png')});frames.push(name+'.png');};

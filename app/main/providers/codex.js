@@ -27,10 +27,11 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
   context = run.context;
   storeDir = run.scope.storeDir;
   settings = frozenCopy(settings || {}); images = frozenCopy(images || []);
-  const spec = mcpServerSpec(storeDir, run.scope);
   (async () => {
     try {
       const { Codex } = await loadSdk();
+      await require('./runs').preparePaperNavigation(run);
+      const spec = mcpServerSpec(storeDir, run.scope);
       if (run.cancelled) { run.emit({ type: 'done', cancelled: true, provider: 'codex' }); return; }
       const folder = context.folder || null;
       const codex = new Codex({ env: { ...run.scope.env }, config: { ...(settings.goalWorker ? { agents: { enabled: false }, features: { goals: false } } : {}), mcp_servers: { barkdown: { command: spec.command, args: spec.args, env: spec.env, default_tools_approval_mode: 'approve' } } } });

@@ -24,6 +24,7 @@ function captureScope({ profileId = null, storeDir, context = {}, connection } =
   const edits = editModule.createAgentEdits({ store, documents });
   const env = { ...process.env };
   const capturedConnection = frozenCopy(connection ?? { ...(store.readJson('barkpark.json', null) || {}), token: env.BARKDOWN_BP_TOKEN || '' });
+  if (capturedConnection.managedProfileId && capturedConnection.managedProfileId !== profileId) throw new Error('Managed Paper runtime belongs to another run profile');
   if (profileId && capturedConnection.viaCli) throw new Error('Profile runs require an explicit Barkpark connection; the shared CLI selection is not profile-owned');
   env.BARKDOWN_BP_TOKEN = capturedConnection.token || '';
   delete env.BARKDOWN_RUN_CONNECTION;

@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-24T20:12:30.361Z",
+  "source": "7052c177b177adc653babae3b2dfe8122516c4b8",
+  "sourceStatus": "M app/main/agent-edits.js\n M app/main/agent.js\n M app/main/draft-notes.js\n M app/main/mcp-server.js\n M app/main/profile-runtime.js\n M app/main/providers/run-scope.js\n M app/main/providers/runs.js\n M app/tests/draft-notes.test.mjs\n M docs/NEXT-AGENT.md\n M docs/cycle.json\n?? app/main/paper-edit-ops.js\n?? app/main/paper-tools.js\n?? app/tests/agent-notes-ui.live.mjs\n?? app/tests/agent-notes.live.mjs\n?? docs/cycles/C068-efficient-checkpoints.json\n?? docs/cycles/C069-agent-paper-notes.md\n?? docs/cycles/evidence/C069/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "focused-drafts",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/draft-notes.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-24T20:12:30.459Z",
+      "log": "focused-drafts.log",
+      "elapsedMs": 522,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "receipt-owners",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app",
+      "argv": [
+        "node",
+        "tests/paper-evidence-owner.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-24T20:12:30.988Z",
+      "log": "receipt-owners.log",
+      "elapsedMs": 332,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "api-loop",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app",
+      "argv": [
+        "node",
+        "tests/api-paper.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-24T20:12:31.321Z",
+      "log": "api-loop.log",
+      "elapsedMs": 372,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "mcp-legacy",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app",
+      "argv": [
+        "node",
+        "tests/mcp.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-24T20:12:31.695Z",
+      "log": "mcp-legacy.log",
+      "elapsedMs": 739,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "profile-runtime",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app",
+      "argv": [
+        "node",
+        "tests/profile-runtime.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-24T20:12:32.434Z",
+      "log": "profile-runtime.log",
+      "elapsedMs": 1662,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "profile-service",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app",
+      "argv": [
+        "node",
+        "tests/profile-service.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-24T20:12:34.098Z",
+      "log": "profile-service.log",
+      "elapsedMs": 1175,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-24T20:12:35.273Z",
+      "log": "build.log",
+      "elapsedMs": 6255,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-09-24T20:12:41.530Z"
+}

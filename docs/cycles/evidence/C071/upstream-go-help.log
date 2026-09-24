@@ -1,0 +1,816 @@
+go: downloading golang.org/x/image v0.44.0
+go: downloading golang.org/x/text v0.40.0
+--- FAIL: TestBashCompletionVerbExec (0.22s)
+    builtins_test.go:333: bash exec failed: exit status 1
+        --- script+harness ---
+        # bash completion for bp — eval "$(bp completion bash)" or source a saved copy.
+        _bp_complete() {
+          local cur="${COMP_WORDS[COMP_CWORD]}"
+          local nouns="agent attach barkparks capabilities chat cloud cmux completion context deploy dev doc doctor export go-live help instance launch listen login latency logout make mcp media migrate onramp paper plugin provider register scaffy schema search seed server servers setup sheet signup sites style subscribe task tasks team teams tinker token uninstall upgrade use vercel version webhook whoami workspace"
+          local globals="-s --server --token -w --workspace -p --project -d --dataset -o --output --limit --offset --manifest --json -q --quiet -v --verbose --no-color --dry-run --yes --all --full --no-cache -h --help --version -V"
+          if [[ $COMP_CWORD -eq 1 ]]; then
+            # A bare TAB offers nouns; a leading dash offers the global flags.
+            if [[ "$cur" == -* ]]; then
+              COMPREPLY=( $(compgen -W "$globals" -- "$cur") )
+            else
+              COMPREPLY=( $(compgen -W "$nouns" -- "$cur") )
+            fi
+          elif [[ $COMP_CWORD -eq 2 ]]; then
+            local __bpverbs=""
+            case "${COMP_WORDS[1]}" in
+              doc) __bpverbs="create delete get";;
+              task) __bpverbs="close next ready";;
+              *) ;;
+            esac
+            COMPREPLY=( $(compgen -W "$__bpverbs $globals" -- "$cur") )
+          else
+            local __bpflags=()
+            case "${COMP_WORDS[1]} ${COMP_WORDS[2]}" in
+              "doc create") __bpflags=('--publish' '--set');;
+              "task close") __bpflags=('--epoch');;
+              *) ;;
+            esac
+            # Builtin trees: match on every word typed so far, so "bp cloud site <TAB>"
+            # offers the site verbs and "bp cloud site deploy --<TAB>" offers --prebuilt.
+            local __bppath=()
+            case "${COMP_WORDS[*]:1:COMP_CWORD-1}" in
+              "cloud site") __bppath=('build' 'create' 'delete' 'deploy' 'deployments' 'deploys' 'doctor' 'domain' 'domains' 'env' 'get' 'github' 'list' 'log' 'logs' 'ls' 'matrix' 'open' 'preflight' 'rm' 'rollback' 'settings' 'show' 'status');;
+              "cloud site build") __bppath=('--deployment' '--domain' '--force' '--no-follow' '--prebuilt' '--via' '--wait-for-live');;
+              "cloud site create") __bppath=('--dataset' '--deploy' '--doc-type' '--framework' '--instance' '--kind' '--name' '--template' '--theme');;
+              "cloud site delete") __bppath=('--yes');;
+              "cloud site deploy") __bppath=('--deployment' '--domain' '--force' '--no-follow' '--prebuilt' '--via' '--wait-for-live');;
+              "cloud site open") __bppath=('--print-only');;
+              "cloud site preflight") __bppath=('--dir' '--skip-build');;
+              "cloud site rm") __bppath=('--yes');;
+              "cloud site settings") __bppath=('--doc-type' '--prebuilt-enabled' '--theme');;
+              "cloud site status") __bppath=('--window');;
+              "cloud sites") __bppath=('build' 'create' 'delete' 'deploy' 'deployments' 'deploys' 'doctor' 'domain' 'domains' 'env' 'get' 'github' 'list' 'log' 'logs' 'ls' 'matrix' 'open' 'preflight' 'rm' 'rollback' 'settings' 'show' 'status');;
+              "cloud token") __bppath=('ls' 'mint' 'revoke');;
+              *) ;;
+            esac
+            # SECURITY: flag names are untrusted (manifest cache). compgen -W RE-EXPANDS
+            # its wordlist — command substitution included — so a poisoned flag reaching
+            # `compgen -W "$__bpflags"` would execute on TAB even though the
+            # assignment above is single-quoted. Match manually instead, and read the
+            # arrays FULLY QUOTED: "${arr[@]}" yields one word per element with no word
+            # splitting and no pathname expansion, so a flag named --x* stays --x*
+            # instead of matching files in $PWD. The ${arr[@]+...} wrapper is the
+            # bash-3.2 empty-array guard: a bare "${arr[@]}" on an empty array is an
+            # unbound reference under "set -u" there. $globals is a baked constant, not
+            # manifest data, so it keeps its intentional split.
+            local __bpword
+            COMPREPLY=()
+            for __bpword in ${__bpflags[@]+"${__bpflags[@]}"} ${__bppath[@]+"${__bppath[@]}"} $globals; do
+              case "$__bpword" in "$cur"*) COMPREPLY+=("$__bpword");; esac
+            done
+          fi
+        }
+        complete -F _bp_complete bp
+        
+        COMP_WORDS=(bp task '')
+        COMP_CWORD=2
+        _bp_complete
+        printf '%s\n' "${COMPREPLY[@]}"
+        
+        --- output ---
+        /bin/bash: bp: command not found
+        /bin/bash: -c: line 5: conditional binary operator expected
+        /bin/bash: -c: line 5: syntax error near `1'
+        /bin/bash: -c: line 5: `  if [[  -eq 1 ]]; then'
+--- FAIL: TestBashCompletionFlagInjectionNeutralized (0.23s)
+    builtins_test.go:391: bash exec failed: exit status 1
+        --- harness ---
+        # bash completion for bp — eval "$(bp completion bash)" or source a saved copy.
+        _bp_complete() {
+          local cur="${COMP_WORDS[COMP_CWORD]}"
+          local nouns="agent attach barkparks capabilities chat cloud cmux completion context deploy dev doc doctor export go-live help instance launch listen login latency logout make mcp media migrate onramp paper plugin provider register scaffy schema search seed server servers setup sheet signup sites style subscribe task tasks team teams tinker token uninstall upgrade use vercel version webhook whoami workspace"
+          local globals="-s --server --token -w --workspace -p --project -d --dataset -o --output --limit --offset --manifest --json -q --quiet -v --verbose --no-color --dry-run --yes --all --full --no-cache -h --help --version -V"
+          if [[ $COMP_CWORD -eq 1 ]]; then
+            # A bare TAB offers nouns; a leading dash offers the global flags.
+            if [[ "$cur" == -* ]]; then
+              COMPREPLY=( $(compgen -W "$globals" -- "$cur") )
+            else
+              COMPREPLY=( $(compgen -W "$nouns" -- "$cur") )
+            fi
+          elif [[ $COMP_CWORD -eq 2 ]]; then
+            local __bpverbs=""
+            case "${COMP_WORDS[1]}" in
+              doc) __bpverbs="create delete get";;
+              task) __bpverbs="close next ready";;
+              *) ;;
+            esac
+            COMPREPLY=( $(compgen -W "$__bpverbs $globals" -- "$cur") )
+          else
+            local __bpflags=()
+            case "${COMP_WORDS[1]} ${COMP_WORDS[2]}" in
+              "doc create") __bpflags=('--x$(>pwned)');;
+              *) ;;
+            esac
+            # Builtin trees: match on every word typed so far, so "bp cloud site <TAB>"
+            # offers the site verbs and "bp cloud site deploy --<TAB>" offers --prebuilt.
+            local __bppath=()
+            case "${COMP_WORDS[*]:1:COMP_CWORD-1}" in
+              "cloud site") __bppath=('build' 'create' 'delete' 'deploy' 'deployments' 'deploys' 'doctor' 'domain' 'domains' 'env' 'get' 'github' 'list' 'log' 'logs' 'ls' 'matrix' 'open' 'preflight' 'rm' 'rollback' 'settings' 'show' 'status');;
+              "cloud site build") __bppath=('--deployment' '--domain' '--force' '--no-follow' '--prebuilt' '--via' '--wait-for-live');;
+              "cloud site create") __bppath=('--dataset' '--deploy' '--doc-type' '--framework' '--instance' '--kind' '--name' '--template' '--theme');;
+              "cloud site delete") __bppath=('--yes');;
+              "cloud site deploy") __bppath=('--deployment' '--domain' '--force' '--no-follow' '--prebuilt' '--via' '--wait-for-live');;
+              "cloud site open") __bppath=('--print-only');;
+              "cloud site preflight") __bppath=('--dir' '--skip-build');;
+              "cloud site rm") __bppath=('--yes');;
+              "cloud site settings") __bppath=('--doc-type' '--prebuilt-enabled' '--theme');;
+              "cloud site status") __bppath=('--window');;
+              "cloud sites") __bppath=('build' 'create' 'delete' 'deploy' 'deployments' 'deploys' 'doctor' 'domain' 'domains' 'env' 'get' 'github' 'list' 'log' 'logs' 'ls' 'matrix' 'open' 'preflight' 'rm' 'rollback' 'settings' 'show' 'status');;
+              "cloud token") __bppath=('ls' 'mint' 'revoke');;
+              *) ;;
+            esac
+            # SECURITY: flag names are untrusted (manifest cache). compgen -W RE-EXPANDS
+            # its wordlist — command substitution included — so a poisoned flag reaching
+            # `compgen -W "$__bpflags"` would execute on TAB even though the
+            # assignment above is single-quoted. Match manually instead, and read the
+            # arrays FULLY QUOTED: "${arr[@]}" yields one word per element with no word
+            # splitting and no pathname expansion, so a flag named --x* stays --x*
+            # instead of matching files in $PWD. The ${arr[@]+...} wrapper is the
+            # bash-3.2 empty-array guard: a bare "${arr[@]}" on an empty array is an
+            # unbound reference under "set -u" there. $globals is a baked constant, not
+            # manifest data, so it keeps its intentional split.
+            local __bpword
+            COMPREPLY=()
+            for __bpword in ${__bpflags[@]+"${__bpflags[@]}"} ${__bppath[@]+"${__bppath[@]}"} $globals; do
+              case "$__bpword" in "$cur"*) COMPREPLY+=("$__bpword");; esac
+            done
+          fi
+        }
+        complete -F _bp_complete bp
+        
+        COMP_WORDS=(bp doc create '')
+        COMP_CWORD=3
+        _bp_complete
+        printf '%s\n' "${COMPREPLY[@]}"
+        
+        --- output ---
+        /bin/bash: bp: command not found
+        /bin/bash: -c: line 5: conditional binary operator expected
+        /bin/bash: -c: line 5: syntax error near `1'
+        /bin/bash: -c: line 5: `  if [[  -eq 1 ]]; then'
+--- FAIL: TestBashCompletionFlagNotReExpanded (1.01s)
+    --- FAIL: TestBashCompletionFlagNotReExpanded/glob_metachar_is_not_pathname-expanded (0.57s)
+        builtins_test.go:443: bash exec failed: exit status 1
+            --- harness ---
+            # bash completion for bp — eval "$(bp completion bash)" or source a saved copy.
+            _bp_complete() {
+              local cur="${COMP_WORDS[COMP_CWORD]}"
+              local nouns="agent attach barkparks capabilities chat cloud cmux completion context deploy dev doc doctor export go-live help instance launch listen login latency logout make mcp media migrate onramp paper plugin provider register scaffy schema search seed server servers setup sheet signup sites style subscribe task tasks team teams tinker token uninstall upgrade use vercel version webhook whoami workspace"
+              local globals="-s --server --token -w --workspace -p --project -d --dataset -o --output --limit --offset --manifest --json -q --quiet -v --verbose --no-color --dry-run --yes --all --full --no-cache -h --help --version -V"
+              if [[ $COMP_CWORD -eq 1 ]]; then
+                # A bare TAB offers nouns; a leading dash offers the global flags.
+                if [[ "$cur" == -* ]]; then
+                  COMPREPLY=( $(compgen -W "$globals" -- "$cur") )
+                else
+                  COMPREPLY=( $(compgen -W "$nouns" -- "$cur") )
+                fi
+              elif [[ $COMP_CWORD -eq 2 ]]; then
+                local __bpverbs=""
+                case "${COMP_WORDS[1]}" in
+                  doc) __bpverbs="create delete get";;
+                  task) __bpverbs="close next ready";;
+                  *) ;;
+                esac
+                COMPREPLY=( $(compgen -W "$__bpverbs $globals" -- "$cur") )
+              else
+                local __bpflags=()
+                case "${COMP_WORDS[1]} ${COMP_WORDS[2]}" in
+                  "doc create") __bpflags=('--x*');;
+                  *) ;;
+                esac
+                # Builtin trees: match on every word typed so far, so "bp cloud site <TAB>"
+                # offers the site verbs and "bp cloud site deploy --<TAB>" offers --prebuilt.
+                local __bppath=()
+                case "${COMP_WORDS[*]:1:COMP_CWORD-1}" in
+                  "cloud site") __bppath=('build' 'create' 'delete' 'deploy' 'deployments' 'deploys' 'doctor' 'domain' 'domains' 'env' 'get' 'github' 'list' 'log' 'logs' 'ls' 'matrix' 'open' 'preflight' 'rm' 'rollback' 'settings' 'show' 'status');;
+                  "cloud site build") __bppath=('--deployment' '--domain' '--force' '--no-follow' '--prebuilt' '--via' '--wait-for-live');;
+                  "cloud site create") __bppath=('--dataset' '--deploy' '--doc-type' '--framework' '--instance' '--kind' '--name' '--template' '--theme');;
+                  "cloud site delete") __bppath=('--yes');;
+                  "cloud site deploy") __bppath=('--deployment' '--domain' '--force' '--no-follow' '--prebuilt' '--via' '--wait-for-live');;
+                  "cloud site open") __bppath=('--print-only');;
+                  "cloud site preflight") __bppath=('--dir' '--skip-build');;
+                  "cloud site rm") __bppath=('--yes');;
+                  "cloud site settings") __bppath=('--doc-type' '--prebuilt-enabled' '--theme');;
+                  "cloud site status") __bppath=('--window');;
+                  "cloud sites") __bppath=('build' 'create' 'delete' 'deploy' 'deployments' 'deploys' 'doctor' 'domain' 'domains' 'env' 'get' 'github' 'list' 'log' 'logs' 'ls' 'matrix' 'open' 'preflight' 'rm' 'rollback' 'settings' 'show' 'status');;
+                  "cloud token") __bppath=('ls' 'mint' 'revoke');;
+                  *) ;;
+                esac
+                # SECURITY: flag names are untrusted (manifest cache). compgen -W RE-EXPANDS
+                # its wordlist — command substitution included — so a poisoned flag reaching
+                # `compgen -W "$__bpflags"` would execute on TAB even though the
+                # assignment above is single-quoted. Match manually instead, and read the
+                # arrays FULLY QUOTED: "${arr[@]}" yields one word per element with no word
+                # splitting and no pathname expansion, so a flag named --x* stays --x*
+                # instead of matching files in $PWD. The ${arr[@]+...} wrapper is the
+                # bash-3.2 empty-array guard: a bare "${arr[@]}" on an empty array is an
+                # unbound reference under "set -u" there. $globals is a baked constant, not
+                # manifest data, so it keeps its intentional split.
+                local __bpword
+                COMPREPLY=()
+                for __bpword in ${__bpflags[@]+"${__bpflags[@]}"} ${__bppath[@]+"${__bppath[@]}"} $globals; do
+                  case "$__bpword" in "$cur"*) COMPREPLY+=("$__bpword");; esac
+                done
+              fi
+            }
+            complete -F _bp_complete bp
+            
+            COMP_WORDS=(bp doc create '')
+            COMP_CWORD=3
+            _bp_complete
+            printf '%s\n' "${COMPREPLY[@]}"
+            
+            --- output ---
+            /bin/bash: bp: command not found
+            /bin/bash: -c: line 5: conditional binary operator expected
+            /bin/bash: -c: line 5: syntax error near `1'
+            /bin/bash: -c: line 5: `  if [[  -eq 1 ]]; then'
+    --- FAIL: TestBashCompletionFlagNotReExpanded/a_spaced_token_stays_one_candidate (0.28s)
+        builtins_test.go:455: bash exec failed: exit status 1
+            --- harness ---
+            # bash completion for bp — eval "$(bp completion bash)" or source a saved copy.
+            _bp_complete() {
+              local cur="${COMP_WORDS[COMP_CWORD]}"
+              local nouns="agent attach barkparks capabilities chat cloud cmux completion context deploy dev doc doctor export go-live help instance launch listen login latency logout make mcp media migrate onramp paper plugin provider register scaffy schema search seed server servers setup sheet signup sites style subscribe task tasks team teams tinker token uninstall upgrade use vercel version webhook whoami workspace"
+              local globals="-s --server --token -w --workspace -p --project -d --dataset -o --output --limit --offset --manifest --json -q --quiet -v --verbose --no-color --dry-run --yes --all --full --no-cache -h --help --version -V"
+              if [[ $COMP_CWORD -eq 1 ]]; then
+                # A bare TAB offers nouns; a leading dash offers the global flags.
+                if [[ "$cur" == -* ]]; then
+                  COMPREPLY=( $(compgen -W "$globals" -- "$cur") )
+                else
+                  COMPREPLY=( $(compgen -W "$nouns" -- "$cur") )
+                fi
+              elif [[ $COMP_CWORD -eq 2 ]]; then
+                local __bpverbs=""
+                case "${COMP_WORDS[1]}" in
+                  doc) __bpverbs="create delete get";;
+                  task) __bpverbs="close next ready";;
+                  *) ;;
+                esac
+                COMPREPLY=( $(compgen -W "$__bpverbs $globals" -- "$cur") )
+              else
+                local __bpflags=()
+                case "${COMP_WORDS[1]} ${COMP_WORDS[2]}" in
+                  "doc create") __bpflags=('--zz b');;
+                  *) ;;
+                esac
+                # Builtin trees: match on every word typed so far, so "bp cloud site <TAB>"
+                # offers the site verbs and "bp cloud site deploy --<TAB>" offers --prebuilt.
+                local __bppath=()
+                case "${COMP_WORDS[*]:1:COMP_CWORD-1}" in
+                  "cloud site") __bppath=('build' 'create' 'delete' 'deploy' 'deployments' 'deploys' 'doctor' 'domain' 'domains' 'env' 'get' 'github' 'list' 'log' 'logs' 'ls' 'matrix' 'open' 'preflight' 'rm' 'rollback' 'settings' 'show' 'status');;
+                  "cloud site build") __bppath=('--deployment' '--domain' '--force' '--no-follow' '--prebuilt' '--via' '--wait-for-live');;
+                  "cloud site create") __bppath=('--dataset' '--deploy' '--doc-type' '--framework' '--instance' '--kind' '--name' '--template' '--theme');;
+                  "cloud site delete") __bppath=('--yes');;
+                  "cloud site deploy") __bppath=('--deployment' '--domain' '--force' '--no-follow' '--prebuilt' '--via' '--wait-for-live');;
+                  "cloud site open") __bppath=('--print-only');;
+                  "cloud site preflight") __bppath=('--dir' '--skip-build');;
+                  "cloud site rm") __bppath=('--yes');;
+                  "cloud site settings") __bppath=('--doc-type' '--prebuilt-enabled' '--theme');;
+                  "cloud site status") __bppath=('--window');;
+                  "cloud sites") __bppath=('build' 'create' 'delete' 'deploy' 'deployments' 'deploys' 'doctor' 'domain' 'domains' 'env' 'get' 'github' 'list' 'log' 'logs' 'ls' 'matrix' 'open' 'preflight' 'rm' 'rollback' 'settings' 'show' 'status');;
+                  "cloud token") __bppath=('ls' 'mint' 'revoke');;
+                  *) ;;
+                esac
+                # SECURITY: flag names are untrusted (manifest cache). compgen -W RE-EXPANDS
+                # its wordlist — command substitution included — so a poisoned flag reaching
+                # `compgen -W "$__bpflags"` would execute on TAB even though the
+                # assignment above is single-quoted. Match manually instead, and read the
+                # arrays FULLY QUOTED: "${arr[@]}" yields one word per element with no word
+                # splitting and no pathname expansion, so a flag named --x* stays --x*
+                # instead of matching files in $PWD. The ${arr[@]+...} wrapper is the
+                # bash-3.2 empty-array guard: a bare "${arr[@]}" on an empty array is an
+                # unbound reference under "set -u" there. $globals is a baked constant, not
+                # manifest data, so it keeps its intentional split.
+                local __bpword
+                COMPREPLY=()
+                for __bpword in ${__bpflags[@]+"${__bpflags[@]}"} ${__bppath[@]+"${__bppath[@]}"} $globals; do
+                  case "$__bpword" in "$cur"*) COMPREPLY+=("$__bpword");; esac
+                done
+              fi
+            }
+            complete -F _bp_complete bp
+            
+            COMP_WORDS=(bp doc create '--zz')
+            COMP_CWORD=3
+            _bp_complete
+            printf '%s\n' "${COMPREPLY[@]}"
+            
+            --- output ---
+            /bin/bash: bp: command not found
+            /bin/bash: -c: line 5: conditional binary operator expected
+            /bin/bash: -c: line 5: syntax error near `1'
+            /bin/bash: -c: line 5: `  if [[  -eq 1 ]]; then'
+    --- FAIL: TestBashCompletionFlagNotReExpanded/quiet_on_a_well-behaved_flag_set (0.16s)
+        builtins_test.go:476: bash exec failed: exit status 1
+            --- harness ---
+            # bash completion for bp — eval "$(bp completion bash)" or source a saved copy.
+            _bp_complete() {
+              local cur="${COMP_WORDS[COMP_CWORD]}"
+              local nouns="agent attach barkparks capabilities chat cloud cmux completion context deploy dev doc doctor export go-live help instance launch listen login latency logout make mcp media migrate onramp paper plugin provider register scaffy schema search seed server servers setup sheet signup sites style subscribe task tasks team teams tinker token uninstall upgrade use vercel version webhook whoami workspace"
+              local globals="-s --server --token -w --workspace -p --project -d --dataset -o --output --limit --offset --manifest --json -q --quiet -v --verbose --no-color --dry-run --yes --all --full --no-cache -h --help --version -V"
+              if [[ $COMP_CWORD -eq 1 ]]; then
+                # A bare TAB offers nouns; a leading dash offers the global flags.
+                if [[ "$cur" == -* ]]; then
+                  COMPREPLY=( $(compgen -W "$globals" -- "$cur") )
+                else
+                  COMPREPLY=( $(compgen -W "$nouns" -- "$cur") )
+                fi
+              elif [[ $COMP_CWORD -eq 2 ]]; then
+                local __bpverbs=""
+                case "${COMP_WORDS[1]}" in
+                  doc) __bpverbs="create delete get";;
+                  task) __bpverbs="close next ready";;
+                  *) ;;
+                esac
+                COMPREPLY=( $(compgen -W "$__bpverbs $globals" -- "$cur") )
+              else
+                local __bpflags=()
+                case "${COMP_WORDS[1]} ${COMP_WORDS[2]}" in
+                  "doc create") __bpflags=('--publish' '--set');;
+                  *) ;;
+                esac
+                # Builtin trees: match on every word typed so far, so "bp cloud site <TAB>"
+                # offers the site verbs and "bp cloud site deploy --<TAB>" offers --prebuilt.
+                local __bppath=()
+                case "${COMP_WORDS[*]:1:COMP_CWORD-1}" in
+                  "cloud site") __bppath=('build' 'create' 'delete' 'deploy' 'deployments' 'deploys' 'doctor' 'domain' 'domains' 'env' 'get' 'github' 'list' 'log' 'logs' 'ls' 'matrix' 'open' 'preflight' 'rm' 'rollback' 'settings' 'show' 'status');;
+                  "cloud site build") __bppath=('--deployment' '--domain' '--force' '--no-follow' '--prebuilt' '--via' '--wait-for-live');;
+                  "cloud site create") __bppath=('--dataset' '--deploy' '--doc-type' '--framework' '--instance' '--kind' '--name' '--template' '--theme');;
+                  "cloud site delete") __bppath=('--yes');;
+                  "cloud site deploy") __bppath=('--deployment' '--domain' '--force' '--no-follow' '--prebuilt' '--via' '--wait-for-live');;
+                  "cloud site open") __bppath=('--print-only');;
+                  "cloud site preflight") __bppath=('--dir' '--skip-build');;
+                  "cloud site rm") __bppath=('--yes');;
+                  "cloud site settings") __bppath=('--doc-type' '--prebuilt-enabled' '--theme');;
+                  "cloud site status") __bppath=('--window');;
+                  "cloud sites") __bppath=('build' 'create' 'delete' 'deploy' 'deployments' 'deploys' 'doctor' 'domain' 'domains' 'env' 'get' 'github' 'list' 'log' 'logs' 'ls' 'matrix' 'open' 'preflight' 'rm' 'rollback' 'settings' 'show' 'status');;
+                  "cloud token") __bppath=('ls' 'mint' 'revoke');;
+                  *) ;;
+                esac
+                # SECURITY: flag names are untrusted (manifest cache). compgen -W RE-EXPANDS
+                # its wordlist — command substitution included — so a poisoned flag reaching
+                # `compgen -W "$__bpflags"` would execute on TAB even though the
+                # assignment above is single-quoted. Match manually instead, and read the
+                # arrays FULLY QUOTED: "${arr[@]}" yields one word per element with no word
+                # splitting and no pathname expansion, so a flag named --x* stays --x*
+                # instead of matching files in $PWD. The ${arr[@]+...} wrapper is the
+                # bash-3.2 empty-array guard: a bare "${arr[@]}" on an empty array is an
+                # unbound reference under "set -u" there. $globals is a baked constant, not
+                # manifest data, so it keeps its intentional split.
+                local __bpword
+                COMPREPLY=()
+                for __bpword in ${__bpflags[@]+"${__bpflags[@]}"} ${__bppath[@]+"${__bppath[@]}"} $globals; do
+                  case "$__bpword" in "$cur"*) COMPREPLY+=("$__bpword");; esac
+                done
+              fi
+            }
+            complete -F _bp_complete bp
+            
+            COMP_WORDS=(bp doc create '--')
+            COMP_CWORD=3
+            _bp_complete
+            printf '%s\n' "${COMPREPLY[@]}"
+            
+            --- output ---
+            /bin/bash: bp: command not found
+            /bin/bash: -c: line 5: conditional binary operator expected
+            /bin/bash: -c: line 5: syntax error near `1'
+            /bin/bash: -c: line 5: `  if [[  -eq 1 ]]; then'
+--- FAIL: TestMCPStdioWriteIgnoresProtocolPipe (0.07s)
+    cli_test.go:1738: build bp: exit status 1
+        go: CC environment variable is relative; must be absolute path: /usr/bin/clang
+--- FAIL: TestPackedNodeArtifactIsReadableByTheEnginesOwnReader (0.10s)
+    cloud_site_prebuilt_node_abi_test.go:235: run the engine's reader: exec: "awk": executable file not found in %PATH%
+--- FAIL: TestRunSiteBuildScrubsTheAmbientToken (10.71s)
+    cloud_site_preflight_test.go:349: fake npm build failed: npm ci: exit status 1
+        npm error code EUSAGE
+        npm error
+        npm error The `npm ci` command can only install with an existing package-lock.json or
+        npm error npm-shrinkwrap.json with lockfileVersion >= 1. Run an install with npm@5 or
+        npm error later to generate a package-lock.json file, then try again.
+        npm error
+        npm error Clean install a project
+        npm error
+        npm error Usage:
+        npm error npm ci
+        npm error
+        npm error Options:
+        npm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
+        npm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+        npm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
+        npm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
+        npm error [--no-bin-links] [--no-fund] [--dry-run]
+        npm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+        npm error [--workspaces] [--include-workspace-root] [--install-links]
+        npm error
+        npm error aliases: clean-install, ic, install-clean, isntall-clean
+        npm error
+        npm error Run "npm help ci" for more info
+        npm error A complete log of this run can be found in: C:\Users\Frikk\AppData\Local\npm-cache\_logs\2026-09-24T22_04_17_306Z-debug-0.log
+--- FAIL: TestCloudTokenMintWritesSinkAndPrintsNothingSecret (0.01s)
+    cloud_token_cmd_test.go:110: sink mode = -rw-rw-rw-, want 0600 — a world-readable credential file
+--- FAIL: TestCmuxMergePreservesExistingMode (0.01s)
+    cmux_install_merge_test.go:344: mode after merge = 666, want 0600 (preserved)
+--- FAIL: TestBashCompletionOffersCloudSiteVerbsLive (0.32s)
+    completion_builtins_test.go:335: bash driver failed: exit status 1
+        /bin/bash: bp: command not found
+        /bin/bash: -c: line 5: conditional binary operator expected
+        /bin/bash: -c: line 5: syntax error near `1'
+        /bin/bash: -c: line 5: `  if [[  -eq 1 ]]; then'
+--- FAIL: TestConfigSavePerms (0.00s)
+    config_test.go:68: config perms = 666, want 0600
+--- FAIL: TestConfigReTightensPerms (0.00s)
+    config_test.go:100: re-save perms = 666, want 0600
+--- FAIL: TestSaveConfigAtomicRoundTripAndPerms (0.00s)
+    config_test.go:119: config perms = 666, want 0600
+--- FAIL: TestContextMapIsDeterministic (0.02s)
+    context_map_test.go:328: map.json is not stable across runs — any golden quoting it would flap
+--- FAIL: TestRenderContextBundleSuccessIsByteIdentical (0.00s)
+    context_render_atomic_test.go:134: want the page to land 0644 (os.Create under umask 0022), got 0666
+--- FAIL: TestDevPullTransferPathNeverReachesControlPlaneClient (0.32s)
+    dev_pull_cmd_test.go:1083: go list -deps [github.com/FRIKKern/barkpark/internal/apiclient github.com/FRIKKern/barkpark/internal/apierr github.com/FRIKKern/barkpark/internal/cli/cloud github.com/FRIKKern/barkpark/internal/manifest] failed: exit status 1
+        go: CC environment variable is relative; must be absolute path: /usr/bin/clang
+--- FAIL: TestAPISourceNoLongerEmitsRetiredCodes (0.00s)
+    errors_ambiguous_split_test.go:103: walk C:\Users\Frikk\.codex\worktrees\barkpark-paper-create\api\lib\barkpark\content\errors.ex/api/lib: open C:\Users\Frikk\.codex\worktrees\barkpark-paper-create\api\lib\barkpark\content\errors.ex/api/lib: The system cannot find the path specified.
+--- FAIL: TestInstanceExportStreamsTarballToFile (0.01s)
+    hetzner_instance_transfer_cmd_test.go:67: receipt does not name the output file: {"action":"export","bytes":18,"file":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\TestInstanceExportStreamsTarballToFile2116803268\\001\\gy.tar.gz","fqdn":"gyldendal.barkpark.cloud","ok":true}
+--- FAIL: TestOnrampWriteCreatesFile (0.00s)
+    onramp_write_test.go:58: file mode = -rw-rw-rw-, want 0644
+    onramp_write_test.go:66: dir mode = -rwxrwxrwx, want 0755
+--- FAIL: TestOnrampWriteCodexCreatesFile (0.00s)
+    onramp_write_test.go:323: codex action = "updated" (note ""), want created
+--- FAIL: TestOnrampWriteCodexAppendsToForeign (0.02s)
+    onramp_write_test.go:370: action = "unchanged", want updated (span absent)
+--- FAIL: TestOnrampWriteCodexSkipAndForce (0.02s)
+    onramp_write_test.go:412: action = "unchanged", want skipped
+--- FAIL: TestOnrampWriteCodexSubTableStanza (0.01s)
+    onramp_write_test.go:469: action = "unchanged", want skipped
+--- FAIL: TestOnrampWriteCodexDenyForms (0.05s)
+    --- FAIL: TestOnrampWriteCodexDenyForms/root_dotted-key (0.00s)
+        onramp_write_test.go:515: force=false: root dotted-key must error loudly, got nil
+        onramp_write_test.go:515: force=true: root dotted-key must error loudly, got nil
+    --- FAIL: TestOnrampWriteCodexDenyForms/root_inline-table (0.04s)
+        onramp_write_test.go:515: force=false: root inline-table must error loudly, got nil
+        onramp_write_test.go:515: force=true: root inline-table must error loudly, got nil
+    --- FAIL: TestOnrampWriteCodexDenyForms/inline_under_bare_header (0.00s)
+        onramp_write_test.go:515: force=false: inline under bare header must error loudly, got nil
+        onramp_write_test.go:515: force=true: inline under bare header must error loudly, got nil
+--- FAIL: TestOnrampWriteCodexHeaderComment (0.00s)
+    onramp_write_test.go:544: action = "unchanged", want skipped (span FOUND via its token, differing) — 'updated' means the commented header was missed and the stanza appended
+--- FAIL: TestOnrampWriteCodexCRLF (0.00s)
+    onramp_write_test.go:590: crlf force action = "unchanged", want updated
+--- FAIL: TestOnrampWriteCodexNoFinalNewline (0.00s)
+    onramp_write_test.go:635: action = "unchanged", want updated
+bp: C:\Users\Frikk\AppData\Local\Temp\TestExecuteRejectsRepoFileToken2934450467\002\.barkpark.json carries a "token" field — tokens NEVER live in the repo file (it gets committed). Remove it; credentials come from saved servers (`bp setup`, `bp use <name>`) or BARKPARK_API_TOKEN
+{"cli_version":"dev"}
+--- FAIL: TestScaffyRunAppliesWritesReceiptAndRerunNoOps (0.06s)
+    scaffy_cmd_test.go:506: run exit = 5, want 0
+        stdout:
+        ● created docs/alpha.txt
+        ○ injected docs/list.txt @MARK:note-entry-alpha
+        ✔ pass file-contains docs/alpha.txt "note alpha"
+        ✕ fail cmd true — exec: "sh": executable file not found in %PATH%
+        … deferred cmd cd api && mix test — TIER ci, runs in the PR
+        receipt: C:\Users\Frikk\AppData\Local\Temp\TestScaffyRunAppliesWritesReceiptAndRerunNoOps2891293347\001\.scaffy\receipts\cli-note--alpha--cab9b80fbfb9.json
+        applied — 1 created, 1 injected, 1 mark(s), 55ms — ASSERT FAILED
+        
+        stderr:
+--- FAIL: TestScaffyRemoveRoundTripsByteClean (0.17s)
+    scaffy_cmd_test.go:574: run exit = 5
+        ● created docs/alpha.txt
+        ○ injected docs/list.txt @MARK:note-entry-alpha
+        ✔ pass file-contains docs/alpha.txt "note alpha"
+        ✕ fail cmd true — exec: "sh": executable file not found in %PATH%
+        … deferred cmd cd api && mix test — TIER ci, runs in the PR
+        receipt: C:\Users\Frikk\AppData\Local\Temp\TestScaffyRemoveRoundTripsByteClean4189300846\001\.scaffy\receipts\cli-note--alpha--cab9b80fbfb9.json
+        applied — 1 created, 1 injected, 1 mark(s), 157ms — ASSERT FAILED
+        
+--- FAIL: TestScaffyRemoveMissingReceiptExitsFour (0.41s)
+    scaffy_cmd_test.go:620: run exit = 5
+        ● created docs/alpha.txt
+        ○ injected docs/list.txt @MARK:note-entry-alpha
+        ✔ pass file-contains docs/alpha.txt "note alpha"
+        ✕ fail cmd true — exec: "sh": executable file not found in %PATH%
+        … deferred cmd cd api && mix test — TIER ci, runs in the PR
+        receipt: C:\Users\Frikk\AppData\Local\Temp\TestScaffyRemoveMissingReceiptExitsFour366581110\001\.scaffy\receipts\cli-note--alpha--cab9b80fbfb9.json
+        applied — 1 created, 1 injected, 1 mark(s), 394ms — ASSERT FAILED
+        
+--- FAIL: TestScaffyRunJSONEnvelope (0.19s)
+    scaffy_cmd_test.go:643: exit = 5, want 0
+        {"asserts":[{"index":0,"kind":"file-contains","line":21,"path":"docs/alpha.txt","status":"pass","text":"note alpha"},{"detail":"exec: \"sh\": executable file not found in %PATH%","index":1,"kind":"cmd","line":22,"status":"fail","text":"true # local sanity gate"},{"detail":"TIER ci — deferred to the PR, never run locally (D38)","index":2,"kind":"cmd","line":23,"status":"deferred","text":"cd api && mix test","tier":"ci"}],"command":"add-note","direction":"add","duration_ms":180,"ok":false,"ops":[{"index":0,"kind":"create","line":5,"path":"docs/alpha.txt","status":"created"},{"index":1,"kind":"insert-after-first","line":11,"mark":"note-entry-alpha","path":"docs/list.txt","status":"injected"}],"receipt":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\TestScaffyRunJSONEnvelope3171846920\\001\\.scaffy\\receipts\\cli-note--alpha--cab9b80fbfb9.json","vars":{"NoteName":"Alpha"}}
+--- FAIL: TestScaffyRemoveDriftExitsFive (0.18s)
+    scaffy_cmd_test.go:749: run exit = 5
+        ● created docs/alpha.txt
+        ○ injected docs/list.txt @MARK:note-entry-alpha
+        ✔ pass file-contains docs/alpha.txt "note alpha"
+        ✕ fail cmd true — exec: "sh": executable file not found in %PATH%
+        … deferred cmd cd api && mix test — TIER ci, runs in the PR
+        receipt: C:\Users\Frikk\AppData\Local\Temp\TestScaffyRemoveDriftExitsFive2659602014\001\.scaffy\receipts\cli-note--alpha--cab9b80fbfb9.json
+        applied — 1 created, 1 injected, 1 mark(s), 165ms — ASSERT FAILED
+        
+--- FAIL: TestScaffyRunPulledWithYesProceeds (0.06s)
+    scaffy_remote_cmd_test.go:570: exit = 5, want 0
+        stdout:
+        pulled command (provenance sidecar present) — consent gate:
+        would run 1 local CMD(s) (substituted):
+          $ echo pulled alpha # local gate
+        1 CMD(s) deferred to CI, never run locally:
+          … cd api && mix test
+        ● created docs/alpha.txt
+        ○ injected docs/list.txt @MARK:note-entry-alpha
+        ✔ pass file-contains docs/alpha.txt "note alpha"
+        ✕ fail cmd echo pulled alpha — exec: "sh": executable file not found in %PATH%
+        … deferred cmd cd api && mix test — TIER ci, runs in the PR
+        receipt: C:\Users\Frikk\AppData\Local\Temp\TestScaffyRunPulledWithYesProceeds2131799752\001\.scaffy\receipts\note--alpha--cab9b80fbfb9.json
+        applied — 1 created, 1 injected, 1 mark(s), 55ms — ASSERT FAILED
+        
+        stderr:
+--- FAIL: TestScaffyRunPulledInteractiveConfirm (0.07s)
+    --- FAIL: TestScaffyRunPulledInteractiveConfirm/yes_proceeds (0.06s)
+        scaffy_remote_cmd_test.go:599: exit = 5, want 0
+            stdout:
+            pulled command (provenance sidecar present) — consent gate:
+            would run 1 local CMD(s) (substituted):
+              $ echo pulled alpha # local gate
+            1 CMD(s) deferred to CI, never run locally:
+              … cd api && mix test
+            ● created docs/alpha.txt
+            ○ injected docs/list.txt @MARK:note-entry-alpha
+            ✔ pass file-contains docs/alpha.txt "note alpha"
+            ✕ fail cmd echo pulled alpha — exec: "sh": executable file not found in %PATH%
+            … deferred cmd cd api && mix test — TIER ci, runs in the PR
+            receipt: C:\Users\Frikk\AppData\Local\Temp\TestScaffyRunPulledInteractiveConfirmyes_proceeds1943460937\001\.scaffy\receipts\note--alpha--cab9b80fbfb9.json
+            applied — 1 created, 1 injected, 1 mark(s), 56ms — ASSERT FAILED
+            
+            stderr:
+            run this pulled command? [y/N] 
+--- FAIL: TestScaffyRunSidecarlessKeepsW3Behavior (0.06s)
+    scaffy_remote_cmd_test.go:668: exit = 5, want 0
+        stdout:
+        ● created docs/alpha.txt
+        ○ injected docs/list.txt @MARK:note-entry-alpha
+        ✔ pass file-contains docs/alpha.txt "note alpha"
+        ✕ fail cmd echo pulled alpha — exec: "sh": executable file not found in %PATH%
+        … deferred cmd cd api && mix test — TIER ci, runs in the PR
+        receipt: C:\Users\Frikk\AppData\Local\Temp\TestScaffyRunSidecarlessKeepsW3Behavior18963866\001\.scaffy\receipts\note--alpha--cab9b80fbfb9.json
+        applied — 1 created, 1 injected, 1 mark(s), 55ms — ASSERT FAILED
+        
+        stderr:
+--- FAIL: TestScaffyRunPulledMachineOutKeepsEnvelopeParity (0.07s)
+    --- FAIL: TestScaffyRunPulledMachineOutKeepsEnvelopeParity/yes_passes_silently (0.07s)
+        scaffy_remote_cmd_test.go:1179: exit = 5, want 0
+            stdout:
+            {"asserts":[{"index":0,"kind":"file-contains","line":21,"path":"docs/alpha.txt","status":"pass","text":"note alpha"},{"detail":"exec: \"sh\": executable file not found in %PATH%","index":1,"kind":"cmd","line":22,"status":"fail","text":"echo pulled alpha # local gate"},{"detail":"TIER ci — deferred to the PR, never run locally (D38)","index":2,"kind":"cmd","line":23,"status":"deferred","text":"cd api && mix test","tier":"ci"}],"command":"add-note","direction":"add","duration_ms":60,"ok":false,"ops":[{"index":0,"kind":"create","line":5,"path":"docs/alpha.txt","status":"created"},{"index":1,"kind":"insert-after-first","line":11,"mark":"note-entry-alpha","path":"docs/list.txt","status":"injected"}],"receipt":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\TestScaffyRunPulledMachineOutKeepsEnvelopeParityyes_passes_sile2888497502\\001\\.scaffy\\receipts\\note--alpha--cab9b80fbfb9.json","vars":{"NoteName":"Alpha"}}
+            
+            stderr:
+--- FAIL: TestPackPrebuiltDirShipsTheBuildOutput (0.01s)
+    sites_tarball_test.go:333: executable bit lost: mode 666
+--- FAIL: TestPrebuiltSymlinkHintResolvesAgainstTheLinksOwnDirectory (0.02s)
+    sites_tarball_test.go:581: an escaping target must NOT be offered a cp; got: --prebuilt C:\Users\Frikk\AppData\Local\Temp\TestPrebuiltSymlinkHintResolvesAgainstTheLinksOwnDirectory272462607\002: leak.html is a symlink to "..\\..\\..\\etc\\hosts" — the box refuses a staged symlink outright (E_SYMLINK: "the archive contains a symlink — refused (a staged symlink is SERVED)"), so these bytes would be thrown away AFTER the deployment is minted. Replace it with a real file — cd C:\Users\Frikk\AppData\Local\Temp\TestPrebuiltSymlinkHintResolvesAgainstTheLinksOwnDirectory272462607\002 && cp ..\..\..\etc\hosts leak.html — or emit the alias from your build; an on-box build accepts it only because that path copies with `cp -a`
+--- FAIL: TestSessionKeyMintsOncePerFileAndDiffersAcrossFiles (0.00s)
+    tasks_claim_session_test.go:103: key file mode -rw-rw-rw-, want 0600 — the key is a credential
+--- FAIL: TestTaskGetNotFound_DeadlineArmAlsoSaysItGaveUp (0.00s)
+    tasks_match_test.go:756: a scan cut short by the deadline did not report giving up:
+        bp: no such task id — scanning the ledger for a close match (up to 1ns)…
+        bp: not found: no task with that id
+          hint: did you mean `cch-w57-s5-the-only-one`? it is the only published task id starting with `cch-w57-s5`. run `bp task ls --match cch-w57-s5` — a case-insensitive substring of doc_id or title, matched over every page (this route is not dataset-scoped, so --dataset cannot affect it)
+          code: not_found
+barkpark: transient internal_error from GET http://127.0.0.1:53204/w/default/p/default/v1/data/query/production/tag?limit=1000 — retrying (attempt 1 of 3) after 250ms
+barkpark: transient internal_error from GET http://127.0.0.1:53204/w/default/p/default/v1/data/query/production/tag?limit=1000 — retrying (attempt 2 of 3) after 1s
+barkpark: transient internal_error from GET http://127.0.0.1:53204/w/default/p/default/v1/data/query/production/tag?limit=1000 persisted through 3 attempts — giving up (last request_id: (none reported))
+--- FAIL: TestReleaseCacheRoundTrip (0.00s)
+    upgrade_test.go:47: cache mode = -rw-rw-rw-, want 0600
+--- FAIL: TestDoctorReleaseCadenceUsesPublishedStableRelease (0.02s)
+    upgrade_test.go:305: doctor failed: exec: "/bin/bash": executable file not found in %PATH%
+--- FAIL: TestPerformUpgradeReplacesBinary (0.01s)
+    upgrade_test.go:404: exe mode = -rw-rw-rw-, want 0755
+--- FAIL: TestVercelAuthPaths (0.00s)
+    vercel_cmd_test.go:433: vercelAuthPaths did not honour XDG_DATA_HOME: [C:\Users\Frikk\Library\Application Support\com.vercel.cli\auth.json \xdg\com.vercel.cli\auth.json C:\Users\Frikk\.vercel\auth.json]
+--- FAIL: TestMCPServeStdioSmoke (2.52s)
+    mcp_stdio_smoke_test.go:259: start bp mcp serve: exec: "C:\\Users\\Frikk\\AppData\\Local\\Temp\\TestMCPServeStdioSmoke3284999114\\001\\bp": executable file not found in %PATH%
+FAIL
+FAIL	github.com/FRIKKern/barkpark/internal/cli	97.166s
+--- FAIL: TestFreshenCheckScriptNamesAFetchFailure (0.70s)
+    freshen_git_prompt_test.go:51: failure output lacks "FRESHEN_CHECK_FAILED":
+        fatal: not a git repository: /mnt/c/Users/Frikk/.codex/worktrees/barkpark-paper-create/C:/Users/Frikk/Documents/GitHub/barkpark/.git/worktrees/barkpark-paper-create
+        fatal: not a git repository: /mnt/c/Users/Frikk/.codex/worktrees/barkpark-paper-create/C:/Users/Frikk/Documents/GitHub/barkpark/.git/worktrees/barkpark-paper-create
+        /bin/bash: line 2: cd: C:UsersFrikkAppDataLocalTempTestFreshenCheckScriptNamesAFetchFailure3913052002001repo: No such file or directory
+    freshen_git_prompt_test.go:51: failure output lacks "credentials":
+        fatal: not a git repository: /mnt/c/Users/Frikk/.codex/worktrees/barkpark-paper-create/C:/Users/Frikk/Documents/GitHub/barkpark/.git/worktrees/barkpark-paper-create
+        fatal: not a git repository: /mnt/c/Users/Frikk/.codex/worktrees/barkpark-paper-create/C:/Users/Frikk/Documents/GitHub/barkpark/.git/worktrees/barkpark-paper-create
+        /bin/bash: line 2: cd: C:UsersFrikkAppDataLocalTempTestFreshenCheckScriptNamesAFetchFailure3913052002001repo: No such file or directory
+    freshen_git_prompt_test.go:51: failure output lacks "could not read Username":
+        fatal: not a git repository: /mnt/c/Users/Frikk/.codex/worktrees/barkpark-paper-create/C:/Users/Frikk/Documents/GitHub/barkpark/.git/worktrees/barkpark-paper-create
+        fatal: not a git repository: /mnt/c/Users/Frikk/.codex/worktrees/barkpark-paper-create/C:/Users/Frikk/Documents/GitHub/barkpark/.git/worktrees/barkpark-paper-create
+        /bin/bash: line 2: cd: C:UsersFrikkAppDataLocalTempTestFreshenCheckScriptNamesAFetchFailure3913052002001repo: No such file or directory
+barkpark-provisioner: WARNING: freshen on 10.0.0.1 degraded (continuing on baked release): freshen: rebuild failed: deploy-rebuild.sh: build failed: rebuild failed on box
+barkpark-provisioner: WARNING: freshen on 10.0.0.1 degraded (continuing on baked release): freshen: freshness check failed: git fetch: network unreachable: fatal: unable to access origin
+--- FAIL: TestShJoinArgvRoundTripsThroughARealShell (0.05s)
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/whole_argv (0.00s)
+        sshrunner_quote_test.go:89: /bin/sh refused the joined line "plainword a-b_c.d/e:f=g@h%i+j '' 'a b' 'a\tb' 'it'\\''s' 'he said \"hi\"' '$(pwd)' '`pwd`' '${HOME}' 'a;true' 'a&&true' 'a|true' '$(echo pwned)' 'a;echo pwned' 'x|y' '>&2' '<in' '*' '?' '[a-z]' '(paren)' '{a,b}' 'back\\slash' 'line1\nline2' '~' '#hash' '!bang' 'naïve' 'a=$b'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"plainword" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "plainword": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"a-b_c.d/e:f=g@h%i+j" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "a-b_c.d/e:f=g@h%i+j": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "''": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"a_b" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'a b'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"a\tb" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'a\tb'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"it's" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'it'\\''s'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"he_said_\"hi\"" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'he said \"hi\"'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"$(pwd)" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'$(pwd)'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"`pwd`" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'`pwd`'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"${HOME}" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'${HOME}'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"a;true" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'a;true'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"a&&true" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'a&&true'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"a|true" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'a|true'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"$(echo_pwned)" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'$(echo pwned)'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"a;echo_pwned" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'a;echo pwned'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"x|y" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'x|y'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/">&2" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'>&2'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"<in" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'<in'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"*" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'*'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"?" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'?'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"[a-z]" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'[a-z]'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"(paren)" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'(paren)'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"{a,b}" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'{a,b}'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"back\\slash" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'back\\slash'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"line1\nline2" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'line1\nline2'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"~" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'~'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"#hash" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'#hash'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"!bang" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'!bang'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"naïve" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'naïve'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinArgvRoundTripsThroughARealShell/"a=$b" (0.00s)
+        sshrunner_quote_test.go:97: /bin/sh refused the joined line "'a=$b'": exec: "/bin/sh": executable file not found in %PATH%
+--- FAIL: TestRemoteTransport_StdinClosed_TailSurvives (0.85s)
+    sshrunner_test.go:159: tail line did not run — stdin-eating regressed; output: "/bin/bash: : No such file or directory\nbash: : No such file or directory\n"
+--- FAIL: TestRealStepRunner_ScrubsEnvSecrets (0.05s)
+    warmpool_test.go:413: realStepRunner did not pattern-scrub the ecto userinfo; got:
+        caddy step "env-sourcing step": exec: "sh": executable file not found in %PATH%: 
+FAIL
+FAIL	github.com/FRIKKern/barkpark/internal/cli/cloud	1.947s
+ok  	github.com/FRIKKern/barkpark/internal/cli/cloud/azure	0.231s
+--- FAIL: TestDeployScriptBpGitNamesTheFailure (0.72s)
+    deploy_git_prompt_test.go:78: bp_git failure output lacks "git clone failed":
+        git: '' is not a git command. See 'git --help'.
+        
+        The most similar commands are
+        	add
+        	bisect
+        	branch
+        	clone
+        	commit
+        	diff
+        	fetch
+        	grep
+        	init
+        	log
+        	merge
+        	mv
+        	pull
+        	push
+        	rebase
+        	reset
+        	restore
+        	rm
+        	show
+        	sparse-checkout
+        	status
+        	switch
+        	tag
+        	am
+        	gc
+        !! git  failed (GIT_TERMINAL_PROMPT=0, so no credentials were asked for): 
+           likely cause: credentials (a private remote or an expired token) or the remote is unreachable.
+    deploy_git_prompt_test.go:78: bp_git failure output lacks "could not read Username":
+        git: '' is not a git command. See 'git --help'.
+        
+        The most similar commands are
+        	add
+        	bisect
+        	branch
+        	clone
+        	commit
+        	diff
+        	fetch
+        	grep
+        	init
+        	log
+        	merge
+        	mv
+        	pull
+        	push
+        	rebase
+        	reset
+        	restore
+        	rm
+        	show
+        	sparse-checkout
+        	status
+        	switch
+        	tag
+        	am
+        	gc
+        !! git  failed (GIT_TERMINAL_PROMPT=0, so no credentials were asked for): 
+           likely cause: credentials (a private remote or an expired token) or the remote is unreachable.
+2026/09/25 00:04:04 http: TLS handshake error from 127.0.0.1:57622: remote error: tls: bad certificate
+--- FAIL: TestShJoinRoundTripsThroughARealShell (0.05s)
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/whole_argv (0.00s)
+        steps_quote_test.go:89: /bin/sh refused the joined line "plainword a-b_c.d/e:f=g@h%i+j '' 'a b' 'a\tb' 'it'\\''s' 'he said \"hi\"' '$(pwd)' '`pwd`' '${HOME}' 'a;true' 'a&&true' 'a|true' '$(echo pwned)' 'a;echo pwned' 'x|y' '>&2' '<in' '*' '?' '[a-z]' '(paren)' '{a,b}' 'back\\slash' 'line1\nline2' '~' '#hash' '!bang' 'naïve' 'a=$b'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"plainword" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "plainword": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"a-b_c.d/e:f=g@h%i+j" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "a-b_c.d/e:f=g@h%i+j": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "''": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"a_b" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'a b'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"a\tb" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'a\tb'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"it's" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'it'\\''s'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"he_said_\"hi\"" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'he said \"hi\"'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"$(pwd)" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'$(pwd)'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"`pwd`" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'`pwd`'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"${HOME}" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'${HOME}'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"a;true" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'a;true'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"a&&true" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'a&&true'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"a|true" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'a|true'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"$(echo_pwned)" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'$(echo pwned)'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"a;echo_pwned" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'a;echo pwned'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"x|y" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'x|y'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/">&2" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'>&2'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"<in" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'<in'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"*" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'*'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"?" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'?'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"[a-z]" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'[a-z]'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"(paren)" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'(paren)'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"{a,b}" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'{a,b}'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"back\\slash" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'back\\slash'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"line1\nline2" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'line1\nline2'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"~" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'~'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"#hash" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'#hash'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"!bang" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'!bang'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"naïve" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'naïve'": exec: "/bin/sh": executable file not found in %PATH%
+    --- FAIL: TestShJoinRoundTripsThroughARealShell/"a=$b" (0.00s)
+        steps_quote_test.go:97: /bin/sh refused the joined line "'a=$b'": exec: "/bin/sh": executable file not found in %PATH%
+FAIL
+FAIL	github.com/FRIKKern/barkpark/internal/cli/setup	3.421s
+?   	github.com/FRIKKern/barkpark/internal/cli/setup/assets	[no test files]
+ok  	github.com/FRIKKern/barkpark/internal/manifest	1.643s
+FAIL

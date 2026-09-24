@@ -1,0 +1,509 @@
+== routing-table targets (CLAUDE.md) ==
+ok:   route -> api/CLAUDE.md
+ok:   route -> deploy/README.md
+ok:   route -> docs/INDEX.md
+ok:   route -> docs/api-v1.md
+ok:   route -> docs/auth.md
+ok:   route -> docs/cards/cli.md
+ok:   route -> docs/cards/js-sdk.md
+ok:   route -> docs/cards/onix-bokbasen.md
+ok:   route -> docs/cards/plugins.md
+ok:   route -> docs/cards/search-media.md
+ok:   route -> docs/cards/studio.md
+ok:   route -> docs/cards/tui.md
+ok:   route -> docs/contracts/document-graph-and-history.md
+ok:   route -> docs/contracts/plugin-http-api.md
+ok:   route -> docs/contracts/query-surface-limits.md
+ok:   route -> docs/contracts/schema-v2.md
+ok:   route -> docs/contracts/tenancy.md
+ok:   route -> docs/contracts/webhook-realtime.md
+ok:   route -> docs/decisions/deferred.md
+ok:   route -> docs/ops/PROD_OPS.md
+ok:   route -> docs/ops/adding-a-domain.md
+ok:   route -> docs/ops/merge-gates.md
+ok:   route -> docs/ops/npm-rollback-playbook.md
+ok:   route -> docs/setup/TASK-SYSTEM.md
+== INDEX entries (docs/INDEX.md) ==
+ok:   index -> docs/PHILOSOPHY.md
+ok:   index -> docs/api-v1.md
+ok:   index -> docs/cards/js-sdk.md
+ok:   index -> docs/cheatsheets/bp.md
+ok:   index -> docs/contracts/schema-v2.md
+ok:   index -> docs/learn/README.md
+ok:   index -> docs/learn/plugins-catalog.md
+ok:   index -> docs/setup/CLOUD-QUICKSTART.md
+ok:   index -> docs/setup/GO-LIVE.md
+ok:   index -> docs/setup/QUICKSTART.md
+ok:   index -> docs/studio/user-guide.md
+== card Code anchors ==
+ok:   docs/cards/cli.md -> internal/cli/cli.go :: Execute
+ok:   docs/cards/cli.md -> internal/cli/builtins.go :: runWhoami
+ok:   docs/cards/cli.md -> internal/cli/builtins.go :: runCapabilities
+ok:   docs/cards/cli.md -> internal/cli/paper_cmd.go :: runPaper
+ok:   docs/cards/cli.md -> internal/cli/errors.go :: exitForCode
+ok:   docs/cards/cli.md -> internal/cli/errors.go :: classifyError
+ok:   docs/cards/cli.md -> internal/cli/make_cmd.go :: runMakeSchema
+ok:   docs/cards/cli.md -> internal/cli/make_workflow.go :: renderDeployWorkflow
+ok:   docs/cards/cli.md -> internal/cli/make_workflow.go :: runMakeWorkflow
+ok:   docs/cards/cli.md -> internal/cli/seed_cmd.go :: runSeed
+ok:   docs/cards/cli.md -> internal/cli/seed_cmd.go :: generateDoc
+ok:   docs/cards/cli.md -> internal/cli/tinker_cmd.go :: runTinker
+ok:   docs/cards/cli.md -> internal/cli/tinker_cmd.go :: parseTinkerLine
+ok:   docs/cards/js-sdk.md -> js/packages/core/src/client.ts (path only)
+ok:   docs/cards/js-sdk.md -> js/packages/nextjs/src/index.ts (path only)
+ok:   docs/cards/js-sdk.md -> js/packages/create-barkpark-app/templates/blog-starter/ (path only)
+ok:   docs/cards/js-sdk.md -> web/lib/barkpark-client.ts (path only)
+ok:   docs/cards/onix-bokbasen.md -> api/lib/barkpark/plugins/onixedit.ex :: Barkpark.Plugins.OnixEdit
+ok:   docs/cards/onix-bokbasen.md -> api/lib/barkpark/plugins/onixedit/export/descriptive_detail.ex :: build
+ok:   docs/cards/onix-bokbasen.md -> api/lib/barkpark/plugins/onixedit/export/message.ex :: wrap
+ok:   docs/cards/onix-bokbasen.md -> api/lib/barkpark/plugins/onixedit/export/validator.ex :: validate_xsd
+ok:   docs/cards/plugins.md -> api/lib/barkpark/plugin.ex :: default_enabled?
+ok:   docs/cards/plugins.md -> api/lib/barkpark/plugin.ex :: structure_placement
+ok:   docs/cards/plugins.md -> api/lib/barkpark/plugin.ex :: owned_schema_types
+ok:   docs/cards/plugins.md -> api/lib/barkpark/plugins/tasks.ex (path only)
+ok:   docs/cards/plugins.md -> api/lib/barkpark/plugins/enablement.ex :: effective
+ok:   docs/cards/plugins.md -> api/lib/barkpark/plugins/bootstrap.ex (path only)
+ok:   docs/cards/plugins.md -> api/lib/barkpark/plugins/registry.ex (path only)
+ok:   docs/cards/search-media.md -> api/lib/barkpark/search/query_pipeline.ex :: search
+ok:   docs/cards/search-media.md -> api/lib/barkpark/search/intelligence.ex :: record
+ok:   docs/cards/search-media.md -> api/lib/barkpark/search/intelligence.ex :: record_interaction
+ok:   docs/cards/search-media.md -> api/lib/barkpark/media/delivery/retriever.ex :: Barkpark.Media.Delivery.Retriever
+ok:   docs/cards/search-media.md -> api/lib/barkpark/plugins/media.ex (path only)
+ok:   docs/cards/studio.md -> api/lib/barkpark_web/components/studio_components/nav.ex :: studio_tabs
+ok:   docs/cards/studio.md -> api/lib/barkpark_web/studio_chrome.ex :: on_mount
+ok:   docs/cards/studio.md -> api/lib/barkpark/structure.ex :: build
+ok:   docs/cards/studio.md -> api/lib/barkpark/plugins/enablement.ex :: effective
+ok:   docs/cards/studio.md -> api/lib/barkpark_web/studio/pane_builder.ex :: build
+ok:   docs/cards/studio.md -> api/lib/barkpark_web/studio/pane_builder.ex :: display_state
+ok:   docs/cards/tui.md -> cmd/barkpark/paper.go :: buildPaperContent
+ok:   docs/cards/tui.md -> cmd/barkpark/paper.go :: isPaper
+ok:   docs/cards/tui.md -> internal/pdrender/pdrender.go :: DefaultRegistry
+ok:   docs/cards/tui.md -> scripts/pdrender-dump.sh (path only)
+ok:   docs/cards/tui.md -> internal/cli/tasks_board_cmd.go :: runTasksBoard
+ok:   docs/cards/tui.md -> internal/cli/chat_cmd.go :: runChat
+ok:   docs/cards/tui.md -> internal/chat/reduce.go :: Reduce
+ok:   docs/cards/tui.md -> internal/chat/render.go :: renderAssistantDoc
+ok:   docs/cards/tui.md -> internal/taskboard/board.go :: BuildBoard
+ok:   docs/cards/tui.md -> internal/taskboard/spine.go :: spineRows
+ok:   docs/cards/tui.md -> internal/taskboard/frontier.go :: areasOf
+ok:   docs/cards/tui.md -> api/lib/barkpark/portable_doc/render.ex :: render_html
+ok:   §3 checked 41 anchor line(s) across 7 card(s)
+== Code anchors in non-card docs (path existence) ==
+ok:   docs/cli/m0-decisions.md -> api/lib/barkpark/plugins/capabilities.ex
+ok:   docs/cli/m0-decisions.md -> api/lib/barkpark_web/controllers/capabilities_controller.ex
+ok:   docs/cli/m0-decisions.md -> internal/cli/builtins.go
+ok:   docs/cli/m0-decisions.md -> docs/cli/manifest.schema.json
+ok:   docs/contracts/bokbasen.md -> api/lib/barkpark/plugins/onixedit/bokbasen
+ok:   docs/contracts/bokbasen.md -> api/lib/barkpark/plugins/onixedit/export/validator.ex
+ok:   docs/contracts/bokbasen.md -> api/config/config.exs
+ok:   docs/contracts/dispatch-areas.md -> internal/taskboard/frontier.go
+ok:   docs/contracts/dispatch-areas.md -> internal/taskboard/overlaps.go
+ok:   docs/contracts/onix-field-map.md -> api/lib/barkpark/plugins/onixedit/export.ex
+ok:   docs/contracts/onix-field-map.md -> api/lib/barkpark/plugins/onixedit/export/message.ex
+ok:   docs/contracts/onix-field-map.md -> api/lib/barkpark/plugins/onixedit/export/header.ex
+ok:   docs/contracts/onix-field-map.md -> api/lib/barkpark/plugins/onixedit/export/descriptive_detail.ex
+ok:   docs/contracts/onix-field-map.md -> api/lib/barkpark/plugins/onixedit/export/collateral_detail.ex
+ok:   docs/contracts/onix-field-map.md -> api/lib/barkpark/plugins/onixedit/export/product_supply.ex
+ok:   docs/contracts/onix-field-map.md -> api/lib/barkpark/plugins/onixedit/export/codelists.ex
+ok:   docs/contracts/onix-field-map.md -> api/lib/barkpark/plugins/onixedit/export/validator.ex
+ok:   docs/contracts/onix-field-map.md -> api/priv/onix/onix-3.0/ONIX_BookProduct_3.0_reference.xsd
+ok:   docs/contracts/portable-doc-inline.md -> api/lib/barkpark/portable_doc/render/inline.ex
+ok:   docs/contracts/portable-doc-inline.md -> api/lib/barkpark/portable_doc/render/walk.ex
+ok:   docs/contracts/portable-doc-inline.md -> api/lib/barkpark/content/papers.ex
+ok:   docs/contracts/portable-doc-inline.md -> api/lib/barkpark_web/live/studio/studio_live/handlers/paper.ex
+ok:   docs/contracts/portable-doc-inline.md -> internal/pdrender/inline.go
+ok:   docs/contracts/portable-doc-inline.md -> js/packages/react/src/inline.tsx
+ok:   docs/contracts/portable-doc-inline.md -> api/assets/paper-editor/src/convert.js
+ok:   docs/contracts/schema-v2.md -> api/lib/barkpark/content/schema_definition.ex
+ok:   docs/contracts/schema-v2.md -> api/lib/barkpark/content/validation.ex
+ok:   docs/contracts/schema-v2.md -> api/lib/barkpark/content/validation/rules.ex
+ok:   docs/contracts/schema-v2.md -> api/lib/barkpark/content/codelists.ex
+ok:   docs/contracts/schema-v2.md -> api/lib/barkpark/content/localized_text.ex
+ok:   docs/contracts/schema-v2.md -> api/lib/barkpark/seeds/demo.ex
+ok:   docs/contracts/schema-v2.md -> api/lib/barkpark_web/components/fields
+ok:   docs/contracts/tui-render-doctrine.md -> internal/pdrender/golden_profiles_test.go
+ok:   docs/contracts/tui-render-doctrine.md -> internal/pdrender/pdrender.go
+ok:   docs/contracts/tui-render-doctrine.md -> internal/pdrender/heatmap.go
+ok:   docs/contracts/tui-render-doctrine.md -> internal/pdrender/chart.go
+ok:   docs/contracts/webhook-realtime.md -> api/lib/barkpark/webhooks/dispatcher.ex
+ok:   docs/contracts/webhook-realtime.md -> js/packages/nextjs/src/webhook/index.ts
+ok:   docs/decisions/0001-sdk-envelope.md -> js/packages/core/src/docs.ts
+ok:   docs/decisions/0001-sdk-envelope.md -> js/packages/core/src/doc.ts
+ok:   docs/decisions/0001-sdk-envelope.md -> js/packages/core/src/client.ts
+ok:   docs/decisions/0001-sdk-envelope.md -> api/lib/barkpark_web/controllers/query_controller.ex
+ok:   docs/decisions/0003-sync-tags.md -> api/lib/barkpark/webhooks/dispatcher.ex
+ok:   docs/decisions/0003-sync-tags.md -> js/packages/nextjs/src/revalidate/index.ts
+ok:   docs/decisions/0003-sync-tags.md -> js/packages/nextjs/src/server/core.ts
+ok:   docs/decisions/deferred.md -> internal/manifest/url.go
+ok:   docs/decisions/deferred.md -> api/lib/barkpark_web/router.ex
+ok:   docs/decisions/deferred.md -> api/lib/barkpark/search/intelligence.ex
+ok:   docs/decisions/success-claim-census.md -> internal/cli/success_claim_registry_test.go
+ok:   docs/decisions/success-claim-census.md -> internal/cli/cloud_autoupdate_cmd.go
+ok:   docs/decisions/success-claim-census.md -> templates/place-directory/install.sh
+ok:   docs/decisions/success-claim-census.md -> api/lib/barkpark_web/router.ex
+ok:   docs/decisions/success-claim-census.md -> scripts/pds-w33-write-receipt-buckets.md
+ok:   docs/decisions/success-claim-census.md -> scripts/pds-elixir-receipt-census.exs
+ok:   docs/media/DISCOVERY.md -> api/lib/barkpark/media/delivery/search.ex
+ok:   docs/media/DISCOVERY.md -> api/priv/static/assets/bp-asset-explorer.js
+ok:   docs/media/DISCOVERY.md -> scripts/media-smoke.sh
+ok:   docs/ops/PROD_OPS.md -> api/scripts/prod-postcheck.sh
+ok:   docs/ops/PROD_OPS.md -> .githooks/post-merge
+ok:   docs/ops/PROD_OPS.md -> Makefile
+ok:   docs/ops/PROD_OPS.md -> api/start.sh
+ok:   docs/search/INTELLIGENCE.md -> api/lib/barkpark/search/intelligence.ex
+ok:   docs/search/INTELLIGENCE.md -> api/config/config.exs
+ok:   docs/search/INTELLIGENCE.md -> api/lib/barkpark_web/search_intel.ex
+ok:   docs/search/INTELLIGENCE.md -> api/lib/barkpark/search/query_pipeline.ex
+ok:   docs/search/ROADMAP.md -> api/lib/barkpark/search/query_pipeline.ex
+ok:   docs/search/ROADMAP.md -> api/lib/mix/tasks/search.eval.ex
+ok:   docs/search/ROADMAP.md -> api/lib/barkpark_web/controllers/federated_search_controller.ex
+ok:   docs/search/ROADMAP.md -> api/priv/static/assets/bp-search-intel.js
+ok:   docs/studio/web-components.md -> api/lib/barkpark_web/components/field_inputs.ex
+ok:   docs/studio/web-components.md -> api/priv/static/assets/bp-rich-text-editor.js
+ok:   docs/studio/web-components.md -> api/lib/barkpark_web/layouts/root.html.heex
+ok:   docs/studio/web-components.md -> api/lib/barkpark_web/layouts/root.html.heex
+== cross-doc .md links ==
+FAIL: CLAUDE.md links to a missing doc: docs/contracts/writing.md (resolved: )
+FAIL: README.md links to a missing doc: docs/setup/QUICKSTART.md (resolved: )
+FAIL: README.md links to a missing doc: docs/setup/GO-LIVE.md (resolved: )
+FAIL: README.md links to a missing doc: docs/setup/AGENT-ONRAMPS.md (resolved: )
+FAIL: README.md links to a missing doc: docs/INDEX.md (resolved: )
+FAIL: README.md links to a missing doc: js/docs/README.md (resolved: )
+FAIL: README.md links to a missing doc: docs/cards/plugins.md (resolved: )
+FAIL: README.md links to a missing doc: docs/PHILOSOPHY.md (resolved: )
+FAIL: api/AGENTS.md links to a missing doc: CLAUDE.md (resolved: )
+FAIL: api/CLAUDE.md links to a missing doc: ../docs/contracts/paper-editor-integration.md (resolved: )
+FAIL: api/README.md links to a missing doc: CLAUDE.md (resolved: )
+FAIL: api/README.md links to a missing doc: ../docs/api-v1.md (resolved: )
+FAIL: api/README.md links to a missing doc: ../docs/setup/SETUP.md (resolved: )
+FAIL: cloud/README.md links to a missing doc: ../templates/MANIFEST.md (resolved: )
+FAIL: cloud/README.md links to a missing doc: ../docs/ops/barkpark-cloud-go-live.md (resolved: )
+FAIL: cloud/README.md links to a missing doc: ../docs/ops/barkpark-cloud-go-live.md (resolved: )
+FAIL: docs/INDEX.md links to a missing doc: setup/QUICKSTART.md (resolved: )
+FAIL: docs/INDEX.md links to a missing doc: learn/README.md (resolved: )
+FAIL: docs/INDEX.md links to a missing doc: cheatsheets/bp.md (resolved: )
+FAIL: docs/INDEX.md links to a missing doc: setup/QUICKSTART.md (resolved: )
+FAIL: docs/INDEX.md links to a missing doc: setup/CLOUD-QUICKSTART.md (resolved: )
+FAIL: docs/INDEX.md links to a missing doc: learn/README.md (resolved: )
+FAIL: docs/INDEX.md links to a missing doc: studio/user-guide.md (resolved: )
+FAIL: docs/INDEX.md links to a missing doc: api-v1.md (resolved: )
+FAIL: docs/INDEX.md links to a missing doc: cards/js-sdk.md (resolved: )
+FAIL: docs/INDEX.md links to a missing doc: learn/plugins-catalog.md (resolved: )
+FAIL: docs/INDEX.md links to a missing doc: setup/GO-LIVE.md (resolved: )
+FAIL: docs/INDEX.md links to a missing doc: PHILOSOPHY.md (resolved: )
+FAIL: docs/INDEX.md links to a missing doc: contracts/schema-v2.md (resolved: )
+FAIL: docs/PHILOSOPHY.md links to a missing doc: decisions/0004-cloud-boundary.md (resolved: )
+FAIL: docs/PHILOSOPHY.md links to a missing doc: ../cloud/README.md (resolved: )
+FAIL: docs/api-v1.md links to a missing doc: cards/js-sdk.md (resolved: )
+FAIL: docs/api-v1.md links to a missing doc: contracts/document-graph-and-history.md (resolved: )
+FAIL: docs/api-v1.md links to a missing doc: contracts/plugin-http-api.md (resolved: )
+FAIL: docs/api-v1.md links to a missing doc: contracts/cycle-fleet.md (resolved: )
+FAIL: docs/api-v1.md links to a missing doc: contracts/media-http-envelope.md (resolved: )
+FAIL: docs/api-v1.md links to a missing doc: api/error-codes.md (resolved: )
+FAIL: docs/api/conflict-409-resolution.md links to a missing doc: error-codes.md (resolved: )
+FAIL: docs/api/error-codes.md links to a missing doc: ../api-v1.md (resolved: )
+FAIL: docs/api/error-codes.md links to a missing doc: conflict-409-resolution.md (resolved: )
+FAIL: docs/auth-user-sessions.md links to a missing doc: auth.md (resolved: )
+FAIL: docs/auth.md links to a missing doc: auth-user-sessions.md (resolved: )
+FAIL: docs/auth.md links to a missing doc: contracts/instance-operator-tier.md (resolved: )
+FAIL: docs/cards/search-media.md links to a missing doc: ../contracts/media-http-envelope.md (resolved: )
+FAIL: docs/cheatsheets/bp.md links to a missing doc: tasks.md (resolved: )
+FAIL: docs/cheatsheets/bp.md links to a missing doc: ../../cloud/README.md (resolved: )
+FAIL: docs/cheatsheets/bp.md links to a missing doc: ../cli/HANDBOOK.md (resolved: )
+FAIL: docs/cheatsheets/http-api.md links to a missing doc: ../api-v1.md (resolved: )
+FAIL: docs/cheatsheets/papers.md links to a missing doc: ../../api/CLAUDE.md (resolved: )
+FAIL: docs/cheatsheets/papers.md links to a missing doc: ../cards/tui.md (resolved: )
+FAIL: docs/cheatsheets/tasks.md links to a missing doc: ../setup/TASK-SYSTEM.md (resolved: )
+FAIL: docs/cheatsheets/tui.md links to a missing doc: tasks.md (resolved: )
+FAIL: docs/cheatsheets/tui.md links to a missing doc: bp.md (resolved: )
+FAIL: docs/contracts/canonical-impl-markers.md links to a missing doc: ../ops/merge-gates.md (resolved: )
+FAIL: docs/contracts/close-packet.md links to a missing doc: task-claim-lifecycle.md (resolved: )
+FAIL: docs/contracts/document-graph-and-history.md links to a missing doc: ../api-v1.md (resolved: )
+FAIL: docs/contracts/document-graph-and-history.md links to a missing doc: ../api-v1.md (resolved: )
+FAIL: docs/contracts/document-graph-and-history.md links to a missing doc: ../api-v1.md (resolved: )
+FAIL: docs/contracts/media-http-envelope.md links to a missing doc: ../api-v1.md (resolved: )
+FAIL: docs/contracts/media-http-envelope.md links to a missing doc: ../cards/search-media.md (resolved: )
+FAIL: docs/contracts/plugin-http-api.md links to a missing doc: ../api-v1.md (resolved: )
+FAIL: docs/contracts/plugin-http-api.md links to a missing doc: sheets-engine.md (resolved: )
+FAIL: docs/contracts/portable-doc-list-authoring.md links to a missing doc: portable-doc-nested-lists.md (resolved: )
+FAIL: docs/contracts/portable-doc-paragraph-authoring.md links to a missing doc: portable-doc-heading-authoring.md (resolved: )
+FAIL: docs/contracts/task-claim-lifecycle.md links to a missing doc: ../setup/TASK-SYSTEM.md (resolved: )
+FAIL: docs/contracts/task-claim-lifecycle.md links to a missing doc: ../decisions/0005-pr-body-criteria.md (resolved: )
+FAIL: docs/contracts/task-claim-lifecycle.md links to a missing doc: close-packet.md (resolved: )
+FAIL: docs/decisions/0004-cloud-boundary.md links to a missing doc: ../PHILOSOPHY.md (resolved: )
+FAIL: docs/decisions/0005-pr-body-criteria.md links to a missing doc: ../setup/TASK-SYSTEM.md (resolved: )
+FAIL: docs/learn/README.md links to a missing doc: ../setup/QUICKSTART.md (resolved: )
+FAIL: docs/learn/README.md links to a missing doc: ../contracts/tenancy.md (resolved: )
+FAIL: docs/learn/README.md links to a missing doc: ../PHILOSOPHY.md (resolved: )
+FAIL: docs/learn/README.md links to a missing doc: ./plugins-catalog.md (resolved: )
+FAIL: docs/learn/plugins-catalog.md links to a missing doc: ../cards/plugins.md (resolved: )
+FAIL: docs/learn/plugins-catalog.md links to a missing doc: ../cards/onix-bokbasen.md (resolved: )
+FAIL: docs/learn/plugins-catalog.md links to a missing doc: ../cards/search-media.md (resolved: )
+FAIL: docs/ops/branch-protection-and-overrides.md links to a missing doc: merge-gates.md (resolved: )
+FAIL: docs/ops/branch-protection-and-overrides.md links to a missing doc: merge-gates.md (resolved: )
+FAIL: docs/ops/branch-protection-and-overrides.md links to a missing doc: merge-gates.md (resolved: )
+FAIL: docs/ops/ci-value-audit-history.md links to a missing doc: ci-value-audit.md (resolved: )
+FAIL: docs/ops/ci-value-audit.md links to a missing doc: ci-value-audit-history.md (resolved: )
+FAIL: docs/ops/ci-workflow-verdicts-history.md links to a missing doc: ci-workflow-verdicts.md (resolved: )
+FAIL: docs/ops/ci-workflow-verdicts.md links to a missing doc: ci-workflow-verdicts-history.md (resolved: )
+FAIL: docs/ops/ci-workflow-verdicts.md links to a missing doc: ci-workflow-verdicts-history.md (resolved: )
+FAIL: docs/ops/compatibility.md links to a missing doc: ../decisions/0002-npm-dist-tag.md (resolved: )
+FAIL: docs/ops/compatibility.md links to a missing doc: ../decisions/0003-sync-tags.md (resolved: )
+FAIL: docs/ops/compatibility.md links to a missing doc: ../decisions/0001-sdk-envelope.md (resolved: )
+FAIL: docs/ops/compatibility.md links to a missing doc: ../contracts/schema-v2.md (resolved: )
+FAIL: docs/ops/compatibility.md links to a missing doc: ../cards/plugins.md (resolved: )
+FAIL: docs/ops/github-sync.md links to a missing doc: ./PROD_OPS.md (resolved: )
+FAIL: docs/ops/merge-gates-history.md links to a missing doc: merge-gates.md (resolved: )
+FAIL: docs/ops/merge-gates-history.md links to a missing doc: merge-gates.md (resolved: )
+FAIL: docs/ops/merge-gates.md links to a missing doc: merge-gates-history.md (resolved: )
+FAIL: docs/ops/merge-gates.md links to a missing doc: branch-protection-and-overrides.md (resolved: )
+FAIL: docs/ops/merge-gates.md links to a missing doc: branch-protection-and-overrides.md (resolved: )
+FAIL: docs/ops/merge-gates.md links to a missing doc: merge-gates-history.md (resolved: )
+FAIL: docs/ops/merge-gates.md links to a missing doc: merge-gates-history.md (resolved: )
+FAIL: docs/ops/merge-gates.md links to a missing doc: merge-gates-history.md (resolved: )
+FAIL: docs/ops/merge-gates.md links to a missing doc: merge-gates-history.md (resolved: )
+FAIL: docs/ops/merge-gates.md links to a missing doc: merge-gates-history.md (resolved: )
+FAIL: docs/ops/merge-gates.md links to a missing doc: merge-gates-history.md (resolved: )
+FAIL: docs/ops/merge-gates.md links to a missing doc: merge-gates-history.md (resolved: )
+FAIL: docs/ops/merge-gates.md links to a missing doc: merge-gates-history.md (resolved: )
+FAIL: docs/ops/merge-gates.md links to a missing doc: security-gates.md (resolved: )
+FAIL: docs/ops/merge-gates.md links to a missing doc: merge-gates-history.md (resolved: )
+FAIL: docs/ops/merge-gates.md links to a missing doc: branch-protection-and-overrides.md (resolved: )
+FAIL: docs/ops/merge-gates.md links to a missing doc: merge-gates-history.md (resolved: )
+FAIL: docs/ops/merge-gates.md links to a missing doc: branch-protection-and-overrides.md (resolved: )
+FAIL: docs/ops/merge-gates.md links to a missing doc: merge-gates-history.md (resolved: )
+FAIL: docs/ops/merge-gates.md links to a missing doc: merge-gates-history.md (resolved: )
+FAIL: docs/ops/npm-rollback-playbook.md links to a missing doc: ../setup/TASK-SYSTEM.md (resolved: )
+FAIL: docs/ops/security-gates.md links to a missing doc: merge-gates.md (resolved: )
+FAIL: docs/ops/security-gates.md links to a missing doc: merge-gates-history.md (resolved: )
+FAIL: docs/ops/security-gates.md links to a missing doc: merge-gates-history.md (resolved: )
+FAIL: docs/ops/security-gates.md links to a missing doc: merge-gates-history.md (resolved: )
+FAIL: docs/ops/security-gates.md links to a missing doc: merge-gates-history.md (resolved: )
+FAIL: docs/ops/whatsapp-meta.md links to a missing doc: ./teams-azure-bot.md (resolved: )
+FAIL: docs/search/ROADMAP.md links to a missing doc: INTELLIGENCE.md (resolved: )
+FAIL: docs/setup/AGENT-ONRAMPS.md links to a missing doc: TASK-SYSTEM.md (resolved: )
+FAIL: docs/setup/AGENT-ONRAMPS.md links to a missing doc: CURSOR.md (resolved: )
+FAIL: docs/setup/AGENT-ONRAMPS.md links to a missing doc: CURSOR-CLOUD.md (resolved: )
+FAIL: docs/setup/AGENT-ONRAMPS.md links to a missing doc: CLAUDE-CODE.md (resolved: )
+FAIL: docs/setup/AGENT-ONRAMPS.md links to a missing doc: CODEX.md (resolved: )
+FAIL: docs/setup/AGENT-ONRAMPS.md links to a missing doc: WINDSURF.md (resolved: )
+FAIL: docs/setup/AGENT-ONRAMPS.md links to a missing doc: GEMINI-CLI.md (resolved: )
+FAIL: docs/setup/AGENT-ONRAMPS.md links to a missing doc: COPILOT.md (resolved: )
+FAIL: docs/setup/AGENT-ONRAMPS.md links to a missing doc: ZED.md (resolved: )
+FAIL: docs/setup/AGENT-ONRAMPS.md links to a missing doc: AGENTS-MD.md (resolved: )
+FAIL: docs/setup/AGENT-ONRAMPS.md links to a missing doc: REMOTE.md (resolved: )
+FAIL: docs/setup/AGENT-ONRAMPS.md links to a missing doc: CLOUD-QUICKSTART.md (resolved: )
+FAIL: docs/setup/AGENT-ONRAMPS.md links to a missing doc: REMOTE.md (resolved: )
+FAIL: docs/setup/AGENTS-MD.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/AGENTS-MD.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/AGENTS-MD.md links to a missing doc: CODEX.md (resolved: )
+FAIL: docs/setup/CLAUDE-CODE.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/CLAUDE-CODE.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/CLAUDE-CODE.md links to a missing doc: REMOTE.md (resolved: )
+FAIL: docs/setup/CLAUDE-CODE.md links to a missing doc: ../../.claude/workflows/README.md (resolved: )
+FAIL: docs/setup/CLOUD-QUICKSTART.md links to a missing doc: QUICKSTART.md (resolved: )
+FAIL: docs/setup/CLOUD-QUICKSTART.md links to a missing doc: ../cheatsheets/bp.md (resolved: )
+FAIL: docs/setup/CLOUD-QUICKSTART.md links to a missing doc: ../../cloud/README.md (resolved: )
+FAIL: docs/setup/CLOUD-QUICKSTART.md links to a missing doc: ../ops/barkpark-cloud-go-live.md (resolved: )
+FAIL: docs/setup/CLOUD-QUICKSTART.md links to a missing doc: QUICKSTART.md (resolved: )
+FAIL: docs/setup/CODEX.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/CODEX.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/COPILOT.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/COPILOT.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/CURSOR-CLOUD.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/CURSOR-CLOUD.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/CURSOR-CLOUD.md links to a missing doc: CURSOR.md (resolved: )
+FAIL: docs/setup/CURSOR.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/CURSOR.md links to a missing doc: QUICKSTART.md (resolved: )
+FAIL: docs/setup/CURSOR.md links to a missing doc: ../ops/mcp-serve-validation.md (resolved: )
+FAIL: docs/setup/GEMINI-CLI.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/GEMINI-CLI.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/GEMINI-CLI.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/GO-LIVE.md links to a missing doc: ../ops/PROD_OPS.md (resolved: )
+FAIL: docs/setup/QUICKSTART.md links to a missing doc: WINDOWS.md (resolved: )
+FAIL: docs/setup/QUICKSTART.md links to a missing doc: CLOUD-QUICKSTART.md (resolved: )
+FAIL: docs/setup/QUICKSTART.md links to a missing doc: SETUP.md (resolved: )
+FAIL: docs/setup/QUICKSTART.md links to a missing doc: ../ops/PROD_OPS.md (resolved: )
+FAIL: docs/setup/QUICKSTART.md links to a missing doc: TASK-SYSTEM.md (resolved: )
+FAIL: docs/setup/QUICKSTART.md links to a missing doc: ../cli/HANDBOOK.md (resolved: )
+FAIL: docs/setup/QUICKSTART.md links to a missing doc: SETUP.md (resolved: )
+FAIL: docs/setup/QUICKSTART.md links to a missing doc: ../ops/PROD_OPS.md (resolved: )
+FAIL: docs/setup/REMOTE.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/REMOTE.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/REMOTE.md links to a missing doc: ../api-v1.md (resolved: )
+FAIL: docs/setup/REMOTE.md links to a missing doc: ../auth.md (resolved: )
+FAIL: docs/setup/SETUP.md links to a missing doc: QUICKSTART.md (resolved: )
+FAIL: docs/setup/TASK-SYSTEM.md links to a missing doc: ../cheatsheets/tui.md (resolved: )
+FAIL: docs/setup/TASK-SYSTEM.md links to a missing doc: QUICKSTART.md (resolved: )
+FAIL: docs/setup/TASK-SYSTEM.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/TASK-SYSTEM.md links to a missing doc: ../api-v1.md (resolved: )
+FAIL: docs/setup/TASK-SYSTEM.md links to a missing doc: ../contracts/task-claim-lifecycle.md (resolved: )
+FAIL: docs/setup/TASK-SYSTEM.md links to a missing doc: ../contracts/close-packet.md (resolved: )
+FAIL: docs/setup/TASK-SYSTEM.md links to a missing doc: ../cheatsheets/tasks.md (resolved: )
+FAIL: docs/setup/TASK-SYSTEM.md links to a missing doc: ../ops/merge-gates.md (resolved: )
+FAIL: docs/setup/TASK-SYSTEM.md links to a missing doc: ../contracts/tenancy.md (resolved: )
+FAIL: docs/setup/TASK-SYSTEM.md links to a missing doc: ../api-v1.md (resolved: )
+FAIL: docs/setup/TASK-SYSTEM.md links to a missing doc: ../cli/HANDBOOK.md (resolved: )
+FAIL: docs/setup/TASK-SYSTEM.md links to a missing doc: ../cheatsheets/tasks.md (resolved: )
+FAIL: docs/setup/TASK-SYSTEM.md links to a missing doc: ../cli/HANDBOOK.md (resolved: )
+FAIL: docs/setup/TASK-SYSTEM.md links to a missing doc: ../api-v1.md (resolved: )
+FAIL: docs/setup/WINDOWS.md links to a missing doc: SETUP.md (resolved: )
+FAIL: docs/setup/WINDOWS.md links to a missing doc: QUICKSTART.md (resolved: )
+FAIL: docs/setup/WINDOWS.md links to a missing doc: SETUP.md (resolved: )
+FAIL: docs/setup/WINDOWS.md links to a missing doc: ../cards/cli.md (resolved: )
+FAIL: docs/setup/WINDSURF.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/WINDSURF.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/WINDSURF.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/ZED.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+FAIL: docs/setup/ZED.md links to a missing doc: AGENT-ONRAMPS.md (resolved: )
+== G1 doc-tier headers ==
+ok:   header AGENTS.md
+ok:   header CLAUDE.md
+ok:   header api/AGENTS.md
+ok:   header api/CLAUDE.md
+ok:   header docs/INDEX.md
+ok:   header docs/PHILOSOPHY.md
+ok:   header docs/adr/0002-npm-dist-tag-publish.md
+ok:   header docs/api-v1.md
+ok:   header docs/api/conflict-409-resolution.md
+ok:   header docs/api/error-codes.md
+ok:   header docs/api/error-envelope-migration.md
+ok:   header docs/auth-user-sessions.md
+ok:   header docs/auth.md
+ok:   header docs/cards/cli.md
+ok:   header docs/cards/js-sdk.md
+ok:   header docs/cards/onix-bokbasen.md
+ok:   header docs/cards/plugins.md
+ok:   header docs/cards/search-media.md
+ok:   header docs/cards/studio.md
+ok:   header docs/cards/tui.md
+ok:   header docs/cheatsheets/bp.md
+ok:   header docs/cheatsheets/http-api.md
+ok:   header docs/cheatsheets/papers.md
+ok:   header docs/cheatsheets/tasks.md
+ok:   header docs/cheatsheets/tui.md
+ok:   header docs/cli/HANDBOOK.md
+ok:   header docs/cli/error-exit-table.md
+ok:   header docs/cli/m0-decisions.md
+ok:   header docs/contracts/bokbasen.md
+ok:   header docs/contracts/canonical-impl-markers.md
+ok:   header docs/contracts/cli-credential-mint.md
+ok:   header docs/contracts/close-packet.md
+ok:   header docs/contracts/cloud-object-authz.md
+ok:   header docs/contracts/cycle-fleet.md
+ok:   header docs/contracts/dispatch-areas.md
+ok:   header docs/contracts/document-graph-and-history.md
+ok:   header docs/contracts/instance-operator-tier.md
+ok:   header docs/contracts/media-http-envelope.md
+ok:   header docs/contracts/onix-field-map.md
+ok:   header docs/contracts/paper-corpus-layers.md
+ok:   header docs/contracts/paper-editor-integration.md
+ok:   header docs/contracts/plugin-http-api.md
+ok:   header docs/contracts/portable-doc-heading-authoring.md
+ok:   header docs/contracts/portable-doc-inline.md
+ok:   header docs/contracts/portable-doc-list-authoring.md
+ok:   header docs/contracts/portable-doc-nested-lists.md
+ok:   header docs/contracts/portable-doc-paragraph-authoring.md
+ok:   header docs/contracts/portable-doc-prose-readers.md
+ok:   header docs/contracts/portable-doc-table-authoring.md
+ok:   header docs/contracts/query-surface-limits.md
+ok:   header docs/contracts/roster-reading.md
+ok:   header docs/contracts/schema-v2.md
+ok:   header docs/contracts/sheets-engine.md
+ok:   header docs/contracts/task-claim-lifecycle.md
+ok:   header docs/contracts/tenancy.md
+ok:   header docs/contracts/tui-render-doctrine.md
+ok:   header docs/contracts/webhook-realtime.md
+ok:   header docs/contracts/writing.md
+ok:   header docs/decisions/0001-sdk-envelope.md
+ok:   header docs/decisions/0002-npm-dist-tag.md
+ok:   header docs/decisions/0003-sync-tags.md
+ok:   header docs/decisions/0004-cloud-boundary.md
+ok:   header docs/decisions/0005-pr-body-criteria.md
+ok:   header docs/decisions/0006-canonical-block-type-count.md
+ok:   header docs/decisions/0007-capability-oracle.md
+ok:   header docs/decisions/0008-charter-corpus-marker-hygiene.md
+ok:   header docs/decisions/0009-malformed-notes-items-across-surfaces.md
+ok:   header docs/decisions/deferred.md
+ok:   header docs/decisions/success-claim-census.md
+ok:   header docs/evidence/gr-p4-members-env/README.md
+ok:   header docs/evidence/gr-p4-notifications/README.md
+ok:   header docs/evidence/spd-b11-subxs-type-scale/README.md
+ok:   header docs/learn/README.md
+ok:   header docs/learn/plugins-catalog.md
+ok:   header docs/media/DISCOVERY.md
+ok:   header docs/ops/PROD_OPS.md
+ok:   header docs/ops/adding-a-domain.md
+ok:   header docs/ops/backup-dr.md
+ok:   header docs/ops/barkpark-cloud-go-live.md
+ok:   header docs/ops/bokbasen-go-live.md
+ok:   header docs/ops/branch-protection-and-overrides.md
+ok:   header docs/ops/break-glass-log.md
+ok:   header docs/ops/ci-cost-baseline.md
+ok:   header docs/ops/ci-value-audit-history.md
+ok:   header docs/ops/ci-value-audit.md
+ok:   header docs/ops/ci-workflow-verdicts-history.md
+ok:   header docs/ops/ci-workflow-verdicts.md
+ok:   header docs/ops/claude-chat-harness.md
+ok:   header docs/ops/compatibility.md
+ok:   header docs/ops/connectors-deploy.md
+ok:   header docs/ops/github-sync.md
+ok:   header docs/ops/imessage-self-host.md
+ok:   header docs/ops/mcp-serve-validation.md
+ok:   header docs/ops/merge-gates-history.md
+ok:   header docs/ops/merge-gates.md
+ok:   header docs/ops/npm-rollback-playbook.md
+ok:   header docs/ops/prod-microblock-pull-plan.md
+ok:   header docs/ops/realtime-webhook-setup.md
+ok:   header docs/ops/security-gates.md
+ok:   header docs/ops/slack-app.md
+ok:   header docs/ops/studio-nav-bug-2026-04-19.md
+ok:   header docs/ops/teams-azure-bot.md
+ok:   header docs/ops/vercel-dns-connect.md
+ok:   header docs/ops/whatsapp-meta.md
+ok:   header docs/plugins/codelists-byo.md
+ok:   header docs/search/INTELLIGENCE.md
+ok:   header docs/search/ROADMAP.md
+ok:   header docs/setup/AGENT-ONRAMPS.md
+ok:   header docs/setup/AGENTS-MD.md
+ok:   header docs/setup/CLAUDE-CODE.md
+ok:   header docs/setup/CLOUD-QUICKSTART.md
+ok:   header docs/setup/CODEX.md
+ok:   header docs/setup/COPILOT.md
+ok:   header docs/setup/CURSOR-CLOUD.md
+ok:   header docs/setup/CURSOR.md
+ok:   header docs/setup/GEMINI-CLI.md
+ok:   header docs/setup/GO-LIVE.md
+ok:   header docs/setup/QUICKSTART.md
+ok:   header docs/setup/REMOTE.md
+ok:   header docs/setup/SETUP.md
+ok:   header docs/setup/TASK-SYSTEM.md
+ok:   header docs/setup/WINDOWS.md
+ok:   header docs/setup/WINDSURF.md
+ok:   header docs/setup/ZED.md
+ok:   header docs/setup/cloud-login.md
+ok:   header docs/setup/media-object-storage.md
+ok:   header docs/setup/personal-local.md
+ok:   header docs/sla.md
+ok:   header docs/snippets/README.md
+ok:   header docs/spec/bokbasen-api-contract.md
+ok:   header docs/specs/wave-deck-zen/handoff/README.md
+ok:   header docs/studio/user-guide.md
+ok:   header docs/studio/web-components.md
+ok:   header docs/superpowers/plans/2026-07-25-session-handoff.md
+ok:   header docs/superpowers/specs/2026-07-25-session-handoff-design.md
+ok:   header docs/swarm/_INTEGRATION-LOG.md
+ok:   header docs/swarm/account-sessions.md
+ok:   header docs/swarm/dwb-11-failure-matrix.md
+ok:   header docs/swarm/notifications-email.md
+ok:   header docs/swarm/oban-substrate.md
+ok:   header docs/swarm/personal-access-tokens.md
+ok:   header docs/swarm/rbac-roles.md
+ok:   header docs/swarm/subscription-billing.md
+ok:   header docs/swarm/teams-invitations.md
+ok:   header js/CLAUDE.md
+ok:   header web/AGENTS.md
+ok:   header web/CLAUDE.md (import stub: content is only @-imports, owns no fact)
+== canonical-for uniqueness ==
+      1 [main] bash 59377 C:\Program Files\Git\bin\..\usr\bin\bash.exe: *** fatal error in forked process - WFSO timed out after longjmp
+    953 [main] bash 59377 cygwin_exception::open_stackdumpfile: Dumping stack trace to bash.exe.stackdump

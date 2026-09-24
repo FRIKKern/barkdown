@@ -26,7 +26,7 @@ From `app/`, `npm start` builds and launches; `npm run dev` also opens DevTools.
 
 | Surface | Implementation |
 |---|---|
-| Notes | Real Barkpark Paper canvas, PortableDoc ops, acknowledged save, revision conflicts, server echo and guarded assistant Undo. Legacy local documents still use a separate Tiptap store until migration. |
+| Notes | Real Barkpark Paper canvas, PortableDoc ops, acknowledged save, revision conflicts, server echo and guarded assistant Undo. Managed local New Page and API/MCP creation use exact drafts; [human proof](../docs/visual/paper-notes/README.md) and [agent proof](../docs/visual/agent-notes/README.md) distinguish accepted scope and remaining limits. Legacy documents stay on their separate store until P2 migration passes. |
 | Conversations | Shared main/side composer, provider/model/effort controls, images, 100-message recall, independent drafts and saved parent links. |
 | Workspaces | Per-chat working folders and tabs for notes, project files, websites, terminal, reviews and side chats. Favorites reopen individual destinations. |
 | Pages | Human-controlled nesting and order. Cloud discovery stays in Cloud archive; opening a paper does not place it. |
@@ -122,4 +122,4 @@ C034’s [actual Codex read/edit/read and stopped Job receipt](../docs/cycles/ev
 
 Initial Settings discovery now checks supported CLI status, including keyring-backed sessions, while keeping an explicitly selected provider. Shared computer login/environment authentication remains the default; owned API keys retain precedence. An expired accepted turn keeps its original message in the transcript and offers sign-in assistance plus an explicit copy into an empty draft. Copying never overwrites newer input or resends work. Quota, transport and tool-permission failures are not classified by broad authentication keywords.
 
-The native login journey covers cancellation, explicit retry, expired-session help and newer-draft protection. Controlled adapter/repository checks cover captured owners and restart metadata; these do not manufacture real account expiry. Current changes still require a clean-source [login gallery](../docs/visual/provider-login/README.md), global capture review and final verification before C039 closes. See [the current handoff](../docs/cycles/C039-provider-authentication.md).
+The accepted [C039 login journey](../docs/cycles/C039-provider-authentication.md) covers cancellation, explicit retry, expired-session help and newer-draft protection. Controlled adapter/repository checks cover captured owners and restart metadata; these do not manufacture real account expiry. Its source-bound [login gallery](../docs/visual/provider-login/README.md) remains historical evidence; [NEXT-AGENT](../docs/NEXT-AGENT.md) identifies current work.

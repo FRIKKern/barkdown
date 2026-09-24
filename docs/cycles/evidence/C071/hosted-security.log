@@ -1,0 +1,356 @@
+﻿2026-09-24T21:49:32.2266062Z Current runner version: '2.337.0'
+2026-09-24T21:49:32.2300995Z ##[group]Runner Image Provisioner
+2026-09-24T21:49:32.2302292Z Hosted Compute Agent
+2026-09-24T21:49:32.2303267Z Version: 20260828.587
+2026-09-24T21:49:32.2304716Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-24T21:49:32.2305997Z Build Date: 2026-08-28T16:44:25Z
+2026-09-24T21:49:32.2307235Z Worker ID: {2d2db2cf-3c74-47f9-b227-0f1e5d3d0809}
+2026-09-24T21:49:32.2308496Z Azure Region: eastus
+2026-09-24T21:49:32.2309527Z ##[endgroup]
+2026-09-24T21:49:32.2311814Z ##[group]Operating System
+2026-09-24T21:49:32.2312931Z Ubuntu
+2026-09-24T21:49:32.2314191Z 24.04.5
+2026-09-24T21:49:32.2315018Z LTS
+2026-09-24T21:49:32.2315822Z ##[endgroup]
+2026-09-24T21:49:32.2316884Z ##[group]Runner Image
+2026-09-24T21:49:32.2317901Z Image: ubuntu-24.04
+2026-09-24T21:49:32.2318866Z Version: 20260920.314.1
+2026-09-24T21:49:32.2320979Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260920.314/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-24T21:49:32.2323950Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260920.314
+2026-09-24T21:49:32.2325751Z ##[endgroup]
+2026-09-24T21:49:32.2327822Z ##[group]GITHUB_TOKEN Permissions
+2026-09-24T21:49:32.2330523Z Contents: read
+2026-09-24T21:49:32.2331459Z Metadata: read
+2026-09-24T21:49:32.2332426Z Packages: read
+2026-09-24T21:49:32.2333451Z ##[endgroup]
+2026-09-24T21:49:32.2336606Z Secret source: Actions
+2026-09-24T21:49:32.2338187Z Cache mode: write
+2026-09-24T21:49:32.2339274Z Prepare workflow directory
+2026-09-24T21:49:32.2810336Z Prepare all required actions
+2026-09-24T21:49:32.2882326Z Getting action download info
+2026-09-24T21:49:32.4919238Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-09-24T21:49:32.7050613Z Complete job name: Security gate shape ratchet
+2026-09-24T21:49:32.7830179Z ##[group]Run actions/checkout@v4
+2026-09-24T21:49:32.7831056Z with:
+2026-09-24T21:49:32.7831505Z   repository: FRIKKern/barkpark
+2026-09-24T21:49:32.7835379Z   token: ***
+2026-09-24T21:49:32.7835821Z   ssh-strict: true
+2026-09-24T21:49:32.7836263Z   ssh-user: git
+2026-09-24T21:49:32.7836705Z   persist-credentials: true
+2026-09-24T21:49:32.7837194Z   clean: true
+2026-09-24T21:49:32.7837649Z   sparse-checkout-cone-mode: true
+2026-09-24T21:49:32.7838169Z   fetch-depth: 1
+2026-09-24T21:49:32.7838602Z   fetch-tags: false
+2026-09-24T21:49:32.7839054Z   show-progress: true
+2026-09-24T21:49:32.7839500Z   lfs: false
+2026-09-24T21:49:32.7839915Z   submodules: false
+2026-09-24T21:49:32.7840365Z   set-safe-directory: true
+2026-09-24T21:49:32.7840869Z   allow-unsafe-pr-checkout: false
+2026-09-24T21:49:32.7841636Z ##[endgroup]
+2026-09-24T21:49:32.8867838Z Syncing repository: FRIKKern/barkpark
+2026-09-24T21:49:32.8870337Z ##[group]Getting Git version info
+2026-09-24T21:49:32.8871584Z Working directory is '/home/runner/work/barkpark/barkpark'
+2026-09-24T21:49:32.8873470Z [command]/usr/bin/git version
+2026-09-24T21:49:32.8993400Z git version 2.55.0
+2026-09-24T21:49:32.9016022Z ##[endgroup]
+2026-09-24T21:49:32.9032642Z Temporarily overriding HOME='/home/runner/work/_temp/d559b0d8-3ccc-424a-9aaa-2c9ea030593a' before making global git config changes
+2026-09-24T21:49:32.9035235Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-24T21:49:32.9038462Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/barkpark/barkpark
+2026-09-24T21:49:32.9088824Z Deleting the contents of '/home/runner/work/barkpark/barkpark'
+2026-09-24T21:49:32.9094016Z ##[group]Initializing the repository
+2026-09-24T21:49:32.9098161Z [command]/usr/bin/git init /home/runner/work/barkpark/barkpark
+2026-09-24T21:49:32.9201802Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-24T21:49:32.9203888Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-24T21:49:32.9206157Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-24T21:49:32.9208326Z hint: call:
+2026-09-24T21:49:32.9209175Z hint:
+2026-09-24T21:49:32.9210645Z hint: 	git config --global init.defaultBranch <name>
+2026-09-24T21:49:32.9211853Z hint:
+2026-09-24T21:49:32.9212944Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-24T21:49:32.9215011Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-24T21:49:32.9216334Z hint:
+2026-09-24T21:49:32.9217115Z hint: 	git branch -m <name>
+2026-09-24T21:49:32.9217935Z hint:
+2026-09-24T21:49:32.9219024Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-24T21:49:32.9220078Z Initialized empty Git repository in /home/runner/work/barkpark/barkpark/.git/
+2026-09-24T21:49:32.9223992Z [command]/usr/bin/git remote add origin https://github.com/FRIKKern/barkpark
+2026-09-24T21:49:32.9288578Z ##[endgroup]
+2026-09-24T21:49:32.9290556Z ##[group]Disabling automatic garbage collection
+2026-09-24T21:49:32.9295690Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-24T21:49:32.9330812Z ##[endgroup]
+2026-09-24T21:49:32.9332215Z ##[group]Setting up auth
+2026-09-24T21:49:32.9341856Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-24T21:49:32.9380635Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-24T21:49:32.9770756Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-24T21:49:32.9809855Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-24T21:49:33.0036685Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-24T21:49:33.0073453Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-24T21:49:33.0298925Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-24T21:49:33.0340142Z ##[endgroup]
+2026-09-24T21:49:33.0341062Z ##[group]Fetching the repository
+2026-09-24T21:49:33.0350364Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +f818b72c32232e42516c4699519b6cf9d36e335c:refs/remotes/pull/20020/merge
+2026-09-24T21:49:42.2212820Z From https://github.com/FRIKKern/barkpark
+2026-09-24T21:49:42.2219951Z  * [new ref]         f818b72c32232e42516c4699519b6cf9d36e335c -> pull/20020/merge
+2026-09-24T21:49:42.2223501Z ##[endgroup]
+2026-09-24T21:49:42.2225146Z ##[group]Determining the checkout info
+2026-09-24T21:49:42.2226681Z ##[endgroup]
+2026-09-24T21:49:42.2263221Z [command]/usr/bin/git sparse-checkout disable
+2026-09-24T21:49:42.2318846Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-24T21:49:42.2352019Z ##[group]Checking out the ref
+2026-09-24T21:49:42.2355811Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/20020/merge
+2026-09-24T21:49:43.2579587Z Updating files:  51% (8144/15895)
+2026-09-24T21:49:43.2699301Z Updating files:  52% (8266/15895)
+2026-09-24T21:49:43.2821874Z Updating files:  53% (8425/15895)
+2026-09-24T21:49:43.2886691Z Updating files:  54% (8584/15895)
+2026-09-24T21:49:43.2952161Z Updating files:  55% (8743/15895)
+2026-09-24T21:49:43.3030810Z Updating files:  56% (8902/15895)
+2026-09-24T21:49:43.3138047Z Updating files:  57% (9061/15895)
+2026-09-24T21:49:43.3226230Z Updating files:  58% (9220/15895)
+2026-09-24T21:49:43.3323179Z Updating files:  59% (9379/15895)
+2026-09-24T21:49:43.3458907Z Updating files:  60% (9537/15895)
+2026-09-24T21:49:43.3676219Z Updating files:  61% (9696/15895)
+2026-09-24T21:49:43.3850985Z Updating files:  62% (9855/15895)
+2026-09-24T21:49:43.4196253Z Updating files:  63% (10014/15895)
+2026-09-24T21:49:43.4384135Z Updating files:  64% (10173/15895)
+2026-09-24T21:49:43.4526374Z Updating files:  65% (10332/15895)
+2026-09-24T21:49:43.4686780Z Updating files:  66% (10491/15895)
+2026-09-24T21:49:43.4847103Z Updating files:  67% (10650/15895)
+2026-09-24T21:49:43.4951109Z Updating files:  68% (10809/15895)
+2026-09-24T21:49:43.5049175Z Updating files:  69% (10968/15895)
+2026-09-24T21:49:43.5151518Z Updating files:  70% (11127/15895)
+2026-09-24T21:49:43.5243987Z Updating files:  71% (11286/15895)
+2026-09-24T21:49:43.5344961Z Updating files:  72% (11445/15895)
+2026-09-24T21:49:43.5440571Z Updating files:  73% (11604/15895)
+2026-09-24T21:49:43.5505922Z Updating files:  74% (11763/15895)
+2026-09-24T21:49:43.5566391Z Updating files:  75% (11922/15895)
+2026-09-24T21:49:43.5622767Z Updating files:  76% (12081/15895)
+2026-09-24T21:49:43.5696163Z Updating files:  77% (12240/15895)
+2026-09-24T21:49:43.5777178Z Updating files:  78% (12399/15895)
+2026-09-24T21:49:43.5837724Z Updating files:  79% (12558/15895)
+2026-09-24T21:49:43.5899244Z Updating files:  80% (12716/15895)
+2026-09-24T21:49:43.5960474Z Updating files:  81% (12875/15895)
+2026-09-24T21:49:43.6017363Z Updating files:  82% (13034/15895)
+2026-09-24T21:49:43.6076203Z Updating files:  83% (13193/15895)
+2026-09-24T21:49:43.6136880Z Updating files:  84% (13352/15895)
+2026-09-24T21:49:43.6196419Z Updating files:  85% (13511/15895)
+2026-09-24T21:49:43.6255208Z Updating files:  86% (13670/15895)
+2026-09-24T21:49:43.6320621Z Updating files:  87% (13829/15895)
+2026-09-24T21:49:43.6381196Z Updating files:  88% (13988/15895)
+2026-09-24T21:49:43.6440334Z Updating files:  89% (14147/15895)
+2026-09-24T21:49:43.6499234Z Updating files:  90% (14306/15895)
+2026-09-24T21:49:43.6559439Z Updating files:  91% (14465/15895)
+2026-09-24T21:49:43.6632785Z Updating files:  92% (14624/15895)
+2026-09-24T21:49:43.6731722Z Updating files:  93% (14783/15895)
+2026-09-24T21:49:43.6867198Z Updating files:  94% (14942/15895)
+2026-09-24T21:49:43.6958602Z Updating files:  95% (15101/15895)
+2026-09-24T21:49:44.1742972Z Updating files:  96% (15260/15895)
+2026-09-24T21:49:44.1922977Z Updating files:  97% (15419/15895)
+2026-09-24T21:49:44.2058794Z Updating files:  98% (15578/15895)
+2026-09-24T21:49:44.2207814Z Updating files:  99% (15737/15895)
+2026-09-24T21:49:44.2208454Z Updating files: 100% (15895/15895)
+2026-09-24T21:49:44.2210275Z Updating files: 100% (15895/15895), done.
+2026-09-24T21:49:44.2365659Z Note: switching to 'refs/remotes/pull/20020/merge'.
+2026-09-24T21:49:44.2366134Z 
+2026-09-24T21:49:44.2366591Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-09-24T21:49:44.2367491Z changes and commit them, and you can discard any commits you make in this
+2026-09-24T21:49:44.2368324Z state without impacting any branches by switching back to a branch.
+2026-09-24T21:49:44.2368797Z 
+2026-09-24T21:49:44.2369168Z If you want to create a new branch to retain commits you create, you may
+2026-09-24T21:49:44.2369918Z do so (now or later) by using -c with the switch command. Example:
+2026-09-24T21:49:44.2370347Z 
+2026-09-24T21:49:44.2370540Z   git switch -c <new-branch-name>
+2026-09-24T21:49:44.2370826Z 
+2026-09-24T21:49:44.2370986Z Or undo this operation with:
+2026-09-24T21:49:44.2371252Z 
+2026-09-24T21:49:44.2371391Z   git switch -
+2026-09-24T21:49:44.2371568Z 
+2026-09-24T21:49:44.2371785Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-09-24T21:49:44.2372089Z 
+2026-09-24T21:49:44.2372437Z HEAD is now at f818b72 Merge ae6065545d9dec7741bf8cc6805d064ec051fde4 into bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f
+2026-09-24T21:49:44.2427955Z ##[endgroup]
+2026-09-24T21:49:44.2483522Z [command]/usr/bin/git log -1 --format=%H
+2026-09-24T21:49:44.2505006Z f818b72c32232e42516c4699519b6cf9d36e335c
+2026-09-24T21:49:44.2745124Z ##[group]Run bash scripts/security-gate-shape.test.sh
+2026-09-24T21:49:44.2745587Z [36;1mbash scripts/security-gate-shape.test.sh[0m
+2026-09-24T21:49:44.3017845Z shell: /usr/bin/bash -e {0}
+2026-09-24T21:49:44.3018151Z ##[endgroup]
+2026-09-24T21:49:44.3174658Z security-gate-shape.test.sh
+2026-09-24T21:49:44.3175386Z 
+2026-09-24T21:49:44.4495787Z case 1: security.yml carries the shim shape
+2026-09-24T21:49:44.4515178Z   ok   — workflow_paths = False
+2026-09-24T21:49:44.4531687Z   ok   — push_paths = True
+2026-09-24T21:49:44.4548855Z   ok   — agg_present = True
+2026-09-24T21:49:44.4565976Z   ok   — agg_matrix = False
+2026-09-24T21:49:44.4581965Z   ok   — agg_if = always()
+2026-09-24T21:49:44.4597970Z   ok   — agg_name = Security gate
+2026-09-24T21:49:44.4614024Z   ok   — dispatcher_present = True
+2026-09-24T21:49:44.4629779Z   ok   — dispatcher_if = 
+2026-09-24T21:49:44.4645309Z   ok   — dispatcher_matrix = False
+2026-09-24T21:49:44.4661167Z   ok   — dispatcher_outputs = api,locks
+2026-09-24T21:49:44.4678251Z   info — continue-on-error jobs in security.yml: 'sobelow'
+2026-09-24T21:49:44.4694333Z   info — Security gate needs: 'changes,gate-shape,sobelow,sobelow-inline-overlap,sobelow-baseline-fingerprint,mix-audit'
+2026-09-24T21:49:44.4695211Z 
+2026-09-24T21:49:44.4695408Z case 2: THE LAUNDERING GUARD and its mirror
+2026-09-24T21:49:44.4711260Z   ok   — coe_in_needs_unchannelled = 
+2026-09-24T21:49:44.4726862Z   ok   — coe_result_bound = 
+2026-09-24T21:49:44.4744289Z   ok   — verdict_bindings_count = 4 (>= 3)
+2026-09-24T21:49:44.4759864Z   info — continue-on-error jobs judged on outputs.verdict: 'sobelow'
+2026-09-24T21:49:44.4775555Z   ok   — blocking_not_in_needs = 
+2026-09-24T21:49:44.4791652Z   ok   — post_verdict_jobs = report-main-failure
+2026-09-24T21:49:44.4807927Z   ok   — post_verdict_muted = 
+2026-09-24T21:49:44.4823787Z   ok   — needs_without_decide = 
+2026-09-24T21:49:44.4839565Z   ok   — needs_count = 6 (>= 3)
+2026-09-24T21:49:44.4855551Z   ok   — needs_results_count = 5 (>= 3)
+2026-09-24T21:49:44.4871503Z   ok   — decide_consumes_count = 5 (>= 3)
+2026-09-24T21:49:44.4887530Z   ok   — blocking_count = 6 (>= 3)
+2026-09-24T21:49:44.4887888Z 
+2026-09-24T21:49:44.4888285Z case 3: every heavy job is gated on the dispatcher, not on a path filter
+2026-09-24T21:49:44.4909781Z   ok   — if::sobelow = needs.changes.outputs.api == 'true'
+2026-09-24T21:49:44.4921040Z   ok   — needs::sobelow = changes
+2026-09-24T21:49:44.4937664Z   ok   — if::sobelow-inline-overlap = needs.changes.outputs.api == 'true'
+2026-09-24T21:49:44.4953739Z   ok   — needs::sobelow-inline-overlap = changes
+2026-09-24T21:49:44.4970880Z   ok   — if::sobelow-baseline-fingerprint = needs.changes.outputs.api == 'true'
+2026-09-24T21:49:44.4987102Z   ok   — needs::sobelow-baseline-fingerprint = changes
+2026-09-24T21:49:44.5002877Z   ok   — if::mix-audit = needs.changes.outputs.locks == 'true'
+2026-09-24T21:49:44.5019986Z   ok   — needs::mix-audit = changes
+2026-09-24T21:49:44.5036437Z   ok   — the aggregator judges mix-audit's skip against O_LOCKS, the output that gates it
+2026-09-24T21:49:44.5051983Z   ok   — the aggregator binds O_LOCKS from the dispatcher
+2026-09-24T21:49:44.5052389Z 
+2026-09-24T21:49:44.5052593Z case 4: each assertion is proven able to fail
+2026-09-24T21:49:44.7075503Z   ok   — mutation[clean]: coe_in_needs_unchannelled = ''
+2026-09-24T21:49:44.9069603Z   ok   — mutation[clean]: coe_result_bound = ''
+2026-09-24T21:49:45.1086173Z   ok   — mutation[clean]: blocking_not_in_needs = ''
+2026-09-24T21:49:45.3098059Z   ok   — mutation[launder]: coe_in_needs_unchannelled = 'fleet-drift'
+2026-09-24T21:49:45.5111083Z   ok   — mutation[launder]: needs_without_decide = 'fleet-drift'
+2026-09-24T21:49:45.7095578Z   ok   — mutation[coe-unchannelled]: coe_in_needs_unchannelled = 'sobelow'
+2026-09-24T21:49:45.9094830Z   ok   — mutation[coe-unchannelled]: needs_without_decide = 'sobelow'
+2026-09-24T21:49:46.1103461Z   ok   — mutation[verdict-step-deleted]: coe_in_needs_unchannelled = 'sobelow'
+2026-09-24T21:49:46.3154339Z   ok   — mutation[coe-result-bound]: coe_result_bound = 'sobelow'
+2026-09-24T21:49:46.5191165Z   ok   — mutation[clean]: coe_verdict_judged = 'sobelow'
+2026-09-24T21:49:46.7199312Z   ok   — mutation[unwired]: blocking_not_in_needs = 'mix-audit'
+2026-09-24T21:49:46.9207373Z   ok   — mutation[orphan]: needs_without_decide = 'a11y-ceiling'
+2026-09-24T21:49:47.1221015Z   ok   — mutation[paths]: workflow_paths = 'True'
+2026-09-24T21:49:47.3252408Z   ok   — mutation[clean]: push_paths = 'True'
+2026-09-24T21:49:47.5246807Z   ok   — mutation[pushpaths]: push_paths = 'False'
+2026-09-24T21:49:47.7266895Z   ok   — mutation[matrix]: agg_matrix = 'True'
+2026-09-24T21:49:47.9298352Z   ok   — mutation[clean]: post_verdict_jobs = 'report-main-failure'
+2026-09-24T21:49:48.1330055Z   ok   — mutation[clean]: post_verdict_muted = ''
+2026-09-24T21:49:48.3350461Z   ok   — mutation[reporter-muted]: post_verdict_jobs = ''
+2026-09-24T21:49:48.5374470Z   ok   — mutation[reporter-muted]: post_verdict_muted = 'report-main-failure'
+2026-09-24T21:49:48.7523143Z   ok   — mutation[reporter-muted]: blocking_not_in_needs = ''
+2026-09-24T21:49:48.9634977Z   ok   — mutation[reporter-alwaysruns]: post_verdict_jobs = ''
+2026-09-24T21:49:49.3118477Z   ok   — mutation[reporter-alwaysruns]: blocking_not_in_needs = 'report-main-failure'
+2026-09-24T21:49:49.5160470Z   ok   — mutation[reporter-unwired]: post_verdict_jobs = ''
+2026-09-24T21:49:49.7394246Z   ok   — mutation[reporter-unwired]: blocking_not_in_needs = 'report-main-failure'
+2026-09-24T21:49:49.7395152Z 
+2026-09-24T21:49:49.7395418Z case 5: the dispatcher fails rather than skips when it cannot tell
+2026-09-24T21:49:49.9417939Z   ok   — docs-only PR -> exit 0
+2026-09-24T21:49:49.9433244Z   ok   —   …emits api=false
+2026-09-24T21:49:49.9449128Z   ok   —   …emits locks=false
+2026-09-24T21:49:49.9654878Z   ok   — api/** PR -> exit 0
+2026-09-24T21:49:49.9670534Z   ok   —   …emits api=true
+2026-09-24T21:49:49.9687957Z   ok   —   …emits locks=false
+2026-09-24T21:49:49.9897747Z   ok   — security.yml-only PR -> exit 0
+2026-09-24T21:49:49.9914116Z   ok   —   …emits api=true
+2026-09-24T21:49:49.9929652Z   ok   —   …emits locks=true
+2026-09-24T21:49:50.0139276Z   ok   — elixir.yml-only PR -> exit 0
+2026-09-24T21:49:50.0155151Z   ok   —   …emits api=false
+2026-09-24T21:49:50.0171508Z   ok   —   …emits locks=false
+2026-09-24T21:49:50.0394097Z   ok   — api/mix.lock PR -> exit 0
+2026-09-24T21:49:50.0410044Z   ok   —   …emits api=true
+2026-09-24T21:49:50.0425808Z   ok   —   …emits locks=true
+2026-09-24T21:49:50.0644257Z   ok   — cloud/mix.lock-only PR -> exit 0
+2026-09-24T21:49:50.0659784Z   ok   —   …emits api=false
+2026-09-24T21:49:50.0675635Z   ok   —   …emits locks=true
+2026-09-24T21:49:50.0891359Z   ok   — the oracle script itself -> exit 0
+2026-09-24T21:49:50.0907913Z   ok   —   …emits api=false
+2026-09-24T21:49:50.0923378Z   ok   —   …emits locks=true
+2026-09-24T21:49:50.0950786Z   ok   — push event -> exit 0
+2026-09-24T21:49:50.0966659Z   ok   —   …emits api=true
+2026-09-24T21:49:50.0982127Z   ok   —   …emits locks=true
+2026-09-24T21:49:50.1185918Z   ok   — a path containing a double quote -> exit 0
+2026-09-24T21:49:50.1201458Z   ok   —   …emits api=true
+2026-09-24T21:49:50.1217384Z   ok   —   …emits locks=false
+2026-09-24T21:49:50.1453139Z   ok   — a rename OUT of the declared set -> exit 0
+2026-09-24T21:49:50.1468947Z   ok   —   …emits api=true
+2026-09-24T21:49:50.1484360Z   ok   —   …emits locks=false
+2026-09-24T21:49:50.1699638Z   ok   — a rename INTO the declared set -> exit 0
+2026-09-24T21:49:50.1724578Z   ok   —   …emits api=true
+2026-09-24T21:49:50.1730579Z   ok   —   …emits locks=false
+2026-09-24T21:49:50.1925149Z   ok   — empty diff (base == HEAD) -> exit 0
+2026-09-24T21:49:50.1944412Z   ok   —   …emits api=true
+2026-09-24T21:49:50.1960055Z   ok   —   …emits locks=true
+2026-09-24T21:49:50.1989806Z   ok   —   …names the shape
+2026-09-24T21:49:50.2018051Z   ok   —   …as a WARNING, not a brick
+2026-09-24T21:49:50.2140513Z   ok   — unresolvable base sha -> exit 1
+2026-09-24T21:49:50.2169138Z   ok   —   …refuses to guess a base
+2026-09-24T21:49:50.2215708Z   ok   —   …refuses with an annotation
+2026-09-24T21:49:50.2261606Z   ok   — missing base sha -> exit 1
+2026-09-24T21:49:50.2289143Z   ok   —   …says why
+2026-09-24T21:49:50.2319795Z   ok   —   …refuses with an annotation
+2026-09-24T21:49:50.2609879Z   ok   — a base with no common ancestor -> exit 1
+2026-09-24T21:49:50.2641029Z   ok   —   …names the condition, not a raw git fatal
+2026-09-24T21:49:50.2669523Z   ok   —   …refuses the fallback that sweeps in the whole base
+2026-09-24T21:49:50.2670234Z 
+2026-09-24T21:49:50.2671217Z case 6: the Security gate decides over every upstream result
+2026-09-24T21:49:50.4072321Z   ok   — everything succeeded -> exit 0
+2026-09-24T21:49:50.4103965Z   ok   — docs-only: gated jobs skipped against api=false -> exit 0
+2026-09-24T21:49:50.4132621Z   ok   — api PR that touches no lockfile: the CVE audit skipped against locks=false -> exit 0
+2026-09-24T21:49:50.4160558Z   ok   — the CVE audit skipped though locks said true -> exit 1
+2026-09-24T21:49:50.4189406Z   ok   — the CVE audit skipped with an EMPTY locks gate (unbound O_LOCKS) -> exit 1
+2026-09-24T21:49:50.4216704Z   ok   — a blocking job FAILED -> exit 1
+2026-09-24T21:49:50.4244614Z   ok   — the CVE audit was CANCELLED -> exit 1
+2026-09-24T21:49:50.4273348Z   ok   — a job skipped though its gate said true -> exit 1
+2026-09-24T21:49:50.4301814Z   ok   — the dispatcher itself failed -> exit 1
+2026-09-24T21:49:50.4330280Z   ok   — an EMPTY result (job not in needs) -> exit 1
+2026-09-24T21:49:50.4358207Z   ok   — an unrecognised result -> exit 1
+2026-09-24T21:49:50.4387394Z   ok   — the shape ratchet was SKIPPED (never legitimate — it is unfiltered) -> exit 1
+2026-09-24T21:49:50.4416055Z   ok   — the shape ratchet FAILED -> exit 1
+2026-09-24T21:49:50.4443748Z   ok   — the fingerprint ratchet FAILED -> exit 1
+2026-09-24T21:49:50.4472869Z   ok   — the fingerprint ratchet skipped though its gate said true -> exit 1
+2026-09-24T21:49:50.4473513Z 
+2026-09-24T21:49:50.4473898Z case 6b: a Sobelow regression reaches the aggregate
+2026-09-24T21:49:50.4501756Z   ok   — Sobelow measured clean -> exit 0
+2026-09-24T21:49:50.4530812Z   ok   — Sobelow found a NEW finding (the regression this gate was blind to) -> exit 1
+2026-09-24T21:49:50.4558532Z   ok   —   …names the verdict, not just 'something is wrong'
+2026-09-24T21:49:50.4592305Z   ok   — Sobelow REFUSED to measure — not installed, crashed, wiring broken -> exit 1
+2026-09-24T21:49:50.4619413Z   ok   —   …an unreadable result is CANNOT READ, never a pass
+2026-09-24T21:49:50.4647850Z   ok   — Sobelow exited on a signal (UNKNOWN) -> exit 1
+2026-09-24T21:49:50.4675407Z   ok   — Sobelow was dispatched and published NO verdict -> exit 1
+2026-09-24T21:49:50.4703610Z   ok   —   …refuses over the hole instead of greening
+2026-09-24T21:49:50.4732801Z   ok   — an unrecognised verdict word -> exit 1
+2026-09-24T21:49:50.4762546Z   ok   — docs-only: Sobelow legitimately not dispatched -> exit 0
+2026-09-24T21:49:50.4763037Z 
+2026-09-24T21:49:50.4763406Z case 7: the .sobelow-skips census in the header is compared, not trusted
+2026-09-24T21:49:50.4908726Z   FAIL — the header census disagrees with api/.sobelow-skips:
+2026-09-24T21:49:50.4909653Z DECLARED-NOT-IN-FILE: FILE-HAS-NOT-DECLARED: Traversal.FileModule=8
+2026-09-24T21:49:50.4910075Z DECLARED-NOT-IN-FILE: Traversal.FileModule=9
+2026-09-24T21:49:50.4910447Z DECLARED-NOT-IN-FILE: FILE-HAS-NOT-DECLARED: total=23
+2026-09-24T21:49:50.4910768Z DECLARED-NOT-IN-FILE: total=24
+2026-09-24T21:49:50.4934151Z   ok   — the census table is non-empty (7 rows declared) — the arm above compared something
+2026-09-24T21:49:50.5118255Z   ok   — MUTANT total: a rotted row count fires, and the line names total
+2026-09-24T21:49:50.5290152Z   ok   — MUTANT per-class: a drifted class fires even with the total correct
+2026-09-24T21:49:50.5451419Z   FAIL — MUTANT baseline-grew: adding a baseline row did NOT fire
+2026-09-24T21:49:50.5613551Z   ok   — MUTANT new-class: an undeclared detector class fires by name
+2026-09-24T21:49:50.5667551Z   ok   — MUTANT table-deleted: an absent census REFUSES instead of reading clean
+2026-09-24T21:49:50.5687019Z   ok   — MUTANT baseline-missing: an unreadable baseline REFUSES rather than greening
+2026-09-24T21:49:50.5687430Z 
+2026-09-24T21:49:50.5687667Z ----
+2026-09-24T21:49:50.5688220Z 134 passed, 2 failed
+2026-09-24T21:49:50.5780438Z ##[error]Process completed with exit code 1.
+2026-09-24T21:49:50.5928208Z Post job cleanup.
+2026-09-24T21:49:50.6784732Z [command]/usr/bin/git version
+2026-09-24T21:49:50.6827967Z git version 2.55.0
+2026-09-24T21:49:50.6868057Z Temporarily overriding HOME='/home/runner/work/_temp/d1e10648-de80-4a5e-aaf1-983b56a48212' before making global git config changes
+2026-09-24T21:49:50.6869358Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-24T21:49:50.6874139Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/barkpark/barkpark
+2026-09-24T21:49:50.6915870Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-24T21:49:50.6951611Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-24T21:49:50.7226531Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-24T21:49:50.7253277Z http.https://github.com/.extraheader
+2026-09-24T21:49:50.7267331Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-09-24T21:49:50.7304494Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-24T21:49:50.7581694Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-24T21:49:50.7622580Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-24T21:49:50.8035816Z Cleaning up orphan processes
+2026-09-24T21:49:50.8350257Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

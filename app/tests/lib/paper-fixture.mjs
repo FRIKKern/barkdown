@@ -49,3 +49,34 @@ export function publishFixture({ slug, title, description, blocks, tags }) {
 
 // The paper as the server holds it (raw perspective).
 export function getPaper(slug) { const r = bp(['doc', 'get', 'paper', slug, '--perspective', 'raw']); return r.document || r; }
+
+// The suite publishes through the selected disposable CLI, then explicitly binds
+// the desktop to that same destination. Blank settings are not a connection.
+export function paperFixtureScope() {
+  const scope = bp(['whoami']);
+  if (typeof scope.server !== 'string' || !/^https?:\/\//.test(scope.server) || typeof scope.dataset !== 'string' || !scope.dataset) throw new Error('Fixture CLI did not report its server and dataset');
+  const expected = process.env.BARKDOWN_SHOTS_SERVER || process.env.BARKPARK_API_URL;
+  if (expected && scope.server.replace(/\/$/, '') !== expected.replace(/\/$/, '')) throw new Error('Fixture CLI does not match the selected private server');
+  return { server: scope.server, dataset: scope.dataset };
+}
+export async function connectPaperFixture(page) {
+  const scope = paperFixtureScope();
+  await page.evaluate(async connection => {
+    window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true, ...connection } });
+    // Surface setup refusals at this boundary, before waiting90s for a row.
+    await window.barkdown.barkpark.list();
+    await window.__barkdown.refreshLibrary();
+  }, scope);
+  return scope;
+}
+
+// An explicit current-library selection for fresh fixture navigation. This does
+// not upgrade saved tabs/favorites/Pages or guess an unknown reference's owner.
+export async function openFixturePaper(page, id) {
+  await page.evaluate(async id => {
+    await window.__barkdown.refreshLibrary();
+    const paper = window.__barkdown.state.barkparkDocs.find(p => p.id === id);
+    if (!paper?.paperOwner) throw new Error('Fixture Paper is missing from its owned catalog: ' + id);
+    window.__barkdown.openTarget({ kind: 'doc', id, source: 'barkpark', title: paper.title, paperOwner: paper.paperOwner });
+  }, id);
+}

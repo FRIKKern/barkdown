@@ -1,0 +1,8 @@
+{
+  "status": "superseded-unapproved",
+  "source": "c6e3df73fd24cec6529395d002e5bcf0471b792b",
+  "native": "docs/visual/paper-deletions/runs/2026-09-24T21-42-40-874Z",
+  "standard": "docs/visual/runs/2026-09-24T21-45-53-765Z",
+  "reviewer": "Codex",
+  "finding": "Eight native stills inspected. Recovery dialog padding is corrected, but final still 08 captures the second recovery while its dialog is still busy. Content assertions pass; completed navigation is not established by that wait. d56fac5 waits explicitly for the dialog to close after both recovery actions. Recapture all required media; do not approve this candidate."
+}

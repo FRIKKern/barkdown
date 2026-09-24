@@ -1,0 +1,60 @@
+{
+ "summary": "3/3 green",
+ "results": [
+  {
+   "name": "opens a 500-block paper in under 6 s",
+   "pass": true,
+   "blocks": 500,
+   "openMs": 985
+  },
+  {
+   "name": "typing for two seconds near the end: keystroke-to-paint p95 ≤ 50 ms, max ≤ 150 ms; no batch while typing; one patch after; the diff over 500 blocks ≤ 150 ms",
+   "pass": true,
+   "keystrokes": 70,
+   "samples": 70,
+   "typingMs": 3215,
+   "paintMs": {
+    "median": 4.7,
+    "p95": 8.4,
+    "max": 17.7
+   },
+   "batchesWhileTyping": 0,
+   "batchesAfter": 1,
+   "opsInBatch": 1,
+   "diffMs": {
+    "max": 21.9,
+    "all": [
+     22
+    ]
+   },
+   "serverHasText": true
+  },
+  {
+   "name": "scroll to the end and drag a block up two places with the grip: one batch, the server holds the canvas order",
+   "pass": true,
+   "orderChanged": true,
+   "moved": 495,
+   "position": {
+    "index": 494,
+    "above": "Block 493:",
+    "below": "Block 494:"
+   },
+   "batches": 1,
+   "dragMs": 1448,
+   "serverMatches": true,
+   "dragState": {
+    "index": 496,
+    "dragging": true,
+    "dropShown": true
+   },
+   "menuOpen": false,
+   "grip": {
+    "x": 948,
+    "y": 462.390625,
+    "width": 22,
+    "height": 22
+   }
+  }
+ ],
+ "errors": []
+}

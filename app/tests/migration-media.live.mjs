@@ -1,3 +1,4 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Owned PNG migration through actual media endpoints and the real Paper canvas.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -59,7 +60,7 @@ try{
   const original=await read(),images=original.blocks.filter(b=>b.type==='image');assert.equal(images.length,2);assert.equal(images[0].src,images[1].src);
   const raw=await fetch(images[0].src,{headers:{authorization:'Bearer '+token},redirect:'error'});assert.equal(raw.status,200);assert.deepEqual(Buffer.from(await raw.arrayBuffer()),bytes);
   await launch();await page.evaluate(async c=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,writes:true,viaCli:false,...c}});await window.__barkdown.refreshLibrary();},{server,token});
-  await page.evaluate(id=>window.__barkdown.openTarget({kind:'doc',id,source:'barkpark',title:id}),id);await ready();await rendered();assert.deepEqual(await blocks(),original.blocks);
+  await openFixturePaper(page, id);await ready();await rendered();assert.deepEqual(await blocks(),original.blocks);
   editorBundle=JSON.parse(fs.readFileSync(path.join(userData,'canvas-bundle/current.json')));assert.equal(editorBundle.source,'server');assert.equal(editorBundle.sha,crypto.createHash('sha1').update(fs.readFileSync(path.join(process.env.BARKDOWN_TEST_BP_SOURCE,'api/priv/static/assets/bp-paper-editor.bundle.js'))).digest('hex'));
   await shot('01-migrated-images');let revision=original.rev;
   const figure=()=>canvas().locator('figure[data-bp-type="image"]').first();

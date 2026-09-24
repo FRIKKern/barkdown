@@ -1,3 +1,4 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 // E011 preparation: real Paper transport with only editor JS/CSS refused.
 // Adapted from E010 fixture88358f9; E012 replay binds the reviewed bf23f773c vendor consumption.
 // Native upload delivery race and server assertions are preserved; no fake saves.
@@ -34,7 +35,7 @@ try{
  page=await app.firstWindow();video=page.video();await page.route('https://clipboard-original.invalid/**',route=>{externalRequests.push(route.request().url());return route.abort();});
  await page.waitForSelector('#bw-pages .bw-page-row');await page.setViewportSize({width:1400,height:900});
  await page.evaluate(async ({server,token})=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,viaCli:false,writes:true,server,token}});await window.__barkdown.refreshLibrary();},{server:proxy.url,token:process.env.BARKPARK_API_TOKEN});
- await page.evaluate(slug=>window.__barkdown.openTarget({kind:'doc',id:slug,source:'barkpark',title:slug}),slug);await page.waitForSelector('.bw-paper-pane .ProseMirror',{timeout:60000});
+ await openFixturePaper(page, slug);await page.waitForSelector('.bw-paper-pane .ProseMirror',{timeout:60000});
  editorBundle=await page.evaluate(()=>window.__barkdown.state.canvasBundle);
  assert.equal(editorBundle.source,'vendored');
  const expectedJs='3a94a2964b37358f3ec791f009a2f52b28cffb0d';

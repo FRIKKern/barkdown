@@ -15,6 +15,11 @@ function createRun({ chatId, context, send, provider, scope, storeDir, profileId
   run.completion = new Promise(resolve => { run.resolveCompletion = resolve; });
   let sequence = 0;
   run.emit = event => {
+    if (event.target?.kind === 'doc' && event.target.source === 'barkpark') {
+      let paperOwner = run.paperOwner || null;
+      if (!paperOwner && !run.scope.connection.viaCli && run.scope.connection.enabled) paperOwner = require('../paper-navigation').createPaperNavigation(run.scope.store).identify(run.scope.connection);
+      event = { ...event, target: { ...event.target, paperOwner } };
+    }
     if (event.type === 'done') run.outcome = { status: event.cancelled ? 'cancelled' : 'completed' };
     if (event.type === 'error') run.outcome = { status: 'failed', message: event.message };
     send({ ...event, runId: id, chatId, provider, profileId: scope.profileId, sequence: ++sequence });
@@ -104,6 +109,10 @@ function activityForTool(run, toolName, input = {}, resultText = '') {
     }
     if (name === 'create_document') {
       // The MCP acknowledgement identifies the created record. Titles are not identities.
+      const paperId = /^Created document bp:(drafts\.[\w-]+) \(/.exec(String(resultText))?.[1];
+      if (paperId && run.scope?.connection.managedProfileId === run.scope?.profileId) {
+        return { type: 'activity', target: { kind: 'doc', id: paperId, source: 'barkpark', title: input.title || 'Untitled' }, label: 'Created ' + (input.title || 'Untitled'), detail: 'New Paper note in the library', libraryChanged: true };
+      }
       const id = /^Created document ([\w-]+) \(/.exec(String(resultText))?.[1];
       if (!id) return null;
       documents.reload(id);
@@ -127,6 +136,13 @@ function activityForTool(run, toolName, input = {}, resultText = '') {
 
 function hostname(url) { try { return new URL(url).hostname; } catch { return url; } }
 
+async function preparePaperNavigation(run) {
+  if (!run.scope.connection.enabled) return;
+  const connection = await require('../paper-tool-connection').paperToolConnection(run.scope.connection)();
+  run.paperOwner = require('../paper-navigation').createPaperNavigation(run.scope.store).identify(connection);
+  run.scope = Object.freeze({ ...run.scope, connection: require('./run-scope').frozenCopy(connection) });
+}
+
 function mcpServerSpec(storeDir, scope) {
   const script = path.join(__dirname, '..', 'mcp-server.js');
   const underElectron = Boolean(process.versions.electron);
@@ -145,4 +161,4 @@ function scratchFolder(storeDir) {
   return dir;
 }
 
-module.exports = { runs, captureScope, createRun, finish, waitForRunFinish, requestApproval, respondApproval, cancel, activityForTool, relativeTo, mcpServerSpec, scratchFolder };
+module.exports = { runs, captureScope, createRun, finish, waitForRunFinish, requestApproval, respondApproval, cancel, activityForTool, relativeTo, mcpServerSpec, scratchFolder, preparePaperNavigation };

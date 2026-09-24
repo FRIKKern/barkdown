@@ -1,3 +1,4 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Actual keyboard/paste assertions; an observational shape log is not a passing row.
 import { _electron as electron } from 'playwright';
 import assert from 'node:assert/strict';
@@ -6,7 +7,7 @@ import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
-import { publishFixture, getPaper } from './lib/paper-fixture.mjs';
+import { publishFixture, getPaper, connectPaperFixture } from './lib/paper-fixture.mjs';
 const require = createRequire(import.meta.url);
 if (process.env.BARKDOWN_SHOTS_ISOLATED !== '1' && process.env.CI !== 'true') throw new Error('Use status-shots-isolated.mjs with a disposable Barkpark; this fixture replaces its scratch paper.');
 const SLUG = 'barkdown-editor-test';
@@ -67,8 +68,8 @@ try {
   page.on('pageerror', error => errors.push(error.message));
   await page.waitForSelector('#bw-pages .bw-page-row');
   await page.setViewportSize({ width: 1400, height: 900 });
-  await page.evaluate(async server => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true, ...(server ? { server } : {}) } }); await window.__barkdown.refreshLibrary(); }, process.env.BARKDOWN_SHOTS_SERVER);
-  await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug }), SLUG);
+  await connectPaperFixture(page);
+  await openFixturePaper(page, SLUG);
   await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 });
   await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 });
   editorBundle = JSON.parse(fs.readFileSync(path.join(userData, 'canvas-bundle/current.json'), 'utf8'));

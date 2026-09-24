@@ -1,0 +1,8 @@
+AssertionError [ERR_ASSERTION]: {"error":{"code":"duplicate_of","message":"this document near-duplicates the already-published catalog-001 — extend that document instead, or, if this one REPLACES it, declare content.supersedes: \"catalog-001\" and republish (the wall exempts exactly the declared pair; any other near-duplicate still refuses)","hint":"This publish near-duplicates an already-published document; the details.duplicate_of id names it. Extend that document — or, if this publish REPLACES it, declare content.supersedes with that id and republish.","details":{"advise":[],"duplicate_of":"catalog-001","similar":[{"id":"catalog-001","similarity":0.6,"shared_tokens":3}]},"request_id":"GNgokYqzGYAGc20AAQNB"}}
+
+409 !== 201
+
+    at request (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/paper-catalog.live.mjs:40:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Promise.all (index 0)
+    at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/paper-catalog.live.mjs:63:51
