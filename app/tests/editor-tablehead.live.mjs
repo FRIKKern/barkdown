@@ -61,9 +61,11 @@ const waitServer = async pred => { for (let i = 0; i < 20; i++) { const s = serv
 // Use the keyboard selection a person makes. An immediate synthetic PM
 // selection after pointerup can be replaced by Chromium's queued DOM selection
 // change (observed on Linux), leaving a caret and correctly hidden toolbar.
-const clickCell = async (rowIndex, cellIndex) => {
+const clickCell = async (rowIndex, cellIndex, selectText = true) => {
   const cell = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas table.bp-table tr').nth(rowIndex).locator('td, th').nth(cellIndex);
   await cell.click();
+  // Table chrome works at a caret; only the formatting bubble needs selected text.
+  if (!selectText) return;
   await page.keyboard.press('Home');
   await page.keyboard.press('Shift+End');
   const expected = await cell.textContent();
@@ -77,7 +79,7 @@ const chromeBtn = async name => { const d = page.locator('.bw-paper-pane:not([hi
 const readerRows = async () => { const html = await (await fetch(`${base}/papers/${SLUG}`)).text(); const table = /<table[^>]*class="bp-table"[\s\S]*?<\/table>/.exec(html)?.[0] || ''; return [...table.matchAll(/<tr>([\s\S]*?)<\/tr>/g)].map(m => [...m[1].matchAll(/<(t[dh])([^>]*)>([\s\S]*?)<\/t[dh]>/g)].map(x => [x[1] + (/scope="row"/.test(x[2]) ? '[row]' : ''), x[3].replace(/<[^>]+>/g, ''), /text-align:(\w+)/.exec(x[2])?.[1] || null])); };
 
 await row('the chrome\'s header-column toggle makes each body row\'s first cell a row header; the server holds headCol: true', async () => {
-  await clickCell(1, 0);
+  await clickCell(1, 0, false);
   await (await chromeBtn('toggleHeadCol')).click();
   await settled();
   const g = await domGrid();
@@ -117,7 +119,7 @@ await row('centre the Price cell, reload: header column and alignment come back 
   return { pass: same(before, after) && after[2][2][2] === 'center' && after[1][0][0] === 'th[row]', before, after };
 });
 await row('toggling the header column off lands as headCol: false; the cells are plain <td> again', async () => {
-  await clickCell(1, 0);
+  await clickCell(1, 0, false);
   await (await chromeBtn('toggleHeadCol')).click();
   await settled();
   const g = await domGrid();

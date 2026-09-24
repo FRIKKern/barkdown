@@ -70,7 +70,9 @@ try{
     await canvas().locator('.ProseMirror').focus();await page.keyboard.press('Control+z');const undone=await saved(edited.rev);assert.deepEqual(undone.blocks,original.blocks);await rendered();await shot('03-undo-'+field);results.push({field,editedRev:edited.rev,undoneRev:undone.rev});revision=undone.rev;
   }
   // Native deletion selects the real atom; acknowledged Undo restores its media identity.
-  await figure().locator('img').click();await page.keyboard.press('Backspace');const deleted=await saved(revision);assert.deepEqual(deleted.blocks,original.blocks.filter((_,i)=>i!==1));await shot('04-deleted');
+  await figure().focus();await page.keyboard.press('Enter');
+  await page.waitForFunction(()=>document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.state.selection.node?.attrs.bpId==='migration-1');
+  await page.keyboard.press('Backspace');const deleted=await saved(revision);assert.deepEqual(deleted.blocks,original.blocks.filter((_,i)=>i!==1));await shot('04-deleted');
   await page.keyboard.press('Control+z');const restored=await saved(deleted.rev);assert.deepEqual(restored.blocks,original.blocks);await rendered();await shot('05-restored');results.push({field:'delete',editedRev:deleted.rev,undoneRev:restored.rev});
   await canvas().evaluate(c=>c.__beforeImageReload=true);await page.locator('.bw-paper-pane:not([hidden]) button[title="Reload from server"]').click();await page.waitForFunction(()=>{const c=document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas');return c&&!c.__beforeImageReload&&c._editor;});await rendered();assert.deepEqual(await blocks(),original.blocks);await shot('06-reloaded');
   await page.setViewportSize({width:760,height:900});await rendered();assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await shot('07-narrow');
