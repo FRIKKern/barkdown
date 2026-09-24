@@ -1,0 +1,175 @@
+{
+  "version": 1,
+  "kind": "retained-legacy-evidence",
+  "profileId": "7a2c4bbc-83ea-42ac-a1fa-258e48a1d68e",
+  "sourceHash": "cf160a93dfa5fac2f69906763ebf6b03ba75f3b166c71e871e89b03a4feaf803",
+  "manifestHash": "8d9b4313554f93ae1762f370496a1c2c14b7c1950e61770a6bf9010a5ca594f0",
+  "revisionDomain": "legacy",
+  "readOnly": true,
+  "actions": [],
+  "documentFile": {
+    "path": "documents/original-note.json",
+    "bytes": 2784,
+    "sha256": "4e52209d04b5a87c0eed30d536eb9b2c0a006248360ae9bc04df14beec60ae5e"
+  },
+  "receiptFile": {
+    "path": "agent-edits/e8224fde77a5e79d7b968d23ef2132392a7cefb6264fab0a5d69064d7c28cba2.json",
+    "bytes": 518,
+    "sha256": "5c49338ec6a21276fe89ebec4eb2da1714b1e6410019305688be328bfc1cfa97"
+  },
+  "document": {
+    "id": "original-note",
+    "title": "Original note",
+    "content": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "A later human revision, after the receipt."
+            }
+          ]
+        }
+      ]
+    },
+    "markdown": "A later human revision, after the receipt.\n",
+    "text": "A later human revision, after the receipt.",
+    "createdAt": "2026-09-24T03:38:45.744Z",
+    "updatedAt": "2026-09-24T03:38:45.774Z",
+    "rev": 4,
+    "references": [],
+    "tags": [],
+    "proposals": [
+      {
+        "id": "923fc6fc-1d5e-499b-af20-3e0ae95714dd",
+        "createdAt": "2026-09-24T03:38:45.768Z",
+        "status": "pending",
+        "mode": "replace",
+        "baseRev": 3,
+        "markdown": "An old pending suggestion.",
+        "summary": "Keep pending"
+      }
+    ],
+    "source": "local",
+    "revisions": [
+      {
+        "rev": 4,
+        "at": "2026-09-24T03:38:45.774Z",
+        "actor": "you",
+        "summary": "Edited",
+        "content": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "A later human revision, after the receipt."
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "rev": 3,
+        "at": "2026-09-24T03:38:45.761Z",
+        "actor": "agent",
+        "summary": "Agent addition",
+        "content": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "A human second revision."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "An acknowledged agent addition."
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "rev": 2,
+        "at": "2026-09-24T03:38:45.754Z",
+        "actor": "you",
+        "summary": "Human revision",
+        "content": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "A human second revision."
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "rev": 1,
+        "at": "2026-09-24T03:38:45.744Z",
+        "actor": "you",
+        "summary": "Created",
+        "content": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Original æ 🌲 wording."
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "latestAgentEdit": {
+    "id": "5dbb602c-fcfe-44c4-9f2b-2e76a18d24e2",
+    "documentId": "original-note",
+    "beforeRev": 2,
+    "afterRev": 3,
+    "mode": "append",
+    "summary": "Agent addition",
+    "at": "2026-09-24T03:38:45.765Z",
+    "before": {
+      "content": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "A human second revision."
+              }
+            ]
+          }
+        ]
+      },
+      "title": "Original note"
+    }
+  },
+  "evidenceHash": "57afb56298aaf3cca42bee6bde97d91ebf891e50730ae057d8fc663d33bf4d06"
+}

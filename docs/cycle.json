@@ -1,27 +1,27 @@
 {
   "version": 1,
-  "id": "C053",
+  "id": "C054",
   "stage": "P2",
-  "status": "done",
-  "goal": "Preserve human organization in an exact offline Paper navigation projection without activating it.",
+  "status": "active",
+  "goal": "Expose verified retained legacy history, proposals and receipts as read-only evidence without translating their revision semantics.",
   "scope": [
-    "Read the captured closed-profile workspace and map only typed local document destinations to existing profile-qualified target identities.",
-    "Preserve Pages order/nesting/expansion, direct/chat tab paths, favorites, chat parents/drafts and unrelated opaque fields.",
-    "Refuse missing, malformed or source-ambiguous navigation; do not reinterpret transcript text, edit receipts or revision numbers.",
-    "Prove projected organization against disposable native Paper and clean restart; no authority switch or legacy editor retirement."
+    "Read only a caller-pinned committed backup using the existing complete-byte validator.",
+    "Return exact captured local document/history/proposal data and source-qualified receipt evidence; never invoke restore, Undo, proposal acceptance or Paper.",
+    "Reject wrong owner/hash, invalid identities, mismatched receipts and backup changes; retain unsupported historical shapes without conversion.",
+    "Prove actual document/agent-edit generated records, exact bytes and no writes; complete repository and visual closeout."
   ],
   "acceptance": [
-    "Projection is deterministic and bound to profile/source/workspace hashes; source and backups remain exact.",
-    "Nested human Pages, same-slug cloud destinations, favorites and chat paths map without changing unrelated data.",
-    "Ambiguous closed-target records, malformed navigation and foreign/missing identities block rather than guessing.",
-    "Native navigation/restart, meaningful unit tests, full desktop/root and reviewed screenshot/motion evidence pass."
+    "Pinned backup identity and all file hashes validate before any data is returned.",
+    "Actual legacy history, pending proposals and applied/undone receipts remain exact and explicitly read-only.",
+    "No Paper revision, operation, target write or authority switch is synthesized.",
+    "Relevant integration/unit checks, full desktop/root and reviewed standard visuals pass; no native viewer UI is claimed."
   ],
   "checkpoint": "2026-09-24",
-  "handoff": "docs/cycles/C053-workspace-projection.md",
-  "nextAction": "Start a bounded retained-legacy-evidence reader cycle; keep legacy revisions and proposals non-executable against Paper.",
+  "handoff": "docs/cycles/C054-retained-evidence.md",
+  "nextAction": "Implement readRetainedDocument over validateBackup with production-generated source records and refusal tests.",
   "evidence": [
     "docs/cycles/evidence/C053/results.json"
   ],
-  "truthReview": "Repository and active documentation reviewed; stale architecture backlog replaced. Same controlled branches; no merge/deploy. Full desktop/root and previous Linux20/20 pass.",
-  "screenshotReview": "Native10stills/30video+GIF/8restart reviewed; standard5live stills/37GIFframes and3changed fixture stills inspected; immutable approval linked in results."
+  "truthReview": "Starts at pushed aa37c34, accepted C053. Same branch/worktree; no merge/deploy or user-library access.",
+  "screenshotReview": "C053 native navigation and standard approval retained. New adapter has no UI; fresh standard tripwire workflow required."
 }
