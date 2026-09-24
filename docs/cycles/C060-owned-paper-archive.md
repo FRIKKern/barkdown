@@ -11,3 +11,5 @@ C059 exact `7e79467` Verify and Visual CI passed; Linux parity 35979091296 still
 Native first attempt at source `5bc0be0` stopped on an overly narrow fixture assertion: the real runtime also creates its Welcome paper. Failure still actually inspected; it correctly showed both owned papers in Archive. Retain the failure gallery. The fixture now checks target presence and local ownership of every catalog row, preserving the runtime Welcome paper. No production change required.
 
 The second native attempt reached the correct Archive view (still actually inspected), then timed out because the fixture tried clicking a hover-only action without hovering its row. Corrected the native gesture; no production change. Both failed galleries remain append-only and are not accepted motion proof.
+
+Third native attempt passed A classification and human placement/nesting, then its profile-switch wait dereferenced the renderer during reload. Added the same optional readiness guard used by the existing isolation fixture. This is test synchronization only; retain the original failure.
