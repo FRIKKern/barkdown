@@ -207,13 +207,13 @@ async function uploadMedia(config, { name, mime, dataUrl, filePath }) {
 
 function importFromCli() {
   return new Promise(resolve => {
-    execFile('bp', ['servers', '-o', 'json'], { windowsHide: true, shell: process.platform === 'win32', timeout: 15000 }, (error, stdout) => {
+    execFile('bp', ['servers', '-o', 'json'], { windowsHide: true, shell: false, timeout: 15000 }, (error, stdout) => {
       if (error) return resolve({ ok: false, error: error.message });
       try {
         const data = JSON.parse(stdout);
         const active = (data.servers || []).find(s => s.active) || data.servers?.[0];
         if (!active) return resolve({ ok: false, error: 'No saved bp server' });
-        execFile('bp', ['whoami', '-o', 'json'], { windowsHide: true, shell: process.platform === 'win32', timeout: 15000 }, (error2, stdout2) => {
+        execFile('bp', ['whoami', '-o', 'json'], { windowsHide: true, shell: false, timeout: 15000 }, (error2, stdout2) => {
           let who = null;
           try { who = JSON.parse(stdout2); } catch {}
           resolve({ ok: true, server: active.server, name: active.name, dataset: who?.dataset || 'production', tier: active.tier, tokenFromCli: true });
@@ -226,7 +226,9 @@ function importFromCli() {
 // When the token itself is not exposed by `bp servers`, proxy reads through the CLI.
 function cli(args, input) {
   return new Promise((resolve, reject) => {
-    const child = execFile('bp', [...args, '-o', 'json'], { windowsHide: true, shell: process.platform === 'win32', timeout: 60000, maxBuffer: 20 * 1024 * 1024 }, (error, stdout, stderr) => {
+    // bp is a native executable on Windows. Pass titles/searches as literal
+    // arguments: cmd.exe would split spaces and interpret shell metacharacters.
+    const child = execFile('bp', [...args, '-o', 'json'], { windowsHide: true, shell: false, timeout: 60000, maxBuffer: 20 * 1024 * 1024 }, (error, stdout, stderr) => {
       let data = null;
       for (const text of [stdout, stderr]) { if (data) break; try { const parsed = JSON.parse(String(text || '').trim()); if (parsed && typeof parsed === 'object') data = parsed; } catch {} }
       if (data && data.ok === false && data.error) { const e = new Error(data.error.message || 'bp failed'); e.code = data.error.code; if (!e.code && /ifRev did not match|precondition/i.test(e.message)) e.code = 'precondition_failed'; e.status = e.code === 'precondition_failed' ? 412 : undefined; return reject(e); }

@@ -61,15 +61,15 @@ try{
  // favorite after acknowledgement. A refused attempt remains a title draft.
  const rename=async title=>{await page.locator('#bw-tabs .bw-tab.active [data-tab]').dblclick();await page.locator('.bw-tab-rename').fill(title);await page.locator('.bw-tab-rename').press('Enter');};
  await page.locator('#bw-tabs .bw-tab.active').hover();await page.locator('#bw-tabs .bw-tab.active [data-fav]').click();
- await rename('A title saved in its own library');
- await page.waitForFunction(()=>window.__barkdown.state.favorites.some(f=>f.label==='A title saved in its own library'));
- assert.equal((await bp.getPaper(config,id)).title,'A title saved in its own library');await shot('09-acknowledged-tab-and-favorite');
+ await rename('A title with spaces & literal meaning');
+ await page.waitForFunction(()=>window.__barkdown.state.favorites.some(f=>f.label==='A title with spaces & literal meaning'));
+ assert.equal((await bp.getPaper(config,id)).title,'A title with spaces & literal meaning');await shot('09-acknowledged-tab-and-favorite');
  await configure({viaCli:true,server:foreignServer});const beforeRenameRequests=requests.length;
  await rename('A title that must not reach another library');await page.locator('#title-error').waitFor();
- assert.equal(await page.locator('#bw-tabs .bw-tab.active .bw-tab-label').innerText(),'A title saved in its own library');
+ assert.equal(await page.locator('#bw-tabs .bw-tab.active .bw-tab-label').innerText(),'A title with spaces & literal meaning');
  assert.equal(await page.locator('.bw-paper-pane #title').inputValue(),'A title that must not reach another library');
- assert.equal(await page.evaluate(()=>window.__barkdown.state.favorites[0].label),'A title saved in its own library');
- assert.equal(requests.length,beforeRenameRequests);assert.equal((await bp.getPaper(config,id)).title,'A title saved in its own library');await shot('10-refused-rename-keeps-labels-and-draft');
+ assert.equal(await page.evaluate(()=>window.__barkdown.state.favorites[0].label),'A title with spaces & literal meaning');
+ assert.equal(requests.length,beforeRenameRequests);assert.equal((await bp.getPaper(config,id)).title,'A title with spaces & literal meaning');await shot('10-refused-rename-keeps-labels-and-draft');
  await configure({viaCli:true});await page.locator('[data-act="discard-title"]').click();await shot('11-original-title-restored');
  results.push('Native CLI tab rename acknowledges before changing tab/favorite; foreign connection refuses without requests and retains attempted title for explicit discard');
  assert.deepEqual(fs.readFileSync(store.filePath(legacyPath)),legacyBytes);assert.deepEqual(fs.readFileSync(store.filePath('paper-proposals.json')),proposalBytes);assert.deepEqual(errors,[]);console.log('PASS native retained evidence ownership',JSON.stringify(results));

@@ -1,10 +1,31 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
+import fs from 'node:fs';
+import vm from 'node:vm';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { readCatalog } = require('../main/paper-catalog');
 const { listAllPapers, listPapers } = require('../main/barkpark');
+test('CLI preserves title and search arguments without a command shell', async () => {
+  const calls = [], module = { exports: {} };
+  const localRequire = createRequire(new URL('../main/barkpark.js', import.meta.url));
+  vm.runInNewContext(fs.readFileSync(new URL('../main/barkpark.js', import.meta.url), 'utf8'), {
+    module, exports: module.exports, process, Buffer, URL, console, setTimeout, clearTimeout,
+    require: name => name === 'child_process' ? { execFile(command, args, options, callback) {
+      calls.push({ command, args: [...args], options });
+      queueMicrotask(() => callback(null, '{}', ''));
+      return { stdin: { end() {} } };
+    } } : localRequire(name),
+  });
+  const title = 'A title with spaces & "quotes" | literal %PATH%';
+  await module.exports.cliPatchTitle('note', title, ['-s', 'https://fixture.invalid']);
+  await module.exports.cliSearch(title);
+  assert.equal(calls.length, 2);
+  for (const call of calls) { assert.equal(call.command, 'bp'); assert.equal(call.options.shell, false); }
+  assert(calls[0].args.includes('title=' + title));
+  assert(calls[1].args.includes('title*=' + title));
+});
 const papers = n => Array.from({ length: n }, (_, i) => ({ _id: `paper-${i}`, title: `Paper ${i}`, _updatedAt: new Date(1700000000000 + i * 1000).toISOString() }));
 function page(all, limit, offset) {
   const documents = all.slice(offset, offset + limit), hasMore = offset + documents.length < all.length;
