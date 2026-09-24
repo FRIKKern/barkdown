@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import http from 'node:http';
 import fs from 'node:fs';
 import vm from 'node:vm';
+import { EventEmitter } from 'node:events';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { readCatalog } = require('../main/paper-catalog');
@@ -12,19 +13,28 @@ test('CLI preserves title and search arguments without a command shell', async (
   const localRequire = createRequire(new URL('../main/barkpark.js', import.meta.url));
   vm.runInNewContext(fs.readFileSync(new URL('../main/barkpark.js', import.meta.url), 'utf8'), {
     module, exports: module.exports, process, Buffer, URL, console, setTimeout, clearTimeout,
-    require: name => name === 'child_process' ? { execFile(command, args, options, callback) {
-      calls.push({ command, args: [...args], options });
-      queueMicrotask(() => callback(null, '{}', ''));
-      return { stdin: { end() {} } };
+    require: name => name === 'child_process' ? { spawn(command, args, options) {
+      const call = { command, args: [...args], options }; calls.push(call);
+      const child = new EventEmitter();
+      child.stdout = new EventEmitter(); child.stderr = new EventEmitter();
+      child.stdout.setEncoding = child.stderr.setEncoding = () => {};
+      child.stdin = new EventEmitter(); child.stdin.end = value => { call.input = value; }; child.kill = () => {};
+      queueMicrotask(() => { child.stdout.emit('data', '{}'); child.emit('close', 0); });
+      return child;
     } } : localRequire(name),
   });
   const title = 'A title with spaces & "quotes" | literal %PATH%';
   await module.exports.cliPatchTitle('note', title, ['-s', 'https://fixture.invalid']);
   await module.exports.cliSearch(title);
-  assert.equal(calls.length, 2);
+  await module.exports.cliApplyOps('note', [{ op: 'append-block' }], 3);
+  assert.equal(calls.length, 3);
   for (const call of calls) { assert.equal(call.command, 'bp'); assert.equal(call.options.shell, false); }
   assert(calls[0].args.includes('title=' + title));
   assert(calls[1].args.includes('title*=' + title));
+  assert.equal(calls[0].options.stdio[0], 'ignore');
+  assert.equal(calls[1].options.stdio[0], 'ignore');
+  assert.equal(calls[2].options.stdio[0], 'pipe');
+  assert.deepEqual(JSON.parse(calls[2].input), { ifRev: 3, ops: [{ op: 'append-block' }] });
 });
 const papers = n => Array.from({ length: n }, (_, i) => ({ _id: `paper-${i}`, title: `Paper ${i}`, _updatedAt: new Date(1700000000000 + i * 1000).toISOString() }));
 function page(all, limit, offset) {

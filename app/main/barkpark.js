@@ -1,7 +1,7 @@
 // Barkpark HTTP adapter. Reads Papers, search, backlinks, related and history from a Barkpark server.
 // Writes are fenced through the bulldocs ops endpoint with an if-rev guard and are off unless enabled in settings.
 // Endpoint shapes come from the Barkpark OpenAPI document (docs/openapi.json in the sibling repository).
-const { execFile } = require('child_process');
+const { execFile, spawn } = require('child_process');
 const portabledoc = require('../shared/portabledoc');
 const { readCatalog } = require('./paper-catalog');
 
@@ -228,14 +228,29 @@ function cli(args, input) {
   return new Promise((resolve, reject) => {
     // bp is a native executable on Windows. Pass titles/searches as literal
     // arguments: cmd.exe would split spaces and interpret shell metacharacters.
-    const child = execFile('bp', [...args, '-o', 'json'], { windowsHide: true, shell: false, timeout: 60000, maxBuffer: 20 * 1024 * 1024 }, (error, stdout, stderr) => {
+    // A write without a body must also have no stdin pipe: older native CLI
+    // builds correctly refuse an unused pipe as a possibly lost payload.
+    const child = spawn('bp', [...args, '-o', 'json'], { windowsHide: true, shell: false, stdio: [input == null ? 'ignore' : 'pipe', 'pipe', 'pipe'] });
+    let stdout = '', stderr = '', bytes = 0, settled = false;
+    const finish = (error) => {
+      if (settled) return; settled = true; clearTimeout(timer);
       let data = null;
       for (const text of [stdout, stderr]) { if (data) break; try { const parsed = JSON.parse(String(text || '').trim()); if (parsed && typeof parsed === 'object') data = parsed; } catch {} }
       if (data && data.ok === false && data.error) { const e = new Error(data.error.message || 'bp failed'); e.code = data.error.code; if (!e.code && /ifRev did not match|precondition/i.test(e.message)) e.code = 'precondition_failed'; e.status = e.code === 'precondition_failed' ? 412 : undefined; return reject(e); }
-      if (error && !data) { const e = new Error((stderr || stdout || error.message).trim().slice(0, 500)); if (/ifRev did not match|precondition_failed/i.test(e.message)) { e.code = 'precondition_failed'; e.status = 412; } return reject(e); }
+      if (error) { const e = new Error((stderr || stdout || error.message).trim().slice(0, 500)); if (/ifRev did not match|precondition_failed/i.test(e.message)) { e.code = 'precondition_failed'; e.status = 412; } return reject(e); }
       resolve(data ?? { raw: stdout });
-    });
-    if (input != null) { child.stdin.end(typeof input === 'string' ? input : JSON.stringify(input)); } else child.stdin.end();
+    };
+    const timer = setTimeout(() => { child.kill(); finish(new Error('bp timed out after 60 seconds')); }, 60000);
+    const receive = stream => chunk => {
+      bytes += Buffer.byteLength(chunk);
+      if (bytes > 20 * 1024 * 1024) { child.kill(); finish(new Error('bp exceeded its output limit')); return; }
+      if (stream === 'out') stdout += chunk; else stderr += chunk;
+    };
+    child.stdout.setEncoding('utf8'); child.stderr.setEncoding('utf8');
+    child.stdout.on('data', receive('out')); child.stderr.on('data', receive('err'));
+    child.on('error', finish);
+    child.on('close', (code, signal) => finish(code === 0 ? null : new Error(`bp exited ${signal || code}`)));
+    if (input != null) { child.stdin.on('error', finish); child.stdin.end(typeof input === 'string' ? input : JSON.stringify(input)); }
   });
 }
 
