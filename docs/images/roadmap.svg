@@ -1,29 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="340" viewBox="0 0 1280 340" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="520" viewBox="0 0 1400 520" role="img" aria-labelledby="title desc">
 <title id="title">Barkdown roadmap</title>
 <desc id="desc">Profile ownership and isolation: done; depends on the existing runtime. Every note on Paper: active; depends on P1. Recovery and portable profiles: todo; depends on P2. Optional two-way cloud sync: todo; depends on P3. Ordinary installation and daily-use pilot: todo; depends on P3.</desc>
 <g font-family="Segoe UI, Arial, sans-serif">
-<rect width="1280" height="340" rx="18" fill="#171d17"/>
-<text x="40" y="60" font-size="30" fill="#edf0e5" font-weight="650">Barkdown</text>
-<text x="1090" y="57" font-size="15" fill="#a5b298" font-weight="600">ROADMAP</text>
-<rect x="40" y="98" width="224" height="172" rx="10" fill="#202820" />
-<text x="58" y="133" font-size="15" fill="#a5b298" font-weight="600">Done</text>
-<text x="58" y="185" font-size="24" fill="#edf0e5" font-weight="600">Profiles</text>
-<text x="58" y="220" font-size="16" fill="#b8c2af" font-weight="400">Your own workspace</text>
-<rect x="284" y="98" width="224" height="172" rx="10" fill="#2c3923" stroke="#a9ca7b"/>
-<text x="302" y="133" font-size="15" fill="#c9e49e" font-weight="600">Now</text>
-<text x="302" y="185" font-size="24" fill="#edf0e5" font-weight="600">Paper notes</text>
-<text x="302" y="220" font-size="16" fill="#b8c2af" font-weight="400">One editor for every note</text>
-<rect x="528" y="98" width="224" height="172" rx="10" fill="#202820" />
-<text x="546" y="133" font-size="15" fill="#a5b298" font-weight="600">Later</text>
-<text x="546" y="185" font-size="24" fill="#edf0e5" font-weight="600">Recovery</text>
-<text x="546" y="220" font-size="16" fill="#b8c2af" font-weight="400">Restore. Export. Continue.</text>
-<rect x="772" y="98" width="224" height="172" rx="10" fill="#202820" />
-<text x="790" y="133" font-size="15" fill="#a5b298" font-weight="600">Later</text>
-<text x="790" y="185" font-size="24" fill="#edf0e5" font-weight="600">Cloud sync</text>
-<text x="790" y="220" font-size="16" fill="#b8c2af" font-weight="400">Optional. Offline first.</text>
-<rect x="1016" y="98" width="224" height="172" rx="10" fill="#202820" />
-<text x="1034" y="133" font-size="15" fill="#a5b298" font-weight="600">Later</text>
-<text x="1034" y="185" font-size="24" fill="#edf0e5" font-weight="600">Installation</text>
-<text x="1034" y="220" font-size="16" fill="#b8c2af" font-weight="400">Install and start writing</text>
-<text x="40" y="313" font-size="15" fill="#a5b298" font-weight="400">After recovery: optional sync and installation.</text>
+<rect width="1400" height="520" fill="#171d18"/>
+<text x="44" y="66" font-size="38" fill="#edf0e5" font-weight="650">Barkdown</text>
+<text x="44" y="102" font-size="20" fill="#b8c2af" font-weight="400">An experiment in what Barkpark can become.</text>
+<text x="1230" y="60" font-size="15" fill="#a5b298" font-weight="600">ROADMAP</text>
+<path d="M44 130H1356" stroke="#3b463a"/>
+<g data-phase="P1">
+<text x="44" y="184" font-size="13" fill="#a5b298" font-weight="650">DONE</text>
+<text x="243" y="184" font-size="13" fill="#a5b298" font-weight="500">P1</text>
+<text x="44" y="234" font-size="27" fill="#edf0e5" font-weight="600">Profiles</text>
+<text x="44" y="313" font-size="17" fill="#c4cdbe" font-weight="400">Separate notes and chats</text>
+<text x="44" y="350" font-size="17" fill="#c4cdbe" font-weight="400">Remember each workspace</text>
+<text x="44" y="387" font-size="17" fill="#c4cdbe" font-weight="400">Keep agent runs isolated</text>
+<path d="M44 418h218" stroke="#46553d" stroke-width="2"/>
+<path d="M250 408l4 4 8-9" fill="none" stroke="#a5be8a" stroke-width="2"/>
+</g>
+<g data-phase="P2">
+<rect x="296" y="149" width="250" height="290" fill="#2a3625"/><path d="M296 149h250" stroke="#b7d58a" stroke-width="3"/>
+<text x="308" y="184" font-size="13" fill="#c9e49e" font-weight="650">IN PROGRESS</text>
+<text x="507" y="184" font-size="13" fill="#a5b298" font-weight="500">P2</text>
+<text x="308" y="234" font-size="27" fill="#edf0e5" font-weight="600">Paper notes</text>
+<text x="308" y="313" font-size="17" fill="#c4cdbe" font-weight="400">Create, edit and search</text>
+<text x="308" y="350" font-size="17" fill="#c4cdbe" font-weight="400">Agent editing with Undo</text>
+<text x="308" y="387" font-size="17" fill="#c4cdbe" font-weight="400">Migrate existing notes</text>
+<path d="M308 418h218" stroke="#b7d58a" stroke-width="2"/>
+</g>
+<g data-phase="P3">
+<path d="M552 169v249" stroke="#343e32"/>
+<text x="572" y="184" font-size="13" fill="#a5b298" font-weight="650">UPCOMING</text>
+<text x="771" y="184" font-size="13" fill="#a5b298" font-weight="500">P3</text>
+<text x="572" y="234" font-size="27" fill="#edf0e5" font-weight="600">Recovery &amp;</text>
+<text x="572" y="265" font-size="27" fill="#edf0e5" font-weight="600">portability</text>
+<text x="572" y="313" font-size="17" fill="#c4cdbe" font-weight="400">Recover interrupted work</text>
+<text x="572" y="350" font-size="17" fill="#c4cdbe" font-weight="400">Export notes, media and chats</text>
+<text x="572" y="387" font-size="17" fill="#c4cdbe" font-weight="400">Continue on another device</text>
+<path d="M572 418h218" stroke="#46553d" stroke-width="2"/>
+</g>
+<g data-phase="P4">
+<path d="M816 169v249" stroke="#343e32"/>
+<text x="836" y="184" font-size="13" fill="#a5b298" font-weight="650">UPCOMING</text>
+<text x="1035" y="184" font-size="13" fill="#a5b298" font-weight="500">P4</text>
+<text x="836" y="234" font-size="27" fill="#edf0e5" font-weight="600">Cloud sync</text>
+<text x="836" y="313" font-size="17" fill="#c4cdbe" font-weight="400">Work offline, sync later</text>
+<text x="836" y="350" font-size="17" fill="#c4cdbe" font-weight="400">Resolve competing edits</text>
+<text x="836" y="387" font-size="17" fill="#c4cdbe" font-weight="400">Keep cloud optional</text>
+<path d="M836 418h218" stroke="#46553d" stroke-width="2"/>
+</g>
+<g data-phase="P5">
+<path d="M1080 169v249" stroke="#343e32"/>
+<text x="1100" y="184" font-size="13" fill="#a5b298" font-weight="650">UPCOMING</text>
+<text x="1299" y="184" font-size="13" fill="#a5b298" font-weight="500">P5</text>
+<text x="1100" y="234" font-size="27" fill="#edf0e5" font-weight="600">Installation</text>
+<text x="1100" y="313" font-size="17" fill="#c4cdbe" font-weight="400">Install without a checkout</text>
+<text x="1100" y="350" font-size="17" fill="#c4cdbe" font-weight="400">Update without losing work</text>
+<text x="1100" y="387" font-size="17" fill="#c4cdbe" font-weight="400">Test everyday use</text>
+<path d="M1100 418h218" stroke="#46553d" stroke-width="2"/>
+</g>
+<path d="M44 463H1356" stroke="#3b463a"/>
+<text x="44" y="496" font-size="16" fill="#a5b298" font-weight="400">After recovery, optional sync and local installation can move forward independently.</text>
 </g></svg>
