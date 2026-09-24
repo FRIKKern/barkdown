@@ -33,7 +33,15 @@ const canvas=()=>page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas');
 const shot=async name=>{await page.screenshot({path:path.join(out,name+'.png')});frames.push(name+'.png');};
 const launch=async()=>{app=await electron.launch({executablePath:require('electron'),args:[appDir,`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});page=await app.firstWindow();video=page.video();page.on('pageerror',e=>errors.push(e.message));await page.waitForFunction(()=>window.__barkdown?.state.loaded);await page.setViewportSize({width:1400,height:900});};
 const close=async name=>{await app.close();app=null;if(video)fs.renameSync(await video.path(),path.join(out,name+'.webm'));};
-async function arrived(id){const expected=await read(id);await page.waitForFunction(({id,blocks})=>{const p=document.querySelector('.bw-paper-pane:not([hidden])'),c=p?.querySelector('bp-paper-canvas');return p?.querySelector('#path')?.textContent.includes(id)&&c?._editor&&JSON.stringify(c.recoverySnapshot().blocks)===JSON.stringify(blocks);},{id,blocks:expected.blocks},{timeout:30000});await page.waitForFunction(()=>document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent.includes('Editing live'));}
+async function arrived(id){
+  const expected=await read(id);
+  await page.waitForFunction(({id,lead})=>{
+    const p=document.querySelector('.bw-paper-pane:not([hidden])'),c=p?.querySelector('bp-paper-canvas');
+    return p?.querySelector('#path')?.textContent.includes(id)&&c?._editor&&c.recoverySnapshot().blocks?.[0]?.content?.[0]?.value===lead;
+  },{id,lead:expected.blocks[0].content[0].value},{timeout:30000});
+  assert.deepEqual(await canvas().evaluate(c=>c.recoverySnapshot().blocks),expected.blocks);
+  await page.waitForFunction(()=>document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent.includes('Editing live'));
+}
 async function unchangedOrganization(){const state=await page.evaluate(()=>window.__barkdown.state);assert.deepEqual(state.pages,projection.workspace.pages);assert.deepEqual(state.favorites,projection.workspace.favorites);assert.equal(state.chats.side.parent,'main');for(const id of ['main','side']){assert.equal(state.chats[id].draft,original.chats[id].draft);assert.deepEqual(state.chats[id].messages,original.chats[id].messages);}assert.deepEqual(state.chats.side.tabs.find(t=>t.id==='path-side').path,[ids.beta]);}
 try{
   await request('POST','/v1/data/mutate/production',{mutations:[{create:{_id:'navproof',_type:'tag',title:'Navigation proof'}},{publish:{id:'navproof',type:'tag'}}]});
