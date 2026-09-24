@@ -8,6 +8,8 @@ P1/C039 is accepted for the Windows source prototype at source `27ea120`, with e
 
 ## Open work
 
+[C057](cycles/C057-paper-connection.md) passes16 binding/37 host checks, full rebuilt desktop regression and exact-source0e4b891 native connection proof:13 foreign-bound operations send zero requests; Retry, exact Undo, scoped CLI and restart pass. Reviewed9 native stills/47 GIF frames plus fresh live/standard capture, explicit approval and root verification pass. [Review and limitations](cycles/evidence/C057/review.json). In-session boundary only; durable remote receipt identity and authority activation remain open.
+
 [C056](cycles/C056-complete-catalog.md) passes39 focused checks, full desktop and real isolated200/201 HTTP+CLI catalog discovery, failures/retry, connection ordering, Pages/main-side drafts and restart. Native0321161 and standard/live744123f were actually inspected and explicitly approved. [Review](cycles/evidence/C056/review.json). Root final verification passed; no snapshot, origin classification or authority activation claim. PR32 merged d126875; post-merge main Verify/parity pass.
 
 [C055](cycles/C055-cutover-readiness.md) accepts a documentation-only readiness audit: 20 source files inspected, five ordered cutover task briefs, full root/final documentation checks passed, and 387 declared C046–C054 artifact hashes verified. [Results](cycles/evidence/C055/results.json). No new app behavior, live endpoint experiment or authority activation is claimed. Final Linux35954150162 at2162ac0 passes20/20, including tablehead6/6; repository/visual CI pass. [Run closeout](cycles/evidence/C055/run-closeout.json).

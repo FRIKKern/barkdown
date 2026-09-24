@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C057",
   "stage": "P2",
-  "status": "active",
+  "status": "done",
   "goal": "Keep an open Paper bound to its original connection so settings changes cannot redirect its reads or writes.",
   "scope": [
     "Capture opaque main-process connection identity with the read; validate foreground follow-up reads/writes before access and keep captured routing across awaits.",
@@ -18,10 +18,12 @@
   ],
   "checkpoint": "2026-09-24",
   "handoff": "docs/cycles/C057-paper-connection.md",
-  "nextAction": "Audit foreground handlers/CLI routing and reproduce the current redirection privately before implementing the bound adapter.",
+  "nextAction": "Push reviewed C057 evidence, inspect exact-head CI, then plan the durable remote receipt/proposal ownership boundary.",
   "evidence": [
-    "docs/cycles/evidence/C056/review.json"
+    "docs/cycles/evidence/C057/review.json",
+    "docs/visual/paper-connection/runs/2026-09-24T05-53-21-002Z/review.json",
+    "docs/visual/reviews/approval-19569a6c0bc997857f06d9c56e9821a4c6c7502328161d3e347ba1759f8d7d88.json"
   ],
-  "truthReview": "C056 accepted and pushed6303ddf; draftPR33 is the sole delivery lane. Main contains PR32 merge d126875. P2 remains active; no deployment.",
-  "screenshotReview": "New source requires native connection-change evidence and fresh standard/live capture/compare/inspection/approval."
+  "truthReview": "Reviewed README/app guide, main/renderer health, PLAN/plan.json, handoff, validation, decisions and A2. One delivery lane; user data/services preserved. P2 remains active.",
+  "screenshotReview": "Inspected9 native stills/47 GIF frames,5 live stills/37 GIF frames,40 standard stills/diffs and40 GIF frames. Explicit approval19569a6c; first native presentation superseded after actual review."
 }

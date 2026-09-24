@@ -1,24 +1,26 @@
 # C057 — Paper connection ownership
 
-Starting checkpoint6303ddf on codex/paper-library, pushed in draftPR33. C056 is accepted and archived. The six-hour run remains active until10:18:54UTC (12:18Paris).
+Accepted on `codex/paper-library`, source `0e4b891`, following C056 checkpoint6303ddf. The six-hour run continues until at least2026-09-24 10:18:54UTC. PR32 is merged asd126875; this cycle belongs to draftPR33.
 
-Source review found open Paper buffers retaining their document/revision while foreground mutation handlers resolve current connection settings. Equal IDs/revisions across destinations can defeat revision-only protection. First reproduce with a disposable runtime and controlled foreign request recorder, then bind the foreground adapter to an opaque captured connection identity. Validate before any request, hold routing across awaits, preserve unsaved blocks/title on refusal and retry only against the original connection. Include body/title/media/conversion/proposals/Undo and related refresh paths. Audit CLI routing explicitly; do not claim ambient CLI is bound.
+## Outcome
 
-Scope is the in-session editor boundary. Durable connection-qualified tabs/favorites, provider receipt migration, local Archive origin classification and authority activation remain separate contracts. No real user library, shared service, upstream source or deployment changes. Do not claim the source-review risk is reproduced until an actual test demonstrates it.
+A Paper opened on connection A retains an opaque main-process binding. Changing server, dataset, credential, access mode or profile/runtime owner cannot redirect its later reads/writes to B. Missing/foreign bindings refuse before access. Multi-step writes use captured configuration; CLI operations retain explicitly verified server/dataset/workspace/project routing. Permission revocation is checked before writing. Human unsaved blocks/title remain visible; restoring A permits guarded Retry. Body/title/media/conversion/proposal/Undo and related reads/import paths use the binding.
 
-Private reproduction at6d3dce1 confirmed one old-buffer POST reaching a foreign recorder after settings change; recorder refused storage and original Paper stayed exact. Reproduction JSON is retained in evidence/C057. Runtime stopped. Uncommitted implementation now adds an opaque main-process binding, captured CLI routing and foreground host propagation; first host run found only its old two-argument title assertion needs the new binding argument. New boundary tests and native protected rerun are next. No owned test service running. Continue source commit → native/live/fixture capture → actual review/approval → evidence commit. Update durable code-area health text before final capture to avoid stale fingerprints.
+## Evidence
 
+- [Private pre-fix reproduction](evidence/C057/before-fence-reproduction.json) at6d3dce1 confirmed one old-buffer POST reached a foreign recorder; storage was refused and original data stayed exact.
+-16 binding tests and37 host tests pass;55 combined catalog/refresh/binding checks pass. [Logs and review](evidence/C057/review.json).
+- Full desktop passes after automatically rebuilding8da8d0f. The earlier pass used a pre-existing bundle and is retained without final compiled-UI claims. Final notice-only changes have focused host and exact-source native proof.
+- [Native gallery](../visual/paper-connection/runs/2026-09-24T05-53-21-002Z/README.md) at0e4b891/private30c007:13 refused operations, zero foreign requests, unchanged original/proposal/receipt, A-to-B-to-A Retry, exact original-library Undo, actual scoped CLI editing/refusal and restart. All9 stills/47 decoded GIF frames inspected;11 original hashes verified.
+- First native38f1290 behavior passed, but image inspection found duplicate warnings and stale enabled proposal controls. Presentation corrected and recaptured; superseded evidence remains linked in the gallery.
+- Fresh live Paper capture at0e4b891 uses real Claude and passes tablehead6/6;5 stills/37 GIF frames inspected. Standard05:55:41 capture has40 unchanged stills/diffs and40 reviewed GIF frames; explicit immutable approval19569a6c. Root verification passes.
 
-Implementation checkpoint:16 binding tests and37 host tests pass after adapting title argument assertions. Full desktop regression is running in Temp/c057-desktop.log (session68156). Native harness covers13 refused operations with zero foreign requests, unchanged proposal/receipt, A-to-B-to-A Retry, exact original-library Undo, actual CLI save and restart; not run yet. App-source and capture changes are uncommitted. Finish desktop, review source, commit, then run the native harness without parallel Electron suites.
+## Truth review and limits
 
+Main/renderer health READMEs now show current manifest-backed live evidence and link historical audits instead of obsolete pending instructions. README/app guide, acceptance and design decisions remain accurate for the private legacy-plus-Paper prototype. PLAN/plan.json, VALIDATION and NEXT-AGENT reflect this bounded result. Same delivery lane, no extra branch or shared-service changes; owned capture runtimes stopped. G1/G2 and upstream creation-route integration remain separate release gates. No deployment, authority cutover or real-library write.
 
-Review added refusal when writes are revoked during capture and when a disabled connection finishes a read. Missing bindings also refuse retained-proposal discard before removal. Reads/import/links/Ask keep the original context; no foreign content is substituted into the open buffer.55 combined catalog/refresh/binding tests and37 host tests pass. Full desktop remains in progress; final targeted host tests include the later action-copy guards. Native proof and global visual approval remain pending.
+This is an in-session boundary, not durable connection-qualified tabs/bookmarks or receipt/proposal ownership. CLI routing is captured; externally changed CLI credentials are not frozen. Native GIF sampling can omit brief states; full stills/raw video remain. P2 stays active.
 
+## Next action
 
-Native38f1290 passed at visual/paper-connection/runs/2026-09-24T05-43-15-377Z: zero foreign requests for13 operations, preserved original/proposal/receipt, A-to-B-to-A Retry, exact original-library Undo, explicit CLI native save/refusal and restart. Runtime stopped; images pending review. The initial full desktop pass used a pre-existing renderer bundle for some UI suites; do not treat it as final compiled-UI acceptance. Added npm pretest build and rerun the full suite before acceptance.55 combined unit and37 source-host tests pass. No capture result was restamped.
-
-
-Actual review of all nine native stills found duplicate connection/failure notices and proposal buttons that remained enabled after connection change (main already refused them). Consolidate the repeated notice and refresh proposal controls, then recapture the native journey with explicit assertions. The first gallery remains valid behavior proof but is superseded for final UI acceptance. Full rebuilt desktop session30962 targets8da8d0f; the notice-only follow-up will have fresh host/native evidence.
-
-
-Repository truth review condensed obsolete22/23September pending instructions in the main/renderer health READMEs, retaining audit/gallery links and using the manifest-backed current live image. Historical source evidence remains in Git/cycle records. These health text edits precede the final captures, so their tripwire fingerprints will be current.
+Commit/push this reviewed checkpoint and inspect exact-head CI. Then audit durable remote receipt/proposal identity: a newly opened same-slug Paper must not execute retained evidence from another connection. Preserve unknown legacy evidence without inventing ownership. Continue the authorized run through10:18:54UTC.

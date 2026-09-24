@@ -1,0 +1,21 @@
+
+> barkdown-desktop@0.6.0 test:paper-connection:isolated
+> npm run build && node tests/status-shots-isolated.mjs tests/paper-connection.live.mjs
+
+
+> barkdown-desktop@0.6.0 build
+> node scripts/build.mjs
+
+
+  renderer\dist\app.js      2.8mb
+  renderer\dist\app.js.map  7.0mb
+
+Done in 321ms
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-PHsZUk
+Capture runtime: starting 
+Capture runtime: ready 
+PASS native connection binding ["Foreign same-ID/revision recorder receives zero requests across13 foreground operations; original Paper, receipt and proposal unchanged","A-to-B-to-A Retry saves preserved human text; a fresh original-library receipt Undo restores exact blocks","Actual explicitly scoped CLI native read/edit/save passes; changing configured CLI destination refuses before lookup or transmission","Restart on the original connection restores acknowledged native content"]
+Connection evidence: C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\docs\visual\paper-connection\runs\2026-09-24T05-53-21-002Z
+Capture runtime: stopping 
+Capture runtime: stopped 
+Live screenshots complete; private runtime stopped; user CLI configuration unchanged.

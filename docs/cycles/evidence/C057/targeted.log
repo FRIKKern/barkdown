@@ -1,0 +1,289 @@
+TAP version 13
+# (node:47420) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/renderer/src/library-refresh.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: failed same-scope refresh preserves known notes and human organization
+ok 1 - failed same-scope refresh preserves known notes and human organization
+  ---
+  duration_ms: 3.2937
+  ...
+# Subtest: latest refresh wins even when an earlier response arrives last
+ok 2 - latest refresh wins even when an earlier response arrives last
+  ---
+  duration_ms: 0.3273
+  ...
+# Subtest: superseded errors do not toast or clear newer results
+ok 3 - superseded errors do not toast or clear newer results
+  ---
+  duration_ms: 0.244
+  ...
+# Subtest: server change clears prior catalog before awaiting and rejects stale results
+ok 4 - server change clears prior catalog before awaiting and rejects stale results
+  ---
+  duration_ms: 0.3003
+  ...
+# Subtest: dataset change clears prior catalog before awaiting and rejects stale results
+ok 5 - dataset change clears prior catalog before awaiting and rejects stale results
+  ---
+  duration_ms: 0.3229
+  ...
+# Subtest: catalogGeneration change clears prior catalog before awaiting and rejects stale results
+ok 6 - catalogGeneration change clears prior catalog before awaiting and rejects stale results
+  ---
+  duration_ms: 0.1761
+  ...
+# Subtest: profile change clears prior catalog before awaiting and rejects stale results
+ok 7 - profile change clears prior catalog before awaiting and rejects stale results
+  ---
+  duration_ms: 0.3535
+  ...
+# Subtest: scope changing without another refresh still rejects an in-flight result
+ok 8 - scope changing without another refresh still rejects an in-flight result
+  ---
+  duration_ms: 0.2486
+  ...
+# Subtest: initial render waits for local documents before Pages can be seeded
+ok 9 - initial render waits for local documents before Pages can be seeded
+  ---
+  duration_ms: 0.4683
+  ...
+# Subtest: complete catalog of 0 papers
+ok 10 - complete catalog of 0 papers
+  ---
+  duration_ms: 3.4531
+  ...
+# Subtest: complete catalog of 1 papers
+ok 11 - complete catalog of 1 papers
+  ---
+  duration_ms: 1.5007
+  ...
+# Subtest: complete catalog of 60 papers
+ok 12 - complete catalog of 60 papers
+  ---
+  duration_ms: 0.5037
+  ...
+# Subtest: complete catalog of 61 papers
+ok 13 - complete catalog of 61 papers
+  ---
+  duration_ms: 0.4354
+  ...
+# Subtest: complete catalog of 200 papers
+ok 14 - complete catalog of 200 papers
+  ---
+  duration_ms: 0.6376
+  ...
+# Subtest: complete catalog of 201 papers
+ok 15 - complete catalog of 201 papers
+  ---
+  duration_ms: 0.5849
+  ...
+# Subtest: complete catalog of 400 papers
+ok 16 - complete catalog of 400 papers
+  ---
+  duration_ms: 0.9793
+  ...
+# Subtest: complete catalog of 401 papers
+ok 17 - complete catalog of 401 papers
+  ---
+  duration_ms: 0.8711
+  ...
+# Subtest: refuses old response without pagination
+ok 18 - refuses old response without pagination
+  ---
+  duration_ms: 2.1198
+  ...
+# Subtest: refuses missing total
+ok 19 - refuses missing total
+  ---
+  duration_ms: 0.8896
+  ...
+# Subtest: refuses wrong offset
+ok 20 - refuses wrong offset
+  ---
+  duration_ms: 0.9094
+  ...
+# Subtest: refuses wrong limit
+ok 21 - refuses wrong limit
+  ---
+  duration_ms: 0.6714
+  ...
+# Subtest: refuses wrong count
+ok 22 - refuses wrong count
+  ---
+  duration_ms: 0.6944
+  ...
+# Subtest: refuses unknown perspective
+ok 23 - refuses unknown perspective
+  ---
+  duration_ms: 0.6488
+  ...
+# Subtest: refuses nonboolean hasMore
+ok 24 - refuses nonboolean hasMore
+  ---
+  duration_ms: 0.6358
+  ...
+# Subtest: refuses missing next offset
+ok 25 - refuses missing next offset
+  ---
+  duration_ms: 0.7031
+  ...
+# Subtest: refuses nonadvancing next offset
+ok 26 - refuses nonadvancing next offset
+  ---
+  duration_ms: 0.7383
+  ...
+# Subtest: refuses overlapping page
+ok 27 - refuses overlapping page
+  ---
+  duration_ms: 0.6953
+  ...
+# Subtest: refuses short intermediate page
+ok 28 - refuses short intermediate page
+  ---
+  duration_ms: 1.0597
+  ...
+# Subtest: refuses invalid paper id
+ok 29 - refuses invalid paper id
+  ---
+  duration_ms: 1.7333
+  ...
+# Subtest: refuses draft in published catalog
+ok 30 - refuses draft in published catalog
+  ---
+  duration_ms: 0.8685
+  ...
+# Subtest: refuses duplicate inside page
+ok 31 - refuses duplicate inside page
+  ---
+  duration_ms: 0.5985
+  ...
+# Subtest: refuses over budget total
+ok 32 - refuses over budget total
+  ---
+  duration_ms: 0.5581
+  ...
+# Subtest: refuses changing totals and repeated ids across pages
+ok 33 - refuses changing totals and repeated ids across pages
+  ---
+  duration_ms: 2.1356
+  ...
+# Subtest: refuses false finality, extra final offset and failed later pages
+ok 34 - refuses false finality, extra final offset and failed later pages
+  ---
+  duration_ms: 0.7334
+  ...
+# Subtest: byte and elapsed budgets refuse instead of returning a prefix
+ok 35 - byte and elapsed budgets refuse instead of returning a prefix
+  ---
+  duration_ms: 24.7267
+  ...
+# Subtest: HTTP adapter captures connection, uses audited pagination and preserves bounded provider listing
+ok 36 - HTTP adapter captures connection, uses audited pagination and preserves bounded provider listing
+  ---
+  duration_ms: 68.594
+  ...
+# Subtest: HTTP catalog stops an oversized page before parsing or publishing it
+ok 37 - HTTP catalog stops an oversized page before parsing or publishing it
+  ---
+  duration_ms: 124.7293
+  ...
+# Subtest: refuses a constant-count deletion/insertion that would silently skip a boundary paper
+ok 38 - refuses a constant-count deletion/insertion that would silently skip a boundary paper
+  ---
+  duration_ms: 0.9814
+  ...
+# Subtest: boundary overlap does not excuse duplicate identities later in a page
+ok 39 - boundary overlap does not excuse duplicate identities later in a page
+  ---
+  duration_ms: 0.938
+  ...
+# Subtest: missing, forged and foreign bindings refuse before any write
+ok 40 - missing, forged and foreign bindings refuse before any write
+  ---
+  duration_ms: 4.2878
+  ...
+# Subtest: server changes refuse old reads and writes before access
+ok 41 - server changes refuse old reads and writes before access
+  ---
+  duration_ms: 0.722
+  ...
+# Subtest: dataset changes refuse old reads and writes before access
+ok 42 - dataset changes refuse old reads and writes before access
+  ---
+  duration_ms: 0.4838
+  ...
+# Subtest: token changes refuse old reads and writes before access
+ok 43 - token changes refuse old reads and writes before access
+  ---
+  duration_ms: 0.4056
+  ...
+# Subtest: viaCli changes refuse old reads and writes before access
+ok 44 - viaCli changes refuse old reads and writes before access
+  ---
+  duration_ms: 1.2584
+  ...
+# Subtest: connectionOwner changes refuse old reads and writes before access
+ok 45 - connectionOwner changes refuse old reads and writes before access
+  ---
+  duration_ms: 0.3778
+  ...
+# Subtest: A to B to A allows guarded retry with original routing
+ok 46 - A to B to A allows guarded retry with original routing
+  ---
+  duration_ms: 0.4985
+  ...
+# Subtest: writes permission is checked without changing connection identity
+ok 47 - writes permission is checked without changing connection identity
+  ---
+  duration_ms: 0.501
+  ...
+# Subtest: settings changed during read cannot publish its result under a new connection
+ok 48 - settings changed during read cannot publish its result under a new connection
+  ---
+  duration_ms: 0.6015
+  ...
+# Subtest: multi-step operation holds original config across settings changes
+ok 49 - multi-step operation holds original config across settings changes
+  ---
+  duration_ms: 1.1876
+  ...
+# Subtest: CLI routing is captured once and never falls back to ambient defaults
+ok 50 - CLI routing is captured once and never falls back to ambient defaults
+  ---
+  duration_ms: 1.1564
+  ...
+# Subtest: CLI scope lookup completing after settings change is refused
+ok 51 - CLI scope lookup completing after settings change is refused
+  ---
+  duration_ms: 0.417
+  ...
+# Subtest: bindings contain neither secrets nor destination and cannot cross sessions
+ok 52 - bindings contain neither secrets nor destination and cannot cross sessions
+  ---
+  duration_ms: 0.6436
+  ...
+# Subtest: permission revoked while capture yields refuses before access
+ok 53 - permission revoked while capture yields refuses before access
+  ---
+  duration_ms: 0.4602
+  ...
+# Subtest: disabled connection during a read cannot publish the result
+ok 54 - disabled connection during a read cannot publish the result
+  ---
+  duration_ms: 0.3418
+  ...
+# Subtest: retained local mutations can demand a binding without requiring server write permission
+ok 55 - retained local mutations can demand a binding without requiring server write permission
+  ---
+  duration_ms: 0.5348
+  ...
+1..55
+# tests 55
+# suites 0
+# pass 55
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 449.2815
