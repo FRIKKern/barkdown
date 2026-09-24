@@ -1,0 +1,55 @@
+{
+  "capturedAt": "2026-09-24T01:24:37.324Z",
+  "barkdownCommit": "96c1c8c43c6dc6b4725acea3992c7a9767415ac6",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "profileId": "9b7cbe04-3912-4725-a6bb-05b6b984377c",
+  "sourceId": "image-note",
+  "targetId": "local-582921e15b70d4fd4e1b68ea609a5b31",
+  "editorBundle": {
+    "source": "server",
+    "server": "http://127.0.0.1:62463",
+    "version": "0.2.26.3938",
+    "sha": "b5004305fd3b99700457c3602b53003561f619c4",
+    "cssSha": "38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "folder": "b5004305fd3b99700457c3602b53003561f619c4-38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "fetchedAt": "2026-09-24T01:23:39.279Z"
+  },
+  "cases": [
+    {
+      "field": "alt",
+      "editedRev": 2,
+      "undoneRev": 3
+    },
+    {
+      "field": "width",
+      "editedRev": 4,
+      "undoneRev": 5
+    }
+  ],
+  "frames": [
+    "01-migrated-images.png",
+    "02-edit-alt.png",
+    "03-undo-alt.png",
+    "02-edit-width.png",
+    "03-undo-width.png"
+  ],
+  "artifacts": {
+    "01-migrated-images.png": "51c241880fd8bbb413af53e44fb8f81f1a034a2cdeaf558625148157ce503b00",
+    "02-edit-alt.png": "73a53d5c06562e7c945768e2c8a0250bfbdf968d0a4ca3cb86a02408957617a2",
+    "02-edit-width.png": "f15928f7a39fc3da1de99a85e6bd18df43cf2c2b8b9b3989288eb7f4e9a01ccc",
+    "03-undo-alt.png": "ad0d83f375026f3abb26144afa18638bfadc63fa93ebcfee0f8c30e231d262f8",
+    "03-undo-width.png": "eb5b46e15682adfce219d45b56c2a9f3b0015567025eba2811e860e24cb51383",
+    "failure-state.json": "b2a2d5eb86a07f19a3d131b4a85f26bce49aeed44082351e20e49973e2c58d59",
+    "failure.png": "0334ff5ae41fba9db5cdfc28ad69dfdba2899a625aa93b19cd4a5dc7c474d0ed",
+    "failure.txt": "6249920591c9b46fb733bc3ff0c8c50acab9786fb4ebe75f8ad3e3810ed22804",
+    "restart-or-failure.webm": "4dd86a4b670916890568fd56fc28ab26766f2efdceebcd1a381ce8cbb371c017"
+  },
+  "authority": "legacy",
+  "limits": [
+    "Disposable owned PNG only; no real-library activation",
+    "Explicit image heights, captions and non-supported PNG encodings refuse",
+    "Clean restart and post-upload process exit, not power-loss durability",
+    "Captured runtime origin must remain stable; portability is a later stage"
+  ]
+}

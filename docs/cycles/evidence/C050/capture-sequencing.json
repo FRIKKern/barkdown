@@ -1,0 +1,9 @@
+{
+  "recordedAt": "2026-09-24T01:40:46.137602+00:00",
+  "status": "retained but not accepted",
+  "liveManifest": "docs/images/status/history/2026-09-24T01-39-33-828Z.json",
+  "fixtureManifest": "docs/visual/runs/2026-09-24T01-39-38-000Z/manifest.json",
+  "reason": "The77-check desktop subsection completed, but the full npm test command was still running later Electron tests when standard capture started. These candidates are not accepted as final evidence. Finish desktop command, then recapture separately.",
+  "correction": "The a2feb5d docs checkpoint prematurely said full desktop passed. The command was still active; subsequent final results must record its actual exit.",
+  "nativeEvidence": "Earlier dedicated image run bc1dc82 completed before desktop tests began and remains separately valid."
+}
