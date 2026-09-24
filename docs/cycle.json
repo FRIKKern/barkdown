@@ -1,28 +1,28 @@
 {
   "version": 1,
-  "id": "C048",
+  "id": "C049",
   "stage": "P2",
-  "status": "done",
-  "goal": "Preserve genuine quotes and nested lists through migration and native Paper editing.",
+  "status": "active",
+  "goal": "Preserve profile-qualified internal note links through staged Paper migration and native navigation.",
   "scope": [
-    "Map one-paragraph quotes to native blockquote carriers and recursive list children to the audited upstream representation",
-    "Expand synthetic corpus and native typing/save/exact Undo/reload/restart including list Shift+Enter",
-    "Retain refusal for multi-paragraph items/quotes, custom numbering, unmapped metadata, references/media and real-library authority switching"
+    "Resolve only canonical legacy document links against the complete captured source profile before any target write",
+    "Convert resolved links to native ID-pinned wikilinks, preserving visible text/marks and deterministic target identities",
+    "Prove cyclic/forward links, missing-target refusal, two-profile isolation, interrupted staging, native edit/Undo/restart and link navigation/backlinks",
+    "Keep real-library activation, media migration and legacy retirement excluded"
   ],
   "acceptance": [
-    "Hand-authored structures preserve quote identity, nesting order, mixed list markers and task state",
-    "Unsupported mixed documents fail whole before any write and source backups remain exact",
-    "Native editor edits nested content and list breaks with acknowledged saves, exact Undo and restart proof",
-    "Full relevant tests and root verification pass with reviewed live/fixture and dedicated migration motion evidence"
+    "Missing/malformed/foreign-profile references refuse the whole batch before writes; source and backups remain exact",
+    "Native target IDs remain stable within a profile and differ across profiles with the same source slugs",
+    "Actual Paper save/Undo/reload/restart retains linked text/marks and navigation reaches the intended target",
+    "Server backlinks and interrupted resume agree with the staged graph without duplicate notes",
+    "Relevant tests, root verification and reviewed dedicated plus standard screenshot/GIF evidence pass"
   ],
   "checkpoint": "2026-09-24",
-  "handoff": "docs/cycles/C048-quotes-nested-lists.md",
-  "nextAction": "Publish accepted C048 evidence, archive its cycle JSON, then begin profile-qualified internal-reference migration and continue Linux table diagnostics.",
+  "handoff": "docs/cycles/C049-internal-references.md",
+  "nextAction": "Implement two-pass profile reference inventory and an audited native wikilink rewrite; add refusal and cross-profile tests before private-runtime rehearsal.",
   "evidence": [
-    "docs/cycles/evidence/C048/results.json",
-    "docs/visual/migration/runs/2026-09-24T00-08-01-504Z/manifest.json",
-    "docs/visual/reviews/approval-1e288e06025a5439cd4508e65145332a59ecf2885af161667947f92caccff528.json"
+    "docs/cycles/evidence/C048/results.json"
   ],
-  "truthReview": "README, app guide, plan, handoff, validation, migration contract and branch/task inventory reviewed. Full desktop/root, 31 migration units, 21 native/staging cases and local table 6/6 pass. G1/G2 and Linux table timeout remain separate.",
-  "screenshotReview": "Actual migration 31 stills/96 video and GIF samples/eight restart samples; live five stills/37 GIF frames; changed fixture frames inspected and immutable approval recorded. No layout regression observed."
+  "truthReview": "Planned from accepted pushed C048 731d959. No real-library authority switch. Upstream source 30c007e43 exposes native docId-pinned wikilinks and scoped backlinks.",
+  "screenshotReview": "C048 live/fixture and native media remain the starting baseline. New source requires complete capture/review sequence and dedicated link navigation proof."
 }

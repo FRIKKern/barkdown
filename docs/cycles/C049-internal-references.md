@@ -1,0 +1,11 @@
+# C049 — Internal references
+
+Starting at accepted pushed C048 731d959 on codex/p2-migration. Work only with disposable offline profile stores and private Barkpark 30c007e43. Do not alter real libraries, source authority, human Pages, shared services or deployment.
+
+The existing converter retains barkdown://doc/<id> as an ordinary href; Paper does not navigate that legacy scheme. The audited native carrier is {type: wikilink, target, docId, children}; docId pins identity while children preserve marked display text. Code anchors: upstream api/assets/paper-editor/src/convert.js, api/lib/barkpark/plugins/bulldocs.ex inline_node_target and docs/contracts/document-graph-and-history.md; Barkdown app/renderer/src/tabs/paper.js opens docId within the current chat. Actual backlinks envelope is result.backlinks/count.
+
+Plan two-pass inventory: collect valid source identities and deterministic profile-qualified target IDs, then inspect links against that complete library. Canonical local links only; malformed, missing or foreign-profile targets refuse the entire batch. Rewrite only those links in staging payloads, leaving source/backup bytes and visible text/marks unchanged. Preserve journal contract checks; old payloads must never be silently rewritten or replayed.
+
+Prove forward/cyclic references, same-slug profile isolation and exact graph comparison with actual endpoints. Native hover/open, typing/save/Undo and restart must agree with server IDs; source workspace remains legacy. Include interruption after a linked note is staged and refusal of later edits. Media, activation, old receipt conversion and rollback remain subsequent slices.
+
+No implementation yet. Next: focused reference mapping/preflight tests and production adapter, then source commit and private-runtime graph/editor rehearsal. C048 newest Linux CI runs are 35938173825 parity, 35938173858 root and 35938173738 visual; inspect their outcomes without discarding earlier Align left failure. C048 hashes for four Windows CRLF logs have a supplementary committed-byte ledger; raw captured hashes remain retained.

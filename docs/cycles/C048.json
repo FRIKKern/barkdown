@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "id": "C048",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Preserve genuine quotes and nested lists through migration and native Paper editing.",
+  "scope": [
+    "Map one-paragraph quotes to native blockquote carriers and recursive list children to the audited upstream representation",
+    "Expand synthetic corpus and native typing/save/exact Undo/reload/restart including list Shift+Enter",
+    "Retain refusal for multi-paragraph items/quotes, custom numbering, unmapped metadata, references/media and real-library authority switching"
+  ],
+  "acceptance": [
+    "Hand-authored structures preserve quote identity, nesting order, mixed list markers and task state",
+    "Unsupported mixed documents fail whole before any write and source backups remain exact",
+    "Native editor edits nested content and list breaks with acknowledged saves, exact Undo and restart proof",
+    "Full relevant tests and root verification pass with reviewed live/fixture and dedicated migration motion evidence"
+  ],
+  "checkpoint": "2026-09-24",
+  "handoff": "docs/cycles/C048-quotes-nested-lists.md",
+  "nextAction": "Publish accepted C048 evidence, archive its cycle JSON, then begin profile-qualified internal-reference migration and continue Linux table diagnostics.",
+  "evidence": [
+    "docs/cycles/evidence/C048/results.json",
+    "docs/visual/migration/runs/2026-09-24T00-08-01-504Z/manifest.json",
+    "docs/visual/reviews/approval-1e288e06025a5439cd4508e65145332a59ecf2885af161667947f92caccff528.json"
+  ],
+  "truthReview": "README, app guide, plan, handoff, validation, migration contract and branch/task inventory reviewed. Full desktop/root, 31 migration units, 21 native/staging cases and local table 6/6 pass. G1/G2 and Linux table timeout remain separate.",
+  "screenshotReview": "Actual migration 31 stills/96 video and GIF samples/eight restart samples; live five stills/37 GIF frames; changed fixture frames inspected and immutable approval recorded. No layout regression observed."
+}
