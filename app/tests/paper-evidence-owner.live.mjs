@@ -61,17 +61,23 @@ try{
  // favorite after acknowledgement. A refused attempt remains a title draft.
  const rename=async title=>{await page.locator('#bw-tabs .bw-tab.active [data-tab]').dblclick();await page.locator('.bw-tab-rename').fill(title);await page.locator('.bw-tab-rename').press('Enter');};
  await page.locator('#bw-tabs .bw-tab.active').hover();await page.locator('#bw-tabs .bw-tab.active [data-fav]').click();
- await rename('A title with spaces & literal meaning');
- await page.waitForFunction(()=>window.__barkdown.state.favorites.some(f=>f.label==='A title with spaces & literal meaning'));
- assert.equal((await bp.getPaper(config,id)).title,'A title with spaces & literal meaning');await shot('09-acknowledged-tab-and-favorite');
+ const unchangedTitle=(await bp.getPaper(config,id)).title;
+ const draftStatus=async()=>{const r=await fetch(server+'/v1/data/doc/production/paper/drafts.'+id+'?perspective=raw',{headers:{authorization:'Bearer '+token}});return r.status;};
+ assert.equal(await draftStatus(),404);
+ await rename('A title with spaces & literal meaning');await page.locator('#title-error').waitFor();
+ assert.match(await page.locator('#title-error').innerText(),/No title was saved/);
+ assert.equal((await bp.getPaper(config,id)).title,unchangedTitle);assert.equal(await draftStatus(),404);
+ assert.equal(await page.evaluate(()=>window.__barkdown.state.favorites[0].label),unchangedTitle);
+ assert.equal(await page.locator('.bw-paper-pane #title').inputValue(),'A title with spaces & literal meaning');
+ await shot('09-unsupported-rename-retains-title');await page.locator('[data-act="discard-title"]').click();
  await configure({viaCli:true,server:foreignServer});const beforeRenameRequests=requests.length;
  await rename('A title that must not reach another library');await page.locator('#title-error').waitFor();
- assert.equal(await page.locator('#bw-tabs .bw-tab.active .bw-tab-label').innerText(),'A title with spaces & literal meaning');
+ assert.equal(await page.locator('#bw-tabs .bw-tab.active .bw-tab-label').innerText(),unchangedTitle);
  assert.equal(await page.locator('.bw-paper-pane #title').inputValue(),'A title that must not reach another library');
- assert.equal(await page.evaluate(()=>window.__barkdown.state.favorites[0].label),'A title with spaces & literal meaning');
- assert.equal(requests.length,beforeRenameRequests);assert.equal((await bp.getPaper(config,id)).title,'A title with spaces & literal meaning');await shot('10-refused-rename-keeps-labels-and-draft');
+ assert.equal(await page.evaluate(()=>window.__barkdown.state.favorites[0].label),unchangedTitle);
+ assert.equal(requests.length,beforeRenameRequests);assert.equal((await bp.getPaper(config,id)).title,unchangedTitle);await shot('10-refused-rename-keeps-labels-and-draft');
  await configure({viaCli:true});await page.locator('[data-act="discard-title"]').click();await shot('11-original-title-restored');
- results.push('Native CLI tab rename acknowledges before changing tab/favorite; foreign connection refuses without requests and retains attempted title for explicit discard');
+ results.push('Unsupported title operation refuses before writing a draft twin; native foreign rename refuses without requests, retains the attempted title and preserves tab/favorite labels until explicit discard');
  assert.deepEqual(fs.readFileSync(store.filePath(legacyPath)),legacyBytes);assert.deepEqual(fs.readFileSync(store.filePath('paper-proposals.json')),proposalBytes);assert.deepEqual(errors,[]);console.log('PASS native retained evidence ownership',JSON.stringify(results));
 }catch(error){if(app&&page)await page.screenshot({path:path.join(out,'failure.png')}).catch(()=>{});fs.writeFileSync(path.join(out,'failure.txt'),error.stack);throw error;}
 finally{await client?.close().catch(()=>{});if(app)await close('restart-or-failure');await new Promise(r=>foreign.close(r));const artifacts=Object.fromEntries(fs.readdirSync(out).map(f=>[f,crypto.createHash('sha256').update(fs.readFileSync(path.join(out,f))).digest('hex')]));fs.writeFileSync(path.join(out,'manifest.json'),JSON.stringify({capturedAt:new Date().toISOString(),barkdownCommit:process.env.BARKDOWN_SHOTS_HOST_COMMIT,barkparkCommit:process.env.BARKDOWN_SHOTS_BP_COMMIT,isolatedRuntime:true,foreignRequests:requests,results,frames,artifacts,limits:['Actual private Paper and non-persisting foreign read recorder; no real user library','Original unknown evidence is retained readably, never assigned a guessed owner','Credential rotation or connection access-mode change deliberately creates a different owner; no automatic reassignment','CLI route is captured; externally replaced CLI credentials are not frozen','No authority activation, deployment or portability claim']},null,2)+'\n');console.log('Evidence gallery:',out);}

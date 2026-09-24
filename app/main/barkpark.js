@@ -291,7 +291,12 @@ async function cliApplyOps(slug, ops, ifRev, routing = []) {
   return { ok: true, rev: result.rev != null ? Number(result.rev) : null, unchanged: Boolean(result.unchanged), opCount: result.op_count ?? ops.length };
 }
 async function cliPublish(payload, routing = []) { return cli([...routing, 'bulldocs', 'publish', payload.slug, '--file', '-', '--yes'], payload); }
-async function cliPatchTitle(slug, title, routing = []) { return cli([...routing, 'doc', 'patch', 'paper', slug, '--set', 'title=' + title, '--yes']); }
+async function cliPatchTitle() {
+  // Generic doc patch creates a draft twin; it does not rename the published
+  // Paper. The audited Paper ops API has no guarded title operation. Refuse
+  // before writing instead of claiming success or publishing unrelated drafts.
+  throw new Error('Paper title changes are not supported by this connection yet. No title was saved.');
+}
 
 async function cliSearch(query, limit = 20, routing = []) {
   try {

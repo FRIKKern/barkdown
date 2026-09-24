@@ -8,7 +8,7 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { readCatalog } = require('../main/paper-catalog');
 const { listAllPapers, listPapers } = require('../main/barkpark');
-test('CLI preserves title and search arguments without a command shell', async () => {
+test('CLI preserves search arguments and pipes only explicit bodies; Paper rename refuses before writing', async () => {
   const calls = [], module = { exports: {} };
   const localRequire = createRequire(new URL('../main/barkpark.js', import.meta.url));
   vm.runInNewContext(fs.readFileSync(new URL('../main/barkpark.js', import.meta.url), 'utf8'), {
@@ -24,17 +24,16 @@ test('CLI preserves title and search arguments without a command shell', async (
     } } : localRequire(name),
   });
   const title = 'A title with spaces & "quotes" | literal %PATH%';
-  await module.exports.cliPatchTitle('note', title, ['-s', 'https://fixture.invalid']);
+  await assert.rejects(module.exports.cliPatchTitle('note', title, ['-s', 'https://fixture.invalid']), /No title was saved/);
+  assert.equal(calls.length, 0);
   await module.exports.cliSearch(title);
   await module.exports.cliApplyOps('note', [{ op: 'append-block' }], 3);
-  assert.equal(calls.length, 3);
+  assert.equal(calls.length, 2);
   for (const call of calls) { assert.equal(call.command, 'bp'); assert.equal(call.options.shell, false); }
-  assert(calls[0].args.includes('title=' + title));
-  assert(calls[1].args.includes('title*=' + title));
+  assert(calls[0].args.includes('title*=' + title));
   assert.equal(calls[0].options.stdio[0], 'ignore');
-  assert.equal(calls[1].options.stdio[0], 'ignore');
-  assert.equal(calls[2].options.stdio[0], 'pipe');
-  assert.deepEqual(JSON.parse(calls[2].input), { ifRev: 3, ops: [{ op: 'append-block' }] });
+  assert.equal(calls[1].options.stdio[0], 'pipe');
+  assert.deepEqual(JSON.parse(calls[1].input), { ifRev: 3, ops: [{ op: 'append-block' }] });
 });
 const papers = n => Array.from({ length: n }, (_, i) => ({ _id: `paper-${i}`, title: `Paper ${i}`, _updatedAt: new Date(1700000000000 + i * 1000).toISOString() }));
 function page(all, limit, offset) {
