@@ -1,0 +1,38 @@
+{
+  "capturedAt": "2026-09-24T03:17:40.270Z",
+  "barkdownCommit": "c5d29ce9e8b9475a4661e712e863bc2da4d7def7",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "profileId": "a84cf358-334c-4f4c-95b5-05927f8d93f2",
+  "sourceHash": "492b35783e9f3aa7f23d063ecc61c899b6c33376109547e0e9dcc8c17f235a6d",
+  "projectionHash": "2311591ec86aa312ea7701638f03b924b68e48693d375dbc0c7e380fbe2a1b70",
+  "results": [],
+  "frames": [
+    "01-projected-sidechat-and-pages.png",
+    "02-sidechat-owned-path.png",
+    "03-parent-document-path.png",
+    "04-direct-local-page.png",
+    "05-distinct-cloud-page.png",
+    "06-nested-page.png"
+  ],
+  "artifacts": {
+    "01-projected-sidechat-and-pages.png": "d8ea7039fadff079447c9c2708ddceb160cdfa85611a92b6cebcc52bd25d7a84",
+    "02-sidechat-owned-path.png": "407a256986ef15a28d0d7fb72405915449eda20e57db6113261d05401017e4ff",
+    "03-parent-document-path.png": "5f643afc31b06f9a9c7d91f56c045aa12474c68657109515ff8e6ad9b3e8e739",
+    "04-direct-local-page.png": "fe79a6dd99f04e997fa2abadca450e90e9d29123562b81cf8e56796da6fd5479",
+    "05-distinct-cloud-page.png": "0e0584b069b925ef45cda7a9d9629ac84e31269143520d6c2dd1ebf2ddc5e142",
+    "06-nested-page.png": "54746c59566e038763a2a3306731b35d8540a70b323bd64ae7313954694740eb",
+    "failure-state.json": "1c51fc17b183ce8256cc722b0de02d158e448a7753b0158ac7a71d7ea39fbf4e",
+    "failure.png": "0c0eadd729485c93a1b2cd1c36210525502eb0a2d673d29cb632144fb6866957",
+    "failure.txt": "9506e686487093452bfd576d877aa35dd62d1d83a2edf0012bca390709078dd8",
+    "projection.json": "1fecd9b96ab6591e3d8311f1ecb063dccb1595c8e4b5f5f8d6de4f9b645e4b8b",
+    "restart-or-failure.webm": "9850980f6d540341c72acb3f335fe09a8470509ee5d1e28d0aeb6fdbdbcf23ea"
+  },
+  "authority": "legacy",
+  "limits": [
+    "Separate disposable target app loads only a projected copy; no activation or writer fencing",
+    "Unplaced local archive and source-less closed targets explicitly refuse",
+    "Old transcripts/receipts remain opaque legacy evidence; no revision reinterpretation",
+    "Clean restart and same-machine paths; no cross-machine or power-loss proof"
+  ]
+}

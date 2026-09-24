@@ -209,7 +209,7 @@ function tabTarget(tab) {
 function targetKey(target) { return target.kind === 'doc' ? `doc:${target.id}` : target.kind === 'web' ? 'web:' + hostname(target.url || '') : target.kind === 'chat' ? `chat:${target.id}` : target.kind; }
 
 function findTabForTarget(chat, target) {
-  if (target.kind === 'doc') return chat.tabs.find(t => t.type === 'doc' && t.path.includes(target.id));
+  if (target.kind === 'doc') return chat.tabs.find(t => t.type === 'doc' && (t.source || 'local') === (target.source || 'local') && t.path.includes(target.id));
   if (target.kind === 'web') return chat.tabs.find(t => t.type === 'web' && hostname(t.url) === hostname(target.url));
   if (target.kind === 'chat') return chat.tabs.find(t => t.type === 'chat' && t.sideChatId === target.id);
   return chat.tabs.find(t => t.type === target.kind);
@@ -231,7 +231,10 @@ function openTarget(target, chat = currentChat(), manual = true, options = {}) {
     else if (target.kind === 'terminal') tab = newTab('terminal', { title: 'Terminal' });
     chat.tabs.push(tab);
   } else {
-    if (target.kind === 'doc' && tab.path.at(-1) !== target.id) tab.path = tab.path.slice(0, tab.path.indexOf(target.id) + 1);
+    if (target.kind === 'doc' && tab.path.at(-1) !== target.id) {
+      tab.path = tab.path.slice(0, tab.path.indexOf(target.id) + 1);
+      controllers.get(tab.id)?.navigate();
+    }
     if (target.kind === 'web' && target.url && tab.url !== target.url) { tab.url = target.url; controllers.get(tab.id)?.navigate(target.url); }
     if (target.kind === 'project' && target.path) { tab.file = target.path; tab.title = basename(target.path); controllers.get(tab.id)?.openFile?.(target.path); }
     if (target.kind === 'review') controllers.get(tab.id)?.refresh();

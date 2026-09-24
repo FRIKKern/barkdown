@@ -42,8 +42,17 @@ function projectWorkspace(options) {
     const ws = JSON.parse(file.data.toString('utf8'));
     check(object(ws) && ws.version === 1 && object(ws.chats) && Array.isArray(ws.order), '$', 'Unsupported workspace schema');
     check(!own(ws, 'profileId') || ws.profileId === snapshot.profileId, '$.profileId', 'Workspace belongs to a different profile');
+    const ordered = new Set();
+    for (const [i, id] of ws.order.entries()) {
+      check(typeof id === 'string' && own(ws.chats, id), `$.order[${i}]`, 'Conversation order references a missing chat');
+      check(!ordered.has(id), `$.order[${i}]`, 'Duplicate conversation order'); ordered.add(id);
+    }
+    check(ws.current == null || (typeof ws.current === 'string' && own(ws.chats, ws.current)), '$.current', 'Current conversation is missing');
     for (const [id, chat] of Object.entries(ws.chats)) {
       const at = '$.chats.' + id;
+      identity(id, at);
+      check(!['__proto__', 'constructor', 'prototype'].includes(id), at, 'Reserved conversation identity');
+      check(id === 'direct' || ordered.has(id), '$.order', 'Conversation order would be changed on load');
       check(object(chat) && chat.id === id && Array.isArray(chat.messages), at, 'Invalid conversation identity or transcript');
       check(!chat.runId, at + '.runId', 'A recorded run must be reconciled before projection');
       if (own(chat, 'tabs')) {

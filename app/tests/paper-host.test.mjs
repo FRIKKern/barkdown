@@ -69,6 +69,32 @@ function normalTabNavigation(m, kind) {
 }
 async function test(name, fn) { try { await fn(); cases.push({ name, pass: true }); } catch(error) { cases.push({name, pass:false, error:error.message}); } }
 
+await test('document targets reuse only tabs with the same explicit source', async () => {
+  const find = new Function(functionSource('function findTabForTarget(', '// Open (or reuse)') + '; return findTabForTarget;')();
+  const local={type:'doc',path:['A']},cloud={type:'doc',source:'barkpark',path:['A','B']};
+  const chat={tabs:[local,cloud]};
+  assert.equal(find(chat,{kind:'doc',id:'A'}),local);
+  assert.equal(find(chat,{kind:'doc',id:'A',source:'barkpark'}),cloud);
+  assert.equal(find({tabs:[local]},{kind:'doc',id:'A',source:'barkpark'}),undefined);
+});
+await test('opening an earlier target in a mounted Paper path changes the actual canvas', async () => {
+  transport={get:async id=>paper(id)};
+  const m=mount({path:['A','B']});await tick();await tick();
+  try {
+    assert.equal(m.canvas().blocks[0].id,'B-p');
+    normalTabNavigation(m,'openTarget');await tick();await tick();
+    assert.deepEqual(m.tab.path,['A']);assert.equal(m.canvas().blocks[0].id,'A-p');
+  } finally {m.close();}
+});
+await test('opening an earlier target retains the current Paper when native changes are pending', async () => {
+  transport={get:async id=>paper(id)};
+  const m=mount({path:['A','B']});await tick();await tick();
+  try {
+    m.canvas().pending=true;normalTabNavigation(m,'openTarget');await tick();
+    assert.deepEqual(m.tab.path,['A','B']);assert.equal(m.canvas().blocks[0].id,'B-p');assert.equal(m.canvas().pending,true);
+  } finally {m.close();}
+});
+
 await test('a cold bundle resolves before committing destination identity or mounting either canvas', async () => {
   const bundle=deferred();transport={get:async id=>paper(id),bundle:()=>bundle.promise};
   const m=mount();await tick();assert.equal(m.canvas(),null);assert.equal(m.tab.title,undefined);

@@ -37,6 +37,12 @@ test('profile-qualified projections never substitute another profile with matchi
 });
 
 const refusals=[
+ ['unknown ordered chat',f=>f.ws.order.push('missing'),/missing chat/],
+ ['duplicate ordered chat',f=>f.ws.order.push('main'),/Duplicate conversation order/],
+ ['omitted ordered chat',f=>f.ws.order=['main'],/order would be changed/],
+ ['missing current chat',f=>f.ws.current='gone',/Current conversation is missing/],
+ ['reserved chat key',f=>{f.ws.chats.constructor={id:'constructor',messages:[]};f.ws.order.push('constructor');},/Reserved conversation identity/],
+ ['invalid chat key',f=>{f.ws.chats['bad/key']={id:'bad/key',messages:[]};f.ws.order.push('bad/key');},/Invalid destination identity/],
  ['unknown local tab',f=>f.ws.chats.main.tabs[0].path.push('gone'),/Missing local/],
  ['unknown favorite',f=>f.ws.favorites[0].target.id='gone',/Missing local/],
  ['missing Page',f=>f.ws.pages.roots.push('gone'),/Missing local/],
@@ -65,3 +71,5 @@ for(const [name,mutate,reason] of refusals)test(name+' refuses without partial p
 test('source content blockers are carried forward without a candidate',()=>{const f=fixture();const p=path.join(f.options.sourceDir,'documents/alpha.json');const d=JSON.parse(fs.readFileSync(p));d.content.content[0].attrs={custom:true};fs.writeFileSync(p,JSON.stringify(d));const value=projectWorkspace(f.options);assert.equal(value.status,'blocked');assert.equal(value.workspace,null);assert.ok(value.issues.some(i=>i.file==='documents/alpha.json'));});
 
 test('archive marker keys preserve their exact state without moving unplaced cloud papers',()=>{const f=fixture();f.ws.pages.archived={alpha:false,'bp:unplaced-cloud':true};f.write();const value=projectWorkspace(f.options);assert.equal(value.status,'preview');assert.deepEqual(value.workspace.pages.archived,{['bp:'+f.id('alpha')]:false,'bp:unplaced-cloud':true});assert.deepEqual(value.workspace.pages.cloudLayoutMigration,f.ws.pages.cloudLayoutMigration);});
+
+test('the implicit direct workspace may remain outside recent-chat order',()=>{const f=fixture();f.ws.chats.direct={id:'direct',messages:[],tabs:[structuredClone(f.ws.directTab)]};f.write();const p=projectWorkspace(f.options);assert.equal(p.status,'preview');assert.deepEqual(p.workspace.order,f.ws.order);assert.deepEqual(p.workspace.chats.direct.tabs[0],p.workspace.directTab);});

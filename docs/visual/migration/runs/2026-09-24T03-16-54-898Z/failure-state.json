@@ -1,0 +1,359 @@
+{
+  "text": "b\nBarkdown\nWriting room\nMy local Alpha\nSide reflection\nCloud Alpha\nFavorites\nPAGES\nAlpha\nBeta\nCloud Alpha\nARCHIVE\n2\nCLOUD ARCHIVE\n1\nRECENT CHATS\nWriting room\nno folder ·\nSide reflection\n↳ Writing room · no folder ·\nFJ\nBarkdown\nBarkpark · 4\nb\nBarkdown\n4 d ago\n\nA retained conversation about alpha.\n\nNo working folder\nClaude API key · not signed in\nOpus 5 (default)\nEffort\n↑\nBarkpark paper · local-53fa12c8952895027372cdcb934045fc\n Ask\nAlpha / Beta\nEditing live · edited just now\n\nThe nested Beta keeps its place and its chat path.\n\nHISTORY\nrev eb7df1c4\nbarkpark ·\nEdits go straight to Barkpark through the fenced ops endpoint. Each batch is saved with the paper's revision; a clash with another writer shows up here instead of overwriting.",
+  "state": {
+    "chats": {
+      "main": {
+        "id": "main",
+        "title": "Writing room",
+        "messages": [
+          {
+            "id": "message-main",
+            "role": "assistant",
+            "text": "A retained conversation about alpha.",
+            "at": "2026-09-20T12:00:00Z"
+          }
+        ],
+        "events": [],
+        "apiHistory": [],
+        "tabs": [
+          {
+            "id": "path-main",
+            "type": "doc",
+            "source": "barkpark",
+            "path": [
+              "local-0cb30e5a23e5abd42fa568dcd7f5c4fc"
+            ],
+            "title": "My local Alpha",
+            "scroll": 0,
+            "unread": false
+          },
+          {
+            "id": "side-view",
+            "type": "chat",
+            "sideChatId": "side",
+            "title": "Side reflection"
+          },
+          {
+            "id": "cloud-view",
+            "type": "doc",
+            "source": "barkpark",
+            "path": [
+              "alpha"
+            ],
+            "title": "Cloud Alpha"
+          }
+        ],
+        "active": "path-main",
+        "draft": "Keep my main draft.",
+        "draftImages": [],
+        "closedTargets": [],
+        "runId": null,
+        "folder": null,
+        "following": false,
+        "chatScroll": 0
+      },
+      "side": {
+        "id": "side",
+        "title": "Side reflection",
+        "messages": [
+          {
+            "id": "message-side",
+            "role": "assistant",
+            "text": "A retained conversation about alpha.",
+            "at": "2026-09-20T12:00:00Z"
+          }
+        ],
+        "events": [],
+        "apiHistory": [],
+        "tabs": [
+          {
+            "id": "path-side",
+            "type": "doc",
+            "path": [
+              "local-53fa12c8952895027372cdcb934045fc"
+            ],
+            "title": "Beta",
+            "source": "barkpark",
+            "scroll": 0
+          }
+        ],
+        "active": "path-side",
+        "draft": "Keep my independent side draft.",
+        "draftImages": [],
+        "closedTargets": [],
+        "runId": null,
+        "folder": null,
+        "following": false,
+        "parent": "main",
+        "parentTitle": "Writing room",
+        "side": true,
+        "chatScroll": 0
+      },
+      "direct": {
+        "id": "direct",
+        "title": "Documents",
+        "createdAt": "2026-09-24T03:16:58.726Z",
+        "updatedAt": "2026-09-24T03:16:58.726Z",
+        "folder": null,
+        "messages": [],
+        "apiHistory": [],
+        "events": [],
+        "tabs": [
+          {
+            "id": "216ed568-f4ca-4482-b9f2-2b5cf32d3a68",
+            "type": "doc",
+            "title": "Beta",
+            "path": [
+              "local-53fa12c8952895027372cdcb934045fc"
+            ],
+            "url": "",
+            "file": "",
+            "treeOpen": false,
+            "scroll": 0,
+            "unread": false,
+            "source": "barkpark"
+          }
+        ],
+        "active": "216ed568-f4ca-4482-b9f2-2b5cf32d3a68",
+        "draft": "",
+        "following": true,
+        "editorExpanded": false,
+        "chatScroll": 0,
+        "side": true,
+        "parent": null,
+        "runId": null,
+        "closedTargets": []
+      }
+    },
+    "order": [
+      "main",
+      "side"
+    ],
+    "favorites": [
+      {
+        "id": "local-fav",
+        "label": "My local Alpha",
+        "target": {
+          "kind": "doc",
+          "id": "local-0cb30e5a23e5abd42fa568dcd7f5c4fc",
+          "source": "barkpark",
+          "title": "Alpha"
+        },
+        "chatId": "main"
+      },
+      {
+        "id": "cloud-fav",
+        "label": "Existing cloud Alpha",
+        "target": {
+          "kind": "doc",
+          "id": "alpha",
+          "source": "barkpark",
+          "title": "Cloud Alpha"
+        },
+        "chatId": "main"
+      }
+    ],
+    "pages": {
+      "layoutVersion": 2,
+      "seeded": true,
+      "roots": [
+        "bp:local-0cb30e5a23e5abd42fa568dcd7f5c4fc",
+        "bp:alpha"
+      ],
+      "children": {
+        "bp:local-0cb30e5a23e5abd42fa568dcd7f5c4fc": [
+          "bp:local-53fa12c8952895027372cdcb934045fc"
+        ]
+      },
+      "expanded": {
+        "bp:local-0cb30e5a23e5abd42fa568dcd7f5c4fc": true,
+        "bp:alpha": false
+      },
+      "archiveOpen": false,
+      "archiveFilter": "",
+      "cloudArchiveOpen": false,
+      "cloudArchiveFilter": "",
+      "archived": {
+        "bp:unplaced-cloud": true
+      },
+      "cloudLayoutMigration": {
+        "previousRoots": [
+          "alpha",
+          "bp:alpha"
+        ],
+        "moved": []
+      }
+    },
+    "current": "main",
+    "mode": "chat",
+    "directTab": "216ed568-f4ca-4482-b9f2-2b5cf32d3a68",
+    "settings": {
+      "sidebarWidth": 200,
+      "chatWidth": 60,
+      "theme": "system",
+      "model": "claude-opus-5",
+      "provider": "api",
+      "providerChosen": false,
+      "claudeModel": "",
+      "codexModel": "",
+      "providers": {
+        "claude": {
+          "loggedIn": true,
+          "effort": "high",
+          "model": "fable[1m]"
+        },
+        "codex": {
+          "loggedIn": true,
+          "model": "gpt-6-astra",
+          "effort": "medium"
+        },
+        "api": {
+          "hasKey": false
+        }
+      },
+      "hasApiKey": false,
+      "apiKeyFromEnv": false,
+      "barkpark": {
+        "effectiveServer": "http://127.0.0.1:59848",
+        "enabled": true,
+        "server": "http://127.0.0.1:59848",
+        "hasToken": true,
+        "dataset": "production",
+        "writes": true,
+        "viaCli": false,
+        "local": {
+          "enabled": false,
+          "source": "",
+          "port": 4540,
+          "pgPort": 5540
+        }
+      },
+      "recentFolders": [],
+      "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-navigation-preview-qjoSXD\\projected-app\\barkdown"
+    },
+    "documents": [
+      {
+        "id": "interaction-notes",
+        "title": "Interaction notes",
+        "updatedAt": "2026-09-24T03:16:57.202Z",
+        "createdAt": "2026-09-24T03:16:57.202Z",
+        "rev": 1,
+        "source": "local",
+        "excerpt": "Different kinds of work. One familiar place to follow them.\nWork tabs\nEach chat owns a workspace of tabs. A tab can hold a document, a website, a code review, a",
+        "references": [
+          "overview"
+        ],
+        "proposals": 0,
+        "tags": [
+          "barkdown",
+          "design"
+        ]
+      },
+      {
+        "id": "overview",
+        "title": "Overview",
+        "updatedAt": "2026-09-24T03:16:57.193Z",
+        "createdAt": "2026-09-24T03:16:57.193Z",
+        "rev": 1,
+        "source": "local",
+        "excerpt": "A place for your documents, conversations, and the work happening between them.\nKeep the work in view\nKeep the conversation beside the work. Open a document, ex",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          "barkdown"
+        ]
+      }
+    ],
+    "barkparkDocs": [
+      {
+        "id": "local-53fa12c8952895027372cdcb934045fc",
+        "title": "Beta",
+        "updatedAt": "2026-09-24T03:16:56.236000Z",
+        "createdAt": "2026-09-24T03:16:56.236000Z",
+        "rev": "eb7df1c47032ac9473108951a01a9f7a",
+        "source": "barkpark",
+        "excerpt": "The nested Beta keeps its place and its chat path.",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "Private navigation preservation proof",
+            "strength": 95,
+            "tag": "navproof"
+          }
+        ],
+        "slug": "local-53fa12c8952895027372cdcb934045fc",
+        "draft": false
+      },
+      {
+        "id": "local-0cb30e5a23e5abd42fa568dcd7f5c4fc",
+        "title": "Alpha",
+        "updatedAt": "2026-09-24T03:16:55.853000Z",
+        "createdAt": "2026-09-24T03:16:55.853000Z",
+        "rev": "3f157a1e8366f2a411083ee8c6490774",
+        "source": "barkpark",
+        "excerpt": "The local Alpha belongs to the original writing room.",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "Private navigation preservation proof",
+            "strength": 95,
+            "tag": "navproof"
+          }
+        ],
+        "slug": "local-0cb30e5a23e5abd42fa568dcd7f5c4fc",
+        "draft": false
+      },
+      {
+        "id": "alpha",
+        "title": "Cloud Alpha",
+        "updatedAt": "2026-09-24T03:16:55.512000Z",
+        "createdAt": "2026-09-24T03:16:55.512000Z",
+        "rev": "d9045a72157a2b7a03e3a08fd0e90133",
+        "source": "barkpark",
+        "excerpt": "This is the existing cloud Alpha, never the migrated local note.",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "Existing cloud identity proof",
+            "strength": 95,
+            "tag": "navproof"
+          }
+        ],
+        "slug": "alpha",
+        "draft": false
+      },
+      {
+        "id": "welcome",
+        "title": "Welcome to Barkpark",
+        "updatedAt": "2026-09-24T03:16:52.812000Z",
+        "createdAt": "2026-09-24T03:16:52.812000Z",
+        "rev": "63fa6fecf076dcb51a15fed8c004ea99",
+        "source": "barkpark",
+        "excerpt": "Welcome to Barkpark This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome. Y",
+        "references": [],
+        "proposals": 0,
+        "tags": [],
+        "slug": "welcome",
+        "draft": false
+      }
+    ],
+    "loaded": true,
+    "profileId": null,
+    "generation": null,
+    "canvasBundle": {
+      "source": "server",
+      "server": "http://127.0.0.1:59848",
+      "version": "0.2.26.3938",
+      "sha": "b5004305fd3b99700457c3602b53003561f619c4",
+      "cssSha": "38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+      "folder": "b5004305fd3b99700457c3602b53003561f619c4-38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+      "fetchedAt": "2026-09-24T03:17:07.763Z",
+      "js": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-navigation-preview-qjoSXD\\projected-app\\canvas-bundle\\b5004305fd3b99700457c3602b53003561f619c4-38197e09d17efc468a3dc875dbd59571e3aeb7c8\\bp-paper-editor.bundle.js",
+      "css": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-navigation-preview-qjoSXD\\projected-app\\canvas-bundle\\b5004305fd3b99700457c3602b53003561f619c4-38197e09d17efc468a3dc875dbd59571e3aeb7c8\\bp-paper-editor.css",
+      "loaded": "now"
+    }
+  }
+}
