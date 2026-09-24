@@ -50,21 +50,23 @@ const paste = (text, html) => page.evaluate(([t, h]) => { const dt = new DataTra
 const clickCell = async i => { const cells = pm.locator('.bp-table__td'); const n = await cells.count(); const idx = i < 0 ? n + i : i; await cells.nth(idx).click(); await page.evaluate(k => { const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor; const found = []; ed.state.doc.descendants((node, pos) => { if (node.type.name === 'bpTableCell') found.push({ pos, node }); }); const cell = found[k]; if (!cell) return; const $f = ed.state.selection.$from; let inside = false; for (let d = $f.depth; d > 0; d--) if ($f.before(d) === cell.pos) inside = true; if (inside && ed.state.selection.empty) return; ed.commands.setTextSelection(cell.pos + cell.node.nodeSize - 1); ed.commands.focus(); }, idx); };
 const chrome = async name => { const d = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas details:has(summary:has-text("Configure table"))').first(); if (!(await d.evaluate(el => el.open).catch(() => false))) await d.locator('summary').click(); return page.locator(`.bw-paper-pane:not([hidden]) bp-paper-canvas [aria-label*="${name}" i]`).first(); };
 const settle = () => page.waitForTimeout(600);
-// Paste conversion starts in a top-level paragraph, never a leftover whole-cell
-// selection. CI can retain table selection after a paragraph click; validate the
-// actual editor selection and place the fixture caret explicitly if necessary.
+// Prepare a fresh paragraph with one editor transaction. This row tests slash
+// insertion and paste conversion, not OS-specific End/Enter selection setup.
+// Keep the actual slash keystrokes, clipboard event and server assertions below.
 const startParagraph = async () => {
-  await pm.locator('p:has-text("Start here")').first().click();
   await page.evaluate(() => {
     const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor;
-    let position = null; ed.state.doc.forEach((node, offset) => { if (node.type.name === 'paragraph' && node.textContent.includes('Start here')) position = offset + 1; });
+    let position = null;
+    ed.state.doc.forEach((node, offset) => {
+      if (node.type.name === 'paragraph' && node.textContent.includes('Start here')) position = offset + node.nodeSize;
+    });
     if (position === null) throw Error('Top-level Start here paragraph missing');
-    if (ed.state.selection.$from.depth !== 1 || !ed.state.selection.$from.parent.textContent.includes('Start here') || !ed.state.selection.empty) ed.commands.setTextSelection(position);
-    ed.commands.focus();
+    ed.chain().focus().insertContentAt(position, { type: 'paragraph' }).setTextSelection(position + 1).run();
   });
-  await page.waitForFunction(() => { const s = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.state.selection; return s.empty && s.$from.depth === 1 && s.$from.parent.textContent.includes('Start here'); });
-  await page.keyboard.press('End'); await page.keyboard.press('Enter');
-  await page.waitForFunction(() => { const s = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.state.selection; return s.empty && s.$from.depth === 1 && s.$from.parent.type.name === 'paragraph' && !s.$from.parent.textContent; });
+  await page.waitForFunction(() => {
+    const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor, s = ed.state.selection;
+    return ed.view.hasFocus() && s.empty && s.$from.depth === 1 && s.$from.parent.type.name === 'paragraph' && !s.$from.parent.textContent;
+  });
 };
 
 

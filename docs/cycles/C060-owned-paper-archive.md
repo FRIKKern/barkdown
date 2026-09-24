@@ -13,3 +13,7 @@ Native first attempt at source `5bc0be0` stopped on an overly narrow fixture ass
 The second native attempt reached the correct Archive view (still actually inspected), then timed out because the fixture tried clicking a hover-only action without hovering its row. Corrected the native gesture; no production change. Both failed galleries remain append-only and are not accepted motion proof.
 
 Third native attempt passed A classification and human placement/nesting, then its profile-switch wait dereferenced the renderer during reload. Added the same optional readiness guard used by the existing isolation fixture. This is test synchronization only; retain the original failure.
+
+Fourth native attempt passed both managed profiles but its default 30-second firstWindow restart wait expired during normal runtime startup. The failed-close path retained an old video handle; both fixture issues corrected (180-second startup window, reset handles). Its owned Electron PID11328 was closed normally after startup; no fixture runtime remained. Raw recordings/failure retained; no accepted restart claim yet.
+
+C059 exact-head Linux 35979091296 finished 19/20: only GFM table-paste setup timed out, with other table checks 10/11 and all 19 other suites green. The actual failure still was inspected. Replaced the OS-dependent End/Enter fixture paragraph setup with one editor transaction and explicit focus/empty-paragraph assertions; slash keystrokes, clipboard conversion and server/reload checks remain unchanged. Targeted local and Linux validation pending.
