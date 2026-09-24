@@ -197,3 +197,57 @@ for (const boundary of ['after-create', 'before-complete']) {
     assert.equal(f.writes(), 1);
   });
 }
+
+function linkedLibrary(f) {
+  const link = (id, text) => ({ type: 'text', text, marks: [{ type: 'bold' }, { type: 'italic' }, { type: 'link', attrs: { href: 'barkdown://doc/' + id } }] });
+  const first = { ...f.document, content: { type: 'doc', content: [{ type: 'paragraph', content: [link('z-later', 'Marked destination')] }] } };
+  const later = { ...f.document, id: 'z-later', title: 'Destination', content: { type: 'doc', content: [{ type: 'paragraph', content: [link('note', 'Return to origin')] }] } };
+  for (const value of [first, later]) fs.writeFileSync(path.join(f.sourceDir, 'documents', value.id + '.json'), JSON.stringify(value));
+  f.options.metadata['z-later'] = structuredClone(f.options.metadata.note);
+  return { first, later };
+}
+
+test('forward and cyclic references pin profile IDs, preserve marked labels and resume after a partial batch', async t => {
+  const f = await fixture(t); linkedLibrary(f);
+  const sourceBytes = ['note','z-later'].map(id => fs.readFileSync(path.join(f.sourceDir,'documents',id+'.json')));
+  await assert.rejects(f.stage({ checkpoint(name) { if (name === 'receipt:note') throw Error('interrupted linked batch'); } }), /interrupted linked batch/);
+  assert.equal(f.writes(),1); assert.equal(f.rows.size,1);
+  const manifest=f.manifest(), origin=manifest.documents.find(d=>d.id==='note'), destination=manifest.documents.find(d=>d.id==='z-later');
+  assert.deepEqual(origin.references,[{sourceId:'z-later',targetId:destination.targetId,target:'Destination'}]);
+  const expected = { type:'wikilink', target:'Destination', docId:destination.targetId, children:[{type:'strong',children:[{type:'em',children:[{type:'text',value:'Marked destination'}]}]}] };
+  assert.deepEqual(f.rows.get(origin.targetId).blocks[0].content,[expected]);
+  await f.stage(); assert.equal(f.writes(),2); await f.stage(); assert.equal(f.writes(),2);
+  assert.equal(f.rows.get(destination.targetId).blocks[0].content[0].docId,origin.targetId);
+  for(const [i,id] of ['note','z-later'].entries()) {
+    assert.deepEqual(fs.readFileSync(path.join(f.sourceDir,'documents',id+'.json')),sourceBytes[i]);
+    assert.deepEqual(fs.readFileSync(path.join(f.destinationDir,'source/documents',id+'.json')),sourceBytes[i]);
+  }
+  const other=await fixture(t); linkedLibrary(other); await other.stage();
+  assert.notEqual(other.id(),origin.targetId);
+  assert.notEqual(other.rows.get(other.id()).blocks[0].content[0].docId,destination.targetId);
+  f.rows.get(destination.targetId).blocks[0].content[0].children=[{type:'text',value:'Human edited this'}];
+  await assert.rejects(f.stage(),{code:'target_conflict'}); assert.equal(f.writes(),2);
+});
+
+test('missing, malformed and foreign-profile links refuse the entire batch before target access', async t => {
+  for (const href of ['barkdown://doc/missing','barkdown://doc/z-later#part','barkdown://doc/z-later?profile=other','barkdown://other/doc/z-later','barkdown://doc/%7A-later','BARKDOWN://doc/z-later',' barkdown://doc/z-later']) {
+    const f=await fixture(t), {first}=linkedLibrary(f);
+    first.content.content[0].content[0].marks[2].attrs.href=href;
+    fs.writeFileSync(path.join(f.sourceDir,'documents/note.json'),JSON.stringify(first));
+    await assert.rejects(f.stage(),{code:'preflight_blocked'}); assert.equal(f.requests.length,0,href);
+    assert.equal(f.manifest().authority,'legacy');
+  }
+  const f=await fixture(t), {later}=linkedLibrary(f);
+  later.content.content.push({type:'image',attrs:{src:'private-file'}});
+  fs.writeFileSync(path.join(f.sourceDir,'documents/z-later.json'),JSON.stringify(later));
+  await assert.rejects(f.stage(),{code:'preflight_blocked'}); assert.equal(f.requests.length,0);
+});
+
+test('a changed reference payload in a recovery plan refuses without network access', async t => {
+  const f=await fixture(t);linkedLibrary(f);
+  await assert.rejects(f.stage({checkpoint(name){if(name==='plan')throw Error('pause');}}),/pause/);
+  const file=path.join(f.destinationDir,'staging/plan.json'), plan=JSON.parse(fs.readFileSync(file));
+  plan.documents[0].payload.blocks[0].content[0].docId='a-different-profile';
+  fs.writeFileSync(file,JSON.stringify(plan));
+  await assert.rejects(f.stage(),{code:'journal_changed'});assert.equal(f.requests.length,0);
+});

@@ -5,12 +5,13 @@ const path = require('path');
 const crypto = require('crypto');
 const { createStore } = require('./store');
 const { pmDocToBlocks } = require('../shared/portabledoc');
+const { internalScheme, resolveReference } = require('./migration-references');
 const hash = value => crypto.createHash('sha256').update(value).digest('hex');
 const digest = value => hash(JSON.stringify(value));
 const roots = ['documents', 'attachments', 'agent-edits', 'workspace.json', 'paper-proposals.json'];
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 
-function inspectContent(content) {
+function inspectContent(content, { documents, references = new Map() } = {}) {
   const issues = [];
   const issue = (at, reason) => issues.push({ path: at, reason });
   function walk(node, at, parentType) {
@@ -42,6 +43,7 @@ function inspectContent(content) {
       if (attrs.align != null && !['left', 'center', 'right'].includes(attrs.align)) issue(at, 'Invalid cell alignment');
     }
     if (node.marks !== undefined && !Array.isArray(node.marks)) issue(at, 'Invalid marks');
+    if (Array.isArray(node.marks) && node.marks.filter(mark => mark?.type === 'link').length > 1) issue(at, 'Multiple link marks have ambiguous targets');
     for (const [i, mark] of (Array.isArray(node.marks) ? node.marks : []).entries()) {
       const loc = at + '.marks[' + i + ']';
       if (!mark || !['bold', 'italic', 'underline', 'strike', 'code', 'link'].includes(mark.type)) { issue(loc, 'Unsupported mark'); continue; }
@@ -51,7 +53,10 @@ function inspectContent(content) {
       for (const key of Object.keys(mark.attrs || {})) if (mark.type !== 'link' || key !== 'href') issue(loc, 'Unmapped mark attribute: ' + key);
       if (mark.type === 'link') {
         if (typeof mark.attrs?.href !== 'string') issue(loc, 'Link requires href');
-        else if (/^barkdown:/i.test(mark.attrs.href)) issue(loc, 'Internal link requires reference-map activation; not ready');
+        else if (internalScheme(mark.attrs.href)) {
+          try { const ref = resolveReference(mark.attrs.href, documents); references.set(ref.sourceId, ref); }
+          catch (error) { issue(loc, error.message); }
+        }
       }
     }
     if (node.content !== undefined && !Array.isArray(node.content)) issue(at, 'Invalid content array');
@@ -90,7 +95,7 @@ function inventoryProfile({ profileId, sourceDir, quiesced }) {
   }
   roots.forEach(visit);
   if (!files.some(f => f.path === 'workspace.json')) throw new Error('Missing workspace; do not invent navigation');
-  const issues = [], documents = [], ids = new Set();
+  const issues = [], documents = [], sources = [], ids = new Set();
   for (const file of files) {
     if (!file.path.endsWith('.json')) continue;
     let value;
@@ -100,8 +105,16 @@ function inventoryProfile({ profileId, sourceDir, quiesced }) {
     if (typeof value.id !== 'string' || !/^[\w-]+$/.test(value.id) || file.path !== `documents/${value.id}.json` || ids.has(value.id)) { issues.push({ file: file.path, reason: 'Invalid or duplicate document identity' }); continue; }
     ids.add(value.id);
     if (typeof value.title !== 'string' || !Number.isSafeInteger(value.rev) || value.rev < 1) issues.push({ file: file.path, reason: 'Invalid title or revision' });
-    issues.push(...inspectContent(value.content).map(i => ({ file: file.path, ...i })));
+    sources.push({ file, value });
     documents.push({ id: value.id, targetId: 'local-' + digest([profileId, value.id]).slice(0, 32), sourceHash: file.sha256 });
+  }
+  // Resolve only after every identity is known: forward and cyclic references
+  // use the same captured profile, and any invalid document blocks the batch.
+  const lookup = new Map(documents.map((doc, i) => [doc.id, { ...doc, title: sources[i].value.title }]));
+  for (const [i, { file, value }] of sources.entries()) {
+    const references = new Map();
+    issues.push(...inspectContent(value.content, { documents: lookup, references }).map(issue => ({ file: file.path, ...issue })));
+    if (references.size) documents[i].references = [...references.values()].sort((a, b) => a.sourceId.localeCompare(b.sourceId));
   }
   const entries = files.map(({ data, ...metadata }) => metadata);
   return { profileId, sourceDir: store.dir(), sourceHash: digest({ profileId, files: entries }), files, entries, documents, issues };

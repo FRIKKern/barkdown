@@ -6,6 +6,7 @@ const { createStore } = require('./store');
 const { acquireFileLease } = require('./file-lease');
 const { prepareMigration, inventoryProfile } = require('./migration-preflight');
 const { pmDocToBlocks } = require('../shared/portabledoc');
+const { mapReferences } = require('./migration-references');
 
 const canonical = value => JSON.stringify(value, function (_key, item) {
   return item && typeof item === 'object' && !Array.isArray(item)
@@ -64,7 +65,7 @@ function payloads(manifest, store, metadata) {
     const source = JSON.parse(fs.readFileSync(store.filePath('source/documents/' + doc.id + '.json'), 'utf8'));
     const labels = metadata[doc.id];
     if (!labels || typeof labels.description !== 'string' || !labels.description.trim() || !Array.isArray(labels.tags) || !labels.tags.length || Object.keys(labels).some(k => !['description', 'tags'].includes(k))) fail('metadata_required', 'Reviewed description and registered tags required for ' + doc.id);
-    const blocks = pmDocToBlocks(source.content).map((block, i) => ({ ...block, id: 'migration-' + i }));
+    const blocks = mapReferences(pmDocToBlocks(source.content), doc.references).map((block, i) => ({ ...block, id: 'migration-' + i }));
     return { id: doc.id, targetId: doc.targetId, sourceHash: doc.sourceHash, payload: {
       slug: doc.targetId, title: source.title, style: 'article', description: labels.description,
       tags: structuredClone(labels.tags), blocks,

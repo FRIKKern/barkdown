@@ -78,7 +78,8 @@
     "test:migration-preflight": "node --test tests/migration-preflight.test.mjs",
     "test:migration-staging": "node --test tests/migration-staging.test.mjs",
     "test:migration-staging:isolated": "node tests/status-shots-isolated.mjs tests/migration-staging.live.mjs",
-    "test:migration-editor:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/migration-editor.live.mjs"
+    "test:migration-editor:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/migration-editor.live.mjs",
+    "test:migration-references:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/migration-references.live.mjs"
   },
   "engines": {
     "node": ">=22.13.1"
