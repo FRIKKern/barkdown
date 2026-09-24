@@ -1,30 +1,28 @@
 {
   "version": 1,
-  "id": "C050",
+  "id": "C051",
   "stage": "P2",
-  "status": "done",
-  "goal": "Stage owned local PNG images with exact byte verification and conservative interrupted-upload reconciliation before native Paper editing.",
+  "status": "active",
+  "goal": "Restore a retained migration backup into an empty owned legacy profile without overwriting data, with interrupted resume and native usability proof.",
   "scope": [
-    "Accept only reviewed top-level images resolving to captured same-profile attachment files; preserve original bytes and image alt and width",
-    "Persist a unique upload attempt before multipart POST; reconcile only a single exact owned filename and verified bytes through audited media APIs",
-    "Prove normal and post-commit interrupted upload, repeat without duplicates, native image rendering/edit/Undo/restart and changed/missing/ambiguous refusal",
-    "No external URL downloads, unsupported image metadata, real libraries, authority activation or automatic retry of absent uncertain uploads"
+    "Validate the committed backup and caller-pinned source hash before destination writes; restore exact legacy note/workspace/media/history/receipt bytes only.",
+    "Exclusive restore journal binds profile, destination and backup; repeated or interrupted copy resumes conservatively and refuses changed/foreign/unowned destinations.",
+    "Prove actual child exits, source/backup/staged Paper preservation and restored native legacy editing/restart.",
+    "No authority activation, destination overwrite, real library, credential restoration, Paper edit rollback or cross-machine portability claim."
   ],
   "acceptance": [
-    "Invalid/missing/foreign/unowned image sources and unsupported metadata refuse before writes",
-    "Every acknowledged upload is read back through scoped media metadata and exact SHA-256 bytes before a Paper references it",
-    "Interrupted uploads reconcile a unique owned attempt without a second POST; absent/ambiguous/changed candidates refuse",
-    "Actual Paper image rendering, alt/width changes and exact Undo/restart agree with server and retain originals",
-    "Relevant unit/integration checks, full desktop/root and fresh reviewed live/fixture/media evidence pass"
+    "Corrupt/incomplete/foreign backups, unsafe paths, existing unowned destination and changed restored content refuse without overwrite.",
+    "Every published restored file matches its captured size/hash; completion requires full inventory equality.",
+    "Actual process interruptions resume without duplicate artifacts or lost originals; repeated restore is stable until human edits require refusal.",
+    "A disposable profile opens restored notes/history/side-chat draft context and can save/restart while retained backup and staged Paper stay unchanged.",
+    "Relevant tests, full desktop/root, dedicated recovery images/motion and standard visual capture/compare/review/approval pass."
   ],
   "checkpoint": "2026-09-24",
-  "handoff": "docs/cycles/C050-owned-images.md",
-  "nextAction": "Push the reviewed checkpoint; recheck Linux parity while starting bounded retained-backup restoration proof. A2 remains active.",
+  "handoff": "docs/cycles/C051-backup-restore.md",
+  "nextAction": "Commit validated restore implementation and unrun native rehearsal, then capture a restored profile, review evidence and complete full validation.",
   "evidence": [
-    "docs/cycles/evidence/C050/results.json",
-    "docs/visual/migration/runs/2026-09-24T01-32-14-944Z/motion-review.json",
-    "docs/visual/reviews/approval-a272bdd133d02da31d393abf8359302cb096e788c9a675b49430b8b5012ce9ee.json"
+    "docs/cycles/evidence/C050/results.json"
   ],
-  "truthReview": "Current READMEs, plan, handoff and evidence distinguish bounded PNG proof from unfinished A2. Main plus one Barkdown lane; three owned upstream lanes;43 historical worktrees retained recoverably.",
-  "screenshotReview": "Ten native stills,35 video/GIF frames and eight restart frames reviewed. Final five live stills/all37 GIF frames reviewed; all changed fixture frames and GIF reviewed, explicitly approved. Earlier overlap candidates remain unapproved."
+  "truthReview": "Starts from pushed fef4d66. Same delivery lane, no new branches or real libraries. C050 accepted for bounded PNG scope; A2 still open.",
+  "screenshotReview": "C050 is the approved baseline. New restored-library journey needs dedicated native evidence and fresh standard review."
 }
