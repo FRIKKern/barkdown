@@ -101,6 +101,10 @@ try {
   await page.setViewportSize({ width: 760, height: 900 }); assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)); await shot('07-narrow-paper');
   await page.waitForFunction(async () => (await window.barkdown.state.load())?.chats.main.draft === 'A human draft stays here.');
   await close('discovery-and-recovery'); await launch(); await page.waitForFunction(() => window.__barkdown.state.barkparkDocs.length === 201);
+  await page.waitForFunction(() => {
+    const canvas = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas');
+    return canvas?._editor && canvas.recoverySnapshot().blocks?.[0]?.content?.[0]?.value?.includes('Native library note 200') && document.querySelector('.bw-paper-pane:not([hidden]) #title')?.value === 'Workshop typography 200';
+  });
   await assertHumanState(); await shot('08-restarted-library');
   assert.deepEqual(await listAllPapers(config), full); assert.deepEqual(errors, []);
   results.push('Failures preserve only the same connection catalog; retry/narrow layout/restart preserve the actual library and human organization');

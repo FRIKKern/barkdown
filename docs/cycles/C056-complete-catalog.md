@@ -19,3 +19,6 @@ Second native attempt at21da2cd hit the real publication deduplication wall: num
 
 
 Third native run at51f52b3 passed all real HTTP/CLI200/201 checks and desktop failure/retry/connection/draft/Pages/restart assertions. Its private runtime stopped; evidence is docs/visual/catalog/runs/2026-09-24T04-53-39-475Z (pending image review). Final reader review adds a one-identity overlap between pages: unchanged total counts can hide delete+insert boundary shifts.39 focused tests pass, including that previously silent gap and duplicated rows after the overlap. Fresh native and standard evidence will target the final reader source.
+
+
+Final-reader native run at29aeb3a passed (docs/visual/catalog/runs/2026-09-24T04-57-19-096Z). Actual image inspection found its last still captured restored catalog state before the open Paper finished loading (Untitled placeholder). This candidate is not the accepted final gallery. Harness now additionally waits for the real restarted canvas content/title. Exact app-behavior desktop suite is rerunning in Temp/c056-desktop-final.log; finish it before another UI capture. The source/behavior does not change for this capture-readiness correction.
