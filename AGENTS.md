@@ -46,6 +46,8 @@ Do not install or copy the paid Tiptap Notion template by default. It is an inte
 
 ## Delivery cycles
 
+Before coding, put the affected boundaries, fast checks and ready-checkpoint checks in the current handoff, following `docs/CYCLES.md#plan-the-tripwires-before-editing`. Batch related implementation and code-area README edits before capture; do not evade tripwires or weaken checks.
+
 Use `docs/CYCLES.md` as the workflow authority and `docs/visual/RULES.md` as the visual-evidence authority. Plan an outcome, a stopping condition and a proportionate validation budget. Keep active context small; link evidence instead of copying run histories. Record measured time/token usage when available, never estimated usage as fact. README capability claims must link applicable reviewed evidence and state limitations.
 
 Repository hygiene is a delivery requirement. Keep `main` plus at most three active delivery branches per repository; temporary exceptions must name an owner, reason and next review in the current handoff. Reuse a suitable existing lane before creating another. Inventory local/remote branches, worktrees and related tasks at cycle closeout. Retire merged branches after checking remote tips and open PRs; preserve unique commits, dirty files and evidence before retiring anything else. Never confuse cherry-picked work with fully merged history. Do not interfere with another Barkpark contributor's checkout or open PR.

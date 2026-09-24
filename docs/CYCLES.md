@@ -16,6 +16,27 @@ Delegate only when authorized and when independent deliverables justify coordina
 
 At closeout, record outcomes delivered, checks and captures run, significant retries and their cause, elapsed time, and token usage if the tool supplies a trustworthy value. Label estimates and unavailable measurements. Separate active work, waiting and tool runtime only when measured; do not invent a breakdown. A tracker total may include replayed context and is not automatically billable tokens or a price. Record one concrete efficiency lesson when there was avoidable rework; do not create a separate metrics backlog.
 
+## Plan the tripwires before editing
+
+Record three short lines in the existing handoff, not a new report:
+
+- **Affected boundaries:** what can change for the user or their data, and which proof it invalidates.
+- **During work:** targeted checks that catch mistakes quickly; include relevant failure/ownership cases.
+- **Ready checkpoint:** required suites, code-area README updates, capture/review and expected final source. Name what would require a rerun.
+
+| Phase | What triggers work | Validation strategy |
+|---|---|---|
+| Develop | Change a behavior or contract | Run affected tests as the implementation settles. Investigate failures before expanding scope. |
+| Ready for review | Complete the bounded outcome | Finish related code and README edits; commit implementation, capture/compare/inspect/approve when required, then commit evidence. Run root verification and the applicable full suites. |
+| Waiting for merge | New code, dependencies, harness, environment or base changes | Reassess which proof is invalidated. Time alone is not a reason to repeat local tests. Follow existing CI gates; automated reuse is not implemented. |
+| Integrate | Base drift or conflict resolution changes the combined result | Check the proposed integrated source and rerun affected proof; an old branch pass does not prove the merged tree. |
+
+Documentation outside current visual inputs needs link, claim and generation checks, not new app captures. Appearance/interaction changes need visual and behavior proof. Storage, identity, permissions, revisions and runtime changes need relevant real integration/recovery checks even if screens look identical. Editor/content-format changes need canvas/server parity. Dependencies, upstream pins, harness and environment changes invalidate the proof that depends on them. Unknown impact takes the conservative path until understood.
+
+Convenience means grouping related work and choosing checkpoints well. It never means moving files outside watched paths, hiding changes, relabeling old evidence, approving unread images, deleting failures, skipping assertions or using a cancelled run as a pass. Preserve a failing result and its fix; do not repeatedly rerun a flaky test until it happens to pass. No finite suite guarantees 100% quality: acceptance claims remain limited to the demonstrated scenarios.
+
+Verify CI runs on PR updates and main pushes, with manual dispatch for branches without a PR. It retains the same `concept` job and full `npm run verify`; obsolete runs on the same ref are cancelled, not counted as proof. Create/update the existing draft PR at a reviewable checkpoint instead of pushing each sentence. Visual/parity CI remains conservative and may rerun on later pushes to an app-changing PR. Narrower triggers or cross-commit proof reuse require a separately tested implementation; never simulate them with a skip flag.
+
 ## Keep a checkpoint while working
 
 Update the cycle handoff after a meaningful implementation slice, a failed check, a scope change, a blocker, and before yielding or changing tasks. Record what changed, exact commands/results, uncommitted work, owned running processes and the next concrete action. Save the checkpoint before long or risky operations. The current handoff should fit roughly one screen: current outcome/status, branch and source, strongest evidence and limits, uncommitted work/owned services, and exact next action. Detailed chronology belongs in the linked cycle record. A handoff must work without chat history; do not wait for completion to write it. Sudden interruption can still happen between checkpoints—inspect Git and process ownership when resuming.

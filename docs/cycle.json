@@ -1,26 +1,27 @@
 {
   "version": 1,
-  "id": "C063",
+  "id": "C064",
   "stage": "P2",
   "status": "done",
-  "goal": "Remove conflicting agent guidance and clarify source ownership, with mechanical checks for routing and evidence integrity.",
+  "goal": "Plan convenient tripwires and remove duplicate Verify runs without weakening quality gates.",
   "scope": [
-    "Audit active instructions, planning skill and key app ownership/compatibility boundaries.",
-    "No application behavior, migration authority, media or dependency changes; no whole-codebase correctness claim."
+    "Phase-based validation strategy and automatic reminders in existing plan/cycle commands.",
+    "Deduplicate Verify CI events; preserve suites, visual fingerprints, review requirements and current required-check job name.",
+    "No application changes, evidence-reuse bypass, deployment or merge."
   ],
   "acceptance": [
-    "Codex and Claude enter through the same canonical rules; planning skill uses live queue rather than stale stage instructions.",
-    "Superseded decisions and preserved compatibility paths are clearly distinguished from current implementation work.",
-    "Root verification rejects stale handoff routing and untracked completion evidence; negative cases are tested."
+    "Agents see a short tripwire planning reminder and one authoritative phase strategy.",
+    "Verify runs for PR updates, main pushes and manual dispatch without duplicate feature-branch push runs.",
+    "Workflow configuration, plan/cycle output and full root validation pass; generated roadmap and handoff reflect this cycle."
   ],
   "checkpoint": "2026-09-24",
-  "handoff": "docs/cycles/C063-agent-guidance.md",
-  "nextAction": "Review PR33 final-head CI; archive C063 and plan the owned ordinary draft-note adapter/native journey.",
+  "handoff": "docs/cycles/C064-convenient-tripwires.md",
+  "nextAction": "Inspect PR33 final-head CI, archive C064, and begin the owned ordinary draft-note adapter with a three-line tripwire plan.",
   "evidence": [
-    "docs/cycles/evidence/C063/root.log",
-    "docs/cycles/evidence/C063/skill-validation.txt",
-    "scripts/agent-guidance.mjs"
+    "docs/cycles/evidence/C064/root.log",
+    "docs/cycles/evidence/C064/workflow-check.json",
+    "docs/CYCLES.md"
   ],
-  "truthReview": "Canonical entry points and planning skill aligned; superseded decision conflicts corrected; source ownership and compatibility audited/documented. No application behavior changes. One delivery lane; 43 locked worktrees preserved for next coordinator inventory.",
-  "screenshotReview": "No app/dependency/capture/approval changes. Existing visual freshness/hash checks passed; no new media or runtime claims."
+  "truthReview": "Existing lane and prior roadmap commit preserved; phase strategy and CI event configuration verified. Same required-check job and suites retained. No app/upstream/data changes; 43 locked worktrees remain for next coordinator review.",
+  "screenshotReview": "No app or visual-input changes; existing source/hash approval checks pass. Generated roadmap current-cycle text regenerated and inspected separately; no new app screenshot proof claimed."
 }

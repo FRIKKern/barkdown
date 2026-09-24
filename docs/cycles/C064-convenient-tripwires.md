@@ -1,0 +1,13 @@
+# C064 — Convenient tripwires
+
+**Outcome:** phase strategy and Verify deduplication from `36f3fc2`, existing `codex/paper-library` lane. Both plan/cycle commands remind agents to record affected boundaries, fast checks and ready-checkpoint proof. The authoritative recipe in CYCLES groups related edits before capture and explicitly prohibits bypassing watched paths, suppressing assertions or accepting unread evidence.
+
+**Tripwire plan:** affected boundaries are CI scheduling, agent reminders and generated documentation; app/capture inputs are unchanged. Fast checks parse the YAML, compare complete job definitions/permissions and exercise both plan commands. Ready checkpoint is one full root verification, final cycle/generation checks and visual inspection of the regenerated roadmap. Relevant workflow/command changes require reruns; time waiting for merge alone does not.
+
+**Validation:** `npm run verify` passed ([log](evidence/C064/root.log)); [workflow check](evidence/C064/workflow-check.json) confirms main pushes, PR updates and manual dispatch, no duplicate feature-branch push trigger, unchanged job steps/permissions and same-ref cancellation. `npm run plan` and `npm run cycle` print the reminder. Final cycle/roadmap checks follow staging. Hosted event behavior must be confirmed from the pushed PR; local YAML checks are not a GitHub scheduler test.
+
+**Scope/limits:** no app, dependency, visual fingerprint, approval or suite changes. No automatic evidence caching/reuse or changed-area skipping implemented. Visual/parity PR triggers remain conservative. Same-ref cancelled runs never count as proof. A branch without a PR uses local validation/manual dispatch; main keeps post-merge verification. Check name `concept` is preserved. No merge, deployment or branch-protection changes.
+
+**Truth/cost:** one full root verification, focused config/output checks, no desktop rebuild, provider call or app recapture. Exact per-cycle elapsed/token measurements unavailable; estimated ceiling20 minutes, stop at the bounded tested checkpoint. Existing screenshots remain applicable; generated roadmap changes only its current-cycle text and is reviewed separately from app evidence. Root guidance, plan, acceptance and existing visual rules still distinguish P2 targets from proven behavior.
+
+**Repository/next:** clean start; prior concurrent roadmap work committed at36f3fc2. One delivery branch, 43 locked historical worktrees preserved for next coordinator inventory. No owned runtime or upstream changes. Archive C064 before ordinary draft-note adapter/native journey work; inspect final-head CI before merge. Do not expand this cycle into a new CI framework.

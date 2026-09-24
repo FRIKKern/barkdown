@@ -1,5 +1,7 @@
 # Evidence and remaining proof
 
+[C064](cycles/C064-convenient-tripwires.md): root verification and focused workflow checks passed. Verify retains all steps and its job name; PR/main/manual triggers remove duplicate branch-push work. Both plan commands remind agents to plan tripwires. Hosted CI and current conservative visual/parity triggers remain distinct from local proof.
+
 [C063](cycles/C063-agent-guidance.md): canonical agent routing, current handoff and tracked-evidence guards, with negative cases; root and skill validation passed. Source-boundary audit preserves intentional compatibility. No app behavior or blanket code-quality guarantee added.
 
 [C062](cycles/C062-workflow-truth.md): workflow and entry-point truth review; root verification passed. No app/capture changes or new runtime claims. Cost and README proof requirements now live in the existing cycle/visual rules.
