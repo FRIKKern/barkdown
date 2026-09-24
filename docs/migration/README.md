@@ -17,7 +17,7 @@ P1 is accepted. P2 remains active: the app still uses legacy local documents alo
 
 [Reviewed screenshots and motion](../visual/migration/README.md) keep content, references, images and restored-legacy evidence distinct. Actual server readback and filesystem checks establish preservation; screenshots alone do not.
 
-C056 now proves [complete foreground discovery and honest refresh failure handling](../cycles/C056-complete-catalog.md) over real HTTP/CLI200/201 catalogs. This completes the discovery portion of order1 below; owned-local Archive classification remains pending. C057 now protects open-Paper buffers on connection change. C058 is validating durable edit evidence and tab-title ownership before the remaining Archive/navigation work.
+C056 now proves [complete foreground discovery and honest refresh failure handling](../cycles/C056-complete-catalog.md) over real HTTP/CLI200/201 catalogs. This completes the discovery portion of order1 below; owned-local Archive classification remains pending. C057 now protects open-Paper buffers on connection change. C058 validates durable edit evidence and tab-title ownership; unsupported title changes refuse without a draft write. Saved navigation ownership and Archive classification remain open.
 
 ## Audited target contract
 

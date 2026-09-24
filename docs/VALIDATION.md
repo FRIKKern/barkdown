@@ -1,5 +1,7 @@
 # Evidence and remaining proof
 
+[C058](cycles/C058-remote-evidence-owner.md) at72d8f64 passes full desktop and corrected20/20 local parity on private30c007e43. Persistent receipt/proposal owners refuse foreign access; native HTTP/MCP-CLI restart/Undo, profile isolation and retained legacy bytes pass. Native11/58, live5/37 and standard40 stills/40 differences/40 GIF frames are actually inspected and explicitly approved. [Review](cycles/evidence/C058/review.json). Root verification passes. Title changes remain unsupported and refuse before writing; saved navigation ownership and authority activation remain open. Earlier Linux failures are preserved; fresh exact-head Linux evidence is required.
+
 ## Accepted prototype checkpoint
 
 P1/C039 is accepted for the Windows source prototype at source `27ea120`, with evidence through `f65c0c6`. The [completion audit](cycles/C039-completion-audit.md) maps acceptance requirements to full desktop and root passes, authentication/recovery proof, reviewed captures and 102 verified retained native artifact hashes. [Validation hashes](visual/provider-login/27ea120/validation.json) bind the recorded logs.

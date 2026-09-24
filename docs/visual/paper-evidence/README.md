@@ -8,4 +8,4 @@
 
 Paper title editing remains unsupported. Native testing exposed generic doc.patch creating a draft twin while the published Paper retained its old title. The corrected path refuses before writing, keeps the attempted text for explicit discard, and preserves tab/favorite labels. This is refusal/recovery evidence, not successful rename support.
 
-The gallery retains raw recordings, original hashes and review limitations. Private test data only; no real library or authority cutover. [Cycle](../../cycles/C058-remote-evidence-owner.md) owns the remaining full parity, final standard/live review and root verification gates.
+The gallery retains raw recordings, original hashes and review limitations. Private test data only; no real library or authority cutover. [Cycle](../../cycles/C058-remote-evidence-owner.md) records full20/20 local parity, reviewed final standard/live media and the root verification gate.

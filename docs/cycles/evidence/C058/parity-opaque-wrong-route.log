@@ -1,0 +1,483 @@
+{
+ "summary": "22/22 note block types mount editable; 10/10 edits held by the server; 9/9 slash inserts land on the server; editor bundle NOT from the server",
+ "bundle": {
+  "pass": false,
+  "source": "server",
+  "appSha": "b5004305",
+  "serverSha": "62b80526",
+  "version": "0.2.26.3938"
+ },
+ "edits": [
+  {
+   "type": "image",
+   "edit": "alt",
+   "pass": true,
+   "server": {
+    "alt": "A described image",
+    "id": "block-12",
+    "src": "https://example.com/x.png",
+    "type": "image",
+    "width": null
+   }
+  },
+  {
+   "type": "image",
+   "edit": "src",
+   "pass": true,
+   "server": {
+    "alt": "A described image",
+    "id": "block-12",
+    "src": "https://example.com/y.png",
+    "type": "image",
+    "width": null
+   },
+   "shown": "https://example.com/y.png"
+  },
+  {
+   "type": "expandable",
+   "edit": "summary",
+   "pass": true,
+   "server": {
+    "blocks": [
+     {
+      "content": [
+       {
+        "type": "text",
+        "value": "Hidden."
+       }
+      ],
+      "id": "block-17-0",
+      "type": "paragraph"
+     }
+    ],
+    "id": "block-17",
+    "summary": "Details and more",
+    "type": "expandable"
+   }
+  },
+  {
+   "type": "expandable",
+   "edit": "body",
+   "pass": true,
+   "server": {
+    "blocks": [
+     {
+      "content": [
+       {
+        "type": "text",
+        "value": "Hidden. Shown."
+       }
+      ],
+      "id": "block-17-0",
+      "type": "paragraph"
+     }
+    ],
+    "id": "block-17",
+    "summary": "Details and more",
+    "type": "expandable"
+   }
+  },
+  {
+   "type": "steps",
+   "edit": "title",
+   "pass": true,
+   "server": {
+    "id": "block-18",
+    "steps": [
+     {
+      "blocks": [
+       {
+        "content": [
+         {
+          "type": "text",
+          "value": "Do this."
+         }
+        ],
+        "id": "block-18-step-0-0",
+        "type": "paragraph"
+       }
+      ],
+      "id": "block-18-step-0",
+      "title": "First, renamed"
+     },
+     {
+      "blocks": [
+       {
+        "content": [
+         {
+          "type": "text",
+          "value": "Then that."
+         }
+        ],
+        "id": "block-18-step-1-0",
+        "type": "paragraph"
+       }
+      ],
+      "id": "block-18-step-1",
+      "title": "Second"
+     }
+    ],
+    "type": "steps"
+   }
+  },
+  {
+   "type": "tabs",
+   "edit": "body",
+   "pass": true,
+   "server": {
+    "id": "block-25",
+    "tabs": [
+     {
+      "blocks": [
+       {
+        "content": [
+         {
+          "type": "text",
+          "value": "Tab one. Edited."
+         }
+        ],
+        "id": "block-25-tab-0-0",
+        "type": "paragraph"
+       }
+      ],
+      "id": "block-25-tab-0",
+      "label": "One"
+     },
+     {
+      "blocks": [
+       {
+        "content": [
+         {
+          "type": "text",
+          "value": "Tab two."
+         }
+        ],
+        "id": "block-25-tab-1-0",
+        "type": "paragraph"
+       }
+      ],
+      "id": "block-25-tab-1",
+      "label": "Two"
+     }
+    ],
+    "type": "tabs"
+   }
+  },
+  {
+   "type": "equation",
+   "edit": "tex",
+   "pass": true,
+   "server": {
+    "display": false,
+    "id": "block-15",
+    "tex": "a^2 + b^2 = c^2",
+    "type": "equation"
+   }
+  },
+  {
+   "type": "footnote",
+   "edit": "notes",
+   "pass": true,
+   "server": {
+    "id": "block-19",
+    "notes": [
+     {
+      "text": "A footnote."
+     },
+     {
+      "text": "A second one."
+     }
+    ],
+    "type": "footnote"
+   }
+  },
+  {
+   "type": "toc",
+   "edit": "items",
+   "pass": true,
+   "server": {
+    "id": "block-20",
+    "items": [
+     {
+      "level": 1,
+      "text": "Heading"
+     },
+     {
+      "anchor": "sub",
+      "level": 2,
+      "text": "Sub-heading"
+     }
+    ],
+    "numbered": false,
+    "type": "toc"
+   }
+  },
+  {
+   "type": "video",
+   "edit": "src",
+   "pass": true,
+   "server": {
+    "id": "block-16",
+    "loop": false,
+    "poster": "",
+    "src": "https://example.com/w.mp4",
+    "type": "video"
+   }
+  }
+ ],
+ "inserts": [
+  {
+   "type": "blockquote",
+   "label": "Quote",
+   "pass": true,
+   "before": 1,
+   "after": 2,
+   "inCanvasBefore": 1,
+   "inCanvasAfter": 2,
+   "menu": "Insert block Text ❝ Quote a quoted passage ↵ insert · ↑↓ navigate · esc dismiss"
+  },
+  {
+   "type": "image",
+   "label": "Image",
+   "pass": true,
+   "before": 1,
+   "after": 2,
+   "inCanvasBefore": 1,
+   "inCanvasAfter": 2,
+   "menu": "Insert block Visual ▣ Image picture from a url ↵ insert · ↑↓ navigate · esc dism"
+  },
+  {
+   "type": "expandable",
+   "label": "Toggle",
+   "pass": true,
+   "before": 1,
+   "after": 2,
+   "inCanvasBefore": 1,
+   "inCanvasAfter": 2,
+   "menu": "Insert block Text ▸ Toggle collapsible details Basic fields ✓ Boolean true / fal"
+  },
+  {
+   "type": "steps",
+   "label": "Steps",
+   "pass": true,
+   "before": 1,
+   "after": 2,
+   "inCanvasBefore": 1,
+   "inCanvasAfter": 2,
+   "menu": "Insert block Text ① Steps numbered steps with bodies Presets ⎇ Runbook step step"
+  },
+  {
+   "type": "tabs",
+   "label": "Tabs",
+   "pass": true,
+   "before": 1,
+   "after": 2,
+   "inCanvasBefore": 1,
+   "inCanvasAfter": 2,
+   "menu": "Insert block Text ⌸ Tabs labelled panels ↵ insert · ↑↓ navigate · esc dismiss"
+  },
+  {
+   "type": "equation",
+   "label": "Equation",
+   "pass": true,
+   "before": 1,
+   "after": 2,
+   "inCanvasBefore": 1,
+   "inCanvasAfter": 2,
+   "menu": "Insert block Visual ∑ Equation TeX math ↵ insert · ↑↓ navigate · esc dismiss"
+  },
+  {
+   "type": "footnote",
+   "label": "Footnotes",
+   "pass": true,
+   "before": 1,
+   "after": 2,
+   "inCanvasBefore": 1,
+   "inCanvasAfter": 2,
+   "menu": "Insert block Text ¹ Footnotes numbered notes ↵ insert · ↑↓ navigate · esc dismis"
+  },
+  {
+   "type": "toc",
+   "label": "Contents",
+   "pass": true,
+   "before": 1,
+   "after": 2,
+   "inCanvasBefore": 1,
+   "inCanvasAfter": 2,
+   "menu": "Insert block Text ☰ Contents outline of entries ↵ insert · ↑↓ navigate · esc dis"
+  },
+  {
+   "type": "video",
+   "label": "Video",
+   "pass": true,
+   "before": 1,
+   "after": 2,
+   "inCanvasBefore": 1,
+   "inCanvasAfter": 2,
+   "menu": "Insert block Visual ▶ Video video from a url ↵ insert · ↑↓ navigate · esc dismis"
+  }
+ ],
+ "opaque": [],
+ "readOnlyAtoms": [
+  "embed:bpEmbed"
+ ],
+ "rows": [
+  {
+   "type": "heading",
+   "pass": true,
+   "mounted": "heading",
+   "readOnly": false,
+   "note": ""
+  },
+  {
+   "type": "paragraph",
+   "pass": true,
+   "mounted": "paragraph",
+   "readOnly": false,
+   "note": ""
+  },
+  {
+   "type": "list",
+   "pass": true,
+   "mounted": "bulletList",
+   "readOnly": false,
+   "note": ""
+  },
+  {
+   "type": "blockquote",
+   "pass": true,
+   "mounted": "blockquote",
+   "readOnly": false,
+   "note": ""
+  },
+  {
+   "type": "callout",
+   "pass": true,
+   "mounted": "callout",
+   "readOnly": false,
+   "note": ""
+  },
+  {
+   "type": "code",
+   "pass": true,
+   "mounted": "bpCode",
+   "readOnly": false,
+   "note": ""
+  },
+  {
+   "type": "divider",
+   "pass": true,
+   "mounted": "divider",
+   "readOnly": false,
+   "note": ""
+  },
+  {
+   "type": "table",
+   "pass": true,
+   "mounted": "bpTable",
+   "readOnly": false,
+   "note": ""
+  },
+  {
+   "type": "image",
+   "pass": true,
+   "mounted": "bpImage",
+   "readOnly": false,
+   "note": ""
+  },
+  {
+   "type": "figure",
+   "pass": true,
+   "mounted": "bpFigure",
+   "readOnly": false,
+   "note": ""
+  },
+  {
+   "type": "diagram",
+   "pass": true,
+   "mounted": "bpDiagram",
+   "readOnly": false,
+   "note": ""
+  },
+  {
+   "type": "equation",
+   "pass": true,
+   "mounted": "bpEquation",
+   "readOnly": false,
+   "note": ""
+  },
+  {
+   "type": "video",
+   "pass": true,
+   "mounted": "bpVideo",
+   "readOnly": false,
+   "note": ""
+  },
+  {
+   "type": "expandable",
+   "pass": true,
+   "mounted": "bpExpandable",
+   "readOnly": false,
+   "note": ""
+  },
+  {
+   "type": "steps",
+   "pass": true,
+   "mounted": "bpSteps",
+   "readOnly": false,
+   "note": ""
+  },
+  {
+   "type": "footnote",
+   "pass": true,
+   "mounted": "bpFootnote",
+   "readOnly": false,
+   "note": ""
+  },
+  {
+   "type": "toc",
+   "pass": true,
+   "mounted": "bpToc",
+   "readOnly": false,
+   "note": ""
+  },
+  {
+   "type": "embed",
+   "pass": true,
+   "mounted": "bpEmbed",
+   "readOnly": true,
+   "note": "read-only atom (server-painted); acceptable for embeds, red for note content"
+  },
+  {
+   "type": "pullquote",
+   "pass": true,
+   "mounted": "pullquote",
+   "readOnly": false,
+   "note": ""
+  },
+  {
+   "type": "section",
+   "pass": true,
+   "mounted": "bpSection",
+   "readOnly": false,
+   "note": ""
+  },
+  {
+   "type": "columns",
+   "pass": true,
+   "mounted": "bpColumns",
+   "readOnly": false,
+   "note": ""
+  },
+  {
+   "type": "tabs",
+   "pass": true,
+   "mounted": "bpTabs",
+   "readOnly": false,
+   "note": ""
+  }
+ ],
+ "errors": [
+  "CONSOLE Failed to load resource: the server responded with a status of 404 ()"
+ ]
+}

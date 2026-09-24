@@ -1,0 +1,16 @@
+{
+  "reviewedAt": "2026-09-24T07:04:29.062600+00:00",
+  "reviewer": "Codex",
+  "status": "failed",
+  "source": "b3ce22fcbf1a3b1dce65cf4af6f1251639cef7a3",
+  "manifestSha256": "cffd81826ff9c8913ca57d412dfbacc41ff7d8c822dd12a1f7b1aee770bc6aef",
+  "originalHashesVerified": 13,
+  "stillsInspected": [
+    "failure.png"
+  ],
+  "notes": "Real Windows CLI title save failed because shell parsing split the title. Attempted title remains visible with Retry/Discard; tab and favorite retain acknowledged label. Source correction d4a98ee passes literal arguments without a shell.",
+  "limits": [
+    "Only failure still inspected in this retry; raw recordings retained but not claimed as motion-reviewed.",
+    "Prior eight behavioral steps passed; expanded rename journey did not complete. Not acceptance evidence."
+  ]
+}

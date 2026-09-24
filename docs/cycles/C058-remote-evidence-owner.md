@@ -1,6 +1,6 @@
 # C058 — Remote evidence ownership
 
-Active on `codex/paper-library`, draft PR33, starting at pushed `1f58c0a`. C057 is accepted and archived. Continue the authorized six-hour run through at least 2026-09-24 10:18:54 UTC. No deployment or real-library cutover.
+Validated locally on `codex/paper-library`, draft PR33, starting at pushed `1f58c0a`. C057 is accepted and archived. Continue the authorized six-hour run through at least 2026-09-24 10:18:54 UTC. No deployment or real-library cutover.
 
 ## Confirmed problem and implementation
 
@@ -15,8 +15,8 @@ Credentials are absent from persisted receipts. Credential rotation or HTTP/CLI 
 - Eleven focused ownership checks pass; actual API/MCP integration, structured table and local compatibility pass. Forty host checks include mounted-controller tab title retention and acknowledgement ordering.
 - Native HTTP/MCP-CLI evidence ownership passes at77b3a24: six foreign operations make no further request, legacy bytes remain exact, and guarded Undo recovers after actual Electron restarts. [Final native gallery](../visual/paper-evidence/runs/2026-09-24T07-12-46-438Z/README.md): all11 stills and58 decoded GIF frames inspected, including full-size narrow/refused-title screens.
 - [C057 connection regression](../visual/paper-connection/runs/2026-09-24T06-32-34-882Z/README.md) passes;9 stills and47 sampled motion frames reviewed. [Profile isolation](../visual/profiles/isolation-runs/2026-09-24T06-35-40-918Z/README.md) passes with6 stills and6 step-GIF frames reviewed. Owned runtimes stopped.
-- Full rebuilt desktop passed atbb59d11 before the later native CLI process correction; run it again on the final source. Focused catalog/CLI checks pass31/31.
-- Final root verification and standard/live screenshot freshness are still pending. C058 is not closed or pushed.
+- Full rebuilt desktop passes at72d8f64, including77 desktop UI,40 host and31 catalog/CLI checks. One existing POSIX-only authentication check skips on Windows.
+- Final local parity passes20/20 at72d8f64 against private upstream30c007e43, including tablehead6/6. Fresh live Paper capture includes a real Claude turn; five stills and37 decoded GIF frames were inspected. All40 fixture stills,40 difference images and40 decoded GIF frames were inspected and explicitly approved; pixels and geometry are unchanged. Root verification passes. C058 is locally accepted; push and fresh exact-head Linux CI are next.
 
 ## Title contract finding
 
@@ -34,4 +34,4 @@ The first corrected local full matrix at77b3a24 reached14/20. Six remaining fail
 
 ## Next action
 
-Commit the final fixture routing and consistent title refusal message. Run the corrected full20 matrix and rebuilt desktop sequentially; then final live Paper capture and standard capture/compare, actual still/diff/GIF inspection, explicit approval and root verification. Update handoff/evidence, push the verified milestone and inspect exact-head Linux CI. Continue the authorized run through10:18:54 UTC; next prepare bounded source/navigation ownership before local Archive classification. Preserve one branch/PR, user checkouts, upstream source and shared services.
+Run root verification, record its result and push this verified milestone. Inspect exact-head Linux CI: local Windows evidence does not establish the pinned Linux baseline. Continue through10:18:54 UTC with durable source/navigation ownership before local Archive classification. Preserve one branch/PR, user checkouts, upstream source and shared services.

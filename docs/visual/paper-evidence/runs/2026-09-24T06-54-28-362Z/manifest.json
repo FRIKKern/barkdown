@@ -1,0 +1,77 @@
+{
+  "capturedAt": "2026-09-24T06:55:33.066Z",
+  "barkdownCommit": "bb59d116ff6cd0e9e95c2f8d0fcf811030ea7f58",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "foreignRequests": [
+    {
+      "method": "GET",
+      "url": "/assets/bp-paper-editor.bundle.js"
+    },
+    {
+      "method": "GET",
+      "url": "/assets/bp-paper-editor.css"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "method": "GET",
+      "url": "/status.json"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/doc/production/paper/evidence-proof?perspective=raw"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/backlinks/production/evidence-proof"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/history/production/paper/evidence-proof?limit=20"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/doc/production/paper/evidence-proof?perspective=raw"
+    }
+  ],
+  "results": [
+    "Fresh valid foreign binding with same ID/revision refuses six owned/unknown evidence operations without further requests; both originals remain exact",
+    "Return to original HTTP connection and actual Electron restart restore its own receipt; native guarded Undo restores exact original blocks",
+    "Real stdio MCP read/edit uses explicitly captured CLI routing; native restart finds the same owner and exact guarded Undo passes"
+  ],
+  "frames": [
+    "01-original-owned-evidence.png",
+    "02-fresh-foreign-evidence-readonly.png",
+    "03-narrow-unattributed-reference.png",
+    "04-restarted-original-undo.png",
+    "05-original-exact-undo.png",
+    "06-mcp-cli-owned-edit.png",
+    "07-restarted-cli-undo.png",
+    "08-cli-exact-undo.png"
+  ],
+  "artifacts": {
+    "01-original-owned-evidence.png": "d24eb628b1f934a61e8164816e1702ed50814841eb8bf7dc4bdf03cf13e5a4ec",
+    "02-fresh-foreign-evidence-readonly.png": "1d7631e65b10a535724152188f5d1fec3e148a636413004b122bed3f78eb456b",
+    "03-narrow-unattributed-reference.png": "04968ea484fd34028a2a3a4ba5ae4878c3ec3e0e5767b40820a2a8cf7ef29083",
+    "04-restarted-original-undo.png": "88f852207698972bdcb3c3cc7a01396c7704b2d8d98facbc1e962e0a24f2a875",
+    "05-original-exact-undo.png": "b68ab3275c680c00de0454cd251e5ad3265c6984cb8f4c6dd4c5b4fd4826c892",
+    "06-mcp-cli-owned-edit.png": "37f80dddea69927ea0090ffe926e3874738f66aa9bd5280329b3beff0f73ab5b",
+    "07-restarted-cli-undo.png": "392521f71d7a53b521cfe8f9516200fe7ed4a421ca4b4a062cb7fb991899d23f",
+    "08-cli-exact-undo.png": "df50c2f5ceebc253a2e1715663160eaef3a6698304b8c2d9aa45f2ece4c797cd",
+    "failure.png": "df50c2f5ceebc253a2e1715663160eaef3a6698304b8c2d9aa45f2ece4c797cd",
+    "failure.txt": "986568132276c33827825d207e3d6c8070d1c72744ca9f1df2f3311ae11b7d85",
+    "foreign-refusal.webm": "7dbc4bb00ba2ef478d338d50013b717000d3d0fe5ea55821f80b537001dfc340",
+    "original-recovery.webm": "306504103135890c2e841e21532b0528eeebd5aaafd47215e25b30960578b6ad",
+    "restart-or-failure.webm": "22385e5a31381cc2e09a4b31eed850ac4afb9fb44d70879b66ca41f33f4940da"
+  },
+  "limits": [
+    "Actual private Paper and non-persisting foreign read recorder; no real user library",
+    "Original unknown evidence is retained readably, never assigned a guessed owner",
+    "Credential rotation or connection access-mode change deliberately creates a different owner; no automatic reassignment",
+    "CLI route is captured; externally replaced CLI credentials are not frozen",
+    "No authority activation, deployment or portability claim"
+  ]
+}

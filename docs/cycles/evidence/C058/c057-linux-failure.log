@@ -1,0 +1,54 @@
+Parity rows against a local Barkpark	Parity rows	﻿2026-09-24T06:07:06.8868354Z ##[group]Run xvfb-run -a --server-args="-screen 0 1600x1000x24" node tests/parity.mjs
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:07:06.8869383Z [36;1mxvfb-run -a --server-args="-screen 0 1600x1000x24" node tests/parity.mjs[0m
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:07:06.8963489Z shell: /usr/bin/bash -e {0}
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:07:06.8963897Z env:
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:07:06.8964342Z   INSTALL_DIR_FOR_OTP: /home/runner/work/_temp/.setup-beam/otp
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:07:06.8965084Z   INSTALL_DIR_FOR_ELIXIR: /home/runner/work/_temp/.setup-beam/elixir
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:07:06.8965698Z   PARITY_ROWS: 
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:07:06.8966043Z   BARKDOWN_PROVIDER: api
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:07:06.8966451Z   ELECTRON_DISABLE_SANDBOX: 1
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:07:06.8967163Z ##[endgroup]
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:08:46.4758879Z RED   tables       exit 1; no verified assertion report 99s  (row 10)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:08:46.4770143Z       name: 'TimeoutError'
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:10:20.8475455Z RED   multiblock   exit 1; no verified assertion report 94s  (row 11)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:10:20.8488218Z       name: 'TimeoutError'
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:11:54.8145090Z RED   opaque       exit 1; no verified assertion report 94s  (row 12)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:11:54.8167934Z       name: 'TimeoutError'
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:13:29.2641637Z RED   images       exit 1; no verified assertion report 94s  (row 13)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:13:29.2670313Z       name: 'TimeoutError'
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:15:03.7048322Z RED   row14        exit 1; no verified assertion report 94s  (row 14)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:15:03.7056291Z       name: 'TimeoutError'
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:16:38.0011268Z RED   ime          exit 1; no verified assertion report 94s  (row 15)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:16:38.0036734Z       name: 'TimeoutError'
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:18:12.0373765Z RED   perf         exit 1; no verified assertion report 94s  (row 16)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:18:12.0389176Z       name: 'TimeoutError'
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:19:27.8004464Z RED   gaps         exit 1; 0/1 green            76s  (rows 1–7 (Notion behaviours))
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:19:27.8005999Z        "name": "fixture execution",
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:19:27.8009483Z        "error": "page.waitForSelector: Timeout 60000ms exceeded.\nCall log:\n  - waiting for locator('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror') to be visible\n\n    at /home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:72:14"
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:21:00.3605523Z RED   paper        exit 1; invalid or empty paper assertions 93s  (row 9 (ifRev, 412, re-apply))
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:21:00.3607476Z       name: 'TimeoutError'
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:22:34.4378202Z RED   highlight    exit 1; no verified assertion report 94s  (#15)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:22:34.4379760Z       name: 'TimeoutError'
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:24:08.8082763Z RED   find         exit 1; no verified assertion report 94s  (#17)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:24:08.8107895Z       name: 'TimeoutError'
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:25:42.7549490Z RED   emoji        exit 1; no verified assertion report 94s  (#18)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:25:42.7578046Z       name: 'TimeoutError'
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:27:18.7663253Z RED   mention      exit 1; no verified assertion report 96s  (#19)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:27:18.7680718Z       name: 'TimeoutError'
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:28:53.2377374Z RED   subsup       exit 1; no verified assertion report 94s  (#20)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:28:53.2378522Z       name: 'TimeoutError'
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:30:27.6228612Z RED   align        exit 1; no verified assertion report 94s  (#21)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:30:27.6248020Z       name: 'TimeoutError'
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:32:03.5745474Z RED   linkpreview  exit 1; no verified assertion report 96s  (#23)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:32:03.5766570Z       name: 'TimeoutError'
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:33:37.8644417Z RED   codehl       exit 1; no verified assertion report 94s  (#27)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:33:37.8658435Z       name: 'TimeoutError'
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:35:12.1875553Z RED   tablespans   exit 1; no verified assertion report 94s  (#24)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:35:12.1893125Z       name: 'TimeoutError'
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:36:46.5252641Z RED   tablewidths  exit 1; no verified assertion report 94s  (#25)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:36:46.5253744Z       name: 'TimeoutError'
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:38:20.9238752Z RED   tablehead    exit 1; no verified assertion report 94s  (#26)
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:38:20.9242947Z       name: 'TimeoutError'
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:38:20.9263411Z 
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:38:20.9265432Z 0/20 rows green
+Parity rows against a local Barkpark	Parity rows	2026-09-24T06:38:20.9349659Z ##[error]Process completed with exit code 1.

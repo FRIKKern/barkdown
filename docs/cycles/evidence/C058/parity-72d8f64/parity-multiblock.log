@@ -1,0 +1,242 @@
+{
+ "summary": "11/11 green",
+ "results": [
+  {
+   "name": "baseline: canvas and server agree on open",
+   "pass": true,
+   "canvas": [
+    "heading:Multi-block probe",
+    "paragraph:First paragraph here.",
+    "paragraph:Second paragraph here.",
+    "paragraph:Third paragraph here.",
+    "list:alpha item|beta item",
+    "paragraph:Closing line."
+   ],
+   "server": [
+    "heading:Multi-block probe",
+    "paragraph:First paragraph here.",
+    "paragraph:Second paragraph here.",
+    "paragraph:Third paragraph here.",
+    "list:alpha item|beta item",
+    "paragraph:Closing line."
+   ]
+  },
+  {
+   "name": "select across two paragraphs and type: they merge; server matches",
+   "pass": true,
+   "save": "Saved · rev 2",
+   "canvas": [
+    "heading:Multi-block probe",
+    "paragraph:First paragraph joinedd paragraph here.",
+    "paragraph:Third paragraph here.",
+    "list:alpha item|beta item",
+    "paragraph:Closing line."
+   ],
+   "server": [
+    "heading:Multi-block probe",
+    "paragraph:First paragraph joinedd paragraph here.",
+    "paragraph:Third paragraph here.",
+    "list:alpha item|beta item",
+    "paragraph:Closing line."
+   ]
+  },
+  {
+   "name": "undo the merge; server follows",
+   "pass": true,
+   "save": "Saved · rev 3",
+   "canvas": [
+    "heading:Multi-block probe",
+    "paragraph:First paragraph here.",
+    "paragraph:Second paragraph here.",
+    "paragraph:Third paragraph here.",
+    "list:alpha item|beta item",
+    "paragraph:Closing line."
+   ],
+   "server": [
+    "heading:Multi-block probe",
+    "paragraph:First paragraph here.",
+    "paragraph:Second paragraph here.",
+    "paragraph:Third paragraph here.",
+    "list:alpha item|beta item",
+    "paragraph:Closing line."
+   ]
+  },
+  {
+   "name": "select three whole blocks, copy, paste at the end: three blocks appended; server matches",
+   "pass": true,
+   "save": "Saved · rev 4",
+   "canvas": [
+    "heading:Multi-block probe",
+    "paragraph:First paragraph here.",
+    "paragraph:Second paragraph here.",
+    "paragraph:Third paragraph here.",
+    "list:alpha item|beta item",
+    "paragraph:Closing line.",
+    "paragraph:First paragraph here.",
+    "paragraph:Second paragraph here.",
+    "paragraph:Third paragraph here."
+   ],
+   "server": [
+    "heading:Multi-block probe",
+    "paragraph:First paragraph here.",
+    "paragraph:Second paragraph here.",
+    "paragraph:Third paragraph here.",
+    "list:alpha item|beta item",
+    "paragraph:Closing line.",
+    "paragraph:First paragraph here.",
+    "paragraph:Second paragraph here.",
+    "paragraph:Third paragraph here."
+   ],
+   "sel": {
+    "from": 20,
+    "to": 88
+   },
+   "caret": "Closing line.",
+   "clipboard": "os"
+  },
+  {
+   "name": "undo the paste; server follows",
+   "pass": true,
+   "save": "Saved · rev 5",
+   "canvas": [
+    "heading:Multi-block probe",
+    "paragraph:First paragraph here.",
+    "paragraph:Second paragraph here.",
+    "paragraph:Third paragraph here.",
+    "list:alpha item|beta item",
+    "paragraph:Closing line."
+   ],
+   "server": [
+    "heading:Multi-block probe",
+    "paragraph:First paragraph here.",
+    "paragraph:Second paragraph here.",
+    "paragraph:Third paragraph here.",
+    "list:alpha item|beta item",
+    "paragraph:Closing line."
+   ]
+  },
+  {
+   "name": "delete a selection spanning a paragraph and a list: server matches",
+   "pass": true,
+   "save": "Saved · rev 6",
+   "canvas": [
+    "heading:Multi-block probe",
+    "paragraph:First paragraph here.",
+    "paragraph:Second paragraph here.",
+    "paragraph:Third item",
+    "paragraph:Closing line."
+   ],
+   "server": [
+    "heading:Multi-block probe",
+    "paragraph:First paragraph here.",
+    "paragraph:Second paragraph here.",
+    "paragraph:Third item",
+    "paragraph:Closing line."
+   ],
+   "sel": {
+    "from": 72,
+    "to": 110
+   }
+  },
+  {
+   "name": "undo the spanning delete; server follows",
+   "pass": true,
+   "save": "Saved · rev 7",
+   "canvas": [
+    "heading:Multi-block probe",
+    "paragraph:First paragraph here.",
+    "paragraph:Second paragraph here.",
+    "paragraph:Third paragraph here.",
+    "list:alpha item|beta item",
+    "paragraph:Closing line."
+   ],
+   "server": [
+    "heading:Multi-block probe",
+    "paragraph:First paragraph here.",
+    "paragraph:Second paragraph here.",
+    "paragraph:Third paragraph here.",
+    "list:alpha item|beta item",
+    "paragraph:Closing line."
+   ]
+  },
+  {
+   "name": "cut everything: the server vetoes an empty paper and the tab says so; paste back restores and matches",
+   "pass": true,
+   "save": "Not saved",
+   "canvas": [
+    "heading:Multi-block probe",
+    "paragraph:First paragraph here.",
+    "paragraph:Second paragraph here.",
+    "paragraph:Third paragraph here.",
+    "list:alpha item|beta item",
+    "paragraph:Closing line."
+   ],
+   "server": [
+    "heading:Multi-block probe",
+    "paragraph:First paragraph here.",
+    "paragraph:Second paragraph here.",
+    "paragraph:Third paragraph here.",
+    "list:alpha item|beta item",
+    "paragraph:Closing line."
+   ],
+   "cutSave": "Not saved",
+   "refusal": "Could not save: This edit would remove the last content block — a published paper cannot be hollowed out to title-only. RetryDiscard unsaved edits",
+   "emptied": [
+    "paragraph:"
+   ]
+  },
+  {
+   "name": "select all and type replaces the paper with one paragraph; server matches",
+   "pass": true,
+   "save": "Saved · rev 8",
+   "canvas": [
+    "paragraph:fresh start"
+   ],
+   "server": [
+    "paragraph:fresh start"
+   ]
+  },
+  {
+   "name": "undo the replacement; server follows",
+   "pass": true,
+   "save": "Saved · rev 9",
+   "canvas": [
+    "heading:Multi-block probe",
+    "paragraph:First paragraph here.",
+    "paragraph:Second paragraph here.",
+    "paragraph:Third paragraph here.",
+    "list:alpha item|beta item",
+    "paragraph:Closing line."
+   ],
+   "server": [
+    "heading:Multi-block probe",
+    "paragraph:First paragraph here.",
+    "paragraph:Second paragraph here.",
+    "paragraph:Third paragraph here.",
+    "list:alpha item|beta item",
+    "paragraph:Closing line."
+   ]
+  },
+  {
+   "name": "reload: the paper comes back from the server as the canvas last showed it",
+   "pass": true,
+   "before": [
+    "heading:Multi-block probe",
+    "paragraph:First paragraph here.",
+    "paragraph:Second paragraph here.",
+    "paragraph:Third paragraph here.",
+    "list:alpha item|beta item",
+    "paragraph:Closing line."
+   ],
+   "after": [
+    "heading:Multi-block probe",
+    "paragraph:First paragraph here.",
+    "paragraph:Second paragraph here.",
+    "paragraph:Third paragraph here.",
+    "list:alpha item|beta item",
+    "paragraph:Closing line."
+   ]
+  }
+ ],
+ "errors": []
+}
