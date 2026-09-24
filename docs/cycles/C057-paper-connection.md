@@ -19,3 +19,6 @@ Native38f1290 passed at visual/paper-connection/runs/2026-09-24T05-43-15-377Z: z
 
 
 Actual review of all nine native stills found duplicate connection/failure notices and proposal buttons that remained enabled after connection change (main already refused them). Consolidate the repeated notice and refresh proposal controls, then recapture the native journey with explicit assertions. The first gallery remains valid behavior proof but is superseded for final UI acceptance. Full rebuilt desktop session30962 targets8da8d0f; the notice-only follow-up will have fresh host/native evidence.
+
+
+Repository truth review condensed obsolete22/23September pending instructions in the main/renderer health READMEs, retaining audit/gallery links and using the manifest-backed current live image. Historical source evidence remains in Git/cycle records. These health text edits precede the final captures, so their tripwire fingerprints will be current.
