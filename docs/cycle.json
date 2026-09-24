@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C054",
   "stage": "P2",
-  "status": "active",
+  "status": "done",
   "goal": "Expose verified retained legacy history, proposals and receipts as read-only evidence without translating their revision semantics.",
   "scope": [
     "Read only a caller-pinned committed backup using the existing complete-byte validator.",
@@ -18,10 +18,10 @@
   ],
   "checkpoint": "2026-09-24",
   "handoff": "docs/cycles/C054-retained-evidence.md",
-  "nextAction": "Implement readRetainedDocument over validateBackup with production-generated source records and refusal tests.",
+  "nextAction": "Archive C054 and prepare the bounded cutover-readiness audit; do not activate Paper authority.",
   "evidence": [
-    "docs/cycles/evidence/C053/results.json"
+    "docs/cycles/evidence/C054/results.json"
   ],
-  "truthReview": "Starts at pushed aa37c34, accepted C053. Same branch/worktree; no merge/deploy or user-library access.",
-  "screenshotReview": "C053 native navigation and standard approval retained. New adapter has no UI; fresh standard tripwire workflow required."
+  "truthReview": "Full desktop/root pass; fresh release gates and owned branches reviewed. Source/data remain legacy-owned; no merge/deploy.",
+  "screenshotReview": "Five live stills and37GIFframes reviewed, three fixture shadow differences inspected; explicit approval42476f73. No native history viewer claim."
 }

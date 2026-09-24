@@ -8,6 +8,8 @@ P1/C039 is accepted for the Windows source prototype at source `27ea120`, with e
 
 ## Open work
 
+[C054](cycles/C054-retained-evidence.md) passes24 retained-evidence checks and the full desktop suite (131 migration checks), root verification and fresh reviewed live/fixture media at3763503. Exact history, proposals and stale/undone local receipts remain read-only; no Paper actions or revision translation. [Results](cycles/evidence/C054/results.json). C053 Linux35952092824 passes20/20. Native historical UI and authority activation remain unimplemented.
+
 [C053](cycles/C053-workspace-projection.md) passes107 migration checks (32 projection),35 host checks and native human-organization navigation/restart at af9d982/private30c007. It fixes stale ancestor-favorite navigation and source-ambiguous tab reuse. Source/backup/Papers remain exact; full desktop/root and fresh reviewed native/standard visuals pass. [Results](cycles/evidence/C053/results.json). C052 Linux35949427460 passes20/20. This is a preview: local archive origin, legacy evidence interpretation and authority activation remain gates.
 
 [C052](cycles/C052-native-source-shapes.md) passes75 migration checks and actual legacy-save → Paper typing/save/exact Undo/internal navigation/reload/restart at aa1f1c4/private30c007. Exact audited defaults now migrate; custom metadata still refuses before target access. Full desktop/root and reviewed native/standard visuals pass; [results and hashes](cycles/evidence/C052/results.json). C051 Linux35947156789 is20/20, including tablehead6/6. No authority activation.
