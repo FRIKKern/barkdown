@@ -11,10 +11,10 @@ Implemented at385d072: catalog, saved tabs/favorites, owner-qualified human Page
 - Full corrected local parity385d072 passes20/20, including tables11/11, gaps13/13 and tablehead6/6. [Logs](evidence/C059/parity-385d072/isolated-run.log).
 - C058 Linux35971541340 failed18/20: gaps used server-less setup; tables retained cell selection. Both fixtures corrected without weakening exact content assertions. Earlier local68b23dc was19/20 because linkpreview omitted owner; shared explicit catalog selection now passes. These original failure logs remain retained. New Linux pending push.
 
-The first retained-evidence regression ec086f1 stopped at the expected Retry original library state after returning to A. Failure still reviewed and hashes verified; fixture now presses Retry explicitly. Production behavior unchanged; rerun pending.
+The retained-evidence regression passes at5bc6144 after exercising explicit original-library Retry: HTTP/MCP CLI restart/Undo, refusal and title-draft preservation. All11 stills/58 decoded frames reviewed. Open-buffer regression also passes13 zero-request refusals, retained human words/Retry/Undo/CLI/restart; all9 stills/48 decoded frames reviewed. Final rebuilt `npm run test:desktop` passes at5bc6144 (Windows conditional provider test skip retained in log).
 
 ## Exact next action
 
-Commit the regression fixture update and this checkpoint, then sequentially run private retained-evidence and open-buffer regressions plus final rebuilt desktop. Run fresh isolated live shots and standard capture/compare; inspect actual stills/diffs/GIF frames and explicitly approve, then root verify. Update PLAN/queue/VALIDATION/truth and evidence commit/push. Do not mark C059 done before these gates. Next prepared P2 slice: trusted managed-local Archive classification, without changing human Pages or migration authority.
+Fresh isolated live shots, standard visual capture/compare, actual image/GIF inspection and explicit approval, then root verify. Update closing truth evidence and push; C059 remains active until these pass. No source changes are planned before captures. Next bounded P2 slice: trusted managed-local Archive classification, with human Pages and authority unchanged.
 
 One delivery branch/open draft PR33. Main is merged PR32d126875; upstream30c007 is unchanged.43 locked historical worktrees retain evidence; next hygiene review must preserve unique content before retirement. Legacy Markdown import limitations remain; no migration, physical database identity, title support or portability completion claim.
