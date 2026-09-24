@@ -31,7 +31,7 @@ const imageBytes=PNG.sync.write(png),imageFile=path.join(sourceDir,'attachments/
 fs.writeFileSync(path.join(sourceDir,'attachments/retained-binary.bin'),crypto.randomBytes(180000));
 const attachment={id:'landscape',name:'landscape.png',mime:'image/png',size:imageBytes.length,path:imageFile,url:pathToFileURL(imageFile).href};
 const baseChat={messages:[],tabs:[],active:null,folder:null,following:true,draftImages:[],apiHistory:[],events:[],closedTargets:[]};
-const pages={layoutVersion:2,roots:[first.id],children:{[first.id]:[second.id]},expanded:{[first.id]:true},archiveOpen:false,archiveFilter:'',cloudArchiveOpen:false,cloudArchiveFilter:''};
+const pages={layoutVersion:2,seeded:true,roots:[first.id],children:{[first.id]:[second.id]},expanded:{[first.id]:true},archiveOpen:false,archiveFilter:'',cloudArchiveOpen:false,cloudArchiveFilter:''};
 const favorite={id:'kept-favorite',label:first.title,target:{kind:'doc',id:first.id,source:'local',title:first.title},chatId:'main',chatTitle:'Main conversation'};
 store.writeJson('workspace.json',{version:1,chats:{main:{...baseChat,id:'main',title:'Main conversation',draft:'The main unsent thought.'},side:{...baseChat,id:'side',title:'A separate thought',side:true,parent:'main',parentTitle:'Main conversation',draft:'This side-chat draft and its picture survived.',draftImages:[attachment]}},order:['main','side'],current:'side',favorites:[favorite],pages,mode:'chat',directTab:null});
 store.writeJson('agent-edits/retained-receipt.json',{version:1,profileId,documentId:first.id,beforeRev:1,afterRev:2,status:'retained-fixture'});
