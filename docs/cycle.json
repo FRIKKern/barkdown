@@ -18,10 +18,10 @@
   ],
   "checkpoint": "2026-09-24",
   "handoff": "docs/cycles/C056-complete-catalog.md",
-  "nextAction": "Implement bounded validated pagination and owned refresh ordering; PR32 merge waits for its exact-head Linux check.",
+  "nextAction": "Finish C056 reader/refresh implementation and native proof, then full tests and reviewed visuals.",
   "evidence": [
     "docs/cycles/evidence/C055/source-audit.json"
   ],
-  "truthReview": "Starts at427909c; PR32 is ready with root/visual green and exact-head parity running. New controlled codex/paper-library lane; base it on the verified main merge before capture. Dependencies restored, Chromium installed and baseline root verify passed.",
+  "truthReview": "PR32 merged as d126875 after all exact-head gates passed, including Linux20/20 and tablehead6/6. codex/paper-library is based on merged main; old codex/p2-migration local/remote branches retired after ancestry verification. Root/app dependencies, Chromium and baseline root verify passed.",
   "screenshotReview": "Source changes require native >60-note discovery proof plus standard capture/compare/actual review/explicit approval."
 }

@@ -19,6 +19,7 @@ let profileRegistry = null, profileService = null, profileGate = null, profilePo
 const PROFILE_MODE = process.argv.includes('--profiles');
 let authorityOwnership = null, adoptionView = null, bootBusy = false;
 let localRuntime = null, localConfigKey = '';
+let catalogGeneration = 0;
 let localTransition = Promise.resolve(), localStartupError = null;
 const claudeProvider = require('./providers/claude');
 const codexProvider = require('./providers/codex');
@@ -53,10 +54,11 @@ function writeSettings(settings) {
 }
 function encrypt(value) { if (!value) return null; credentialDurability.assertReady(); return safeStorage.isEncryptionAvailable() ? 'enc:' + safeStorage.encryptString(value).toString('base64') : 'plain:' + Buffer.from(value).toString('base64'); }
 function decrypt(value) { if (!value) return ''; try { if (value.startsWith('enc:')) return safeStorage.decryptString(Buffer.from(value.slice(4), 'base64')); if (value.startsWith('plain:')) return Buffer.from(value.slice(6), 'base64').toString('utf8'); } catch (error) { console.warn('settings: could not decrypt', error.message); } return ''; }
+function catalogSettingsKey(b) { return JSON.stringify([b.enabled, b.server, b.tokenEncrypted, b.dataset, b.viaCli, b.local?.enabled, b.local?.source, b.local?.port, b.local?.pgPort]); }
 function publicSettings() {
   const s = readSettings();
   if (profileConnection && s.barkpark.local?.enabled) s.barkpark.local = { ...s.barkpark.local, port: Number(new URL(profileConnection.server).port) };
-  return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN) && !s.apiKeyEncrypted, barkpark: { effectiveServer: s.barkpark.local?.enabled ? `http://127.0.0.1:${s.barkpark.local.port}` : s.barkpark.server, enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, local: s.barkpark.local || DEFAULT_SETTINGS.barkpark.local }, recentFolders: s.recentFolders, userData: store.dir() };
+  return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN) && !s.apiKeyEncrypted, barkpark: { catalogGeneration, effectiveServer: s.barkpark.local?.enabled ? `http://127.0.0.1:${s.barkpark.local.port}` : s.barkpark.server, enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, local: s.barkpark.local || DEFAULT_SETTINGS.barkpark.local }, recentFolders: s.recentFolders, userData: store.dir() };
 }
 // What the MCP server and the context note need to know about Barkpark, refreshed on every save.
 function localSecrets(source = store) {
@@ -213,6 +215,7 @@ function registerIpc() {
   handle('settings:set', async patch => {
     if (patch.apiKey || patch.barkpark?.token || patch.barkpark?.local?.enabled) await credentialDurability.prepare();
     const s = readSettings();
+    const previousCatalog = catalogSettingsKey(s.barkpark);
     if (Number.isFinite(patch.sidebarWidth)) s.sidebarWidth = Math.min(420, Math.max(160, Math.round(patch.sidebarWidth)));
     if (patch.chatWidth != null) s.chatWidth = patch.chatWidth;
     if (patch.theme) s.theme = patch.theme;
@@ -238,6 +241,7 @@ function registerIpc() {
     }
     if (patch.recentFolder) s.recentFolders = [patch.recentFolder, ...s.recentFolders.filter(f => f !== patch.recentFolder)].slice(0, 8);
     writeSettings(s);
+    if (previousCatalog !== catalogSettingsKey(s.barkpark)) catalogGeneration++;
     if (!profileService) syncBarkparkEnv();
     if (profileService) await reconcileLocal();
     else reconcileLocal().catch(error => console.warn('Local Barkpark:', error.message));
@@ -369,7 +373,12 @@ function registerIpc() {
   handle('barkpark:importCli', () => barkpark.importFromCli());
   // The canvas bundle comes from the connected Barkpark (cached under userData); vendored is the fallback.
   handle('barkpark:bundle', () => canvasBundle.resolve({ config: barkparkConfig(), cacheDir: path.join(profileService ? store.dir() : app.getPath('userData'), 'canvas-bundle'), vendorDir: path.join(__dirname, '..', 'renderer', 'vendor') }));
-  handle('barkpark:list', () => { const c = barkparkConfig(); return c.viaCli ? barkpark.cliListPapers() : barkpark.listPapers(c); });
+  handle('barkpark:list', async () => {
+    const c = barkparkConfig(), generation = catalogGeneration;
+    const papers = await (c.viaCli ? barkpark.cliListAllPapers(c) : barkpark.listAllPapers(c));
+    if (generation !== catalogGeneration) throw new Error('The library connection changed during refresh; refresh again.');
+    return papers;
+  });
   handle('barkpark:get', id => { const c = barkparkConfig(); return c.viaCli ? barkpark.cliGetPaper(id) : barkpark.getPaper(c, id); });
   handle('barkpark:search', q => { const c = barkparkConfig(); return c.viaCli ? barkpark.cliSearch(q) : barkpark.search(c, q); });
   handle('barkpark:backlinks', id => { const c = barkparkConfig(); return c.viaCli ? barkpark.cliBacklinks(id) : barkpark.backlinks(c, id); });

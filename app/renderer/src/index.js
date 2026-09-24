@@ -1,4 +1,5 @@
 import { mountComposer } from './composer.js';
+import { createLibraryRefresh } from './library-refresh.js';
 import { openProviderLogin } from './provider-login.js';
 import { restoreFailedMessage } from './submission-state.js';
 import { openGoalView } from './goals.js';
@@ -369,6 +370,7 @@ function initials() { return 'FJ'; }
 function renderSidebar() {
   seedTree();
   renderPages(q('#bw-documents'), {
+    onRefresh: () => refreshLibrary(),
     openKey: (id, source) => openDirect(id, source),
     openBeside: (id, source) => openDocTab(currentChat(), id, source),
     isOpen: key => { const chat = workspaceChat(); const tab = activeTab(chat); return tab?.type === 'doc' && pageKey(tab.path.at(-1), tab.source) === key; },
@@ -579,11 +581,7 @@ function openPalette(prefill = '') { hideMenus(); const palette = q('#bw-palette
 function runPalette(n, alt = false) { const item = paletteItems[n]; if (!item) return; q('#bw-palette').hidden = true; (alt && item.alt ? item.alt.run : item.run)(); }
 
 // ---------- documents ----------
-async function refreshLibrary() {
-  try { state.documents = await api.docs.list(); } catch (error) { toast(error.message, 'error'); }
-  if (state.settings?.barkpark?.enabled) { try { state.barkparkDocs = await api.barkpark.list(); } catch (error) { state.barkparkDocs = []; toast('Barkpark: ' + error.message, 'error'); } } else state.barkparkDocs = [];
-  renderSidebar(); renderTabs();
-}
+const refreshLibrary = createLibraryRefresh({ state, api, render: () => { renderSidebar(); renderTabs(); }, report: message => toast(message, 'error') });
 
 async function importPaper(id) {
   const doc = await api.barkpark.import(id);

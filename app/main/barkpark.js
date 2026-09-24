@@ -3,13 +3,14 @@
 // Endpoint shapes come from the Barkpark OpenAPI document (docs/openapi.json in the sibling repository).
 const { execFile } = require('child_process');
 const portabledoc = require('../shared/portabledoc');
+const { readCatalog } = require('./paper-catalog');
 
 function normalise(config) {
   const server = String(config?.server || '').replace(/\/+$/, '');
   return { server, token: config?.token || '', dataset: config?.dataset || 'production', writes: Boolean(config?.writes) };
 }
 
-async function request(config, method, route, body) {
+async function request(config, method, route, body, { maxBytes } = {}) {
   const { server, token } = normalise(config);
   if (!server) throw new Error('No Barkpark server configured');
   const response = await fetch(server + route, {
@@ -18,7 +19,19 @@ async function request(config, method, route, body) {
     body: body ? JSON.stringify(body) : undefined,
     signal: AbortSignal.timeout(20000),
   });
-  const text = await response.text();
+  let text;
+  if (maxBytes && response.body) {
+    const reader = response.body.getReader(), chunks = []; let size = 0;
+    try {
+      while (true) {
+        const { done, value } = await reader.read(); if (done) break;
+        size += value.byteLength;
+        if (size > maxBytes) { await reader.cancel(); throw new Error('Paper library response exceeded the page size budget; no partial catalog was loaded.'); }
+        chunks.push(Buffer.from(value));
+      }
+      text = Buffer.concat(chunks).toString('utf8');
+    } finally { reader.releaseLock(); }
+  } else text = await response.text();
   let data;
   try { data = text ? JSON.parse(text) : null; } catch { data = { raw: text }; }
   if (!response.ok) {
@@ -93,6 +106,20 @@ async function listPapers(config, limit = 60) {
   const { dataset } = normalise(config);
   const data = await request(config, 'GET', `/v1/data/query/${encodeURIComponent(dataset)}/paper?limit=${limit}&order=_updatedAt:desc&fields=title,slug,tags,body_html,blocks`);
   return envelopeDocs(data).map(paperToSummary);
+}
+
+// Discovery needs identities and labels, not every note's full body. Content
+// is read when opened/searched; long papers must not inflate every refresh.
+const catalogFields = 'title,slug,tags';
+function catalogSummaries(documents) {
+  return documents.map(paperToSummary).sort((a, b) => String(b.updatedAt || '').localeCompare(String(a.updatedAt || '')) || a.id.localeCompare(b.id));
+}
+async function listAllPapers(config) {
+  // Capture the entire connection before the first asynchronous page.
+  const captured = normalise(config);
+  const documents = await readCatalog(({ limit, offset }) => request(captured, 'GET',
+    `/v1/data/query/${encodeURIComponent(captured.dataset)}/paper?limit=${limit}&offset=${offset}&order=_createdAt:asc&perspective=published&count=true&fields=${catalogFields}`, undefined, { maxBytes: 20 * 1024 * 1024 }));
+  return catalogSummaries(documents);
 }
 
 async function getPaper(config, id) {
@@ -215,6 +242,20 @@ async function cliListPapers(limit = 60) {
   return envelopeDocs(data).map(paperToSummary);
 }
 
+async function cliListAllPapers(config) {
+  const captured = normalise(config);
+  // Windows bp currently needs a shell. Accept only safe literal routing values;
+  // never let saved connection text become shell syntax or ambient CLI routing.
+  if (!/^https?:\/\/[a-zA-Z0-9.:[\]_/~-]+$/.test(captured.server) || !/^[a-zA-Z0-9_-]+$/.test(captured.dataset)) throw new Error('Complete CLI discovery requires an explicit server URL and dataset. Choose a direct connection in Settings.');
+  const routing = ['-s', captured.server, '-d', captured.dataset];
+  const who = await cli([...routing, 'whoami']);
+  if (String(who?.server || '').replace(/\/+$/, '') !== captured.server || who?.dataset !== captured.dataset ||
+      !/^[a-zA-Z0-9_-]+$/.test(who?.workspace || '') || !/^[a-zA-Z0-9_-]+$/.test(who?.project || '')) throw new Error('The CLI could not confirm the configured library scope. Choose a direct connection in Settings.');
+  routing.push('-w', who.workspace, '-p', who.project);
+  const documents = await readCatalog(({ limit, offset }) => cli([...routing, 'doc', 'query', 'paper', '--limit', String(limit), '--offset', String(offset), '--order', '_createdAt:asc', '--perspective', 'published', '--count', '--fields', catalogFields]));
+  return catalogSummaries(documents);
+}
+
 async function cliGetPaper(id) {
   const data = unwrap(await cli(['doc', 'get', 'paper', id, '--perspective', 'raw']));
   const paper = data?.document || data;
@@ -240,4 +281,4 @@ async function cliSearch(query, limit = 20) {
 async function cliBacklinks(id) { try { return envelopeDocs(await cli(['doc', 'backlinks', id])).map(paperToSummary); } catch { return []; } }
 async function cliHistory(id) { try { return envelopeDocs(await cli(['doc', 'history', 'paper', id])).map(rev => ({ rev: rev._rev || rev.rev, at: rev._createdAt || rev.at, actor: rev.actor || rev.author || 'barkpark', summary: rev.summary || rev.message || '' })); } catch { return []; } }
 
-module.exports = { uploadMedia, test, listPapers, getPaper, search, backlinks, related, history, applyOps, publish, propose, importFromCli, cliListPapers, cliGetPaper, cliSearch, cliBacklinks, cliHistory, cliApplyOps, cliPublish, cliPatchTitle, blocksToMarkdown, markdownView, readablePaper, htmlToText };
+module.exports = { uploadMedia, test, listPapers, listAllPapers, getPaper, search, backlinks, related, history, applyOps, publish, propose, importFromCli, cliListPapers, cliListAllPapers, cliGetPaper, cliSearch, cliBacklinks, cliHistory, cliApplyOps, cliPublish, cliPatchTitle, blocksToMarkdown, markdownView, readablePaper, htmlToText };

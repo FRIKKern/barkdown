@@ -70,6 +70,6 @@ The ordered next P2 slices and acceptance are in the [migration contract](migrat
 
 ## Delivery cadence
 
-Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) is C055 cutover readiness after accepted C054. The ordered next slices live in the [migration contract](migration/README.md); original preparation/editor/profile evidence remains linked there and in the [P1 audit](cycles/C039-completion-audit.md). Device authentication is shared by default without asking. Closing a cycle does not complete a stage.
+Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) is C056 complete Paper discovery after the C055 readiness audit. The ordered next slices live in the [migration contract](migration/README.md); original preparation/editor/profile evidence remains linked there and in the [P1 audit](cycles/C039-completion-audit.md). Device authentication is shared by default without asking. Closing a cycle does not complete a stage.
 
 Historical integration checkpoints remain in [C008](cycles/C008-integration.md); they are evidence, not an active queue.
