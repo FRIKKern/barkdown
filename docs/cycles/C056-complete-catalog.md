@@ -13,3 +13,6 @@ Implementation checkpoint: validated HTTP reader and pinned CLI routing, connect
 
 
 First native attempt at f401267 refused its fixture assumption (fresh runtime had1seed paper, expected0), before creating fixture papers or launching Electron. Evidence is retained in docs/visual/catalog/runs/2026-09-24T04-48-04-776Z; private runtime stopped. Harness now preserves existing seeds and fills the catalog to exactly200, then201. Review also changes unavailable initial library count/empty text to unknown/unavailable rather than0/empty. Full desktop suite passed before this correction (Temp/c056-desktop.log); focused and native reruns are pending.
+
+
+Second native attempt at21da2cd hit the real publication deduplication wall: numbered "Library note" titles were near-duplicates. The private runtime stopped and refusal evidence remains in docs/visual/catalog/runs/2026-09-24T04-50-56-730Z. Fixtures now use distinct named specimens, without bypass/supersedes flags or upstream validation changes. This is another reason ordinary blank-note lifecycle still needs a separately audited contract.
