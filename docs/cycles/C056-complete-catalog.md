@@ -22,3 +22,6 @@ Third native run at51f52b3 passed all real HTTP/CLI200/201 checks and desktop fa
 
 
 Final-reader native run at29aeb3a passed (docs/visual/catalog/runs/2026-09-24T04-57-19-096Z). Actual image inspection found its last still captured restored catalog state before the open Paper finished loading (Untitled placeholder). This candidate is not the accepted final gallery. Harness now additionally waits for the real restarted canvas content/title. Exact app-behavior desktop suite is rerunning in Temp/c056-desktop-final.log; finish it before another UI capture. The source/behavior does not change for this capture-readiness correction.
+
+
+Corrected native capture at0321161 passed (docs/visual/catalog/runs/2026-09-24T05-08-29-090Z); all8stills and37decoded GIF frames were actually reviewed. The restarted Paper content is now visible. Full desktop rerun passed39new focused tests plus existing suites. Native runtime stopped. Live status0321161 also passed with a real Claude turn. Standard candidate05-11-12 remains unapproved: code-area README implementation-time wording must be updated before final capture fingerprints. Only health text changes; native0321161 remains the behavior proof. Retain that initial candidate and recapture standard/live after the health-text checkpoint.
