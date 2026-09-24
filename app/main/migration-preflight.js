@@ -6,17 +6,18 @@ const crypto = require('crypto');
 const { createStore } = require('./store');
 const { pmDocToBlocks } = require('../shared/portabledoc');
 const { internalScheme, resolveReference } = require('./migration-references');
+const { resolveImage } = require('./migration-images');
 const hash = value => crypto.createHash('sha256').update(value).digest('hex');
 const digest = value => hash(JSON.stringify(value));
 const roots = ['documents', 'attachments', 'agent-edits', 'workspace.json', 'paper-proposals.json'];
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 
-function inspectContent(content, { documents, references = new Map() } = {}) {
+function inspectContent(content, { documents, references = new Map(), files, sourceDir, images = new Map() } = {}) {
   const issues = [];
   const issue = (at, reason) => issues.push({ path: at, reason });
   function walk(node, at, parentType) {
     if (!node || typeof node !== 'object' || Array.isArray(node)) { issue(at, 'Invalid node'); return; }
-    const known = ['doc', 'paragraph', 'text', 'hardBreak', 'heading', 'codeBlock', 'blockquote', 'bulletList', 'orderedList', 'listItem', 'taskList', 'taskItem', 'table', 'tableRow', 'tableHeader', 'tableCell', 'horizontalRule'];
+    const known = ['doc', 'paragraph', 'text', 'hardBreak', 'heading', 'codeBlock', 'blockquote', 'bulletList', 'orderedList', 'listItem', 'taskList', 'taskItem', 'table', 'tableRow', 'tableHeader', 'tableCell', 'horizontalRule', 'image'];
     if (!known.includes(node.type)) issue(at, 'Unsupported block or inline type: ' + node.type);
     for (const key of Object.keys(node)) if (!['type', 'content', 'text', 'marks', 'attrs'].includes(key)) issue(at + '.' + key, 'Unknown structural field');
     if (node.text !== undefined && (node.type !== 'text' || typeof node.text !== 'string')) issue(at + '.text', 'Invalid text carrier');
@@ -27,8 +28,17 @@ function inspectContent(content, { documents, references = new Map() } = {}) {
     if (node.attrs != null && (typeof node.attrs !== 'object' || Array.isArray(node.attrs))) issue(at + '.attrs', 'Invalid attributes');
     const attrs = node.attrs || {};
     if (typeof attrs !== 'object' || Array.isArray(attrs)) issue(at + '.attrs', 'Invalid attributes');
-    const allowed = { heading: ['level', 'textAlign'], paragraph: ['textAlign'], orderedList: ['start'], taskItem: ['checked'], codeBlock: ['language'], tableCell: ['colspan', 'rowspan', 'colwidth', 'align', 'textAlign'], tableHeader: ['colspan', 'rowspan', 'colwidth', 'align', 'textAlign'] }[node.type] || [];
+    const allowed = { image: ['src', 'alt', 'title', 'width', 'height'], heading: ['level', 'textAlign'], paragraph: ['textAlign'], orderedList: ['start'], taskItem: ['checked'], codeBlock: ['language'], tableCell: ['colspan', 'rowspan', 'colwidth', 'align', 'textAlign'], tableHeader: ['colspan', 'rowspan', 'colwidth', 'align', 'textAlign'] }[node.type] || [];
     for (const key of Object.keys(attrs)) if (!allowed.includes(key)) issue(at + '.attrs.' + key, 'Unmapped attribute');
+    if (node.type === 'image') {
+      if (parentType !== 'doc') issue(at, 'Only top-level images have native migration proof');
+      if (attrs.title != null && attrs.title !== '') issue(at, 'Image title/caption is not mapped');
+      if (attrs.height != null) issue(at, 'Explicit image height lacks native rendering proof');
+      if (attrs.alt != null && typeof attrs.alt !== 'string') issue(at, 'Image alt must be text');
+      for (const key of ['width', 'height']) if (attrs[key] != null && (!Number.isSafeInteger(attrs[key]) || attrs[key] < 16 || attrs[key] > 10000)) issue(at, 'Image dimension is unsupported');
+      try { const image = resolveImage(attrs.src, { files, sourceDir }); images.set(image.src, image); }
+      catch (error) { issue(at, error.message); }
+    }
     if (node.type === 'heading' && ![1, 2, 3].includes(attrs.level)) issue(at, 'Heading level is not preserved');
     if (['paragraph', 'heading'].includes(node.type) && attrs.textAlign != null) {
       if (!['left', 'center', 'right'].includes(attrs.textAlign)) issue(at, 'Unsupported text alignment');
@@ -61,7 +71,7 @@ function inspectContent(content, { documents, references = new Map() } = {}) {
     }
     if (node.content !== undefined && !Array.isArray(node.content)) issue(at, 'Invalid content array');
     if (node.type === 'blockquote' && Array.isArray(node.content) && node.content.some(p => Array.isArray(p?.content) && p.content.some(n => n?.type === 'hardBreak' || /[\r\n]/.test(n?.text || '')))) issue(at, 'Quote inline breaks lack native editing proof; retain the source');
-    const children = { doc: ['paragraph', 'heading', 'codeBlock', 'blockquote', 'bulletList', 'orderedList', 'taskList', 'table', 'horizontalRule'], paragraph: ['text', 'hardBreak'], heading: ['text', 'hardBreak'], codeBlock: ['text'], blockquote: ['paragraph'], bulletList: ['listItem'], orderedList: ['listItem'], taskList: ['taskItem'], listItem: ['paragraph', 'bulletList', 'orderedList', 'taskList'], taskItem: ['paragraph', 'bulletList', 'orderedList', 'taskList'], table: ['tableRow'], tableRow: ['tableHeader', 'tableCell'], tableHeader: ['paragraph'], tableCell: ['paragraph'] }[node.type] || [];
+    const children = { doc: ['paragraph', 'heading', 'codeBlock', 'blockquote', 'bulletList', 'orderedList', 'taskList', 'table', 'horizontalRule', 'image'], paragraph: ['text', 'hardBreak'], heading: ['text', 'hardBreak'], codeBlock: ['text'], blockquote: ['paragraph'], bulletList: ['listItem'], orderedList: ['listItem'], taskList: ['taskItem'], listItem: ['paragraph', 'bulletList', 'orderedList', 'taskList'], taskItem: ['paragraph', 'bulletList', 'orderedList', 'taskList'], table: ['tableRow'], tableRow: ['tableHeader', 'tableCell'], tableHeader: ['paragraph'], tableCell: ['paragraph'] }[node.type] || [];
     for (const [i, child] of (Array.isArray(node.content) ? node.content : []).entries()) {
       if (!children.includes(child?.type)) issue(at + '.content[' + i + ']', 'Unsupported child structure');
       if (node.type === 'codeBlock' && (child?.marks?.length || child?.type !== 'text')) issue(at, 'Code inline structure is not preserved');
@@ -70,7 +80,7 @@ function inspectContent(content, { documents, references = new Map() } = {}) {
   }
   if (content?.type !== 'doc' || !Array.isArray(content?.content)) issue('$', 'Expected a document with content');
   walk(content, '$');
-  if (!issues.length) { try { pmDocToBlocks(content); } catch (error) { issue('$', error.message); } }
+  if (!issues.length) { try { pmDocToBlocks({ ...content, content: content.content.filter(node => node.type !== 'image') }); } catch (error) { issue('$', error.message); } }
   return issues;
 }
 
@@ -112,8 +122,9 @@ function inventoryProfile({ profileId, sourceDir, quiesced }) {
   // use the same captured profile, and any invalid document blocks the batch.
   const lookup = new Map(documents.map((doc, i) => [doc.id, { ...doc, title: sources[i].value.title }]));
   for (const [i, { file, value }] of sources.entries()) {
-    const references = new Map();
-    issues.push(...inspectContent(value.content, { documents: lookup, references }).map(issue => ({ file: file.path, ...issue })));
+    const references = new Map(), images = new Map();
+    issues.push(...inspectContent(value.content, { documents: lookup, references, files, sourceDir: store.dir(), images }).map(issue => ({ file: file.path, ...issue })));
+    if (images.size) documents[i].images = [...images.values()];
     if (references.size) documents[i].references = [...references.values()].sort((a, b) => a.sourceId < b.sourceId ? -1 : a.sourceId > b.sourceId ? 1 : 0);
   }
   const entries = files.map(({ data, ...metadata }) => metadata);

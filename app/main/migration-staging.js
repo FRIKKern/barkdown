@@ -1,46 +1,13 @@
 // Offline staging only: never changes navigation authority or deletes source data.
 const fs = require('node:fs');
 const path = require('node:path');
-const crypto = require('node:crypto');
 const { createStore } = require('./store');
 const { acquireFileLease } = require('./file-lease');
 const { prepareMigration, inventoryProfile } = require('./migration-preflight');
-const { pmDocToBlocks } = require('../shared/portabledoc');
-const { mapReferences } = require('./migration-references');
+const { migrationBlocks } = require('./migration-images');
+const { stageMedia } = require('./migration-media');
 
-const canonical = value => JSON.stringify(value, function (_key, item) {
-  return item && typeof item === 'object' && !Array.isArray(item)
-    ? Object.fromEntries(Object.keys(item).sort().map(key => [key, item[key]])) : item;
-});
-const hash = value => crypto.createHash('sha256').update(canonical(value)).digest('hex');
-function fail(code, message) { const error = new Error(message); error.code = code; throw error; }
-
-// Exclusive, fsynced publication. Existing journal records are checked, never
-// replaced. Directory fsync/power-loss durability remains outside this slice.
-function record(store, name, value) {
-  const target = store.filePath(name), text = canonical(value) + '\n';
-  if (!fs.existsSync(target)) {
-    fs.mkdirSync(path.dirname(target), { recursive: true });
-    const temp = store.filePath(name + '.' + crypto.randomUUID() + '.tmp');
-    const fd = fs.openSync(temp, 'wx', 0o600);
-    try { fs.writeFileSync(fd, text); fs.fsyncSync(fd); } finally { fs.closeSync(fd); }
-    try { fs.linkSync(temp, store.filePath(name)); }
-    catch (error) { if (error.code !== 'EEXIST') throw error; }
-    finally { fs.unlinkSync(temp); }
-  }
-  if (fs.readFileSync(store.filePath(name), 'utf8') !== text) fail('journal_changed', 'Staging record differs: ' + name);
-  return value;
-}
-function read(store, name) {
-  const file = store.filePath(name);
-  if (!fs.existsSync(file)) return null;
-  try {
-    const value = JSON.parse(fs.readFileSync(file, 'utf8'));
-    if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('Expected a journal object');
-    return value;
-  }
-  catch { fail('journal_corrupt', 'Unreadable staging record: ' + name); }
-}
+const { canonical, hash, fail, record, read } = require('./migration-journal');
 
 function captureTarget(target, profileId) {
   if (target?.profileId !== profileId || typeof target.runtimeId !== 'string' || !target.runtimeId.trim()) fail('target_owner', 'A captured runtime identity for this profile is required');
@@ -48,24 +15,27 @@ function captureTarget(target, profileId) {
   if (typeof target.token !== 'string' || !target.token || typeof target.assertOwned !== 'function') fail('target_owner', 'Runtime credentials and an ownership assertion are required');
   const binding = Object.freeze({ profileId, runtimeId: target.runtimeId, server: target.server, dataset: target.dataset });
   const token = target.token, assertOwned = target.assertOwned;
-  async function request(method, route, body) {
+  async function ownedFetch(route, init = {}) {
     if (await assertOwned(binding) !== true) fail('target_owner', 'The captured local runtime is no longer owned by this profile');
-    const response = await fetch(binding.server + route, { method, redirect: 'error', headers: { authorization: 'Bearer ' + token, 'content-type': 'application/json', 'cache-control': 'no-cache' }, ...(body ? { body: JSON.stringify(body) } : {}), signal: AbortSignal.timeout(30000) });
+    return fetch(binding.server + route, { ...init, redirect: 'error', headers: { ...init.headers, authorization: 'Bearer ' + token, 'cache-control': 'no-cache' }, signal: AbortSignal.timeout(30000) });
+  }
+  async function request(method, route, body) {
+    const response = await ownedFetch(route, { method, headers: { 'content-type': 'application/json' }, ...(body ? { body: JSON.stringify(body) } : {}) });
     let data;
     try { data = await response.json(); } catch { fail('invalid_response', 'Paper endpoint returned invalid JSON'); }
     return { status: response.status, data: data?.result || data };
   }
-  return { binding, request };
+  return { binding, request, fetch: ownedFetch };
 }
 
-function payloads(manifest, store, metadata) {
+function payloads(manifest, store, metadata, media = {}) {
   if (!metadata || typeof metadata !== 'object' || Array.isArray(metadata)) fail('metadata_required', 'Supply reviewed publishing metadata for every document');
   if (Object.keys(metadata).some(id => !manifest.documents.some(doc => doc.id === id))) fail('metadata_changed', 'Publishing metadata names an unknown source document');
   return manifest.documents.map(doc => {
     const source = JSON.parse(fs.readFileSync(store.filePath('source/documents/' + doc.id + '.json'), 'utf8'));
     const labels = metadata[doc.id];
     if (!labels || typeof labels.description !== 'string' || !labels.description.trim() || !Array.isArray(labels.tags) || !labels.tags.length || Object.keys(labels).some(k => !['description', 'tags'].includes(k))) fail('metadata_required', 'Reviewed description and registered tags required for ' + doc.id);
-    const blocks = mapReferences(pmDocToBlocks(source.content), doc.references).map((block, i) => ({ ...block, id: 'migration-' + i }));
+    const blocks = migrationBlocks(source.content, doc.references, doc.images, media).map((block, i) => ({ ...block, id: 'migration-' + i }));
     return { id: doc.id, targetId: doc.targetId, sourceHash: doc.sourceHash, payload: {
       slug: doc.targetId, title: source.title, style: 'article', description: labels.description,
       tags: structuredClone(labels.tags), blocks,
@@ -74,23 +44,8 @@ function payloads(manifest, store, metadata) {
   });
 }
 
-async function stageMigration(options, target, { checkpoint = () => {}, retryAbsent = false } = {}) {
-  const captured = captureTarget(target, options.profileId);
-  const manifest = prepareMigration(options);
-  if (manifest.status !== 'prepared' || manifest.issues.length) fail('preflight_blocked', 'Unsupported source content; no Paper writes were attempted');
-  const store = createStore(path.resolve(options.destinationDir), { create: false });
-  fs.mkdirSync(store.filePath('staging'), { recursive: true });
-  const lease = acquireFileLease(store.filePath('staging/owner.lock'), { completeOwner: true, busy: 'Another migration staging process owns this backup' });
-  try {
-    const documents = payloads(manifest, store, options.metadata);
-    const plan = { version: 1, sourceHash: manifest.sourceHash, target: captured.binding, documents };
-    record(store, 'staging/plan.json', plan);
-    await checkpoint('plan');
-    const planHash = hash(plan), receipts = [];
-    // Validate the entire recovery journal before touching any target. In
-    // particular, null is corruption, not a missing record, and a completed
-    // batch may never fill in missing receipts by publishing again.
-    const journal = documents.map(doc => {
+function validateJournal(store, documents, planHash) {
+  const journal = documents.map(doc => {
       const intentName = 'staging/' + doc.targetId + '.intent.json';
       const receiptName = 'staging/' + doc.targetId + '.receipt.json';
       const intent = { version: 1, planHash, id: doc.id, targetId: doc.targetId, payloadHash: hash(doc.payload) };
@@ -104,11 +59,50 @@ async function stageMigration(options, target, { checkpoint = () => {}, retryAbs
       }
       return { doc, intentName, receiptName, intent, existingIntent, existingReceipt };
     });
-    const completed = read(store, 'staging/complete.json');
+  const completed = read(store, 'staging/complete.json');
     if (completed) {
       if (journal.some(item => !item.existingReceipt)) fail('journal_corrupt', 'Completed staging has missing receipts');
       record(store, 'staging/complete.json', { version: 1, planHash, status: 'staged', authority: 'legacy', documents: journal.map(item => item.existingReceipt) });
     }
+  return journal;
+}
+
+async function stageMigration(options, target, { checkpoint = () => {}, retryAbsent = false } = {}) {
+  const captured = captureTarget(target, options.profileId);
+  const manifest = prepareMigration(options);
+  if (manifest.status !== 'prepared' || manifest.issues.length) fail('preflight_blocked', 'Unsupported source content; no Paper writes were attempted');
+  const store = createStore(path.resolve(options.destinationDir), { create: false });
+  fs.mkdirSync(store.filePath('staging'), { recursive: true });
+  const lease = acquireFileLease(store.filePath('staging/owner.lock'), { completeOwner: true, busy: 'Another migration staging process owns this backup' });
+  try {
+    const pendingMedia = Object.fromEntries(manifest.documents.flatMap(doc => doc.images || []).map(image => [image.path, 'migration-pending:' + image.path]));
+    // Validate publishing metadata and conversion before any media mutation.
+    payloads(manifest, store, options.metadata, pendingMedia);
+    function sourceUnchanged() {
+      lease.assertOwned();
+      if (inventoryProfile(options).sourceHash !== manifest.sourceHash) fail('source_changed', 'Source changed during media staging');
+    }
+    const media = await stageMedia({ manifest, store, captured, checkpoint, unchanged: sourceUnchanged, beforeNetwork(mapping) {
+      const existingPlan = read(store, 'staging/plan.json');
+      if (!existingPlan) {
+        if (fs.readdirSync(store.filePath('staging')).some(name => name !== 'owner.lock' && !/^owner\.lock\.abandoned-[a-f0-9-]{36}$/.test(name) && !name.endsWith('.tmp'))) fail('journal_corrupt', 'Paper journal exists without its plan');
+        return;
+      }
+      if (Object.keys(pendingMedia).some(key => !mapping[key])) fail('journal_corrupt', 'Paper plan exists before all media receipts');
+      const documents = payloads(manifest, store, options.metadata, mapping);
+      const plan = { version: 1, sourceHash: manifest.sourceHash, target: captured.binding, documents };
+      record(store, 'staging/plan.json', plan);
+      validateJournal(store, documents, hash(plan));
+    } });
+    const documents = payloads(manifest, store, options.metadata, media);
+    const plan = { version: 1, sourceHash: manifest.sourceHash, target: captured.binding, documents };
+    record(store, 'staging/plan.json', plan);
+    await checkpoint('plan');
+    const planHash = hash(plan), receipts = [];
+    // Validate the entire recovery journal before touching any target. In
+    // particular, null is corruption, not a missing record, and a completed
+    // batch may never fill in missing receipts by publishing again.
+    const journal = validateJournal(store, documents, planHash);
     function unchanged() {
       lease.assertOwned();
       if (inventoryProfile(options).sourceHash !== manifest.sourceHash) fail('source_changed', 'Source changed during staging; retain staged Papers for reconciliation');
