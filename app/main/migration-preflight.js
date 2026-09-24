@@ -11,6 +11,9 @@ const hash = value => crypto.createHash('sha256').update(value).digest('hex');
 const digest = value => hash(JSON.stringify(value));
 const roots = ['documents', 'attachments', 'agent-edits', 'workspace.json', 'paper-proposals.json'];
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+// Audited local Tiptap 3.31.3 defaults, also rendered by native Paper links.
+// These carry no custom link semantics. Every other value remains a refusal.
+const linkDefaults = Object.freeze({ target: '_blank', rel: 'noopener noreferrer nofollow', class: null, title: null });
 
 function inspectContent(content, { documents, references = new Map(), files, sourceDir, images = new Map() } = {}) {
   const issues = [];
@@ -28,7 +31,7 @@ function inspectContent(content, { documents, references = new Map(), files, sou
     if (node.attrs != null && (typeof node.attrs !== 'object' || Array.isArray(node.attrs))) issue(at + '.attrs', 'Invalid attributes');
     const attrs = node.attrs || {};
     if (typeof attrs !== 'object' || Array.isArray(attrs)) issue(at + '.attrs', 'Invalid attributes');
-    const allowed = { image: ['src', 'alt', 'title', 'width', 'height'], heading: ['level', 'textAlign'], paragraph: ['textAlign'], orderedList: ['start'], taskItem: ['checked'], codeBlock: ['language'], tableCell: ['colspan', 'rowspan', 'colwidth', 'align', 'textAlign'], tableHeader: ['colspan', 'rowspan', 'colwidth', 'align', 'textAlign'] }[node.type] || [];
+    const allowed = { image: ['src', 'alt', 'title', 'width', 'height'], heading: ['level', 'textAlign'], paragraph: ['textAlign'], orderedList: ['start', 'type'], taskItem: ['checked'], codeBlock: ['language'], tableCell: ['colspan', 'rowspan', 'colwidth', 'align', 'textAlign'], tableHeader: ['colspan', 'rowspan', 'colwidth', 'align', 'textAlign'] }[node.type] || [];
     for (const key of Object.keys(attrs)) if (!allowed.includes(key)) issue(at + '.attrs.' + key, 'Unmapped attribute');
     if (node.type === 'image') {
       if (parentType !== 'doc') issue(at, 'Only top-level images have native migration proof');
@@ -45,6 +48,7 @@ function inspectContent(content, { documents, references = new Map(), files, sou
       if (parentType !== 'doc' && attrs.textAlign !== 'left') issue(at, 'Nested paragraph alignment is not preserved');
     }
     if (node.type === 'orderedList' && attrs.start != null && attrs.start !== 1) issue(at, 'List start is not preserved');
+    if (node.type === 'orderedList' && Object.hasOwn(attrs, 'type') && attrs.type !== null) issue(at, 'Custom list marker type is not preserved');
     if (node.type === 'taskItem' && typeof attrs.checked !== 'boolean') issue(at, 'Task state must be boolean');
     if (node.type === 'codeBlock' && attrs.language != null && typeof attrs.language !== 'string') issue(at, 'Invalid code language');
     if (['tableCell', 'tableHeader'].includes(node.type)) {
@@ -60,7 +64,10 @@ function inspectContent(content, { documents, references = new Map(), files, sou
       if (node.type !== 'text') issue(loc, 'Marks on this node are not preserved');
       if (Object.keys(mark).some(k => !['type', 'attrs'].includes(k))) issue(loc, 'Unmapped mark metadata');
       if (mark.attrs != null && (typeof mark.attrs !== 'object' || Array.isArray(mark.attrs))) issue(loc, 'Invalid mark attributes');
-      for (const key of Object.keys(mark.attrs || {})) if (mark.type !== 'link' || key !== 'href') issue(loc, 'Unmapped mark attribute: ' + key);
+      for (const key of Object.keys(mark.attrs || {})) {
+        if (mark.type === 'link' && (key === 'href' || (Object.hasOwn(linkDefaults, key) && mark.attrs[key] === linkDefaults[key]))) continue;
+        issue(loc, 'Unmapped mark attribute: ' + key);
+      }
       if (mark.type === 'link') {
         if (typeof mark.attrs?.href !== 'string') issue(loc, 'Link requires href');
         else if (internalScheme(mark.attrs.href)) {

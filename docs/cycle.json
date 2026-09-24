@@ -1,30 +1,27 @@
 {
   "version": 1,
-  "id": "C051",
+  "id": "C052",
   "stage": "P2",
-  "status": "done",
-  "goal": "Restore a retained migration backup into an empty owned legacy profile without overwriting data, with interrupted resume and native usability proof.",
+  "status": "active",
+  "goal": "Migrate the audited defaults actually persisted by Barkdown legacy editors without discarding custom link/list semantics.",
   "scope": [
-    "Validate the committed backup and caller-pinned source hash before destination writes; restore exact legacy note/workspace/media/history/receipt bytes only.",
-    "Exclusive restore journal binds profile, destination and backup; repeated or interrupted copy resumes conservatively and refuses changed/foreign/unowned destinations.",
-    "Prove actual child exits, source/backup/staged Paper preservation and restored native legacy editing/restart.",
-    "No authority activation, destination overwrite, real library, credential restoration, Paper edit rollback or cross-machine portability claim."
+    "Accept only schema-audited default link attributes and null ordered-list type; preserve exact source/backup.",
+    "Use actual Tiptap schema and native Electron save output, not only hand-authored JSON.",
+    "Prove parser-created and native-saved content through real Paper typing/save/Undo/reload/restart, links and list structure.",
+    "Keep custom values, unknown metadata, unsupported structures and authority activation blocked."
   ],
   "acceptance": [
-    "Corrupt/incomplete/foreign backups, unsafe paths, existing unowned destination and changed restored content refuse without overwrite.",
-    "Every published restored file matches its captured size/hash; completion requires full inventory equality.",
-    "Actual process interruptions resume without duplicate artifacts or lost originals; repeated restore is stable until human edits require refusal.",
-    "A disposable profile opens restored notes/history/side-chat draft context and can save/restart while retained backup and staged Paper stay unchanged.",
-    "Relevant tests, full desktop/root, dedicated recovery images/motion and standard visual capture/compare/review/approval pass."
+    "Actual local editor/Markdown default shapes pass preflight without mutation; custom target/rel/class/title/list type still refuse before writes.",
+    "Native saved source JSON and immutable backup agree, target structured content and references match the reviewed mapping.",
+    "Real Paper typing/save/exact Undo and restart preserve eligible native defaults and original source remains exact.",
+    "Relevant/full desktop/root tests and actual native/standard visual inspection with explicit approval pass."
   ],
   "checkpoint": "2026-09-24",
-  "handoff": "docs/cycles/C051-backup-restore.md",
-  "nextAction": "Start the bounded native-source compatibility slice: audit real persisted link/list defaults, retain custom-value refusals and prove actual source-to-Paper editing.",
+  "handoff": "docs/cycles/C052-native-source-shapes.md",
+  "nextAction": "Add narrow default-attribute validation with schema-backed regressions, then capture native source-to-Paper journey.",
   "evidence": [
-    "docs/cycles/evidence/C051/results.json",
-    "docs/visual/migration/runs/2026-09-24T02-09-49-913Z/manifest.json",
-    "docs/visual/reviews/approval-e339ddad9d39242c42d08638dec81cade1cbf9095fca8fad0c52ec89da4962de.json"
+    "docs/cycles/evidence/C051/results.json"
   ],
-  "truthReview": "README/app guide/architecture/PLAN/A2/VALIDATION and code-area READMEs reviewed. Same branch limits,46 registered/43 retired locked worktrees preserved; upstream draft and CI gates separate. See repository-truth.json.",
-  "screenshotReview": "Seven native stills,15raw/15GIF samples,7restart frames and fresh5live stills/37GIF frames inspected. Three tiny-noise fixture changes inspected; other37stills/eightGIFs byte-identical. Explicit approval linked; no cutover or polish claim."
+  "truthReview": "Starts from pushed49c938e, same delivery branch. C051 restore accepted but P2 activation still open. Source defaults were audited from installed Tiptap3.31.3.",
+  "screenshotReview": "C051 is the approved baseline. New native source-to-Paper proof and standard captures required."
 }
