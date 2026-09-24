@@ -340,7 +340,12 @@ export function mountPaper(tab, host, ctx) {
       if (current()) {
         loadFailed = true;
         if (canvas) { tab.path = [...mountedPath]; tab.source = mountedSource; ctx.tabChanged(tab); toast('Could not open ' + id + ': ' + errorMessage(error), 'error'); }
-        else { q('#title').value = tab.title || id; q('#title').disabled = true; q('#canvas-host').innerHTML = `<p class="bw-error">Could not open ${esc(id)}: ${esc(errorMessage(error))}</p>`; }
+        else {
+          q('#title').value = tab.title || id; q('#title').disabled = true;
+          q('#canvas-host').innerHTML = `<p class="bw-error">Could not open ${esc(id)}: ${esc(errorMessage(error))}</p>${tab.paperOwner ? '<button class="bw-btn" data-navigation-retry>Retry original library</button>' : ''}`;
+          const retry = q('[data-navigation-retry]');
+          if (retry) retry.onclick = () => load();
+        }
       }
       return;
     }
