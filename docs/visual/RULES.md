@@ -66,7 +66,7 @@ A cycle's closing truth pass includes these pages. CI verifies source/artifact/r
 
 The cycle owner keeps the root README GIF current. Refresh it in the same evidence commit whenever a change affects the layout, controls or interactions it shows, or when a new core workflow should replace the featured journey. For unrelated changes, record why the existing demo still applies in the handoff. Reuse that cycle's reviewed recording instead of running a second showcase suite.
 
-Use a short dark-mode journey with readable text and visible actions: roughly 15-25 seconds, at least 8 fps, about 1120 pixels wide and under 5 MB. Show the result, not just menus. Keep a still-view option. Use disposable content, identify scripted model responses, and link the source manifest and full video. Retain exact excerpt times and encoding settings; never hide a failed action or fabricate motion. Inspect every output frame and the README-sized result before replacing the embed. Automated checks do not replace this review.
+Use a short dark-mode journey with readable text and visible actions: roughly 15-25 seconds, at least 8 fps, about 1120 pixels wide and under 5 MB. Show the result, not just menus. Keep a still-view option. Use disposable content, identify scripted model responses, and link the source manifest and full video. Retain exact excerpt times and encoding settings; never hide a failed action or fabricate motion. Inspect every output frame and the README-sized result before replacing the embed. Compare encoded background colors against source frames; palette conversion must not introduce color casts or patchy bands. Automated checks do not replace this review.
 
 ## Private Paper capture
 

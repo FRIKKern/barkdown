@@ -6,7 +6,7 @@ Barkdown is an experiment in what Barkpark can do, and a tool for figuring out w
 
 We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT, taking the parts we love from each. We’re doing this for fun and learning, with no plans to make money from it. The aim is an excellent app shaped by our taste and Barkpark.
 
-![An agent edits a Paper note beside the chat, Undo restores it, and a person adds a finishing touch.](docs/visual/agent-notes/runs/2026-09-24T22-38-56-443Z/derived/readme.gif)
+![An agent edits a Paper note beside the chat, Undo restores it, and a person adds a finishing touch.](docs/visual/agent-notes/runs/2026-09-24T22-38-56-443Z/derived/readme-color-corrected.gif)
 
 See edits happen beside the conversation. Real app, scripted agent responses. [Recording details](docs/visual/agent-notes/README.md#readme-demo).
 
