@@ -365,3 +365,9 @@
   border-radius: 0; font-family: var(--paper-font-mono);
 }
 .bw-paper-document .bp-paper-host .bp-canvas-code-area { color: transparent; caret-color: var(--paper-ink); }
+
+/* Unavailable references have no canvas gutter; keep recovery readable in a narrow work pane. */
+.bw-paper-document.bw-paper-unavailable { padding-inline: clamp(20px, 6cqw, 56px); }
+.bw-paper-unavailable .bw-reference-notice { margin-top: 18px; padding: 14px 16px; border: 1px solid var(--bw-border); border-radius: 8px; background: var(--bw-side); }
+.bw-reference-notice .bw-error { padding: 0; color: var(--bw-muted); font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.bw-reference-notice .bw-btn { margin-top: 12px; max-width: 100%; white-space: normal; }

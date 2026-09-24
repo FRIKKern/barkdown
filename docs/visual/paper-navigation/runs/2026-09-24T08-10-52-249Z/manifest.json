@@ -1,0 +1,65 @@
+{
+  "capturedAt": "2026-09-24T08:11:12.505Z",
+  "barkdownCommit": "1e124caa23f2140ae74aad5f51c58d00656197d4",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "results": [
+    "Actual Electron restart refuses saved A tab and favorite on B before Paper reads; unknown legacy targets remain unavailable, with roots/nesting preserved; explicit B selection and distinct favorites/Pages work",
+    "Return to original connection and another Electron restart recover original favorite/content without reassignment or writes to either library"
+  ],
+  "frames": [
+    "01-original-owned-favorite-and-pages.png",
+    "02-restart-refuses-same-slug-substitution.png",
+    "03-unknown-reference-preserved-narrow.png",
+    "04-distinct-same-slug-destinations.png",
+    "05-original-connection-retry.png",
+    "06-restarted-original-favorite.png"
+  ],
+  "artifacts": {
+    "01-original-owned-favorite-and-pages.png": "d15f056bb74230d9fc72938f446a66f56f791d438c744e10baca387a53942983",
+    "02-restart-refuses-same-slug-substitution.png": "e8c7935c7fc643841dbcf031dd23abf92896b46bf7687cb691e7b7de7aed2717",
+    "03-unknown-reference-preserved-narrow.png": "0e4f51915c4d2ece8eaad58871e5b4969a0a8cf036442e29314cfa19055f2afe",
+    "04-distinct-same-slug-destinations.png": "082a06e07613b3c4ac6ce5cdaa308386852bbbc445533171f436ae89aaed095d",
+    "05-original-connection-retry.png": "b82b445f42d079cae39151623f96d7f1af9188f3977e102fa9a4ba1197b3b1cc",
+    "06-restarted-original-favorite.png": "fefe404dea232fd7207c83024fa13a24763ca546a88da1d95dee3f00be7d3ff9",
+    "foreign-selection.webm": "b8d1ea26304985b6c63d8e9cd325ef03b2d032ae3cb25b67f30be37be0934f97",
+    "original-selection.webm": "b73d5419a81424786fde2d7807c1101361d8384b6cbedfb3a04ba9af7d81d681",
+    "restart-or-failure.webm": "83e9e14b890346c266f6d48ca614461e9c262d0b62429bdee51dc0f527856dd6"
+  },
+  "foreignRequests": [
+    {
+      "method": "GET",
+      "url": "/assets/bp-paper-editor.bundle.js"
+    },
+    {
+      "method": "GET",
+      "url": "/assets/bp-paper-editor.css"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "method": "GET",
+      "url": "/status.json"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/doc/production/paper/navigation-proof?perspective=raw"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/backlinks/production/navigation-proof"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/history/production/paper/navigation-proof?limit=20"
+    }
+  ],
+  "limits": [
+    "Real private Paper plus non-persisting same-slug foreign recorder",
+    "Unknown historical references remain preserved; no guessed reattachment",
+    "Credential rotation or HTTP/CLI mode change creates a distinct owner",
+    "No real-library migration, origin classification, authority activation or portability claim"
+  ]
+}

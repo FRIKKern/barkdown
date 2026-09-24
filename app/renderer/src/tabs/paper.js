@@ -341,8 +341,9 @@ export function mountPaper(tab, host, ctx) {
         loadFailed = true;
         if (canvas) { tab.path = [...mountedPath]; tab.source = mountedSource; ctx.tabChanged(tab); toast('Could not open ' + id + ': ' + errorMessage(error), 'error'); }
         else {
+          q('.bw-paper-document').classList.add('bw-paper-unavailable');
           q('#title').value = tab.title || id; q('#title').disabled = true;
-          q('#canvas-host').innerHTML = `<p class="bw-error">Could not open ${esc(id)}: ${esc(errorMessage(error))}</p>${tab.paperOwner ? '<button class="bw-btn" data-navigation-retry>Retry original library</button>' : ''}`;
+          q('#canvas-host').innerHTML = `<div class="bw-reference-notice" role="status"><p class="bw-error">${esc(errorMessage(error))}</p>${tab.paperOwner ? '<button class="bw-btn" data-navigation-retry>Retry original library</button>' : ''}</div>`;
           const retry = q('[data-navigation-retry]');
           if (retry) retry.onclick = () => load();
         }
@@ -356,6 +357,7 @@ export function mountPaper(tab, host, ctx) {
     if (!current()) return;
     // The old editor remains usable while the read is pending; a new human edit wins over the load.
     if (hasUnsavedWork() || inputVersion !== beforeInput || rev !== beforeRev) { tab.path = [...mountedPath]; tab.source = mountedSource; ctx.tabChanged(tab); return false; }
+    q('.bw-paper-document').classList.remove('bw-paper-unavailable');
     paper = fetched; mountedPath = path; mountedSource = source;
     rev = paper.rev;
     lastAcked = paper.blocks || [];
