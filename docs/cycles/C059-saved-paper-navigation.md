@@ -11,6 +11,8 @@ Implemented at385d072: catalog, saved tabs/favorites, owner-qualified human Page
 - Full corrected local parity385d072 passes20/20, including tables11/11, gaps13/13 and tablehead6/6. [Logs](evidence/C059/parity-385d072/isolated-run.log).
 - C058 Linux35971541340 failed18/20: gaps used server-less setup; tables retained cell selection. Both fixtures corrected without weakening exact content assertions. Earlier local68b23dc was19/20 because linkpreview omitted owner; shared explicit catalog selection now passes. These original failure logs remain retained. New Linux pending push.
 
+The first retained-evidence regression ec086f1 stopped at the expected Retry original library state after returning to A. Failure still reviewed and hashes verified; fixture now presses Retry explicitly. Production behavior unchanged; rerun pending.
+
 ## Exact next action
 
 Commit the regression fixture update and this checkpoint, then sequentially run private retained-evidence and open-buffer regressions plus final rebuilt desktop. Run fresh isolated live shots and standard capture/compare; inspect actual stills/diffs/GIF frames and explicitly approve, then root verify. Update PLAN/queue/VALIDATION/truth and evidence commit/push. Do not mark C059 done before these gates. Next prepared P2 slice: trusted managed-local Archive classification, without changing human Pages or migration authority.

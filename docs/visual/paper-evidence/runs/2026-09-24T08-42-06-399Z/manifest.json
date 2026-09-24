@@ -1,0 +1,67 @@
+{
+  "capturedAt": "2026-09-24T08:43:32.172Z",
+  "barkdownCommit": "ec086f1fde934c941b73d72a55f8b756698eed65",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "foreignRequests": [
+    {
+      "method": "GET",
+      "url": "/assets/bp-paper-editor.bundle.js"
+    },
+    {
+      "method": "GET",
+      "url": "/assets/bp-paper-editor.css"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "method": "GET",
+      "url": "/status.json"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/doc/production/paper/evidence-proof?perspective=raw"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/backlinks/production/evidence-proof"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/history/production/paper/evidence-proof?limit=20"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/doc/production/paper/evidence-proof?perspective=raw"
+    }
+  ],
+  "results": [
+    "Fresh valid foreign binding with same ID/revision refuses six owned/unknown evidence operations without further requests; both originals remain exact"
+  ],
+  "frames": [
+    "01-original-owned-evidence.png",
+    "02-fresh-foreign-evidence-readonly.png",
+    "03-narrow-unattributed-reference.png"
+  ],
+  "artifacts": {
+    "01-original-owned-evidence.png": "88f852207698972bdcb3c3cc7a01396c7704b2d8d98facbc1e962e0a24f2a875",
+    "02-fresh-foreign-evidence-readonly.png": "5bac61681170b16e2e576140c849a19e8466d3e9083fe066c63e05978a7cbb39",
+    "03-narrow-unattributed-reference.png": "d3c94d2a70d23aabe05b13b17b17ee86496e1a692fd00e5e43565067f55cb9a2",
+    "failure.png": "61a45550fc8acd40246ed4aaacd3d8429654558251f82046b97804d4004b31f7",
+    "failure.txt": "3cc2bd03603fd1191cbf79c05a8bfee5118a4751f00c6e7af5517aa50bbe8c76",
+    "restart-or-failure.webm": "c4bf3dbc0492e779566406872996d8fa8a098148a39bdc903832ba70d4dafbfd"
+  },
+  "limits": [
+    "Actual private Paper and non-persisting foreign read recorder; no real user library",
+    "Original unknown evidence is retained readably, never assigned a guessed owner",
+    "Credential rotation or connection access-mode change deliberately creates a different owner; no automatic reassignment",
+    "CLI route is captured; externally replaced CLI credentials are not frozen",
+    "No authority activation, deployment or portability claim"
+  ]
+}
