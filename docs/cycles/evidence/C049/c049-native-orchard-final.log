@@ -1,0 +1,21 @@
+
+> barkdown-desktop@0.6.0 test:migration-references:isolated
+> npm run build && node tests/status-shots-isolated.mjs tests/migration-references.live.mjs
+
+
+> barkdown-desktop@0.6.0 build
+> node scripts/build.mjs
+
+
+  renderer\dist\app.js      2.8mb
+  renderer\dist\app.js.map  7.0mb
+
+Done in 374ms
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-iQejq9
+Capture runtime: starting 
+Capture runtime: ready 
+PASS seven marked links across six carriers, self/cyclic native navigation, profile-pinned identity, exact Undo/reload/restart, graph and process-interrupted resume
+Linked migration evidence: C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\docs\visual\migration\runs\2026-09-24T00-52-48-801Z
+Capture runtime: stopping 
+Capture runtime: stopped 
+Live screenshots complete; private runtime stopped; user CLI configuration unchanged.

@@ -1,0 +1,370 @@
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	﻿2026-09-23T23:59:11.9364643Z ##[group]Run bash scripts/run-instrument.sh elixir-impacted-tests-selftest -- bash scripts/elixir-impacted-tests.sh --selftest
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:11.9365603Z [36;1mbash scripts/run-instrument.sh elixir-impacted-tests-selftest -- bash scripts/elixir-impacted-tests.sh --selftest[0m
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:11.9426356Z shell: /usr/bin/bash -e {0}
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:11.9426611Z env:
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:11.9426818Z   BP_STEP_VERDICT: MEASURED-CLEAN
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:11.9427082Z ##[endgroup]
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:11.9598672Z === §1  FAIL-SAFE: an unclassifiable path must WIDEN, never narrow
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:11.9761182Z   ok   — api/config/runtime.exs selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:11.9925347Z   ok   — api/config/config.exs selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:12.0087211Z   ok   — api/mix.lock selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:12.0250955Z   ok   — api/mix.exs selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:12.0412894Z   ok   — api/test/test_helper.exs selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:12.0576492Z   ok   — api/test/support/**.ex (a case template) selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:12.0740382Z   ok   — api/test/fixtures/** selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:12.0906724Z   ok   — api/priv/repo/migrations/** selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:12.1068662Z   ok   — a .heex template under api/lib selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:12.1231531Z   ok   — api/assets/** selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:12.1897009Z   ok   — the workflow itself (COMPILE set) selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:12.2526846Z   ok   — design/** (COMPILE set) selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:14.2098417Z   ok   — an unclassified path (some/brand/new/tree/thing.txt) contributes NO tests of its own — the selection is exactly the ALWAYS set
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:16.0996968Z   ok   — an unclassified path (.tool-versions) contributes NO tests of its own — the selection is exactly the ALWAYS set
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:17.9924960Z   ok   — an unclassified path (scripts/canonical-marker-bindings.pin) contributes NO tests of its own — the selection is exactly the ALWAYS set
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:19.9281624Z   ok   — docs/openapi.json selects the test that guards it
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:23.3816352Z   ok   — a cloud/test-only change NO LONGER selects ALL (277 of 1899 api test files)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:23.3833174Z   ok   — …and it selects the seam guard, the api test that actually reads cloud/test
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:25.0827087Z   FAIL — the selector's derived readers EQUAL an independent one-hop join
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:25.0828773Z          selector: [api/test/barkpark/async_global_seam_guard_test.exs api/test/barkpark/paper_editor_vendor_drift_test.exs] independent: [api/test/barkpark/async_global_seam_guard_test.exs]
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:28.4456586Z   ok   — (d2) internal/taskboard/board.go — a TEST-set path whose SIBLINGS are censused but which nothing reads — still selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:31.8215373Z   ok   — (d2) cmd/barkpark/testdata/** with no censused reader still selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:35.1798311Z   ok   — (d2) web/node_modules/** still selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:35.2421764Z   ok   — (a) scripts/elixir-impacted-tests.sh still selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:35.3038910Z   ok   — (a) scripts/elixir-path-escape-check.sh still selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:38.7160883Z   ok   — (a) a cloud/test change PLUS a gate-script change still selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:42.0793678Z   ok   — (a) a cloud/test change PLUS an api/ non-narrowable path still selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:42.0897284Z   ok   — an EMPTY changed-path set selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:42.1079124Z   ok   — harness setup: using api/lib/barkpark/accounts.ex as the leaf fixture
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:42.1298738Z   ok   — a narrowable lib file PLUS api/mix.lock still selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:42.1537288Z   ok   — a lib file with NO defmodule selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:42.1763615Z   ok   — a FAILED mix xref selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:42.1764067Z 
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:42.1764684Z === §2  NARROWING HAPPENS (without these, a selector hard-wired to ALL passes §1)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:42.4213718Z   ok   — a leaf lib change does NOT select ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:42.6672061Z   ok   — a leaf lib change selects its convention test
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:42.7333574Z   ok   — a changed test file selects ITSELF
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:42.7955306Z   ok   — a changed test file alone does NOT select ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:43.0415928Z   ok   — a leaf lib change selects 467 of 1899 test files (a strict, non-empty subset)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:43.4958580Z   ok   — the BY-NAME net reaches a non-convention caller: lib/barkpark/api_test_runner.ex -> test/barkpark_web/live/studio/api_tester_live_plugin_asserts_test.exs
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:43.4959814Z 
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:43.4960211Z === §2b  RULE 3 — the web-surface hop (the #17153 blind spot)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:43.5235752Z   ok   — the #17153 specimen is now a RULE 4 door — it selects ALL, a superset of RULE 3's answer
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:43.7252599Z   ok   — derived RULE-3-only specimen: api/lib/barkpark/access/claim_flow.ex -> test/barkpark_web/controllers/access_controller_oracle_crash_test.exs (not in ALWAYS, names no module of the change)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:43.8380504Z   ok   — the derived specimen's web test IS selected by the lib->lib hop
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:43.9519339Z   ok   — the derived specimen selects 112 of 856 web tests — a family, not the directory
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:43.9548927Z   ok   — the planted contract test names neither the context nor its controller
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:44.0034908Z   ok   — a planted ConnCase contract test for a lib module IS selected (the lib->lib hop, then the name family)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:44.0048462Z   ok   — an unrelated controller test in the same directory stays out
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:44.0489689Z   ok   — a lib module NO web surface names drags in no controller test (the hop is a hop, not a default)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:44.0490139Z 
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:44.0490382Z === §2c  RULE 4 — the fail-closed door (the #18085 blind spot)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:44.0504785Z   ok   — precondition: test/barkpark/search/indx_engine_scope_test.exs names no module of the door it calls through (so only RULE 4 can reach it)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:44.0585636Z   ok   — the predicate classifies api/lib/barkpark/content/write_scope.ex as a door
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:44.0782135Z   ok   — a change confined to the door selects ALL
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:44.1036863Z   ok   — REPLAY #18085: its twelve-path diff selects ALL — test/barkpark/search/indx_engine_scope_test.exs runs
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:44.1247000Z   ok   — a module returning a policy refusal selects ALL (the derived arm)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:44.1428502Z   ok   — a module carrying '@impact door' selects ALL even with no known refusal atom (the declared arm)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:44.1879123Z   ok   — an ordinary lib module in the same tree still NARROWS (12 files) — RULE 4 is keyed on the refusal, not on being a lib file
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:44.2346832Z   ok   — the door census is 60 of 921 lib modules (< 15%, so narrowing still buys something)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:44.2347823Z 
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:44.2348060Z === §3  THE ALWAYS SET
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:44.2831233Z   ok   — the ALWAYS set is non-empty (277 files)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:44.2944389Z   ok   — every ALWAYS file exists on disk
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:44.3189708Z   ok   — every PINNED entry is in the ALWAYS set
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:44.3282345Z   ok   — --check-pins REFUSES when a pinned file is absent
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:44.3384193Z   ok   — --check-pins PASSES on the real tree
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:45.1186465Z   ok   — the whole ALWAYS set rides a narrowed selection
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:46.6913752Z   ok   — all 43 escape-census api/test readers are in the ALWAYS set
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:46.6972627Z   ok   — the ALWAYS set is 277 of 1899 test files (< 25%, so narrowing still buys something)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:46.6973038Z 
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:46.6973372Z === §4  PAST-DEFECT REPLAY — would this selection have caught real merged bugs?
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:46.8103915Z   ok   — one-envelope reader: the internal sentinel — the narrowed set contains test/barkpark/content/envelope_internal_sentinel_test.exs
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:46.8298282Z   ok   — the dedup 409 named a required id it withheld — selects ALL (trivially caught)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:46.9380468Z   ok   — claim epoch CAS — the narrowed set contains test/barkpark/tasks/claim_test.exs
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:47.0396130Z   ok   — search insights 500 / nil-workspace synonym read — the narrowed set contains test/barkpark/search/documents_retriever_tags_meta_parity_test.exs
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:47.1828292Z   ok   — plugin route registration — the narrowed set contains test/barkpark_web/plugin_routes_test.exs
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:47.3554312Z   ok   — media anonymous read clamp — the narrowed set contains test/barkpark/media_test.exs
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:47.5119246Z   ok   — plugin registry resolution — the narrowed set contains test/barkpark/plugins/registry_test.exs
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:47.6934079Z   ok   — PortableDoc render — the narrowed set contains test/barkpark/portable_doc/render_test.exs
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:47.6935497Z   skip — POST /papers refuses ifRev (renamed or removed: lib/barkpark/papers/paper.ex / test/barkpark/papers/paper_test.exs)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:47.6936452Z   ok   — 8 past-defect replays exercised (1 skipped as renamed)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:47.6936754Z 
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:47.6936868Z === §5  REFUSALS
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:47.6988265Z   ok   — an unknown flag is refused with exit 2
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:47.6988522Z 
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:47.6988973Z === §6  A CHILD THAT READS STDIN MUST NOT TRUNCATE THE CHANGED-PATH LIST
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:47.8744158Z   ok   — §6 control: a child that does NOT read stdin leaves the list intact (test/barkpark/tasks/queue_test.exs selected)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:48.0486799Z   ok   — §6 a stdin-reading child cannot reach the list (test/barkpark/tasks/queue_test.exs still selected)
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:48.0498313Z 
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:48.0498545Z === 72 passed, 1 failed
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:48.0522088Z instrument elixir-impacted-tests-selftest: exit 1 -> MEASURED-DEFECT
+Elixir path-escape ratchet	The PR test selector must fail safe (47-case harness)	2026-09-23T23:59:48.0570432Z ##[error]Process completed with exit code 1.
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	﻿2026-09-23T23:59:51.7944918Z ##[group]Run node scripts/check-vendor-freshness.mjs
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:51.7945331Z [36;1mnode scripts/check-vendor-freshness.mjs[0m
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:51.8004003Z shell: /usr/bin/bash -e {0}
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:51.8004258Z env:
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:51.8004484Z   BP_STEP_VERDICT: MEASURED-DEFECT
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:51.8004744Z ##[endgroup]
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:52.0228476Z ok   @barkpark/core 1.0.0-preview.3 — source sha256:75f621f9c1662d22… vs stamped sha256:75f621f9c1662d22…
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:52.0231083Z FAIL @barkpark/react 1.0.0-preview.1 — source sha256:d54fe416ee59e3bf… vs stamped sha256:7e80f98c7c9e7477…
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:52.0232489Z FAIL SOURCE-ARTIFACT-MISMATCH @barkpark/react: templates/search-starter/vendor/barkpark-react.tgz does not correspond to its source
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:52.0233580Z        COPIED-ASSET package/dist/paper-surface.css is NOT the current api/assets/paper-surface/paper-surface.css
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:52.0234320Z        source   sha256:19464556895c4492… (175336 bytes)
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:52.0234770Z        artifact sha256:00dddb31cd727d89… (174909 bytes)
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:52.0235319Z        the vendored SDK ships a stale copy of a file the repo has since changed
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:52.0236389Z FAIL SOURCE-ARTIFACT-MISMATCH @barkpark/react: templates/astro-search-starter/vendor/barkpark-react.tgz does not correspond to its source
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:52.0237490Z        COPIED-ASSET package/dist/paper-surface.css is NOT the current api/assets/paper-surface/paper-surface.css
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:52.0238525Z        source   sha256:19464556895c4492… (175336 bytes)
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:52.0239029Z        artifact sha256:00dddb31cd727d89… (174909 bytes)
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:52.0239561Z        the vendored SDK ships a stale copy of a file the repo has since changed
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:52.0240347Z FAIL STALE-SOURCE @barkpark/react: js/packages/react changed since the tarball was cut on 2026-09-18
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:52.0241237Z        stamped source digest sha256:7e80f98c7c9e7477573aa154d06d7a86eb95e1a47ef46f482d9f0d8632850f03
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:52.0242130Z        current source digest sha256:d54fe416ee59e3bf486c17cdc3c04d51fd220042820125a147ec1835d8531b71
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:52.0242920Z        the vendored SDK is BEHIND main; every scaffolded user gets the old bytes.
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:52.0243716Z        re-cut: bash scripts/recut-vendor-tarballs.sh
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:52.0244063Z 3 freshness failure(s)
+Elixir path-escape ratchet	The vendored starter SDKs match js/packages source	2026-09-23T23:59:52.0286134Z ##[error]Process completed with exit code 1.
+Elixir gate	Decide (fail-closed over every upstream result)	﻿2026-09-24T00:10:56.6552725Z ##[group]Run set -euo pipefail
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6555059Z [36;1mset -euo pipefail[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6556064Z [36;1m[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6557318Z [36;1mecho "dispatcher outputs: compile='${O_COMPILE}' test='${O_TEST}'"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6558879Z [36;1mecho[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6559728Z [36;1m[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6560504Z [36;1mbad=0[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6561420Z [36;1m[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6562545Z [36;1m# ── D377 tally: did anything SUBSTANTIVE actually run? ────────────[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6564128Z [36;1m# `bad` answers "is anything wrong"; it cannot answer "was anything[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6566125Z [36;1m# tested", and until wave 33 nothing did. These two answer it.[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6567979Z [36;1m# Only PATH-GATED jobs count: the dispatcher and the ratchet carry the[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6569735Z [36;1m# gate value NEVER and run on every head, so they are present in a[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6571370Z [36;1m# "nothing ran" run exactly as in a full one and can distinguish[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6572773Z [36;1m# nothing.[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6573668Z [36;1mdispatched=0[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6574644Z [36;1mnot_dispatched=""[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6575591Z [36;1m[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6576653Z [36;1m# ── D770/D771 — `bad` SAYS THAT something is wrong, never WHICH ───[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6578505Z [36;1m# Measured by executing this very step body with one upstream =[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6580087Z [36;1m# failure: the step LOG names the offending job one line above, but[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6581741Z [36;1m# the `::error::` — the ONLY line the check-run API carries, and so[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6583384Z [36;1m# the only line a human at the merge button or the merge queue ever[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6585027Z [36;1m# reads — named NOTHING. `bad` is a bit; this is the set behind it.[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6586733Z [36;1m# It is appended at EVERY `bad=1` site, so it can never disagree with[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6588465Z [36;1m# the verdict: a job reaches this list through the same line that[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6590222Z [36;1m# reds the gate. DERIVED from `${job}` — never a hardcoded name, and[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6591624Z [36;1m# never a re-print of the step log.[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6592946Z [36;1m# Comma-joined, not space-joined: job names contain spaces[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6594884Z [36;1m# ("changes (dispatcher)", "path-escape ratchet"), so a space-joined[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6596314Z [36;1m# list cannot be read back as a set.[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6597465Z [36;1mreds=""[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6598473Z [36;1m[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6599318Z [36;1m# decide <job-name> <result> <gate-value>[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6600778Z [36;1m#   gate-value is the dispatcher output that gated the job, or the[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6602403Z [36;1m#   literal string NEVER for jobs that must always run. A skip is[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6603995Z [36;1m#   accepted only against a gate-value of exactly 'false'.[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6605330Z [36;1mdecide() {[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6606283Z [36;1m  local job="$1" result="$2" gate="$3"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6607394Z [36;1m  case "$result" in[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6608581Z [36;1m    success)[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6609572Z [36;1m      echo "  ok      ${job}: success"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6610602Z [36;1m      ;;[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6611397Z [36;1m    skipped)[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6612397Z [36;1m      if [ "$gate" = "false" ]; then[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6614035Z [36;1m        echo "  ok      ${job}: skipped — dispatcher said this path set was not touched (gate='false')"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6615692Z [36;1m      else[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6616888Z [36;1m        echo "  FAIL    ${job}: skipped, but its gate is '${gate}', not 'false'."[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6618806Z [36;1m        echo "          A skip here does NOT mean 'not needed'. It means the job never ran —"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6620748Z [36;1m        echo "          most often because an upstream FAILED. Refusing to green a required"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6622486Z [36;1m        echo "          context on it."[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6623649Z [36;1m        bad=1[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6624589Z [36;1m        reds="${reds:+${reds}, }${job}"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6625742Z [36;1m      fi[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6626581Z [36;1m      ;;[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6627423Z [36;1m    failure)[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6628648Z [36;1m      echo "  FAIL    ${job}: failure"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6629684Z [36;1m      bad=1[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6630611Z [36;1m      reds="${reds:+${reds}, }${job}"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6632031Z [36;1m      ;;[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6632887Z [36;1m    cancelled)[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6634087Z [36;1m      # SPLIT OUT OF THE `failure` ARM (charter D57). Both are RED and[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6635691Z [36;1m      # both stay red — a cancelled upstream tested nothing, and D12[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6637316Z [36;1m      # says a non-pass is a non-pass. What changed is that the gate[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6638774Z [36;1m      # now SAYS WHICH.[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6639818Z [36;1m      #[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6640912Z [36;1m      # WHY THIS IS NOT COSMETIC. This fleet force-pushes stacked[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6642645Z [36;1m      # branches daily and this workflow cancels in-progress runs on[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6644336Z [36;1m      # non-main refs, so a superseded head is the COMMON way an[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6645881Z [36;1m      # upstream ends up cancelled. Before this arm, a superseded run[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6647589Z [36;1m      # and a genuine code failure were byte-identical at the required[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6649457Z [36;1m      # -context level: MEASURED on sha 6539d929 after `gh run cancel`,[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6651052Z [36;1m      # five upstream jobs read completed|cancelled while `Elixir gate`[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6652732Z [36;1m      # read completed|failure and the merge refused with[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6654111Z [36;1m      #   Required status check "Elixir gate" is failing.[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6655718Z [36;1m      # — not `is cancelled.` The natural response to `is failing.` is[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6657220Z [36;1m      # to go read a diff that is fine, on a branch nobody is on.[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6658898Z [36;1m      #[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6659996Z [36;1m      # The re-run prescription is the whole point: a cancelled[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6661541Z [36;1m      # upstream is cleared by producing a NEW run, never by reading[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6663222Z [36;1m      # code. Note the D102 trap while doing so — RE-RUNNING a workflow[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6664853Z [36;1m      # DELETES its existing check-runs, so the required context goes[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6666456Z [36;1m      # ABSENT (which never reports) before it goes green. Pushing a[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6668135Z [36;1m      # fresh head sha mints new runs and is the safer move.[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6669745Z [36;1m      echo "  FAIL    ${job}: CANCELLED — this job did not fail, it never finished."[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6671576Z [36;1m      echo "          Nothing was tested, so this gate is RED (charter D12): a"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6673295Z [36;1m      echo "          non-pass is a non-pass and will not be laundered into green."[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6675116Z [36;1m      echo "          But do NOT go read the diff — a cancellation is almost always"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6676846Z [36;1m      echo "          a SUPERSEDED HEAD (this workflow sets cancel-in-progress on"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6679020Z [36;1m      echo "          non-main refs), not a defect in your code."[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6680656Z [36;1m      echo "          FIX: produce a NEW run. Push a fresh head sha. Re-running the"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6682305Z [36;1m      echo "          workflow instead DELETES its check-runs, so the required"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6684221Z [36;1m      echo "          context reads ABSENT rather than red until the re-run finishes"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6685856Z [36;1m      echo "          (charter D102)."[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6686982Z [36;1m      bad=1[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6688222Z [36;1m      reds="${reds:+${reds}, }${job} (cancelled, not failed)"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6689405Z [36;1m      ;;[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6690372Z [36;1m    '')[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6691690Z [36;1m      echo "  FAIL    ${job}: EMPTY result — this job is not in the aggregator's needs set,"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6693489Z [36;1m      echo "          or the run object is malformed. Cannot tell, therefore red."[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6694873Z [36;1m      bad=1[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6695800Z [36;1m      reds="${reds:+${reds}, }${job}"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6696819Z [36;1m      ;;[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6697677Z [36;1m    *)[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6699340Z [36;1m      echo "  FAIL    ${job}: unrecognised result '${result}'. Cannot tell, therefore red."[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6700773Z [36;1m      bad=1[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6701773Z [36;1m      reds="${reds:+${reds}, }${job}"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6702837Z [36;1m      ;;[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6703676Z [36;1m  esac[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6704797Z [36;1m  # Tally, for the D377 notice at the bottom of this step. NEVER-gated[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6706413Z [36;1m  # jobs are excluded on purpose (see the declaration above).[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6707898Z [36;1m  if [ "$gate" != "NEVER" ]; then[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6708927Z [36;1m    case "$result" in[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6710066Z [36;1m      success) dispatched=$((dispatched + 1)) ;;[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6711536Z [36;1m      skipped) not_dispatched="${not_dispatched} ${job}" ;;[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6712725Z [36;1m    esac[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6713585Z [36;1m  fi[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6714387Z [36;1m}[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6715182Z [36;1m[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6716310Z [36;1m# The dispatcher itself may never skip: without it there are no gate[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6717969Z [36;1m# values, so nothing downstream can be judged.[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6719427Z [36;1m# ── the refusal ledger ───────────────────────────────────────────[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6721016Z [36;1m# Built BEFORE the verdict, so the `::error::` below can say WHICH[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6722701Z [36;1m# instruments refused. Derived from ${job}, never a hardcoded name.[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6724251Z [36;1mrefusals=""[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6725138Z [36;1mnote_verdict() {[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6726132Z [36;1m  local job="$1" v="$2"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6727082Z [36;1m  case "$v" in[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6728139Z [36;1m    REFUSED|UNKNOWN)[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6729640Z [36;1m      echo "  REFUSED ${job}: the instrument exited 2 — it COULD NOT MEASURE and made NO"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6731601Z [36;1m      echo "          claim in either direction. Read that job's own log: it printed the"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6733442Z [36;1m      echo "          cause by name. This is still red — a refusal is not a pass."[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6734959Z [36;1m      refusals="${refusals:+${refusals}, }${job}"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6736147Z [36;1m      ;;[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6737014Z [36;1m    MEASURED-DEFECT)[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6738588Z [36;1m      echo "  measured ${job}: the instrument RAN and found a defect. The fault is in the"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6740239Z [36;1m      echo "          tree, not on the runner." ;;[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6741530Z [36;1m    MEASURED-CLEAN|'') : ;;[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6742942Z [36;1m    *) echo "  note    ${job}: unrecognised verdict '${v}' on the refusal channel." ;;[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6744335Z [36;1m  esac[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6745145Z [36;1m}[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6746188Z [36;1mnote_verdict "path-escape ratchet" "${V_ESCAPE:-}"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6747573Z [36;1mnote_verdict "format (diff-scoped)" "${V_FORMAT:-}"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6749152Z [36;1mnote_verdict "mix-test"             "${V_TEST:-}"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6750664Z [36;1mnote_verdict "mix-prod-compile"     "${V_PROD:-}"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6751886Z [36;1m[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6752914Z [36;1mdecide "changes (dispatcher)"    "${R_CHANGES}" "NEVER"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6754385Z [36;1mdecide "path-escape ratchet"     "${R_ESCAPE}"  "NEVER"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6755882Z [36;1mdecide "mix-test"                "${R_TEST}"    "${O_TEST}"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6757394Z [36;1mdecide "mix-prod-compile"        "${R_PROD}"    "${O_COMPILE}"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6759049Z [36;1mdecide "validation-perf"         "${R_PERF}"    "${O_COMPILE}"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6760755Z [36;1m# DIFF-SCOPED. This job fails only when a file the PR TOUCHES is[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6762426Z [36;1m# unformatted; inherited main drift leaves it green. See the format[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6764155Z [36;1m# job's header for why the arm lives there and not in this step: the[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6765669Z [36;1m# diff is only computable where the checkout is.[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6767112Z [36;1mdecide "format (diff-scoped)"    "${R_FORMAT}" "${O_COMPILE}"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6768607Z [36;1m[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6769403Z [36;1mecho[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6770492Z [36;1m# The format arm is the one upstream whose red has a NAMEABLE cause[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6772171Z [36;1m# the aggregator can carry, so it carries it. Appended to `reds`[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6773849Z [36;1m# rather than printed separately: `reds` is what the ::error:: emits,[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6775381Z [36;1m# and a second channel is a second thing to go quiet.[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6776638Z [36;1mif [ -n "${F_IN_DIFF:-}" ]; then[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6778259Z [36;1m  echo "  files this diff touches that are unformatted: ${F_IN_DIFF}"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6779877Z [36;1m  reds="${reds:+${reds} — }unformatted in this diff: ${F_IN_DIFF}"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6781308Z [36;1mfi[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6782077Z [36;1m[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6782974Z [36;1mif [ "$bad" -ne 0 ]; then[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6784015Z [36;1m  if [ -n "$refusals" ]; then[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6785280Z [36;1m    # The ONE line the check-run API carries. Say which half of the[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6786992Z [36;1m    # vocabulary fired, or the reader re-derives it from scratch and[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6788712Z [36;1m    # usually guesses "the runner".[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6796362Z [36;1m    echo "::error title=Elixir gate RED — an instrument REFUSED TO MEASURE::RED because at least one upstream job is not in the allow-set.%0AREFUSED TO MEASURE (exit 2): ${refusals}%0AA refusal is the ABSENCE of a measurement: those instruments made no claim about this tree in either direction — nothing here says it is clean and nothing here says it is broken. exit 2 is ONE code over MANY causes and this aggregate measured none of them: an unknown path-set or argument name, a source root that is not there, a base ref that does not resolve, a toolchain the box does not carry. READ THE REFUSING JOB'S OWN LINE — it printed the cause by name, and that cause may well be a committed file in this repo rather than the runner.%0ANOT IN THE ALLOW-SET: ${reds}"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6804128Z [36;1m  else[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6806122Z [36;1m    echo "::error::Elixir gate: at least one upstream job is not in the allow-set (see above). This is the required context; it is RED on purpose. NOT IN THE ALLOW-SET: ${reds}"[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6808631Z [36;1m  fi[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6809532Z [36;1m  exit 1[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6810373Z [36;1mfi[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6811148Z [36;1m[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6811980Z [36;1mif [ -n "$refusals" ]; then[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6813254Z [36;1m  # Every upstream is in the allow-set and an instrument still refused[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6814967Z [36;1m  # — possible when a refusing step sits behind `!cancelled()` in a[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6816541Z [36;1m  # job that ends green some other way, or inside the advisory[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6818509Z [36;1m  # `format` job, which is `continue-on-error` and so reports success[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6820236Z [36;1m  # whatever it found. A green required context over an unmeasured[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6821825Z [36;1m  # hole is precisely the vacuous green this channel exists to kill.[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6826032Z [36;1m  echo "::error title=Elixir gate RED — a refusal reached the aggregate with every job green::REFUSED TO MEASURE (exit 2): ${refusals}%0AEvery upstream job is in the allow-set, and an instrument still refused to measure. Greening on that would publish a required context over a hole nothing looked into. Read the refusing job's own line for the cause."[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6830145Z [36;1m  exit 1[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6831072Z [36;1mfi[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6831817Z [36;1m[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6832838Z [36;1m# ── D377/D378 — SAY IT WHERE A PERSON AND AN API CAN READ IT ──────[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6834580Z [36;1m# A green here means one of two very different things and, until wave[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6836227Z [36;1m# 33, published byte-identical evidence for both: conclusion=success,[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6838140Z [36;1m# annotations=0, output.title=null, output.summary=null. Measured on[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6839787Z [36;1m# real heads — cloud-only PR #9656 and docs-only #9637 both greened[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6841608Z [36;1m# this context with every substantive job skipped, and the honest[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6843324Z [36;1m# sentence printed just below goes only to stdout, six clicks deep.[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6844614Z [36;1m#[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6845857Z [36;1m# Two mechanisms are RULED OUT BY MEASUREMENT, do not substitute one:[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6847504Z [36;1m#   * $GITHUB_STEP_SUMMARY does NOT populate the check-run API — eight[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6849389Z [36;1m#     workflows write it and 0 of 32 check-runs on that sha returned a[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6851050Z [36;1m#     non-null summary, pr-task-gate (which writes one) included.[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6852618Z [36;1m#   * Renaming this check is forbidden: `Elixir gate` is a frozen[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6854253Z [36;1m#     required context under enforce_admins=true, and a rename[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6855489Z [36;1m#     deadlocks main.[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6857023Z [36;1m# A bare ::notice:: DOES reach the annotations endpoint from a[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6858869Z [36;1m# succeeding, checkout-less, unmatrixed job — measured on probe branch[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6860547Z [36;1m# probe/elixir-gate-annotation, commit e9be79a8d, run 31055317124.[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6861897Z [36;1m#[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6863004Z [36;1m# ONE notice, never one per skipped job: GitHub caps annotations at 10[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6864752Z [36;1m# per level per step, so an N-per-job emitter truncates silently — the[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6866317Z [36;1m# same class of quiet lie this line exists to remove.[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6867551Z [36;1mif [ "$dispatched" -eq 0 ]; then[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6871780Z [36;1m  echo "::notice title=Elixir gate: green — nothing ran::NOTHING ELIXIR RAN on this head.%0AElixir gate is green because this diff touched none of its declared path sets, NOT because anything was tested.%0ANot dispatched:${not_dispatched}%0AGreen here means NOT APPLICABLE to this diff. Read it as 'no Elixir job executed', never as 'the Elixir suite passed'."[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6875873Z [36;1mfi[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.6877312Z [36;1mecho "Elixir gate: every upstream job either succeeded or was legitimately not dispatched."[0m
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7633426Z shell: /usr/bin/bash -e {0}
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7635090Z env:
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7635913Z   R_CHANGES: success
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7636933Z   R_TEST: failure
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7637900Z   R_PROD: failure
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7638769Z   R_PERF: success
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7639566Z   R_ESCAPE: failure
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7640363Z   R_FORMAT: success
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7641119Z   O_COMPILE: true
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7642053Z   O_TEST: true
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7642836Z   V_ESCAPE: MEASURED-DEFECT
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7643739Z   V_FORMAT: MEASURED-CLEAN
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7644616Z   V_TEST: MEASURED-CLEAN
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7645479Z   V_PROD: MEASURED-CLEAN
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7646240Z   F_IN_DIFF: 
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7646894Z ##[endgroup]
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7846970Z dispatcher outputs: compile='true' test='true'
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7847991Z 
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7848824Z   measured path-escape ratchet: the instrument RAN and found a defect. The fault is in the
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7850496Z           tree, not on the runner.
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7851465Z   ok      changes (dispatcher): success
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7852502Z   FAIL    path-escape ratchet: failure
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7853650Z   FAIL    mix-test: failure
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7854570Z   FAIL    mix-prod-compile: failure
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7855544Z   ok      validation-perf: success
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7856629Z   ok      format (diff-scoped): success
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7857347Z 
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7892127Z ##[error]Elixir gate: at least one upstream job is not in the allow-set (see above). This is the required context; it is RED on purpose. NOT IN THE ALLOW-SET: path-escape ratchet, mix-test, mix-prod-compile
+Elixir gate	Decide (fail-closed over every upstream result)	2026-09-24T00:10:56.7907978Z ##[error]Process completed with exit code 1.

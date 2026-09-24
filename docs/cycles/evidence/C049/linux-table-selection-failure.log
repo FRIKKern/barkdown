@@ -1,0 +1,370 @@
+{
+ "summary": "5/6 green",
+ "results": [
+  {
+   "name": "the chrome's header-column toggle makes each body row's first cell a row header; the server holds headCol: true",
+   "pass": true,
+   "canvas": [
+    [
+     [
+      "th",
+      "Item",
+      null
+     ],
+     [
+      "th",
+      "Qty",
+      null
+     ],
+     [
+      "th",
+      "Price",
+      null
+     ]
+    ],
+    [
+     [
+      "th[row]",
+      "Apple",
+      null
+     ],
+     [
+      "td",
+      "3",
+      null
+     ],
+     [
+      "td",
+      "1.20",
+      null
+     ]
+    ],
+    [
+     [
+      "th[row]",
+      "Pear",
+      null
+     ],
+     [
+      "td",
+      "5",
+      null
+     ],
+     [
+      "td",
+      "0.90",
+      null
+     ]
+    ]
+   ],
+   "server": {
+    "headCol": true,
+    "rows": [
+     [
+      [
+       {
+        "type": "text",
+        "value": "Apple"
+       }
+      ],
+      [
+       {
+        "type": "text",
+        "value": "3"
+       }
+      ],
+      [
+       {
+        "type": "text",
+        "value": "1.20"
+       }
+      ]
+     ],
+     [
+      [
+       {
+        "type": "text",
+        "value": "Pear"
+       }
+      ],
+      [
+       {
+        "type": "text",
+        "value": "5"
+       }
+      ],
+      [
+       {
+        "type": "text",
+        "value": "0.90"
+       }
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "name": "the bubble's align-right button on the Qty cell aligns the CELL; the server holds { content, align: \"right\" }",
+   "pass": true,
+   "canvas": [
+    [
+     "th[row]",
+     "Apple",
+     null
+    ],
+    [
+     "td",
+     "3",
+     "right"
+    ],
+    [
+     "td",
+     "1.20",
+     null
+    ]
+   ],
+   "server": [
+    [
+     {
+      "type": "text",
+      "value": "Apple"
+     }
+    ],
+    {
+     "align": "right",
+     "content": [
+      {
+       "type": "text",
+       "value": "3"
+      }
+     ]
+    },
+    [
+     {
+      "type": "text",
+      "value": "1.20"
+     }
+    ]
+   ]
+  },
+  {
+   "name": "the paper page renders <th scope=\"row\"> for the header column and text-align on the aligned cell",
+   "pass": true,
+   "reader": [
+    [
+     [
+      "th",
+      "Item",
+      null
+     ],
+     [
+      "th",
+      "Qty",
+      null
+     ],
+     [
+      "th",
+      "Price",
+      null
+     ]
+    ],
+    [
+     [
+      "th[row]",
+      "Apple",
+      null
+     ],
+     [
+      "td",
+      "3",
+      "right"
+     ],
+     [
+      "td",
+      "1.20",
+      null
+     ]
+    ],
+    [
+     [
+      "th[row]",
+      "Pear",
+      null
+     ],
+     [
+      "td",
+      "5",
+      null
+     ],
+     [
+      "td",
+      "0.90",
+      null
+     ]
+    ]
+   ]
+  },
+  {
+   "name": "align-left on the same cell drops the attribute: the server holds the plain cell again",
+   "pass": false,
+   "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('body .bp-paper-format__btn--align-left').first()\n    - locator resolved to <button type=\"button\" title=\"Align left\" aria-pressed=\"false\" aria-label=\"Align left\" class=\"bp-paper-format__btn bp-paper-format__btn--align-left\">⇤</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not visible\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not visible\n    - retrying click action\n      - waiting 100ms\n    58 × waiting for element to be visible, enabled and stable\n       - element is not visible\n     - retrying click action\n       - waiting 500ms\n",
+   "failureImage": "test-results/tablehead-failure-3.png",
+   "state": {
+    "focused": true,
+    "active": "DIV",
+    "selection": {
+     "type": "text",
+     "anchor": 71,
+     "head": 71
+    },
+    "buttons": [
+     {
+      "display": "inline-flex",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "width": 0,
+       "height": 0
+      },
+      "bubbleDisplay": "none",
+      "hit": "<div class=\"bw-brand\"><span class=\"bw-mark\">b</span><span class=\"bw-brand-name\">Barkdown</span><span class=\"bw-spacer\"></span><button class=\"bw-icon-button\" id=\"bw-new-doc\" title=\"New document (Ctrl+Shift+N)\" aria-label=\"New document\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide\" aria-hidden=\"true\"><path d=\"M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z\"></path><path d=\"M14 2v4a2 2 0 0 0 2 2h4\"></path><path d=\"M9 15h6\"></path><path "
+     }
+    ]
+   }
+  },
+  {
+   "name": "centre the Price cell, reload: header column and alignment come back from the server as shown",
+   "pass": true,
+   "before": [
+    [
+     [
+      "th",
+      "Item",
+      null
+     ],
+     [
+      "th",
+      "Qty",
+      null
+     ],
+     [
+      "th",
+      "Price",
+      null
+     ]
+    ],
+    [
+     [
+      "th[row]",
+      "Apple",
+      null
+     ],
+     [
+      "td",
+      "3",
+      "right"
+     ],
+     [
+      "td",
+      "1.20",
+      null
+     ]
+    ],
+    [
+     [
+      "th[row]",
+      "Pear",
+      null
+     ],
+     [
+      "td",
+      "5",
+      null
+     ],
+     [
+      "td",
+      "0.90",
+      "center"
+     ]
+    ]
+   ],
+   "after": [
+    [
+     [
+      "th",
+      "Item",
+      null
+     ],
+     [
+      "th",
+      "Qty",
+      null
+     ],
+     [
+      "th",
+      "Price",
+      null
+     ]
+    ],
+    [
+     [
+      "th[row]",
+      "Apple",
+      null
+     ],
+     [
+      "td",
+      "3",
+      "right"
+     ],
+     [
+      "td",
+      "1.20",
+      null
+     ]
+    ],
+    [
+     [
+      "th[row]",
+      "Pear",
+      null
+     ],
+     [
+      "td",
+      "5",
+      null
+     ],
+     [
+      "td",
+      "0.90",
+      "center"
+     ]
+    ]
+   ]
+  },
+  {
+   "name": "toggling the header column off lands as headCol: false; the cells are plain <td> again",
+   "pass": true,
+   "canvas": [
+    [
+     "td",
+     "Apple",
+     null
+    ],
+    [
+     "td",
+     "3",
+     "right"
+    ],
+    [
+     "td",
+     "1.20",
+     null
+    ]
+   ],
+   "server": false
+  }
+ ],
+ "errors": []
+}
+bp: published to http://localhost:4000 (POST /v1/plugins/bulldocs/papers)

@@ -1,0 +1,345 @@
+
+> barkdown-desktop@0.6.0 test:migration-references:isolated
+> npm run build && node tests/status-shots-isolated.mjs tests/migration-references.live.mjs
+
+
+> barkdown-desktop@0.6.0 build
+> node scripts/build.mjs
+
+
+  renderer\dist\app.js      2.8mb
+  renderer\dist\app.js.map  7.0mb
+
+Done in 305ms
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-4gAt3n
+Capture runtime: starting 
+Capture runtime: ready 
+Linked migration evidence: C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\docs\visual\migration\runs\2026-09-24T00-43-27-572Z
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: native Open reaches exact profile-qualified target
++ actual - expected
+... Skipped lines
+
+  [
+    {
+      content: [
+        {
+          type: 'text',
++         value: 'Orchard profile: these links belong to this library.'
+-         value: 'Orchard profile destination: the same titles in other profiles must never substitute this note.'
+        }
+      ],
+      id: 'migration-0',
+      type: 'paragraph'
+    },
+...
+            {
++             children: [
++               {
++                 children: [
++                   {
++                     type: 'text',
++                     value: 'Marked destination'
++                   }
++                 ],
++                 type: 'em'
++               }
++             ],
++             type: 'strong'
+-             type: 'text',
+-             value: 'Return to origin'
+            }
+          ],
++         docId: 'local-157d8558981676e5b1987e12e96d2bf7',
++         target: 'Destination notebook',
+-         docId: 'local-09e933a551dacc41d10f08c9520efbdd',
+-         target: 'Field notebook',
+          type: 'wikilink'
+        }
+      ],
+      id: 'migration-1',
+      type: 'paragraph'
+    },
++   {
++     content: [
++       {
++         children: [
++           {
++             children: [
++               {
++                 children: [
++                   {
++                     type: 'text',
++                     value: 'Heading destination'
++                   }
++                 ],
++                 type: 'em'
++               }
++             ],
++             type: 'strong'
++           }
++         ],
++         docId: 'local-157d8558981676e5b1987e12e96d2bf7',
++         target: 'Destination notebook',
++         type: 'wikilink'
++       }
++     ],
++     id: 'migration-2',
++     level: 2,
++     type: 'heading'
++   },
++   {
++     content: [
++       {
++         children: [
++           {
++             children: [
++               {
++                 children: [
++                   {
++                     type: 'text',
++                     value: 'Quoted destination'
++                   }
++                 ],
++                 type: 'em'
++               }
++             ],
++             type: 'strong'
++           }
++         ],
++         docId: 'local-157d8558981676e5b1987e12e96d2bf7',
++         target: 'Destination notebook',
++         type: 'wikilink'
++       }
++     ],
++     id: 'migration-3',
++     type: 'blockquote'
++   },
++   {
++     id: 'migration-4',
++     items: [
++       [
++         {
++           children: [
++             {
++               children: [
++                 {
++                   children: [
++                     {
++                       type: 'text',
++                       value: 'List destination'
++                     }
++                   ],
++                   type: 'em'
++                 }
++               ],
++               type: 'strong'
++             }
++           ],
++           docId: 'local-157d8558981676e5b1987e12e96d2bf7',
++           target: 'Destination notebook',
++           type: 'wikilink'
++         }
++       ]
++     ],
++     ordered: false,
++     type: 'list'
++   },
++   {
++     id: 'migration-5',
++     items: [
++       {
++         checked: false,
++         content: [
++           {
++             children: [
++               {
++                 children: [
++                   {
++                     children: [
++                       {
++                         type: 'text',
++                         value: 'Task destination'
++                       }
++                     ],
++                     type: 'em'
++                   }
++                 ],
++                 type: 'strong'
++               }
++             ],
++             docId: 'local-157d8558981676e5b1987e12e96d2bf7',
++             target: 'Destination notebook',
++             type: 'wikilink'
++           }
++         ]
++       }
++     ],
++     ordered: false,
++     task: true,
++     type: 'list'
++   },
++   {
++     id: 'migration-6',
++     rows: [
++       [
++         [
++           {
++             children: [
++               {
++                 children: [
++                   {
++                     children: [
++                       {
++                         type: 'text',
++                         value: 'Cell destination'
++                       }
++                     ],
++                     type: 'em'
++                   }
++                 ],
++                 type: 'strong'
++               }
++             ],
++             docId: 'local-157d8558981676e5b1987e12e96d2bf7',
++             target: 'Destination notebook',
++             type: 'wikilink'
++           }
++         ]
++       ]
++     ],
++     type: 'table'
++   }
+  ]
+
+    at navigate (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-references.live.mjs:99:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-references.live.mjs:130:31 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: [
+    {
+      id: 'migration-0',
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          value: 'Orchard profile: these links belong to this library.'
+        }
+      ]
+    },
+    {
+      id: 'migration-1',
+      type: 'paragraph',
+      content: [
+        {
+          type: 'wikilink',
+          target: 'Destination notebook',
+          children: [ [Object] ],
+          docId: 'local-157d8558981676e5b1987e12e96d2bf7'
+        }
+      ]
+    },
+    {
+      id: 'migration-2',
+      type: 'heading',
+      content: [
+        {
+          type: 'wikilink',
+          target: 'Destination notebook',
+          children: [ [Object] ],
+          docId: 'local-157d8558981676e5b1987e12e96d2bf7'
+        }
+      ],
+      level: 2
+    },
+    {
+      id: 'migration-3',
+      type: 'blockquote',
+      content: [
+        {
+          type: 'wikilink',
+          target: 'Destination notebook',
+          children: [ [Object] ],
+          docId: 'local-157d8558981676e5b1987e12e96d2bf7'
+        }
+      ]
+    },
+    {
+      id: 'migration-4',
+      type: 'list',
+      ordered: false,
+      items: [
+        [
+          {
+            type: 'wikilink',
+            target: 'Destination notebook',
+            children: [Array],
+            docId: 'local-157d8558981676e5b1987e12e96d2bf7'
+          }
+        ]
+      ]
+    },
+    {
+      id: 'migration-5',
+      type: 'list',
+      ordered: false,
+      items: [ { checked: false, content: [ [Object] ] } ],
+      task: true
+    },
+    {
+      id: 'migration-6',
+      rows: [ [ [ [Object] ] ] ],
+      type: 'table'
+    }
+  ],
+  expected: [
+    {
+      content: [
+        {
+          type: 'text',
+          value: 'Orchard profile destination: the same titles in other profiles must never substitute this note.'
+        }
+      ],
+      id: 'migration-0',
+      type: 'paragraph'
+    },
+    {
+      content: [
+        {
+          children: [ [Object] ],
+          docId: 'local-09e933a551dacc41d10f08c9520efbdd',
+          target: 'Field notebook',
+          type: 'wikilink'
+        }
+      ],
+      id: 'migration-1',
+      type: 'paragraph'
+    }
+  ],
+  operator: 'deepStrictEqual'
+}
+
+Node.js v22.13.1
+Capture runtime: stopping 
+Capture runtime: stopped 
+file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:98
+    throw new AggregateError(errors, errors.map(error => error.message).join('\n'));
+          ^
+
+AggregateError: Live screenshot capture failed with exit 1
+    at captureWithCleanup (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:98:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/status-shots-isolated.mjs:33:1 {
+  [errors]: [
+    Error: Live screenshot capture failed with exit 1
+        at captureWithCleanup (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:82:51)
+        at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+        at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/status-shots-isolated.mjs:33:1
+  ]
+}
+
+Node.js v22.13.1

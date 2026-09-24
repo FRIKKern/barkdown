@@ -1,0 +1,415 @@
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	﻿2026-09-23T23:55:30.6859471Z ##[group]Run bash scripts/security-gate-shape.test.sh
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.6859996Z [36;1mbash scripts/security-gate-shape.test.sh[0m
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.6885310Z shell: /usr/bin/bash -e {0}
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.6885735Z ##[endgroup]
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.7014438Z security-gate-shape.test.sh
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.7014845Z 
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.7937288Z case 1: security.yml carries the shim shape
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.7949702Z   ok   — workflow_paths = False
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.7960496Z   ok   — push_paths = True
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.7971286Z   ok   — agg_present = True
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.7982529Z   ok   — agg_matrix = False
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.7993296Z   ok   — agg_if = always()
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8003807Z   ok   — agg_name = Security gate
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8014821Z   ok   — dispatcher_present = True
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8025736Z   ok   — dispatcher_if = 
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8037082Z   ok   — dispatcher_matrix = False
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8048043Z   ok   — dispatcher_outputs = api,locks
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8058392Z   info — continue-on-error jobs in security.yml: 'sobelow'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8070323Z   info — Security gate needs: 'changes,gate-shape,sobelow,sobelow-inline-overlap,sobelow-baseline-fingerprint,mix-audit'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8071275Z 
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8071595Z case 2: THE LAUNDERING GUARD and its mirror
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8082548Z   ok   — coe_in_needs_unchannelled = 
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8093739Z   ok   — coe_result_bound = 
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8105268Z   ok   — verdict_bindings_count = 4 (>= 3)
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8116859Z   info — continue-on-error jobs judged on outputs.verdict: 'sobelow'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8128961Z   ok   — blocking_not_in_needs = 
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8139903Z   ok   — post_verdict_jobs = report-main-failure
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8151584Z   ok   — post_verdict_muted = 
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8162988Z   ok   — needs_without_decide = 
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8174473Z   ok   — needs_count = 6 (>= 3)
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8185988Z   ok   — needs_results_count = 5 (>= 3)
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8197814Z   ok   — decide_consumes_count = 5 (>= 3)
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8209753Z   ok   — blocking_count = 6 (>= 3)
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8209975Z 
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8210258Z case 3: every heavy job is gated on the dispatcher, not on a path filter
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8226869Z   ok   — if::sobelow = needs.changes.outputs.api == 'true'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8233972Z   ok   — needs::sobelow = changes
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8246074Z   ok   — if::sobelow-inline-overlap = needs.changes.outputs.api == 'true'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8257419Z   ok   — needs::sobelow-inline-overlap = changes
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8269560Z   ok   — if::sobelow-baseline-fingerprint = needs.changes.outputs.api == 'true'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8280977Z   ok   — needs::sobelow-baseline-fingerprint = changes
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8292775Z   ok   — if::mix-audit = needs.changes.outputs.locks == 'true'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8303908Z   ok   — needs::mix-audit = changes
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8314841Z   ok   — the aggregator judges mix-audit's skip against O_LOCKS, the output that gates it
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8325029Z   ok   — the aggregator binds O_LOCKS from the dispatcher
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8325345Z 
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.8325568Z case 4: each assertion is proven able to fail
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:30.9666031Z   ok   — mutation[clean]: coe_in_needs_unchannelled = ''
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:31.1122171Z   ok   — mutation[clean]: coe_result_bound = ''
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:31.2828307Z   ok   — mutation[clean]: blocking_not_in_needs = ''
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:31.4206113Z   ok   — mutation[launder]: coe_in_needs_unchannelled = 'fleet-drift'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:31.5540157Z   ok   — mutation[launder]: needs_without_decide = 'fleet-drift'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:31.6941229Z   ok   — mutation[coe-unchannelled]: coe_in_needs_unchannelled = 'sobelow'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:31.8259072Z   ok   — mutation[coe-unchannelled]: needs_without_decide = 'sobelow'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:31.9592183Z   ok   — mutation[verdict-step-deleted]: coe_in_needs_unchannelled = 'sobelow'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:32.1005368Z   ok   — mutation[coe-result-bound]: coe_result_bound = 'sobelow'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:32.2354154Z   ok   — mutation[clean]: coe_verdict_judged = 'sobelow'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:32.3666334Z   ok   — mutation[unwired]: blocking_not_in_needs = 'mix-audit'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:32.4974680Z   ok   — mutation[orphan]: needs_without_decide = 'a11y-ceiling'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:32.6274447Z   ok   — mutation[paths]: workflow_paths = 'True'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:32.7611328Z   ok   — mutation[clean]: push_paths = 'True'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:32.8917481Z   ok   — mutation[pushpaths]: push_paths = 'False'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:33.0284474Z   ok   — mutation[matrix]: agg_matrix = 'True'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:33.1595834Z   ok   — mutation[clean]: post_verdict_jobs = 'report-main-failure'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:33.2912907Z   ok   — mutation[clean]: post_verdict_muted = ''
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:33.4224821Z   ok   — mutation[reporter-muted]: post_verdict_jobs = ''
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:33.5536392Z   ok   — mutation[reporter-muted]: post_verdict_muted = 'report-main-failure'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:33.6841241Z   ok   — mutation[reporter-muted]: blocking_not_in_needs = ''
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:33.8166253Z   ok   — mutation[reporter-alwaysruns]: post_verdict_jobs = ''
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:33.9478539Z   ok   — mutation[reporter-alwaysruns]: blocking_not_in_needs = 'report-main-failure'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.0781590Z   ok   — mutation[reporter-unwired]: post_verdict_jobs = ''
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.2086902Z   ok   — mutation[reporter-unwired]: blocking_not_in_needs = 'report-main-failure'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.2087597Z 
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.2087856Z case 5: the dispatcher fails rather than skips when it cannot tell
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.2965172Z   ok   — docs-only PR -> exit 0
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.2976765Z   ok   —   …emits api=false
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.2987428Z   ok   —   …emits locks=false
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.3142498Z   ok   — api/** PR -> exit 0
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.3153894Z   ok   —   …emits api=true
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.3164927Z   ok   —   …emits locks=false
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.3300369Z   ok   — security.yml-only PR -> exit 0
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.3311707Z   ok   —   …emits api=true
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.3322343Z   ok   —   …emits locks=true
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.3457437Z   ok   — elixir.yml-only PR -> exit 0
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.3469139Z   ok   —   …emits api=false
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.3479838Z   ok   —   …emits locks=false
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.3623548Z   ok   — api/mix.lock PR -> exit 0
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.3634491Z   ok   —   …emits api=true
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.3645694Z   ok   —   …emits locks=true
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.3788115Z   ok   — cloud/mix.lock-only PR -> exit 0
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.3799858Z   ok   —   …emits api=false
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.3810726Z   ok   —   …emits locks=true
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.3954227Z   ok   — the oracle script itself -> exit 0
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.3965317Z   ok   —   …emits api=false
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.3976271Z   ok   —   …emits locks=true
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.3996040Z   ok   — push event -> exit 0
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4006572Z   ok   —   …emits api=true
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4017626Z   ok   —   …emits locks=true
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4152838Z   ok   — a path containing a double quote -> exit 0
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4163470Z   ok   —   …emits api=true
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4174850Z   ok   —   …emits locks=false
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4309053Z   ok   — a rename OUT of the declared set -> exit 0
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4320786Z   ok   —   …emits api=true
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4332142Z   ok   —   …emits locks=false
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4469027Z   ok   — a rename INTO the declared set -> exit 0
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4481152Z   ok   —   …emits api=true
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4492088Z   ok   —   …emits locks=false
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4591410Z   ok   — empty diff (base == HEAD) -> exit 0
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4602473Z   ok   —   …emits api=true
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4613480Z   ok   —   …emits locks=true
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4632810Z   ok   —   …names the shape
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4651615Z   ok   —   …as a WARNING, not a brick
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4720519Z   ok   — unresolvable base sha -> exit 1
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4739374Z   ok   —   …refuses to guess a base
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4757336Z   ok   —   …refuses with an annotation
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4775550Z   ok   — missing base sha -> exit 1
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4794240Z   ok   —   …says why
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4813061Z   ok   —   …refuses with an annotation
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4956169Z   ok   — a base with no common ancestor -> exit 1
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4975476Z   ok   —   …names the condition, not a raw git fatal
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4994257Z   ok   —   …refuses the fallback that sweeps in the whole base
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4994845Z 
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.4995309Z case 6: the Security gate decides over every upstream result
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5631453Z   ok   — everything succeeded -> exit 0
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5651773Z   ok   — docs-only: gated jobs skipped against api=false -> exit 0
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5672024Z   ok   — api PR that touches no lockfile: the CVE audit skipped against locks=false -> exit 0
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5692091Z   ok   — the CVE audit skipped though locks said true -> exit 1
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5713372Z   ok   — the CVE audit skipped with an EMPTY locks gate (unbound O_LOCKS) -> exit 1
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5732749Z   ok   — a blocking job FAILED -> exit 1
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5752977Z   ok   — the CVE audit was CANCELLED -> exit 1
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5772540Z   ok   — a job skipped though its gate said true -> exit 1
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5793255Z   ok   — the dispatcher itself failed -> exit 1
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5813060Z   ok   — an EMPTY result (job not in needs) -> exit 1
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5832550Z   ok   — an unrecognised result -> exit 1
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5852008Z   ok   — the shape ratchet was SKIPPED (never legitimate — it is unfiltered) -> exit 1
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5871960Z   ok   — the shape ratchet FAILED -> exit 1
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5892422Z   ok   — the fingerprint ratchet FAILED -> exit 1
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5912716Z   ok   — the fingerprint ratchet skipped though its gate said true -> exit 1
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5913450Z 
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5913623Z case 6b: a Sobelow regression reaches the aggregate
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5933044Z   ok   — Sobelow measured clean -> exit 0
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5954553Z   ok   — Sobelow found a NEW finding (the regression this gate was blind to) -> exit 1
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5973474Z   ok   —   …names the verdict, not just 'something is wrong'
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.5992898Z   ok   — Sobelow REFUSED to measure — not installed, crashed, wiring broken -> exit 1
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6012638Z   ok   —   …an unreadable result is CANNOT READ, never a pass
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6031925Z   ok   — Sobelow exited on a signal (UNKNOWN) -> exit 1
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6051433Z   ok   — Sobelow was dispatched and published NO verdict -> exit 1
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6069917Z   ok   —   …refuses over the hole instead of greening
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6089208Z   ok   — an unrecognised verdict word -> exit 1
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6112461Z   ok   — docs-only: Sobelow legitimately not dispatched -> exit 0
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6112994Z 
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6113260Z case 7: the .sobelow-skips census in the header is compared, not trusted
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6239934Z   FAIL — the header census disagrees with api/.sobelow-skips:
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6240713Z DECLARED-NOT-IN-FILE: FILE-HAS-NOT-DECLARED: Traversal.FileModule=8
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6241298Z DECLARED-NOT-IN-FILE: Traversal.FileModule=9
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6241868Z DECLARED-NOT-IN-FILE: FILE-HAS-NOT-DECLARED: total=23
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6242200Z DECLARED-NOT-IN-FILE: total=24
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6259279Z   ok   — the census table is non-empty (7 rows declared) — the arm above compared something
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6392439Z   ok   — MUTANT total: a rotted row count fires, and the line names total
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6516865Z   ok   — MUTANT per-class: a drifted class fires even with the total correct
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6632585Z   FAIL — MUTANT baseline-grew: adding a baseline row did NOT fire
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6747177Z   ok   — MUTANT new-class: an undeclared detector class fires by name
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6785405Z   ok   — MUTANT table-deleted: an absent census REFUSES instead of reading clean
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6800343Z   ok   — MUTANT baseline-missing: an unreadable baseline REFUSES rather than greening
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6800972Z 
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6801160Z ----
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6801494Z 134 passed, 2 failed
+Security gate shape ratchet	Harness (the ratchet must be able to fail)	2026-09-23T23:55:34.6841501Z ##[error]Process completed with exit code 1.
+Security gate	Decide (fail-closed over every upstream result)	﻿2026-09-24T00:12:37.2938750Z ##[group]Run set -euo pipefail
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.2940653Z [36;1mset -euo pipefail[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.2941537Z [36;1m[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.2942473Z [36;1mecho "dispatcher outputs: api='${O_API}' locks='${O_LOCKS:-}'"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.2943449Z [36;1mecho[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.2944181Z [36;1m[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.2944825Z [36;1mbad=0[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.2945561Z [36;1m[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.2946456Z [36;1m# ── D377 tally: did anything SUBSTANTIVE actually run? ────────────[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.2947941Z [36;1m# `bad` answers "is anything wrong"; it cannot answer "was anything[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.2949157Z [36;1m# tested", and until wave 33 nothing did. These two answer it.[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.2950302Z [36;1m# Only PATH-GATED jobs count: the dispatcher and the ratchet carry the[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.2951484Z [36;1m# gate value NEVER and run on every head, so they are present in a[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.2952632Z [36;1m# "nothing ran" run exactly as in a full one and can distinguish[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.2953705Z [36;1m# nothing.[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.2954407Z [36;1mdispatched=0[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.2955146Z [36;1mnot_dispatched=""[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.2955950Z [36;1m[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.2956780Z [36;1m# ── D770/D771 — `bad` SAYS THAT something is wrong, never WHICH ───[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.2958160Z [36;1m# Measured by executing this very step body with one upstream =[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.2959300Z [36;1m# failure: the step LOG names the offending job one line above, but[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3027922Z [36;1m# the `::error::` — the ONLY line the check-run API carries, and so[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3029751Z [36;1m# the only line a reader ever sees at the merge button — named[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3031475Z [36;1m# NOTHING. `bad` is a bit; this is the set behind it. It is appended[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3033077Z [36;1m# at EVERY `bad=1` site, so it can never disagree with the verdict: a[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3034181Z [36;1m# job reaches this list through the same line that reds the gate.[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3035228Z [36;1m# DERIVED from `${job}` — never a hardcoded name, and never a[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3036079Z [36;1m# re-print of the step log.[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3036905Z [36;1m# Comma-joined, not space-joined: job names contain spaces[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3038489Z [36;1m# ("changes (dispatcher)"), so a space-joined list cannot be read[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3039359Z [36;1m# back as a set.[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3039964Z [36;1mreds=""[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3040526Z [36;1m[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3041134Z [36;1m# decide <job-name> <result> <gate-value>[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3042039Z [36;1m#   gate-value is the dispatcher output that gated the job, or the[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3043053Z [36;1m#   literal string NEVER for jobs that must always run. A skip is[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3044030Z [36;1m#   accepted only against a gate-value of exactly 'false'.[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3044823Z [36;1mdecide() {[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3045447Z [36;1m  local job="$1" result="$2" gate="$3"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3046155Z [36;1m  case "$result" in[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3046784Z [36;1m    success)[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3047684Z [36;1m      echo "  ok      ${job}: success"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3048382Z [36;1m      ;;[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3048954Z [36;1m    skipped)[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3049575Z [36;1m      if [ "$gate" = "false" ]; then[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3050593Z [36;1m        echo "  ok      ${job}: skipped — dispatcher said this path set was not touched (gate='false')"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3051584Z [36;1m      else[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3052363Z [36;1m        echo "  FAIL    ${job}: skipped, but its gate is '${gate}', not 'false'."[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3053483Z [36;1m        echo "          A skip here does NOT mean 'not needed'. It means the job never ran —"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3054664Z [36;1m        echo "          most often because an upstream FAILED. Refusing to green a required"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3055894Z [36;1m        echo "          context on it."[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3056585Z [36;1m        bad=1[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3057511Z [36;1m        reds="${reds:+${reds}, }${job}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3058208Z [36;1m      fi[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3058765Z [36;1m      ;;[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3059359Z [36;1m    failure | cancelled)[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3060079Z [36;1m      echo "  FAIL    ${job}: ${result}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3060784Z [36;1m      bad=1[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3061393Z [36;1m      reds="${reds:+${reds}, }${job}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3062078Z [36;1m      ;;[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3062664Z [36;1m    '')[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3063526Z [36;1m      echo "  FAIL    ${job}: EMPTY result — this job is not in the aggregator's needs set,"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3064651Z [36;1m      echo "          or the run object is malformed. Cannot tell, therefore red."[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3065507Z [36;1m      bad=1[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3066120Z [36;1m      reds="${reds:+${reds}, }${job}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3066802Z [36;1m      ;;[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3067618Z [36;1m    *)[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3068539Z [36;1m      echo "  FAIL    ${job}: unrecognised result '${result}'. Cannot tell, therefore red."[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3069475Z [36;1m      bad=1[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3070109Z [36;1m      reds="${reds:+${reds}, }${job}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3070825Z [36;1m      ;;[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3071369Z [36;1m  esac[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3072113Z [36;1m  # Tally, for the D377 notice at the bottom of this step. NEVER-gated[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3073147Z [36;1m  # jobs are excluded on purpose (see the declaration above).[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3073997Z [36;1m  if [ "$gate" != "NEVER" ]; then[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3074685Z [36;1m    case "$result" in[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3075408Z [36;1m      success) dispatched=$((dispatched + 1)) ;;[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3076279Z [36;1m      skipped) not_dispatched="${not_dispatched} ${job}" ;;[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3077296Z [36;1m    esac[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3077952Z [36;1m  fi[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3078495Z [36;1m}[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3079027Z [36;1m[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3079741Z [36;1m# ── decide_verdict <job> <verdict> <gate-value> ──────────────────[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3081022Z [36;1m# The `decide` above judges a RESULT. This one judges a VERDICT, and[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3082065Z [36;1m# it exists for exactly one shape: a `continue-on-error: true` job,[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3083101Z [36;1m# whose result is laundered to `success` and therefore must never be[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3084069Z [36;1m# read, but whose `outputs.verdict` survives intact.[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3084842Z [36;1m#[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3085590Z [36;1m# It is FAIL-CLOSED on the unreadable case, which is the whole point:[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3086646Z [36;1m# an EMPTY verdict on a job whose gate said 'true' means the job never[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3088101Z [36;1m# reached a channelled step — it died early, its wiring is broken, or[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3089173Z [36;1m# somebody deleted the Publish step. That is CANNOT READ, and this[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3090224Z [36;1m# gate refuses rather than reporting clean. An empty verdict is only[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3091281Z [36;1m# accepted against a gate-value of exactly 'false', i.e. the job was[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3092205Z [36;1m# legitimately never dispatched.[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3092904Z [36;1mdecide_verdict() {[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3093553Z [36;1m  local job="$1" v="$2" gate="$3"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3094230Z [36;1m  case "$v" in[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3094827Z [36;1m    MEASURED-CLEAN)[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3095615Z [36;1m      echo "  ok      ${job}: MEASURED-CLEAN — it ran and found nothing new"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3096435Z [36;1m      ;;[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3097126Z [36;1m    MEASURED-DEFECT)[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3098013Z [36;1m      echo "  FAIL    ${job}: MEASURED-DEFECT — it ran and found a defect this head"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3099235Z [36;1m      echo "          introduced. Read that job's own log for the finding."[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3100073Z [36;1m      bad=1[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3100682Z [36;1m      reds="${reds:+${reds}, }${job}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3101364Z [36;1m      ;;[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3101921Z [36;1m    REFUSED | UNKNOWN)[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3102764Z [36;1m      echo "  FAIL    ${job}: REFUSED — the instrument COULD NOT MEASURE and made NO"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3103810Z [36;1m      echo "          claim in either direction. A refusal is not a pass."[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3104662Z [36;1m      bad=1[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3105318Z [36;1m      reds="${reds:+${reds}, }${job}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3106096Z [36;1m      refusals="${refusals:+${refusals}, }${job}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3106814Z [36;1m      ;;[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3107740Z [36;1m    '')[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3108349Z [36;1m      if [ "$gate" = "false" ]; then[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3109446Z [36;1m        echo "  ok      ${job}: not dispatched — the dispatcher said this path set was not touched (gate='false')"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3110462Z [36;1m      else[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3111286Z [36;1m        echo "  FAIL    ${job}: EMPTY verdict with gate '${gate}'. The job was dispatched and"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3112435Z [36;1m        echo "          published no verdict, so it never reached a channelled step."[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3113511Z [36;1m        echo "          CANNOT READ is not a pass: refusing to green over a hole."[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3114376Z [36;1m        bad=1[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3114991Z [36;1m        reds="${reds:+${reds}, }${job}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3115787Z [36;1m        refusals="${refusals:+${refusals}, }${job}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3116518Z [36;1m      fi[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3117185Z [36;1m      ;;[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3117754Z [36;1m    *)[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3118551Z [36;1m      echo "  FAIL    ${job}: unrecognised verdict '${v}'. Cannot tell, therefore red."[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3119468Z [36;1m      bad=1[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3120075Z [36;1m      reds="${reds:+${reds}, }${job}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3120758Z [36;1m      ;;[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3121302Z [36;1m  esac[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3122050Z [36;1m  if [ "$gate" != "NEVER" ]; then[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3122725Z [36;1m    case "$v" in[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3123546Z [36;1m      MEASURED-CLEAN | MEASURED-DEFECT) dispatched=$((dispatched + 1)) ;;[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3124612Z [36;1m      '') [ "$gate" = "false" ] && not_dispatched="${not_dispatched} ${job}" ;;[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3125456Z [36;1m    esac[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3126004Z [36;1m  fi[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3126529Z [36;1m}[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3127191Z [36;1m[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3127938Z [36;1m# The dispatcher itself may never skip: without it there are no gate[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3128880Z [36;1m# values, so nothing downstream can be judged.[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3129781Z [36;1m# ── the refusal ledger ───────────────────────────────────────────[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3130777Z [36;1m# Built BEFORE the verdict, so the `::error::` below can say WHICH[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3131829Z [36;1m# instruments refused. Derived from ${job}, never a hardcoded name.[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3132881Z [36;1m# `sobelow` is NOT noted here: it publishes a verdict like the rest,[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3133880Z [36;1m# but it is judged by `decide_verdict` below, which appends to[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3134858Z [36;1m# `refusals` itself. Noting it twice would double-name it in the[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3135848Z [36;1m# ::error:: line; the single-entry rule is that a job reaches this[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3136793Z [36;1m# list through the SAME call that reds the gate.[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3137644Z [36;1mrefusals=""[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3138231Z [36;1mnote_verdict() {[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3138844Z [36;1m  local job="$1" v="$2"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3139620Z [36;1m  case "$v" in[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3140211Z [36;1m    REFUSED|UNKNOWN)[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3141118Z [36;1m      echo "  REFUSED ${job}: the instrument exited 2 — it COULD NOT MEASURE and made NO"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3142300Z [36;1m      echo "          claim in either direction. Read that job's own log: it printed the"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3143406Z [36;1m      echo "          cause by name. This is still red — a refusal is not a pass."[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3144361Z [36;1m      refusals="${refusals:+${refusals}, }${job}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3145094Z [36;1m      ;;[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3145655Z [36;1m    MEASURED-DEFECT)[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3146562Z [36;1m      echo "  measured ${job}: the instrument RAN and found a defect. The fault is in the"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3147921Z [36;1m      echo "          tree, not on the runner." ;;[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3148694Z [36;1m    MEASURED-CLEAN|'') : ;;[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3149606Z [36;1m    *) echo "  note    ${job}: unrecognised verdict '${v}' on the refusal channel." ;;[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3150489Z [36;1m  esac[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3151030Z [36;1m}[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3151748Z [36;1mnote_verdict "sobelow-inline-overlap"       "${V_OVERLAP:-}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3152794Z [36;1mnote_verdict "sobelow-baseline-fingerprint" "${V_FINGERPRINT:-}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3153810Z [36;1mnote_verdict "mix-audit"                    "${V_AUDIT:-}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3154601Z [36;1m[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3155269Z [36;1mdecide "changes (dispatcher)"    "${R_CHANGES}" "NEVER"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3156249Z [36;1m# Judged on the verdict channel, never on `.result` — see the header.[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3157392Z [36;1mdecide_verdict "sobelow"         "${V_SOBELOW:-}" "${O_API}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3158367Z [36;1m# The shape ratchet is unfiltered, so it may never skip either.[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3159304Z [36;1mdecide "gate-shape"              "${R_SHAPE}"   "NEVER"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3160247Z [36;1mdecide "sobelow-inline-overlap"  "${R_OVERLAP}" "${O_API}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3161285Z [36;1mdecide "sobelow-baseline-fingerprint" "${R_FINGERPRINT}" "${O_API}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3162296Z [36;1mdecide "mix-audit"               "${R_AUDIT}"   "${O_LOCKS:-}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3163257Z [36;1m[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3163784Z [36;1mecho[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3164340Z [36;1mif [ "$bad" -ne 0 ]; then[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3165155Z [36;1m  # NOT "the required context": branch protection on main requires[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3166152Z [36;1m  # exactly four, and `Security gate` is not among them (they are[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3167261Z [36;1m  # `Elixir gate`, `Cloud gate`, `Console gate`, `PR references an[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3168260Z [36;1m  # active task` — enforce_admins=true). Saying otherwise told every[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3169185Z [36;1m  # reader this red blocked a merge it cannot block.[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3169957Z [36;1m  if [ -n "$refusals" ]; then[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3170774Z [36;1m    # The ONE line the check-run API carries. Say which half of the[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3171748Z [36;1m    # vocabulary fired, or the reader re-derives it and usually[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3172566Z [36;1m    # guesses "the runner".[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3176322Z [36;1m    echo "::error title=Security gate RED — an instrument REFUSED TO MEASURE::RED because at least one upstream job is not in the allow-set.%0AREFUSED TO MEASURE (exit 2): ${refusals}%0AA refusal is the ABSENCE of a measurement: those instruments made no claim about this tree in either direction. main-red-breaker.sh exits 2 only when it CANNOT DECIDE ownership — STEP_OUTCOMES, STEP_NAMES, JOB_NAME or WORKFLOW_FILE empty, or the outcome JSON unparseable — which is a WIRING fault in the job above it, never a verdict about this PR. READ THE REFUSING JOB'S OWN LINE: it printed which input was missing.%0ANOT IN THE ALLOW-SET: ${reds}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3180322Z [36;1m  else[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3181787Z [36;1m    echo "::error::Security gate: at least one upstream job is not in the allow-set (see above). This gate is RED on purpose; it is an advisory context, not one of the four required on main. NOT IN THE ALLOW-SET: ${reds}"[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3183344Z [36;1m  fi[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3183895Z [36;1m  exit 1[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3184425Z [36;1mfi[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3184943Z [36;1m[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3185487Z [36;1mif [ -n "$refusals" ]; then[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3186358Z [36;1m  # Every upstream is in the allow-set and an instrument still refused[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3187810Z [36;1m  # — possible when a Decide step refuses inside a job that ends green[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3188879Z [36;1m  # some other way. Greening on that would publish this context over a[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3189902Z [36;1m  # hole nothing looked into, which is the vacuous green the refusal[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3190759Z [36;1m  # vocabulary exists to kill.[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3192661Z [36;1m  echo "::error title=Security gate RED — a refusal reached the aggregate with every job green::REFUSED TO MEASURE (exit 2): ${refusals}%0AEvery upstream job is in the allow-set, and an instrument still refused to measure. Read the refusing job's own line for the cause."[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3194533Z [36;1m  exit 1[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3195058Z [36;1mfi[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3195569Z [36;1m[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3196294Z [36;1m# ── D377/D378 — SAY IT WHERE A PERSON AND AN API CAN READ IT ──────[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3197428Z [36;1m# Same defect as the three REQUIRED aggregators, same fix, and it is[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3198447Z [36;1m# fixed here too so the four gates cannot drift apart: on a docs-only[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3199465Z [36;1m# head this context concludes `success` with every substantive job[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3200511Z [36;1m# skipped and publishes ann=0 / title=null / summary=null — identical[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3201541Z [36;1m# bytes to a run where Sobelow and mix_audit actually ran.[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3202488Z [36;1m# $GITHUB_STEP_SUMMARY does not reach the check-run API; a bare[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3203469Z [36;1m# ::notice:: does (probe/elixir-gate-annotation, run 31055317124).[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3204640Z [36;1m# ONE notice, never one per job — GitHub caps annotations at 10 per[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3205576Z [36;1m# level per step and truncates the rest silently.[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3206349Z [36;1mif [ "$dispatched" -eq 0 ]; then[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3209116Z [36;1m  echo "::notice title=Security gate: green — nothing ran::NOTHING SECURITY RAN on this head.%0ASecurity gate is green because this diff touched none of its declared path sets, NOT because anything was tested.%0ANot dispatched:${not_dispatched}%0AGreen here means NOT APPLICABLE to this diff. Read it as 'no Security job executed', never as 'the security scans passed'."[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3211525Z [36;1mfi[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3212425Z [36;1mecho "Security gate: every upstream job either succeeded or was legitimately not dispatched."[0m
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3807330Z shell: /usr/bin/bash -e {0}
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3808764Z env:
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3809543Z   R_CHANGES: success
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3810387Z   R_SHAPE: failure
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3811253Z   R_OVERLAP: success
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3812111Z   R_FINGERPRINT: success
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3812971Z   R_AUDIT: skipped
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3813755Z   O_API: true
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3814542Z   O_LOCKS: false
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3815382Z   V_SOBELOW: MEASURED-CLEAN
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3816300Z   V_OVERLAP: MEASURED-CLEAN
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3817459Z   V_FINGERPRINT: MEASURED-CLEAN
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3818406Z   V_AUDIT: 
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.3819184Z ##[endgroup]
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.4093814Z dispatcher outputs: api='true' locks='false'
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.4094595Z 
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.4094967Z   ok      changes (dispatcher): success
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.4230485Z   ok      sobelow: MEASURED-CLEAN — it ran and found nothing new
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.4231779Z   FAIL    gate-shape: failure
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.4232782Z   ok      sobelow-inline-overlap: success
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.4233944Z   ok      sobelow-baseline-fingerprint: success
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.4235663Z   ok      mix-audit: skipped — dispatcher said this path set was not touched (gate='false')
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.4236830Z 
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.4282762Z ##[error]Security gate: at least one upstream job is not in the allow-set (see above). This gate is RED on purpose; it is an advisory context, not one of the four required on main. NOT IN THE ALLOW-SET: gate-shape
+Security gate	Decide (fail-closed over every upstream result)	2026-09-24T00:12:37.4311552Z ##[error]Process completed with exit code 1.
