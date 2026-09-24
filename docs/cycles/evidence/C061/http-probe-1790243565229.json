@@ -1,0 +1,1251 @@
+{
+  "capturedAt": "2026-09-24T09:52:45.229Z",
+  "barkdownCommit": "4ac0edae26c5042a46947642a0c95e41f6f555cf",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "records": [
+    {
+      "label": "empty draft without publication metadata",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "create": {
+              "_id": "ordinary-note-probe",
+              "_type": "paper",
+              "title": "",
+              "blocks": []
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "results": [
+          {
+            "id": "drafts.ordinary-note-probe",
+            "operation": "create",
+            "document": {
+              "_createdAt": "2026-09-24T09:52:43.136000Z",
+              "_draft": true,
+              "_id": "drafts.ordinary-note-probe",
+              "_publishedId": "ordinary-note-probe",
+              "_rev": "57b296c9b12c8265ca2cf5a988bf81b3",
+              "_type": "paper",
+              "_updatedAt": "2026-09-24T09:52:43.136000Z",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "",
+                  "type": "heading"
+                },
+                {
+                  "content": [],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                }
+              ],
+              "body_html": "<h1></h1>",
+              "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+              "style": "article",
+              "title": null
+            }
+          }
+        ],
+        "transactionId": "cf2f255257a5b5b798bd330cefd6a88b"
+      }
+    },
+    {
+      "label": "bare raw",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/ordinary-note-probe?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:52:43.136000Z",
+          "_draft": true,
+          "_id": "drafts.ordinary-note-probe",
+          "_publishedId": "ordinary-note-probe",
+          "_rev": "57b296c9b12c8265ca2cf5a988bf81b3",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:52:43.136000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "",
+              "type": "heading"
+            },
+            {
+              "content": [],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body_html": "<h1></h1>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "style": "article",
+          "title": null
+        },
+        "schemaHash": "7d61e988f6a8cb5a",
+        "syncTags": [
+          "bp:ds:production:doc:ordinary-note-probe",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "57b296c9b12c8265ca2cf5a988bf81b3",
+        "ms": 10
+      }
+    },
+    {
+      "label": "bare draft",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/ordinary-note-probe?perspective=drafts",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:52:43.136000Z",
+          "_draft": true,
+          "_id": "drafts.ordinary-note-probe",
+          "_publishedId": "ordinary-note-probe",
+          "_rev": "57b296c9b12c8265ca2cf5a988bf81b3",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:52:43.136000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "",
+              "type": "heading"
+            },
+            {
+              "content": [],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body_html": "<h1></h1>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "style": "article",
+          "title": null
+        },
+        "schemaHash": "7d61e988f6a8cb5a",
+        "syncTags": [
+          "bp:ds:production:doc:ordinary-note-probe",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "57b296c9b12c8265ca2cf5a988bf81b3",
+        "ms": 2
+      }
+    },
+    {
+      "label": "bare published",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/ordinary-note-probe?perspective=published",
+      "status": 404,
+      "data": {
+        "error": {
+          "code": "not_found",
+          "message": "document not found",
+          "hint": "Check the document _id, type, and dataset in the URL — the resource does not exist in this scope.",
+          "request_id": "GNg5CSqqbsAGc20AAETB"
+        }
+      }
+    },
+    {
+      "label": "exact draft raw",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.ordinary-note-probe?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:52:43.136000Z",
+          "_draft": true,
+          "_id": "drafts.ordinary-note-probe",
+          "_publishedId": "ordinary-note-probe",
+          "_rev": "57b296c9b12c8265ca2cf5a988bf81b3",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:52:43.136000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "",
+              "type": "heading"
+            },
+            {
+              "content": [],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body_html": "<h1></h1>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "style": "article",
+          "title": null
+        },
+        "schemaHash": "7d61e988f6a8cb5a",
+        "syncTags": [
+          "bp:ds:production:doc:ordinary-note-probe",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "57b296c9b12c8265ca2cf5a988bf81b3",
+        "ms": 1
+      }
+    },
+    {
+      "label": "published catalog",
+      "method": "GET",
+      "route": "/v1/data/query/production/paper?perspective=published&limit=200",
+      "status": 200,
+      "data": {
+        "result": {
+          "count": 1,
+          "offset": 0,
+          "limit": 200,
+          "documents": [
+            {
+              "_createdAt": "2026-09-24T09:52:41.221000Z",
+              "_draft": false,
+              "_id": "welcome",
+              "_publishedId": "welcome",
+              "_rev": "b060195d4ee77aff7a72227088aee43f",
+              "_type": "paper",
+              "_updatedAt": "2026-09-24T09:52:41.221000Z",
+              "blocks": [
+                {
+                  "id": "h1",
+                  "level": 1,
+                  "text": "Welcome to Barkpark",
+                  "type": "heading"
+                },
+                {
+                  "content": [
+                    {
+                      "type": "text",
+                      "value": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome."
+                    }
+                  ],
+                  "id": "p1",
+                  "type": "paragraph"
+                },
+                {
+                  "content": [
+                    {
+                      "type": "text",
+                      "value": "Your media library is at Studio → Media. Everything else starts empty on purpose."
+                    }
+                  ],
+                  "id": "p2",
+                  "type": "paragraph"
+                },
+                {
+                  "id": "code1",
+                  "type": "code",
+                  "value": "bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure"
+                }
+              ],
+              "body": {
+                "blocks": [
+                  {
+                    "id": "h1",
+                    "level": 1,
+                    "text": "Welcome to Barkpark",
+                    "type": "heading"
+                  },
+                  {
+                    "content": [
+                      {
+                        "type": "text",
+                        "value": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome."
+                      }
+                    ],
+                    "id": "p1",
+                    "type": "paragraph"
+                  },
+                  {
+                    "content": [
+                      {
+                        "type": "text",
+                        "value": "Your media library is at Studio → Media. Everything else starts empty on purpose."
+                      }
+                    ],
+                    "id": "p2",
+                    "type": "paragraph"
+                  },
+                  {
+                    "id": "code1",
+                    "type": "code",
+                    "value": "bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure"
+                  }
+                ],
+                "html": "<h1>Welcome to Barkpark</h1><p>This is a paper — Barkpark&#39;s first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome.</p><p>Your media library is at Studio → Media. Everything else starts empty on purpose.</p><pre style=\"background:var(--paper-bg-deep, #eaf1ee);border:0;border-radius:var(--bp-codeblock-radius, 0);color:var(--paper-ink, #15211d);padding:var(--bp-codeblock-pad, 0.9rem 1.1rem);margin:var(--bp-codeblock-margin, 1.2rem 0);font-family:var(--paper-font-mono, ui-monospace,Menlo,monospace);font-size:var(--bp-codeblock-size, 0.9rem);line-height:var(--bp-codeblock-lh, 1.5);overflow-x:auto;white-space:pre\">bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure</pre>"
+              },
+              "body_html": "<h1>Welcome to Barkpark</h1><p>This is a paper — Barkpark&#39;s first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome.</p><p>Your media library is at Studio → Media. Everything else starts empty on purpose.</p><pre style=\"background:var(--paper-bg-deep, #eaf1ee);border:0;border-radius:var(--bp-codeblock-radius, 0);color:var(--paper-ink, #15211d);padding:var(--bp-codeblock-pad, 0.9rem 1.1rem);margin:var(--bp-codeblock-margin, 1.2rem 0);font-family:var(--paper-font-mono, ui-monospace,Menlo,monospace);font-size:var(--bp-codeblock-size, 0.9rem);line-height:var(--bp-codeblock-lh, 1.5);overflow-x:auto;white-space:pre\">bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure</pre>",
+              "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+              "preview": {
+                "description": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the…",
+                "extensions": {},
+                "image": null,
+                "title": null,
+                "type": "paper",
+                "url": "/papers/welcome"
+              },
+              "rev": 1,
+              "style": "article",
+              "title": "Welcome to Barkpark"
+            }
+          ],
+          "perspective": "published",
+          "hasMore": false
+        },
+        "schemaHash": "7d61e988f6a8cb5a",
+        "syncTags": [
+          "bp:ds:production:type:paper",
+          "bp:ds:production:doc:welcome"
+        ],
+        "etag": "717c4d008ac270e2546dab75e23d99ea",
+        "ms": 2
+      }
+    },
+    {
+      "label": "draft catalog",
+      "method": "GET",
+      "route": "/v1/data/query/production/paper?perspective=drafts&limit=200",
+      "status": 200,
+      "data": {
+        "result": {
+          "count": 2,
+          "offset": 0,
+          "limit": 200,
+          "documents": [
+            {
+              "_createdAt": "2026-09-24T09:52:43.136000Z",
+              "_draft": true,
+              "_id": "drafts.ordinary-note-probe",
+              "_publishedId": "ordinary-note-probe",
+              "_rev": "57b296c9b12c8265ca2cf5a988bf81b3",
+              "_type": "paper",
+              "_updatedAt": "2026-09-24T09:52:43.136000Z",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "",
+                  "type": "heading"
+                },
+                {
+                  "content": [],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                }
+              ],
+              "body_html": "<h1></h1>",
+              "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+              "style": "article",
+              "title": null
+            },
+            {
+              "_createdAt": "2026-09-24T09:52:41.221000Z",
+              "_draft": false,
+              "_id": "welcome",
+              "_publishedId": "welcome",
+              "_rev": "b060195d4ee77aff7a72227088aee43f",
+              "_type": "paper",
+              "_updatedAt": "2026-09-24T09:52:41.221000Z",
+              "blocks": [
+                {
+                  "id": "h1",
+                  "level": 1,
+                  "text": "Welcome to Barkpark",
+                  "type": "heading"
+                },
+                {
+                  "content": [
+                    {
+                      "type": "text",
+                      "value": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome."
+                    }
+                  ],
+                  "id": "p1",
+                  "type": "paragraph"
+                },
+                {
+                  "content": [
+                    {
+                      "type": "text",
+                      "value": "Your media library is at Studio → Media. Everything else starts empty on purpose."
+                    }
+                  ],
+                  "id": "p2",
+                  "type": "paragraph"
+                },
+                {
+                  "id": "code1",
+                  "type": "code",
+                  "value": "bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure"
+                }
+              ],
+              "body": {
+                "blocks": [
+                  {
+                    "id": "h1",
+                    "level": 1,
+                    "text": "Welcome to Barkpark",
+                    "type": "heading"
+                  },
+                  {
+                    "content": [
+                      {
+                        "type": "text",
+                        "value": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome."
+                      }
+                    ],
+                    "id": "p1",
+                    "type": "paragraph"
+                  },
+                  {
+                    "content": [
+                      {
+                        "type": "text",
+                        "value": "Your media library is at Studio → Media. Everything else starts empty on purpose."
+                      }
+                    ],
+                    "id": "p2",
+                    "type": "paragraph"
+                  },
+                  {
+                    "id": "code1",
+                    "type": "code",
+                    "value": "bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure"
+                  }
+                ],
+                "html": "<h1>Welcome to Barkpark</h1><p>This is a paper — Barkpark&#39;s first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome.</p><p>Your media library is at Studio → Media. Everything else starts empty on purpose.</p><pre style=\"background:var(--paper-bg-deep, #eaf1ee);border:0;border-radius:var(--bp-codeblock-radius, 0);color:var(--paper-ink, #15211d);padding:var(--bp-codeblock-pad, 0.9rem 1.1rem);margin:var(--bp-codeblock-margin, 1.2rem 0);font-family:var(--paper-font-mono, ui-monospace,Menlo,monospace);font-size:var(--bp-codeblock-size, 0.9rem);line-height:var(--bp-codeblock-lh, 1.5);overflow-x:auto;white-space:pre\">bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure</pre>"
+              },
+              "body_html": "<h1>Welcome to Barkpark</h1><p>This is a paper — Barkpark&#39;s first-class document. Papers live in the Bulldocs plugin and render here, in the TUI, and at /papers/welcome.</p><p>Your media library is at Studio → Media. Everything else starts empty on purpose.</p><pre style=\"background:var(--paper-bg-deep, #eaf1ee);border:0;border-radius:var(--bp-codeblock-radius, 0);color:var(--paper-ink, #15211d);padding:var(--bp-codeblock-pad, 0.9rem 1.1rem);margin:var(--bp-codeblock-margin, 1.2rem 0);font-family:var(--paper-font-mono, ui-monospace,Menlo,monospace);font-size:var(--bp-codeblock-size, 0.9rem);line-height:var(--bp-codeblock-lh, 1.5);overflow-x:auto;white-space:pre\">bp doc ls            # list documents\nbp paper             # papers from the terminal\nbp media             # media library\nbp setup --help      # reconfigure</pre>",
+              "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+              "preview": {
+                "description": "This is a paper — Barkpark's first-class document. Papers live in the Bulldocs plugin and render here, in the…",
+                "extensions": {},
+                "image": null,
+                "title": null,
+                "type": "paper",
+                "url": "/papers/welcome"
+              },
+              "rev": 1,
+              "style": "article",
+              "title": "Welcome to Barkpark"
+            }
+          ],
+          "perspective": "drafts",
+          "hasMore": false
+        },
+        "schemaHash": "7d61e988f6a8cb5a",
+        "syncTags": [
+          "bp:ds:production:type:paper",
+          "bp:ds:production:doc:ordinary-note-probe",
+          "bp:ds:production:doc:welcome"
+        ],
+        "etag": "2e1ca0dbdbdc6b5eeae46f6f7021d63a",
+        "ms": 6
+      }
+    },
+    {
+      "label": "existing draft createIfNotExists",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "createIfNotExists": {
+              "_id": "ordinary-note-probe",
+              "_type": "paper",
+              "title": "Must not replace",
+              "blocks": []
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "results": [
+          {
+            "id": "drafts.ordinary-note-probe",
+            "operation": "noop",
+            "document": {
+              "_createdAt": "2026-09-24T09:52:43.136000Z",
+              "_draft": true,
+              "_id": "drafts.ordinary-note-probe",
+              "_publishedId": "ordinary-note-probe",
+              "_rev": "57b296c9b12c8265ca2cf5a988bf81b3",
+              "_type": "paper",
+              "_updatedAt": "2026-09-24T09:52:43.136000Z",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "",
+                  "type": "heading"
+                },
+                {
+                  "content": [],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                }
+              ],
+              "body_html": "<h1></h1>",
+              "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+              "style": "article",
+              "title": null
+            }
+          }
+        ],
+        "transactionId": "c5c142036fb404c46e95686576cb492d"
+      }
+    },
+    {
+      "label": "guarded draft Paper ops",
+      "method": "POST",
+      "route": "/v1/plugins/bulldocs/papers/ordinary-note-probe/ops",
+      "body": {
+        "ifRev": 0,
+        "ops": [
+          {
+            "op": "append-block",
+            "block": {
+              "id": "ordinary-first-line",
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "First ordinary note line"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "status": 404,
+      "data": {
+        "error": {
+          "code": "not_found",
+          "message": "no paper for slug ordinary-note-probe",
+          "hint": "Check the document _id, type, and dataset in the URL — the resource does not exist in this scope.",
+          "request_id": "GNg5CT8sbsAGc20AAANC"
+        }
+      }
+    },
+    {
+      "label": "after draft ops",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/ordinary-note-probe?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:52:43.136000Z",
+          "_draft": true,
+          "_id": "drafts.ordinary-note-probe",
+          "_publishedId": "ordinary-note-probe",
+          "_rev": "57b296c9b12c8265ca2cf5a988bf81b3",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:52:43.136000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "",
+              "type": "heading"
+            },
+            {
+              "content": [],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body_html": "<h1></h1>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "style": "article",
+          "title": null
+        },
+        "schemaHash": "7d61e988f6a8cb5a",
+        "syncTags": [
+          "bp:ds:production:doc:ordinary-note-probe",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "57b296c9b12c8265ca2cf5a988bf81b3",
+        "ms": 2
+      }
+    },
+    {
+      "label": "stale draft Paper ops",
+      "method": "POST",
+      "route": "/v1/plugins/bulldocs/papers/ordinary-note-probe/ops",
+      "body": {
+        "ifRev": 0,
+        "ops": [
+          {
+            "op": "append-block",
+            "block": {
+              "id": "must-not-land",
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Stale overwrite"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "status": 404,
+      "data": {
+        "error": {
+          "code": "not_found",
+          "message": "no paper for slug ordinary-note-probe",
+          "hint": "Check the document _id, type, and dataset in the URL — the resource does not exist in this scope.",
+          "request_id": "GNg5CVsC_sAGc20AAEaB"
+        }
+      }
+    },
+    {
+      "label": "guarded title patch",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "patch": {
+              "id": "ordinary-note-probe",
+              "type": "paper",
+              "ifRevisionID": "57b296c9b12c8265ca2cf5a988bf81b3",
+              "set": {
+                "title": "Ordinary note title"
+              }
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "results": [
+          {
+            "id": "drafts.ordinary-note-probe",
+            "operation": "update",
+            "document": {
+              "_createdAt": "2026-09-24T09:52:43.136000Z",
+              "_draft": true,
+              "_id": "drafts.ordinary-note-probe",
+              "_publishedId": "ordinary-note-probe",
+              "_rev": "29686620a85d3c54b6027bad32988ba0",
+              "_type": "paper",
+              "_updatedAt": "2026-09-24T09:52:44.311000Z",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "",
+                  "type": "heading"
+                },
+                {
+                  "content": [],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                }
+              ],
+              "body": {
+                "blocks": [
+                  {
+                    "id": "tpl-title",
+                    "level": 1,
+                    "locked": true,
+                    "role": "title",
+                    "text": "",
+                    "type": "heading"
+                  },
+                  {
+                    "content": [],
+                    "id": "tpl-body",
+                    "type": "paragraph"
+                  }
+                ],
+                "html": "<h1></h1>"
+              },
+              "body_html": "<h1></h1>",
+              "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+              "preview": {
+                "description": null,
+                "extensions": {},
+                "image": null,
+                "title": "Ordinary note title",
+                "type": "paper",
+                "url": "/papers/ordinary-note-probe"
+              },
+              "style": "article",
+              "title": "Ordinary note title"
+            }
+          }
+        ],
+        "transactionId": "a6fb39dd581ce8e842e954a3501e474f"
+      }
+    },
+    {
+      "label": "after title patch",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/ordinary-note-probe?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:52:43.136000Z",
+          "_draft": true,
+          "_id": "drafts.ordinary-note-probe",
+          "_publishedId": "ordinary-note-probe",
+          "_rev": "29686620a85d3c54b6027bad32988ba0",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:52:44.311000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "",
+              "type": "heading"
+            },
+            {
+              "content": [],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "",
+                "type": "heading"
+              },
+              {
+                "content": [],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1></h1>"
+          },
+          "body_html": "<h1></h1>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": null,
+            "extensions": {},
+            "image": null,
+            "title": "Ordinary note title",
+            "type": "paper",
+            "url": "/papers/ordinary-note-probe"
+          },
+          "style": "article",
+          "title": "Ordinary note title"
+        },
+        "schemaHash": "7d61e988f6a8cb5a",
+        "syncTags": [
+          "bp:ds:production:doc:ordinary-note-probe",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "29686620a85d3c54b6027bad32988ba0",
+        "ms": 3
+      }
+    },
+    {
+      "label": "stale title patch",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "patch": {
+              "id": "ordinary-note-probe",
+              "type": "paper",
+              "ifRevisionID": "57b296c9b12c8265ca2cf5a988bf81b3",
+              "set": {
+                "title": "Stale title must refuse"
+              }
+            }
+          }
+        ]
+      },
+      "status": 412,
+      "data": {
+        "error": {
+          "code": "precondition_failed",
+          "message": "document revision mismatch",
+          "hint": "Re-fetch the document and retry with the current revision — it changed under you.",
+          "details": {
+            "actual": "29686620a85d3c54b6027bad32988ba0",
+            "expected": "57b296c9b12c8265ca2cf5a988bf81b3"
+          },
+          "request_id": "GNg5CWk1XsAGc20AAEeB"
+        }
+      }
+    },
+    {
+      "label": "after stale title refusal",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/ordinary-note-probe?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:52:43.136000Z",
+          "_draft": true,
+          "_id": "drafts.ordinary-note-probe",
+          "_publishedId": "ordinary-note-probe",
+          "_rev": "29686620a85d3c54b6027bad32988ba0",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:52:44.311000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "",
+              "type": "heading"
+            },
+            {
+              "content": [],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body": {
+            "blocks": [
+              {
+                "id": "tpl-title",
+                "level": 1,
+                "locked": true,
+                "role": "title",
+                "text": "",
+                "type": "heading"
+              },
+              {
+                "content": [],
+                "id": "tpl-body",
+                "type": "paragraph"
+              }
+            ],
+            "html": "<h1></h1>"
+          },
+          "body_html": "<h1></h1>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "preview": {
+            "description": null,
+            "extensions": {},
+            "image": null,
+            "title": "Ordinary note title",
+            "type": "paper",
+            "url": "/papers/ordinary-note-probe"
+          },
+          "style": "article",
+          "title": "Ordinary note title"
+        },
+        "schemaHash": "7d61e988f6a8cb5a",
+        "syncTags": [
+          "bp:ds:production:doc:ordinary-note-probe",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "29686620a85d3c54b6027bad32988ba0",
+        "ms": 2
+      }
+    },
+    {
+      "label": "draft title search",
+      "method": "GET",
+      "route": "/v1/data/search/production?q=Ordinary%20note%20title&limit=20&type=paper",
+      "status": 200,
+      "data": {
+        "count": 0,
+        "offset": 0,
+        "query": "Ordinary note title",
+        "documents": [],
+        "facets": {},
+        "ms": 57,
+        "nextOffset": null,
+        "hasMore": false,
+        "searchEventId": "62145b5e-512e-4fa2-a399-8cc9c5805b2d",
+        "recovery": null,
+        "highlights": {},
+        "truncation": null,
+        "correctedTo": null,
+        "engineUsed": "postgres",
+        "parsedQuery": {
+          "prefixes": [],
+          "terms": [
+            "Ordinary",
+            "note",
+            "title",
+            "ordinary"
+          ],
+          "phrases": [],
+          "excludes": []
+        }
+      }
+    },
+    {
+      "label": "concurrent create 0",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "create": {
+              "_id": "ordinary-race",
+              "_type": "paper",
+              "title": "Racer 0",
+              "blocks": []
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "results": [
+          {
+            "id": "drafts.ordinary-race",
+            "operation": "create",
+            "document": {
+              "_createdAt": "2026-09-24T09:52:44.774000Z",
+              "_draft": true,
+              "_id": "drafts.ordinary-race",
+              "_publishedId": "ordinary-race",
+              "_rev": "f6932c402c506cf051141d88196a7296",
+              "_type": "paper",
+              "_updatedAt": "2026-09-24T09:52:44.774000Z",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "Racer 0",
+                  "type": "heading"
+                },
+                {
+                  "content": [],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                }
+              ],
+              "body_html": "<h1>Racer 0</h1>",
+              "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+              "style": "article",
+              "title": "Racer 0"
+            }
+          }
+        ],
+        "transactionId": "6289594ef77bb87177e32229dc88c49a"
+      }
+    },
+    {
+      "label": "concurrent create 1",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "create": {
+              "_id": "ordinary-race",
+              "_type": "paper",
+              "title": "Racer 1",
+              "blocks": []
+            }
+          }
+        ]
+      },
+      "status": 422,
+      "data": {
+        "error": {
+          "code": "validation_failed",
+          "message": "document failed validation",
+          "hint": "Fix the listed validation errors to match the schema, then resubmit.",
+          "details": {
+            "doc_id": [
+              "has already been taken"
+            ]
+          },
+          "request_id": "GNg5CXu5_sDV5qgAAAQC"
+        }
+      }
+    },
+    {
+      "label": "race final",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/ordinary-race?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:52:44.774000Z",
+          "_draft": true,
+          "_id": "drafts.ordinary-race",
+          "_publishedId": "ordinary-race",
+          "_rev": "f6932c402c506cf051141d88196a7296",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:52:44.774000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Racer 0",
+              "type": "heading"
+            },
+            {
+              "content": [],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body_html": "<h1>Racer 0</h1>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "style": "article",
+          "title": "Racer 0"
+        },
+        "schemaHash": "7d61e988f6a8cb5a",
+        "syncTags": [
+          "bp:ds:production:doc:ordinary-race",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "f6932c402c506cf051141d88196a7296",
+        "ms": 2
+      }
+    },
+    {
+      "label": "delete fixture create",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "create": {
+              "_id": "ordinary-delete",
+              "_type": "paper",
+              "title": "Disposable deletion probe",
+              "blocks": []
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "results": [
+          {
+            "id": "drafts.ordinary-delete",
+            "operation": "create",
+            "document": {
+              "_createdAt": "2026-09-24T09:52:44.920000Z",
+              "_draft": true,
+              "_id": "drafts.ordinary-delete",
+              "_publishedId": "ordinary-delete",
+              "_rev": "1c5d1316421d9ce9699b3f508a0993f1",
+              "_type": "paper",
+              "_updatedAt": "2026-09-24T09:52:44.920000Z",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "Disposable deletion probe",
+                  "type": "heading"
+                },
+                {
+                  "content": [],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                }
+              ],
+              "body_html": "<h1>Disposable deletion probe</h1>",
+              "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+              "style": "article",
+              "title": "Disposable deletion probe"
+            }
+          }
+        ],
+        "transactionId": "de374c0b09f691351a64dbec68e258f9"
+      }
+    },
+    {
+      "label": "before delete",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/ordinary-delete?perspective=raw",
+      "status": 200,
+      "data": {
+        "result": {
+          "_createdAt": "2026-09-24T09:52:44.920000Z",
+          "_draft": true,
+          "_id": "drafts.ordinary-delete",
+          "_publishedId": "ordinary-delete",
+          "_rev": "1c5d1316421d9ce9699b3f508a0993f1",
+          "_type": "paper",
+          "_updatedAt": "2026-09-24T09:52:44.920000Z",
+          "blocks": [
+            {
+              "id": "tpl-title",
+              "level": 1,
+              "locked": true,
+              "role": "title",
+              "text": "Disposable deletion probe",
+              "type": "heading"
+            },
+            {
+              "content": [],
+              "id": "tpl-body",
+              "type": "paragraph"
+            }
+          ],
+          "body_html": "<h1>Disposable deletion probe</h1>",
+          "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+          "style": "article",
+          "title": "Disposable deletion probe"
+        },
+        "schemaHash": "7d61e988f6a8cb5a",
+        "syncTags": [
+          "bp:ds:production:doc:ordinary-delete",
+          "bp:ds:production:type:paper"
+        ],
+        "etag": "1c5d1316421d9ce9699b3f508a0993f1",
+        "ms": 2
+      }
+    },
+    {
+      "label": "guarded delete",
+      "method": "POST",
+      "route": "/v1/data/mutate/production",
+      "body": {
+        "mutations": [
+          {
+            "delete": {
+              "id": "ordinary-delete",
+              "type": "paper",
+              "ifRevisionID": "1c5d1316421d9ce9699b3f508a0993f1"
+            }
+          }
+        ]
+      },
+      "status": 200,
+      "data": {
+        "results": [
+          {
+            "id": "drafts.ordinary-delete",
+            "operation": "delete",
+            "document": {
+              "_createdAt": "2026-09-24T09:52:44.920000Z",
+              "_draft": true,
+              "_id": "drafts.ordinary-delete",
+              "_publishedId": "ordinary-delete",
+              "_rev": "1c5d1316421d9ce9699b3f508a0993f1",
+              "_type": "paper",
+              "_updatedAt": "2026-09-24T09:52:44.920000Z",
+              "blocks": [
+                {
+                  "id": "tpl-title",
+                  "level": 1,
+                  "locked": true,
+                  "role": "title",
+                  "text": "Disposable deletion probe",
+                  "type": "heading"
+                },
+                {
+                  "content": [],
+                  "id": "tpl-body",
+                  "type": "paragraph"
+                }
+              ],
+              "body_html": "<h1>Disposable deletion probe</h1>",
+              "body_html_sv": "7d73659c2011b8a4b8aa155487ae9e13365e9ccf22a46f63ceb543db08e4f676",
+              "style": "article",
+              "title": "Disposable deletion probe"
+            }
+          }
+        ],
+        "transactionId": "34164e6e72ef6a4fb1b56c1d45ad832f"
+      }
+    },
+    {
+      "label": "after delete",
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/ordinary-delete?perspective=raw",
+      "status": 404,
+      "data": {
+        "error": {
+          "code": "not_found",
+          "message": "document not found",
+          "hint": "Check the document _id, type, and dataset in the URL — the resource does not exist in this scope.",
+          "request_id": "GNg5CZIdPsAGc20AAExB"
+        }
+      }
+    },
+    {
+      "label": "history after delete",
+      "method": "GET",
+      "route": "/v1/data/history/production/paper/ordinary-delete?limit=20",
+      "status": 200,
+      "data": {
+        "count": 2,
+        "offset": 0,
+        "limit": 20,
+        "revisions": [
+          {
+            "id": "e82443e2-90eb-4600-8f54-d930224d8837",
+            "status": "draft",
+            "timestamp": "2026-09-24T09:52:45.076000Z",
+            "rev": "1c5d1316421d9ce9699b3f508a0993f1",
+            "title": "Disposable deletion probe",
+            "action": "delete",
+            "actor_user_id": null,
+            "actor_id": null,
+            "actor_kind": null,
+            "actor_label": null
+          },
+          {
+            "id": "ecfc725c-6fe5-4e59-b039-4972c5fc0512",
+            "status": "draft",
+            "timestamp": "2026-09-24T09:52:44.920000Z",
+            "rev": "1c5d1316421d9ce9699b3f508a0993f1",
+            "title": "Disposable deletion probe",
+            "action": "create",
+            "actor_user_id": null,
+            "actor_id": null,
+            "actor_kind": null,
+            "actor_label": null
+          }
+        ],
+        "has_more": false
+      }
+    }
+  ],
+  "limits": [
+    "Disposable HTTP contract probe only; no product UI or migration authority change",
+    "Concurrent create is evidence of actual contract, not presumed safety",
+    "No real libraries or provider calls"
+  ]
+}
