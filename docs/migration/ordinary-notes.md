@@ -25,14 +25,14 @@ C069 connects API and MCP creation/edit/Undo to this same owned service, with at
 
 The [disposable audit](../cycles/evidence/C070/deletion-audit/audit.json) made33 HTTP exchanges against30c007e43. It reproduced three unsafe results: deleting `drafts.welcome` also removed published `welcome`; the receipt named `welcome`; replaying retained restore replaced a newer human title. Stale-before-request deletion correctly refused412. That passing case does not prove a race is fenced: `Mutations.apply_one` checks the caller's opaque revision, then `Lifecycle.do_delete_document` reads both rows again and fences against those newer reads. The intervening-write risk is inferred from source, not a forced race result.
 
-The next upstream change must provide an **exact-row, atomic caller-revision delete**, without changing the legacy both-variant operation for its other callers. This is a required contract, not an endpoint that exists today:
+C070 required an **exact-row, atomic caller-revision delete**, without changing the legacy both-variant operation for its other callers. C071 implements this contract on the isolated upstream lane (below); it remains unmerged:
 
 - Require the exact draft row and nonempty opaque `_rev`; no bare-ID normalization, sibling fallback or integer-revision conversion.
 - Compare the caller's revision at the actual delete boundary. A human write between initial read and delete must either survive or cause a precondition refusal. Test that interleaving on the server; a client preflight cannot close it.
 - Retain the deleted snapshot and return the exact removed identity/revision. Row removal, revision evidence and mutation event must succeed or roll back together. Never infer which row was removed from a200 response alone.
 - Distinguish missing, stale, inaccessible and uncertain outcomes. A lost reply never authorizes another destructive request against a recreated identity. Test a missing draft beside a published twin, two twins, concurrent edits, snapshot/event failure and lost acknowledgement.
 
-Once that contract passes, implement the owned Barkdown journal and native journey. Persist profile/library/exact row/revision and deletion intent before dispatch; preserve Pages, favorites, tabs, media and receipts as recovery evidence. Disable deletion while unsaved canvas/title work exists. A server refusal must retain the note and organization. Archive still means unplaced notes, not deleted notes.
+The owned Barkdown journal must persist profile/library/exact row/revision and deletion intent before dispatch; preserve Pages, favorites, tabs, media and receipts as recovery evidence. Disable deletion while unsaved canvas/title work exists. A server refusal must retain the note and organization. Archive still means unplaced notes, not deleted notes.
 
 For the first recovery action, use **Recover a copy** with an explicitly new identity and creation-only collision handling. The audit proves one native-block snapshot can be copied while preserving later human edits on both original and copy; repeating create refuses409/422 rather than replacing either. It does not prove a durable recovery adapter. Persist one request identity and content nonce before the create, reconcile a lost reply by exact readback, and refuse a changed intent. Do not serialize through Markdown or claim original links/placement are restored. Let the person choose where to place the copy; retain the original recovery record. Same-identity restore requires a separate atomic guard before it can be offered.
 
@@ -42,8 +42,16 @@ Reproduce on Windows with a built, clean source checkout; the script creates and
 node scripts/audit-paper-deletion.mjs --source C:/path/to/built-barkpark --output C:/path/to/new-audit-directory
 ```
 
-Exit0 means the audit executed successfully. Read `safeToExposeDeletion` and each observation: the current result is **false**, not acceptance of the destructive feature. `atomic-caller-revision-delete` remains explicitly unproved. Preserve this generic-operation compatibility audit. Add separate assertions for the new exact-row operation when it exists; passing those tests must not silently change existing both-variant semantics.
+Exit0 means the generic audit executed successfully. Its `safeToExposeDeletion=false` still correctly rejects using generic delete/restore. Preserve this compatibility audit; C071 separately validates the new operation without changing existing both-variant semantics.
+
+## Implemented deletion and copy recovery — C071
+
+Upstream ae6065545 adds `deleteExactDraft` with exact `drafts.*` ID, type and nonempty opaque `ifRevisionID`. Its SQL fence uses the caller-checked row; removal, retained revision and mutation event share a transaction. Forty-seven focused tests cover twin preservation, missing/stale/foreign IDs, an independently committed intervening human edit, history/event faults, batch rollback and anonymous/read-only refusal. This route is additive and unmerged; older servers fail closed.
+
+Barkdown c6e3df7 retains a profile/library-owned native snapshot before dispatch. Sent intents never replay a delete. An absent row requires matching retained deletion history before it is called deleted; unknown outcomes stay explicit. Recover a copy persists one new creation identity and nonce, preserves native fields/blocks/media references, and reconciles by exact readback. It never invokes unconditional restore or rewires original references.
+
+[Real HTTP proof](../cycles/evidence/C071/deletion-contract-1790285839665.json) covers committed lost replies, stale refusal, published-twin preservation, recreated-original safety and later copy edits. The [native gallery](../visual/paper-deletions/README.md) proves typed content, confirmation, unavailable original tab, retained Page/favorite, restart, narrow recovery and completed repeat navigation. Fault/lease/owner/corruption cases are separately tested in the journal suite. Retained snapshots are not a cross-device export format.
 
 ## Remaining acceptance
 
-Crash-boundary recovery beyond the demonstrated journal cases, full multi-writer conflict handling, native profile switches during in-flight ordinary-note creation, deletion recovery and migration activation remain unproved. C067 covers human typing/search/restart, same-ID profile isolation, stale revision refusal and durable lost-response readback. C060 Archive classification and C059 ownership remain separate accepted boundaries. A2 stays open.
+Crash-boundary recovery beyond the demonstrated journal cases, full multi-writer conflict handling, native profile switches during in-flight ordinary-note creation/deletion and migration activation remain unproved. C067 covers human typing/search/restart, same-ID profile isolation, stale revision refusal and durable lost-response readback. C060 Archive classification and C059 ownership remain separate accepted boundaries. A2 stays open.

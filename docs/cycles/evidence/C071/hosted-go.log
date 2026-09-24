@@ -1,0 +1,60 @@
+go vet + test	go test (race detector)	﻿2026-09-24T21:50:46.3288020Z ##[group]Run go test -race ./...
+go vet + test	go test (race detector)	2026-09-24T21:50:46.3288376Z [36;1mgo test -race ./...[0m
+go vet + test	go test (race detector)	2026-09-24T21:50:46.3353450Z shell: /usr/bin/bash -e {0}
+go vet + test	go test (race detector)	2026-09-24T21:50:46.3353731Z ##[endgroup]
+go vet + test	go test (race detector)	2026-09-24T21:52:04.0115144Z ok  	github.com/FRIKKern/barkpark/cmd/barkpark	3.127s
+go vet + test	go test (race detector)	2026-09-24T21:52:04.0118589Z ok  	github.com/FRIKKern/barkpark/cmd/barkpark-agent	1.041s
+go vet + test	go test (race detector)	2026-09-24T21:52:04.0120040Z ?   	github.com/FRIKKern/barkpark/cmd/barkpark-builder	[no test files]
+go vet + test	go test (race detector)	2026-09-24T21:52:04.0132181Z ok  	github.com/FRIKKern/barkpark/cmd/barkpark-chat-host	1.015s
+go vet + test	go test (race detector)	2026-09-24T21:52:04.0134368Z ?   	github.com/FRIKKern/barkpark/cmd/barkpark-provisioner	[no test files]
+go vet + test	go test (race detector)	2026-09-24T21:52:04.0136296Z ?   	github.com/FRIKKern/barkpark/cmd/barkpark-runtime	[no test files]
+go vet + test	go test (race detector)	2026-09-24T21:52:04.0137835Z ?   	github.com/FRIKKern/barkpark/deploy	[no test files]
+go vet + test	go test (race detector)	2026-09-24T21:52:06.2195550Z ok  	github.com/FRIKKern/barkpark/internal/agent	2.478s
+go vet + test	go test (race detector)	2026-09-24T21:52:09.6361533Z ok  	github.com/FRIKKern/barkpark/internal/apiclient	5.377s
+go vet + test	go test (race detector)	2026-09-24T21:52:09.6362379Z ok  	github.com/FRIKKern/barkpark/internal/apierr	1.020s
+go vet + test	go test (race detector)	2026-09-24T21:52:10.3619553Z ok  	github.com/FRIKKern/barkpark/internal/backup	5.454s
+go vet + test	go test (race detector)	2026-09-24T21:52:10.3648178Z ok  	github.com/FRIKKern/barkpark/internal/bootstrap	1.102s
+go vet + test	go test (race detector)	2026-09-24T21:52:10.3650197Z ok  	github.com/FRIKKern/barkpark/internal/builder	3.028s
+go vet + test	go test (race detector)	2026-09-24T21:52:10.3651436Z ok  	github.com/FRIKKern/barkpark/internal/buildlog	1.013s
+go vet + test	go test (race detector)	2026-09-24T21:52:10.3652774Z ok  	github.com/FRIKKern/barkpark/internal/caddyfile	1.030s
+go vet + test	go test (race detector)	2026-09-24T21:52:16.0961141Z ok  	github.com/FRIKKern/barkpark/internal/chat	3.278s
+go vet + test	go test (race detector)	2026-09-24T21:52:17.9382180Z ok  	github.com/FRIKKern/barkpark/internal/chathost	5.125s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1517379Z --- FAIL: TestMutateHelpNamesEveryServerMutationClause (0.00s)
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1520397Z     mutate_shapes_test.go:111: the server accepts mutation op "deleteExactDraft" (an apply_one clause in ../../api/lib/barkpark/content/mutations.ex) and `bp doc mutate --help` never names it — a caller hitting that shape is back to reading mutations.ex.
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1522665Z         server=[create createIfNotExists createOrReplace delete deleteExactDraft discardDraft patch publish replace unpublish]
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1523949Z         help=[create createIfNotExists createOrReplace delete discardDraft patch publish replace unpublish]
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1526071Z bp: /tmp/TestExecuteRejectsRepoFileToken2310255249/002/.barkpark.json carries a "token" field — tokens NEVER live in the repo file (it gets committed). Remove it; credentials come from saved servers (`bp setup`, `bp use <name>`) or BARKPARK_API_TOKEN
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1527315Z {"cli_version":"dev"}
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1528367Z barkpark: transient internal_error from GET http://127.0.0.1:41091/w/default/p/default/v1/data/query/production/tag?limit=1000 — retrying (attempt 1 of 3) after 250ms
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1530243Z barkpark: transient internal_error from GET http://127.0.0.1:41091/w/default/p/default/v1/data/query/production/tag?limit=1000 — retrying (attempt 2 of 3) after 1s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1531695Z barkpark: transient internal_error from GET http://127.0.0.1:41091/w/default/p/default/v1/data/query/production/tag?limit=1000 persisted through 3 attempts — giving up (last request_id: (none reported))
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1532651Z FAIL
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1532924Z FAIL	github.com/FRIKKern/barkpark/internal/cli	154.629s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1533335Z ok  	github.com/FRIKKern/barkpark/internal/cli/cloud	1.604s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1533772Z ok  	github.com/FRIKKern/barkpark/internal/cli/cloud/azure	1.075s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1553640Z ok  	github.com/FRIKKern/barkpark/internal/cli/setup	3.841s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1554336Z ?   	github.com/FRIKKern/barkpark/internal/cli/setup/assets	[no test files]
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1554862Z ok  	github.com/FRIKKern/barkpark/internal/cloudclient	2.783s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1555318Z ok  	github.com/FRIKKern/barkpark/internal/hetzner	1.068s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1556134Z ok  	github.com/FRIKKern/barkpark/internal/hetzner/objstore	1.078s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1556885Z ok  	github.com/FRIKKern/barkpark/internal/hostguard	5.459s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1557286Z ok  	github.com/FRIKKern/barkpark/internal/httpx	1.014s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1557675Z ok  	github.com/FRIKKern/barkpark/internal/manifest	3.782s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1558071Z ok  	github.com/FRIKKern/barkpark/internal/pdrender	9.136s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1558542Z ?   	github.com/FRIKKern/barkpark/internal/pdrender/cmd/demo	[no test files]
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1559071Z ?   	github.com/FRIKKern/barkpark/internal/pdrender/cmd/dump	[no test files]
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1559584Z ok  	github.com/FRIKKern/barkpark/internal/pdrender/cmd/htmlcheck	1.022s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1560118Z ?   	github.com/FRIKKern/barkpark/internal/pdrender/cmd/widthcheck	[no test files]
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1560622Z ok  	github.com/FRIKKern/barkpark/internal/provisioner	2.606s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1561085Z ok  	github.com/FRIKKern/barkpark/internal/provisioner/catalog	1.016s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1561533Z ok  	github.com/FRIKKern/barkpark/internal/runtime	1.814s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1561931Z ok  	github.com/FRIKKern/barkpark/internal/scaffy	9.796s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1562328Z ok  	github.com/FRIKKern/barkpark/internal/secretscrub	1.017s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1562727Z ok  	github.com/FRIKKern/barkpark/internal/semrole	1.011s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1563126Z ok  	github.com/FRIKKern/barkpark/internal/taskboard	46.403s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1563530Z ok  	github.com/FRIKKern/barkpark/internal/template	1.365s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1563925Z ok  	github.com/FRIKKern/barkpark/internal/wasmimages	4.942s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1564309Z ok  	github.com/FRIKKern/barkpark/scaffy/seed	4.013s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1564743Z ok  	github.com/FRIKKern/barkpark/scripts/taskboard-drive/fixture	1.095s
+go vet + test	go test (race detector)	2026-09-24T21:55:14.1565115Z FAIL
+go vet + test	go test (race detector)	2026-09-24T21:55:14.4931805Z ##[error]Process completed with exit code 1.

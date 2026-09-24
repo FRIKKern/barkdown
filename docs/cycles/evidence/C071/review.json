@@ -1,0 +1,20 @@
+{
+  "reviewer": "Codex",
+  "date": "2026-09-24",
+  "application": "c6e3df73fd24cec6529395d002e5bcf0471b792b",
+  "nativeTestCorrection": "d56fac5",
+  "captureSource": "aa8c6dc",
+  "upstream": "ae6065545d9dec7741bf8cc6805d064ec051fde4",
+  "native": "docs/visual/paper-deletions/runs/2026-09-24T21-48-23-203Z/manifest.json",
+  "standard": "docs/visual/runs/2026-09-24T21-50-50-790Z/manifest.json",
+  "inspected": {"nativeStills":8,"nativeMotionSamples":195,"excerptSourceFrames":35,"standardStills":40,"standardDifferences":40,"standardGifFrames":40,"liveStills":5,"liveGifFrames":37},
+  "findings": [
+    "Dialog padding fixed after development review; final narrow view has readable text, wrapping and reachable actions.",
+    "Native repeated recovery now waits for dialog closure and shows the later human title in the real Paper canvas. Original Page and favorite retain their exact destinations.",
+    "All 195 decoded motion samples inspected, including setup, deletion confirmation, unavailable original, restart, recovery and later edit. Excerpt selects already-inspected action frames; complete recordings remain.",
+    "Standard comparison has zero changed frames and no geometry/environment change; existing fixture GIF quantization is unchanged.",
+    "Live real-Claude/private-runtime Paper capture retains readable quote, checklist, table, callout/code and editing controls. Light images cover theme/editor regression; dark is the presentation default."
+  ],
+  "limits": "Private same-machine Windows source runtime. No arbitrary crash-boundary, native in-flight profile-switch, same-identity restore, migration activation, cross-device portability, merge or deployment claim. Upstream integration checks are separate.",
+  "supersededCandidate": "docs/cycles/evidence/C071/candidate-review.json"
+}

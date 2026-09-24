@@ -1,0 +1,71 @@
+{
+  "host": "8babff929ffce940bd9319cc58719340e1bb5ef7",
+  "upstream": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "sourceDirty": true,
+  "results": [
+    "Stale revision refuses deletion; exact draft deletion preserves published twin; lost reply reconciles committed history after service reconstruction"
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.welcome?perspective=drafts"
+    },
+    {
+      "method": "POST",
+      "route": "/v1/plugins/bulldocs/papers/drafts.welcome/ops"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.welcome?perspective=drafts"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.welcome?perspective=drafts"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.welcome?perspective=drafts"
+    },
+    {
+      "method": "POST",
+      "route": "/v1/data/mutate/production"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.welcome?perspective=drafts"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/history/production/paper/drafts.welcome?limit=1000"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/revision/production/fa04dc28-633d-4e7a-bdc3-5d87e907c64d"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.welcome?perspective=drafts"
+    },
+    {
+      "method": "POST",
+      "route": "/v1/data/mutate/production"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.bd-note-ad1819ed-6ca4-4d89-83d0-7b8551e6ba67?perspective=drafts"
+    },
+    {
+      "method": "POST",
+      "route": "/v1/plugins/bulldocs/papers/drafts.bd-note-ad1819ed-6ca4-4d89-83d0-7b8551e6ba67/ops"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.bd-note-ad1819ed-6ca4-4d89-83d0-7b8551e6ba67?perspective=drafts"
+    },
+    {
+      "method": "GET",
+      "route": "/v1/data/doc/production/paper/drafts.bd-note-ad1819ed-6ca4-4d89-83d0-7b8551e6ba67?perspective=drafts"
+    }
+  ],
+  "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n4 !== 3\n\n    at file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/paper-deletions.live.mjs:57:10\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)"
+}

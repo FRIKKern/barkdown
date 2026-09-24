@@ -14,7 +14,7 @@ The Barkpark capabilities we’re exploring:
 - Multiplayer, sharing and access
 - Document and spreadsheet editors
 
-![Barkdown: a conversation beside a Paper document in dark mode.](docs/images/status/paper-dark.0d874f9b.png)
+![Barkdown: a conversation beside a Paper document in dark mode.](docs/images/status/paper-dark.ed1d0ec5.png)
 
 ## What we’re working on
 

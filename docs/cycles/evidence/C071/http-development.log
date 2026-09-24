@@ -1,0 +1,23 @@
+Private deletion runtime: starting 
+Private deletion runtime: ready 
+Private deletion runtime: stopping 
+Private deletion runtime: stopped 
+Private API evidence: C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\docs\cycles\evidence\C071\deletion-contract-1790285698377.json Retained temporary data: C:\Users\Frikk\AppData\Local\Temp\bd-delete-contract-dRGi2z
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+4 !== 3
+
+    at file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/paper-deletions.live.mjs:57:10
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 4,
+  expected: 3,
+  operator: 'strictEqual'
+}
+
+Node.js v22.13.1
