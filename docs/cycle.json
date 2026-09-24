@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C061",
   "stage": "P2",
-  "status": "active",
+  "status": "done",
   "goal": "Establish the actual ordinary empty-note lifecycle contract and its blockers before wiring one owned Paper service.",
   "scope": [
     "Read-only audit of pinned upstream draft/create/ops/title/delete contracts.",
@@ -16,11 +16,14 @@
   ],
   "checkpoint": "2026-09-24",
   "handoff": "docs/cycles/C061-ordinary-note-contract.md",
-  "nextAction": "Run root verification, push the contract audit with explicitly included logs, then prepare the private draft-note adapter and inspect CI.",
+  "nextAction": "Prepare the private profile-owned draft-note adapter and native empty-draft journey described in docs/migration/ordinary-notes.md; inspect final-head CI before merging PR33.",
   "evidence": [
     "docs/cycles/evidence/C061/assessment.json",
-    "docs/migration/ordinary-notes.md"
+    "docs/migration/ordinary-notes.md",
+    "docs/cycles/evidence/C061/root.log",
+    "docs/cycles/evidence/C061/lost-response.log",
+    "docs/cycles/evidence/C060/linux-parity-passed.json"
   ],
-  "truthReview": "One delivery branch/draftPR33; C060 pushed ada4cbb with exact-head CI running. Upstream remains read-only.",
+  "truthReview": "C060 Linux parity35983714483 passed. One delivery branch and draftPR33; upstream clean/read-only at30c007e43. All referenced evidence logs explicitly tracked. No real data or shared service changed.",
   "screenshotReview": "Documentation/API-contract audit only; no app/capture input changes. C060 native/live/standard evidence remains applicable and is not relabeled as draft-note UI proof."
 }

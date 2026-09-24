@@ -1,7 +1,7 @@
 {
   "at": "2026-09-24T10:02:02.322044+00:00",
   "upstream": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
-  "httpExchanges": 55,
+  "httpExchanges": 58,
   "verifiedObservations": [
     "Empty draft has exact draft ID and title/body blocks without invented publication metadata",
     "Published read excludes blank draft",
@@ -20,17 +20,19 @@
     "Title-block Paper ops synchronize title and preserve it through body edit",
     "Stale title-block ops refuse exactly",
     "Duplicate create refuses without replacement",
-    "Published collision permits distinct draft while raw and drafts reads differ"
+    "Published collision permits distinct draft while raw and drafts reads differ",
+    "Lost create response reconciles exact committed draft through two identical reads without replay"
   ],
   "artifacts": {
     "http-probe-1790243565229.json": "08ba3a55b44892e95cf5f00dcb92c8c863f88d7ce027eb8de1bf4fd3384609c1",
     "source-audit.json": "b67572dc48e3498e8745f0365c6d6b234ddac7f323386d02a23745c21e2b861e",
     "title-identity-1790243969925.json": "0c72af01f942cb424f31b5542cc3688ce117b35aadb474f4aed4017999ffac4b",
-    "variants-1790243765430.json": "0b82e6810e4b8e0dd0679cb40a245f869559fd943c574243958756044df19306"
+    "variants-1790243765430.json": "0b82e6810e4b8e0dd0679cb40a245f869559fd943c574243958756044df19306",
+    "lost-response-1790244312288.json": "d17ec909b28909eb4263f0dd44d8590d5387388a936d9b96c9527d80c0f4945d"
   },
   "limits": [
     "HTTP contract audit only; not native app feature acceptance",
     "One concurrent create pair is not namespace reservation or broad concurrency proof",
-    "Lost response, cross-writer generation fencing, native restart and guarded recovery remain unproved for ordinary draft notes"
+    "App retry journal, cross-writer generation fencing, native restart and guarded recovery remain unproved for ordinary draft notes"
   ]
 }

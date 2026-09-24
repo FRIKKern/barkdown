@@ -1,6 +1,6 @@
 # Evidence and remaining proof
 
-[C061](cycles/C061-ordinary-note-contract.md): three isolated HTTP probes verify18 observations about blank drafts, exact identity, guarded body/title ops, search and recovery limits. This is API knowledge, not completed note UI. C060 Verify CI found ignored log evidence; logs are now explicitly retained. Fresh CI remains required.
+[C061](cycles/C061-ordinary-note-contract.md): four isolated HTTP probes verify19 observations about blank drafts, exact identity, guarded body/title ops, search and recovery limits. This is API knowledge, not completed note UI. C060 Verify CI found ignored log evidence; logs are now explicitly retained. C060 exact-head Linux parity35983714483 passed; fresh Verify CI for the retained-log repair remains required.
 
 [C060](cycles/C060-owned-paper-archive.md), final source7e15949: full desktop, targeted tables11/11, native two-profile Archive/restart/manual-loopback/503 Retry passed. Native8/333/29, live5/37 and standard40/40/40 actually reviewed and explicitly approved. Root verification passed after documentation-triggered fresh standard/live review (a7431bf/6b3c664); fresh exact-head Linux required. A2 remains unfinished.
 

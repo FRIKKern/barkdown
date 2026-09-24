@@ -1,6 +1,6 @@
 # Ordinary Paper notes: audited contract
 
-C061 inspected upstream `30c007e43` and made 55 HTTP exchanges across three disposable runtimes. [Verified observations and raw responses](../cycles/evidence/C061/assessment.json) distinguish actual API behavior from the proposed adapter below. No app feature, native draft-note journey or migration activation is accepted by this audit.
+C061 inspected upstream `30c007e43` and made 58 HTTP exchanges across four disposable runtimes. [Verified observations and raw responses](../cycles/evidence/C061/assessment.json) distinguish actual API behavior from the proposed adapter below. No app feature, native draft-note journey or migration activation is accepted by this audit.
 
 | Operation | Observed behavior | Integration consequence |
 |---|---|---|
@@ -10,6 +10,7 @@ C061 inspected upstream `30c007e43` and made 55 HTTP exchanges across three disp
 | Title edits | Generic title patch changes metadata but leaves the title block unchanged. Paper `patch-block` on `tpl-title` updates both; subsequent body ops preserve the title and stale ops refuse. | Prefer one Paper operation path for title/body. Existing published notes without this title role need separate handling; current Barkdown title refusal remains. |
 | Search | Default search omits drafts; explicit `perspective=drafts` finds their body content. | Local draft discovery and search need deliberate perspective-aware adapters; do not change connected/cloud semantics implicitly. |
 | Creation collision | Existing draft `create` refuses409 unchanged; one concurrent pair produced200/422. An existing published ID still allows a distinct draft twin. | This is not whole-namespace reservation. Do not infer safe retry or create-only semantics from the verb name. |
+| Lost response | A proxy drops the response after one committed create; two exact draft reads return identical content without another write. | This proves a reconciliation primitive, not an app retry journal or power-loss safety. |
 | Recovery | Guarded delete removes the draft; retained revision detail restores it as a draft. Repeating unconditional restore over a newer human title overwrites it. | Do not expose this restore as guarded Undo. Recovery needs an atomic current-state guard or safe new-identity recovery. |
 
 ## Next bounded implementation
@@ -22,4 +23,4 @@ Before enabling creation broadly, settle namespace collision and lost-response r
 
 ## Remaining acceptance
 
-Native typing/restart, agent creation/edit/Undo, lost responses, multi-writer conflicts, profile switches with in-flight operations, deletion recovery and migration activation are unproved for ordinary notes. C060 Archive classification and C059 ownership remain separate accepted boundaries. A2 stays open.
+Native typing/restart, agent creation/edit/Undo, durable lost-response recovery, multi-writer conflicts, profile switches with in-flight operations, deletion recovery and migration activation are unproved for ordinary notes. C060 Archive classification and C059 ownership remain separate accepted boundaries. A2 stays open.
