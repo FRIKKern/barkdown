@@ -25,7 +25,7 @@ async function request(method, route, body) {
 }
 const read = async id => { const r = await request('GET', `/v1/data/doc/production/paper/${id}?perspective=published`); assert.equal(r.status, 200); return r.data.result || r.data; };
 const paragraph = text => ({ type: 'paragraph', content: [{ type: 'text', text }] });
-const link = text => ({ type: 'text', text, marks: [{ type: 'bold' }, { type: 'italic' }, { type: 'link', attrs: { href: 'barkdown://doc/z-destination' } }] });
+const link = (text, id='z-destination') => ({ type: 'text', text, marks: [{ type: 'bold' }, { type: 'italic' }, { type: 'link', attrs: { href: 'barkdown://doc/'+id } }] });
 const linkedParagraph = text => ({type:'paragraph',content:[link(text)]});
 function library(label) {
   const profileId=crypto.randomUUID(), sourceDir=path.join(temporary,profileId), destinationDir=path.join(temporary,profileId+'-backup');
@@ -39,6 +39,7 @@ function library(label) {
       {type:'bulletList',content:[{type:'listItem',content:[linkedParagraph('List destination')]}]},
       {type:'taskList',content:[{type:'taskItem',attrs:{checked:false},content:[linkedParagraph('Task destination')]}]},
       {type:'table',content:[{type:'tableRow',content:[{type:'tableCell',content:[linkedParagraph('Cell destination')]}]}]},
+      {type:'paragraph',content:[link('This same notebook','origin')]},
     ]}},
     {id:'z-destination',title:'Destination notebook',rev:3,content:{type:'doc',content:[paragraph(label+' profile destination: the same titles in other profiles must never substitute this note.'),{type:'paragraph',content:[{type:'text',text:'Return to origin',marks:[{type:'link',attrs:{href:'barkdown://doc/origin'}}]}]}]}},
   ];
@@ -69,7 +70,7 @@ const arrived=async id=>{
   await ready();
 };
 const open=async id=>{await page.evaluate(id=>window.__barkdown.openTarget({kind:'doc',id,source:'barkpark',title:id}),id);await arrived(id);assert.deepEqual(await blocks(),(await read(id)).blocks);};
-const shot=async name=>{await page.screenshot({path:path.join(out,name+'.png')});frames.push(name+'.png');};
+const shot=async name=>{let file=name+'.png',n=1;while(fs.existsSync(path.join(out,file)))file=name+'-'+(++n)+'.png';await page.screenshot({path:path.join(out,file)});frames.push(file);};
 const launch=async()=>{app=await electron.launch({executablePath:require('electron'),args:[appDir,`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});page=await app.firstWindow();video=page.video();page.on('pageerror',e=>errors.push(e.message));await page.waitForSelector('#bw-pages .bw-page-row');await page.setViewportSize({width:1400,height:900});};
 const close=async name=>{await app.close();app=null;if(video)fs.renameSync(await video.path(),path.join(out,name+'.webm'));};
 async function graph() {
@@ -110,8 +111,8 @@ async function navigate(lib, from, label, destination) {
 try {
   assert.equal((await request('POST','/v1/data/mutate/production',{mutations:[{create:{_id:tag,_type:'tag',title:'Linked migration proof'}},{publish:{id:tag,type:'tag'}}]})).status,200);
   // A real process dies after the first linked note, while its target is absent.
-  const config=path.join(temporary,'staging-child.json');fs.writeFileSync(config,JSON.stringify({options:libraries[0].options,target:libraries[0].target}));
-  const code=`const fs=require('fs');const c=JSON.parse(fs.readFileSync(process.env.LINK_CONFIG));c.target.assertOwned=()=>true;require(process.env.LINK_MODULE).stageMigration(c.options,c.target,{checkpoint:n=>{if(n==='receipt:origin')process.exit(77)}}).catch(e=>{console.error(e);process.exit(1)});`;
+  const config=path.join(temporary,'staging-child.json');fs.writeFileSync(config,JSON.stringify({options:libraries[0].options,target:{...libraries[0].target,token:undefined}}));
+  const code=`const fs=require('fs');const c=JSON.parse(fs.readFileSync(process.env.LINK_CONFIG));c.target.token=process.env.BARKPARK_API_TOKEN;c.target.assertOwned=b=>b.profileId===c.options.profileId&&b.server===process.env.BARKDOWN_SHOTS_SERVER;require(process.env.LINK_MODULE).stageMigration(c.options,c.target,{checkpoint:n=>{if(n==='receipt:origin')process.exit(77)}}).catch(e=>{console.error(e);process.exit(1)});`;
   const exit=await new Promise((resolve,reject)=>{const child=spawn(process.execPath,['-e',code],{windowsHide:true,env:{...process.env,LINK_CONFIG:config,LINK_MODULE:require.resolve('../main/migration-staging')},stdio:['ignore','ignore','pipe']});let stderr='';child.stderr.on('data',d=>stderr+=d);child.on('error',reject);child.on('exit',status=>resolve({status,stderr}));});
   assert.equal(exit.status,77,exit.stderr);
   const firstBefore=await read(libraries[0].ids.origin);
@@ -125,7 +126,7 @@ try {
   assert.equal(editorBundle.sha,crypto.createHash('sha1').update(fs.readFileSync(path.join(process.env.BARKDOWN_TEST_BP_SOURCE,'api/priv/static/assets/bp-paper-editor.bundle.js'))).digest('hex'));
   await shot('01-staged-linked-library');
   const id=libraries[0].ids.origin,original=await read(id);let revision=original.rev;
-  for(const label of ['Marked destination','Heading destination','Quoted destination','List destination','Task destination','Cell destination']) {
+  for(const label of ['Marked destination','Heading destination','Quoted destination','List destination','Task destination','Cell destination','This same notebook']) {
     await canvas().evaluate((c,label)=>{const e=c._editor;let at;e.state.doc.descendants((n,pos)=>{if(n.isText&&n.text===label)at=pos+1;});if(at===undefined)throw Error('Missing marked link');e.view.focus();e.commands.setTextSelection(at);},label);
     await page.keyboard.type('X');const edited=await saved(id,revision);
     const expected=structuredClone(original.blocks);let changed=0;
@@ -135,7 +136,7 @@ try {
     results.push({label,editedRev:edited.rev,undoneRev:undone.rev});revision=undone.rev;
   }
   assert.deepEqual(await graph(),initialGraph);
-  for(const lib of libraries){await navigate(lib,'origin','Marked destination','z-destination');await navigate(lib,'z-destination','Return to origin','origin');}
+  for(const lib of libraries){await navigate(lib,'origin','Marked destination','z-destination');await navigate(lib,'z-destination','Return to origin','origin');await navigate(lib,'origin','This same notebook','origin');}
   await open(id);await canvas().evaluate(c=>c.__beforeReferenceReload=true);await page.locator('.bw-paper-pane:not([hidden]) button[title="Reload from server"]').click();
   await page.waitForFunction(()=>{const c=document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas');return c&&!c.__beforeReferenceReload&&c._editor;});assert.deepEqual(await blocks(),original.blocks);await shot('02-reloaded');
   await page.setViewportSize({width:760,height:900});
@@ -145,7 +146,7 @@ try {
   for(const lib of libraries)for(const file of lib.snapshot.files){assert.deepEqual(fs.readFileSync(path.join(lib.options.sourceDir,file.path)),file.data);assert.deepEqual(fs.readFileSync(path.join(lib.options.destinationDir,'source',file.path)),file.data);}
   await assert.rejects(stageMigration(libraries[0].options,libraries[0].target),{code:'journal_changed'});assert.deepEqual((await read(id)).blocks,original.blocks);
   assert.deepEqual(errors,[]);fs.writeFileSync(path.join(out,'graph.json'),JSON.stringify({initialGraph,afterRestart:await graph(),geometry,interruptedResume:true},null,2)+'\n');
-  console.log('PASS six marked link carriers, cyclic native navigation, profile-pinned navigation, exact Undo/reload/restart, graph and process-interrupted resume');
+  console.log('PASS seven marked links across six carriers, self/cyclic native navigation, profile-pinned identity, exact Undo/reload/restart, graph and process-interrupted resume');
 } catch(error) {
   if(page){await page.screenshot({path:path.join(out,'failure.png')}).catch(()=>{});const state=await canvas().evaluate(c=>({editor:c._editor?.getJSON(),blocks:c.recoverySnapshot().blocks,pending:c.hasPendingChanges(),saveState:document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent,html:c._editor?.view.dom.innerHTML})).catch(()=>null);fs.writeFileSync(path.join(out,'failure-state.json'),JSON.stringify(state,null,2));}
   fs.writeFileSync(path.join(out,'failure-server.json'),JSON.stringify(await read(libraries[0].ids.origin).catch(()=>null),null,2));

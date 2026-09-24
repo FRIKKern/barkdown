@@ -260,3 +260,14 @@ test('publish-policy conflicts are explicit refusals, never mistaken for existin
   await assert.rejects(f.stage(),{code:'write_uncertain'});assert.equal(f.writes(),1);
   assert.ok(fs.existsSync(path.join(f.destinationDir,'staging',f.id()+'.intent.json')));
 });
+
+test('self references retain the same profile identity and ambiguous double-link marks refuse', async t => {
+  const f=await fixture(t), {first}=linkedLibrary(f);
+  first.content.content[0].content[0].marks[2].attrs.href='barkdown://doc/note';
+  fs.writeFileSync(path.join(f.sourceDir,'documents/note.json'),JSON.stringify(first));
+  await f.stage();assert.equal(f.rows.get(f.id()).blocks[0].content[0].docId,f.id());
+  const other=await fixture(t), pair=linkedLibrary(other);
+  pair.first.content.content[0].content[0].marks.push({type:'link',attrs:{href:'barkdown://doc/note'}});
+  fs.writeFileSync(path.join(other.sourceDir,'documents/note.json'),JSON.stringify(pair.first));
+  await assert.rejects(other.stage(),{code:'preflight_blocked'});assert.equal(other.requests.length,0);
+});
