@@ -27,5 +27,5 @@ const manifest={formatVersion:1,release:'0.5.0',sourceOfTruth:{workspace:'concep
 write('evidence/artifact-manifest.json',JSON.stringify(manifest,null,2)+'\n');
 console.log('Built portable previews, GitHub-readable PRD, and source hashes.');
 
-// Keep the README roadmap tied to the same plan and cycle as the queue.
+// Keep the README roadmap tied to the delivery plan.
 require('node:child_process').execFileSync(process.execPath, [path.join(root,'scripts/generate-roadmap.mjs'), root, path.join(root,'docs/images/roadmap.svg')], {stdio:'inherit'});
