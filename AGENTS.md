@@ -56,6 +56,12 @@ Keep one current plan, one current cycle and a concise current handoff. Replace 
 
 Follow `docs/CYCLES.md` and run `npm run cycle` before implementation. Plan one bounded outcome in `docs/cycle.json`; keep its linked handoff current after meaningful slices, failed checks, blockers and before yielding. Every cycle closes with a repository truth review, relevant tests and screenshot review. App-source changes retain the implementation-commit → screenshots → evidence-commit sequence. Never mark a cycle or stage done without evidence. Archive completed cycle records before starting the next one; interrupted work must name the exact next action and any uncommitted/untested state.
 
+## Writing and presentation
+
+Keep public-facing docs and replies short, direct and calm. Lead with the useful result; cut repeated status, slogans, procedural narration and defensive caveats. Link detailed evidence instead of reciting it. Keep material limits clear. Root README is a quick introduction, not a handoff or validation log.
+
+Use dark-mode screenshots and recordings by default. Light mode needs a specific purpose, such as contrast review, theme comparison or a light-theme bug; say why in the caption. Follow `docs/visual/RULES.md` for capture and evidence requirements.
+
 ## Visual tripwires
 
 Follow `docs/visual/RULES.md`. App/dependency/capture changes require `visual:capture`, `visual:compare`, actual agent/human image inspection and explicit `visual:approve`, plus behavior tests. Never auto-accept a visual baseline or remove old evidence to pass CI. Review intermediate frames, geometry, narrow layouts and the code-area README changelogs. Keep live Paper evidence distinct from deterministic fixture tours. Existing `shots` freshness rules still apply.

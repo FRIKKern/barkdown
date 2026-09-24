@@ -1,65 +1,24 @@
 [![Barkdown roadmap: accepted profile isolation, current Paper migration, then recovery, optional sync and installation.](docs/images/roadmap.svg)](docs/PLAN.md)
 
-<p align="center">
-  <a href="docs/PLAN.md"><strong>The next chapter</strong></a> ·
-  <a href="CONTRIBUTING.md">Build & contribute</a> ·
-  <a href="docs/README.md">Documentation</a> ·
-  <a href="docs/VALIDATION.md">Evidence</a>
-</p>
+# Barkdown
 
-# A place for your notes and the work around them
+Notes and agents, side by side. Built on Barkpark’s Paper editor.
 
-Write, ask, revise, and keep going in one desktop workspace. Barkdown pairs Barkpark’s real Paper editor with agents that can read your notes, make visible edits, and work in folders you choose for each conversation.
+![Barkdown: a conversation beside a Paper document in dark mode.](docs/images/status/paper-dark.071fcd37.png)
 
-**Working desktop prototype · Windows runtime first · Powered by Barkpark**
+Your Pages, your order. Full side chats. A working folder for each conversation.
 
-![The real Barkdown desktop: a conversation beside an editable Barkpark paper.](docs/images/status/paper-light.f91282a4.png)
+[See it in action](docs/visual/paper-notes/README.md) · [Screenshots & recordings](docs/visual/README.md) · [Capture source](docs/images/status/manifest.json)
 
-## Think in notes. Work in conversations.
+## Right now
 
-- **One workspace, many kinds of work.** Notes, websites, project files, reviews and side conversations open beside the chat.
-- **Edits you can follow.** Direct assistant edits show their target and writing, respect human takeover, and offer revision-checked Undo.
-- **Your organization stays yours.** Arrange Pages how you want. Cloud discoveries stay in Cloud archive until you place them.
-- **Conversations keep their context.** Main and side chats have model controls, images, drafts and history. Each agent has its own working folder.
+Windows source prototype. Profile isolation works; moving every note to Paper is underway. Recovery, portability, optional sync and an installer follow.
 
-<details>
-<summary><strong>See the editor in motion and explore the desktop</strong></summary>
+[Current work](docs/NEXT-AGENT.md) · [Plan](docs/PLAN.md) · [What’s verified](docs/VALIDATION.md)
 
-![Real editing: insert a quote, type, move through table cells, and use quick open.](docs/images/status/editing.288a0c78.gif)
+## Run it
 
-![Barkdown in dark mode.](docs/images/status/paper-dark.071fcd37.png)
-
-![Paper slash menu.](docs/images/status/slash-menu.074b28b6.png)
-
-![Quick open across the workspace.](docs/images/status/quick-open.0ab950b8.png)
-
-![Barkpark connection settings.](docs/images/status/settings-barkpark.4e035087.png)
-
-These are captures of the running app, not mockups. [Capture provenance](docs/images/status/manifest.json) records the source commits and whether the assistant turn was live.
-
-</details>
-
-## The next chapter: a workspace you can depend on
-
-Phases advance on evidence, not calendar promises. P4 and P5 both follow P3; the local-only pilot does not depend on cloud sync. [Current cycle](docs/cycle.json) · [Acceptance criteria](docs/ACCEPTANCE.md) · [Verified results](docs/VALIDATION.md). This diagram is generated from the active plan and cycle by `npm run build`; it describes delivery direction, not app screenshot evidence.
-
-**Create a local profile → write with an agent → restart safely → move to another machine and continue.**
-
-| Today | Next | After that |
-|---|---|---|
-| Working Paper editor, agent conversations and accepted profile isolation on the managed Windows source runtime | Safe migration of every note to Paper, recovery and portability | Optional two-way sync and installation without a developer toolchain |
-
-**P1 profile isolation is accepted; P2 Paper migration is active.** The Windows source prototype has profile-owned notes and conversations, captured agent context, saved goal workers and tested recovery. [The migration contract](docs/migration/README.md) records exact backups, resumable staging,21 native content cases, internal references, owned PNG recovery, restored-source editing and preserved human organization. [The current handoff](docs/NEXT-AGENT.md) identifies the active cycle, branch and validation.
-
-Migration is still a staged rehearsal: no real library authority has moved, and local notes retain their original editor/store. Complete note lifecycle, activation/rollback, portability, optional sync and installation remain ahead. The managed runtime requires a built Barkpark checkout; upstream integration and release gates remain separate.
-
-[Historical integration evidence](docs/cycles/C008-integration.md) · [Rich editor video and screenshots](docs/visual/rich-takeover/README.md) · [Actual library adoption](docs/visual/adoption/runs/2026-09-22T00-21-07-265Z/README.md) · [Workspace recovery](docs/visual/workspace-recovery/README.md)
-
-[Read the delivery plan →](docs/PLAN.md) · [See what is verified →](docs/VALIDATION.md)
-
-## Run the desktop
-
-Use Node 22.13+ and a desktop session. From the repository root:
+Node 22.13+ and a desktop session:
 
 ```sh
 npm ci
@@ -67,33 +26,12 @@ npm --prefix app ci
 npm run desktop
 ```
 
-Use your existing Claude Code or Codex login, or configure an API key in Settings. To edit Barkpark papers, connect a server in Settings → Barkpark or follow the [managed local runtime setup](docs/LOCAL-BARKPARK.md). There is no packaged installer yet.
+Use your Claude Code or Codex login, or an API key in Settings. Paper needs a connected Barkpark; [local setup](docs/LOCAL-BARKPARK.md) requires a built checkout.
 
-## Build the next slice
+## Build with us
 
-```sh
-npm run plan                   # next stage and current delivery cycle
-npm run cycle                  # bounded goal, handoff and next action
-npx playwright install chromium
-npm run verify                 # roadmap, docs, types and concept checks
-npm run test:desktop            # build + desktop regression suite
-```
+[Contributing](CONTRIBUTING.md) · [Agent instructions](AGENTS.md) · [App](app/README.md) · [Docs](docs/README.md)
 
-The [contribution guide](CONTRIBUTING.md) covers real-runtime tests, upstream ownership, data safety and screenshot evidence. The [continuation brief](docs/NEXT-AGENT.md) identifies the current P2 slice.
+The roadmap follows the plan and current cycle; `npm run build` refreshes it. Dates arrive when we have them.
 
-| Place | Purpose |
-|---|---|
-| [app/](app/README.md) | The real Electron desktop and its tests |
-| [docs/](docs/README.md) | Active plan, acceptance, architecture and evidence |
-| [AGENTS.md](AGENTS.md) | Repository rules and product decisions to preserve |
-| [Historical material](docs/archive/README.md) | Original plans, concepts and provenance; retained for reference |
-
-Barkpark owns the content format, revisions and shared editor. Barkdown owns the desktop experience and workspace orchestration. A profile owns library data; an agent’s working folder belongs to its conversation.
-
----
-
-Private development repository. No production deployment is implied by a passing check or a source build. Original material has no public open-source license; dependencies retain their [third-party notices](THIRD-PARTY.md).
-
-## Review the health of the app
-
-Browse [visual health](docs/visual/README.md) for area READMEs with current screenshots, interaction GIFs, provenance and changelogs. Code changes trigger fresh capture and comparison; an agent or person must inspect the evidence before approval. [Review rules and known coverage gaps](docs/visual/RULES.md) keep screenshots separate from functional proof.
+Private development repository. [Third-party notices](THIRD-PARTY.md).

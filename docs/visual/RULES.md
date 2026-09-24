@@ -32,6 +32,12 @@ Run folders and approvals are append-only history. Never overwrite an approved P
 
 The existing live `npm --prefix app run shots` remains a separate Paper/server evidence path. Run only against an explicitly selected disposable/test Barkpark; it writes a showcase paper and must not be aimed at a person's library. Commit app source before that capture; inspect media and commit evidence after. It retains prior hashed images and manifest history. A live capture failure is a gap, not permission to relabel a fixture as live.
 
+## Presentation theme
+
+Use dark mode by default for README heroes, screenshots, GIFs and video previews. Use light mode when it demonstrates something specific: a theme comparison, contrast check, print view or light-theme regression. State that purpose in the caption; avoid incidental bright galleries in otherwise dark documentation.
+
+Capture the actual app theme; never recolor an image to imply a different capture. Prefer an applicable reviewed dark asset when selecting existing evidence. Keep required light/dark regression coverage and historical media intact; this presentation default does not bypass freshness checks or change capture fixtures automatically.
+
 ## READMEs are health views
 
 [Visual health](README.md) links area READMEs for workspace, chat, side chat, local documents and Settings. Each carries a still, an interaction GIF, source provenance, comparison report and local changelog. Link these from code-area READMEs. New journeys require coverage-map entries, captures and descriptive captions before being described as covered. The coverage map and linked journey pages distinguish fixture, private-runtime and live-provider proof. Coverage of one recovery or profile scenario does not cover every related journey; keep each remaining gap explicit.
