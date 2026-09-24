@@ -1,4 +1,4 @@
-![Barkdown — Notes. Agents. Your workspace.](docs/images/barkdown-banner.svg)
+[![Barkdown roadmap: accepted profile isolation, current Paper migration, then recovery, optional sync and installation.](docs/images/roadmap.svg)](docs/PLAN.md)
 
 <p align="center">
   <a href="docs/PLAN.md"><strong>The next chapter</strong></a> ·
@@ -35,11 +35,13 @@ Write, ask, revise, and keep going in one desktop workspace. Barkdown pairs Bark
 
 ![Barkpark connection settings.](docs/images/status/settings-barkpark.d86386ff.png)
 
-These are captures of the running app, not mockups. [Capture provenance](docs/images/status/manifest.json) records the source commits and whether the assistant turn was live. The typographic banner above is repository artwork.
+These are captures of the running app, not mockups. [Capture provenance](docs/images/status/manifest.json) records the source commits and whether the assistant turn was live.
 
 </details>
 
 ## The next chapter: a workspace you can depend on
+
+Phases advance on evidence, not calendar promises. P4 and P5 both follow P3; the local-only pilot does not depend on cloud sync. [Current cycle](docs/cycle.json) · [Acceptance criteria](docs/ACCEPTANCE.md) · [Verified results](docs/VALIDATION.md). This diagram is generated from the active plan and cycle by `npm run build`; it describes delivery direction, not app screenshot evidence.
 
 **Create a local profile → write with an agent → restart safely → move to another machine and continue.**
 
