@@ -59,7 +59,8 @@ const frames=[],results=[],errors=[];
 const canvas=()=>page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas');
 const blocks=()=>canvas().evaluate(c=>c.recoverySnapshot().blocks);
 const ready=async()=>{await canvas().locator('.ProseMirror').waitFor({timeout:60000});await page.waitForFunction(()=>document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent.includes('Editing live'));};
-const open=async id=>{await page.evaluate(id=>window.__barkdown.openTarget({kind:'doc',id,source:'barkpark',title:id}),id);await ready();assert.deepEqual(await blocks(),(await read(id)).blocks);};
+const arrived=async id=>{await page.waitForFunction(id=>document.querySelector('.bw-paper-pane:not([hidden]) #kicker')?.textContent.includes(id),id,{timeout:20000});await ready();};
+const open=async id=>{await page.evaluate(id=>window.__barkdown.openTarget({kind:'doc',id,source:'barkpark',title:id}),id);await arrived(id);assert.deepEqual(await blocks(),(await read(id)).blocks);};
 const shot=async name=>{await page.screenshot({path:path.join(out,name+'.png')});frames.push(name+'.png');};
 const launch=async()=>{app=await electron.launch({executablePath:require('electron'),args:[appDir,`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});page=await app.firstWindow();video=page.video();page.on('pageerror',e=>errors.push(e.message));await page.waitForSelector('#bw-pages .bw-page-row');await page.setViewportSize({width:1400,height:900});};
 const close=async name=>{await app.close();app=null;if(video)fs.renameSync(await video.path(),path.join(out,name+'.webm'));};
@@ -94,8 +95,7 @@ async function navigate(lib, from, label, destination) {
   await span.hover();
   await page.waitForFunction(text=>document.querySelector('body .bp-link-preview__excerpt')?.textContent.includes(text),lib.label+' profile',{timeout:15000});
   await shot(lib.label+'-'+from+'-preview');
-  await page.locator('body .bp-link-preview__open').click();await ready();
-  await page.waitForFunction(text=>document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')?._editor?.getText().startsWith(text),lib.label+' profile',{timeout:15000});
+  await page.locator('body .bp-link-preview__open').click();await arrived(lib.ids[destination]);
   assert.deepEqual(await blocks(),(await read(lib.ids[destination])).blocks,'native Open reaches exact profile-qualified target');
   await shot(lib.label+'-'+destination+'-opened');
 }
