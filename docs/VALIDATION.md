@@ -1,5 +1,7 @@
 # Evidence and remaining proof
 
+[C059](cycles/C059-saved-paper-navigation.md) is locally accepted at final capture source a11621d (application385d072): full rebuilt desktop/root,20/20 local parity, native saved-navigation, retained-evidence and open-buffer regression proof pass. All native9/45,11/58,9/48; live5/37; standard40 stills/40 diffs/40 GIF frames actually inspected and explicitly approved. [Closing review](cycles/evidence/C059/review.json). Saved unknown references stay preserved; titles and authority activation remain unsupported. C058 Linux18/20 failure is retained; corrected C059 exact-head Linux pending push.
+
 [C058](cycles/C058-remote-evidence-owner.md) at72d8f64 passes full desktop and corrected20/20 local parity on private30c007e43. Persistent receipt/proposal owners refuse foreign access; native HTTP/MCP-CLI restart/Undo, profile isolation and retained legacy bytes pass. Native11/58, live5/37 and standard40 stills/40 differences/40 GIF frames are actually inspected and explicitly approved. [Review](cycles/evidence/C058/review.json). Root verification passes. Title changes remain unsupported and refuse before writing; saved navigation ownership and authority activation remain open. Earlier Linux failures are preserved; fresh exact-head Linux evidence is required.
 
 ## Accepted prototype checkpoint

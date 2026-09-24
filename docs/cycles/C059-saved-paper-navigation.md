@@ -1,6 +1,6 @@
 # C059 — Saved Paper navigation
 
-Active on codex/paper-library, draft PR33. Minimum run end2026-09-24 10:18:54 UTC. No deployment or real-library cutover.
+Accepted locally on codex/paper-library, draft PR33; evidence push follows. Minimum run end2026-09-24 10:18:54 UTC. No deployment or real-library cutover.
 
 Implemented at385d072: catalog, saved tabs/favorites, owner-qualified human Pages, links and provider activity carry an opaque durable library owner. Unknown historical references are retained, never guessed from the current catalog. Foreign/unknown targets refuse before Paper reads; returning to the original connection restores access. Typed summaries do not borrow another source. Direct ancestor Pages navigate back correctly; importing a local copy mounts its own controller and retains the original.
 
@@ -13,8 +13,12 @@ Implemented at385d072: catalog, saved tabs/favorites, owner-qualified human Page
 
 The retained-evidence regression passes at5bc6144 after exercising explicit original-library Retry: HTTP/MCP CLI restart/Undo, refusal and title-draft preservation. All11 stills/58 decoded frames reviewed. Open-buffer regression also passes13 zero-request refusals, retained human words/Retry/Undo/CLI/restart; all9 stills/48 decoded frames reviewed. Final rebuilt `npm run test:desktop` passes at5bc6144 (Windows conditional provider test skip retained in log).
 
-## Exact next action
+## Closeout
 
-Fresh isolated live shots, standard visual capture/compare, actual image/GIF inspection and explicit approval, then root verify. Update closing truth evidence and push; C059 remains active until these pass. No source changes are planned before captures. Next bounded P2 slice: trusted managed-local Archive classification, with human Pages and authority unchanged.
+Final live/standard captures at a11621d pass. Actual review:5 live stills/37 GIF frames (real Claude, tablehead6/6),40 standard stills/40 differences/40 GIF frames, unchanged pixels/geometry. Explicit immutable approval recorded; `npm run verify` passes. [Closing review](evidence/C059/review.json) maps commands, sources and limitations. C058 Linux18/20 is preserved; new exact-head Linux remains pending push.
+
+## Next action
+
+Push this evidence checkpoint and inspect exact-head CI. Archive C059 JSON before planning trusted managed-local Archive classification as C060. Keep human Pages unchanged; no migration authority selection.
 
 One delivery branch/open draft PR33. Main is merged PR32d126875; upstream30c007 is unchanged.43 locked historical worktrees retain evidence; next hygiene review must preserve unique content before retirement. Legacy Markdown import limitations remain; no migration, physical database identity, title support or portability completion claim.
