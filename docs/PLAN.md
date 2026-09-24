@@ -45,6 +45,8 @@ P1 is accepted at the [C039 audit](cycles/C039-completion-audit.md) and merged t
 
 The [22 September read-only gate audit](cycles/evidence/release-gates-2026-09-22.json) recorded PR #19579 open/blocked at a5440345c. Its green parity job skipped checkout, build and the actual rows because the read token is absent. It does not establish matrix enforcement. No secret configuration or upstream workflow was changed.
 
+The [24 September gate audit](cycles/evidence/C054/release-gates.json) supersedes that external-state snapshot: PR #19579 now reports merge conflicts (DIRTY); PR #20020 is open/unstable. The upstream read-token name remains absent. No secret or workflow was changed.
+
 G1/G2 gate the integrated pilot, not isolated P1 implementation. Recheck external state before acting. The editor matrix still records limited server-side undo proof; carry that verification into P2/P3 rather than declaring all rows complete.
 
 ## Existing issue mapping
