@@ -26,7 +26,7 @@ const parts = [`<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="660
 <g font-family="Segoe UI, Arial, sans-serif">
 <rect width="1440" height="660" rx="14" fill="url(#background)"/>
 <text x="64" y="87" font-family="Georgia, serif" font-size="49" letter-spacing="-1.5" fill="#f0eee2">Barkdown</text>
-${text(65, 127, 'A Barkpark Desktop Experiment', 20, '#afbcaa')}
+${text(65, 127, 'A Barkpark Native App Experiment', 20, '#afbcaa')}
 <text x="1374" y="79" text-anchor="end" font-size="12" font-weight="600" letter-spacing="3" fill="#a3b49b">THE ROAD AHEAD</text>
 <path d="M70 208H1158" stroke="#475747" stroke-width="1"/>`];
 for (const [i, stage] of plan.stages.entries()) {
