@@ -14,7 +14,7 @@ function receiptFor(intent, asset, server) {
 
 async function stageMedia({ manifest, store, captured, checkpoint, unchanged, beforeNetwork }) {
   const assets = [...new Map(manifest.documents.flatMap(doc => doc.images || []).map(({ src, ...asset }) => [asset.path, asset])).values()].sort((a,b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
-  if (!assets.length) { beforeNetwork({}); return {}; }
+  if (!assets.length) { beforeNetwork({}); return { urls: {}, verify: async () => {} }; }
   const plan = { version: 1, sourceHash: manifest.sourceHash, target: captured.binding, assets };
   const folder = store.filePath('media');
   if (!fs.existsSync(folder)) fs.mkdirSync(folder);
@@ -103,7 +103,24 @@ async function stageMedia({ manifest, store, captured, checkpoint, unchanged, be
     await checkpoint('media-receipt:' + entry.asset.path);
   }
   unchanged(); record(store, 'media/complete.json', { version: 1, planHash, receipts });
-  return Object.fromEntries(receipts.map(receipt => [receipt.asset.path,receipt.url]));
+  return {
+    urls: Object.fromEntries(receipts.map(receipt => [receipt.asset.path,receipt.url])),
+    // Upload readback precedes Paper creation. Recheck after all Paper writes so
+    // media removed or changed during a batch cannot receive a completed stamp.
+    async verify() {
+      unchanged(); record(store, 'media/plan.json', plan);
+      record(store, 'media/complete.json', { version: 1, planHash, receipts });
+      for (const receipt of receipts) {
+        const { version, planHash: intentPlan, asset, filename } = receipt;
+        const intent = { version, planHash: intentPlan, asset, filename };
+        const matches = await candidates(intent);
+        if (matches.length !== 1) fail('media_uncertain', 'Owned upload changed during staging; retain all staged data');
+        const actual = await verify(intent, matches[0]);
+        if (canonical(actual) !== canonical(receipt)) fail('media_identity', 'Media identity changed during staging');
+        unchanged();
+      }
+    },
+  };
 }
 
 module.exports = { stageMedia };

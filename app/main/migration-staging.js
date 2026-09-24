@@ -94,7 +94,7 @@ async function stageMigration(options, target, { checkpoint = () => {}, retryAbs
       record(store, 'staging/plan.json', plan);
       validateJournal(store, documents, hash(plan));
     } });
-    const documents = payloads(manifest, store, options.metadata, media);
+    const documents = payloads(manifest, store, options.metadata, media.urls);
     const plan = { version: 1, sourceHash: manifest.sourceHash, target: captured.binding, documents };
     record(store, 'staging/plan.json', plan);
     await checkpoint('plan');
@@ -176,6 +176,8 @@ async function stageMigration(options, target, { checkpoint = () => {}, retryAbs
       if (!saved) fail('target_missing', 'A staged Paper disappeared before completion');
       record(store, 'staging/' + doc.targetId + '.receipt.json', compare(doc, saved));
     }
+    await media.verify();
+    unchanged();
     const result = { version: 1, planHash, status: 'staged', authority: 'legacy', documents: receipts };
     record(store, 'staging/complete.json', result);
     return result;

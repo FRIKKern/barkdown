@@ -148,3 +148,28 @@ test('later missing/changed uploaded bytes or changed source never recreate or o
   f.media.clear();await assert.rejects(f.stage(),{code:'media_uncertain'});f.media.set(original.asset.id,original);
   fs.writeFileSync(path.join(f.sourceDir,'attachments/orchard.png'),Buffer.from('changed source'));const count=f.calls.length;await assert.rejects(f.stage(),/Source or preparation contract changed/);assert.equal(f.calls.length,count);assert.equal(f.uploads(),1);assert.equal(f.papers.size,1);
 });
+
+test('media changed after Paper creation prevents completion without replay or cleanup',async t=>{
+  for (const mode of ['missing','bytes','identity']) {
+    const f=await fixture(t);
+    await assert.rejects(f.stage({checkpoint(name){
+      if(name!=='before-complete')return;
+      if(mode==='missing')f.media.clear();
+      if(mode==='bytes')f.state.bytes=Buffer.from('changed after paper creation');
+      if(mode==='identity')f.state.metadata=a=>({...a,id:crypto.randomUUID()});
+    }}));
+    assert.equal(f.uploads(),1);assert.equal(f.papers.size,1);
+    assert.equal(fs.existsSync(path.join(f.destinationDir,'staging/complete.json')),false);
+    assert.deepEqual(fs.readFileSync(path.join(f.destinationDir,'source/attachments/orchard.png')),f.bytes);
+  }
+});
+
+test('two-file partial upload resumes only the interrupted attempt and preserves both identities',async t=>{
+  const f=await fixture(t);
+  fs.writeFileSync(path.join(f.sourceDir,'attachments/second.png'),f.bytes);
+  f.doc.content.content.push({type:'image',attrs:{src:'attachments/second.png',alt:'Second owned file'}});f.save();
+  await assert.rejects(f.stage({checkpoint(name){if(name==='media-response:attachments/second.png')throw Error('interrupted second upload');}}),/interrupted second/);
+  assert.equal(f.uploads(),2);assert.equal(f.papers.size,0);
+  await f.stage();await f.stage();assert.equal(f.uploads(),2);assert.equal(f.media.size,2);
+  const images=[...f.papers.values()][0].blocks.filter(b=>b.type==='image');assert.equal(images.length,2);assert.notEqual(images[0].src,images[1].src);
+});
