@@ -2,6 +2,14 @@
 
 Read `docs/NEXT-AGENT.md`, `docs/PLAN.md`, `docs/DESIGN-DECISIONS.md`, and the current acceptance stage before changing behavior. Run `npm run plan` for the active queue. The user’s latest instructions take precedence. This is a private working Electron prototype; the original PRD and concepts are historical references, not the implementation backlog.
 
+## Entry and conflict resolution
+
+`AGENTS.md` is the canonical repository instruction file; `CLAUDE.md` imports it and the planning skill routes here. The active plan/cycle chooses work; source and measured evidence establish what exists. Product decisions record intent, with explicit supersession; archives and test fixtures are never a second instruction queue. If a material contradiction remains, resolve it against the latest user direction and actual implementation, then correct the active document in the same cycle. Do not silently select whichever text permits the easiest change.
+
+Before editing, inspect Git status, branch and applicable directory instructions. Read the affected owner modules and their tests, using `docs/ARCHITECTURE.md` for boundaries. A legacy name, compatibility alias or old proposal renderer is not automatically dead code; trace callers and persisted data before changing it. Keep comments about invariants and reasons; current task status belongs in the cycle, not scattered TODO lists. Do not assert that a repository-wide audit proves every module correct.
+
+`npm run check:cycle` checks the current handoff route, canonical entry points and tracked completion evidence. Stage referenced evidence before marking a cycle done and running its final check; ignored local logs are not delivered proof. Automated checks do not guarantee that an agent follows instructions or that prose is true; review remains required.
+
 ## Preserve the product model
 
 - Barkdown stays app-wide. Working folders belong to agents in individual chats. Do not add an active-project selector to the global sidebar or make file navigation silently change an agent's folder.
@@ -22,7 +30,7 @@ Keep credentials and real content out of the handoff. Do not enable public hosti
 
 ## Active delivery rules
 
-- P1 profile isolation is accepted for the Windows source prototype (C039); P2 Paper migration is next. The blocked legacy CI issue is a separate release gate. Consult `docs/ACCEPTANCE.md` for measurable exits and `docs/VALIDATION.md` for actual evidence.
+- P1 profile isolation is accepted for the Windows source prototype (C039); P2 Paper migration is active. The blocked legacy CI issue is a separate release gate. Consult `docs/ACCEPTANCE.md` for measurable exits and `docs/VALIDATION.md` for actual evidence.
 - Profile ownership is distinct from per-chat working folders. Capture profile identity in documents, tabs, drafts, favorites, caches and runs; switching must not rebind work or substitute same-slug content.
 - Preserve source data and backups. Do not retire the legacy editor/store until migration comparison, interruption/resume and rollback are proven. Audit actual export/sync APIs; do not zip a live database and claim portability.
 - Keep existing tests and editor matrix as regression gates. Closed issues and prior local passes do not establish a new stage’s completion or upstream merge readiness.
@@ -30,7 +38,7 @@ Keep credentials and real content out of the handoff. Do not enable public hosti
 
 ## Implementation workflow
 
-Create a `codex/` branch for subsequent implementation work. Do not switch branches or alter unrelated files in the sibling Barkpark checkout. Do not run destructive cleanup commands; use recoverable trash if cleanup is necessary. No production deployment is part of this handoff.
+Use a `codex/` branch for implementation; reuse the current suitable delivery lane before creating another. Do not switch branches or alter unrelated files in the sibling Barkpark checkout. Do not run destructive cleanup commands; use recoverable trash if cleanup is necessary. No production deployment is part of this handoff.
 
 For initial setup or dependency repair, run `npm ci` and install Playwright Chromium. Reuse healthy locked dependencies otherwise; run `npm run verify` at cycle closeout. Add production integration checks as real adapters are built; concept tests alone cannot prove production behavior. Keep CI and generated outputs consistent. Commit and push work, report exact validation and limitations, and update the handoff when a milestone changes status.
 

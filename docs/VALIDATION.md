@@ -1,5 +1,7 @@
 # Evidence and remaining proof
 
+[C063](cycles/C063-agent-guidance.md): canonical agent routing, current handoff and tracked-evidence guards, with negative cases; root and skill validation passed. Source-boundary audit preserves intentional compatibility. No app behavior or blanket code-quality guarantee added.
+
 [C062](cycles/C062-workflow-truth.md): workflow and entry-point truth review; root verification passed. No app/capture changes or new runtime claims. Cost and README proof requirements now live in the existing cycle/visual rules.
 
 [C061](cycles/C061-ordinary-note-contract.md): four isolated HTTP probes verify19 observations about blank drafts, exact identity, guarded body/title ops, search and recovery limits. This is API knowledge, not completed note UI. C060 Verify CI found ignored log evidence; logs are now explicitly retained. C060 exact-head Linux parity35983714483 passed; final head `f3514cc` passed Verify35985711183/35985703546, Visual35985711192 and Linux parity35985711320.

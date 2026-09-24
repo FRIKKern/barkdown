@@ -6,7 +6,7 @@ These record the user's decisions through the private handoff. Preserve the inte
 |---|---|---|
 | D01 | Barkdown combines conversational work and structured documents. | Start from chat or a document; keep the related work within reach. |
 | D02 | Use Barkpark's existing capabilities. | Reuse Paper, PortableDoc, content types, references, media, revisions, permissions, and search. Do not build a disconnected document store. |
-| D03 | T3 Code is the intended desktop/runtime foundation. | Audit and pin upstream before import; retain its execution boundaries. This handoff itself has no runtime fork yet. |
+| D03 | Historical T3 Code foundation proposal; not the current runtime backlog. | The implemented Electron/provider runtime in `app/` and D31 delivery plan govern current work. Any future import needs a new bounded audit; do not replace functioning code from this old proposal. |
 | D04 | Barkdown is app-wide. Agents work in folders. | No active filesystem project at the top of the app sidebar. Switching chats changes agent context, not the global document/chat navigation. |
 | D05 | Documents first in the sidebar; recent chats below. | A compact library above app-wide conversation recents, without an Agents section. |
 | D06 | A compact Notion-like top is desirable. | Use compact navigation and work tabs; avoid duplicated title/status rows. |
@@ -20,9 +20,9 @@ These record the user's decisions through the private handoff. Preserve the inte
 | D14 | Editing feels like Notion. | Direct text editing, block controls, slash insertion, selection formatting, and attached type menus. Preserve text selection and menu focus. |
 | D15 | The Types submenu is attached. | It travels with its parent selection menu, flips at pane edges, and remains open while selecting a type. It is not a floating unrelated menu. |
 | D16 | Hide scrollbar tracks and collapsed vertical tabs. | Content still scrolls with mouse, touch, and keyboard. No vertical “earlier panes” strips consuming space. |
-| D17 | Tab hover or keyboard focus exposes pin/close. | Both remain reachable by touch and keyboard. Closing a view does not delete its content or cancel a run. |
-| D18 | Pins restore the exact route. | A right-side Pins dropdown restores the chat, work tabs, focused destination, document path, reading anchors, and layout. |
-| D19 | Pins are navigation snapshots. | No extra pinned sidebar, no content rollback, no repeated agent actions. Unavailable paths remain visibly unavailable. |
+| D17 | Tab hover or keyboard focus exposes contextual controls; pin semantics superseded by D19a. | Controls remain reachable by touch and keyboard. Closing a view does not delete its content or cancel a run. |
+| D18 | Historical: pins restore the exact route (superseded by D19a). | A right-side Pins dropdown restores the chat, work tabs, focused destination, document path, reading anchors, and layout. |
+| D19 | Historical: pins are navigation snapshots (superseded by D19a). | No extra pinned sidebar, no content rollback, no repeated agent actions. Unavailable paths remain visibly unavailable. |
 | D19a | Favorites supersede pins (2026-09-19). | D18 and D19 are superseded: a pin snapshotted a whole workspace route and could only be restored into its own chat. A favorite bookmarks one tab (document, paper, website, file, review, terminal or side chat) and reopens it from any chat, after the tab was closed, by name. Tabs rename in place; a side chat's tab name is its title, a document tab's name is the document title. |
 | D20 | Agent context is local to the conversation. | A compact composer control shows the working folder. Side-chat agents inherit that context when created. File viewing does not silently rebind a run. |
 | D21 | Open the agent's project as an editor. | A chat action or working-folder menu opens files on the right. Expand if needed; Back to chat restores the conversation and split. |
@@ -43,7 +43,7 @@ These record the user's decisions through the private handoff. Preserve the inte
 
 ## Explicitly superseded directions
 
-- The earlier proposal for a permanently visible pinned sidebar is superseded by the Pins dropdown that restores a path.
+- Both the pinned sidebar and later Pins route-snapshot dropdown are superseded by D19a destination Favorites.
 - The earlier “one top tab per document pane” model is superseded **in chat mode** by typed work tabs, each document tab retaining its internal path.
 - A global project selector and a program-wide working directory are superseded by per-agent working context.
 - Earlier status chrome, visible scroll tracks, and collapsed vertical rails must not return when implementing responsive layouts.
@@ -51,12 +51,12 @@ These record the user's decisions through the private handoff. Preserve the inte
 
 ## Recommendations that are not settled user decisions
 
-The PRD proposes Windows for the first pilot, one existing provider adapter, review-before-apply for initial agent changes, and one active Barkpark connection for the first connected slice. These are starting assumptions to validate, not permanent platform/provider restrictions. The exact T3 import baseline, persistence engine, native file editor component, browser host, commercial-template entitlement, and searchable-chat storage are unresolved.
+The PRD is historical design input. Its review-before-apply proposal is superseded by D28, single-connection assumption by profile ownership, and runtime-foundation proposal by the actual Electron implementation. Remaining choices belong to the active plan and architecture; do not use this historical list to reopen settled implementation or invent a new backlog.
 
 ## Direction set 2026-09-20
 
-- **D-editor:** the standing goal is that the Barkpark canvas becomes as good as the Tiptap document tab, measured by the matrix in [EDITOR-PARITY.md](EDITOR-PARITY.md); when every row is green the Tiptap tab is deleted and local documents are Barkpark papers. Editor fixes land in the Barkpark repo and reach Barkdown through the connected server's bundle, not a hand copy.
-- **D-identity:** Barkdown is a note + agent app utilizing Barkpark. It runs the real Barkpark locally as a sidecar (its own Postgres cluster per profile) rather than reimplementing any of it, and syncs to bp cloud. Profiles may be cloud-backed or local-only; a profile's data must be zippable to another device. This supersedes the earlier assumption of "one active Barkpark connection" as the only mode.
+- **D-editor:** the standing goal is that the Barkpark canvas becomes as good as the Tiptap document tab, measured by the matrix in [EDITOR-PARITY.md](EDITOR-PARITY.md); editor parity is necessary but not sufficient for retiring the Tiptap tab. D31 and A2 additionally require complete owned-note lifecycle, migration comparison, interruption/resume and rollback proof before retirement. Editor fixes land in the Barkpark repo and reach Barkdown through the connected server's bundle, not a hand copy.
+- **D-identity:** Barkdown is a note + agent app utilizing Barkpark. It runs the real Barkpark locally as a sidecar (its own Postgres cluster per profile) rather than reimplementing any of it, with optional cloud sync as the P4 target. Profiles may be cloud-backed or local-only; portable export is a P3 target requiring a consistent supported export, not zipping a live database. This supersedes the earlier assumption of "one active Barkpark connection" as the only mode.
 - **D-headings (2026-09-20, plan #22): three heading levels.** Notes offer H1–H3 — what Notion offers, what Barkdown's Tiptap tab offered, and what the Barkpark reader renders (`heading_level/1` folds anything else to H2). The canvas configures `levels: [1, 2, 3]`, the slash menu and the turn-into palette offer exactly those, and `#### ` stays text. A paper that already carries a deeper level (an import, an agent) is never restructured: the level rides the node and round-trips byte-identically. Choosing six would have cost a reader change, three chords and a menu row for a rung Notion users do not reach for; the decision can be revisited if a row shows authors needing it.
 
 ## Active direction — 2026-09-21 reset
