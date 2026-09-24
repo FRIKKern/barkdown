@@ -237,8 +237,8 @@ function cli(args, input) {
   });
 }
 
-async function cliListPapers(limit = 60) {
-  const data = await cli(['doc', 'query', 'paper', '--limit', String(limit), '--order', '_updatedAt:desc', '--fields', 'title,slug,tags,body_html,blocks']);
+async function cliListPapers(limit = 60, routing = []) {
+  const data = await cli([...routing, 'doc', 'query', 'paper', '--limit', String(limit), '--order', '_updatedAt:desc', '--fields', 'title,slug,tags,body_html,blocks']);
   return envelopeDocs(data).map(paperToSummary);
 }
 

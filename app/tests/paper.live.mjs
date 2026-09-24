@@ -1,3 +1,4 @@
+import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // Live check of the Barkpark paper tab: edits typed into <bp-paper-canvas> land on the connected server
 // through the fenced ops endpoint, and a stale revision surfaces as a conflict instead of overwriting.
 // Uses the scratch paper `barkdown-editor-test` on the bp-connected server. Not part of `npm test`.
@@ -22,7 +23,7 @@ await page.setViewportSize({ width: 1400, height: 900 });
 const results = [];
 const step = (name, ok) => { results.push({ name, ok }); if (!ok) throw new Error('Failed: ' + name); };
 try {
-  await page.evaluate(async () => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true } }); await window.__barkdown.refreshLibrary(); });
+  await connectPaperFixture(page);
   await page.evaluate(() => window.__barkdown.expandArchive());
   await page.waitForSelector('#bw-pages [data-source="barkpark"], #bw-cloud-archive [data-source="barkpark"]', { timeout: 90000 });
   // Reset the scratch paper to a known shape (unfenced publish) so earlier runs cannot skew the checks.

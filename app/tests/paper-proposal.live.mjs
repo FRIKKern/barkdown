@@ -1,3 +1,4 @@
+import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // Live check: MCP edits save directly, show intention in the paper, and support fenced Undo.
 import { _electron as electron } from 'playwright';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
@@ -19,7 +20,7 @@ const page = await app.firstWindow();
 await page.waitForSelector('#bw-documents .bw-nav');
 await page.setViewportSize({ width: 1400, height: 900 });
 try {
-  await page.evaluate(async () => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true } }); await window.__barkdown.refreshLibrary(); });
+  await connectPaperFixture(page);
   await page.evaluate(() => window.__barkdown.expandArchive());
   await page.waitForSelector('#bw-pages [data-source="barkpark"], #bw-cloud-archive [data-source="barkpark"]', { timeout: 90000 });
   const storeDir = await page.evaluate(() => window.__barkdown.state.settings.userData);

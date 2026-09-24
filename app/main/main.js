@@ -260,7 +260,10 @@ function registerIpc() {
   handle('state:save', state => { if (profileService) return profileService.save(profileService.view(), state); store.writeJson('workspace.json', state); return true; });
   handle('state:command', command => { if (!profileService) throw new Error('Managed transcripts require profiles'); return profileService.workspaces.command(profileService.view().profileId, command); });
 
-  handle('docs:agentEdit', id => require('./agent-edits').latest(id));
+  handle('docs:agentEdit', async input => {
+    const { id, binding } = typeof input === 'string' ? { id: input } : input;
+    return id.startsWith('bp:') ? (await paperConnection.read(binding, c => require('./agent-edits').latest(id, c), true)).value : require('./agent-edits').latest(id);
+  });
   handle('docs:undoAgentEdit', ({ id, editId, binding }) => id.startsWith('bp:') ? paperConnection.write(binding, c => require('./agent-edits').undo(id, editId, c)) : require('./agent-edits').undo(id, editId, barkparkConfig()));
   handle('docs:list', () => documents.list());
   handle('docs:get', id => documents.get(id));
@@ -272,11 +275,11 @@ function registerIpc() {
   handle('docs:history', id => documents.history(id));
   handle('docs:restore', ({ id, rev }) => documents.restore(id, rev));
   handle('docs:proposal', ({ id, proposalId, accept }) => documents.resolveProposal(id, proposalId, accept));
-  handle('docs:paperProposals', slug => documents.paperProposals(slug));
+  handle('docs:paperProposals', async ({ slug, binding }) => (await paperConnection.read(binding, c => documents.paperProposals(slug, c), true)).value);
   handle('docs:resolvePaperProposal', async ({ slug, proposalId, accept, rev, binding }) => {
     // Refuse a stale connection before taking the retained proposal.
     const execute = async c => {
-      const proposal = documents.takePaperProposal(slug, proposalId);
+      const proposal = documents.takePaperProposal(slug, proposalId, c);
       if (!accept) return { ok: true };
       try {
         const current = c.viaCli ? await barkpark.cliGetPaper(slug, c.cliRouting) : await barkpark.getPaper(c, slug);

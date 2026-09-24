@@ -136,7 +136,7 @@ try {
   transport.release();
   await wait(() => Object.values(workspace(a).ownership.attempts).some(attempt => attempt.driverFinished), 'A provider did not finish');
   const afterA = workspace(a); assert.match(afterA.chats[aChat].messages.at(-1).text, /A owned run finished/);
-  const aReceipt = JSON.parse(fs.readFileSync(path.join(storeFor(a), 'agent-edits', fs.readdirSync(path.join(storeFor(a), 'agent-edits'))[0])));
+  const aReceipt = fs.readdirSync(path.join(storeFor(a), 'agent-edits')).filter(name => name.endsWith('.json')).map(name => JSON.parse(fs.readFileSync(path.join(storeFor(a), 'agent-edits', name)))).find(record => record.documentId === 'bp:same-slug');
   assert.equal(aReceipt.documentId, 'bp:same-slug');
   assert.match(JSON.stringify(transport.requests), /folder-A/);
   assert.equal(await page.locator('#bw-prompt').inputValue(), 'B draft must survive A completion');
@@ -148,8 +148,8 @@ try {
   assert.equal(await page.locator('.bw-paper-pane:not([hidden]) #current').evaluate(node => node.scrollTop), bScroll);
   const bAfter = workspace(b); assert.deepEqual(bAfter.chats[bChat], bBefore.chats[bChat]);
   assert.doesNotMatch(await paperText(), /amberwitness|A background/);
-  assert.equal(await page.evaluate(() => window.barkdown.docs.agentEdit('bp:same-slug')), null);
-  const refused = await page.evaluate(async id => { try { await window.barkdown.docs.undoAgentEdit('bp:same-slug', id, (await window.barkdown.barkpark.get('same-slug')).binding); return ''; } catch (e) { return e.message; } }, aReceipt.id); assert.match(refused, /no longer available/);
+  assert.equal(await page.evaluate(async () => { const paper = await window.barkdown.barkpark.get('same-slug'); return window.barkdown.docs.agentEdit('bp:same-slug', paper.binding); }), null);
+  const refused = await page.evaluate(async id => { try { await window.barkdown.docs.undoAgentEdit('bp:same-slug', id, (await window.barkdown.barkpark.get('same-slug')).binding); return ''; } catch (e) { return e.message; } }, aReceipt.id); assert.match(refused, /paper_evidence_owner/);
   await wait(async () => JSON.stringify(await page.evaluate(() => window.barkdown.barkpark.search('cobaltwitness'))).includes('same-slug'), 'B search did not index own paper');
   const unmatched = await page.evaluate(() => window.barkdown.barkpark.search('amberwitness'));
   for (const hit of unmatched) { assert.match(hit.title, /Profile B/); assert.doesNotMatch(JSON.stringify(hit), /Only A|A background|Profile A/); }
@@ -158,7 +158,7 @@ try {
   await select(a); await openPaper(); assert.match(await paperText(), /A background amberwitness edit/);
   assert.match(JSON.stringify(await page.evaluate(() => window.__barkdown.state.favorites)), /amberwitness/);
   assert.doesNotMatch(JSON.stringify(await page.evaluate(() => window.__barkdown.state.favorites)), /cobaltwitness/);
-  assert.equal((await page.evaluate(() => window.barkdown.docs.agentEdit('bp:same-slug'))).id, aReceipt.id);
+  assert.equal((await page.evaluate(async () => { const paper = await window.barkdown.barkpark.get('same-slug'); return window.barkdown.docs.agentEdit('bp:same-slug', paper.binding); })).id, aReceipt.id);
   await shot('04-A-owned-receipt');
   await page.evaluate(async id => window.barkdown.docs.undoAgentEdit('bp:same-slug', id, (await window.barkdown.barkpark.get('same-slug')).binding), aReceipt.id);
   const undone = await page.evaluate(() => window.barkdown.barkpark.get('same-slug')); assert.doesNotMatch(undone.markdown, /A background/); assert.match(undone.markdown, /Only A owns/);

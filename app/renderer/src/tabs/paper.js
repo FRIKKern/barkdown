@@ -21,7 +21,7 @@ export function mountPaper(tab, host, ctx) {
   q('.bw-kicker').insertBefore(q('#agent-edit'), q('#save-state'));
   const presence = agentPresence(pane, () => q('.ProseMirror'), q('#current'));
   let refreshing = false, refreshAgain = false;
-  const updateUndo = () => renderAgentUndo(q('#agent-edit'), 'bp:' + slug(), rev, async () => { if (hasUnsavedWork()) throw new Error('Finish saving your edit before Undo.'); presence.stop(); await api.docs.undoAgentEdit('bp:' + slug(), q('#agent-edit').dataset.editId, paper?.binding); await controller.refresh(); ctx.libraryChanged(); });
+  const updateUndo = () => renderAgentUndo(q('#agent-edit'), 'bp:' + slug(), rev, async () => { if (hasUnsavedWork()) throw new Error('Finish saving your edit before Undo.'); presence.stop(); await api.docs.undoAgentEdit('bp:' + slug(), q('#agent-edit').dataset.editId, paper?.binding); await controller.refresh(); ctx.libraryChanged(); }, paper?.binding);
   let paper = null;
   let canvas = null;
   let positionReady = false, positionIntent = 0, cancelPositionRestore = () => {};
@@ -148,7 +148,7 @@ export function mountPaper(tab, host, ctx) {
     const host = q('#proposals');
     host.innerHTML = '';
     for (const p of paper?.proposals || []) {
-      const node = el(`<div class="bw-proposal" data-id="${esc(p.id)}"><small>Proposed by the assistant · ${esc(p.mode)} · ${esc(relativeTime(p.createdAt))}</small><div class="bw-proposal-head"><strong>${esc(p.summary || 'Change')}</strong><span><button class="primary" data-act="keep" ${writesOn() ? '' : 'disabled title="Enable live editing first"'}>Keep</button><button data-act="discard" ${connectionChanged() ? 'disabled title="Restore the original connection first"' : ''}>Discard</button></span></div><details><summary>Show the change</summary><div class="body">${inlineMarkdownHtml(p.markdown || '')}</div></details></div>`);
+      const node = el(`<div class="bw-proposal" data-id="${esc(p.id)}"><small>Proposed by the assistant · ${esc(p.mode)} · ${esc(relativeTime(p.createdAt))}</small><div class="bw-proposal-head"><strong>${esc(p.summary || 'Change')}</strong><span><button class="primary" data-act="keep" ${writesOn() && !p.ownershipUnavailable ? '' : 'disabled'}>Keep</button><button data-act="discard" ${connectionChanged() || p.ownershipUnavailable ? 'disabled' : ''}>Discard</button></span></div>${p.ownershipUnavailable ? `<p>${esc(p.ownershipUnavailable)}</p>` : ''}<details><summary>Show the change</summary><div class="body">${inlineMarkdownHtml(p.markdown || '')}</div></details></div>`);
       node.querySelector('[data-act="keep"]').onclick = () => resolveProposal(p.id, true);
       node.querySelector('[data-act="discard"]').onclick = () => resolveProposal(p.id, false);
       host.appendChild(node);
@@ -345,7 +345,7 @@ export function mountPaper(tab, host, ctx) {
       return;
     }
     if (!current() || !fetched) return;
-    try { fetched.proposals = await api.docs.paperProposals(id); } catch { fetched.proposals = []; }
+    try { fetched.proposals = await api.docs.paperProposals(id, fetched.binding); } catch { fetched.proposals = []; }
     // Resolve every asynchronous prerequisite before changing the mounted document identity.
     try { await ensureCanvasBundle(); } catch (e) { if (current()) setSaveState('Editor bundle failed to load: ' + (e?.message || e), 'error'); return; }
     if (!current()) return;
@@ -446,8 +446,8 @@ export function mountPaper(tab, host, ctx) {
       try {
         const fresh = await fetchPaper();
         if (destroyed || !fresh || id !== slug()) return;
-        const proposals = await api.docs.paperProposals(id).catch(() => []);
-        const edit = await api.docs.agentEdit('bp:' + id);
+        const proposals = await api.docs.paperProposals(id, paper?.binding).catch(() => []);
+        const edit = await api.docs.agentEdit('bp:' + id, paper?.binding);
         const allowed = () => !destroyed && generation === loadGeneration && slug() === id && rev === beforeRev && !hasUnsavedWork();
         const apply = () => {
           if (fresh.rev !== rev && canvas) {
@@ -464,7 +464,7 @@ export function mountPaper(tab, host, ctx) {
           if (allowed()) setSaveState('Update available · reload');
           return;
         }
-        if (edit && !edit.undone && edit.beforeRev === beforeRev && edit.afterRev === fresh.rev) await presence.run(edit, apply, allowed);
+        if (edit && !edit.undoUnavailable && !edit.undone && edit.beforeRev === beforeRev && edit.afterRev === fresh.rev) await presence.run(edit, apply, allowed);
         else if (allowed()) apply();
         renderProposals(); renderMeta(); renderLinks(); renderPath();
       } catch (error) { console.warn('Paper refresh:', error); }

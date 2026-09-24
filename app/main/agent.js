@@ -86,19 +86,23 @@ function paperTools(run) {
   // This immutable connection belongs to the run, never the foreground profile.
   const config = run.scope.connection;
   const enabled = Boolean(config.enabled && (config.viaCli || config.server));
+  const captured = run.paperConnection ||= require('./paper-tool-connection').paperToolConnection(config);
   return {
-    list: () => !enabled ? [] : config.viaCli ? barkpark.cliListPapers(60) : barkpark.listPapers(config, 60),
+    async list() { if (!enabled) return []; const c = await captured(); return c.viaCli ? barkpark.cliListPapers(60, c.cliRouting) : barkpark.listPapers(c, 60); },
     async search(query) {
       if (!enabled) return [];
-      const found = await (config.viaCli ? barkpark.cliSearch(query) : barkpark.search(config, query));
+      const c = await captured();
+      const found = await (c.viaCli ? barkpark.cliSearch(query, 20, c.cliRouting) : barkpark.search(c, query));
       if (found.length) return found;
       const listed = await this.list(), needle = query.toLowerCase();
       return listed.filter(d => (d.title + ' ' + d.excerpt).toLowerCase().includes(needle)).map(d => ({ ...d, snippet: d.excerpt }));
     },
-    get(slug) {
+    async get(slug) {
       if (!enabled) throw new Error('Barkpark is not connected for this conversation run.');
-      return config.viaCli ? barkpark.cliGetPaper(slug) : barkpark.getPaper(config, slug);
+      const c = await captured();
+      return c.viaCli ? barkpark.cliGetPaper(slug, c.cliRouting) : barkpark.getPaper(c, slug);
     },
+    connection: captured,
   };
 }
 
@@ -133,14 +137,14 @@ async function executeTool(run, name, input) {
     }
     case 'edit_document':
     case 'propose_document_edit': {
-      const edit = await edits.apply({ ...input, baseRev: run.readRevisions?.get(input.id) }, run.scope.connection);
+      const edit = await edits.apply({ ...input, baseRev: run.readRevisions?.get(input.id) }, isPaper(input.id) ? await paperTools(run).connection() : run.scope.connection);
       run.readRevisions.set(input.id, edit.afterRev);
       const title = run.readTitles?.get(input.id) || documents.get(input.id)?.title || input.id;
       emit({ type: 'activity', target: documentTarget(input.id, title), label: `Edited ${title}`, detail: input.summary, libraryChanged: true, agentEdit: true });
       return `Saved edit to "${title}" at revision ${edit.afterRev}. Undo is available in the document.`;
     }
     case 'edit_table': {
-      const edit = await edits.applyTable({ ...input, baseRev: run.readRevisions?.get(input.id) }, run.scope.connection);
+      const edit = await edits.applyTable({ ...input, baseRev: run.readRevisions?.get(input.id) }, await paperTools(run).connection());
       run.readRevisions.set(input.id, edit.afterRev);
       const title = run.readTitles?.get(input.id) || input.id;
       emit({ type: 'activity', target: documentTarget(input.id, title), label: `Edited ${title}`, detail: input.summary, libraryChanged: true, agentEdit: true });

@@ -13,14 +13,13 @@ const conversations = require('./conversations');
 
 // The main process keeps barkpark.json current (server, dataset, mode) and hands a stored token over as
 // BARKDOWN_BP_TOKEN when it starts this server; published papers read fine without one.
-const capturedConnection = process.env.BARKDOWN_RUN_CONNECTION ? Object.freeze(JSON.parse(process.env.BARKDOWN_RUN_CONNECTION)) : null;
-function bpFlag() { return capturedConnection || store.readJson('barkpark.json', null) || {}; }
+let capturedConnection = process.env.BARKDOWN_RUN_CONNECTION ? Object.freeze(JSON.parse(process.env.BARKDOWN_RUN_CONNECTION)) : null;
+function bpFlag() { return capturedConnection || {}; }
 function barkparkOn() { const f = bpFlag(); return Boolean(f.enabled && (f.viaCli || f.server)); }
-function bpConfig() { const f = bpFlag(); return { server: f.server, dataset: f.dataset || 'production', token: capturedConnection ? capturedConnection.token || '' : process.env.BARKDOWN_BP_TOKEN || '' }; }
 const paper = {
-  list: limit => bpFlag().viaCli ? barkpark.cliListPapers(limit) : barkpark.listPapers(bpConfig(), limit),
-  get: id => bpFlag().viaCli ? barkpark.cliGetPaper(id) : barkpark.getPaper(bpConfig(), id),
-  search: query => bpFlag().viaCli ? barkpark.cliSearch(query) : barkpark.search(bpConfig(), query),
+  async list(limit) { const c = await toolConnection(); return c.viaCli ? barkpark.cliListPapers(limit, c.cliRouting) : barkpark.listPapers(c, limit); },
+  async get(id) { const c = await toolConnection(); return c.viaCli ? barkpark.cliGetPaper(id, c.cliRouting) : barkpark.getPaper(c, id); },
+  async search(query) { const c = await toolConnection(); return c.viaCli ? barkpark.cliSearch(query, 20, c.cliRouting) : barkpark.search(c, query); },
 };
 const isPaper = id => typeof id === 'string' && id.startsWith('bp:');
 const slugOf = id => id.slice(3);
@@ -29,6 +28,8 @@ async function paperListing() { if (!barkparkOn()) return []; try { return (awai
 const storeDir = process.argv[2];
 if (!storeDir) { console.error('usage: mcp-server.js <storeDir>'); process.exit(2); }
 store.init(storeDir);
+capturedConnection ||= Object.freeze({ ...(store.readJson('barkpark.json', null) || {}), token: process.env.BARKDOWN_BP_TOKEN || '' });
+const toolConnection = require('./paper-tool-connection').paperToolConnection(capturedConnection);
 documents.loadAll();
 
 const text = value => ({ content: [{ type: 'text', text: typeof value === 'string' ? value : JSON.stringify(value, null, 1) }] });
@@ -73,7 +74,7 @@ server.registerTool('read_document', { description: 'Read a Barkdown document (o
 // Keep the old tool name as an alias for resumed provider sessions.
 for (const name of ['edit_document', 'propose_document_edit']) server.registerTool(name, { description: 'Apply a document edit directly and save it, with Undo available in the document. Read the document first. No Keep step. Prefer replace_block for targeted edits; append adds blocks, replace rewrites the document.', inputSchema: { id: z.string(), mode: z.enum(['append', 'replace', 'replace_block']), blockIndex: z.number().int().optional(), markdown: z.string(), summary: z.string() } }, async input => {
   try {
-    const edit = await agentEdits.apply({ ...input, baseRev: readRevisions.get(input.id) }, { ...bpFlag(), ...bpConfig() });
+    const edit = await agentEdits.apply({ ...input, baseRev: readRevisions.get(input.id) }, isPaper(input.id) ? await toolConnection() : bpFlag());
     readRevisions.set(input.id, edit.afterRev);
     return text(`Saved edit to ${input.id} at revision ${edit.afterRev}. Applied directly; Undo is available in the document.`);
   } catch (error) { return { ...text(error.message), isError: true }; }
@@ -83,7 +84,7 @@ server.registerTool('edit_table', { description: 'Edit existing cells in a Barkp
   id: z.string(), blockId: z.string(), summary: z.string(), cells: z.array(z.object({ row: z.number().int().nonnegative(), column: z.number().int().nonnegative(), header: z.boolean().optional(), text: z.string().optional(), content: z.array(z.record(z.unknown())).optional(), align: z.enum(['left', 'center', 'right']).optional() }).strict()).min(1).max(1000),
 } }, async input => {
   try {
-    const edit = await agentEdits.applyTable({ ...input, baseRev: readRevisions.get(input.id) }, { ...bpFlag(), ...bpConfig() });
+    const edit = await agentEdits.applyTable({ ...input, baseRev: readRevisions.get(input.id) }, await toolConnection());
     readRevisions.set(input.id, edit.afterRev);
     return text(`Saved table edit to ${input.id} at revision ${edit.afterRev}. Undo is available in the document.`);
   } catch (error) { return { ...text(error.message), isError: true }; }

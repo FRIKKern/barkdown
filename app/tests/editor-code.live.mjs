@@ -1,3 +1,4 @@
+import { connectPaperFixture } from './lib/paper-fixture.mjs';
 import { _electron as electron } from 'playwright';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
@@ -11,7 +12,7 @@ const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push(e.message));
 await page.waitForSelector('#bw-pages .bw-page-row');
 await page.setViewportSize({ width: 1400, height: 900 });
-await page.evaluate(async () => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true } }); await window.__barkdown.refreshLibrary(); });
+await connectPaperFixture(page);
 await page.waitForFunction(() => window.__barkdown.state.barkparkDocs.length > 0, null, { timeout: 90000 });
 await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug }), SLUG);
 await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 });

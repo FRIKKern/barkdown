@@ -5,8 +5,17 @@ const { markdownToDoc } = require('../shared/markdown');
 const { markdownToBlocks } = require('../shared/portabledoc');
 
 function createAgentEdits({ store, documents }) {
+const ownership = require('./paper-evidence-owner').createPaperEvidenceOwner(store);
 const receiptPath = id => 'agent-edits/' + crypto.createHash('sha256').update(id).digest('hex') + '.json';
-function latest(id) { return store.readJson(receiptPath(id), null); }
+const ownedPath = (id, owner) => 'agent-edits/remote-' + crypto.createHash('sha256').update(JSON.stringify([id, owner])).digest('hex') + '.json';
+function latest(id, config) {
+  if (!id.startsWith('bp:')) return store.readJson(receiptPath(id), null);
+  const owner = config ? ownership.identify(config) : null;
+  const owned = owner && store.readJson(ownedPath(id, owner), null);
+  if (owned) { ownership.assert(owned, config); if (owned.documentId !== id) throw require('./paper-evidence-owner').ownerError(); return owned; }
+  const legacy = store.readJson(receiptPath(id), null);
+  return legacy ? { ...legacy, undoUnavailable: require('./paper-evidence-owner').unavailable } : null;
+}
 function remote(config) {
   if (!config?.enabled || !config.writes) throw new Error('Live editing is off. Enable Barkpark live editing before changing this paper.');
   return {
@@ -24,6 +33,8 @@ function guard(actual, expected) {
 }
 async function apply(input, config) {
   const { id, baseRev } = input;
+  config = config && structuredClone(config);
+  const paperOwner = id.startsWith('bp:') ? ownership.identify(config, { create: true }) : undefined;
   let before, afterRev;
   if (id.startsWith('bp:')) {
     const api = remote(config), slug = id.slice(3);
@@ -61,12 +72,14 @@ async function apply(input, config) {
     if (result.conflict) throw new Error('Document changed. Read it again before editing.');
     afterRev = result.doc.rev;
   }
-  const receipt = { id: crypto.randomUUID(), documentId: id, beforeRev: before.rev, afterRev, mode: input.mode, blockIndex: input.blockIndex, summary: input.summary, at: new Date().toISOString(), before: id.startsWith('bp:') ? { blocks: before.blocks } : { content: before.content, title: before.title } };
-  store.writeJson(receiptPath(id), receipt);
+  const receipt = { id: crypto.randomUUID(), documentId: id, ...(paperOwner ? { paperOwner } : {}), beforeRev: before.rev, afterRev, mode: input.mode, blockIndex: input.blockIndex, summary: input.summary, at: new Date().toISOString(), before: id.startsWith('bp:') ? { blocks: before.blocks } : { content: before.content, title: before.title } };
+  store.writeJson(paperOwner ? ownedPath(id, paperOwner) : receiptPath(id), receipt);
   return receipt;
 }
 async function applyTable(input, config) {
   if (typeof input.id !== 'string' || !input.id.startsWith('bp:')) throw new Error('Structured table edits require a Barkpark paper.');
+  config = structuredClone(config);
+  const paperOwner = ownership.identify(config, { create: true });
   const api = remote(config), slug = input.id.slice(3), before = await api.get(slug);
   guard(before.rev, input.baseRev);
   const matches = (before.blocks || []).map((block, index) => ({ block, index })).filter(item => item.block.id === input.blockId);
@@ -76,11 +89,14 @@ async function applyTable(input, config) {
   const result = await api.apply(slug, [{ op: 'patch-block', id: block.id, patch }], input.baseRev);
   if (!Number.isFinite(result.rev)) throw new Error('Server did not acknowledge a revision; read the paper before retrying.');
   const receipt = { id: crypto.randomUUID(), documentId: input.id, beforeRev: before.rev, afterRev: result.rev, mode: 'replace_block', blockIndex: index, blockId: block.id, summary: input.summary || 'Edited table cells', at: new Date().toISOString(), before: { blocks: before.blocks } };
-  store.writeJson(receiptPath(input.id), receipt);
+  receipt.paperOwner = paperOwner;
+  store.writeJson(ownedPath(input.id, paperOwner), receipt);
   return receipt;
 }
 async function undo(id, editId, config) {
-  const edit = latest(id);
+  config = config && structuredClone(config);
+  const edit = latest(id, config);
+  if (id.startsWith('bp:')) ownership.assert(edit, config);
   if (!edit || edit.id !== editId || edit.undone) throw new Error('This edit is no longer available to undo.');
   let result;
   if (id.startsWith('bp:')) {
@@ -94,7 +110,7 @@ async function undo(id, editId, config) {
     result = documents.save({ id, baseRev: edit.afterRev, ...edit.before, actor: 'you', summary: 'Undid assistant edit' });
     if (result.conflict) throw new Error('Document changed; Undo was not applied.');
   }
-  store.writeJson(receiptPath(id), { ...edit, undone: true });
+  store.writeJson(id.startsWith('bp:') ? ownedPath(id, edit.paperOwner) : receiptPath(id), { ...edit, undone: true });
   return result;
 }
 return { apply, applyTable, latest, undo };

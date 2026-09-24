@@ -5,6 +5,7 @@ const crypto = require('crypto');
 const { markdownToDoc, docToMarkdown, docToText } = require('../shared/markdown');
 
 function createDocuments(store) {
+const paperOwnership = require('./paper-evidence-owner').createPaperEvidenceOwner(store);
 const MAX_REVISIONS = 60;
 const cache = new Map();
 
@@ -228,18 +229,25 @@ function seed() {
 
 // Proposals for Barkpark papers live beside the local library (papers themselves stay on the server).
 function paperProposalsAll() { return store.readJson('paper-proposals.json', {}); }
-function paperProposals(slug) { return paperProposalsAll()[slug] || []; }
-function addPaperProposal(slug, proposal) {
+function paperProposals(slug, config) {
+  const entries = paperProposalsAll()[slug] || [];
+  if (!config) return entries;
+  const owner = paperOwnership.identify(config);
+  return entries.filter(p => !p.paperOwner || p.paperOwner === owner).map(p => p.paperOwner ? p : { ...p, ownershipUnavailable: require('./paper-evidence-owner').unavailable });
+}
+function addPaperProposal(slug, proposal, config) {
   const all = paperProposalsAll();
   const entry = { id: crypto.randomUUID(), createdAt: new Date().toISOString(), status: 'pending', ...proposal };
+  if (config) entry.paperOwner = paperOwnership.identify(config, { create: true });
   all[slug] = [...(all[slug] || []), entry];
   store.writeJson('paper-proposals.json', all);
   return entry;
 }
-function takePaperProposal(slug, proposalId) {
+function takePaperProposal(slug, proposalId, config) {
   const all = paperProposalsAll();
   const proposal = (all[slug] || []).find(p => p.id === proposalId);
   if (!proposal) throw new Error('Proposal not found');
+  paperOwnership.assert(proposal, config);
   all[slug] = all[slug].filter(p => p.id !== proposalId);
   store.writeJson('paper-proposals.json', all);
   return proposal;

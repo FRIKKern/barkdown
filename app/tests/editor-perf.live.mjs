@@ -1,3 +1,4 @@
+import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // Row 16: a 500-block paper types without lag and ops stay batched. Against the local server (so the
 // network is not the variable): open a 500-block paper, type for two seconds near the end and measure
 // keystroke-to-paint and how many ops batches leave the canvas, then scroll to the end and drag a block
@@ -31,7 +32,7 @@ const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });
 await page.waitForSelector('#bw-pages .bw-page-row');
 await page.setViewportSize({ width: 1400, height: 900 });
-await page.evaluate(async () => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, viaCli: true, writes: true } }); await window.__barkdown.refreshLibrary(); });
+await connectPaperFixture(page);
 await page.waitForFunction(() => window.__barkdown.state.barkparkDocs.length > 0, null, { timeout: 90000 });
 
 const results = [];

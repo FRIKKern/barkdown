@@ -71,7 +71,7 @@ try {
   ]);
   assert.equal(writes, 1); assert.deepEqual(paper.blocks.slice(0, 2), original);
   assert(events.some(e => e.agentEdit && e.target.id === 'same' && e.target.source === 'barkpark' && e.profileId === scope.profileId));
-  const receipt = scope.edits.latest('bp:same'); assert.equal(receipt.afterRev, 2);
+  const receipt = scope.edits.latest('bp:same', scope.connection); assert.equal(receipt.afterRev, 2);
   assert.equal(require('../main/agent-edits').latest('bp:same'), null);
   assert(requests.every(r => r.token === 'Bearer fixture-A'));
   await scope.edits.undo('bp:same', receipt.id, scope.connection); assert.deepEqual(paper.blocks, original);
@@ -83,7 +83,7 @@ try {
   assert(tableEvents.some(e => e.agentEdit && e.target.id === 'same' && e.target.source === 'barkpark'));
   assert.deepEqual(paper.blocks[1].rows[0][0], { content: [{ type: 'text', value: 'First\nSecond' }], align: 'center' });
   assert.equal(paper.blocks[1].rows[0][1], original[1].rows[0][1]);
-  await scope.edits.undo('bp:same', scope.edits.latest('bp:same').id, scope.connection);
+  await scope.edits.undo('bp:same', scope.edits.latest('bp:same', scope.connection).id, scope.connection);
   assert.deepEqual(paper.blocks, original);
   let before = writes;
   await run([call('edit_document', { id: 'bp:same', mode: 'append', markdown: 'No read', summary: 'No' }), p => { assert(result(p).is_error); assert.match(result(p).content, /Read the document/); return done(); }]);

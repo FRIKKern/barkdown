@@ -32,8 +32,8 @@ const api = {
   docs: {
     list: () => call('docs:list'), get: id => call('docs:get', id), create: input => call('docs:create', input), save: input => call('docs:save', input), delete: id => call('docs:delete', id),
     search: q => call('docs:search', q), related: id => call('docs:related', id), history: id => call('docs:history', id), restore: (id, rev) => call('docs:restore', { id, rev }),
-    agentEdit: id => call('docs:agentEdit', id), undoAgentEdit: (id, editId, binding) => call('docs:undoAgentEdit', { id, editId, binding }),
-    resolveProposal: (id, proposalId, accept) => call('docs:proposal', { id, proposalId, accept }), paperProposals: slug => call('docs:paperProposals', slug), resolvePaperProposal: (slug, proposalId, accept, rev, binding) => call('docs:resolvePaperProposal', { slug, proposalId, accept, rev, binding }), exportMarkdown: id => call('docs:exportMarkdown', id),
+    agentEdit: (id, binding) => call('docs:agentEdit', { id, binding }), undoAgentEdit: (id, editId, binding) => call('docs:undoAgentEdit', { id, editId, binding }),
+    resolveProposal: (id, proposalId, accept) => call('docs:proposal', { id, proposalId, accept }), paperProposals: (slug, binding) => call('docs:paperProposals', { slug, binding }), resolvePaperProposal: (slug, proposalId, accept, rev, binding) => call('docs:resolvePaperProposal', { slug, proposalId, accept, rev, binding }), exportMarkdown: id => call('docs:exportMarkdown', id),
   },
   files: { tree: root => call('files:tree', root), read: (root, path) => call('files:read', { root, path }), write: (root, path, text, mtime) => call('files:write', { root, path, text, mtime }), search: (root, query) => call('files:search', { root, query }), exists: (root, path) => call('files:exists', { root, path }) },
   git: { status: root => call('git:status', root), diff: (root, options = {}) => call('git:diff', { root, ...options }), log: root => call('git:log', root), revertFile: (root, path) => call('git:revertFile', { root, path }) },

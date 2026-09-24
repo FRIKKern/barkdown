@@ -1,9 +1,27 @@
 # C058 — Remote evidence ownership
 
-Starting at pushed1f58c0a on codex/paper-library, draftPR33. C057 is accepted and archived. Continue the authorized six-hour run through at least2026-09-24 10:18:54UTC.
+Active on `codex/paper-library`, draft PR33, starting at pushed `1f58c0a`. C057 is accepted and archived. Continue the authorized six-hour run through at least 2026-09-24 10:18:54 UTC. No deployment or real-library cutover.
 
-Source audit: agent receipts are persisted by bp:slug only; proposal lists use slug only. The new in-session binding protects an old open buffer, but a freshly opened foreign Paper obtains its own valid binding and can still target old same-slug evidence. Reproduce privately before claiming an observed failure.
+## Confirmed problem and implementation
 
-Use a durable per-store opaque owner derived from captured connection/routing, not the revision or renderer input. Keep credentials out of persisted evidence, never assign unknown legacy records to the current connection, and retain originals readably with execution refused. Separate destination receipt storage so one library does not overwrite another library's Undo. Audit the provider/MCP read-to-write route, especially legacy CLI.
+The [private HTTP reproduction](evidence/C058/before-owner-reproduction.json) at `0ae9538` confirmed that a fresh foreign connection with the same Paper ID/revision could execute an original-library Undo. The recorder stored nothing; no user library was used.
 
-No implementation yet. Next: isolated reproduction, ownership contract and tests, then source commit/native/live/fixture capture/actual review/evidence commit. User libraries, shared services and upstream checkout stay untouched. No production deployment or migration authority flip.
+Uncommitted code derives an opaque HMAC owner from the captured server/dataset/credential or explicit CLI route using a durable per-store key under agent-edits. Separate remote receipt files preserve each connection's latest Undo. Missing, corrupt, foreign and unknown owners refuse execution before remote access. Older unowned receipts/proposals remain unchanged and readable as reference-only; their controls cannot execute. Foreground evidence lookups require the open Paper binding. API/MCP tool sessions capture CLI routing once before their first read and reuse it for edits.
+
+Credentials are absent from persisted receipts. Credential rotation or HTTP/CLI mode changes deliberately create another owner; no automatic reassignment or remote database identity guarantee. Profile transfer and migration authority remain separate contracts. The ownership key is retained with agent-edits backups.
+
+## Validation checkpoint
+
+- 11 ownership checks pass: persistent identity, dimension/store separation, corrupt-key refusal, zero-request foreign Undo, separate A/B/restart receipts, immutable legacy evidence, captured configuration, proposals, CLI route reuse and local compatibility.
+- Actual API tool-loop, conversion, structured table, MCP and 37 host checks pass.
+- Full rebuilt desktop passed as session71824, log `Temp/c058-desktop.log`. Source has not changed during that compiled UI run; later changes affect fixture setup, native harness and health documentation.
+- Native harness is prepared for fresh B binding, six zero-request refusals, readable legacy records, HTTP return/restart/exact Undo, real stdio MCP CLI edit and restart/exact Undo. Not run yet.
+- No capture runtime is currently owned. Do not run native UI suites concurrently with the desktop suite.
+
+## Linux setup failure
+
+C056 Linux run35959845676 finished 1/20: 19 suites enabled CLI with an empty server, then timed out at catalog discovery. [Failed job log](evidence/C058/c056-linux-failure.log) and [table setup timeout](evidence/C058/c056-tables-failure.log) are retained. C056 intentionally requires an explicit destination; production ownership must not fall back to ambient defaults. The shared fixture helper and 22 callers now capture the fixture CLI's server/dataset explicitly and surface setup refusal before waiting. Prove a fresh full parity run before claiming merge readiness. C057 Verify/Visual checks at1f58c0a pass; its parity remains pending with the same old setup.
+
+## Next action
+
+Full desktop passed. Review and commit source. Run isolated C058 and C057 native suites, selected/full parity as needed, then final live/fixture capture, actual image/GIF inspection, explicit approval and root verification. Update handoff/evidence, commit/push and inspect fresh exact-head CI. Preserve one lane, user checkouts, upstream source and shared services.
