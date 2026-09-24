@@ -1,0 +1,29 @@
+{
+  "reviewer": "Codex",
+  "reviewedAt": "2026-09-24T09:38:15.101753+00:00",
+  "source": "7e15949f976c48898339103ca0cec011ee082292",
+  "result": "accepted-native-journey",
+  "inspection": {
+    "stills": 8,
+    "decodedFullGifFrames": 333,
+    "decodedExcerptFrames": 29,
+    "criticalFullSize": [
+      "dark",
+      "narrow",
+      "manual loopback",
+      "failed refresh"
+    ]
+  },
+  "findings": [
+    "Owned A/B catalogs remain in Archive; connected loopback stays Cloud archive.",
+    "Human nesting, label and draft survive profile changes and restart.",
+    "Real503 retains catalog and Retry recovers.",
+    "No clipping, unintended organization movement or missing controls observed."
+  ],
+  "limits": [
+    "Two-fps GIF may omit brief transitions; eight original stills and raw videos retained.",
+    "GIF palette banding in Settings is visible; no frames painted or UI masked.",
+    "Private published fixtures do not prove ordinary empty-note lifecycle or migration activation."
+  ],
+  "manifestSha256": "a9e414ec7e00507e8f8857166b06277f95b2aa32fb0d31ac0e3778c291d06fc8"
+}

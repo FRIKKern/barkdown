@@ -1,0 +1,22 @@
+{
+  "barkdownCommit": "a9422ada6f9b52ae156c2bda3d155b9d41fe01ac",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "sourceDirty": false,
+  "capturedAt": "2026-09-24T09:17:59.501Z",
+  "results": [],
+  "frames": [
+    "01-profile-A-local-archive.png"
+  ],
+  "artifacts": {
+    "01-profile-A-local-archive.png": "fe4cd572078acfac8b1c547c2b157890228f1fb3b597255af9b54801f040b6cf",
+    "failure.png": "fe4cd572078acfac8b1c547c2b157890228f1fb3b597255af9b54801f040b6cf",
+    "failure.txt": "b9b091fe1e433d76b3f3eed4b4bfebc1166b1c3b4aa9a10378551a50222c6418",
+    "restart-and-connection.webm": "4847adf8d7997a198ea3792823f91cc9568a80c52d9b8998430d6a040cfb01c0"
+  },
+  "requests": [],
+  "primaryError": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#bw-archive [data-place=\"bp:v1:98373f80f0b11502c04b5d3fdcf0338b28aee9eb846bcf751b9b51a7d3972e74:same-slug\"]')\u001b[22m\n\u001b[2m    - locator resolved to <span title=\"Add to Pages\" data-place=\"bp:v1:98373f80f0b11502c04b5d3fdcf0338b28aee9eb846bcf751b9b51a7d3972e74:same-slug\">…</span>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    58 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\paper-archive.live.mjs:29:87",
+  "limits": [
+    "Managed runtime classification only; legacy unmanaged local remains cloud",
+    "Private published fixtures do not prove ordinary blank-note lifecycle, migration authority activation or portable database identity"
+  ]
+}

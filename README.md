@@ -13,7 +13,7 @@ Write, ask, revise, and keep going in one desktop workspace. Barkdown pairs Bark
 
 **Working desktop prototype · Windows runtime first · Powered by Barkpark**
 
-![The real Barkdown desktop: a conversation beside an editable Barkpark paper.](docs/images/status/paper-light.78140e07.png)
+![The real Barkdown desktop: a conversation beside an editable Barkpark paper.](docs/images/status/paper-light.30107368.png)
 
 ## Think in notes. Work in conversations.
 
@@ -25,15 +25,15 @@ Write, ask, revise, and keep going in one desktop workspace. Barkdown pairs Bark
 <details>
 <summary><strong>See the editor in motion and explore the desktop</strong></summary>
 
-![Real editing: insert a quote, type, move through table cells, and use quick open.](docs/images/status/editing.c9b0f76e.gif)
+![Real editing: insert a quote, type, move through table cells, and use quick open.](docs/images/status/editing.5f699366.gif)
 
-![Barkdown in dark mode.](docs/images/status/paper-dark.49a19424.png)
+![Barkdown in dark mode.](docs/images/status/paper-dark.ccc3d305.png)
 
-![Paper slash menu.](docs/images/status/slash-menu.78fa0f17.png)
+![Paper slash menu.](docs/images/status/slash-menu.03331f4e.png)
 
-![Quick open across the workspace.](docs/images/status/quick-open.ca18b38d.png)
+![Quick open across the workspace.](docs/images/status/quick-open.be2b5ef5.png)
 
-![Barkpark connection settings.](docs/images/status/settings-barkpark.86cfe82d.png)
+![Barkpark connection settings.](docs/images/status/settings-barkpark.db772c54.png)
 
 These are captures of the running app, not mockups. [Capture provenance](docs/images/status/manifest.json) records the source commits and whether the assistant turn was live. The typographic banner above is repository artwork.
 

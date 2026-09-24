@@ -1,0 +1,19 @@
+locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('#bw-archive [data-place="bp:v1:98373f80f0b11502c04b5d3fdcf0338b28aee9eb846bcf751b9b51a7d3972e74:same-slug"]')[22m
+[2m    - locator resolved to <span title="Add to Pages" data-place="bp:v1:98373f80f0b11502c04b5d3fdcf0338b28aee9eb846bcf751b9b51a7d3972e74:same-slug">…</span>[22m
+[2m  - attempting click action[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not visible[22m
+[2m    - retrying click action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not visible[22m
+[2m    - retrying click action[22m
+[2m      - waiting 100ms[22m
+[2m    58 × waiting for element to be visible, enabled and stable[22m
+[2m       - element is not visible[22m
+[2m     - retrying click action[22m
+[2m       - waiting 500ms[22m
+
+    at C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\tests\paper-archive.live.mjs:29:87
