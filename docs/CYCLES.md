@@ -4,7 +4,7 @@ A cycle is a bounded outcome with proof and a restartable handoff. It is driven 
 
 ## Plan before coding
 
-Keep one current cycle. Give it a stable ID, stage, goal, scope exclusions, acceptance checks and a handoff file under `docs/cycles/`. Identify the tested starting commit, relevant data boundaries and prerequisites. Break a stage into reviewable outcomes; do not promise the whole stage in one cycle. Future slices remain provisional until current evidence informs them.
+Keep one current cycle. A cycle is an acceptance boundary, not every message or commit: keep related slices together while that outcome remains open. Do not create a new process cycle solely to restate an existing rule. Give it a stable ID, stage, goal, scope exclusions, acceptance checks and a handoff file under `docs/cycles/`. Identify the tested starting commit, relevant data boundaries and prerequisites. Break a stage into reviewable outcomes; do not promise the whole stage in one cycle. Future slices remain provisional until current evidence informs them.
 
 ## Spend effort on the outcome
 
@@ -36,6 +36,23 @@ Documentation outside current visual inputs needs link, claim and generation che
 Convenience means grouping related work and choosing checkpoints well. It never means moving files outside watched paths, hiding changes, relabeling old evidence, approving unread images, deleting failures, skipping assertions or using a cancelled run as a pass. Preserve a failing result and its fix; do not repeatedly rerun a flaky test until it happens to pass. No finite suite guarantees 100% quality: acceptance claims remain limited to the demonstrated scenarios.
 
 Verify CI runs on PR updates and main pushes, with manual dispatch for branches without a PR. It retains the same `concept` job and full `npm run verify`; obsolete runs on the same ref are cancelled, not counted as proof. Create/update the existing draft PR at a reviewable checkpoint instead of pushing each sentence. Visual/parity CI remains conservative and may rerun on later pushes to an app-changing PR. Narrower triggers or cross-commit proof reuse require a separately tested implementation; never simulate them with a skip flag.
+
+## Make CI wait useful and measurable
+
+After pushing a stable checkpoint, record its SHA and the blocking run IDs. While remote CI evaluates that immutable snapshot, do useful independent work within the authorized scope: review the diff and evidence, investigate a separate failure, inspect the next adapter contract, or prepare the next bounded task. Do not invent busywork to fill a wait. Keep ownership clear; do not alter shared test fixtures or confuse later local changes with the source CI tested.
+
+Before another push, check whether it would cancel an expensive run. Batch documentation/process-only updates until that run finishes when practical. A necessary correctness fix may justify superseding it; record the reason rather than calling the cancellation a test result. If nothing independent remains, leave an exact handoff instead of polling repeatedly or promising completion from a pending job. A time-limited run can end with CI still pending; merge/release remains gated.
+
+When investigating repeated cancellation or slow CI, use the read-only timing audit:
+
+```sh
+node scripts/ci-effort.mjs --repo FRIKKern/barkdown --branch codex/paper-library --limit 12 --output /path/to/new-snapshot.json
+node scripts/ci-effort.mjs --input /path/to/new-snapshot.json
+```
+
+Choose a new output path; existing snapshots are never overwritten. This uses GitHub CLI authentication and reads bounded run/job metadata, not full logs or secrets. It does not trigger, cancel or approve CI. Measure at a phase review or when investigating a cost, not continuously. Keep the summary in the existing cycle evidence/handoff.
+
+Compare finished job minutes, cancelled job minutes, duplicate-event candidates and repeated setup steps. Also record which useful result was produced during the CI interval. These are distinct from agent idle time, critical-path delay and money; overlapping jobs do not add to elapsed delivery time. Missing/running timestamps are not zero-cost successes. A cheaper pipeline must still catch deliberate regressions before narrowing coverage. Prefer one measured improvement at a time; automatic proof reuse remains unimplemented. If small documentation/process pushes repeatedly restart full CI without advancing a user journey, consolidate the next change and return to product work after the bounded improvement. Avoid making process maintenance its own endless backlog.
 
 ## Keep a checkpoint while working
 

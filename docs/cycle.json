@@ -1,27 +1,29 @@
 {
   "version": 1,
-  "id": "C064",
+  "id": "C065",
   "stage": "P2",
   "status": "done",
-  "goal": "Plan convenient tripwires and remove duplicate Verify runs without weakening quality gates.",
+  "goal": "Measure CI effort and improve useful work during validation without weakening required proof.",
   "scope": [
-    "Phase-based validation strategy and automatic reminders in existing plan/cycle commands.",
-    "Deduplicate Verify CI events; preserve suites, visual fingerprints, review requirements and current required-check job name.",
-    "No application changes, evidence-reuse bypass, deployment or merge."
+    "Read actual recent CI job timings and verify C064 event deduplication.",
+    "Add a small reusable CI timing audit and explicit useful-work guidance while CI runs.",
+    "No application changes, automated proof reuse, skipped suites or branch-protection changes."
   ],
   "acceptance": [
-    "Agents see a short tripwire planning reminder and one authoritative phase strategy.",
-    "Verify runs for PR updates, main pushes and manual dispatch without duplicate feature-branch push runs.",
-    "Workflow configuration, plan/cycle output and full root validation pass; generated roadmap and handoff reflect this cycle."
+    "Report measured job time separately from delivery latency, unfinished runs and unproved agent idle time.",
+    "Timing calculation tests cover missing timestamps, failed/cancelled/running jobs and duplicate event candidates.",
+    "Use current CI wait for useful audit work; finish root verification, review roadmap and push only after the existing parity run completes."
   ],
   "checkpoint": "2026-09-24",
-  "handoff": "docs/cycles/C064-convenient-tripwires.md",
-  "nextAction": "Inspect PR33 final-head CI, archive C064, and begin the owned ordinary draft-note adapter with a three-line tripwire plan.",
+  "handoff": "docs/cycles/C065-ci-effort.md",
+  "nextAction": "Review final-head CI; archive C065 and return to the owned ordinary draft-note journey. Next measured CI optimization is self-contained candidate/baseline artifact packaging.",
   "evidence": [
-    "docs/cycles/evidence/C064/root.log",
-    "docs/cycles/evidence/C064/workflow-check.json",
-    "docs/CYCLES.md"
+    "docs/cycles/evidence/C065/root.log",
+    "docs/cycles/evidence/C065/root-timing.json",
+    "docs/cycles/evidence/C065/assessment.json",
+    "docs/cycles/evidence/C065/timing-tests.txt",
+    "docs/cycles/evidence/C065/parity-completed.json"
   ],
-  "truthReview": "Existing lane and prior roadmap commit preserved; phase strategy and CI event configuration verified. Same required-check job and suites retained. No app/upstream/data changes; 43 locked worktrees remain for next coordinator review.",
-  "screenshotReview": "No app or visual-input changes; existing source/hash approval checks pass. Generated roadmap current-cycle text regenerated and inspected separately; no new app screenshot proof claimed."
+  "truthReview": "C064 actual PR Verify deduplication confirmed; all714a575 checks passed including Linux20/20. Measured cancellation churn and artifact scope; no unmeasured agent-idle/billing claims. One lane, no upstream/app/data changes; 43 locked worktrees preserved.",
+  "screenshotReview": "App and visual-input fingerprints unchanged, existing approval checks pass. Generated roadmap updated/reviewed for the current cycle only; no new application capture claimed."
 }

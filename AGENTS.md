@@ -46,7 +46,7 @@ Do not install or copy the paid Tiptap Notion template by default. It is an inte
 
 ## Delivery cycles
 
-Before coding, put the affected boundaries, fast checks and ready-checkpoint checks in the current handoff, following `docs/CYCLES.md#plan-the-tripwires-before-editing`. Batch related implementation and code-area README edits before capture; do not evade tripwires or weaken checks.
+Before coding, put the affected boundaries, fast checks and ready-checkpoint checks in the current handoff, following `docs/CYCLES.md#plan-the-tripwires-before-editing`. Batch related implementation and code-area README edits before capture; do not evade tripwires or weaken checks. While CI runs, do authorized independent review/preparation; check before another push cancels expensive work. Use the bounded timing audit in `docs/CYCLES.md` when investigating repeated CI costs.
 
 Use `docs/CYCLES.md` as the workflow authority and `docs/visual/RULES.md` as the visual-evidence authority. Plan an outcome, a stopping condition and a proportionate validation budget. Keep active context small; link evidence instead of copying run histories. Record measured time/token usage when available, never estimated usage as fact. README capability claims must link applicable reviewed evidence and state limitations.
 

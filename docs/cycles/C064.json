@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "id": "C064",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Plan convenient tripwires and remove duplicate Verify runs without weakening quality gates.",
+  "scope": [
+    "Phase-based validation strategy and automatic reminders in existing plan/cycle commands.",
+    "Deduplicate Verify CI events; preserve suites, visual fingerprints, review requirements and current required-check job name.",
+    "No application changes, evidence-reuse bypass, deployment or merge."
+  ],
+  "acceptance": [
+    "Agents see a short tripwire planning reminder and one authoritative phase strategy.",
+    "Verify runs for PR updates, main pushes and manual dispatch without duplicate feature-branch push runs.",
+    "Workflow configuration, plan/cycle output and full root validation pass; generated roadmap and handoff reflect this cycle."
+  ],
+  "checkpoint": "2026-09-24",
+  "handoff": "docs/cycles/C064-convenient-tripwires.md",
+  "nextAction": "Inspect PR33 final-head CI, archive C064, and begin the owned ordinary draft-note adapter with a three-line tripwire plan.",
+  "evidence": [
+    "docs/cycles/evidence/C064/root.log",
+    "docs/cycles/evidence/C064/workflow-check.json",
+    "docs/CYCLES.md"
+  ],
+  "truthReview": "Existing lane and prior roadmap commit preserved; phase strategy and CI event configuration verified. Same required-check job and suites retained. No app/upstream/data changes; 43 locked worktrees remain for next coordinator review.",
+  "screenshotReview": "No app or visual-input changes; existing source/hash approval checks pass. Generated roadmap current-cycle text regenerated and inspected separately; no new app screenshot proof claimed."
+}

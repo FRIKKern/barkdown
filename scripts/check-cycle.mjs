@@ -20,3 +20,6 @@ const complete = { ...cycle, status: 'done', evidence: ['docs/local-only-proof.l
 assert.throws(() => validateAgentGuidance({ ...guidance, cycle: complete, tracked: new Set([cycle.handoff]) }), /not tracked/);
 validateAgentGuidance({ ...guidance, cycle: complete, tracked: new Set([cycle.handoff, 'docs/local-only-proof.log']) });
 console.log('Agent entry routing, current handoff and tracked completion evidence checks passed; semantic review remains required.');
+
+// The advisory timing report must not turn missing or unfinished jobs into cheap successes.
+await import('./ci-effort.test.mjs');
