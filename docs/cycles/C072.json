@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "id": "C072",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Turn measured C071 rework into concise, consistent instructions for future delivery.",
+  "scope": [
+    "Canonical workflow, visual preparation and agent entry guidance.",
+    "Correct stale active claims; integration triage before expanding dependent features.",
+    "Documentation only; no changed app, capture inputs, gates, merge or deployment."
+  ],
+  "acceptance": [
+    "Each actionable lesson has one instruction owner and a concrete trigger.",
+    "Active README, plan, migration guide and handoff agree with C071 evidence.",
+    "Root verification passes; existing visual evidence stays applicable; commit and push."
+  ],
+  "checkpoint": "2026-09-25",
+  "handoff": "docs/cycles/C072-efficiency-lessons.md",
+  "nextAction": "Archive C072; inspect exact-head upstream integration failures and assign or resolve blockers before expanding dependent features. Then prepare the retained-evidence viewer.",
+  "evidence": [
+    "docs/cycles/evidence/C072/validation/result.json",
+    "docs/cycles/evidence/C072/prior-hosted-checks.json",
+    "docs/cycles/evidence/C072/upstream-state.json"
+  ],
+  "truthReview": "Canonical owners updated; stale active capability claims corrected; P2/A2 remains open. Two local branches and 43 locked worktrees preserved; delivery owner reviews recovery at next integration checkpoint.",
+  "screenshotReview": "Documentation only; app, dependency and capture inputs unchanged. C071 reviewed media remains applicable; root visual freshness checks passed. No new images claimed."
+}

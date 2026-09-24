@@ -1,27 +1,23 @@
 {
   "version": 1,
-  "id": "C072",
+  "id": "C073",
   "stage": "P2",
-  "status": "done",
-  "goal": "Turn measured C071 rework into concise, consistent instructions for future delivery.",
+  "status": "active",
+  "goal": "Resolve the upstream Paper integration blockers on current main without weakening gates.",
   "scope": [
-    "Canonical workflow, visual preparation and agent entry guidance.",
-    "Correct stale active claims; integration triage before expanding dependent features.",
-    "Documentation only; no changed app, capture inputs, gates, merge or deployment."
+    "Integrate the existing editor and creation/deletion stack with upstream main while preserving both histories.",
+    "Fix conflicts and owned compile, generated asset, documentation and CI consistency failures.",
+    "Validate combined behavior and keep deployment and migration activation separate."
   ],
   "acceptance": [
-    "Each actionable lesson has one instruction owner and a concrete trigger.",
-    "Active README, plan, migration guide and handoff agree with C071 evidence.",
-    "Root verification passes; existing visual evidence stays applicable; commit and push."
+    "Existing Paper work is preserved in a current-main integration candidate with explicit task backing.",
+    "Relevant local checks and required hosted gates pass; any unresolved external gate has concrete evidence.",
+    "Barkdown handoff, pin applicability and visual evidence are reviewed before declaring integration complete."
   ],
   "checkpoint": "2026-09-25",
-  "handoff": "docs/cycles/C072-efficiency-lessons.md",
-  "nextAction": "Archive C072; inspect exact-head upstream integration failures and assign or resolve blockers before expanding dependent features. Then prepare the retained-evidence viewer.",
-  "evidence": [
-    "docs/cycles/evidence/C072/validation/result.json",
-    "docs/cycles/evidence/C072/prior-hosted-checks.json",
-    "docs/cycles/evidence/C072/upstream-state.json"
-  ],
-  "truthReview": "Canonical owners updated; stale active capability claims corrected; P2/A2 remains open. Two local branches and 43 locked worktrees preserved; delivery owner reviews recovery at next integration checkpoint.",
-  "screenshotReview": "Documentation only; app, dependency and capture inputs unchanged. C071 reviewed media remains applicable; root visual freshness checks passed. No new images claimed."
+  "handoff": "docs/cycles/C073-upstream-integration.md",
+  "nextAction": "Finish SDK regeneration and adjacent gates, commit the upstream integration candidate, then run source-bound parity/media and hosted gates.",
+  "evidence": [],
+  "truthReview": "",
+  "screenshotReview": ""
 }

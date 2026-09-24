@@ -1,0 +1,19 @@
+# C073 — Resolve upstream integration
+
+**Status:** active. Barkdown PR33 is merged at a772217; its three checks passed on ae8bb26 and the merged tree is identical. The earlier cycle's no-merge statements describe its checkpoint, not the current integration state.
+
+**Outcome / budget:** reconcile the existing upstream Paper stack with current main and resolve its gates. Start with a 90-minute integration checkpoint estimate, reassessing after the conflict inventory; do not stop merely because the estimate expires. No deployment, automatic authority switch, weakened CI or unrelated cleanup.
+
+**Delivery:** reuse Barkdown codex/paper-library for handoff/evidence and upstream codex/paper-create-only at f2528db12. Upstream PR20020 targets codex/canvas-block-identity (bf23f773), which descends from PR19579's a5440345c. Main c423813d7 has diverged by 391 commits, with 77 unique commits in the complete Paper stack. Integrate the combined stack once rather than resolving the same overlap in multiple branches; preserve existing refs until parity and ancestry are checked.
+
+**Affected boundaries:** PortableDoc/editor behavior, exact creation/deletion, generated SDK/editor assets and current-main CI contracts. Existing branch acceptance does not prove the integrated tree.
+
+**Fast checks:** exact conflict/consumer inventory, known Elixir/Erlang/Python/Git Bash versions, formatting, compiler warnings, affected editor/PortableDoc/API tests, document and generated-asset checks. Old Git does not support merge-tree --write-tree; the failed read-only probe changed no source.
+
+**Ready checkpoint:** combined source review, required hosted gates, real Barkdown editor/server parity and affected recovery journeys; capture/inspect changed UI as required. Root verification and accurate source-bound evidence before closing. Pin changes invalidate dependent proof. No reinstall of healthy dependencies by default.
+
+**Repository / services:** both owned lanes began clean; preserve main checkouts and locked historical worktrees. No owned runtime started. Current-main merge is staged in the upstream lane, not committed. Source conflicts preserve both find/replace and main’s resting-selection guard; both test command sets are retained. Task task-f3c9d50cde093114 is claimed by codex-barkdown-c073 (epoch 2, expiry 00:15 UTC).
+
+**Checkpoint 23:34 UTC:** complete editor suite passed. Five separated Elixir clause groups were repaired; fresh production dependency/application compilation passes with isolated Elixir 1.18.4 / OTP27.3.4 and the installed Visual Studio compiler. Design checks and the 66-class stylesheet mirror now pass; link preview inherits the hovered paper theme and its mounted regression passes. One explicit design-ledger addition covers the existing viewport clamp, not typography; no blanket baseline growth. Security shape now passes 139 checks after main integration. SDK install repaired only missing workspace dependencies; tarballs still need rebuilding. Windows checker prerequisites (PyYAML/UTF-8/LF and jq) are being isolated, without changing global tools. Required hosted, live parity and visual evidence are still pending.
+
+**Implementation checkpoint:** upstream merge commit 446f29ced integrates c423813d7, committed and pushed on codex/paper-create-only. The 234 focused ExUnit tests pass after correcting the disposable cluster encoding to UTF-8; failed setup is retained separately. SDK source/artifact checks now pass. Security 139/139 and workflow ledger 21/21 pass. Independent reader found and corrected stale-response guidance, regression paths and the registration fixture acknowledgment. Final acknowledgment derivation and full doc anchors are still running. Current-main fixture whitespace and generated template-literal whitespace were preserved; the owned source diff passes the CRLF-aware whitespace check. Upstream main deploys production automatically; no upstream merge is authorized by this checkpoint.

@@ -1,10 +1,10 @@
 # Current handoff
 
-**Current cycle:** [C072 efficiency lessons](cycles/C072-efficiency-lessons.md), completed with root verification in 47.198 seconds. C071 deletion/recovery is complete within its demonstrated local scope; P2/A2 remain open.
+**Current cycle:** [C073 upstream integration](cycles/C073-upstream-integration.md), active. Barkdown PR33 merged at a772217 after all checks passed; local main is updated. P2/A2 remain open.
 
-**Delivery:** codex/paper-library in C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration; draft PR33. Related upstream lane: codex/paper-create-only, PR20020 at f2528db12. No merge/deployment.
+**Delivery:** codex/paper-library in C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration; PR33 merged, next integration evidence needs a new PR. Related upstream lane: codex/paper-create-only, PR20020 at 446f29ced, now targeting main. Upstream merge and deployment have not occurred.
 
-**Next action:** archive C072, then inspect exact-head upstream failures and assign or resolve integration blockers before expanding dependent work. The retained-evidence viewer remains the next product slice; migration activation is not authorized by local acceptance.
+**Next action:** validate the committed upstream integration candidate with real Paper journeys and hosted gates; resolve any regressions before merge review. Preserve older refs and task evidence until combined parity passes. The retained-evidence viewer follows integration; migration activation remains separate.
 
 **Proof:** C071 desktop/root, real HTTP/native restart and reviewed media passed. Barkdown0606c7d subsequently passed hosted Verify, Visual and Editor parity. The upstream branch remains open/unstable; inspect live checks rather than treating historical failures as current. See C071's hosted review for the last detailed diagnosis.
 
