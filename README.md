@@ -42,6 +42,8 @@ We believe agent chat apps are settling into a standard that’s hard to beat: a
 
 **The shared browser is the heart of the app.** It brings websites, documents, files and tools into one place where people and agents can work on the same things. We can discuss an idea, try it out and see the result together, with the conversation right beside the work.
 
+We want to see each other at work: cursors moving, text being selected, an idea taking shape. Those movements should help us read each other’s intentions and bring clarity and joy to working together.
+
 Chat should bring people together, much like Slack—with humans, agents, or both in the same conversation. Share your own session, join someone else’s, or jump into a chat running on a remote server.
 
 We want those connections to be as direct and secure as possible, without unnecessary middlemen or middleware.
