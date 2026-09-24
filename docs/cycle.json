@@ -1,27 +1,26 @@
 {
   "version": 1,
-  "id": "C054",
+  "id": "C055",
   "stage": "P2",
   "status": "done",
-  "goal": "Expose verified retained legacy history, proposals and receipts as read-only evidence without translating their revision semantics.",
+  "goal": "Prepare a source-audited path from staged migration to a single authoritative Paper library.",
   "scope": [
-    "Read only a caller-pinned committed backup using the existing complete-byte validator.",
-    "Return exact captured local document/history/proposal data and source-qualified receipt evidence; never invoke restore, Undo, proposal acceptance or Paper.",
-    "Reject wrong owner/hash, invalid identities, mismatched receipts and backup changes; retain unsupported historical shapes without conversion.",
-    "Prove actual document/agent-edit generated records, exact bytes and no writes; complete repository and visual closeout."
+    "Read actual note creation/catalog, Pages origin, provider scope and authority contracts.",
+    "Prepare ordered bounded tasks with explicit acceptance and rollback prerequisites in the existing migration contract.",
+    "Reconcile current plan, handoff, acceptance, external gates and branch evidence; no app behavior or shared-service changes."
   ],
   "acceptance": [
-    "Pinned backup identity and all file hashes validate before any data is returned.",
-    "Actual legacy history, pending proposals and applied/undone receipts remain exact and explicitly read-only.",
-    "No Paper revision, operation, target write or authority switch is synthesized.",
-    "Relevant integration/unit checks, full desktop/root and reviewed standard visuals pass; no native viewer UI is claimed."
+    "Each cutover dependency names actual source evidence and measurable tests.",
+    "No staged or read-only checkpoint is described as activated; no invented upstream API.",
+    "One active queue and clear next implementation slice, root verification and current unchanged visual provenance."
   ],
   "checkpoint": "2026-09-24",
-  "handoff": "docs/cycles/C054-retained-evidence.md",
-  "nextAction": "Archive C054 and prepare the bounded cutover-readiness audit; do not activate Paper authority.",
+  "handoff": "docs/cycles/C055-cutover-readiness.md",
+  "nextAction": "Plan the next bounded cycle for order1: complete profile-owned Paper catalog and local Archive; no authority activation.",
   "evidence": [
-    "docs/cycles/evidence/C054/results.json"
+    "docs/cycles/evidence/C055/results.json",
+    "docs/cycles/evidence/C055/source-audit.json"
   ],
-  "truthReview": "Full desktop/root pass; fresh release gates and owned branches reviewed. Source/data remain legacy-owned; no merge/deploy.",
-  "screenshotReview": "Five live stills and37GIFframes reviewed, three fixture shadow differences inspected; explicit approval42476f73. No native history viewer claim."
+  "truthReview": "Twenty source files inspected; twenty findings and five ordered task briefs retained. Full root/final check pass;387 retained artifact hashes verified. Entry-point docs updated; no source behavior changes.",
+  "screenshotReview": "C054 reviewed live and fixture media remain valid: no app/dependency/capture changes. Approval42476f73 remains current."
 }

@@ -21,7 +21,7 @@ P1 is accepted. P2 remains active: the app still uses legacy local documents alo
 
 The implementation calls the selected owned loopback runtime and production dataset. It never changes global CLI configuration or silently enables writes.
 
-- `POST /v1/plugins/bulldocs/papers/:slug/create` is the native-block insert-only route in stacked draft [PR #20020](https://github.com/FRIKKern/barkpark/pull/20020), currently tested at30c007e43. Existing published/draft targets refuse. C044 tested three six-caller races and dropped post-commit responses. A concurrent generic draft is not namespace-reserved; final verification still checks ambiguity.
+- `POST /v1/plugins/bulldocs/papers/:slug/create` is the native-block insert-only route in stacked draft [PR #20020](https://github.com/FRIKKern/barkpark/pull/20020), currently tested at 30c007e43. Existing published/draft targets refuse. C044 tested three six-caller races and dropped post-commit responses. A concurrent generic draft is not namespace-reserved; final verification still checks ambiguity.
 - The older `POST /v1/plugins/bulldocs/papers` route is create-or-replace without an `ifRev` fence. Generic createIfNotExists+publish also overwrote published content in the C044 audit. Neither is a migration retry mechanism.
 - Paper `/ops` requires a captured valid revision for guarded editing. Stale revisions return412. A response is not a content comparison; read back the structured blocks and acknowledged revision.
 - Existing multipart media upload has no audited idempotency key. C050 records a random owned filename before one POST, searches that exact scoped name, requires a complete single match and verifies MIME/size/path/original bytes. Absent or ambiguous interrupted uploads stop for reconciliation; they are never replayed automatically.
@@ -29,15 +29,33 @@ The implementation calls the selected owned loopback runtime and production data
 
 Runtime bindings, source/backup hashes and existing journal records are checked before requests and again at completion. This is observed validation under caller-provided quiescence, not a cross-service atomic snapshot or power-loss guarantee.
 
-## Remaining activation and recovery work
+## Ordered cutover work — prepared, not implemented
 
-1. C052 accepts only actual audited default link attributes and null ordered-list type, with75 checks and a real legacy-save → Paper edit/Undo/restart rehearsal. Custom metadata still refuses. Other unsupported corpus shapes remain blocked.
-2. C053 projects typed local destinations and preserves human organization in a disposable native rehearsal. Existing `bp:` destinations remain independent. Add an owned-local-Paper archive adapter before unplaced local notes can migrate; reconcile source-less closed targets explicitly. Event references and old receipts remain historical, not navigation rewrites.
-3. Bind the C053 versioned preview to newly verified target/backup state. Atomically select one complete map only after all comparisons and writer fencing pass; crash/restart must never select a mixture. The current preview has activationAllowed:false and no adapter activates it.
-4. C054 provides verified read-only access to original document history, proposals and the canonical local receipt. A native historical viewer still needs to render those records safely and clearly separate original revisions from Paper. Do not reinterpret an old guarded Undo or pending proposal against a staged Paper.
-5. Prove activation and rollback with interrupted writes and concurrent human edits. Rollback selects retained legacy authority; it does not delete or overwrite possibly edited Paper targets. Retire the separate editor only after the full supported corpus and A2 journey pass.
+The [C055 source audit](../cycles/evidence/C055/source-audit.json) pins the inspected files to Barkdown aa97781 and upstream30c007. These are the next bounded slices inside P2, not parallel active cycles. Start only the first one; replan later slices from its evidence.
 
-Other content formats, live writer fencing, target conflict resolution and cross-machine paths remain explicit gates. Cross-machine export/import and database portability belong to P3; a copy of live database files is not an export contract.
+| Order | Bounded outcome | Required acceptance before advancing |
+|---|---|---|
+| 1 — Owned catalog and archive | Build a profile/runtime-bound local-Paper catalog and preserve human Pages/Archive independently from Cloud archive. Start as a read-only adapter and disposable UI rehearsal; no authority flip. | More than 60 notes, an exactly-full page, missing/duplicate pages, a missing note, same slug in another profile/cloud, permission loss and restart. Preserve nested order/expansion, unplaced local notes, favorites, side-chat paths and drafts. A failed/partial listing is unavailable, never an empty/deleted library. No cross-source label substitution. |
+| 2 — Ordinary note lifecycle | Establish the actual API contract for a new blank local note, typing/title/save/search, agent create/edit/Undo and deletion/recovery. Share one owned note service across foreground, API and MCP tools. | Real empty/untitled creation, first save, subsequent guarded writes, reload/restart, lost response and concurrent edit. Clarify draft versus published identity and revisions. Do not invent tags/descriptions or bypass publishing walls to make a blank note pass. Retain data on refusal; no duplicate creation. |
+| 3 — Readable original evidence | Expose C054 retained history/proposals/receipts through a clearly read-only native view tied to the old identity and backup hash. | Actual pre-migration history, stale and undone receipts and pending proposals remain inspectable after restart. No legacy revision may execute Paper restore/Undo/accept. Unsupported old content remains available. The legacy store retained at most 60 revisions; do not promise pruned history. |
+| 4 — Quiescence and sealed activation | Fence every foreground, API, MCP and goal writer with a captured engine generation. Save or explicitly retain human drafts, verify child termination, then seal the complete source/backup/targets/media/workspace map. | A pre-cutover handle or surviving child cannot write after selection. IPC drain alone is insufficient. Crash at each seal/selector boundary and restart chooses one complete authority, never mixed stores. Final comparison refuses any changed source/target, missing/ambiguous Paper or media. |
+| 5 — Rollback and retirement | Prove rollback to retained legacy ownership without overwriting post-migration edits or deleting staged Papers; retire legacy editing only after full A2 passes. | Process interruption and uncertain acknowledgements; edits before/after activation; repeated resume/rollback; retained old evidence; one engine for every newly created and migrated note. A changed target triggers explicit reconciliation, never a blind reverse-conversion. Keep recoverable originals until acceptance. |
+
+The next implementation starts with order 1. The existing preview refuses unplaced local notes precisely because current Pages code classifies all `bp:` keys as cloud. Ownership must come from validated profile/runtime metadata, not a slug prefix, guessed server URL or remote self-claim. Existing cloud discoveries must stay unplaced until the person organizes them. Closed source-less targets remain explicit ambiguity; do not guess a same-slug replacement.
+
+### Actual read contract and limits
+
+`barkpark.listPapers` currently requests one 60-row page. Upstream `QueryController` does support `limit`, `offset`, `hasMore` and `nextOffset` with a 1000-row limit and 100000 offset ceiling. Runtime-validate the envelope, strictly advancing offsets, IDs and completion; a missing nextOffset with hasMore:true is incomplete. Existing upstream tests demonstrate stable traversal on fixed data, but they were only inspected in C055. Offset traversal is not a transaction snapshot: concurrent updates can move rows. Migration must reconcile against the complete pinned source-to-target inventory under a proven writer fence; do not infer completeness from a count or one page.
+
+`getPaper` already asks for raw perspective. In the audited upstream raw read, the exact row wins; only an absent bare row falls back to its draft twin. Draft perspective instead prefers the twin. Do not label raw as newest-draft semantics or silently merge their revision domains. Audit the real managed runtime and authority identity when implementing the catalog; a mutable endpoint is not sufficient ownership.
+
+### Writer and lifecycle limits
+
+Main-process `docs:*` handlers, API-agent creation and MCP creation still write legacy documents. Provider scopes hold actual bound store/document/edit handles; child MCP and goal workers receive those contexts. Profile IPC waits for handlers, not long-running provider processes. Existing runtime leases and legacy-adoption ownership are useful primitives, not a note-engine cutover fence. The MCP server also seeds an empty legacy store through loadAll today; switching visible tabs alone would leave a path that creates old-engine notes again.
+
+The native create-only route accepts published slugs and applies publishing/label walls. Its existing tests refuse tagless ingestion and wall-failing fresh creation without writing a draft or published row. C044–C054 use reviewed migration metadata; they do not prove that an ordinary blank local note works. Audit a suitable draft/lifecycle contract before choosing implementation, preserving upstream validation and licenses.
+
+Other content/media formats remain refused rather than silently flattened. P3 owns cross-machine export/import and database portability; a copy of live database files is not an export contract. G1/G2 remain separate integration gates, not reasons to claim these local contracts complete.
 
 ## Reproduction and source boundaries
 

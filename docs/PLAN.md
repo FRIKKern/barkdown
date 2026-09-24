@@ -26,7 +26,9 @@ Packaging research may proceed alongside earlier stages. The local-only pilot do
 
 ## Current next stage
 
-P1 is accepted at the [C039 audit](cycles/C039-completion-audit.md) and merged through PR #31. P2 is active: [C043](cycles/C043-migration-preflight.md) provides offline inventory/preflight/backup; [C044](cycles/C044-paper-create-contract.md) proves an insert-only upstream creation route and lost-response readback on disposable data. [C045](cycles/C045-migration-staging.md) adds durable intent and conservative staging/readback recovery. [C046](cycles/C046-migrated-paper.md) proves ten initial cases through native editing, exact saved Undo, Shift+Enter and restart after correcting upstream inline-break serialization. [C047](cycles/C047-heading-alignment.md) extends this to sixteen cases with heading formatting/alignment and full reviewed validation. C048 proves 21 cases including genuine rich quotes and mixed nested lists, with complete reviewed standard visual/root closeout. C049 now proves profile-qualified internal links through native editing, cyclic/self navigation, actual backlinks and interrupted staging in two isolated profiles. C050 adds owned PNG upload/reconciliation and native alt/width/delete Undo plus restart. The [migration contract](migration/README.md) still requires remaining corpus, other media and authority-switch proof. Preserve the legacy store; the new upstream route is unmerged.
+P1 is accepted at the [C039 audit](cycles/C039-completion-audit.md) and merged through PR #31. P2 has verified preparation/staging,21 native content cases, internal links/backlinks, owned PNG recovery, exact retained-backup restore, native persisted defaults, navigation projection and read-only original evidence. [The migration contract](migration/README.md) maps each result and its limits. C054 at aa97781 passes 131 migration checks, full desktop/root and reviewed standard visuals; C053 Linux parity passes 20/20.
+
+C055 audits the remaining cutover contracts. Next is a complete owned-local catalog and correct Archive classification, followed by ordinary blank-note lifecycle, a retained-evidence viewer, writer fencing/sealed activation, and rollback/retirement. These are prepared slices inside P2, not completed features. Preserve the legacy store; no real library or authority has moved, and the upstream creation route remains unmerged.
 
 ## Carry forward
 
@@ -40,7 +42,7 @@ P1 is accepted at the [C039 audit](cycles/C039-completion-audit.md) and merged t
 
 | Gate | Current evidence | How it clears |
 |---|---|---|
-| G1: upstream editor integration | [Barkpark PR #19579](https://github.com/FRIKKern/barkpark/pull/19579) was open at this reset. | Required checks and merge verified; pin and retest the consumed baseline. |
+| G1: upstream editor integration | [Barkpark PR #19579](https://github.com/FRIKKern/barkpark/pull/19579) is open with merge conflicts in the 24 September audit. | Required checks and merge verified; pin and retest the consumed baseline. |
 | G2: cross-repository regression enforcement | [Issue #4](https://github.com/FRIKKern/barkdown/issues/4) needs the private-repo read token and deliberate broken-Tab proof. | Both repositories run the matrix; an intentional regression blocks the upstream PR. Never commit a credential. |
 
 The [22 September read-only gate audit](cycles/evidence/release-gates-2026-09-22.json) recorded PR #19579 open/blocked at a5440345c. Its green parity job skipped checkout, build and the actual rows because the read token is absent. It does not establish matrix enforcement. No secret configuration or upstream workflow was changed.
@@ -64,10 +66,10 @@ Use [ACCEPTANCE.md](ACCEPTANCE.md) for scenario gates and [VALIDATION.md](VALIDA
 
 ## Prepared tasks
 
-[Four completed task briefs](tasks/2026-09-23-next-four.md) define scope, dependencies, ownership, acceptance and evidence for the next work. C039/P1 are accepted; the four task briefs are complete at their stated preparation scope. The real migration rehearsal is P2 work.
+The ordered next P2 slices and acceptance are in the [migration contract](migration/README.md#ordered-cutover-work--prepared-not-implemented). The [four completed September23 briefs](tasks/2026-09-23-next-four.md) are historical preparation evidence; they are not the next queue.
 
 ## Delivery cadence
 
-Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) is C054 retained legacy evidence after accepted C053 workspace-navigation projection and C052 native persisted-note compatibility and completed C051 retained-backup restoration, C050 owned-image recovery, C049 internal references and C046–C048 native content proof. Earlier preparation/staging and merged P1 evidence remain linked from the current handoff. Device authentication is shared by default without asking, per the user’s 23 September decision. Original integration, profile and editor evidence remains linked from [NEXT-AGENT.md](NEXT-AGENT.md) and the [P1 audit](cycles/C039-completion-audit.md). Closing a cycle does not complete a stage.
+Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) is C055 cutover readiness after accepted C054. The ordered next slices live in the [migration contract](migration/README.md); original preparation/editor/profile evidence remains linked there and in the [P1 audit](cycles/C039-completion-audit.md). Device authentication is shared by default without asking. Closing a cycle does not complete a stage.
 
 Historical integration checkpoints remain in [C008](cycles/C008-integration.md); they are evidence, not an active queue.
