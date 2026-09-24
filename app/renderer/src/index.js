@@ -1,5 +1,6 @@
 import { mountComposer } from './composer.js';
-import { createLibraryRefresh } from './library-refresh.js';
+import { createLibraryRefresh, libraryScope } from './library-refresh.js';
+import { createNoteAction } from './note-creation.js';
 import { openProviderLogin } from './provider-login.js';
 import { restoreFailedMessage } from './submission-state.js';
 import { openGoalView } from './goals.js';
@@ -572,6 +573,13 @@ async function collectPalette(query) {
   }
   if (query.length >= 2) {
     try { const hits = await api.docs.search(query); hits.slice(0, 6).forEach(h => items.push({ group: 'Document text', icon: 'search', label: `${h.title}: ${h.snippet}`, hint: 'Open', run: () => openDocTab(chat, h.id, 'local'), noFilter: true })); } catch {}
+    if (state.settings?.barkpark?.enabled) {
+      try {
+        const hits = await api.barkpark.search(query);
+        hits.slice(0, 8).forEach(h => items.push({ group: 'Paper text', icon: 'search', label: `${h.title}: ${h.snippet || h.excerpt || ''}`, hint: 'Open',
+          run: () => openDocTab(chat, h.id, 'barkpark', h.paperOwner), noFilter: true }));
+      } catch {}
+    }
   }
   return items;
 }
@@ -580,8 +588,9 @@ async function renderPalette() {
   const input = q('#bw-palette-input');
   const list = q('#bw-palette-list');
   const query = input.value.trim().toLowerCase();
+  const scope = libraryScope(state);
   const all = await collectPalette(query);
-  if (q('#bw-palette').hidden) return;
+  if (q('#bw-palette').hidden || input.value.trim().toLowerCase() !== query || libraryScope(state) !== scope) return;
   paletteItems = all.filter(i => i.noFilter || !query || (i.label + ' ' + i.group + ' ' + i.hint).toLowerCase().includes(query));
   paletteIndex = Math.min(paletteIndex, Math.max(0, paletteItems.length - 1));
   let group = '';
@@ -594,6 +603,17 @@ function runPalette(n, alt = false) { const item = paletteItems[n]; if (!item) r
 
 // ---------- documents ----------
 const refreshLibrary = createLibraryRefresh({ state, api, render: () => { renderSidebar(); renderTabs(); }, report: message => toast(message, 'error') });
+const createLocalPaper = createNoteAction({
+  state, api, serialise, pages: ensurePages, refresh: refreshLibrary, render: renderSidebar,
+  place: (note, parent) => addPage(pageKey(note.id, 'barkpark', note.paperOwner), parent),
+  captureDestination: () => ({ mode: state.mode, chat: currentChat()?.id }),
+  open: (note, destination) => {
+    if (state.mode !== destination.mode || currentChat()?.id !== destination.chat) return;
+    if (state.mode === 'document') openDirect(note.id, 'barkpark', note.paperOwner);
+    else openDocTab(currentChat(), note.id, 'barkpark', note.paperOwner);
+  },
+  report: message => toast(message, 'error'),
+});
 
 async function importPaper(id, binding) {
   const doc = await api.barkpark.import(id, binding);
@@ -603,6 +623,7 @@ async function importPaper(id, binding) {
 }
 
 async function createDocument(parent = null) {
+  if (state.profileId && state.settings?.barkpark?.local?.enabled) return createLocalPaper(parent);
   const title = await askText({ title: parent ? 'New sub-page' : 'New page', label: 'Title', value: 'Untitled', confirm: 'Create' });
   if (title === null) return;
   const doc = await api.docs.create({ title: title || 'Untitled', markdown: '' });

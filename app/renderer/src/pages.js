@@ -143,7 +143,8 @@ export function renderPages(host, deps) {
       ${open ? `<div class="bw-archive" id="${prefix}"><input id="${prefix}-filter" type="search" placeholder="${unavailable ? 'Library unavailable' : 'Filter ' + entries.length + ' unplaced…'}" value="${esc(filter)}" aria-label="Filter ${label.toLowerCase()}">${matches.slice(0, 200).map(({ key, s }) => `<div class="bw-page" data-page="${esc(key)}" draggable="true"><button class="bw-nav bw-page-row bw-archive-row ${isOpen(key) ? 'selected' : ''}" data-open="${esc(key)}" data-source="${splitKey(key).source}" data-archive title="${esc(s?.excerpt || s?.title || '')}">${iconHtml(cloud ? 'cloud' : 'file-text', 13)}<span class="bw-page-title">${esc(s?.title || key)}</span><span class="bw-page-actions"><span data-place="${esc(key)}" title="Add to Pages">${iconHtml('arrow-left', 12)}</span>${splitKey(key).source === 'barkpark' ? `<span data-more="${esc(key)}" title="Options">${iconHtml('ellipsis', 12)}</span>` : ''}</span></button></div>`).join('')}${matches.length > 200 ? '<p class="bw-small bw-muted">Filter to see more.</p>' : ''}${!matches.length ? `<p class="bw-small bw-muted">${unavailable ? 'The library could not be loaded.' : entries.length ? 'No matching pages.' : 'No unplaced pages.'}</p>` : ''}</div>` : ''}`;
   };
   const libraryNotice = state.settings?.barkpark?.enabled && state.barkparkLibraryError ? `<div class="bw-library-notice" role="status" title="${esc(state.barkparkLibraryError)}"><span>${state.barkparkDocs.length ? 'Showing last known papers.' : 'Paper library unavailable.'}</span><button id="bw-library-retry" type="button">Retry</button></div>` : '';
-  host.innerHTML = `<div class="bw-label bw-pages-label"><span>Pages</span><span class="bw-spacer"></span><button class="bw-icon-button" id="bw-new-page" title="New page" aria-label="New page">${iconHtml('plus', 13)}</button></div><div class="bw-pages" id="bw-pages">${treeHtml}</div>${archiveSection(false)}${archiveSection(true)}${libraryNotice}`;
+  const creationNotice = pages.noteCreation ? '<div class="bw-library-notice" role="status"><span>New page not confirmed.</span><button id="bw-note-retry" type="button">Retry</button></div>' : '';
+  host.innerHTML = `<div class="bw-label bw-pages-label"><span>Pages</span><span class="bw-spacer"></span><button class="bw-icon-button" id="bw-new-page" title="New page" aria-label="New page">${iconHtml('plus', 13)}</button></div><div class="bw-pages" id="bw-pages">${treeHtml}</div>${creationNotice}${archiveSection(false)}${archiveSection(true)}${libraryNotice}`;
   const retry = host.querySelector('#bw-library-retry');
   if (retry) retry.onclick = async () => { retry.disabled = true; retry.textContent = 'Refreshing…'; try { await deps.onRefresh?.(); } finally { retry.disabled = false; retry.textContent = 'Retry'; } };
 
@@ -160,6 +161,8 @@ export function renderPages(host, deps) {
     b.oncontextmenu = e => { e.preventDefault(); showMenu(b, b.dataset.open, host, deps); };
   });
   host.querySelector('#bw-new-page').onclick = () => onNewPage(null);
+  const retryNote = host.querySelector('#bw-note-retry');
+  if (retryNote) retryNote.onclick = () => onNewPage(null);
   for (const [prefix, openKey, filterKey] of [['bw-archive', 'archiveOpen', 'archiveFilter'], ['bw-cloud-archive', 'cloudArchiveOpen', 'cloudArchiveFilter']]) {
     const toggle = host.querySelector(`#${prefix}-toggle`);
     if (!toggle) continue;

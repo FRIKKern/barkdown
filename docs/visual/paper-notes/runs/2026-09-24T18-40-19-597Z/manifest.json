@@ -1,0 +1,24 @@
+{
+  "host": "43938c2163f07175a9c7d153f56f6e346db25a14",
+  "upstream": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "sourceDirty": true,
+  "frames": [
+    "01-empty-paper.png",
+    "02a-enter-body.png",
+    "02-human-title-and-body.png",
+    "02b-body-search.png"
+  ],
+  "results": [],
+  "errors": [
+    "Cannot read properties of undefined (reading 'state')"
+  ],
+  "failure": "page.waitForFunction: TypeError: Cannot read properties of undefined (reading 'state')\n    at eval (eval at predicate (eval at evaluate (:311:30)), <anonymous>:1:25)\n    at predicate (eval at evaluate (:311:30), <anonymous>:7:27)\n    at next (eval at evaluate (:311:30), <anonymous>:29:33)\n    at eval (eval at evaluate (:311:30), <anonymous>:42:13)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at select (C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\draft-notes-ui.live.mjs:44:14)\n    at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/draft-notes-ui.live.mjs:81:3",
+  "artifacts": {
+    "01-empty-paper.png": "1b03870207ac836dcfaad55e1007593b0577f8fde733707af022ed23dc3d9d81",
+    "02-human-title-and-body.png": "244fe9b3a39fa7b09a358b84cbf399785ce1660739e042e3d8b1a59e1a1956e7",
+    "02a-enter-body.png": "1c5e4635480f8e8be13084bd9c3242fc9b9cbf21832c4260b58a9180f787fe63",
+    "02b-body-search.png": "cbcf8648bd7e6afc967d9d14860fee290d537f3bdcd4e84b321d37663ce2dff5",
+    "failure.png": "2d69c9859f61875f9344c25afe6184b83b0d821bb066cd2ba5b7c1fc41f6bcbc",
+    "restarted.webm": "20b647f01ceed3f8810c78aa958cfd638bbc8eb29bad9953e07347691e02741b"
+  }
+}

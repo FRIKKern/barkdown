@@ -63,6 +63,14 @@ function catalogSettingsKey(b) { return JSON.stringify([b.enabled, b.server, b.t
 function paperOrigin(config) {
   return require('./paper-origin').catalogOrigin(config, profileService && readSettings().barkpark.local?.enabled ? { profileId: profileService.view().profileId, connectionProfileId: profileConnectionOwner, connection: profileConnection } : null);
 }
+function draftNotes(config) {
+  const origin = paperOrigin(config);
+  if (origin.kind !== 'local') throw new Error('Ordinary Paper notes require this profile’s managed local library.');
+  return require('./draft-notes').createDraftNotes({
+    store: store.createStore(store.dir()), config, profileId: origin.profileId, paperOwner: paperNavigation.identify(config),
+    assertOwned: () => { authorityOwnership?.assertOwned(); if (profileService.view().profileId !== origin.profileId) throw new Error('The note’s profile is no longer active.'); },
+  });
+}
 function publicSettings() {
   const s = readSettings();
   if (profileConnection && s.barkpark.local?.enabled) s.barkpark.local = { ...s.barkpark.local, port: Number(new URL(profileConnection.server).port) };
@@ -193,7 +201,7 @@ function handle(channel, fn, unowned = false) {
       if (!win || event.sender !== win.webContents || event.senderFrame !== win.webContents.mainFrame) throw new Error('Only the main application window may use this request');
       const execute = async () => {
         authorityOwnership?.assertOwned();
-        if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
+        if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|createNote|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
         authorityOwnership?.assertOwned();
         return fn(...args);
       };
@@ -393,27 +401,41 @@ function registerIpc() {
     const { value } = await paperConnection.read(undefined, async c => {
       const paperOwner = paperNavigation.identify(c), origin = paperOrigin(c);
       const papers = await (c.viaCli ? barkpark.cliListAllPapers(c) : barkpark.listAllPapers(c));
+      if (origin.kind === 'local') papers.push(...await draftNotes(c).list());
       return papers.map(paper => ({ ...paper, paperOwner, paperOrigin: origin }));
     });
     if (generation !== catalogGeneration) throw new Error('The library connection changed during refresh; refresh again.');
     return value;
   });
   const input = value => typeof value === 'string' ? { id: value } : value;
+  handle('barkpark:createNote', async requestId => {
+    const captured = await paperConnection.read(undefined, c => { draftNotes(c); });
+    const paper = await paperConnection.write(captured.binding, c => draftNotes(c).create(requestId));
+    return { ...paper, binding: captured.binding, connectionIdentity: captured.connectionIdentity };
+  });
   handle('barkpark:get', async value => {
     const request = input(value), { id, binding } = request;
     const result = await paperConnection.read(binding, async c => {
       if (Object.hasOwn(request, 'paperOwner')) paperNavigation.assert(request.paperOwner, c);
       const paperOwner = paperNavigation.identify(c);
-      const paper = await (c.viaCli ? barkpark.cliGetPaper(id, c.cliRouting) : barkpark.getPaper(c, id));
+      const paper = await (id.startsWith('drafts.') && paperOrigin(c).kind === 'local' ? draftNotes(c).read(id) : c.viaCli ? barkpark.cliGetPaper(id, c.cliRouting) : barkpark.getPaper(c, id));
       return { ...paper, paperOwner };
     });
     return { ...result.value, binding: result.binding, connectionIdentity: result.connectionIdentity };
   });
-  handle('barkpark:search', async value => { const { id: query, binding } = input(value); return (await paperConnection.read(binding, c => c.viaCli ? barkpark.cliSearch(query, 20, c.cliRouting) : barkpark.search(c, query))).value; });
+  handle('barkpark:search', async value => {
+    const { id: query, binding } = input(value);
+    return (await paperConnection.read(binding, async c => {
+      const rows = await (c.viaCli ? barkpark.cliSearch(query, 20, c.cliRouting) : barkpark.search(c, query));
+      if (paperOrigin(c).kind === 'local') rows.push(...await draftNotes(c).search(query));
+      const paperOwner = paperNavigation.identify(c);
+      return rows.map(row => ({ ...row, paperOwner }));
+    })).value;
+  });
   handle('barkpark:backlinks', async value => { const { id, binding } = input(value); return (await paperConnection.read(binding, c => c.viaCli ? barkpark.cliBacklinks(id, c.cliRouting) : barkpark.backlinks(c, id))).value; });
   handle('barkpark:related', async value => { const { id, binding } = input(value); return (await paperConnection.read(binding, c => c.viaCli ? [] : barkpark.related(c, id))).value; });
   handle('barkpark:history', async value => { const { id, binding } = input(value); return (await paperConnection.read(binding, c => c.viaCli ? barkpark.cliHistory(id, c.cliRouting) : barkpark.history(c, id))).value; });
-  handle('barkpark:applyOps', ({ slug, ops, ifRev, binding }) => paperConnection.write(binding, c => c.viaCli ? barkpark.cliApplyOps(slug, ops, ifRev, c.cliRouting) : barkpark.applyOps(c, slug, ops, ifRev)));
+  handle('barkpark:applyOps', ({ slug, ops, ifRev, binding }) => paperConnection.write(binding, c => slug.startsWith('drafts.') && paperOrigin(c).kind === 'local' ? draftNotes(c).apply(slug, ops, ifRev) : c.viaCli ? barkpark.cliApplyOps(slug, ops, ifRev, c.cliRouting) : barkpark.applyOps(c, slug, ops, ifRev)));
   handle('barkpark:uploadMedia', ({ binding, ...payload }) => paperConnection.write(binding, c => barkpark.uploadMedia(c, payload)));
   handle('barkpark:publish', ({ binding, ...payload }) => paperConnection.write(binding, c => c.viaCli ? barkpark.cliPublish(payload, c.cliRouting) : barkpark.publish(c, payload)));
   handle('barkpark:patchTitle', ({ slug, title, binding }) => paperConnection.write(binding, c => barkpark.cliPatchTitle(slug, title, c.cliRouting)));

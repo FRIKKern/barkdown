@@ -6,7 +6,8 @@ function incomplete(reason) {
   error.code = 'catalog_incomplete';
   return error;
 }
-async function readCatalog(readPage, options = {}) {
+async function readCatalog(readPage, options = {}, perspective = 'published') {
+  if (!['published', 'drafts'].includes(perspective)) throw new TypeError('Unsupported catalog perspective');
   const limits = { ...LIMITS, ...options };
   for (const key of Object.keys(LIMITS)) if (!Number.isSafeInteger(limits[key]) || limits[key] < 1 || limits[key] > LIMITS[key]) throw new TypeError(`Invalid catalog ${key}`);
   if (limits.pageSize < 2) throw new TypeError('Catalog pages need room for a boundary identity');
@@ -19,7 +20,7 @@ async function readCatalog(readPage, options = {}) {
     bytes += Buffer.byteLength(JSON.stringify(raw) || '');
     if (bytes > limits.maxBytes) throw incomplete('the response budget was exceeded');
     const page = raw?.result ?? raw;
-    if (!page || !Array.isArray(page.documents) || page.perspective !== 'published' ||
+    if (!page || !Array.isArray(page.documents) || page.perspective !== perspective ||
         page.limit !== limits.pageSize || page.offset !== offset || page.count !== page.documents.length ||
         page.count > limits.pageSize || typeof page.hasMore !== 'boolean' ||
         !Number.isSafeInteger(page.total) || page.total < 0) throw incomplete('the server returned unsupported pagination metadata');
@@ -31,7 +32,7 @@ async function readCatalog(readPage, options = {}) {
     const fresh = boundary === null ? page.documents : page.documents.slice(1);
     if (total > limits.maxDocuments || documents.length + fresh.length > limits.maxDocuments) throw incomplete('the library exceeds the discovery limit');
     for (const [index, document] of page.documents.entries()) {
-      if (!document || typeof document !== 'object' || Array.isArray(document) || typeof document._id !== 'string' || !document._id.trim() || document._id.length > 4096 || document._draft === true) throw incomplete('a page contained an invalid paper');
+      if (!document || typeof document !== 'object' || Array.isArray(document) || typeof document._id !== 'string' || !document._id.trim() || document._id.length > 4096 || (perspective === 'published' && document._draft === true)) throw incomplete('a page contained an invalid paper');
       if (boundary !== null && index === 0) continue;
       if (ids.has(document._id)) throw incomplete('a page contained a repeated paper');
       ids.add(document._id); documents.push(document);

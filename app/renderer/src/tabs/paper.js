@@ -81,7 +81,7 @@ export function mountPaper(tab, host, ctx) {
     if (!paper) return;
     const crumbs = ctx.pagePath ? ctx.pagePath(slug(), 'barkpark', tab.paperOwner) : [];
     q('#kicker').textContent = crumbs.length > 1 ? crumbs.join(' / ') : '';
-    q('#meta').textContent = `${connectionChanged() ? 'Original connection required' : writesOn() ? 'Editing live' : 'Read-only'} · edited ${relativeTime(paper.updatedAt)}${paper.draft ? ' · draft' : ''}${paper.blocks ? '' : ' · HTML body'}`;
+    q('#meta').textContent = `${connectionChanged() ? 'Original connection required' : writesOn() ? 'Editing live' : 'Read-only'} · edited ${relativeTime(paper.updatedAt)}${paper.draft && paper.paperOrigin?.kind !== 'local' ? ' · draft' : ''}${paper.blocks ? '' : ' · HTML body'}`;
   }
 
   // Barkpark derives a paper's title from its first heading, so when the document opens with one the
@@ -115,7 +115,7 @@ export function mountPaper(tab, host, ctx) {
 
   function renderPath() {
     const bar = q('#path');
-    bar.innerHTML = `<span class="bw-muted">Barkpark paper · ${esc(slug())}</span>`;
+    bar.innerHTML = `<span class="bw-muted">${paper?.paperOrigin?.kind === 'local' ? 'Local note' : 'Barkpark paper · ' + esc(slug())}</span>`;
     const actions = el('<div class="bw-doc-actions"></div>');
     const ask = el(`<button title="Ask the assistant about this paper">${iconHtml('sparkles')} Ask</button>`);
     ask.onclick = () => { if (connectionChanged()) return toast('Restore this Paper’s original connection before asking about it.', 'error'); ctx.askAbout(`About the Barkpark paper "${paper?.title || slug()}" (id bp:${slug()}): `); };
@@ -314,6 +314,16 @@ export function mountPaper(tab, host, ctx) {
       applyOps(ops, seq);
     });
     canvas.addEventListener('keyup', () => syncTitleRow());
+    canvas.addEventListener('keydown', event => {
+      if (event.key !== 'Enter' || event.isComposing || event.shiftKey || event.ctrlKey || event.metaKey || event.altKey || !writesOn()) return;
+      const editor = canvas?._editor, doc = editor?.state.doc, selection = editor?.state.selection;
+      const title = doc?.firstChild, body = doc?.maybeChild(1);
+      // A template title cannot be split into another locked title. Enter at
+      // its end enters the existing body using Paper's native selection API.
+      if (title?.attrs.role !== 'title' || title.attrs.locked !== true || !selection?.empty || selection.from !== title.nodeSize - 1 || !body?.isTextblock) return;
+      event.preventDefault(); event.stopPropagation();
+      editor.commands.setTextSelection(title.nodeSize + 1);
+    }, true);
     canvas.addEventListener('beforeinput', () => { inputVersion++; });
     canvas.addEventListener('focusin', () => ctx.userIsEditing());
     hostEl.appendChild(canvas);
@@ -397,7 +407,7 @@ export function mountPaper(tab, host, ctx) {
     syncTitleRow();
     requestAnimationFrame(() => { if (!destroyed) syncTitleRow(); });
     q('#state').textContent = editable
-      ? 'Edits go straight to Barkpark through the fenced ops endpoint. Each batch is saved with the paper\'s revision; a clash with another writer shows up here instead of overwriting.'
+      ? 'Changes save automatically. If another edit conflicts, you can review both versions here.'
       : paper.blocks ? 'Read-only view of the Barkpark paper. Enable live editing above to edit in place.' : 'Preview converted from the paper\'s HTML body.';
     renderMeta(); renderBanner(); renderPath(); renderProposals();
     const linksReady = renderLinks();

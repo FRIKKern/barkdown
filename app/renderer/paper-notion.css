@@ -158,8 +158,9 @@
  * negative margin never leaves the pane (the pane clips nothing, so it would land over the chat). */
 .bw-paper-document { padding-inline: clamp(56px, 6cqw, 84px); }
 /* Empty paragraphs and dividers stay visible rows (Notion), not collapsed scaffolds with a + control. */
-.bp-paper-host .ProseMirror > .bp-resting-scaffold { display: block; }
+.bw-paper-document .bp-paper-host .ProseMirror > .bp-resting-scaffold { display: block; }
 .bp-paper-host .bp-scaffold-control { display: none; }
+.bw-paper-document .bp-paper-host .ProseMirror > [data-bp-role="title"].is-empty::before { content: "Untitled"; }
 
 /* Popups rendered into <body>: slash menu, command palette, format bubble, block menu. Same
  * neutral surface as Notion's menus: app ground, 8px radius, one soft shadow, blue accent. */

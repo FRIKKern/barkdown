@@ -18,6 +18,8 @@ For Paper changes, test acknowledged revisions, native Undo/Redo, human takeover
 
 ## Changelog
 
+- 24 September, C067: [ordinary Paper notes](../../../../docs/visual/paper-notes/README.md) retain their exact draft identity. The empty body stays visible when the upstream stylesheet loads; Enter at the locked title boundary selects the existing body without copying the title lock. Native development proof passes; final journey acceptance is recorded in the linked gallery.
+
 - 24 September, C053: ancestor favorites navigate the mounted editor through its existing unsaved-work guard. Tab reuse now includes local/Barkpark source identity. [Native Pages/favorites/side-chat rehearsal](../../../../docs/visual/migration/README.md#human-organization-preview--c053) proves the corrected destination and restart; original source stays authoritative.
 
 - 23 September, C046: [migrated Paper evidence](../../../../docs/visual/migration/README.md) proves nine native edit/save/Undo cases and restart. Long titles now wrap in narrow panes without changing title-save ownership. C048 subsequently adds inline-break and recursive-list support; the migration contract owns current eligibility. This is not migration activation.
