@@ -25,7 +25,7 @@ const type=async value=>{await pm().click();await page.keyboard.press('Control+E
 const launch=async()=>{app=await electron.launch({executablePath:require('electron'),args:[appDir,'--user-data='+userData],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});page=await app.firstWindow();video=page.video();page.on('pageerror',e=>errors.push(e.message));await page.waitForFunction(()=>window.__barkdown?.state.loaded);await page.setViewportSize({width:1400,height:900});};
 const close=async name=>{await app.close();app=null;fs.renameSync(await video.path(),path.join(out,name+'.webm'));};
 try{
- await launch();await configure();await page.evaluate(id=>window.__barkdown.openDirect(id,'barkpark'),id);await pm().waitFor({timeout:60000});await page.waitForFunction(()=>document.querySelector('bp-paper-canvas')?._editor);await shot('01-original-library');
+ await launch();await configure();await page.evaluate(async id=>{await window.__barkdown.refreshLibrary();const d=window.__barkdown.state.barkparkDocs.find(d=>d.id===id);if(!d?.paperOwner)throw Error('Fixture catalog owner missing');window.__barkdown.openDirect(id,'barkpark',d.paperOwner);},id);await pm().waitFor({timeout:60000});await page.waitForFunction(()=>document.querySelector('bp-paper-canvas')?._editor);await shot('01-original-library');
  const opened=await page.evaluate(id=>window.barkdown.barkpark.get(id),id);
  await configure({server:foreignServer});await shot('02-connection-changed');
  await type(' Human words wait for the original library.');await page.waitForFunction(()=>document.querySelector('.bw-paper-pane #save-state')?.textContent==='Not saved');
