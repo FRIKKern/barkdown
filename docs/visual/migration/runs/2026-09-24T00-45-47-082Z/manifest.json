@@ -1,0 +1,27 @@
+{
+  "capturedAt": "2026-09-24T00:46:27.095Z",
+  "barkdownCommit": "dcdf6ca3b138d91da03c2c5deadf98cee1c99049",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "profile": "Orchard",
+  "profileId": "ef0dfc12-3a23-438c-a866-aefc8d960aa7",
+  "sourceIds": {
+    "origin": "local-72d13da94f6055f0b330338e1ab36f53",
+    "z-destination": "local-fa00b346fcaa145bfdb21ba6a1a623cc"
+  },
+  "cases": [],
+  "frames": [],
+  "artifacts": {
+    "failure-server.json": "7f76330c47532be7676e9d1c181eb26115aabe1bb0968fc8e3d8002a846cc4dc",
+    "failure-state.json": "88fd1414f6d7f4a10dba50e5de9c6fdae925d8b88382095f1860e378abfa9b24",
+    "failure.png": "4cc069768843c87073bc04463849ad4fc03c8399534cbee7a84b0c93979adf93",
+    "failure.txt": "58c04ea759fffc6e599a1c15c8cf9b2359be66ca0a8be82eae6da2fc3b9d6b63",
+    "restart-or-failure.webm": "88b7c6478b8267392e1cc4080ef81fbf45b8fb1afc27eb9433ed19251a09b7b6"
+  },
+  "authority": "legacy",
+  "limits": [
+    "Disposable library only; paired isolated runs prove same-title cross-profile separation; no real-library activation",
+    "Native references preserve links to current content; history/receipts remain legacy",
+    "Clean Electron restart and process-exit recovery, not database power loss"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "capturedAt": "2026-09-24T00:37:37.359Z",
+  "barkdownCommit": "8dd01136310ac41e15824a57588505e40c377103",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "profile": "Orchard",
+  "profileId": "3e0a14ac-10a6-480f-840e-0e633255ff99",
+  "sourceIds": {
+    "origin": "local-7b53f166c0cf986af99ff6b3821017b9",
+    "z-destination": "local-061121997fc476c319f63e89d6947463"
+  },
+  "cases": [],
+  "frames": [],
+  "artifacts": {
+    "failure.txt": "80e518dead4d119a31e89806357a44da25b48eca50523fc648613aed1db08ce8"
+  },
+  "authority": "legacy",
+  "limits": [
+    "Disposable library only; paired isolated runs prove same-title cross-profile separation; no real-library activation",
+    "Native references preserve links to current content; history/receipts remain legacy",
+    "Clean Electron restart and process-exit recovery, not database power loss"
+  ]
+}

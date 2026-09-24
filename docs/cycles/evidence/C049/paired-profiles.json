@@ -1,0 +1,33 @@
+{
+  "source": "1e57023e43a93817a7b52e73aeedd0b50c1c2e11",
+  "upstream": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "profiles": [
+    {
+      "manifest": "docs/visual/migration/runs/2026-09-24T00-52-48-801Z/manifest.json",
+      "sha256": "1c783d83e0ed1d04cb59476f68c0b44281c43f7f7a37d71286e01fde1595aba0",
+      "profileId": "0176f263-a83d-4485-883e-0c6501db7dc3",
+      "sourceIds": {
+        "origin": "local-4237e69f1a21b55563d322133cb995f1",
+        "z-destination": "local-2436edf5274555904306c1b6c9877caf"
+      },
+      "server": "http://127.0.0.1:63108"
+    },
+    {
+      "manifest": "docs/visual/migration/runs/2026-09-24T00-54-54-614Z/manifest.json",
+      "sha256": "b39197b90b6b9ae285aeaf5fa94e9c9da8f5caf87269eda076fbd4a393ed489e",
+      "profileId": "b5b3d6ce-02f0-4858-bfce-6dae85cef5ec",
+      "sourceIds": {
+        "origin": "local-e882dffff8f5765af7c0e9951ff1b12f",
+        "z-destination": "local-d3de17373279cba99f5d4c25092e5ab5"
+      },
+      "server": "http://127.0.0.1:56881"
+    }
+  ],
+  "checks": [
+    "Same source keys, distinct profile IDs and target IDs",
+    "Separate private server origins",
+    "Same source and upstream revisions",
+    "Seven native edit/save/Undo cases in each profile",
+    "Actual graph and process-interrupted staging in each isolated runtime"
+  ]
+}

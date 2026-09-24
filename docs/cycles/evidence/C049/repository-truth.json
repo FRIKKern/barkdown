@@ -1,0 +1,38 @@
+{
+  "recordedAt": "2026-09-24T01:09:03.257607+00:00",
+  "barkdown": {
+    "localBranches": "codex/p2-migration fff3110229d85d6a951843f364ea61faece84f61\nmain 136a4592809f57d31070b82486a17219db3bb9a2",
+    "remoteBranches": "731d959cd8f619de80e39a0c4c8a67af6b1394a4\trefs/heads/codex/p2-migration\n136a4592809f57d31070b82486a17219db3bb9a2\trefs/heads/main",
+    "openPr": 32,
+    "registeredWorktrees": 88,
+    "retiredLockedWorktrees": 43
+  },
+  "barkpark": {
+    "ownedLocalBranches": "barkdown/editor-quality a5440345caa413087ac6488cac67f19fce58fa0f\ncodex/canvas-block-identity bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f\ncodex/paper-create-only 30c007e43a74f899bd1b1310e6165eb50fc3eb86\nmain 04c5b204b4967351a82434c5f48a5ea0471ccae5",
+    "ownedRemoteBranchesAndMain": "a5440345caa413087ac6488cac67f19fce58fa0f\trefs/heads/barkdown/editor-quality\nbf23f773ce59ef148a6e6eeb1374f64d9e2aa81f\trefs/heads/codex/canvas-block-identity\n30c007e43a74f899bd1b1310e6165eb50fc3eb86\trefs/heads/codex/paper-create-only\n3eb7d00e94f312b8ad307b30e33b8ac0db419026\trefs/heads/main",
+    "draftPr": 20020,
+    "base": "codex/canvas-block-identity",
+    "gatePr": 19579,
+    "worktreeClean": true,
+    "otherRemoteBranches": "Shared upstream has many other contributors branches; not owned by this run and not retired."
+  },
+  "cleanup": "Barkdown main plus one lane; three owned upstream delivery lanes. Historical worktrees locked and recoverable. Preserve append-only evidence and user test checkout; no destructive cleanup. Review evidence storage/retention only as a separate bounded task.",
+  "taskClaims": {
+    "task-46160685b0b510c7": 9,
+    "task-0974164b66eea275": 15,
+    "task-fcc7307a1176e058": 4
+  },
+  "documentsReviewed": [
+    "README",
+    "app/README",
+    "PLAN/plan.json",
+    "NEXT-AGENT",
+    "VALIDATION",
+    "migration contract",
+    "visual gallery",
+    "main/renderer area READMEs",
+    "DESIGN-DECISIONS",
+    "ACCEPTANCE"
+  ],
+  "unchangedClaims": "A2 remains pending. Product ownership/navigation decisions unchanged. Main-process README historical content proof remains accurate; current linked gallery supplies C049. No real libraries, deployment, shared services or user test app changed."
+}

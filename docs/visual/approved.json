@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-09-24T00-18-02-364Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-24T00-18-02-364Z/comparison.json",
-  "manifestHash": "9617edf53178d68c4bb40d1bc3b275a1444ed56cc519c7da3798afac7b48f967",
-  "reportHash": "de640e7e8ceca40bcfbfd00535117d72a6b0e371d1b2bb0eeec8ed6debb2788c",
+  "manifest": "docs/visual/runs/2026-09-24T01-06-09-705Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-24T01-06-09-705Z/comparison.json",
+  "manifestHash": "c15ccd2593389fc7f784371f38c439889fcf5c8e768da6a57f4949be10b5d661",
+  "reportHash": "07e474213c621116b636e88ab7be64dc0d45cf4b7f3bac62890f36f4d8868113",
   "reviewer": "Codex",
-  "note": "C048: inspected changed side-chat stills 0, 1 and 3 before/after and all four decoded side-chat GIF frames; no clipping, movement or control loss. SHA256 comparison binds remaining 37 stills and seven GIFs to the previously reviewed C047 candidate, carrying its narrow/intermediate review. All 40 comparisons have zero changed pixels above tolerance and no geometry/environment changes. Inspected five fresh live stills and all 37 live GIF frames after a real Claude turn: themes, quote insertion, table selection, quick-open and Settings remain usable. Dedicated migration review covers 31 stills, 96 video/GIF samples and eight restart samples, including full list break and narrow nesting. Native 21-case typing/save/exact Undo/restart, interruption recovery, full desktop and local table 6/6 pass. Fixture GIF shadow banding remains an encoding limitation; Linux table timeout and upstream integration gates remain separate. No real-library cutover.",
-  "reviewedAt": "2026-09-24T00:19:50.050Z",
-  "reviewPath": "docs/visual/reviews/approval-1e288e06025a5439cd4508e65145332a59ecf2885af161667947f92caccff528.json",
-  "reviewHash": "1e288e06025a5439cd4508e65145332a59ecf2885af161667947f92caccff528"
+  "note": "C049: all 40 fixture frames and eight GIFs are byte-identical to the reviewed C048 baseline; zero pixel/geometry differences and no environment change. Current narrow workspace and side-chat images inspected. Dedicated paired native references: 38 stills, 103 source-video samples, all 103 decoded GIF frames and 20 restart samples inspected; previews/navigation fit, marks and content retained. Fresh live Paper: real Claude edit, five stills and all 37 GIF frames inspected in light/dark, menu, table and settings. 36 migration checks, full desktop and isolated table 6/6 pass. No media migration, authority cutover or power-loss claim; Linux table verification remains pending.",
+  "reviewedAt": "2026-09-24T01:07:52.360Z",
+  "reviewPath": "docs/visual/reviews/approval-56030e542634e0f7cb1a86a895945251ab9662b94a909da69ab6b8e29642b51e.json",
+  "reviewHash": "56030e542634e0f7cb1a86a895945251ab9662b94a909da69ab6b8e29642b51e"
 }

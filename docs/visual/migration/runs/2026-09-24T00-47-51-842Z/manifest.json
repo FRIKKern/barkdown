@@ -1,0 +1,96 @@
+{
+  "capturedAt": "2026-09-24T00:48:24.225Z",
+  "barkdownCommit": "c3127bbc92ab73790affc094bec1fb138246d1a2",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "profile": "Orchard",
+  "profileId": "3c301b2f-0a85-4ebe-9b50-5c3bb5ffaaea",
+  "sourceIds": {
+    "origin": "local-d26be5f78076fed7f98e561c836ad3a9",
+    "z-destination": "local-55d9c9d05e5e950ff13f3ec451bd4dc6"
+  },
+  "editorBundle": {
+    "source": "server",
+    "server": "http://127.0.0.1:61162",
+    "version": "0.2.26.3938",
+    "sha": "b5004305fd3b99700457c3602b53003561f619c4",
+    "cssSha": "38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "folder": "b5004305fd3b99700457c3602b53003561f619c4-38197e09d17efc468a3dc875dbd59571e3aeb7c8",
+    "fetchedAt": "2026-09-24T00:48:06.908Z"
+  },
+  "cases": [
+    {
+      "label": "Marked destination",
+      "editedRev": 2,
+      "undoneRev": 3
+    },
+    {
+      "label": "Heading destination",
+      "editedRev": 4,
+      "undoneRev": 5
+    },
+    {
+      "label": "Quoted destination",
+      "editedRev": 6,
+      "undoneRev": 7
+    },
+    {
+      "label": "List destination",
+      "editedRev": 8,
+      "undoneRev": 9
+    },
+    {
+      "label": "Task destination",
+      "editedRev": 10,
+      "undoneRev": 11
+    },
+    {
+      "label": "Cell destination",
+      "editedRev": 12,
+      "undoneRev": 13
+    }
+  ],
+  "frames": [
+    "01-staged-linked-library.png",
+    "edit-marked.png",
+    "edit-heading.png",
+    "edit-quoted.png",
+    "edit-list.png",
+    "edit-task.png",
+    "edit-cell.png",
+    "Orchard-origin-preview.png",
+    "Orchard-z-destination-opened.png",
+    "Orchard-z-destination-preview.png",
+    "Orchard-origin-opened.png",
+    "02-reloaded.png",
+    "03-narrow.png",
+    "04-restarted.png",
+    "Orchard-origin-preview.png",
+    "Orchard-z-destination-opened.png"
+  ],
+  "artifacts": {
+    "01-staged-linked-library.png": "9d04f9cc7eb7ceab4479c3ba5309ed0d26e57ee3ef0c8d44d1727dbcad29d79b",
+    "02-reloaded.png": "8b5139eb19a94f971239ec83c81cab31c954ecb84246a525090c0b949852455b",
+    "03-narrow.png": "8434db5e3e69811015f29c4aabd3794869d371beec8aa722fb54a8ccc7cd292d",
+    "04-restarted.png": "9d04f9cc7eb7ceab4479c3ba5309ed0d26e57ee3ef0c8d44d1727dbcad29d79b",
+    "edit-cell.png": "5d9c3c9157519c85638fe707081e790aa90efe6e89c6c062d7e18664958c8202",
+    "edit-heading.png": "3be05c147ee2cb849effc4b17ba88a93c33c4e20af59ec2248107438c7af1ea1",
+    "edit-list.png": "bd37483991bf4eb160c69dd7dd37724b9cef4f161dd384935b8f45f19348157c",
+    "edit-marked.png": "c6e3add2439b29cf460db85fb7068452e8505c118aab5362bfcdd0a6a251a09a",
+    "edit-quoted.png": "64879110fea828ee54c4087a4eeacce798216dd3def0b90f0f683d8a60f454e7",
+    "edit-task.png": "38d3ee33af9cedeb1af8892f1c2864e8bfe6502c29ccbb85e3cd70ba5b94c900",
+    "graph.json": "e2534c79fb37deed7ed037f492af23106fe1037be742797e80a6decefb46e621",
+    "links-editing-navigation.webm": "5e5ec02551add10ad123d5e7249acd31b3e2b0a2a4add41e2985222d1e4c93f7",
+    "Orchard-origin-opened.png": "9d04f9cc7eb7ceab4479c3ba5309ed0d26e57ee3ef0c8d44d1727dbcad29d79b",
+    "Orchard-origin-preview.png": "83bb37a80d15dd7fc6a953e8ae19750b512066f784825755fdb07f8abe9e91eb",
+    "Orchard-z-destination-opened.png": "c163a74383b03e2ef1489d4ce49e906c0648ddb7450122cb5f5b4a1e8fd7150c",
+    "Orchard-z-destination-preview.png": "4cd110da8089ceb5d2e92e3a2abae36136c21634846290100a9f7199aef1aef6",
+    "restart-or-failure.webm": "34e4c0b22bd3ee2514066acf163daafbf4b9ce5821f625df14666cc0a06e0ebe"
+  },
+  "authority": "legacy",
+  "limits": [
+    "Disposable library only; paired isolated runs prove same-title cross-profile separation; no real-library activation",
+    "Native references preserve links to current content; history/receipts remain legacy",
+    "Clean Electron restart and process-exit recovery, not database power loss"
+  ]
+}
