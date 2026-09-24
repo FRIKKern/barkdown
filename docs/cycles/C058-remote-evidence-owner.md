@@ -20,7 +20,7 @@ Credentials are absent from persisted receipts. Credential rotation or HTTP/CLI 
 - Eight native stills inspected, including full-size foreign/narrow views. Narrow unknown-owner explanation was clipped; a CSS wrapping correction remains uncommitted and needs recapture. Derived55-frame GIF prepared but not yet reviewed; no visual acceptance yet.
 - Final944e251 native run06:35:09 passes; all8 stills and56 decoded GIF frames reviewed. The explanation now wraps at820px. The previous55-frame derivative is also reviewed and retained as superseded presentation.
 - Profile isolation at944e251 passes; six stills and six step-GIF frames reviewed at `docs/visual/profiles/isolation-runs/2026-09-24T06-35-40-918Z`. All owned processes stopped. Parity then refused before starting because this older isolation-runs path is outside the untracked-evidence allowance; commit reviewed evidence before retrying, do not weaken the guard.
-- Call-site audit found tab rename still omits C057 binding and optimistically changes labels on refusal. Route it through the mounted Paper owner and prove native CLI success plus foreign refusal before closing this cycle.
+- Call-site audit found tab rename omitted C057 binding and optimistically changed labels on refusal. The uncommitted correction reuses the mounted Paper title save, refuses over unsaved human work, and only changes tab/favorite labels after acknowledgement. All40 host checks pass, including three new actual controller/tab-path checks. Full rebuilt desktop58334 passed in Temp/c058-desktop-final.log; the native harness adds CLI rename success, foreign refusal and retained title discard.
 - No capture runtime is currently owned.
 
 ## Linux setup failure
@@ -29,4 +29,4 @@ C056 Linux run35959845676 finished 1/20: 19 suites enabled CLI with an empty ser
 
 ## Next action
 
-Commit the wrapping correction and recapture C058; run profile isolation and corrected full parity, then final live/fixture capture, actual image/GIF inspection, explicit approval and root verification. Update handoff/evidence, commit/push and inspect fresh exact-head CI. Preserve one lane, user checkouts, upstream source and shared services.
+Commit the bound tab-rename correction and run expanded native C058 plus corrected full parity. Then final live/fixture capture, actual image/GIF inspection, explicit approval and root verification. Update handoff/evidence, commit/push and inspect fresh exact-head CI. Preserve one lane, user checkouts, upstream source and shared services.

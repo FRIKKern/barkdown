@@ -501,16 +501,23 @@ async function renameTab(chat, tabId, value) {
   const tab = chat?.tabs.find(t => t.id === tabId);
   const title = String(value || '').trim();
   if (!tab || !title || title === tab.title) return;
-  tab.title = title;
-  if (tab.type === 'chat' && state.chats[tab.sideChatId]) state.chats[tab.sideChatId].title = title;
   // A document tab's name is the document's title, so renaming the tab renames the document.
   if (tab.type === 'doc' && tab.path.at(-1)) {
     const id = tab.path.at(-1);
     try {
-      if (tab.source === 'barkpark') await api.barkpark.patchTitle(id, title); else await api.docs.save({ id, title, actor: 'you', summary: 'Renamed' });
+      if (tab.source === 'barkpark') {
+        const controller = controllers.get(tabId);
+        if (!controller?.renameTitle) throw new Error('Open this Paper before renaming its tab.');
+        await controller.renameTitle(title);
+      } else {
+        const result = await api.docs.save({ id, title, actor: 'you', summary: 'Renamed' });
+        if (result?.conflict) throw new Error('The document changed. Read it again before renaming.');
+      }
       refreshLibrary();
-    } catch (error) { toast(errorMessage(error), 'error'); }
+    } catch (error) { toast(errorMessage(error), 'error'); renderTabs(); return; }
   }
+  tab.title = title;
+  if (tab.type === 'chat' && state.chats[tab.sideChatId]) state.chats[tab.sideChatId].title = title;
   const key = favoriteKey(tabToTarget(tab));
   for (const f of state.favorites) if (favoriteKey(f.target) === key) f.label = title;
   controllers.get(tabId)?.refresh?.();

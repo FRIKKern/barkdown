@@ -431,6 +431,17 @@ export function mountPaper(tab, host, ctx) {
 
   const controller = {
     el: pane, type: 'doc', tab,
+    async renameTitle(title) {
+      if (destroyed || !paper || !canvas) throw new Error('Wait for this Paper to open before renaming it.');
+      if (hasUnsavedWork()) throw new Error('Finish saving your Paper edits before renaming the tab.');
+      // Use the same captured owner, pending-write guard and retained failure
+      // draft as the document title field. Never obtain a fresh ambient binding.
+      const field = q('#title');
+      field.value = title;
+      await field.onchange();
+      if (titleDirty || paper.title !== title) throw new Error('Title was not saved. Your title edit remains in the Paper for retry or discard.');
+      return paper.title;
+    },
     connectionChanged() { renderBanner(); renderMeta(); renderProposals(); },
     canClose() { if (!hasUnsavedWork()) return true; canvas?.flushPendingChanges?.(); toast('Finish saving this paper before closing it. If saving failed, retry or discard the unsaved edits.', 'error'); return false; },
     async refresh(changedId) {

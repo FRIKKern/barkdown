@@ -17,7 +17,7 @@ P1 is accepted. P2 remains active: the app still uses legacy local documents alo
 
 [Reviewed screenshots and motion](../visual/migration/README.md) keep content, references, images and restored-legacy evidence distinct. Actual server readback and filesystem checks establish preservation; screenshots alone do not.
 
-C056 now proves [complete foreground discovery and honest refresh failure handling](../cycles/C056-complete-catalog.md) over real HTTP/CLI200/201 catalogs. This completes the discovery portion of order1 below; owned-local Archive classification remains pending. The next bounded cycle first addresses the open-Paper connection-binding risk found during review.
+C056 now proves [complete foreground discovery and honest refresh failure handling](../cycles/C056-complete-catalog.md) over real HTTP/CLI200/201 catalogs. This completes the discovery portion of order1 below; owned-local Archive classification remains pending. C057 now protects open-Paper buffers on connection change. C058 is validating durable edit evidence and tab-title ownership before the remaining Archive/navigation work.
 
 ## Audited target contract
 
@@ -43,7 +43,7 @@ The [C055 source audit](../cycles/evidence/C055/source-audit.json) pins the insp
 | 4 — Quiescence and sealed activation | Fence every foreground, API, MCP and goal writer with a captured engine generation. Save or explicitly retain human drafts, verify child termination, then seal the complete source/backup/targets/media/workspace map. | A pre-cutover handle or surviving child cannot write after selection. IPC drain alone is insufficient. Crash at each seal/selector boundary and restart chooses one complete authority, never mixed stores. Final comparison refuses any changed source/target, missing/ambiguous Paper or media. |
 | 5 — Rollback and retirement | Prove rollback to retained legacy ownership without overwriting post-migration edits or deleting staged Papers; retire legacy editing only after full A2 passes. | Process interruption and uncertain acknowledgements; edits before/after activation; repeated resume/rollback; retained old evidence; one engine for every newly created and migrated note. A changed target triggers explicit reconciliation, never a blind reverse-conversion. Keep recoverable originals until acceptance. |
 
-After the open-Paper connection fence, resume the remaining Archive/source-identity portion of order1. The existing preview refuses unplaced local notes precisely because current Pages code classifies all `bp:` keys as cloud. Ownership must come from validated profile/runtime metadata, not a slug prefix, guessed server URL or remote self-claim. Existing cloud discoveries must stay unplaced until the person organizes them. Closed source-less targets remain explicit ambiguity; do not guess a same-slug replacement.
+After C058 durable edit ownership closes, resume the remaining Archive/source-identity portion of order1. The existing preview refuses unplaced local notes precisely because current Pages code classifies all `bp:` keys as cloud. Ownership must come from validated profile/runtime metadata, not a slug prefix, guessed server URL or remote self-claim. Existing cloud discoveries must stay unplaced until the person organizes them. Closed source-less targets remain explicit ambiguity; do not guess a same-slug replacement.
 
 ### Actual read contract and limits
 

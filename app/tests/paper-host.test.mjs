@@ -283,6 +283,40 @@ await test('failed title remains editable until retry or explicit discard', asyn
   try {assert.equal(title.value,'Unsent title');assert.equal(m.controller.canClose(),false);m.host.querySelector('[data-act="discard-title"]').click();assert.equal(title.value,'A');assert.equal(m.controller.canClose(),true);}
   finally {m.close();}
 });
+function renameFromTab(m) {
+  m.tab.type='doc';
+  const chat={tabs:[m.tab]}, favorite={label:m.tab.title,target:{}};
+  const rename=new Function('controllers','api','state','refreshLibrary','toast','errorMessage','renderTabs','favoriteKey','tabToTarget','render',
+    functionSource('async function renameTab(', 'function startRenameTab(')+'; return renameTab;')(
+      new Map([[m.tab.id,m.controller]]),window.barkdown,{chats:{},favorites:[favorite]},()=>{},()=>{},e=>e.message,()=>{},()=> 'same',()=> ({}),()=>{});
+  return {favorite,rename:title=>rename(chat,m.tab.id,title)};
+}
+await test('tab rename waits for captured-owner acknowledgement before changing tab and favorite', async () => {
+  const ack=deferred(),writes=[];transport={get:async id=>paper(id),patchTitle:(...args)=>{writes.push(args);return ack.promise;}};
+  const m=mount();await tick();const ui=renameFromTab(m),pending=ui.rename('Acknowledged title');
+  try {
+    assert.equal(m.tab.title,'A');assert.equal(ui.favorite.label,'A');assert.equal(m.controller.canClose(),false);
+    m.tab.path=['B'];await m.controller.navigate();assert.deepEqual(m.tab.path,['A']);
+    assert.deepEqual(writes,[['A','Acknowledged title','connection-A']]);ack.resolve();await pending;
+    assert.equal(m.tab.title,'Acknowledged title');assert.equal(ui.favorite.label,'Acknowledged title');
+  } finally {ack.resolve();await pending;m.close();}
+});
+await test('refused tab rename retains title draft without relabelling the tab or favorite', async () => {
+  const writes=[];transport={get:async id=>paper(id),patchTitle:async(...args)=>{writes.push(args);throw Error('paper_connection_changed');}};
+  const m=mount();await tick();const ui=renameFromTab(m);
+  try {
+    await ui.rename('Unsent tab title');assert.deepEqual(writes,[['A','Unsent tab title','connection-A']]);
+    assert.equal(m.tab.title,'A');assert.equal(ui.favorite.label,'A');assert.equal(m.host.querySelector('#title').value,'Unsent tab title');
+    assert.equal(m.controller.canClose(),false);assert.match(m.host.querySelector('#title-error').textContent,/paper_connection_changed/);
+    m.host.querySelector('[data-act="discard-title"]').click();assert.equal(m.host.querySelector('#title').value,'A');
+  } finally {m.close();}
+});
+await test('tab rename cannot replace an unsaved human title', async () => {
+  let writes=0;transport={get:async id=>paper(id),patchTitle:async()=>{writes++;}};
+  const m=mount();await tick();const title=m.host.querySelector('#title');title.value='Human draft';title.oninput();
+  try {await assert.rejects(m.controller.renameTitle('Tab overwrite'),/Finish saving/);assert.equal(title.value,'Human draft');assert.equal(writes,0);}
+  finally {m.close();}
+});
 await test('destroyed host ignores late failed writes', async () => {
   const save=deferred();transport={get:async id=>paper(id),applyOps:()=>save.promise};
   const m=mount();await tick();m.canvas().emit();const pane=m.controller.el;m.close();save.reject(new Error('late failure'));await tick();

@@ -28,7 +28,7 @@ Packaging research may proceed alongside earlier stages. The local-only pilot do
 
 P1 is accepted at the [C039 audit](cycles/C039-completion-audit.md) and merged through PR #31. P2 has verified preparation/staging,21 native content cases, internal links/backlinks, owned PNG recovery, exact retained-backup restore, native persisted defaults, navigation projection and read-only original evidence. [The migration contract](migration/README.md) maps each result and its limits. C054 at aa97781 passes 131 migration checks, full desktop/root and reviewed standard visuals; C053 Linux parity passes 20/20.
 
-C055 audits the remaining cutover contracts. C056 implements complete foreground catalog discovery and honest refresh failure handling, with native200/201 HTTP/CLI proof. C057 now protects open Paper buffers with original-connection bindings and native Retry/Undo/CLI/restart proof. Durable remote receipt/proposal ownership needs audit before owned-local Archive classification. Ordinary blank-note lifecycle, a retained-evidence viewer, writer fencing/sealed activation, and rollback/retirement follow. These are prepared slices inside P2, not completed features. Preserve the legacy store; no real library or authority has moved, and the upstream creation route remains unmerged.
+C055 audits the remaining cutover contracts. C056 implements complete foreground catalog discovery and honest refresh failure handling, with native200/201 HTTP/CLI proof. C057 now protects open Paper buffers with original-connection bindings and native Retry/Undo/CLI/restart proof. C058 addresses durable remote receipt/proposal ownership and bound tab renaming; its current handoff records validation before owned-local Archive classification. Ordinary blank-note lifecycle, a retained-evidence viewer, writer fencing/sealed activation, and rollback/retirement follow. These are prepared slices inside P2, not completed features. Preserve the legacy store; no real library or authority has moved, and the upstream creation route remains unmerged.
 
 ## Carry forward
 
@@ -70,6 +70,6 @@ The ordered next P2 slices and acceptance are in the [migration contract](migrat
 
 ## Delivery cadence
 
-Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) records accepted C057 Paper connection ownership after complete C056 discovery. The ordered next slices live in the [migration contract](migration/README.md); original preparation/editor/profile evidence remains linked there and in the [P1 audit](cycles/C039-completion-audit.md). Device authentication is shared by default without asking. Closing a cycle does not complete a stage.
+Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) records active C058 durable edit ownership after accepted C056 discovery and C057 open-Paper binding. The ordered next slices live in the [migration contract](migration/README.md); original preparation/editor/profile evidence remains linked there and in the [P1 audit](cycles/C039-completion-audit.md). Device authentication is shared by default without asking. Closing a cycle does not complete a stage.
 
 Historical integration checkpoints remain in [C008](cycles/C008-integration.md); they are evidence, not an active queue.
