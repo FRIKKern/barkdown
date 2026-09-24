@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C067",
   "stage": "P2",
-  "status": "active",
+  "status": "done",
   "goal": "Create, edit, find and reopen ordinary owned notes in real Paper.",
   "scope": [
     "Private owned draft adapter, then managed-local New Page integration after native proof.",
@@ -17,8 +17,13 @@
   ],
   "checkpoint": "2026-09-24",
   "handoff": "docs/cycles/C067-ordinary-paper-notes.md",
-  "nextAction": "Implement exact draft adapter and prove private native typing/restart before connecting managed-local creation.",
-  "evidence": [],
-  "truthReview": "In progress; P2/A2 remain open.",
-  "screenshotReview": "Pending implementation checkpoint and new journey capture."
+  "nextAction": "Follow the C067 evidence checkpoint on PR33 without merging; archive C067 before the agent ordinary-note creation/edit/guarded Undo slice.",
+  "evidence": [
+    "docs/cycles/C067-ordinary-paper-notes.md",
+    "docs/cycles/evidence/C067/review.json",
+    "docs/visual/paper-notes/runs/2026-09-24T18-55-34-677Z/manifest.json",
+    "docs/visual/paper-notes/README.md"
+  ],
+  "truthReview": "Human create/edit/search/profile/restart journey proven; P2/A2 and agent/recovery/activation remain open. One delivery branch plus main;43 locked historical worktrees require coordinator recovery review. No merge/deploy.",
+  "screenshotReview": "Codex inspected native8/354/22, live5/37, standard40/40/40; explicit source-bound approval and provenance retained in review.json."
 }

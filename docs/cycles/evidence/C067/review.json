@@ -1,0 +1,65 @@
+{
+  "reviewer": "Codex",
+  "at": "2026-09-24T19:05:38.891Z",
+  "appSource": "7e1c51cc1858a8ad97e16877f6b3c58f5d73ab9a",
+  "assertionSource": "46854ef607acffcd6c74d32269f6a4a7062f7a36",
+  "upstream": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "native": {
+    "manifest": "docs/visual/paper-notes/runs/2026-09-24T18-55-34-677Z/manifest.json",
+    "hash": "b4ebf8bb7672f6e642574fa0c0e9424d0754902b74f3a1c97866be104736c5d7",
+    "stillsReviewed": 8,
+    "sampledMotionFramesReviewed": 354,
+    "excerptFramesReviewed": 22,
+    "provenance": "Final native run began at7e1c51c with only the test selector correction pending; correction committed unchanged as46854ef during the run. App main/renderer/shared have no diff from7e1c51c. Manifest sourceDirty:true is preserved.",
+    "observations": "Inspected all stills and sampled motion contacts, enlarged creation/title/body/search/reopen frames. Title/body separate, actual body result visible, empty profile twin and restart content preserved. Narrow/light/dark views fit. Runtime loading/waits and transient settings-save notices remain in full motion; no blanket responsiveness claim."
+  },
+  "standard": {
+    "approval": "docs/visual/reviews/approval-c486ceafa9b6da94648ce4fd7d6d7ecd825d09ea3fa2e50ce7dc1277a6c7fb96.json",
+    "stills": 40,
+    "differences": 40,
+    "gifFrames": 40,
+    "changedPixelsOrGeometry": false
+  },
+  "live": {
+    "manifest": "docs/images/status/manifest.json",
+    "hash": "77d611f39574ceed0f76cb40ba9690878187202867a82b48216cb1752095f75c",
+    "stills": 5,
+    "gifFrames": 37,
+    "provider": "real Claude",
+    "scope": "Existing showcase Paper, distinct from ordinary-note agent support"
+  },
+  "verifiedNativeArtifactHashes": 20,
+  "logs": {
+    "desktop.log": "d6d35fda97c273acda18a90890c9fb8888ae0f71742907f60caa4c6e173c715e",
+    "targeted.log": "6381155ea66310bd185c4c5ba9338276af3b425c4c97dafaaaf22a2ddd1383fb",
+    "tables.log": "38ba747f07875c4c818e3a69cd02b8bf2f98581eca4b53f44e74df0f58a00c4f",
+    "live-status.log": "1678dde84f9335a0feca3eab7e69fd7129e610930c2df1f46c6a3abab5888d23",
+    "root-verify.log": "e9e508082f89315ebe4bdfe5f03c0866650be750525423ff8a74ac8368ae276e"
+  },
+  "acceptance": {
+    "emptyCreateHumanEditSearchRestart": "Native public UI plus exact server title/body and persisted-tab assertions pass.",
+    "profileAndTwinIsolation": "Native two-profile same-ID/foreign-owner refusal; real draft ops leave published welcome byte-equivalent.",
+    "durableCreateReconciliation": "Real lost-response and service-reconstruction probes plus journal unit refusal/concurrency cases pass.",
+    "validation": "Full desktop,66 targeted,real API,isolated tables11/11,root verify,standard/live/native visual review pass."
+  },
+  "limits": [
+    "Agent ordinary-note creation/edit/Undo remains next.",
+    "Deletion/recovery, migration activation, legacy retirement and portability remain open.",
+    "Sent intents without matching readback remain unresolved and never replay POST.",
+    "Native in-flight profile-switch creation and full crash injection are not established.",
+    "Hosted checks apply only to their exact pushed head; no merge/deploy."
+  ],
+  "reproduction": {
+    "native": "cd app; BARKDOWN_TEST_BP_SOURCE=<private built source> node tests/draft-notes-ui.live.mjs",
+    "api": "cd app; BARKDOWN_TEST_BP_SOURCE=<private built source> node tests/draft-notes.live.mjs",
+    "tables": "cd app; BARKDOWN_TEST_BP_SOURCE=<private built source> node tests/status-shots-isolated.mjs tests/editor-tables.live.mjs",
+    "live": "cd app; BARKDOWN_TEST_BP_SOURCE=<private built source> npm run shots:isolated"
+  },
+  "accounting": {
+    "trackerTokens": 431972,
+    "trackerTimeSeconds": 3056,
+    "note": "Active-goal tracker snapshot during closeout, not final billing or price. Tokens include replayed context; active/wait time split unavailable."
+  },
+  "logHashEncoding": "Git index bytes, after repository LF normalization",
+  "roadmapReview": "Regenerated final C067 done/P2 active SVG rendered to PNG and inspected: five stages, current cycle and integration gates readable."
+}
