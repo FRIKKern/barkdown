@@ -97,6 +97,9 @@ function tabContext(chat) {
     pagePath: (id, source, paperOwner) => pagePath(pageKey(id, source, paperOwner)),
     openLinked: (fromTab, id, source = 'local', replace = false) => {
       pauseFollow(chat);
+      // A copy in another engine gets its own controller; keep the original
+      // Paper and any pending human edit mounted under its original owner.
+      if (source !== (fromTab.source || 'local')) { openDocTab(chat, id, source); return; }
       if (replace) { fromTab.path = [id]; fromTab.source = source; if (source !== 'barkpark') delete fromTab.paperOwner; }
       else if (fromTab.type === 'doc' && fromTab.source === (source || 'local') && !fromTab.path.includes(id)) fromTab.path = [...fromTab.path, id];
       else if (fromTab.type === 'doc' && fromTab.source !== source) { openDocTab(chat, id, source); return; }

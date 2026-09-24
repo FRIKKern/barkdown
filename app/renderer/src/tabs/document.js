@@ -47,12 +47,7 @@ export function mountDocument(tab, host, ctx) {
   const docId = () => tab.path.at(-1);
 
   async function fetchDoc(id) {
-    if (tab.source === 'barkpark') {
-      const paper = await api.barkpark.get(id);
-      // Tiptap parses HTML directly; strip styles/scripts and let unsupported elements fall back to text.
-      const content = paper.html ? paper.html.replace(/<style[\s\S]*?<\/style>/gi, '').replace(/<script[\s\S]*?<\/script>/gi, '') : paper.markdown != null ? markdownToDoc(paper.markdown) : markdownToDoc(paper.excerpt || '');
-      return { id: paper.id, title: paper.title, content, rev: paper.revision, updatedAt: paper.updatedAt, proposals: [], references: [], backlinks: [], source: 'barkpark', slug: paper.slug, html: paper.html };
-    }
+    if (tab.source === 'barkpark') throw new Error('This Paper must be opened in its original Paper editor.');
     return api.docs.get(id);
   }
 

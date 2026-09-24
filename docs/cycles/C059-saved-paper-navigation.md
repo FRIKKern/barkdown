@@ -11,3 +11,5 @@ Uncommitted implementation now propagates durable owners through catalog/get, ta
 ## Linux checkpoint finding
 
 C058 exact-head Linux35971541340 is18/20, not a passing Linux checkpoint. Gaps retained an older server-less setup; it now uses the shared validated scope. Tables pasted into a retained cell selection and split the existing table: its fixture now verifies a top-level empty paragraph before paste, with an explicit caret fallback after the native click, and performs an actual page reload. Assertions remain exact. Failure logs are retained in evidence/C059; corrected local and Linux reruns are pending.
+
+A source audit found Paper toolbar import reused the Paper controller after changing its source to local. Cross-engine copies now open their own tab/controller, retaining the original buffer. The unused legacy-document remote fetch now refuses instead of bypassing saved Paper ownership. These corrections need the final rebuilt desktop/native gates.
