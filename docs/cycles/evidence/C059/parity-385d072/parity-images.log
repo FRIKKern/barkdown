@@ -1,0 +1,90 @@
+{
+ "summary": "6/6 green",
+ "results": [
+  {
+   "name": "a pasted picture lands as an image block whose src is a media asset on the server",
+   "pass": true,
+   "handled": true,
+   "shownAtOnce": true,
+   "block": {
+    "alt": "red-square",
+    "id": "c-1-5330d71b",
+    "src": "http://localhost:57054/media/files/d/39a8840b-5c3c-444d-9995-9a3d860b3b45/2026/09/red-square-a2bddcf6.png",
+    "type": "image",
+    "width": null
+   }
+  },
+  {
+   "name": "a dropped picture lands where it was dropped, with its src on the server",
+   "pass": true,
+   "handled": true,
+   "blue": {
+    "alt": "blue-square",
+    "id": "c-2-8b0e13d0",
+    "src": "http://localhost:57054/media/files/d/39a8840b-5c3c-444d-9995-9a3d860b3b45/2026/09/blue-square-5a591449.png",
+    "type": "image",
+    "width": null
+   },
+   "order": [
+    "heading",
+    "paragraph",
+    "image:red-square",
+    "paragraph",
+    "image:blue-square"
+   ]
+  },
+  {
+   "name": "the uploaded picture is served by the Barkpark (200, image/png)",
+   "pass": true,
+   "status": 200,
+   "type": "image/png; charset=utf-8"
+  },
+  {
+   "name": "alt and width typed on the node land on the server",
+   "pass": true,
+   "block": {
+    "alt": "A red square",
+    "id": "c-1-5330d71b",
+    "src": "http://localhost:57054/media/files/d/39a8840b-5c3c-444d-9995-9a3d860b3b45/2026/09/red-square-a2bddcf6.png",
+    "type": "image",
+    "width": 120
+   },
+   "rendered": "120px"
+  },
+  {
+   "name": "reload: both pictures come back from the server with their srcs, alt and width",
+   "pass": true,
+   "canvas": [
+    {
+     "src": "http://localhost:57054/media/files/d/39a8840b-5c3c-444d-9995-9a3d860b3b45/2026/09/red-square-a2bddcf6.png",
+     "alt": "A red square",
+     "width": 120
+    },
+    {
+     "src": "http://localhost:57054/media/files/d/39a8840b-5c3c-444d-9995-9a3d860b3b45/2026/09/blue-square-5a591449.png",
+     "alt": "blue-square",
+     "width": null
+    }
+   ],
+   "server": [
+    {
+     "src": "http://localhost:57054/media/files/d/39a8840b-5c3c-444d-9995-9a3d860b3b45/2026/09/red-square-a2bddcf6.png",
+     "alt": "A red square",
+     "width": 120
+    },
+    {
+     "src": "http://localhost:57054/media/files/d/39a8840b-5c3c-444d-9995-9a3d860b3b45/2026/09/blue-square-5a591449.png",
+     "alt": "blue-square",
+     "width": null
+    }
+   ]
+  },
+  {
+   "name": "without writes the upload fails on the node, not in a toast",
+   "pass": true,
+   "badge": "Upload failed: Barkpark writes are off",
+   "toasts": ""
+  }
+ ],
+ "errors": []
+}

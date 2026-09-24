@@ -1,0 +1,274 @@
+{
+ "summary": "11/11 green",
+ "results": [
+  {
+   "name": "slash /table inserts a table with a header row",
+   "pass": true,
+   "grid": [
+    [
+     "#",
+     "#"
+    ],
+    [
+     "",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "typing in cells; Tab and Shift+Tab move between cells",
+   "pass": true,
+   "grid": [
+    [
+     "#Name",
+     "#Qty"
+    ],
+    [
+     "Pear",
+     "3"
+    ]
+   ],
+   "expected": "Shift+Tab selects the cell content, so typing replaces it (TableKit)"
+  },
+  {
+   "name": "server holds the typed cells after save",
+   "pass": true,
+   "save": "Saved · rev 4",
+   "canvas": [
+    [
+     "#Name",
+     "#Qty"
+    ],
+    [
+     "Pear",
+     "3"
+    ]
+   ],
+   "server": [
+    [
+     "#Name",
+     "#Qty"
+    ],
+    [
+     "Pear",
+     "3"
+    ]
+   ]
+  },
+  {
+   "name": "Tab in the last cell adds a row (as TableKit does)",
+   "pass": true,
+   "grid": [
+    [
+     "#Name",
+     "#Qty"
+    ],
+    [
+     "Pear",
+     "3"
+    ],
+    [
+     "Pear",
+     ""
+    ]
+   ],
+   "before": 2
+  },
+  {
+   "name": "chrome: add column, add row",
+   "pass": true,
+   "grid": [
+    [
+     "#Name",
+     "#Qty",
+     "#"
+    ],
+    [
+     "Pear",
+     "3",
+     ""
+    ],
+    [
+     "Pear",
+     "",
+     ""
+    ],
+    [
+     "",
+     "",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "chrome: remove column, remove row",
+   "pass": true,
+   "grid": [
+    [
+     "#Name",
+     "#Qty"
+    ],
+    [
+     "Pear",
+     "3"
+    ],
+    [
+     "Pear",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "server matches the canvas after structural edits",
+   "pass": true,
+   "save": "Saved · rev 9",
+   "canvas": [
+    [
+     "#Name",
+     "#Qty"
+    ],
+    [
+     "Pear",
+     "3"
+    ],
+    [
+     "Pear",
+     ""
+    ]
+   ],
+   "server": [
+    [
+     "#Name",
+     "#Qty"
+    ],
+    [
+     "Pear",
+     "3"
+    ],
+    [
+     "Pear",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "undo a cell edit; server follows",
+   "pass": true,
+   "save": "Saved · rev 11",
+   "canvas": [
+    [
+     "#Name",
+     "#Qty"
+    ],
+    [
+     "Pear",
+     "3"
+    ],
+    [
+     "Pear",
+     ""
+    ]
+   ],
+   "server": [
+    [
+     "#Name",
+     "#Qty"
+    ],
+    [
+     "Pear",
+     "3"
+    ],
+    [
+     "Pear",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "paste a GFM pipe table as a table block",
+   "pass": true,
+   "tables": 2,
+   "kinds": [
+    "heading",
+    "paragraph",
+    "bpTable",
+    "bpTable"
+   ]
+  },
+  {
+   "name": "Enter inside a cell does not split the table",
+   "pass": true,
+   "kinds": [
+    "heading",
+    "paragraph",
+    "bpTable",
+    "bpTable"
+   ]
+  },
+  {
+   "name": "reload: the tables come back from the server as edited",
+   "pass": true,
+   "before": [
+    [
+     [
+      "#City",
+      "#Pop"
+     ],
+     [
+      "Oslo",
+      "700k"
+     ],
+     [
+      "Bergen",
+      "290k"
+     ]
+    ],
+    [
+     [
+      "#Name",
+      "#Qty"
+     ],
+     [
+      "Pear",
+      "3"
+     ],
+     [
+      "Pear",
+      ""
+     ]
+    ]
+   ],
+   "after": [
+    [
+     [
+      "#City",
+      "#Pop"
+     ],
+     [
+      "Oslo",
+      "700k"
+     ],
+     [
+      "Bergen",
+      "290k"
+     ]
+    ],
+    [
+     [
+      "#Name",
+      "#Qty"
+     ],
+     [
+      "Pear",
+      "3"
+     ],
+     [
+      "Pear",
+      ""
+     ]
+    ]
+   ]
+  }
+ ],
+ "errors": []
+}

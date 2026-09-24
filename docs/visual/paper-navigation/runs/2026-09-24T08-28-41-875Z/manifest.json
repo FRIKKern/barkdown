@@ -1,0 +1,72 @@
+{
+  "capturedAt": "2026-09-24T08:29:03.494Z",
+  "barkdownCommit": "385d072c169084ff974cd4f0e733decaccfc4068",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "results": [
+    "Native wikilink child and parent Page return retain the original owner; importing a local copy mounts the local controller and preserves the original Paper",
+    "Actual Electron restart refuses saved A tab and favorite on B before Paper reads; unknown legacy targets remain unavailable, with roots/nesting preserved; explicit B selection and distinct favorites/Pages work",
+    "Return to original connection and another Electron restart recover original favorite/content without reassignment or writes to either library"
+  ],
+  "frames": [
+    "01a-direct-parent-page-restored.png",
+    "01b-local-copy-own-controller.png",
+    "01-original-owned-favorite-and-pages.png",
+    "02-restart-refuses-same-slug-substitution.png",
+    "03-unknown-reference-preserved-narrow.png",
+    "03b-unknown-reference-dark.png",
+    "04-distinct-same-slug-destinations.png",
+    "05-original-connection-retry.png",
+    "06-restarted-original-favorite.png"
+  ],
+  "artifacts": {
+    "01-original-owned-favorite-and-pages.png": "cff4dbe8f8e7fb4d84d0edb962fe723af619cc89aff6998e8b7eb7ffc20999e3",
+    "01a-direct-parent-page-restored.png": "0bf773ef1e2a68abe54df68e8283c0c44fe8927b0955b9c9253948337e053fe3",
+    "01b-local-copy-own-controller.png": "40e193db389fa0e1376ac5acbc4e90b7c13fd67a78716908a4741622b3e424e7",
+    "02-restart-refuses-same-slug-substitution.png": "dff4711c500ecbee424a86fe22b2fc1769dbb81bed90c41bb6c92131fe233239",
+    "03-unknown-reference-preserved-narrow.png": "04ec466a17734e4c36f53f6321d158ca71cb805a1885252772dbdbf55d50877f",
+    "03b-unknown-reference-dark.png": "802ca4334355799fc188d7efd55820684b64c9a73a4dd46094fa947294405af9",
+    "04-distinct-same-slug-destinations.png": "a788e16d3cb61730bf3f21ee880567103faacce9f26a2f681cae87e2f9361299",
+    "05-original-connection-retry.png": "7828e3cccdeeebd980ee51fefe0030bd6a134495fa4621a7f5ec60aa9809a967",
+    "06-restarted-original-favorite.png": "c38e8f08c18aafcf78e453d614a1622521a26fc38d86f580a8cdd55c8e183201",
+    "foreign-selection.webm": "c8c5124ab4c1318eee16296fea2ad6bb0c27f97287e779651f8b2691cf096b23",
+    "original-selection.webm": "c02565b54b8e686a5abd42a119eaf1cfc0df65376b2a687a93435537c2bfbcd7",
+    "restart-or-failure.webm": "ba2131d0c39568c05cb1ac11c10f49e6718b10dd973d04abbbe87362bc2dd9f1"
+  },
+  "foreignRequests": [
+    {
+      "method": "GET",
+      "url": "/assets/bp-paper-editor.bundle.js"
+    },
+    {
+      "method": "GET",
+      "url": "/assets/bp-paper-editor.css"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "method": "GET",
+      "url": "/status.json"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/doc/production/paper/navigation-proof?perspective=raw"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/backlinks/production/navigation-proof"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/history/production/paper/navigation-proof?limit=20"
+    }
+  ],
+  "limits": [
+    "Real private Paper plus non-persisting same-slug foreign recorder",
+    "Unknown historical references remain preserved; no guessed reattachment",
+    "Credential rotation or HTTP/CLI mode change creates a distinct owner",
+    "No real-library migration, origin classification, authority activation or portability claim"
+  ]
+}

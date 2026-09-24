@@ -1,0 +1,79 @@
+{
+ "summary": "6/6 green",
+ "results": [
+  {
+   "name": "a highlight stored on the server mounts as a highlight mark in the canvas",
+   "pass": true,
+   "canvas": [
+    "The first paragraph is plain prose where the row types a marked run.",
+    "Nothing in this one carries a mark, so the shapes compare cleanly around it.",
+    "Already <h>marked</h> on the server."
+   ]
+  },
+  {
+   "name": "==text== makes a highlight; the server stores the highlight wrapper",
+   "pass": true,
+   "save": "Saved · rev 2",
+   "canvas": [
+    "The first paragraph is plain prose where the row types a marked run. and <h>bright</h> words",
+    "Nothing in this one carries a mark, so the shapes compare cleanly around it.",
+    "Already <h>marked</h> on the server."
+   ],
+   "server": [
+    "The first paragraph is plain prose where the row types a marked run. and <h>bright</h> words",
+    "Nothing in this one carries a mark, so the shapes compare cleanly around it.",
+    "Already <h>marked</h> on the server."
+   ]
+  },
+  {
+   "name": "the bubble’s H toggles a highlight on a selection; server follows",
+   "pass": true,
+   "save": "Saved · rev 3",
+   "canvas": [
+    "The first paragraph is plain prose where the row types a marked run. and <h>bright</h> <h>words</h>",
+    "Nothing in this one carries a mark, so the shapes compare cleanly around it.",
+    "Already <h>marked</h> on the server."
+   ],
+   "server": [
+    "The first paragraph is plain prose where the row types a marked run. and <h>bright</h> <h>words</h>",
+    "Nothing in this one carries a mark, so the shapes compare cleanly around it.",
+    "Already <h>marked</h> on the server."
+   ]
+  },
+  {
+   "name": "Ctrl+Shift+H removes it again; server follows",
+   "pass": true,
+   "save": "Saved · rev 4",
+   "canvas": [
+    "The first paragraph is plain prose where the row types a marked run. and <h>bright</h> words",
+    "Nothing in this one carries a mark, so the shapes compare cleanly around it.",
+    "Already <h>marked</h> on the server."
+   ],
+   "server": [
+    "The first paragraph is plain prose where the row types a marked run. and <h>bright</h> words",
+    "Nothing in this one carries a mark, so the shapes compare cleanly around it.",
+    "Already <h>marked</h> on the server."
+   ]
+  },
+  {
+   "name": "the reader renders the highlight as <mark class=\"bp-highlight\">",
+   "pass": true,
+   "sample": "ow types a marked run. and <span><mark class=\"bp-highlight\">bright</mark></span> words</p>"
+  },
+  {
+   "name": "reload: highlights come back from the server as shown",
+   "pass": true,
+   "before": [
+    "The first paragraph is plain prose where the row types a marked run. and <h>bright</h> words",
+    "Nothing in this one carries a mark, so the shapes compare cleanly around it.",
+    "Already <h>marked</h> on the server."
+   ],
+   "after": [
+    "The first paragraph is plain prose where the row types a marked run. and <h>bright</h> words",
+    "Nothing in this one carries a mark, so the shapes compare cleanly around it.",
+    "Already <h>marked</h> on the server."
+   ]
+  }
+ ],
+ "errors": []
+}
