@@ -1,0 +1,19 @@
+
+> barkdown-desktop@0.6.0 test:profile-isolation
+> npm run build && node tests/profile-isolation-ui.live.mjs
+
+
+> barkdown-desktop@0.6.0 build
+> node scripts/build.mjs
+
+
+  renderer\dist\app.js      2.8mb
+  renderer\dist\app.js.map  7.0mb
+
+Done in 374ms
+Disposable two-profile fixture: C:\Users\Frikk\AppData\Local\Temp\bd-profile-isolation-Q8ks1H
+PASS Actual app runs A/B concurrently; B same-slug Paper/media/favorites and reading position remain B-owned
+PASS Late real MCP edit/receipt and separately held API transcript stay A; B draft/context/scroll/search unchanged and A Undo rejected
+PASS Returning A restores its cache/favorite/receipt; guarded Undo affects only matching A revision
+PASS Actual process restart restores selected B draft/side-parent/document path/scroll/favorite and same-slug Paper
+Evidence: C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\docs\visual\profiles\isolation-runs\2026-09-24T06-35-40-918Z stopped: true

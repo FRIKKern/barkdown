@@ -1,0 +1,45 @@
+{
+  "capturedAt": "2026-09-24T06:26:14.826Z",
+  "barkdownCommit": "56c94a8fa8e0894a03cad8cd3f284b0e5e3c3341",
+  "barkparkCommit": "30c007e43a74f899bd1b1310e6165eb50fc3eb86",
+  "isolatedRuntime": true,
+  "foreignRequests": [
+    {
+      "method": "GET",
+      "url": "/assets/bp-paper-editor.bundle.js"
+    },
+    {
+      "method": "GET",
+      "url": "/assets/bp-paper-editor.css"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "method": "GET",
+      "url": "/status.json"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/doc/production/paper/evidence-proof?perspective=raw"
+    }
+  ],
+  "results": [],
+  "frames": [
+    "01-original-owned-evidence.png"
+  ],
+  "artifacts": {
+    "01-original-owned-evidence.png": "d24eb628b1f934a61e8164816e1702ed50814841eb8bf7dc4bdf03cf13e5a4ec",
+    "failure.png": "a139e9ee1531f789d383b3c88a36592baefaa28897a9359c6c20af2de16e1775",
+    "failure.txt": "907673fbe5df33e19dd92b1441db80d4b7bd10c518781b39155622f255e73cc0",
+    "restart-or-failure.webm": "67585e665ea105f02e98e05b0c2fe30eab7bf325d20a5705136f9868b64e0ddb"
+  },
+  "limits": [
+    "Actual private Paper and non-persisting foreign read recorder; no real user library",
+    "Original unknown evidence is retained readably, never assigned a guessed owner",
+    "Credential rotation or connection access-mode change deliberately creates a different owner; no automatic reassignment",
+    "CLI route is captured; externally replaced CLI credentials are not frozen",
+    "No authority activation, deployment or portability claim"
+  ]
+}

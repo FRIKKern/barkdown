@@ -1,0 +1,29 @@
+{
+  "reviewer": "Codex",
+  "reviewedAt": "2026-09-24T06:40:55.040148+00:00",
+  "status": "accepted-regression",
+  "source": "def8b855d0bd18245eddbc2a89035c018ccd3910",
+  "manifestSha256": "ba94ed7531d269415e56de9446b78ce2e46c2b84bda71b1481d25660e6d2a4c9",
+  "originalHashesVerified": 11,
+  "stillsInspected": [
+    "01-original-library.png",
+    "02-connection-changed.png",
+    "03-unsaved-work-retained.png",
+    "04-narrow-retained-work.png",
+    "05-original-connection-retry.png",
+    "06-original-guarded-undo.png",
+    "07-explicit-cli-save.png",
+    "08-cli-original-restored.png",
+    "09-restarted-original-paper.png"
+  ],
+  "videoFramesInspected": {
+    "connection-recovery.webm": 37,
+    "restart-or-failure.webm": 10
+  },
+  "notes": "All9 stills and47 sampled raw-video frames inspected. One warning remains visible when appropriate, pending text stays readable in the narrow pane, and original-connection Retry/Undo/CLI/restart succeed. No new layout regression observed.",
+  "limits": [
+    "Video sampled at2fps840x540; brief states may be omitted. Original videos and full-size stills retained.",
+    "Foreign recorder receives no requests in this old-buffer test; fresh-valid-binding proof is in paper-evidence.",
+    "No authority activation or deployment."
+  ]
+}

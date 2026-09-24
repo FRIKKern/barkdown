@@ -18,7 +18,10 @@ Credentials are absent from persisted receipts. Credential rotation or HTTP/CLI 
 - Native run at56c94a8 failed because the foreign recorder served JSON as editor assets; failed gallery06:24:50 is retained and its two stills inspected. Fixture correction def8b85 passes at `docs/visual/paper-evidence/runs/2026-09-24T06-31-10-092Z`: fresh foreign binding, six zero-request refusals, preserved legacy bytes and exact HTTP/MCP-CLI Undo after restart.
 - C057 connection regression passes at `docs/visual/paper-connection/runs/2026-09-24T06-32-34-882Z` (13 refusals, Retry, exact Undo, CLI and restart).
 - Eight native stills inspected, including full-size foreign/narrow views. Narrow unknown-owner explanation was clipped; a CSS wrapping correction remains uncommitted and needs recapture. Derived55-frame GIF prepared but not yet reviewed; no visual acceptance yet.
-- No capture runtime is currently owned. Do not run native UI suites concurrently with the desktop suite.
+- Final944e251 native run06:35:09 passes; all8 stills and56 decoded GIF frames reviewed. The explanation now wraps at820px. The previous55-frame derivative is also reviewed and retained as superseded presentation.
+- Profile isolation at944e251 passes; six stills and six step-GIF frames reviewed at `docs/visual/profiles/isolation-runs/2026-09-24T06-35-40-918Z`. All owned processes stopped. Parity then refused before starting because this older isolation-runs path is outside the untracked-evidence allowance; commit reviewed evidence before retrying, do not weaken the guard.
+- Call-site audit found tab rename still omits C057 binding and optimistically changes labels on refusal. Route it through the mounted Paper owner and prove native CLI success plus foreign refusal before closing this cycle.
+- No capture runtime is currently owned.
 
 ## Linux setup failure
 
