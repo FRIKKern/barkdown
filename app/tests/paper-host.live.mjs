@@ -1,3 +1,4 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Real Paper + disposable Barkpark. Transport delay/failure is injected around the real CLI write.
 import { _electron as electron } from 'playwright';
 import assert from 'node:assert/strict';
@@ -21,7 +22,7 @@ try {
   const page=await app.firstWindow(); const errors=[]; page.on('pageerror',e=>errors.push(e.message));
   await page.waitForSelector('#bw-pages .bw-page-row'); await page.setViewportSize({width:1400,height:900});
   await page.evaluate(async server=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,viaCli:true,writes:true,server}});await window.__barkdown.refreshLibrary();},process.env.BARKDOWN_SHOTS_SERVER);
-  await page.evaluate(slug=>window.__barkdown.openTarget({kind:'doc',id:slug,source:'barkpark',title:slug}),SLUG);
+  await openFixturePaper(page, SLUG);
   const pm=page.locator('.bw-paper-pane:not([hidden]) .ProseMirror'); await pm.waitFor({timeout:60000});
   const shot=async name=>{
     // Health stills show settled controls; wait real finite UI transitions without disabling effects.

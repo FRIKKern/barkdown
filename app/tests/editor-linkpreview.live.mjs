@@ -1,3 +1,4 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // Plan #23: the link hover preview — resting on a link shows its address; on a wikilink the target paper's
 // title and first line, fetched through Barkdown's Barkpark adapter; Open goes to a paper tab (wikilink) or
@@ -24,7 +25,7 @@ await page.waitForSelector('#bw-pages .bw-page-row');
 await page.setViewportSize({ width: 1400, height: 900 });
 await connectPaperFixture(page);
 await page.waitForFunction(() => window.__barkdown.state.barkparkDocs.length > 0, null, { timeout: 90000 });
-const open = async slug => { await page.evaluate(s => window.__barkdown.openTarget({ kind: 'doc', id: s, source: 'barkpark', title: s }), slug); await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 }); await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 }); await page.waitForTimeout(500); };
+const open = async slug => { await openFixturePaper(page, slug); await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 }); await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 }); await page.waitForTimeout(500); };
 await open(SLUG);
 
 const results = [];

@@ -1,3 +1,4 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Actual keyboard/paste assertions; an observational shape log is not a passing row.
 import { _electron as electron } from 'playwright';
 import assert from 'node:assert/strict';
@@ -68,7 +69,7 @@ try {
   await page.waitForSelector('#bw-pages .bw-page-row');
   await page.setViewportSize({ width: 1400, height: 900 });
   await connectPaperFixture(page);
-  await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug, paperOwner: window.__barkdown.state.barkparkDocs.find(d => d.id === slug)?.paperOwner }), SLUG);
+  await openFixturePaper(page, SLUG);
   await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 });
   await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 });
   editorBundle = JSON.parse(fs.readFileSync(path.join(userData, 'canvas-bundle/current.json'), 'utf8'));

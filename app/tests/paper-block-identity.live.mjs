@@ -1,3 +1,4 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Actual Paper split identities, subsequent edits, native history and reload.
 import {_electron as electron} from 'playwright';
 import assert from 'node:assert/strict';
@@ -26,7 +27,7 @@ try{
  app=await electron.launch({executablePath:require('electron'),args:[path.resolve('.'),`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
  page=await app.firstWindow();video=page.video();await page.waitForSelector('#bw-pages .bw-page-row');await page.setViewportSize({width:1400,height:900});
  await page.evaluate(async server=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,viaCli:true,writes:true,server}});await window.__barkdown.refreshLibrary();},process.env.BARKDOWN_SHOTS_SERVER);
- await page.evaluate(id=>window.__barkdown.openTarget({kind:'doc',id,source:'barkpark',title:id}),slug);await page.waitForSelector('.bw-paper-pane .ProseMirror',{timeout:60000});
+ await openFixturePaper(page, slug);await page.waitForSelector('.bw-paper-pane .ProseMirror',{timeout:60000});
  bundle=await page.evaluate(()=>window.__barkdown.state.canvasBundle);assert.equal(bundle.source,'server');assert.equal(bundle.sha,'3a94a2964b37358f3ec791f009a2f52b28cffb0d');
  await page.evaluate(()=>{window.__identityKeys=[];document.addEventListener('keydown',event=>{const record={key:event.key,ctrl:event.ctrlKey,shift:event.shiftKey,target:event.target.tagName,documentFocus:document.hasFocus()};window.__identityKeys.push(record);queueMicrotask(()=>{record.prevented=event.defaultPrevented;});},true);});
  await page.evaluate(()=>{

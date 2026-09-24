@@ -1,3 +1,4 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Real linked-library staging, graph and native Paper history proof. Disposable runtime only.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -69,7 +70,7 @@ const arrived=async id=>{
   },{id,lead},{timeout:20000});
   await ready();
 };
-const open=async id=>{await page.evaluate(id=>window.__barkdown.openTarget({kind:'doc',id,source:'barkpark',title:id}),id);await arrived(id);assert.deepEqual(await blocks(),(await read(id)).blocks);};
+const open=async id=>{await openFixturePaper(page, id);await arrived(id);assert.deepEqual(await blocks(),(await read(id)).blocks);};
 const shot=async name=>{let file=name+'.png',n=1;while(fs.existsSync(path.join(out,file)))file=name+'-'+(++n)+'.png';await page.screenshot({path:path.join(out,file)});frames.push(file);};
 const launch=async()=>{app=await electron.launch({executablePath:require('electron'),args:[appDir,`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});page=await app.firstWindow();video=page.video();page.on('pageerror',e=>errors.push(e.message));await page.waitForSelector('#bw-pages .bw-page-row');await page.setViewportSize({width:1400,height:900});};
 const close=async name=>{await app.close();app=null;if(video)fs.renameSync(await video.path(),path.join(out,name+'.webm'));};

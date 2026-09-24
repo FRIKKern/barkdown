@@ -1,3 +1,4 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Real pictures of the real app for the README: stills and an animated GIF, with a manifest that says
 // what they show and which commits they came from. `npm run shots` (live: needs the local Barkpark,
 // `bp use local`, and the claude login for the assistant turn).
@@ -63,7 +64,7 @@ await page.evaluate(async connection => { window.__barkdown.state.settings = awa
 await page.waitForFunction(() => window.__barkdown.state.barkparkDocs.length > 0, null, { timeout: 90000 });
 // The chat/work split, applied the way the splitter applies it (two CSS variables on the root).
 const split = w => page.evaluate(v => { const r = document.getElementById("app"); r.style.setProperty("--bw-chat", v + "fr"); r.style.setProperty("--bw-work", (100 - v) + "fr"); document.querySelector("#bw-splitter")?.setAttribute("aria-valuenow", v); }, w);
-const openPaper = async () => { await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug, paperOwner: window.__barkdown.state.barkparkDocs.find(d => d.id === slug)?.paperOwner }), SLUG); await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 }); await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 }); };
+const openPaper = async () => { await openFixturePaper(page, SLUG); await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 }); await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 }); };
 await split(36);
 await openPaper();
 const settled = async () => { await page.waitForFunction(() => !/Saving/.test(document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent || ''), null, { timeout: 20000 }); await page.waitForTimeout(500); };

@@ -1,3 +1,4 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Real Paper + production agent-edit adapter on a disposable server; no model-generated fixtures.
 import { _electron as electron } from 'playwright';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
@@ -32,7 +33,7 @@ const scenarios=[
 try{
  page=await app.firstWindow();video=page.video();await page.waitForSelector('#bw-pages .bw-page-row');await page.setViewportSize({width:1400,height:900});await page.emulateMedia({reducedMotion:'no-preference'});
  await page.evaluate(async server=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,viaCli:true,writes:true,server}});await window.__barkdown.refreshLibrary();},process.env.BARKDOWN_SHOTS_SERVER);
- await page.evaluate(slug=>window.__barkdown.openTarget({kind:'doc',id:slug,source:'barkpark',title:slug}),slug);
+ await openFixturePaper(page, slug);
  await page.waitForSelector('.bw-paper-pane .ProseMirror',{timeout:60000});
  editorBundle=JSON.parse(fs.readFileSync(path.join(userData,'canvas-bundle/current.json'),'utf8'));assert.equal(editorBundle.source,'server');assert.equal(editorBundle.server,process.env.BARKDOWN_SHOTS_SERVER);assert.ok(editorBundle.version);
  client=new Client({name:'rich-read-proof',version:'1.0.0'});

@@ -1,3 +1,4 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs';
 // Row for the highlight mark (plan #15, the pipeline proof): ==text== and the bubble's H make a highlight in
 // the canvas; the server stores a `highlight` inline wrapper; the reader renders <mark class="bp-highlight">.
@@ -21,7 +22,7 @@ await page.waitForSelector('#bw-pages .bw-page-row');
 await page.setViewportSize({ width: 1400, height: 900 });
 await connectPaperFixture(page);
 await page.waitForFunction(() => window.__barkdown.state.barkparkDocs.length > 0, null, { timeout: 90000 });
-await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug, paperOwner: window.__barkdown.state.barkparkDocs.find(d => d.id === slug)?.paperOwner }), SLUG);
+await openFixturePaper(page, SLUG);
 await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 });
 await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 });
 
@@ -84,7 +85,7 @@ await row('the reader renders the highlight as <mark class="bp-highlight">', asy
 await row('reload: highlights come back from the server as shown', async () => {
   const before = await canvasShape();
   await page.evaluate(() => window.__barkdown.openTarget({ kind: 'chat' })).catch(() => {}); await page.waitForTimeout(500);
-  await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug, paperOwner: window.__barkdown.state.barkparkDocs.find(d => d.id === slug)?.paperOwner }), SLUG);
+  await openFixturePaper(page, SLUG);
   await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 }); await settle();
   const after = await canvasShape(); return { pass: same(before, after) && same(after, serverShape()), before, after };
 });

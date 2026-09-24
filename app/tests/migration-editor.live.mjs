@@ -1,3 +1,4 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Staged legacy corpus through the real server-supplied Paper editor and persistence.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -126,7 +127,7 @@ async function presentation() {
 try {
   await launch();
   await page.evaluate(async connection => { window.__barkdown.state.settings = await window.barkdown.settings.set({ barkpark: { enabled: true, writes: true, viaCli: false, ...connection } }); await window.__barkdown.refreshLibrary(); }, { server, token });
-  await page.evaluate(id => window.__barkdown.openTarget({ kind: 'doc', id, source: 'barkpark', title: 'Migrated corpus' }), id); await ready();
+  await openFixturePaper(page, id); await ready();
   editorBundle = JSON.parse(fs.readFileSync(path.join(userData, 'canvas-bundle/current.json'))); assert.equal(editorBundle.source, 'server'); assert.equal(editorBundle.server, server);
   const selectedBundle = path.join(process.env.BARKDOWN_TEST_BP_SOURCE, 'api/priv/static/assets/bp-paper-editor.bundle.js');
   assert.equal(editorBundle.sha, crypto.createHash('sha1').update(fs.readFileSync(selectedBundle)).digest('hex'),

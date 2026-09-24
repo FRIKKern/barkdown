@@ -423,6 +423,7 @@ function openDirect(id, source = 'local', paperOwner = null) {
   const target = { kind: 'doc', id, source, ...(source === 'barkpark' ? { paperOwner } : {}) };
   let tab = findTabForTarget(direct, target);
   if (!tab) { tab = newTab('doc', { title: documentSummary(id, source, paperOwner)?.title || id, path: [id], source, ...(source === 'barkpark' ? { paperOwner } : {}) }); direct.tabs.push(tab); }
+  if (tab.path.at(-1) !== id) { tab.path = tab.path.slice(0, tab.path.indexOf(id) + 1); controllers.get(tab.id)?.navigate(); }
   direct.active = tab.id;
   state.mode = 'document';
   state.directTab = tab.id;

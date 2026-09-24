@@ -69,3 +69,14 @@ export async function connectPaperFixture(page) {
   }, scope);
   return scope;
 }
+
+// An explicit current-library selection for fresh fixture navigation. This does
+// not upgrade saved tabs/favorites/Pages or guess an unknown reference's owner.
+export async function openFixturePaper(page, id) {
+  await page.evaluate(async id => {
+    await window.__barkdown.refreshLibrary();
+    const paper = window.__barkdown.state.barkparkDocs.find(p => p.id === id);
+    if (!paper?.paperOwner) throw new Error('Fixture Paper is missing from its owned catalog: ' + id);
+    window.__barkdown.openTarget({ kind: 'doc', id, source: 'barkpark', title: paper.title, paperOwner: paper.paperOwner });
+  }, id);
+}

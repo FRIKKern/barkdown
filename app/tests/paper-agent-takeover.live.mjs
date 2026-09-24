@@ -1,3 +1,4 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Real Paper + production agent-edit adapter on a disposable server; no model-generated fixtures.
 import { _electron as electron } from 'playwright';
 import assert from 'node:assert/strict';
@@ -18,7 +19,7 @@ const results=[];let video,page,editorBundle,phaseEvents=[];
 try{
   page=await app.firstWindow();video=page.video();await page.waitForSelector('#bw-pages .bw-page-row');await page.setViewportSize({width:1400,height:900});await page.emulateMedia({reducedMotion:'no-preference'});
   await page.evaluate(async server=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,viaCli:true,writes:true,server}});await window.__barkdown.refreshLibrary();},process.env.BARKDOWN_SHOTS_SERVER);
-  await page.evaluate(slug=>window.__barkdown.openTarget({kind:'doc',id:slug,source:'barkpark',title:slug}),slug);
+  await openFixturePaper(page, slug);
   const pm=page.locator('.bw-paper-pane .ProseMirror');await pm.waitFor({timeout:60000});
   editorBundle=JSON.parse(fs.readFileSync(path.join(userData,'canvas-bundle/current.json'),'utf8'));
   assert.equal(editorBundle.source,'server');assert.equal(editorBundle.server,process.env.BARKDOWN_SHOTS_SERVER);assert.ok(editorBundle.version);assert.ok(process.env.BARKDOWN_SHOTS_BUILD_FINGERPRINT);

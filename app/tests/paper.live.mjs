@@ -1,3 +1,4 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // Live check of the Barkpark paper tab: edits typed into <bp-paper-canvas> land on the connected server
 // through the fenced ops endpoint, and a stale revision surfaces as a conflict instead of overwriting.
@@ -29,7 +30,7 @@ try {
   // Reset the scratch paper to a known shape (unfenced publish) so earlier runs cannot skew the checks.
   publishFixture({ slug: SLUG, title: 'Fenced ops round trip', description: 'Scratch paper for the Barkdown paper tab: a typed change lands through the fenced ops endpoint under a revision guard, an injected external edit forces a 412 and the conflict card keeps both edits; rewritten on every run of tests/paper.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Barkdown editor test' }, { type: 'paragraph', content: [{ type: 'text', value: 'Type here; the change lands through the fenced ops endpoint with a revision guard.' }] }, { type: 'list', ordered: false, items: [[{ type: 'text', value: 'Cross-block caret and Enter split' }], [{ type: 'text', value: 'Server-acknowledged saves' }], [{ type: 'text', value: 'Conflicts surface instead of overwriting' }]] }] });
   const before = serverPaper();
-  await page.evaluate(slug => window.__barkdown.openTarget({ kind: 'doc', id: slug, source: 'barkpark', title: slug, paperOwner: window.__barkdown.state.barkparkDocs.find(d => d.id === slug)?.paperOwner }), SLUG);
+  await openFixturePaper(page, SLUG);
   await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 });
   await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 });
   step('paper opened in the Barkpark canvas with live editing', true);

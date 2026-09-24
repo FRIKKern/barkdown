@@ -1,3 +1,4 @@
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Real Paper paste, native history and acknowledged server saves on a disposable runtime.
 import { _electron as electron } from 'playwright';
 import assert from 'node:assert/strict';
@@ -21,7 +22,7 @@ const alignment=table=>{assert.ok(table,'table exists');assert.ok(Array.isArray(
 try {
  page=await app.firstWindow();video=page.video();await page.waitForSelector('#bw-pages .bw-page-row');await page.setViewportSize({width:1400,height:900});
  await page.evaluate(async server=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,viaCli:true,writes:true,server}});await window.__barkdown.refreshLibrary();},process.env.BARKDOWN_SHOTS_SERVER);
- await page.evaluate(slug=>window.__barkdown.openTarget({kind:'doc',id:slug,source:'barkpark',title:slug}),slug);await page.waitForSelector('.bw-paper-pane .ProseMirror',{timeout:60000});
+ await openFixturePaper(page, slug);await page.waitForSelector('.bw-paper-pane .ProseMirror',{timeout:60000});
  editorBundle=JSON.parse(fs.readFileSync(path.join(userData,'canvas-bundle/current.json'),'utf8'));assert.equal(editorBundle.source,'server');assert.equal(editorBundle.server,process.env.BARKDOWN_SHOTS_SERVER);assert.ok(editorBundle.version);
  const saved=async previous=>{await page.waitForFunction(rev=>{const c=document.querySelector('bp-paper-canvas');const status=document.querySelector('.bw-paper-pane #save-state')?.textContent||'';const host=[...window.__barkdown.controllers.values()].find(controller=>controller.el?.contains(c));return c&&host&&!host.isDirty()&&!c.hasPendingChanges()&&/Saved · rev/.test(status)&&Number(status.match(/rev (\d+)/)?.[1])>rev;},previous,{timeout:30000});return read();};
  const before=read();await page.evaluate(()=>{const e=document.querySelector('bp-paper-canvas')._editor;let pos=0;for(let i=0;i<2;i++)pos+=e.state.doc.child(i).nodeSize;e.commands.focus();e.commands.setTextSelection(pos+1);});await page.waitForFunction(()=>document.activeElement===document.querySelector('bp-paper-canvas')._editor.view.dom);
