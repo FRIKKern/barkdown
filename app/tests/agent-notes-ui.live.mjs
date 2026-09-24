@@ -87,6 +87,7 @@ try {
 } catch(error) { manifest.failure=error.stack; if(page&&!page.isClosed())await page.screenshot({path:path.join(out,'failure.png')}).catch(()=>{}); throw error; }
 finally {
   if(app)await close('restart-undo-human-edit'); await transport.close();
+  manifest.transport = { modelRequests: transport.requests.length, probes: transport.probes, errors: transport.errors };
   manifest.artifacts=Object.fromEntries(fs.readdirSync(out).map(name=>[name,crypto.createHash('sha256').update(fs.readFileSync(path.join(out,name))).digest('hex')]));
   fs.writeFileSync(path.join(out,'manifest.json'),JSON.stringify(manifest,null,2)+'\n'); console.log('Native agent-note evidence:',out,'Retained data:',userData);
 }

@@ -92,6 +92,18 @@ localSettings.barkpark.local.enabled = false;
 const switched = await leased.select(leaseOwner, b.id);
 assert.equal(switched.cleanupWarning, 'retained cleanup fixture');
 assert.equal(leased.view().profileId, b.id);
+const disabled = createProfileService({ registry,
+  settingsFor: () => ({ barkpark: { enabled: false, writes: true, local: { enabled: true } } }),
+  runtimePool: { acquire: async profileId => ({ connection: { enabled: true, writes: true,
+    server: 'http://fixture', token: 'fixture', dataset: 'production', managedProfileId: profileId }, release: async () => {} }) }
+});
+const disabledScope = await disabled.resolve(b.id, 'same');
+try {
+  assert.equal(disabledScope.scope.connection.enabled, false, 'runtime availability must not override disabled Paper access');
+  const tools = require('../main/paper-tools').createPaperTools({ store: disabledScope.scope.store, connection: disabledScope.scope.connection, profileId: b.id });
+  assert.deepEqual(await tools.list(), []);
+  await assert.rejects(tools.create({ title: 'Unavailable', markdown: 'Must not create' }), { code: 'draft_identity' });
+} finally { await disabledScope.release(); }
 const mixed = service.workspaces.load(b.id);
 mixed.chats.same.provider = 'claude';
 mixed.chats.same.sessions = { claude: 'fixture-session' };

@@ -51,7 +51,7 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
         lease = await runtimePool.acquire(profileId, { source: local.source, writes: Boolean(s.barkpark.writes), ownerId: request.attemptId || crypto.randomUUID() });
       }
       assertChatContext(chatContext, workspaces.load(profileId).chats[chatId]);
-      const connection = lease?.connection || connectionFor(s, store);
+      const connection = lease ? { ...lease.connection, enabled: lease.connection.enabled && s.barkpark.enabled !== false } : connectionFor(s, store);
       const provider = chat.provider || s.provider || defaultProvider();
       const seen = chat.sessions?.[provider] ? (chat.sessionSeen?.[provider] || 0) : 0;
       const labels = { api: 'API', claude: 'Claude Code', codex: 'Codex' };

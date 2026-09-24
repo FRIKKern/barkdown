@@ -2,12 +2,17 @@ import http from 'node:http';
 
 // Scripted model responses over actual SDK SSE transport; never a real-model claim.
 export async function createToolFixture(next) {
-  const requests = [], errors = [], sockets = new Set();
+  const requests = [], errors = [], probes = [], sockets = new Set();
   const server = http.createServer(async (req, res) => {
     try {
       let bytes = ''; for await (const chunk of req) bytes += chunk;
+      // Native Settings checks Claude Code availability against the configured
+      // base URL. Record that health probe separately from model turns.
+      if (req.method === 'HEAD' && req.url === '/api/hello' && !bytes) {
+        probes.push({ method: req.method, path: req.url }); res.writeHead(200); res.end(); return;
+      }
+      if (req.method !== 'POST' || req.url !== '/v1/messages') throw new Error(`Unexpected SDK request ${req.method} ${req.url} (${bytes.length} bytes)`);
       const body = JSON.parse(bytes); requests.push(body);
-      if (req.url !== '/v1/messages') throw new Error('Unexpected SDK path');
       const response = await next(body, requests.length - 1);
       res.writeHead(200, { 'content-type': 'text/event-stream' });
       const event = (type, data) => res.write(`event: ${type}\ndata: ${JSON.stringify({ type, ...data })}\n\n`);
@@ -30,5 +35,5 @@ export async function createToolFixture(next) {
   });
   server.on('connection', s => { sockets.add(s); s.on('close', () => sockets.delete(s)); });
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
-  return { url: `http://127.0.0.1:${server.address().port}`, requests, errors, async close() { for (const s of sockets) s.destroy(); await new Promise(resolve => server.close(resolve)); } };
+  return { url: `http://127.0.0.1:${server.address().port}`, requests, errors, probes, async close() { for (const s of sockets) s.destroy(); await new Promise(resolve => server.close(resolve)); } };
 }
