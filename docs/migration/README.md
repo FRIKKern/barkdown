@@ -9,7 +9,7 @@ P1 is accepted. P2 remains active: the app still uses legacy local documents alo
 | Inventory and exact backup | C043 captures documents, workspace, attachments, receipts and proposals with a pinned source hash; [preparation](../cycles/C043-migration-preflight.md) | Caller must close source writers; unsupported content blocks staging. Settings, credentials and runtime database are excluded. |
 | Profile-qualified identities and creation | C044/C045 use an immutable plan, source/profile-qualified IDs, an upstream create-only route, durable intents and exact readback; [staging](../cycles/C045-migration-staging.md) | Unmerged upstream dependency. Existing unowned, changed, missing or draft targets refuse; no automatic replay of an uncertain absent write. |
 | Native content | C046–C048 prove21 supported cases through actual typing, acknowledged save, exact saved Undo, reload and restart; [content proof](../cycles/C048-quotes-nested-lists.md) | Plain/rich text, marks, H1–H3, alignment, code language, bounded tables, quotes and recursive mixed/check lists. Deeper headings, custom list starts, table spans/widths, multi-paragraph quotes and inline CR remain refused. |
-| Internal links/backlinks | C049 resolves canonical same-profile links against the complete captured library; [reference proof](../cycles/C049-internal-references.md) | Missing/malformed/foreign targets refuse. Native source link-default attributes need separate compatibility proof; source navigation is not activated. |
+| Internal links/backlinks | C049 resolves canonical same-profile links against the complete captured library; [reference proof](../cycles/C049-internal-references.md) | Missing/malformed/foreign targets refuse. C052 proves exact standard native link defaults; source navigation is not activated. |
 | Owned media | C050 journals a single PNG upload attempt, reconciles scoped metadata and exact bytes, and checks media again before completion; [image proof](../cycles/C050-owned-images.md) | Top-level eight-bit non-interlaced grayscale/RGB PNG±alpha, alt and width only. Height/captions, external downloads and other formats refuse. Origin must remain stable. |
 | Retained backup restore | C051 validates all committed backup bytes before restoring to an empty owned destination. Process interruption/resume and actual restored-profile editing/restart pass; [restore checkpoint](../cycles/C051-backup-restore.md) | Closed same-machine profile at its original path; no live restore UI, authority switch, Paper edit rollback or power-loss claim. Full desktop/root and reviewed standard visual closeout pass. |
 
@@ -29,7 +29,7 @@ Runtime bindings, source/backup hashes and existing journal records are checked 
 
 ## Remaining activation and recovery work
 
-1. Audit content actually persisted by the legacy editor and Markdown parser, including default link/list attributes. C051 found ordinary Markdown links carry `target="_blank"`, currently refused; do not silently strip custom metadata.
+1. C052 accepts only actual audited default link attributes and null ordered-list type, with75 checks and a real legacy-save → Paper edit/Undo/restart rehearsal. Custom metadata still refuses. Other unsupported corpus shapes remain blocked.
 2. Inventory and validate every real workspace destination: human Pages order/nesting/expansion/archive state, favorites, document tab paths, side-chat parents, drafts/images and event references. Existing `bp:` destinations are not new imports.
 3. Prepare a versioned reference map. Rewrite exact local document destinations only, retaining all unrelated state. Atomically select one complete map after all target comparisons pass; crash/restart must never select a mixture. No adapter currently activates this map.
 4. Keep original history, proposals and edit receipts readable. Legacy revision numbers cannot become Paper revision numbers. Do not reinterpret an old guarded Undo against a staged Paper.
@@ -44,10 +44,10 @@ Other content formats, live writer fencing, target conflict resolution and cross
 Run targeted checks from the repository root:
 
 ```sh
-node --test app/tests/migration-preflight.test.mjs app/tests/migration-staging.test.mjs app/tests/migration-media.test.mjs app/tests/migration-restore.test.mjs
+node --test app/tests/migration-preflight.test.mjs app/tests/migration-staging.test.mjs app/tests/migration-media.test.mjs app/tests/migration-restore.test.mjs app/tests/migration-native-source.test.mjs
 node docs/migration/audit.mjs
 ```
 
-Native scripts `test:migration-editor:isolated`, `test:migration-references:isolated`, `test:migration-media:isolated` and `test:migration-restore:isolated` use a clean built private Barkpark selected with `BARKDOWN_TEST_BP_SOURCE`. They create disposable data and stop only their owned runtime. Follow the implementation-commit → capture → actual review → evidence-commit workflow.
+Native scripts `test:migration-editor:isolated`, `test:migration-references:isolated`, `test:migration-media:isolated` `test:migration-restore:isolated` and `test:migration-native-source:isolated` use a clean built private Barkpark selected with `BARKDOWN_TEST_BP_SOURCE`. They create disposable data and stop only their owned runtime. Follow the implementation-commit → capture → actual review → evidence-commit workflow.
 
 The separate [converter report](report.json) has32 synthetic cases:21 representation-preserved,2 lossy,2 unresolved references and7 rejected. It records hand-authored expectations/source hashes and proposed identity inventory; it is not native save or workspace activation evidence. C049/C050 resolve selected references/media only inside the complete captured-profile migration path. Historical cycle records preserve earlier findings and failures; they are not extra active queues.

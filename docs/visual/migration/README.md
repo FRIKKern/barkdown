@@ -53,3 +53,11 @@ C051 source `02e938b` restores a closed disposable legacy profile at its origina
 [Raw recording](runs/2026-09-24T02-09-49-913Z/restored-profile-editing.webm), [restart](runs/2026-09-24T02-09-49-913Z/restored-profile-restarted.webm), [narrow](runs/2026-09-24T02-09-49-913Z/06-narrow.png), [named review](runs/2026-09-24T02-09-49-913Z/motion-review.json). All7stills,15raw samples,15decoded GIF frames and7restart samples were inspected. Existing narrow legacy title clipping/provider truncation remains; this is recovery proof, not editor polish. Credentials/settings/runtime are excluded. No live restore UI, authority switch, later Paper edit rollback, power-loss or portability claim.
 
 Retained first attempts: [unsupported Markdown link target](runs/2026-09-24T02-04-23-049Z/manifest.json) stopped before Paper writes; [missing fixture initialization flag](runs/2026-09-24T02-05-54-275Z/manifest.json) and [transient revision-label wait](runs/2026-09-24T02-07-34-164Z/manifest.json) were harness corrections. Their failure stills were inspected; the original parser/native link-attribute compatibility gap remains a separate migration gate.
+
+## C052 native source compatibility
+
+Actual legacy editor save → strict staging → Paper link/list/parser edits, exact saved Undo, internal reference preview/navigation and restart pass at aa1f1c4/private30c007. Closed source and backup bytes remain exact; no workspace activation. [Manifest](runs/2026-09-24T02-41-48-208Z/manifest.json), [actual motion review](runs/2026-09-24T02-41-48-208Z/motion-review.json). Standard visual/root closeout pending.
+
+![Migrated native source](runs/2026-09-24T02-41-48-208Z/03-migrated-native-source.png)
+
+![Native Paper editing and navigation](runs/2026-09-24T02-41-48-208Z/native-source-paper-editing.gif)
