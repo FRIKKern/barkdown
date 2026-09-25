@@ -16,20 +16,21 @@
   ],
   "checkpoint": "2026-09-25",
   "handoff": "docs/cycles/C079-editor-entry.md",
-  "nextAction": "Finish required live/standard evidence and root verification, then hosted parity and integration.",
+  "nextAction": "Push coherent checkpoint; require hosted Verify, Visual review and full real parity before merge and branch retirement.",
   "evidence": [
     "docs/cycles/evidence/C079/focused/result.json",
-    "docs/visual/editor-gap-assertions/runs/2026-09-25T21-08-24-635Z/review-C079.json"
+    "docs/visual/editor-gap-assertions/runs/2026-09-25T21-08-24-635Z/review-C079.json",
+    "docs/cycles/evidence/C079/live-review.json",
+    "docs/cycles/evidence/C079/root/result.json"
   ],
-  "truthReview": "",
-  "screenshotReview": "",
+  "truthReview": "Production behavior unchanged; C078 delivered and main failure retained. P2/A2 and cutover remain open. One delivery lane; preserve locked recovery history.",
+  "screenshotReview": "Native13 stills/67 motion samples; live5 stills/37 GIF frames; standard40 stills/40 GIF frames inspected and explicitly approved. Zero standard pixel/geometry changes.",
   "delivery": {
-    "phase": "validating",
+    "phase": "integrating",
     "owner": "primary agent",
     "remaining": [
-      "Live/standard evidence and root verification",
-      "Hosted parity and merge",
-      "Retire branch"
+      "Hosted gates and visual review",
+      "Merge and retire branch"
     ]
   }
 }
