@@ -1,0 +1,1812 @@
+{
+ "summary": "0/13 green",
+ "failures": [
+  {
+   "name": "inline markdown marks",
+   "error": "AssertionError [ERR_ASSERTION]: seed heading must survive every completed interaction\n    at step (file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:53:12)\n    at async file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:82:3",
+   "diagnostic": {
+    "documentFocus": true,
+    "editorFocus": true,
+    "activeElement": "<div contenteditable=\"true\" role=\"textbox\" translate=\"no\" class=\"tiptap ProseMirror ProseMirror-focused\" tabindex=\"0\"><button type=\"button\" class=\"bp-scaffold-control ProseMirror-widget\" contenteditable=\"false\" aria-label=\"Edit empty paragraph\" title=\"Edit empty paragraph\">+</button><p data-bp-id=\"c-3-efdf2107\" data-bp-type=\"paragraph\" class=\"bp-re",
+    "selection": {
+     "type": "text",
+     "anchor": 36,
+     "head": 36
+    },
+    "selectionPath": [
+     {
+      "depth": 0,
+      "type": "doc",
+      "index": 1
+     },
+     {
+      "depth": 1,
+      "type": "heading",
+      "index": 7
+     }
+    ],
+    "parentOffset": 33,
+    "done": 8,
+    "undone": 0,
+    "canUndo": true,
+    "keys": [
+     {
+      "key": " ",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "a",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "n",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "d",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": " ",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "`",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "m",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "o",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "n",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "o",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "`",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": " ",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "e",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "n",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "d",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "blockquote shorthand",
+   "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(has(doc, n => (n.type === 'blockquote' || n.attrs?.bpType === 'blockquote') && textOf(n) === 'quoted'))\n\n    at file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:83:143\n    at step (file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:52:39)\n    at async file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:83:3",
+   "diagnostic": {
+    "documentFocus": true,
+    "editorFocus": true,
+    "activeElement": "<div contenteditable=\"true\" role=\"textbox\" translate=\"no\" class=\"tiptap ProseMirror ProseMirror-focused\" tabindex=\"0\" style=\"\"><button type=\"button\" class=\"bp-scaffold-control ProseMirror-widget\" contenteditable=\"false\" aria-label=\"Edit empty paragraph\" title=\"Edit empty paragraph\" style=\"\">+</button><p data-bp-id=\"c-3-efdf2107\" data-bp-type=\"parag",
+    "selection": {
+     "type": "text",
+     "anchor": 46,
+     "head": 46
+    },
+    "selectionPath": [
+     {
+      "depth": 0,
+      "type": "doc",
+      "index": 2
+     },
+     {
+      "depth": 1,
+      "type": "heading",
+      "index": 0
+     }
+    ],
+    "parentOffset": 8,
+    "done": 9,
+    "undone": 0,
+    "canUndo": true,
+    "keys": [
+     {
+      "key": "o",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "`",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": " ",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "e",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "n",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "d",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Enter",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": ">",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": " ",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "q",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "u",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "o",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "t",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "e",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "d",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "task shorthand and checked item",
+   "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror').locator('ul[data-type=\"taskList\"] li input').first()\n\n    at /home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:84:312\n    at async step (/home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:51:19)\n    at async file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:84:3",
+   "diagnostic": {
+    "documentFocus": true,
+    "editorFocus": true,
+    "activeElement": "<div contenteditable=\"true\" role=\"textbox\" translate=\"no\" class=\"tiptap ProseMirror ProseMirror-focused\" tabindex=\"0\" style=\"\"><button type=\"button\" class=\"bp-scaffold-control ProseMirror-widget\" contenteditable=\"false\" aria-label=\"Edit empty paragraph\" title=\"Edit empty paragraph\" style=\"\">+</button><p data-bp-id=\"c-3-efdf2107\" data-bp-type=\"parag",
+    "selection": {
+     "type": "text",
+     "anchor": 71,
+     "head": 71
+    },
+    "selectionPath": [
+     {
+      "depth": 0,
+      "type": "doc",
+      "index": 5
+     },
+     {
+      "depth": 1,
+      "type": "heading",
+      "index": 0
+     }
+    ],
+    "parentOffset": 11,
+    "done": 11,
+    "undone": 0,
+    "canUndo": true,
+    "keys": [
+     {
+      "key": "o",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "d",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "o",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Enter",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "s",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "e",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "c",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "o",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "n",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "d",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": " ",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "t",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "o",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "d",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "o",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "typed URL autolinks",
+   "error": "AssertionError [ERR_ASSERTION]: seed heading must survive every completed interaction\n    at step (file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:53:12)\n    at async file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:85:3",
+   "diagnostic": {
+    "documentFocus": true,
+    "editorFocus": true,
+    "activeElement": "<div contenteditable=\"true\" role=\"textbox\" translate=\"no\" class=\"tiptap ProseMirror ProseMirror-focused\" tabindex=\"0\" style=\"\"><button type=\"button\" class=\"bp-scaffold-control ProseMirror-widget\" contenteditable=\"false\" aria-label=\"Edit empty paragraph\" title=\"Edit empty paragraph\" style=\"\">+</button><p data-bp-id=\"c-3-efdf2107\" data-bp-type=\"parag",
+    "selection": {
+     "type": "text",
+     "anchor": 102,
+     "head": 102
+    },
+    "selectionPath": [
+     {
+      "depth": 0,
+      "type": "doc",
+      "index": 6
+     },
+     {
+      "depth": 1,
+      "type": "heading",
+      "index": 2
+     }
+    ],
+    "parentOffset": 29,
+    "done": 12,
+    "undone": 0,
+    "canUndo": true,
+    "keys": [
+     {
+      "key": "a",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "m",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "p",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "l",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "e",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": ".",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "c",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "o",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "m",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "/",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "x",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": " ",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "n",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "o",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "w",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "URL paste preserves selected link label",
+   "error": "AssertionError [ERR_ASSERTION]: seed heading must survive every completed interaction\n    at step (file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:53:12)\n    at async file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:86:3",
+   "diagnostic": {
+    "documentFocus": true,
+    "editorFocus": true,
+    "activeElement": "<div contenteditable=\"true\" role=\"textbox\" translate=\"no\" class=\"tiptap ProseMirror ProseMirror-focused\" tabindex=\"0\" style=\"\"><button type=\"button\" class=\"bp-scaffold-control ProseMirror-widget\" contenteditable=\"false\" aria-label=\"Edit empty paragraph\" title=\"Edit empty paragraph\" style=\"\">+</button><p data-bp-id=\"c-3-efdf2107\" data-bp-type=\"parag",
+    "selection": {
+     "type": "text",
+     "anchor": 116,
+     "head": 104
+    },
+    "selectionPath": [
+     {
+      "depth": 0,
+      "type": "doc",
+      "index": 7
+     },
+     {
+      "depth": 1,
+      "type": "heading",
+      "index": 0
+     }
+    ],
+    "parentOffset": 0,
+    "done": 14,
+    "undone": 0,
+    "canUndo": true,
+    "keys": [
+     {
+      "key": "Enter",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "l",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "i",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "n",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "k",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "e",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "d",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": " ",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "w",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "o",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "r",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "d",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "s",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Shift",
+      "ctrl": false,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Home",
+      "ctrl": false,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Markdown paste keeps heading, list and tail",
+   "error": "AssertionError [ERR_ASSERTION]: seed heading must survive every completed interaction\n    at step (file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:53:12)\n    at async file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:87:3",
+   "diagnostic": {
+    "documentFocus": true,
+    "editorFocus": true,
+    "activeElement": "<div contenteditable=\"true\" role=\"textbox\" translate=\"no\" class=\"tiptap ProseMirror ProseMirror-focused\" tabindex=\"0\" style=\"\"><button type=\"button\" class=\"bp-scaffold-control ProseMirror-widget\" contenteditable=\"false\" aria-label=\"Edit empty paragraph\" title=\"Edit empty paragraph\" style=\"\">+</button><p data-bp-id=\"c-3-efdf2107\" data-bp-type=\"parag",
+    "selection": {
+     "type": "text",
+     "anchor": 172,
+     "head": 172
+    },
+    "selectionPath": [
+     {
+      "depth": 0,
+      "type": "doc",
+      "index": 12
+     },
+     {
+      "depth": 1,
+      "type": "heading",
+      "index": 0
+     }
+    ],
+    "parentOffset": 0,
+    "done": 15,
+    "undone": 0,
+    "canUndo": true,
+    "keys": [
+     {
+      "key": "i",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "n",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "k",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "e",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "d",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": " ",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "w",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "o",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "r",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "d",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "s",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Shift",
+      "ctrl": false,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Home",
+      "ctrl": false,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "End",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Enter",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "HTML list paste preserves two items",
+   "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(has(doc, n => n.type === 'bulletList' && n.content?.map(textOf).join('|') === 'html one|html two'))\n\n    at file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:89:266\n    at step (file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:52:39)\n    at async file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:89:3",
+   "diagnostic": {
+    "documentFocus": true,
+    "editorFocus": true,
+    "activeElement": "<div contenteditable=\"true\" role=\"textbox\" translate=\"no\" class=\"tiptap ProseMirror ProseMirror-focused\" tabindex=\"0\" style=\"\"><button type=\"button\" class=\"bp-scaffold-control ProseMirror-widget\" contenteditable=\"false\" aria-label=\"Edit empty paragraph\" title=\"Edit empty paragraph\" style=\"\">+</button><p data-bp-id=\"c-3-efdf2107\" data-bp-type=\"parag",
+    "selection": {
+     "type": "text",
+     "anchor": 194,
+     "head": 194
+    },
+    "selectionPath": [
+     {
+      "depth": 0,
+      "type": "doc",
+      "index": 14
+     },
+     {
+      "depth": 1,
+      "type": "bulletList",
+      "index": 0
+     },
+     {
+      "depth": 2,
+      "type": "listItem",
+      "index": 0
+     },
+     {
+      "depth": 3,
+      "type": "paragraph",
+      "index": 0
+     }
+    ],
+    "parentOffset": 8,
+    "done": 17,
+    "undone": 0,
+    "canUndo": true,
+    "keys": [
+     {
+      "key": "n",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "k",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "e",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "d",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": " ",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "w",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "o",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "r",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "d",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "s",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Shift",
+      "ctrl": false,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Home",
+      "ctrl": false,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "End",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Enter",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Enter",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "native Undo removes HTML paste",
+   "error": "AssertionError [ERR_ASSERTION]: seed heading must survive every completed interaction\n    at step (file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:53:12)\n    at async file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:91:3",
+   "diagnostic": {
+    "documentFocus": true,
+    "editorFocus": true,
+    "activeElement": "<div contenteditable=\"true\" role=\"textbox\" translate=\"no\" class=\"tiptap ProseMirror ProseMirror-focused\" tabindex=\"0\" style=\"\"><button type=\"button\" class=\"bp-scaffold-control ProseMirror-widget\" contenteditable=\"false\" aria-label=\"Edit empty paragraph\" title=\"Edit empty paragraph\" style=\"\">+</button><p data-bp-id=\"c-3-efdf2107\" data-bp-type=\"parag",
+    "selection": {
+     "type": "text",
+     "anchor": 174,
+     "head": 174
+    },
+    "selectionPath": [
+     {
+      "depth": 0,
+      "type": "doc",
+      "index": 13
+     },
+     {
+      "depth": 1,
+      "type": "heading",
+      "index": 0
+     }
+    ],
+    "parentOffset": 0,
+    "done": 16,
+    "undone": 1,
+    "canUndo": true,
+    "keys": [
+     {
+      "key": "e",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "d",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": " ",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "w",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "o",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "r",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "d",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "s",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Shift",
+      "ctrl": false,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Home",
+      "ctrl": false,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "End",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Enter",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Enter",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Control",
+      "ctrl": true,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "z",
+      "ctrl": true,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "native Redo restores exact rich HTML state",
+   "error": "AssertionError [ERR_ASSERTION]: seed heading must survive every completed interaction\n    at step (file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:53:12)\n    at async file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:92:3",
+   "diagnostic": {
+    "documentFocus": true,
+    "editorFocus": true,
+    "activeElement": "<div contenteditable=\"true\" role=\"textbox\" translate=\"no\" class=\"tiptap ProseMirror ProseMirror-focused\" tabindex=\"0\" style=\"\"><button type=\"button\" class=\"bp-scaffold-control ProseMirror-widget\" contenteditable=\"false\" aria-label=\"Edit empty paragraph\" title=\"Edit empty paragraph\" style=\"\">+</button><p data-bp-id=\"c-3-efdf2107\" data-bp-type=\"parag",
+    "selection": {
+     "type": "text",
+     "anchor": 194,
+     "head": 194
+    },
+    "selectionPath": [
+     {
+      "depth": 0,
+      "type": "doc",
+      "index": 14
+     },
+     {
+      "depth": 1,
+      "type": "bulletList",
+      "index": 0
+     },
+     {
+      "depth": 2,
+      "type": "listItem",
+      "index": 0
+     },
+     {
+      "depth": 3,
+      "type": "paragraph",
+      "index": 0
+     }
+    ],
+    "parentOffset": 8,
+    "done": 17,
+    "undone": 0,
+    "canUndo": true,
+    "keys": [
+     {
+      "key": "w",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "o",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "r",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "d",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "s",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Shift",
+      "ctrl": false,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Home",
+      "ctrl": false,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "End",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Enter",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Enter",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Control",
+      "ctrl": true,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "z",
+      "ctrl": true,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Control",
+      "ctrl": true,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Shift",
+      "ctrl": true,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "z",
+      "ctrl": true,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Backspace joins ordinary quote preserving rich preceding content",
+   "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror').locator('blockquote[data-bp-type=\"blockquote\"]').first()\n\n    at /home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:93:162\n    at step (/home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:51:25)\n    at async file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:93:3",
+   "diagnostic": {
+    "documentFocus": true,
+    "editorFocus": true,
+    "activeElement": "<div contenteditable=\"true\" role=\"textbox\" translate=\"no\" class=\"tiptap ProseMirror ProseMirror-focused\" tabindex=\"0\" style=\"\"><button type=\"button\" class=\"bp-scaffold-control ProseMirror-widget\" contenteditable=\"false\" aria-label=\"Edit empty paragraph\" title=\"Edit empty paragraph\" style=\"\">+</button><p data-bp-id=\"c-3-efdf2107\" data-bp-type=\"parag",
+    "selection": {
+     "type": "text",
+     "anchor": 194,
+     "head": 194
+    },
+    "selectionPath": [
+     {
+      "depth": 0,
+      "type": "doc",
+      "index": 14
+     },
+     {
+      "depth": 1,
+      "type": "bulletList",
+      "index": 0
+     },
+     {
+      "depth": 2,
+      "type": "listItem",
+      "index": 0
+     },
+     {
+      "depth": 3,
+      "type": "paragraph",
+      "index": 0
+     }
+    ],
+    "parentOffset": 8,
+    "done": 17,
+    "undone": 0,
+    "canUndo": true,
+    "keys": [
+     {
+      "key": "w",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "o",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "r",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "d",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "s",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Shift",
+      "ctrl": false,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Home",
+      "ctrl": false,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "End",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Enter",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Enter",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Control",
+      "ctrl": true,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "z",
+      "ctrl": true,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Control",
+      "ctrl": true,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Shift",
+      "ctrl": true,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "z",
+      "ctrl": true,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "Backspace lifts first bullet without losing heading or second item",
+   "error": "AssertionError [ERR_ASSERTION]: seed heading must survive every completed interaction\n    at step (file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:53:12)\n    at async file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:107:3",
+   "diagnostic": {
+    "documentFocus": true,
+    "editorFocus": true,
+    "activeElement": "<div contenteditable=\"true\" role=\"textbox\" translate=\"no\" class=\"tiptap ProseMirror ProseMirror-focused\" tabindex=\"0\" style=\"\"><button type=\"button\" class=\"bp-scaffold-control ProseMirror-widget\" contenteditable=\"false\" aria-label=\"Edit empty paragraph\" title=\"Edit empty paragraph\" style=\"\">+</button><p data-bp-id=\"c-3-efdf2107\" data-bp-type=\"parag",
+    "selection": {
+     "type": "text",
+     "anchor": 140,
+     "head": 140
+    },
+    "selectionPath": [
+     {
+      "depth": 0,
+      "type": "doc",
+      "index": 10
+     },
+     {
+      "depth": 1,
+      "type": "paragraph",
+      "index": 0
+     }
+    ],
+    "parentOffset": 0,
+    "done": 18,
+    "undone": 0,
+    "canUndo": true,
+    "keys": [
+     {
+      "key": "r",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "d",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "s",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Shift",
+      "ctrl": false,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Home",
+      "ctrl": false,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "End",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Enter",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Enter",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Control",
+      "ctrl": true,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "z",
+      "ctrl": true,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Control",
+      "ctrl": true,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Shift",
+      "ctrl": true,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "z",
+      "ctrl": true,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Home",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Backspace",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "warning callout shorthand",
+   "error": "AssertionError [ERR_ASSERTION]: seed heading must survive every completed interaction\n    at step (file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:53:12)\n    at async file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:117:3",
+   "diagnostic": {
+    "documentFocus": true,
+    "editorFocus": true,
+    "activeElement": "<div contenteditable=\"true\" role=\"textbox\" translate=\"no\" class=\"tiptap ProseMirror ProseMirror-focused\" tabindex=\"0\" style=\"\"><button type=\"button\" class=\"bp-scaffold-control ProseMirror-widget\" contenteditable=\"false\" aria-label=\"Edit empty paragraph\" title=\"Edit empty paragraph\" style=\"\">+</button><p data-bp-id=\"c-3-efdf2107\" data-bp-type=\"parag",
+    "selection": {
+     "type": "text",
+     "anchor": 177,
+     "head": 177
+    },
+    "selectionPath": [
+     {
+      "depth": 0,
+      "type": "doc",
+      "index": 13
+     },
+     {
+      "depth": 1,
+      "type": "callout",
+      "index": 1
+     }
+    ],
+    "parentOffset": 7,
+    "done": 19,
+    "undone": 0,
+    "canUndo": true,
+    "keys": [
+     {
+      "key": "a",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "r",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "n",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "i",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "n",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "g",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "]",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": " ",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "c",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "a",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "r",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "e",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "f",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "u",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "l",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "select all replacement and native Undo preserve rich document",
+   "error": "AssertionError [ERR_ASSERTION]: seed heading must survive every completed interaction\n    at step (file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:53:12)\n    at async file:///home/runner/work/barkdown/barkdown/app/tests/editor-gaps.live.mjs:118:3",
+   "diagnostic": {
+    "documentFocus": true,
+    "editorFocus": true,
+    "activeElement": "<div contenteditable=\"true\" role=\"textbox\" translate=\"no\" class=\"tiptap ProseMirror ProseMirror-focused\" tabindex=\"0\" style=\"\"><button type=\"button\" class=\"bp-scaffold-control ProseMirror-widget\" contenteditable=\"false\" aria-label=\"Edit empty paragraph\" title=\"Edit empty paragraph\">+</button><p data-bp-id=\"c-3-efdf2107\" data-bp-type=\"paragraph\" dat",
+    "selection": {
+     "type": "all"
+    },
+    "selectionPath": [
+     {
+      "depth": 0,
+      "type": "doc",
+      "index": 0
+     }
+    ],
+    "parentOffset": 0,
+    "done": 19,
+    "undone": 1,
+    "canUndo": true,
+    "keys": [
+     {
+      "key": "a",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "r",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "e",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "f",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "u",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "l",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Control",
+      "ctrl": true,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "a",
+      "ctrl": true,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "f",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "r",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "e",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "s",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "h",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Control",
+      "ctrl": true,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "z",
+      "ctrl": true,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     }
+    ]
+   }
+  }
+ ],
+ "errors": []
+}
+Evidence: /home/runner/work/barkdown/barkdown/app/test-results/editor-gap-assertions/2026-09-25T19-50-26-040Z
+bp: published to http://localhost:4000 (POST /v1/plugins/bulldocs/papers)

@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "id": "C078",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Compare a prepared mixed library without mutating notes, media or navigation, and deliver the verified adapter to main.",
+  "scope": [
+    "Capture an owner-bound pre-staging Paper baseline.",
+    "Read-only comparison of staged legacy targets, existing Paper variants, media and workspace.",
+    "Prove refusal, interruption and real-runtime behavior; integrate before authority-selection work."
+  ],
+  "acceptance": [
+    "Mixed corpus beyond one page compares exact variants and preserves original bytes.",
+    "Missing, extra, changed, ambiguous or stale inputs refuse without repair writes.",
+    "Fresh preparation and runtime ownership survive asynchronous reads; stale reports never authorize activation.",
+    "Targeted/full tests and reviewed required visuals pass before merge."
+  ],
+  "checkpoint": "2026-09-25",
+  "handoff": "docs/cycles/C078-library-comparison.md",
+  "nextAction": "C079 investigates the post-merge editor parity failure before cutover work.",
+  "evidence": [
+    "docs/cycles/evidence/C078/README.md",
+    "docs/cycles/evidence/C078/merge.json"
+  ],
+  "truthReview": "Reviewed source boundaries, acceptance limits, roadmap and current queue; no cutover or A2 completion claimed.",
+  "screenshotReview": "Native nine stills; live Paper five stills and 37 GIF frames; standard 40 stills and 40 decoded GIF frames inspected, explicit approval recorded.",
+  "delivery": {
+    "phase": "delivered",
+    "owner": "primary agent",
+    "remaining": []
+  }
+}
