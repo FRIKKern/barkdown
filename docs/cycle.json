@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C076",
   "stage": "P2",
-  "status": "active",
+  "status": "done",
   "goal": "Prepare one profile for migration without launching new agents, losing human drafts, or leaving owned children unverified.",
   "scope": [
     "Close profile-specific ordinary/goal admission, including pending resolves and dispatches.",
@@ -18,7 +18,7 @@
   ],
   "checkpoint": "2026-09-25",
   "handoff": "docs/cycles/C076-profile-preparation.md",
-  "nextAction": "Publish the verified C076 PR, review hosted checks/artifacts, merge and verify main before starting dependent migration work.",
+  "nextAction": "Prepare the next bounded P2 cycle: audit and implement whole-corpus/media/workspace sealing and comparison before authority selection. Archive C076 before replacing the current cycle. Do not activate migration or retire the legacy store.",
   "evidence": [
     "docs/cycles/evidence/C076/README.md",
     "docs/cycles/evidence/C076/launch-final.log",
@@ -37,16 +37,17 @@
     "docs/cycles/evidence/C076/preparation-native/2026-09-25T16-44-07-825Z/review.json",
     "docs/cycles/evidence/C076/final-live/result.json",
     "docs/cycles/evidence/C076/live-review.json",
-    "docs/cycles/evidence/C076/closeout/result.json"
+    "docs/cycles/evidence/C076/closeout/result.json",
+    "docs/cycles/evidence/C076/merge.json",
+    "docs/cycles/evidence/C076/hosted-review.json",
+    "docs/cycles/evidence/C076/closure-validation/result.json",
+    "docs/cycles/evidence/C076/roadmap-merged-review.json"
   ],
-  "truthReview": "Final app source4c030a0c passes full desktop664.106s. Reviewed native preparation/cancel/recovery evidence, standard40-frame/8-GIF approval and isolated live Paper5-still/37-frame evidence are complete. Root verification passes47.253s; hosted integration gates remain; P2/A2, authority selection and legacy retirement remain open.",
+  "truthReview": "C076 merged through PR40 atf3ab179b after full desktop664.106s, root47.253s, native/live/standard visual review and hosted Verify/Visual/20-of-20 parity. P2/A2 remains incomplete. No deployment, real-library migration or legacy retirement.",
   "screenshotReview": "Native9 stills, sampled three recordings and22 decoded excerpt frames reviewed; notice/reader fit900x760. Standard40 stills and8 GIFs reviewed/approved with no geometry changes. Live Paper5 stills and37 GIF frames reviewed with real Claude and header6/6. Startup light-shell flash remains a documented polish limitation. Root ordinary-editing demo remains applicable.",
   "delivery": {
-    "phase": "integrating",
-    "owner": "primary agent on codex/profile-preparation",
-    "remaining": [
-      "Publish the verified PR; resolve hosted gates and review its artifacts.",
-      "Merge under existing authorization, verify main and retire the merged delivery branch without deleting recovery work."
-    ]
+    "phase": "delivered",
+    "owner": "primary agent; C076 merged through PR40",
+    "remaining": []
   }
 }
