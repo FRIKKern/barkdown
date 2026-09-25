@@ -9,6 +9,7 @@ import http from 'node:http';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { cleanSource } from './helpers/capture-lifecycle.mjs';
+import { openFixturePaper } from './lib/paper-fixture.mjs';
 const require = createRequire(import.meta.url);
 const { createProfileRegistry } = require('../main/profile-registry');
 const { createStore } = require('../main/store');
@@ -26,7 +27,7 @@ const server = http.createServer((req, res) => {
   res.setHeader('content-type', 'application/json');
   if (req.method !== 'GET') { writes++; res.statusCode = 503; res.end(JSON.stringify({ message: 'Fixture offline: keep your draft' })); }
   else if (req.url.startsWith('/v1/data/doc/')) res.end(JSON.stringify({ document: paper }));
-  else if (req.url.startsWith('/v1/data/query/')) res.end(JSON.stringify({ documents: [], total: 0, count: 0, hasMore: false, nextOffset: null }));
+  else if (req.url.startsWith('/v1/data/query/')) res.end(JSON.stringify({ documents: [paper], total: 1, count: 1, hasMore: false, nextOffset: null, perspective: 'published', limit: 200, offset: 0 }));
   else if (req.url.startsWith('/v1/')) res.end(JSON.stringify({ documents: [] }));
   else { res.statusCode = 404; res.end('{}'); }
 });
@@ -46,7 +47,7 @@ try {
   app = await launch(); page = await app.firstWindow();
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
   await page.setViewportSize({ width: 1300, height: 900 });
-  await page.evaluate(() => window.__barkdown.openTarget({ kind: 'doc', source: 'barkpark', id: 'draft-fixture' }));
+  await openFixturePaper(page, 'draft-fixture');
   await page.locator('.bw-paper-pane .bp-canvas-code-area').waitFor({ timeout: 30000 });
   // Capture before the node's debounce fires, using its real input listener.
   const first = await page.evaluate(async () => {
@@ -100,5 +101,12 @@ try {
   await assert.rejects(page.evaluate(key => window.barkdown.paperDrafts.read(key), markdown.key), /ENOENT/);
   report.checks.push('Another profile sees none of the same-slug recovery records.');
   report.status = 'passed'; report.refusedServerWrites = writes; persist(); console.log(JSON.stringify({ out, checks: report.checks, status: report.status }));
-} catch (error) { report.status = 'failed'; report.error = error.stack; persist(); throw error; }
+} catch (error) {
+  report.status = 'failed'; report.error = error.stack;
+  if (page && !page.isClosed()) {
+    report.visibleFailure = await page.locator('body').innerText().catch(() => 'Unavailable');
+    await shot('failure').catch(() => {});
+  }
+  persist(); throw error;
+}
 finally { if (app) await app.close().catch(() => {}); await new Promise(resolve => server.close(resolve)); }
