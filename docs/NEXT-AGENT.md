@@ -4,9 +4,9 @@
 
 **Landed:** upstream [PR20020](https://github.com/FRIKKern/barkpark/pull/20020) merged at b70214090 after all required checks passed on 677992c51. PR19579 is also marked merged. The integration task is done, three criteria met. Barkdown evidence PR35 is merged.
 
-**Cleanup:** three upstream delivery branches retired locally/remotely after ancestry and exact-tip checks; detached worktrees and historical evidence preserved. Barkdown's codex/paper-library is used only to land this closeout, then retired. Other upstream contributors' branches and the main checkout are untouched. [Audit](cycles/evidence/C073/merge-cleanup.json).
+**Cleanup:** three upstream delivery branches retired locally/remotely after ancestry and exact-tip checks; detached worktrees and historical evidence preserved. [Barkdown PR36](https://github.com/FRIKKern/barkdown/pull/36) lands this closeout; retire codex/paper-library after merge. No delivery lane is reserved for the next cycle. Other upstream contributors' branches and the main checkout are untouched. [Audit](cycles/evidence/C073/merge-cleanup.json).
 
-**Deployment:** user authorized the merge and automatic deployment. [Run36115122190](https://github.com/FRIKKern/barkpark/actions/runs/36115122190) has the content instance running; the control-plane SSH transfer reset before deployment. Targeted retry [36115597160](https://github.com/FRIKKern/barkpark/actions/runs/36115597160) is running. Commit-identity verification remains pending. Owned test services are stopped.
+**Deployment:** both services report merged source b70214090, [verified 25 September at 09:03 UTC](cycles/evidence/C073/deployment.json). The instance passed in run36115122190; the control plane passed in targeted retry36115597160 after an SSH transfer reset. No new production editing test is claimed. Owned test services are stopped.
 
 **Next action:** start a bounded cycle to adopt and retest the merged upstream pin/fallback. Then the retained-evidence viewer, writer fencing, migration activation and rollback/retirement. Preserve the legacy store. app/BARKPARK_REF remains bf23f773.
 

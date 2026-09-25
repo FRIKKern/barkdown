@@ -24,8 +24,10 @@
     "docs/cycles/evidence/C073/linkpreview-review.json",
     "docs/cycles/evidence/C073/hosted-final-checks.json",
     "docs/cycles/evidence/C073/cli-create-live.json",
-    "docs/cycles/evidence/C073/merge-cleanup.json"
+    "docs/cycles/evidence/C073/merge-cleanup.json",
+    "docs/cycles/evidence/C073/deployment.json",
+    "docs/cycles/evidence/C073/closeout-verify.log"
   ],
-  "truthReview": "PR20020 merged at b70214090 after required gates passed; owned upstream branches retired with history and worktrees preserved. Task closed with all criteria met. Pin/fallback and P2 remain unchanged. See handoff for deployment and Barkdown closeout.",
+  "truthReview": "PR20020 merged at b70214090 after required gates passed; both production services report that commit. Owned upstream branches retired with history/worktrees preserved; integration task closed. PR36 lands Barkdown closeout, then its branch is retired. Pin/fallback and P2 remain unchanged.",
   "screenshotReview": "Five live stills, five differences and 37 GIF frames accepted, plus three inspected link-preview theme/narrow views. Source and hashes in C073 reviews."
 }
