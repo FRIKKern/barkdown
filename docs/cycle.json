@@ -16,8 +16,14 @@
   ],
   "checkpoint": "2026-09-25",
   "handoff": "docs/cycles/C075-writer-fence.md",
-  "nextAction": "Capture corrected BrowserWindow geometry, inspect/approve fresh native/live/standard evidence, verify root and deliver the tested checkpoint.",
-  "evidence": [],
-  "truthReview": "Implementation6033ee4 passes full desktop,13 admission/process checks and real20/20 editor parity. Native behavior passes; recording geometry requires recapture after a capture-only fix. No authority activation or legacy retirement.",
-  "screenshotReview": "New app inputs will require fresh standard/live and native refusal evidence after implementation commit."
+  "nextAction": "Publish the verified C075 checkpoint, review hosted Verify/Visual/20-row parity, then merge if green; retain P2/A2 activation limits.",
+  "evidence": [
+    "docs/cycles/evidence/C075/README.md",
+    "docs/cycles/evidence/C075/root.log",
+    "docs/cycles/evidence/C075/desktop.log",
+    "docs/cycles/evidence/C075/parity.json",
+    "docs/visual/writer-fence/runs/2026-09-25T11-50-28-240Z/review.json"
+  ],
+  "truthReview": "C075 runtime6033ee4 and capture-only4e618ef7 pass full desktop/root,13 focused admission/process checks and private20/20 parity. Corrected native refusal and live Paper evidence reviewed. No authority activation or legacy retirement; hosted delivery pending.",
+  "screenshotReview": "Reviewed native4 stills/103 raw1fps samples/59 GIF frames, live5 stills/37 GIF frames and standard40 stills/40 differences/40 GIF frames. Standard explicitly approved; rejected native recording retained."
 }
