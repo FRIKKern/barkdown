@@ -267,6 +267,18 @@ function registerIpc() {
     return publicSettings();
   });
   handle('app:pickFolder', async () => { const r = await dialog.showOpenDialog(win, { properties: ['openDirectory'] }); return r.canceled ? null : r.filePaths[0]; });
+  const originalHistory = () => {
+    if (!profileService) throw new Error('Original history requires an owned profile.');
+    const profileId = profileService.view().profileId;
+    return require('./original-history').createOriginalHistory({ store: store.createStore(profileRegistry.storeFor(profileId).storeDir, { create: false }), profileId });
+  };
+  handle('originalHistory:list', () => originalHistory().list());
+  handle('originalHistory:read', input => originalHistory().read(input));
+  handle('originalHistory:choose', async () => {
+    const history = originalHistory(); // Capture ownership before the native picker awaits.
+    const result = await dialog.showOpenDialog(win, { title: 'Open an original migration backup', properties: ['openDirectory'] });
+    return result.canceled ? null : history.add(result.filePaths[0]);
+  });
   handle('app:openExternal', url => { if (/^https?:/.test(url)) shell.openExternal(url); return true; });
   handle('app:openPath', p => shell.openPath(p));
   handle('app:info', () => ({ version: app.getVersion(), electron: process.versions.electron, chrome: process.versions.chrome, node: process.versions.node, platform: process.platform, arch: process.arch, userData: store.dir() }));

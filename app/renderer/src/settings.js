@@ -1,4 +1,5 @@
 import { mountProviderLogin } from './provider-login.js';
+import { openOriginalHistory } from './original-history.js';
 // Settings sheet: a navigation column and one pane at a time, in the app's own controls.
 // General (appearance, storage), Assistant (providers and models), Barkpark (connection),
 // Shortcuts (reference) and About. Appearance changes preview live and are reverted on Cancel;
@@ -52,6 +53,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
         ${setting('Conversation width', 'How much of the window the chat takes when a work tab is open. Drag the divider between them for the same thing.', `<div class="bw-range"><input id="width" type="range" min="40" max="70" step="5" aria-label="Conversation width"><output id="width-value"></output></div>`)}
         <h3>Storage</h3>
         <div id="profile-settings" hidden></div>
+        ${setting('Original history', 'Read notes, revisions and agent changes kept in a migration backup.', `<button type="button" class="bw-btn" data-act="original-history">${iconHtml('history', 13)}View originals</button>`)}
         ${setting('Local data', `Chats, documents, attachments and these settings live in <code>${esc(s.userData)}</code>. Secrets are encrypted with the operating system keychain when it is available.`, `<button type="button" class="bw-btn" data-act="open-data">${iconHtml('folder-open', 13)}Open folder</button>`)}
       </section>
       <section data-pane="assistant" ${pane !== 'assistant' ? 'hidden' : ''}>
@@ -238,6 +240,10 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
   const close = () => { loginDisposers.forEach(dispose => dispose()); unsubscribeLocal(); dismiss(); };
   const cancel = () => { if (saving) return; onChange({ theme: original.theme, chatWidth: original.chatWidth }, true); close(); };
   q('[data-act="cancel"]').onclick = cancel;
+  q('[data-act="original-history"]').onclick = () => {
+    if (dirty || saving) { toast('Save or cancel Settings changes before opening original history.', 'error'); return; }
+    close(); openOriginalHistory();
+  };
   q('[data-act="save"]').onclick = async () => {
     if (saving) return;
     const patch = { model: q('#model').value, provider: q('input[name="provider"]:checked').value, claudeModel: modelValue('claude'), codexModel: modelValue('codex'), theme: theme(), chatWidth: Number(q('#width').value), barkpark: { enabled: q('#bp-enabled').checked, viaCli: bpMode() === 'cli', server: q('#bp-server').value.trim(), dataset: q('#bp-dataset').value.trim() || 'production', writes: q('#bp-writes').checked, local: { ...s.barkpark.local, enabled: bpMode() === 'local', source: q('#bp-source').value.trim() } } };

@@ -38,8 +38,8 @@ try{
  await openFixturePaper(page, slug);await page.waitForSelector('.bw-paper-pane .ProseMirror',{timeout:60000});
  editorBundle=await page.evaluate(()=>window.__barkdown.state.canvasBundle);
  assert.equal(editorBundle.source,'vendored');
- const expectedJs='3a94a2964b37358f3ec791f009a2f52b28cffb0d';
- const expectedCss='38197e09d17efc468a3dc875dbd59571e3aeb7c8';
+ const expectedJs='5d2fc57fc943e095e90393b21f10bcd86890329e';
+ const expectedCss='db17bf8a3ec890f14436c68e7af98124b3cfcb3f';
  const loaded=await page.evaluate(()=>({js:document.querySelector('script[data-canvas-bundle]')?.src,css:document.querySelector('link[data-canvas-bundle]')?.href}));
  for(const [kind,expected] of [['js',expectedJs],['css',expectedCss]]){
   const actual=fileURLToPath(loaded[kind]);const vendor=path.resolve('renderer/vendor',kind==='js'?'bp-paper-editor.bundle.js':'bp-paper-editor.css');

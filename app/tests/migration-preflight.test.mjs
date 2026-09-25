@@ -156,3 +156,15 @@ test('owner, quiescence, malformed records and unsafe destinations fail closed',
   const links = fixture(); fs.symlinkSync(links.sourceDir, path.join(links.root, 'link'), 'junction');
   assert.throws(() => prepareMigration({ ...links, destinationDir: path.join(links.root, 'link/backup') }), /symbolic link/);
 });
+
+test('inherited object names remain unsupported originals instead of crashing inventory', () => {
+  const f = fixture();
+  const p = path.join(f.sourceDir, 'documents/note.json'), value = JSON.parse(fs.readFileSync(p));
+  value.content.content = ['constructor', '__proto__', 'toString'].map(type => ({ type, attrs: { historical: true }, content: [{ type: 'text', text: 'Retain me', marks: [null, { type: '__proto__' }] }] }));
+  const before = JSON.stringify(value); fs.writeFileSync(p, before);
+  const issues = inspectContent(value.content);
+  assert.ok(issues.some(issue => /Unsupported block/.test(issue.reason)));
+  const result = prepareMigration(f);
+  assert.equal(fs.readFileSync(path.join(f.destinationDir, 'source/documents/note.json'), 'utf8'), before);
+  assert.equal(fs.readFileSync(p, 'utf8'), before);
+});

@@ -60,3 +60,5 @@ C059 carries durable Paper navigation owners from catalog reads through saved ta
 C060: [Owned Paper Archive](../../docs/visual/paper-archive/README.md) records trusted main-process origin, local/cloud partition and preserved human organization across two profiles, failure and restart.
 
 - 24 September, C069: [Agent notes](../../docs/visual/agent-notes/README.md) shares managed-local API/MCP creation/discovery, preserves locked titles during body replacement and retains revision-checked Undo receipts across restart. Creation retries retain the original request and content; managed tools no longer seed legacy notes. Native acceptance and remaining recovery limits are tracked in C069.
+
+C074 adds `original-history.js`: profile-owned references pin both source and manifest hashes, verify the full migration backup on each read, and expose no restore or mutation action. Native IPC captures the owner before the folder picker. [Viewer evidence and limits](../../docs/visual/original-history/README.md).

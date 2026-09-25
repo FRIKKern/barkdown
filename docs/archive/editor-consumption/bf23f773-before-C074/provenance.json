@@ -1,0 +1,24 @@
+{
+  "sourceRepository": "https://github.com/FRIKKern/barkpark",
+  "sourceCommit": "bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f",
+  "sourceBranch": "codex/canvas-block-identity",
+  "mergedUpstream": false,
+  "consumedAssets": {
+    "bp-paper-editor.bundle.js": "def0a381e9daf76c8777fe4e24d3af5be53c90df640aaa364029dc2d889cb720",
+    "bp-paper-editor.css": "70e7aa492995144de6e427a71f8271df826dd774762639a76515961aa101a04b"
+  },
+  "preservedAssets": {
+    "bp-paper-popups.css": "1280d31c6ba1d9ba771ace6935144c661497263df73879bb18238cc9a60a5c3a",
+    "bp-flags.js": "b22deb8eacd22ccd01572eb4e09e24c6f97152540b98b59afdfb812821266eb9",
+    "bp-paper-mermaid.js": "bb8702307aff0dfa42580e14b3cc4807dbbf03b7db0fb562de9ab492a493c353",
+    "BARKPARK-LICENSE": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+  },
+  "dependencyNotices": "paper-editor-notices/manifest.json",
+  "dependencyManifestSha256": "657c885184b485a7cc035f2a353730851e2e3115ca1f95991cbc800fd35fba0e",
+  "precedence": [
+    "connected server",
+    "verified profile-owned cache",
+    "vendored fallback"
+  ],
+  "limits": "Explicit working-branch consumption, not an upstream merge/release. Pin selects parity checkout, not runtime upgrade. Upload receipt is in-process only; unfinished-upload restart recovery and full release gates remain separate."
+}

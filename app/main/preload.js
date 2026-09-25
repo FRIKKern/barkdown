@@ -26,6 +26,7 @@ const api = {
     return rawCall('profiles:select', { owner: { ...owner }, profileId });
   } },
   settings: { get: () => call('settings:get'), set: patch => call('settings:set', patch) },
+  originalHistory: { list: () => call('originalHistory:list'), choose: () => call('originalHistory:choose'), read: input => call('originalHistory:read', input) },
   attachments: { save: input => call('attachments:save', input) },
   app: { pickFolder: () => call('app:pickFolder'), openExternal: url => call('app:openExternal', url), openPath: p => call('app:openPath', p), info: () => call('app:info'), platform: process.platform },
   state: { load: () => call('state:load'), save: state => call('state:save', state), command: command => call('state:command', command) },
