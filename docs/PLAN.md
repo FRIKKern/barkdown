@@ -32,6 +32,8 @@ C074 adopted merged upstream b70214090 and shipped the read-only original-histor
 
 **C076 profile preparation is merged through PR40:** internal ordinary/goal drains now have native process and journal-settlement evidence. Internal human Paper draft retention now has native IME/IPC/restart proof. Production foreground capture and read-only restart now pass scoped Electron raw-source/chat-draft/IME/crash/B-switch checks. Abort/reopen, the retained-draft reader and native legacy/project/terminal cases now pass development checks. Full desktop/root, reviewed native/standard/live visuals and hosted20/20 parity pass. Then compare and seal the complete source/target/media/workspace before selection, interruption recovery and rollback/retirement. No real library has moved; the separate legacy editor/store remains. [A2](ACCEPTANCE.md#a2--one-engine-without-lost-notes) is not complete.
 
+C077 audits the [complete-library comparison boundary](migration/comparison.md): account for pre-existing published/draft Papers as well as staged legacy targets, capture the baseline before staging and revalidate live ownership. The next implementation is read-only; comparison and authority selection are not yet implemented.
+
 ## Carry forward
 
 - [Accepted interaction decisions](DESIGN-DECISIONS.md), especially favorites (D19a), sidebar/organization and direct editing (D26–D28), history (D29) and full side chats (D30).

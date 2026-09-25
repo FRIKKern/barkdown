@@ -1,53 +1,35 @@
 {
   "version": 1,
-  "id": "C076",
+  "id": "C077",
   "stage": "P2",
   "status": "done",
-  "goal": "Prepare one profile for migration without launching new agents, losing human drafts, or leaving owned children unverified.",
+  "goal": "Define the complete-library comparison boundary before implementing migration authority admission.",
   "scope": [
-    "Close profile-specific ordinary/goal admission, including pending resolves and dispatches.",
-    "Retain owner/revision/connection-qualified drafts or refuse preparation safely.",
-    "Verify owned descendants and transcript drain before note-writer quiescence; preserve restart uncertainty.",
-    "Keep other profiles usable; no authority selection, legacy retirement or deployment."
+    "Audit preparation, backup, staging, catalog, media and workspace owners.",
+    "Specify a read-only comparison checkpoint and its refusal/native acceptance cases.",
+    "Validate existing owners and deliver the contract without changing app behavior."
   ],
   "acceptance": [
-    "New, queued and delayed turns cannot cross the preparation boundary.",
-    "Dirty title/body and composition survive or block preparation; late acknowledgements preserve newer typing.",
-    "Owned descendants and transcript completion are verified; cancellation or timeout is insufficient.",
-    "Interrupted preparation remains closed and recoverable without blocking unrelated profiles."
+    "Distinguish staged legacy targets from pre-existing published and draft Papers.",
+    "Require fresh preparation/runtime ownership and a pre-staging baseline; refuse unsupported guarantees.",
+    "Record passing scoped regressions, root verification and evidence reuse limits."
   ],
   "checkpoint": "2026-09-25",
-  "handoff": "docs/cycles/C076-profile-preparation.md",
-  "nextAction": "Prepare the next bounded P2 cycle: audit and implement whole-corpus/media/workspace sealing and comparison before authority selection. Archive C076 before replacing the current cycle. Do not activate migration or retire the legacy store.",
+  "handoff": "docs/cycles/C077-comparison-contract.md",
+  "nextAction": "Check whether this contract checkpoint is merged. Once merged, archive C077 and implement the read-only mixed-corpus adapter and pre-staging baseline described in docs/migration/comparison.md. Do not switch authority.",
   "evidence": [
-    "docs/cycles/evidence/C076/README.md",
-    "docs/cycles/evidence/C076/launch-final.log",
-    "docs/cycles/evidence/C076/desktop.log",
-    "docs/cycles/evidence/C076/native-smoke-passed/manifest.json",
-    "docs/cycles/evidence/C076/ordinary-drain-validation/result.json",
-    "docs/cycles/evidence/C076/ordinary-recovery-native/manifest.json",
-    "docs/cycles/evidence/C076/goal-drain-validation/result.json",
-    "docs/cycles/evidence/C076/paper-draft-validation/result.json",
-    "docs/cycles/evidence/C076/paper-draft-native/2026-09-25T14-48-46-327Z/manifest.json",
-    "docs/cycles/evidence/C076/preparation-validation/result.json",
-    "docs/cycles/evidence/C076/paper-draft-native/2026-09-25T15-08-43-497Z/manifest.json",
-    "docs/cycles/evidence/C076/foreground-validation/result.json",
-    "docs/cycles/evidence/C076/preparation-native/2026-09-25T15-36-26-938Z/manifest.json",
-    "docs/cycles/evidence/C076/final-validation-corrected/result.json",
-    "docs/cycles/evidence/C076/preparation-native/2026-09-25T16-44-07-825Z/review.json",
-    "docs/cycles/evidence/C076/final-live/result.json",
-    "docs/cycles/evidence/C076/live-review.json",
-    "docs/cycles/evidence/C076/closeout/result.json",
-    "docs/cycles/evidence/C076/merge.json",
-    "docs/cycles/evidence/C076/hosted-review.json",
-    "docs/cycles/evidence/C076/closure-validation/result.json",
-    "docs/cycles/evidence/C076/roadmap-merged-review.json"
+    "docs/cycles/evidence/C077/validation/result.json",
+    "docs/cycles/evidence/C077/validation/owners.log",
+    "docs/cycles/evidence/C077/validation/verify.log",
+    "docs/migration/comparison.md"
   ],
-  "truthReview": "C076 merged through PR40 atf3ab179b after full desktop664.106s, root47.253s, native/live/standard visual review and hosted Verify/Visual/20-of-20 parity. P2/A2 remains incomplete. No deployment, real-library migration or legacy retirement.",
-  "screenshotReview": "Native9 stills, sampled three recordings and22 decoded excerpt frames reviewed; notice/reader fit900x760. Standard40 stills and8 GIFs reviewed/approved with no geometry changes. Live Paper5 stills and37 GIF frames reviewed with real Claude and header6/6. Startup light-shell flash remains a documented polish limitation. Root ordinary-editing demo remains applicable.",
+  "truthReview": "Read source owners and pinned upstream perspective tests; 208 owner regressions and root verify pass. Comparison/activation remain unimplemented. P2/A2 and G2 remain open.",
+  "screenshotReview": "No app, dependency, capture or roadmap inputs changed. C076 reviewed native/standard/live visuals remain applicable; no new screenshots or UI behavior claimed.",
   "delivery": {
-    "phase": "delivered",
-    "owner": "primary agent; C076 merged through PR40",
-    "remaining": []
+    "phase": "integrating",
+    "owner": "primary agent",
+    "remaining": [
+      "Merge the documentation checkpoint after hosted checks; retire its branch."
+    ]
   }
 }
