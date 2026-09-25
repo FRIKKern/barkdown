@@ -1,0 +1,44 @@
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-9G7n9s
+Capture runtime: starting 
+Capture runtime: ready 
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: bulldocs create c073-native-cli-insert: {"error":{"code":"usage","message":"no verb \"create\" under `barkpark bulldocs` — `bulldocs` is a known noun with verbs: publish, patch, propose, intents, intent-processed"},"ok":false}
+ 
+
+2 !== 0
+
+    at run (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/docs/cycles/evidence/C073/cli-create-live.mjs:18:10)
+    at file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/docs/cycles/evidence/C073/cli-create-live.mjs:36:17
+    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 2,
+  expected: 0,
+  operator: 'strictEqual'
+}
+
+Node.js v22.13.1
+Capture runtime: stopping 
+Capture runtime: stopped 
+file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:98
+    throw new AggregateError(errors, errors.map(error => error.message).join('\n'));
+          ^
+
+AggregateError: Live screenshot capture failed with exit 1
+    at captureWithCleanup (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:98:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/status-shots-isolated.mjs:33:1 {
+  [errors]: [
+    Error: Live screenshot capture failed with exit 1
+        at captureWithCleanup (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:82:51)
+        at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+        at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/status-shots-isolated.mjs:33:1
+  ]
+}
+
+Node.js v22.13.1
