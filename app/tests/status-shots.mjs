@@ -101,16 +101,19 @@ await page.waitForTimeout(600);
 // Agent tools may select another tab. Capture the showcase, not that incidental tab.
 await openPaper();
 await settled();
+// Dismiss incidental shell menus through the ordinary keyboard path before overview shots.
+await page.keyboard.press('Escape');
+await page.locator('.bw-menu:visible').waitFor({ state: 'hidden' });
 
 // Fold the tool steps (their summaries still say what was read and edited) and scroll the transcript.
 const tidyChat = (where = 'top') => page.evaluate(w => { document.querySelectorAll('details.bw-step').forEach(d => { d.open = false; }); const t = document.querySelector('#bw-transcript'); if (t) t.scrollTop = w === 'bottom' ? t.scrollHeight : 0; }, where);
 await tidyChat('top');
 const shots = [];
-const shot = async (file, caption, fn) => { await split(36); if (fn) await fn(); await settled(); await page.screenshot({ path: path.join(out, file) }); shots.push({ file, caption }); console.log('shot', file); };
+const shot = async (file, caption, fn, check) => { await split(36); if (fn) await fn(); await settled(); if (check) await check(); await page.screenshot({ path: path.join(out, file) }); shots.push({ file, caption }); console.log('shot', file); };
 await shot('paper-light.png', `A Barkpark paper edited live in the canvas inside Barkdown, beside ${chat.real ? `a real ${chat.provider === 'codex' ? 'Codex' : 'Claude Code'} turn on it` : 'the assistant transcript'}: quote, checklist, table, callout and code, saved as ops to a local Barkpark.`, async () => { await pm().locator('p').first().hover(); });
 await shot('paper-dark.png', 'The same paper and conversation in dark mode.', async () => { await page.emulateMedia({ colorScheme: 'dark' }); });
 await page.emulateMedia({ colorScheme: 'light' });
-await shot('slash-menu.png', 'The slash menu inside the paper, with the plain Quote row beside Callout and Code.', async () => { await caretAtEndOf('A note in Barkdown'); await page.keyboard.press('Enter'); await page.keyboard.type('/'); await page.waitForTimeout(400); });
+await shot('slash-menu.png', 'The slash menu inside the paper, with the plain Quote row beside Callout and Code.', async () => { await caretAtEndOf('A note in Barkdown'); await page.keyboard.press('Enter'); await settled(); await page.keyboard.type('/'); }, async () => { await page.locator('body .bp-slash-menu').waitFor({ state: 'visible' }); });
 await page.keyboard.press('Escape'); await page.keyboard.press('Backspace'); await page.keyboard.press('Backspace'); await settled();
 await shot('quick-open.png', 'Quick open (Ctrl+K) over tabs, papers, chats and actions.', async () => { await page.evaluate(() => window.__barkdown.openPalette()); await page.waitForTimeout(300); await page.keyboard.type('stat'); });
 await page.keyboard.press('Escape');

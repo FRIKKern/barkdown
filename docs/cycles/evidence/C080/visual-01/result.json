@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-25T23:55:22.613Z",
+  "source": "f6dd7590f039e307baafdde542953bfe6734ad89",
+  "sourceStatus": "M README.md\n M docs/images/status/editing.gif\n M docs/images/status/manifest.json\n M docs/images/status/paper-dark.png\n M docs/images/status/paper-light.png\n M docs/images/status/quick-open.png\n M docs/images/status/settings-barkpark.png\n M docs/images/status/slash-menu.png\n?? docs/cycles/evidence/C080/final-live-01/\n?? docs/cycles/evidence/C080/root-plan.json\n?? docs/cycles/evidence/C080/visual-plan.json\n?? docs/images/status/editing.8ae8b87f.gif\n?? docs/images/status/history/2026-09-25T22-39-13-113Z.json\n?? docs/images/status/paper-dark.aa2406c1.png\n?? docs/images/status/paper-light.d3726389.png\n?? docs/images/status/quick-open.47fff67f.png\n?? docs/images/status/settings-barkpark.80ea7b7d.png\n?? docs/images/status/slash-menu.6d3e187c.png",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "capture",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "npm",
+        "run",
+        "visual:capture"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T23:55:22.738Z",
+      "log": "capture.log",
+      "elapsedMs": 25114,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "compare",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "npm",
+        "run",
+        "visual:compare"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T23:55:47.858Z",
+      "log": "compare.log",
+      "elapsedMs": 7227,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-09-25T23:55:55.086Z"
+}
