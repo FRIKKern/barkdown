@@ -209,13 +209,16 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
     }
     const failure = settled.find(result => result.status === 'rejected');
     if (failure) throw failure.reason;
-    if (cleanupFaults.has(profileId)) throw cleanupFaults.get(profileId);
+    assertRuntimeCleanup(profileId);
     // Preserve interrupted-turn review. OS termination alone never acknowledges
     // uncertain transcript effects, and this boundary does not drain goal journals.
     if (Object.values(workspaces.load(profileId).ownership?.attempts || {}).some(attempt => !attempt.goalId && !attempt.driverFinished)) {
       throw new Error('Interrupted ordinary transcripts require recovery before preparation');
     }
     return Object.freeze({ profileId, closureId: closure.id, scope: 'ordinary' });
+  }
+  function assertRuntimeCleanup(profileId) {
+    if (cleanupFaults.has(profileId)) throw cleanupFaults.get(profileId);
   }
   async function recover(owner, { chatId, attemptId, action, note }) {
     const profileId = validate(owner);
@@ -277,6 +280,6 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
       return { profileId, generation, cleanupWarning };
     } finally { switching = false; }
   }
-  return Object.freeze({ view, validate, load, save, resolve, start, cancel, approve, wait, select, recover, workspaces, settings, launchAdmission, drainOrdinary });
+  return Object.freeze({ view, validate, load, save, resolve, start, cancel, approve, wait, select, recover, workspaces, settings, launchAdmission, drainOrdinary, assertRuntimeCleanup });
 }
 module.exports = { createProfileService };

@@ -151,6 +151,7 @@ class GoalScheduler {
     assert(adapter && typeof adapter.execute === 'function', 'Missing execution adapter');
     this.journal = journal; this.adapter = adapter; this.now = now; this.onChange = onChange;
     this.live = new Map(); this.closed = false; this.fault = null; this.closePromise = null;
+    this.draining = false; this.drainPromise = null;
     this.admission = admission;
     this.verifyTermination = verifyTermination; this.captureContext = captureContext;
     const data = journal.read(); let changed = false;
@@ -183,6 +184,7 @@ class GoalScheduler {
   }
 
   create({ id = crypto.randomUUID(), profileId, chatId, objective, deadline, tasks, mode }) {
+    assert(!this.draining, 'Scheduler is preparing for migration');
     assert(!this.closed, 'Scheduler closed');
     assert(!this.fault, 'Scheduler halted after persistence failure; reopen and reconcile');
     assert(Array.isArray(tasks), 'Invalid tasks');
@@ -200,6 +202,7 @@ class GoalScheduler {
   }
 
   start(profileId, id, { contexts = {} } = {}) {
+    assert(!this.draining, 'Scheduler is preparing for migration');
     const g = this.change(profileId, id, g => {
       assert(['planned', 'paused'].includes(g.status), 'Goal cannot start from this state');
       assert(!g.tasks.some(t => ['running', 'interrupted'].includes(t.status) || t.needsPerson), 'Reconcile unresolved attempts before resume');
@@ -228,6 +231,7 @@ class GoalScheduler {
   tick() {
     assert(!this.closed, 'Scheduler closed');
     assert(!this.fault, 'Scheduler halted after persistence failure; reopen and reconcile');
+    if (this.draining) return;
     for (const g of this.journal.read().goals) {
       if (['active', 'paused', 'planned', 'review'].includes(g.status) && this.now() >= g.deadline) this.stop(g.profileId, g.id, 'expired');
     }
@@ -244,6 +248,7 @@ class GoalScheduler {
   }
 
   dispatch(g, t) {
+    if (this.draining || this.closed) return;
     if (this.get(g.profileId, g.id).status !== 'active') return;
     let context = copy(t.context);
     if (g.mode === 'coordinated' && this.captureContext) {
@@ -263,7 +268,7 @@ class GoalScheduler {
     const dispatch = { profileId: g.profileId, goalId: g.id, coordinatorChatId: g.chatId, taskId: t.id, attemptId,
       chatId: t.chatId, prompt: t.prompt, goalObjective: g.objective, images: copy(t.images || []), context: copy(context), deadline: g.deadline, ...(t.role ? { role: t.role } : {}), dependencyResults: copy(dependencyResults), ...(t.review?.accepted === false ? { retryNote: t.review.note } : {}) };
     // Promise boundary catches synchronous adapter failures. Reservation is durable before this call.
-    Promise.resolve().then(() => {
+    live.done = Promise.resolve().then(() => {
       if (abort.signal.aborted) return { status: 'cancelled', text: 'Stopped before provider launch' };
       return this.adapter.execute(copy(dispatch), { signal: abort.signal, progress: event => this.progress(live, event) });
     }).then(result => this.settle(live, result), error => this.settle(live, { status: 'failed', text: String(error?.message || error), ...(error?.code === 'BARKDOWN_SEND_NOT_STARTED' && ['api','claude','codex'].includes(error.authProvider) ? { authProvider: error.authProvider } : {}) }))
@@ -308,6 +313,7 @@ class GoalScheduler {
   }
 
   reviewTask(profileId, id, taskId, { accepted, evidence, note, retry = false, context }) {
+    assert(!this.draining, 'Scheduler is preparing for migration');
     text(note, 'review note'); assert(Array.isArray(evidence) && evidence.length > 0 && evidence.every(e => typeof e === 'string' && e.trim()), 'Review requires evidence');
     assert(typeof accepted === 'boolean' && !(accepted && retry), 'Invalid review decision');
     const g = this.change(profileId, id, g => {
@@ -329,6 +335,7 @@ class GoalScheduler {
   }
 
   complete(profileId, id, { note, evidence }) {
+    assert(!this.draining, 'Scheduler is preparing for migration');
     text(note, 'completion review'); assert(Array.isArray(evidence) && evidence.length > 0 && evidence.every(e => typeof e === 'string' && e.trim()), 'Completion requires evidence');
     this.tick();
     return this.change(profileId, id, g => {
@@ -349,6 +356,26 @@ class GoalScheduler {
       latest.stoppedAt = this.now();
       latest.reason = 'Driver shutdown verified; inspect effects before accepting or retrying.';
     });
+  }
+
+  drain(profileId) {
+    assert(!this.closed, 'Scheduler closed');
+    identity(profileId, 'profile ID');
+    assert(this.journal.read().goals.every(goal => goal.profileId === profileId), 'Goal journal contains a foreign profile');
+    if (!this.drainPromise) {
+      this.draining = true;
+      try { for (const goal of this.journal.read().goals) if (goal.status === 'active') this.stop(goal.profileId, goal.id, 'paused'); }
+      catch (error) { this.halt(error); }
+      for (const live of this.live.values()) live.abort.abort();
+      // Keep the journal open and settle enabled until adapter completion and
+      // dispatch's finally have persisted outcomes and released shared capacity.
+      this.drainPromise = Promise.all([...this.live.values()].map(live => live.done)).then(() => {
+        assert(!this.fault, 'Scheduler halted during drain; reopen and reconcile');
+        return this.journal.read();
+      });
+      this.drainPromise.catch(() => {});
+    }
+    return this.drainPromise;
   }
 
   close() {

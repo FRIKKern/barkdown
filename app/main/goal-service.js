@@ -17,6 +17,7 @@ function createGoalService({ registry, profiles, agent, sendEvent = () => {}, se
     request: { ...request, storeDir: registry.storeFor(request.profileId).storeDir }, runId,
   }) : null);
   const schedulers = new Map(), admission = new GoalAdmission(3, { canAcquire: profileId => !profiles.launchAdmission.isClosed(profileId) }), workspaces = profiles.workspaces;
+  const drained = new Map(), drainFlights = new Map();
   let closed = false; const queued = new Set();
   function pump(profileId) {
     if (closed || queued.has(profileId)) return; queued.add(profileId);
@@ -32,15 +33,15 @@ function createGoalService({ registry, profiles, agent, sendEvent = () => {}, se
     return { profileId: goal.profileId, goalId: goal.id, coordinatorChatId: goal.chatId, taskId: task.id, chatId: task.chatId,
       attemptId: attempt.id, prompt: task.prompt, goalObjective: goal.objective, images: task.images || [], provider: (attempt.context || task.context).provider, context: attempt.context || task.context, deadline: goal.deadline, ...(task.role ? { role: task.role } : {}), dependencyResults: attempt.dependencyResults || [], ...(attempt.retryNote ? { retryNote: attempt.retryNote } : {}) };
   }
-  async function establish(request, runId) {
+  async function establish(request, runId, requireReceipt = false) {
     const attempt = workspaces.load(request.profileId).ownership.attempts[request.attemptId];
     // No reservation means begin never acknowledged, so the adapter could not launch.
     if (!attempt) return true;
     check(attempt.chatId === request.chatId && attempt.goalId === request.goalId && attempt.taskId === request.taskId && attempt.coordinatorChatId === request.coordinatorChatId, 'Termination record ownership mismatch');
-    if (attempt.driverFinished === true) return true;
+    if (attempt.driverFinished === true && !requireReceipt) return true;
     check(typeof trustedVerifier === 'function', 'Worker shutdown cannot be verified automatically; inspect the retained run before retrying');
     if (await trustedVerifier({ request: structuredClone(request), runId: runId || attempt.runId }) !== true) return false;
-    workspaces.finish(request, { runId: runId || attempt.runId, status: 'interrupted', driverFinished: true, text: 'Driver shutdown verified; effects still require review.' });
+    if (!attempt.driverFinished) workspaces.finish(request, { runId: runId || attempt.runId, status: 'interrupted', driverFinished: true, text: 'Driver shutdown verified; effects still require review.' });
     return true;
   }
   const adapter = createGoalProvider({ agent, resolve: profiles.resolve, verifyTermination: ({ request, runId }) => establish(request, runId),
@@ -70,7 +71,8 @@ function createGoalService({ registry, profiles, agent, sendEvent = () => {}, se
     return { profileId, chat };
   }
   function owned(owner, id) {
-    const { profileId } = ownerChat(owner), engine = scheduler(profileId), goal = engine.get(profileId, id);
+    const { profileId } = ownerChat(owner), engine = scheduler(profileId), goal = history(profileId).find(goal => goal.id === id);
+    check(goal, 'Unknown owned goal');
     check(goal.chatId === owner.chatId, 'Goal belongs to another coordinator');
     return { profileId, engine, goal };
   }
@@ -93,8 +95,9 @@ function createGoalService({ registry, profiles, agent, sendEvent = () => {}, se
   function list(owner) {
     const { profileId } = ownerChat(owner), engine = scheduler(profileId);
     if (!profiles.launchAdmission.isClosed(profileId)) engine.tick();
-    return engine.list(profileId).filter(g => g.chatId === owner.chatId);
+    return history(profileId).filter(g => g.chatId === owner.chatId);
   }
+  function history(profileId) { return drained.has(profileId) ? structuredClone(drained.get(profileId)) : scheduler(profileId).list(profileId); }
   function create(owner, input) {
     input = structuredClone(input);
     const { profileId, chat } = ownerChat(owner), settings = profiles.settings(profileId);
@@ -120,6 +123,7 @@ function createGoalService({ registry, profiles, agent, sendEvent = () => {}, se
   async function command(owner, id, action, payload = {}) {
     payload = structuredClone(payload);
     const { profileId, engine, goal } = owned(owner, id);
+    check(!drained.has(profileId) && (!engine.draining || action === 'reconcileTermination'), 'Goal journal is preparing for migration; only pending shutdown reconciliation is available');
     let result;
     if (action === 'start') {
       profiles.launchAdmission.assertOpen(profileId);
@@ -127,8 +131,7 @@ function createGoalService({ registry, profiles, agent, sendEvent = () => {}, se
       // Unknown native descendants consume an unquantifiable slot, so block new
       // starts until they are reconciled rather than treating a restart as capacity.
       for (const profile of registry.load().profiles) {
-        const other = scheduler(profile.id);
-        check(!other.list(profile.id).some(g => g.tasks.some(t => t.status === 'interrupted' && !Number.isFinite(t.attempts.at(-1)?.stoppedAt))), 'Reconcile interrupted workers before starting more work');
+        check(!history(profile.id).some(g => g.tasks.some(t => t.status === 'interrupted' && !Number.isFinite(t.attempts.at(-1)?.stoppedAt))), 'Reconcile interrupted workers before starting more work');
       }
       stage(goal);
       const contexts = Object.fromEntries(goal.tasks.filter(t => t.status === 'pending' || t.role === 'plan').map(t => [t.id, captureWorker(profileId, goal, t)]));
@@ -165,8 +168,38 @@ function createGoalService({ registry, profiles, agent, sendEvent = () => {}, se
     }
   }
   const timer = heartbeatMs > 0 ? setInterval(tick, heartbeatMs) : null; timer?.unref();
+  function drain(profileId) {
+    if (drainFlights.has(profileId)) return drainFlights.get(profileId);
+    const pending = drainProfile(profileId);
+    drainFlights.set(profileId, pending);
+    pending.finally(() => drainFlights.delete(profileId)).catch(() => {});
+    return pending;
+  }
+  async function drainProfile(profileId) {
+    const closure = profiles.launchAdmission.close(profileId), engine = scheduler(profileId);
+    if (!drained.has(profileId)) await engine.drain(profileId);
+    const seen = new Set();
+    for (const goal of history(profileId)) for (const task of goal.tasks) for (const attempt of task.attempts) {
+      seen.add(attempt.id);
+      check(await establish(requestFor(goal, task, attempt), undefined, true), 'Goal process shutdown is unverified; launch admission remains closed');
+      if (!Number.isFinite(attempt.stoppedAt)) {
+        check(attempt.id === task.attempts.at(-1).id, 'Historical goal termination needs explicit reconciliation');
+        await engine.reconcileTermination(profileId, goal.id, task.id);
+      }
+    }
+    for (const [id, attempt] of Object.entries(workspaces.load(profileId).ownership?.attempts || {})) {
+      if (attempt.goalId) check(seen.has(id) && attempt.driverFinished, 'Goal transcript is missing its settled journal owner');
+    }
+    profiles.assertRuntimeCleanup(profileId);
+    if (!drained.has(profileId)) {
+      const snapshot = engine.list(profileId);
+      await engine.close();
+      drained.set(profileId, snapshot);
+    }
+    return Object.freeze({ profileId, closureId: closure.id, scope: 'goals' });
+  }
   async function close() { if (closed) return; closed = true; if (timer) clearInterval(timer); await Promise.all([...schedulers.values()].map(s => s.close())); }
-  return Object.freeze({ list, create, command, tick, close });
+  return Object.freeze({ list, create, command, tick, close, drain });
 }
 
 // register is C006's sender-checked, generation-gated handler registration. Its

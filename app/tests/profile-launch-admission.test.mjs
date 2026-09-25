@@ -143,6 +143,8 @@ test('goal dispatch rechecks closure after the authentication wrapper resolves',
 });
 
 const turn = () => new Promise(resolve => setImmediate(resolve));
+const drainPlan = { objective: 'Prepare three workers safely', durationMinutes: 60,
+  assignments: [1, 2, 3].map(i => ({ title: 'Worker ' + i, prompt: 'Result ' + i })) };
 test('ordinary drain waits for pending acquisition and its asynchronous release without blocking B', async () => {
   const acquiring = deferred(), acquisition = deferred(), releasing = deferred(), released = deferred();
   const f = setup({ settingsFor: () => ({ barkpark: { local: { enabled: true, source: 'fixture' } } }),
@@ -272,4 +274,181 @@ test('native ordinary preparation drains A child/grandchild and preserves the ru
   f.profiles.cancel(f.profiles.view(), b.runId); await f.profiles.wait(f.profiles.view(), b.runId);
   assert.ok(Object.values(trees.get(f.b.id)).every(pid => !alive(pid)));
   t.diagnostic(JSON.stringify({ fixture: f.root, aReceipt: receiptFile, aTree: trees.get(f.a.id), bTree: trees.get(f.b.id), retained: true }));
+});
+
+for (const boundary of ['runtime', 'authentication', 'dispatch']) test(`goal drain waits for delayed ${boundary}, persists settlement, freezes journal and permits B`, async t => {
+  const entered = deferred(), gate = deferred(), active = []; let entries = 0, released = 0;
+  const wait = async stage => { if (stage === boundary) { if (++entries === 3) entered.resolve(); await gate.promise; } };
+  const agent = { ...runs, async start(options) {
+    await wait('dispatch');
+    const run = runs.createRun(options); active.push(run);
+    run.emit({ type: 'status' });
+    queueMicrotask(() => { run.emit({ type: 'done', cancelled: run.cancelled }); runs.finish(run); });
+    return { runId: run.id };
+  } };
+  const f = setup({ agent, settingsFor: () => ({ barkpark: { local: { enabled: true, source: 'fixture' } } }),
+    runtimePool: { async acquire() { await wait('runtime'); return { connection: { enabled: false }, async release() { released++; } }; },
+      async select(id) { f.registry.selectProfile(id); return {}; } }, assertAuthentication: () => wait('authentication') });
+  const service = createGoalService({ registry: f.registry, profiles: f.profiles, agent, heartbeatMs: 0,
+    verifyTermination: async ({ runId }) => { assert.equal(runs.runs.has(runId), false); return true; } });
+  t.after(async () => { gate.resolve(); for (const run of active) { runs.cancel(run.id); await runs.finish(run); } await service.close(); });
+  const owner = { ...f.profiles.view(), chatId: 'same' }, goal = service.create(owner, drainPlan);
+  await service.command(owner, goal.id, 'start'); await entered.promise;
+  let finished = false; const drain = service.drain(f.a.id).then(result => { finished = true; return result; });
+  await turn(); assert.equal(finished, false); assert.equal(released, 0);
+  await assert.rejects(service.command(owner, goal.id, 'cancel'), /journal is preparing/);
+  gate.resolve(); assert.equal((await drain).scope, 'goals'); assert.equal(released, 3);
+  assert.equal(active.length, boundary === 'dispatch' ? 3 : 0);
+  const state = service.list(owner)[0]; assert.equal(state.status, 'paused');
+  assert.ok(state.tasks.every(task => Number.isFinite(task.attempts.at(-1).stoppedAt)));
+  const journal = path.join(f.registry.storeFor(f.a.id).storeDir, 'goals.json'), bytes = fs.readFileSync(journal);
+  assert.equal(fs.existsSync(path.join(path.dirname(journal), 'goals.lease')), false);
+  state.tasks[0].title = 'Foreign mutation'; assert.notEqual(service.list(owner)[0].tasks[0].title, state.tasks[0].title);
+  service.tick(); await turn(); assert.deepEqual(fs.readFileSync(journal), bytes);
+  await f.profiles.select(owner, f.b.id); const other = { ...f.profiles.view(), chatId: 'same' }; f.profiles.save(other, snapshot);
+  const next = service.create(other, drainPlan); await service.command(other, next.id, 'start'); await turn();
+  assert.ok(service.list(other)[0].tasks.every(task => Number.isFinite(task.attempts.at(-1).stoppedAt)), 'Closed A history cannot prevent B start/settlement');
+});
+
+test('goal drain rechecks receipts after failed drain and restart without accepting a driver flag', async t => {
+  let proof = false, checks = 0;
+  const agent = { ...runs, async start(options) {
+    const run = runs.createRun(options); queueMicrotask(() => { run.emit({ type: 'done' }); runs.finish(run); }); return { runId: run.id };
+  } };
+  const f = setup(), options = { registry: f.registry, profiles: f.profiles, agent, heartbeatMs: 0,
+    verifyTermination: async () => { checks++; return proof; } };
+  const service = createGoalService(options); t.after(() => service.close());
+  const owner = { ...f.profiles.view(), chatId: 'same' }, goal = service.create(owner, drainPlan);
+  await service.command(owner, goal.id, 'start'); await turn();
+  await assert.rejects(service.drain(f.a.id), /shutdown is unverified/);
+  proof = true; const receipt = await service.drain(f.a.id); assert.equal(receipt.scope, 'goals');
+  proof = false; await assert.rejects(service.drain(f.a.id), /shutdown is unverified/);
+  await service.close();
+  const restarted = createGoalService(options); t.after(() => restarted.close());
+  await assert.rejects(restarted.drain(f.a.id), /shutdown is unverified/);
+  proof = true; assert.deepEqual(await restarted.drain(f.a.id), receipt); assert.ok(checks >= 9);
+});
+
+test('goal drain preserves unresolved runtime cleanup as a preparation failure', async t => {
+  const entered = deferred(), gate = deferred(); let count = 0;
+  const f = setup({ settingsFor: () => ({ barkpark: { local: { enabled: true, source: 'fixture' } } }),
+    runtimePool: { async acquire() { if (++count === 3) entered.resolve(); await gate.promise; return { connection: { enabled: false }, async release() { throw Error('goal runtime cleanup failed'); } }; } } });
+  const service = createGoalService({ registry: f.registry, profiles: f.profiles, agent: {}, heartbeatMs: 0 });
+  t.after(async () => { gate.resolve(); await service.close(); });
+  const owner = { ...f.profiles.view(), chatId: 'same' }, goal = service.create(owner, drainPlan);
+  await service.command(owner, goal.id, 'start'); await entered.promise;
+  const refusal = assert.rejects(service.drain(f.a.id), /goal runtime cleanup failed/);
+  gate.resolve(); await refusal;
+  await assert.rejects(service.drain(f.a.id), /goal runtime cleanup failed/);
+  assert.equal(f.profiles.launchAdmission.isClosed(f.a.id), true);
+});
+
+test('goal drain cannot release uncertain completions until trusted reconciliation settles every journal attempt', async t => {
+  const active = new Map(); let proof = false;
+  const agent = { ...runs, async start(options) {
+    const run = runs.createRun(options); active.set(run.id, run); run.emit({ type: 'text_delta', text: 'Partial fixture result' }); return { runId: run.id };
+  }, async waitForRunFinish() { throw Error('Uncertain native completion fixture'); } };
+  const f = setup(), service = createGoalService({ registry: f.registry, profiles: f.profiles, agent, heartbeatMs: 0,
+    verifyTermination: async ({ runId }) => { if (!proof) return false; await runs.finish(active.get(runId)); return true; } });
+  const owner = { ...f.profiles.view(), chatId: 'same' }, goal = service.create(owner, drainPlan);
+  t.after(async () => {
+    proof = true;
+    for (const task of service.list(owner)[0].tasks) if (!Number.isFinite(task.attempts.at(-1)?.stoppedAt)) {
+      await service.command(owner, goal.id, 'reconcileTermination', { taskId: task.id }).catch(() => {});
+    }
+    await service.close();
+  });
+  await service.command(owner, goal.id, 'start'); await turn();
+  let settled = false; const drain = service.drain(f.a.id).then(result => { settled = true; return result; });
+  await turn(); assert.equal(settled, false);
+  await assert.rejects(service.command(owner, goal.id, 'reconcileTermination', { taskId: goal.tasks[0].id }), /Termination has not been established/);
+  assert.equal(settled, false); proof = true;
+  for (const task of goal.tasks) await service.command(owner, goal.id, 'reconcileTermination', { taskId: task.id });
+  await drain;
+  assert.ok(service.list(owner)[0].tasks.every(task => task.status === 'interrupted' && Number.isFinite(task.attempts.at(-1).stoppedAt)));
+  assert.ok(Object.values(f.profiles.workspaces.load(f.a.id).ownership.attempts).every(attempt => attempt.driverFinished));
+});
+
+test('goal journal persistence failure during settlement refuses drain without replacing the changed bytes', async t => {
+  const active = [];
+  const agent = { ...runs, async start(options) { const run = runs.createRun(options); active.push(run); run.emit({ type: 'status' }); return { runId: run.id }; } };
+  const f = setup(), service = createGoalService({ registry: f.registry, profiles: f.profiles, agent, heartbeatMs: 0, verifyTermination: async () => true });
+  t.after(async () => { for (const run of active) await runs.finish(run); await service.close(); });
+  const owner = { ...f.profiles.view(), chatId: 'same' }, goal = service.create(owner, drainPlan);
+  await service.command(owner, goal.id, 'start'); await turn();
+  const refusal = assert.rejects(service.drain(f.a.id), /Scheduler halted during drain/);
+  const journal = path.join(f.registry.storeFor(f.a.id).storeDir, 'goals.json');
+  fs.appendFileSync(journal, '\n'); const changed = fs.readFileSync(journal);
+  for (const run of active) { run.emit({ type: 'done', cancelled: true }); await runs.finish(run); }
+  await refusal; assert.deepEqual(fs.readFileSync(journal), changed);
+});
+
+test('goal drain refuses a foreign-profile journal before changing its goals', async t => {
+  const f = setup(), options = { registry: f.registry, profiles: f.profiles, agent: {}, heartbeatMs: 0 };
+  const first = createGoalService(options), owner = { ...f.profiles.view(), chatId: 'same' };
+  first.create(owner, drainPlan); await first.close();
+  const file = path.join(f.registry.storeFor(f.a.id).storeDir, 'goals.json'), data = JSON.parse(fs.readFileSync(file));
+  data.goals[0].profileId = f.b.id; for (const task of data.goals[0].tasks) task.context.profileId = f.b.id;
+  fs.writeFileSync(file, JSON.stringify(data)); const before = fs.readFileSync(file);
+  const service = createGoalService(options); t.after(() => service.close());
+  await assert.rejects(service.drain(f.a.id), /foreign profile/); assert.deepEqual(fs.readFileSync(file), before);
+});
+
+test('native goal drain stops all three owned trees, settles their journal and leaves ordinary B running', { skip: process.platform !== 'win32', timeout: 30000 }, async t => {
+  const trees = new Map(), aReady = deferred(), bReady = deferred(); let ordinary;
+  const receive = event => { if (event.type === 'text_delta') { trees.set(event.chatId, JSON.parse(event.text)); if (trees.size === 3) aReady.resolve(); if (trees.size === 4) bReady.resolve(); } };
+  const agent = require('../main/goal-worker-agent').createOwnedWorkerAgent({ script: require.resolve('./fixtures/profile-drain-worker.cjs') });
+  const f = setup({ agent, sendEvent: receive }), service = createGoalService({ registry: f.registry, profiles: f.profiles, agent, heartbeatMs: 0, sendProviderEvent: receive,
+    verifyTermination: ({ request, runId }) => agent.verifyTermination({ request: { ...request, storeDir: f.registry.storeFor(request.profileId).storeDir }, runId }) });
+  t.after(async () => { if (ordinary) { agent.cancel(ordinary.runId); await agent.waitForRunFinish(ordinary.runId).catch(() => {}); } await service.close(); });
+  const owner = { ...f.profiles.view(), chatId: 'same' }, goal = service.create(owner, drainPlan);
+  await service.command(owner, goal.id, 'start'); await aReady.promise;
+  await f.profiles.select(owner, f.b.id); const other = f.profiles.view(); f.profiles.save(other, snapshot);
+  ordinary = await f.profiles.start(other, { chatId: 'same', prompt: 'Keep B running' }); await bReady.promise;
+  const alive = pid => { try { process.kill(pid, 0); return true; } catch (error) { if (error.code === 'ESRCH') return false; throw error; } };
+  assert.ok([...trees.values()].flatMap(Object.values).every(alive));
+  const receipt = await service.drain(f.a.id); assert.equal(receipt.scope, 'goals');
+  assert.ok(goal.tasks.flatMap(task => Object.values(trees.get(task.chatId))).every(pid => !alive(pid)));
+  assert.ok(Object.values(trees.get('same')).every(alive));
+  const store = f.registry.storeFor(f.a.id).storeDir, journal = JSON.parse(fs.readFileSync(path.join(store, 'goals.json')));
+  const receipts = journal.goals[0].tasks.map(task => {
+    const attempt = task.attempts.at(-1); assert.ok(Number.isFinite(attempt.stoppedAt));
+    const record = JSON.parse(fs.readFileSync(path.join(store, 'goal-processes', `${attempt.id}.receipt.json`)));
+    assert.equal(record.phase, 'stopped'); assert.equal(record.activeProcesses, 0); return record;
+  });
+  assert.equal(fs.existsSync(path.join(store, 'goals.lease')), false);
+  assert.ok(Object.values(f.profiles.workspaces.load(f.a.id).ownership.attempts).every(attempt => attempt.driverFinished));
+  f.profiles.cancel(other, ordinary.runId); await f.profiles.wait(other, ordinary.runId);
+  assert.ok(Object.values(trees.get('same')).every(pid => !alive(pid)));
+  t.diagnostic(JSON.stringify({ fixture: f.root, goalReceipts: receipts, trees: Object.fromEntries(trees), retained: true }));
+});
+
+test('native restart goal drain reconciles the crashed journal once for concurrent callers', { skip: process.platform !== 'win32', timeout: 30000 }, async t => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-goal-drain-crash-'));
+  const child = require('node:child_process').spawnSync(process.execPath, [require.resolve('./fixtures/goal-service-crash.cjs'), root], {
+    windowsHide: true, encoding: 'utf8', timeout: 20000,
+  });
+  assert.equal(child.status, 23, child.stderr || child.error?.message);
+  const registry = createProfileRegistry(path.join(root, 'registry')), owner = JSON.parse(fs.readFileSync(path.join(root, 'owner.json')));
+  const storeDir = registry.storeFor(owner.profileId).storeDir;
+  const journalFile = path.join(storeDir, 'goals.json'), before = JSON.parse(fs.readFileSync(journalFile));
+  const attemptId = before.goals[0].tasks[0].attempts[0].id;
+  assert.equal(before.goals[0].tasks[0].status, 'running'); assert.equal(before.goals[0].tasks[0].attempts[0].stoppedAt, undefined);
+  const identity = { storeDir, profileId: owner.profileId, attemptId };
+  const verify = require('../main/goal-process').verifyOwnedWorker;
+  let stopped = false;
+  for (let i = 0; i < 20 && !stopped; i++) { stopped = await verify(identity); if (!stopped) await new Promise(resolve => setTimeout(resolve, 100)); }
+  assert.equal(stopped, true, 'The original owned job must supply shutdown proof');
+  const profiles = createProfileService({ registry }), service = createGoalService({ registry, profiles, heartbeatMs: 0 });
+  t.after(() => service.close());
+  const first = service.drain(owner.profileId), second = service.drain(owner.profileId);
+  assert.equal(first, second, 'Share pending reconciliation rather than duplicate journal mutations');
+  assert.equal((await first).scope, 'goals');
+  const after = JSON.parse(fs.readFileSync(journalFile));
+  assert.equal(after.goals[0].status, 'paused');
+  assert.equal(after.goals[0].tasks[0].status, 'interrupted'); assert.ok(Number.isFinite(after.goals[0].tasks[0].attempts[0].stoppedAt));
+  assert.equal(profiles.workspaces.load(owner.profileId).ownership.attempts[attemptId].driverFinished, true);
+  assert.deepEqual(after.goals[0].tasks.slice(1).map(task => task.status), ['pending', 'pending']);
+  assert.equal(fs.existsSync(path.join(storeDir, 'goals.lease')), false);
+  t.diagnostic(JSON.stringify({ fixture: root, owner, attemptId, retained: true }));
 });
