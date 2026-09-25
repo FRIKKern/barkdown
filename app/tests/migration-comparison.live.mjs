@@ -37,6 +37,14 @@ function coordinator() {
 }
 const snapshots = dir => Object.fromEntries(fs.readdirSync(dir, { recursive: true }).filter(n => fs.statSync(path.join(dir, n)).isFile()).map(n => [n, crypto.createHash('sha256').update(fs.readFileSync(path.join(dir, n))).digest('hex')]));
 try {
+  const initialIds = new Set();
+  for (const perspective of ['published', 'drafts']) {
+    const page = await request('GET', '/v1/data/query/production/paper?limit=1000&offset=0&count=true&perspective=' + perspective);
+    assert.equal(page.hasMore, false, 'Disposable startup inventory must be complete');
+    assert.equal(page.total, page.documents.length);
+    page.documents.forEach(row => initialIds.add(row._id));
+  }
+  report.initialPaperIds = [...initialIds].sort(); persist();
   await request('POST', '/v1/data/mutate/production', { mutations: [{ create: { _id: 'comparisonproof', _type: 'tag', title: 'Comparison proof' } }, { publish: { id: 'comparisonproof', type: 'tag' } }] });
   const labels = { description: 'Private migration comparison preserves complete structured notes, variants and exact media without changing the source.', tags: [{ tag: 'comparisonproof', strength: 95, rationale: 'Disposable migration comparison evidence' }] };
   await request('POST', '/v1/plugins/bulldocs/papers/prior/create', { slug: 'prior', title: 'Published astronomy observations', style: 'article', ...labels,
@@ -61,11 +69,11 @@ try {
   let reads = 0;
   const target = { profileId: profile.id, runtimeId: 'owned-isolated-' + profile.id, server, dataset: 'production', token, assertOwned: () => { reads++; return valid; } };
   const baseline = await adapter.captureBaseline(options, target); options.expectedBaselineHash = baseline.baselineHash;
-  assert.equal(baseline.documents, 203);
+  assert.equal(baseline.documents, initialIds.size + 203);
   const staging = await stageMigration(options, target); assert.equal(staging.documents.length, 2);
   const before = snapshots(destinationDir), original = snapshots(sourceDir);
   const result = await adapter.compare(options, target);
-  assert.equal(result.documents, 205); assert.equal(result.preserved, 203); assert.equal(result.media, 1); assert.equal(result.activationAllowed, false);
+  assert.equal(result.documents, initialIds.size + 205); assert.equal(result.preserved, initialIds.size + 203); assert.equal(result.media, 1); assert.equal(result.activationAllowed, false);
   assert.deepEqual(snapshots(destinationDir), before); assert.deepEqual(snapshots(sourceDir), original);
   report.checks.push({ name: 'mixed library, links, media and organization', result }); persist();
   // A new coordinator must reacquire and verify preparation rather than trust its report.
