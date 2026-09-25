@@ -1,0 +1,17 @@
+{
+  "source": "6033ee40d68becdebc2341688e406307295d8129",
+  "reviewer": "Codex",
+  "at": "2026-09-25T11:46:09.080Z",
+  "verdict": "motion rejected; behavior passed",
+  "inspected": {
+    "stills": 4,
+    "videoSamples": 79,
+    "sampleFps": 1,
+    "decodedGifFrames": 44
+  },
+  "findings": [
+    "All four full-size stills show the acknowledged Paper, reachable refusal and preserved buffer at1280/820px, and original-history restart.",
+    "Raw recording has letterboxing and a scale jump around a still capture. Cropping a fixed Paper region cannot represent that transition faithfully; rejected GIF retained.",
+    "Fix BrowserWindow content sizing in the harness, retain this capture, and recapture before accepting motion. No product source changed during this review."
+  ]
+}

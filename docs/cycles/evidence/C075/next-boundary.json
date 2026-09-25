@@ -1,0 +1,28 @@
+{
+  "at": "2026-09-25T11:48:19.910Z",
+  "source": "6033ee40d68becdebc2341688e406307295d8129",
+  "scope": "Preparation only; not an additional active cycle or acceptance claim",
+  "findings": [
+    {
+      "owner": "app/main/profile-service.js",
+      "fact": "Ordinary run events are persisted synchronously before forwarding; completion persists a final record and calls orphan reconciliation. Profile selection changes its IPC generation and runtime selection, but does not expose a migration freeze/drain operation.",
+      "next": "Design explicit new-run admission closure and owned-child termination proof before quiescing the note engine. Do not substitute profile IPC drain for provider/MCP/goal teardown."
+    },
+    {
+      "owner": "app/renderer/src/tabs/paper.js",
+      "fact": "isDirty and flush exist; canClose refuses an unsaved Paper. The open buffer survives a refused save, but there is no durable migration snapshot/restore for the unsaved canvas.",
+      "next": "Retain an owner/revision-qualified human buffer durably before offering cutover or restart. Test delayed acknowledgement and newer typing while preparing; never mark an unacknowledged buffer saved."
+    },
+    {
+      "owner": "app/main/writer-admission.js",
+      "fact": "Quiescence is internal and has no reopen/reconciliation API. Failed or killed admitted mutations remain unresolved; ordinary operations can continue while open, but a seal must refuse unresolved records.",
+      "next": "Reconcile against exact owned receipts/server state and source comparison before any abort/reopen or selection. Advance generation on an explicit reconciled abort; never revive old worker authority."
+    },
+    {
+      "owner": "app/main/workspace-repository.js",
+      "fact": "Synthetic100-event timing showed baseline2302ms versus fenced4866ms on this host during the desktop suite. This is one sample and not a UI latency benchmark.",
+      "next": "Measure a realistic stream in isolation before choosing a batching/worker strategy. Any batching must retain accepted events, final flush and stop/drain ownership across process loss; do not weaken durability to reduce measured cost."
+    }
+  ],
+  "remainingGate": "Final source/target/media/workspace comparison, sealed authority selection, interruption recovery and rollback/retirement remain A2. G2 upstream regression enforcement remains a separate release gate."
+}

@@ -22,16 +22,27 @@ const host = capture ? cleanSource(root, { allowEvidence: true }).commit : git([
 const out = path.resolve(capture ? '../docs/visual/writer-fence/runs' : 'test-results/writer-fence', new Date().toISOString().replace(/[:.]/g, '-'));
 fs.mkdirSync(out, { recursive: true });
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-writer-native-'));
-const report = { host, upstream: git(['rev-parse', 'HEAD'], source), capture, userData, frames: [], videos: [], checks: [], errors: [], passed: false };
+const report = { host, upstream: git(['rev-parse', 'HEAD'], source), capture, userData, frames: [], geometry: [], videos: [], checks: [], errors: [], passed: false };
 let app, page, video;
 const persist = () => fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify(report, null, 2) + '\n');
-async function shot(name) { await page.screenshot({ path: path.join(out, name + '.png') }); report.frames.push(name + '.png'); persist(); if (capture) await page.waitForTimeout(700); }
+async function viewport(width, height) {
+  await app.evaluate(({ BrowserWindow }, size) => BrowserWindow.getAllWindows()[0].setContentSize(...size), [width, height]);
+  await page.setViewportSize({ width, height });
+  await page.evaluate(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))));
+}
+async function shot(name) {
+  const contentSize = await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].getContentSize());
+  assert.deepEqual(contentSize, [page.viewportSize().width, page.viewportSize().height]);
+  await page.screenshot({ path: path.join(out, name + '.png') }); report.frames.push(name + '.png');
+  report.geometry.push({ frame: name + '.png', contentSize, viewport: page.viewportSize() });
+  persist(); if (capture) await page.waitForTimeout(700);
+}
 async function launch() {
   app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--profiles', '--user-data=' + userData], timeout: 180000,
     recordVideo: { dir: out, size: { width: 1280, height: 860 } }, env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '' } });
   page = await app.firstWindow({ timeout: 180000 }); video = page.video(); page.setDefaultTimeout(30000);
   page.on('pageerror', error => report.errors.push(error.message));
-  await page.setViewportSize({ width: 1280, height: 860 });
+  await viewport(1280, 860);
   await page.waitForFunction(() => window.__barkdown?.state.loaded, null, { timeout: 180000 });
 }
 async function close() { if (!app) return; await app.close(); app = null; report.videos.push(path.basename(await video.path())); persist(); }
@@ -45,6 +56,7 @@ async function saveWorkspace() {
 try {
   await launch();
   await page.evaluate(async source => {
+    document.documentElement.dataset.theme = 'dark';
     window.__barkdown.state.settings = await window.barkdown.settings.set({ theme: 'dark', provider: 'api', barkpark: { enabled: true, writes: true, viaCli: false, local: { enabled: true, source } } });
     document.documentElement.dataset.theme = 'dark';
   }, source);
@@ -90,8 +102,7 @@ try {
   assert.deepEqual(fs.readFileSync(store.filePath(`documents/${legacy.id}.json`)), sourceBytes);
   assert.deepEqual(fs.readFileSync(store.filePath('workspace.json')), workspaceBytes);
   await shot('02-save-refused-buffer-retained');
-  await page.setViewportSize({ width: 820, height: 860 });
-  await page.evaluate(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))));
+  await viewport(820, 860);
   await shot('03-narrow-refusal');
   report.checks.push('Real Paper title/body acknowledged before quiescence; stale native note/create/ops/attachment/workspace requests refused', 'Typing remains visible in the unsaved buffer; server revision/body and original source/workspace bytes unchanged');
   // Deliberately retain the test buffer in the report, not as a claimed product
