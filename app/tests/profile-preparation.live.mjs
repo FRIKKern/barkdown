@@ -71,16 +71,17 @@ try {
   const legacyEditor = page.locator('.bw-doc-pane:not(.bw-paper-pane):not([hidden]) .ProseMirror'); await legacyEditor.waitFor();
   // Hold the actual persistence adapter after real Tiptap input: a pending save
   // must still count as unsaved, and refusal must not discard the visible text.
-  await app.evaluate(({ app }) => {
+  const pendingSaveMarker = path.join(folder, 'legacy-save-held');
+  await app.evaluate(({ app }, marker) => {
     const docs = process.getBuiltinModule('module').createRequire(app.getAppPath() + '/main/main.js')('./documents'), save = docs.save;
     let release; const gate = new Promise(resolve => release = resolve); global.legacySaveHeld = false;
-    docs.save = async (...args) => { global.legacySaveHeld = true; await gate; return save(...args); };
+    docs.save = async (...args) => { process.getBuiltinModule('fs').writeFileSync(marker, 'held'); await gate; return save(...args); };
     global.releaseLegacy = () => { docs.save = save; release(); };
-  });
+  }, pendingSaveMarker);
   try {
     await legacyEditor.click(); await page.keyboard.press('Control+a'); await page.keyboard.insertText('Human legacy buffer must survive.');
-    for (let i = 0; i < 100 && !await app.evaluate(() => global.legacySaveHeld); i++) await new Promise(resolve => setTimeout(resolve, 30));
-    assert.equal(await app.evaluate(() => global.legacySaveHeld), true);
+    for (let i = 0; i < 100 && !fs.existsSync(pendingSaveMarker); i++) await new Promise(resolve => setTimeout(resolve, 30));
+    assert.equal(fs.existsSync(pendingSaveMarker), true);
     await assert.rejects(page.evaluate(() => window.__barkdown.prepareProfile()), /unsaved editors/);
     assert.match(await legacyEditor.innerText(), /Human legacy buffer must survive/);
     assert.equal((await page.evaluate(id => window.barkdown.docs.get(id), legacy.id)).markdown, legacy.markdown);
