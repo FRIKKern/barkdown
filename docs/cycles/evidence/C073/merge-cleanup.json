@@ -1,0 +1,72 @@
+{
+  "observedAt": "2026-09-25T08:54:05.113Z",
+  "upstreamMerge": "b702140907921e82e9ce5eecb3e2445f13ab2d6e",
+  "pr": 20020,
+  "supersededPr": {
+    "number": 19579,
+    "state": "MERGED"
+  },
+  "retired": [
+    {
+      "branch": "barkdown/editor-quality",
+      "tip": "a5440345caa413087ac6488cac67f19fce58fa0f",
+      "worktree": "C:/Users/Frikk/Documents/GitHub/barkpark-editor",
+      "ancestorOfMain": true,
+      "status": "",
+      "head": "a5440345caa413087ac6488cac67f19fce58fa0f",
+      "remoteRef": "",
+      "preservation": "Detached worktree retained; remote deleted with exact-tip lease, local ref deleted after ancestry verification"
+    },
+    {
+      "branch": "codex/canvas-block-identity",
+      "tip": "bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f",
+      "worktree": "C:/Users/Frikk/.codex/worktrees/barkpark-block-identity",
+      "ancestorOfMain": true,
+      "status": "",
+      "head": "bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f",
+      "remoteRef": "",
+      "preservation": "Detached worktree retained; remote deleted with exact-tip lease, local ref deleted after ancestry verification"
+    },
+    {
+      "branch": "codex/paper-create-only",
+      "tip": "677992c518eeb549801d9f33b3ca3847ac6a04cd",
+      "worktree": "C:/Users/Frikk/.codex/worktrees/barkpark-paper-create",
+      "ancestorOfMain": true,
+      "status": "",
+      "head": "677992c518eeb549801d9f33b3ca3847ac6a04cd",
+      "remoteRef": "",
+      "preservation": "Detached worktree retained; remote deleted with exact-tip lease, local ref deleted after ancestry verification"
+    }
+  ],
+  "upstreamLocalBranches": "(HEAD detached at 677992c51)\nmain",
+  "barkdownCloseoutBranch": "codex/paper-library",
+  "barkdownBranchNextAction": "Retire after this closeout merges; preserve worktree and evidence.",
+  "scope": "Owned Barkdown delivery lanes only. Other upstream contributors remote branches and main checkout left untouched. Historical detached worktrees preserved.",
+  "task": {
+    "id": "task-f3c9d50cde093114",
+    "status": "done",
+    "criteriaMet": 3
+  },
+  "preservedRecovery": {
+    "barkdownStashes": [
+      "ea686d9e522b7362f25dd0d63a9eaf93992a4170 On cycle-current-12h: c010-boot-wiring-before-helper",
+      "5d97b1333a9d536b0201754b2d4ed0b05ffe6738 On electron-prototype: C002 recovery copy before rebasing onto current main"
+    ],
+    "upstreamStashes": [
+      "b376c7bf6f20079b5d228bd0232bd8dec4a51370 WIP on main: c2f0f3f Replace Lucide JS with inline SVGs — zero JS icon dependency"
+    ],
+    "upstreamMainUntracked": [
+      "?? api/priv/scripts/__pycache__/",
+      "?? check-server.sh",
+      "?? docs/ADDING_SCHEMAS.md",
+      "?? migrate-server.sh",
+      "?? run-check.sh"
+    ],
+    "policy": "Preserved. Unrelated shared-checkout files and recovery stashes are not branch refs; no deletion or checkout switch performed. Audit original recovery need before any future retirement."
+  },
+  "supersededTask": {
+    "id": "task-2a5efb5c506f3e18",
+    "status": "cancelled",
+    "reason": "Superseded by completed C073 integration and merged PR19579/PR20020. Original criteria remain unmet; no retroactive claim of three consecutive highlight runs."
+  }
+}

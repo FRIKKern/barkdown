@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C073",
   "stage": "P2",
-  "status": "active",
+  "status": "done",
   "goal": "Resolve the upstream Paper integration blockers on current main without weakening gates.",
   "scope": [
     "Integrate the existing editor and creation/deletion stack with upstream main while preserving both histories.",
@@ -16,15 +16,18 @@
   ],
   "checkpoint": "2026-09-25",
   "handoff": "docs/cycles/C073-upstream-integration.md",
-  "nextAction": "Resolve upstream merge/deployment scope; all required checks pass on 677992c51. Recheck the head/base and use the upstream merge protocol after scope is resolved.",
+  "nextAction": "Adopt and retest the merged upstream baseline in a new bounded cycle before the retained-evidence viewer; preserve legacy data and keep P2/A2 open.",
   "evidence": [
     "docs/cycles/evidence/C073/README.md",
     "docs/cycles/evidence/C073/parity.json",
     "docs/cycles/evidence/C073/status-review.json",
     "docs/cycles/evidence/C073/linkpreview-review.json",
     "docs/cycles/evidence/C073/hosted-final-checks.json",
-    "docs/cycles/evidence/C073/cli-create-live.json"
+    "docs/cycles/evidence/C073/cli-create-live.json",
+    "docs/cycles/evidence/C073/merge-cleanup.json",
+    "docs/cycles/evidence/C073/deployment.json",
+    "docs/cycles/evidence/C073/closeout-verify.log"
   ],
-  "truthReview": "Required hosted gates and reviewed integration proof pass. Upstream merge would trigger production deployment and remains pending. App pin/fallback and P2 acceptance remain unchanged.",
+  "truthReview": "PR20020 merged at b70214090 after required gates passed; both production services report that commit. Owned upstream branches retired with history/worktrees preserved; integration task closed. PR36 lands Barkdown closeout, then its branch is retired. Pin/fallback and P2 remain unchanged.",
   "screenshotReview": "Five live stills, five differences and 37 GIF frames accepted, plus three inspected link-preview theme/narrow views. Source and hashes in C073 reviews."
 }
