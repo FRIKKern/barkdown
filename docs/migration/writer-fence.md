@@ -43,6 +43,8 @@ Source ownership controls are validated against their actual root, retained byte
 
 ## Next cutover boundary — prepared, not implemented
 
+C076 now has an internal durable coordinator in profile-preparation.js and a held Paper freeze, with scoped native process/IME/restart evidence. The full boundary below is still not implemented: main-window IPC admission, complete buffer inventory, terminal closure, read-only restart and reconciled abort remain required. Supplied foreground adapters in service tests do not certify the production window. [Current evidence](../cycles/evidence/C076/README.md).
+
 C075 closes captured note-writer admission. The [mounted draft probe](../cycles/evidence/C075/draft-retention-probe.json) shows why that alone is insufficient: upstream b70214090 recoverySnapshot() omits an active note-label composition even after flushPendingChanges(). This is a jsdom source reproduction, not native IME or crash-recovery proof. Reproduce it with the [probe](../cycles/evidence/C075/draft-retention-probe.mjs), passing the upstream api/assets/paper-editor directory and a new output path.
 
 The [pending-turn probe](../cycles/evidence/C075/run-drain-probe.json) separately demonstrates that writer quiescence can succeed while an ordinary turn is awaiting runtime acquisition or authentication. Both turns refuse before provider dispatch when released, and their leases eventually release; the drain result itself does not wait for that lifecycle. Reproduce from the repository root with `node docs/cycles/evidence/C075/run-drain-probe.cjs <new-output.json>`. It uses the actual profile/workspace/writer services with deferred adapters, not a live provider or OS-child test.

@@ -30,7 +30,7 @@ P1 is accepted for the Windows source prototype. P2 has demonstrated migration s
 
 C074 adopted merged upstream b70214090 and shipped the read-only original-history viewer. C075 adds captured writer admission and responsive durable streaming, merged through PR38 at c6961328 after full Windows desktop/root, reviewed native/live/standard evidence and hosted real editor/server parity 20/20. [C075 evidence](cycles/evidence/C075/README.md) records failures, measurements and limits.
 
-**C076 profile preparation is active:** internal ordinary/goal drains now have native process and journal-settlement evidence. Internal human Paper draft retention now has native IME/IPC/restart proof. Next integrate a complete preparation boundary and reconcile uncertainty before writer quiescence. Then compare and seal the complete source/target/media/workspace before selection, interruption recovery and rollback/retirement. No real library has moved; the separate legacy editor/store remains. [A2](ACCEPTANCE.md#a2--one-engine-without-lost-notes) is not complete.
+**C076 profile preparation is active:** internal ordinary/goal drains now have native process and journal-settlement evidence. Internal human Paper draft retention now has native IME/IPC/restart proof. The internal coordinator now has durable transition and native process proof; next connect production foreground admission and all buffer owners, then reconcile restart/abort and uncertainty before accepting preparation. Then compare and seal the complete source/target/media/workspace before selection, interruption recovery and rollback/retirement. No real library has moved; the separate legacy editor/store remains. [A2](ACCEPTANCE.md#a2--one-engine-without-lost-notes) is not complete.
 
 ## Carry forward
 
