@@ -119,3 +119,25 @@ test('reviewing a finished worker cannot launch newly eligible dependent workers
   assert.equal(launched, 1); assert.deepEqual(service.list(owner)[0].tasks.map(task => task.status), ['completed', 'pending', 'pending']);
   await assert.rejects(service.command(owner, goal.id, 'reviewTask', { taskId: 'task-2', accepted: false, retry: true, note: 'Must refuse before retry' }), { code: 'BARKDOWN_PROFILE_PREPARING' });
 });
+
+test('ordinary dispatch rechecks closure after the authentication wrapper resolves', async () => {
+  let f, dispatched = 0;
+  f = setup({ agent: { async start() { dispatched++; throw Error('Unexpected provider dispatch'); } },
+    assertAuthentication: async () => { queueMicrotask(() => queueMicrotask(() => f.profiles.launchAdmission.close(f.a.id))); } });
+  await assert.rejects(f.profiles.start(f.profiles.view(), { chatId: 'same', prompt: 'Keep this unsent' }), { code: 'BARKDOWN_PROFILE_PREPARING' });
+  assert.equal(dispatched, 0);
+  assert.equal(f.profiles.workspaces.load(f.a.id).chats.same.messages.length, 0, 'Refuse before transcript reservation');
+});
+
+test('goal dispatch rechecks closure after the authentication wrapper resolves', async t => {
+  let f, dispatched = 0;
+  f = setup({ assertAuthentication: async () => { queueMicrotask(() => queueMicrotask(() => f.profiles.launchAdmission.close(f.a.id))); } });
+  const service = createGoalService({ registry: f.registry, profiles: f.profiles, agent: { async start() { dispatched++; throw Error('Unexpected provider dispatch'); } }, heartbeatMs: 0 });
+  t.after(() => service.close());
+  const owner = { ...f.profiles.view(), chatId: 'same' };
+  const goal = service.create(owner, { objective: 'Close before launch', durationMinutes: 60, assignments: [1, 2, 3].map(i => ({ title: 'Worker ' + i, prompt: 'Wait ' + i })) });
+  await service.command(owner, goal.id, 'start');
+  for (let i = 0; i < 100 && service.list(owner)[0].tasks.some(task => task.status === 'running'); i++) await new Promise(r => setTimeout(r, 10));
+  assert.equal(dispatched, 0);
+  for (const task of goal.tasks) assert.equal(f.profiles.workspaces.load(f.a.id).chats[task.chatId].messages.length, 0);
+});

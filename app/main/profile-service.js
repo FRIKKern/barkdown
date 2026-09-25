@@ -63,6 +63,7 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
       const scope = captureScope({ profileId, storeDir: store.storeDir, connection,
         context: { profileId, chatId, title: chat.title, folder: chat.folder || null, catchUp } });
       return { scope, chat: { ...structuredClone(chat), provider }, chatContext, settings: s,
+        assertLaunch: () => launchAdmission.assertOpen(profileId),
         assertAuthentication: async () => { launchAdmission.assertOpen(profileId); await assertAuthentication(provider, s, scope); launchAdmission.assertOpen(profileId); assertChatContext(chatContext, workspaces.load(profileId).chats[chatId]); },
         release: async () => { await lease?.release(); } };
     } catch (error) { await lease?.release(); throw error; }
@@ -119,6 +120,8 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
       assertProviderFolder(resolved.chat.provider, resolved.scope.context.folder);
       validateImages(resolved.scope, request.images);
       await resolved.assertAuthentication();
+      // The caller resumes in a later microtask than the authentication wrapper.
+      resolved.assertLaunch();
       assertChatContext(resolved.chatContext, workspaces.load(profileId).chats[request.chatId]);
       const reservation = workspaces.begin(request, resolved);
       if (!reservation.fresh) throw new Error('This attempt was already reserved; do not dispatch it again');
