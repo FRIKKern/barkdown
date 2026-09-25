@@ -47,9 +47,9 @@ A persisted report is historical evidence. Resuming must revalidate the complete
 
 ## Bounded implementation and stopping condition
 
-The next implementation checkpoint is a **read-only comparison adapter for an explicitly captured rehearsal**, including the pre-staging Paper baseline and refusal cases. Keep it internal and return actionable mismatches. No migration button, authority selector or legacy retirement in that checkpoint. Extract shared read/validation logic from staging only where needed; do not call mutating staging as a shortcut or invent upstream endpoints.
+C078 implements the **read-only comparison adapter for an explicitly captured rehearsal**, including the pre-staging Paper baseline and refusal cases. Keep it internal and return actionable mismatches. No migration button, authority selector or legacy retirement in that checkpoint. Extract shared read/validation logic from staging only where needed; do not call mutating staging as a shortcut or invent upstream endpoints.
 
-Before broad visual capture, prove:
+The C078 acceptance cases are:
 
 - A mixed corpus beyond one page: mapped legacy notes, an unchanged published Paper and an ordinary draft-only Paper; exact variants and counts survive comparison.
 - Missing/extra/changed rows, reordered or repeated pages, stale revisions, draft collisions, unsupported content/media, broken references and navigation ambiguity refuse without any POST/PATCH/DELETE or source/journal mutation.

@@ -17,3 +17,5 @@ Second isolated run passed baseline reading but the harness expected203 rows and
 Third live run proved206 variants (204 preserved, two staged), links/PNG/workspace, coordinator revalidation and interruption/retry. Its late-edit fixture incorrectly used insert-only create for an existing draft and correctly received409. The harness now uses real revision-checked Paper append-block operations. No application correction was needed; failed run retained.
 
 Ready checkpoint40aea413: real isolated test passes206 variants (204 preserved/two staged), links, PNG, organization, coordinator revalidation, interrupted reads, later real draft edit refusal and cancellation. Scope frozen for full desktop, reviewed visuals and root verification, then integration. The isolated runtime stopped cleanly.
+
+Full desktop at40aea413 passed in658.516s (build0.783s). Native preparation nine stills were inspected, with retained-reader enlargement and900x760 controls checked; see evidence/C078/native-preparation/review.json. Roadmap1440x780 render and geometry were reviewed. Next: live Paper capture/review, standard capture/compare/review/approve, root verify and integrated delivery.
