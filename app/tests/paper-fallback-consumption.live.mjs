@@ -1,6 +1,6 @@
 import { openFixturePaper } from './lib/paper-fixture.mjs';
 // E011 preparation: real Paper transport with only editor JS/CSS refused.
-// Adapted from E010 fixture88358f9; E012 replay binds the reviewed bf23f773c vendor consumption.
+// Adapted from E010 fixture88358f9; C074 replay binds the merged pin and exact vendored asset hashes.
 // Native upload delivery race and server assertions are preserved; no fake saves.
 import { _electron as electron } from 'playwright';
 import assert from 'node:assert/strict';
@@ -69,5 +69,5 @@ try{
 finally{
  try { if(app)await app.close(); } finally { await proxy.close(); } if(video){const f=await video.path();if(fs.existsSync(f))fs.renameSync(f,path.join(out,'fallback-consumption.webm'));}
  const artifacts=Object.fromEntries(fs.readdirSync(out).filter(f=>/\.(png|webm)$/.test(f)||f==='server.json').map(f=>[f,require('crypto').createHash('sha256').update(fs.readFileSync(path.join(out,f))).digest('hex')]));
- fs.writeFileSync(path.join(out,'manifest.json'),JSON.stringify({sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),sourceDirty:execFileSync('git',['status','--porcelain','--','.'],{encoding:'utf8'}).trim()!=='',barkparkCommit:process.env.BARKDOWN_SHOTS_BP_COMMIT,barkparkDirty:process.env.BARKDOWN_SHOTS_BP_DIRTY,server:process.env.BARKDOWN_SHOTS_SERVER,buildFingerprint:process.env.BARKDOWN_SHOTS_BUILD_FINGERPRINT,editorBundle,proxy:{refused:proxy.counts.refused,forwarded:proxy.counts.forwarded},expectedVendorCommit:'bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f',results,artifacts,motion:'Actual Paper host media upload with response delivery held at the uploader boundary, native history keys and real server assertions. No fabricated save acknowledgement; response delay is controlled race coverage.'},null,2)+'\n');console.log('E011 evidence:',out);
+ fs.writeFileSync(path.join(out,'manifest.json'),JSON.stringify({sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),sourceDirty:execFileSync('git',['status','--porcelain','--','.'],{encoding:'utf8'}).trim()!=='',barkparkCommit:process.env.BARKDOWN_SHOTS_BP_COMMIT,barkparkDirty:process.env.BARKDOWN_SHOTS_BP_DIRTY,server:process.env.BARKDOWN_SHOTS_SERVER,buildFingerprint:process.env.BARKDOWN_SHOTS_BUILD_FINGERPRINT,editorBundle,proxy:{refused:proxy.counts.refused,forwarded:proxy.counts.forwarded},expectedVendorCommit:fs.readFileSync(path.resolve('BARKPARK_REF'),'utf8').trim(),results,artifacts,motion:'Actual Paper host media upload with response delivery held at the uploader boundary, native history keys and real server assertions. No fabricated save acknowledgement; response delay is controlled race coverage.'},null,2)+'\n');console.log('E011 evidence:',out);
 }

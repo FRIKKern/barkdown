@@ -66,7 +66,7 @@ async function withCapture(operation) {
   recording = true;
   try { return await operation(); } finally { recording = false; }
 }
-async function shot(name) { const file = name + '.png'; await withCapture(() => page.screenshot({ path: path.join(out, file) })); report.screenshots.push(file); persist(); }
+async function shot(name) { const file = name + '.png'; await withCapture(() => page.screenshot({ path: path.join(out, file) })); report.screenshots.push(file); persist(); if (capture) await page.waitForTimeout(600); }
 function startMotion() {
   if (!capture) return;
   timer = setInterval(() => {
