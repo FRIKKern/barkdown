@@ -18,6 +18,7 @@ const credentialDurability = require('./credential-durability').createCredential
 let profileRegistry = null, profileService = null, profileGate = null, profilePool = null, profileConnection = null, profileConnectionOwner = null, appSettingsStore = null, goalService = null;
 const PROFILE_MODE = process.argv.includes('--profiles');
 let authorityOwnership = null, adoptionView = null, bootBusy = false;
+let preparation = null, preparationForeground = null;
 let localRuntime = null, localConfigKey = '';
 let catalogGeneration = 0;
 const paperNavigation = require('./paper-navigation').createPaperNavigation(store);
@@ -218,7 +219,7 @@ function handle(channel, fn, unowned = false) {
         const envelope = args.shift();
         if (!envelope || !Array.isArray(envelope.args)) throw new Error('Profile request owner required');
         args = envelope.args;
-        return { ok: true, value: await profileGate.request(envelope.owner, execute) };
+        return { ok: true, value: await profileGate.request(envelope.owner, () => preparationForeground ? preparationForeground.run(envelope.owner.profileId, channel, execute) : execute()) };
       }
       return { ok: true, value: await execute() }; } catch (error) { return { ok: false, error: error.message || String(error), code: error.code, diagnostic: error.diagnostic, authProvider: error.authProvider }; }
   });
@@ -274,9 +275,9 @@ function registerIpc() {
   });
   handle('app:pickFolder', async () => { const r = await dialog.showOpenDialog(win, { properties: ['openDirectory'] }); return r.canceled ? null : r.filePaths[0]; });
   const draftStores = new Map();
-  const paperDrafts = () => {
+  const paperDrafts = (selectedId = null) => {
     if (!profileService) throw new Error('Paper draft recovery requires an owned profile.');
-    const profileId = profileService.view().profileId, root = profileRegistry.storeFor(profileId).storeDir;
+    const profileId = selectedId || profileService.view().profileId, root = profileRegistry.storeFor(profileId).storeDir;
     if (!draftStores.has(profileId)) draftStores.set(profileId, { root, drafts: require('./paper-draft-store').createPaperDraftStore({ store: store.createStore(root, { create: false }), profileId }) });
     const entry = draftStores.get(profileId);
     if (entry.root !== root) throw new Error('Paper draft profile root changed.');
@@ -285,6 +286,19 @@ function registerIpc() {
   handle('paperDrafts:retain', ({ token, draft }) => paperDrafts().retain(token, draft));
   handle('paperDrafts:list', () => paperDrafts().list());
   handle('paperDrafts:read', key => paperDrafts().read(key));
+  if (profileService) {
+    const writerState = profileId => require('./writer-admission').controller(store.createStore(profileRegistry.storeFor(profileId).storeDir, { create: false })).inspect();
+    preparationForeground = require('./preparation-foreground').createPreparationForeground({ isClosed: profileId => writerState(profileId).phase !== 'open' });
+    const bridge = require('./preparation-bridge').createPreparationBridge({ profiles: profileService, foreground: preparationForeground,
+      webContents: () => win?.webContents, draftsFor: paperDrafts, writerState });
+    preparation = require('./profile-preparation').createProfilePreparation({ registry: profileRegistry, profiles: profileService, goals: goalService,
+      freezeForeground: bridge.freeze, drainForeground: preparationForeground.drain, drainTerminals: profileId => terminal.stopAll(profileId) });
+    handle('preparation:prepare', () => preparation.prepare(profileService.view().profileId));
+    handle('preparation:reply', bridge.reply);
+    handle('preparation:retain', bridge.retain);
+    handle('preparation:saveView', bridge.saveView);
+    handle('preparation:status', () => { const id = profileService.view().profileId; return { record: preparation.inspect(id), readOnly: writerState(id).phase !== 'open' }; });
+  } else handle('preparation:status', () => ({ record: null, readOnly: false }));
   const originalHistory = () => {
     if (!profileService) throw new Error('Original history requires an owned profile.');
     const profileId = profileService.view().profileId;

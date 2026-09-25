@@ -2,6 +2,16 @@
 
 This is unfinished development on `codex/profile-preparation`, not a merge-ready or complete preparation gate.
 
+## Production foreground bridge — development checkpoint
+
+[Working-tree validation](foreground-development/result.json) passes build,83 scoped service/renderer/writer cases,48 Paper-host cases, native boot-draft and actual Electron preparation. The production IPC path retains exact raw Paper source and a chat draft; Chromium composition refuses before launch closure; keyboard and native-menu writes are blocked. Abrupt verified-main-PID termination preserves retained records, repeated preparation verifies the same record, and the notice's real profile selector opens editable B. No server save is claimed: HTTP reads are deterministic and writes are refused. Clean-source capture follows the implementation commit; final full desktop/root/live/standard approval remains pending.
+
+Development screenshot inspection found an ordinary autosave racing the completed capture and producing a false unsaved warning. Autosaves now pause across capture and resume after refusal; the native unload/restart case asserts that warning is absent. Paper marks paused editing explicitly. The notice is usable at900×760. These are scoped stills, not formal motion or complete preparation acceptance.
+
+Two harness failures are retained: [wrong composer selector](foreground-native-selector-failure/manifest.json) and [launch from repository root rather than app](foreground-native-launch-failure/manifest.json). The harness now uses the actual bw-prompt and anchors itself to its own app directory. Only its identified disposable Electron process was stopped; shared services were untouched. Development manifests identify the parent source, not a clean-source claim.
+
+Next: reconciled abort and retained-draft recovery, native dirty legacy/project and terminal preparation cases, then final full and visual gates. The backend callbacks and JSDOM refusal tests cannot substitute for those native journeys.
+
 ## Durable coordinator and held Paper freeze — e97ceebf
 
 [Build and120 focused cases](preparation-validation/result.json) pass on e97ceebf:72 preparation/writer/drain/draft-store checks and48 Paper-host cases. Runner durations: build0.680s, service checks23.499s, host6.504s. The24 coordinator cases include five actual process exits at collecting, draining, planned quiescence, completed writer closure and prepared-record boundaries. Each leaves a dead process lease, then resumes the same preparation identity with retained draft readback; an already-closed writer retains its exact recorded generation. Exception-interruption cases cover normal cleanup separately.

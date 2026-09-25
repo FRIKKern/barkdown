@@ -1,4 +1,5 @@
 import { mountComposer } from './composer.js';
+import { installProfilePreparation } from './profile-preparation.js';
 import { createLibraryRefresh, libraryScope } from './library-refresh.js';
 import { createNoteAction } from './note-creation.js';
 import { openProviderLogin } from './provider-login.js';
@@ -7,7 +8,7 @@ import { openGoalView } from './goals.js';
 import { captureManagedView, mergeManagedView } from './managed-workspace.js';
 // Barkdown desktop renderer: app-wide navigation, per-chat workspaces, agent runs, pins, quick open.
 import { el, esc, iconHtml, renderIcons, toast, basename, relativeTime, errorMessage } from './ui.js';
-import { state, load, save, serialise, newChat, newTab, currentChat, activeTab, touch, chatTitleFrom } from './state.js';
+import { state, load, save, pauseWorkspaceSaves, serialise, newChat, newTab, currentChat, activeTab, touch, chatTitleFrom } from './state.js';
 import { transcriptHtml, handleAgentEvent, respondApproval, providerFor, formatDuration } from './conversation.js';
 import { mountDocument } from './tabs/document.js';
 import { mountPaper } from './tabs/paper.js';
@@ -31,6 +32,7 @@ const TYPE_ICON = { doc: 'file-text', web: 'globe', review: 'git-pull-request', 
 
 let mainComposer;
 const controllers = new Map(); // tab.id -> mounted controller
+const profilePreparation = installProfilePreparation({ api, root, state, controllers, serialise, savePositions, dirtyCount, pauseSaves: pauseWorkspaceSaves });
 const DIRECT = 'direct';
 let managedRefreshRequest = 0;
 async function refreshManagedChats() {
@@ -779,6 +781,7 @@ function wire() {
   paletteInput.addEventListener('input', () => { paletteIndex = 0; renderPalette(); });
   paletteInput.addEventListener('keydown', e => { if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); if (!paletteItems.length) return; paletteIndex = (paletteIndex + (e.key === 'ArrowDown' ? 1 : paletteItems.length - 1)) % paletteItems.length; renderPalette(); } else if (e.key === 'Enter') { e.preventDefault(); runPalette(paletteIndex, e.shiftKey); } else if (e.key === 'Escape') { hideMenus(); } });
   document.addEventListener('keydown', e => {
+    if (root.inert) return;
     const key = e.key.toLowerCase();
     // Inside an editor the editor owns Ctrl+K (link) and friends; quick open stays available from everywhere else.
     const inEditor = e.target?.closest?.('bp-paper-canvas, .ProseMirror, .cm-content, textarea.bp-canvas-code-area');
@@ -793,7 +796,7 @@ function wire() {
     else if (key === 'w') { const t = activeTab(chat); if (t) { e.preventDefault(); closeTab(chat, t.id); } }
     else if (key === 'n') { e.preventDefault(); toggleMenu('#bw-new-menu', '#bw-plus'); }
   });
-  api.onMenu(command => { if (command === 'new-chat') createChat(); if (command === 'new-document') createDocument(); if (command === 'palette') openPalette(); if (command === 'settings') openSettings(applySettings); if (command === 'close-tab') { const chat = workspaceChat(); if (chat?.active) { closeTab(chat, chat.active); render(); } } });
+  api.onMenu(command => { if (root.inert) return; if (command === 'new-chat') createChat(); if (command === 'new-document') createDocument(); if (command === 'palette') openPalette(); if (command === 'settings') openSettings(applySettings); if (command === 'close-tab') { const chat = workspaceChat(); if (chat?.active) { closeTab(chat, chat.active); render(); } } });
   window.addEventListener('beforeunload', () => { savePositions(); save.flush(); });
   wireSplitter();
 }
@@ -810,6 +813,7 @@ function wire() {
   applyChatWidth(state.settings.chatWidth || 60);
   applyTheme(state.settings.theme || 'system');
   await load();
+  await profilePreparation.status().catch(error => console.warn('Preparation status:', error.message));
   if (state.profileId) {
     let refreshTimer;
     api.goals.subscribe({ profileId: state.profileId }, () => { clearTimeout(refreshTimer); refreshTimer = setTimeout(() => refreshManagedChats().catch(error => console.warn('Goal transcript refresh:', error)), 80); });
@@ -827,4 +831,4 @@ function wire() {
 })();
 
 // Test and debugging hooks (no UI depends on these).
-window.__barkdown = { openGoalView, attachImages,  state, controllers, openTarget, render, refreshLibrary, expandArchive: () => { ensurePages().archiveOpen = true; ensurePages().cloudArchiveOpen = true; renderSidebar(); }, addPage, pagePath, setFolder: folder => { const chat = currentChat(); chat.folder = folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }, openProject, openDirect, openPalette, createChat, switchChat };
+window.__barkdown = { prepareProfile: profilePreparation.prepare, openGoalView, attachImages,  state, controllers, openTarget, render, refreshLibrary, expandArchive: () => { ensurePages().archiveOpen = true; ensurePages().cloudArchiveOpen = true; renderSidebar(); }, addPage, pagePath, setFolder: folder => { const chat = currentChat(); chat.folder = folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }, openProject, openDirect, openPalette, createChat, switchChat };

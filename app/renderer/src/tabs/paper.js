@@ -81,7 +81,7 @@ export function mountPaper(tab, host, ctx) {
     }
     return { ...receipt, current };
   }
-  async function freezeRecovery() {
+  async function freezeRecovery({ retain = (token, draft) => api.paperDrafts.retain(token, draft) } = {}) {
     if (preparationLock) throw new Error('This Paper is already frozen for preparation.');
     // Inspect composition before inert removes focus. Never make composition
     // disappear merely to obtain a serializable recovery projection.
@@ -89,19 +89,21 @@ export function mountPaper(tab, host, ctx) {
     const token = paper.recoveryToken, editor = canvas, generation = loadGeneration;
     const priorInert = pane.inert, lock = {};
     preparationLock = lock; pane.inert = true;
+    renderEditState();
     const release = () => {
       if (preparationLock !== lock) throw new Error('Paper preparation freeze ownership changed.');
       preparationLock = null; pane.inert = priorInert;
+      renderEditState();
     };
     const assertCurrent = () => {
       if (destroyed || preparationLock !== lock || !pane.inert || canvas !== editor || generation !== loadGeneration || paper?.recoveryToken !== token) return false;
       try { return fingerprint === JSON.stringify(recoveryDraft()); } catch { return false; }
     };
     try {
-      const receipt = await api.paperDrafts.retain(token, draft);
+      const receipt = retain ? await retain(token, draft) : { profileId: state.profileId };
       if (!assertCurrent()) throw new Error('Paper changed during preparation. Its earlier recovery copy is retained; capture again.');
       return Object.freeze({ profileId: receipt.profileId, sessionId: recoverySession,
-        draftKeys: Object.freeze([receipt.key]), assertCurrent, release });
+        draftKeys: Object.freeze(receipt.key ? [receipt.key] : []), assertCurrent, release });
     } catch (error) { release(); throw error; }
   }
 
@@ -136,7 +138,11 @@ export function mountPaper(tab, host, ctx) {
     if (!paper) return;
     const crumbs = ctx.pagePath ? ctx.pagePath(slug(), 'barkpark', tab.paperOwner) : [];
     q('#kicker').textContent = crumbs.length > 1 ? crumbs.join(' / ') : '';
-    q('#meta').textContent = `${connectionChanged() ? 'Original connection required' : writesOn() ? 'Editing live' : 'Read-only'} · edited ${relativeTime(paper.updatedAt)}${paper.draft && paper.paperOrigin?.kind !== 'local' ? ' · draft' : ''}${paper.blocks ? '' : ' · HTML body'}`;
+    renderEditState();
+  }
+  function renderEditState() {
+    if (!paper) return;
+    q('#meta').textContent = `${preparationLock || pane.closest('[inert]') ? 'Editing paused' : connectionChanged() ? 'Original connection required' : writesOn() ? 'Editing live' : 'Read-only'} · edited ${relativeTime(paper.updatedAt)}${paper.draft && paper.paperOrigin?.kind !== 'local' ? ' · draft' : ''}${paper.blocks ? '' : ' · HTML body'}`;
   }
 
   // Barkpark derives a paper's title from its first heading, so when the document opens with one the

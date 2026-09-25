@@ -15,6 +15,19 @@ async function call(channel, ...args) {
 }
 
 const api = {
+  preparation: {
+    prepare: () => call('preparation:prepare'), status: () => call('preparation:status'),
+    retain: (id, token, draft) => call('preparation:retain', { id, token, draft }),
+    saveView: (id, snapshot) => call('preparation:saveView', { id, snapshot }),
+    onRequest: handler => {
+      const listener = async (_event, request) => {
+        let value, error;
+        try { value = await handler(request); } catch (failure) { error = failure.message || String(failure); }
+        await call('preparation:reply', { id: request.id, value, error }).catch(() => {});
+      };
+      ipcRenderer.on('preparation:request', listener); return () => ipcRenderer.removeListener('preparation:request', listener);
+    },
+  },
   goals: {
     list: captured => rawCall('goals:list', { owner: captured, args: [captured.chatId] }),
     create: (captured, input) => rawCall('goals:create', { owner: captured, args: [captured.chatId, input] }),

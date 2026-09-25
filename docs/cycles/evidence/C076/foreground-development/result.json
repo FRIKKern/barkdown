@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-25T15:32:15.748Z",
+  "source": "ec4bd1496c7ba5d7d19677f589ec7f710eb03ceb",
+  "sourceStatus": "M app/main/README.md\n M app/main/main.js\n M app/main/preload.js\n M app/package.json\n M app/renderer/src/README.md\n M app/renderer/src/index.js\n M app/renderer/src/state.js\n M app/renderer/src/tabs/document.js\n M app/renderer/src/tabs/paper.js\n M app/renderer/styles.css\n M docs/cycles/C076-profile-preparation.md\n?? app/main/preparation-bridge.js\n?? app/main/preparation-foreground.js\n?? app/renderer/src/profile-preparation.js\n?? app/tests/preparation-bridge.test.mjs\n?? app/tests/preparation-renderer.test.mjs\n?? app/tests/profile-preparation.live.mjs\n?? docs/cycles/evidence/C076/foreground-plan.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T15:32:15.856Z",
+      "log": "build.log",
+      "elapsedMs": 791,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "foreground",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "node",
+        "--test",
+        "app/tests/preparation-bridge.test.mjs",
+        "app/tests/preparation-renderer.test.mjs",
+        "app/tests/profile-preparation.test.mjs",
+        "app/tests/writer-admission.test.mjs",
+        "app/tests/writer-process.test.mjs",
+        "app/tests/profile-launch-admission.test.mjs",
+        "app/tests/paper-draft-store.test.mjs",
+        "app/tests/workspace-preservation.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T15:32:16.655Z",
+      "log": "foreground.log",
+      "elapsedMs": 29400,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "paper-host",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "node",
+        "app/tests/paper-host.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T15:32:46.058Z",
+      "log": "paper-host.log",
+      "elapsedMs": 6449,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "boot-draft",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app",
+      "argv": [
+        "node",
+        "tests/boot-draft.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T15:32:52.509Z",
+      "log": "boot-draft.log",
+      "elapsedMs": 3426,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "native-preparation",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app",
+      "argv": [
+        "node",
+        "tests/profile-preparation.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T15:32:55.937Z",
+      "log": "native-preparation.log",
+      "elapsedMs": 9963,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-09-25T15:33:05.902Z"
+}
