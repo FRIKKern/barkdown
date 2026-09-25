@@ -88,7 +88,10 @@ try {
   const before = await page.evaluate(() => window.barkdown.paperDrafts.list());
   assert(before.length >= 3);
   // Abrupt exit, not graceful close/flush, must not be needed to keep records.
-  const child = app.process(), exited = new Promise(resolve => child.once('exit', resolve)); child.kill(); await exited;
+  const mainPid = await app.evaluate(() => process.pid);
+  assert.equal(JSON.parse(fs.readFileSync(path.join(userData, 'workspace-owner.json'))).pid, mainPid);
+  const exited = new Promise(resolve => app.process().once('exit', resolve));
+  process.kill(mainPid, 'SIGKILL'); await exited; app = null;
   app = await launch(); page = await app.firstWindow(); await page.waitForFunction(() => window.__barkdown?.state.loaded);
   const after = await page.evaluate(() => window.barkdown.paperDrafts.list());
   assert.deepEqual(after, before);
