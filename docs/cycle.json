@@ -17,16 +17,17 @@
   ],
   "checkpoint": "2026-09-25",
   "handoff": "docs/cycles/C078-library-comparison.md",
-  "nextAction": "Complete full desktop validation, required visual capture/review and root checks; integrate C078 before authority-selection work.",
-  "evidence": [],
-  "truthReview": "",
-  "screenshotReview": "",
+  "nextAction": "Require hosted gates, merge this frozen checkpoint and retire its branch before authority-selection work.",
+  "evidence": [
+    "docs/cycles/evidence/C078/README.md"
+  ],
+  "truthReview": "Reviewed source boundaries, acceptance limits, roadmap and current queue; no cutover or A2 completion claimed.",
+  "screenshotReview": "Native nine stills; live Paper five stills and 37 GIF frames; standard 40 stills and 40 decoded GIF frames inspected, explicit approval recorded.",
   "delivery": {
-    "phase": "validating",
+    "phase": "integrating",
     "owner": "primary agent",
     "remaining": [
-      "Finish full desktop and root verification",
-      "Capture and review native/standard/live evidence",
+      "Hosted CI",
       "Merge verified checkpoint and retire branch"
     ]
   }

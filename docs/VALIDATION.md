@@ -1,6 +1,6 @@
 # Evidence and remaining proof
 
-[C078 comparison](cycles/evidence/C078/README.md): internal read-only comparison passes a real206-variant library (204 preserved, two staged), links, PNG media, workspace and interruption/revalidation/later-edit/cancellation checks. Full desktop passes in658.516s at40aea413; nine native preparation stills are reviewed. Standard/live capture, root verification and integration status remain in the current handoff. This is not an activation-capable seal or A2 completion.
+[C078 comparison](cycles/evidence/C078/README.md): internal read-only comparison passes a real206-variant library (204 preserved, two staged), links, PNG media, workspace and interruption/revalidation/later-edit/cancellation checks. Full desktop passes in658.516s at40aea413; nine native preparation stills are reviewed. Live Paper (real Claude, header 6/6) and standard visuals are reviewed; standard comparison has zero pixel/geometry changes. Root verification and integration status remain in the current handoff. This is not an activation-capable seal or A2 completion.
 
 [C077 comparison contract](cycles/C077-comparison-contract.md):208 existing migration/catalog/writer/preparation regressions pass in21.682s; root verify passes in46.549s against unchanged app source19f9cb8a. [Results](cycles/evidence/C077/validation/result.json) distinguish the documentation working state. This is an audited implementation contract, not a new adapter, seal or A2 completion. No visual inputs changed; C076 reviewed evidence remains applicable.
 
