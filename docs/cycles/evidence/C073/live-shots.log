@@ -1,0 +1,60 @@
+
+> barkdown-desktop@0.6.0 shots:isolated
+> npm run build && node tests/status-shots-isolated.mjs
+
+
+> barkdown-desktop@0.6.0 build
+> node scripts/build.mjs
+
+
+  renderer\dist\app.js      2.8mb
+  renderer\dist\app.js.map  7.1mb
+
+Done in 529ms
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-hJMudW
+Capture runtime: starting 
+Capture runtime: ready 
+shot paper-light.png
+shot paper-dark.png
+shot slash-menu.png
+shot quick-open.png
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+page.screenshot: Timeout 30000ms exceeded.
+Call log:
+  - taking page screenshot
+  - waiting for fonts to load...
+  - fonts loaded
+
+    at shot (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\tests\status-shots.mjs:109:110)
+    at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/status-shots.mjs:117:1 {
+  log: [
+    '  - taking page screenshot',
+    '  - waiting for fonts to load...',
+    '  - fonts loaded'
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v22.13.1
+Capture runtime: stopping 
+Capture runtime: stopped 
+file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:98
+    throw new AggregateError(errors, errors.map(error => error.message).join('\n'));
+          ^
+
+AggregateError: Live screenshot capture failed with exit 1
+    at captureWithCleanup (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:98:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/status-shots-isolated.mjs:33:1 {
+  [errors]: [
+    Error: Live screenshot capture failed with exit 1
+        at captureWithCleanup (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:82:51)
+        at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+        at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/status-shots-isolated.mjs:33:1
+  ]
+}
+
+Node.js v22.13.1

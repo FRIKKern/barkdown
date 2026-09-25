@@ -1,0 +1,10 @@
+repo-papers freshness: 50 snapshot(s) checked, 32 diverging, 316 term(s) total
+
+ops-merge-gates  (docs/ops/merge-gates.md)  1 diverging term(s), baseline 0
+    code-span: lib/barkpark/repo.ex
+    ^^ OVER BASELINE: 1 > 0 for ops-merge-gates
+
+FAILED — a snapshot diverged past its recorded baseline, or an exemption is unjustified/stale.
+Fix the SNAPSHOT (or the doc) so the terms above agree. If a divergence is deliberate, add it to
+scripts/repo-papers-freshness.manifest.json under that paper's "exempt" with a written reason. Baselines are edited by hand
+on purpose: there is no regenerate flag, because a one-command re-pin is how a finding gets buried.

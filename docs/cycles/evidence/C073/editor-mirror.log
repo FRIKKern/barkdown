@@ -1,0 +1,26 @@
+paper-editor-mirror: PASS — 623 generated paper-surface tokens in api/assets/paper-editor/src/styles.css match paper-surface.css.
+paper-editor-mirror-check: FAILED � the two paper-editor style mirrors have drifted.
+
+  In styles.css bundle but NOT in bp-paper-editor-shell.css (Studio would not pick this up!):
+    .bp-canvas-equation
+    .bp-canvas-expandable
+    .bp-canvas-image
+    .bp-canvas-image--empty
+    .bp-canvas-image-badge
+    .bp-canvas-image-badge--error
+    .bp-canvas-image-chrome
+    .bp-canvas-image-empty
+    .bp-canvas-image-frame
+    .bp-canvas-image-img
+    .bp-canvas-image-src
+    .bp-canvas-image-width
+    .bp-canvas-island
+    .bp-canvas-row
+    .bp-canvas-rows
+    .bp-canvas-steps
+    .bp-canvas-tabs
+    .bp-canvas-video
+
+  Fix: add the missing rule to the other mirror (keep values identical), or � if the
+  asymmetry is intentional � add the class to HEEX_ONLY_ALLOW / BUNDLE_ONLY_ALLOW in
+  scripts/paper-editor-mirror-check.sh with a one-line justification.

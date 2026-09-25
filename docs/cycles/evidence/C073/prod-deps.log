@@ -1,0 +1,230 @@
+===> Analyzing applications...
+===> Compiling idna
+===> Analyzing applications...
+===> Compiling telemetry
+===> Analyzing applications...
+===> Compiling telemetry_poller
+==> telemetry_metrics_prometheus_core
+warning: first..last inside match is deprecated, you must always match on the step: first..last//var or first..last//_ if you want to ignore it
+  (telemetry_metrics_prometheus_core 1.2.1) lib/core/registry.ex:87: TelemetryMetricsPrometheus.Core.Registry.validate_distribution_buckets!/1
+
+==> barkpark
+===> Analyzing applications...
+===> Compiling ranch
+===> Analyzing applications...
+===> Compiling gen_smtp
+==> asn1_compiler
+    warning: :asn1ct.compile/2 is undefined (module :asn1ct is not available or is yet to be defined)
+    │
+ 74 │       :asn1ct.compile(to_charlist(input), options)
+    │               ~
+    │
+    └─ (asn1_compiler 0.1.1) lib/mix/tasks/compile.asn1.ex:74:15: Mix.Tasks.Compile.Asn1.run/1
+
+==> elixlsx
+     warning: using single-quoted strings to represent charlists is deprecated.
+     Use ~c"" if you indeed want a charlist or use "" instead.
+     You may run "mix format --migrate" to change all single-quoted
+     strings to use the ~c sigil and fix this warning.
+     │
+ 139 │         '~4.10.0b-~2.10.0b-~2.10.0bT~2.10.0b:~2.10.0b:~2.10.0bZ',
+     │         ~
+     │
+     └─ lib/elixlsx/util.ex:139:9
+
+    warning: using single-quoted strings to represent charlists is deprecated.
+    Use ~c"" if you indeed want a charlist or use "" instead.
+    You may run "mix format --migrate" to change all single-quoted
+    strings to use the ~c sigil and fix this warning.
+    │
+ 34 │     {'docProps/app.xml', XMLTemplates.docprops_app()}
+    │      ~
+    │
+    └─ lib/elixlsx/writer.ex:34:6
+
+    warning: using single-quoted strings to represent charlists is deprecated.
+    Use ~c"" if you indeed want a charlist or use "" instead.
+    You may run "mix format --migrate" to change all single-quoted
+    strings to use the ~c sigil and fix this warning.
+    │
+ 40 │     {'docProps/core.xml', XMLTemplates.docprops_core(timestamp)}
+    │      ~
+    │
+    └─ lib/elixlsx/writer.ex:40:6
+
+    warning: using single-quoted strings to represent charlists is deprecated.
+    Use ~c"" if you indeed want a charlist or use "" instead.
+    You may run "mix format --migrate" to change all single-quoted
+    strings to use the ~c sigil and fix this warning.
+    │
+ 56 │     {'_rels/.rels', XMLTemplates.rels_dotrels()}
+    │      ~
+    │
+    └─ lib/elixlsx/writer.ex:56:6
+
+    warning: using single-quoted strings to represent charlists is deprecated.
+    Use ~c"" if you indeed want a charlist or use "" instead.
+    You may run "mix format --migrate" to change all single-quoted
+    strings to use the ~c sigil and fix this warning.
+    │
+ 70 │       {'xl/_rels/workbook.xml.rels',
+    │        ~
+    │
+    └─ lib/elixlsx/writer.ex:70:8
+
+    warning: using single-quoted strings to represent charlists is deprecated.
+    Use ~c"" if you indeed want a charlist or use "" instead.
+    You may run "mix format --migrate" to change all single-quoted
+    strings to use the ~c sigil and fix this warning.
+    │
+ 86 │     {'xl/styles.xml', XMLTemplates.make_xl_styles(wci)}
+    │      ~
+    │
+    └─ lib/elixlsx/writer.ex:86:6
+
+    warning: using single-quoted strings to represent charlists is deprecated.
+    Use ~c"" if you indeed want a charlist or use "" instead.
+    You may run "mix format --migrate" to change all single-quoted
+    strings to use the ~c sigil and fix this warning.
+    │
+ 91 │     {'xl/workbook.xml', XMLTemplates.make_workbook_xml(data, sheetCompInfos)}
+    │      ~
+    │
+    └─ lib/elixlsx/writer.ex:91:6
+
+    warning: using single-quoted strings to represent charlists is deprecated.
+    Use ~c"" if you indeed want a charlist or use "" instead.
+    You may run "mix format --migrate" to change all single-quoted
+    strings to use the ~c sigil and fix this warning.
+    │
+ 96 │     {'xl/sharedStrings.xml',
+    │      ~
+    │
+    └─ lib/elixlsx/writer.ex:96:6
+
+     warning: using single-quoted strings to represent charlists is deprecated.
+     Use ~c"" if you indeed want a charlist or use "" instead.
+     You may run "mix format --migrate" to change all single-quoted
+     strings to use the ~c sigil and fix this warning.
+     │
+ 116 │     {'[Content_Types].xml', XMLTemplates.make_contenttypes_xml(wci)}
+     │      ~
+     │
+     └─ lib/elixlsx/writer.ex:116:6
+
+     warning: using single-quoted strings to represent charlists is deprecated.
+     Use ~c"" if you indeed want a charlist or use "" instead.
+     You may run "mix format --migrate" to change all single-quoted
+     strings to use the ~c sigil and fix this warning.
+     │
+ 426 │     '<col min="#{k}" max="#{k}"#{width_attr}#{hidden_attr}#{outline_level_attr}#{collapsed_attr} />'
+     │     ~
+     │
+     └─ lib/elixlsx/xml_templates.ex:426:5
+
+==> argon2_elixir
+
+Microsoft (R) Program Maintenance Utility Version 14.50.35721.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+	del /Q /F priv
+	erl -noshell -eval "io:format(\"ERTS_INCLUDE_PATH=~ts/erts-~ts/include/\", [code:root_dir(), erlang:system_info(version)])." -s init stop > Makefile.auto.win
+	nmake /                   /F Makefile.win priv\argon2_nif.dll
+
+Microsoft (R) Program Maintenance Utility Version 14.50.35721.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+	if NOT EXIST "priv" mkdir "priv"
+	cl /O2 /EHsc /I"argon2\include" /I"argon2\src" /I"c:/Users/Frikk/AppData/Local/Temp/barkdown-c073-toolchain/erlang/erts-15.2.7/include/" /LD /MD /Fepriv\argon2_nif.dll argon2\src\argon2.c argon2\src\core.c argon2\src\blake2\blake2b.c argon2\src\thread.c argon2\src\encoding.c argon2\src\ref.c c_src\argon2_nif.c
+Microsoft (R) C/C++ Optimizing Compiler Version 19.50.35721 for x64
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+argon2.c
+core.c
+blake2b.c
+thread.c
+encoding.c
+ref.c
+argon2_nif.c
+Generating Code...
+Microsoft (R) Incremental Linker Version 14.50.35721.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/dll 
+/implib:priv\argon2_nif.lib 
+/out:priv\argon2_nif.dll 
+argon2.obj 
+core.obj 
+blake2b.obj 
+thread.obj 
+encoding.obj 
+ref.obj 
+argon2_nif.obj 
+   Creating library priv\argon2_nif.lib and object priv\argon2_nif.exp
+Compiling 3 files (.ex)
+Generated argon2_elixir app
+==> cc_precompiler
+Compiling 3 files (.ex)
+Generated cc_precompiler app
+==> expty
+Compiling 4 files (.ex)
+    warning: Kino.SmartCell.register/1 is undefined (module Kino.SmartCell is not available or is yet to be defined)
+    │
+  6 │     if Code.ensure_loaded?(Kino), do: Kino.SmartCell.register(ExPTY.SmartCell)
+    │                                                      ~
+    │
+    └─ lib/expty_application.ex:6:54: ExPTY.Application.start/2
+
+Generated expty app
+==> websock
+Compiling 1 file (.ex)
+Generated websock app
+==> bandit
+Compiling 54 files (.ex)
+Generated bandit app
+==> websock_adapter
+Compiling 4 files (.ex)
+Generated websock_adapter app
+==> phoenix
+Compiling 74 files (.ex)
+Generated phoenix app
+==> phoenix_live_view
+Compiling 49 files (.ex)
+Generated phoenix_live_view app
+==> phoenix_live_dashboard
+Compiling 36 files (.ex)
+Generated phoenix_live_dashboard app
+==> sweet_xml
+Compiling 2 files (.ex)
+Generated sweet_xml app
+==> corsica
+Compiling 3 files (.ex)
+Generated corsica app
+==> barkpark
+===> Failed to restore c:/Users/Frikk/.codex/worktrees/barkpark-paper-create/api/deps/cowlib/_build/prod/lib/.rebar3/rebar_compiler_erl/source.dag file. Discarding it.
+
+===> Analyzing applications...
+===> Compiling cowlib
+===> Failed to restore c:/Users/Frikk/.codex/worktrees/barkpark-paper-create/api/deps/cowboy/_build/prod/lib/.rebar3/rebar_compiler_erl/source.dag file. Discarding it.
+
+===> Analyzing applications...
+===> Compiling cowboy
+===> Failed to restore c:/Users/Frikk/.codex/worktrees/barkpark-paper-create/api/deps/esaml/_build/prod/lib/.rebar3/rebar_compiler_erl/source.dag file. Discarding it.
+
+===> Analyzing applications...
+===> Compiling esaml
+==> swoosh
+Compiling 60 files (.ex)
+Generated swoosh app
+==> saxy
+Compiling 19 files (.ex)
+Generated saxy app
+==> xlsx_reader
+Compiling 18 files (.ex)
+Generated xlsx_reader app
+==> phoenix_ecto
+Compiling 7 files (.ex)
+Generated phoenix_ecto app
+==> cloak_ecto
+Compiling 23 files (.ex)
+Generated cloak_ecto app

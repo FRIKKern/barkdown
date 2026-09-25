@@ -6,7 +6,7 @@ import {comparePixels} from '../../../../scripts/visual-diff.mjs';
 const require=createRequire(path.resolve('app/package.json'));
 const {PNG}=require('pngjs');
 const out='docs/cycles/evidence/C073';
-const before=JSON.parse(execFileSync('git',['show','HEAD:docs/images/status/manifest.json'],{encoding:'utf8'}));
+const before=JSON.parse(execFileSync('git',['show','d4e35675f98691277b17c6837255f05be13d63ab:docs/images/status/manifest.json'],{encoding:'utf8'}));
 const after=JSON.parse(fs.readFileSync('docs/images/status/manifest.json','utf8'));
 const results=[];
 for(const shot of after.shots.filter(x=>x.file.endsWith('.png'))){

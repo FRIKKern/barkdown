@@ -1,0 +1,176 @@
+design/check.mjs — Part 0: the audit verb table's own shape (cloud/priv/audit-actions.json)
+  ok   cloud/priv/audit-actions.json well-formed — 58 declared verbs, 56 labelled, 2 declared unlabelled WITH a reason.
+design/check.mjs — Part A: per-surface byte parity + generated-region attribution
+  ok   cloud SPA (cloud/priv/static/app.css)
+  ok   cloud SPA theme ids (cloud/priv/static/app.js)
+  ok   cloud SPA audit action labels (cloud/priv/static/app.js)
+  ok   paper-surface (api/assets/paper-surface/paper-surface.css)
+  ok   Studio (api/lib/barkpark_web/layouts/root.html.heex)
+  ok   /papers reader skin (api/lib/barkpark_web/layouts/bulldocs.html.heex)
+  ok   web demo (web/app/globals.css)
+  ok   web TS tokens (web/lib/tokens.gen.ts)
+  ok   react status vocabulary (js/packages/react/src/status-vocab.gen.ts)
+  ok   web status ladder (web/lib/status-ladder.gen.ts)
+  ok   mobile status vocabulary (apps/mobile/src/papers/portabledoc/blocks/status-vocab.gen.ts)
+  ok   Go board (internal/taskboard/tokens_gen.go)
+  ok   Go pdrender (internal/pdrender/tokens_gen.go)
+  ok   Go semrole (internal/semrole/tokens_gen.go)
+  ok   Go CLI chrome (internal/semrole/chrome_gen.go)
+  ok   Elixir render tokens (api/lib/barkpark/portable_doc/render/tokens_gen.ex)
+  ok   Elixir Studio categorical tokens (api/lib/barkpark_web/studio/tokens_gen.ex)
+  ok   login (session_html) (api/lib/barkpark_web/controllers/session_html.ex)
+  ok   error page (error_html) (api/lib/barkpark_web/controllers/error_html.ex)
+  ok   status page chrome (api/lib/barkpark_web/controllers/status_controller.ex)
+  ok   /sheets reader (api/lib/barkpark_web/layouts/sheets.html.heex)
+  ok   living styleguide swatches (cloud/priv/static/styleguide.html)
+  ok   search-starter theme tokens (templates/search-starter/app/globals.css)
+  ok   astro-search-starter theme tokens (templates/astro-search-starter/src/styles/globals.css)
+  ok   bp-graph palette (1/4) (api/priv/static/assets/bp-graph.js)
+  ok   bp-graph palette (2/4) (web/public/bp-graph.js)
+  ok   bp-graph palette (3/4) (templates/search-starter/public/bp-graph.js)
+  ok   bp-graph palette (4/4) (templates/astro-search-starter/public/bp-graph.js)
+  ok   paper-editor mirror (api/assets/paper-editor/src/styles.css)
+
+design/check.mjs — Part B (§6): GUI/TUI lifecycle parity
+  ok   9 lifecycle states agree across Go + CSS + Studio (CSS var + TokensGen) + tokens (glyph, colour, frames); done/closed teal ≠ status.ok green
+
+design/check.mjs — Part C: Studio type-scale parity
+  ok   8 chrome type steps emit --text-* vars matching tokens.type.chrome (size + line-height)
+
+design/check.mjs — Part C2: web type-ladder single source
+  ok   8 chrome (derived from tokens.type.chrome, descending size) + 4 reading steps emit typed {size,lineHeight,weight} into web/lib/tokens.gen.ts, and web/components/styleguide.tsx consumes them without restating a step
+
+design/check.mjs — Part D: cloud-console (instanceLifecycle + provider) parity
+  ok   7 instance states + 2 provider marks agree across CSS + Go + tokens (glyph, role→hue, tint hex)
+
+design/check.mjs — Part E: hand-stamped color-literal exemption ledger
+  Part E FAIL: api/priv/static/assets/bp-paper-editor-shell.css GREW 98 → 116 (+18). A new hand-stamped color literal was added outside the generated block. Tokenize it (consume var(--…) from the emitted BEGIN/END GENERATED block); if it is genuinely un-tokenizable, RAISE the baseline in design/exemptions.json IN THIS SAME DIFF with a note.
+  Part E FAIL: api/assets/paper-editor/src/styles.css GREW 57 → 59 (+2). A new hand-stamped color literal was added outside the generated block. Tokenize it (consume var(--…) from the emitted BEGIN/END GENERATED block); if it is genuinely un-tokenizable, RAISE the baseline in design/exemptions.json IN THIS SAME DIFF with a note.
+  path                                              baseline  actual  delta
+  api/lib/barkpark_web/layouts/root.html.heex       67        67      0     ok  
+  api/priv/static/assets/bp-paper-editor-shell.css  98        116     +18   GREW
+  api/lib/barkpark_web/layouts/bulldocs.html.heex   49        49      0     ok  
+  cloud/priv/static/app.css                         32        32      0     ok  
+  internal/cli/setup/assets/deploy.sh               4         4       0     ok  
+  api/assets/paper-editor/src/styles.css            57        59      +2    GREW
+  api/assets/paper-surface/paper-surface.css        45        45      0     ok  
+  web/public/bp-graph.js                            26        26      0     ok  
+  api/priv/static/assets/bp-graph.js                26        26      0     ok  
+  TOTAL                                             404       424   
+
+design/check.mjs — Part F: theme compiler characterization (derive(evergreen) === tokens)
+  ok   schema: charple — {bg,ink,accent}×2 modes, 2 reasoned override(s), 11 declared passthrough(s)
+  ok   schema: ember — {bg,ink,accent}×2 modes, 3 reasoned override(s), 11 declared passthrough(s)
+  ok   schema: evergreen — {bg,ink,accent}×2 modes, 82 reasoned override(s), 11 declared passthrough(s)
+  ok   schema: fjord — {bg,ink,accent}×2 modes, 3 reasoned override(s), 11 declared passthrough(s)
+  ok   schema: iris — {bg,ink,accent}×2 modes, 0 reasoned override(s), 11 declared passthrough(s)
+  ok   charple: complete (0 unresolved), bare skin resolves all 168 slots natively (100.0% formula), 166 native / 2 pinned = 98.8% native [reported, not gated]
+  ok   ember: complete (0 unresolved), bare skin resolves all 168 slots natively (100.0% formula), 165 native / 3 pinned = 98.2% native [reported, not gated]
+  ok   evergreen: complete (0 unresolved), bare skin resolves all 168 slots natively (100.0% formula), 86 native / 82 pinned = 51.2% native [reported, not gated]
+  ok   fjord: complete (0 unresolved), bare skin resolves all 168 slots natively (100.0% formula), 165 native / 3 pinned = 98.2% native [reported, not gated]
+  ok   iris: complete (0 unresolved), bare skin resolves all 168 slots natively (100.0% formula), 168 native / 0 pinned = 100.0% native [reported, not gated]
+  ok   contract: derive SLOTS (168) === tokens theme-varying leaves (168) — no underived hole, no phantom slot
+  ok   bytes: derive(evergreen) reproduces all 168 tokens slots exactly (HSL/hex/rgba/var formats)
+  family             native  pinned
+  primary            2       0
+  primary-hover      2       0
+  primary-fg         1       1
+  bg                 2       0
+  surface            1       1
+  muted-surface      0       2
+  text               2       0
+  muted-text         0       2
+  border             0       2
+  ring               1       1
+  accent             0       2
+  reading-accent     0       2
+  code               0       4
+  paper.surface      9       13
+  paper.reader       15      2
+  mailChrome         10      2
+  cliCalloutNeutral  0       2
+  status             0       8
+  onStatus           7       1
+  studioChrome       6       6
+  cliChrome          12      11
+  paperEmail         8       0
+  paperCallout       0       20
+  verdict            8       0
+  ok   Part F PASS — the theme compiler reproduces evergreen byte-for-byte; adding theme N+1 is one more design/themes/*.json.
+
+design/check.mjs — Part G: [data-bp-theme] identity blocks + tone-pair nesting
+  ok   theme-identity roster DERIVED from emit.mjs themeBlocks() call sites: 10 surface(s) (floor 10), output-derived roster agrees (10)
+  ok   no --life-*/--provider-*/--cc-*/.bp-lg--/.bp-inst-- leaked into any [data-bp-theme] scope
+  ok   tone-pair: cloud re-declares all 10 theme vars at BOTH the light and dark mode scope (nested dark-in-light resolves the opposite pair)
+  ok   Part G PASS — every attribute surface carries a [data-bp-theme] block; identity ⟂ mode; no passthrough leak.
+
+design/check.mjs — Part H: WCAG-AA fg×surface contrast (curated Studio pairings)
+  ok   27 curated pairings × 5 themes × 2 modes = 270 checks, all ≥ AA (text 4.5 / nontext 3.0)
+  ok   verdict arm: 6 loss/peace pairings (ink on soft wash + ink on page) × 5 themes × 2 modes = 60 checks, all ≥ AA 4.5
+
+design/check.mjs — Part H2: WCAG contrast of the bp-graph Canvas palette (keyed on the resolved colour)
+  ok   49 distinct colour pairs (keyed on the resolved ink|ground, from 75 ink names × 2 grounds; 22 translucent and 82 overlay-chrome names out of scope) derived from color.graphCanvas (91) ∪ web/public/bp-graph.js (93), all ≥ AA (text 4.5 / nontext 3.0), 0 waived; accepted-exposure record present and intact (460 words, option (b), premise live-checked (1 venue doc-gates.yml of 81 workflow(s), "Doc budgets + anchors" absent from the 4 required context(s), strict=false))
+design/check.mjs — Part I: write-fence predicates
+  ok   4 attribution outcomes + 3 lostLines properties
+
+design/check.mjs — Part J: air-scale consumer census
+  ok   6 air steps emitted as beat ratios, bridged onto --bp-air-*, and each read by a live consumer
+
+design/check.mjs — Part K: evidence-band consumer census
+  ok   5 evidence tokens emitted with their authored units, bridged onto --bp-evidence-*, all four geometry terms folded into one composed width, and 5 breakout rules + 4 article figures reading the width/pull pair
+
+design/check.mjs — Part L: section-boundary consumer census
+  ok   3 section tokens emitted, bridged and consumed on both the reader and the editor surface, each head spending all three on one declaration, and the reader carrying its keyed-stream leg
+
+design/check.mjs — Part M: rule-ladder consumer census + heavy-declaration scan
+  ok   --tok-rule-hairline emitted, bridged and consumed on both surfaces, and neither stylesheet declares a horizontal border at or above the 2px structural weight
+
+design/check.mjs — Part N: motion-ladder parity + hand-typed duration ratchet
+  Part N FAIL: api/priv/static/assets/bp-paper-editor-shell.css GREW 19 → 20 (+1). A new hand-typed duration literal landed in a transition/animation declaration. Spend a ladder rung — var(--dur-1|--dur-2|--dur-3) — from the emitted GENERATED block; if the timing is genuinely off-ladder (a spinner loop, a long attention pulse), RAISE the baseline in design/exemptions.json IN THIS SAME DIFF with a note saying which literal and why.
+  Part N FAIL: api/assets/paper-editor/src/styles.css GREW 9 → 10 (+1). A new hand-typed duration literal landed in a transition/animation declaration. Spend a ladder rung — var(--dur-1|--dur-2|--dur-3) — from the emitted GENERATED block; if the timing is genuinely off-ladder (a spinner loop, a long attention pulse), RAISE the baseline in design/exemptions.json IN THIS SAME DIFF with a note saying which literal and why.
+  path                                              baseline  actual  delta
+  api/lib/barkpark_web/layouts/root.html.heex       11        11      0     ok  
+  api/priv/static/assets/bp-paper-editor-shell.css  19        20      +1    GREW
+  api/lib/barkpark_web/layouts/bulldocs.html.heex   22        22      0     ok  
+  api/assets/paper-surface/paper-surface.css        9         9       0     ok  
+  api/assets/paper-editor/src/styles.css            9         10      +1    GREW
+  cloud/priv/static/app.css                         16        16      0     ok  
+  web/app/globals.css                               1         1       0     ok  
+  api/lib/barkpark_web/controllers/session_html.ex  1         1       0     ok  
+  cloud/priv/static/styleguide.html                 1         1       0     ok  
+  TOTAL                                             89        91    
+
+design/check.mjs — Part O: hand-stamped type/measure literal ratchet
+  Part O FAIL: api/priv/static/assets/bp-paper-editor-shell.css GREW 143 → 150 (+7). A new hand-stamped type/measure literal landed in a font-size/letter-spacing/line-height/max-width declaration.
+    first literal past the baseline: api/priv/static/assets/bp-paper-editor-shell.css:2332: line-height: 1.3
+    Consume the emitted type scale (var(--text-…)/var(--paper-…)) instead; if the value is genuinely un-tokenizable, RAISE the baseline in design/exemptions.json IN THIS SAME DIFF with a note saying which literal and why.
+  path                                              baseline  actual  delta
+  api/lib/barkpark_web/layouts/root.html.heex       119       119     0     ok  
+  api/priv/static/assets/bp-paper-editor-shell.css  143       150     +7    GREW
+  api/lib/barkpark_web/layouts/bulldocs.html.heex   64        64      0     ok  
+  cloud/priv/static/app.css                         310       310     0     ok  
+  api/assets/paper-editor/src/styles.css            72        72      0     ok  
+  api/assets/paper-surface/paper-surface.css        185       185     0     ok  
+  TOTAL                                             893       900   
+
+design/check.mjs — Part P: terminal space-ladder Go consumer census
+  ok   7 terminal space symbols emitted from space.air/section/rule, each read by a live consumer in internal/pdrender (169 candidate file(s))
+
+design/check.mjs — Part Q: pdrender downstream golden-consumer agreement
+       cmd/barkpark  (5 pdrender importer file(s), 0 section-boundary device(s) in testdata/)
+       internal/chat  (5 pdrender importer file(s), 0 section-boundary device(s) in testdata/)
+       internal/cli  (6 pdrender importer file(s), 0 section-boundary device(s) in testdata/)
+       internal/taskboard  (4 pdrender importer file(s), 3 section-boundary device(s) in testdata/)
+  ok   4 downstream golden consumer(s) derived by predicate; 3 downstream + 4 pdrender device(s) agree on 4 blank row(s) above / 1 below / "━"
+
+design/check.mjs — Part R: reading-face advance pin vs the paper-surface container gate
+       Iowan Old Style       10.0107 px/ch  floor 630.588px  headroom 89.412px
+       Palatino Linotype           9 px/ch  floor 575.000px  headroom 145.000px
+       Palatino                    9 px/ch  floor 575.000px  headroom 145.000px
+       Charter               10.0107 px/ch  floor 630.588px  headroom 89.412px
+       Georgia               11.0479 px/ch  floor 687.635px  headroom 32.365px
+       Source Serif 4          9.522 px/ch  floor 603.710px  headroom 116.290px
+       serif                       9 px/ch  floor 575.000px  headroom 145.000px
+  ok   7 face(s) from design/tokens.json font.reading.stack swept by predicate against the 55ch + 2*40px floor behind @container content (min-width: 720px); worst is Georgia at 32.365px headroom, crossing starts at 11.6364 px/ch
+
+design/check.mjs: FAILED — see the labelled failure(s) above.

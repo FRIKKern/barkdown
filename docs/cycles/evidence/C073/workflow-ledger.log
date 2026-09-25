@@ -1,0 +1,27 @@
+── fully-unledgered workflows (no job name carries a status in .github/required-checks.json) ──
+   barkdown-parity.yml
+   bp-graph-drift.yml
+   codebase-intel.yml
+   connectors.yml
+   cp-ops.yml
+   create-quickstart-smoke.yml
+   deploy.yml
+   deprecate.yml
+   elixir-main-red-attribution.yml
+   elixir-nightly.yml
+   grip-suite.yml
+   landed-open-report.yml
+   paper-readers.yml
+   pds-scratch-round-trip.yml
+   plugin-node.yml
+   release.yml
+   retag.yml
+   scaffy-catalog-drift.yml
+   scheduled-arm-health.yml
+   sdk-tests.yml
+   weekly-changelog.yml
+   windows-smoke.yml
+   count=22 baseline=21
+FAIL: the unledgered-workflow population GREW (21 -> 22).
+      A workflow with no row at all is judged by nothing until a sampled head happens to render one of its names, so this red is the ONLY thing that sees it at PR time.
+      FIX: add a row to .exclusions in .github/required-checks.json for at least one job name in the new workflow, saying WHAT the check is and WHY it does not gate (S2 advisory / S3 subsumed / S4 paths-filtered or structurally absent on a PR head / S6 leaf of an excluded aggregator / S7 by decision), or register it.

@@ -1,0 +1,12 @@
+PASS  describe(): a link's href, a wikilink's target and docId
+PASS  hovering the link shows its host and address; Edit shows in edit mode
+PASS  the body portal follows the hovered paper theme on each opening
+PASS  hovering the wikilink shows [[target]] at once, then the resolved title and first line
+PASS  Open on a wikilink dispatches bp-canvas-open-link with target, docId and the resolved href; a handled event opens no window
+PASS  Open on a plain link that nobody handles falls back to a new window
+PASS  Edit on the link selects the whole link and opens the bubble's link row seeded with the href
+PASS  Edit on the wikilink selects the whole wikilink text
+PASS  read-only: the card still shows the address but no Edit
+PASS  mouseover shows after the delay, mouseout hides after its delay; a keypress hides at once; destroy removes the card
+
+OK

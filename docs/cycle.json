@@ -16,8 +16,13 @@
   ],
   "checkpoint": "2026-09-25",
   "handoff": "docs/cycles/C073-upstream-integration.md",
-  "nextAction": "Finish SDK regeneration and adjacent gates, commit the upstream integration candidate, then run source-bound parity/media and hosted gates.",
-  "evidence": [],
-  "truthReview": "",
-  "screenshotReview": ""
+  "nextAction": "Review required upstream checks on39d76cd9b, resolve remaining owned failures, and reconcile merge/deployment scope after the candidate is validated.",
+  "evidence": [
+    "docs/cycles/evidence/C073/README.md",
+    "docs/cycles/evidence/C073/parity.json",
+    "docs/cycles/evidence/C073/status-review.json",
+    "docs/cycles/evidence/C073/linkpreview-review.json"
+  ],
+  "truthReview": "Integration candidate preserves both histories; app pin and fallback remain unchanged. Required hosted follow-up and deployment boundary remain open. See C073 handoff.",
+  "screenshotReview": "Five live stills, five differences and 37 GIF frames accepted, plus three inspected link-preview theme/narrow views. Source and hashes in C073 reviews."
 }

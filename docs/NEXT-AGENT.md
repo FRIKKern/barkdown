@@ -1,11 +1,13 @@
 # Current handoff
 
-**Current cycle:** [C073 upstream integration](cycles/C073-upstream-integration.md), active. Barkdown PR33 merged at a772217 after all checks passed; local main is updated. P2/A2 remain open.
+**Current cycle:** [C073 upstream integration](cycles/C073-upstream-integration.md), active. Barkdown PR33 merged at a772217 after all checks passed. P2/A2 remain open.
 
-**Delivery:** codex/paper-library in C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration; PR33 merged, next integration evidence needs a new PR. Related upstream lane: codex/paper-create-only, PR20020 at 446f29ced, now targeting main. Upstream merge and deployment have not occurred.
+**Delivery:** reuse codex/paper-library for the new evidence PR. Upstream codex/paper-create-only has current-main integration446f29ced and pushed contract follow-up 39d76cd9b; [PR20020](https://github.com/FRIKKern/barkpark/pull/20020) targets main. No upstream merge or deployment.
 
-**Next action:** validate the committed upstream integration candidate with real Paper journeys and hosted gates; resolve any regressions before merge review. Preserve older refs and task evidence until combined parity passes. The retained-evidence viewer follows integration; migration activation remains separate.
+**Next action:** review required checks on 39d76cd9b and resolve remaining owned failures. Publish the Barkdown evidence lane. Keep the existing task claimed; do not grow dependent work while integration is unresolved.
 
-**Proof:** C071 desktop/root, real HTTP/native restart and reviewed media passed. Barkdown0606c7d subsequently passed hosted Verify, Visual and Editor parity. The upstream branch remains open/unstable; inspect live checks rather than treating historical failures as current. See C071's hosted review for the last detailed diagnosis.
+**Proof:** [C073 evidence](cycles/evidence/C073/README.md) records234 server tests, 20/20 real editor rows, exact deletion/recovery, fresh production compile and reviewed live/hover media. Initial full Linux suite found9 contract failures;111 targeted follow-up tests and the repaired census pass. Fresh required CI is running. Advisory SDK budget drift is source-identical to main. Read the cycle for exact IDs and attribution.
 
-**Working rules:** preflight actual toolchain/platform, test adjacent contracts early, complete the visual smoke journey before broad capture, read evidence summaries first and recheck the prior lesson in the next relevant cycle. Canonical details live in [CYCLES](CYCLES.md#preflight-and-integration-first) and [visual rules](visual/RULES.md#before-broad-capture). Historical locked worktrees and legacy/user data remain preserved; no owned service is running.
+**Limits:** app/BARKPARK_REF and fallback bundle remain bf23f773; fresh proof is for the connected private runtime. Upstream main auto-deploys affected hosts, so merge/deployment scope must be resolved after validation. Migration activation and the retained-evidence viewer remain open. Older branch refs and historical worktrees are preserved; owned runtimes are stopped.
+
+**Working rules:** canonical workflow is [CYCLES](CYCLES.md#preflight-and-integration-first), visual authority is [visual rules](visual/RULES.md). Check the real toolchain, line endings, PR base and published task before expensive runs. Review evidence summaries first; stopped or skipped checks are never passes.

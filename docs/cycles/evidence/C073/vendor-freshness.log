@@ -1,0 +1,18 @@
+ok   @barkpark/core 1.0.0-preview.3 — source sha256:75f621f9c1662d22… vs stamped sha256:75f621f9c1662d22…
+FAIL @barkpark/react 1.0.0-preview.1 — source sha256:9c5598621ee98efd… vs stamped sha256:27ee230de7f4ac54…
+FAIL SOURCE-ARTIFACT-MISMATCH @barkpark/react: templates/search-starter/vendor/barkpark-react.tgz does not correspond to its source
+       COPIED-ASSET package/dist/paper-surface.css is NOT the current api/assets/paper-surface/paper-surface.css
+       source   sha256:cac9f99dd44b94b9… (175823 bytes)
+       artifact sha256:e523e4dfe041db7c… (175396 bytes)
+       the vendored SDK ships a stale copy of a file the repo has since changed
+FAIL SOURCE-ARTIFACT-MISMATCH @barkpark/react: templates/astro-search-starter/vendor/barkpark-react.tgz does not correspond to its source
+       COPIED-ASSET package/dist/paper-surface.css is NOT the current api/assets/paper-surface/paper-surface.css
+       source   sha256:cac9f99dd44b94b9… (175823 bytes)
+       artifact sha256:e523e4dfe041db7c… (175396 bytes)
+       the vendored SDK ships a stale copy of a file the repo has since changed
+FAIL STALE-SOURCE @barkpark/react: js/packages/react changed since the tarball was cut on 2026-09-24
+       stamped source digest sha256:27ee230de7f4ac54bd7b9002411cab12417fbd8e960b20c8e8f815e7fbf076a0
+       current source digest sha256:9c5598621ee98efd50e9e1b4604fcf0f109fe26be306fd23239fd933bee35a4e
+       the vendored SDK is BEHIND main; every scaffolded user gets the old bytes.
+       re-cut: bash scripts/recut-vendor-tarballs.sh
+3 freshness failure(s)
