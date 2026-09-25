@@ -1,0 +1,64 @@
+{
+  "source": "fde62772f47cd974b7b48f33a887e0ba5ca1d4e5",
+  "upstream": "b702140907921e82e9ce5eecb3e2445f13ab2d6e",
+  "status": "failed",
+  "checks": [
+    {
+      "name": "mixed library, links, media and organization",
+      "result": {
+        "version": 1,
+        "status": "compared",
+        "identity": {
+          "profileId": "6a50644e-f245-410e-85bb-5f424aa2e9c5",
+          "preparationId": "a528de8f-18a8-4b64-a33e-547b3c1fb2f2",
+          "closureId": "d5e0a440-c2a9-4b81-b7cc-b4b7b04fcac0",
+          "writer": {
+            "version": 1,
+            "owner": "0099795c-b0fe-359b-c271-bad1deba6b93",
+            "generation": "7c164899-5a09-4000-8aeb-a7de5f386227"
+          },
+          "draftKeys": [],
+          "target": {
+            "profileId": "6a50644e-f245-410e-85bb-5f424aa2e9c5",
+            "runtimeId": "owned-isolated-6a50644e-f245-410e-85bb-5f424aa2e9c5",
+            "server": "http://127.0.0.1:63027",
+            "dataset": "production"
+          },
+          "sourceHash": "b35e8205fe1ad4a00351c07ff5e3e5da996cbaf7415f5794805dfadbda709155",
+          "manifestHash": "d23a081cdf81c3e4739f48427dc0e059e057e6a1881374d859f08828d5719cea",
+          "projectionHash": "1d73882d646feeae2dbc54c7ac11aa4f5f7f248b4a6de3bfa56701a61f6fd155"
+        },
+        "baselineHash": "bf054c683ced9840fad1ab055698a859138a2fa87db678c6369434b62cd2ce3a",
+        "planHash": "26c9506b4e49f95e11888c52c0b69e5326b9792b5723ebf51e154329f10548a9",
+        "corpusHash": "374bec0ab864bddaab2844c6546bd4eb731d174083d213328b42316a6c8dcf55",
+        "mediaHash": "5cf5c05df96bd8ba981782065971ffc7fa9600726d6c8eb161a10db285aae242",
+        "documents": 206,
+        "staged": 2,
+        "preserved": 204,
+        "media": 1,
+        "workspaceHash": "1d73882d646feeae2dbc54c7ac11aa4f5f7f248b4a6de3bfa56701a61f6fd155",
+        "authority": "legacy",
+        "activationAllowed": false,
+        "limits": [
+          "Observed reads are not a server snapshot or a fence for direct upstream clients."
+        ]
+      }
+    },
+    {
+      "name": "new coordinator revalidates existing preparation",
+      "passed": true
+    },
+    {
+      "name": "interrupted read has no repair writes; retry rechecks",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Headless coordinator with controlled foreground hooks; native GUI freeze is separate evidence.",
+    "Read-only internal rehearsal; no authority switch, server snapshot or direct-client fence."
+  ],
+  "initialPaperIds": [
+    "welcome"
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: {\"error\":{\"code\":\"conflict\",\"message\":\"document already exists\",\"hint\":\"The document already exists — use a createOrReplace/patch mutation instead of create.\",\"request_id\":\"GNikFtuANoDyT3IAASYB\"}}\n\n409 !== 200\n"
+}

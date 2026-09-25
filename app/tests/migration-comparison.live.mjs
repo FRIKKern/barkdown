@@ -84,9 +84,10 @@ try {
   await assert.rejects(adapter.compare(options, interrupted), /Interrupted/);
   assert.deepEqual(snapshots(destinationDir), before); assert.deepEqual(await adapter.compare(options, target), result);
   report.checks.push({ name: 'interrupted read has no repair writes; retry rechecks', passed: true });
-  await request('POST', '/v1/data/mutate/production', { mutations: [{ create: { _id: 'existing-0', _type: 'paper', title: 'A later human change', blocks: [], rev: 1 } }] });
+  const priorDraft = await request('GET', '/v1/data/doc/production/paper/drafts.existing-0?perspective=raw');
+  await request('POST', '/v1/plugins/bulldocs/papers/drafts.existing-0/ops', { ifRev: priorDraft.rev ?? 0, ops: [{ op: 'append-block', block: { id: 'later-human', type: 'paragraph', content: [{ type: 'text', value: 'A later human change' }] } }] });
   await assert.rejects(adapter.compare(options, target), /pre-existing/);
-  assert.equal((await request('GET', '/v1/data/doc/production/paper/drafts.existing-0?perspective=raw')).title, 'A later human change');
+  assert.ok((await request('GET', '/v1/data/doc/production/paper/drafts.existing-0?perspective=raw')).blocks.some(block => block.id === 'later-human'));
   report.checks.push({ name: 'later draft change refuses without overwriting', passed: true });
   await prep.abort(profile.id); await assert.rejects(adapter.compare(options, target), /Prepare/);
   report.checks.push({ name: 'cancellation invalidates comparison admission', passed: true });
