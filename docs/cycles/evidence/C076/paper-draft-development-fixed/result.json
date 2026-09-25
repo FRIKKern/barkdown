@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-25T14:45:03.928Z",
+  "source": "390308487a9fdd2365f5cecbb0460c0ef89ec4b2",
+  "sourceStatus": "M app/main/README.md\n M app/main/main.js\n M app/main/preload.js\n M app/package.json\n M app/renderer/src/tabs/README.md\n M app/renderer/src/tabs/paper.js\n M app/tests/paper-host.test.mjs\n M app/tests/paper-navigation.test.mjs\n M docs/cycles/C076-profile-preparation.md\n?? app/main/paper-draft-store.js\n?? app/tests/paper-draft-store.test.mjs\n?? app/tests/paper-draft.live.mjs\n?? docs/cycles/evidence/C076/paper-draft-development/\n?? docs/cycles/evidence/C076/paper-draft-plan.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T14:45:04.020Z",
+      "log": "build.log",
+      "elapsedMs": 637,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "draft-store",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "node",
+        "--test",
+        "app/tests/paper-draft-store.test.mjs",
+        "app/tests/paper-connection.test.mjs",
+        "app/tests/paper-navigation.test.mjs",
+        "app/tests/writer-admission.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T14:45:04.661Z",
+      "log": "draft-store.log",
+      "elapsedMs": 1466,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "paper-host",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "node",
+        "app/tests/paper-host.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T14:45:06.128Z",
+      "log": "paper-host.log",
+      "elapsedMs": 5933,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-09-25T14:45:12.063Z"
+}

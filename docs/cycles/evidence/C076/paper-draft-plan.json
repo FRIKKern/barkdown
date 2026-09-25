@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "steps": [
+    { "name": "build", "cwd": ".", "argv": ["npm", "--prefix", "app", "run", "build"] },
+    { "name": "draft-store", "cwd": ".", "argv": ["node", "--test", "app/tests/paper-draft-store.test.mjs", "app/tests/paper-connection.test.mjs", "app/tests/paper-navigation.test.mjs", "app/tests/writer-admission.test.mjs"] },
+    { "name": "paper-host", "cwd": ".", "argv": ["node", "app/tests/paper-host.test.mjs"] }
+  ]
+}

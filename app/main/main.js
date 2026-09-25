@@ -273,6 +273,18 @@ function registerIpc() {
     return publicSettings();
   });
   handle('app:pickFolder', async () => { const r = await dialog.showOpenDialog(win, { properties: ['openDirectory'] }); return r.canceled ? null : r.filePaths[0]; });
+  const draftStores = new Map();
+  const paperDrafts = () => {
+    if (!profileService) throw new Error('Paper draft recovery requires an owned profile.');
+    const profileId = profileService.view().profileId, root = profileRegistry.storeFor(profileId).storeDir;
+    if (!draftStores.has(profileId)) draftStores.set(profileId, { root, drafts: require('./paper-draft-store').createPaperDraftStore({ store: store.createStore(root, { create: false }), profileId }) });
+    const entry = draftStores.get(profileId);
+    if (entry.root !== root) throw new Error('Paper draft profile root changed.');
+    return entry.drafts;
+  };
+  handle('paperDrafts:retain', ({ token, draft }) => paperDrafts().retain(token, draft));
+  handle('paperDrafts:list', () => paperDrafts().list());
+  handle('paperDrafts:read', key => paperDrafts().read(key));
   const originalHistory = () => {
     if (!profileService) throw new Error('Original history requires an owned profile.');
     const profileId = profileService.view().profileId;
@@ -447,13 +459,15 @@ function registerIpc() {
   });
   handle('barkpark:get', async value => {
     const request = input(value), { id, binding } = request;
+    const drafts = profileService ? paperDrafts() : null;
     const result = await paperConnection.read(binding, async c => {
       if (Object.hasOwn(request, 'paperOwner')) paperNavigation.assert(request.paperOwner, c);
       const paperOwner = paperNavigation.identify(c);
       const paper = await (id.startsWith('drafts.') && paperOrigin(c).kind === 'local' ? draftNotes(c).read(id) : c.viaCli ? barkpark.cliGetPaper(id, c.cliRouting) : barkpark.getPaper(c, id));
       return { ...paper, paperOwner };
     });
-    return { ...result.value, binding: result.binding, connectionIdentity: result.connectionIdentity };
+    return { ...result.value, binding: result.binding, connectionIdentity: result.connectionIdentity,
+      recoveryToken: drafts?.open({ id, paperOwner: result.value.paperOwner }) };
   });
   handle('barkpark:search', async value => {
     const { id: query, binding } = input(value);

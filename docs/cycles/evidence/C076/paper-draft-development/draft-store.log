@@ -1,0 +1,249 @@
+TAP version 13
+# Subtest: missing, forged and foreign bindings refuse before any write
+ok 1 - missing, forged and foreign bindings refuse before any write
+  ---
+  duration_ms: 3.6966
+  ...
+# Subtest: server changes refuse old reads and writes before access
+ok 2 - server changes refuse old reads and writes before access
+  ---
+  duration_ms: 0.6502
+  ...
+# Subtest: dataset changes refuse old reads and writes before access
+ok 3 - dataset changes refuse old reads and writes before access
+  ---
+  duration_ms: 0.4157
+  ...
+# Subtest: token changes refuse old reads and writes before access
+ok 4 - token changes refuse old reads and writes before access
+  ---
+  duration_ms: 0.3975
+  ...
+# Subtest: viaCli changes refuse old reads and writes before access
+ok 5 - viaCli changes refuse old reads and writes before access
+  ---
+  duration_ms: 1.2442
+  ...
+# Subtest: connectionOwner changes refuse old reads and writes before access
+ok 6 - connectionOwner changes refuse old reads and writes before access
+  ---
+  duration_ms: 0.3827
+  ...
+# Subtest: A to B to A allows guarded retry with original routing
+ok 7 - A to B to A allows guarded retry with original routing
+  ---
+  duration_ms: 0.4773
+  ...
+# Subtest: writes permission is checked without changing connection identity
+ok 8 - writes permission is checked without changing connection identity
+  ---
+  duration_ms: 0.4562
+  ...
+# Subtest: settings changed during read cannot publish its result under a new connection
+ok 9 - settings changed during read cannot publish its result under a new connection
+  ---
+  duration_ms: 0.5545
+  ...
+# Subtest: multi-step operation holds original config across settings changes
+ok 10 - multi-step operation holds original config across settings changes
+  ---
+  duration_ms: 0.8753
+  ...
+# Subtest: CLI routing is captured once and never falls back to ambient defaults
+ok 11 - CLI routing is captured once and never falls back to ambient defaults
+  ---
+  duration_ms: 0.6949
+  ...
+# Subtest: CLI scope lookup completing after settings change is refused
+ok 12 - CLI scope lookup completing after settings change is refused
+  ---
+  duration_ms: 0.2572
+  ...
+# Subtest: bindings contain neither secrets nor destination and cannot cross sessions
+ok 13 - bindings contain neither secrets nor destination and cannot cross sessions
+  ---
+  duration_ms: 0.4267
+  ...
+# Subtest: permission revoked while capture yields refuses before access
+ok 14 - permission revoked while capture yields refuses before access
+  ---
+  duration_ms: 0.2957
+  ...
+# Subtest: disabled connection during a read cannot publish the result
+ok 15 - disabled connection during a read cannot publish the result
+  ---
+  duration_ms: 0.2233
+  ...
+# Subtest: retained local mutations can demand a binding without requiring server write permission
+ok 16 - retained local mutations can demand a binding without requiring server write permission
+  ---
+  duration_ms: 0.3291
+  ...
+# Subtest: durable exact title/body and raw Markdown survive restart, distinct versions and repeated retention
+ok 17 - durable exact title/body and raw Markdown survive restart, distinct versions and repeated retention
+  ---
+  duration_ms: 137.8481
+  ...
+# Subtest: same slug across profile, connection and mounted session stays separate
+ok 18 - same slug across profile, connection and mounted session stays separate
+  ---
+  duration_ms: 121.1178
+  ...
+# Subtest: forged owner fields cannot override the trusted Paper capability
+ok 19 - forged owner fields cannot override the trusted Paper capability
+  ---
+  duration_ms: 34.2101
+  ...
+# Subtest: serialization uncertainty, lossy JSON and invalid revisions refuse before writer admission
+ok 20 - serialization uncertainty, lossy JSON and invalid revisions refuse before writer admission
+  ---
+  duration_ms: 6.8012
+  ...
+# Subtest: corrupt immutable record refuses read, listing and idempotent retention
+ok 21 - corrupt immutable record refuses read, listing and idempotent retention
+  ---
+  duration_ms: 57.7889
+  ...
+# Subtest: copied recovery records cannot cross store ownership even with the same profile name
+ok 22 - copied recovery records cannot cross store ownership even with the same profile name
+  ---
+  duration_ms: 45.8288
+  ...
+# Subtest: storage failure retains writer uncertainty and returns no success receipt
+ok 23 - storage failure retains writer uncertainty and returns no success receipt
+  ---
+  duration_ms: 33.5373
+  ...
+# Subtest: closed writer refuses retention while existing records remain readable
+ok 24 - closed writer refuses retention while existing records remain readable
+  ---
+  duration_ms: 62.944
+  ...
+# Subtest: actual IPC handler preserves durable A ownership across restart and refuses B before read
+not ok 25 - actual IPC handler preserves durable A ownership across restart and refuses B before read
+  ---
+  duration_ms: 10.7109
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\paper-navigation.test.mjs:7:1'
+  failureType: 'testCodeFailure'
+  error: 'profileService is not defined'
+  code: 'ERR_TEST_FAILURE'
+  name: 'ReferenceError'
+  stack: |-
+    Object.barkpark:get (evalmachine.<anonymous>:31:20)
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/paper-navigation.test.mjs:7:256)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: unknown and malformed saved targets never read or create an ownership key
+not ok 26 - unknown and malformed saved targets never read or create an ownership key
+  ---
+  duration_ms: 5.2468
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\paper-navigation.test.mjs:8:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + Comparison {}
+    - Comparison {
+    -   code: 'paper_navigation_unknown'
+    - }
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    code: 'paper_navigation_unknown'
+  actual:
+  error: 'profileService is not defined'
+  name: 'ReferenceError'
+  stack: |-
+    Object.barkpark:get (evalmachine.<anonymous>:31:20)
+    assert.rejects.code (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/paper-navigation.test.mjs:8:205)
+    waitForActual (node:assert:826:21)
+    Function.rejects (node:assert:961:31)
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/paper-navigation.test.mjs:8:167)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:629:18)
+    Test.postRun (node:internal/test_runner/test:1042:19)
+    Test.run (node:internal/test_runner/test:970:12)
+  operator: 'rejects'
+  stack: |-
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/paper-navigation.test.mjs:8:154)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: catalog owner is generated locally and distinct for same-slug libraries
+ok 27 - catalog owner is generated locally and distinct for same-slug libraries
+  ---
+  duration_ms: 7.8901
+  ...
+# Subtest: explicitly typed source summaries never borrow another source or owner
+ok 28 - explicitly typed source summaries never borrow another source or owner
+  ---
+  duration_ms: 1.0909
+  ...
+# Subtest: CLI provider route and activity share one captured owner, independent of foreground settings
+ok 29 - CLI provider route and activity share one captured owner, independent of foreground settings
+  ---
+  duration_ms: 27.078
+  ...
+# Subtest: direct Page ancestor navigation trims the original-owner path and invokes its mounted controller
+ok 30 - direct Page ancestor navigation trims the original-owner path and invokes its mounted controller
+  ---
+  duration_ms: 1.2267
+  ...
+# Subtest: real HTTP creation stays admitted through delayed acknowledgement, readback and durable receipt
+ok 31 - real HTTP creation stays admitted through delayed acknowledgement, readback and durable receipt
+  ---
+  duration_ms: 121.3714
+  ...
+# Subtest: quiescence keeps an async mutation admitted through its receipt and rejects successors
+ok 32 - quiescence keeps an async mutation admitted through its receipt and rejects successors
+  ---
+  duration_ms: 54.5829
+  ...
+# Subtest: bound documents and captured API scopes retain the old generation; reads survive
+ok 33 - bound documents and captured API scopes retain the old generation; reads survive
+  ---
+  duration_ms: 136.4414
+  ...
+# Subtest: foreign tokens and nested owners refuse without changing either document store
+ok 34 - foreign tokens and nested owners refuse without changing either document store
+  ---
+  duration_ms: 41.5643
+  ...
+# Subtest: failed or unawaited work cannot erase or reuse an admission
+ok 35 - failed or unawaited work cannot erase or reuse an admission
+  ---
+  duration_ms: 77.5082
+  ...
+# Subtest: missing or malformed metadata is retained and never reset by a fresh handle
+ok 36 - missing or malformed metadata is retained and never reset by a fresh handle
+  ---
+  duration_ms: 122.7611
+  ...
+# Subtest: a killed admitted child remains unresolved after process exit and controller restart
+ok 37 - a killed admitted child remains unresolved after process exit and controller restart
+  ---
+  duration_ms: 119.0889
+  ...
+# Subtest: persisted transcript writers refuse after restart without rebinding an old attempt
+ok 38 - persisted transcript writers refuse after restart without rebinding an old attempt
+  ---
+  duration_ms: 274.9538
+  ...
+# Subtest: independent processes racing quiescence retain admitted receipts and reject successors
+ok 39 - independent processes racing quiescence retain admitted receipts and reject successors
+  ---
+  duration_ms: 160.2479
+  ...
+1..39
+# tests 39
+# suites 0
+# pass 37
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1293.3975
