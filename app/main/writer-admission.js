@@ -131,11 +131,14 @@ function controller(inputStore) {
     const item = value.pending.find(p => p.id === scope.id);
     if (scope.rootHash !== rootHash || value.owner !== scope.token.owner || !item || item.generation !== scope.token.generation || item.pid !== process.pid || item.status !== 'active') fail('owner', 'The nested operation no longer owns its writer admission.');
   }
-  function quiesce(token) {
+  function quiesce(token, { generation = crypto.randomUUID() } = {}) {
+    // A preparation coordinator journals its intended generation before the
+    // transition, so restart can distinguish its own cut from foreign closure.
+    if (!uuid(generation) || generation === token?.generation) fail('token', 'Quiescence requires a fresh writer generation.');
     return locked(lease => {
       const snapshot = load(true), value = snapshot.value;
       if (!same(token, value) || value.phase !== 'open') fail('stale', 'Quiescence requires the current open writer generation.');
-      const next = { ...value, generation: crypto.randomUUID(), phase: 'quiescing' };
+      const next = { ...value, generation, phase: 'quiescing' };
       save(snapshot, next, lease);
       return Object.freeze({ version: 1, owner: next.owner, generation: next.generation });
     });

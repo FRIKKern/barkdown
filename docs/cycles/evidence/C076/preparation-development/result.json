@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-25T15:05:02.945Z",
+  "source": "ca5607f5965d054ed6642f34b1aa77ee34d85115",
+  "sourceStatus": "M app/main/README.md\n M app/main/writer-admission.js\n M app/package.json\n M app/renderer/src/tabs/README.md\n M app/renderer/src/tabs/paper.js\n M app/tests/paper-draft.live.mjs\n M app/tests/paper-host.test.mjs\n M docs/cycles/C076-profile-preparation.md\n?? app/main/profile-preparation.js\n?? app/tests/profile-preparation.test.mjs\n?? docs/cycles/evidence/C076/preparation-plan.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T15:05:03.040Z",
+      "log": "build.log",
+      "elapsedMs": 631,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "preparation",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "node",
+        "--test",
+        "app/tests/profile-preparation.test.mjs",
+        "app/tests/writer-admission.test.mjs",
+        "app/tests/writer-process.test.mjs",
+        "app/tests/profile-launch-admission.test.mjs",
+        "app/tests/paper-draft-store.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T15:05:03.675Z",
+      "log": "preparation.log",
+      "elapsedMs": 22416,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "paper-host",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "node",
+        "app/tests/paper-host.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T15:05:26.093Z",
+      "log": "paper-host.log",
+      "elapsedMs": 6390,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-09-25T15:05:32.485Z"
+}

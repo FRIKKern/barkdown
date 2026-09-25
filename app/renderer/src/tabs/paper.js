@@ -40,6 +40,7 @@ export function mountPaper(tab, host, ctx) {
   let mountedPath = [...tab.path];
   let mountedSource = tab.source;
   let inputVersion = 0;
+  let preparationLock = null;
   const recoverySession = crypto.randomUUID(), composing = new Set();
   pane.addEventListener('compositionstart', event => { composing.add(event.target); inputVersion++; }, true);
   pane.addEventListener('compositionend', event => { composing.delete(event.target); inputVersion++; }, true);
@@ -50,7 +51,7 @@ export function mountPaper(tab, host, ctx) {
   let latestSeq = null;
   let mergeAfterSave = false;
   const slug = () => mountedPath.at(-1);
-  const hasUnsavedWork = () => Boolean(composing.size || deletionPending || saving || titleDirty || pendingRetry || canvas?.hasPendingChanges?.());
+  const hasUnsavedWork = () => Boolean(preparationLock || composing.size || deletionPending || saving || titleDirty || pendingRetry || canvas?.hasPendingChanges?.());
   const connectionChanged = () => Boolean(paper?.connectionIdentity && paper.connectionIdentity !== state.settings?.barkpark?.connectionIdentity);
   const writesOn = () => Boolean(state.settings?.barkpark?.writes) && !connectionChanged() && !deletionPending && !deleted;
   const writeUnavailable = () => connectionChanged() ? 'Restore this Paper’s original connection to use this action.' : 'Barkpark writes are off';
@@ -79,6 +80,29 @@ export function mountPaper(tab, host, ctx) {
       try { current = fingerprint === JSON.stringify(recoveryDraft()); } catch { /* Still composing or no longer serializable. */ }
     }
     return { ...receipt, current };
+  }
+  async function freezeRecovery() {
+    if (preparationLock) throw new Error('This Paper is already frozen for preparation.');
+    // Inspect composition before inert removes focus. Never make composition
+    // disappear merely to obtain a serializable recovery projection.
+    const draft = recoveryDraft(), fingerprint = JSON.stringify(draft);
+    const token = paper.recoveryToken, editor = canvas, generation = loadGeneration;
+    const priorInert = pane.inert, lock = {};
+    preparationLock = lock; pane.inert = true;
+    const release = () => {
+      if (preparationLock !== lock) throw new Error('Paper preparation freeze ownership changed.');
+      preparationLock = null; pane.inert = priorInert;
+    };
+    const assertCurrent = () => {
+      if (destroyed || preparationLock !== lock || !pane.inert || canvas !== editor || generation !== loadGeneration || paper?.recoveryToken !== token) return false;
+      try { return fingerprint === JSON.stringify(recoveryDraft()); } catch { return false; }
+    };
+    try {
+      const receipt = await api.paperDrafts.retain(token, draft);
+      if (!assertCurrent()) throw new Error('Paper changed during preparation. Its earlier recovery copy is retained; capture again.');
+      return Object.freeze({ profileId: receipt.profileId, sessionId: recoverySession,
+        draftKeys: Object.freeze([receipt.key]), assertCurrent, release });
+    } catch (error) { release(); throw error; }
   }
 
   // Find and replace: Ctrl+F / Ctrl+H inside the pane open the bar; the canvas paints the matches and
@@ -501,6 +525,7 @@ export function mountPaper(tab, host, ctx) {
   const controller = {
     el: pane, type: 'doc', tab,
     retainRecovery,
+    freezeRecovery,
     setDeletionPending(value) {
       if (destroyed) return;
       deletionPending = value;
@@ -535,7 +560,11 @@ export function mountPaper(tab, host, ctx) {
       return paper.title;
     },
     connectionChanged() { renderBanner(); renderMeta(); renderProposals(); },
-    canClose() { if (!hasUnsavedWork()) return true; canvas?.flushPendingChanges?.(); toast('Finish saving this paper before closing it. If saving failed, retry or discard the unsaved edits.', 'error'); return false; },
+    canClose() {
+      if (preparationLock) { toast('This paper is held for profile preparation. Keep it open until preparation is resolved.', 'error'); return false; }
+      if (!hasUnsavedWork()) return true;
+      canvas?.flushPendingChanges?.(); toast('Finish saving this paper before closing it. If saving failed, retry or discard the unsaved edits.', 'error'); return false;
+    },
     async refresh(changedId) {
       if (changedId && changedId !== 'bp:' + slug() && changedId !== slug()) return;
       // A read tool may open this pane and finish its edit before the first

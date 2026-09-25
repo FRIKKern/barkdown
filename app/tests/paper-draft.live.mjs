@@ -85,6 +85,19 @@ try {
   assert.equal(await page.locator('.bp-canvas-source').inputValue(), raw);
   await page.setViewportSize({ width: 900, height: 760 }); await shot('03-raw-source-narrow');
   report.checks.push('Exact Markdown source retained without leaving source mode.');
+  const frozen = await page.evaluate(async () => {
+    const c = [...window.__barkdown.controllers.values()].find(c => c.el.matches('.bw-paper-pane'));
+    window.__draftFreeze = await c.freezeRecovery();
+    return { current: window.__draftFreeze.assertCurrent(), inert: c.el.inert };
+  });
+  assert.equal(frozen.current, true); assert.equal(frozen.inert, true);
+  await page.keyboard.type('This must not replace the draft');
+  assert.equal(await page.locator('.bp-canvas-source').inputValue(), raw);
+  assert.equal(await page.evaluate(() => window.__draftFreeze.assertCurrent()), true);
+  await shot('04-frozen-source-narrow');
+  await page.evaluate(() => { window.__draftFreeze.release(); delete window.__draftFreeze; });
+  assert.equal(await page.locator('.bw-paper-pane').evaluate(pane => pane.inert), false);
+  report.checks.push('Held Paper freeze blocks native keyboard input; explicit lease release restores interaction.');
   const before = await page.evaluate(() => window.barkdown.paperDrafts.list());
   assert(before.length >= 3);
   // Abrupt exit, not graceful close/flush, must not be needed to keep records.

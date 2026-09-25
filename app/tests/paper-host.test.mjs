@@ -470,6 +470,45 @@ await test('recovery refuses unavailable or failed serialization before storage'
     await assert.rejects(m.controller.retainRecovery(), /serialization failed/);
   } finally { m.close(); }
 });
+await test('Paper preparation freeze holds its exact buffer and cannot outlive its owned controller', async () => {
+  transport = { get: async id => ({ ...paper(id), recoveryToken: 'owned-A' }), retain: async () => ({ profileId: 'A', key: 'a'.repeat(64) }) };
+  const m = mount(); await tick(); await tick();
+  try {
+    const lease = await m.controller.freezeRecovery();
+    assert.equal(lease.profileId, 'A'); assert.equal(m.controller.el.inert, true); assert.equal(lease.assertCurrent(), true);
+    assert.equal(m.controller.canClose(), false); assert.equal(m.canvas().flushed, undefined);
+    await assert.rejects(m.controller.freezeRecovery(), /already frozen/);
+    m.canvas().snapshot = { mode: 'rich', blocks: [{ text: 'late programmatic edit' }] };
+    assert.equal(lease.assertCurrent(), false);
+    lease.release(); assert.equal(Boolean(m.controller.el.inert), false);
+    assert.equal(lease.assertCurrent(), false); assert.throws(() => lease.release(), /ownership changed/);
+  } finally { m.close(); }
+});
+await test('Paper preparation refuses composition before moving focus and releases a failed persistence freeze', async () => {
+  transport = { get: async id => ({ ...paper(id), recoveryToken: 'owned-A' }), retain: async () => { throw Error('Disk failed'); } };
+  const m = mount(); await tick(); await tick();
+  try {
+    const title = m.host.querySelector('#title'); title.focus();
+    title.dispatchEvent(new dom.window.Event('compositionstart', { bubbles: true }));
+    await assert.rejects(m.controller.freezeRecovery(), /Finish composing/);
+    assert.equal(Boolean(m.controller.el.inert), false); assert.equal(document.activeElement, title);
+    title.dispatchEvent(new dom.window.Event('compositionend', { bubbles: true }));
+    await assert.rejects(m.controller.freezeRecovery(), /Disk failed/);
+    assert.equal(Boolean(m.controller.el.inert), false);
+  } finally { m.close(); }
+});
+await test('late freeze acknowledgement refuses a changed buffer and releases only its own lock', async () => {
+  const gate = deferred();
+  transport = { get: async id => ({ ...paper(id), recoveryToken: 'owned-A' }), retain: () => gate.promise };
+  const m = mount(); await tick(); await tick();
+  try {
+    const freezing = m.controller.freezeRecovery(); assert.equal(m.controller.el.inert, true);
+    m.canvas().snapshot = { mode: 'rich', blocks: [{ text: 'newer input' }] };
+    gate.resolve({ profileId: 'A', key: 'a'.repeat(64) });
+    await assert.rejects(freezing, /changed during preparation/); assert.equal(Boolean(m.controller.el.inert), false);
+    assert.equal(m.canvas().snapshot.blocks[0].text, 'newer input');
+  } finally { gate.resolve({}); m.close(); }
+});
 console.log(JSON.stringify(cases, null, 2));
 dom.window.close();
 if (cases.some(c => !c.pass)) process.exitCode = 1;

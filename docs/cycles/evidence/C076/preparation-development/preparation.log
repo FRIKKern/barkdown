@@ -1,0 +1,344 @@
+TAP version 13
+# Subtest: durable exact title/body and raw Markdown survive restart, distinct versions and repeated retention
+ok 1 - durable exact title/body and raw Markdown survive restart, distinct versions and repeated retention
+  ---
+  duration_ms: 160.4732
+  ...
+# Subtest: same slug across profile, connection and mounted session stays separate
+ok 2 - same slug across profile, connection and mounted session stays separate
+  ---
+  duration_ms: 149.1709
+  ...
+# Subtest: forged owner fields cannot override the trusted Paper capability
+ok 3 - forged owner fields cannot override the trusted Paper capability
+  ---
+  duration_ms: 45.1702
+  ...
+# Subtest: serialization uncertainty, lossy JSON and invalid revisions refuse before writer admission
+ok 4 - serialization uncertainty, lossy JSON and invalid revisions refuse before writer admission
+  ---
+  duration_ms: 7.7275
+  ...
+# Subtest: corrupt immutable record refuses read, listing and idempotent retention
+ok 5 - corrupt immutable record refuses read, listing and idempotent retention
+  ---
+  duration_ms: 69.2327
+  ...
+# Subtest: copied recovery records cannot cross store ownership even with the same profile name
+ok 6 - copied recovery records cannot cross store ownership even with the same profile name
+  ---
+  duration_ms: 52.0961
+  ...
+# Subtest: storage failure retains writer uncertainty and returns no success receipt
+ok 7 - storage failure retains writer uncertainty and returns no success receipt
+  ---
+  duration_ms: 33.9444
+  ...
+# Subtest: closed writer refuses retention while existing records remain readable
+ok 8 - closed writer refuses retention while existing records remain readable
+  ---
+  duration_ms: 68.2532
+  ...
+# Subtest: closure is durable, idempotent and profile-owned; reads never create a record
+ok 9 - closure is durable, idempotent and profile-owned; reads never create a record
+  ---
+  duration_ms: 244.9008
+  ...
+# Subtest: malformed preparation refuses instead of resetting or silently opening
+ok 10 - malformed preparation refuses instead of resetting or silently opening
+  ---
+  duration_ms: 162.3849
+  ...
+# Subtest: closure during delayed runtime refuses dispatch and releases its runtime
+ok 11 - closure during delayed runtime refuses dispatch and releases its runtime
+  ---
+  duration_ms: 277.2427
+  ...
+# Subtest: closure during delayed authentication refuses dispatch and releases its runtime
+ok 12 - closure during delayed authentication refuses dispatch and releases its runtime
+  ---
+  duration_ms: 278.1995
+  ...
+# Subtest: capacity-release notifications cannot admit a closed profile but other profiles can acquire
+ok 13 - capacity-release notifications cannot admit a closed profile but other profiles can acquire
+  ---
+  duration_ms: 193.1052
+  ...
+# Subtest: goal create/start and every service tick stay closed across restart while other profiles work
+ok 14 - goal create/start and every service tick stay closed across restart while other profiles work
+  ---
+  duration_ms: 588.6626
+  ...
+# Subtest: reviewing a finished worker cannot launch newly eligible dependent workers after closure
+ok 15 - reviewing a finished worker cannot launch newly eligible dependent workers after closure
+  ---
+  duration_ms: 784.9512
+  ...
+# Subtest: ordinary dispatch rechecks closure after the authentication wrapper resolves
+ok 16 - ordinary dispatch rechecks closure after the authentication wrapper resolves
+  ---
+  duration_ms: 227.8572
+  ...
+# Subtest: goal dispatch rechecks closure after the authentication wrapper resolves
+ok 17 - goal dispatch rechecks closure after the authentication wrapper resolves
+  ---
+  duration_ms: 534.8965
+  ...
+# Subtest: ordinary drain waits for pending acquisition and its asynchronous release without blocking B
+ok 18 - ordinary drain waits for pending acquisition and its asynchronous release without blocking B
+  ---
+  duration_ms: 320.4246
+  ...
+# Subtest: ordinary drain cancels a late dispatch and waits for driver, lease and transcript completion
+ok 19 - ordinary drain cancels a late dispatch and waits for driver, lease and transcript completion
+  ---
+  duration_ms: 481.6236
+  ...
+# Subtest: a driver flag without native proof cannot pass ordinary drain on retry or restart
+ok 20 - a driver flag without native proof cannot pass ordinary drain on retry or restart
+  ---
+  duration_ms: 416.7774
+  ...
+# Subtest: runtime release failure remains a preparation fault after the pending start rejects
+ok 21 - runtime release failure remains a preparation fault after the pending start rejects
+  ---
+  duration_ms: 215.104
+  ...
+# Subtest: restart drain verifies interrupted ownership but preserves the separate effects review
+ok 22 - restart drain verifies interrupted ownership but preserves the separate effects review
+  ---
+  duration_ms: 407.2066
+  ...
+# Subtest: ordinary drain retains foreign completion failure after native verification
+ok 23 - ordinary drain retains foreign completion failure after native verification
+  ---
+  duration_ms: 718.9058
+  ...
+# Subtest: ordinary drain retains cleanup completion failure after native verification
+ok 24 - ordinary drain retains cleanup completion failure after native verification
+  ---
+  duration_ms: 645.0874
+  ...
+# Subtest: native ordinary preparation drains A child/grandchild and preserves the running B tree
+ok 25 - native ordinary preparation drains A child/grandchild and preserves the running B tree
+  ---
+  duration_ms: 2404.559
+  ...
+# {"fixture":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-Tgj16g","aReceipt":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-Tgj16g\\\\profiles\\\\b4f2883f-34ad-47f8-9e1f-d141d0283e3a\\\\goal-processes\\\\4b38551a-b8fd-4bec-9ba3-06299835568e.receipt.json","aTree":{"root":46464,"pid":61208,"leaf":60112},"bTree":{"root":58188,"pid":62164,"leaf":39316},"retained":true}
+# Subtest: goal drain waits for delayed runtime, persists settlement, freezes journal and permits B
+ok 26 - goal drain waits for delayed runtime, persists settlement, freezes journal and permits B
+  ---
+  duration_ms: 1372.594
+  ...
+# Subtest: goal drain waits for delayed authentication, persists settlement, freezes journal and permits B
+ok 27 - goal drain waits for delayed authentication, persists settlement, freezes journal and permits B
+  ---
+  duration_ms: 1416.0555
+  ...
+# Subtest: goal drain waits for delayed dispatch, persists settlement, freezes journal and permits B
+ok 28 - goal drain waits for delayed dispatch, persists settlement, freezes journal and permits B
+  ---
+  duration_ms: 1962.8722
+  ...
+# Subtest: goal drain rechecks receipts after failed drain and restart without accepting a driver flag
+ok 29 - goal drain rechecks receipts after failed drain and restart without accepting a driver flag
+  ---
+  duration_ms: 902.4802
+  ...
+# Subtest: goal drain preserves unresolved runtime cleanup as a preparation failure
+ok 30 - goal drain preserves unresolved runtime cleanup as a preparation failure
+  ---
+  duration_ms: 398.3991
+  ...
+# Subtest: goal drain cannot release uncertain completions until trusted reconciliation settles every journal attempt
+ok 31 - goal drain cannot release uncertain completions until trusted reconciliation settles every journal attempt
+  ---
+  duration_ms: 1213.7267
+  ...
+# Subtest: goal journal persistence failure during settlement refuses drain without replacing the changed bytes
+ok 32 - goal journal persistence failure during settlement refuses drain without replacing the changed bytes
+  ---
+  duration_ms: 1030.4302
+  ...
+# Subtest: goal drain refuses a foreign-profile journal before changing its goals
+ok 33 - goal drain refuses a foreign-profile journal before changing its goals
+  ---
+  duration_ms: 217.0935
+  ...
+# Subtest: native goal drain stops all three owned trees, settles their journal and leaves ordinary B running
+ok 34 - native goal drain stops all three owned trees, settles their journal and leaves ordinary B running
+  ---
+  duration_ms: 2770.9195
+  ...
+# {"fixture":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-90OBJu","goalReceipts":[{"version":1,"containment":"job-list-v1","nonce":"fb9e19ac-a71c-4a58-bf39-53ab8a57c7cd","profileId":"f00b65d1-ef49-4fba-983c-19d0598b1358","attemptId":"0734e912-444e-4ec5-8672-0b74a4e2ca64","jobName":"Local\\\\BarkdownGoal-fb9e19ac-a71c-4a58-bf39-53ab8a57c7cd","helperPid":24952,"helperStarted":"639259455218071586","phase":"stopped","childPid":50352,"activeProcesses":0},{"version":1,"containment":"job-list-v1","nonce":"7ce80904-d1ad-48b6-bbf5-1f258f82c526","profileId":"f00b65d1-ef49-4fba-983c-19d0598b1358","attemptId":"c3ccb734-007a-41c8-a17e-c6ca867541cd","jobName":"Local\\\\BarkdownGoal-7ce80904-d1ad-48b6-bbf5-1f258f82c526","helperPid":56304,"helperStarted":"639259455218118381","phase":"stopped","childPid":49888,"activeProcesses":0},{"version":1,"containment":"job-list-v1","nonce":"49fff5b1-c17c-4aa4-beb2-37443efd4646","profileId":"f00b65d1-ef49-4fba-983c-19d0598b1358","attemptId":"78ec8dc0-a11d-4009-96f9-8a20c0e43426","jobName":"Local\\\\BarkdownGoal-49fff5b1-c17c-4aa4-beb2-37443efd4646","helperPid":4592,"helperStarted":"639259455218246233","phase":"stopped","childPid":56428,"activeProcesses":0}],"trees":{"293476ba-5699-4316-8657-ef1e6141704b":{"root":49888,"pid":2820,"leaf":41288},"76fb1b9f-37cf-42b9-882d-735f8db121ef":{"root":56428,"pid":19228,"leaf":62264},"5235ad99-08d6-4993-8b41-908ec982f8c4":{"root":50352,"pid":32724,"leaf":61732},"same":{"root":38052,"pid":3224,"leaf":12636}},"retained":true}
+# Subtest: native restart goal drain reconciles the crashed journal once for concurrent callers
+ok 35 - native restart goal drain reconciles the crashed journal once for concurrent callers
+  ---
+  duration_ms: 1980.1138
+  ...
+# {"fixture":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-goal-drain-crash-zHfWEa","owner":{"profileId":"33e2bc8a-9efb-4334-b455-b0e057933d16","goalId":"52c308d1-f9d3-46e8-8202-c72412895f5b"},"attemptId":"b7c4e4df-5b37-4d6c-9a12-a904273d5193","retained":true}
+# Subtest: preparation joins real profile/goal drains, verified draft records and writer closure without affecting B
+ok 36 - preparation joins real profile/goal drains, verified draft records and writer closure without affecting B
+  ---
+  duration_ms: 421.891
+  ...
+# Subtest: concurrent callers share one capture and do not prepare before delayed foreground/terminal completion
+ok 37 - concurrent callers share one capture and do not prepare before delayed foreground/terminal completion
+  ---
+  duration_ms: 277.4296
+  ...
+# Subtest: a changed human buffer refuses before writer closure and retains the recovery version
+ok 38 - a changed human buffer refuses before writer closure and retains the recovery version
+  ---
+  duration_ms: 222.8467
+  ...
+# Subtest: a refused drain still awaits every independent cleanup before releasing the foreground
+ok 39 - a refused drain still awaits every independent cleanup before releasing the foreground
+  ---
+  duration_ms: 222.4875
+  ...
+# Subtest: foreign ordinary drain evidence is refused
+ok 40 - foreign ordinary drain evidence is refused
+  ---
+  duration_ms: 198.7368
+  ...
+# Subtest: foreign goals drain evidence is refused
+ok 41 - foreign goals drain evidence is refused
+  ---
+  duration_ms: 197.3483
+  ...
+# Subtest: unverified terminal completion cannot be replaced by an empty IPC queue
+ok 42 - unverified terminal completion cannot be replaced by an empty IPC queue
+  ---
+  duration_ms: 190.4834
+  ...
+# Subtest: active writer after drain closes admission but cannot mint a prepared receipt until settled
+ok 43 - active writer after drain closes admission but cannot mint a prepared receipt until settled
+  ---
+  duration_ms: 344.9959
+  ...
+# Subtest: failed writer remains uncertain across restart and cannot be inferred absent from shutdown
+ok 44 - failed writer remains uncertain across restart and cannot be inferred absent from shutdown
+  ---
+  duration_ms: 297.6454
+  ...
+# Subtest: interruption after-collecting retains exact ownership and resumes with new service instances
+ok 45 - interruption after-collecting retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 251.3435
+  ...
+# Subtest: interruption after-draining retains exact ownership and resumes with new service instances
+ok 46 - interruption after-draining retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 268.0063
+  ...
+# Subtest: interruption after-quiescing retains exact ownership and resumes with new service instances
+ok 47 - interruption after-quiescing retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 329.4106
+  ...
+# Subtest: interruption after-writer-closure retains exact ownership and resumes with new service instances
+ok 48 - interruption after-writer-closure retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 285.5788
+  ...
+# Subtest: interruption after-prepared retains exact ownership and resumes with new service instances
+ok 49 - interruption after-prepared retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 303.5866
+  ...
+# Subtest: changed retained draft and preparation record are never repaired or silently reset
+ok 50 - changed retained draft and preparation record are never repaired or silently reset
+  ---
+  duration_ms: 251.5321
+  ...
+# Subtest: foreign writer generation refuses even if a valid preparation record remains
+ok 51 - foreign writer generation refuses even if a valid preparation record remains
+  ---
+  duration_ms: 183.7116
+  ...
+# Subtest: independent coordinator cannot steal the in-flight profile lease
+ok 52 - independent coordinator cannot steal the in-flight profile lease
+  ---
+  duration_ms: 226.7146
+  ...
+# Subtest: native coordinator drains A ordinary and three goal trees while B continues, then verifies restart
+ok 53 - native coordinator drains A ordinary and three goal trees while B continues, then verifies restart
+  ---
+  duration_ms: 3529.1031
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-profile-preparation-VHwRk4","preparationId":"6842ad85-237c-41e4-a061-b09a34439335","nativeReceipts":[{"attemptId":"1c366d10-c789-431a-a546-cde4d4f15f6a","stopped":"stopped"},{"attemptId":"a946e945-f518-474a-b2c3-64b2628e2cd4","stopped":"stopped"},{"attemptId":"f2aa8cfb-fbd8-45ee-813c-54d3e6dd48c7","stopped":"stopped"},{"attemptId":"cc038a15-afe6-4e75-85dc-e3820a6105be","stopped":"stopped"}],"trees":{"e5949601-75f0-43fd-bb78-35f5be735121/af2ae5a5-ebf4-451d-8f54-da39e1e0381f":{"root":50508,"pid":63300,"leaf":58344},"e5949601-75f0-43fd-bb78-35f5be735121/main":{"root":32680,"pid":24944,"leaf":33140},"e5949601-75f0-43fd-bb78-35f5be735121/279a94fd-bc3a-495a-83b5-555b1c58a844":{"root":42896,"pid":48920,"leaf":38760},"e5949601-75f0-43fd-bb78-35f5be735121/a04cd381-6ae8-4466-9c7c-bc74eea135d2":{"root":63320,"pid":26824,"leaf":36236},"055e77dc-6102-4346-aae9-d531ed44c558/main":{"root":22700,"pid":56104,"leaf":58864}},"scope":"Actual services, draft files and Windows jobs; foreground/terminal adapters supplied, not Electron preparation UI proof."}
+# Subtest: real HTTP creation stays admitted through delayed acknowledgement, readback and durable receipt
+ok 54 - real HTTP creation stays admitted through delayed acknowledgement, readback and durable receipt
+  ---
+  duration_ms: 134.2539
+  ...
+# Subtest: quiescence keeps an async mutation admitted through its receipt and rejects successors
+ok 55 - quiescence keeps an async mutation admitted through its receipt and rejects successors
+  ---
+  duration_ms: 69.0649
+  ...
+# Subtest: bound documents and captured API scopes retain the old generation; reads survive
+ok 56 - bound documents and captured API scopes retain the old generation; reads survive
+  ---
+  duration_ms: 177.6133
+  ...
+# Subtest: foreign tokens and nested owners refuse without changing either document store
+ok 57 - foreign tokens and nested owners refuse without changing either document store
+  ---
+  duration_ms: 46.0322
+  ...
+# Subtest: failed or unawaited work cannot erase or reuse an admission
+ok 58 - failed or unawaited work cannot erase or reuse an admission
+  ---
+  duration_ms: 80.6186
+  ...
+# Subtest: missing or malformed metadata is retained and never reset by a fresh handle
+ok 59 - missing or malformed metadata is retained and never reset by a fresh handle
+  ---
+  duration_ms: 141.4138
+  ...
+# Subtest: a killed admitted child remains unresolved after process exit and controller restart
+ok 60 - a killed admitted child remains unresolved after process exit and controller restart
+  ---
+  duration_ms: 130.4699
+  ...
+# Subtest: persisted transcript writers refuse after restart without rebinding an old attempt
+ok 61 - persisted transcript writers refuse after restart without rebinding an old attempt
+  ---
+  duration_ms: 352.8896
+  ...
+# Subtest: independent processes racing quiescence retain admitted receipts and reject successors
+ok 62 - independent processes racing quiescence retain admitted receipts and reject successors
+  ---
+  duration_ms: 194.4401
+  ...
+# Subtest: Node and Electron agree on the same durable store identity
+ok 63 - Node and Electron agree on the same durable store identity
+  ---
+  duration_ms: 172.5335
+  ...
+# Subtest: a surviving real MCP child refuses stale create/edit and keeps original reads
+ok 64 - a surviving real MCP child refuses stale create/edit and keeps original reads
+  ---
+  duration_ms: 436.7362
+  ...
+# Subtest: a delayed real owned goal worker cannot recapture a newer generation
+ok 65 - a delayed real owned goal worker cannot recapture a newer generation
+  ---
+  duration_ms: 633.4492
+  ...
+# Subtest: a new read-only MCP child can list a quiescent empty legacy store without seeding it
+ok 66 - a new read-only MCP child can list a quiescent empty legacy store without seeding it
+  ---
+  duration_ms: 375.5705
+  ...
+1..66
+# tests 66
+# suites 0
+# pass 66
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 22331.8717
