@@ -15,3 +15,5 @@
 **Run sequence:** this cycle first; after a passing merged checkpoint, advance captured writer-generation fencing in the next bounded cycle if time remains. Stop starting new work at the deadline, retain an exact handoff and pause the heartbeat.
 
 **Cleanup:** main plus this one branch. All previous delivery refs retired. Retained detached worktrees/stashes remain recovery evidence; shared Barkpark main has unrelated files and is untouched. Retire this branch after its final merged checkpoint.
+
+**Capture review:** first committed native run3fb18db passed behavior but its narrow still/intermediate frames were corrupted by overlapping screenshot/viewport calls. Rejected, retained and fixed the harness serialization; repeat native capture required. Fallback against merged b702 passes on3fb18db. Full desktop suite already running tests the unchanged implementation; the harness-only follow-up is separately revalidated.

@@ -58,9 +58,30 @@ const digestTree = dir => {
 const before = { backups: digestTree(path.join(userData, 'backups')), documentsA: digestTree(fa.store.filePath('documents')), receiptsA: digestTree(fa.store.filePath('agent-edits')) };
 const report = { source, capture, platform: process.platform, scope: 'Actual native UI and main IPC on disposable profiles; OS folder-picker result supplied; no model calls or Paper writes.', screenshots: [], checks: [], userData };
 let app, page, video, timer, recording = false;
+let frame = 0;
 const errors = [], external = [];
 const persist = () => fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify(report, null, 2) + '\n');
-async function shot(name) { const file = name + '.png'; await page.screenshot({ path: path.join(out, file) }); report.screenshots.push(file); persist(); }
+async function withCapture(operation) {
+  while (recording) await new Promise(r => setTimeout(r, 10));
+  recording = true;
+  try { return await operation(); } finally { recording = false; }
+}
+async function shot(name) { const file = name + '.png'; await withCapture(() => page.screenshot({ path: path.join(out, file) })); report.screenshots.push(file); persist(); }
+function startMotion() {
+  if (!capture) return;
+  timer = setInterval(() => {
+    if (recording || page.isClosed()) return;
+    withCapture(() => page.screenshot({ path: path.join(out, `motion-${String(report.session || 0)}-${String(frame++).padStart(4, '0')}.png`) })).catch(error => errors.push('Motion capture: ' + error.message));
+  }, 200);
+}
+async function resize(size) {
+  clearInterval(timer);
+  await withCapture(async () => {
+    await page.setViewportSize(size);
+    await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  });
+  startMotion();
+}
 async function launch() {
   app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${userData}`], recordVideo: { dir: out, size: { width: 1200, height: 850 } }, env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '' } });
   page = await app.firstWindow(); video = page.video();
@@ -69,10 +90,7 @@ async function launch() {
   await page.setViewportSize({ width: 1200, height: 850 });
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
   await page.evaluate(async () => { await window.barkdown.settings.set({ theme: 'dark' }); document.documentElement.dataset.theme = 'dark'; });
-  if (capture) {
-    let frame = 0;
-    timer = setInterval(async () => { if (recording || page.isClosed()) return; recording = true; try { await page.screenshot({ path: path.join(out, `motion-${String(report.session || 0)}-${String(frame++).padStart(4, '0')}.png`) }); } catch {} finally { recording = false; } }, 200);
-  }
+  frame = 0; startMotion();
 }
 async function stop() { clearInterval(timer); while (recording) await new Promise(r => setTimeout(r, 25)); if (app) { await app.close(); (report.videos ||= []).push(path.basename(await video.path())); app = null; } }
 async function open() { await page.keyboard.press('Control+,'); await page.locator('[data-act="original-history"]').click(); await page.locator('.bw-original-history').waitFor(); }
@@ -101,7 +119,7 @@ try {
   assert.equal(await page.evaluate(() => Boolean(window.untrustedHistory)), false);
   assert.equal(await page.locator('.bw-original-history a[href],.bw-original-history img[src],.bw-original-history script').count(), 0);
   assert.deepEqual(external, []); await shot('07-unsupported-original'); report.checks.push('Unsupported data and inert external references preserved without execution/network');
-  await note(fa.note.id); await page.setViewportSize({ width: 620, height: 760 });
+  await note(fa.note.id); await resize({ width: 620, height: 760 });
   const narrow = await geometry(); assert(!narrow.overflow && narrow.left >= 0 && narrow.right <= narrow.width && narrow.bottom <= narrow.height && narrow.editable === 0); report.narrow = narrow; await shot('08-narrow');
   const forbidden = await page.locator('.bw-original-history button').allTextContents(); assert(!forbidden.some(s => /^(Restore|Undo|Keep|Accept|Discard|Delete|Save)$/.test(s.trim())));
   await page.locator('[data-close]').focus(); await page.keyboard.press('Shift+Tab'); assert.equal(await page.locator('[data-refresh]').evaluate(n => n === document.activeElement), true);
