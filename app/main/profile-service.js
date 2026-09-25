@@ -13,6 +13,7 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
   settingsFor = store => store.readJson('settings.json', {}), connectionFor = () => ({ enabled: false }), runtimePool = null,
   sendEvent = () => {}, assertAuthentication = async () => {}, defaultProvider = () => 'api' }) {
   let generation = crypto.randomUUID();
+  const launchAdmission = require('./profile-launch-admission').createProfileLaunchAdmission({ registry });
   let switching = false;
   const completions = new Map();
   const dispatching = new Set();
@@ -39,6 +40,7 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
   }
   function settings(profileId) { return settingsFor(registry.storeFor(profileId)); }
   async function resolve(profileId, chatId, request = {}) {
+    launchAdmission.assertOpen(profileId);
     const store = registry.storeFor(profileId), ws = workspaces.load(profileId), chat = ws.chats[chatId];
     if (!chat) throw new Error('Conversation is not owned by this profile');
     const chatContext = captureChatContext(chat);
@@ -50,6 +52,7 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
         if (!runtimePool) throw new Error('Profile runtime support is unavailable');
         lease = await runtimePool.acquire(profileId, { source: local.source, writes: Boolean(s.barkpark.writes), ownerId: request.attemptId || crypto.randomUUID() });
       }
+      launchAdmission.assertOpen(profileId);
       assertChatContext(chatContext, workspaces.load(profileId).chats[chatId]);
       const connection = lease ? { ...lease.connection, enabled: lease.connection.enabled && s.barkpark.enabled !== false } : connectionFor(s, store);
       const provider = chat.provider || s.provider || defaultProvider();
@@ -60,7 +63,7 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
       const scope = captureScope({ profileId, storeDir: store.storeDir, connection,
         context: { profileId, chatId, title: chat.title, folder: chat.folder || null, catchUp } });
       return { scope, chat: { ...structuredClone(chat), provider }, chatContext, settings: s,
-        assertAuthentication: async () => { await assertAuthentication(provider, s, scope); assertChatContext(chatContext, workspaces.load(profileId).chats[chatId]); },
+        assertAuthentication: async () => { launchAdmission.assertOpen(profileId); await assertAuthentication(provider, s, scope); launchAdmission.assertOpen(profileId); assertChatContext(chatContext, workspaces.load(profileId).chats[chatId]); },
         release: async () => { await lease?.release(); } };
     } catch (error) { await lease?.release(); throw error; }
   }
@@ -81,6 +84,7 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
   async function start(owner, input) {
     input = structuredClone(input);
     const profileId = validate(owner), attemptId = input.attemptId === undefined ? crypto.randomUUID() : input.attemptId;
+    launchAdmission.assertOpen(profileId);
     // A renderer ID correlates its pending UI only; it grants no ownership and
     // cannot adopt/replay an existing durable attempt, even with identical text.
     if (typeof attemptId !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(attemptId)) throw new Error('Invalid attempt identity');
@@ -200,6 +204,6 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
       return { profileId, generation, cleanupWarning };
     } finally { switching = false; }
   }
-  return Object.freeze({ view, validate, load, save, resolve, start, cancel, approve, wait, select, recover, workspaces, settings });
+  return Object.freeze({ view, validate, load, save, resolve, start, cancel, approve, wait, select, recover, workspaces, settings, launchAdmission });
 }
 module.exports = { createProfileService };

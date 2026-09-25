@@ -1,6 +1,6 @@
 # C076 — profile preparation before migration
 
-**Status:** planned, not implemented. Parent P2/A2. Start from merged C075 c6961328, after its documentation closeout. [Contract](../migration/writer-fence.md#next-cutover-boundary--prepared-not-implemented).
+**Status:** active on codex/profile-preparation from merged main8ab9aae8. First launch-closure slice under validation; C076 acceptance is incomplete. Parent P2/A2. [Contract](../migration/writer-fence.md#next-cutover-boundary--prepared-not-implemented).
 
 **Outcome and stopping condition:** preparing one profile prevents ordinary/goal launches, retains dirty human buffers or refuses safely, and waits for verified owned-child and transcript completion. Other profiles remain usable. Stop before authority selection; no legacy retirement, deployment or changes to another contributor's Barkpark checkout.
 
@@ -14,4 +14,6 @@
 
 **Acceptance cases:** identical slugs across profiles; pending ordinary runtime/auth/dispatch; queued goal pump, periodic/list tick, Start/retry and coordinator advancement; child/grandchild survival, partial/missing receipts and late completion; title/body/composition/debounced controls, serialization/storage failure and newer typing during delayed acknowledgement; interruption around each durable transition. Synthetic probes alone do not satisfy native cases.
 
-**Handoff:** no C076 implementation or visual acceptance yet. Start one codex/ lane after C075 closeout retires its predecessor. Preserve recovery worktrees/stashes and shared services. Record exact source, failures, owned processes and next action after meaningful slices. Selection, whole-corpus comparison and rollback/retirement remain in [A2](../ACCEPTANCE.md#a2--one-engine-without-lost-notes).
+**Handoff:** launch closure is implemented locally, with focused validation underway. No native preparation, dirty-draft recovery or full owned-drain acceptance yet. Reuse codex/profile-preparation. Preserve recovery worktrees/stashes and shared services. Record exact source, failures, owned processes and next action after meaningful slices. Selection, whole-corpus comparison and rollback/retirement remain in [A2](../ACCEPTANCE.md#a2--one-engine-without-lost-notes).
+
+**Current development checkpoint (25 September):** active on codex/profile-preparation from 8ab9aae8. First slice durably closes ordinary/goal launch admission and checks delayed runtime/authentication boundaries. Budget: remaining run until 13:44:56 UTC; checkpoint unfinished validation rather than merge without proof. Pending dispatch/owned drain and retained drafts remain required before completing this cycle.

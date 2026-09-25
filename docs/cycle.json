@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C076",
   "stage": "P2",
-  "status": "planned",
+  "status": "active",
   "goal": "Prepare one profile for migration without launching new agents, losing human drafts, or leaving owned children unverified.",
   "scope": [
     "Close profile-specific ordinary/goal admission, including pending resolves and dispatches.",
@@ -18,11 +18,11 @@
   ],
   "checkpoint": "2026-09-25",
   "handoff": "docs/cycles/C076-profile-preparation.md",
-  "nextAction": "Begin C076 profile preparation on a codex/ branch from main after C075 documentation closeout: close launch admission, retain human drafts and verify owned-child/transcript drain before writer quiescence.",
+  "nextAction": "Implement and test durable profile-specific launch closure on codex/profile-preparation; then integrate pending dispatch/owned drain and retained drafts. This slice must not claim full C076 acceptance.",
   "evidence": [
     "docs/cycles/evidence/C075/run-drain-probe.json",
     "docs/cycles/evidence/C075/draft-retention-probe.json"
   ],
-  "truthReview": "Planned from merged C075 and source probes; no implementation acceptance.",
+  "truthReview": "C075 is merged; C076 launch-admission implementation begins from main8ab9aae8. Remaining draft/drain/activation proof is unchanged.",
   "screenshotReview": "No C076 app change; C075 media remains current for implemented behavior only."
 }

@@ -16,14 +16,14 @@ function createGoalService({ registry, profiles, agent, sendEvent = () => {}, se
   const trustedVerifier = verifyTermination || (ownedAgent ? ({ request, runId }) => ownedAgent.verifyTermination({
     request: { ...request, storeDir: registry.storeFor(request.profileId).storeDir }, runId,
   }) : null);
-  const schedulers = new Map(), admission = new GoalAdmission(), workspaces = profiles.workspaces;
+  const schedulers = new Map(), admission = new GoalAdmission(3, { canAcquire: profileId => !profiles.launchAdmission.isClosed(profileId) }), workspaces = profiles.workspaces;
   let closed = false; const queued = new Set();
   function pump(profileId) {
     if (closed || queued.has(profileId)) return; queued.add(profileId);
     queueMicrotask(() => {
       queued.delete(profileId); if (closed) return;
       const engine = schedulers.get(profileId); if (!engine || engine.fault) return;
-      try { advanceCoordinated({ engine, profileId, stage, now }); engine.tick(); } catch (error) { engine.halt(error); }
+      try { if (!profiles.launchAdmission.isClosed(profileId)) { advanceCoordinated({ engine, profileId, stage, now }); engine.tick(); } } catch (error) { engine.halt(error); }
       notify(profileId);
     });
   }
@@ -92,11 +92,13 @@ function createGoalService({ registry, profiles, agent, sendEvent = () => {}, se
   }
   function list(owner) {
     const { profileId } = ownerChat(owner), engine = scheduler(profileId);
-    engine.tick(); return engine.list(profileId).filter(g => g.chatId === owner.chatId);
+    if (!profiles.launchAdmission.isClosed(profileId)) engine.tick();
+    return engine.list(profileId).filter(g => g.chatId === owner.chatId);
   }
   function create(owner, input) {
     input = structuredClone(input);
     const { profileId, chat } = ownerChat(owner), settings = profiles.settings(profileId);
+    profiles.launchAdmission.assertOpen(profileId);
     boundedText(input.objective, 'objective');
     check(Number.isFinite(input.durationMinutes) && input.durationMinutes >= 1 && input.durationMinutes <= 10080, 'Time window must be 1–10080 minutes');
     check(input.mode === undefined || input.mode === 'coordinated', 'Invalid goal mode');
@@ -120,6 +122,7 @@ function createGoalService({ registry, profiles, agent, sendEvent = () => {}, se
     const { profileId, engine, goal } = owned(owner, id);
     let result;
     if (action === 'start') {
+      profiles.launchAdmission.assertOpen(profileId);
       // Recover every owned journal before admitting new work in any profile.
       // Unknown native descendants consume an unquantifiable slot, so block new
       // starts until they are reconciled rather than treating a restart as capacity.
@@ -137,6 +140,7 @@ function createGoalService({ registry, profiles, agent, sendEvent = () => {}, se
       check(!task?.role || task.role === 'worker' || payload.accepted !== true, 'Coordinator control responses must pass schema validation; reconcile and retry instead');
       let context;
       if (payload.retry) {
+        profiles.launchAdmission.assertOpen(profileId);
         context = captureWorker(profileId, goal, task);
       }
       result = engine.reviewTask(profileId, id, payload.taskId, { ...payload, context });
@@ -153,7 +157,13 @@ function createGoalService({ registry, profiles, agent, sendEvent = () => {}, se
     } else throw new Error('Unknown goal command');
     notify(profileId); return result;
   }
-  function tick() { for (const [profileId, engine] of schedulers) { try { advanceCoordinated({ engine, profileId, stage, now }); engine.tick(); } catch (error) { engine.halt(error); } } }
+  function tick() {
+    for (const [profileId, engine] of schedulers) {
+      try {
+        if (!profiles.launchAdmission.isClosed(profileId)) { advanceCoordinated({ engine, profileId, stage, now }); engine.tick(); }
+      } catch (error) { engine.halt(error); }
+    }
+  }
   const timer = heartbeatMs > 0 ? setInterval(tick, heartbeatMs) : null; timer?.unref();
   async function close() { if (closed) return; closed = true; if (timer) clearInterval(timer); await Promise.all([...schedulers.values()].map(s => s.close())); }
   return Object.freeze({ list, create, command, tick, close });
