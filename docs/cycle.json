@@ -16,17 +16,20 @@
   ],
   "checkpoint": "2026-09-25",
   "handoff": "docs/cycles/C079-editor-entry.md",
-  "nextAction": "Inspect failed native entry evidence, reproduce and identify the owner before editing.",
-  "evidence": [],
+  "nextAction": "Finish required live/standard evidence and root verification, then hosted parity and integration.",
+  "evidence": [
+    "docs/cycles/evidence/C079/focused/result.json",
+    "docs/visual/editor-gap-assertions/runs/2026-09-25T21-08-24-635Z/review-C079.json"
+  ],
   "truthReview": "",
   "screenshotReview": "",
   "delivery": {
-    "phase": "implementing",
+    "phase": "validating",
     "owner": "primary agent",
     "remaining": [
-      "Diagnose and fix native entry",
-      "Validate and review evidence",
-      "Merge and retire branch"
+      "Live/standard evidence and root verification",
+      "Hosted parity and merge",
+      "Retire branch"
     ]
   }
 }
