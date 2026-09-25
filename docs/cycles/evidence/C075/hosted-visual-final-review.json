@@ -1,0 +1,24 @@
+{
+  "reviewer": "Codex",
+  "reviewedAt": "2026-09-25T13:06:08.515Z",
+  "workflow": "https://github.com/FRIKKern/barkdown/actions/runs/36137937519",
+  "head": "0f2cfc93bf111137a3eb25d4734f529d8a0b4272",
+  "testedMerge": "76e57d96e9ec6c3f5f1a48d313578cc589401e10",
+  "bundleHash": "c4742053dc1658988e96ca8d4ae1d4a29a906c70fb216e79144b755860c7540a",
+  "manifestHash": "efadbbb4b0e37b996dd9238b908c3f235e305c669b09448744bb1952afa716d5",
+  "comparisonHash": "7bbcba67581075f9236aa764f271defee06983ef83b0ca872b9a26938547a517",
+  "bundleVerified": true,
+  "inspected": {
+    "stills": 40,
+    "differences": 40,
+    "decodedGifFrames": 40
+  },
+  "environmentChanged": true,
+  "observations": [
+    "Linux versus Windows differences concentrate on icon rasterization, goal timezone text and provider authentication availability.",
+    "Settings Assistant shows unsigned-in guidance and additional controls in CI; the scrollable sheet and actions remain reachable.",
+    "Inspected all standard journey stills, differences and decoded step frames including narrow, refusal, profile and goal transitions; no new clipping or missing controls found.",
+    "Existing GIF shadow quantization and narrow-frame letterboxing remain visible; PNG gradients are smooth. Same-Windows final source comparison has zero changed pixels/geometry."
+  ],
+  "decision": "Hosted candidate reviewed; retain the explicitly approved Windows baseline rather than replacing it with a different-environment capture."
+}

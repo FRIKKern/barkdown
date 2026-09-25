@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "id": "C075",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Fence captured note writers across foreground, API, MCP and goal processes before migration can select a new authority.",
+  "scope": [
+    "Persist a store-owned generation and cross-process writer admission, retaining interrupted/uncertain operations.",
+    "Carry captured tokens through actual document/edit adapters and provider child boundaries; stale handles must refuse mutations.",
+    "Audit source workspace/media writers and prove the fence without enabling migration activation or retiring legacy editing.",
+    "Keep fenced provider streaming responsive with bounded pre-sequence text coalescing, without weakening persistence or finalization."
+  ],
+  "acceptance": [
+    "Stale foreground/API/MCP/goal contexts cannot silently acquire a newer writer generation.",
+    "Quiescence rejects new writers and cannot claim completion with an admitted or interrupted writer.",
+    "Wrong-owner, malformed metadata, process interruption and normal edit/Undo/profile behavior are covered by tests and reviewed native evidence.",
+    "Burst/sparse streams preserve text, event order and completion through durable forwarding while reducing the measured20Hz backlog."
+  ],
+  "checkpoint": "2026-09-25",
+  "handoff": "docs/cycles/C075-writer-fence.md",
+  "nextAction": "Begin C076 profile preparation on a codex/ branch from main after C075 documentation closeout: close launch admission, retain human drafts and verify owned-child/transcript drain before writer quiescence.",
+  "evidence": [
+    "docs/cycles/evidence/C075/README.md",
+    "docs/cycles/evidence/C075/desktop-release.log",
+    "docs/cycles/evidence/C075/stream-refusal-focused.log",
+    "docs/visual/writer-fence/runs/2026-09-25T12-45-28-088Z/review.json",
+    "docs/cycles/evidence/C075/root-release.log",
+    "docs/cycles/evidence/C075/merge.json",
+    "docs/cycles/evidence/C075/hosted-final-checks.json",
+    "docs/cycles/evidence/C075/hosted-parity-final.json",
+    "docs/cycles/evidence/C075/hosted-visual-final-review.json"
+  ],
+  "truthReview": "PR38 merged at c6961328 after final Verify, Visual and real Paper/server parity20/20. Full Windows desktop/root and30 focused checks pass on runtime e4a60ac9. Pending-turn probe proves writer drain is not run/lease drain. No migration activation or retirement.",
+  "screenshotReview": "Final source:4 native stills/81 raw1fps samples/51 GIF frames, live5/37 and standard40/40/40 inspected. Standard has zero pixel/geometry differences and explicit immutable approval. Historical failures retained. Final hosted40/40/40 reviewed; Linux environment differences documented and Windows baseline retained."
+}

@@ -1,6 +1,6 @@
 # C075 writer-fence evidence
 
-Final runtime source **e4a60ac9**; private upstream **b70214090**. Windows source prototype. Final hosted checks and merge are pending.
+Final runtime source **e4a60ac9**; private upstream **b70214090**. Windows source prototype. [Final hosted checks](hosted-final-checks.json) pass; [PR38 merged](merge.json) at c6961328.
 
 | Boundary | Evidence | Result |
 |---|---|---|
@@ -11,7 +11,7 @@ Final runtime source **e4a60ac9**; private upstream **b70214090**. Windows sourc
 | Real Claude and Paper | [Live manifest](../../../images/status/history/2026-09-25T12-49-12-713Z.json), [log](live-release.log) |Pass;5 stills/37 GIF frames inspected; table headers/alignment6/6 |
 | Standard fixture review | [Gallery](../../../visual/runs/2026-09-25T12-49-16-707Z/README.md), [log](visual-release.log) |40 stills/40 differences/40 GIF frames inspected; zero pixel/geometry changes; explicit approval |
 | Root verification | [Final log](root-release.log) |Pass |
-| Real Paper/server matrix before provider-only follow-up | [Local report](parity.md), [initial hosted result](hosted-parity-initial.json) |20/20 at6033ee4 and944d8154 respectively; final hosted parity still required |
+| Real Paper/server matrix before provider-only follow-up | [Local report](parity.md), [initial hosted result](hosted-parity-initial.json) |20/20 at6033ee4 and944d8154 respectively; [final hosted20/20](hosted-parity-final.json) passes on0f2cfc93 |
 
 [Named final cross-journey review](../../../visual/writer-fence/runs/2026-09-25T12-45-28-088Z/review.json) binds provenance, counts, encoding, observations and limits. [Checkpoint](final-checkpoint.json) records validation handles/results. Root README dark demo still applies to ordinary editing; the fresh dark live hero is reviewed. Light views test contrast and interaction regression.
 
@@ -35,3 +35,7 @@ The [isolated20Hz probe](stream-probe.json) found up to2445ms dispatch backlog a
 No authority activation, owned-child teardown, abrupt-restart human-draft restoration, uncertainty reconciliation, external-client fence or legacy retirement is claimed. The [mounted draft probe](draft-retention-probe.json) proves active note-label composition is omitted from recoverySnapshot/flush; preparation must retain it or wait for verified composition end. [Next-boundary audit](next-boundary.json) and [contract](../../../migration/writer-fence.md) define the next work.
 
 Narrow Paper wrapping, startup light flash and standard step-GIF shadow quantization remain explicit visual limitations. Full recordings and PNGs are retained. [Initial repository inventory](repository.json) preserves43 locked recovery worktrees and2 stashes; final ref reconciliation follows merge.
+
+[Final hosted visual review](hosted-visual-final-review.json) covers40 stills,40 differences and40 decoded frames; the bundle verifies and Linux/Windows differences are documented. The Windows baseline remains selected. [Pending-turn probe](run-drain-probe.json) reproduces runtime/auth starts still waiting after writer drain; both refuse before SDK dispatch when released. [Premerge inventory](premerge-repository.json) preserves recovery state. The [CI audit](ci-effort-final-pending.json) is a bounded timing snapshot, not a billing or agent-idle measure.
+
+Documentation closeout: [root verification](closeout-verify.log) passes. No app or capture input changed; C075 reviewed media remains applicable. C076 is planned, with no implementation claim.
