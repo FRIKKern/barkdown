@@ -1,0 +1,630 @@
+Build + test + gates	Bundle budget	﻿2026-09-24T23:48:32.2199970Z ##[group]Run pnpm exec turbo run size 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.2200244Z [36;1mpnpm exec turbo run size [0m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.2256125Z shell: /usr/bin/bash -e {0}
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.2256350Z env:
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.2256573Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.2256855Z ##[endgroup]
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7010812Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7012903Z    • Packages in scope: @barkpark/astro-decoy, @barkpark/astro-parity, @barkpark/blog-hydration-parity, @barkpark/codegen, @barkpark/core, @barkpark/docs, @barkpark/groq, @barkpark/media-parity, @barkpark/next-parity, @barkpark/nextjs, @barkpark/nextjs-query, @barkpark/pinned-parity, @barkpark/react, create-barkpark-app
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7014522Z    • Running size in 14 packages
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7014790Z    • Remote caching disabled
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7014937Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7745350Z ##[group]@barkpark/core:build
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7746148Z cache hit, replaying logs ace0f9b557fb6c2c
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7746677Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7747384Z > @barkpark/core@1.0.0-preview.3 build /home/runner/work/barkpark/barkpark/js/packages/core
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7748152Z > tsup && node ../../scripts/post-build-dts.mjs
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7748443Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7749226Z [34mCLI[39m Building entry: {"index":"src/index.ts"}
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7749794Z [34mCLI[39m Using tsconfig: tsconfig.json
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7750144Z [34mCLI[39m tsup v8.5.1
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7750988Z [34mCLI[39m Using tsup config: /home/runner/work/barkpark/barkpark/js/packages/core/tsup.config.ts
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7751647Z [34mCLI[39m Target: es2022
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7751993Z [34mCLI[39m Cleaning output folder
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7752444Z [34mCJS[39m Build start
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7752971Z [34mESM[39m Build start
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7753342Z [34mDTS[39m Build start
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7753855Z [32mCJS[39m [1mdist/index.cjs     [22m[32m116.38 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7754288Z [32mCJS[39m [1mdist/index.cjs.map [22m[32m473.80 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7754661Z [32mCJS[39m ⚡️ Build success in 1767ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7755030Z [32mESM[39m [1mdist/index.mjs     [22m[32m114.11 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7755422Z [32mESM[39m [1mdist/index.mjs.map [22m[32m473.80 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7755747Z [32mESM[39m ⚡️ Build success in 1770ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7756034Z [32mDTS[39m ⚡️ Build success in 3908ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7756381Z [32mDTS[39m [1mdist/index.d.cts [22m[32m125.04 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7756760Z [32mDTS[39m [1mdist/index.d.ts  [22m[32m125.04 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7757082Z post-build-dts: copied 1 .d.ts -> .d.mts
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7757491Z ##[endgroup]
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7757803Z ##[group]@barkpark/groq:build
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7758066Z cache hit, replaying logs dc5335796cff04be
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7758227Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7758661Z > @barkpark/groq@0.0.0-placeholder build /home/runner/work/barkpark/barkpark/js/packages/groq
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7759272Z > tsup && node ../../scripts/post-build-dts.mjs
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7759550Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7759856Z [34mCLI[39m Building entry: {"index":"src/index.ts"}
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7760203Z [34mCLI[39m Using tsconfig: tsconfig.json
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7760474Z [34mCLI[39m tsup v8.5.1
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7760972Z [34mCLI[39m Using tsup config: /home/runner/work/barkpark/barkpark/js/packages/groq/tsup.config.ts
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7761391Z [34mCLI[39m Target: es2022
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7761664Z [34mCLI[39m Cleaning output folder
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7761926Z [34mCJS[39m Build start
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7762158Z [34mESM[39m Build start
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7762999Z [32mCJS[39m [1mdist/index.cjs     [22m[32m223.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7763557Z [32mCJS[39m [1mdist/index.cjs.map [22m[32m810.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7764052Z [32mCJS[39m ⚡️ Build success in 116ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7764607Z [32mESM[39m [1mdist/index.mjs     [22m[32m208.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7765204Z [32mESM[39m [1mdist/index.mjs.map [22m[32m808.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7766059Z [32mESM[39m ⚡️ Build success in 119ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7766436Z [34mDTS[39m Build start
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7766862Z [32mDTS[39m ⚡️ Build success in 1708ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7767400Z [32mDTS[39m [1mdist/index.d.cts [22m[32m13.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7767999Z [32mDTS[39m [1mdist/index.d.ts  [22m[32m13.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7768677Z post-build-dts: copied 1 .d.ts -> .d.mts
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7769250Z ##[endgroup]
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7769733Z ##[group]@barkpark/astro-decoy:build
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7770045Z cache hit, replaying logs 79c0bf2aaf5d87d4
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7770225Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7770658Z > @barkpark/astro-decoy@0.0.0 build /home/runner/work/barkpark/barkpark/js/packages/astro-decoy
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7771049Z > astro build
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7771158Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7771384Z [2m23:45:27[22m [34m[content][39m Syncing content
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7771768Z [2m23:45:27[22m [34m[content][39m Synced content
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7772160Z [2m23:45:27[22m [34m[types][39m Generated [2m399ms[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7772552Z [2m23:45:27[22m [34m[build][39m output: [34m"static"[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7772928Z [2m23:45:27[22m [34m[build][39m mode: [34m"static"[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7773518Z [2m23:45:27[22m [34m[build][39m directory: [34m/home/runner/work/barkpark/barkpark/js/packages/astro-decoy/dist/[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7774046Z [2m23:45:27[22m [34m[build][39m Collecting build info...
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7774462Z [2m23:45:27[22m [34m[build][39m [32m✓ Completed in 460ms.[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7774898Z [2m23:45:27[22m [34m[build][39m Building static entrypoints...
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7775301Z [2m23:45:29[22m [34m[vite][39m [32m✓ built in 1.20s[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7775693Z [2m23:45:29[22m [34m[build][39m [32m✓ Completed in 1.24s.[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7775880Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7776058Z [42m[30m building client (vite) [39m[49m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7776403Z [2m23:45:29[22m [34m[vite][39m transforming...
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7776800Z [2m23:45:30[22m [34m[vite][39m [32m✓[39m 28 modules transformed.
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7777193Z [2m23:45:30[22m [34m[vite][39m rendering chunks...
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7777550Z [2m23:45:30[22m [34m[vite][39m computing gzip size...
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7778243Z [2m23:45:30[22m [34m[vite][39m [2mdist/[22m[2m_astro/[22m[36mCounter.CgQFnTZh.js  [39m[1m[2m  0.90 kB[22m[1m[22m[2m │ gzip:  0.57 kB[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7779646Z [2m23:45:30[22m [34m[vite][39m [2mdist/[22m[2m_astro/[22m[36mindex.CdJzaNS0.js    [39m[1m[2m  7.85 kB[22m[1m[22m[2m │ gzip:  3.05 kB[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7780758Z [2m23:45:30[22m [34m[vite][39m [2mdist/[22m[2m_astro/[22m[36mclient.DYKcjN1Z.js   [39m[1m[2m186.62 kB[22m[1m[22m[2m │ gzip: 58.54 kB[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7781346Z [2m23:45:30[22m [34m[vite][39m [32m✓ built in 1.12s[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7781535Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7781722Z [42m[30m generating static routes [39m[49m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7782067Z [2m23:45:30[22m [32m▶[39m src/pages/index.astro
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7782485Z [2m23:45:30[22m   [34m└─[39m [2m/index.html[22m [2m(+15ms)[22m 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7782861Z [2m23:45:30[22m [32m✓ Completed in 37ms.
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7783228Z [39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7784435Z [2m23:45:30[22m [34m[build][39m 1 page(s) built in [1m2.86s[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7785204Z [2m23:45:30[22m [34m[build][39m [1mComplete![22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7785803Z ##[endgroup]
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7786269Z ##[group]@barkpark/nextjs-query:build
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7786925Z cache hit, replaying logs a6eef61b4855f840
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7787183Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7787765Z > @barkpark/nextjs-query@0.0.0-placeholder build /home/runner/work/barkpark/barkpark/js/packages/nextjs-query
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7788684Z > tsup && node ../../scripts/post-build-dts.mjs
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7788963Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7789488Z [34mCLI[39m Building entry: {"index":"src/index.ts"}
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7790028Z [34mCLI[39m Using tsconfig: tsconfig.json
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7790455Z [34mCLI[39m tsup v8.5.1
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7791084Z [34mCLI[39m Using tsup config: /home/runner/work/barkpark/barkpark/js/packages/nextjs-query/tsup.config.ts
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7791531Z [34mCLI[39m Target: es2022
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7791802Z [34mCLI[39m Cleaning output folder
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7792102Z [34mCJS[39m Build start
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7792332Z [34mESM[39m Build start
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7792644Z [32mCJS[39m [1mdist/index.cjs     [22m[32m306.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7793042Z [32mCJS[39m [1mdist/index.cjs.map [22m[32m881.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7793382Z [32mCJS[39m ⚡️ Build success in 85ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7793756Z [32mESM[39m [1mdist/index.mjs     [22m[32m291.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7794140Z [32mESM[39m [1mdist/index.mjs.map [22m[32m879.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7794454Z [32mESM[39m ⚡️ Build success in 85ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7794715Z [34mDTS[39m Build start
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7794980Z [32mDTS[39m ⚡️ Build success in 1558ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7795321Z [32mDTS[39m [1mdist/index.d.cts [22m[32m13.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7795680Z [32mDTS[39m [1mdist/index.d.ts  [22m[32m13.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7795979Z post-build-dts: copied 1 .d.ts -> .d.mts
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7796342Z ##[endgroup]
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7796645Z ##[group]@barkpark/docs:build
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7796908Z cache hit, replaying logs fcf80e5136f39aea
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7797068Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7797280Z > @barkpark/docs@0.0.0 build /home/runner/work/barkpark/barkpark/js/docs
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7797577Z > next build
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7797728Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7798130Z  ⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7799304Z  We detected multiple lockfiles and selected the directory of /home/runner/work/barkpark/barkpark/pnpm-lock.yaml as the root directory.
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7800695Z  To silence this warning, set `outputFileTracingRoot` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7801842Z    See https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats for more information.
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7802519Z  Detected additional lockfiles: 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7802971Z    * /home/runner/work/barkpark/barkpark/js/pnpm-lock.yaml
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7803286Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7804102Z ⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7827772Z Attention: Next.js now collects completely anonymous telemetry regarding usage.
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7828609Z This information is used to shape Next.js' roadmap and prioritize features.
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7829697Z You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7830527Z https://nextjs.org/telemetry
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7830748Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7830966Z [MDX] updated map file in 17.62620599999991ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7831436Z    ▲ Next.js 15.5.19
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7831617Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7831804Z    Creating an optimized production build ...
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7832276Z  ✓ Compiled successfully in 27.0s
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7832601Z    Linting and checking validity of types ...
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7832763Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7833306Z  ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/app/api-reference/config/eslint#migrating-existing-config
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7834015Z    Collecting page data ...
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7834259Z    Generating static pages (0/14) ...
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7834510Z    Generating static pages (3/14) 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7834758Z    Generating static pages (6/14) 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7835003Z    Generating static pages (10/14) 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7835428Z  ✓ Generating static pages (14/14)
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7835672Z    Finalizing page optimization ...
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7835971Z    Collecting build traces ...
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7836188Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7836465Z Route (app)                                 Size  First Load JS
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7837057Z ┌ ○ /                                      161 B         106 kB
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7837641Z ├ ○ /_not-found                            988 B         103 kB
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7838232Z ├ ƒ /api/search                            123 B         103 kB
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7838947Z └ ● /docs/[[...slug]]                    11.7 kB         153 kB
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7839395Z     ├ /docs/concepts
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7839727Z     ├ /docs/getting-started
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7840125Z     ├ /docs/apis-and-sdks/overview
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7840491Z     └ [+6 more paths]
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7840881Z + First Load JS shared by all             102 kB
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7841394Z   ├ chunks/6cc00bf7-e27f155d59d43aed.js  54.2 kB
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7841828Z   ├ chunks/962-2a5d1320f598ca48.js       46.1 kB
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7842130Z   └ other shared chunks (total)          2.08 kB
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7842286Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7842293Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7842457Z ○  (Static)   prerendered as static content
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7842859Z ●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7843225Z ƒ  (Dynamic)  server-rendered on demand
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7843377Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7843605Z ##[endgroup]
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7843915Z ##[group]@barkpark/react:build
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7844189Z cache hit, replaying logs 3f7bd807cf2634e8
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7844360Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7844656Z > @barkpark/react@1.0.0-preview.1 build /home/runner/work/barkpark/barkpark/js/packages/react
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7845091Z > tsup && node ../../scripts/post-build-dts.mjs
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7845267Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7846002Z [34mCLI[39m Building entry: {"index":"src/index.ts","server":"src/server.ts","image":"src/Image.tsx","client":"src/client.ts","portable-text":"src/portable-text.ts","portable-doc":"src/portable-doc.ts"}
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7846697Z [34mCLI[39m Using tsconfig: tsconfig.json
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7846976Z [34mCLI[39m tsup v8.5.1
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7847657Z [34mCLI[39m Using tsup config: /home/runner/work/barkpark/barkpark/js/packages/react/tsup.config.ts
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7848388Z [34mCLI[39m Target: es2022
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7849226Z [34mCLI[39m Cleaning output folder
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7849610Z [34mCJS[39m Build start
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7849961Z [34mESM[39m Build start
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7850766Z dist/index.cjs (1:0): Module level directives cause errors when bundled, "use client" in "dist/index.cjs" was ignored.
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7852503Z dist/image.cjs (1:0): Module level directives cause errors when bundled, "use client" in "dist/image.cjs" was ignored.
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7853868Z [34mDTS[39m Build start
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7854690Z dist/index.mjs (1:0): Module level directives cause errors when bundled, "use client" in "dist/index.mjs" was ignored.
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7855791Z dist/image.mjs (1:0): Module level directives cause errors when bundled, "use client" in "dist/image.mjs" was ignored.
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7856723Z [32mCJS[39m [1mdist/index.cjs              [22m[32m5.71 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7857413Z [32mCJS[39m [1mdist/server.cjs             [22m[32m1.13 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7858087Z [32mCJS[39m [1mdist/chunk-L47Z65A4.cjs     [22m[32m8.66 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7858916Z [32mCJS[39m [1mdist/chunk-TVDRW7B4.cjs     [22m[32m3.53 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7859868Z [32mCJS[39m [1mdist/image.cjs              [22m[32m281.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7860566Z [32mCJS[39m [1mdist/client.cjs             [22m[32m10.09 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7861251Z [32mCJS[39m [1mdist/portable-text.cjs      [22m[32m295.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7861935Z [32mCJS[39m [1mdist/chunk-DZVM6ZRM.cjs     [22m[32m5.72 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7862774Z [32mCJS[39m [1mdist/portable-doc.cjs       [22m[32m446.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7863468Z [32mCJS[39m [1mdist/chunk-JHFHH3UU.cjs     [22m[32m108.58 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7864176Z [32mCJS[39m [1mdist/index.cjs.map          [22m[32m20.68 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7864862Z [32mCJS[39m [1mdist/server.cjs.map         [22m[32m91.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7865604Z [32mCJS[39m [1mdist/chunk-L47Z65A4.cjs.map [22m[32m21.91 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7866306Z [32mCJS[39m [1mdist/chunk-TVDRW7B4.cjs.map [22m[32m15.03 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7866992Z [32mCJS[39m [1mdist/image.cjs.map          [22m[32m70.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7867673Z [32mCJS[39m [1mdist/client.cjs.map         [22m[32m36.93 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7868461Z [32mCJS[39m [1mdist/portable-text.cjs.map  [22m[32m78.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7869284Z [32mCJS[39m [1mdist/chunk-DZVM6ZRM.cjs.map [22m[32m19.46 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7869995Z [32mCJS[39m [1mdist/portable-doc.cjs.map   [22m[32m77.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7870682Z [32mCJS[39m [1mdist/chunk-JHFHH3UU.cjs.map [22m[32m317.06 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7871267Z [32mCJS[39m ⚡️ Build success in 2552ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7871874Z [32mESM[39m [1mdist/index.mjs              [22m[32m4.91 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7872499Z [32mESM[39m [1mdist/server.mjs             [22m[32m349.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7873152Z [32mESM[39m [1mdist/chunk-IJBNEH3G.mjs     [22m[32m7.76 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7873853Z [32mESM[39m [1mdist/image.mjs              [22m[32m123.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7874517Z [32mESM[39m [1mdist/chunk-3TWXUP5K.mjs     [22m[32m3.51 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7875163Z [32mESM[39m [1mdist/client.mjs             [22m[32m9.94 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7875858Z [32mESM[39m [1mdist/portable-text.mjs      [22m[32m138.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7876539Z [32mESM[39m [1mdist/chunk-AAVMO6TM.mjs     [22m[32m5.60 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7877262Z [32mESM[39m [1mdist/portable-doc.mjs       [22m[32m159.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7877964Z [32mESM[39m [1mdist/chunk-I64WCMVY.mjs     [22m[32m108.42 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7901630Z [32mESM[39m [1mdist/index.mjs.map          [22m[32m20.56 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7902469Z [32mESM[39m [1mdist/server.mjs.map         [22m[32m91.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7903188Z [32mESM[39m [1mdist/chunk-IJBNEH3G.mjs.map [22m[32m21.76 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7903901Z [32mESM[39m [1mdist/image.mjs.map          [22m[32m70.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7904604Z [32mESM[39m [1mdist/chunk-3TWXUP5K.mjs.map [22m[32m14.98 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7905332Z [32mESM[39m [1mdist/client.mjs.map         [22m[32m36.93 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7906001Z [32mESM[39m [1mdist/portable-text.mjs.map  [22m[32m78.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7906664Z [32mESM[39m [1mdist/chunk-AAVMO6TM.mjs.map [22m[32m19.39 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7907326Z [32mESM[39m [1mdist/portable-doc.mjs.map   [22m[32m77.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7908022Z [32mESM[39m [1mdist/chunk-I64WCMVY.mjs.map [22m[32m317.05 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7908745Z [32mESM[39m ⚡️ Build success in 2555ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7909216Z [32mDTS[39m ⚡️ Build success in 7132ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7909802Z [32mDTS[39m [1mdist/image.d.cts         [22m[32m4.34 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7910489Z [32mDTS[39m [1mdist/client.d.cts        [22m[32m5.24 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7911248Z [32mDTS[39m [1mdist/portable-text.d.cts [22m[32m4.32 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7911890Z [32mDTS[39m [1mdist/portable-doc.d.cts  [22m[32m1.40 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7912722Z [32mDTS[39m [1mdist/index.d.cts         [22m[32m8.09 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7913381Z [32mDTS[39m [1mdist/server.d.cts        [22m[32m669.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7914043Z [32mDTS[39m [1mdist/image.d.ts          [22m[32m4.34 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7914816Z [32mDTS[39m [1mdist/client.d.ts         [22m[32m5.24 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7915445Z [32mDTS[39m [1mdist/portable-text.d.ts  [22m[32m4.32 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7916095Z [32mDTS[39m [1mdist/portable-doc.d.ts   [22m[32m1.40 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7916731Z [32mDTS[39m [1mdist/index.d.ts          [22m[32m8.08 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7917361Z [32mDTS[39m [1mdist/server.d.ts         [22m[32m665.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7917882Z post-build-dts: copied 6 .d.ts -> .d.mts
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7918439Z ##[endgroup]
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7919053Z ##[group]@barkpark/nextjs:build
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7919481Z cache hit, replaying logs 9a8fb8f1ad1fc68b
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7919752Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7920241Z > @barkpark/nextjs@1.0.0-preview.3 build /home/runner/work/barkpark/barkpark/js/packages/nextjs
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7920925Z > tsup && node ../../scripts/post-build-dts.mjs
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7921197Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7923134Z [34mCLI[39m Building entry: {"index":"src/index.ts","server":"src/server/index.ts","client":"src/client/index.ts","actions":"src/actions/index.ts","webhook":"src/webhook/index.ts","draft-mode":"src/draft-mode/index.ts","revalidate":"src/revalidate/index.ts","preload":"src/preload/index.ts","csp":"src/csp/index.ts"}
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7924831Z [34mCLI[39m Using tsconfig: tsconfig.json
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7925258Z [34mCLI[39m tsup v8.5.1
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7926057Z [34mCLI[39m Using tsup config: /home/runner/work/barkpark/barkpark/js/packages/nextjs/tsup.config.ts
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7926718Z [34mCLI[39m Target: es2022
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7927140Z [34mCLI[39m Cleaning output folder
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7927551Z [34mCJS[39m Build start
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7930717Z [34mESM[39m Build start
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7931626Z dist/client.cjs (1:0): Module level directives cause errors when bundled, "use client" in "dist/client.cjs" was ignored.
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7932753Z dist/client.mjs (1:0): Module level directives cause errors when bundled, "use client" in "dist/client.mjs" was ignored.
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7933519Z [34mDTS[39m Build start
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7934088Z [32mCJS[39m [1mdist/csp.cjs                [22m[32m3.46 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7934758Z [32mCJS[39m [1mdist/index.cjs              [22m[32m1.07 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7935432Z [32mCJS[39m [1mdist/server.cjs             [22m[32m15.19 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7936084Z [32mCJS[39m [1mdist/client.cjs             [22m[32m4.49 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7936752Z [32mCJS[39m [1mdist/actions.cjs            [22m[32m6.51 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7937419Z [32mCJS[39m [1mdist/webhook.cjs            [22m[32m4.99 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7938098Z [32mCJS[39m [1mdist/draft-mode.cjs         [22m[32m3.77 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7939284Z [32mCJS[39m [1mdist/revalidate.cjs         [22m[32m2.13 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7939968Z [32mCJS[39m [1mdist/chunk-63KRF7SR.cjs     [22m[32m434.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7940641Z [32mCJS[39m [1mdist/preload.cjs            [22m[32m2.92 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7941346Z [32mCJS[39m [1mdist/csp.cjs.map            [22m[32m17.18 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7942019Z [32mCJS[39m [1mdist/index.cjs.map          [22m[32m4.36 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7942595Z [32mCJS[39m [1mdist/server.cjs.map         [22m[32m58.62 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7943220Z [32mCJS[39m [1mdist/client.cjs.map         [22m[32m12.83 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7943872Z [32mCJS[39m [1mdist/actions.cjs.map        [22m[32m26.70 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7944298Z [32mCJS[39m [1mdist/webhook.cjs.map        [22m[32m15.32 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7944876Z [32mCJS[39m [1mdist/draft-mode.cjs.map     [22m[32m10.54 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7945301Z [32mCJS[39m [1mdist/revalidate.cjs.map     [22m[32m11.18 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7945723Z [32mCJS[39m [1mdist/chunk-63KRF7SR.cjs.map [22m[32m1.57 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7946147Z [32mCJS[39m [1mdist/preload.cjs.map        [22m[32m15.84 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7946598Z [32mCJS[39m ⚡️ Build success in 1508ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7946986Z [32mESM[39m [1mdist/csp.mjs                [22m[32m3.35 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7947407Z [32mESM[39m [1mdist/index.mjs              [22m[32m1.01 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7947815Z [32mESM[39m [1mdist/server.mjs             [22m[32m15.19 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7948217Z [32mESM[39m [1mdist/client.mjs             [22m[32m3.99 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7948834Z [32mESM[39m [1mdist/actions.mjs            [22m[32m6.44 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7949250Z [32mESM[39m [1mdist/webhook.mjs            [22m[32m4.94 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7949677Z [32mESM[39m [1mdist/draft-mode.mjs         [22m[32m3.70 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7950088Z [32mESM[39m [1mdist/revalidate.mjs         [22m[32m2.09 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7950498Z [32mESM[39m [1mdist/chunk-XTCFSWNF.mjs     [22m[32m404.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7950909Z [32mESM[39m [1mdist/preload.mjs            [22m[32m2.86 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7951323Z [32mESM[39m [1mdist/csp.mjs.map            [22m[32m17.16 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7951732Z [32mESM[39m [1mdist/index.mjs.map          [22m[32m4.36 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7952144Z [32mESM[39m [1mdist/server.mjs.map         [22m[32m58.36 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7952549Z [32mESM[39m [1mdist/client.mjs.map         [22m[32m12.73 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7952961Z [32mESM[39m [1mdist/actions.mjs.map        [22m[32m26.53 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7953552Z [32mESM[39m [1mdist/webhook.mjs.map        [22m[32m15.30 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7954242Z [32mESM[39m [1mdist/draft-mode.mjs.map     [22m[32m10.49 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7954942Z [32mESM[39m [1mdist/revalidate.mjs.map     [22m[32m11.12 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7955733Z [32mESM[39m [1mdist/chunk-XTCFSWNF.mjs.map [22m[32m1.57 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7956574Z [32mESM[39m [1mdist/preload.mjs.map        [22m[32m15.83 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7956954Z [32mESM[39m ⚡️ Build success in 1509ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7957269Z [32mDTS[39m ⚡️ Build success in 13332ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7957711Z [32mDTS[39m [1mdist/index.d.cts          [22m[32m2.22 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7958152Z [32mDTS[39m [1mdist/server.d.cts         [22m[32m3.58 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7958772Z [32mDTS[39m [1mdist/client.d.cts         [22m[32m3.24 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7959419Z [32mDTS[39m [1mdist/actions.d.cts        [22m[32m7.22 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7960077Z [32mDTS[39m [1mdist/webhook.d.cts        [22m[32m3.32 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7960840Z [32mDTS[39m [1mdist/draft-mode.d.cts     [22m[32m3.54 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7961487Z [32mDTS[39m [1mdist/revalidate.d.cts     [22m[32m3.72 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7962162Z [32mDTS[39m [1mdist/preload.d.cts        [22m[32m4.01 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7962810Z [32mDTS[39m [1mdist/csp.d.cts            [22m[32m4.63 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7963458Z [32mDTS[39m [1mdist/types-VbTaxpjz.d.cts [22m[32m5.02 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7964106Z [32mDTS[39m [1mdist/index.d.ts           [22m[32m2.22 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7964732Z [32mDTS[39m [1mdist/server.d.ts          [22m[32m3.58 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7965377Z [32mDTS[39m [1mdist/client.d.ts          [22m[32m3.24 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7966037Z [32mDTS[39m [1mdist/actions.d.ts         [22m[32m7.22 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7966978Z [32mDTS[39m [1mdist/webhook.d.ts         [22m[32m3.32 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7967818Z [32mDTS[39m [1mdist/draft-mode.d.ts      [22m[32m3.54 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7968994Z [32mDTS[39m [1mdist/revalidate.d.ts      [22m[32m3.72 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7969814Z [32mDTS[39m [1mdist/preload.d.ts         [22m[32m4.01 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7970586Z [32mDTS[39m [1mdist/csp.d.ts             [22m[32m4.63 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7971368Z [32mDTS[39m [1mdist/types-VbTaxpjz.d.ts  [22m[32m5.02 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7972159Z post-build-dts: copied 10 .d.ts -> .d.mts
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7972842Z ##[endgroup]
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7973278Z ##[group]@barkpark/codegen:build
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7973822Z cache hit, replaying logs 8e3dbb2954ad9a98
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7974203Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7974707Z > @barkpark/codegen@1.0.0-preview.0 build /home/runner/work/barkpark/barkpark/js/packages/codegen
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7975539Z > tsup && node ../../scripts/post-build-dts.mjs
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7975958Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7976411Z [34mCLI[39m Building entry: {"index":"src/index.ts","cli":"src/cli.ts"}
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7977179Z [34mCLI[39m Using tsconfig: tsconfig.json
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7977750Z [34mCLI[39m tsup v8.5.1
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7978931Z [34mCLI[39m Using tsup config: /home/runner/work/barkpark/barkpark/js/packages/codegen/tsup.config.ts
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7979764Z [34mCLI[39m Target: es2022
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7980376Z [34mCLI[39m Cleaning output folder
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7980857Z [34mCJS[39m Build start
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7981338Z [34mESM[39m Build start
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7982032Z [32mCJS[39m [1mdist/index.cjs              [22m[32m952.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7982878Z [32mCJS[39m [1mdist/cli.cjs                [22m[32m7.55 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7983737Z [32mCJS[39m [1mdist/chunk-KSIKOBCR.cjs     [22m[32m11.94 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7984547Z [32mCJS[39m [1mdist/index.cjs.map          [22m[32m1.37 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7985366Z [32mCJS[39m [1mdist/cli.cjs.map            [22m[32m19.44 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7986192Z [32mCJS[39m [1mdist/chunk-KSIKOBCR.cjs.map [22m[32m41.35 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7986892Z [32mCJS[39m ⚡️ Build success in 740ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7987616Z [32mESM[39m [1mdist/index.mjs              [22m[32m287.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7988399Z [32mESM[39m [1mdist/cli.mjs                [22m[32m7.11 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7989262Z [32mESM[39m [1mdist/chunk-OU73RSRK.mjs     [22m[32m11.58 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7990240Z [32mESM[39m [1mdist/index.mjs.map          [22m[32m1.37 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7991035Z [32mESM[39m [1mdist/cli.mjs.map            [22m[32m19.29 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7991835Z [32mESM[39m [1mdist/chunk-OU73RSRK.mjs.map [22m[32m41.32 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7992548Z [32mESM[39m ⚡️ Build success in 740ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7992958Z [34mDTS[39m Build start
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7993491Z [32mDTS[39m ⚡️ Build success in 5396ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7994185Z [32mDTS[39m [1mdist/index.d.cts          [22m[32m5.52 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7994970Z [32mDTS[39m [1mdist/cli.d.cts            [22m[32m713.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7995753Z [32mDTS[39m [1mdist/types-DImU0Str.d.cts [22m[32m3.33 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7996550Z [32mDTS[39m [1mdist/index.d.ts           [22m[32m5.51 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7997324Z [32mDTS[39m [1mdist/cli.d.ts             [22m[32m712.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7998091Z [32mDTS[39m [1mdist/types-DImU0Str.d.ts  [22m[32m3.33 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7998786Z post-build-dts: copied 3 .d.ts -> .d.mts
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7999469Z ##[endgroup]
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.7999931Z ##[group]create-barkpark-app:build
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8000504Z cache hit, replaying logs e1ceeff4754be065
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8000764Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8001486Z > create-barkpark-app@1.0.0-preview.1 build /home/runner/work/barkpark/barkpark/js/packages/create-barkpark-app
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8002256Z > tsup
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8002397Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8002834Z [34mCLI[39m Building entry: {"index":"src/index.ts"}
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8003666Z [34mCLI[39m Using tsconfig: tsconfig.json
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8004229Z [34mCLI[39m tsup v8.5.1
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8005250Z [34mCLI[39m Using tsup config: /home/runner/work/barkpark/barkpark/js/packages/create-barkpark-app/tsup.config.ts
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8006116Z [34mCLI[39m Target: node20.9
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8006684Z [34mCLI[39m Cleaning output folder
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8007072Z [34mESM[39m Build start
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8007699Z [32mESM[39m [1mdist/index.js     [22m[32m17.11 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8008306Z [32mESM[39m [1mdist/index.js.map [22m[32m41.92 KB[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8008929Z [32mESM[39m ⚡️ Build success in 29ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8009503Z [34mDTS[39m Build start
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8009942Z [32mDTS[39m ⚡️ Build success in 2310ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8010490Z [32mDTS[39m [1mdist/index.d.ts [22m[32m13.00 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8011059Z ##[endgroup]
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8011516Z ##[group]@barkpark/astro-parity:build
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8011967Z cache hit, replaying logs c85fb4a9b089d4a7
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8012219Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8012720Z > @barkpark/astro-parity@0.0.0 build /home/runner/work/barkpark/barkpark/js/packages/astro-parity
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8013959Z > ( [ -f ../react/dist/index.mjs ] || ( pnpm --filter @barkpark/core build && pnpm --filter @barkpark/react build ) ) && astro build
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8014544Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8014861Z [2m23:45:41[22m [34m[content][39m Syncing content
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8015420Z [2m23:45:41[22m [34m[content][39m Synced content
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8016008Z [2m23:45:41[22m [34m[types][39m Generated [2m258ms[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8016632Z [2m23:45:41[22m [34m[build][39m output: [34m"static"[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8017240Z [2m23:45:41[22m [34m[build][39m mode: [34m"static"[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8018238Z [2m23:45:41[22m [34m[build][39m directory: [34m/home/runner/work/barkpark/barkpark/js/packages/astro-parity/dist/[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8019229Z [2m23:45:41[22m [34m[build][39m Collecting build info...
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8019891Z [2m23:45:41[22m [34m[build][39m [32m✓ Completed in 292ms.[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8020735Z [2m23:45:41[22m [34m[build][39m Building static entrypoints...
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8022149Z [33m[1m23:45:42[22m [WARN] [vite][39m [33m../react/dist/index.mjs (1:0): Module level directives cause errors when bundled, "use client" in "../react/dist/index.mjs" was ignored.[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8024097Z [33m[1m23:45:42[22m [WARN] [vite][39m [33m../react/dist/chunk-3TWXUP5K.mjs (1:0): Module level directives cause errors when bundled, "use client" in "../react/dist/chunk-3TWXUP5K.mjs" was ignored.[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8025234Z [2m23:45:43[22m [34m[vite][39m [32m✓ built in 1.71s[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8025904Z [2m23:45:43[22m [34m[build][39m [32m✓ Completed in 1.76s.[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8026213Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8026490Z [42m[30m generating static routes [39m[49m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8027056Z [2m23:45:43[22m [32m▶[39m src/pages/index.astro
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8027717Z [2m23:45:43[22m   [34m└─[39m [2m/index.html[22m [2m(+26ms)[22m 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8028300Z [2m23:45:43[22m [32m✓ Completed in 39ms.
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8028782Z [39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8029293Z [2m23:45:43[22m [34m[build][39m 1 page(s) built in [1m2.11s[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8029923Z [2m23:45:43[22m [34m[build][39m [1mComplete![22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8030490Z ##[endgroup]
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8030940Z ##[group]@barkpark/next-parity:build
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8031386Z cache hit, replaying logs 3ed226ee54817eee
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8031640Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8032129Z > @barkpark/next-parity@0.0.0 build /home/runner/work/barkpark/barkpark/js/packages/next-parity
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8033445Z > ( [ -f ../react/dist/index.mjs ] && [ -f ../nextjs/dist/index.mjs ] || pnpm --filter @barkpark/core --filter @barkpark/react --filter @barkpark/nextjs build ) && next build
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8034540Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8035351Z ⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8036370Z Attention: Next.js now collects completely anonymous telemetry regarding usage.
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8037137Z This information is used to shape Next.js' roadmap and prioritize features.
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8038352Z You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8039179Z https://nextjs.org/telemetry
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8039373Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8039597Z ▲ Next.js 16.2.1 (Turbopack)
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8039786Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8039956Z   Creating an optimized production build ...
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8040376Z ✓ Compiled successfully in 2.5s
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8040695Z   Running TypeScript ...
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8041081Z   Finished TypeScript in 2.8s ...
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8041519Z   Collecting page data using 3 workers ...
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8042012Z   Generating static pages using 3 workers (0/6) ...
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8042422Z   Generating static pages using 3 workers (1/6) 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8042836Z   Generating static pages using 3 workers (2/6) 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8043263Z   Generating static pages using 3 workers (4/6) 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8043899Z ✓ Generating static pages using 3 workers (6/6) in 215ms
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8044369Z   Finalizing page optimization ...
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8044605Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8044727Z Route (app)
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8045007Z ┌ ○ /
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8045294Z ├ ○ /_not-found
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8045613Z └ ● /posts/[slug]
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8046002Z   ├ /posts/one-renderer-every-surface
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8046470Z   ├ /posts/proving-dom-shape-parity
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8046910Z   └ /posts/draft-notes-on-hydration
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8047145Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8047154Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8047416Z ○  (Static)  prerendered as static content
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8048072Z ●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8048414Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:32.8048906Z ##[endgroup]
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.4927753Z ##[group]@barkpark/nextjs-query:size
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.4932069Z cache miss, executing 9619c1dcb79c253f
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.4932491Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.4933198Z > @barkpark/nextjs-query@0.0.0-placeholder size /home/runner/work/barkpark/barkpark/js/packages/nextjs-query
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.4934058Z > size-limit
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.4934330Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.4934907Z [33m-[39m Adding to empty esbuild project
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.4935605Z [32m✔[39m Adding to empty esbuild project
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.4936083Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.4936839Z   [1mESM bundle (measured 158 B on d6cfa870d49a, 2026-09-19; ceiling = measured + headroom)[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.4937775Z   [42m[30mPackage size is 142 B less than limit[39m[49m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.4938438Z   Size limit: [32m[1m300 B[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.4969375Z   Size:       [32m[1m158 B[22m[39m [90mwith all dependencies, minified and gzipped[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.4969944Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.4970624Z   [1mCJS bundle (measured 203 B on d6cfa870d49a, 2026-09-19; ceiling = measured + headroom)[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.4971383Z   [42m[30mPackage size is 147 B less than limit[39m[49m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.4971933Z   Size limit: [32m[1m350 B[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.4972617Z   Size:       [32m[1m203 B[22m[39m [90mwith all dependencies, minified and gzipped[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.4973138Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.4973641Z ##[endgroup]
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.5889884Z ##[group]@barkpark/codegen:size
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.5919371Z cache miss, executing d9421b73b71330db
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.5919930Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.5949505Z > @barkpark/codegen@1.0.0-preview.0 size /home/runner/work/barkpark/barkpark/js/packages/codegen
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.5995271Z > size-limit
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.6018756Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.6059701Z [33m-[39m Adding to empty esbuild project
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.6089469Z [32m✔[39m Adding to empty esbuild project
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.6142303Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.6169205Z   Size limit: [32m[1m15 kB[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.6219730Z   Size:       [32m[1m3.1 kB[22m[39m [90mwith all dependencies, minified and brotlied[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.6304819Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.6379678Z ##[endgroup]
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8020263Z ##[group]@barkpark/groq:size
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8061577Z cache miss, executing 0420674a018228ff
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8068983Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8099395Z > @barkpark/groq@0.0.0-placeholder size /home/runner/work/barkpark/barkpark/js/packages/groq
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8101192Z > size-limit
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8101564Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8102206Z [33m-[39m Adding to empty esbuild project
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8103089Z [32m✔[39m Adding to empty esbuild project
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8103621Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8104591Z   [1mESM bundle (measured 111 B on d6cfa870d49a, 2026-09-19; ceiling = measured + headroom)[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8105580Z   [42m[30mPackage size is 139 B less than limit[39m[49m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8106406Z   Size limit: [32m[1m250 B[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8107284Z   Size:       [32m[1m111 B[22m[39m [90mwith all dependencies, minified and gzipped[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8108233Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8109338Z   [1mCJS bundle (measured 158 B on d6cfa870d49a, 2026-09-19; ceiling = measured + headroom)[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8110236Z   [42m[30mPackage size is 142 B less than limit[39m[49m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8111109Z   Size limit: [32m[1m300 B[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8111886Z   Size:       [32m[1m158 B[22m[39m [90mwith all dependencies, minified and gzipped[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8112755Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8113414Z ##[endgroup]
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8728704Z ##[group]@barkpark/nextjs:size
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8729330Z cache miss, executing f3bbeb8f7a7d054b
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8729601Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8730095Z > @barkpark/nextjs@1.0.0-preview.3 size /home/runner/work/barkpark/barkpark/js/packages/nextjs
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8730691Z > size-limit
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8730839Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8731346Z [33m-[39m Adding to empty esbuild project
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8731865Z [32m✔[39m Adding to empty esbuild project
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8732241Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8732564Z   [1mdist/server.mjs[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8732980Z   Size limit: [32m[1m20 kB[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8733670Z   Size:       [32m[1m3.35 kB[22m[39m [90mwith all dependencies, minified and brotlied[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8734174Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8734467Z   [1mdist/client.mjs[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8734870Z   Size limit: [32m[1m15 kB[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8735511Z   Size:       [32m[1m1.19 kB[22m[39m [90mwith all dependencies, minified and brotlied[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8736005Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8736332Z   [1mdist/revalidate.mjs[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8736729Z   Size limit: [32m[1m2 kB[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8737373Z   Size:       [32m[1m592 B[22m[39m [90mwith all dependencies, minified and brotlied[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8737842Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8738147Z   [1mdist/preload.mjs[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8739102Z   Size limit: [32m[1m2 kB[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8739833Z   Size:       [32m[1m742 B[22m[39m [90mwith all dependencies, minified and brotlied[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8740373Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8740665Z   [1mdist/csp.mjs[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8741046Z   Size limit: [32m[1m1 kB[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8741666Z   Size:       [32m[1m952 B[22m[39m [90mwith all dependencies, minified and brotlied[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8742108Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8743432Z   [1mRoot export (2026-09-18: measured 298 B; 202 B headroom) — tsup builds NINE entries and this file capped FIVE. Measured on this head: bloating src/actions/index.ts grew dist/actions.mjs 6610 B -> 241556 B and `pnpm --filter @barkpark/nextjs size` still exited 0, printing the same five unchanged lines. A cap that does not name an entry is not a cap on it.[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8744718Z   [42m[30mPackage size is 202 B less than limit[39m[49m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8745093Z   Size limit: [32m[1m500 B[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8745552Z   Size:       [32m[1m298 B[22m[39m [90mwith all dependencies, minified and brotlied[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8746048Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8746671Z   [1m./actions — useOptimisticDocument, a CLIENT bundle every consumer of the subpath ships (2026-09-18: measured 1.5 kB; ~0.5 kB headroom)[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8747270Z   Size limit: [32m[1m2 kB[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8747726Z   Size:       [32m[1m1.5 kB[22m[39m [90mwith all dependencies, minified and brotlied[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8748068Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8748388Z   [1m./webhook (2026-09-18: measured 1.4 kB; ~0.6 kB headroom)[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8749495Z   Size limit: [32m[1m2 kB[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8749946Z   Size:       [32m[1m1.4 kB[22m[39m [90mwith all dependencies, minified and brotlied[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8750286Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8751565Z   [1m./draft-mode (2026-09-18: measured 918 B; ~360 B headroom). `crypto` is ignored because this entry imports node:crypto — the known ADR-002 violation check-no-node-imports.sh reports ADVISORY — and esbuild cannot resolve it for a browser-platform measurement. Ignoring it keeps the cap on OUR code; it is not an endorsement of the import.[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8752638Z   Size limit: [32m[1m1.25 kB[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8753074Z   Size:       [32m[1m918 B  [22m[39m [90mwith all dependencies, minified and brotlied[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8753424Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8753761Z ##[endgroup]
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8822195Z ##[group]@barkpark/core:size
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8822649Z cache miss, executing d4d2d9d08ee4b60f
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8822910Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8823385Z > @barkpark/core@1.0.0-preview.3 size /home/runner/work/barkpark/barkpark/js/packages/core
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8824108Z > size-limit
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8824223Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8824468Z [33m-[39m Adding to empty esbuild project
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8824821Z [32m✔[39m Adding to empty esbuild project
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8825055Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8825416Z   [1mESM bundle (re-based 2026-09-06: measured 16.68 kB + 0.5 kB headroom)[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8825805Z   Size limit: [32m[1m17.25 kB[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8826254Z   Size:       [32m[1m16.73 kB[22m[39m [90mwith all dependencies, minified and gzipped[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8826577Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8826909Z   [1mCJS bundle (re-based 2026-09-06: measured 17.4 kB + 0.5 kB headroom)[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8827275Z   Size limit: [32m[1m18 kB[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8827674Z   Size:       [32m[1m17.45 kB[22m[39m [90mwith all dependencies, minified and gzipped[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8827990Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.8828291Z ##[endgroup]
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9305092Z [;31m@barkpark/react:size[;0m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9305599Z cache miss, executing 87d6d448a1671bdf
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9305846Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9306343Z > @barkpark/react@1.0.0-preview.1 size /home/runner/work/barkpark/barkpark/js/packages/react
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9306789Z > size-limit
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9306897Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9307077Z [33m-[39m Adding to empty esbuild project
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9307429Z [32m✔[39m Adding to empty esbuild project
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9307672Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9308158Z   [1mPortableText root import — 2026-09-08 nested-reader rebase: 1196 B -> 1196 B (+0); isolated legacy shim[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9308799Z   Size limit: [32m[1m1.3 kB[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9309227Z   Size:       [32m[1m1.2 kB[22m[39m [90mwith all dependencies, minified and gzipped[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9309559Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9310395Z   [1mPortableDoc client — 2026-09-12 baseline reland (studio-r14): 24717 B -> 24950 B (+233); diffuse PortableDoc drift across #17684 #17729 #17759 #17966 landed after the #17667 baseline-move without a bump; 300 B headroom[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9311334Z   [31mPackage size limit has exceeded by 250 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9311655Z   Size limit: [31m[1m25.25 kB[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9312091Z   Size:       [31m[1m25.5 kB [22m[39m [90mwith all dependencies, minified and gzipped[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9312403Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9313115Z   [1mRSC server — 2026-09-12 baseline reland (studio-r14): 23702 B -> 23940 B (+238); same diffuse PortableDoc drift through the server entry; 260 B headroom[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9313697Z   [31mPackage size limit has exceeded by 282 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9314027Z   Size limit: [31m[1m24.2 kB[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9314438Z   Size:       [31m[1m24.48 kB[22m[39m [90mwith all dependencies, minified and gzipped[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9314760Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9315709Z   [1mMedia hydration client — 2026-09-13 asciicast failure fallback (studio-r15): 1833 B -> 2385 B (+552); the post-mount load probe + honest fallback card jf-backlog-asciicast-empty-box asks for (mermaid/asciinema still external and dynamic); 115 B headroom[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9316527Z   Size limit: [32m[1m2.5 kB[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9316942Z   Size:       [32m[1m2.38 kB[22m[39m [90mwith all dependencies, minified and gzipped[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9317259Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9317683Z   [1mPortableText subpath — 2026-09-08 nested-reader rebase: 1327 B -> 1327 B (+0); legacy shim alone[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9318121Z   Size limit: [32m[1m1.4 kB[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9318653Z   Size:       [32m[1m1.33 kB[22m[39m [90mwith all dependencies, minified and gzipped[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9319123Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9319875Z   [1mPortableDoc subpath — 2026-09-12 baseline reland (studio-r14): 20780 B -> 21017 B (+237); same diffuse PortableDoc drift through the PortableDoc subpath; 283 B headroom[22m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9320654Z   [31mPackage size limit has exceeded by 276 B[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9321136Z   Size limit: [31m[1m21.3 kB[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9321689Z   Size:       [31m[1m21.58 kB[22m[39m [90mwith all dependencies, minified and gzipped[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9322032Z   
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9322374Z   [33mTry to reduce size or increase limit at [1m.size-limit.json[22m[39m
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9322855Z  ELIFECYCLE  Command failed with exit code 1.
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9333800Z ##[error]@barkpark/react#size: command (/home/runner/work/barkpark/barkpark/js/packages/react) /home/runner/setup-pnpm/node_modules/.bin/pnpm run size exited (1)
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9335262Z  ERROR  @barkpark/react#size: command (/home/runner/work/barkpark/barkpark/js/packages/react) /home/runner/setup-pnpm/node_modules/.bin/pnpm run size exited (1)
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9335735Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9335874Z  Tasks:    16 successful, 17 total
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9336173Z Cached:    11 cached, 17 total
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9336391Z   Time:    1.375s 
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9336621Z Failed:    @barkpark/react#size
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9336802Z 
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9387183Z  ERROR  run failed: command  exited (1)
+Build + test + gates	Bundle budget	2026-09-24T23:48:33.9527278Z ##[error]Process completed with exit code 1.

@@ -1,0 +1,70 @@
+{
+  "capturedAt": "2026-09-25T01:00:40.771Z",
+  "workflows": {
+    "elixir": {
+      "runs": 4,
+      "finishedJobSeconds": 4649,
+      "cancelledJobSeconds": 869,
+      "jobsWithoutDuration": 1,
+      "unfinishedJobs": 1,
+      "observedUnfinishedSeconds": 1125.771,
+      "preJobDelaySeconds": [
+        20,
+        4,
+        32,
+        36
+      ]
+    }
+  },
+  "pushAndPrCandidates": [],
+  "longestAggregateSteps": [
+    {
+      "name": "elixir: Test",
+      "seconds": 1949
+    },
+    {
+      "name": "elixir: Every unrenderable .exclusions row is acknowledged in ACK_EX",
+      "seconds": 598
+    },
+    {
+      "name": "elixir: Run actions/checkout@v4",
+      "seconds": 295
+    },
+    {
+      "name": "elixir: Prod compile (--warnings-as-errors)",
+      "seconds": 172
+    },
+    {
+      "name": "elixir: The PR test selector must fail safe (47-case harness)",
+      "seconds": 167
+    },
+    {
+      "name": "elixir: Compile",
+      "seconds": 152
+    },
+    {
+      "name": "elixir: The top-level classifier must be able to fail (27-case harness)",
+      "seconds": 106
+    },
+    {
+      "name": "elixir: Setup BEAM",
+      "seconds": 103
+    },
+    {
+      "name": "elixir: Harness (the ratchet must be able to fail)",
+      "seconds": 97
+    },
+    {
+      "name": "elixir: Compile (dev, --warnings-as-errors)",
+      "seconds": 94
+    }
+  ],
+  "limits": [
+    "Job elapsed time includes setup and teardown; it is not CPU time, billed cost or agent idle time.",
+    "Parallel job durations are summed, not added to delivery latency.",
+    "Pre-job delay includes scheduling/setup latency, not a measured queue-only interval.",
+    "Cancelled time and same-head push/PR pairs are investigation candidates, not automatically wasted or equivalent proof.",
+    "Unfinished jobs are censored observations, not zero-duration successes; missing timestamps are counted separately.",
+    "Bounded recent-run sample; latest attempt jobs only. No CI result is reused or changed."
+  ]
+}

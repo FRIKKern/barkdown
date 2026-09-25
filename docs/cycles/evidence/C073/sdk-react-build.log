@@ -1,0 +1,73 @@
+
+> @barkpark/react@1.0.0-preview.1 build C:\Users\Frikk\.codex\worktrees\barkpark-paper-create\js\packages\react
+> tsup && node ../../scripts/post-build-dts.mjs
+
+CLI Building entry: {"index":"src/index.ts","server":"src/server.ts","image":"src/Image.tsx","client":"src/client.ts","portable-text":"src/portable-text.ts","portable-doc":"src/portable-doc.ts"}
+CLI Using tsconfig: tsconfig.json
+CLI tsup v8.5.1
+CLI Using tsup config: C:\Users\Frikk\.codex\worktrees\barkpark-paper-create\js\packages\react\tsup.config.ts
+CLI Target: es2022
+CLI Cleaning output folder
+CJS Build start
+ESM Build start
+dist/index.cjs (1:0): Module level directives cause errors when bundled, "use client" in "dist/index.cjs" was ignored.
+dist/image.cjs (1:0): Module level directives cause errors when bundled, "use client" in "dist/image.cjs" was ignored.
+dist/image.mjs (1:0): Module level directives cause errors when bundled, "use client" in "dist/image.mjs" was ignored.
+dist/index.mjs (1:0): Module level directives cause errors when bundled, "use client" in "dist/index.mjs" was ignored.
+DTS Build start
+CJS dist\server.cjs             1.13 KB
+CJS dist\index.cjs              5.71 KB
+CJS dist\chunk-L47Z65A4.cjs     8.66 KB
+CJS dist\image.cjs              281.00 B
+CJS dist\chunk-TVDRW7B4.cjs     3.53 KB
+CJS dist\portable-text.cjs      295.00 B
+CJS dist\chunk-DZVM6ZRM.cjs     5.72 KB
+CJS dist\client.cjs             10.09 KB
+CJS dist\portable-doc.cjs       446.00 B
+CJS dist\chunk-JHFHH3UU.cjs     108.58 KB
+CJS dist\server.cjs.map         91.00 B
+CJS dist\index.cjs.map          20.68 KB
+CJS dist\image.cjs.map          70.00 B
+CJS dist\chunk-L47Z65A4.cjs.map 21.91 KB
+CJS dist\chunk-TVDRW7B4.cjs.map 15.03 KB
+CJS dist\portable-text.cjs.map  78.00 B
+CJS dist\chunk-DZVM6ZRM.cjs.map 19.46 KB
+CJS dist\client.cjs.map         36.93 KB
+CJS dist\portable-doc.cjs.map   77.00 B
+CJS dist\chunk-JHFHH3UU.cjs.map 317.06 KB
+CJS ⚡️ Build success in 717ms
+ESM dist\image.mjs              123.00 B
+ESM dist\server.mjs             349.00 B
+ESM dist\index.mjs              4.91 KB
+ESM dist\chunk-3TWXUP5K.mjs     3.51 KB
+ESM dist\chunk-IJBNEH3G.mjs     7.76 KB
+ESM dist\portable-text.mjs      138.00 B
+ESM dist\portable-doc.mjs       159.00 B
+ESM dist\chunk-AAVMO6TM.mjs     5.60 KB
+ESM dist\chunk-I64WCMVY.mjs     108.42 KB
+ESM dist\client.mjs             9.94 KB
+ESM dist\image.mjs.map          70.00 B
+ESM dist\server.mjs.map         91.00 B
+ESM dist\chunk-3TWXUP5K.mjs.map 14.98 KB
+ESM dist\index.mjs.map          20.56 KB
+ESM dist\chunk-IJBNEH3G.mjs.map 21.76 KB
+ESM dist\portable-text.mjs.map  78.00 B
+ESM dist\chunk-AAVMO6TM.mjs.map 19.39 KB
+ESM dist\portable-doc.mjs.map   77.00 B
+ESM dist\client.mjs.map         36.93 KB
+ESM dist\chunk-I64WCMVY.mjs.map 317.05 KB
+ESM ⚡️ Build success in 720ms
+DTS ⚡️ Build success in 5943ms
+DTS dist\image.d.cts         4.34 KB
+DTS dist\client.d.cts        5.24 KB
+DTS dist\portable-text.d.cts 4.32 KB
+DTS dist\portable-doc.d.cts  1.40 KB
+DTS dist\index.d.cts         8.09 KB
+DTS dist\server.d.cts        669.00 B
+DTS dist\image.d.ts          4.34 KB
+DTS dist\client.d.ts         5.24 KB
+DTS dist\portable-text.d.ts  4.32 KB
+DTS dist\portable-doc.d.ts   1.40 KB
+DTS dist\index.d.ts          8.08 KB
+DTS dist\server.d.ts         665.00 B
+post-build-dts: copied 6 .d.ts -> .d.mts

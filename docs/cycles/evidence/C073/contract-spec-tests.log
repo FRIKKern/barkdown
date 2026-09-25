@@ -1,0 +1,1264 @@
+The files belonging to this database system will be owned by user "Frikk".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are enabled.
+
+creating directory C:/Users/Frikk/AppData/Local/Temp/c073-exunit-zhvB52/pgdata ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... windows
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Paris
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    ^"C^:^\Users^\Frikk^\scoop^\apps^\postgresql^\current^\bin^\pg^_ctl^" -D ^"C^:^\Users^\Frikk^\AppData^\Local^\Temp^\c073^-exunit^-zhvB52^\pgdata^" -l logfile start
+
+waiting for server to start.... done
+server started
+Owned test database: C:\Users\Frikk\AppData\Local\Temp\c073-exunit-zhvB52 port 59939
+Compiling 7 files (.ex)
+Compiling lib/barkpark_web/router.ex (it's taking more than 10s)
+Generated barkpark app
+
+02:26:38.876 [debug] QUERY OK db=1.3ms
+UPDATE documents SET rev = encode(gen_random_bytes(16), 'hex') WHERE rev IS NULL []
+
+02:26:39.195 [debug] QUERY OK db=1.3ms
+SELECT id, content::text FROM documents WHERE content ? 'bp_export_status' []
+
+02:26:39.201 [debug] QUERY OK db=1.0ms decode=0.1ms
+SELECT id, to_jsonb(fields)::text FROM schema_definitions []
+
+02:26:39.202 [debug] QUERY OK db=0.3ms
+SELECT id, content::text FROM documents []
+
+02:26:39.248 [debug] QUERY OK db=1.1ms
+DELETE FROM documents pf
+WHERE pf.type = 'paper'
+  AND pf.dataset = 'paperflow'
+  AND EXISTS (
+    SELECT 1 FROM documents prod
+    WHERE prod.type = 'paper'
+      AND prod.dataset = 'production'
+      AND prod.doc_id = pf.doc_id
+  )
+ []
+
+02:26:39.249 [debug] QUERY OK db=0.4ms
+UPDATE documents
+SET dataset = 'production', updated_at = updated_at
+WHERE type = 'paper' AND dataset = 'paperflow'
+ []
+
+02:26:39.251 [debug] QUERY OK db=1.1ms
+UPDATE revisions
+SET dataset = 'production'
+WHERE type = 'paper' AND dataset = 'paperflow'
+ []
+
+02:26:39.252 [debug] QUERY OK db=1.4ms
+INSERT INTO schema_definitions
+  (id, name, title, icon, visibility, fields, dataset, inserted_at, updated_at)
+VALUES (
+  gen_random_uuid(),
+  'paper',
+  'Papers',
+  '📰',
+  'public',
+  ARRAY(SELECT jsonb_array_elements($1::text::jsonb))::jsonb[],
+  $2,
+  now(),
+  now()
+)
+ON CONFLICT (name, dataset) DO NOTHING
+ ["[{\"name\":\"title\",\"title\":\"Title\",\"type\":\"string\"},{\"name\":\"event_type\",\"title\":\"Event Type\",\"type\":\"string\"},{\"name\":\"source_doc\",\"title\":\"Source Doc\",\"type\":\"string\"},{\"name\":\"goal_id\",\"title\":\"Goal\",\"type\":\"string\"}]", "production"]
+
+02:26:39.266 [debug] QUERY OK db=0.4ms
+SELECT to_regclass('public.papers') IS NOT NULL []
+
+02:26:39.275 [debug] QUERY OK db=5.6ms
+SELECT column_name
+FROM information_schema.columns
+WHERE table_schema = 'public' AND table_name = 'papers'
+ []
+
+02:26:39.280 [debug] QUERY OK db=4.3ms
+SELECT data_type
+FROM information_schema.columns
+WHERE table_schema = 'public' AND table_name = $1 AND column_name = $2
+ ["papers", "rev"]
+
+02:26:39.284 [debug] QUERY OK db=2.1ms
+INSERT INTO documents (id, doc_id, type, dataset, title, status, content, rev, inserted_at, updated_at)
+SELECT
+  gen_random_uuid(),
+  p.slug,
+  'paper',
+  p.dataset,
+  COALESCE(
+    (
+      SELECT b->>'text'
+      FROM jsonb_array_elements(COALESCE(p.blocks_val, '[]'::jsonb)) AS b
+      WHERE b->>'type' = 'heading' AND COALESCE(b->>'text', '') <> ''
+      LIMIT 1
+    ),
+    p.slug
+  ),
+  'published',
+  (
+    jsonb_strip_nulls(
+      jsonb_build_object(
+        'body_html', COALESCE(p.body_html, ''),
+        'blocks', p.blocks_val,
+        'source_doc', p.source_doc_val,
+        'goal_id', p.goal_id_val,
+        'event_type', p.event_type_val
+      )
+    )
+    || jsonb_build_object('rev', p.rev_val)
+  ),
+  md5(random()::text || clock_timestamp()::text),
+  p.inserted_at,
+  p.updated_at
+FROM (
+  SELECT
+    slug,
+    dataset,
+    body_html,
+    blocks AS blocks_val,
+    source_doc AS source_doc_val,
+    goal_id AS goal_id_val,
+    event_type AS event_type_val,
+    (GREATEST(COALESCE(rev, 0), 1)) AS rev_val,
+    inserted_at,
+    updated_at
+  FROM papers
+) p
+ON CONFLICT (doc_id, type, dataset) DO NOTHING
+ []
+
+02:26:39.286 [debug] QUERY OK db=0.7ms
+SELECT DISTINCT dataset FROM documents WHERE type = 'paper' []
+
+02:26:39.287 [debug] QUERY OK db=0.6ms
+INSERT INTO schema_definitions
+  (id, name, title, icon, visibility, fields, dataset, inserted_at, updated_at)
+VALUES (
+  gen_random_uuid(),
+  'paper',
+  'Papers',
+  $1,
+  'public',
+  ARRAY(SELECT jsonb_array_elements($2::text::jsonb))::jsonb[],
+  $3,
+  now(),
+  now()
+)
+ON CONFLICT (name, dataset) DO NOTHING
+ ["📰", "[{\"name\":\"title\",\"title\":\"Title\",\"type\":\"string\"},{\"name\":\"event_type\",\"title\":\"Event Type\",\"type\":\"string\"},{\"name\":\"source_doc\",\"title\":\"Source Doc\",\"type\":\"string\"},{\"name\":\"goal_id\",\"title\":\"Goal\",\"type\":\"string\"}]", "paperflow"]
+
+02:26:39.610 [debug] QUERY OK db=1.9ms
+INSERT INTO workspaces (id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), 'default', 'Default Workspace', now(), now()
+WHERE NOT EXISTS (SELECT 1 FROM workspaces WHERE slug = 'default')
+ []
+
+02:26:39.613 [debug] QUERY OK db=1.5ms
+INSERT INTO projects (id, workspace_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), w.id, 'default', 'Default Project', now(), now()
+FROM workspaces w
+WHERE w.slug = 'default'
+  AND NOT EXISTS (
+    SELECT 1 FROM projects p
+    WHERE p.workspace_id = w.id AND p.slug = 'default'
+  )
+ []
+
+02:26:39.613 [debug] QUERY OK db=0.3ms
+SELECT w.id, p.id
+FROM workspaces w
+JOIN projects p ON p.workspace_id = w.id AND p.slug = 'default'
+WHERE w.slug = 'default'
+ []
+
+02:26:39.617 [debug] QUERY OK db=0.6ms
+UPDATE documents
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<180, 249, 252, 80, 240, 48, 67, 146, 189, 17, 19, 11, 167, 142, 252, 120>>, <<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.619 [debug] QUERY OK db=0.8ms
+UPDATE revisions
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<180, 249, 252, 80, 240, 48, 67, 146, 189, 17, 19, 11, 167, 142, 252, 120>>, <<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.620 [debug] QUERY OK db=0.6ms
+UPDATE mutation_events
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<180, 249, 252, 80, 240, 48, 67, 146, 189, 17, 19, 11, 167, 142, 252, 120>>, <<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.620 [debug] QUERY OK db=0.5ms
+UPDATE media_files
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<180, 249, 252, 80, 240, 48, 67, 146, 189, 17, 19, 11, 167, 142, 252, 120>>, <<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.622 [debug] QUERY OK db=0.9ms
+UPDATE schema_definitions
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<180, 249, 252, 80, 240, 48, 67, 146, 189, 17, 19, 11, 167, 142, 252, 120>>, <<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.622 [debug] QUERY OK db=0.8ms
+UPDATE webhooks
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<180, 249, 252, 80, 240, 48, 67, 146, 189, 17, 19, 11, 167, 142, 252, 120>>, <<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.625 [debug] QUERY OK db=0.8ms
+UPDATE search_intel_events
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<180, 249, 252, 80, 240, 48, 67, 146, 189, 17, 19, 11, 167, 142, 252, 120>>, <<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.626 [debug] QUERY OK db=0.6ms
+UPDATE search_intel_crystals
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<180, 249, 252, 80, 240, 48, 67, 146, 189, 17, 19, 11, 167, 142, 252, 120>>, <<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.627 [debug] QUERY OK db=0.6ms
+UPDATE search_intel_merge_patterns
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<180, 249, 252, 80, 240, 48, 67, 146, 189, 17, 19, 11, 167, 142, 252, 120>>, <<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.628 [debug] QUERY OK db=0.5ms
+UPDATE search_synonyms
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<180, 249, 252, 80, 240, 48, 67, 146, 189, 17, 19, 11, 167, 142, 252, 120>>, <<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.628 [debug] QUERY OK db=0.4ms
+UPDATE api_tokens
+SET workspace_id = $1
+WHERE workspace_id IS NULL
+ [<<180, 249, 252, 80, 240, 48, 67, 146, 189, 17, 19, 11, 167, 142, 252, 120>>]
+
+02:26:39.632 [debug] QUERY OK db=0.8ms
+INSERT INTO workspace_memberships
+  (id, workspace_id, principal_type, principal_id, role, inserted_at, updated_at)
+SELECT
+  gen_random_uuid(),
+  t.workspace_id,
+  'api_token',
+  t.id,
+  CASE WHEN 'admin' = ANY(t.permissions) THEN 'admin' ELSE 'member' END,
+  now(),
+  now()
+FROM api_tokens t
+WHERE t.workspace_id IS NOT NULL
+  AND NOT EXISTS (
+    SELECT 1 FROM workspace_memberships m
+    WHERE m.workspace_id = t.workspace_id
+      AND m.principal_type = 'api_token'
+      AND m.principal_id = t.id
+  )
+ []
+
+02:26:39.641 [debug] QUERY OK db=0.8ms
+UPDATE paper_events pe
+SET workspace_id = d.workspace_id, project_id = d.project_id
+FROM documents d
+WHERE pe.paper_slug IS NOT NULL
+  AND d.doc_id = pe.paper_slug
+  AND d.type = 'paper'
+  AND d.workspace_id IS NOT NULL
+  AND pe.workspace_id IS NULL
+ []
+
+02:26:39.641 [debug] QUERY OK db=0.2ms
+SELECT w.id, p.id
+FROM workspaces w
+JOIN projects p ON p.workspace_id = w.id AND p.slug = 'default'
+WHERE w.slug = 'default'
+ []
+
+02:26:39.642 [debug] QUERY OK db=0.2ms
+UPDATE paper_events
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<180, 249, 252, 80, 240, 48, 67, 146, 189, 17, 19, 11, 167, 142, 252, 120>>, <<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.695 [debug] QUERY OK db=0.6ms
+SELECT p.id
+FROM projects p
+JOIN workspaces w ON w.id = p.workspace_id
+WHERE w.slug = 'default' AND p.slug = 'default'
+ []
+
+02:26:39.697 [debug] QUERY OK db=1.8ms
+INSERT INTO datasets (id, project_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), $1, s.dataset, s.dataset, now(), now()
+FROM (
+  SELECT DISTINCT dataset FROM documents WHERE dataset IS NOT NULL
+  UNION
+  SELECT DISTINCT dataset FROM schema_definitions WHERE dataset IS NOT NULL
+  UNION
+  SELECT DISTINCT dataset FROM media_files WHERE dataset IS NOT NULL
+) s
+WHERE NOT EXISTS (
+  SELECT 1 FROM datasets d
+  WHERE d.project_id = $1 AND d.slug = s.dataset
+)
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.698 [debug] QUERY OK db=0.4ms
+INSERT INTO datasets (id, project_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), $1, $2::text, $2::text, now(), now()
+WHERE NOT EXISTS (
+  SELECT 1 FROM datasets d WHERE d.project_id = $1 AND d.slug = $2::text
+)
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>, "production"]
+
+02:26:39.698 [debug] QUERY OK db=0.3ms
+INSERT INTO datasets (id, project_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), $1, $2::text, $2::text, now(), now()
+WHERE NOT EXISTS (
+  SELECT 1 FROM datasets d WHERE d.project_id = $1 AND d.slug = $2::text
+)
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>, "paperflow"]
+
+02:26:39.699 [debug] QUERY OK db=0.4ms
+UPDATE documents t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.700 [debug] QUERY OK db=0.8ms
+UPDATE revisions t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.701 [debug] QUERY OK db=0.6ms
+UPDATE mutation_events t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.702 [debug] QUERY OK db=0.3ms
+UPDATE media_files t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.702 [debug] QUERY OK db=0.6ms
+UPDATE schema_definitions t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.704 [debug] QUERY OK db=0.5ms
+UPDATE webhooks t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.705 [debug] QUERY OK db=0.8ms
+UPDATE api_tokens t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.707 [debug] QUERY OK db=1.5ms
+UPDATE search_intel_events t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.709 [debug] QUERY OK db=0.9ms decode=0.1ms
+UPDATE search_intel_crystals t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.710 [debug] QUERY OK db=0.7ms decode=0.1ms
+UPDATE search_intel_merge_patterns t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.711 [debug] QUERY OK db=0.6ms
+UPDATE search_synonyms t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.712 [debug] QUERY OK db=0.6ms
+UPDATE paper_events t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = 'production'
+  AND t.dataset_id IS NULL
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.720 [debug] QUERY OK db=5.0ms
+CREATE TABLE IF NOT EXISTS collapsed_schema_definitions_backup (
+  id uuid PRIMARY KEY,
+  row jsonb NOT NULL,
+  collapsed_at timestamptz NOT NULL DEFAULT now()
+)
+ []
+
+02:26:39.721 [debug] QUERY OK db=0.5ms
+SELECT name, dataset_id
+FROM schema_definitions
+GROUP BY name, dataset_id
+HAVING count(*) > 1
+ []
+
+02:26:39.741 [debug] QUERY OK db=0.4ms
+SELECT p.id
+FROM projects p
+JOIN workspaces w ON w.id = p.workspace_id
+WHERE w.slug = 'default' AND p.slug = 'default'
+ []
+
+02:26:39.742 [debug] QUERY OK db=0.3ms
+SELECT p.id
+FROM projects p
+JOIN workspaces w ON w.id = p.workspace_id
+WHERE w.slug = 'default' AND p.slug = 'default'
+ []
+
+02:26:39.742 [debug] QUERY OK db=0.2ms
+SELECT id FROM datasets WHERE project_id = $1 AND slug = 'paperflow' LIMIT 1 [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.744 [debug] QUERY OK db=1.0ms
+INSERT INTO schema_definitions
+SELECT (
+  jsonb_populate_record(
+    NULL::schema_definitions,
+    src.survivor || jsonb_build_object(
+      'id', gen_random_uuid(),
+      'dataset', 'paperflow',
+      'dataset_id', $2::uuid,
+      'inserted_at', now(),
+      'updated_at', now()
+    )
+  )
+).*
+FROM (
+  SELECT to_jsonb(s.*) AS survivor
+  FROM schema_definitions s
+  WHERE s.name = 'paper'
+    AND s.dataset = 'production'
+    AND s.project_id = $1
+  ORDER BY (s.dataset_id IS NOT NULL) DESC, s.dataset_id ASC, s.id ASC
+  LIMIT 1
+) src
+WHERE NOT EXISTS (
+  SELECT 1 FROM schema_definitions e
+  WHERE e.name = 'paper' AND e.dataset_id = $2::uuid
+)
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>, <<105, 170, 54, 120, 31, 236, 64, 238, 161, 234, 73, 187, 62, 192, 47, 91>>]
+
+02:26:39.759 [debug] QUERY OK db=0.2ms
+DROP TABLE IF EXISTS paper_events_dataset_rescope_backup []
+
+02:26:39.761 [debug] QUERY OK db=1.9ms
+CREATE TABLE paper_events_dataset_rescope_backup (
+  id uuid PRIMARY KEY,
+  dataset_id uuid
+)
+ []
+
+02:26:39.762 [debug] QUERY OK db=0.5ms
+INSERT INTO paper_events_dataset_rescope_backup (id, dataset_id)
+SELECT pe.id, pe.dataset_id
+FROM paper_events pe
+JOIN datasets cur ON cur.id = pe.dataset_id
+WHERE pe.project_id IS NOT NULL
+  AND cur.project_id <> pe.project_id
+ []
+
+02:26:39.764 [debug] QUERY OK db=1.1ms
+UPDATE paper_events pe
+SET dataset_id = own.id
+FROM datasets cur, documents doc, datasets own
+WHERE pe.dataset_id = cur.id
+  AND pe.project_id IS NOT NULL
+  AND cur.project_id <> pe.project_id
+  AND pe.paper_slug IS NOT NULL
+  AND doc.doc_id = pe.paper_slug
+  AND doc.type = 'paper'
+  AND doc.dataset IS NOT NULL
+  AND own.project_id = pe.project_id
+  AND own.slug = doc.dataset
+ []
+
+02:26:39.764 [debug] QUERY OK db=0.4ms
+SELECT d.id
+FROM datasets d
+JOIN projects p ON p.id = d.project_id
+JOIN workspaces w ON w.id = p.workspace_id
+WHERE w.slug = 'default' AND p.slug = 'default' AND d.slug = 'production'
+ []
+
+02:26:39.765 [debug] QUERY OK db=0.3ms
+UPDATE paper_events pe
+SET dataset_id = $1
+FROM datasets cur
+WHERE pe.dataset_id = cur.id
+  AND pe.project_id IS NOT NULL
+  AND cur.project_id <> pe.project_id
+ [<<167, 106, 54, 101, 131, 6, 68, 171, 153, 114, 157, 155, 156, 104, 2, 52>>]
+
+02:26:39.767 [debug] QUERY OK db=0.3ms
+SELECT p.id
+FROM projects p
+JOIN workspaces w ON w.id = p.workspace_id
+WHERE w.slug = 'default' AND p.slug = 'default'
+ []
+
+02:26:39.769 [debug] QUERY OK db=1.3ms
+DELETE FROM search_synonyms t
+USING (
+  SELECT id,
+         row_number() OVER (
+           PARTITION BY surface, scope, from_query, to_query, kind
+           ORDER BY inserted_at ASC, id ASC
+         ) AS rn
+  FROM search_synonyms
+  WHERE dataset_id IS NULL
+) dup
+WHERE t.id = dup.id AND dup.rn > 1
+ []
+
+02:26:39.770 [debug] QUERY OK db=0.8ms
+DELETE FROM search_intel_crystals t
+USING (
+  SELECT id,
+         row_number() OVER (
+           PARTITION BY surface, scope, period, period_start, query_normalized, filter_fingerprint
+           ORDER BY inserted_at ASC, id ASC
+         ) AS rn
+  FROM search_intel_crystals
+  WHERE dataset_id IS NULL
+) dup
+WHERE t.id = dup.id AND dup.rn > 1
+ []
+
+02:26:39.772 [debug] QUERY OK db=0.6ms
+DELETE FROM search_intel_merge_patterns t
+USING (
+  SELECT id,
+         row_number() OVER (
+           PARTITION BY surface, scope, period, period_start, from_fingerprint, to_fingerprint, pattern_type
+           ORDER BY inserted_at ASC, id ASC
+         ) AS rn
+  FROM search_intel_merge_patterns
+  WHERE dataset_id IS NULL
+) dup
+WHERE t.id = dup.id AND dup.rn > 1
+ []
+
+02:26:39.773 [debug] QUERY OK db=0.4ms
+INSERT INTO datasets (id, project_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), $1, s.scope, s.scope, now(), now()
+FROM (SELECT DISTINCT scope FROM search_synonyms WHERE scope IS NOT NULL) s
+WHERE NOT EXISTS (
+  SELECT 1 FROM datasets d
+  WHERE d.project_id = $1 AND d.slug = s.scope
+)
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.773 [debug] QUERY OK db=0.4ms
+INSERT INTO datasets (id, project_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), $1, s.scope, s.scope, now(), now()
+FROM (SELECT DISTINCT scope FROM search_intel_crystals WHERE scope IS NOT NULL) s
+WHERE NOT EXISTS (
+  SELECT 1 FROM datasets d
+  WHERE d.project_id = $1 AND d.slug = s.scope
+)
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.774 [debug] QUERY OK db=0.4ms
+INSERT INTO datasets (id, project_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), $1, s.scope, s.scope, now(), now()
+FROM (SELECT DISTINCT scope FROM search_intel_merge_patterns WHERE scope IS NOT NULL) s
+WHERE NOT EXISTS (
+  SELECT 1 FROM datasets d
+  WHERE d.project_id = $1 AND d.slug = s.scope
+)
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.774 [debug] QUERY OK db=0.2ms
+UPDATE search_synonyms t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.774 [debug] QUERY OK db=0.3ms
+UPDATE search_intel_crystals t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.775 [debug] QUERY OK db=0.3ms
+UPDATE search_intel_merge_patterns t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:39.778 [debug] QUERY OK db=0.7ms
+ALTER TABLE documents DROP CONSTRAINT documents_workspace_id_fkey []
+
+02:26:39.779 [debug] QUERY OK db=1.0ms
+ALTER TABLE documents
+ADD CONSTRAINT documents_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.780 [debug] QUERY OK db=0.6ms
+ALTER TABLE documents DROP CONSTRAINT documents_project_id_fkey []
+
+02:26:39.781 [debug] QUERY OK db=0.9ms
+ALTER TABLE documents
+ADD CONSTRAINT documents_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.782 [debug] QUERY OK db=1.0ms
+ALTER TABLE documents DROP CONSTRAINT documents_dataset_id_fkey []
+
+02:26:39.785 [debug] QUERY OK db=1.4ms
+ALTER TABLE documents
+ADD CONSTRAINT documents_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.786 [debug] QUERY OK db=0.5ms
+ALTER TABLE revisions DROP CONSTRAINT revisions_workspace_id_fkey []
+
+02:26:39.787 [debug] QUERY OK db=0.9ms
+ALTER TABLE revisions
+ADD CONSTRAINT revisions_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.787 [debug] QUERY OK db=0.4ms
+ALTER TABLE revisions DROP CONSTRAINT revisions_project_id_fkey []
+
+02:26:39.788 [debug] QUERY OK db=0.8ms
+ALTER TABLE revisions
+ADD CONSTRAINT revisions_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.789 [debug] QUERY OK db=0.7ms
+ALTER TABLE revisions DROP CONSTRAINT revisions_dataset_id_fkey []
+
+02:26:39.791 [debug] QUERY OK db=1.4ms
+ALTER TABLE revisions
+ADD CONSTRAINT revisions_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.792 [debug] QUERY OK db=0.6ms
+ALTER TABLE media_files DROP CONSTRAINT media_files_workspace_id_fkey []
+
+02:26:39.793 [debug] QUERY OK db=0.9ms
+ALTER TABLE media_files
+ADD CONSTRAINT media_files_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.793 [debug] QUERY OK db=0.5ms
+ALTER TABLE media_files DROP CONSTRAINT media_files_project_id_fkey []
+
+02:26:39.794 [debug] QUERY OK db=0.7ms
+ALTER TABLE media_files
+ADD CONSTRAINT media_files_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.794 [debug] QUERY OK db=0.5ms
+ALTER TABLE media_files DROP CONSTRAINT media_files_dataset_id_fkey []
+
+02:26:39.796 [debug] QUERY OK db=1.1ms
+ALTER TABLE media_files
+ADD CONSTRAINT media_files_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.797 [debug] QUERY OK db=0.7ms
+ALTER TABLE schema_definitions DROP CONSTRAINT schema_definitions_workspace_id_fkey []
+
+02:26:39.798 [debug] QUERY OK db=1.3ms
+ALTER TABLE schema_definitions
+ADD CONSTRAINT schema_definitions_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.799 [debug] QUERY OK db=0.7ms
+ALTER TABLE schema_definitions DROP CONSTRAINT schema_definitions_project_id_fkey []
+
+02:26:39.801 [debug] QUERY OK db=1.1ms
+ALTER TABLE schema_definitions
+ADD CONSTRAINT schema_definitions_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.801 [debug] QUERY OK db=0.5ms
+ALTER TABLE schema_definitions DROP CONSTRAINT schema_definitions_dataset_id_fkey []
+
+02:26:39.804 [debug] QUERY OK db=1.4ms
+ALTER TABLE schema_definitions
+ADD CONSTRAINT schema_definitions_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.807 [debug] QUERY OK db=0.8ms
+ALTER TABLE webhooks DROP CONSTRAINT webhooks_workspace_id_fkey []
+
+02:26:39.808 [debug] QUERY OK db=1.2ms
+ALTER TABLE webhooks
+ADD CONSTRAINT webhooks_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.809 [debug] QUERY OK db=0.6ms
+ALTER TABLE webhooks DROP CONSTRAINT webhooks_project_id_fkey []
+
+02:26:39.810 [debug] QUERY OK db=1.4ms decode=0.1ms
+ALTER TABLE webhooks
+ADD CONSTRAINT webhooks_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.812 [debug] QUERY OK db=0.9ms
+ALTER TABLE webhooks DROP CONSTRAINT webhooks_dataset_id_fkey []
+
+02:26:39.813 [debug] QUERY OK db=1.4ms
+ALTER TABLE webhooks
+ADD CONSTRAINT webhooks_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.814 [debug] QUERY OK db=0.6ms
+ALTER TABLE mutation_events DROP CONSTRAINT mutation_events_workspace_id_fkey []
+
+02:26:39.815 [debug] QUERY OK db=0.9ms
+ALTER TABLE mutation_events
+ADD CONSTRAINT mutation_events_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.816 [debug] QUERY OK db=0.6ms
+ALTER TABLE mutation_events DROP CONSTRAINT mutation_events_project_id_fkey []
+
+02:26:39.817 [debug] QUERY OK db=1.2ms
+ALTER TABLE mutation_events
+ADD CONSTRAINT mutation_events_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.818 [debug] QUERY OK db=0.6ms
+ALTER TABLE mutation_events DROP CONSTRAINT mutation_events_dataset_id_fkey []
+
+02:26:39.819 [debug] QUERY OK db=0.9ms
+ALTER TABLE mutation_events
+ADD CONSTRAINT mutation_events_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.820 [debug] QUERY OK db=0.6ms
+ALTER TABLE search_intel_events DROP CONSTRAINT search_intel_events_workspace_id_fkey []
+
+02:26:39.821 [debug] QUERY OK db=0.8ms
+ALTER TABLE search_intel_events
+ADD CONSTRAINT search_intel_events_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.822 [debug] QUERY OK db=0.5ms
+ALTER TABLE search_intel_events DROP CONSTRAINT search_intel_events_project_id_fkey []
+
+02:26:39.823 [debug] QUERY OK db=1.0ms
+ALTER TABLE search_intel_events
+ADD CONSTRAINT search_intel_events_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.824 [debug] QUERY OK db=0.6ms
+ALTER TABLE search_intel_events DROP CONSTRAINT search_intel_events_dataset_id_fkey []
+
+02:26:39.825 [debug] QUERY OK db=1.2ms
+ALTER TABLE search_intel_events
+ADD CONSTRAINT search_intel_events_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.826 [debug] QUERY OK db=0.8ms
+ALTER TABLE search_intel_crystals DROP CONSTRAINT search_intel_crystals_workspace_id_fkey []
+
+02:26:39.828 [debug] QUERY OK db=1.1ms
+ALTER TABLE search_intel_crystals
+ADD CONSTRAINT search_intel_crystals_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.828 [debug] QUERY OK db=0.6ms
+ALTER TABLE search_intel_crystals DROP CONSTRAINT search_intel_crystals_project_id_fkey []
+
+02:26:39.830 [debug] QUERY OK db=1.0ms
+ALTER TABLE search_intel_crystals
+ADD CONSTRAINT search_intel_crystals_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.831 [debug] QUERY OK db=1.0ms
+ALTER TABLE search_intel_crystals DROP CONSTRAINT search_intel_crystals_dataset_id_fkey []
+
+02:26:39.833 [debug] QUERY OK db=1.3ms
+ALTER TABLE search_intel_crystals
+ADD CONSTRAINT search_intel_crystals_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.833 [debug] QUERY OK db=0.7ms
+ALTER TABLE search_intel_merge_patterns DROP CONSTRAINT search_intel_merge_patterns_workspace_id_fkey []
+
+02:26:39.835 [debug] QUERY OK db=0.9ms
+ALTER TABLE search_intel_merge_patterns
+ADD CONSTRAINT search_intel_merge_patterns_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.836 [debug] QUERY OK db=0.6ms
+ALTER TABLE search_intel_merge_patterns DROP CONSTRAINT search_intel_merge_patterns_project_id_fkey []
+
+02:26:39.837 [debug] QUERY OK db=1.0ms
+ALTER TABLE search_intel_merge_patterns
+ADD CONSTRAINT search_intel_merge_patterns_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.838 [debug] QUERY OK db=0.7ms
+ALTER TABLE search_intel_merge_patterns DROP CONSTRAINT search_intel_merge_patterns_dataset_id_fkey []
+
+02:26:39.840 [debug] QUERY OK db=1.2ms
+ALTER TABLE search_intel_merge_patterns
+ADD CONSTRAINT search_intel_merge_patterns_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.841 [debug] QUERY OK db=0.6ms
+ALTER TABLE search_synonyms DROP CONSTRAINT search_synonyms_workspace_id_fkey []
+
+02:26:39.842 [debug] QUERY OK db=1.4ms
+ALTER TABLE search_synonyms
+ADD CONSTRAINT search_synonyms_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.843 [debug] QUERY OK db=0.6ms
+ALTER TABLE search_synonyms DROP CONSTRAINT search_synonyms_project_id_fkey []
+
+02:26:39.844 [debug] QUERY OK db=1.2ms
+ALTER TABLE search_synonyms
+ADD CONSTRAINT search_synonyms_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.845 [debug] QUERY OK db=0.8ms
+ALTER TABLE search_synonyms DROP CONSTRAINT search_synonyms_dataset_id_fkey []
+
+02:26:39.847 [debug] QUERY OK db=1.1ms
+ALTER TABLE search_synonyms
+ADD CONSTRAINT search_synonyms_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.848 [debug] QUERY OK db=0.8ms
+ALTER TABLE paper_events DROP CONSTRAINT paper_events_workspace_id_fkey []
+
+02:26:39.849 [debug] QUERY OK db=1.0ms
+ALTER TABLE paper_events
+ADD CONSTRAINT paper_events_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.850 [debug] QUERY OK db=0.6ms
+ALTER TABLE paper_events DROP CONSTRAINT paper_events_project_id_fkey []
+
+02:26:39.852 [debug] QUERY OK db=1.5ms
+ALTER TABLE paper_events
+ADD CONSTRAINT paper_events_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:26:39.853 [debug] QUERY OK db=0.8ms
+ALTER TABLE paper_events DROP CONSTRAINT paper_events_dataset_id_fkey []
+
+02:26:39.855 [debug] QUERY OK db=1.6ms
+ALTER TABLE paper_events
+ADD CONSTRAINT paper_events_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:26:40.003 [debug] QUERY OK db=0.4ms
+SELECT p.id FROM projects p
+JOIN workspaces w ON w.id = p.workspace_id
+WHERE w.slug = 'default' AND p.slug = 'default'
+ []
+
+02:26:40.005 [debug] QUERY OK db=1.8ms
+SELECT count(*) FROM documents WHERE dataset = $1 ["paperflow"]
+
+02:26:40.005 [debug] QUERY OK db=0.4ms
+SELECT count(*) FROM media_files WHERE dataset = $1 ["paperflow"]
+
+02:26:40.006 [debug] QUERY OK db=0.5ms
+DELETE FROM schema_definitions WHERE dataset = 'paperflow' []
+
+02:26:40.007 [debug] QUERY OK db=0.4ms
+UPDATE documents SET dataset_id = NULL
+WHERE dataset_id IN (
+  SELECT id FROM datasets WHERE project_id = $1 AND slug = 'paperflow'
+)
+ [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:40.012 [debug] QUERY OK db=4.4ms
+DELETE FROM datasets WHERE project_id = $1 AND slug = 'paperflow' [<<253, 117, 215, 201, 178, 168, 68, 151, 183, 139, 97, 117, 119, 158, 154, 33>>]
+
+02:26:40.604 [debug] QUERY OK db=0.4ms
+SELECT id, content FROM documents WHERE status = 'published' AND jsonb_typeof(content->'tags') = 'array' []
+
+02:26:41.458 [debug] QUERY OK db=1.6ms
+INSERT INTO workspace_memberships
+  (id, workspace_id, principal_type, principal_id, role, inserted_at, updated_at)
+SELECT gen_random_uuid(), m.workspace_id, 'user', t.owner_user_id, 'owner',
+       NOW() AT TIME ZONE 'utc', NOW() AT TIME ZONE 'utc'
+FROM workspace_memberships m
+JOIN api_tokens t ON t.id = m.principal_id
+JOIN users u ON u.id = t.owner_user_id
+WHERE m.principal_type = 'api_token'
+  AND m.role = 'owner'
+GROUP BY m.workspace_id, t.owner_user_id
+ON CONFLICT DO NOTHING
+ []
+[backfill_user_owner_memberships] granted 0 user-typed owner membership(s); 0 api_token-owned workspace(s) left unresolved (owning token has no resolvable owner_user — expected for CI/bootstrap tokens).
+
+02:26:41.459 [debug] QUERY OK db=0.7ms
+SELECT count(DISTINCT m.workspace_id)
+FROM workspace_memberships m
+JOIN api_tokens t ON t.id = m.principal_id
+WHERE m.principal_type = 'api_token'
+  AND m.role = 'owner'
+  AND (t.owner_user_id IS NULL
+       OR NOT EXISTS (SELECT 1 FROM users u WHERE u.id = t.owner_user_id))
+ []
+
+02:26:41.481 [debug] QUERY OK db=0.2ms
+SET statement_timeout = 0 []
+
+02:26:41.482 [debug] QUERY OK db=0.7ms
+SELECT 1
+  FROM pg_index i
+  JOIN pg_class c ON c.oid = i.indexrelid
+  JOIN pg_namespace n ON n.oid = c.relnamespace
+ WHERE c.relname::text = $1
+   AND n.nspname = current_schema()
+   AND NOT i.indisvalid
+ ["documents_task_parent_id_idx"]
+
+02:26:41.485 [debug] QUERY OK db=3.1ms
+CREATE INDEX CONCURRENTLY IF NOT EXISTS documents_task_parent_id_idx
+  ON documents ((regexp_replace(content->>'parent_id', '^drafts\.', '')),
+                workspace_id)
+  WHERE type = 'task'
+ []
+
+02:26:41.485 [debug] QUERY OK db=0.2ms
+RESET statement_timeout []
+
+02:26:41.486 [debug] QUERY OK db=0.1ms
+SET statement_timeout = 0 []
+
+02:26:41.487 [debug] QUERY OK db=0.3ms
+SELECT 1
+  FROM pg_index i
+  JOIN pg_class c ON c.oid = i.indexrelid
+ WHERE c.relname = $1 AND NOT i.indisvalid
+ ["mutation_events_workspace_type_inserted_at_idx"]
+
+02:26:41.491 [debug] QUERY OK db=3.2ms
+CREATE INDEX CONCURRENTLY IF NOT EXISTS mutation_events_workspace_type_inserted_at_idx
+  ON mutation_events (workspace_id, type, inserted_at DESC)
+ []
+
+02:26:41.492 [debug] QUERY OK db=0.2ms
+RESET statement_timeout []
+
+02:26:41.496 [debug] QUERY OK db=0.2ms
+SET statement_timeout = 0 []
+
+02:26:41.497 [debug] QUERY OK db=0.8ms
+SELECT 1
+  FROM pg_index i
+  JOIN pg_class c ON c.oid = i.indexrelid
+  JOIN pg_namespace n ON n.oid = c.relnamespace
+ WHERE c.relname::text = $1
+   AND n.nspname = current_schema()
+   AND NOT i.indisvalid
+ ["revisions_rev_index"]
+
+02:26:41.501 [debug] QUERY OK db=3.0ms
+CREATE INDEX CONCURRENTLY IF NOT EXISTS revisions_rev_index ON revisions (rev) []
+
+02:26:41.501 [debug] QUERY OK db=0.2ms
+RESET statement_timeout []
+
+02:26:41.532 [debug] QUERY OK db=2.4ms
+DELETE FROM task_edges e
+USING documents d, documents pub
+WHERE e.from_id = d.id
+  AND d.doc_id LIKE 'drafts.%'
+  AND pub.doc_id = substring(d.doc_id from 8)
+  AND pub.type = d.type
+  AND pub.dataset = d.dataset
+  AND pub.workspace_id IS NOT DISTINCT FROM d.workspace_id
+  AND pub.project_id IS NOT DISTINCT FROM d.project_id
+  AND EXISTS (
+    SELECT 1 FROM task_edges c
+    WHERE c.from_id = pub.id
+      AND c.to_id = e.to_id
+      AND c.kind = e.kind
+  )
+ []
+
+02:26:41.533 [debug] QUERY OK db=0.9ms
+UPDATE task_edges e
+SET from_id = pub.id
+FROM documents d, documents pub
+WHERE e.from_id = d.id
+  AND d.doc_id LIKE 'drafts.%'
+  AND pub.doc_id = substring(d.doc_id from 8)
+  AND pub.type = d.type
+  AND pub.dataset = d.dataset
+  AND pub.workspace_id IS NOT DISTINCT FROM d.workspace_id
+  AND pub.project_id IS NOT DISTINCT FROM d.project_id
+ []
+
+02:26:41.535 [debug] QUERY OK db=1.3ms
+DELETE FROM task_edges e
+USING documents d, documents pub
+WHERE e.to_id = d.id
+  AND d.doc_id LIKE 'drafts.%'
+  AND pub.doc_id = substring(d.doc_id from 8)
+  AND pub.type = d.type
+  AND pub.dataset = d.dataset
+  AND pub.workspace_id IS NOT DISTINCT FROM d.workspace_id
+  AND pub.project_id IS NOT DISTINCT FROM d.project_id
+  AND EXISTS (
+    SELECT 1 FROM task_edges c
+    WHERE c.to_id = pub.id
+      AND c.from_id = e.from_id
+      AND c.kind = e.kind
+  )
+ []
+twin-canonical task_edges backfill:
+  from_id: 0 re-pointed, 0 redundant duplicates removed
+  to_id:   0 re-pointed, 0 redundant duplicates removed
+
+
+02:26:41.537 [debug] QUERY OK db=1.2ms
+UPDATE task_edges e
+SET to_id = pub.id
+FROM documents d, documents pub
+WHERE e.to_id = d.id
+  AND d.doc_id LIKE 'drafts.%'
+  AND pub.doc_id = substring(d.doc_id from 8)
+  AND pub.type = d.type
+  AND pub.dataset = d.dataset
+  AND pub.workspace_id IS NOT DISTINCT FROM d.workspace_id
+  AND pub.project_id IS NOT DISTINCT FROM d.project_id
+ []
+
+02:26:41.543 [debug] QUERY OK db=0.1ms
+SET statement_timeout = 0 []
+
+02:26:41.545 [debug] QUERY OK db=0.7ms
+SELECT 1
+  FROM pg_index i
+  JOIN pg_class c ON c.oid = i.indexrelid
+  JOIN pg_namespace n ON n.oid = c.relnamespace
+ WHERE c.relname::text = $1
+   AND n.nspname = current_schema()
+   AND NOT i.indisvalid
+ ["media_files_ds_inserted_at_id_index"]
+
+02:26:41.548 [debug] QUERY OK db=3.5ms
+CREATE INDEX CONCURRENTLY IF NOT EXISTS media_files_ds_inserted_at_id_index
+  ON media_files (dataset_id, inserted_at DESC, id DESC)
+ []
+
+02:26:41.549 [debug] QUERY OK db=0.2ms
+RESET statement_timeout []
+02:26:42.218 [warning] [Operator] The instance-operator allowlist is UNSET (BARKPARK_OPERATOR_EMAILS and BARKPARK_OPERATOR_TOKEN_IDS are
+both empty), so the `admin` permission alone still opens these eight INSTANCE-GLOBAL
+route groups to ANY admin-permissioned token, including one whose only membership is an
+admin seat in a single workspace:
+  1. POST|GET /v1/admin/self-update, POST /v1/admin/rollback, POST|GET /v1/admin/site-deploy
+  2. GET /v1/plugins
+  3. GET|PUT|DELETE /v1/plugins/settings/:plugin_name
+  4. GET /v1/secrets, GET /v1/secrets/:name, GET /v1/secrets/:name/audit,
+     PUT /v1/secrets/:name, DELETE /v1/secrets/:name
+  5. POST /v1/status/incidents, POST /v1/status/incidents/:id/resolve
+  6. POST /api/playground
+  7. POST /api/workspaces/:workspace_slug/import
+  8. GET /v1/instance/site-deploy, GET /v1/instance/metrics
+On a SINGLE-TENANT instance that is fine — the only admin is the operator. On a
+MULTI-TENANT one it hands your first customer-admin the instance: run-secrets in
+cleartext, the instance-wide plugin credentials record, and the release itself.
+Set BARKPARK_OPERATOR_EMAILS (comma-separated operator emails) and/or BARKPARK_OPERATOR_TOKEN_IDS
+(comma-separated api_token ids) to arm the allowlist; once either is non-empty the
+eight groups are allowlist-only and fail closed.
+
+02:26:42.523 [warning] OS_MON (:cpu_sup) called by #PID<0.2266.0>, unavailable
+
+BARKPARK-TEST-DB: database "barkpark_test_c073", partition "_c073", chosen by MIX_TEST_PARTITION (set explicitly)
+Running ExUnit with seed: 604840, max_cases: 40
+Excluding tags: [:bokbasen_integration, :flaky, :boot_test, :plugin_routes, :requires_vips, :requires_node, :idp_interop, :real_binary, :live_probe]
+
+...................02:26:45.540 [warning] OS_MON (:cpu_sup) called by #PID<0.2266.0>, unavailable
+
+02:26:45.541 [warning] OS_MON (:cpu_sup) called by #PID<0.2266.0>, unavailable
+
+02:26:45.541 [warning] OS_MON (:cpu_sup) called by #PID<0.2266.0>, unavailable
+
+02:26:45.541 [warning] OS_MON (:cpu_sup) called by #PID<0.2266.0>, unavailable
+
+.....................................................02:26:48.415 request_id=GNhou_ZV_kC7Mh8AAGPI [warning] authoring wall rejected a paper publish in dataset production: duplicate_of
+...02:26:48.545 [warning] OS_MON (:cpu_sup) called by #PID<0.2266.0>, unavailable
+
+02:26:48.546 [warning] OS_MON (:cpu_sup) called by #PID<0.2266.0>, unavailable
+
+02:26:48.546 [warning] OS_MON (:cpu_sup) called by #PID<0.2266.0>, unavailable
+
+02:26:48.547 [warning] OS_MON (:cpu_sup) called by #PID<0.2266.0>, unavailable
+
+..................02:26:49.338 request_id=GNhovC7d3kBxNeUAAAHM [warning] authoring wall rejected a paper publish in dataset production: label_spine
+......02:26:49.552 request_id=GNhovDutjkAaTncAAANL [warning] authoring wall rejected a paper publish in dataset production: unknown_tag
+...........02:26:49.967 request_id=GNhovFRijkAxoXAAAAsM [warning] authoring wall rejected a paper publish in dataset production: label_spine
+.
+Finished in 6.2 seconds (6.0s async, 0.2s sync)
+111 tests, 0 failures
+wrote ../docs/openapi.json
+[os_mon] win32 supervisor port (win32sysinfo): Erlang has closed
+
+waiting for server to shut down.... done
+server stopped

@@ -1,0 +1,770 @@
+﻿2026-09-25T00:28:27.1441838Z Current runner version: '2.337.0'
+2026-09-25T00:28:27.1478314Z ##[group]Runner Image Provisioner
+2026-09-25T00:28:27.1479984Z Hosted Compute Agent
+2026-09-25T00:28:27.1481233Z Version: 20260828.587
+2026-09-25T00:28:27.1482395Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-25T00:28:27.1483738Z Build Date: 2026-08-28T16:44:25Z
+2026-09-25T00:28:27.1484936Z Worker ID: {81b1bfd7-5485-4369-9549-9f2006988944}
+2026-09-25T00:28:27.1486208Z Azure Region: eastus
+2026-09-25T00:28:27.1487497Z ##[endgroup]
+2026-09-25T00:28:27.1490419Z ##[group]Operating System
+2026-09-25T00:28:27.1491723Z Ubuntu
+2026-09-25T00:28:27.1492617Z 24.04.5
+2026-09-25T00:28:27.1493550Z LTS
+2026-09-25T00:28:27.1494462Z ##[endgroup]
+2026-09-25T00:28:27.1495438Z ##[group]Runner Image
+2026-09-25T00:28:27.1496541Z Image: ubuntu-24.04
+2026-09-25T00:28:27.1497515Z Version: 20260920.314.1
+2026-09-25T00:28:27.1500105Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260920.314/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-25T00:28:27.1503181Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260920.314
+2026-09-25T00:28:27.1505054Z ##[endgroup]
+2026-09-25T00:28:27.1507250Z ##[group]GITHUB_TOKEN Permissions
+2026-09-25T00:28:27.1510334Z Contents: read
+2026-09-25T00:28:27.1511361Z Metadata: read
+2026-09-25T00:28:27.1512447Z Packages: read
+2026-09-25T00:28:27.1513391Z ##[endgroup]
+2026-09-25T00:28:27.1516425Z Secret source: Actions
+2026-09-25T00:28:27.1517997Z Cache mode: write
+2026-09-25T00:28:27.1519538Z Prepare workflow directory
+2026-09-25T00:28:27.2113991Z Prepare all required actions
+2026-09-25T00:28:27.2187015Z Getting action download info
+2026-09-25T00:28:27.4173940Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-09-25T00:28:28.1604912Z Download action repository 'erlef/setup-beam@v1' (SHA:54075bcc5e249e4758d363f27d099f55d843f124)
+2026-09-25T00:28:28.5037398Z Download action repository 'actions/cache@v4' (SHA:0057852bfaa89a56745cba8c7296529d2fc39830)
+2026-09-25T00:28:28.8241603Z Complete job name: Format (mix format --check-formatted, diff-scoped) (27.0, 1.19.5)
+2026-09-25T00:28:28.9010293Z ##[group]Run actions/checkout@v4
+2026-09-25T00:28:28.9010973Z with:
+2026-09-25T00:28:28.9011238Z   fetch-depth: 2
+2026-09-25T00:28:28.9011531Z   repository: FRIKKern/barkpark
+2026-09-25T00:28:28.9014124Z   token: ***
+2026-09-25T00:28:28.9014396Z   ssh-strict: true
+2026-09-25T00:28:28.9014661Z   ssh-user: git
+2026-09-25T00:28:28.9014939Z   persist-credentials: true
+2026-09-25T00:28:28.9015232Z   clean: true
+2026-09-25T00:28:28.9015528Z   sparse-checkout-cone-mode: true
+2026-09-25T00:28:28.9015856Z   fetch-tags: false
+2026-09-25T00:28:28.9016126Z   show-progress: true
+2026-09-25T00:28:28.9016407Z   lfs: false
+2026-09-25T00:28:28.9016661Z   submodules: false
+2026-09-25T00:28:28.9016934Z   set-safe-directory: true
+2026-09-25T00:28:28.9017247Z   allow-unsafe-pr-checkout: false
+2026-09-25T00:28:28.9018151Z ##[endgroup]
+2026-09-25T00:28:29.0063967Z Syncing repository: FRIKKern/barkpark
+2026-09-25T00:28:29.0065641Z ##[group]Getting Git version info
+2026-09-25T00:28:29.0066214Z Working directory is '/home/runner/work/barkpark/barkpark'
+2026-09-25T00:28:29.0067374Z [command]/usr/bin/git version
+2026-09-25T00:28:29.0152550Z git version 2.55.0
+2026-09-25T00:28:29.0178064Z ##[endgroup]
+2026-09-25T00:28:29.0197733Z Temporarily overriding HOME='/home/runner/work/_temp/0471384b-c65e-4fbd-959f-c12748dcda7d' before making global git config changes
+2026-09-25T00:28:29.0199741Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-25T00:28:29.0204010Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/barkpark/barkpark
+2026-09-25T00:28:29.0257476Z Deleting the contents of '/home/runner/work/barkpark/barkpark'
+2026-09-25T00:28:29.0263064Z ##[group]Initializing the repository
+2026-09-25T00:28:29.0266603Z [command]/usr/bin/git init /home/runner/work/barkpark/barkpark
+2026-09-25T00:28:29.0381638Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-25T00:28:29.0383643Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-25T00:28:29.0384936Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-25T00:28:29.0385997Z hint: call:
+2026-09-25T00:28:29.0387025Z hint:
+2026-09-25T00:28:29.0387914Z hint: 	git config --global init.defaultBranch <name>
+2026-09-25T00:28:29.0389278Z hint:
+2026-09-25T00:28:29.0390278Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-25T00:28:29.0391515Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-25T00:28:29.0392539Z hint:
+2026-09-25T00:28:29.0393234Z hint: 	git branch -m <name>
+2026-09-25T00:28:29.0393949Z hint:
+2026-09-25T00:28:29.0395740Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-25T00:28:29.0397303Z Initialized empty Git repository in /home/runner/work/barkpark/barkpark/.git/
+2026-09-25T00:28:29.0400374Z [command]/usr/bin/git remote add origin https://github.com/FRIKKern/barkpark
+2026-09-25T00:28:29.0444287Z ##[endgroup]
+2026-09-25T00:28:29.0445164Z ##[group]Disabling automatic garbage collection
+2026-09-25T00:28:29.0449612Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-25T00:28:29.0487001Z ##[endgroup]
+2026-09-25T00:28:29.0487809Z ##[group]Setting up auth
+2026-09-25T00:28:29.0494960Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-25T00:28:29.0534789Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-25T00:28:29.0943581Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-25T00:28:29.1000759Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-25T00:28:29.1255391Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-25T00:28:29.1300789Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-25T00:28:29.1556222Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-25T00:28:29.1600458Z ##[endgroup]
+2026-09-25T00:28:29.1601647Z ##[group]Fetching the repository
+2026-09-25T00:28:29.1611884Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=2 origin +7c08193fb231d73f8cdb497f0db4d31c3cef3e11:refs/remotes/pull/20020/merge
+2026-09-25T00:28:37.4715064Z From https://github.com/FRIKKern/barkpark
+2026-09-25T00:28:37.4716653Z  * [new ref]           7c08193fb231d73f8cdb497f0db4d31c3cef3e11 -> pull/20020/merge
+2026-09-25T00:28:37.4720088Z ##[endgroup]
+2026-09-25T00:28:37.4721161Z ##[group]Determining the checkout info
+2026-09-25T00:28:37.4722891Z ##[endgroup]
+2026-09-25T00:28:37.4730924Z [command]/usr/bin/git sparse-checkout disable
+2026-09-25T00:28:37.4785025Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-25T00:28:37.4901366Z ##[group]Checking out the ref
+2026-09-25T00:28:37.4903064Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/20020/merge
+2026-09-25T00:28:38.5039256Z Updating files:  54% (8768/16130)
+2026-09-25T00:28:38.5106472Z Updating files:  55% (8872/16130)
+2026-09-25T00:28:38.5172942Z Updating files:  56% (9033/16130)
+2026-09-25T00:28:38.5260005Z Updating files:  57% (9195/16130)
+2026-09-25T00:28:38.5361814Z Updating files:  58% (9356/16130)
+2026-09-25T00:28:38.5453083Z Updating files:  59% (9517/16130)
+2026-09-25T00:28:38.5562760Z Updating files:  60% (9678/16130)
+2026-09-25T00:28:38.5787315Z Updating files:  61% (9840/16130)
+2026-09-25T00:28:38.5969710Z Updating files:  62% (10001/16130)
+2026-09-25T00:28:38.6234038Z Updating files:  63% (10162/16130)
+2026-09-25T00:28:38.6563402Z Updating files:  64% (10324/16130)
+2026-09-25T00:28:38.6703299Z Updating files:  65% (10485/16130)
+2026-09-25T00:28:38.6849174Z Updating files:  66% (10646/16130)
+2026-09-25T00:28:38.7038362Z Updating files:  67% (10808/16130)
+2026-09-25T00:28:38.7150179Z Updating files:  68% (10969/16130)
+2026-09-25T00:28:38.7250925Z Updating files:  69% (11130/16130)
+2026-09-25T00:28:38.7354927Z Updating files:  70% (11291/16130)
+2026-09-25T00:28:38.7451250Z Updating files:  71% (11453/16130)
+2026-09-25T00:28:38.7545324Z Updating files:  72% (11614/16130)
+2026-09-25T00:28:38.7652809Z Updating files:  73% (11775/16130)
+2026-09-25T00:28:38.7733254Z Updating files:  74% (11937/16130)
+2026-09-25T00:28:38.7794291Z Updating files:  75% (12098/16130)
+2026-09-25T00:28:38.7852933Z Updating files:  76% (12259/16130)
+2026-09-25T00:28:38.7914098Z Updating files:  77% (12421/16130)
+2026-09-25T00:28:38.8008743Z Updating files:  78% (12582/16130)
+2026-09-25T00:28:38.8069486Z Updating files:  79% (12743/16130)
+2026-09-25T00:28:38.8130335Z Updating files:  80% (12904/16130)
+2026-09-25T00:28:38.8191717Z Updating files:  81% (13066/16130)
+2026-09-25T00:28:38.8251101Z Updating files:  82% (13227/16130)
+2026-09-25T00:28:38.8311667Z Updating files:  83% (13388/16130)
+2026-09-25T00:28:38.8373539Z Updating files:  84% (13550/16130)
+2026-09-25T00:28:38.8434988Z Updating files:  85% (13711/16130)
+2026-09-25T00:28:38.8499380Z Updating files:  86% (13872/16130)
+2026-09-25T00:28:38.8565107Z Updating files:  87% (14034/16130)
+2026-09-25T00:28:38.8629772Z Updating files:  88% (14195/16130)
+2026-09-25T00:28:38.8690094Z Updating files:  89% (14356/16130)
+2026-09-25T00:28:38.8751094Z Updating files:  90% (14517/16130)
+2026-09-25T00:28:38.8812538Z Updating files:  91% (14679/16130)
+2026-09-25T00:28:38.8885565Z Updating files:  92% (14840/16130)
+2026-09-25T00:28:38.8987417Z Updating files:  93% (15001/16130)
+2026-09-25T00:28:38.9124372Z Updating files:  94% (15163/16130)
+2026-09-25T00:28:38.9208960Z Updating files:  95% (15324/16130)
+2026-09-25T00:28:39.3968974Z Updating files:  96% (15485/16130)
+2026-09-25T00:28:39.4148976Z Updating files:  97% (15647/16130)
+2026-09-25T00:28:39.4291641Z Updating files:  98% (15808/16130)
+2026-09-25T00:28:39.4438912Z Updating files:  99% (15969/16130)
+2026-09-25T00:28:39.4439691Z Updating files: 100% (16130/16130)
+2026-09-25T00:28:39.4440058Z Updating files: 100% (16130/16130), done.
+2026-09-25T00:28:39.4590832Z Note: switching to 'refs/remotes/pull/20020/merge'.
+2026-09-25T00:28:39.4591353Z 
+2026-09-25T00:28:39.4591665Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-09-25T00:28:39.4592431Z changes and commit them, and you can discard any commits you make in this
+2026-09-25T00:28:39.4593162Z state without impacting any branches by switching back to a branch.
+2026-09-25T00:28:39.4593589Z 
+2026-09-25T00:28:39.4594190Z If you want to create a new branch to retain commits you create, you may
+2026-09-25T00:28:39.4595150Z do so (now or later) by using -c with the switch command. Example:
+2026-09-25T00:28:39.4595876Z 
+2026-09-25T00:28:39.4596135Z   git switch -c <new-branch-name>
+2026-09-25T00:28:39.4596572Z 
+2026-09-25T00:28:39.4596809Z Or undo this operation with:
+2026-09-25T00:28:39.4597268Z 
+2026-09-25T00:28:39.4597518Z   git switch -
+2026-09-25T00:28:39.4597809Z 
+2026-09-25T00:28:39.4598324Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-09-25T00:28:39.4599594Z 
+2026-09-25T00:28:39.4600437Z HEAD is now at 7c08193f Merge 39d76cd9b3b10e775890586cc1b3604c667ca8fa into c423813d779f7fe01be3575840cbef133e8a5356
+2026-09-25T00:28:39.4640504Z ##[endgroup]
+2026-09-25T00:28:39.4690162Z [command]/usr/bin/git log -1 --format=%H
+2026-09-25T00:28:39.4719555Z 7c08193fb231d73f8cdb497f0db4d31c3cef3e11
+2026-09-25T00:28:39.4966156Z ##[group]Run erlef/setup-beam@v1
+2026-09-25T00:28:39.4966459Z with:
+2026-09-25T00:28:39.4966664Z   otp-version: 27.0
+2026-09-25T00:28:39.4966894Z   elixir-version: 1.19.5
+2026-09-25T00:28:39.4969914Z   github-token: ***
+2026-09-25T00:28:39.4970156Z   otp-architecture: 64
+2026-09-25T00:28:39.4970383Z   install-hex: true
+2026-09-25T00:28:39.4970594Z   install-rebar: true
+2026-09-25T00:28:39.4970815Z   version-type: loose
+2026-09-25T00:28:39.4971047Z   disable_problem_matchers: false
+2026-09-25T00:28:39.4971338Z   hexpm-mirrors: https://builds.hex.pm
+
+2026-09-25T00:28:39.4971631Z ##[endgroup]
+2026-09-25T00:28:39.7611730Z ##[group]Installing Erlang/OTP OTP-27.0.1 - built on amd64/ubuntu-24.04
+2026-09-25T00:28:40.6422994Z [command]/usr/bin/tar zx --strip-components=1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/1b106803-7c57-4f3b-82bb-b50dffa198fd -f /home/runner/work/_temp/ded1efae-1008-4797-a49a-43423b97a633
+2026-09-25T00:28:43.3466055Z [command]/home/runner/work/_temp/.setup-beam/otp/Install -minimal /home/runner/work/_temp/.setup-beam/otp
+2026-09-25T00:28:43.3776490Z Installed Erlang/OTP version
+2026-09-25T00:28:43.3792938Z [command]/home/runner/work/_temp/.setup-beam/otp/bin/erl -version
+2026-09-25T00:28:43.3917739Z Erlang (SMP,ASYNC_THREADS) (BEAM) emulator version 15.0.1
+2026-09-25T00:28:43.3982966Z ##[endgroup]
+2026-09-25T00:28:43.3984171Z [command]/home/runner/work/_temp/.setup-beam/otp/bin/erl -noshell -eval io:format(erlang:system_info(otp_release)), halt().
+2026-09-25T00:28:43.6247890Z 27::debug::Was not able to coerce latest with semver
+2026-09-25T00:28:43.6266151Z Using Elixir 1.19.5 (built for Erlang/OTP 27)
+2026-09-25T00:28:43.6267490Z ##[group]Installing Elixir v1.19.5-otp-27
+2026-09-25T00:28:43.7852966Z [command]/usr/bin/unzip -o -q /home/runner/work/_temp/f7e76823-be73-4b58-8d94-eb9b023968df
+2026-09-25T00:28:44.3010016Z Installed Elixir version
+2026-09-25T00:28:44.3028858Z [command]/home/runner/work/_temp/.setup-beam/elixir/bin/elixir -v
+2026-09-25T00:28:44.5237905Z Erlang/OTP 27 [erts-15.0.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [jit:ns]
+2026-09-25T00:28:44.5244348Z 
+2026-09-25T00:28:44.5298026Z Elixir 1.19.5 (compiled with Erlang/OTP 27)
+2026-09-25T00:28:44.5345913Z ##[endgroup]
+2026-09-25T00:28:44.5346365Z ##[group]Running mix local.rebar,--force
+2026-09-25T00:28:44.5355034Z [command]/home/runner/work/_temp/.setup-beam/elixir/bin/mix local.rebar --force
+2026-09-25T00:28:45.2058484Z * creating /home/runner/.mix/elixir/1-19-otp-27/rebar3
+2026-09-25T00:28:45.2129991Z ##[endgroup]
+2026-09-25T00:28:45.2131179Z ##[group]Running mix local.hex,--force
+2026-09-25T00:28:45.2148195Z [command]/home/runner/work/_temp/.setup-beam/elixir/bin/mix local.hex --force
+2026-09-25T00:28:45.8816675Z * creating /home/runner/.mix/archives/hex-2.5.1
+2026-09-25T00:28:45.8903846Z ##[endgroup]
+2026-09-25T00:28:45.9697884Z ##[group]Run actions/cache@v4
+2026-09-25T00:28:45.9698172Z with:
+2026-09-25T00:28:45.9698378Z   path: api/deps
+2026-09-25T00:28:45.9699192Z   key: Linux-mix-format-deps-27.0-1.19.5-ed71da5d257c91dd88d67be60caf1dc7411b113fc3af3d89ef2770f46b3a3dcb
+2026-09-25T00:28:45.9699805Z   restore-keys: Linux-mix-format-deps-27.0-1.19.5-
+
+2026-09-25T00:28:45.9700170Z   enableCrossOsArchive: false
+2026-09-25T00:28:45.9700439Z   fail-on-cache-miss: false
+2026-09-25T00:28:45.9700678Z   lookup-only: false
+2026-09-25T00:28:45.9700893Z   save-always: false
+2026-09-25T00:28:45.9701098Z env:
+2026-09-25T00:28:45.9701363Z   INSTALL_DIR_FOR_OTP: /home/runner/work/_temp/.setup-beam/otp
+2026-09-25T00:28:45.9701799Z   INSTALL_DIR_FOR_ELIXIR: /home/runner/work/_temp/.setup-beam/elixir
+2026-09-25T00:28:45.9702149Z ##[endgroup]
+2026-09-25T00:28:46.0770145Z (node:2478) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-25T00:28:46.0771209Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-25T00:28:46.2385842Z Cache hit for: Linux-mix-format-deps-27.0-1.19.5-ed71da5d257c91dd88d67be60caf1dc7411b113fc3af3d89ef2770f46b3a3dcb
+2026-09-25T00:28:46.2494653Z (node:2478) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-09-25T00:28:46.4594976Z Received 6154420 of 6154420 (100.0%), 34.9 MBs/sec
+2026-09-25T00:28:46.4595711Z Cache Size: ~6 MB (6154420 B)
+2026-09-25T00:28:46.4624956Z [command]/usr/bin/tar -xf /home/runner/work/_temp/321c9492-b042-433a-8911-bd22b68c6e5f/cache.tzst -P -C /home/runner/work/barkpark/barkpark --use-compress-program unzstd
+2026-09-25T00:28:46.6380007Z Cache restored successfully
+2026-09-25T00:28:46.6470172Z Cache restored from key: Linux-mix-format-deps-27.0-1.19.5-ed71da5d257c91dd88d67be60caf1dc7411b113fc3af3d89ef2770f46b3a3dcb
+2026-09-25T00:28:46.6598894Z ##[group]Run mix deps.get
+2026-09-25T00:28:46.6599316Z [36;1mmix deps.get[0m
+2026-09-25T00:28:46.6865887Z shell: /usr/bin/bash -e {0}
+2026-09-25T00:28:46.6866215Z env:
+2026-09-25T00:28:46.6866552Z   INSTALL_DIR_FOR_OTP: /home/runner/work/_temp/.setup-beam/otp
+2026-09-25T00:28:46.6867098Z   INSTALL_DIR_FOR_ELIXIR: /home/runner/work/_temp/.setup-beam/elixir
+2026-09-25T00:28:46.6867565Z ##[endgroup]
+2026-09-25T00:28:48.7689893Z Resolving Hex dependencies...
+2026-09-25T00:28:49.3120124Z Resolution completed in 0.537s
+2026-09-25T00:28:49.4085978Z Unchanged:
+2026-09-25T00:28:49.4086517Z   argon2_elixir 4.1.3
+2026-09-25T00:28:49.4110882Z   asn1_compiler 0.1.1
+2026-09-25T00:28:49.4111740Z   bandit 1.12.0 VULNERABLE!
+2026-09-25T00:28:49.4112541Z     EEF-CVE-2026-74836 (HIGH)
+2026-09-25T00:28:49.4113285Z     aka: CVE-2026-74836, GHSA-xj8g-532w-jv94
+2026-09-25T00:28:49.4114332Z     HTTP/2 connection-window starvation pins Plug processes indefinitely in Bandit
+2026-09-25T00:28:49.4115575Z     https://osv.dev/vulnerability/EEF-CVE-2026-74836
+2026-09-25T00:28:49.4116232Z 
+2026-09-25T00:28:49.4116665Z     EEF-CVE-2026-65623 (HIGH)
+2026-09-25T00:28:49.4117401Z     aka: CVE-2026-65623, GHSA-vg8x-66vg-5pxh
+2026-09-25T00:28:49.4118420Z     Quadratic CPU blow-up reassembling fragmented WebSocket messages in Bandit
+2026-09-25T00:28:49.4119744Z     https://osv.dev/vulnerability/EEF-CVE-2026-65623
+2026-09-25T00:28:49.4120409Z 
+2026-09-25T00:28:49.4120797Z     EEF-CVE-2026-75484 (MEDIUM)
+2026-09-25T00:28:49.4121523Z     aka: CVE-2026-75484, GHSA-x3gh-xhj4-3vq8
+2026-09-25T00:28:49.4122724Z     HTTP/2 header field values containing CR, LF or NUL are passed to the application unvalidated in Bandit
+2026-09-25T00:28:49.4123935Z     https://osv.dev/vulnerability/EEF-CVE-2026-75484
+2026-09-25T00:28:49.4124734Z   bypass 2.1.0
+2026-09-25T00:28:49.4125335Z   cbor 1.0.2
+2026-09-25T00:28:49.4125927Z   cc_precompiler 0.1.11
+2026-09-25T00:28:49.4126576Z   cloak 1.1.4
+2026-09-25T00:28:49.4127173Z   cloak_ecto 1.3.0
+2026-09-25T00:28:49.4127792Z   color 0.13.0
+2026-09-25T00:28:49.4128395Z   comeonin 5.5.1
+2026-09-25T00:28:49.4129227Z   corsica 2.1.3
+2026-09-25T00:28:49.4129839Z   cowboy 2.17.0 VULNERABLE!
+2026-09-25T00:28:49.4130609Z     EEF-CVE-2026-65624 (MEDIUM)
+2026-09-25T00:28:49.4131299Z     aka: CVE-2026-65624
+2026-09-25T00:28:49.4132245Z     Cowboy HTTP/1.1 max_headers Bypass via Duplicate Header Names Enables Memory Exhaustion
+2026-09-25T00:28:49.4133397Z     https://osv.dev/vulnerability/EEF-CVE-2026-65624
+2026-09-25T00:28:49.4134246Z   cowboy_telemetry 0.4.0
+2026-09-25T00:28:49.4134900Z   cowlib 2.18.0 VULNERABLE!
+2026-09-25T00:28:49.4135570Z     EEF-CVE-2026-43971 (MEDIUM)
+2026-09-25T00:28:49.4136233Z     aka: CVE-2026-43971
+2026-09-25T00:28:49.4137200Z     Link Header Directive Smuggling via Unescaped target/rel/Attribute Keys in cow_link:link/1
+2026-09-25T00:28:49.4138357Z     https://osv.dev/vulnerability/EEF-CVE-2026-43971
+2026-09-25T00:28:49.4139177Z 
+2026-09-25T00:28:49.4139561Z     EEF-CVE-2026-43966 (MEDIUM)
+2026-09-25T00:28:49.4140269Z     aka: CVE-2026-43966, GHSA-w4f7-4cxr-rv3c
+2026-09-25T00:28:49.4141273Z     HTTP Response Splitting via Non-VCHAR Bytes in cow_http_struct_hd:escape_string/2
+2026-09-25T00:28:49.4142396Z     https://osv.dev/vulnerability/EEF-CVE-2026-43966
+2026-09-25T00:28:49.4143015Z 
+2026-09-25T00:28:49.4143600Z     EEF-CVE-2026-43969 (LOW)
+2026-09-25T00:28:49.4144601Z     aka: CVE-2026-43969, GHSA-g2wm-735q-3f56
+2026-09-25T00:28:49.4146192Z     Cookie Request Header Injection via Unvalidated Encoder in cow_cookie:cookie/1
+2026-09-25T00:28:49.4147182Z     https://osv.dev/vulnerability/EEF-CVE-2026-43969
+2026-09-25T00:28:49.4147602Z 
+2026-09-25T00:28:49.4147790Z     EEF-CVE-2026-59248 (HIGH)
+2026-09-25T00:28:49.4148227Z     aka: CVE-2026-59248
+2026-09-25T00:28:49.4149149Z     Unbounded HPACK/QPACK prefixed-integer decoding in Cowlib causes memory-exhaustion DoS
+2026-09-25T00:28:49.4150066Z     https://osv.dev/vulnerability/EEF-CVE-2026-59248
+2026-09-25T00:28:49.4151034Z   db_connection 2.10.2
+2026-09-25T00:28:49.4151461Z   decimal 3.1.1
+2026-09-25T00:28:49.4151839Z   dns_cluster 0.2.0
+2026-09-25T00:28:49.4152216Z   earmark_parser 1.4.45
+2026-09-25T00:28:49.4152594Z   ecto 3.13.6
+2026-09-25T00:28:49.4152935Z   ecto_sql 3.13.5
+2026-09-25T00:28:49.4153302Z   elixir_make 0.9.0
+2026-09-25T00:28:49.4153654Z   elixlsx 0.6.0
+2026-09-25T00:28:49.4153997Z   eqrcode 0.2.1
+2026-09-25T00:28:49.4154365Z   esaml 4.6.0 VULNERABLE!
+2026-09-25T00:28:49.4154793Z     EEF-CVE-2026-28809 (MEDIUM)
+2026-09-25T00:28:49.4155258Z     aka: CVE-2026-28809, GHSA-4g2h-vm7x-747c
+2026-09-25T00:28:49.4155921Z     XXE in esaml SAML library allows local file read and potential SSRF
+2026-09-25T00:28:49.4156657Z     https://osv.dev/vulnerability/EEF-CVE-2026-28809
+2026-09-25T00:28:49.4157216Z   ex_json_schema 0.11.5
+2026-09-25T00:28:49.4157597Z   expo 1.1.1
+2026-09-25T00:28:49.4157927Z   expty 0.2.1
+2026-09-25T00:28:49.4158258Z   finch 0.23.0
+2026-09-25T00:28:49.4158951Z   fine 0.1.6
+2026-09-25T00:28:49.4159346Z   gen_smtp 1.3.0
+2026-09-25T00:28:49.4159706Z   gettext 1.0.2
+2026-09-25T00:28:49.4160057Z   hpax 1.0.4
+2026-09-25T00:28:49.4160382Z   idna 7.1.0
+2026-09-25T00:28:49.4160703Z   image 0.67.0
+2026-09-25T00:28:49.4161036Z   jason 1.4.5
+2026-09-25T00:28:49.4161375Z   jose 1.11.12
+2026-09-25T00:28:49.4161713Z   lazy_html 0.1.11
+2026-09-25T00:28:49.4162057Z   mime 2.0.7
+2026-09-25T00:28:49.4162399Z   mint 1.9.3 VULNERABLE!
+2026-09-25T00:28:49.4162823Z     EEF-CVE-2026-82672 (MEDIUM)
+2026-09-25T00:28:49.4163281Z     aka: CVE-2026-82672, GHSA-rj5m-69wp-cxq9
+2026-09-25T00:28:49.4164382Z     Unvalidated chunk-size line tail in Mint HTTP/1 client enables response smuggling against strict intermediaries on pooled connections
+2026-09-25T00:28:49.4165555Z     https://osv.dev/vulnerability/EEF-CVE-2026-82672
+2026-09-25T00:28:49.4166071Z 
+2026-09-25T00:28:49.4166246Z     EEF-CVE-2026-82729 (MEDIUM)
+2026-09-25T00:28:49.4166717Z     aka: CVE-2026-82729, GHSA-7p8w-j234-7qc8
+2026-09-25T00:28:49.4167467Z     Quadratic chunk-size parsing in Mint.HTTP1.Parse allows CPU-exhaustion DoS
+2026-09-25T00:28:49.4168272Z     https://osv.dev/vulnerability/EEF-CVE-2026-82729
+2026-09-25T00:28:49.4168964Z 
+2026-09-25T00:28:49.4169144Z     EEF-CVE-2026-82728 (HIGH)
+2026-09-25T00:28:49.4169603Z     aka: CVE-2026-82728, GHSA-g83f-2j6r-q6m4
+2026-09-25T00:28:49.4170468Z     Unbounded HTTP/1 status-line and chunk-extension buffering in Mint causes memory-exhaustion DoS
+2026-09-25T00:28:49.4171407Z     https://osv.dev/vulnerability/EEF-CVE-2026-82728
+2026-09-25T00:28:49.4171941Z   mix_audit 2.1.5
+2026-09-25T00:28:49.4172314Z   nimble_options 1.1.1
+2026-09-25T00:28:49.4172712Z   nimble_pool 1.1.0
+2026-09-25T00:28:49.4173078Z   nimble_totp 1.0.0
+2026-09-25T00:28:49.4173427Z   oban 2.21.1
+2026-09-25T00:28:49.4173772Z   phoenix 1.8.9
+2026-09-25T00:28:49.4174136Z   phoenix_ecto 4.7.0
+2026-09-25T00:28:49.4174513Z   phoenix_html 4.3.0
+2026-09-25T00:28:49.4174904Z   phoenix_live_dashboard 0.8.7
+2026-09-25T00:28:49.4175375Z   phoenix_live_view 1.1.28 VULNERABLE!
+2026-09-25T00:28:49.4175865Z     EEF-CVE-2026-64941 (LOW)
+2026-09-25T00:28:49.4176317Z     aka: CVE-2026-64941, GHSA-36m4-rm57-3prf
+2026-09-25T00:28:49.4177073Z     Open redirect in Phoenix.LiveView.validate_local_url!/2 via ASCII tab, LF and CR
+2026-09-25T00:28:49.4177913Z     https://osv.dev/vulnerability/EEF-CVE-2026-64941
+2026-09-25T00:28:49.4178460Z   phoenix_pubsub 2.2.0
+2026-09-25T00:28:49.4179052Z   phoenix_template 1.0.4
+2026-09-25T00:28:49.4179688Z   plug 1.20.3
+2026-09-25T00:28:49.4180039Z   plug_cowboy 2.9.0
+2026-09-25T00:28:49.4180411Z   plug_crypto 2.2.0
+2026-09-25T00:28:49.4180789Z   postgrex 0.22.3 VULNERABLE!
+2026-09-25T00:28:49.4181248Z     EEF-CVE-2026-66838 (MEDIUM)
+2026-09-25T00:28:49.4181705Z     aka: CVE-2026-66838, GHSA-3gww-3f36-2388
+2026-09-25T00:28:49.4182329Z     SQL injection via the :comment option in Postgrex.stream/4
+2026-09-25T00:28:49.4183025Z     https://osv.dev/vulnerability/EEF-CVE-2026-66838
+2026-09-25T00:28:49.4183553Z   ranch 1.8.1
+2026-09-25T00:28:49.4183879Z   req 0.6.3
+2026-09-25T00:28:49.4184396Z   saxy 1.6.0
+2026-09-25T00:28:49.4184746Z   sobelow 0.14.1
+2026-09-25T00:28:49.4185097Z   sweet_xml 0.7.5
+2026-09-25T00:28:49.4185540Z   swoosh 1.26.2 VULNERABLE!
+2026-09-25T00:28:49.4185956Z     EEF-CVE-2026-54893 (LOW)
+2026-09-25T00:28:49.4186407Z     aka: CVE-2026-54893, GHSA-754j-98wh-57rf
+2026-09-25T00:28:49.4187087Z     Email-derived URL path injection in the Swoosh Microsoft Graph adapter
+2026-09-25T00:28:49.4187856Z     https://osv.dev/vulnerability/EEF-CVE-2026-54893
+2026-09-25T00:28:49.4188393Z   telemetry 1.4.2
+2026-09-25T00:28:49.4188972Z   telemetry_metrics 1.1.0
+2026-09-25T00:28:49.4189420Z   telemetry_metrics_prometheus_core 1.2.1
+2026-09-25T00:28:49.4189920Z   telemetry_poller 1.3.0
+2026-09-25T00:28:49.4190325Z   thousand_island 1.5.0
+2026-09-25T00:28:49.4190703Z   vix 0.38.0
+2026-09-25T00:28:49.4191029Z   wax_ 0.7.0
+2026-09-25T00:28:49.4191354Z   websock 0.5.3
+2026-09-25T00:28:49.4191710Z   websock_adapter 0.6.0
+2026-09-25T00:28:49.4192083Z   x509 0.9.2
+2026-09-25T00:28:49.4192423Z   xlsx_reader 0.8.11
+2026-09-25T00:28:49.4192807Z   xml_builder 2.4.0 VULNERABLE!
+2026-09-25T00:28:49.4193248Z     EEF-CVE-2026-47079 (LOW)
+2026-09-25T00:28:49.4193692Z     aka: CVE-2026-47079, GHSA-5hjx-8g53-cmvm
+2026-09-25T00:28:49.4194354Z     Round-trip Corruption via Improper Entity Escaping in xml_builder
+2026-09-25T00:28:49.4195078Z     https://osv.dev/vulnerability/EEF-CVE-2026-47079
+2026-09-25T00:28:49.4195481Z 
+2026-09-25T00:28:49.4195647Z     EEF-CVE-2026-47080 (LOW)
+2026-09-25T00:28:49.4196095Z     aka: CVE-2026-47080, GHSA-67r9-hmxw-h595
+2026-09-25T00:28:49.4196698Z     CDATA Section Breakout via Unsanitised ]]> in xml_builder
+2026-09-25T00:28:49.4197358Z     https://osv.dev/vulnerability/EEF-CVE-2026-47080
+2026-09-25T00:28:49.4197748Z 
+2026-09-25T00:28:49.4197915Z     EEF-CVE-2026-48590 (LOW)
+2026-09-25T00:28:49.4198358Z     aka: CVE-2026-48590, GHSA-r82p-3q2p-728w
+2026-09-25T00:28:49.4199424Z     Element and Attribute Names Injected Verbatim into XML Output in xml_builder
+2026-09-25T00:28:49.4200258Z     https://osv.dev/vulnerability/EEF-CVE-2026-48590
+2026-09-25T00:28:49.4200797Z   yamerl 0.10.0
+2026-09-25T00:28:49.4201149Z   yaml_elixir 2.12.2
+2026-09-25T00:28:49.4618182Z Found packages with security advisories, see above for details
+2026-09-25T00:28:49.4738693Z All dependencies have been fetched
+2026-09-25T00:28:49.4968409Z ##[group]Run bash scripts/format-check.sh --selftest
+2026-09-25T00:28:49.4969075Z [36;1mbash scripts/format-check.sh --selftest[0m
+2026-09-25T00:28:49.5032469Z shell: /usr/bin/bash -e {0}
+2026-09-25T00:28:49.5032737Z env:
+2026-09-25T00:28:49.5033034Z   INSTALL_DIR_FOR_OTP: /home/runner/work/_temp/.setup-beam/otp
+2026-09-25T00:28:49.5033523Z   INSTALL_DIR_FOR_ELIXIR: /home/runner/work/_temp/.setup-beam/elixir
+2026-09-25T00:28:49.5033921Z ##[endgroup]
+2026-09-25T00:28:49.5180614Z === format-check selftest: every refusal must be able to fire, and name itself ===
+2026-09-25T00:28:49.5226336Z   ok    a missing workflow REFUSES rather than guessing a version (exit 5, names 'exit 5')
+2026-09-25T00:28:49.5310866Z   ok    a matrix in a DIFFERENT job must not answer for the format job (exit 5, names 'exit 5')
+2026-09-25T00:28:49.8153716Z   ok    a version mismatch REFUSES LOUDLY and is not reported as unformatted (exit 3, names 'WRONG ELIXIR')
+2026-09-25T00:28:49.8154927Z   ok    and it says NO CLAIM is being made, so nothing downstream reads it as a verdict (exit 3, names 'NO CLAIM')
+2026-09-25T00:28:49.8156740Z   ok    and it forbids the reflex 'fix' that would red a currently-green gate (exit 3, names 'Do NOT run')
+2026-09-25T00:28:50.2815431Z   ok    unfetched deps REFUSE as themselves, not as a format failure (exit 4, names 'DEPS NOT FETCHED')
+2026-09-25T00:28:50.2816294Z   ok    and the import_deps trap is named so the next reader does not re-derive it (exit 4, names 'import_deps')
+2026-09-25T00:28:50.5356255Z   ok    a wrapper REFUSAL refuses as itself and is NEVER reported as unformatted (exit 6, names 'CANNOT READ')
+2026-09-25T00:28:50.5357809Z   ok    and it quotes the wrapper's own words so the reader can see WHO refused (exit 6, names 'REFUSED on this box')
+2026-09-25T00:28:50.5359336Z   ok    and it says NO CLAIM, so nothing downstream reads exit 6 as a verdict (exit 6, names 'NO CLAIM')
+2026-09-25T00:28:50.8300405Z   ok    a wrapper refusing with exit 1 behind 200KB of output is STILL a refusal, not a verdict (exit 6, names 'CANNOT READ')
+2026-09-25T00:28:51.5046653Z   ok    a FORMATTED tree still passes with the caller setting no BP_ALLOW_FORMAT (exit 0, names 'FORMAT OK')
+2026-09-25T00:28:52.1926785Z   ok    an UNFORMATTED file still reds as exit 1, and not as a refusal (exit 1, names 'UNFORMATTED')
+2026-09-25T00:28:52.1927667Z   ok    and the red names the file the formatter objected to (exit 1, names 'b.ex')
+2026-09-25T00:28:52.1965108Z   ok    the reader resolves the REAL workflow's pin: Elixir 1.19.5
+2026-09-25T00:28:52.1965658Z 
+2026-09-25T00:28:52.1966760Z SELFTEST OK — each cause refuses with its own exit code and names only itself.
+2026-09-25T00:28:52.2093428Z ##[group]Run bash scripts/run-instrument.sh format-diff-scope-selftest -- bash scripts/format-diff-scope.sh --selftest
+2026-09-25T00:28:52.2094371Z [36;1mbash scripts/run-instrument.sh format-diff-scope-selftest -- bash scripts/format-diff-scope.sh --selftest[0m
+2026-09-25T00:28:52.2157298Z shell: /usr/bin/bash -e {0}
+2026-09-25T00:28:52.2157565Z env:
+2026-09-25T00:28:52.2157861Z   INSTALL_DIR_FOR_OTP: /home/runner/work/_temp/.setup-beam/otp
+2026-09-25T00:28:52.2158329Z   INSTALL_DIR_FOR_ELIXIR: /home/runner/work/_temp/.setup-beam/elixir
+2026-09-25T00:28:52.2158901Z ##[endgroup]
+2026-09-25T00:28:52.2295501Z === format-diff-scope selftest: the scope must red on yours and stay neutral on theirs ===
+2026-09-25T00:28:52.2736401Z   ok    a touched unformatted file REDS and names itself (exit 1)
+2026-09-25T00:28:52.2752295Z   ok    …and it says UNFORMATTED IN THIS DIFF, not just 'unformatted' (exit 1)
+2026-09-25T00:28:52.2917544Z   ok    the SAME drift in files this diff never touched is NEUTRAL (exit 0)
+2026-09-25T00:28:52.2933087Z   ok    …and the inherited files are still PRINTED, never hidden (exit 0)
+2026-09-25T00:28:52.3082148Z   ok    no PR diff (push to main) is NEUTRAL and says so in words (exit 0)
+2026-09-25T00:28:52.3097392Z   ok    …and the push arm still NAMES the debt — green must never mean silent (exit 0)
+2026-09-25T00:28:52.3113176Z   ok    …and it states the FULL count, so the debt has a size (exit 0)
+2026-09-25T00:28:52.3127936Z   ok    …and it calls it the standing debt, with an owner (exit 0)
+2026-09-25T00:28:52.3299276Z   ok    the 1.18 '  * path' shape parses too (exit 1)
+2026-09-25T00:28:52.3391684Z   ok    an exit-1 verdict with ZERO parsed files is CANNOT TELL, never a pass (exit 2)
+2026-09-25T00:28:52.3461380Z   ok    guard exit 3 is a REFUSAL: neutral, and no claim (exit 0)
+2026-09-25T00:28:52.3530560Z   ok    guard exit 4 is a REFUSAL: neutral, and no claim (exit 0)
+2026-09-25T00:28:52.3598826Z   ok    guard exit 5 is a REFUSAL: neutral, and no claim (exit 0)
+2026-09-25T00:28:52.3667545Z   ok    guard exit 6 is a REFUSAL: neutral, and no claim (exit 0)
+2026-09-25T00:28:52.3709911Z   ok    a formatted tree is green and scopes nothing (exit 0)
+2026-09-25T00:28:52.3751035Z   ok    a MISSING --changed file cannot tell (absent != empty) (exit 2)
+2026-09-25T00:28:52.3791937Z   ok    a missing verdict log cannot tell (exit 2)
+2026-09-25T00:28:52.3832095Z   ok    a non-numeric guard-rc cannot tell (exit 2)
+2026-09-25T00:28:52.3999704Z   ok    the job output carries exactly the diff-scoped list
+2026-09-25T00:28:52.4012786Z   ok    the job output carries the FULL count too (2), so a reader can see the debt
+2026-09-25T00:28:52.4174710Z   ok    an inherited-only run writes an EMPTY diff-scoped list (the aggregator's neutral)
+2026-09-25T00:28:52.4175682Z 
+2026-09-25T00:28:52.4176806Z SELFTEST OK — the scope reds on the diff's own files and stays neutral on inherited drift.
+2026-09-25T00:28:52.4196236Z instrument format-diff-scope-selftest: exit 0 -> MEASURED-CLEAN
+2026-09-25T00:28:52.4275379Z ##[group]Run set -uo pipefail
+2026-09-25T00:28:52.4275947Z [36;1mset -uo pipefail[0m
+2026-09-25T00:28:52.4276452Z [36;1mlog="${RUNNER_TEMP:-/tmp}/format-verdict.log"[0m
+2026-09-25T00:28:52.4277049Z [36;1m# `|| rc=$?` IS THE FIX, AND IT IS NOT STYLE.[0m
+2026-09-25T00:28:52.4277545Z [36;1m#[0m
+2026-09-25T00:28:52.4278101Z [36;1m# GitHub's default shell for `run:` is `bash -e {0}`, and `set -uo[0m
+2026-09-25T00:28:52.4279279Z [36;1m# pipefail` does NOT clear `-e`. Written as a bare call followed by[0m
+2026-09-25T00:28:52.4280137Z [36;1m# `rc=$?`, the step DIED on the guard's own exit 1 — the correct[0m
+2026-09-25T00:28:52.4280989Z [36;1m# "unformatted" verdict, the only one this gate exists to produce.[0m
+2026-09-25T00:28:52.4281804Z [36;1m# `rc=$?` never ran, the `GITHUB_OUTPUT` write never ran,[0m
+2026-09-25T00:28:52.4282626Z [36;1m# `continue-on-error` swallowed the death, and the scope step below[0m
+2026-09-25T00:28:52.4283524Z [36;1m# fell back to `${GUARD_RC:-2}`. 2 is a REFUSAL, so it printed NO[0m
+2026-09-25T00:28:52.4284315Z [36;1m# VERDICT and scored neutral, and the job concluded success.[0m
+2026-09-25T00:28:52.4284944Z [36;1m#[0m
+2026-09-25T00:28:52.4285476Z [36;1m# THE GUARD THREW ITS ANSWER AWAY ONLY WHEN IT HAD ONE. A formatted[0m
+2026-09-25T00:28:52.4286337Z [36;1m# tree exits 0, `-e` does not fire, and rc=0 published normally — so[0m
+2026-09-25T00:28:52.4287196Z [36;1m# the failure was exclusive to the case the gate is for, which is why[0m
+2026-09-25T00:28:52.4287919Z [36;1m# it survived unnoticed.[0m
+2026-09-25T00:28:52.4288359Z [36;1m#[0m
+2026-09-25T00:28:52.4289138Z [36;1m# `scripts/format-check.sh` has NO `exit 2` path (its codes are 0, 1,[0m
+2026-09-25T00:28:52.4289973Z [36;1m# 3, 4, 5, 6; the one `exit 2` in the file is inside a selftest[0m
+2026-09-25T00:28:52.4290738Z [36;1m# fixture), so "guard exit 2" could never have come from the guard.[0m
+2026-09-25T00:28:52.4291509Z [36;1m# It was the `:-2` default on an unset variable.[0m
+2026-09-25T00:28:52.4292047Z [36;1m#[0m
+2026-09-25T00:28:52.4292564Z [36;1m# Do NOT replace this with `set +e`: that is a mode change a later[0m
+2026-09-25T00:28:52.4293451Z [36;1m# edit can silently undo by re-adding strictness. `|| rc=$?` is local[0m
+2026-09-25T00:28:52.4294285Z [36;1m# to this one call and cannot be undone from a distance.[0m
+2026-09-25T00:28:52.4294885Z [36;1mrc=0[0m
+2026-09-25T00:28:52.4295379Z [36;1mbash scripts/format-check.sh > "$log" 2>&1 || rc=$?[0m
+2026-09-25T00:28:52.4295999Z [36;1mcat "$log"[0m
+2026-09-25T00:28:52.4296447Z [36;1mecho "rc=${rc}" >> "$GITHUB_OUTPUT"[0m
+2026-09-25T00:28:52.4296949Z [36;1mexit "$rc"[0m
+2026-09-25T00:28:52.4382961Z shell: /usr/bin/bash -e {0}
+2026-09-25T00:28:52.4383297Z env:
+2026-09-25T00:28:52.4383667Z   INSTALL_DIR_FOR_OTP: /home/runner/work/_temp/.setup-beam/otp
+2026-09-25T00:28:52.4384212Z   INSTALL_DIR_FOR_ELIXIR: /home/runner/work/_temp/.setup-beam/elixir
+2026-09-25T00:28:52.4384620Z   BP_STEP_VERDICT: MEASURED-CLEAN
+2026-09-25T00:28:52.4384909Z ##[endgroup]
+2026-09-25T00:28:59.2470764Z >> formatter   Elixir 1.19.5  (CI's format gate pins 1.19.5, read from .github/workflows/elixir.yml)
+2026-09-25T00:28:59.2472211Z !! PIN DISAGREES (expected — two owned numbers, not one unowned one):
+2026-09-25T00:28:59.2473070Z      .tool-versions          elixir 1.18.4   <- PRODUCTION's toolchain
+2026-09-25T00:28:59.2473900Z      format gate matrix      elixir 1.19.5   <- THE FORMATTER the fleet runs
+2026-09-25T00:28:59.2475108Z    Deliberate since 2026-09-02: .tool-versions is read by release-artifact.yml,
+2026-09-25T00:28:59.2476084Z    deploy/azure-base-install.sh and the mix-test/mix-prod-compile matrices, so it
+2026-09-25T00:28:59.2476988Z    does NOT move with the format gate. Format under 1.19.5. Neither pin is stale;
+2026-09-25T00:28:59.2477814Z    moving either one to 'agree' would break the other's owner.
+2026-09-25T00:28:59.2478858Z    THIRD DECLARATION, OWNER-SIDE (outside this repo, not fixable from here):
+2026-09-25T00:28:59.2480224Z    ~/.local/bin/mix — the fleet's compile-slot shim — hard-codes 1.18.4 at line 6
+2026-09-25T00:28:59.2481034Z    (comment) and line 12 (the refusal text it prints). That text predates the
+2026-09-25T00:28:59.2481560Z    2026-09-02 bump and now names the wrong CI pin; the shim's REFUSAL is still
+2026-09-25T00:28:59.2482076Z    honoured here, its version prose is not read. Owner: the orchestrator.
+2026-09-25T00:28:59.2482497Z >> deps        resolved in api/deps
+2026-09-25T00:28:59.2482700Z 
+2026-09-25T00:28:59.2482898Z ** (Mix) mix format failed due to --check-formatted.
+2026-09-25T00:28:59.2483264Z The following files are not formatted:
+2026-09-25T00:28:59.2483459Z 
+2026-09-25T00:28:59.2483956Z [1m[31m/home/runner/work/barkpark/barkpark/api/test/barkpark/portable_doc/bpml_test.exs
+2026-09-25T00:28:59.2484427Z [0m
+2026-09-25T00:28:59.2484624Z          |
+2026-09-25T00:28:59.2484841Z 110 110  |      blocks = [
+2026-09-25T00:28:59.2485246Z 111 111  |        %{"id" => "h1", "type" => "heading", "level" => 2, "align" => "right", "text" => "Right"},
+2026-09-25T00:28:59.2485923Z 112     -|        %{"id" => "p1", "type" => "paragraph", "align" => "center", "content" => [%{"type" => "text", "value" => "Centred."}]},
+2026-09-25T00:28:59.2486621Z 113     -|        %{"id" => "p2", "type" => "paragraph", "content" => [%{"type" => "text", "value" => "Plain."}]}
+2026-09-25T00:28:59.2487058Z     112 +|        %{
+2026-09-25T00:28:59.2487281Z     113 +|          "id" => "p1",
+2026-09-25T00:28:59.2487558Z     114 +|          "type" => "paragraph",
+2026-09-25T00:28:59.2487838Z     115 +|          "align" => "center",
+2026-09-25T00:28:59.2488179Z     116 +|          "content" => [%{"type" => "text", "value" => "Centred."}]
+2026-09-25T00:28:59.2488519Z     117 +|        },
+2026-09-25T00:28:59.2489102Z     118 +|        %{
+2026-09-25T00:28:59.2489336Z     119 +|          "id" => "p2",
+2026-09-25T00:28:59.2489608Z     120 +|          "type" => "paragraph",
+2026-09-25T00:28:59.2489963Z     121 +|          "content" => [%{"type" => "text", "value" => "Plain."}]
+2026-09-25T00:28:59.2490302Z     122 +|        }
+2026-09-25T00:28:59.2490518Z 114 123  |      ]
+2026-09-25T00:28:59.2490722Z 115 124  |
+2026-09-25T00:28:59.2490909Z          |
+2026-09-25T00:28:59.2491093Z 140 149  |
+2026-09-25T00:28:59.2491303Z 141 150  |      assert {:ok, [table]} =
+2026-09-25T00:28:59.2491854Z 142     -|               Bpml.parse_blocks("<table><tr><td rowspan=\"2\">tall</td><td>b1</td></tr><tr><td></td><td>b2</td></tr></table>")
+2026-09-25T00:28:59.2492403Z     151 +|               Bpml.parse_blocks(
+2026-09-25T00:28:59.2492864Z     152 +|                 "<table><tr><td rowspan=\"2\">tall</td><td>b1</td></tr><tr><td></td><td>b2</td></tr></table>"
+2026-09-25T00:28:59.2493320Z     153 +|               )
+2026-09-25T00:28:59.2493550Z 143 154  |
+2026-09-25T00:28:59.2493910Z 144 155  |      assert table["spans"] == [%{"row" => 0, "col" => 0, "colspan" => 1, "rowspan" => 2}]
+2026-09-25T00:28:59.2494317Z          |
+2026-09-25T00:28:59.2494533Z 152 163  |          "type" => "table",
+2026-09-25T00:28:59.2494872Z 153 164  |          "cols" => [%{"width" => 220}, %{"type" => "num"}],
+2026-09-25T00:28:59.2495352Z 154     -|          "rows" => [[[%{"type" => "text", "value" => "a"}], [%{"type" => "text", "value" => "1"}]]]
+2026-09-25T00:28:59.2495766Z     165 +|          "rows" => [
+2026-09-25T00:28:59.2496120Z     166 +|            [[%{"type" => "text", "value" => "a"}], [%{"type" => "text", "value" => "1"}]]
+2026-09-25T00:28:59.2496694Z     167 +|          ]
+2026-09-25T00:28:59.2496915Z 155 168  |        }
+2026-09-25T00:28:59.2497126Z 156 169  |      ]
+2026-09-25T00:28:59.2497334Z          |
+2026-09-25T00:28:59.2497443Z 
+2026-09-25T00:28:59.2498052Z [1m[31m/home/runner/work/barkpark/barkpark/api/test/barkpark/portable_doc/render/table_spans_compose_test.exs
+2026-09-25T00:28:59.2499324Z [0m
+2026-09-25T00:28:59.2499547Z        |
+2026-09-25T00:28:59.2499848Z  9  9  |    "id" => "t",
+2026-09-25T00:28:59.2500114Z 10 10  |    "type" => "table",
+2026-09-25T00:28:59.2500787Z 11    -|    "head" => [[%{"type" => "text", "value" => "A"}], [%{"type" => "text", "value" => "B"}], [%{"type" => "text", "value" => "C"}]],
+2026-09-25T00:28:59.2501303Z    11 +|    "head" => [
+2026-09-25T00:28:59.2501571Z    12 +|      [%{"type" => "text", "value" => "A"}],
+2026-09-25T00:28:59.2501899Z    13 +|      [%{"type" => "text", "value" => "B"}],
+2026-09-25T00:28:59.2502207Z    14 +|      [%{"type" => "text", "value" => "C"}]
+2026-09-25T00:28:59.2502497Z    15 +|    ],
+2026-09-25T00:28:59.2502794Z 12 16  |    "rows" => [[[%{"type" => "text", "value" => "a"}], [], []], [[], [], []]]
+2026-09-25T00:28:59.2503153Z 13 17  |  }
+2026-09-25T00:28:59.2503342Z        |
+2026-09-25T00:28:59.2503530Z 35 39  |
+2026-09-25T00:28:59.2503944Z 36 40  |  test "column widths ride PdTable as widths (nil where unset), only when one is set (plan #25)" do
+2026-09-25T00:28:59.2504654Z 37    -|    pd = Compose.compose_block(Map.put(@table, "cols", [%{"width" => 220}, %{"type" => "num"}, %{}]), :article)
+2026-09-25T00:28:59.2505148Z    41 +|    pd =
+2026-09-25T00:28:59.2505414Z    42 +|      Compose.compose_block(
+2026-09-25T00:28:59.2505785Z    43 +|        Map.put(@table, "cols", [%{"width" => 220}, %{"type" => "num"}, %{}]),
+2026-09-25T00:28:59.2506156Z    44 +|        :article
+2026-09-25T00:28:59.2506381Z    45 +|      )
+2026-09-25T00:28:59.2506583Z    46 +|
+2026-09-25T00:28:59.2506815Z 38 47  |    assert pd["widths"] == [220, nil, nil]
+2026-09-25T00:28:59.2507162Z 39 48  |    assert pd["cols"] == ["text", "num", "text"]
+2026-09-25T00:28:59.2507724Z 40    -|    refute Map.has_key?(Compose.compose_block(Map.put(@table, "cols", [%{"type" => "num"}]), :article), "widths")
+2026-09-25T00:28:59.2508221Z    49 +|
+2026-09-25T00:28:59.2508424Z    50 +|    refute Map.has_key?(
+2026-09-25T00:28:59.2509093Z    51 +|             Compose.compose_block(Map.put(@table, "cols", [%{"type" => "num"}]), :article),
+2026-09-25T00:28:59.2509529Z    52 +|             "widths"
+2026-09-25T00:28:59.2509766Z    53 +|           )
+2026-09-25T00:28:59.2509979Z 41 54  |  end
+2026-09-25T00:28:59.2510166Z 42 55  |
+2026-09-25T00:28:59.2510406Z 43 56  |  test "the email arm never carries spans" do
+2026-09-25T00:28:59.2510916Z 44    -|    pd = Compose.compose_block(Map.put(@table, "spans", [%{"row" => 0, "col" => 0, "colspan" => 2}]), :email)
+2026-09-25T00:28:59.2511597Z 45    -|    assert pd["spans"] == [%{"row" => 0, "col" => 0, "colspan" => 2, "rowspan" => 1}] or not Map.has_key?(pd, "spans")
+2026-09-25T00:28:59.2512075Z    57 +|    pd =
+2026-09-25T00:28:59.2512297Z    58 +|      Compose.compose_block(
+2026-09-25T00:28:59.2512677Z    59 +|        Map.put(@table, "spans", [%{"row" => 0, "col" => 0, "colspan" => 2}]),
+2026-09-25T00:28:59.2513063Z    60 +|        :email
+2026-09-25T00:28:59.2513280Z    61 +|      )
+2026-09-25T00:28:59.2513475Z    62 +|
+2026-09-25T00:28:59.2513795Z    63 +|    assert pd["spans"] == [%{"row" => 0, "col" => 0, "colspan" => 2, "rowspan" => 1}] or
+2026-09-25T00:28:59.2514226Z    64 +|             not Map.has_key?(pd, "spans")
+2026-09-25T00:28:59.2514524Z 46 65  |  end
+2026-09-25T00:28:59.2514719Z 47 66  |end
+2026-09-25T00:28:59.2514898Z        |
+2026-09-25T00:28:59.2515012Z 
+2026-09-25T00:28:59.2515622Z [1m[31m/home/runner/work/barkpark/barkpark/api/test/barkpark/portable_doc/render/code_block_lang_parity_test.exs
+2026-09-25T00:28:59.2516155Z [0m
+2026-09-25T00:28:59.2516335Z          |
+2026-09-25T00:28:59.2516519Z  70  70  |
+2026-09-25T00:28:59.2516733Z  71  71  |      strip = fn composed ->
+2026-09-25T00:28:59.2517402Z  72     -|        Map.update(composed, "html", nil, fn html -> String.replace(html, ~r/ data-lang="[^"]*"/, "") end)
+2026-09-25T00:28:59.2517943Z      72 +|        Map.update(composed, "html", nil, fn html ->
+2026-09-25T00:28:59.2518333Z      73 +|          String.replace(html, ~r/ data-lang="[^"]*"/, "")
+2026-09-25T00:28:59.2519044Z      74 +|        end)
+2026-09-25T00:28:59.2519276Z  73  75  |      end
+2026-09-25T00:28:59.2519478Z  74  76  |
+2026-09-25T00:28:59.2519669Z          |
+2026-09-25T00:28:59.2520138Z  91  93  |          assert html =~ ~s( data-lang="#{lang}"), "case #{c["name"]}: data-lang expected"
+2026-09-25T00:28:59.2520567Z  92  94  |        else
+2026-09-25T00:28:59.2520975Z  93     -|          refute html =~ "data-lang", "case #{c["name"]} (#{inspect(style)}): data-lang must not appear"
+2026-09-25T00:28:59.2521462Z      95 +|          refute html =~ "data-lang",
+2026-09-25T00:28:59.2521855Z      96 +|                 "case #{c["name"]} (#{inspect(style)}): data-lang must not appear"
+2026-09-25T00:28:59.2522236Z  94  97  |        end
+2026-09-25T00:28:59.2522458Z  95  98  |      end
+2026-09-25T00:28:59.2522657Z          |
+2026-09-25T00:28:59.2522762Z 
+2026-09-25T00:28:59.2523274Z [1m[31m/home/runner/work/barkpark/barkpark/api/test/barkpark/portable_doc/render/walk_test.exs
+2026-09-25T00:28:59.2523741Z [0m
+2026-09-25T00:28:59.2523928Z            |
+2026-09-25T00:28:59.2524128Z  137  137  |      table = %{
+2026-09-25T00:28:59.2524376Z  138  138  |        "kind" => "PdTable",
+2026-09-25T00:28:59.2524944Z  139      -|        "head" => [[%{"kind" => "PdText", "children" => ["A"]}], [%{"kind" => "PdText", "children" => ["B"]}], [%{"kind" => "PdText", "children" => ["C"]}]],
+2026-09-25T00:28:59.2525535Z       139 +|        "head" => [
+2026-09-25T00:28:59.2525873Z       140 +|          [%{"kind" => "PdText", "children" => ["A"]}],
+2026-09-25T00:28:59.2526240Z       141 +|          [%{"kind" => "PdText", "children" => ["B"]}],
+2026-09-25T00:28:59.2526602Z       142 +|          [%{"kind" => "PdText", "children" => ["C"]}]
+2026-09-25T00:28:59.2526910Z       143 +|        ],
+2026-09-25T00:28:59.2527126Z  140  144  |        "rows" => [
+2026-09-25T00:28:59.2527538Z  141      -|          [[%{"kind" => "PdText", "children" => ["ab"]}], [], [%{"kind" => "PdText", "children" => ["c1"]}]],
+2026-09-25T00:28:59.2528250Z  142      -|          [[%{"kind" => "PdText", "children" => ["tall"]}], [%{"kind" => "PdText", "children" => ["b2"]}], [%{"kind" => "PdText", "children" => ["c2"]}]],
+2026-09-25T00:28:59.2529263Z  143      -|          [[], [%{"kind" => "PdText", "children" => ["b3"]}], [%{"kind" => "PdText", "children" => ["c3"]}]]
+2026-09-25T00:28:59.2529700Z       145 +|          [
+2026-09-25T00:28:59.2529975Z       146 +|            [%{"kind" => "PdText", "children" => ["ab"]}],
+2026-09-25T00:28:59.2530299Z       147 +|            [],
+2026-09-25T00:28:59.2530578Z       148 +|            [%{"kind" => "PdText", "children" => ["c1"]}]
+2026-09-25T00:28:59.2530891Z       149 +|          ],
+2026-09-25T00:28:59.2531115Z       150 +|          [
+2026-09-25T00:28:59.2531394Z       151 +|            [%{"kind" => "PdText", "children" => ["tall"]}],
+2026-09-25T00:28:59.2531772Z       152 +|            [%{"kind" => "PdText", "children" => ["b2"]}],
+2026-09-25T00:28:59.2532134Z       153 +|            [%{"kind" => "PdText", "children" => ["c2"]}]
+2026-09-25T00:28:59.2532453Z       154 +|          ],
+2026-09-25T00:28:59.2532676Z       155 +|          [
+2026-09-25T00:28:59.2532892Z       156 +|            [],
+2026-09-25T00:28:59.2533170Z       157 +|            [%{"kind" => "PdText", "children" => ["b3"]}],
+2026-09-25T00:28:59.2533534Z       158 +|            [%{"kind" => "PdText", "children" => ["c3"]}]
+2026-09-25T00:28:59.2533843Z       159 +|          ]
+2026-09-25T00:28:59.2534061Z  144  160  |        ],
+2026-09-25T00:28:59.2534286Z  145  161  |        "spans" => [
+2026-09-25T00:28:59.2534537Z            |
+2026-09-25T00:28:59.2534870Z  152  168  |      assert html =~ ~r/<td class="bp-table__td" colspan="2">.*?ab.*?<\/td>/
+2026-09-25T00:28:59.2535611Z  153  169  |      assert html =~ ~r/<td class="bp-table__td" rowspan="2">.*?tall.*?<\/td>/
+2026-09-25T00:28:59.2536007Z       170 +|
+2026-09-25T00:28:59.2536427Z  154  171  |      # first body row: two cells (the covered one is gone); third row: two cells (covered by the rowspan)
+2026-09-25T00:28:59.2537076Z  155  172  |      rows = Regex.scan(~r/<tr>(.*?)<\/tr>/s, html) |> Enum.map(fn [_, inner] -> inner end)
+2026-09-25T00:28:59.2537492Z            |
+2026-09-25T00:28:59.2537686Z  163  180  |
+2026-09-25T00:28:59.2538161Z  164  181  |    test "column widths render as a <colgroup> on the article table only (plan #25)" do
+2026-09-25T00:28:59.2539198Z  165      -|      table = %{"kind" => "PdTable", "head" => [[%{"kind" => "PdText", "children" => ["A"]}], [%{"kind" => "PdText", "children" => ["B"]}]], "rows" => [[[], []]], "widths" => [220, nil]}
+2026-09-25T00:28:59.2539851Z       182 +|      table = %{
+2026-09-25T00:28:59.2540101Z       183 +|        "kind" => "PdTable",
+2026-09-25T00:28:59.2540379Z       184 +|        "head" => [
+2026-09-25T00:28:59.2540671Z       185 +|          [%{"kind" => "PdText", "children" => ["A"]}],
+2026-09-25T00:28:59.2541044Z       186 +|          [%{"kind" => "PdText", "children" => ["B"]}]
+2026-09-25T00:28:59.2541351Z       187 +|        ],
+2026-09-25T00:28:59.2541575Z       188 +|        "rows" => [[[], []]],
+2026-09-25T00:28:59.2541860Z       189 +|        "widths" => [220, nil]
+2026-09-25T00:28:59.2542123Z       190 +|      }
+2026-09-25T00:28:59.2542324Z       191 +|
+2026-09-25T00:28:59.2542589Z  166  192  |      html = Walk.render_body(table, @width, @article)
+2026-09-25T00:28:59.2543222Z  167      -|      assert html =~ ~s(<table role="presentation" class="bp-table"><colgroup><col style="width:220px"><col></colgroup><thead>)
+2026-09-25T00:28:59.2543775Z       193 +|
+2026-09-25T00:28:59.2543982Z       194 +|      assert html =~
+2026-09-25T00:28:59.2544480Z       195 +|               ~s(<table role="presentation" class="bp-table"><colgroup><col style="width:220px"><col></colgroup><thead>)
+2026-09-25T00:28:59.2545005Z       196 +|
+2026-09-25T00:28:59.2545313Z  168  197  |      refute Walk.render_body(table, @width, @email) =~ "colgroup"
+2026-09-25T00:28:59.2545866Z  169  198  |      refute Walk.render_body(Map.delete(table, "widths"), @width, @article) =~ "colgroup"
+2026-09-25T00:28:59.2546319Z            |
+2026-09-25T00:28:59.2546436Z 
+2026-09-25T00:28:59.2546816Z !! UNFORMATTED (exit 1) — a real verdict, under the RIGHT Elixir (1.19.5 == the gate's 1.19.5)
+2026-09-25T00:28:59.2547432Z    with deps resolved, so it is neither a version disagreement nor an import_deps error,
+2026-09-25T00:28:59.2547987Z    and the formatter RAN (exit 1 from `mix format --check-formatted` itself).
+2026-09-25T00:28:59.2548477Z    Fix with: (cd /home/runner/work/barkpark/barkpark/api && mix format)
+2026-09-25T00:28:59.2560192Z ##[error]Process completed with exit code 1.
+2026-09-25T00:28:59.2635253Z ##[group]Run set -uo pipefail
+2026-09-25T00:28:59.2635635Z [36;1mset -uo pipefail[0m
+2026-09-25T00:28:59.2635904Z [36;1mtmp="${RUNNER_TEMP:-/tmp}"[0m
+2026-09-25T00:28:59.2636195Z [36;1mchanged="${tmp}/changed.txt"[0m
+2026-09-25T00:28:59.2636475Z [36;1m: > "$changed"[0m
+2026-09-25T00:28:59.2636771Z [36;1mif [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then[0m
+2026-09-25T00:28:59.2637226Z [36;1m  # actions/checkout checks out refs/pull/N/merge on a pull_request,[0m
+2026-09-25T00:28:59.2637721Z [36;1m  # so HEAD^1 IS the base tip and `HEAD^1..HEAD` IS the merge-base[0m
+2026-09-25T00:28:59.2638209Z [36;1m  # diff — the same derivation the path-escape job above uses, and it[0m
+2026-09-25T00:28:59.2639040Z [36;1m  # requires that job's `fetch-depth: 2`, now set at this job's[0m
+2026-09-25T00:28:59.2639514Z [36;1m  # checkout. This comment used to read "no extra fetch"; the depth[0m
+2026-09-25T00:28:59.2640027Z [36;1m  # was missing, `HEAD^1` never resolved, and this sentence is what[0m
+2026-09-25T00:28:59.2640407Z [36;1m  # hid it.[0m
+2026-09-25T00:28:59.2640883Z [36;1m  #[0m
+2026-09-25T00:28:59.2641194Z [36;1m  # If it cannot be computed the file stays EMPTY, which the scope[0m
+2026-09-25T00:28:59.2641682Z [36;1m  # reader reports as "no PR diff" and scores NEUTRAL: an unreadable[0m
+2026-09-25T00:28:59.2642167Z [36;1m  # diff must never manufacture a red. That fallback is correct and[0m
+2026-09-25T00:28:59.2642642Z [36;1m  # stays — but it is a LAST RESORT, and for the life of this gate it[0m
+2026-09-25T00:28:59.2643024Z [36;1m  # was the ONLY path taken.[0m
+2026-09-25T00:28:59.2643455Z [36;1m  if base="$(git rev-parse --verify --quiet 'HEAD^1')" && [ -n "$base" ]; then[0m
+2026-09-25T00:28:59.2643977Z [36;1m    git diff --name-only "$base" HEAD > "$changed" || : > "$changed"[0m
+2026-09-25T00:28:59.2644346Z [36;1m  fi[0m
+2026-09-25T00:28:59.2644545Z [36;1mfi[0m
+2026-09-25T00:28:59.2644959Z [36;1mecho "PR diff: $(wc -l < "$changed" | tr -d ' ') changed path(s) (empty = push, or no computable diff)"[0m
+2026-09-25T00:28:59.2645640Z [36;1mbash scripts/run-instrument.sh format-diff-scope -- bash scripts/format-diff-scope.sh \[0m
+2026-09-25T00:28:59.2646182Z [36;1m  --verdict-log "${tmp}/format-verdict.log" \[0m
+2026-09-25T00:28:59.2646516Z [36;1m  --guard-rc "${GUARD_RC:-2}" \[0m
+2026-09-25T00:28:59.2646806Z [36;1m  --changed "$changed"[0m
+2026-09-25T00:28:59.2709125Z shell: /usr/bin/bash -e {0}
+2026-09-25T00:28:59.2709393Z env:
+2026-09-25T00:28:59.2709684Z   INSTALL_DIR_FOR_OTP: /home/runner/work/_temp/.setup-beam/otp
+2026-09-25T00:28:59.2710157Z   INSTALL_DIR_FOR_ELIXIR: /home/runner/work/_temp/.setup-beam/elixir
+2026-09-25T00:28:59.2710545Z   BP_STEP_VERDICT: MEASURED-CLEAN
+2026-09-25T00:28:59.2710807Z   GUARD_RC: 1
+2026-09-25T00:28:59.2711010Z ##[endgroup]
+2026-09-25T00:28:59.2865686Z PR diff: 128 changed path(s) (empty = push, or no computable diff)
+2026-09-25T00:28:59.2995269Z == FORMAT: 4 file(s) are unformatted under the gate's Elixir. ==
+2026-09-25T00:28:59.3008963Z    - api/test/barkpark/portable_doc/bpml_test.exs
+2026-09-25T00:28:59.3009838Z    - api/test/barkpark/portable_doc/render/code_block_lang_parity_test.exs
+2026-09-25T00:28:59.3010680Z    - api/test/barkpark/portable_doc/render/table_spans_compose_test.exs
+2026-09-25T00:28:59.3011497Z    - api/test/barkpark/portable_doc/render/walk_test.exs
+2026-09-25T00:28:59.3011984Z 
+2026-09-25T00:28:59.3033538Z !! UNFORMATTED IN THIS DIFF — this pull request touches these unformatted files:
+2026-09-25T00:28:59.3046835Z      api/test/barkpark/portable_doc/bpml_test.exs
+2026-09-25T00:28:59.3047592Z      api/test/barkpark/portable_doc/render/code_block_lang_parity_test.exs
+2026-09-25T00:28:59.3048141Z      api/test/barkpark/portable_doc/render/table_spans_compose_test.exs
+2026-09-25T00:28:59.3049200Z      api/test/barkpark/portable_doc/render/walk_test.exs
+2026-09-25T00:28:59.3049626Z 
+2026-09-25T00:28:59.3049967Z    Fix with: (cd api && mix format <file>...) under the Elixir the gate pins,
+2026-09-25T00:28:59.3051095Z    then push. Only the files above are yours; the rest of the list is inherited.
+2026-09-25T00:28:59.3053247Z instrument format-diff-scope: exit 1 -> MEASURED-DEFECT
+2026-09-25T00:28:59.3092802Z ##[error]Process completed with exit code 1.
+2026-09-25T00:28:59.3127043Z ##[group]Run echo "verdict=${BP_STEP_VERDICT:-}" >> "$GITHUB_OUTPUT"
+2026-09-25T00:28:59.3127536Z [36;1mecho "verdict=${BP_STEP_VERDICT:-}" >> "$GITHUB_OUTPUT"[0m
+2026-09-25T00:28:59.3190309Z shell: /usr/bin/bash -e {0}
+2026-09-25T00:28:59.3190573Z env:
+2026-09-25T00:28:59.3190861Z   INSTALL_DIR_FOR_OTP: /home/runner/work/_temp/.setup-beam/otp
+2026-09-25T00:28:59.3191328Z   INSTALL_DIR_FOR_ELIXIR: /home/runner/work/_temp/.setup-beam/elixir
+2026-09-25T00:28:59.3191721Z   BP_STEP_VERDICT: MEASURED-DEFECT
+2026-09-25T00:28:59.3191990Z ##[endgroup]
+2026-09-25T00:28:59.3403205Z Post job cleanup.
+2026-09-25T00:28:59.4345391Z [command]/usr/bin/git version
+2026-09-25T00:28:59.4398279Z git version 2.55.0
+2026-09-25T00:28:59.4441727Z Temporarily overriding HOME='/home/runner/work/_temp/c022b677-71b8-45cb-98ef-2d089485a527' before making global git config changes
+2026-09-25T00:28:59.4443504Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-25T00:28:59.4448510Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/barkpark/barkpark
+2026-09-25T00:28:59.4495558Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-25T00:28:59.4534500Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-25T00:28:59.4810203Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-25T00:28:59.4839016Z http.https://github.com/.extraheader
+2026-09-25T00:28:59.4851401Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-09-25T00:28:59.4893294Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-25T00:28:59.5182049Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-25T00:28:59.5225546Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-25T00:28:59.5656299Z Evaluate and set job outputs
+2026-09-25T00:28:59.5663621Z Set output 'unformatted_in_diff'
+2026-09-25T00:28:59.5665345Z Set output 'unformatted_total'
+2026-09-25T00:28:59.5666149Z Set output 'verdict'
+2026-09-25T00:28:59.5666859Z Cleaning up orphan processes
+2026-09-25T00:28:59.5954052Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@v4, actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

@@ -1,0 +1,162 @@
+security-gate-shape.test.sh
+
+case 1: security.yml carries the shim shape
+  ok   — workflow_paths = False
+  ok   — push_paths = True
+  ok   — agg_present = True
+  ok   — agg_matrix = False
+  ok   — agg_if = always()
+  ok   — agg_name = Security gate
+  ok   — dispatcher_present = True
+  ok   — dispatcher_if = 
+  ok   — dispatcher_matrix = False
+  ok   — dispatcher_outputs = api,locks
+  info — continue-on-error jobs in security.yml: 'sobelow'
+  info — Security gate needs: 'changes,gate-shape,sobelow,sobelow-inline-overlap,sobelow-baseline-fingerprint,mix-audit'
+
+case 2: THE LAUNDERING GUARD and its mirror
+  ok   — coe_in_needs_unchannelled = 
+  ok   — coe_result_bound = 
+  ok   — verdict_bindings_count = 4 (>= 3)
+  info — continue-on-error jobs judged on outputs.verdict: 'sobelow'
+  ok   — blocking_not_in_needs = 
+  ok   — post_verdict_jobs = report-main-failure
+  ok   — post_verdict_muted = 
+  ok   — needs_without_decide = 
+  ok   — needs_count = 6 (>= 3)
+  ok   — needs_results_count = 5 (>= 3)
+  ok   — decide_consumes_count = 5 (>= 3)
+  ok   — blocking_count = 6 (>= 3)
+
+case 3: every heavy job is gated on the dispatcher, not on a path filter
+  ok   — if::sobelow = needs.changes.outputs.api == 'true'
+  ok   — needs::sobelow = changes
+  ok   — if::sobelow-inline-overlap = needs.changes.outputs.api == 'true'
+  ok   — needs::sobelow-inline-overlap = changes
+  ok   — if::sobelow-baseline-fingerprint = needs.changes.outputs.api == 'true'
+  ok   — needs::sobelow-baseline-fingerprint = changes
+  ok   — if::mix-audit = needs.changes.outputs.locks == 'true'
+  ok   — needs::mix-audit = changes
+  ok   — the aggregator judges mix-audit's skip against O_LOCKS, the output that gates it
+  ok   — the aggregator binds O_LOCKS from the dispatcher
+
+case 4: each assertion is proven able to fail
+  ok   — mutation[clean]: coe_in_needs_unchannelled = ''
+  ok   — mutation[clean]: coe_result_bound = ''
+  ok   — mutation[clean]: blocking_not_in_needs = ''
+  ok   — mutation[launder]: coe_in_needs_unchannelled = 'fleet-drift'
+  ok   — mutation[launder]: needs_without_decide = 'fleet-drift'
+  ok   — mutation[coe-unchannelled]: coe_in_needs_unchannelled = 'sobelow'
+  ok   — mutation[coe-unchannelled]: needs_without_decide = 'sobelow'
+  ok   — mutation[verdict-step-deleted]: coe_in_needs_unchannelled = 'sobelow'
+  ok   — mutation[coe-result-bound]: coe_result_bound = 'sobelow'
+  ok   — mutation[clean]: coe_verdict_judged = 'sobelow'
+  ok   — mutation[unwired]: blocking_not_in_needs = 'mix-audit'
+  ok   — mutation[orphan]: needs_without_decide = 'a11y-ceiling'
+  ok   — mutation[paths]: workflow_paths = 'True'
+  ok   — mutation[clean]: push_paths = 'True'
+  ok   — mutation[pushpaths]: push_paths = 'False'
+  ok   — mutation[matrix]: agg_matrix = 'True'
+  ok   — mutation[clean]: post_verdict_jobs = 'report-main-failure'
+  ok   — mutation[clean]: post_verdict_muted = ''
+  ok   — mutation[reporter-muted]: post_verdict_jobs = ''
+  ok   — mutation[reporter-muted]: post_verdict_muted = 'report-main-failure'
+  ok   — mutation[reporter-muted]: blocking_not_in_needs = ''
+  ok   — mutation[reporter-alwaysruns]: post_verdict_jobs = ''
+  ok   — mutation[reporter-alwaysruns]: blocking_not_in_needs = 'report-main-failure'
+  ok   — mutation[reporter-unwired]: post_verdict_jobs = ''
+  ok   — mutation[reporter-unwired]: blocking_not_in_needs = 'report-main-failure'
+
+case 5: the dispatcher fails rather than skips when it cannot tell
+  ok   — docs-only PR -> exit 0
+  ok   —   …emits api=false
+  ok   —   …emits locks=false
+  ok   — api/** PR -> exit 0
+  ok   —   …emits api=true
+  ok   —   …emits locks=false
+  ok   — security.yml-only PR -> exit 0
+  ok   —   …emits api=true
+  ok   —   …emits locks=true
+  ok   — elixir.yml-only PR -> exit 0
+  ok   —   …emits api=false
+  ok   —   …emits locks=false
+  ok   — api/mix.lock PR -> exit 0
+  ok   —   …emits api=true
+  ok   —   …emits locks=true
+  ok   — cloud/mix.lock-only PR -> exit 0
+  ok   —   …emits api=false
+  ok   —   …emits locks=true
+  ok   — the oracle script itself -> exit 0
+  ok   —   …emits api=false
+  ok   —   …emits locks=true
+  ok   — push event -> exit 0
+  ok   —   …emits api=true
+  ok   —   …emits locks=true
+  ok   — a path containing a double quote -> exit 0
+  ok   —   …emits api=true
+  ok   —   …emits locks=false
+  ok   — a rename OUT of the declared set -> exit 0
+  ok   —   …emits api=true
+  ok   —   …emits locks=false
+  ok   — a rename INTO the declared set -> exit 0
+  ok   —   …emits api=true
+  ok   —   …emits locks=false
+  ok   — (4) a NEWLINE inside the directory of an in-set path (api/li<LF>b/x.ex) -> exit 0
+  ok   —   …emits api=true
+  ok   —   …emits locks=false
+  ok   — empty diff (base == HEAD) -> exit 0
+  ok   —   …emits api=true
+  ok   —   …emits locks=true
+  ok   —   …names the shape
+  ok   —   …as a WARNING, not a brick
+  ok   — unresolvable base sha -> exit 1
+  ok   —   …refuses to guess a base
+  ok   —   …refuses with an annotation
+  ok   — missing base sha -> exit 1
+  ok   —   …says why
+  ok   —   …refuses with an annotation
+  ok   — a base with no common ancestor -> exit 1
+  ok   —   …names the condition, not a raw git fatal
+  ok   —   …refuses the fallback that sweeps in the whole base
+
+case 6: the Security gate decides over every upstream result
+  ok   — everything succeeded -> exit 0
+  ok   — docs-only: gated jobs skipped against api=false -> exit 0
+  ok   — api PR that touches no lockfile: the CVE audit skipped against locks=false -> exit 0
+  ok   — the CVE audit skipped though locks said true -> exit 1
+  ok   — the CVE audit skipped with an EMPTY locks gate (unbound O_LOCKS) -> exit 1
+  ok   — a blocking job FAILED -> exit 1
+  ok   — the CVE audit was CANCELLED -> exit 1
+  ok   — a job skipped though its gate said true -> exit 1
+  ok   — the dispatcher itself failed -> exit 1
+  ok   — an EMPTY result (job not in needs) -> exit 1
+  ok   — an unrecognised result -> exit 1
+  ok   — the shape ratchet was SKIPPED (never legitimate — it is unfiltered) -> exit 1
+  ok   — the shape ratchet FAILED -> exit 1
+  ok   — the fingerprint ratchet FAILED -> exit 1
+  ok   — the fingerprint ratchet skipped though its gate said true -> exit 1
+
+case 6b: a Sobelow regression reaches the aggregate
+  ok   — Sobelow measured clean -> exit 0
+  ok   — Sobelow found a NEW finding (the regression this gate was blind to) -> exit 1
+  ok   —   …names the verdict, not just 'something is wrong'
+  ok   — Sobelow REFUSED to measure — not installed, crashed, wiring broken -> exit 1
+  ok   —   …an unreadable result is CANNOT READ, never a pass
+  ok   — Sobelow exited on a signal (UNKNOWN) -> exit 1
+  ok   — Sobelow was dispatched and published NO verdict -> exit 1
+  ok   —   …refuses over the hole instead of greening
+  ok   — an unrecognised verdict word -> exit 1
+  ok   — docs-only: Sobelow legitimately not dispatched -> exit 0
+
+case 7: the .sobelow-skips census in the header is compared, not trusted
+  ok   — the header census matches api/.sobelow-skips exactly (real tree, both directions)
+  ok   — the census table is non-empty (4 rows declared) — the arm above compared something
+  ok   — MUTANT total: a rotted row count fires, and the line names total
+  ok   — MUTANT per-class: a drifted class fires even with the total correct (mutated 'Config.CSRF', derived from the table)
+  ok   — MUTANT baseline-grew: adding a baseline row without touching the table fires
+  ok   — MUTANT new-class: an undeclared detector class fires by name
+  ok   — MUTANT table-deleted: an absent census REFUSES instead of reading clean
+  ok   — MUTANT baseline-missing: an unreadable baseline REFUSES rather than greening
+
+----
+139 passed, 0 failed

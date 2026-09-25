@@ -1,0 +1,1677 @@
+The files belonging to this database system will be owned by user "Frikk".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are enabled.
+
+creating directory C:/Users/Frikk/AppData/Local/Temp/c073-exunit-mCFrqY/pgdata ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... windows
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Paris
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    ^"C^:^\Users^\Frikk^\scoop^\apps^\postgresql^\current^\bin^\pg^_ctl^" -D ^"C^:^\Users^\Frikk^\AppData^\Local^\Temp^\c073^-exunit^-mCFrqY^\pgdata^" -l logfile start
+
+waiting for server to start.... done
+server started
+Owned test database: C:\Users\Frikk\AppData\Local\Temp\c073-exunit-mCFrqY port 55893
+Compiling 7 files (.ex)
+Compiling lib/barkpark_web/router.ex (it's taking more than 10s)
+Generated barkpark app
+
+02:20:50.875 [debug] QUERY OK db=1.6ms
+UPDATE documents SET rev = encode(gen_random_bytes(16), 'hex') WHERE rev IS NULL []
+
+02:20:51.242 [debug] QUERY OK db=1.1ms
+SELECT id, content::text FROM documents WHERE content ? 'bp_export_status' []
+
+02:20:51.247 [debug] QUERY OK db=1.5ms
+SELECT id, to_jsonb(fields)::text FROM schema_definitions []
+
+02:20:51.249 [debug] QUERY OK db=0.4ms
+SELECT id, content::text FROM documents []
+
+02:20:51.297 [debug] QUERY OK db=1.0ms
+DELETE FROM documents pf
+WHERE pf.type = 'paper'
+  AND pf.dataset = 'paperflow'
+  AND EXISTS (
+    SELECT 1 FROM documents prod
+    WHERE prod.type = 'paper'
+      AND prod.dataset = 'production'
+      AND prod.doc_id = pf.doc_id
+  )
+ []
+
+02:20:51.299 [debug] QUERY OK db=0.4ms
+UPDATE documents
+SET dataset = 'production', updated_at = updated_at
+WHERE type = 'paper' AND dataset = 'paperflow'
+ []
+
+02:20:51.300 [debug] QUERY OK db=1.4ms
+UPDATE revisions
+SET dataset = 'production'
+WHERE type = 'paper' AND dataset = 'paperflow'
+ []
+
+02:20:51.304 [debug] QUERY OK db=2.4ms
+INSERT INTO schema_definitions
+  (id, name, title, icon, visibility, fields, dataset, inserted_at, updated_at)
+VALUES (
+  gen_random_uuid(),
+  'paper',
+  'Papers',
+  '📰',
+  'public',
+  ARRAY(SELECT jsonb_array_elements($1::text::jsonb))::jsonb[],
+  $2,
+  now(),
+  now()
+)
+ON CONFLICT (name, dataset) DO NOTHING
+ ["[{\"name\":\"title\",\"title\":\"Title\",\"type\":\"string\"},{\"name\":\"event_type\",\"title\":\"Event Type\",\"type\":\"string\"},{\"name\":\"source_doc\",\"title\":\"Source Doc\",\"type\":\"string\"},{\"name\":\"goal_id\",\"title\":\"Goal\",\"type\":\"string\"}]", "production"]
+
+02:20:51.313 [debug] QUERY OK db=0.3ms
+SELECT to_regclass('public.papers') IS NOT NULL []
+
+02:20:51.324 [debug] QUERY OK db=7.1ms
+SELECT column_name
+FROM information_schema.columns
+WHERE table_schema = 'public' AND table_name = 'papers'
+ []
+
+02:20:51.331 [debug] QUERY OK db=5.4ms
+SELECT data_type
+FROM information_schema.columns
+WHERE table_schema = 'public' AND table_name = $1 AND column_name = $2
+ ["papers", "rev"]
+
+02:20:51.334 [debug] QUERY OK db=1.6ms
+INSERT INTO documents (id, doc_id, type, dataset, title, status, content, rev, inserted_at, updated_at)
+SELECT
+  gen_random_uuid(),
+  p.slug,
+  'paper',
+  p.dataset,
+  COALESCE(
+    (
+      SELECT b->>'text'
+      FROM jsonb_array_elements(COALESCE(p.blocks_val, '[]'::jsonb)) AS b
+      WHERE b->>'type' = 'heading' AND COALESCE(b->>'text', '') <> ''
+      LIMIT 1
+    ),
+    p.slug
+  ),
+  'published',
+  (
+    jsonb_strip_nulls(
+      jsonb_build_object(
+        'body_html', COALESCE(p.body_html, ''),
+        'blocks', p.blocks_val,
+        'source_doc', p.source_doc_val,
+        'goal_id', p.goal_id_val,
+        'event_type', p.event_type_val
+      )
+    )
+    || jsonb_build_object('rev', p.rev_val)
+  ),
+  md5(random()::text || clock_timestamp()::text),
+  p.inserted_at,
+  p.updated_at
+FROM (
+  SELECT
+    slug,
+    dataset,
+    body_html,
+    blocks AS blocks_val,
+    source_doc AS source_doc_val,
+    goal_id AS goal_id_val,
+    event_type AS event_type_val,
+    (GREATEST(COALESCE(rev, 0), 1)) AS rev_val,
+    inserted_at,
+    updated_at
+  FROM papers
+) p
+ON CONFLICT (doc_id, type, dataset) DO NOTHING
+ []
+
+02:20:51.334 [debug] QUERY OK db=0.3ms
+SELECT DISTINCT dataset FROM documents WHERE type = 'paper' []
+
+02:20:51.336 [debug] QUERY OK db=1.0ms
+INSERT INTO schema_definitions
+  (id, name, title, icon, visibility, fields, dataset, inserted_at, updated_at)
+VALUES (
+  gen_random_uuid(),
+  'paper',
+  'Papers',
+  $1,
+  'public',
+  ARRAY(SELECT jsonb_array_elements($2::text::jsonb))::jsonb[],
+  $3,
+  now(),
+  now()
+)
+ON CONFLICT (name, dataset) DO NOTHING
+ ["📰", "[{\"name\":\"title\",\"title\":\"Title\",\"type\":\"string\"},{\"name\":\"event_type\",\"title\":\"Event Type\",\"type\":\"string\"},{\"name\":\"source_doc\",\"title\":\"Source Doc\",\"type\":\"string\"},{\"name\":\"goal_id\",\"title\":\"Goal\",\"type\":\"string\"}]", "paperflow"]
+
+02:20:51.770 [debug] QUERY OK db=0.8ms
+INSERT INTO workspaces (id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), 'default', 'Default Workspace', now(), now()
+WHERE NOT EXISTS (SELECT 1 FROM workspaces WHERE slug = 'default')
+ []
+
+02:20:51.771 [debug] QUERY OK db=0.8ms
+INSERT INTO projects (id, workspace_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), w.id, 'default', 'Default Project', now(), now()
+FROM workspaces w
+WHERE w.slug = 'default'
+  AND NOT EXISTS (
+    SELECT 1 FROM projects p
+    WHERE p.workspace_id = w.id AND p.slug = 'default'
+  )
+ []
+
+02:20:51.772 [debug] QUERY OK db=0.2ms
+SELECT w.id, p.id
+FROM workspaces w
+JOIN projects p ON p.workspace_id = w.id AND p.slug = 'default'
+WHERE w.slug = 'default'
+ []
+
+02:20:51.776 [debug] QUERY OK db=0.6ms
+UPDATE documents
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<227, 188, 233, 217, 226, 160, 71, 208, 158, 35, 161, 240, 73, 215, 77, 196>>, <<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.777 [debug] QUERY OK db=0.6ms
+UPDATE revisions
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<227, 188, 233, 217, 226, 160, 71, 208, 158, 35, 161, 240, 73, 215, 77, 196>>, <<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.779 [debug] QUERY OK db=0.5ms
+UPDATE mutation_events
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<227, 188, 233, 217, 226, 160, 71, 208, 158, 35, 161, 240, 73, 215, 77, 196>>, <<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.779 [debug] QUERY OK db=0.5ms
+UPDATE media_files
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<227, 188, 233, 217, 226, 160, 71, 208, 158, 35, 161, 240, 73, 215, 77, 196>>, <<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.782 [debug] QUERY OK db=1.9ms
+UPDATE schema_definitions
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<227, 188, 233, 217, 226, 160, 71, 208, 158, 35, 161, 240, 73, 215, 77, 196>>, <<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.783 [debug] QUERY OK db=0.7ms
+UPDATE webhooks
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<227, 188, 233, 217, 226, 160, 71, 208, 158, 35, 161, 240, 73, 215, 77, 196>>, <<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.784 [debug] QUERY OK db=0.8ms
+UPDATE search_intel_events
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<227, 188, 233, 217, 226, 160, 71, 208, 158, 35, 161, 240, 73, 215, 77, 196>>, <<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.785 [debug] QUERY OK db=0.6ms
+UPDATE search_intel_crystals
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<227, 188, 233, 217, 226, 160, 71, 208, 158, 35, 161, 240, 73, 215, 77, 196>>, <<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.786 [debug] QUERY OK db=0.5ms
+UPDATE search_intel_merge_patterns
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<227, 188, 233, 217, 226, 160, 71, 208, 158, 35, 161, 240, 73, 215, 77, 196>>, <<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.787 [debug] QUERY OK db=0.7ms
+UPDATE search_synonyms
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<227, 188, 233, 217, 226, 160, 71, 208, 158, 35, 161, 240, 73, 215, 77, 196>>, <<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.789 [debug] QUERY OK db=0.7ms
+UPDATE api_tokens
+SET workspace_id = $1
+WHERE workspace_id IS NULL
+ [<<227, 188, 233, 217, 226, 160, 71, 208, 158, 35, 161, 240, 73, 215, 77, 196>>]
+
+02:20:51.793 [debug] QUERY OK db=1.0ms
+INSERT INTO workspace_memberships
+  (id, workspace_id, principal_type, principal_id, role, inserted_at, updated_at)
+SELECT
+  gen_random_uuid(),
+  t.workspace_id,
+  'api_token',
+  t.id,
+  CASE WHEN 'admin' = ANY(t.permissions) THEN 'admin' ELSE 'member' END,
+  now(),
+  now()
+FROM api_tokens t
+WHERE t.workspace_id IS NOT NULL
+  AND NOT EXISTS (
+    SELECT 1 FROM workspace_memberships m
+    WHERE m.workspace_id = t.workspace_id
+      AND m.principal_type = 'api_token'
+      AND m.principal_id = t.id
+  )
+ []
+
+02:20:51.802 [debug] QUERY OK db=1.2ms
+UPDATE paper_events pe
+SET workspace_id = d.workspace_id, project_id = d.project_id
+FROM documents d
+WHERE pe.paper_slug IS NOT NULL
+  AND d.doc_id = pe.paper_slug
+  AND d.type = 'paper'
+  AND d.workspace_id IS NOT NULL
+  AND pe.workspace_id IS NULL
+ []
+
+02:20:51.803 [debug] QUERY OK db=0.4ms
+SELECT w.id, p.id
+FROM workspaces w
+JOIN projects p ON p.workspace_id = w.id AND p.slug = 'default'
+WHERE w.slug = 'default'
+ []
+
+02:20:51.804 [debug] QUERY OK db=0.3ms
+UPDATE paper_events
+SET workspace_id = $1, project_id = $2
+WHERE workspace_id IS NULL
+ [<<227, 188, 233, 217, 226, 160, 71, 208, 158, 35, 161, 240, 73, 215, 77, 196>>, <<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.867 [debug] QUERY OK db=0.7ms
+SELECT p.id
+FROM projects p
+JOIN workspaces w ON w.id = p.workspace_id
+WHERE w.slug = 'default' AND p.slug = 'default'
+ []
+
+02:20:51.871 [debug] QUERY OK db=2.6ms
+INSERT INTO datasets (id, project_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), $1, s.dataset, s.dataset, now(), now()
+FROM (
+  SELECT DISTINCT dataset FROM documents WHERE dataset IS NOT NULL
+  UNION
+  SELECT DISTINCT dataset FROM schema_definitions WHERE dataset IS NOT NULL
+  UNION
+  SELECT DISTINCT dataset FROM media_files WHERE dataset IS NOT NULL
+) s
+WHERE NOT EXISTS (
+  SELECT 1 FROM datasets d
+  WHERE d.project_id = $1 AND d.slug = s.dataset
+)
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.873 [debug] QUERY OK db=0.8ms
+INSERT INTO datasets (id, project_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), $1, $2::text, $2::text, now(), now()
+WHERE NOT EXISTS (
+  SELECT 1 FROM datasets d WHERE d.project_id = $1 AND d.slug = $2::text
+)
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>, "production"]
+
+02:20:51.874 [debug] QUERY OK db=0.6ms
+INSERT INTO datasets (id, project_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), $1, $2::text, $2::text, now(), now()
+WHERE NOT EXISTS (
+  SELECT 1 FROM datasets d WHERE d.project_id = $1 AND d.slug = $2::text
+)
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>, "paperflow"]
+
+02:20:51.875 [debug] QUERY OK db=0.5ms
+UPDATE documents t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.876 [debug] QUERY OK db=0.6ms
+UPDATE revisions t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.877 [debug] QUERY OK db=0.4ms
+UPDATE mutation_events t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.877 [debug] QUERY OK db=0.3ms
+UPDATE media_files t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.878 [debug] QUERY OK db=1.0ms
+UPDATE schema_definitions t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.880 [debug] QUERY OK db=0.8ms
+UPDATE webhooks t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.881 [debug] QUERY OK db=0.6ms
+UPDATE api_tokens t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.dataset
+  AND t.dataset IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.882 [debug] QUERY OK db=0.7ms
+UPDATE search_intel_events t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.883 [debug] QUERY OK db=0.6ms
+UPDATE search_intel_crystals t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.883 [debug] QUERY OK db=0.5ms
+UPDATE search_intel_merge_patterns t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.885 [debug] QUERY OK db=0.9ms
+UPDATE search_synonyms t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.887 [debug] QUERY OK db=1.0ms
+UPDATE paper_events t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = 'production'
+  AND t.dataset_id IS NULL
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.894 [debug] QUERY OK db=4.9ms
+CREATE TABLE IF NOT EXISTS collapsed_schema_definitions_backup (
+  id uuid PRIMARY KEY,
+  row jsonb NOT NULL,
+  collapsed_at timestamptz NOT NULL DEFAULT now()
+)
+ []
+
+02:20:51.895 [debug] QUERY OK db=0.4ms
+SELECT name, dataset_id
+FROM schema_definitions
+GROUP BY name, dataset_id
+HAVING count(*) > 1
+ []
+
+02:20:51.923 [debug] QUERY OK db=0.3ms
+SELECT p.id
+FROM projects p
+JOIN workspaces w ON w.id = p.workspace_id
+WHERE w.slug = 'default' AND p.slug = 'default'
+ []
+
+02:20:51.924 [debug] QUERY OK db=0.3ms
+SELECT p.id
+FROM projects p
+JOIN workspaces w ON w.id = p.workspace_id
+WHERE w.slug = 'default' AND p.slug = 'default'
+ []
+
+02:20:51.924 [debug] QUERY OK db=0.2ms
+SELECT id FROM datasets WHERE project_id = $1 AND slug = 'paperflow' LIMIT 1 [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.926 [debug] QUERY OK db=1.1ms
+INSERT INTO schema_definitions
+SELECT (
+  jsonb_populate_record(
+    NULL::schema_definitions,
+    src.survivor || jsonb_build_object(
+      'id', gen_random_uuid(),
+      'dataset', 'paperflow',
+      'dataset_id', $2::uuid,
+      'inserted_at', now(),
+      'updated_at', now()
+    )
+  )
+).*
+FROM (
+  SELECT to_jsonb(s.*) AS survivor
+  FROM schema_definitions s
+  WHERE s.name = 'paper'
+    AND s.dataset = 'production'
+    AND s.project_id = $1
+  ORDER BY (s.dataset_id IS NOT NULL) DESC, s.dataset_id ASC, s.id ASC
+  LIMIT 1
+) src
+WHERE NOT EXISTS (
+  SELECT 1 FROM schema_definitions e
+  WHERE e.name = 'paper' AND e.dataset_id = $2::uuid
+)
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>, <<119, 156, 169, 204, 125, 6, 71, 139, 158, 81, 156, 73, 207, 169, 125, 231>>]
+
+02:20:51.945 [debug] QUERY OK db=0.2ms
+DROP TABLE IF EXISTS paper_events_dataset_rescope_backup []
+
+02:20:51.950 [debug] QUERY OK db=3.4ms
+CREATE TABLE paper_events_dataset_rescope_backup (
+  id uuid PRIMARY KEY,
+  dataset_id uuid
+)
+ []
+
+02:20:51.950 [debug] QUERY OK db=0.5ms
+INSERT INTO paper_events_dataset_rescope_backup (id, dataset_id)
+SELECT pe.id, pe.dataset_id
+FROM paper_events pe
+JOIN datasets cur ON cur.id = pe.dataset_id
+WHERE pe.project_id IS NOT NULL
+  AND cur.project_id <> pe.project_id
+ []
+
+02:20:51.952 [debug] QUERY OK db=1.1ms
+UPDATE paper_events pe
+SET dataset_id = own.id
+FROM datasets cur, documents doc, datasets own
+WHERE pe.dataset_id = cur.id
+  AND pe.project_id IS NOT NULL
+  AND cur.project_id <> pe.project_id
+  AND pe.paper_slug IS NOT NULL
+  AND doc.doc_id = pe.paper_slug
+  AND doc.type = 'paper'
+  AND doc.dataset IS NOT NULL
+  AND own.project_id = pe.project_id
+  AND own.slug = doc.dataset
+ []
+
+02:20:51.952 [debug] QUERY OK db=0.3ms
+SELECT d.id
+FROM datasets d
+JOIN projects p ON p.id = d.project_id
+JOIN workspaces w ON w.id = p.workspace_id
+WHERE w.slug = 'default' AND p.slug = 'default' AND d.slug = 'production'
+ []
+
+02:20:51.953 [debug] QUERY OK db=0.3ms
+UPDATE paper_events pe
+SET dataset_id = $1
+FROM datasets cur
+WHERE pe.dataset_id = cur.id
+  AND pe.project_id IS NOT NULL
+  AND cur.project_id <> pe.project_id
+ [<<121, 177, 55, 186, 48, 105, 75, 210, 142, 43, 244, 135, 43, 49, 178, 113>>]
+
+02:20:51.956 [debug] QUERY OK db=0.4ms
+SELECT p.id
+FROM projects p
+JOIN workspaces w ON w.id = p.workspace_id
+WHERE w.slug = 'default' AND p.slug = 'default'
+ []
+
+02:20:51.957 [debug] QUERY OK db=0.8ms
+DELETE FROM search_synonyms t
+USING (
+  SELECT id,
+         row_number() OVER (
+           PARTITION BY surface, scope, from_query, to_query, kind
+           ORDER BY inserted_at ASC, id ASC
+         ) AS rn
+  FROM search_synonyms
+  WHERE dataset_id IS NULL
+) dup
+WHERE t.id = dup.id AND dup.rn > 1
+ []
+
+02:20:51.957 [debug] QUERY OK db=0.8ms
+DELETE FROM search_intel_crystals t
+USING (
+  SELECT id,
+         row_number() OVER (
+           PARTITION BY surface, scope, period, period_start, query_normalized, filter_fingerprint
+           ORDER BY inserted_at ASC, id ASC
+         ) AS rn
+  FROM search_intel_crystals
+  WHERE dataset_id IS NULL
+) dup
+WHERE t.id = dup.id AND dup.rn > 1
+ []
+
+02:20:51.960 [debug] QUERY OK db=1.4ms
+DELETE FROM search_intel_merge_patterns t
+USING (
+  SELECT id,
+         row_number() OVER (
+           PARTITION BY surface, scope, period, period_start, from_fingerprint, to_fingerprint, pattern_type
+           ORDER BY inserted_at ASC, id ASC
+         ) AS rn
+  FROM search_intel_merge_patterns
+  WHERE dataset_id IS NULL
+) dup
+WHERE t.id = dup.id AND dup.rn > 1
+ []
+
+02:20:51.964 [debug] QUERY OK db=2.0ms
+INSERT INTO datasets (id, project_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), $1, s.scope, s.scope, now(), now()
+FROM (SELECT DISTINCT scope FROM search_synonyms WHERE scope IS NOT NULL) s
+WHERE NOT EXISTS (
+  SELECT 1 FROM datasets d
+  WHERE d.project_id = $1 AND d.slug = s.scope
+)
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.966 [debug] QUERY OK db=1.2ms
+INSERT INTO datasets (id, project_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), $1, s.scope, s.scope, now(), now()
+FROM (SELECT DISTINCT scope FROM search_intel_crystals WHERE scope IS NOT NULL) s
+WHERE NOT EXISTS (
+  SELECT 1 FROM datasets d
+  WHERE d.project_id = $1 AND d.slug = s.scope
+)
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.967 [debug] QUERY OK db=0.4ms
+INSERT INTO datasets (id, project_id, slug, name, inserted_at, updated_at)
+SELECT gen_random_uuid(), $1, s.scope, s.scope, now(), now()
+FROM (SELECT DISTINCT scope FROM search_intel_merge_patterns WHERE scope IS NOT NULL) s
+WHERE NOT EXISTS (
+  SELECT 1 FROM datasets d
+  WHERE d.project_id = $1 AND d.slug = s.scope
+)
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.967 [debug] QUERY OK db=0.3ms
+UPDATE search_synonyms t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.968 [debug] QUERY OK db=0.5ms
+UPDATE search_intel_crystals t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.969 [debug] QUERY OK db=0.7ms
+UPDATE search_intel_merge_patterns t
+SET dataset_id = d.id
+FROM datasets d
+WHERE d.project_id = $1
+  AND d.slug = t.scope
+  AND t.scope IS NOT NULL
+  AND t.dataset_id IS NULL
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:51.972 [debug] QUERY OK db=0.9ms
+ALTER TABLE documents DROP CONSTRAINT documents_workspace_id_fkey []
+
+02:20:51.976 [debug] QUERY OK db=3.0ms
+ALTER TABLE documents
+ADD CONSTRAINT documents_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:20:51.977 [debug] QUERY OK db=1.0ms
+ALTER TABLE documents DROP CONSTRAINT documents_project_id_fkey []
+
+02:20:51.980 [debug] QUERY OK db=1.4ms
+ALTER TABLE documents
+ADD CONSTRAINT documents_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:20:51.981 [debug] QUERY OK db=1.3ms
+ALTER TABLE documents DROP CONSTRAINT documents_dataset_id_fkey []
+
+02:20:51.984 [debug] QUERY OK db=2.5ms
+ALTER TABLE documents
+ADD CONSTRAINT documents_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:20:51.985 [debug] QUERY OK db=0.8ms
+ALTER TABLE revisions DROP CONSTRAINT revisions_workspace_id_fkey []
+
+02:20:51.987 [debug] QUERY OK db=1.5ms
+ALTER TABLE revisions
+ADD CONSTRAINT revisions_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:20:51.987 [debug] QUERY OK db=0.6ms
+ALTER TABLE revisions DROP CONSTRAINT revisions_project_id_fkey []
+
+02:20:51.991 [debug] QUERY OK db=2.5ms
+ALTER TABLE revisions
+ADD CONSTRAINT revisions_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:20:51.993 [debug] QUERY OK db=1.2ms
+ALTER TABLE revisions DROP CONSTRAINT revisions_dataset_id_fkey []
+
+02:20:51.994 [debug] QUERY OK db=1.1ms
+ALTER TABLE revisions
+ADD CONSTRAINT revisions_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:20:51.995 [debug] QUERY OK db=0.5ms
+ALTER TABLE media_files DROP CONSTRAINT media_files_workspace_id_fkey []
+
+02:20:51.997 [debug] QUERY OK db=2.0ms
+ALTER TABLE media_files
+ADD CONSTRAINT media_files_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:20:51.998 [debug] QUERY OK db=0.9ms
+ALTER TABLE media_files DROP CONSTRAINT media_files_project_id_fkey []
+
+02:20:51.999 [debug] QUERY OK db=1.0ms
+ALTER TABLE media_files
+ADD CONSTRAINT media_files_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.001 [debug] QUERY OK db=0.8ms
+ALTER TABLE media_files DROP CONSTRAINT media_files_dataset_id_fkey []
+
+02:20:52.002 [debug] QUERY OK db=1.2ms
+ALTER TABLE media_files
+ADD CONSTRAINT media_files_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.005 [debug] QUERY OK db=1.7ms
+ALTER TABLE schema_definitions DROP CONSTRAINT schema_definitions_workspace_id_fkey []
+
+02:20:52.007 [debug] QUERY OK db=1.8ms
+ALTER TABLE schema_definitions
+ADD CONSTRAINT schema_definitions_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.008 [debug] QUERY OK db=0.9ms
+ALTER TABLE schema_definitions DROP CONSTRAINT schema_definitions_project_id_fkey []
+
+02:20:52.009 [debug] QUERY OK db=1.0ms
+ALTER TABLE schema_definitions
+ADD CONSTRAINT schema_definitions_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.011 [debug] QUERY OK db=1.2ms
+ALTER TABLE schema_definitions DROP CONSTRAINT schema_definitions_dataset_id_fkey []
+
+02:20:52.013 [debug] QUERY OK db=2.0ms
+ALTER TABLE schema_definitions
+ADD CONSTRAINT schema_definitions_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.016 [debug] QUERY OK db=0.9ms
+ALTER TABLE webhooks DROP CONSTRAINT webhooks_workspace_id_fkey []
+
+02:20:52.019 [debug] QUERY OK db=2.1ms
+ALTER TABLE webhooks
+ADD CONSTRAINT webhooks_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.020 [debug] QUERY OK db=0.8ms
+ALTER TABLE webhooks DROP CONSTRAINT webhooks_project_id_fkey []
+
+02:20:52.022 [debug] QUERY OK db=1.4ms
+ALTER TABLE webhooks
+ADD CONSTRAINT webhooks_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.023 [debug] QUERY OK db=0.6ms
+ALTER TABLE webhooks DROP CONSTRAINT webhooks_dataset_id_fkey []
+
+02:20:52.025 [debug] QUERY OK db=1.8ms
+ALTER TABLE webhooks
+ADD CONSTRAINT webhooks_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.027 [debug] QUERY OK db=1.5ms
+ALTER TABLE mutation_events DROP CONSTRAINT mutation_events_workspace_id_fkey []
+
+02:20:52.028 [debug] QUERY OK db=1.1ms
+ALTER TABLE mutation_events
+ADD CONSTRAINT mutation_events_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.029 [debug] QUERY OK db=0.7ms
+ALTER TABLE mutation_events DROP CONSTRAINT mutation_events_project_id_fkey []
+
+02:20:52.031 [debug] QUERY OK db=1.5ms
+ALTER TABLE mutation_events
+ADD CONSTRAINT mutation_events_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.032 [debug] QUERY OK db=1.0ms
+ALTER TABLE mutation_events DROP CONSTRAINT mutation_events_dataset_id_fkey []
+
+02:20:52.034 [debug] QUERY OK db=1.3ms
+ALTER TABLE mutation_events
+ADD CONSTRAINT mutation_events_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.034 [debug] QUERY OK db=0.6ms
+ALTER TABLE search_intel_events DROP CONSTRAINT search_intel_events_workspace_id_fkey []
+
+02:20:52.035 [debug] QUERY OK db=1.0ms
+ALTER TABLE search_intel_events
+ADD CONSTRAINT search_intel_events_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.037 [debug] QUERY OK db=0.9ms
+ALTER TABLE search_intel_events DROP CONSTRAINT search_intel_events_project_id_fkey []
+
+02:20:52.040 [debug] QUERY OK db=2.2ms
+ALTER TABLE search_intel_events
+ADD CONSTRAINT search_intel_events_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.041 [debug] QUERY OK db=0.8ms
+ALTER TABLE search_intel_events DROP CONSTRAINT search_intel_events_dataset_id_fkey []
+
+02:20:52.042 [debug] QUERY OK db=1.2ms decode=0.1ms
+ALTER TABLE search_intel_events
+ADD CONSTRAINT search_intel_events_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.043 [debug] QUERY OK db=0.5ms
+ALTER TABLE search_intel_crystals DROP CONSTRAINT search_intel_crystals_workspace_id_fkey []
+
+02:20:52.045 [debug] QUERY OK db=1.4ms
+ALTER TABLE search_intel_crystals
+ADD CONSTRAINT search_intel_crystals_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.046 [debug] QUERY OK db=1.2ms
+ALTER TABLE search_intel_crystals DROP CONSTRAINT search_intel_crystals_project_id_fkey []
+
+02:20:52.049 [debug] QUERY OK db=2.0ms decode=0.1ms
+ALTER TABLE search_intel_crystals
+ADD CONSTRAINT search_intel_crystals_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.050 [debug] QUERY OK db=0.8ms
+ALTER TABLE search_intel_crystals DROP CONSTRAINT search_intel_crystals_dataset_id_fkey []
+
+02:20:52.053 [debug] QUERY OK db=2.2ms
+ALTER TABLE search_intel_crystals
+ADD CONSTRAINT search_intel_crystals_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.054 [debug] QUERY OK db=1.0ms
+ALTER TABLE search_intel_merge_patterns DROP CONSTRAINT search_intel_merge_patterns_workspace_id_fkey []
+
+02:20:52.056 [debug] QUERY OK db=1.2ms
+ALTER TABLE search_intel_merge_patterns
+ADD CONSTRAINT search_intel_merge_patterns_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.056 [debug] QUERY OK db=0.6ms
+ALTER TABLE search_intel_merge_patterns DROP CONSTRAINT search_intel_merge_patterns_project_id_fkey []
+
+02:20:52.058 [debug] QUERY OK db=1.0ms
+ALTER TABLE search_intel_merge_patterns
+ADD CONSTRAINT search_intel_merge_patterns_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.059 [debug] QUERY OK db=0.7ms
+ALTER TABLE search_intel_merge_patterns DROP CONSTRAINT search_intel_merge_patterns_dataset_id_fkey []
+
+02:20:52.061 [debug] QUERY OK db=1.6ms
+ALTER TABLE search_intel_merge_patterns
+ADD CONSTRAINT search_intel_merge_patterns_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.062 [debug] QUERY OK db=0.8ms
+ALTER TABLE search_synonyms DROP CONSTRAINT search_synonyms_workspace_id_fkey []
+
+02:20:52.064 [debug] QUERY OK db=1.0ms
+ALTER TABLE search_synonyms
+ADD CONSTRAINT search_synonyms_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.064 [debug] QUERY OK db=0.5ms
+ALTER TABLE search_synonyms DROP CONSTRAINT search_synonyms_project_id_fkey []
+
+02:20:52.065 [debug] QUERY OK db=1.0ms
+ALTER TABLE search_synonyms
+ADD CONSTRAINT search_synonyms_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.067 [debug] QUERY OK db=0.8ms
+ALTER TABLE search_synonyms DROP CONSTRAINT search_synonyms_dataset_id_fkey []
+
+02:20:52.069 [debug] QUERY OK db=1.5ms
+ALTER TABLE search_synonyms
+ADD CONSTRAINT search_synonyms_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.070 [debug] QUERY OK db=1.0ms
+ALTER TABLE paper_events DROP CONSTRAINT paper_events_workspace_id_fkey []
+
+02:20:52.071 [debug] QUERY OK db=1.3ms
+ALTER TABLE paper_events
+ADD CONSTRAINT paper_events_workspace_id_fkey
+FOREIGN KEY (workspace_id) REFERENCES workspaces(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.072 [debug] QUERY OK db=1.2ms
+ALTER TABLE paper_events DROP CONSTRAINT paper_events_project_id_fkey []
+
+02:20:52.076 [debug] QUERY OK db=2.0ms
+ALTER TABLE paper_events
+ADD CONSTRAINT paper_events_project_id_fkey
+FOREIGN KEY (project_id) REFERENCES projects(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.077 [debug] QUERY OK db=0.7ms
+ALTER TABLE paper_events DROP CONSTRAINT paper_events_dataset_id_fkey []
+
+02:20:52.078 [debug] QUERY OK db=1.2ms
+ALTER TABLE paper_events
+ADD CONSTRAINT paper_events_dataset_id_fkey
+FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+ON DELETE CASCADE
+ []
+
+02:20:52.274 [debug] QUERY OK db=0.7ms
+SELECT p.id FROM projects p
+JOIN workspaces w ON w.id = p.workspace_id
+WHERE w.slug = 'default' AND p.slug = 'default'
+ []
+
+02:20:52.277 [debug] QUERY OK db=1.8ms decode=0.1ms
+SELECT count(*) FROM documents WHERE dataset = $1 ["paperflow"]
+
+02:20:52.278 [debug] QUERY OK db=0.3ms
+SELECT count(*) FROM media_files WHERE dataset = $1 ["paperflow"]
+
+02:20:52.279 [debug] QUERY OK db=0.3ms
+DELETE FROM schema_definitions WHERE dataset = 'paperflow' []
+
+02:20:52.279 [debug] QUERY OK db=0.3ms
+UPDATE documents SET dataset_id = NULL
+WHERE dataset_id IN (
+  SELECT id FROM datasets WHERE project_id = $1 AND slug = 'paperflow'
+)
+ [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:52.283 [debug] QUERY OK db=4.5ms
+DELETE FROM datasets WHERE project_id = $1 AND slug = 'paperflow' [<<2, 176, 176, 96, 155, 189, 74, 130, 165, 111, 58, 170, 239, 87, 232, 1>>]
+
+02:20:52.892 [debug] QUERY OK db=0.6ms
+SELECT id, content FROM documents WHERE status = 'published' AND jsonb_typeof(content->'tags') = 'array' []
+
+02:20:53.827 [debug] QUERY OK db=0.8ms
+INSERT INTO workspace_memberships
+  (id, workspace_id, principal_type, principal_id, role, inserted_at, updated_at)
+SELECT gen_random_uuid(), m.workspace_id, 'user', t.owner_user_id, 'owner',
+       NOW() AT TIME ZONE 'utc', NOW() AT TIME ZONE 'utc'
+FROM workspace_memberships m
+JOIN api_tokens t ON t.id = m.principal_id
+JOIN users u ON u.id = t.owner_user_id
+WHERE m.principal_type = 'api_token'
+  AND m.role = 'owner'
+GROUP BY m.workspace_id, t.owner_user_id
+ON CONFLICT DO NOTHING
+ []
+[backfill_user_owner_memberships] granted 0 user-typed owner membership(s); 0 api_token-owned workspace(s) left unresolved (owning token has no resolvable owner_user — expected for CI/bootstrap tokens).
+
+02:20:53.828 [debug] QUERY OK db=0.3ms
+SELECT count(DISTINCT m.workspace_id)
+FROM workspace_memberships m
+JOIN api_tokens t ON t.id = m.principal_id
+WHERE m.principal_type = 'api_token'
+  AND m.role = 'owner'
+  AND (t.owner_user_id IS NULL
+       OR NOT EXISTS (SELECT 1 FROM users u WHERE u.id = t.owner_user_id))
+ []
+
+02:20:53.848 [debug] QUERY OK db=0.2ms
+SET statement_timeout = 0 []
+
+02:20:53.849 [debug] QUERY OK db=0.6ms
+SELECT 1
+  FROM pg_index i
+  JOIN pg_class c ON c.oid = i.indexrelid
+  JOIN pg_namespace n ON n.oid = c.relnamespace
+ WHERE c.relname::text = $1
+   AND n.nspname = current_schema()
+   AND NOT i.indisvalid
+ ["documents_task_parent_id_idx"]
+
+02:20:53.854 [debug] QUERY OK db=4.6ms
+CREATE INDEX CONCURRENTLY IF NOT EXISTS documents_task_parent_id_idx
+  ON documents ((regexp_replace(content->>'parent_id', '^drafts\.', '')),
+                workspace_id)
+  WHERE type = 'task'
+ []
+
+02:20:53.854 [debug] QUERY OK db=0.2ms
+RESET statement_timeout []
+
+02:20:53.856 [debug] QUERY OK db=0.2ms
+SET statement_timeout = 0 []
+
+02:20:53.857 [debug] QUERY OK db=0.6ms
+SELECT 1
+  FROM pg_index i
+  JOIN pg_class c ON c.oid = i.indexrelid
+ WHERE c.relname = $1 AND NOT i.indisvalid
+ ["mutation_events_workspace_type_inserted_at_idx"]
+
+02:20:53.861 [debug] QUERY OK db=4.0ms
+CREATE INDEX CONCURRENTLY IF NOT EXISTS mutation_events_workspace_type_inserted_at_idx
+  ON mutation_events (workspace_id, type, inserted_at DESC)
+ []
+
+02:20:53.861 [debug] QUERY OK db=0.1ms
+RESET statement_timeout []
+
+02:20:53.866 [debug] QUERY OK db=0.2ms
+SET statement_timeout = 0 []
+
+02:20:53.867 [debug] QUERY OK db=0.9ms
+SELECT 1
+  FROM pg_index i
+  JOIN pg_class c ON c.oid = i.indexrelid
+  JOIN pg_namespace n ON n.oid = c.relnamespace
+ WHERE c.relname::text = $1
+   AND n.nspname = current_schema()
+   AND NOT i.indisvalid
+ ["revisions_rev_index"]
+
+02:20:53.870 [debug] QUERY OK db=2.4ms
+CREATE INDEX CONCURRENTLY IF NOT EXISTS revisions_rev_index ON revisions (rev) []
+
+02:20:53.871 [debug] QUERY OK db=0.3ms
+RESET statement_timeout []
+
+02:20:53.904 [debug] QUERY OK db=3.5ms
+DELETE FROM task_edges e
+USING documents d, documents pub
+WHERE e.from_id = d.id
+  AND d.doc_id LIKE 'drafts.%'
+  AND pub.doc_id = substring(d.doc_id from 8)
+  AND pub.type = d.type
+  AND pub.dataset = d.dataset
+  AND pub.workspace_id IS NOT DISTINCT FROM d.workspace_id
+  AND pub.project_id IS NOT DISTINCT FROM d.project_id
+  AND EXISTS (
+    SELECT 1 FROM task_edges c
+    WHERE c.from_id = pub.id
+      AND c.to_id = e.to_id
+      AND c.kind = e.kind
+  )
+ []
+
+02:20:53.905 [debug] QUERY OK db=0.9ms
+UPDATE task_edges e
+SET from_id = pub.id
+FROM documents d, documents pub
+WHERE e.from_id = d.id
+  AND d.doc_id LIKE 'drafts.%'
+  AND pub.doc_id = substring(d.doc_id from 8)
+  AND pub.type = d.type
+  AND pub.dataset = d.dataset
+  AND pub.workspace_id IS NOT DISTINCT FROM d.workspace_id
+  AND pub.project_id IS NOT DISTINCT FROM d.project_id
+ []
+
+02:20:53.907 [debug] QUERY OK db=1.6ms
+DELETE FROM task_edges e
+USING documents d, documents pub
+WHERE e.to_id = d.id
+  AND d.doc_id LIKE 'drafts.%'
+  AND pub.doc_id = substring(d.doc_id from 8)
+  AND pub.type = d.type
+  AND pub.dataset = d.dataset
+  AND pub.workspace_id IS NOT DISTINCT FROM d.workspace_id
+  AND pub.project_id IS NOT DISTINCT FROM d.project_id
+  AND EXISTS (
+    SELECT 1 FROM task_edges c
+    WHERE c.to_id = pub.id
+      AND c.from_id = e.from_id
+      AND c.kind = e.kind
+  )
+ []
+twin-canonical task_edges backfill:
+  from_id: 0 re-pointed, 0 redundant duplicates removed
+  to_id:   0 re-pointed, 0 redundant duplicates removed
+
+
+02:20:53.909 [debug] QUERY OK db=1.2ms
+UPDATE task_edges e
+SET to_id = pub.id
+FROM documents d, documents pub
+WHERE e.to_id = d.id
+  AND d.doc_id LIKE 'drafts.%'
+  AND pub.doc_id = substring(d.doc_id from 8)
+  AND pub.type = d.type
+  AND pub.dataset = d.dataset
+  AND pub.workspace_id IS NOT DISTINCT FROM d.workspace_id
+  AND pub.project_id IS NOT DISTINCT FROM d.project_id
+ []
+
+02:20:53.918 [debug] QUERY OK db=0.2ms
+SET statement_timeout = 0 []
+
+02:20:53.919 [debug] QUERY OK db=1.1ms
+SELECT 1
+  FROM pg_index i
+  JOIN pg_class c ON c.oid = i.indexrelid
+  JOIN pg_namespace n ON n.oid = c.relnamespace
+ WHERE c.relname::text = $1
+   AND n.nspname = current_schema()
+   AND NOT i.indisvalid
+ ["media_files_ds_inserted_at_id_index"]
+
+02:20:53.924 [debug] QUERY OK db=4.0ms
+CREATE INDEX CONCURRENTLY IF NOT EXISTS media_files_ds_inserted_at_id_index
+  ON media_files (dataset_id, inserted_at DESC, id DESC)
+ []
+
+02:20:53.925 [debug] QUERY OK db=0.1ms
+RESET statement_timeout []
+02:20:54.817 [warning] [Operator] The instance-operator allowlist is UNSET (BARKPARK_OPERATOR_EMAILS and BARKPARK_OPERATOR_TOKEN_IDS are
+both empty), so the `admin` permission alone still opens these eight INSTANCE-GLOBAL
+route groups to ANY admin-permissioned token, including one whose only membership is an
+admin seat in a single workspace:
+  1. POST|GET /v1/admin/self-update, POST /v1/admin/rollback, POST|GET /v1/admin/site-deploy
+  2. GET /v1/plugins
+  3. GET|PUT|DELETE /v1/plugins/settings/:plugin_name
+  4. GET /v1/secrets, GET /v1/secrets/:name, GET /v1/secrets/:name/audit,
+     PUT /v1/secrets/:name, DELETE /v1/secrets/:name
+  5. POST /v1/status/incidents, POST /v1/status/incidents/:id/resolve
+  6. POST /api/playground
+  7. POST /api/workspaces/:workspace_slug/import
+  8. GET /v1/instance/site-deploy, GET /v1/instance/metrics
+On a SINGLE-TENANT instance that is fine — the only admin is the operator. On a
+MULTI-TENANT one it hands your first customer-admin the instance: run-secrets in
+cleartext, the instance-wide plugin credentials record, and the release itself.
+Set BARKPARK_OPERATOR_EMAILS (comma-separated operator emails) and/or BARKPARK_OPERATOR_TOKEN_IDS
+(comma-separated api_token ids) to arm the allowlist; once either is non-empty the
+eight groups are allowlist-only and fail closed.
+
+02:20:55.015 [warning] OS_MON (:cpu_sup) called by #PID<0.2284.0>, unavailable
+
+BARKPARK-TEST-DB: database "barkpark_test_c073", partition "_c073", chosen by MIX_TEST_PARTITION (set explicitly)
+Running ExUnit with seed: 861107, max_cases: 40
+Excluding tags: [:bokbasen_integration, :flaky, :boot_test, :plugin_routes, :requires_vips, :requires_node, :idp_interop, :real_binary, :live_probe]
+
+..........02:20:58.043 [warning] OS_MON (:cpu_sup) called by #PID<0.2284.0>, unavailable
+
+02:20:58.044 [warning] OS_MON (:cpu_sup) called by #PID<0.2284.0>, unavailable
+
+02:20:58.045 [warning] OS_MON (:cpu_sup) called by #PID<0.2284.0>, unavailable
+
+02:20:58.045 [warning] OS_MON (:cpu_sup) called by #PID<0.2284.0>, unavailable
+
+..........
+
+  1) test Bulldocs.cli_commands/0 declares six paper verbs, all ingest-tier, all grounded in a real route (Barkpark.Plugins.CliCommandsManifestTest)
+     test/barkpark/plugins/cli_commands_manifest_test.exs:98
+     Expected truthy, got false
+     code: assert Enum.all?(cmds, fn c -> MapSet.member?(@bulldocs_routes, c.http.path_template) end)
+     arguments:
+
+         # 1
+         [
+           %{
+             args: [
+               %{
+                 name: "slug",
+                 type: "slug",
+                 required: true,
+                 summary: "New paper slug (not drafts.*)."
+               }
+             ],
+             flags: [
+               %{
+                 name: "file",
+                 type: "file",
+                 summary: "Native blocks payload from a file or - for stdin; includes title, description and weighted tags."
+               }
+             ],
+             http: %{
+               method: "POST",
+               path_template: "/v1/plugins/bulldocs/papers/:slug/create"
+             },
+             id: "bulldocs.create",
+             default_output: "minimal",
+             summary: "Create a paper from native blocks without replacing an existing paper or draft. Returns 201 on creation; an occupied slug refuses with 409 paper_exists. Use bulldocs patch --if-rev to edit an existing paper.",
+             noun: "bulldocs",
+             verb: "create",
+             auth_tier: "ingest",
+             writes: true,
+             batch: false,
+             paginated: false,
+             dry_run: false,
+             scoped_prefix: nil
+           },
+           %{
+             args: [
+               %{
+                 name: "slug",
+                 type: "slug",
+                 required: true,
+                 summary: "Paper slug (its public id)."
+               }
+             ],
+             flags: [
+               %{
+                 name: "file",
+                 type: "file",
+                 summary: "Payload from a file or - for stdin: portable-doc blocks (preferred) or legacy body_html."
+               }
+             ],
+             http: %{
+               method: "POST",
+               path_template: "/v1/plugins/bulldocs/papers"
+             },
+             id: "bulldocs.publish",
+             default_output: "minimal",
+             summary: "Publish (upsert) a paper from a portable-doc block payload. blocks[] is the door: 56 renderer block types (chart, diagram, asciicast, diff, filetree, pipeline, …) with value-keyed inline leaves — items and cells are objects carrying a value key, never bare strings (a bare string publishes clean and renders blank). Guide: /papers/paper-authoring-excellence. body_html is a legacy last resort — hand-rolled HTML renders flat and loses tables in the terminal reader. Reader spacing law: empty paragraph blocks are editor scaffolds, not published layout — remove them from ingest payloads; shared reader tokens own section rhythm. Composition caps, scoped to papers tagged epic-cycle-wave-paper: at most 80 top-level blocks and at most 16 top-level headings. Past either, the publish is refused 422 invalid_epic_paper_quality with details.failures naming top_level_block_overload / top_level_heading_overload and details.limits carrying that cap's max and your actual count. Untagged papers are unaffected. No if-rev on this verb: it is an unfenced create-or-replace, and a body carrying ifRev/if_rev is refused 400. The fenced path is POST /v1/plugins/bulldocs/papers/:slug/ops (bp bulldocs patch --if-rev), which rejects a stale rev with 412 precondition_failed.",
+             noun: "bulldocs",
+             verb: "publish",
+             auth_tier: "ingest",
+             writes: true,
+             batch: false,
+             paginated: false,
+             dry_run: false,
+             scoped_prefix: nil
+           },
+           %{
+             args: [
+               %{
+                 name: "slug",
+                 type: "slug",
+                 required: true,
+                 summary: "Paper slug to patch."
+               }
+             ],
+             flags: [
+               %{
+                 name: "file",
+                 type: "file",
+                 summary: "Ops payload {\"ops\":[…]} from a file or - for stdin. Each op is {\"op\": <verb>, …}; the accepted verbs are append-block, insert-after, patch-block, replace-block, remove-block, move-block, patch-card-body, patch-table-cells and patch-table-structure. append-block takes \"block\"; insert-after takes \"afterId\" + \"block\"; patch-block and replace-block take \"id\" (+ \"patch\" / \"block\"); remove-block and move-block take \"id\". patch-card-body takes \"id\" + inline \"content\"; patch-table-cells takes \"id\" + \"shape\" + \"cells\"; patch-table-structure takes \"id\" + \"shape\" + \"action\". Table shape must match the current storage projection. An unrecognised verb refuses the WHOLE batch — the apply is atomic, so nothing is written."
+               },
+               %{
+                 name: "if-rev",
+                 type: "int",
+                 summary: "Reject unless the paper is still at this rev (optimistic concurrency)."
+               }
+             ],
+             http: %{
+               method: "POST",
+               path_template: "/v1/plugins/bulldocs/papers/:slug/ops"
+             },
+             id: "bulldocs.patch",
+             default_output: "minimal",
+             summary: "Apply an atomic batch of block ops to a paper (optimistic --if-rev guard).",
+             noun: "bulldocs",
+             verb: "patch",
+             auth_tier: "ingest",
+             writes: true,
+             batch: true,
+             paginated: false,
+             dry_run: false,
+             scoped_prefix: nil
+           },
+           %{
+             args: [
+               %{
+                 name: "slug",
+                 type: "slug",
+                 required: true,
+                 summary: "Paper slug to propose into."
+               }
+             ],
+             flags: [
+               %{
+                 name: "file",
+                 type: "file",
+                 summary: "Proposal payload {\"ops\":[…],\"source\":{\"doc_id\":…,\"agent\":…}} from a file or - for stdin."
+               }
+             ],
+             http: %{
+               method: "POST",
+               path_template: "/v1/plugins/bulldocs/papers/:slug/proposals"
+             },
+             id: "bulldocs.propose",
+             default_output: "minimal",
+             summary: "Propose insert-only draft paper edits with provenance (approve via the publish gate).",
+             noun: "bulldocs",
+             verb: "propose",
+             auth_tier: "ingest",
+             writes: true,
+             batch: true,
+             paginated: false,
+             dry_run: false,
+             scoped_prefix: nil
+           },
+           %{
+             args: [],
+             flags: [],
+             http: %{
+               method: "GET",
+               path_template: "/v1/plugins/bulldocs/intents"
+             },
+             id: "bulldocs.intents",
+             default_output: "table",
+             summary: "List pending actionable paper intents (oldest first).",
+             noun: "bulldocs",
+             verb: "intents",
+             auth_tier: "ingest",
+             writes: false,
+             batch: false,
+             paginated: false,
+             dry_run: false,
+             scoped_prefix: nil
+           },
+           %{
+             args: [
+               %{
+                 name: "id",
+                 type: "string",
+                 required: true,
+                 summary: "Intent (paper_event) id."
+               }
+             ],
+             flags: [],
+             http: %{
+               method: "POST",
+               path_template: "/v1/plugins/bulldocs/intents/:id/processed"
+             },
+             id: "bulldocs.intent-processed",
+             default_output: "minimal",
+             summary: "Mark a pending intent processed so it drops out of the queue.",
+             noun: "bulldocs",
+             verb: "intent-processed",
+             auth_tier: "ingest",
+             writes: true,
+             batch: false,
+             paginated: false,
+             dry_run: false,
+             scoped_prefix: nil
+           },
+           %{
+             args: [
+               %{
+                 name: "slug",
+                 type: "slug",
+                 required: true,
+                 summary: "Session slug (session-YYYY-MM-DD-<topic>)."
+               }
+             ],
+             flags: [
+               %{
+                 name: "file",
+                 type: "file",
+                 summary: "Metadata payload (fields, tags, description; blocks optional)."
+               }
+             ],
+             http: %{
+               method: "POST",
+               path_template: "/v1/plugins/bulldocs/sessions"
+             },
+             id: "session.open",
+             default_output: "minimal",
+             summary: "Open a living session document at session start (status: open, metadata seeded).",
+             noun: "session",
+             verb: "open",
+             auth_tier: "ingest",
+             writes: true,
+             batch: false,
+             paginated: false,
+             dry_run: false,
+             scoped_prefix: nil
+           },
+           %{
+             args: [
+               %{
+                 name: "slug",
+                 type: "slug",
+                 required: true,
+                 summary: "Session slug."
+               }
+             ],
+             flags: [
+               %{
+                 name: "kind",
+                 type: "string",
+                 summary: "Event kind: paper-published | task-closed | epic-wave-complete | push | note."
+               },
+               %{
+                 name: "ref",
+                 type: "string",
+                 summary: "Related doc id (task id, paper slug, commit SHA)."
+               },
+               %{
+                 name: "note",
+                 type: "string",
+                 summary: "Short free-text note."
+               },
+               %{
+                 name: "conversation",
+                 type: "string",
+                 summary: "Conversation that logged this event (provenance)."
+               }
+             ],
+             http: %{
+               method: "POST",
+               path_template: "/v1/plugins/bulldocs/sessions/:slug/events"
+             },
+             id: "session.log",
+             default_output: "minimal",
+             summary: "Append one milestone event to an open session (server stamps ts).",
+             noun: "session",
+             verb: "log",
+             auth_tier: "ingest",
+             writes: true,
+             batch: false,
+             paginated: false,
+             dry_run: false,
+             scoped_prefix: nil
+           },
+           %{
+             args: [
+               %{
+                 name: "slug",
+                 type: "slug",
+                 required: true,
+                 summary: "Session slug."
+               }
+             ],
+             flags: [
+               %{
+                 name: "file",
+                 type: "file",
+                 summary: "Payload: blocks + fields (status: closed on final close)."
+               }
+             ],
+             http: %{
+               method: "POST",
+               path_template: "/v1/plugins/bulldocs/sessions"
+             },
+             id: "session.publish",
+             default_output: "minimal",
+             summary: "Upsert session synthesis blocks + metadata (checkpoint or close).",
+             noun: "session",
+             verb: "publish",
+             auth_tier: "ingest",
+             writes: true,
+             batch: false,
+             paginated: false,
+             dry_run: false,
+             scoped_prefix: nil
+           },
+           %{
+             args: [
+               %{
+                 name: "slug",
+                 type: "slug",
+                 required: true,
+                 summary: "Session slug."
+               }
+             ],
+             flags: [],
+             http: %{
+               method: "GET",
+               path_template: "/v1/plugins/bulldocs/sessions/:slug"
+             },
+             id: "session.view",
+             default_output: "json",
+             summary: "Read a session back: metadata + event trail + synthesis blocks.",
+             noun: "session",
+             verb: "view",
+             auth_tier: "ingest",
+             writes: false,
+             batch: false,
+             paginated: false,
+             dry_run: false,
+             scoped_prefix: nil
+           },
+           %{
+             args: [
+               %{
+                 name: "doc_id",
+                 type: "string",
+                 required: true,
+                 summary: "Task doc id."
+               }
+             ],
+             flags: [
+               %{
+                 name: "add",
+                 type: "string",
+                 summary: "Session slug to add."
+               }
+             ],
+             http: %{
+               method: "POST",
+               path_template: "/v1/tasks/:doc_id/sessions"
+             },
+             id: "session.link-task",
+             default_output: "minimal",
+             summary: "Stamp a task with the session it was worked in (appends to the task's sessions[]).",
+             noun: "session",
+             verb: "link-task",
+             auth_tier: "read",
+             writes: true,
+             batch: false,
+             paginated: false,
+             dry_run: false,
+             scoped_prefix: nil
+           },
+           %{
+             args: [
+               %{
+                 name: "slug",
+                 type: "slug",
+                 required: true,
+                 summary: "Session slug."
+               }
+             ],
+             flags: [
+               %{
+                 name: "conversation",
+                 type: "string",
+                 summary: "Harness-native conversation/session uuid."
+               },
+               %{
+                 name: "harness",
+                 type: "string",
+                 summary: "claude-code | codex | other."
+               },
+               %{
+                 name: "account",
+                 type: "string",
+                 summary: "Account holding the conversation (email or best-effort id)."
+               },
+               %{name: "machine", type: "string", summary: "Hostname."},
+               %{
+                 name: "cwd",
+                 type: "string",
+                 summary: "Working directory."
+               }
+             ],
+             http: %{
+               method: "POST",
+               path_template: "/v1/plugins/bulldocs/sessions/:slug/conversations"
+             },
+             id: "session.touch",
+             default_output: "minimal",
+             summary: "Register or refresh a harness conversation on a session (server stamps first_seen/last_active).",
+             noun: "session",
+             verb: "touch",
+             auth_tier: "ingest",
+             writes: true,
+             batch: false,
+             paginated: false,
+             dry_run: false,
+             scoped_prefix: nil
+           }
+         ]
+
+         # 2
+         #Function<12.90795889/1 in Barkpark.Plugins.CliCommandsManifestTest."test Bulldocs.cli_commands/0 declares six paper verbs, all ingest-tier, all grounded in a real route"/1>
+
+     stacktrace:
+       test/barkpark/plugins/cli_commands_manifest_test.exs:118: (test)
+
+........................................02:21:01.048 [warning] OS_MON (:cpu_sup) called by #PID<0.2284.0>, unavailable
+
+02:21:01.049 [warning] OS_MON (:cpu_sup) called by #PID<0.2284.0>, unavailable
+
+02:21:01.049 [warning] OS_MON (:cpu_sup) called by #PID<0.2284.0>, unavailable
+
+02:21:01.049 [warning] OS_MON (:cpu_sup) called by #PID<0.2284.0>, unavailable
+
+02:21:01.145 request_id=GNhoavrHdACSfdoAAH5B [warning] authoring wall rejected a paper publish in dataset production: label_spine
+............02:21:02.576 request_id=GNhoa3CxZAAyHEMAAEMD [warning] authoring wall rejected a paper publish in dataset production: unknown_tag
+.......................02:21:03.381 request_id=GNhoa6JO9AAbiF0AAHjC [warning] authoring wall rejected a paper publish in dataset production: duplicate_of
+..........
+Finished in 6.6 seconds (6.6s async, 0.00s sync)
+106 tests, 1 failure
+wrote ../docs/openapi.json
+[os_mon] win32 supervisor port (win32sysinfo): Erlang has closed
+
+waiting for server to shut down.... done
+server stopped
+cmd.exe exit 2

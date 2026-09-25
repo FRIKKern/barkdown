@@ -1,0 +1,22 @@
+=== §1  FAIL-SAFE: an unclassifiable path must WIDEN, never narrow
+  ok   — api/config/runtime.exs selects ALL
+  ok   — api/config/config.exs selects ALL
+  ok   — api/mix.lock selects ALL
+  ok   — api/mix.exs selects ALL
+  ok   — api/test/test_helper.exs selects ALL
+  ok   — api/test/support/**.ex (a case template) selects ALL
+  ok   — api/test/fixtures/** selects ALL
+  ok   — api/priv/repo/migrations/** selects ALL
+  ok   — a .heex template under api/lib selects ALL
+  ok   — api/assets/** selects ALL
+  ok   — the workflow itself (COMPILE set) selects ALL
+  ok   — design/** (COMPILE set) selects ALL
+  ok   — an unclassified path (some/brand/new/tree/thing.txt) contributes NO tests of its own — the selection is exactly the ALWAYS set
+  ok   — an unclassified path (.tool-versions) contributes NO tests of its own — the selection is exactly the ALWAYS set
+  ok   — an unclassified path (scripts/canonical-marker-bindings.pin) contributes NO tests of its own — the selection is exactly the ALWAYS set
+  ok   — docs/openapi.json selects the test that guards it
+  ok   — a cloud/test-only change NO LONGER selects ALL (300 of 1995 api test files)
+  ok   — …and it selects the seam guard, the api test that actually reads cloud/test
+  ok   — the selector's derived readers for cloud/test EQUAL an independently computed one-hop join (2 reader(s))
+  ok   — (d2) internal/taskboard/board.go — a TEST-set path whose SIBLINGS are censused but which nothing reads — still selects ALL
+C073: stopped owned Windows harness after the corrected two-reader independent-join assertion passed. Remaining unchanged arms are deferred to fresh Linux CI; this partial run is NOT a full-suite pass.

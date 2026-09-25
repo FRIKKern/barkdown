@@ -1,0 +1,139 @@
+Derived excerpts from hosted-elixir.log.gz; omitted context remains in the hashed full log.
+
+  1) test router ↔ capabilities manifest every walked route is a manifest command, a declared non-CLI surface, or a filed gap (BarkparkWeb.Contract.RouterManifestDriftTest)
+##[error]     test/barkpark_web/contract/router_manifest_drift_test.exs:464
+     1 mounted route(s) have NO capabilities-manifest command and are in none of @not_a_cli_surface, @served_by_a_builtin, @filed_gaps.
+
+     Each one is a live server capability with no `bp` verb and no
+     OpenAPI operation — reachable by curl, invisible to every generated
+     client. Declare it (core: `Capabilities.core_commands/0`; plugin:
+     that plugin's `cli_commands/0`), or, if it structurally cannot be a
+     CLI verb, add it to @not_a_cli_surface WITH the reason.
+
+     Adding it to @filed_gaps requires filing the row FIRST and citing
+     its id — that map is a tracked backlog, not somewhere to put a
+     route you did not want to think about.
+
+       POST    /v1/plugins/bulldocs/papers/:slug/create                 BarkparkWeb.BulldocsIngestController.create
+
+     code: assert unlisted == [],
+     stacktrace:
+       test/barkpark_web/contract/router_manifest_drift_test.exs:477: (test)
+
+
+  2) test the fixed-position inventory under the panel roots the paper-editor census is non-vacuous: a planted selector fails it (BarkparkWeb.Studio.EditorPanelContainmentTest)
+##[error]     test/barkpark_web/studio/editor_panel_containment_test.exs:889
+     the planted rule is the ONLY thing the census should flag as new; got: [".bp-planted-census-probe", "[data-bp-paste-notice]"]
+     code: assert MapSet.difference(found, known) == MapSet.new([".bp-planted-census-probe"]),
+     stacktrace:
+       test/barkpark_web/studio/editor_panel_containment_test.exs:910: (test)
+
+  * test the inverse census: no backdrop may be in flow (charter D80) every backdrop-shaped class resolves to a NON-STATIC position [L#1104]
+  * test the inverse census: no backdrop may be in flow (charter D80) every backdrop-shaped class resolves to a NON-STATIC position (278.2ms) [L#1104]
+  * test the containing-block trigger ban (the REAL hazard) no rule targeting .editor-panel declares contain/transform/filter/will-change/backdrop-filter/perspective [L#646]
+  * test the containing-block trigger ban (the REAL hazard) no rule targeting .editor-panel declares contain/transform/filter/will-change/backdrop-filter/perspective (95.7ms) [L#646]
+  * test the containing-block trigger ban (the REAL hazard) the ban runs over every panel rule the Studio actually loads [L#773]
+  * test the containing-block trigger ban (the REAL hazard) the ban runs over every panel rule the Studio actually loads (112.1ms) [L#773]
+  * test the fixed-position inventory under the panel roots the built-sheet census is non-vacuous in both directions [L#957]
+  * test the fixed-position inventory under the panel roots the built-sheet census is non-vacuous in both directions (201.1ms) [L#957]
+  * test the containing-block trigger ban (the REAL hazard) the extractor reaches rules inside @media / @container bodies [L#748]
+  * test the containing-block trigger ban (the REAL hazard) the extractor reaches rules inside @media / @container bodies (0.5ms) [L#748]
+  * test the inverse census: no backdrop may be in flow (charter D80) the inverse census is non-vacuous in BOTH directions [L#1144]
+  * test the inverse census: no backdrop may be in flow (charter D80) the inverse census is non-vacuous in BOTH directions (241.8ms) [L#1144]
+  * test the fixed-position inventory under the panel roots every studio JS that emits position:fixed portals to document.body [L#1054]
+
+  3) test the fixed-position inventory under the panel roots the BUILT paper-editor stylesheet censuses to the same fixed set as its source (BarkparkWeb.Studio.EditorPanelContainmentTest)
+##[error]     test/barkpark_web/studio/editor_panel_containment_test.exs:915
+     Assertion with == failed
+     code:  assert built == MapSet.new(Map.keys(@paper_editor_fixed_inventory))
+     left:  MapSet.new([".bp-wikilink-menu", "[data-bp-paste-notice]"])
+     right: MapSet.new([".bp-wikilink-menu"])
+     stacktrace:
+       test/barkpark_web/studio/editor_panel_containment_test.exs:954: (test)
+
+  * test the fixed-position inventory under the panel roots the six .editor-panel roots are exactly the audited set [L#786]
+  * test the fixed-position inventory under the panel roots the six .editor-panel roots are exactly the audited set (51.3ms) [L#786]
+  * test the fixed-position inventory under the panel roots root.html.heex declares position:fixed for exactly the inventoried selectors [L#845]
+  * test the fixed-position inventory under the panel roots root.html.heex declares position:fixed for exactly the inventoried selectors (37.6ms) [L#845]
+
+
+
+  4) test the fixed-position inventory under the panel roots root.html.heex declares position:fixed for exactly the inventoried selectors (BarkparkWeb.Studio.EditorPanelContainmentTest)
+##[error]     test/barkpark_web/studio/editor_panel_containment_test.exs:845
+     A NEW `position: fixed` selector appeared in root.html.heex:
+
+       .bp-link-preview
+
+     Classify it in @fixed_css_inventory. If it renders UNDER an
+     `.editor-panel` root, say so — that set is the one the containment
+     audit reasons about, and it must stay small enough to hand-verify.
+
+     code: assert MapSet.difference(found, known) == MapSet.new([]),
+     stacktrace:
+       test/barkpark_web/studio/editor_panel_containment_test.exs:849: (test)
+
+  * test the fixed-position inventory under the panel roots the paper-editor stylesheet declares position:fixed for exactly the inventoried selectors [L#865]
+  * test the fixed-position inventory under the panel roots the paper-editor stylesheet declares position:fixed for exactly the inventoried selectors (8.5ms) [L#865]
+
+
+
+  5) test the fixed-position inventory under the panel roots the paper-editor stylesheet declares position:fixed for exactly the inventoried selectors (BarkparkWeb.Studio.EditorPanelContainmentTest)
+##[error]     test/barkpark_web/studio/editor_panel_containment_test.exs:865
+     A NEW `position: fixed` selector appeared in
+     assets/paper-editor/src/styles.css:
+
+       [data-bp-paste-notice]
+
+     Classify it in @paper_editor_fixed_inventory. This sheet styles the
+     `<bp-paper-editor>` custom element, which mounts INSIDE the
+     `studio-paper-editor` `.editor-panel` root — so the answer is
+     :under_panel unless you can point at the `document.body.appendChild`
+     that portals it out. If it is :under_panel, it also belongs in the
+     hand-verified three-set above.
+
+     code: assert MapSet.difference(found, known) == MapSet.new([]),
+     stacktrace:
+       test/barkpark_web/studio/editor_panel_containment_test.exs:869: (test)
+
+
+BarkparkWeb.MediaDeleteForceWitnessTest [test/barkpark_web/controllers/media_delete_force_witness_test.exs]
+
+  6) test every error code emitted on a public v1 endpoint is in known_codes/0 (BarkparkWeb.Contract.ErrorCodeCoverageTest)
+##[error]     test/barkpark_web/contract/error_code_coverage_test.exs:120
+     These error codes reach the wire on public v1 endpoints but are NOT in
+     Content.Errors.known_codes/0 and NOT on the off-spec exclusion list — so
+     the served OpenAPI Error.code enum + api-v1.md §9 under-report reality and
+     a spec-generated SDK will meet an undeclared variant:
+
+         ["paper_exists"]
+
+     Fix: register each PUBLIC code in Content.Errors (@public_inline_codes, or
+     a @hints entry if build/1 emits it), OR — if it is emitted only on an
+     operational, off-contract endpoint — add it to @offspec_codes here with a
+     one-line justification. Never leave it silently absent.
+
+     code: assert undeclared == [],
+     stacktrace:
+       test/barkpark_web/contract/error_code_coverage_test.exs:129: (test)
+
+
+BarkparkWeb.PublishKeepsTaskClaimHttpTest [test/barkpark_web/controllers/publish_keeps_task_claim_http_test.exs]
+
+  7) test --routed-rows emits a PASTE-READY proposal and never writes the file (Barkpark.PdsElixirCensusTest)
+##[error]     test/barkpark/pds_elixir_census_test.exs:387
+     expected `--routed-rows` over a green tree to exit 0, got 1:
+     PDS ELIXIR RECEIPT CENSUS — the api/lib success surface, first look
+       FAIL  ROUTED-POPULATION-COMPLETE 3 ROUTED-WRITE member(s) carry NO disposition · 0 disposition row(s) name NO live routed member · 0 disposition key(s) carry more than one row · the quad key sees 272 member(s) where a {module, action} key sees 216 — an arrival onto an already-disposed pair is INVISIBLE to THIS arm, because JUDGED and ROSTERED are resolved by {module, action} reachability; ROUTED-DERIVED-ARRIVALS-PINNED is the arm that reds on that class · UNDISPOSED ARRIVAL post /v1/paperflow/papers -> BarkparkWeb.BulldocsIngestController.ingest · UNDISPOSED ARRIVAL post /v1/plugins/bulldocs/papers -> BarkparkWeb.BulldocsIngestController.ingest · UNDISPOSED ARRIVAL post /v1/plugins/bulldocs/papers/:slug/create -> BarkparkWeb.BulldocsIngestController.create
+       FAIL  ROUTED-DERIVED-ARRIVALS-PINNED the derived disposition moved off its pin · count 83 -> 81 · fingerprint 100841140 -> 103925989 · DEPARTURE: 2 fewer member(s) are disposed JUDGED or ROSTERED than the pin records — a judged route removed, or a judgement lost · RE-DERIVE, NEVER RE-TYPE: run `elixir scripts/pds-elixir-receipt-census.exs` from the repo root, copy the DERIVED PIN pair printed in the DISPOSITION block, and amend @derived_disposition_pin in the SAME commit as the change that moved it. THE FORBIDDEN REPAIR: a @routed_excluded row for the arriving member greens this and reds ROUTED-DISPOSITION-UNSHADOWED the moment anyone repairs the roster row, because that arm reds on a committed row naming a member this run disposes ROSTERED
+       FAIL  REGISTER-COMPLETE        1 emitted site(s) carry NO register row · 1 register row(s) name NO emitted site · 0 key(s) carry more than one row · UNJUDGED SITE barkpark_web/controllers/bulldocs_ingest_controller.ex BarkparkWeb.BulldocsIngestController.ingest_blocks/5 82242138/63570316 · ORPHANED ROW barkpark_web/controllers/bulldocs_ingest_controller.ex BarkparkWeb.BulldocsIngestController.ingest_blocks/4 1989150/124223564
+       FAIL  RESPONSE-CARRIES-THE-READ-PINNED the fired set is not the pre-registered set — anything else firing is a FINDING ABOUT THE ARM, not about the corpus · UNREGISTERED FIRE barkpark_web/controllers/bulldocs_ingest_controller.ex BarkparkWeb.BulldocsIngestController.ingest_blocks/5 scoped_liveview_path · PRE-REGISTERED SITE NO LONGER FIRES barkpark_web/controllers/bulldocs_ingest_controller.ex BarkparkWeb.BulldocsIngestController.ingest_blocks/4 scoped_liveview_path
+
+  8) test the receipt census runs GREEN over the live corpus (Barkpark.PdsElixirCensusTest)
+##[error]     test/barkpark/pds_elixir_census_test.exs:337
+     expected `elixir ../../../scripts/pds-elixir-receipt-census.exs` (no flag) to exit 0, got 1:
+     PDS ELIXIR RECEIPT CENSUS — the api/lib success surface, first look
+
+  9) test RESPONSE-CARRIES-THE-READ is armed and REFUSES its own tripwire (Barkpark.PdsElixirCensusTest)
+##[error]     test/barkpark/pds_elixir_census_test.exs:352
+     PDS ELIXIR RECEIPT CENSUS — the api/lib success surface, first look
+     ==============================================================================

@@ -1,0 +1,35 @@
+{
+  "reviewer": "Codex /root",
+  "reviewedAt": "2026-09-25T00:14:11.263Z",
+  "decision": "accepted",
+  "host": "83110815927b93f45c3e909ddf44838ed6d18182",
+  "upstream": "1aaa857e651b73407f819483ec129360ee9e89ac",
+  "inspected": 3,
+  "observations": [
+    "The actual body portal inherits dark and light paper backgrounds, readable text and border colors.",
+    "Open and Edit remain visible; the 1000px viewport clamps the popup inside the right edge, with no clipped text or action.",
+    "Narrow page text wraps normally. Light capture is a deliberate theme-contrast check."
+  ],
+  "limits": [
+    "Static hover/theme/geometry proof; behavioral Open/Edit assertions are in the separate 6/6 live parity row.",
+    "No external site navigation or provider call was used in this supplemental fixture."
+  ],
+  "files": [
+    {
+      "file": "docs/cycles/evidence/C073/link-dark.png",
+      "sha256": "e94cd47e2626cd04dbec637b9205d20889f1fa184103a3ff650241294d2d3e00"
+    },
+    {
+      "file": "docs/cycles/evidence/C073/link-light.png",
+      "sha256": "7f4c0ece75fef0f2693dbd9ac2a38130f580e9c77f68e1cd4fdf0e6df77cc4df"
+    },
+    {
+      "file": "docs/cycles/evidence/C073/link-narrow.png",
+      "sha256": "7facd330d91e75631ac23d11f7a781e5f8e6d2676610f576f5f161c0c71ca952"
+    },
+    {
+      "file": "docs/cycles/evidence/C073/linkpreview-geometry.json",
+      "sha256": "85a6343f85c4ad78ea7f54fdcb2c3061873a7e466aa3f78934445d1af1eaf9e9"
+    }
+  ]
+}

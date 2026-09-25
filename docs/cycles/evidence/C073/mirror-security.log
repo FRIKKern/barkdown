@@ -1,0 +1,7 @@
+paper-editor-mirror: PASS — 623 generated paper-surface tokens in api/assets/paper-editor/src/styles.css match paper-surface.css.
+paper-editor-mirror-check: PASS � 66 .bp-canvas-* classes in lockstep (heex corpus 67, bundle corpus 66, +1 verified allowlisted heex-only; sample: .bp-canvas-action, .bp-canvas-action-controls, .bp-canvas-action-href).
+security-gate-shape.test.sh
+
+  FAIL — python3 with PyYAML is required to read the workflow structurally.
+         Refusing to fall back to regex: a regex reader silently agrees with
+         every shape, which is the failure mode this ratchet exists to remove.

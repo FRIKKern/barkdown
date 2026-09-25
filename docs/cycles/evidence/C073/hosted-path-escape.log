@@ -1,0 +1,1864 @@
+﻿2026-09-24T23:44:30.2429475Z Current runner version: '2.337.0'
+2026-09-24T23:44:30.2454770Z ##[group]Runner Image Provisioner
+2026-09-24T23:44:30.2455752Z Hosted Compute Agent
+2026-09-24T23:44:30.2456848Z Version: 20260828.587
+2026-09-24T23:44:30.2457872Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-24T23:44:30.2459216Z Build Date: 2026-08-28T16:44:25Z
+2026-09-24T23:44:30.2460278Z Worker ID: {4488a13b-7e39-43a1-8c64-0e4bbbb91b47}
+2026-09-24T23:44:30.2461022Z Azure Region: eastus2
+2026-09-24T23:44:30.2461691Z ##[endgroup]
+2026-09-24T23:44:30.2463491Z ##[group]Operating System
+2026-09-24T23:44:30.2464218Z Ubuntu
+2026-09-24T23:44:30.2464777Z 24.04.5
+2026-09-24T23:44:30.2465293Z LTS
+2026-09-24T23:44:30.2465865Z ##[endgroup]
+2026-09-24T23:44:30.2466428Z ##[group]Runner Image
+2026-09-24T23:44:30.2467147Z Image: ubuntu-24.04
+2026-09-24T23:44:30.2467735Z Version: 20260920.314.1
+2026-09-24T23:44:30.2469027Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260920.314/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-24T23:44:30.2470642Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260920.314
+2026-09-24T23:44:30.2471751Z ##[endgroup]
+2026-09-24T23:44:30.2473367Z ##[group]GITHUB_TOKEN Permissions
+2026-09-24T23:44:30.2475680Z Contents: read
+2026-09-24T23:44:30.2476325Z Metadata: read
+2026-09-24T23:44:30.2476929Z Packages: read
+2026-09-24T23:44:30.2477569Z ##[endgroup]
+2026-09-24T23:44:30.2479624Z Secret source: Actions
+2026-09-24T23:44:30.2480689Z Cache mode: write
+2026-09-24T23:44:30.2481687Z Prepare workflow directory
+2026-09-24T23:44:30.2811318Z Prepare all required actions
+2026-09-24T23:44:30.2859130Z Getting action download info
+2026-09-24T23:44:30.5052640Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-09-24T23:44:30.7284157Z Complete job name: Elixir path-escape ratchet
+2026-09-24T23:44:30.8241254Z ##[group]Run actions/checkout@v4
+2026-09-24T23:44:30.8242131Z with:
+2026-09-24T23:44:30.8242955Z   fetch-depth: 2
+2026-09-24T23:44:30.8243471Z   repository: FRIKKern/barkpark
+2026-09-24T23:44:30.8247238Z   token: ***
+2026-09-24T23:44:30.8247669Z   ssh-strict: true
+2026-09-24T23:44:30.8248115Z   ssh-user: git
+2026-09-24T23:44:30.8248575Z   persist-credentials: true
+2026-09-24T23:44:30.8249077Z   clean: true
+2026-09-24T23:44:30.8249534Z   sparse-checkout-cone-mode: true
+2026-09-24T23:44:30.8250060Z   fetch-tags: false
+2026-09-24T23:44:30.8250511Z   show-progress: true
+2026-09-24T23:44:30.8251011Z   lfs: false
+2026-09-24T23:44:30.8251433Z   submodules: false
+2026-09-24T23:44:30.8251893Z   set-safe-directory: true
+2026-09-24T23:44:30.8252960Z   allow-unsafe-pr-checkout: false
+2026-09-24T23:44:30.8253850Z ##[endgroup]
+2026-09-24T23:44:30.9272895Z Syncing repository: FRIKKern/barkpark
+2026-09-24T23:44:30.9275450Z ##[group]Getting Git version info
+2026-09-24T23:44:30.9276713Z Working directory is '/home/runner/work/barkpark/barkpark'
+2026-09-24T23:44:30.9277787Z [command]/usr/bin/git version
+2026-09-24T23:44:30.9377424Z git version 2.55.0
+2026-09-24T23:44:30.9407157Z ##[endgroup]
+2026-09-24T23:44:30.9423776Z Temporarily overriding HOME='/home/runner/work/_temp/5ef2eaf9-10bc-4922-b633-0e75e9980bc5' before making global git config changes
+2026-09-24T23:44:30.9426158Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-24T23:44:30.9429591Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/barkpark/barkpark
+2026-09-24T23:44:30.9488717Z Deleting the contents of '/home/runner/work/barkpark/barkpark'
+2026-09-24T23:44:30.9498334Z ##[group]Initializing the repository
+2026-09-24T23:44:30.9499637Z [command]/usr/bin/git init /home/runner/work/barkpark/barkpark
+2026-09-24T23:44:30.9635092Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-24T23:44:30.9636508Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-24T23:44:30.9637528Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-24T23:44:30.9638607Z hint: call:
+2026-09-24T23:44:30.9639033Z hint:
+2026-09-24T23:44:30.9639583Z hint: 	git config --global init.defaultBranch <name>
+2026-09-24T23:44:30.9640222Z hint:
+2026-09-24T23:44:30.9640824Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-24T23:44:30.9641772Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-24T23:44:30.9643111Z hint:
+2026-09-24T23:44:30.9643885Z hint: 	git branch -m <name>
+2026-09-24T23:44:30.9644712Z hint:
+2026-09-24T23:44:30.9645755Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-24T23:44:30.9647491Z Initialized empty Git repository in /home/runner/work/barkpark/barkpark/.git/
+2026-09-24T23:44:30.9755645Z [command]/usr/bin/git remote add origin https://github.com/FRIKKern/barkpark
+2026-09-24T23:44:30.9759121Z ##[endgroup]
+2026-09-24T23:44:30.9760311Z ##[group]Disabling automatic garbage collection
+2026-09-24T23:44:30.9761433Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-24T23:44:30.9800017Z ##[endgroup]
+2026-09-24T23:44:30.9801199Z ##[group]Setting up auth
+2026-09-24T23:44:30.9807268Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-24T23:44:30.9842953Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-24T23:44:31.0263837Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-24T23:44:31.0304570Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-24T23:44:31.0532381Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-24T23:44:31.0571241Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-24T23:44:31.0799184Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-24T23:44:31.0840299Z ##[endgroup]
+2026-09-24T23:44:31.0841173Z ##[group]Fetching the repository
+2026-09-24T23:44:31.0850605Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=2 origin +91987898f3eefdf29ecab96778bafcc4e953dca7:refs/remotes/pull/20020/merge
+2026-09-24T23:44:39.9437698Z From https://github.com/FRIKKern/barkpark
+2026-09-24T23:44:39.9439164Z  * [new ref]           91987898f3eefdf29ecab96778bafcc4e953dca7 -> pull/20020/merge
+2026-09-24T23:44:39.9443890Z ##[endgroup]
+2026-09-24T23:44:39.9445077Z ##[group]Determining the checkout info
+2026-09-24T23:44:39.9452866Z ##[endgroup]
+2026-09-24T23:44:39.9455182Z [command]/usr/bin/git sparse-checkout disable
+2026-09-24T23:44:39.9510716Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-24T23:44:39.9550891Z ##[group]Checking out the ref
+2026-09-24T23:44:39.9554971Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/20020/merge
+2026-09-24T23:44:40.9732090Z Updating files:  57% (9349/16130)
+2026-09-24T23:44:40.9835700Z Updating files:  58% (9356/16130)
+2026-09-24T23:44:40.9926680Z Updating files:  59% (9517/16130)
+2026-09-24T23:44:41.0051110Z Updating files:  60% (9678/16130)
+2026-09-24T23:44:41.0280518Z Updating files:  61% (9840/16130)
+2026-09-24T23:44:41.0464655Z Updating files:  62% (10001/16130)
+2026-09-24T23:44:41.0744866Z Updating files:  63% (10162/16130)
+2026-09-24T23:44:41.1073691Z Updating files:  64% (10324/16130)
+2026-09-24T23:44:41.1215926Z Updating files:  65% (10485/16130)
+2026-09-24T23:44:41.1356308Z Updating files:  66% (10646/16130)
+2026-09-24T23:44:41.1543625Z Updating files:  67% (10808/16130)
+2026-09-24T23:44:41.1659535Z Updating files:  68% (10969/16130)
+2026-09-24T23:44:41.1759005Z Updating files:  69% (11130/16130)
+2026-09-24T23:44:41.1861289Z Updating files:  70% (11291/16130)
+2026-09-24T23:44:41.1980404Z Updating files:  71% (11453/16130)
+2026-09-24T23:44:41.2099416Z Updating files:  72% (11614/16130)
+2026-09-24T23:44:41.2206562Z Updating files:  73% (11775/16130)
+2026-09-24T23:44:41.2284576Z Updating files:  74% (11937/16130)
+2026-09-24T23:44:41.2346974Z Updating files:  75% (12098/16130)
+2026-09-24T23:44:41.2406071Z Updating files:  76% (12259/16130)
+2026-09-24T23:44:41.2467680Z Updating files:  77% (12421/16130)
+2026-09-24T23:44:41.2562530Z Updating files:  78% (12582/16130)
+2026-09-24T23:44:41.2621317Z Updating files:  79% (12743/16130)
+2026-09-24T23:44:41.2681466Z Updating files:  80% (12904/16130)
+2026-09-24T23:44:41.2743039Z Updating files:  81% (13066/16130)
+2026-09-24T23:44:41.2801878Z Updating files:  82% (13227/16130)
+2026-09-24T23:44:41.2864802Z Updating files:  83% (13388/16130)
+2026-09-24T23:44:41.2925115Z Updating files:  84% (13550/16130)
+2026-09-24T23:44:41.2992196Z Updating files:  85% (13711/16130)
+2026-09-24T23:44:41.3050571Z Updating files:  86% (13872/16130)
+2026-09-24T23:44:41.3124584Z Updating files:  87% (14034/16130)
+2026-09-24T23:44:41.3185860Z Updating files:  88% (14195/16130)
+2026-09-24T23:44:41.3245118Z Updating files:  89% (14356/16130)
+2026-09-24T23:44:41.3304458Z Updating files:  90% (14517/16130)
+2026-09-24T23:44:41.3366678Z Updating files:  91% (14679/16130)
+2026-09-24T23:44:41.3437391Z Updating files:  92% (14840/16130)
+2026-09-24T23:44:41.3537716Z Updating files:  93% (15001/16130)
+2026-09-24T23:44:41.3677038Z Updating files:  94% (15163/16130)
+2026-09-24T23:44:41.3760496Z Updating files:  95% (15324/16130)
+2026-09-24T23:44:41.8517575Z Updating files:  96% (15485/16130)
+2026-09-24T23:44:41.8699133Z Updating files:  97% (15647/16130)
+2026-09-24T23:44:41.8835331Z Updating files:  98% (15808/16130)
+2026-09-24T23:44:41.8978759Z Updating files:  99% (15969/16130)
+2026-09-24T23:44:41.8980491Z Updating files: 100% (16130/16130)
+2026-09-24T23:44:41.8981634Z Updating files: 100% (16130/16130), done.
+2026-09-24T23:44:41.9135188Z Note: switching to 'refs/remotes/pull/20020/merge'.
+2026-09-24T23:44:41.9135731Z 
+2026-09-24T23:44:41.9136017Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-09-24T23:44:41.9136928Z changes and commit them, and you can discard any commits you make in this
+2026-09-24T23:44:41.9137833Z state without impacting any branches by switching back to a branch.
+2026-09-24T23:44:41.9138395Z 
+2026-09-24T23:44:41.9138741Z If you want to create a new branch to retain commits you create, you may
+2026-09-24T23:44:41.9139549Z do so (now or later) by using -c with the switch command. Example:
+2026-09-24T23:44:41.9140035Z 
+2026-09-24T23:44:41.9140260Z   git switch -c <new-branch-name>
+2026-09-24T23:44:41.9140553Z 
+2026-09-24T23:44:41.9140740Z Or undo this operation with:
+2026-09-24T23:44:41.9141002Z 
+2026-09-24T23:44:41.9141143Z   git switch -
+2026-09-24T23:44:41.9141361Z 
+2026-09-24T23:44:41.9141727Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-09-24T23:44:41.9142549Z 
+2026-09-24T23:44:41.9143178Z HEAD is now at 91987898 Merge 446f29cedc8ca3d72277c6525def93a38d7d2b2d into bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f
+2026-09-24T23:44:41.9191637Z ##[endgroup]
+2026-09-24T23:44:41.9238908Z [command]/usr/bin/git log -1 --format=%H
+2026-09-24T23:44:41.9271274Z 91987898f3eefdf29ecab96778bafcc4e953dca7
+2026-09-24T23:44:41.9523043Z ##[group]Run decision=run
+2026-09-24T23:44:41.9523425Z [36;1mdecision=run[0m
+2026-09-24T23:44:41.9523798Z [36;1mwhy="not a pull_request — the harness always runs on push to main"[0m
+2026-09-24T23:44:41.9524238Z [36;1mif [ "pull_request" = "pull_request" ]; then[0m
+2026-09-24T23:44:41.9524628Z [36;1m  why="could not determine the diff — failing toward running"[0m
+2026-09-24T23:44:41.9525093Z [36;1m  if base="$(git rev-parse --verify --quiet HEAD^1)" && [ -n "$base" ]; then[0m
+2026-09-24T23:44:41.9525610Z [36;1m    if changed="$(git diff --name-only "$base" HEAD)" && [ -n "$changed" ]; then[0m
+2026-09-24T23:44:41.9526105Z [36;1m      # D37: never `printf … | grep -q`. Under pipefail a matching[0m
+2026-09-24T23:44:41.9526803Z [36;1m      # grep exits 0, printf dies of SIGPIPE, 141 wins, and the match[0m
+2026-09-24T23:44:41.9527239Z [36;1m      # reads as a miss. A here-string has no writer to kill.[0m
+2026-09-24T23:44:41.9527586Z [36;1m      if grep -qxF \[0m
+2026-09-24T23:44:41.9527929Z [36;1m           -e scripts/elixir-path-escape-check.sh \[0m
+2026-09-24T23:44:41.9528321Z [36;1m           -e scripts/elixir-path-escape-check.test.sh \[0m
+2026-09-24T23:44:41.9528734Z [36;1m           -e .github/workflows/elixir.yml <<<"$changed"; then[0m
+2026-09-24T23:44:41.9529203Z [36;1m        why="the diff touches the ratchet, its harness, or this workflow"[0m
+2026-09-24T23:44:41.9529567Z [36;1m      else[0m
+2026-09-24T23:44:41.9529785Z [36;1m        decision=skip[0m
+2026-09-24T23:44:41.9530147Z [36;1m        why="the diff touches none of the ratchet, its harness, or this workflow"[0m
+2026-09-24T23:44:41.9530528Z [36;1m      fi[0m
+2026-09-24T23:44:41.9530733Z [36;1m    fi[0m
+2026-09-24T23:44:41.9530920Z [36;1m  fi[0m
+2026-09-24T23:44:41.9531098Z [36;1mfi[0m
+2026-09-24T23:44:41.9531306Z [36;1mecho "harness ${decision}: ${why}"[0m
+2026-09-24T23:44:41.9531635Z [36;1mecho "decision=${decision}" >> "$GITHUB_OUTPUT"[0m
+2026-09-24T23:44:41.9531946Z [36;1mexit 0[0m
+2026-09-24T23:44:41.9841378Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:44:41.9841678Z ##[endgroup]
+2026-09-24T23:44:42.0428124Z harness run: the diff touches the ratchet, its harness, or this workflow
+2026-09-24T23:44:42.0487522Z ##[group]Run bash scripts/run-instrument.sh elixir-path-escape-selftest -- bash scripts/elixir-path-escape-check.sh --selftest
+2026-09-24T23:44:42.0488460Z [36;1mbash scripts/run-instrument.sh elixir-path-escape-selftest -- bash scripts/elixir-path-escape-check.sh --selftest[0m
+2026-09-24T23:44:42.0552934Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:44:42.0553211Z ##[endgroup]
+2026-09-24T23:44:42.2076109Z elixir-path-escape-check.test.sh
+2026-09-24T23:44:42.2076655Z 
+2026-09-24T23:44:42.2076970Z case 1: the real repository is clean
+2026-09-24T23:44:45.4261416Z   ok   — exit 0 on the real repo
+2026-09-24T23:44:45.4277791Z   ok   — prints the OK verdict
+2026-09-24T23:44:47.2557810Z   ok   — --check's count (72) agrees with --list-escapes' distinct census
+2026-09-24T23:44:49.2127374Z   ok   — idiom test-cwd is live: 61 read(s), floor 8
+2026-09-24T23:44:49.2164862Z   ok   — idiom test-dir is live: 55 read(s), floor 8
+2026-09-24T23:44:49.2197623Z   ok   — idiom lib-cwd is live: 14 read(s), floor 5
+2026-09-24T23:44:49.2229621Z   ok   — idiom lib-dir is live: 13 read(s), floor 5
+2026-09-24T23:44:49.2262462Z   ok   — idiom lib-root is live: 1 read(s), floor 0
+2026-09-24T23:44:49.2294593Z   ok   — idiom test-root is live: 8 read(s), floor 2
+2026-09-24T23:44:49.2327084Z   ok   — idiom test-rootpipe is live: 0 read(s), floor 0
+2026-09-24T23:44:49.2359293Z   ok   — idiom test-rootlist is live: 0 read(s), floor 0
+2026-09-24T23:44:49.2392506Z   ok   — idiom test-rootinterp is live: 0 read(s), floor 0
+2026-09-24T23:44:49.2426051Z   ok   — idiom test-rootbase is live: 0 read(s), floor 0
+2026-09-24T23:44:49.2457918Z   ok   — idiom test-rootmulti is live: 0 read(s), floor 0
+2026-09-24T23:44:49.2489779Z   ok   — idiom test-rootconcat is live: 0 read(s), floor 0
+2026-09-24T23:44:49.2528135Z   ok   — idiom test-rootchain is live: 0 read(s), floor 0
+2026-09-24T23:44:49.2560036Z   ok   — idiom test-rootexec is live: 0 read(s), floor 0
+2026-09-24T23:44:49.2591695Z   ok   — idiom test-sigildir is live: 0 read(s), floor 0
+2026-09-24T23:44:49.2623844Z   ok   — idiom test-sigilcwd is live: 0 read(s), floor 0
+2026-09-24T23:44:49.2655511Z   ok   — idiom lib-rootattr is live: 0 read(s), floor 0
+2026-09-24T23:44:49.2687074Z   ok   — idiom test-rootattr is live: 0 read(s), floor 0
+2026-09-24T23:44:49.2687818Z   ok   — every declared idiom clears its own floor on the real tree
+2026-09-24T23:44:49.2706558Z   ok   — the :real_binary-only read is reported as exempt, not silently dropped
+2026-09-24T23:44:49.2707860Z 
+2026-09-24T23:44:49.2708057Z case 2: the census carries the three easily-missed families
+2026-09-24T23:44:51.0968686Z   ok   — census carries internal/taskboard/components.go
+2026-09-24T23:44:51.0984512Z   ok   — census carries internal/chat/testdata
+2026-09-24T23:44:51.1002028Z   ok   — census carries .codex/skills/epic-cycle/scripts/run_concurrency_benchmark.py
+2026-09-24T23:44:51.2436455Z   ok   — repo-root templates/** is not declared
+2026-09-24T23:44:51.2453079Z   ok   — scripts/claude-pinned-version.txt is not declared
+2026-09-24T23:44:51.2453537Z 
+2026-09-24T23:44:51.2453760Z case 3: an uncovered repo-root read reds (mutation)
+2026-09-24T23:44:51.9260038Z   ok   — exit 1 (non-zero) on an uncovered read
+2026-09-24T23:44:51.9276421Z   ok   — names the uncovered path
+2026-09-24T23:44:51.9293486Z   ok   — names the file that reads it
+2026-09-24T23:44:51.9293829Z 
+2026-09-24T23:44:51.9296582Z case 3b: an uncovered read via the ROOT-ANCHOR idiom reds
+2026-09-24T23:44:52.5994283Z   ok   — exit 1 (non-zero) on a root-anchored uncovered read
+2026-09-24T23:44:52.6010193Z   ok   — names the path the anchor+Path.join resolved to
+2026-09-24T23:44:52.6026953Z   ok   — attributes the root-anchored read to its file
+2026-09-24T23:44:53.2933900Z   ok   — the plain-variable anchor binding is seen too
+2026-09-24T23:44:53.9944392Z   ok   — a DECLARED root-anchored read stays green
+2026-09-24T23:44:53.9944912Z 
+2026-09-24T23:44:53.9945376Z case 3c: the PIPE and LIST join forms are seen, and each is load-bearing
+2026-09-24T23:44:54.6549061Z   ok   — exit 1 (non-zero) on a PIPE-form uncovered read
+2026-09-24T23:44:54.6563751Z   ok   — names the path the pipe form resolved to
+2026-09-24T23:44:54.6580025Z   ok   — attributes the pipe-form read to its file
+2026-09-24T23:44:54.6595945Z   ok   — reports test-rootpipe as its own idiom, not folded into test-root
+2026-09-24T23:44:55.3215499Z   ok   — exit 1 (non-zero) on a LIST-form uncovered read
+2026-09-24T23:44:55.3231629Z   ok   — names the path the list form resolved to
+2026-09-24T23:44:55.3247270Z   ok   — reports test-rootlist as its own idiom
+2026-09-24T23:44:56.0268770Z   ok   — DECLARED reads through the pipe and list forms stay green
+2026-09-24T23:44:56.0324521Z   ok   — the join-form mutation applied (the form loop really changed)
+2026-09-24T23:44:56.7185310Z   ok   — without the rootpipe/rootlist arms the same read greens — the arms are load-bearing
+2026-09-24T23:44:56.7186384Z 
+2026-09-24T23:44:56.7186941Z case 3d: SHAPE 1 — an interpolated anchor literal is seen, tagged test-rootinterp
+2026-09-24T23:44:57.3820634Z   ok   — exit 1 (non-zero) on an interpolated-anchor uncovered read
+2026-09-24T23:44:57.3836870Z   ok   — names the path the interpolated anchor resolved to
+2026-09-24T23:44:57.3853618Z   ok   — attributes the interpolated-anchor read to its file
+2026-09-24T23:44:57.3871985Z   ok   — reports test-rootinterp as its own idiom, not folded into test-root
+2026-09-24T23:44:58.0950314Z   ok   — a DECLARED read through an interpolated anchor stays green
+2026-09-24T23:44:58.1175531Z   ok   — the interpolated-anchor mutation applied (the anchor regex really changed)
+2026-09-24T23:44:58.8078543Z   ok   — without interpolation tolerance the same read greens — shape 1's fix is load-bearing
+2026-09-24T23:44:58.8079666Z 
+2026-09-24T23:44:58.8080192Z case 3e: SHAPE 4 — Path.expand/absname("lit", @anchor) is seen, tagged test-rootbase
+2026-09-24T23:44:59.4696629Z   ok   — exit 1 (non-zero) on a Path.expand(lit, @anchor) uncovered read
+2026-09-24T23:44:59.4713001Z   ok   — names the path Path.expand(lit, @anchor) resolved to
+2026-09-24T23:44:59.4729585Z   ok   — attributes the Path.expand(lit, @anchor) read to its file
+2026-09-24T23:44:59.4745409Z   ok   — reports test-rootbase as its own idiom
+2026-09-24T23:45:00.1364538Z   ok   — the Path.absname(lit, @anchor) sibling form is seen too
+2026-09-24T23:45:00.8515002Z   ok   — a DECLARED read through Path.expand(lit, @anchor) stays green
+2026-09-24T23:45:00.8744090Z   ok   — the rootbase mutation applied (the Path.expand/absname grep really changed)
+2026-09-24T23:45:01.5748422Z   ok   — without the rootbase grep the same read greens — shape 4's door is load-bearing
+2026-09-24T23:45:01.5749475Z 
+2026-09-24T23:45:01.5750206Z case 3f: SHAPE 6 — a multi-line Path.join( is seen, tagged test-rootmulti
+2026-09-24T23:45:02.2517686Z   ok   — exit 1 (non-zero) on a multi-line-join uncovered read
+2026-09-24T23:45:02.2534598Z   ok   — names the path the multi-line join resolved to
+2026-09-24T23:45:02.2551203Z   ok   — attributes the multi-line-join read to its file
+2026-09-24T23:45:02.2566864Z   ok   — reports test-rootmulti as its own idiom
+2026-09-24T23:45:02.9630369Z   ok   — a DECLARED read through the multi-line form stays green
+2026-09-24T23:45:02.9655952Z   ok   — the live multi-line opener in api/lib/barkpark/plugins/tickets/attachments.ex matches what shape 6 scans for
+2026-09-24T23:45:02.9669979Z   ok   — the live multi-line opener in api/lib/barkpark/plugins/onixedit/export/validator.ex matches what shape 6 scans for
+2026-09-24T23:45:04.7573258Z   ok   — api/lib/barkpark/plugins/tickets/attachments.ex is seen by the opener scan but resolves to no new read (anchors on System.tmp_dir!(), not tracked)
+2026-09-24T23:45:04.7589103Z   ok   — api/lib/barkpark/plugins/onixedit/export/validator.ex is seen by the opener scan but resolves to no new read (anchors on System.tmp_dir!(), not tracked)
+2026-09-24T23:45:04.7808623Z   ok   — the multi-line-join mutation applied (the opener scan really changed)
+2026-09-24T23:45:05.4768220Z   ok   — without the opener scan the same read greens — shape 6's door is load-bearing
+2026-09-24T23:45:05.4769329Z 
+2026-09-24T23:45:05.4769712Z case 3g: SHAPE 3 — a concatenated literal is seen, tagged test-rootconcat
+2026-09-24T23:45:06.1353026Z   ok   — exit 1 (non-zero) on a concatenated-literal uncovered read
+2026-09-24T23:45:06.1368840Z   ok   — names the path the whole <> chain resolved to
+2026-09-24T23:45:06.1385328Z   ok   — attributes the concatenated read to its file
+2026-09-24T23:45:06.1400558Z   ok   — reports test-rootconcat as its own idiom
+2026-09-24T23:45:06.1416263Z   ok   — the truncated prefix 'nowhere' is suppressed on -root, so the site reds ONCE
+2026-09-24T23:45:06.1610106Z   ok   — the concat mutation applied (the <> grep really changed)
+2026-09-24T23:45:06.8101714Z   ok   — without the <> grep the real path nowhere/concat.json is not reported — shape 3's door is load-bearing
+2026-09-24T23:45:06.8117408Z   ok   — …and the truncated prefix comes back, which is the pre-fix false red this door removes
+2026-09-24T23:45:06.8117878Z 
+2026-09-24T23:45:06.8118531Z case 3h: SHAPE 5 — sigil literals are seen, tagged test-sigildir/test-sigilcwd
+2026-09-24T23:45:07.4803099Z   ok   — exit 1 (non-zero) on a sigil-literal uncovered read
+2026-09-24T23:45:07.4820093Z   ok   — names the sigil read nowhere/sigil.json
+2026-09-24T23:45:07.4837247Z   ok   — names the sigil read nowhere/sigil2.json
+2026-09-24T23:45:07.4854114Z   ok   — names the sigil read nowhere/sigil3.json
+2026-09-24T23:45:07.4869723Z   ok   — reports test-sigildir as its own idiom
+2026-09-24T23:45:07.4885185Z   ok   — reports test-sigilcwd as its own idiom
+2026-09-24T23:45:07.5098524Z   ok   — the sigil mutation applied (the literal grep really lost its sigil arms)
+2026-09-24T23:45:08.1966783Z   ok   — without the sigil arms the same reads green — shape 5's door is load-bearing
+2026-09-24T23:45:08.1967755Z 
+2026-09-24T23:45:08.1968546Z case 3i: SHAPE 2 — System.cmd(…, cd: anchor) is seen, tagged test-rootexec
+2026-09-24T23:45:08.8667386Z   ok   — exit 1 (non-zero) on an execution-cwd uncovered read
+2026-09-24T23:45:08.8683736Z   ok   — names the path the child process would have read
+2026-09-24T23:45:08.8699661Z   ok   — attributes the execution-cwd read to its file
+2026-09-24T23:45:08.8715194Z   ok   — reports test-rootexec as its own idiom
+2026-09-24T23:45:08.8730898Z   ok   — the non-path argument 'cat' is not reported — the existence filter holds
+2026-09-24T23:45:09.5929832Z   ok   — a DECLARED read through the execution-cwd form stays green
+2026-09-24T23:45:09.5955492Z   ok   — the live execution-cwd site in api/test/barkpark/pds_door_census_test.exs still matches what shape 2 scans for
+2026-09-24T23:45:09.5969436Z   ok   — the live execution-cwd site in api/test/barkpark/pds_elixir_census_test.exs still matches what shape 2 scans for
+2026-09-24T23:45:11.3811542Z   ok   — the real tree's cd: sites are seen but resolve to no new read (args are variables, not literals)
+2026-09-24T23:45:11.4016803Z   ok   — the execution-cwd mutation applied (the opener grep lost its System.cmd arm)
+2026-09-24T23:45:12.0940182Z   ok   — without the System.cmd arm the same read greens — shape 2's door is load-bearing
+2026-09-24T23:45:12.0940597Z 
+2026-09-24T23:45:12.0940911Z case 3j: SHAPE 7 — a chained anchor resolves to the real file, not the intermediate
+2026-09-24T23:45:12.8078343Z   ok   — a chained read landing on a DECLARED file stays green
+2026-09-24T23:45:12.8093591Z   ok   — does not report the intermediate directory as a read
+2026-09-24T23:45:13.0173035Z   ok   — the census carries docs/api-v1.md tagged test-rootchain — the chain really resolved
+2026-09-24T23:45:13.6872547Z   ok   — exit 1 (non-zero) on a chained uncovered read
+2026-09-24T23:45:13.6888868Z   ok   — names the file the chain resolved to, not the directory
+2026-09-24T23:45:13.6905197Z   ok   — reports test-rootchain as its own idiom
+2026-09-24T23:45:14.3523179Z   ok   — a binding nothing is chained off still reds as its own directory read
+2026-09-24T23:45:14.3813306Z   ok   — the chain mutation applied (the chain grep really changed)
+2026-09-24T23:45:15.0410859Z   ok   — without the chain door the declared read reds on the intermediate 'docs' — shape 7's door is load-bearing
+2026-09-24T23:45:15.0421679Z 
+2026-09-24T23:45:15.0422786Z case 3k: SHAPE 8 — an attribute-indirected literal is seen, tagged test-rootattr
+2026-09-24T23:45:15.7029192Z   ok   — exit 1 (non-zero) on an attribute-indirected uncovered read
+2026-09-24T23:45:15.7046103Z   ok   — names the path the attribute held
+2026-09-24T23:45:15.7063725Z   ok   — attributes the indirected read to its file
+2026-09-24T23:45:15.7080562Z   ok   — test-rootattr resolved a non-zero count — the door itself saw the read
+2026-09-24T23:45:16.3865031Z   ok   — the "../.." <> var expand form reds on the same read
+2026-09-24T23:45:16.4075251Z   ok   — the indirect-join mutation applied (the I stream really changed)
+2026-09-24T23:45:17.1257451Z   ok   — without the I stream the read goes dark again — shape 8's door is load-bearing
+2026-09-24T23:45:17.8380033Z   ok   — an attribute with NO indirect join site stays quiet — no false red
+2026-09-24T23:45:17.8380963Z 
+2026-09-24T23:45:17.8381340Z case 4: an uncovered read in an UNTRACKED file still reds
+2026-09-24T23:45:17.8624975Z   ok   — fixture is genuinely untracked (git ls-files does not see it)
+2026-09-24T23:45:18.5266661Z   ok   — exit 1 (non-zero) — the working-tree scan sees untracked code
+2026-09-24T23:45:18.5283940Z   ok   — attributes the read to the untracked file
+2026-09-24T23:45:18.5284402Z 
+2026-09-24T23:45:18.5284728Z case 5: the min-escapes floor catches a neutered scanner
+2026-09-24T23:45:18.7613282Z   ok   — exit 1 (non-zero) when the population collapses below the floor
+2026-09-24T23:45:18.7629673Z   ok   — says the scanner is broken, not that the repo is clean
+2026-09-24T23:45:18.9891094Z   ok   — ELIXIR_ESCAPE_IDIOM_MIN in the environment cannot lower the floors
+2026-09-24T23:45:18.9891983Z 
+2026-09-24T23:45:18.9892710Z case 5b: blinding ONE door (api/test) reds on the real tree
+2026-09-24T23:45:18.9924939Z   ok   — the mutation applied (the find in list_escapes really changed)
+2026-09-24T23:45:19.5956773Z   ok   — exit 1 (non-zero) when the api/test door goes blind
+2026-09-24T23:45:19.5973439Z   ok   — names the blind door: test-dir
+2026-09-24T23:45:19.5989519Z   ok   — names the blind door: test-cwd
+2026-09-24T23:45:19.6005485Z   ok   — accuses the scanner, not the repository
+2026-09-24T23:45:19.6021514Z   ok   — still reports the surviving door's population
+2026-09-24T23:45:19.6022055Z 
+2026-09-24T23:45:19.6023254Z case 5c: a scanner door with no floor entry reds
+2026-09-24T23:45:19.8813451Z   ok   — exit 1 (non-zero) when the scanner emits an undeclared idiom
+2026-09-24T23:45:19.8828447Z   ok   — names the unguarded door
+2026-09-24T23:45:19.8828809Z 
+2026-09-24T23:45:19.8829035Z case 6: --match agrees with the declared sets
+2026-09-24T23:45:20.0634481Z   ok   — compile: 'api/lib/barkpark.ex' -> true
+2026-09-24T23:45:20.2448263Z   ok   — compile: 'design/status-manifest.json' -> true
+2026-09-24T23:45:20.4247251Z   ok   — compile: '.github/workflows/elixir.yml' -> true
+2026-09-24T23:45:20.6042066Z   ok   — compile: 'scripts/elixir-path-escape-check.sh' -> true
+2026-09-24T23:45:20.7854257Z   ok   — compile: 'docs/ops/merge-gates.md' -> false
+2026-09-24T23:45:21.2451932Z   ok   — test: 'docs/ops/merge-gates.md' -> true
+2026-09-24T23:45:21.7075630Z   ok   — test: 'README.md' -> true
+2026-09-24T23:45:22.1661290Z   ok   — test: 'docs/setup/SETUP.md' -> false
+2026-09-24T23:45:22.6256537Z   ok   — test: 'web/src/app/page.tsx' -> false
+2026-09-24T23:45:23.0788120Z   ok   — test: 'internal/taskboard/components.go' -> true
+2026-09-24T23:45:23.2591896Z   ok   — compile: 'internal/taskboard/components.go' -> false
+2026-09-24T23:45:23.7234763Z   ok   — test: 'internal/chat/testdata' -> true
+2026-09-24T23:45:24.1893721Z   ok   — test: 'docs/openapi.json' -> true
+2026-09-24T23:45:24.6604955Z   ok   — test: 'docs/api-v1.md' -> true
+2026-09-24T23:45:25.1334924Z   ok   — test: 'docs/api/error-codes.md' -> true
+2026-09-24T23:45:25.6114615Z   ok   — test: 'docs/openapi.json.bak' -> false
+2026-09-24T23:45:26.0849773Z   ok   — test: 'scripts/async_env_seam_scan.exs.orig' -> false
+2026-09-24T23:45:26.5558873Z   ok   — test: 'cloud/test/barkpark_cloud/accounts_test.exs' -> true
+2026-09-24T23:45:27.0240093Z   ok   — test: 'cloud/test/support/fixtures/account_fixtures.ex' -> true
+2026-09-24T23:45:27.2039106Z   ok   — compile: 'cloud/test/barkpark_cloud/accounts_test.exs' -> false
+2026-09-24T23:45:27.6722724Z   ok   — test: 'cloud/lib/barkpark_cloud/accounts.ex' -> false
+2026-09-24T23:45:27.6781277Z   ok   — derived seam-scan roots from the scanner: api/test cloud/test 
+2026-09-24T23:45:28.1355589Z   ok   — test: 'cloud/test/probe_test.exs' -> true
+2026-09-24T23:45:28.1418592Z   ok   — derived meter reads from the rider: tooling/scaffy-duels/METER.md tooling/scaffy-duels/meter.py tooling/scaffy-duels/results tooling/scaffy-duels/tally_wf.py  
+2026-09-24T23:45:28.6115282Z   ok   — test: 'tooling/scaffy-duels/METER.md' -> true
+2026-09-24T23:45:29.0750700Z   ok   — test: 'tooling/scaffy-duels/meter.py' -> true
+2026-09-24T23:45:29.5313683Z   ok   — test: 'tooling/scaffy-duels/results' -> true
+2026-09-24T23:45:29.9960269Z   ok   — test: 'tooling/scaffy-duels/tally_wf.py' -> true
+2026-09-24T23:45:30.4689095Z   ok   — test: 'tooling/scaffy-duels/results/a-duel-not-yet-run--A--1.agent.json' -> true
+2026-09-24T23:45:30.6514863Z   ok   — compile: 'tooling/scaffy-duels/meter.py' -> false
+2026-09-24T23:45:30.8335301Z   ok   — compile: 'tooling/scaffy-duels/results/a-duel-not-yet-run--A--1.agent.json' -> false
+2026-09-24T23:45:31.2953722Z   ok   — test: 'tooling/scaffy-duels/README.md' -> false
+2026-09-24T23:45:31.7624795Z   ok   — test: 'tooling/scaffy-duels/run-cell.sh' -> false
+2026-09-24T23:45:32.2375437Z   ok   — test: 'tooling/scaffy-duels/matrix.json' -> false
+2026-09-24T23:45:32.6983761Z   ok   — test: 'tooling/grip/ledger/some-note.md' -> false
+2026-09-24T23:45:33.1578943Z   ok   — test: 'tooling/scaffy-duels/meter.py.bak' -> false
+2026-09-24T23:45:33.6143749Z   ok   — test: 'tooling/scaffy-duels/METER.md.orig' -> false
+2026-09-24T23:45:34.2406194Z   ok   — test: 'api/probe.txt' -> true
+2026-09-24T23:45:34.6936841Z   ok   — test: 'VERSION' -> true
+2026-09-24T23:45:35.1472973Z   ok   — test: 'cloud/priv/secret-scrub.exs' -> true
+2026-09-24T23:45:35.6085284Z   ok   — test: 'design/probe.txt' -> true
+2026-09-24T23:45:36.0788716Z   ok   — test: 'tooling/pds/pre-gate-papers.json' -> true
+2026-09-24T23:45:36.5390380Z   ok   — test: 'tooling/pds/disposition-owner-registry.json' -> true
+2026-09-24T23:45:36.9947600Z   ok   — test: '.github/workflows/elixir.yml' -> true
+2026-09-24T23:45:37.4622088Z   ok   — test: 'scripts/elixir-path-escape-check.sh' -> true
+2026-09-24T23:45:37.9275079Z   ok   — test: 'scripts/elixir-path-escape-check.test.sh' -> true
+2026-09-24T23:45:38.4076580Z   ok   — test: 'scripts/elixir-impacted-tests.sh' -> true
+2026-09-24T23:45:38.8910762Z   ok   — test: 'scripts/elixir-impacted-tests.test.sh' -> true
+2026-09-24T23:45:39.3610993Z   ok   — test: 'scripts/elixir-main-red-attribution.sh' -> true
+2026-09-24T23:45:39.8373697Z   ok   — test: 'scripts/elixir-main-red-attribution.test.sh' -> true
+2026-09-24T23:45:40.3053058Z   ok   — test: 'scripts/gate-announces-skips.test.sh' -> true
+2026-09-24T23:45:40.7769140Z   ok   — test: 'scripts/prod-build-cache-guard.sh' -> true
+2026-09-24T23:45:40.7769472Z 
+2026-09-24T23:45:40.7769630Z case 6b: glob-consumed families are dispatched whole
+2026-09-24T23:45:42.3681584Z   ok   — api/lib/**/*.ex (enumerated by scripts/pds-elixir-receipt-census.exs): an absent member api/lib/zz-harness-absent-member/zz-harness-absent-member.ex -> test true
+2026-09-24T23:45:42.8422103Z   ok   — docs/cards/*.md (enumerated by scripts/check-doc-budgets.sh): an absent member docs/cards/zz-harness-absent-member.md -> test true
+2026-09-24T23:45:43.3118364Z   ok   — internal/cli/hetzner_*.go (enumerated by scripts/pds-live-hetzner-placement-group.sh): an absent member internal/cli/hetzner_zz-harness-absent-member.go -> test true
+2026-09-24T23:45:43.7715098Z   ok   — scripts/pds-*.exs (enumerated by scripts/pds-door-census.sh): an absent member scripts/pds-zz-harness-absent-member.exs -> test true
+2026-09-24T23:45:44.2304028Z   ok   — scripts/pds-*.sh (enumerated by scripts/pds-door-census.sh): an absent member scripts/pds-zz-harness-absent-member.sh -> test true
+2026-09-24T23:45:44.6870598Z   ok   — tooling/pds/*.mjs (enumerated by scripts/pds-door-census.sh): an absent member tooling/pds/zz-harness-absent-member.mjs -> test true
+2026-09-24T23:45:44.6871492Z   ok   — derived 6 family row(s) from the programs themselves
+2026-09-24T23:45:45.1558965Z   ok   — test: 'scripts/pds-secret-scan_test.sh' -> true
+2026-09-24T23:45:45.6265307Z   ok   — test: 'scripts/pds-zz-new.sh' -> true
+2026-09-24T23:45:46.0903607Z   ok   — test: 'scripts/pds-zz-new.exs' -> true
+2026-09-24T23:45:46.5564979Z   ok   — test: 'tooling/pds/zz-new.mjs' -> true
+2026-09-24T23:45:47.0168251Z   ok   — test: 'scripts/deploy-rebuild.sh' -> false
+2026-09-24T23:45:47.4735257Z   ok   — test: 'scripts/which-gates.sh' -> false
+2026-09-24T23:45:47.9395994Z   ok   — test: 'tooling/scaffy-duels/zz-unrelated.txt' -> false
+2026-09-24T23:45:48.3980752Z   ok   — test: 'scripts/pds-nested/inner.sh' -> false
+2026-09-24T23:45:48.3981501Z 
+2026-09-24T23:45:48.3981890Z case 6c: a blind derivation refuses rather than answering quietly
+2026-09-24T23:45:48.5143204Z   ok   — (a) a blinded extractor exits 2 rather than answering
+2026-09-24T23:45:48.5156651Z   ok   — (a) names the blindness
+2026-09-24T23:45:48.9868996Z   ok   — (b) the PINNED script, run from the checkout, still dispatches an absent family member
+2026-09-24T23:45:49.3231064Z   ok   — (c) --match names a family root it cannot derive from
+2026-09-24T23:45:52.0274483Z   ok   — (c) --check refuses a family root it can derive nothing from (exit 2)
+2026-09-24T23:45:52.0275426Z 
+2026-09-24T23:45:52.0275948Z case 6e: the family arm's verdict is the process exit (whole program)
+2026-09-24T23:45:55.3435557Z   ok   — (6e) planted: the derived half dropped -> --check exits 1 from the FAMILY arm, naming the family
+2026-09-24T23:45:58.0427664Z   ok   — (6e) removed: the pristine script under the same env exits 0
+2026-09-24T23:45:58.0428007Z 
+2026-09-24T23:45:58.0428261Z case 6d: --literal is the typed half, the bare form is the dispatched whole
+2026-09-24T23:45:58.9452547Z   ok   — 'scripts/pds-zz-new.sh' -> whole=true literal=false
+2026-09-24T23:45:59.8498682Z   ok   — 'tooling/pds/zz-new.mjs' -> whole=true literal=false
+2026-09-24T23:46:00.7402484Z   ok   — 'api/lib/barkpark.ex' -> whole=true literal=true
+2026-09-24T23:46:01.6358469Z   ok   — 'scripts/deploy-rebuild.sh' -> whole=false literal=false
+2026-09-24T23:46:03.0232657Z   ok   — whole - literal == the derived families exactly (6 glob(s))
+2026-09-24T23:46:03.1614223Z   ok   — an unknown flag after --match SET exits 2
+2026-09-24T23:46:03.1614809Z 
+2026-09-24T23:46:03.1614999Z case 7: an unknown set name errors
+2026-09-24T23:46:03.2995748Z   ok   — exit 2 on an unknown set
+2026-09-24T23:46:03.4353392Z   ok   — exit 2 on an unknown flag
+2026-09-24T23:46:03.4353650Z 
+2026-09-24T23:46:03.4353769Z case 8: elixir.yml structural invariants
+2026-09-24T23:46:03.5927143Z   ok   — workflow_paths = False
+2026-09-24T23:46:03.5944794Z   ok   — agg_present = True
+2026-09-24T23:46:03.5962479Z   ok   — agg_matrix = False
+2026-09-24T23:46:03.5979150Z   ok   — agg_if = always()
+2026-09-24T23:46:03.5996155Z   ok   — agg_name = Elixir gate
+2026-09-24T23:46:03.6012874Z   ok   — coe_jobs = 
+2026-09-24T23:46:03.6029051Z   ok   — coe_in_needs = 
+2026-09-24T23:46:03.6046098Z   ok   — blocking_not_in_needs = 
+2026-09-24T23:46:03.6062812Z   ok   — post_verdict_jobs = report-main-failure
+2026-09-24T23:46:03.6079568Z   ok   — post_verdict_muted = 
+2026-09-24T23:46:03.6096764Z   ok   — needs_without_decide = 
+2026-09-24T23:46:03.6114452Z   ok   — needs_count = 6 (>= 5)
+2026-09-24T23:46:03.6131441Z   ok   — needs_results_count = 6 (>= 5)
+2026-09-24T23:46:03.6149150Z   ok   — decide_consumes_count = 6 (>= 5)
+2026-09-24T23:46:03.6166224Z   ok   — dispatcher_if = 
+2026-09-24T23:46:03.6184273Z   ok   — dispatcher_matrix = False
+2026-09-24T23:46:03.6201290Z   ok   — dispatcher_outputs = compile,test
+2026-09-24T23:46:03.6217421Z   ok   — escape_if = 
+2026-09-24T23:46:03.6234532Z   ok   — escape_needs = 
+2026-09-24T23:46:03.6257665Z   ok   — if::mix-test = needs.changes.outputs.test == 'true'
+2026-09-24T23:46:03.6269696Z   ok   — if::mix-prod-compile = needs.changes.outputs.compile == 'true'
+2026-09-24T23:46:03.6287174Z   ok   — if::validation-perf = needs.changes.outputs.compile == 'true'
+2026-09-24T23:46:03.6303824Z   ok   — gate_mismatches = 
+2026-09-24T23:46:03.6320759Z   ok   — decide_gates_count = 6 (>= 5)
+2026-09-24T23:46:03.9404557Z   ok   —   mutation[clean]: post_verdict_jobs = 'report-main-failure'
+2026-09-24T23:46:04.2456517Z   ok   —   mutation[clean]: post_verdict_muted = ''
+2026-09-24T23:46:04.5529393Z   ok   —   mutation[clean]: blocking_not_in_needs = ''
+2026-09-24T23:46:04.8614622Z   ok   —   mutation[reporter-muted]: post_verdict_muted = 'report-main-failure'
+2026-09-24T23:46:05.1666523Z   ok   —   mutation[reporter-muted]: post_verdict_jobs = ''
+2026-09-24T23:46:05.4733475Z   ok   —   mutation[reporter-muted]: blocking_not_in_needs = ''
+2026-09-24T23:46:05.7787716Z   ok   —   mutation[reporter-alwaysruns]: post_verdict_jobs = ''
+2026-09-24T23:46:06.0836787Z   ok   —   mutation[reporter-alwaysruns]: blocking_not_in_needs = 'report-main-failure'
+2026-09-24T23:46:06.3905088Z   ok   —   mutation[reporter-unwired]: post_verdict_jobs = ''
+2026-09-24T23:46:06.6988656Z   ok   —   mutation[reporter-unwired]: blocking_not_in_needs = 'report-main-failure'
+2026-09-24T23:46:07.0090611Z   ok   —   mutation[clean]: needs_without_decide = ''
+2026-09-24T23:46:07.3175381Z   ok   —   mutation[needs]: needs_without_decide = 'format-ceiling'
+2026-09-24T23:46:07.6263557Z   ok   —   mutation[env]: needs_without_decide = 'format-ceiling'
+2026-09-24T23:46:07.9338239Z   ok   —   mutation[wired]: needs_without_decide = ''
+2026-09-24T23:46:07.9355683Z   ok   —   mutation[clean]: gate_mismatches = ''
+2026-09-24T23:46:08.2414739Z   ok   —   mutation[gate-mixtest-never]: gate_mismatches names it (mix-test: gate=NEVER want=${O_TEST})
+2026-09-24T23:46:08.5481775Z   ok   —   mutation[gate-escape-compile]: gate_mismatches names it (path-escape: gate=${O_COMPILE} want=NEVER)
+2026-09-24T23:46:08.8591897Z   ok   —   mutation[gate-compound-if]: gate_mismatches names it (compound-job: if: "needs.changes.outputs.test == 'true' && github.actor != 'nobody'" is not a recognised dispatcher-output guard, got gate=${O_TEST})
+2026-09-24T23:46:08.8593716Z 
+2026-09-24T23:46:08.8593906Z case 9: the aggregator decides, and can be made red on purpose
+2026-09-24T23:46:09.0150813Z   ok   — full run, all green -> exit 0
+2026-09-24T23:46:09.0165363Z   ok   —   …and reached its own verdict line
+2026-09-24T23:46:09.0195395Z   ok   — docs-only PR, expensive jobs legitimately skipped -> exit 0
+2026-09-24T23:46:09.0209197Z   ok   —   …and reached its own verdict line
+2026-09-24T23:46:09.0223866Z   ok   — …and says so, rather than claiming the suite passed
+2026-09-24T23:46:09.0254397Z   ok   — mix-test failed -> exit 1
+2026-09-24T23:46:09.0268377Z   ok   —   …and reached its own verdict line
+2026-09-24T23:46:09.0290076Z   ok   —   …and the annotation names the refusing 'mix-test'
+2026-09-24T23:46:09.0290923Z   ok   —   …and does not name the passing 'validation-perf'
+2026-09-24T23:46:09.0320948Z   ok   — prod-compile skipped behind a live gate (upstream died) -> exit 1
+2026-09-24T23:46:09.0335025Z   ok   —   …and reached its own verdict line
+2026-09-24T23:46:09.0349485Z   ok   — …and names the reason (a skip is not a pass)
+2026-09-24T23:46:09.0370148Z   ok   —   …and the annotation names the refusing 'mix-prod-compile'
+2026-09-24T23:46:09.0371112Z   ok   —   …and does not name the passing 'mix-test'
+2026-09-24T23:46:09.0402721Z   ok   — format failed on a file THIS diff touches -> exit 1
+2026-09-24T23:46:09.0416207Z   ok   —   …and reached its own verdict line
+2026-09-24T23:46:09.0437614Z   ok   —   …and the annotation names the refusing 'format (diff-scoped)'
+2026-09-24T23:46:09.0438183Z   ok   —   …and does not name the passing 'mix-test'
+2026-09-24T23:46:09.0467985Z   ok   — format skipped behind a live gate -> exit 1
+2026-09-24T23:46:09.0481601Z   ok   —   …and reached its own verdict line
+2026-09-24T23:46:09.0502436Z   ok   —   …and the annotation names the refusing 'format (diff-scoped)'
+2026-09-24T23:46:09.0532793Z   ok   —   …and does not name the passing 'mix-prod-compile'
+2026-09-24T23:46:09.0534030Z   ok   — dispatcher failed, outputs empty -> exit 1
+2026-09-24T23:46:09.0548674Z   ok   —   …and reached its own verdict line
+2026-09-24T23:46:09.0577471Z   ok   — path-escape skipped -> exit 1
+2026-09-24T23:46:09.0591313Z   ok   —   …and reached its own verdict line
+2026-09-24T23:46:09.0620362Z   ok   — a cancelled upstream -> exit 1
+2026-09-24T23:46:09.0634084Z   ok   —   …and reached its own verdict line
+2026-09-24T23:46:09.0649330Z   ok   — …and the step log names CANCELLATION (the D57 arm), not a generic failure
+2026-09-24T23:46:09.0669884Z   ok   —   …and the annotation names the refusing 'mix-test (cancelled, not failed)'
+2026-09-24T23:46:09.0670865Z   ok   —   …and does not name the passing 'validation-perf'
+2026-09-24T23:46:09.0699824Z   ok   — an unrecognised result value -> exit 1
+2026-09-24T23:46:09.0713700Z   ok   —   …and reached its own verdict line
+2026-09-24T23:46:09.0741748Z   ok   — an empty result string -> exit 1
+2026-09-24T23:46:09.0755701Z   ok   —   …and reached its own verdict line
+2026-09-24T23:46:09.0785084Z   ok   — skip against a garbage gate value -> exit 1
+2026-09-24T23:46:09.0798624Z   ok   —   …and reached its own verdict line
+2026-09-24T23:46:09.0813534Z   ok   — the extracted step body is the real one (non-empty, carries the allow-set)
+2026-09-24T23:46:09.0814146Z 
+2026-09-24T23:46:09.0814498Z case 10: the dispatcher fails rather than skips when it cannot tell
+2026-09-24T23:46:09.2324448Z   ok   — extracted the 'sets' step body with every Actions expression substituted
+2026-09-24T23:46:09.6769818Z   ok   — docs-only PR -> exit 0
+2026-09-24T23:46:09.6803886Z   ok   —   …emits compile=false test=false
+2026-09-24T23:46:10.0968458Z   ok   — internal/taskboard-only PR -> exit 0
+2026-09-24T23:46:10.1000413Z   ok   —   …emits compile=false test=true
+2026-09-24T23:46:10.5181641Z   ok   — api/** PR -> exit 0
+2026-09-24T23:46:10.5216086Z   ok   —   …emits compile=true test=true
+2026-09-24T23:46:10.5246905Z   ok   — push event -> exit 0
+2026-09-24T23:46:10.5279490Z   ok   —   …emits compile=true test=true
+2026-09-24T23:46:10.9476844Z   ok   — a path containing a double quote -> exit 0
+2026-09-24T23:46:10.9510345Z   ok   —   …emits compile=true test=true
+2026-09-24T23:46:11.3639166Z   ok   — a rename OUT of the declared set -> exit 0
+2026-09-24T23:46:11.3675035Z   ok   —   …emits compile=true test=true
+2026-09-24T23:46:11.7801576Z   ok   — a rename INTO the declared set -> exit 0
+2026-09-24T23:46:11.7836152Z   ok   —   …emits compile=true test=true
+2026-09-24T23:46:11.8294618Z   ok   — (4) the fixture derives the two-ended family docs/cards/*.md
+2026-09-24T23:46:12.2800438Z   ok   — (4a) a NEWLINE inside a two-ended family path (docs/cards/a<LF>b.md) -> exit 0
+2026-09-24T23:46:12.2834433Z   ok   —   …emits compile=false test=true
+2026-09-24T23:46:12.6965677Z   ok   — (4b) a NEWLINE inside the directory of an in-set path (api/li<LF>b/x.ex) -> exit 0
+2026-09-24T23:46:12.6998138Z   ok   —   …emits compile=true test=true
+2026-09-24T23:46:13.1090984Z   ok   — (4c) the filing example api<LF>foo/lib/x.ex is NOT under api/ -> exit 0
+2026-09-24T23:46:13.1124402Z   ok   —   …emits compile=false test=false
+2026-09-24T23:46:13.1459623Z   ok   — the fixture head's script REFUSES --match test (exit 2) — the skew is real
+2026-09-24T23:46:13.5384553Z   ok   — version skew: the head's script predates the test set name -> exit 0
+2026-09-24T23:46:13.5416820Z   ok   —   …emits compile=true test=true
+2026-09-24T23:46:13.5431592Z   ok   —   …and says which ref it read the script from
+2026-09-24T23:46:13.6338799Z   ok   — version skew, pin UNREADABLE: warns by name, then refuses -> exit 2
+2026-09-24T23:46:13.6354880Z   ok   —   …names the pin read that failed
+2026-09-24T23:46:13.6528731Z   ok   — empty diff (base == HEAD) -> exit 0
+2026-09-24T23:46:13.6561473Z   ok   —   …emits compile=true test=true
+2026-09-24T23:46:13.6575920Z   ok   —   …and names the shape
+2026-09-24T23:46:13.6589457Z   ok   —   …as a WARNING, not a brick
+2026-09-24T23:46:13.6602698Z   ok   —   …and names the cost it just chose to pay
+2026-09-24T23:46:13.6698952Z   ok   — unresolvable base sha -> exit 1
+2026-09-24T23:46:13.6712842Z   ok   —   …and refuses to guess a base
+2026-09-24T23:46:13.6741707Z   ok   — missing base sha -> exit 1
+2026-09-24T23:46:13.6755767Z   ok   —   …and says why
+2026-09-24T23:46:13.7053029Z   ok   — a base with no common ancestor -> exit 1
+2026-09-24T23:46:13.7066894Z   ok   —   …and names the condition, not a raw git fatal
+2026-09-24T23:46:13.7080528Z   ok   —   …and refuses the fallback that sweeps in the whole base
+2026-09-24T23:46:13.7081087Z 
+2026-09-24T23:46:13.7081527Z case 11: a zero-census idiom proves its detector on a synthetic case, or the run refuses
+2026-09-24T23:46:14.8620247Z   ok   — case 11a: a self-scan of a clean fixture checkout is green
+2026-09-24T23:46:14.8636917Z   ok   — case 11a: the zero-census doors are PROVEN, not assumed
+2026-09-24T23:46:14.8653719Z   ok   — case 11a: lib-rootattr — the one idiom with no arm anywhere in this harness — is proven
+2026-09-24T23:46:14.8713848Z   ok   — case 11b: the sigil-door mutation applied (the fixture really changed)
+2026-09-24T23:46:15.6163468Z   ok   — case 11b: exit 1 (non-zero) with the sigil door blinded
+2026-09-24T23:46:15.6180389Z   ok   — case 11b: names the blind door and says its zero was never coverage
+2026-09-24T23:46:15.6197836Z   ok   — case 11b: the OTHER zero-census doors still prove — the red is the sigil door, not a collapse
+2026-09-24T23:46:15.6258290Z   ok   — case 11c: the fixture row for test-rootexec is gone (the mutation applied)
+2026-09-24T23:46:16.3411276Z   ok   — case 11c: exit 1 (non-zero) for a zero-census idiom with no fixture
+2026-09-24T23:46:16.3429291Z   ok   — case 11c: refuses by name rather than counting an unproven door
+2026-09-24T23:46:16.3441920Z 
+2026-09-24T23:46:16.3442663Z case 12: an unresolvable path expression is REPORTED, and refuses when nothing binds it
+2026-09-24T23:46:17.0542875Z   ok   — case 12a: exit 1 (non-zero) on a read the scanner cannot resolve
+2026-09-24T23:46:17.0559847Z   ok   — case 12a: names the file, the line and the operand it cannot resolve
+2026-09-24T23:46:17.7664672Z   ok   — case 12b: the same expression bound to a literal list is green
+2026-09-24T23:46:17.7681826Z   ok   — case 12b: still REPORTED as unresolvable-at-the-read-site, not silently counted
+2026-09-24T23:46:17.7695202Z 
+2026-09-24T23:46:17.7695634Z case NUL: --match test --null reads NUL-terminated records
+2026-09-24T23:46:18.2270664Z   ok   — --null: docs/cards/a<LF>b.md (family docs/cards/*.md) is IN the set -> true
+2026-09-24T23:46:18.6888945Z   ok   — --null: api<LF>foo/lib/x.ex (the filing's example) is ONE record, not in the set -> false
+2026-09-24T23:46:19.1503900Z   ok   — --null: an unterminated LAST record is still read
+2026-09-24T23:46:19.6166527Z   ok   — control: the same bytes read as LINES answer false — the SPLIT: both halves miss a two-ended glob, which is the false skip --null closes
+2026-09-24T23:46:19.7549147Z   ok   — --nul (a typo) is REFUSED with exit 2, never read as newline mode
+2026-09-24T23:46:19.7549998Z 
+2026-09-24T23:46:19.7550148Z ----
+2026-09-24T23:46:19.7550462Z 351 passed, 0 failed
+2026-09-24T23:46:19.7879533Z instrument elixir-path-escape-selftest: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:46:19.7969525Z ##[group]Run bash scripts/run-instrument.sh elixir-path-escape -- bash scripts/elixir-path-escape-check.sh
+2026-09-24T23:46:19.7970324Z [36;1mbash scripts/run-instrument.sh elixir-path-escape -- bash scripts/elixir-path-escape-check.sh[0m
+2026-09-24T23:46:19.8036161Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:46:19.8036433Z env:
+2026-09-24T23:46:19.8036646Z   BP_STEP_VERDICT: MEASURED-CLEAN
+2026-09-24T23:46:19.8036904Z ##[endgroup]
+2026-09-24T23:46:21.6350028Z elixir-path-escape-check: scanning $REPO_ROOT=/home/runner/work/barkpark/barkpark
+2026-09-24T23:46:21.6350984Z elixir-path-escape-check: 72 distinct repo-root read(s) resolved from api/lib + api/test
+2026-09-24T23:46:21.6414780Z elixir-path-escape-check:   idiom test-cwd: 61 read(s) (floor 8)
+2026-09-24T23:46:21.6447086Z elixir-path-escape-check:   idiom test-dir: 55 read(s) (floor 8)
+2026-09-24T23:46:21.6481162Z elixir-path-escape-check:   idiom lib-cwd: 14 read(s) (floor 5)
+2026-09-24T23:46:21.6513378Z elixir-path-escape-check:   idiom lib-dir: 13 read(s) (floor 5)
+2026-09-24T23:46:21.6544698Z elixir-path-escape-check:   idiom lib-root: 1 read(s) (floor 0)
+2026-09-24T23:46:21.6576092Z elixir-path-escape-check:   idiom test-root: 8 read(s) (floor 2)
+2026-09-24T23:46:21.6607832Z elixir-path-escape-check:   idiom test-rootpipe: 0 read(s) (floor 0)
+2026-09-24T23:46:21.6639678Z elixir-path-escape-check:   idiom test-rootlist: 0 read(s) (floor 0)
+2026-09-24T23:46:21.6670642Z elixir-path-escape-check:   idiom test-rootinterp: 0 read(s) (floor 0)
+2026-09-24T23:46:21.6701692Z elixir-path-escape-check:   idiom test-rootbase: 0 read(s) (floor 0)
+2026-09-24T23:46:21.6733895Z elixir-path-escape-check:   idiom test-rootmulti: 0 read(s) (floor 0)
+2026-09-24T23:46:21.6765691Z elixir-path-escape-check:   idiom test-rootconcat: 0 read(s) (floor 0)
+2026-09-24T23:46:21.6797483Z elixir-path-escape-check:   idiom test-rootchain: 0 read(s) (floor 0)
+2026-09-24T23:46:21.6829128Z elixir-path-escape-check:   idiom test-rootexec: 0 read(s) (floor 0)
+2026-09-24T23:46:21.6861007Z elixir-path-escape-check:   idiom test-sigildir: 0 read(s) (floor 0)
+2026-09-24T23:46:21.6892659Z elixir-path-escape-check:   idiom test-sigilcwd: 0 read(s) (floor 0)
+2026-09-24T23:46:21.6924168Z elixir-path-escape-check:   idiom lib-rootattr: 0 read(s) (floor 0)
+2026-09-24T23:46:21.6956175Z elixir-path-escape-check:   idiom test-rootattr: 0 read(s) (floor 0)
+2026-09-24T23:46:21.7145906Z elixir-path-escape-check: 12 idiom(s) resolved ZERO reads on this tree — proving each door on a synthetic case (a floor of 0 cannot).
+2026-09-24T23:46:22.1543807Z elixir-path-escape-check:   idiom test-rootpipe: 0 live read(s), detector PROVEN on a synthetic case
+2026-09-24T23:46:22.1545047Z elixir-path-escape-check:   idiom test-rootlist: 0 live read(s), detector PROVEN on a synthetic case
+2026-09-24T23:46:22.1546495Z elixir-path-escape-check:   idiom test-rootinterp: 0 live read(s), detector PROVEN on a synthetic case
+2026-09-24T23:46:22.1550572Z elixir-path-escape-check:   idiom test-rootbase: 0 live read(s), detector PROVEN on a synthetic case
+2026-09-24T23:46:22.1551813Z elixir-path-escape-check:   idiom test-rootmulti: 0 live read(s), detector PROVEN on a synthetic case
+2026-09-24T23:46:22.1553381Z elixir-path-escape-check:   idiom test-rootconcat: 0 live read(s), detector PROVEN on a synthetic case
+2026-09-24T23:46:22.1554401Z elixir-path-escape-check:   idiom test-rootchain: 0 live read(s), detector PROVEN on a synthetic case
+2026-09-24T23:46:22.1555083Z elixir-path-escape-check:   idiom test-rootexec: 0 live read(s), detector PROVEN on a synthetic case
+2026-09-24T23:46:22.1555749Z elixir-path-escape-check:   idiom test-sigildir: 0 live read(s), detector PROVEN on a synthetic case
+2026-09-24T23:46:22.1556396Z elixir-path-escape-check:   idiom test-sigilcwd: 0 live read(s), detector PROVEN on a synthetic case
+2026-09-24T23:46:22.1557154Z elixir-path-escape-check:   idiom lib-rootattr: 0 live read(s), detector PROVEN on a synthetic case
+2026-09-24T23:46:22.1558346Z elixir-path-escape-check:   idiom test-rootattr: 0 live read(s), detector PROVEN on a synthetic case
+2026-09-24T23:46:22.7129925Z   exempt: scripts/claude-pinned-version.txt
+2026-09-24T23:46:22.9214544Z elixir-path-escape-check: 6 glob-consumed famil(ies) derived from 33 declared program(s), all dispatched whole.
+2026-09-24T23:46:23.0097388Z elixir-path-escape-check: 4 path expression(s) carry NO literal at the read site — the scanner CANNOT resolve these directly:
+2026-09-24T23:46:23.0099921Z elixir-path-escape-check:   cannot see directly: api/lib/barkpark/plugin.ex:1204 via 'p' — and its BASE is a runtime value too, so this read has no static location at all. Not a repo-root escape claim either way; reported, not counted.
+2026-09-24T23:46:23.0103124Z elixir-path-escape-check:   cannot see directly: api/test/barkpark/pds_meter_rider_test.exs:252 via 'rel' — reached instead through its param binding (the literals the doors DO see live there, not here)
+2026-09-24T23:46:23.0105971Z elixir-path-escape-check:   cannot see directly: api/test/barkpark/pds_meter_rider_test.exs:265 via 'rel' — reached instead through its param binding (the literals the doors DO see live there, not here)
+2026-09-24T23:46:23.0108886Z elixir-path-escape-check:   cannot see directly: api/test/barkpark/portable_doc/render/nested_list_carriers_test.exs:17 via 'path' — reached instead through its list binding (the literals the doors DO see live there, not here)
+2026-09-24T23:46:23.0110873Z OK: every repo-root read from api/lib + api/test that this scanner can RESOLVE is dispatched on; 4 site(s) it cannot resolve are named above.
+2026-09-24T23:46:23.0111576Z instrument elixir-path-escape: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:46:23.0182613Z ##[group]Run bash scripts/gate-announces-skips.test.sh
+2026-09-24T23:46:23.0183066Z [36;1mbash scripts/gate-announces-skips.test.sh[0m
+2026-09-24T23:46:23.0247641Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:46:23.0247900Z env:
+2026-09-24T23:46:23.0248118Z   BP_STEP_VERDICT: MEASURED-CLEAN
+2026-09-24T23:46:23.0248366Z ##[endgroup]
+2026-09-24T23:46:23.0386634Z gate-announces-skips.test.sh
+2026-09-24T23:46:23.0386967Z 
+2026-09-24T23:46:23.0776958Z case 1: each of the four aggregators emits ONE derived, self-naming notice
+2026-09-24T23:46:23.2441276Z   ok   — elixir.yml: job 'elixir-gate' exists
+2026-09-24T23:46:23.2459786Z   ok   — elixir.yml: the decide step exists
+2026-09-24T23:46:23.2460598Z   ok   — elixir.yml: sentinel derived from name 'Elixir gate' -> 'NOTHING ELIXIR RAN'
+2026-09-24T23:46:23.2480159Z   ok   — elixir.yml: exactly one ::notice:: in the step
+2026-09-24T23:46:23.2500827Z   ok   — elixir.yml: notice says 'NOTHING ELIXIR RAN'
+2026-09-24T23:46:23.2521242Z   ok   — elixir.yml: notice names 'Elixir gate'
+2026-09-24T23:46:23.2541622Z   ok   — elixir.yml: notice says green != tested
+2026-09-24T23:46:23.2562478Z   ok   — elixir.yml: notice says NOT APPLICABLE
+2026-09-24T23:46:23.2583574Z   ok   — elixir.yml: notice names the skipped upstreams
+2026-09-24T23:46:23.2603663Z   ok   — elixir.yml: notice is multi-line (%0A)
+2026-09-24T23:46:23.2623269Z   ok   — elixir.yml: notice carries a title= property
+2026-09-24T23:46:23.2643955Z   ok   — elixir.yml: the notice property section is comma-free, so the title survives delivery
+2026-09-24T23:46:23.2663714Z   ok   — elixir.yml: the delivered title still says 'nothing ran'
+2026-09-24T23:46:23.2680804Z   ok   — elixir.yml: the dispatched tally is declared
+2026-09-24T23:46:23.2698068Z   ok   — elixir.yml: the tally excludes NEVER-gated jobs
+2026-09-24T23:46:23.2714897Z   ok   — elixir.yml: notice fires only when nothing was dispatched
+2026-09-24T23:46:23.2731660Z   ok   — elixir.yml: notice sits after the fail-closed exit
+2026-09-24T23:46:23.2828684Z   ok   — elixir.yml: decide calls read = 6, one per job in needs (6)
+2026-09-24T23:46:23.3686115Z   ok   — cloud.yml: job 'cloud-gate' exists
+2026-09-24T23:46:23.3703031Z   ok   — cloud.yml: the decide step exists
+2026-09-24T23:46:23.3703844Z   ok   — cloud.yml: sentinel derived from name 'Cloud gate' -> 'NOTHING CLOUD RAN'
+2026-09-24T23:46:23.3719853Z   ok   — cloud.yml: exactly one ::notice:: in the step
+2026-09-24T23:46:23.3737587Z   ok   — cloud.yml: notice says 'NOTHING CLOUD RAN'
+2026-09-24T23:46:23.3753651Z   ok   — cloud.yml: notice names 'Cloud gate'
+2026-09-24T23:46:23.3769888Z   ok   — cloud.yml: notice says green != tested
+2026-09-24T23:46:23.3787079Z   ok   — cloud.yml: notice says NOT APPLICABLE
+2026-09-24T23:46:23.3803481Z   ok   — cloud.yml: notice names the skipped upstreams
+2026-09-24T23:46:23.3819423Z   ok   — cloud.yml: notice is multi-line (%0A)
+2026-09-24T23:46:23.3835930Z   ok   — cloud.yml: notice carries a title= property
+2026-09-24T23:46:23.3852643Z   ok   — cloud.yml: the notice property section is comma-free, so the title survives delivery
+2026-09-24T23:46:23.3869066Z   ok   — cloud.yml: the delivered title still says 'nothing ran'
+2026-09-24T23:46:23.3885116Z   ok   — cloud.yml: the dispatched tally is declared
+2026-09-24T23:46:23.3902133Z   ok   — cloud.yml: the tally excludes NEVER-gated jobs
+2026-09-24T23:46:23.3918572Z   ok   — cloud.yml: notice fires only when nothing was dispatched
+2026-09-24T23:46:23.3935804Z   ok   — cloud.yml: notice sits after the fail-closed exit
+2026-09-24T23:46:23.4030002Z   ok   — cloud.yml: decide calls read = 5, one per job in needs (5)
+2026-09-24T23:46:23.5830362Z   ok   — console-harness.yml: job 'console-gate' exists
+2026-09-24T23:46:23.5848218Z   ok   — console-harness.yml: the decide step exists
+2026-09-24T23:46:23.5849211Z   ok   — console-harness.yml: sentinel derived from name 'Console gate' -> 'NOTHING CONSOLE RAN'
+2026-09-24T23:46:23.5866818Z   ok   — console-harness.yml: exactly one ::notice:: in the step
+2026-09-24T23:46:23.5884805Z   ok   — console-harness.yml: notice says 'NOTHING CONSOLE RAN'
+2026-09-24T23:46:23.5901332Z   ok   — console-harness.yml: notice names 'Console gate'
+2026-09-24T23:46:23.5919231Z   ok   — console-harness.yml: notice says green != tested
+2026-09-24T23:46:23.5936397Z   ok   — console-harness.yml: notice says NOT APPLICABLE
+2026-09-24T23:46:23.5954940Z   ok   — console-harness.yml: notice names the skipped upstreams
+2026-09-24T23:46:23.5971777Z   ok   — console-harness.yml: notice is multi-line (%0A)
+2026-09-24T23:46:23.5989269Z   ok   — console-harness.yml: notice carries a title= property
+2026-09-24T23:46:23.6006935Z   ok   — console-harness.yml: the notice property section is comma-free, so the title survives delivery
+2026-09-24T23:46:23.6025872Z   ok   — console-harness.yml: the delivered title still says 'nothing ran'
+2026-09-24T23:46:23.6043520Z   ok   — console-harness.yml: the dispatched tally is declared
+2026-09-24T23:46:23.6060826Z   ok   — console-harness.yml: the tally excludes NEVER-gated jobs
+2026-09-24T23:46:23.6078142Z   ok   — console-harness.yml: notice fires only when nothing was dispatched
+2026-09-24T23:46:23.6095006Z   ok   — console-harness.yml: notice sits after the fail-closed exit
+2026-09-24T23:46:23.6194678Z   ok   — console-harness.yml: decide calls read = 8, one per job in needs (8)
+2026-09-24T23:46:23.7231578Z   ok   — security.yml: job 'security-gate' exists
+2026-09-24T23:46:23.7247575Z   ok   — security.yml: the decide step exists
+2026-09-24T23:46:23.7248880Z   ok   — security.yml: sentinel derived from name 'Security gate' -> 'NOTHING SECURITY RAN'
+2026-09-24T23:46:23.7265080Z   ok   — security.yml: exactly one ::notice:: in the step
+2026-09-24T23:46:23.7281401Z   ok   — security.yml: notice says 'NOTHING SECURITY RAN'
+2026-09-24T23:46:23.7298257Z   ok   — security.yml: notice names 'Security gate'
+2026-09-24T23:46:23.7316273Z   ok   — security.yml: notice says green != tested
+2026-09-24T23:46:23.7334396Z   ok   — security.yml: notice says NOT APPLICABLE
+2026-09-24T23:46:23.7352085Z   ok   — security.yml: notice names the skipped upstreams
+2026-09-24T23:46:23.7368565Z   ok   — security.yml: notice is multi-line (%0A)
+2026-09-24T23:46:23.7385924Z   ok   — security.yml: notice carries a title= property
+2026-09-24T23:46:23.7403274Z   ok   — security.yml: the notice property section is comma-free, so the title survives delivery
+2026-09-24T23:46:23.7419853Z   ok   — security.yml: the delivered title still says 'nothing ran'
+2026-09-24T23:46:23.7437233Z   ok   — security.yml: the dispatched tally is declared
+2026-09-24T23:46:23.7454006Z   ok   — security.yml: the tally excludes NEVER-gated jobs
+2026-09-24T23:46:23.7470556Z   ok   — security.yml: notice fires only when nothing was dispatched
+2026-09-24T23:46:23.7488599Z   ok   — security.yml: notice sits after the fail-closed exit
+2026-09-24T23:46:23.7582903Z   ok   — security.yml: decide calls read = 6, one per job in needs (6)
+2026-09-24T23:46:23.8359576Z   ok   — ci.yml: job 'web-gate' exists
+2026-09-24T23:46:23.8381948Z   ok   — ci.yml: the decide step exists
+2026-09-24T23:46:23.8383787Z   ok   — ci.yml: sentinel derived from name 'Web gate' -> 'NOTHING WEB RAN'
+2026-09-24T23:46:23.8405276Z   ok   — ci.yml: exactly one ::notice:: in the step
+2026-09-24T23:46:23.8427779Z   ok   — ci.yml: notice says 'NOTHING WEB RAN'
+2026-09-24T23:46:23.8445609Z   ok   — ci.yml: notice names 'Web gate'
+2026-09-24T23:46:23.8464068Z   ok   — ci.yml: notice says green != tested
+2026-09-24T23:46:23.8481803Z   ok   — ci.yml: notice says NOT APPLICABLE
+2026-09-24T23:46:23.8501576Z   ok   — ci.yml: notice names the skipped upstreams
+2026-09-24T23:46:23.8520284Z   ok   — ci.yml: notice is multi-line (%0A)
+2026-09-24T23:46:23.8538345Z   ok   — ci.yml: notice carries a title= property
+2026-09-24T23:46:23.8557123Z   ok   — ci.yml: the notice property section is comma-free, so the title survives delivery
+2026-09-24T23:46:23.8575091Z   ok   — ci.yml: the delivered title still says 'nothing ran'
+2026-09-24T23:46:23.8594323Z   ok   — ci.yml: the dispatched tally is declared
+2026-09-24T23:46:23.8611805Z   ok   — ci.yml: the tally excludes NEVER-gated jobs
+2026-09-24T23:46:23.8630599Z   ok   — ci.yml: notice fires only when nothing was dispatched
+2026-09-24T23:46:23.8649701Z   ok   — ci.yml: notice sits after the fail-closed exit
+2026-09-24T23:46:23.8751470Z   ok   — ci.yml: decide calls read = 3, one per job in needs (3)
+2026-09-24T23:46:23.8752024Z 
+2026-09-24T23:46:23.8752836Z case 2: deleting the notice from EACH of the four workflows reds this ratchet
+2026-09-24T23:46:24.1855909Z   ok   — mutation[elixir.yml/clean]: notice_count = '1'
+2026-09-24T23:46:24.4866081Z   ok   — mutation[elixir.yml/drop-notice]: notice_count = '0'
+2026-09-24T23:46:24.7922771Z   ok   — mutation[elixir.yml/clean]: notice_title_comma_free = 'True'
+2026-09-24T23:46:25.0995800Z   ok   — mutation[elixir.yml/clean]: notice_title_discloses = 'True'
+2026-09-24T23:46:25.2777495Z   ok   — mutation[cloud.yml/clean]: notice_count = '1'
+2026-09-24T23:46:25.4561308Z   ok   — mutation[cloud.yml/drop-notice]: notice_count = '0'
+2026-09-24T23:46:25.6348026Z   ok   — mutation[cloud.yml/clean]: notice_title_comma_free = 'True'
+2026-09-24T23:46:25.8127646Z   ok   — mutation[cloud.yml/clean]: notice_title_discloses = 'True'
+2026-09-24T23:46:26.1883809Z   ok   — mutation[console-harness.yml/clean]: notice_count = '1'
+2026-09-24T23:46:26.5637407Z   ok   — mutation[console-harness.yml/drop-notice]: notice_count = '0'
+2026-09-24T23:46:26.9374320Z   ok   — mutation[console-harness.yml/clean]: notice_title_comma_free = 'True'
+2026-09-24T23:46:27.3108975Z   ok   — mutation[console-harness.yml/clean]: notice_title_discloses = 'True'
+2026-09-24T23:46:27.5141864Z   ok   — mutation[security.yml/clean]: notice_count = '1'
+2026-09-24T23:46:27.7190109Z   ok   — mutation[security.yml/drop-notice]: notice_count = '0'
+2026-09-24T23:46:27.9259200Z   ok   — mutation[security.yml/clean]: notice_title_comma_free = 'True'
+2026-09-24T23:46:28.1350105Z   ok   — mutation[security.yml/clean]: notice_title_discloses = 'True'
+2026-09-24T23:46:28.2795814Z   ok   — mutation[ci.yml/clean]: notice_count = '1'
+2026-09-24T23:46:28.4219473Z   ok   — mutation[ci.yml/drop-notice]: notice_count = '0'
+2026-09-24T23:46:28.5645022Z   ok   — mutation[ci.yml/clean]: notice_title_comma_free = 'True'
+2026-09-24T23:46:28.7063043Z   ok   — mutation[ci.yml/clean]: notice_title_discloses = 'True'
+2026-09-24T23:46:28.7063580Z 
+2026-09-24T23:46:28.7064045Z case 2b: comma-ing or deleting the title in EACH of the four workflows reds this ratchet
+2026-09-24T23:46:29.0145338Z   ok   — mutation[elixir.yml/comma-title]: notice_title_comma_free = 'False'
+2026-09-24T23:46:29.3248396Z   ok   — mutation[elixir.yml/comma-title]: notice_title_discloses = 'False'
+2026-09-24T23:46:29.6314101Z   ok   — mutation[elixir.yml/comma-title]: notice_has_sentinel = 'True'
+2026-09-24T23:46:29.9387763Z   ok   — mutation[elixir.yml/drop-title]: notice_title_present = 'False'
+2026-09-24T23:46:30.2458252Z   ok   — mutation[elixir.yml/drop-title]: notice_has_name = 'True'
+2026-09-24T23:46:30.4274590Z   ok   — mutation[cloud.yml/comma-title]: notice_title_comma_free = 'False'
+2026-09-24T23:46:30.6252738Z   ok   — mutation[cloud.yml/comma-title]: notice_title_discloses = 'False'
+2026-09-24T23:46:30.8055029Z   ok   — mutation[cloud.yml/comma-title]: notice_has_sentinel = 'True'
+2026-09-24T23:46:30.9860647Z   ok   — mutation[cloud.yml/drop-title]: notice_title_present = 'False'
+2026-09-24T23:46:31.1649316Z   ok   — mutation[cloud.yml/drop-title]: notice_has_name = 'True'
+2026-09-24T23:46:31.5421517Z   ok   — mutation[console-harness.yml/comma-title]: notice_title_comma_free = 'False'
+2026-09-24T23:46:31.9179854Z   ok   — mutation[console-harness.yml/comma-title]: notice_title_discloses = 'False'
+2026-09-24T23:46:32.3103728Z   ok   — mutation[console-harness.yml/comma-title]: notice_has_sentinel = 'True'
+2026-09-24T23:46:32.6963676Z   ok   — mutation[console-harness.yml/drop-title]: notice_title_present = 'False'
+2026-09-24T23:46:33.0726033Z   ok   — mutation[console-harness.yml/drop-title]: notice_has_name = 'True'
+2026-09-24T23:46:33.2761704Z   ok   — mutation[security.yml/comma-title]: notice_title_comma_free = 'False'
+2026-09-24T23:46:33.4793478Z   ok   — mutation[security.yml/comma-title]: notice_title_discloses = 'False'
+2026-09-24T23:46:33.6874555Z   ok   — mutation[security.yml/comma-title]: notice_has_sentinel = 'True'
+2026-09-24T23:46:33.8924168Z   ok   — mutation[security.yml/drop-title]: notice_title_present = 'False'
+2026-09-24T23:46:34.0970402Z   ok   — mutation[security.yml/drop-title]: notice_has_name = 'True'
+2026-09-24T23:46:34.2396807Z   ok   — mutation[ci.yml/comma-title]: notice_title_comma_free = 'False'
+2026-09-24T23:46:34.3811844Z   ok   — mutation[ci.yml/comma-title]: notice_title_discloses = 'False'
+2026-09-24T23:46:34.5256627Z   ok   — mutation[ci.yml/comma-title]: notice_has_sentinel = 'True'
+2026-09-24T23:46:34.6691534Z   ok   — mutation[ci.yml/drop-title]: notice_title_present = 'False'
+2026-09-24T23:46:34.8135412Z   ok   — mutation[ci.yml/drop-title]: notice_has_name = 'True'
+2026-09-24T23:46:34.8136461Z 
+2026-09-24T23:46:34.8137123Z case 3: every other assertion is proven able to fail (elixir.yml as the probe)
+2026-09-24T23:46:35.1188834Z   ok   — mutation[elixir.yml/double-notice]: notice_count = '2'
+2026-09-24T23:46:35.4266798Z   ok   — mutation[elixir.yml/ungate]: notice_guarded = 'False'
+2026-09-24T23:46:35.7324778Z   ok   — mutation[elixir.yml/count-never]: tally_excludes_never = 'False'
+2026-09-24T23:46:36.0417092Z   ok   — mutation[elixir.yml/before-exit]: notice_after_exit = 'False'
+2026-09-24T23:46:36.3511608Z   ok   — mutation[elixir.yml/gut-sentence]: notice_has_sentinel = 'False'
+2026-09-24T23:46:36.6573795Z   ok   — mutation[elixir.yml/gut-sentence]: notice_count = '1'
+2026-09-24T23:46:36.9650131Z   ok   — mutation[elixir.yml/rename]: sentinel = 'NOTHING RENAMED RAN'
+2026-09-24T23:46:37.2745957Z   ok   — mutation[elixir.yml/rename]: notice_has_sentinel = 'False'
+2026-09-24T23:46:37.2746594Z 
+2026-09-24T23:46:37.2749137Z case 4: each aggregator's step, executed — the notice fires only when nothing ran
+2026-09-24T23:46:37.4378982Z   ok   — Elixir gate: docs-only, nothing dispatched -> exit 0, notice emitted
+2026-09-24T23:46:37.4433167Z   ok   — Elixir gate: the suite actually ran -> exit 0, no notice (correct)
+2026-09-24T23:46:37.4489143Z   ok   — Elixir gate: only the test lane ran -> exit 0, no notice (correct)
+2026-09-24T23:46:37.4544612Z   ok   — Elixir gate: RED — no reassuring notice on a failure -> exit 1, no notice (correct)
+2026-09-24T23:46:37.5398884Z   ok   — Cloud gate: docs-only, nothing dispatched -> exit 0, notice emitted
+2026-09-24T23:46:37.5453679Z   ok   — Cloud gate: api-only, the census ran and nothing else -> exit 0, no notice (correct)
+2026-09-24T23:46:37.5508227Z   ok   — Cloud gate: cloud/** touched, mix test really ran -> exit 0, no notice (correct)
+2026-09-24T23:46:37.5563788Z   ok   — Cloud gate: RED — no reassuring notice on a failure -> exit 1, no notice (correct)
+2026-09-24T23:46:37.5618548Z   ok   — Cloud gate: RED — census skipped while census=true and cloud=false -> exit 1, no notice (correct)
+2026-09-24T23:46:37.5673094Z   ok   — Cloud gate: RED — the census failed -> exit 1, no notice (correct)
+2026-09-24T23:46:37.7455212Z   ok   — Console gate: api-only, nothing dispatched -> exit 0, notice emitted
+2026-09-24T23:46:37.7514459Z   ok   — Console gate: the harness really ran -> exit 0, no notice (correct)
+2026-09-24T23:46:37.7573790Z   ok   — Console gate: RED — no reassuring notice on a failure -> exit 1, no notice (correct)
+2026-09-24T23:46:37.8604655Z   ok   — Security gate: docs-only, nothing dispatched -> exit 0, notice emitted
+2026-09-24T23:46:37.8664273Z   ok   — Security gate: the scans really ran -> exit 0, no notice (correct)
+2026-09-24T23:46:37.8720347Z   ok   — Security gate: RED — no reassuring notice on a failure -> exit 1, no notice (correct)
+2026-09-24T23:46:37.8720757Z 
+2026-09-24T23:46:37.8720968Z case 5: the emitted body carries the derived sentence and names the skips
+2026-09-24T23:46:37.8778350Z   ok   — Elixir gate: docs-only -> exit 0, notice emitted
+2026-09-24T23:46:37.8804936Z   ok   — Elixir gate …says 'NOTHING ELIXIR RAN'
+2026-09-24T23:46:37.8831511Z   ok   — Elixir gate …says 'NOT because anything was tested'
+2026-09-24T23:46:37.8858536Z   ok   — Elixir gate …says 'NOT APPLICABLE'
+2026-09-24T23:46:37.8885303Z   ok   — Elixir gate …says 'mix-test'
+2026-09-24T23:46:37.8911339Z   ok   — Elixir gate …says 'mix-prod-compile'
+2026-09-24T23:46:37.8937892Z   ok   — Elixir gate …the skip list is expanded, not literal
+2026-09-24T23:46:37.8994587Z   ok   — Cloud gate: docs-only -> exit 0, notice emitted
+2026-09-24T23:46:37.9020682Z   ok   — Cloud gate …says 'NOTHING CLOUD RAN'
+2026-09-24T23:46:37.9078945Z   ok   — Console gate: api-only -> exit 0, notice emitted
+2026-09-24T23:46:37.9105324Z   ok   — Console gate …says 'NOTHING CONSOLE RAN'
+2026-09-24T23:46:37.9164800Z   ok   — Security gate: docs-only -> exit 0, notice emitted
+2026-09-24T23:46:37.9191266Z   ok   — Security gate …says 'NOTHING SECURITY RAN'
+2026-09-24T23:46:37.9191564Z 
+2026-09-24T23:46:37.9191794Z case 6: security.yml does not claim to be a required context
+2026-09-24T23:46:37.9207424Z   ok   — security.yml no longer claims Security gate is the required context
+2026-09-24T23:46:37.9224724Z   ok   — elixir.yml still states (truthfully) that Elixir gate is a required context
+2026-09-24T23:46:37.9240131Z   ok   — cloud.yml still states (truthfully) that Cloud gate is a required context
+2026-09-24T23:46:37.9257289Z   ok   — console-harness.yml still states (truthfully) that Console gate is a required context
+2026-09-24T23:46:37.9257692Z 
+2026-09-24T23:46:37.9257958Z case 7: the RED ::error:: names the job that refused, and no job that passed
+2026-09-24T23:46:37.9322988Z   ok   — Elixir gate: mix-test failed -> the annotation names 'mix-test'
+2026-09-24T23:46:37.9336793Z   ok   — Elixir gate: mix-test failed -> …and does not name the passing 'mix-prod-compile'
+2026-09-24T23:46:37.9401256Z   ok   — Elixir gate: mix-prod-compile failed -> the annotation names 'mix-prod-compile'
+2026-09-24T23:46:37.9415118Z   ok   — Elixir gate: mix-prod-compile failed -> …and does not name the passing 'mix-test'
+2026-09-24T23:46:37.9478190Z   ok   — Cloud gate: test failed -> the annotation names 'test'
+2026-09-24T23:46:37.9491531Z   ok   — Cloud gate: test failed -> …and does not name the passing 'compile'
+2026-09-24T23:46:37.9555803Z   ok   — Cloud gate: compile failed -> the annotation names 'compile'
+2026-09-24T23:46:37.9569320Z   ok   — Cloud gate: compile failed -> …and does not name the passing 'test'
+2026-09-24T23:46:37.9632724Z   ok   — Cloud gate: census failed -> the annotation names 'census (reader corpus)'
+2026-09-24T23:46:37.9646306Z   ok   — Cloud gate: census failed -> …and does not name the passing 'compile'
+2026-09-24T23:46:37.9709470Z   ok   — Console gate: cssom-parity failed -> the annotation names 'cssom-parity'
+2026-09-24T23:46:37.9723008Z   ok   — Console gate: cssom-parity failed -> …and does not name the passing 'tier-floor-render'
+2026-09-24T23:46:37.9787571Z   ok   — Console gate: tier-floor-render failed -> the annotation names 'tier-floor-render'
+2026-09-24T23:46:37.9800793Z   ok   — Console gate: tier-floor-render failed -> …and does not name the passing 'cssom-parity'
+2026-09-24T23:46:37.9866818Z   ok   — Security gate: mix-audit failed -> the annotation names 'mix-audit'
+2026-09-24T23:46:37.9880614Z   ok   — Security gate: mix-audit failed -> …and does not name the passing 'sobelow-inline-overlap'
+2026-09-24T23:46:37.9945403Z   ok   — Security gate: sobelow-inline-overlap failed -> the annotation names 'sobelow-inline-overlap'
+2026-09-24T23:46:37.9958767Z   ok   — Security gate: sobelow-inline-overlap failed -> …and does not name the passing 'mix-audit'
+2026-09-24T23:46:38.0023579Z   ok   — Security gate: Sobelow found a NEW finding -> the annotation names 'sobelow'
+2026-09-24T23:46:38.0036750Z   ok   — Security gate: Sobelow found a NEW finding -> …and does not name the passing 'mix-audit'
+2026-09-24T23:46:38.0102098Z   ok   — Cloud gate: test skipped against a true gate -> the annotation names 'test'
+2026-09-24T23:46:38.0115524Z   ok   — Cloud gate: test skipped against a true gate -> …and does not name the passing 'compile'
+2026-09-24T23:46:38.0179677Z   ok   — Cloud gate: test result EMPTY (not in the needs set) -> the annotation names 'test'
+2026-09-24T23:46:38.0193858Z   ok   — Cloud gate: test result EMPTY (not in the needs set) -> …and does not name the passing 'compile'
+2026-09-24T23:46:38.0257110Z   ok   — Cloud gate: unrecognised result -> the annotation names 'test'
+2026-09-24T23:46:38.0270446Z   ok   — Cloud gate: unrecognised result -> …and does not name the passing 'compile'
+2026-09-24T23:46:38.0334380Z   ok   — Cloud gate: census skipped against a true gate -> the annotation names 'census (reader corpus)'
+2026-09-24T23:46:38.0348258Z   ok   — Cloud gate: census skipped against a true gate -> …and does not name the passing 'compile'
+2026-09-24T23:46:38.0410974Z   ok   — Cloud gate: census skipped against an EMPTY dispatcher output -> the annotation names 'census (reader corpus)'
+2026-09-24T23:46:38.0425135Z   ok   — Cloud gate: census skipped against an EMPTY dispatcher output -> …and does not name the passing 'compile'
+2026-09-24T23:46:38.0425633Z 
+2026-09-24T23:46:38.0428196Z case 7b: naming the set did not flatten security.yml's advisory clause
+2026-09-24T23:46:38.0483305Z   ok   — Security gate: RED -> exit 1, no notice (correct)
+2026-09-24T23:46:38.0517179Z   ok   — Security gate …still says it is advisory, not one of the four required
+2026-09-24T23:46:38.0530720Z   ok   — Security gate …still does not claim to be the required context
+2026-09-24T23:46:38.0590639Z   ok   — Console gate: RED, no refusal -> exit 1, no notice (correct)
+2026-09-24T23:46:38.0623796Z   ok   — Console gate …the plain red arm names the measured defect
+2026-09-24T23:46:38.0624359Z 
+2026-09-24T23:46:38.0624517Z ----
+2026-09-24T23:46:38.0625024Z 211 passed, 0 failed
+2026-09-24T23:46:38.0732886Z ##[group]Run bash scripts/run-instrument.sh merge-authority-claim-harness -- bash scripts/merge-authority-claim-check.test.sh
+2026-09-24T23:46:38.0733868Z [36;1mbash scripts/run-instrument.sh merge-authority-claim-harness -- bash scripts/merge-authority-claim-check.test.sh[0m
+2026-09-24T23:46:38.0796966Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:46:38.0797258Z env:
+2026-09-24T23:46:38.0797522Z   BP_STEP_VERDICT: MEASURED-CLEAN
+2026-09-24T23:46:38.0797796Z ##[endgroup]
+2026-09-24T23:46:38.0941008Z == § A. disarm proofs (a renamed sibling copy, disarmed, must red) ==
+2026-09-24T23:46:39.1178974Z ok   - A1 strong vocabulary neutered: the disarmed copy reds its OWN --selftest
+2026-09-24T23:46:40.1198887Z ok   - A2 wide-tier merge object neutered: the disarmed copy reds its OWN --selftest
+2026-09-24T23:46:41.1472961Z ok   - A3 spec-derived authority neutered: the disarmed copy reds its OWN --selftest
+2026-09-24T23:46:42.1402568Z ok   - A4 the pristine original passes its own --selftest at the same moment
+2026-09-24T23:46:43.1514980Z ok   - A5 the guard --selftest runs 25 assertions
+2026-09-24T23:46:43.1515308Z 
+2026-09-24T23:46:43.1516004Z == § B. venue (the guard must ride a context that can stop a merge) ==
+2026-09-24T23:46:43.1568220Z ok   - B1 the guard is invoked from elixir.yml job 'path-escape'
+2026-09-24T23:46:43.1588646Z ok   - B2 no new JOB was added for it
+2026-09-24T23:46:43.1619690Z ok   - B3 path-escape is in elixir-gate needs:     needs: [changes, mix-test, mix-prod-compile, validation-perf, path-escape, format]
+2026-09-24T23:46:43.1650223Z ok   - B4a elixir-gate renders the constant name
+2026-09-24T23:46:43.1665209Z ok   - B4b .github/required-checks.json lists 'Elixir gate' as a required context
+2026-09-24T23:46:43.1684201Z ok   - B5 the aggregator judges path-escape with gate value NEVER
+2026-09-24T23:46:43.1751102Z ok   - B6 path-escape carries no job-level 'if:' and no continue-on-error
+2026-09-24T23:46:43.1789797Z ok   - B7 elixir.yml carries no workflow-level 'paths:' key
+2026-09-24T23:46:43.1805549Z ok   - B8 the guard is not wired into doc-gates.yml
+2026-09-24T23:46:43.1852626Z ok   - B9 no duplicate step ids on path-escape
+2026-09-24T23:46:43.5486564Z ok   - B10 the guard is green on this tree at its committed baseline
+2026-09-24T23:46:43.5487093Z 
+2026-09-24T23:46:43.5487582Z ----
+2026-09-24T23:46:43.5487897Z 16 passed, 0 failed
+2026-09-24T23:46:43.5489695Z instrument merge-authority-claim-harness: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:46:43.5561083Z ##[group]Run bash scripts/run-instrument.sh merge-authority-claim -- bash scripts/merge-authority-claim-check.sh
+2026-09-24T23:46:43.5561903Z [36;1mbash scripts/run-instrument.sh merge-authority-claim -- bash scripts/merge-authority-claim-check.sh[0m
+2026-09-24T23:46:43.5625218Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:46:43.5625483Z env:
+2026-09-24T23:46:43.5625694Z   BP_STEP_VERDICT: MEASURED-CLEAN
+2026-09-24T23:46:43.5625951Z ##[endgroup]
+2026-09-24T23:46:43.9423823Z merge-authority claims: 13 UNRESOLVED (committed baseline 14), 22 resolved by a required scope, 47 denial prose, 6 annotated advisory-ok
+2026-09-24T23:46:43.9425487Z note: now 13, below the committed baseline of 14 — lower MERGE_AUTHORITY_CLAIM_BASELINE to ratchet.
+2026-09-24T23:46:43.9426144Z ok: no merge-authority claim outside the spec's required set beyond the committed baseline
+2026-09-24T23:46:43.9427019Z instrument merge-authority-claim: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:46:43.9497382Z ##[group]Run bash scripts/run-instrument.sh blocking-name-census-selftest -- python3 scripts/blocking-name-census.py --selftest
+2026-09-24T23:46:43.9498325Z [36;1mbash scripts/run-instrument.sh blocking-name-census-selftest -- python3 scripts/blocking-name-census.py --selftest[0m
+2026-09-24T23:46:43.9559967Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:46:43.9560219Z env:
+2026-09-24T23:46:43.9560431Z   BP_STEP_VERDICT: MEASURED-CLEAN
+2026-09-24T23:46:43.9560680Z ##[endgroup]
+2026-09-24T23:46:44.1050895Z ok   s1 every closure member named -> exit 0
+2026-09-24T23:46:44.1051489Z ok   s1b the count is emitted, not typed
+2026-09-24T23:46:44.1052650Z ok   s2 EDGE DIRECTION: a leaf that only needs `changes` and is needed THROUGH mid is found (walk inward from the aggregator)
+2026-09-24T23:46:44.1053737Z ok   s3 MUTATION: a job added to the aggregator's needs with no row reds BY NAME
+2026-09-24T23:46:44.1054456Z ok   s3b ... and naming it turns the guard green again
+2026-09-24T23:46:44.1055113Z ok   s4 an unnamed sibling OUTSIDE the closure is residue, not red
+2026-09-24T23:46:44.1055796Z ok   s5 a matrixed static name is named by its tuple-suffixed context
+2026-09-24T23:46:44.1056478Z ok   s5b ... but an UNmatrixed job is not accounted by a suffixed row
+2026-09-24T23:46:44.1057137Z ok   s6 a partial template is accounted by a context it expands to
+2026-09-24T23:46:44.1057831Z ok   s6b ... or by its own uninterpolated template (the skipped-leg name)
+2026-09-24T23:46:44.1058426Z ok   s6c ... and not by an unrelated context
+2026-09-24T23:46:44.1059074Z ok   s7 a whole-interpolation name is accounted leg by leg through its declaration
+2026-09-24T23:46:44.1059757Z ok   s7b ... and one unnamed leg reds, naming the leg
+2026-09-24T23:46:44.1060373Z ok   s7c an undeclared catch-all is never matched (a .+ row is a takeover)
+2026-09-24T23:46:44.1061055Z ok   s7d a declared legs file that does not exist REFUSES (exit 2)
+2026-09-24T23:46:44.1061972Z ok   s8 ZERO workflow files REFUSES — never a vacuous pass
+2026-09-24T23:46:44.1062744Z ok   s9 a required context NO job produces REFUSES
+2026-09-24T23:46:44.1063336Z ok   s10 the list form of `on:` (YAML 1.1 `on` -> True) is still walked
+2026-09-24T23:46:44.1064005Z ok   s11 the recipe line is total/residue/on-PR/no-coe over ALL files
+2026-09-24T23:46:44.1064425Z 
+2026-09-24T23:46:44.1064543Z SELFTEST OK
+2026-09-24T23:46:44.1178556Z instrument blocking-name-census-selftest: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:46:44.1251278Z ##[group]Run bash scripts/run-instrument.sh blocking-name-census -- python3 scripts/blocking-name-census.py
+2026-09-24T23:46:44.1252061Z [36;1mbash scripts/run-instrument.sh blocking-name-census -- python3 scripts/blocking-name-census.py[0m
+2026-09-24T23:46:44.1314619Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:46:44.1314868Z env:
+2026-09-24T23:46:44.1315080Z   BP_STEP_VERDICT: MEASURED-CLEAN
+2026-09-24T23:46:44.1315545Z ##[endgroup]
+2026-09-24T23:46:45.5690789Z scanned 81 workflow files, 184 jobs; 4 required contexts, each produced by a job
+2026-09-24T23:46:45.5692292Z blocking-shaped (a required job or in its transitive needs closure): 23 jobs, 23 accounted, 0 UNACCOUNTED
+2026-09-24T23:46:45.5693463Z w56 recipe (jobs residue on_pull_request no_continue_on_error): 184 41 15 15
+2026-09-24T23:46:45.5694923Z   residue = not required, not in any closure, not named — it CANNOT block a merge, so it is reported, never red here:
+2026-09-24T23:46:45.5696158Z     bp-graph-drift.yml job drift: bp-graph.js mirror identity (advisory)
+2026-09-24T23:46:45.5696950Z     chronicle-paper.yml job verify: verify
+2026-09-24T23:46:45.5697620Z     chronicle-paper.yml job publish: publish
+2026-09-24T23:46:45.5698640Z     connectors.yml job shim-confinement: Cloud shim confinement + session-sandbox proofs (black-box, no real Vercel)
+2026-09-24T23:46:45.5699829Z     connectors.yml job test: Typecheck + tests (real Postgres, zero skips)
+2026-09-24T23:46:45.5701215Z     create-quickstart-smoke.yml job smoke: CREATE quickstart smoke (ephemeral clean-profile instance)
+2026-09-24T23:46:45.5702647Z     gh-retry-selftest.yml job selftest: selftest
+2026-09-24T23:46:45.5703677Z     plugin-node.yml job discover: Discover plugin matrix
+2026-09-24T23:46:45.5704916Z     plugin-node.yml job plugin: Plugin ${{ matrix.entry.plugin }} (Node ${{ matrix.entry.node }})
+2026-09-24T23:46:45.5706052Z     plugin-node.yml job noop: No node-capable plugins (skip)
+2026-09-24T23:46:45.5706753Z     sdk-tests.yml job test: sdk/ build + unit tests
+2026-09-24T23:46:45.5707511Z     shell-harnesses.yml job harness: ${{ matrix.leg.name }}
+2026-09-24T23:46:45.5708341Z     weekly-changelog.yml job verify: Weekly changelog generator
+2026-09-24T23:46:45.5709181Z     weekly-changelog.yml job publish: Publish weekly changelog
+2026-09-24T23:46:45.5710301Z     windows-smoke.yml job install-ps1: install-cli.ps1 runs on windows-latest (hermetic)
+2026-09-24T23:46:45.5711549Z OK: every merge-blocking job name is in required ∪ exclusions.
+2026-09-24T23:46:45.5831656Z instrument blocking-name-census: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:46:45.5902898Z ##[group]Run bash scripts/run-instrument.sh toplevel-classifier -- bash scripts/toplevel-classifier-check.sh
+2026-09-24T23:46:45.5903728Z [36;1mbash scripts/run-instrument.sh toplevel-classifier -- bash scripts/toplevel-classifier-check.sh[0m
+2026-09-24T23:46:45.5966256Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:46:45.5966512Z env:
+2026-09-24T23:46:45.5966721Z   BP_STEP_VERDICT: MEASURED-CLEAN
+2026-09-24T23:46:45.5966974Z ##[endgroup]
+2026-09-24T23:46:48.2414530Z toplevel-classifier: .claude -> none
+2026-09-24T23:46:48.9535859Z toplevel-classifier: .demo-content -> none
+2026-09-24T23:46:49.6458406Z toplevel-classifier: .githooks -> none
+2026-09-24T23:46:50.3340500Z toplevel-classifier: .github -> none
+2026-09-24T23:46:50.3510855Z toplevel-classifier: api -> elixir
+2026-09-24T23:46:50.6648600Z toplevel-classifier: cloud -> cloud
+2026-09-24T23:46:50.7128774Z toplevel-classifier: deploy -> cloud
+2026-09-24T23:46:50.7199585Z toplevel-classifier: design -> elixir
+2026-09-24T23:46:51.4120478Z toplevel-classifier: docker-compose.yml -> none
+2026-09-24T23:46:52.0981778Z toplevel-classifier: docs -> none
+2026-09-24T23:46:52.1113557Z toplevel-classifier: internal -> cloud
+2026-09-24T23:46:52.8296846Z toplevel-classifier: js -> none
+2026-09-24T23:46:53.5014830Z toplevel-classifier: package-lock.json -> none
+2026-09-24T23:46:53.5046755Z toplevel-classifier: scripts -> cloud
+2026-09-24T23:46:53.5815164Z toplevel-classifier: templates -> cloud,go
+2026-09-24T23:46:54.2568835Z toplevel-classifier: tooling -> none
+2026-09-24T23:46:54.9465277Z toplevel-classifier: web -> none
+2026-09-24T23:46:54.9484447Z toplevel-classifier: OK — every changed top-level entry is registered; 57 row(s), 11 verified gate claim(s).
+2026-09-24T23:46:54.9500586Z instrument toplevel-classifier: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:46:54.9570171Z ##[group]Run bash scripts/run-instrument.sh toplevel-classifier-selftest -- bash scripts/toplevel-classifier-check.sh --selftest
+2026-09-24T23:46:54.9571300Z [36;1mbash scripts/run-instrument.sh toplevel-classifier-selftest -- bash scripts/toplevel-classifier-check.sh --selftest[0m
+2026-09-24T23:46:54.9633709Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:46:54.9633969Z env:
+2026-09-24T23:46:54.9634179Z   BP_STEP_VERDICT: MEASURED-CLEAN
+2026-09-24T23:46:54.9634438Z ##[endgroup]
+2026-09-24T23:46:56.9165664Z   ok   1a an unrecognised top-level entry reds (rc=1)
+2026-09-24T23:46:56.9166332Z   ok   1b the refusal names the entry
+2026-09-24T23:46:56.9166857Z   ok   1c the refusal names the offending path
+2026-09-24T23:46:56.9167411Z   ok   1d the refusal says how to classify it
+2026-09-24T23:46:59.5139415Z   ok   2a a diff over known entries passes (rc=0)
+2026-09-24T23:46:59.5140372Z   ok   2b a claimed entry reports its gates
+2026-09-24T23:47:01.4628719Z   ok   3a deleting the 'docs' row makes docs/ unknown (rc=1)
+2026-09-24T23:47:01.4629434Z   ok   3b and it is named
+2026-09-24T23:47:04.0226749Z   ok   4a a registry row whose entry is gone reds (rc=1)
+2026-09-24T23:47:04.0227343Z   ok   4b the stale row is named
+2026-09-24T23:47:07.0733123Z   ok   5a claiming a gate the ratchet denies reds (rc=1)
+2026-09-24T23:47:07.0733696Z   ok   5b the false claim is named
+2026-09-24T23:47:09.5959006Z   ok   6a a 'none' row a path set has overtaken reds (rc=1)
+2026-09-24T23:47:09.5959726Z   ok   6b the understated row is named
+2026-09-24T23:47:09.7114070Z   ok   7a an empty registry REFUSES with exit 2
+2026-09-24T23:47:09.7117713Z   ok   7b the refusal says why
+2026-09-24T23:47:12.3091349Z   ok   8b the duplicate is named
+2026-09-24T23:47:12.3091988Z   ok   8a a duplicate registry row reds (rc=1)
+2026-09-24T23:47:14.8865590Z   ok   9a a reasonless row reds (rc=1)
+2026-09-24T23:47:14.8866189Z   ok   9b and says why
+2026-09-24T23:47:14.9716615Z   ok   10a an unresolvable HEAD^1 REFUSES with exit 2
+2026-09-24T23:47:14.9717285Z   ok   10b and says so
+2026-09-24T23:47:17.5794623Z   ok   11a a tracked top-level entry the registry lacks reds even when the diff misses it (rc=1)
+2026-09-24T23:47:17.5795346Z   ok   11b it is named
+2026-09-24T23:47:17.5795627Z   ok   11c and the refusal says how to classify it
+2026-09-24T23:47:20.2416532Z   ok   12a a row naming an untracked path reds (rc=1)
+2026-09-24T23:47:20.2417056Z   ok   12b it is named
+2026-09-24T23:47:22.2916744Z   ok   13a deleting a top-level entry passes (rc=0)
+2026-09-24T23:47:24.1558012Z   ok   13b without the filter the deletion reds, so the filter is load-bearing (rc=1)
+2026-09-24T23:47:24.1558777Z   ok   13c and names the deleted entry
+2026-09-24T23:47:24.1559089Z 
+2026-09-24T23:47:24.1559240Z SELFTEST: 30 passed, 0 failed
+2026-09-24T23:47:24.2066114Z instrument toplevel-classifier-selftest: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:47:24.2138304Z ##[group]Run bash scripts/run-instrument.sh vips-hedge-tripwire-selftest -- bash scripts/vips-hedge-tripwire.sh --selftest
+2026-09-24T23:47:24.2139195Z [36;1mbash scripts/run-instrument.sh vips-hedge-tripwire-selftest -- bash scripts/vips-hedge-tripwire.sh --selftest[0m
+2026-09-24T23:47:24.2200755Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:47:24.2201002Z env:
+2026-09-24T23:47:24.2201214Z   BP_STEP_VERDICT: MEASURED-CLEAN
+2026-09-24T23:47:24.2201461Z ##[endgroup]
+2026-09-24T23:47:24.2512403Z ok   1  no setting, no installer — the status quo passes (exit 0)
+2026-09-24T23:47:24.2691958Z ok   2  setting in api/config, no installer — REDS (exit 1)
+2026-09-24T23:47:24.2875169Z ok   3  setting in api/mix.exs, no installer — REDS (exit 1)
+2026-09-24T23:47:24.3053309Z ok   4  setting in a workflow env, no installer — REDS (exit 1)
+2026-09-24T23:47:24.3238229Z ok   5  setting present AND an installer — passes, hedge live (exit 0)
+2026-09-24T23:47:24.3409374Z ok   6  setting in a COMMENT only — passes, prose is not config (exit 0)
+2026-09-24T23:47:24.3593769Z ok   7  setting live, installer only in a COMMENT — REDS (exit 1)
+2026-09-24T23:47:24.3812627Z ok   8  installer only in the EXCLUDED workflow — still REDS (exit 1)
+2026-09-24T23:47:24.3990662Z ok   9  a step NAME saying install+libvips is not an installer (exit 1)
+2026-09-24T23:47:24.4005521Z ok   10  empty scan root refuses to report OK (exit 4)
+2026-09-24T23:47:24.4005968Z 
+2026-09-24T23:47:24.4006221Z vips-hedge-tripwire --selftest: 10 tests, 0 failures
+2026-09-24T23:47:24.4041499Z instrument vips-hedge-tripwire-selftest: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:47:24.4111521Z ##[group]Run bash scripts/run-instrument.sh vips-hedge-tripwire -- bash scripts/vips-hedge-tripwire.sh
+2026-09-24T23:47:24.4112554Z [36;1mbash scripts/run-instrument.sh vips-hedge-tripwire -- bash scripts/vips-hedge-tripwire.sh[0m
+2026-09-24T23:47:24.4174727Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:47:24.4174979Z env:
+2026-09-24T23:47:24.4175179Z   BP_STEP_VERDICT: MEASURED-CLEAN
+2026-09-24T23:47:24.4175435Z ##[endgroup]
+2026-09-24T23:47:25.2750805Z vips-hedge-tripwire: 87 setting source(s), 80 installer source(s) scanned under /home/runner/work/barkpark/barkpark
+2026-09-24T23:47:25.2752085Z   PLATFORM_PROVIDED_LIBVIPS selected in non-comment config: 0 place(s)
+2026-09-24T23:47:25.2753097Z   system libvips installed by a CI lane:           1 place(s)
+2026-09-24T23:47:25.2754175Z OK — PLATFORM_PROVIDED_LIBVIPS is not selected anywhere; vix uses its bundled precompiled libvips.
+2026-09-24T23:47:25.2754961Z      No CI lane needs a system libvips, and none is required to install one.
+2026-09-24T23:47:25.2755418Z instrument vips-hedge-tripwire: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:47:25.2823009Z ##[group]Run bash scripts/run-instrument.sh boundary-marker-selftest -- bash scripts/boundary-marker-check.sh --selftest
+2026-09-24T23:47:25.2823932Z [36;1mbash scripts/run-instrument.sh boundary-marker-selftest -- bash scripts/boundary-marker-check.sh --selftest[0m
+2026-09-24T23:47:25.2885643Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:47:25.2885898Z env:
+2026-09-24T23:47:25.2886098Z   BP_STEP_VERDICT: MEASURED-CLEAN
+2026-09-24T23:47:25.2886355Z ##[endgroup]
+2026-09-24T23:47:25.3048892Z == boundary-marker-check --selftest ==
+2026-09-24T23:47:25.3535160Z ok:   selftest a marker whose test FILE is gone reds (exit 1)
+2026-09-24T23:47:25.4067347Z ok:   selftest a marker whose test NAME is gone reds (the rename case) (exit 1)
+2026-09-24T23:47:25.4641631Z ok:   selftest a duplicate boundary slug reds (exit 1)
+2026-09-24T23:47:25.5190201Z ok:   selftest a marker with no test: clause reds (exit 1)
+2026-09-24T23:47:25.5746383Z ok:   selftest a marker whose test: clause has no #name reds (exit 1)
+2026-09-24T23:47:25.6304852Z ok:   selftest a marker pointing into a language this reader cannot parse reds (exit 1)
+2026-09-24T23:47:25.6830243Z ok:   selftest a dead doc: backlink reds (exit 1)
+2026-09-24T23:47:25.7327033Z ok:   selftest the clean fixture passes and the marker is COUNTED (exit 0)
+2026-09-24T23:47:25.7767816Z ok:   selftest a corpus of ZERO markers is a legitimate pass, reported not asserted (exit 0)
+2026-09-24T23:47:25.8326997Z ok:   selftest .mjs marker resolving to a node test passes, and is counted (exit 0)
+2026-09-24T23:47:25.8949285Z ok:   selftest .mjs marker whose node test was renamed reds (exit 1)
+2026-09-24T23:47:25.9561433Z ok:   selftest .mjs single-quoted test name resolves too (exit 0)
+2026-09-24T23:47:26.0121973Z ok:   selftest a Go marker resolves via its func Test identifier (exit 0)
+2026-09-24T23:47:26.0631602Z ok:   selftest a marker under node_modules/ is not scanned (exit 0)
+2026-09-24T23:47:26.1114210Z ok:   selftest a marker in a test file is fixture data, not a claim (exit 0)
+2026-09-24T23:47:26.1614752Z ok:   selftest a docstring quoting a slug does not false-RED as a duplicate (exit 0)
+2026-09-24T23:47:26.1615468Z 
+2026-09-24T23:47:26.1615676Z boundary-marker-check --selftest: PASS
+2026-09-24T23:47:26.1617703Z instrument boundary-marker-selftest: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:47:26.1699634Z ##[group]Run bash scripts/run-instrument.sh boundary-marker -- bash scripts/boundary-marker-check.sh
+2026-09-24T23:47:26.1700364Z [36;1mbash scripts/run-instrument.sh boundary-marker -- bash scripts/boundary-marker-check.sh[0m
+2026-09-24T23:47:26.1767933Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:47:26.1768195Z env:
+2026-09-24T23:47:26.1768402Z   BP_STEP_VERDICT: MEASURED-CLEAN
+2026-09-24T23:47:26.1768658Z ##[endgroup]
+2026-09-24T23:47:26.3425599Z ok:   @boundary capability slugs unique
+2026-09-24T23:47:26.3567676Z ok:   cloud/lib/barkpark_cloud/web/router.ex:661 capability:cloud-head-sideeffect-fence
+2026-09-24T23:47:26.3568827Z ok:   cloud/lib/barkpark_cloud/web/router.ex:710 capability:cloud-sse-ticket-head-burn
+2026-09-24T23:47:26.3569831Z ok:   cloud/priv/static/__css_check.mjs:364 capability:css-check-e2-attribute-blindness
+2026-09-24T23:47:26.3570712Z ok:   scanned 3 @boundary marker(s) in the repo corpus
+2026-09-24T23:47:26.3571691Z       (static pairing only: this proves the named test EXISTS, never that it would FAIL if the boundary broke)
+2026-09-24T23:47:26.3572853Z boundary-marker-check: PASS
+2026-09-24T23:47:26.3573476Z instrument boundary-marker: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:47:26.3646687Z ##[group]Run bash scripts/format-diff-scope.test.sh
+2026-09-24T23:47:26.3647080Z [36;1mbash scripts/format-diff-scope.test.sh[0m
+2026-09-24T23:47:26.3709893Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:47:26.3710163Z env:
+2026-09-24T23:47:26.3710380Z   BP_STEP_VERDICT: MEASURED-CLEAN
+2026-09-24T23:47:26.3710645Z ##[endgroup]
+2026-09-24T23:47:26.3863344Z === A. the reader itself (its own mutation matrix, re-run in this lane) ===
+2026-09-24T23:47:26.5569310Z   ok   — format-diff-scope.sh --selftest passes (21 cases)
+2026-09-24T23:47:26.5569701Z 
+2026-09-24T23:47:26.5570304Z === B. the format job's wiring — the verdict must be able to reach the job's exit status ===
+2026-09-24T23:47:26.7096498Z   ok   — format_present = True
+2026-09-24T23:47:26.7113719Z   ok   — format_coe = False
+2026-09-24T23:47:26.7131310Z   ok   — format_if = needs.changes.outputs.compile == 'true'
+2026-09-24T23:47:26.7149067Z   ok   — format_outputs = unformatted_in_diff,unformatted_total,verdict
+2026-09-24T23:47:26.7166391Z   ok   — guard_present = True
+2026-09-24T23:47:26.7185317Z   ok   — guard_coe = True
+2026-09-24T23:47:26.7201711Z   ok   — scope_present = True
+2026-09-24T23:47:26.7219042Z   ok   — scope_coe = False
+2026-09-24T23:47:26.7235344Z   ok   — scope_if = always()
+2026-09-24T23:47:26.7251437Z   ok   — scope_calls_reader = True
+2026-09-24T23:47:26.7267750Z   ok   — scope_index_after_guard = True
+2026-09-24T23:47:26.7283804Z   ok   — job_runs_reader_selftest = True
+2026-09-24T23:47:26.7299817Z   ok   — agg_needs_format = True
+2026-09-24T23:47:26.7315557Z   ok   — agg_binds_result = True
+2026-09-24T23:47:26.7331050Z   ok   — agg_binds_names = True
+2026-09-24T23:47:26.7347072Z   ok   — agg_decides_format = True
+2026-09-24T23:47:26.7347434Z 
+2026-09-24T23:47:26.7348007Z === C. THE PAIR — the REAL Decide step, executed, on one unformatted state ===
+2026-09-24T23:47:26.8895440Z   ok   — extracted the real Decide step body (215 lines)
+2026-09-24T23:47:26.8924293Z   ok   — C1 a diff-scoped format failure REDS the Elixir gate (exit 1)
+2026-09-24T23:47:26.8937293Z   ok   — C1 …the error names the format arm
+2026-09-24T23:47:26.8938135Z   ok   — C1 …the ::error:: NAMES THE FILE
+2026-09-24T23:47:26.8939010Z   ok   — C1 …and the filename is in it, not just 'format failed'
+2026-09-24T23:47:26.8939953Z   ok   — C1 …no reassuring 'nothing ran' notice
+2026-09-24T23:47:26.8969932Z   ok   — C2 inherited drift the diff never touched leaves the gate GREEN (exit 0)
+2026-09-24T23:47:26.8984066Z   ok   — C2 …and it says so
+2026-09-24T23:47:26.8984914Z   ok   — C2 …the gate emits no ::error::
+2026-09-24T23:47:26.8985587Z   ok   — C2 …and never names a file it is not enforcing
+2026-09-24T23:47:26.9125175Z   ok   — C3 push:main (no PR diff) is neutral — the gate does not red on standing debt
+2026-09-24T23:47:26.9126287Z   ok   — C3 …and it NAMES the debt — main green must never mean main silent
+2026-09-24T23:47:26.9127050Z   ok   — C3 …and it SIZES it
+2026-09-24T23:47:26.9127649Z   ok   — C3 …and it says why nothing is enforced here
+2026-09-24T23:47:26.9129270Z   ok   — C3 …and it makes no accusation against a diff that does not exist
+2026-09-24T23:47:26.9174627Z   ok   — C3a the silencing mutation APPLIED (non-empty, and the offender-print line is gone)
+2026-09-24T23:47:26.9307277Z   ok   — C3b a silent-but-green push arm is REACHABLE, so C3's name assertion is a real catch
+2026-09-24T23:47:26.9335516Z   ok   — C4 a docs-only diff legitimately skips format (gate='false') — green
+2026-09-24T23:47:26.9363594Z   ok   — C5 format SKIPPED while its gate is 'true' is RED — it never ran
+2026-09-24T23:47:26.9375846Z   ok   — C5 …and the gate names format as the offender
+2026-09-24T23:47:26.9404245Z   ok   — C6 a CANCELLED format arm is red
+2026-09-24T23:47:26.9417093Z   ok   — C6 …and is told apart from a failure
+2026-09-24T23:47:26.9417510Z 
+2026-09-24T23:47:26.9417821Z === D. mutation: unwire the arm and the pair must STOP holding ===
+2026-09-24T23:47:26.9477390Z   ok   — D0 the mutation APPLIED (the decide line is gone, the body is shorter)
+2026-09-24T23:47:26.9505850Z   ok   — D1 without the decide line a FAILED format arm greens the gate — so C1 is a real catch
+2026-09-24T23:47:26.9536456Z   ok   — D2 the name-carrying mutation APPLIED
+2026-09-24T23:47:26.9576607Z   ok   — D3 without that branch the gate still reds but names NO file — so C1's name assertion is a real catch
+2026-09-24T23:47:26.9577459Z 
+2026-09-24T23:47:26.9578065Z ──────────────────────────────────────────────────────────────
+2026-09-24T23:47:26.9578821Z   43 passed, 0 failed
+2026-09-24T23:47:26.9628301Z ##[group]Run bash scripts/run-instrument.sh elixir-impacted-tests-selftest -- bash scripts/elixir-impacted-tests.sh --selftest
+2026-09-24T23:47:26.9629214Z [36;1mbash scripts/run-instrument.sh elixir-impacted-tests-selftest -- bash scripts/elixir-impacted-tests.sh --selftest[0m
+2026-09-24T23:47:26.9690302Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:47:26.9690555Z env:
+2026-09-24T23:47:26.9690760Z   BP_STEP_VERDICT: MEASURED-CLEAN
+2026-09-24T23:47:26.9691018Z ##[endgroup]
+2026-09-24T23:47:26.9877317Z === §1  FAIL-SAFE: an unclassifiable path must WIDEN, never narrow
+2026-09-24T23:47:27.0052779Z   ok   — api/config/runtime.exs selects ALL
+2026-09-24T23:47:27.0227028Z   ok   — api/config/config.exs selects ALL
+2026-09-24T23:47:27.0402987Z   ok   — api/mix.lock selects ALL
+2026-09-24T23:47:27.0577241Z   ok   — api/mix.exs selects ALL
+2026-09-24T23:47:27.0761797Z   ok   — api/test/test_helper.exs selects ALL
+2026-09-24T23:47:27.0935936Z   ok   — api/test/support/**.ex (a case template) selects ALL
+2026-09-24T23:47:27.1108344Z   ok   — api/test/fixtures/** selects ALL
+2026-09-24T23:47:27.1280447Z   ok   — api/priv/repo/migrations/** selects ALL
+2026-09-24T23:47:27.1454817Z   ok   — a .heex template under api/lib selects ALL
+2026-09-24T23:47:27.1627580Z   ok   — api/assets/** selects ALL
+2026-09-24T23:47:27.3685922Z   ok   — the workflow itself (COMPILE set) selects ALL
+2026-09-24T23:47:27.5776613Z   ok   — design/** (COMPILE set) selects ALL
+2026-09-24T23:47:30.1478994Z   ok   — an unclassified path (some/brand/new/tree/thing.txt) contributes NO tests of its own — the selection is exactly the ALWAYS set
+2026-09-24T23:47:32.6439789Z   ok   — an unclassified path (.tool-versions) contributes NO tests of its own — the selection is exactly the ALWAYS set
+2026-09-24T23:47:35.1670190Z   ok   — an unclassified path (scripts/canonical-marker-bindings.pin) contributes NO tests of its own — the selection is exactly the ALWAYS set
+2026-09-24T23:47:37.7230885Z   ok   — docs/openapi.json selects the test that guards it
+2026-09-24T23:47:42.0726375Z   ok   — a cloud/test-only change NO LONGER selects ALL (300 of 1995 api test files)
+2026-09-24T23:47:42.0744457Z   ok   — …and it selects the seam guard, the api test that actually reads cloud/test
+2026-09-24T23:47:44.0673443Z   FAIL — the selector's derived readers EQUAL an independent one-hop join
+2026-09-24T23:47:44.0674647Z          selector: [api/test/barkpark/async_global_seam_guard_test.exs api/test/barkpark/paper_editor_vendor_drift_test.exs] independent: [api/test/barkpark/async_global_seam_guard_test.exs]
+2026-09-24T23:47:48.2918059Z   ok   — (d2) internal/taskboard/board.go — a TEST-set path whose SIBLINGS are censused but which nothing reads — still selects ALL
+2026-09-24T23:47:52.5581853Z   ok   — (d2) cmd/barkpark/testdata/** with no censused reader still selects ALL
+2026-09-24T23:47:56.8152832Z   ok   — (d2) web/node_modules/** still selects ALL
+2026-09-24T23:47:57.0096944Z   ok   — (a) scripts/elixir-impacted-tests.sh still selects ALL
+2026-09-24T23:47:57.2054819Z   ok   — (a) scripts/elixir-path-escape-check.sh still selects ALL
+2026-09-24T23:48:01.6608066Z   ok   — (a) a cloud/test change PLUS a gate-script change still selects ALL
+2026-09-24T23:48:05.9277515Z   ok   — (a) a cloud/test change PLUS an api/ non-narrowable path still selects ALL
+2026-09-24T23:48:05.9389080Z   ok   — an EMPTY changed-path set selects ALL
+2026-09-24T23:48:05.9584938Z   ok   — harness setup: using api/lib/barkpark/accounts.ex as the leaf fixture
+2026-09-24T23:48:05.9819771Z   ok   — a narrowable lib file PLUS api/mix.lock still selects ALL
+2026-09-24T23:48:06.0076218Z   ok   — a lib file with NO defmodule selects ALL
+2026-09-24T23:48:06.0321767Z   ok   — a FAILED mix xref selects ALL
+2026-09-24T23:48:06.0322591Z 
+2026-09-24T23:48:06.0323214Z === §2  NARROWING HAPPENS (without these, a selector hard-wired to ALL passes §1)
+2026-09-24T23:48:06.2875144Z   ok   — a leaf lib change does NOT select ALL
+2026-09-24T23:48:06.5488246Z   ok   — a leaf lib change selects its convention test
+2026-09-24T23:48:06.6191695Z   ok   — a changed test file selects ITSELF
+2026-09-24T23:48:06.6850611Z   ok   — a changed test file alone does NOT select ALL
+2026-09-24T23:48:06.9429893Z   ok   — a leaf lib change selects 509 of 1995 test files (a strict, non-empty subset)
+2026-09-24T23:48:07.4230946Z   ok   — the BY-NAME net reaches a non-convention caller: lib/barkpark/api_test_runner.ex -> test/barkpark_web/live/studio/api_tester_live_plugin_asserts_test.exs
+2026-09-24T23:48:07.4231836Z 
+2026-09-24T23:48:07.4232121Z === §2b  RULE 3 — the web-surface hop (the #17153 blind spot)
+2026-09-24T23:48:07.4523795Z   ok   — the #17153 specimen is now a RULE 4 door — it selects ALL, a superset of RULE 3's answer
+2026-09-24T23:48:07.6686865Z   ok   — derived RULE-3-only specimen: api/lib/barkpark/access/claim_flow.ex -> test/barkpark_web/controllers/access_controller_oracle_crash_test.exs (not in ALWAYS, names no module of the change)
+2026-09-24T23:48:07.7883785Z   ok   — the derived specimen's web test IS selected by the lib->lib hop
+2026-09-24T23:48:07.9094317Z   ok   — the derived specimen selects 124 of 904 web tests — a family, not the directory
+2026-09-24T23:48:07.9125415Z   ok   — the planted contract test names neither the context nor its controller
+2026-09-24T23:48:07.9637744Z   ok   — a planted ConnCase contract test for a lib module IS selected (the lib->lib hop, then the name family)
+2026-09-24T23:48:07.9651241Z   ok   — an unrelated controller test in the same directory stays out
+2026-09-24T23:48:08.0120161Z   ok   — a lib module NO web surface names drags in no controller test (the hop is a hop, not a default)
+2026-09-24T23:48:08.0120626Z 
+2026-09-24T23:48:08.0120938Z === §2c  RULE 4 — the fail-closed door (the #18085 blind spot)
+2026-09-24T23:48:08.0136586Z   ok   — precondition: test/barkpark/search/indx_engine_scope_test.exs names no module of the door it calls through (so only RULE 4 can reach it)
+2026-09-24T23:48:08.0224484Z   ok   — the predicate classifies api/lib/barkpark/content/write_scope.ex as a door
+2026-09-24T23:48:08.0433425Z   ok   — a change confined to the door selects ALL
+2026-09-24T23:48:08.0700016Z   ok   — REPLAY #18085: its twelve-path diff selects ALL — test/barkpark/search/indx_engine_scope_test.exs runs
+2026-09-24T23:48:08.0926805Z   ok   — a module returning a policy refusal selects ALL (the derived arm)
+2026-09-24T23:48:08.1122735Z   ok   — a module carrying '@impact door' selects ALL even with no known refusal atom (the declared arm)
+2026-09-24T23:48:08.1606299Z   ok   — an ordinary lib module in the same tree still NARROWS (12 files) — RULE 4 is keyed on the refusal, not on being a lib file
+2026-09-24T23:48:08.2097605Z   ok   — the door census is 62 of 949 lib modules (< 15%, so narrowing still buys something)
+2026-09-24T23:48:08.2098285Z 
+2026-09-24T23:48:08.2098518Z === §3  THE ALWAYS SET
+2026-09-24T23:48:08.2618415Z   ok   — the ALWAYS set is non-empty (300 files)
+2026-09-24T23:48:08.2745634Z   ok   — every ALWAYS file exists on disk
+2026-09-24T23:48:08.3013986Z   ok   — every PINNED entry is in the ALWAYS set
+2026-09-24T23:48:08.3115383Z   ok   — --check-pins REFUSES when a pinned file is absent
+2026-09-24T23:48:08.3230168Z   ok   — --check-pins PASSES on the real tree
+2026-09-24T23:48:09.2099013Z   ok   — the whole ALWAYS set rides a narrowed selection
+2026-09-24T23:48:11.0742099Z   ok   — all 46 escape-census api/test readers are in the ALWAYS set
+2026-09-24T23:48:11.0804742Z   ok   — the ALWAYS set is 300 of 1995 test files (< 25%, so narrowing still buys something)
+2026-09-24T23:48:11.0805447Z 
+2026-09-24T23:48:11.0806034Z === §4  PAST-DEFECT REPLAY — would this selection have caught real merged bugs?
+2026-09-24T23:48:11.2019561Z   ok   — one-envelope reader: the internal sentinel — the narrowed set contains test/barkpark/content/envelope_internal_sentinel_test.exs
+2026-09-24T23:48:11.2226067Z   ok   — the dedup 409 named a required id it withheld — selects ALL (trivially caught)
+2026-09-24T23:48:11.3374813Z   ok   — claim epoch CAS — the narrowed set contains test/barkpark/tasks/claim_test.exs
+2026-09-24T23:48:11.4473842Z   ok   — search insights 500 / nil-workspace synonym read — the narrowed set contains test/barkpark/search/documents_retriever_tags_meta_parity_test.exs
+2026-09-24T23:48:11.6010399Z   ok   — plugin route registration — the narrowed set contains test/barkpark_web/plugin_routes_test.exs
+2026-09-24T23:48:11.7822614Z   ok   — media anonymous read clamp — the narrowed set contains test/barkpark/media_test.exs
+2026-09-24T23:48:11.9489971Z   ok   — plugin registry resolution — the narrowed set contains test/barkpark/plugins/registry_test.exs
+2026-09-24T23:48:12.1416093Z   ok   — PortableDoc render — the narrowed set contains test/barkpark/portable_doc/render_test.exs
+2026-09-24T23:48:12.1417121Z   skip — POST /papers refuses ifRev (renamed or removed: lib/barkpark/papers/paper.ex / test/barkpark/papers/paper_test.exs)
+2026-09-24T23:48:12.1418664Z   ok   — 8 past-defect replays exercised (1 skipped as renamed)
+2026-09-24T23:48:12.1419163Z 
+2026-09-24T23:48:12.1419471Z === §5  REFUSALS
+2026-09-24T23:48:12.1475369Z   ok   — an unknown flag is refused with exit 2
+2026-09-24T23:48:12.1476305Z 
+2026-09-24T23:48:12.1476653Z === §6  A CHILD THAT READS STDIN MUST NOT TRUNCATE THE CHANGED-PATH LIST
+2026-09-24T23:48:12.2968757Z   ok   — §6 control: a child that does NOT read stdin leaves the list intact (test/barkpark/tasks/queue_test.exs selected)
+2026-09-24T23:48:12.4376735Z   ok   — §6 a stdin-reading child cannot reach the list (test/barkpark/tasks/queue_test.exs still selected)
+2026-09-24T23:48:12.4389556Z 
+2026-09-24T23:48:12.4390195Z === §7  A SINK-INVARIANT xref IS REFUSED, NOT NARROWED ON (task-37b4448cb9ccb000)
+2026-09-24T23:48:12.5859838Z   ok   — §7 control: a sink-VARYING xref is trusted and narrows (307 files)
+2026-09-24T23:48:12.6173289Z   ok   — §7 control: --xref-probe says OK for a sink-varying xref
+2026-09-24T23:48:12.6704824Z   ok   — §7 a SINK-INVARIANT xref falls back to ALL, naming both sinks
+2026-09-24T23:48:12.7026551Z   ok   — §7 --xref-probe reports DEAD for a sink-invariant xref
+2026-09-24T23:48:12.7526357Z   ok   — §7 a leaf closure BIGGER than the hub's falls back to ALL
+2026-09-24T23:48:12.7539526Z 
+2026-09-24T23:48:12.7540226Z === §8  THE CLOSURE IS WALKED HERE, FROM DIRECT COMPILE EDGES (task-26088fc6682c9dcb)
+2026-09-24T23:48:13.7653002Z   ok   — §8 a CYCLE (z1 <-> m2) terminates, and the closure is exactly {z1, m2, a3 (three hops), the sink}
+2026-09-24T23:48:13.7680271Z   ok   — §8 an EXPORT edge and a RUNTIME edge into the sink are NOT followed
+2026-09-24T23:48:13.7991716Z   ok   — §8 a self-edge terminates and adds nothing but the sink
+2026-09-24T23:48:13.8299868Z   ok   — §8 the leaf's closure is the leaf alone
+2026-09-24T23:48:13.8637882Z   ok   — §8 the hub's closure names its dependents, past a Compiling banner and node lines
+2026-09-24T23:48:13.8989906Z   ok   — §8 a graph in the wrong format (zero parseable edges) falls back to ALL, by name
+2026-09-24T23:48:13.9115203Z   ok   — §8 --xref-probe reports DEAD on a wrong-format graph
+2026-09-24T23:48:14.0620185Z   ok   — §8 a change to gear.ex selects the test of its COMPILE DEPENDENT sprocket.ex, which names only sprocket
+2026-09-24T23:48:14.0635140Z   ok   — §8 control: with the sprocket -> gear edge CUT, the same test is NOT selected
+2026-09-24T23:48:14.0653143Z 
+2026-09-24T23:48:14.0653370Z === 86 passed, 1 failed
+2026-09-24T23:48:14.0678825Z instrument elixir-impacted-tests-selftest: exit 1 -> MEASURED-DEFECT
+2026-09-24T23:48:14.0729171Z ##[error]Process completed with exit code 1.
+2026-09-24T23:48:14.0781187Z ##[group]Run bash scripts/run-instrument.sh elixir-impacted-tests-pins -- bash scripts/elixir-impacted-tests.sh --check-pins
+2026-09-24T23:48:14.0782086Z [36;1mbash scripts/run-instrument.sh elixir-impacted-tests-pins -- bash scripts/elixir-impacted-tests.sh --check-pins[0m
+2026-09-24T23:48:14.0844607Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:48:14.0844857Z env:
+2026-09-24T23:48:14.0845057Z   BP_STEP_VERDICT: MEASURED-DEFECT
+2026-09-24T23:48:14.0845308Z ##[endgroup]
+2026-09-24T23:48:14.1054818Z elixir-impacted-tests: all 11 ALWAYS pins exist.
+2026-09-24T23:48:14.1057534Z instrument elixir-impacted-tests-pins: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:48:14.1124905Z ##[group]Run bash scripts/elixir-main-red-attribution.test.sh
+2026-09-24T23:48:14.1125371Z [36;1mbash scripts/elixir-main-red-attribution.test.sh[0m
+2026-09-24T23:48:14.1187108Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:48:14.1187353Z env:
+2026-09-24T23:48:14.1187560Z   BP_STEP_VERDICT: MEASURED-DEFECT
+2026-09-24T23:48:14.1187839Z ##[endgroup]
+2026-09-24T23:48:14.1513107Z   ok   — harness setup: api/lib/barkpark/accounts.ex / test/barkpark/accounts_test.exs
+2026-09-24T23:48:14.4098761Z   ok   — harness setup: the narrow diff selects 509 test files, not ALL
+2026-09-24T23:48:14.4365377Z   ok   — harness setup: test/barkpark/api/openapi_test.exs is OUTSIDE the selection (the miss fixture)
+2026-09-24T23:48:14.4366171Z 
+2026-09-24T23:48:14.4366452Z === §1  COVERED — main red on a test the selection DID contain
+2026-09-24T23:48:14.7102602Z   ok   — a failure inside the selection reports COVERED (rc 0)
+2026-09-24T23:48:14.7103311Z 
+2026-09-24T23:48:14.7103818Z === §2  THE MUTATION — a FORCED failure in a test the selection did NOT contain
+2026-09-24T23:48:14.9855900Z   ok   — a failure OUTSIDE the selection reports SKIPPED (rc 3)
+2026-09-24T23:48:14.9868667Z   ok   — the report NAMES the skipped file
+2026-09-24T23:48:14.9882843Z   ok   — the report states its own limit (mapper-only reconstruction)
+2026-09-24T23:48:15.0133740Z   ok   — the same failure on an ALL diff reports SELECTION_ALL, not a skip
+2026-09-24T23:48:15.0134103Z 
+2026-09-24T23:48:15.0134482Z === §3  REDS THAT ARE NOT THE SELECTOR'S FAULT
+2026-09-24T23:48:15.0207897Z   ok   — a compile error is NOT_A_TEST_FAILURE (rc 0)
+2026-09-24T23:48:15.0293629Z   ok   — a drift-gate red is NOT_A_TEST_FAILURE (rc 0)
+2026-09-24T23:48:15.0367497Z   ok   — a lib/ stack frame is not read as a failing test file
+2026-09-24T23:48:15.0367941Z 
+2026-09-24T23:48:15.0368339Z === §4  UNUSABLE INPUT IS LOUD, NEVER A QUIET PASS
+2026-09-24T23:48:15.0423445Z   ok   — an EMPTY log is UNUSABLE (rc 1), not a clean pass
+2026-09-24T23:48:15.0476421Z   ok   — a MISSING log is UNUSABLE (rc 1)
+2026-09-24T23:48:15.0529933Z   ok   — a MISSING diff is UNUSABLE (rc 1)
+2026-09-24T23:48:15.0568809Z   ok   — an unknown flag is refused with exit 2
+2026-09-24T23:48:15.0569301Z 
+2026-09-24T23:48:15.0569514Z === 15 passed, 0 failed
+2026-09-24T23:48:15.0619756Z ##[group]Run bash scripts/run-instrument.sh toolchain-skew-selftest -- bash scripts/toolchain-skew-check.sh --selftest
+2026-09-24T23:48:15.0620794Z [36;1mbash scripts/run-instrument.sh toolchain-skew-selftest -- bash scripts/toolchain-skew-check.sh --selftest[0m
+2026-09-24T23:48:15.0683399Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:48:15.0683656Z env:
+2026-09-24T23:48:15.0683858Z   BP_STEP_VERDICT: MEASURED-DEFECT
+2026-09-24T23:48:15.0684115Z ##[endgroup]
+2026-09-24T23:48:15.1199417Z ok   - A agree -> exit 0
+2026-09-24T23:48:15.1200063Z ok   - A prints the versions it read (positive control)
+2026-09-24T23:48:15.1550606Z ok   - A2 hexpm/ build tag agree -> exit 0
+2026-09-24T23:48:15.1897185Z ok   - A3 hexpm/ skew -> exit 1
+2026-09-24T23:48:15.2244372Z ok   - B rule-1 skew -> exit 1
+2026-09-24T23:48:15.2244847Z ok   - B names the production value
+2026-09-24T23:48:15.2245157Z ok   - B names the matrix value
+2026-09-24T23:48:15.2245422Z ok   - B names the specific rule
+2026-09-24T23:48:15.2588836Z ok   - B2 prod-compile skew -> exit 1
+2026-09-24T23:48:15.2589590Z ok   - B2 names RULE 1b
+2026-09-24T23:48:15.2932511Z ok   - C image off the production minor -> exit 1
+2026-09-24T23:48:15.2932963Z ok   - C names the new image value
+2026-09-24T23:48:15.2933249Z ok   - C names RULE 1c
+2026-09-24T23:48:15.3278602Z ok   - D the ex-acknowledged 1.19 image -> exit 1 (no longer waived)
+2026-09-24T23:48:15.3279314Z ok   - D names the image value
+2026-09-24T23:48:15.3279736Z ok   - D names RULE 1c
+2026-09-24T23:48:15.3280281Z ok   - D carries no surviving ACK record
+2026-09-24T23:48:15.3280879Z ok   - D does not name a RULE 2
+2026-09-24T23:48:15.3624384Z ok   - E same minor, different patch -> exit 0 (MAJOR.MINOR tolerance)
+2026-09-24T23:48:15.3723383Z ok   - F missing .tool-versions -> exit 2 refusal
+2026-09-24T23:48:15.3819598Z ok   - G .tool-versions without an elixir line -> exit 2 refusal
+2026-09-24T23:48:15.3820106Z ok   - G says REFUSAL
+2026-09-24T23:48:15.3941042Z ok   - H Dockerfile without FROM elixir -> exit 2 refusal
+2026-09-24T23:48:15.4100814Z ok   - I workflow without a mix-test matrix -> exit 2 refusal
+2026-09-24T23:48:15.4101310Z ok   - I refusal names the missing job
+2026-09-24T23:48:15.4439101Z ok   - J does not bleed the format matrix into mix-test
+2026-09-24T23:48:15.4439419Z 
+2026-09-24T23:48:15.4439527Z selftest: 26 passed, 0 failed
+2026-09-24T23:48:15.4469329Z instrument toolchain-skew-selftest: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:48:15.4571684Z ##[group]Run bash scripts/run-instrument.sh toolchain-skew -- bash scripts/toolchain-skew-check.sh
+2026-09-24T23:48:15.4573257Z [36;1mbash scripts/run-instrument.sh toolchain-skew -- bash scripts/toolchain-skew-check.sh[0m
+2026-09-24T23:48:15.4664055Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:48:15.4664476Z env:
+2026-09-24T23:48:15.4664820Z   BP_STEP_VERDICT: MEASURED-DEFECT
+2026-09-24T23:48:15.4665283Z ##[endgroup]
+2026-09-24T23:48:15.5009241Z PINS READ
+2026-09-24T23:48:15.5009735Z   .tool-versions        elixir 1.18.4-otp-27            (MAJOR.MINOR 1.18)  <- production box, via asdf
+2026-09-24T23:48:15.5032030Z   api/Dockerfile FROM   hexpm/elixir:1.18.4-erlang-27.3.4.13-debian-bookworm-20260623-slim        (MAJOR.MINOR 1.18)  <- self-host image
+2026-09-24T23:48:15.5033422Z   elixir.yml mix-test          elixir [1.18.4]
+2026-09-24T23:48:15.5033776Z   elixir.yml mix-prod-compile  elixir [1.18.4]
+2026-09-24T23:48:15.5033991Z 
+2026-09-24T23:48:15.5053693Z ok   - RULE 1a: .tool-versions 1.18.4-otp-27 is covered by mix-test [1.18.4] (both 1.18)
+2026-09-24T23:48:15.5074909Z ok   - RULE 1b: .tool-versions 1.18.4-otp-27 is covered by mix-prod-compile [1.18.4] (both 1.18)
+2026-09-24T23:48:15.5096709Z ok   - RULE 1c: the self-host image hexpm/elixir:1.18.4-erlang-27.3.4.13-debian-bookworm-20260623-slim (1.18) is on the production minor 1.18,
+2026-09-24T23:48:15.5097399Z        which mix-test [1.18.4] covers. No recorded divergences.
+2026-09-24T23:48:15.5099912Z instrument toolchain-skew: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:48:15.5171334Z ##[group]Run decision=run
+2026-09-24T23:48:15.5171635Z [36;1mdecision=run[0m
+2026-09-24T23:48:15.5172498Z [36;1mwhy="not a pull_request — the deriver always runs on push to main"[0m
+2026-09-24T23:48:15.5173029Z [36;1mif [ "pull_request" = "pull_request" ]; then[0m
+2026-09-24T23:48:15.5173432Z [36;1m  why="could not determine the diff — failing toward running"[0m
+2026-09-24T23:48:15.5173900Z [36;1m  if base="$(git rev-parse --verify --quiet HEAD^1)" && [ -n "$base" ]; then[0m
+2026-09-24T23:48:15.5174411Z [36;1m    if changed="$(git diff --name-only "$base" HEAD)" && [ -n "$changed" ]; then[0m
+2026-09-24T23:48:15.5174894Z [36;1m      # D37: never `printf … | grep -q`. Under pipefail a matching[0m
+2026-09-24T23:48:15.5175339Z [36;1m      # grep exits 0, printf dies of SIGPIPE, 141 wins, and the match[0m
+2026-09-24T23:48:15.5175769Z [36;1m      # reads as a miss. A here-string has no writer to kill.[0m
+2026-09-24T23:48:15.5176111Z [36;1m      if grep -qE \[0m
+2026-09-24T23:48:15.5176756Z [36;1m           '^(\.github/required-checks\.json|scripts/required-checks[.-][^/]*|scripts/fixtures/registration-flip/.*|\.github/workflows/elixir\.yml)$' \[0m
+2026-09-24T23:48:15.5177415Z [36;1m           <<<"$changed"; then[0m
+2026-09-24T23:48:15.5177927Z [36;1m        why="the diff touches the exclusions ledger, the harness, the generator, the frozen fixtures, or this workflow"[0m
+2026-09-24T23:48:15.5178436Z [36;1m      else[0m
+2026-09-24T23:48:15.5178644Z [36;1m        decision=skip[0m
+2026-09-24T23:48:15.5178942Z [36;1m        why="the diff touches none of the deriver's inputs"[0m
+2026-09-24T23:48:15.5179255Z [36;1m      fi[0m
+2026-09-24T23:48:15.5179442Z [36;1m    fi[0m
+2026-09-24T23:48:15.5179629Z [36;1m  fi[0m
+2026-09-24T23:48:15.5179806Z [36;1mfi[0m
+2026-09-24T23:48:15.5180028Z [36;1mecho "ack-ex deriver ${decision}: ${why}"[0m
+2026-09-24T23:48:15.5180364Z [36;1mecho "decision=${decision}" >> "$GITHUB_OUTPUT"[0m
+2026-09-24T23:48:15.5180666Z [36;1mexit 0[0m
+2026-09-24T23:48:15.5243007Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:48:15.5243260Z env:
+2026-09-24T23:48:15.5243478Z   BP_STEP_VERDICT: MEASURED-DEFECT
+2026-09-24T23:48:15.5243735Z ##[endgroup]
+2026-09-24T23:48:15.5807856Z ack-ex deriver run: the diff touches the exclusions ledger, the harness, the generator, the frozen fixtures, or this workflow
+2026-09-24T23:48:15.5844691Z ##[group]Run bash scripts/run-instrument.sh required-checks-ack-derive-selftest -- bash scripts/required-checks-ack-derive.sh --selftest
+2026-09-24T23:48:15.5845705Z [36;1mbash scripts/run-instrument.sh required-checks-ack-derive-selftest -- bash scripts/required-checks-ack-derive.sh --selftest[0m
+2026-09-24T23:48:15.5907389Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:48:15.5907641Z env:
+2026-09-24T23:48:15.5907845Z   BP_STEP_VERDICT: MEASURED-DEFECT
+2026-09-24T23:48:15.5908103Z ##[endgroup]
+2026-09-24T23:51:53.5883767Z required-checks-ack-derive — every committed .exclusions row ACK_EX must acknowledge, DERIVED
+2026-09-24T23:51:53.5885166Z   spec       /home/runner/work/barkpark/barkpark/.github/required-checks.json  (198 exclusion rows)
+2026-09-24T23:51:53.5886435Z   harness    /home/runner/work/barkpark/barkpark/scripts/required-checks.test.sh  (178 ACK_EX names)
+2026-09-24T23:51:53.5887520Z   generator  /home/runner/work/barkpark/barkpark/scripts/required-checks-generate.sh
+2026-09-24T23:51:53.5888260Z   fixtures   /home/runner/work/barkpark/barkpark/scripts/fixtures/registration-flip  (e34031104 f69cfb1f6)
+2026-09-24T23:51:53.5899632Z   run 1  exit 1, S1-unrenderable required contexts: Elixir gate|PR references an active task|
+2026-09-24T23:51:53.5900672Z   run 2  exit 1, exclusion rows this sample could not reproduce: 178 (STALE rows: 0)
+2026-09-24T23:51:53.5928942Z   OK  ACK_EX == the derived set: all 178 derived rows acknowledged, 0 extra
+2026-09-24T23:51:53.5933296Z 
+2026-09-24T23:51:53.5933514Z -- selftest: the ACK_EX side, mutated --
+2026-09-24T23:51:53.5992097Z   baseline: GREEN (0 MISSING, 0 EXTRA) — the arms below are measured against two empty sets
+2026-09-24T23:51:53.6267747Z   fixture reached the mutated state: 1 ACK_EX line deleted from a scratch copy of the harness, re-parsed to 177 of 178 names, .claude/workflows engines load on a machine that is not this one gone
+2026-09-24T23:51:53.6393458Z   RED with it deleted, and it NAMES the context: MISSING ACK_EX  .claude/workflows engines load on a machine that is not this one
+2026-09-24T23:51:53.6410749Z   mutated MISSING set = baseline (0) + exactly the victim (1 names); EXTRA unchanged (0)
+2026-09-24T23:51:53.6653150Z   fixture reached the planted state: 1 ACK_EX line added to a scratch copy, re-parsed to 179 names
+2026-09-24T23:51:53.6826498Z   RED with it planted, and it NAMES it: EXTRA ACK_EX  ack-derive selftest plant — no .exclusions row carries this name
+2026-09-24T23:51:53.6848294Z   …and prints the line to delete:   <planted copy>:2424:        --expect-unrendered "ack-derive selftest plant — no .exclusions row carries this name"
+2026-09-24T23:51:53.7062536Z   GREEN again with it restored — single-variable, both directions
+2026-09-24T23:51:53.7743901Z   whole program: exit 1 with the victim deleted, exit 0 over the untouched harness
+2026-09-24T23:51:53.7745293Z   selftest OK
+2026-09-24T23:51:53.7766915Z instrument required-checks-ack-derive-selftest: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:51:53.7841897Z ##[group]Run bash scripts/run-instrument.sh selftest-wiring-census -- bash scripts/selftest-wiring-census.sh
+2026-09-24T23:51:53.7843010Z [36;1mbash scripts/run-instrument.sh selftest-wiring-census -- bash scripts/selftest-wiring-census.sh[0m
+2026-09-24T23:51:53.7905463Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:51:53.7905715Z env:
+2026-09-24T23:51:53.7905917Z   BP_STEP_VERDICT: MEASURED-DEFECT
+2026-09-24T23:51:53.7906172Z ##[endgroup]
+2026-09-24T23:51:58.1205377Z   BACKLOG .claude/skills/orchestrate-tasks/helpers/ci-advisory-sweep.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.1363680Z   BACKLOG .claude/skills/orchestrate-tasks/helpers/held-liveness.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.1521114Z   BACKLOG .claude/skills/orchestrate-tasks/helpers/lane-open-prs.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.1787381Z   BACKLOG .claude/skills/orchestrate-tasks/helpers/pr-watch.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.1945882Z   BACKLOG .claude/skills/orchestrate-tasks/helpers/pulse-loop.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.2104737Z   BACKLOG .claude/skills/orchestrate-tasks/helpers/session-files.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.2219258Z   EXEMPT  scripts/__studio-wide-deletion-diff.test.mjs  — browser-coupled (three real Chromium launches), so
+2026-09-24T23:51:58.2477095Z   BACKLOG scripts/ancestry-guard.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.3040861Z   BACKLOG scripts/charter-citation-check.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.3567467Z   BACKLOG scripts/ci-log-gap-census.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.3723975Z   BACKLOG scripts/ci-measure.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.4093160Z   BACKLOG scripts/closed-row-tree-disagreement-sweep.mjs  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.4292400Z   BACKLOG scripts/cloud-format-check.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.4620987Z   BACKLOG scripts/cmux-smoke.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.5190038Z   BACKLOG scripts/console-export-tree.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.5393855Z   BACKLOG scripts/console-harness.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.6098160Z   BACKLOG scripts/dependabot-task-trailer.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.6759250Z   BACKLOG scripts/dispatch-blobless-proof.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.7074482Z   BACKLOG scripts/docblock-enumeration-check.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.7501898Z   BACKLOG scripts/elixir-main-red-attribution.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.7968814Z   BACKLOG scripts/false-open-sweep.mjs  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.8220186Z   BACKLOG scripts/file-line-citation-check.mjs  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:58.8392947Z   EXEMPT  scripts/font-presence-check.test.mjs  — it needs a real headless Chromium AND the host's
+2026-09-24T23:51:59.0927710Z   BACKLOG scripts/merge-gates-elixir-anchor-check.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.1130296Z   EXEMPT  scripts/mix-test-strict-live.test.sh  — it invokes a REAL `mix test` against a real project,
+2026-09-24T23:51:59.2060172Z   BACKLOG scripts/pds-blind-spot-check.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.2266008Z   BACKLOG scripts/pds-charter-ledger-sweep.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.2625850Z   BACKLOG scripts/pds-climb-preflight.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.2786365Z   BACKLOG scripts/pds-control-char-census.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.2943383Z   BACKLOG scripts/pds-door-census.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.3103043Z   BACKLOG scripts/pds-draft-only-task-census.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.3261452Z   BACKLOG scripts/pds-draft-twin-sweep.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.3420601Z   BACKLOG scripts/pds-export-drift-watch.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.3674584Z   BACKLOG scripts/pds-live-bp-write-receipt.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.3973588Z   BACKLOG scripts/pds-pre-gate-papers-check.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.4133059Z   BACKLOG scripts/pds-published-artifact-door.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.4637372Z   BACKLOG scripts/pds-stranded-draft-cause.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.4802982Z   BACKLOG scripts/pds-task-anchor-report.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.5626045Z   BACKLOG scripts/reap-test-databases.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.5828903Z   BACKLOG scripts/registration-sample.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.6028157Z   BACKLOG scripts/registry-impact-check.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.6550603Z   BACKLOG scripts/required4.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.6706843Z   BACKLOG scripts/rerun-transition-collect.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.6863133Z   BACKLOG scripts/roster-drift-check.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.7888546Z   BACKLOG scripts/stranded-branch-report.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:51:59.8631848Z   EXEMPT  scripts/studio-inspector-frame-sample.test.mjs  — it drives the REAL script as a subprocess in a real
+2026-09-24T23:51:59.9290409Z   BACKLOG scripts/test-partition-cleanup.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:52:00.0201939Z   BACKLOG scripts/workflow-portability-check.sh  — in-file self-test, dispatched by no workflow (grandfathered, task-13bfa649df851d5f).
+2026-09-24T23:52:00.2113806Z selftest-wiring-census: OK — 234 run, 4 exempt, 44 grandfathered backlog, 0 orphaned (282 self-tests examined).
+2026-09-24T23:52:00.2117663Z instrument selftest-wiring-census: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:52:00.2208306Z ##[group]Run bash scripts/run-instrument.sh cron-scream-coverage -- bash scripts/cron-scream-coverage.sh --selftest
+2026-09-24T23:52:00.2209153Z [36;1mbash scripts/run-instrument.sh cron-scream-coverage -- bash scripts/cron-scream-coverage.sh --selftest[0m
+2026-09-24T23:52:00.2270137Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:52:00.2270392Z env:
+2026-09-24T23:52:00.2270598Z   BP_STEP_VERDICT: MEASURED-DEFECT
+2026-09-24T23:52:00.2270849Z ##[endgroup]
+2026-09-24T23:52:00.2410897Z ── cron-scream-coverage --selftest ──
+2026-09-24T23:52:00.2411323Z [real tree]
+2026-09-24T23:52:00.9435600Z cron-scream-coverage: 31 cron-declaring workflow(s) under .github/workflows — READ 26, UNREAD 5
+2026-09-24T23:52:00.9436565Z OK — every cron'd workflow either reaches a declared reader or carries a dated ledger row.
+2026-09-24T23:52:00.9437035Z   ok   c0 the real tree passes
+2026-09-24T23:52:02.2938864Z   ok   c1 stripping breakglass-watch.yml's push arm reds BY NAME (rc=1)
+2026-09-24T23:52:02.9880453Z   ok   c2 restoring breakglass-watch.yml's push arm goes green (rc=0)
+2026-09-24T23:52:03.7035325Z   ok   c3 a new unread cron'd workflow reds BY NAME (rc=1)
+2026-09-24T23:52:04.4452479Z   ok   c3b the SAME mutant carrying a push arm is accepted (rc=0) — the guard reds on the absence of a reader, not on novelty
+2026-09-24T23:52:05.1839727Z   ok   c4 a ledger row whose workflow GAINED a reader reds BY NAME (rc=1) — the ratchet fires in the healthy direction too
+2026-09-24T23:52:06.5427586Z   ok   c5 a ledger row naming a non-cron'd/absent file reds BY NAME
+2026-09-24T23:52:06.5475524Z   ok   c6 a workflow dir with ZERO cron'd workflows REFUSES (rc=2), never reports health
+2026-09-24T23:52:06.5801443Z   ok   c7 a paths-list MENTION of the notifier scores UNREAD; an INVOCATION scores READ
+2026-09-24T23:52:06.7044614Z   ok   c8 a TAGS-ONLY push arm scores UNREAD (it cannot produce a main run); a branches arm scores READ
+2026-09-24T23:52:06.7045601Z ── selftest: 10 passed, 0 failed ──
+2026-09-24T23:52:06.7081387Z instrument cron-scream-coverage: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:52:06.7156224Z ##[group]Run bash scripts/run-instrument.sh pr-required-selftest -- bash scripts/pr-required.sh --selftest
+2026-09-24T23:52:06.7157002Z [36;1mbash scripts/run-instrument.sh pr-required-selftest -- bash scripts/pr-required.sh --selftest[0m
+2026-09-24T23:52:06.7220240Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:52:06.7220499Z env:
+2026-09-24T23:52:06.7220711Z   BP_STEP_VERDICT: MEASURED-DEFECT
+2026-09-24T23:52:06.7220970Z ##[endgroup]
+2026-09-24T23:52:08.3995086Z PASS healthy PR           exit=0 | tail -1: MERGEABLE: 4/4 required green on aaaaaaaaaa [verdict 384472 min old, 0 commit(s) behind main]
+2026-09-24T23:52:08.3997136Z PASS unreadable repo      exit=3 | tail -1: CANNOT READ: no owner/repo — pass it as arg 2 (or set GH_REPO). No git remote at this script's own directory or at the cwd, and gh repo view (GraphQL) failed too. This is NOT a verdict, and NOT a count of zero green.
+2026-09-24T23:52:08.3998923Z PASS unreadable sha       exit=3 | tail -1: CANNOT READ: pr #42 head sha unreadable over BOTH GraphQL and REST — this is NOT a verdict, and NOT a count of zero green. Check `gh auth status` and `gh api rate_limit`; GraphQL empties before REST does.
+2026-09-24T23:52:08.4001561Z PASS unfetchable runs     exit=3 | tail -1: CANNOT READ: check-runs for acme/widget@aaaaaaaaaa could not be fetched — this is NOT a verdict, and NOT a count of zero green.
+2026-09-24T23:52:08.4004198Z PASS no check runs        exit=3 | tail -1: CANNOT READ: acme/widget@aaaaaaaaaa has NO check runs at all — CI has not started, or the read came back empty. This is NOT a verdict, and NOT a count of zero green.
+2026-09-24T23:52:08.4006278Z PASS git-remote default   exit=0 | tail -1: MERGEABLE: 4/4 required green on aaaaaaaaaa [verdict 384472 min old, 0 commit(s) behind main]
+2026-09-24T23:52:08.4007795Z PASS genuine 0/4          exit=0 | tail -1: NOT YET: 0/4 required green on aaaaaaaaaa [verdict 384472 min old, 0 commit(s) behind main]
+2026-09-24T23:52:08.4008935Z PASS hold refuses         exit=4 | tail -1: HELD: hold since 2026-09-16T08:11:00Z
+2026-09-24T23:52:08.4009845Z PASS owner-hold refuses   exit=4 | tail -1: HELD: owner-hold since 2026-09-16T09:22:33Z
+2026-09-24T23:52:08.4010828Z PASS both -> owner wins   exit=4 | tail -1: HELD: owner-hold since 2026-09-16T09:22:33Z
+2026-09-24T23:52:08.4011936Z PASS ts unreadable        exit=4 | tail -1: HELD: hold since UNKNOWN (the labeled event for hold could not be read)
+2026-09-24T23:52:08.4013221Z PASS Hold folds to hold   exit=4 | tail -1: HELD: hold since 2026-09-16T08:11:00Z
+2026-09-24T23:52:08.4014121Z PASS OWNER-HOLD folds     exit=4 | tail -1: HELD: owner-hold since 2026-09-16T09:22:33Z
+2026-09-24T23:52:08.4015011Z PASS HOLD folds to hold   exit=4 | tail -1: HELD: hold since 2026-09-16T08:11:00Z
+2026-09-24T23:52:08.4015901Z PASS Owner-Hold folds     exit=4 | tail -1: HELD: owner-hold since 2026-09-16T09:22:33Z
+2026-09-24T23:52:08.4017208Z PASS unlabelled verdicts  exit=0 | tail -1: MERGEABLE: 4/4 required green on aaaaaaaaaa [verdict 384472 min old, 0 commit(s) behind main]
+2026-09-24T23:52:08.4018477Z PASS near-miss labels     exit=0 | tail -1: MERGEABLE: 4/4 required green on aaaaaaaaaa [verdict 384472 min old, 0 commit(s) behind main]
+2026-09-24T23:52:08.4019661Z PASS mutation reds hold   refusal removed -> a held PR reads MERGEABLE again (the #18705 shape), so the hold arms are load-bearing | mutant tail: MERGEABLE: 4/4 required green on aaaaaaaaaa [verdict 384472 min old, 0 commit(s) behind main]
+2026-09-24T23:52:08.4020688Z PASS exit codes distinct  HELD=4, red checks=0, CANNOT READ=3 -- three distinct values
+2026-09-24T23:52:08.4022613Z PASS hold needs the repo  exit=3 | tail -1: CANNOT READ: no owner/repo — pass it as arg 2 (or set GH_REPO). No git remote at this script's own directory or at the cwd, and gh repo view (GraphQL) failed too. This is NOT a verdict, and NOT a count of zero green.
+2026-09-24T23:52:08.4024271Z PASS stale verdict        exit=0 | tail -1: MERGEABLE: 4/4 required green on aaaaaaaaaa (STALE VERDICT: 120 min old, 5 commits behind - update-branch before merging)
+2026-09-24T23:52:08.4025210Z PASS fresh not stale      exit=0 | tail -1: MERGEABLE: 4/4 required green on aaaaaaaaaa [verdict 5 min old, 5 commit(s) behind main]
+2026-09-24T23:52:08.4026356Z PASS in-sync not stale    exit=0 | tail -1: MERGEABLE: 4/4 required green on aaaaaaaaaa [verdict 120 min old, 0 commit(s) behind main]
+2026-09-24T23:52:08.4028307Z PASS compare unreadable   exit=0 | tail -1: MERGEABLE: 4/4 required green on aaaaaaaaaa [verdict age/commits-behind: CANNOT READ — not 0 min old, not 0 commits behind]
+2026-09-24T23:52:08.4029621Z PASS cannot-read detail   the detail line refuses too, above the verdict
+2026-09-24T23:52:08.4031047Z PASS mutation reds stale  clause removed -> stale arm would red | mutant tail: MERGEABLE: 4/4 required green on aaaaaaaaaa [verdict 120 min old, 5 commit(s) behind main]
+2026-09-24T23:52:08.4033403Z PASS head-read-failed     exit=3 | tail -1: HEAD-READ-FAILED: REST could not read the PR head — NO VERDICT, re-run this script
+2026-09-24T23:52:08.4035086Z PASS stale both reads     exit=3 | tail -1: STALE-PR-OBJECT: REST head disagrees with origin/stale-branch — NO VERDICT (re-read)
+2026-09-24T23:52:08.4036143Z PASS refusals distinct    the two refusals differ
+2026-09-24T23:52:08.4037234Z PASS self-heal continues  exit=0 | tail -1: MERGEABLE: 4/4 required green on aec3cda450 [verdict 384472 min old, 0 commit(s) behind main]
+2026-09-24T23:52:08.4038627Z PASS fetch-head race      OLD FETCH_HEAD form races (aec3cd -> 9d071f), tracking-ref form immune (aec3cd)
+2026-09-24T23:52:08.4039653Z PASS guard uses ref       guard reads the tracking ref, not FETCH_HEAD
+2026-09-24T23:52:08.4040830Z PASS fetch creates ref    exit=0 | tail -1: MERGEABLE: 4/4 required green on aec3cda450 [verdict 384472 min old, 0 commit(s) behind main]
+2026-09-24T23:52:08.4042604Z PASS forced refspec       exit=0 | tail -1: MERGEABLE: 4/4 required green on aec3cda450 [verdict 384472 min old, 0 commit(s) behind main]
+2026-09-24T23:52:08.4043729Z PASS mirror in sync       the two repo copies are byte-identical
+2026-09-24T23:52:08.4044423Z PASS hold vocab locked    HOLD-VOCAB LOCKED: 3 file(s) agree on [hold owner-hold]
+2026-09-24T23:52:08.4045100Z PASS vocab lock reds      a copy of this file with owner-hold dropped DIVERGED from merge-check.sh -- the lock is load-bearing
+2026-09-24T23:52:08.4067679Z SELFTEST: 37/37 arms pass
+2026-09-24T23:52:08.4071685Z instrument pr-required-selftest: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:52:08.4141945Z ##[group]Run bash scripts/run-instrument.sh pr-required-mirror-selftest -- bash .claude/skills/orchestrate-tasks/helpers/pr-required.sh --selftest
+2026-09-24T23:52:08.4143664Z [36;1mbash scripts/run-instrument.sh pr-required-mirror-selftest -- bash .claude/skills/orchestrate-tasks/helpers/pr-required.sh --selftest[0m
+2026-09-24T23:52:08.4205663Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:52:08.4205915Z env:
+2026-09-24T23:52:08.4206120Z   BP_STEP_VERDICT: MEASURED-DEFECT
+2026-09-24T23:52:08.4206380Z ##[endgroup]
+2026-09-24T23:52:10.1050679Z PASS healthy PR           exit=0 | tail -1: MERGEABLE: 4/4 required green on aaaaaaaaaa [verdict 384472 min old, 0 commit(s) behind main]
+2026-09-24T23:52:10.1052913Z PASS unreadable repo      exit=3 | tail -1: CANNOT READ: no owner/repo — pass it as arg 2 (or set GH_REPO). No git remote at this script's own directory or at the cwd, and gh repo view (GraphQL) failed too. This is NOT a verdict, and NOT a count of zero green.
+2026-09-24T23:52:10.1054787Z PASS unreadable sha       exit=3 | tail -1: CANNOT READ: pr #42 head sha unreadable over BOTH GraphQL and REST — this is NOT a verdict, and NOT a count of zero green. Check `gh auth status` and `gh api rate_limit`; GraphQL empties before REST does.
+2026-09-24T23:52:10.1057610Z PASS unfetchable runs     exit=3 | tail -1: CANNOT READ: check-runs for acme/widget@aaaaaaaaaa could not be fetched — this is NOT a verdict, and NOT a count of zero green.
+2026-09-24T23:52:10.1059805Z PASS no check runs        exit=3 | tail -1: CANNOT READ: acme/widget@aaaaaaaaaa has NO check runs at all — CI has not started, or the read came back empty. This is NOT a verdict, and NOT a count of zero green.
+2026-09-24T23:52:10.1061726Z PASS git-remote default   exit=0 | tail -1: MERGEABLE: 4/4 required green on aaaaaaaaaa [verdict 384472 min old, 0 commit(s) behind main]
+2026-09-24T23:52:10.1063593Z PASS genuine 0/4          exit=0 | tail -1: NOT YET: 0/4 required green on aaaaaaaaaa [verdict 384472 min old, 0 commit(s) behind main]
+2026-09-24T23:52:10.1064734Z PASS hold refuses         exit=4 | tail -1: HELD: hold since 2026-09-16T08:11:00Z
+2026-09-24T23:52:10.1065609Z PASS owner-hold refuses   exit=4 | tail -1: HELD: owner-hold since 2026-09-16T09:22:33Z
+2026-09-24T23:52:10.1066538Z PASS both -> owner wins   exit=4 | tail -1: HELD: owner-hold since 2026-09-16T09:22:33Z
+2026-09-24T23:52:10.1067632Z PASS ts unreadable        exit=4 | tail -1: HELD: hold since UNKNOWN (the labeled event for hold could not be read)
+2026-09-24T23:52:10.1068701Z PASS Hold folds to hold   exit=4 | tail -1: HELD: hold since 2026-09-16T08:11:00Z
+2026-09-24T23:52:10.1069580Z PASS OWNER-HOLD folds     exit=4 | tail -1: HELD: owner-hold since 2026-09-16T09:22:33Z
+2026-09-24T23:52:10.1070555Z PASS HOLD folds to hold   exit=4 | tail -1: HELD: hold since 2026-09-16T08:11:00Z
+2026-09-24T23:52:10.1071418Z PASS Owner-Hold folds     exit=4 | tail -1: HELD: owner-hold since 2026-09-16T09:22:33Z
+2026-09-24T23:52:10.1074165Z PASS unlabelled verdicts  exit=0 | tail -1: MERGEABLE: 4/4 required green on aaaaaaaaaa [verdict 384472 min old, 0 commit(s) behind main]
+2026-09-24T23:52:10.1075158Z PASS near-miss labels     exit=0 | tail -1: MERGEABLE: 4/4 required green on aaaaaaaaaa [verdict 384472 min old, 0 commit(s) behind main]
+2026-09-24T23:52:10.1076366Z PASS mutation reds hold   refusal removed -> a held PR reads MERGEABLE again (the #18705 shape), so the hold arms are load-bearing | mutant tail: MERGEABLE: 4/4 required green on aaaaaaaaaa [verdict 384472 min old, 0 commit(s) behind main]
+2026-09-24T23:52:10.1077394Z PASS exit codes distinct  HELD=4, red checks=0, CANNOT READ=3 -- three distinct values
+2026-09-24T23:52:10.1078714Z PASS hold needs the repo  exit=3 | tail -1: CANNOT READ: no owner/repo — pass it as arg 2 (or set GH_REPO). No git remote at this script's own directory or at the cwd, and gh repo view (GraphQL) failed too. This is NOT a verdict, and NOT a count of zero green.
+2026-09-24T23:52:10.1080303Z PASS stale verdict        exit=0 | tail -1: MERGEABLE: 4/4 required green on aaaaaaaaaa (STALE VERDICT: 120 min old, 5 commits behind - update-branch before merging)
+2026-09-24T23:52:10.1081234Z PASS fresh not stale      exit=0 | tail -1: MERGEABLE: 4/4 required green on aaaaaaaaaa [verdict 5 min old, 5 commit(s) behind main]
+2026-09-24T23:52:10.1082609Z PASS in-sync not stale    exit=0 | tail -1: MERGEABLE: 4/4 required green on aaaaaaaaaa [verdict 120 min old, 0 commit(s) behind main]
+2026-09-24T23:52:10.1084585Z PASS compare unreadable   exit=0 | tail -1: MERGEABLE: 4/4 required green on aaaaaaaaaa [verdict age/commits-behind: CANNOT READ — not 0 min old, not 0 commits behind]
+2026-09-24T23:52:10.1085831Z PASS cannot-read detail   the detail line refuses too, above the verdict
+2026-09-24T23:52:10.1087248Z PASS mutation reds stale  clause removed -> stale arm would red | mutant tail: MERGEABLE: 4/4 required green on aaaaaaaaaa [verdict 120 min old, 5 commit(s) behind main]
+2026-09-24T23:52:10.1089303Z PASS head-read-failed     exit=3 | tail -1: HEAD-READ-FAILED: REST could not read the PR head — NO VERDICT, re-run this script
+2026-09-24T23:52:10.1091213Z PASS stale both reads     exit=3 | tail -1: STALE-PR-OBJECT: REST head disagrees with origin/stale-branch — NO VERDICT (re-read)
+2026-09-24T23:52:10.1093134Z PASS refusals distinct    the two refusals differ
+2026-09-24T23:52:10.1094269Z PASS self-heal continues  exit=0 | tail -1: MERGEABLE: 4/4 required green on aec8d88644 [verdict 384472 min old, 0 commit(s) behind main]
+2026-09-24T23:52:10.1095660Z PASS fetch-head race      OLD FETCH_HEAD form races (aec8d8 -> d05aee), tracking-ref form immune (aec8d8)
+2026-09-24T23:52:10.1096657Z PASS guard uses ref       guard reads the tracking ref, not FETCH_HEAD
+2026-09-24T23:52:10.1097827Z PASS fetch creates ref    exit=0 | tail -1: MERGEABLE: 4/4 required green on aec8d88644 [verdict 384472 min old, 0 commit(s) behind main]
+2026-09-24T23:52:10.1099371Z PASS forced refspec       exit=0 | tail -1: MERGEABLE: 4/4 required green on aec8d88644 [verdict 384472 min old, 0 commit(s) behind main]
+2026-09-24T23:52:10.1100126Z PASS mirror in sync       the two repo copies are byte-identical
+2026-09-24T23:52:10.1100615Z PASS hold vocab locked    HOLD-VOCAB LOCKED: 3 file(s) agree on [hold owner-hold]
+2026-09-24T23:52:10.1101287Z PASS vocab lock reds      a copy of this file with owner-hold dropped DIVERGED from merge-check.sh -- the lock is load-bearing
+2026-09-24T23:52:10.1123762Z SELFTEST: 37/37 arms pass
+2026-09-24T23:52:10.1127392Z instrument pr-required-mirror-selftest: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:52:10.1204019Z ##[group]Run bash scripts/run-instrument.sh stranded-worktree-report-selftest -- bash scripts/stranded-worktree-report.sh --selftest
+2026-09-24T23:52:10.1205007Z [36;1mbash scripts/run-instrument.sh stranded-worktree-report-selftest -- bash scripts/stranded-worktree-report.sh --selftest[0m
+2026-09-24T23:52:10.1266571Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:52:10.1266824Z env:
+2026-09-24T23:52:10.1267034Z   BP_STEP_VERDICT: MEASURED-DEFECT
+2026-09-24T23:52:10.1267296Z ##[endgroup]
+2026-09-24T23:52:10.1723441Z selftest: stranded-worktree-report
+2026-09-24T23:52:10.1724456Z --- STATE A: no dirty worktrees ---
+2026-09-24T23:52:10.1964668Z   PASS  A: reports NO STRANDED WORK FOUND when nothing is dirty
+2026-09-24T23:52:10.1965260Z   PASS  A: exit 0 on a clean sweep
+2026-09-24T23:52:10.1977613Z   PASS  A: enumerates the main checkout too
+2026-09-24T23:52:10.1991140Z   PASS  A: enumerates wt-wip
+2026-09-24T23:52:10.2005037Z   PASS  A: enumerates wt-idle
+2026-09-24T23:52:10.2019171Z   PASS  A: stash reporter prints the EMPTY answer on an empty stack
+2026-09-24T23:52:10.2019935Z --- STATE B: one deliberately dirty worktree ---
+2026-09-24T23:52:10.2354165Z   PASS  B: reports wt-wip DIRTY
+2026-09-24T23:52:10.2367002Z   PASS  B: headline counts the dirty worktree
+2026-09-24T23:52:10.2367624Z   PASS  B: exit 1 when stranded work exists
+2026-09-24T23:52:10.2381534Z   PASS  B: wt-idle still CLEAN (the report discriminates)
+2026-09-24T23:52:10.2395753Z   PASS  B: names the untracked file stash-create cannot capture
+2026-09-24T23:52:10.2396473Z --- CONTROL: git grep cannot see any of it ---
+2026-09-24T23:52:10.2424094Z   PASS  C: `git grep <token> wip` finds NOTHING (committed tree)
+2026-09-24T23:52:10.2450718Z   PASS  C: `git grep <token>` from a SIBLING worktree finds NOTHING
+2026-09-24T23:52:10.2477651Z   PASS  C: `git grep <utoken>` IN its own worktree finds NOTHING (untracked)
+2026-09-24T23:52:10.2504561Z   PASS  C: a filesystem grep DOES find both tokens (the control)
+2026-09-24T23:52:10.2505330Z --- CAPTURE: non-destructive, and actually anchors ---
+2026-09-24T23:52:10.2971886Z   PASS  D: git status --porcelain is UNCHANGED after capture
+2026-09-24T23:52:10.2986575Z   PASS  D: the same dirty file is still dirty afterwards
+2026-09-24T23:52:10.3060220Z   PASS  D: the anchor branch (rescue/wt-wip-20260924T235210Z) carries the stranded token
+2026-09-24T23:52:10.3078395Z   PASS  D: the stash list is still empty (create, never push) [empty-stack special case of arm G]
+2026-09-24T23:52:10.3097237Z   PASS  D: untracked file is NOT in the anchor, exactly as documented
+2026-09-24T23:52:10.3110699Z   PASS  D: the report names the untracked gap on the capture run
+2026-09-24T23:52:10.3111474Z --- GUTTED: deletions-only is not stranded work ---
+2026-09-24T23:52:10.3520969Z   PASS  F: deletions-only worktree classifies GUTTED, not DIRTY
+2026-09-24T23:52:10.3533789Z   PASS  F: GUTTED is counted in its own bucket
+2026-09-24T23:52:10.3548074Z   PASS  F: the genuinely dirty worktree is still DIRTY
+2026-09-24T23:52:10.3561680Z   PASS  F: headline still counts exactly 1 worktree of real work
+2026-09-24T23:52:10.3562626Z   PASS  F: exit still 1 (the DIRTY row alone earns it)
+2026-09-24T23:52:10.3894164Z   PASS  F: a GUTTED-only sweep exits 0
+2026-09-24T23:52:10.3908015Z   PASS  F: and says NO STRANDED WORK FOUND
+2026-09-24T23:52:10.3908785Z --- G: NON-EMPTY STASH STACK is read, and is UNCHANGED across capture ---
+2026-09-24T23:52:10.4377011Z   PASS  G: precondition — the fixture stack holds 2 entries (non-empty)
+2026-09-24T23:52:10.4907273Z   PASS  G: stash stack UNCHANGED across capture (count 2, stash@{0} c65714778ed5)
+2026-09-24T23:52:10.4978113Z   PASS  G: the capture under test really ran (anchor rescue/wt-stack-20260924T235210Z carries the token)
+2026-09-24T23:52:10.4991292Z   PASS  G: reports the stack size
+2026-09-24T23:52:10.5005000Z   PASS  G: counts 2 entries
+2026-09-24T23:52:10.5018377Z   PASS  G: enumerates the ALPHA entry
+2026-09-24T23:52:10.5033528Z   PASS  G: enumerates the BETA entry in full
+2026-09-24T23:52:10.5047732Z   PASS  G: counts the MISPOP entry
+2026-09-24T23:52:10.5061063Z   PASS  G: labels the sole-copy row SOLE-COPY
+2026-09-24T23:52:10.5074837Z   PASS  G: counts the sole-copy entry
+2026-09-24T23:52:10.5088204Z   PASS  G: labels the plain entry WIP
+2026-09-24T23:52:10.5101260Z   PASS  G: says the stack IS the work
+2026-09-24T23:52:10.5115014Z   PASS  G: and does NOT print the empty answer over a populated stack
+2026-09-24T23:52:10.5314385Z   PASS  G: --stash-only still enumerates the stack
+2026-09-24T23:52:10.5327289Z   PASS  G: --stash-only claims nothing about worktrees
+2026-09-24T23:52:10.5327966Z   PASS  G: --stash-only exits 0
+2026-09-24T23:52:10.5583035Z   PASS  G: --no-stash suppresses the stash corpus
+2026-09-24T23:52:10.5583679Z --- INCOMPLETE SWEEP must refuse, not report 'none' ---
+2026-09-24T23:52:10.5786508Z   PASS  E: names the missing worktree
+2026-09-24T23:52:10.5799827Z   PASS  E: does NOT claim a clean sweep while incomplete
+2026-09-24T23:52:10.5813671Z   PASS  E: says the sweep is INCOMPLETE instead
+2026-09-24T23:52:10.5814303Z   PASS  E: exit 3 on an incomplete sweep
+2026-09-24T23:52:10.5874872Z selftest: ALL PASS
+2026-09-24T23:52:10.5880305Z instrument stranded-worktree-report-selftest: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:52:10.5955495Z ##[group]Run bash scripts/run-instrument.sh doc-budgets-selftest -- bash scripts/check-doc-budgets.sh --selftest
+2026-09-24T23:52:10.5956313Z [36;1mbash scripts/run-instrument.sh doc-budgets-selftest -- bash scripts/check-doc-budgets.sh --selftest[0m
+2026-09-24T23:52:10.6020249Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:52:10.6020552Z env:
+2026-09-24T23:52:10.6020771Z   BP_STEP_VERDICT: MEASURED-DEFECT
+2026-09-24T23:52:10.6021035Z ##[endgroup]
+2026-09-24T23:52:31.4431286Z check-doc-budgets --selftest: PASS (32 arms: pristine, in-span plant, re-pin, marker relocation, span cap, missing golden, no markers, bad arg, span-cap clamp both directions, retired env var inert, caps green control, caps literal pin, caps-table dark, caps-table unpinned row, over-cap file, missing capped file, freeze literal pin, DISCOVERY DARK, over-header doc, grown frozen doc, paid frozen doc, stale freeze row, unpinned freeze row, harness aborts non-zero, unpinned exemption row, discovery-only control+scope, discovery-only DARK, discovery-only over-header doc, discovery-only env var inert, freeze ceiling, discovery count identity silent on an intact walk, discovery count identity REFUSES a walk truncated by a stdin-draining child — every probe arm asserts the EXIT CODE and its own message; the count and the names are both DERIVED from the arm() calls this run reached, so deleting an arm prints N-1)
+2026-09-24T23:52:31.4474533Z instrument doc-budgets-selftest: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:52:31.4559427Z ##[group]Run bash scripts/run-instrument.sh doc-budgets-discovery -- bash scripts/check-doc-budgets.sh --discovery-only
+2026-09-24T23:52:31.4560278Z [36;1mbash scripts/run-instrument.sh doc-budgets-discovery -- bash scripts/check-doc-budgets.sh --discovery-only[0m
+2026-09-24T23:52:31.4621883Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:52:31.4622344Z env:
+2026-09-24T23:52:31.4622581Z   BP_STEP_VERDICT: MEASURED-DEFECT
+2026-09-24T23:52:31.4622841Z ##[endgroup]
+2026-09-24T23:52:31.4823734Z ok:   fixed-caps table walked all 39 budget-gated row(s)
+2026-09-24T23:52:31.4845404Z ok:   append-only exemption table walked all 1 row(s)
+2026-09-24T23:52:31.4845807Z ok:   freeze literal 38 <= ceiling 38 (the list may only shrink)
+2026-09-24T23:52:31.4846249Z ok:   freeze table walked all 38 frozen row(s)
+2026-09-24T23:52:31.5206519Z ok:   docs/PHILOSOPHY.md 4633B <= 4800B (header 1200tok x 4)
+2026-09-24T23:52:31.5372729Z ok:   docs/api/conflict-409-resolution.md 889B <= 1000B (header 250tok x 4)
+2026-09-24T23:52:31.5507453Z ok:   docs/api/error-envelope-migration.md 2645B <= 2645B (FROZEN — owes 645B against its 500tok header)
+2026-09-24T23:52:31.6085254Z ok:   docs/cli/HANDBOOK.md 13979B <= 13979B (FROZEN — owes 6779B against its 1800tok header)
+2026-09-24T23:52:31.6200623Z ok:   docs/cli/error-exit-table.md 20864B <= 20911B (FROZEN — owes 10911B against its 2500tok header)
+2026-09-24T23:52:31.6318043Z ok:   docs/cli/m0-decisions.md 5334B <= 5334B (FROZEN — owes 134B against its 1300tok header)
+2026-09-24T23:52:31.6494024Z ok:   docs/contracts/cli-credential-mint.md 3186B <= 3200B (header 800tok x 4)
+2026-09-24T23:52:31.6667982Z ok:   docs/contracts/cycle-fleet.md 7497B <= 7497B (FROZEN — owes 2697B against its 1200tok header)
+2026-09-24T23:52:31.6771875Z ok:   docs/contracts/dispatch-areas.md 5782B <= 5782B (FROZEN — owes 182B against its 1400tok header)
+2026-09-24T23:52:31.6912097Z ok:   docs/contracts/instance-operator-tier.md 2261B <= 2400B (header 600tok x 4)
+2026-09-24T23:52:31.7121071Z ok:   docs/contracts/paper-editor-integration.md 3030B <= 4000B (header 1000tok x 4)
+2026-09-24T23:52:31.7226263Z ok:   docs/contracts/plugin-http-api.md 2740B <= 2800B (header 700tok x 4)
+2026-09-24T23:52:31.7331782Z ok:   docs/contracts/portable-doc-heading-authoring.md 1723B <= 2800B (header 700tok x 4)
+2026-09-24T23:52:31.7473204Z ok:   docs/contracts/portable-doc-list-authoring.md 3014B <= 4000B (header 1000tok x 4)
+2026-09-24T23:52:31.7575465Z ok:   docs/contracts/portable-doc-nested-lists.md 3584B <= 3600B (header 900tok x 4)
+2026-09-24T23:52:31.7679006Z ok:   docs/contracts/portable-doc-paragraph-authoring.md 2038B <= 2800B (header 700tok x 4)
+2026-09-24T23:52:31.7782877Z ok:   docs/contracts/portable-doc-prose-readers.md 1298B <= 2000B (header 500tok x 4)
+2026-09-24T23:52:31.7886514Z ok:   docs/contracts/portable-doc-table-authoring.md 2779B <= 2800B (header 700tok x 4)
+2026-09-24T23:52:31.7991696Z ok:   docs/contracts/query-surface-limits.md 9422B <= 9600B (header 2400tok x 4)
+2026-09-24T23:52:31.8097125Z ok:   docs/contracts/roster-reading.md 7384B <= 7384B (FROZEN — owes 184B against its 1800tok header)
+2026-09-24T23:52:31.8340352Z ok:   docs/contracts/tui-render-doctrine.md 3920B <= 3920B (FROZEN — owes 320B against its 900tok header)
+2026-09-24T23:52:31.8477566Z ok:   docs/contracts/writing.md 6268B <= 6400B (header 1600tok x 4)
+2026-09-24T23:52:31.8580422Z ok:   docs/decisions/0001-sdk-envelope.md 2178B <= 2179B (FROZEN — owes 979B against its 300tok header)
+2026-09-24T23:52:31.8682784Z ok:   docs/decisions/0002-npm-dist-tag.md 5221B <= 5221B (FROZEN — owes 2021B against its 800tok header)
+2026-09-24T23:52:31.8785714Z ok:   docs/decisions/0003-sync-tags.md 3674B <= 3674B (FROZEN — owes 74B against its 900tok header)
+2026-09-24T23:52:31.8886656Z ok:   docs/decisions/0004-cloud-boundary.md 1988B <= 2800B (header 700tok x 4)
+2026-09-24T23:52:31.8988879Z ok:   docs/decisions/0005-pr-body-criteria.md 3113B <= 3113B (FROZEN — owes 313B against its 700tok header)
+2026-09-24T23:52:31.9091904Z ok:   docs/decisions/0006-canonical-block-type-count.md 5123B <= 5200B (header 1300tok x 4)
+2026-09-24T23:52:31.9195155Z ok:   docs/decisions/0007-capability-oracle.md 4066B <= 4800B (header 1200tok x 4)
+2026-09-24T23:52:31.9297916Z ok:   docs/decisions/0008-charter-corpus-marker-hygiene.md 4517B <= 5600B (header 1400tok x 4)
+2026-09-24T23:52:31.9399093Z ok:   docs/decisions/0009-malformed-notes-items-across-surfaces.md 3594B <= 3600B (header 900tok x 4)
+2026-09-24T23:52:31.9499239Z ok:   docs/decisions/0010-paper-masters.md 3989B <= 4000B (header 1000tok x 4)
+2026-09-24T23:52:31.9600967Z ok:   docs/decisions/deferred.md 3892B <= 3892B (FROZEN — owes 2292B against its 400tok header)
+2026-09-24T23:52:31.9735260Z ok:   docs/evidence/gr-p4-members-env/README.md 1106B <= 1600B (header 400tok x 4)
+2026-09-24T23:52:31.9835774Z ok:   docs/evidence/gr-p4-notifications/README.md 3858B <= 4400B (header 1100tok x 4)
+2026-09-24T23:52:31.9937465Z ok:   docs/evidence/spd-b11-subxs-type-scale/README.md 4169B <= 16000B (header 4000tok x 4)
+2026-09-24T23:52:32.0038525Z ok:   docs/learn/README.md 5099B <= 5600B (header 1400tok x 4)
+2026-09-24T23:52:32.0141625Z ok:   docs/learn/plugins-catalog.md 2868B <= 4800B (header 1200tok x 4)
+2026-09-24T23:52:32.0243412Z ok:   docs/media/DISCOVERY.md 2445B <= 2445B (FROZEN — owes 845B against its 400tok header)
+2026-09-24T23:52:32.0410487Z ok:   docs/ops/backup-dr.md 5735B <= 5735B (FROZEN — owes 135B against its 1400tok header)
+2026-09-24T23:52:32.0510519Z ok:   docs/ops/barkpark-cloud-go-live.md 10564B <= 10564B (FROZEN — owes 2964B against its 1900tok header)
+2026-09-24T23:52:32.0611484Z ok:   docs/ops/bokbasen-go-live.md 5153B <= 5153B (FROZEN — owes 353B against its 1200tok header)
+2026-09-24T23:52:32.0680636Z ok:   docs/ops/break-glass-log.md EXEMPT — an append-only record carries no byte ceiling (still reached and counted)
+2026-09-24T23:52:32.0780601Z ok:   docs/ops/ci-cost-baseline.md 13683B <= 16000B (header 4000tok x 4)
+2026-09-24T23:52:32.0915335Z ok:   docs/ops/ci-value-audit.md 7868B <= 8800B (header 2200tok x 4)
+2026-09-24T23:52:32.1048473Z ok:   docs/ops/ci-workflow-verdicts.md 7979B <= 8000B (header 2000tok x 4)
+2026-09-24T23:52:32.1147309Z ok:   docs/ops/claude-chat-harness.md 4602B <= 12000B (header 3000tok x 4)
+2026-09-24T23:52:32.1245404Z ok:   docs/ops/compatibility.md 2741B <= 4800B (header 1200tok x 4)
+2026-09-24T23:52:32.1344710Z ok:   docs/ops/connectors-deploy.md 10625B <= 10694B (FROZEN — owes 294B against its 2600tok header)
+2026-09-24T23:52:32.1442549Z ok:   docs/ops/exclusion-anchor-rederive.md 4666B <= 4800B (header 1200tok x 4)
+2026-09-24T23:52:32.1541324Z ok:   docs/ops/github-sync.md 8693B <= 8693B (FROZEN — owes 693B against its 2000tok header)
+2026-09-24T23:52:32.1639919Z ok:   docs/ops/imessage-self-host.md 5937B <= 10400B (header 2600tok x 4)
+2026-09-24T23:52:32.1740337Z ok:   docs/ops/mcp-serve-validation.md 13209B <= 13209B (FROZEN — owes 5209B against its 2000tok header)
+2026-09-24T23:52:32.1908273Z ok:   docs/ops/npm-rollback-playbook.md 11391B <= 11433B (FROZEN — owes 2633B against its 2200tok header)
+2026-09-24T23:52:32.2009995Z ok:   docs/ops/prod-microblock-pull-plan.md 8791B <= 8800B (header 2200tok x 4)
+2026-09-24T23:52:32.2112030Z ok:   docs/ops/realtime-webhook-setup.md 2378B <= 2400B (header 600tok x 4)
+2026-09-24T23:52:32.2212879Z ok:   docs/ops/security-gates.md 9710B <= 10000B (header 2500tok x 4)
+2026-09-24T23:52:32.2313478Z ok:   docs/ops/slack-app.md 4227B <= 10400B (header 2600tok x 4)
+2026-09-24T23:52:32.2447146Z ok:   docs/ops/teams-azure-bot.md 10188B <= 10400B (header 2600tok x 4)
+2026-09-24T23:52:32.2548602Z ok:   docs/ops/vercel-dns-connect.md 12390B <= 12390B (FROZEN — owes 790B against its 2900tok header)
+2026-09-24T23:52:32.2647875Z ok:   docs/ops/whatsapp-meta.md 6575B <= 10400B (header 2600tok x 4)
+2026-09-24T23:52:32.2748190Z ok:   docs/plugins/codelists-byo.md 2081B <= 2081B (FROZEN — owes 81B against its 500tok header)
+2026-09-24T23:52:32.2847140Z ok:   docs/search/INTELLIGENCE.md 6478B <= 7200B (header 1800tok x 4)
+2026-09-24T23:52:32.2951479Z ok:   docs/search/ROADMAP.md 2809B <= 2809B (FROZEN — owes 809B against its 500tok header)
+2026-09-24T23:52:32.3120623Z ok:   docs/setup/CLAUDE-CODE.md 12444B <= 12444B (FROZEN — owes 6044B against its 1600tok header)
+2026-09-24T23:52:32.3219949Z ok:   docs/setup/CLOUD-QUICKSTART.md 2527B <= 5200B (header 1300tok x 4)
+2026-09-24T23:52:32.3354950Z ok:   docs/setup/COPILOT.md 6122B <= 6400B (header 1600tok x 4)
+2026-09-24T23:52:32.3455918Z ok:   docs/setup/CURSOR-CLOUD.md 3047B <= 3200B (header 800tok x 4)
+2026-09-24T23:52:32.3556121Z ok:   docs/setup/CURSOR.md 7572B <= 7579B (FROZEN — owes 1179B against its 1600tok header)
+2026-09-24T23:52:32.3655850Z ok:   docs/setup/GEMINI-CLI.md 4966B <= 6400B (header 1600tok x 4)
+2026-09-24T23:52:32.3756821Z ok:   docs/setup/GO-LIVE.md 4618B <= 7200B (header 1800tok x 4)
+2026-09-24T23:52:32.3893468Z ok:   docs/setup/REMOTE.md 7443B <= 7457B (FROZEN — owes 1057B against its 1600tok header)
+2026-09-24T23:52:32.3993422Z ok:   docs/setup/SETUP.md 12163B <= 12185B (FROZEN — owes 5385B against its 1700tok header)
+2026-09-24T23:52:32.4127808Z ok:   docs/setup/WINDOWS.md 6836B <= 8800B (header 2200tok x 4)
+2026-09-24T23:52:32.4227797Z ok:   docs/setup/WINDSURF.md 4895B <= 6400B (header 1600tok x 4)
+2026-09-24T23:52:32.4327431Z ok:   docs/setup/ZED.md 5872B <= 6400B (header 1600tok x 4)
+2026-09-24T23:52:32.4427972Z ok:   docs/setup/cloud-login.md 6290B <= 6290B (FROZEN — owes 690B against its 1400tok header)
+2026-09-24T23:52:32.4528057Z ok:   docs/setup/media-object-storage.md 3678B <= 6000B (header 1500tok x 4)
+2026-09-24T23:52:32.4629728Z ok:   docs/setup/personal-local.md 5161B <= 5169B (FROZEN — owes 1969B against its 800tok header)
+2026-09-24T23:52:32.4729164Z ok:   docs/sla.md 1853B <= 3600B (header 900tok x 4)
+2026-09-24T23:52:32.4829450Z ok:   docs/snippets/README.md 1975B <= 1975B (FROZEN — owes 775B against its 300tok header)
+2026-09-24T23:52:32.4930996Z ok:   docs/spec/bokbasen-api-contract.md 39908B <= 39908B (FROZEN — owes 708B against its 9800tok header)
+2026-09-24T23:52:32.5033010Z ok:   docs/specs/wave-deck-zen/handoff/README.md 1753B <= 2800B (header 700tok x 4)
+2026-09-24T23:52:32.5134964Z ok:   docs/studio/user-guide.md 4872B <= 4913B (FROZEN — owes 113B against its 1200tok header)
+2026-09-24T23:52:32.5235973Z ok:   docs/studio/web-components.md 3676B <= 3676B (FROZEN — owes 1276B against its 600tok header)
+2026-09-24T23:52:32.5337845Z ok:   docs/superpowers/plans/2026-07-25-session-handoff.md 43843B <= 48000B (header 12000tok x 4)
+2026-09-24T23:52:32.5439584Z ok:   docs/superpowers/specs/2026-07-25-session-handoff-design.md 12526B <= 36000B (header 9000tok x 4)
+2026-09-24T23:52:32.5541566Z ok:   docs/swarm/_INTEGRATION-LOG.md 7546B <= 8000B (header 2000tok x 4)
+2026-09-24T23:52:32.5676636Z ok:   docs/swarm/dwb-11-failure-matrix.md 8889B <= 10400B (header 2600tok x 4)
+2026-09-24T23:52:32.5811207Z ok:   docs/swarm/oban-substrate.md 5931B <= 5931B (FROZEN — owes 1131B against its 1200tok header)
+2026-09-24T23:52:32.5912532Z ok:   docs/swarm/personal-access-tokens.md 6925B <= 6925B (FROZEN — owes 2125B against its 1200tok header)
+2026-09-24T23:52:32.6048356Z ok:   docs/swarm/subscription-billing.md 7317B <= 7317B (FROZEN — owes 2517B against its 1200tok header)
+2026-09-24T23:52:32.6149003Z ok:   docs/swarm/teams-invitations.md 4937B <= 4937B (FROZEN — owes 137B against its 1200tok header)
+2026-09-24T23:52:32.6386447Z ok:   scripts/pds-crown-climb-runbook.md 25490B <= 28000B (header 7000tok x 4)
+2026-09-24T23:52:32.6487241Z ok:   scripts/pds-crown-fence-arithmetic-2026-07-20.md 12653B <= 24000B (header 6000tok x 4)
+2026-09-24T23:52:32.6589837Z ok:   scripts/pds-crown-ledger-2026-07-20.md 16110B <= 24000B (header 6000tok x 4)
+2026-09-24T23:52:32.6693146Z ok:   scripts/pds-crown-ledger-w10-amendment.md 5634B <= 12000B (header 3000tok x 4)
+2026-09-24T23:52:32.6794622Z ok:   scripts/pds-crown-runbook.md 23822B <= 24000B (header 6000tok x 4)
+2026-09-24T23:52:32.6928176Z ok:   scripts/pds-crown-verdict-2026-07-20.md 6712B <= 16000B (header 4000tok x 4)
+2026-09-24T23:52:32.7029329Z ok:   scripts/pds-export-cost-derivation.md 28030B <= 48000B (header 12000tok x 4)
+2026-09-24T23:52:32.7129414Z ok:   scripts/pds-rung6-faildemo-record.md 13731B <= 48000B (header 12000tok x 4)
+2026-09-24T23:52:32.7230635Z ok:   scripts/pds-schema-row-census.md 30118B <= 48000B (header 12000tok x 4)
+2026-09-24T23:52:32.7332457Z ok:   scripts/pds-scratch-target-cost-2026-07-20.md 14674B <= 32000B (header 8000tok x 4)
+2026-09-24T23:52:32.7434007Z ok:   scripts/pds-w15-fire-record.md 18843B <= 48000B (header 12000tok x 4)
+2026-09-24T23:52:32.7534817Z ok:   scripts/pds-w18-fire-record.md 13366B <= 36000B (header 9000tok x 4)
+2026-09-24T23:52:32.7636386Z ok:   scripts/pds-w19-fire-record.md 4268B <= 16000B (header 4000tok x 4)
+2026-09-24T23:52:32.7738598Z ok:   scripts/pds-w20-floor-derivation.md 5986B <= 24000B (header 6000tok x 4)
+2026-09-24T23:52:32.7840328Z ok:   scripts/pds-w21-fire-record.md 9893B <= 16000B (header 4000tok x 4)
+2026-09-24T23:52:32.7976058Z ok:   scripts/pds-w47-export-wire-bytes-2026-09-17.md 7275B <= 14000B (header 3500tok x 4)
+2026-09-24T23:52:32.8078053Z ok:   scripts/pds-window-availability-2026-07-20.md 17312B <= 56000B (header 14000tok x 4)
+2026-09-24T23:52:32.8179452Z ok:   web/AGENTS.md 654B <= 1000B (header 250tok x 4)
+2026-09-24T23:52:32.8180183Z ok:   budget gate reached 150 gated doc(s) (39 capped + 111 discovered, floor 118)
+2026-09-24T23:52:32.8221940Z ok:   every freeze row still names a discovered doc
+2026-09-24T23:52:32.8223131Z check-doc-budgets: PASS (discovery-only)
+2026-09-24T23:52:32.8227295Z instrument doc-budgets-discovery: exit 0 -> MEASURED-CLEAN
+2026-09-24T23:52:32.8300220Z ##[group]Run echo "verdict=${BP_STEP_VERDICT:-}" >> "$GITHUB_OUTPUT"
+2026-09-24T23:52:32.8300691Z [36;1mecho "verdict=${BP_STEP_VERDICT:-}" >> "$GITHUB_OUTPUT"[0m
+2026-09-24T23:52:32.8364540Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:52:32.8364805Z env:
+2026-09-24T23:52:32.8365010Z   BP_STEP_VERDICT: MEASURED-DEFECT
+2026-09-24T23:52:32.8365267Z ##[endgroup]
+2026-09-24T23:52:32.8480416Z ##[group]Run set -uo pipefail
+2026-09-24T23:52:32.8480724Z [36;1mset -uo pipefail[0m
+2026-09-24T23:52:32.8480994Z [36;1mif ! command -v node >/dev/null 2>&1; then[0m
+2026-09-24T23:52:32.8481733Z [36;1m  echo "CANNOT READ: node is not on this runner. check-vendor-freshness.mjs is a node program, so no freshness reading was taken and none is being reported as fresh." >&2[0m
+2026-09-24T23:52:32.8483170Z [36;1m  echo "::error title=Vendored SDK freshness CANNOT READ::node missing on the runner image"[0m
+2026-09-24T23:52:32.8483614Z [36;1m  exit 1[0m
+2026-09-24T23:52:32.8483803Z [36;1mfi[0m
+2026-09-24T23:52:32.8483990Z [36;1mnode --version[0m
+2026-09-24T23:52:32.8545281Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:52:32.8545525Z env:
+2026-09-24T23:52:32.8545733Z   BP_STEP_VERDICT: MEASURED-DEFECT
+2026-09-24T23:52:32.8545990Z ##[endgroup]
+2026-09-24T23:52:32.9418952Z v22.23.2
+2026-09-24T23:52:32.9477390Z ##[group]Run node scripts/check-vendor-freshness.mjs
+2026-09-24T23:52:32.9477807Z [36;1mnode scripts/check-vendor-freshness.mjs[0m
+2026-09-24T23:52:32.9539718Z shell: /usr/bin/bash -e {0}
+2026-09-24T23:52:32.9539973Z env:
+2026-09-24T23:52:32.9540187Z   BP_STEP_VERDICT: MEASURED-DEFECT
+2026-09-24T23:52:32.9540440Z ##[endgroup]
+2026-09-24T23:52:33.2061668Z ok   @barkpark/core 1.0.0-preview.3 — source sha256:75f621f9c1662d22… vs stamped sha256:75f621f9c1662d22…
+2026-09-24T23:52:33.2064653Z ok   @barkpark/react 1.0.0-preview.1 — source sha256:9c5598621ee98efd… vs stamped sha256:9c5598621ee98efd…
+2026-09-24T23:52:33.2065936Z ok   vendored SDKs are fresh: 2 packages x 2 templates, content-compared against templates/VENDOR-STAMP.json
+2026-09-24T23:52:33.2228392Z Post job cleanup.
+2026-09-24T23:52:33.3086206Z [command]/usr/bin/git version
+2026-09-24T23:52:33.3133672Z git version 2.55.0
+2026-09-24T23:52:33.3180610Z Temporarily overriding HOME='/home/runner/work/_temp/0db97670-64cb-44e3-9244-b0f10e1f7f69' before making global git config changes
+2026-09-24T23:52:33.3181982Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-24T23:52:33.3187924Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/barkpark/barkpark
+2026-09-24T23:52:33.3232790Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-24T23:52:33.3278512Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-24T23:52:33.3571028Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-24T23:52:33.3600260Z http.https://github.com/.extraheader
+2026-09-24T23:52:33.3613682Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-09-24T23:52:33.3660622Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-24T23:52:33.3970697Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-24T23:52:33.4017923Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-24T23:52:33.4439057Z Evaluate and set job outputs
+2026-09-24T23:52:33.4444430Z Set output 'verdict'
+2026-09-24T23:52:33.4446305Z Cleaning up orphan processes
+2026-09-24T23:52:33.4772101Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

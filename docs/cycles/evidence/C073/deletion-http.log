@@ -1,0 +1,16 @@
+Disposable deletion audit: starting
+Disposable deletion audit: recovering
+Disposable deletion audit: recovering
+Disposable deletion audit: ready
+Audit completed; deletion readiness: BLOCKED
+PASS stale-before-request: A revision already stale when delete starts refuses with412 and preserves the exact human row.
+PASS history-survives-delete: Deleted draft is absent and its exact revision remains retrievable.
+UNSAFE restore-preserves-later-human-edit: Later title "New human title after recovery" became "Human edit before deletion" after replay.
+PASS create-only-copy-preserves-both-rows: New identity preserves exact native blocks/title; repeated create refuses and retains later edits on both original and copy. Links are not retargeted.
+UNSAFE exact-delete-preserves-published-twin: Exact drafts.welcome delete returned200; published welcome read returned404.
+UNSAFE delete-receipt-names-requested-row: Requested drafts.welcome; receipt named welcome.
+UNPROVED atomic-caller-revision-delete: Not executed: mutation revision check precedes lifecycle reread. Server-side interleaving test required.
+Disposable deletion audit: stopping
+Disposable deletion audit: stopped
+Report: C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\docs\cycles\evidence\C073\deletion-http\audit.json
+Retained disposable runtime: C:\Users\Frikk\AppData\Local\Temp\bd-delete-audit-fHrhG8

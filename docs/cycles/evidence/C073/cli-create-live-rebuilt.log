@@ -1,0 +1,44 @@
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-mABfSA
+Capture runtime: starting 
+Capture runtime: ready 
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: bulldocs create c073-native-cli-insert: {"error":{"code":"label_spine","details":{"index":0,"field":"rationale","fix":"Explain in entry #0 why this tag earns its strength (≥20 chars).","rule":"A rationale must be at least 20 characters — it calibrates the strength."},"hint":"Give the document a non-trivial description and 1-12 weighted tags — [{tag, strength 1-100 (all distinct), rationale}] — then republish; details lists each field, the rule it broke, and the fix, and you can repair the SAME draft in place rather than re-filing. If a published document appears to break the same rule, it is probably GRANDFATHERED: the wall reads an exemption once at entry and lets an exempt doc past a spine failure unchanged, while a birth is never exempt — so an incumbent is not evidence that your content passes. Learn where the authoring standards live in the doctrine papers /papers/portabledoc-doctrine and /papers/composition-doctrine-plan.","message":"document failed the publish wall's label spine","request_id":"GNhqPRbXgwAvnXsAAAGF"},"ok":false}
+ 
+
+5 !== 0
+
+    at run (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/docs/cycles/evidence/C073/cli-create-live.mjs:19:10)
+    at file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/docs/cycles/evidence/C073/cli-create-live.mjs:37:17
+    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 5,
+  expected: 0,
+  operator: 'strictEqual'
+}
+
+Node.js v22.13.1
+Capture runtime: stopping 
+Capture runtime: stopped 
+file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:98
+    throw new AggregateError(errors, errors.map(error => error.message).join('\n'));
+          ^
+
+AggregateError: Live screenshot capture failed with exit 1
+    at captureWithCleanup (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:98:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/status-shots-isolated.mjs:33:1 {
+  [errors]: [
+    Error: Live screenshot capture failed with exit 1
+        at captureWithCleanup (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/helpers/capture-lifecycle.mjs:82:51)
+        at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+        at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/status-shots-isolated.mjs:33:1
+  ]
+}
+
+Node.js v22.13.1
