@@ -47,3 +47,7 @@ P2 currently provides closed-source inventory/backup, durable create-only stagin
 | Rendered Paper and human organization | `app/renderer/src/tabs/paper.js`, `pages.js` | Content authority. Main/upstream enforce writes; Pages placement belongs to the person. |
 
 Before removing a path, trace current callers, stored records and resumed sessions. Existing Keep/Discard rendering can serve retained historical proposals; it does not reverse D28 for new agent edits. Current local documents and remote Papers intentionally coexist. The [ordinary-note service](migration/ordinary-notes.md), `app/main/draft-notes.js`, now owns managed-local foreground creation/read/search/ops and durable creation intents. C069 wires API/MCP creation, draft discovery and title-preserving edits/Undo through the same service; acceptance is tracked in its cycle. Migration activation remains separate work. Keep ownership, transport revisions, Paper revisions and UI navigation distinct.
+
+### Managed migration navigation
+
+`migration-workspace.js` keeps its synchronous unqualified preview and adds a read-only owned projection for the trusted host. It derives destination ownership from the existing profile key and captured runtime connection, checking the source and lease across asynchronous boundaries. `migration-comparison.js` consumes that projection; `migration-media.js` awaits source checks before continuing. [C080 validation](cycles/C080-owned-navigation.md) remains in progress. This does not choose an engine or initialize unknown ownership.

@@ -18,7 +18,7 @@ const { PNG } = require('pngjs');
 const server = process.env.BARKDOWN_SHOTS_SERVER, token = process.env.BARKPARK_API_TOKEN;
 if (process.env.BARKDOWN_SHOTS_ISOLATED !== '1' || !/^http:\/\/127\.0\.0\.1:\d+$/.test(server || '') || !token) throw Error('Owned isolated runtime required');
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-comparison-live-'));
-const out = path.resolve('../docs/cycles/evidence/C078/live', new Date().toISOString().replace(/[:.]/g, '-'));
+const out = path.resolve('../docs/cycles/evidence/C080/live', new Date().toISOString().replace(/[:.]/g, '-'));
 fs.mkdirSync(out, { recursive: true });
 const report = { source: process.env.BARKDOWN_SHOTS_HOST_COMMIT, upstream: process.env.BARKDOWN_SHOTS_BP_COMMIT, status: 'running', checks: [], limits: ['Headless coordinator with controlled foreground hooks; native GUI freeze is separate evidence.', 'Read-only internal rehearsal; no authority switch, server snapshot or direct-client fence.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();
@@ -29,6 +29,7 @@ async function request(method, route, body, status = 200) {
 const registry = createProfileRegistry(root), profile = registry.createProfile({ name: 'Comparison rehearsal' });
 const profiles = createProfileService({ registry }), goals = createGoalService({ registry, profiles, heartbeatMs: 0 });
 const sourceDir = registry.storeFor(profile.id).storeDir, destinationDir = path.join(root, 'backup');
+require('../main/paper-evidence-owner').createPaperEvidenceOwner(require('../main/store').createStore(sourceDir, { create: false })).identify({ server, token, dataset: 'production', viaCli: false }, { create: true });
 let valid = true;
 function coordinator() {
   return createProfilePreparation({ registry, profiles, goals,

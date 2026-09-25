@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "migration-regressions",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-preflight.test.mjs",
+        "tests/migration-staging.test.mjs",
+        "tests/migration-restore.test.mjs",
+        "tests/migration-native-source.test.mjs",
+        "tests/migration-evidence.test.mjs"
+      ]
+    }
+  ]
+}

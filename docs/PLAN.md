@@ -34,7 +34,7 @@ C074 adopted merged upstream b70214090 and shipped the read-only original-histor
 
 C078 merged through PR43 at5ceabea3 and implements the [read-only comparison boundary](migration/comparison.md): a real disposable corpus of206 variants preserves204 existing variants and compares two staged notes, links, PNG media and workspace projection. Revalidation, interrupted reads, later edits and cancellation are exercised. [Current delivery status](NEXT-AGENT.md) distinguishes these passes from final integration. Unplaced/ambiguous navigation and unsupported media still refuse; no authority selection or real-library migration is enabled.
 
-C079 first resolves the post-merge native editor parity failure; focused Windows entry checks pass, hosted integration remains pending. No new cutover scope until that checkpoint is healthy.
+C079 merged at8b762a9d; PR and post-merge Verify/parity pass. C080 now owns connection-bound migration navigation and unplaced local Archive preview. Native restart and full delivery evidence remain pending; no authority switch is enabled.
 
 ## Carry forward
 

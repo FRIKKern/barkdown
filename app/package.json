@@ -91,7 +91,8 @@
     "pretest": "npm run build",
     "test:paper-evidence:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-evidence-owner.live.mjs",
     "test:original-history": "npm run build && node --test tests/original-history.test.mjs tests/migration-evidence.test.mjs && node tests/original-history.live.mjs",
-    "test:migration-comparison:isolated": "node tests/status-shots-isolated.mjs tests/migration-comparison.live.mjs"
+    "test:migration-comparison:isolated": "node tests/status-shots-isolated.mjs tests/migration-comparison.live.mjs",
+    "test:migration-owned-navigation": "npm run build && node tests/migration-owned-navigation.live.mjs"
   },
   "engines": {
     "node": ">=22.13.1"

@@ -1,10 +1,13 @@
 // Offline navigation preview only. Never writes files, contacts Paper or switches authority.
 const { inventoryProfile } = require('./migration-preflight');
-const { hash } = require('./migration-journal');
+const { hash, fail: refuse } = require('./migration-journal');
+const { createStore } = require('./store');
+const { createPaperEvidenceOwner } = require('./paper-evidence-owner');
+const { captureTarget } = require('./migration-staging');
 const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 const own = (value, key) => Object.hasOwn(value, key);
 
-function projectWorkspace(options) {
+function projection(options, paperOwner = null) {
   const snapshot = inventoryProfile(options);
   const file = snapshot.files.find(entry => entry.path === 'workspace.json');
   const result = { version: 1, kind: 'navigation-preview', profileId: snapshot.profileId,
@@ -29,6 +32,7 @@ function projectWorkspace(options) {
     if (kind === 'barkpark' || !value.path.length) return;
     value.path = changed(at + '.path', value.path, value.path.map((id, i) => local(id, `${at}.path[${i}]`)));
     value.source = changed(at + '.source', value.source ?? null, 'barkpark');
+    if (paperOwner) value.paperOwner = changed(at + '.paperOwner', value.paperOwner ?? null, paperOwner);
   }
   function target(value, at) {
     check(object(value) && typeof value.kind === 'string', at, 'Invalid favorite destination');
@@ -37,6 +41,7 @@ function projectWorkspace(options) {
     if (source(value.source, at + '.source') === 'barkpark') return;
     value.id = changed(at + '.id', value.id, local(value.id, at + '.id'));
     value.source = changed(at + '.source', value.source ?? null, 'barkpark');
+    if (paperOwner) value.paperOwner = changed(at + '.paperOwner', value.paperOwner ?? null, paperOwner);
   }
   try {
     const ws = JSON.parse(file.data.toString('utf8'));
@@ -83,8 +88,12 @@ function projectWorkspace(options) {
       check(object(pages) && pages.layoutVersion === 2 && pages.seeded === true && Array.isArray(pages.roots) && object(pages.children) && object(pages.expanded), '$.pages', 'Pages require an already initialized v2 organization');
       function pageKey(key, at) {
         check(typeof key === 'string', at, 'Invalid Page key');
+        if (key.startsWith('bp:v1:')) {
+          const match = /^bp:v1:([a-f0-9]{64}):([\w-]{1,128})$/.exec(key);
+          check(match, at, 'Invalid owned Page key'); return key;
+        }
         if (key.startsWith('bp:')) { identity(key.slice(3), at); return key; }
-        return 'bp:' + local(key, at);
+        return (paperOwner ? 'bp:v1:' + paperOwner + ':' : 'bp:') + local(key, at);
       }
       const parents = new Map();
       function place(key, parent, at) {
@@ -107,21 +116,22 @@ function projectWorkspace(options) {
       for (const key of parents.keys()) { const next = pageKey(key, '$.pages'); check(!mapped.has(next), '$.pages', 'Projected Page collides with an existing cloud destination'); mapped.set(next, key); }
       pages.roots = changed('$.pages.roots', pages.roots, pages.roots.map(key => pageKey(key, '$.pages.roots')));
       pages.children = changed('$.pages.children', pages.children, Object.fromEntries(Object.entries(pages.children).map(([key, children]) => [pageKey(key, '$.pages.children'), children.map(child => pageKey(child, '$.pages.children'))])));
-      for (const field of ['expanded', 'archived']) {
+      for (const field of ['expanded', 'archived', 'labels']) {
         if (!own(pages, field)) continue;
         check(object(pages[field]), '$.pages.' + field, 'Invalid Page state map');
         const keys = new Set();
         pages[field] = changed('$.pages.' + field, pages[field], Object.fromEntries(Object.entries(pages[field]).map(([key, value]) => {
-          check(typeof value === 'boolean', '$.pages.' + field + '.' + key, 'Invalid expansion/archive state');
+          check(field === 'labels' ? typeof value === 'string' : typeof value === 'boolean', '$.pages.' + field + '.' + key, 'Invalid expansion/archive state or label');
           const mappedKey = pageKey(key, '$.pages.' + field);
           check(!keys.has(mappedKey), '$.pages.' + field, 'Page states collide after projection'); keys.add(mappedKey);
           return [mappedKey, value];
         })));
       }
     }
-    // The current renderer classifies every unplaced Barkpark destination as cloud.
-    // Until local Paper authority exists, projecting an archived local note would silently move it.
-    for (const id of ids.keys()) check(placed.has(id), '$.pages', 'Unplaced local note needs a local-Paper archive adapter before projection: ' + id);
+    // Unqualified previews cannot prove Archive ownership. Only the managed
+    // adapter can bind migrated keys to the current library's local catalog.
+    if (!paperOwner) for (const id of ids.keys()) check(placed.has(id), '$.pages', 'Unplaced local note needs a local-Paper archive adapter before projection: ' + id);
+    else check(ws.pages?.seeded === true, '$.pages', 'Owned projection requires initialized Pages; never seed unplaced notes into roots');
     result.workspace = ws; result.changes = changes; result.status = 'preview';
     result.projectionHash = hash({ profileId: result.profileId, sourceHash: result.sourceHash, workspaceHash: result.workspaceHash, documentMap: result.documentMap, workspace: ws });
     check(inventoryProfile(options).sourceHash === snapshot.sourceHash, '$', 'Source changed during projection');
@@ -132,4 +142,24 @@ function projectWorkspace(options) {
   return result;
 }
 
-module.exports = { projectWorkspace };
+function projectWorkspace(options) { return projection(options); }
+
+// Trusted host supplies a captured managed-runtime lease. Read the existing
+// profile key only: creating one here would change the source/backup inventory.
+async function projectOwnedWorkspace(input, target) {
+  const options = structuredClone(input), captured = captureTarget(target, options.profileId);
+  const config = { ...captured.binding, token: target.token, viaCli: false };
+  await captured.assertCurrent();
+  const owners = createPaperEvidenceOwner(createStore(options.sourceDir, { create: false }));
+  const paperOwner = owners.identify(config);
+  if (!paperOwner) refuse('projection_owner', 'Initialize this managed library before taking its migration backup; ownership is unknown.');
+  const result = projection(options, paperOwner);
+  await captured.assertCurrent();
+  if (owners.identify(config) !== paperOwner || inventoryProfile(options).sourceHash !== result.sourceHash) refuse('projection_changed', 'Source or navigation ownership changed during projection.');
+  if (result.status === 'preview') {
+    result.target = captured.binding; result.paperOwner = paperOwner;
+    result.projectionHash = hash({ projectionHash: result.projectionHash, target: result.target, paperOwner });
+  }
+  return result;
+}
+module.exports = { projectWorkspace, projectOwnedWorkspace };

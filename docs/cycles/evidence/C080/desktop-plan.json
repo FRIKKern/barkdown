@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "desktop",
+      "cwd": ".",
+      "argv": [
+        "npm",
+        "run",
+        "test:desktop"
+      ]
+    },
+    {
+      "name": "owned-navigation",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/migration-owned-navigation.live.mjs"
+      ]
+    }
+  ]
+}

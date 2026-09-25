@@ -16,7 +16,7 @@ const { stageMigration } = require('../main/migration-staging');
 const { createMigrationComparison } = require('../main/migration-comparison');
 const { PNG } = require('pngjs');
 
-async function fixture(t, count = 2) {
+async function fixture(t, count = 2, { unplaced = false } = {}) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-comparison-'));
   const registry = createProfileRegistry(root), profile = registry.createProfile({ name: 'Comparison' });
   const profiles = createProfileService({ registry }), goals = createGoalService({ registry, profiles, heartbeatMs: 0 });
@@ -26,7 +26,7 @@ async function fixture(t, count = 2) {
   fs.mkdirSync(path.join(sourceDir, 'documents'), { recursive: true });
   fs.writeFileSync(path.join(sourceDir, 'documents/note.json'), JSON.stringify(source));
   fs.writeFileSync(path.join(sourceDir, 'workspace.json'), JSON.stringify({ version: 1, profileId: profile.id, chats: {}, order: [], current: null,
-    pages: { layoutVersion: 2, seeded: true, roots: ['note'], children: {}, expanded: {} }, favorites: [] }));
+    pages: { layoutVersion: 2, seeded: true, roots: unplaced ? [] : ['note'], children: {}, expanded: {} }, favorites: [] }));
   const state = { frozen: true, owned: true, onRead: null, png: PNG.sync.write(new PNG({ width: 2, height: 2 })) };
   const preparation = createProfilePreparation({ registry, profiles, goals,
     freezeForeground: async () => ({ profileId: profile.id, sessionId: crypto.randomUUID(), draftKeys: [], assertCurrent: async () => state.frozen, release: async () => {} }),
@@ -34,7 +34,6 @@ async function fixture(t, count = 2) {
   await preparation.prepare(profile.id);
   const options = { profileId: profile.id, sourceDir, destinationDir, quiesced: true,
     metadata: { note: { description: 'Reviewed orchard migration', tags: [{ tag: 'orchard', strength: 95, rationale: 'Owned observation fixture' }] } } };
-  options.expectedSourceHash = prepareMigration(options).sourceHash;
   const rows = new Map(), calls = [];
   for (let n = 0; n < count; n++) { const id = 'existing-' + String(n).padStart(3, '0'); rows.set(id, { _id: id, _type: 'paper', _draft: false, _rev: 'r-' + id, rev: 1, title: id, blocks: [] }); }
   rows.set('drafts.existing-000', { ...rows.get('existing-000'), _id: 'drafts.existing-000', _draft: true, _rev: 'draft-divergent', title: 'Divergent draft' });
@@ -66,6 +65,8 @@ async function fixture(t, count = 2) {
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   t.after(() => new Promise(resolve => { server.closeAllConnections(); server.close(resolve); }));
   const target = { profileId: profile.id, runtimeId: 'owned-test', server: `http://127.0.0.1:${server.address().port}`, dataset: 'production', token: 'fixture-only', assertOwned: async () => state.owned };
+  require('../main/paper-evidence-owner').createPaperEvidenceOwner(require('../main/store').createStore(sourceDir, { create: false })).identify({ ...target, viaCli: false }, { create: true });
+  options.expectedSourceHash = prepareMigration(options).sourceHash;
   const adapter = createMigrationComparison({ preparation });
   async function capture() { const value = await adapter.captureBaseline(options, target); options.expectedBaselineHash = value.baselineHash; return value; }
   async function stage() { await capture(); return stageMigration(options, target); }
@@ -169,4 +170,13 @@ test('ordinary draft without a Paper ops revision stays exact rather than invent
   const f = await fixture(t); delete f.rows.get('drafts.only').rev; await f.stage();
   assert.equal((await f.compare()).status, 'compared');
   f.rows.get('drafts.only').rev = 0; await assert.rejects(f.compare(), /pre-existing/);
+});
+
+
+test('comparison accepts an owned unplaced note without organizing Pages', async t => {
+  const f = await fixture(t, 2, { unplaced: true }); await f.stage();
+  const before = files(f.options.sourceDir), backup = files(f.options.destinationDir);
+  assert.equal((await f.compare()).status, 'compared');
+  assert.deepEqual(files(f.options.sourceDir), before); assert.deepEqual(files(f.options.destinationDir), backup);
+  const ws = JSON.parse(fs.readFileSync(path.join(f.options.sourceDir, 'workspace.json'))); assert.deepEqual(ws.pages.roots, []);
 });

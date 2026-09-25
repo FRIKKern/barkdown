@@ -6,7 +6,7 @@ import os from 'node:os';
 import crypto from 'node:crypto';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
-const { projectWorkspace } = require('../main/migration-workspace');
+const { projectWorkspace, projectOwnedWorkspace } = require('../main/migration-workspace');
 const { inventoryProfile, prepareMigration } = require('../main/migration-preflight');
 const digest = value => crypto.createHash('sha256').update(value).digest('hex');
 function fixture() {
@@ -73,3 +73,72 @@ test('source content blockers are carried forward without a candidate',()=>{cons
 test('archive marker keys preserve their exact state without moving unplaced cloud papers',()=>{const f=fixture();f.ws.pages.archived={alpha:false,'bp:unplaced-cloud':true};f.write();const value=projectWorkspace(f.options);assert.equal(value.status,'preview');assert.deepEqual(value.workspace.pages.archived,{['bp:'+f.id('alpha')]:false,'bp:unplaced-cloud':true});assert.deepEqual(value.workspace.pages.cloudLayoutMigration,f.ws.pages.cloudLayoutMigration);});
 
 test('the implicit direct workspace may remain outside recent-chat order',()=>{const f=fixture();f.ws.chats.direct={id:'direct',messages:[],tabs:[structuredClone(f.ws.directTab)]};f.write();const p=projectWorkspace(f.options);assert.equal(p.status,'preview');assert.deepEqual(p.workspace.order,f.ws.order);assert.deepEqual(p.workspace.chats.direct.tabs[0],p.workspace.directTab);});
+
+function ownedFixture() {
+  const f = fixture();
+  f.target = { profileId: f.options.profileId, runtimeId: 'owned-runtime', server: 'http://127.0.0.1:49152', dataset: 'production', token: 'private-fixture-token', assertOwned: async () => true };
+  f.owner = require('../main/paper-evidence-owner').createPaperEvidenceOwner(require('../main/store').createStore(f.options.sourceDir, { create: false })).identify({ ...f.target, viaCli: false }, { create: true });
+  f.key = id => 'bp:v1:' + f.owner + ':' + f.id(id);
+  return f;
+}
+
+test('owned projection preserves nested Pages, Archive, labels and destination ownership without writes', async () => {
+  const f = ownedFixture(), foreign = 'bp:v1:' + 'b'.repeat(64) + ':foreign';
+  f.ws.pages.roots.push(foreign); f.ws.pages.labels = { alpha: 'Human title', beta: 'Archive label', [foreign]: 'Other library' };
+  f.ws.pages.children.alpha = []; f.ws.pages.archived = { beta: true };
+  f.write(); const before = inventoryProfile(f.options); prepareMigration(f.options);
+  const p = await projectOwnedWorkspace(f.options, f.target);
+  assert.equal(p.status, 'preview'); assert.equal(p.activationAllowed, false); assert.equal(p.authority, 'legacy');
+  assert.deepEqual(p.workspace.pages.roots, [f.key('alpha'), 'bp:alpha', foreign]);
+  assert.deepEqual(p.workspace.pages.children, { [f.key('alpha')]: [] });
+  assert.deepEqual(p.workspace.pages.archived, { [f.key('beta')]: true });
+  assert.deepEqual(p.workspace.pages.labels, { [f.key('alpha')]: 'Human title', [f.key('beta')]: 'Archive label', [foreign]: 'Other library' });
+  for (const destination of [p.workspace.directTab, p.workspace.chats.main.tabs[0], p.workspace.chats.side.tabs[0], p.workspace.favorites[0].target]) assert.equal(destination.paperOwner, f.owner);
+  assert.deepEqual(p.workspace.chats.main.tabs[1], f.ws.chats.main.tabs[1]);
+  assert.deepEqual(p.workspace.favorites[1], f.ws.favorites[1]);
+  assert.equal(JSON.stringify(p).includes(f.target.token), false);
+  assert.equal(projectWorkspace(f.options).status, 'blocked');
+  for (const file of before.files) {
+    assert.deepEqual(fs.readFileSync(path.join(f.options.sourceDir, file.path)), file.data);
+    assert.deepEqual(fs.readFileSync(path.join(f.options.destinationDir, 'source', file.path)), file.data);
+  }
+  f.ws.pages.children.alpha = ['beta']; f.write();
+  const nested = await projectOwnedWorkspace(f.options, f.target);
+  assert.deepEqual(nested.workspace.pages.children, { [f.key('alpha')]: [f.key('beta')] });
+});
+
+test('unknown ownership refuses without creating a key or backup', async () => {
+  const f = fixture(), target = { profileId: f.options.profileId, runtimeId: 'owned', server: 'http://127.0.0.1:49152', token: 'private', dataset: 'production', assertOwned: async () => true };
+  const before = inventoryProfile(f.options).sourceHash;
+  await assert.rejects(projectOwnedWorkspace(f.options, target), /ownership is unknown/);
+  assert.equal(inventoryProfile(f.options).sourceHash, before);
+  assert.equal(fs.existsSync(path.join(f.options.sourceDir, 'agent-edits')), false);
+  assert.equal(fs.existsSync(f.options.destinationDir), false);
+});
+
+test('lost lease and source changes during asynchronous ownership checks refuse', async () => {
+  const f = ownedFixture(); let calls = 0;
+  await assert.rejects(projectOwnedWorkspace(f.options, { ...f.target, assertOwned: async () => ++calls === 1 }), /ownership|owned|runtime/i);
+  calls = 0;
+  await assert.rejects(projectOwnedWorkspace(f.options, { ...f.target, assertOwned: async () => {
+    if (++calls === 2) { f.ws.chats.main.draft = 'Later human draft'; f.write(); }
+    return true;
+  } }), /changed during projection/);
+  assert.equal(JSON.parse(fs.readFileSync(path.join(f.options.sourceDir, 'workspace.json'))).chats.main.draft, 'Later human draft');
+});
+
+test('projection identity binds runtime and connection; foreign profile refuses', async () => {
+  const f = ownedFixture(), a = await projectOwnedWorkspace(f.options, f.target);
+  const b = await projectOwnedWorkspace(f.options, { ...f.target, runtimeId: 'replacement' });
+  assert.notEqual(a.projectionHash, b.projectionHash); assert.equal(a.paperOwner, b.paperOwner);
+  const c = await projectOwnedWorkspace(f.options, { ...f.target, token: 'other-library' });
+  assert.notEqual(a.paperOwner, c.paperOwner); assert.notEqual(a.projectionHash, c.projectionHash);
+  await assert.rejects(projectOwnedWorkspace(f.options, { ...f.target, profileId: crypto.randomUUID() }), /profile/i);
+});
+
+test('owned state-map collisions and uninitialized Pages refuse instead of auto-organizing', async () => {
+  const f = ownedFixture(); f.ws.pages.labels = { alpha: 'One', [f.key('alpha')]: 'Two' }; f.write();
+  let p = await projectOwnedWorkspace(f.options, f.target); assert.equal(p.status, 'blocked'); assert.match(p.issues[0].reason, /collide/);
+  delete f.ws.pages; f.write(); p = await projectOwnedWorkspace(f.options, f.target);
+  assert.equal(p.status, 'blocked'); assert.match(p.issues[0].reason, /initialized Pages/);
+});

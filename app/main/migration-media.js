@@ -77,14 +77,14 @@ async function stageMedia({ manifest, store, captured, checkpoint, unchanged, be
   }
   const receipts = [];
   for (const entry of entries) {
-    unchanged(); record(store, 'media/plan.json', plan);
+    await unchanged(); record(store, 'media/plan.json', plan);
     let { intent } = entry;
     if (!intent) {
       intent = { version: 1, planHash, asset: entry.asset, filename: 'bdm' + crypto.randomBytes(20).toString('hex') + '.png' };
       if ((await candidates(intent)).length) fail('media_exists', 'An unowned upload filename already exists');
-      unchanged(); record(store, entry.intentName, intent);
+      await unchanged(); record(store, entry.intentName, intent);
       await checkpoint('media-intent:' + entry.asset.path);
-      unchanged();
+      await unchanged();
       const bytes = fs.readFileSync(store.filePath('source/' + entry.asset.path));
       if (bytes.length !== entry.asset.bytes || digest(bytes) !== entry.asset.sha256) fail('source_changed', 'Captured image bytes changed');
       const body = new FormData(); body.set('file', new Blob([bytes], { type: 'image/png' }), intent.filename);
@@ -94,24 +94,24 @@ async function stageMedia({ manifest, store, captured, checkpoint, unchanged, be
       await checkpoint('media-response:' + entry.asset.path);
       if (response.status !== 201) fail('media_refused', 'Upload refused or uncertain: ' + response.status);
       const receipt = await verify(intent, response.data);
-      unchanged(); record(store, entry.receiptName, receipt);
+      await unchanged(); record(store, entry.receiptName, receipt);
       receipts.push(receipt);
     } else {
       const matches = await candidates(intent);
       if (matches.length !== 1) fail('media_uncertain', 'Owned upload is absent or ambiguous; no automatic retry');
       const receipt = await verify(intent, matches[0]);
-      unchanged(); record(store, entry.receiptName, receipt);
+      await unchanged(); record(store, entry.receiptName, receipt);
       receipts.push(receipt);
     }
     await checkpoint('media-receipt:' + entry.asset.path);
   }
-  unchanged(); record(store, 'media/complete.json', { version: 1, planHash, receipts });
+  await unchanged(); record(store, 'media/complete.json', { version: 1, planHash, receipts });
   return {
     urls: Object.fromEntries(receipts.map(receipt => [receipt.asset.path,receipt.url])),
     // Upload readback precedes Paper creation. Recheck after all Paper writes so
     // media removed or changed during a batch cannot receive a completed stamp.
     async verify() {
-      unchanged(); record(store, 'media/plan.json', plan);
+      await unchanged(); record(store, 'media/plan.json', plan);
       record(store, 'media/complete.json', { version: 1, planHash, receipts });
       for (const receipt of receipts) {
         const { version, planHash: intentPlan, asset, filename } = receipt;
@@ -120,7 +120,7 @@ async function stageMedia({ manifest, store, captured, checkpoint, unchanged, be
         if (matches.length !== 1) fail('media_uncertain', 'Owned upload changed during staging; retain all staged data');
         const actual = await verify(intent, matches[0]);
         if (canonical(actual) !== canonical(receipt)) fail('media_identity', 'Media identity changed during staging');
-        unchanged();
+        await unchanged();
       }
     },
   };
