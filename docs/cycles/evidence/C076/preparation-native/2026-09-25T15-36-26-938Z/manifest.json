@@ -1,0 +1,18 @@
+{
+  "source": "fffb0040935567d804579afa69b3922d03f9fbee",
+  "capture": true,
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-preparation-native-h2quYF",
+  "scope": "Production coordinator, main/preload/renderer IPC and shipped canvas; deterministic HTTP reads, no live Barkpark save claim.",
+  "checks": [
+    "Chromium IME refuses preparation without ending active composition or writing launch closure.",
+    "Production IPC retains exact raw Paper source and unsent chat draft, verifies preparation and blocks native keyboard/menu/new mutations.",
+    "Abrupt actual main-process exit and restart retain drafts byte-for-byte; repeat preparation verifies the same record while the profile stays read-only.",
+    "Actual notice profile selector switches to B; its composer and owned settings remain writable with no A recovery records."
+  ],
+  "screenshots": [
+    "01-prepared-drafts.png",
+    "02-read-only-restart.png",
+    "03-other-profile.png"
+  ],
+  "status": "passed"
+}
