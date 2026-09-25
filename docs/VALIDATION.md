@@ -79,3 +79,5 @@ P1/C039 is accepted for the Windows source prototype at source `27ea120`, with e
 P2 migration, P3 portability/recovery, P4 sync and P5 ordinary installation remain unfinished. [Migration preparation](migration/README.md) is preparation, not a completed migration rehearsal. Upstream editor integration and cross-repository enforcement are separate release gates in [PLAN.md](PLAN.md).
 
 [Current cycle](cycle.json) and [handoff](NEXT-AGENT.md) own the active queue. [The historical validation ledger](archive/2026-09-23-validation.md) preserves earlier results and failures for targeted evidence lookup. Do not treat old pending statements as current tasks.
+
+C076 draft retention at779d384f: build and84 targeted cases pass, with actual shipped-canvas/Chromium IME/profile IPC/durable disk proof for debounced code, raw title/source, abrupt main exit/restart and isolation. Three dark stills and four earlier diagnostics inspected. Deterministic HTTP refuses saves; no live-server, automatic restore, full preparation or formal visual approval claim. [Exact evidence and retained failures](cycles/evidence/C076/README.md).

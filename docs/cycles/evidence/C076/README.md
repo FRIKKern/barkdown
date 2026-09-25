@@ -2,6 +2,18 @@
 
 This is unfinished development on `codex/profile-preparation`, not a merge-ready or complete preparation gate.
 
+## Owned Paper draft retention — 779d384f
+
+[Build and84 targeted cases](paper-draft-validation/result.json) pass on application source779d384f:39 store/connection/navigation/writer checks and45 Paper-host cases. Build0.756s, store suite1.402s, host5.971s. [Native Electron result](paper-draft-native/2026-09-25T14-48-46-327Z/manifest.json) passes using the shipped real Paper canvas, actual profile IPC/disk and Chromium IME. HTTP supplies deterministic reads and refuses writes; this is not live Barkpark save or OS language-picker proof.
+
+The native test captures raw title and a code control before its debounce, refuses active note-label composition without ending it, retains committed Japanese text and exact Markdown source, then kills the verified Electron main PID. All retained records read back unchanged after restart; a second profile sees none. The internal controller preserves newer input on delayed local acknowledgement and never clears dirty state or labels local retention Saved. Immutable records bind profile root, stable connection owner, document, mounted session, input version and acknowledged revision; storage corruption/failure, lossy serialization and foreign capabilities refuse.
+
+Codex inspected all three final dark stills at1300×900 and900×760: [rich draft](paper-draft-native/2026-09-25T14-48-46-327Z/01-unsaved-rich-draft.png), [composition](paper-draft-native/2026-09-25T14-48-46-327Z/02-composition-preserved.png), [raw source](paper-draft-native/2026-09-25T14-48-46-327Z/03-raw-source-narrow.png). The draft and offline controls remain visible; narrow title/source wrapping is readable. Also inspected the four retained diagnostic images from the prior attempt. No motion/GIF, formal visual approval, automatic restore UI or complete preparation claim is made.
+
+Failures are retained: [initial development](paper-draft-development/result.json) lacked the new dependency in two source-extracted navigation test contexts; [corrected run](paper-draft-development-fixed/result.json) supplies the actual draft store. The [first native fixture](paper-draft-native/2026-09-25T14-46-11-834Z/manifest.json) omitted a catalog owner and was correctly refused before opening. The [second](paper-draft-native/2026-09-25T14-47-43-203Z/manifest.json) proved capture/IME/source but failed relaunch after killing the launcher handle; the corrected test kills the main PID checked against workspace-owner.json, following the existing abrupt-exit suite. No failed run is relabelled as passing.
+
+**Next:** coordinate stable/frozen human buffers with both drains, reconcile writer uncertainty and durable restart/abort transitions, then full desktop/root and native/live/standard capture, comparison, inspection and approval. The new controller operation is internal and not automatically invoked on shutdown or migration. Existing archives and recovery worktrees are preserved. No owned test process remains.
+
 ## Profile-specific goal drain — ef44bd71
 
 [Recorded build and98 checks](goal-drain-validation/result.json) pass on clean source ef44bd71; [full focused log](goal-drain-validation/goal-drain.log). Build took0.721s and targeted checks33.120s. Coverage includes existing scheduler/coordinator/provider/process/profile checks,27 admission/drain cases and10 new goal-drain cases. Earlier [five-case development checks](goal-drain-initial.log), [nine-case integration](goal-drain-integration.log) and [restart case](goal-drain-restart.log) ran on the working changes before commit, not a different accepted baseline.
