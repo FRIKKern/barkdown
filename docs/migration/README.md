@@ -59,6 +59,8 @@ The native create-only route accepts published slugs and applies publishing/labe
 
 Other content/media formats remain refused rather than silently flattened. P3 owns cross-machine export/import and database portability; a copy of live database files is not an export contract. G1/G2 remain separate integration gates, not reasons to claim these local contracts complete.
 
+The [whole-library comparison contract](comparison.md) records the C077 composition audit and the next read-only adapter boundary. Existing staging receipts do not cover pre-existing Paper variants or authorize authority selection.
+
 ## Reproduction and source boundaries
 
 `app/main/migration-preflight.js` owns inventory/eligibility; `migration-staging.js`, `migration-media.js` and `migration-journal.js` own durable target staging; `migration-restore.js` owns exact no-overwrite legacy recovery; `migration-workspace.js` owns the non-mutating navigation preview; `migration-evidence.js` reads retained legacy records without mutation. These are offline adapters, not a user-facing migration flow. `app/shared/portabledoc.js` remains a convenience converter whose context-free acceptance is not migration eligibility.

@@ -1,0 +1,1060 @@
+TAP version 13
+# Subtest: production history, pending proposal and stale local receipt remain exact read-only evidence
+ok 1 - production history, pending proposal and stale local receipt remain exact read-only evidence
+  ---
+  duration_ms: 498.5934
+  ...
+# Subtest: a genuinely undone receipt is retained without reopening its action
+ok 2 - a genuinely undone receipt is retained without reopening its action
+  ---
+  duration_ms: 347.7442
+  ...
+# Subtest: the backup remains readable after the live source changes
+ok 3 - the backup remains readable after the live source changes
+  ---
+  duration_ms: 423.7223
+  ...
+# Subtest: same-slug profiles cannot substitute each others captured history
+ok 4 - same-slug profiles cannot substitute each others captured history
+  ---
+  duration_ms: 651.8852
+  ...
+# Subtest: a missing local receipt never substitutes a same-slug Paper receipt
+ok 5 - a missing local receipt never substitutes a same-slug Paper receipt
+  ---
+  duration_ms: 363.3867
+  ...
+# Subtest: unsupported old content and proposal metadata are preserved rather than converted
+ok 6 - unsupported old content and proposal metadata are preserved rather than converted
+  ---
+  duration_ms: 341.3001
+  ...
+# Subtest: invalid identity ../original-note refuses
+ok 7 - invalid identity ../original-note refuses
+  ---
+  duration_ms: 235.1835
+  ...
+# Subtest: invalid identity bp:original-note refuses
+ok 8 - invalid identity bp:original-note refuses
+  ---
+  duration_ms: 272.6868
+  ...
+# Subtest: invalid identity  refuses
+ok 9 - invalid identity  refuses
+  ---
+  duration_ms: 267.6875
+  ...
+# Subtest: invalid identity null refuses
+ok 10 - invalid identity null refuses
+  ---
+  duration_ms: 255.0254
+  ...
+# Subtest: invalid identity xxxxxxxxxxxxxxxxxxxxxxxx refuses
+ok 11 - invalid identity xxxxxxxxxxxxxxxxxxxxxxxx refuses
+  ---
+  duration_ms: 244.7551
+  ...
+# Subtest: a missing captured document refuses instead of finding the current live note
+ok 12 - a missing captured document refuses instead of finding the current live note
+  ---
+  duration_ms: 284.357
+  ...
+# Subtest: wrong pinned source hash refuses
+ok 13 - wrong pinned source hash refuses
+  ---
+  duration_ms: 263.8379
+  ...
+# Subtest: changed captured document bytes refuse
+ok 14 - changed captured document bytes refuse
+  ---
+  duration_ms: 266.5583
+  ...
+# Subtest: unlisted backup bytes refuse even when the requested document is intact
+ok 15 - unlisted backup bytes refuse even when the requested document is intact
+  ---
+  duration_ms: 267.4048
+  ...
+# Subtest: incomplete preparation commitment refuses
+ok 16 - incomplete preparation commitment refuses
+  ---
+  duration_ms: 287.4568
+  ...
+# Subtest: a source-qualified receipt with a different document owner refuses
+ok 17 - a source-qualified receipt with a different document owner refuses
+  ---
+  duration_ms: 325.4841
+  ...
+# Subtest: a Paper-shaped receipt cannot be reinterpreted as local content
+ok 18 - a Paper-shaped receipt cannot be reinterpreted as local content
+  ---
+  duration_ms: 339.0704
+  ...
+# Subtest: malformed retained history refuses without replacing it with empty history
+ok 19 - malformed retained history refuses without replacing it with empty history
+  ---
+  duration_ms: 347.214
+  ...
+# Subtest: malformed pending proposals refuse without dropping them
+ok 20 - malformed pending proposals refuse without dropping them
+  ---
+  duration_ms: 327.7282
+  ...
+# Subtest: reading never invokes a write API or network even for an actionable old receipt
+ok 21 - reading never invokes a write API or network even for an actionable old receipt
+  ---
+  duration_ms: 260.0986
+  ...
+# Subtest: a backup changed after the document read is rejected by the final full validation
+ok 22 - a backup changed after the document read is rejected by the final full validation
+  ---
+  duration_ms: 286.6145
+  ...
+# Subtest: a blocked migration backup still exposes its unsupported original content without conversion
+ok 23 - a blocked migration backup still exposes its unsupported original content without conversion
+  ---
+  duration_ms: 387.556
+  ...
+# Subtest: optional historical fields are not invented in older captured documents
+ok 24 - optional historical fields are not invented in older captured documents
+  ---
+  duration_ms: 320.3617
+  ...
+# Subtest: owned PNG stages once, exact bytes and dimensions survive, repeated refs share one upload
+ok 25 - owned PNG stages once, exact bytes and dimensions survive, repeated refs share one upload
+  ---
+  duration_ms: 655.1695
+  ...
+# Subtest: absolute and file URL references resolve only through captured profile files
+ok 26 - absolute and file URL references resolve only through captured profile files
+  ---
+  duration_ms: 354.8795
+  ...
+# Subtest: bad sources and unsupported image metadata refuse before all target access
+ok 27 - bad sources and unsupported image metadata refuse before all target access
+  ---
+  duration_ms: 429.8829
+  ...
+# Subtest: corrupt PNG bytes and nested images refuse before target access
+ok 28 - corrupt PNG bytes and nested images refuse before target access
+  ---
+  duration_ms: 101.2472
+  ...
+# Subtest: post-commit lost response reconciles exact attempt without another upload
+ok 29 - post-commit lost response reconciles exact attempt without another upload
+  ---
+  duration_ms: 527.6934
+  ...
+# Subtest: actual process exit at media-plan
+ok 30 - actual process exit at media-plan
+  ---
+  duration_ms: 608.7552
+  ...
+# Subtest: actual process exit at media-intent:attachments/orchard.png
+ok 31 - actual process exit at media-intent:attachments/orchard.png
+  ---
+  duration_ms: 346.9886
+  ...
+# Subtest: actual process exit at media-response:attachments/orchard.png
+ok 32 - actual process exit at media-response:attachments/orchard.png
+  ---
+  duration_ms: 674.5158
+  ...
+# Subtest: actual process exit at media-receipt:attachments/orchard.png
+ok 33 - actual process exit at media-receipt:attachments/orchard.png
+  ---
+  duration_ms: 732.4192
+  ...
+# Subtest: absent, ambiguous and incomplete upload lookup never retries
+ok 34 - absent, ambiguous and incomplete upload lookup never retries
+  ---
+  duration_ms: 472.1884
+  ...
+# Subtest: changed or redirected binary and wrong identity refuse before Paper write
+ok 35 - changed or redirected binary and wrong identity refuse before Paper write
+  ---
+  duration_ms: 471.1678
+  ...
+# Subtest: local journal tampering refuses before any further target access
+ok 36 - local journal tampering refuses before any further target access
+  ---
+  duration_ms: 364.3738
+  ...
+# Subtest: later missing/changed uploaded bytes or changed source never recreate or overwrite
+ok 37 - later missing/changed uploaded bytes or changed source never recreate or overwrite
+  ---
+  duration_ms: 391.6693
+  ...
+# Subtest: media changed after Paper creation prevents completion without replay or cleanup
+ok 38 - media changed after Paper creation prevents completion without replay or cleanup
+  ---
+  duration_ms: 701.162
+  ...
+# Subtest: two-file partial upload resumes only the interrupted attempt and preserves both identities
+ok 39 - two-file partial upload resumes only the interrupted attempt and preserves both identities
+  ---
+  duration_ms: 686.1278
+  ...
+# Subtest: actual configured legacy schema defaults prepare without changing native content or backup bytes
+ok 40 - actual configured legacy schema defaults prepare without changing native content or backup bytes
+  ---
+  duration_ms: 206.6618
+  ...
+# Subtest: default link attributes resolve canonical internal references without mutating the source
+ok 41 - default link attributes resolve canonical internal references without mutating the source
+  ---
+  duration_ms: 57.5705
+  ...
+# Subtest: custom link values are retained in blocked backups and staging performs no target access
+ok 42 - custom link values are retained in blocked backups and staging performs no target access
+  ---
+  duration_ms: 516.8363
+  ...
+# Subtest: null list marker type is eligible recursively; custom or malformed markers never disappear
+ok 43 - null list marker type is eligible recursively; custom or malformed markers never disappear
+  ---
+  duration_ms: 19.8256
+  ...
+# Subtest: foreign attributes and non-link mark metadata still refuse even when values are null
+ok 44 - foreign attributes and non-link mark metadata still refuse even when values are null
+  ---
+  duration_ms: 29.9335
+  ...
+# Subtest: all audited losses, unsupported structures and internal references refuse
+ok 45 - all audited losses, unsupported structures and internal references refuse
+  ---
+  duration_ms: 10.6348
+  ...
+# Subtest: inline carriage returns retain exact blocked backups while LF breaks remain supported
+ok 46 - inline carriage returns retain exact blocked backups while LF breaks remain supported
+  ---
+  duration_ms: 134.7717
+  ...
+# Subtest: heading marks and top-level alignment retain structure while unmapped alignment refuses
+ok 47 - heading marks and top-level alignment retain structure while unmapped alignment refuses
+  ---
+  duration_ms: 442.3342
+  ...
+# Subtest: nested lists and genuine quotes prepare exact backups while unmapped structures refuse
+ok 48 - nested lists and genuine quotes prepare exact backups while unmapped structures refuse
+  ---
+  duration_ms: 310.4005
+  ...
+# Subtest: exact backup preserves organization, proposals, history, binary media and receipts; excludes credentials
+ok 49 - exact backup preserves organization, proposals, history, binary media and receipts; excludes credentials
+  ---
+  duration_ms: 174.4292
+  ...
+# Subtest: lossy content is recorded as blocked and never produces a partial conversion
+ok 50 - lossy content is recorded as blocked and never produces a partial conversion
+  ---
+  duration_ms: 66.5153
+  ...
+# Subtest: process interruption at each durable boundary resumes without duplicate files or IDs
+ok 51 - process interruption at each durable boundary resumes without duplicate files or IDs
+  ---
+  duration_ms: 832.24
+  ...
+# Subtest: changed source and corrupt backups or manifests refuse, retaining original data
+ok 52 - changed source and corrupt backups or manifests refuse, retaining original data
+  ---
+  duration_ms: 349.3477
+  ...
+# Subtest: owner, quiescence, malformed records and unsafe destinations fail closed
+ok 53 - owner, quiescence, malformed records and unsafe destinations fail closed
+  ---
+  duration_ms: 92.3253
+  ...
+# Subtest: inherited object names remain unsupported originals instead of crashing inventory
+ok 54 - inherited object names remain unsupported originals instead of crashing inventory
+  ---
+  duration_ms: 51.3995
+  ...
+# Subtest: exact restore preserves legacy history/proposals/media/workspace and excludes credentials
+ok 55 - exact restore preserves legacy history/proposals/media/workspace and excludes credentials
+  ---
+  duration_ms: 1161.2665
+  ...
+# Subtest: pinned source/profile and fully committed backup are required before destination writes
+ok 56 - pinned source/profile and fully committed backup are required before destination writes
+  ---
+  duration_ms: 1269.5367
+  ...
+# Subtest: blocked migration backup remains recoverable without converting its unsupported content
+ok 57 - blocked migration backup remains recoverable without converting its unsupported content
+  ---
+  duration_ms: 652.7026
+  ...
+# Subtest: existing destinations, disjointness and quiescence refuse without overwriting
+ok 58 - existing destinations, disjointness and quiescence refuse without overwriting
+  ---
+  duration_ms: 523.7174
+  ...
+# Subtest: real process exit resumes at restore-plan
+ok 59 - real process exit resumes at restore-plan
+  ---
+  duration_ms: 852.9752
+  ...
+# Subtest: real process exit resumes at restore-root
+ok 60 - real process exit resumes at restore-root
+  ---
+  duration_ms: 868.0001
+  ...
+# Subtest: real process exit resumes at restore-intent:attachments/blob.bin
+ok 61 - real process exit resumes at restore-intent:attachments/blob.bin
+  ---
+  duration_ms: 900.0934
+  ...
+# Subtest: real process exit resumes at restore-chunk:attachments/blob.bin
+ok 62 - real process exit resumes at restore-chunk:attachments/blob.bin
+  ---
+  duration_ms: 925.2948
+  ...
+# Subtest: real process exit resumes at restore-temp:attachments/blob.bin
+ok 63 - real process exit resumes at restore-temp:attachments/blob.bin
+  ---
+  duration_ms: 925.5819
+  ...
+# Subtest: real process exit resumes at restore-published:attachments/blob.bin
+ok 64 - real process exit resumes at restore-published:attachments/blob.bin
+  ---
+  duration_ms: 785.1665
+  ...
+# Subtest: real process exit resumes at restore-receipt:attachments/blob.bin
+ok 65 - real process exit resumes at restore-receipt:attachments/blob.bin
+  ---
+  duration_ms: 795.3975
+  ...
+# Subtest: real process exit resumes at restore-before-complete
+ok 66 - real process exit resumes at restore-before-complete
+  ---
+  duration_ms: 846.6535
+  ...
+# Subtest: changed/extra/missing restored data is retained and never overwritten or recreated
+ok 67 - changed/extra/missing restored data is retained and never overwritten or recreated
+  ---
+  duration_ms: 1696.8609
+  ...
+# Subtest: partial-copy tampering, replaced root and changed backup stop conservatively
+ok 68 - partial-copy tampering, replaced root and changed backup stop conservatively
+  ---
+  duration_ms: 1027.093
+  ...
+# Subtest: missing/tampered journals refuse and never adopt pre-existing restored content
+ok 69 - missing/tampered journals refuse and never adopt pre-existing restored content
+  ---
+  duration_ms: 2336.3007
+  ...
+# Subtest: linked backup and destination paths refuse
+ok 70 - linked backup and destination paths refuse
+  ---
+  duration_ms: 287.7734
+  ...
+# Subtest: validator rejects traversing or credential paths even with matching edited manifest hashes
+ok 71 - validator rejects traversing or credential paths even with matching edited manifest hashes
+  ---
+  duration_ms: 717.5047
+  ...
+# Subtest: an active restore lease excludes a second process and recovers only after owner exit
+ok 72 - an active restore lease excludes a second process and recovers only after owner exit
+  ---
+  duration_ms: 692.0802
+  ...
+# Subtest: a human change at the final boundary is retained instead of receiving a completion stamp
+ok 73 - a human change at the final boundary is retained instead of receiving a completion stamp
+  ---
+  duration_ms: 492.4425
+  ...
+# Subtest: stages once, revalidates on repeat, retains source/navigation and excludes credentials
+ok 74 - stages once, revalidates on repeat, retains source/navigation and excludes credentials
+  ---
+  duration_ms: 384.8143
+  ...
+# Subtest: real process exit at plan retains a recoverable intent without duplicates
+ok 75 - real process exit at plan retains a recoverable intent without duplicates
+  ---
+  duration_ms: 435.9676
+  ...
+# Subtest: real process exit at intent:note retains a recoverable intent without duplicates
+ok 76 - real process exit at intent:note retains a recoverable intent without duplicates
+  ---
+  duration_ms: 619.3644
+  ...
+# Subtest: real process exit at response:note retains a recoverable intent without duplicates
+ok 77 - real process exit at response:note retains a recoverable intent without duplicates
+  ---
+  duration_ms: 624.7666
+  ...
+# Subtest: real process exit at readback:note retains a recoverable intent without duplicates
+ok 78 - real process exit at readback:note retains a recoverable intent without duplicates
+  ---
+  duration_ms: 554.2325
+  ...
+# Subtest: real process exit at receipt:note retains a recoverable intent without duplicates
+ok 79 - real process exit at receipt:note retains a recoverable intent without duplicates
+  ---
+  duration_ms: 536.9521
+  ...
+# Subtest: real process exit at before-complete retains a recoverable intent without duplicates
+ok 80 - real process exit at before-complete retains a recoverable intent without duplicates
+  ---
+  duration_ms: 517.6275
+  ...
+# Subtest: lost response after commit reconciles without create replay
+ok 81 - lost response after commit reconciles without create replay
+  ---
+  duration_ms: 178.7421
+  ...
+# Subtest: existing same-content paper without this backup intent is not adopted
+ok 82 - existing same-content paper without this backup intent is not adopted
+  ---
+  duration_ms: 91.3746
+  ...
+# Subtest: drafts present before or during creation stop completion without overwriting either row
+ok 83 - drafts present before or during creation stop completion without overwriting either row
+  ---
+  duration_ms: 162.4129
+  ...
+# Subtest: changed content, changed revision with restored content, or missing target never overwrites/recreates
+ok 84 - changed content, changed revision with restored content, or missing target never overwrites/recreates
+  ---
+  duration_ms: 310.3753
+  ...
+# Subtest: changed source or corrupt backup/plan/receipt is refused without another create
+ok 85 - changed source or corrupt backup/plan/receipt is refused without another create
+  ---
+  duration_ms: 214.7998
+  ...
+# Subtest: target and metadata changes are fenced before network writes
+ok 86 - target and metadata changes are fenced before network writes
+  ---
+  duration_ms: 237.2712
+  ...
+# Subtest: source or target changes at the last checkpoint prevent completion
+ok 87 - source or target changes at the last checkpoint prevent completion
+  ---
+  duration_ms: 128.0508
+  ...
+# Subtest: two stagers cannot own the same durable plan concurrently
+ok 88 - two stagers cannot own the same durable plan concurrently
+  ---
+  duration_ms: 164.6293
+  ...
+# Subtest: non-object journal records are corrupt, never absent: null
+ok 89 - non-object journal records are corrupt, never absent: null
+  ---
+  duration_ms: 221.0412
+  ...
+# Subtest: non-object journal records are corrupt, never absent: []
+ok 90 - non-object journal records are corrupt, never absent: []
+  ---
+  duration_ms: 219.5515
+  ...
+# Subtest: non-object journal records are corrupt, never absent: false
+ok 91 - non-object journal records are corrupt, never absent: false
+  ---
+  duration_ms: 230.1266
+  ...
+# Subtest: a corrupt later-document journal prevents writes for the entire batch
+ok 92 - a corrupt later-document journal prevents writes for the entire batch
+  ---
+  duration_ms: 99.9723
+  ...
+# Subtest: a completion record with missing receipts cannot republish deleted targets
+ok 93 - a completion record with missing receipts cannot republish deleted targets
+  ---
+  duration_ms: 160.5915
+  ...
+# Subtest: source edited at after-create retains originals and refuses completion
+ok 94 - source edited at after-create retains originals and refuses completion
+  ---
+  duration_ms: 102.1577
+  ...
+# Subtest: source edited at before-complete retains originals and refuses completion
+ok 95 - source edited at before-complete retains originals and refuses completion
+  ---
+  duration_ms: 106.0361
+  ...
+# Subtest: forward and cyclic references pin profile IDs, preserve marked labels and resume after a partial batch
+ok 96 - forward and cyclic references pin profile IDs, preserve marked labels and resume after a partial batch
+  ---
+  duration_ms: 691.452
+  ...
+# Subtest: missing, malformed and foreign-profile links refuse the entire batch before target access
+ok 97 - missing, malformed and foreign-profile links refuse the entire batch before target access
+  ---
+  duration_ms: 400.3719
+  ...
+# Subtest: a changed reference payload in a recovery plan refuses without network access
+ok 98 - a changed reference payload in a recovery plan refuses without network access
+  ---
+  duration_ms: 99.6065
+  ...
+# Subtest: publish-policy conflicts are explicit refusals, never mistaken for existing owned papers
+ok 99 - publish-policy conflicts are explicit refusals, never mistaken for existing owned papers
+  ---
+  duration_ms: 134.8554
+  ...
+# Subtest: self references retain the same profile identity and ambiguous double-link marks refuse
+ok 100 - self references retain the same profile identity and ambiguous double-link marks refuse
+  ---
+  duration_ms: 230.5131
+  ...
+# Subtest: exact typed paths map while human order, cloud identity and opaque history remain intact
+ok 101 - exact typed paths map while human order, cloud identity and opaque history remain intact
+  ---
+  duration_ms: 120.8875
+  ...
+# Subtest: empty document pickers stay empty; non-document paths and missing optional collections are not invented
+ok 102 - empty document pickers stay empty; non-document paths and missing optional collections are not invented
+  ---
+  duration_ms: 29.3131
+  ...
+# Subtest: profile-qualified projections never substitute another profile with matching slugs
+ok 103 - profile-qualified projections never substitute another profile with matching slugs
+  ---
+  duration_ms: 87.567
+  ...
+# Subtest: unknown ordered chat refuses without partial projection or filesystem mutation
+ok 104 - unknown ordered chat refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 47.0957
+  ...
+# Subtest: duplicate ordered chat refuses without partial projection or filesystem mutation
+ok 105 - duplicate ordered chat refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 38.7619
+  ...
+# Subtest: omitted ordered chat refuses without partial projection or filesystem mutation
+ok 106 - omitted ordered chat refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 41.1075
+  ...
+# Subtest: missing current chat refuses without partial projection or filesystem mutation
+ok 107 - missing current chat refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 41.2077
+  ...
+# Subtest: reserved chat key refuses without partial projection or filesystem mutation
+ok 108 - reserved chat key refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 31.7894
+  ...
+# Subtest: invalid chat key refuses without partial projection or filesystem mutation
+ok 109 - invalid chat key refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 37.1674
+  ...
+# Subtest: unknown local tab refuses without partial projection or filesystem mutation
+ok 110 - unknown local tab refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 32.2945
+  ...
+# Subtest: unknown favorite refuses without partial projection or filesystem mutation
+ok 111 - unknown favorite refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 34.5722
+  ...
+# Subtest: missing Page refuses without partial projection or filesystem mutation
+ok 112 - missing Page refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 35.8125
+  ...
+# Subtest: source-less closed local refuses without partial projection or filesystem mutation
+ok 113 - source-less closed local refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 35.0401
+  ...
+# Subtest: source-less closed cloud refuses without partial projection or filesystem mutation
+ok 114 - source-less closed cloud refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 33.4197
+  ...
+# Subtest: unknown source refuses without partial projection or filesystem mutation
+ok 115 - unknown source refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 32.5623
+  ...
+# Subtest: malformed path refuses without partial projection or filesystem mutation
+ok 116 - malformed path refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 35.1071
+  ...
+# Subtest: duplicate placement refuses without partial projection or filesystem mutation
+ok 117 - duplicate placement refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 31.828
+  ...
+# Subtest: cycle refuses without partial projection or filesystem mutation
+ok 118 - cycle refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 35.6977
+  ...
+# Subtest: orphan parent refuses without partial projection or filesystem mutation
+ok 119 - orphan parent refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 33.9741
+  ...
+# Subtest: unknown layout refuses without partial projection or filesystem mutation
+ok 120 - unknown layout refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 37.5862
+  ...
+# Subtest: unseeded layout refuses without partial projection or filesystem mutation
+ok 121 - unseeded layout refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 35.0299
+  ...
+# Subtest: bad expansion refuses without partial projection or filesystem mutation
+ok 122 - bad expansion refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 36.7503
+  ...
+# Subtest: projected cloud collision refuses without partial projection or filesystem mutation
+ok 123 - projected cloud collision refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 33.2603
+  ...
+# Subtest: expansion collision refuses without partial projection or filesystem mutation
+ok 124 - expansion collision refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 33.7188
+  ...
+# Subtest: old pins refuses without partial projection or filesystem mutation
+ok 125 - old pins refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 29.3402
+  ...
+# Subtest: recorded run refuses without partial projection or filesystem mutation
+ok 126 - recorded run refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 45.5708
+  ...
+# Subtest: unfinished attempt refuses without partial projection or filesystem mutation
+ok 127 - unfinished attempt refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 40.1129
+  ...
+# Subtest: bad ownership refuses without partial projection or filesystem mutation
+ok 128 - bad ownership refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 42.0193
+  ...
+# Subtest: unplaced local archive refuses without partial projection or filesystem mutation
+ok 129 - unplaced local archive refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 37.2632
+  ...
+# Subtest: source content blockers are carried forward without a candidate
+ok 130 - source content blockers are carried forward without a candidate
+  ---
+  duration_ms: 14.1907
+  ...
+# Subtest: archive marker keys preserve their exact state without moving unplaced cloud papers
+ok 131 - archive marker keys preserve their exact state without moving unplaced cloud papers
+  ---
+  duration_ms: 21.6097
+  ...
+# Subtest: the implicit direct workspace may remain outside recent-chat order
+ok 132 - the implicit direct workspace may remain outside recent-chat order
+  ---
+  duration_ms: 28.3847
+  ...
+# Subtest: CLI preserves search arguments and pipes only explicit bodies; Paper rename refuses before writing
+ok 133 - CLI preserves search arguments and pipes only explicit bodies; Paper rename refuses before writing
+  ---
+  duration_ms: 7.5693
+  ...
+# Subtest: complete catalog of 0 papers
+ok 134 - complete catalog of 0 papers
+  ---
+  duration_ms: 0.9545
+  ...
+# Subtest: complete catalog of 1 papers
+ok 135 - complete catalog of 1 papers
+  ---
+  duration_ms: 1.1224
+  ...
+# Subtest: complete catalog of 60 papers
+ok 136 - complete catalog of 60 papers
+  ---
+  duration_ms: 0.4658
+  ...
+# Subtest: complete catalog of 61 papers
+ok 137 - complete catalog of 61 papers
+  ---
+  duration_ms: 0.3289
+  ...
+# Subtest: complete catalog of 200 papers
+ok 138 - complete catalog of 200 papers
+  ---
+  duration_ms: 0.569
+  ...
+# Subtest: complete catalog of 201 papers
+ok 139 - complete catalog of 201 papers
+  ---
+  duration_ms: 0.5014
+  ...
+# Subtest: complete catalog of 400 papers
+ok 140 - complete catalog of 400 papers
+  ---
+  duration_ms: 0.8766
+  ...
+# Subtest: complete catalog of 401 papers
+ok 141 - complete catalog of 401 papers
+  ---
+  duration_ms: 2.6718
+  ...
+# Subtest: refuses old response without pagination
+ok 142 - refuses old response without pagination
+  ---
+  duration_ms: 1.2038
+  ...
+# Subtest: refuses missing total
+ok 143 - refuses missing total
+  ---
+  duration_ms: 0.6754
+  ...
+# Subtest: refuses wrong offset
+ok 144 - refuses wrong offset
+  ---
+  duration_ms: 0.5657
+  ...
+# Subtest: refuses wrong limit
+ok 145 - refuses wrong limit
+  ---
+  duration_ms: 0.6155
+  ...
+# Subtest: refuses wrong count
+ok 146 - refuses wrong count
+  ---
+  duration_ms: 0.6308
+  ...
+# Subtest: refuses unknown perspective
+ok 147 - refuses unknown perspective
+  ---
+  duration_ms: 1.0955
+  ...
+# Subtest: refuses nonboolean hasMore
+ok 148 - refuses nonboolean hasMore
+  ---
+  duration_ms: 1.403
+  ...
+# Subtest: refuses missing next offset
+ok 149 - refuses missing next offset
+  ---
+  duration_ms: 1.4405
+  ...
+# Subtest: refuses nonadvancing next offset
+ok 150 - refuses nonadvancing next offset
+  ---
+  duration_ms: 1.2265
+  ...
+# Subtest: refuses overlapping page
+ok 151 - refuses overlapping page
+  ---
+  duration_ms: 0.6458
+  ...
+# Subtest: refuses short intermediate page
+ok 152 - refuses short intermediate page
+  ---
+  duration_ms: 0.5965
+  ...
+# Subtest: refuses invalid paper id
+ok 153 - refuses invalid paper id
+  ---
+  duration_ms: 0.5992
+  ...
+# Subtest: refuses draft in published catalog
+ok 154 - refuses draft in published catalog
+  ---
+  duration_ms: 1.1532
+  ...
+# Subtest: refuses duplicate inside page
+ok 155 - refuses duplicate inside page
+  ---
+  duration_ms: 1.2156
+  ...
+# Subtest: refuses over budget total
+ok 156 - refuses over budget total
+  ---
+  duration_ms: 1.0251
+  ...
+# Subtest: refuses changing totals and repeated ids across pages
+ok 157 - refuses changing totals and repeated ids across pages
+  ---
+  duration_ms: 3.2869
+  ...
+# Subtest: refuses false finality, extra final offset and failed later pages
+ok 158 - refuses false finality, extra final offset and failed later pages
+  ---
+  duration_ms: 1.522
+  ...
+# Subtest: byte and elapsed budgets refuse instead of returning a prefix
+ok 159 - byte and elapsed budgets refuse instead of returning a prefix
+  ---
+  duration_ms: 17.7998
+  ...
+# Subtest: HTTP adapter captures connection, uses audited pagination and preserves bounded provider listing
+ok 160 - HTTP adapter captures connection, uses audited pagination and preserves bounded provider listing
+  ---
+  duration_ms: 82.3778
+  ...
+# Subtest: HTTP catalog stops an oversized page before parsing or publishing it
+ok 161 - HTTP catalog stops an oversized page before parsing or publishing it
+  ---
+  duration_ms: 212.6994
+  ...
+# Subtest: refuses a constant-count deletion/insertion that would silently skip a boundary paper
+ok 162 - refuses a constant-count deletion/insertion that would silently skip a boundary paper
+  ---
+  duration_ms: 1.7311
+  ...
+# Subtest: boundary overlap does not excuse duplicate identities later in a page
+ok 163 - boundary overlap does not excuse duplicate identities later in a page
+  ---
+  duration_ms: 1.3978
+  ...
+# Subtest: abort preserves drafts, retires both old generations and requires fresh host adapters
+ok 164 - abort preserves drafts, retires both old generations and requires fresh host adapters
+  ---
+  duration_ms: 1318.2237
+  ...
+# Subtest: abort interruption after-reopening resumes exact authority without losing recovery records
+ok 165 - abort interruption after-reopening resumes exact authority without losing recovery records
+  ---
+  duration_ms: 711.4521
+  ...
+# Subtest: abort interruption after-reopened-writer resumes exact authority without losing recovery records
+ok 166 - abort interruption after-reopened-writer resumes exact authority without losing recovery records
+  ---
+  duration_ms: 709.1651
+  ...
+# Subtest: abort interruption after-aborted resumes exact authority without losing recovery records
+ok 167 - abort interruption after-aborted resumes exact authority without losing recovery records
+  ---
+  duration_ms: 665.8365
+  ...
+# Subtest: abort interruption after-reopened-launches resumes exact authority without losing recovery records
+ok 168 - abort interruption after-reopened-launches resumes exact authority without losing recovery records
+  ---
+  duration_ms: 667.0602
+  ...
+# Subtest: abort refuses unresolved writes without removing pending evidence
+ok 169 - abort refuses unresolved writes without removing pending evidence
+  ---
+  duration_ms: 455.8332
+  ...
+# Subtest: reopened launches require the retained abort receipt and cannot borrow B authority
+ok 170 - reopened launches require the retained abort receipt and cannot borrow B authority
+  ---
+  duration_ms: 622.0806
+  ...
+# Subtest: a second preparation interrupted after launch closure resumes without discarding the prior abort
+ok 171 - a second preparation interrupted after launch closure resumes without discarding the prior abort
+  ---
+  duration_ms: 883.0269
+  ...
+# Subtest: preparation joins real profile/goal drains, verified draft records and writer closure without affecting B
+ok 172 - preparation joins real profile/goal drains, verified draft records and writer closure without affecting B
+  ---
+  duration_ms: 496.9232
+  ...
+# Subtest: concurrent callers share one capture and do not prepare before delayed foreground/terminal completion
+ok 173 - concurrent callers share one capture and do not prepare before delayed foreground/terminal completion
+  ---
+  duration_ms: 352.0769
+  ...
+# Subtest: a changed human buffer refuses before writer closure and retains the recovery version
+ok 174 - a changed human buffer refuses before writer closure and retains the recovery version
+  ---
+  duration_ms: 300.2445
+  ...
+# Subtest: a refused drain still awaits every independent cleanup before releasing the foreground
+ok 175 - a refused drain still awaits every independent cleanup before releasing the foreground
+  ---
+  duration_ms: 341.9708
+  ...
+# Subtest: foreign ordinary drain evidence is refused
+ok 176 - foreign ordinary drain evidence is refused
+  ---
+  duration_ms: 247.9642
+  ...
+# Subtest: foreign goals drain evidence is refused
+ok 177 - foreign goals drain evidence is refused
+  ---
+  duration_ms: 241.1725
+  ...
+# Subtest: unverified terminal completion cannot be replaced by an empty IPC queue
+ok 178 - unverified terminal completion cannot be replaced by an empty IPC queue
+  ---
+  duration_ms: 240.0851
+  ...
+# Subtest: active writer after drain closes admission but cannot mint a prepared receipt until settled
+ok 179 - active writer after drain closes admission but cannot mint a prepared receipt until settled
+  ---
+  duration_ms: 386.1138
+  ...
+# Subtest: failed writer remains uncertain across restart and cannot be inferred absent from shutdown
+ok 180 - failed writer remains uncertain across restart and cannot be inferred absent from shutdown
+  ---
+  duration_ms: 381.3595
+  ...
+# Subtest: interruption after-collecting retains exact ownership and resumes with new service instances
+ok 181 - interruption after-collecting retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 341.4289
+  ...
+# Subtest: interruption after-draining retains exact ownership and resumes with new service instances
+ok 182 - interruption after-draining retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 361.5966
+  ...
+# Subtest: interruption after-quiescing retains exact ownership and resumes with new service instances
+ok 183 - interruption after-quiescing retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 405.5786
+  ...
+# Subtest: interruption after-writer-closure retains exact ownership and resumes with new service instances
+ok 184 - interruption after-writer-closure retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 374.4579
+  ...
+# Subtest: interruption after-prepared retains exact ownership and resumes with new service instances
+ok 185 - interruption after-prepared retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 376.5425
+  ...
+# Subtest: changed retained draft and preparation record are never repaired or silently reset
+ok 186 - changed retained draft and preparation record are never repaired or silently reset
+  ---
+  duration_ms: 329.7457
+  ...
+# Subtest: foreign foreground freeze is never adopted or released on behalf of another profile
+ok 187 - foreign foreground freeze is never adopted or released on behalf of another profile
+  ---
+  duration_ms: 168.8033
+  ...
+# Subtest: foreign writer generation refuses even if a valid preparation record remains
+ok 188 - foreign writer generation refuses even if a valid preparation record remains
+  ---
+  duration_ms: 251.9912
+  ...
+# Subtest: independent coordinator cannot steal the in-flight profile lease
+ok 189 - independent coordinator cannot steal the in-flight profile lease
+  ---
+  duration_ms: 282.656
+  ...
+# Subtest: native coordinator drains A ordinary and three goal trees while B continues, then verifies restart
+ok 190 - native coordinator drains A ordinary and three goal trees while B continues, then verifies restart
+  ---
+  duration_ms: 4356.3069
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-profile-preparation-fBLQh9","preparationId":"6054fdfb-6c62-4dd1-95ae-f1f2b0cddfc0","nativeReceipts":[{"attemptId":"42d1f28b-165d-4d7d-a288-7c40b28b3a36","stopped":"stopped"},{"attemptId":"64d833a3-9e6d-4feb-b657-ac6f4552b203","stopped":"stopped"},{"attemptId":"6321960d-f397-46d1-b9a7-3e70f323500a","stopped":"stopped"},{"attemptId":"ec2dd7f5-d9d0-4285-936b-ef6f64e0e18d","stopped":"stopped"}],"trees":{"12f0bf3c-85a8-4aa6-bcc6-9b8debd40f24/91352ad4-75c8-4e39-9edb-4ba39949d936":{"root":51020,"pid":35792,"leaf":61304},"12f0bf3c-85a8-4aa6-bcc6-9b8debd40f24/63a788c6-d569-4bea-870a-5c437871a19b":{"root":49384,"pid":59364,"leaf":36292},"12f0bf3c-85a8-4aa6-bcc6-9b8debd40f24/main":{"root":45980,"pid":40632,"leaf":61416},"12f0bf3c-85a8-4aa6-bcc6-9b8debd40f24/e7c585bc-cd51-4d01-946c-0a9b0babb8b3":{"root":49564,"pid":22600,"leaf":25528},"4a6364d9-71e9-4d2b-852e-4ef6e660db07/main":{"root":54568,"pid":53204,"leaf":29780}},"scope":"Actual services, draft files and Windows jobs; foreground/terminal adapters supplied, not Electron preparation UI proof."}
+# Subtest: abrupt process death after-collecting recovers its retained lease and exact generation
+ok 191 - abrupt process death after-collecting recovers its retained lease and exact generation
+  ---
+  duration_ms: 596.0749
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-xmnzSE","boundary":"after-collecting","profileId":"d3173dbe-4434-4357-b66a-8e5f2b03ebc9","preparationId":"97cf62b0-cb17-4806-a745-8bc4de947c8e"}
+# Subtest: abrupt process death after-draining recovers its retained lease and exact generation
+ok 192 - abrupt process death after-draining recovers its retained lease and exact generation
+  ---
+  duration_ms: 502.8777
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-Zp8Q4A","boundary":"after-draining","profileId":"e5a80e2e-f149-4f4c-8e15-4a667f799709","preparationId":"feecaacf-3a0b-418f-98af-2c09ff017938"}
+# Subtest: abrupt process death after-quiescing recovers its retained lease and exact generation
+ok 193 - abrupt process death after-quiescing recovers its retained lease and exact generation
+  ---
+  duration_ms: 494.6419
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-O15u8L","boundary":"after-quiescing","profileId":"4959c8b1-432d-43f3-82bb-92fd645f3b7e","preparationId":"627d8663-6bfa-485c-9c7e-060705833caa"}
+# Subtest: abrupt process death after-writer-closure recovers its retained lease and exact generation
+ok 194 - abrupt process death after-writer-closure recovers its retained lease and exact generation
+  ---
+  duration_ms: 470.1341
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-gTLlF3","boundary":"after-writer-closure","profileId":"6e3bf0b3-2a12-4cd5-b79d-88567d16662d","preparationId":"51eb9e3e-1118-4944-a5ff-ca2a76d9697b"}
+# Subtest: abrupt process death after-prepared recovers its retained lease and exact generation
+ok 195 - abrupt process death after-prepared recovers its retained lease and exact generation
+  ---
+  duration_ms: 510.3326
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-KeACtO","boundary":"after-prepared","profileId":"043eaf79-f2da-4d4a-85c4-d157610fb217","preparationId":"d976b464-2701-4a3c-a21f-8792ede7dc13"}
+# Subtest: abrupt process death after-reopening recovers its retained lease and exact generation
+ok 196 - abrupt process death after-reopening recovers its retained lease and exact generation
+  ---
+  duration_ms: 632.3135
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-6BkCkA","boundary":"after-reopening","profileId":"5ebc3a83-bf7b-412e-97a1-ce56c7fc6c44","preparationId":"cb898276-d51f-4ae5-a929-b7870385546b"}
+# Subtest: abrupt process death after-reopened-writer recovers its retained lease and exact generation
+ok 197 - abrupt process death after-reopened-writer recovers its retained lease and exact generation
+  ---
+  duration_ms: 631.4391
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-LdYwKt","boundary":"after-reopened-writer","profileId":"9393b4f2-2b45-45a4-9f41-00ad2ceade89","preparationId":"1184ef3b-7d94-4370-8afe-b2cda111e6d6"}
+# Subtest: abrupt process death after-aborted recovers its retained lease and exact generation
+ok 198 - abrupt process death after-aborted recovers its retained lease and exact generation
+  ---
+  duration_ms: 596.5442
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-uJWJyw","boundary":"after-aborted","profileId":"2a65e3f9-647f-4873-bef2-f35864011fcc","preparationId":"c195cb27-2798-4044-a852-7239d5604dba"}
+# Subtest: abrupt process death after-reopened-launches recovers its retained lease and exact generation
+ok 199 - abrupt process death after-reopened-launches recovers its retained lease and exact generation
+  ---
+  duration_ms: 593.1523
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-P91NaO","boundary":"after-reopened-launches","profileId":"b7caa654-a301-4af9-8a13-e0fa47c1303c","preparationId":"679da868-16d0-412b-9019-da8f46ef4253"}
+# Subtest: real HTTP creation stays admitted through delayed acknowledgement, readback and durable receipt
+ok 200 - real HTTP creation stays admitted through delayed acknowledgement, readback and durable receipt
+  ---
+  duration_ms: 254.8205
+  ...
+# Subtest: quiescence keeps an async mutation admitted through its receipt and rejects successors
+ok 201 - quiescence keeps an async mutation admitted through its receipt and rejects successors
+  ---
+  duration_ms: 98.5194
+  ...
+# Subtest: bound documents and captured API scopes retain the old generation; reads survive
+ok 202 - bound documents and captured API scopes retain the old generation; reads survive
+  ---
+  duration_ms: 239.2087
+  ...
+# Subtest: foreign tokens and nested owners refuse without changing either document store
+ok 203 - foreign tokens and nested owners refuse without changing either document store
+  ---
+  duration_ms: 62.1461
+  ...
+# Subtest: failed or unawaited work cannot erase or reuse an admission
+ok 204 - failed or unawaited work cannot erase or reuse an admission
+  ---
+  duration_ms: 107.4722
+  ...
+# Subtest: missing or malformed metadata is retained and never reset by a fresh handle
+ok 205 - missing or malformed metadata is retained and never reset by a fresh handle
+  ---
+  duration_ms: 220.9315
+  ...
+# Subtest: a killed admitted child remains unresolved after process exit and controller restart
+ok 206 - a killed admitted child remains unresolved after process exit and controller restart
+  ---
+  duration_ms: 216.0915
+  ...
+# Subtest: persisted transcript writers refuse after restart without rebinding an old attempt
+ok 207 - persisted transcript writers refuse after restart without rebinding an old attempt
+  ---
+  duration_ms: 471.606
+  ...
+# Subtest: independent processes racing quiescence retain admitted receipts and reject successors
+ok 208 - independent processes racing quiescence retain admitted receipts and reject successors
+  ---
+  duration_ms: 343.46
+  ...
+1..208
+# tests 208
+# suites 0
+# pass 208
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 21602.5466
