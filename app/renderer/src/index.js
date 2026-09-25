@@ -624,6 +624,7 @@ async function renderPalette() {
   list.innerHTML = paletteItems.length ? paletteItems.map((i, n) => (group === i.group ? '' : (group = i.group, `<div class="bw-palette-group">${esc(i.group)}</div>`)) + `<button type="button" role="option" data-palette="${n}" aria-selected="${n === paletteIndex}">${iconHtml(i.icon)}<span>${esc(i.label)}</span><small>${esc(i.hint || '')}</small></button>`).join('') : '<div class="bw-palette-empty">Nothing matches. Try a tab, document, chat, file, or action.</div>';
   list.querySelectorAll('[data-palette]').forEach(b => { b.onclick = () => runPalette(Number(b.dataset.palette)); b.onpointermove = () => { if (Number(b.dataset.palette) !== paletteIndex) { paletteIndex = Number(b.dataset.palette); list.querySelectorAll('[data-palette]').forEach(x => x.setAttribute('aria-selected', x === b)); } }; });
   list.querySelector('[aria-selected="true"]')?.scrollIntoView({ block: 'nearest' });
+  return true;
 }
 function openPalette(prefill = '') { hideMenus(); const palette = q('#bw-palette'); palette.hidden = false; q('#bw-palette-input').value = prefill; paletteIndex = 0; renderPalette(); q('#bw-palette-input').focus(); }
 function runPalette(n, alt = false) { const item = paletteItems[n]; if (!item) return; q('#bw-palette').hidden = true; (alt && item.alt ? item.alt.run : item.run)(); }
@@ -779,7 +780,7 @@ function wire() {
   root.addEventListener('pointerdown', e => { if (!e.target.closest('.bw-palette')) q('#bw-palette').hidden = true; });
   const paletteInput = q('#bw-palette-input');
   paletteInput.addEventListener('input', () => { paletteIndex = 0; renderPalette(); });
-  paletteInput.addEventListener('keydown', e => { if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); if (!paletteItems.length) return; paletteIndex = (paletteIndex + (e.key === 'ArrowDown' ? 1 : paletteItems.length - 1)) % paletteItems.length; renderPalette(); } else if (e.key === 'Enter') { e.preventDefault(); runPalette(paletteIndex, e.shiftKey); } else if (e.key === 'Escape') { hideMenus(); } });
+  paletteInput.addEventListener('keydown', async e => { if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); if (!paletteItems.length) return; paletteIndex = (paletteIndex + (e.key === 'ArrowDown' ? 1 : paletteItems.length - 1)) % paletteItems.length; renderPalette(); } else if (e.key === 'Enter') { e.preventDefault(); if (await renderPalette()) runPalette(paletteIndex, e.shiftKey); } else if (e.key === 'Escape') { hideMenus(); } });
   document.addEventListener('keydown', e => {
     if (root.inert) return;
     const key = e.key.toLowerCase();

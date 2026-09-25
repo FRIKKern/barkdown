@@ -18,6 +18,12 @@ async function boot() {
   app = await launch(); page = await app.firstWindow();
   page.on('pageerror', error => errors.push(error.message));
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
+  // Enter must select the new query, even while native document search is pending.
+  await app.evaluate(({ app }) => {
+    const docs = process.getBuiltinModule('module').createRequire(app.getAppPath() + '/main/main.js')('./documents');
+    const search = docs.search;
+    docs.search = async (...args) => { await new Promise(resolve => setTimeout(resolve, 150)); return search(...args); };
+  });
 }
 async function openGoals() {
   await page.keyboard.press('Control+k');
