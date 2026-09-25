@@ -21,7 +21,17 @@
     {
       "owner": "app/main/workspace-repository.js",
       "fact": "An isolated synthetic20Hz stream (200 events, two runs per variant) retains exact transcript text. Baseline medians19.6/22.3ms per event; fenced45.2/49.6ms, with max dispatch lag825/2445ms. A20-event filesystem profile counted15459 lstat calls and126 fsync calls. This is measured persistence-path overhead, not native UI/provider latency.",
-      "next": "Bound/coalesce consecutive text/thinking deltas before assigning emitted event sequence numbers, then preserve existing synchronous persist-before-forward. Flush before tools, approvals, terminal events, cancellation and driver completion; isolate runs, cap bytes/time and surface sink failure. Avoid buffering already acknowledged events or weakening writer ownership/durability. Verify end-to-end owner/restart/sequence parity and benchmark burst/sparse streams before daily-use readiness."
+      "next": "Bound/coalesce consecutive text/thinking deltas before assigning emitted event sequence numbers, then preserve existing synchronous persist-before-forward. Flush before tools, approvals, terminal events, cancellation and driver completion; isolate runs, cap bytes/time and surface sink failure. Avoid buffering already acknowledged events or weakening writer ownership/durability. Verify end-to-end owner/restart/sequence parity and benchmark burst/sparse streams before daily-use readiness.",
+      "followUp": {
+        "source": "e4a60ac9",
+        "implemented": "Provider-only pre-sequence coalescing with immediate leading chunks and safe failed-sink finalization.",
+        "evidence": [
+          "coalesced-stream-probe.json",
+          "stream-refusal-focused.log",
+          "desktop-release.log"
+        ],
+        "remaining": "Final evidence delivery/hosted gate; no additional persistence batching planned without a new measured problem."
+      }
     }
   ],
   "remainingGate": "Final source/target/media/workspace comparison, sealed authority selection, interruption recovery and rollback/retirement remain A2. G2 upstream regression enforcement remains a separate release gate."

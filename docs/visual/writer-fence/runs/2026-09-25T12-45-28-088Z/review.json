@@ -1,0 +1,50 @@
+{
+  "reviewer": "Codex",
+  "reviewedAt": "2026-09-25T12:52:40.810Z",
+  "source": "e4a60ac9b520bfa41680e87fd0a539f93f576eeb",
+  "upstream": "b702140907921e82e9ce5eecb3e2445f13ab2d6e",
+  "accepted": true,
+  "manifestHash": "3db3f1d65c97ede557c70ea5567864d78b479b7ba4938de3a0e37757602eed9d",
+  "inspected": {
+    "nativeStills": 4,
+    "rawVideoSamplesAt1fps": 81,
+    "decodedExcerptFrames": 51,
+    "standardStills": 40,
+    "standardDifferences": 40,
+    "standardGifFrames": 40,
+    "liveStills": 5,
+    "liveGifFrames": 37
+  },
+  "nativeObservations": [
+    "Acknowledged content remains visible; typing after quiescence stays in the open buffer with truthful save refusal.",
+    "Actual1280x860 and820x860 content geometry is preserved. Narrow Paper wraps heavily, including a split heading word; Retry/Discard remain reachable. This existing narrow-layout limitation is not a daily-use polish claim.",
+    "Restart reads verified original history. The closed workspace-save toast is visible in the raw recording, not masked.",
+    "Raw startup light flash, private-runtime boot wait and transient New page not confirmed remain in full recordings."
+  ],
+  "excerpt": {
+    "file": "writer-refusal.gif",
+    "sha256": "6992aad77eb70c8148c4244986323288fb99b054688a225e81108df104e301bf",
+    "source": "page@edf704b380b3c4b019cda7841c3475e3.webm",
+    "startSeconds": 68,
+    "requestedSeconds": 9,
+    "endsAtSourceEnd": true,
+    "decodedFrames": 51,
+    "encoding": "ffmpeg output -ss68 -t9 -r8; full frame resized960px wide;256 colours Floyd-Steinberg;12cs frame delay; no crop"
+  },
+  "standardApproval": "docs/visual/reviews/approval-f4022c289339ae25e54aa5922f092a4f19249bb0bd72fea353e31043c52a38e1.json",
+  "standardObservations": [
+    "All40 stills/differences/decoded GIF frames inspected. Same Windows environment, zero pixel/geometry changes. Existing GIF shadow quantization remains; full PNGs show actual gradients."
+  ],
+  "liveManifest": "docs/images/status/history/2026-09-25T12-49-12-713Z.json",
+  "liveManifestHash": "1d462fa104de0701318c0517de65121f483e5dde9703de4b581992d0bbb6ec19",
+  "liveObservations": [
+    "Real Claude read and edit of disposable Paper saved revision2; table headers/alignment6/6.",
+    "All5 stills and37 decoded GIF frames inspected: slash-to-quote, typing, table navigation and quick open. No new clipping, control loss or palette bands. Light views cover contrast/interaction regression; dark Paper is the presentation still."
+  ],
+  "limits": [
+    "Internal disposable controller drives quiescence; no shipped migration UI.",
+    "No abrupt-restart human draft recovery, child teardown, uncertain admission reconciliation, external-client fence, authority selection or legacy retirement.",
+    "Standard fixtures use reduced-motion step GIFs; real provider latency is not measured by this gallery.",
+    "1fps raw review does not claim every raw video frame was inspected."
+  ]
+}

@@ -18,14 +18,14 @@
   ],
   "checkpoint": "2026-09-25",
   "handoff": "docs/cycles/C075-writer-fence.md",
-  "nextAction": "Validate bounded provider text coalescing against the measured stream slowdown, then recapture changed inputs and rerun hosted gates before merging PR38.",
+  "nextAction": "Commit/push final evidence, review fresh hosted gates/artifacts and merge PR38 when green. Then close C075 and retire the delivery branch in a documentation-only checkpoint.",
   "evidence": [
     "docs/cycles/evidence/C075/README.md",
-    "docs/cycles/evidence/C075/root.log",
-    "docs/cycles/evidence/C075/desktop.log",
-    "docs/cycles/evidence/C075/parity.json",
-    "docs/visual/writer-fence/runs/2026-09-25T11-50-28-240Z/review.json"
+    "docs/cycles/evidence/C075/desktop-release.log",
+    "docs/cycles/evidence/C075/stream-refusal-focused.log",
+    "docs/visual/writer-fence/runs/2026-09-25T12-45-28-088Z/review.json",
+    "docs/cycles/evidence/C075/root-release.log"
   ],
-  "truthReview": "Initial C075 checkpoint944d8154 passes all local and hosted gates. Additional isolated stream audit found up to2445ms backlog at20Hz; source changes now coalesce unnumbered text chunks while preserving persist-before-forward. New source validation/evidence is pending; PR38 remains open.",
-  "screenshotReview": "Reviewed native4 stills/103 raw1fps samples/59 GIF frames, live5 stills/37 GIF frames and standard40 stills/40 differences/40 GIF frames. Standard explicitly approved; rejected native recording retained."
+  "truthReview": "Final source e4a60ac9 passes full desktop and30 targeted stream/goal checks, including13 stream cases. Provider coalescing preserves immediate first progress and durable ordering; failed sinks finalize without unhandled rejection in all three adapter loops. Root verification passes; final hosted delivery remains pending; migration activation remains off.",
+  "screenshotReview": "Final source:4 native stills/81 raw1fps samples/51 GIF frames, live5/37 and standard40/40/40 inspected. Standard has zero pixel/geometry differences and explicit immutable approval. Historical failures retained."
 }

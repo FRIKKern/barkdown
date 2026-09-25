@@ -1,42 +1,42 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-25T11-56-14-104Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-25T12-49-16-707Z/README.md).
 
-Reviewed by Codex. C075 source 4e618ef7: inspected all 40 candidate stills, 40 differences and 40 decoded fixture GIF frames, including intermediate menus, narrow layouts and themes. Comparison reports zero changed pixels and unchanged control geometry. Existing quantized fixture GIF shadows remain; stills are authoritative for gradients. Full desktop and 13 writer admission/process checks pass; private real Paper parity passes 20/20 at runtime-identical 6033ee4. Native writer refusal and live Paper reviewed separately; no migration activation or abrupt-restart draft recovery is claimed.
+Reviewed by Codex. C075 final source e4a60ac9: inspected all40 stills,40 differences and40 decoded step-GIF frames, including narrow workspace/goals/profiles/adoption, menus, focus and error states. Same Windows environment; zero changed pixels or geometry. Existing step-GIF quantized shadow bands remain; full stills retain actual gradients. Full desktop and30 focused stream/goal checks pass. Native writer4 stills,81 raw1fps samples and51 excerpt frames plus live Paper5 stills/37 GIF frames separately inspected; live Claude edit and6/6 table checks pass. No new clipping or control loss. No migration activation, durable dirty-draft recovery or child teardown claimed.
 
-Source commit: 4e618ef7b6935e3de327908e6a67c0ede102f158; platform: win32; Electron: 38.8.6. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: e4a60ac9b520bfa41680e87fd0a539f93f576eeb; platform: win32; Electron: 38.8.6. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-09-25T11-56-14-104Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-09-25T12-49-16-707Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-09-25T11-56-14-104Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-09-25T12-49-16-707Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-09-25T11-56-14-104Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-09-25T12-49-16-707Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-09-25T11-56-14-104Z/documents.gif)
+![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-09-25T12-49-16-707Z/documents.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-09-25T11-56-14-104Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-09-25T12-49-16-707Z/settings.gif)
 
 ## [goals](goals/README.md)
 
-![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-09-25T11-56-14-104Z/goals.gif)
+![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-09-25T12-49-16-707Z/goals.gif)
 
 ## [profiles](profiles/README.md)
 
-![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-09-25T11-56-14-104Z/profiles.gif)
+![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-09-25T12-49-16-707Z/profiles.gif)
 
 ## [adoption](adoption/README.md)
 
-![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-09-25T11-56-14-104Z/adoption.gif)
+![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-09-25T12-49-16-707Z/adoption.gif)
 
 ## Dedicated journeys and remaining limits
 

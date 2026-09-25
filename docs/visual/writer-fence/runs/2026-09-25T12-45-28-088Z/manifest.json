@@ -1,0 +1,85 @@
+{
+  "host": "e4a60ac9b520bfa41680e87fd0a539f93f576eeb",
+  "upstream": "b702140907921e82e9ce5eecb3e2445f13ab2d6e",
+  "capture": true,
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-writer-native-E4VCDr",
+  "frames": [
+    "01-acknowledged-paper.png",
+    "02-save-refused-buffer-retained.png",
+    "03-narrow-refusal.png",
+    "04-restarted-original-history.png"
+  ],
+  "geometry": [
+    {
+      "frame": "01-acknowledged-paper.png",
+      "contentSize": [
+        1280,
+        860
+      ],
+      "viewport": {
+        "width": 1280,
+        "height": 860
+      }
+    },
+    {
+      "frame": "02-save-refused-buffer-retained.png",
+      "contentSize": [
+        1280,
+        860
+      ],
+      "viewport": {
+        "width": 1280,
+        "height": 860
+      }
+    },
+    {
+      "frame": "03-narrow-refusal.png",
+      "contentSize": [
+        820,
+        860
+      ],
+      "viewport": {
+        "width": 820,
+        "height": 860
+      }
+    },
+    {
+      "frame": "04-restarted-original-history.png",
+      "contentSize": [
+        1280,
+        860
+      ],
+      "viewport": {
+        "width": 1280,
+        "height": 860
+      }
+    }
+  ],
+  "videos": [
+    "page@edf704b380b3c4b019cda7841c3475e3.webm",
+    "page@7a1b4739c1a6faff294de150372ccf7a.webm"
+  ],
+  "checks": [
+    "Real Paper title/body acknowledged before quiescence; stale native note/create/ops/attachment/workspace requests refused",
+    "Typing remains visible in the unsaved buffer; server revision/body and original source/workspace bytes unchanged",
+    "Restart keeps writer admission closed while verified original history remains readable"
+  ],
+  "errors": [],
+  "passed": true,
+  "refusal": {
+    "legacy": "[writer_stale] This editor or run belongs to an earlier library generation. Writes are stopped; keep unsaved work open.",
+    "create": "[writer_stale] This editor or run belongs to an earlier library generation. Writes are stopped; keep unsaved work open.",
+    "paper": "[writer_stale] This editor or run belongs to an earlier library generation. Writes are stopped; keep unsaved work open.",
+    "attachment": "[writer_stale] This editor or run belongs to an earlier library generation. Writes are stopped; keep unsaved work open.",
+    "workspace": "[writer_stale] This editor or run belongs to an earlier library generation. Writes are stopped; keep unsaved work open."
+  },
+  "unsavedBuffer": "A dependable writing desk\n\nThese words were acknowledged before preparation. This unsaved thought stays in the open buffer.",
+  "artifacts": {
+    "01-acknowledged-paper.png": "9fa30b4768a0221b6bfcad8ae9e9130afcd9b07d49c5621cfacfc07a2e3371b9",
+    "02-save-refused-buffer-retained.png": "ba6aa3e9f5c9da58c463008208a3c13da108124f3328a46ecd99cb5e1c975b7b",
+    "03-narrow-refusal.png": "e6deecb0f35c59954414d9f33e19415be6ec37cbdf8016b0d991136bae3771f7",
+    "04-restarted-original-history.png": "1f9b78111774f340ec360b9267157dc9238f23a3719af285dfd93d1620cac462",
+    "page@7a1b4739c1a6faff294de150372ccf7a.webm": "81f07972a02ac156e89eb447b686b97154aecb8e3ad95dd9a43cea88f88d5d40",
+    "page@edf704b380b3c4b019cda7841c3475e3.webm": "3f1c2252b95ccc555b854a74fd186ffa99100bfd987b0dbe5c7cd80fe72569ae"
+  }
+}

@@ -1,34 +1,37 @@
 # C075 writer-fence evidence
 
-Implementation6033ee4; capture-only correction4e618ef7; private upstreamb70214090. Windows source prototype.
+Final runtime source **e4a60ac9**; private upstream **b70214090**. Windows source prototype. Final hosted checks and merge are pending.
 
 | Boundary | Evidence | Result |
 |---|---|---|
-| Admission, async acknowledgements, subprocess races and stale MCP/goal contexts | [Focused log](fence-final.log) |13/13 pass |
-| Desktop, adoption, cold recovery, profile and Undo regressions | [Full desktop](desktop.log) | Pass; adoption25 checks and cold process-exit cases included |
-| Real Paper/server matrix | [Parity report](parity.md), [machine result](parity.json) |20/20 pass |
-| Native refusal, retained open buffer and readable originals after restart | [Gallery](../../../visual/writer-fence/README.md), [log](native.log) | Pass,4 stills and full recordings reviewed |
-| Live Paper and real Claude | [Manifest](../../../images/status/history/2026-09-25T11-55-19-744Z.json), [log](live.log) | Pass,5 stills and37 GIF frames reviewed |
-| Standard fixture review | [Gallery](../../../visual/runs/2026-09-25T11-56-14-104Z/README.md), [log](visual.log) |40 stills/40 diffs/40 GIF frames inspected; zero pixel/geometry changes; explicitly approved |
-| Root verification | [Log](root.log) | Pass |
+| Admission, async acknowledgements, subprocess races, stale MCP/goal contexts | [Focused fence log](fence-final.log) |13/13 pass; also included in final full suite |
+| Streaming, failed durable sinks and goal integration | [Focused log](stream-refusal-focused.log) |30 pass, including13 stream cases and six actual API/Claude/Codex refusal paths |
+| Desktop, adoption, recovery, profiles and Undo | [Final desktop](desktop-release.log) |Pass on e4a60ac9 |
+| Native refusal/open buffer/restarted originals | [Gallery](../../../visual/writer-fence/README.md), [log](native-release.log) |Pass;4 stills,81 raw1fps samples and51 GIF frames inspected |
+| Real Claude and Paper | [Live manifest](../../../images/status/history/2026-09-25T12-49-12-713Z.json), [log](live-release.log) |Pass;5 stills/37 GIF frames inspected; table headers/alignment6/6 |
+| Standard fixture review | [Gallery](../../../visual/runs/2026-09-25T12-49-16-707Z/README.md), [log](visual-release.log) |40 stills/40 differences/40 GIF frames inspected; zero pixel/geometry changes; explicit approval |
+| Root verification | [Final log](root-release.log) |Pass |
+| Real Paper/server matrix before provider-only follow-up | [Local report](parity.md), [initial hosted result](hosted-parity-initial.json) |20/20 at6033ee4 and944d8154 respectively; final hosted parity still required |
 
-[Named cross-journey review](../../../visual/writer-fence/runs/2026-09-25T11-50-28-240Z/review.json) records provenance, encoding, observations and limits. [Repository inventory](repository.json) retains recovery worktrees and stashes. [Synthetic writer timing](writer-timing.json) is a single loaded-machine sample, not a UI latency claim. [Next boundary audit](next-boundary.json) prepares child teardown, draft retention and sealed selection.
+[Named final cross-journey review](../../../visual/writer-fence/runs/2026-09-25T12-45-28-088Z/review.json) binds provenance, counts, encoding, observations and limits. [Checkpoint](final-checkpoint.json) records validation handles/results. Root README dark demo still applies to ordinary editing; the fresh dark live hero is reviewed. Light views test contrast and interaction regression.
 
-## Retained failures
+## Measured streaming improvement
 
-- [Initial native failure](native-smoke-rejected/manifest.json): Windows Node/Electron device identity mismatch, fixed with cross-runtime regression.
-- [Harness failure](native-smoke-harness-rejected/manifest.json): contextBridge strips custom Error properties; encoded refusal now asserted.
-- [Development smoke](native-smoke-passed/manifest.json) passes but is not formal clean-source evidence.
-- [Initial desktop failure](desktop-initial.log): queued disclosure toggle raced a render. Fixed; [78-check smoke](desktop-smoke.log) and full rerun pass.
+The [isolated20Hz probe](stream-probe.json) found up to2445ms dispatch backlog after fencing. Provider-only pre-sequence coalescing now preserves immediate first progress and synchronous persist-before-forward. [Corrected measurements](coalesced-stream-probe.json) retain all200 chunks/restart readback in both samples:101 persisted events,65–69ms max dispatch lag,208–211ms max durable-visible latency. These are synthetic persistence-path timings, not a native UI latency claim. Failed sinks cancel/finalize without attempting another report through that sink.
+
+## Retained failures and earlier proof
+
+- [Initial native failure](native-smoke-rejected/manifest.json): Windows Node/Electron device-ID mismatch; corrected with a cross-runtime regression.
+- [Harness failure](native-smoke-harness-rejected/manifest.json): contextBridge strips custom Error properties; actual encoded refusal is now asserted. [Development smoke](native-smoke-passed/manifest.json) is not formal clean-source evidence.
+- [Initial desktop failure](desktop-initial.log): queued disclosure toggle raced rendering. [78-check smoke](desktop-smoke.log) and [first full rerun](desktop.log) pass.
 - [Concurrency assertion](race-harness-initial.log): explicit missing-value expectation corrected.
-- [Rejected formal motion](../../../visual/writer-fence/runs/2026-09-25T11-40-27-781Z/REJECTED.json): capture scale and clipping corrected before the accepted run.
+- [Rejected motion](../../../visual/writer-fence/runs/2026-09-25T11-40-27-781Z/REJECTED.json): scale/clipping fixed with actual BrowserWindow geometry. [Initial accepted review](../../../visual/writer-fence/runs/2026-09-25T11-50-28-240Z/review.json) is source4e618ef7.
+- [Initial stream full-suite failure](stream-desktop-initial.log): delayed first progress. Immediate leading chunks fixed it; [e325ae6e full run](stream-desktop-before-refusal.log) passes.
+- [Six actual-driver failures](driver-refusal-initial.log): refused text/error sinks caused unhandled rejection after cleanup. Corrected before final capture; all six now pass within the30 focused checks.
+- Initial PR38 head944d8154 passed all hosted gates; [visual review](hosted-visual-review.json) and [20/20 parity](hosted-parity-initial.json) are retained separately from final delivery.
 
-No authority activation, child teardown, abrupt-restart draft restoration, external-client fencing or legacy retirement is claimed. Hosted gates and merge are separate delivery steps. Root README dark demo remains applicable: no change to its demonstrated ordinary creation/editing journey; fresh live hero accompanies this checkpoint.
+## Remaining boundaries
 
-## Streaming follow-up after the initial green checkpoint
+No authority activation, owned-child teardown, abrupt-restart human-draft restoration, uncertainty reconciliation, external-client fence or legacy retirement is claimed. The [mounted draft probe](draft-retention-probe.json) proves active note-label composition is omitted from recoverySnapshot/flush; preparation must retain it or wait for verified composition end. [Next-boundary audit](next-boundary.json) and [contract](../../../migration/writer-fence.md) define the next work.
 
-PR38 head944d8154 passed hosted Verify/Visual and [20/20 parity](hosted-parity-initial.json), with [hosted visual review](hosted-visual-review.json). It remains unmerged because the [isolated20Hz probe](stream-probe.json) found up to2445ms dispatch backlog. Provider drivers now coalesce only unnumbered text/thinking chunks, retaining immediate first progress and synchronous persist-before-forward. [Corrected measurements](coalesced-stream-probe.json) retain all200 chunks with65–69ms max dispatch lag and208–211ms max durable-visible latency. These are synthetic persistence-path timings, not a native UI latency claim. [Seven stream plus affected goal tests](stream-focused.log) pass. The [initial stream desktop failure](stream-desktop-initial.log) caught delayed first progress and remains retained. Fresh full-suite/capture/hosted evidence for the new source is pending.
-
-The [mounted draft-retention probe](draft-retention-probe.json) reproduces omission of an active note-label composition from recoverySnapshot and flush. This prepares the next A2 boundary; it does not implement human-draft recovery.
-
-The coalescing source e325ae6e passed [full desktop](stream-desktop-before-refusal.log). Follow-up real-driver review reproduced [six unhandled rejection failures](driver-refusal-initial.log) when storage refused buffered text or an error report. The final catch-path correction passes [30 targeted tests](stream-refusal-focused.log), including13 stream cases. Fresh final-source full regression and capture remain required.
+Narrow Paper wrapping, startup light flash and standard step-GIF shadow quantization remain explicit visual limitations. Full recordings and PNGs are retained. [Initial repository inventory](repository.json) preserves43 locked recovery worktrees and2 stashes; final ref reconciliation follows merge.
