@@ -12,6 +12,7 @@ The complete Paper stack was integrated with upstream main `c423813d7` in Barkpa
 | Adjacent contracts | [Security 139/139](security-shape.log), [workflow ledger 21/21](workflow-ledger-fixed.log), [vendor freshness](vendor-freshness-fixed.log), [design](design-check-fixed.log), [snapshot freshness](repo-paper-freshness-fixed.log) |
 | Root verification | [Passed](root-verify.log); concepts/handoff only, separate from the real runtime rows above |
 | Current-main contract repairs | [111 tests passed](contract-spec-tests.log): route manifest, error registry, containment inventory, CLI manifest, ingest/create and the real receipt versus OpenAPI. [Receipt census passed](census-fixed.log); its prior run derived the new route pin rather than guessing it. |
+| Follow-up formatting and CLI contracts | [All 34 changed Elixir files formatted](format-all-changed.log) with CI's 1.19.5; [four test ASTs unchanged](format-proof.log). [Ten CLI tests passed](cli-error-contract.log), including API error coverage and canonical `paper_exists` classification. [Documentation budgets passed](doc-budget-followup.log), with limits unchanged. |
 
 ## Visual review
 
@@ -36,3 +37,5 @@ Supplemental [dark](link-dark.png), [light](link-light.png) and [narrow](link-na
 The initial full Linux run executed 22,901 tests with nine failures. [Failure excerpts](hosted-failures.txt) identify the missing create manifest/error code, popup inventory and receipt registry; all are addressed in upstream `39d76cd9b`. The [full log is retained compressed](hosted-elixir.log.gz), with [original-byte hashes and provenance](hosted-elixir-provenance.json). These failures prompted the targeted corrections above; fresh hosted checks remain required. No editor runtime code changed after the reviewed live capture.
 
 Hosted readiness and the next action belong to the [current handoff](../../C073-upstream-integration.md). No upstream merge, production deployment or migration activation is included in this evidence.
+
+The first run against the correct main base found [four unformatted older tests](hosted-format-followup.log), an [API reference seven bytes over budget](hosted-doc-followup.log), and the [missing CLI conflict exit mapping](hosted-go.log). Upstream `fbcf43f22` and `677992c51` correct these findings. The preceding expensive runs were superseded because their known failures already prevented acceptance; cancelled suites are not passes. The independent reader found no remaining issue in these focused changes. Runtime editor assets are unchanged, so the reviewed images above retain their original source attribution.

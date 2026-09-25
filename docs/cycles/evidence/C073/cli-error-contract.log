@@ -1,0 +1,52 @@
+=== RUN   TestClassifyError
+=== RUN   TestClassifyError/canonical_not_found
+=== RUN   TestClassifyError/canonical_forbidden
+=== RUN   TestClassifyError/canonical_validation
+=== RUN   TestClassifyError/canonical_rev_mismatch
+=== RUN   TestClassifyError/canonical_paper_exists
+=== RUN   TestClassifyError/canonical_halted
+=== RUN   TestClassifyError/canonical_invalid_filter
+=== RUN   TestClassifyError/canonical_forbidden_field
+=== RUN   TestClassifyError/bare_halted_string
+=== RUN   TestClassifyError/bare_not_found_string
+=== RUN   TestClassifyError/bare_invalid_string
+=== RUN   TestClassifyError/ok-false_reason
+=== RUN   TestClassifyError/message-only_no_code
+=== RUN   TestClassifyError/message-only_not-found_text
+=== RUN   TestClassifyError/unrecognized_body
+--- PASS: TestClassifyError (0.00s)
+    --- PASS: TestClassifyError/canonical_not_found (0.00s)
+    --- PASS: TestClassifyError/canonical_forbidden (0.00s)
+    --- PASS: TestClassifyError/canonical_validation (0.00s)
+    --- PASS: TestClassifyError/canonical_rev_mismatch (0.00s)
+    --- PASS: TestClassifyError/canonical_paper_exists (0.00s)
+    --- PASS: TestClassifyError/canonical_halted (0.00s)
+    --- PASS: TestClassifyError/canonical_invalid_filter (0.00s)
+    --- PASS: TestClassifyError/canonical_forbidden_field (0.00s)
+    --- PASS: TestClassifyError/bare_halted_string (0.00s)
+    --- PASS: TestClassifyError/bare_not_found_string (0.00s)
+    --- PASS: TestClassifyError/bare_invalid_string (0.00s)
+    --- PASS: TestClassifyError/ok-false_reason (0.00s)
+    --- PASS: TestClassifyError/message-only_no_code (0.00s)
+    --- PASS: TestClassifyError/message-only_not-found_text (0.00s)
+    --- PASS: TestClassifyError/unrecognized_body (0.00s)
+=== RUN   TestCodeExitCoversKnownAPICodes
+--- PASS: TestCodeExitCoversKnownAPICodes (0.00s)
+=== RUN   TestCodeExitExclusionsAreLiveAPICodes
+--- PASS: TestCodeExitExclusionsAreLiveAPICodes (0.00s)
+=== RUN   TestCodeExitAndExclusionsAreDisjoint
+--- PASS: TestCodeExitAndExclusionsAreDisjoint (0.00s)
+=== RUN   TestCodeExitAgreesWithSDKClassification
+--- PASS: TestCodeExitAgreesWithSDKClassification (0.00s)
+=== RUN   TestUnmappedAndAmbiguousCodesStillFallToGeneric
+--- PASS: TestUnmappedAndAmbiguousCodesStillFallToGeneric (0.00s)
+=== RUN   TestBackfillDidNotMoveExistingBuckets
+--- PASS: TestBackfillDidNotMoveExistingBuckets (0.00s)
+=== RUN   TestCodeExitMatchesAPIStatusBucket
+--- PASS: TestCodeExitMatchesAPIStatusBucket (0.00s)
+=== RUN   TestCodeExitStatusExceptionsAreLive
+--- PASS: TestCodeExitStatusExceptionsAreLive (0.00s)
+=== RUN   TestCodeExitCoversCloseRefusalVocabulary
+--- PASS: TestCodeExitCoversCloseRefusalVocabulary (0.00s)
+PASS
+ok  	github.com/FRIKKern/barkpark/internal/cli	0.085s

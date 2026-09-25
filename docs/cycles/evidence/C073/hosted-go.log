@@ -1,0 +1,324 @@
+﻿2026-09-25T00:29:02.9043518Z Current runner version: '2.337.0'
+2026-09-25T00:29:02.9066642Z ##[group]Runner Image Provisioner
+2026-09-25T00:29:02.9067522Z Hosted Compute Agent
+2026-09-25T00:29:02.9068182Z Version: 20260828.587
+2026-09-25T00:29:02.9068825Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-25T00:29:02.9069544Z Build Date: 2026-08-28T16:44:25Z
+2026-09-25T00:29:02.9070497Z Worker ID: {9dbf019d-afb3-4cf9-9612-aa1fc1e079c6}
+2026-09-25T00:29:02.9071231Z Azure Region: westus3
+2026-09-25T00:29:02.9071801Z ##[endgroup]
+2026-09-25T00:29:02.9073094Z ##[group]Operating System
+2026-09-25T00:29:02.9073732Z Ubuntu
+2026-09-25T00:29:02.9074242Z 24.04.5
+2026-09-25T00:29:02.9074760Z LTS
+2026-09-25T00:29:02.9075272Z ##[endgroup]
+2026-09-25T00:29:02.9075798Z ##[group]Runner Image
+2026-09-25T00:29:02.9076354Z Image: ubuntu-24.04
+2026-09-25T00:29:02.9076922Z Version: 20260920.314.1
+2026-09-25T00:29:02.9078118Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260920.314/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-25T00:29:02.9079621Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260920.314
+2026-09-25T00:29:02.9080652Z ##[endgroup]
+2026-09-25T00:29:02.9081864Z ##[group]GITHUB_TOKEN Permissions
+2026-09-25T00:29:02.9083770Z Contents: read
+2026-09-25T00:29:02.9084366Z Metadata: read
+2026-09-25T00:29:02.9084899Z Packages: read
+2026-09-25T00:29:02.9085497Z ##[endgroup]
+2026-09-25T00:29:02.9087383Z Secret source: Actions
+2026-09-25T00:29:02.9088252Z Cache mode: write
+2026-09-25T00:29:02.9088910Z Prepare workflow directory
+2026-09-25T00:29:02.9367484Z Prepare all required actions
+2026-09-25T00:29:02.9411399Z Getting action download info
+2026-09-25T00:29:03.2636657Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-09-25T00:29:03.3488297Z Download action repository 'actions/setup-go@v5' (SHA:40f1582b2485089dde7abd97c1529aa768e1baff)
+2026-09-25T00:29:04.2141436Z Complete job name: go vet + test
+2026-09-25T00:29:04.2766743Z ##[group]Run actions/checkout@v4
+2026-09-25T00:29:04.2767538Z with:
+2026-09-25T00:29:04.2768018Z   repository: FRIKKern/barkpark
+2026-09-25T00:29:04.2772230Z   token: ***
+2026-09-25T00:29:04.2772760Z   ssh-strict: true
+2026-09-25T00:29:04.2773308Z   ssh-user: git
+2026-09-25T00:29:04.2773829Z   persist-credentials: true
+2026-09-25T00:29:04.2774380Z   clean: true
+2026-09-25T00:29:04.2774961Z   sparse-checkout-cone-mode: true
+2026-09-25T00:29:04.2775576Z   fetch-depth: 1
+2026-09-25T00:29:04.2776084Z   fetch-tags: false
+2026-09-25T00:29:04.2776587Z   show-progress: true
+2026-09-25T00:29:04.2777086Z   lfs: false
+2026-09-25T00:29:04.2777625Z   submodules: false
+2026-09-25T00:29:04.2778155Z   set-safe-directory: true
+2026-09-25T00:29:04.2778722Z   allow-unsafe-pr-checkout: false
+2026-09-25T00:29:04.2779466Z ##[endgroup]
+2026-09-25T00:29:04.3684204Z Syncing repository: FRIKKern/barkpark
+2026-09-25T00:29:04.3686941Z ##[group]Getting Git version info
+2026-09-25T00:29:04.3688290Z Working directory is '/home/runner/work/barkpark/barkpark'
+2026-09-25T00:29:04.3689729Z [command]/usr/bin/git version
+2026-09-25T00:29:04.3774805Z git version 2.55.0
+2026-09-25T00:29:04.3793199Z ##[endgroup]
+2026-09-25T00:29:04.3804991Z Temporarily overriding HOME='/home/runner/work/_temp/ced7d87c-e9f3-4f9c-8492-82c721bd1c4a' before making global git config changes
+2026-09-25T00:29:04.3808470Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-25T00:29:04.3811012Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/barkpark/barkpark
+2026-09-25T00:29:04.3855673Z Deleting the contents of '/home/runner/work/barkpark/barkpark'
+2026-09-25T00:29:04.3864688Z ##[group]Initializing the repository
+2026-09-25T00:29:04.3865740Z [command]/usr/bin/git init /home/runner/work/barkpark/barkpark
+2026-09-25T00:29:04.3970674Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-25T00:29:04.3972531Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-25T00:29:04.3974654Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-25T00:29:04.3976097Z hint: call:
+2026-09-25T00:29:04.3976812Z hint:
+2026-09-25T00:29:04.3977627Z hint: 	git config --global init.defaultBranch <name>
+2026-09-25T00:29:04.3978554Z hint:
+2026-09-25T00:29:04.3979658Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-25T00:29:04.3981300Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-25T00:29:04.3982492Z hint:
+2026-09-25T00:29:04.3983164Z hint: 	git branch -m <name>
+2026-09-25T00:29:04.3983890Z hint:
+2026-09-25T00:29:04.3984953Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-25T00:29:04.3987253Z Initialized empty Git repository in /home/runner/work/barkpark/barkpark/.git/
+2026-09-25T00:29:04.3991068Z [command]/usr/bin/git remote add origin https://github.com/FRIKKern/barkpark
+2026-09-25T00:29:04.4030935Z ##[endgroup]
+2026-09-25T00:29:04.4032308Z ##[group]Disabling automatic garbage collection
+2026-09-25T00:29:04.4033719Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-25T00:29:04.4059052Z ##[endgroup]
+2026-09-25T00:29:04.4060703Z ##[group]Setting up auth
+2026-09-25T00:29:04.4074171Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-25T00:29:04.4111949Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-25T00:29:04.4432751Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-25T00:29:04.4466154Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-25T00:29:04.4657797Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-25T00:29:04.4683527Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-25T00:29:04.4843486Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-25T00:29:04.4874527Z ##[endgroup]
+2026-09-25T00:29:04.4875651Z ##[group]Fetching the repository
+2026-09-25T00:29:04.4883285Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +7c08193fb231d73f8cdb497f0db4d31c3cef3e11:refs/remotes/pull/20020/merge
+2026-09-25T00:29:09.6225940Z From https://github.com/FRIKKern/barkpark
+2026-09-25T00:29:09.6227644Z  * [new ref]           7c08193fb231d73f8cdb497f0db4d31c3cef3e11 -> pull/20020/merge
+2026-09-25T00:29:09.6229667Z ##[endgroup]
+2026-09-25T00:29:09.6230488Z ##[group]Determining the checkout info
+2026-09-25T00:29:09.6231504Z ##[endgroup]
+2026-09-25T00:29:09.6237718Z [command]/usr/bin/git sparse-checkout disable
+2026-09-25T00:29:09.6356079Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-25T00:29:09.6384143Z ##[group]Checking out the ref
+2026-09-25T00:29:09.6387663Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/20020/merge
+2026-09-25T00:29:10.6635353Z Updating files:  66% (10654/16130)
+2026-09-25T00:29:10.6796161Z Updating files:  67% (10808/16130)
+2026-09-25T00:29:10.6873240Z Updating files:  68% (10969/16130)
+2026-09-25T00:29:10.6943024Z Updating files:  69% (11130/16130)
+2026-09-25T00:29:10.7020241Z Updating files:  70% (11291/16130)
+2026-09-25T00:29:10.7090245Z Updating files:  71% (11453/16130)
+2026-09-25T00:29:10.7151473Z Updating files:  72% (11614/16130)
+2026-09-25T00:29:10.7226822Z Updating files:  73% (11775/16130)
+2026-09-25T00:29:10.7273460Z Updating files:  74% (11937/16130)
+2026-09-25T00:29:10.7303508Z Updating files:  75% (12098/16130)
+2026-09-25T00:29:10.7332406Z Updating files:  76% (12259/16130)
+2026-09-25T00:29:10.7360257Z Updating files:  77% (12421/16130)
+2026-09-25T00:29:10.7425186Z Updating files:  78% (12582/16130)
+2026-09-25T00:29:10.7452538Z Updating files:  79% (12743/16130)
+2026-09-25T00:29:10.7481887Z Updating files:  80% (12904/16130)
+2026-09-25T00:29:10.7509672Z Updating files:  81% (13066/16130)
+2026-09-25T00:29:10.7538447Z Updating files:  82% (13227/16130)
+2026-09-25T00:29:10.7567916Z Updating files:  83% (13388/16130)
+2026-09-25T00:29:10.7597380Z Updating files:  84% (13550/16130)
+2026-09-25T00:29:10.7627318Z Updating files:  85% (13711/16130)
+2026-09-25T00:29:10.7657824Z Updating files:  86% (13872/16130)
+2026-09-25T00:29:10.7693748Z Updating files:  87% (14034/16130)
+2026-09-25T00:29:10.7725153Z Updating files:  88% (14195/16130)
+2026-09-25T00:29:10.7753360Z Updating files:  89% (14356/16130)
+2026-09-25T00:29:10.7781870Z Updating files:  90% (14517/16130)
+2026-09-25T00:29:10.7808907Z Updating files:  91% (14679/16130)
+2026-09-25T00:29:10.7851185Z Updating files:  92% (14840/16130)
+2026-09-25T00:29:10.7921899Z Updating files:  93% (15001/16130)
+2026-09-25T00:29:10.8035074Z Updating files:  94% (15163/16130)
+2026-09-25T00:29:10.8087167Z Updating files:  95% (15324/16130)
+2026-09-25T00:29:11.3777904Z Updating files:  96% (15485/16130)
+2026-09-25T00:29:11.3929600Z Updating files:  97% (15647/16130)
+2026-09-25T00:29:11.4042302Z Updating files:  98% (15808/16130)
+2026-09-25T00:29:11.4159193Z Updating files:  99% (15969/16130)
+2026-09-25T00:29:11.4159672Z Updating files: 100% (16130/16130)
+2026-09-25T00:29:11.4160221Z Updating files: 100% (16130/16130), done.
+2026-09-25T00:29:11.4302844Z Note: switching to 'refs/remotes/pull/20020/merge'.
+2026-09-25T00:29:11.4303284Z 
+2026-09-25T00:29:11.4303527Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-09-25T00:29:11.4304048Z changes and commit them, and you can discard any commits you make in this
+2026-09-25T00:29:11.4304655Z state without impacting any branches by switching back to a branch.
+2026-09-25T00:29:11.4304918Z 
+2026-09-25T00:29:11.4305380Z If you want to create a new branch to retain commits you create, you may
+2026-09-25T00:29:11.4305868Z do so (now or later) by using -c with the switch command. Example:
+2026-09-25T00:29:11.4306158Z 
+2026-09-25T00:29:11.4306284Z   git switch -c <new-branch-name>
+2026-09-25T00:29:11.4306539Z 
+2026-09-25T00:29:11.4306704Z Or undo this operation with:
+2026-09-25T00:29:11.4306884Z 
+2026-09-25T00:29:11.4307041Z   git switch -
+2026-09-25T00:29:11.4307173Z 
+2026-09-25T00:29:11.4307410Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-09-25T00:29:11.4307691Z 
+2026-09-25T00:29:11.4308048Z HEAD is now at 7c08193f Merge 39d76cd9b3b10e775890586cc1b3604c667ca8fa into c423813d779f7fe01be3575840cbef133e8a5356
+2026-09-25T00:29:11.4335109Z ##[endgroup]
+2026-09-25T00:29:11.4381702Z [command]/usr/bin/git log -1 --format=%H
+2026-09-25T00:29:11.4411282Z 7c08193fb231d73f8cdb497f0db4d31c3cef3e11
+2026-09-25T00:29:11.4632072Z ##[group]Run actions/setup-go@v5
+2026-09-25T00:29:11.4632361Z with:
+2026-09-25T00:29:11.4632601Z   go-version-file: go.mod
+2026-09-25T00:29:11.4632915Z   check-latest: false
+2026-09-25T00:29:11.4635233Z   token: ***
+2026-09-25T00:29:11.4635506Z   cache: true
+2026-09-25T00:29:11.4635753Z ##[endgroup]
+2026-09-25T00:29:11.5758942Z Setup go version spec 1.25.0
+2026-09-25T00:29:11.5766278Z Attempting to download 1.25.0...
+2026-09-25T00:29:11.5859671Z (node:2030) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-25T00:29:11.5860511Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-25T00:29:12.5157952Z matching 1.25.0...
+2026-09-25T00:29:12.5208891Z Acquiring 1.25.0 from https://github.com/actions/go-versions/releases/download/1.25.0-16925932082/go-1.25.0-linux-x64.tar.gz
+2026-09-25T00:29:13.1375829Z Extracting Go...
+2026-09-25T00:29:13.1534818Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/3968e683-4085-4676-8a36-578a0fec5516 -f /home/runner/work/_temp/cbd988ac-8b1c-4e22-8e66-67c66906d2f0
+2026-09-25T00:29:14.4839471Z Successfully extracted go to /home/runner/work/_temp/3968e683-4085-4676-8a36-578a0fec5516
+2026-09-25T00:29:14.4840139Z Adding to the cache ...
+2026-09-25T00:29:18.2180372Z Successfully cached go to /opt/hostedtoolcache/go/1.25.0/x64
+2026-09-25T00:29:18.2182194Z Added go to the path
+2026-09-25T00:29:18.2184595Z Successfully set up Go version 1.25.0
+2026-09-25T00:29:18.2353859Z [command]/opt/hostedtoolcache/go/1.25.0/x64/bin/go env GOMODCACHE
+2026-09-25T00:29:18.2380005Z [command]/opt/hostedtoolcache/go/1.25.0/x64/bin/go env GOCACHE
+2026-09-25T00:29:18.2405677Z /home/runner/go/pkg/mod
+2026-09-25T00:29:18.2419131Z /home/runner/.cache/go-build
+2026-09-25T00:29:18.4430596Z Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.25.0-a1d706a80dda21150e6bd61be751665f4433cd6dba19000265a6af66ed1f157f
+2026-09-25T00:29:18.4526513Z (node:2030) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-09-25T00:29:19.6669602Z Received 33554432 of 312621034 (10.7%), 32.0 MBs/sec
+2026-09-25T00:29:20.6677791Z Received 205520896 of 312621034 (65.7%), 98.0 MBs/sec
+2026-09-25T00:29:21.4101133Z Received 312621034 of 312621034 (100.0%), 108.7 MBs/sec
+2026-09-25T00:29:21.4101627Z Cache Size: ~298 MB (312621034 B)
+2026-09-25T00:29:21.4230956Z [command]/usr/bin/tar -xf /home/runner/work/_temp/8d4d72b7-e199-4836-88c3-3c54e66474c9/cache.tzst -P -C /home/runner/work/barkpark/barkpark --use-compress-program unzstd
+2026-09-25T00:29:23.8192406Z Cache restored successfully
+2026-09-25T00:29:23.8309014Z Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.25.0-a1d706a80dda21150e6bd61be751665f4433cd6dba19000265a6af66ed1f157f
+2026-09-25T00:29:23.8340311Z go version go1.25.0 linux/amd64
+2026-09-25T00:29:23.8340587Z 
+2026-09-25T00:29:23.8341029Z ##[group]go env
+2026-09-25T00:29:23.8461072Z AR='ar'
+2026-09-25T00:29:23.8461411Z CC='gcc'
+2026-09-25T00:29:23.8461709Z CGO_CFLAGS='-O2 -g'
+2026-09-25T00:29:23.8461994Z CGO_CPPFLAGS=''
+2026-09-25T00:29:23.8462264Z CGO_CXXFLAGS='-O2 -g'
+2026-09-25T00:29:23.8462544Z CGO_ENABLED='1'
+2026-09-25T00:29:23.8462805Z CGO_FFLAGS='-O2 -g'
+2026-09-25T00:29:23.8463061Z CGO_LDFLAGS='-O2 -g'
+2026-09-25T00:29:23.8463260Z CXX='g++'
+2026-09-25T00:29:23.8463435Z GCCGO='gccgo'
+2026-09-25T00:29:23.8463612Z GO111MODULE=''
+2026-09-25T00:29:23.8463797Z GOAMD64='v1'
+2026-09-25T00:29:23.8463968Z GOARCH='amd64'
+2026-09-25T00:29:23.8464139Z GOAUTH='netrc'
+2026-09-25T00:29:23.8464311Z GOBIN=''
+2026-09-25T00:29:23.8464510Z GOCACHE='/home/runner/.cache/go-build'
+2026-09-25T00:29:23.8464747Z GOCACHEPROG=''
+2026-09-25T00:29:23.8464919Z GODEBUG=''
+2026-09-25T00:29:23.8465110Z GOENV='/home/runner/.config/go/env'
+2026-09-25T00:29:23.8465331Z GOEXE=''
+2026-09-25T00:29:23.8465519Z GOEXPERIMENT=''
+2026-09-25T00:29:23.8465926Z GOFIPS140='off'
+2026-09-25T00:29:23.8466105Z GOFLAGS=''
+2026-09-25T00:29:23.8466683Z GOGCCFLAGS='-fPIC -m64 -pthread -Wl,--no-gc-sections -fmessage-length=0 -ffile-prefix-map=/tmp/go-build1170824899=/tmp/go-build -gno-record-gcc-switches'
+2026-09-25T00:29:23.8467256Z GOHOSTARCH='amd64'
+2026-09-25T00:29:23.8467444Z GOHOSTOS='linux'
+2026-09-25T00:29:23.8467623Z GOINSECURE=''
+2026-09-25T00:29:23.8467841Z GOMOD='/home/runner/work/barkpark/barkpark/go.mod'
+2026-09-25T00:29:23.8468180Z GOMODCACHE='/home/runner/go/pkg/mod'
+2026-09-25T00:29:23.8468411Z GONOPROXY=''
+2026-09-25T00:29:23.8468583Z GONOSUMDB=''
+2026-09-25T00:29:23.8468778Z GOOS='linux'
+2026-09-25T00:29:23.8468994Z GOPATH='/home/runner/go'
+2026-09-25T00:29:23.8469202Z GOPRIVATE=''
+2026-09-25T00:29:23.8469446Z GOPROXY='https://proxy.golang.org,direct'
+2026-09-25T00:29:23.8469861Z GOROOT='/opt/hostedtoolcache/go/1.25.0/x64'
+2026-09-25T00:29:23.8470351Z GOSUMDB='sum.golang.org'
+2026-09-25T00:29:23.8470582Z GOTELEMETRY='local'
+2026-09-25T00:29:23.8470834Z GOTELEMETRYDIR='/home/runner/.config/go/telemetry'
+2026-09-25T00:29:23.8471102Z GOTMPDIR=''
+2026-09-25T00:29:23.8471288Z GOTOOLCHAIN='auto'
+2026-09-25T00:29:23.8471759Z GOTOOLDIR='/opt/hostedtoolcache/go/1.25.0/x64/pkg/tool/linux_amd64'
+2026-09-25T00:29:23.8472152Z GOVCS=''
+2026-09-25T00:29:23.8472337Z GOVERSION='go1.25.0'
+2026-09-25T00:29:23.8472535Z GOWORK=''
+2026-09-25T00:29:23.8472773Z PKG_CONFIG='pkg-config'
+2026-09-25T00:29:23.8472905Z 
+2026-09-25T00:29:23.8473256Z ##[endgroup]
+2026-09-25T00:29:23.8593289Z ##[group]Run go vet ./...
+2026-09-25T00:29:23.8593662Z [36;1mgo vet ./...[0m
+2026-09-25T00:29:23.9607019Z shell: /usr/bin/bash -e {0}
+2026-09-25T00:29:23.9607314Z ##[endgroup]
+2026-09-25T00:29:35.3686322Z ##[group]Run go test -race ./...
+2026-09-25T00:29:35.3686689Z [36;1mgo test -race ./...[0m
+2026-09-25T00:29:35.3722673Z shell: /usr/bin/bash -e {0}
+2026-09-25T00:29:35.3723036Z ##[endgroup]
+2026-09-25T00:30:40.7450789Z ok  	github.com/FRIKKern/barkpark/cmd/barkpark	3.238s
+2026-09-25T00:30:40.7451661Z ok  	github.com/FRIKKern/barkpark/cmd/barkpark-agent	1.034s
+2026-09-25T00:30:40.7452471Z ?   	github.com/FRIKKern/barkpark/cmd/barkpark-builder	[no test files]
+2026-09-25T00:30:40.7453367Z ok  	github.com/FRIKKern/barkpark/cmd/barkpark-chat-host	1.014s
+2026-09-25T00:30:40.7454224Z ?   	github.com/FRIKKern/barkpark/cmd/barkpark-provisioner	[no test files]
+2026-09-25T00:30:40.7455005Z ?   	github.com/FRIKKern/barkpark/cmd/barkpark-runtime	[no test files]
+2026-09-25T00:30:40.7455628Z ?   	github.com/FRIKKern/barkpark/deploy	[no test files]
+2026-09-25T00:30:42.3003398Z ok  	github.com/FRIKKern/barkpark/internal/agent	2.276s
+2026-09-25T00:30:45.2674800Z ok  	github.com/FRIKKern/barkpark/internal/apiclient	4.894s
+2026-09-25T00:30:45.2675234Z ok  	github.com/FRIKKern/barkpark/internal/apierr	1.014s
+2026-09-25T00:30:45.6753162Z ok  	github.com/FRIKKern/barkpark/internal/backup	4.270s
+2026-09-25T00:30:45.6753617Z ok  	github.com/FRIKKern/barkpark/internal/bootstrap	1.084s
+2026-09-25T00:30:46.1681242Z ok  	github.com/FRIKKern/barkpark/internal/builder	2.990s
+2026-09-25T00:30:46.1700963Z ok  	github.com/FRIKKern/barkpark/internal/buildlog	1.008s
+2026-09-25T00:30:46.1702047Z ok  	github.com/FRIKKern/barkpark/internal/caddyfile	1.022s
+2026-09-25T00:30:51.0420926Z ok  	github.com/FRIKKern/barkpark/internal/chat	3.054s
+2026-09-25T00:30:53.1013012Z ok  	github.com/FRIKKern/barkpark/internal/chathost	5.124s
+2026-09-25T00:33:31.9354603Z --- FAIL: TestCodeExitCoversKnownAPICodes (0.00s)
+2026-09-25T00:33:31.9357338Z     errors_api_parity_test.go:132: 1 API error code(s) in known_codes/0 have NO exit bucket, so they exit 1 (generic) — indistinguishable from a network timeout:
+2026-09-25T00:33:31.9357959Z           paper_exists
+2026-09-25T00:33:31.9358173Z         
+2026-09-25T00:33:31.9359587Z         Fix the TABLE, not the reader: add each to codeExit in internal/cli/errors.go with the bucket its HTTP status implies (400->usage, 401/403->auth, 404->not-found, 409/412->conflict, 402/413/422->validation, 429->rate-limit, 5xx->server). If a code genuinely cannot be bucketed on the wire, add it to codeExitNotWireBucketable WITH the reason.
+2026-09-25T00:33:31.9361538Z bp: /tmp/TestExecuteRejectsRepoFileToken2415340874/002/.barkpark.json carries a "token" field — tokens NEVER live in the repo file (it gets committed). Remove it; credentials come from saved servers (`bp setup`, `bp use <name>`) or BARKPARK_API_TOKEN
+2026-09-25T00:33:31.9362314Z {"cli_version":"dev"}
+2026-09-25T00:33:31.9362995Z barkpark: transient internal_error from GET http://127.0.0.1:45049/w/default/p/default/v1/data/query/production/tag?limit=1000 — retrying (attempt 1 of 3) after 250ms
+2026-09-25T00:33:31.9364071Z barkpark: transient internal_error from GET http://127.0.0.1:45049/w/default/p/default/v1/data/query/production/tag?limit=1000 — retrying (attempt 2 of 3) after 1s
+2026-09-25T00:33:31.9365277Z barkpark: transient internal_error from GET http://127.0.0.1:45049/w/default/p/default/v1/data/query/production/tag?limit=1000 persisted through 3 attempts — giving up (last request_id: (none reported))
+2026-09-25T00:33:31.9365970Z FAIL
+2026-09-25T00:33:31.9366215Z FAIL	github.com/FRIKKern/barkpark/internal/cli	139.095s
+2026-09-25T00:33:31.9366846Z ok  	github.com/FRIKKern/barkpark/internal/cli/cloud	2.153s
+2026-09-25T00:33:31.9367268Z ok  	github.com/FRIKKern/barkpark/internal/cli/cloud/azure	1.064s
+2026-09-25T00:33:31.9367658Z ok  	github.com/FRIKKern/barkpark/internal/cli/setup	3.698s
+2026-09-25T00:33:31.9368088Z ?   	github.com/FRIKKern/barkpark/internal/cli/setup/assets	[no test files]
+2026-09-25T00:33:31.9368516Z ok  	github.com/FRIKKern/barkpark/internal/cloudclient	2.682s
+2026-09-25T00:33:31.9369044Z ok  	github.com/FRIKKern/barkpark/internal/fleetruntime	1.018s
+2026-09-25T00:33:31.9369408Z ok  	github.com/FRIKKern/barkpark/internal/hetzner	1.075s
+2026-09-25T00:33:31.9370472Z ok  	github.com/FRIKKern/barkpark/internal/hetzner/objstore	1.079s
+2026-09-25T00:33:31.9370864Z ok  	github.com/FRIKKern/barkpark/internal/hostguard	4.681s
+2026-09-25T00:33:31.9371217Z ok  	github.com/FRIKKern/barkpark/internal/httpx	1.016s
+2026-09-25T00:33:31.9371564Z ok  	github.com/FRIKKern/barkpark/internal/manifest	3.254s
+2026-09-25T00:33:31.9371918Z ok  	github.com/FRIKKern/barkpark/internal/pdrender	8.415s
+2026-09-25T00:33:31.9372330Z ?   	github.com/FRIKKern/barkpark/internal/pdrender/cmd/demo	[no test files]
+2026-09-25T00:33:31.9372768Z ?   	github.com/FRIKKern/barkpark/internal/pdrender/cmd/dump	[no test files]
+2026-09-25T00:33:31.9373200Z ok  	github.com/FRIKKern/barkpark/internal/pdrender/cmd/htmlcheck	1.022s
+2026-09-25T00:33:31.9373635Z ?   	github.com/FRIKKern/barkpark/internal/pdrender/cmd/widthcheck	[no test files]
+2026-09-25T00:33:31.9374038Z ok  	github.com/FRIKKern/barkpark/internal/provisioner	2.660s
+2026-09-25T00:33:31.9374389Z ok  	github.com/FRIKKern/barkpark/internal/provisioner/catalog	1.016s
+2026-09-25T00:33:31.9374734Z ok  	github.com/FRIKKern/barkpark/internal/runtime	1.796s
+2026-09-25T00:33:31.9375037Z ok  	github.com/FRIKKern/barkpark/internal/scaffy	10.977s
+2026-09-25T00:33:31.9375353Z ok  	github.com/FRIKKern/barkpark/internal/secretscrub	1.020s
+2026-09-25T00:33:31.9375677Z ok  	github.com/FRIKKern/barkpark/internal/semrole	1.030s
+2026-09-25T00:33:31.9375997Z ok  	github.com/FRIKKern/barkpark/internal/taskboard	32.649s
+2026-09-25T00:33:31.9376364Z ok  	github.com/FRIKKern/barkpark/internal/template	1.205s
+2026-09-25T00:33:31.9376760Z ok  	github.com/FRIKKern/barkpark/internal/wasmimages	2.777s
+2026-09-25T00:33:31.9377114Z ok  	github.com/FRIKKern/barkpark/scaffy/seed	3.938s
+2026-09-25T00:33:31.9377477Z ok  	github.com/FRIKKern/barkpark/scripts/taskboard-drive/fixture	1.097s
+2026-09-25T00:33:31.9377793Z FAIL
+2026-09-25T00:33:32.3781480Z ##[error]Process completed with exit code 1.
+2026-09-25T00:33:32.3908900Z Post job cleanup.
+2026-09-25T00:33:32.4676611Z [command]/usr/bin/git version
+2026-09-25T00:33:32.4707969Z git version 2.55.0
+2026-09-25T00:33:32.4736105Z Temporarily overriding HOME='/home/runner/work/_temp/1c359221-0401-4d1c-b373-88fc664c86c6' before making global git config changes
+2026-09-25T00:33:32.4737084Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-25T00:33:32.4740897Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/barkpark/barkpark
+2026-09-25T00:33:32.4772708Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-25T00:33:32.4800940Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-25T00:33:32.4996867Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-25T00:33:32.5017836Z http.https://github.com/.extraheader
+2026-09-25T00:33:32.5026800Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-09-25T00:33:32.5053601Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-25T00:33:32.5274146Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-25T00:33:32.5307731Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-25T00:33:32.5649727Z Cleaning up orphan processes
+2026-09-25T00:33:32.5845482Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-go@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
