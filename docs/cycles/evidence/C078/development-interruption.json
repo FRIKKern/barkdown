@@ -1,0 +1,8 @@
+{
+  "reason": "Stopped first 201-row development run after observing excessive N+1 full-row reads and repeated filesystem ownership checks. No pass claimed. Replace per-row reads with complete unprojected query rows plus repeated complete traversal; ownership and byte bounds remain.",
+  "test": "node --test app/tests/migration-comparison.test.mjs",
+  "ownedProcesses": [
+    3116,
+    16040
+  ]
+}

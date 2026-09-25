@@ -1,6 +1,6 @@
 # Whole-library comparison before authority selection
 
-Implementation contract audited against Barkdown `19f9cb8a` in C077. This is a design for the next adapter, **not an implemented seal or permission to switch engines**. [P2/A2](../ACCEPTANCE.md#a2--one-engine-without-lost-notes) remains open. The active queue remains [PLAN](../PLAN.md) and [cycle.json](../cycle.json).
+Contract audited against Barkdown `19f9cb8a` in C077. [C078](../cycles/C078-library-comparison.md) implements the internal read-only adapter and records its validation. It is **not an activation-capable seal or permission to switch engines**. [P2/A2](../ACCEPTANCE.md#a2--one-engine-without-lost-notes) remains open. The active queue remains [PLAN](../PLAN.md) and [cycle.json](../cycle.json).
 
 ## What the existing checks actually establish
 
@@ -47,9 +47,9 @@ A persisted report is historical evidence. Resuming must revalidate the complete
 
 ## Bounded implementation and stopping condition
 
-The next implementation checkpoint is a **read-only comparison adapter for an explicitly captured rehearsal**, including the pre-staging Paper baseline and refusal cases. Keep it internal and return actionable mismatches. No migration button, authority selector or legacy retirement in that checkpoint. Extract shared read/validation logic from staging only where needed; do not call mutating staging as a shortcut or invent upstream endpoints.
+C078 implements the **read-only comparison adapter for an explicitly captured rehearsal**, including the pre-staging Paper baseline and refusal cases. Keep it internal and return actionable mismatches. No migration button, authority selector or legacy retirement in that checkpoint. Extract shared read/validation logic from staging only where needed; do not call mutating staging as a shortcut or invent upstream endpoints.
 
-Before broad visual capture, prove:
+The C078 acceptance cases are:
 
 - A mixed corpus beyond one page: mapped legacy notes, an unchanged published Paper and an ordinary draft-only Paper; exact variants and counts survive comparison.
 - Missing/extra/changed rows, reordered or repeated pages, stale revisions, draft collisions, unsupported content/media, broken references and navigation ambiguity refuse without any POST/PATCH/DELETE or source/journal mutation.
@@ -57,3 +57,9 @@ Before broad visual capture, prove:
 - Human Pages order, Archive classification, tabs/favorites and retained drafts remain unchanged. A mock callback cannot substitute for native preparation ownership proof.
 
 Use scoped owner tests during development, then the real isolated runtime for the mixed-corpus and interruption journey. App changes require the normal desktop/root gates and reviewed native/standard/live evidence. Freeze scope when this checkpoint passes and integrate it before selection/rollback work.
+
+## Internal adapter
+
+`createMigrationComparison({ preparation })` accepts the live coordinator. Prepare the profile and immutable legacy backup first; `captureBaseline(options, target)` writes only a new baseline record before any staging journal exists. Pin its returned hash outside that record and supply it as `expectedBaselineHash` to `compare(options, target)` after staging. The comparison returns hashes/counts with legacy authority and activation disabled. It never calls the mutating staging entry point. Full unprojected query rows avoid per-note network reads; two complete traversals compare exact variants and content. Existing referenced captured-origin PNGs are byte-checked; other media formats and the workspace projector's existing ambiguity cases refuse.
+
+The adapter is internal, with no renderer command or migration button. Runtime ownership is supplied by the trusted host, as for existing staging. Headless real-runtime evidence does not replace native foreground-freeze evidence; C078 identifies those scopes separately. Baseline capture is evidence publication, whereas comparison never creates or repairs baseline/staging/media records.

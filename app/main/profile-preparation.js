@@ -77,7 +77,7 @@ function createProfilePreparation({ registry, profiles, goals, freezeForeground,
     }
     if (settled[2].value !== true || settled[3].value !== true) fail('Foreground or terminal shutdown is unverified.');
   }
-  async function run(profileId) {
+  async function run(profileId, operation) {
     const b = binding(profileId), file = b.store.filePath(filename);
     const lease = acquireFileLease(file + '.lock', { completeOwner: true, busy: 'This profile already has a preparation coordinator.' });
     let frozen = held.get(profileId), crossed = false, releaseToken = null;
@@ -155,6 +155,19 @@ function createProfilePreparation({ registry, profiles, goals, freezeForeground,
       // termination, an empty IPC queue, elapsed time or an earlier receipt.
       b.control.assertQuiescent(current.value.writerAfter);
       if (current.value.phase !== 'prepared') current = transition(current, { ...current.value, phase: 'prepared' });
+      if (operation) {
+        const expected = Buffer.from(current.bytes);
+        const assertCurrent = async () => {
+          await assertFrozen(); verifyDrafts(keys);
+          const actual = read(profileId);
+          if (!actual || !actual.bytes.equals(expected)) fail('Preparation changed during comparison.');
+          b.control.assertQuiescent(current.value.writerAfter);
+          return true;
+        };
+        const value = await operation(Object.freeze({ sourceDir: b.store.dir(), preparation: Object.freeze(structuredClone(current.value)), assertCurrent }));
+        await assertCurrent();
+        return value;
+      }
       return Object.freeze(structuredClone(current.value));
     } catch (error) {
       // Before closure the person can continue editing and retry capture. After
@@ -216,6 +229,13 @@ function createProfilePreparation({ registry, profiles, goals, freezeForeground,
       return Object.freeze(structuredClone(current.value));
     } finally { lease.release(); }
   }
-  return Object.freeze({ prepare, abort, inspect });
+  // Keep the same coordinator lease throughout asynchronous comparison so abort
+  // cannot reopen admission between a read and its final ownership assertion.
+  const withPrepared = (profileId, operation) => {
+    if (typeof operation !== 'function') throw new TypeError('Prepared operation is required.');
+    if (read(profileId)?.value.phase !== 'prepared') return Promise.reject(new Error('Prepare this profile before comparison.'));
+    return dispatch(profileId, Symbol('comparison'), () => run(profileId, operation));
+  };
+  return Object.freeze({ prepare, abort, inspect, withPrepared });
 }
 module.exports = { createProfilePreparation };

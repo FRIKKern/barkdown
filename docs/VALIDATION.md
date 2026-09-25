@@ -1,5 +1,7 @@
 # Evidence and remaining proof
 
+[C078 comparison](cycles/evidence/C078/README.md): internal read-only comparison passes a real206-variant library (204 preserved, two staged), links, PNG media, workspace and interruption/revalidation/later-edit/cancellation checks. Full desktop passes in658.516s at40aea413; nine native preparation stills are reviewed. Live Paper (real Claude, header 6/6) and standard visuals are reviewed; standard comparison has zero pixel/geometry changes. Root verification and integration status remain in the current handoff. This is not an activation-capable seal or A2 completion.
+
 [C077 comparison contract](cycles/C077-comparison-contract.md):208 existing migration/catalog/writer/preparation regressions pass in21.682s; root verify passes in46.549s against unchanged app source19f9cb8a. [Results](cycles/evidence/C077/validation/result.json) distinguish the documentation working state. This is an audited implementation contract, not a new adapter, seal or A2 completion. No visual inputs changed; C076 reviewed evidence remains applicable.
 
 [C076 preparation](cycles/evidence/C076/README.md): final implementation4c030a0c passes full desktop664.106s and native cancel/restart/retained-copy, dirty buffers, composition and terminal ownership checks. Reviewed native9 stills/22 GIF frames, standard40 stills/8 GIFs and isolated live Paper5 stills/37 frames; real Claude and header6/6. Root verification passes in47.253s; hosted Verify/Visual/20-of-20 parity passed and PR40 merged atf3ab179b; no real-library migration or activation.

@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "id": "C077",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Define the complete-library comparison boundary before implementing migration authority admission.",
+  "scope": [
+    "Audit preparation, backup, staging, catalog, media and workspace owners.",
+    "Specify a read-only comparison checkpoint and its refusal/native acceptance cases.",
+    "Validate existing owners and deliver the contract without changing app behavior."
+  ],
+  "acceptance": [
+    "Distinguish staged legacy targets from pre-existing published and draft Papers.",
+    "Require fresh preparation/runtime ownership and a pre-staging baseline; refuse unsupported guarantees.",
+    "Record passing scoped regressions, root verification and evidence reuse limits."
+  ],
+  "checkpoint": "2026-09-25",
+  "handoff": "docs/cycles/C077-comparison-contract.md",
+  "nextAction": "Check whether this contract checkpoint is merged. Once merged, archive C077 and implement the read-only mixed-corpus adapter and pre-staging baseline described in docs/migration/comparison.md. Do not switch authority.",
+  "evidence": [
+    "docs/cycles/evidence/C077/validation/result.json",
+    "docs/cycles/evidence/C077/validation/owners.log",
+    "docs/cycles/evidence/C077/validation/verify.log",
+    "docs/migration/comparison.md"
+  ],
+  "truthReview": "Read source owners and pinned upstream perspective tests; 208 owner regressions and root verify pass. Comparison/activation remain unimplemented. P2/A2 and G2 remain open.",
+  "screenshotReview": "No app, dependency, capture or roadmap inputs changed. C076 reviewed native/standard/live visuals remain applicable; no new screenshots or UI behavior claimed.",
+  "delivery": {
+    "phase": "delivered",
+    "owner": "primary agent; PR42 merged at ffe0b6fd",
+    "remaining": []
+  }
+}

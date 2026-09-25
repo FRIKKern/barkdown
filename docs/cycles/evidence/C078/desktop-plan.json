@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "desktop-build",
+      "cwd": "app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ]
+    },
+    {
+      "name": "desktop",
+      "cwd": "app",
+      "argv": [
+        "npm",
+        "test"
+      ]
+    }
+  ]
+}

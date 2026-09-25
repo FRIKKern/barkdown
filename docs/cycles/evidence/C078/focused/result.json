@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-25T18:28:02.280Z",
+  "source": "ffe0b6fda000ec425630095f6818e34a4dd4a082",
+  "sourceStatus": "M app/main/README.md\n M app/main/migration-journal.js\n M app/main/migration-media.js\n M app/main/migration-staging.js\n M app/main/profile-preparation.js\n M app/package.json\n M docs/NEXT-AGENT.md\n M docs/cycle.json\n M docs/migration/comparison.md\n?? app/main/migration-comparison.js\n?? app/tests/migration-comparison.live.mjs\n?? app/tests/migration-comparison.test.mjs\n?? docs/cycles/C077-comparison-contract.json\n?? docs/cycles/C078-library-comparison.md\n?? docs/cycles/evidence/C078/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "focused",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "node",
+        "--test",
+        "app/tests/migration-comparison.test.mjs",
+        "app/tests/profile-preparation.test.mjs",
+        "app/tests/migration-staging.test.mjs",
+        "app/tests/migration-media.test.mjs",
+        "app/tests/migration-workspace.test.mjs",
+        "app/tests/paper-catalog.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T18:28:02.397Z",
+      "log": "focused.log",
+      "elapsedMs": 22588,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T18:28:24.991Z",
+      "log": "build.log",
+      "elapsedMs": 868,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-09-25T18:28:25.860Z"
+}

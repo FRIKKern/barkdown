@@ -1,35 +1,34 @@
 {
   "version": 1,
-  "id": "C077",
+  "id": "C078",
   "stage": "P2",
-  "status": "done",
-  "goal": "Define the complete-library comparison boundary before implementing migration authority admission.",
+  "status": "active",
+  "goal": "Compare a prepared mixed library without mutating notes, media or navigation, and deliver the verified adapter to main.",
   "scope": [
-    "Audit preparation, backup, staging, catalog, media and workspace owners.",
-    "Specify a read-only comparison checkpoint and its refusal/native acceptance cases.",
-    "Validate existing owners and deliver the contract without changing app behavior."
+    "Capture an owner-bound pre-staging Paper baseline.",
+    "Read-only comparison of staged legacy targets, existing Paper variants, media and workspace.",
+    "Prove refusal, interruption and real-runtime behavior; integrate before authority-selection work."
   ],
   "acceptance": [
-    "Distinguish staged legacy targets from pre-existing published and draft Papers.",
-    "Require fresh preparation/runtime ownership and a pre-staging baseline; refuse unsupported guarantees.",
-    "Record passing scoped regressions, root verification and evidence reuse limits."
+    "Mixed corpus beyond one page compares exact variants and preserves original bytes.",
+    "Missing, extra, changed, ambiguous or stale inputs refuse without repair writes.",
+    "Fresh preparation and runtime ownership survive asynchronous reads; stale reports never authorize activation.",
+    "Targeted/full tests and reviewed required visuals pass before merge."
   ],
   "checkpoint": "2026-09-25",
-  "handoff": "docs/cycles/C077-comparison-contract.md",
-  "nextAction": "Check whether this contract checkpoint is merged. Once merged, archive C077 and implement the read-only mixed-corpus adapter and pre-staging baseline described in docs/migration/comparison.md. Do not switch authority.",
+  "handoff": "docs/cycles/C078-library-comparison.md",
+  "nextAction": "Require hosted gates, merge this frozen checkpoint and retire its branch before authority-selection work.",
   "evidence": [
-    "docs/cycles/evidence/C077/validation/result.json",
-    "docs/cycles/evidence/C077/validation/owners.log",
-    "docs/cycles/evidence/C077/validation/verify.log",
-    "docs/migration/comparison.md"
+    "docs/cycles/evidence/C078/README.md"
   ],
-  "truthReview": "Read source owners and pinned upstream perspective tests; 208 owner regressions and root verify pass. Comparison/activation remain unimplemented. P2/A2 and G2 remain open.",
-  "screenshotReview": "No app, dependency, capture or roadmap inputs changed. C076 reviewed native/standard/live visuals remain applicable; no new screenshots or UI behavior claimed.",
+  "truthReview": "Reviewed source boundaries, acceptance limits, roadmap and current queue; no cutover or A2 completion claimed.",
+  "screenshotReview": "Native nine stills; live Paper five stills and 37 GIF frames; standard 40 stills and 40 decoded GIF frames inspected, explicit approval recorded.",
   "delivery": {
     "phase": "integrating",
     "owner": "primary agent",
     "remaining": [
-      "Merge the documentation checkpoint after hosted checks; retire its branch."
+      "Hosted CI",
+      "Merge verified checkpoint and retire branch"
     ]
   }
 }

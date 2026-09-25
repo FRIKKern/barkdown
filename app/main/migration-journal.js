@@ -36,4 +36,9 @@ function read(store, name) {
 }
 
 
-module.exports = { canonical, hash, fail, record, read };
+function verifyRecord(store, name, value) {
+  const actual = read(store, name);
+  if (!actual || canonical(actual) !== canonical(value)) fail('journal_changed', 'Missing or changed staging record: ' + name);
+  return value;
+}
+module.exports = { canonical, hash, fail, record, read, verifyRecord };

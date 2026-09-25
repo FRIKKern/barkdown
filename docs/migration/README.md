@@ -59,7 +59,7 @@ The native create-only route accepts published slugs and applies publishing/labe
 
 Other content/media formats remain refused rather than silently flattened. P3 owns cross-machine export/import and database portability; a copy of live database files is not an export contract. G1/G2 remain separate integration gates, not reasons to claim these local contracts complete.
 
-The [whole-library comparison contract](comparison.md) records the C077 composition audit and the next read-only adapter boundary. Existing staging receipts do not cover pre-existing Paper variants or authorize authority selection.
+The [whole-library comparison contract](comparison.md) records the C077 composition audit and the C078 internal read-only adapter. C078 retains caller-pinned pre-staging evidence, preserves existing variants, verifies supported media/navigation and holds preparation through its reads; its cycle records exact validation and delivery status. Existing staging receipts do not cover pre-existing Paper variants or authorize authority selection.
 
 ## Reproduction and source boundaries
 

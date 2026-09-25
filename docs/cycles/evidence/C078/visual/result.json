@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-25T18:51:28.294Z",
+  "source": "81e807ac840e613bee5991fee155800f51de6feb",
+  "sourceStatus": "",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "capture",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "npm",
+        "run",
+        "visual:capture"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T18:51:28.400Z",
+      "log": "capture.log",
+      "elapsedMs": 23828,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "compare",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "npm",
+        "run",
+        "visual:compare"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T18:51:52.233Z",
+      "log": "compare.log",
+      "elapsedMs": 7439,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-09-25T18:51:59.673Z"
+}

@@ -1,9 +1,9 @@
 # Current handoff
 
-Follow [C077](cycles/C077-comparison-contract.md) and the [comparison contract](migration/comparison.md). P2/A2 remains active. C076 and its roadmap closure merged through PR40/41; main19f9cb8a has passing post-merge Verify and20/20 parity. C076 JSON is archived beside its handoff.
+[C078](cycles/C078-library-comparison.md) implements the internal read-only migration comparison. Real isolated proof passes 206 variants (204 preserved, two staged), links, PNG media, organization and interruption/change/cancellation refusal. Full desktop passes in 658.516s; native, live, standard and roadmap visuals are reviewed. [Evidence](cycles/evidence/C078/README.md).
 
-Current lane: codex/migration-comparison in the reusable migration worktree, based on main. This bounded checkpoint audits the next comparison adapter; no app behavior changed. 208 owner regressions and root verify pass; see C077 evidence. At this commit the contract is integrating: check its PR before doing further work. After merge, archive C077 and begin the implementation checkpoint. Do not claim the comparison adapter exists.
+Scope frozen on codex/migration-comparison. Finish root verification and hosted CI, then merge and retire the branch. Check remote/PR state before resuming: after merge, archive C078 and plan bounded interrupted cutover and rollback proof. P2/A2 is still open; no authority switch, legacy retirement or deployment.
 
-Next implementation must compare mapped legacy notes and pre-existing published/draft Papers, verify source/media/navigation, and revalidate preparation/writer/runtime ownership. Capture the existing-Paper baseline before staging; historical staging receipts cannot reconstruct it. See the contract for refusal and native acceptance cases. Keep authority legacy and preserve backups. No deployment or legacy retirement.
+No owned test services remain. Preserve 43 locked recovery worktrees, two stashes and detached integration recovery; branch retirement is the next cleanup. Main plus one branch at this snapshot; heartbeat paused. G2 remains separate.
 
-Repository: main plus this one lane; preserve43 locked recovery worktrees, two stashes and detached integration recovery. Primary agent reviews provenance at the next cleanup. No owned test services. Built upstream remains b70214090; heartbeat remains paused. G2 upstream enforcement and startup light-shell flash remain separate limitations.
+Root verification passed in 46.939s; [source-bound result](cycles/evidence/C078/root/result.json). Hosted CI and merge are the only remaining delivery gates at this commit.

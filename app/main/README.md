@@ -80,3 +80,7 @@ C076 draft retention is under validation. Trusted Paper reads mint in-session ca
 Goal-service `drain(profileId)` pauses that profile, waits for queued/running adapter completion while journal settlement remains enabled, verifies every reserved attempt's native receipt, reconciles restart-discovered termination and closes its journal. Goal history remains readable from a copied snapshot; other profiles retain their scheduler and shared capacity. Uncertain completion waits for trusted reconciliation, and missing receipts or persistence/cleanup faults refuse. Native tests cover three child/grandchild trees and abrupt host exit. Restart must revalidate this internal barrier; it does not seal a migration or certify human drafts.
 
 [Preparation and retained-draft review](../../docs/visual/profile-preparation/README.md) tracks native acceptance separately from deterministic and live Paper evidence.
+
+### Read-only migration comparison
+
+`migration-comparison.js` captures a caller-pinned baseline before staging and compares complete published/draft variants, exact referenced PNG bytes, source backups and workspace projection. It holds the preparation coordinator through reads and refuses changed/missing evidence without repairs. [C078](../../docs/cycles/C078-library-comparison.md) records validation and limits. This is an internal rehearsal adapter, not an authority selector; unsupported workspace/media inputs remain explicit refusals.

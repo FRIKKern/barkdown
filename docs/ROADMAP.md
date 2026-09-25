@@ -8,7 +8,7 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Current checkpoint:** C076 preparation, cancellation and retained-draft recovery are merged through PR40 after full desktop/root checks, reviewed visuals and hosted20/20 parity; see the [current handoff](NEXT-AGENT.md) and [C076 evidence](cycles/evidence/C076/README.md).
+**Current checkpoint:** C078 verifies read-only comparison of206 Paper variants, including204 preserved variants, two staged notes, links, PNG media and navigation projection. Interruption/revalidation, later-edit and cancellation refusals pass against a real disposable runtime. See the [current handoff](NEXT-AGENT.md) for delivery status and [C078 evidence](cycles/evidence/C078/README.md) for scope and limits.
 
 ## Profiles · accepted
 
@@ -30,9 +30,9 @@ Accepted for the Windows source prototype. Device login is shared by default; pr
 | ✓ Demonstrated | Agent edits and safe Undo | [Demonstrated scope](cycles/C069-agent-paper-notes.md) |
 | ✓ Demonstrated | Recover deleted notes | [Demonstrated scope](cycles/C071-paper-deletion-recovery.md) |
 | ✓ Demonstrated | Read original history | [Demonstrated scope](cycles/C074-original-history.md) |
-| ◐ In progress | Migrate with a way back | [Work and limits](cycles/C076-profile-preparation.md) |
+| ◐ In progress | Migrate with a way back | [Work and limits](cycles/C078-library-comparison.md) |
 
-Demonstrated ordinary-note journeys are in the merged baseline; their linked cycle records retain original checkpoint limits. Preparation, cancellation and retained-draft recovery are merged in C076. Whole-library content, links, media and organization comparison, interrupted authority cutover, rollback and legacy retirement remain open. No real library has migrated.
+Demonstrated ordinary-note journeys are in the merged baseline; their linked cycle records retain original checkpoint limits. Preparation, cancellation and retained-draft recovery are merged in C076. C078 verifies an internal read-only mixed-library comparison, including exact Paper variants, supported links/PNG media and workspace projection. Ambiguous navigation and unsupported media still refuse. The user-facing migration flow, interrupted authority cutover, rollback and legacy retirement remain open. No real library has migrated.
 
 ## Recovery & portability · up next
 
