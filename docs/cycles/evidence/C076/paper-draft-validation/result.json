@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-25T14:49:15.322Z",
+  "source": "779d384ff5dfa7a26924bd8c6f26e96894f03448",
+  "sourceStatus": "?? docs/cycles/evidence/C076/paper-draft-native/2026-09-25T14-48-46-327Z/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T14:49:15.415Z",
+      "log": "build.log",
+      "elapsedMs": 756,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "draft-store",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "node",
+        "--test",
+        "app/tests/paper-draft-store.test.mjs",
+        "app/tests/paper-connection.test.mjs",
+        "app/tests/paper-navigation.test.mjs",
+        "app/tests/writer-admission.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T14:49:16.176Z",
+      "log": "draft-store.log",
+      "elapsedMs": 1402,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "paper-host",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "node",
+        "app/tests/paper-host.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T14:49:17.579Z",
+      "log": "paper-host.log",
+      "elapsedMs": 5971,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-09-25T14:49:23.552Z"
+}

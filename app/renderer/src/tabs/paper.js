@@ -40,16 +40,72 @@ export function mountPaper(tab, host, ctx) {
   let mountedPath = [...tab.path];
   let mountedSource = tab.source;
   let inputVersion = 0;
+  let preparationLock = null;
+  const recoverySession = crypto.randomUUID(), composing = new Set();
+  pane.addEventListener('compositionstart', event => { composing.add(event.target); inputVersion++; }, true);
+  pane.addEventListener('compositionend', event => { composing.delete(event.target); inputVersion++; }, true);
+  pane.addEventListener('input', () => { inputVersion++; }, true);
   let titleDirty = false;
   let titleSaving = false;
   let pendingRetry = null;
   let latestSeq = null;
   let mergeAfterSave = false;
   const slug = () => mountedPath.at(-1);
-  const hasUnsavedWork = () => Boolean(deletionPending || saving || titleDirty || pendingRetry || canvas?.hasPendingChanges?.());
+  const hasUnsavedWork = () => Boolean(preparationLock || composing.size || deletionPending || saving || titleDirty || pendingRetry || canvas?.hasPendingChanges?.());
   const connectionChanged = () => Boolean(paper?.connectionIdentity && paper.connectionIdentity !== state.settings?.barkpark?.connectionIdentity);
   const writesOn = () => Boolean(state.settings?.barkpark?.writes) && !connectionChanged() && !deletionPending && !deleted;
   const writeUnavailable = () => connectionChanged() ? 'Restore this Paper’s original connection to use this action.' : 'Barkpark writes are off';
+
+  function recoveryDraft() {
+    if (destroyed || !canvas || !paper?.recoveryToken) throw new Error('Paper recovery is unavailable. Keep the editor open.');
+    if (composing.size) throw new Error('Finish composing text before preparing this profile.');
+    let snapshot = canvas.recoverySnapshot?.();
+    // Flushing the full canvas exits source mode. Retain its exact source text;
+    // rich node controls can instead commit their settled debounce in place.
+    if (snapshot?.mode === 'rich') {
+      canvas.querySelectorAll('[data-bp-type]').forEach(node => node.dispatchEvent(new CustomEvent('bp-flush-node')));
+      snapshot = canvas.recoverySnapshot?.();
+    }
+    if (!snapshot || snapshot.serialization_error || !Array.isArray(snapshot.blocks)) throw new Error('Paper recovery serialization failed. Keep the editor open.');
+    return { sessionId: recoverySession, inputVersion, baseRevision: rev, title: q('#title').value, snapshot };
+  }
+  async function retainRecovery() {
+    const draft = recoveryDraft(), token = paper.recoveryToken, editor = canvas, generation = loadGeneration;
+    // Compare the live projection too: toolbar/node transactions may not emit a
+    // DOM input event. The receipt never clears dirty state or says Saved.
+    const fingerprint = JSON.stringify(draft);
+    const receipt = await api.paperDrafts.retain(token, draft);
+    let current = false;
+    if (!destroyed && editor === canvas && generation === loadGeneration && paper.recoveryToken === token) {
+      try { current = fingerprint === JSON.stringify(recoveryDraft()); } catch { /* Still composing or no longer serializable. */ }
+    }
+    return { ...receipt, current };
+  }
+  async function freezeRecovery({ retain = (token, draft) => api.paperDrafts.retain(token, draft) } = {}) {
+    if (preparationLock) throw new Error('This Paper is already frozen for preparation.');
+    // Inspect composition before inert removes focus. Never make composition
+    // disappear merely to obtain a serializable recovery projection.
+    const draft = recoveryDraft(), fingerprint = JSON.stringify(draft);
+    const token = paper.recoveryToken, editor = canvas, generation = loadGeneration;
+    const priorInert = pane.inert, lock = {};
+    preparationLock = lock; pane.inert = true;
+    renderEditState();
+    const release = () => {
+      if (preparationLock !== lock) throw new Error('Paper preparation freeze ownership changed.');
+      preparationLock = null; pane.inert = priorInert;
+      renderEditState();
+    };
+    const assertCurrent = () => {
+      if (destroyed || preparationLock !== lock || !pane.inert || canvas !== editor || generation !== loadGeneration || paper?.recoveryToken !== token) return false;
+      try { return fingerprint === JSON.stringify(recoveryDraft()); } catch { return false; }
+    };
+    try {
+      const receipt = retain ? await retain(token, draft) : { profileId: state.profileId };
+      if (!assertCurrent()) throw new Error('Paper changed during preparation. Its earlier recovery copy is retained; capture again.');
+      return Object.freeze({ profileId: receipt.profileId, sessionId: recoverySession,
+        draftKeys: Object.freeze(receipt.key ? [receipt.key] : []), assertCurrent, release });
+    } catch (error) { release(); throw error; }
+  }
 
   // Find and replace: Ctrl+F / Ctrl+H inside the pane open the bar; the canvas paints the matches and
   // does the replacing (one transaction per replace-all, so undo is one step and the save is one batch).
@@ -82,7 +138,11 @@ export function mountPaper(tab, host, ctx) {
     if (!paper) return;
     const crumbs = ctx.pagePath ? ctx.pagePath(slug(), 'barkpark', tab.paperOwner) : [];
     q('#kicker').textContent = crumbs.length > 1 ? crumbs.join(' / ') : '';
-    q('#meta').textContent = `${connectionChanged() ? 'Original connection required' : writesOn() ? 'Editing live' : 'Read-only'} · edited ${relativeTime(paper.updatedAt)}${paper.draft && paper.paperOrigin?.kind !== 'local' ? ' · draft' : ''}${paper.blocks ? '' : ' · HTML body'}`;
+    renderEditState();
+  }
+  function renderEditState() {
+    if (!paper) return;
+    q('#meta').textContent = `${preparationLock || pane.closest('[inert]') ? 'Editing paused' : connectionChanged() ? 'Original connection required' : writesOn() ? 'Editing live' : 'Read-only'} · edited ${relativeTime(paper.updatedAt)}${paper.draft && paper.paperOrigin?.kind !== 'local' ? ' · draft' : ''}${paper.blocks ? '' : ' · HTML body'}`;
   }
 
   // Barkpark derives a paper's title from its first heading, so when the document opens with one the
@@ -470,6 +530,8 @@ export function mountPaper(tab, host, ctx) {
 
   const controller = {
     el: pane, type: 'doc', tab,
+    retainRecovery,
+    freezeRecovery,
     setDeletionPending(value) {
       if (destroyed) return;
       deletionPending = value;
@@ -504,7 +566,11 @@ export function mountPaper(tab, host, ctx) {
       return paper.title;
     },
     connectionChanged() { renderBanner(); renderMeta(); renderProposals(); },
-    canClose() { if (!hasUnsavedWork()) return true; canvas?.flushPendingChanges?.(); toast('Finish saving this paper before closing it. If saving failed, retry or discard the unsaved edits.', 'error'); return false; },
+    canClose() {
+      if (preparationLock) { toast('This paper is held for profile preparation. Keep it open until preparation is resolved.', 'error'); return false; }
+      if (!hasUnsavedWork()) return true;
+      canvas?.flushPendingChanges?.(); toast('Finish saving this paper before closing it. If saving failed, retry or discard the unsaved edits.', 'error'); return false;
+    },
     async refresh(changedId) {
       if (changedId && changedId !== 'bp:' + slug() && changedId !== slug()) return;
       // A read tool may open this pane and finish its edit before the first

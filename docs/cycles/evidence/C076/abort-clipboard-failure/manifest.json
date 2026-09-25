@@ -1,0 +1,24 @@
+{
+  "source": "16180403389e7c17828868abe59f37ead685d2e4",
+  "capture": false,
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-preparation-native-tGrGUh",
+  "scope": "Production coordinator, main/preload/renderer IPC and shipped canvas; deterministic HTTP reads, no live Barkpark save claim.",
+  "checks": [
+    "Chromium IME refuses preparation without ending active composition or writing launch closure.",
+    "Production IPC retains exact raw Paper source and unsent chat draft, verifies preparation and blocks native keyboard/menu/new mutations.",
+    "Abrupt actual main-process exit and restart retain drafts byte-for-byte; repeat preparation verifies the same record while the profile stays read-only.",
+    "Actual Cancel preparation action creates a fresh writer generation; the current host stays read-only and its captured writer refuses.",
+    "Actual notice profile selector switches to B; its composer and owned settings remain writable with no A recovery records."
+  ],
+  "screenshots": [
+    "01-prepared-drafts.png",
+    "04-retained-draft-reader.png",
+    "02-read-only-restart.png",
+    "05-cancelled-restart-required.png",
+    "03-other-profile.png",
+    "failure.png"
+  ],
+  "status": "failed",
+  "error": "page.waitForFunction: Timeout 20000ms exceeded.\n    at C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\profile-preparation.live.mjs:140:14",
+  "visibleFailure": "b\nBarkdown\nShaping Barkdown\nWords worth keeping\nFavorites\nPAGES\n\nNo pages yet. Add one with +, or pull a document up from the archive.\n\nARCHIVE\n0\nCLOUD ARCHIVE\n1\nRECENT CHATS\nShaping Barkdown\nno folder · just now\nFJ\nBarkdown\nBarkpark · 1\nb\nBarkdown\n\nStart with a question, a document, or a website. I can open documents beside this chat, edit them directly with Undo, browse websites, and work in a folder you give me.\n\nNo working folder\nClaude API key · not signed in\nOpus 5 (default)\nEffort\n↑\nBarkpark paper · draft-fixture\n Ask\nEditing live · edited\n\nAn offline draft stays yours.\n\noriginal label\nA thought still taking shape.\noriginal code\nChanges save automatically. If another edit conflicts, you can review both versions here.\n\nPreparation was cancelled. Your retained drafts are available; the current Paper has not been replaced.\n\nReview retained drafts\nCancel preparation\nDismiss\nSwitch profile\nWriting desk\nOther notebook\nSwitch\nRetained drafts\n\nLocal copies kept before preparation. The current Paper has not been replaced.\n\nClose\nChoose a copy\nWords worth keeping · 9/25/2026, 5:51:32 PM · edit 6\n\nCopy failed. You can select and copy the text below. Failed to execute 'writeText' on 'Clipboard': Write permission denied.\n\nWords worth keeping\n\ndraft-fixture · based on revision 1 · Exact Markdown source\n\nCopy text\nCopy full record\nFull recovery record"
+}

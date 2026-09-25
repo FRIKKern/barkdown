@@ -12,6 +12,12 @@ export function validateCycle(c, plan = loadPlan()) {
   for (const key of ['truthReview','screenshotReview']) if (typeof c[key] !== 'string') fail('missing review field ' + key);
   if (c.status === 'blocked' && !c.reason?.trim()) fail('blocked without reason');
   if (c.status === 'done' && (!c.evidence.length || !c.truthReview.trim() || !c.screenshotReview.trim())) fail('done without evidence and reviews');
+  const d = c.delivery;
+  if (!d || !['implementing','validating','integrating','delivered'].includes(d.phase)) fail('missing/invalid delivery phase');
+  if (typeof d.owner !== 'string' || !d.owner.trim()) fail('missing delivery owner');
+  if (!Array.isArray(d.remaining) || d.remaining.some(v => typeof v !== 'string' || !v.trim())) fail('invalid delivery remaining work');
+  if (d.phase !== 'delivered' && !d.remaining.length) fail('undelivered checkpoint without remaining work');
+  if (d.phase === 'delivered' && d.remaining.length) fail('delivered checkpoint with remaining work');
   for (const entry of [c.handoff,...c.evidence]) {
     if (entry !== c.handoff && /^https:\/\//.test(entry)) continue;
     const file = path.resolve(root, entry.split('#')[0]);
@@ -23,6 +29,9 @@ export function loadCycle() { return validateCycle(JSON.parse(fs.readFileSync(pa
 export function printCycle() {
   const c = loadCycle();
   console.log(`Cycle ${c.id} [${c.status}] — ${c.goal}\nParent: ${c.stage}; checkpoint: ${c.checkpoint}\nHandoff: ${c.handoff}\nNext action: ${c.nextAction}`);
+  console.log('Delivery: ' + c.delivery.phase + '; owner: ' + c.delivery.owner);
+  for (const item of c.delivery.remaining) console.log('- ' + item);
+  if (['validating','integrating'].includes(c.delivery.phase)) console.log('Scope frozen: finish this checkpoint before dependent features. See docs/CYCLES.md#finish-before-expanding.');
   console.log('Tripwire plan: record affected boundaries, fast checks and ready-checkpoint proof in the handoff. Batch related code/README edits before captures. Rerun for changed inputs or unresolved failures; never bypass a gate. See docs/CYCLES.md#plan-the-tripwires-before-editing.');
 }
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) printCycle();

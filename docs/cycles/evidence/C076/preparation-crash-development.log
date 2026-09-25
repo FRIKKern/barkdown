@@ -1,0 +1,136 @@
+TAP version 13
+# Subtest: preparation joins real profile/goal drains, verified draft records and writer closure without affecting B
+ok 1 - preparation joins real profile/goal drains, verified draft records and writer closure without affecting B
+  ---
+  duration_ms: 334.3137
+  ...
+# Subtest: concurrent callers share one capture and do not prepare before delayed foreground/terminal completion
+ok 2 - concurrent callers share one capture and do not prepare before delayed foreground/terminal completion
+  ---
+  duration_ms: 219.0183
+  ...
+# Subtest: a changed human buffer refuses before writer closure and retains the recovery version
+ok 3 - a changed human buffer refuses before writer closure and retains the recovery version
+  ---
+  duration_ms: 190.4925
+  ...
+# Subtest: a refused drain still awaits every independent cleanup before releasing the foreground
+ok 4 - a refused drain still awaits every independent cleanup before releasing the foreground
+  ---
+  duration_ms: 189.1864
+  ...
+# Subtest: foreign ordinary drain evidence is refused
+ok 5 - foreign ordinary drain evidence is refused
+  ---
+  duration_ms: 162.9824
+  ...
+# Subtest: foreign goals drain evidence is refused
+ok 6 - foreign goals drain evidence is refused
+  ---
+  duration_ms: 172.7661
+  ...
+# Subtest: unverified terminal completion cannot be replaced by an empty IPC queue
+ok 7 - unverified terminal completion cannot be replaced by an empty IPC queue
+  ---
+  duration_ms: 189.5862
+  ...
+# Subtest: active writer after drain closes admission but cannot mint a prepared receipt until settled
+ok 8 - active writer after drain closes admission but cannot mint a prepared receipt until settled
+  ---
+  duration_ms: 290.5967
+  ...
+# Subtest: failed writer remains uncertain across restart and cannot be inferred absent from shutdown
+ok 9 - failed writer remains uncertain across restart and cannot be inferred absent from shutdown
+  ---
+  duration_ms: 289.8636
+  ...
+# Subtest: interruption after-collecting retains exact ownership and resumes with new service instances
+ok 10 - interruption after-collecting retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 241.1935
+  ...
+# Subtest: interruption after-draining retains exact ownership and resumes with new service instances
+ok 11 - interruption after-draining retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 248.9674
+  ...
+# Subtest: interruption after-quiescing retains exact ownership and resumes with new service instances
+ok 12 - interruption after-quiescing retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 290.98
+  ...
+# Subtest: interruption after-writer-closure retains exact ownership and resumes with new service instances
+ok 13 - interruption after-writer-closure retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 270.7568
+  ...
+# Subtest: interruption after-prepared retains exact ownership and resumes with new service instances
+ok 14 - interruption after-prepared retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 285.5519
+  ...
+# Subtest: changed retained draft and preparation record are never repaired or silently reset
+ok 15 - changed retained draft and preparation record are never repaired or silently reset
+  ---
+  duration_ms: 245.0828
+  ...
+# Subtest: foreign foreground freeze is never adopted or released on behalf of another profile
+ok 16 - foreign foreground freeze is never adopted or released on behalf of another profile
+  ---
+  duration_ms: 133.5674
+  ...
+# Subtest: foreign writer generation refuses even if a valid preparation record remains
+ok 17 - foreign writer generation refuses even if a valid preparation record remains
+  ---
+  duration_ms: 174.8204
+  ...
+# Subtest: independent coordinator cannot steal the in-flight profile lease
+ok 18 - independent coordinator cannot steal the in-flight profile lease
+  ---
+  duration_ms: 216.7833
+  ...
+# Subtest: native coordinator drains A ordinary and three goal trees while B continues, then verifies restart
+ok 19 - native coordinator drains A ordinary and three goal trees while B continues, then verifies restart
+  ---
+  duration_ms: 3290.8474
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-profile-preparation-w43xW2","preparationId":"3e33fa2d-85de-470f-9e3d-6e736560b72d","nativeReceipts":[{"attemptId":"b2fc8deb-383d-4511-9777-6f0c49d2855e","stopped":"stopped"},{"attemptId":"f87c2415-353e-4542-ab45-f6a118bffac7","stopped":"stopped"},{"attemptId":"99062ff7-960c-40b0-b61e-cbe0b0dac409","stopped":"stopped"},{"attemptId":"66f46713-2356-494e-870e-8a95230fe49b","stopped":"stopped"}],"trees":{"5bc21fdc-37eb-422e-b1bb-c639abbb9b94/a7fa58b4-98ea-4258-9817-e9ae7cb8b99a":{"root":24628,"pid":47996,"leaf":30312},"5bc21fdc-37eb-422e-b1bb-c639abbb9b94/main":{"root":45044,"pid":51004,"leaf":34252},"5bc21fdc-37eb-422e-b1bb-c639abbb9b94/ae52f181-9af4-4175-99a4-b1d46a9d06b8":{"root":48436,"pid":53348,"leaf":50320},"5bc21fdc-37eb-422e-b1bb-c639abbb9b94/b5fcf4a8-beba-44a1-8650-addeba6c4a16":{"root":48412,"pid":27296,"leaf":3376},"68ca7757-90e7-4a0a-bdda-73e657504bd9/main":{"root":15176,"pid":52552,"leaf":36588}},"scope":"Actual services, draft files and Windows jobs; foreground/terminal adapters supplied, not Electron preparation UI proof."}
+# Subtest: abrupt process death after-collecting recovers its retained lease and exact generation
+ok 20 - abrupt process death after-collecting recovers its retained lease and exact generation
+  ---
+  duration_ms: 373.5182
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-lVILjb","boundary":"after-collecting","profileId":"5287563d-7e67-4881-ae2b-09c0a9811cef","preparationId":"cee30429-96af-40e6-8905-08d0da795f29"}
+# Subtest: abrupt process death after-draining recovers its retained lease and exact generation
+ok 21 - abrupt process death after-draining recovers its retained lease and exact generation
+  ---
+  duration_ms: 365.4586
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-IIvgg1","boundary":"after-draining","profileId":"613fe81d-83de-4a64-a805-280c9eeb3017","preparationId":"b4d6671d-e0b1-4ded-95ad-9eea92641390"}
+# Subtest: abrupt process death after-quiescing recovers its retained lease and exact generation
+ok 22 - abrupt process death after-quiescing recovers its retained lease and exact generation
+  ---
+  duration_ms: 434.0576
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-h7mQVQ","boundary":"after-quiescing","profileId":"51a503d9-bfd5-4017-a84d-b347f7627b0d","preparationId":"c814186b-dc5e-451e-a9cd-56e565480706"}
+# Subtest: abrupt process death after-writer-closure recovers its retained lease and exact generation
+ok 23 - abrupt process death after-writer-closure recovers its retained lease and exact generation
+  ---
+  duration_ms: 398.3983
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-XtSOgT","boundary":"after-writer-closure","profileId":"e7f00ec1-136e-4bfa-a429-34a1f877099c","preparationId":"55f6e30a-faf9-44fb-9e34-237ed12e323b"}
+# Subtest: abrupt process death after-prepared recovers its retained lease and exact generation
+ok 24 - abrupt process death after-prepared recovers its retained lease and exact generation
+  ---
+  duration_ms: 400.5438
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-k6jEWF","boundary":"after-prepared","profileId":"9114954a-214a-43c1-be2d-4120e9f6f05b","preparationId":"5e68c8ec-a47a-4c74-a4b3-24e523045b95"}
+1..24
+# tests 24
+# suites 0
+# pass 24
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 9541.5004

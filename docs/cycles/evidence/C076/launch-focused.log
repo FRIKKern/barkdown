@@ -1,0 +1,243 @@
+TAP version 13
+# Subtest: planning, worker, review and summary all authenticate before durable reservation or dispatch
+ok 1 - planning, worker, review and summary all authenticate before durable reservation or dispatch
+  ---
+  duration_ms: 28.2673
+  ...
+# Subtest: real agent.start runs three owned API loops and persists their independent transcripts
+ok 2 - real agent.start runs three owned API loops and persists their independent transcripts
+  ---
+  duration_ms: 43.3702
+  ...
+# Subtest: done event does not release worker before trusted driver cleanup completes
+ok 3 - done event does not release worker before trusted driver cleanup completes
+  ---
+  duration_ms: 17.9224
+  ...
+# Subtest: changed context or mismatched profile fails before a transcript or provider starts
+ok 4 - changed context or mismatched profile fails before a transcript or provider starts
+  ---
+  duration_ms: 9.1451
+  ...
+# Subtest: cancel during real API stream waits for finalization and records partial output
+ok 5 - cancel during real API stream waits for finalization and records partial output
+  ---
+  duration_ms: 14.2707
+  ...
+# Subtest: transcript failure stops the provider and reports uncertain effects instead of success
+ok 6 - transcript failure stops the provider and reports uncertain effects instead of success
+  ---
+  duration_ms: 10.3608
+  ...
+# Subtest: an acknowledged duplicate reservation never launches a second provider
+ok 7 - an acknowledged duplicate reservation never launches a second provider
+  ---
+  duration_ms: 6.9009
+  ...
+# Subtest: Promise-returning transcript sink is rejected before provider dispatch
+ok 8 - Promise-returning transcript sink is rejected before provider dispatch
+  ---
+  duration_ms: 5.4557
+  ...
+# Subtest: unknown finalization retains the execution slot until trusted termination proof
+ok 9 - unknown finalization retains the execution slot until trusted termination proof
+  ---
+  duration_ms: 14.8011
+  ...
+# Subtest: captured assignment images reach actual API transport; another profile path is rejected
+ok 10 - captured assignment images reach actual API transport; another profile path is rejected
+  ---
+  duration_ms: 19.3763
+  ...
+# Subtest: worker provider launches disable native recursive delegation without changing ordinary chats
+ok 11 - worker provider launches disable native recursive delegation without changing ordinary chats
+  ---
+  duration_ms: 38.0844
+  ...
+# Subtest: structured coordinator uses acknowledged final provider message while retaining commentary
+ok 12 - structured coordinator uses acknowledged final provider message while retaining commentary
+  ---
+  duration_ms: 50.9983
+  ...
+# Subtest: expired goal provider session retains authentication assistance after terminal settlement
+ok 13 - expired goal provider session retains authentication assistance after terminal settlement
+  ---
+  duration_ms: 12.5045
+  ...
+# C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\main\\goal-service.js:176
+# SyntaxError: Unexpected end of input
+#     at wrapSafe (node:internal/modules/cjs/loader:1512:18)
+#     at Module._compile (node:internal/modules/cjs/loader:1534:20)
+#     at Object..js (node:internal/modules/cjs/loader:1699:10)
+#     at Module.load (node:internal/modules/cjs/loader:1313:32)
+#     at Function._load (node:internal/modules/cjs/loader:1123:12)
+#     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+#     at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+#     at Module.require (node:internal/modules/cjs/loader:1335:12)
+#     at require (node:internal/modules/helpers:136:16)
+#     at file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/goal-service.test.mjs:10:48
+# Node.js v22.13.1
+# Subtest: app\\tests\\goal-service.test.mjs
+not ok 2 - app\\tests\\goal-service.test.mjs
+  ---
+  duration_ms: 101.8557
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\goal-service.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: missing authentication persists assistance without retrying or marking work complete
+ok 15 - missing authentication persists assistance without retrying or marking work complete
+  ---
+  duration_ms: 40.2987
+  ...
+# Subtest: three reserved workers run concurrently, snapshots cannot mutate owners, results require review
+ok 16 - three reserved workers run concurrently, snapshots cannot mutate owners, results require review
+  ---
+  duration_ms: 38.6024
+  ...
+# Subtest: dependencies wait for evidence, cap is global, same chat is serialized across goals
+ok 17 - dependencies wait for evidence, cap is global, same chat is serialized across goals
+  ---
+  duration_ms: 41.7094
+  ...
+# Subtest: same IDs in different profiles retain independent progress and result ownership
+ok 18 - same IDs in different profiles retain independent progress and result ownership
+  ---
+  duration_ms: 29.1064
+  ...
+# Subtest: pause stops new work, waits for actual termination, and does not silently replay
+ok 19 - pause stops new work, waits for actual termination, and does not silently replay
+  ---
+  duration_ms: 51.9262
+  ...
+# Subtest: deadline handles sleep/wake and prevents late success or new dispatch
+ok 20 - deadline handles sleep/wake and prevents late success or new dispatch
+  ---
+  duration_ms: 21.8108
+  ...
+# Subtest: cancel before adapter microtask prevents provider launch
+ok 21 - cancel before adapter microtask prevents provider launch
+  ---
+  duration_ms: 27.8823
+  ...
+# Subtest: reopen interrupts reserved attempts and requires explicit reconciliation
+ok 22 - reopen interrupts reserved attempts and requires explicit reconciliation
+  ---
+  duration_ms: 25.8184
+  ...
+# Subtest: cycles, recursive coordinator workers, unknown dependencies and fourth worker are rejected
+ok 23 - cycles, recursive coordinator workers, unknown dependencies and fourth worker are rejected
+  ---
+  duration_ms: 3.4601
+  ...
+# Subtest: offline and failed runs cannot satisfy dependencies
+ok 24 - offline and failed runs cannot satisfy dependencies
+  ---
+  duration_ms: 25.1374
+  ...
+# Subtest: corrupt journal fails closed without replacing original data
+ok 25 - corrupt journal fails closed without replacing original data
+  ---
+  duration_ms: 2.5704
+  ...
+# Subtest: lost persistence acknowledgement halts all dispatch and leaves reserved work recoverable
+ok 26 - lost persistence acknowledgement halts all dispatch and leaves reserved work recoverable
+  ---
+  duration_ms: 15.1129
+  ...
+# Subtest: failed reservation never launches the provider
+ok 27 - failed reservation never launches the provider
+  ---
+  duration_ms: 7.3629
+  ...
+# Subtest: reentrant observers cannot overlap a chat or dispatch past stop
+ok 28 - reentrant observers cannot overlap a chat or dispatch past stop
+  ---
+  duration_ms: 26.6635
+  ...
+# Subtest: close retains the journal lease until actual adapter termination
+ok 29 - close retains the journal lease until actual adapter termination
+  ---
+  duration_ms: 19.8596
+  ...
+# Subtest: post-deadline reconciliation preserves terminal goal without permitting retry
+ok 30 - post-deadline reconciliation preserves terminal goal without permitting retry
+  ---
+  duration_ms: 28.3877
+  ...
+# Subtest: another process cannot acquire the journal while its owner lives
+ok 31 - another process cannot acquire the journal while its owner lives
+  ---
+  duration_ms: 82.5067
+  ...
+# Subtest: dead journal owner is recovered with lease evidence retained
+ok 32 - dead journal owner is recovered with lease evidence retained
+  ---
+  duration_ms: 87.0238
+  ...
+# Subtest: real three-process execution integrates independent outputs with the persistent scheduler
+ok 33 - real three-process execution integrates independent outputs with the persistent scheduler
+  ---
+  duration_ms: 245.5626
+  ...
+# Subtest: uncertain termination is visibly interrupted and cannot be reviewed while slot remains live
+ok 34 - uncertain termination is visibly interrupted and cannot be reviewed while slot remains live
+  ---
+  duration_ms: 26.0112
+  ...
+# Subtest: assignment attachments are captured independently and survive restart
+ok 35 - assignment attachments are captured independently and survive restart
+  ---
+  duration_ms: 11.8594
+  ...
+# Subtest: abrupt process death after an external effect never replays the reserved attempt
+ok 36 - abrupt process death after an external effect never replays the reserved attempt
+  ---
+  duration_ms: 94.6044
+  ...
+# Subtest: shared admission caps profile-local schedulers at three and holds uncertain termination
+ok 37 - shared admission caps profile-local schedulers at three and holds uncertain termination
+  ---
+  duration_ms: 34.567
+  ...
+# Subtest: failed reservation and cancelled-before-launch release shared admission exactly once
+ok 38 - failed reservation and cancelled-before-launch release shared admission exactly once
+  ---
+  duration_ms: 7.1663
+  ...
+# C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\main\\goal-service.js:176
+# SyntaxError: Unexpected end of input
+#     at wrapSafe (node:internal/modules/cjs/loader:1512:18)
+#     at Module._compile (node:internal/modules/cjs/loader:1534:20)
+#     at Object..js (node:internal/modules/cjs/loader:1699:10)
+#     at Module.load (node:internal/modules/cjs/loader:1313:32)
+#     at Function._load (node:internal/modules/cjs/loader:1123:12)
+#     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+#     at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+#     at Module.require (node:internal/modules/cjs/loader:1335:12)
+#     at require (node:internal/modules/helpers:136:16)
+#     at file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/profile-launch-admission.test.mjs:11:31
+# Node.js v22.13.1
+# Subtest: app\\tests\\profile-launch-admission.test.mjs
+not ok 4 - app\\tests\\profile-launch-admission.test.mjs
+  ---
+  duration_ms: 100.4641
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\profile-launch-admission.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..39
+# tests 39
+# suites 0
+# pass 37
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1127.6485

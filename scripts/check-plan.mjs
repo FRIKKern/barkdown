@@ -30,3 +30,16 @@ console.log('Active roadmap: structure, dependencies, acceptance links, evidence
 // Standalone check refuses a stale roadmap without rewriting it.
 const roadmapRoot = (await import('node:path')).resolve((await import('node:url')).fileURLToPath(new URL('..', import.meta.url)));
 (await import('node:child_process')).execFileSync(process.execPath, [roadmapRoot + '/scripts/generate-roadmap.mjs', roadmapRoot, roadmapRoot + '/docs/images/roadmap.svg', '--check'], {stdio:'inherit'});
+
+// Keep the compact illustration honest without adding another CI job.
+const { summaries, validateSummaries } = await import('./generate-roadmap.mjs');
+const exists = file => fs.existsSync(path.join(root, file));
+validateSummaries(plan, summaries, exists);
+assert.throws(() => validateSummaries(plan, summaries, () => false), /Missing evidence/);
+const unfinished = structuredClone(summaries);
+unfinished.P1.items[0][0] = 'todo';
+assert.throws(() => validateSummaries(plan, unfinished, exists), /unfinished items/);
+const changedStage = structuredClone(plan);
+changedStage.stages.find(s => s.id === 'P3').status = 'active';
+assert.throws(() => validateSummaries(changedStage, summaries, exists), /Review roadmap claims/);
+console.log('Roadmap checks reject missing evidence, unfinished accepted stages and unreviewed status changes.');

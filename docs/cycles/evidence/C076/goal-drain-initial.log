@@ -1,0 +1,35 @@
+TAP version 13
+# Subtest: goal drain waits for delayed runtime, persists settlement, freezes journal and permits B
+ok 1 - goal drain waits for delayed runtime, persists settlement, freezes journal and permits B
+  ---
+  duration_ms: 1517.6658
+  ...
+# Subtest: goal drain waits for delayed authentication, persists settlement, freezes journal and permits B
+ok 2 - goal drain waits for delayed authentication, persists settlement, freezes journal and permits B
+  ---
+  duration_ms: 1473.5619
+  ...
+# Subtest: goal drain waits for delayed dispatch, persists settlement, freezes journal and permits B
+ok 3 - goal drain waits for delayed dispatch, persists settlement, freezes journal and permits B
+  ---
+  duration_ms: 2093.3641
+  ...
+# Subtest: goal drain rechecks receipts after failed drain and restart without accepting a driver flag
+ok 4 - goal drain rechecks receipts after failed drain and restart without accepting a driver flag
+  ---
+  duration_ms: 936.7598
+  ...
+# Subtest: goal drain preserves unresolved runtime cleanup as a preparation failure
+ok 5 - goal drain preserves unresolved runtime cleanup as a preparation failure
+  ---
+  duration_ms: 424.7218
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6580.8974

@@ -76,6 +76,8 @@ function createGoalProvider({ agent = require('./agent'), resolve, transcripts, 
         }
         await resolved.assertAuthentication?.();
         if (signal.aborted) return { status: 'cancelled', text: 'Stopped before provider launch' };
+        // Recheck in this continuation, before reserving or dispatching a turn.
+        resolved.assertLaunch?.();
         const reservation = acknowledged(transcripts.begin(request, resolved));
         check(Array.isArray(reservation?.history) && typeof reservation.fresh === 'boolean', 'Transcript writer did not acknowledge assignment history');
         if (!reservation.fresh) return { status: 'interrupted', text: 'This attempt was already reserved. Reconcile prior execution; never redispatch the same attempt.' };

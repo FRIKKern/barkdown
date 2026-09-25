@@ -1,5 +1,6 @@
 import { mountProviderLogin } from './provider-login.js';
 import { openOriginalHistory } from './original-history.js';
+import { openRetainedDrafts } from './retained-drafts.js';
 // Settings sheet: a navigation column and one pane at a time, in the app's own controls.
 // General (appearance, storage), Assistant (providers and models), Barkpark (connection),
 // Shortcuts (reference) and About. Appearance changes preview live and are reverted on Cancel;
@@ -54,6 +55,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
         <h3>Storage</h3>
         <div id="profile-settings" hidden></div>
         ${setting('Original history', 'Read notes, revisions and agent changes kept in a migration backup.', `<button type="button" class="bw-btn" data-act="original-history">${iconHtml('history', 13)}View originals</button>`)}
+        ${state.profileId ? setting('Retained drafts', 'Read or copy local drafts kept before profile preparation. Opening a copy does not replace a Paper.', '<button type="button" class="bw-btn" data-act="retained-drafts">View drafts</button>') : ''}
         ${setting('Local data', `Chats, documents, attachments and these settings live in <code>${esc(s.userData)}</code>. Secrets are encrypted with the operating system keychain when it is available.`, `<button type="button" class="bw-btn" data-act="open-data">${iconHtml('folder-open', 13)}Open folder</button>`)}
       </section>
       <section data-pane="assistant" ${pane !== 'assistant' ? 'hidden' : ''}>
@@ -243,6 +245,12 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
   q('[data-act="original-history"]').onclick = () => {
     if (dirty || saving) { toast('Save or cancel Settings changes before opening original history.', 'error'); return; }
     close(); openOriginalHistory();
+  };
+  const draftsButton = q('[data-act="retained-drafts"]');
+  if (draftsButton) draftsButton.onclick = () => {
+    if (dirty || saving) { toast('Save or cancel Settings changes before opening retained drafts.', 'error'); return; }
+    close(); openRetainedDrafts({ api, owner: { profileId: state.profileId, generation: state.generation },
+      isCurrent: owner => owner.profileId === state.profileId && owner.generation === state.generation });
   };
   q('[data-act="save"]').onclick = async () => {
     if (saving) return;

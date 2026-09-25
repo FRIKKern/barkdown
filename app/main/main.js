@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog, shell, safeStorage, Menu, session } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, shell, safeStorage, Menu, session, clipboard } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const store = require('./store');
@@ -18,6 +18,7 @@ const credentialDurability = require('./credential-durability').createCredential
 let profileRegistry = null, profileService = null, profileGate = null, profilePool = null, profileConnection = null, profileConnectionOwner = null, appSettingsStore = null, goalService = null;
 const PROFILE_MODE = process.argv.includes('--profiles');
 let authorityOwnership = null, adoptionView = null, bootBusy = false;
+let preparation = null, preparationForeground = null;
 let localRuntime = null, localConfigKey = '';
 let catalogGeneration = 0;
 const paperNavigation = require('./paper-navigation').createPaperNavigation(store);
@@ -218,7 +219,7 @@ function handle(channel, fn, unowned = false) {
         const envelope = args.shift();
         if (!envelope || !Array.isArray(envelope.args)) throw new Error('Profile request owner required');
         args = envelope.args;
-        return { ok: true, value: await profileGate.request(envelope.owner, execute) };
+        return { ok: true, value: await profileGate.request(envelope.owner, () => preparationForeground ? preparationForeground.run(envelope.owner.profileId, channel, execute) : execute()) };
       }
       return { ok: true, value: await execute() }; } catch (error) { return { ok: false, error: error.message || String(error), code: error.code, diagnostic: error.diagnostic, authProvider: error.authProvider }; }
   });
@@ -273,6 +274,44 @@ function registerIpc() {
     return publicSettings();
   });
   handle('app:pickFolder', async () => { const r = await dialog.showOpenDialog(win, { properties: ['openDirectory'] }); return r.canceled ? null : r.filePaths[0]; });
+  const draftStores = new Map();
+  const paperDrafts = (selectedId = null) => {
+    if (!profileService) throw new Error('Paper draft recovery requires an owned profile.');
+    const profileId = selectedId || profileService.view().profileId, root = profileRegistry.storeFor(profileId).storeDir;
+    if (!draftStores.has(profileId)) draftStores.set(profileId, { root, drafts: require('./paper-draft-store').createPaperDraftStore({ store: store.createStore(root, { create: false }), profileId }) });
+    const entry = draftStores.get(profileId);
+    if (entry.root !== root) throw new Error('Paper draft profile root changed.');
+    return entry.drafts;
+  };
+  handle('paperDrafts:retain', ({ token, draft }) => paperDrafts().retain(token, draft));
+  handle('paperDrafts:list', () => paperDrafts().list());
+  handle('paperDrafts:read', key => paperDrafts().read(key));
+  handle('paperDrafts:copy', ({ key, format }) => {
+    if (!['text', 'record'].includes(format)) throw new Error('Unknown retained-draft copy format.');
+    const record = paperDrafts().read(key), snapshot = record.content.draft.snapshot;
+    const text = format === 'record' ? JSON.stringify(record, null, 2) : snapshot.mode === 'markdown' ? snapshot.raw_source : require('../shared/portabledoc').blocksToMarkdown(snapshot.blocks);
+    clipboard.writeText(text); return true;
+  });
+  if (profileService) {
+    const writerState = profileId => require('./writer-admission').controller(store.createStore(profileRegistry.storeFor(profileId).storeDir, { create: false })).inspect();
+    const preparationStatus = profileId => {
+      const record = preparation?.inspect(profileId), restartRequired = profileService.launchAdmission.requiresRestart(profileId);
+      const readOnly = writerState(profileId).phase !== 'open' || record?.phase === 'reopening' ||
+        record?.phase === 'aborted' && profileService.launchAdmission.isClosed(profileId);
+      return { record, readOnly: Boolean(readOnly), restartRequired };
+    };
+    preparationForeground = require('./preparation-foreground').createPreparationForeground({ isClosed: profileId => preparationStatus(profileId).readOnly });
+    const bridge = require('./preparation-bridge').createPreparationBridge({ profiles: profileService, foreground: preparationForeground,
+      webContents: () => win?.webContents, draftsFor: paperDrafts, writerState });
+    preparation = require('./profile-preparation').createProfilePreparation({ registry: profileRegistry, profiles: profileService, goals: goalService,
+      freezeForeground: bridge.freeze, drainForeground: preparationForeground.drain, drainTerminals: profileId => terminal.stopAll(profileId) });
+    handle('preparation:prepare', () => preparation.prepare(profileService.view().profileId));
+    handle('preparation:abort', () => preparation.abort(profileService.view().profileId));
+    handle('preparation:reply', bridge.reply);
+    handle('preparation:retain', bridge.retain);
+    handle('preparation:saveView', bridge.saveView);
+    handle('preparation:status', () => preparationStatus(profileService.view().profileId));
+  } else handle('preparation:status', () => ({ record: null, readOnly: false }));
   const originalHistory = () => {
     if (!profileService) throw new Error('Original history requires an owned profile.');
     const profileId = profileService.view().profileId;
@@ -447,13 +486,15 @@ function registerIpc() {
   });
   handle('barkpark:get', async value => {
     const request = input(value), { id, binding } = request;
+    const drafts = profileService ? paperDrafts() : null;
     const result = await paperConnection.read(binding, async c => {
       if (Object.hasOwn(request, 'paperOwner')) paperNavigation.assert(request.paperOwner, c);
       const paperOwner = paperNavigation.identify(c);
       const paper = await (id.startsWith('drafts.') && paperOrigin(c).kind === 'local' ? draftNotes(c).read(id) : c.viaCli ? barkpark.cliGetPaper(id, c.cliRouting) : barkpark.getPaper(c, id));
       return { ...paper, paperOwner };
     });
-    return { ...result.value, binding: result.binding, connectionIdentity: result.connectionIdentity };
+    return { ...result.value, binding: result.binding, connectionIdentity: result.connectionIdentity,
+      recoveryToken: drafts?.open({ id, paperOwner: result.value.paperOwner }) };
   });
   handle('barkpark:search', async value => {
     const { id: query, binding } = input(value);

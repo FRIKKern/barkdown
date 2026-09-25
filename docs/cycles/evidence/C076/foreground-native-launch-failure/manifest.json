@@ -1,0 +1,10 @@
+{
+  "source": "ec4bd1496c7ba5d7d19677f589ec7f710eb03ceb",
+  "capture": false,
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-preparation-native-6XsGIB",
+  "scope": "Production coordinator, main/preload/renderer IPC and shipped canvas; deterministic HTTP reads, no live Barkpark save claim.",
+  "checks": [],
+  "screenshots": [],
+  "status": "failed",
+  "error": "electron.launch: Process failed to launch!\nCall log:\n\u001b[2m  - <launching> \"C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\node_modules\\electron\\dist\\electron.exe\" \"--inspect=0\" \"--remote-debugging-port=0\" \"C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\" \"--profiles\" \"--user-data=C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-preparation-native-6XsGIB\"\u001b[22m\n\u001b[2m  - <launched> pid=61172\u001b[22m\n\u001b[2m  - [pid=61172][out]\u001b[22m\n\u001b[2m  - [pid=61172][err] Debugger listening on ws://127.0.0.1:58175/7e7d2917-866f-4a4a-83fd-5388f9295e69\u001b[22m\n\u001b[2m  - [pid=61172][err] For help, see: https://nodejs.org/en/docs/inspector\u001b[22m\n\u001b[2m  - <ws connecting> ws://127.0.0.1:58175/7e7d2917-866f-4a4a-83fd-5388f9295e69\u001b[22m\n\u001b[2m  - <ws connected> ws://127.0.0.1:58175/7e7d2917-866f-4a4a-83fd-5388f9295e69\u001b[22m\n\u001b[2m  - [pid=61172][err] Debugger attached.\u001b[22m\n\u001b[2m  - <ws disconnected> ws://127.0.0.1:58175/7e7d2917-866f-4a4a-83fd-5388f9295e69 code=1006 reason=\u001b[22m\n\u001b[2m  - [pid=61172] <kill>\u001b[22m\n\u001b[2m  - [pid=61172] <will force kill>\u001b[22m\n\u001b[2m  - [pid=61172] taskkill stderr: ERROR: The process \"61172\" not found.\u001b[22m\n\u001b[2m  - [pid=61172] <process did exit: exitCode=4294967295, signal=null>\u001b[22m\n\u001b[2m  - [pid=61172] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=61172] finished temporary directories cleanup\u001b[22m\n\n    at async boot (C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\profile-preparation.live.mjs:46:9)\n    at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/profile-preparation.live.mjs:52:3"
+}

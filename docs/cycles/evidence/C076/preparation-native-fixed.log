@@ -1,0 +1,101 @@
+TAP version 13
+# Subtest: preparation joins real profile/goal drains, verified draft records and writer closure without affecting B
+ok 1 - preparation joins real profile/goal drains, verified draft records and writer closure without affecting B
+  ---
+  duration_ms: 334.2408
+  ...
+# Subtest: concurrent callers share one capture and do not prepare before delayed foreground/terminal completion
+ok 2 - concurrent callers share one capture and do not prepare before delayed foreground/terminal completion
+  ---
+  duration_ms: 214.5078
+  ...
+# Subtest: a changed human buffer refuses before writer closure and retains the recovery version
+ok 3 - a changed human buffer refuses before writer closure and retains the recovery version
+  ---
+  duration_ms: 186.7874
+  ...
+# Subtest: a refused drain still awaits every independent cleanup before releasing the foreground
+ok 4 - a refused drain still awaits every independent cleanup before releasing the foreground
+  ---
+  duration_ms: 180.5342
+  ...
+# Subtest: foreign ordinary drain evidence is refused
+ok 5 - foreign ordinary drain evidence is refused
+  ---
+  duration_ms: 170.4552
+  ...
+# Subtest: foreign goals drain evidence is refused
+ok 6 - foreign goals drain evidence is refused
+  ---
+  duration_ms: 178.8883
+  ...
+# Subtest: unverified terminal completion cannot be replaced by an empty IPC queue
+ok 7 - unverified terminal completion cannot be replaced by an empty IPC queue
+  ---
+  duration_ms: 177.1128
+  ...
+# Subtest: active writer after drain closes admission but cannot mint a prepared receipt until settled
+ok 8 - active writer after drain closes admission but cannot mint a prepared receipt until settled
+  ---
+  duration_ms: 283.5656
+  ...
+# Subtest: failed writer remains uncertain across restart and cannot be inferred absent from shutdown
+ok 9 - failed writer remains uncertain across restart and cannot be inferred absent from shutdown
+  ---
+  duration_ms: 290.3538
+  ...
+# Subtest: interruption after-collecting retains exact ownership and resumes with new service instances
+ok 10 - interruption after-collecting retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 236.5717
+  ...
+# Subtest: interruption after-draining retains exact ownership and resumes with new service instances
+ok 11 - interruption after-draining retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 249.2905
+  ...
+# Subtest: interruption after-quiescing retains exact ownership and resumes with new service instances
+ok 12 - interruption after-quiescing retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 299.249
+  ...
+# Subtest: interruption after-writer-closure retains exact ownership and resumes with new service instances
+ok 13 - interruption after-writer-closure retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 274.6991
+  ...
+# Subtest: interruption after-prepared retains exact ownership and resumes with new service instances
+ok 14 - interruption after-prepared retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 274.4002
+  ...
+# Subtest: changed retained draft and preparation record are never repaired or silently reset
+ok 15 - changed retained draft and preparation record are never repaired or silently reset
+  ---
+  duration_ms: 234.5475
+  ...
+# Subtest: foreign writer generation refuses even if a valid preparation record remains
+ok 16 - foreign writer generation refuses even if a valid preparation record remains
+  ---
+  duration_ms: 168.9044
+  ...
+# Subtest: independent coordinator cannot steal the in-flight profile lease
+ok 17 - independent coordinator cannot steal the in-flight profile lease
+  ---
+  duration_ms: 215.4077
+  ...
+# Subtest: native coordinator drains A ordinary and three goal trees while B continues, then verifies restart
+ok 18 - native coordinator drains A ordinary and three goal trees while B continues, then verifies restart
+  ---
+  duration_ms: 3220.6897
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-profile-preparation-DRxqSh","preparationId":"c8744c3c-ff1b-4dc1-8af8-c62d7b2ebff6","nativeReceipts":[{"attemptId":"99627aab-c639-4344-bf0d-a366f9b49bf3","stopped":"stopped"},{"attemptId":"9906e1a8-887f-463f-a99d-bba36a20833c","stopped":"stopped"},{"attemptId":"13a30c5d-8092-4a6c-ad4b-dfb5a71596f1","stopped":"stopped"},{"attemptId":"7edd3618-e5c7-44ec-9f66-6c8e7067c2bc","stopped":"stopped"}],"trees":{"7a124c5f-e71c-4a0c-b2ab-f7dbfc81d432/main":{"root":14184,"pid":50248,"leaf":42024},"7a124c5f-e71c-4a0c-b2ab-f7dbfc81d432/cbd669d1-1a82-4640-85b6-803fe009bc74":{"root":61144,"pid":40048,"leaf":61048},"7a124c5f-e71c-4a0c-b2ab-f7dbfc81d432/c40f3ff9-ecff-4a1a-8a0c-952b775c4ecb":{"root":52440,"pid":27252,"leaf":43392},"7a124c5f-e71c-4a0c-b2ab-f7dbfc81d432/50f74d00-2365-4346-8172-15410f2fb2ac":{"root":22124,"pid":25176,"leaf":61368},"56b7dcca-a3a7-4a05-a99d-2f73be639b23/main":{"root":31152,"pid":46736,"leaf":50564}},"scope":"Actual services, draft files and Windows jobs; foreground/terminal adapters supplied, not Electron preparation UI proof."}
+1..18
+# tests 18
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 7317.8226

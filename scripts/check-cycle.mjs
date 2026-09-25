@@ -1,6 +1,11 @@
 import assert from 'node:assert/strict';
 import { loadCycle, validateCycle } from './cycle.mjs';
 const cycle = loadCycle();
+assert.throws(() => validateCycle({...cycle, delivery: undefined}), /delivery phase/);
+assert.throws(() => validateCycle({...cycle, delivery: {...cycle.delivery, owner: ''}}), /delivery owner/);
+assert.throws(() => validateCycle({...cycle, delivery: {...cycle.delivery, phase: 'validating', remaining: []}}), /without remaining work/);
+assert.throws(() => validateCycle({...cycle, delivery: {...cycle.delivery, phase: 'delivered', remaining: ['Unmerged']}}), /with remaining work/);
+validateCycle({...cycle, delivery: {...cycle.delivery, phase: 'delivered', remaining: []}});
 const fixture = {...cycle,status:'done',evidence:[],truthReview:'',screenshotReview:''};
 assert.throws(() => validateCycle(fixture), /without evidence and reviews/);
 assert.throws(() => validateCycle({...cycle,status:'blocked',reason:''}), /without reason/);

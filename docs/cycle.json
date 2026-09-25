@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C076",
   "stage": "P2",
-  "status": "planned",
+  "status": "active",
   "goal": "Prepare one profile for migration without launching new agents, losing human drafts, or leaving owned children unverified.",
   "scope": [
     "Close profile-specific ordinary/goal admission, including pending resolves and dispatches.",
@@ -18,11 +18,35 @@
   ],
   "checkpoint": "2026-09-25",
   "handoff": "docs/cycles/C076-profile-preparation.md",
-  "nextAction": "Begin C076 profile preparation on a codex/ branch from main after C075 documentation closeout: close launch admission, retain human drafts and verify owned-child/transcript drain before writer quiescence.",
+  "nextAction": "Publish the verified C076 PR, review hosted checks/artifacts, merge and verify main before starting dependent migration work.",
   "evidence": [
-    "docs/cycles/evidence/C075/run-drain-probe.json",
-    "docs/cycles/evidence/C075/draft-retention-probe.json"
+    "docs/cycles/evidence/C076/README.md",
+    "docs/cycles/evidence/C076/launch-final.log",
+    "docs/cycles/evidence/C076/desktop.log",
+    "docs/cycles/evidence/C076/native-smoke-passed/manifest.json",
+    "docs/cycles/evidence/C076/ordinary-drain-validation/result.json",
+    "docs/cycles/evidence/C076/ordinary-recovery-native/manifest.json",
+    "docs/cycles/evidence/C076/goal-drain-validation/result.json",
+    "docs/cycles/evidence/C076/paper-draft-validation/result.json",
+    "docs/cycles/evidence/C076/paper-draft-native/2026-09-25T14-48-46-327Z/manifest.json",
+    "docs/cycles/evidence/C076/preparation-validation/result.json",
+    "docs/cycles/evidence/C076/paper-draft-native/2026-09-25T15-08-43-497Z/manifest.json",
+    "docs/cycles/evidence/C076/foreground-validation/result.json",
+    "docs/cycles/evidence/C076/preparation-native/2026-09-25T15-36-26-938Z/manifest.json",
+    "docs/cycles/evidence/C076/final-validation-corrected/result.json",
+    "docs/cycles/evidence/C076/preparation-native/2026-09-25T16-44-07-825Z/review.json",
+    "docs/cycles/evidence/C076/final-live/result.json",
+    "docs/cycles/evidence/C076/live-review.json",
+    "docs/cycles/evidence/C076/closeout/result.json"
   ],
-  "truthReview": "Planned from merged C075 and source probes; no implementation acceptance.",
-  "screenshotReview": "No C076 app change; C075 media remains current for implemented behavior only."
+  "truthReview": "Final app source4c030a0c passes full desktop664.106s. Reviewed native preparation/cancel/recovery evidence, standard40-frame/8-GIF approval and isolated live Paper5-still/37-frame evidence are complete. Root verification passes47.253s; hosted integration gates remain; P2/A2, authority selection and legacy retirement remain open.",
+  "screenshotReview": "Native9 stills, sampled three recordings and22 decoded excerpt frames reviewed; notice/reader fit900x760. Standard40 stills and8 GIFs reviewed/approved with no geometry changes. Live Paper5 stills and37 GIF frames reviewed with real Claude and header6/6. Startup light-shell flash remains a documented polish limitation. Root ordinary-editing demo remains applicable.",
+  "delivery": {
+    "phase": "integrating",
+    "owner": "primary agent on codex/profile-preparation",
+    "remaining": [
+      "Publish the verified PR; resolve hosted gates and review its artifacts.",
+      "Merge under existing authorization, verify main and retire the merged delivery branch without deleting recovery work."
+    ]
+  }
 }

@@ -1,0 +1,345 @@
+TAP version 13
+# Subtest: plan schema rejects injected authority, missing/duplicate tasks and cyclic or unknown dependencies
+ok 1 - plan schema rejects injected authority, missing/duplicate tasks and cyclic or unknown dependencies
+  ---
+  duration_ms: 3.0984
+  ...
+# Subtest: acceptance and retry require explicit evidence and verified effects
+ok 2 - acceptance and retry require explicit evidence and verified effects
+  ---
+  duration_ms: 0.6538
+  ...
+# Subtest: real provider bridge plans three saved chats, reviews exact attempts, supplies dependencies and preserves draft
+ok 3 - real provider bridge plans three saved chats, reviews exact attempts, supplies dependencies and preserves draft
+  ---
+  duration_ms: 2814.9709
+  ...
+# Subtest: malformed planning response creates no workers and cannot be manually accepted around validation
+ok 4 - malformed planning response creates no workers and cannot be manually accepted around validation
+  ---
+  duration_ms: 593.3137
+  ...
+# Subtest: uncertain coordinator review pauses with explicit person reconciliation and releases no dependent work
+ok 5 - uncertain coordinator review pauses with explicit person reconciliation and releases no dependent work
+  ---
+  duration_ms: 1461.8583
+  ...
+# Subtest: coordinator retry is bounded to three exact worker attempts and person reconciliation can continue the goal
+ok 6 - coordinator retry is bounded to three exact worker attempts and person reconciliation can continue the goal
+  ---
+  duration_ms: 3565.654
+  ...
+# Subtest: interrupted planning retains partial response and draft, never replays, and requires shutdown proof before retry
+ok 7 - interrupted planning retains partial response and draft, never replays, and requires shutdown proof before retry
+  ---
+  duration_ms: 2812.2354
+  ...
+# Subtest: deadline prevents coordinator acceptance and worker creation after a late plan
+ok 8 - deadline prevents coordinator acceptance and worker creation after a late plan
+  ---
+  duration_ms: 452.0261
+  ...
+# Subtest: a late coordinator review cannot overwrite an explicit person decision on its exact attempt
+ok 9 - a late coordinator review cannot overwrite an explicit person decision on its exact attempt
+  ---
+  duration_ms: 2299.2575
+  ...
+# Subtest: large retained evidence is bounded in coordinator prompts without replacing its durable source
+ok 10 - large retained evidence is bounded in coordinator prompts without replacing its durable source
+  ---
+  duration_ms: 1.5647
+  ...
+# Subtest: pause during worker retains late output without coordinator acceptance or draft replacement
+ok 11 - pause during worker retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 1410.5057
+  ...
+# Subtest: cancel during worker retains late output without coordinator acceptance or draft replacement
+ok 12 - cancel during worker retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 1362.7479
+  ...
+# Subtest: deadline during worker retains late output without coordinator acceptance or draft replacement
+ok 13 - deadline during worker retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 1351.9395
+  ...
+# Subtest: pause during review retains late output without coordinator acceptance or draft replacement
+ok 14 - pause during review retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 1348.6515
+  ...
+# Subtest: cancel during review retains late output without coordinator acceptance or draft replacement
+ok 15 - cancel during review retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 1354.6243
+  ...
+# Subtest: deadline during review retains late output without coordinator acceptance or draft replacement
+ok 16 - deadline during review retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 1384.498
+  ...
+# Subtest: pause during summary retains late output without coordinator acceptance or draft replacement
+ok 17 - pause during summary retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 2432.5688
+  ...
+# Subtest: cancel during summary retains late output without coordinator acceptance or draft replacement
+ok 18 - cancel during summary retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 2476.8246
+  ...
+# Subtest: deadline during summary retains late output without coordinator acceptance or draft replacement
+ok 19 - deadline during summary retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 2417.5973
+  ...
+# Subtest: planning, worker, review and summary all authenticate before durable reservation or dispatch
+ok 20 - planning, worker, review and summary all authenticate before durable reservation or dispatch
+  ---
+  duration_ms: 31.9484
+  ...
+# Subtest: real agent.start runs three owned API loops and persists their independent transcripts
+ok 21 - real agent.start runs three owned API loops and persists their independent transcripts
+  ---
+  duration_ms: 48.2677
+  ...
+# Subtest: done event does not release worker before trusted driver cleanup completes
+ok 22 - done event does not release worker before trusted driver cleanup completes
+  ---
+  duration_ms: 18.7517
+  ...
+# Subtest: changed context or mismatched profile fails before a transcript or provider starts
+ok 23 - changed context or mismatched profile fails before a transcript or provider starts
+  ---
+  duration_ms: 10.3044
+  ...
+# Subtest: cancel during real API stream waits for finalization and records partial output
+ok 24 - cancel during real API stream waits for finalization and records partial output
+  ---
+  duration_ms: 19.9801
+  ...
+# Subtest: transcript failure stops the provider and reports uncertain effects instead of success
+ok 25 - transcript failure stops the provider and reports uncertain effects instead of success
+  ---
+  duration_ms: 12.6473
+  ...
+# Subtest: an acknowledged duplicate reservation never launches a second provider
+ok 26 - an acknowledged duplicate reservation never launches a second provider
+  ---
+  duration_ms: 8.8722
+  ...
+# Subtest: Promise-returning transcript sink is rejected before provider dispatch
+ok 27 - Promise-returning transcript sink is rejected before provider dispatch
+  ---
+  duration_ms: 9.8
+  ...
+# Subtest: unknown finalization retains the execution slot until trusted termination proof
+ok 28 - unknown finalization retains the execution slot until trusted termination proof
+  ---
+  duration_ms: 16.3314
+  ...
+# Subtest: captured assignment images reach actual API transport; another profile path is rejected
+ok 29 - captured assignment images reach actual API transport; another profile path is rejected
+  ---
+  duration_ms: 22.2112
+  ...
+# Subtest: worker provider launches disable native recursive delegation without changing ordinary chats
+ok 30 - worker provider launches disable native recursive delegation without changing ordinary chats
+  ---
+  duration_ms: 45.7618
+  ...
+# Subtest: structured coordinator uses acknowledged final provider message while retaining commentary
+ok 31 - structured coordinator uses acknowledged final provider message while retaining commentary
+  ---
+  duration_ms: 61.2033
+  ...
+# Subtest: expired goal provider session retains authentication assistance after terminal settlement
+ok 32 - expired goal provider session retains authentication assistance after terminal settlement
+  ---
+  duration_ms: 15.9644
+  ...
+# Subtest: real provider loops persist three full workers through profile switch, stale save, reload and review
+ok 33 - real provider loops persist three full workers through profile switch, stale save, reload and review
+  ---
+  duration_ms: 1860.5067
+  ...
+# Subtest: Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+ok 34 - Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+  ---
+  duration_ms: 1350.2318
+  ...
+# Subtest: goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+ok 35 - goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+  ---
+  duration_ms: 555.4558
+  ...
+# Subtest: recovered reservation cannot be reviewed or retried until trusted shutdown verification
+ok 36 - recovered reservation cannot be reviewed or retried until trusted shutdown verification
+  ---
+  duration_ms: 544.8383
+  ...
+# Subtest: missing authentication persists assistance without retrying or marking work complete
+ok 37 - missing authentication persists assistance without retrying or marking work complete
+  ---
+  duration_ms: 42.7963
+  ...
+# Subtest: three reserved workers run concurrently, snapshots cannot mutate owners, results require review
+ok 38 - three reserved workers run concurrently, snapshots cannot mutate owners, results require review
+  ---
+  duration_ms: 47.5753
+  ...
+# Subtest: dependencies wait for evidence, cap is global, same chat is serialized across goals
+ok 39 - dependencies wait for evidence, cap is global, same chat is serialized across goals
+  ---
+  duration_ms: 43.3026
+  ...
+# Subtest: same IDs in different profiles retain independent progress and result ownership
+ok 40 - same IDs in different profiles retain independent progress and result ownership
+  ---
+  duration_ms: 35.2761
+  ...
+# Subtest: pause stops new work, waits for actual termination, and does not silently replay
+ok 41 - pause stops new work, waits for actual termination, and does not silently replay
+  ---
+  duration_ms: 60.1981
+  ...
+# Subtest: deadline handles sleep/wake and prevents late success or new dispatch
+ok 42 - deadline handles sleep/wake and prevents late success or new dispatch
+  ---
+  duration_ms: 24.6794
+  ...
+# Subtest: cancel before adapter microtask prevents provider launch
+ok 43 - cancel before adapter microtask prevents provider launch
+  ---
+  duration_ms: 28.5477
+  ...
+# Subtest: reopen interrupts reserved attempts and requires explicit reconciliation
+ok 44 - reopen interrupts reserved attempts and requires explicit reconciliation
+  ---
+  duration_ms: 32.965
+  ...
+# Subtest: cycles, recursive coordinator workers, unknown dependencies and fourth worker are rejected
+ok 45 - cycles, recursive coordinator workers, unknown dependencies and fourth worker are rejected
+  ---
+  duration_ms: 4.3177
+  ...
+# Subtest: offline and failed runs cannot satisfy dependencies
+ok 46 - offline and failed runs cannot satisfy dependencies
+  ---
+  duration_ms: 25.9904
+  ...
+# Subtest: corrupt journal fails closed without replacing original data
+ok 47 - corrupt journal fails closed without replacing original data
+  ---
+  duration_ms: 2.89
+  ...
+# Subtest: lost persistence acknowledgement halts all dispatch and leaves reserved work recoverable
+ok 48 - lost persistence acknowledgement halts all dispatch and leaves reserved work recoverable
+  ---
+  duration_ms: 18.1124
+  ...
+# Subtest: failed reservation never launches the provider
+ok 49 - failed reservation never launches the provider
+  ---
+  duration_ms: 8.3684
+  ...
+# Subtest: reentrant observers cannot overlap a chat or dispatch past stop
+ok 50 - reentrant observers cannot overlap a chat or dispatch past stop
+  ---
+  duration_ms: 30.5615
+  ...
+# Subtest: close retains the journal lease until actual adapter termination
+ok 51 - close retains the journal lease until actual adapter termination
+  ---
+  duration_ms: 22.6354
+  ...
+# Subtest: post-deadline reconciliation preserves terminal goal without permitting retry
+ok 52 - post-deadline reconciliation preserves terminal goal without permitting retry
+  ---
+  duration_ms: 39.9525
+  ...
+# Subtest: another process cannot acquire the journal while its owner lives
+ok 53 - another process cannot acquire the journal while its owner lives
+  ---
+  duration_ms: 82.4125
+  ...
+# Subtest: dead journal owner is recovered with lease evidence retained
+ok 54 - dead journal owner is recovered with lease evidence retained
+  ---
+  duration_ms: 78.6886
+  ...
+# Subtest: real three-process execution integrates independent outputs with the persistent scheduler
+ok 55 - real three-process execution integrates independent outputs with the persistent scheduler
+  ---
+  duration_ms: 245.0194
+  ...
+# Subtest: uncertain termination is visibly interrupted and cannot be reviewed while slot remains live
+ok 56 - uncertain termination is visibly interrupted and cannot be reviewed while slot remains live
+  ---
+  duration_ms: 25.904
+  ...
+# Subtest: assignment attachments are captured independently and survive restart
+ok 57 - assignment attachments are captured independently and survive restart
+  ---
+  duration_ms: 18.6707
+  ...
+# Subtest: abrupt process death after an external effect never replays the reserved attempt
+ok 58 - abrupt process death after an external effect never replays the reserved attempt
+  ---
+  duration_ms: 110.1799
+  ...
+# Subtest: shared admission caps profile-local schedulers at three and holds uncertain termination
+ok 59 - shared admission caps profile-local schedulers at three and holds uncertain termination
+  ---
+  duration_ms: 41.5017
+  ...
+# Subtest: failed reservation and cancelled-before-launch release shared admission exactly once
+ok 60 - failed reservation and cancelled-before-launch release shared admission exactly once
+  ---
+  duration_ms: 7.1986
+  ...
+# Subtest: closure is durable, idempotent and profile-owned; reads never create a record
+ok 61 - closure is durable, idempotent and profile-owned; reads never create a record
+  ---
+  duration_ms: 242.4597
+  ...
+# Subtest: malformed preparation refuses instead of resetting or silently opening
+ok 62 - malformed preparation refuses instead of resetting or silently opening
+  ---
+  duration_ms: 153.4439
+  ...
+# Subtest: closure during delayed runtime refuses dispatch and releases its runtime
+ok 63 - closure during delayed runtime refuses dispatch and releases its runtime
+  ---
+  duration_ms: 249.2013
+  ...
+# Subtest: closure during delayed authentication refuses dispatch and releases its runtime
+ok 64 - closure during delayed authentication refuses dispatch and releases its runtime
+  ---
+  duration_ms: 267.8398
+  ...
+# Subtest: capacity-release notifications cannot admit a closed profile but other profiles can acquire
+ok 65 - capacity-release notifications cannot admit a closed profile but other profiles can acquire
+  ---
+  duration_ms: 185.6862
+  ...
+# Subtest: goal create/start and every service tick stay closed across restart while other profiles work
+ok 66 - goal create/start and every service tick stay closed across restart while other profiles work
+  ---
+  duration_ms: 556.646
+  ...
+# Subtest: reviewing a finished worker cannot launch newly eligible dependent workers after closure
+ok 67 - reviewing a finished worker cannot launch newly eligible dependent workers after closure
+  ---
+  duration_ms: 798.3988
+  ...
+1..67
+# tests 67
+# suites 0
+# pass 67
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 29686.1733

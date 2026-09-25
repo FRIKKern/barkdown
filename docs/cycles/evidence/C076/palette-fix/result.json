@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-25T16:41:18.895Z",
+  "source": "a752dfb6a2d60fb1db64abbb32e9627bd7971eb1",
+  "sourceStatus": "M app/renderer/src/index.js\n M app/tests/profile-goals-recovery.live.mjs\n?? docs/cycles/evidence/C076/final-validation/\n?? docs/cycles/evidence/C076/palette-fix-plan.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T16:41:19.019Z",
+      "log": "build.log",
+      "elapsedMs": 996,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "goal-recovery",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app",
+      "argv": [
+        "node",
+        "tests/profile-goals-recovery.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T16:41:20.020Z",
+      "log": "goal-recovery.log",
+      "elapsedMs": 29264,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-09-25T16:41:49.286Z"
+}

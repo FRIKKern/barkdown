@@ -1,0 +1,237 @@
+TAP version 13
+# Subtest: invalid pre-dispatch owner reports positively that no new process was launched
+ok 1 - invalid pre-dispatch owner reports positively that no new process was launched
+  ---
+  duration_ms: 4.9305
+  ...
+# Subtest: Windows owned job cancellation stops a real child/grandchild tree before acknowledging
+ok 2 - Windows owned job cancellation stops a real child/grandchild tree before acknowledging
+  ---
+  duration_ms: 1685.7808
+  ...
+# Subtest: forced supervisor death closes job and restart verifier proves the entire owned tree stopped
+ok 3 - forced supervisor death closes job and restart verifier proves the entire owned tree stopped
+  ---
+  duration_ms: 2099.8902
+  ...
+# Subtest: normal worker exit drains descendants and duplicate attempt launch is refused
+ok 4 - normal worker exit drains descendants and duplicate attempt launch is refused
+  ---
+  duration_ms: 998.9523
+  ...
+# Subtest: abrupt main host exit closes its control pipe and restart verifies descendant shutdown
+ok 5 - abrupt main host exit closes its control pipe and restart verifies descendant shutdown
+  ---
+  duration_ms: 1645.8035
+  ...
+# Subtest: planning, worker, review and summary all authenticate before durable reservation or dispatch
+ok 6 - planning, worker, review and summary all authenticate before durable reservation or dispatch
+  ---
+  duration_ms: 39.3379
+  ...
+# Subtest: real agent.start runs three owned API loops and persists their independent transcripts
+ok 7 - real agent.start runs three owned API loops and persists their independent transcripts
+  ---
+  duration_ms: 75.2078
+  ...
+# Subtest: done event does not release worker before trusted driver cleanup completes
+ok 8 - done event does not release worker before trusted driver cleanup completes
+  ---
+  duration_ms: 29.3917
+  ...
+# Subtest: changed context or mismatched profile fails before a transcript or provider starts
+ok 9 - changed context or mismatched profile fails before a transcript or provider starts
+  ---
+  duration_ms: 13.6485
+  ...
+# Subtest: cancel during real API stream waits for finalization and records partial output
+ok 10 - cancel during real API stream waits for finalization and records partial output
+  ---
+  duration_ms: 21.5282
+  ...
+# Subtest: transcript failure stops the provider and reports uncertain effects instead of success
+ok 11 - transcript failure stops the provider and reports uncertain effects instead of success
+  ---
+  duration_ms: 14.751
+  ...
+# Subtest: an acknowledged duplicate reservation never launches a second provider
+ok 12 - an acknowledged duplicate reservation never launches a second provider
+  ---
+  duration_ms: 10.6098
+  ...
+# Subtest: Promise-returning transcript sink is rejected before provider dispatch
+ok 13 - Promise-returning transcript sink is rejected before provider dispatch
+  ---
+  duration_ms: 6.8645
+  ...
+# Subtest: unknown finalization retains the execution slot until trusted termination proof
+ok 14 - unknown finalization retains the execution slot until trusted termination proof
+  ---
+  duration_ms: 21.6354
+  ...
+# Subtest: captured assignment images reach actual API transport; another profile path is rejected
+ok 15 - captured assignment images reach actual API transport; another profile path is rejected
+  ---
+  duration_ms: 25.4228
+  ...
+# Subtest: worker provider launches disable native recursive delegation without changing ordinary chats
+ok 16 - worker provider launches disable native recursive delegation without changing ordinary chats
+  ---
+  duration_ms: 55.4182
+  ...
+# Subtest: structured coordinator uses acknowledged final provider message while retaining commentary
+ok 17 - structured coordinator uses acknowledged final provider message while retaining commentary
+  ---
+  duration_ms: 67.9487
+  ...
+# Subtest: expired goal provider session retains authentication assistance after terminal settlement
+ok 18 - expired goal provider session retains authentication assistance after terminal settlement
+  ---
+  duration_ms: 16.6261
+  ...
+# Subtest: real provider loops persist three full workers through profile switch, stale save, reload and review
+ok 19 - real provider loops persist three full workers through profile switch, stale save, reload and review
+  ---
+  duration_ms: 2198.8739
+  ...
+# Subtest: Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+ok 20 - Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+  ---
+  duration_ms: 1611.1853
+  ...
+# Subtest: goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+ok 21 - goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+  ---
+  duration_ms: 597.0548
+  ...
+# Subtest: recovered reservation cannot be reviewed or retried until trusted shutdown verification
+ok 22 - recovered reservation cannot be reviewed or retried until trusted shutdown verification
+  ---
+  duration_ms: 548.6992
+  ...
+# Subtest: verified settled completion retention is bounded without dropping unresolved proof
+ok 23 - verified settled completion retention is bounded without dropping unresolved proof
+  ---
+  duration_ms: 38.6402
+  ...
+# Subtest: real job-owned worker bridges exact owner, approvals, sessions and finalization
+ok 24 - real job-owned worker bridges exact owner, approvals, sessions and finalization
+  ---
+  duration_ms: 714.9998
+  ...
+# Subtest: cancelling an approval-held real worker waits for job drain and releases lease once
+ok 25 - cancelling an approval-held real worker waits for job drain and releases lease once
+  ---
+  duration_ms: 619.516
+  ...
+# Subtest: 20MiB image descriptor and6MiB history cross the real bridge in both directions without truncation
+ok 26 - 20MiB image descriptor and6MiB history cross the real bridge in both directions without truncation
+  ---
+  duration_ms: 1167.9214
+  ...
+# Subtest: malformed post-handshake message overrides an earlier success and persists failed completion
+ok 27 - malformed post-handshake message overrides an earlier success and persists failed completion
+  ---
+  duration_ms: 745.1475
+  ...
+# Subtest: closure is durable, idempotent and profile-owned; reads never create a record
+ok 28 - closure is durable, idempotent and profile-owned; reads never create a record
+  ---
+  duration_ms: 289.0647
+  ...
+# Subtest: malformed preparation refuses instead of resetting or silently opening
+ok 29 - malformed preparation refuses instead of resetting or silently opening
+  ---
+  duration_ms: 170.914
+  ...
+# Subtest: closure during delayed runtime refuses dispatch and releases its runtime
+ok 30 - closure during delayed runtime refuses dispatch and releases its runtime
+  ---
+  duration_ms: 285.0492
+  ...
+# Subtest: closure during delayed authentication refuses dispatch and releases its runtime
+ok 31 - closure during delayed authentication refuses dispatch and releases its runtime
+  ---
+  duration_ms: 308.067
+  ...
+# Subtest: capacity-release notifications cannot admit a closed profile but other profiles can acquire
+ok 32 - capacity-release notifications cannot admit a closed profile but other profiles can acquire
+  ---
+  duration_ms: 213.8634
+  ...
+# Subtest: goal create/start and every service tick stay closed across restart while other profiles work
+ok 33 - goal create/start and every service tick stay closed across restart while other profiles work
+  ---
+  duration_ms: 670.9558
+  ...
+# Subtest: reviewing a finished worker cannot launch newly eligible dependent workers after closure
+ok 34 - reviewing a finished worker cannot launch newly eligible dependent workers after closure
+  ---
+  duration_ms: 984.8642
+  ...
+# Subtest: ordinary dispatch rechecks closure after the authentication wrapper resolves
+ok 35 - ordinary dispatch rechecks closure after the authentication wrapper resolves
+  ---
+  duration_ms: 284.8392
+  ...
+# Subtest: goal dispatch rechecks closure after the authentication wrapper resolves
+ok 36 - goal dispatch rechecks closure after the authentication wrapper resolves
+  ---
+  duration_ms: 590.5012
+  ...
+# Subtest: ordinary drain waits for pending acquisition and its asynchronous release without blocking B
+ok 37 - ordinary drain waits for pending acquisition and its asynchronous release without blocking B
+  ---
+  duration_ms: 341.3955
+  ...
+# Subtest: ordinary drain cancels a late dispatch and waits for driver, lease and transcript completion
+ok 38 - ordinary drain cancels a late dispatch and waits for driver, lease and transcript completion
+  ---
+  duration_ms: 514.8806
+  ...
+# Subtest: a driver flag without native proof cannot pass ordinary drain on retry or restart
+ok 39 - a driver flag without native proof cannot pass ordinary drain on retry or restart
+  ---
+  duration_ms: 460.2469
+  ...
+# Subtest: runtime release failure remains a preparation fault after the pending start rejects
+ok 40 - runtime release failure remains a preparation fault after the pending start rejects
+  ---
+  duration_ms: 233.9742
+  ...
+# Subtest: restart drain verifies interrupted ownership but preserves the separate effects review
+ok 41 - restart drain verifies interrupted ownership but preserves the separate effects review
+  ---
+  duration_ms: 403.4339
+  ...
+# Subtest: ordinary drain retains foreign completion failure after native verification
+ok 42 - ordinary drain retains foreign completion failure after native verification
+  ---
+  duration_ms: 490.7528
+  ...
+# Subtest: ordinary drain retains cleanup completion failure after native verification
+ok 43 - ordinary drain retains cleanup completion failure after native verification
+  ---
+  duration_ms: 480.7146
+  ...
+# Subtest: native ordinary preparation drains A child/grandchild and preserves the running B tree
+ok 44 - native ordinary preparation drains A child/grandchild and preserves the running B tree
+  ---
+  duration_ms: 2351.9883
+  ...
+# {"fixture":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-Rpe83v","aReceipt":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-Rpe83v\\\\profiles\\\\ec770eb1-dead-49be-b0c9-f236663735ab\\\\goal-processes\\\\9d7afebb-9e03-4966-99a6-a966253cb397.receipt.json","aTree":{"root":59396,"pid":49692,"leaf":39328},"bTree":{"root":13344,"pid":58348,"leaf":43880},"retained":true}
+# {"passed":["generation saves","trusted scope","durable approvals","cross-profile controls","late A transcript with B draft","driver finalization","foreign image rejection","dispatch input snapshot"],"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-profile-service-enPYcz","retained":true}
+# Subtest: app\\tests\\profile-service.test.mjs
+ok 6 - app\\tests\\profile-service.test.mjs
+  ---
+  duration_ms: 2547.6447
+  ...
+1..45
+# tests 45
+# suites 0
+# pass 45
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 9270.6547

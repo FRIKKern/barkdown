@@ -50,6 +50,7 @@ function controller(inputStore) {
       value.pending.some(p => !p || !uuid(p.id) || !uuid(p.generation) || !Number.isSafeInteger(p.pid) || p.pid < 1 ||
         typeof p.operation !== 'string' || !/^[a-zA-Z0-9:._-]{1,100}$/.test(p.operation) || !['active', 'uncertain'].includes(p.status)) ||
       new Set(value.pending.map(p => p.id)).size !== value.pending.length) fail('metadata', 'Writer state is invalid; no operation was discarded.');
+    if (value.retiredGenerations !== undefined && (!Array.isArray(value.retiredGenerations) || value.retiredGenerations.some(g => !uuid(g)) || new Set(value.retiredGenerations).size !== value.retiredGenerations.length)) fail('metadata', 'Writer generation history is invalid.');
     return { value, rawIdentity, rawState };
   }
   function locked(action) {
@@ -131,11 +132,15 @@ function controller(inputStore) {
     const item = value.pending.find(p => p.id === scope.id);
     if (scope.rootHash !== rootHash || value.owner !== scope.token.owner || !item || item.generation !== scope.token.generation || item.pid !== process.pid || item.status !== 'active') fail('owner', 'The nested operation no longer owns its writer admission.');
   }
-  function quiesce(token) {
+  function quiesce(token, { generation = crypto.randomUUID() } = {}) {
+    // A preparation coordinator journals its intended generation before the
+    // transition, so restart can distinguish its own cut from foreign closure.
+    if (!uuid(generation) || generation === token?.generation) fail('token', 'Quiescence requires a fresh writer generation.');
     return locked(lease => {
       const snapshot = load(true), value = snapshot.value;
       if (!same(token, value) || value.phase !== 'open') fail('stale', 'Quiescence requires the current open writer generation.');
-      const next = { ...value, generation: crypto.randomUUID(), phase: 'quiescing' };
+      if ((value.retiredGenerations || []).includes(generation)) fail('token', 'A retired writer generation cannot be reused.');
+      const next = { ...value, generation, phase: 'quiescing', retiredGenerations: [...new Set([...(value.retiredGenerations || []), value.generation])] };
       save(snapshot, next, lease);
       return Object.freeze({ version: 1, owner: next.owner, generation: next.generation });
     });
@@ -146,7 +151,23 @@ function controller(inputStore) {
     if (value.pending.length) fail('pending', 'Active or uncertain writers remain. Process termination alone does not prove a write was absent.');
     return Object.freeze({ ...token, quiescent: true });
   }
-  return Object.freeze({ capture, run, quiesce, assertQuiescent, inspect: () => structuredClone(load(true).value) });
+  function reopen(token, { generation, priorGeneration } = {}) {
+    if (!uuid(generation) || generation === token?.generation) fail('token', 'Reopening requires a fresh writer generation.');
+    if (priorGeneration !== undefined && !uuid(priorGeneration)) fail('token', 'Invalid prior writer generation.');
+    return locked(lease => {
+      const snapshot = load(), value = snapshot.value;
+      if (!same(token, value) || value.phase !== 'quiescing') fail('stale', 'Reopening requires the current quiescence generation.');
+      if (value.pending.length) fail('pending', 'Active or uncertain writers remain; reopening cannot discard them.');
+      // Older quiescence records predate generation history. The owned durable
+      // preparation supplies its original generation instead of forgetting it.
+      const retired = [...new Set([...(value.retiredGenerations || []), value.generation, ...(priorGeneration ? [priorGeneration] : [])])];
+      if (retired.includes(generation)) fail('token', 'A retired writer generation cannot be reused.');
+      const next = { ...value, generation, phase: 'open', retiredGenerations: retired };
+      save(snapshot, next, lease);
+      return Object.freeze({ version: 1, owner: next.owner, generation: next.generation });
+    });
+  }
+  return Object.freeze({ capture, run, quiesce, reopen, assertQuiescent, inspect: () => structuredClone(load(true).value) });
 }
 
 // The foreground compatibility facade can follow profile roots, but never

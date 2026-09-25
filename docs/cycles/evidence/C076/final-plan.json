@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "desktop",
+      "cwd": ".",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "test"
+      ]
+    }
+  ]
+}

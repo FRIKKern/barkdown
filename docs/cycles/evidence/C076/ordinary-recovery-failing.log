@@ -1,0 +1,32 @@
+TAP version 13
+# Subtest: ordinary drain retains foreign completion failure after native verification
+not ok 1 - ordinary drain retains foreign completion failure after native verification
+  ---
+  duration_ms: 630.2088
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\profile-launch-admission.test.mjs:228:45'
+  failureType: 'testCodeFailure'
+  error: 'Completion ownership mismatch'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\profile-service.js:127:113
+  ...
+# Subtest: ordinary drain retains cleanup completion failure after native verification
+not ok 2 - ordinary drain retains cleanup completion failure after native verification
+  ---
+  duration_ms: 619.4025
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\profile-launch-admission.test.mjs:228:45'
+  failureType: 'testCodeFailure'
+  error: 'Run cleanup is unconfirmed'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\profile-service.js:129:79
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 0
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1382.7763

@@ -13,9 +13,11 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
   settingsFor = store => store.readJson('settings.json', {}), connectionFor = () => ({ enabled: false }), runtimePool = null,
   sendEvent = () => {}, assertAuthentication = async () => {}, defaultProvider = () => 'api' }) {
   let generation = crypto.randomUUID();
+  const launchAdmission = require('./profile-launch-admission').createProfileLaunchAdmission({ registry });
   let switching = false;
   const completions = new Map();
   const dispatching = new Set();
+  const ordinary = new Set(), cleanupFaults = new Map();
   function recoverOrphans(profileId) {
     return workspaces.interruptOrdinary(profileId, (attemptId, runId, status) => dispatching.has(attemptId) || status !== 'interrupted' && runRegistry.runs.get(runId)?.scope.profileId === profileId);
   }
@@ -39,17 +41,23 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
   }
   function settings(profileId) { return settingsFor(registry.storeFor(profileId)); }
   async function resolve(profileId, chatId, request = {}) {
+    launchAdmission.assertOpen(profileId);
     const store = registry.storeFor(profileId), ws = workspaces.load(profileId), chat = ws.chats[chatId];
     if (!chat) throw new Error('Conversation is not owned by this profile');
     const chatContext = captureChatContext(chat);
     const s = structuredClone(settings(profileId));
     let lease = null;
+    let releasePromise;
+    const release = () => releasePromise ||= Promise.resolve().then(() => lease?.release()).catch(error => {
+      cleanupFaults.set(profileId, error); throw error;
+    });
     try {
       const local = s.barkpark?.local;
       if (local?.enabled) {
         if (!runtimePool) throw new Error('Profile runtime support is unavailable');
         lease = await runtimePool.acquire(profileId, { source: local.source, writes: Boolean(s.barkpark.writes), ownerId: request.attemptId || crypto.randomUUID() });
       }
+      launchAdmission.assertOpen(profileId);
       assertChatContext(chatContext, workspaces.load(profileId).chats[chatId]);
       const connection = lease ? { ...lease.connection, enabled: lease.connection.enabled && s.barkpark.enabled !== false } : connectionFor(s, store);
       const provider = chat.provider || s.provider || defaultProvider();
@@ -60,9 +68,10 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
       const scope = captureScope({ profileId, storeDir: store.storeDir, connection,
         context: { profileId, chatId, title: chat.title, folder: chat.folder || null, catchUp } });
       return { scope, chat: { ...structuredClone(chat), provider }, chatContext, settings: s,
-        assertAuthentication: async () => { await assertAuthentication(provider, s, scope); assertChatContext(chatContext, workspaces.load(profileId).chats[chatId]); },
-        release: async () => { await lease?.release(); } };
-    } catch (error) { await lease?.release(); throw error; }
+        assertLaunch: () => launchAdmission.assertOpen(profileId),
+        assertAuthentication: async () => { launchAdmission.assertOpen(profileId); await assertAuthentication(provider, s, scope); launchAdmission.assertOpen(profileId); assertChatContext(chatContext, workspaces.load(profileId).chats[chatId]); },
+        release };
+    } catch (error) { await release(); throw error; }
   }
   function validateImages(scope, images) {
     for (const image of images || []) {
@@ -79,16 +88,33 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
     }
   }
   async function start(owner, input) {
+    const profileId = validate(owner);
+    launchAdmission.assertOpen(profileId);
+    let settleStart;
+    const ticket = { profileId, runId: null, stopping: false, completion: null,
+      started: new Promise(resolve => { settleStart = resolve; }) };
+    // Register before the first await, including runtime/authentication resolution.
+    ordinary.add(ticket);
+    try { return await startTurn(owner, input, ticket); }
+    finally {
+      settleStart();
+      if (ticket.completion) ticket.completion.then(() => ordinary.delete(ticket), () => {});
+      else ordinary.delete(ticket);
+    }
+  }
+  async function startTurn(owner, input, ticket) {
     input = structuredClone(input);
     const profileId = validate(owner), attemptId = input.attemptId === undefined ? crypto.randomUUID() : input.attemptId;
+    ticket.attemptId = attemptId;
+    launchAdmission.assertOpen(profileId);
     // A renderer ID correlates its pending UI only; it grants no ownership and
     // cannot adopt/replay an existing durable attempt, even with identical text.
     if (typeof attemptId !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(attemptId)) throw new Error('Invalid attempt identity');
     if (workspaces.load(profileId).ownership?.attempts?.[attemptId]) throw new Error('This attempt was already reserved; do not dispatch it again');
     recoverOrphans(profileId);
     const resolved = await resolve(profileId, input.chatId, { attemptId });
-    let runId = null, began = false, released = false, persistenceFault = null;
-    const release = async () => { if (!released) { released = true; await resolved.release(); } };
+    let runId = null, began = false, releasePromise, persistenceFault = null;
+    const release = () => releasePromise ||= resolved.release();
     const request = { profileId, chatId: input.chatId, attemptId, prompt: input.prompt || '', images: input.images || [], provider: resolved.chat.provider };
     function notifyDriverState() {
       const ws = recoverOrphans(profileId), chat = ws.chats[request.chatId], attempt = ws.ownership.attempts[attemptId];
@@ -97,7 +123,10 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
     }
     function observeCompletion() {
       if (completions.has(runId)) return;
-      const completion = agent.waitForRunFinish(runId).then(result => {
+      const completion = Promise.resolve().then(() => agent.waitForRunFinish(runId)).then(async result => {
+        if (result.profileId !== profileId || result.chatId !== request.chatId || result.runId !== runId) throw new Error('Completion ownership mismatch');
+        await release();
+        if (result.cleanupFailed || result.status === 'cleanup-failed') throw new Error('Run cleanup is unconfirmed');
         workspaces.finish(request, { ...result, status: persistenceFault ? 'interrupted' : result.status, driverFinished: true });
         notifyDriverState();
         return result;
@@ -106,6 +135,7 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
         throw error;
       });
       completions.set(runId, completion);
+      ticket.completion = completion;
       // Observers may attach later; retain the rejection without an unhandled promise.
       completion.catch(() => {});
       completion.finally(() => { if (completions.size > 200) completions.delete(completions.keys().next().value); }).catch(() => {});
@@ -115,10 +145,13 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
       assertProviderFolder(resolved.chat.provider, resolved.scope.context.folder);
       validateImages(resolved.scope, request.images);
       await resolved.assertAuthentication();
+      // The caller resumes in a later microtask than the authentication wrapper.
+      resolved.assertLaunch();
       assertChatContext(resolved.chatContext, workspaces.load(profileId).chats[request.chatId]);
       const reservation = workspaces.begin(request, resolved);
       if (!reservation.fresh) throw new Error('This attempt was already reserved; do not dispatch it again');
       began = true;
+      ticket.reserved = true;
       dispatching.add(attemptId);
       const model = resolved.chat.model;
       const providerSettings = { ...resolved.settings, effort: resolved.chat.effort || undefined };
@@ -129,7 +162,9 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
         send(event) {
           if (persistenceFault) return;
           try {
-            runId ||= event.runId; workspaces.event(request, event);
+            runId ||= event.runId; ticket.runId = runId;
+            if (ticket.stopping) agent.cancel(runId);
+            workspaces.event(request, event);
             // Background ownership is independent of the foreground workspace's
             // readability. A missing B must not cancel A after persisting its event.
             if (registry.load()?.selectedProfileId === profileId) sendEvent({ ...event, assistantId: reservation.assistantId, attemptId });
@@ -137,7 +172,8 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
           catch (error) { persistenceFault = error; if (runId) agent.cancel(runId); }
         } });
       runId = result.runId;
-      if (persistenceFault) agent.cancel(runId);
+      ticket.runId = runId;
+      if (persistenceFault || ticket.stopping) agent.cancel(runId);
       observeCompletion();
       return { runId, profileId, attemptId, assistantId: reservation.assistantId };
     } catch (error) {
@@ -149,6 +185,41 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
       throw error;
     } finally { dispatching.delete(attemptId); }
   }
+  async function drainOrdinary(profileId) {
+    const closure = launchAdmission.close(profileId);
+    const tickets = [...ordinary].filter(ticket => ticket.profileId === profileId);
+    for (const ticket of tickets) {
+      ticket.stopping = true;
+      if (ticket.runId) agent.cancel(ticket.runId);
+    }
+    // A start may not have a run ID yet. Its late identity must be cancelled and
+    // its completion observer installed before taking the completion snapshot.
+    await Promise.all(tickets.map(ticket => ticket.started));
+    const settled = await Promise.allSettled(tickets.map(ticket => ticket.completion));
+    const attempts = workspaces.load(profileId).ownership?.attempts || {};
+    const verify = new Map(tickets.filter(ticket => ticket.reserved).map(ticket => [ticket.attemptId, ticket.runId]));
+    // A driver flag is not a native receipt. Recheck retained reservations too,
+    // including after restart or a failed previous drain. Older unowned turns
+    // need an explicit reconciliation policy before they can cross this gate.
+    for (const [id, attempt] of Object.entries(attempts)) if (!attempt.goalId) verify.set(id, attempt.runId);
+    for (const [attemptId, runId] of verify) {
+      if (!agent.verifyTermination || await agent.verifyTermination({ request: { profileId, attemptId, storeDir: registry.storeFor(profileId).storeDir }, runId }) !== true) {
+        throw new Error('Ordinary process shutdown is unverified; profile launch admission remains closed');
+      }
+    }
+    const failure = settled.find(result => result.status === 'rejected');
+    if (failure) throw failure.reason;
+    assertRuntimeCleanup(profileId);
+    // Preserve interrupted-turn review. OS termination alone never acknowledges
+    // uncertain transcript effects, and this boundary does not drain goal journals.
+    if (Object.values(workspaces.load(profileId).ownership?.attempts || {}).some(attempt => !attempt.goalId && !attempt.driverFinished)) {
+      throw new Error('Interrupted ordinary transcripts require recovery before preparation');
+    }
+    return Object.freeze({ profileId, closureId: closure.id, scope: 'ordinary' });
+  }
+  function assertRuntimeCleanup(profileId) {
+    if (cleanupFaults.has(profileId)) throw cleanupFaults.get(profileId);
+  }
   async function recover(owner, { chatId, attemptId, action, note }) {
     const profileId = validate(owner);
     recoverOrphans(profileId);
@@ -159,7 +230,16 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
     validate(owner);
     if (!stopped) throw new Error('The previous process is not verified stopped. No new turn was allowed.');
     workspaces.verifyOrdinary(profileId, chatId, attemptId);
-    if (action === 'review') workspaces.releaseOrdinary(profileId, chatId, attemptId, note);
+    if (action === 'review') {
+      const retiring = [...ordinary].filter(ticket => ticket.profileId === profileId && ticket.attemptId === attemptId);
+      await Promise.all(retiring.map(ticket => ticket.started));
+      await Promise.allSettled(retiring.map(ticket => ticket.completion));
+      validate(owner);
+      workspaces.releaseOrdinary(profileId, chatId, attemptId, note);
+      // Verified shutdown plus an acknowledged effects review supersedes this
+      // attempt's rejected observer. Separate runtime-release faults stay blocked.
+      for (const ticket of retiring) ordinary.delete(ticket);
+    }
     return load(owner);
   }
   function ownedRun(owner, runId) {
@@ -200,6 +280,6 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
       return { profileId, generation, cleanupWarning };
     } finally { switching = false; }
   }
-  return Object.freeze({ view, validate, load, save, resolve, start, cancel, approve, wait, select, recover, workspaces, settings });
+  return Object.freeze({ view, validate, load, save, resolve, start, cancel, approve, wait, select, recover, workspaces, settings, launchAdmission, drainOrdinary, assertRuntimeCleanup });
 }
 module.exports = { createProfileService };

@@ -55,7 +55,15 @@ export function serialise() {
   return { version: 1, profileId: state.profileId, generation: state.generation, chats, order: state.order, favorites: state.favorites, pages: state.pages, current: state.current, mode: state.mode, directTab: state.directTab };
 }
 
-export const save = debounce(() => { api.state.save(serialise()).catch(error => {
+let workspaceSavesPaused = false;
+// Preparation persists one complete snapshot through its capture ticket. Keep
+// queued autosaves from racing that boundary; a refused capture resumes them.
+export function pauseWorkspaceSaves(paused) {
+  const previous = workspaceSavesPaused; workspaceSavesPaused = paused;
+  if (previous && !paused) save();
+  return previous;
+}
+export const save = debounce(() => { if (workspaceSavesPaused) return; api.state.save(serialise()).catch(error => {
   console.warn('save failed', error);
   toast('Changes are not saved. Keep this window open to copy your draft. ' + error.message, 'error');
 }); }, 400);

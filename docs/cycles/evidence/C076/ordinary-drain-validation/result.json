@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-25T13:59:22.409Z",
+  "source": "ac2033463bf4230daa350c68c0fc578235f0aa0e",
+  "sourceStatus": "",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T13:59:22.515Z",
+      "log": "build.log",
+      "elapsedMs": 723,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "ordinary-drain",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "node",
+        "--test",
+        "app/tests/profile-launch-admission.test.mjs",
+        "app/tests/profile-service.test.mjs",
+        "app/tests/goal-service.test.mjs",
+        "app/tests/goal-provider.test.mjs",
+        "app/tests/goal-worker-agent.test.mjs",
+        "app/tests/goal-process.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T13:59:23.244Z",
+      "log": "ordinary-drain.log",
+      "elapsedMs": 9346,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "test"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T13:59:32.593Z",
+      "log": "desktop.log",
+      "elapsedMs": 532560,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-09-25T14:08:25.148Z"
+}

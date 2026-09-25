@@ -8,6 +8,7 @@ globalThis.requestAnimationFrame = fn => setTimeout(fn, 0);
 globalThis.matchMedia = () => ({ matches: false });
 let transport;
 window.barkdown = {
+  paperDrafts: { retain: (...args) => transport.retain(...args) },
   barkpark: { get: (...args) => transport.get(...args), applyOps: (...args) => transport.applyOps(...args), patchTitle: (...args) => transport.patchTitle(...args), backlinks: async () => [], history: () => transport.history?.() || Promise.resolve([]), bundle: () => transport.bundle?.() || Promise.resolve({}), onLocalStatus: () => () => {} },
   docs: { paperProposals: id => transport.proposals?.(id) || Promise.resolve([]), agentEdit: async () => null },
 };
@@ -22,6 +23,7 @@ class Canvas extends HTMLElement {
     }
   }
   hasPendingChanges() { return this.pending; }
+  recoverySnapshot() { return this.snapshot || { mode: 'rich', blocks: this.blocks }; }
   flushPendingChanges() { this.flushed = true; }
   acknowledgeOps(seq) { this.acknowledgements.push(seq); this.pending = false; this.onAck?.(); }
   applyServerBlocks(blocks) { this.echoes.push(blocks); this.blocks = blocks; }
@@ -400,6 +402,112 @@ await test('connection-change banner never labels the old paper as editing the n
   const m=mount();await tick();try {state.settings={barkpark:{writes:true,connectionIdentity:'B'}};m.controller.connectionChanged();assert.match(m.host.querySelector('#banner').textContent,/Connection changed/);assert.doesNotMatch(m.host.querySelector('#meta').textContent,/Editing live/);
     state.settings={barkpark:{writes:true,connectionIdentity:'A'}};m.controller.connectionChanged();assert.match(m.host.querySelector('#meta').textContent,/Editing live/);
   } finally {m.close();state.settings=old;}
+});
+await test('recovery flushes rich node controls and retains live projection plus exact unsaved title', async () => {
+  let retained;
+  transport = { get: async id => ({ ...paper(id), recoveryToken: 'owned-A' }), retain: async (token, draft) => { retained = { token, draft }; return { key: 'retained' }; } };
+  const m = mount(); await tick(); await tick();
+  try {
+    const c = m.canvas(), node = document.createElement('div'); node.dataset.bpType = 'code'; c.append(node);
+    c.pending = true;
+    node.addEventListener('bp-flush-node', () => { c.snapshot = { mode: 'rich', blocks: [{ id: 'code', type: 'code', value: 'pending code' }] }; });
+    const title = m.host.querySelector('#title'); title.value = '  raw title  '; title.dispatchEvent(new dom.window.Event('input', { bubbles: true }));
+    const r = await m.controller.retainRecovery();
+    assert.equal(r.current, true); assert.equal(retained.token, 'owned-A');
+    assert.equal(retained.draft.title, '  raw title  '); assert.equal(retained.draft.baseRevision, 1);
+    assert.equal(retained.draft.snapshot.blocks[0].value, 'pending code');
+    assert.equal(c.blocks[0].id, 'A-p'); assert.equal(m.controller.isDirty(), true);
+    assert.equal(c.flushed, undefined, 'does not force full canvas flush');
+  } finally { m.close(); }
+});
+await test('recovery keeps raw Markdown source and refuses composition without ending it', async () => {
+  let calls = 0;
+  transport = { get: async id => ({ ...paper(id), recoveryToken: 'owned-A' }), retain: async (_, d) => { calls++; assert.equal(d.snapshot.raw_source, '## Raw  \r\n'); return {}; } };
+  const m = mount(); await tick(); await tick();
+  try {
+    const c = m.canvas(); c.snapshot = { mode: 'markdown', raw_source: '## Raw  \r\n', blocks: [] };
+    const label = c.querySelector('.ProseMirror');
+    label.dispatchEvent(new dom.window.Event('compositionstart', { bubbles: true }));
+    assert.equal(m.controller.isDirty(), true);
+    await assert.rejects(m.controller.retainRecovery(), /Finish composing/); assert.equal(calls, 0);
+    assert.equal(c.flushed, undefined);
+    label.dispatchEvent(new dom.window.Event('compositionend', { bubbles: true }));
+    assert.equal((await m.controller.retainRecovery()).current, true); assert.equal(calls, 1);
+    assert.equal(c.flushed, undefined);
+  } finally { m.close(); }
+});
+await test('late local retention acknowledgement cannot certify newer typing or clear dirty state', async () => {
+  const gate = deferred(); let retained;
+  transport = { get: async id => ({ ...paper(id), recoveryToken: 'owned-A' }), retain: async (_, d) => { retained = structuredClone(d); return gate.promise; } };
+  const m = mount(); await tick(); await tick();
+  try {
+    const c = m.canvas(); c.pending = true; c.snapshot = { mode: 'rich', blocks: [{ text: 'first draft' }] };
+    const result = m.controller.retainRecovery();
+    c.snapshot = { mode: 'rich', blocks: [{ text: 'newer toolbar change without DOM input' }] };
+    gate.resolve({ key: 'older-copy' });
+    assert.equal((await result).current, false); assert.equal(retained.snapshot.blocks[0].text, 'first draft');
+    assert.equal(c.snapshot.blocks[0].text, 'newer toolbar change without DOM input'); assert.equal(m.controller.isDirty(), true);
+  } finally { gate.resolve({}); m.close(); }
+});
+await test('recovery retains original connection capability after Settings changes and refuses failed storage', async () => {
+  const old = state.settings;
+  state.settings = { barkpark: { writes: true, connectionIdentity: 'A' } };
+  transport = { get: async id => ({ ...paper(id), recoveryToken: 'original-owner', connectionIdentity: 'A' }), retain: async token => { assert.equal(token, 'original-owner'); throw new Error('Disk unavailable'); } };
+  const m = mount(); await tick(); await tick();
+  try {
+    m.canvas().pending = true; state.settings = { barkpark: { writes: true, connectionIdentity: 'B' } };
+    await assert.rejects(m.controller.retainRecovery(), /Disk unavailable/);
+    assert.equal(m.controller.isDirty(), true); assert.equal(m.canvas().blocks[0].id, 'A-p');
+  } finally { m.close(); state.settings = old; }
+});
+await test('recovery refuses unavailable or failed serialization before storage', async () => {
+  transport = { get: async id => ({ ...paper(id), recoveryToken: 'owned-A' }), retain: async () => assert.fail('must not retain an incomplete projection') };
+  const m = mount(); await tick(); await tick();
+  try {
+    m.canvas().snapshot = { mode: 'rich', serialization_error: 'failed', blocks: [] };
+    await assert.rejects(m.controller.retainRecovery(), /serialization failed/);
+    m.canvas().recoverySnapshot = undefined;
+    await assert.rejects(m.controller.retainRecovery(), /serialization failed/);
+  } finally { m.close(); }
+});
+await test('Paper preparation freeze holds its exact buffer and cannot outlive its owned controller', async () => {
+  transport = { get: async id => ({ ...paper(id), recoveryToken: 'owned-A' }), retain: async () => ({ profileId: 'A', key: 'a'.repeat(64) }) };
+  const m = mount(); await tick(); await tick();
+  try {
+    const lease = await m.controller.freezeRecovery();
+    assert.equal(lease.profileId, 'A'); assert.equal(m.controller.el.inert, true); assert.equal(lease.assertCurrent(), true);
+    assert.equal(m.controller.canClose(), false); assert.equal(m.canvas().flushed, undefined);
+    await assert.rejects(m.controller.freezeRecovery(), /already frozen/);
+    m.canvas().snapshot = { mode: 'rich', blocks: [{ text: 'late programmatic edit' }] };
+    assert.equal(lease.assertCurrent(), false);
+    lease.release(); assert.equal(Boolean(m.controller.el.inert), false);
+    assert.equal(lease.assertCurrent(), false); assert.throws(() => lease.release(), /ownership changed/);
+  } finally { m.close(); }
+});
+await test('Paper preparation refuses composition before moving focus and releases a failed persistence freeze', async () => {
+  transport = { get: async id => ({ ...paper(id), recoveryToken: 'owned-A' }), retain: async () => { throw Error('Disk failed'); } };
+  const m = mount(); await tick(); await tick();
+  try {
+    const title = m.host.querySelector('#title'); title.focus();
+    title.dispatchEvent(new dom.window.Event('compositionstart', { bubbles: true }));
+    await assert.rejects(m.controller.freezeRecovery(), /Finish composing/);
+    assert.equal(Boolean(m.controller.el.inert), false); assert.equal(document.activeElement, title);
+    title.dispatchEvent(new dom.window.Event('compositionend', { bubbles: true }));
+    await assert.rejects(m.controller.freezeRecovery(), /Disk failed/);
+    assert.equal(Boolean(m.controller.el.inert), false);
+  } finally { m.close(); }
+});
+await test('late freeze acknowledgement refuses a changed buffer and releases only its own lock', async () => {
+  const gate = deferred();
+  transport = { get: async id => ({ ...paper(id), recoveryToken: 'owned-A' }), retain: () => gate.promise };
+  const m = mount(); await tick(); await tick();
+  try {
+    const freezing = m.controller.freezeRecovery(); assert.equal(m.controller.el.inert, true);
+    m.canvas().snapshot = { mode: 'rich', blocks: [{ text: 'newer input' }] };
+    gate.resolve({ profileId: 'A', key: 'a'.repeat(64) });
+    await assert.rejects(freezing, /changed during preparation/); assert.equal(Boolean(m.controller.el.inert), false);
+    assert.equal(m.canvas().snapshot.blocks[0].text, 'newer input');
+  } finally { gate.resolve({}); m.close(); }
 });
 console.log(JSON.stringify(cases, null, 2));
 dom.window.close();

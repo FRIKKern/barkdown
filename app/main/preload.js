@@ -15,6 +15,20 @@ async function call(channel, ...args) {
 }
 
 const api = {
+  preparation: {
+    prepare: () => call('preparation:prepare'), status: () => call('preparation:status'),
+    abort: () => call('preparation:abort'),
+    retain: (id, token, draft) => call('preparation:retain', { id, token, draft }),
+    saveView: (id, snapshot) => call('preparation:saveView', { id, snapshot }),
+    onRequest: handler => {
+      const listener = async (_event, request) => {
+        let value, error;
+        try { value = await handler(request); } catch (failure) { error = failure.message || String(failure); }
+        await call('preparation:reply', { id: request.id, value, error }).catch(() => {});
+      };
+      ipcRenderer.on('preparation:request', listener); return () => ipcRenderer.removeListener('preparation:request', listener);
+    },
+  },
   goals: {
     list: captured => rawCall('goals:list', { owner: captured, args: [captured.chatId] }),
     create: (captured, input) => rawCall('goals:create', { owner: captured, args: [captured.chatId, input] }),
@@ -27,6 +41,7 @@ const api = {
   } },
   settings: { get: () => call('settings:get'), set: patch => call('settings:set', patch) },
   originalHistory: { list: () => call('originalHistory:list'), choose: () => call('originalHistory:choose'), read: input => call('originalHistory:read', input) },
+  paperDrafts: { retain: (token, draft) => call('paperDrafts:retain', { token, draft }), list: () => call('paperDrafts:list'), read: key => call('paperDrafts:read', key), copy: (key, format) => call('paperDrafts:copy', { key, format }) },
   attachments: { save: input => call('attachments:save', input) },
   app: { pickFolder: () => call('app:pickFolder'), openExternal: url => call('app:openExternal', url), openPath: p => call('app:openPath', p), info: () => call('app:info'), platform: process.platform },
   state: { load: () => call('state:load'), save: state => call('state:save', state), command: command => call('state:command', command) },

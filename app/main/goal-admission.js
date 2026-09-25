@@ -1,11 +1,12 @@
 // One main-owned coordinator is shared by all profile-local schedulers in a host.
 // A slot is released by driver finalization, never by deadline/abort/visibility.
 class GoalAdmission {
-  constructor(limit = 3) {
+  constructor(limit = 3, { canAcquire = () => true } = {}) {
     if (!Number.isInteger(limit) || limit < 1 || limit > 3) throw new Error('Worker limit must be 1–3');
-    this.limit = limit; this.owners = new Map(); this.listeners = new Set();
+    this.limit = limit; this.owners = new Map(); this.listeners = new Set(); this.canAcquire = canAcquire;
   }
   acquire({ profileId, chatId, attemptId }) {
+    if (!this.canAcquire(profileId)) return null;
     const key = JSON.stringify([profileId, chatId]);
     if (this.owners.size >= this.limit || this.owners.has(key)) return null;
     const owner = Object.freeze({ profileId, chatId, attemptId });

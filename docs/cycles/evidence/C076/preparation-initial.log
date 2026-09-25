@@ -1,0 +1,95 @@
+TAP version 13
+# Subtest: preparation joins real profile/goal drains, verified draft records and writer closure without affecting B
+ok 1 - preparation joins real profile/goal drains, verified draft records and writer closure without affecting B
+  ---
+  duration_ms: 341.7855
+  ...
+# Subtest: concurrent callers share one capture and do not prepare before delayed foreground/terminal completion
+ok 2 - concurrent callers share one capture and do not prepare before delayed foreground/terminal completion
+  ---
+  duration_ms: 217.3622
+  ...
+# Subtest: a changed human buffer refuses before writer closure and retains the recovery version
+ok 3 - a changed human buffer refuses before writer closure and retains the recovery version
+  ---
+  duration_ms: 188.6126
+  ...
+# Subtest: a refused drain still awaits every independent cleanup before releasing the foreground
+ok 4 - a refused drain still awaits every independent cleanup before releasing the foreground
+  ---
+  duration_ms: 178.4811
+  ...
+# Subtest: foreign ordinary drain evidence is refused
+ok 5 - foreign ordinary drain evidence is refused
+  ---
+  duration_ms: 166.8825
+  ...
+# Subtest: foreign goals drain evidence is refused
+ok 6 - foreign goals drain evidence is refused
+  ---
+  duration_ms: 171.2318
+  ...
+# Subtest: unverified terminal completion cannot be replaced by an empty IPC queue
+ok 7 - unverified terminal completion cannot be replaced by an empty IPC queue
+  ---
+  duration_ms: 175.009
+  ...
+# Subtest: active writer after drain closes admission but cannot mint a prepared receipt until settled
+ok 8 - active writer after drain closes admission but cannot mint a prepared receipt until settled
+  ---
+  duration_ms: 280.905
+  ...
+# Subtest: failed writer remains uncertain across restart and cannot be inferred absent from shutdown
+ok 9 - failed writer remains uncertain across restart and cannot be inferred absent from shutdown
+  ---
+  duration_ms: 280.2852
+  ...
+# Subtest: interruption after-collecting retains exact ownership and resumes with new service instances
+ok 10 - interruption after-collecting retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 242.51
+  ...
+# Subtest: interruption after-draining retains exact ownership and resumes with new service instances
+ok 11 - interruption after-draining retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 254.0384
+  ...
+# Subtest: interruption after-quiescing retains exact ownership and resumes with new service instances
+ok 12 - interruption after-quiescing retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 286.9159
+  ...
+# Subtest: interruption after-writer-closure retains exact ownership and resumes with new service instances
+ok 13 - interruption after-writer-closure retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 268.6599
+  ...
+# Subtest: interruption after-prepared retains exact ownership and resumes with new service instances
+ok 14 - interruption after-prepared retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 269.8896
+  ...
+# Subtest: changed retained draft and preparation record are never repaired or silently reset
+ok 15 - changed retained draft and preparation record are never repaired or silently reset
+  ---
+  duration_ms: 247.9649
+  ...
+# Subtest: foreign writer generation refuses even if a valid preparation record remains
+ok 16 - foreign writer generation refuses even if a valid preparation record remains
+  ---
+  duration_ms: 174.9307
+  ...
+# Subtest: independent coordinator cannot steal the in-flight profile lease
+ok 17 - independent coordinator cannot steal the in-flight profile lease
+  ---
+  duration_ms: 212.9122
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4092.1982

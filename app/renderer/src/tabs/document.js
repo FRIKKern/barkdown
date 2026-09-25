@@ -347,7 +347,7 @@ export function mountDocument(tab, host, ctx) {
     navigate() { presence.stop(); load(); },
     savePosition() { tab.scroll = q('#current').scrollTop; },
     focus() { editor?.commands.focus(); },
-    isDirty: () => dirty,
+    isDirty: () => dirty || saving,
     flush: () => persist.flush(),
     destroy() { destroyed = true; presence.destroy(); persist.flush(); editor?.destroy(); pane.remove(); },
   };
