@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "capture",
+      "cwd": ".",
+      "argv": [
+        "npm",
+        "run",
+        "visual:capture"
+      ]
+    },
+    {
+      "name": "compare",
+      "cwd": ".",
+      "argv": [
+        "npm",
+        "run",
+        "visual:compare"
+      ]
+    },
+    {
+      "name": "live-paper",
+      "cwd": ".",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "run",
+        "shots:isolated"
+      ]
+    }
+  ]
+}
