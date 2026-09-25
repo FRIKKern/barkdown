@@ -1,0 +1,35 @@
+concept	Run npm run verify	﻿2026-09-25T18:59:10.0577133Z ##[group]Run npm run verify
+concept	Run npm run verify	2026-09-25T18:59:10.0577499Z [36;1mnpm run verify[0m
+concept	Run npm run verify	2026-09-25T18:59:10.1337565Z shell: /usr/bin/bash -e {0}
+concept	Run npm run verify	2026-09-25T18:59:10.1338048Z ##[endgroup]
+concept	Run npm run verify	2026-09-25T18:59:10.2480390Z 
+concept	Run npm run verify	2026-09-25T18:59:10.2481215Z > barkdown-workspace@0.5.0 verify
+concept	Run npm run verify	2026-09-25T18:59:10.2482490Z > npm run build && npm run check && npm test
+concept	Run npm run verify	2026-09-25T18:59:10.2483239Z 
+concept	Run npm run verify	2026-09-25T18:59:10.3608346Z 
+concept	Run npm run verify	2026-09-25T18:59:10.3609133Z > barkdown-workspace@0.5.0 build
+concept	Run npm run verify	2026-09-25T18:59:10.3609738Z > node scripts/build.cjs
+concept	Run npm run verify	2026-09-25T18:59:10.3610010Z 
+concept	Run npm run verify	2026-09-25T18:59:10.8459953Z Built portable previews, GitHub-readable PRD, and source hashes.
+concept	Run npm run verify	2026-09-25T18:59:10.8808975Z Generated roadmap image and checklist.
+concept	Run npm run verify	2026-09-25T18:59:11.0292787Z 
+concept	Run npm run verify	2026-09-25T18:59:11.0293759Z > barkdown-workspace@0.5.0 check
+concept	Run npm run verify	2026-09-25T18:59:11.0295527Z > tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && npm run check:cycle && npm run check:visual
+concept	Run npm run verify	2026-09-25T18:59:11.0296938Z 
+concept	Run npm run verify	2026-09-25T18:59:12.2322299Z /home/runner/work/barkdown/barkdown/scripts/check.cjs:3
+concept	Run npm run verify	2026-09-25T18:59:12.2323261Z function fail(message){throw Error(message)}
+concept	Run npm run verify	2026-09-25T18:59:12.2323821Z                        ^
+concept	Run npm run verify	2026-09-25T18:59:12.2324080Z 
+concept	Run npm run verify	2026-09-25T18:59:12.2324703Z Error: Broken local link in docs/NEXT-AGENT.md:  cycles/evidence/C078/root/result.json 
+concept	Run npm run verify	2026-09-25T18:59:12.2325728Z     at fail (/home/runner/work/barkdown/barkdown/scripts/check.cjs:3:30)
+concept	Run npm run verify	2026-09-25T18:59:12.2326785Z     at Object.<anonymous> (/home/runner/work/barkdown/barkdown/scripts/check.cjs:14:280)
+concept	Run npm run verify	2026-09-25T18:59:12.2327743Z     at Module._compile (node:internal/modules/cjs/loader:1781:14)
+concept	Run npm run verify	2026-09-25T18:59:12.2328837Z     at Object..js (node:internal/modules/cjs/loader:1913:10)
+concept	Run npm run verify	2026-09-25T18:59:12.2329607Z     at Module.load (node:internal/modules/cjs/loader:1505:32)
+concept	Run npm run verify	2026-09-25T18:59:12.2330411Z     at Function._load (node:internal/modules/cjs/loader:1309:12)
+concept	Run npm run verify	2026-09-25T18:59:12.2331244Z     at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+concept	Run npm run verify	2026-09-25T18:59:12.2332255Z     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+concept	Run npm run verify	2026-09-25T18:59:12.2333142Z     at node:internal/main/run_main_module:36:49
+concept	Run npm run verify	2026-09-25T18:59:12.2333504Z 
+concept	Run npm run verify	2026-09-25T18:59:12.2333671Z Node.js v22.23.2
+concept	Run npm run verify	2026-09-25T18:59:12.2568932Z ##[error]Process completed with exit code 1.

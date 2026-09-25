@@ -11,3 +11,7 @@ No authority selection, retirement, deployment, server snapshot or fencing of di
 [Live Paper](live-paper/result.json) passed in 116.523s with real Claude and header 6/6; [review](live-review.json) covers five stills and 37 GIF frames. [Standard capture/compare](visual/result.json) passed in 23.828s/7.439s. All 40 stills and 40 decoded frames across eight GIFs were inspected in contact sheets, with narrow goals enlarged. Zero pixel/geometry changes; existing GIF palette bands are a fixture encoding limitation. Light fixtures serve established theme regression, dark live/native views are primary presentation. [Immutable approval](../../../visual/approved.json) selects the reviewed source-bound run.
 
 [Root verification](root/result.json) passed in 46.939s with staged documentation/evidence. The generated gallery has its existing trailing blank line; its approved report is preserved byte-for-byte.
+
+Hosted Verify run 36176744238 caught whitespace in two result links added after local verification. Linux resolves those paths literally. Corrected both links; final documentation is rechecked before the next push. Preserve this failure as a delivery lesson: run link checks after result annotations, not only before them. Existing visual/parity jobs are allowed to finish before pushing the correction.
+
+[Corrected root verification](root-final/result.json) passes in 46.890s. [First hosted visual review](hosted-visual-review.json) covers 40 stills, 40 differences and 40 GIF frames; Linux environment/provider differences do not replace the Windows baseline.

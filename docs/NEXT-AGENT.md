@@ -6,4 +6,4 @@ Scope frozen on codex/migration-comparison. Finish root verification and hosted 
 
 No owned test services remain. Preserve 43 locked recovery worktrees, two stashes and detached integration recovery; branch retirement is the next cleanup. Main plus one branch at this snapshot; heartbeat paused. G2 remains separate.
 
-Root verification passed in 46.939s; [source-bound result]( cycles/evidence/C078/root/result.json ). Hosted CI and merge are the only remaining delivery gates at this commit.
+Root verification passed in 46.939s; [source-bound result](cycles/evidence/C078/root/result.json). Hosted CI and merge are the only remaining delivery gates at this commit.

@@ -14,4 +14,4 @@ Efficiency lesson: inspect actual API record/seed/edit contracts before expandin
 
 Hygiene: main plus one delivery branch; preserve 43 locked recovery worktrees, two stashes and detached integration recovery. Next cleanup is this branch after verified merge; older recovery material needs provenance review before retirement. Owned disposable test services stopped; heartbeat paused. Root README demo remains applicable because renderer behavior is unchanged.
 
-Root verification passed in 46.939s; [source-bound result]( evidence/C078/root/result.json ). Hosted CI and merge are the only remaining delivery gates at this commit.
+Root verification passed in 46.939s; [source-bound result](evidence/C078/root/result.json). Hosted CI and merge are the only remaining delivery gates at this commit.
