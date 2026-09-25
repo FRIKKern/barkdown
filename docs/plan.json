@@ -97,7 +97,7 @@
       "id": "G1",
       "title": "Land and pin the upstream editor baseline",
       "status": "blocked",
-      "reason": "Checked 2026-09-25: C073 integrates the full Paper stack with current main in PR #20020 at 677992c51; all four required gates pass. Upstream merge/deployment scope and fallback pin adoption remain open; the shipped pin is bf23f773.",
+      "reason": "Checked 2026-09-25: PR20020 merged at b70214090 after all four required gates passed on 677992c51; PR19579 is also merged. Owned upstream branches retired. Pin adoption and consumed-baseline retest remain open; shipped fallback is bf23f773.",
       "url": "https://github.com/FRIKKern/barkpark/pull/20020",
       "evidence": [
         "docs/cycles/evidence/C073/README.md"
