@@ -54,7 +54,15 @@ function applyEvent(chat, reply, event, at) {
 }
 
 function createWorkspaceRepository({ registry, now = () => new Date().toISOString() }) {
+  const writers = new Map();
+  function writer(profileId, token) {
+    const root = registry.storeFor(profileId).storeDir;
+    const key = JSON.stringify([root, token || null]);
+    if (!writers.has(key)) writers.set(key, require('./writer-admission').writerForStore(require('./store').createStore(root, { create: false }), { token }));
+    return writers.get(key);
+  }
   function read(profileId) {
+    void writer(profileId).token;
     const store = registry.storeFor(profileId);
     const recovery = reason => new Error(`${reason} at ${store.storeDir}/workspace.json. Close Barkdown and restore the original file or a verified backup. No replacement was created.`);
     let ws;
@@ -117,6 +125,7 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
     const history = chat.apiHistory?.length ? [...clone(chat.apiHistory), { role: 'user', content: user.text || 'See the attached image.' }]
       : chat.messages.filter(m => m.id !== assistantId && (m.text || m.role === 'user')).map(m => ({ role: m.role, content: m.text || 'See the attached image.' }));
     meta.attempts[request.attemptId] = { chatId, assistantId, userId, fingerprint, history, status: 'reserved', driverFinished: false, sequence: 0, runId: null,
+      writerToken: resolved.scope?.writerToken || writer(profileId).token,
       ...(request.role ? { role: request.role } : {}), contextVersion: resolved.chatContext.version, goalId: request.goalId || null, taskId: request.taskId || null, coordinatorChatId: request.coordinatorChatId || null };
     if (!request.goalId) Object.assign(meta.attempts[request.attemptId], { request: clone(request), capturedContext: clone(resolved.scope.context || {}), model: resolved.chat?.model || null, effort: resolved.chat?.effort || null });
     chat.runProvider = request.provider; chat.updatedAt = at;
@@ -230,7 +239,7 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
       chat.interruption = { attemptId: id, shutdownVerified: attempt.recovery.shutdownVerified, interruptedAt: attempt.recovery.interruptedAt };
       for (const item of reply.approvals || []) if (item.status === 'pending') { item.status = 'interrupted'; changed = true; }
     }
-    if (changed) write(profileId, ws);
+    if (changed) writer(profileId).run('workspace.interruptOrdinary', () => write(profileId, ws));
     return clone(ws);
   }
   function ordinaryRecovery(profileId, chatId, id) {
@@ -256,6 +265,12 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
     chat.interruption = null; chat.runId = null; chat.sessions = {}; chat.sessionSeen = {}; chat.apiHistory = [];
     return write(profileId, ws);
   }
-  return Object.freeze({ load, saveView, begin, event, finish, stageWorkerChats, command, approval, interruptOrdinary, ordinaryRecovery, verifyOrdinary, releaseOrdinary });
+  const mutations = { saveView, begin, event, finish, stageWorkerChats, command, approval, verifyOrdinary, releaseOrdinary };
+  return Object.freeze({ load, ordinaryRecovery, interruptOrdinary, ...Object.fromEntries(Object.entries(mutations).map(([name, action]) => [name, (...args) => {
+    const profileId = typeof args[0] === 'string' ? args[0] : args[0].profileId;
+    let captured = name === 'begin' ? args[1]?.scope?.writerToken : undefined;
+    if (name === 'event' || name === 'finish') captured = metadata(read(profileId)).attempts[args[0].attemptId]?.writerToken;
+    return writer(profileId, captured).run('workspace.' + name, () => action(...args));
+  }])) });
 }
 module.exports = { createWorkspaceRepository };

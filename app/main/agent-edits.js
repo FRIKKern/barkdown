@@ -7,6 +7,7 @@ const { markdownToDoc } = require('../shared/markdown');
 const { markdownToBlocks } = require('../shared/portabledoc');
 
 function createAgentEdits({ store, documents }) {
+const writer = documents.writer || require('./writer-admission').writerForStore(store);
 const ownership = require('./paper-evidence-owner').createPaperEvidenceOwner(store);
 const receiptPath = id => 'agent-edits/' + crypto.createHash('sha256').update(id).digest('hex') + '.json';
 const ownedPath = (id, owner) => 'agent-edits/remote-' + crypto.createHash('sha256').update(JSON.stringify([id, owner])).digest('hex') + '.json';
@@ -132,9 +133,9 @@ async function undo(id, editId, config, persist) {
   return result;
 }
 return {
-  apply: (input, config) => withReceipt(input.id, config, persist => apply(input, config, persist)),
-  applyTable: (input, config) => withReceipt(input.id, config, persist => applyTable(input, config, persist)),
-  undo: (id, editId, config) => withReceipt(id, config, persist => undo(id, editId, config, persist)), latest,
+  apply: async (input, config) => writer.run('agent-edit.apply', () => withReceipt(input.id, config, persist => apply(input, config, persist))),
+  applyTable: async (input, config) => writer.run('agent-edit.table', () => withReceipt(input.id, config, persist => applyTable(input, config, persist))),
+  undo: async (id, editId, config) => writer.run('agent-edit.undo', () => withReceipt(id, config, persist => undo(id, editId, config, persist))), latest,
 };
 }
 module.exports = { ...createAgentEdits({ store: require('./store'), documents: require('./documents') }), createAgentEdits };

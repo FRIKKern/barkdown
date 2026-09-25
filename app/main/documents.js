@@ -4,7 +4,8 @@ const path = require('path');
 const crypto = require('crypto');
 const { markdownToDoc, docToMarkdown, docToText } = require('../shared/markdown');
 
-function createDocuments(store) {
+function createDocuments(store, { writer = null, lazyWriter = false } = {}) {
+writer ||= require('./writer-admission').writerForStore(store, { lazy: lazyWriter });
 const paperOwnership = require('./paper-evidence-owner').createPaperEvidenceOwner(store);
 const MAX_REVISIONS = 60;
 const cache = new Map();
@@ -28,12 +29,13 @@ function reload(id) {
 }
 
 function loadAll({ seed: seedEmpty = true } = {}) {
+  void writer.token;
   cache.clear();
   for (const file of store.list('documents', '.json')) {
     const doc = store.readJson(file, null);
     if (doc && doc.id) cache.set(doc.id, doc);
   }
-  if (!cache.size && seedEmpty) seed();
+  if (!cache.size && seedEmpty) writer.run('documents.seed', seed);
   return cache;
 }
 
@@ -253,6 +255,8 @@ function takePaperProposal(slug, proposalId, config) {
   return proposal;
 }
 
-return { paperProposals, addPaperProposal, takePaperProposal, loadAll, reload, list, get, create, save, remove, backlinks, related, history, restore, search, addProposal, resolveProposal, summary };
+const mutations = { addPaperProposal, takePaperProposal, create, save, remove, restore, addProposal, resolveProposal };
+return { writer, paperProposals, loadAll, reload, list, get, backlinks, related, history, search, summary,
+  ...Object.fromEntries(Object.entries(mutations).map(([name, action]) => [name, (...args) => writer.run('documents.' + name, () => action(...args))])) };
 }
-module.exports = { ...createDocuments(require('./store')), createDocuments };
+module.exports = { ...createDocuments(require('./store'), { lazyWriter: true }), createDocuments };

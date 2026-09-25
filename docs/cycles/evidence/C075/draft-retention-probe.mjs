@@ -1,0 +1,31 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
+import assert from 'node:assert/strict';
+const root = process.argv[2];
+const require = createRequire(path.join(root, 'package.json'));
+const { JSDOM } = require('jsdom');
+const dom = new JSDOM('<!doctype html><html><body></body></html>', { pretendToBeVisual: true, url: 'http://localhost/' });
+const { window } = dom;
+for (const name of ['customElements','CustomEvent','document','DOMParser','Element','Event','EventTarget','HTMLElement','KeyboardEvent','MutationObserver','Node','NodeFilter','Selection','Text']) globalThis[name] = window[name];
+globalThis.window=window; Object.defineProperty(globalThis,'navigator',{configurable:true,value:window.navigator});
+globalThis.getComputedStyle=window.getComputedStyle.bind(window);
+globalThis.requestAnimationFrame=window.requestAnimationFrame.bind(window);globalThis.cancelAnimationFrame=window.cancelAnimationFrame.bind(window);
+globalThis.CSS={escape:String};window.BP_PAPER_EDITOR_NO_INJECT=true;
+window.Range.prototype.getClientRects=()=>[];
+window.Range.prototype.getBoundingClientRect=()=>({top:0,left:0,right:0,bottom:0});
+await import(pathToFileURL(path.join(root,'src/canvas/index.js')));
+const canvas=document.createElement('bp-paper-canvas');
+canvas.blocks=[{id:'note-1',type:'note',label:'Acknowledged label',text:'Body'},{id:'code-1',type:'code',value:'before',lang:'text'}];
+const batches=[];canvas.addEventListener('bp-canvas-ops',event=>batches.push(event.detail));document.body.append(canvas);
+await new Promise(r=>setTimeout(r,350));
+try {
+ const label=canvas.querySelector('[data-test-id="paper-note-label"]');assert.ok(label);
+ label.dispatchEvent(new window.Event('compositionstart',{bubbles:true}));label.textContent='Human composition not committed';label.dispatchEvent(new window.Event('input',{bubbles:true}));
+ const pendingBefore=canvas.hasPendingChanges(), snapshot=canvas.recoverySnapshot();const original=JSON.stringify(snapshot);
+ assert.equal(pendingBefore,true);assert.equal(original.includes('Human composition not committed'),false);
+ canvas.flushPendingChanges();const after=canvas.recoverySnapshot();assert.equal(JSON.stringify(after).includes('Human composition not committed'),false);
+ const result={at:new Date().toISOString(),scope:'Mounted jsdom source audit, no network or native IME claim',upstream:'b702140907921e82e9ce5eecb3e2445f13ab2d6e',finding:'recoverySnapshot omits active note-label composition; flushPendingChanges deliberately leaves composing islands uncommitted',visibleLabel:label.textContent,pending:pendingBefore,snapshot,afterFlush:after,emittedBatches:batches.length,required:'A migration freeze must finish composition safely or retain raw pending island text; snapshot alone cannot justify restart or lossless draft preservation.'};
+ fs.writeFileSync(process.argv[3],JSON.stringify(result,null,2)+'\n');console.log(result.finding);
+}finally{canvas.remove();dom.window.close();}

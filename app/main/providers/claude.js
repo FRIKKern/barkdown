@@ -3,7 +3,7 @@
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
-const { createRun, finish, requestApproval, activityForTool, relativeTo, mcpServerSpec, scratchFolder } = require('./runs');
+const { createRun, finish, emitFailure, requestApproval, activityForTool, relativeTo, mcpServerSpec, scratchFolder } = require('./runs');
 const { frozenCopy } = require('./run-scope');
 
 let sdk = null;
@@ -33,7 +33,7 @@ const SYSTEM_APPEND = `You are working inside Barkdown, a desktop workspace wher
 - Keep replies short and plain.`;
 
 function start({ chatId, prompt, images, context, settings, send, storeDir, session, scope, profileId, connection, onFinish }) {
-  const run = createRun({ chatId, context, send, provider: 'claude', scope, storeDir, profileId, connection, onFinish });
+  const run = createRun({ chatId, context, send, provider: 'claude', scope, storeDir, profileId, connection, onFinish, batchText: true });
   context = run.context;
   storeDir = run.scope.storeDir;
   settings = frozenCopy(settings || {}); images = frozenCopy(images || []);
@@ -130,7 +130,7 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
       }
       run.emit({ type: 'done', cancelled: run.cancelled, session: sessionId, provider: 'claude', finalMessage });
     } catch (error) {
-      run.emit(require('./auth-error').providerError('claude', error));
+      emitFailure(run, require('./auth-error').providerError('claude', error));
     } finally { await finish(run); }
   })();
   return { runId: run.id };

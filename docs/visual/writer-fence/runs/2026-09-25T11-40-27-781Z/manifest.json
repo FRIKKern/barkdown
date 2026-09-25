@@ -1,0 +1,39 @@
+{
+  "host": "6033ee40d68becdebc2341688e406307295d8129",
+  "upstream": "b702140907921e82e9ce5eecb3e2445f13ab2d6e",
+  "capture": true,
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-writer-native-58WM4f",
+  "frames": [
+    "01-acknowledged-paper.png",
+    "02-save-refused-buffer-retained.png",
+    "03-narrow-refusal.png",
+    "04-restarted-original-history.png"
+  ],
+  "videos": [
+    "page@9e73e8696d9bcea743ee05414bdfc68f.webm",
+    "page@8bab89f211b74527492a67cdcd270fb2.webm"
+  ],
+  "checks": [
+    "Real Paper title/body acknowledged before quiescence; stale native note/create/ops/attachment/workspace requests refused",
+    "Typing remains visible in the unsaved buffer; server revision/body and original source/workspace bytes unchanged",
+    "Restart keeps writer admission closed while verified original history remains readable"
+  ],
+  "errors": [],
+  "passed": true,
+  "refusal": {
+    "legacy": "[writer_stale] This editor or run belongs to an earlier library generation. Writes are stopped; keep unsaved work open.",
+    "create": "[writer_stale] This editor or run belongs to an earlier library generation. Writes are stopped; keep unsaved work open.",
+    "paper": "[writer_stale] This editor or run belongs to an earlier library generation. Writes are stopped; keep unsaved work open.",
+    "attachment": "[writer_stale] This editor or run belongs to an earlier library generation. Writes are stopped; keep unsaved work open.",
+    "workspace": "[writer_stale] This editor or run belongs to an earlier library generation. Writes are stopped; keep unsaved work open."
+  },
+  "unsavedBuffer": "A dependable writing desk\n\nThese words were acknowledged before preparation. This unsaved thought stays in the open buffer.",
+  "artifacts": {
+    "01-acknowledged-paper.png": "08dca83ef7d34444f00cdefaa1cb56441e30ddc5900cc82ebe11f4a7347e6638",
+    "02-save-refused-buffer-retained.png": "4c9c4bdb724236fe4440d4d5f8ece254394e709db72a8e983a06b8dab71ded3f",
+    "03-narrow-refusal.png": "b110d9e6278116399eb0684aa4c90c3c1248ba0f1ff695a13e7c6ed8a0e52b3d",
+    "04-restarted-original-history.png": "6626fa4a5fd3514b940d9418f97ffad7d1afdecbfc9611edb34c44319e439c15",
+    "page@8bab89f211b74527492a67cdcd270fb2.webm": "2644dec41fd570c21828dbef4e824f260e7ee2632cc052a68e248b4cd3777da5",
+    "page@9e73e8696d9bcea743ee05414bdfc68f.webm": "f44c701aa95ac57b0dae16598c78b32827b205cd0fa20fd8ea78b63e127ba463"
+  }
+}

@@ -10,8 +10,9 @@ const { createProfileRegistry, validateProfileId } = require('./profile-registry
 const { createRuntimeAdoption, assertCold, runtimeInventory } = require('./profile-runtime-adoption');
 const { acquireFileLease } = require('./file-lease');
 const { assertProfileNativeStopped } = require('./profile-native-preflight');
+const { controlFiles, assertAdoptable } = require('./writer-admission');
 const owners = new WeakMap();
-const shellEntries = new Set(['workspace.json', 'settings.json', 'barkpark.json', 'local-credentials.json', 'paper-proposals.json', 'documents', 'attachments', 'agent-edits']);
+const shellEntries = new Set(['workspace.json', 'settings.json', 'barkpark.json', 'local-credentials.json', 'paper-proposals.json', 'documents', 'attachments', 'agent-edits', ...controlFiles]);
 const phases = new Set(['prepared', 'snapshotted', 'candidate', 'ready', 'activating', 'active', 'rolling-back', 'rolled-back']);
 const sha = value => crypto.createHash('sha256').update(value).digest('hex');
 function safe(file) {
@@ -49,6 +50,7 @@ function acquireAuthorityLease(userData) {
   return token;
 }
 async function shellInventory(root) {
+  assertAdoptable(root);
   const files = [], dirs = [];
   async function walk(relative) {
     const file = child(root, relative), stat = await fsp.lstat(file);
@@ -183,6 +185,7 @@ function createLegacyAdoption({ userData, ownership, readSecrets, checkCold = as
       return value;
     }
     for (const file of j.manifest.files) {
+      if (controlFiles.includes(file.path)) continue;
       if (!file.path.endsWith('.json') && !file.path.endsWith('.md')) continue;
       if (file.path.startsWith('attachments/')) continue;
       const sourceBytes = await fsp.readFile(child(snapshotRoot, file.path));
@@ -229,7 +232,7 @@ function createLegacyAdoption({ userData, ownership, readSecrets, checkCold = as
       ownedWrite(child(p.work, 'shell-manifest.json'), { version: 1, source: j.source, manifest: j.manifest });
       j.phase = 'snapshotted'; ownedWrite(journalPath, j); emit('authority-snapshotted'); own();
       const registry = createProfileRegistry(p.candidate, { checkpoint: phase => emit('registry-' + phase) });
-      const profile = registry.adoptLegacy({ legacyDir: p.snapshot, name: j.name });
+      const profile = registry.adoptLegacy({ legacyDir: p.snapshot, name: j.name, writerSourceDir: j.source });
       if (j.profileId && j.profileId !== profile.id) throw new Error('Candidate profile identity changed');
       j.profileId = profile.id; j.phase = 'candidate'; ownedWrite(journalPath, j); emit('authority-candidate');
       const store = registry.storeFor(j.profileId);
@@ -238,7 +241,7 @@ function createLegacyAdoption({ userData, ownership, readSecrets, checkCold = as
       await remap(j, store, p.snapshot);
       await unchanged(j); own();
       const profileFiles = [];
-      for (const file of [...j.manifest.files.map(f => f.path), 'legacy-reference-map.json', ...(j.manifest.runtime ? ['runtime.json', 'runtime-adoption.json'] : [])]) { const relative = 'profiles/' + j.profileId + '/' + file; profileFiles.push({ path: relative, ...await digest(child(p.candidate, relative)) }); }
+      for (const file of [...j.manifest.files.map(f => f.path).filter(file => !controlFiles.includes(file)), 'legacy-reference-map.json', ...(j.manifest.runtime ? ['runtime.json', 'runtime-adoption.json'] : [])]) { const relative = 'profiles/' + j.profileId + '/' + file; profileFiles.push({ path: relative, ...await digest(child(p.candidate, relative)) }); }
       ownedWrite(child(p.candidate, 'legacy-authority.json'), { version: 1, operationId: j.operationId, profileId: j.profileId, finalRoot, shellManifestHash: sha(JSON.stringify(j.manifest)), profileFiles });
       j.readyHash = sha(fs.readFileSync(child(p.candidate, 'legacy-authority.json')));
       marker(j, p.candidate);

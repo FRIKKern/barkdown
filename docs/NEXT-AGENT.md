@@ -1,13 +1,13 @@
 # Current handoff
 
-**Current cycle:** [C074 Paper baseline and original history](cycles/C074-original-history.md). Local behavior, root verification and visual review complete; hosted closeout pending. P2/A2 remain open.
+**Current cycle:** [C075 captured writer generations](cycles/C075-writer-fence.md), active. C074 adopted the merged Paper baseline and original-history viewer in [PR37](https://github.com/FRIKKern/barkdown/pull/37), main75b16f9b. P2/A2 remains open; G1 is clear and G2 remains separate.
 
-**Run:** authorized through2026-09-25 13:44:56 UTC (15:44 Paris). Reuse codex/paper-migration-ready in C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration. Heartbeat barkdown-p2-two-hour-run resumes here; pause it at run closeout.
+**Run:** authorized through2026-09-25 13:44:56 UTC (15:44 Paris). Reuse codex/paper-migration-ready at C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration. Pause heartbeat barkdown-p2-two-hour-run at deadline closeout.
 
-**Next action:** commit evidence, push one consolidated PR and require hosted Verify/Visual/Editor parity before merge. No PR/push at this checkpoint. [Evidence index](cycles/evidence/C074/README.md) records exact scope, retained failures and reviews. Captured writer-generation fencing follows in one new bounded cycle after this checkpoint; [audit](cycles/evidence/C074/writer-boundary-audit.json) is preparation only.
+**Next action:** commit/push the final C075 evidence and review fresh hosted gates/artifacts on [PR38](https://github.com/FRIKKern/barkdown/pull/38) before the authorized merge. Current runtime source e4a60ac9 passes full desktop and30 focused stream/goal tests. Final native/live/standard media are inspected and approved; evidence/docs are uncommitted. No owned test service is running.
 
-**Proof:** implementation3fb18db; harness1573a6a/a126c71. Focused42/42, full desktop/root pass; native history, real fallback and live Paper reviewed. Initial real parity19/20 plus isolated IME4/4; do not call that a full20/20 run. Native keyboard tests now serial. Upstream private checkout is detached b70214090, tree-identical to validated677992c51, at C:/Users/Frikk/.codex/worktrees/barkpark-paper-create.
+**Proof:** [C075 evidence](cycles/evidence/C075/README.md) covers stale captured writers, asynchronous drain, interrupted-write refusal, actual native save refusal/readable originals, and streaming persistence/failure handling. Isolated20Hz dispatch backlog fell from up to2445ms to69ms; this is synthetic persistence timing. A real Claude Paper edit and6/6 table checks pass. Full parity20/20 passed before the provider-only follow-up; fresh hosted parity is required. Native suites run serially.
 
-**Limits:** no authority activation, legacy retirement or new deployment. Preserve source/backup/user data and shared services. G2 read-token enforcement remains separately blocked. Follow [CYCLES](CYCLES.md) and [visual rules](visual/RULES.md).
+**Next migration boundary:** close new ordinary/goal admissions and prove owned-child teardown; durably retain human drafts, including active composition; then compare/seal/select one authority with interruption and rollback proof. See [contract](migration/writer-fence.md). No activation, legacy retirement or deployment. Existing startup theme flash and heavy narrow Paper wrapping remain visible limitations.
 
-**Cleanup:** main plus one delivery lane; no owned service running. Retire merged refs only after tip/PR checks; retain historical recovery worktrees/stashes. Commit/push meaningful milestones; keep this handoff current.
+**Cleanup:** main plus one delivery lane;43 locked recovery worktrees and2 stashes are preserved. Retire the branch after its final verified merge. Preserve user data, backups and shared services. Private built upstream is detached atb70214090 in C:/Users/Frikk/.codex/worktrees/barkpark-paper-create.

@@ -25,6 +25,7 @@ async function handle(message) {
   if (message.type !== 'start' || started) throw new Error('Invalid worker dispatch');
   started = true;
   const { scope: captured, ...params } = message.params;
+  if (!captured.writerToken) throw new Error('Owned worker requires its captured writer generation');
   // SDK constructors may consult process.env in addition to explicit options.
   // This process handles one owned run, so restore its captured environment.
   for (const key of Object.keys(process.env)) if (!Object.hasOwn(captured.env, key)) delete process.env[key];

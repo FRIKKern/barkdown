@@ -7,6 +7,8 @@ import { spawnSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 const require = createRequire(import.meta.url);
 const { createProfileRegistry } = require('../main/profile-registry');
+const { createStore } = require('../main/store');
+const { writerForStore, controller, controlFiles } = require('../main/writer-admission');
 const modulePath = require.resolve('../main/profile-registry');
 const suiteRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-profile-registry-'));
 let checks = 0;
@@ -21,6 +23,7 @@ function fixture(name) {
   put('attachments/image.bin', 'image fixture bytes');
   put('workspace.json', { version: 1, unknownFutureField: 999, order: ['main', 'side'], chats: { main: { id: 'main', messages: [], tabs: [], folder: 'C:/fixture/A', draft: 'unsent', images: [path.join(legacy, 'attachments/image.bin')] }, side: { id: 'side', messages: [], tabs: [], parent: 'main', side: true } }, favorites: [{ id: 'same' }] });
   put('agent-edits/receipt.json', { id: 'same', beforeRev: 3, afterRev: 4 });
+  writerForStore(createStore(legacy)).run('test.seed', () => {});
   return { root, legacy, registry, put };
 }
 function tree(directory) {
@@ -39,6 +42,10 @@ test('adoption preserves all source/backup bytes, unknown fields, drafts, parent
   const backup = tree(path.join(f.registry, 'adoption-backups', journal.backupId)); delete backup['manifest.json'];
   assert.deepEqual(backup, before);
   const store = registry.storeFor(first.id);
+  const targetWriter = writerForStore(createStore(store.storeDir, { create: false }));
+  assert.notEqual(targetWriter.token.owner, controller(createStore(f.legacy)).capture().owner);
+  for (const file of controlFiles) assert.equal(fs.existsSync(path.join(store.storeDir, file)), false, 'original authority belongs only in the backup');
+  targetWriter.run('test.adopted', () => {});
   assert.deepEqual(store.readJson('workspace.json'), JSON.parse(fs.readFileSync(path.join(f.legacy, 'workspace.json'))));
   assert.equal(store.readJson('documents/same.json').unknownSchema, 99);
   assert.equal(store.readJson('settings.json').theme, undefined);
@@ -47,6 +54,21 @@ test('adoption preserves all source/backup bytes, unknown fields, drafts, parent
   store.writeJson('documents/same.json', { id: 'same', rev: 5 });
   registry.adoptLegacy({ legacyDir: f.legacy });
   assert.equal(store.readJson('documents/same.json').rev, 5, 'repeat must not overwrite edits');
+});
+
+test('pending, uncertain and quiescing legacy writer records refuse adoption without changing originals', () => {
+  for (const status of ['active', 'uncertain', 'quiescing']) {
+    const f = fixture('writer-' + status), control = controller(createStore(f.legacy));
+    if (status === 'quiescing') control.quiesce(control.capture());
+    else {
+      const file = path.join(f.legacy, 'writer-state.json'), value = JSON.parse(fs.readFileSync(file));
+      value.pending.push({ id: randomUUID(), generation: value.generation, pid: process.pid, operation: 'test.interrupted', status });
+      fs.writeFileSync(file, JSON.stringify(value));
+    }
+    const before = tree(f.legacy), registry = createProfileRegistry(f.registry);
+    assert.throws(() => registry.adoptLegacy({ legacyDir: f.legacy }), /reconciliation before adoption/);
+    assert.deepEqual(tree(f.legacy), before); assert.equal(registry.load(), null);
+  }
 });
 
 test('same-slug stores, credentials, receipts and selected restart remain isolated; captured handle stays in A', () => {

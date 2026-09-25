@@ -252,7 +252,7 @@ function withImages(messages, images) {
 }
 
 async function startApi({ chatId, messages, context, settings, send, images, originalMessages, scope, storeDir, profileId, connection, onFinish }) {
-  const run = providerRuns.createRun({ chatId, context, send, provider: 'api', scope, storeDir, profileId, connection, onFinish });
+  const run = providerRuns.createRun({ chatId, context, send, provider: 'api', scope, storeDir, profileId, connection, onFinish, batchText: true });
   context = run.context;
   settings = frozenCopy(settings || {});
   messages = frozenCopy(messages || []);
@@ -325,7 +325,7 @@ async function startApi({ chatId, messages, context, settings, send, images, ori
       let message = error?.message || String(error);
       if (Sdk && error instanceof Sdk.AuthenticationError) message = 'The Claude API key was rejected. Check Settings.';
       else if (Sdk && error instanceof Sdk.RateLimitError) message = 'Rate limited by the Claude API. Try again shortly.';
-      run.emit({ type: 'error', message, ...(require('./providers/auth-error').authenticationFailure(error) ? {authProvider:'api'} : {}) });
+      providerRuns.emitFailure(run, { type: 'error', message, ...(require('./providers/auth-error').authenticationFailure(error) ? {authProvider:'api'} : {}) });
     } finally {
       await providerRuns.finish(run);
     }

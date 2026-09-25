@@ -1,0 +1,83 @@
+TAP version 13
+# Subtest: quiescence keeps an async mutation admitted through its receipt and rejects successors
+ok 1 - quiescence keeps an async mutation admitted through its receipt and rejects successors
+  ---
+  duration_ms: 71.8342
+  ...
+# Subtest: bound documents and captured API scopes retain the old generation; reads survive
+ok 2 - bound documents and captured API scopes retain the old generation; reads survive
+  ---
+  duration_ms: 180.3719
+  ...
+# Subtest: foreign tokens and nested owners refuse without changing either document store
+ok 3 - foreign tokens and nested owners refuse without changing either document store
+  ---
+  duration_ms: 40.2597
+  ...
+# Subtest: failed or unawaited work cannot erase or reuse an admission
+ok 4 - failed or unawaited work cannot erase or reuse an admission
+  ---
+  duration_ms: 71.6534
+  ...
+# Subtest: missing or malformed metadata is retained and never reset by a fresh handle
+ok 5 - missing or malformed metadata is retained and never reset by a fresh handle
+  ---
+  duration_ms: 147.5625
+  ...
+# Subtest: a killed admitted child remains unresolved after process exit and controller restart
+ok 6 - a killed admitted child remains unresolved after process exit and controller restart
+  ---
+  duration_ms: 147.3735
+  ...
+# Subtest: persisted transcript writers refuse after restart without rebinding an old attempt
+ok 7 - persisted transcript writers refuse after restart without rebinding an old attempt
+  ---
+  duration_ms: 335.0611
+  ...
+# Subtest: independent processes racing quiescence retain admitted receipts and reject successors
+not ok 8 - independent processes racing quiescence retain admitted receipts and reject successors
+  ---
+  duration_ms: 169.2505
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\writer-admission.test.mjs:130:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + undefined
+    - null
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: ~
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/writer-admission.test.mjs:152:34)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: Node and Electron agree on the same durable store identity
+ok 9 - Node and Electron agree on the same durable store identity
+  ---
+  duration_ms: 167.9061
+  ...
+# Subtest: a surviving real MCP child refuses stale create/edit and keeps original reads
+ok 10 - a surviving real MCP child refuses stale create/edit and keeps original reads
+  ---
+  duration_ms: 472.4617
+  ...
+# Subtest: a delayed real owned goal worker cannot recapture a newer generation
+ok 11 - a delayed real owned goal worker cannot recapture a newer generation
+  ---
+  duration_ms: 595.7727
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 10
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1618.8699

@@ -1,0 +1,42 @@
+{
+  "source": "e4a60ac9b520bfa41680e87fd0a539f93f576eeb",
+  "observedAt": "2026-09-25T12:56:14.081Z",
+  "deadline": "2026-09-25T13:44:56Z",
+  "desktop": {
+    "status": "passed",
+    "sessionId": 92148,
+    "command": "npm --prefix app run build && npm --prefix app test",
+    "log": "desktop-release.log",
+    "exitCode": 0
+  },
+  "focused": {
+    "passed": 30,
+    "streamCases": 13,
+    "log": "stream-refusal-focused.log"
+  },
+  "next": "Commit/push final evidence, review fresh hosted gates/artifacts and merge PR38 when green. Then close C075 and retire the delivery branch in a documentation-only checkpoint.",
+  "limits": [
+    "No authority activation or legacy retirement",
+    "No durable human composition restoration",
+    "No owned child teardown gate yet"
+  ],
+  "capture": {
+    "status": "passed",
+    "sessionId": 15928,
+    "order": [
+      "native writer",
+      "isolated live Paper",
+      "standard capture and compare"
+    ],
+    "logs": "barkdown-c075-{native,live,visual}-release.log in TEMP",
+    "exitCode": 0,
+    "review": "docs/visual/writer-fence/runs/2026-09-25T12-45-28-088Z/review.json",
+    "standardApproval": "docs/visual/reviews/approval-f4022c289339ae25e54aa5922f092a4f19249bb0bd72fea353e31043c52a38e1.json"
+  },
+  "root": {
+    "status": "passed",
+    "exitCode": 0,
+    "command": "npm run verify",
+    "log": "root-release.log"
+  }
+}

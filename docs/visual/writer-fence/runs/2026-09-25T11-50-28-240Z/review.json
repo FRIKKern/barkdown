@@ -1,0 +1,48 @@
+{
+  "reviewer": "Codex",
+  "reviewedAt": "2026-09-25T12:03:37.660Z",
+  "source": "4e618ef7b6935e3de327908e6a67c0ede102f158",
+  "upstream": "b702140907921e82e9ce5eecb3e2445f13ab2d6e",
+  "accepted": true,
+  "manifestHash": "7e63d1d6c7c35247e1f0df7a6b84fd0c9c5302b6d7269f7152987079e69982ed",
+  "inspected": {
+    "nativeStills": 4,
+    "rawVideoSamplesAt1fps": 103,
+    "decodedExcerptFrames": 59,
+    "standardStills": 40,
+    "standardDifferences": 40,
+    "standardGifFrames": 40,
+    "liveStills": 5,
+    "liveGifFrames": 37
+  },
+  "nativeObservations": [
+    "Acknowledged content remains visible; typing after quiescence stays in the open buffer with a truthful save refusal.",
+    "BrowserWindow content geometry matches 1280x860 and 820x860. Narrow Paper wraps heavily but Retry and Discard remain reachable. Intentional resize is letterboxed; no content is cropped.",
+    "Restarted original history is readable. Closed workspace-save toast remains visible; it is not masked.",
+    "Raw startup light flash and private-runtime boot wait remain in full videos."
+  ],
+  "excerpt": {
+    "file": "writer-refusal.gif",
+    "sha256": "eef4a69f23078d5fb5e609c3af571138b9ec5707db062c41c8e619594d710975",
+    "source": "page@9b539dc0173381de27bf4c7053f4249b.webm",
+    "startSeconds": 88,
+    "requestedSeconds": 9,
+    "endsAtSourceEnd": true,
+    "decodedFrames": 59,
+    "encoding": "ffmpeg output -ss 88 -t 9 -r 8; full frame, 960px wide; 256 colours Floyd-Steinberg; 12cs frame delay; no crop"
+  },
+  "standardApproval": "docs/visual/reviews/approval-1537b78f5e5e8715183a5ba0cbb75d6f683f0138c8dca0df0ddd04535e007fc3.json",
+  "liveManifest": "docs/images/status/history/2026-09-25T11-55-19-744Z.json",
+  "liveManifestHash": "11d5fdbd60c39d25c6fbb39d37c10da1bd9af08cf06f41ea6325d51daa521483",
+  "liveObservations": [
+    "Actual Claude turn edited disposable Paper, saved revision 2; table headers/alignment 6/6.",
+    "Light views exercise contrast and interaction regression; dark Paper is the presentation still.",
+    "All 37 decoded GIF frames reviewed: slash-to-quote, typing, table navigation and quick open. No new clipping or palette bands observed."
+  ],
+  "limits": [
+    "Internal disposable controller drives quiescence; no shipped migration UI.",
+    "No abrupt-restart human draft recovery, child teardown, uncertain admission reconciliation, external-client fence, authority selection or legacy retirement.",
+    "Standard fixtures use step GIFs and reduced motion; existing quantized shadow bands remain.",
+    "Native excerpt supplements full recordings; 1fps raw review does not claim every raw video frame inspected."
+  ]
+}

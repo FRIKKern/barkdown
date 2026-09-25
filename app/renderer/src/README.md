@@ -47,3 +47,5 @@ C059 separates same-slug tabs, favorites and Pages by durable Paper owner. New P
 C060: [Owned Paper Archive](../../../docs/visual/paper-archive/README.md) records trusted main-process origin, local/cloud partition and preserved human organization across two profiles, failure and restart.
 
 C074 adds **Settings → Original history**, an inert read-only view of retained document revisions, proposals and agent receipts. Profile/request guards prevent late reads appearing in another library; historical links and images never execute or fetch. Unknown blocks retain exact JSON. [Native stills, motion and limits](../../../docs/visual/original-history/README.md).
+
+C075 regression review also fixes transcript disclosure intent: mouse and keyboard activation record open/closed state before a streaming render can replace the element. The desktop journey exercises an immediate render and preserves each neighboring step's state.

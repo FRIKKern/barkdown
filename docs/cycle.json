@@ -1,27 +1,31 @@
 {
   "version": 1,
-  "id": "C074",
+  "id": "C075",
   "stage": "P2",
   "status": "active",
-  "goal": "Consume the merged Paper baseline and make retained original history readable without restoring legacy authority.",
+  "goal": "Fence captured note writers across foreground, API, MCP and goal processes before migration can select a new authority.",
   "scope": [
-    "Adopt merged b70214090 assets and verify exact locked provenance, connected/cache/fallback boundaries and real Paper behavior.",
-    "Provide a profile-owned native read-only viewer for verified original documents, revisions, proposals and receipts, including unsupported content and restart.",
-    "Deliver reviewed screenshots/motion and source-bound behavior proof; keep migration activation and legacy retirement gated."
+    "Persist a store-owned generation and cross-process writer admission, retaining interrupted/uncertain operations.",
+    "Carry captured tokens through actual document/edit adapters and provider child boundaries; stale handles must refuse mutations.",
+    "Audit source workspace/media writers and prove the fence without enabling migration activation or retiring legacy editing.",
+    "Keep fenced provider streaming responsive with bounded pre-sequence text coalescing, without weakening persistence or finalization."
   ],
   "acceptance": [
-    "The shipped pin and fallback match merged upstream source, notices are preserved, and actual fallback plus live regression checks pass.",
-    "Original evidence is accessible through the app, pinned to the owning profile and backup hash; stale/undone receipts and old proposals are readable and cannot execute actions.",
-    "Wrong-owner, changed/corrupt/missing backups refuse safely; real native narrow/restart journeys and visual review pass."
+    "Stale foreground/API/MCP/goal contexts cannot silently acquire a newer writer generation.",
+    "Quiescence rejects new writers and cannot claim completion with an admitted or interrupted writer.",
+    "Wrong-owner, malformed metadata, process interruption and normal edit/Undo/profile behavior are covered by tests and reviewed native evidence.",
+    "Burst/sparse streams preserve text, event order and completion through durable forwarding while reducing the measured20Hz backlog."
   ],
   "checkpoint": "2026-09-25",
-  "handoff": "docs/cycles/C074-original-history.md",
-  "nextAction": "Commit reviewed evidence; push one PR and require hosted Verify/Visual/Editor parity before merging. Captured writer-generation fencing follows; deadline13:44:56 UTC.",
+  "handoff": "docs/cycles/C075-writer-fence.md",
+  "nextAction": "Commit/push final evidence, review fresh hosted gates/artifacts and merge PR38 when green. Then close C075 and retire the delivery branch in a documentation-only checkpoint.",
   "evidence": [
-    "docs/cycles/evidence/C074/README.md",
-    "docs/cycles/evidence/C074/consumption.json",
-    "docs/cycles/evidence/C074/review.json"
+    "docs/cycles/evidence/C075/README.md",
+    "docs/cycles/evidence/C075/desktop-release.log",
+    "docs/cycles/evidence/C075/stream-refusal-focused.log",
+    "docs/visual/writer-fence/runs/2026-09-25T12-45-28-088Z/review.json",
+    "docs/cycles/evidence/C075/root-release.log"
   ],
-  "truthReview": "Native read-only originals and exact merged fallback proven locally, including root verification. P2/A2 and hosted full parity remain open; initial19/20 plus isolated IME4/4 recorded separately.",
-  "screenshotReview": "Named standard approval plus native/fallback/live reviews complete; rejected first capture retained. C074 review.json records actual counts and limitations."
+  "truthReview": "Final source e4a60ac9 passes full desktop and30 targeted stream/goal checks, including13 stream cases. Provider coalescing preserves immediate first progress and durable ordering; failed sinks finalize without unhandled rejection in all three adapter loops. Root verification passes; final hosted delivery remains pending; migration activation remains off.",
+  "screenshotReview": "Final source:4 native stills/81 raw1fps samples/51 GIF frames, live5/37 and standard40/40/40 inspected. Standard has zero pixel/geometry differences and explicit immutable approval. Historical failures retained."
 }

@@ -1,0 +1,1731 @@
+
+> barkdown-desktop@0.6.0 build
+> node scripts/build.mjs
+
+
+  renderer\dist\app.js      2.8mb
+  renderer\dist\app.js.map  7.1mb
+
+Done in 333ms
+
+> barkdown-desktop@0.6.0 pretest
+> npm run build
+
+
+> barkdown-desktop@0.6.0 build
+> node scripts/build.mjs
+
+
+  renderer\dist\app.js      2.8mb
+  renderer\dist\app.js.map  7.1mb
+
+Done in 311ms
+
+> barkdown-desktop@0.6.0 test
+> node --test tests/stream-emitter.test.mjs tests/writer-admission.test.mjs tests/writer-process.test.mjs && node --test tests/migration-preflight.test.mjs && node --test tests/provider-authentication.test.mjs tests/provider-discovery.test.mjs tests/provider-auth-error.test.mjs tests/provider-login.test.mjs && node tests/provider-discovery.live.mjs && node --test tests/capture-lifecycle.test.mjs && node --test tests/external-resource.test.mjs && node --test tests/providers-runner.test.mjs && node --test tests/context-reservation.test.mjs && node --test tests/editor-vendor.test.mjs tests/editor-asset-proxy.test.mjs && node --test tests/folder-preflight.test.mjs && node tests/folder-preflight-composer.test.mjs && node --test tests/missing-folder-context.test.mjs && node --test tests/parity-runner.test.mjs && node tests/atomic-write.test.mjs && node --test tests/canvas-bundle.test.mjs tests/terminal-ownership.test.mjs tests/goals.test.mjs tests/goal-provider.test.mjs tests/goal-service.test.mjs tests/goal-process.test.mjs tests/goal-worker-agent.test.mjs tests/goal-recovery.test.mjs tests/adoption-boot.test.mjs tests/credential-durability.test.mjs tests/goal-coordinator.test.mjs tests/goal-coordinator-native.test.mjs && node tests/profile-registry.test.mjs && node tests/run-ownership.test.mjs && node tests/local-barkpark.test.mjs && node tests/portabledoc.test.mjs && node tests/opsrewrite.test.mjs && node tests/attachments.test.mjs && node tests/conversations.test.mjs && node tests/changes.test.mjs && node tests/agent.test.mjs && node tests/mcp.test.mjs && node tests/pages.test.mjs && node tests/run.mjs && node tests/agent-edit.live.mjs && node tests/composer-history.live.mjs && node tests/sidechat-ui.live.mjs && node tests/paper-host.test.mjs && node tests/workspace-preservation.test.mjs && node tests/workspace-preservation-ui.live.mjs && node tests/workspace-repository.test.mjs && node tests/profile-service.test.mjs && node tests/profile-runtime.test.mjs && node tests/file-lease.test.mjs && node tests/runtime-build.test.mjs && node tests/media-upload.test.mjs && node tests/goal-ui.live.mjs && node tests/goal-workspace.integration.mjs && node tests/profile-ipc.test.mjs && node tests/profile-ui.live.mjs && node tests/profile-goals.live.mjs && node tests/profile-runtime-adoption.test.mjs && node tests/managed-workspace.test.mjs && node tests/chat-width.live.mjs && node --test tests/profile-native-preflight.test.mjs && node tests/legacy-authority-adoption.test.mjs && node tests/adoption-window.live.mjs && node tests/adoption-ui.live.mjs && node tests/profile-goals-recovery.live.mjs && node tests/boot-draft.live.mjs && node tests/credential-durability.live.mjs && node tests/chat-recovery.test.mjs && node tests/chat-recovery.live.mjs && node tests/structured-table.test.mjs && node tests/goal-coordinator.live.mjs && node tests/goal-coordinator-recovery.live.mjs && node tests/api-paper.test.mjs && node tests/project-buffers.test.mjs && node tests/project-buffer-profile.live.mjs && node tests/terminal-ownership.live.mjs && node tests/project-file-authority.test.mjs && node tests/send-preservation.test.mjs && node tests/send-boundaries.test.mjs && node tests/legacy-send-preservation.test.mjs && node --test tests/migration-staging.test.mjs && node --test tests/migration-media.test.mjs && node --test tests/migration-restore.test.mjs && node --test tests/migration-native-source.test.mjs && node --test tests/migration-workspace.test.mjs && node --test tests/migration-evidence.test.mjs tests/original-history.test.mjs && node tests/original-history.live.mjs && node --test tests/paper-catalog.test.mjs tests/library-refresh.test.mjs && node --test tests/paper-connection.test.mjs && node tests/paper-evidence-owner.test.mjs && node --test tests/paper-navigation.test.mjs tests/paper-origin.test.mjs tests/draft-notes.test.mjs tests/note-creation.test.mjs tests/paper-deletions.test.mjs
+
+TAP version 13
+# Subtest: text bursts retain order around thinking, tools, replacements and terminal events
+ok 1 - text bursts retain order around thinking, tools, replacements and terminal events
+  ---
+  duration_ms: 2.0834
+  ...
+# Subtest: sparse streams flush, byte bounds and additional metadata never lose content
+ok 2 - sparse streams flush, byte bounds and additional metadata never lose content
+  ---
+  duration_ms: 48.8477
+  ...
+# Subtest: timer sink failure is retained without replay or an unhandled exception
+ok 3 - timer sink failure is retained without replay or an unhandled exception
+  ---
+  duration_ms: 45.8305
+  ...
+# Subtest: real run sequencing persists combined text before forwarding and survives repository restart
+ok 4 - real run sequencing persists combined text before forwarding and survives repository restart
+  ---
+  duration_ms: 359.9041
+  ...
+# Subtest: cancel and completion flush each owned run separately before releasing it
+ok 5 - cancel and completion flush each owned run separately before releasing it
+  ---
+  duration_ms: 5.6185
+  ...
+# Subtest: failed buffered persistence cannot become a successful terminal acknowledgement
+ok 6 - failed buffered persistence cannot become a successful terminal acknowledgement
+  ---
+  duration_ms: 150.4092
+  ...
+# Subtest: real HTTP creation stays admitted through delayed acknowledgement, readback and durable receipt
+ok 7 - real HTTP creation stays admitted through delayed acknowledgement, readback and durable receipt
+  ---
+  duration_ms: 133.5143
+  ...
+# Subtest: quiescence keeps an async mutation admitted through its receipt and rejects successors
+ok 8 - quiescence keeps an async mutation admitted through its receipt and rejects successors
+  ---
+  duration_ms: 60.8948
+  ...
+# Subtest: bound documents and captured API scopes retain the old generation; reads survive
+ok 9 - bound documents and captured API scopes retain the old generation; reads survive
+  ---
+  duration_ms: 171.8742
+  ...
+# Subtest: foreign tokens and nested owners refuse without changing either document store
+ok 10 - foreign tokens and nested owners refuse without changing either document store
+  ---
+  duration_ms: 38.9015
+  ...
+# Subtest: failed or unawaited work cannot erase or reuse an admission
+ok 11 - failed or unawaited work cannot erase or reuse an admission
+  ---
+  duration_ms: 70.3735
+  ...
+# Subtest: missing or malformed metadata is retained and never reset by a fresh handle
+ok 12 - missing or malformed metadata is retained and never reset by a fresh handle
+  ---
+  duration_ms: 145.8792
+  ...
+# Subtest: a killed admitted child remains unresolved after process exit and controller restart
+ok 13 - a killed admitted child remains unresolved after process exit and controller restart
+  ---
+  duration_ms: 136.9662
+  ...
+# Subtest: persisted transcript writers refuse after restart without rebinding an old attempt
+ok 14 - persisted transcript writers refuse after restart without rebinding an old attempt
+  ---
+  duration_ms: 317.8256
+  ...
+# Subtest: independent processes racing quiescence retain admitted receipts and reject successors
+ok 15 - independent processes racing quiescence retain admitted receipts and reject successors
+  ---
+  duration_ms: 160.6122
+  ...
+# Subtest: Node and Electron agree on the same durable store identity
+ok 16 - Node and Electron agree on the same durable store identity
+  ---
+  duration_ms: 186.2259
+  ...
+# Subtest: a surviving real MCP child refuses stale create/edit and keeps original reads
+ok 17 - a surviving real MCP child refuses stale create/edit and keeps original reads
+  ---
+  duration_ms: 435.7592
+  ...
+# Subtest: a delayed real owned goal worker cannot recapture a newer generation
+ok 18 - a delayed real owned goal worker cannot recapture a newer generation
+  ---
+  duration_ms: 633.6488
+  ...
+# Subtest: a new read-only MCP child can list a quiescent empty legacy store without seeding it
+ok 19 - a new read-only MCP child can list a quiescent empty legacy store without seeding it
+  ---
+  duration_ms: 342.1235
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2001.3993
+TAP version 13
+# Subtest: all audited losses, unsupported structures and internal references refuse
+ok 1 - all audited losses, unsupported structures and internal references refuse
+  ---
+  duration_ms: 9.0625
+  ...
+# Subtest: inline carriage returns retain exact blocked backups while LF breaks remain supported
+ok 2 - inline carriage returns retain exact blocked backups while LF breaks remain supported
+  ---
+  duration_ms: 85.2316
+  ...
+# Subtest: heading marks and top-level alignment retain structure while unmapped alignment refuses
+ok 3 - heading marks and top-level alignment retain structure while unmapped alignment refuses
+  ---
+  duration_ms: 209.2022
+  ...
+# Subtest: nested lists and genuine quotes prepare exact backups while unmapped structures refuse
+ok 4 - nested lists and genuine quotes prepare exact backups while unmapped structures refuse
+  ---
+  duration_ms: 170.4909
+  ...
+# Subtest: exact backup preserves organization, proposals, history, binary media and receipts; excludes credentials
+ok 5 - exact backup preserves organization, proposals, history, binary media and receipts; excludes credentials
+  ---
+  duration_ms: 96.7237
+  ...
+# Subtest: lossy content is recorded as blocked and never produces a partial conversion
+ok 6 - lossy content is recorded as blocked and never produces a partial conversion
+  ---
+  duration_ms: 32.3977
+  ...
+# Subtest: process interruption at each durable boundary resumes without duplicate files or IDs
+ok 7 - process interruption at each durable boundary resumes without duplicate files or IDs
+  ---
+  duration_ms: 531.1957
+  ...
+# Subtest: changed source and corrupt backups or manifests refuse, retaining original data
+ok 8 - changed source and corrupt backups or manifests refuse, retaining original data
+  ---
+  duration_ms: 223.8105
+  ...
+# Subtest: owner, quiescence, malformed records and unsafe destinations fail closed
+ok 9 - owner, quiescence, malformed records and unsafe destinations fail closed
+  ---
+  duration_ms: 56.6953
+  ...
+# Subtest: inherited object names remain unsupported originals instead of crashing inventory
+ok 10 - inherited object names remain unsupported originals instead of crashing inventory
+  ---
+  duration_ms: 35.6946
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1582.4007
+TAP version 13
+# Subtest: specific provider authentication signals are distinguished from quota, transport and tool permission failures
+ok 1 - specific provider authentication signals are distinguished from quota, transport and tool permission failures
+  ---
+  duration_ms: 2.8724
+  ...
+# (node:48856) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/renderer/src/submission-state.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: explicit recovery copies text and images, protects newer drafts and never alters the saved request
+ok 2 - explicit recovery copies text and images, protects newer drafts and never alters the saved request
+  ---
+  duration_ms: 4.8229
+  ...
+# Subtest: device authentication is allowed without opt-in, missing auth is a positive pre-dispatch refusal
+ok 3 - device authentication is allowed without opt-in, missing auth is a positive pre-dispatch refusal
+  ---
+  duration_ms: 1.5175
+  ...
+# Subtest: actual API adapter uses its owned key before the captured device fallback; no B-to-A borrowing
+ok 4 - actual API adapter uses its owned key before the captured device fallback; no B-to-A borrowing
+  ---
+  duration_ms: 23.1917
+  ...
+# Subtest: ordinary main and side missing-auth refusals preserve durable drafts without transcript reservation
+ok 5 - ordinary main and side missing-auth refusals preserve durable drafts without transcript reservation
+  ---
+  duration_ms: 222.5302
+  ...
+# Subtest: context changed while checking authentication refuses before ordinary or goal reservation
+ok 6 - context changed while checking authentication refuses before ordinary or goal reservation
+  ---
+  duration_ms: 205.7946
+  ...
+# Subtest: actual CLI adapters retain captured device authentication through delayed SDK loading
+ok 7 - actual CLI adapters retain captured device authentication through delayed SDK loading
+  ---
+  duration_ms: 15.4161
+  ...
+# Subtest: production child worker protocol preserves A/B credentials through native owned jobs
+ok 8 - production child worker protocol preserves A/B credentials through native owned jobs
+  ---
+  duration_ms: 3372.6773
+  ...
+# Subtest: actual CLI failures preserve captured owner and only authentication failures offer recovery
+ok 9 - actual CLI failures preserve captured owner and only authentication failures offer recovery
+  ---
+  duration_ms: 29.0512
+  ...
+# Subtest: initial keyring discovery waits, shares work and tracks explicit rechecks
+ok 10 - initial keyring discovery waits, shares work and tracks explicit rechecks
+  ---
+  duration_ms: 2.621
+  ...
+# Subtest: failed inspection is not a signed-in claim and supported environment credentials remain available
+ok 11 - failed inspection is not a signed-in claim and supported environment credentials remain available
+  ---
+  duration_ms: 0.4283
+  ...
+# Subtest: fixed commands and strict successful status avoid shell input and malformed status
+ok 12 - fixed commands and strict successful status avoid shell input and malformed status
+  ---
+  duration_ms: 2.535
+  ...
+# Subtest: resolver ignores relative PATH and Windows shell wrappers
+ok 13 - resolver ignores relative PATH and Windows shell wrappers
+  ---
+  duration_ms: 2.0484
+  ...
+# Subtest: double start reuses one operation and success waits for verified job drain
+ok 14 - double start reuses one operation and success waits for verified job drain
+  ---
+  duration_ms: 7.0467
+  ...
+# Subtest: cancel during launch prevents login dispatch and waits for cleanup
+ok 15 - cancel during launch prevents login dispatch and waits for cleanup
+  ---
+  duration_ms: 0.678
+  ...
+# Subtest: stale cancellation cannot stop a later login and shutdown prevents new launches
+ok 16 - stale cancellation cannot stop a later login and shutdown prevents new launches
+  ---
+  duration_ms: 1.0064
+  ...
+# Subtest: unverified cleanup remains visible and cannot be replaced by another operation
+ok 17 - unverified cleanup remains visible and cannot be replaced by another operation
+  ---
+  duration_ms: 0.8101
+  ...
+# Subtest: missing executable and provider failure remain explicit without emitting raw output
+ok 18 - missing executable and provider failure remain explicit without emitting raw output
+  ---
+  duration_ms: 1.225
+  ...
+# Subtest: timeout waits for owned cleanup and cannot turn a late successful result into success
+ok 19 - timeout waits for owned cleanup and cannot turn a late successful result into success
+  ---
+  duration_ms: 30.1837
+  ...
+# Subtest: startup known not dispatched permits retry, uncertain startup remains blocked
+ok 20 - startup known not dispatched permits retry, uncertain startup remains blocked
+  ---
+  duration_ms: 1.6093
+  ...
+# Subtest: POSIX authentication host verifies its own process group stopped
+ok 21 - POSIX authentication host verifies its own process group stopped # SKIP
+  ---
+  duration_ms: 0.4387
+  ...
+1..21
+# tests 21
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 4015.2181
+PASS native initial status discovery; explicit provider: (none)
+PASS native initial status discovery; explicit provider: api
+PASS native initial status discovery; explicit provider: codex
+TAP version 13
+# Subtest: actual isolated wrapper: normal
+ok 1 - actual isolated wrapper: normal
+  ---
+  duration_ms: 1437.1045
+  ...
+# Subtest: actual isolated wrapper: append-only-evidence
+ok 2 - actual isolated wrapper: append-only-evidence
+  ---
+  duration_ms: 1422.4046
+  ...
+# Subtest: actual isolated wrapper: dirty-runtime
+ok 3 - actual isolated wrapper: dirty-runtime
+  ---
+  duration_ms: 559.1175
+  ...
+# Subtest: actual isolated wrapper: dirty-host
+ok 4 - actual isolated wrapper: dirty-host
+  ---
+  duration_ms: 591.6255
+  ...
+# Subtest: actual isolated wrapper: signal-start
+ok 5 - actual isolated wrapper: signal-start
+  ---
+  duration_ms: 611.9221
+  ...
+# Subtest: actual isolated wrapper: signal-capture
+ok 6 - actual isolated wrapper: signal-capture
+  ---
+  duration_ms: 1233.427
+  ...
+# Subtest: actual isolated wrapper: signal-cleanup
+ok 7 - actual isolated wrapper: signal-cleanup
+  ---
+  duration_ms: 1365.1295
+  ...
+# Subtest: actual isolated wrapper: child-and-cleanup
+ok 8 - actual isolated wrapper: child-and-cleanup
+  ---
+  duration_ms: 1270.8355
+  ...
+# Subtest: actual isolated wrapper: stale-pid
+ok 9 - actual isolated wrapper: stale-pid
+  ---
+  duration_ms: 1427.7569
+  ...
+# Subtest: actual isolated wrapper: report-failure
+ok 10 - actual isolated wrapper: report-failure
+  ---
+  duration_ms: 1188.9649
+  ...
+# Subtest: actual isolated wrapper: source-mutation
+ok 11 - actual isolated wrapper: source-mutation
+  ---
+  duration_ms: 736.2072
+  ...
+# Subtest: actual isolated wrapper: host-start-mutation
+ok 12 - actual isolated wrapper: host-start-mutation
+  ---
+  duration_ms: 778.154
+  ...
+# Subtest: actual isolated wrapper: host-capture-mutation
+ok 13 - actual isolated wrapper: host-capture-mutation
+  ---
+  duration_ms: 1493.5593
+  ...
+# Subtest: actual isolated wrapper: host-commit-change
+ok 14 - actual isolated wrapper: host-commit-change
+  ---
+  duration_ms: 1431.1973
+  ...
+# Subtest: actual isolated wrapper: status-output
+ok 15 - actual isolated wrapper: status-output
+  ---
+  duration_ms: 1099.5466
+  ...
+# Subtest: actual isolated wrapper: readme-body-change
+ok 16 - actual isolated wrapper: readme-body-change
+  ---
+  duration_ms: 1071.678
+  ...
+# Subtest: actual isolated wrapper: coverage-change
+ok 17 - actual isolated wrapper: coverage-change
+  ---
+  duration_ms: 990.7675
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 18816.5503
+TAP version 13
+# Subtest: external resources map only the direct app.asar parent of main
+ok 1 - external resources map only the direct app.asar parent of main
+  ---
+  duration_ms: 2.0389
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 115.4934
+TAP version 13
+# Subtest: actual live runner classifies error
+ok 1 - actual live runner classifies error
+  ---
+  duration_ms: 162.5848
+  ...
+# Subtest: actual live runner classifies nonzero
+ok 2 - actual live runner classifies nonzero
+  ---
+  duration_ms: 164.131
+  ...
+# Subtest: actual live runner classifies no-effect
+ok 3 - actual live runner classifies no-effect
+  ---
+  duration_ms: 155.2575
+  ...
+# Subtest: actual live runner classifies empty
+ok 4 - actual live runner classifies empty
+  ---
+  duration_ms: 137.1327
+  ...
+# Subtest: actual live runner classifies incomplete
+ok 5 - actual live runner classifies incomplete
+  ---
+  duration_ms: 556.7091
+  ...
+# Subtest: actual live runner classifies cancelled-cleanup
+ok 6 - actual live runner classifies cancelled-cleanup
+  ---
+  duration_ms: 404.2215
+  ...
+# Subtest: actual live runner classifies late-error
+ok 7 - actual live runner classifies late-error
+  ---
+  duration_ms: 174.4671
+  ...
+# Subtest: actual live runner classifies error-note
+ok 8 - actual live runner classifies error-note
+  ---
+  duration_ms: 174.7229
+  ...
+# Subtest: actual live runner classifies tool-error
+ok 9 - actual live runner classifies tool-error
+  ---
+  duration_ms: 174.2336
+  ...
+# Subtest: actual live runner classifies cleanup-failed
+ok 10 - actual live runner classifies cleanup-failed
+  ---
+  duration_ms: 175.6663
+  ...
+# Subtest: actual live runner classifies unverified
+ok 11 - actual live runner classifies unverified
+  ---
+  duration_ms: 183.3104
+  ...
+# Subtest: actual live runner classifies approval
+ok 12 - actual live runner classifies approval
+  ---
+  duration_ms: 184.161
+  ...
+# Subtest: actual live runner classifies wrong-content
+ok 13 - actual live runner classifies wrong-content
+  ---
+  duration_ms: 189.0655
+  ...
+# Subtest: actual live runner classifies no-receipt
+ok 14 - actual live runner classifies no-receipt
+  ---
+  duration_ms: 183.5384
+  ...
+# Subtest: actual live runner classifies wrong-revision
+ok 15 - actual live runner classifies wrong-revision
+  ---
+  duration_ms: 209.189
+  ...
+# Subtest: actual live runner classifies no-read
+ok 16 - actual live runner classifies no-read
+  ---
+  duration_ms: 176.9787
+  ...
+# Subtest: actual live runner classifies success
+ok 17 - actual live runner classifies success
+  ---
+  duration_ms: 179.7473
+  ...
+# Subtest: actual live runner classifies delayed-finish
+ok 18 - actual live runner classifies delayed-finish
+  ---
+  duration_ms: 258.2285
+  ...
+# Subtest: actual live runner classifies invalid-provider
+ok 19 - actual live runner classifies invalid-provider
+  ---
+  duration_ms: 70.8918
+  ...
+# Subtest: actual live runner classifies extra-document
+ok 20 - actual live runner classifies extra-document
+  ---
+  duration_ms: 219.9334
+  ...
+# Subtest: actual live runner classifies malformed-extra
+ok 21 - actual live runner classifies malformed-extra
+  ---
+  duration_ms: 179.1288
+  ...
+# Subtest: actual live runner classifies unexpected-tool
+ok 22 - actual live runner classifies unexpected-tool
+  ---
+  duration_ms: 176.0881
+  ...
+# Subtest: actual live runner classifies folder-change
+ok 23 - actual live runner classifies folder-change
+  ---
+  duration_ms: 175.6826
+  ...
+# Subtest: actual live runner classifies wrong-target
+ok 24 - actual live runner classifies wrong-target
+  ---
+  duration_ms: 181.2825
+  ...
+# Subtest: actual live runner classifies sentinel-change
+ok 25 - actual live runner classifies sentinel-change
+  ---
+  duration_ms: 183.2624
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5152.344
+TAP version 13
+# Subtest: ordinary-followup: folder during runtime acquisition
+ok 1 - ordinary-followup: folder during runtime acquisition
+  ---
+  duration_ms: 331.158
+  ...
+# Subtest: ordinary-followup: away-and-back during runtime acquisition
+ok 2 - ordinary-followup: away-and-back during runtime acquisition
+  ---
+  duration_ms: 356.7694
+  ...
+# Subtest: ordinary-followup: model during runtime acquisition
+ok 3 - ordinary-followup: model during runtime acquisition
+  ---
+  duration_ms: 282.5379
+  ...
+# Subtest: ordinary-followup: provider during runtime acquisition
+ok 4 - ordinary-followup: provider during runtime acquisition
+  ---
+  duration_ms: 290.9247
+  ...
+# Subtest: ordinary-followup: session during runtime acquisition
+ok 5 - ordinary-followup: session during runtime acquisition
+  ---
+  duration_ms: 310.0886
+  ...
+# Subtest: ordinary-followup: draft-only during runtime acquisition
+ok 6 - ordinary-followup: draft-only during runtime acquisition
+  ---
+  duration_ms: 446.4048
+  ...
+# Subtest: ordinary-followup: default-provider during runtime acquisition
+ok 7 - ordinary-followup: default-provider during runtime acquisition
+  ---
+  duration_ms: 506.4161
+  ...
+# Subtest: goal-worker: folder during runtime acquisition
+ok 8 - goal-worker: folder during runtime acquisition
+  ---
+  duration_ms: 259.0909
+  ...
+# Subtest: goal-worker: away-and-back during runtime acquisition
+ok 9 - goal-worker: away-and-back during runtime acquisition
+  ---
+  duration_ms: 326.6157
+  ...
+# Subtest: goal-worker: model during runtime acquisition
+ok 10 - goal-worker: model during runtime acquisition
+  ---
+  duration_ms: 259.8006
+  ...
+# Subtest: goal-worker: provider during runtime acquisition
+ok 11 - goal-worker: provider during runtime acquisition
+  ---
+  duration_ms: 266.6319
+  ...
+# Subtest: goal-worker: session during runtime acquisition
+ok 12 - goal-worker: session during runtime acquisition
+  ---
+  duration_ms: 282.1597
+  ...
+# Subtest: goal-worker: draft-only during runtime acquisition
+ok 13 - goal-worker: draft-only during runtime acquisition
+  ---
+  duration_ms: 414.9359
+  ...
+# Subtest: goal-worker: default-provider during runtime acquisition
+ok 14 - goal-worker: default-provider during runtime acquisition
+  ---
+  duration_ms: 454.3825
+  ...
+# Subtest: reservation rechecks a resolved snapshot after later context mutation
+ok 15 - reservation rechecks a resolved snapshot after later context mutation
+  ---
+  duration_ms: 292.6307
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5210.1641
+TAP version 13
+# Subtest: refuses only editor assets; forwards real API/media bytes, auth and status
+ok 1 - refuses only editor assets; forwards real API/media bytes, auth and status
+  ---
+  duration_ms: 73.2986
+  ...
+# Subtest: cannot target a remote server or a URL with credentials/path
+ok 2 - cannot target a remote server or a URL with credentials/path
+  ---
+  duration_ms: 0.7381
+  ...
+# Subtest: actual resolver selects existing vendor through refused assets with an empty cache
+ok 3 - actual resolver selects existing vendor through refused assets with an empty cache
+  ---
+  duration_ms: 19.0953
+  ...
+# Subtest: consumed editor pin/assets and preserved host overrides match audited provenance
+ok 4 - consumed editor pin/assets and preserved host overrides match audited provenance
+  ---
+  duration_ms: 8.6786
+  ...
+# Subtest: all exact bundled notices and source attribution ship beside the consumed bundle
+ok 5 - all exact bundled notices and source attribution ship beside the consumed bundle
+  ---
+  duration_ms: 94.5338
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 259.617
+TAP version 13
+# Subtest: claude refuses missing before reservation
+ok 1 - claude refuses missing before reservation
+  ---
+  duration_ms: 155.1978
+  ...
+# Subtest: claude refuses file before reservation
+ok 2 - claude refuses file before reservation
+  ---
+  duration_ms: 142.3847
+  ...
+# Subtest: codex refuses missing before reservation
+ok 3 - codex refuses missing before reservation
+  ---
+  duration_ms: 133.4672
+  ...
+# Subtest: codex refuses file before reservation
+ok 4 - codex refuses file before reservation
+  ---
+  duration_ms: 142.5682
+  ...
+# Subtest: api C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-preflight-RzeoTq\\missing remains dispatchable
+ok 5 - api C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-preflight-RzeoTq\\missing remains dispatchable
+  ---
+  duration_ms: 299.5051
+  ...
+# Subtest: claude no folder remains dispatchable
+ok 6 - claude no folder remains dispatchable
+  ---
+  duration_ms: 301.1642
+  ...
+# Subtest: codex C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-preflight-RzeoTq\\valid remains dispatchable
+ok 7 - codex C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-preflight-RzeoTq\\valid remains dispatchable
+  ---
+  duration_ms: 293.4349
+  ...
+# Subtest: controlled EACCES refuses without changing chosen path
+ok 8 - controlled EACCES refuses without changing chosen path
+  ---
+  duration_ms: 128.8783
+  ...
+# Subtest: controlled EPERM refuses without changing chosen path
+ok 9 - controlled EPERM refuses without changing chosen path
+  ---
+  duration_ms: 126.3632
+  ...
+# Subtest: managed provider override cannot bypass refusal; retry uses owned model and one prompt
+ok 10 - managed provider override cannot bypass refusal; retry uses owned model and one prompt
+  ---
+  duration_ms: 396.5692
+  ...
+# Subtest: legacy actual handler and preload expose known refusal, unknown errors stay unknown
+ok 11 - legacy actual handler and preload expose known refusal, unknown errors stay unknown
+  ---
+  duration_ms: 3.4946
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2256.6298
+(node:54952) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS actual main/side shared composer: missing-folder refusal retains draft/no attempt; restored folder retry dispatches original intent exactly once
+TAP version 13
+# Subtest: api persists and dispatches missing-B without A fallback
+ok 1 - api persists and dispatches missing-B without A fallback
+  ---
+  duration_ms: 133.3734
+  ...
+# Subtest: api persists and dispatches not-a-folder-B without A fallback
+ok 2 - api persists and dispatches not-a-folder-B without A fallback
+  ---
+  duration_ms: 128.1721
+  ...
+# Subtest: api persists and dispatches no folder without A fallback
+ok 3 - api persists and dispatches no folder without A fallback
+  ---
+  duration_ms: 116.3951
+  ...
+# Subtest: claude persists and dispatches missing-B without A fallback
+ok 4 - claude persists and dispatches missing-B without A fallback
+  ---
+  duration_ms: 115.7386
+  ...
+# Subtest: claude persists and dispatches not-a-folder-B without A fallback
+ok 5 - claude persists and dispatches not-a-folder-B without A fallback
+  ---
+  duration_ms: 114.1594
+  ...
+# Subtest: claude persists and dispatches no folder without A fallback
+ok 6 - claude persists and dispatches no folder without A fallback
+  ---
+  duration_ms: 112.4983
+  ...
+# Subtest: codex persists and dispatches missing-B without A fallback
+ok 7 - codex persists and dispatches missing-B without A fallback
+  ---
+  duration_ms: 119.0523
+  ...
+# Subtest: codex persists and dispatches not-a-folder-B without A fallback
+ok 8 - codex persists and dispatches not-a-folder-B without A fallback
+  ---
+  duration_ms: 112.183
+  ...
+# Subtest: codex persists and dispatches no folder without A fallback
+ok 9 - codex persists and dispatches no folder without A fallback
+  ---
+  duration_ms: 112.0939
+  ...
+# Subtest: changing the persisted folder clears stale native sessions
+ok 10 - changing the persisted folder clears stale native sessions
+  ---
+  duration_ms: 110.975
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1569.2892
+TAP version 13
+# Subtest: normal pass
+ok 1 - normal pass
+  ---
+  duration_ms: 121.1875
+  ...
+# Subtest: green summary then cleanup exit 1
+ok 2 - green summary then cleanup exit 1
+  ---
+  duration_ms: 115.785
+  ...
+# Subtest: green summary then signal
+ok 3 - green summary then signal
+  ---
+  duration_ms: 65.3589
+  ...
+# Subtest: signal overrides even zero status
+ok 4 - signal overrides even zero status
+  ---
+  duration_ms: 65.2628
+  ...
+# Subtest: spawn error
+ok 5 - spawn error
+  ---
+  duration_ms: 65.5054
+  ...
+# Subtest: partial
+ok 6 - partial
+  ---
+  duration_ms: 117.5518
+  ...
+# Subtest: missing
+ok 7 - missing
+  ---
+  duration_ms: 119.1243
+  ...
+# Subtest: zero
+ok 8 - zero
+  ---
+  duration_ms: 112.8661
+  ...
+# Subtest: malformed trailing evidence
+ok 9 - malformed trailing evidence
+  ---
+  duration_ms: 118.4332
+  ...
+# Subtest: overcount
+ok 10 - overcount
+  ---
+  duration_ms: 125.4842
+  ...
+# Subtest: unsafe counts
+ok 11 - unsafe counts
+  ---
+  duration_ms: 118.1045
+  ...
+# Subtest: truncated JSON
+ok 12 - truncated JSON
+  ---
+  duration_ms: 112.0927
+  ...
+# Subtest: log fragment is not a report
+ok 13 - log fragment is not a report
+  ---
+  duration_ms: 109.2906
+  ...
+# Subtest: conflicting reports
+ok 14 - conflicting reports
+  ---
+  duration_ms: 120.0585
+  ...
+# Subtest: duplicate reports ambiguous
+ok 15 - duplicate reports ambiguous
+  ---
+  duration_ms: 138.6981
+  ...
+# Subtest: gaps observation is not assertion
+ok 16 - gaps observation is not assertion
+  ---
+  duration_ms: 111.4539
+  ...
+# Subtest: paper structured checks
+ok 17 - paper structured checks
+  ---
+  duration_ms: 108.8331
+  ...
+# Subtest: paper failed check
+ok 18 - paper failed check
+  ---
+  duration_ms: 157.4749
+  ...
+# Subtest: paper empty checks
+ok 19 - paper empty checks
+  ---
+  duration_ms: 115.6928
+  ...
+# Subtest: paper malformed boolean
+ok 20 - paper malformed boolean
+  ---
+  duration_ms: 117.1007
+  ...
+# Subtest: opaque compound pass
+ok 21 - opaque compound pass
+  ---
+  duration_ms: 116.1976
+  ...
+# Subtest: opaque partial later group
+ok 22 - opaque partial later group
+  ---
+  duration_ms: 121.0724
+  ...
+# Subtest: opaque false bundle
+ok 23 - opaque false bundle
+  ---
+  duration_ms: 113.3746
+  ...
+# Subtest: opaque generic count omits required groups
+ok 24 - opaque generic count omits required groups
+  ---
+  duration_ms: 111.5443
+  ...
+1..24
+# tests 24
+# suites 0
+# pass 24
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2806.3058
+TAP version 13
+# Subtest: workspace: transient reader releases after first refused replacement
+ok 1 - workspace: transient reader releases after first refused replacement
+  ---
+  duration_ms: 307.5748
+  ...
+# Subtest: journal: transient reader releases after first refused replacement
+ok 2 - journal: transient reader releases after first refused replacement
+  ---
+  duration_ms: 38.2825
+  ...
+# Subtest: workspace: persistent real reader has bounded attempts and retains candidate
+ok 3 - workspace: persistent real reader has bounded attempts and retains candidate
+  ---
+  duration_ms: 491.3728
+  ...
+# Subtest: workspace: refuses target ambiguity without a second rename
+ok 4 - workspace: refuses target ambiguity without a second rename
+  ---
+  duration_ms: 181.7463
+  ...
+# Subtest: workspace: refuses candidate ambiguity without a second rename
+ok 5 - workspace: refuses candidate ambiguity without a second rename
+  ---
+  duration_ms: 171.4111
+  ...
+# Subtest: workspace: refuses lease ambiguity without a second rename
+ok 6 - workspace: refuses lease ambiguity without a second rename
+  ---
+  duration_ms: 185.4612
+  ...
+# Subtest: workspace: refuses post-rename ambiguity without a second rename
+ok 7 - workspace: refuses post-rename ambiguity without a second rename
+  ---
+  duration_ms: 281.6857
+  ...
+# Subtest: workspace: refuses nonretry ambiguity without a second rename
+ok 8 - workspace: refuses nonretry ambiguity without a second rename
+  ---
+  duration_ms: 66.4612
+  ...
+# Subtest: journal: persistent real reader has bounded attempts and retains candidate
+ok 9 - journal: persistent real reader has bounded attempts and retains candidate
+  ---
+  duration_ms: 134.1813
+  ...
+# Subtest: journal: refuses target ambiguity without a second rename
+ok 10 - journal: refuses target ambiguity without a second rename
+  ---
+  duration_ms: 30.7081
+  ...
+# Subtest: journal: refuses candidate ambiguity without a second rename
+ok 11 - journal: refuses candidate ambiguity without a second rename
+  ---
+  duration_ms: 30.763
+  ...
+# Subtest: journal: refuses lease ambiguity without a second rename
+ok 12 - journal: refuses lease ambiguity without a second rename
+  ---
+  duration_ms: 31.1776
+  ...
+# Subtest: journal: refuses post-rename ambiguity without a second rename
+ok 13 - journal: refuses post-rename ambiguity without a second rename
+  ---
+  duration_ms: 30.9381
+  ...
+# Subtest: journal: refuses nonretry ambiguity without a second rename
+ok 14 - journal: refuses nonretry ambiguity without a second rename
+  ---
+  duration_ms: 7.8734
+  ...
+# Subtest: journal refuses authority changed between calls
+ok 15 - journal refuses authority changed between calls
+  ---
+  duration_ms: 5.6804
+  ...
+# Subtest: managed store serializes cooperating target writers during retry
+ok 16 - managed store serializes cooperating target writers during retry
+  ---
+  duration_ms: 86.5446
+  ...
+# Subtest: workspace: independent reader closes while retry waits
+ok 17 - workspace: independent reader closes while retry waits
+  ---
+  duration_ms: 138.7991
+  ...
+# Subtest: journal: independent reader closes while retry waits
+ok 18 - journal: independent reader closes while retry waits
+  ---
+  duration_ms: 54.9832
+  ...
+# Subtest: atomic writer refuses newly created or same-byte replaced target
+ok 19 - atomic writer refuses newly created or same-byte replaced target
+  ---
+  duration_ms: 43.9213
+  ...
+# Subtest: fsync failure retains prior bytes without any rename attempt
+ok 20 - fsync failure retains prior bytes without any rename attempt
+  ---
+  duration_ms: 5.4705
+  ...
+{"kind":"workspace","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-UUc3Sc","crashBeforeRename":true,"orphanRetained":true}
+# Subtest: workspace: host death before rename keeps authority and never promotes orphan
+ok 21 - workspace: host death before rename keeps authority and never promotes orphan
+  ---
+  duration_ms: 176.9197
+  ...
+{"kind":"journal","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-kbtKs3","crashBeforeRename":true,"orphanRetained":true}
+# Subtest: journal: host death before rename keeps authority and never promotes orphan
+ok 22 - journal: host death before rename keeps authority and never promotes orphan
+  ---
+  duration_ms: 98.5721
+  ...
+{"boundary":"after-rename","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-BEa8rk","restart":"committed bytes read, valid dead lease recovered, distinct explicit write succeeds"}
+# Subtest: workspace: process exit after rename retains committed authority before acknowledgement
+ok 23 - workspace: process exit after rename retains committed authority before acknowledgement
+  ---
+  duration_ms: 176.9257
+  ...
+# Subtest: existing malformed per-write lease refuses without changing evidence: ""
+ok 24 - existing malformed per-write lease refuses without changing evidence: ""
+  ---
+  duration_ms: 60.1517
+  ...
+# Subtest: existing malformed per-write lease refuses without changing evidence: "{broken"
+ok 25 - existing malformed per-write lease refuses without changing evidence: "{broken"
+  ---
+  duration_ms: 62.5712
+  ...
+# Subtest: existing malformed per-write lease refuses without changing evidence: "{\\"pid\\":2147483647}"
+ok 26 - existing malformed per-write lease refuses without changing evidence: "{\\"pid\\":2147483647}"
+  ---
+  duration_ms: 61.9954
+  ...
+{"boundary":"private-empty","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-wtWksL","restartWrites":"usable","priorAuthorityRetained":true}
+# Subtest: workspace complete-owner publication: real exit at private-empty
+ok 27 - workspace complete-owner publication: real exit at private-empty
+  ---
+  duration_ms: 150.1126
+  ...
+{"boundary":"private-fsynced","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-vWrmsm","restartWrites":"usable","priorAuthorityRetained":true}
+# Subtest: workspace complete-owner publication: real exit at private-fsynced
+ok 28 - workspace complete-owner publication: real exit at private-fsynced
+  ---
+  duration_ms: 149.3137
+  ...
+{"boundary":"published","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-Aa7Lfq","restartWrites":"usable","priorAuthorityRetained":true}
+# Subtest: workspace complete-owner publication: real exit at published
+ok 29 - workspace complete-owner publication: real exit at published
+  ---
+  duration_ms: 150.1007
+  ...
+{"boundary":"guard-private-empty","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-Kh2YQ8","restartWrites":"usable","priorAuthorityRetained":true}
+# Subtest: workspace complete-owner publication: real exit at guard-private-empty
+ok 30 - workspace complete-owner publication: real exit at guard-private-empty
+  ---
+  duration_ms: 153.0849
+  ...
+{"boundary":"guard-private-fsynced","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-nM9tJX","restartWrites":"usable","priorAuthorityRetained":true}
+# Subtest: workspace complete-owner publication: real exit at guard-private-fsynced
+ok 31 - workspace complete-owner publication: real exit at guard-private-fsynced
+  ---
+  duration_ms: 221.6979
+  ...
+{"boundary":"recovery-published","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-f1tneZ","restartWrites":"usable","priorAuthorityRetained":true}
+# Subtest: workspace complete-owner publication: real exit at recovery-published
+ok 32 - workspace complete-owner publication: real exit at recovery-published
+  ---
+  duration_ms: 168.9208
+  ...
+{"boundary":"guard-archived","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-ELmWkz","restartWrites":"usable","priorAuthorityRetained":true}
+# Subtest: workspace complete-owner publication: real exit at guard-archived
+ok 33 - workspace complete-owner publication: real exit at guard-archived
+  ---
+  duration_ms: 165.3003
+  ...
+{"boundary":"stale-archived","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-CRguPf","restartWrites":"usable","priorAuthorityRetained":true}
+# Subtest: workspace complete-owner publication: real exit at stale-archived
+ok 34 - workspace complete-owner publication: real exit at stale-archived
+  ---
+  duration_ms: 158.9522
+  ...
+{"boundary":"stale-republished","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-IxxgM2","restartWrites":"usable","priorAuthorityRetained":true}
+# Subtest: workspace complete-owner publication: real exit at stale-republished
+ok 35 - workspace complete-owner publication: real exit at stale-republished
+  ---
+  duration_ms: 166.2259
+  ...
+# Subtest: unsupported hardlink fails without publishing empty owner or changing target
+ok 36 - unsupported hardlink fails without publishing empty owner or changing target
+  ---
+  duration_ms: 41.429
+  ...
+{"root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-SLPgTK","results":[{"status":"wrote","pid":42860},{"status":"refused","pid":42428,"error":"Storage is owned by another writer"}],"exactlyOneWriter":true,"stopped":true}
+{"mode":"malformed","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-lajTsI","recovery":"explicit inspection required, all authority retained"}
+{"mode":"depth","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-dEVHaO","recovery":"explicit inspection required, all authority retained"}
+{"root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-bBnpND","error":"EBUSY: resource busy or locked, unlink 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-bBnpND\\profiles\\c46e46d4-9579-4eb7-be6b-f6e612b7266e\\workspace.json.write-lease.recovery'","writerLeaseLeft":false,"writerDescriptorOpen":false}
+# Subtest: independent contenders recover a dead guard without replacing a live owner
+ok 37 - independent contenders recover a dead guard without replacing a live owner
+  ---
+  duration_ms: 253.8014
+  ...
+# Subtest: malformed recovery guard and depth limit retain entire authority chain
+ok 38 - malformed recovery guard and depth limit retain entire authority chain
+  ---
+  duration_ms: 106.6956
+  ...
+# Subtest: guard unlink refusal does not strand newly acquired writer
+ok 39 - guard unlink refusal does not strand newly acquired writer
+  ---
+  duration_ms: 336.6872
+  ...
+# Subtest: complete owner cleanup preserves primary-error diagnostics and ownership
+ok 40 - complete owner cleanup preserves primary-error diagnostics and ownership
+  ---
+  duration_ms: 71.2479
+  ...
+# Subtest: complete owner cleanup preserves root-cleanup-error diagnostics and ownership
+ok 41 - complete owner cleanup preserves root-cleanup-error diagnostics and ownership
+  ---
+  duration_ms: 61.0875
+  ...
+# Subtest: complete owner cleanup preserves foreign-root diagnostics and ownership
+ok 42 - complete owner cleanup preserves foreign-root diagnostics and ownership
+  ---
+  duration_ms: 48.1075
+  ...
+# Subtest: complete owner cleanup preserves foreign-guard diagnostics and ownership
+ok 43 - complete owner cleanup preserves foreign-guard diagnostics and ownership
+  ---
+  duration_ms: 49.9828
+  ...
+# Subtest: complete owner cleanup preserves normal-release diagnostics and ownership
+ok 44 - complete owner cleanup preserves normal-release diagnostics and ownership
+  ---
+  duration_ms: 73.27
+  ...
+1..44
+# tests 44
+# suites 0
+# pass 44
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5498.4441
+TAP version 13
+# Subtest: ordinary legacy/profile boot only permits empty creation when no adoption exists
+ok 1 - ordinary legacy/profile boot only permits empty creation when no adoption exists
+  ---
+  duration_ms: 3.0317
+  ...
+# Subtest: explicit adoption confirms prerequisite, prepares then activates and never seeds
+ok 2 - explicit adoption confirms prerequisite, prepares then activates and never seeds
+  ---
+  duration_ms: 0.6899
+  ...
+# Subtest: active receipt chooses verified registry without flags; rollback cannot create empty profile
+ok 3 - active receipt chooses verified registry without flags; rollback cannot create empty profile
+  ---
+  duration_ms: 0.3437
+  ...
+# Subtest: interrupted activation requires explicit choice and post-recovery inspection
+ok 4 - interrupted activation requires explicit choice and post-recovery inspection
+  ---
+  duration_ms: 0.5348
+  ...
+# Subtest: blocked and unknown state never route to writers; cancelled adoption remains untouched
+ok 5 - blocked and unknown state never route to writers; cancelled adoption remains untouched
+  ---
+  duration_ms: 0.9948
+  ...
+# Subtest: failed preparation, invalid recovery choice and incomplete active verification fail closed
+ok 6 - failed preparation, invalid recovery choice and incomplete active verification fail closed
+  ---
+  duration_ms: 0.5037
+  ...
+# Subtest: active rollback is explicit, confirmed and re-inspected before legacy boot
+ok 7 - active rollback is explicit, confirmed and re-inspected before legacy boot
+  ---
+  duration_ms: 0.5717
+  ...
+# Subtest: legacy full hashes verified; malformed/truncated metadata and altered JS/CSS reject without modifying evidence
+ok 8 - legacy full hashes verified; malformed/truncated metadata and altered JS/CSS reject without modifying evidence
+  ---
+  duration_ms: 51.779
+  ...
+# Subtest: A/B same slug caches stay separate; foreign origin refuses and missing B never borrows A
+ok 9 - A/B same slug caches stay separate; foreign origin refuses and missing B never borrows A
+  ---
+  duration_ms: 18.8391
+  ...
+# Subtest: junction to other profile and linked build directory are rejected without writes
+ok 10 - junction to other profile and linked build directory are rejected without writes
+  ---
+  duration_ms: 21.9113
+  ...
+# Subtest: CSS-only refresh publishes distinct immutable pair; offline restart uses verified latest pair
+ok 11 - CSS-only refresh publishes distinct immutable pair; offline restart uses verified latest pair
+  ---
+  duration_ms: 152.311
+  ...
+# Subtest: interrupted pair/pointer publication retains old pair; changed old bytes during fetch cannot become fallback
+ok 12 - interrupted pair/pointer publication retains old pair; changed old bytes during fetch cannot become fallback
+  ---
+  duration_ms: 181.0831
+  ...
+# Subtest: actual child exit before pair or pointer rename keeps previous authoritative bytes
+ok 13 - actual child exit before pair or pointer rename keeps previous authoritative bytes
+  ---
+  duration_ms: 585.1974
+  ...
+# Subtest: healthy same-build fetch repairs owned corrupt pair by retaining quarantine, never mutates linked pair
+ok 14 - healthy same-build fetch repairs owned corrupt pair by retaining quarantine, never mutates linked pair
+  ---
+  duration_ms: 56.3163
+  ...
+# Subtest: new ciphertext cannot be saved until actual protected key appears and is synced
+ok 15 - new ciphertext cannot be saved until actual protected key appears and is synced
+  ---
+  duration_ms: 8.9327
+  ...
+# Subtest: missing file never becomes success from elapsed time
+ok 16 - missing file never becomes success from elapsed time
+  ---
+  duration_ms: 4.2643
+  ...
+# Subtest: malformed key, sync failure and unavailable encryption refuse readiness
+ok 17 - malformed key, sync failure and unavailable encryption refuse readiness
+  ---
+  duration_ms: 5.4816
+  ...
+# Subtest: atomic replacement during flush must verify the current file on another pass
+ok 18 - atomic replacement during flush must verify the current file on another pass
+  ---
+  duration_ms: 5.4987
+  ...
+# Subtest: later saves revalidate persistence instead of relying on cached readiness
+ok 19 - later saves revalidate persistence instead of relying on cached readiness
+  ---
+  duration_ms: 3.5111
+  ...
+# Subtest: truncated or malformed tagged blobs fail closed, including an existing file without a key
+ok 20 - truncated or malformed tagged blobs fail closed, including an existing file without a key
+  ---
+  duration_ms: 7.9411
+  ...
+# Native review proof retained: C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-coordinator-native-review-PIodWE
+# Subtest: native host death during coordinator review requires shutdown and explicit retry without replaying workers
+ok 21 - native host death during coordinator review requires shutdown and explicit retry without replaying workers
+  ---
+  duration_ms: 12526.3517
+  ...
+# Native summary proof retained: C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-coordinator-native-summary-ZlxtKc
+# Subtest: native host death during coordinator summary requires shutdown and explicit retry without replaying workers
+ok 22 - native host death during coordinator summary requires shutdown and explicit retry without replaying workers
+  ---
+  duration_ms: 9954.3389
+  ...
+# Subtest: plan schema rejects injected authority, missing/duplicate tasks and cyclic or unknown dependencies
+ok 23 - plan schema rejects injected authority, missing/duplicate tasks and cyclic or unknown dependencies
+  ---
+  duration_ms: 3.8434
+  ...
+# Subtest: acceptance and retry require explicit evidence and verified effects
+ok 24 - acceptance and retry require explicit evidence and verified effects
+  ---
+  duration_ms: 0.8879
+  ...
+# Subtest: real provider bridge plans three saved chats, reviews exact attempts, supplies dependencies and preserves draft
+ok 25 - real provider bridge plans three saved chats, reviews exact attempts, supplies dependencies and preserves draft
+  ---
+  duration_ms: 4300.2883
+  ...
+# Subtest: malformed planning response creates no workers and cannot be manually accepted around validation
+ok 26 - malformed planning response creates no workers and cannot be manually accepted around validation
+  ---
+  duration_ms: 799.217
+  ...
+# Subtest: uncertain coordinator review pauses with explicit person reconciliation and releases no dependent work
+ok 27 - uncertain coordinator review pauses with explicit person reconciliation and releases no dependent work
+  ---
+  duration_ms: 1720.2384
+  ...
+# Subtest: coordinator retry is bounded to three exact worker attempts and person reconciliation can continue the goal
+ok 28 - coordinator retry is bounded to three exact worker attempts and person reconciliation can continue the goal
+  ---
+  duration_ms: 4031.7696
+  ...
+# Subtest: interrupted planning retains partial response and draft, never replays, and requires shutdown proof before retry
+ok 29 - interrupted planning retains partial response and draft, never replays, and requires shutdown proof before retry
+  ---
+  duration_ms: 3203.941
+  ...
+# Subtest: deadline prevents coordinator acceptance and worker creation after a late plan
+ok 30 - deadline prevents coordinator acceptance and worker creation after a late plan
+  ---
+  duration_ms: 526.324
+  ...
+# Subtest: a late coordinator review cannot overwrite an explicit person decision on its exact attempt
+ok 31 - a late coordinator review cannot overwrite an explicit person decision on its exact attempt
+  ---
+  duration_ms: 2553.9703
+  ...
+# Subtest: large retained evidence is bounded in coordinator prompts without replacing its durable source
+ok 32 - large retained evidence is bounded in coordinator prompts without replacing its durable source
+  ---
+  duration_ms: 1.592
+  ...
+# Subtest: pause during worker retains late output without coordinator acceptance or draft replacement
+ok 33 - pause during worker retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 1414.6283
+  ...
+# Subtest: cancel during worker retains late output without coordinator acceptance or draft replacement
+ok 34 - cancel during worker retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 1424.9715
+  ...
+# Subtest: deadline during worker retains late output without coordinator acceptance or draft replacement
+ok 35 - deadline during worker retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 1370.4901
+  ...
+# Subtest: pause during review retains late output without coordinator acceptance or draft replacement
+ok 36 - pause during review retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 1386.6905
+  ...
+# Subtest: cancel during review retains late output without coordinator acceptance or draft replacement
+ok 37 - cancel during review retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 1319.199
+  ...
+# Subtest: deadline during review retains late output without coordinator acceptance or draft replacement
+ok 38 - deadline during review retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 1347.3136
+  ...
+# Subtest: pause during summary retains late output without coordinator acceptance or draft replacement
+ok 39 - pause during summary retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 2402.2621
+  ...
+# Subtest: cancel during summary retains late output without coordinator acceptance or draft replacement
+ok 40 - cancel during summary retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 2312.4244
+  ...
+# Subtest: deadline during summary retains late output without coordinator acceptance or draft replacement
+ok 41 - deadline during summary retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 2308.6748
+  ...
+# Subtest: invalid pre-dispatch owner reports positively that no new process was launched
+ok 42 - invalid pre-dispatch owner reports positively that no new process was launched
+  ---
+  duration_ms: 4.5745
+  ...
+# Subtest: Windows owned job cancellation stops a real child/grandchild tree before acknowledging
+ok 43 - Windows owned job cancellation stops a real child/grandchild tree before acknowledging
+  ---
+  duration_ms: 2317.3093
+  ...
+# Subtest: forced supervisor death closes job and restart verifier proves the entire owned tree stopped
+ok 44 - forced supervisor death closes job and restart verifier proves the entire owned tree stopped
+  ---
+  duration_ms: 2806.4117
+  ...
+# Subtest: normal worker exit drains descendants and duplicate attempt launch is refused
+ok 45 - normal worker exit drains descendants and duplicate attempt launch is refused
+  ---
+  duration_ms: 1225.6749
+  ...
+# Subtest: abrupt main host exit closes its control pipe and restart verifies descendant shutdown
+ok 46 - abrupt main host exit closes its control pipe and restart verifies descendant shutdown
+  ---
+  duration_ms: 1834.6584
+  ...
+# Subtest: planning, worker, review and summary all authenticate before durable reservation or dispatch
+ok 47 - planning, worker, review and summary all authenticate before durable reservation or dispatch
+  ---
+  duration_ms: 44.4355
+  ...
+# Subtest: real agent.start runs three owned API loops and persists their independent transcripts
+ok 48 - real agent.start runs three owned API loops and persists their independent transcripts
+  ---
+  duration_ms: 88.7698
+  ...
+# Subtest: done event does not release worker before trusted driver cleanup completes
+ok 49 - done event does not release worker before trusted driver cleanup completes
+  ---
+  duration_ms: 33.5501
+  ...
+# Subtest: changed context or mismatched profile fails before a transcript or provider starts
+ok 50 - changed context or mismatched profile fails before a transcript or provider starts
+  ---
+  duration_ms: 18.7914
+  ...
+# Subtest: cancel during real API stream waits for finalization and records partial output
+ok 51 - cancel during real API stream waits for finalization and records partial output
+  ---
+  duration_ms: 33.5367
+  ...
+# Subtest: transcript failure stops the provider and reports uncertain effects instead of success
+ok 52 - transcript failure stops the provider and reports uncertain effects instead of success
+  ---
+  duration_ms: 21.6061
+  ...
+# Subtest: an acknowledged duplicate reservation never launches a second provider
+ok 53 - an acknowledged duplicate reservation never launches a second provider
+  ---
+  duration_ms: 12.4672
+  ...
+# Subtest: Promise-returning transcript sink is rejected before provider dispatch
+ok 54 - Promise-returning transcript sink is rejected before provider dispatch
+  ---
+  duration_ms: 9.108
+  ...
+# Subtest: unknown finalization retains the execution slot until trusted termination proof
+ok 55 - unknown finalization retains the execution slot until trusted termination proof
+  ---
+  duration_ms: 40.3247
+  ...
+# Subtest: captured assignment images reach actual API transport; another profile path is rejected
+ok 56 - captured assignment images reach actual API transport; another profile path is rejected
+  ---
+  duration_ms: 37.0705
+  ...
+# Subtest: worker provider launches disable native recursive delegation without changing ordinary chats
+ok 57 - worker provider launches disable native recursive delegation without changing ordinary chats
+  ---
+  duration_ms: 75.131
+  ...
+# Subtest: structured coordinator uses acknowledged final provider message while retaining commentary
+ok 58 - structured coordinator uses acknowledged final provider message while retaining commentary
+  ---
+  duration_ms: 116.3782
+  ...
+# Subtest: expired goal provider session retains authentication assistance after terminal settlement
+ok 59 - expired goal provider session retains authentication assistance after terminal settlement
+  ---
+  duration_ms: 32.7137
+  ...
+# Subtest: real host crash reopens paused goal, trusted default verifier reconciles, explicit retry completes saved worker
+ok 60 - real host crash reopens paused goal, trusted default verifier reconciles, explicit retry completes saved worker
+  ---
+  duration_ms: 4859.9009
+  ...
+# Subtest: real provider loops persist three full workers through profile switch, stale save, reload and review
+not ok 61 - real provider loops persist three full workers through profile switch, stale save, reload and review
+  ---
+  duration_ms: 2099.5698
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\goal-service.test.mjs:29:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(f.events.length > 0)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/goal-service.test.mjs:40:10)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+ok 62 - Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+  ---
+  duration_ms: 1968.218
+  ...
+# Subtest: goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+ok 63 - goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+  ---
+  duration_ms: 797.3906
+  ...
+# Subtest: recovered reservation cannot be reviewed or retried until trusted shutdown verification
+ok 64 - recovered reservation cannot be reviewed or retried until trusted shutdown verification
+  ---
+  duration_ms: 691.4204
+  ...
+# Subtest: verified settled completion retention is bounded without dropping unresolved proof
+ok 65 - verified settled completion retention is bounded without dropping unresolved proof
+  ---
+  duration_ms: 43.4176
+  ...
+# Subtest: real job-owned worker bridges exact owner, approvals, sessions and finalization
+ok 66 - real job-owned worker bridges exact owner, approvals, sessions and finalization
+  ---
+  duration_ms: 881.7611
+  ...
+# Subtest: cancelling an approval-held real worker waits for job drain and releases lease once
+ok 67 - cancelling an approval-held real worker waits for job drain and releases lease once
+  ---
+  duration_ms: 859.0765
+  ...
+# Subtest: 20MiB image descriptor and6MiB history cross the real bridge in both directions without truncation
+ok 68 - 20MiB image descriptor and6MiB history cross the real bridge in both directions without truncation
+  ---
+  duration_ms: 1497.2235
+  ...
+# Subtest: malformed post-handshake message overrides an earlier success and persists failed completion
+ok 69 - malformed post-handshake message overrides an earlier success and persists failed completion
+  ---
+  duration_ms: 905.0327
+  ...
+# Subtest: missing authentication persists assistance without retrying or marking work complete
+ok 70 - missing authentication persists assistance without retrying or marking work complete
+  ---
+  duration_ms: 71.2225
+  ...
+# Subtest: three reserved workers run concurrently, snapshots cannot mutate owners, results require review
+ok 71 - three reserved workers run concurrently, snapshots cannot mutate owners, results require review
+  ---
+  duration_ms: 72.5507
+  ...
+# Subtest: dependencies wait for evidence, cap is global, same chat is serialized across goals
+ok 72 - dependencies wait for evidence, cap is global, same chat is serialized across goals
+  ---
+  duration_ms: 75.6629
+  ...
+# Subtest: same IDs in different profiles retain independent progress and result ownership
+ok 73 - same IDs in different profiles retain independent progress and result ownership
+  ---
+  duration_ms: 68.6625
+  ...
+# Subtest: pause stops new work, waits for actual termination, and does not silently replay
+ok 74 - pause stops new work, waits for actual termination, and does not silently replay
+  ---
+  duration_ms: 112.667
+  ...
+# Subtest: deadline handles sleep/wake and prevents late success or new dispatch
+ok 75 - deadline handles sleep/wake and prevents late success or new dispatch
+  ---
+  duration_ms: 38.246
+  ...
+# Subtest: cancel before adapter microtask prevents provider launch
+ok 76 - cancel before adapter microtask prevents provider launch
+  ---
+  duration_ms: 50.5058
+  ...
+# Subtest: reopen interrupts reserved attempts and requires explicit reconciliation
+ok 77 - reopen interrupts reserved attempts and requires explicit reconciliation
+  ---
+  duration_ms: 45.9254
+  ...
+# Subtest: cycles, recursive coordinator workers, unknown dependencies and fourth worker are rejected
+ok 78 - cycles, recursive coordinator workers, unknown dependencies and fourth worker are rejected
+  ---
+  duration_ms: 6.2965
+  ...
+# Subtest: offline and failed runs cannot satisfy dependencies
+ok 79 - offline and failed runs cannot satisfy dependencies
+  ---
+  duration_ms: 46.2398
+  ...
+# Subtest: corrupt journal fails closed without replacing original data
+ok 80 - corrupt journal fails closed without replacing original data
+  ---
+  duration_ms: 4.9974
+  ...
+# Subtest: lost persistence acknowledgement halts all dispatch and leaves reserved work recoverable
+ok 81 - lost persistence acknowledgement halts all dispatch and leaves reserved work recoverable
+  ---
+  duration_ms: 32.3516
+  ...
+# Subtest: failed reservation never launches the provider
+ok 82 - failed reservation never launches the provider
+  ---
+  duration_ms: 14.1738
+  ...
+# Subtest: reentrant observers cannot overlap a chat or dispatch past stop
+ok 83 - reentrant observers cannot overlap a chat or dispatch past stop
+  ---
+  duration_ms: 50.5014
+  ...
+# Subtest: close retains the journal lease until actual adapter termination
+ok 84 - close retains the journal lease until actual adapter termination
+  ---
+  duration_ms: 33.8007
+  ...
+# Subtest: post-deadline reconciliation preserves terminal goal without permitting retry
+ok 85 - post-deadline reconciliation preserves terminal goal without permitting retry
+  ---
+  duration_ms: 47.8043
+  ...
+# Subtest: another process cannot acquire the journal while its owner lives
+ok 86 - another process cannot acquire the journal while its owner lives
+  ---
+  duration_ms: 131.1665
+  ...
+# Subtest: dead journal owner is recovered with lease evidence retained
+ok 87 - dead journal owner is recovered with lease evidence retained
+  ---
+  duration_ms: 207.9015
+  ...
+# Subtest: real three-process execution integrates independent outputs with the persistent scheduler
+ok 88 - real three-process execution integrates independent outputs with the persistent scheduler
+  ---
+  duration_ms: 321.0765
+  ...
+# Subtest: uncertain termination is visibly interrupted and cannot be reviewed while slot remains live
+ok 89 - uncertain termination is visibly interrupted and cannot be reviewed while slot remains live
+  ---
+  duration_ms: 38.7757
+  ...
+# Subtest: assignment attachments are captured independently and survive restart
+ok 90 - assignment attachments are captured independently and survive restart
+  ---
+  duration_ms: 22.7827
+  ...
+# Subtest: abrupt process death after an external effect never replays the reserved attempt
+ok 91 - abrupt process death after an external effect never replays the reserved attempt
+  ---
+  duration_ms: 169.5469
+  ...
+# Subtest: shared admission caps profile-local schedulers at three and holds uncertain termination
+ok 92 - shared admission caps profile-local schedulers at three and holds uncertain termination
+  ---
+  duration_ms: 61.5209
+  ...
+# Subtest: failed reservation and cancelled-before-launch release shared admission exactly once
+ok 93 - failed reservation and cancelled-before-launch release shared admission exactly once
+  ---
+  duration_ms: 11.7758
+  ...
+# Subtest: Windows terminal closes its real descendants and same-tab profile B remains alive
+ok 94 - Windows terminal closes its real descendants and same-tab profile B remains alive
+  ---
+  duration_ms: 3766.1359
+  ...
+# Subtest: profile authority does not change on failed terminal drain and can retry
+ok 95 - profile authority does not change on failed terminal drain and can retry
+  ---
+  duration_ms: 2.0839
+  ...
+# Subtest: abrupt terminal host death kills all descendants and does not replay commands
+ok 96 - abrupt terminal host death kills all descendants and does not replay commands
+  ---
+  duration_ms: 4178.9722
+  ...
+# Subtest: uncertain shutdown keeps session blocked, trusted verification permits retry
+ok 97 - uncertain shutdown keeps session blocked, trusted verification permits retry
+  ---
+  duration_ms: 6.6009
+  ...
+# (node:50012) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/renderer/src/tabs/terminal.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output
+ok 98 - terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output
+  ---
+  duration_ms: 1011.5991
+  ...
+# Subtest: known pre-dispatch failure permits retry but generic launch failure needs native proof
+ok 99 - known pre-dispatch failure permits retry but generic launch failure needs native proof
+  ---
+  duration_ms: 15.3498
+  ...
+# Subtest: late launch after timeout is stopped without dispatching shell commands
+ok 100 - late launch after timeout is stopped without dispatching shell commands
+  ---
+  duration_ms: 40.9817
+  ...
+# Subtest: shutdown admission rejects a new terminal even after the owned map drains
+ok 101 - shutdown admission rejects a new terminal even after the owned map drains
+  ---
+  duration_ms: 1.454
+  ...
+# Subtest: missing launch folder never falls back to home and failed shell can be explicitly retried
+ok 102 - missing launch folder never falls back to home and failed shell can be explicitly retried
+  ---
+  duration_ms: 1147.3318
+  ...
+# Subtest: corrupt terminal ownership record is preserved and cannot silently seed another shell
+ok 103 - corrupt terminal ownership record is preserved and cannot silently seed another shell
+  ---
+  duration_ms: 11.9529
+  ...
+1..103
+# tests 103
+# suites 0
+# pass 102
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 32645.5781

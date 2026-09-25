@@ -3,7 +3,8 @@ const crypto = require('node:crypto');
 const barkpark = require('./barkpark');
 const { ownedDraftNotes } = require('./draft-notes');
 
-function createPaperTools({ store, connection, profileId = null, onConnection = () => {} }) {
+function createPaperTools({ store, connection, profileId = null, onConnection = () => {}, writer = null }) {
+  writer ||= require('./writer-admission').writerForStore(store);
   const connect = require('./paper-tool-connection').paperToolConnection(connection);
   const resolve = async () => { const c = await connect(); onConnection(c); return c; };
   const managed = Boolean(connection?.managedProfileId);
@@ -40,6 +41,6 @@ function createPaperTools({ store, connection, profileId = null, onConnection = 
       throw Object.assign(new Error(`${error.message} Creation request: ${requestId}. Retry with this same requestId and original content; do not create a replacement.`), { code: error.code });
     }
   }
-  return { managed, list, get, search, create, connection: resolve };
+  return { managed, list, get, search, create: async input => writer.run('paper.create', () => create(input)), connection: resolve };
 }
 module.exports = { createPaperTools };

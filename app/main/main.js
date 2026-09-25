@@ -198,6 +198,12 @@ function buildMenu() {
 }
 
 // ---------- ipc ----------
+const noteMutationChannels = new Set([
+  'state:save', 'state:command', 'attachments:save',
+  'docs:agentEdit', 'docs:undoAgentEdit', 'docs:create', 'docs:save', 'docs:delete', 'docs:restore', 'docs:proposal', 'docs:resolvePaperProposal',
+  'barkpark:createNote', 'barkpark:deleteNote', 'barkpark:checkDeletion', 'barkpark:recoverNote',
+  'barkpark:applyOps', 'barkpark:uploadMedia', 'barkpark:publish', 'barkpark:patchTitle', 'barkpark:import',
+]);
 function handle(channel, fn, unowned = false) {
   ipcMain.handle(channel, async (event, ...args) => {
     try {
@@ -206,7 +212,7 @@ function handle(channel, fn, unowned = false) {
         authorityOwnership?.assertOwned();
         if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|createNote|deletedNotes|deleteNote|checkDeletion|recoverNote|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
         authorityOwnership?.assertOwned();
-        return fn(...args);
+        return noteMutationChannels.has(channel) ? documents.writer.run(channel, () => fn(...args)) : fn(...args);
       };
       if (profileService && !unowned) {
         const envelope = args.shift();

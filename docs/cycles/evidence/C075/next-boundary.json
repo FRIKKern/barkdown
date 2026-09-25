@@ -1,0 +1,38 @@
+{
+  "at": "2026-09-25T11:48:19.910Z",
+  "source": "6033ee40d68becdebc2341688e406307295d8129",
+  "scope": "Preparation only; not an additional active cycle or acceptance claim",
+  "findings": [
+    {
+      "owner": "app/main/profile-service.js",
+      "fact": "Ordinary run events are persisted synchronously before forwarding; completion persists a final record and calls orphan reconciliation. Profile selection changes its IPC generation and runtime selection, but does not expose a migration freeze/drain operation.",
+      "next": "Design explicit new-run admission closure and owned-child termination proof before quiescing the note engine. Do not substitute profile IPC drain for provider/MCP/goal teardown."
+    },
+    {
+      "owner": "app/renderer/src/tabs/paper.js",
+      "fact": "isDirty and flush exist; canClose refuses an unsaved Paper. The open buffer survives a refused save, but there is no durable migration snapshot/restore for the unsaved canvas. Mounted source probe now reproduces that recoverySnapshot plus flush omits an actively composing note label; retain raw composition or refuse preparation until it settles.",
+      "next": "Retain an owner/revision-qualified human buffer durably before offering cutover or restart. Test delayed acknowledgement and newer typing while preparing; never mark an unacknowledged buffer saved."
+    },
+    {
+      "owner": "app/main/writer-admission.js",
+      "fact": "Quiescence is internal and has no reopen/reconciliation API. Failed or killed admitted mutations remain unresolved; ordinary operations can continue while open, but a seal must refuse unresolved records.",
+      "next": "Reconcile against exact owned receipts/server state and source comparison before any abort/reopen or selection. Advance generation on an explicit reconciled abort; never revive old worker authority."
+    },
+    {
+      "owner": "app/main/workspace-repository.js",
+      "fact": "An isolated synthetic20Hz stream (200 events, two runs per variant) retains exact transcript text. Baseline medians19.6/22.3ms per event; fenced45.2/49.6ms, with max dispatch lag825/2445ms. A20-event filesystem profile counted15459 lstat calls and126 fsync calls. This is measured persistence-path overhead, not native UI/provider latency.",
+      "next": "Bound/coalesce consecutive text/thinking deltas before assigning emitted event sequence numbers, then preserve existing synchronous persist-before-forward. Flush before tools, approvals, terminal events, cancellation and driver completion; isolate runs, cap bytes/time and surface sink failure. Avoid buffering already acknowledged events or weakening writer ownership/durability. Verify end-to-end owner/restart/sequence parity and benchmark burst/sparse streams before daily-use readiness.",
+      "followUp": {
+        "source": "e4a60ac9",
+        "implemented": "Provider-only pre-sequence coalescing with immediate leading chunks and safe failed-sink finalization.",
+        "evidence": [
+          "coalesced-stream-probe.json",
+          "stream-refusal-focused.log",
+          "desktop-release.log"
+        ],
+        "remaining": "Final evidence delivery/hosted gate; no additional persistence batching planned without a new measured problem."
+      }
+    }
+  ],
+  "remainingGate": "Final source/target/media/workspace comparison, sealed authority selection, interruption recovery and rollback/retirement remain A2. G2 upstream regression enforcement remains a separate release gate."
+}

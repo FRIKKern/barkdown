@@ -1,0 +1,44 @@
+{
+  "at": "2026-09-25T12:12:47.074Z",
+  "scope": "Mounted jsdom source audit, no network or native IME claim",
+  "upstream": "b702140907921e82e9ce5eecb3e2445f13ab2d6e",
+  "finding": "recoverySnapshot omits active note-label composition; flushPendingChanges deliberately leaves composing islands uncommitted",
+  "visibleLabel": "Human composition not committed",
+  "pending": true,
+  "snapshot": {
+    "mode": "rich",
+    "blocks": [
+      {
+        "id": "note-1",
+        "type": "note",
+        "label": "Acknowledged label",
+        "text": "Body"
+      },
+      {
+        "id": "code-1",
+        "type": "code",
+        "value": "before",
+        "lang": "text"
+      }
+    ]
+  },
+  "afterFlush": {
+    "mode": "rich",
+    "blocks": [
+      {
+        "id": "note-1",
+        "type": "note",
+        "label": "Acknowledged label",
+        "text": "Body"
+      },
+      {
+        "id": "code-1",
+        "type": "code",
+        "value": "before",
+        "lang": "text"
+      }
+    ]
+  },
+  "emittedBatches": 0,
+  "required": "A migration freeze must finish composition safely or retain raw pending island text; snapshot alone cannot justify restart or lossless draft preservation."
+}
