@@ -3,7 +3,7 @@
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
-const { createRun, finish, requestApproval, activityForTool, relativeTo, mcpServerSpec, scratchFolder } = require('./runs');
+const { createRun, finish, emitFailure, requestApproval, activityForTool, relativeTo, mcpServerSpec, scratchFolder } = require('./runs');
 const { frozenCopy } = require('./run-scope');
 
 let sdk = null;
@@ -130,7 +130,7 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
       }
       run.emit({ type: 'done', cancelled: run.cancelled, session: sessionId, provider: 'claude', finalMessage });
     } catch (error) {
-      run.emit(require('./auth-error').providerError('claude', error));
+      emitFailure(run, require('./auth-error').providerError('claude', error));
     } finally { await finish(run); }
   })();
   return { runId: run.id };

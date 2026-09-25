@@ -63,6 +63,15 @@ async function finish(run) {
   return run.finishing;
 }
 
+// A failed durable sink cannot carry its own error report. The stream retains
+// that failure for completion; retrying it from a detached provider catch would
+// reject the provider promise after cleanup and could terminate the host.
+function emitFailure(run, event) {
+  if (run.streamError) return false;
+  try { run.emit(event); return true; }
+  catch (error) { if (!run.streamError) throw error; return false; }
+}
+
 function waitForRunFinish(runId) {
   if (runs.has(runId)) return runs.get(runId).completion;
   if (completed.has(runId)) return Promise.resolve(completed.get(runId));
@@ -177,4 +186,4 @@ function scratchFolder(storeDir) {
   return dir;
 }
 
-module.exports = { runs, captureScope, createRun, finish, waitForRunFinish, requestApproval, respondApproval, cancel, activityForTool, relativeTo, mcpServerSpec, scratchFolder, preparePaperNavigation };
+module.exports = { runs, captureScope, createRun, finish, emitFailure, waitForRunFinish, requestApproval, respondApproval, cancel, activityForTool, relativeTo, mcpServerSpec, scratchFolder, preparePaperNavigation };

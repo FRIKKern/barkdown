@@ -1,0 +1,160 @@
+TAP version 13
+# Subtest: planning, worker, review and summary all authenticate before durable reservation or dispatch
+ok 1 - planning, worker, review and summary all authenticate before durable reservation or dispatch
+  ---
+  duration_ms: 28.0884
+  ...
+# Subtest: real agent.start runs three owned API loops and persists their independent transcripts
+ok 2 - real agent.start runs three owned API loops and persists their independent transcripts
+  ---
+  duration_ms: 45.7671
+  ...
+# Subtest: done event does not release worker before trusted driver cleanup completes
+ok 3 - done event does not release worker before trusted driver cleanup completes
+  ---
+  duration_ms: 18.324
+  ...
+# Subtest: changed context or mismatched profile fails before a transcript or provider starts
+ok 4 - changed context or mismatched profile fails before a transcript or provider starts
+  ---
+  duration_ms: 9.2048
+  ...
+# Subtest: cancel during real API stream waits for finalization and records partial output
+ok 5 - cancel during real API stream waits for finalization and records partial output
+  ---
+  duration_ms: 15.9351
+  ...
+# Subtest: transcript failure stops the provider and reports uncertain effects instead of success
+ok 6 - transcript failure stops the provider and reports uncertain effects instead of success
+  ---
+  duration_ms: 11.5731
+  ...
+# Subtest: an acknowledged duplicate reservation never launches a second provider
+ok 7 - an acknowledged duplicate reservation never launches a second provider
+  ---
+  duration_ms: 8.2166
+  ...
+# Subtest: Promise-returning transcript sink is rejected before provider dispatch
+ok 8 - Promise-returning transcript sink is rejected before provider dispatch
+  ---
+  duration_ms: 5.1424
+  ...
+# Subtest: unknown finalization retains the execution slot until trusted termination proof
+ok 9 - unknown finalization retains the execution slot until trusted termination proof
+  ---
+  duration_ms: 15.5628
+  ...
+# Subtest: captured assignment images reach actual API transport; another profile path is rejected
+ok 10 - captured assignment images reach actual API transport; another profile path is rejected
+  ---
+  duration_ms: 19.7747
+  ...
+# Subtest: worker provider launches disable native recursive delegation without changing ordinary chats
+ok 11 - worker provider launches disable native recursive delegation without changing ordinary chats
+  ---
+  duration_ms: 40.29
+  ...
+# Subtest: structured coordinator uses acknowledged final provider message while retaining commentary
+ok 12 - structured coordinator uses acknowledged final provider message while retaining commentary
+  ---
+  duration_ms: 57.5659
+  ...
+# Subtest: expired goal provider session retains authentication assistance after terminal settlement
+ok 13 - expired goal provider session retains authentication assistance after terminal settlement
+  ---
+  duration_ms: 14.1313
+  ...
+# Subtest: real provider loops persist three full workers through profile switch, stale save, reload and review
+ok 14 - real provider loops persist three full workers through profile switch, stale save, reload and review
+  ---
+  duration_ms: 1654.9158
+  ...
+# Subtest: Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+ok 15 - Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+  ---
+  duration_ms: 1185.433
+  ...
+# Subtest: goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+ok 16 - goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+  ---
+  duration_ms: 519.0188
+  ...
+# Subtest: recovered reservation cannot be reviewed or retried until trusted shutdown verification
+ok 17 - recovered reservation cannot be reviewed or retried until trusted shutdown verification
+  ---
+  duration_ms: 484.7291
+  ...
+# Subtest: text bursts retain order around thinking, tools, replacements and terminal events
+ok 18 - text bursts retain order around thinking, tools, replacements and terminal events
+  ---
+  duration_ms: 2.2461
+  ...
+# Subtest: sparse streams flush, character bounds and additional metadata never lose content
+ok 19 - sparse streams flush, character bounds and additional metadata never lose content
+  ---
+  duration_ms: 50.055
+  ...
+# Subtest: timer sink failure is retained without replay or an unhandled exception
+ok 20 - timer sink failure is retained without replay or an unhandled exception
+  ---
+  duration_ms: 31.3736
+  ...
+# Subtest: real run sequencing persists combined text before forwarding and survives repository restart
+ok 21 - real run sequencing persists combined text before forwarding and survives repository restart
+  ---
+  duration_ms: 408.8224
+  ...
+# Subtest: cancel and completion flush each owned run separately before releasing it
+ok 22 - cancel and completion flush each owned run separately before releasing it
+  ---
+  duration_ms: 5.1289
+  ...
+# Subtest: failed buffered persistence cannot become a successful terminal acknowledgement
+ok 23 - failed buffered persistence cannot become a successful terminal acknowledgement
+  ---
+  duration_ms: 147.0364
+  ...
+# Subtest: quiescence before a buffered chunk is admitted refuses it without forwarding or rebinding
+ok 24 - quiescence before a buffered chunk is admitted refuses it without forwarding or rebinding
+  ---
+  duration_ms: 48.6101
+  ...
+# Subtest: api finalizes once when buffered-text persistence refuses
+ok 25 - api finalizes once when buffered-text persistence refuses
+  ---
+  duration_ms: 325.3748
+  ...
+# Subtest: api finalizes once when error-report persistence refuses
+ok 26 - api finalizes once when error-report persistence refuses
+  ---
+  duration_ms: 31.1797
+  ...
+# Subtest: claude finalizes once when buffered-text persistence refuses
+ok 27 - claude finalizes once when buffered-text persistence refuses
+  ---
+  duration_ms: 201.2526
+  ...
+# Subtest: claude finalizes once when error-report persistence refuses
+ok 28 - claude finalizes once when error-report persistence refuses
+  ---
+  duration_ms: 30.9254
+  ...
+# Subtest: codex finalizes once when buffered-text persistence refuses
+ok 29 - codex finalizes once when buffered-text persistence refuses
+  ---
+  duration_ms: 202.9332
+  ...
+# Subtest: codex finalizes once when error-report persistence refuses
+ok 30 - codex finalizes once when error-report persistence refuses
+  ---
+  duration_ms: 31.5822
+  ...
+1..30
+# tests 30
+# suites 0
+# pass 30
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3994.6918

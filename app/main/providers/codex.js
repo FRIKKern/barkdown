@@ -4,7 +4,7 @@ const path = require('path');
 const { frozenCopy } = require('./run-scope');
 const fs = require('fs');
 const os = require('os');
-const { createRun, finish, activityForTool, relativeTo, mcpServerSpec, scratchFolder } = require('./runs');
+const { createRun, finish, emitFailure, activityForTool, relativeTo, mcpServerSpec, scratchFolder } = require('./runs');
 
 let sdk = null;
 let sdkLoader = null;
@@ -90,8 +90,8 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
       if (!sawText && !run.cancelled) run.emit({ type: 'text_delta', text: '(Codex finished without a message.)' });
       run.emit({ type: 'done', cancelled: run.cancelled, session: thread.id, provider: 'codex', finalMessage });
     } catch (error) {
-      if (run.cancelled) run.emit({ type: 'done', cancelled: true, provider: 'codex' });
-      else run.emit(require('./auth-error').providerError('codex', error));
+      if (run.cancelled) emitFailure(run, { type: 'done', cancelled: true, provider: 'codex' });
+      else emitFailure(run, require('./auth-error').providerError('codex', error));
     } finally { await finish(run); }
   })();
   return { runId: run.id };

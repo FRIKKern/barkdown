@@ -124,3 +124,45 @@ test('quiescence before a buffered chunk is admitted refuses it without forwardi
   assert.equal(visible.length, 1); assert.equal(store.readJson('received.json', null).text, 'Before preparation');
   assert.equal(control.assertQuiescent(barrier).quiescent, true);
 });
+
+const agent = require('../main/agent');
+for (const provider of ['api', 'claude', 'codex']) {
+  for (const failure of ['buffered-text', 'error-report']) {
+    test(`${provider} finalizes once when ${failure} persistence refuses`, async t => {
+      const transport = provider === 'api' ? null : require(`../main/providers/${provider}`);
+      const sdkFailure = new Error('Synthetic provider failure');
+      async function* chunks() {
+        yield 'first';
+        if (failure === 'error-report') throw sdkFailure;
+        yield 'pending'; await wait(150);
+      }
+      if (provider === 'api') agent.setClientFactory(() => ({ messages: { stream() {
+        let text;
+        return { on(name, fn) { if (name === 'text') text = fn; return this; }, async finalMessage() {
+          for await (const chunk of chunks()) text(chunk);
+          return { stop_reason: 'end_turn', usage: {}, content: [{ type: 'text', text: 'firstpending' }] };
+        } };
+      } } }));
+      if (provider === 'claude') transport.setSdkLoader(async () => ({ query() {
+        const iterator = (async function* () { for await (const text of chunks()) yield { type: 'stream_event', event: { type: 'content_block_delta', delta: { type: 'text_delta', text } } }; })();
+        iterator.interrupt = async () => {}; return iterator;
+      } }));
+      if (provider === 'codex') transport.setSdkLoader(async () => ({ Codex: class {
+        startThread() { return { id: 'fixture', async runStreamed() { return { events: (async function* () {
+          let text = ''; for await (const chunk of chunks()) { text += chunk; yield { type: 'item.updated', item: { id: 'reply', type: 'agent_message', text } }; }
+        })() }; } }; }
+      } }));
+      t.after(() => { agent.setClientFactory(null); transport?.setSdkLoader(null); });
+      let calls = 0, released = 0; const visible = [];
+      const started = await agent.start({ provider, chatId: 'refusal', prompt: 'test', messages: [{ role: 'user', content: 'test' }], context: { folder: null }, settings: { forceOnline: true, apiKey: 'fixture' }, connection: { enabled: false }, storeDir: fs.mkdtempSync(path.join(os.tmpdir(), 'bd-driver-refusal-')), onFinish() { released++; }, send(event) {
+        calls++; if ((failure === 'buffered-text' && calls > 1) || event.type === 'error') throw Error('Durable sink refused');
+        visible.push(event);
+      } });
+      const result = await runs.waitForRunFinish(started.runId);
+      await wait(20);
+      assert.equal(result.status, 'failed'); assert.equal(result.message, 'Durable sink refused');
+      assert.equal(released, 1); assert.equal(calls, 2); assert.equal(runs.runs.has(started.runId), false);
+      assert.deepEqual(visible.map(e => e.text), ['first']);
+    });
+  }
+}
