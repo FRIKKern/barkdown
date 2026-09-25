@@ -1,0 +1,114 @@
+TAP version 13
+# {"passed":["partial evidence and draft/context preservation","idempotent recovery","blocked dispatch","verified termination identity","explicit effects review","foreign-profile refusal","no automatic replay","legacy receipt refusal"],"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-chat-recovery-unit-ROIW7l"}
+# PASS retained registry uncertainty exposes recovery without restart and remains blocked until verified and reviewed
+# (node:16672) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# PASS managed renderer waits for trusted driver acknowledgement and surfaces uncertainty without clearing draft
+# Subtest: app\\tests\\chat-recovery.test.mjs
+ok 1 - app\\tests\\chat-recovery.test.mjs
+  ---
+  duration_ms: 2491.005
+  ...
+# Subtest: closure is durable, idempotent and profile-owned; reads never create a record
+ok 2 - closure is durable, idempotent and profile-owned; reads never create a record
+  ---
+  duration_ms: 220.3428
+  ...
+# Subtest: malformed preparation refuses instead of resetting or silently opening
+ok 3 - malformed preparation refuses instead of resetting or silently opening
+  ---
+  duration_ms: 154.6319
+  ...
+# Subtest: closure during delayed runtime refuses dispatch and releases its runtime
+ok 4 - closure during delayed runtime refuses dispatch and releases its runtime
+  ---
+  duration_ms: 255.1054
+  ...
+# Subtest: closure during delayed authentication refuses dispatch and releases its runtime
+ok 5 - closure during delayed authentication refuses dispatch and releases its runtime
+  ---
+  duration_ms: 280.4194
+  ...
+# Subtest: capacity-release notifications cannot admit a closed profile but other profiles can acquire
+ok 6 - capacity-release notifications cannot admit a closed profile but other profiles can acquire
+  ---
+  duration_ms: 185.4753
+  ...
+# Subtest: goal create/start and every service tick stay closed across restart while other profiles work
+ok 7 - goal create/start and every service tick stay closed across restart while other profiles work
+  ---
+  duration_ms: 597.9251
+  ...
+# Subtest: reviewing a finished worker cannot launch newly eligible dependent workers after closure
+ok 8 - reviewing a finished worker cannot launch newly eligible dependent workers after closure
+  ---
+  duration_ms: 776.9897
+  ...
+# Subtest: ordinary dispatch rechecks closure after the authentication wrapper resolves
+ok 9 - ordinary dispatch rechecks closure after the authentication wrapper resolves
+  ---
+  duration_ms: 225.3786
+  ...
+# Subtest: goal dispatch rechecks closure after the authentication wrapper resolves
+ok 10 - goal dispatch rechecks closure after the authentication wrapper resolves
+  ---
+  duration_ms: 500.4882
+  ...
+# Subtest: ordinary drain waits for pending acquisition and its asynchronous release without blocking B
+ok 11 - ordinary drain waits for pending acquisition and its asynchronous release without blocking B
+  ---
+  duration_ms: 315.4523
+  ...
+# Subtest: ordinary drain cancels a late dispatch and waits for driver, lease and transcript completion
+ok 12 - ordinary drain cancels a late dispatch and waits for driver, lease and transcript completion
+  ---
+  duration_ms: 478.2586
+  ...
+# Subtest: a driver flag without native proof cannot pass ordinary drain on retry or restart
+ok 13 - a driver flag without native proof cannot pass ordinary drain on retry or restart
+  ---
+  duration_ms: 412.4264
+  ...
+# Subtest: runtime release failure remains a preparation fault after the pending start rejects
+ok 14 - runtime release failure remains a preparation fault after the pending start rejects
+  ---
+  duration_ms: 221.3959
+  ...
+# Subtest: restart drain verifies interrupted ownership but preserves the separate effects review
+ok 15 - restart drain verifies interrupted ownership but preserves the separate effects review
+  ---
+  duration_ms: 393.4235
+  ...
+# Subtest: ordinary drain retains foreign completion failure after native verification
+ok 16 - ordinary drain retains foreign completion failure after native verification
+  ---
+  duration_ms: 603.1538
+  ...
+# Subtest: ordinary drain retains cleanup completion failure after native verification
+ok 17 - ordinary drain retains cleanup completion failure after native verification
+  ---
+  duration_ms: 607.7235
+  ...
+# Subtest: native ordinary preparation drains A child/grandchild and preserves the running B tree
+ok 18 - native ordinary preparation drains A child/grandchild and preserves the running B tree
+  ---
+  duration_ms: 2266.8176
+  ...
+# {"fixture":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-s2ZEYW","aReceipt":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-s2ZEYW\\\\profiles\\\\3fafe624-3f52-4596-903f-4844910fdbfa\\\\goal-processes\\\\523d4bd5-8c4f-4a8a-8774-8ff56d3e47c0.receipt.json","aTree":{"root":23372,"pid":61932,"leaf":53648},"bTree":{"root":60772,"pid":43672,"leaf":47764},"retained":true}
+# {"passed":["generation saves","trusted scope","durable approvals","cross-profile controls","late A transcript with B draft","driver finalization","foreign image rejection","dispatch input snapshot"],"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-profile-service-uBpXw6","retained":true}
+# Subtest: app\\tests\\profile-service.test.mjs
+ok 3 - app\\tests\\profile-service.test.mjs
+  ---
+  duration_ms: 2143.2228
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8647.6337
