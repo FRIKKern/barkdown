@@ -1,7 +1,5 @@
 # Current handoff
 
-C079 merged through [PR44](https://github.com/FRIKKern/barkdown/pull/44) at8b762a9d; PR and post-merge Verify/parity pass. Branch retired. [Delivery record](cycles/evidence/C079/merge.json).
+[C080 owned navigation](cycles/C080-owned-navigation.md) is validating on codex/migration-navigation. Source058554fd passes scoped/full desktop, real comparison and native Archive/navigation/restart checks. Native and live media are reviewed. Finish final visual/root gates, push, hosted checks and integration before expanding scope.
 
-[C080](cycles/C080-owned-navigation.md) owns read-only managed navigation projection on codex/migration-navigation. Preserve local Archive, human Pages and connection-bound tabs/favorites; prove refusal/restart before cutover. No authority activation or legacy retirement. P2/A2 remains open.
-
-Healthy dependencies reused; native managed rehearsal owns its disposable Electron/runtime (see cycle). Preserve43 locked recovery worktrees, two stashes and detached recovery. Main plus one delivery lane. Exact next action in the cycle.
+No authority switch or legacy retirement: P2/A2 remains open. App implementation is frozen; the cycle records documentation-only capture freshness work. Preserve43 locked recovery worktrees, two stashes and detached recovery. Main plus one delivery branch; no owned services at this checkpoint. [Prior delivered checkpoint](cycles/evidence/C079/merge.json).

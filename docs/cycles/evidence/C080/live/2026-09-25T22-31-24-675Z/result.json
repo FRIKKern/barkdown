@@ -1,0 +1,71 @@
+{
+  "source": "058554fd4a91215fdd7fe6ada72a53c3e69f9718",
+  "upstream": "b702140907921e82e9ce5eecb3e2445f13ab2d6e",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "mixed library, links, media and organization",
+      "result": {
+        "version": 1,
+        "status": "compared",
+        "identity": {
+          "profileId": "7b433d60-fe46-4613-8660-b419b5206eef",
+          "preparationId": "dfa4d1d1-84a5-471a-9340-2ebc08260c11",
+          "closureId": "83ed7407-f1d7-4935-bfcd-16c7a4b97195",
+          "writer": {
+            "version": 1,
+            "owner": "dd47aabd-672c-6fa0-630c-99da823d5220",
+            "generation": "09b4b37c-1151-45c1-90a4-b3dc9c303aac"
+          },
+          "draftKeys": [],
+          "target": {
+            "profileId": "7b433d60-fe46-4613-8660-b419b5206eef",
+            "runtimeId": "owned-isolated-7b433d60-fe46-4613-8660-b419b5206eef",
+            "server": "http://127.0.0.1:57396",
+            "dataset": "production"
+          },
+          "sourceHash": "cff4344f08ca60f697985edbb00527d1fd7590df24640c8d852341b7f95be1b0",
+          "manifestHash": "457ad7730713551e58790dac57a450c59c81fd6a880918b2719841ee12c36aea",
+          "projectionHash": "953b0de2cb2fb5af73c76d55987048266287be2227ca44b8a81752af0dea470c"
+        },
+        "baselineHash": "c9830ffc02fd1eb1e77243411f2212ec703ba41af78e1ca678dd047c9577b3fc",
+        "planHash": "4086c8bd0ae810fe3f034d1bfab91ddea36d99d958225af1db61eea372b788c4",
+        "corpusHash": "f4fdd13e22b4c543bd031152c65dde66218b2657abd897a24650f163af73c3fd",
+        "mediaHash": "a57e5cdfdfd4ed78a777392b22330ab1ecd7a868427f8256a2a3f248f1ab7c3b",
+        "documents": 206,
+        "staged": 2,
+        "preserved": 204,
+        "media": 1,
+        "workspaceHash": "953b0de2cb2fb5af73c76d55987048266287be2227ca44b8a81752af0dea470c",
+        "authority": "legacy",
+        "activationAllowed": false,
+        "limits": [
+          "Observed reads are not a server snapshot or a fence for direct upstream clients."
+        ]
+      }
+    },
+    {
+      "name": "new coordinator revalidates existing preparation",
+      "passed": true
+    },
+    {
+      "name": "interrupted read has no repair writes; retry rechecks",
+      "passed": true
+    },
+    {
+      "name": "later draft change refuses without overwriting",
+      "passed": true
+    },
+    {
+      "name": "cancellation invalidates comparison admission",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Headless coordinator with controlled foreground hooks; native GUI freeze is separate evidence.",
+    "Read-only internal rehearsal; no authority switch, server snapshot or direct-client fence."
+  ],
+  "initialPaperIds": [
+    "welcome"
+  ]
+}

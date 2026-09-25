@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-25T22:29:50.454Z",
+  "source": "058554fd4a91215fdd7fe6ada72a53c3e69f9718",
+  "sourceStatus": "?? docs/cycles/evidence/C080/desktop-01/\n?? docs/cycles/evidence/C080/live-plan.json\n?? docs/visual/migration/runs/2026-09-25T22-25-10-582Z/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "real-comparison",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "run",
+        "test:migration-comparison:isolated"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T22:29:50.591Z",
+      "log": "real-comparison.log",
+      "elapsedMs": 113078,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "live-paper",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "run",
+        "shots:isolated"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T22:31:43.675Z",
+      "log": "live-paper.log",
+      "elapsedMs": 120018,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-09-25T22:33:43.693Z"
+}

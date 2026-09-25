@@ -85,6 +85,6 @@ Goal-service `drain(profileId)` pauses that profile, waits for queued/running ad
 
 `migration-comparison.js` captures a caller-pinned baseline before staging and compares complete published/draft variants, exact referenced PNG bytes, source backups and workspace projection. It holds the preparation coordinator through reads and refuses changed/missing evidence without repairs. [C078](../../docs/cycles/C078-library-comparison.md) records validation and limits. This is an internal rehearsal adapter, not an authority selector; unsupported workspace/media inputs remain explicit refusals.
 
-### 2026-09-26 — owned migration preview (C080, in progress)
+### 2026-09-26 — owned migration preview (C080)
 
-Migration projection and comparison now bind destinations to the captured library and preserve unplaced notes for local Archive. [Focused evidence and remaining native proof](../../docs/cycles/C080-owned-navigation.md) distinguish this read-only preview from activation. Existing live Paper imagery above remains general editor evidence, not proof of this new path.
+Migration projection and comparison now bind destinations to the captured library and preserve unplaced notes for local Archive. [Behavior and visual evidence](../../docs/cycles/C080-owned-navigation.md) distinguish this read-only preview from activation. Existing live Paper imagery above remains general editor evidence, not proof of this new path.
