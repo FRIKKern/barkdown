@@ -148,7 +148,9 @@ function mcpServerSpec(storeDir, scope) {
   const underElectron = Boolean(process.versions.electron);
   const env = underElectron ? { ELECTRON_RUN_AS_NODE: '1' } : {};
   if (scope) {
+    if (!scope.writerToken) throw new Error('MCP child requires its captured writer generation');
     env.BARKDOWN_RUN_CONNECTION = JSON.stringify(scope.connection);
+    env.BARKDOWN_WRITER_TOKEN = JSON.stringify(scope.writerToken);
     env.BARKDOWN_BP_TOKEN = scope.connection.token || '';
     if (scope.profileId) env.BARKDOWN_PROFILE_ID = scope.profileId;
   } else if (process.env.BARKDOWN_BP_TOKEN) env.BARKDOWN_BP_TOKEN = process.env.BARKDOWN_BP_TOKEN;

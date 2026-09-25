@@ -224,6 +224,13 @@ try {
   await page.locator('.bw-step').nth(0).locator('summary').click();
   await page.evaluate(() => window.__barkdown.render());
   step('a step the person collapsed stays collapsed across re-renders', !(await page.locator('.bw-step').nth(0).evaluate(d => d.open)) && (await page.locator('.bw-step').nth(1).evaluate(d => d.open)));
+  step('an immediate streaming render cannot race the queued disclosure toggle', await page.evaluate(() => {
+    const first = () => document.querySelector('.bw-step');
+    first().querySelector('summary').click(); window.__barkdown.render();
+    if (!first().open) return false;
+    first().querySelector('summary').click(); window.__barkdown.render();
+    return !first().open;
+  }));
   step('the finished footer shows time, tokens, cost and provider', (await page.locator('.bw-reply-foot').last().innerText()).includes('2m 20s · 3.4k tokens · $0.061 · Claude Code') && (await page.locator('.bw-reply-foot').last().locator('.bw-mark-claude').count()) === 1);
   step('an edit step shows a line diff', (await page.locator('.bw-step').nth(1).locator('.bw-diff .add').count()) === 2 && (await page.locator('.bw-step').nth(1).locator('.bw-diff .del').count()) === 1);
   step('the change card lists files and the document with counts', (await page.locator('.bw-changes-head').innerText()).includes('Edited 2 files · 1 document') && (await page.locator('.bw-change').count()) === 3 && (await page.locator('.bw-change').nth(0).innerText()).includes('+2') && (await page.locator('[data-undo-file]').count()) === 2);

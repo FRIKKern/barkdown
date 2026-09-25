@@ -15,11 +15,12 @@ function frozenCopy(value) {
   return freeze(copy);
 }
 
-function captureScope({ profileId = null, storeDir, context = {}, connection } = {}) {
+function captureScope({ profileId = null, storeDir, context = {}, connection, writerToken } = {}) {
   if (profileId !== null && !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(profileId)) throw new Error('Invalid run profile owner');
   if (profileId && (!storeDir || !path.isAbsolute(storeDir))) throw new Error('A profile run requires its resolved store directory');
   const store = storeModule.createStore(storeDir || storeModule.dir(), { create: false });
-  const documents = documentModule.createDocuments(store);
+  const writer = require('../writer-admission').writerForStore(store, { token: writerToken });
+  const documents = documentModule.createDocuments(store, { writer });
   const conversations = conversationModule.createConversations(store);
   const edits = editModule.createAgentEdits({ store, documents });
   const env = { ...process.env };
@@ -29,6 +30,7 @@ function captureScope({ profileId = null, storeDir, context = {}, connection } =
   env.BARKDOWN_BP_TOKEN = capturedConnection.token || '';
   delete env.BARKDOWN_RUN_CONNECTION;
   delete env.BARKDOWN_PROFILE_ID;
+  delete env.BARKDOWN_WRITER_TOKEN;
   if (capturedConnection.enabled && !capturedConnection.viaCli) {
     env.BARKPARK_API_URL = capturedConnection.server || '';
     env.BARKPARK_API_TOKEN = capturedConnection.token || '';
@@ -38,7 +40,7 @@ function captureScope({ profileId = null, storeDir, context = {}, connection } =
   }
   documents.loadAll({ seed: false });
   return Object.freeze({ profileId, storeDir: store.dir(), context: frozenCopy(context), connection: capturedConnection,
-    env: Object.freeze(env), store, documents, conversations, edits });
+    env: Object.freeze(env), writerToken: writer.token, writer, store, documents, conversations, edits });
 }
 
 module.exports = { captureScope, frozenCopy };

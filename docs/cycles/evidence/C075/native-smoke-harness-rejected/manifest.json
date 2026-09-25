@@ -1,0 +1,22 @@
+{
+  "host": "75b16f9b89e0ece2202e0db726fe9813e393bf63",
+  "upstream": "b702140907921e82e9ce5eecb3e2445f13ab2d6e",
+  "capture": false,
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-writer-native-5yN5ma",
+  "frames": [
+    "01-acknowledged-paper.png",
+    "failure.png"
+  ],
+  "videos": [
+    "page@b175fbf8577ca6281e6f3fc4f8e85399.webm"
+  ],
+  "checks": [],
+  "errors": [],
+  "passed": false,
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n+   undefined,\n+   undefined,\n+   undefined,\n+   undefined,\n+   undefined\n-   'writer_stale',\n-   'writer_stale',\n-   'writer_stale',\n-   'writer_stale',\n-   'writer_stale'\n  ]\n\n    at file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/writer-fence.live.mjs:82:10",
+  "artifacts": {
+    "01-acknowledged-paper.png": "1d6a987d7dcb8b5e25066646c8ed63f3859070abd3dc4dc734252c727195aaec",
+    "failure.png": "1d6a987d7dcb8b5e25066646c8ed63f3859070abd3dc4dc734252c727195aaec",
+    "page@b175fbf8577ca6281e6f3fc4f8e85399.webm": "c595c06d94ab01f9006af1fd31b45ff1c658f8a19d891a09fd4322883ba35e70"
+  }
+}

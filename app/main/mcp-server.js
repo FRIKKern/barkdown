@@ -3,13 +3,9 @@
 const { McpServer } = require('@modelcontextprotocol/sdk/server/mcp.js');
 const { StdioServerTransport } = require('@modelcontextprotocol/sdk/server/stdio.js');
 const { z } = require('zod');
-const store = require('./store');
-const documents = require('./documents');
-const agentEdits = require('./agent-edits');
 const readRevisions = new Map();
 const { docToMarkdown } = require('../shared/markdown');
 const barkpark = require('./barkpark');
-const conversations = require('./conversations');
 
 // The main process keeps barkpark.json current (server, dataset, mode) and hands a stored token over as
 // BARKDOWN_BP_TOKEN when it starts this server; published papers read fine without one.
@@ -22,11 +18,17 @@ async function paperListing() { if (!barkparkOn()) return []; try { return (awai
 
 const storeDir = process.argv[2];
 if (!storeDir) { console.error('usage: mcp-server.js <storeDir>'); process.exit(2); }
-store.init(storeDir);
+const store = require('./store').createStore(storeDir);
+const writer = require('./writer-admission').writerForStore(store, {
+  token: process.env.BARKDOWN_WRITER_TOKEN ? JSON.parse(process.env.BARKDOWN_WRITER_TOKEN) : undefined,
+});
+const documents = require('./documents').createDocuments(store, { writer });
+const agentEdits = require('./agent-edits').createAgentEdits({ store, documents });
+const conversations = require('./conversations').createConversations(store);
 capturedConnection ||= Object.freeze({ ...(store.readJson('barkpark.json', null) || {}), token: process.env.BARKDOWN_BP_TOKEN || '' });
-const paper = require('./paper-tools').createPaperTools({ store, connection: capturedConnection, profileId: process.env.BARKDOWN_PROFILE_ID || null });
+const paper = require('./paper-tools').createPaperTools({ store, writer, connection: capturedConnection, profileId: process.env.BARKDOWN_PROFILE_ID || null });
 const toolConnection = paper.connection;
-documents.loadAll({ seed: !paper.managed });
+documents.loadAll({ seed: !paper.managed && require('./writer-admission').controller(store).inspect().phase === 'open' });
 
 const text = value => ({ content: [{ type: 'text', text: typeof value === 'string' ? value : JSON.stringify(value, null, 1) }] });
 
@@ -38,13 +40,13 @@ function describe(doc) {
 const server = new McpServer({ name: 'barkdown', version: '0.6.0' });
 
 server.registerTool('list_documents', { description: 'List the documents in the Barkdown library with ids, titles and excerpts. Ids starting with bp: are Barkpark papers on the connected server; the rest are local documents.', inputSchema: {} }, async () => {
-  documents.loadAll({ seed: !paper.managed });
+  documents.loadAll({ seed: false });
   const local = documents.list().map(d => ({ id: d.id, title: d.title, excerpt: d.excerpt, rev: d.rev, source: 'local' }));
   return text([...local, ...(await paperListing())]);
 });
 
 server.registerTool('search_documents', { description: 'Search the Barkdown library and, when connected, Barkpark papers (ids starting with bp:). Returns ids, titles and snippets.', inputSchema: { query: z.string() } }, async ({ query }) => {
-  documents.loadAll({ seed: !paper.managed });
+  documents.loadAll({ seed: false });
   const local = documents.search(query).map(d => ({ id: d.id, title: d.title, snippet: d.snippet, source: 'local' }));
   const papers = barkparkOn() ? (await paper.search(query).catch(error => { if (paper.managed) throw error; return []; })).map(d => ({ id: 'bp:' + d.id, title: d.title, snippet: d.snippet, source: 'barkpark' })) : [];
   return text([...local, ...papers]);
@@ -59,7 +61,7 @@ server.registerTool('read_document', { description: 'Read a Barkdown document (o
     const blocks = (p.blocks || []).map((b, n) => `[${n}] ${b.type}${b.level ? ' h' + b.level : ''}`);
     return text([`# ${p.title}`, `id: ${id} · rev ${p.rev} · updated ${p.updatedAt} · Barkpark paper`, '', 'Top-level blocks: ' + (blocks.join(', ') || '(HTML body, no blocks)'), '', barkpark.readablePaper(p)].join('\n'));
   }
-  documents.loadAll({ seed: !paper.managed });
+  documents.loadAll({ seed: false });
   const doc = documents.get(id);
   if (doc) readRevisions.set(id, doc.rev);
   return text(doc ? describe(doc) : `No document with id ${id}. Use list_documents.`);
@@ -92,7 +94,7 @@ server.registerTool('create_document', { description: 'Create a new document in 
       return text('Created document ' + id + ' (' + JSON.stringify(doc.title) + ') at rev ' + doc.rev + '.');
     } catch (error) { return { ...text(error.message), isError: true }; }
   }
-  documents.loadAll({ seed: !paper.managed });
+  documents.loadAll({ seed: false });
   const doc = documents.create({ title, markdown, actor: 'agent' });
   readRevisions.set(doc.id, doc.rev);
   return text(`Created document ${doc.id} ("${doc.title}") at rev 1.`);

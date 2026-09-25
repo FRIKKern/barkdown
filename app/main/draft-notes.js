@@ -20,6 +20,7 @@ function exactDraft(document, id, content = true) {
 }
 
 function createDraftNotes({ store, config, paperOwner, profileId, assertOwned, request = barkpark.request }) {
+  const writer = require('./writer-admission').writerForStore(store);
   if (!uuid.test(profileId || '') || !/^[a-f0-9]{64}$/.test(paperOwner || '') ||
       config?.viaCli || !config?.enabled || typeof assertOwned !== 'function') throw invalid('An owned local Paper library is required.');
   const captured = structuredClone(config), dataset = encodeURIComponent(captured.dataset || 'production');
@@ -130,7 +131,11 @@ function createDraftNotes({ store, config, paperOwner, profileId, assertOwned, r
       !key.startsWith('_') && !['rev', 'barkdownCreation', 'body_html', 'body_html_sv', 'preview'].includes(key)));
     return create(requestId, { title: snapshot.title || '' }, native);
   }
-  return { read, create, createCopy, list, search, apply, summary };
+  return { read, list, search, summary,
+    create: async (...args) => writer.run('draft.create', () => create(...args)),
+    createCopy: async (...args) => writer.run('draft.copy', () => createCopy(...args)),
+    apply: async (...args) => writer.run('draft.apply', () => apply(...args)),
+  };
 }
 // Only trusted runtime configuration carries this marker. A loopback URL alone is insufficient.
 function ownedDraftNotes(store, config, profileId = config?.managedProfileId) {

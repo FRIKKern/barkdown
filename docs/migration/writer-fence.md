@@ -1,0 +1,42 @@
+# Captured writer fence — implementation contract
+
+Implemented in C075 and under validation. This is a bounded P2 writer-admission boundary, not evidence that migration can activate. A2 still requires final source/target comparison, child termination, sealed selection and rollback.
+
+## Admission and generations
+
+Use one profile-store-owned durable generation, separate from foreground profile IPC generations and remote Paper revisions. A captured run carries the generation through API tools, the stdio MCP environment and the owned goal-worker start message. Reconstructing a child must validate that captured value rather than read and silently adopt the latest generation.
+
+A short cross-process admission lease validates the generation and records an operation before work begins. Mutations keep their admission through asynchronous server acknowledgement and local receipt persistence. Nested service calls reuse the same admission; they must not release it early or admit a different owner. Finish under the same lease. Capturing an untouched store is read-only; its initial identity derives from the canonical root and inode. First admission commits identity and state. Partial, unreadable, changed-root or malformed committed state refuses mutation rather than resetting ownership. This is a cooperating-process safety boundary, not protection against arbitrary deletion/replacement of all ownership evidence.
+
+Quiescence first blocks new admission and invalidates captured tokens. Existing admitted operations may finish, while new work from the same old handle must fail. A stopped PID does not prove that its server request stopped: interrupted admissions remain unresolved evidence. No seal or selection can occur while an operation is active or unresolved. Failure after dispatch must not be relabeled as no write. Source comparison and existing create/delete journals are additional gates, not substitutes for this admission boundary.
+
+Still required before activation: reopening after an explicitly reconciled abort must use a new generation. Old workers do not regain write authority. Native activation/rebinding belongs to the later selector implementation; this cycle must not expose an unsafe authority toggle.
+
+## Runtime routes to cover
+
+| Route | Required boundary |
+|---|---|
+| Foreground legacy documents | Create, save, restore, delete, proposal resolution and seeding; direct bound document handles must retain their generation. |
+| Foreground Paper | Connection-bound ops, creation, deletion/recovery, historical proposal acceptance, upload, import, publishing and title writes. Hold admission until the async operation and owned local evidence settle. |
+| API tools | Capture once with the run; creation and agent body/table edits use that admission. Validate before any remote mutation. |
+| MCP | Forward the parent token before child startup; do not recapture on a later tool invocation. Read/list must not seed after quiescence. A surviving child must refuse a new mutation. |
+| Goal worker | Serialize captured token on the private start pipe; reconstruct the same token and propagate it to its own MCP child. |
+| Workspace and attachments | Foreground save/commands, background run/event persistence and attachment writes remain part of migration source consistency. Their drain/preservation must be audited before claiming a complete source fence. |
+
+The current `createConversations` service is read-only. Background writes are in `workspace-repository` through `profile-service`, not in the conversations reader. Existing foreground IPC drain protects only handlers; external file tools and an older uninstrumented binary are not server-side fencing. Child teardown and managed-runtime isolation remain required before activation.
+
+## Proof before accepting the slice
+
+- Two profiles with identical document IDs and wrong-owner tokens never cross-write.
+- Pause a writer inside an actual async mutation: quiescence admits no successor and cannot seal while that writer is pending.
+- A bound foreground/API handle and a real already-running stdio MCP child refuse after generation change; restart does not erase stale/uncertain ownership.
+- A delayed goal-worker dispatch cannot upgrade its old generation while reconstructing its scope.
+- Kill an admitted child; retained evidence blocks a claim of quiescence even after process-lease recovery.
+- Malformed state, changed store roots and concurrent admission/transition never reset or mix ownership. Read-only original-history access remains available.
+- Preserve normal create/edit/Undo and profile-switch behavior with targeted tests, then full desktop, current live Paper, reviewed visual evidence and hosted gates.
+
+Use bounded synchronous metadata sections and existing complete-owner file leases/atomic-write checks. Avoid holding a global blocking lease across network waits. Do not disable current tripwires or create a second active cycle while the merge checkpoint is pending.
+
+## Legacy profile adoption
+
+Source ownership controls are validated against their actual root, retained byte-for-byte in backups and omitted from the destination projection. A new profile captures a distinct root identity; a snapshot is never a new authority for its original control records. Active, uncertain or quiescing sources require reconciliation before adoption. Existing closed-process and unchanged-manifest checks remain required; this compatibility projection does not turn profile adoption into note-engine cutover.

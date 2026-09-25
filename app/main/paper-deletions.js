@@ -12,6 +12,7 @@ const fail = message => Object.assign(new Error(message), { code: 'paper_deletio
 
 function createPaperDeletions(options) {
   const { store, profileId, paperOwner, assertOwned, request = bp.request } = options;
+  const writer = require('./writer-admission').writerForStore(store);
   const config = structuredClone(options.config), notes = createDraftNotes(options);
   const dataset = encodeURIComponent(config.dataset || 'production');
   const keyFor = (id, revision) => hash([id, revision]);
@@ -119,6 +120,10 @@ function createPaperDeletions(options) {
       return view(validate(r, key));
     }).filter(r => r && ['sent', 'deleted'].includes(r.status)).sort((a, b) => b.at.localeCompare(a.at));
   }
-  return { remove, reconcile, recover, list };
+  return { list,
+    remove: async (...args) => writer.run('deletion.remove', () => remove(...args)),
+    reconcile: async (...args) => writer.run('deletion.reconcile', () => reconcile(...args)),
+    recover: async (...args) => writer.run('deletion.recover', () => recover(...args)),
+  };
 }
 module.exports = { createPaperDeletions };

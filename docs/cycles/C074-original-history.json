@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "id": "C074",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Consume the merged Paper baseline and make retained original history readable without restoring legacy authority.",
+  "scope": [
+    "Adopt merged b70214090 assets and verify exact locked provenance, connected/cache/fallback boundaries and real Paper behavior.",
+    "Provide a profile-owned native read-only viewer for verified original documents, revisions, proposals and receipts, including unsupported content and restart.",
+    "Deliver reviewed screenshots/motion and source-bound behavior proof; keep migration activation and legacy retirement gated."
+  ],
+  "acceptance": [
+    "The shipped pin and fallback match merged upstream source, notices are preserved, and actual fallback plus live regression checks pass.",
+    "Original evidence is accessible through the app, pinned to the owning profile and backup hash; stale/undone receipts and old proposals are readable and cannot execute actions.",
+    "Wrong-owner, changed/corrupt/missing backups refuse safely; real native narrow/restart journeys and visual review pass."
+  ],
+  "checkpoint": "2026-09-25",
+  "handoff": "docs/cycles/C074-original-history.md",
+  "nextAction": "C075 captured writer-generation fencing; keep activation and rollback gated.",
+  "evidence": [
+    "docs/cycles/evidence/C074/README.md",
+    "docs/cycles/evidence/C074/consumption.json",
+    "docs/cycles/evidence/C074/review.json",
+    "docs/cycles/evidence/C074/merge.json",
+    "docs/cycles/evidence/C074/hosted-parity.json",
+    "docs/cycles/evidence/C074/hosted-visual-review.json"
+  ],
+  "truthReview": "Exact merged fallback and profile-owned original history proven locally and in hosted20/20 editor parity. PR37 merged at75b16f9b; G1 clear. P2/A2 and G2 remain open.",
+  "screenshotReview": "Named standard approval plus native/fallback/live reviews complete; rejected first capture retained. C074 review.json records actual counts and limitations."
+}

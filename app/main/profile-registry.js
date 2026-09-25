@@ -5,11 +5,12 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const { acquireFileLease } = require('./file-lease');
 const { atomicWrite } = require('./atomic-write');
+const { controlFiles, assertAdoptable } = require('./writer-admission');
 
 const VERSION = 1;
 const ID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 const APP_SETTINGS = new Set(['theme', 'sidebarWidth', 'chatWidth', 'windowBounds']);
-const LEGACY_ENTRIES = new Set(['workspace.json', 'settings.json', 'barkpark.json', 'local-credentials.json', 'paper-proposals.json', 'documents', 'attachments', 'agent-edits']);
+const LEGACY_ENTRIES = new Set(['workspace.json', 'settings.json', 'barkpark.json', 'local-credentials.json', 'paper-proposals.json', 'documents', 'attachments', 'agent-edits', ...controlFiles]);
 const hash = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const clone = value => JSON.parse(JSON.stringify(value));
 const isObject = value => value && typeof value === 'object' && !Array.isArray(value);
@@ -197,7 +198,8 @@ function createProfileRegistry(directory, { checkpoint = () => {} } = {}) {
     return locked(() => { entry(id); return commit({ ...load(), selectedProfileId: id }); });
   }
 
-  function inventory(source) {
+  function inventory(source, writerSource) {
+    assertAdoptable(source, writerSource);
     if (fs.lstatSync(source).isSymbolicLink()) throw new Error('Legacy root cannot be a symbolic link');
     if (exists(path.join(source, 'local-barkpark'))) throw new Error('Local database adoption requires a separate cold-runtime migration; shell adoption refused');
     const files = [];
@@ -223,6 +225,10 @@ function createProfileRegistry(directory, { checkpoint = () => {} } = {}) {
       if (bytes.length !== file.size || hash(bytes) !== file.sha256) throw new Error(`Adoption source changed: ${file.path}`);
       const output = transform(bytes, file.path);
       const target = beneath(destination, file.path);
+      if (output === null) {
+        if (exists(target)) throw new Error('Adoption destination already has writer authority; explicit inspection required');
+        continue;
+      }
       if (exists(target)) {
         if (hash(fs.readFileSync(target)) !== hash(output)) throw new Error(`Adoption destination differs: ${file.path}`);
       } else durableWrite(target, output);
@@ -242,7 +248,7 @@ function createProfileRegistry(directory, { checkpoint = () => {} } = {}) {
     }
     return j;
   }
-  function adoptLegacy({ legacyDir, name = 'Default' }) {
+  function adoptLegacy({ legacyDir, name = 'Default', writerSourceDir = legacyDir }) {
     return locked(() => {
       const source = path.resolve(legacyDir);
       noLinkedAncestors(source);
@@ -262,10 +268,10 @@ function createProfileRegistry(directory, { checkpoint = () => {} } = {}) {
       } else {
         if (load()) throw new Error('Default adoption must precede other profiles');
         if (typeof name !== 'string' || !name.trim()) throw new Error('Profile name is required');
-        j = { version: VERSION, phase: 'prepared', source, name: name.trim(), profileId: crypto.randomUUID(), backupId: crypto.randomUUID(), files: inventory(source) };
+        j = { version: VERSION, phase: 'prepared', source, name: name.trim(), profileId: crypto.randomUUID(), backupId: crypto.randomUUID(), files: inventory(source, writerSourceDir) };
         write(journalPath, j); checkpoint('adoption-prepared');
       }
-      if (JSON.stringify(inventory(source)) !== JSON.stringify(j.files)) throw new Error('Legacy workspace changed; adoption stopped without changing source');
+      if (JSON.stringify(inventory(source, writerSourceDir)) !== JSON.stringify(j.files)) throw new Error('Legacy workspace changed; adoption stopped without changing source');
       const backup = at(`adoption-backups/${j.backupId}`);
       fs.mkdirSync(backup, { recursive: true });
       verifiedCopy(source, backup, j.files);
@@ -276,6 +282,7 @@ function createProfileRegistry(directory, { checkpoint = () => {} } = {}) {
       fs.mkdirSync(destination, { recursive: true });
       let appSettings = {};
       verifiedCopy(backup, destination, j.files, (bytes, relative) => {
+        if (controlFiles.includes(relative)) return null;
         if (relative !== 'settings.json') return bytes;
         const settings = JSON.parse(bytes);
         if (!isObject(settings)) throw new Error('Invalid legacy settings');
@@ -283,7 +290,7 @@ function createProfileRegistry(directory, { checkpoint = () => {} } = {}) {
         return Buffer.from(JSON.stringify(settings, null, 2) + '\n');
       });
       checkpoint('adoption-profile-copied');
-      if (JSON.stringify(inventory(source)) !== JSON.stringify(j.files)) throw new Error('Legacy workspace changed before commit');
+      if (JSON.stringify(inventory(source, writerSourceDir)) !== JSON.stringify(j.files)) throw new Error('Legacy workspace changed before commit');
       commit({ profiles: [profile], selectedProfileId: profile.id, appSettings });
       j.phase = 'committed'; write(journalPath, j);
       return clone(profile);

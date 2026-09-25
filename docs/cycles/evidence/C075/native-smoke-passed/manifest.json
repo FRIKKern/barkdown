@@ -1,0 +1,39 @@
+{
+  "host": "75b16f9b89e0ece2202e0db726fe9813e393bf63",
+  "upstream": "b702140907921e82e9ce5eecb3e2445f13ab2d6e",
+  "capture": false,
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-writer-native-4EbHak",
+  "frames": [
+    "01-acknowledged-paper.png",
+    "02-save-refused-buffer-retained.png",
+    "03-narrow-refusal.png",
+    "04-restarted-original-history.png"
+  ],
+  "videos": [
+    "page@e1c4729d9c740b9578ce1a4b5187c96a.webm",
+    "page@90556629cf04996a221bc23b64687fce.webm"
+  ],
+  "checks": [
+    "Real Paper title/body acknowledged before quiescence; stale native note/create/ops/attachment/workspace requests refused",
+    "Typing remains visible in the unsaved buffer; server revision/body and original source/workspace bytes unchanged",
+    "Restart keeps writer admission closed while verified original history remains readable"
+  ],
+  "errors": [],
+  "passed": true,
+  "refusal": {
+    "legacy": "[writer_stale] This writer belongs to an earlier library generation. Restart its conversation run.",
+    "create": "[writer_stale] This writer belongs to an earlier library generation. Restart its conversation run.",
+    "paper": "[writer_stale] This writer belongs to an earlier library generation. Restart its conversation run.",
+    "attachment": "[writer_stale] This writer belongs to an earlier library generation. Restart its conversation run.",
+    "workspace": "[writer_stale] This writer belongs to an earlier library generation. Restart its conversation run."
+  },
+  "unsavedBuffer": "A dependable writing desk\n\nThese words were acknowledged before preparation. This unsaved thought stays in the open buffer.",
+  "artifacts": {
+    "01-acknowledged-paper.png": "697193afc4d4ac9551f71411614747acc1048a7f560cd40675bf56f0052ffb7e",
+    "02-save-refused-buffer-retained.png": "eb4f26f21497b5f438abeba39bd5becde440233348c7852e4d5ca60b0682b3ad",
+    "03-narrow-refusal.png": "b07495eeb2b403f25411459525c97bdabf51f54c2cb8cab9e7ba61b8df77cd52",
+    "04-restarted-original-history.png": "ffbfba8149ac273cba07cd6ff44438b019cbe9a165017808adfbfa56aa13933a",
+    "page@90556629cf04996a221bc23b64687fce.webm": "f1cf3f18910cd243d02a4c0b0dea4f8632674d189545500a9807475e73165ac6",
+    "page@e1c4729d9c740b9578ce1a4b5187c96a.webm": "36bf16e45ca9c8c26c4e267fefa6a3965c35656b31e83b48857b41b2d189f53b"
+  }
+}

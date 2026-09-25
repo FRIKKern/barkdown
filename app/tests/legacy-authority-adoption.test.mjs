@@ -9,6 +9,8 @@ const require = createRequire(import.meta.url);
 const { acquireAuthorityLease, createLegacyAdoption } = require('../main/legacy-authority-adoption');
 const { createProfileRegistry } = require('../main/profile-registry');
 const { acquireFileLease } = require('../main/file-lease');
+const { createStore } = require('../main/store');
+const { controller, writerForStore, controlFiles } = require('../main/writer-admission');
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-authority-'));
 const fixtures = [];
 const readSecrets = () => ({ password: 'fixture-password', token: 'fixture-token' });
@@ -26,6 +28,7 @@ function fixture(name, runtime = false) {
   put('documents/note.json', { id: 'note', rev: 3, title: 'Local note', content: { type: 'doc', content: [{ type: 'image', attrs: { src: url } }] }, markdown: `![Owned image](${url})` });
   fs.writeFileSync(path.join(source, 'documents/note.md'), `# Local note\n\n![Owned image](${url})\n`);
   put('agent-edits/note.json', { id: 'receipt', documentId: 'note', beforeRev: 2, afterRev: 3, before: { content: { type: 'doc', content: [{ type: 'image', attrs: { src: url } }] } } });
+  writerForStore(createStore(source)).run('test.seed', () => {});
   if (runtime) {
     const data = path.join(source, 'local-barkpark/default'); fs.mkdirSync(path.join(data, 'pgdata/pg_tblspc'), { recursive: true }); fs.mkdirSync(path.join(data, 'media'));
     fs.writeFileSync(path.join(data, 'pgdata/PG_VERSION'), '18'); fs.writeFileSync(path.join(data, 'pgdata/content'), 'database-content'); fs.writeFileSync(path.join(data, 'seeded'), 'clean\n'); fs.writeFileSync(path.join(data, 'media/original.png'), 'server-image-bytes');
@@ -42,6 +45,15 @@ assert.equal((await api.prepare()).profileId, prepared.profileId);
 const activated = await api.recover({ action: 'activate' }); assert.equal(activated.status, 'active');
 assert.equal((await api.recover({ action: 'activate' })).profileId, activated.profileId);
 const registry = createProfileRegistry(activated.finalRoot), store = registry.storeFor(activated.profileId), ws = store.readJson('workspace.json');
+const originalToken = controller(createStore(a.source)).capture();
+const adoptedWriter = writerForStore(createStore(store.storeDir, { create: false }));
+assert.notEqual(adoptedWriter.token.owner, originalToken.owner);
+const adoptedJournal = JSON.parse(fs.readFileSync(path.join(a.userData, 'legacy-adoption.json')));
+for (const file of controlFiles) {
+  assert.equal(fs.existsSync(path.join(store.storeDir, file)), false);
+  assert.deepEqual(fs.readFileSync(path.join(a.userData, 'legacy-adoption-work', adoptedJournal.operationId, 'shell-original', file)), fs.readFileSync(path.join(a.source, file)));
+}
+adoptedWriter.run('test.adopted', () => {});
 assert.equal(registry.load().profiles.length, 1); assert.equal(registry.load().appSettings.theme, 'dark');
 assert.equal(ws.chats.side.parent, 'main'); assert.equal(ws.chats.main.draft, 'Draft kept'); assert.equal(ws.chats.side.draft, 'Side draft');
 assert.equal(ws.chats.main.messages[0].text, 'Original transcript'); assert.equal(ws.chats.main.folder, path.join(root, 'external-project'));
@@ -64,6 +76,17 @@ assert.equal(fs.existsSync(activated.finalRoot), false);
 assert.equal(JSON.parse(fs.readFileSync(path.join(rolled.retainedRoot, 'profiles', activated.profileId, 'workspace.json'))).chats.main.draft, 'Adopted-only edit');
 assert.deepEqual(fs.readFileSync(path.join(a.source, 'workspace.json')), originalWorkspace);
 console.log('PASS complete shell/runtime candidate remaps owned references, preserves originals/identities and retains edited rollback');
+
+for (const mode of ['uncertain', 'quiescing']) {
+  const f = fixture('writer-' + mode), writer = writerForStore(createStore(f.source));
+  if (mode === 'quiescing') controller(createStore(f.source)).quiesce(writer.token);
+  else assert.throws(() => writer.run('test.failed', () => { throw new Error('unacknowledged'); }), /unacknowledged/);
+  const before = fs.readFileSync(path.join(f.source, 'writer-state.json'));
+  await assert.rejects(f.api().prepare(), /reconciliation before adoption/);
+  assert.deepEqual(fs.readFileSync(path.join(f.source, 'writer-state.json')), before);
+  assert.equal(fs.existsSync(path.join(f.userData, 'profile-data')), false);
+}
+console.log('PASS cold adoption refuses uncertain or quiescing writers without resetting original authority');
 
 for (const bad of ['existing', 'source-change', 'candidate-change', 'runtime-change', 'marker-change', 'missing-active', 'unfinished', 'unresolved', 'filename-prefix']) {
   const f = fixture(bad, bad === 'runtime-change'), h = f.api();

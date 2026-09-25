@@ -1,0 +1,26 @@
+{
+  "reviewer": "Codex",
+  "reviewedAt": "2026-09-25T10:48:04.417Z",
+  "run": 36125404637,
+  "artifactId": 10859573747,
+  "head": "8fd769b4f473563434a42b9dbcc09818428ef11e",
+  "captureMergeSource": "f8c52cc64efab7046a571e9007e30ec9262cf861",
+  "candidate": "docs/visual/runs/2026-09-25T10-43-57-294Z/manifest.json",
+  "candidateHash": "c052efc42c2e24d974d7bfeda31c04b4e2cf8c6e5a2bb8018aa1a5449ce7eac9",
+  "bundleVerification": "review-ready; all packaged hashes and links verified",
+  "inspected": {
+    "stills": 40,
+    "differences": 40,
+    "decodedGifFrames": 40
+  },
+  "environmentChanged": true,
+  "findings": [
+    "Hosted Windows build differs from the local Windows environment; rendering differences remain visible and were inspected.",
+    "Only Settings Assistant has changed control geometry: runner providers are signed out/unavailable, with sign-in guidance/buttons instead of local signed-in status. Contents scroll within the sheet; Save/Cancel remain visible.",
+    "Other concentrated differences are fixture deadline timezone and small icon rasterization. No missing note content, clipped dialog action or unintended layout change observed.",
+    "Local approved baseline remains selected; this hosted candidate is not promoted over a differing environment."
+  ],
+  "limits": [
+    "Standard fixtures only; native original-history/fallback/live evidence is separately linked in C074."
+  ]
+}

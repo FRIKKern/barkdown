@@ -1,27 +1,23 @@
 {
   "version": 1,
-  "id": "C074",
+  "id": "C075",
   "stage": "P2",
   "status": "active",
-  "goal": "Consume the merged Paper baseline and make retained original history readable without restoring legacy authority.",
+  "goal": "Fence captured note writers across foreground, API, MCP and goal processes before migration can select a new authority.",
   "scope": [
-    "Adopt merged b70214090 assets and verify exact locked provenance, connected/cache/fallback boundaries and real Paper behavior.",
-    "Provide a profile-owned native read-only viewer for verified original documents, revisions, proposals and receipts, including unsupported content and restart.",
-    "Deliver reviewed screenshots/motion and source-bound behavior proof; keep migration activation and legacy retirement gated."
+    "Persist a store-owned generation and cross-process writer admission, retaining interrupted/uncertain operations.",
+    "Carry captured tokens through actual document/edit adapters and provider child boundaries; stale handles must refuse mutations.",
+    "Audit source workspace/media writers and prove the fence without enabling migration activation or retiring legacy editing."
   ],
   "acceptance": [
-    "The shipped pin and fallback match merged upstream source, notices are preserved, and actual fallback plus live regression checks pass.",
-    "Original evidence is accessible through the app, pinned to the owning profile and backup hash; stale/undone receipts and old proposals are readable and cannot execute actions.",
-    "Wrong-owner, changed/corrupt/missing backups refuse safely; real native narrow/restart journeys and visual review pass."
+    "Stale foreground/API/MCP/goal contexts cannot silently acquire a newer writer generation.",
+    "Quiescence rejects new writers and cannot claim completion with an admitted or interrupted writer.",
+    "Wrong-owner, malformed metadata, process interruption and normal edit/Undo/profile behavior are covered by tests and reviewed native evidence."
   ],
   "checkpoint": "2026-09-25",
-  "handoff": "docs/cycles/C074-original-history.md",
-  "nextAction": "Commit reviewed evidence; push one PR and require hosted Verify/Visual/Editor parity before merging. Captured writer-generation fencing follows; deadline13:44:56 UTC.",
-  "evidence": [
-    "docs/cycles/evidence/C074/README.md",
-    "docs/cycles/evidence/C074/consumption.json",
-    "docs/cycles/evidence/C074/review.json"
-  ],
-  "truthReview": "Native read-only originals and exact merged fallback proven locally, including root verification. P2/A2 and hosted full parity remain open; initial19/20 plus isolated IME4/4 recorded separately.",
-  "screenshotReview": "Named standard approval plus native/fallback/live reviews complete; rejected first capture retained. C074 review.json records actual counts and limitations."
+  "handoff": "docs/cycles/C075-writer-fence.md",
+  "nextAction": "Complete full desktop regression after the disclosure race fix, commit implementation, then capture native/live/standard evidence and review before publishing.",
+  "evidence": [],
+  "truthReview": "Writer admission, captured subprocess generations and legacy adoption projection implemented. Native smoke passes; 13 focused admission/process checks pass. Desktop suite exposed a queued disclosure toggle race, now fixed and focused desktop smoke passes. Full rerun pending; no migration activation or legacy retirement.",
+  "screenshotReview": "New app inputs will require fresh standard/live and native refusal evidence after implementation commit."
 }

@@ -37,7 +37,7 @@ function createGoalWorkerAgent({ launch = launchOwnedWorker, verify = verifyOwne
         await host.ready;
         if (!run.cancelled) {
           const { scope, send, onFinish, ...params } = options;
-          host.send({ type: 'start', params: { ...params, scope: { profileId: scope.profileId, storeDir: scope.storeDir, context: scope.context, connection: scope.connection, env: scope.env } } });
+          host.send({ type: 'start', params: { ...params, scope: { profileId: scope.profileId, storeDir: scope.storeDir, context: scope.context, connection: scope.connection, env: scope.env, writerToken: scope.writerToken } } });
         }
         const stopped = await host.finished;
         if (stopped.protocolError) throw stopped.protocolError;

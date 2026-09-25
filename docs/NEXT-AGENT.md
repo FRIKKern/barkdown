@@ -1,13 +1,13 @@
 # Current handoff
 
-**Current cycle:** [C074 Paper baseline and original history](cycles/C074-original-history.md). Local behavior, root verification and visual review complete; hosted closeout pending. P2/A2 remain open.
+**Current cycle:** [C075 captured writer generations](cycles/C075-writer-fence.md), active. Read its [contract](migration/writer-fence.md) before implementation. C074 merged in [PR37](https://github.com/FRIKKern/barkdown/pull/37) at75b16f9b; hosted Verify/Visual and20/20 parity passed. G1 is clear; P2/A2 and G2 remain open.
 
-**Run:** authorized through2026-09-25 13:44:56 UTC (15:44 Paris). Reuse codex/paper-migration-ready in C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration. Heartbeat barkdown-p2-two-hour-run resumes here; pause it at run closeout.
+**Run:** authorized through2026-09-25 13:44:56 UTC (15:44 Paris). Reuse codex/paper-migration-ready at C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration. Heartbeat barkdown-p2-two-hour-run resumes here; pause it at deadline closeout.
 
-**Next action:** commit evidence, push one consolidated PR and require hosted Verify/Visual/Editor parity before merge. No PR/push at this checkpoint. [Evidence index](cycles/evidence/C074/README.md) records exact scope, retained failures and reviews. Captured writer-generation fencing follows in one new bounded cycle after this checkpoint; [audit](cycles/evidence/C074/writer-boundary-audit.json) is preparation only.
+**Next action:** finish C075 regression validation, commit implementation, then capture/review native, live Paper and standard evidence. The writer fence and adoption compatibility are implemented but uncommitted. Native smoke passes; original controls are retained in adoption backups and never rebound to the destination. Full desktop validation is running; see C075 for handles and retained failures. Batch closeout with this milestone rather than pushing status-only commits.
 
-**Proof:** implementation3fb18db; harness1573a6a/a126c71. Focused42/42, full desktop/root pass; native history, real fallback and live Paper reviewed. Initial real parity19/20 plus isolated IME4/4; do not call that a full20/20 run. Native keyboard tests now serial. Upstream private checkout is detached b70214090, tree-identical to validated677992c51, at C:/Users/Frikk/.codex/worktrees/barkpark-paper-create.
+**Proof boundary:** C074 [evidence](cycles/evidence/C074/README.md) includes original-history/fallback/live/native review and retained failures. C075 must prove stale real MCP/native/goal contexts, asynchronous drain and interrupted-write refusal, then full regression and fresh reviewed captures. Native keyboard suites run serially. Private upstream checkout C:/Users/Frikk/.codex/worktrees/barkpark-paper-create is detached atb70214090 and built.
 
-**Limits:** no authority activation, legacy retirement or new deployment. Preserve source/backup/user data and shared services. G2 read-token enforcement remains separately blocked. Follow [CYCLES](CYCLES.md) and [visual rules](visual/RULES.md).
+**Limits:** no migration authority activation, legacy retirement or new deployment. Preserve user data, backups and shared services. Read-token enforcement G2 remains separately blocked.
 
-**Cleanup:** main plus one delivery lane; no owned service running. Retire merged refs only after tip/PR checks; retain historical recovery worktrees/stashes. Commit/push meaningful milestones; keep this handoff current.
+**Cleanup:** main plus one reused delivery lane; owned desktop tests may be running (see cycle). Historical detached recovery worktrees/stashes preserved. Retire the branch after its final verified merge; keep this handoff current.

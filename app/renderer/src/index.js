@@ -363,7 +363,15 @@ function bindTranscript(transcript, chat) {
   transcript.querySelectorAll('[data-view-doc]').forEach(b => { b.onclick = () => openConversationTarget({ kind: 'doc', id: b.dataset.viewDoc, source: b.dataset.docSource || 'local', paperOwner: b.dataset.paperOwner || null }, chat, true); });
   transcript.querySelectorAll('[data-undo-file]').forEach(b => { b.onclick = async () => { const rel = b.dataset.undoFile; if (!chat.folder) { toast('No working folder on this chat.', 'error'); return; } if (!await askConfirm(`Undo the assistant's change to ${rel}? A tracked file goes back to the last commit; a new file is removed.`, { title: 'Undo this change?', confirm: 'Undo', danger: true })) return; try { const r = await api.git.revertFile(chat.folder, rel); toast(r.action === 'restored' ? `Restored ${r.path} from git` : r.action === 'removed' ? `Removed ${r.path}` : `${r.path} was already gone`); controllers.forEach(c => { if (c.type === 'project') c.refresh(rel); if (c.type === 'review') c.refresh(); }); } catch (error) { toast(errorMessage(error), 'error'); } }; });
   // Remember which steps the person opened across re-renders while a run streams.
-  transcript.querySelectorAll('details.bw-step').forEach(d => { const key = chat.id + ':' + d.dataset.step; if (closedSteps.has(key)) d.open = false; d.addEventListener('toggle', () => { if (d.open) closedSteps.delete(key); else closedSteps.add(key); }); });
+  transcript.querySelectorAll('details.bw-step').forEach(d => {
+    const key = chat.id + ':' + d.dataset.step;
+    if (closedSteps.has(key)) d.open = false;
+    const remember = () => { if (d.open) closedSteps.delete(key); else closedSteps.add(key); };
+    // Native toggle is queued: a streaming render may replace this element
+    // first. Commit the person's click/keyboard activation synchronously.
+    d.querySelector('summary').addEventListener('click', event => { event.preventDefault(); d.open = !d.open; remember(); });
+    d.addEventListener('toggle', () => { if (d.isConnected) remember(); });
+  });
 }
 function renderChatViews(chat) {
   if (!chat || chat.id === state.current) renderChat();

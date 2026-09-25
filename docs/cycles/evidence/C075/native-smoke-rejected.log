@@ -1,0 +1,15 @@
+{"out":"C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\test-results\\writer-fence\\2026-09-25T11-14-10-858Z","passed":false,"checks":[]}
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+Error: Writer identity belongs to a different or changed store.
+    at fail (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\writer-admission.js:13:55)
+    at identity (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\writer-admission.js:33:99)
+    at load (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\writer-admission.js:43:16)
+    at Object.capture (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\writer-admission.js:78:19)
+    at file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/writer-fence.live.mjs:65:54 {
+  code: 'writer_owner'
+}
+
+Node.js v22.13.1
