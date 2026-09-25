@@ -16,6 +16,16 @@ Delegate only when authorized and when independent deliverables justify coordina
 
 At closeout, record outcomes delivered, checks and captures run, significant retries and their cause, elapsed time, and token usage if the tool supplies a trustworthy value. Label estimates and unavailable measurements. Separate active work, waiting and tool runtime only when measured; do not invent a breakdown. A tracker total may include replayed context and is not automatically billable tokens or a price. When available, record implementation-ready and merge-ready timestamps for the same outcome; pending integration is not zero elapsed time. Record one concrete efficiency lesson when there was avoidable rework. Update its existing instruction owner in the same checkpoint, then assess recurrence during the next relevant cycle; do not create a separate metrics backlog or claim savings before measurement.
 
+## Finish before expanding
+
+Keep one delivery checkpoint in flight per dependency chain. Choose a small, independently safe outcome before implementation. A long authorized run is time to deliver several checkpoints, not a reason to enlarge one branch. The branch limit is a ceiling, not a throughput target.
+
+Track delivery.phase, delivery.owner and delivery.remaining in the existing cycle record. Phases are implementing, validating, integrating and delivered. Once the bounded behavior passes targeted checks, enter validating and freeze scope: finish related documentation, implementation commit, full gates and reviewed evidence. Only fixes needed for this checkpoint belong in the batch; new features return to the existing plan. Enter integrating to publish, resolve gates and merge when authorized. Mark delivered only after verifying the merged result; delivery does not mean deployment or parent-stage acceptance.
+
+Read the delivery state printed by npm run cycle before starting another slice. Validation and integration take priority. For an external blocker, record its owner and next action in the remaining list. Independent work needs an explicit reason and boundary in the handoff. A user-requested scope change updates this checkpoint; never silently extend it or split an unsafe partial feature merely to claim a merge.
+
+While checks run, review the diff, prepare evidence or investigate failures without changing their source inputs. Reuse applicable proof and rerun only for changed inputs or unresolved concerns. At closeout record implementation-ready and merged timestamps when known, plus causes of delay. No new CI job or time-based retesting is required. Structural checks expose missing delivery state; reviewers still judge its truth.
+
 ## Preflight and integration first
 
 Before expensive work, confirm the selected checkout/commit, required executable paths and versions, dependency health, platform assumptions and owned test-data destination. Reuse a working invocation from applicable evidence and verify it with a short probe. On Windows, check the selected Elixir/Erlang pair and Python/Git Bash invocation; do not assume a command name resolves to the required version. Identify POSIX-only tests before launching a broad suite. Run applicable local checks and leave the required Linux gate explicit; an incompatible local run cannot be counted as a pass or used to waive CI.

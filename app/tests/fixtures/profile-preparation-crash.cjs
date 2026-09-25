@@ -8,7 +8,7 @@ const { createGoalService } = require('../../main/goal-service');
 const { createProfilePreparation } = require('../../main/profile-preparation');
 const { createPaperDraftStore } = require('../../main/paper-draft-store');
 const { createStore } = require('../../main/store');
-const [root, boundary] = process.argv.slice(2);
+const [root, boundary, mode] = process.argv.slice(2);
 const registry = createProfileRegistry(path.join(root, 'registry'));
 const profile = registry.createProfile({ name: 'Interrupted preparation' });
 const store = createStore(registry.storeFor(profile.id).storeDir, { create: false });
@@ -22,4 +22,5 @@ const coordinator = createProfilePreparation({ registry, profiles, goals,
   drainForeground: async () => true, drainTerminals: async () => true,
   checkpoint(name) { if (name === boundary) process.exit(23); },
 });
-coordinator.prepare(profile.id).then(() => { throw Error('The requested interruption boundary was not reached'); }).catch(error => { console.error(error); process.exit(1); });
+coordinator.prepare(profile.id).then(() => mode === 'abort' ? coordinator.abort(profile.id) : undefined)
+  .then(() => { throw Error('The requested interruption boundary was not reached'); }).catch(error => { console.error(error); process.exit(1); });

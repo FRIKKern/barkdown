@@ -4,6 +4,18 @@
 .bw-preparation-notice p{flex:1 1 100%;margin:0;overflow-wrap:anywhere}
 .bw-preparation-notice label{display:flex;align-items:center;flex:1;gap:10px;min-width:0;color:var(--bw-muted)}
 .bw-preparation-notice select{min-width:0;flex:1;background:var(--bw-bg);color:var(--bw-text);border:1px solid var(--bw-border);border-radius:6px;padding:6px}
+.bw-preparation-actions{display:flex;flex-wrap:wrap;gap:8px;width:100%}
+.bw-preparation-notice [hidden]{display:none}
+.bw-retained-drafts{width:min(800px,calc(100vw - 32px));max-height:calc(100vh - 32px);padding:24px;border:1px solid var(--bw-border);border-radius:14px;background:var(--bw-bg);color:var(--bw-text);box-shadow:0 20px 80px #0006;overflow:auto}
+.bw-retained-drafts::backdrop{background:#0007}
+.bw-retained-drafts header{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+.bw-retained-drafts h2{font-size:22px;margin:0 0 8px}.bw-retained-drafts h3{font-size:18px;margin:12px 0 4px;overflow-wrap:anywhere}
+.bw-retained-drafts p{font-size:13px;line-height:1.5;color:var(--bw-muted);margin:6px 0;overflow-wrap:anywhere}
+.bw-retained-picker{display:grid;gap:6px;margin:18px 0 10px;font-size:12px;color:var(--bw-muted)}
+.bw-retained-picker select{width:100%;min-width:0;padding:8px;background:var(--bw-side);color:var(--bw-text);border:1px solid var(--bw-border);border-radius:6px}
+.bw-retained-drafts textarea{display:block;resize:vertical;width:100%;min-height:180px;background:var(--bw-side);color:var(--bw-text);border:1px solid var(--bw-border);border-radius:8px;padding:14px;font:13px/1.6 monospace}
+.bw-retained-drafts .bw-retained-text{min-height:220px;margin-top:14px}.bw-retained-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 18px}
+.bw-retained-drafts details{font-size:12px;color:var(--bw-muted)}.bw-retained-drafts details textarea{margin-top:10px}
 .bw-original-history{width:min(1000px,calc(100vw - 40px));height:min(760px,calc(100vh - 40px));display:flex;flex-direction:column;overflow:hidden;padding:0}
 .bw-history-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:24px 28px 14px}
 .bw-history-head h2{display:flex;align-items:center;gap:10px;margin:0;font-size:20px;font-weight:600;letter-spacing:-.4px}

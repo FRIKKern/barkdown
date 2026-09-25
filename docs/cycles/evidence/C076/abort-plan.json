@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "build",
+      "cwd": ".",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "run",
+        "build"
+      ]
+    },
+    {
+      "name": "foreground",
+      "cwd": ".",
+      "argv": [
+        "node",
+        "--test",
+        "app/tests/preparation-bridge.test.mjs",
+        "app/tests/retained-drafts.test.mjs",
+        "app/tests/preparation-renderer.test.mjs",
+        "app/tests/profile-preparation.test.mjs",
+        "app/tests/writer-admission.test.mjs",
+        "app/tests/writer-process.test.mjs",
+        "app/tests/profile-launch-admission.test.mjs",
+        "app/tests/paper-draft-store.test.mjs",
+        "app/tests/workspace-preservation.test.mjs"
+      ]
+    },
+    {
+      "name": "paper-host",
+      "cwd": ".",
+      "argv": [
+        "node",
+        "app/tests/paper-host.test.mjs"
+      ]
+    },
+    {
+      "name": "boot-draft",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/boot-draft.live.mjs"
+      ]
+    },
+    {
+      "name": "native-preparation",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-preparation.live.mjs"
+      ]
+    }
+  ]
+}

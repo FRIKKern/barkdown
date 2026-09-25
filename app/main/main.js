@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog, shell, safeStorage, Menu, session } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, shell, safeStorage, Menu, session, clipboard } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const store = require('./store');
@@ -286,18 +286,31 @@ function registerIpc() {
   handle('paperDrafts:retain', ({ token, draft }) => paperDrafts().retain(token, draft));
   handle('paperDrafts:list', () => paperDrafts().list());
   handle('paperDrafts:read', key => paperDrafts().read(key));
+  handle('paperDrafts:copy', ({ key, format }) => {
+    if (!['text', 'record'].includes(format)) throw new Error('Unknown retained-draft copy format.');
+    const record = paperDrafts().read(key), snapshot = record.content.draft.snapshot;
+    const text = format === 'record' ? JSON.stringify(record, null, 2) : snapshot.mode === 'markdown' ? snapshot.raw_source : require('../shared/portabledoc').blocksToMarkdown(snapshot.blocks);
+    clipboard.writeText(text); return true;
+  });
   if (profileService) {
     const writerState = profileId => require('./writer-admission').controller(store.createStore(profileRegistry.storeFor(profileId).storeDir, { create: false })).inspect();
-    preparationForeground = require('./preparation-foreground').createPreparationForeground({ isClosed: profileId => writerState(profileId).phase !== 'open' });
+    const preparationStatus = profileId => {
+      const record = preparation?.inspect(profileId), restartRequired = profileService.launchAdmission.requiresRestart(profileId);
+      const readOnly = writerState(profileId).phase !== 'open' || record?.phase === 'reopening' ||
+        record?.phase === 'aborted' && profileService.launchAdmission.isClosed(profileId);
+      return { record, readOnly: Boolean(readOnly), restartRequired };
+    };
+    preparationForeground = require('./preparation-foreground').createPreparationForeground({ isClosed: profileId => preparationStatus(profileId).readOnly });
     const bridge = require('./preparation-bridge').createPreparationBridge({ profiles: profileService, foreground: preparationForeground,
       webContents: () => win?.webContents, draftsFor: paperDrafts, writerState });
     preparation = require('./profile-preparation').createProfilePreparation({ registry: profileRegistry, profiles: profileService, goals: goalService,
       freezeForeground: bridge.freeze, drainForeground: preparationForeground.drain, drainTerminals: profileId => terminal.stopAll(profileId) });
     handle('preparation:prepare', () => preparation.prepare(profileService.view().profileId));
+    handle('preparation:abort', () => preparation.abort(profileService.view().profileId));
     handle('preparation:reply', bridge.reply);
     handle('preparation:retain', bridge.retain);
     handle('preparation:saveView', bridge.saveView);
-    handle('preparation:status', () => { const id = profileService.view().profileId; return { record: preparation.inspect(id), readOnly: writerState(id).phase !== 'open' }; });
+    handle('preparation:status', () => preparationStatus(profileService.view().profileId));
   } else handle('preparation:status', () => ({ record: null, readOnly: false }));
   const originalHistory = () => {
     if (!profileService) throw new Error('Original history requires an owned profile.');

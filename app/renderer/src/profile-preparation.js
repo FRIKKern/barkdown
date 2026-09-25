@@ -1,3 +1,4 @@
+import { openRetainedDrafts } from './retained-drafts.js';
 // The window owns human buffers; main owns durable preparation and processes.
 export function installProfilePreparation({ api, root, state, controllers, serialise, savePositions, dirtyCount, pauseSaves = () => false }) {
   const composing = new Set(), captures = new Map();
@@ -52,7 +53,7 @@ export function installProfilePreparation({ api, root, state, controllers, seria
     if (request.method === 'release') { held.release(); return true; }
     throw new Error('Unknown preparation request.');
   });
-  let notice;
+  let notice, lastStatus;
   async function status() {
     let value;
     try { value = await api.preparation.status(); }
@@ -60,18 +61,34 @@ export function installProfilePreparation({ api, root, state, controllers, seria
     if (value.readOnly) {
       root.inert = true;
       pauseSaves(true);
-      showNotice('Editing is paused for this profile while preparation is resolved.');
+      showNotice(value.restartRequired ? 'Preparation was cancelled. Close and reopen Barkdown to continue editing; retained drafts are kept.' : 'Editing is paused for this profile while preparation is resolved.');
+    } else if (value.record?.phase === 'aborted') {
+      showNotice('Preparation was cancelled. Your retained drafts are available; the current Paper has not been replaced.');
+    }
+    lastStatus = value;
+    if (notice) {
+      notice.querySelector('[data-abort]').hidden = !value.record || value.record.phase === 'aborted' && !value.readOnly || value.restartRequired;
+      notice.querySelector('[data-dismiss]').hidden = Boolean(value.readOnly);
     }
     return value;
   }
   function showNotice(message) {
     if (!notice) {
       notice = document.createElement('aside'); notice.className = 'bw-preparation-notice'; notice.setAttribute('role', 'status');
-      notice.innerHTML = '<p></p><label>Switch profile <select aria-label="Preparation profile"></select></label><button class="bw-btn">Switch</button>';
+      notice.innerHTML = '<p></p><div class="bw-preparation-actions"><button class="bw-btn" data-drafts>Review retained drafts</button><button class="bw-btn" data-abort hidden>Cancel preparation</button><button class="bw-btn" data-dismiss hidden>Dismiss</button></div><label>Switch profile <select aria-label="Preparation profile"></select></label><button class="bw-btn" data-switch>Switch</button>';
       document.body.append(notice);
-      notice.querySelector('button').onclick = async () => {
+      notice.querySelector('[data-switch]').onclick = async () => {
         try { const id = notice.querySelector('select').value; if (id && id !== state.profileId) { await api.profiles.select(id); window.location.reload(); } }
         catch (error) { notice.querySelector('p').textContent = error.message; }
+      };
+      notice.querySelector('[data-drafts]').onclick = () => openRetainedDrafts({ api, owner: { profileId: state.profileId, generation: state.generation },
+        isCurrent: owner => owner.profileId === state.profileId && owner.generation === state.generation });
+      notice.querySelector('[data-dismiss]').onclick = () => { if (!lastStatus?.readOnly) { notice.remove(); notice = null; } };
+      notice.querySelector('[data-abort]').onclick = async event => {
+        event.currentTarget.disabled = true;
+        try { await api.preparation.abort(); await status(); }
+        catch (error) { await status().catch(() => {}); notice.querySelector('p').textContent = 'Preparation could not be cancelled. ' + error.message; }
+        finally { notice.querySelector('[data-abort]').disabled = false; }
       };
       api.profiles.status().then(info => {
         for (const profile of info.profiles || []) { const option = document.createElement('option'); option.value = profile.id; option.textContent = profile.name; option.selected = profile.id === state.profileId; notice.querySelector('select').append(option); }

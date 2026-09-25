@@ -46,6 +46,8 @@ Do not install or copy the paid Tiptap Notion template by default. It is an inte
 
 ## Delivery cycles
 
+Finish the current delivery checkpoint before expanding product scope. Follow `docs/CYCLES.md#finish-before-expanding`: after targeted acceptance passes, prioritize validation and integration. Extra features return to the plan. `npm run cycle` shows delivery phase, owner and remaining work. A local pass or pushed branch is not delivery.
+
 Before coding, follow `docs/CYCLES.md#preflight-and-integration-first`: verify the actual toolchain and dependency state, then put affected boundaries, adjacent-contract checks and ready-checkpoint proof in the handoff. Resolve or assign known integration blockers before expanding dependent work. Complete the visual smoke journey and related code-area README edits before broad capture; do not evade tripwires or weaken checks. While CI runs, do authorized independent review/preparation; check before another push cancels expensive work.
 
 For dependent checks, use the fail-fast runner in `docs/CYCLES.md#execute-checks-without-losing-the-failure` or explicitly stop on each failed exit code. Prove the intended result with a scoped assertion before expensive capture; an already-open view or a helper that repairs the state is not proof the action worked. Consolidate evidence review and delivery instead of repeating status-only commits.

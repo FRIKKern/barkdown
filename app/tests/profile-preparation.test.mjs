@@ -15,6 +15,12 @@ const { createPaperDraftStore } = require('../main/paper-draft-store');
 const { controller, writerForStore } = require('../main/writer-admission');
 const deferred = () => { let resolve, reject; const promise = new Promise((r, j) => { resolve = r; reject = j; }); return { promise, resolve, reject }; };
 
+function restart(f, t, options = {}) {
+  const profiles = createProfileService({ registry: f.registry });
+  const goals = createGoalService({ registry: f.registry, profiles, heartbeatMs: 0 }); t.after(() => goals.close());
+  return { profiles, service: f.service({ profiles, goals, ...options }) };
+}
+
 function fixture(t, options = {}) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-profile-preparation-'));
   const registry = createProfileRegistry(root), a = registry.createProfile({ name: 'A' }), b = registry.createProfile({ name: 'B' });
@@ -34,6 +40,72 @@ function fixture(t, options = {}) {
   return { root, a, b, registry, profiles, goals, store, drafts, retained, frozen, adapters, service,
     control: controller(store), captures: () => captures, releases: () => releaseCount, invalidate: () => { valid = false; } };
 }
+
+test('abort preserves drafts, retires both old generations and requires fresh host adapters', async t => {
+  const f = fixture(t), prep = f.service(), old = writerForStore(f.store);
+  const prepared = await prep.prepare(f.a.id), closed = writerForStore(f.store);
+  const copy = f.drafts.read(f.retained.key), aborted = await prep.abort(f.a.id);
+  assert.equal(aborted.phase, 'aborted'); assert.equal(aborted.id, prepared.id);
+  assert.notEqual(aborted.writerReopened.generation, prepared.writerBefore.generation);
+  assert.notEqual(aborted.writerReopened.generation, prepared.writerAfter.generation);
+  assert.throws(() => old.run('test:old', () => {}), /earlier library generation/);
+  assert.throws(() => closed.run('test:closed', () => {}), /earlier library generation/);
+  assert.equal(f.profiles.launchAdmission.isClosed(f.a.id), true);
+  assert.equal(f.profiles.launchAdmission.requiresRestart(f.a.id), true);
+  assert.deepEqual(f.drafts.read(f.retained.key), copy); assert.equal(f.releases(), 0);
+  await assert.rejects(prep.prepare(f.a.id), /Restart/);
+  const fresh = restart(f, t);
+  fresh.profiles.launchAdmission.assertOpen(f.a.id);
+  assert.equal(writerForStore(f.store).run('test:new', () => 42), 42);
+  const next = await fresh.service.prepare(f.a.id);
+  assert.notEqual(next.id, prepared.id); assert.notEqual(next.closureId, prepared.closureId);
+  assert.equal(JSON.parse(fs.readFileSync(f.store.filePath(`preparation-history/${aborted.id}.json`))).phase, 'aborted');
+  assert.equal(JSON.parse(fs.readFileSync(f.store.filePath(`launch-admission-history/${aborted.closureId}.json`))).phase, 'launches-open');
+  assert.deepEqual(f.drafts.read(f.retained.key), copy);
+  assert.throws(() => f.control.reopen(next.writerAfter, { generation: prepared.writerBefore.generation }), /retired/);
+});
+
+for (const boundary of ['after-reopening', 'after-reopened-writer', 'after-aborted', 'after-reopened-launches']) {
+  test(`abort interruption ${boundary} resumes exact authority without losing recovery records`, async t => {
+    const f = fixture(t); let tripped = false;
+    const service = f.service({ checkpoint(name) { if (name === boundary && !tripped) { tripped = true; throw Error('Interrupted abort'); } } });
+    await service.prepare(f.a.id); const copy = f.drafts.read(f.retained.key);
+    await assert.rejects(service.abort(f.a.id), /Interrupted abort/);
+    const partial = service.inspect(f.a.id), planned = partial.writerReopened;
+    const fresh = restart(f, t); const result = await fresh.service.abort(f.a.id);
+    assert.equal(result.id, partial.id); assert.deepEqual(result.writerReopened, planned);
+    assert.equal(f.control.inspect().phase, 'open'); assert.deepEqual(f.drafts.read(f.retained.key), copy);
+    assert.equal(fresh.profiles.launchAdmission.requiresRestart(f.a.id), true);
+    restart(f, t).profiles.launchAdmission.assertOpen(f.a.id);
+  });
+}
+
+test('abort refuses unresolved writes without removing pending evidence', async t => {
+  const f = fixture(t), prep = f.service();
+  assert.throws(() => writerForStore(f.store).run('test:uncertain', () => { throw Error('unknown'); }));
+  await assert.rejects(prep.prepare(f.a.id), /uncertain/);
+  const bytes = fs.readFileSync(f.store.filePath('writer-state.json'));
+  await assert.rejects(prep.abort(f.a.id), /uncertain/);
+  assert.deepEqual(fs.readFileSync(f.store.filePath('writer-state.json')), bytes);
+  assert.equal(f.profiles.launchAdmission.isClosed(f.a.id), true);
+});
+
+test('reopened launches require the retained abort receipt and cannot borrow B authority', async t => {
+  const f = fixture(t), prep = f.service(); await prep.prepare(f.a.id); const result = await prep.abort(f.a.id);
+  assert.throws(() => f.profiles.launchAdmission.reopen(f.b.id, { closureId: result.closureId, preparationId: result.id, writerReopened: result.writerReopened }), /exact reconciled/);
+  const file = f.store.filePath('profile-preparation.json'); fs.renameSync(file, file + '.retained');
+  assert.throws(() => restart(f, t).profiles.launchAdmission.assertOpen(f.a.id), /abort receipt/);
+});
+
+test('a second preparation interrupted after launch closure resumes without discarding the prior abort', async t => {
+  const f = fixture(t), first = f.service(); await first.prepare(f.a.id); const old = await first.abort(f.a.id);
+  const next = restart(f, t, { checkpoint(name, record) { if (name === 'after-launch-closure' && record.previousId) throw Error('Interrupted second preparation'); } });
+  await assert.rejects(next.service.prepare(f.a.id), /Interrupted second/);
+  const recovered = restart(f, t), result = await recovered.service.prepare(f.a.id);
+  assert.notEqual(result.id, old.id); assert.notEqual(result.closureId, old.closureId);
+  assert.equal(JSON.parse(fs.readFileSync(f.store.filePath(`preparation-history/${old.id}.json`))).phase, 'aborted');
+  assert.deepEqual(f.drafts.read(f.retained.key).content.draft.title, 'Unsaved title');
+});
 test('preparation joins real profile/goal drains, verified draft records and writer closure without affecting B', async t => {
   const f = fixture(t), prep = f.service(), old = writerForStore(f.store);
   const other = createStore(f.registry.storeFor(f.b.id).storeDir, { create: false });
@@ -196,10 +268,11 @@ test('native coordinator drains A ordinary and three goal trees while B continue
     scope: 'Actual services, draft files and Windows jobs; foreground/terminal adapters supplied, not Electron preparation UI proof.' }));
 });
 
-for (const boundary of ['after-collecting', 'after-draining', 'after-quiescing', 'after-writer-closure', 'after-prepared']) {
+for (const boundary of ['after-collecting', 'after-draining', 'after-quiescing', 'after-writer-closure', 'after-prepared', 'after-reopening', 'after-reopened-writer', 'after-aborted', 'after-reopened-launches']) {
   test(`abrupt process death ${boundary} recovers its retained lease and exact generation`, async t => {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-preparation-crash-'));
-    const child = require('node:child_process').spawnSync(process.execPath, [require.resolve('./fixtures/profile-preparation-crash.cjs'), root, boundary], {
+    const mode = ['after-reopening', 'after-reopened-writer', 'after-aborted', 'after-reopened-launches'].includes(boundary) ? 'abort' : 'prepare';
+    const child = require('node:child_process').spawnSync(process.execPath, [require.resolve('./fixtures/profile-preparation-crash.cjs'), root, boundary, mode], {
       windowsHide: true, encoding: 'utf8', timeout: 20000,
     });
     assert.equal(child.status, 23, child.stderr || child.error?.message);
@@ -213,8 +286,9 @@ for (const boundary of ['after-collecting', 'after-draining', 'after-quiescing',
       freezeForeground: async id => ({ profileId: id, sessionId: crypto.randomUUID(), draftKeys: [identity.key], assertCurrent: () => true, release() {} }),
       drainForeground: async () => true, drainTerminals: async () => true,
     });
-    const result = await prep.prepare(profileId);
-    assert.equal(result.phase, 'prepared'); assert.equal(result.id, before.id); assert.equal(result.closureId, before.closureId);
+    const result = await prep[mode](profileId);
+    assert.equal(result.phase, mode === 'abort' ? 'aborted' : 'prepared'); assert.equal(result.id, before.id); assert.equal(result.closureId, before.closureId);
+    if (mode === 'abort') assert.deepEqual(result.writerReopened, before.writerReopened);
     if (['after-writer-closure', 'after-prepared'].includes(boundary)) assert.deepEqual(result.writerAfter, before.writerAfter);
     assert.deepEqual(result.draftKeys, [identity.key]);
     assert.equal(createPaperDraftStore({ store, profileId }).read(identity.key).content.draft.snapshot.raw_source, 'Exact **source**\n');

@@ -1,59 +1,132 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 
-const root = path.resolve(process.argv[2] || '.');
-const output = path.resolve(process.argv[3] || 'docs/images/roadmap.svg');
-const plan = JSON.parse(fs.readFileSync(path.join(root, 'docs/plan.json'), 'utf8'));
+// Editorial summaries, not a second task queue. Stage status comes only from plan.json.
+// Each demonstrated item names its bounded acceptance evidence; unfinished foundations
+// must never become a tick merely because a development test passed.
+export const summaries = {
+  P1: {reviewedStageStatus: 'done', title: ['Profiles'], items: [
+    ['done', 'Separate notes and chats'], ['done', 'Owned media and keys'],
+    ['done', 'Restore tabs and drafts'], ['done', 'Keep agent runs isolated'], ['done', 'Switch profiles safely'],
+  ], evidence: 'docs/cycles/C039-completion-audit.md', scope: 'Accepted for the Windows source prototype. Device login is shared by default; profile-owned keys and content remain isolated. This does not establish installation or cross-machine portability.'},
+  P2: {reviewedStageStatus: 'active', title: ['Paper notes'], items: [
+    ['done', 'Create, edit and search', 'docs/cycles/C067-ordinary-paper-notes.md'],
+    ['done', 'Agent edits and safe Undo', 'docs/cycles/C069-agent-paper-notes.md'],
+    ['done', 'Recover deleted notes', 'docs/cycles/C071-paper-deletion-recovery.md'],
+    ['done', 'Read original history', 'docs/cycles/C074-original-history.md'],
+    ['active', 'Migrate with a way back', 'docs/cycles/C076-profile-preparation.md'],
+  ], scope: 'Demonstrated ordinary-note journeys are in the merged baseline; their linked cycle records retain original checkpoint limits. Preparation and cancellation are still under validation. Whole-library content, links, media and organization comparison, interrupted authority cutover, rollback and legacy retirement remain open. No real library has migrated.'},
+  P3: {reviewedStageStatus: 'todo', title: ['Recovery &', 'portability'], items: [
+    ['active', 'Save and draft recovery', 'docs/cycles/C076-profile-preparation.md'],
+    ['todo', 'Export notes and media'], ['todo', 'Include chats and links'],
+    ['todo', 'Import into a fresh profile'], ['todo', 'Continue on another device'],
+  ], scope: 'Recovery foundations are being exercised within P2: draft retention, interrupted preparation and restart. C076 development checks are not full A3 acceptance. Consistent export/import, credential handling and actual cross-machine continuation remain unproved.'},
+  P4: {reviewedStageStatus: 'todo', title: ['Cloud sync'], items: [
+    ['todo', 'Work offline, sync later'], ['todo', 'Reconcile device edits'],
+    ['todo', 'Resolve edit/delete overlap'], ['todo', 'Respect access changes'], ['todo', 'Keep sync optional'],
+  ], scope: 'Existing cloud access is not two-way synchronization. Two real devices must demonstrate convergence, overlap handling and permission changes without reorganizing human Pages.'},
+  P5: {reviewedStageStatus: 'todo', title: ['Installation'], items: [
+    ['todo', 'Install without a checkout'], ['todo', 'Update without losing work'],
+    ['todo', 'Recover a failed upgrade'], ['todo', 'Keep data on uninstall'], ['todo', 'Keyboard, zoom, daily use'],
+  ], scope: 'The Windows source prototype still needs a built checkout. Clean-machine installation, upgrade/rollback, retained user data and the complete daily-use pilot remain pending.'},
+};
+const marks = {done: '✓', active: '◐', todo: '○'};
+const meanings = {done: 'Demonstrated', active: 'In progress', todo: 'Remaining'};
 const escape = s => String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 const text = (x, y, value, size, fill, weight = 400) => `<text x="${x}" y="${y}" font-size="${size}" fill="${fill}" font-weight="${weight}">${escape(value)}</text>`;
-// Editorial summaries of the acceptance stages; status comes from the plan.
-const labels = {
-  P1: {title: ['Profiles'], items: ['Separate notes and chats', 'Profile-owned media and keys', 'Restore tabs, drafts & favorites', 'Keep agent runs isolated', 'Switch profiles safely']},
-  P2: {title: ['Paper notes'], items: ['Create, edit and search', 'Agents use the same editor', 'Undo without losing edits', 'Preserve links and media', 'Migrate with a way back']},
-  P3: {title: ['Recovery &', 'portability'], items: ['Recover interrupted saves', 'Keep drafts through restart', 'Export notes, media & chats', 'Import into a fresh profile', 'Continue on another device']},
-  P4: {title: ['Cloud sync'], items: ['Work offline, sync later', 'Reconcile edits across devices', 'Handle edit/delete conflicts', 'Respect access changes', 'Keep cloud optional']},
-  P5: {title: ['Installation'], items: ['Install without a checkout', 'Update without losing work', 'Recover a failed upgrade', 'Keep data when uninstalling', 'Keyboard, zoom & daily use']},
-};
-if (plan.stages.length !== 5 || plan.stages.some(s => !labels[s.id])) throw new Error('Review the roadmap layout for changed phases.');
-const next = plan.stages.find(s => s.status === 'todo')?.id;
-const parts = [`<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="660" viewBox="0 0 1440 660" role="img" aria-labelledby="title desc">
-<title id="title">Barkdown roadmap</title>
-<desc id="desc">${escape(plan.stages.map(s => `${s.title}: ${s.status}; depends on ${s.dependsOn.join(', ') || 'the existing runtime'}`).join('. '))}.</desc>
+
+export function validateSummaries(plan, labels, exists) {
+  if (plan.stages.length !== 5 || plan.stages.some(s => !labels[s.id])) throw new Error('Review the roadmap layout for changed phases.');
+  for (const stage of plan.stages) {
+    const summary = labels[stage.id];
+    if (stage.status !== summary.reviewedStageStatus) throw new Error(`Review roadmap claims after ${stage.id} status changes`);
+    if (summary.items.length !== 5) throw new Error(`Review roadmap rows for ${stage.id}`);
+    for (const [status, label, evidence = summary.evidence] of summary.items) {
+      if (!marks[status]) throw new Error(`Unknown item status: ${status}`);
+      if (stage.status === 'done' && status !== 'done') throw new Error(`Accepted stage ${stage.id} has unfinished items`);
+      if (status !== 'todo' && (!evidence || !exists(evidence))) throw new Error(`Missing evidence for ${label}`);
+    }
+  }
+}
+
+export function renderRoadmap(plan, labels = summaries) {
+  const next = plan.stages.find(s => s.status === 'todo')?.id;
+  const stageStatus = stage => ({done: 'ACCEPTED', active: 'BUILDING NOW', todo: stage.id === next ? 'UP NEXT' : 'LATER', blocked: 'BLOCKED'}[stage.status]);
+  const parts = [`<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="780" viewBox="0 0 1440 780" role="img" aria-labelledby="title desc">
+<title id="title">Barkdown roadmap — demonstrated, in progress and remaining</title>
+<desc id="desc">${escape(plan.stages.map(s => `${labels[s.id].title.join(' ')}: ${stageStatus(s)}. ${labels[s.id].items.map(([status, label]) => `${label}: ${meanings[status]}`).join('; ')}`).join('. '))}. Checkmarks describe bounded demonstrated journeys, not completion of the whole stage. Profiles are accepted for the Windows source prototype.</desc>
 <defs>
   <radialGradient id="background" cx="28%" cy="0%" r="95%"><stop stop-color="#243025"/><stop offset="1" stop-color="#111915"/></radialGradient>
   <linearGradient id="focus" x2="0" y2="1"><stop stop-color="#a9c787" stop-opacity=".09"/><stop offset="1" stop-color="#a9c787" stop-opacity="0"/></linearGradient>
 </defs>
 <g font-family="Segoe UI, Arial, sans-serif">
-<rect width="1440" height="660" rx="14" fill="url(#background)"/>
-<text x="64" y="87" font-family="Georgia, serif" font-size="49" letter-spacing="-1.5" fill="#f0eee2">Barkdown</text>
-${text(65, 127, 'A Barkpark Native App Experiment', 20, '#afbcaa')}
-<text x="1374" y="79" text-anchor="end" font-size="12" font-weight="600" letter-spacing="3" fill="#a3b49b">THE ROAD AHEAD</text>
-<path d="M70 208H1158" stroke="#475747" stroke-width="1"/>`];
-for (const [i, stage] of plan.stages.entries()) {
-  const x = 64 + i * 272;
-  const active = stage.status === 'active';
-  const done = stage.status === 'done';
-  const status = {done: 'COMPLETE', active: 'BUILDING NOW', todo: stage.id === next ? 'UP NEXT' : 'LATER', blocked: 'BLOCKED'}[stage.status];
-  if (!status) throw new Error(`Unknown phase status: ${stage.status}`);
-  const {title, items} = labels[stage.id];
-  parts.push(`<g data-phase="${stage.id}">`);
-  if (active) parts.push(`<rect x="${x - 18}" y="177" width="250" height="400" rx="8" fill="url(#focus)"/><circle cx="${x + 6}" cy="208" r="14" fill="#1e2a20" stroke="#728c5d"/><circle cx="${x + 6}" cy="208" r="5" fill="#c2dca1"/>`);
-  else if (done) parts.push(`<circle cx="${x + 6}" cy="208" r="6" fill="#859e70"/>`);
-  else parts.push(`<circle cx="${x + 6}" cy="208" r="5" fill="#17201a" stroke="#73836c" stroke-width="1.5"/>`);
-  parts.push(`<text x="${x}" y="252" font-size="12" letter-spacing="1.5" font-weight="600" fill="${active ? '#c2dca1' : '#a3b49b'}">${status}</text>`);
-  title.forEach((line, n) => parts.push(`<text x="${x}" y="300" dy="${n * 33}" font-family="Georgia, serif" font-size="29" letter-spacing="-.4" fill="${active ? '#f0f0dc' : '#e2e6da'}">${escape(line)}</text>`));
-  items.forEach((item, n) => parts.push(text(x, 374 + n * 35, item, 17, '#b6c1af')));
-  parts.push('</g>');
+<rect width="1440" height="780" rx="14" fill="url(#background)"/>
+<text x="64" y="85" font-family="Georgia, serif" font-size="49" letter-spacing="-1.5" fill="#f0eee2">Barkdown</text>
+${text(65, 124, 'A Barkpark Native App Experiment', 20, '#afbcaa')}
+<text x="1374" y="77" text-anchor="end" font-size="12" font-weight="600" letter-spacing="3" fill="#a3b49b">THE ROAD AHEAD</text>
+${text(65, 174, '✓  Demonstrated', 16, '#c2dca1')}
+${text(275, 174, '◐  In progress', 16, '#e2ca93')}
+${text(458, 174, '○  Remaining', 16, '#b6c1af')}
+${text(870, 174, 'Ticks show proven parts, not whole-stage completion.', 16, '#a3b49b')}
+<path d="M70 224H1158" stroke="#475747" stroke-width="1"/>`];
+  for (const [i, stage] of plan.stages.entries()) {
+    const x = 64 + i * 272;
+    const active = stage.status === 'active';
+    const done = stage.status === 'done';
+    const status = stageStatus(stage);
+    if (!status) throw new Error(`Unknown phase status: ${stage.status}`);
+    const {title, items} = labels[stage.id];
+    parts.push(`<g data-phase="${stage.id}">`);
+    if (active) parts.push(`<rect x="${x - 18}" y="197" width="260" height="410" rx="8" fill="url(#focus)"/>`);
+    parts.push(`<circle cx="${x + 6}" cy="224" r="${done || active ? 12 : 5}" fill="${done ? '#c2dca1' : '#17201a'}" stroke="#73836c" stroke-width="1.5"/>`);
+    if (done) parts.push(text(x - 1, 229, '✓', 17, '#17201a', 600));
+    if (active) parts.push(`<circle cx="${x + 6}" cy="224" r="5" fill="#c2dca1"/>`);
+    parts.push(`<text x="${x}" y="269" font-size="12" letter-spacing="1.5" font-weight="600" fill="${active ? '#c2dca1' : '#a3b49b'}">${status}</text>`);
+    title.forEach((line, n) => parts.push(`<text x="${x}" y="316" dy="${n * 33}" font-family="Georgia, serif" font-size="29" letter-spacing="-.4" fill="#e2e6da">${escape(line)}</text>`));
+    items.forEach(([itemStatus, item], n) => {
+      const y = 392 + n * 37;
+      const color = itemStatus === 'done' ? '#c2dca1' : itemStatus === 'active' ? '#e2ca93' : '#9fac99';
+      parts.push(text(x, y, marks[itemStatus], 18, color, 600));
+      parts.push(text(x + 25, y, item, 16, itemStatus === 'done' ? '#d4ddce' : '#b6c1af'));
+    });
+    const note = done ? 'Windows source prototype' : stage.id === 'P2' ? 'Whole-library migration still open' : stage.id === 'P3' ? 'Foundations only; stage not started' : stage.id === 'P5' ? 'Local pilot can precede sync' : 'Two-device proof still ahead';
+    parts.push(text(x, 590, note, 13, '#a3b49b'), '</g>');
+  }
+  parts.push(`<path d="M64 624H1376" stroke="#344435"/>`);
+  parts.push(text(64, 663, 'NOW', 12, '#c2dca1', 600));
+  parts.push(text(125, 663, 'Make migration safe to enter, cancel and recover. Current preparation work is not merged.', 17, '#d4ddce'));
+  parts.push(text(64, 701, 'NEXT', 12, '#a3b49b', 600));
+  parts.push(text(125, 701, 'Compare the whole library → prove cutover and rollback → retire the old editor.', 17, '#b6c1af'));
+  parts.push(text(64, 748, 'Read the linked checklist for evidence and limits. After recovery, sync and local installation can move independently.', 15, '#a3b49b'));
+  parts.push('</g></svg>');
+  const markdown = ['# Roadmap at a glance', '', '<!-- Generated by scripts/generate-roadmap.mjs. Edit its summaries, not this file. -->', '', '![Roadmap with checks for demonstrated journeys, in-progress markers and remaining work.](images/roadmap.svg)', '', '**✓ Demonstrated** · **◐ In progress / partial proof** · **○ Remaining**', '', 'Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.', '', '**Current checkpoint:** C076 preparation, cancellation and retained-draft recovery are implemented on the active branch with scoped development checks. Full regression, visual approval and merge remain pending; see the [current handoff](NEXT-AGENT.md) and [C076 evidence](cycles/evidence/C076/README.md).', ''];
+  for (const stage of plan.stages) {
+    const summary = labels[stage.id];
+    markdown.push(`## ${summary.title.join(' ')} · ${stageStatus(stage).toLowerCase()}`, '', '| State | Journey | Evidence / acceptance |', '|---|---|---|');
+    for (const [status, label, evidence = summary.evidence] of summary.items) {
+      const link = evidence ? `[${status === 'done' ? 'Demonstrated scope' : 'Work and limits'}](${evidence.replace(/^docs\//, '')})` : `[${stage.acceptance} gate](ACCEPTANCE.md#${{P3:'a3--recovery-and-portability',P4:'a4--optional-sync-two-real-devices',P5:'a5--install-and-daily-use'}[stage.id]})`;
+      markdown.push(`| ${marks[status]} ${meanings[status]} | ${label} | ${link} |`);
+    }
+    markdown.push('', summary.scope, '');
+  }
+  markdown.push('Stage order and release gates remain in [PLAN.md](PLAN.md); [the current cycle](NEXT-AGENT.md) owns the next action. This view summarizes that plan and is not another backlog.', '');
+  return {svg: parts.join('\n') + '\n', markdown: markdown.join('\n')};
 }
-parts.push(`<path d="M64 591H1376" stroke="#344435"/>`);
-parts.push(text(64, 629, 'After recovery, optional sync and local installation can move forward independently.', 16, '#a3b49b'));
-parts.push('</g></svg>');
-const svg = parts.join('\n') + '\n';
-if (process.argv.includes('--check')) {
-  if (!fs.existsSync(output) || fs.readFileSync(output, 'utf8') !== svg) throw new Error('Roadmap is stale. Regenerate it from the current plan.');
-  console.log('Roadmap matches the current plan.');
-} else {
-  fs.mkdirSync(path.dirname(output), {recursive: true});
-  fs.writeFileSync(output, svg);
-  console.log(output);
+
+if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
+  const root = path.resolve(process.argv[2] || '.');
+  const output = path.resolve(process.argv[3] || 'docs/images/roadmap.svg');
+  const plan = JSON.parse(fs.readFileSync(path.join(root, 'docs/plan.json'), 'utf8'));
+  validateSummaries(plan, summaries, file => fs.existsSync(path.join(root, file)));
+  const {svg, markdown} = renderRoadmap(plan);
+  for (const [file, content] of [[output, svg], [path.join(root, 'docs/ROADMAP.md'), markdown]]) {
+    if (process.argv.includes('--check')) {
+      if (!fs.existsSync(file) || fs.readFileSync(file, 'utf8') !== content) throw new Error('Roadmap is stale. Regenerate it from the current plan.');
+    } else {
+      fs.mkdirSync(path.dirname(file), {recursive: true});
+      fs.writeFileSync(file, content);
+    }
+  }
+  console.log(process.argv.includes('--check') ? 'Roadmap image and checklist match the current plan.' : 'Generated roadmap image and checklist.');
 }

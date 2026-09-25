@@ -1,3 +1,7 @@
+# Current development checkpoint
+
+[Abort and retained-draft development validation](abort-development/result.json) passes build,98 scoped checks,48 Paper-host checks and two native journeys in about55 seconds. This is uncommitted-source evidence, not final full/visual acceptance. Native coverage includes dirty file/pending legacy refusal, terminal descendants, abrupt restart, cancellation, stale handles, profile isolation and exact recovery copy.
+
 # C076 preparation checkpoints
 
 This is unfinished development on `codex/profile-preparation`, not a merge-ready or complete preparation gate.
