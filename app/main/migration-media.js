@@ -12,12 +12,13 @@ function receiptFor(intent, asset, server) {
   return { ...intent, id: asset.id, path: asset.path, url: server + asset.originalUrl, mime: asset.mimeType, bytes: asset.size, sha256: intent.asset.sha256 };
 }
 
-async function stageMedia({ manifest, store, captured, checkpoint, unchanged, beforeNetwork }) {
+async function stageMedia({ manifest, store, captured, checkpoint, unchanged, beforeNetwork, verifyOnly = false }) {
+  const record = verifyOnly ? require('./migration-journal').verifyRecord : require('./migration-journal').record;
   const assets = [...new Map(manifest.documents.flatMap(doc => doc.images || []).map(({ src, ...asset }) => [asset.path, asset])).values()].sort((a,b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
   if (!assets.length) { beforeNetwork({}); return { urls: {}, verify: async () => {} }; }
   const plan = { version: 1, sourceHash: manifest.sourceHash, target: captured.binding, assets };
   const folder = store.filePath('media');
-  if (!fs.existsSync(folder)) fs.mkdirSync(folder);
+  if (!fs.existsSync(folder)) { if (verifyOnly) fail('journal_corrupt', 'Missing completed media journal'); fs.mkdirSync(folder); }
   if (!fs.existsSync(store.filePath('media/plan.json')) && fs.readdirSync(folder).length) fail('journal_corrupt', 'Media records survive without their owning plan');
   record(store, 'media/plan.json', plan);
   const planHash = hash(plan);
@@ -35,7 +36,9 @@ async function stageMedia({ manifest, store, captured, checkpoint, unchanged, be
     }
     return { asset, intentName, receiptName, intent, receipt };
   });
+  if (verifyOnly && entries.some(e => !e.intent || !e.receipt)) fail('journal_corrupt', 'Read-only comparison requires every media receipt');
   const completed = read(store, 'media/complete.json');
+  if (verifyOnly && !completed) fail('journal_corrupt', 'Read-only comparison requires completed media');
   if (completed) {
     if (entries.some(entry => !entry.receipt)) fail('journal_corrupt', 'Completed media has missing receipts');
     record(store, 'media/complete.json', { version: 1, planHash, receipts: entries.map(e => e.receipt) });

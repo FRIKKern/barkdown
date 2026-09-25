@@ -1,35 +1,33 @@
 {
   "version": 1,
-  "id": "C077",
+  "id": "C078",
   "stage": "P2",
-  "status": "done",
-  "goal": "Define the complete-library comparison boundary before implementing migration authority admission.",
+  "status": "active",
+  "goal": "Compare a prepared mixed library without mutating notes, media or navigation, and deliver the verified adapter to main.",
   "scope": [
-    "Audit preparation, backup, staging, catalog, media and workspace owners.",
-    "Specify a read-only comparison checkpoint and its refusal/native acceptance cases.",
-    "Validate existing owners and deliver the contract without changing app behavior."
+    "Capture an owner-bound pre-staging Paper baseline.",
+    "Read-only comparison of staged legacy targets, existing Paper variants, media and workspace.",
+    "Prove refusal, interruption and real-runtime behavior; integrate before authority-selection work."
   ],
   "acceptance": [
-    "Distinguish staged legacy targets from pre-existing published and draft Papers.",
-    "Require fresh preparation/runtime ownership and a pre-staging baseline; refuse unsupported guarantees.",
-    "Record passing scoped regressions, root verification and evidence reuse limits."
+    "Mixed corpus beyond one page compares exact variants and preserves original bytes.",
+    "Missing, extra, changed, ambiguous or stale inputs refuse without repair writes.",
+    "Fresh preparation and runtime ownership survive asynchronous reads; stale reports never authorize activation.",
+    "Targeted/full tests and reviewed required visuals pass before merge."
   ],
   "checkpoint": "2026-09-25",
-  "handoff": "docs/cycles/C077-comparison-contract.md",
-  "nextAction": "Check whether this contract checkpoint is merged. Once merged, archive C077 and implement the read-only mixed-corpus adapter and pre-staging baseline described in docs/migration/comparison.md. Do not switch authority.",
-  "evidence": [
-    "docs/cycles/evidence/C077/validation/result.json",
-    "docs/cycles/evidence/C077/validation/owners.log",
-    "docs/cycles/evidence/C077/validation/verify.log",
-    "docs/migration/comparison.md"
-  ],
-  "truthReview": "Read source owners and pinned upstream perspective tests; 208 owner regressions and root verify pass. Comparison/activation remain unimplemented. P2/A2 and G2 remain open.",
-  "screenshotReview": "No app, dependency, capture or roadmap inputs changed. C076 reviewed native/standard/live visuals remain applicable; no new screenshots or UI behavior claimed.",
+  "handoff": "docs/cycles/C078-library-comparison.md",
+  "nextAction": "Implement baseline and comparison with fresh preparation scope; run focused regressions before native evidence.",
+  "evidence": [],
+  "truthReview": "",
+  "screenshotReview": "",
   "delivery": {
-    "phase": "integrating",
+    "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "Merge the documentation checkpoint after hosted checks; retire its branch."
+      "Implement and test read-only comparison",
+      "Real-runtime and full validation; reviewed evidence",
+      "Merge verified checkpoint and retire branch"
     ]
   }
 }

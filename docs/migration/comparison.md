@@ -1,6 +1,6 @@
 # Whole-library comparison before authority selection
 
-Implementation contract audited against Barkdown `19f9cb8a` in C077. This is a design for the next adapter, **not an implemented seal or permission to switch engines**. [P2/A2](../ACCEPTANCE.md#a2--one-engine-without-lost-notes) remains open. The active queue remains [PLAN](../PLAN.md) and [cycle.json](../cycle.json).
+Contract audited against Barkdown `19f9cb8a` in C077. [C078](../cycles/C078-library-comparison.md) implements the internal read-only adapter and records its validation. It is **not an activation-capable seal or permission to switch engines**. [P2/A2](../ACCEPTANCE.md#a2--one-engine-without-lost-notes) remains open. The active queue remains [PLAN](../PLAN.md) and [cycle.json](../cycle.json).
 
 ## What the existing checks actually establish
 
@@ -57,3 +57,9 @@ Before broad visual capture, prove:
 - Human Pages order, Archive classification, tabs/favorites and retained drafts remain unchanged. A mock callback cannot substitute for native preparation ownership proof.
 
 Use scoped owner tests during development, then the real isolated runtime for the mixed-corpus and interruption journey. App changes require the normal desktop/root gates and reviewed native/standard/live evidence. Freeze scope when this checkpoint passes and integrate it before selection/rollback work.
+
+## Internal adapter
+
+`createMigrationComparison({ preparation })` accepts the live coordinator. Prepare the profile and immutable legacy backup first; `captureBaseline(options, target)` writes only a new baseline record before any staging journal exists. Pin its returned hash outside that record and supply it as `expectedBaselineHash` to `compare(options, target)` after staging. The comparison returns hashes/counts with legacy authority and activation disabled. It never calls the mutating staging entry point. Full unprojected query rows avoid per-note network reads; two complete traversals compare exact variants and content. Existing referenced captured-origin PNGs are byte-checked; other media formats and the workspace projector's existing ambiguity cases refuse.
+
+The adapter is internal, with no renderer command or migration button. Runtime ownership is supplied by the trusted host, as for existing staging. Headless real-runtime evidence does not replace native foreground-freeze evidence; C078 identifies those scopes separately. Baseline capture is evidence publication, whereas comparison never creates or repairs baseline/staging/media records.

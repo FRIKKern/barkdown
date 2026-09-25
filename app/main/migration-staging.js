@@ -25,7 +25,7 @@ function captureTarget(target, profileId) {
     try { data = await response.json(); } catch { fail('invalid_response', 'Paper endpoint returned invalid JSON'); }
     return { status: response.status, data: data?.result || data };
   }
-  return { binding, request, fetch: ownedFetch };
+  return { binding, request, fetch: ownedFetch, async assertCurrent() { if (await assertOwned(binding) !== true) fail('target_owner', 'The captured runtime ownership changed'); } };
 }
 
 function payloads(manifest, store, metadata, media = {}) {
@@ -44,7 +44,7 @@ function payloads(manifest, store, metadata, media = {}) {
   });
 }
 
-function validateJournal(store, documents, planHash) {
+function validateJournal(store, documents, planHash, record = require('./migration-journal').record) {
   const journal = documents.map(doc => {
       const intentName = 'staging/' + doc.targetId + '.intent.json';
       const receiptName = 'staging/' + doc.targetId + '.receipt.json';
@@ -184,4 +184,4 @@ async function stageMigration(options, target, { checkpoint = () => {}, retryAbs
   } finally { lease.release(); }
 }
 
-module.exports = { stageMigration };
+module.exports = { stageMigration, captureTarget, payloads, validateJournal };
