@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-25T18:35:41.984Z",
+  "source": "40aea4139a421b09696d218f4a808b040c3ddb6d",
+  "sourceStatus": "",
+  "status": "running",
+  "steps": [
+    {
+      "name": "desktop-build",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T18:35:42.095Z",
+      "log": "desktop-build.log",
+      "elapsedMs": 783,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app",
+      "argv": [
+        "npm",
+        "test"
+      ],
+      "status": "running",
+      "startedAt": "2026-09-25T18:35:42.885Z",
+      "log": "desktop.log"
+    }
+  ]
+}

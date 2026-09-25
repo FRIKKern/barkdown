@@ -1,0 +1,81 @@
+
+> barkdown-desktop@0.6.0 test:migration-comparison:isolated
+> node tests/status-shots-isolated.mjs tests/migration-comparison.live.mjs
+
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-MDfY5b
+Capture runtime: starting 
+Capture runtime: ready 
+{
+  "source": "40aea4139a421b09696d218f4a808b040c3ddb6d",
+  "upstream": "b702140907921e82e9ce5eecb3e2445f13ab2d6e",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "mixed library, links, media and organization",
+      "result": {
+        "version": 1,
+        "status": "compared",
+        "identity": {
+          "profileId": "d9ea20bb-3671-4b73-8a48-7ea74c0c21c9",
+          "preparationId": "1496a377-76e2-413f-8085-781a30c6664c",
+          "closureId": "83919fc3-35f7-4a74-a4e8-5e688c39fdea",
+          "writer": {
+            "version": 1,
+            "owner": "f1366d73-a614-c6e5-41e5-c4f162473abe",
+            "generation": "1e7cfd31-967a-484e-b9aa-3551d9865a83"
+          },
+          "draftKeys": [],
+          "target": {
+            "profileId": "d9ea20bb-3671-4b73-8a48-7ea74c0c21c9",
+            "runtimeId": "owned-isolated-d9ea20bb-3671-4b73-8a48-7ea74c0c21c9",
+            "server": "http://127.0.0.1:58584",
+            "dataset": "production"
+          },
+          "sourceHash": "457966262d98b24d9a3256292d34a35f00c5f2ad48a015c18f278f8d52089f25",
+          "manifestHash": "bbd67d3b9b933bbe7c4474c68fde824601c0aaeec9e95c4dabc9a5ab95afccc7",
+          "projectionHash": "1243f290f09327abdd1dba355e031122d187676dfdedd1a8cd2a53833916d18e"
+        },
+        "baselineHash": "231e835e9582d3d82e0d9d0cf869fc929a5fa558e572eedcd566b4f3d074f6b1",
+        "planHash": "461b3a6d7ca9136bd535c998f4b9d03e3054b9967ffd778debe9e901f53b0bbb",
+        "corpusHash": "8363db575a1ec67b424057cc6bf79851c54b2075cb69b31b0e9a6858099dd485",
+        "mediaHash": "728e8fc059e774148d747842c10fbb149735091ccf6666c1351463ab73610d26",
+        "documents": 206,
+        "staged": 2,
+        "preserved": 204,
+        "media": 1,
+        "workspaceHash": "1243f290f09327abdd1dba355e031122d187676dfdedd1a8cd2a53833916d18e",
+        "authority": "legacy",
+        "activationAllowed": false,
+        "limits": [
+          "Observed reads are not a server snapshot or a fence for direct upstream clients."
+        ]
+      }
+    },
+    {
+      "name": "new coordinator revalidates existing preparation",
+      "passed": true
+    },
+    {
+      "name": "interrupted read has no repair writes; retry rechecks",
+      "passed": true
+    },
+    {
+      "name": "later draft change refuses without overwriting",
+      "passed": true
+    },
+    {
+      "name": "cancellation invalidates comparison admission",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Headless coordinator with controlled foreground hooks; native GUI freeze is separate evidence.",
+    "Read-only internal rehearsal; no authority switch, server snapshot or direct-client fence."
+  ],
+  "initialPaperIds": [
+    "welcome"
+  ]
+}
+Capture runtime: stopping 
+Capture runtime: stopped 
+Live screenshots complete; private runtime stopped; user CLI configuration unchanged.
