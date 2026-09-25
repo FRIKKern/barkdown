@@ -16,13 +16,15 @@
   ],
   "checkpoint": "2026-09-25",
   "handoff": "docs/cycles/C073-upstream-integration.md",
-  "nextAction": "Review required upstream checks on 677992c51, resolve remaining owned failures, and reconcile merge/deployment scope after the candidate is validated.",
+  "nextAction": "Resolve upstream merge/deployment scope; all required checks pass on 677992c51. Recheck the head/base and use the upstream merge protocol after scope is resolved.",
   "evidence": [
     "docs/cycles/evidence/C073/README.md",
     "docs/cycles/evidence/C073/parity.json",
     "docs/cycles/evidence/C073/status-review.json",
-    "docs/cycles/evidence/C073/linkpreview-review.json"
+    "docs/cycles/evidence/C073/linkpreview-review.json",
+    "docs/cycles/evidence/C073/hosted-final-checks.json",
+    "docs/cycles/evidence/C073/cli-create-live.json"
   ],
-  "truthReview": "Integration candidate preserves both histories; app pin and fallback remain unchanged. Required hosted follow-up and deployment boundary remain open. See C073 handoff.",
+  "truthReview": "Required hosted gates and reviewed integration proof pass. Upstream merge would trigger production deployment and remains pending. App pin/fallback and P2 acceptance remain unchanged.",
   "screenshotReview": "Five live stills, five differences and 37 GIF frames accepted, plus three inspected link-preview theme/narrow views. Source and hashes in C073 reviews."
 }

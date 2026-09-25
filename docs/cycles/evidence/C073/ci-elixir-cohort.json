@@ -1,0 +1,4359 @@
+{
+  "capturedAt": "2026-09-25T01:00:40.771Z",
+  "repo": "FRIKKern/barkpark",
+  "branch": "codex/paper-create-only",
+  "selection": "Four C073 Elixir heads: first integration, contract repair, formatter repair, final candidate. Latest attempt per run; final may still be pending.",
+  "runs": [
+    {
+      "databaseId": 36074197204,
+      "name": "elixir",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "failure",
+      "headSha": "446f29cedc8ca3d72277c6525def93a38d7d2b2d",
+      "createdAt": "2026-09-24T23:44:08Z",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/36074197204",
+      "attempt": 1,
+      "jobs": [
+        {
+          "name": "Dispatch (changed-path sets)",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-24T23:44:28Z",
+          "completed_at": "2026-09-24T23:44:46Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-24T23:44:29Z",
+              "completed_at": "2026-09-24T23:44:29Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-24T23:44:29Z",
+              "completed_at": "2026-09-24T23:44:44Z"
+            },
+            {
+              "name": "Compute the changed-path sets",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-24T23:44:44Z",
+              "completed_at": "2026-09-24T23:44:45Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-24T23:44:45Z",
+              "completed_at": "2026-09-24T23:44:45Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-24T23:44:45Z",
+              "completed_at": "2026-09-24T23:44:45Z"
+            }
+          ]
+        },
+        {
+          "name": "Elixir path-escape ratchet",
+          "status": "completed",
+          "conclusion": "failure",
+          "started_at": "2026-09-24T23:44:29Z",
+          "completed_at": "2026-09-24T23:52:34Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-24T23:44:30Z",
+              "completed_at": "2026-09-24T23:44:30Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-24T23:44:30Z",
+              "completed_at": "2026-09-24T23:44:41Z"
+            },
+            {
+              "name": "Does this diff reach the harness?",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-24T23:44:41Z",
+              "completed_at": "2026-09-24T23:44:42Z"
+            },
+            {
+              "name": "Harness (the ratchet must be able to fail)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-09-24T23:44:42Z",
+              "completed_at": "2026-09-24T23:46:19Z"
+            },
+            {
+              "name": "Every repo-root read is dispatched on",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-09-24T23:46:19Z",
+              "completed_at": "2026-09-24T23:46:23Z"
+            },
+            {
+              "name": "The four gates announce their skips (the ratchet must be able to fail)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-24T23:46:23Z",
+              "completed_at": "2026-09-24T23:46:38Z"
+            },
+            {
+              "name": "The merge-authority claim guard must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-24T23:46:38Z",
+              "completed_at": "2026-09-24T23:46:43Z"
+            },
+            {
+              "name": "No workflow or card claims merge authority the spec denies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-09-24T23:46:43Z",
+              "completed_at": "2026-09-24T23:46:43Z"
+            },
+            {
+              "name": "The blocking-name census must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-09-24T23:46:43Z",
+              "completed_at": "2026-09-24T23:46:44Z"
+            },
+            {
+              "name": "Every merge-blocking job name is in the spec",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-09-24T23:46:44Z",
+              "completed_at": "2026-09-24T23:46:45Z"
+            },
+            {
+              "name": "Every changed top-level entry is one the repo knows",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-09-24T23:46:45Z",
+              "completed_at": "2026-09-24T23:46:54Z"
+            },
+            {
+              "name": "The top-level classifier must be able to fail (27-case harness)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-09-24T23:46:54Z",
+              "completed_at": "2026-09-24T23:47:24Z"
+            },
+            {
+              "name": "The vips hedge tripwire must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-09-24T23:47:24Z",
+              "completed_at": "2026-09-24T23:47:24Z"
+            },
+            {
+              "name": "A platform-provided vips mode is never selected bare",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 14,
+              "started_at": "2026-09-24T23:47:24Z",
+              "completed_at": "2026-09-24T23:47:25Z"
+            },
+            {
+              "name": "The @boundary marker registry must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 15,
+              "started_at": "2026-09-24T23:47:25Z",
+              "completed_at": "2026-09-24T23:47:26Z"
+            },
+            {
+              "name": "Every @boundary comment names a test that still exists",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 16,
+              "started_at": "2026-09-24T23:47:26Z",
+              "completed_at": "2026-09-24T23:47:26Z"
+            },
+            {
+              "name": "A touched unformatted file reds the gate, an untouched one does not",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 17,
+              "started_at": "2026-09-24T23:47:26Z",
+              "completed_at": "2026-09-24T23:47:26Z"
+            },
+            {
+              "name": "The PR test selector must fail safe (47-case harness)",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 18,
+              "started_at": "2026-09-24T23:47:26Z",
+              "completed_at": "2026-09-24T23:48:14Z"
+            },
+            {
+              "name": "Every pinned ALWAYS test still exists",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 19,
+              "started_at": "2026-09-24T23:48:14Z",
+              "completed_at": "2026-09-24T23:48:14Z"
+            },
+            {
+              "name": "The main-red attribution reporter must be able to report a miss",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 20,
+              "started_at": "2026-09-24T23:48:14Z",
+              "completed_at": "2026-09-24T23:48:15Z"
+            },
+            {
+              "name": "The pin-agreement gate must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 21,
+              "started_at": "2026-09-24T23:48:15Z",
+              "completed_at": "2026-09-24T23:48:15Z"
+            },
+            {
+              "name": "The production Elixir pin is covered by the jobs that test it",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 22,
+              "started_at": "2026-09-24T23:48:15Z",
+              "completed_at": "2026-09-24T23:48:15Z"
+            },
+            {
+              "name": "Does this diff reach the ACK_EX deriver?",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 23,
+              "started_at": "2026-09-24T23:48:15Z",
+              "completed_at": "2026-09-24T23:48:15Z"
+            },
+            {
+              "name": "Every unrenderable .exclusions row is acknowledged in ACK_EX",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 24,
+              "started_at": "2026-09-24T23:48:15Z",
+              "completed_at": "2026-09-24T23:51:53Z"
+            },
+            {
+              "name": "Every self-test under scripts/ is executed by CI or declares an exemption",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 25,
+              "started_at": "2026-09-24T23:51:53Z",
+              "completed_at": "2026-09-24T23:52:00Z"
+            },
+            {
+              "name": "Every cron'd workflow's red reaches a declared reader",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 26,
+              "started_at": "2026-09-24T23:52:00Z",
+              "completed_at": "2026-09-24T23:52:06Z"
+            },
+            {
+              "name": "pr-required.sh self-test (33 arms) — scripts/ copy",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 27,
+              "started_at": "2026-09-24T23:52:06Z",
+              "completed_at": "2026-09-24T23:52:08Z"
+            },
+            {
+              "name": "pr-required.sh self-test (33 arms) — .claude/skills mirror",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 28,
+              "started_at": "2026-09-24T23:52:08Z",
+              "completed_at": "2026-09-24T23:52:10Z"
+            },
+            {
+              "name": "stranded-worktree-report.sh self-test (49 arms)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 29,
+              "started_at": "2026-09-24T23:52:10Z",
+              "completed_at": "2026-09-24T23:52:10Z"
+            },
+            {
+              "name": "The doc-budget discovery arm must be able to fail (30-arm harness)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 30,
+              "started_at": "2026-09-24T23:52:10Z",
+              "completed_at": "2026-09-24T23:52:31Z"
+            },
+            {
+              "name": "Every header-discovered doc is within its own declared budget",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 31,
+              "started_at": "2026-09-24T23:52:31Z",
+              "completed_at": "2026-09-24T23:52:32Z"
+            },
+            {
+              "name": "Publish this job's refusal verdict",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 32,
+              "started_at": "2026-09-24T23:52:32Z",
+              "completed_at": "2026-09-24T23:52:32Z"
+            },
+            {
+              "name": "node is present (the freshness gate is a node program)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 33,
+              "started_at": "2026-09-24T23:52:32Z",
+              "completed_at": "2026-09-24T23:52:32Z"
+            },
+            {
+              "name": "The vendored starter SDKs match js/packages source",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 34,
+              "started_at": "2026-09-24T23:52:32Z",
+              "completed_at": "2026-09-24T23:52:33Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 68,
+              "started_at": "2026-09-24T23:52:33Z",
+              "completed_at": "2026-09-24T23:52:33Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 69,
+              "started_at": "2026-09-24T23:52:33Z",
+              "completed_at": "2026-09-24T23:52:33Z"
+            }
+          ]
+        },
+        {
+          "name": "Format (mix format --check-formatted, diff-scoped) (27.0, 1.19.5)",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-24T23:45:00Z",
+          "completed_at": "2026-09-24T23:45:40Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-24T23:45:04Z",
+              "completed_at": "2026-09-24T23:45:05Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-24T23:45:05Z",
+              "completed_at": "2026-09-24T23:45:18Z"
+            },
+            {
+              "name": "Setup BEAM",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-24T23:45:18Z",
+              "completed_at": "2026-09-24T23:45:25Z"
+            },
+            {
+              "name": "Cache deps (formatter only needs deps for import_deps)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-09-24T23:45:25Z",
+              "completed_at": "2026-09-24T23:45:26Z"
+            },
+            {
+              "name": "Fetch deps (required by .formatter.exs import_deps)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-09-24T23:45:26Z",
+              "completed_at": "2026-09-24T23:45:28Z"
+            },
+            {
+              "name": "The format guard must be able to refuse",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-24T23:45:28Z",
+              "completed_at": "2026-09-24T23:45:30Z"
+            },
+            {
+              "name": "The diff scope must be able to refuse, to red, and to stay neutral",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-24T23:45:30Z",
+              "completed_at": "2026-09-24T23:45:31Z"
+            },
+            {
+              "name": "mix format --check-formatted (via the version-aware guard)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-09-24T23:45:31Z",
+              "completed_at": "2026-09-24T23:45:37Z"
+            },
+            {
+              "name": "Which unformatted files does THIS diff touch?",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-09-24T23:45:37Z",
+              "completed_at": "2026-09-24T23:45:37Z"
+            },
+            {
+              "name": "Publish this job's refusal verdict",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-09-24T23:45:37Z",
+              "completed_at": "2026-09-24T23:45:37Z"
+            },
+            {
+              "name": "Post Cache deps (formatter only needs deps for import_deps)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 19,
+              "started_at": "2026-09-24T23:45:37Z",
+              "completed_at": "2026-09-24T23:45:37Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 20,
+              "started_at": "2026-09-24T23:45:37Z",
+              "completed_at": "2026-09-24T23:45:38Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 21,
+              "started_at": "2026-09-24T23:45:38Z",
+              "completed_at": "2026-09-24T23:45:38Z"
+            }
+          ]
+        },
+        {
+          "name": "Validation perf bench (median-of-5, alarm >100ms) (27.0, 1.18.1)",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-24T23:45:16Z",
+          "completed_at": "2026-09-24T23:46:44Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-24T23:45:19Z",
+              "completed_at": "2026-09-24T23:45:20Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-24T23:45:20Z",
+              "completed_at": "2026-09-24T23:45:27Z"
+            },
+            {
+              "name": "Setup BEAM",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-24T23:45:27Z",
+              "completed_at": "2026-09-24T23:45:34Z"
+            },
+            {
+              "name": "Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-09-24T23:45:34Z",
+              "completed_at": "2026-09-24T23:45:36Z"
+            },
+            {
+              "name": "Restore compiled dependency artifacts (test)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-09-24T23:45:36Z",
+              "completed_at": "2026-09-24T23:45:38Z"
+            },
+            {
+              "name": "Fetch deps",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-24T23:45:38Z",
+              "completed_at": "2026-09-24T23:45:39Z"
+            },
+            {
+              "name": "Prove the tripwire can fail (guard --selftest)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-24T23:45:39Z",
+              "completed_at": "2026-09-24T23:45:40Z"
+            },
+            {
+              "name": "Audit the restored dependency build tree",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-09-24T23:45:40Z",
+              "completed_at": "2026-09-24T23:45:41Z"
+            },
+            {
+              "name": "Compile deps (test)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-09-24T23:45:41Z",
+              "completed_at": "2026-09-24T23:45:54Z"
+            },
+            {
+              "name": "Drop our own application's build dir before saving",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 10,
+              "started_at": "2026-09-24T23:45:54Z",
+              "completed_at": "2026-09-24T23:45:54Z"
+            },
+            {
+              "name": "Save compiled dependency artifacts (test)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 11,
+              "started_at": "2026-09-24T23:45:54Z",
+              "completed_at": "2026-09-24T23:45:54Z"
+            },
+            {
+              "name": "Compile",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-09-24T23:45:54Z",
+              "completed_at": "2026-09-24T23:46:40Z"
+            },
+            {
+              "name": "Run validation perf bench (relative alarm vs a measured runner baseline)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-09-24T23:46:40Z",
+              "completed_at": "2026-09-24T23:46:41Z"
+            },
+            {
+              "name": "Post Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 25,
+              "started_at": "2026-09-24T23:46:41Z",
+              "completed_at": "2026-09-24T23:46:41Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 26,
+              "started_at": "2026-09-24T23:46:41Z",
+              "completed_at": "2026-09-24T23:46:41Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 27,
+              "started_at": "2026-09-24T23:46:41Z",
+              "completed_at": "2026-09-24T23:46:41Z"
+            }
+          ]
+        },
+        {
+          "name": "Prod compile gate (Elixir 1.18.4 / OTP 27.0)",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-24T23:45:28Z",
+          "completed_at": "2026-09-24T23:46:58Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-24T23:45:29Z",
+              "completed_at": "2026-09-24T23:45:30Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-24T23:45:30Z",
+              "completed_at": "2026-09-24T23:45:41Z"
+            },
+            {
+              "name": "Setup BEAM",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-24T23:45:41Z",
+              "completed_at": "2026-09-24T23:45:48Z"
+            },
+            {
+              "name": "Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-09-24T23:45:48Z",
+              "completed_at": "2026-09-24T23:45:50Z"
+            },
+            {
+              "name": "Restore compiled dependency artifacts (prod)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-09-24T23:45:50Z",
+              "completed_at": "2026-09-24T23:45:52Z"
+            },
+            {
+              "name": "Fetch deps (prod)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-24T23:45:52Z",
+              "completed_at": "2026-09-24T23:45:55Z"
+            },
+            {
+              "name": "Prove the tripwire can fail (guard --selftest)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-24T23:45:55Z",
+              "completed_at": "2026-09-24T23:45:55Z"
+            },
+            {
+              "name": "Audit the restored dependency build tree",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-09-24T23:45:55Z",
+              "completed_at": "2026-09-24T23:45:56Z"
+            },
+            {
+              "name": "Compile deps (prod)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-09-24T23:45:56Z",
+              "completed_at": "2026-09-24T23:46:08Z"
+            },
+            {
+              "name": "Drop our own application's build dir before saving",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 10,
+              "started_at": "2026-09-24T23:46:08Z",
+              "completed_at": "2026-09-24T23:46:08Z"
+            },
+            {
+              "name": "Save compiled dependency artifacts (prod)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 11,
+              "started_at": "2026-09-24T23:46:08Z",
+              "completed_at": "2026-09-24T23:46:08Z"
+            },
+            {
+              "name": "Prod compile (--warnings-as-errors)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-09-24T23:46:08Z",
+              "completed_at": "2026-09-24T23:46:54Z"
+            },
+            {
+              "name": "Publish this job's refusal verdict",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-09-24T23:46:54Z",
+              "completed_at": "2026-09-24T23:46:54Z"
+            },
+            {
+              "name": "Post Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 25,
+              "started_at": "2026-09-24T23:46:54Z",
+              "completed_at": "2026-09-24T23:46:55Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 26,
+              "started_at": "2026-09-24T23:46:55Z",
+              "completed_at": "2026-09-24T23:46:55Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 27,
+              "started_at": "2026-09-24T23:46:55Z",
+              "completed_at": "2026-09-24T23:46:55Z"
+            }
+          ]
+        },
+        {
+          "name": "Test (Elixir 1.18.4 / OTP 27.0)",
+          "status": "completed",
+          "conclusion": "failure",
+          "started_at": "2026-09-24T23:45:28Z",
+          "completed_at": "2026-09-25T00:16:01Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-24T23:45:29Z",
+              "completed_at": "2026-09-24T23:45:30Z"
+            },
+            {
+              "name": "Initialize containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-24T23:45:30Z",
+              "completed_at": "2026-09-24T23:45:41Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-24T23:45:41Z",
+              "completed_at": "2026-09-24T23:46:10Z"
+            },
+            {
+              "name": "Setup BEAM",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-09-24T23:46:10Z",
+              "completed_at": "2026-09-24T23:46:17Z"
+            },
+            {
+              "name": "Setup Node (js_harness_test.exs shells node over api/assets/sheet-grid)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-09-24T23:46:17Z",
+              "completed_at": "2026-09-24T23:46:21Z"
+            },
+            {
+              "name": "The unreachable-assert-message guard must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-24T23:46:21Z",
+              "completed_at": "2026-09-24T23:46:31Z"
+            },
+            {
+              "name": "No NEW unreachable assert messages (never-worse ratchet)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-24T23:46:31Z",
+              "completed_at": "2026-09-24T23:46:34Z"
+            },
+            {
+              "name": "The pre-commit hook refuses an unreachable assert message",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-09-24T23:46:34Z",
+              "completed_at": "2026-09-24T23:46:38Z"
+            },
+            {
+              "name": "The comment-status-literal guard must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-09-24T23:46:38Z",
+              "completed_at": "2026-09-24T23:46:48Z"
+            },
+            {
+              "name": "No NEW status literals in comments (never-worse ratchet)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-09-24T23:46:48Z",
+              "completed_at": "2026-09-24T23:46:51Z"
+            },
+            {
+              "name": "The client-ip resolver guard must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-09-24T23:46:51Z",
+              "completed_at": "2026-09-24T23:46:51Z"
+            },
+            {
+              "name": "No conn.remote_ip read outside the canonical resolver",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-09-24T23:46:51Z",
+              "completed_at": "2026-09-24T23:46:51Z"
+            },
+            {
+              "name": "The test-env-leak guard must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-09-24T23:46:51Z",
+              "completed_at": "2026-09-24T23:47:20Z"
+            },
+            {
+              "name": "No NEW unrestored global-state mutation in api/test (never-worse ratchet)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 14,
+              "started_at": "2026-09-24T23:47:20Z",
+              "completed_at": "2026-09-24T23:47:25Z"
+            },
+            {
+              "name": "Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 15,
+              "started_at": "2026-09-24T23:47:25Z",
+              "completed_at": "2026-09-24T23:47:27Z"
+            },
+            {
+              "name": "Restore compiled dependency artifacts (test)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 16,
+              "started_at": "2026-09-24T23:47:27Z",
+              "completed_at": "2026-09-24T23:47:28Z"
+            },
+            {
+              "name": "Fetch deps",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 17,
+              "started_at": "2026-09-24T23:47:28Z",
+              "completed_at": "2026-09-24T23:47:30Z"
+            },
+            {
+              "name": "Prove the tripwire can fail (guard --selftest)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 18,
+              "started_at": "2026-09-24T23:47:30Z",
+              "completed_at": "2026-09-24T23:47:30Z"
+            },
+            {
+              "name": "Audit the restored dependency build tree",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 19,
+              "started_at": "2026-09-24T23:47:30Z",
+              "completed_at": "2026-09-24T23:47:31Z"
+            },
+            {
+              "name": "Compile deps (test)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 20,
+              "started_at": "2026-09-24T23:47:31Z",
+              "completed_at": "2026-09-24T23:47:44Z"
+            },
+            {
+              "name": "Drop our own application's build dir before saving",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 21,
+              "started_at": "2026-09-24T23:47:44Z",
+              "completed_at": "2026-09-24T23:47:44Z"
+            },
+            {
+              "name": "Save compiled dependency artifacts (test)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 22,
+              "started_at": "2026-09-24T23:47:44Z",
+              "completed_at": "2026-09-24T23:47:44Z"
+            },
+            {
+              "name": "Install libxml2-utils for ONIX XSD validation (Phase 6 WI5)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 23,
+              "started_at": "2026-09-24T23:47:44Z",
+              "completed_at": "2026-09-24T23:47:54Z"
+            },
+            {
+              "name": "Compile (dev, --warnings-as-errors)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 24,
+              "started_at": "2026-09-24T23:47:54Z",
+              "completed_at": "2026-09-24T23:48:41Z"
+            },
+            {
+              "name": "DB setup",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 25,
+              "started_at": "2026-09-24T23:48:41Z",
+              "completed_at": "2026-09-24T23:48:47Z"
+            },
+            {
+              "name": "Is the compile-closure instrument alive?",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 26,
+              "started_at": "2026-09-24T23:48:47Z",
+              "completed_at": "2026-09-24T23:48:47Z"
+            },
+            {
+              "name": "Which tests does this pull request need?",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 27,
+              "started_at": "2026-09-24T23:48:47Z",
+              "completed_at": "2026-09-24T23:49:34Z"
+            },
+            {
+              "name": "Test",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 28,
+              "started_at": "2026-09-24T23:49:34Z",
+              "completed_at": "2026-09-25T00:15:39Z"
+            },
+            {
+              "name": "Upload the selection (what this run actually executed)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 29,
+              "started_at": "2026-09-25T00:15:39Z",
+              "completed_at": "2026-09-25T00:15:40Z"
+            },
+            {
+              "name": "OpenAPI drift check (docs/openapi.json must match the manifest)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 30,
+              "started_at": "2026-09-25T00:15:40Z",
+              "completed_at": "2026-09-25T00:15:43Z"
+            },
+            {
+              "name": "Paper-component golden-parity freshness (3 mirrors must match the emitter)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 31,
+              "started_at": "2026-09-25T00:15:43Z",
+              "completed_at": "2026-09-25T00:15:44Z"
+            },
+            {
+              "name": "Plugins-off boot invariant (boot_test — separate step, NOT in `mix test`)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 32,
+              "started_at": "2026-09-25T00:15:44Z",
+              "completed_at": "2026-09-25T00:15:58Z"
+            },
+            {
+              "name": "Publish this job's refusal verdict",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 33,
+              "started_at": "2026-09-25T00:15:58Z",
+              "completed_at": "2026-09-25T00:15:58Z"
+            },
+            {
+              "name": "Post Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 63,
+              "started_at": "2026-09-25T00:15:58Z",
+              "completed_at": "2026-09-25T00:15:58Z"
+            },
+            {
+              "name": "Post Setup Node (js_harness_test.exs shells node over api/assets/sheet-grid)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 64,
+              "started_at": "2026-09-25T00:15:58Z",
+              "completed_at": "2026-09-25T00:15:58Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 65,
+              "started_at": "2026-09-25T00:15:58Z",
+              "completed_at": "2026-09-25T00:15:58Z"
+            },
+            {
+              "name": "Stop containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 66,
+              "started_at": "2026-09-25T00:15:58Z",
+              "completed_at": "2026-09-25T00:15:59Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 67,
+              "started_at": "2026-09-25T00:15:59Z",
+              "completed_at": "2026-09-25T00:15:59Z"
+            }
+          ]
+        },
+        {
+          "name": "Elixir gate",
+          "status": "completed",
+          "conclusion": "failure",
+          "started_at": "2026-09-25T00:16:04Z",
+          "completed_at": "2026-09-25T00:16:06Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:16:05Z",
+              "completed_at": "2026-09-25T00:16:05Z"
+            },
+            {
+              "name": "Decide (fail-closed over every upstream result)",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 2,
+              "started_at": "2026-09-25T00:16:05Z",
+              "completed_at": "2026-09-25T00:16:05Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:16:05Z",
+              "completed_at": "2026-09-25T00:16:05Z"
+            }
+          ]
+        },
+        {
+          "name": "Report main-push failure to a human",
+          "status": "completed",
+          "conclusion": "skipped",
+          "started_at": "2026-09-25T00:16:07Z",
+          "completed_at": "2026-09-25T00:16:06Z",
+          "steps": []
+        }
+      ]
+    },
+    {
+      "databaseId": 36077636095,
+      "name": "elixir",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "headSha": "39d76cd9b3b10e775890586cc1b3604c667ca8fa",
+      "createdAt": "2026-09-25T00:27:44Z",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/36077636095",
+      "attempt": 1,
+      "jobs": [
+        {
+          "name": "Elixir path-escape ratchet",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-25T00:27:48Z",
+          "completed_at": "2026-09-25T00:32:33Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:27:49Z",
+              "completed_at": "2026-09-25T00:27:49Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-25T00:27:50Z",
+              "completed_at": "2026-09-25T00:28:00Z"
+            },
+            {
+              "name": "Does this diff reach the harness?",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:28:00Z",
+              "completed_at": "2026-09-25T00:28:00Z"
+            },
+            {
+              "name": "Harness (the ratchet must be able to fail)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 4,
+              "started_at": "2026-09-25T00:28:00Z",
+              "completed_at": "2026-09-25T00:28:00Z"
+            },
+            {
+              "name": "Every repo-root read is dispatched on",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-09-25T00:28:00Z",
+              "completed_at": "2026-09-25T00:28:02Z"
+            },
+            {
+              "name": "The four gates announce their skips (the ratchet must be able to fail)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-25T00:28:02Z",
+              "completed_at": "2026-09-25T00:28:12Z"
+            },
+            {
+              "name": "The merge-authority claim guard must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-25T00:28:12Z",
+              "completed_at": "2026-09-25T00:28:15Z"
+            },
+            {
+              "name": "No workflow or card claims merge authority the spec denies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-09-25T00:28:15Z",
+              "completed_at": "2026-09-25T00:28:15Z"
+            },
+            {
+              "name": "The blocking-name census must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-09-25T00:28:15Z",
+              "completed_at": "2026-09-25T00:28:15Z"
+            },
+            {
+              "name": "Every merge-blocking job name is in the spec",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-09-25T00:28:15Z",
+              "completed_at": "2026-09-25T00:28:16Z"
+            },
+            {
+              "name": "Every changed top-level entry is one the repo knows",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-09-25T00:28:16Z",
+              "completed_at": "2026-09-25T00:28:19Z"
+            },
+            {
+              "name": "The top-level classifier must be able to fail (27-case harness)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-09-25T00:28:19Z",
+              "completed_at": "2026-09-25T00:28:41Z"
+            },
+            {
+              "name": "The vips hedge tripwire must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-09-25T00:28:41Z",
+              "completed_at": "2026-09-25T00:28:41Z"
+            },
+            {
+              "name": "A platform-provided vips mode is never selected bare",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 14,
+              "started_at": "2026-09-25T00:28:41Z",
+              "completed_at": "2026-09-25T00:28:41Z"
+            },
+            {
+              "name": "The @boundary marker registry must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 15,
+              "started_at": "2026-09-25T00:28:41Z",
+              "completed_at": "2026-09-25T00:28:42Z"
+            },
+            {
+              "name": "Every @boundary comment names a test that still exists",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 16,
+              "started_at": "2026-09-25T00:28:42Z",
+              "completed_at": "2026-09-25T00:28:42Z"
+            },
+            {
+              "name": "A touched unformatted file reds the gate, an untouched one does not",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 17,
+              "started_at": "2026-09-25T00:28:42Z",
+              "completed_at": "2026-09-25T00:28:42Z"
+            },
+            {
+              "name": "The PR test selector must fail safe (47-case harness)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 18,
+              "started_at": "2026-09-25T00:28:42Z",
+              "completed_at": "2026-09-25T00:29:15Z"
+            },
+            {
+              "name": "Every pinned ALWAYS test still exists",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 19,
+              "started_at": "2026-09-25T00:29:15Z",
+              "completed_at": "2026-09-25T00:29:15Z"
+            },
+            {
+              "name": "The main-red attribution reporter must be able to report a miss",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 20,
+              "started_at": "2026-09-25T00:29:15Z",
+              "completed_at": "2026-09-25T00:29:15Z"
+            },
+            {
+              "name": "The pin-agreement gate must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 21,
+              "started_at": "2026-09-25T00:29:15Z",
+              "completed_at": "2026-09-25T00:29:16Z"
+            },
+            {
+              "name": "The production Elixir pin is covered by the jobs that test it",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 22,
+              "started_at": "2026-09-25T00:29:16Z",
+              "completed_at": "2026-09-25T00:29:16Z"
+            },
+            {
+              "name": "Does this diff reach the ACK_EX deriver?",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 23,
+              "started_at": "2026-09-25T00:29:16Z",
+              "completed_at": "2026-09-25T00:29:16Z"
+            },
+            {
+              "name": "Every unrenderable .exclusions row is acknowledged in ACK_EX",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 24,
+              "started_at": "2026-09-25T00:29:16Z",
+              "completed_at": "2026-09-25T00:32:02Z"
+            },
+            {
+              "name": "Every self-test under scripts/ is executed by CI or declares an exemption",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 25,
+              "started_at": "2026-09-25T00:32:02Z",
+              "completed_at": "2026-09-25T00:32:07Z"
+            },
+            {
+              "name": "Every cron'd workflow's red reaches a declared reader",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 26,
+              "started_at": "2026-09-25T00:32:07Z",
+              "completed_at": "2026-09-25T00:32:11Z"
+            },
+            {
+              "name": "pr-required.sh self-test (33 arms) — scripts/ copy",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 27,
+              "started_at": "2026-09-25T00:32:11Z",
+              "completed_at": "2026-09-25T00:32:13Z"
+            },
+            {
+              "name": "pr-required.sh self-test (33 arms) — .claude/skills mirror",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 28,
+              "started_at": "2026-09-25T00:32:13Z",
+              "completed_at": "2026-09-25T00:32:14Z"
+            },
+            {
+              "name": "stranded-worktree-report.sh self-test (49 arms)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 29,
+              "started_at": "2026-09-25T00:32:14Z",
+              "completed_at": "2026-09-25T00:32:14Z"
+            },
+            {
+              "name": "The doc-budget discovery arm must be able to fail (30-arm harness)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 30,
+              "started_at": "2026-09-25T00:32:14Z",
+              "completed_at": "2026-09-25T00:32:30Z"
+            },
+            {
+              "name": "Every header-discovered doc is within its own declared budget",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 31,
+              "started_at": "2026-09-25T00:32:30Z",
+              "completed_at": "2026-09-25T00:32:31Z"
+            },
+            {
+              "name": "Publish this job's refusal verdict",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 32,
+              "started_at": "2026-09-25T00:32:31Z",
+              "completed_at": "2026-09-25T00:32:31Z"
+            },
+            {
+              "name": "node is present (the freshness gate is a node program)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 33,
+              "started_at": "2026-09-25T00:32:31Z",
+              "completed_at": "2026-09-25T00:32:31Z"
+            },
+            {
+              "name": "The vendored starter SDKs match js/packages source",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 34,
+              "started_at": "2026-09-25T00:32:31Z",
+              "completed_at": "2026-09-25T00:32:31Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 68,
+              "started_at": "2026-09-25T00:32:31Z",
+              "completed_at": "2026-09-25T00:32:31Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 69,
+              "started_at": "2026-09-25T00:32:31Z",
+              "completed_at": "2026-09-25T00:32:31Z"
+            }
+          ]
+        },
+        {
+          "name": "Dispatch (changed-path sets)",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-25T00:27:48Z",
+          "completed_at": "2026-09-25T00:28:10Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:27:49Z",
+              "completed_at": "2026-09-25T00:27:50Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-25T00:27:50Z",
+              "completed_at": "2026-09-25T00:28:06Z"
+            },
+            {
+              "name": "Compute the changed-path sets",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:28:06Z",
+              "completed_at": "2026-09-25T00:28:08Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-25T00:28:08Z",
+              "completed_at": "2026-09-25T00:28:08Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-25T00:28:08Z",
+              "completed_at": "2026-09-25T00:28:08Z"
+            }
+          ]
+        },
+        {
+          "name": "Validation perf bench (median-of-5, alarm >100ms) (27.0, 1.18.1)",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-25T00:28:24Z",
+          "completed_at": "2026-09-25T00:29:41Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:28:25Z",
+              "completed_at": "2026-09-25T00:28:27Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-25T00:28:27Z",
+              "completed_at": "2026-09-25T00:28:35Z"
+            },
+            {
+              "name": "Setup BEAM",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:28:35Z",
+              "completed_at": "2026-09-25T00:28:42Z"
+            },
+            {
+              "name": "Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-09-25T00:28:42Z",
+              "completed_at": "2026-09-25T00:28:44Z"
+            },
+            {
+              "name": "Restore compiled dependency artifacts (test)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-09-25T00:28:44Z",
+              "completed_at": "2026-09-25T00:28:46Z"
+            },
+            {
+              "name": "Fetch deps",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-25T00:28:46Z",
+              "completed_at": "2026-09-25T00:28:47Z"
+            },
+            {
+              "name": "Prove the tripwire can fail (guard --selftest)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-25T00:28:47Z",
+              "completed_at": "2026-09-25T00:28:48Z"
+            },
+            {
+              "name": "Audit the restored dependency build tree",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-09-25T00:28:48Z",
+              "completed_at": "2026-09-25T00:28:49Z"
+            },
+            {
+              "name": "Compile deps (test)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-09-25T00:28:49Z",
+              "completed_at": "2026-09-25T00:28:59Z"
+            },
+            {
+              "name": "Drop our own application's build dir before saving",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 10,
+              "started_at": "2026-09-25T00:28:59Z",
+              "completed_at": "2026-09-25T00:28:59Z"
+            },
+            {
+              "name": "Save compiled dependency artifacts (test)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 11,
+              "started_at": "2026-09-25T00:28:59Z",
+              "completed_at": "2026-09-25T00:28:59Z"
+            },
+            {
+              "name": "Compile",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-09-25T00:28:59Z",
+              "completed_at": "2026-09-25T00:29:38Z"
+            },
+            {
+              "name": "Run validation perf bench (relative alarm vs a measured runner baseline)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-09-25T00:29:38Z",
+              "completed_at": "2026-09-25T00:29:39Z"
+            },
+            {
+              "name": "Post Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 25,
+              "started_at": "2026-09-25T00:29:39Z",
+              "completed_at": "2026-09-25T00:29:39Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 26,
+              "started_at": "2026-09-25T00:29:39Z",
+              "completed_at": "2026-09-25T00:29:39Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 27,
+              "started_at": "2026-09-25T00:29:39Z",
+              "completed_at": "2026-09-25T00:29:39Z"
+            }
+          ]
+        },
+        {
+          "name": "Format (mix format --check-formatted, diff-scoped) (27.0, 1.19.5)",
+          "status": "completed",
+          "conclusion": "failure",
+          "started_at": "2026-09-25T00:28:26Z",
+          "completed_at": "2026-09-25T00:29:00Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:28:27Z",
+              "completed_at": "2026-09-25T00:28:28Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-25T00:28:28Z",
+              "completed_at": "2026-09-25T00:28:39Z"
+            },
+            {
+              "name": "Setup BEAM",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:28:39Z",
+              "completed_at": "2026-09-25T00:28:45Z"
+            },
+            {
+              "name": "Cache deps (formatter only needs deps for import_deps)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-09-25T00:28:45Z",
+              "completed_at": "2026-09-25T00:28:46Z"
+            },
+            {
+              "name": "Fetch deps (required by .formatter.exs import_deps)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-09-25T00:28:46Z",
+              "completed_at": "2026-09-25T00:28:49Z"
+            },
+            {
+              "name": "The format guard must be able to refuse",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-25T00:28:49Z",
+              "completed_at": "2026-09-25T00:28:52Z"
+            },
+            {
+              "name": "The diff scope must be able to refuse, to red, and to stay neutral",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-25T00:28:52Z",
+              "completed_at": "2026-09-25T00:28:52Z"
+            },
+            {
+              "name": "mix format --check-formatted (via the version-aware guard)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-09-25T00:28:52Z",
+              "completed_at": "2026-09-25T00:28:59Z"
+            },
+            {
+              "name": "Which unformatted files does THIS diff touch?",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 9,
+              "started_at": "2026-09-25T00:28:59Z",
+              "completed_at": "2026-09-25T00:28:59Z"
+            },
+            {
+              "name": "Publish this job's refusal verdict",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-09-25T00:28:59Z",
+              "completed_at": "2026-09-25T00:28:59Z"
+            },
+            {
+              "name": "Post Cache deps (formatter only needs deps for import_deps)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 19,
+              "started_at": "2026-09-25T00:28:59Z",
+              "completed_at": "2026-09-25T00:28:59Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 20,
+              "started_at": "2026-09-25T00:28:59Z",
+              "completed_at": "2026-09-25T00:28:59Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 21,
+              "started_at": "2026-09-25T00:28:59Z",
+              "completed_at": "2026-09-25T00:28:59Z"
+            }
+          ]
+        },
+        {
+          "name": "Prod compile gate (Elixir 1.18.4 / OTP 27.0)",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-25T00:28:27Z",
+          "completed_at": "2026-09-25T00:29:47Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:28:28Z",
+              "completed_at": "2026-09-25T00:28:29Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-25T00:28:29Z",
+              "completed_at": "2026-09-25T00:28:35Z"
+            },
+            {
+              "name": "Setup BEAM",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:28:35Z",
+              "completed_at": "2026-09-25T00:28:42Z"
+            },
+            {
+              "name": "Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-09-25T00:28:42Z",
+              "completed_at": "2026-09-25T00:28:43Z"
+            },
+            {
+              "name": "Restore compiled dependency artifacts (prod)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-09-25T00:28:43Z",
+              "completed_at": "2026-09-25T00:28:44Z"
+            },
+            {
+              "name": "Fetch deps (prod)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-25T00:28:44Z",
+              "completed_at": "2026-09-25T00:28:46Z"
+            },
+            {
+              "name": "Prove the tripwire can fail (guard --selftest)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-25T00:28:46Z",
+              "completed_at": "2026-09-25T00:28:47Z"
+            },
+            {
+              "name": "Audit the restored dependency build tree",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-09-25T00:28:47Z",
+              "completed_at": "2026-09-25T00:28:48Z"
+            },
+            {
+              "name": "Compile deps (prod)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-09-25T00:28:48Z",
+              "completed_at": "2026-09-25T00:28:59Z"
+            },
+            {
+              "name": "Drop our own application's build dir before saving",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 10,
+              "started_at": "2026-09-25T00:28:59Z",
+              "completed_at": "2026-09-25T00:28:59Z"
+            },
+            {
+              "name": "Save compiled dependency artifacts (prod)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 11,
+              "started_at": "2026-09-25T00:28:59Z",
+              "completed_at": "2026-09-25T00:28:59Z"
+            },
+            {
+              "name": "Prod compile (--warnings-as-errors)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-09-25T00:28:59Z",
+              "completed_at": "2026-09-25T00:29:44Z"
+            },
+            {
+              "name": "Publish this job's refusal verdict",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-09-25T00:29:44Z",
+              "completed_at": "2026-09-25T00:29:44Z"
+            },
+            {
+              "name": "Post Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 25,
+              "started_at": "2026-09-25T00:29:44Z",
+              "completed_at": "2026-09-25T00:29:44Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 26,
+              "started_at": "2026-09-25T00:29:44Z",
+              "completed_at": "2026-09-25T00:29:45Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 27,
+              "started_at": "2026-09-25T00:29:45Z",
+              "completed_at": "2026-09-25T00:29:45Z"
+            }
+          ]
+        },
+        {
+          "name": "Test (Elixir 1.18.4 / OTP 27.0)",
+          "status": "completed",
+          "conclusion": "cancelled",
+          "started_at": "2026-09-25T00:28:30Z",
+          "completed_at": "2026-09-25T00:38:24Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:28:31Z",
+              "completed_at": "2026-09-25T00:28:32Z"
+            },
+            {
+              "name": "Initialize containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-25T00:28:32Z",
+              "completed_at": "2026-09-25T00:28:41Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:28:41Z",
+              "completed_at": "2026-09-25T00:29:11Z"
+            },
+            {
+              "name": "Setup BEAM",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-09-25T00:29:11Z",
+              "completed_at": "2026-09-25T00:29:17Z"
+            },
+            {
+              "name": "Setup Node (js_harness_test.exs shells node over api/assets/sheet-grid)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-09-25T00:29:17Z",
+              "completed_at": "2026-09-25T00:29:21Z"
+            },
+            {
+              "name": "The unreachable-assert-message guard must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-25T00:29:21Z",
+              "completed_at": "2026-09-25T00:29:31Z"
+            },
+            {
+              "name": "No NEW unreachable assert messages (never-worse ratchet)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-25T00:29:31Z",
+              "completed_at": "2026-09-25T00:29:34Z"
+            },
+            {
+              "name": "The pre-commit hook refuses an unreachable assert message",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-09-25T00:29:34Z",
+              "completed_at": "2026-09-25T00:29:38Z"
+            },
+            {
+              "name": "The comment-status-literal guard must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-09-25T00:29:38Z",
+              "completed_at": "2026-09-25T00:29:47Z"
+            },
+            {
+              "name": "No NEW status literals in comments (never-worse ratchet)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-09-25T00:29:47Z",
+              "completed_at": "2026-09-25T00:29:51Z"
+            },
+            {
+              "name": "The client-ip resolver guard must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-09-25T00:29:51Z",
+              "completed_at": "2026-09-25T00:29:51Z"
+            },
+            {
+              "name": "No conn.remote_ip read outside the canonical resolver",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-09-25T00:29:51Z",
+              "completed_at": "2026-09-25T00:29:51Z"
+            },
+            {
+              "name": "The test-env-leak guard must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-09-25T00:29:51Z",
+              "completed_at": "2026-09-25T00:30:19Z"
+            },
+            {
+              "name": "No NEW unrestored global-state mutation in api/test (never-worse ratchet)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 14,
+              "started_at": "2026-09-25T00:30:19Z",
+              "completed_at": "2026-09-25T00:30:24Z"
+            },
+            {
+              "name": "Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 15,
+              "started_at": "2026-09-25T00:30:24Z",
+              "completed_at": "2026-09-25T00:30:26Z"
+            },
+            {
+              "name": "Restore compiled dependency artifacts (test)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 16,
+              "started_at": "2026-09-25T00:30:26Z",
+              "completed_at": "2026-09-25T00:30:28Z"
+            },
+            {
+              "name": "Fetch deps",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 17,
+              "started_at": "2026-09-25T00:30:28Z",
+              "completed_at": "2026-09-25T00:30:30Z"
+            },
+            {
+              "name": "Prove the tripwire can fail (guard --selftest)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 18,
+              "started_at": "2026-09-25T00:30:30Z",
+              "completed_at": "2026-09-25T00:30:30Z"
+            },
+            {
+              "name": "Audit the restored dependency build tree",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 19,
+              "started_at": "2026-09-25T00:30:30Z",
+              "completed_at": "2026-09-25T00:30:31Z"
+            },
+            {
+              "name": "Compile deps (test)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 20,
+              "started_at": "2026-09-25T00:30:31Z",
+              "completed_at": "2026-09-25T00:30:44Z"
+            },
+            {
+              "name": "Drop our own application's build dir before saving",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 21,
+              "started_at": "2026-09-25T00:30:44Z",
+              "completed_at": "2026-09-25T00:30:44Z"
+            },
+            {
+              "name": "Save compiled dependency artifacts (test)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 22,
+              "started_at": "2026-09-25T00:30:44Z",
+              "completed_at": "2026-09-25T00:30:44Z"
+            },
+            {
+              "name": "Install libxml2-utils for ONIX XSD validation (Phase 6 WI5)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 23,
+              "started_at": "2026-09-25T00:30:44Z",
+              "completed_at": "2026-09-25T00:30:54Z"
+            },
+            {
+              "name": "Compile (dev, --warnings-as-errors)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 24,
+              "started_at": "2026-09-25T00:30:54Z",
+              "completed_at": "2026-09-25T00:31:41Z"
+            },
+            {
+              "name": "DB setup",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 25,
+              "started_at": "2026-09-25T00:31:41Z",
+              "completed_at": "2026-09-25T00:31:47Z"
+            },
+            {
+              "name": "Is the compile-closure instrument alive?",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 26,
+              "started_at": "2026-09-25T00:31:47Z",
+              "completed_at": "2026-09-25T00:31:48Z"
+            },
+            {
+              "name": "Which tests does this pull request need?",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 27,
+              "started_at": "2026-09-25T00:31:48Z",
+              "completed_at": "2026-09-25T00:31:55Z"
+            },
+            {
+              "name": "Test",
+              "status": "completed",
+              "conclusion": "cancelled",
+              "number": 28,
+              "started_at": "2026-09-25T00:31:55Z",
+              "completed_at": "2026-09-25T00:38:19Z"
+            },
+            {
+              "name": "Upload the selection (what this run actually executed)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 29,
+              "started_at": "2026-09-25T00:38:19Z",
+              "completed_at": "2026-09-25T00:38:20Z"
+            },
+            {
+              "name": "OpenAPI drift check (docs/openapi.json must match the manifest)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 30,
+              "started_at": "2026-09-25T00:38:20Z",
+              "completed_at": "2026-09-25T00:38:20Z"
+            },
+            {
+              "name": "Paper-component golden-parity freshness (3 mirrors must match the emitter)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 31,
+              "started_at": "2026-09-25T00:38:20Z",
+              "completed_at": "2026-09-25T00:38:20Z"
+            },
+            {
+              "name": "Plugins-off boot invariant (boot_test — separate step, NOT in `mix test`)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 32,
+              "started_at": "2026-09-25T00:38:20Z",
+              "completed_at": "2026-09-25T00:38:20Z"
+            },
+            {
+              "name": "Publish this job's refusal verdict",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 33,
+              "started_at": "2026-09-25T00:38:20Z",
+              "completed_at": "2026-09-25T00:38:20Z"
+            },
+            {
+              "name": "Post Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 63,
+              "started_at": "2026-09-25T00:38:20Z",
+              "completed_at": "2026-09-25T00:38:20Z"
+            },
+            {
+              "name": "Post Setup Node (js_harness_test.exs shells node over api/assets/sheet-grid)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 64,
+              "started_at": "2026-09-25T00:38:20Z",
+              "completed_at": "2026-09-25T00:38:20Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 65,
+              "started_at": "2026-09-25T00:38:20Z",
+              "completed_at": "2026-09-25T00:38:20Z"
+            },
+            {
+              "name": "Stop containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 66,
+              "started_at": "2026-09-25T00:38:20Z",
+              "completed_at": "2026-09-25T00:38:21Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 67,
+              "started_at": "2026-09-25T00:38:21Z",
+              "completed_at": "2026-09-25T00:38:21Z"
+            }
+          ]
+        },
+        {
+          "name": "Elixir gate",
+          "status": "completed",
+          "conclusion": "failure",
+          "started_at": "2026-09-25T00:38:28Z",
+          "completed_at": "2026-09-25T00:38:32Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:38:29Z",
+              "completed_at": "2026-09-25T00:38:29Z"
+            },
+            {
+              "name": "Decide (fail-closed over every upstream result)",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 2,
+              "started_at": "2026-09-25T00:38:29Z",
+              "completed_at": "2026-09-25T00:38:29Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:38:29Z",
+              "completed_at": "2026-09-25T00:38:29Z"
+            }
+          ]
+        },
+        {
+          "name": "Report main-push failure to a human",
+          "status": "completed",
+          "conclusion": "cancelled",
+          "started_at": "2026-09-25T00:38:32Z",
+          "completed_at": "2026-09-25T00:38:32Z",
+          "steps": []
+        }
+      ]
+    },
+    {
+      "databaseId": 36078433654,
+      "name": "elixir",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "headSha": "fbcf43f22f381dd293237ec843463246e1e9962a",
+      "createdAt": "2026-09-25T00:38:04Z",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/36078433654",
+      "attempt": 1,
+      "jobs": [
+        {
+          "name": "Elixir path-escape ratchet",
+          "status": "completed",
+          "conclusion": "cancelled",
+          "started_at": "2026-09-25T00:38:36Z",
+          "completed_at": "2026-09-25T00:41:10Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:38:37Z",
+              "completed_at": "2026-09-25T00:38:37Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-25T00:38:37Z",
+              "completed_at": "2026-09-25T00:38:48Z"
+            },
+            {
+              "name": "Does this diff reach the harness?",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:38:48Z",
+              "completed_at": "2026-09-25T00:38:48Z"
+            },
+            {
+              "name": "Harness (the ratchet must be able to fail)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 4,
+              "started_at": "2026-09-25T00:38:48Z",
+              "completed_at": "2026-09-25T00:38:48Z"
+            },
+            {
+              "name": "Every repo-root read is dispatched on",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-09-25T00:38:48Z",
+              "completed_at": "2026-09-25T00:38:51Z"
+            },
+            {
+              "name": "The four gates announce their skips (the ratchet must be able to fail)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-25T00:38:51Z",
+              "completed_at": "2026-09-25T00:39:07Z"
+            },
+            {
+              "name": "The merge-authority claim guard must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-25T00:39:07Z",
+              "completed_at": "2026-09-25T00:39:12Z"
+            },
+            {
+              "name": "No workflow or card claims merge authority the spec denies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-09-25T00:39:12Z",
+              "completed_at": "2026-09-25T00:39:12Z"
+            },
+            {
+              "name": "The blocking-name census must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-09-25T00:39:12Z",
+              "completed_at": "2026-09-25T00:39:13Z"
+            },
+            {
+              "name": "Every merge-blocking job name is in the spec",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-09-25T00:39:13Z",
+              "completed_at": "2026-09-25T00:39:14Z"
+            },
+            {
+              "name": "Every changed top-level entry is one the repo knows",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-09-25T00:39:14Z",
+              "completed_at": "2026-09-25T00:39:19Z"
+            },
+            {
+              "name": "The top-level classifier must be able to fail (27-case harness)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-09-25T00:39:19Z",
+              "completed_at": "2026-09-25T00:39:48Z"
+            },
+            {
+              "name": "The vips hedge tripwire must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-09-25T00:39:48Z",
+              "completed_at": "2026-09-25T00:39:48Z"
+            },
+            {
+              "name": "A platform-provided vips mode is never selected bare",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 14,
+              "started_at": "2026-09-25T00:39:48Z",
+              "completed_at": "2026-09-25T00:39:49Z"
+            },
+            {
+              "name": "The @boundary marker registry must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 15,
+              "started_at": "2026-09-25T00:39:49Z",
+              "completed_at": "2026-09-25T00:39:50Z"
+            },
+            {
+              "name": "Every @boundary comment names a test that still exists",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 16,
+              "started_at": "2026-09-25T00:39:50Z",
+              "completed_at": "2026-09-25T00:39:50Z"
+            },
+            {
+              "name": "A touched unformatted file reds the gate, an untouched one does not",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 17,
+              "started_at": "2026-09-25T00:39:50Z",
+              "completed_at": "2026-09-25T00:39:51Z"
+            },
+            {
+              "name": "The PR test selector must fail safe (47-case harness)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 18,
+              "started_at": "2026-09-25T00:39:51Z",
+              "completed_at": "2026-09-25T00:40:37Z"
+            },
+            {
+              "name": "Every pinned ALWAYS test still exists",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 19,
+              "started_at": "2026-09-25T00:40:37Z",
+              "completed_at": "2026-09-25T00:40:37Z"
+            },
+            {
+              "name": "The main-red attribution reporter must be able to report a miss",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 20,
+              "started_at": "2026-09-25T00:40:37Z",
+              "completed_at": "2026-09-25T00:40:38Z"
+            },
+            {
+              "name": "The pin-agreement gate must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 21,
+              "started_at": "2026-09-25T00:40:38Z",
+              "completed_at": "2026-09-25T00:40:39Z"
+            },
+            {
+              "name": "The production Elixir pin is covered by the jobs that test it",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 22,
+              "started_at": "2026-09-25T00:40:39Z",
+              "completed_at": "2026-09-25T00:40:39Z"
+            },
+            {
+              "name": "Does this diff reach the ACK_EX deriver?",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 23,
+              "started_at": "2026-09-25T00:40:39Z",
+              "completed_at": "2026-09-25T00:40:39Z"
+            },
+            {
+              "name": "Every unrenderable .exclusions row is acknowledged in ACK_EX",
+              "status": "completed",
+              "conclusion": "cancelled",
+              "number": 24,
+              "started_at": "2026-09-25T00:40:39Z",
+              "completed_at": "2026-09-25T00:41:08Z"
+            },
+            {
+              "name": "Every self-test under scripts/ is executed by CI or declares an exemption",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 25,
+              "started_at": "2026-09-25T00:41:08Z",
+              "completed_at": "2026-09-25T00:41:08Z"
+            },
+            {
+              "name": "Every cron'd workflow's red reaches a declared reader",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 26,
+              "started_at": "2026-09-25T00:41:08Z",
+              "completed_at": "2026-09-25T00:41:08Z"
+            },
+            {
+              "name": "pr-required.sh self-test (33 arms) — scripts/ copy",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 27,
+              "started_at": "2026-09-25T00:41:08Z",
+              "completed_at": "2026-09-25T00:41:08Z"
+            },
+            {
+              "name": "pr-required.sh self-test (33 arms) — .claude/skills mirror",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 28,
+              "started_at": "2026-09-25T00:41:08Z",
+              "completed_at": "2026-09-25T00:41:08Z"
+            },
+            {
+              "name": "stranded-worktree-report.sh self-test (49 arms)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 29,
+              "started_at": "2026-09-25T00:41:08Z",
+              "completed_at": "2026-09-25T00:41:08Z"
+            },
+            {
+              "name": "The doc-budget discovery arm must be able to fail (30-arm harness)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 30,
+              "started_at": "2026-09-25T00:41:08Z",
+              "completed_at": "2026-09-25T00:41:08Z"
+            },
+            {
+              "name": "Every header-discovered doc is within its own declared budget",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 31,
+              "started_at": "2026-09-25T00:41:08Z",
+              "completed_at": "2026-09-25T00:41:08Z"
+            },
+            {
+              "name": "Publish this job's refusal verdict",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 32,
+              "started_at": "2026-09-25T00:41:08Z",
+              "completed_at": "2026-09-25T00:41:08Z"
+            },
+            {
+              "name": "node is present (the freshness gate is a node program)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 33,
+              "started_at": "2026-09-25T00:41:08Z",
+              "completed_at": "2026-09-25T00:41:08Z"
+            },
+            {
+              "name": "The vendored starter SDKs match js/packages source",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 34,
+              "started_at": "2026-09-25T00:41:08Z",
+              "completed_at": "2026-09-25T00:41:08Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 68,
+              "started_at": "2026-09-25T00:41:08Z",
+              "completed_at": "2026-09-25T00:41:08Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 69,
+              "started_at": "2026-09-25T00:41:08Z",
+              "completed_at": "2026-09-25T00:41:08Z"
+            }
+          ]
+        },
+        {
+          "name": "Dispatch (changed-path sets)",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-25T00:38:36Z",
+          "completed_at": "2026-09-25T00:38:57Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:38:37Z",
+              "completed_at": "2026-09-25T00:38:38Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-25T00:38:38Z",
+              "completed_at": "2026-09-25T00:38:54Z"
+            },
+            {
+              "name": "Compute the changed-path sets",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:38:54Z",
+              "completed_at": "2026-09-25T00:38:55Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-25T00:38:55Z",
+              "completed_at": "2026-09-25T00:38:55Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-25T00:38:55Z",
+              "completed_at": "2026-09-25T00:38:55Z"
+            }
+          ]
+        },
+        {
+          "name": "Test (Elixir 1.18.4 / OTP 27.0)",
+          "status": "completed",
+          "conclusion": "cancelled",
+          "started_at": "2026-09-25T00:39:01Z",
+          "completed_at": "2026-09-25T00:41:02Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:39:02Z",
+              "completed_at": "2026-09-25T00:39:04Z"
+            },
+            {
+              "name": "Initialize containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-25T00:39:04Z",
+              "completed_at": "2026-09-25T00:39:21Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:39:21Z",
+              "completed_at": "2026-09-25T00:39:48Z"
+            },
+            {
+              "name": "Setup BEAM",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-09-25T00:39:48Z",
+              "completed_at": "2026-09-25T00:39:54Z"
+            },
+            {
+              "name": "Setup Node (js_harness_test.exs shells node over api/assets/sheet-grid)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-09-25T00:39:54Z",
+              "completed_at": "2026-09-25T00:39:58Z"
+            },
+            {
+              "name": "The unreachable-assert-message guard must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-25T00:39:58Z",
+              "completed_at": "2026-09-25T00:40:06Z"
+            },
+            {
+              "name": "No NEW unreachable assert messages (never-worse ratchet)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-25T00:40:06Z",
+              "completed_at": "2026-09-25T00:40:09Z"
+            },
+            {
+              "name": "The pre-commit hook refuses an unreachable assert message",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-09-25T00:40:09Z",
+              "completed_at": "2026-09-25T00:40:12Z"
+            },
+            {
+              "name": "The comment-status-literal guard must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-09-25T00:40:12Z",
+              "completed_at": "2026-09-25T00:40:20Z"
+            },
+            {
+              "name": "No NEW status literals in comments (never-worse ratchet)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-09-25T00:40:20Z",
+              "completed_at": "2026-09-25T00:40:22Z"
+            },
+            {
+              "name": "The client-ip resolver guard must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-09-25T00:40:22Z",
+              "completed_at": "2026-09-25T00:40:22Z"
+            },
+            {
+              "name": "No conn.remote_ip read outside the canonical resolver",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-09-25T00:40:22Z",
+              "completed_at": "2026-09-25T00:40:22Z"
+            },
+            {
+              "name": "The test-env-leak guard must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-09-25T00:40:22Z",
+              "completed_at": "2026-09-25T00:40:46Z"
+            },
+            {
+              "name": "No NEW unrestored global-state mutation in api/test (never-worse ratchet)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 14,
+              "started_at": "2026-09-25T00:40:46Z",
+              "completed_at": "2026-09-25T00:40:50Z"
+            },
+            {
+              "name": "Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 15,
+              "started_at": "2026-09-25T00:40:50Z",
+              "completed_at": "2026-09-25T00:40:52Z"
+            },
+            {
+              "name": "Restore compiled dependency artifacts (test)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 16,
+              "started_at": "2026-09-25T00:40:52Z",
+              "completed_at": "2026-09-25T00:40:54Z"
+            },
+            {
+              "name": "Fetch deps",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 17,
+              "started_at": "2026-09-25T00:40:54Z",
+              "completed_at": "2026-09-25T00:40:55Z"
+            },
+            {
+              "name": "Prove the tripwire can fail (guard --selftest)",
+              "status": "completed",
+              "conclusion": "cancelled",
+              "number": 18,
+              "started_at": "2026-09-25T00:40:55Z",
+              "completed_at": "2026-09-25T00:40:56Z"
+            },
+            {
+              "name": "Audit the restored dependency build tree",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 19,
+              "started_at": "2026-09-25T00:40:56Z",
+              "completed_at": "2026-09-25T00:40:56Z"
+            },
+            {
+              "name": "Compile deps (test)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 20,
+              "started_at": "2026-09-25T00:40:56Z",
+              "completed_at": "2026-09-25T00:40:56Z"
+            },
+            {
+              "name": "Drop our own application's build dir before saving",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 21,
+              "started_at": "2026-09-25T00:40:56Z",
+              "completed_at": "2026-09-25T00:40:56Z"
+            },
+            {
+              "name": "Save compiled dependency artifacts (test)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 22,
+              "started_at": "2026-09-25T00:40:56Z",
+              "completed_at": "2026-09-25T00:40:56Z"
+            },
+            {
+              "name": "Install libxml2-utils for ONIX XSD validation (Phase 6 WI5)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 23,
+              "started_at": "2026-09-25T00:40:56Z",
+              "completed_at": "2026-09-25T00:40:56Z"
+            },
+            {
+              "name": "Compile (dev, --warnings-as-errors)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 24,
+              "started_at": "2026-09-25T00:40:56Z",
+              "completed_at": "2026-09-25T00:40:56Z"
+            },
+            {
+              "name": "DB setup",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 25,
+              "started_at": "2026-09-25T00:40:56Z",
+              "completed_at": "2026-09-25T00:40:56Z"
+            },
+            {
+              "name": "Is the compile-closure instrument alive?",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 26,
+              "started_at": "2026-09-25T00:40:56Z",
+              "completed_at": "2026-09-25T00:40:56Z"
+            },
+            {
+              "name": "Which tests does this pull request need?",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 27,
+              "started_at": "2026-09-25T00:40:56Z",
+              "completed_at": "2026-09-25T00:40:56Z"
+            },
+            {
+              "name": "Test",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 28,
+              "started_at": "2026-09-25T00:40:56Z",
+              "completed_at": "2026-09-25T00:40:56Z"
+            },
+            {
+              "name": "Upload the selection (what this run actually executed)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 29,
+              "started_at": "2026-09-25T00:40:56Z",
+              "completed_at": "2026-09-25T00:40:56Z"
+            },
+            {
+              "name": "OpenAPI drift check (docs/openapi.json must match the manifest)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 30,
+              "started_at": "2026-09-25T00:40:56Z",
+              "completed_at": "2026-09-25T00:40:56Z"
+            },
+            {
+              "name": "Paper-component golden-parity freshness (3 mirrors must match the emitter)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 31,
+              "started_at": "2026-09-25T00:40:56Z",
+              "completed_at": "2026-09-25T00:40:56Z"
+            },
+            {
+              "name": "Plugins-off boot invariant (boot_test — separate step, NOT in `mix test`)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 32,
+              "started_at": "2026-09-25T00:40:56Z",
+              "completed_at": "2026-09-25T00:40:56Z"
+            },
+            {
+              "name": "Publish this job's refusal verdict",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 33,
+              "started_at": "2026-09-25T00:40:56Z",
+              "completed_at": "2026-09-25T00:40:56Z"
+            },
+            {
+              "name": "Post Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 63,
+              "started_at": "2026-09-25T00:40:56Z",
+              "completed_at": "2026-09-25T00:40:56Z"
+            },
+            {
+              "name": "Post Setup Node (js_harness_test.exs shells node over api/assets/sheet-grid)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 64,
+              "started_at": "2026-09-25T00:40:56Z",
+              "completed_at": "2026-09-25T00:40:56Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 65,
+              "started_at": "2026-09-25T00:40:56Z",
+              "completed_at": "2026-09-25T00:40:56Z"
+            },
+            {
+              "name": "Stop containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 66,
+              "started_at": "2026-09-25T00:40:56Z",
+              "completed_at": "2026-09-25T00:40:57Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 67,
+              "started_at": "2026-09-25T00:40:57Z",
+              "completed_at": "2026-09-25T00:40:57Z"
+            }
+          ]
+        },
+        {
+          "name": "Validation perf bench (median-of-5, alarm >100ms) (27.0, 1.18.1)",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-25T00:39:01Z",
+          "completed_at": "2026-09-25T00:40:18Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:39:02Z",
+              "completed_at": "2026-09-25T00:39:03Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-25T00:39:03Z",
+              "completed_at": "2026-09-25T00:39:12Z"
+            },
+            {
+              "name": "Setup BEAM",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:39:12Z",
+              "completed_at": "2026-09-25T00:39:20Z"
+            },
+            {
+              "name": "Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-09-25T00:39:20Z",
+              "completed_at": "2026-09-25T00:39:21Z"
+            },
+            {
+              "name": "Restore compiled dependency artifacts (test)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-09-25T00:39:21Z",
+              "completed_at": "2026-09-25T00:39:23Z"
+            },
+            {
+              "name": "Fetch deps",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-25T00:39:23Z",
+              "completed_at": "2026-09-25T00:39:25Z"
+            },
+            {
+              "name": "Prove the tripwire can fail (guard --selftest)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-25T00:39:25Z",
+              "completed_at": "2026-09-25T00:39:25Z"
+            },
+            {
+              "name": "Audit the restored dependency build tree",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-09-25T00:39:25Z",
+              "completed_at": "2026-09-25T00:39:26Z"
+            },
+            {
+              "name": "Compile deps (test)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-09-25T00:39:26Z",
+              "completed_at": "2026-09-25T00:39:36Z"
+            },
+            {
+              "name": "Drop our own application's build dir before saving",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 10,
+              "started_at": "2026-09-25T00:39:36Z",
+              "completed_at": "2026-09-25T00:39:36Z"
+            },
+            {
+              "name": "Save compiled dependency artifacts (test)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 11,
+              "started_at": "2026-09-25T00:39:36Z",
+              "completed_at": "2026-09-25T00:39:36Z"
+            },
+            {
+              "name": "Compile",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-09-25T00:39:36Z",
+              "completed_at": "2026-09-25T00:40:14Z"
+            },
+            {
+              "name": "Run validation perf bench (relative alarm vs a measured runner baseline)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-09-25T00:40:14Z",
+              "completed_at": "2026-09-25T00:40:14Z"
+            },
+            {
+              "name": "Post Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 25,
+              "started_at": "2026-09-25T00:40:14Z",
+              "completed_at": "2026-09-25T00:40:15Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 26,
+              "started_at": "2026-09-25T00:40:15Z",
+              "completed_at": "2026-09-25T00:40:15Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 27,
+              "started_at": "2026-09-25T00:40:15Z",
+              "completed_at": "2026-09-25T00:40:15Z"
+            }
+          ]
+        },
+        {
+          "name": "Prod compile gate (Elixir 1.18.4 / OTP 27.0)",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-25T00:39:02Z",
+          "completed_at": "2026-09-25T00:40:08Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:39:02Z",
+              "completed_at": "2026-09-25T00:39:03Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-25T00:39:03Z",
+              "completed_at": "2026-09-25T00:39:09Z"
+            },
+            {
+              "name": "Setup BEAM",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:39:09Z",
+              "completed_at": "2026-09-25T00:39:15Z"
+            },
+            {
+              "name": "Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-09-25T00:39:15Z",
+              "completed_at": "2026-09-25T00:39:16Z"
+            },
+            {
+              "name": "Restore compiled dependency artifacts (prod)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-09-25T00:39:16Z",
+              "completed_at": "2026-09-25T00:39:17Z"
+            },
+            {
+              "name": "Fetch deps (prod)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-25T00:39:17Z",
+              "completed_at": "2026-09-25T00:39:19Z"
+            },
+            {
+              "name": "Prove the tripwire can fail (guard --selftest)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-25T00:39:19Z",
+              "completed_at": "2026-09-25T00:39:19Z"
+            },
+            {
+              "name": "Audit the restored dependency build tree",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-09-25T00:39:19Z",
+              "completed_at": "2026-09-25T00:39:20Z"
+            },
+            {
+              "name": "Compile deps (prod)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-09-25T00:39:20Z",
+              "completed_at": "2026-09-25T00:39:29Z"
+            },
+            {
+              "name": "Drop our own application's build dir before saving",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 10,
+              "started_at": "2026-09-25T00:39:29Z",
+              "completed_at": "2026-09-25T00:39:29Z"
+            },
+            {
+              "name": "Save compiled dependency artifacts (prod)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 11,
+              "started_at": "2026-09-25T00:39:29Z",
+              "completed_at": "2026-09-25T00:39:29Z"
+            },
+            {
+              "name": "Prod compile (--warnings-as-errors)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-09-25T00:39:29Z",
+              "completed_at": "2026-09-25T00:40:05Z"
+            },
+            {
+              "name": "Publish this job's refusal verdict",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-09-25T00:40:05Z",
+              "completed_at": "2026-09-25T00:40:05Z"
+            },
+            {
+              "name": "Post Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 25,
+              "started_at": "2026-09-25T00:40:05Z",
+              "completed_at": "2026-09-25T00:40:05Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 26,
+              "started_at": "2026-09-25T00:40:05Z",
+              "completed_at": "2026-09-25T00:40:06Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 27,
+              "started_at": "2026-09-25T00:40:06Z",
+              "completed_at": "2026-09-25T00:40:06Z"
+            }
+          ]
+        },
+        {
+          "name": "Format (mix format --check-formatted, diff-scoped) (27.0, 1.19.5)",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-25T00:39:03Z",
+          "completed_at": "2026-09-25T00:39:40Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:39:04Z",
+              "completed_at": "2026-09-25T00:39:05Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-25T00:39:05Z",
+              "completed_at": "2026-09-25T00:39:16Z"
+            },
+            {
+              "name": "Setup BEAM",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:39:16Z",
+              "completed_at": "2026-09-25T00:39:25Z"
+            },
+            {
+              "name": "Cache deps (formatter only needs deps for import_deps)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-09-25T00:39:25Z",
+              "completed_at": "2026-09-25T00:39:25Z"
+            },
+            {
+              "name": "Fetch deps (required by .formatter.exs import_deps)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-09-25T00:39:25Z",
+              "completed_at": "2026-09-25T00:39:28Z"
+            },
+            {
+              "name": "The format guard must be able to refuse",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-25T00:39:28Z",
+              "completed_at": "2026-09-25T00:39:31Z"
+            },
+            {
+              "name": "The diff scope must be able to refuse, to red, and to stay neutral",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-25T00:39:31Z",
+              "completed_at": "2026-09-25T00:39:31Z"
+            },
+            {
+              "name": "mix format --check-formatted (via the version-aware guard)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-09-25T00:39:31Z",
+              "completed_at": "2026-09-25T00:39:37Z"
+            },
+            {
+              "name": "Which unformatted files does THIS diff touch?",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-09-25T00:39:37Z",
+              "completed_at": "2026-09-25T00:39:38Z"
+            },
+            {
+              "name": "Publish this job's refusal verdict",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-09-25T00:39:38Z",
+              "completed_at": "2026-09-25T00:39:38Z"
+            },
+            {
+              "name": "Post Cache deps (formatter only needs deps for import_deps)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 19,
+              "started_at": "2026-09-25T00:39:38Z",
+              "completed_at": "2026-09-25T00:39:38Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 20,
+              "started_at": "2026-09-25T00:39:38Z",
+              "completed_at": "2026-09-25T00:39:38Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 21,
+              "started_at": "2026-09-25T00:39:38Z",
+              "completed_at": "2026-09-25T00:39:38Z"
+            }
+          ]
+        },
+        {
+          "name": "Elixir gate",
+          "status": "completed",
+          "conclusion": "failure",
+          "started_at": "2026-09-25T00:41:17Z",
+          "completed_at": "2026-09-25T00:41:20Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:41:17Z",
+              "completed_at": "2026-09-25T00:41:17Z"
+            },
+            {
+              "name": "Decide (fail-closed over every upstream result)",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 2,
+              "started_at": "2026-09-25T00:41:17Z",
+              "completed_at": "2026-09-25T00:41:18Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:41:18Z",
+              "completed_at": "2026-09-25T00:41:18Z"
+            }
+          ]
+        },
+        {
+          "name": "Report main-push failure to a human",
+          "status": "completed",
+          "conclusion": "cancelled",
+          "started_at": "2026-09-25T00:41:21Z",
+          "completed_at": "2026-09-25T00:41:21Z",
+          "steps": []
+        }
+      ]
+    },
+    {
+      "databaseId": 36078647989,
+      "name": "elixir",
+      "event": "pull_request",
+      "status": "in_progress",
+      "conclusion": null,
+      "headSha": "677992c518eeb549801d9f33b3ca3847ac6a04cd",
+      "createdAt": "2026-09-25T00:40:53Z",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/36078647989",
+      "attempt": 1,
+      "jobs": [
+        {
+          "name": "Elixir path-escape ratchet",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-25T00:41:29Z",
+          "completed_at": "2026-09-25T00:46:56Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:41:30Z",
+              "completed_at": "2026-09-25T00:41:31Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-25T00:41:31Z",
+              "completed_at": "2026-09-25T00:41:41Z"
+            },
+            {
+              "name": "Does this diff reach the harness?",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:41:41Z",
+              "completed_at": "2026-09-25T00:41:41Z"
+            },
+            {
+              "name": "Harness (the ratchet must be able to fail)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 4,
+              "started_at": "2026-09-25T00:41:41Z",
+              "completed_at": "2026-09-25T00:41:41Z"
+            },
+            {
+              "name": "Every repo-root read is dispatched on",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-09-25T00:41:41Z",
+              "completed_at": "2026-09-25T00:41:44Z"
+            },
+            {
+              "name": "The four gates announce their skips (the ratchet must be able to fail)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-25T00:41:44Z",
+              "completed_at": "2026-09-25T00:41:56Z"
+            },
+            {
+              "name": "The merge-authority claim guard must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-25T00:41:56Z",
+              "completed_at": "2026-09-25T00:42:01Z"
+            },
+            {
+              "name": "No workflow or card claims merge authority the spec denies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-09-25T00:42:01Z",
+              "completed_at": "2026-09-25T00:42:01Z"
+            },
+            {
+              "name": "The blocking-name census must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-09-25T00:42:01Z",
+              "completed_at": "2026-09-25T00:42:02Z"
+            },
+            {
+              "name": "Every merge-blocking job name is in the spec",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-09-25T00:42:02Z",
+              "completed_at": "2026-09-25T00:42:03Z"
+            },
+            {
+              "name": "Every changed top-level entry is one the repo knows",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-09-25T00:42:03Z",
+              "completed_at": "2026-09-25T00:42:07Z"
+            },
+            {
+              "name": "The top-level classifier must be able to fail (27-case harness)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-09-25T00:42:07Z",
+              "completed_at": "2026-09-25T00:42:32Z"
+            },
+            {
+              "name": "The vips hedge tripwire must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-09-25T00:42:32Z",
+              "completed_at": "2026-09-25T00:42:32Z"
+            },
+            {
+              "name": "A platform-provided vips mode is never selected bare",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 14,
+              "started_at": "2026-09-25T00:42:32Z",
+              "completed_at": "2026-09-25T00:42:33Z"
+            },
+            {
+              "name": "The @boundary marker registry must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 15,
+              "started_at": "2026-09-25T00:42:33Z",
+              "completed_at": "2026-09-25T00:42:34Z"
+            },
+            {
+              "name": "Every @boundary comment names a test that still exists",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 16,
+              "started_at": "2026-09-25T00:42:34Z",
+              "completed_at": "2026-09-25T00:42:34Z"
+            },
+            {
+              "name": "A touched unformatted file reds the gate, an untouched one does not",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 17,
+              "started_at": "2026-09-25T00:42:34Z",
+              "completed_at": "2026-09-25T00:42:34Z"
+            },
+            {
+              "name": "The PR test selector must fail safe (47-case harness)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 18,
+              "started_at": "2026-09-25T00:42:34Z",
+              "completed_at": "2026-09-25T00:43:14Z"
+            },
+            {
+              "name": "Every pinned ALWAYS test still exists",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 19,
+              "started_at": "2026-09-25T00:43:14Z",
+              "completed_at": "2026-09-25T00:43:14Z"
+            },
+            {
+              "name": "The main-red attribution reporter must be able to report a miss",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 20,
+              "started_at": "2026-09-25T00:43:14Z",
+              "completed_at": "2026-09-25T00:43:15Z"
+            },
+            {
+              "name": "The pin-agreement gate must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 21,
+              "started_at": "2026-09-25T00:43:15Z",
+              "completed_at": "2026-09-25T00:43:15Z"
+            },
+            {
+              "name": "The production Elixir pin is covered by the jobs that test it",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 22,
+              "started_at": "2026-09-25T00:43:15Z",
+              "completed_at": "2026-09-25T00:43:15Z"
+            },
+            {
+              "name": "Does this diff reach the ACK_EX deriver?",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 23,
+              "started_at": "2026-09-25T00:43:15Z",
+              "completed_at": "2026-09-25T00:43:16Z"
+            },
+            {
+              "name": "Every unrenderable .exclusions row is acknowledged in ACK_EX",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 24,
+              "started_at": "2026-09-25T00:43:16Z",
+              "completed_at": "2026-09-25T00:46:21Z"
+            },
+            {
+              "name": "Every self-test under scripts/ is executed by CI or declares an exemption",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 25,
+              "started_at": "2026-09-25T00:46:21Z",
+              "completed_at": "2026-09-25T00:46:26Z"
+            },
+            {
+              "name": "Every cron'd workflow's red reaches a declared reader",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 26,
+              "started_at": "2026-09-25T00:46:26Z",
+              "completed_at": "2026-09-25T00:46:32Z"
+            },
+            {
+              "name": "pr-required.sh self-test (33 arms) — scripts/ copy",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 27,
+              "started_at": "2026-09-25T00:46:32Z",
+              "completed_at": "2026-09-25T00:46:33Z"
+            },
+            {
+              "name": "pr-required.sh self-test (33 arms) — .claude/skills mirror",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 28,
+              "started_at": "2026-09-25T00:46:33Z",
+              "completed_at": "2026-09-25T00:46:35Z"
+            },
+            {
+              "name": "stranded-worktree-report.sh self-test (49 arms)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 29,
+              "started_at": "2026-09-25T00:46:35Z",
+              "completed_at": "2026-09-25T00:46:35Z"
+            },
+            {
+              "name": "The doc-budget discovery arm must be able to fail (30-arm harness)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 30,
+              "started_at": "2026-09-25T00:46:35Z",
+              "completed_at": "2026-09-25T00:46:52Z"
+            },
+            {
+              "name": "Every header-discovered doc is within its own declared budget",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 31,
+              "started_at": "2026-09-25T00:46:52Z",
+              "completed_at": "2026-09-25T00:46:53Z"
+            },
+            {
+              "name": "Publish this job's refusal verdict",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 32,
+              "started_at": "2026-09-25T00:46:53Z",
+              "completed_at": "2026-09-25T00:46:53Z"
+            },
+            {
+              "name": "node is present (the freshness gate is a node program)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 33,
+              "started_at": "2026-09-25T00:46:53Z",
+              "completed_at": "2026-09-25T00:46:53Z"
+            },
+            {
+              "name": "The vendored starter SDKs match js/packages source",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 34,
+              "started_at": "2026-09-25T00:46:53Z",
+              "completed_at": "2026-09-25T00:46:54Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 68,
+              "started_at": "2026-09-25T00:46:54Z",
+              "completed_at": "2026-09-25T00:46:54Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 69,
+              "started_at": "2026-09-25T00:46:54Z",
+              "completed_at": "2026-09-25T00:46:54Z"
+            }
+          ]
+        },
+        {
+          "name": "Dispatch (changed-path sets)",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-25T00:41:31Z",
+          "completed_at": "2026-09-25T00:41:52Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:41:33Z",
+              "completed_at": "2026-09-25T00:41:33Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-25T00:41:33Z",
+              "completed_at": "2026-09-25T00:41:49Z"
+            },
+            {
+              "name": "Compute the changed-path sets",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:41:49Z",
+              "completed_at": "2026-09-25T00:41:50Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-25T00:41:50Z",
+              "completed_at": "2026-09-25T00:41:50Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-25T00:41:50Z",
+              "completed_at": "2026-09-25T00:41:50Z"
+            }
+          ]
+        },
+        {
+          "name": "Test (Elixir 1.18.4 / OTP 27.0)",
+          "status": "in_progress",
+          "conclusion": null,
+          "started_at": "2026-09-25T00:41:55Z",
+          "completed_at": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:41:56Z",
+              "completed_at": "2026-09-25T00:41:58Z"
+            },
+            {
+              "name": "Initialize containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-25T00:41:58Z",
+              "completed_at": "2026-09-25T00:42:07Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:42:07Z",
+              "completed_at": "2026-09-25T00:42:35Z"
+            },
+            {
+              "name": "Setup BEAM",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-09-25T00:42:35Z",
+              "completed_at": "2026-09-25T00:42:41Z"
+            },
+            {
+              "name": "Setup Node (js_harness_test.exs shells node over api/assets/sheet-grid)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-09-25T00:42:41Z",
+              "completed_at": "2026-09-25T00:42:45Z"
+            },
+            {
+              "name": "The unreachable-assert-message guard must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-25T00:42:45Z",
+              "completed_at": "2026-09-25T00:42:53Z"
+            },
+            {
+              "name": "No NEW unreachable assert messages (never-worse ratchet)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-25T00:42:53Z",
+              "completed_at": "2026-09-25T00:42:55Z"
+            },
+            {
+              "name": "The pre-commit hook refuses an unreachable assert message",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-09-25T00:42:55Z",
+              "completed_at": "2026-09-25T00:42:58Z"
+            },
+            {
+              "name": "The comment-status-literal guard must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-09-25T00:42:58Z",
+              "completed_at": "2026-09-25T00:43:05Z"
+            },
+            {
+              "name": "No NEW status literals in comments (never-worse ratchet)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-09-25T00:43:05Z",
+              "completed_at": "2026-09-25T00:43:08Z"
+            },
+            {
+              "name": "The client-ip resolver guard must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-09-25T00:43:08Z",
+              "completed_at": "2026-09-25T00:43:08Z"
+            },
+            {
+              "name": "No conn.remote_ip read outside the canonical resolver",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-09-25T00:43:08Z",
+              "completed_at": "2026-09-25T00:43:08Z"
+            },
+            {
+              "name": "The test-env-leak guard must be able to fail",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-09-25T00:43:08Z",
+              "completed_at": "2026-09-25T00:43:32Z"
+            },
+            {
+              "name": "No NEW unrestored global-state mutation in api/test (never-worse ratchet)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 14,
+              "started_at": "2026-09-25T00:43:32Z",
+              "completed_at": "2026-09-25T00:43:35Z"
+            },
+            {
+              "name": "Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 15,
+              "started_at": "2026-09-25T00:43:35Z",
+              "completed_at": "2026-09-25T00:43:37Z"
+            },
+            {
+              "name": "Restore compiled dependency artifacts (test)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 16,
+              "started_at": "2026-09-25T00:43:37Z",
+              "completed_at": "2026-09-25T00:43:38Z"
+            },
+            {
+              "name": "Fetch deps",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 17,
+              "started_at": "2026-09-25T00:43:38Z",
+              "completed_at": "2026-09-25T00:43:40Z"
+            },
+            {
+              "name": "Prove the tripwire can fail (guard --selftest)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 18,
+              "started_at": "2026-09-25T00:43:40Z",
+              "completed_at": "2026-09-25T00:43:40Z"
+            },
+            {
+              "name": "Audit the restored dependency build tree",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 19,
+              "started_at": "2026-09-25T00:43:40Z",
+              "completed_at": "2026-09-25T00:43:41Z"
+            },
+            {
+              "name": "Compile deps (test)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 20,
+              "started_at": "2026-09-25T00:43:41Z",
+              "completed_at": "2026-09-25T00:43:51Z"
+            },
+            {
+              "name": "Drop our own application's build dir before saving",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 21,
+              "started_at": "2026-09-25T00:43:51Z",
+              "completed_at": "2026-09-25T00:43:51Z"
+            },
+            {
+              "name": "Save compiled dependency artifacts (test)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 22,
+              "started_at": "2026-09-25T00:43:51Z",
+              "completed_at": "2026-09-25T00:43:51Z"
+            },
+            {
+              "name": "Install libxml2-utils for ONIX XSD validation (Phase 6 WI5)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 23,
+              "started_at": "2026-09-25T00:43:51Z",
+              "completed_at": "2026-09-25T00:44:03Z"
+            },
+            {
+              "name": "Compile (dev, --warnings-as-errors)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 24,
+              "started_at": "2026-09-25T00:44:03Z",
+              "completed_at": "2026-09-25T00:44:41Z"
+            },
+            {
+              "name": "DB setup",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 25,
+              "started_at": "2026-09-25T00:44:41Z",
+              "completed_at": "2026-09-25T00:44:45Z"
+            },
+            {
+              "name": "Is the compile-closure instrument alive?",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 26,
+              "started_at": "2026-09-25T00:44:45Z",
+              "completed_at": "2026-09-25T00:44:46Z"
+            },
+            {
+              "name": "Which tests does this pull request need?",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 27,
+              "started_at": "2026-09-25T00:44:46Z",
+              "completed_at": "2026-09-25T00:44:51Z"
+            },
+            {
+              "name": "Test",
+              "status": "in_progress",
+              "conclusion": null,
+              "number": 28,
+              "started_at": "2026-09-25T00:44:51Z",
+              "completed_at": null
+            },
+            {
+              "name": "Upload the selection (what this run actually executed)",
+              "status": "pending",
+              "conclusion": null,
+              "number": 29,
+              "started_at": null,
+              "completed_at": null
+            },
+            {
+              "name": "OpenAPI drift check (docs/openapi.json must match the manifest)",
+              "status": "pending",
+              "conclusion": null,
+              "number": 30,
+              "started_at": null,
+              "completed_at": null
+            },
+            {
+              "name": "Paper-component golden-parity freshness (3 mirrors must match the emitter)",
+              "status": "pending",
+              "conclusion": null,
+              "number": 31,
+              "started_at": null,
+              "completed_at": null
+            },
+            {
+              "name": "Plugins-off boot invariant (boot_test — separate step, NOT in `mix test`)",
+              "status": "pending",
+              "conclusion": null,
+              "number": 32,
+              "started_at": null,
+              "completed_at": null
+            },
+            {
+              "name": "Publish this job's refusal verdict",
+              "status": "pending",
+              "conclusion": null,
+              "number": 33,
+              "started_at": null,
+              "completed_at": null
+            },
+            {
+              "name": "Post Cache deps (dependency SOURCES)",
+              "status": "pending",
+              "conclusion": null,
+              "number": 63,
+              "started_at": null,
+              "completed_at": null
+            },
+            {
+              "name": "Post Setup Node (js_harness_test.exs shells node over api/assets/sheet-grid)",
+              "status": "pending",
+              "conclusion": null,
+              "number": 64,
+              "started_at": null,
+              "completed_at": null
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "pending",
+              "conclusion": null,
+              "number": 65,
+              "started_at": null,
+              "completed_at": null
+            },
+            {
+              "name": "Stop containers",
+              "status": "pending",
+              "conclusion": null,
+              "number": 66,
+              "started_at": null,
+              "completed_at": null
+            }
+          ]
+        },
+        {
+          "name": "Validation perf bench (median-of-5, alarm >100ms) (27.0, 1.18.1)",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-25T00:41:54Z",
+          "completed_at": "2026-09-25T00:42:52Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:41:55Z",
+              "completed_at": "2026-09-25T00:41:56Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-25T00:41:56Z",
+              "completed_at": "2026-09-25T00:42:02Z"
+            },
+            {
+              "name": "Setup BEAM",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:42:02Z",
+              "completed_at": "2026-09-25T00:42:07Z"
+            },
+            {
+              "name": "Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-09-25T00:42:07Z",
+              "completed_at": "2026-09-25T00:42:08Z"
+            },
+            {
+              "name": "Restore compiled dependency artifacts (test)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-09-25T00:42:08Z",
+              "completed_at": "2026-09-25T00:42:10Z"
+            },
+            {
+              "name": "Fetch deps",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-25T00:42:10Z",
+              "completed_at": "2026-09-25T00:42:11Z"
+            },
+            {
+              "name": "Prove the tripwire can fail (guard --selftest)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-25T00:42:11Z",
+              "completed_at": "2026-09-25T00:42:12Z"
+            },
+            {
+              "name": "Audit the restored dependency build tree",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-09-25T00:42:12Z",
+              "completed_at": "2026-09-25T00:42:12Z"
+            },
+            {
+              "name": "Compile deps (test)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-09-25T00:42:12Z",
+              "completed_at": "2026-09-25T00:42:20Z"
+            },
+            {
+              "name": "Drop our own application's build dir before saving",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 10,
+              "started_at": "2026-09-25T00:42:20Z",
+              "completed_at": "2026-09-25T00:42:20Z"
+            },
+            {
+              "name": "Save compiled dependency artifacts (test)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 11,
+              "started_at": "2026-09-25T00:42:20Z",
+              "completed_at": "2026-09-25T00:42:20Z"
+            },
+            {
+              "name": "Compile",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-09-25T00:42:20Z",
+              "completed_at": "2026-09-25T00:42:49Z"
+            },
+            {
+              "name": "Run validation perf bench (relative alarm vs a measured runner baseline)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-09-25T00:42:49Z",
+              "completed_at": "2026-09-25T00:42:49Z"
+            },
+            {
+              "name": "Post Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 25,
+              "started_at": "2026-09-25T00:42:50Z",
+              "completed_at": "2026-09-25T00:42:50Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 26,
+              "started_at": "2026-09-25T00:42:50Z",
+              "completed_at": "2026-09-25T00:42:50Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 27,
+              "started_at": "2026-09-25T00:42:50Z",
+              "completed_at": "2026-09-25T00:42:50Z"
+            }
+          ]
+        },
+        {
+          "name": "Format (mix format --check-formatted, diff-scoped) (27.0, 1.19.5)",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-25T00:41:54Z",
+          "completed_at": "2026-09-25T00:42:28Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:41:55Z",
+              "completed_at": "2026-09-25T00:41:56Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-25T00:41:56Z",
+              "completed_at": "2026-09-25T00:42:06Z"
+            },
+            {
+              "name": "Setup BEAM",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:42:06Z",
+              "completed_at": "2026-09-25T00:42:13Z"
+            },
+            {
+              "name": "Cache deps (formatter only needs deps for import_deps)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-09-25T00:42:13Z",
+              "completed_at": "2026-09-25T00:42:14Z"
+            },
+            {
+              "name": "Fetch deps (required by .formatter.exs import_deps)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-09-25T00:42:14Z",
+              "completed_at": "2026-09-25T00:42:16Z"
+            },
+            {
+              "name": "The format guard must be able to refuse",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-25T00:42:16Z",
+              "completed_at": "2026-09-25T00:42:19Z"
+            },
+            {
+              "name": "The diff scope must be able to refuse, to red, and to stay neutral",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-25T00:42:19Z",
+              "completed_at": "2026-09-25T00:42:19Z"
+            },
+            {
+              "name": "mix format --check-formatted (via the version-aware guard)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-09-25T00:42:19Z",
+              "completed_at": "2026-09-25T00:42:26Z"
+            },
+            {
+              "name": "Which unformatted files does THIS diff touch?",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-09-25T00:42:26Z",
+              "completed_at": "2026-09-25T00:42:26Z"
+            },
+            {
+              "name": "Publish this job's refusal verdict",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-09-25T00:42:26Z",
+              "completed_at": "2026-09-25T00:42:26Z"
+            },
+            {
+              "name": "Post Cache deps (formatter only needs deps for import_deps)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 19,
+              "started_at": "2026-09-25T00:42:26Z",
+              "completed_at": "2026-09-25T00:42:26Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 20,
+              "started_at": "2026-09-25T00:42:26Z",
+              "completed_at": "2026-09-25T00:42:26Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 21,
+              "started_at": "2026-09-25T00:42:26Z",
+              "completed_at": "2026-09-25T00:42:26Z"
+            }
+          ]
+        },
+        {
+          "name": "Prod compile gate (Elixir 1.18.4 / OTP 27.0)",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-25T00:41:55Z",
+          "completed_at": "2026-09-25T00:43:13Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-09-25T00:41:55Z",
+              "completed_at": "2026-09-25T00:41:56Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-09-25T00:41:56Z",
+              "completed_at": "2026-09-25T00:42:02Z"
+            },
+            {
+              "name": "Setup BEAM",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-09-25T00:42:02Z",
+              "completed_at": "2026-09-25T00:42:10Z"
+            },
+            {
+              "name": "Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-09-25T00:42:10Z",
+              "completed_at": "2026-09-25T00:42:11Z"
+            },
+            {
+              "name": "Restore compiled dependency artifacts (prod)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-09-25T00:42:11Z",
+              "completed_at": "2026-09-25T00:42:11Z"
+            },
+            {
+              "name": "Fetch deps (prod)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-09-25T00:42:11Z",
+              "completed_at": "2026-09-25T00:42:13Z"
+            },
+            {
+              "name": "Prove the tripwire can fail (guard --selftest)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-09-25T00:42:13Z",
+              "completed_at": "2026-09-25T00:42:14Z"
+            },
+            {
+              "name": "Audit the restored dependency build tree",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-09-25T00:42:14Z",
+              "completed_at": "2026-09-25T00:42:15Z"
+            },
+            {
+              "name": "Compile deps (prod)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-09-25T00:42:15Z",
+              "completed_at": "2026-09-25T00:42:26Z"
+            },
+            {
+              "name": "Drop our own application's build dir before saving",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 10,
+              "started_at": "2026-09-25T00:42:26Z",
+              "completed_at": "2026-09-25T00:42:26Z"
+            },
+            {
+              "name": "Save compiled dependency artifacts (prod)",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 11,
+              "started_at": "2026-09-25T00:42:26Z",
+              "completed_at": "2026-09-25T00:42:26Z"
+            },
+            {
+              "name": "Prod compile (--warnings-as-errors)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-09-25T00:42:26Z",
+              "completed_at": "2026-09-25T00:43:11Z"
+            },
+            {
+              "name": "Publish this job's refusal verdict",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-09-25T00:43:11Z",
+              "completed_at": "2026-09-25T00:43:11Z"
+            },
+            {
+              "name": "Post Cache deps (dependency SOURCES)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 25,
+              "started_at": "2026-09-25T00:43:11Z",
+              "completed_at": "2026-09-25T00:43:11Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 26,
+              "started_at": "2026-09-25T00:43:11Z",
+              "completed_at": "2026-09-25T00:43:11Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 27,
+              "started_at": "2026-09-25T00:43:11Z",
+              "completed_at": "2026-09-25T00:43:11Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+
+> barkdown-workspace@0.5.0 check
+> tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && npm run check:cycle && npm run check:visual
+
+Source syntax, 24 requirements, local links, portable previews, source references, hashes, and fresh status screenshots passed.
+Active roadmap: structure, dependencies, acceptance links, evidence and next-stage selection passed.
+Roadmap matches the current plan.
+
+> barkdown-workspace@0.5.0 check:cycle
+> node scripts/check-cycle.mjs
+
+Cycle structure, handoff paths and completion requirements passed; evidence contents require review.
+Agent entry routing, current handoff and tracked completion evidence checks passed; semantic review remains required.
+CI effort: overlapping/failed/cancelled/unfinished/missing/negative timings and duplicate-event candidates passed.
+Offline replay, retained-snapshot overwrite refusal and bounded live input passed.
+Review bundle: self-contained media/provenance, extraction, hashes, stale capture, escapes, missing media, approval changes, overwrite refusal and diagnostics passed.
+Running cwd-and-argv in C:\Users\Frikk\AppData\Local\Temp\barkdown-steps-4qA4b4\app
+cwd-and-argv: passed (58 ms); C:\Users\Frikk\AppData\Local\Temp\barkdown-steps-4qA4b4\success\cwd-and-argv.log
+Running fail in C:\Users\Frikk\AppData\Local\Temp\barkdown-steps-4qA4b4
+fail: failed (67 ms); C:\Users\Frikk\AppData\Local\Temp\barkdown-steps-4qA4b4\failed\fail.log
+Checked steps: cwd, literal arguments, fail-fast, retained diagnostics, no overwrite and full preflight passed.
+
+> barkdown-workspace@0.5.0 check:visual
+> node scripts/visual.test.mjs && node scripts/visual-approval.test.mjs && node scripts/visual.mjs check
+
+Visual diff: identical images, low color noise, localized deletion and resize checked.
+Visual step matching: insertion, reordering, deletion and duplicate identities checked.
+Future live fixtures and capture helpers invalidate existing approval.
+Actual approval CLI: same candidate retains original and both reviewers; latest pointer and tamper refusal pass. Fixture retained: C:\Users\Frikk\AppData\Local\Temp\barkdown-review-history-72SBKc
+Visual evidence hashes, source coverage and agent review are current. External/live coverage limits remain in docs/visual/README.md.

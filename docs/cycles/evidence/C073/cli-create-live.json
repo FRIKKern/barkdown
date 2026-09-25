@@ -1,0 +1,99 @@
+{
+  "capturedAt": "2026-09-25T00:57:27.526Z",
+  "host": "a05de0672e44c77234674d187579747d29e790fb",
+  "upstream": "677992c518eeb549801d9f33b3ca3847ac6a04cd",
+  "cliSource": "677992c518eeb549801d9f33b3ca3847ac6a04cd",
+  "buildFingerprint": "3242602993596dba80d6ee7f04f70f3d02c62f0b97e67183c5016f14c65ee9ac",
+  "cliSha256": "bd9dd277672c937b5de77dda5d8a6eccc01d99adac1ae48c6d74bc02d8726ed9",
+  "checks": [
+    "Native JSON file creates through the live capabilities manifest",
+    "Collision emits paper_exists and process exit 6",
+    "Original server document is unchanged"
+  ],
+  "created": {
+    "liveview_path": "/papers/c073-native-cli-insert",
+    "ok": true,
+    "rev": "1",
+    "scoped_liveview_path": "/w/default/p/default/papers/c073-native-cli-insert",
+    "slug": "c073-native-cli-insert",
+    "title": "Native CLI insert boundary"
+  },
+  "collision": {
+    "error": {
+      "code": "paper_exists",
+      "message": "a published paper or draft already owns this slug; create did not replace it",
+      "request_id": "GNhqaCBlucCxwjkAAEPB"
+    },
+    "ok": false
+  },
+  "original": {
+    "_createdAt": "2026-09-25T00:57:26.900000Z",
+    "_draft": false,
+    "_id": "c073-native-cli-insert",
+    "_publishedId": "c073-native-cli-insert",
+    "_rev": "870d2f3dc12d8e02d2b7e725e2068e33",
+    "_type": "paper",
+    "_updatedAt": "2026-09-25T00:57:26.900000Z",
+    "blocks": [
+      {
+        "id": "heading",
+        "level": 1,
+        "text": "Native CLI insert boundary",
+        "type": "heading"
+      },
+      {
+        "id": "body",
+        "text": "Preserve this original note.",
+        "type": "paragraph"
+      }
+    ],
+    "body": {
+      "blocks": [
+        {
+          "id": "heading",
+          "level": 1,
+          "text": "Native CLI insert boundary",
+          "type": "heading"
+        },
+        {
+          "id": "body",
+          "text": "Preserve this original note.",
+          "type": "paragraph"
+        }
+      ],
+      "html": "<h1>Native CLI insert boundary</h1><p>Preserve this original note.</p>"
+    },
+    "body_html": "<h1>Native CLI insert boundary</h1><p>Preserve this original note.</p>",
+    "body_html_sv": "3840ef6eb8dc710e970bfff8fa3b6e9dbfaf6f759012c3b139bc6b6359962e06",
+    "description": "Disposable CLI contract evidence.",
+    "main_tag": "barkdown",
+    "preview": {
+      "description": "Disposable CLI contract evidence.",
+      "extensions": {
+        "tags": [
+          "barkdown",
+          "scratch"
+        ]
+      },
+      "image": null,
+      "title": "Native CLI insert boundary",
+      "type": "paper",
+      "url": "/papers/c073-native-cli-insert"
+    },
+    "rev": 1,
+    "style": "article",
+    "tags": [
+      {
+        "rationale": "owned by the Barkdown integration suite",
+        "strength": 90,
+        "tag": "barkdown"
+      },
+      {
+        "rationale": "disposable test fixture, rewritten on every run",
+        "strength": 40,
+        "tag": "scratch"
+      }
+    ],
+    "title": "Native CLI insert boundary"
+  }
+}

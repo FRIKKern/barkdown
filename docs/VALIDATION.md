@@ -1,6 +1,6 @@
 # Evidence and remaining proof
 
-[C073](cycles/C073-upstream-integration.md): current-main Paper integration passes fresh production compile, 234 focused server tests, 20/20 live editor rows and the exact deletion/recovery adapter. Five live stills/five differences/37 GIF frames and three light/dark/narrow hover views are [reviewed](cycles/evidence/C073/README.md). Required hosted follow-up remains pending; no upstream merge/deployment, fallback-pin upgrade or P2 acceptance is claimed.
+[C073](cycles/C073-upstream-integration.md): current-main Paper integration at upstream 677992c51 passes all four required hosted gates: 22,901 tests and 30 doctests with zero failures (40 excluded), plus 14 receipt checks. Real editor/server parity 20/20, exact deletion/recovery and live CLI collision preservation pass. Five live stills/five differences/37 GIF frames and three light/dark/narrow hover views are [reviewed](cycles/evidence/C073/README.md). Remaining advisories are attributed there. Upstream merge/deployment scope, fallback-pin adoption and P2 acceptance remain open.
 
 [C072](cycles/C072-efficiency-lessons.md): C071 lessons now live in canonical workflow/visual instructions and agent routing; stale note-lifecycle and profile setup claims corrected. Root verification passes in 47.198 seconds. No app/capture inputs changed, so C071 reviewed media remains applicable. C071 hosted Verify, Visual and Editor parity passed; upstream integration remains blocked. This updates instructions, not proof of future time savings or new product behavior.
 
