@@ -1,6 +1,6 @@
 # C076 — profile preparation before migration
 
-**Status:** active on codex/profile-preparation from merged main8ab9aae8. First launch-closure slice under validation; C076 acceptance is incomplete. Parent P2/A2. [Contract](../migration/writer-fence.md#next-cutover-boundary--prepared-not-implemented).
+**Status:** active, unmerged on codex/profile-preparation from main8ab9aae8. The four-hour run ended at13:44:56 UTC; heartbeat paused. C076 acceptance is incomplete. Parent P2/A2. [Contract](../migration/writer-fence.md#next-cutover-boundary--prepared-not-implemented).
 
 **Outcome and stopping condition:** preparing one profile prevents ordinary/goal launches, retains dirty human buffers or refuses safely, and waits for verified owned-child and transcript completion. Other profiles remain usable. Stop before authority selection; no legacy retirement, deployment or changes to another contributor's Barkpark checkout.
 
@@ -17,3 +17,7 @@
 **Handoff:** launch closure is implemented locally, with focused validation underway. No native preparation, dirty-draft recovery or full owned-drain acceptance yet. Reuse codex/profile-preparation. Preserve recovery worktrees/stashes and shared services. Record exact source, failures, owned processes and next action after meaningful slices. Selection, whole-corpus comparison and rollback/retirement remain in [A2](../ACCEPTANCE.md#a2--one-engine-without-lost-notes).
 
 **Current development checkpoint (25 September):** active on codex/profile-preparation from 8ab9aae8. First slice durably closes ordinary/goal launch admission and checks delayed runtime/authentication boundaries. Budget: remaining run until 13:44:56 UTC; checkpoint unfinished validation rather than merge without proof. Pending dispatch/owned drain and retained drafts remain required before completing this cycle.
+
+**Final checkpoint:** initial runtime49bfdda7 passes full desktop; final runtime33cf7214 passes69 focused checks. Native a4859299 smoke passes refused send, exact composer draft and restart with three inspected dark stills. [Evidence and remaining gates](evidence/C076/README.md). No owned test service remains. Full final-source desktop/root, native preparation coverage, live/standard capture/compare/review/approval, owned-child drain and Paper draft retention remain required. Source/evidence are committed and pushed as an unfinished checkpoint, not merged.
+
+**Learning:** close admission during an awaited dependency and between its wrapper resolving and the caller resuming. Checking only inside the helper missed two actual dispatch races after67 focused checks had passed. The initial full run was retained before applying that correction; it is not relabeled as final-source proof. Native failures must distinguish visible optimistic/error messages from acknowledged durable transcript reservations.

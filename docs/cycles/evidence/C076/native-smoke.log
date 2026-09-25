@@ -1,0 +1,18 @@
+{"out":"C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\test-results\\profile-launch\\2026-09-25T13-42-34-490Z","passed":false,"checks":[]}
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+2 !== 0
+
+    at file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/profile-launch.live.mjs:41:10 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 2,
+  expected: 0,
+  operator: 'strictEqual'
+}
+
+Node.js v22.13.1

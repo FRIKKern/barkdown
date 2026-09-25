@@ -1,0 +1,245 @@
+TAP version 13
+# Subtest: planning, worker, review and summary all authenticate before durable reservation or dispatch
+ok 1 - planning, worker, review and summary all authenticate before durable reservation or dispatch
+  ---
+  duration_ms: 27.0317
+  ...
+# Subtest: real agent.start runs three owned API loops and persists their independent transcripts
+ok 2 - real agent.start runs three owned API loops and persists their independent transcripts
+  ---
+  duration_ms: 47.9662
+  ...
+# Subtest: done event does not release worker before trusted driver cleanup completes
+ok 3 - done event does not release worker before trusted driver cleanup completes
+  ---
+  duration_ms: 18.7088
+  ...
+# Subtest: changed context or mismatched profile fails before a transcript or provider starts
+ok 4 - changed context or mismatched profile fails before a transcript or provider starts
+  ---
+  duration_ms: 9.8089
+  ...
+# Subtest: cancel during real API stream waits for finalization and records partial output
+ok 5 - cancel during real API stream waits for finalization and records partial output
+  ---
+  duration_ms: 16.0103
+  ...
+# Subtest: transcript failure stops the provider and reports uncertain effects instead of success
+ok 6 - transcript failure stops the provider and reports uncertain effects instead of success
+  ---
+  duration_ms: 11.2092
+  ...
+# Subtest: an acknowledged duplicate reservation never launches a second provider
+ok 7 - an acknowledged duplicate reservation never launches a second provider
+  ---
+  duration_ms: 7.4175
+  ...
+# Subtest: Promise-returning transcript sink is rejected before provider dispatch
+ok 8 - Promise-returning transcript sink is rejected before provider dispatch
+  ---
+  duration_ms: 5.3095
+  ...
+# Subtest: unknown finalization retains the execution slot until trusted termination proof
+ok 9 - unknown finalization retains the execution slot until trusted termination proof
+  ---
+  duration_ms: 17.7198
+  ...
+# Subtest: captured assignment images reach actual API transport; another profile path is rejected
+ok 10 - captured assignment images reach actual API transport; another profile path is rejected
+  ---
+  duration_ms: 20.7942
+  ...
+# Subtest: worker provider launches disable native recursive delegation without changing ordinary chats
+ok 11 - worker provider launches disable native recursive delegation without changing ordinary chats
+  ---
+  duration_ms: 42.4762
+  ...
+# Subtest: structured coordinator uses acknowledged final provider message while retaining commentary
+ok 12 - structured coordinator uses acknowledged final provider message while retaining commentary
+  ---
+  duration_ms: 54.0438
+  ...
+# Subtest: expired goal provider session retains authentication assistance after terminal settlement
+ok 13 - expired goal provider session retains authentication assistance after terminal settlement
+  ---
+  duration_ms: 14.2678
+  ...
+# Subtest: real provider loops persist three full workers through profile switch, stale save, reload and review
+ok 14 - real provider loops persist three full workers through profile switch, stale save, reload and review
+  ---
+  duration_ms: 1795.3294
+  ...
+# Subtest: Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+ok 15 - Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+  ---
+  duration_ms: 1244.5067
+  ...
+# Subtest: goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+ok 16 - goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+  ---
+  duration_ms: 509.3597
+  ...
+# Subtest: recovered reservation cannot be reviewed or retried until trusted shutdown verification
+ok 17 - recovered reservation cannot be reviewed or retried until trusted shutdown verification
+  ---
+  duration_ms: 490.2859
+  ...
+# Subtest: missing authentication persists assistance without retrying or marking work complete
+ok 18 - missing authentication persists assistance without retrying or marking work complete
+  ---
+  duration_ms: 43.2138
+  ...
+# Subtest: three reserved workers run concurrently, snapshots cannot mutate owners, results require review
+ok 19 - three reserved workers run concurrently, snapshots cannot mutate owners, results require review
+  ---
+  duration_ms: 45.6082
+  ...
+# Subtest: dependencies wait for evidence, cap is global, same chat is serialized across goals
+ok 20 - dependencies wait for evidence, cap is global, same chat is serialized across goals
+  ---
+  duration_ms: 37.6608
+  ...
+# Subtest: same IDs in different profiles retain independent progress and result ownership
+ok 21 - same IDs in different profiles retain independent progress and result ownership
+  ---
+  duration_ms: 31.9557
+  ...
+# Subtest: pause stops new work, waits for actual termination, and does not silently replay
+ok 22 - pause stops new work, waits for actual termination, and does not silently replay
+  ---
+  duration_ms: 59.7545
+  ...
+# Subtest: deadline handles sleep/wake and prevents late success or new dispatch
+ok 23 - deadline handles sleep/wake and prevents late success or new dispatch
+  ---
+  duration_ms: 22.5997
+  ...
+# Subtest: cancel before adapter microtask prevents provider launch
+ok 24 - cancel before adapter microtask prevents provider launch
+  ---
+  duration_ms: 28.3566
+  ...
+# Subtest: reopen interrupts reserved attempts and requires explicit reconciliation
+ok 25 - reopen interrupts reserved attempts and requires explicit reconciliation
+  ---
+  duration_ms: 26.7366
+  ...
+# Subtest: cycles, recursive coordinator workers, unknown dependencies and fourth worker are rejected
+ok 26 - cycles, recursive coordinator workers, unknown dependencies and fourth worker are rejected
+  ---
+  duration_ms: 4.3021
+  ...
+# Subtest: offline and failed runs cannot satisfy dependencies
+ok 27 - offline and failed runs cannot satisfy dependencies
+  ---
+  duration_ms: 25.7616
+  ...
+# Subtest: corrupt journal fails closed without replacing original data
+ok 28 - corrupt journal fails closed without replacing original data
+  ---
+  duration_ms: 3.1221
+  ...
+# Subtest: lost persistence acknowledgement halts all dispatch and leaves reserved work recoverable
+ok 29 - lost persistence acknowledgement halts all dispatch and leaves reserved work recoverable
+  ---
+  duration_ms: 16.9357
+  ...
+# Subtest: failed reservation never launches the provider
+ok 30 - failed reservation never launches the provider
+  ---
+  duration_ms: 7.6039
+  ...
+# Subtest: reentrant observers cannot overlap a chat or dispatch past stop
+ok 31 - reentrant observers cannot overlap a chat or dispatch past stop
+  ---
+  duration_ms: 30.6976
+  ...
+# Subtest: close retains the journal lease until actual adapter termination
+ok 32 - close retains the journal lease until actual adapter termination
+  ---
+  duration_ms: 22.3931
+  ...
+# Subtest: post-deadline reconciliation preserves terminal goal without permitting retry
+ok 33 - post-deadline reconciliation preserves terminal goal without permitting retry
+  ---
+  duration_ms: 37.1826
+  ...
+# Subtest: another process cannot acquire the journal while its owner lives
+ok 34 - another process cannot acquire the journal while its owner lives
+  ---
+  duration_ms: 85.6454
+  ...
+# Subtest: dead journal owner is recovered with lease evidence retained
+ok 35 - dead journal owner is recovered with lease evidence retained
+  ---
+  duration_ms: 80.1873
+  ...
+# Subtest: real three-process execution integrates independent outputs with the persistent scheduler
+ok 36 - real three-process execution integrates independent outputs with the persistent scheduler
+  ---
+  duration_ms: 248.8796
+  ...
+# Subtest: uncertain termination is visibly interrupted and cannot be reviewed while slot remains live
+ok 37 - uncertain termination is visibly interrupted and cannot be reviewed while slot remains live
+  ---
+  duration_ms: 32.6278
+  ...
+# Subtest: assignment attachments are captured independently and survive restart
+ok 38 - assignment attachments are captured independently and survive restart
+  ---
+  duration_ms: 19.3304
+  ...
+# Subtest: abrupt process death after an external effect never replays the reserved attempt
+ok 39 - abrupt process death after an external effect never replays the reserved attempt
+  ---
+  duration_ms: 102.3193
+  ...
+# Subtest: shared admission caps profile-local schedulers at three and holds uncertain termination
+ok 40 - shared admission caps profile-local schedulers at three and holds uncertain termination
+  ---
+  duration_ms: 44.8058
+  ...
+# Subtest: failed reservation and cancelled-before-launch release shared admission exactly once
+ok 41 - failed reservation and cancelled-before-launch release shared admission exactly once
+  ---
+  duration_ms: 8.763
+  ...
+# Subtest: closure is durable, idempotent and profile-owned; reads never create a record
+ok 42 - closure is durable, idempotent and profile-owned; reads never create a record
+  ---
+  duration_ms: 223.5523
+  ...
+# Subtest: malformed preparation refuses instead of resetting or silently opening
+ok 43 - malformed preparation refuses instead of resetting or silently opening
+  ---
+  duration_ms: 147.1685
+  ...
+# Subtest: closure during delayed runtime refuses dispatch and releases its runtime
+ok 44 - closure during delayed runtime refuses dispatch and releases its runtime
+  ---
+  duration_ms: 254.1247
+  ...
+# Subtest: closure during delayed authentication refuses dispatch and releases its runtime
+ok 45 - closure during delayed authentication refuses dispatch and releases its runtime
+  ---
+  duration_ms: 274.135
+  ...
+# Subtest: capacity-release notifications cannot admit a closed profile but other profiles can acquire
+ok 46 - capacity-release notifications cannot admit a closed profile but other profiles can acquire
+  ---
+  duration_ms: 180.734
+  ...
+# Subtest: goal create/start and every service tick stay closed across restart while other profiles work
+ok 47 - goal create/start and every service tick stay closed across restart while other profiles work
+  ---
+  duration_ms: 543.5692
+  ...
+1..47
+# tests 47
+# suites 0
+# pass 47
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4176.1576
