@@ -1,4 +1,8 @@
-# Current development checkpoint
+# Current delivery checkpoint
+
+Final implementation4c030a0c passes [full desktop](final-validation-corrected/result.json) in664.106s. [Native recovery gallery](../../../visual/profile-preparation/README.md), [standard comparison](../../../visual/runs/2026-09-25T16-56-52-628Z/comparison.json), and [live Paper review](live-review.json) record completed local visual inspection. Root verification passes in47.253s; hosted integration remains pending. The failed full run, palette correction, native recording failure and clean-source refusal remain retained below/in their run directories.
+
+## Earlier development checkpoint
 
 [Abort and retained-draft development validation](abort-development/result.json) passes build,98 scoped checks,48 Paper-host checks and two native journeys in about55 seconds. This is uncommitted-source evidence, not final full/visual acceptance. Native coverage includes dirty file/pending legacy refusal, terminal descendants, abrupt restart, cancellation, stale handles, profile isolation and exact recovery copy.
 

@@ -18,7 +18,7 @@
   ],
   "checkpoint": "2026-09-25",
   "handoff": "docs/cycles/C076-profile-preparation.md",
-  "nextAction": "Close the implemented C076 checkpoint: related documentation and implementation commit, then full desktop and required visual/root gates. Abort/reopen, recovery reader and native buffer/terminal cases pass development checks. No new migration scope before delivery.",
+  "nextAction": "Publish the verified C076 PR, review hosted checks/artifacts, merge and verify main before starting dependent migration work.",
   "evidence": [
     "docs/cycles/evidence/C076/README.md",
     "docs/cycles/evidence/C076/launch-final.log",
@@ -32,17 +32,21 @@
     "docs/cycles/evidence/C076/preparation-validation/result.json",
     "docs/cycles/evidence/C076/paper-draft-native/2026-09-25T15-08-43-497Z/manifest.json",
     "docs/cycles/evidence/C076/foreground-validation/result.json",
-    "docs/cycles/evidence/C076/preparation-native/2026-09-25T15-36-26-938Z/manifest.json"
+    "docs/cycles/evidence/C076/preparation-native/2026-09-25T15-36-26-938Z/manifest.json",
+    "docs/cycles/evidence/C076/final-validation-corrected/result.json",
+    "docs/cycles/evidence/C076/preparation-native/2026-09-25T16-44-07-825Z/review.json",
+    "docs/cycles/evidence/C076/final-live/result.json",
+    "docs/cycles/evidence/C076/live-review.json",
+    "docs/cycles/evidence/C076/closeout/result.json"
   ],
-  "truthReview": "C076 remains unmerged. Latest dirty-tree development run passes 98 scoped checks, 48 Paper-host checks and native boot/preparation journeys including abort/restart/recovery-copy, dirty buffers and terminal descendants. Final full regression and visual approval remain pending; no authority selection or real-library migration.",
-  "screenshotReview": "Codex inspected all three fffb0040 native dark stills at1300×900 and900×760: exact retained source, paused restart and actual editable B. Notice fits and remains reachable outside inert workspace; false autosave warning removed and Paper says Editing paused. A retained-draft recovery reader/action remains needed; restart currently displays acknowledged Paper. No motion/GIF or final standard/live visual approval.",
+  "truthReview": "Final app source4c030a0c passes full desktop664.106s. Reviewed native preparation/cancel/recovery evidence, standard40-frame/8-GIF approval and isolated live Paper5-still/37-frame evidence are complete. Root verification passes47.253s; hosted integration gates remain; P2/A2, authority selection and legacy retirement remain open.",
+  "screenshotReview": "Native9 stills, sampled three recordings and22 decoded excerpt frames reviewed; notice/reader fit900x760. Standard40 stills and8 GIFs reviewed/approved with no geometry changes. Live Paper5 stills and37 GIF frames reviewed with real Claude and header6/6. Startup light-shell flash remains a documented polish limitation. Root ordinary-editing demo remains applicable.",
   "delivery": {
-    "phase": "validating",
+    "phase": "integrating",
     "owner": "primary agent on codex/profile-preparation",
     "remaining": [
-      "Finish related documentation and commit the implemented preparation/cancel/recovery checkpoint; no additional product scope.",
-      "Complete full desktop/root checks and native/live/standard visual capture, review and approval; resolve failures.",
-      "Commit evidence, push a coherent PR, pass hosted gates, merge under existing authorization and verify the result."
+      "Publish the verified PR; resolve hosted gates and review its artifacts.",
+      "Merge under existing authorization, verify main and retire the merged delivery branch without deleting recovery work."
     ]
   }
 }
