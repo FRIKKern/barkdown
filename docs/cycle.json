@@ -1,33 +1,27 @@
 {
   "version": 1,
-  "id": "C073",
+  "id": "C074",
   "stage": "P2",
-  "status": "done",
-  "goal": "Resolve the upstream Paper integration blockers on current main without weakening gates.",
+  "status": "active",
+  "goal": "Consume the merged Paper baseline and make retained original history readable without restoring legacy authority.",
   "scope": [
-    "Integrate the existing editor and creation/deletion stack with upstream main while preserving both histories.",
-    "Fix conflicts and owned compile, generated asset, documentation and CI consistency failures.",
-    "Validate combined behavior and keep deployment and migration activation separate."
+    "Adopt merged b70214090 assets and verify exact locked provenance, connected/cache/fallback boundaries and real Paper behavior.",
+    "Provide a profile-owned native read-only viewer for verified original documents, revisions, proposals and receipts, including unsupported content and restart.",
+    "Deliver reviewed screenshots/motion and source-bound behavior proof; keep migration activation and legacy retirement gated."
   ],
   "acceptance": [
-    "Existing Paper work is preserved in a current-main integration candidate with explicit task backing.",
-    "Relevant local checks and required hosted gates pass; any unresolved external gate has concrete evidence.",
-    "Barkdown handoff, pin applicability and visual evidence are reviewed before declaring integration complete."
+    "The shipped pin and fallback match merged upstream source, notices are preserved, and actual fallback plus live regression checks pass.",
+    "Original evidence is accessible through the app, pinned to the owning profile and backup hash; stale/undone receipts and old proposals are readable and cannot execute actions.",
+    "Wrong-owner, changed/corrupt/missing backups refuse safely; real native narrow/restart journeys and visual review pass."
   ],
   "checkpoint": "2026-09-25",
-  "handoff": "docs/cycles/C073-upstream-integration.md",
-  "nextAction": "Adopt and retest the merged upstream baseline in a new bounded cycle before the retained-evidence viewer; preserve legacy data and keep P2/A2 open.",
+  "handoff": "docs/cycles/C074-original-history.md",
+  "nextAction": "Commit reviewed evidence; push one PR and require hosted Verify/Visual/Editor parity before merging. Captured writer-generation fencing follows; deadline13:44:56 UTC.",
   "evidence": [
-    "docs/cycles/evidence/C073/README.md",
-    "docs/cycles/evidence/C073/parity.json",
-    "docs/cycles/evidence/C073/status-review.json",
-    "docs/cycles/evidence/C073/linkpreview-review.json",
-    "docs/cycles/evidence/C073/hosted-final-checks.json",
-    "docs/cycles/evidence/C073/cli-create-live.json",
-    "docs/cycles/evidence/C073/merge-cleanup.json",
-    "docs/cycles/evidence/C073/deployment.json",
-    "docs/cycles/evidence/C073/closeout-verify.log"
+    "docs/cycles/evidence/C074/README.md",
+    "docs/cycles/evidence/C074/consumption.json",
+    "docs/cycles/evidence/C074/review.json"
   ],
-  "truthReview": "PR20020 merged at b70214090 after required gates passed; both production services report that commit. Owned upstream branches retired with history/worktrees preserved; integration task closed. PR36 lands Barkdown closeout, then its branch is retired. Pin/fallback and P2 remain unchanged.",
-  "screenshotReview": "Five live stills, five differences and 37 GIF frames accepted, plus three inspected link-preview theme/narrow views. Source and hashes in C073 reviews."
+  "truthReview": "Native read-only originals and exact merged fallback proven locally, including root verification. P2/A2 and hosted full parity remain open; initial19/20 plus isolated IME4/4 recorded separately.",
+  "screenshotReview": "Named standard approval plus native/fallback/live reviews complete; rejected first capture retained. C074 review.json records actual counts and limitations."
 }

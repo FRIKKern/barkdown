@@ -1,0 +1,28 @@
+{
+  "source": "1573a6a340953bb663d1e51edf46f7faac6c2b4c",
+  "auditedAt": "2026-09-25T10:19:49.316Z",
+  "status": "preparation only; no fencing or activation implemented",
+  "findings": [
+    {
+      "owner": "app/main/documents.js",
+      "boundary": "create/persist, save, remove and proposal/restore paths; save has per-document lock but create/delete/proposals do not share a migration lock."
+    },
+    {
+      "owner": "app/main/providers/run-scope.js",
+      "boundary": "Captures actual store/document/edit handles; no persisted engine generation. Goal worker reconstructs scope from serialized owner/connection/env."
+    },
+    {
+      "owner": "app/main/mcp-server.js",
+      "boundary": "Independent stdio child loads documents from captured root; provider tools retain handles beyond foreground IPC drain."
+    },
+    {
+      "owner": "app/main/agent-edits.js",
+      "boundary": "Receipt lease spans edits and Undo; legacy document write and receipt must both stay inside writer admission."
+    },
+    {
+      "owner": "app/main/draft-notes.js",
+      "boundary": "Async create/apply await real remote acknowledgement; per-operation ownership assertions do not by themselves drain other process writers or uncertain server work."
+    }
+  ],
+  "nextBoundary": "Design one persisted, profile-bound engine generation and cross-process writer admission before activation. Capture tokens through native/provider/MCP/goal contexts; reject stale tokens under the shared admission lock. Preserve drafts and refuse seal until every owned child and uncertain write is reconciled. Do not infer server-side fencing from a local generation."
+}

@@ -31,7 +31,7 @@ function inspectContent(content, { documents, references = new Map(), files, sou
     if (node.attrs != null && (typeof node.attrs !== 'object' || Array.isArray(node.attrs))) issue(at + '.attrs', 'Invalid attributes');
     const attrs = node.attrs || {};
     if (typeof attrs !== 'object' || Array.isArray(attrs)) issue(at + '.attrs', 'Invalid attributes');
-    const allowed = { image: ['src', 'alt', 'title', 'width', 'height'], heading: ['level', 'textAlign'], paragraph: ['textAlign'], orderedList: ['start', 'type'], taskItem: ['checked'], codeBlock: ['language'], tableCell: ['colspan', 'rowspan', 'colwidth', 'align', 'textAlign'], tableHeader: ['colspan', 'rowspan', 'colwidth', 'align', 'textAlign'] }[node.type] || [];
+    const allowed = { __proto__: null, image: ['src', 'alt', 'title', 'width', 'height'], heading: ['level', 'textAlign'], paragraph: ['textAlign'], orderedList: ['start', 'type'], taskItem: ['checked'], codeBlock: ['language'], tableCell: ['colspan', 'rowspan', 'colwidth', 'align', 'textAlign'], tableHeader: ['colspan', 'rowspan', 'colwidth', 'align', 'textAlign'] }[node.type] || [];
     for (const key of Object.keys(attrs)) if (!allowed.includes(key)) issue(at + '.attrs.' + key, 'Unmapped attribute');
     if (node.type === 'image') {
       if (parentType !== 'doc') issue(at, 'Only top-level images have native migration proof');
@@ -78,7 +78,7 @@ function inspectContent(content, { documents, references = new Map(), files, sou
     }
     if (node.content !== undefined && !Array.isArray(node.content)) issue(at, 'Invalid content array');
     if (node.type === 'blockquote' && Array.isArray(node.content) && node.content.some(p => Array.isArray(p?.content) && p.content.some(n => n?.type === 'hardBreak' || /[\r\n]/.test(n?.text || '')))) issue(at, 'Quote inline breaks lack native editing proof; retain the source');
-    const children = { doc: ['paragraph', 'heading', 'codeBlock', 'blockquote', 'bulletList', 'orderedList', 'taskList', 'table', 'horizontalRule', 'image'], paragraph: ['text', 'hardBreak'], heading: ['text', 'hardBreak'], codeBlock: ['text'], blockquote: ['paragraph'], bulletList: ['listItem'], orderedList: ['listItem'], taskList: ['taskItem'], listItem: ['paragraph', 'bulletList', 'orderedList', 'taskList'], taskItem: ['paragraph', 'bulletList', 'orderedList', 'taskList'], table: ['tableRow'], tableRow: ['tableHeader', 'tableCell'], tableHeader: ['paragraph'], tableCell: ['paragraph'] }[node.type] || [];
+    const children = { __proto__: null, doc: ['paragraph', 'heading', 'codeBlock', 'blockquote', 'bulletList', 'orderedList', 'taskList', 'table', 'horizontalRule', 'image'], paragraph: ['text', 'hardBreak'], heading: ['text', 'hardBreak'], codeBlock: ['text'], blockquote: ['paragraph'], bulletList: ['listItem'], orderedList: ['listItem'], taskList: ['taskItem'], listItem: ['paragraph', 'bulletList', 'orderedList', 'taskList'], taskItem: ['paragraph', 'bulletList', 'orderedList', 'taskList'], table: ['tableRow'], tableRow: ['tableHeader', 'tableCell'], tableHeader: ['paragraph'], tableCell: ['paragraph'] }[node.type] || [];
     for (const [i, child] of (Array.isArray(node.content) ? node.content : []).entries()) {
       if (!children.includes(child?.type)) issue(at + '.content[' + i + ']', 'Unsupported child structure');
       if (node.type === 'codeBlock' && (child?.marks?.length || child?.type !== 'text')) issue(at, 'Code inline structure is not preserved');

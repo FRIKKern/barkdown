@@ -56,7 +56,7 @@ No-folder conversations remain valid. A folder selected in the composer never sc
 | `main/migration-staging.js` | Durable intent, insert-only Paper staging and exact readback/restart reconciliation; no UI wiring or authority switch |
 | `main/migration-restore.js` | Verified committed-backup restoration into an empty closed legacy profile; never overwrites later human data |
 | `main/migration-workspace.js` | Hash-bound offline navigation preview preserving human Pages, favorites and chat paths; explicit blockers, no authority switch |
-| `main/migration-evidence.js` | Read-only original history/proposals/receipts from a verified pinned backup; no revision translation or executable historical actions |
+| `main/migration-evidence.js`, `original-history.js` | Verified retained history and profile-owned backup references; Settings → Original history reads original revisions, proposals and receipts with no executable historical actions. [Native evidence](../docs/visual/original-history/README.md) |
 | `main/local-barkpark*` | Private runtime lifecycle and Windows source bootstrap |
 | `main/barkpark.js`, `canvas-bundle.js`, `agent-edits.js` | Barkpark adapter, editor delivery and edit receipts |
 | `main/providers/`, `agent.js`, `mcp-server.js` | Provider orchestration and document tools |
@@ -64,7 +64,7 @@ No-folder conversations remain valid. A folder selected in the composer never sc
 | `shared/` | PortableDoc/Markdown and operation helpers |
 | `tests/` | Unit, Electron and live adapter/editor checks |
 
-The canvas loads from the connected Barkpark, with cached and vendored fallback. The consumed fallback baseline is Barkpark commit `bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f` through E012; the 24 September gate audit records upstream PR #19579 open with merge conflicts. [The parity matrix](../docs/EDITOR-PARITY.md) carries the exact proof and limitations. Preserve vendored licenses. Selection remains connected server, then verified profile-owned cache, then vendored fallback. Updating the fallback or parity pin does not upgrade an older reachable server or valid old cache; a renderer restart is needed to change its loaded custom element. [The historical consumption audit](../docs/EDITOR-CONSUMPTION-AUDIT.md) preceded E011; [original consumption evidence](../docs/visual/fallback-consumption/IMPORT.md) now proves bounded fallback compatibility against private a544 and54579 servers.
+The canvas loads from the connected Barkpark, with cached and vendored fallback. The consumed fallback baseline is merged Barkpark commit `b702140907921e82e9ce5eecb3e2445f13ab2d6e` (PR #20020). [C074](../docs/cycles/C074-original-history.md) records exact bundle reproduction, preserved notices and the consumed-baseline validation. [The parity matrix](../docs/EDITOR-PARITY.md) carries the exact proof and limitations. Preserve vendored licenses. Selection remains connected server, then verified profile-owned cache, then vendored fallback. Updating the fallback or parity pin does not upgrade an older reachable server or valid old cache; a renderer restart is needed to change its loaded custom element. [The historical consumption audit](../docs/EDITOR-CONSUMPTION-AUDIT.md) preceded E011; [original consumption evidence](../docs/visual/fallback-consumption/IMPORT.md) now proves bounded fallback compatibility against private a544 and54579 servers.
 
 ## Remaining work
 

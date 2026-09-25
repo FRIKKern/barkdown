@@ -1,6 +1,6 @@
 import { openFixturePaper } from './lib/paper-fixture.mjs';
 // E011 preparation: real Paper transport with only editor JS/CSS refused.
-// Adapted from E010 fixture88358f9; E012 replay binds the reviewed bf23f773c vendor consumption.
+// Adapted from E010 fixture88358f9; C074 replay binds the merged pin and exact vendored asset hashes.
 // Native upload delivery race and server assertions are preserved; no fake saves.
 import { _electron as electron } from 'playwright';
 import assert from 'node:assert/strict';
@@ -38,8 +38,8 @@ try{
  await openFixturePaper(page, slug);await page.waitForSelector('.bw-paper-pane .ProseMirror',{timeout:60000});
  editorBundle=await page.evaluate(()=>window.__barkdown.state.canvasBundle);
  assert.equal(editorBundle.source,'vendored');
- const expectedJs='3a94a2964b37358f3ec791f009a2f52b28cffb0d';
- const expectedCss='38197e09d17efc468a3dc875dbd59571e3aeb7c8';
+ const expectedJs='5d2fc57fc943e095e90393b21f10bcd86890329e';
+ const expectedCss='db17bf8a3ec890f14436c68e7af98124b3cfcb3f';
  const loaded=await page.evaluate(()=>({js:document.querySelector('script[data-canvas-bundle]')?.src,css:document.querySelector('link[data-canvas-bundle]')?.href}));
  for(const [kind,expected] of [['js',expectedJs],['css',expectedCss]]){
   const actual=fileURLToPath(loaded[kind]);const vendor=path.resolve('renderer/vendor',kind==='js'?'bp-paper-editor.bundle.js':'bp-paper-editor.css');
@@ -69,5 +69,5 @@ try{
 finally{
  try { if(app)await app.close(); } finally { await proxy.close(); } if(video){const f=await video.path();if(fs.existsSync(f))fs.renameSync(f,path.join(out,'fallback-consumption.webm'));}
  const artifacts=Object.fromEntries(fs.readdirSync(out).filter(f=>/\.(png|webm)$/.test(f)||f==='server.json').map(f=>[f,require('crypto').createHash('sha256').update(fs.readFileSync(path.join(out,f))).digest('hex')]));
- fs.writeFileSync(path.join(out,'manifest.json'),JSON.stringify({sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),sourceDirty:execFileSync('git',['status','--porcelain','--','.'],{encoding:'utf8'}).trim()!=='',barkparkCommit:process.env.BARKDOWN_SHOTS_BP_COMMIT,barkparkDirty:process.env.BARKDOWN_SHOTS_BP_DIRTY,server:process.env.BARKDOWN_SHOTS_SERVER,buildFingerprint:process.env.BARKDOWN_SHOTS_BUILD_FINGERPRINT,editorBundle,proxy:{refused:proxy.counts.refused,forwarded:proxy.counts.forwarded},expectedVendorCommit:'bf23f773ce59ef148a6e6eeb1374f64d9e2aa81f',results,artifacts,motion:'Actual Paper host media upload with response delivery held at the uploader boundary, native history keys and real server assertions. No fabricated save acknowledgement; response delay is controlled race coverage.'},null,2)+'\n');console.log('E011 evidence:',out);
+ fs.writeFileSync(path.join(out,'manifest.json'),JSON.stringify({sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),sourceDirty:execFileSync('git',['status','--porcelain','--','.'],{encoding:'utf8'}).trim()!=='',barkparkCommit:process.env.BARKDOWN_SHOTS_BP_COMMIT,barkparkDirty:process.env.BARKDOWN_SHOTS_BP_DIRTY,server:process.env.BARKDOWN_SHOTS_SERVER,buildFingerprint:process.env.BARKDOWN_SHOTS_BUILD_FINGERPRINT,editorBundle,proxy:{refused:proxy.counts.refused,forwarded:proxy.counts.forwarded},expectedVendorCommit:fs.readFileSync(path.resolve('BARKPARK_REF'),'utf8').trim(),results,artifacts,motion:'Actual Paper host media upload with response delivery held at the uploader boundary, native history keys and real server assertions. No fabricated save acknowledgement; response delay is controlled race coverage.'},null,2)+'\n');console.log('E011 evidence:',out);
 }

@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "id": "C073",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Resolve the upstream Paper integration blockers on current main without weakening gates.",
+  "scope": [
+    "Integrate the existing editor and creation/deletion stack with upstream main while preserving both histories.",
+    "Fix conflicts and owned compile, generated asset, documentation and CI consistency failures.",
+    "Validate combined behavior and keep deployment and migration activation separate."
+  ],
+  "acceptance": [
+    "Existing Paper work is preserved in a current-main integration candidate with explicit task backing.",
+    "Relevant local checks and required hosted gates pass; any unresolved external gate has concrete evidence.",
+    "Barkdown handoff, pin applicability and visual evidence are reviewed before declaring integration complete."
+  ],
+  "checkpoint": "2026-09-25",
+  "handoff": "docs/cycles/C073-upstream-integration.md",
+  "nextAction": "Adopt and retest the merged upstream baseline in a new bounded cycle before the retained-evidence viewer; preserve legacy data and keep P2/A2 open.",
+  "evidence": [
+    "docs/cycles/evidence/C073/README.md",
+    "docs/cycles/evidence/C073/parity.json",
+    "docs/cycles/evidence/C073/status-review.json",
+    "docs/cycles/evidence/C073/linkpreview-review.json",
+    "docs/cycles/evidence/C073/hosted-final-checks.json",
+    "docs/cycles/evidence/C073/cli-create-live.json",
+    "docs/cycles/evidence/C073/merge-cleanup.json",
+    "docs/cycles/evidence/C073/deployment.json",
+    "docs/cycles/evidence/C073/closeout-verify.log"
+  ],
+  "truthReview": "PR20020 merged at b70214090 after required gates passed; both production services report that commit. Owned upstream branches retired with history/worktrees preserved; integration task closed. PR36 lands Barkdown closeout, then its branch is retired. Pin/fallback and P2 remain unchanged.",
+  "screenshotReview": "Five live stills, five differences and 37 GIF frames accepted, plus three inspected link-preview theme/narrow views. Source and hashes in C073 reviews."
+}
