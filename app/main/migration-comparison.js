@@ -83,8 +83,8 @@ function createMigrationComparison({ preparation }) {
             // Reconcile a second full traversal instead of an N+1 read per note.
             const value = summary;
             if (value._id !== id || value._type !== 'paper' || typeof value._rev !== 'string' || !value._rev ||
-              !Number.isSafeInteger(value.rev) || value.rev < 0 || !Array.isArray(value.blocks) ||
-              Boolean(value._draft) !== id.startsWith('drafts.')) fail('comparison_identity', 'Paper read changed identity or has no valid structured revision');
+              (Object.hasOwn(value, 'rev') && (!Number.isSafeInteger(value.rev) || value.rev < 0)) || !Array.isArray(value.blocks) ||
+              Boolean(value._draft) !== id.startsWith('drafts.')) fail('comparison_identity', 'Paper read has invalid identity/content/revision: ' + id);
             if (rows.has(id)) same(rows.get(id), value, 'A fallback variant changed between perspectives');
             else { bytes += Buffer.byteLength(canonical(value)); if (bytes > 32 * 1024 * 1024) fail('comparison_limit', 'Corpus exceeds the comparison byte budget'); rows.set(id, value); }
           }

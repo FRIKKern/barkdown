@@ -164,3 +164,9 @@ test('journal deletion during reads refuses without recreating it', async t => {
   await assert.rejects(f.compare(), /missing receipts/);
   assert.equal(fs.existsSync(file), false);
 });
+
+test('ordinary draft without a Paper ops revision stays exact rather than inventing one', async t => {
+  const f = await fixture(t); delete f.rows.get('drafts.only').rev; await f.stage();
+  assert.equal((await f.compare()).status, 'compared');
+  f.rows.get('drafts.only').rev = 0; await assert.rejects(f.compare(), /pre-existing/);
+});
