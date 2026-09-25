@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "steps": [
+    { "name": "build", "cwd": ".", "argv": ["npm", "--prefix", "app", "run", "build"] },
+    { "name": "ordinary-drain", "cwd": ".", "argv": ["node", "--test", "app/tests/profile-launch-admission.test.mjs", "app/tests/profile-service.test.mjs", "app/tests/goal-service.test.mjs", "app/tests/goal-provider.test.mjs", "app/tests/goal-worker-agent.test.mjs", "app/tests/goal-process.test.mjs"] },
+    { "name": "desktop", "cwd": ".", "argv": ["npm", "--prefix", "app", "test"] }
+  ]
+}

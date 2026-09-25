@@ -141,3 +141,133 @@ test('goal dispatch rechecks closure after the authentication wrapper resolves',
   assert.equal(dispatched, 0);
   for (const task of goal.tasks) assert.equal(f.profiles.workspaces.load(f.a.id).chats[task.chatId].messages.length, 0);
 });
+
+const turn = () => new Promise(resolve => setImmediate(resolve));
+test('ordinary drain waits for pending acquisition and its asynchronous release without blocking B', async () => {
+  const acquiring = deferred(), acquisition = deferred(), releasing = deferred(), released = deferred();
+  const f = setup({ settingsFor: () => ({ barkpark: { local: { enabled: true, source: 'fixture' } } }),
+    runtimePool: { async acquire() { acquiring.resolve(); await acquisition.promise; return { connection: { enabled: false }, async release() { releasing.resolve(); await released.promise; } }; },
+      async selectWithoutRuntime(id) { f.registry.selectProfile(id); return {}; }, async select(id) { f.registry.selectProfile(id); return {}; } } });
+  const start = f.profiles.start(f.profiles.view(), { chatId: 'same', prompt: 'Pending' });
+  const rejected = assert.rejects(start, { code: 'BARKDOWN_PROFILE_PREPARING' });
+  await acquiring.promise;
+  let drained = false;
+  const drain = f.profiles.drainOrdinary(f.a.id).then(result => { drained = true; return result; });
+  await turn(); assert.equal(drained, false);
+  await f.profiles.select(f.profiles.view(), f.b.id); f.profiles.save(f.profiles.view(), snapshot);
+  assert.equal(f.profiles.launchAdmission.isClosed(f.b.id), false);
+  acquisition.resolve(); await releasing.promise; await turn(); assert.equal(drained, false);
+  released.resolve(); await rejected;
+  assert.deepEqual(await drain, { profileId: f.a.id, closureId: f.profiles.launchAdmission.read(f.a.id).id, scope: 'ordinary' });
+});
+
+test('ordinary drain cancels a late dispatch and waits for driver, lease and transcript completion', async () => {
+  const dispatch = deferred(), returnStart = deferred(), releasing = deferred(), releaseDone = deferred();
+  let run, checked = 0, releaseCount = 0;
+  const agent = { ...runs, async start(options) {
+    dispatch.resolve(); await returnStart.promise;
+    run = runs.createRun(options); run.emit({ type: 'status', model: 'fixture' }); return { runId: run.id };
+  }, async verifyTermination({ request, runId }) {
+    checked++; assert.equal(request.profileId, run.scope.profileId); assert.equal(runId, run.id);
+    assert.equal(releaseCount, 1); assert.equal(runs.runs.has(runId), false); return true;
+  } };
+  const f = setup({ agent, settingsFor: () => ({ barkpark: { local: { enabled: true, source: 'fixture' } } }),
+    runtimePool: { async acquire() { return { connection: { enabled: false }, async release() { releaseCount++; releasing.resolve(); await releaseDone.promise; } }; } } });
+  const owner = f.profiles.view(), start = f.profiles.start(owner, { chatId: 'same', prompt: 'Late dispatch' });
+  await dispatch.promise;
+  let drained = false; const drain = f.profiles.drainOrdinary(f.a.id).then(result => { drained = true; return result; });
+  await turn(); assert.equal(drained, false);
+  returnStart.resolve(); const result = await start;
+  assert.equal(run.cancelled, true); await turn(); assert.equal(drained, false); assert.equal(checked, 0);
+  run.emit({ type: 'text_delta', text: 'Retained partial answer' }); run.emit({ type: 'done', cancelled: true });
+  const finish = runs.finish(run); await releasing.promise; await turn(); assert.equal(drained, false);
+  releaseDone.resolve(); await finish; await drain;
+  const ws = f.profiles.workspaces.load(f.a.id);
+  assert.equal(ws.ownership.attempts[result.attemptId].driverFinished, true);
+  assert.equal(ws.chats.same.messages.at(-1).text, 'Retained partial answer'); assert.equal(checked, 1);
+});
+
+test('a driver flag without native proof cannot pass ordinary drain on retry or restart', async () => {
+  let run, verified = 0;
+  const agent = { ...runs, async start(options) { run = runs.createRun(options); return { runId: run.id }; },
+    async verifyTermination() { verified++; return false; } };
+  const f = setup({ agent }), owner = f.profiles.view();
+  const result = await f.profiles.start(owner, { chatId: 'same', prompt: 'No receipt' });
+  run.emit({ type: 'done' }); await runs.finish(run); await f.profiles.wait(owner, result.runId);
+  assert.equal(f.profiles.workspaces.load(f.a.id).ownership.attempts[result.attemptId].driverFinished, true);
+  await assert.rejects(f.profiles.drainOrdinary(f.a.id), /shutdown is unverified/);
+  await assert.rejects(f.profiles.drainOrdinary(f.a.id), /shutdown is unverified/);
+  const restarted = createProfileService({ registry: f.registry, agent });
+  await assert.rejects(restarted.drainOrdinary(f.a.id), /shutdown is unverified/);
+  assert.equal(verified, 3); assert.equal(restarted.launchAdmission.isClosed(f.a.id), true);
+});
+
+test('runtime release failure remains a preparation fault after the pending start rejects', async () => {
+  const entered = deferred(), gate = deferred(); let count = 0;
+  const f = setup({ settingsFor: () => ({ barkpark: { local: { enabled: true, source: 'fixture' } } }),
+    runtimePool: { async acquire() { entered.resolve(); await gate.promise; return { connection: { enabled: false }, async release() { count++; throw Error('fixture release failed'); } }; } } });
+  const start = f.profiles.start(f.profiles.view(), { chatId: 'same', prompt: 'Pending' });
+  const refused = assert.rejects(start, /fixture release failed/); await entered.promise;
+  const drain = assert.rejects(f.profiles.drainOrdinary(f.a.id), /fixture release failed/);
+  gate.resolve(); await refused; await drain;
+  await assert.rejects(f.profiles.drainOrdinary(f.a.id), /fixture release failed/); assert.equal(count, 1);
+});
+
+test('restart drain verifies interrupted ownership but preserves the separate effects review', async () => {
+  let run;
+  const f = setup({ agent: { ...runs, async start(options) { run = runs.createRun(options); run.emit({ type: 'status' }); return { runId: run.id }; } } });
+  const result = await f.profiles.start(f.profiles.view(), { chatId: 'same', prompt: 'Interrupted' });
+  const restarted = createProfileService({ registry: f.registry, agent: { async verifyTermination({ request, runId }) {
+    assert.equal(request.profileId, f.a.id); assert.equal(request.attemptId, result.attemptId); assert.equal(runId, result.runId); return true;
+  } } });
+  await assert.rejects(restarted.drainOrdinary(f.a.id), /transcripts require recovery/);
+  assert.equal(restarted.workspaces.load(f.a.id).ownership.attempts[result.attemptId].driverFinished, false);
+  runs.cancel(run.id); await runs.finish(run); await f.profiles.wait(f.profiles.view(), run.id);
+});
+
+for (const fault of ['foreign', 'cleanup']) test(`ordinary drain retains ${fault} completion failure after native verification`, async () => {
+  let run;
+  const f = setup({ agent: { ...runs,
+    async start(options) { run = runs.createRun(options); run.emit({ type: 'status' }); return { runId: run.id }; },
+    async waitForRunFinish(id) { const result = await runs.waitForRunFinish(id); return { ...result, ...(fault === 'foreign' ? { profileId: 'foreign' } : { status: 'cleanup-failed', cleanupFailed: true }) }; },
+    async verifyTermination() { return true; },
+  } });
+  const owner = f.profiles.view(), result = await f.profiles.start(owner, { chatId: 'same', prompt: 'Fault' });
+  const expected = fault === 'foreign' ? /Completion ownership mismatch/ : /cleanup is unconfirmed/;
+  const failed = assert.rejects(f.profiles.wait(owner, result.runId), expected);
+  run.emit({ type: 'done' }); await runs.finish(run); await failed;
+  await assert.rejects(f.profiles.drainOrdinary(f.a.id), expected);
+  assert.equal(f.profiles.workspaces.load(f.a.id).ownership.attempts[result.attemptId].driverFinished, false);
+});
+
+test('native ordinary preparation drains A child/grandchild and preserves the running B tree', { skip: process.platform !== 'win32', timeout: 30000 }, async t => {
+  const trees = new Map(), readyA = deferred(), readyB = deferred(), started = [];
+  const agent = require('../main/goal-worker-agent').createOwnedWorkerAgent({ script: require.resolve('./fixtures/profile-drain-worker.cjs') });
+  const f = setup({ agent, sendEvent(event) {
+    if (event.type === 'text_delta') { trees.set(event.profileId, JSON.parse(event.text)); (trees.size === 1 ? readyA : readyB).resolve(); }
+  } });
+  t.after(async () => { for (const run of started) { agent.cancel(run.runId); await agent.waitForRunFinish(run.runId).catch(() => {}); } });
+  const a = await f.profiles.start(f.profiles.view(), { chatId: 'same', prompt: 'Owned A' }); started.push(a); await readyA.promise;
+  await f.profiles.select(f.profiles.view(), f.b.id); f.profiles.save(f.profiles.view(), snapshot);
+  const b = await f.profiles.start(f.profiles.view(), { chatId: 'same', prompt: 'Owned B' }); started.push(b); await readyB.promise;
+  const alive = pid => { try { process.kill(pid, 0); return true; } catch (error) { if (error.code === 'ESRCH') return false; throw error; } };
+  assert.ok(Object.values(trees.get(f.a.id)).every(alive)); assert.ok(Object.values(trees.get(f.b.id)).every(alive));
+  const result = await f.profiles.drainOrdinary(f.a.id);
+  assert.equal(result.scope, 'ordinary'); assert.ok(Object.values(trees.get(f.a.id)).every(pid => !alive(pid)));
+  assert.ok(Object.values(trees.get(f.b.id)).every(alive), 'A preparation must not stop the B job');
+  const aFile = path.join(f.registry.storeFor(f.a.id).storeDir, 'drain-fixture-effects.txt');
+  const bFile = path.join(f.registry.storeFor(f.b.id).storeDir, 'drain-fixture-effects.txt');
+  const aBytes = fs.readFileSync(aFile), bBytes = fs.readFileSync(bFile);
+  await new Promise(resolve => setTimeout(resolve, 175));
+  assert.deepEqual(fs.readFileSync(aFile), aBytes); assert.ok(fs.statSync(bFile).size > bBytes.length);
+  const attempt = f.profiles.workspaces.load(f.a.id).ownership.attempts[a.attemptId];
+  assert.equal(attempt.driverFinished, true);
+  const receiptFile = path.join(f.registry.storeFor(f.a.id).storeDir, 'goal-processes', `${a.attemptId}.receipt.json`);
+  const receipt = JSON.parse(fs.readFileSync(receiptFile));
+  assert.equal(receipt.phase, 'stopped'); assert.equal(receipt.activeProcesses, 0);
+  const restarted = createProfileService({ registry: f.registry, agent });
+  assert.deepEqual(await restarted.drainOrdinary(f.a.id), result);
+  f.profiles.cancel(f.profiles.view(), b.runId); await f.profiles.wait(f.profiles.view(), b.runId);
+  assert.ok(Object.values(trees.get(f.b.id)).every(pid => !alive(pid)));
+  t.diagnostic(JSON.stringify({ fixture: f.root, aReceipt: receiptFile, aTree: trees.get(f.a.id), bTree: trees.get(f.b.id), retained: true }));
+});
