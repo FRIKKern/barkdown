@@ -93,6 +93,8 @@ Keep a reusable sequence in the current cycle evidence only when useful; do not 
 
 Before an expensive native capture, identify the observable that could falsely pass. Scope a search assertion to the actual result and matching content, not an already-open tab with the same title. After an action, assert the resulting identity/content; do not use a helper that independently opens or repairs the expected state as proof the action succeeded. Persistence claims need readback/restart. Exercise the assertion during targeted development, then finalize the harness before the implementation commit. Verify media-tool capabilities with a short sample before a full conversion; retain originals and derivation details.
 
+Sequence captures around their actual cleanliness requirements: isolated live Paper capture refuses tracked pending/approval/README edits. Run it before standard capture, or review and commit standard evidence before starting it. Never waive that refusal or repeat unrelated passing suites for an evidence-only commit.
+
 Use one source-bound review record linking behavior logs, native motion, standard comparisons and live Paper evidence. Inspect the gallery/contact sheets together; enlarge changed or uncertain frames and meaningful transitions. Record actual inspection and limits, without repeating the same review in every README. The [visual rules](visual/RULES.md) still govern required coverage and explicit approval. Push the coherent code/evidence checkpoint once; record subsequent hosted check results on the PR when no source claim needs changing, so a status-only commit does not restart the same expensive jobs.
 
 ## Keep a checkpoint while working

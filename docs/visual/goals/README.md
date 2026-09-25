@@ -2,14 +2,15 @@
 
 Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.
 
-![Current view](../runs/2026-09-25T12-49-16-707Z/goals-8.png)
+![Current view](../runs/2026-09-25T16-56-52-628Z/goals-8.png)
 
-![Recorded interaction](../runs/2026-09-25T12-49-16-707Z/goals.gif)
+![Recorded interaction](../runs/2026-09-25T16-56-52-628Z/goals.gif)
 
-[Full comparison](../runs/2026-09-25T12-49-16-707Z/README.md) · [Capture manifest](../runs/2026-09-25T12-49-16-707Z/manifest.json)
+[Full comparison](../runs/2026-09-25T16-56-52-628Z/README.md) · [Capture manifest](../runs/2026-09-25T16-56-52-628Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-25T16:59:12.610Z: C076: inspected all40 fixture stills and decoded frames of8 GIFs, including narrow layouts, menus, theme comparison and adoption. Comparison reports no geometry changes and all frames within tolerance; no new clipping observed. Light fixture theme retained for baseline/theme regression comparison; new native preparation gallery is dark. Full desktop passes at4c030a0c; separate reviewed native retained-draft/cancel/restart evidence lives in docs/visual/profile-preparation/README.md. Fixture approval does not prove live Paper saves, migration or portability. Source 839efbe2e; [review](../reviews/approval-1a3695ff366638e853da139b3b9170cc7cfb5a0f291eb63aeed2515de52f4c3c.json) - [comparison](../runs/2026-09-25T16-56-52-628Z/comparison.json).
 - 2026-09-25T12:51:31.779Z: C075 final source e4a60ac9: inspected all40 stills,40 differences and40 decoded step-GIF frames, including narrow workspace/goals/profiles/adoption, menus, focus and error states. Same Windows environment; zero changed pixels or geometry. Existing step-GIF quantized shadow bands remain; full stills retain actual gradients. Full desktop and30 focused stream/goal checks pass. Native writer4 stills,81 raw1fps samples and51 excerpt frames plus live Paper5 stills/37 GIF frames separately inspected; live Claude edit and6/6 table checks pass. No new clipping or control loss. No migration activation, durable dirty-draft recovery or child teardown claimed. Source e4a60ac9b; [review](../reviews/approval-f4022c289339ae25e54aa5922f092a4f19249bb0bd72fea353e31043c52a38e1.json) - [comparison](../runs/2026-09-25T12-49-16-707Z/comparison.json).
 - 2026-09-25T12:02:03.028Z: C075 source 4e618ef7: inspected all 40 candidate stills, 40 differences and 40 decoded fixture GIF frames, including intermediate menus, narrow layouts and themes. Comparison reports zero changed pixels and unchanged control geometry. Existing quantized fixture GIF shadows remain; stills are authoritative for gradients. Full desktop and 13 writer admission/process checks pass; private real Paper parity passes 20/20 at runtime-identical 6033ee4. Native writer refusal and live Paper reviewed separately; no migration activation or abrupt-restart draft recovery is claimed. Source 4e618ef7b; [review](../reviews/approval-1537b78f5e5e8715183a5ba0cbb75d6f683f0138c8dca0df0ddd04535e007fc3.json) - [comparison](../runs/2026-09-25T11-56-14-104Z/comparison.json).
 - 2026-09-25T10:35:36.682Z: Reviewed all 40 stills, 40 diffs and all decoded frames of eight fixture GIFs. Changes are the intended Original history settings row and current vendor hash; narrow settings remains scrollable. Separate native history, fallback and live Paper evidence reviewed in C074. Light fixtures retained for contrast comparison; no migration authority or rollback claim. Source a126c7185; [review](../reviews/approval-3efcddd12f1c0e051148934339e9a4a4f05fcc6ba17d227a6c3ff8000efa619c.json) - [comparison](../runs/2026-09-25T10-28-54-722Z/comparison.json).

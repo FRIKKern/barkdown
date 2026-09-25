@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-25T16:56:50.570Z",
+  "source": "839efbe2e945fd774083cb6da0f66e6eb15cab97",
+  "sourceStatus": "",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "capture",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "npm",
+        "run",
+        "visual:capture"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T16:56:50.691Z",
+      "log": "capture.log",
+      "elapsedMs": 24167,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "compare",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "npm",
+        "run",
+        "visual:compare"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T16:57:14.865Z",
+      "log": "compare.log",
+      "elapsedMs": 7736,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "live-paper",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "run",
+        "shots:isolated"
+      ],
+      "status": "failed",
+      "startedAt": "2026-09-25T16:57:22.603Z",
+      "log": "live-paper.log",
+      "elapsedMs": 1553,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-09-25T16:57:24.157Z"
+}
