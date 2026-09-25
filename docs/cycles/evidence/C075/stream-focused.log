@@ -1,0 +1,65 @@
+TAP version 13
+# Subtest: real provider loops persist three full workers through profile switch, stale save, reload and review
+ok 1 - real provider loops persist three full workers through profile switch, stale save, reload and review
+  ---
+  duration_ms: 1668.516
+  ...
+# Subtest: Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+ok 2 - Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+  ---
+  duration_ms: 1228.6008
+  ...
+# Subtest: goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+ok 3 - goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+  ---
+  duration_ms: 520.5139
+  ...
+# Subtest: recovered reservation cannot be reviewed or retried until trusted shutdown verification
+ok 4 - recovered reservation cannot be reviewed or retried until trusted shutdown verification
+  ---
+  duration_ms: 494.5956
+  ...
+# Subtest: text bursts retain order around thinking, tools, replacements and terminal events
+ok 5 - text bursts retain order around thinking, tools, replacements and terminal events
+  ---
+  duration_ms: 2.1184
+  ...
+# Subtest: sparse streams flush, character bounds and additional metadata never lose content
+ok 6 - sparse streams flush, character bounds and additional metadata never lose content
+  ---
+  duration_ms: 50.4633
+  ...
+# Subtest: timer sink failure is retained without replay or an unhandled exception
+ok 7 - timer sink failure is retained without replay or an unhandled exception
+  ---
+  duration_ms: 31.0218
+  ...
+# Subtest: real run sequencing persists combined text before forwarding and survives repository restart
+ok 8 - real run sequencing persists combined text before forwarding and survives repository restart
+  ---
+  duration_ms: 400.5199
+  ...
+# Subtest: cancel and completion flush each owned run separately before releasing it
+ok 9 - cancel and completion flush each owned run separately before releasing it
+  ---
+  duration_ms: 4.9209
+  ...
+# Subtest: failed buffered persistence cannot become a successful terminal acknowledgement
+ok 10 - failed buffered persistence cannot become a successful terminal acknowledgement
+  ---
+  duration_ms: 154.5326
+  ...
+# Subtest: quiescence before a buffered chunk is admitted refuses it without forwarding or rebinding
+ok 11 - quiescence before a buffered chunk is admitted refuses it without forwarding or rebinding
+  ---
+  duration_ms: 48.4116
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4049.1998

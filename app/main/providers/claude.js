@@ -33,7 +33,7 @@ const SYSTEM_APPEND = `You are working inside Barkdown, a desktop workspace wher
 - Keep replies short and plain.`;
 
 function start({ chatId, prompt, images, context, settings, send, storeDir, session, scope, profileId, connection, onFinish }) {
-  const run = createRun({ chatId, context, send, provider: 'claude', scope, storeDir, profileId, connection, onFinish });
+  const run = createRun({ chatId, context, send, provider: 'claude', scope, storeDir, profileId, connection, onFinish, batchText: true });
   context = run.context;
   storeDir = run.scope.storeDir;
   settings = frozenCopy(settings || {}); images = frozenCopy(images || []);

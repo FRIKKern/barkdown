@@ -8,13 +8,13 @@ const runs = new Map();
 // is a driver-finalization acknowledgement, not proof of OS descendant death.
 const completed = new Map();
 
-function createRun({ chatId, context, send, provider, scope, storeDir, profileId, connection, onFinish }) {
+function createRun({ chatId, context, send, provider, scope, storeDir, profileId, connection, onFinish, batchText = false }) {
   scope ||= captureScope({ context, storeDir, profileId, connection });
   const id = crypto.randomUUID();
   const run = { id, chatId, context: scope.context, scope, provider, approvals: new Map(), abort: new AbortController(), cancelled: false, text: '', onCancel: null, onFinish };
   run.completion = new Promise(resolve => { run.resolveCompletion = resolve; });
   let sequence = 0;
-  run.emit = event => {
+  const deliver = event => {
     if (event.target?.kind === 'doc' && event.target.source === 'barkpark') {
       let paperOwner = run.paperOwner || null;
       if (!paperOwner && !run.scope.connection.viaCli && run.scope.connection.enabled) paperOwner = require('../paper-navigation').createPaperNavigation(run.scope.store).identify(run.scope.connection);
@@ -24,6 +24,16 @@ function createRun({ chatId, context, send, provider, scope, storeDir, profileId
     if (event.type === 'error') run.outcome = { status: 'failed', message: event.message };
     send({ ...event, runId: id, chatId, provider, profileId: scope.profileId, sequence: ++sequence });
   };
+  // Only provider drivers opt in. An owned-worker bridge forwards its child's
+  // already batched events without introducing another delay or losing metadata.
+  const stream = batchText ? require('./stream-emitter').createStreamEmitter(deliver, { onError(error) {
+    run.streamError ||= error;
+    run.outcome = { status: 'failed', message: error.message };
+    cancel(run.id);
+  } }) : null;
+  run.emit = stream ? stream.emit : deliver;
+  run.flushEvents = () => stream?.flush();
+  run.closeEvents = () => stream?.close();
   runs.set(id, run);
   return run;
 }
@@ -31,6 +41,7 @@ function createRun({ chatId, context, send, provider, scope, storeDir, profileId
 async function finish(run) {
   if (!run.finishing) run.finishing = Promise.resolve().then(async () => {
     try {
+      try { run.flushEvents?.(); } catch (error) { run.streamError ||= error; }
       await run.onFinish?.({ runId: run.id, profileId: run.scope.profileId, chatId: run.chatId, cancelled: run.cancelled });
       return { ok: true };
     } catch (error) {
@@ -38,9 +49,11 @@ async function finish(run) {
       try { run.emit({ type: 'error_note', message: 'Run cleanup failed; its owned runtime may still need recovery.', cleanupFailed: true }); } catch {}
       return { ok: false, error };
     } finally {
+      try { run.closeEvents?.(); } catch (error) { run.streamError ||= error; }
       runs.delete(run.id);
       const result = Object.freeze({ runId: run.id, profileId: run.scope.profileId, chatId: run.chatId, provider: run.provider,
         ...(run.outcome || { status: run.cancelled ? 'cancelled' : 'finished' }), cancelled: run.cancelled,
+        ...(run.streamError ? { status: 'failed', message: run.streamError.message } : {}),
         ...(run.finishError ? { status: 'cleanup-failed', cleanupFailed: true } : {}) });
       completed.set(run.id, result);
       while (completed.size > 200) completed.delete(completed.keys().next().value);
@@ -77,6 +90,7 @@ function cancel(runId) {
   const run = runs.get(runId);
   if (!run) return false;
   run.cancelled = true;
+  try { run.flushEvents?.(); } catch { /* The failed sink is retained on the run. */ }
   run.abort.abort();
   for (const resolve of run.approvals.values()) resolve(false);
   run.approvals.clear();

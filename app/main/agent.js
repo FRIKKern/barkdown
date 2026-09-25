@@ -252,7 +252,7 @@ function withImages(messages, images) {
 }
 
 async function startApi({ chatId, messages, context, settings, send, images, originalMessages, scope, storeDir, profileId, connection, onFinish }) {
-  const run = providerRuns.createRun({ chatId, context, send, provider: 'api', scope, storeDir, profileId, connection, onFinish });
+  const run = providerRuns.createRun({ chatId, context, send, provider: 'api', scope, storeDir, profileId, connection, onFinish, batchText: true });
   context = run.context;
   settings = frozenCopy(settings || {});
   messages = frozenCopy(messages || []);

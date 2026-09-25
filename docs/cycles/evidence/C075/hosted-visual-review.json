@@ -1,0 +1,24 @@
+{
+  "reviewer": "Codex",
+  "reviewedAt": "2026-09-25T12:12:01.860Z",
+  "workflow": "https://github.com/FRIKKern/barkdown/actions/runs/36132950039",
+  "head": "944d81542d5f7da2dac238b8e2f2e4c103de3ff9",
+  "testedMerge": "9ace0844c3135c5d94d7413e5c1f00d359c62a3d",
+  "bundleHash": "8054998bd1dbb229d3326f29e9cca7ace2bcf983f369b7e8f6ae10200eaa823e",
+  "manifestHash": "5486e9bb4fe961b64e3573f7094dadf8a1bab098d6cb55bf38b090d9eb8e681d",
+  "comparisonHash": "fdbed3ca45b0f66caba1397e6fff4385092f4ae2dedf28730aac757a60aab910",
+  "bundleVerified": true,
+  "inspected": {
+    "stills": 40,
+    "differences": 40,
+    "decodedGifFrames": 40
+  },
+  "environmentChanged": true,
+  "observations": [
+    "Linux versus Windows: small icon rasterization differences, goal deadline timezone text and provider login availability.",
+    "Settings Assistant adds sign-in guidance in CI where local CLI authentication is absent; this accounts for its geometry change. Actions fit and remain reachable.",
+    "No missing controls, accidental content loss or clipping found in intermediate/narrow states.",
+    "Existing quantized fixture GIF shadows remain; stills retain full gradients. Same-Windows source candidate had zero pixel/geometry changes."
+  ],
+  "decision": "Reviewed hosted candidate; do not replace the Windows baseline with this different-environment capture."
+}

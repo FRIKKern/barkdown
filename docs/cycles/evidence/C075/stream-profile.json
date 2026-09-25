@@ -1,0 +1,53 @@
+{
+  "at": "2026-09-25T12:16:12.741Z",
+  "source": "944d81542d5f7da2dac238b8e2f2e4c103de3ff9",
+  "baselineWorkspace": "75b16f9b",
+  "scope": "Isolated synthetic20Hz workspace text stream; two samples per variant; includes actual synchronous persisted event path and fresh repository readback; not native UI or provider latency proof",
+  "results": [
+    {
+      "name": "fenced",
+      "events": 20,
+      "eventIntervalMs": 50,
+      "totalMs": 1235.8627000000001,
+      "eventMedianMs": 46.863200000000006,
+      "eventP95Ms": 51.09789999999998,
+      "dispatchLagP95Ms": 177.34090000000015,
+      "maxDispatchLagMs": 180.40390000000002,
+      "persistedTextMatches": true,
+      "filesystemCalls": {
+        "lstatSync": {
+          "count": 15459,
+          "ms": 538.6686000000027
+        },
+        "readFileSync": {
+          "count": 1269,
+          "ms": 115.38549999999992
+        },
+        "openSync": {
+          "count": 845,
+          "ms": 61.92350000000121
+        },
+        "statSync": {
+          "count": 301,
+          "ms": 4.886200000001253
+        },
+        "fsyncSync": {
+          "count": 126,
+          "ms": 138.90970000000033
+        },
+        "linkSync": {
+          "count": 63,
+          "ms": 21.357400000000467
+        },
+        "renameSync": {
+          "count": 63,
+          "ms": 24.841399999999112
+        },
+        "realpathSync": {
+          "count": 1,
+          "ms": 0.34019999999986794
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "at": "2026-09-25T12:14:27.988Z",
+  "source": "944d81542d5f7da2dac238b8e2f2e4c103de3ff9",
+  "baselineWorkspace": "75b16f9b",
+  "scope": "Isolated synthetic20Hz workspace text stream; two samples per variant; includes actual synchronous persisted event path and fresh repository readback; not native UI or provider latency proof",
+  "results": [
+    {
+      "name": "baseline",
+      "events": 200,
+      "eventIntervalMs": 50,
+      "totalMs": 9995.466,
+      "eventMedianMs": 22.33430000000044,
+      "eventP95Ms": 27.86409999999978,
+      "dispatchLagP95Ms": 13.949999999999818,
+      "maxDispatchLagMs": 15.182699999999954,
+      "persistedTextMatches": true
+    },
+    {
+      "name": "fenced",
+      "events": 200,
+      "eventIntervalMs": 50,
+      "totalMs": 12525.3166,
+      "eventMedianMs": 49.62159999999858,
+      "eventP95Ms": 63.77470000000176,
+      "dispatchLagP95Ms": 2196.296100000003,
+      "maxDispatchLagMs": 2444.8690000000024,
+      "persistedTextMatches": true
+    },
+    {
+      "name": "fenced",
+      "events": 200,
+      "eventIntervalMs": 50,
+      "totalMs": 10838.1692,
+      "eventMedianMs": 45.19770000000062,
+      "eventP95Ms": 67.98159999999916,
+      "dispatchLagP95Ms": 807.9989999999998,
+      "maxDispatchLagMs": 824.6599999999999,
+      "persistedTextMatches": true
+    },
+    {
+      "name": "baseline",
+      "events": 200,
+      "eventIntervalMs": 50,
+      "totalMs": 9993.604500000001,
+      "eventMedianMs": 19.61939999999595,
+      "eventP95Ms": 22.47030000000086,
+      "dispatchLagP95Ms": 13.969700000001467,
+      "maxDispatchLagMs": 14.761800000000221,
+      "persistedTextMatches": true
+    }
+  ]
+}

@@ -7,16 +7,18 @@
   "scope": [
     "Persist a store-owned generation and cross-process writer admission, retaining interrupted/uncertain operations.",
     "Carry captured tokens through actual document/edit adapters and provider child boundaries; stale handles must refuse mutations.",
-    "Audit source workspace/media writers and prove the fence without enabling migration activation or retiring legacy editing."
+    "Audit source workspace/media writers and prove the fence without enabling migration activation or retiring legacy editing.",
+    "Keep fenced provider streaming responsive with bounded pre-sequence text coalescing, without weakening persistence or finalization."
   ],
   "acceptance": [
     "Stale foreground/API/MCP/goal contexts cannot silently acquire a newer writer generation.",
     "Quiescence rejects new writers and cannot claim completion with an admitted or interrupted writer.",
-    "Wrong-owner, malformed metadata, process interruption and normal edit/Undo/profile behavior are covered by tests and reviewed native evidence."
+    "Wrong-owner, malformed metadata, process interruption and normal edit/Undo/profile behavior are covered by tests and reviewed native evidence.",
+    "Burst/sparse streams preserve text, event order and completion through durable forwarding while reducing the measured20Hz backlog."
   ],
   "checkpoint": "2026-09-25",
   "handoff": "docs/cycles/C075-writer-fence.md",
-  "nextAction": "Publish the verified C075 checkpoint, review hosted Verify/Visual/20-row parity, then merge if green; retain P2/A2 activation limits.",
+  "nextAction": "Validate bounded provider text coalescing against the measured stream slowdown, then recapture changed inputs and rerun hosted gates before merging PR38.",
   "evidence": [
     "docs/cycles/evidence/C075/README.md",
     "docs/cycles/evidence/C075/root.log",
@@ -24,6 +26,6 @@
     "docs/cycles/evidence/C075/parity.json",
     "docs/visual/writer-fence/runs/2026-09-25T11-50-28-240Z/review.json"
   ],
-  "truthReview": "C075 runtime6033ee4 and capture-only4e618ef7 pass full desktop/root,13 focused admission/process checks and private20/20 parity. Corrected native refusal and live Paper evidence reviewed. No authority activation or legacy retirement; hosted delivery pending.",
+  "truthReview": "Initial C075 checkpoint944d8154 passes all local and hosted gates. Additional isolated stream audit found up to2445ms backlog at20Hz; source changes now coalesce unnumbered text chunks while preserving persist-before-forward. New source validation/evidence is pending; PR38 remains open.",
   "screenshotReview": "Reviewed native4 stills/103 raw1fps samples/59 GIF frames, live5 stills/37 GIF frames and standard40 stills/40 differences/40 GIF frames. Standard explicitly approved; rejected native recording retained."
 }

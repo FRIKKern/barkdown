@@ -10,7 +10,7 @@
     },
     {
       "owner": "app/renderer/src/tabs/paper.js",
-      "fact": "isDirty and flush exist; canClose refuses an unsaved Paper. The open buffer survives a refused save, but there is no durable migration snapshot/restore for the unsaved canvas.",
+      "fact": "isDirty and flush exist; canClose refuses an unsaved Paper. The open buffer survives a refused save, but there is no durable migration snapshot/restore for the unsaved canvas. Mounted source probe now reproduces that recoverySnapshot plus flush omits an actively composing note label; retain raw composition or refuse preparation until it settles.",
       "next": "Retain an owner/revision-qualified human buffer durably before offering cutover or restart. Test delayed acknowledgement and newer typing while preparing; never mark an unacknowledged buffer saved."
     },
     {
@@ -20,8 +20,8 @@
     },
     {
       "owner": "app/main/workspace-repository.js",
-      "fact": "Synthetic100-event timing showed baseline2302ms versus fenced4866ms on this host during the desktop suite. This is one sample and not a UI latency benchmark.",
-      "next": "Measure a realistic stream in isolation before choosing a batching/worker strategy. Any batching must retain accepted events, final flush and stop/drain ownership across process loss; do not weaken durability to reduce measured cost."
+      "fact": "An isolated synthetic20Hz stream (200 events, two runs per variant) retains exact transcript text. Baseline medians19.6/22.3ms per event; fenced45.2/49.6ms, with max dispatch lag825/2445ms. A20-event filesystem profile counted15459 lstat calls and126 fsync calls. This is measured persistence-path overhead, not native UI/provider latency.",
+      "next": "Bound/coalesce consecutive text/thinking deltas before assigning emitted event sequence numbers, then preserve existing synchronous persist-before-forward. Flush before tools, approvals, terminal events, cancellation and driver completion; isolate runs, cap bytes/time and surface sink failure. Avoid buffering already acknowledged events or weakening writer ownership/durability. Verify end-to-end owner/restart/sequence parity and benchmark burst/sparse streams before daily-use readiness."
     }
   ],
   "remainingGate": "Final source/target/media/workspace comparison, sealed authority selection, interruption recovery and rollback/retirement remain A2. G2 upstream regression enforcement remains a separate release gate."
