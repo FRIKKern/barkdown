@@ -238,6 +238,8 @@ for (const fault of ['foreign', 'cleanup']) test(`ordinary drain retains ${fault
   run.emit({ type: 'done' }); await runs.finish(run); await failed;
   await assert.rejects(f.profiles.drainOrdinary(f.a.id), expected);
   assert.equal(f.profiles.workspaces.load(f.a.id).ownership.attempts[result.attemptId].driverFinished, false);
+  await f.profiles.recover(owner, { chatId: 'same', attemptId: result.attemptId, action: 'review', note: 'Verified owned shutdown and reviewed retained fixture effects.' });
+  assert.equal((await f.profiles.drainOrdinary(f.a.id)).scope, 'ordinary', 'Explicit recovery must retire the old in-process failure');
 });
 
 test('native ordinary preparation drains A child/grandchild and preserves the running B tree', { skip: process.platform !== 'win32', timeout: 30000 }, async t => {

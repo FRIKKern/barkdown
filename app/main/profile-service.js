@@ -227,7 +227,16 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
     validate(owner);
     if (!stopped) throw new Error('The previous process is not verified stopped. No new turn was allowed.');
     workspaces.verifyOrdinary(profileId, chatId, attemptId);
-    if (action === 'review') workspaces.releaseOrdinary(profileId, chatId, attemptId, note);
+    if (action === 'review') {
+      const retiring = [...ordinary].filter(ticket => ticket.profileId === profileId && ticket.attemptId === attemptId);
+      await Promise.all(retiring.map(ticket => ticket.started));
+      await Promise.allSettled(retiring.map(ticket => ticket.completion));
+      validate(owner);
+      workspaces.releaseOrdinary(profileId, chatId, attemptId, note);
+      // Verified shutdown plus an acknowledged effects review supersedes this
+      // attempt's rejected observer. Separate runtime-release faults stay blocked.
+      for (const ticket of retiring) ordinary.delete(ticket);
+    }
     return load(owner);
   }
   function ownedRun(owner, runId) {
