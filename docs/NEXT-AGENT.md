@@ -1,9 +1,7 @@
 # Current handoff
 
-[C078](cycles/C078-library-comparison.md) implements the internal read-only migration comparison. Real isolated proof passes 206 variants (204 preserved, two staged), links, PNG media, organization and interruption/change/cancellation refusal. Full desktop passes in 658.516s; native, live, standard and roadmap visuals are reviewed. [Evidence](cycles/evidence/C078/README.md).
+C078 merged through [PR43](https://github.com/FRIKKern/barkdown/pull/43) at 5ceabea3; branch retired. [Merge and post-merge results](cycles/evidence/C078/merge.json). Post-merge parity failed19/20 in the core editing journey; Verify passed.
 
-Scope frozen on codex/migration-comparison. Finish root verification and hosted CI, then merge and retire the branch. Check remote/PR state before resuming: after merge, archive C078 and plan bounded interrupted cutover and rollback proof. P2/A2 is still open; no authority switch, legacy retirement or deployment.
+[C079](cycles/C079-editor-entry.md) owns that integration failure on codex/editor-entry-proof. Harness now observes native/model caret agreement before setup keys; focused gaps13/13 and Find6/6 pass. Required native/live/standard evidence is reviewed; root verification passes48.484s. Push and require hosted Verify/Visual/full parity, then merge and retire the lane. No cutover work until the checkpoint is healthy. P2/A2 remains open.
 
-No owned test services remain. Preserve 43 locked recovery worktrees, two stashes and detached integration recovery; branch retirement is the next cleanup. Main plus one branch at this snapshot; heartbeat paused. G2 remains separate.
-
-Root verification passed in 46.939s; [source-bound result](cycles/evidence/C078/root/result.json). Hosted CI and merge are the only remaining delivery gates at this commit.
+No owned services. Preserve43 locked recovery worktrees, two stashes and detached integration recovery. Main plus one branch; no deployment. Exact next action is in the cycle.
