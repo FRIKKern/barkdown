@@ -1,0 +1,17 @@
+# C076 — profile preparation before migration
+
+**Status:** planned, not implemented. Parent P2/A2. Start from merged C075 c6961328, after its documentation closeout. [Contract](../migration/writer-fence.md#next-cutover-boundary--prepared-not-implemented).
+
+**Outcome and stopping condition:** preparing one profile prevents ordinary/goal launches, retains dirty human buffers or refuses safely, and waits for verified owned-child and transcript completion. Other profiles remain usable. Stop before authority selection; no legacy retirement, deployment or changes to another contributor's Barkpark checkout.
+
+**Starting gaps:** the [pending-turn probe](evidence/C075/run-drain-probe.json) reports writer quiescence while runtime acquisition/authentication still holds a pending start. It eventually refuses before SDK dispatch and releases its lease. The [composition probe](evidence/C075/draft-retention-probe.json) shows an active note label missing from recovery snapshot/flush. These are actual service/source probes with test adapters, not native crash or child-termination proof.
+
+**Implementation order:** durably own profile preparation and close launch admission before asynchronous resolution; integrate every goal scheduling route; retain dirty buffers with exact ownership/version; cancel and verify the existing Windows job boundary while transcript writes remain admitted; only then quiesce writers. Uncertain draft, receipt, child or journal state must remain closed. Restart must inspect preparation ownership before accepting launches. An explicit abort must not revive old captured handles.
+
+**Owners:** profile-service, goal-service/provider/scheduler, the existing owned worker adapter and complete-job receipts, Paper recovery projection, and profile-owned durable records. Ordinary Windows turns already use createOwnedWorkerAgent; its alias is intentional. Writer quiescence alone is insufficient.
+
+**Tripwires and budget:** start with delayed runtime/authentication/dispatch and scheduler races against actual modules. Add native owned child/grandchild and draft/restart proof. Keep keyboard/IME suites serial. Batch app/code-area README edits before an implementation commit, then full desktop/root, native/live/standard captures, image review and explicit approval, followed by hosted gates. Expect multiple development slices; preserve acceptance across session deadlines. Run npm run plan and npm run cycle before implementation and record the next run's time ceiling here.
+
+**Acceptance cases:** identical slugs across profiles; pending ordinary runtime/auth/dispatch; queued goal pump, periodic/list tick, Start/retry and coordinator advancement; child/grandchild survival, partial/missing receipts and late completion; title/body/composition/debounced controls, serialization/storage failure and newer typing during delayed acknowledgement; interruption around each durable transition. Synthetic probes alone do not satisfy native cases.
+
+**Handoff:** no C076 implementation or visual acceptance yet. Start one codex/ lane after C075 closeout retires its predecessor. Preserve recovery worktrees/stashes and shared services. Record exact source, failures, owned processes and next action after meaningful slices. Selection, whole-corpus comparison and rollback/retirement remain in [A2](../ACCEPTANCE.md#a2--one-engine-without-lost-notes).

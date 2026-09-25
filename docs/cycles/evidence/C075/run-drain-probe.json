@@ -1,0 +1,32 @@
+{
+  "at": "2026-09-25T13:08:10.049Z",
+  "source": "0f2cfc93bf111137a3eb25d4734f529d8a0b4272",
+  "scope": "Actual profile service, workspace and writer controller with deferred runtime/auth adapters; no live provider or child termination claim.",
+  "results": [
+    {
+      "boundary": "runtime-acquire",
+      "writerDrainReportedQuiescentWhileStartPending": true,
+      "releaseCountAtDrain": 0,
+      "releaseCountAfterSettlement": 1,
+      "sdkDispatches": 0,
+      "outcome": {
+        "error": "The library is preparing to change engines; new writes are stopped.",
+        "code": "writer_closed"
+      },
+      "otherProfilePhase": "open"
+    },
+    {
+      "boundary": "authentication",
+      "writerDrainReportedQuiescentWhileStartPending": true,
+      "releaseCountAtDrain": 0,
+      "releaseCountAfterSettlement": 1,
+      "sdkDispatches": 0,
+      "outcome": {
+        "error": "This editor or run belongs to an earlier library generation. Writes are stopped; keep unsaved work open.",
+        "code": "writer_stale"
+      },
+      "otherProfilePhase": "open"
+    }
+  ],
+  "next": "Profile-specific new-turn closure must track pending resolve/auth/dispatch before admitting migration preparation; retain writer admission until transcript and owned child cleanup settle."
+}
