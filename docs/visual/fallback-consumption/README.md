@@ -1,5 +1,9 @@
 # Paper fallback compatibility
 
+**Current baseline:** C074 consumes merged b70214090. [Exact manifest](runs/2026-09-25T10-24-51-699Z/manifest.json), [review](runs/2026-09-25T10-24-51-699Z/review.json) and [recording](runs/2026-09-25T10-24-51-699Z/fallback-consumption.webm) prove actual vendored loading, real upload, Undo/Redo, later human save and reload on the merged private server. All6stills/77video samples inspected; light mode preserves the historical contrast/layout comparison. Narrow metadata truncation remains.
+
+Earlier E011/E012 evidence follows; it does not identify today's pin.
+
 E011 candidate consumes exact54579 editor JS/CSS and ships49 dependency notices, preserving the host popup/flags/Mermaid/license. Both actual native compatibility runs passed: the proxy refused only editor asset fetches while actual Paper/media/ops used disposable servers. Old a544 and intended54579 runs reported vendored and loaded the pinned bytes before upload/history/reload assertions.
 
 [Cycle handoff](../../cycles/E011-fallback-consumption.md). Server→verified profile-owned cache→vendor precedence is unchanged. An older reachable server or valid old cache still wins. This establishes bounded native compatibility, with no upstream merge or unfinished-upload restart-recovery claim.

@@ -2,14 +2,15 @@
 
 Real desktop navigation with disposable local notes; no cloud or provider.
 
-![Current view](../runs/2026-09-24T21-50-50-790Z/workspace-4.png)
+![Current view](../runs/2026-09-25T10-28-54-722Z/workspace-4.png)
 
-![Recorded interaction](../runs/2026-09-24T21-50-50-790Z/workspace.gif)
+![Recorded interaction](../runs/2026-09-25T10-28-54-722Z/workspace.gif)
 
-[Full comparison](../runs/2026-09-24T21-50-50-790Z/README.md) · [Capture manifest](../runs/2026-09-24T21-50-50-790Z/manifest.json)
+[Full comparison](../runs/2026-09-25T10-28-54-722Z/README.md) · [Capture manifest](../runs/2026-09-25T10-28-54-722Z/manifest.json)
 
 ## Changelog
 
+- 2026-09-25T10:35:36.682Z: Reviewed all 40 stills, 40 diffs and all decoded frames of eight fixture GIFs. Changes are the intended Original history settings row and current vendor hash; narrow settings remains scrollable. Separate native history, fallback and live Paper evidence reviewed in C074. Light fixtures retained for contrast comparison; no migration authority or rollback claim. Source a126c7185; [review](../reviews/approval-3efcddd12f1c0e051148934339e9a4a4f05fcc6ba17d227a6c3ff8000efa619c.json) - [comparison](../runs/2026-09-25T10-28-54-722Z/comparison.json).
 - 2026-09-24T21:54:31.595Z: C071: inspected all 40 fixture stills, 40 differences and 40 GIF frames; no visual or geometry changes. Inspected 8 native deletion/restart/copy stills and all 195 sampled video frames, including narrow dialog and completed repeated recovery navigation. Reviewed 5 live Paper stills and 37 editing GIF frames; real Claude/private upstream ae6065545. Fixed missing recovery dialog padding and corrected premature native navigation assertion; earlier candidate retained unapproved. Full desktop suite, 47 upstream tests and real HTTP lost-response/recreated-original/later-copy-edit checks pass. This accepts the bounded local draft recovery journey, not general crash recovery, migration activation or portability. Source aa8c6dc00; [review](../reviews/approval-91d258ec1f78ebd432f0a887370a5750b2bd01b92c9d482fbf49714d97975bf8.json) - [comparison](../runs/2026-09-24T21-50-50-790Z/comparison.json).
 - 2026-09-24T20:41:03.532Z: C069 source 8a277bb: inspected all 40 stills, 40 difference images and 40 fixture GIF frames, including narrow layouts, menus, profile/recovery and side-chat states. No pixel, geometry or environment changes from accepted baseline. Existing palette banding in fixture GIF modal shadows remains; PNG geometry is intact. Full desktop and focused ownership/context checks pass; real server API/MCP and native creation/edit/profile/restart/Undo/human-revision guards pass separately. Live Paper five stills and all 37 GIF frames inspected; real Claude on a disposable runtime. Native ordinary-note model decisions are scripted, not a real-provider claim. No P2 completion, migration activation or deletion/recovery claim. Source 8a277bb7c; [review](../reviews/approval-341bbd4d754ca600ab2765eef89e764a7fd7e11b868c9847a843e787796e6f96.json) - [comparison](../runs/2026-09-24T20-38-11-017Z/comparison.json).
 - 2026-09-24T18:59:18.870Z: C067: inspected all 40 fixture stills, 40 difference images and 40 decoded GIF frames, including narrow layouts, menus and profile recovery. No pixel or geometry changes against the prior fixture baseline. Full desktop and 66 focused checks passed; isolated real tables 11/11 and live Paper 5 stills/37 GIF frames reviewed separately. Ordinary draft-note native proof is recorded in the dedicated Paper notes gallery; fixture approval does not prove migration or recovery. Source 46854ef60; [review](../reviews/approval-c486ceafa9b6da94648ce4fd7d6d7ecd825d09ea3fa2e50ce7dc1277a6c7fb96.json) - [comparison](../runs/2026-09-24T18-55-59-622Z/comparison.json).

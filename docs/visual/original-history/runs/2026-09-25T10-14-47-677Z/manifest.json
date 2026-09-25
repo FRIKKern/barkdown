@@ -1,0 +1,47 @@
+{
+  "source": "1573a6a340953bb663d1e51edf46f7faac6c2b4c",
+  "capture": true,
+  "platform": "win32",
+  "scope": "Actual native UI and main IPC on disposable profiles; OS folder-picker result supplied; no model calls or Paper writes.",
+  "screenshots": [
+    "01-empty.png",
+    "02-document.png",
+    "03-revision.png",
+    "04-pending-proposal.png",
+    "05-stale-receipt.png",
+    "06-undone-receipt.png",
+    "07-unsupported-original.png",
+    "08-narrow.png",
+    "09-restart.png",
+    "10-other-profile.png",
+    "11-changed-backup.png"
+  ],
+  "checks": [
+    "Foreign profile backup refused before registration",
+    "Original revision content, pending proposal and stale receipt are readable",
+    "Unsupported data and inert external references preserved without execution/network",
+    "Read-only controls, narrow geometry and Escape verified",
+    "Registered source and exact original content survive restart",
+    "Other profile cannot read the same-slug original or reuse its source ID",
+    "Changed backup refuses and explicit refresh reads the restored original",
+    "Original documents, receipts and backup bytes unchanged"
+  ],
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-original-history-native-TtGL6X",
+  "narrow": {
+    "width": 620,
+    "left": 10,
+    "right": 610,
+    "bottom": 750,
+    "height": 760,
+    "overflow": false,
+    "editable": 0
+  },
+  "videos": [
+    "page@e96f1734158596c25488bca24f2d2995.webm",
+    "page@8bc8b783d472ebc39e4170e734a505a8.webm"
+  ],
+  "session": 1,
+  "passed": true,
+  "errors": [],
+  "externalRequests": []
+}

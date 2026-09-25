@@ -1,0 +1,220 @@
+TAP version 13
+# Subtest: consumed editor pin/assets and preserved host overrides match audited provenance
+ok 1 - consumed editor pin/assets and preserved host overrides match audited provenance
+  ---
+  duration_ms: 10.5282
+  ...
+# Subtest: all exact bundled notices and source attribution ship beside the consumed bundle
+ok 2 - all exact bundled notices and source attribution ship beside the consumed bundle
+  ---
+  duration_ms: 119.6658
+  ...
+# Subtest: production history, pending proposal and stale local receipt remain exact read-only evidence
+ok 3 - production history, pending proposal and stale local receipt remain exact read-only evidence
+  ---
+  duration_ms: 173.0354
+  ...
+# Subtest: a genuinely undone receipt is retained without reopening its action
+ok 4 - a genuinely undone receipt is retained without reopening its action
+  ---
+  duration_ms: 128.7325
+  ...
+# Subtest: the backup remains readable after the live source changes
+ok 5 - the backup remains readable after the live source changes
+  ---
+  duration_ms: 148.4016
+  ...
+# Subtest: same-slug profiles cannot substitute each others captured history
+ok 6 - same-slug profiles cannot substitute each others captured history
+  ---
+  duration_ms: 245.8682
+  ...
+# Subtest: a missing local receipt never substitutes a same-slug Paper receipt
+ok 7 - a missing local receipt never substitutes a same-slug Paper receipt
+  ---
+  duration_ms: 150.458
+  ...
+# Subtest: unsupported old content and proposal metadata are preserved rather than converted
+ok 8 - unsupported old content and proposal metadata are preserved rather than converted
+  ---
+  duration_ms: 146.3672
+  ...
+# Subtest: invalid identity ../original-note refuses
+ok 9 - invalid identity ../original-note refuses
+  ---
+  duration_ms: 84.5772
+  ...
+# Subtest: invalid identity bp:original-note refuses
+ok 10 - invalid identity bp:original-note refuses
+  ---
+  duration_ms: 89.442
+  ...
+# Subtest: invalid identity  refuses
+ok 11 - invalid identity  refuses
+  ---
+  duration_ms: 87.9721
+  ...
+# Subtest: invalid identity null refuses
+ok 12 - invalid identity null refuses
+  ---
+  duration_ms: 86.0787
+  ...
+# Subtest: invalid identity xxxxxxxxxxxxxxxxxxxxxxxx refuses
+ok 13 - invalid identity xxxxxxxxxxxxxxxxxxxxxxxx refuses
+  ---
+  duration_ms: 85.8964
+  ...
+# Subtest: a missing captured document refuses instead of finding the current live note
+ok 14 - a missing captured document refuses instead of finding the current live note
+  ---
+  duration_ms: 94.7975
+  ...
+# Subtest: wrong pinned source hash refuses
+ok 15 - wrong pinned source hash refuses
+  ---
+  duration_ms: 88.104
+  ...
+# Subtest: changed captured document bytes refuse
+ok 16 - changed captured document bytes refuse
+  ---
+  duration_ms: 89.5214
+  ...
+# Subtest: unlisted backup bytes refuse even when the requested document is intact
+ok 17 - unlisted backup bytes refuse even when the requested document is intact
+  ---
+  duration_ms: 97.6968
+  ...
+# Subtest: incomplete preparation commitment refuses
+ok 18 - incomplete preparation commitment refuses
+  ---
+  duration_ms: 82.7804
+  ...
+# Subtest: a source-qualified receipt with a different document owner refuses
+ok 19 - a source-qualified receipt with a different document owner refuses
+  ---
+  duration_ms: 136.28
+  ...
+# Subtest: a Paper-shaped receipt cannot be reinterpreted as local content
+ok 20 - a Paper-shaped receipt cannot be reinterpreted as local content
+  ---
+  duration_ms: 136.3978
+  ...
+# Subtest: malformed retained history refuses without replacing it with empty history
+ok 21 - malformed retained history refuses without replacing it with empty history
+  ---
+  duration_ms: 137.7482
+  ...
+# Subtest: malformed pending proposals refuse without dropping them
+ok 22 - malformed pending proposals refuse without dropping them
+  ---
+  duration_ms: 131.9852
+  ...
+# Subtest: reading never invokes a write API or network even for an actionable old receipt
+ok 23 - reading never invokes a write API or network even for an actionable old receipt
+  ---
+  duration_ms: 97.223
+  ...
+# Subtest: a backup changed after the document read is rejected by the final full validation
+ok 24 - a backup changed after the document read is rejected by the final full validation
+  ---
+  duration_ms: 103.4629
+  ...
+# Subtest: a blocked migration backup still exposes its unsupported original content without conversion
+ok 25 - a blocked migration backup still exposes its unsupported original content without conversion
+  ---
+  duration_ms: 145.3966
+  ...
+# Subtest: optional historical fields are not invented in older captured documents
+ok 26 - optional historical fields are not invented in older captured documents
+  ---
+  duration_ms: 138.2817
+  ...
+# Subtest: all audited losses, unsupported structures and internal references refuse
+ok 27 - all audited losses, unsupported structures and internal references refuse
+  ---
+  duration_ms: 7.8004
+  ...
+# Subtest: inline carriage returns retain exact blocked backups while LF breaks remain supported
+ok 28 - inline carriage returns retain exact blocked backups while LF breaks remain supported
+  ---
+  duration_ms: 94.5055
+  ...
+# Subtest: heading marks and top-level alignment retain structure while unmapped alignment refuses
+ok 29 - heading marks and top-level alignment retain structure while unmapped alignment refuses
+  ---
+  duration_ms: 246.5353
+  ...
+# Subtest: nested lists and genuine quotes prepare exact backups while unmapped structures refuse
+ok 30 - nested lists and genuine quotes prepare exact backups while unmapped structures refuse
+  ---
+  duration_ms: 201.6581
+  ...
+# Subtest: exact backup preserves organization, proposals, history, binary media and receipts; excludes credentials
+ok 31 - exact backup preserves organization, proposals, history, binary media and receipts; excludes credentials
+  ---
+  duration_ms: 129.1391
+  ...
+# Subtest: lossy content is recorded as blocked and never produces a partial conversion
+ok 32 - lossy content is recorded as blocked and never produces a partial conversion
+  ---
+  duration_ms: 36.9525
+  ...
+# Subtest: process interruption at each durable boundary resumes without duplicate files or IDs
+ok 33 - process interruption at each durable boundary resumes without duplicate files or IDs
+  ---
+  duration_ms: 547.4234
+  ...
+# Subtest: changed source and corrupt backups or manifests refuse, retaining original data
+ok 34 - changed source and corrupt backups or manifests refuse, retaining original data
+  ---
+  duration_ms: 222.2525
+  ...
+# Subtest: owner, quiescence, malformed records and unsafe destinations fail closed
+ok 35 - owner, quiescence, malformed records and unsafe destinations fail closed
+  ---
+  duration_ms: 59.4285
+  ...
+# Subtest: inherited object names remain unsupported originals instead of crashing inventory
+ok 36 - inherited object names remain unsupported originals instead of crashing inventory
+  ---
+  duration_ms: 37.3952
+  ...
+# Subtest: registration is idempotent, survives restart, and never writes backup or original records
+ok 37 - registration is idempotent, survives restart, and never writes backup or original records
+  ---
+  duration_ms: 173.3412
+  ...
+# Subtest: foreign profile backup and registry substitution refuse without writing references
+ok 38 - foreign profile backup and registry substitution refuse without writing references
+  ---
+  duration_ms: 95.4889
+  ...
+# Subtest: changed or missing backup keeps its reference, exposes refusal and never substitutes live content
+ok 39 - changed or missing backup keeps its reference, exposes refusal and never substitutes live content
+  ---
+  duration_ms: 105.4909
+  ...
+# Subtest: manifest replacement with the same source files is rejected by its separately pinned hash
+ok 40 - manifest replacement with the same source files is rejected by its separately pinned hash
+  ---
+  duration_ms: 103.1752
+  ...
+# Subtest: corrupt reference registry is never interpreted as empty or overwritten
+ok 41 - corrupt reference registry is never interpreted as empty or overwritten
+  ---
+  duration_ms: 81.5844
+  ...
+# Subtest: unrecognized source and document paths never become filesystem paths
+ok 42 - unrecognized source and document paths never become filesystem paths
+  ---
+  duration_ms: 108.3535
+  ...
+1..42
+# tests 42
+# suites 0
+# pass 42
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3075.1393
