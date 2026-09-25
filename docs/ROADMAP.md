@@ -8,7 +8,7 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Current checkpoint:** C076 preparation, cancellation and retained-draft recovery are implemented on the active branch with scoped development checks. Full regression, visual approval and merge remain pending; see the [current handoff](NEXT-AGENT.md) and [C076 evidence](cycles/evidence/C076/README.md).
+**Current checkpoint:** C076 preparation, cancellation and retained-draft recovery are merged through PR40 after full desktop/root checks, reviewed visuals and hosted20/20 parity; see the [current handoff](NEXT-AGENT.md) and [C076 evidence](cycles/evidence/C076/README.md).
 
 ## Profiles · accepted
 
@@ -32,7 +32,7 @@ Accepted for the Windows source prototype. Device login is shared by default; pr
 | ✓ Demonstrated | Read original history | [Demonstrated scope](cycles/C074-original-history.md) |
 | ◐ In progress | Migrate with a way back | [Work and limits](cycles/C076-profile-preparation.md) |
 
-Demonstrated ordinary-note journeys are in the merged baseline; their linked cycle records retain original checkpoint limits. Preparation and cancellation are still under validation. Whole-library content, links, media and organization comparison, interrupted authority cutover, rollback and legacy retirement remain open. No real library has migrated.
+Demonstrated ordinary-note journeys are in the merged baseline; their linked cycle records retain original checkpoint limits. Preparation, cancellation and retained-draft recovery are merged in C076. Whole-library content, links, media and organization comparison, interrupted authority cutover, rollback and legacy retirement remain open. No real library has migrated.
 
 ## Recovery & portability · up next
 
@@ -44,7 +44,7 @@ Demonstrated ordinary-note journeys are in the merged baseline; their linked cyc
 | ○ Remaining | Import into a fresh profile | [A3 gate](ACCEPTANCE.md#a3--recovery-and-portability) |
 | ○ Remaining | Continue on another device | [A3 gate](ACCEPTANCE.md#a3--recovery-and-portability) |
 
-Recovery foundations are being exercised within P2: draft retention, interrupted preparation and restart. C076 development checks are not full A3 acceptance. Consistent export/import, credential handling and actual cross-machine continuation remain unproved.
+Recovery foundations are being exercised within P2: draft retention, interrupted preparation and restart. C076 recovery checks are not full A3 acceptance. Consistent export/import, credential handling and actual cross-machine continuation remain unproved.
 
 ## Cloud sync · later
 
