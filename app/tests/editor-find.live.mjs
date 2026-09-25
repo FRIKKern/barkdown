@@ -1,4 +1,5 @@
 import { openFixturePaper } from './lib/paper-fixture.mjs';
+import { waitForPaperCaret } from './helpers/native-paper-caret.mjs';
 import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // Plan #17: find and replace in a paper. Ctrl+F finds with a count and next/previous; Ctrl+H replaces one or
 // all, as ops the server holds; undo restores the replace-all in one step. Live against the bp-connected server.
@@ -21,7 +22,6 @@ await page.waitForFunction(() => window.__barkdown.state.barkparkDocs.length > 0
 await openFixturePaper(page, SLUG);
 await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 });
 await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 });
-await page.waitForTimeout(500);
 
 const results = [];
 const row = async (name, fn) => { try { const r = await fn(); results.push({ name, pass: !!r.pass, ...r }); } catch (e) { results.push({ name, pass: false, error: e.message.slice(0, 240) }); } };
@@ -31,9 +31,15 @@ const count = () => page.locator(`${pane} #find-count`).innerText();
 const serverText = () => { const d = getPaper(SLUG); const inl = a => (a || []).map(x => x.type === 'text' ? x.value : inl(x.children)).join(''); return d.blocks.map(b => b.type === 'heading' ? b.text : b.type === 'list' ? b.items.map(i => inl(i.content || i)).join(' / ') : inl(b.content)).join('\n'); };
 const occurrences = (s, w) => (s.match(new RegExp(w, 'g')) || []).length;
 const waitServer = async (pred) => { for (let i = 0; i < 20; i++) { const t = serverText(); if (pred(t)) return t; await page.waitForTimeout(1000); } return serverText(); };
+const enterFromStart = async () => {
+  await pm.locator('p').filter({ hasText: /^The first alpha/ }).click();
+  await waitForPaperCaret(page, { type: 'paragraph', text: 'The first alpha sits in a paragraph, next to an Alpha with a capital.' });
+  await page.keyboard.press('Control+Home');
+  await waitForPaperCaret(page, { type: 'heading', text: 'Find and replace rehearsal', position: 1 });
+};
 
 await row('Ctrl+F inside the paper opens the bar; typing "alpha" counts four matches (case-insensitive, starting from the caret) and highlights them', async () => {
-  await pm.locator('p').first().click(); await page.keyboard.press('Control+Home'); await page.waitForFunction(() => document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.state.selection.from === 1);  await page.keyboard.press('Control+f');
+  await enterFromStart(); await page.keyboard.press('Control+f');
   const open = await page.locator(`${pane} #find`).isVisible();
   await page.locator(`${pane} #find-q`).fill('alpha'); await page.waitForTimeout(200);
   const c = await count();
@@ -63,7 +69,7 @@ await row('Ctrl+Z restores all four in ONE step, and the server follows', async 
   return { pass: occurrences(t.toLowerCase(), 'alpha') === 4 && occurrences(t, 'omega') === 0, server: t };
 });
 await row('Ctrl+H opens with replace; Replace (one) changes only the active match and moves on', async () => {
-  await pm.locator('p').first().click(); await page.keyboard.press('Control+Home'); await page.waitForFunction(() => document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.state.selection.from === 1);  await page.keyboard.press('Control+h');
+  await enterFromStart(); await page.keyboard.press('Control+h');
   await page.locator(`${pane} #find-q`).fill('alpha'); await page.waitForTimeout(200);
   await page.locator(`${pane} #find-r`).fill('beta');
   await page.locator(`${pane} #find-replace`).click();

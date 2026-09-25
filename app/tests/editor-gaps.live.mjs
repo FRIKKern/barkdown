@@ -1,4 +1,5 @@
 import { openFixturePaper } from './lib/paper-fixture.mjs';
+import { waitForPaperCaret } from './helpers/native-paper-caret.mjs';
 // Actual keyboard/paste assertions; an observational shape log is not a passing row.
 import { _electron as electron } from 'playwright';
 import assert from 'node:assert/strict';
@@ -15,7 +16,7 @@ const capture = process.env.BARKDOWN_EDITOR_CAPTURE === '1';
 const out = path.resolve((capture ? '../docs/visual/editor-gap-assertions/runs/' : 'test-results/editor-gap-assertions/') + new Date().toISOString().replace(/[:.]/g, '-'));
 fs.mkdirSync(out, { recursive: true });
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-gaps-'));
-const results = [], errors = [];
+const results = [], errors = [], entry = [];
 let app, page, video, editorBundle, actionProbe;
 const seededIds = new Set();
 const sourceCommit = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
@@ -78,7 +79,25 @@ try {
   const pm = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror');
   const blockStart = async () => { await page.keyboard.press('Home'); await page.waitForFunction(() => document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.state.selection.$from.parentOffset === 0, null, { timeout: 3000 }); };
   const paste = (text, html = '') => page.evaluate(([text, html]) => { const dt = new DataTransfer(); dt.setData('text/plain', text); if (html) dt.setData('text/html', html); document.querySelector('.bw-paper-pane:not([hidden]) .ProseMirror').dispatchEvent(new ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); }, [text, html]);
-  await pm.locator('p').last().click(); await page.keyboard.press('End'); await page.keyboard.press('Enter');
+  // Prove each native setup action before typing the first destructive input.
+  // Otherwise one misplaced initial caret cascades into thirteen misleading failures.
+  await pm.locator('p').filter({ hasText: /^Start here\.$/ }).click();
+  entry.push({ action: 'click starting paragraph', caret: await waitForPaperCaret(page, { text: 'Start here.', type: 'paragraph' }) });
+  const beforeRefusal = await snapshot();
+  await assert.rejects(waitForPaperCaret(page, { text: 'not the fixture paragraph' }, 100), /Timeout/);
+  const afterRefusal = await snapshot();
+  assert.deepEqual(afterRefusal.doc, beforeRefusal.doc, 'a failed caret observation cannot repair content');
+  assert.deepEqual(afterRefusal.diagnostic.selection, beforeRefusal.diagnostic.selection, 'a failed caret observation cannot move selection');
+  entry.push({ action: 'wrong-target observation refuses without mutation', pass: true });
+  await page.keyboard.press('End');
+  entry.push({ action: 'End', caret: await waitForPaperCaret(page, { text: 'Start here.', type: 'paragraph', edge: 'end' }) });
+  await page.keyboard.press('Enter');
+  entry.push({ action: 'Enter', caret: await waitForPaperCaret(page, { text: '', type: 'paragraph', edge: 'start' }) });
+  const initial = await snapshot();
+  assert.equal(initial.doc.content.length, 3, 'setup appends exactly one paragraph');
+  assert.equal(textOf(initial.doc.content[0]), 'Gap probe');
+  assert.equal(textOf(initial.doc.content[1]), 'Start here.');
+  assert.equal(initial.diagnostic.selectionPath[0].index, 2, 'native caret is in the appended paragraph');
   await step('inline markdown marks', async () => { await page.keyboard.type('**bold** and *em* and ~~gone~~ and `mono` end'); }, doc => { for (const [text, mark] of [['bold', 'bold'], ['em', 'italic'], ['gone', 'strike'], ['mono', 'code']]) assert.ok(hasMark(doc, text, mark), `${text} must have ${mark}`); });
   await step('blockquote shorthand', async () => { await page.keyboard.press('Enter'); await page.keyboard.type('> quoted'); }, doc => assert.ok(has(doc, n => (n.type === 'blockquote' || n.attrs?.bpType === 'blockquote') && textOf(n) === 'quoted')));
   await step('task shorthand and checked item', async () => { await page.keyboard.press('Enter'); await page.keyboard.press('Enter'); await page.keyboard.type('[ ] todo'); await page.keyboard.press('Enter'); await page.keyboard.type('second todo'); await pm.locator('ul[data-type="taskList"] li input').first().click(); await pm.locator('ul[data-type="taskList"] li p').last().click(); await page.keyboard.press('End'); await page.keyboard.press('Enter'); await page.keyboard.press('Enter'); }, doc => { assert.ok(has(doc, n => n.type === 'taskItem' && n.attrs?.checked === true && textOf(n) === 'todo')); assert.ok(has(doc, n => n.type === 'taskItem' && n.attrs?.checked === false && textOf(n) === 'second todo')); });
@@ -125,7 +144,7 @@ try {
   if (app) { try { await app.close(); } catch (error) { results.push({ name: 'owned Electron cleanup', pass: false, error: error.stack }); } }
   if (video) { try { const recorded = await video.path(); if (fs.existsSync(recorded)) fs.renameSync(recorded, path.join(out, 'editor-gaps.webm')); } catch (error) { results.push({ name: 'video evidence finalization', pass: false, error: error.stack }); } }
   const passed = results.filter(r => r.pass).length;
-  const report = { summary: `${passed}/${results.length} green`, results, errors };
+  const report = { summary: `${passed}/${results.length} green`, entry, results, errors };
   fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n');
   const artifacts = Object.fromEntries(fs.readdirSync(out).filter(f => /\.(png|webm|json)$/.test(f)).map(f => [f, createHash('sha256').update(fs.readFileSync(path.join(out, f))).digest('hex')]));
   fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify({ sourceCommit, sourceDirty, barkparkCommit: process.env.BARKDOWN_SHOTS_BP_COMMIT, server: process.env.BARKDOWN_SHOTS_SERVER, editorBundle, artifacts, userData, motion: 'Native keyboard and production ClipboardEvent handlers, actual server acknowledgement; no model turn.' }, null, 2) + '\n');

@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "native-entry",
+      "cwd": ".",
+      "argv": [
+        "node",
+        "app/tests/status-shots-isolated.mjs",
+        "tests/parity.mjs",
+        "gaps",
+        "find"
+      ]
+    }
+  ]
+}

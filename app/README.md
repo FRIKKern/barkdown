@@ -125,3 +125,5 @@ Initial Settings discovery now checks supported CLI status, including keyring-ba
 The accepted [C039 login journey](../docs/cycles/C039-provider-authentication.md) covers cancellation, explicit retry, expired-session help and newer-draft protection. Controlled adapter/repository checks cover captured owners and restart metadata; these do not manufacture real account expiry. Its source-bound [login gallery](../docs/visual/provider-login/README.md) remains historical evidence; [NEXT-AGENT](../docs/NEXT-AGENT.md) identifies current work.
 
 C075 adds captured writer generations and durable admission before migration preparation. The internal gate refuses stale note writers and retains unresolved operations. [Proof and remaining activation limits](../docs/visual/writer-fence/README.md).
+
+Native editor evidence observes agreement between browser focus/selection and the Paper model before chaining setup keys. C079 retains the main-run failure where initial setup entered the heading; the observer never moves the caret, retries input or repairs document content. [Current validation and limits](../docs/cycles/C079-editor-entry.md).
