@@ -38,12 +38,19 @@ try {
   await page.locator('#bw-prompt').fill(draft); await page.locator('#bw-prompt').press('Enter');
   await page.waitForFunction(() => document.body.textContent.includes('New agent turns are stopped'));
   assert.equal(await page.locator('#bw-prompt').inputValue(), draft);
-  assert.equal(await page.evaluate(id => window.__barkdown.state.chats[id].messages.length, owner.chatId), owner.count);
+  // The composer intentionally keeps a visible failed pair. The authoritative
+  // workspace must not reserve a provider turn or persist that optimistic pair.
+  const refused = await page.evaluate(id => window.__barkdown.state.chats[id].messages.at(-1), owner.chatId);
+  assert.match(refused.error, /New agent turns are stopped/);
+  assert.equal(refused.streaming, false);
   report.checks.push('real composer send refuses before transcript reservation and restores the exact unsent draft');
   await shot('01-refused-draft'); await shot('02-narrow-refusal', 820);
   const workspace = path.join(registry.storeFor(owner.profileId).storeDir, 'workspace.json');
   for (let i = 0; i < 100 && JSON.parse(fs.readFileSync(workspace)).chats[owner.chatId].draft !== draft; i++) await new Promise(r => setTimeout(r, 50));
   assert.equal(JSON.parse(fs.readFileSync(workspace)).chats[owner.chatId].draft, draft);
+  const persisted = JSON.parse(fs.readFileSync(workspace));
+  assert.equal(persisted.chats[owner.chatId].messages.length, owner.count);
+  assert.equal(Object.keys(persisted.ownership?.attempts || {}).length, 0);
   await app.close(); app = null; await boot();
   assert.equal(await page.locator('#bw-prompt').inputValue(), draft);
   await page.locator('#bw-prompt').press('Enter');
