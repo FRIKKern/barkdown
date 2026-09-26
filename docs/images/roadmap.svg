@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="780" viewBox="0 0 1440 780" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1130" viewBox="0 0 1440 1130" role="img" aria-labelledby="title desc">
 <title id="title">Barkdown roadmap — demonstrated, in progress and remaining</title>
 <desc id="desc">Profiles: ACCEPTED. Separate notes and chats: Demonstrated; Owned media and keys: Demonstrated; Restore tabs and drafts: Demonstrated; Keep agent runs isolated: Demonstrated; Switch profiles safely: Demonstrated. Paper notes: BUILDING NOW. Create, edit and search: Demonstrated; Agent edits and safe Undo: Demonstrated; Recover deleted notes: Demonstrated; Read original history: Demonstrated; Migrate with a way back: In progress. Recovery &amp; portability: UP NEXT. Save and draft recovery: In progress; Export notes and media: Remaining; Include chats and links: Remaining; Import into a fresh profile: Remaining; Continue on another device: Remaining. Cloud sync: LATER. Work offline, sync later: Remaining; Reconcile device edits: Remaining; Resolve edit/delete overlap: Remaining; Respect access changes: Remaining; Keep sync optional: Remaining. Installation: LATER. Install without a checkout: Remaining; Update without losing work: Remaining; Recover a failed upgrade: Remaining; Keep data on uninstall: Remaining; Keyboard, zoom, daily use: Remaining. Checkmarks describe bounded demonstrated journeys, not completion of the whole stage. Profiles are accepted for the Windows source prototype.</desc>
 <defs>
@@ -6,7 +6,7 @@
   <linearGradient id="focus" x2="0" y2="1"><stop stop-color="#a9c787" stop-opacity=".09"/><stop offset="1" stop-color="#a9c787" stop-opacity="0"/></linearGradient>
 </defs>
 <g font-family="Segoe UI, Arial, sans-serif">
-<rect width="1440" height="780" rx="14" fill="url(#background)"/>
+<rect width="1440" height="1130" rx="14" fill="url(#background)"/>
 <text x="64" y="85" font-family="Georgia, serif" font-size="49" letter-spacing="-1.5" fill="#f0eee2">Barkdown</text>
 <text x="65" y="124" font-size="20" fill="#afbcaa" font-weight="400">A Barkpark Native App Experiment</text>
 <text x="1374" y="77" text-anchor="end" font-size="12" font-weight="600" letter-spacing="3" fill="#a3b49b">THE ROAD AHEAD</text>
@@ -100,9 +100,47 @@
 <text x="1152" y="590" font-size="13" fill="#a3b49b" font-weight="400">Local pilot can precede sync</text>
 </g>
 <path d="M64 624H1376" stroke="#344435"/>
-<text x="64" y="663" font-size="12" fill="#c2dca1" font-weight="600">NOW</text>
-<text x="125" y="663" font-size="17" fill="#d4ddce" font-weight="400">Read-only comparison is verified on a mixed-library rehearsal. Cutover and rollback remain ahead.</text>
-<text x="64" y="701" font-size="12" fill="#a3b49b" font-weight="600">NEXT</text>
-<text x="125" y="701" font-size="17" fill="#b6c1af" font-weight="400">Prove interrupted cutover and rollback → migrate safely → retire the old editor.</text>
-<text x="64" y="748" font-size="15" fill="#a3b49b" font-weight="400">Read the linked checklist for evidence and limits. After recovery, sync and local installation can move independently.</text>
+<text x="64" y="669" font-size="28" fill="#f0eee2" font-weight="600">Inside “Migrate with a way back”</text>
+<text x="64" y="698" font-size="16" fill="#afbcaa" font-weight="400">Progress within the current stage · demonstrated parts stay visible while the complete journey is unfinished.</text>
+<g data-migration-step="1"><rect x="64" y="718" width="416" height="128" rx="8" fill="#1c271e" stroke="#344435"/>
+<text x="82" y="743" font-size="12" fill="#c2dca1" font-weight="600">✓  DEMONSTRATED · BOUNDED PROOF</text>
+<text x="82" y="775" font-size="23" fill="#e2e6da" font-weight="600">1. Preserve and stage</text>
+<text x="82" y="803" font-size="16" fill="#b6c1af" font-weight="400">Originals and backups retained.</text>
+<text x="82" y="826" font-size="16" fill="#b6c1af" font-weight="400">Supported notes, links and PNGs.</text>
+</g>
+<g data-migration-step="2"><rect x="512" y="718" width="416" height="128" rx="8" fill="#1c271e" stroke="#344435"/>
+<text x="530" y="743" font-size="12" fill="#c2dca1" font-weight="600">✓  DEMONSTRATED · BOUNDED PROOF</text>
+<text x="530" y="775" font-size="23" fill="#e2e6da" font-weight="600">2. Edit migrated notes</text>
+<text x="530" y="803" font-size="16" fill="#b6c1af" font-weight="400">Real Paper save, Undo and restart.</text>
+<text x="530" y="826" font-size="16" fill="#b6c1af" font-weight="400">Original history stays readable.</text>
+</g>
+<g data-migration-step="3"><rect x="960" y="718" width="416" height="128" rx="8" fill="#1c271e" stroke="#344435"/>
+<text x="978" y="743" font-size="12" fill="#c2dca1" font-weight="600">✓  DEMONSTRATED · BOUNDED PROOF</text>
+<text x="978" y="775" font-size="23" fill="#e2e6da" font-weight="600">3. Compare the library</text>
+<text x="978" y="803" font-size="16" fill="#b6c1af" font-weight="400">206 variants checked read-only.</text>
+<text x="978" y="826" font-size="16" fill="#b6c1af" font-weight="400">Navigation ownership improved.</text>
+</g>
+<g data-migration-step="4"><rect x="64" y="863" width="416" height="128" rx="8" fill="#2b2e22" stroke="#82734e"/>
+<text x="82" y="888" font-size="12" fill="#e2ca93" font-weight="600">◐  CURRENT · PARTLY PROVEN</text>
+<text x="82" y="920" font-size="23" fill="#e2e6da" font-weight="600">4. Protect the switch</text>
+<text x="82" y="948" font-size="16" fill="#b6c1af" font-weight="400">Write controller tested; not integrated.</text>
+<text x="82" y="971" font-size="16" fill="#b6c1af" font-weight="400">Real content/media coverage remains.</text>
+</g>
+<g data-migration-step="5"><rect x="512" y="863" width="416" height="128" rx="8" fill="#1c271e" stroke="#344435"/>
+<text x="530" y="888" font-size="12" fill="#a3b49b" font-weight="600">○  REMAINING · EXIT TO PROVE</text>
+<text x="530" y="920" font-size="23" fill="#e2e6da" font-weight="600">5. Switch and recover</text>
+<text x="530" y="948" font-size="16" fill="#b6c1af" font-weight="400">Choose Paper as the source of truth.</text>
+<text x="530" y="971" font-size="16" fill="#b6c1af" font-weight="400">Interrupt the switch; restart safely.</text>
+</g>
+<g data-migration-step="6"><rect x="960" y="863" width="416" height="128" rx="8" fill="#1c271e" stroke="#344435"/>
+<text x="978" y="888" font-size="12" fill="#a3b49b" font-weight="600">○  REMAINING · EXIT TO PROVE</text>
+<text x="978" y="920" font-size="23" fill="#e2e6da" font-weight="600">6. Prove the way back</text>
+<text x="978" y="948" font-size="16" fill="#b6c1af" font-weight="400">Roll back without losing newer work.</text>
+<text x="978" y="971" font-size="16" fill="#b6c1af" font-weight="400">Then retire the legacy editor safely.</text>
+</g>
+<text x="64" y="1030" font-size="12" fill="#c2dca1" font-weight="600">LATEST</text>
+<text x="150" y="1030" font-size="17" fill="#d4ddce" font-weight="400">C082: write controller tested; merge awaits the production-deployment decision.</text>
+<text x="64" y="1068" font-size="12" fill="#a3b49b" font-weight="600">NEXT PROOF</text>
+<text x="150" y="1068" font-size="17" fill="#b6c1af" font-weight="400">Prove real content and media writes stay blocked throughout migration.</text>
+<text x="64" y="1110" font-size="15" fill="#a3b49b" font-weight="400">Reviewed checkpoint: C082 · No real library has switched. Read the linked checklist for evidence, delivery status and limits.</text>
 </g></svg>
