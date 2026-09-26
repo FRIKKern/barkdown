@@ -62,6 +62,8 @@ Follow `docs/CYCLES.md` and run `npm run cycle` before implementation. Plan one 
 
 ## Writing and presentation
 
+Progress must be understandable on entering the root README, for both regular collaborators and specialists. Show what changed, what is usable, the current obstacle and the next observable result in plain language; link technical evidence. Unequal checkpoints are not equal units of effort. Explain significant uncertainty and its cause, with conditional best/worst plausible paths when useful; give time ranges only with a stated basis and confidence. Learning that removes uncertainty is progress, but is not shipped capability. Keep this a brief, current overview, maintained at meaningful changes rather than every check. Follow the progress guidance in `docs/CYCLES.md`.
+
 Keep public-facing docs and replies short, direct and calm. Lead with the useful result; cut repeated status, slogans, procedural narration and defensive caveats. Link detailed evidence instead of reciting it. Keep material limits clear. Root README is a quick introduction, not a handoff or validation log.
 
 Use dark-mode screenshots and recordings by default. Light mode needs a specific purpose, such as contrast review, theme comparison or a light-theme bug; say why in the caption. Follow `docs/visual/RULES.md` for capture and evidence requirements.
