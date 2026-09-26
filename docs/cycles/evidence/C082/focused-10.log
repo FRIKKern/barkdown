@@ -1,0 +1,47 @@
+Running ExUnit with seed: 687836, max_cases: 40
+
+........
+08:56:34.817 [error] GenServer {Barkpark.ManagedRuntime.WriteAdmission, "fixture-A"} terminating
+** (stop) {:journal_unavailable, :closed_journal}
+Last message (from #PID<0.188.0>): :admission_message_redacted
+State: %{phase: :open, generation: 1, sequence: 2}
+Client #PID<0.188.0> is alive
+
+    (stdlib 7.3) gen.erl:262: :gen.do_call/4
+    (elixir 1.19.5) lib/gen_server.ex:1139: GenServer.call/3
+    api/test/barkpark/managed_runtime/write_admission_test.exs:441: Barkpark.ManagedRuntime.WriteAdmissionTest."test failed settlement persistence retains uncertainty on restart"/1
+    (ex_unit 1.19.5) lib/ex_unit/runner.ex:528: ExUnit.Runner.exec_test/2
+    (stdlib 7.3) timer.erl:599: :timer.tc/2
+    (ex_unit 1.19.5) lib/ex_unit/runner.ex:450: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+.......
+08:56:34.910 [error] GenServer {Barkpark.ManagedRuntime.WriteAdmission, "fixture-A"} terminating
+** (stop) {:journal_unavailable, :closed_journal}
+Last message (from #PID<0.254.0>): :admission_message_redacted
+State: %{phase: :open, generation: 1, sequence: 1}
+Client #PID<0.254.0> is alive
+
+    (stdlib 7.3) gen.erl:262: :gen.do_call/4
+    (elixir 1.19.5) lib/gen_server.ex:1139: GenServer.call/3
+    api/test/barkpark/managed_runtime/write_admission_test.exs:420: Barkpark.ManagedRuntime.WriteAdmissionTest."test failed persistence does not acknowledge an admitted write"/1
+    (ex_unit 1.19.5) lib/ex_unit/runner.ex:528: ExUnit.Runner.exec_test/2
+    (stdlib 7.3) timer.erl:599: :timer.tc/2
+    (ex_unit 1.19.5) lib/ex_unit/runner.ex:450: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+.........
+
+  1) test abrupt VM halt preserves held exclusion without journal repair (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:379
+     ** (MatchError) no match of right hand side value:
+
+         []
+
+         (stdlib 7.3) erl_eval.erl:672: :erl_eval.expr/6
+         nofile:1: (file)
+         (elixir 1.19.5) lib/code.ex:629: Code.validated_eval_string/3
+
+     code: assert result == 23, output
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:398: (test)
+
+
+Finished in 1.9 seconds (0.7s on load, 0.00s async, 1.2s sync)
+25 tests, 1 failure

@@ -34,7 +34,7 @@ C074 adopted merged upstream b70214090 and shipped the read-only original-histor
 
 C078 merged through PR43 at5ceabea3 and implements the [read-only comparison boundary](migration/comparison.md): a real disposable corpus of206 variants preserves204 existing variants and compares two staged notes, links, PNG media and workspace projection. Revalidation, interrupted reads, later edits and cancellation are exercised. [Current delivery status](NEXT-AGENT.md) distinguishes these passes from final integration. Unqualified unplaced navigation, ambiguity and unsupported media still refuse; no authority selection or real-library migration is enabled.
 
-C079 merged at8b762a9d; PR and post-merge Verify/parity pass. C080 merged through PR45 at d4e443ee; PR and post-merge gates pass ([receipt](cycles/evidence/C080/merge.json)). It preserves connection-bound navigation and unplaced local Archive in previews. C081 defines the [exclusive upstream admission prerequisite](migration/seal-admission.md); implementation and authority selection remain pending.
+C079 merged at8b762a9d; PR and post-merge Verify/parity pass. C080 merged through PR45 at d4e443ee; PR and post-merge gates pass ([receipt](cycles/evidence/C080/merge.json)). It preserves connection-bound navigation and unplaced local Archive in previews. C081 defines the [exclusive upstream admission prerequisite](migration/seal-admission.md). [C082](cycles/C082-managed-admission.md) implements and tests its internal coordinator; upstream PR20420 is green but awaits a decision on the automatic production deployment that merging would trigger. Complete writer coverage, runtime adoption and authority selection remain pending.
 
 ## Carry forward
 

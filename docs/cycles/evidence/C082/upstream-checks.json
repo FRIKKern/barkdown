@@ -1,0 +1,47 @@
+{
+  "source": "d5b909fe16fe82b2d40ef23b9f04b5e5d9e0d2c6",
+  "pr": "https://github.com/FRIKKern/barkpark/pull/20420",
+  "result": "required checks passed; merge pending production-deployment authorization",
+  "run": 36225486683,
+  "job": 108358622437,
+  "selection": "ALL",
+  "tests": 23168,
+  "doctests": 30,
+  "failures": 0,
+  "excluded": 40,
+  "skipped": 2,
+  "bootTests": 14,
+  "testStartedAt": "2026-09-26T07:04:44Z",
+  "testCompletedAt": "2026-09-26T07:30:55Z",
+  "required": [
+    {
+      "name": "PR references an active task",
+      "status": "COMPLETED",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/36225486639/job/108358573151"
+    },
+    {
+      "name": "Cloud gate",
+      "status": "COMPLETED",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/36225486687/job/108358910365"
+    },
+    {
+      "name": "Elixir gate",
+      "status": "COMPLETED",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/36225486683/job/108362913490"
+    },
+    {
+      "name": "Console gate",
+      "status": "COMPLETED",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/36225486606/job/108358678247"
+    }
+  ],
+  "deploymentWorkflow": {
+    "state": "active",
+    "path": ".github/workflows/deploy.yml",
+    "id": 304821157
+  }
+}

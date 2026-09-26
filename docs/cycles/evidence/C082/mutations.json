@@ -1,0 +1,18 @@
+{
+  "scope": "Temporary source copies only; the repository implementation was not mutated",
+  "control": "focused-09.log: 23 tests, 0 failures, before the final two tests were added",
+  "mutations": [
+    {
+      "name": "restart",
+      "replace": "if record.phase == :open and record.pending == [], do: :open, else: :recovery_required",
+      "with": ":open",
+      "result": "mutant-restart.log: 23 tests, 6 failures, exit 2"
+    },
+    {
+      "name": "drain",
+      "replace": "defp maybe_held(%{record: %{phase: :closing, pending: []}} = state)",
+      "with": "defp maybe_held(%{record: %{phase: :closing}} = state)",
+      "result": "mutant-drain.log: 23 tests, 4 failures, exit 2"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 # Current handoff
 
-[C081 exclusive seal contract](cycles/C081-seal-contract.md) audits the upstream mutation boundary before activation. C080 is merged and post-merge gates pass ([receipt](cycles/evidence/C080/merge.json)).
+[C082 managed admission](cycles/C082-managed-admission.md) is implemented and tested in upstream PR20420. All required gates pass, including23,168 tests and the25 admission cases. Merge awaits the user's decision: upstream API merges automatically deploy production, which the current scope excludes.
 
-No authority switch or legacy retirement: P2/A2 remains open. Use the current cycle for scope and exact next action. Preserve recovery worktrees and both stashes.
+No seal capability, authority switch or legacy retirement. Do not start dependent writer wiring or bypass deployment automation. The cycle names the isolated branch, claimed task, evidence and exact next step. Preserve all recovery checkouts and stashes.

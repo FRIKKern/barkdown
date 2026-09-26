@@ -1,0 +1,37 @@
+{
+  "source": "d5b909fe16fe82b2d40ef23b9f04b5e5d9e0d2c6",
+  "scope": "Bounded source review while upstream CI runs; not an exhaustive writer census or runtime proof",
+  "findings": [
+    {
+      "owner": "api/lib/barkpark/tenancy.ex:1981",
+      "boundary": "delete_workspace wraps database deletion, then flushes deferred media effects after commit",
+      "implication": "An admission scoped only to Media.delete_file ends too early. The outer transaction owner must retain admission through deferred blob/rendition cleanup. Rollback and exceptions need explicit settlement or uncertainty."
+    },
+    {
+      "owner": "api/lib/barkpark/content/mutations.ex:111",
+      "boundary": "do_apply_mutations commits a batch before flushing deferred broadcasts; failures can enter compensating cleanup",
+      "implication": "Admission covers transaction outcome and all synchronous effects, including compensation. A generic after/finally checkin could erase uncertainty after partial effects."
+    },
+    {
+      "owner": "api/lib/barkpark/content/papers.ex:388",
+      "boundary": "refresh_html_cache performs a revision-changing Repo.update inside a read and swallows failures",
+      "implication": "Held-mode readers must derive without persisting, or explicitly refuse. Testing only mutation routes misses this writer."
+    },
+    {
+      "owner": "api/lib/barkpark/plugins/media.ex:95",
+      "boundary": "after_media_upload calls Processing.process synchronously; processing writes content and renditions",
+      "implication": "The upload owner must hold admission through hooks and rendition effects, including errors converted to ordinary return values."
+    },
+    {
+      "owner": "api/lib/barkpark/plugins/media/stuck_processing_sweeper.ex:142",
+      "boundary": "Oban sweeper updates attempt state and invokes processing without a foreground request",
+      "implication": "It needs independent admission or explicit managed-mode disable/refusal. source:worker is not an exemption."
+    }
+  ],
+  "remaining": [
+    "Enumerate direct document, schema, proposal, session, backfill, import, plugin and blob mutations reachable in the supported managed configuration",
+    "Bind startup, journal and database identity under exclusive host ownership; reject unsupported modes",
+    "Exercise real context and HTTP writes, deferred cleanup, commit/rollback, lost responses and restart against private database/blob fixtures",
+    "Keep the capability unavailable until complete writer coverage and recovery are demonstrated"
+  ]
+}

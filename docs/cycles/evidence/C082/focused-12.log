@@ -1,0 +1,31 @@
+Running ExUnit with seed: 632206, max_cases: 40
+
+...................
+08:59:05.938 [error] GenServer {Barkpark.ManagedRuntime.WriteAdmission, "fixture-A"} terminating
+** (stop) {:journal_unavailable, :closed_journal}
+Last message (from #PID<0.294.0>): :admission_message_redacted
+State: %{phase: :open, generation: 1, sequence: 2}
+Client #PID<0.294.0> is alive
+
+    (stdlib 7.3) gen.erl:262: :gen.do_call/4
+    (elixir 1.18.4) lib/gen_server.ex:1125: GenServer.call/3
+    api/test/barkpark/managed_runtime/write_admission_test.exs:444: Barkpark.ManagedRuntime.WriteAdmissionTest."test failed settlement persistence retains uncertainty on restart"/1
+    (ex_unit 1.18.4) lib/ex_unit/runner.ex:511: ExUnit.Runner.exec_test/2
+    (stdlib 7.3) timer.erl:599: :timer.tc/2
+    (ex_unit 1.18.4) lib/ex_unit/runner.ex:433: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+.....
+08:59:06.000 [error] GenServer {Barkpark.ManagedRuntime.WriteAdmission, "fixture-A"} terminating
+** (stop) {:journal_unavailable, :closed_journal}
+Last message (from #PID<0.335.0>): :admission_message_redacted
+State: %{phase: :open, generation: 1, sequence: 1}
+Client #PID<0.335.0> is alive
+
+    (stdlib 7.3) gen.erl:262: :gen.do_call/4
+    (elixir 1.18.4) lib/gen_server.ex:1125: GenServer.call/3
+    api/test/barkpark/managed_runtime/write_admission_test.exs:423: Barkpark.ManagedRuntime.WriteAdmissionTest."test failed persistence does not acknowledge an admitted write"/1
+    (ex_unit 1.18.4) lib/ex_unit/runner.ex:511: ExUnit.Runner.exec_test/2
+    (stdlib 7.3) timer.erl:599: :timer.tc/2
+    (ex_unit 1.18.4) lib/ex_unit/runner.ex:433: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+.
+Finished in 2.1 seconds (0.7s on load, 0.00s async, 1.3s sync)
+25 tests, 0 failures

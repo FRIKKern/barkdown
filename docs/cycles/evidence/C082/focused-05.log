@@ -1,0 +1,173 @@
+Running ExUnit with seed: 75555, max_cases: 40
+
+
+
+  1) test coordinator death in open cannot reopen interrupted work (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:173
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :journal_exists}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:11: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+
+  2) test a writer cannot begin a hold that waits for itself (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:96
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :journal_exists}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:11: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+
+  3) test failed settlement persistence retains uncertainty on restart (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:333
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :journal_exists}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:11: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+
+  4) test malformed persistent state refuses (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:248
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :journal_exists}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:11: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+
+  5) test status exposes no write or hold ticket (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:259
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :journal_exists}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:11: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+
+  6) test close refuses later writers and waits for every admitted effect (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:36
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :journal_exists}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:11: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+
+  7) test duplicate coordinator cannot share the live journal (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:234
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :journal_exists}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:11: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+
+  8) test tickets and hold handles cannot be transferred to another process (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:102
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :journal_exists}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:11: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+
+  9) test holder death remains blocked even with no writers (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:152
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :journal_exists}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:11: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+
+ 10) test failed persistence does not acknowledge an admitted write (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:311
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :journal_exists}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:11: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+
+ 11) test coordinator death in held cannot reopen interrupted work (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:173
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :journal_exists}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:11: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+
+ 12) test admission survives clean settlement and changes generation on restart (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:19
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :journal_exists}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:11: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+
+ 13) test independent instances do not share tickets or admission (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:280
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :journal_exists}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:11: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+
+ 14) test coordinator death in closing cannot reopen interrupted work (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:173
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :journal_exists}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:11: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+.......
+Finished in 0.7 seconds (0.6s on load, 0.00s async, 0.1s sync)
+21 tests, 14 failures

@@ -1,0 +1,350 @@
+Running ExUnit with seed: 199241, max_cases: 40
+
+
+08:53:27.236 [error] global: #PID<0.120.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-1f224b33240e24563b9c096e/admission.dets"}]
+
+
+
+  1) test holder death remains blocked even with no writers (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:158
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.254 [error] global: #PID<0.122.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-e90932d3f0ff72592ed245b9/admission.dets"}]
+
+
+
+  2) test coordinator death in held cannot reopen interrupted work (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:179
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.256 [error] global: #PID<0.124.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-ff3b5accac99fba594ee2bc1/admission.dets"}]
+
+
+
+  3) test one instance cannot acquire a second journal (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:317
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.258 [error] global: #PID<0.126.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-5ae5838a8131e7608de4d07e/admission.dets"}]
+
+
+
+  4) test corrupt journal is not repaired or replaced (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:247
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.260 [error] global: #PID<0.128.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-7de9c3b13c9808f0d3a1795a/admission.dets"}]
+
+
+
+  5) test a foreign holder cannot reuse an operation identity (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:279
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.261 [error] global: #PID<0.130.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-35d35200f35835d9c1646191/admission.dets"}]
+
+
+
+  6) test failed persistence does not acknowledge an admitted write (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:342
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.263 [error] global: #PID<0.132.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-809c87052137c2db6a9b74e8/admission.dets"}]
+
+
+
+  7) test a delayed begin request cannot close a reopened generation (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:271
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.264 [error] global: #PID<0.134.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-b1b394b640d67c85357c17b8/admission.dets"}]
+
+
+
+  8) test coordinator death in open cannot reopen interrupted work (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:179
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.266 [error] global: #PID<0.136.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-d1f030c1fa5f536fca4e4a75/admission.dets"}]
+
+
+
+  9) test failed settlement persistence retains uncertainty on restart (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:364
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.267 [error] global: #PID<0.138.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-0b470238e94bb9e6b2865e3e/admission.dets"}]
+
+
+
+ 10) test a writer cannot begin a hold that waits for itself (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:102
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.269 [error] global: #PID<0.140.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-436d14eafcf144221d59f8db/admission.dets"}]
+
+
+
+ 11) test missing initialization and invalid identities never create a journal (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:303
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.270 [error] global: #PID<0.142.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-3d52e4ad48c694fddfc15e3a/admission.dets"}]
+
+
+
+ 12) test coordinator death in closing cannot reopen interrupted work (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:179
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.272 [error] global: #PID<0.144.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-509a6c9d43e839a9aa44ac7c/admission.dets"}]
+
+
+
+ 13) test tickets and hold handles cannot be transferred to another process (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:108
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.273 [error] global: #PID<0.146.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-c9648aa7130dce1acf98e6ef/admission.dets"}]
+
+
+
+ 14) test a dead admitted writer leaves uncertainty and never completes the drain (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:128
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.275 [error] global: #PID<0.148.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-af947475a2e3b8b70d981eca/admission.dets"}]
+
+
+
+ 15) test duplicate coordinator cannot share the live journal (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:240
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.277 [error] global: #PID<0.150.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-79e7cf1d208df33d20f602d1/admission.dets"}]
+
+
+
+ 16) test nested work can settle while closing; duplicate settlement cannot release its sibling (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:69
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.278 [error] global: #PID<0.152.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-7a342a236884a2ce38f7c070/admission.dets"}]
+
+
+
+ 17) test malformed persistent state refuses (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:254
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.280 [error] global: #PID<0.154.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-dd9445461351e9a49702bd6d/admission.dets"}]
+
+
+
+ 18) test status exposes no write or hold ticket (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:265
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.281 [error] global: #PID<0.156.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-b1608ffed94e5ada69257282/admission.dets"}]
+
+
+
+ 19) test admission survives clean settlement and changes generation on restart (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:25
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.283 [error] global: #PID<0.158.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-99787178d09b25cf7e8bcc94/admission.dets"}]
+
+
+
+ 20) test close refuses later writers and waits for every admitted effect (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:42
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.284 [error] global: #PID<0.160.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-1fc2ccc92f47b233a8004bda/admission.dets"}]
+
+
+
+ 21) test explicit uncertain effects cannot be cleared by later settlement (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:326
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.286 [error] global: #PID<0.162.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-422f223e4a3aead45061b1e2/admission.dets"}]
+
+
+
+ 22) test independent instances do not share tickets or admission (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:286
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+08:53:27.287 [error] global: #PID<0.164.0> registered under several names: [{Barkpark.ManagedRuntime.WriteAdmission, :instance, "fixture-A"}, {Barkpark.ManagedRuntime.WriteAdmission, "c:/Users/Frikk/AppData/Local/Temp/bp-admission-732eacb0db25ef9331ea3ac8/admission.dets"}]
+
+
+
+ 23) test missing and foreign journals refuse; initialization never replaces an existing file (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:220
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :instance_already_started}
+
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:17: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit_setup_0/1
+       api/test/barkpark/managed_runtime/write_admission_test.exs:1: Barkpark.ManagedRuntime.WriteAdmissionTest.__ex_unit__/2
+
+
+Finished in 0.7 seconds (0.7s on load, 0.00s async, 0.07s sync)
+23 tests, 23 failures

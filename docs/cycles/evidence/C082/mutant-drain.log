@@ -1,0 +1,84 @@
+Running ExUnit with seed: 100500, max_cases: 40
+
+....
+08:54:58.192 [error] GenServer {Barkpark.ManagedRuntime.WriteAdmission, "fixture-A"} terminating
+** (stop) {:journal_unavailable, :closed_journal}
+Last message (from #PID<0.155.0>): :admission_message_redacted
+State: %{phase: :open, generation: 1, sequence: 1}
+Client #PID<0.155.0> is alive
+
+    (stdlib 7.3) gen.erl:262: :gen.do_call/4
+    (elixir 1.19.5) lib/gen_server.ex:1139: GenServer.call/3
+    api/test/barkpark/managed_runtime/write_admission_test.exs:362: Barkpark.ManagedRuntime.WriteAdmissionTest."test failed persistence does not acknowledge an admitted write"/1
+    (ex_unit 1.19.5) lib/ex_unit/runner.ex:528: ExUnit.Runner.exec_test/2
+    (stdlib 7.3) timer.erl:599: :timer.tc/2
+    (ex_unit 1.19.5) lib/ex_unit/runner.ex:450: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+..
+
+  1) test a dead admitted writer leaves uncertainty and never completes the drain (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:128
+     ** (MatchError) no match of right hand side value:
+
+         {:ok, :held,
+          {"7872880c2dae6f690da4630ae08f0036", 1, "08e4ed27633a8430d921fc3d6e0783f1"}}
+
+     code: {:ok, :closing, hold} = begin_hold(gate, "lost-writer")
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:145: (test)
+
+........
+
+  2) test coordinator death in closing cannot reopen interrupted work (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:179
+     ** (MatchError) no match of right hand side value:
+
+         {:ok, :held,
+          {"4c8f08c1852cb1d2db9aea89671d7659", 1, "92efd90fb00bc9843900dc9371aec2f4"}}
+
+     code: assert_crash(unquote(phase), gate, journal)
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:206: Barkpark.ManagedRuntime.WriteAdmissionTest.assert_crash/3
+       api/test/barkpark/managed_runtime/write_admission_test.exs:183: (test)
+
+
+
+  3) test nested work can settle while closing; duplicate settlement cannot release its sibling (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:69
+     ** (MatchError) no match of right hand side value:
+
+         {:ok, :held,
+          {"bf83e788bf0808422220333f7d991471", 1, "2aa22cd64f8aa95c63fb859a864ef9bd"}}
+
+     code: {:ok, :closing, hold} = begin_hold(gate, "nested")
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:92: (test)
+
+....
+
+  4) test close refuses later writers and waits for every admitted effect (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:42
+     match (=) failed
+     code:  assert {:ok, :closing, hold} = begin_hold(gate, "operation-1")
+     left:  {:ok, :closing, hold}
+     right: {:ok, :held,
+             {"b7b499648b9d014c68dc27c3329a43da", 1,
+              "d6f2eea6e1e0f311189efcf6f499b7cb"}}
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:56: (test)
+
+
+08:54:58.346 [error] GenServer {Barkpark.ManagedRuntime.WriteAdmission, "fixture-A"} terminating
+** (stop) {:journal_unavailable, :closed_journal}
+Last message (from #PID<0.307.0>): :admission_message_redacted
+State: %{phase: :open, generation: 1, sequence: 2}
+Client #PID<0.307.0> is alive
+
+    (stdlib 7.3) gen.erl:262: :gen.do_call/4
+    (elixir 1.19.5) lib/gen_server.ex:1139: GenServer.call/3
+    api/test/barkpark/managed_runtime/write_admission_test.exs:383: Barkpark.ManagedRuntime.WriteAdmissionTest."test failed settlement persistence retains uncertainty on restart"/1
+    (ex_unit 1.19.5) lib/ex_unit/runner.ex:528: ExUnit.Runner.exec_test/2
+    (stdlib 7.3) timer.erl:599: :timer.tc/2
+    (ex_unit 1.19.5) lib/ex_unit/runner.ex:450: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+.
+Finished in 0.9 seconds (0.7s on load, 0.00s async, 0.2s sync)
+23 tests, 4 failures
