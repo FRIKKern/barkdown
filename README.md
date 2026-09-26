@@ -1,10 +1,24 @@
-[![Barkdown roadmap: accepted profile isolation, current Paper migration, then recovery, optional sync and installation.](docs/images/roadmap.svg)](docs/ROADMAP.md)
-
 # Barkdown
 
 Barkdown is an experiment in what Barkpark can do, and a tool for figuring out what Barkpark should become.
 
 We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT, taking the parts we love from each. We’re doing this for fun and learning, with no plans to make money from it. The aim is an excellent app shaped by our taste and Barkpark.
+
+## Where we are · September 26, 2026
+
+**Working today:** the source prototype supports [writing, searching and restarting](docs/visual/paper-notes/README.md), [agent edits with Undo](docs/visual/agent-notes/README.md), and [deleted-note recovery](docs/visual/paper-deletions/README.md). We’re working toward one dependable Paper note engine; existing libraries have not switched yet.
+
+**Recent progress:** we proved a read-only library comparison, improved navigation ownership, and tested the controller intended to keep writes out during migration. That controller is not integrated. Its merge awaits a deployment decision; see the [six migration checkpoints](docs/ROADMAP.md#inside-migration).
+
+**Next result:** demonstrate that real note and media writes cannot slip through while a library is switching. Safe switching, restart and rollback still need proof before retiring the old editor.
+
+**Why timing is uncertain:** a tested controller does not yet prove coverage of every writer. Best plausible path: existing writers fit the controller and recovery checks pass. Adverse path: a bypass or recovery gap requires changes across the app and server, followed by another full rehearsal. We cannot responsibly bound completion time until that integration is exercised; the deployment decision is separate waiting time.
+
+We report delivered results and reduced uncertainty, not equal-sized checkboxes. Small steps can finish quickly while one safety boundary takes several iterations. This overview changes when the evidence, obstacle or outlook changes; details stay in the linked records. Recovery and portability follow migration; sync and installation remain later work.
+
+[Current work](docs/NEXT-AGENT.md) · [Plan](docs/PLAN.md) · [Verified results](docs/VALIDATION.md) · [Screenshots & recordings](docs/visual/README.md)
+
+[![Barkdown roadmap: accepted profile isolation, current Paper migration, then recovery, optional sync and installation.](docs/images/roadmap.svg)](docs/ROADMAP.md)
 
 ![A working notebook with a checklist, table and callout: an agent rewrites the opening, Undo restores it, and a person checks a task, edits a cell and finds a note.](docs/visual/agent-notes/runs/2026-09-24T23-33-22-364Z-notebook/readme-notebook.gif)
 
@@ -24,12 +38,6 @@ The Barkpark capabilities we’re exploring:
 - Media
 - Multiplayer, sharing and access
 - Document and spreadsheet editors
-
-## What we’re working on
-
-One dependable Paper note engine. Managed-local [human note creation, editing, search and restart](docs/visual/paper-notes/README.md), [agent editing with guarded Undo](docs/visual/agent-notes/README.md), and [deletion with recovery into a separate copy](docs/visual/paper-deletions/README.md) have source-prototype evidence. Upstream integration and migration remain unfinished; portable profiles follow. Sync, multiplayer and spreadsheets are part of the wider exploration, not completed app features.
-
-[Current work](docs/NEXT-AGENT.md) · [Plan](docs/PLAN.md) · [Verified results](docs/VALIDATION.md) · [Screenshots & recordings](docs/visual/README.md)
 
 ## Run it
 

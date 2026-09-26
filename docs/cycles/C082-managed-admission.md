@@ -27,3 +27,7 @@
 **Progress visibility delivered:** the generated roadmap and checklist show six migration checkpoints, latest advance, delivery blocker and next observable proof. Wide and README-size renders were inspected with no card overflow ([review](evidence/C082/progress-review/review.json)). Cycle closeout now requires reviewing this summary when milestones change. No product acceptance changed. An initial check caught an error-message mismatch; corrected before validation.
 
 Validation: root `npm run verify` passed; [raw log](evidence/C082/progress-review/verify.log). Generated roadmap freshness and existing negative checks passed. No app source or capture inputs changed.
+
+**Progress philosophy refinement:** the user requests an overarching, lightweight explanation of uneven progress and uncertainty. On `codex/progress-philosophy`, update the root README entry, canonical agent guidance and existing cycle guidance; no app behavior or acceptance changes. Review plain-language claims against the current handoff, run root verification once, and retain existing visual evidence because no capture inputs or diagrams change. Repository recovery worktrees and stashes remain preserved; retire this documentation lane after integration.
+
+Refinement validation: root `npm run verify` passed ([log](evidence/C082/progress-review/philosophy-verify.log)); README now opens with plain-language status before the diagram. Existing diagram/app captures remain applicable.
