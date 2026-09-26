@@ -2,6 +2,8 @@
 
 C081 decision for implementation, **not an available API**. The [source audit](../cycles/evidence/C081/source-audit.json) pins Barkdown d4e443ee and Barkpark b70214090. C080 preserves owned navigation; the [comparison](comparison.md) still returns `authority: legacy` and `activationAllowed: false`. This contract closes no A2 runtime acceptance gate.
 
+[C082](../cycles/C082-managed-admission.md) implements and tests an internal admission coordinator in upstream PR20420. It remains unwired and unmerged pending the automatic-deployment decision. The complete coverage and recovery requirements below still apply before advertising a capability.
+
 ## Why the app freeze is insufficient
 
 Preparation holds Barkdown's foreground, captured writers and launch admission. Its runtime leases retain the correct server; they do not exclude direct HTTP or internal server writers. A successful comparison can become stale before selection. Repeating a traversal narrows observation time but does not remove that race.

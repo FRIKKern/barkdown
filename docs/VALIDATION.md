@@ -1,5 +1,7 @@
 # Evidence and remaining proof
 
+[C082 managed admission](cycles/C082-managed-admission.md): upstream PR20420 implements the internal durable coordinator at d5b909fe. All required gates pass:23,168 tests,0 failures,40 excluded,2 skipped, plus30 doctests and14 boot tests. The Linux log confirms all25 admission cases; two deliberate mutations fail as intended. Root verification passes50.617s. [Evidence](cycles/evidence/C082/README.md). Merge awaits the user's production-deployment decision; no content/media wiring, seal capability, authority switch or new UI proof.
+
 [C081 admission contract](cycles/C081-seal-contract.md) pins 19 inspected source files and specifies upstream drain, cache/media coverage and fail-closed restart. Root verification passes (59.205s). This is design/source evidence only; no admission API, runtime seal or authority switch is implemented.
 
 [C080 owned navigation](cycles/C080-owned-navigation.md): 81 focused and 85 migration regressions, full desktop (777.915s), native managed Archive/navigation/refusal/restart (203.836s) and real comparison (113.078s) pass. Native, corrected live and standard captures are reviewed; standard comparison has no pixel/geometry changes. Root verification passes (54.320s); [PR45 and post-merge gates pass](cycles/evidence/C080/merge.json). The first hosted parity run failed Find entry; one identical-head rerun passed20/20, with no reliability fix claimed. The first refreshed live capture was rejected after image inspection; its retained review explains the corrected harness. No authority activation.

@@ -1,35 +1,37 @@
 {
   "version": 1,
-  "id": "C081",
+  "id": "C082",
   "stage": "P2",
   "status": "active",
-  "goal": "Specify exclusive upstream mutation admission and failure recovery before migration authority selection.",
+  "goal": "Persist and test managed upstream write admission through drain and process restart without enabling migration.",
   "scope": [
-    "Audit content and media mutation boundaries at the pinned upstream source",
-    "Define one proposed seal admission protocol and race/crash acceptance",
-    "Archive C080 delivery and replace the current handoff"
+    "Internal opt-in coordinator and durable journal",
+    "Deterministic drain, ownership, interruption and restart tests",
+    "Integrate the tested primitive before production writer wiring"
   ],
   "acceptance": [
-    "Every inspected mutation class has an owner and evidence reference",
-    "Existing behavior is separate from proposed APIs and unproven guarantees",
-    "The next implementation has explicit coverage and interruption gates",
-    "Root verification and repository truth review pass"
+    "Admitted work drains before held state; later callers refuse",
+    "Lost owners or interrupted state never silently reopen",
+    "Real journal restart and ownership tests pass",
+    "Required checks and delivery evidence remain honest; no seal capability enabled"
   ],
   "checkpoint": "2026-09-26",
-  "handoff": "docs/cycles/C081-seal-contract.md",
-  "nextAction": "Finish hosted Verify and merge; then implement the upstream gate with drain/cache/media/restart proof before enabling capability.",
+  "handoff": "docs/cycles/C082-managed-admission.md",
+  "nextAction": "Resolve PR20420's automatic production deployment against the no-deployment scope; all required checks now pass.",
   "evidence": [
-    "docs/cycles/evidence/C080/merge.json",
-    "docs/cycles/evidence/C081/source-audit.json",
-    "docs/cycles/evidence/C081/checks-01/result.json"
+    "docs/cycles/evidence/C081/merge.json",
+    "docs/cycles/evidence/C082/README.md",
+    "docs/cycles/evidence/C082/upstream-checks.json",
+    "https://github.com/FRIKKern/barkpark/pull/20420"
   ],
-  "truthReview": "Reviewed pinned content/media owners and caller paths; contract explicitly proposed, no runtime proof or activation. Updated C080 receipt and stale navigation claims.",
-  "screenshotReview": "Documentation-only; no visual inputs changed. C080 reviewed captures remain applicable.",
+  "truthReview": "Upstream full Mix suite and all25 named admission tests pass; required gates are green. Merge is pending deployment authorization. No runtime wiring, seal capability or activation claim.",
+  "screenshotReview": "No visual inputs changed; upstream primitive is unwired. C080 reviewed evidence remains applicable.",
   "delivery": {
     "phase": "integrating",
     "owner": "primary agent",
     "remaining": [
-      "Hosted Verify, merge and branch retirement"
+      "User decision: upstream API merges automatically deploy production; current scope excludes deployment",
+      "Upstream merge receipt and owned branch retirement after authorization"
     ]
   }
 }

@@ -1,0 +1,8 @@
+** (TokenMissingError) token missing on nofile:1:35:
+    error: invalid escape \ at end of file
+    │
+  1 │ ExUnit.start(); Code.require_file(\
+    │                                   ^
+    │
+    └─ nofile:1:35
+    (elixir 1.20.1) lib/code.ex:648: Code.validated_eval_string/4

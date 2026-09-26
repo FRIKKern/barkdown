@@ -1,0 +1,94 @@
+     warning: comparison between distinct types found:
+
+         phase != :held
+
+     given types:
+
+         :closing != :held
+
+     where "phase" was given the type:
+
+         # type: :closing
+         # from: api/test/barkpark/managed_runtime/write_admission_test.exs:134:13
+         phase = :closing
+
+     While Elixir can compare across all types, you are comparing across types which are always disjoint, and the result is either always true or always false
+
+     type warning found at:
+     │
+ 136 │       writer = if phase != :held do
+     │                         ~
+     │
+     └─ api/test/barkpark/managed_runtime/write_admission_test.exs:136:25: Barkpark.ManagedRuntime.WriteAdmissionTest."test coordinator death in closing cannot reopen interrupted work"/1
+
+     warning: comparison between distinct types found:
+
+         phase != :held
+
+     given types:
+
+         :open != :held
+
+     where "phase" was given the type:
+
+         # type: :open
+         # from: api/test/barkpark/managed_runtime/write_admission_test.exs:134:13
+         phase = :open
+
+     While Elixir can compare across all types, you are comparing across types which are always disjoint, and the result is either always true or always false
+
+     type warning found at:
+     │
+ 136 │       writer = if phase != :held do
+     │                         ~
+     │
+     └─ api/test/barkpark/managed_runtime/write_admission_test.exs:136:25: Barkpark.ManagedRuntime.WriteAdmissionTest."test coordinator death in open cannot reopen interrupted work"/1
+
+     warning: comparison between distinct types found:
+
+         phase != :open
+
+     given types:
+
+         :held != :open
+
+     where "phase" was given the type:
+
+         # type: :held
+         # from: api/test/barkpark/managed_runtime/write_admission_test.exs:134:13
+         phase = :held
+
+     While Elixir can compare across all types, you are comparing across types which are always disjoint, and the result is either always true or always false
+
+     type warning found at:
+     │
+ 144 │       hold = if phase != :open do
+     │                       ~
+     │
+     └─ api/test/barkpark/managed_runtime/write_admission_test.exs:144:23: Barkpark.ManagedRuntime.WriteAdmissionTest."test coordinator death in held cannot reopen interrupted work"/1
+
+Running ExUnit with seed: 10785, max_cases: 40
+
+
+
+  1) test corrupt journal is not repaired or replaced (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:173
+     ** (EXIT from #PID<0.121.0>) {:not_a_dets_file, ~c"c:/Users/Frikk/AppData/Local/Temp/bp-admission-2626/admission.dets"}
+
+
+
+  2) test missing and foreign journals refuse; initialization never replaces an existing file (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:159
+     ** (EXIT from #PID<0.134.0>) :journal_missing
+
+..
+
+  3) test malformed persistent state refuses (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:180
+     ** (EXIT from #PID<0.157.0>) :invalid_journal
+
+..........
+Finished in 1.0 seconds (0.7s on load, 0.00s async, 0.3s sync)
+
+Result: 12/15 passed
+Failed: 3 tests

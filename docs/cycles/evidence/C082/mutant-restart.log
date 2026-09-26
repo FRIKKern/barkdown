@@ -1,0 +1,100 @@
+Running ExUnit with seed: 479548, max_cases: 40
+
+.
+
+  1) test a dead admitted writer leaves uncertainty and never completes the drain (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:128
+     Assertion with == failed
+     code:  assert Admission.status(next).phase == :recovery_required
+     left:  :open
+     right: :recovery_required
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:153: (test)
+
+
+
+  2) test coordinator death in open cannot reopen interrupted work (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:179
+     Assertion with == failed
+     code:  assert Admission.status(next).phase == :recovery_required
+     left:  :open
+     right: :recovery_required
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:214: Barkpark.ManagedRuntime.WriteAdmissionTest.assert_crash/3
+       api/test/barkpark/managed_runtime/write_admission_test.exs:183: (test)
+
+......
+
+  3) test coordinator death in closing cannot reopen interrupted work (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:179
+     Assertion with == failed
+     code:  assert Admission.status(next).phase == :recovery_required
+     left:  :open
+     right: :recovery_required
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:214: Barkpark.ManagedRuntime.WriteAdmissionTest.assert_crash/3
+       api/test/barkpark/managed_runtime/write_admission_test.exs:183: (test)
+
+...
+08:54:56.659 [error] GenServer {Barkpark.ManagedRuntime.WriteAdmission, "fixture-A"} terminating
+** (stop) {:journal_unavailable, :closed_journal}
+Last message (from #PID<0.238.0>): :admission_message_redacted
+State: %{phase: :open, generation: 1, sequence: 2}
+Client #PID<0.238.0> is alive
+
+    (stdlib 7.3) gen.erl:262: :gen.do_call/4
+    (elixir 1.19.5) lib/gen_server.ex:1139: GenServer.call/3
+    api/test/barkpark/managed_runtime/write_admission_test.exs:383: Barkpark.ManagedRuntime.WriteAdmissionTest."test failed settlement persistence retains uncertainty on restart"/1
+    (ex_unit 1.19.5) lib/ex_unit/runner.ex:528: ExUnit.Runner.exec_test/2
+    (stdlib 7.3) timer.erl:599: :timer.tc/2
+    (ex_unit 1.19.5) lib/ex_unit/runner.ex:450: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+
+
+  4) test failed settlement persistence retains uncertainty on restart (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:370
+     Assertion with == failed
+     code:  assert Admission.status(next).phase == :recovery_required
+     left:  :open
+     right: :recovery_required
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:386: (test)
+
+
+
+  5) test coordinator death in held cannot reopen interrupted work (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:179
+     Assertion with == failed
+     code:  assert Admission.status(next).phase == :recovery_required
+     left:  :open
+     right: :recovery_required
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:214: Barkpark.ManagedRuntime.WriteAdmissionTest.assert_crash/3
+       api/test/barkpark/managed_runtime/write_admission_test.exs:183: (test)
+
+
+
+  6) test explicit uncertain effects cannot be cleared by later settlement (Barkpark.ManagedRuntime.WriteAdmissionTest)
+     api/test/barkpark/managed_runtime/write_admission_test.exs:332
+     Assertion with == failed
+     code:  assert Admission.status(next).phase == :recovery_required
+     left:  :open
+     right: :recovery_required
+     stacktrace:
+       api/test/barkpark/managed_runtime/write_admission_test.exs:345: (test)
+
+.
+08:54:56.691 [error] GenServer {Barkpark.ManagedRuntime.WriteAdmission, "fixture-A"} terminating
+** (stop) {:journal_unavailable, :closed_journal}
+Last message (from #PID<0.281.0>): :admission_message_redacted
+State: %{phase: :open, generation: 1, sequence: 1}
+Client #PID<0.281.0> is alive
+
+    (stdlib 7.3) gen.erl:262: :gen.do_call/4
+    (elixir 1.19.5) lib/gen_server.ex:1139: GenServer.call/3
+    api/test/barkpark/managed_runtime/write_admission_test.exs:362: Barkpark.ManagedRuntime.WriteAdmissionTest."test failed persistence does not acknowledge an admitted write"/1
+    (ex_unit 1.19.5) lib/ex_unit/runner.ex:528: ExUnit.Runner.exec_test/2
+    (stdlib 7.3) timer.erl:599: :timer.tc/2
+    (ex_unit 1.19.5) lib/ex_unit/runner.ex:450: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+......
+Finished in 0.9 seconds (0.7s on load, 0.00s async, 0.2s sync)
+23 tests, 6 failures

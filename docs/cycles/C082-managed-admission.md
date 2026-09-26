@@ -1,0 +1,23 @@
+# C082 — managed write admission
+
+**Outcome / scope:** implement and test the internal upstream coordinator for durable write admission, drain and held state. No automatic supervision, content/media wiring, HTTP API, seal advertisement or authority selection until the C081 coverage gates are met. An unwired primitive cannot establish exclusive runtime admission.
+
+**Source / ownership:** Barkdown f912729e; upstream 1d7c9739b in the isolated `barkpark-migration-admission` worktree, branch `codex/managed-write-admission`. Task `task-a56ae2ae8287166f`, worker `codex-barkdown-c082`, parent `task-bc9c0701def08446`; published and claimed. C081 PR46 and post-merge Verify36223933115 pass.
+
+**Budget / stop:** user requested work through at least 2026-09-26 07:41:10 UTC. Aim to publish a tested primitive in this hour; if remote gates exceed it, preserve the exact pending run and keep activation disabled. Do not expand into selector/rollback before this checkpoint lands.
+
+**Tripwires:** state persistence, owner identity, nested writes, drain races and crash refusal. Targeted ExUnit tests use real private journal files and deterministic process barriers. Root verification and upstream required gates at ready checkpoint. Documentation-only Barkdown changes do not invalidate C080 imagery; upstream coordinator is unwired and changes no visible editor behavior. No UI proof or fresh capture claimed.
+
+**Preflight:** default PATH is obsolete Elixir1.11/OTP21. Final standalone checks used official Elixir1.18.4 and1.19.5 with local OTP28; CI supplies OTP27 and full Mix integration. Dependencies and shared services were left intact. Journal durability covers process restart, not power-loss proof. Exclusive journal ownership across OS processes is a host prerequisite, not something the in-node registry proves.
+
+**Implemented:** upstream [PR20420](https://github.com/FRIKKern/barkpark/pull/20420), commit `d5b909fe16fe82b2d40ef23b9f04b5e5d9e0d2c6`. The internal coordinator persists admission before acknowledging a writer, drains nested and independent owners, retains uncertainty after owner loss, and refuses interrupted restart. Caller-bound tickets and generations protect hold/reopen. Missing, foreign, malformed and unavailable journals refuse. It has no application wiring, transport API or recovery override.
+
+**Measured:** 25 standalone ExUnit tests pass on both pinned Elixir versions, including abrupt child-VM halt/restart. The preceding23-test control detected deliberate restart bypass (6 failures) and premature hold (4 failures). Root verification passes in50.617s. All required upstream gates pass:30 doctests,23,168 tests,0 failures,40 excluded,2 skipped, plus14 boot tests. The Linux log names all25 admission completions. No HTTP writer integration is claimed. Local doc budget passes; gate discovery lacked jq/python3 and is not passing evidence. The redundant local anchor scan was interrupted after its equivalent Linux gate passed.
+
+**Failures retained:** initial shell quoting, linked negative-start tests, reused temporary directory names, duplicate global registration and child-VM argument handling were corrected before the passing result. These are development failures, not successful first-attempt validation. Raw results are linked in the [evidence record](evidence/C082/README.md).
+
+**Host tooling / hygiene:** installed `bp` is1.15.0 and its `doc patch --file` returned success without changing the requested field. Typed `--set` worked; `doc mutate --file` with `ifRevisionID` also worked. Always read back. The saved `Guerrilla` server was selected per command; default localhost was left unchanged. Barkdown has46 worktrees:45 detached, including43 locked recoveries; two stashes remain. Preserve them and review unique history at the next cleanup checkpoint. The upstream repo has other contributors' remote refs; only this cycle's named branch is owned for retirement.
+
+**Integration constraint:** upstream `deploy/README.md` and the active `.github/workflows/deploy.yml` automatically deploy API merges to production. This repository's instructions exclude production deployment. Do not merge PR20420 or disable shared automation without resolving that scope with the user. The implementation remains unwired even if deployment is later authorized; deploying and enabling migration are separate actions.
+
+**Next:** the concrete merge/deployment question is pending with the user. Finish the Barkdown evidence checkpoint independently. If authorized, recheck the exact PR head and gates before merging, record the result and retire only the merged owned lane. Otherwise retain this one reviewed branch and its task. Do not expand writer adapters on the unmerged dependency.
