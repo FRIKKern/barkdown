@@ -1,0 +1,129 @@
+{
+  "auditedAt": "2026-09-26T06:25:12.200Z",
+  "method": "Read-only source trace of named functions and callers; relevant excerpts inspected, not a repository-wide audit or runtime test.",
+  "barkdown": "d4e443eeed7855108042685e891407b29ea9474f",
+  "barkpark": "b702140907921e82e9ce5eecb3e2445f13ab2d6e",
+  "files": [
+    {
+      "repository": "barkdown",
+      "file": "app/main/profile-runtime.js",
+      "sha256": "d51cdd3a9417a86b0b87789d6d78fe16e1d904e665cc940247aa8822821998fa",
+      "finding": "Runtime leases retain ownership; no exclusive upstream mutation admission."
+    },
+    {
+      "repository": "barkdown",
+      "file": "app/main/profile-preparation.js",
+      "sha256": "20fffb5e53d95c619970b396e7a113cbf26428688ba703bb1d8a2d635cb43119",
+      "finding": "withPrepared retains the coordinator lease and verifies writer/preparation state."
+    },
+    {
+      "repository": "barkdown",
+      "file": "app/main/local-barkpark-source.js",
+      "sha256": "7c5efbd6c82ab86a22da596b0ac2548e22690cb13bae559a17cb2670cb15f3a7",
+      "finding": "Dedicated process/database ownership and boot identity; process lifecycle is not mutation exclusion."
+    },
+    {
+      "repository": "barkdown",
+      "file": "app/main/migration-comparison.js",
+      "sha256": "bc87b94dfab84e71105032857d728bb195a74aab39c5392591e0e0b998d8cba3",
+      "finding": "Repeated inventories; returns legacy authority with activation disabled."
+    },
+    {
+      "repository": "barkpark",
+      "file": "api/lib/barkpark_web/router.ex",
+      "sha256": "21bceea512d6be768b3c4371fda41672b7f013a4a20b3950fd8290e41dd8ef42",
+      "finding": "Distinct generic, scoped and media pipelines plus ingest aliases."
+    },
+    {
+      "repository": "barkpark",
+      "file": "api/lib/barkpark_web/plugs/require_write_permission.ex",
+      "sha256": "2167f605cbfdcff24423e7d432e6163fb986dd6788398e61a78cbd425f87c6e2",
+      "finding": "Permission admission, not exclusive migration admission."
+    },
+    {
+      "repository": "barkpark",
+      "file": "api/lib/barkpark/content.ex",
+      "sha256": "6dfc3653f5ffa1cb82d145c957aef38d806c610a5676ec7796665ad6531aad2b",
+      "finding": "Direct Writer/Lifecycle facade paths bypass batch apply_mutations."
+    },
+    {
+      "repository": "barkpark",
+      "file": "api/lib/barkpark/content/mutations.ex",
+      "sha256": "5c6881de948dd7c99997594780e741cf184733806ca4d40b8bca836866fed65b",
+      "finding": "Batch transaction with deferred broadcasts."
+    },
+    {
+      "repository": "barkpark",
+      "file": "api/lib/barkpark/content/writer.ex",
+      "sha256": "4af689e97f1aadf29669decd981874346e753fb62771b41cf5751396304c8c12",
+      "finding": "Direct create/upsert and Repo writes."
+    },
+    {
+      "repository": "barkpark",
+      "file": "api/lib/barkpark/content/lifecycle.ex",
+      "sha256": "7144e46871ff0c2d1336965adc805beea493da962d384deb81af83eeef3b97b1",
+      "finding": "Publish/unpublish/delete/exact-draft mutation owners."
+    },
+    {
+      "repository": "barkpark",
+      "file": "api/lib/barkpark/content/revisions.ex",
+      "sha256": "66e7a97b27df78f98fa26a7e948815602fb358a79daacf82276539d12c792b06",
+      "finding": "Restore delegates to Content.upsert_document."
+    },
+    {
+      "repository": "barkpark",
+      "file": "api/lib/barkpark/content/papers.ex",
+      "sha256": "529f551ab73672601d78b04fd6c1ae9b87af6f1bd6c6f5a7aa5875af2bf461d8",
+      "finding": "reader_source reaches refresh_html_cache; Repo.update with optimistic revision change."
+    },
+    {
+      "repository": "barkpark",
+      "file": "api/lib/barkpark/content/papers/block_ops.ex",
+      "sha256": "dac2f451c46262f2713e4612c4e2aec8122501d69b6e1600db205e4cc7b07fe7",
+      "finding": "Native block writers and transaction/direct Repo boundaries."
+    },
+    {
+      "repository": "barkpark",
+      "file": "api/lib/barkpark_web/controllers/bulldocs_ingest_controller.ex",
+      "sha256": "fab103c0376688918161dbf8a47c8834b6a8f6baaa28e39be5dea3710b91d7eb",
+      "finding": "Native controller delegates to Paper block owners, separate from generic mutation route."
+    },
+    {
+      "repository": "barkpark",
+      "file": "api/lib/barkpark_web/controllers/v1/media_controller.ex",
+      "sha256": "d86e1dfa4339ca74fb387befdf8513e85aec2fbfa465ff25c49c142834429d4c",
+      "finding": "Upload/metadata/delete delegate to Media."
+    },
+    {
+      "repository": "barkpark",
+      "file": "api/lib/barkpark/media.ex",
+      "sha256": "76323739f79628ddcd656cc440813b75630de6e42f3e332d6c29251f4f0441fd",
+      "finding": "Upload persists blob before row and plugin hook; deletion includes post-transaction effects."
+    },
+    {
+      "repository": "barkpark",
+      "file": "api/lib/barkpark/media/processing.ex",
+      "sha256": "966c8ea61e1a85a65b1b1fff01d2e1a9ae33a77b670613ba1a10ff20db41a11e",
+      "finding": "Renditions and asset metadata writes through Content.upsert_document."
+    },
+    {
+      "repository": "barkpark",
+      "file": "api/lib/barkpark/plugins/media.ex",
+      "sha256": "34753e3ea1189ad8795976a0fe251ebecbc96668c8007712afa6a8294db1147e",
+      "finding": "Upload processing hook and scheduled stuck-processing sweep."
+    },
+    {
+      "repository": "barkpark",
+      "file": "api/lib/barkpark/plugins/media/stuck_processing_sweeper.ex",
+      "sha256": "251e425e8882f321a505d015b408c2cc0ac642d44c2d00498dda73b792d0ecc5",
+      "finding": "Oban job re-drives processing independently of foreground requests."
+    }
+  ],
+  "decision": "Propose opt-in runtime-wide durable upstream admission covering content, cache repair, media and workers before advertising a seal capability.",
+  "limitations": [
+    "No new code/API or runtime behavior is established.",
+    "Coverage of maintenance/import/backfill/plugin paths remains an implementation acceptance gate.",
+    "Process-crash and power-loss guarantees are separate.",
+    "No real content, tokens or server calls used."
+  ]
+}
