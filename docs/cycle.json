@@ -17,17 +17,23 @@
   ],
   "checkpoint": "2026-09-26",
   "handoff": "docs/cycles/C080-owned-navigation.md",
-  "nextAction": "Finish corrected live and standard capture review, root verification, then push and integrate.",
+  "nextAction": "Push the complete checkpoint, review hosted checks and visuals, merge and retire the delivery branch.",
   "evidence": [
-    "docs/cycles/evidence/C080/focused-03/result.json"
+    "docs/cycles/evidence/C080/focused-03/result.json",
+    "docs/cycles/evidence/C080/migration-01/result.json",
+    "docs/cycles/evidence/C080/desktop-01/result.json",
+    "docs/cycles/evidence/C080/live-01/result.json",
+    "docs/cycles/evidence/C080/final-live-02/result.json",
+    "docs/cycles/evidence/C080/live-corrected-review.json",
+    "docs/cycles/evidence/C080/visual-02/result.json",
+    "docs/cycles/evidence/C080/root-01/result.json"
   ],
-  "truthReview": "",
-  "screenshotReview": "",
+  "truthReview": "Reviewed owners, tests, plan, README claims and retained failure evidence. P2/A2 remains open; no authority activation.",
+  "screenshotReview": "Native 6 stills/206 samples/25 GIF frames, corrected live 5/37 and standard 40/40/40 actually inspected; explicit approval recorded.",
   "delivery": {
-    "phase": "validating",
+    "phase": "integrating",
     "owner": "primary agent",
     "remaining": [
-      "Correct and review live capture state; standard review and root verification",
       "Hosted gates, merge and cleanup"
     ]
   }

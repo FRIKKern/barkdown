@@ -1,6 +1,6 @@
 # Evidence and remaining proof
 
-[C080 owned navigation](cycles/C080-owned-navigation.md) at058554fd passes81 focused and85 migration regressions, full desktop777.915s, native managed Archive/navigation/refusal/restart203.836s and real comparison113.078s. Native6 stills/206 samples/25 GIF frames and live5 stills/37 frames reviewed. Standard/root and hosted integration remain pending. No authority activation.
+[C080 owned navigation](cycles/C080-owned-navigation.md): 81 focused and 85 migration regressions, full desktop (777.915s), native managed Archive/navigation/refusal/restart (203.836s) and real comparison (113.078s) pass. Native, corrected live and standard captures are reviewed; standard comparison has no pixel/geometry changes. Root verification passes (54.320s); hosted integration remains pending. The first refreshed live capture was rejected after image inspection; its retained review explains the corrected harness. No authority activation.
 
 [C079 entry](cycles/C079-editor-entry.md): focused real gaps13/13 and Find6/6 pass in107.114s at853543c5; native13 stills and67 motion samples reviewed. Harness observes selection without repairing it. C078 merged at5ceabea3; post-merge Verify passed but parity failed19/20 in initial core-editing setup. Failure retained. Live Paper and standard visuals reviewed; root verification passes48.484s. PR44 and post-merge Verify/parity pass; [delivery record](cycles/evidence/C079/merge.json).
 
