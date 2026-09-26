@@ -1,0 +1,665 @@
+TAP version 13
+# Subtest: complete mixed library exceeds one page, preserves variants and never repairs or mutates
+not ok 1 - complete mixed library exceeds one page, preserves variants and never repairs or mutates
+  ---
+  duration_ms: 440.7442
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-comparison.test.mjs:80:1'
+  failureType: 'testCodeFailure'
+  error: 'store.filePath is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    key (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:29:24)
+    Object.identify (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:47:59)
+    fixture (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:68:99)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:81:13)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: missing existing Paper refuses without repair
+not ok 2 - missing existing Paper refuses without repair
+  ---
+  duration_ms: 316.0825
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-comparison.test.mjs:102:4'
+  failureType: 'testCodeFailure'
+  error: 'store.filePath is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    key (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:29:24)
+    Object.identify (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:47:59)
+    fixture (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:68:99)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:103:13)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: changed existing draft refuses without repair
+not ok 3 - changed existing draft refuses without repair
+  ---
+  duration_ms: 260.9849
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-comparison.test.mjs:102:4'
+  failureType: 'testCodeFailure'
+  error: 'store.filePath is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    key (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:29:24)
+    Object.identify (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:47:59)
+    fixture (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:68:99)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:103:13)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: extra Paper refuses without repair
+not ok 4 - extra Paper refuses without repair
+  ---
+  duration_ms: 262.1577
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-comparison.test.mjs:102:4'
+  failureType: 'testCodeFailure'
+  error: 'store.filePath is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    key (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:29:24)
+    Object.identify (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:47:59)
+    fixture (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:68:99)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:103:13)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: staged draft twin refuses without repair
+not ok 5 - staged draft twin refuses without repair
+  ---
+  duration_ms: 239.1404
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-comparison.test.mjs:102:4'
+  failureType: 'testCodeFailure'
+  error: 'store.filePath is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    key (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:29:24)
+    Object.identify (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:47:59)
+    fixture (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:68:99)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:103:13)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: changed staged revision refuses without repair
+not ok 6 - changed staged revision refuses without repair
+  ---
+  duration_ms: 238.3403
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-comparison.test.mjs:102:4'
+  failureType: 'testCodeFailure'
+  error: 'store.filePath is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    key (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:29:24)
+    Object.identify (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:47:59)
+    fixture (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:68:99)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:103:13)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: missing receipt refuses without repair
+not ok 7 - missing receipt refuses without repair
+  ---
+  duration_ms: 230.9749
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-comparison.test.mjs:102:4'
+  failureType: 'testCodeFailure'
+  error: 'store.filePath is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    key (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:29:24)
+    Object.identify (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:47:59)
+    fixture (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:68:99)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:103:13)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: changed baseline refuses without repair
+not ok 8 - changed baseline refuses without repair
+  ---
+  duration_ms: 237.2537
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-comparison.test.mjs:102:4'
+  failureType: 'testCodeFailure'
+  error: 'store.filePath is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    key (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:29:24)
+    Object.identify (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:47:59)
+    fixture (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:68:99)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:103:13)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: invalid foreground hold refuses without repair
+not ok 9 - invalid foreground hold refuses without repair
+  ---
+  duration_ms: 255.5703
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-comparison.test.mjs:102:4'
+  failureType: 'testCodeFailure'
+  error: 'store.filePath is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    key (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:29:24)
+    Object.identify (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:47:59)
+    fixture (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:68:99)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:103:13)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: lost runtime owner refuses without repair
+not ok 10 - lost runtime owner refuses without repair
+  ---
+  duration_ms: 267.4008
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-comparison.test.mjs:102:4'
+  failureType: 'testCodeFailure'
+  error: 'store.filePath is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    key (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:29:24)
+    Object.identify (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:47:59)
+    fixture (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:68:99)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:103:13)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: cannot manufacture a baseline from completed staging
+not ok 11 - cannot manufacture a baseline from completed staging
+  ---
+  duration_ms: 271.1629
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-comparison.test.mjs:109:1'
+  failureType: 'testCodeFailure'
+  error: 'store.filePath is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    key (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:29:24)
+    Object.identify (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:47:59)
+    fixture (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:68:99)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:110:13)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: comparison holds coordinator ownership and detects change during pending reads
+not ok 12 - comparison holds coordinator ownership and detects change during pending reads
+  ---
+  duration_ms: 255.0867
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-comparison.test.mjs:115:1'
+  failureType: 'testCodeFailure'
+  error: 'store.filePath is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    key (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:29:24)
+    Object.identify (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:47:59)
+    fixture (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:68:99)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:116:13)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: pre-existing PNG bytes compare; later image change is refused
+not ok 13 - pre-existing PNG bytes compare; later image change is refused
+  ---
+  duration_ms: 274.4679
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-comparison.test.mjs:130:1'
+  failureType: 'testCodeFailure'
+  error: 'store.filePath is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    key (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:29:24)
+    Object.identify (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:47:59)
+    fixture (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:68:99)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:131:13)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: external media refuses before producing a baseline
+not ok 14 - external media refuses before producing a baseline
+  ---
+  duration_ms: 252.3241
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-comparison.test.mjs:138:1'
+  failureType: 'testCodeFailure'
+  error: 'store.filePath is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    key (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:29:24)
+    Object.identify (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:47:59)
+    fixture (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:68:99)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:139:13)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: source changed refuses before runtime access
+not ok 15 - source changed refuses before runtime access
+  ---
+  duration_ms: 267.5752
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-comparison.test.mjs:148:4'
+  failureType: 'testCodeFailure'
+  error: 'store.filePath is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    key (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:29:24)
+    Object.identify (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:47:59)
+    fixture (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:68:99)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:149:13)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: backup changed refuses before runtime access
+not ok 16 - backup changed refuses before runtime access
+  ---
+  duration_ms: 247.1493
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-comparison.test.mjs:148:4'
+  failureType: 'testCodeFailure'
+  error: 'store.filePath is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    key (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:29:24)
+    Object.identify (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:47:59)
+    fixture (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:68:99)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:149:13)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: workspace ambiguity refuses before runtime access
+not ok 17 - workspace ambiguity refuses before runtime access
+  ---
+  duration_ms: 253.0985
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-comparison.test.mjs:148:4'
+  failureType: 'testCodeFailure'
+  error: 'store.filePath is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    key (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:29:24)
+    Object.identify (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:47:59)
+    fixture (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:68:99)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:149:13)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: a changed final page cannot receive a comparison result
+not ok 18 - a changed final page cannot receive a comparison result
+  ---
+  duration_ms: 251.2778
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-comparison.test.mjs:153:1'
+  failureType: 'testCodeFailure'
+  error: 'store.filePath is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    key (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:29:24)
+    Object.identify (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:47:59)
+    fixture (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:68:99)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:154:13)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: journal deletion during reads refuses without recreating it
+not ok 19 - journal deletion during reads refuses without recreating it
+  ---
+  duration_ms: 247.769
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-comparison.test.mjs:161:1'
+  failureType: 'testCodeFailure'
+  error: 'store.filePath is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    key (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:29:24)
+    Object.identify (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:47:59)
+    fixture (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:68:99)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:162:13)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: ordinary draft without a Paper ops revision stays exact rather than inventing one
+not ok 20 - ordinary draft without a Paper ops revision stays exact rather than inventing one
+  ---
+  duration_ms: 279.8457
+  location: 'C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\tests\\migration-comparison.test.mjs:169:1'
+  failureType: 'testCodeFailure'
+  error: 'store.filePath is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    key (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:29:24)
+    Object.identify (C:\Users\Frikk\.codex\worktrees\barkdown-p2-migration\app\main\paper-evidence-owner.js:47:59)
+    fixture (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:68:99)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-comparison.test.mjs:170:13)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: owned PNG stages once, exact bytes and dimensions survive, repeated refs share one upload
+ok 21 - owned PNG stages once, exact bytes and dimensions survive, repeated refs share one upload
+  ---
+  duration_ms: 556.4756
+  ...
+# Subtest: absolute and file URL references resolve only through captured profile files
+ok 22 - absolute and file URL references resolve only through captured profile files
+  ---
+  duration_ms: 350.9219
+  ...
+# Subtest: bad sources and unsupported image metadata refuse before all target access
+ok 23 - bad sources and unsupported image metadata refuse before all target access
+  ---
+  duration_ms: 357.3647
+  ...
+# Subtest: corrupt PNG bytes and nested images refuse before target access
+ok 24 - corrupt PNG bytes and nested images refuse before target access
+  ---
+  duration_ms: 85.5045
+  ...
+# Subtest: post-commit lost response reconciles exact attempt without another upload
+ok 25 - post-commit lost response reconciles exact attempt without another upload
+  ---
+  duration_ms: 403.8024
+  ...
+# Subtest: actual process exit at media-plan
+ok 26 - actual process exit at media-plan
+  ---
+  duration_ms: 525.9061
+  ...
+# Subtest: actual process exit at media-intent:attachments/orchard.png
+ok 27 - actual process exit at media-intent:attachments/orchard.png
+  ---
+  duration_ms: 440.1431
+  ...
+# Subtest: actual process exit at media-response:attachments/orchard.png
+ok 28 - actual process exit at media-response:attachments/orchard.png
+  ---
+  duration_ms: 663.36
+  ...
+# Subtest: actual process exit at media-receipt:attachments/orchard.png
+ok 29 - actual process exit at media-receipt:attachments/orchard.png
+  ---
+  duration_ms: 736.8998
+  ...
+# Subtest: absent, ambiguous and incomplete upload lookup never retries
+ok 30 - absent, ambiguous and incomplete upload lookup never retries
+  ---
+  duration_ms: 449.2459
+  ...
+# Subtest: changed or redirected binary and wrong identity refuse before Paper write
+ok 31 - changed or redirected binary and wrong identity refuse before Paper write
+  ---
+  duration_ms: 402.8278
+  ...
+# Subtest: local journal tampering refuses before any further target access
+ok 32 - local journal tampering refuses before any further target access
+  ---
+  duration_ms: 366.0791
+  ...
+# Subtest: later missing/changed uploaded bytes or changed source never recreate or overwrite
+ok 33 - later missing/changed uploaded bytes or changed source never recreate or overwrite
+  ---
+  duration_ms: 340.3533
+  ...
+# Subtest: media changed after Paper creation prevents completion without replay or cleanup
+ok 34 - media changed after Paper creation prevents completion without replay or cleanup
+  ---
+  duration_ms: 637.1642
+  ...
+# Subtest: two-file partial upload resumes only the interrupted attempt and preserves both identities
+ok 35 - two-file partial upload resumes only the interrupted attempt and preserves both identities
+  ---
+  duration_ms: 626.1262
+  ...
+# Subtest: exact typed paths map while human order, cloud identity and opaque history remain intact
+ok 36 - exact typed paths map while human order, cloud identity and opaque history remain intact
+  ---
+  duration_ms: 96.2201
+  ...
+# Subtest: empty document pickers stay empty; non-document paths and missing optional collections are not invented
+ok 37 - empty document pickers stay empty; non-document paths and missing optional collections are not invented
+  ---
+  duration_ms: 31.3126
+  ...
+# Subtest: profile-qualified projections never substitute another profile with matching slugs
+ok 38 - profile-qualified projections never substitute another profile with matching slugs
+  ---
+  duration_ms: 59.7361
+  ...
+# Subtest: unknown ordered chat refuses without partial projection or filesystem mutation
+ok 39 - unknown ordered chat refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 26.7824
+  ...
+# Subtest: duplicate ordered chat refuses without partial projection or filesystem mutation
+ok 40 - duplicate ordered chat refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 29.1889
+  ...
+# Subtest: omitted ordered chat refuses without partial projection or filesystem mutation
+ok 41 - omitted ordered chat refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 26.1983
+  ...
+# Subtest: missing current chat refuses without partial projection or filesystem mutation
+ok 42 - missing current chat refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 39.3324
+  ...
+# Subtest: reserved chat key refuses without partial projection or filesystem mutation
+ok 43 - reserved chat key refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 23.5237
+  ...
+# Subtest: invalid chat key refuses without partial projection or filesystem mutation
+ok 44 - invalid chat key refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 28.5504
+  ...
+# Subtest: unknown local tab refuses without partial projection or filesystem mutation
+ok 45 - unknown local tab refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 29.5904
+  ...
+# Subtest: unknown favorite refuses without partial projection or filesystem mutation
+ok 46 - unknown favorite refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 25.0567
+  ...
+# Subtest: missing Page refuses without partial projection or filesystem mutation
+ok 47 - missing Page refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 32.1483
+  ...
+# Subtest: source-less closed local refuses without partial projection or filesystem mutation
+ok 48 - source-less closed local refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 31.841
+  ...
+# Subtest: source-less closed cloud refuses without partial projection or filesystem mutation
+ok 49 - source-less closed cloud refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 25.6128
+  ...
+# Subtest: unknown source refuses without partial projection or filesystem mutation
+ok 50 - unknown source refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 28.5289
+  ...
+# Subtest: malformed path refuses without partial projection or filesystem mutation
+ok 51 - malformed path refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 25.1026
+  ...
+# Subtest: duplicate placement refuses without partial projection or filesystem mutation
+ok 52 - duplicate placement refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 27.8621
+  ...
+# Subtest: cycle refuses without partial projection or filesystem mutation
+ok 53 - cycle refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 28.6923
+  ...
+# Subtest: orphan parent refuses without partial projection or filesystem mutation
+ok 54 - orphan parent refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 30.1313
+  ...
+# Subtest: unknown layout refuses without partial projection or filesystem mutation
+ok 55 - unknown layout refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 30.6127
+  ...
+# Subtest: unseeded layout refuses without partial projection or filesystem mutation
+ok 56 - unseeded layout refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 25.6743
+  ...
+# Subtest: bad expansion refuses without partial projection or filesystem mutation
+ok 57 - bad expansion refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 25.7699
+  ...
+# Subtest: projected cloud collision refuses without partial projection or filesystem mutation
+ok 58 - projected cloud collision refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 27.825
+  ...
+# Subtest: expansion collision refuses without partial projection or filesystem mutation
+ok 59 - expansion collision refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 27.3654
+  ...
+# Subtest: old pins refuses without partial projection or filesystem mutation
+ok 60 - old pins refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 29.1106
+  ...
+# Subtest: recorded run refuses without partial projection or filesystem mutation
+ok 61 - recorded run refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 27.1541
+  ...
+# Subtest: unfinished attempt refuses without partial projection or filesystem mutation
+ok 62 - unfinished attempt refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 28.8377
+  ...
+# Subtest: bad ownership refuses without partial projection or filesystem mutation
+ok 63 - bad ownership refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 27.5507
+  ...
+# Subtest: unplaced local archive refuses without partial projection or filesystem mutation
+ok 64 - unplaced local archive refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 36.0283
+  ...
+# Subtest: source content blockers are carried forward without a candidate
+ok 65 - source content blockers are carried forward without a candidate
+  ---
+  duration_ms: 16.1806
+  ...
+# Subtest: archive marker keys preserve their exact state without moving unplaced cloud papers
+ok 66 - archive marker keys preserve their exact state without moving unplaced cloud papers
+  ---
+  duration_ms: 25.2261
+  ...
+# Subtest: the implicit direct workspace may remain outside recent-chat order
+ok 67 - the implicit direct workspace may remain outside recent-chat order
+  ---
+  duration_ms: 23.5313
+  ...
+# Subtest: owned projection preserves nested Pages, Archive, labels and destination ownership without writes
+ok 68 - owned projection preserves nested Pages, Archive, labels and destination ownership without writes
+  ---
+  duration_ms: 146.5618
+  ...
+# Subtest: unknown ownership refuses without creating a key or backup
+ok 69 - unknown ownership refuses without creating a key or backup
+  ---
+  duration_ms: 22.4572
+  ...
+# Subtest: lost lease and source changes during asynchronous ownership checks refuse
+ok 70 - lost lease and source changes during asynchronous ownership checks refuse
+  ---
+  duration_ms: 61.1354
+  ...
+# Subtest: projection identity binds runtime and connection; foreign profile refuses
+ok 71 - projection identity binds runtime and connection; foreign profile refuses
+  ---
+  duration_ms: 96.091
+  ...
+# Subtest: owned state-map collisions and uninitialized Pages refuse instead of auto-organizing
+ok 72 - owned state-map collisions and uninitialized Pages refuse instead of auto-organizing
+  ---
+  duration_ms: 48.1953
+  ...
+# Subtest: actual IPC handler preserves durable A ownership across restart and refuses B before read
+ok 73 - actual IPC handler preserves durable A ownership across restart and refuses B before read
+  ---
+  duration_ms: 106.4214
+  ...
+# Subtest: unknown and malformed saved targets never read or create an ownership key
+ok 74 - unknown and malformed saved targets never read or create an ownership key
+  ---
+  duration_ms: 9.1201
+  ...
+# Subtest: catalog owner is generated locally and distinct for same-slug libraries
+ok 75 - catalog owner is generated locally and distinct for same-slug libraries
+  ---
+  duration_ms: 11.5322
+  ...
+# Subtest: explicitly typed source summaries never borrow another source or owner
+ok 76 - explicitly typed source summaries never borrow another source or owner
+  ---
+  duration_ms: 25.9195
+  ...
+# Subtest: CLI provider route and activity share one captured owner, independent of foreground settings
+ok 77 - CLI provider route and activity share one captured owner, independent of foreground settings
+  ---
+  duration_ms: 117.1532
+  ...
+# Subtest: direct Page ancestor navigation trims the original-owner path and invokes its mounted controller
+ok 78 - direct Page ancestor navigation trims the original-owner path and invokes its mounted controller
+  ---
+  duration_ms: 2.3865
+  ...
+# Subtest: only the current managed lease proves local ownership
+ok 79 - only the current managed lease proves local ownership
+  ---
+  duration_ms: 3.3884
+  ...
+1..79
+# tests 79
+# suites 0
+# pass 59
+# fail 20
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 7698.0316

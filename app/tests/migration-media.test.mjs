@@ -173,3 +173,15 @@ test('two-file partial upload resumes only the interrupted attempt and preserves
   await f.stage();await f.stage();assert.equal(f.uploads(),2);assert.equal(f.media.size,2);
   const images=[...f.papers.values()][0].blocks.filter(b=>b.type==='image');assert.equal(images.length,2);assert.notEqual(images[0].src,images[1].src);
 });
+
+
+test('asynchronous source refusal is awaited before media lookup or intent', async () => {
+  const { stageMedia } = require('../main/migration-media');
+  const store = require('../main/store').createStore(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-media-async-')));
+  let requests = 0;
+  await assert.rejects(stageMedia({ manifest: { sourceHash: 'fixture', documents: [{ images: [{ path: 'attachments/test.png', bytes: 1, sha256: 'a'.repeat(64) }] }] }, store,
+    captured: { binding: { profileId: 'fixture' }, fetch: async () => { requests++; throw Error('Unexpected network'); } }, checkpoint: async () => {}, beforeNetwork: () => {},
+    unchanged: async () => { await Promise.resolve(); throw Error('Source changed asynchronously'); }
+  }), /Source changed asynchronously/);
+  assert.equal(requests, 0); assert.deepEqual(fs.readdirSync(store.filePath('media')), ['plan.json']);
+});

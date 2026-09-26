@@ -73,3 +73,15 @@ Source `af9d982` / private Barkpark `30c007e43` loads an offline projected copy 
 [Review](runs/2026-09-24T03-20-50-258Z/motion-review.json) covers ten stills,30 native video samples,30 decoded GIF frames and eight restart samples. GIF is full-frame2fps at840×540; [raw recording](runs/2026-09-24T03-20-50-258Z/projected-navigation.webm) retains intermediate loading. [Narrow view](runs/2026-09-24T03-20-50-258Z/09-narrow.png). Target legacy boot seeds two unrelated archive fixtures; this is not source activation.
 
 Retained failures: [wrong fixture directory](runs/2026-09-24T03-07-44-303Z/manifest.json), [object-key-order comparison](runs/2026-09-24T03-10-20-986Z/manifest.json), and [real stale-editor favorite navigation](runs/2026-09-24T03-16-54-898Z/manifest.json). The latter updated the tab path without navigating its mounted editor; corrected through the existing unsaved-work guard, with source-qualified reuse. Unplaced local archives, ambiguous closed targets and malformed navigation explicitly refuse. Original history/receipts remain opaque legacy evidence; no migration authority changes.
+
+## Owned navigation preview (C080)
+
+Source058554fd on private b70214090 preserves nested Pages, local Archive, owned paths/favorites and restart. A foreign-library favorite refuses even with a matching current slug. Source and backup remain byte-identical. [Result](runs/2026-09-25T22-25-10-582Z/result.json), [named image/motion review](runs/2026-09-25T22-25-10-582Z/review.json), [delivery status](../../cycles/C080-owned-navigation.md).
+
+![Unplaced notes remain in local Archive](runs/2026-09-25T22-25-10-582Z/02-unplaced-local-note.png)
+
+![Owned navigation and foreign-library refusal](runs/2026-09-25T22-25-10-582Z/owned-navigation.gif)
+
+Dark native journey on disposable data. The GIF shows seconds3.5–8.5 of the [navigation recording](runs/2026-09-25T22-25-10-582Z/navigation.webm), at5 fps/840×540 without cropping;25 decoded frames inspected. [Restart recording](runs/2026-09-25T22-25-10-582Z/final.webm), [setup recording](runs/2026-09-25T22-25-10-582Z/setup.webm). Six stills and206 full-recording samples (137 distinct rasters, exact duplicates collapsed) were reviewed. Raw startup retains the unchanged initial light shell and transient loading title. Gray padding after viewport resize is outside the app.
+
+This is a preview copy, not authority activation or rollback proof. The earlier development failures are retained in the cycle evidence.

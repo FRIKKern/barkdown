@@ -1,0 +1,12 @@
+{
+  "source": "8b762a9d655aa023c2da4855e81b9d4cb437accf",
+  "upstream": "b702140907921e82e9ce5eecb3e2445f13ab2d6e",
+  "sourceDirty": true,
+  "status": "failed",
+  "frames": [],
+  "checks": [],
+  "limits": [
+    "Disposable preview copy only; no migration authority switch or rollback proof."
+  ],
+  "error": "Error: The captured runtime ownership changed\n    at fail (C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\main\\migration-journal.js:9:46)\n    at Object.assertCurrent (C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\main\\migration-staging.js:28:114)\n    at async projectOwnedWorkspace (C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app\\main\\migration-workspace.js:152:3)\n    at async file:///C:/Users/Frikk/.codex/worktrees/barkdown-p2-migration/app/tests/migration-owned-navigation.live.mjs:68:22"
+}

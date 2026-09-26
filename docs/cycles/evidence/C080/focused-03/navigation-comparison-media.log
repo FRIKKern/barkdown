@@ -1,0 +1,415 @@
+TAP version 13
+# Subtest: complete mixed library exceeds one page, preserves variants and never repairs or mutates
+ok 1 - complete mixed library exceeds one page, preserves variants and never repairs or mutates
+  ---
+  duration_ms: 2358.8609
+  ...
+# Subtest: missing existing Paper refuses without repair
+ok 2 - missing existing Paper refuses without repair
+  ---
+  duration_ms: 1229.7467
+  ...
+# Subtest: changed existing draft refuses without repair
+ok 3 - changed existing draft refuses without repair
+  ---
+  duration_ms: 1403.8241
+  ...
+# Subtest: extra Paper refuses without repair
+ok 4 - extra Paper refuses without repair
+  ---
+  duration_ms: 1392.8305
+  ...
+# Subtest: staged draft twin refuses without repair
+ok 5 - staged draft twin refuses without repair
+  ---
+  duration_ms: 1292.7056
+  ...
+# Subtest: changed staged revision refuses without repair
+ok 6 - changed staged revision refuses without repair
+  ---
+  duration_ms: 1237.7378
+  ...
+# Subtest: missing receipt refuses without repair
+ok 7 - missing receipt refuses without repair
+  ---
+  duration_ms: 1063.0362
+  ...
+# Subtest: changed baseline refuses without repair
+ok 8 - changed baseline refuses without repair
+  ---
+  duration_ms: 944.6887
+  ...
+# Subtest: invalid foreground hold refuses without repair
+ok 9 - invalid foreground hold refuses without repair
+  ---
+  duration_ms: 795.8639
+  ...
+# Subtest: lost runtime owner refuses without repair
+ok 10 - lost runtime owner refuses without repair
+  ---
+  duration_ms: 870.3983
+  ...
+# Subtest: cannot manufacture a baseline from completed staging
+ok 11 - cannot manufacture a baseline from completed staging
+  ---
+  duration_ms: 575.3791
+  ...
+# Subtest: comparison holds coordinator ownership and detects change during pending reads
+ok 12 - comparison holds coordinator ownership and detects change during pending reads
+  ---
+  duration_ms: 1589.6322
+  ...
+# Subtest: pre-existing PNG bytes compare; later image change is refused
+ok 13 - pre-existing PNG bytes compare; later image change is refused
+  ---
+  duration_ms: 1497.9141
+  ...
+# Subtest: external media refuses before producing a baseline
+ok 14 - external media refuses before producing a baseline
+  ---
+  duration_ms: 495.2158
+  ...
+# Subtest: source changed refuses before runtime access
+ok 15 - source changed refuses before runtime access
+  ---
+  duration_ms: 857.9344
+  ...
+# Subtest: backup changed refuses before runtime access
+ok 16 - backup changed refuses before runtime access
+  ---
+  duration_ms: 825.0825
+  ...
+# Subtest: workspace ambiguity refuses before runtime access
+ok 17 - workspace ambiguity refuses before runtime access
+  ---
+  duration_ms: 804.568
+  ...
+# Subtest: a changed final page cannot receive a comparison result
+ok 18 - a changed final page cannot receive a comparison result
+  ---
+  duration_ms: 1042.1533
+  ...
+# Subtest: journal deletion during reads refuses without recreating it
+ok 19 - journal deletion during reads refuses without recreating it
+  ---
+  duration_ms: 1147.6341
+  ...
+# Subtest: ordinary draft without a Paper ops revision stays exact rather than inventing one
+ok 20 - ordinary draft without a Paper ops revision stays exact rather than inventing one
+  ---
+  duration_ms: 1427.8557
+  ...
+# Subtest: comparison accepts an owned unplaced note without organizing Pages
+ok 21 - comparison accepts an owned unplaced note without organizing Pages
+  ---
+  duration_ms: 1183.7559
+  ...
+# Subtest: owned PNG stages once, exact bytes and dimensions survive, repeated refs share one upload
+ok 22 - owned PNG stages once, exact bytes and dimensions survive, repeated refs share one upload
+  ---
+  duration_ms: 601.5207
+  ...
+# Subtest: absolute and file URL references resolve only through captured profile files
+ok 23 - absolute and file URL references resolve only through captured profile files
+  ---
+  duration_ms: 359.1783
+  ...
+# Subtest: bad sources and unsupported image metadata refuse before all target access
+ok 24 - bad sources and unsupported image metadata refuse before all target access
+  ---
+  duration_ms: 376.5829
+  ...
+# Subtest: corrupt PNG bytes and nested images refuse before target access
+ok 25 - corrupt PNG bytes and nested images refuse before target access
+  ---
+  duration_ms: 97.0425
+  ...
+# Subtest: post-commit lost response reconciles exact attempt without another upload
+ok 26 - post-commit lost response reconciles exact attempt without another upload
+  ---
+  duration_ms: 486.5116
+  ...
+# Subtest: actual process exit at media-plan
+ok 27 - actual process exit at media-plan
+  ---
+  duration_ms: 666.8512
+  ...
+# Subtest: actual process exit at media-intent:attachments/orchard.png
+ok 28 - actual process exit at media-intent:attachments/orchard.png
+  ---
+  duration_ms: 381.9173
+  ...
+# Subtest: actual process exit at media-response:attachments/orchard.png
+ok 29 - actual process exit at media-response:attachments/orchard.png
+  ---
+  duration_ms: 782.6378
+  ...
+# Subtest: actual process exit at media-receipt:attachments/orchard.png
+ok 30 - actual process exit at media-receipt:attachments/orchard.png
+  ---
+  duration_ms: 977.8306
+  ...
+# Subtest: absent, ambiguous and incomplete upload lookup never retries
+ok 31 - absent, ambiguous and incomplete upload lookup never retries
+  ---
+  duration_ms: 592.8735
+  ...
+# Subtest: changed or redirected binary and wrong identity refuse before Paper write
+ok 32 - changed or redirected binary and wrong identity refuse before Paper write
+  ---
+  duration_ms: 590.6651
+  ...
+# Subtest: local journal tampering refuses before any further target access
+ok 33 - local journal tampering refuses before any further target access
+  ---
+  duration_ms: 465.1858
+  ...
+# Subtest: later missing/changed uploaded bytes or changed source never recreate or overwrite
+ok 34 - later missing/changed uploaded bytes or changed source never recreate or overwrite
+  ---
+  duration_ms: 465.9193
+  ...
+# Subtest: media changed after Paper creation prevents completion without replay or cleanup
+ok 35 - media changed after Paper creation prevents completion without replay or cleanup
+  ---
+  duration_ms: 802.0139
+  ...
+# Subtest: two-file partial upload resumes only the interrupted attempt and preserves both identities
+ok 36 - two-file partial upload resumes only the interrupted attempt and preserves both identities
+  ---
+  duration_ms: 788.55
+  ...
+# Subtest: asynchronous source refusal is awaited before media lookup or intent
+ok 37 - asynchronous source refusal is awaited before media lookup or intent
+  ---
+  duration_ms: 16.6348
+  ...
+# Subtest: exact typed paths map while human order, cloud identity and opaque history remain intact
+ok 38 - exact typed paths map while human order, cloud identity and opaque history remain intact
+  ---
+  duration_ms: 124.3467
+  ...
+# Subtest: empty document pickers stay empty; non-document paths and missing optional collections are not invented
+ok 39 - empty document pickers stay empty; non-document paths and missing optional collections are not invented
+  ---
+  duration_ms: 23.0866
+  ...
+# Subtest: profile-qualified projections never substitute another profile with matching slugs
+ok 40 - profile-qualified projections never substitute another profile with matching slugs
+  ---
+  duration_ms: 54.9092
+  ...
+# Subtest: unknown ordered chat refuses without partial projection or filesystem mutation
+ok 41 - unknown ordered chat refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 29.2811
+  ...
+# Subtest: duplicate ordered chat refuses without partial projection or filesystem mutation
+ok 42 - duplicate ordered chat refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 28.5268
+  ...
+# Subtest: omitted ordered chat refuses without partial projection or filesystem mutation
+ok 43 - omitted ordered chat refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 29.3216
+  ...
+# Subtest: missing current chat refuses without partial projection or filesystem mutation
+ok 44 - missing current chat refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 31.3707
+  ...
+# Subtest: reserved chat key refuses without partial projection or filesystem mutation
+ok 45 - reserved chat key refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 32.079
+  ...
+# Subtest: invalid chat key refuses without partial projection or filesystem mutation
+ok 46 - invalid chat key refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 29.2308
+  ...
+# Subtest: unknown local tab refuses without partial projection or filesystem mutation
+ok 47 - unknown local tab refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 32.8531
+  ...
+# Subtest: unknown favorite refuses without partial projection or filesystem mutation
+ok 48 - unknown favorite refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 29.0586
+  ...
+# Subtest: missing Page refuses without partial projection or filesystem mutation
+ok 49 - missing Page refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 28.4923
+  ...
+# Subtest: source-less closed local refuses without partial projection or filesystem mutation
+ok 50 - source-less closed local refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 32.9089
+  ...
+# Subtest: source-less closed cloud refuses without partial projection or filesystem mutation
+ok 51 - source-less closed cloud refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 29.6415
+  ...
+# Subtest: unknown source refuses without partial projection or filesystem mutation
+ok 52 - unknown source refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 26.2383
+  ...
+# Subtest: malformed path refuses without partial projection or filesystem mutation
+ok 53 - malformed path refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 32.7378
+  ...
+# Subtest: duplicate placement refuses without partial projection or filesystem mutation
+ok 54 - duplicate placement refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 29.2483
+  ...
+# Subtest: cycle refuses without partial projection or filesystem mutation
+ok 55 - cycle refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 29.9022
+  ...
+# Subtest: orphan parent refuses without partial projection or filesystem mutation
+ok 56 - orphan parent refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 30.9291
+  ...
+# Subtest: unknown layout refuses without partial projection or filesystem mutation
+ok 57 - unknown layout refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 30.2889
+  ...
+# Subtest: unseeded layout refuses without partial projection or filesystem mutation
+ok 58 - unseeded layout refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 30.544
+  ...
+# Subtest: bad expansion refuses without partial projection or filesystem mutation
+ok 59 - bad expansion refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 29.6951
+  ...
+# Subtest: projected cloud collision refuses without partial projection or filesystem mutation
+ok 60 - projected cloud collision refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 32.2878
+  ...
+# Subtest: expansion collision refuses without partial projection or filesystem mutation
+ok 61 - expansion collision refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 33.3599
+  ...
+# Subtest: old pins refuses without partial projection or filesystem mutation
+ok 62 - old pins refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 27.7445
+  ...
+# Subtest: recorded run refuses without partial projection or filesystem mutation
+ok 63 - recorded run refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 33.8946
+  ...
+# Subtest: unfinished attempt refuses without partial projection or filesystem mutation
+ok 64 - unfinished attempt refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 33.1204
+  ...
+# Subtest: bad ownership refuses without partial projection or filesystem mutation
+ok 65 - bad ownership refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 29.1608
+  ...
+# Subtest: unplaced local archive refuses without partial projection or filesystem mutation
+ok 66 - unplaced local archive refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 32.5756
+  ...
+# Subtest: source content blockers are carried forward without a candidate
+ok 67 - source content blockers are carried forward without a candidate
+  ---
+  duration_ms: 14.7965
+  ...
+# Subtest: archive marker keys preserve their exact state without moving unplaced cloud papers
+ok 68 - archive marker keys preserve their exact state without moving unplaced cloud papers
+  ---
+  duration_ms: 21.5491
+  ...
+# Subtest: the implicit direct workspace may remain outside recent-chat order
+ok 69 - the implicit direct workspace may remain outside recent-chat order
+  ---
+  duration_ms: 21.9134
+  ...
+# Subtest: owned projection preserves nested Pages, Archive, labels and destination ownership without writes
+ok 70 - owned projection preserves nested Pages, Archive, labels and destination ownership without writes
+  ---
+  duration_ms: 148.8548
+  ...
+# Subtest: unknown ownership refuses without creating a key or backup
+ok 71 - unknown ownership refuses without creating a key or backup
+  ---
+  duration_ms: 24.0943
+  ...
+# Subtest: lost lease and source changes during asynchronous ownership checks refuse
+ok 72 - lost lease and source changes during asynchronous ownership checks refuse
+  ---
+  duration_ms: 68.9064
+  ...
+# Subtest: projection identity binds runtime and connection; foreign profile refuses
+ok 73 - projection identity binds runtime and connection; foreign profile refuses
+  ---
+  duration_ms: 97.5361
+  ...
+# Subtest: owned state-map collisions and uninitialized Pages refuse instead of auto-organizing
+ok 74 - owned state-map collisions and uninitialized Pages refuse instead of auto-organizing
+  ---
+  duration_ms: 53.3704
+  ...
+# Subtest: actual IPC handler preserves durable A ownership across restart and refuses B before read
+ok 75 - actual IPC handler preserves durable A ownership across restart and refuses B before read
+  ---
+  duration_ms: 55.4429
+  ...
+# Subtest: unknown and malformed saved targets never read or create an ownership key
+ok 76 - unknown and malformed saved targets never read or create an ownership key
+  ---
+  duration_ms: 12.5439
+  ...
+# Subtest: catalog owner is generated locally and distinct for same-slug libraries
+ok 77 - catalog owner is generated locally and distinct for same-slug libraries
+  ---
+  duration_ms: 17.8081
+  ...
+# Subtest: explicitly typed source summaries never borrow another source or owner
+ok 78 - explicitly typed source summaries never borrow another source or owner
+  ---
+  duration_ms: 2.0591
+  ...
+# Subtest: CLI provider route and activity share one captured owner, independent of foreground settings
+ok 79 - CLI provider route and activity share one captured owner, independent of foreground settings
+  ---
+  duration_ms: 30.6189
+  ...
+# Subtest: direct Page ancestor navigation trims the original-owner path and invokes its mounted controller
+ok 80 - direct Page ancestor navigation trims the original-owner path and invokes its mounted controller
+  ---
+  duration_ms: 3.021
+  ...
+# Subtest: only the current managed lease proves local ownership
+ok 81 - only the current managed lease proves local ownership
+  ---
+  duration_ms: 4.3214
+  ...
+1..81
+# tests 81
+# suites 0
+# pass 81
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 24371.1332

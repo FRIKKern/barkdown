@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "id": "C079",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Resolve the post-merge native editor entry failure and restore a trustworthy main parity checkpoint before cutover.",
+  "scope": [
+    "Diagnose first native caret placement and dependent editing failures",
+    "Fix the observed owner or harness boundary without repairing tested outcomes",
+    "Validate real editor/server behavior and integrate"
+  ],
+  "acceptance": [
+    "The first native interaction targets its intended paragraph with explicit focus/selection proof",
+    "Core editing and Find journeys preserve unrelated content and acknowledged server results",
+    "Required local and hosted gates pass without hiding retained failures"
+  ],
+  "checkpoint": "2026-09-25",
+  "handoff": "docs/cycles/C079-editor-entry.md",
+  "nextAction": "C080 closes the owned-navigation prerequisite before authority selection.",
+  "evidence": [
+    "docs/cycles/evidence/C079/focused/result.json",
+    "docs/visual/editor-gap-assertions/runs/2026-09-25T21-08-24-635Z/review-C079.json",
+    "docs/cycles/evidence/C079/live-review.json",
+    "docs/cycles/evidence/C079/root/result.json",
+    "docs/cycles/evidence/C079/merge.json"
+  ],
+  "truthReview": "Production behavior unchanged; C078 delivered and main failure retained. P2/A2 and cutover remain open. One delivery lane; preserve locked recovery history.",
+  "screenshotReview": "Native13 stills/67 motion samples; live5 stills/37 GIF frames; standard40 stills/40 GIF frames inspected and explicitly approved. Zero standard pixel/geometry changes.",
+  "delivery": {
+    "phase": "delivered",
+    "owner": "primary agent",
+    "remaining": []
+  }
+}

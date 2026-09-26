@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "navigation-comparison-media",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-workspace.test.mjs",
+        "tests/migration-comparison.test.mjs",
+        "tests/migration-media.test.mjs",
+        "tests/paper-navigation.test.mjs",
+        "tests/paper-origin.test.mjs"
+      ]
+    }
+  ]
+}

@@ -2,6 +2,8 @@
 
 P1 is accepted. P2 remains active: the app still uses legacy local documents alongside real Paper. No real library has been migrated and the legacy editor remains available. [Current cycle](../cycle.json), [handoff](../NEXT-AGENT.md), [A2 acceptance](../ACCEPTANCE.md) and [validation](../VALIDATION.md) own the current queue and evidence.
 
+C080 adds an owned navigation preview: current library identity is attached to migrated destinations, labels are retained and unplaced notes stay outside human Pages. [Current results and limits](../cycles/C080-owned-navigation.md); native restart and full desktop checks pass; integration status stays in the cycle. The unqualified C053 preview remains conservative.
+
 ## Implemented and demonstrated
 
 | Boundary | Implementation and evidence | Limits |

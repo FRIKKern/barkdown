@@ -4,7 +4,7 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const { inventoryProfile } = require('./migration-preflight');
 const { validateBackup } = require('./migration-restore');
-const { projectWorkspace } = require('./migration-workspace');
+const { projectOwnedWorkspace } = require('./migration-workspace');
 const { captureTarget, payloads, validateJournal } = require('./migration-staging');
 const { stageMedia } = require('./migration-media');
 const { readCatalog } = require('./paper-catalog');
@@ -28,7 +28,7 @@ async function boundedBytes(response, max) {
   return Buffer.concat(parts);
 }
 
-function sourceState(options) {
+async function sourceState(options, target) {
   const snapshot = inventoryProfile(options);
   if (snapshot.issues.length) fail('comparison_source', 'Source has unsupported content');
   if (snapshot.sourceHash !== options.expectedSourceHash) fail('comparison_source', 'Source differs from the pinned backup');
@@ -36,7 +36,7 @@ function sourceState(options) {
   const manifest = read(backup.store, 'manifest.json');
   same(manifest.documents, snapshot.documents, 'Backup document mapping differs from the source');
   if (manifest.status !== 'prepared' || manifest.issues?.length) fail('comparison_source', 'Backup is not eligible for comparison');
-  const workspace = projectWorkspace(options);
+  const workspace = await projectOwnedWorkspace(options, target);
   if (workspace.status !== 'preview') fail('comparison_workspace', workspace.issues.map(i => i.reason).join('; '));
   return { snapshot, backup, manifest, workspace };
 }
@@ -46,9 +46,10 @@ function createMigrationComparison({ preparation }) {
   async function run(input, target, capture) {
     // Callers cannot change source paths/metadata while an asynchronous read is pending.
     const options = structuredClone(input);
+    target = { ...target };
     return preparation.withPrepared(options.profileId, async scope => {
       if (path.resolve(options.sourceDir) !== scope.sourceDir) fail('comparison_source', 'Source does not belong to the live preparation');
-      const initial = sourceState(options), store = initial.backup.store;
+      const initial = await sourceState(options, target), store = initial.backup.store;
       const owned = captureTarget(target, options.profileId);
       const identity = { profileId: options.profileId, preparationId: scope.preparation.id,
         closureId: scope.preparation.closureId, writer: scope.preparation.writerAfter,
@@ -56,8 +57,8 @@ function createMigrationComparison({ preparation }) {
         sourceHash: options.expectedSourceHash, manifestHash: initial.backup.manifestHash,
         projectionHash: initial.workspace.projectionHash };
       async function guard() { await scope.assertCurrent(); await owned.assertCurrent(); }
-      function unchanged() {
-        const current = sourceState(options);
+      async function unchanged() {
+        const current = await sourceState(options, target);
         same([current.backup.manifestHash, current.workspace.projectionHash], [identity.manifestHash, identity.projectionHash], 'Source or workspace changed during comparison');
       }
       const captured = { binding: owned.binding, async fetch(route, init) {
@@ -118,7 +119,7 @@ function createMigrationComparison({ preparation }) {
       function unstaged() {
         for (const dir of ['staging', 'media']) if (fs.existsSync(store.filePath(dir)) && fs.readdirSync(store.filePath(dir)).length) fail('comparison_baseline', 'Capture the baseline before staging; existing journals cannot reconstruct it');
       }
-      await guard(); unchanged();
+      await guard(); await unchanged();
       if (capture) {
         unstaged();
         const rows = await corpus(), media = await mediaFor(rows);
@@ -126,7 +127,7 @@ function createMigrationComparison({ preparation }) {
         if (rows.some(row => targets.has(row._id))) fail('comparison_baseline', 'A migration target already exists before baseline capture');
         same(await corpus(), rows, 'Library changed during baseline capture');
         same(await mediaFor(rows), media, 'Media changed during baseline capture');
-        await guard(); unchanged(); unstaged();
+        await guard(); await unchanged(); unstaged();
         const baseline = { version: 1, identity, rows, media };
         record(store, baselineName, baseline);
         return { status: 'captured', baselineHash: hash(baseline), documents: rows.length, authority: 'legacy', activationAllowed: false };
@@ -174,7 +175,7 @@ function createMigrationComparison({ preparation }) {
       for (const asset of baseline.media) same(assets.find(a => a.path === asset.path), asset, 'Pre-existing media changed');
       same(await corpus(), rows, 'Library changed during comparison');
       same(await mediaFor(rows), assets, 'Media changed during comparison');
-      await media.verify(); unchanged(); await guard();
+      await media.verify(); await unchanged(); await guard();
       verifyRecord(store, baselineName, baseline); verifyRecord(store, 'staging/plan.json', plan);
       validateJournal(store, documents, hash(plan), verifyRecord);
       same(journalHash(), journals, 'Journals changed during comparison');

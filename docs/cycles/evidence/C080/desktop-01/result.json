@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-25T22:12:11.888Z",
+  "source": "058554fd4a91215fdd7fe6ada72a53c3e69f9718",
+  "sourceStatus": "",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "desktop",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration",
+      "argv": [
+        "npm",
+        "run",
+        "test:desktop"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T22:12:12.032Z",
+      "log": "desktop.log",
+      "elapsedMs": 777915,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "owned-navigation",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\barkdown-p2-migration\\app",
+      "argv": [
+        "node",
+        "tests/migration-owned-navigation.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-25T22:25:09.944Z",
+      "log": "owned-navigation.log",
+      "elapsedMs": 203836,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-09-25T22:28:33.779Z"
+}
