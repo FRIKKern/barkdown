@@ -12,9 +12,9 @@ Contract audited against Barkdown `19f9cb8a` in C077. [C078](../cycles/C078-libr
 | `migration-staging.js` | Rebuilds expected payloads, checks owned intents and exact receipts, rejects draft twins, then rereads every staged note and media asset. | Covers mapped legacy notes, not pre-existing Papers. It can create missing targets, so it must not be used as a read-only comparison API. |
 | `migration-media.js` | Checks owned upload metadata, unique discovery and exact PNG bytes. | Can upload on first staging. Existing Paper media needs its own inventory and preservation policy. |
 | `paper-catalog.js` | Validates bounded traversal and page overlap for published or draft perspective. | Counts and overlap are not an atomic snapshot. A catalog summary is not full structured content or media evidence. |
-| `migration-workspace.js` | Projects supported paths, favorites and human Pages without modifying the source. | Still refuses unplaced legacy notes and source-less closed document targets; does not establish current connection-qualified activation. |
+| `migration-workspace.js` | Projects supported paths, favorites and human Pages without modifying the source. | C080 owned preview retains unplaced notes in local Archive; source-less closed targets remain ambiguous. No activation is established. |
 
-The old workspace comment claiming every unplaced Paper is cloud is historical. Managed-local Archive now exists; the projection's refusal remains real until an owner-qualified replacement is tested. Do not remove the refusal on the strength of that stale comment.
+C080 supersedes the old unplaced-note refusal for the tested owned preview. The unqualified preview remains conservative. Neither projection selects an authority.
 
 ## Comparison inventory
 
@@ -41,7 +41,7 @@ Draft perspective is **not a draft-only listing**: it falls back to published ro
 5. Repeat identity/source/journal/fence checks after asynchronous reads, and reconcile final complete target inventories/revisions against the first traversal. A runtime replacement, changed row or changed projection invalidates the result.
 6. Return a source-bound comparison report with `authority: legacy` and `activationAllowed: false`. No authority write, workspace replacement, source cleanup or remote mutation belongs in this adapter.
 
-Repeated reads detect observed drift; they do not create a server transaction or fence unrelated direct upstream clients. Before introducing an activation-capable seal, prove exclusive mutation admission for the owned runtime or add a supported upstream snapshot/revision boundary. Record that limitation explicitly rather than claiming the app's writer fence stops every HTTP client.
+Repeated reads detect observed drift; they do not create a server transaction or fence unrelated direct upstream clients. Before introducing an activation-capable seal, implement and prove the [exclusive upstream admission contract](seal-admission.md). Record that limitation explicitly rather than claiming the app's writer fence stops every HTTP client.
 
 A persisted report is historical evidence. Resuming must revalidate the complete input identity and current data; reading a successful report never authorizes a switch. The later selector needs its own durable transition and interruption/rollback proof.
 
