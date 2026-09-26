@@ -8,7 +8,22 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Current checkpoint:** C078 verifies read-only comparison of206 Paper variants, including204 preserved variants, two staged notes, links, PNG media and navigation projection. Interruption/revalidation, later-edit and cancellation refusals pass against a real disposable runtime. See the [current handoff](NEXT-AGENT.md) for delivery status and [C078 evidence](cycles/evidence/C078/README.md) for scope and limits.
+**Latest advance:** C082: write controller tested; merge awaits the production-deployment decision.
+
+**Next observable result:** Prove real content and media writes stay blocked throughout migration. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+
+## Inside migration
+
+Since C078, navigation ownership improved in C080 and the write controller passed its C082 tests. The controller is not integrated; no real library has switched. These checkpoints show distinct results, not equal-sized units or a completion percentage.
+
+| Checkpoint | State | What this means |
+|---|---|---|
+| Preserve and stage | ✓ Demonstrated | Demonstrated on supported fixtures; unsupported content refuses. This is preparation, not a switched library. [Evidence / exit](cycles/C051-backup-restore.md) |
+| Edit migrated notes | ✓ Demonstrated | Migrated fixture editing and retained original history are demonstrated. Original history is not identical to native Paper history. [Evidence / exit](cycles/C074-original-history.md) |
+| Compare the library | ✓ Demonstrated | C078 compared 206 variants; C080 improved connection-bound navigation and local Archive projection. No ownership switch occurred. [Evidence / exit](cycles/C080-owned-navigation.md) |
+| Protect the switch | ◐ In progress | Barkdown-side preparation is demonstrated. C082 tests the upstream admission controller, but its PR is unmerged and it is unwired. Connect every supported writer before claiming exclusion. [Evidence / exit](cycles/C082-managed-admission.md) |
+| Switch and recover | ○ Remaining | Still to demonstrate: one complete library after an interrupted authority switch, with human drafts retained and no mixed ownership. [Evidence / exit](ACCEPTANCE.md#a2--one-engine-without-lost-notes) |
+| Prove the way back | ○ Remaining | Still to demonstrate: complete rollback, explicit handling of edits made after switching, and safe retirement of the separate editor/store. [Evidence / exit](ACCEPTANCE.md#a2--one-engine-without-lost-notes) |
 
 ## Profiles · accepted
 
@@ -30,9 +45,9 @@ Accepted for the Windows source prototype. Device login is shared by default; pr
 | ✓ Demonstrated | Agent edits and safe Undo | [Demonstrated scope](cycles/C069-agent-paper-notes.md) |
 | ✓ Demonstrated | Recover deleted notes | [Demonstrated scope](cycles/C071-paper-deletion-recovery.md) |
 | ✓ Demonstrated | Read original history | [Demonstrated scope](cycles/C074-original-history.md) |
-| ◐ In progress | Migrate with a way back | [Work and limits](cycles/C078-library-comparison.md) |
+| ◐ In progress | Migrate with a way back | [Work and limits](cycles/C082-managed-admission.md) |
 
-Demonstrated ordinary-note journeys are in the merged baseline; their linked cycle records retain original checkpoint limits. Preparation, cancellation and retained-draft recovery are merged in C076. C078 verifies an internal read-only mixed-library comparison, including exact Paper variants, supported links/PNG media and workspace projection. Ambiguous navigation and unsupported media still refuse. The user-facing migration flow, interrupted authority cutover, rollback and legacy retirement remain open. No real library has migrated.
+Demonstrated ordinary-note journeys are in the merged baseline; their linked cycle records retain original checkpoint limits. Preparation, cancellation and retained-draft recovery are merged in C076. C078 verifies an internal read-only mixed-library comparison, including exact Paper variants, supported links/PNG media and workspace projection. C080 improves connection-bound navigation and local Archive projection. C082 tests an upstream write controller; it is unmerged and unwired. Unsupported content and unresolved ownership still refuse. The user-facing migration flow, interrupted authority cutover, rollback and legacy retirement remain open. No real library has migrated.
 
 ## Recovery & portability · up next
 

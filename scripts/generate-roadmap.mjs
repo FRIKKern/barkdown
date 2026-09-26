@@ -15,8 +15,8 @@ export const summaries = {
     ['done', 'Agent edits and safe Undo', 'docs/cycles/C069-agent-paper-notes.md'],
     ['done', 'Recover deleted notes', 'docs/cycles/C071-paper-deletion-recovery.md'],
     ['done', 'Read original history', 'docs/cycles/C074-original-history.md'],
-    ['active', 'Migrate with a way back', 'docs/cycles/C078-library-comparison.md'],
-  ], scope: 'Demonstrated ordinary-note journeys are in the merged baseline; their linked cycle records retain original checkpoint limits. Preparation, cancellation and retained-draft recovery are merged in C076. C078 verifies an internal read-only mixed-library comparison, including exact Paper variants, supported links/PNG media and workspace projection. Ambiguous navigation and unsupported media still refuse. The user-facing migration flow, interrupted authority cutover, rollback and legacy retirement remain open. No real library has migrated.'},
+    ['active', 'Migrate with a way back', 'docs/cycles/C082-managed-admission.md'],
+  ], scope: 'Demonstrated ordinary-note journeys are in the merged baseline; their linked cycle records retain original checkpoint limits. Preparation, cancellation and retained-draft recovery are merged in C076. C078 verifies an internal read-only mixed-library comparison, including exact Paper variants, supported links/PNG media and workspace projection. C080 improves connection-bound navigation and local Archive projection. C082 tests an upstream write controller; it is unmerged and unwired. Unsupported content and unresolved ownership still refuse. The user-facing migration flow, interrupted authority cutover, rollback and legacy retirement remain open. No real library has migrated.'},
   P3: {reviewedStageStatus: 'todo', title: ['Recovery &', 'portability'], items: [
     ['active', 'Save and draft recovery', 'docs/cycles/C076-profile-preparation.md'],
     ['todo', 'Export notes and media'], ['todo', 'Include chats and links'],
@@ -31,12 +31,26 @@ export const summaries = {
     ['todo', 'Recover a failed upgrade'], ['todo', 'Keep data on uninstall'], ['todo', 'Keyboard, zoom, daily use'],
   ], scope: 'The Windows source prototype still needs a built checkout. Clean-machine installation, upgrade/rollback, retained user data and the complete daily-use pilot remain pending.'},
 };
+// This is the active journey's evidence summary, not a percentage or a task queue.
+export const migrationProgress = [
+  {status:'done', title:'Preserve and stage', lines:['Originals and backups retained.', 'Supported notes, links and PNGs.'], evidence:'docs/cycles/C051-backup-restore.md', detail:'Demonstrated on supported fixtures; unsupported content refuses. This is preparation, not a switched library.'},
+  {status:'done', title:'Edit migrated notes', lines:['Real Paper save, Undo and restart.', 'Original history stays readable.'], evidence:'docs/cycles/C074-original-history.md', detail:'Migrated fixture editing and retained original history are demonstrated. Original history is not identical to native Paper history.'},
+  {status:'done', title:'Compare the library', lines:['206 variants checked read-only.', 'Navigation ownership improved.'], evidence:'docs/cycles/C080-owned-navigation.md', detail:'C078 compared 206 variants; C080 improved connection-bound navigation and local Archive projection. No ownership switch occurred.'},
+  {status:'active', title:'Protect the switch', lines:['Write controller tested; not integrated.', 'Real content/media coverage remains.'], evidence:'docs/cycles/C082-managed-admission.md', detail:'Barkdown-side preparation is demonstrated. C082 tests the upstream admission controller, but its PR is unmerged and it is unwired. Connect every supported writer before claiming exclusion.'},
+  {status:'todo', title:'Switch and recover', lines:['Choose Paper as the source of truth.', 'Interrupt the switch; restart safely.'], evidence:'docs/ACCEPTANCE.md#a2--one-engine-without-lost-notes', detail:'Still to demonstrate: one complete library after an interrupted authority switch, with human drafts retained and no mixed ownership.'},
+  {status:'todo', title:'Prove the way back', lines:['Roll back without losing newer work.', 'Then retire the legacy editor safely.'], evidence:'docs/ACCEPTANCE.md#a2--one-engine-without-lost-notes', detail:'Still to demonstrate: complete rollback, explicit handling of edits made after switching, and safe retirement of the separate editor/store.'},
+];
+const latestAdvance = 'C082: write controller tested; merge awaits the production-deployment decision.';
+const nextOutcome = 'Prove real content and media writes stay blocked throughout migration.';
 const marks = {done: '✓', active: '◐', todo: '○'};
 const meanings = {done: 'Demonstrated', active: 'In progress', todo: 'Remaining'};
 const escape = s => String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 const text = (x, y, value, size, fill, weight = 400) => `<text x="${x}" y="${y}" font-size="${size}" fill="${fill}" font-weight="${weight}">${escape(value)}</text>`;
 
 export function validateSummaries(plan, labels, exists) {
+  for (const item of migrationProgress) {
+    if (!marks[item.status] || !exists(item.evidence.split('#')[0])) throw new Error(`Missing evidence for migration progress: ${item.title}`);
+  }
   if (plan.stages.length !== 5 || plan.stages.some(s => !labels[s.id])) throw new Error('Review the roadmap layout for changed phases.');
   for (const stage of plan.stages) {
     const summary = labels[stage.id];
@@ -53,7 +67,7 @@ export function validateSummaries(plan, labels, exists) {
 export function renderRoadmap(plan, labels = summaries) {
   const next = plan.stages.find(s => s.status === 'todo')?.id;
   const stageStatus = stage => ({done: 'ACCEPTED', active: 'BUILDING NOW', todo: stage.id === next ? 'UP NEXT' : 'LATER', blocked: 'BLOCKED'}[stage.status]);
-  const parts = [`<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="780" viewBox="0 0 1440 780" role="img" aria-labelledby="title desc">
+  const parts = [`<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1130" viewBox="0 0 1440 1130" role="img" aria-labelledby="title desc">
 <title id="title">Barkdown roadmap — demonstrated, in progress and remaining</title>
 <desc id="desc">${escape(plan.stages.map(s => `${labels[s.id].title.join(' ')}: ${stageStatus(s)}. ${labels[s.id].items.map(([status, label]) => `${label}: ${meanings[status]}`).join('; ')}`).join('. '))}. Checkmarks describe bounded demonstrated journeys, not completion of the whole stage. Profiles are accepted for the Windows source prototype.</desc>
 <defs>
@@ -61,7 +75,7 @@ export function renderRoadmap(plan, labels = summaries) {
   <linearGradient id="focus" x2="0" y2="1"><stop stop-color="#a9c787" stop-opacity=".09"/><stop offset="1" stop-color="#a9c787" stop-opacity="0"/></linearGradient>
 </defs>
 <g font-family="Segoe UI, Arial, sans-serif">
-<rect width="1440" height="780" rx="14" fill="url(#background)"/>
+<rect width="1440" height="1130" rx="14" fill="url(#background)"/>
 <text x="64" y="85" font-family="Georgia, serif" font-size="49" letter-spacing="-1.5" fill="#f0eee2">Barkdown</text>
 ${text(65, 124, 'A Barkpark Native App Experiment', 20, '#afbcaa')}
 <text x="1374" y="77" text-anchor="end" font-size="12" font-weight="600" letter-spacing="3" fill="#a3b49b">THE ROAD AHEAD</text>
@@ -94,13 +108,29 @@ ${text(870, 174, 'Ticks show proven parts, not whole-stage completion.', 16, '#a
     parts.push(text(x, 590, note, 13, '#a3b49b'), '</g>');
   }
   parts.push(`<path d="M64 624H1376" stroke="#344435"/>`);
-  parts.push(text(64, 663, 'NOW', 12, '#c2dca1', 600));
-  parts.push(text(125, 663, 'Read-only comparison is verified on a mixed-library rehearsal. Cutover and rollback remain ahead.', 17, '#d4ddce'));
-  parts.push(text(64, 701, 'NEXT', 12, '#a3b49b', 600));
-  parts.push(text(125, 701, 'Prove interrupted cutover and rollback → migrate safely → retire the old editor.', 17, '#b6c1af'));
-  parts.push(text(64, 748, 'Read the linked checklist for evidence and limits. After recovery, sync and local installation can move independently.', 15, '#a3b49b'));
+  parts.push(text(64, 669, 'Inside “Migrate with a way back”', 28, '#f0eee2', 600));
+  parts.push(text(64, 698, 'Progress within the current stage · demonstrated parts stay visible while the complete journey is unfinished.', 16, '#afbcaa'));
+  migrationProgress.forEach((item, i) => {
+    const x = 64 + (i % 3) * 448, y = 718 + Math.floor(i / 3) * 145;
+    const color = item.status === 'done' ? '#c2dca1' : item.status === 'active' ? '#e2ca93' : '#a3b49b';
+    const label = item.status === 'done' ? 'DEMONSTRATED · BOUNDED PROOF' : item.status === 'active' ? 'CURRENT · PARTLY PROVEN' : 'REMAINING · EXIT TO PROVE';
+    parts.push(`<g data-migration-step="${i + 1}"><rect x="${x}" y="${y}" width="416" height="128" rx="8" fill="${item.status === 'active' ? '#2b2e22' : '#1c271e'}" stroke="${item.status === 'active' ? '#82734e' : '#344435'}"/>`);
+    parts.push(text(x + 18, y + 25, `${marks[item.status]}  ${label}`, 12, color, 600));
+    parts.push(text(x + 18, y + 57, `${i + 1}. ${item.title}`, 23, '#e2e6da', 600));
+    item.lines.forEach((line, n) => parts.push(text(x + 18, y + 85 + n * 23, line, 16, '#b6c1af')));
+    parts.push('</g>');
+  });
+  parts.push(text(64, 1030, 'LATEST', 12, '#c2dca1', 600));
+  parts.push(text(150, 1030, latestAdvance, 17, '#d4ddce'));
+  parts.push(text(64, 1068, 'NEXT PROOF', 12, '#a3b49b', 600));
+  parts.push(text(150, 1068, nextOutcome, 17, '#b6c1af'));
+  parts.push(text(64, 1110, 'Reviewed checkpoint: C082 · No real library has switched. Read the linked checklist for evidence, delivery status and limits.', 15, '#a3b49b'));
   parts.push('</g></svg>');
-  const markdown = ['# Roadmap at a glance', '', '<!-- Generated by scripts/generate-roadmap.mjs. Edit its summaries, not this file. -->', '', '![Roadmap with checks for demonstrated journeys, in-progress markers and remaining work.](images/roadmap.svg)', '', '**✓ Demonstrated** · **◐ In progress / partial proof** · **○ Remaining**', '', 'Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.', '', '**Current checkpoint:** C078 verifies read-only comparison of206 Paper variants, including204 preserved variants, two staged notes, links, PNG media and navigation projection. Interruption/revalidation, later-edit and cancellation refusals pass against a real disposable runtime. See the [current handoff](NEXT-AGENT.md) for delivery status and [C078 evidence](cycles/evidence/C078/README.md) for scope and limits.', ''];
+  const markdown = ['# Roadmap at a glance', '', '<!-- Generated by scripts/generate-roadmap.mjs. Edit its summaries, not this file. -->', '', '![Roadmap with checks for demonstrated journeys, in-progress markers and remaining work.](images/roadmap.svg)', '', '**✓ Demonstrated** · **◐ In progress / partial proof** · **○ Remaining**', '', 'Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.', '', `**Latest advance:** ${latestAdvance}`, '', `**Next observable result:** ${nextOutcome} See the [current handoff](NEXT-AGENT.md) for the delivery gate.`, '', '## Inside migration', '', 'Since C078, navigation ownership improved in C080 and the write controller passed its C082 tests. The controller is not integrated; no real library has switched. These checkpoints show distinct results, not equal-sized units or a completion percentage.', '', '| Checkpoint | State | What this means |', '|---|---|---|'];
+  for (const item of migrationProgress) {
+    markdown.push(`| ${item.title} | ${marks[item.status]} ${meanings[item.status]} | ${item.detail} [Evidence / exit](${item.evidence.replace(/^docs\//, '')}) |`);
+  }
+  markdown.push('');
   for (const stage of plan.stages) {
     const summary = labels[stage.id];
     markdown.push(`## ${summary.title.join(' ')} · ${stageStatus(stage).toLowerCase()}`, '', '| State | Journey | Evidence / acceptance |', '|---|---|---|');
