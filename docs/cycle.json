@@ -26,7 +26,7 @@
     "docs/cycles/evidence/C083/upstream-local-suite.json",
     "https://github.com/FRIKKern/barkpark/pull/20422"
   ],
-  "truthReview": "Slice 1 is pushed as draft upstream PR20422 (dcd66459d): coordinator child admission and failed outcomes, Door wrapper, Writer/Lifecycle/Mutations doors, 503 mapping, boot wiring. 37 targeted tests and a boot probe pass; full local suite 23,159/23,168 with the two owned failures fixed and two attributed to reused DB partitions. Not wired: BlockOps, cache refresh, media, sweeper, sync. No seal capability advertised; CI and the task gate pending.",
+  "truthReview": "Slice 1 is draft upstream PR20422 at b50d6f4ac with the Elixir gate, census, doc budgets and smoke gates green; only the task gate is red, for lack of a live bp claim. Coordinator child admission and failed outcomes, Door wrapper, Writer/Lifecycle/Mutations doors, 503 mapping, boot and compose wiring. Not wired: BlockOps, cache refresh, media, sweeper, sync. No seal capability advertised.",
   "screenshotReview": "No visual inputs changed at opening; upstream-only work planned. C080 reviewed evidence remains applicable.",
   "delivery": {
     "phase": "implementing",
