@@ -6,6 +6,8 @@ We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT,
 
 ## Where we are · September 26, 2026
 
+**Migration effort estimate: about 45% · plausible scenarios 15–75% · very low confidence.** This first provisional estimate weights demonstrated work against expected work left; it is not a safety rating or a whole-project percentage. The wide range comes mainly from unproven writer coverage and recovery. [Estimates, calculation and next calibration](docs/PLAN.md#migration-effort-estimate).
+
 **Working today:** the source prototype supports [writing, searching and restarting](docs/visual/paper-notes/README.md), [agent edits with Undo](docs/visual/agent-notes/README.md), and [deleted-note recovery](docs/visual/paper-deletions/README.md). We’re working toward one dependable Paper note engine; existing libraries have not switched yet.
 
 **Recent progress:** we proved a read-only library comparison, improved navigation ownership, and tested the controller intended to keep writes out during migration. That controller is not integrated. Its merge awaits a deployment decision; see the [six migration checkpoints](docs/ROADMAP.md#inside-migration).

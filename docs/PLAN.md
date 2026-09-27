@@ -10,6 +10,26 @@ Local-only use stands on its own. Cloud connection is optional. People organize 
 
 This journey is not complete today. The Paper editor and Windows source runtime work; P1 profile isolation is accepted at source27ea120, while migration and portability remain pending. Do not express progress as closed-issue percentages: integration and failure handling are the remaining work.
 
+## Migration effort estimate
+
+**Reviewed 2026-09-26 · provisional working estimate: about 45%; scenario range about 15–75%; very low confidence.** Scope: the six “Migrate with a way back” checkpoints, not all P2 or the whole product. Acceptance remains unfinished. This is the first explicit estimate, not evidence that progress increased today.
+
+Basis: estimated engineering-equivalent hours for demonstrated scope and remaining delivery, not measured historical hours, agent runtime, cost or a calendar forecast. Completed weights are retrospective judgments: staging/backup and real-editor preservation each span several substantial boundaries; comparison/navigation and the partial writer boundary are smaller completed slices. The range holds those provisional completed weights constant; revising them can move the range too.
+
+| Existing checkpoint | Difficulty | Completed estimate | Remaining: optimistic / working / adverse | Basis and uncertainty |
+|---|---|---:|---:|---|
+| Preserve and stage | High | 100 | 5 / 10 / 30 | [Backup and staging evidence](migration/README.md); bounded supported formats. Final integrated recheck remains. |
+| Edit migrated notes | High | 100 | 5 / 10 / 30 | [Real editor and original-history evidence](migration/README.md); final integrated preservation checks remain. New format support is outside this estimate. |
+| Compare the library | Medium–high | 30 | 5 / 10 / 30 | [Comparison](migration/comparison.md) and [owned navigation](cycles/C080-owned-navigation.md) demonstrated; rerun under the final write boundary. |
+| Protect the switch | Very high | 30 | 10 / 100 / 500 | [App preparation and tested upstream controller](cycles/C082-managed-admission.md). Controller is unmerged/unwired; direct, background and media coverage may require redesign. Completed weight includes tested but unintegrated work. |
+| Switch and recover | Very high | 0 | 30 / 100 / 500 | [A2](ACCEPTANCE.md#a2--one-engine-without-lost-notes): authority selection and interruption proof remain. Assumes earlier comparison and fencing can be reused. |
+| Prove the way back | Very high | 0 | 30 / 100 / 500 | [A2](ACCEPTANCE.md#a2--one-engine-without-lost-notes): preserve newer edits, rehearse rollback and retire legacy editing. Reconciliation may reveal substantial extra work. |
+| **Total** | | **260** | **85 / 330 / 1,590** | Shared prerequisites counted once; remaining estimates include implementation, validation and integration. External waiting excluded. |
+
+Calculation: working `260 / (260 + 330) = 44%`, displayed as **about 45%**. Adverse `260 / (260 + 1,590) = 14%`; optimistic `260 / (260 + 85) = 75%`, displayed as **about 15–75%**. These are scenario judgments, not a measured completion fraction, statistical interval or guaranteed worst case. The wide range is intentional: no reliable historical effort calibration exists yet.
+
+**Next calibration:** integrate the first real content/media writers and test exclusion, drain and restart. A straightforward fit supports the optimistic path; bypasses or unresolved effects increase remaining effort. The upstream deployment decision currently blocks that dependent work. Update this estimate and the README when new evidence changes the outlook; record the reason in the current cycle. Follow [the progress workflow](CYCLES.md#effort-weighted-progress).
+
 ## Delivery sequence
 
 The machine-readable queue is [plan.json](plan.json). `npm run plan` prints the next unblocked stage and separately reports release gates. Local evidence determines completion; closing an old GitHub issue cannot automatically complete a stage.
