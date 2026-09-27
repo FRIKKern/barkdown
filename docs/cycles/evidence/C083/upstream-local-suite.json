@@ -1,0 +1,15 @@
+{
+  "lane": "codex/managed-write-wiring",
+  "head": "dcd66459d",
+  "pr": "https://github.com/FRIKKern/barkpark/pull/20422",
+  "engine": "Elixir 1.20.2 / Erlang/OTP 29 (erts 17.0.3), aarch64-apple-darwin24.6.0, Postgres on localhost:5432",
+  "fullSuite": {"at": "74e0df1d4", "passed": 23159, "total": 23168, "doctests": 30, "skipped": 2, "excluded": 40, "elapsedSeconds": 959.3, "partition": "c083full"},
+  "failuresAndDispositions": [
+    {"test": "Barkpark.DocBudgetCapTest every capped doc is within its cap", "cause": "api/CLAUDE.md rows added for the door pushed the file 318 B over its 6500 B cap", "fix": "rows shortened (6493 B); passes at dcd66459d"},
+    {"test": "Barkpark.PdsElixirCensusTest (4 cases)", "cause": "the Door closure hop moved one receipt (Sheets ImportController.create) from write-routed to unrouted at the census depth budget; main CENSUS OK, branch FAIL D448-DRIFT-REFUSES", "fix": "baseline re-derived by run per PDS-D448a (57->56, 14->15), member named from --sites diffed against origin/main; CENSUS OK and all 4 cases pass at dcd66459d"},
+    {"test": "ExtendWorkspaceDeleteCascadeTest and CascadeContentOnScopeDeleteTest down/0 cases", "cause": "reused test-database partitions on this host; both pass on a fresh partition on the branch (6/6) and on untouched origin/main (6/6)", "fix": "none needed; CI remains the authority"},
+    {"test": "2 further tests", "cause": "passed on --failed rerun; not reproduced", "fix": "none"}
+  ],
+  "targeted": {"admissionAndDoor": 35, "httpHeldRefusal": 2, "envelopeTable": 4, "bootProbe": "coordinator in :full only when enabled; absent from :seed and :one_shot"},
+  "ci": "see PR checks; task gate expected to fail until a live bp claim is attached"
+}
