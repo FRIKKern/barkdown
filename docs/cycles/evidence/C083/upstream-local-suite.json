@@ -1,6 +1,6 @@
 {
   "lane": "codex/managed-write-wiring",
-  "head": "b50d6f4ac",
+  "head": "ff5bcb995",
   "pr": "https://github.com/FRIKKern/barkpark/pull/20422",
   "engine": "Elixir 1.20.2 / Erlang/OTP 29 (erts 17.0.3), aarch64-apple-darwin24.6.0, Postgres on localhost:5432",
   "fullSuite": {
@@ -42,18 +42,30 @@
     "bootProbe": "coordinator in :full only when enabled; absent from :seed and :one_shot"
   },
   "ci": {
-    "head": "b50d6f4ac",
+    "head": "ff5bcb995",
     "at": "2026-09-27",
     "elixirGate": "SUCCESS",
     "census": "SUCCESS",
     "docBudgets": "SUCCESS",
     "smokeArms": "SUCCESS",
     "composeSmoke": "SUCCESS",
-    "taskGate": "FAILURE (no live bp claim attached; Guerrilla auth expired on the authoring host)",
+    "taskGate": "SUCCESS",
     "hygieneFixesAfterFirstRun": [
       "api/CLAUDE.md must keep 150 B headroom under its 6500 B cap: two door rows folded into one (ad1112199)",
       "new-lineref-check refuses new file:line citations in comments: census member cited by module/function (ad1112199)",
       "env census requires every BARKPARK_* read by runtime.exs to pass through the compose api service: three variables added (b50d6f4ac)"
-    ]
+    ],
+    "mergeState": "CLEAN; all 80 checks green; merge awaits the user because it deploys production"
+  },
+  "task": {
+    "id": "task-a2d6f4de10681bab",
+    "parent": "task-bc9c0701def08446",
+    "worker": "claude-barkdown-c083",
+    "status": "in_progress",
+    "criteria": [
+      "met: Elixir gate with door_test.exs and write_admission_mutate_test.exs, 0 failures (stamped at ff5bcb995)",
+      "unmet: merge gate for PR20422"
+    ],
+    "c082Task": "task-a56ae2ae8287166f closed done on 2026-09-27 with the merge-gated criterion stamped citing 1c6c3f21 and deploy run 36319151297"
   }
 }

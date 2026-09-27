@@ -17,7 +17,7 @@
   ],
   "checkpoint": "2026-09-27",
   "handoff": "docs/cycles/C083-writer-admission.md",
-  "nextAction": "Attach a live bp task claim to upstream PR20422, then wire slice 2: BlockOps entries, refresh_html_cache via Door.admit_or_skip, and the media doors, each with a held-state refusal test.",
+  "nextAction": "User merges upstream PR20422 (deploys production); then stamp the task merge gate, open the slice 2 lane from main and wire BlockOps, refresh_html_cache and the media doors with held-state refusal tests.",
   "evidence": [
     "docs/cycles/evidence/C082/merge.json",
     "docs/cycles/evidence/C082/integration-review.json",
@@ -26,16 +26,16 @@
     "docs/cycles/evidence/C083/upstream-local-suite.json",
     "https://github.com/FRIKKern/barkpark/pull/20422"
   ],
-  "truthReview": "Slice 1 is draft upstream PR20422 at b50d6f4ac with the Elixir gate, census, doc budgets and smoke gates green; only the task gate is red, for lack of a live bp claim. Coordinator child admission and failed outcomes, Door wrapper, Writer/Lifecycle/Mutations doors, 503 mapping, boot and compose wiring. Not wired: BlockOps, cache refresh, media, sweeper, sync. No seal capability advertised.",
+  "truthReview": "Slice 1 upstream PR20422 at ff5bcb995 is green on all 80 checks including the task gate, referencing claimed task task-a2d6f4de10681bab; merge awaits the user because it deploys production. C082 task closed done. Not wired: BlockOps, cache refresh, media, sweeper, sync. No seal capability advertised.",
   "screenshotReview": "No visual inputs changed at opening; upstream-only work planned. C080 reviewed evidence remains applicable.",
   "delivery": {
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "Task-board claim for PR20422: bp auth for Guerrilla expired on this host",
+      "User merge of PR20422, then stamp the task merge gate and retire the lane",
       "Slice 2 doors: BlockOps entries, refresh_html_cache (admit_or_skip), Media.upload/delete_file/put_blob, Processing.process",
       "Slice 3: Oban writers incl. stuck-processing sweeper and Sync.Worker refusal in managed mode",
-      "Exclusion, drain, rollback, restart and bypass tests across all doors; upstream PR through required gates"
+      "Exclusion, drain, rollback, restart and bypass tests across all doors; coverage audit before any capability decision"
     ]
   }
 }
