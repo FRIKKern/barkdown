@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "id": "C082",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Persist and test managed upstream write admission through drain and process restart without enabling migration.",
+  "scope": [
+    "Internal opt-in coordinator and durable journal",
+    "Deterministic drain, ownership, interruption and restart tests",
+    "Integrate the tested primitive before production writer wiring"
+  ],
+  "acceptance": [
+    "Admitted work drains before held state; later callers refuse",
+    "Lost owners or interrupted state never silently reopen",
+    "Real journal restart and ownership tests pass",
+    "Required checks and delivery evidence remain honest; no seal capability enabled"
+  ],
+  "checkpoint": "2026-09-27",
+  "handoff": "docs/cycles/C082-managed-admission.md",
+  "nextAction": "C083 wires the merged coordinator into every supported upstream writer, opt-in for a managed runtime, without advertising a seal.",
+  "evidence": [
+    "docs/cycles/evidence/C081/merge.json",
+    "docs/cycles/evidence/C082/README.md",
+    "docs/cycles/evidence/C082/upstream-checks.json",
+    "https://github.com/FRIKKern/barkpark/pull/20420",
+    "docs/cycles/evidence/C082/progress-review/review.json",
+    "docs/cycles/evidence/C082/merge.json"
+  ],
+  "truthReview": "Upstream full Mix suite and all 25 named admission tests pass; required gates were green at the rechecked head. User authorized the production-deploying merge on 2026-09-27; merged as 1c6c3f21, branch retired. No runtime wiring, seal capability or activation claim.",
+  "screenshotReview": "No visual inputs changed; upstream primitive is unwired. C080 reviewed evidence remains applicable. Roadmap diagram reviewed at 1440px and 960px; see C082/progress-review/review.json. No app visual inputs changed.",
+  "delivery": {
+    "phase": "delivered",
+    "owner": "primary agent",
+    "remaining": []
+  }
+}

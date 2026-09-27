@@ -1,6 +1,6 @@
 # Evidence and remaining proof
 
-[C082 managed admission](cycles/C082-managed-admission.md): upstream PR20420 implements the internal durable coordinator at d5b909fe. All required gates pass:23,168 tests,0 failures,40 excluded,2 skipped, plus30 doctests and14 boot tests. The Linux log confirms all25 admission cases; two deliberate mutations fail as intended. Root verification passes50.617s. [Evidence](cycles/evidence/C082/README.md). Merge awaits the user's production-deployment decision; no content/media wiring, seal capability, authority switch or new UI proof.
+[C082 managed admission](cycles/C082-managed-admission.md): upstream PR20420 implements the internal durable coordinator at d5b909fe. All required gates pass:23,168 tests,0 failures,40 excluded,2 skipped, plus30 doctests and14 boot tests. The Linux log confirms all25 admission cases; two deliberate mutations fail as intended. Root verification passes50.617s. [Evidence](cycles/evidence/C082/README.md). Merged upstream as 1c6c3f21 on 2026-09-27 with user authorization ([receipt](cycles/evidence/C082/merge.json)); no content/media wiring, seal capability, authority switch or new UI proof.
 
 [C081 admission contract](cycles/C081-seal-contract.md) pins 19 inspected source files and specifies upstream drain, cache/media coverage and fail-closed restart. Root verification passes (59.205s). This is design/source evidence only; no admission API, runtime seal or authority switch is implemented.
 
