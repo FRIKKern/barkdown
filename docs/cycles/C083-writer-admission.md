@@ -1,0 +1,21 @@
+# C083 — writer admission wiring
+
+**Outcome / scope:** connect the merged `Barkpark.ManagedRuntime.WriteAdmission` coordinator to every supported upstream content and media writer, opt-in for a dedicated managed runtime only, and prove that held state refuses real writes. Normal and shared servers stay unchanged. No seal capability, selector, authority switch or legacy retirement in this cycle; advertising waits for the coverage audit and recovery proof in the [admission contract](../migration/seal-admission.md).
+
+**Source / ownership:** Barkdown lane `codex/migration-wiring`; upstream worktree `barkpark-worktrees/barkdown-c083` on `codex/managed-write-wiring` from `1c6c3f21` (the C082 merge). Task claim pending: `bp` auth for the Guerrilla server had expired on this host, and the upstream PR task gate needs a live claim before the PR can merge.
+
+**Budget / stop:** finish the writer census and the first owner (`Content.Mutations.apply_mutations`) with exclusion tests before touching media. Stop and record if any writer runs outside the request process in a way the pid-bound ticket cannot cover; that is a design finding, not a reason to widen the bypass list.
+
+**Tripwires:** the five deferred effects in the [C082 integration review](evidence/C082/integration-review.json): workspace deletion flushing media after commit, mutation batches with compensating cleanup, read-side `refresh_html_cache`, synchronous upload hooks running processing, and the Oban stuck-processing sweeper. Each needs admission through its full effect, or explicit refusal in managed mode. Root `npm run verify` and upstream required gates at the ready checkpoint. No UI change is planned; no capture unless that changes.
+
+**Preflight:** local Elixir 1.20.2 / OTP 29 (Homebrew; `.tool-versions` asks for 1.18.4 / OTP 27, which CI supplies). Postgres accepts connections on 5432. Dependencies copied from the main checkout; `mix compile` and the 25 admission tests pass in the lane (0.8s). Not yet run: the full suite locally.
+
+**Next action:** produce the writer census (owner, transaction boundary, calling process) at `1c6c3f21`, record it as evidence, then wire admission at the first owner with a deterministic held-state refusal test.
+
+**Writer census (done):** [evidence](evidence/C083/writer-census.md) at upstream `1c6c3f21`, produced by a read-only source survey. Three findings change the design. (1) Plugin after-hooks run in `Task.async_stream` children while the outer transaction is open, so a request-pid ticket does not cover them. (2) Six writers are autocommit with no transaction to wrap: block ops, HTML cache refresh, supersession stamp, compensating discard, media upload and processing. (3) The sync worker, 22 Oban workers and three `Task.Supervisor` fire-and-forget paths write outside any request pid. Also: "managed runtime" already names Studio Chat's Codex runtimes upstream, so every new key, code and flag uses `write_admission`.
+
+**Design decision:** admission is taken at door functions, not around `Repo.transaction`: the `Content` facade create/upsert/publish/unpublish/discard/delete/restore, every BlockOps entry, `Media.upload`/`delete_file`/`put_blob`, `Processing.process`, `refresh_html_cache` (skip the persist while held, serve the derived result), and Oban `perform` for writers. A `Door` wrapper is a pure passthrough unless `config :barkpark, :write_admission` is enabled, so unmanaged servers change nothing. The coordinator gains inherited admission: a child pid whose `$callers` ancestor holds a ticket joins that root, and the root's final checkin refuses with `children_pending` while a child is outstanding, so fire-and-forget children force an explicit `uncertain` rather than a false settlement. Non-request writers take their own checkout and are refused while closing or held. No capability is advertised in this cycle.
+
+**Proof so far:** root `npm run verify` passed 34.985s ([result](evidence/C083/checks-01/result.json)); documentation only, no visual inputs changed.
+
+**Next action:** in the upstream lane, extend `WriteAdmission` with inherited child admission and the children-pending refusal, with tests; then add the door wrapper and wire the first content door with a ConnCase test proving a held instance refuses a real mutation and leaves rows and revisions unchanged.

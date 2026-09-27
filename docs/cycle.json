@@ -1,38 +1,39 @@
 {
   "version": 1,
-  "id": "C082",
+  "id": "C083",
   "stage": "P2",
   "status": "active",
-  "goal": "Persist and test managed upstream write admission through drain and process restart without enabling migration.",
+  "goal": "Wire the merged admission coordinator into every supported upstream content and media writer, opt-in for a managed runtime only, and prove writes cannot slip through while held.",
   "scope": [
-    "Internal opt-in coordinator and durable journal",
-    "Deterministic drain, ownership, interruption and restart tests",
-    "Integrate the tested primitive before production writer wiring"
+    "Managed-runtime configuration and journal/instance binding, off by default and refused for unsupported modes",
+    "Admission at content and media mutation owners, including read-side cache repair, deferred cleanup and background processing",
+    "Deterministic exclusion, drain, rollback, restart and bypass tests against real database and blob fixtures"
   ],
   "acceptance": [
-    "Admitted work drains before held state; later callers refuse",
-    "Lost owners or interrupted state never silently reopen",
-    "Real journal restart and ownership tests pass",
-    "Required checks and delivery evidence remain honest; no seal capability enabled"
+    "While held, direct context, HTTP, native Paper, lifecycle, media and sweeper writes are refused and leave rows, revisions, bytes and journal unchanged",
+    "Admitted writes drain through commit, rollback, deferred cleanup and hooks before the hold settles; uncertain effects block readiness",
+    "Servers without managed mode behave unchanged under the existing upstream suite",
+    "No seal capability is advertised until the writer coverage audit and recovery cases pass; upstream required gates and root verification stay honest"
   ],
-  "checkpoint": "2026-09-26",
-  "handoff": "docs/cycles/C082-managed-admission.md",
-  "nextAction": "Resolve PR20420's automatic production deployment against the no-deployment scope; all required checks now pass.",
+  "checkpoint": "2026-09-27",
+  "handoff": "docs/cycles/C083-writer-admission.md",
+  "nextAction": "Extend the coordinator with inherited child admission and a children-pending refusal, then add the door wrapper and wire the first content door with a held-state refusal test in codex/managed-write-wiring.",
   "evidence": [
-    "docs/cycles/evidence/C081/merge.json",
-    "docs/cycles/evidence/C082/README.md",
-    "docs/cycles/evidence/C082/upstream-checks.json",
-    "https://github.com/FRIKKern/barkpark/pull/20420",
-    "docs/cycles/evidence/C082/progress-review/review.json"
+    "docs/cycles/evidence/C082/merge.json",
+    "docs/cycles/evidence/C082/integration-review.json",
+    "docs/cycles/evidence/C083/writer-census.md",
+    "docs/cycles/evidence/C083/checks-01/result.json"
   ],
-  "truthReview": "Upstream full Mix suite and all25 named admission tests pass; required gates are green. Merge is pending deployment authorization. No runtime wiring, seal capability or activation claim.",
-  "screenshotReview": "No visual inputs changed; upstream primitive is unwired. C080 reviewed evidence remains applicable. Roadmap diagram reviewed at 1440px and 960px; see C082/progress-review/review.json. No app visual inputs changed.",
+  "truthReview": "Writer census recorded at upstream 1c6c3f21: hooks run in child pids, six autocommit writers, 22 Oban workers and the sync worker write outside request pids. No wiring exists yet; the C082 coordinator is merged unwired and its 25 tests pass locally. Root verification passed 34.985s.",
+  "screenshotReview": "No visual inputs changed at opening; upstream-only work planned. C080 reviewed evidence remains applicable.",
   "delivery": {
-    "phase": "integrating",
+    "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "User decision: upstream API merges automatically deploy production; current scope excludes deployment",
-      "Upstream merge receipt and owned branch retirement after authorization"
+      "Coordinator extension: inherited admission for $callers children, children-pending refusal, tests",
+      "Door wrapper (no-op unless write_admission is enabled) and wiring at every §1–6 door; managed-mode refusal for Oban and sync writers",
+      "Exclusion, drain, rollback, restart and bypass tests; upstream PR through required gates",
+      "Task-board claim for the upstream PR: bp auth for Guerrilla expired on this host, so the PR task gate needs a fresh login"
     ]
   }
 }

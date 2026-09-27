@@ -1,0 +1,28 @@
+{
+  "pr": "https://github.com/FRIKKern/barkpark/pull/20420",
+  "head": "d5b909fe16fe82b2d40ef23b9f04b5e5d9e0d2c6",
+  "merge": "1c6c3f21f37c15fcc6327e7055daf6bccdfe0d3e",
+  "mergedAt": "2026-09-27T12:29:24Z",
+  "authorization": "User authorized merging with automatic production deployment on 2026-09-27; the coordinator stays unwired so no runtime behavior changes.",
+  "prChecks": {
+    "elixir": 36225486683,
+    "result": "success",
+    "requiredFailing": 0,
+    "behindMain": 0,
+    "mergeState": "CLEAN"
+  },
+  "postMerge": {
+    "deploy": 36319151297,
+    "result": "success",
+    "jobs": {
+      "changes": "success",
+      "instance": "success",
+      "control-plane": "skipped",
+      "production serves newest main": "success",
+      "record delivery": "success"
+    }
+  },
+  "mergeMethod": "merge commit (repository convention is squash; recorded, not rewritten)",
+  "branchRetired": true,
+  "taskBoard": "task-a56ae2ae8287166f not updated: bp auth for the Guerrilla server had expired on this host (tier=none)"
+}
