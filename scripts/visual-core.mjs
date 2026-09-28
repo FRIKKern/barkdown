@@ -15,7 +15,15 @@ export function sourceHash(bytes) { const text=bytes.toString('utf8');return has
 export function inputs() {
  const names=execFileSync('git',['ls-files','--cached','--others','--exclude-standard'],{cwd:root,encoding:'utf8',maxBuffer:64*1024*1024}).trim().split(/\r?\n/);
  const selected=[...new Set(names)].filter(p=>/^(app\/(renderer\/|shared\/|scripts\/|package(?:-lock)?\.json|BARKPARK_REF)|app\/tests\/(?:visual|status-shots)|scripts\/visual|docs\/visual\/coverage\.json|package(?:-lock)?\.json)/.test(p)).sort();
- return Object.fromEntries(selected.map(p=>[p,fs.existsSync(safe(p))?sourceHash(fs.readFileSync(safe(p))):'deleted']));
+ return Object.fromEntries(selected.map(p=>[p,fs.existsSync(safe(p))?inputHash(p,fs.readFileSync(safe(p))):'deleted']));
+}
+// A package manifest moves pixels only through what it installs and how the app is packaged;
+// its npm scripts do not, so they are left out of the fingerprint (2026-09-29).
+const manifestFields=['name','version','main','type','dependencies','devDependencies','optionalDependencies','peerDependencies','overrides','resolutions','build','engines'];
+function inputHash(p,bytes) {
+ if(!/(^|\/)package\.json$/.test(p))return sourceHash(bytes);
+ try { const m=JSON.parse(bytes.toString('utf8')); return hash(JSON.stringify(Object.fromEntries(manifestFields.filter(k=>k in m).map(k=>[k,m[k]])))); }
+ catch { return sourceHash(bytes); }
 }
 export const fingerprint = data => hash(JSON.stringify(data));
 export function verifyArtifacts(manifest) {
