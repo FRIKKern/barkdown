@@ -34,11 +34,23 @@
     },
     {
       "file": "settings-barkpark.3cf3946c.png",
-      "caption": "Settings › Barkpark: the connection Barkdown edits through — here the local server."
+      "caption": "Settings \u203a Barkpark: the connection Barkdown edits through \u2014 here the local server."
     },
     {
       "file": "editing.0c500298.gif",
-      "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
+      "caption": "An editing loop in the canvas: slash menu \u2192 Quote, typing, Tab through the table, quick open."
+    }
+  ],
+  "uiExemptions": [
+    {
+      "commit": "e38990a1",
+      "date": "2026-09-29",
+      "reason": "main/migration-selection.js: rollback records Paper divergence instead of converting back. No renderer change (C083)."
+    },
+    {
+      "commit": "12708158",
+      "date": "2026-09-29",
+      "reason": "main/migration-selection.js: rollback compares after the legacy navigation is restored. No renderer change (C083)."
     }
   ]
 }
