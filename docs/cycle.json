@@ -17,7 +17,7 @@
   ],
   "checkpoint": "2026-09-27",
   "handoff": "docs/cycles/C083-writer-admission.md",
-  "nextAction": "When PR20426 (slice 3) is green, the user merges it; then start the direct-writer audit (about 125 Repo/blob writers) as the next slice, recording each writer as fits-a-door or needs-a-boundary.",
+  "nextAction": "Direct-writer audit: classify the roughly 125 Repo/blob writers outside the doors (census §7) as fits-a-door, needs-a-boundary or refused-in-managed-mode, recorded as evidence, before the trusted hold endpoint.",
   "evidence": [
     "docs/cycles/evidence/C082/merge.json",
     "docs/cycles/evidence/C082/integration-review.json",
@@ -26,15 +26,15 @@
     "docs/cycles/evidence/C083/upstream-local-suite.json",
     "https://github.com/FRIKKern/barkpark/pull/20422"
   ],
-  "truthReview": "Slices 1 and 2 are merged and deployed (c35d45aaf, 1f95949bd): note, Paper block, cache-repair and media writers pass through the admission controller and a held instance refuses them. Slice 3 (Oban admission + queue pausing) is PR20426, locally green, CI pending. Effort estimate moved 45% to 50% on completed scope; confidence low. No seal capability advertised; no library switched.",
+  "truthReview": "Slices 1 to 3 are merged and deployed (c35d45aaf, 1f95949bd, fc9a07b11): content, Paper block, cache-repair and media writers and every Oban job pass through the admission controller, queues pause before a hold, and a held instance is proven to refuse writes at these doors. The slice 3 deploy result was not observed by the agent. Estimate unchanged at about 50%: the audit, not the next merge, moves it. No seal capability advertised; no library switched.",
   "screenshotReview": "No visual inputs changed at opening; upstream-only work planned. C080 reviewed evidence remains applicable.",
   "delivery": {
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "User merge of PR20426 (slice 3), then retire the lane",
-      "Direct-writer audit: classify about 125 Repo/blob writers as fits-a-door or needs-a-boundary",
-      "Trusted hold endpoint for Barkdown, bypass tests, drain/restart/rollback proof before any capability decision"
+      "Direct-writer audit (about 125 Repo/blob writers): classify and record",
+      "Trusted hold endpoint for Barkdown and bypass tests",
+      "Drain, restart and rollback proof before any capability decision"
     ]
   }
 }

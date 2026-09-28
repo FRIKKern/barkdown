@@ -6,11 +6,11 @@ We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT,
 
 ## Where we are · September 28, 2026
 
-**Migration effort estimate: about 50% · plausible scenarios 15–80% · low confidence.** Up from 45% on September 28: the admission doors for note, Paper and media writers are merged and deployed, and a held instance is proven to refuse them. This provisional estimate weights demonstrated work against expected work left; it is not a safety rating or a whole-project percentage. The wide range comes mainly from unproven writer coverage and recovery. [Estimates, calculation and next calibration](docs/PLAN.md#migration-effort-estimate).
+**Migration effort estimate: about 50% · plausible scenarios 15–80% · low confidence.** Up from 45% on September 28: the admission doors for note, Paper and media writers are merged and deployed, and a held instance is proven to refuse them; background jobs followed the same day. This provisional estimate weights demonstrated work against expected work left; it is not a safety rating or a whole-project percentage. The wide range comes mainly from unproven writer coverage and recovery. [Estimates, calculation and next calibration](docs/PLAN.md#migration-effort-estimate).
 
 **Working today:** the source prototype supports [writing, searching and restarting](docs/visual/paper-notes/README.md), [agent edits with Undo](docs/visual/agent-notes/README.md), and [deleted-note recovery](docs/visual/paper-deletions/README.md). We’re working toward one dependable Paper note engine; existing libraries have not switched yet.
 
-**Recent progress:** the controller that keeps writes out during migration is now connected to the note, Paper and media writers in production, and a held instance refuses them without changing a row or a byte. Background jobs are in review. See the [six migration checkpoints](docs/ROADMAP.md#inside-migration).
+**Recent progress:** the controller that keeps writes out during migration is now connected to the note, Paper and media writers in production, and a held instance refuses them without changing a row or a byte. Background jobs are admitted the same way and queues pause before a hold. See the [six migration checkpoints](docs/ROADMAP.md#inside-migration).
 
 **Next result:** audit the remaining direct writers so nothing can slip past the doors, then prove an interrupted switch restarts and rolls back safely. Retiring the old editor waits on that proof.
 
