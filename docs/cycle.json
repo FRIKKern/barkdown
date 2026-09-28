@@ -1,43 +1,39 @@
 {
   "version": 1,
-  "id": "C083",
-  "stage": "P2",
+  "id": "C084",
+  "stage": "P1",
   "status": "active",
-  "goal": "Wire the merged admission coordinator into every supported upstream content and media writer, opt-in for a managed runtime only, and prove writes cannot slip through while held.",
+  "goal": "Measure and close the macOS gap for the Windows-accepted desktop prototype without letting any platform go untested: desktop suite green on macOS, skips recorded per host, a per-platform CI lane, and per-platform visual baselines.",
   "scope": [
-    "Managed-runtime configuration and journal/instance binding, off by default and refused for unsupported modes",
-    "Admission at content and media mutation owners, including read-side cache repair, deferred cleanup and background processing",
-    "Deterministic exclusion, drain, rollback, restart and bypass tests against real database and blob fixtures"
+    "Install and run the desktop suite on macOS; record pass, fail and skip per test file and the cause of each failure",
+    "Fix platform-conditional test and app defects with their twins on Windows and Linux; a platform-only test needs a recorded, owned gap",
+    "Desktop CI lane per platform, gated to app/ changes, Windows required, others advisory until green; nightly on main",
+    "Visual approvals keyed by platform so a Mac review never replaces the Windows one"
   ],
   "acceptance": [
-    "While held, direct context, HTTP, native Paper, lifecycle, media and sweeper writes are refused and leave rows, revisions, bytes and journal unchanged",
-    "Admitted writes drain through commit, rollback, deferred cleanup and hooks before the hold settles; uncertain effects block readiness",
-    "Servers without managed mode behave unchanged under the existing upstream suite",
-    "No seal capability is advertised until the writer coverage audit and recovery cases pass; upstream required gates and root verification stay honest"
+    "The desktop test chain passes on macOS with every remaining skip named and owned",
+    "The same chain stays green on Windows in CI; no Windows-only test lost its twin",
+    "The Linux lane runs the chain under Xvfb and its failures are recorded, not hidden",
+    "Host, OS release and skips appear in the evidence for this cycle"
   ],
-  "checkpoint": "2026-09-27",
-  "handoff": "docs/cycles/C083-writer-admission.md",
-  "nextAction": "Record the managed-mode policy per audited cluster (door, or refused at router and boot) as a design decision, then implement the task-board boundary in Tasks.Internal and the sync bookkeeping door; in parallel open C084 macOS parity (first blocker: the root-owned Electron cache).",
+  "checkpoint": "2026-09-28",
+  "handoff": "docs/cycles/C084-macos-parity.md",
+  "nextAction": "Finish the per-segment measurement of the desktop chain on this Mac, then add a platform-aware modifier helper to the tests (49 files press Control+ where macOS needs Meta) and rerun.",
   "evidence": [
-    "docs/cycles/evidence/C082/merge.json",
-    "docs/cycles/evidence/C082/integration-review.json",
-    "docs/cycles/evidence/C083/writer-census.md",
-    "docs/cycles/evidence/C083/checks-01/result.json",
-    "docs/cycles/evidence/C083/upstream-local-suite.json",
-    "https://github.com/FRIKKern/barkpark/pull/20422",
-    "docs/cycles/evidence/C083/writer-audit.md"
+    "docs/DESIGN-DECISIONS.md",
+    "docs/cycles/evidence/C084/README.md"
   ],
-  "truthReview": "Slices 1 to 3 merged and deployed. The direct-writer audit at fc9a07b11 classifies 151 files: 70 need a boundary, 11 covered, 16 boot-or-one-shot, 54 false positives. Two contract assumptions failed: boot writes run inside the full tree, and one-shot mix tasks are not refused by construction. Estimate moved down to about 45% on the audit. No seal capability advertised; no library switched.",
-  "screenshotReview": "No visual inputs changed at opening; upstream-only work planned. C080 reviewed evidence remains applicable.",
+  "truthReview": "Opened on the first Mac session. Electron could not install until the root-owned cache was chowned by the user. Unit files pass 105 of 110 with 5 Windows-only skips; the first live Electron test failed on a hardcoded Control+a. Full measurement in progress. Nothing accepted on macOS yet.",
+  "screenshotReview": "No visual inputs changed at opening; the visual baseline has no platform field and is not touched until per-platform keying lands.",
   "delivery": {
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "Managed-mode policy per audited cluster, recorded as a decision",
-      "Task-board boundary at Tasks.Internal.fenced_content_write; sync bookkeeping door; boot and one-shot refusal",
-      "Trusted hold endpoint for Barkdown and bypass tests",
-      "Drain, restart and rollback proof before any capability decision",
-      "C084 macOS parity: install, desktop suite, skips per host, CI lane, per-platform visual baseline"
+      "Per-segment measurement on macOS",
+      "Modifier helper and other test twins; app fixes if any",
+      "Desktop CI lane (added in this cycle, advisory for macOS and Linux)",
+      "Per-platform visual approvals",
+      "Return checkpoint on the Windows machine at the end of the Mac week"
     ]
   }
 }
