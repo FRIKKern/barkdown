@@ -46,8 +46,11 @@ jobs:
           sudo apt-get update -q
           sudo apt-get install -y -q xvfb libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2t64 libpango-1.0-0 libcairo2 libgtk-3-0 || sudo apt-get install -y -q xvfb libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2 libpango-1.0-0 libcairo2 libgtk-3-0
       - name: Install (root holds playwright; app holds electron and the app's deps)
+        shell: bash
+        # Some chain segments drive a Playwright Chromium beside Electron; the runner has none.
         run: |
           npm ci
+          if [ "$RUNNER_OS" = Linux ]; then npx playwright install --with-deps chromium; else npx playwright install chromium; fi
           cd app && npm ci
       - name: Build and test (Linux under Xvfb)
         if: runner.os == 'Linux'
