@@ -34,7 +34,7 @@ function fixture({ compareError = null, projectionIssue = null, drain = 0, onChe
   const selection = () => createMigrationSelection({ preparation, comparison, admission, project, checkpoint, now: () => 'T' });
   const options = { profileId, sourceDir, expectedSourceHash: 'src' }, target = { server: 'http://127.0.0.1:1', token: 't' };
   const workspace = () => fs.readFileSync(path.join(sourceDir, 'workspace.json'), 'utf8');
-  return { root, profileId, sourceDir, options, target, calls, state, selection, legacyText, projectedText: JSON.stringify(JSON.parse(require('../main/migration-journal').canonical(projectedWorkspace)), null, 2) + '\n', workspace };
+  return { root, profileId, sourceDir, options, target, calls, state, selection, comparison, legacyText, projectedText: JSON.stringify(JSON.parse(require('../main/migration-journal').canonical(projectedWorkspace)), null, 2) + '\n', workspace };
 }
 
 test('selection replaces the workspace atomically under both fences and records the seal', async () => {
@@ -93,6 +93,22 @@ test('an interrupted selection resumes with the same operation, or rolls back fr
   await assert.rejects(g.selection().select(g.options, g.target), { code: 'crash' });
   const back = await g.selection().rollback(g.options, g.target);
   assert.equal(back.status, 'rolled-back'); assert.equal(g.workspace(), g.legacyText);
+});
+
+test('rollback after Paper edits records the divergence and never converts back', async () => {
+  const f = fixture();
+  await f.selection().select(f.options, f.target);
+  f.comparison.compare = async () => { throw Object.assign(new Error('A pre-existing Paper changed or disappeared: p-note'), { code: 'comparison_changed' }); };
+  const back = await f.selection().rollback(f.options, f.target);
+  assert.equal(back.status, 'rolled-back'); assert.equal(back.reconciliationRequired, true);
+  assert.equal(back.divergence.code, 'comparison_changed'); assert.match(back.divergence.message, /p-note/);
+  assert.equal(f.workspace(), f.legacyText, 'the legacy navigation is restored');
+  assert.equal(f.state.phase, 'open');
+  const g = fixture();
+  await g.selection().select(g.options, g.target);
+  g.comparison.compare = async () => { throw Object.assign(new Error('runtime gone'), { code: 'upstream_unreachable' }); };
+  await assert.rejects(g.selection().rollback(g.options, g.target), { code: 'upstream_unreachable' });
+  assert.equal(g.selection().inspect(g.profileId, g.sourceDir).status, 'selected', 'a non-comparison failure leaves the selection in place');
 });
 
 test('refusals: a failed comparison, a blocked projection, a changed preparation, another preparation', async () => {

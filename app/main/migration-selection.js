@@ -51,7 +51,7 @@ function createMigrationSelection({ preparation, comparison, admission = createU
         case 'replacing': return { status: 'replacing', authority: 'legacy', operationId: j.operationId, actions: digest === j.workspaceBefore || digest === j.workspaceAfter ? ['resume', 'rollback'] : [], changed: digest !== j.workspaceBefore && digest !== j.workspaceAfter };
         case 'selected': return { status: 'selected', authority: 'paper', operationId: j.operationId, seal: j.seal, reopenedGeneration: j.reopenedGeneration ?? null, actions: digest === j.workspaceAfter ? ['rollback'] : [], changed: digest !== j.workspaceAfter };
         case 'rolling-back': return { status: 'rolling-back', authority: 'legacy', operationId: j.operationId, actions: digest === j.workspaceAfter || digest === j.workspaceBefore ? ['rollback'] : [], changed: false };
-        default: return { status: 'rolled-back', authority: 'legacy', operationId: j.operationId, actions: [], changed: digest !== j.workspaceBefore };
+        default: return { status: 'rolled-back', authority: 'legacy', operationId: j.operationId, actions: [], changed: digest !== j.workspaceBefore, divergence: j.divergence ?? null, reconciliationRequired: Boolean(j.divergence) };
       }
     } catch (error) { return { status: 'blocked', authority: 'legacy', error: error.message, code: error.code, actions: [] }; }
   }
@@ -136,7 +136,16 @@ function createMigrationSelection({ preparation, comparison, admission = createU
       }
       if (!legacy || legacy.operationId !== j.operationId || sha(Buffer.from(legacy.bytes)) !== j.workspaceBefore) fail('selection_retained', 'The retained legacy workspace is missing or changed; explicit inspection required');
       if (digest !== j.workspaceAfter && digest !== j.workspaceBefore) fail('selection_changed', 'The workspace changed after selection; a changed target needs explicit reconciliation, never a blind reverse conversion');
-      if (j.phase !== 'rolling-back') { await scope.assertCurrent(); j = transition(store, j, { ...j, phase: 'rolling-back' }); }
+      if (j.phase !== 'rolling-back') {
+        // Paper edits made after the switch stay on Paper. Rollback only returns the
+        // navigation to the retained legacy notes; a diverged library is recorded for
+        // explicit reconciliation, never converted back.
+        let divergence = null;
+        try { if (typeof comparison.compareWithin === 'function') await comparison.compareWithin(scope, options, target); else await comparison.compare(options, target); }
+        catch (error) { if (!String(error?.code || '').startsWith('comparison_')) throw error; divergence = { code: error.code, message: error.message, at: now() }; }
+        await scope.assertCurrent();
+        j = transition(store, j, { ...j, phase: 'rolling-back', divergence });
+      }
       if (digest === j.workspaceAfter) { await scope.assertCurrent(); atomicWrite(workspace, legacy.bytes, { expectedBytes: current, assertOwned: () => {} }); checkpoint('after-workspace-restored', { operationId: j.operationId }); }
       if (sha(bytes(workspace)) !== j.workspaceBefore) fail('selection_changed', 'Restored workspace does not read back as retained');
       await scope.assertCurrent();

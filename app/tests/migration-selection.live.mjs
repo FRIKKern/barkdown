@@ -26,7 +26,7 @@ const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-selection-live-'));
 const out = path.resolve('../docs/cycles/evidence/C083/live', new Date().toISOString().replace(/[:.]/g, '-') + '-selection');
 fs.mkdirSync(out, { recursive: true });
 const report = { source: process.env.BARKDOWN_SHOTS_HOST_COMMIT, upstream: process.env.BARKDOWN_SHOTS_BP_COMMIT, host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [],
-  limits: ['Headless profile with controlled foreground hooks; no boot policy consumes the selection yet; no Paper edits between selection and rollback; the runtime was idle so the hold was held at once.'] };
+  limits: ['Headless profile with controlled foreground hooks; the renderer does not yet show the selection; one Paper edit between selection and rollback; the runtime was idle so the hold was held at once.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();
 async function request(method, route, body, status = 200) {
   const response = await fetch(server + route, { method, headers: { authorization: 'Bearer ' + token, 'content-type': 'application/json' }, ...(body ? { body: JSON.stringify(body) } : {}), signal: AbortSignal.timeout(30000) });
@@ -79,13 +79,24 @@ try {
   const again = await selection.select(options, target);
   assert.equal(again.operationId, selected.operationId);
   report.checks.push({ name: 'reselect is idempotent', passed: true }); persist();
+  // A human edits the migrated Paper after the switch. Rollback must return the legacy
+  // navigation, keep that edit on Paper, and record the divergence for reconciliation.
+  const targetId = staging.documents[0].targetId;
+  const draft = await request('GET', `/v1/data/doc/production/paper/drafts.${targetId}?perspective=raw`).catch(() => null);
+  const paper = draft || await request('GET', `/v1/data/doc/production/paper/${targetId}?perspective=raw`);
+  await request('POST', `/v1/plugins/bulldocs/papers/${targetId}/ops`, { ifRev: paper.rev ?? 0, ops: [{ op: 'append-block', block: { id: 'later-human', type: 'paragraph', content: [{ type: 'text', value: 'A later human change on Paper' }] } }] });
   const back = await selection.rollback(options, target);
   assert.equal(back.status, 'rolled-back');
+  assert.equal(back.reconciliationRequired, true, 'the Paper edit after the switch is recorded as divergence');
+  assert.match(String(back.divergence?.code), /^comparison_/);
   assert.ok(fs.readFileSync(workspaceFile).equals(legacyBytes), 'rollback restores the retained bytes exactly');
   assert.equal((await admission.instance(connection)).phase, 'open');
   const rows = await request('GET', '/v1/data/query/production/paper?limit=1000&offset=0&count=true&perspective=published');
-  assert.ok(rows.documents.some(row => row._id === staging.documents[0].targetId), 'staged Papers survive rollback');
-  report.checks.push({ name: 'rollback restores the legacy workspace and keeps staged Papers', passed: true }); persist();
+  assert.ok(rows.documents.some(row => row._id === targetId), 'staged Papers survive rollback');
+  const after = await request('GET', `/v1/data/doc/production/paper/drafts.${targetId}?perspective=raw`);
+  assert.ok(after.blocks.some(block => block.id === 'later-human'), 'the later Paper edit is kept, never converted back');
+  assert.equal(fs.readFileSync(path.join(sourceDir, 'documents/orchard.json'), 'utf8').includes('later human'), false, 'the legacy note is untouched');
+  report.checks.push({ name: 'rollback after a Paper edit restores the legacy workspace, keeps the edit on Paper and records the divergence', divergence: back.divergence, passed: true }); persist();
   report.status = 'passed'; persist(); console.log(JSON.stringify(report, null, 2));
 } catch (error) { report.status = 'failed'; report.error = String(error?.stack || error); persist(); throw error; }
 finally { goals.close(); }
