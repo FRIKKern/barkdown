@@ -82,9 +82,9 @@ try {
   // A human edits the migrated Paper after the switch. Rollback must return the legacy
   // navigation, keep that edit on Paper, and record the divergence for reconciliation.
   const targetId = staging.documents[0].targetId;
-  const draft = await request('GET', `/v1/data/doc/production/paper/drafts.${targetId}?perspective=raw`).catch(() => null);
-  const paper = draft || await request('GET', `/v1/data/doc/production/paper/${targetId}?perspective=raw`);
-  await request('POST', `/v1/plugins/bulldocs/papers/${targetId}/ops`, { ifRev: paper.rev ?? 0, ops: [{ op: 'append-block', block: { id: 'later-human', type: 'paragraph', content: [{ type: 'text', value: 'A later human change on Paper' }] } }] });
+  const published = (await request('GET', '/v1/data/query/production/paper?limit=1000&offset=0&count=true&perspective=published')).documents.find(row => row._id === targetId);
+  assert.ok(published, 'the migrated Paper is published');
+  await request('POST', `/v1/plugins/bulldocs/papers/${targetId}/ops`, { ifRev: published.rev ?? 0, ops: [{ op: 'append-block', block: { id: 'later-human', type: 'paragraph', content: [{ type: 'text', value: 'A later human change on Paper' }] } }] });
   const back = await selection.rollback(options, target);
   assert.equal(back.status, 'rolled-back');
   assert.equal(back.reconciliationRequired, true, 'the Paper edit after the switch is recorded as divergence');
@@ -93,8 +93,9 @@ try {
   assert.equal((await admission.instance(connection)).phase, 'open');
   const rows = await request('GET', '/v1/data/query/production/paper?limit=1000&offset=0&count=true&perspective=published');
   assert.ok(rows.documents.some(row => row._id === targetId), 'staged Papers survive rollback');
-  const after = await request('GET', `/v1/data/doc/production/paper/drafts.${targetId}?perspective=raw`);
-  assert.ok(after.blocks.some(block => block.id === 'later-human'), 'the later Paper edit is kept, never converted back');
+  const twins = (await request('GET', '/v1/data/query/production/paper?limit=1000&offset=0&count=true&perspective=drafts')).documents;
+  const after = twins.find(row => row._id === 'drafts.' + targetId) || twins.find(row => row._id === targetId);
+  assert.ok(after?.blocks?.some(block => block.id === 'later-human'), 'the later Paper edit is kept, never converted back');
   assert.equal(fs.readFileSync(path.join(sourceDir, 'documents/orchard.json'), 'utf8').includes('later human'), false, 'the legacy note is untouched');
   report.checks.push({ name: 'rollback after a Paper edit restores the legacy workspace, keeps the edit on Paper and records the divergence', divergence: back.divergence, passed: true }); persist();
   report.status = 'passed'; persist(); console.log(JSON.stringify(report, null, 2));
