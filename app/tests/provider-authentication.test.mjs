@@ -79,7 +79,7 @@ test('actual CLI adapters retain captured device authentication through delayed 
   }
 });
 
-test('production child worker protocol preserves A/B credentials through native owned jobs', {skip:process.platform!=='win32',timeout:60000},async()=>{
+test('production child worker protocol preserves A/B credentials through native owned jobs', {timeout:60000},async()=>{
   const {captureScope}=require('../main/providers/run-scope'),{createGoalWorkerAgent}=require('../main/goal-worker-agent');
   const script=path.join(import.meta.dirname,'fixtures/goal-auth-worker.cjs');
   for(const provider of ['api','claude','codex']) for(const label of ['A','B']) {

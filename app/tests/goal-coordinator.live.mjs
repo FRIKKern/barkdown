@@ -7,8 +7,6 @@ import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { createCoordinatorFixture } from './fixtures/coordinator-http.mjs';
 import { MOD } from './helpers/keys.mjs';
-import { skipUnlessWindows } from './helpers/host.mjs';
-skipUnlessWindows("owned goal process host is Windows-only (main/goal-process.js job objects); POSIX twin pending");
 const require = createRequire(import.meta.url), appDir = path.resolve(import.meta.dirname, '..');
 const crashRecovery = process.env.BARKDOWN_TEST_COORDINATOR_CRASH === '1';
 const expectedTurns = crashRecovery ? 9 : 8;

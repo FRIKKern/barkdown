@@ -18,13 +18,14 @@
   ],
   "checkpoint": "2026-09-28",
   "handoff": "docs/cycles/C084-macos-parity.md",
-  "nextAction": "Merge PR60 when the Windows desktop lane is green; then decide how far the POSIX twin for owned process trees goes this week (product), key visual approvals by platform, and add the return checkpoint on the Windows machine.",
+  "nextAction": "Shortcuts labels on macOS, then resume C083 per D-managed-writers (task-board boundary first).",
   "evidence": [
     "docs/DESIGN-DECISIONS.md",
     "docs/cycles/evidence/C084/README.md",
     "docs/cycles/evidence/C084/mac-segments-before.json",
     "docs/cycles/evidence/C084/mac-segments-after.json",
-    "docs/cycles/evidence/C084/checks-01/result.json"
+    "docs/cycles/evidence/C084/checks-01/result.json",
+    "docs/cycles/evidence/C084/checks-02/result.json"
   ],
   "truthReview": "The desktop chain passes on this Mac segment by segment (80/80; 649 unit tests, 607 pass, 42 Windows-only skips; 8 recorded live skips). Two app defects were real on every platform (staging copy, asset fallback race). The remaining macOS gaps are product: owned process trees, credential durability, source Barkpark launcher. Hosted CI is refused by the Actions budget; by the user's decision local runs are the authority and CI is reduced to Windows-on-PR plus weekly and on-demand lanes. PR60 merges on the local run-steps receipt (root verify and the skip ratchet on this Mac). Nothing re-approved visually.",
   "screenshotReview": "No visual inputs changed at opening; the visual baseline has no platform field and is not touched until per-platform keying lands.",
@@ -32,8 +33,8 @@
     "phase": "validating",
     "owner": "primary agent",
     "remaining": [
-      "Product decision: POSIX twin for owned goal and terminal process trees this week or recorded as a later cycle",
       "Shortcuts pane labels Cmd on macOS",
+      "POSIX twin for the PowerShell terminal tour and the recovery review tour (live tests), DPAPI durability twin via Keychain",
       "Return checkpoint on the Windows machine: rerun native suites, recapture the Windows visual baseline, re-accept P1 on both hosts"
     ]
   }

@@ -12,7 +12,7 @@ const {createProfileService}=require('../main/profile-service');
 const {createGoalService}=require('../main/goal-service');
 const {createGoalWorkerAgent}=require('../main/goal-worker-agent');
 const delay=ms=>new Promise(r=>setTimeout(r,ms));
-test('real host crash reopens paused goal, trusted default verifier reconciles, explicit retry completes saved worker', {skip:process.platform!=='win32',timeout:30000},async()=>{
+test('real host crash reopens paused goal, trusted default verifier reconciles, explicit retry completes saved worker', {timeout:30000},async()=>{
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-goal-recover-'));
   const child=spawn(process.execPath,[fileURLToPath(new URL('./fixtures/goal-service-crash.cjs',import.meta.url)),root],{windowsHide:true,stdio:['ignore','pipe','pipe']});
   let stderr='';child.stderr.on('data',b=>stderr+=b);
