@@ -121,7 +121,7 @@ export function renderPages(host, deps) {
     return `<div class="bw-page" data-page="${esc(key)}" data-depth="${depth}" draggable="true" style="--depth:${depth}">
       <button class="bw-nav bw-page-row ${isOpen(key) ? 'selected' : ''}" data-open="${esc(key)}" data-source="${source}" title="${esc(s?.excerpt || title)}">
         <span class="bw-page-toggle ${kids.length ? '' : 'empty'}" data-toggle="${esc(key)}" aria-label="${expanded ? 'Collapse' : 'Expand'}">${iconHtml(expanded ? 'chevron-down' : 'chevron-right', 12)}</span>
-        ${iconHtml(cloudPaper(key) ? 'cloud' : 'file-text', 13)}<span class="bw-page-title">${esc(title)}</span>${s?.retained ? '<span class="bw-retained" title="Retained original: this profile’s notes live on Paper since the library switch">Retained</span>' : ''}${s?.proposals ? '<span class="bw-dot" title="Pending proposal"></span>' : ''}
+        ${iconHtml(cloudPaper(key) ? 'cloud' : 'file-text', 13)}<span class="bw-page-title">${esc(title)}</span>${s?.retained ? `<span class="bw-retained" title="Retained original: this profile’s notes live on Paper since the library switch">${iconHtml('lock', 10)}</span>` : ''}${s?.proposals ? '<span class="bw-dot" title="Pending proposal"></span>' : ''}
         <span class="bw-page-actions"><span data-add="${esc(key)}" title="Add a sub-page">${iconHtml('plus', 12)}</span><span data-more="${esc(key)}" title="Options">${iconHtml("ellipsis", 12)}</span></span>
       </button>
       ${expanded && kids.length ? `<div class="bw-page-children">${kids.map(k => row(k, depth + 1)).join('')}</div>` : ''}

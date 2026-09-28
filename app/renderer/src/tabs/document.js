@@ -278,6 +278,7 @@ export function mountDocument(tab, host, ctx) {
     try { doc = await fetchDoc(id); } catch (error) { q('#editor').innerHTML = `<p class="bw-error">Could not open ${esc(id)}: ${esc(error.message)}</p>`; return; }
     if (destroyed || !doc) { if (!doc) q('#editor').innerHTML = `<p class="bw-error">Document ${esc(id)} no longer exists.</p>`; return; }
     readOnly = doc.source === 'barkpark' || Boolean(doc.retained);
+    q('#kicker').textContent = doc.retained ? 'Retained original · this profile’s notes live on Paper · read-only' : 'Barkdown / Library';
     tab.title = doc.title;
     ctx.tabChanged(tab);
     q('#title').value = doc.title;

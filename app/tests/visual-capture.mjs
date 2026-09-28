@@ -15,7 +15,8 @@ try{
  await p.waitForTimeout(1000);await p.locator('.bw-toast').waitFor({state:'hidden',timeout:15000});
  await app.evaluate(({ipcMain})=>{ipcMain.removeHandler('agent:start');ipcMain.handle('agent:start',()=>{throw Error('Visual fixtures must not invoke providers');});});
  // Stable fixture values, never machine login status or a random temporary path in pictures.
- await p.evaluate(()=>{const s=window.__barkdown.state;s.settings.userData='C:/Barkdown visual fixture/data';s.settings.providers={claude:{loggedIn:false,effort:'high'},codex:{loggedIn:false,effort:'medium'}};window.__barkdown.render();});
+ const fixtures=async()=>{await p.evaluate(()=>{const s=window.__barkdown.state;s.settings.userData='C:/Barkdown visual fixture/data';s.settings.providers={claude:{loggedIn:false,effort:'high'},codex:{loggedIn:false,effort:'medium'}};window.__barkdown.render();});};
+ await fixtures();
  await p.emulateMedia({colorScheme:'light',reducedMotion:'reduce'});
  const settled=async()=>{await p.evaluate(()=>document.fonts.ready);await p.waitForTimeout(250);};
  const tour=async(area,caption,actions)=>{
@@ -49,7 +50,7 @@ try{
  // The journal is written beside the disposable profile's workspace.json from this process.
  const storeDirs=()=>{const found=[];const walk=d=>{for(const name of fs.readdirSync(d,{withFileTypes:true})){const f=path.join(d,name.name);if(name.isDirectory()){if(!['node_modules','Cache','GPUCache','blob_storage','Session Storage','Local Storage','IndexedDB'].includes(name.name))walk(f);}else if(name.name==='workspace.json')found.push(d);}};walk(profile);return found;};
  const selection=async value=>{for(const dir of storeDirs()){const f=path.join(dir,'selection.json');if(value)fs.writeFileSync(f,JSON.stringify(value)+'\n');else fs.rmSync(f,{force:true});}
-  await p.reload();await p.waitForFunction(()=>window.__barkdown?.state.loaded);await p.waitForTimeout(600);await p.locator('.bw-toast').waitFor({state:'hidden',timeout:15000}).catch(()=>{});await p.emulateMedia({colorScheme:'light',reducedMotion:'reduce'});};
+  await p.reload();await p.waitForFunction(()=>window.__barkdown?.state.loaded);await p.waitForTimeout(600);await p.locator('.bw-toast').waitFor({state:'hidden',timeout:15000}).catch(()=>{});await fixtures();await p.emulateMedia({colorScheme:'light',reducedMotion:'reduce'});await settled();};
  await selection({version:1,profileId:'fixture',operationId:'00000000-0000-4000-8000-000000000000',phase:'selected',seal:{generation:1},reportHash:'fixture',workspaceBefore:'fixture',workspaceAfter:'fixture'});
  await tour('retained','After the library switch the legacy notes are retained read-only: a badge in Pages and a read-only editor. Fixture journal; no Paper server.',[
   ['badge',async()=>{await p.locator('#bw-pages .bw-page-row').first().hover();}],['open',async()=>{await p.locator('#bw-pages .bw-page-row').first().click();}],['dark',()=>p.emulateMedia({colorScheme:'dark'})],['light',()=>p.emulateMedia({colorScheme:'light'})]
