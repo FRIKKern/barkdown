@@ -108,7 +108,12 @@ test('rollback after Paper edits records the divergence and never converts back'
   await g.selection().select(g.options, g.target);
   g.comparison.compare = async () => { throw Object.assign(new Error('runtime gone'), { code: 'upstream_unreachable' }); };
   await assert.rejects(g.selection().rollback(g.options, g.target), { code: 'upstream_unreachable' });
-  assert.equal(g.selection().inspect(g.profileId, g.sourceDir).status, 'selected', 'a non-comparison failure leaves the selection in place');
+  // The navigation is already back; the journal stays in rolling-back until the comparison can run.
+  const pending = g.selection().inspect(g.profileId, g.sourceDir);
+  assert.equal(pending.status, 'rolling-back'); assert.deepEqual(pending.actions, ['rollback']); assert.equal(g.workspace(), g.legacyText);
+  g.comparison.compare = async () => ({ status: 'compared', authority: 'legacy', activationAllowed: false });
+  const finished = await g.selection().rollback(g.options, g.target);
+  assert.equal(finished.status, 'rolled-back'); assert.equal(finished.reconciliationRequired, false);
 });
 
 test('refusals: a failed comparison, a blocked projection, a changed preparation, another preparation', async () => {
