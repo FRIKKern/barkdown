@@ -34,7 +34,7 @@ async function request(method, route, body, status = 200) {
 const registry = createProfileRegistry(root), profile = registry.createProfile({ name: 'Sealed comparison rehearsal' });
 const profiles = createProfileService({ registry }), goals = createGoalService({ registry, profiles, heartbeatMs: 0 });
 const sourceDir = registry.storeFor(profile.id).storeDir, destinationDir = path.join(root, 'backup');
-require('../main/paper-evidence-owner').createPaperEvidenceOwner(require('../main/store').createStore(sourceDir, { create: false })).identify({ server, token, dataset: 'production', viaCli: false }, { runtimeId: 'owned-isolated-' + profile.id });
+require('../main/paper-evidence-owner').createPaperEvidenceOwner(require('../main/store').createStore(sourceDir, { create: false })).identify({ server, token, dataset: 'production', viaCli: false }, { create: true });
 const connection = { server, token };
 const admission = createUpstreamAdmission();
 try {
