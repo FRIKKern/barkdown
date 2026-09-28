@@ -77,7 +77,7 @@ function get(id) {
   reload(id);
   const doc = cache.get(id);
   if (!doc) return null;
-  return { ...doc, backlinks: backlinks(id) };
+  return { ...doc, ...(retainedNow() ? { retained: true } : {}), backlinks: backlinks(id) };
 }
 
 function create({ title, markdown, content, actor = 'you', tags = [] }) {
