@@ -17,7 +17,7 @@
   ],
   "checkpoint": "2026-09-29",
   "handoff": "docs/cycles/C083-writer-admission.md",
-  "nextAction": "1) User merges PR20433, PR20434, PR20435 (each deploys production). 2) Bump app/BARKPARK_REF to the merged main commit; rerun the four live rehearsals against it (Mac now, Windows at the return checkpoint). 3) UI slice with recapture: retained badge on legacy notes after selection, resume-or-roll-back prompt at start for an interrupted switch (adoption-window pattern), new-note creation routed to Paper for a selected profile. 4) Rollback after Paper edits: reconcile, never reverse-convert. Residual: README status recapture.",
+  "nextAction": "1) User merges PR20433, PR20434, PR20435 (each deploys production). 2) Bump app/BARKPARK_REF to the merged main commit; rerun the four live rehearsals against it (Mac now, Windows at the return checkpoint). 3) UI slice with recapture: retained badge on legacy notes after selection, resume-or-roll-back prompt at start for an interrupted switch (adoption-window pattern), new-note creation routed to Paper for a selected profile. 4) Rollback after Paper edits: reconcile, never reverse-convert.",
   "evidence": [
     "docs/cycles/evidence/C082/merge.json",
     "docs/cycles/evidence/C082/integration-review.json",
