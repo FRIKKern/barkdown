@@ -6,6 +6,9 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { createAnthropicFixture } from './fixtures/anthropic-http.mjs';
+import { MOD } from './helpers/keys.mjs';
+import { skipUnlessWindows } from './helpers/host.mjs';
+skipUnlessWindows("owned goal process host is Windows-only (main/goal-process.js job objects); POSIX twin pending");
 const require = createRequire(import.meta.url);
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-goal-ui-recovery-'));
 const shots = path.resolve('test-results/profile-goals-recovery');
@@ -26,7 +29,7 @@ async function boot() {
   });
 }
 async function openGoals() {
-  await page.keyboard.press('Control+k');
+  await page.keyboard.press(`${MOD}+k`);
   await page.locator('#bw-palette-input').fill('Conversation goals');
   await page.keyboard.press('Enter');
   await page.locator('.bw-goals').waitFor();

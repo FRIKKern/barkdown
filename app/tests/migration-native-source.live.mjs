@@ -8,6 +8,7 @@ import crypto from 'node:crypto';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { _electron as electron } from 'playwright';
+import { MOD, DOC_END } from './helpers/keys.mjs';
 const require=createRequire(import.meta.url);
 const {createProfileRegistry}=require('../main/profile-registry'),{createStore}=require('../main/store'),{createDocuments}=require('../main/documents');
 const {inventoryProfile}=require('../main/migration-preflight'),{stageMigration}=require('../main/migration-staging');
@@ -38,7 +39,7 @@ try{
   await launch(true);assert.equal(await page.evaluate(()=>window.__barkdown.state.profileId),profileId);
   await page.evaluate(d=>window.__barkdown.openTarget({kind:'doc',id:d.id,title:d.title,source:'local'}),main);
   const editor=page.locator('.bw-doc-pane:visible .ProseMirror');await editor.waitFor();await shot('01-legacy-original');
-  await editor.locator('p').filter({hasText:'Tail paragraph.'}).click();await page.keyboard.press('Control+End');await page.keyboard.type(' Written in the original editor.',{delay:30});
+  await editor.locator('p').filter({hasText:'Tail paragraph.'}).click();await page.keyboard.press(DOC_END);await page.keyboard.type(' Written in the original editor.',{delay:30});
   await page.waitForFunction(()=>document.querySelector('.bw-doc-pane:not([hidden]) #save-state')?.textContent.includes('Saved · rev 2'));
   const source=await page.evaluate(id=>window.barkdown.docs.get(id),main.id);assert.equal(source.rev,2);
   const links=source.content.content[1].content.filter(n=>n.marks?.some(m=>m.type==='link'));
@@ -62,7 +63,7 @@ try{
     await open(id);const before=await read(id);assert.deepEqual(await blocks(),original);
     await canvas().evaluate((c,needle)=>{const e=c._editor;let at;e.state.doc.descendants((n,p)=>{if(at===undefined&&n.isText&&n.text.includes(needle))at=p+n.text.indexOf(needle)+1;});if(at===undefined)throw Error('Missing native text');e.view.focus();e.commands.setTextSelection(at);},needle);
     await page.keyboard.type('X');const edited=await saved(id,before.rev);assert.deepEqual(edited.blocks,insertX(original,needle));await shot('04-edit-'+key);
-    await page.keyboard.press('Control+z');const undone=await saved(id,edited.rev);assert.deepEqual(undone.blocks,original);await shot('05-undo-'+key);results.push({case:key,editedRev:edited.rev,undoneRev:undone.rev});
+    await page.keyboard.press(`${MOD}+z`);const undone=await saved(id,edited.rev);assert.deepEqual(undone.blocks,original);await shot('05-undo-'+key);results.push({case:key,editedRev:edited.rev,undoneRev:undone.rev});
   }
   await open(ids[main.id]);await page.evaluate(()=>document.activeElement?.blur?.());await canvas().locator('span[data-wikilink]').filter({hasText:'a connected note'}).hover();
   await page.waitForFunction(()=>document.querySelector('body .bp-link-preview__excerpt')?.textContent.includes('own identity'));await shot('06-native-link-preview');

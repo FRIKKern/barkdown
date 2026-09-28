@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
+import { MOD } from './helpers/keys.mjs';
 const require=createRequire(import.meta.url);
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1')throw new Error('Use status-shots-isolated.mjs; this suite writes a disposable paper.');
 const bp=(args,input)=>JSON.parse(execFileSync('bp',[...args,'-o','json'],{shell:true,encoding:'utf8',maxBuffer:20e6,...(input==null?{stdio:['ignore','pipe','pipe']}:{input})}));
@@ -31,8 +32,8 @@ try {
  await page.evaluate(text=>{const d=new DataTransfer();d.setData('text/plain',text);const dom=document.querySelector('bp-paper-canvas')._editor.view.dom;dom.dispatchEvent(new ClipboardEvent('paste',{bubbles:true,cancelable:true,clipboardData:d}));},markdown);
  const pasted=await saved(before.rev);const table=pasted.blocks.find(b=>b.type==='table');alignment(table);assert.equal(table.rows[0][0][0].value,'pipe | value');assert.equal(table.rows[0][1].content[0].type,'strong');assert.equal(table.rows[0][2].content[0].href,'https://example.com');assert.deepEqual(pasted.blocks.at(-1),before.blocks.at(-1));
  const geometry=await page.evaluate(()=>[...document.querySelectorAll('.ProseMirror th,.ProseMirror td')].map(c=>({text:c.textContent,align:getComputedStyle(c).textAlign})));assert.equal(geometry[1].align,'center');assert.equal(geometry[2].align,'right');assert.equal(geometry[4].align,'center');assert.equal(geometry[5].align,'right');await page.screenshot({path:path.join(out,'02-pasted.png')});
- await page.keyboard.press('Control+z');const undone=await saved(pasted.rev);assert.deepEqual(undone.blocks,before.blocks,'native Undo restores exact original server blocks');await page.screenshot({path:path.join(out,'03-undone.png')});
- await page.keyboard.press('Control+Shift+z');const redone=await saved(undone.rev);alignment(redone.blocks.find(b=>b.type==='table'));assert.deepEqual(redone.blocks,pasted.blocks,'native redo restores exact table');await page.screenshot({path:path.join(out,'04-redone.png')});
+ await page.keyboard.press(`${MOD}+z`);const undone=await saved(pasted.rev);assert.deepEqual(undone.blocks,before.blocks,'native Undo restores exact original server blocks');await page.screenshot({path:path.join(out,'03-undone.png')});
+ await page.keyboard.press(`${MOD}+Shift+z`);const redone=await saved(undone.rev);alignment(redone.blocks.find(b=>b.type==='table'));assert.deepEqual(redone.blocks,pasted.blocks,'native redo restores exact table');await page.screenshot({path:path.join(out,'04-redone.png')});
  await page.locator('.ProseMirror td').filter({hasText:'right value'}).click();await page.keyboard.press('End');await page.keyboard.type(' human');const human=await saved(redone.rev);alignment(human.blocks.find(b=>b.type==='table'));assert.ok(JSON.stringify(human.blocks).includes('right value human'));assert.deepEqual(human.blocks.at(-1),before.blocks.at(-1));
  await page.evaluate(()=>document.querySelector('bp-paper-canvas').__e006=true);await page.locator('.bw-paper-pane button[title="Reload from server"]').click();await page.waitForFunction(()=>{const c=document.querySelector('bp-paper-canvas');return c&&!c.__e006&&c._editor;});assert.deepEqual(await page.evaluate(()=>document.querySelector('bp-paper-canvas').blocks),human.blocks);
  await page.screenshot({path:path.join(out,'05-reloaded.png')});await page.setViewportSize({width:900,height:900});await page.screenshot({path:path.join(out,'06-narrow.png')});

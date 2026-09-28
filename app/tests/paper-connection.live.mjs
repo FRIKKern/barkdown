@@ -2,6 +2,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import http from 'node:http';import crypto from 'node:crypto';import {createRequire} from 'node:module';import {fileURLToPath} from 'node:url';
 import {_electron as electron} from 'playwright';
+import { DOC_END } from './helpers/keys.mjs';
 const require=createRequire(import.meta.url),bp=require('../main/barkpark'),{createStore}=require('../main/store'),{createDocuments}=require('../main/documents'),{createAgentEdits}=require('../main/agent-edits');
 const appDir=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),server=process.env.BARKDOWN_SHOTS_SERVER,token=process.env.BARKPARK_API_TOKEN;
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1'||!/^http:\/\/127\.0\.0\.1:\d+$/.test(server||'')||!token)throw Error('Owned private runtime required');
@@ -22,7 +23,7 @@ const configure=async extra=>page.evaluate(async values=>{window.__barkdown.stat
 const openCurrent=()=>page.evaluate(async id=>{await window.__barkdown.refreshLibrary();const d=window.__barkdown.state.barkparkDocs.find(d=>d.id===id);if(!d?.paperOwner)throw Error('Fixture catalog owner missing');window.__barkdown.openDirect(id,'barkpark',d.paperOwner);},id);
 const pm=()=>page.locator('.bw-paper-pane:not([hidden]) .ProseMirror');
 const saved=()=>page.waitForFunction(()=>document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent.startsWith('Saved · rev')&&!document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas').hasPendingChanges());
-const type=async value=>{await pm().click();await page.keyboard.press('Control+End');await page.keyboard.type(value);};
+const type=async value=>{await pm().click();await page.keyboard.press(DOC_END);await page.keyboard.type(value);};
 const launch=async()=>{app=await electron.launch({executablePath:require('electron'),args:[appDir,'--user-data='+userData],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});page=await app.firstWindow();video=page.video();page.on('pageerror',e=>errors.push(e.message));await page.waitForFunction(()=>window.__barkdown?.state.loaded);await page.setViewportSize({width:1400,height:900});};
 const close=async name=>{await app.close();app=null;fs.renameSync(await video.path(),path.join(out,name+'.webm'));};
 try{

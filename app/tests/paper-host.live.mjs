@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
+import { MOD, DOC_END } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 if (process.env.BARKDOWN_SHOTS_ISOLATED !== '1') throw new Error('Run through status-shots-isolated.mjs; this test writes disposable papers.');
 const bp = (args, input) => JSON.parse(execFileSync('bp', [...args,'-o','json'], { shell: true, encoding: 'utf8', maxBuffer: 20e6, ...(input == null ? {stdio:['ignore','pipe','pipe']} : {input}) }));
@@ -33,7 +34,7 @@ try {
   const evaluate=fn=>page.evaluate(fn);
   const saved=()=>page.waitForFunction(()=>/Saved · rev/.test(document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent||'')&&!document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas').hasPendingChanges(),null,{timeout:30000});
   const serverText=()=>{const raw=bp(['doc','get','paper',SLUG,'--perspective','raw']);return JSON.stringify((raw.document||raw).blocks);};
-  const type=async text=>{await pm.click();await page.keyboard.press('Control+End');await page.keyboard.type(text);};
+  const type=async text=>{await pm.click();await page.keyboard.press(DOC_END);await page.keyboard.type(text);};
   // Gate only this app process's adapter; the real CLI endpoint is invoked when released.
   await app.evaluate(({app})=>{const bp=process.getBuiltinModule('module').createRequire(app.getAppPath()+'/main/main.js')('./barkpark');const original=bp.cliApplyOps;globalThis.__paperTest={mode:'delay',release:null};bp.cliApplyOps=async(...args)=>{if(globalThis.__paperTest.mode==='delay')await new Promise(resolve=>{globalThis.__paperTest.release=resolve;});if(globalThis.__paperTest.mode==='fail')throw new Error('Injected offline transport');return original(...args);};});
   await type(' Acknowledged after navigation.');
@@ -44,7 +45,7 @@ try {
   await page.evaluate(other=>{const c=[...window.__barkdown.controllers.values()].find(c=>c.el.matches('.bw-paper-pane'));c.tab.path=[other];c.navigate();},OTHER);
   assert.equal(await evaluate(()=>[...window.__barkdown.controllers.values()].find(c=>c.el.matches('.bw-paper-pane')).tab.path.at(-1)),SLUG);
   assert.equal(await evaluate(()=>[...window.__barkdown.controllers.values()].find(c=>c.el.matches('.bw-paper-pane')).canClose()),false);
-  await page.keyboard.press('Control+w'); assert.equal(await pm.count(),1,'keyboard close must retain dirty Paper');
+  await page.keyboard.press(`${MOD}+w`); assert.equal(await pm.count(),1,'keyboard close must retain dirty Paper');
   await page.locator('.bw-tab.active [data-tab]').dispatchEvent('auxclick',{button:1});assert.equal(await pm.count(),1,'middle-click close must retain dirty Paper');
   await shot('03-retained-during-navigation');
   await app.evaluate(()=>{globalThis.__paperTest.mode='pass';globalThis.__paperTest.release();});await saved();
@@ -52,10 +53,10 @@ try {
   await shot('04-acknowledged');
   const other=bp(['doc','get','paper',OTHER,'--perspective','raw']);assert.ok(!JSON.stringify(other).includes('Acknowledged after navigation.'));
   results.push('delayed real save: reload, navigation and close retain the human edit in its original paper');
-  await pm.click();await page.keyboard.press('Control+End');await page.keyboard.press('Control+z');await saved();
+  await pm.click();await page.keyboard.press(DOC_END);await page.keyboard.press(`${MOD}+z`);await saved();
   assert.ok(!serverText().includes('Acknowledged after navigation.'));
   await shot('05-undo-saved');
-  await page.keyboard.press('Control+Shift+z');await saved();assert.ok(serverText().includes('Acknowledged after navigation.'));
+  await page.keyboard.press(`${MOD}+Shift+z`);await saved();assert.ok(serverText().includes('Acknowledged after navigation.'));
   results.push('Undo and redo persist the same text the real canvas shows');
   await app.evaluate(()=>{globalThis.__paperTest.mode='fail';});await type(' Retained offline.');
   await page.waitForSelector('.bw-paper-pane:not([hidden]) [data-act="retry"]');

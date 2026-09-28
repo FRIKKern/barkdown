@@ -3,6 +3,9 @@ import { createRequire } from 'node:module';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import assert from 'node:assert/strict';
 import { createAnthropicFixture } from './fixtures/anthropic-http.mjs';
+import { MOD } from './helpers/keys.mjs';
+import { skipUnlessWindows } from './helpers/host.mjs';
+skipUnlessWindows("owned goal process host is Windows-only (main/goal-process.js job objects); POSIX twin pending");
 const require = createRequire(import.meta.url);
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-profile-goals-'));
 const shots=path.resolve('test-results/profile-goals');fs.mkdirSync(shots,{recursive:true});
@@ -19,7 +22,7 @@ try {
     await window.barkdown.state.save(ws);
     return { profileId: state.profileId, generation: state.generation, chatId: chat.id };
   });
-  await page.keyboard.press('Control+k'); await page.locator('#bw-palette-input').fill('Conversation goals'); await page.keyboard.press('Enter');
+  await page.keyboard.press(`${MOD}+k`); await page.locator('#bw-palette-input').fill('Conversation goals'); await page.keyboard.press('Enter');
   await page.locator('.bw-goals').waitFor();
   await page.locator('[name="objective"]').fill('Prove saved parallel worker conversations');
   await page.locator('[name="planning"]').selectOption('manual');
@@ -54,7 +57,7 @@ try {
   assert.equal(saved.chats[owner.chatId].draft, 'Coordinator draft');
   assert.deepEqual(errors, []);
   await page.evaluate(id=>window.__barkdown.switchChat(id),owner.chatId);
-  await page.keyboard.press('Control+k');await page.locator('#bw-palette-input').fill('Conversation goals');await page.keyboard.press('Enter');
+  await page.keyboard.press(`${MOD}+k`);await page.locator('#bw-palette-input').fill('Conversation goals');await page.keyboard.press('Enter');
   await page.locator('.bw-goals').waitFor();
   await page.locator('.bw-goals').evaluate(node=>Promise.all(node.getAnimations().map(a=>a.finished.catch(()=>{}))));
   await page.screenshot({path:path.join(shots,'owned-results-review.png')});

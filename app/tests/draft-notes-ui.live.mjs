@@ -6,6 +6,7 @@ import crypto from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { _electron as electron } from 'playwright';
+import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url), source = process.env.BARKDOWN_TEST_BP_SOURCE;
 if (!source) throw Error('Explicit private runtime source required');
 const appDir = path.resolve('.'), root = path.resolve('..');
@@ -72,7 +73,7 @@ try {
   assert(hits.some(d => d.id === paper.id && d.paperOwner === ownerA));
   // Ctrl+K belongs to link editing while the Paper canvas has focus.
   await page.locator('#bw-new-page').focus();
-  await page.keyboard.press('Control+k'); await page.locator('#bw-palette-input').fill('Saffron');
+  await page.keyboard.press(`${MOD}+k`); await page.locator('#bw-palette-input').fill('Saffron');
   // The already-open tab has the same title: wait for the actual body-search excerpt.
   await page.getByRole('option').filter({ hasText: text }).first().waitFor(); await shot('02b-body-search');
   await page.getByRole('option').filter({ hasText: text }).first().click();

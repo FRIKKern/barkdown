@@ -58,9 +58,12 @@ jobs:
         if: runner.os != 'Linux'
         run: npm run test:desktop
       - uses: actions/upload-artifact@v4
+        # Diagnostics only: a full artifact store (the account quota) must not fail a green suite.
         if: always()
+        continue-on-error: true
         with:
           name: desktop-results-${{ matrix.os }}
           path: |
             app/test-results/
           if-no-files-found: ignore
+          retention-days: 3

@@ -10,6 +10,7 @@ import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { cleanSource } from './helpers/capture-lifecycle.mjs';
 import { openFixturePaper } from './lib/paper-fixture.mjs';
+import { DOC_END } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 const { createProfileRegistry } = require('../main/profile-registry');
 const { createStore } = require('../main/store');
@@ -64,7 +65,7 @@ try {
   report.checks.push('Actual debounced code and raw title retained through profile IPC before a server save.');
   await shot('01-unsaved-rich-draft');
   const label = page.locator('[data-test-id="paper-note-label"]'); await label.click();
-  await page.keyboard.press('Control+End');
+  await page.keyboard.press(DOC_END);
   const cdp = await page.context().newCDPSession(page);
   await cdp.send('Input.imeSetComposition', { text: 'にほん', selectionStart: 3, selectionEnd: 3 });
   await assert.rejects(retain(), /Finish composing/);

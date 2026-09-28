@@ -11,6 +11,7 @@ import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { JSDOM } from 'jsdom';
 import { publishFixture, getPaper, para } from './lib/paper-fixture.mjs';
+import { DOC_END } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-codehl';
 const JS = 'const total = items.reduce((n, x) => n + x.price, 0); // sum\nif (total > 10) console.log("big");';
@@ -78,7 +79,7 @@ await row('typing into the JavaScript block repaints the layer at once and the s
   const area = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas pre.bp-canvas-code .bp-canvas-code-area').first();
   await area.click();
   await page.keyboard.press('End');
-  await page.keyboard.press('Control+End');
+  await page.keyboard.press(DOC_END);
   await page.keyboard.type('\nreturn total;');
   await page.waitForTimeout(100);
   const c = await canvasSignatures();

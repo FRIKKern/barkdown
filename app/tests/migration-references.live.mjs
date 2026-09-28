@@ -9,6 +9,7 @@ import { spawn } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { _electron as electron } from 'playwright';
+import {  } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 const { stageMigration } = require('../main/migration-staging');
 const { inventoryProfile } = require('../main/migration-preflight');
@@ -133,7 +134,7 @@ try {
     const expected=structuredClone(original.blocks);let changed=0;
     const walk=v=>{if(Array.isArray(v))v.forEach(walk);else if(v&&typeof v==='object'){if(v.type==='text'&&v.value===label){v.value=label.slice(0,1)+'X'+label.slice(1);changed++;}else Object.values(v).forEach(walk);}};walk(expected);assert.equal(changed,1);
     assert.deepEqual(edited.blocks,expected,'only intended marked label changes, retaining target ID');await shot('edit-'+label.split(' ')[0].toLowerCase());
-    await page.keyboard.press('Control+z');const undone=await saved(id,edited.rev);assert.deepEqual(undone.blocks,original.blocks,'exact source carriers return with Undo');
+    await page.keyboard.press(`${MOD}+z`);const undone=await saved(id,edited.rev);assert.deepEqual(undone.blocks,original.blocks,'exact source carriers return with Undo');
     results.push({label,editedRev:edited.rev,undoneRev:undone.rev});revision=undone.rev;
   }
   assert.deepEqual(await graph(),initialGraph);

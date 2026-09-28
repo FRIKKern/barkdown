@@ -6,6 +6,9 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { createCoordinatorFixture } from './fixtures/coordinator-http.mjs';
+import { MOD } from './helpers/keys.mjs';
+import { skipUnlessWindows } from './helpers/host.mjs';
+skipUnlessWindows("owned goal process host is Windows-only (main/goal-process.js job objects); POSIX twin pending");
 const require = createRequire(import.meta.url), appDir = path.resolve(import.meta.dirname, '..');
 const crashRecovery = process.env.BARKDOWN_TEST_COORDINATOR_CRASH === '1';
 const expectedTurns = crashRecovery ? 9 : 8;
@@ -24,7 +27,7 @@ async function waitFor(read, predicate, label) {
   while (Date.now() < deadline) { const value = await read(); if (predicate(value)) return value; await new Promise(resolve => setTimeout(resolve, 100)); }
   throw new Error(`Timed out: ${label}; ${JSON.stringify(await read())}`);
 }
-async function openGoals() { await page.keyboard.press('Control+k'); await page.locator('#bw-palette-input').fill('Conversation goals'); await page.keyboard.press('Enter'); await page.locator('.bw-goals').waitFor(); }
+async function openGoals() { await page.keyboard.press(`${MOD}+k`); await page.locator('#bw-palette-input').fill('Conversation goals'); await page.keyboard.press('Enter'); await page.locator('.bw-goals').waitFor(); }
 async function capture(name) {
   await page.evaluate(() => Promise.all(document.getAnimations().filter(animation => animation.effect.getTiming().iterations !== Infinity).map(animation => animation.finished.catch(() => {}))));
   await page.screenshot({ path: path.join(out, name + '.png') }); shots.push(name + '.png');

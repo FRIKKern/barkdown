@@ -5,6 +5,8 @@ import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
+import { skipUnlessWindows } from './helpers/host.mjs';
+skipUnlessWindows("DPAPI Local State durability is Windows-only by design (main/credential-durability.js); Keychain twin pending");
 const require = createRequire(import.meta.url);
 const roots = [], errors = [], frames = [], shots = path.resolve('test-results/credential-durability');
 fs.mkdirSync(shots, { recursive: true });

@@ -7,6 +7,7 @@ import { _electron as electron } from 'playwright';
 import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';
+import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-highlight';
 const bp = (args, input) => JSON.parse(execFileSync('bp', [...args, '-o', 'json'], { ...(input == null ? { stdio: ['ignore', 'pipe', 'pipe'] } : { input }), shell: true, encoding: 'utf8', maxBuffer: 20e6 }));
@@ -74,7 +75,7 @@ await row('the bubble’s H toggles a highlight on a selection; server follows',
   const r = await compare(); return { ...r, pass: r.pass && r.canvas.some(s => s.includes('<h>words</h>')) };
 });
 await row('Ctrl+Shift+H removes it again; server follows', async () => {
-  await page.keyboard.press('Control+Shift+h'); await settle();
+  await page.keyboard.press(`${MOD}+Shift+h`); await settle();
   const r = await compare(); return { ...r, pass: r.pass && !r.canvas.some(s => s.includes('<h>words</h>')) };
 });
 await row('the reader renders the highlight as <mark class="bp-highlight">', async () => {

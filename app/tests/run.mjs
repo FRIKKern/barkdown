@@ -7,6 +7,7 @@ import fs from 'fs';
 import os from 'os';
 import { execSync } from 'child_process';
 import { createRequire } from 'module';
+import { MOD, DOC_END } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -99,7 +100,7 @@ try {
   await page.waitForSelector('.bw-doc-pane:not([hidden]) .ProseMirror', { timeout: 10000 });
   const editor = page.locator('.bw-doc-pane:not([hidden]) .ProseMirror');
   await editor.locator('p').first().click();
-  await page.keyboard.press('Control+End');
+  await page.keyboard.press(DOC_END);
   await page.keyboard.press('Enter');
   await page.keyboard.type('A sentence added by the end-to-end test.');
   await page.waitForFunction(() => /Saved · rev \d+/.test(document.querySelector('.bw-doc-pane:not([hidden]) #save-state')?.textContent || ''), null, { timeout: 8000 });
@@ -135,7 +136,7 @@ try {
   await page.screenshot({ path: path.join(out, '04-document-path.png') });
 
   // Quick open returns to the chat.
-  await page.keyboard.press('Control+k');
+  await page.keyboard.press(`${MOD}+k`);
   await page.locator('#bw-palette-input').fill('open the interaction');
   await page.keyboard.press('Enter');
   await page.waitForSelector('.bw-chat:visible', { timeout: 5000 });
@@ -150,10 +151,10 @@ try {
   await page.locator('[data-file="src/app.js"]').click();
   await page.waitForSelector('.cm-content', { timeout: 8000 });
   await page.locator('.cm-content').click();
-  await page.keyboard.press('Control+End');
+  await page.keyboard.press(DOC_END);
   await page.keyboard.type('\n// edited in the e2e test\n');
   step('unsaved marker on project tab', (await page.locator('.bw-dot-dirty').count()) === 1);
-  await page.keyboard.press('Control+s');
+  await page.keyboard.press(`${MOD}+s`);
   await page.waitForFunction(() => (document.querySelector('.bw-editor-footer #status')?.textContent || '').includes('saved'), null, { timeout: 8000 });
   step('file saved to disk', fs.readFileSync(path.join(repo, 'src', 'app.js'), 'utf8').includes('edited in the e2e test'));
   await page.screenshot({ path: path.join(out, '05-project-editor.png') });
