@@ -1,8 +1,7 @@
 name: Verify repository
 on:
-  # PR updates own branch validation; main retains post-merge verification.
-  push:
-    branches: [main]
+  # Local `npm run verify` is the authority (CYCLES: local authority). CI repeats it on pull
+  # requests only; post-merge runs were a duplicate.
   pull_request:
   workflow_dispatch:
 permissions:

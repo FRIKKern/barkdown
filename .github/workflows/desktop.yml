@@ -1,19 +1,13 @@
 name: Desktop suite
-# The app's own test chain (app/package.json "test") per desktop platform, only when the app or
-# this workflow changes (D-hosts). Cost profile, after the account's Actions budget ran out on
-# 2026-09-28 with three-platform runs on every push: pull requests run Linux (1x) and Windows
-# (2x, required); macOS (10x per minute) runs on pushes to main, nightly and on dispatch, so a
-# Mac red still surfaces within a day without billing every PR revision. Linux and macOS are
-# advisory until C084 turns them green; flip `continue-on-error` off then. Documentation and
-# plan changes never trigger this.
+# The app's own test chain (app/package.json "test"). Local runs are the authority; CI exists for
+# the one signal a developer's machine cannot give. Pull requests that touch app/ run Windows only
+# (required). Linux and macOS run weekly and on dispatch. Documentation and plan changes never
+# trigger this. Artifact uploads are diagnostics and never fail a green run.
 on:
-  push:
-    branches: [main]
-    paths: ['app/**', '.github/workflows/desktop.yml']
   pull_request:
     paths: ['app/**', '.github/workflows/desktop.yml']
   schedule:
-    - cron: '17 3 * * *'
+    - cron: '17 3 * * 0'
   workflow_dispatch:
 permissions:
   contents: read
@@ -37,8 +31,10 @@ jobs:
           - os: macos-latest
             advisory: true
         exclude:
-          # macOS costs ten Linux minutes per minute: not on every pull-request revision.
+          # Local runs are the authority (D-hosts, 2026-09-28): a pull request buys only the Windows
+          # signal the Mac cannot give; Linux and macOS run weekly and on dispatch.
           - os: ${{ github.event_name == 'pull_request' && 'macos-latest' || 'never' }}
+          - os: ${{ github.event_name == 'pull_request' && 'ubuntu-latest' || 'never' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

@@ -5,11 +5,9 @@ name: Editor parity
 # every live row drives the real Electron app under Xvfb. A row can only go from red to green by a
 # test, and a green row going red fails this check. The rows' table lands in the job summary.
 on:
-  push:
-    branches: [main]
-    paths: ['app/**', '.github/workflows/parity.yml']
-  pull_request:
-    paths: ['app/**', '.github/workflows/parity.yml']
+  # Boots a full Barkpark: weekly and on dispatch, never per push (local authority, 2026-09-28).
+  schedule:
+    - cron: '43 3 * * 0'
   workflow_dispatch:
     inputs:
       barkpark_ref:

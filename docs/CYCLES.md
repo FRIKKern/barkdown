@@ -113,6 +113,10 @@ Use one source-bound review record linking behavior logs, native motion, standar
 
 Update the cycle handoff after a meaningful implementation slice, a failed check, a scope change, a blocker, and before yielding or changing tasks. Record what changed, exact commands/results, uncommitted work, owned running processes and the next concrete action. Save the checkpoint before long or risky operations. The current handoff should fit roughly one screen: current outcome/status, branch and source, strongest evidence and limits, uncommitted work/owned services, and exact next action. Detailed chronology belongs in the linked cycle record. A handoff must work without chat history; do not wait for completion to write it. Sudden interruption can still happen between checkpoints—inspect Git and process ownership when resuming.
 
+## Local authority
+
+From 2026-09-28 the developer machine's checks are the delivery authority; hosted CI is reduced to the signals a local machine cannot give (a Windows run when work happens on macOS, or the reverse) and to weekly and on-demand runs. A cycle closes on a `run-steps` receipt of root `npm run verify` and the relevant app suites on the working host, committed as evidence with host, OS release and skips named. A pull request may merge on that receipt when hosted checks are unavailable; the receipt says so. This is not a weaker bar: the same checks run, on a named host, with the result recorded; what changed is who pays for the minutes.
+
 ## Close with a repository truth pass
 
 1. Verify the cycle's acceptance with appropriate tests. Root `npm run verify` is always required; real storage/runtime claims need real integration evidence. Record failures, skipped checks and prerequisites explicitly.
