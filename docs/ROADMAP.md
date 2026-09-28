@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** C083: every supported writer and every background job admitted in production; direct-writer audit next.
+**Latest advance:** C083: every supported writer and job admitted; audit found 70 more files writing outside the doors, in nine clusters.
 
-**Next observable result:** Audit every remaining direct writer, then prove drain, restart and rollback of a real switch. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Decide door-or-refuse per audited cluster, then prove drain, restart and rollback of a real switch. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
