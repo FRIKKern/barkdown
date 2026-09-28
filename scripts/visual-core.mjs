@@ -13,7 +13,7 @@ export function sourceHash(bytes) { const text=bytes.toString('utf8');return has
 // harness. Main-process code, behavior tests, helpers and fixtures are covered by their own tests
 // (narrowed 2026-09-28 under the local-authority decision; the wide form cost a capture per change).
 export function inputs() {
- const names=execFileSync('git',['ls-files','--cached','--others','--exclude-standard'],{cwd:root,encoding:'utf8'}).trim().split(/\r?\n/);
+ const names=execFileSync('git',['ls-files','--cached','--others','--exclude-standard'],{cwd:root,encoding:'utf8',maxBuffer:64*1024*1024}).trim().split(/\r?\n/);
  const selected=[...new Set(names)].filter(p=>/^(app\/(renderer\/|shared\/|scripts\/|package(?:-lock)?\.json|BARKPARK_REF)|app\/tests\/(?:visual|status-shots)|scripts\/visual|docs\/visual\/coverage\.json|package(?:-lock)?\.json)/.test(p)).sort();
  return Object.fromEntries(selected.map(p=>[p,fs.existsSync(safe(p))?sourceHash(fs.readFileSync(safe(p))):'deleted']));
 }

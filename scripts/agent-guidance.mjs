@@ -30,7 +30,7 @@ export function validateAgentGuidance({ texts, cycle, tracked }) {
 export function checkAgentGuidance(cycle) {
   const files = ['CLAUDE.md', 'AGENTS.md', '.claude/skills/plan-followup/SKILL.md', 'docs/NEXT-AGENT.md'];
   const texts = Object.fromEntries(files.map(file => [file, fs.readFileSync(root + '/' + file, 'utf8').replace(/\r\n/g, '\n')]));
-  const tracked = new Set(execFileSync('git', ['ls-files', '-z'], { cwd: root, encoding: 'utf8' }).split('\0'));
+  const tracked = new Set(execFileSync('git', ['ls-files', '-z'], { cwd: root, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 }).split('\0'));
   validateAgentGuidance({ texts, cycle, tracked });
   return { texts, cycle, tracked };
 }
