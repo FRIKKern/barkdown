@@ -47,7 +47,7 @@ try{
  // A selected profile (main/migration-selection.js): legacy notes are retained read-only. The
  // journal is a fixture written into the disposable profile and removed again afterwards.
  const mainDir=path.join(root,'app','main');
- const selection=async value=>{await app.evaluate(({app:_a},[dir,v])=>{const s=require(dir+'/store'),fs=require('fs');const f=s.filePath('selection.json');if(v)fs.writeFileSync(f,JSON.stringify(v)+'\n');else fs.rmSync(f,{force:true});},[mainDir,value]);
+ const selection=async value=>{await app.evaluate(({app:_a},[dir,v])=>{const req=typeof require==='function'?require:process.mainModule.require;const s=req(dir+'/store'),fs=req('fs');const f=s.filePath('selection.json');if(v)fs.writeFileSync(f,JSON.stringify(v)+'\n');else fs.rmSync(f,{force:true});},[mainDir,value]);
   await p.reload();await p.waitForFunction(()=>window.__barkdown?.state.loaded);await p.waitForTimeout(600);await p.locator('.bw-toast').waitFor({state:'hidden',timeout:15000}).catch(()=>{});await p.emulateMedia({colorScheme:'light',reducedMotion:'reduce'});};
  await selection({version:1,profileId:'fixture',operationId:'00000000-0000-4000-8000-000000000000',phase:'selected',seal:{generation:1},reportHash:'fixture',workspaceBefore:'fixture',workspaceAfter:'fixture'});
  await tour('retained','After the library switch the legacy notes are retained read-only: a badge in Pages and a read-only editor. Fixture journal; no Paper server.',[
