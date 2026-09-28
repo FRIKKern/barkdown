@@ -22,6 +22,13 @@ function admissionEnv(dataDir, instanceId) {
   return env;
 }
 
+const base = route.slice(0, -'/hold'.length);
+function instanceView(data) {
+  const d = data && typeof data === 'object' && data.result && typeof data.result === 'object' ? data.result : data;
+  if (!d || typeof d !== 'object' || !phases.has(String(d.phase || ''))) fail('response', 'The runtime answered without an instance view.');
+  return { phase: String(d.phase), generation: Number.isInteger(d.generation) ? d.generation : null, boot: typeof d.boot === 'string' ? d.boot : null,
+    pending: Number.isInteger(d.pending) ? d.pending : null, operation: d.operation ?? null, held: d.held ?? null };
+}
 function view(data) {
   const d = data && typeof data === 'object' && data.result && typeof data.result === 'object' ? data.result : data;
   if (!d || typeof d !== 'object') fail('response', 'The hold endpoint answered without a hold view.');
@@ -36,6 +43,7 @@ function translate(error, what) {
   const status = error?.status, code = error?.code;
   if (status === 503 && code === 'feature_not_configured') fail('admission_unavailable', 'This runtime does not admit writes through a coordinator; the switch cannot hold it.', error);
   if (status === 503) fail('admission_unavailable', 'The runtime could not take the hold: ' + error.message, error);
+  if (status === 409 && code === 'recovery_refused') fail('recovery_refused', 'The runtime refused recovery: it is not in recovery, its pending count moved, or writers are still admitted; read the instance view and retry.', error);
   if (status === 409) fail('admission_closed', 'Another operation holds this runtime, or its generation moved; reconcile before retrying.', error);
   if (status === 404) fail('hold_unknown', 'The runtime knows no current hold for that capability; it was reopened, restarted or never held.', error);
   if (status === 401 || status === 403) fail('forbidden', 'The runtime token is not allowed to hold this instance.', error);
@@ -58,6 +66,16 @@ function createUpstreamAdmission({ send = request } = {}) {
     if (!capabilityValid(capability)) fail('hold_unknown', 'A hold capability is required.');
     try { return view(await send(connection, 'DELETE', `${route}/${capability}`)); } catch (error) { translate(error, 'reopen'); }
   }
+  // The coordinator's own view: what an operator reads before recovering.
+  async function instance(connection) {
+    try { return instanceView(await send(connection, 'GET', base)); } catch (error) { translate(error, 'read'); }
+  }
+  // Explicit recovery after a restart while held or a lost hold owner. The caller names
+  // the generation and pending count it read, so it proves it reconciled that state.
+  async function recover(connection, { generation, pending }) {
+    if (!Number.isInteger(generation) || !Number.isInteger(pending)) fail('recovery', 'Recovery names the generation and pending count read from the instance view.');
+    try { return instanceView(await send(connection, 'POST', base + '/recover', { generation, pending })); } catch (error) { translate(error, 'recover'); }
+  }
   // Poll until the coordinator reports the drain complete. `recovery_required` is
   // final: an admitted writer failed or died while closing, and nothing here reopens.
   async function awaitHeld(connection, capability, { timeoutMs = 60000, intervalMs = 250, sleep = ms => new Promise(r => setTimeout(r, ms)), now = Date.now } = {}) {
@@ -70,7 +88,7 @@ function createUpstreamAdmission({ send = request } = {}) {
       await sleep(intervalMs);
     }
   }
-  return { hold, status, reopen, awaitHeld };
+  return { hold, status, reopen, awaitHeld, instance, recover };
 }
 
 module.exports = { admissionEnv, createUpstreamAdmission, route };

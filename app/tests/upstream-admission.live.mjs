@@ -53,4 +53,14 @@ try {
   await assert.rejects(admission.status(connection, again.capability), { code: 'upstream_hold_unknown' });
   await assert.rejects(admission.hold(connection, 'rehearsal-3'), { code: 'upstream_admission_closed' });
   console.log('PASS restart while held stays blocked: writes refused, old capability unknown, a new hold refused (explicit recovery required).');
+  const view = await admission.instance(connection);
+  assert.equal(view.phase, 'recovery_required'); assert.equal(view.pending, 0); assert.equal(view.held, null);
+  await assert.rejects(admission.recover(connection, { generation: view.generation + 1, pending: 0 }), { code: 'upstream_admission_closed' });
+  const recovered = await admission.recover(connection, { generation: view.generation, pending: view.pending });
+  assert.equal(recovered.phase, 'open'); assert.equal(recovered.generation, view.generation + 1);
+  assert.equal(await refused(), null, 'admin write admitted after explicit recovery');
+  const fresh = await admission.hold(connection, 'rehearsal-4');
+  assert.equal(fresh.phase, 'held'); assert.equal(fresh.generation, recovered.generation);
+  assert.equal((await admission.reopen(connection, fresh.capability)).phase, 'open');
+  console.log('PASS explicit recovery reopens the restarted runtime with a fresh generation; a new hold and reopen follow.');
 } finally { await runtime.stop(); }

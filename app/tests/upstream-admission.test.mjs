@@ -39,6 +39,17 @@ function fixture() {
         if (!state.hold) { state.hold = { capability: 'cap-' + operation, operation }; state.phase = state.pending ? 'closing' : 'held'; }
         return send(state.phase === 'held' ? 200 : 202, view());
       }
+      const base = route.slice(0, -'/hold'.length);
+      if (req.method === 'GET' && req.url === base) return send(200, { phase: state.phase || 'open', generation: state.generation, boot: state.boot, pending: state.pendingRoots || 0, operation: state.hold?.operation ?? null, held: state.hold?.operation ?? null });
+      if (req.method === 'POST' && req.url === base + '/recover') {
+        const { generation, pending } = JSON.parse(body || '{}');
+        if (!Number.isInteger(generation) || !Number.isInteger(pending)) return error(400, 'invalid_recovery', 'both integers');
+        if (state.phase !== 'recovery_required') return error(409, 'recovery_refused', 'not in recovery');
+        if (generation !== state.generation) return error(409, 'admission_closed', 'stale generation');
+        if (pending !== (state.pendingRoots || 0)) return error(409, 'recovery_refused', 'pending moved');
+        state.phase = 'open'; state.hold = null; state.generation++; state.pendingRoots = 0;
+        return send(200, { phase: 'open', generation: state.generation, boot: state.boot });
+      }
       const capability = req.url.startsWith(route + '/') ? req.url.slice(route.length + 1) : null;
       if (!state.hold || capability !== state.hold.capability) return error(404, 'not_found', 'no current hold answers to that capability');
       if (req.method === 'GET') { if (state.pending && --state.pending === 0) state.phase = 'held'; return send(200, view()); }
@@ -88,4 +99,21 @@ test('awaitHeld polls a closing hold to held and refuses a drain that ends elsew
 test('an unreachable runtime is reported as unreachable, not as a hold', async () => {
   const admission = createUpstreamAdmission();
   await assert.rejects(admission.hold({ server: 'http://127.0.0.1:9', token: 'admin' }, 'switch'), { code: 'upstream_unreachable' });
+});
+
+test('instance view and explicit recovery', async t => {
+  const { state, server, connection } = await fixture();
+  t.after(() => server.close());
+  const admission = createUpstreamAdmission();
+  assert.equal((await admission.instance(connection)).phase, 'open');
+  await assert.rejects(admission.recover(connection, { generation: 3, pending: 0 }), { code: 'upstream_recovery_refused' });
+  state.phase = 'recovery_required'; state.pendingRoots = 1;
+  const view = await admission.instance(connection);
+  assert.deepEqual(view, { phase: 'recovery_required', generation: 3, boot: 'boot-a', pending: 1, operation: null, held: null });
+  await assert.rejects(admission.recover(connection, { generation: 2, pending: 1 }), { code: 'upstream_admission_closed' });
+  await assert.rejects(admission.recover(connection, { generation: 3, pending: 0 }), { code: 'upstream_recovery_refused' });
+  await assert.rejects(admission.recover(connection, { generation: '3', pending: 1 }), { code: 'upstream_recovery' });
+  const recovered = await admission.recover(connection, { generation: 3, pending: 1 });
+  assert.equal(recovered.phase, 'open'); assert.equal(recovered.generation, 4);
+  assert.equal((await admission.instance(connection)).pending, 0);
 });
