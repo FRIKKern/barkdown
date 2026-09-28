@@ -39,3 +39,4 @@ jobs:
           name: visual-candidate-${{ github.sha }}
           path: ${{ runner.temp }}/barkdown-visual-review/artifact
           if-no-files-found: error
+          retention-days: 7

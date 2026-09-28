@@ -100,7 +100,9 @@ jobs:
         if: always()
         run: tail -n 200 /tmp/barkpark-phx.log || true
       - uses: actions/upload-artifact@v4
+        # Diagnostics only: the rows table is in the job summary; a full artifact store must not fail a green run.
         if: always()
+        continue-on-error: true
         with:
           name: parity-results
           path: |
@@ -110,3 +112,4 @@ jobs:
             app/test-results/*.png
             app/test-results/editor-gap-assertions/
           if-no-files-found: ignore
+          retention-days: 7

@@ -32,6 +32,19 @@ const refs=JSON.parse(read('evidence/source-references.json'));if(refs.repositor
  for(const p of status){if(!listed.has(p))fail('README embeds '+p+' but the status manifest does not list it (stale or hand-made): run `cd app && npm run shots`');if(!fs.existsSync(path.join(root,p)))fail('Missing status screenshot '+p);}
  const lastUi=git(['log','-1','--format=%H','--','app/renderer','app/main','app/shared']);
  let fresh=true;try{execFileSync('git',['merge-base','--is-ancestor',lastUi,manifest.barkdownCommit],{cwd:root,stdio:'ignore'})}catch{fresh=false}
- if(!fresh)fail('Status screenshots are older than the last UI change ('+lastUi.slice(0,9)+'; captured at '+String(manifest.barkdownCommit).slice(0,9)+'): commit the UI change, then `cd app && npm run shots`, then commit the pictures');
+ if(!fresh){
+  // A renderer or shared change always needs fresh pictures. A change confined to app/main cannot move a
+  // pixel by itself, so it may instead carry a dated, reasoned exemption in the manifest (D-hosts: captures
+  // happen on the Windows source machine; a main-process fix from another host must not force a recapture
+  // there or replace its pictures). Every such commit since the capture must be listed; a silent one fails.
+  const since=manifest.barkdownCommit+'..HEAD';
+  const rendererCommits=git(['log','--format=%H',since,'--','app/renderer','app/shared']).split('\n').filter(Boolean);
+  if(rendererCommits.length)fail('Status screenshots are older than the last renderer change ('+rendererCommits[0].slice(0,9)+'; captured at '+String(manifest.barkdownCommit).slice(0,9)+'): commit the UI change, then `cd app && npm run shots`, then commit the pictures');
+  const mainCommits=git(['log','--format=%H',since,'--','app/main']).split('\n').filter(Boolean);
+  const exempt=new Map((manifest.uiExemptions||[]).map(e=>[String(e.commit),e]));
+  const missing=mainCommits.filter(c=>{const e=[...exempt.entries()].find(([k])=>c.startsWith(k));return !(e&&e[1].reason&&e[1].date);});
+  if(missing.length)fail('Status screenshots are older than main-process change '+missing[0].slice(0,9)+' (captured at '+String(manifest.barkdownCommit).slice(0,9)+'): either `cd app && npm run shots` and commit the pictures, or add {commit, reason, date} for it under uiExemptions in docs/images/status/manifest.json (main-process-only changes; never for renderer changes)');
+  console.log('Status screenshots: '+mainCommits.length+' main-process-only change(s) since capture carry a dated exemption in the manifest.');
+ }
 }
 console.log('Source syntax, 24 requirements, local links, portable previews, source references, hashes, and fresh status screenshots passed.');
