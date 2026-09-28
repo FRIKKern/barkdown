@@ -1,0 +1,11 @@
+{
+  "source": "0c105df3b8871905d5863d9f7c526d696afc0fbc",
+  "upstream": "907c395e43303206f381fff18b18f1b8812c1003",
+  "host": "darwin 24.3.0 arm64",
+  "status": "failed",
+  "checks": [],
+  "limits": [
+    "Headless coordinator with controlled foreground hooks; no selection, rollback or media in flight; the runtime was idle so the hold was held at once."
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: {\"error\":{\"code\":\"label_spine\",\"message\":\"document failed the publish wall's label spine\",\"hint\":\"Give the document a non-trivial description and 1-12 weighted tags — [{tag, strength 1-100 (all distinct), rationale}] — then republish; details lists each field, the rule it broke, and the fix, and you can repair the SAME draft in place rather than re-filing. If a published document appears to break the same rule, it is probably GRANDFATHERED: the wall reads an exemption once at entry and lets an exempt doc past a spine failure unchanged, while a birth is never exempt — so an incumbent is not evidence that your content passes. Learn where the authoring standards live in the doctrine papers /papers/portabledoc-doctrine and /papers/composition-doctrine-plan.\",\"details\":{\"index\":0,\"field\":\"rationale\",\"fix\":\"Explain in entry #0 why this tag earns its strength (≥20 chars).\",\"rule\":\"A rationale must be at least 20 characters — it calibrates the strength.\"},\"request_id\":\"GNmaJrdw8oFRQF4AAAsC\"}}\n\n422 !== 201\n\n    at request (file:///Users/frikkjarl/Documents/GitHub/barkdown/app/tests/sealed-comparison.live.mjs:32:47)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async file:///Users/frikkjarl/Documents/GitHub/barkdown/app/tests/sealed-comparison.live.mjs:43:3"
+}

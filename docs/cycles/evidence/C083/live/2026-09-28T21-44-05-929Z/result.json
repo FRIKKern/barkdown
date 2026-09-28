@@ -1,0 +1,11 @@
+{
+  "source": "dc32f761e2fd35f7d068f665ecdc2a1a79aa14cd",
+  "upstream": "907c395e43303206f381fff18b18f1b8812c1003",
+  "host": "darwin 24.3.0 arm64",
+  "status": "failed",
+  "checks": [],
+  "limits": [
+    "Headless coordinator with controlled foreground hooks; no selection, rollback or media in flight; the runtime was idle so the hold was held at once."
+  ],
+  "error": "Error: Initialize this managed library before taking its migration backup; ownership is unknown.\n    at fail (/Users/frikkjarl/Documents/GitHub/barkdown/app/main/migration-journal.js:9:46)\n    at projectOwnedWorkspace (/Users/frikkjarl/Documents/GitHub/barkdown/app/main/migration-workspace.js:155:20)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async sourceState (/Users/frikkjarl/Documents/GitHub/barkdown/app/main/migration-comparison.js:39:21)\n    at async /Users/frikkjarl/Documents/GitHub/barkdown/app/main/migration-comparison.js:52:23\n    at async run (/Users/frikkjarl/Documents/GitHub/barkdown/app/main/profile-preparation.js:167:23)"
+}
