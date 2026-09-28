@@ -1,5 +1,5 @@
 {
-  "lane": "codex/managed-write-wiring",
+  "lane": "retired: codex/managed-write-wiring deleted on origin after the squash merge; slice 2 lane codex/write-admission-slice2 opened from main",
   "head": "ff5bcb995",
   "pr": "https://github.com/FRIKKern/barkpark/pull/20422",
   "engine": "Elixir 1.20.2 / Erlang/OTP 29 (erts 17.0.3), aarch64-apple-darwin24.6.0, Postgres on localhost:5432",
@@ -64,8 +64,19 @@
     "status": "in_progress",
     "criteria": [
       "met: Elixir gate with door_test.exs and write_admission_mutate_test.exs, 0 failures (stamped at ff5bcb995)",
-      "unmet: merge gate for PR20422"
+      "met: merge gate stamped with c35d45aaf (merge-gated override recorded with the authorization reason)"
     ],
     "c082Task": "task-a56ae2ae8287166f closed done on 2026-09-27 with the merge-gated criterion stamped citing 1c6c3f21 and deploy run 36319151297"
+  },
+  "merge": {
+    "pr": "https://github.com/FRIKKern/barkpark/pull/20422",
+    "method": "squash",
+    "sha": "c35d45aaf13debb503202f9022c18d985a2aa9dc",
+    "mergedAt": "2026-09-27T17:06:20Z",
+    "authorization": "user granted the production-deploying merge via the permission prompt in this session",
+    "deploy": {
+      "run": 36335689737,
+      "result": "success"
+    }
   }
 }
