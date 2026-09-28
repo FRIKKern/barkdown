@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-09-28T22-04-21-807Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-28T22-04-21-807Z/comparison.json",
+  "manifestHash": "811bbe8880491285ecaff2b61fc620a7dfbcbb81d7a619e38fd22ec9a76f4de6",
+  "reportHash": "8b89773dcbc054606bbae7013794440c0fa3813ffb7c35a817911fe1a8a747a6",
+  "reviewer": "Claude Fable 5.1 (agent, macOS host)",
+  "note": "Recapture after input-only changes: app/package.json npm scripts (now excluded from the fingerprint), the isolated harness's write-admission opt-in, and the visual tooling's ls-files buffer. No renderer or dependency change. All 40 frames within tolerance against the 2026-09-28T20-36-00 darwin baseline; workspace/dismiss differs by two anti-aliased pixels at the send button (diff inspected). Sampled stills inspected: Shortcuts (Mac labels), dark document view, workspace default. Behavior evidence: unit chain green on this host; hold, sealed comparison and selection rehearsals live on this host (C083 evidence). Limits: darwin only; win32 baseline stays stale until the Windows return checkpoint.",
+  "reviewedAt": "2026-09-28T22:05:31.542Z"
+}
