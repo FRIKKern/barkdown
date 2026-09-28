@@ -32,3 +32,20 @@ fs.symlinkSync(outside, path.join(root, 'redirect'), process.platform === 'win32
 await assert.rejects(prepareRuntimeBuild(source, path.join(root, 'redirect/nested')), /Linked runtime/);
 assert.deepEqual(fs.readdirSync(outside), []);
 console.log('PASS linked destination refuses copy; fixtures retained at ' + root);
+if (process.platform !== 'win32') {
+  // Mix on POSIX links priv/include/src into deps; the copy follows in-tree links and
+  // refuses a link that leaves the checkout.
+  const linked = path.join(root, 'linked'), lbuilt = path.join(linked, 'api/_build/dev');
+  fs.mkdirSync(path.join(linked, 'api/deps/dep/priv'), { recursive: true });
+  fs.writeFileSync(path.join(linked, 'api/deps/dep/priv/static.txt'), 'dep priv bytes');
+  fs.mkdirSync(path.join(lbuilt, 'lib/dep/ebin'), { recursive: true });
+  fs.writeFileSync(path.join(lbuilt, 'lib/dep/ebin/dep.app'), 'dep app');
+  fs.symlinkSync('../../../../deps/dep/priv', path.join(lbuilt, 'lib/dep/priv'), 'dir');
+  const l = await prepareRuntimeBuild(linked, path.join(root, 'L'));
+  assert.equal(fs.lstatSync(path.join(l.path, 'lib/dep/priv')).isSymbolicLink(), false);
+  assert.equal(fs.readFileSync(path.join(l.path, 'lib/dep/priv/static.txt'), 'utf8'), 'dep priv bytes');
+  assert.equal((await prepareRuntimeBuild(linked, path.join(root, 'L'))).path, l.path);
+  fs.symlinkSync(outside, path.join(lbuilt, 'lib/dep/escape'), 'dir');
+  await assert.rejects(prepareRuntimeBuild(linked, path.join(root, 'L2')), /outside the checkout/);
+  console.log('PASS in-tree build links are copied as files; links leaving the checkout are refused');
+}

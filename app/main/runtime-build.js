@@ -10,13 +10,24 @@ function noLinkedAncestors(file) {
     if (path.dirname(current) === current) break;
   }
 }
-async function inventory(root) {
-  const files = [];
+// `within`: the checkout a link may point into. On POSIX, Mix links each app's
+// priv/include/src into deps/ and the app's own priv; those are followed and copied
+// as regular files, so the private copy stays self-contained. A link that leaves the
+// checkout (or a linked build root) is refused: it could change under the copy.
+async function inventory(root, within = null) {
+  const files = [], inside = within ? fs.realpathSync.native(within) + path.sep : null;
+  async function resolve(file) {
+    if (!inside) throw new Error('Linked build artifacts are unsupported; choose a regular built checkout');
+    const target = fs.realpathSync.native(file);
+    if (!(target + path.sep).startsWith(inside)) throw new Error('Linked build artifacts outside the checkout are unsupported; choose a regular built checkout');
+    return target;
+  }
   async function visit(directory, prefix = '') {
     if ((await fs.promises.lstat(directory)).isSymbolicLink()) throw new Error('Linked build directories are unsupported; choose a regular built checkout');
     for (const name of (await fs.promises.readdir(directory)).sort()) {
-      const relative = prefix ? `${prefix}/${name}` : name, file = path.join(directory, name), stat = await fs.promises.lstat(file);
-      if (stat.isSymbolicLink()) throw new Error('Linked build artifacts are unsupported; choose a regular built checkout');
+      const relative = prefix ? `${prefix}/${name}` : name;
+      let file = path.join(directory, name), stat = await fs.promises.lstat(file);
+      if (stat.isSymbolicLink()) { file = await resolve(file); stat = await fs.promises.stat(file); }
       if (stat.isDirectory()) await visit(file, relative);
       else if (stat.isFile()) files.push({ path: relative, size: stat.size, sha256: sha(await fs.promises.readFile(file)) });
       else throw new Error('Unsupported build artifact');
@@ -33,7 +44,7 @@ async function verifyPayload(root, files) {
 async function prepareRuntimeBuild(source, dataDir, { checkpoint = () => {} } = {}) {
   noLinkedAncestors(source); noLinkedAncestors(dataDir);
   const built = path.join(source, 'api', '_build', 'dev');
-  const files = await inventory(built);
+  const files = await inventory(built, source);
   const fingerprint = sha(JSON.stringify({ source: fs.realpathSync.native(source), files }));
   const cache = path.join(dataDir, 'runtime-build'), target = path.join(cache, fingerprint), marker = path.join(cache, `${fingerprint}.json`);
   noLinkedAncestors(cache); noLinkedAncestors(target);
@@ -47,9 +58,9 @@ async function prepareRuntimeBuild(source, dataDir, { checkpoint = () => {} } = 
   const staged = path.join(cache, 'staging-' + crypto.randomUUID());
   // cp creates the staging directory itself: with errorOnExist, Node on macOS refuses a
   // pre-created destination even when it is empty, while Windows and Linux accept it.
-  await fs.promises.cp(built, staged, { recursive: true, dereference: false, errorOnExist: true, force: false });
+  await fs.promises.cp(built, staged, { recursive: true, dereference: true, errorOnExist: true, force: false });
   checkpoint('copied');
-  if (JSON.stringify(await inventory(built)) !== JSON.stringify(files)) throw new Error('Built source changed while copying; staged artifacts retained, runtime not started');
+  if (JSON.stringify(await inventory(built, source)) !== JSON.stringify(files)) throw new Error('Built source changed while copying; staged artifacts retained, runtime not started');
   await verifyPayload(staged, files);
   fs.writeFileSync(marker, JSON.stringify({ version: 1, source: fs.realpathSync.native(source), fingerprint, files }, null, 2));
   fs.renameSync(staged, target);
