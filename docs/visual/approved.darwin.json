@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-09-28T22-04-21-807Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-28T22-04-21-807Z/comparison.json",
-  "manifestHash": "811bbe8880491285ecaff2b61fc620a7dfbcbb81d7a619e38fd22ec9a76f4de6",
-  "reportHash": "8b89773dcbc054606bbae7013794440c0fa3813ffb7c35a817911fe1a8a747a6",
+  "manifest": "docs/visual/runs/2026-09-28T22-23-42-282Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-28T22-23-42-282Z/comparison.json",
+  "manifestHash": "7ef82037a115bf84632224cd1a815810ee4a382b44139578cd13472779c16d90",
+  "reportHash": "eb23ae0cec11c94b91d068f4807485b37eb4c660715ccf322426692cb1a8adad",
   "reviewer": "Claude Fable 5.1 (agent, macOS host)",
-  "note": "Recapture after input-only changes: app/package.json npm scripts (now excluded from the fingerprint), the isolated harness's write-admission opt-in, and the visual tooling's ls-files buffer. No renderer or dependency change. All 40 frames within tolerance against the 2026-09-28T20-36-00 darwin baseline; workspace/dismiss differs by two anti-aliased pixels at the send button (diff inspected). Sampled stills inspected: Shortcuts (Mac labels), dark document view, workspace default. Behavior evidence: unit chain green on this host; hold, sealed comparison and selection rehearsals live on this host (C083 evidence). Limits: darwin only; win32 baseline stays stale until the Windows return checkpoint.",
-  "reviewedAt": "2026-09-28T22:05:31.542Z",
-  "reviewPath": "docs/visual/reviews/approval-2c1157741a3642c1d1301e79b611e7d2d9434b3929af2b92bab0bab31bec52d4.json",
-  "reviewHash": "2c1157741a3642c1d1301e79b611e7d2d9434b3929af2b92bab0bab31bec52d4"
+  "note": "New retained area (4 frames) for the library switch: lock badge beside legacy notes in Pages and a read-only meta line on the opened note, light and dark, driven by a fixture selection journal. All other areas within tolerance against the 2026-09-28T22-04-21 darwin baseline (two-pixel anti-aliasing on send buttons). Inspected: retained open (light), retained dark, badge frame, settings/profiles unchanged after the fixture reapply fix. Behavior evidence: documents-selection unit tests (legacy writes refused, retained summaries and reads), selection rehearsals live on this host. Limits: darwin only; the start-time prompt and reconciliation view are not in this tour; win32 stays stale until the Windows return checkpoint.",
+  "reviewedAt": "2026-09-28T22:24:55.584Z",
+  "reviewPath": "docs/visual/reviews/approval-6b1503bb18382db626039ea96a380f0852cef7fc9ef4bc8c59a40728be433ce9.json",
+  "reviewHash": "6b1503bb18382db626039ea96a380f0852cef7fc9ef4bc8c59a40728be433ce9"
 }

@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-09-28T22-23-42-282Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-28T22-23-42-282Z/comparison.json",
+  "manifestHash": "7ef82037a115bf84632224cd1a815810ee4a382b44139578cd13472779c16d90",
+  "reportHash": "eb23ae0cec11c94b91d068f4807485b37eb4c660715ccf322426692cb1a8adad",
+  "reviewer": "Claude Fable 5.1 (agent, macOS host)",
+  "note": "New retained area (4 frames) for the library switch: lock badge beside legacy notes in Pages and a read-only meta line on the opened note, light and dark, driven by a fixture selection journal. All other areas within tolerance against the 2026-09-28T22-04-21 darwin baseline (two-pixel anti-aliasing on send buttons). Inspected: retained open (light), retained dark, badge frame, settings/profiles unchanged after the fixture reapply fix. Behavior evidence: documents-selection unit tests (legacy writes refused, retained summaries and reads), selection rehearsals live on this host. Limits: darwin only; the start-time prompt and reconciliation view are not in this tour; win32 stays stale until the Windows return checkpoint.",
+  "reviewedAt": "2026-09-28T22:24:55.584Z"
+}
