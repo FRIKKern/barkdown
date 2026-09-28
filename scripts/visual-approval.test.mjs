@@ -54,17 +54,19 @@ assert.deepEqual(Object.keys(core.loadApprovals()).sort(),['darwin','win32']);
 execFileSync(process.execPath,['scripts/visual.mjs','check'],{cwd:dir});
 put('docs/visual/pending.json',{run:'test'});
 console.log('Per-platform approval: darwin recorded beside win32; check passes while either is current.');
-// A future capture fixture must not need a hard-coded selector update.
+// Capture inputs are pixel inputs: the harness and renderer count, behavior tests and fixtures do not.
 const futureLive = 'app/tests/future-owned-journey.live.mjs';
 put(futureLive, '// original live capture');
-assert.ok(core.inputs()[futureLive], 'new live fixture must invalidate capture approval');
-const firstFixtureHash = core.inputs()[futureLive];
-put(futureLive, '// changed live capture');
-assert.notEqual(core.inputs()[futureLive], firstFixtureHash);
-for (const helper of ['app/tests/helpers/new-transport.mjs', 'app/tests/fixtures/new-diagnostics.cjs', 'app/tests/lib/new-paper-driver.mjs']) {
- put(helper, '// capture dependency');
- assert.ok(core.inputs()[helper], 'capture helper must participate in source fingerprints');
+assert.equal(core.inputs()[futureLive], undefined, 'a behavior test is not a pixel input');
+for (const helper of ['app/tests/helpers/new-transport.mjs', 'app/tests/fixtures/new-diagnostics.cjs', 'app/main/new-service.js']) {
+ put(helper, '// behavior dependency');
+ assert.equal(core.inputs()[helper], undefined, helper + ' must not invalidate captures');
 }
+const harness = 'app/tests/visual-capture.mjs';
+put(harness, '// changed capture harness');
+assert.ok(core.inputs()[harness], 'the capture harness is a pixel input');
+put('app/renderer/src/new-view.js', '// renderer change');
+assert.ok(core.inputs()['app/renderer/src/new-view.js'], 'renderer code is a pixel input');
 const staleCapture = spawnSync(process.execPath, ['scripts/visual.mjs', 'check'], { cwd: dir, encoding: 'utf8' });
 assert.notEqual(staleCapture.status, 0);
 assert.match(staleCapture.stderr, /Visual tripwire:.*inputs changed on every approved platform/);
