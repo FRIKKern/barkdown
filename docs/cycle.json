@@ -17,7 +17,7 @@
   ],
   "checkpoint": "2026-09-28",
   "handoff": "docs/cycles/C083-writer-admission.md",
-  "nextAction": "Slice 4 upstream: Door at Tasks.Internal.fenced_content_write/4 and insert_mutation_event!/1 (one boundary for 18 task-board files), with a held-state refusal test; then sync bookkeeping, then managed-mode refusal for the refused clusters and the boot/one-shot refusal.",
+  "nextAction": "Slice 5 upstream on codex/write-admission-slice5 from main: sync bookkeeping door, note-adjacent doors, media lazy writes, each with a held-state refusal test; then slice 6 managed-mode refusal for refused clusters, :seed/:one_shot boot refusal, SchemaBootstrap pre-open. PR20433 (slice 4) waits for the user's production-deploying merge.",
   "evidence": [
     "docs/cycles/evidence/C082/merge.json",
     "docs/cycles/evidence/C082/integration-review.json",
