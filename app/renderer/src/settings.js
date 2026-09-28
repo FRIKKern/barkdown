@@ -30,7 +30,10 @@ const SHORTCUTS = [
   ['Terminal', [['↑ / ↓'], 'Recall history'], [['Ctrl', 'C'], 'Restart the shell on an empty line']],
 ];
 
-const keys = combo => combo.map(k => `<kbd>${esc(k)}</kbd>`).join('<i>+</i>');
+// The app accepts Ctrl or Cmd everywhere; the pane shows the chord the host expects.
+const MAC = /Mac/.test(navigator.platform);
+const keyLabel = k => MAC ? ({ Ctrl: '⌘', Alt: '⌥' }[k] || k) : k;
+const keys = combo => combo.map(k => `<kbd>${esc(keyLabel(k))}</kbd>`).join('<i>+</i>');
 
 const badge = (ok, okText, badText) => `<span class="bw-badge ${ok ? 'ok' : 'off'}">${esc(ok ? okText : badText)}</span>`;
 const modelOptions = (provider, s) => [`<option value="">${esc(defaultModelLabel(provider, s.providers))}</option>`, ...modelsFor(provider).map(([id, label]) => `<option value="${id}">${esc(label)} · ${id}</option>`), '<option value="custom">Other model id…</option>'].join('');
