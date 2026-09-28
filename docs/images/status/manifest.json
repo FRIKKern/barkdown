@@ -36,11 +36,11 @@
     },
     {
       "file": "settings-barkpark.d80ca121.png",
-      "caption": "Settings \u203a Barkpark: the connection Barkdown edits through \u2014 here the local server."
+      "caption": "Settings › Barkpark: the connection Barkdown edits through — here the local server."
     },
     {
       "file": "editing.b838817c.gif",
-      "caption": "An editing loop in the canvas: slash menu \u2192 Quote, typing, Tab through the table, quick open."
+      "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
     }
   ],
   "uiExemptions": [
@@ -53,6 +53,11 @@
       "commit": "b8338a66",
       "date": "2026-09-28",
       "reason": "main/writer-admission.js hashes the native real path (Windows 8.3 short names). No renderer change (C084)."
+    },
+    {
+      "commit": "b98e986e",
+      "date": "2026-09-28",
+      "reason": "main/goal-process.js and main/goal-service.js: process-group containment for owned workers on POSIX. No renderer change (C084)."
     }
   ]
 }
