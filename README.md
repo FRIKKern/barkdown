@@ -4,9 +4,9 @@ Barkdown is an experiment in what Barkpark can do, and a tool for figuring out w
 
 We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT, taking the parts we love from each. We’re doing this for fun and learning, with no plans to make money from it. The aim is an excellent app shaped by our taste and Barkpark.
 
-## Where we are · September 28, 2026
+## Where we are · September 29, 2026
 
-**Migration effort estimate: about 45% · plausible scenarios 15–75% · low confidence.** Moved twice on September 28: up when the admission doors for note, Paper, media writers and background jobs merged and deployed, then down when the audit of the remaining direct writers found 70 more files that write outside those doors, in nine clusters. This provisional estimate weights demonstrated work against expected work left; it is not a safety rating or a whole-project percentage. The wide range comes mainly from unproven writer coverage and recovery. [Estimates, calculation and next calibration](docs/PLAN.md#migration-effort-estimate).
+**Migration effort estimate: about 55% · plausible scenarios 20–80% · low confidence.** Up from about 45% on September 28. The door-or-refuse policy for the audited writers is now implemented in three upstream changes awaiting merge: the task board, sync bookkeeping, note-adjacent and lazy media writers pass an admission door; admin, tenancy, identity, operator and fleet surfaces are refused while the instance is held; seed and one-shot boots are refused outright. Each change carries its own held-state tests, run locally. This provisional estimate weights demonstrated work against expected work left; it is not a safety rating or a whole-project percentage. The range stays wide because the switch and the way back are unproven. [Estimates, calculation and next calibration](docs/PLAN.md#migration-effort-estimate).
 
 **Working today:** the source prototype supports [writing, searching and restarting](docs/visual/paper-notes/README.md), [agent edits with Undo](docs/visual/agent-notes/README.md), and [deleted-note recovery](docs/visual/paper-deletions/README.md). We’re working toward one dependable Paper note engine; existing libraries have not switched yet.
 

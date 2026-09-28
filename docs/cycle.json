@@ -15,9 +15,9 @@
     "Servers without managed mode behave unchanged under the existing upstream suite",
     "No seal capability is advertised until the writer coverage audit and recovery cases pass; upstream required gates and root verification stay honest"
   ],
-  "checkpoint": "2026-09-28",
+  "checkpoint": "2026-09-29",
   "handoff": "docs/cycles/C083-writer-admission.md",
-  "nextAction": "Slice 6 upstream on codex/write-admission-slice6 (stacked on slice 5): managed-mode refusal for the refused clusters in D-managed-writers, :seed/:one_shot boot refusal, SchemaBootstrap pre-open, each with a refusal test. PR20433 (slice 4) and PR20434 (slice 5) wait for the user's production-deploying merges.",
+  "nextAction": "Merge order for the user: PR20433 (slice 4), PR20434 (slice 5), PR20435 (slice 6); each deploys production. Next agent slice: the trusted hold endpoint (begin_hold/reopen over HTTP for the operator token, with the refusal envelope), then the drain, restart and rollback rehearsal against a real library. Residual to decide: LiveView events on mounted admin surfaces (evidence/C083/managed-refusal.md).",
   "evidence": [
     "docs/cycles/evidence/C082/merge.json",
     "docs/cycles/evidence/C082/integration-review.json",
