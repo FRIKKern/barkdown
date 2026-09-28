@@ -17,7 +17,7 @@
   ],
   "checkpoint": "2026-09-28",
   "handoff": "docs/cycles/C083-writer-admission.md",
-  "nextAction": "Slice 5 upstream on codex/write-admission-slice5 from main: sync bookkeeping door, note-adjacent doors, media lazy writes, each with a held-state refusal test; then slice 6 managed-mode refusal for refused clusters, :seed/:one_shot boot refusal, SchemaBootstrap pre-open. PR20433 (slice 4) waits for the user's production-deploying merge.",
+  "nextAction": "Slice 6 upstream on codex/write-admission-slice6 (stacked on slice 5): managed-mode refusal for the refused clusters in D-managed-writers, :seed/:one_shot boot refusal, SchemaBootstrap pre-open, each with a refusal test. PR20433 (slice 4) and PR20434 (slice 5) wait for the user's production-deploying merges.",
   "evidence": [
     "docs/cycles/evidence/C082/merge.json",
     "docs/cycles/evidence/C082/integration-review.json",
