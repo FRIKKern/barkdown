@@ -1,0 +1,41 @@
+{
+  "source": "e38990a1c6cddecd8a90e3f3c91d90e98c2a1168",
+  "upstream": "11f1ea0dcc483cb223157fddc22edada528b3af2",
+  "host": "darwin 24.3.0 arm64",
+  "status": "failed",
+  "checks": [
+    {
+      "name": "selection under both fences replaced the workspace with the owned projection",
+      "seal": {
+        "boot": "7663162acab3cd19ed186ffdfc21de2d",
+        "generation": 1,
+        "operation": "select-cc79ea16-eb1f-4276-94be-6b2fc5f3441f"
+      },
+      "reopenedGeneration": 2,
+      "checkpoints": [
+        "after-intent",
+        "after-replacing",
+        "after-workspace-replaced",
+        "after-selected",
+        "after-selected",
+        "after-rolling-back",
+        "after-workspace-restored",
+        "after-rolled-back"
+      ],
+      "favorite": {
+        "id": "local-379a1cfad9cfe6597453138741515b1a",
+        "kind": "doc",
+        "paperOwner": "25fd515f6c15f2ff98c2bcf6ca18d216cb1143a6b5d04ab11e63b3ca4024b59d",
+        "source": "barkpark"
+      }
+    },
+    {
+      "name": "reselect is idempotent",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Headless profile with controlled foreground hooks; the renderer does not yet show the selection; one Paper edit between selection and rollback; the runtime was idle so the hold was held at once."
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: {\"error\":{\"code\":\"not_found\",\"message\":\"document not found\",\"hint\":\"Check the document _id, type, and dataset in the URL — the resource does not exist in this scope.\",\"request_id\":\"GNmbvt8p8z5RQF4AADyB\"}}\n\n404 !== 200\n\n    at request (file:///Users/frikkjarl/Documents/GitHub/barkdown/app/tests/migration-selection.live.mjs:33:47)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async file:///Users/frikkjarl/Documents/GitHub/barkdown/app/tests/migration-selection.live.mjs:96:17"
+}

@@ -1,0 +1,49 @@
+{
+  "source": "8341feba718e7c268a2ce98070045a8bbc075db6",
+  "upstream": "11f1ea0dcc483cb223157fddc22edada528b3af2",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "selection under both fences replaced the workspace with the owned projection",
+      "seal": {
+        "boot": "48258862033356f2cdc52d291fe52748",
+        "generation": 1,
+        "operation": "select-439e6175-e034-4ecd-969e-a8759b62a682"
+      },
+      "reopenedGeneration": 2,
+      "checkpoints": [
+        "after-intent",
+        "after-replacing",
+        "after-workspace-replaced",
+        "after-selected",
+        "after-selected",
+        "after-rolling-back",
+        "after-workspace-restored",
+        "after-rolled-back"
+      ],
+      "favorite": {
+        "id": "local-3edcd2110bfc1c2dbc58eeee84a51390",
+        "kind": "doc",
+        "paperOwner": "7c9654bef4b0dbdf0f8d895d2e3ac5f432f6ff8ffa913e1e77e9b706d1beda22",
+        "source": "barkpark"
+      }
+    },
+    {
+      "name": "reselect is idempotent",
+      "passed": true
+    },
+    {
+      "name": "rollback after a Paper edit restores the legacy workspace, keeps the edit on Paper and records the divergence",
+      "divergence": {
+        "at": "2026-09-28T22:13:30.599Z",
+        "code": "comparison_source",
+        "message": "Source differs from the pinned backup"
+      },
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Headless profile with controlled foreground hooks; the renderer does not yet show the selection; one Paper edit between selection and rollback; the runtime was idle so the hold was held at once."
+  ]
+}
