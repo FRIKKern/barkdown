@@ -17,7 +17,7 @@
   ],
   "checkpoint": "2026-09-29",
   "handoff": "docs/cycles/C083-writer-admission.md",
-  "nextAction": "1) User merges PR20433, PR20434, PR20435 (each deploys production). 2) Bump app/BARKPARK_REF to the merged main commit; rerun app tests/local-barkpark.live.mjs and tests/upstream-admission.live.mjs against it (Mac now, Windows at the return checkpoint). 3) Second half of the rehearsal: comparison while held from the migration runner, an explicit recovery verb for recovery_required (upstream), then selection and rollback proof (A2). Residuals: LiveView events on mounted admin surfaces; README status recapture.",
+  "nextAction": "1) User merges PR20433, PR20434, PR20435 (each deploys production). 2) Bump app/BARKPARK_REF to the merged main commit; rerun app tests/local-barkpark.live.mjs and tests/upstream-admission.live.mjs against it (Mac now, Windows at the return checkpoint). 3) Second half of the rehearsal: comparison while held from the migration runner, recovery with uncertain effects (a writer dying mid-drain), then selection and rollback proof (A2). Residuals: LiveView events on mounted admin surfaces; README status recapture.",
   "evidence": [
     "docs/cycles/evidence/C082/merge.json",
     "docs/cycles/evidence/C082/integration-review.json",
