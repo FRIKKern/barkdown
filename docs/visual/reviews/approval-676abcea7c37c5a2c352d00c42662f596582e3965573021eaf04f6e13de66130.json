@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-09-28T14-21-11-037Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-28T14-21-11-037Z/comparison.json",
+  "manifestHash": "d41e9fc32c31a165d0cbaac8e1a7b3a39ae35bf1b37739d3836a0b8ff1c2ddf7",
+  "reportHash": "769932905ed71f65905821ba2edeb4ce8cca379ddfa2ce585e61c237d5eb3b85",
+  "reviewer": "Claude Fable 5.1 (agent, macOS host)",
+  "note": "First darwin approval, recorded beside the Windows baseline (never over it). Inspected the final frame of all eight areas plus the settings, side-chat and adoption views against the 2026-09-25 Windows run: identical layouts, states and copy; differences are macOS font rendering (system-ui for Segoe UI) and line height. No new baseline for Windows is implied; its approval is now stale against these inputs and is recaptured at the Windows return checkpoint. Product finding, not a capture defect: the Shortcuts pane labels chords Ctrl on macOS although the app accepts Cmd (C084 gap). Behavior evidence: full desktop chain 80/80 on this host (evidence/C084).",
+  "reviewedAt": "2026-09-28T14:23:59.250Z"
+}

@@ -33,8 +33,20 @@ export function preserveReview(approval) {
  }
  return {...attestation,reviewPath,reviewHash};
 }
-export function loadApproved() {
- const p='docs/visual/approved.json'; if(!fs.existsSync(safe(p)))return null;
+// Approvals are keyed by capture platform (D-hosts): the Windows source machine keeps the legacy
+// docs/visual/approved.json; every other platform records docs/visual/approved.<platform>.json.
+// A platform's approval is current or stale on its own; one never replaces another's.
+export const primaryPlatform='win32';
+export const approvalPath=platform=>(platform||primaryPlatform)===primaryPlatform?'docs/visual/approved.json':`docs/visual/approved.${platform}.json`;
+export const manifestPlatform=m=>m?.environment?.platform||primaryPlatform;
+export function loadApprovals() {
+ const dir=safe('docs/visual'); if(!fs.existsSync(dir))return {};
+ const out={};
+ for(const name of fs.readdirSync(dir)){const m=/^approved(?:\.([a-z0-9]+))?\.json$/.exec(name);if(!m)continue;const platform=m[1]||primaryPlatform;const loaded=loadApproved(platform);if(loaded)out[platform]=loaded;}
+ return out;
+}
+export function loadApproved(platform=primaryPlatform) {
+ const p=approvalPath(platform); if(!fs.existsSync(safe(p)))return null;
  const a=read(p),m=read(a.manifest),report=read(a.report);
  if(a.reviewPath!==undefined || a.reviewHash!==undefined) {
   const {reviewPath,reviewHash,...attestation}=a;

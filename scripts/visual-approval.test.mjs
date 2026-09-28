@@ -14,7 +14,7 @@ put('docs/visual/coverage.json',{areas:[]});
 const core=await import(pathToFileURL(path.join(dir,'scripts/visual-core.mjs')));
 const manifest='docs/visual/runs/test/manifest.json',report='docs/visual/runs/test/comparison.json';
 const media='docs/visual/runs/test/frame.bin';put(media,'unchanged fixture artifact');
-put(manifest,{shots:[{area:'test-area',caption:'Synthetic CLI fixture, no UI claim',file:media,frames:[{file:media}]}],hashes:{[media]:hash(fs.readFileSync(path.join(dir,media)))},inputs:core.inputs(),commit:'fixture',environment:{platform:process.platform,electron:'fixture'}});
+put(manifest,{shots:[{area:'test-area',caption:'Synthetic CLI fixture, no UI claim',file:media,frames:[{file:media}]}],hashes:{[media]:hash(fs.readFileSync(path.join(dir,media)))},inputs:core.inputs(),commit:'fixture',environment:{platform:'win32',electron:'fixture'}});
 put(report,{candidate:manifest,candidateHash:hash(fs.readFileSync(path.join(dir,manifest))),entries:[]});
 put('docs/visual/pending.json',{run:'test'});
 const legacy={manifest,report,manifestHash:hash(fs.readFileSync(path.join(dir,manifest))),reportHash:hash(fs.readFileSync(path.join(dir,report))),reviewer:'Original reviewer',note:'Original evidence',reviewedAt:'2026-09-01T00:00:00Z'};
@@ -39,6 +39,21 @@ assert.equal(second.reviewer,'Reviewer two');assert.equal(second.note,'Second ac
 assert.equal(fs.readdirSync(path.join(dir,'docs/visual/reviews')).filter(n=>n.startsWith('approval-')).length,3,'original pointer plus two distinct reviews retained');
 execFileSync(process.execPath,['scripts/visual.mjs','check'],{cwd:dir});
 assert.deepEqual(core.preserveReview(second),second,'identical attestation is idempotent');
+// Per-platform approvals (D-hosts): a macOS candidate is approved beside the primary baseline, never over it.
+const darwinManifest='docs/visual/runs/test-darwin/manifest.json',darwinReport='docs/visual/runs/test-darwin/comparison.json',darwinMedia='docs/visual/runs/test-darwin/frame.bin';
+put(darwinMedia,'darwin fixture artifact');
+put(darwinManifest,{shots:[{area:'test-area',caption:'Synthetic darwin fixture, no UI claim',file:darwinMedia,frames:[{file:darwinMedia}]}],hashes:{[darwinMedia]:hash(fs.readFileSync(path.join(dir,darwinMedia)))},inputs:core.inputs(),environment:{platform:'darwin',osRelease:'24.0.0',electron:'38'},commit:'test'});
+put(darwinReport,{candidate:darwinManifest,candidateHash:hash(fs.readFileSync(path.join(dir,darwinManifest))),entries:[]});
+put('docs/visual/pending.json',{run:'test-darwin'});
+const primaryBytes=fs.readFileSync(path.join(dir,'docs/visual/approved.json'));
+approve('Mac reviewer','Approved on darwin beside the primary');
+assert.deepEqual(fs.readFileSync(path.join(dir,'docs/visual/approved.json')),primaryBytes,'a darwin approval must not touch the primary approval');
+const darwin=get('docs/visual/approved.darwin.json');assert.equal(darwin.reviewer,'Mac reviewer');
+assert.ok(fs.existsSync(path.join(dir,'docs/visual/README.darwin.md')),'darwin gallery stands beside the primary README');
+assert.deepEqual(Object.keys(core.loadApprovals()).sort(),['darwin','win32']);
+execFileSync(process.execPath,['scripts/visual.mjs','check'],{cwd:dir});
+put('docs/visual/pending.json',{run:'test'});
+console.log('Per-platform approval: darwin recorded beside win32; check passes while either is current.');
 // A future capture fixture must not need a hard-coded selector update.
 const futureLive = 'app/tests/future-owned-journey.live.mjs';
 put(futureLive, '// original live capture');
@@ -52,7 +67,7 @@ for (const helper of ['app/tests/helpers/new-transport.mjs', 'app/tests/fixtures
 }
 const staleCapture = spawnSync(process.execPath, ['scripts/visual.mjs', 'check'], { cwd: dir, encoding: 'utf8' });
 assert.notEqual(staleCapture.status, 0);
-assert.match(staleCapture.stderr, /Visual tripwire:.*inputs changed/);
+assert.match(staleCapture.stderr, /Visual tripwire:.*inputs changed on every approved platform/);
 console.log('Future live fixtures and capture helpers invalidate existing approval.');
 fs.appendFileSync(path.join(dir,second.reviewPath),' ');
 assert.throws(()=>core.preserveReview(second),/attestation changed/,'exclusive file collision must never overwrite mismatched bytes');

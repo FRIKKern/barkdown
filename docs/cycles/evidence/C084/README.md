@@ -35,3 +35,9 @@ Fixes: `app/tests/helpers/keys.mjs` (host modifier and document-end chords, 37 f
 ## CI
 
 `.github/workflows/desktop.yml` runs the chain on `windows-latest` (required), `macos-latest` and `ubuntu-latest` (advisory until green), gated to `app/**` and the workflow, nightly on `main`. First run: all three red on the same `runtime-build` copy defect before the fix; the account's Actions artifact storage quota was full, so uploads are diagnostics only and cannot fail the job.
+
+## Visual approval on macOS (2026-09-28)
+
+Per-platform approvals landed first (`scripts/visual-core.mjs`, `visual.mjs`, tests, RULES). Then a deterministic capture on this Mac, run `2026-09-28T14-21-11-037Z`, eight areas, compared as new coverage (no Mac baseline existed) and inspected frame by frame against the 2026-09-25 Windows run: identical layouts, states and copy; differences are macOS font rendering and line height. Approved as `docs/visual/approved.darwin.json` with `README.darwin.md` beside the primary gallery; the Windows approval is untouched and reported stale against the current inputs until the return checkpoint recaptures there.
+
+Product finding from the inspection: the Shortcuts pane labels chords `Ctrl` on macOS although the app accepts `Cmd`; a label-only gap for C084.

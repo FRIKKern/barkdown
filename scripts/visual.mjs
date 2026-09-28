@@ -1,19 +1,21 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
-import { root,hash,read,write,safe,inputs,fingerprint,verifyArtifacts,loadApproved,preserveReview } from './visual-core.mjs';
+import { root,hash,read,write,safe,inputs,fingerprint,verifyArtifacts,loadApproved,loadApprovals,preserveReview,approvalPath,manifestPlatform,primaryPlatform } from './visual-core.mjs';
 const command=process.argv[2]||'check';
 if(command==='check') {
- const current=loadApproved();if(!current)throw Error('No approved visual baseline. Capture, compare and inspect before approving.');
- if(fingerprint(inputs())!==fingerprint(current.manifest.inputs))throw Error('Visual tripwire: app/dependency/capture inputs changed. Run npm run visual:capture, visual:compare, inspect the report and approve.');
+ const all=loadApprovals();if(!Object.keys(all).length)throw Error('No approved visual baseline. Capture, compare and inspect before approving.');
+ const now=fingerprint(inputs());
+ const fresh=Object.entries(all).filter(([,c])=>fingerprint(c.manifest.inputs)===now),stale=Object.entries(all).filter(([,c])=>fingerprint(c.manifest.inputs)!==now);
+ if(!fresh.length)throw Error('Visual tripwire: app/dependency/capture inputs changed on every approved platform ('+Object.keys(all).join(', ')+'). Run npm run visual:capture, visual:compare, inspect the report and approve on this host.');
  const coverage=read('docs/visual/coverage.json');
- for(const area of coverage.areas.filter(a=>a.capture==='deterministic'))if(!current.manifest.shots.some(s=>s.area===area.id&&s.frames.length>=2))throw Error('Missing motion evidence: '+area.id);
- console.log('Visual evidence hashes, source coverage and agent review are current. External/live coverage limits remain in docs/visual/README.md.');
+ for(const [,current] of fresh)for(const area of coverage.areas.filter(a=>a.capture==='deterministic'))if(!current.manifest.shots.some(s=>s.area===area.id&&s.frames.length>=2))throw Error('Missing motion evidence: '+area.id);
+ console.log('Visual evidence hashes, source coverage and agent review are current on '+fresh.map(([p])=>p).join(', ')+(stale.length?'; stale on '+stale.map(([p,c])=>p+' (captured '+String(c.manifest.capturedAt||'').slice(0,10)+')').join(', ')+', recapture there before relying on those pictures':'')+'. External/live coverage limits remain in docs/visual/README.md.');
 } else if(command==='compare') {
  const { PNG }=createRequire(path.join(root,'app/package.json'))('pngjs');
  const {comparePixels,pairFrames}=await import('./visual-diff.mjs');
  const candidate='docs/visual/runs/'+read('docs/visual/pending.json').run+'/manifest.json';
- const m=read(candidate);verifyArtifacts(m);const previous=loadApproved();if(previous?.approval.manifest===candidate)throw Error('This candidate is already approved; capture a new run instead of rewriting its review.');const entries=[];
+ const m=read(candidate);verifyArtifacts(m);const previous=loadApproved(manifestPlatform(m));if(previous?.approval.manifest===candidate)throw Error('This candidate is already approved; capture a new run instead of rewriting its review.');const entries=[];
  const areas=new Set([...m.shots,...(previous?.manifest.shots||[])].map(s=>s.area));
  for(const area of areas){
   const shot=m.shots.find(s=>s.area===area),old=previous?.manifest.shots.find(s=>s.area===area);
@@ -42,9 +44,18 @@ if(command==='check') {
  const m=read(manifest);verifyArtifacts(m);if(read(report).candidate!==manifest || read(report).candidateHash!==hash(fs.readFileSync(safe(manifest))))throw Error('Compare this exact candidate first');
  if(fingerprint(inputs())!==fingerprint(m.inputs))throw Error('Source changed since capture');
  const approval={manifest,report,manifestHash:hash(fs.readFileSync(safe(manifest))),reportHash:hash(fs.readFileSync(safe(report))),reviewer,note,reviewedAt:new Date().toISOString()};
- const old=loadApproved();if(old)preserveReview(old.approval);
+ const platform=manifestPlatform(m);
+ const old=loadApproved(platform);if(old)preserveReview(old.approval);
  const recorded=preserveReview(approval);
- write('docs/visual/approved.json',recorded);
+ write(approvalPath(platform),recorded);
+ if(platform!==primaryPlatform){
+  // A non-primary platform records its approval and gallery beside the primary's; it never rewrites
+  // docs/visual/README.md or the area pages, which show the Windows source machine's captures.
+  let gallery='# Visual health on '+platform+'\n\nApproved fixture captures of the real Electron UI on '+platform+' (OS '+m.environment.osRelease+', Electron '+m.environment.electron+'). The primary gallery in [README.md](README.md) is the Windows source machine\'s; this page stands beside it, never in its place. See [rules](RULES.md).\n\n';
+  gallery+=`Reviewed by ${reviewer}. ${note}\n\nSource commit: ${m.commit}; review: ${recorded.reviewPath}.\n\n`;
+  for(const s of m.shots)gallery+=`## ${s.area}\n\n${s.caption}\n\n![Current view on ${platform}](${path.posix.relative('docs/visual',s.frames.at(-1).file)})\n\n![Recorded interaction](${path.posix.relative('docs/visual',s.file)})\n\n`;
+  fs.writeFileSync(safe(`docs/visual/README.${platform}.md`),gallery);console.log('Approved immutable candidate for '+platform+'; the primary baseline and every prior approval are preserved.');
+ } else {
  const dir='docs/visual';let md='# Visual health\n\nApproved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report]('+path.posix.relative(dir,path.posix.dirname(report)+'/README.md')+').\n\n';
  md+=`Reviewed by ${reviewer}. ${note}\n\nSource commit: ${m.commit}; platform: ${m.environment.platform}; Electron: ${m.environment.electron}. Source fingerprints, including dirty capture inputs, are recorded in the manifest.\n\n`;
  for(const s of m.shots){const areaDir=`docs/visual/${s.area}`;fs.mkdirSync(safe(areaDir),{recursive:true});const frame=s.frames.at(-1);const rel=p=>path.posix.relative(areaDir,p);const file=areaDir+'/README.md';
@@ -59,4 +70,5 @@ if(command==='check') {
  }
 
  fs.writeFileSync(safe('docs/visual/README.md'),md);console.log('Approved immutable candidate; prior approvals and captures preserved.');
+ }
 } else throw Error('Expected check, compare or approve');
