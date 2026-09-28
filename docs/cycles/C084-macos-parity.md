@@ -13,3 +13,5 @@
 **Measured so far:** [evidence](evidence/C084/README.md). Unit files 105 of 110 with five Windows-only skips; the first live test fails on a hardcoded `Control+a`. Full per-segment measurement in progress.
 
 **Next action:** read the per-segment results, add a platform-aware modifier helper to the tests and rerun the failing segments.
+
+**Measured and fixed (2026-09-28):** [evidence](evidence/C084/README.md). Before: 68 of 80 segments; after: 80 of 80, with 649 unit tests (607 pass, 42 Windows-only skips) and eight recorded live skips. Two of the twelve failures were app defects on every platform (the staging copy under Node 22.23, confirmed by the Windows CI lane; an asset-fallback race). The rest were test chords hardcoded to Control, and flows that depend on Windows-only owned process trees or DPAPI, now recorded gaps rather than silent skips, pinned by `tests/host-skips.test.mjs`. The substantive macOS gap is product: owned agent and terminal process trees exist only on Windows.

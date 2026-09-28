@@ -18,20 +18,21 @@
   ],
   "checkpoint": "2026-09-28",
   "handoff": "docs/cycles/C084-macos-parity.md",
-  "nextAction": "Finish the per-segment measurement of the desktop chain on this Mac, then add a platform-aware modifier helper to the tests (49 files press Control+ where macOS needs Meta) and rerun.",
+  "nextAction": "Merge PR60 when the Windows desktop lane is green; then decide how far the POSIX twin for owned process trees goes this week (product), key visual approvals by platform, and add the return checkpoint on the Windows machine.",
   "evidence": [
     "docs/DESIGN-DECISIONS.md",
-    "docs/cycles/evidence/C084/README.md"
+    "docs/cycles/evidence/C084/README.md",
+    "docs/cycles/evidence/C084/mac-segments-before.json",
+    "docs/cycles/evidence/C084/mac-segments-after.json"
   ],
-  "truthReview": "Opened on the first Mac session. Electron could not install until the root-owned cache was chowned by the user. Unit files pass 105 of 110 with 5 Windows-only skips; the first live Electron test failed on a hardcoded Control+a. Full measurement in progress. Nothing accepted on macOS yet.",
+  "truthReview": "The desktop chain passes on this Mac segment by segment (80/80; 649 unit tests, 607 pass, 42 Windows-only skips; 8 recorded live skips). Two app defects were real on every platform (staging copy, asset fallback race). The remaining macOS gaps are product: owned process trees, credential durability, source Barkpark launcher. CI lanes exist; their first run on the fixed head is pending. Nothing re-approved visually.",
   "screenshotReview": "No visual inputs changed at opening; the visual baseline has no platform field and is not touched until per-platform keying lands.",
   "delivery": {
-    "phase": "implementing",
+    "phase": "validating",
     "owner": "primary agent",
     "remaining": [
-      "Per-segment measurement on macOS",
-      "Modifier helper and other test twins; app fixes if any",
-      "Desktop CI lane (added in this cycle, advisory for macOS and Linux)",
+      "CI green on windows-latest for the fixed head; macOS and Linux lanes read and recorded",
+      "Product decision: POSIX twin for owned goal and terminal process trees this week or recorded as a later cycle",
       "Per-platform visual approvals",
       "Return checkpoint on the Windows machine at the end of the Mac week"
     ]
