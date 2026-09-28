@@ -9,9 +9,12 @@ export const read = p => JSON.parse(fs.readFileSync(path.join(root,p),'utf8'));
 export const write = (p,data) => { fs.mkdirSync(path.dirname(path.join(root,p)),{recursive:true});fs.writeFileSync(path.join(root,p),JSON.stringify(data,null,2)+'\n'); };
 export function safe(p) { const f=path.resolve(root,p);if(!f.startsWith(root+path.sep))throw Error('Outside repository: '+p);return f; }
 export function sourceHash(bytes) { const text=bytes.toString('utf8');return hash(!bytes.includes(0)&&Buffer.from(text).equals(bytes)?text.replace(/\r\n/g,'\n'):bytes); }
+// Inputs are what can move a pixel: renderer and shared code, the build, dependencies and the capture
+// harness. Main-process code, behavior tests, helpers and fixtures are covered by their own tests
+// (narrowed 2026-09-28 under the local-authority decision; the wide form cost a capture per change).
 export function inputs() {
  const names=execFileSync('git',['ls-files','--cached','--others','--exclude-standard'],{cwd:root,encoding:'utf8'}).trim().split(/\r?\n/);
- const selected=[...new Set(names)].filter(p=>/^(app\/(main\/|renderer\/|shared\/|scripts\/|package(?:-lock)?\.json|BARKPARK_REF)|app\/tests\/(?:[^/]+\.live\.mjs|visual|status-shots|(?:helpers|fixtures|lib)\/)|scripts\/visual|docs\/visual\/coverage\.json|package(?:-lock)?\.json)/.test(p)).sort();
+ const selected=[...new Set(names)].filter(p=>/^(app\/(renderer\/|shared\/|scripts\/|package(?:-lock)?\.json|BARKPARK_REF)|app\/tests\/(?:visual|status-shots)|scripts\/visual|docs\/visual\/coverage\.json|package(?:-lock)?\.json)/.test(p)).sort();
  return Object.fromEntries(selected.map(p=>[p,fs.existsSync(safe(p))?sourceHash(fs.readFileSync(safe(p))):'deleted']));
 }
 export const fingerprint = data => hash(JSON.stringify(data));
