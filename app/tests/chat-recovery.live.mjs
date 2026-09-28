@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { createAnthropicFixture } from './fixtures/anthropic-http.mjs';
 import { skipUnlessWindows } from './helpers/host.mjs';
-skipUnlessWindows("recovery review depends on owned goal processes, Windows-only (main/goal-process.js); POSIX twin pending");
+skipUnlessWindows("recovery review tour times out on POSIX after the owned-process twin; investigate with the terminal tour");
 const require = createRequire(import.meta.url);
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-chat-recovery-'));
 const out = process.env.BARKDOWN_CHAT_RECOVERY_OUT || userData;

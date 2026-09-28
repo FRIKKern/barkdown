@@ -1,0 +1,1 @@
+{"version":1,"steps":[{"name":"verify","cwd":".","argv":["npm","run","verify"]},{"name":"owned-processes","cwd":"app","argv":["node","--test","tests/goal-process.test.mjs","tests/goal-worker-agent.test.mjs","tests/goal-coordinator.test.mjs","tests/goal-coordinator-native.test.mjs","tests/terminal-ownership.test.mjs","tests/writer-process.test.mjs","tests/host-skips.test.mjs"]}]}

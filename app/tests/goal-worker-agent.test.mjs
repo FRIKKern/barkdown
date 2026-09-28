@@ -30,7 +30,7 @@ test('verified settled completion retention is bounded without dropping unresolv
   assert.ok(identity,'unproven registry entry retained');
   assert.equal(await runtime.verifyTermination({request:{profileId,storeDir:root,attemptId:unresolvedOptions.attemptId},runId:uncertain.runId}),true);
 });
-test('real job-owned worker bridges exact owner, approvals, sessions and finalization', {skip:process.platform!=='win32',timeout:30000}, async()=>{
+test('real job-owned worker bridges exact owner, approvals, sessions and finalization', {timeout:30000}, async()=>{
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-worker-bridge-')),profileId=randomUUID(),attemptId=randomUUID();
   const scope=captureScope({profileId,storeDir:root,context:{chatId:'worker',folder:null},connection:{enabled:false}});
   const runtime=createGoalWorkerAgent({script});const events=[];let released=0,approvalReady;
@@ -45,7 +45,7 @@ test('real job-owned worker bridges exact owner, approvals, sessions and finaliz
   assert.ok(events.every((e,i)=>e.profileId===profileId&&e.chatId==='worker'&&e.runId===started.runId&&e.sequence===i+1));
   assert.equal(await verifyOwnedWorker({storeDir:root,profileId,attemptId}),true);
 });
-test('cancelling an approval-held real worker waits for job drain and releases lease once', {skip:process.platform!=='win32',timeout:30000}, async()=>{
+test('cancelling an approval-held real worker waits for job drain and releases lease once', {timeout:30000}, async()=>{
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-worker-cancel-')),profileId=randomUUID();
   const scope=captureScope({profileId,storeDir:root,context:{chatId:'worker',folder:null},connection:{enabled:false}});
   const runtime=createGoalWorkerAgent({script});let ready, released=0;
@@ -54,7 +54,7 @@ test('cancelling an approval-held real worker waits for job drain and releases l
   await approval;runtime.cancel(started.runId);assert.equal(released,0);
   const finished=await runtime.waitForRunFinish(started.runId);assert.equal(finished.cancelled,true);assert.equal(released,1);
 });
-test('20MiB image descriptor and6MiB history cross the real bridge in both directions without truncation', {skip:process.platform!=='win32',timeout:30000},async()=>{
+test('20MiB image descriptor and6MiB history cross the real bridge in both directions without truncation', {timeout:30000},async()=>{
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-worker-large-')),profileId=randomUUID(),imagePath=path.join(root,'attachment.png');
   fs.writeFileSync(imagePath,Buffer.alloc(20*1024*1024));
   const scope=captureScope({profileId,storeDir:root,context:{chatId:'worker',folder:null},connection:{enabled:false}});
@@ -65,7 +65,7 @@ test('20MiB image descriptor and6MiB history cross the real bridge in both direc
   assert.equal(observed.imageBytes,20*1024*1024);assert.equal(observed.historyLength,history.length);assert.deepEqual(observed.imageDescriptorKeys,['id','path','mime']);
   assert.equal(events.find(e=>e.type==='done').history[0].content,history);
 });
-test('malformed post-handshake message overrides an earlier success and persists failed completion', {skip:process.platform!=='win32',timeout:30000},async()=>{
+test('malformed post-handshake message overrides an earlier success and persists failed completion', {timeout:30000},async()=>{
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-worker-protocol-')),profileId=randomUUID();
   const scope=captureScope({profileId,storeDir:root,context:{chatId:'worker',folder:null},connection:{enabled:false}});
   const runtime=createGoalWorkerAgent({script}),events=[];

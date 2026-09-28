@@ -56,7 +56,7 @@ test('a surviving real MCP child refuses stale create/edit and keeps original re
   } finally { await client.close(); }
 });
 
-test('a delayed real owned goal worker cannot recapture a newer generation', { skip: process.platform !== 'win32', timeout: 30000 }, async () => {
+test('a delayed real owned goal worker cannot recapture a newer generation', { timeout: 30000 }, async () => {
   const { launchOwnedWorker } = require('../main/goal-process');
   const { createGoalWorkerAgent } = require('../main/goal-worker-agent');
   const store = createStore(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-writer-goal-')));

@@ -224,7 +224,7 @@ test('independent coordinator cannot steal the in-flight profile lease', async t
   gate.resolve(); assert.equal((await first).phase, 'prepared');
 });
 
-test('native coordinator drains A ordinary and three goal trees while B continues, then verifies restart', { skip: process.platform !== 'win32', timeout: 30000 }, async t => {
+test('native coordinator drains A ordinary and three goal trees while B continues, then verifies restart', { timeout: 30000 }, async t => {
   const trees = new Map(), readyA = deferred(), readyB = deferred(), started = [];
   const receive = event => {
     if (event.type !== 'text_delta') return;

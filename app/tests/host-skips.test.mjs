@@ -11,10 +11,10 @@ const count = pattern => files.reduce((n, f) => n + (fs.readFileSync(path.join(d
 
 test('platform-only skips are pinned per kind and named', () => {
   const pins = {
-    // node:test cases gated on Windows-only owned process trees and terminal ownership.
-    unitSkipsOffWindows: { pattern: /skip:\s*process\.platform\s*!==\s*'win32'/g, expected: 27 },
-    // live files that exit early off Windows through helpers/host.mjs, each with a recorded reason.
-    liveFilesSkippedOffWindows: { pattern: /^skipUnlessWindows\(/gm, expected: 7 },
+    // node:test cases gated on PowerShell shell semantics (owned process trees now run on POSIX).
+    unitSkipsOffWindows: { pattern: /skip:\s*process\.platform\s*!==\s*'win32'/g, expected: 3 },
+    // live files that exit early off Windows through helpers/host.mjs: PowerShell terminal tour, recovery review tour, DPAPI durability.
+    liveFilesSkippedOffWindows: { pattern: /^skipUnlessWindows\(/gm, expected: 3 },
     // blocks gated inline on win32 (profile-preparation's terminal ownership halves, profile-registry).
     inlineWindowsHalves: { pattern: /^\s*if \(process\.platform === 'win32'\) \{$/gm, expected: 3 },
   };

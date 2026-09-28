@@ -18,7 +18,7 @@ async function until(read, predicate, label) {
   while (Date.now() < deadline) { const value = read(); if (predicate(value)) return value; await delay(40); }
   throw new Error(`${label}: ${JSON.stringify(read())}`);
 }
-for (const role of ['review', 'summary']) test(`native host death during coordinator ${role} requires shutdown and explicit retry without replaying workers`, { skip: process.platform !== 'win32', timeout: 120000 }, async t => {
+for (const role of ['review', 'summary']) test(`native host death during coordinator ${role} requires shutdown and explicit retry without replaying workers`, { timeout: 120000 }, async t => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), `bd-coordinator-native-${role}-`));
   const transport = await createCoordinatorFixture({ allowRetries: true, holdRoles: [role] });
   let releaseAll = false;

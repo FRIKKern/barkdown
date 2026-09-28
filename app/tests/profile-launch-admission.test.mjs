@@ -244,7 +244,7 @@ for (const fault of ['foreign', 'cleanup']) test(`ordinary drain retains ${fault
   assert.equal((await f.profiles.drainOrdinary(f.a.id)).scope, 'ordinary', 'Explicit recovery must retire the old in-process failure');
 });
 
-test('native ordinary preparation drains A child/grandchild and preserves the running B tree', { skip: process.platform !== 'win32', timeout: 30000 }, async t => {
+test('native ordinary preparation drains A child/grandchild and preserves the running B tree', { timeout: 30000 }, async t => {
   const trees = new Map(), readyA = deferred(), readyB = deferred(), started = [];
   const agent = require('../main/goal-worker-agent').createOwnedWorkerAgent({ script: require.resolve('./fixtures/profile-drain-worker.cjs') });
   const f = setup({ agent, sendEvent(event) {
@@ -394,7 +394,7 @@ test('goal drain refuses a foreign-profile journal before changing its goals', a
   await assert.rejects(service.drain(f.a.id), /foreign profile/); assert.deepEqual(fs.readFileSync(file), before);
 });
 
-test('native goal drain stops all three owned trees, settles their journal and leaves ordinary B running', { skip: process.platform !== 'win32', timeout: 30000 }, async t => {
+test('native goal drain stops all three owned trees, settles their journal and leaves ordinary B running', { timeout: 30000 }, async t => {
   const trees = new Map(), aReady = deferred(), bReady = deferred(); let ordinary;
   const receive = event => { if (event.type === 'text_delta') { trees.set(event.chatId, JSON.parse(event.text)); if (trees.size === 3) aReady.resolve(); if (trees.size === 4) bReady.resolve(); } };
   const agent = require('../main/goal-worker-agent').createOwnedWorkerAgent({ script: require.resolve('./fixtures/profile-drain-worker.cjs') });
@@ -423,7 +423,7 @@ test('native goal drain stops all three owned trees, settles their journal and l
   t.diagnostic(JSON.stringify({ fixture: f.root, goalReceipts: receipts, trees: Object.fromEntries(trees), retained: true }));
 });
 
-test('native restart goal drain reconciles the crashed journal once for concurrent callers', { skip: process.platform !== 'win32', timeout: 30000 }, async t => {
+test('native restart goal drain reconciles the crashed journal once for concurrent callers', { timeout: 30000 }, async t => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-goal-drain-crash-'));
   const child = require('node:child_process').spawnSync(process.execPath, [require.resolve('./fixtures/goal-service-crash.cjs'), root], {
     windowsHide: true, encoding: 'utf8', timeout: 20000,

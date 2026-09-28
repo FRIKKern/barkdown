@@ -7,7 +7,7 @@ import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { skipUnlessWindows } from './helpers/host.mjs';
-skipUnlessWindows("owned terminal/goal process trees are Windows-only (main/goal-process.js); POSIX twin pending");
+skipUnlessWindows("terminal live flow drives PowerShell commands; owned trees work on POSIX (goal-process.test) but the shell-specific tour needs a POSIX twin");
 const require = createRequire(import.meta.url);
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-terminal-ui-'));
 const out = process.env.BARKDOWN_TERMINAL_OUT || userData;

@@ -48,7 +48,7 @@ async function tree(service, o) {
 }
 test(
   'Windows terminal closes its real descendants and same-tab profile B remains alive',
-  { skip: process.platform !== 'win32', timeout: 60000 },
+  { skip: process.platform !== 'win32' && 'PowerShell shell semantics; POSIX twin pending', timeout: 60000 },
   async (t) => {
     const service = createTerminalService(),
       a = owner(),
@@ -99,7 +99,7 @@ test('profile authority does not change on failed terminal drain and can retry',
 });
 test(
   'abrupt terminal host death kills all descendants and does not replay commands',
-  { skip: process.platform !== 'win32', timeout: 30000 },
+  { skip: process.platform !== 'win32' && 'PowerShell shell semantics; POSIX twin pending', timeout: 30000 },
   async () => {
     const o = owner();
     const child = spawn(
@@ -326,7 +326,7 @@ test('shutdown admission rejects a new terminal even after the owned map drains'
 
 test(
   'missing launch folder never falls back to home and failed shell can be explicitly retried',
-  { skip: process.platform !== 'win32', timeout: 30000 },
+  { skip: process.platform !== 'win32' && 'PowerShell shell semantics; POSIX twin pending', timeout: 30000 },
   async () => {
     const service = createTerminalService(),
       o = owner(),

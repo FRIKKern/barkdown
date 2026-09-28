@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-28T20:29:59.780Z",
+  "source": "d032dfc37555bedb4d46f9b0969e2680c262ba70",
+  "sourceStatus": "M app/main/goal-process.js\n M app/main/goal-service.js\n M app/tests/atomic-write.test.mjs\n M app/tests/chat-recovery.live.mjs\n M app/tests/goal-coordinator-native.test.mjs\n M app/tests/goal-coordinator-recovery.live.mjs\n M app/tests/goal-coordinator.live.mjs\n M app/tests/goal-process.test.mjs\n M app/tests/goal-recovery.test.mjs\n M app/tests/goal-worker-agent.test.mjs\n M app/tests/host-skips.test.mjs\n M app/tests/profile-goals-recovery.live.mjs\n M app/tests/profile-goals.live.mjs\n M app/tests/profile-launch-admission.test.mjs\n M app/tests/profile-preparation.test.mjs\n M app/tests/provider-authentication.test.mjs\n M app/tests/terminal-ownership.live.mjs\n M app/tests/terminal-ownership.test.mjs\n M app/tests/writer-process.test.mjs\n?? docs/cycles/evidence/C084/checks-02.plan.json",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "verify",
+      "cwd": "/Users/frikkjarl/Documents/GitHub/barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "verify"
+      ],
+      "status": "failed",
+      "startedAt": "2026-09-28T20:29:59.926Z",
+      "log": "verify.log",
+      "elapsedMs": 2150,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "owned-processes",
+      "cwd": "/Users/frikkjarl/Documents/GitHub/barkdown/app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/goal-process.test.mjs",
+        "tests/goal-worker-agent.test.mjs",
+        "tests/goal-coordinator.test.mjs",
+        "tests/goal-coordinator-native.test.mjs",
+        "tests/terminal-ownership.test.mjs",
+        "tests/writer-process.test.mjs",
+        "tests/host-skips.test.mjs"
+      ],
+      "status": "not-run"
+    }
+  ],
+  "finishedAt": "2026-09-28T20:30:02.078Z"
+}

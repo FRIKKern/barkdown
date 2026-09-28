@@ -4,8 +4,6 @@ import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'
 import assert from 'node:assert/strict';
 import { createAnthropicFixture } from './fixtures/anthropic-http.mjs';
 import { MOD } from './helpers/keys.mjs';
-import { skipUnlessWindows } from './helpers/host.mjs';
-skipUnlessWindows("owned goal process host is Windows-only (main/goal-process.js job objects); POSIX twin pending");
 const require = createRequire(import.meta.url);
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-profile-goals-'));
 const shots=path.resolve('test-results/profile-goals');fs.mkdirSync(shots,{recursive:true});

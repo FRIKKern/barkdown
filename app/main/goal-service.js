@@ -11,7 +11,7 @@ const boundedText = (value, label, max = 20000) => {
 };
 
 function createGoalService({ registry, profiles, agent, sendEvent = () => {}, sendProviderEvent = () => {}, verifyTermination, now = Date.now, heartbeatMs = 1000 }) {
-  const ownedAgent = !agent && process.platform === 'win32' ? require('./goal-worker-agent').createGoalWorkerAgent() : null;
+  const ownedAgent = !agent ? require('./goal-worker-agent').createGoalWorkerAgent() : null;
   agent ||= ownedAgent || require('./agent');
   const trustedVerifier = verifyTermination || (ownedAgent ? ({ request, runId }) => ownedAgent.verifyTermination({
     request: { ...request, storeDir: registry.storeFor(request.profileId).storeDir }, runId,
