@@ -68,7 +68,9 @@ try {
   assert.equal(replaced.favorites[0].target.source, 'barkpark');
   assert.equal(replaced.favorites[0].target.id, staging.documents[0].targetId);
   assert.ok(replaced.favorites[0].target.paperOwner);
-  assert.deepEqual(replaced.pages.roots, ['orchard'], 'human Pages order is untouched by selection');
+  // Human Pages keep their order and placement; keys are re-keyed to the owner-qualified Paper (C080).
+  assert.equal(replaced.pages.roots.length, 1);
+  assert.ok(replaced.pages.roots[0].endsWith(':' + staging.documents[0].targetId), replaced.pages.roots[0]);
   assert.equal((await admission.instance(connection)).phase, 'open');
   const retained = JSON.parse(fs.readFileSync(path.join(sourceDir, 'selection/workspace-legacy.json'), 'utf8'));
   assert.ok(Buffer.from(retained.bytes).equals(legacyBytes));
