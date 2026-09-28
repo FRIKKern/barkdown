@@ -586,13 +586,14 @@ async function collectPalette(query) {
   state.documents.forEach(d => items.push({ group: 'Documents', icon: 'file-text', label: d.title, hint: 'Open beside chat', run: () => openDocTab(chat, d.id, 'local'), alt: { hint: 'Open alone', run: () => openDirect(d.id, 'local') } }));
   state.barkparkDocs.forEach(d => items.push({ group: 'Barkpark papers', icon: 'cloud', label: d.title, hint: 'Open', run: () => openDocTab(chat, d.id, 'barkpark', d.paperOwner || null) }));
   state.order.map(id => state.chats[id]).filter(Boolean).forEach(c => items.push({ group: 'Recent chats', icon: 'message-circle', label: c.title, hint: c.id === state.current ? 'Current' : (c.folder ? basename(c.folder) : 'Switch'), run: () => switchChat(c.id) }));
-  items.push({ group: 'New', icon: 'message-circle-plus', label: 'New chat', hint: 'Ctrl+N', run: () => createChat() });
-  items.push({ group: 'New', icon: 'file-plus', label: 'New document', hint: 'Ctrl+Shift+N', run: () => createDocument() });
+  const MOD = /Mac/.test(navigator.platform) ? '⌘' : 'Ctrl';
+  items.push({ group: 'New', icon: 'message-circle-plus', label: 'New chat', hint: `${MOD}+N`, run: () => createChat() });
+  items.push({ group: 'New', icon: 'file-plus', label: 'New document', hint: `${MOD}+Shift+N`, run: () => createDocument() });
   [['project', 'Project editor'], ['chat', 'Side chat'], ['web', 'Website'], ['review', 'Code review'], ['terminal', 'Terminal']].forEach(([type, label]) => items.push({ group: 'New work tab', icon: TYPE_ICON[type], label, hint: 'New', run: () => openNewTab(type) }));
   items.push({ group: 'Actions', icon: 'folder-open', label: chat?.folder ? 'Change working folder' : 'Choose working folder', hint: chat?.folder ? basename(chat.folder) : '', run: () => chooseFolder() });
   if (activeTab(ws)) items.push({ group: 'Actions', icon: 'star', label: favoriteFor(activeTab(ws)) ? 'Remove this tab from favorites' : 'Add this tab to favorites', hint: activeTab(ws).title, run: () => toggleFavorite(ws.active) });
   state.favorites.forEach(f => items.push({ group: 'Favorites', icon: TYPE_ICON[f.target.kind] || 'sparkles', label: f.label, hint: FAVORITE_KIND[f.target.kind] || f.target.kind, run: () => openFavorite(f.id) }));
-  items.push({ group: 'Actions', icon: 'settings-2', label: 'Settings', hint: 'Ctrl+,', run: () => openSettings(applySettings) });
+  items.push({ group: 'Actions', icon: 'settings-2', label: 'Settings', hint: `${MOD}+,`, run: () => openSettings(applySettings) });
   if (state.profileId && chat && !chat.goalId) items.push({ group: 'Actions', icon: 'list-checks', label: 'Conversation goals', hint: 'Plan three workers', run: openConversationGoals });
   items.push({ group: 'Actions', icon: 'columns-2', label: 'Reset conversation width to 60%', hint: (state.settings?.chatWidth || 60) + '% now', run: () => setChatWidth(60) });
   if (query.length >= 2 && chat?.folder) {
