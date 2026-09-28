@@ -8,6 +8,7 @@ const { promisify } = require('util');
 const exec = promisify(execFile);
 const { acquireFileLease } = require('./file-lease');
 const { prepareRuntimeBuild } = require('./runtime-build');
+const { admissionEnv } = require('./upstream-admission');
 
 function freePort(port) {
   return new Promise((resolve, reject) => {
@@ -78,6 +79,9 @@ class SourceDriver {
       BARKPARK_INGEST_TOKEN: this.secrets.token, BARKPARK_SEED_PROFILE: 'clean', BARKPARK_SEED_ADMIN_TOKEN: this.secrets.token, BARKPARK_PLUGINS: 'bulldocs,media',
       BARKPARK_MEDIA_DIR: path.join(this.dataDir, 'media'), BARKPARK_INDX_STATE_DIR: path.join(this.dataDir, 'indx'),
       BARKPARK_BUNDLE_SPILL_DIR: path.join(this.dataDir, 'bundles'),
+      // Managed write admission (C083): opt-in per runtime until the pinned Barkpark
+      // ref carries the coordinator and the trusted hold endpoint.
+      ...(this.config.writeAdmission ? admissionEnv(this.dataDir, this.config.writeAdmission.instanceId) : {}),
     };
     this.processError = null;
     this.child = spawn('powershell.exe', ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', externalResource('local-barkpark-launch.ps1')], { env, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
