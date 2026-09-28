@@ -33,7 +33,12 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
     if (!owner || owner.profileId !== selected() || owner.generation !== generation) throw new Error('Stale or foreign profile view');
     return owner.profileId;
   }
-  function load(owner) { const profileId = validate(owner); return { ...recoverOrphans(profileId), profileId, generation }; }
+  function load(owner) {
+    const profileId = validate(owner);
+    // Which engine owns this profile's notes (migration-selection.js): legacy until a switch is selected.
+    const selection = require('./migration-selection').selectionStatus(registry.storeFor(profileId));
+    return { ...recoverOrphans(profileId), profileId, generation, authority: selection.authority, selection: selection.status };
+  }
   function save(owner, snapshot) {
     const profileId = validate(owner);
     if (snapshot.profileId && (snapshot.profileId !== profileId || snapshot.generation !== owner.generation)) throw new Error('Workspace snapshot belongs to a stale profile view');

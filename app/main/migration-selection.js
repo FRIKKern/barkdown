@@ -145,4 +145,17 @@ function createMigrationSelection({ preparation, comparison, admission = createU
   }
   return Object.freeze({ select, rollback, inspect });
 }
-module.exports = { createMigrationSelection };
+// The boot-side question, answered from the journal alone: which engine owns this
+// profile's notes, and whether a switch is mid-flight. Read by the legacy document
+// store before every write and by the profile view.
+function selectionStatus(store) {
+  try {
+    const value = read(store, journalName);
+    if (!value) return { status: 'none', authority: 'legacy' };
+    if (value.version !== 1 || !phases.has(value.phase)) return { status: 'blocked', authority: 'legacy', error: 'Unreadable selection journal' };
+    if (value.phase === 'selected') return { status: 'selected', authority: 'paper', operationId: value.operationId };
+    if (value.phase === 'rolled-back') return { status: 'rolled-back', authority: 'legacy', operationId: value.operationId };
+    return { status: value.phase, authority: 'legacy', operationId: value.operationId };
+  } catch (error) { return { status: 'blocked', authority: 'legacy', error: error.message }; }
+}
+module.exports = { createMigrationSelection, selectionStatus };

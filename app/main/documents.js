@@ -60,9 +60,15 @@ function extractReferences(content) {
 }
 
 function summary(doc) {
-  return { id: doc.id, title: doc.title, updatedAt: doc.updatedAt, createdAt: doc.createdAt, rev: doc.rev, source: doc.source || 'local', excerpt: (doc.text || '').slice(0, 160), references: doc.references || [], proposals: (doc.proposals || []).length, tags: doc.tags || [] };
+  return { id: doc.id, title: doc.title, updatedAt: doc.updatedAt, createdAt: doc.createdAt, rev: doc.rev, source: doc.source || 'local', ...(retainedNow() ? { retained: true } : {}), excerpt: (doc.text || '').slice(0, 160), references: doc.references || [], proposals: (doc.proposals || []).length, tags: doc.tags || [] };
 }
 
+let retainedCache = { at: 0, value: false };
+function retainedNow() {
+  const now = Date.now();
+  if (now - retainedCache.at > 1000) retainedCache = { at: now, value: require('./migration-selection').selectionStatus(store).status === 'selected' };
+  return retainedCache.value;
+}
 function list() {
   return [...cache.values()].sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || '')).map(summary);
 }
@@ -255,8 +261,20 @@ function takePaperProposal(slug, proposalId, config) {
   return proposal;
 }
 
+// After the library switch (migration-selection.js) this profile's notes live on
+// Paper: the legacy store is retained read-only, and a switch that is mid-flight
+// blocks legacy edits until it is resumed or rolled back. Paper proposals are not
+// legacy notes and stay writable.
+const legacyMutations = new Set(['create', 'save', 'remove', 'restore', 'addProposal', 'resolveProposal']);
+function assertLegacyWritable(name) {
+  if (!legacyMutations.has(name)) return;
+  const selection = require('./migration-selection').selectionStatus(store);
+  if (selection.status === 'selected') throw Object.assign(new Error('This profile\u2019s notes moved to Paper when the library was switched; the legacy note is retained read-only.'), { code: 'BARKDOWN_NOTES_ON_PAPER' });
+  if (!['none', 'rolled-back'].includes(selection.status)) throw Object.assign(new Error('A library switch is in progress; resume or roll it back before editing legacy notes.'), { code: 'BARKDOWN_SELECTION_PENDING', selection: selection.status });
+}
 const mutations = { addPaperProposal, takePaperProposal, create, save, remove, restore, addProposal, resolveProposal };
 return { writer, paperProposals, loadAll, reload, list, get, backlinks, related, history, search, summary,
-  ...Object.fromEntries(Object.entries(mutations).map(([name, action]) => [name, (...args) => writer.run('documents.' + name, () => action(...args))])) };
+  retained: () => require('./migration-selection').selectionStatus(store).status === 'selected',
+  ...Object.fromEntries(Object.entries(mutations).map(([name, action]) => [name, (...args) => { assertLegacyWritable(name); return writer.run('documents.' + name, () => action(...args)); }])) };
 }
 module.exports = { ...createDocuments(require('./store'), { lazyWriter: true }), createDocuments };
