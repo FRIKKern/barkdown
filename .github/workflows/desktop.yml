@@ -56,7 +56,12 @@ jobs:
         run: xvfb-run -a --server-args="-screen 0 1600x1000x24" npm run test:desktop
       - name: Build and test
         if: runner.os != 'Linux'
-        run: npm run test:desktop
+        shell: bash
+        # macOS runners hand out a symlinked temp dir (/var -> /private/var); the app's store
+        # refuses to traverse links, so tests get the real path (same rule as CYCLES hosts notes).
+        run: |
+          if [ "$RUNNER_OS" = macOS ]; then export TMPDIR="$(node -e 'console.log(require("fs").realpathSync(require("os").tmpdir()))')"; fi
+          npm run test:desktop
       - uses: actions/upload-artifact@v4
         # Diagnostics only: a full artifact store (the account quota) must not fail a green suite.
         if: always()
