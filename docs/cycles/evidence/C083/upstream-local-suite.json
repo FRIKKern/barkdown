@@ -106,6 +106,23 @@
       "taskGate": "SUCCESS after re-claim (claim had lapsed when PR20422 closed)",
       "mergeState": "CLEAN; merge awaits the user because it deploys production"
     },
-    "knownGap": "a task claim lapses whenever no PR is open against it; each slice PR needs a re-claim before its task gate passes"
+    "knownGap": "a task claim lapses whenever no PR is open against it; each slice PR needs a re-claim before its task gate passes",
+    "merge": {
+      "sha": "1f95949bd7304d51a8cd9367bb6bac151cf92def",
+      "mergedAt": "2026-09-28T10:03:25Z",
+      "method": "squash",
+      "authorization": "user said \"Do it\" with the standing merge grant",
+      "deploy": {
+        "run": 36407363128,
+        "result": "success"
+      }
+    }
+  },
+  "slice3": {
+    "lane": "codex/write-admission-slice3",
+    "pr": "https://github.com/FRIKKern/barkpark/pull/20426",
+    "design": "ObanAdmission on [:oban, :job, start|stop|exception] telemetry admits every job in its own process; Operation.hold pauses all queues before begin_hold and reopen resumes them; Sync.Worker writes only through the Mutations door",
+    "localTargeted": "5 new tests; 43 admission tests pass; census, doc budgets, env census, lineref pass",
+    "status": "CI and full local suite running at the time of this record"
   }
 }
