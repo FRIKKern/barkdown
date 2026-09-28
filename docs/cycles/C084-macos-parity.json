@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "id": "C084",
+  "stage": "P1",
+  "status": "done",
+  "goal": "Measure and close the macOS gap for the Windows-accepted desktop prototype without letting any platform go untested: desktop suite green on macOS, skips recorded per host, a per-platform CI lane, and per-platform visual baselines.",
+  "scope": [
+    "Install and run the desktop suite on macOS; record pass, fail and skip per test file and the cause of each failure",
+    "Fix platform-conditional test and app defects with their twins on Windows and Linux; a platform-only test needs a recorded, owned gap",
+    "Desktop CI lane per platform, gated to app/ changes, Windows required, others advisory until green; nightly on main",
+    "Visual approvals keyed by platform so a Mac review never replaces the Windows one"
+  ],
+  "acceptance": [
+    "The desktop test chain passes on macOS with every remaining skip named and owned",
+    "The same chain stays green on Windows in CI; no Windows-only test lost its twin",
+    "The Linux lane runs the chain under Xvfb and its failures are recorded, not hidden",
+    "Host, OS release and skips appear in the evidence for this cycle"
+  ],
+  "checkpoint": "2026-09-28",
+  "handoff": "docs/cycles/C084-macos-parity.md",
+  "nextAction": "C083 resumes: task-board boundary at Tasks.Internal per D-managed-writers.",
+  "evidence": [
+    "docs/DESIGN-DECISIONS.md",
+    "docs/cycles/evidence/C084/README.md",
+    "docs/cycles/evidence/C084/mac-segments-before.json",
+    "docs/cycles/evidence/C084/mac-segments-after.json",
+    "docs/cycles/evidence/C084/checks-01/result.json",
+    "docs/cycles/evidence/C084/checks-02/result.json"
+  ],
+  "truthReview": "macOS parity measured and closed on the working host: the desktop chain passes segment by segment (649 unit tests, 607 pass, 3 PowerShell-only skips; 3 live tours gated with reasons), owned process trees run on POSIX with the Windows receipt contract, visual approvals are keyed by platform with two Mac approvals beside the Windows baseline, CI is reduced to Windows-on-PR plus weekly lanes, local runs are the delivery authority. Carried forward: PowerShell terminal and recovery-review tours, DPAPI durability twin, Windows return checkpoint (native suites, Windows visual recapture, P1 re-acceptance on both hosts).",
+  "screenshotReview": "Two darwin approvals (2026-09-28T14-21-11 and 20-36-00) inspected and recorded beside the Windows baseline; the README status pictures stay Windows captures with dated main-process exemptions.",
+  "delivery": {
+    "phase": "delivered",
+    "owner": "primary agent",
+    "remaining": []
+  }
+}
