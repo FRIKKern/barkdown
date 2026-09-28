@@ -8,7 +8,10 @@ export function archiveStatusManifest(outputDir, manifest) {
   const history = path.join(outputDir, 'history');
   fs.mkdirSync(history, { recursive: true });
   const target = path.join(history, `${safeTimestamp(manifest.capturedAt)}.json`);
-  const bytes = JSON.stringify(manifest, null, 2) + '\n';
+  // uiExemptions are annotations added after a capture (main-process-only commits the
+  // pictures need not follow); the archive keeps the manifest as captured, without them.
+  const { uiExemptions: _annotations, ...captured } = manifest;
+  const bytes = JSON.stringify(captured, null, 2) + '\n';
   try {
     fs.writeFileSync(target, bytes, { flag: 'wx' });
   } catch (error) {
