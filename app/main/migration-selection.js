@@ -84,7 +84,7 @@ function createMigrationSelection({ preparation, comparison, admission = createU
       const workspace = workspaceOf(store), before = bytes(workspace);
       if (!before) fail('selection_workspace', 'The profile has no workspace to replace');
       if (!j) {
-        const report = await comparison.compare(options, target);
+        const report = typeof comparison.compareWithin === 'function' ? await comparison.compareWithin(scope, options, target) : await comparison.compare(options, target);
         if (report?.status !== 'compared' || report.authority !== 'legacy') fail('selection_report', 'Selection needs a fresh compared report');
         const projected = await project(options, target);
         if (projected?.status !== 'preview' || projected.issues?.length || !projected.workspace || typeof projected.projectionHash !== 'string') fail('selection_projection', 'Owned navigation projection is blocked: ' + (projected?.issues?.[0]?.reason || 'no projection'));

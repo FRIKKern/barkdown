@@ -47,7 +47,12 @@ function createMigrationComparison({ preparation }) {
     // Callers cannot change source paths/metadata while an asynchronous read is pending.
     const options = structuredClone(input);
     target = { ...target };
-    return preparation.withPrepared(options.profileId, async scope => {
+    return preparation.withPrepared(options.profileId, scope => within(scope, options, target, capture));
+  }
+  // The traversal under an already-held preparation scope: selection runs it inside its
+  // own withPrepared, which the coordinator does not nest.
+  async function within(scope, options, target, capture) {
+    {
       if (path.resolve(options.sourceDir) !== scope.sourceDir) fail('comparison_source', 'Source does not belong to the live preparation');
       const initial = await sourceState(options, target), store = initial.backup.store;
       const owned = captureTarget(target, options.profileId);
@@ -183,8 +188,9 @@ function createMigrationComparison({ preparation }) {
         corpusHash: hash(rows), mediaHash: hash(assets), documents: rows.length, staged: documents.length,
         preserved: baseline.rows.length, media: assets.length, workspaceHash: initial.workspace.projectionHash,
         authority: 'legacy', activationAllowed: false, limits: ['Observed reads are not a server snapshot or a fence for direct upstream clients.'] };
-    });
+    }
   }
-  return Object.freeze({ captureBaseline: (options, target) => run(options, target, true), compare: (options, target) => run(options, target, false) });
+  return Object.freeze({ captureBaseline: (options, target) => run(options, target, true), compare: (options, target) => run(options, target, false),
+    compareWithin: (scope, options, target) => within(scope, structuredClone(options), { ...target }, false) });
 }
 module.exports = { createMigrationComparison };
