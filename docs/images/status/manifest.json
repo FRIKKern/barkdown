@@ -1,98 +1,44 @@
 {
-  "capturedAt": "2026-09-25T23:59:20.410Z",
-  "barkdownCommit": "df621915ef34080b3cdf2391f4ddeb302b7119bb",
+  "capturedAt": "2026-09-28T22:10:13.903Z",
+  "barkdownCommit": "4d4a61227627f9396743def0259f88f201b8e3db",
   "barkdownTreeDirty": false,
-  "barkparkCommit": "b702140907921e82e9ce5eecb3e2445f13ab2d6e",
+  "barkparkCommit": "11f1ea0dcc483cb223157fddc22edada528b3af2",
   "barkparkTreeDirty": false,
   "isolatedRuntime": true,
   "server": {
-    "url": "http://127.0.0.1:51717",
-    "version": "0.2.26.3948"
+    "url": "http://127.0.0.1:65329",
+    "version": "0.2.26.4457"
   },
   "chat": {
     "real": true,
     "provider": "claude"
   },
   "split": "36fr",
-  "rows": {
-    "tablehead": "6/6 green"
-  },
+  "rows": {},
   "shots": [
     {
-      "file": "paper-light.ab88f2e3.png",
+      "file": "paper-light.3a06ff26.png",
       "caption": "A Barkpark paper edited live in the canvas inside Barkdown, beside a real Claude Code turn on it: quote, checklist, table, callout and code, saved as ops to a local Barkpark."
     },
     {
-      "file": "paper-dark.6cd89f08.png",
+      "file": "paper-dark.e60b63b1.png",
       "caption": "The same paper and conversation in dark mode."
     },
     {
-      "file": "slash-menu.6d1cf59b.png",
+      "file": "slash-menu.95110301.png",
       "caption": "The slash menu inside the paper, with the plain Quote row beside Callout and Code."
     },
     {
-      "file": "quick-open.c9821f27.png",
+      "file": "quick-open.b406faf0.png",
       "caption": "Quick open (Ctrl+K) over tabs, papers, chats and actions."
     },
     {
-      "file": "settings-barkpark.d80ca121.png",
-      "caption": "Settings \u203a Barkpark: the connection Barkdown edits through \u2014 here the local server."
+      "file": "settings-barkpark.3cf3946c.png",
+      "caption": "Settings › Barkpark: the connection Barkdown edits through — here the local server."
     },
     {
-      "file": "editing.b838817c.gif",
-      "caption": "An editing loop in the canvas: slash menu \u2192 Quote, typing, Tab through the table, quick open."
-    }
-  ],
-  "uiExemptions": [
-    {
-      "commit": "8f3cb30c",
-      "date": "2026-09-28",
-      "reason": "main/runtime-build.js lets cp create the staging directory; main/canvas-bundle.js settles asset requests before falling back. No renderer change; captured pictures still show the same UI (C084)."
-    },
-    {
-      "commit": "b8338a66",
-      "date": "2026-09-28",
-      "reason": "main/writer-admission.js hashes the native real path (Windows 8.3 short names). No renderer change (C084)."
-    },
-    {
-      "commit": "b98e986e",
-      "date": "2026-09-28",
-      "reason": "main/goal-process.js and main/goal-service.js: process-group containment for owned workers on POSIX. No renderer change (C084)."
-    },
-    {
-      "commit": "5e2f0ed0",
-      "date": "2026-09-29",
-      "reason": "main/upstream-admission.js (new) and main/local-barkpark-source.js: trusted hold client and admission environment for the managed runtime. No renderer change (C083)."
-    },
-    {
-      "commit": "8b024ba7",
-      "date": "2026-09-29",
-      "reason": "main/local-barkpark-source.js, main/runtime-build.js, main/external-resource.js and the new main/local-barkpark-launch.sh: POSIX twin of the managed-runtime launcher. No renderer change (C083/D-hosts)."
-    },
-    {
-      "commit": "b0047c20",
-      "date": "2026-09-29",
-      "reason": "main/upstream-admission.js: instance view and explicit recovery in the hold client. No renderer change (C083)."
-    },
-    {
-      "commit": "0c105df3",
-      "date": "2026-09-29",
-      "reason": "main/sealed-comparison.js (new): comparison under the upstream hold. No renderer change (C083)."
-    },
-    {
-      "commit": "a3b91706",
-      "date": "2026-09-29",
-      "reason": "main/migration-selection.js (new): durable Paper selection and rollback under both fences. No renderer change (C083)."
-    },
-    {
-      "commit": "251b3636",
-      "date": "2026-09-29",
-      "reason": "main/migration-comparison.js exposes compareWithin; main/migration-selection.js uses it. No renderer change (C083)."
-    },
-    {
-      "commit": "d1e00f5e",
-      "date": "2026-09-29",
-      "reason": "main/documents.js, main/migration-selection.js, main/profile-service.js: legacy note store read-only after selection; authority in the profile view. No renderer change (C083)."
+      "file": "editing.0c500298.gif",
+      "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
     }
   ]
 }
