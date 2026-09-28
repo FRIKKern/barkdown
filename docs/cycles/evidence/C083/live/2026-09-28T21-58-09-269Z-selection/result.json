@@ -1,0 +1,44 @@
+{
+  "source": "541dd29d4585842b269f9669f2a43bf2853869e3",
+  "upstream": "11f1ea0dcc483cb223157fddc22edada528b3af2",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "selection under both fences replaced the workspace with the owned projection",
+      "seal": {
+        "boot": "a43d0d0b36c049e36b7c34f591df5ede",
+        "generation": 1,
+        "operation": "select-ccf96261-2243-464b-91e1-a127f869f218"
+      },
+      "reopenedGeneration": 2,
+      "checkpoints": [
+        "after-intent",
+        "after-replacing",
+        "after-workspace-replaced",
+        "after-selected",
+        "after-selected",
+        "after-rolling-back",
+        "after-workspace-restored",
+        "after-rolled-back"
+      ],
+      "favorite": {
+        "id": "local-5a5d6ec02deb60edc496c105f5d27989",
+        "kind": "doc",
+        "paperOwner": "e986cc2816c69929626e3b714afe5836575a1030fd111fc571b015cd2d2e2ff1",
+        "source": "barkpark"
+      }
+    },
+    {
+      "name": "reselect is idempotent",
+      "passed": true
+    },
+    {
+      "name": "rollback restores the legacy workspace and keeps staged Papers",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Headless profile with controlled foreground hooks; no boot policy consumes the selection yet; no Paper edits between selection and rollback; the runtime was idle so the hold was held at once."
+  ]
+}

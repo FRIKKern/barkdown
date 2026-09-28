@@ -1,0 +1,11 @@
+{
+  "source": "251b3636de33efc5da0de9a0057b7f39091f652c",
+  "upstream": "11f1ea0dcc483cb223157fddc22edada528b3af2",
+  "host": "darwin 24.3.0 arm64",
+  "status": "failed",
+  "checks": [],
+  "limits": [
+    "Headless profile with controlled foreground hooks; no boot policy consumes the selection yet; no Paper edits between selection and rollback; the runtime was idle so the hold was held at once."
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: human Pages order is untouched by selection\n+ actual - expected\n\n  [\n+   'bp:v1:db9e8299875278334ff75426498e84bc5220b64398d6dac52ae238f388ae1591:local-ea04da32638b82d3d5edd64deac2d5ce'\n-   'orchard'\n  ]\n\n    at file:///Users/frikkjarl/Documents/GitHub/barkdown/app/tests/migration-selection.live.mjs:71:10\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)"
+}

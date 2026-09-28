@@ -1,0 +1,11 @@
+{
+  "source": "1d86f0d221a4cbb077663a42f9afa583906f58dd",
+  "upstream": "11f1ea0dcc483cb223157fddc22edada528b3af2",
+  "host": "darwin 24.3.0 arm64",
+  "status": "failed",
+  "checks": [],
+  "limits": [
+    "Headless profile with controlled foreground hooks; no boot policy consumes the selection yet; no Paper edits between selection and rollback; the runtime was idle so the hold was held at once."
+  ],
+  "error": "Error: Another preparation transition is in progress.\n    at dispatch (/Users/frikkjarl/Documents/GitHub/barkdown/app/main/profile-preparation.js:61:79)\n    at Object.withPrepared (/Users/frikkjarl/Documents/GitHub/barkdown/app/main/profile-preparation.js:237:12)\n    at run (/Users/frikkjarl/Documents/GitHub/barkdown/app/main/migration-comparison.js:50:24)\n    at Object.compare (/Users/frikkjarl/Documents/GitHub/barkdown/app/main/migration-comparison.js:188:122)\n    at /Users/frikkjarl/Documents/GitHub/barkdown/app/main/migration-selection.js:87:41\n    at /Users/frikkjarl/Documents/GitHub/barkdown/app/main/migration-selection.js:67:28\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async run (/Users/frikkjarl/Documents/GitHub/barkdown/app/main/profile-preparation.js:167:23)"
+}

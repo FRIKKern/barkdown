@@ -17,7 +17,7 @@
   ],
   "checkpoint": "2026-09-29",
   "handoff": "docs/cycles/C083-writer-admission.md",
-  "nextAction": "1) User merges PR20433, PR20434, PR20435 (each deploys production). 2) Bump app/BARKPARK_REF to the merged main commit; rerun tests/local-barkpark.live.mjs, tests/upstream-admission.live.mjs and test:sealed-comparison:isolated against it (Mac now, Windows at the return checkpoint). 3) Selection and rollback proof (A2): durable selection intent under the seal, atomic workspace replacement, rollback after Paper edits. Residual: README status recapture (needs a local Barkpark on :4000 and a Claude login).",
+  "nextAction": "1) User merges PR20433, PR20434, PR20435 (each deploys production). 2) Bump app/BARKPARK_REF to the merged main commit; rerun the four live rehearsals against it (Mac now, Windows at the return checkpoint). 3) Boot policy: a selected profile serves notes from Paper through the replaced workspace, legacy note editing is refused (retire only after full A2), interrupted selection offers resume or rollback at start, like adoption-boot. 4) Rollback after Paper edits: reconcile, never reverse-convert. Residual: README status recapture.",
   "evidence": [
     "docs/cycles/evidence/C082/merge.json",
     "docs/cycles/evidence/C082/integration-review.json",

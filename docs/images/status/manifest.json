@@ -78,6 +78,16 @@
       "commit": "0c105df3",
       "date": "2026-09-29",
       "reason": "main/sealed-comparison.js (new): comparison under the upstream hold. No renderer change (C083)."
+    },
+    {
+      "commit": "a3b91706",
+      "date": "2026-09-29",
+      "reason": "main/migration-selection.js (new): durable Paper selection and rollback under both fences. No renderer change (C083)."
+    },
+    {
+      "commit": "251b3636",
+      "date": "2026-09-29",
+      "reason": "main/migration-comparison.js exposes compareWithin; main/migration-selection.js uses it. No renderer change (C083)."
     }
   ]
 }
