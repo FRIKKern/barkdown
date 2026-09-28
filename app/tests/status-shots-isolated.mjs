@@ -26,7 +26,9 @@ const data = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-shots-runtime-'));
 const free = () => new Promise((resolve, reject) => { const s = net.createServer(); s.on('error', reject); s.listen(0, '127.0.0.1', () => { const port = s.address().port; s.close(() => resolve(port)); }); });
 const port = await free(); let pgPort = await free(); while (pgPort === port) pgPort = await free();
 const secrets = { password: crypto.randomBytes(32).toString('hex'), token: 'bp_admin_' + crypto.randomBytes(24).toString('base64url') };
-const driver = new SourceDriver({ source, port, pgPort }, data, secrets);
+// C083: opt the disposable runtime into managed write admission for hold rehearsals.
+const writeAdmission = process.env.BARKDOWN_SHOTS_WRITE_ADMISSION === '1' ? { instanceId: 'shots-' + crypto.randomBytes(4).toString('hex') } : undefined;
+const driver = new SourceDriver({ source, port, pgPort, ...(writeAdmission ? { writeAdmission } : {}) }, data, secrets);
 const runtime = new LocalBarkpark(driver);
 runtime.on('status', s => console.log('Capture runtime:', s.phase, s.error || ''));
 console.log('Isolated capture data:', data);
