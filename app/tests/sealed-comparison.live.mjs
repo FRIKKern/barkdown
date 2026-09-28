@@ -38,7 +38,7 @@ require('../main/paper-evidence-owner').createPaperEvidenceOwner(require('../mai
 const connection = { server, token };
 const admission = createUpstreamAdmission();
 try {
-  const labels = { description: 'Sealed comparison rehearsal.', tags: [{ tag: 'sealed', strength: 90, rationale: 'Rehearsal fixture' }] };
+  const labels = { description: 'Sealed comparison rehearsal: a fixture note held by the managed runtime while it is compared.', tags: [{ tag: 'sealed', strength: 90, rationale: 'Owned rehearsal fixture for the sealed comparison' }] };
   await request('POST', '/v1/data/mutate/production', { mutations: [{ create: { _id: 'sealed', _type: 'tag', title: 'Sealed' } }, { publish: { id: 'sealed', type: 'tag' } }] });
   await request('POST', '/v1/plugins/bulldocs/papers/prior/create', { slug: 'prior', title: 'Prior observations', style: 'article', ...labels,
     blocks: [{ id: 'prior-text', type: 'paragraph', content: [{ type: 'text', value: 'Existed before the rehearsal; must remain unchanged.' }] }] }, 201);
@@ -79,8 +79,9 @@ try {
   await assert.rejects(request('GET', '/v1/schemas/production/sealed_probe'), /404/);
   report.checks.push({ name: 'traversal ran while held; a probe write inside it was refused; reopened afterwards', seal: result.seal, probe: probes[0].body.error, documents: result.documents, limits: result.limits }); persist();
   const plain = await adapter.compare(options, target);
-  const { seal, limits, ...rest } = result;
-  assert.deepEqual(rest, { ...plain, limits: undefined, ...{ limits: undefined } }.limits === undefined ? (() => { const { limits: _l, ...p } = plain; return p; })() : plain);
+  const { seal: _seal, limits: _sealedLimits, ...rest } = result;
+  const { limits: _plainLimits, ...plainRest } = plain;
+  assert.deepEqual(rest, plainRest);
   report.checks.push({ name: 'sealed and unsealed reports agree on every field but the seal and its limit', passed: true });
   // A comparison that fails still reopens the runtime.
   const wrong = { ...options, expectedBaselineHash: 'f'.repeat(64) };
