@@ -123,6 +123,19 @@
     "pr": "https://github.com/FRIKKern/barkpark/pull/20426",
     "design": "ObanAdmission on [:oban, :job, start|stop|exception] telemetry admits every job in its own process; Operation.hold pauses all queues before begin_hold and reopen resumes them; Sync.Worker writes only through the Mutations door",
     "localTargeted": "5 new tests; 43 admission tests pass; census, doc budgets, env census, lineref pass",
-    "status": "CI and full local suite running at the time of this record"
+    "status": "merged",
+    "merge": {
+      "sha": "fc9a07b11a65709afda67a356f4fd2ac2e7ba518",
+      "mergedAt": "2026-09-28T11:59:56Z",
+      "method": "squash",
+      "authorization": "user said \"do it\" with the standing merge grant",
+      "deploy": "not observed by the agent: the deploy-run watch was refused by the permission classifier; confirm with gh run list --workflow deploy.yml"
+    },
+    "fullSuite": {
+      "passed": 23168,
+      "total": 23176,
+      "note": "8 failures were Postgres pool connection timeouts under host load, scattered across unrelated modules; all 8 pass on rerun; run took 1158.7s vs 919.7s for slice 2",
+      "ci": "all checks green at 2c1619743, task gate green, merge state clean"
+    }
   }
 }

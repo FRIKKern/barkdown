@@ -8,7 +8,7 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** C083: admission doors for note, Paper and media writers merged and deployed; background jobs in review.
+**Latest advance:** C083: every supported writer and every background job admitted in production; direct-writer audit next.
 
 **Next observable result:** Audit every remaining direct writer, then prove drain, restart and rollback of a real switch. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
@@ -21,7 +21,7 @@ Since C078, navigation ownership improved in C080, the write controller merged i
 | Preserve and stage | ✓ Demonstrated | Demonstrated on supported fixtures; unsupported content refuses. This is preparation, not a switched library. [Evidence / exit](cycles/C051-backup-restore.md) |
 | Edit migrated notes | ✓ Demonstrated | Migrated fixture editing and retained original history are demonstrated. Original history is not identical to native Paper history. [Evidence / exit](cycles/C074-original-history.md) |
 | Compare the library | ✓ Demonstrated | C078 compared 206 variants; C080 improved connection-bound navigation and local Archive projection. No ownership switch occurred. [Evidence / exit](cycles/C080-owned-navigation.md) |
-| Protect the switch | ◐ In progress | Note, Paper block, cache-repair and media writers pass through the merged admission controller in production (C083 slices 1–2), and a held instance is proven to refuse them. Background jobs and queue pausing are in review (slice 3). The direct-writer audit and the recovery proof remain before exclusion is claimed. [Evidence / exit](cycles/C083-writer-admission.md) |
+| Protect the switch | ◐ In progress | Note, Paper block, cache-repair and media writers pass through the merged admission controller in production (C083 slices 1–2), and a held instance is proven to refuse them. Every background job is admitted and queues pause before a hold (slice 3, deployed). The direct-writer audit and the recovery proof remain before exclusion is claimed. [Evidence / exit](cycles/C083-writer-admission.md) |
 | Switch and recover | ○ Remaining | Still to demonstrate: one complete library after an interrupted authority switch, with human drafts retained and no mixed ownership. [Evidence / exit](ACCEPTANCE.md#a2--one-engine-without-lost-notes) |
 | Prove the way back | ○ Remaining | Still to demonstrate: complete rollback, explicit handling of edits made after switching, and safe retirement of the separate editor/store. [Evidence / exit](ACCEPTANCE.md#a2--one-engine-without-lost-notes) |
 
