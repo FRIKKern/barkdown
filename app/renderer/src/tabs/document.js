@@ -91,7 +91,7 @@ export function mountDocument(tab, host, ctx) {
     updateUndo();
     const crumbs = ctx.pagePath ? ctx.pagePath(doc.id, doc.source) : [];
     q('#kicker').textContent = crumbs.length > 1 ? crumbs.join(' / ') : (doc.source === 'barkpark' ? 'Barkpark / Paper' : 'Pages');
-    q('#meta').textContent = `${doc.source === 'barkpark' ? 'Read-only copy · ' : ''}rev ${doc.rev ?? '–'} · updated ${relativeTime(doc.updatedAt)} · ${(doc.references || []).length} reference(s) · ${(doc.backlinks || []).length} backlink(s)`;
+    q('#meta').textContent = `${doc.retained ? 'Retained original · read-only · this profile’s notes live on Paper · ' : doc.source === 'barkpark' ? 'Read-only copy · ' : ''}rev ${doc.rev ?? '–'} · updated ${relativeTime(doc.updatedAt)} · ${(doc.references || []).length} reference(s) · ${(doc.backlinks || []).length} backlink(s)`;
   }
 
   function renderProposals() {
@@ -278,7 +278,6 @@ export function mountDocument(tab, host, ctx) {
     try { doc = await fetchDoc(id); } catch (error) { q('#editor').innerHTML = `<p class="bw-error">Could not open ${esc(id)}: ${esc(error.message)}</p>`; return; }
     if (destroyed || !doc) { if (!doc) q('#editor').innerHTML = `<p class="bw-error">Document ${esc(id)} no longer exists.</p>`; return; }
     readOnly = doc.source === 'barkpark' || Boolean(doc.retained);
-    q('#kicker').textContent = doc.retained ? 'Retained original · this profile’s notes live on Paper · read-only' : 'Barkdown / Library';
     tab.title = doc.title;
     ctx.tabChanged(tab);
     q('#title').value = doc.title;
