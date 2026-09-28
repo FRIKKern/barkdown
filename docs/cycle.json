@@ -17,7 +17,7 @@
   ],
   "checkpoint": "2026-09-29",
   "handoff": "docs/cycles/C083-writer-admission.md",
-  "nextAction": "Merge order for the user: PR20433 (slice 4), PR20434 (slice 5), PR20435 (slice 6); each deploys production. Next agent slice: the trusted hold endpoint (begin_hold/reopen over HTTP for the operator token, with the refusal envelope), then the drain, restart and rollback rehearsal against a real library. Residual to decide: LiveView events on mounted admin surfaces (evidence/C083/managed-refusal.md).",
+  "nextAction": "Merge order for the user: PR20433 (slice 4), PR20434 (slice 5), PR20435 (slice 6 + hold endpoint); each deploys production. Next agent slice, Barkdown side: the switch rehearsal \u2014 call POST /v1/admin/write-admission/hold from the migration runner, observe held, run comparison, DELETE to reopen; then restart-while-held and rollback proof against a real library (A2). Residual to decide: LiveView events on mounted admin surfaces (evidence/C083/managed-refusal.md).",
   "evidence": [
     "docs/cycles/evidence/C082/merge.json",
     "docs/cycles/evidence/C082/integration-review.json",
