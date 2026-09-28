@@ -1,41 +1,43 @@
 {
   "version": 1,
-  "id": "C084",
-  "stage": "P1",
+  "id": "C083",
+  "stage": "P2",
   "status": "active",
-  "goal": "Measure and close the macOS gap for the Windows-accepted desktop prototype without letting any platform go untested: desktop suite green on macOS, skips recorded per host, a per-platform CI lane, and per-platform visual baselines.",
+  "goal": "Wire the merged admission coordinator into every supported upstream content and media writer, opt-in for a managed runtime only, and prove writes cannot slip through while held.",
   "scope": [
-    "Install and run the desktop suite on macOS; record pass, fail and skip per test file and the cause of each failure",
-    "Fix platform-conditional test and app defects with their twins on Windows and Linux; a platform-only test needs a recorded, owned gap",
-    "Desktop CI lane per platform, gated to app/ changes, Windows required, others advisory until green; nightly on main",
-    "Visual approvals keyed by platform so a Mac review never replaces the Windows one"
+    "Managed-runtime configuration and journal/instance binding, off by default and refused for unsupported modes",
+    "Admission at content and media mutation owners, including read-side cache repair, deferred cleanup and background processing",
+    "Deterministic exclusion, drain, rollback, restart and bypass tests against real database and blob fixtures"
   ],
   "acceptance": [
-    "The desktop test chain passes on macOS with every remaining skip named and owned",
-    "The same chain stays green on Windows in CI; no Windows-only test lost its twin",
-    "The Linux lane runs the chain under Xvfb and its failures are recorded, not hidden",
-    "Host, OS release and skips appear in the evidence for this cycle"
+    "While held, direct context, HTTP, native Paper, lifecycle, media and sweeper writes are refused and leave rows, revisions, bytes and journal unchanged",
+    "Admitted writes drain through commit, rollback, deferred cleanup and hooks before the hold settles; uncertain effects block readiness",
+    "Servers without managed mode behave unchanged under the existing upstream suite",
+    "No seal capability is advertised until the writer coverage audit and recovery cases pass; upstream required gates and root verification stay honest"
   ],
   "checkpoint": "2026-09-28",
-  "handoff": "docs/cycles/C084-macos-parity.md",
-  "nextAction": "Shortcuts labels on macOS, then resume C083 per D-managed-writers (task-board boundary first).",
+  "handoff": "docs/cycles/C083-writer-admission.md",
+  "nextAction": "Slice 4 upstream: Door at Tasks.Internal.fenced_content_write/4 and insert_mutation_event!/1 (one boundary for 18 task-board files), with a held-state refusal test; then sync bookkeeping, then managed-mode refusal for the refused clusters and the boot/one-shot refusal.",
   "evidence": [
-    "docs/DESIGN-DECISIONS.md",
-    "docs/cycles/evidence/C084/README.md",
-    "docs/cycles/evidence/C084/mac-segments-before.json",
-    "docs/cycles/evidence/C084/mac-segments-after.json",
-    "docs/cycles/evidence/C084/checks-01/result.json",
-    "docs/cycles/evidence/C084/checks-02/result.json"
+    "docs/cycles/evidence/C082/merge.json",
+    "docs/cycles/evidence/C082/integration-review.json",
+    "docs/cycles/evidence/C083/writer-census.md",
+    "docs/cycles/evidence/C083/checks-01/result.json",
+    "docs/cycles/evidence/C083/upstream-local-suite.json",
+    "https://github.com/FRIKKern/barkpark/pull/20422",
+    "docs/cycles/evidence/C083/writer-audit.md"
   ],
-  "truthReview": "The desktop chain passes on this Mac segment by segment (80/80; 649 unit tests, 607 pass, 42 Windows-only skips; 8 recorded live skips). Two app defects were real on every platform (staging copy, asset fallback race). The remaining macOS gaps are product: owned process trees, credential durability, source Barkpark launcher. Hosted CI is refused by the Actions budget; by the user's decision local runs are the authority and CI is reduced to Windows-on-PR plus weekly and on-demand lanes. PR60 merges on the local run-steps receipt (root verify and the skip ratchet on this Mac). Nothing re-approved visually.",
-  "screenshotReview": "No visual inputs changed at opening; the visual baseline has no platform field and is not touched until per-platform keying lands.",
+  "truthReview": "Slices 1 to 3 merged and deployed. The direct-writer audit at fc9a07b11 classifies 151 files: 70 need a boundary, 11 covered, 16 boot-or-one-shot, 54 false positives. Two contract assumptions failed: boot writes run inside the full tree, and one-shot mix tasks are not refused by construction. Estimate moved down to about 45% on the audit. No seal capability advertised; no library switched.",
+  "screenshotReview": "No visual inputs changed at opening; upstream-only work planned. C080 reviewed evidence remains applicable.",
   "delivery": {
-    "phase": "validating",
+    "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "Shortcuts pane labels Cmd on macOS",
-      "POSIX twin for the PowerShell terminal tour and the recovery review tour (live tests), DPAPI durability twin via Keychain",
-      "Return checkpoint on the Windows machine: rerun native suites, recapture the Windows visual baseline, re-accept P1 on both hosts"
+      "Slice 4: task-board boundary (Tasks.Internal)",
+      "Slice 5: sync bookkeeping door; note-adjacent doors; media lazy writes",
+      "Slice 6: managed-mode refusal for the refused clusters; :seed/:one_shot boot refusal; SchemaBootstrap pre-open",
+      "Trusted hold endpoint; drain, restart, rollback proof",
+      "Carried from C084: PowerShell terminal and recovery-review tours, DPAPI twin, Windows return checkpoint"
     ]
   }
 }
