@@ -1,8 +1,11 @@
 name: Desktop suite
-# The app's own test chain (app/package.json "test") on every desktop platform, only when the app
-# or this workflow changes (D-hosts). Windows is required. macOS and Linux are advisory until the
-# host-parity cycle (C084) turns them green; flip `continue-on-error` off then. A nightly run on main
-# catches reds no pull request caused. Documentation and plan changes never trigger this.
+# The app's own test chain (app/package.json "test") per desktop platform, only when the app or
+# this workflow changes (D-hosts). Cost profile, after the account's Actions budget ran out on
+# 2026-09-28 with three-platform runs on every push: pull requests run Linux (1x) and Windows
+# (2x, required); macOS (10x per minute) runs on pushes to main, nightly and on dispatch, so a
+# Mac red still surfaces within a day without billing every PR revision. Linux and macOS are
+# advisory until C084 turns them green; flip `continue-on-error` off then. Documentation and
+# plan changes never trigger this.
 on:
   push:
     branches: [main]
@@ -29,10 +32,13 @@ jobs:
         include:
           - os: windows-latest
             advisory: false
-          - os: macos-latest
-            advisory: true
           - os: ubuntu-latest
             advisory: true
+          - os: macos-latest
+            advisory: true
+        exclude:
+          # macOS costs ten Linux minutes per minute: not on every pull-request revision.
+          - os: ${{ github.event_name == 'pull_request' && 'macos-latest' || 'never' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
