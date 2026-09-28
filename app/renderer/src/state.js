@@ -18,6 +18,9 @@ export const state = {
   loaded: false,
   profileId: null,
   generation: null,
+  // Which engine owns this profile's notes (main/migration-selection.js): legacy until a switch is selected.
+  authority: 'legacy',
+  selection: 'none',
 };
 
 export function newChat({ title = 'New chat', folder = null, side = false, parent = null } = {}) {

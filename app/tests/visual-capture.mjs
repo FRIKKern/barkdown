@@ -44,6 +44,16 @@ try{
  await tour('documents','Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.',[
   ['open',async()=>{await p.locator('#bw-pages .bw-page-row').first().click();}],['dark',()=>p.emulateMedia({colorScheme:'dark'})],['light',()=>p.emulateMedia({colorScheme:'light'})]
  ]);
+ // A selected profile (main/migration-selection.js): legacy notes are retained read-only. The
+ // journal is a fixture written into the disposable profile and removed again afterwards.
+ const mainDir=path.join(root,'app','main');
+ const selection=async value=>{await app.evaluate(({app:_a},[dir,v])=>{const s=require(dir+'/store'),fs=require('fs');const f=s.filePath('selection.json');if(v)fs.writeFileSync(f,JSON.stringify(v)+'\n');else fs.rmSync(f,{force:true});},[mainDir,value]);
+  await p.reload();await p.waitForFunction(()=>window.__barkdown?.state.loaded);await p.waitForTimeout(600);await p.locator('.bw-toast').waitFor({state:'hidden',timeout:15000}).catch(()=>{});await p.emulateMedia({colorScheme:'light',reducedMotion:'reduce'});};
+ await selection({version:1,profileId:'fixture',operationId:'00000000-0000-4000-8000-000000000000',phase:'selected',seal:{generation:1},reportHash:'fixture',workspaceBefore:'fixture',workspaceAfter:'fixture'});
+ await tour('retained','After the library switch the legacy notes are retained read-only: a badge in Pages and a read-only editor. Fixture journal; no Paper server.',[
+  ['badge',async()=>{await p.locator('#bw-pages .bw-page-row').first().hover();}],['open',async()=>{await p.locator('#bw-pages .bw-page-row').first().click();}],['dark',()=>p.emulateMedia({colorScheme:'dark'})],['light',()=>p.emulateMedia({colorScheme:'light'})]
+ ]);
+ await selection(null);
  await tour('settings','Real Settings navigation. No server connection or credential is configured.',[
   ['general',()=>p.locator('#bw-settings').click()],['assistant',()=>p.locator('.bw-settings-nav [data-pane="assistant"]').click()],['barkpark',()=>p.locator('.bw-settings-nav [data-pane="barkpark"]').click()],['shortcuts',()=>p.locator('.bw-settings-nav [data-pane="shortcuts"]').click()]
  ]);

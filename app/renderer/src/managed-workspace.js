@@ -8,6 +8,8 @@ export function captureManagedView(state) {
   return new Map(Object.entries(state.chats).map(([id, chat]) => [id, stamp(chat)]));
 }
 export function mergeManagedView(state, data, before) {
+  if (typeof data.authority === 'string') state.authority = data.authority;
+  if (typeof data.selection === 'string') state.selection = data.selection;
   for (const [id, saved] of Object.entries(data.chats)) {
     // A chat deleted during this request must not be resurrected by its response.
     if (!state.chats[id] && before.has(id)) continue;

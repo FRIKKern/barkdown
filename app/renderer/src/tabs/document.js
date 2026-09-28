@@ -277,7 +277,7 @@ export function mountDocument(tab, host, ctx) {
     q('#conflict').innerHTML = '';
     try { doc = await fetchDoc(id); } catch (error) { q('#editor').innerHTML = `<p class="bw-error">Could not open ${esc(id)}: ${esc(error.message)}</p>`; return; }
     if (destroyed || !doc) { if (!doc) q('#editor').innerHTML = `<p class="bw-error">Document ${esc(id)} no longer exists.</p>`; return; }
-    readOnly = doc.source === 'barkpark';
+    readOnly = doc.source === 'barkpark' || Boolean(doc.retained);
     tab.title = doc.title;
     ctx.tabChanged(tab);
     q('#title').value = doc.title;
@@ -314,7 +314,7 @@ export function mountDocument(tab, host, ctx) {
     });
     q('#title').oninput = () => { if (readOnly) return; dirty = true; tab.title = q('#title').value.trim() || 'Untitled'; ctx.tabChanged(tab); persist(); };
     q('#title').onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); editor.commands.focus('start'); } };
-    q('#state').textContent = readOnly ? 'This paper is read from Barkpark. Import it to edit a local copy; writes back to Barkpark are fenced through the ops endpoint and off by default.' : 'Edits save automatically to the local library with revision history. Assistant edits save directly. Undo the latest change above or restore a revision from History.';
+    q('#state').textContent = doc.retained ? 'Retained original. This profile’s notes moved to Paper when the library was switched; this legacy copy stays readable and is never edited.' : readOnly ? 'This paper is read from Barkpark. Import it to edit a local copy; writes back to Barkpark are fenced through the ops endpoint and off by default.' : 'Edits save automatically to the local library with revision history. Assistant edits save directly. Undo the latest change above or restore a revision from History.';
     renderMeta(); renderProposals(); renderPath(); renderLinks(); renderSource();
     q('#current').scrollTop = tab.scroll || 0;
   }
