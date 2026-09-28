@@ -158,3 +158,13 @@ Use these fields in the existing cycle handoff; no extra report file is required
 - **Cost / rework:** measured duration/tokens or unavailable; expensive retries and why.
 - **Repository / services:** dirty files, owned processes, retained clutter and next review.
 - **Next action:** one exact starting action and stopping condition.
+
+## Hosts other than the Windows source machine
+
+Recorded from the first macOS session (2026-09-27). Verify before relying on any of it.
+
+- `npm run check` fails with "Artifact escapes root" when the temp directory is a symlink; set `TMPDIR` to its real path first: `export TMPDIR=$(node -e 'console.log(require("fs").realpathSync(require("os").tmpdir()))')`.
+- Upstream CI runs Elixir 1.18.4 / OTP 27 (`api/.tool-versions`); Homebrew ships newer. Both passed the same suites; CI is the authority.
+- Upstream migration rollback tests fail on a reused local test-database partition; run them with a fresh `MIX_TEST_PARTITION`.
+- A lapsed instance token shows as `auth_tier: none` with `token_present: true`; `bp login` then `bp setup --target cloud` (pick the instance) refreshes it. `bp logout --help` performs a logout.
+- Upstream hygiene gates that bite documentation-adjacent changes: api/CLAUDE.md needs 150 B headroom under its cap; no new `file:line` citations in comments; every `BARKPARK_*` variable read in runtime.exs must pass through the compose api service; the receipt census refuses when a closure hop moves a receipt off its depth budget and must be re-derived in the same commit.

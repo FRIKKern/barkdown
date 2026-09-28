@@ -17,7 +17,7 @@
   ],
   "checkpoint": "2026-09-27",
   "handoff": "docs/cycles/C083-writer-admission.md",
-  "nextAction": "Slice 2 in codex/write-admission-slice2: BlockOps entries, refresh_html_cache via Door.admit_or_skip and the media doors, with held-state refusal tests; re-derive the receipt census baseline in the same commit.",
+  "nextAction": "User merges upstream PR20425 (deploys production); then stamp nothing new (criteria already met), and start slice 3: Oban writers incl. the stuck-processing sweeper and Sync.Worker, refused while closing or held.",
   "evidence": [
     "docs/cycles/evidence/C082/merge.json",
     "docs/cycles/evidence/C082/integration-review.json",
@@ -26,13 +26,13 @@
     "docs/cycles/evidence/C083/upstream-local-suite.json",
     "https://github.com/FRIKKern/barkpark/pull/20422"
   ],
-  "truthReview": "Slice 1 merged upstream as c35d45aaf (squash) on 2026-09-27 with user authorization; deploy run 36335689737 succeeded; C083 task task-a2d6f4de10681bab has both criteria stamped and stays in progress for the remaining slices. Not yet wired on main: BlockOps, cache refresh, media, sweeper, sync. No seal capability advertised.",
+  "truthReview": "Slice 2 is upstream PR20425 at 18c09f99f with all 77 checks green and a clean merge state: BlockOps entries, read-side cache refresh via admit_or_skip, and media doors. Full local suite 23,171/23,171. Merge awaits the user. Still unwired: Oban writers and Sync.Worker. No seal capability advertised.",
   "screenshotReview": "No visual inputs changed at opening; upstream-only work planned. C080 reviewed evidence remains applicable.",
   "delivery": {
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "Slice 2 doors: BlockOps entries, refresh_html_cache (admit_or_skip), Media.upload/delete_file/put_blob, Processing.process (in progress locally)",
+      "User merge of PR20425, then retire the slice 2 lane",
       "Slice 3: Oban writers incl. stuck-processing sweeper and Sync.Worker refusal in managed mode",
       "Exclusion, drain, rollback, restart and bypass tests across all doors; coverage audit before any capability decision"
     ]

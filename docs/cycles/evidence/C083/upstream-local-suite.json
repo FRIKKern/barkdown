@@ -78,5 +78,34 @@
       "run": 36335689737,
       "result": "success"
     }
+  },
+  "slice2": {
+    "lane": "codex/write-admission-slice2",
+    "head": "18c09f99f",
+    "pr": "https://github.com/FRIKKern/barkpark/pull/20425",
+    "doors": [
+      "Papers.BlockOps: every entry",
+      "Papers.reader_source stale-cache branch via Door.admit_or_skip",
+      "Media.upload, delete_file, put_blob",
+      "Media.Processing.process"
+    ],
+    "localTargeted": "doors_slice2_test.exs 3 cases (held refuses block ops and media writes, rows/revisions/bytes/journal unchanged; cache repair resumes when reopened); 1,063 tests across papers, media, ingest, managed_runtime pass",
+    "fullSuite": {
+      "passed": 23171,
+      "total": 23171,
+      "skipped": 2,
+      "excluded": 40,
+      "elapsedSeconds": 919.7,
+      "partition": "s2full"
+    },
+    "census": "re-derived by run: write 56->54, read 31->33; members BulldocsIngestController.sync/2 and ingest_session/2 moved [WRITE d6]->[READ] behind the BlockOps closure hop",
+    "ci": {
+      "head": "18c09f99f",
+      "allChecks": "77 green, 0 failed",
+      "elixirGate": "SUCCESS",
+      "taskGate": "SUCCESS after re-claim (claim had lapsed when PR20422 closed)",
+      "mergeState": "CLEAN; merge awaits the user because it deploys production"
+    },
+    "knownGap": "a task claim lapses whenever no PR is open against it; each slice PR needs a re-claim before its task gate passes"
   }
 }
