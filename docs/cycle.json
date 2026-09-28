@@ -17,7 +17,7 @@
   ],
   "checkpoint": "2026-09-27",
   "handoff": "docs/cycles/C083-writer-admission.md",
-  "nextAction": "User merges upstream PR20425 (deploys production); then stamp nothing new (criteria already met), and start slice 3: Oban writers incl. the stuck-processing sweeper and Sync.Worker, refused while closing or held.",
+  "nextAction": "When PR20426 (slice 3) is green, the user merges it; then start the direct-writer audit (about 125 Repo/blob writers) as the next slice, recording each writer as fits-a-door or needs-a-boundary.",
   "evidence": [
     "docs/cycles/evidence/C082/merge.json",
     "docs/cycles/evidence/C082/integration-review.json",
@@ -26,15 +26,15 @@
     "docs/cycles/evidence/C083/upstream-local-suite.json",
     "https://github.com/FRIKKern/barkpark/pull/20422"
   ],
-  "truthReview": "Slice 2 is upstream PR20425 at 18c09f99f with all 77 checks green and a clean merge state: BlockOps entries, read-side cache refresh via admit_or_skip, and media doors. Full local suite 23,171/23,171. Merge awaits the user. Still unwired: Oban writers and Sync.Worker. No seal capability advertised.",
+  "truthReview": "Slices 1 and 2 are merged and deployed (c35d45aaf, 1f95949bd): note, Paper block, cache-repair and media writers pass through the admission controller and a held instance refuses them. Slice 3 (Oban admission + queue pausing) is PR20426, locally green, CI pending. Effort estimate moved 45% to 50% on completed scope; confidence low. No seal capability advertised; no library switched.",
   "screenshotReview": "No visual inputs changed at opening; upstream-only work planned. C080 reviewed evidence remains applicable.",
   "delivery": {
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "User merge of PR20425, then retire the slice 2 lane",
-      "Slice 3: Oban writers incl. stuck-processing sweeper and Sync.Worker refusal in managed mode",
-      "Exclusion, drain, rollback, restart and bypass tests across all doors; coverage audit before any capability decision"
+      "User merge of PR20426 (slice 3), then retire the lane",
+      "Direct-writer audit: classify about 125 Repo/blob writers as fits-a-door or needs-a-boundary",
+      "Trusted hold endpoint for Barkdown, bypass tests, drain/restart/rollback proof before any capability decision"
     ]
   }
 }

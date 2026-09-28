@@ -4,17 +4,17 @@ Barkdown is an experiment in what Barkpark can do, and a tool for figuring out w
 
 We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT, taking the parts we love from each. We’re doing this for fun and learning, with no plans to make money from it. The aim is an excellent app shaped by our taste and Barkpark.
 
-## Where we are · September 27, 2026
+## Where we are · September 28, 2026
 
-**Migration effort estimate: about 45% · plausible scenarios 15–75% · very low confidence.** Unchanged on September 27: the upstream merge removed waiting time, not remaining effort. This provisional estimate weights demonstrated work against expected work left; it is not a safety rating or a whole-project percentage. The wide range comes mainly from unproven writer coverage and recovery. [Estimates, calculation and next calibration](docs/PLAN.md#migration-effort-estimate).
+**Migration effort estimate: about 50% · plausible scenarios 15–80% · low confidence.** Up from 45% on September 28: the admission doors for note, Paper and media writers are merged and deployed, and a held instance is proven to refuse them. This provisional estimate weights demonstrated work against expected work left; it is not a safety rating or a whole-project percentage. The wide range comes mainly from unproven writer coverage and recovery. [Estimates, calculation and next calibration](docs/PLAN.md#migration-effort-estimate).
 
 **Working today:** the source prototype supports [writing, searching and restarting](docs/visual/paper-notes/README.md), [agent edits with Undo](docs/visual/agent-notes/README.md), and [deleted-note recovery](docs/visual/paper-deletions/README.md). We’re working toward one dependable Paper note engine; existing libraries have not switched yet.
 
-**Recent progress:** we proved a read-only library comparison, improved navigation ownership, and tested and merged the controller intended to keep writes out during migration. That controller is not yet connected to any writer; see the [six migration checkpoints](docs/ROADMAP.md#inside-migration).
+**Recent progress:** the controller that keeps writes out during migration is now connected to the note, Paper and media writers in production, and a held instance refuses them without changing a row or a byte. Background jobs are in review. See the [six migration checkpoints](docs/ROADMAP.md#inside-migration).
 
-**Next result:** connect every supported note and media writer to that controller and demonstrate that real writes cannot slip through while a library is switching. Safe switching, restart and rollback still need proof before retiring the old editor.
+**Next result:** audit the remaining direct writers so nothing can slip past the doors, then prove an interrupted switch restarts and rolls back safely. Retiring the old editor waits on that proof.
 
-**Why timing is uncertain:** a tested controller does not yet prove coverage of every writer. Best plausible path: existing writers fit the controller and recovery checks pass. Adverse path: a bypass or recovery gap requires changes across the app and server, followed by another full rehearsal. We cannot responsibly bound completion time until that integration is exercised.
+**Why timing is uncertain:** the known writers fit the controller, but about 125 direct database and blob writers have not been audited. Best plausible path: they all fit existing doors and the recovery checks pass. Adverse path: some need their own boundary, followed by another full rehearsal. We cannot responsibly bound completion time until the audit count is known.
 
 We report delivered results and reduced uncertainty, not equal-sized checkboxes. Small steps can finish quickly while one safety boundary takes several iterations. This overview changes when the evidence, obstacle or outlook changes; details stay in the linked records. Recovery and portability follow migration; sync and installation remain later work.
 
