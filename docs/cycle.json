@@ -17,24 +17,27 @@
   ],
   "checkpoint": "2026-09-27",
   "handoff": "docs/cycles/C083-writer-admission.md",
-  "nextAction": "Direct-writer audit: classify the roughly 125 Repo/blob writers outside the doors (census §7) as fits-a-door, needs-a-boundary or refused-in-managed-mode, recorded as evidence, before the trusted hold endpoint.",
+  "nextAction": "Record the managed-mode policy per audited cluster (door, or refused at router and boot) as a design decision, then implement the task-board boundary in Tasks.Internal and the sync bookkeeping door; in parallel open C084 macOS parity (first blocker: the root-owned Electron cache).",
   "evidence": [
     "docs/cycles/evidence/C082/merge.json",
     "docs/cycles/evidence/C082/integration-review.json",
     "docs/cycles/evidence/C083/writer-census.md",
     "docs/cycles/evidence/C083/checks-01/result.json",
     "docs/cycles/evidence/C083/upstream-local-suite.json",
-    "https://github.com/FRIKKern/barkpark/pull/20422"
+    "https://github.com/FRIKKern/barkpark/pull/20422",
+    "docs/cycles/evidence/C083/writer-audit.md"
   ],
-  "truthReview": "Slices 1 to 3 are merged and deployed (c35d45aaf, 1f95949bd, fc9a07b11): content, Paper block, cache-repair and media writers and every Oban job pass through the admission controller, queues pause before a hold, and a held instance is proven to refuse writes at these doors. The slice 3 deploy result was not observed by the agent. Estimate unchanged at about 50%: the audit, not the next merge, moves it. No seal capability advertised; no library switched.",
+  "truthReview": "Slices 1 to 3 merged and deployed. The direct-writer audit at fc9a07b11 classifies 151 files: 70 need a boundary, 11 covered, 16 boot-or-one-shot, 54 false positives. Two contract assumptions failed: boot writes run inside the full tree, and one-shot mix tasks are not refused by construction. Estimate moved down to about 45% on the audit. No seal capability advertised; no library switched.",
   "screenshotReview": "No visual inputs changed at opening; upstream-only work planned. C080 reviewed evidence remains applicable.",
   "delivery": {
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "Direct-writer audit (about 125 Repo/blob writers): classify and record",
+      "Managed-mode policy per audited cluster, recorded as a decision",
+      "Task-board boundary at Tasks.Internal.fenced_content_write; sync bookkeeping door; boot and one-shot refusal",
       "Trusted hold endpoint for Barkdown and bypass tests",
-      "Drain, restart and rollback proof before any capability decision"
+      "Drain, restart and rollback proof before any capability decision",
+      "C084 macOS parity: install, desktop suite, skips per host, CI lane, per-platform visual baseline"
     ]
   }
 }
