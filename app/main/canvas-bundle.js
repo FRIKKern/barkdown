@@ -129,7 +129,13 @@ async function resolve({ config, cacheDir, vendorDir, timeoutMs = 6000 }) {
   const fallback = error => cached.info ? { ...cached.info, error } : { ...vendored(vendorDir), error: [error, cached.error].filter(Boolean).join('; ') || undefined };
   if (!server || !config?.enabled) return fallback('not connected');
   try {
-    const [js, css] = await Promise.all(FILES.map(f => fetchText(`${server}/assets/${f}`, timeoutMs)));
+    // Let every asset request settle before deciding: a fallback taken while the second
+    // request is still in flight leaves a dangling fetch, and on a fast host the refusal
+    // count that evidence relies on is not yet complete.
+    const settled = await Promise.allSettled(FILES.map(f => fetchText(`${server}/assets/${f}`, timeoutMs)));
+    const failed = settled.find(s => s.status === 'rejected');
+    if (failed) throw failed.reason;
+    const [js, css] = settled.map(s => s.value);
     const sha = sha1(js);
     const cssSha = sha1(css);
     const meta = { source: 'server', server, version: await serverVersion(server), sha, cssSha, folder: `${sha}-${cssSha}`, fetchedAt: new Date().toISOString() };

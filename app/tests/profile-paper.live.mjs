@@ -4,6 +4,7 @@ import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import assert from 'node:assert/strict';
+import { DOC_END } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 if (!process.env.BARKDOWN_TEST_BP_SOURCE) throw new Error('Explicit disposable runtime source required');
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-profile-paper-'));
@@ -38,7 +39,7 @@ try {
   await page.evaluate(async () => { await window.__barkdown.refreshLibrary(); window.__barkdown.openTarget({ kind: 'doc', id: 'owned-paper', source: 'barkpark', title: 'A private paper' }); });
   const pm = page.locator('.bw-paper-pane:not([hidden]) .ProseMirror'); await pm.waitFor();
   await shot('01-profile-paper');
-  await pm.click(); await page.keyboard.press('Control+End'); await page.keyboard.type(' Human edit retained in A.');
+  await pm.click(); await page.keyboard.press(DOC_END); await page.keyboard.type(' Human edit retained in A.');
   await page.waitForFunction(() => document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent === 'Saving…');
   await shot('02-save-pending');
   await page.keyboard.press('Control+,'); await page.locator('#profile-choice').selectOption(initial.second.id); await page.locator('#profile-switch').click();

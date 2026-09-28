@@ -7,6 +7,7 @@ import path from 'path';
 import fs from 'fs';
 import os from 'os';
 import { createRequire } from 'module';
+import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -31,7 +32,7 @@ try {
   await page.locator('#bw-provider').click(); await shot('menu-provider'); await esc();
   await page.locator('#bw-model').click(); await shot('menu-model'); await esc();
   await page.locator('#bw-effort').click(); await shot('menu-effort'); await esc();
-  await page.keyboard.press('Control+k'); await shot('palette'); await esc();
+  await page.keyboard.press(`${MOD}+k`); await shot('palette'); await esc();
   await page.locator('#bw-new-doc').click(); await shot('ask-new-page'); await esc();
   for (const theme of ['light', 'dark']) {
     await page.evaluate(t => { document.documentElement.dataset.theme = t; }, theme);

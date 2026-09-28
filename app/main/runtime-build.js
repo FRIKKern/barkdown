@@ -45,7 +45,8 @@ async function prepareRuntimeBuild(source, dataDir, { checkpoint = () => {} } = 
     return { path: target, fingerprint };
   }
   const staged = path.join(cache, 'staging-' + crypto.randomUUID());
-  fs.mkdirSync(staged);
+  // cp creates the staging directory itself: with errorOnExist, Node on macOS refuses a
+  // pre-created destination even when it is empty, while Windows and Linux accept it.
   await fs.promises.cp(built, staged, { recursive: true, dereference: false, errorOnExist: true, force: false });
   checkpoint('copied');
   if (JSON.stringify(await inventory(built)) !== JSON.stringify(files)) throw new Error('Built source changed while copying; staged artifacts retained, runtime not started');

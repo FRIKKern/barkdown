@@ -8,6 +8,7 @@ import { spawn } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { _electron as electron } from 'playwright';
+import { DOC_END } from './helpers/keys.mjs';
 const require=createRequire(import.meta.url),{PNG}=require('pngjs');
 const {createProfileRegistry}=require('../main/profile-registry'),{createStore}=require('../main/store'),{createDocuments}=require('../main/documents');
 const {stageMigration}=require('../main/migration-staging'),{inventoryProfile}=require('../main/migration-preflight'),{restoreMigrationBackup}=require('../main/migration-restore');
@@ -72,7 +73,7 @@ try{
   assert.match(await pane().locator('.ProseMirror').innerText(),/came back from its retained backup/);
   assert.equal(await pane().locator('.bw-proposal').getAttribute('data-id'),proposal.id);
   await pane().locator('[data-restore="1"]').waitFor();await shot('02-retained-proposal-and-history');
-  const editor=pane().locator('.ProseMirror');await editor.click();await page.keyboard.press('Control+End');await page.keyboard.type(' A human continued writing after recovery.',{delay:35});
+  const editor=pane().locator('.ProseMirror');await editor.click();await page.keyboard.press(DOC_END);await page.keyboard.type(' A human continued writing after recovery.',{delay:35});
   await page.waitForFunction(()=>document.querySelector('.bw-doc-pane:not([hidden]) #save-state')?.textContent.includes('Saved · rev 3'));
   const edited=await page.evaluate(id=>window.barkdown.docs.get(id),first.id);assert.equal(edited.rev,3);assert.match(edited.text,/human continued writing/);assert.equal(edited.proposals[0].id,proposal.id);await shot('03-native-save');
   await pane().locator('[data-restore="1"]').click();await page.waitForFunction(()=>document.querySelector('.bw-doc-pane:not([hidden]) #save-state')?.textContent.match(/^(?:Saved|Restored) · rev 4$/));

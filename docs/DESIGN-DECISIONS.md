@@ -68,3 +68,26 @@ The PRD is historical design input. Its review-before-apply proposal is supersed
 ## D-device-auth — Computer authentication by default (2026-09-23)
 
 User decision: all profiles, main/side chats and goal runs use the computer's existing Claude/Codex logins and supported environment keys by default, without asking. No per-profile opt-in prompt or separate-account requirement. Explicit profile API keys retain precedence and ownership; other profiles cannot borrow them. Shared device login does not share workspace data, run destinations or folder permissions. Machine login files are not profile content or portable export payloads. Supersedes C039's archived opt-in proposal.
+
+## D-managed-writers — Door or refuse, per audited cluster (2026-09-28)
+
+User decision, taken on the agent's recommendation after the [direct-writer audit](cycles/evidence/C083/writer-audit.md). The [admission contract](migration/seal-admission.md) allows each writer to participate through a door or to be explicitly refused in managed mode; silent omission is never allowed.
+
+- **Door:** the task-board verbs (one boundary at `Tasks.Internal.fenced_content_write/4` and `insert_mutation_event!/1`), the sync bookkeeping rows written by `Sync.Worker` and `Sync.PushWorker`, the note-adjacent writes (`Content.Edges.disconnect_references`, `Papers.Proposals`, `Papers.ValueWriteback`, `Broadcast.save_event` callers, `Bulldocs.Events`, `PaperAccess.record`), and the two media side writes (lazy renditions on GET, the lazy data-key insert). These touch notes, papers or media, which is migration state.
+- **Refuse in managed mode:** Studio Chat and the cycle and epic fleets; tenancy and workspace administration; account, SSO, SCIM and access management other than login; operator surfaces (secrets, plugin settings and install, schema CRUD, codelist re-seed, webhooks, sharing, status incidents). A dedicated Barkdown instance does not offer these during a switch. Refusal is a router-level refusal for those route groups plus a fail-closed boot check, recorded per group.
+- **Accept as bookkeeping, recorded:** per-request side writes that are not migration state: idempotency claims, preview-token JTIs, session and token last-used stamps, search analytics, audit rows for the paths above. They keep running during a hold and are listed as such in the evidence.
+- **Two fixes the contract assumed already existed:** a managed instance refuses `:seed` and `:one_shot` boots outright, and `SchemaBootstrap`'s boot-time writes are declared pre-open (they run before admission opens) or moved behind it.
+
+Effort follows this split: the refusal path is roughly a fifth of the code that doors for every cluster would be. This decision is revisited only if a refused surface turns out to be needed during a switch.
+
+## D-hosts — Windows, macOS and Linux are all first-class (2026-09-28)
+
+User decision. Development moved from the Windows source machine to a Mac for at least a week; the process must keep every desktop platform current without turning each update into a wait.
+
+- **Host on every receipt.** Evidence for a cycle that touches `app/` names the hosts it passed on and the tests that skipped per host. A cycle is not delivered on one host's green alone.
+- **Skip ratchet.** Platform-only tests (`skip: process.platform !== ...`) are counted per platform and pinned; the count moves only with its twin on the other platforms or a recorded, owned gap.
+- **CI runs where it matters, not everywhere.** The desktop suite gets a lane per platform, gated to changes under `app/` and its workflow; documentation and plan changes never wait for it. The Windows lane is required from day one; the macOS and Linux lanes are advisory until they are green, then required. Full matrix runs also happen nightly on `main`, so a red that no PR caused still surfaces.
+- **Visual baselines per platform.** Captures already record OS and font; approvals are keyed by platform so a Mac review never replaces the Windows one.
+- **One host module.** Platform branches in `app/` live behind one module; new inline `process.platform` checks outside it are refused by a ratchet on the current count.
+- **Twin rule.** A change to process, path, window or keyboard behavior ships with its twin on the other desktop platforms or records the gap as a cycle item with an owner. No platform-only features.
+- **Return checkpoint.** The week on macOS ends with a bounded cycle on the Windows machine that reruns the native suites and re-accepts P1 on both hosts.

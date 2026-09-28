@@ -1,0 +1,79 @@
+name: Desktop suite
+# The app's own test chain (app/package.json "test"). Local runs are the authority; CI exists for
+# the one signal a developer's machine cannot give. Pull requests that touch app/ run Windows only
+# (required). Linux and macOS run weekly and on dispatch. Documentation and plan changes never
+# trigger this. Artifact uploads are diagnostics and never fail a green run.
+on:
+  pull_request:
+    paths: ['app/**', '.github/workflows/desktop.yml']
+  schedule:
+    - cron: '17 3 * * 0'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: desktop-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  desktop:
+    name: Desktop suite (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.advisory }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            advisory: false
+          - os: ubuntu-latest
+            advisory: true
+          - os: macos-latest
+            advisory: true
+        exclude:
+          # Local runs are the authority (D-hosts, 2026-09-28): a pull request buys only the Windows
+          # signal the Mac cannot give; Linux and macOS run weekly and on dispatch.
+          - os: ${{ github.event_name == 'pull_request' && 'macos-latest' || 'never' }}
+          - os: ${{ github.event_name == 'pull_request' && 'ubuntu-latest' || 'never' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: npm 11 (the lockfiles are written by npm 11)
+        run: npm install -g npm@11
+      - name: Electron's shared libraries and Xvfb (Linux only)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q xvfb libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2t64 libpango-1.0-0 libcairo2 libgtk-3-0 || sudo apt-get install -y -q xvfb libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2 libpango-1.0-0 libcairo2 libgtk-3-0
+      - name: Install (root holds playwright; app holds electron and the app's deps)
+        shell: bash
+        # Some chain segments drive a Playwright Chromium beside Electron; the runner has none.
+        run: |
+          npm ci
+          if [ "$RUNNER_OS" = Linux ]; then npx playwright install --with-deps chromium; else npx playwright install chromium; fi
+          cd app && npm ci
+      - name: Build and test (Linux under Xvfb)
+        if: runner.os == 'Linux'
+        env:
+          ELECTRON_DISABLE_SANDBOX: '1'
+        run: xvfb-run -a --server-args="-screen 0 1600x1000x24" npm run test:desktop
+      - name: Build and test
+        if: runner.os != 'Linux'
+        shell: bash
+        # macOS runners hand out a symlinked temp dir (/var -> /private/var); the app's store
+        # refuses to traverse links, so tests get the real path (same rule as CYCLES hosts notes).
+        run: |
+          if [ "$RUNNER_OS" = macOS ]; then export TMPDIR="$(node -e 'console.log(require("fs").realpathSync(require("os").tmpdir()))')"; fi
+          npm run test:desktop
+      - uses: actions/upload-artifact@v4
+        # Diagnostics only: a full artifact store (the account quota) must not fail a green suite.
+        if: always()
+        continue-on-error: true
+        with:
+          name: desktop-results-${{ matrix.os }}
+          path: |
+            app/test-results/
+          if-no-files-found: ignore
+          retention-days: 3

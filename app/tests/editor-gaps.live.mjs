@@ -9,6 +9,7 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import { publishFixture, getPaper, connectPaperFixture } from './lib/paper-fixture.mjs';
+import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 if (process.env.BARKDOWN_SHOTS_ISOLATED !== '1' && process.env.CI !== 'true') throw new Error('Use status-shots-isolated.mjs with a disposable Barkpark; this fixture replaces its scratch paper.');
 const SLUG = 'barkdown-editor-test';
@@ -107,8 +108,8 @@ try {
   let beforeHtml, afterHtml;
   await step('HTML list paste preserves two items', async () => { const priorRev = read().rev; await page.keyboard.press('Enter'); beforeHtml = (await acknowledged(priorRev)).doc; await paste('a b', '<ul><li>html one</li><li>html two</li></ul>');  }, doc => assert.ok(has(doc, n => n.type === 'bulletList' && n.content?.map(textOf).join('|') === 'html one|html two')));
   afterHtml = (await snapshot()).doc;
-  await step('native Undo removes HTML paste', async () => { await page.keyboard.press('Control+z'); }, doc => assert.deepEqual(withoutIdentity(doc), withoutIdentity(beforeHtml)));
-  await step('native Redo restores exact rich HTML state', async () => { await page.keyboard.press('Control+Shift+z'); }, doc => assert.deepEqual(withoutIdentity(doc), withoutIdentity(afterHtml)));
+  await step('native Undo removes HTML paste', async () => { await page.keyboard.press(`${MOD}+z`); }, doc => assert.deepEqual(withoutIdentity(doc), withoutIdentity(beforeHtml)));
+  await step('native Redo restores exact rich HTML state', async () => { await page.keyboard.press(`${MOD}+Shift+z`); }, doc => assert.deepEqual(withoutIdentity(doc), withoutIdentity(afterHtml)));
   await step('Backspace joins ordinary quote preserving rich preceding content', async () => { await pm.locator('blockquote[data-bp-type="blockquote"]').first().click(); await blockStart(); await page.keyboard.press('Backspace'); }, (doc, before) => {
     // Ordinary blockquote uses ProseMirror joinBackward. The custom standalone
     // quote-to-paragraph shortcut applies to pullquote, a different node type.
@@ -134,7 +135,7 @@ try {
     assert.deepEqual(withoutIdentity(doc), withoutIdentity(expected), 'native lift preserves heading level, marks, remaining list item and unrelated siblings');
   });
   await step('warning callout shorthand', async () => { const tail=pm.locator('p:has-text("Tail paragraph")').first();await tail.click();await tail.evaluate(el=>{const e=el.closest('bp-paper-canvas')._editor;e.view.focus();e.commands.setTextSelection(e.view.posAtDOM(el,el.childNodes.length));});await page.waitForFunction(()=>{const s=document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.state.selection;return s.empty&&s.$from.parent.textContent==='Tail paragraph'&&s.$from.parentOffset===s.$from.parent.content.size;});await page.keyboard.press('Enter');await page.waitForFunction(()=>{const s=document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.state.selection;return s.empty&&s.$from.parent.type.name==='paragraph'&&s.$from.parent.content.size===0;});await page.keyboard.type('> [!warning] careful'); }, doc => assert.ok(has(doc, n => n.type === 'callout' && n.attrs?.tone === 'warning' && textOf(n) === 'careful')));
-  await step('select all replacement and native Undo preserve rich document', async before => { const rev = read().rev; await pm.click(); await page.keyboard.press('Control+a'); await page.keyboard.type('fresh'); const replaced = await snapshot(); assert.equal(replaced.doc.content.length, 1); assert.ok(paragraph(replaced.doc, 'fresh')); const ack = await acknowledged(rev); await page.keyboard.press('Control+z'); return { replacementRev: ack.server.rev }; }, (doc, before) => assert.deepEqual(withoutIdentity(doc), withoutIdentity(before)));
+  await step('select all replacement and native Undo preserve rich document', async before => { const rev = read().rev; await pm.click(); await page.keyboard.press(`${MOD}+a`); await page.keyboard.type('fresh'); const replaced = await snapshot(); assert.equal(replaced.doc.content.length, 1); assert.ok(paragraph(replaced.doc, 'fresh')); const ack = await acknowledged(rev); await page.keyboard.press(`${MOD}+z`); return { replacementRev: ack.server.rev }; }, (doc, before) => assert.deepEqual(withoutIdentity(doc), withoutIdentity(before)));
   assert.equal(results.length, 13);
   assert.deepEqual(errors, [], 'renderer must not throw');
 } catch (error) {

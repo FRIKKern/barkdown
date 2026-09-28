@@ -1,7 +1,8 @@
 name: Visual candidates
 on:
-  pull_request:
-    paths: ['app/**', 'scripts/visual*', 'scripts/ci-review-bundle*', 'docs/visual/**', 'package*.json', '.github/workflows/visual.yml']
+  # Capture, compare and approval are local steps with immutable review files in the repo; the
+  # hosted candidate bundle is on demand only (local authority, 2026-09-28).
+  workflow_dispatch:
   workflow_dispatch:
 permissions:
   contents: read
@@ -39,3 +40,4 @@ jobs:
           name: visual-candidate-${{ github.sha }}
           path: ${{ runner.temp }}/barkdown-visual-review/artifact
           if-no-files-found: error
+          retention-days: 7

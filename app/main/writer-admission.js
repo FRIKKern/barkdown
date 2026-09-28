@@ -19,7 +19,10 @@ const sleep = new Int32Array(new SharedArrayBuffer(4));
 
 function controller(inputStore) {
   const store = createStore(inputStore.dir(), { create: false });
-  const root = fs.realpathSync(store.dir()), stat = fs.statSync(root, { bigint: true });
+  // Native realpath: on Windows the JS realpath keeps 8.3 short names (RUNNER~1), so the same
+  // directory would hash two ways depending on which spelling a caller handed in; the native
+  // call expands them, matching legacy-authority-adoption's canonical form.
+  const root = fs.realpathSync.native(store.dir()), stat = fs.statSync(root, { bigint: true });
   // Older Windows Node returns dev=0 where Electron returns the volume serial.
   // The canonical drive-qualified path and exact inode agree across both; Unix
   // also binds the device so a different mounted filesystem cannot share an ID.

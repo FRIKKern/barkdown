@@ -4,10 +4,13 @@ import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
 import { createRequire } from 'node:module';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import assert from 'node:assert/strict';
+import { DOC_END } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-agent-edit-'));
 const app = await electron.launch({executablePath:require('electron'),args:[path.resolve('.'),`--user-data=${userData}`],env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
 const page = await app.firstWindow();
+// Hosted runners are slower than a developer machine; give live waits room there.
+if (process.env.CI) page.setDefaultTimeout(90000);
 const errors = []; page.on('pageerror', e => errors.push(e.message));
 let client;
 try {
@@ -38,7 +41,7 @@ try {
   await page.waitForSelector('[data-agent-phase="select"]');
   await page.locator('.bw-doc-pane:not([hidden]) .ProseMirror').click();
   assert.equal(await page.locator('.bw-agent-caret').count(),0,'user interaction must clear presence immediately');
-  await page.keyboard.press('Control+End'); await page.keyboard.type(' Human addition.');
+  await page.keyboard.press(DOC_END); await page.keyboard.type(' Human addition.');
   await page.waitForFunction(() => document.querySelector('.bw-doc-pane:not([hidden]) #save-state')?.textContent === 'Saved · rev 5');
   const saved = await page.evaluate(id=>window.barkdown.docs.get(id),doc.id);
   assert.ok(saved.markdown.includes('The next change') && saved.markdown.includes('Human addition.'), saved.markdown);

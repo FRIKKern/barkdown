@@ -4,6 +4,7 @@ import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import assert from 'node:assert/strict';
+import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-project-buffer-'));
 const userData = path.join(root, 'user-data'), folder = path.join(root, 'shared-folder');
@@ -26,7 +27,7 @@ try {
   const b = await page.evaluate(() => window.barkdown.profiles.create('Buffer B'));
   await openFile();
   const editor = page.locator('.bw-pane:not([hidden]) .cm-content');
-  await editor.click(); await page.keyboard.press('Control+a'); await page.keyboard.insertText(edited);
+  await editor.click(); await page.keyboard.press(`${MOD}+a`); await page.keyboard.insertText(edited);
   await page.locator('.bw-dot-dirty').waitFor(); await shot('01-unsaved-project');
   await page.keyboard.press('Control+,'); await page.locator('#profile-choice').selectOption(b.id); await page.locator('#profile-switch').click();
   await page.getByText('Save your project files before switching profiles.', { exact: true }).waitFor();
@@ -35,7 +36,7 @@ try {
   await shot('02-switch-refused'); await page.keyboard.press('Escape');
   assert.equal(await editor.innerText(), edited, 'unsaved editor text remains intact');
   assert.equal(await page.locator('.bw-dot-dirty').count(), 1);
-  await editor.click(); await page.keyboard.press('Control+s');
+  await editor.click(); await page.keyboard.press(`${MOD}+s`);
   await page.waitForFunction(() => !document.querySelector('.bw-dot-dirty'));
   assert.equal(fs.readFileSync(file, 'utf8'), edited, 'only explicit Save writes bytes');
   await page.keyboard.press('Control+,'); await page.locator('#profile-choice').selectOption(b.id); await page.locator('#profile-switch').click(); await loaded(b.id);

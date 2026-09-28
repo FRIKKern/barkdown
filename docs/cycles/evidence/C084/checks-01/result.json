@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-28T14:47:43.464Z",
+  "source": "f8b20d19488880e3a3fe1550efef806dbd0a55dd",
+  "sourceStatus": "M .github/workflows/desktop.yml\n M .github/workflows/parity.yml\n M .github/workflows/verify.yml\n M .github/workflows/visual.yml\n M docs/CYCLES.md\n?? docs/cycles/evidence/C084/checks-01.plan.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "verify",
+      "cwd": "/Users/frikkjarl/Documents/GitHub/barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "verify"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-28T14:47:43.615Z",
+      "log": "verify.log",
+      "elapsedMs": 34542,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "host-skips",
+      "cwd": "/Users/frikkjarl/Documents/GitHub/barkdown/app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/host-skips.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-09-28T14:48:18.161Z",
+      "log": "host-skips.log",
+      "elapsedMs": 100,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-09-28T14:48:18.261Z"
+}

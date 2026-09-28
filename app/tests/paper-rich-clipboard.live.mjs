@@ -7,6 +7,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { MOD } from './helpers/keys.mjs';
 const require=createRequire(import.meta.url);
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1')throw Error('Use the isolated source-runtime wrapper.');
 const bp=(args,input)=>JSON.parse(execFileSync('bp',[...args,'-o','json'],{shell:true,encoding:'utf8',maxBuffer:20e6,...(input==null?{stdio:['ignore','pipe','pipe']}:{input})}));
@@ -52,8 +53,8 @@ try{
  const notice=await page.locator('[data-bp-paste-notice]').boundingBox();assert.ok(notice.x>=0&&notice.x+notice.width<=900&&notice.y>=0&&notice.y+notice.height<=900);await page.screenshot({path:path.join(out,'03-mixed-recovery-narrow.png')});
  await page.keyboard.press('Escape');await page.keyboard.down('Control');await page.keyboard.down('Shift');await paste({html:htmlTable,text:'Plain text',file:true});await page.keyboard.up('Shift');await page.keyboard.up('Control');
  const plain=await saved(initial.rev);assert.ok(JSON.stringify(plain.blocks).includes('Before Plain text After'));assert.equal(plain.blocks.some(b=>b.type==='image'),false);await page.screenshot({path:path.join(out,'04-plain-saved.png')});
- await page.keyboard.press('Control+z');const undone=await saved(plain.rev);assert.deepEqual(undone.blocks,initial.blocks);await page.screenshot({path:path.join(out,'05-undo.png')});
- await page.keyboard.press('Control+Shift+z');const redone=await saved(undone.rev);assert.deepEqual(redone.blocks,plain.blocks);
+ await page.keyboard.press(`${MOD}+z`);const undone=await saved(plain.rev);assert.deepEqual(undone.blocks,initial.blocks);await page.screenshot({path:path.join(out,'05-undo.png')});
+ await page.keyboard.press(`${MOD}+Shift+z`);const redone=await saved(undone.rev);assert.deepEqual(redone.blocks,plain.blocks);
  await page.setViewportSize({width:1400,height:900});await page.locator('.ProseMirror > p').last().click();await page.keyboard.press('End');
  await paste({html:'<div>'+htmlImage+'</div>',file:true});const uploaded=await saved(redone.rev);const firstImage=uploaded.blocks.find(b=>b.type==='image');assert.ok(firstImage.src);assert.equal(firstImage.alt,'Copied diagram');assert.equal(firstImage.src.includes('clipboard-original.invalid'),false);assert.deepEqual(externalRequests,[]);await page.screenshot({path:path.join(out,'06-equivalent-upload.png')});
  await page.locator('.ProseMirror > p').first().click();await page.keyboard.press('End');await paste({file:true});const fileOnly=await saved(uploaded.rev);assert.equal(fileOnly.blocks.filter(b=>b.type==='image').length,2);await page.screenshot({path:path.join(out,'07-file-only.png')});

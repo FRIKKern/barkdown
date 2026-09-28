@@ -10,6 +10,7 @@ import { _electron as electron } from 'playwright';
 import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';
+import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-opaque';
 const bp = (args, input) => JSON.parse(execFileSync('bp', [...args, '-o', 'json'], { ...(input == null ? { stdio: ['ignore', 'pipe', 'pipe'] } : { input }), shell: true, encoding: 'utf8', maxBuffer: 20e6 }));
@@ -163,7 +164,7 @@ const island = async (type, key, value, expect) => {
     if (!(await node.count())) { edits.push({ type, edit: 'mount', pass: false, note: 'no ' + type + ' node in the canvas' }); return; }
     await node.hover();
     const input = node.locator(`[data-test-id="paper-${type}-${key}"]`).first();
-    const s0 = await saveState(); await input.click(); await input.fill(value); await input.press('Control+Enter'); await waitSavedFrom(s0);
+    const s0 = await saveState(); await input.click(); await input.fill(value); await input.press(`${MOD}+Enter`); await waitSavedFrom(s0);
     const after = serverBlock(type);
     edits.push({ type, edit: key, pass: expect(after), server: after });
   } catch (e) { edits.push({ type, edit: key, pass: false, error: e.message.slice(0, 200) }); }

@@ -7,6 +7,7 @@ import { _electron as electron } from 'playwright';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { publishFixture, getPaper, para, text } from './lib/paper-fixture.mjs';
+import { MOD, DOC_START } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-find';
 publishFixture({ slug: SLUG, title: 'Find and replace rehearsal', description: 'Scratch paper for the Barkdown find-and-replace row: three alphas across a paragraph, a list and a heading are found, stepped through, replaced at once and undone in one step. Rewritten on every run of tests/editor-find.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Find and replace rehearsal' }, para('The first alpha sits in a paragraph, next to an Alpha with a capital.'), { type: 'list', ordered: false, items: [text('a second alpha in a list'), text('nothing here')] }, { type: 'heading', level: 2, text: 'A third alpha in a heading' }] });
@@ -34,12 +35,12 @@ const waitServer = async (pred) => { for (let i = 0; i < 20; i++) { const t = se
 const enterFromStart = async () => {
   await pm.locator('p').filter({ hasText: /^The first alpha/ }).click();
   await waitForPaperCaret(page, { type: 'paragraph', text: 'The first alpha sits in a paragraph, next to an Alpha with a capital.' });
-  await page.keyboard.press('Control+Home');
+  await page.keyboard.press(DOC_START);
   await waitForPaperCaret(page, { type: 'heading', text: 'Find and replace rehearsal', position: 1 });
 };
 
 await row('Ctrl+F inside the paper opens the bar; typing "alpha" counts four matches (case-insensitive, starting from the caret) and highlights them', async () => {
-  await enterFromStart(); await page.keyboard.press('Control+f');
+  await enterFromStart(); await page.keyboard.press(`${MOD}+f`);
   const open = await page.locator(`${pane} #find`).isVisible();
   await page.locator(`${pane} #find-q`).fill('alpha'); await page.waitForTimeout(200);
   const c = await count();
@@ -64,12 +65,12 @@ await row('Replace all with "omega" lands on the server as one save: no alpha le
 });
 await row('Ctrl+Z restores all four in ONE step, and the server follows', async () => {
   await page.locator(`${pane} #find-close`).click();
-  await pm.locator('p').first().click(); await page.keyboard.press('Control+z');
+  await pm.locator('p').first().click(); await page.keyboard.press(`${MOD}+z`);
   const t = await waitServer(s => occurrences(s.toLowerCase(), 'alpha') === 4);
   return { pass: occurrences(t.toLowerCase(), 'alpha') === 4 && occurrences(t, 'omega') === 0, server: t };
 });
 await row('Ctrl+H opens with replace; Replace (one) changes only the active match and moves on', async () => {
-  await enterFromStart(); await page.keyboard.press('Control+h');
+  await enterFromStart(); await page.keyboard.press(`${MOD}+h`);
   await page.locator(`${pane} #find-q`).fill('alpha'); await page.waitForTimeout(200);
   await page.locator(`${pane} #find-r`).fill('beta');
   await page.locator(`${pane} #find-replace`).click();

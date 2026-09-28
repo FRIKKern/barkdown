@@ -3,6 +3,7 @@ import { _electron as electron } from 'playwright';
 import { createRequire } from 'node:module';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {execFileSync} from 'node:child_process';
 import {root,inputs,hash,write,safe} from '../../scripts/visual-core.mjs';
+import { MOD } from './helpers/keys.mjs';
 const require=createRequire(import.meta.url),{PNG}=require('pngjs'),{GIFEncoder,quantize,applyPalette}=require('gifenc');
 const run=new Date().toISOString().replace(/[:.]/g,'-'),dir=`docs/visual/runs/${run}`;fs.mkdirSync(safe(dir),{recursive:true});
 const profile=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-visual-'));
@@ -30,7 +31,7 @@ try{
   const file=`${dir}/${area}.gif`;fs.writeFileSync(safe(file),Buffer.from(gif.bytes()));hashes[file]=hash(fs.readFileSync(safe(file)));shots.push({area,caption,file,frames});
  };
  await tour('workspace','Real desktop navigation with disposable local notes; no cloud or provider.',[
-  ['default',async()=>{}],['quick-open',()=>p.keyboard.press('Control+k')],['dismiss',()=>p.keyboard.press('Escape')],
+  ['default',async()=>{}],['quick-open',()=>p.keyboard.press(`${MOD}+k`)],['dismiss',()=>p.keyboard.press('Escape')],
   ['narrow',()=>p.setViewportSize({width:740,height:740})],['restore',()=>p.setViewportSize({width:1100,height:740})]
  ]);
  await tour('chat','Shared main composer: draft, provider chooser and model chooser. No message is sent.',[

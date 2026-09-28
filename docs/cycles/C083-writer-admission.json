@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "id": "C083",
+  "stage": "P2",
+  "status": "blocked",
+  "goal": "Wire the merged admission coordinator into every supported upstream content and media writer, opt-in for a managed runtime only, and prove writes cannot slip through while held.",
+  "scope": [
+    "Managed-runtime configuration and journal/instance binding, off by default and refused for unsupported modes",
+    "Admission at content and media mutation owners, including read-side cache repair, deferred cleanup and background processing",
+    "Deterministic exclusion, drain, rollback, restart and bypass tests against real database and blob fixtures"
+  ],
+  "acceptance": [
+    "While held, direct context, HTTP, native Paper, lifecycle, media and sweeper writes are refused and leave rows, revisions, bytes and journal unchanged",
+    "Admitted writes drain through commit, rollback, deferred cleanup and hooks before the hold settles; uncertain effects block readiness",
+    "Servers without managed mode behave unchanged under the existing upstream suite",
+    "No seal capability is advertised until the writer coverage audit and recovery cases pass; upstream required gates and root verification stay honest"
+  ],
+  "checkpoint": "2026-09-28",
+  "handoff": "docs/cycles/C083-writer-admission.md",
+  "nextAction": "Resume after C084: implement the task-board boundary at Tasks.Internal, the sync bookkeeping door, the managed-mode refusal for the refused clusters, and the boot and one-shot refusal, per D-managed-writers.",
+  "evidence": [
+    "docs/cycles/evidence/C082/merge.json",
+    "docs/cycles/evidence/C082/integration-review.json",
+    "docs/cycles/evidence/C083/writer-census.md",
+    "docs/cycles/evidence/C083/checks-01/result.json",
+    "docs/cycles/evidence/C083/upstream-local-suite.json",
+    "https://github.com/FRIKKern/barkpark/pull/20422",
+    "docs/cycles/evidence/C083/writer-audit.md"
+  ],
+  "truthReview": "Slices 1 to 3 merged and deployed. The direct-writer audit at fc9a07b11 classifies 151 files: 70 need a boundary, 11 covered, 16 boot-or-one-shot, 54 false positives. Two contract assumptions failed: boot writes run inside the full tree, and one-shot mix tasks are not refused by construction. Estimate moved down to about 45% on the audit. No seal capability advertised; no library switched.",
+  "screenshotReview": "No visual inputs changed at opening; upstream-only work planned. C080 reviewed evidence remains applicable.",
+  "delivery": {
+    "phase": "implementing",
+    "owner": "primary agent",
+    "remaining": [
+      "(paused for C084) Managed-mode policy per audited cluster, recorded as a decision",
+      "Task-board boundary at Tasks.Internal.fenced_content_write; sync bookkeeping door; boot and one-shot refusal",
+      "Trusted hold endpoint for Barkdown and bypass tests",
+      "Drain, restart and rollback proof before any capability decision"
+    ]
+  },
+  "reason": "Paused by user priority on 2026-09-28: macOS parity (C084) runs first while development is on a Mac. Not blocked by evidence; resumes at the task-board boundary once C084 has its measurement and CI lane."
+}

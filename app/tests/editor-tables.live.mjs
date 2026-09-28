@@ -8,6 +8,7 @@ import { _electron as electron } from 'playwright';
 import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';
+import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-tables';
 const bp = (args, input) => JSON.parse(execFileSync('bp', [...args, '-o', 'json'], { ...(input == null ? { stdio: ['ignore', 'pipe', 'pipe'] } : { input }), shell: true, encoding: 'utf8', maxBuffer: 20e6 }));
@@ -104,7 +105,7 @@ await row('chrome: remove column, remove row', async () => {
 await row('server matches the canvas after structural edits', compare);
 await row('undo a cell edit; server follows', async () => {
   await pm.locator('.bp-table__td').first().click(); await page.keyboard.press('End'); await page.keyboard.type('XYZ'); await settle(); await waitSaved();
-  await page.keyboard.press('Control+z'); await settle(); const r = await compare();
+  await page.keyboard.press(`${MOD}+z`); await settle(); const r = await compare();
   return { ...r, pass: r.pass && !JSON.stringify(r.canvas).includes('XYZ') };
 });
 await row('paste a GFM pipe table as a table block', async () => {

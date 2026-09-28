@@ -9,6 +9,7 @@ import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { _electron as electron } from 'playwright';
 import { cases } from '../../docs/migration/corpus.mjs';
+import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 const { stageMigration } = require('../main/migration-staging');
 const { inspectContent } = require('../main/migration-preflight');
@@ -164,7 +165,7 @@ try {
     // The code island records its edit in the owning Paper history. Focus the
     // real PM surface without another transaction before the native Undo key.
     if (block.type === 'code') await canvas().evaluate(c => c._editor.view.focus());
-    await page.keyboard.press('Control+z'); const undone = await saved(edited.rev);
+    await page.keyboard.press(`${MOD}+z`); const undone = await saved(edited.rev);
     assert.deepEqual(undone.blocks, expected, sample.id + ': Undo restores exact staged structure');
     results.push({ case: sample.id, beforeRev: revision, editedRev: edited.rev, undoneRev: undone.rev }); revision = undone.rev;
     if (sample.id === 'nested-mixed-task') {
@@ -178,7 +179,7 @@ try {
       const changed=structuredClone(expected); changed[index]=changeFirstText(block,'Deep leaf');
       assert.deepEqual(nestedEdit.blocks,changed,'deep child edit preserves sibling order, parent marks and checked state');
       await shot('edit-deep-list-child');
-      await page.keyboard.press('Control+z'); const restored=await saved(nestedEdit.rev);
+      await page.keyboard.press(`${MOD}+z`); const restored=await saved(nestedEdit.rev);
       assert.deepEqual(restored.blocks,expected,'deep child Undo restores exact nested source');
       Object.assign(results.at(-1),{nestedEditedRev:nestedEdit.rev,nestedUndoneRev:restored.rev}); revision=restored.rev;
     }
@@ -198,7 +199,7 @@ try {
       assert.deepEqual(inserted.blocks.filter((_,i)=>i!==index),expected.filter((_,i)=>i!==index));
       await revealParagraph('List first');
       await shot('native-list-break-inserted');
-      await page.keyboard.press('Control+z'); const restored=await saved(inserted.rev);
+      await page.keyboard.press(`${MOD}+z`); const restored=await saved(inserted.rev);
       assert.deepEqual(restored.blocks,expected,'native list break Undo restores exact source carriers');
       Object.assign(results.at(-1),{breakInsertedRev:inserted.rev,breakUndoneRev:restored.rev}); revision=restored.rev;
     }
@@ -218,7 +219,7 @@ try {
         { ...block, content: desiredRuns }, 'native heading break preserves existing link, emphasis and level');
       assert.deepEqual(inserted.blocks.filter((_, i) => i !== index), expected.filter((_, i) => i !== index));
       await shot('native-heading-break-inserted');
-      await page.keyboard.press('Control+z'); const restored = await saved(inserted.rev);
+      await page.keyboard.press(`${MOD}+z`); const restored = await saved(inserted.rev);
       assert.deepEqual(restored.blocks, expected, 'native heading break Undo restores exact source carriers');
       Object.assign(results.at(-1), { breakInsertedRev: inserted.rev, breakUndoneRev: restored.rev });
       revision = restored.rev;
@@ -237,7 +238,7 @@ try {
       assert.equal(content.map(n => n.value).join(''), 'Line one\n\nLine two', 'native Shift Enter adds exactly one newline');
       assert.deepEqual(inserted.blocks.filter((_, i) => i !== index), expected.filter((_, i) => i !== index), 'native break leaves every other block exact');
       await shot('native-break-inserted');
-      await page.keyboard.press('Control+z');
+      await page.keyboard.press(`${MOD}+z`);
       const restored = await saved(inserted.rev);
       assert.deepEqual(restored.blocks, expected, 'native break Undo restores exact staged carriers');
       Object.assign(results.at(-1), { breakInsertedRev: inserted.rev, breakUndoneRev: restored.rev });

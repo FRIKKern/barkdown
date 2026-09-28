@@ -9,6 +9,7 @@ import { _electron as electron } from 'playwright';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { publishFixture, getPaper, para } from './lib/paper-fixture.mjs';
+import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-ime';
 publishFixture({ slug: SLUG, title: 'Composed through the IME', description: 'Scratch paper for Barkdown row 15: one paragraph a dead key and a CJK composition are typed into; the ops the canvas emits are counted while the composition is open and after it commits. Rewritten on every run of tests/editor-ime.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Composed through the IME' }, para('Dead key: '), para('CJK: ')] });
@@ -72,7 +73,7 @@ await row('a CJK run (にほん over three updates → 日本): nothing while co
 
 await row('undo removes the whole composed run in one step; the server follows', async () => {
   await caretAtEndOf('CJK: ');
-  await page.keyboard.press('Control+z');
+  await page.keyboard.press(`${MOD}+z`);
   await page.waitForTimeout(500);
   const text = await paraText('CJK:');
   await settled();

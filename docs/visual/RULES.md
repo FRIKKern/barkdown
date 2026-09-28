@@ -4,6 +4,10 @@
 
 The [coverage map](coverage.json) currently takes a conservative approach: every app main/renderer/shared change, dependency or Barkpark pin change, or capture/comparison harness change invalidates visual approval. New files count too. Every top-level `app/tests/*.live.mjs` and every capture helper/fixture under `app/tests/helpers/` or `app/tests/fixtures/` participates automatically, including new journeys; maintain no per-journey allowlist. This deliberately over-captures rather than guessing that a backend change cannot affect UI. `npm run check:visual` runs in root verification and CI. Capture from the branch being reviewed, with locked dependencies and disposable data.
 
+## One approval per platform
+
+Approvals are keyed by the capturing platform. The Windows source machine keeps `docs/visual/approved.json` and the primary gallery; macOS and Linux record `docs/visual/approved.<platform>.json` and `README.<platform>.md` beside it. `visual.mjs check` passes while at least one platform's approval matches the current inputs and names the platforms whose approval is stale, so a capture on one host never replaces another's pictures and a stale platform is visible rather than silently overwritten. Compare against the same platform's baseline only; a first approval on a new platform has no baseline and is reviewed as new coverage.
+
 ## Capture â†’ compare â†’ inspect â†’ accept
 
 ```sh

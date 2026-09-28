@@ -8,7 +8,7 @@ const runsRoot = 'docs/visual/runs';
 const json = (root, file) => JSON.parse(fs.readFileSync(source(root,file),'utf8'));
 function source(root, name) {
   if (typeof name !== 'string' || name.includes('\\') || path.posix.normalize(name)!==name || name.startsWith('/') || name.split('/').includes('..') || name.includes(':')) throw Error('Unsafe artifact path: '+name);
-  const base=fs.realpathSync(root), file=path.resolve(root,name);
+  const base=fs.realpathSync(root), file=path.resolve(base,name);
   if (!file.startsWith(base+path.sep)) throw Error('Artifact escapes root: '+name);
   let cursor=base;
   for (const part of name.split('/')) { cursor=path.join(cursor,part); if(fs.lstatSync(cursor).isSymbolicLink()) throw Error('Symlink artifact: '+name); }

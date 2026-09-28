@@ -8,6 +8,7 @@ import { _electron as electron } from 'playwright';
 import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';
+import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-multiblock';
 const bp = (args, input) => JSON.parse(execFileSync('bp', [...args, '-o', 'json'], { ...(input == null ? { stdio: ['ignore', 'pipe', 'pipe'] } : { input }), shell: true, encoding: 'utf8', maxBuffer: 20e6 }));
@@ -76,17 +77,17 @@ await row('select across two paragraphs and type: they merge; server matches', a
   await page.keyboard.type('joined'); await settle();
   const r = await compare(); return { ...r, pass: r.pass && r.canvas.length === 5 && r.canvas.some(s => s.includes('joined')) };
 });
-await row('undo the merge; server follows', async () => { await page.keyboard.press('Control+z'); await settle(); const r = await compare(); return { ...r, pass: r.pass && same(r.canvas, original) }; });
+await row('undo the merge; server follows', async () => { await page.keyboard.press(`${MOD}+z`); await settle(); const r = await compare(); return { ...r, pass: r.pass && same(r.canvas, original) }; });
 
 await row('select three whole blocks, copy, paste at the end: three blocks appended; server matches', async () => {
   await pm.click(); const sel = await selectBetween('First paragraph', 0, 'Third paragraph here.', 'Third paragraph here.'.length);
   // Capture what ProseMirror puts on the clipboard (its own copy handler fills the event), so the
   // paste can be replayed from that payload if the OS clipboard is not there (a bare X server in CI).
   await page.evaluate(() => { window.__clip = null; document.addEventListener('copy', e => { window.__clip = { html: e.clipboardData.getData('text/html'), text: e.clipboardData.getData('text/plain') }; }); });
-  await page.keyboard.press('Control+c');
+  await page.keyboard.press(`${MOD}+c`);
   await clickText('Closing line', 'End');
   const caret = await page.evaluate(() => { const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor; return ed.state.selection.$from.parent.textContent.slice(0, 20); });
-  await page.keyboard.press('Enter'); await page.keyboard.press('Control+v'); await settle();
+  await page.keyboard.press('Enter'); await page.keyboard.press(`${MOD}+v`); await settle();
   let clipboard = 'os';
   let r = await compare();
   if (r.canvas.length !== 9) {
@@ -98,28 +99,28 @@ await row('select three whole blocks, copy, paste at the end: three blocks appen
   const tail = r.canvas.slice(-3);
   return { ...r, sel, caret, clipboard, pass: r.pass && r.canvas.length === 9 && same(tail, original.slice(1, 4)) };
 });
-await row('undo the paste; server follows', async () => { await page.keyboard.press('Control+z'); await settle(); await page.keyboard.press('Control+z'); await settle(); const r = await compare(); return { ...r, pass: r.pass && same(r.canvas, original) }; });
+await row('undo the paste; server follows', async () => { await page.keyboard.press(`${MOD}+z`); await settle(); await page.keyboard.press(`${MOD}+z`); await settle(); const r = await compare(); return { ...r, pass: r.pass && same(r.canvas, original) }; });
 
 await row('delete a selection spanning a paragraph and a list: server matches', async () => {
   await pm.click(); const sel = await selectBetween('Third paragraph', 5, 'beta item', 4); await page.keyboard.press('Backspace'); await settle();
   const r = await compare(); return { ...r, sel, pass: r.pass && r.canvas.length < original.length && r.canvas.some(s => s.startsWith('paragraph:Third') && s.includes('item')) };
 });
-await row('undo the spanning delete; server follows', async () => { await page.keyboard.press('Control+z'); await settle(); const r = await compare(); return { ...r, pass: r.pass && same(r.canvas, original) }; });
+await row('undo the spanning delete; server follows', async () => { await page.keyboard.press(`${MOD}+z`); await settle(); const r = await compare(); return { ...r, pass: r.pass && same(r.canvas, original) }; });
 
 // Barkpark vetoes a write that would leave a published paper with no content block, so cut-all cannot save. Parity
 // here means: the author keeps what they see, the tab says why, and the very next edit saves and matches again.
 await row('cut everything: the server vetoes an empty paper and the tab says so; paste back restores and matches', async () => {
-  await clickText('Closing line'); await page.keyboard.press('Control+a'); await page.keyboard.press('Control+x'); await settle(); const cutSave = await waitSaved();
+  await clickText('Closing line'); await page.keyboard.press(`${MOD}+a`); await page.keyboard.press(`${MOD}+x`); await settle(); const cutSave = await waitSaved();
   const refusal = (await page.locator('.bw-paper-pane:not([hidden]) #conflict').innerText().catch(() => '')).trim().slice(0, 200); const emptied = await canvasShape();
-  await page.keyboard.press('Control+v'); await settle(); const r = await compare();
+  await page.keyboard.press(`${MOD}+v`); await settle(); const r = await compare();
   return { ...r, cutSave, refusal, emptied, pass: r.pass && same(r.canvas, original) && emptied.length <= 1 && /last content block|hollow/i.test(refusal) };
 });
 
 await row('select all and type replaces the paper with one paragraph; server matches', async () => {
-  await page.keyboard.press('Control+a'); await page.keyboard.type('fresh start'); await settle();
+  await page.keyboard.press(`${MOD}+a`); await page.keyboard.type('fresh start'); await settle();
   const r = await compare(); return { ...r, pass: r.pass && r.canvas.length === 1 && r.canvas[0].includes('fresh start') };
 });
-await row('undo the replacement; server follows', async () => { await page.keyboard.press('Control+z'); await settle(); const r = await compare(); return { ...r, pass: r.pass && same(r.canvas, original) }; });
+await row('undo the replacement; server follows', async () => { await page.keyboard.press(`${MOD}+z`); await settle(); const r = await compare(); return { ...r, pass: r.pass && same(r.canvas, original) }; });
 
 await row('reload: the paper comes back from the server as the canvas last showed it', async () => {
   await waitSaved(); const before = await canvasShape();
