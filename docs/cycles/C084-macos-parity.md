@@ -27,3 +27,5 @@
 **Closed (2026-09-28):** delivered on the working host. Carried forward into C083's list: the PowerShell terminal and recovery-review tours, the DPAPI durability twin, and the Windows return checkpoint.
 
 **Carry item closed from C083 (2026-09-29):** the managed-runtime launcher's POSIX twin landed in Barkdown `8b024ba7` with a live receipt on macOS ([C083 evidence](evidence/C083/mac-hold-rehearsal.md)). Remaining carries: PowerShell terminal and recovery-review tours, DPAPI durability, the Windows return checkpoint (native suites, visual recapture, P1 re-acceptance).
+
+**Correction (2026-09-29):** `b98e986e` had removed the Windows-only skips from `tests/atomic-write.test.mjs` without rerunning that segment on macOS; the seven rename-refusal cases fail there deterministically (POSIX renames never refuse an open reader), so the full chain was red on this Mac since then. Skips restored in Barkdown `0ba5c4bf`, the skip ratchet moved to 10 with the gap recorded; the 80/80 receipt above predates the removal and stands for the file as it then was.
