@@ -77,6 +77,9 @@ try {
   createStore(path.join(userData, 'barkdown')).writeJson('workspace.json', { version: 1, chats: { main: chat('main'), side: chat('side', { side: true, parent: 'main', parentTitle: 'Library room' }) }, order: ['main', 'side'], current: 'main', mode: 'chat', favorites: [], pages: { layoutVersion: 2, seeded: true, roots: ['bp:catalog-000'], children: { 'bp:catalog-000': ['bp:catalog-001'] }, expanded: { 'bp:catalog-000': true }, archiveOpen: false, archiveFilter: '', cloudArchiveOpen: true, cloudArchiveFilter: '200' } });
   await launch(); await configure(); await refresh(); await assertHumanState();
   assert.equal(await page.evaluate(() => window.__barkdown.state.barkparkDocs.length), 201);
+  // The archive lists at most 200 rows (renderer/src/pages.js); the 201st paper is reached through the filter.
+  assert.equal(await page.locator('#bw-cloud-archive .bw-archive-row').count(), 200, 'the archive shows its first 200 rows');
+  await page.locator('#bw-cloud-archive-filter').fill('typography 200');
   await page.locator('#bw-cloud-archive [data-open="bp:catalog-200"]').waitFor(); await shot('01-complete-library');
   await page.locator('#bw-cloud-archive [data-open="bp:catalog-200"]').click();
   await page.waitForFunction(() => document.querySelector('bp-paper-canvas')?._editor && document.querySelector('.bw-paper-pane #meta')?.textContent.includes('Editing live'));
