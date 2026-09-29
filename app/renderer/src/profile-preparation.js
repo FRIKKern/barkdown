@@ -57,7 +57,7 @@ export function installProfilePreparation({ api, root, state, controllers, seria
   // An export ends its preparation; main records the outcome against that preparation.
   const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
   const exported = value => { const o = value.exportOutcome; if (!o) return '';
-    return o.status === 'exported' ? `The export completed: ${plural(o.papers, 'Paper')}, ${plural(o.media, 'picture')} and ${plural(o.files, 'profile file')} are in ${o.folder}. Nothing in this profile changed.`
+    return o.status === 'exported' ? `The export completed: ${plural(o.papers, 'Paper')}, ${plural(o.media, 'media file')} and ${plural(o.files, 'profile file')} are in ${o.folder}. Nothing in this profile changed.`
       : o.status === 'discarded' ? `The interrupted export was discarded${o.partial === 'trashed' ? '; its partial folder is in the trash' : o.partial === 'kept' ? '; its partial folder was kept at ' + o.folder : ''}. Nothing in this profile changed.`
       : o.status === 'failed' ? `The export did not complete: ${o.message}. Nothing in this profile changed${o.partial === 'trashed' ? '; the partial folder is in the trash' : o.partial === 'kept' ? '; the partial folder was kept' : ''}.` : ''; };
   const interrupted = value => value.exportOutcome?.status === 'interrupted';

@@ -104,8 +104,17 @@ try {
   await page.keyboard.type('Harbour ledger'); await paperSaved();
   await page.keyboard.press(LINE_END); await page.keyboard.press('Enter');
   await page.keyboard.type('Cobalt lanterns mark the quay where the words must arrive.'); await paperSaved();
+  // A note with a picture, uploaded to this profile's runtime.
+  const pictured = await page.evaluate(async dataUrl => {
+    const note = await window.barkdown.barkpark.createNote(crypto.randomUUID());
+    const media = await window.barkdown.barkpark.uploadMedia({ binding: note.binding, name: 'lantern.png', mime: 'image/png', dataUrl });
+    const paper = await window.barkdown.barkpark.get(note.id, undefined, note.paperOwner);
+    await window.barkdown.barkpark.applyOps(note.id, [{ op: 'append-block', block: { id: 'lantern', type: 'image', src: media.src, alt: 'A cobalt lantern' } }], paper.rev, note.binding);
+    return { id: note.id, src: media.src };
+  }, 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==');
+  assert.match(pictured.src, /^http:\/\/127\.0\.0\.1:\d+\/media\//);
   const before = await library();
-  assert.equal(before.length, 4, JSON.stringify(before)); // two switched notes, one written on Paper, the runtime's welcome Paper
+  assert.equal(before.length, 5, JSON.stringify(before)); // two switched notes, one written on Paper, one with a picture, the runtime's welcome Paper
   const harbour = before.find(p => p.title === 'Harbour ledger');
   report.checks.push({ name: 'A library to carry: two notes switched to Paper, one written on Paper, the welcome Paper, one conversation', papers: before.length }); persist();
 
@@ -117,13 +126,13 @@ try {
   const exported = page.locator('.bw-preparation-notice', { hasText: 'The export completed' });
   await exported.waitFor({ timeout: 180000 });
   assert.equal(await exported.locator('[data-restart]').isVisible(), true, 'Restart Barkdown is offered');
-  assert.match(await exported.locator('p').textContent(), /4 Papers, 0 pictures and \d+ profile files are in .*Barkdown export - Writing desk - /);
+  assert.match(await exported.locator('p').textContent(), /5 Papers, [1-9]\d* media files? and \d+ profile files are in .*Barkdown export - Writing desk - /);
   await shot('02-export-completed-restart-offered');
   const folders = fs.readdirSync(chosen);
   assert.equal(folders.length, 1); assert.match(folders[0], /^Barkdown export - Writing desk - \d{4}-\d\d-\d\d \d{4}$/);
   const exportDir = path.join(chosen, folders[0]);
   const verified = verifyExport(exportDir);
-  assert.deepEqual(verified.manifest.counts, { papers: 3, drafts: 1 }, 'three published Papers and the note written in the app, which is a draft'); assert.equal(verified.manifest.upstream, upstream); assert.equal(verified.manifest.profile.id, profile.id);
+  assert.deepEqual(verified.manifest.counts, { papers: 3, drafts: 2 }, 'three published Papers and the two notes written in the app, which are drafts'); assert.equal(verified.manifest.upstream, upstream); assert.equal(verified.manifest.profile.id, profile.id);
   for (const name of fs.readdirSync(exportDir, { recursive: true })) assert.doesNotMatch(String(name), /local-credentials|paper-owner-key/);
   assert.deepEqual(await app.evaluate(() => globalThis.__picked), ['Choose where the profile export goes']);
   // The restart is a quit and a launch here: a relaunched process would not belong to this rehearsal.
@@ -163,7 +172,7 @@ try {
   await page.locator('#profile-import').click();
   await page.waitForFunction(() => /^Imported /.test(document.querySelector('#profile-import-status')?.textContent || '') || document.querySelector('#profile-import-status')?.classList.contains('err'), null, { timeout: 300000 });
   const said = await page.locator('#profile-import-status').textContent();
-  assert.match(said, /^Imported “Writing desk \(imported\)” with 4 Papers\./, said);
+  assert.match(said, /^Imported “Writing desk \(imported\)” with 5 Papers\./, said);
   await page.locator('#profile-import-status').scrollIntoViewIfNeeded();
   await shot('03-import-completed');
   const profiles = registry.load().profiles;
@@ -194,6 +203,16 @@ try {
   assert.equal(retained.retained, true); assert.match(retained.markdown, /Measure soil moisture at dawn/);
   const original = await page.evaluate(({ id, paperOwner }) => window.barkdown.barkpark.get(id, undefined, paperOwner), { id: harbour.id, paperOwner: owner });
   assert.match(original.markdown, /Cobalt lanterns mark the quay/);
+  // The picture: its address was written with the exporting runtime's port. It must show here, served by this profile's runtime.
+  const exporterOrigin = new URL(pictured.src).origin;
+  const stored = await page.evaluate(({ id, paperOwner }) => window.barkdown.barkpark.get(id, undefined, paperOwner), { id: pictured.id, paperOwner: owner });
+  const image = stored.blocks.find(b => b.type === 'image');
+  assert.ok(image, 'the picture block arrived');
+  await assert.rejects(fetch(exporterOrigin + '/status.json', { signal: AbortSignal.timeout(3000) }), 'the exporting runtime does not run while this profile is open');
+  await page.evaluate(({ id, paperOwner }) => window.__barkdown.openTarget({ kind: 'doc', id, source: 'barkpark', paperOwner }), { id: pictured.id, paperOwner: owner });
+  await page.waitForFunction(() => { const img = document.querySelector('.bw-paper-pane:not([hidden]) figure[data-bp-type="image"] img'); return img && img.complete && img.naturalWidth === 1; }, null, { timeout: 60000 });
+  await shot('04b-imported-picture-shown');
+  report.checks.push({ name: 'The picture of a note arrives and is shown in the imported profile, served by its own runtime', storedAddress: image.src.replace(/\d{4,5}/, 'PORT'), note: 'the stored address keeps the exporting port; the request is answered by the importing runtime' }); persist();
   report.checks.push({ name: 'The imported profile opened: Paper authority, the conversation with its unsent draft, Pages owned by the importing library, the same Papers, a retained original readable', owner: owner.slice(0, 8) }); persist();
 
   // The assistant on the imported profile, with Undo.

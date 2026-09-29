@@ -9,6 +9,7 @@ const crypto = require('node:crypto');
 const { verifyExport } = require('./profile-export');
 const { createPaperEvidenceOwner } = require('./paper-evidence-owner');
 const { createStore } = require('./store');
+const { carried } = require('./media-origins');
 const fail = (code, message, cause) => { throw Object.assign(new Error(message), { code: 'import_' + code, cause }); };
 const JOURNAL = 'profile-import.json';
 // Copied verbatim: retained originals and the evidence a rollback reads. Everything else that is
@@ -31,7 +32,7 @@ function createProfileImport({ registry, runtimePool, source, upstreamRef = () =
     try {
     // The database and the media, into a private cluster that has never booted.
     const restored = await runtimePool.restore(profile.id, { source, dumpFile: path.join(exportDir, manifest.database.path), mediaDir: path.join(exportDir, 'media') });
-    record = journal({ ...record, phase: 'restored', restoredAt: now() });
+    record = journal({ ...record, phase: 'restored', restoredAt: now(), mediaOrigins: carried(manifest, restored.connection.server) });
     // Navigation belongs to the importing library: its own key, its own connection.
     const owner = createPaperEvidenceOwner(bound).identify(restored.connection, { create: true });
     const oldOwner = manifest.navigation?.owner || null, oldProfile = manifest.profile.id;
@@ -58,7 +59,7 @@ function createProfileImport({ registry, runtimePool, source, upstreamRef = () =
     let value; try { value = createStore(registry.storeFor(profileId).storeDir, { create: false }).readJson(JOURNAL, null); } catch { return { status: 'blocked' }; }
     if (!value) return { status: 'none' };
     if (value.version !== 1 || value.profileId !== profileId || !['restoring', 'restored', 'imported'].includes(value.phase)) return { status: 'blocked' };
-    return { status: value.phase, exportedProfile: value.exportedProfile, exportedAt: value.exportedAt, exportDir: typeof value.exportDir === 'string' ? value.exportDir : null };
+    return { status: value.phase, mediaOrigins: Array.isArray(value.mediaOrigins) ? value.mediaOrigins : [], exportedProfile: value.exportedProfile, exportedAt: value.exportedAt, exportDir: typeof value.exportDir === 'string' ? value.exportDir : null };
   }
   return Object.freeze({ importProfile, inspect });
 }

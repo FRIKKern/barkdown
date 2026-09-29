@@ -636,6 +636,12 @@ app.whenReady().then(async () => {
   for (const word of ['Barkdown', 'Barkpark', 'PortableDoc', 'Codex']) session.defaultSession.addWordToSpellCheckerDictionary(word);
   documents.loadAll({ seed: !profileService });
   registerIpc();
+  // Pictures of an imported profile are answered by its own runtime (media-origins.js).
+  require('./media-origins').installMediaRedirect({ session: session.defaultSession, log: line => console.error(line), state: () => {
+    if (!profileService || !profileConnection?.server || profileConnectionOwner !== profileService.view().profileId) return { current: null, former: [] };
+    let former = []; try { former = store.createStore(profileRegistry.storeFor(profileConnectionOwner).storeDir, { create: false }).readJson('profile-import.json', null)?.mediaOrigins || []; } catch {}
+    return { current: profileConnection.server, former };
+  } });
   // The first runtime start ran before the handlers existed: check the launched profile's runtime now.
   if (runtimeReadyHook && profileService && profileConnection?.server) await runtimeReadyHook(profileService.view().profileId, profileConnection).catch(error => console.error(`[recovery] launch check failed: ${error.message}`));
   buildMenu();

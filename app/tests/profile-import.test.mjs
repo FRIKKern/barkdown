@@ -56,6 +56,8 @@ test('import creates a new profile, restores first, re-owns navigation and keeps
   assert.equal(result.record.phase, 'imported'); assert.deepEqual(result.record.navigation, { from: OLD_OWNER, to: owner });
   const inspected = f.importer.inspect(result.profileId);
   assert.equal(path.basename(inspected.exportDir), 'export', 'the journal names the export folder it came from');
+  assert.deepEqual(inspected.mediaOrigins, [], 'an export without a recorded runtime carries no media origin');
+  delete inspected.mediaOrigins;
   assert.deepEqual({ ...inspected, exportDir: null }, { status: 'imported', exportedProfile: { id: OLD_PROFILE, name: 'Writing desk' }, exportedAt: '2026-09-29T00:00:00.000Z', exportDir: null });
   assert.equal(fs.readFileSync(path.join(f.dir, 'profile/workspace.json'), 'utf8').includes(OLD_OWNER), true, 'the export folder is untouched');
 });

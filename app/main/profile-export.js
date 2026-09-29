@@ -8,6 +8,7 @@ const crypto = require('node:crypto');
 const { createUpstreamAdmission, holdReconciled } = require('./upstream-admission');
 const { createPaperEvidenceOwner } = require('./paper-evidence-owner');
 const { createStore } = require('./store');
+const { carried } = require('./media-origins');
 const fail = (code, message, cause) => { throw Object.assign(new Error(message), { code: 'export_' + code, cause }); };
 const sha = file => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 const KIND = 'barkdown-profile-export';
@@ -95,7 +96,10 @@ function createProfileExport({ registry, preparation, runtimePool, admission = c
           // Navigation keys carry the owner of this library's connection; the import re-owns them.
           let owner = null; try { owner = createPaperEvidenceOwner(createStore(storeDir, { create: false })).identify({ server: target.server, token: target.token, dataset: target.dataset, viaCli: false }); } catch {}
           const counted = await countPapers(target), counts = typeof counted === 'number' ? { papers: counted } : { papers: counted.papers, drafts: counted.drafts };
-          manifest = { version: 1, kind: KIND, exportedAt: now(), profile: { id: profile.id, name: profile.name }, upstream: upstreamRef(), navigation: { owner }, counts,
+          // Media addresses in notes carry the origin they were uploaded under; the import answers them from its own runtime.
+          let former = []; try { former = createStore(storeDir, { create: false }).readJson('profile-import.json', null)?.mediaOrigins || []; } catch {}
+          const runtime = { origin: target.server, formerOrigins: carried({ runtime: { origin: null, formerOrigins: former } }, target.server) };
+          manifest = { version: 1, kind: KIND, exportedAt: now(), profile: { id: profile.id, name: profile.name }, upstream: upstreamRef(), runtime, navigation: { owner }, counts,
             seal: { operation, generation: held.generation, boot: held.boot },
             database: { path: 'database.dump', format: 'pg_dump custom', serverVersion: database.serverVersion, bytes: fs.statSync(database.file).size, sha256: sha(database.file) },
             media, store: store.sort((a, b) => a.path.localeCompare(b.path)), excluded: EXCLUDED };
