@@ -128,6 +128,14 @@ Agent decision under the user's standing mandate; the user may reverse it. After
 
 Agent decision under the user's standing mandate ("we still have 6 days until Windows is back"); the user may reverse it. P2's remaining exits are a real library and the Windows return checkpoint, both bound to a machine that returns about 2026-10-05. Rather than idle, [C085](cycles/C085-portable-profile.md) starts the portable profile of P3 on macOS, building on the hold that C083 delivered. P2 stays active in the plan and is not claimed complete; nothing in C085 retires legacy or changes a default.
 
+## D-portable-interrupt — Nothing resumes a half-written export or import (2026-09-29)
+
+Agent decision; the user may reverse it. An export is one held state of the library; a half-written one cannot be completed later against a library that has moved, so it is discarded and taken again. A half-restored database is likewise never continued: the unfinished import is removed from the profile list and imported again from the export folder its journal names. Discarded folders go to the system trash, never deleted. An unfinished import cannot be selected. The registry can remove a profile, never the selected one.
+
+## D-runtime-reclaim — A leftover runtime is stopped only on proof (2026-09-29)
+
+Agent decision; the user may reverse it. A runtime left by a dead host is stopped at the next launch when the launch record in its own data folder names its process and the start time still matches; a recycled process id is left alone, the private database is addressed only through its directory, and a record whose host still runs is refused. Processes are never found or stopped by name.
+
 ## D-portable-app — Export and import as Settings actions (2026-09-29)
 
 Agent decision; the user may reverse it. Export and Import live in Settings, General, Storage, beside the profile list. The main process chooses the folder through the native picker and keeps it; the window never names a path. An export always ends its preparation, whether it completed or failed, and the restart notice names the outcome: there is nothing to resume in a half-written export, so a failed one is moved to the system trash and taken again. Import never selects the new profile by itself; it is chosen in the list and opened with Switch. Counts shown to the person are published Papers plus draft-only notes, which is what the library lists.

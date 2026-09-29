@@ -19,20 +19,22 @@
   ],
   "checkpoint": "2026-09-29",
   "handoff": "docs/cycles/C085-portable-profile.md",
-  "nextAction": "1) Interrupt the export and the import at each phase: an interrupted export is named at the next start and its partial folder discarded; an interrupted import is never selectable and is discarded or run again. 2) Refuse a truncated, tampered or other-version export from the app, with the reason on screen. 3) Carried from C083: the Windows return checkpoint and a real library (about 2026-10-05), the decision on pre-existing cloud references, recovery with a writer that dies inside the runtime.",
+  "nextAction": "1) Refusals from the app: a truncated, tampered or other-version export and a folder that is not an export are refused before anything is created, with the reason on screen; a folder merely opened in a file manager still imports. 2) The completed-outcome notice is dismissed once, not at every launch. 3) Carried from C083: the Windows return checkpoint and a real library (about 2026-10-05), the decision on pre-existing cloud references, recovery with a writer that dies inside the runtime.",
   "evidence": [
-    "docs/cycles/evidence/C085/live/2026-09-29T12-53-15-409Z-portable-ui/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T13-33-33-713Z-portable-ui/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T13-30-41-952Z-portable-interrupt/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T13-28-46-130Z-runtime-reclaim/result.json",
     "docs/cycles/evidence/C085/live/2026-09-29T12-55-48-018Z-export/result.json",
     "docs/cycles/evidence/C085/live/2026-09-29T12-56-05-500Z-import/result.json"
   ],
-  "truthReview": "2026-09-29: export and import are Settings actions. One Electron rehearsal on macOS exports a switched profile, imports it as a new profile and opens it (Pages, conversation with its draft, retained original, assistant edit with Undo); the exporting profile and the export folder are unchanged. The native folder picker is stubbed in that rehearsal. Interruption is not rehearsed; no second machine is claimed.",
-  "screenshotReview": "Visual run 2026-09-29T12-58-12-379Z approved: four profile frames changed by the two new Storage rows, inspected at standard and narrow width; all other stills pixel-identical. Live screenshots of the export notice, the import status and the imported profile are in the rehearsal folder.",
+  "truthReview": "2026-09-29: export and import are Settings actions, rehearsed in Electron on macOS with the imported profile opened. A host killed with SIGKILL is rehearsed three ways: idle (the runtime is reclaimed by its launch record), in the middle of an export (named, discarded, exported again) and in the middle of an import (listed, not selectable, imported again). One stall point per operation; the folder picker and the system trash are stubbed in those rehearsals; the Windows reclaim path is written and not rehearsed; no second machine is claimed.",
+  "screenshotReview": "Visual run 2026-09-29T13-37-38-917Z approved: 46 entries pixel-identical to the run approved earlier the same day (which carried the two new Storage rows). The interrupted-export notice and the unfinished-import row are not in the fixture tours; they were inspected in the live rehearsal screenshots.",
   "delivery": {
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "Interruption and discard of export and import",
       "Refusals from the app for a damaged or other-version export",
+      "Completed-outcome notice dismissed once",
       "A second machine (Windows return)",
       "Carried from C083: Windows return checkpoint, real library, cloud-reference decision, recovery with a dying writer"
     ]

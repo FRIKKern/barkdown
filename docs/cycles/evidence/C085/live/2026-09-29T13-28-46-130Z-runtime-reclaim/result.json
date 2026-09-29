@@ -1,0 +1,26 @@
+{
+  "source": "e0621d07720055477e302cbc9501433404a31547",
+  "upstream": "9f1874235449f9763c1b3e8cfcaf1b5a36aee9b3",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "The launch is recorded: host, runtime process and its start time, ports",
+      "runtime": 16285,
+      "host": 15917
+    },
+    {
+      "name": "The host is killed: its runtime and database keep running, the record remains"
+    },
+    {
+      "name": "The next launch reclaims both by the record, starts again and serves the same library; writing works",
+      "readyMs": 4
+    },
+    {
+      "name": "A clean quit leaves nothing to reclaim"
+    }
+  ],
+  "limits": [
+    "One machine, one run. The host is ended with SIGKILL while idle; a kill in the middle of a write is not produced here. POSIX process groups only: the Windows path (taskkill on the recorded process tree) is written and not rehearsed."
+  ]
+}

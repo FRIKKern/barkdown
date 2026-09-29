@@ -59,7 +59,7 @@ Demonstrated ordinary-note journeys are in the merged baseline; their linked cyc
 | ◐ In progress | Import into a fresh profile | [Work and limits](cycles/C085-portable-profile.md) |
 | ○ Remaining | Continue on another device | [A3 gate](ACCEPTANCE.md#a3--recovery-and-portability) |
 
-Groundwork only while P2 waits for its Windows exits: draft retention, interrupted preparation and restart (C076), and in C085 an export taken under the hold and its import as a new profile with its own database, rehearsed between two runtimes and from Settings in the app on one Mac. Interruption of export and import, a second machine and credential handover remain unproved, and A3 is not claimed.
+Groundwork only while P2 waits for its Windows exits: draft retention, interrupted preparation and restart (C076), and in C085 an export taken under the hold and its import as a new profile with its own database, rehearsed between two runtimes and from Settings in the app on one Mac, including a host killed in the middle of each. More stall points, a second machine and credential handover remain unproved, and A3 is not claimed.
 
 ## Cloud sync · later
 
