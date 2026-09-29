@@ -1,0 +1,83 @@
+{
+  "source": "3f38cb5b46f58dcefde15ff2259990c4e3b5a74c",
+  "upstream": "4532a25eacb796eb54bf40b1d70871c09e428a7f",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "prepare → backup → baseline → stage → select under the hold, one lease, legacy store read-only",
+      "seal": {
+        "boot": "674ab0f890a506cc01b90b1dea6e292b",
+        "generation": 1,
+        "operation": "select-b0e65015-abc1-4f2e-9aa8-c5adf2875eb9"
+      },
+      "checkpoints": [
+        "after-backup",
+        "after-baseline",
+        "staging:plan",
+        "staging:intent:orchard-fieldbook",
+        "staging:response:orchard-fieldbook",
+        "staging:readback:orchard-fieldbook",
+        "staging:receipt:orchard-fieldbook",
+        "staging:intent:soil-moisture-protocol",
+        "staging:response:soil-moisture-protocol",
+        "staging:readback:soil-moisture-protocol",
+        "staging:receipt:soil-moisture-protocol",
+        "staging:before-complete",
+        "after-staging",
+        "hold:begin",
+        "hold:begun",
+        "hold:held",
+        "after-intent",
+        "after-replacing",
+        "after-workspace-replaced",
+        "after-selected",
+        "hold:reopened",
+        "after-selected",
+        "after-selection",
+        "hold:begin",
+        "hold:begun",
+        "hold:held",
+        "after-rolling-back",
+        "after-workspace-restored",
+        "after-rolled-back",
+        "hold:reopened"
+      ]
+    },
+    {
+      "name": "switch again is idempotent",
+      "passed": true
+    },
+    {
+      "name": "rollback restores the legacy workspace; writes return once the preparation reopens",
+      "passed": true
+    },
+    {
+      "name": "a crash after replacement leaves replacing; resume completes the same operation without a second comparison",
+      "passed": true
+    },
+    {
+      "name": "crash at after-backup: nothing selected, resume completes the same switch, exactly two Papers added",
+      "staged": true,
+      "papersAdded": 2
+    },
+    {
+      "name": "crash at after-baseline: nothing selected, resume completes the same switch, exactly two Papers added",
+      "staged": true,
+      "papersAdded": 2
+    },
+    {
+      "name": "crash at staging:receipt:orchard-fieldbook: nothing selected, resume completes the same switch, exactly two Papers added",
+      "staged": true,
+      "papersAdded": 2
+    },
+    {
+      "name": "crash at after-staging: nothing selected, resume completes the same switch, exactly two Papers added",
+      "staged": true,
+      "papersAdded": 2
+    }
+  ],
+  "limits": [
+    "Headless profile with controlled foreground hooks; fake runtime lease over the harness server; labels generated, not reviewed; one run, one host."
+  ]
+}
