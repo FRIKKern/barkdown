@@ -72,7 +72,9 @@ try{
   assert.equal(await page.locator('#bw-pages [data-page="bp:alpha"]').count(),1,'the unowned cloud reference stays in Pages');await shot('05-distinct-cloud-page-unowned');
   await page.locator(`#bw-pages [data-open="${key(ids.beta)}"]`).click();await arrived(ids.beta);assert.equal(await page.locator(`#bw-pages [data-page="${key(ids.beta)}"]`).getAttribute('data-depth'),'1');await shot('06-nested-page');
   await page.locator('#bw-favorites').click();await page.locator('#bw-fav-menu [data-open="local-fav"]').click();await arrived(ids.alpha);await shot('07-local-favorite');
-  await page.locator('#bw-favorites').click();await page.locator('#bw-fav-menu [data-open="cloud-fav"]').click();await arrived('alpha');await shot('08-cloud-favorite');
+  // The cloud favorite is the same unowned pre-existing reference: refused the same way, kept as saved.
+  await page.locator('#bw-favorites').click();await page.locator('#bw-fav-menu [data-open="cloud-fav"]').click();
+  await page.waitForFunction(()=>document.querySelector('.bw-paper-pane:not([hidden])')?.textContent.includes('The original library is unknown'),null,{timeout:30000});await shot('08-cloud-favorite-unowned');
   await unchangedOrganization();editorBundle=JSON.parse(fs.readFileSync(path.join(userData,'canvas-bundle/current.json')));assert.equal(editorBundle.source,'server');assert.equal(editorBundle.sha,crypto.createHash('sha1').update(fs.readFileSync(path.join(process.env.BARKDOWN_TEST_BP_SOURCE,'api/priv/static/assets/bp-paper-editor.bundle.js'))).digest('hex'));
   await page.setViewportSize({width:760,height:900});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await shot('09-narrow');
   await page.waitForFunction(async()=>{const saved=await window.barkdown.state.load();return saved?.mode==='chat'&&saved.current==='main'&&saved.chats.main.active==='cloud-view'&&saved.chats.main.draft==='Keep my main draft.'&&saved.chats.side.draft==='Keep my independent side draft.';});await close('projected-navigation');
