@@ -17,7 +17,7 @@
   ],
   "checkpoint": "2026-09-29",
   "handoff": "docs/cycles/C083-writer-admission.md",
-  "nextAction": "1) User merges PR20433, PR20434, PR20435 (each deploys production). 2) Bump app/BARKPARK_REF to the merged main commit; rerun the four live rehearsals against it (Mac now, Windows at the return checkpoint). 3) UI: resume-or-roll-back prompt at start for an interrupted switch (adoption-window pattern) and a reconciliation view for a rolled-back switch with divergence, each captured and approved. 4) Interruption proof of the switch inside the real app (kill during replacing), then the A2 review of the whole corpus on a real library.",
+  "nextAction": "1) User merges PR20436 (slice 5) then PR20435 (slice 6) with `gh pr merge <n> --squash --delete-branch --admin` (required checks cannot run; CI budget). 2) Bump app/BARKPARK_REF to the merged main commit; rerun the four live rehearsals against it (Mac now, Windows at the return checkpoint). 3) Decide whether the switch is exposed in the app (resume-or-roll-back prompt, reconciliation view); the migration flow exists only as main-process helpers and tests. 4) Interruption proof of the switch inside the real app, then the A2 review on a real library.",
   "evidence": [
     "docs/cycles/evidence/C082/merge.json",
     "docs/cycles/evidence/C082/integration-review.json",
