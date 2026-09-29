@@ -5,7 +5,7 @@
 import { toast } from './ui.js';
 const inFlight = new Set(['intent', 'replacing', 'rolling-back', 'blocked']);
 export function installSwitchNotice({ api, state, prepareProfile }) {
-  if (!state.profileId || !inFlight.has(state.selection)) return null;
+  if (!inFlight.has(state.selection)) return null;
   const notice = document.createElement('aside');
   notice.className = 'bw-preparation-notice bw-switch-notice'; notice.setAttribute('role', 'alertdialog');
   const message = { intent: 'A library switch was interrupted before the notes were replaced.', replacing: 'A library switch was interrupted while the notes were being replaced.', 'rolling-back': 'A rollback of the library switch was interrupted.', blocked: 'The library switch journal could not be read.' }[state.selection];

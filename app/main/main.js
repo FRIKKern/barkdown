@@ -337,7 +337,13 @@ function registerIpc() {
   handle('app:openPath', p => shell.openPath(p));
   handle('app:info', () => ({ version: app.getVersion(), electron: process.versions.electron, chrome: process.versions.chrome, node: process.versions.node, platform: process.platform, arch: process.arch, userData: store.dir() }));
 
-  handle('state:load', () => profileService ? profileService.load(profileService.view()) : store.readJson('workspace.json', null));
+  handle('state:load', () => {
+    if (profileService) return profileService.load(profileService.view());
+    const ws = store.readJson('workspace.json', null);
+    if (!ws) return ws;
+    const selection = require('./migration-selection').selectionStatus(store);
+    return { ...ws, authority: selection.authority, selection: selection.status };
+  });
   handle('state:save', state => { if (profileService) return profileService.save(profileService.view(), state); store.writeJson('workspace.json', state); return true; });
   handle('state:command', command => { if (!profileService) throw new Error('Managed transcripts require profiles'); return profileService.workspaces.command(profileService.view().profileId, command); });
 
