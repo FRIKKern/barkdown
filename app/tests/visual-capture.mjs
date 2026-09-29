@@ -58,7 +58,7 @@ try{
  ]);
  await selection(null);
  await tour('settings','Real Settings navigation. No server connection or credential is configured.',[
-  ['general',()=>p.locator('#bw-settings').click()],['assistant',()=>p.locator('.bw-settings-nav [data-pane="assistant"]').click()],['barkpark',()=>p.locator('.bw-settings-nav [data-pane="barkpark"]').click()],['shortcuts',()=>p.locator('.bw-settings-nav [data-pane="shortcuts"]').click()]
+  ['general',()=>p.locator('#bw-settings').click()],['assistant',()=>p.locator('.bw-settings-nav [data-pane="assistant"]').click()],['barkpark',()=>p.locator('.bw-settings-nav [data-pane="barkpark"]').click()],['library-switch',async()=>{await p.locator('[data-act="switch-paper"]').scrollIntoViewIfNeeded();await p.locator('#bp-switch-status').waitFor();}],['shortcuts',()=>p.locator('.bw-settings-nav [data-pane="shortcuts"]').click()]
  ]);
  await p.keyboard.press('Escape');
  await tour('goals','Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.',[
