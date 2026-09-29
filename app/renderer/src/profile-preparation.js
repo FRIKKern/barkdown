@@ -63,7 +63,10 @@ export function installProfilePreparation({ api, root, state, controllers, seria
       pauseSaves(true);
       showNotice(value.restartRequired ? 'Preparation was cancelled. Close and reopen Barkdown to continue editing; retained drafts are kept.' : 'Editing is paused for this profile while preparation is resolved.');
     } else if (value.record?.phase === 'aborted') {
-      showNotice('Preparation was cancelled. Your retained drafts are available; the current Paper has not been replaced.');
+      // The same release transition ends a completed switch or rollback; the selection journal says which.
+      showNotice(state.selection === 'selected' ? 'The library switch completed. Notes now live on Paper; legacy notes are retained read-only. Retained drafts are available.'
+        : state.selection === 'rolled-back' ? 'The rollback completed. Legacy notes are back; Papers and their later edits stay on Paper. Retained drafts are available.'
+        : 'Preparation was cancelled. Your retained drafts are available; the current Paper has not been replaced.');
     }
     lastStatus = value;
     if (notice) {
