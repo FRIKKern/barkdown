@@ -1,0 +1,27 @@
+{
+  "source": "00839b3b36d9776e74f608384aa58245d5e2249e",
+  "upstream": "9f1874235449f9763c1b3e8cfcaf1b5a36aee9b3",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "Quit in the moment the last key is pressed: the pending words are sent before the library stops and are on the note once after the restart",
+      "fromRev": 2,
+      "rev": 3,
+      "quitLog": []
+    },
+    {
+      "name": "Quit at once with the database dead: the words are kept as a retained draft at quit, the reopened note names them, and putting them back leaves every sentence in the note once",
+      "quitLog": [
+        "[quit] 1 note not saved at quit: 1 kept as retained drafts"
+      ]
+    }
+  ],
+  "screenshots": [
+    "01-reopened-note-names-the-unsaved-words.png",
+    "02-words-put-back.png"
+  ],
+  "limits": [
+    "One machine, one run, one note. The quit is the app's own quit, asked for in the same moment the last key is pressed; a kill of the process while a save is in flight is not produced here (a killed host is covered by the reclaim rehearsal, where unsaved keystrokes of the last moments are lost)."
+  ]
+}
