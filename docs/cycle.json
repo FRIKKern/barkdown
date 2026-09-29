@@ -17,7 +17,7 @@
   ],
   "checkpoint": "2026-09-29",
   "handoff": "docs/cycles/C083-writer-admission.md",
-  "nextAction": "1) Merge PR20435 (slice 6) when its Test job is green (watch running). 2) Bump app/BARKPARK_REF to the merged main commit; rerun the five live rehearsals against it (Mac now, Windows at the return checkpoint). 3) A2 review of the whole corpus on a real library; then the Windows return checkpoint.",
+  "nextAction": "1) Record the rehearsal receipt against the pinned runtime (4532a25ea); recapture and approve the darwin visual baseline (BARKPARK_REF is a visual input) and the README pictures. 2) Merge PR20438 (slice 7) when green. 3) A2 review of the whole corpus on a real library, then the Windows return checkpoint (native suites, visual recapture, P1 re-acceptance; Barkdown's own Actions budget is exhausted, so no Windows lane runs until it resets).",
   "evidence": [
     "docs/cycles/evidence/C082/merge.json",
     "docs/cycles/evidence/C082/integration-review.json",
