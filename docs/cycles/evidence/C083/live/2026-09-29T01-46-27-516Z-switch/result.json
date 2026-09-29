@@ -1,0 +1,52 @@
+{
+  "source": "92664533039db9ebe1c61924076cef8075aeccdb",
+  "upstream": "a994e99ebe1c1bd0957f744998935aeac3ab786b",
+  "host": "darwin 24.3.0 arm64",
+  "status": "failed",
+  "checks": [
+    {
+      "name": "prepare → backup → baseline → stage → select under the hold, one lease, legacy store read-only",
+      "seal": {
+        "boot": "3d6cce329fed9b7cfdfb76c6399d3ace",
+        "generation": 1,
+        "operation": "select-5e256c37-03f5-4bd0-9fb7-2ca44eec0513"
+      },
+      "checkpoints": [
+        "after-backup",
+        "after-baseline",
+        "staging:plan",
+        "staging:intent:orchard-fieldbook",
+        "staging:response:orchard-fieldbook",
+        "staging:readback:orchard-fieldbook",
+        "staging:receipt:orchard-fieldbook",
+        "staging:intent:soil-moisture-protocol",
+        "staging:response:soil-moisture-protocol",
+        "staging:readback:soil-moisture-protocol",
+        "staging:receipt:soil-moisture-protocol",
+        "staging:before-complete",
+        "after-staging",
+        "after-intent",
+        "after-replacing",
+        "after-workspace-replaced",
+        "after-selected",
+        "after-selected",
+        "after-selection",
+        "after-rolling-back",
+        "after-workspace-restored",
+        "after-rolled-back"
+      ]
+    },
+    {
+      "name": "switch again is idempotent",
+      "passed": true
+    },
+    {
+      "name": "rollback restores the legacy workspace; writes return once the preparation reopens",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Headless profile with controlled foreground hooks; fake runtime lease over the harness server; labels generated, not reviewed; one run, one host."
+  ],
+  "error": "Error: Foreground freeze belongs to another owner or is incomplete.\n    at fail (/Users/frikkjarl/Documents/GitHub/barkdown/app/main/profile-preparation.js:17:47)\n    at run (/Users/frikkjarl/Documents/GitHub/barkdown/app/main/profile-preparation.js:129:135)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)"
+}
