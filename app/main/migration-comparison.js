@@ -188,7 +188,7 @@ function createMigrationComparison({ preparation }) {
         if (differs(Object.fromEntries(Object.keys(expected).map(k => [k, saved[k]])), expected)) changed.push({ id: doc.targetId, title: saved.title ?? expected.title ?? null, kind: 'staged', what: 'content' });
         else if (differs([saved._rev, saved.rev], [existingReceipt.revision, existingReceipt.paperRevision])) changed.push({ id: doc.targetId, title: saved.title ?? null, kind: 'staged', what: 'revision' });
       }
-      if (changed.length) throw Object.assign(new Error(`${changed.length} ${[...new Set(changed.map(c => c.kind))].join(' and ')} Paper${changed.length === 1 ? '' : 's'} changed or disappeared after the baseline: ${changed.slice(0, 5).map(c => c.id).join(', ')}${changed.length > 5 ? ', …' : ''}`), { code: 'comparison_changed', details: changed });
+      if (changed.length) throw Object.assign(new Error(`${changed.length} ${[...new Set(changed.map(c => c.kind))].join(' and ')} Paper${changed.length === 1 ? '' : 's'} changed or disappeared after the baseline (${[...new Set(changed.map(c => ({ content: 'content', revision: 'revisions', missing: 'missing' })[c.what]))].join(', ')}): ${changed.slice(0, 5).map(c => c.id).join(', ')}${changed.length > 5 ? ', …' : ''}`), { code: 'comparison_changed', details: changed });
       if (rows.length !== expectedIds.size || rows.some(row => !expectedIds.has(row._id))) fail('comparison_target', 'Unexpected Paper or draft twin in the library');
       const assets = await mediaFor(rows);
       for (const asset of baseline.media) same(assets.find(a => a.path === asset.path), asset, 'Pre-existing media changed');
