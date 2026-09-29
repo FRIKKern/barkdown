@@ -11,8 +11,11 @@ const count = pattern => files.reduce((n, f) => n + (fs.readFileSync(path.join(d
 
 test('platform-only skips are pinned per kind and named', () => {
   const pins = {
-    // node:test cases gated on PowerShell shell semantics (owned process trees now run on POSIX).
-    unitSkipsOffWindows: { pattern: /skip:\s*process\.platform\s*!==\s*'win32'/g, expected: 3 },
+    // node:test cases gated on Windows semantics: three on PowerShell shell behavior, and seven in
+    // atomic-write.test.mjs on real rename refusal by an open reader, which POSIX never produces
+    // (no twin possible; owned by the Windows return checkpoint, restored 2026-09-29 after C084
+    // had dropped them without rerunning the segment on macOS).
+    unitSkipsOffWindows: { pattern: /skip:\s*process\.platform\s*!==\s*'win32'/g, expected: 10 },
     // live files that exit early off Windows through helpers/host.mjs: PowerShell terminal tour, recovery review tour, DPAPI durability.
     liveFilesSkippedOffWindows: { pattern: /^skipUnlessWindows\(/gm, expected: 3 },
     // blocks gated inline on win32 (profile-preparation's terminal ownership halves, profile-registry).

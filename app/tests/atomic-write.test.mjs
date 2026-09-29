@@ -8,10 +8,13 @@ const require = createRequire(import.meta.url);
 const { createProfileRegistry } = require('../main/profile-registry');
 const { openJournal } = require('../main/goals');
 
-// Real Windows replacement refusal, controlled only at the failed rename boundary.
+// Real Windows replacement refusal, controlled only at the failed rename boundary. POSIX renames
+// never refuse a reader, so these cases have no twin there; the skip ratchet in host-skips.test.mjs
+// records the gap (owner: the Windows return checkpoint). C084 dropped the skips without rerunning
+// this segment on macOS; restored 2026-09-29.
 // Each fixture is disposable and retained. No external effects or library content.
 for (const kind of ['workspace', 'journal']) {
-  test(`${kind}: transient reader releases after first refused replacement`, {}, () => {
+  test(`${kind}: transient reader releases after first refused replacement`, { skip: process.platform !== 'win32' }, () => {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-atomic-retry-'));
     let file, write, read, close = () => {};
     if (kind === 'workspace') {
@@ -57,7 +60,7 @@ function adapter(kind) {
 }
 const injected = code => Object.assign(new Error('Controlled ' + code), { code });
 for (const kind of ['workspace', 'journal']) {
-  test(`${kind}: persistent real reader has bounded attempts and retains candidate`, {}, () => {
+  test(`${kind}: persistent real reader has bounded attempts and retains candidate`, { skip: process.platform !== 'win32' }, () => {
     const a = adapter(kind), previous = fs.readFileSync(a.file), old = a.read();
     const fd = fs.openSync(a.file, 'r'), rename = fs.renameSync; let calls = 0, candidate;
     fs.renameSync = (source, destination) => { if (destination === a.file) { calls++; candidate = source; } return rename(source, destination); };
@@ -68,7 +71,7 @@ for (const kind of ['workspace', 'journal']) {
     } finally { fs.renameSync = rename; fs.closeSync(fd); a.close(); }
   });
   for (const mode of ['target', 'candidate', 'lease', 'post-rename', 'nonretry']) {
-    test(`${kind}: refuses ${mode} ambiguity without a second rename`, {}, () => {
+    test(`${kind}: refuses ${mode} ambiguity without a second rename`, { skip: process.platform !== 'win32' }, () => {
       const a = adapter(kind), previous = fs.readFileSync(a.file), old = a.read(), rename = fs.renameSync;
       let calls = 0, candidate, originalLease;
       fs.renameSync = (source, destination) => {
@@ -100,7 +103,7 @@ test('journal refuses authority changed between calls', () => {
   finally { a.close(); }
 });
 
-test('managed store serializes cooperating target writers during retry', {}, () => {
+test('managed store serializes cooperating target writers during retry', { skip: process.platform !== 'win32' }, () => {
   const a = adapter('workspace'), rename = fs.renameSync; let calls = 0;
   fs.renameSync = (source, destination) => {
     if (destination === a.file && ++calls === 1) { assert.throws(a.write, /another writer/); throw injected('EBUSY'); }
@@ -112,7 +115,7 @@ test('managed store serializes cooperating target writers during retry', {}, () 
 
 // Independent worker releases its real descriptor while the synchronous caller waits.
 for (const kind of ['workspace', 'journal']) {
-  test(`${kind}: independent reader closes while retry waits`, { timeout: 10000 }, async () => {
+  test(`${kind}: independent reader closes while retry waits`, { skip: process.platform !== 'win32', timeout: 10000 }, async () => {
     const { Worker } = await import('node:worker_threads');
     const a = adapter(kind), rename = fs.renameSync; let calls = 0;
     const worker = new Worker(`const fs=require('fs');const {parentPort,workerData}=require('worker_threads');const fd=fs.openSync(workerData,'r');parentPort.postMessage('ready');parentPort.once('message',()=>setTimeout(()=>{fs.closeSync(fd);parentPort.close()},15));`, { eval: true, workerData: a.file });
@@ -129,7 +132,7 @@ for (const kind of ['workspace', 'journal']) {
   });
 }
 
-test('atomic writer refuses newly created or same-byte replaced target', {}, () => {
+test('atomic writer refuses newly created or same-byte replaced target', { skip: process.platform !== 'win32' }, () => {
   const { atomicWrite } = require('../main/atomic-write');
   for (const existed of [false, true]) {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-atomic-identity-')), file = path.join(root, 'target.json');
@@ -294,7 +297,7 @@ test('malformed recovery guard and depth limit retain entire authority chain', (
   }
 });
 
-test('guard unlink refusal does not strand newly acquired writer', { timeout: 20000 }, async () => {
+test('guard unlink refusal does not strand newly acquired writer', { skip: process.platform !== 'win32', timeout: 20000 }, async () => {
   const { spawn } = await import('node:child_process');
   const a = adapter('workspace'), before = fs.readFileSync(a.file), guard = a.lease + '.recovery';
   fs.writeFileSync(a.lease, JSON.stringify({ pid: 2147483647, lease: 'ef97b0da-64c1-4f98-aa71-d282f5b8a111' }));
