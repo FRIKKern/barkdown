@@ -91,6 +91,28 @@ try {
   assert.equal(JSON.parse(fs.readFileSync(path.join(sourceDir2, 'workspace.json'), 'utf8')).pages.roots.length, 1);
   report.checks.push({ name: 'a crash after replacement leaves replacing; resume completes the same operation without a second comparison', passed: true }); persist();
   await preparation.abort(second.id);
+  // Every earlier phase too: a crash right after the backup, after the baseline and in the middle
+  // of staging. Resume completes each as the same switch without a second backup or duplicate Papers.
+  for (const point of ['after-backup', 'after-baseline', 'staging:receipt:orchard-fieldbook', 'after-staging']) {
+    const p = registry.createProfile({ name: 'Crash at ' + point }), dir = registry.storeFor(p.id).storeDir;
+    require('../main/paper-evidence-owner').createPaperEvidenceOwner(createStore(dir, { create: false })).identify({ server, token, dataset: 'production', viaCli: false }, { create: true });
+    const d = createDocuments(createStore(dir, { create: false }));
+    const one = d.create({ title: 'Orchard fieldbook', markdown: 'A fieldbook that survives a crash at ' + point + '.' });
+    const two = d.create({ title: 'Soil moisture protocol', markdown: 'Measure soil moisture at dawn; crash point ' + point + '.' });
+    fs.writeFileSync(path.join(dir, 'workspace.json'), JSON.stringify({ version: 1, profileId: p.id, chats: {}, order: [], current: null, pages: { layoutVersion: 2, seeded: true, roots: [one.id, two.id], children: {}, expanded: {} }, favorites: [] }));
+    await preparation.prepare(p.id);
+    let armedHere = true;
+    const crashing = createMigrationSwitch({ registry, preparation, runtimePool, userData, checkpoint: phase => { if (armedHere && phase === point) { armedHere = false; throw Object.assign(new Error('simulated crash at ' + point), { code: 'crash' }); } } });
+    await assert.rejects(crashing.switchToPaper(p.id), { code: 'crash' });
+    const midway = crashing.status(p.id);
+    assert.equal(midway.selection.status, 'none', 'nothing is selected after a crash before the intent');
+    const resumed = await crashing.switchToPaper(p.id);
+    assert.equal(resumed.selection.status, 'selected');
+    const listing = await (await fetch(server + '/v1/data/query/production/paper?limit=200&count=true&perspective=published', { headers: { authorization: 'Bearer ' + token } })).json();
+    const titles = (listing.documents || []).map(x => x.title).filter(t => t === 'Orchard fieldbook' || t === 'Soil moisture protocol');
+    report.checks.push({ name: `crash at ${point}: nothing selected, resume completes the same switch`, staged: resumed.staged, papersWithTheseTitlesOnRuntime: titles.length }); persist();
+    await preparation.abort(p.id);
+  }
   report.status = 'passed'; persist(); console.log(JSON.stringify(report, null, 2));
 } catch (error) { report.status = 'failed'; report.error = String(error?.stack || error); persist(); throw error; }
 finally { goals.close(); }
