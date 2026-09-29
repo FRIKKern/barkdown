@@ -29,7 +29,7 @@ async function http(method, route, body) {
 // The Paper as the server holds it: its revision and its blocks, wherever the row carries them.
 const read = async id => {
   const r = await http('GET', '/v1/data/doc/production/paper/' + id + '?perspective=published'); assert.equal(r.status, 200, JSON.stringify(r.data));
-  const doc = r.data.document || r.data, blocks = doc.blocks ?? doc.content?.blocks, rev = doc.rev ?? doc.content?.rev;
+  const envelope = r.data.result ?? r.data, doc = envelope.document ?? envelope, blocks = doc.blocks ?? doc.content?.blocks, rev = doc.rev ?? doc.content?.rev;
   assert.ok(Array.isArray(blocks) && Number.isInteger(rev), 'a Paper read carries its blocks and revision: ' + Object.keys(doc).join(','));
   return { rev, blocks };
 };
