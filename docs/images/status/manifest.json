@@ -1,12 +1,12 @@
 {
-  "capturedAt": "2026-09-29T05:38:52.402Z",
-  "barkdownCommit": "a981c411feec31c070f8e408180a03c24d1790d1",
+  "capturedAt": "2026-09-29T06:44:35.148Z",
+  "barkdownCommit": "83bd2b38c694a08aebc34406cd31538720681434",
   "barkdownTreeDirty": false,
   "barkparkCommit": "4532a25eacb796eb54bf40b1d70871c09e428a7f",
   "barkparkTreeDirty": false,
   "isolatedRuntime": true,
   "server": {
-    "url": "http://127.0.0.1:58065",
+    "url": "http://127.0.0.1:56763",
     "version": "0.2.26.4455"
   },
   "chat": {
@@ -17,45 +17,28 @@
   "rows": {},
   "shots": [
     {
-      "file": "paper-light.cf73fe93.png",
+      "file": "paper-light.a26cbbeb.png",
       "caption": "A Barkpark paper edited live in the canvas inside Barkdown, beside a real Claude Code turn on it: quote, checklist, table, callout and code, saved as ops to a local Barkpark."
     },
     {
-      "file": "paper-dark.b7a537e5.png",
+      "file": "paper-dark.a6c590e2.png",
       "caption": "The same paper and conversation in dark mode."
     },
     {
-      "file": "slash-menu.c7cfcab8.png",
+      "file": "slash-menu.ce5678d1.png",
       "caption": "The slash menu inside the paper, with the plain Quote row beside Callout and Code."
     },
     {
-      "file": "quick-open.aab267e7.png",
+      "file": "quick-open.5b029a06.png",
       "caption": "Quick open (Ctrl+K) over tabs, papers, chats and actions."
     },
     {
-      "file": "settings-barkpark.5924c693.png",
-      "caption": "Settings \u203a Barkpark: the connection Barkdown edits through \u2014 here the local server."
+      "file": "settings-barkpark.7f0f0d35.png",
+      "caption": "Settings › Barkpark: the connection Barkdown edits through — here the local server."
     },
     {
-      "file": "editing.fbde4855.gif",
-      "caption": "An editing loop in the canvas: slash menu \u2192 Quote, typing, Tab through the table, quick open."
-    }
-  ],
-  "uiExemptions": [
-    {
-      "commit": "4055e0ee",
-      "date": "2026-09-29",
-      "reason": "main/profile-service.js and main/goal-process.js: ordinary turns as owned workers on every host, recovery traces. No renderer change (C083)."
-    },
-    {
-      "commit": "c80038e7",
-      "date": "2026-09-29",
-      "reason": "main/terminal.js: the shell runs in the owned worker on every host. No renderer change (C083)."
-    },
-    {
-      "commit": "c5193cde",
-      "date": "2026-09-29",
-      "reason": "main/mcp-server.js: the paper listing says why it is unavailable. No renderer change (C083)."
+      "file": "editing.5c45167b.gif",
+      "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
     }
   ]
 }

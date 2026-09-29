@@ -1,0 +1,69 @@
+{
+  "source": "ee7f0dc197d4439bdfe69048467ea9388c9c3865",
+  "upstream": "4532a25eacb796eb54bf40b1d70871c09e428a7f",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "selection under both fences replaced the workspace with the owned projection",
+      "seal": {
+        "boot": "d5b02439d581bdb4a53f4885c04a4808",
+        "generation": 1,
+        "operation": "select-f8fdb56f-5c25-4419-b6f1-7031f3f49463"
+      },
+      "reopenedGeneration": 2,
+      "checkpoints": [
+        "hold:begin",
+        "hold:begun",
+        "hold:held",
+        "after-intent",
+        "after-replacing",
+        "after-workspace-replaced",
+        "after-selected",
+        "hold:reopened",
+        "after-selected",
+        "hold:begin",
+        "hold:begun",
+        "hold:held",
+        "hold:reopened",
+        "hold:begin",
+        "hold:begun",
+        "hold:held",
+        "after-rolling-back",
+        "after-workspace-restored",
+        "after-rolled-back",
+        "hold:reopened"
+      ],
+      "favorite": {
+        "id": "local-5bb056d602c9d95658ec6cc04b535084",
+        "kind": "doc",
+        "paperOwner": "dd94fd6757e353f5c262980bcb44cb7b59a11440261c8f45f42d2da3df2b48a0",
+        "source": "barkpark"
+      }
+    },
+    {
+      "name": "reselect is idempotent",
+      "passed": true
+    },
+    {
+      "name": "rollback after a Paper edit restores the legacy workspace, keeps the edit on Paper and records the divergence",
+      "divergence": {
+        "at": "2026-09-29T06:43:14.356Z",
+        "code": "comparison_changed",
+        "details": [
+          {
+            "id": "local-5bb056d602c9d95658ec6cc04b535084",
+            "kind": "staged",
+            "title": "Orchard fieldbook",
+            "what": "content"
+          }
+        ],
+        "message": "1 staged Paper changed or disappeared after the baseline: local-5bb056d602c9d95658ec6cc04b535084"
+      },
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Headless profile with controlled foreground hooks; the renderer does not yet show the selection; one Paper edit between selection and rollback; the runtime was idle so the hold was held at once."
+  ]
+}

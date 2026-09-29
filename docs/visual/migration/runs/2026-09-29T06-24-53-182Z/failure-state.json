@@ -1,0 +1,862 @@
+{
+  "text": "b\nBarkdown\nSide reflection\nBeta\nFavorites\nPAGES\nlocal-59e5e09c863c614da7281812ce29f226\nlocal-d9fa1b678139b720d819938f71d2e345\nalpha\nARCHIVE\n2\nCLOUD ARCHIVE\n23\nRECENT CHATS\nWriting room\nno folder ·\nSide reflection\n↳ Writing room · no folder ·\nFJ\nBarkdown\nBarkpark · 23\nFrom Writing room\nb\nBarkdown\n20/09/2026\n\nA retained conversation about alpha.\n\nNo working folder\nClaude API key · not signed in\nOpus 5 (default)\nEffort\n↑\nBarkpark / Paper\n\nThe original library is unknown. Open this Paper from the library to create a new reference. Your saved reference is unchanged.",
+  "state": {
+    "chats": {
+      "main": {
+        "id": "main",
+        "title": "Writing room",
+        "messages": [
+          {
+            "id": "message-main",
+            "role": "assistant",
+            "text": "A retained conversation about alpha.",
+            "at": "2026-09-20T12:00:00Z"
+          }
+        ],
+        "events": [],
+        "apiHistory": [],
+        "tabs": [
+          {
+            "id": "path-main",
+            "type": "doc",
+            "source": "barkpark",
+            "path": [
+              "local-59e5e09c863c614da7281812ce29f226",
+              "local-d9fa1b678139b720d819938f71d2e345"
+            ],
+            "title": "My local path",
+            "scroll": 0
+          },
+          {
+            "id": "side-view",
+            "type": "chat",
+            "sideChatId": "side",
+            "title": "Side reflection"
+          },
+          {
+            "id": "cloud-view",
+            "type": "doc",
+            "source": "barkpark",
+            "path": [
+              "alpha"
+            ],
+            "title": "Cloud Alpha"
+          }
+        ],
+        "active": "side-view",
+        "draft": "Keep my main draft.",
+        "draftImages": [],
+        "closedTargets": [],
+        "runId": null,
+        "folder": null,
+        "following": false,
+        "chatScroll": 0
+      },
+      "side": {
+        "id": "side",
+        "title": "Side reflection",
+        "messages": [
+          {
+            "id": "message-side",
+            "role": "assistant",
+            "text": "A retained conversation about alpha.",
+            "at": "2026-09-20T12:00:00Z"
+          }
+        ],
+        "events": [],
+        "apiHistory": [],
+        "tabs": [
+          {
+            "id": "path-side",
+            "type": "doc",
+            "path": [
+              "local-d9fa1b678139b720d819938f71d2e345"
+            ],
+            "title": "Beta",
+            "source": "barkpark"
+          }
+        ],
+        "active": "path-side",
+        "draft": "Keep my independent side draft.",
+        "draftImages": [],
+        "closedTargets": [],
+        "runId": null,
+        "folder": null,
+        "following": true,
+        "parent": "main",
+        "parentTitle": "Writing room",
+        "side": true,
+        "chatScroll": 0
+      },
+      "direct": {
+        "id": "direct",
+        "title": "Documents",
+        "createdAt": "2026-09-29T06:24:54.457Z",
+        "updatedAt": "2026-09-29T06:24:54.457Z",
+        "folder": null,
+        "messages": [],
+        "apiHistory": [],
+        "events": [],
+        "tabs": [],
+        "active": null,
+        "draft": "",
+        "following": true,
+        "editorExpanded": false,
+        "chatScroll": 0,
+        "side": true,
+        "parent": null,
+        "runId": null,
+        "closedTargets": []
+      }
+    },
+    "order": [
+      "main",
+      "side"
+    ],
+    "favorites": [
+      {
+        "id": "local-fav",
+        "label": "My local Alpha",
+        "target": {
+          "kind": "doc",
+          "id": "local-59e5e09c863c614da7281812ce29f226",
+          "source": "barkpark",
+          "title": "Alpha"
+        },
+        "chatId": "main"
+      },
+      {
+        "id": "cloud-fav",
+        "label": "Existing cloud Alpha",
+        "target": {
+          "kind": "doc",
+          "id": "alpha",
+          "source": "barkpark",
+          "title": "Cloud Alpha"
+        },
+        "chatId": "main"
+      }
+    ],
+    "pages": {
+      "layoutVersion": 2,
+      "seeded": true,
+      "roots": [
+        "bp:local-59e5e09c863c614da7281812ce29f226",
+        "bp:alpha"
+      ],
+      "children": {
+        "bp:local-59e5e09c863c614da7281812ce29f226": [
+          "bp:local-d9fa1b678139b720d819938f71d2e345"
+        ]
+      },
+      "expanded": {
+        "bp:local-59e5e09c863c614da7281812ce29f226": true,
+        "bp:alpha": false
+      },
+      "archiveOpen": false,
+      "archiveFilter": "",
+      "cloudArchiveOpen": false,
+      "cloudArchiveFilter": "",
+      "archived": {
+        "bp:unplaced-cloud": true
+      },
+      "cloudLayoutMigration": {
+        "previousRoots": [
+          "alpha",
+          "bp:alpha"
+        ],
+        "moved": []
+      }
+    },
+    "current": "side",
+    "mode": "chat",
+    "directTab": {
+      "id": "saved-direct",
+      "type": "doc",
+      "source": "barkpark",
+      "path": [
+        "local-59e5e09c863c614da7281812ce29f226"
+      ],
+      "title": "Alpha"
+    },
+    "settings": {
+      "sidebarWidth": 200,
+      "chatWidth": 60,
+      "theme": "system",
+      "model": "claude-opus-5",
+      "provider": "api",
+      "providerChosen": false,
+      "claudeModel": "",
+      "codexModel": "",
+      "providers": {
+        "claude": {
+          "loggedIn": true,
+          "effort": "high",
+          "model": null
+        },
+        "codex": {
+          "loggedIn": true,
+          "model": "gpt-6-astra",
+          "effort": "medium"
+        },
+        "api": {
+          "hasKey": false
+        }
+      },
+      "hasApiKey": false,
+      "apiKeyFromEnv": false,
+      "barkpark": {
+        "catalogKind": "cloud",
+        "connectionIdentity": "29a6621ae5f15c77615d1e76d9766d21dc0e2af083a8a15450b5ccb0df43d52f",
+        "catalogGeneration": 1,
+        "effectiveServer": "http://127.0.0.1:52132",
+        "enabled": true,
+        "server": "http://127.0.0.1:52132",
+        "hasToken": true,
+        "dataset": "production",
+        "writes": true,
+        "viaCli": false,
+        "local": {
+          "enabled": false,
+          "source": "",
+          "port": 4540,
+          "pgPort": 5540
+        }
+      },
+      "recentFolders": [],
+      "userData": "/private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-navigation-preview-bav28F/projected-app/barkdown"
+    },
+    "documents": [
+      {
+        "id": "interaction-notes",
+        "title": "Interaction notes",
+        "updatedAt": "2026-09-29T06:24:53.963Z",
+        "createdAt": "2026-09-29T06:24:53.963Z",
+        "rev": 1,
+        "source": "local",
+        "excerpt": "Different kinds of work. One familiar place to follow them.\nWork tabs\nEach chat owns a workspace of tabs. A tab can hold a document, a website, a code review, a",
+        "references": [
+          "overview"
+        ],
+        "proposals": 0,
+        "tags": [
+          "barkdown",
+          "design"
+        ]
+      },
+      {
+        "id": "overview",
+        "title": "Overview",
+        "updatedAt": "2026-09-29T06:24:53.958Z",
+        "createdAt": "2026-09-29T06:24:53.958Z",
+        "rev": 1,
+        "source": "local",
+        "excerpt": "A place for your documents, conversations, and the work happening between them.\nKeep the work in view\nKeep the conversation beside the work. Open a document, ex",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          "barkdown"
+        ]
+      }
+    ],
+    "barkparkDocs": [
+      {
+        "id": "local-d9fa1b678139b720d819938f71d2e345",
+        "title": "Beta",
+        "updatedAt": "2026-09-29T06:24:53.510307Z",
+        "createdAt": "2026-09-29T06:24:53.510307Z",
+        "rev": "84cd4eb3057b44b89f83e650c9489a37",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "Private navigation preservation proof",
+            "strength": 95,
+            "tag": "navproof"
+          }
+        ],
+        "slug": "local-d9fa1b678139b720d819938f71d2e345",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "local-59e5e09c863c614da7281812ce29f226",
+        "title": "Alpha",
+        "updatedAt": "2026-09-29T06:24:53.371256Z",
+        "createdAt": "2026-09-29T06:24:53.371256Z",
+        "rev": "bab8ca9f04f3a741c60ced88319939cf",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "Private navigation preservation proof",
+            "strength": 95,
+            "tag": "navproof"
+          }
+        ],
+        "slug": "local-59e5e09c863c614da7281812ce29f226",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "alpha",
+        "title": "Cloud Alpha",
+        "updatedAt": "2026-09-29T06:24:53.252088Z",
+        "createdAt": "2026-09-29T06:24:53.252088Z",
+        "rev": "1a52b1f506aafdbcc970967ee9668021",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "Existing cloud identity proof",
+            "strength": 95,
+            "tag": "navproof"
+          }
+        ],
+        "slug": "alpha",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "local-8cc5ead4b9d3dffaf35a9cac0a577e1f",
+        "title": "Parser note",
+        "updatedAt": "2026-09-29T06:24:49.983446Z",
+        "createdAt": "2026-09-29T06:24:44.840105Z",
+        "rev": "5690fae44df99223acfd8fc69f053482",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "Private native source compatibility rehearsal",
+            "strength": 95,
+            "tag": "nativeproof"
+          }
+        ],
+        "slug": "local-8cc5ead4b9d3dffaf35a9cac0a577e1f",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "local-10ea7b4fc4a151510bd6a07325cad393",
+        "title": "A normal saved note",
+        "updatedAt": "2026-09-29T06:24:48.347463Z",
+        "createdAt": "2026-09-29T06:24:44.608007Z",
+        "rev": "6ae46fcdd156e310515822c0f162bbe7",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "Private native source compatibility rehearsal",
+            "strength": 95,
+            "tag": "nativeproof"
+          }
+        ],
+        "slug": "local-10ea7b4fc4a151510bd6a07325cad393",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "local-90367a1de6412a480cbaba91a0184507",
+        "title": "Anchor note",
+        "updatedAt": "2026-09-29T06:24:44.736650Z",
+        "createdAt": "2026-09-29T06:24:44.736650Z",
+        "rev": "5e7cc6e5e056419b61dcd94b7c109e28",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "Private native source compatibility rehearsal",
+            "strength": 95,
+            "tag": "nativeproof"
+          }
+        ],
+        "slug": "local-90367a1de6412a480cbaba91a0184507",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "local-4bfd0837c4afb38a9e2309e3f4e924bc",
+        "title": "Connected thought",
+        "updatedAt": "2026-09-29T06:24:35.280347Z",
+        "createdAt": "2026-09-29T06:24:35.280347Z",
+        "rev": "1b42cbc23ece12be7894902e2be45aaa",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "Private backup restore rehearsal",
+            "strength": 95,
+            "tag": "restoreproof"
+          }
+        ],
+        "slug": "local-4bfd0837c4afb38a9e2309e3f4e924bc",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "local-1be5f5bb109710460349ff87d17111e2",
+        "title": "A thought worth keeping",
+        "updatedAt": "2026-09-29T06:24:35.143509Z",
+        "createdAt": "2026-09-29T06:24:35.143509Z",
+        "rev": "4d026d1f5b013b3f320ed3ae1985a2c8",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "Private backup restore rehearsal",
+            "strength": 95,
+            "tag": "restoreproof"
+          }
+        ],
+        "slug": "local-1be5f5bb109710460349ff87d17111e2",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "local-c9c5167e25f2b86fd1c4eb44208abb47",
+        "title": "A picture kept with its note",
+        "updatedAt": "2026-09-29T06:24:34.122269Z",
+        "createdAt": "2026-09-29T06:24:31.562781Z",
+        "rev": "e25b4c1ff48b32611648858561e8e63c",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "Private media migration rehearsal",
+            "strength": 95,
+            "tag": "imageproof"
+          }
+        ],
+        "slug": "local-c9c5167e25f2b86fd1c4eb44208abb47",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "local-3df307756383107740c77f7499f9676e",
+        "title": "Field notebook",
+        "updatedAt": "2026-09-29T06:24:30.099389Z",
+        "createdAt": "2026-09-29T06:24:26.000601Z",
+        "rev": "76ecbe3415ce5c2bff3f01d463be2bc3",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "Registered private linked migration rehearsal",
+            "strength": 95,
+            "tag": "linkproof"
+          }
+        ],
+        "slug": "local-3df307756383107740c77f7499f9676e",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "local-ab7beda3c7202a06e2a0ee22dde84431",
+        "title": "Destination notebook",
+        "updatedAt": "2026-09-29T06:24:26.203268Z",
+        "createdAt": "2026-09-29T06:24:26.203268Z",
+        "rev": "1611e6959b9d8e36bb988bf9a9d1eb86",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "Registered private linked migration rehearsal",
+            "strength": 95,
+            "tag": "linkproof"
+          }
+        ],
+        "slug": "local-ab7beda3c7202a06e2a0ee22dde84431",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "local-630fb7ec953aeba09ea9866207cd8ba0",
+        "title": "Migrated notes remain editable and recoverable in Paper",
+        "updatedAt": "2026-09-29T06:24:23.158010Z",
+        "createdAt": "2026-09-29T06:23:55.985375Z",
+        "rev": "33f2de4d71d3155cf4de2d0e05acc6e1",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "Registered private migrated editor rehearsal category",
+            "strength": 95,
+            "tag": "migrated-editor-proof"
+          }
+        ],
+        "slug": "local-630fb7ec953aeba09ea9866207cd8ba0",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "local-fbf7f4405658050535dde32e0c2894a9",
+        "title": "Structured migration rehearsal preserves the audited note corpus",
+        "updatedAt": "2026-09-29T06:23:55.570621Z",
+        "createdAt": "2026-09-29T06:23:55.344874Z",
+        "rev": "d79277b3e2cda675866180d61daaaf83",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "Private staging proof with explicitly supplied fixture metadata",
+            "strength": 95,
+            "tag": "staging-proof"
+          }
+        ],
+        "slug": "local-fbf7f4405658050535dde32e0c2894a9",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "editor-upload-history",
+        "title": "Image uploads survive Undo",
+        "updatedAt": "2026-09-29T06:23:53.936630Z",
+        "createdAt": "2026-09-29T06:23:48.086170Z",
+        "rev": "7d19d126a405ed39ee3a099741659ff3",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "owned clipboard regression",
+            "strength": 90,
+            "tag": "barkdown"
+          },
+          {
+            "rationale": "disposable clipboard fixture",
+            "strength": 40,
+            "tag": "scratch"
+          }
+        ],
+        "slug": "editor-upload-history",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "editor-rich-clipboard",
+        "title": "Clipboard content stays yours",
+        "updatedAt": "2026-09-29T06:23:46.920056Z",
+        "createdAt": "2026-09-29T06:23:40.639889Z",
+        "rev": "ba78eb6be94de8f99a478ad21b65bd00",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "owned clipboard regression",
+            "strength": 90,
+            "tag": "barkdown"
+          },
+          {
+            "rationale": "disposable clipboard fixture",
+            "strength": 40,
+            "tag": "scratch"
+          }
+        ],
+        "slug": "editor-rich-clipboard",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "api-paper-parity",
+        "title": "API Paper parity",
+        "updatedAt": "2026-09-29T06:23:39.416198Z",
+        "createdAt": "2026-09-29T06:23:34.714473Z",
+        "rev": "916eeac876ac2cb1f4bfcb0eac586bbb",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "Barkdown integration evidence",
+            "strength": 90,
+            "tag": "barkdown"
+          },
+          {
+            "rationale": "Disposable synthetic fixture",
+            "strength": 40,
+            "tag": "scratch"
+          }
+        ],
+        "slug": "api-paper-parity",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "editor-structured-table",
+        "title": "Structured table editing",
+        "updatedAt": "2026-09-29T06:23:33.505215Z",
+        "createdAt": "2026-09-29T06:23:18.571616Z",
+        "rev": "1fbcdb3e9c7db95996a17efd08b7cea8",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "owned by the Barkdown editor suite",
+            "strength": 90,
+            "tag": "barkdown"
+          },
+          {
+            "rationale": "disposable test fixture",
+            "strength": 40,
+            "tag": "scratch"
+          }
+        ],
+        "slug": "editor-structured-table",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "editor-rich-takeover",
+        "title": "Rich editor takeover",
+        "updatedAt": "2026-09-29T06:23:17.515633Z",
+        "createdAt": "2026-09-29T06:23:04.472146Z",
+        "rev": "8561624c44d33d9d67d5c93e88dec544",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "owned by the Barkdown editor suite",
+            "strength": 90,
+            "tag": "barkdown"
+          },
+          {
+            "rationale": "disposable test fixture",
+            "strength": 40,
+            "tag": "scratch"
+          }
+        ],
+        "slug": "editor-rich-takeover",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "editor-agent-takeover",
+        "title": "Agent takeover probe",
+        "updatedAt": "2026-09-29T06:23:03.480383Z",
+        "createdAt": "2026-09-29T06:22:57.322289Z",
+        "rev": "c15fe3ca42c54f6707085dc53f5b52ab",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "owned by the Barkdown editor suite",
+            "strength": 90,
+            "tag": "barkdown"
+          },
+          {
+            "rationale": "disposable test fixture",
+            "strength": 40,
+            "tag": "scratch"
+          }
+        ],
+        "slug": "editor-agent-takeover",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "editor-save-safety",
+        "title": "editor-save-safety",
+        "updatedAt": "2026-09-29T06:22:54.414878Z",
+        "createdAt": "2026-09-29T06:22:48.711334Z",
+        "rev": "c2a17c9308577f8385339af8d5d2bfd1",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "owned by the Barkdown editor suite",
+            "strength": 90,
+            "tag": "barkdown"
+          },
+          {
+            "rationale": "disposable test fixture",
+            "strength": 40,
+            "tag": "scratch"
+          }
+        ],
+        "slug": "editor-save-safety",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "editor-other-paper",
+        "title": "editor-other-paper",
+        "updatedAt": "2026-09-29T06:22:48.757124Z",
+        "createdAt": "2026-09-29T06:22:48.757124Z",
+        "rev": "2edf7bee3e35b2d635713a03d55e42e9",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "owned by the Barkdown editor suite",
+            "strength": 90,
+            "tag": "barkdown"
+          },
+          {
+            "rationale": "disposable test fixture",
+            "strength": 40,
+            "tag": "scratch"
+          }
+        ],
+        "slug": "editor-other-paper",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "barkdown-editor-test",
+        "title": "Code fence checks",
+        "updatedAt": "2026-09-29T06:22:06.241732Z",
+        "createdAt": "2026-09-29T06:21:04.421706Z",
+        "rev": "e1fe10ccc55790dac8b1ae8bd0aa8477",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [
+          {
+            "rationale": "owned by the Barkdown editor suite",
+            "strength": 90,
+            "tag": "barkdown"
+          },
+          {
+            "rationale": "disposable test fixture, rewritten on every run",
+            "strength": 40,
+            "tag": "scratch"
+          }
+        ],
+        "slug": "barkdown-editor-test",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      },
+      {
+        "id": "welcome",
+        "title": "Welcome to Barkpark",
+        "updatedAt": "2026-09-29T06:21:00.506682Z",
+        "createdAt": "2026-09-29T06:21:00.506682Z",
+        "rev": "3a1e75ebbbeb35860cf0798675653782",
+        "source": "barkpark",
+        "excerpt": "",
+        "references": [],
+        "proposals": 0,
+        "tags": [],
+        "slug": "welcome",
+        "draft": false,
+        "paperOwner": "418efba9fbe12ce15242f7ea0061139dbeb837f96a05b00748930c30ba31aa8b",
+        "paperOrigin": {
+          "kind": "cloud"
+        }
+      }
+    ],
+    "loaded": true,
+    "profileId": null,
+    "generation": null,
+    "authority": "legacy",
+    "selection": "none",
+    "barkparkLibraryError": null
+  }
+}

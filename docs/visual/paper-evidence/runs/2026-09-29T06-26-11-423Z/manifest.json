@@ -1,0 +1,86 @@
+{
+  "capturedAt": "2026-09-29T06:26:20.887Z",
+  "barkdownCommit": "c22d98ac1d6515562860365dabc9a6cc3d9ffb98",
+  "barkparkCommit": "4532a25eacb796eb54bf40b1d70871c09e428a7f",
+  "isolatedRuntime": true,
+  "foreignRequests": [
+    {
+      "method": "GET",
+      "url": "/assets/bp-paper-editor.bundle.js"
+    },
+    {
+      "method": "GET",
+      "url": "/assets/bp-paper-editor.css"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "method": "GET",
+      "url": "/status.json"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/doc/production/paper/evidence-proof?perspective=raw"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/backlinks/production/evidence-proof"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/history/production/paper/evidence-proof?limit=20"
+    },
+    {
+      "method": "GET",
+      "url": "/v1/data/doc/production/paper/evidence-proof?perspective=raw"
+    }
+  ],
+  "results": [
+    "Fresh valid foreign binding with same ID/revision refuses six owned/unknown evidence operations without further requests; both originals remain exact",
+    "Return to original HTTP connection and actual Electron restart restore its own receipt; native guarded Undo restores exact original blocks",
+    "Real stdio MCP read/edit uses explicitly captured CLI routing; native restart finds the same owner and exact guarded Undo passes",
+    "Unsupported title operation refuses before writing a draft twin; native foreign rename refuses without requests, retains the attempted title and preserves tab/favorite labels until explicit discard"
+  ],
+  "frames": [
+    "01-original-owned-evidence.png",
+    "02-fresh-foreign-evidence-readonly.png",
+    "03-narrow-unattributed-reference.png",
+    "04-restarted-original-undo.png",
+    "05-original-exact-undo.png",
+    "06-mcp-cli-owned-edit.png",
+    "07-restarted-cli-undo.png",
+    "08-cli-exact-undo.png",
+    "09-unsupported-rename-retains-title.png",
+    "10-refused-rename-keeps-labels-and-draft.png",
+    "11-original-title-restored.png"
+  ],
+  "artifacts": {
+    "01-original-owned-evidence.png": "f980b3da4f505ce01c964d4b83fcc6009a657d7d951ab9a4f3caa5c33e231d05",
+    "02-fresh-foreign-evidence-readonly.png": "37a56dd153b2b3b53873d8ce8f55c3fca4edd966cdba500deae71b96d2ea1bc4",
+    "03-narrow-unattributed-reference.png": "eb1d13bd1798b056b245cdc3399d173edb44be70a3eb2411af4824683437c05e",
+    "04-restarted-original-undo.png": "848b149c452cd7c606afa7b3b0884bb55f362a69def6be16f39318fcbba73cd4",
+    "05-original-exact-undo.png": "4f1ecbae237fdded512c6dbdfffe8c907b5f405906a9596775cf0e5f3b0da713",
+    "06-mcp-cli-owned-edit.png": "6080d4419d1b0e95f6dbdc725531c99ac17cb8c5cd656fcf6d09d568605104ad",
+    "07-restarted-cli-undo.png": "41432cefdfe386e35c585010fe59d6155b2bd52801f8c5cab79da9589a7d1e2e",
+    "08-cli-exact-undo.png": "927f1965378582dcd77ede6119c352034ce0140ae401f030b2cf1a7a6eab2ba9",
+    "09-unsupported-rename-retains-title.png": "0e81a2cdc599712a573f2649bdb15483709d13a0aae0fdfce597ef8fc58d56d2",
+    "10-refused-rename-keeps-labels-and-draft.png": "1485dff46f970c956d9308586acc4790077e1637eaef9a3cb6253c3f4758ca2f",
+    "11-original-title-restored.png": "8eeafb37aac5a2cb1723e5dfa4151df24d3f7747b2533a3bbe378d761a784d7d",
+    "foreign-refusal.webm": "c2ff4280fec70f112e3746a503554d68381eec0e632d1eca2de7150210ef648d",
+    "original-recovery.webm": "ac9c6b0859c2484f630a9bce9eea0d114db0f7994117ae840b9d9c101af238de",
+    "restart-or-failure.webm": "c8ccd4559e673fa4d78ddaee901ca4d3ca1d518d83076bf7780a9e602fab024b"
+  },
+  "limits": [
+    "Actual private Paper and non-persisting foreign read recorder; no real user library",
+    "Original unknown evidence is retained readably, never assigned a guessed owner",
+    "Credential rotation or connection access-mode change deliberately creates a different owner; no automatic reassignment",
+    "CLI route is captured; externally replaced CLI credentials are not frozen",
+    "No authority activation, deployment or portability claim"
+  ]
+}

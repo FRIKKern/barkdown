@@ -1,0 +1,28 @@
+{
+  "capturedAt": "2026-09-29T06:25:27.072Z",
+  "barkdownCommit": "c22d98ac1d6515562860365dabc9a6cc3d9ffb98",
+  "barkparkCommit": "4532a25eacb796eb54bf40b1d70871c09e428a7f",
+  "isolatedRuntime": true,
+  "profileId": "ef31a110-7104-4318-9b92-2f480abb8c8d",
+  "sourceHash": "8ac07154e3e660522efa4eccda2126f1848c21b06378c99fbf28f431212f2e31",
+  "projectionHash": "d7fd3265086a11eec77e7abe9f4bbb6676cff3cc636eaf85304372b34a45e2e0",
+  "results": [],
+  "frames": [
+    "01-projected-sidechat-and-pages.png"
+  ],
+  "artifacts": {
+    "01-projected-sidechat-and-pages.png": "a568d37adafd6f8177b9e8af975574470966dc0c1874231685217a2581629432",
+    "failure-state.json": "5e60bf97273f21e71be5be925127cfd980767756fb5e6a4c25f76675abd2fba2",
+    "failure.png": "4a04a270c5bc02cbab4ad1a367197e55e15043274a5df09f9ea32f73932cb4b8",
+    "failure.txt": "75c1e36820495df4f753664f7067607fd369121eaff3e1cbeb2fd69dcd6da7b9",
+    "projection.json": "e26eef058c01f5b97fb17ad2c68901d19db33edc2329f72a34886dbe3957a8f2",
+    "restart-or-failure.webm": "125bfa646b802036edc50c502603e7940c44bd498fae8e5297838c5a611b5976"
+  },
+  "authority": "legacy",
+  "limits": [
+    "Separate disposable target app loads only a projected copy; no activation or writer fencing",
+    "Unplaced local archive and source-less closed targets explicitly refuse",
+    "Old transcripts/receipts remain opaque legacy evidence; no revision reinterpretation",
+    "Clean restart and same-machine paths; no cross-machine or power-loss proof"
+  ]
+}

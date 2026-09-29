@@ -1,0 +1,69 @@
+{
+  "capturedAt": "2026-09-29T06:28:06.140Z",
+  "barkdownCommit": "038bb180449d08f4847700b61d2280a9c43bde54",
+  "barkparkCommit": "4532a25eacb796eb54bf40b1d70871c09e428a7f",
+  "isolatedRuntime": true,
+  "profileId": "9ef67f82-dc8c-45b5-9833-d5c1819ca8ad",
+  "sourceId": "image-note",
+  "targetId": "local-a22aa6a3ae061af84cd5d61731ea4960",
+  "editorBundle": {
+    "source": "server",
+    "server": "http://127.0.0.1:55026",
+    "version": "0.2.26.4455",
+    "sha": "5d2fc57fc943e095e90393b21f10bcd86890329e",
+    "cssSha": "db17bf8a3ec890f14436c68e7af98124b3cfcb3f",
+    "folder": "5d2fc57fc943e095e90393b21f10bcd86890329e-db17bf8a3ec890f14436c68e7af98124b3cfcb3f",
+    "fetchedAt": "2026-09-29T06:28:00.182Z"
+  },
+  "cases": [
+    {
+      "field": "alt",
+      "editedRev": 2,
+      "undoneRev": 3
+    },
+    {
+      "field": "width",
+      "editedRev": 4,
+      "undoneRev": 5
+    },
+    {
+      "field": "delete",
+      "editedRev": 6,
+      "undoneRev": 7
+    }
+  ],
+  "frames": [
+    "01-migrated-images.png",
+    "02-edit-alt.png",
+    "03-undo-alt.png",
+    "02-edit-width.png",
+    "03-undo-width.png",
+    "04-deleted.png",
+    "05-restored.png",
+    "06-reloaded.png",
+    "07-narrow.png",
+    "08-restarted.png"
+  ],
+  "artifacts": {
+    "01-migrated-images.png": "4e4c1aff31f27c5d4bccfab8a5cf4d96ba792faaa580eafa85dbfb0fb38fbf37",
+    "02-edit-alt.png": "1144daac1223383cb5d768fb10b305f164b871816586347165a15be3f0ae0b64",
+    "02-edit-width.png": "9c8a7fa5e6ebb0360b7163a957731ef6f1f22febae930c18756489a3708bd96d",
+    "03-undo-alt.png": "06ac7363d05c7b123e77a50799047f2ea7e7db50742f064618dc6620a07bd1a9",
+    "03-undo-width.png": "b00b28692b886c0cd3144964dfe66a2f5d6f4756d531d73ab6674400c16ec1c6",
+    "04-deleted.png": "0d04ff450a2bb84470aaff5a68abb4fb073b11046c89db471be95ae5773f59cc",
+    "05-restored.png": "6b2bd518bd20ef4baeebe0ba6a8178f85329fcffe9ab007585942264eb0b8791",
+    "06-reloaded.png": "075a98501f209b519a6e673a628a52c19904166b459edee4e3c0f0989c786515",
+    "07-narrow.png": "10b870e02fc42094913c99ce065615ace738e2ab8c793d23932e697c1cc529d0",
+    "08-restarted.png": "44f60d8493461c1440352c1b68bb711af300de5649ddc1e3b001ee75a2056ff4",
+    "images-editing-and-undo.webm": "4acd6bb15170018089f62a11e41ff51256dc4559f4b5fe1ec47ddcf2d5ac4db3",
+    "recovery.json": "5d205c497f2c0a7d4df9d0ae995c29cb848911d00487920acc04c99dfd70ef93",
+    "restart-or-failure.webm": "8fe3327eed4046ffd00bd12be201f0bd4ec11ad19ef109af4d141ef1b0030c63"
+  },
+  "authority": "legacy",
+  "limits": [
+    "Disposable owned PNG only; no real-library activation",
+    "Explicit image heights, captions and non-supported PNG encodings refuse",
+    "Clean restart and post-upload process exit, not power-loss durability",
+    "Captured runtime origin must remain stable; portability is a later stage"
+  ]
+}
