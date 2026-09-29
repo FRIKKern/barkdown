@@ -1,0 +1,32 @@
+{
+  "source": "2ee80c9700942931e233117c2bc9f0f02aad1cd3",
+  "upstream": "9f1874235449f9763c1b3e8cfcaf1b5a36aee9b3",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "profile A exported under the hold through the real runtime pool",
+      "papers": 4,
+      "media": 6,
+      "store": 2
+    },
+    {
+      "name": "profile B boots from the restored database: the same Papers, revisions, blocks and the same image bytes on its own runtime",
+      "papers": 4
+    },
+    {
+      "name": "the imported library refuses the exporting runtime's token, accepts its own, and editing it leaves the exported library unchanged",
+      "passed": true
+    },
+    {
+      "name": "navigation, the conversation and the draft arrive owned by the importing library; credentials did not travel",
+      "navigation": {
+        "from": "f6c5f98f4d07934869384a7191227785f183bc1dfee1ff782629b9628a7bba66",
+        "to": "6e03ee0246026c5848265a9de916a57cac231e91c72585cf022fa0bfe753b1eb"
+      }
+    }
+  ],
+  "limits": [
+    "One machine, one run, a small library. Both profiles live in one registry; a second machine, another OS and another Postgres major version are not exercised. Headless profile with controlled foreground hooks. Conversations and retained originals travel as files and are not opened in the app here."
+  ]
+}

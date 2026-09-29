@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "id": "C083",
+  "stage": "P2",
+  "status": "done",
+  "goal": "Wire the merged admission coordinator into every supported upstream content and media writer, opt-in for a managed runtime only, and prove writes cannot slip through while held.",
+  "scope": [
+    "Managed-runtime configuration and journal/instance binding, off by default and refused for unsupported modes",
+    "Admission at content and media mutation owners, including read-side cache repair, deferred cleanup and background processing",
+    "Deterministic exclusion, drain, rollback, restart and bypass tests against real database and blob fixtures"
+  ],
+  "acceptance": [
+    "While held, direct context, HTTP, native Paper, lifecycle, media and sweeper writes are refused and leave rows, revisions, bytes and journal unchanged",
+    "Admitted writes drain through commit, rollback, deferred cleanup and hooks before the hold settles; uncertain effects block readiness",
+    "Servers without managed mode behave unchanged under the existing upstream suite",
+    "No seal capability is advertised until the writer coverage audit and recovery cases pass; upstream required gates and root verification stay honest"
+  ],
+  "checkpoint": "2026-09-29",
+  "handoff": "docs/cycles/C083-writer-admission.md",
+  "nextAction": "Closed. Carried to C085: the Windows return checkpoint and a real library (Windows machine back about 2026-10-05), the decision on pre-existing cloud references at projection, recovery with a writer that dies inside the runtime.",
+  "evidence": [
+    "docs/cycles/evidence/C082/merge.json",
+    "docs/cycles/evidence/C082/integration-review.json",
+    "docs/cycles/evidence/C083/writer-census.md",
+    "docs/cycles/evidence/C083/checks-01/result.json",
+    "docs/cycles/evidence/C083/upstream-local-suite.json",
+    "https://github.com/FRIKKern/barkpark/pull/20422",
+    "docs/cycles/evidence/C083/writer-audit.md",
+    "docs/cycles/evidence/C083/rehearsals-pin-74e38574b-macos.log",
+    "docs/cycles/evidence/C083/rehearsals-pin-9f1874235-macos.log",
+    "docs/cycles/evidence/C083/live/2026-09-29T12-05-56-088Z-switch-ui/result.json",
+    "docs/cycles/evidence/C083/live/2026-09-29T10-31-58-997Z-writers-in-flight/result.json",
+    "https://github.com/FRIKKern/barkpark/pull/20481"
+  ],
+  "truthReview": "Reviewed 2026-09-29 at close: README, PLAN, VALIDATION, NEXT-AGENT, DESIGN-DECISIONS and the migration documents state the switch, rollback, reconciliation, macOS parity and the pin as they are; every claim names macOS and says Windows is not run. Upstream slices 1 to 8 are merged; the pinned runtime is 9f1874235 with an editor upgrade proven by byte-identical rebuild. No real library was switched.",
+  "screenshotReview": "Status pictures recaptured and the darwin visual baseline approved at the upgraded pin (run 2026-09-29T12-19-07-673Z): the only difference is the editor bundle hash in Settings. The win32 baseline is stale until the Windows machine returns.",
+  "delivery": {
+    "phase": "delivered",
+    "owner": "primary agent",
+    "remaining": []
+  }
+}

@@ -21,9 +21,9 @@ Since C078, navigation ownership improved in C080, the write controller merged i
 | Preserve and stage | ✓ Demonstrated | Demonstrated on supported fixtures; unsupported content refuses. This is preparation, not a switched library. [Evidence / exit](cycles/C051-backup-restore.md) |
 | Edit migrated notes | ✓ Demonstrated | Migrated fixture editing and retained original history are demonstrated. Original history is not identical to native Paper history. [Evidence / exit](cycles/C074-original-history.md) |
 | Compare the library | ✓ Demonstrated | C078 compared 206 variants; C080 improved connection-bound navigation and local Archive projection. No ownership switch occurred. [Evidence / exit](cycles/C080-owned-navigation.md) |
-| Protect the switch | ◐ In progress | Note, Paper block, cache-repair and media writers pass through the merged admission controller in production (C083 slices 1–2), and a held instance is proven to refuse them. Every background job is admitted and queues pause before a hold (slice 3, deployed). The direct-writer audit and the recovery proof remain before exclusion is claimed. [Evidence / exit](cycles/C083-writer-admission.md) |
-| Switch and recover | ○ Remaining | Still to demonstrate: one complete library after an interrupted authority switch, with human drafts retained and no mixed ownership. [Evidence / exit](ACCEPTANCE.md#a2--one-engine-without-lost-notes) |
-| Prove the way back | ○ Remaining | Still to demonstrate: complete rollback, explicit handling of edits made after switching, and safe retirement of the separate editor/store. [Evidence / exit](ACCEPTANCE.md#a2--one-engine-without-lost-notes) |
+| Protect the switch | ◐ In progress | Every audited writer, background job and refused route group passes through the merged admission controller (C083 slices 1–8). On macOS six writers in flight across hold, held and reopen leave every acknowledged write in place and nothing written while held; a restart while held stays blocked until explicit recovery. A run on Windows and recovery with a writer that dies inside the runtime remain. [Evidence / exit](cycles/C083-writer-admission.md) |
+| Switch and recover | ◐ In progress | The switch runs from Settings › Barkpark in the real app on macOS, is interrupted at every phase and resumes without duplicate Papers, and the switched profile creates, edits, finds, deletes and recovers notes on Paper with agent edits and Undo. Still to demonstrate: a real library and a run on Windows. [Evidence / exit](cycles/C083-writer-admission.md) |
+| Prove the way back | ◐ In progress | Rollback restores the legacy navigation exactly, keeps Papers and later edits on Paper, names every changed Paper, and lets a person compare, keep or restore each one; its own interruption resumes. Retirement of the separate editor and store is audited in four stages and not started. [Evidence / exit](cycles/C083-writer-admission.md) |
 
 ## Profiles · accepted
 
@@ -45,21 +45,21 @@ Accepted for the Windows source prototype. Device login is shared by default; pr
 | ✓ Demonstrated | Agent edits and safe Undo | [Demonstrated scope](cycles/C069-agent-paper-notes.md) |
 | ✓ Demonstrated | Recover deleted notes | [Demonstrated scope](cycles/C071-paper-deletion-recovery.md) |
 | ✓ Demonstrated | Read original history | [Demonstrated scope](cycles/C074-original-history.md) |
-| ◐ In progress | Migrate with a way back | [Work and limits](cycles/C082-managed-admission.md) |
+| ◐ In progress | Migrate with a way back | [Work and limits](cycles/C083-writer-admission.md) |
 
-Demonstrated ordinary-note journeys are in the merged baseline; their linked cycle records retain original checkpoint limits. Preparation, cancellation and retained-draft recovery are merged in C076. C078 verifies an internal read-only mixed-library comparison, including exact Paper variants, supported links/PNG media and workspace projection. C080 improves connection-bound navigation and local Archive projection. C082 tests an upstream write controller; it is unmerged and unwired. Unsupported content and unresolved ownership still refuse. The user-facing migration flow, interrupted authority cutover, rollback and legacy retirement remain open. No real library has migrated.
+Demonstrated ordinary-note journeys are in the merged baseline; their linked cycle records retain original checkpoint limits. Preparation, cancellation and retained-draft recovery are merged in C076. C078 verifies an internal read-only mixed-library comparison, including exact Paper variants, supported links/PNG media and workspace projection. C080 improves connection-bound navigation and local Archive projection. C083 merged the write controller upstream and wired it into every supported writer; on macOS the switch, its rollback, every interruption, reconciliation and life on Paper afterwards are rehearsed against the pinned runtime, from the app’s own screen. Unsupported content and unresolved ownership still refuse. A real library, a run on Windows and retirement of the separate editor remain.
 
 ## Recovery & portability · up next
 
 | State | Journey | Evidence / acceptance |
 |---|---|---|
 | ◐ In progress | Save and draft recovery | [Work and limits](cycles/C076-profile-preparation.md) |
-| ○ Remaining | Export notes and media | [A3 gate](ACCEPTANCE.md#a3--recovery-and-portability) |
-| ○ Remaining | Include chats and links | [A3 gate](ACCEPTANCE.md#a3--recovery-and-portability) |
-| ○ Remaining | Import into a fresh profile | [A3 gate](ACCEPTANCE.md#a3--recovery-and-portability) |
+| ◐ In progress | Export notes and media | [Work and limits](cycles/C085-portable-profile.md) |
+| ◐ In progress | Include chats and links | [Work and limits](cycles/C085-portable-profile.md) |
+| ◐ In progress | Import into a fresh profile | [Work and limits](cycles/C085-portable-profile.md) |
 | ○ Remaining | Continue on another device | [A3 gate](ACCEPTANCE.md#a3--recovery-and-portability) |
 
-Recovery foundations are being exercised within P2: draft retention, interrupted preparation and restart. C076 recovery checks are not full A3 acceptance. Consistent export/import, credential handling and actual cross-machine continuation remain unproved.
+Groundwork only while P2 waits for its Windows exits: draft retention, interrupted preparation and restart (C076), and in C085 an export taken under the hold and its import as a new profile with its own database, rehearsed between two runtimes on one Mac. Not reachable from the app yet; interruption of export and import, a second machine and credential handover remain unproved, and A3 is not claimed.
 
 ## Cloud sync · later
 

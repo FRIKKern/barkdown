@@ -1,43 +1,40 @@
 {
   "version": 1,
-  "id": "C083",
-  "stage": "P2",
+  "id": "C085",
+  "stage": "P3",
   "status": "active",
-  "goal": "Wire the merged admission coordinator into every supported upstream content and media writer, opt-in for a managed runtime only, and prove writes cannot slip through while held.",
+  "goal": "A profile leaves one Barkdown as a verified export and arrives in another as a new profile with its own database: notes, media, conversations, links and organization, without credentials.",
   "scope": [
-    "Managed-runtime configuration and journal/instance binding, off by default and refused for unsupported modes",
-    "Admission at content and media mutation owners, including read-side cache repair, deferred cleanup and background processing",
-    "Deterministic exclusion, drain, rollback, restart and bypass tests against real database and blob fixtures"
+    "Export under the hold: a logical database dump, owned media and the profile files with a manifest",
+    "Import into a new profile: restore before first boot, navigation re-owned, credentials created on the importing side",
+    "The same from the app: Settings actions, progress, refusal reasons, interruption and resume",
+    "A second machine and another operating system when the Windows machine is back"
   ],
   "acceptance": [
-    "While held, direct context, HTTP, native Paper, lifecycle, media and sweeper writes are refused and leave rows, revisions, bytes and journal unchanged",
-    "Admitted writes drain through commit, rollback, deferred cleanup and hooks before the hold settles; uncertain effects block readiness",
-    "Servers without managed mode behave unchanged under the existing upstream suite",
-    "No seal capability is advertised until the writer coverage audit and recovery cases pass; upstream required gates and root verification stay honest"
+    "An export verifies against its manifest and carries no credential, owner key or machine-bound file",
+    "An import of that export serves the same Papers, revisions, blocks and media bytes on its own runtime and refuses the exporting runtime token",
+    "Navigation, conversations and drafts arrive owned by the importing library; the exported profile and the export folder are unchanged",
+    "An interrupted export or import leaves a journal that names its phase and can be resumed or discarded without touching an existing profile",
+    "A truncated, tampered or other-version export is refused before anything is created"
   ],
   "checkpoint": "2026-09-29",
-  "handoff": "docs/cycles/C083-writer-admission.md",
-  "nextAction": "1) Upstream slice 8 (block ops refused by the door answer 503 storage_unavailable): land, pin, rerun the writers-in-flight rehearsal expecting 503. 2) Legacy retirement stage R1 (retained originals render read-only without the editing surface), per docs/migration/legacy-retirement.md. 3) A real library and the Windows return checkpoint when the Windows machine is back (about 2026-10-05). 4) Decide whether pre-existing cloud references get the managed owner at projection. 5) Recovery with a writer that dies inside the runtime. 6) Upstream, when useful: a migration-scoped exemption for the dedup wall.",
+  "handoff": "docs/cycles/C085-portable-profile.md",
+  "nextAction": "1) Export and import from the app: Settings actions on a prepared profile, with progress and refusal reasons, rehearsed in Electron. 2) Interrupt the export and the import at each phase and resume or discard. 3) Open the imported profile in the app: Pages, a conversation, a retained original, an agent edit. 4) Carried from C083: the Windows return checkpoint and a real library (about 2026-10-05), the decision on pre-existing cloud references, recovery with a writer that dies inside the runtime.",
   "evidence": [
-    "docs/cycles/evidence/C082/merge.json",
-    "docs/cycles/evidence/C082/integration-review.json",
-    "docs/cycles/evidence/C083/writer-census.md",
-    "docs/cycles/evidence/C083/checks-01/result.json",
-    "docs/cycles/evidence/C083/upstream-local-suite.json",
-    "https://github.com/FRIKKern/barkpark/pull/20422",
-    "docs/cycles/evidence/C083/writer-audit.md"
+    "docs/cycles/evidence/C085/live/2026-09-29T11-44-58-403Z-export/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T12-03-39-481Z-import/result.json"
   ],
-  "truthReview": "Slices 1 to 3 merged and deployed. The direct-writer audit at fc9a07b11 classifies 151 files: 70 need a boundary, 11 covered, 16 boot-or-one-shot, 54 false positives. Two contract assumptions failed: boot writes run inside the full tree, and one-shot mix tasks are not refused by construction. Estimate moved down to about 45% on the audit. No seal capability advertised; no library switched.",
-  "screenshotReview": "No visual inputs changed at opening; upstream-only work planned. C080 reviewed evidence remains applicable.",
+  "truthReview": "Opened 2026-09-29 while P2's remaining exits wait for the Windows machine. Export and import exist as main-process modules with unit tests and two live rehearsals on macOS; nothing is reachable from the app yet and no second machine is claimed.",
+  "screenshotReview": "No renderer change at opening.",
   "delivery": {
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "Slice 4: task-board boundary (Tasks.Internal)",
-      "Slice 5: sync bookkeeping door; note-adjacent doors; media lazy writes",
-      "Slice 6: managed-mode refusal for the refused clusters; :seed/:one_shot boot refusal; SchemaBootstrap pre-open",
-      "Trusted hold endpoint; drain, restart, rollback proof",
-      "Carried from C084: the Windows return checkpoint (the PowerShell terminal and recovery-review tours and the DPAPI twin landed on macOS on 2026-09-29)"
+      "Export and import from the app",
+      "Interruption and resume of both",
+      "The imported profile opened in the app",
+      "A second machine (Windows return)",
+      "Carried from C083: Windows return checkpoint, real library, cloud-reference decision, recovery with a dying writer"
     ]
   }
 }
