@@ -154,7 +154,8 @@ async function stageMigration(options, target, { checkpoint = () => {}, retryAbs
         await checkpoint('response:' + doc.id);
         if (response.status !== 201 && !(response.status === 409 && response.data?.error?.code === 'paper_exists')) {
           const code = response.data?.error?.code;
-          fail('create_refused', 'Create-only Paper write refused: ' + response.status + (typeof code === 'string' && /^[a-z_]+$/.test(code) ? ' (' + code + ')' : ''));
+          const message = typeof response.data?.error?.message === 'string' ? response.data.error.message.slice(0, 300) : '';
+          fail('create_refused', 'Create-only Paper write refused: ' + response.status + (typeof code === 'string' && /^[a-z_]+$/.test(code) ? ' (' + code + ')' : '') + (message ? ': ' + message : ''));
         }
         saved = await current(doc);
         if (!saved) fail('write_uncertain', 'Create returned without a readable target; retain intent');
