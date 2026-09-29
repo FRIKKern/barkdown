@@ -15,7 +15,7 @@ const { LocalBarkpark } = require('./local-barkpark');
 const { SourceDriver, validate: validateLocal } = require('./local-barkpark-source');
 const crypto = require('crypto');
 const credentialDurability = require('./credential-durability').createCredentialDurability({ safeStorage, sessionData: () => app.getPath('sessionData') });
-let profileRegistry = null, profileService = null, profileGate = null, profilePool = null, profileConnection = null, profileConnectionOwner = null, appSettingsStore = null, goalService = null;
+let portable = null, profileRegistry = null, profileService = null, profileGate = null, profilePool = null, profileConnection = null, profileConnectionOwner = null, appSettingsStore = null, goalService = null;
 const PROFILE_MODE = process.argv.includes('--profiles');
 let authorityOwnership = null, adoptionView = null, bootBusy = false;
 let preparation = null, preparationForeground = null;
@@ -227,10 +227,16 @@ function handle(channel, fn, unowned = false) {
 
 function registerIpc() {
   if (goalService) require('./goal-service').registerGoalIpc({ register: handle, service: goalService, profiles: profileService });
-  handle('profiles:status', () => profileService ? { ...profileService.view(), profiles: profileRegistry.load().profiles, enabled: true } : { enabled: false }, true);
+  // An import that did not finish is listed, never opened (profile-portable.js).
+  handle('profiles:status', () => {
+    if (!profileService) return { enabled: false };
+    const interrupted = new Map((portable?.interruptedImports() || []).map(entry => [entry.profileId, entry]));
+    return { ...profileService.view(), profiles: profileRegistry.load().profiles.map(p => interrupted.has(p.id) ? { ...p, interruptedImport: interrupted.get(p.id) } : p), enabled: true };
+  }, true);
   handle('profiles:create', name => profileRegistry.createProfile({ name }));
   handle('profiles:select', async ({ owner, profileId }) => {
     if (!profileService) throw new Error('Start with --profiles to enable isolated profiles');
+    if (portable?.isIncomplete(profileId)) throw Object.assign(new Error('This profile is an import that did not finish. Discard it or import again from Settings.'), { code: 'portable_incomplete' });
     return profileGate.select(owner, profileId, async () => {
       store.init(profileRegistry.storeFor(profileId).storeDir);
       documents.loadAll({ seed: false });
@@ -293,7 +299,6 @@ function registerIpc() {
     clipboard.writeText(text); return true;
   });
   if (profileService) {
-    let portable = null;
     const writerState = profileId => require('./writer-admission').controller(store.createStore(profileRegistry.storeFor(profileId).storeDir, { create: false })).inspect();
     const preparationStatus = profileId => {
       const record = preparation?.inspect(profileId), restartRequired = profileService.launchAdmission.requiresRestart(profileId);
@@ -336,7 +341,7 @@ function registerIpc() {
     // profile. The version that must match is the commit of the checkout the runtime is built from.
     const upstreamOf = source => { try { return require('node:child_process').execFileSync('git', ['rev-parse', 'HEAD'], { cwd: source, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); } catch { try { return fs.readFileSync(path.join(__dirname, '..', 'BARKPARK_REF'), 'utf8').trim(); } catch { return null; } } };
     portable = require('./profile-portable').createProfilePortable({ registry: profileRegistry, preparation, log: line => console.error(line),
-      runtimePool: { acquire: (...args) => profilePool.acquire(...args), restore: (...args) => profilePool.restore(...args) },
+      runtimePool: { acquire: (...args) => profilePool.acquire(...args), restore: (...args) => profilePool.restore(...args), reclaim: (...args) => profilePool.reclaim(...args) },
       sourceFor: () => { const local = readSettings().barkpark.local; return local?.enabled && local.source ? local.source : null; }, upstreamRef: upstreamOf,
       chooseFolder: async options => { const result = await dialog.showOpenDialog(win, options); return result.canceled ? null : result.filePaths[0]; },
       trash: folder => shell.trashItem(folder),
@@ -344,7 +349,10 @@ function registerIpc() {
     handle('portable:chooseExport', () => portable.chooseExport(profileService.view().profileId));
     handle('portable:export', () => portable.exportChosen(profileService.view().profileId));
     handle('portable:import', () => portable.importChosen(profileService.view().profileId));
-  } else { handle('preparation:status', () => ({ record: null, readOnly: false })); handle('migration:status', () => null); for (const channel of ['portable:chooseExport', 'portable:export', 'portable:import']) handle(channel, () => { throw new Error('Export and import need an owned profile.'); }); handle('migration:changed', () => null); handle('migration:reconcile', () => null); }
+    handle('portable:discardExport', async () => { const id = profileService.view().profileId; try { await portable.discardExport(id); } catch (error) { console.error(`[export] discard failed: ${error.code || ''} ${error.message}`); throw error; } return preparationStatus(id); });
+    handle('portable:discardImport', profileId => portable.discardImport(profileId));
+    handle('portable:importAgain', profileId => portable.importAgain(profileService.view().profileId, profileId));
+  } else { handle('preparation:status', () => ({ record: null, readOnly: false })); handle('migration:status', () => null); for (const channel of ['portable:chooseExport', 'portable:export', 'portable:import', 'portable:discardExport', 'portable:discardImport', 'portable:importAgain']) handle(channel, () => { throw new Error('Export and import need an owned profile.'); }); handle('migration:changed', () => null); handle('migration:reconcile', () => null); }
   const originalHistory = () => {
     if (!profileService) throw new Error('Original history requires an owned profile.');
     const profileId = profileService.view().profileId;

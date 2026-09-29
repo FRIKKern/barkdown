@@ -26,7 +26,9 @@ function createProfileImport({ registry, runtimePool, source, upstreamRef = () =
     // A new profile is seeded with defaults; the import may replace exactly those, nothing else.
     const seeded = new Set(fs.readdirSync(storeDir, { recursive: true }).map(f => String(f).split(path.sep).join('/')));
     const journal = value => { bound.writeJson(JOURNAL, value); checkpoint('after-' + value.phase, { profileId: profile.id }); return value; };
-    let record = journal({ version: 1, phase: 'restoring', profileId: profile.id, exportedProfile: manifest.profile, exportedAt: manifest.exportedAt, upstream: manifest.upstream, manifestSha256: crypto.createHash('sha256').update(fs.readFileSync(path.join(exportDir, 'manifest.json'))).digest('hex'), startedAt: now() });
+    let record = journal({ version: 1, phase: 'restoring', profileId: profile.id, exportedProfile: manifest.profile, exportedAt: manifest.exportedAt, exportDir, upstream: manifest.upstream, manifestSha256: crypto.createHash('sha256').update(fs.readFileSync(path.join(exportDir, 'manifest.json'))).digest('hex'), startedAt: now() });
+    // From here a failure leaves a profile that is not a library: the error names it so the caller can discard it.
+    try {
     // The database and the media, into a private cluster that has never booted.
     const restored = await runtimePool.restore(profile.id, { source, dumpFile: path.join(exportDir, manifest.database.path), mediaDir: path.join(exportDir, 'media') });
     record = journal({ ...record, phase: 'restored', restoredAt: now() });
@@ -49,13 +51,14 @@ function createProfileImport({ registry, runtimePool, source, upstreamRef = () =
       copied.push(relative);
     }
     record = journal({ ...record, phase: 'imported', importedAt: now(), navigation: { from: oldOwner, to: owner }, files: copied.length, media: manifest.media.length });
+    } catch (error) { throw Object.assign(error, { profileId: profile.id }); }
     return { profileId: profile.id, storeDir, record, manifest };
   }
   function inspect(profileId) {
-    const value = createStore(registry.storeFor(profileId).storeDir, { create: false }).readJson(JOURNAL, null);
+    let value; try { value = createStore(registry.storeFor(profileId).storeDir, { create: false }).readJson(JOURNAL, null); } catch { return { status: 'blocked' }; }
     if (!value) return { status: 'none' };
     if (value.version !== 1 || value.profileId !== profileId || !['restoring', 'restored', 'imported'].includes(value.phase)) return { status: 'blocked' };
-    return { status: value.phase, exportedProfile: value.exportedProfile, exportedAt: value.exportedAt };
+    return { status: value.phase, exportedProfile: value.exportedProfile, exportedAt: value.exportedAt, exportDir: typeof value.exportDir === 'string' ? value.exportDir : null };
   }
   return Object.freeze({ importProfile, inspect });
 }

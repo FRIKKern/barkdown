@@ -194,6 +194,16 @@ function createProfileRegistry(directory, { checkpoint = () => {} } = {}) {
       return clone(profile);
     });
   }
+  // Take a profile out of the registry. Its folder is left where it is and returned, so the
+  // caller moves it somewhere recoverable. The selected profile is never removed.
+  function removeProfile(id) {
+    return locked(() => {
+      const found = entry(id), current = load();
+      if (current.selectedProfileId === id) throw new Error('The selected profile cannot be removed');
+      commit({ ...current, profiles: current.profiles.filter(p => p.id !== id) });
+      return { id, name: found.name, directory: at(found.root) };
+    });
+  }
   function selectProfile(id) {
     return locked(() => { entry(id); return commit({ ...load(), selectedProfileId: id }); });
   }
@@ -308,7 +318,7 @@ function createProfileRegistry(directory, { checkpoint = () => {} } = {}) {
       return { source: j.source, backupDir: at(`adoption-backups/${j.backupId}`), retainedProfileDir: at(`profiles/${j.profileId}`) };
     });
   }
-  return Object.freeze({ load, createProfile, selectProfile, storeFor, adoptLegacy, rollbackAdoption, recoverPrevious });
+  return Object.freeze({ load, createProfile, removeProfile, selectProfile, storeFor, adoptLegacy, rollbackAdoption, recoverPrevious });
 }
 
 module.exports = { createProfileRegistry, validateProfileId, validateRegistry };

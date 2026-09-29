@@ -105,6 +105,7 @@
     "test:profile-export": "node tests/profile-export.live.mjs",
     "test:profile-import": "node tests/profile-import.live.mjs",
     "test:runtime-reclaim": "npm run build && node tests/runtime-reclaim.live.mjs",
+    "test:profile-portable-interrupt": "npm run build && node tests/profile-portable-interrupt.live.mjs",
     "test:profile-portable-ui": "npm run build && node tests/profile-portable-ui.live.mjs"
   },
   "engines": {

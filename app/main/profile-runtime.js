@@ -211,7 +211,16 @@ function createProfileRuntimePool({ registry, readSecrets, createRuntime = ({ de
     const counts = await driver.restore({ dumpFile, mediaDir });
     return Object.freeze({ profileId, storeDir: store.storeDir, counts, connection: Object.freeze({ enabled: true, server: `http://127.0.0.1:${descriptor.port}`, token: secrets.token, dataset: 'production', viaCli: false }) });
   }
-  return Object.freeze({ acquire, select, selectWithoutRuntime, clearSelection, shutdown, status, restore });
+  // Stop what an earlier host left running for a profile that is not started here (an
+  // interrupted import's private database). Proven by the launch record; see runtime-orphan.js.
+  async function reclaim(profileId) {
+    validateProfileId(profileId);
+    if (entries.has(profileId)) throw new Error('This profile runs here; nothing is reclaimed from a running profile');
+    const store = registry.storeFor(profileId), descriptor = store.readJson('runtime.json', null), dataDir = path.join(store.storeDir, 'local-barkpark', 'runtime');
+    if (!descriptor || !fs.existsSync(dataDir)) return { reclaimed: false, runtime: false, database: false };
+    return createDriver({ descriptor, dataDir, secrets: Object.freeze({ password: '', token: '' }) }).reclaim();
+  }
+  return Object.freeze({ acquire, select, selectWithoutRuntime, clearSelection, shutdown, status, restore, reclaim });
 }
 
 module.exports = { managedDescriptor, createProfileRuntimePool, validateDescriptor };

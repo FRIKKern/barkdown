@@ -271,17 +271,31 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
   };
 
   // about
-  api.profiles?.status().then(status => {
+  const phases = { 'hold:begin': 'Pausing other writers…', 'hold:held': 'Writing the database…', 'after-dump': 'Copying pictures…', 'after-media': 'Copying profile files…', 'after-store': 'Sealing the export…', 'hold:reopened': 'Finishing…',
+    'after-restoring': 'Restoring the database…', 'after-restored': 'Copying profile files…', 'after-imported': 'Finishing…' };
+  const stopProgress = api.portable?.onProgress?.(event => { const n = q(event.action === 'export' ? '#profile-export-status' : '#profile-import-status'); if (n && phases[event.phase]) n.textContent = phases[event.phase]; else if (!n) stopProgress?.(); });
+  const loadProfiles = () => api.profiles.status().then(showProfiles);
+  const showProfiles = status => {
     if (!status.enabled) return;
+    const unfinished = status.profiles.filter(profile => profile.interruptedImport);
     const box = q('#profile-settings'); box.hidden = false;
     box.innerHTML = setting('Library profile', 'Each profile keeps its own pages, conversations, drafts and connections. Working folders still belong to individual chats.',
-      `${selectHtml('profile-choice', status.profiles.map(profile => `<option value="${esc(profile.id)}" ${profile.id === status.profileId ? 'selected' : ''}>${esc(profile.name)}</option>`).join(''))}<button type="button" class="bw-btn" id="profile-switch">Switch</button>`) +
+      `${selectHtml('profile-choice', status.profiles.map(profile => `<option value="${esc(profile.id)}" ${profile.id === status.profileId ? 'selected' : ''} ${profile.interruptedImport ? 'disabled' : ''}>${esc(profile.name)}${profile.interruptedImport ? ' (import did not finish)' : ''}</option>`).join(''))}<button type="button" class="bw-btn" id="profile-switch">Switch</button>`) +
       setting('New profile', 'Start with an empty library. Your existing profiles stay available.', '<input type="text" id="profile-name" aria-label="New profile name" placeholder="Profile name"><button type="button" class="bw-btn" id="profile-create">Create</button>') +
       setting('Export this profile', 'Writes the library, its pictures, conversations and retained originals to a new folder you choose. Agent turns stop and editing pauses while it runs; Barkdown restarts afterwards. Keys and passwords stay on this machine.<span class="bw-status bw-set-note" id="profile-export-status" role="status"></span>', `<button type="button" class="bw-btn" id="profile-export">${iconHtml('folder-output', 13)}Export…</button>`) +
-      setting('Import a profile', 'Reads an export folder and creates a new profile with its own database. The export and your existing profiles are not changed. Needs the same Barkpark version as the export.<span class="bw-status bw-set-note" id="profile-import-status" role="status"></span>', `<button type="button" class="bw-btn" id="profile-import">${iconHtml('folder-input', 13)}Import…</button>`);
-    const phases = { 'hold:begin': 'Pausing other writers…', 'hold:held': 'Writing the database…', 'after-dump': 'Copying pictures…', 'after-media': 'Copying profile files…', 'after-store': 'Sealing the export…', 'hold:reopened': 'Finishing…',
-      'after-restoring': 'Restoring the database…', 'after-restored': 'Copying profile files…', 'after-imported': 'Finishing…' };
-    const stopProgress = api.portable.onProgress(event => { const n = q(event.action === 'export' ? '#profile-export-status' : '#profile-import-status'); if (n && phases[event.phase]) n.textContent = phases[event.phase]; else if (!n) stopProgress(); });
+      setting('Import a profile', 'Reads an export folder and creates a new profile with its own database. The export and your existing profiles are not changed. Needs the same Barkpark version as the export.<span class="bw-status bw-set-note" id="profile-import-status" role="status"></span>', `<button type="button" class="bw-btn" id="profile-import">${iconHtml('folder-input', 13)}Import…</button>`) +
+      unfinished.map(profile => setting(`Unfinished import: ${profile.name}`, `This import stopped while ${profile.interruptedImport.phase === 'restoring' ? 'its database was being restored' : profile.interruptedImport.phase === 'restored' ? 'its profile files were being copied' : 'it was being written'}. It cannot be opened. ${profile.interruptedImport.exportAvailable ? 'Run it again from its export folder, or discard it.' : 'Its export folder is no longer there; discard it and import the export again.'} A discarded import goes to the trash; no other profile is touched.<span class="bw-status bw-set-note" data-unfinished-status="${esc(profile.id)}" role="status"></span>`,
+        `<div class="bw-inline">${profile.interruptedImport.exportAvailable ? `<button type="button" class="bw-btn" data-import-again="${esc(profile.id)}">Import again</button>` : ''}<button type="button" class="bw-btn" data-import-discard="${esc(profile.id)}">Discard</button></div>`)).join('');
+    for (const profile of unfinished) {
+      const note = box.querySelector(`[data-unfinished-status="${profile.id}"]`), act = async (run, saying, done) => {
+        for (const b of box.querySelectorAll('button')) b.disabled = true; note.className = 'bw-status bw-set-note'; note.textContent = saying;
+        try { const result = await run(); toast(done(result)); await loadProfiles(); if (result?.profile) { q('#profile-choice').value = result.profile.id; const said = q('#profile-import-status'); said.textContent = done(result) + ' Choose it above and press Switch to open it.'; said.className = 'bw-status bw-set-note ok'; } }
+        catch (error) { await loadProfiles().catch(() => {}); const n = box.querySelector(`[data-unfinished-status="${profile.id}"]`) || q('#profile-import-status'); n.textContent = error.message; n.className = 'bw-status bw-set-note err'; toast(error.message, 'error'); }
+      };
+      const again = box.querySelector(`[data-import-again="${profile.id}"]`);
+      if (again) again.onclick = () => act(() => api.portable.importAgain(profile.id), 'Importing again…', result => `Imported “${result.profile.name}” with ${result.papers} Paper${result.papers === 1 ? '' : 's'}.`);
+      box.querySelector(`[data-import-discard="${profile.id}"]`).onclick = () => act(() => api.portable.discardImport(profile.id), 'Discarding…', () => `Discarded the unfinished import “${profile.name}”.`);
+    }
     const busy = on => { for (const id of ['#profile-export', '#profile-import', '#profile-switch', '#profile-create']) { const n = q(id); if (n) n.disabled = on; } };
     q('#profile-export').onclick = async () => {
       const note = q('#profile-export-status'); note.className = 'bw-status bw-set-note';
@@ -328,7 +342,8 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
         q('#profile-choice').append(option); q('#profile-choice').value = profile.id; q('#profile-name').value = '';
       } catch (error) { toast(error.message, 'error'); }
     };
-  }).catch(error => toast(error.message, 'error'));
+  };
+  api.profiles?.status().then(showProfiles).catch(error => toast(error.message, 'error'));
   api.app.info?.().then(info => {
     q('#about-version').textContent = `Version ${info.version} · ${info.platform} ${info.arch}`;
     q('#about-runtime').innerHTML = [['Electron', info.electron], ['Chromium', info.chrome], ['Node', info.node]].map(([k, v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join('');

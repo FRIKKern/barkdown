@@ -56,7 +56,7 @@ function sanitizedSettings(storeDir) {
 }
 function createProfileExport({ registry, preparation, runtimePool, admission = createUpstreamAdmission(), upstreamRef = () => null, now = () => new Date().toISOString(), checkpoint = () => {}, countPapers = defaultCount }) {
   if (!registry?.storeFor || typeof preparation?.withPrepared !== 'function' || typeof runtimePool?.acquire !== 'function') throw new TypeError('Registry, preparation and runtime pool are required');
-  async function exportProfile(profileId, destinationDir, { timeoutMs = 60000 } = {}) {
+  async function exportProfile(profileId, destinationDir, { timeoutMs = 60000, operation = 'export-' + crypto.randomUUID() } = {}) {
     if (typeof destinationDir !== 'string' || !path.isAbsolute(destinationDir)) fail('destination', 'Choose an absolute folder for the export');
     if (fs.existsSync(destinationDir) && fs.readdirSync(destinationDir).length) fail('destination', 'The export folder must be new or empty; nothing is overwritten');
     const profile = registry.load()?.profiles?.find(p => p.id === profileId);
@@ -68,7 +68,6 @@ function createProfileExport({ registry, preparation, runtimePool, admission = c
       try {
         if (!lease.data?.dump) fail('runtime', 'This profile has no owned runtime to export; enable its local runtime first');
         const target = { profileId, server: lease.connection.server, token: lease.connection.token, dataset: lease.connection.dataset || 'production' };
-        const operation = 'export-' + crypto.randomUUID();
         checkpoint('hold:begin', { operation });
         const begun = await admission.hold(target, operation);
         const held = begun.phase === 'held' ? begun : await admission.awaitHeld(target, begun.capability, { timeoutMs });

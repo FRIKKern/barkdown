@@ -1,27 +1,41 @@
 // Export and import from the app (C085): the operator surface over profile-export.js and
 // profile-import.js. The folder is chosen in main through the native picker and held here, so
 // the window never names a path to write to. An export runs on a prepared profile and releases
-// the preparation when it ends, either way; its outcome is recorded against that preparation so
-// the restart notice can say what happened. A failed export's partial folder goes to the
-// system trash, never deleted. Import creates a new profile and changes no existing one.
+// the preparation when it ends, either way; its journal is written before the hold and names
+// the outcome against that preparation, so the notice can say what happened, also after a host
+// that died in the middle. A half-written export cannot be resumed: it is discarded (the
+// folder goes to the system trash, the runtime is reopened) and taken again. Import creates a
+// new profile and changes no existing one; an import that did not finish is never a library:
+// it cannot be selected, and is discarded or run again from its export folder.
 const fs = require('node:fs');
 const path = require('node:path');
-const { createProfileExport } = require('./profile-export');
+const crypto = require('node:crypto');
+const { createProfileExport, verifyExport } = require('./profile-export');
 const { createProfileImport } = require('./profile-import');
+const { createUpstreamAdmission } = require('./upstream-admission');
 const { createStore } = require('./store');
 const OUTCOME = 'profile-export-last.json';
 const fail = (code, message) => { throw Object.assign(new Error(message), { code }); };
 const folderName = (name, at) => `Barkdown export - ${String(name).replace(/[^\p{L}\p{N} ._-]+/gu, '-').trim().slice(0, 60) || 'profile'} - ${at.slice(0, 16).replace('T', ' ').replace(':', '')}`;
-function createProfilePortable({ registry, preparation, runtimePool, sourceFor, upstreamRef, chooseFolder, trash = async () => false, progress = () => {}, now = () => new Date().toISOString(), log = () => {}, exportOptions = {} }) {
+function createProfilePortable({ registry, preparation, runtimePool, sourceFor, upstreamRef, chooseFolder, trash = async () => false, progress = () => {}, now = () => new Date().toISOString(), log = () => {}, admission = createUpstreamAdmission(), exportOptions = {} }) {
   if (typeof sourceFor !== 'function' || typeof upstreamRef !== 'function' || typeof chooseFolder !== 'function') throw new TypeError('Source, upstream version and folder picker are required');
-  const pending = new Map();
+  const pending = new Map(), exporting = new Set(), importing = new Set();
   const step = (action, profileId) => (phase, detail) => { log(`[${action}] ${phase}`); progress({ action, profileId, phase }); };
   const bound = profileId => createStore(registry.storeFor(profileId).storeDir, { create: false });
   const source = profileId => { const value = sourceFor(profileId); if (!value) fail('portable_runtime', 'Enable the local Barkpark runtime for this profile first'); return value; };
+  const sealed = folder => { try { verifyExport(folder); return true; } catch { return false; } };
+  const partial = folder => typeof folder === 'string' && fs.existsSync(folder) && !fs.existsSync(path.join(folder, 'manifest.json'));
+  const journal = profileId => { try { const value = bound(profileId).readJson(OUTCOME, null); return value?.version === 1 ? value : null; } catch { return null; } };
+  const counted = manifest => ({ exportedAt: manifest.exportedAt, papers: manifest.counts.papers + (manifest.counts.drafts || 0), media: manifest.media.length, files: manifest.store.length });
+  async function discardFolder(folder) {
+    if (!partial(folder)) return typeof folder === 'string' && fs.existsSync(folder) ? 'kept' : 'none';
+    try { return (await trash(folder)) !== false && !fs.existsSync(folder) ? 'trashed' : 'kept'; } catch (error) { log(`[export] partial folder kept: ${error.message}`); return 'kept'; }
+  }
   async function chooseExport(profileId) {
     source(profileId);
     const profile = registry.load().profiles.find(p => p.id === profileId);
     if (!profile) fail('portable_profile', 'Unknown profile');
+    if (journal(profileId)?.status === 'exporting' && !exporting.has(profileId)) fail('portable_interrupted', 'An earlier export of this profile was interrupted. Discard it first');
     const parent = await chooseFolder({ title: 'Choose where the profile export goes', buttonLabel: 'Export here', properties: ['openDirectory', 'createDirectory'] });
     if (!parent) { pending.delete(profileId); return null; }
     const folder = path.join(parent, folderName(profile.name, now()));
@@ -32,44 +46,120 @@ function createProfilePortable({ registry, preparation, runtimePool, sourceFor, 
   async function exportChosen(profileId) {
     const folder = pending.get(profileId); pending.delete(profileId);
     if (!folder) fail('portable_destination', 'Choose a folder for the export first');
-    const from = source(profileId), preparationId = preparation.inspect(profileId)?.id || null;
-    const exporter = createProfileExport({ ...exportOptions, registry, preparation, runtimePool, upstreamRef: () => upstreamRef(from), now, checkpoint: step('export', profileId) });
+    if (exporting.has(profileId)) fail('portable_busy', 'This profile is being exported');
+    const from = source(profileId), preparationId = preparation.inspect(profileId)?.id || null, operation = 'export-' + crypto.randomUUID();
+    const exporter = createProfileExport({ ...exportOptions, registry, preparation, runtimePool, admission, upstreamRef: () => upstreamRef(from), now, checkpoint: step('export', profileId) });
+    const started = { version: 1, status: 'exporting', preparationId, operation, folder, startedAt: now() };
+    exporting.add(profileId);
     let outcome;
     try {
-      const { manifest } = await exporter.exportProfile(profileId, folder);
-      outcome = { version: 1, status: 'exported', preparationId, folder, exportedAt: manifest.exportedAt, papers: manifest.counts.papers + (manifest.counts.drafts || 0), media: manifest.media.length, files: manifest.store.length };
-    } catch (error) {
-      log(`[export] failed: ${error.code || ''} ${error.message}`);
-      let trashed = false;
-      if (fs.existsSync(folder) && !fs.existsSync(path.join(folder, 'manifest.json'))) { try { trashed = (await trash(folder)) !== false; } catch (cleanup) { log(`[export] partial folder kept: ${cleanup.message}`); } }
-      outcome = { version: 1, status: 'failed', preparationId, folder, failedAt: now(), code: error.code || null, message: error.message, partial: fs.existsSync(folder) ? 'kept' : trashed ? 'trashed' : 'none' };
-    }
-    bound(profileId).writeJson(OUTCOME, outcome);
-    // The export is over: the preparation is released either way. A fresh host reopens editing.
-    try { await preparation.abort(profileId); } catch (error) { log(`[export] preparation not released: ${error.message}`); }
+      bound(profileId).writeJson(OUTCOME, started);
+      try { outcome = { ...started, status: 'exported', ...counted((await exporter.exportProfile(profileId, folder, { operation })).manifest) }; }
+      catch (error) {
+        log(`[export] failed: ${error.code || ''} ${error.message}`);
+        outcome = { ...started, status: 'failed', failedAt: now(), code: error.code || null, message: error.message, partial: await discardFolder(folder) };
+      }
+      bound(profileId).writeJson(OUTCOME, outcome);
+      // The export is over: the preparation is released either way. A fresh host reopens editing.
+      try { await preparation.abort(profileId); } catch (error) { log(`[export] preparation not released: ${error.message}`); }
+    } finally { exporting.delete(profileId); }
     if (outcome.status === 'failed') throw Object.assign(new Error(outcome.message), { code: outcome.code || 'export_failed' });
-    return outcome;
+    return view(outcome);
   }
-  // The outcome of the export that ended the given profile's current preparation, if any.
+  const view = value => value.status === 'exported' ? { status: 'exported', folder: value.folder, papers: value.papers, media: value.media, files: value.files, exportedAt: value.exportedAt }
+    : value.status === 'failed' ? { status: 'failed', message: value.message, partial: value.partial }
+      : value.status === 'discarded' ? { status: 'discarded', folder: value.folder, partial: value.partial }
+        : { status: 'interrupted', folder: value.folder, startedAt: value.startedAt, partial: partial(value.folder) ? 'present' : 'none' };
+  // The outcome of the export that belongs to the given profile's current preparation, if any.
   function outcome(profileId) {
-    let value; try { value = bound(profileId).readJson(OUTCOME, null); } catch { return null; }
-    const record = preparation.inspect(profileId);
-    if (!value || value.version !== 1 || !record || value.preparationId !== record.id || !['exported', 'failed'].includes(value.status)) return null;
-    return value.status === 'exported' ? { status: 'exported', folder: value.folder, papers: value.papers, media: value.media, files: value.files, exportedAt: value.exportedAt }
-      : { status: 'failed', message: value.message, partial: value.partial };
+    const value = journal(profileId), record = preparation.inspect(profileId);
+    if (!value || !record || value.preparationId !== record.id || !['exporting', 'exported', 'failed', 'discarded'].includes(value.status)) return null;
+    if (value.status === 'exporting' && exporting.has(profileId)) return { status: 'running', folder: value.folder };
+    return view(value);
+  }
+  // The runtime may still refuse writers for the export that never reopened it.
+  async function releaseHold(profileId, operation) {
+    const lease = await runtimePool.acquire(profileId, { ownerId: 'profile-export-discard', writes: false });
+    try {
+      const target = { profileId, server: lease.connection.server, token: lease.connection.token, dataset: lease.connection.dataset || 'production' };
+      let seen;
+      try { seen = await admission.instance(target); } catch (error) { if (error.code === 'upstream_admission_unavailable') return 'unmanaged'; throw error; }
+      if (seen.phase === 'open' || seen.phase === 'unconfigured') return 'open';
+      try {
+        const begun = await admission.hold(target, operation);
+        const held = begun.phase === 'held' ? begun : await admission.awaitHeld(target, begun.capability, { timeoutMs: 60000 });
+        await admission.reopen(target, held.capability);
+        return 'reopened';
+      } catch (error) {
+        const again = await admission.instance(target);
+        if (again.phase === 'open') return 'open';
+        const recovered = await admission.recover(target, { generation: again.generation, pending: again.pending });
+        if (recovered.phase !== 'open') fail('portable_hold', `The runtime stays ${recovered.phase} after recovery; writers are still refused`);
+        return 'recovered';
+      }
+    } finally { await lease.release(); }
+  }
+  async function discardExport(profileId) {
+    const value = journal(profileId);
+    if (!value || value.status !== 'exporting' || exporting.has(profileId)) fail('portable_discard', 'There is no interrupted export to discard');
+    const hold = await releaseHold(profileId, value.operation);
+    // The manifest is written last: a folder that verifies is a complete export, whatever happened after.
+    const done = sealed(value.folder) ? { ...value, status: 'exported', ...counted(verifyExport(value.folder).manifest), hold }
+      : { ...value, status: 'discarded', discardedAt: now(), partial: await discardFolder(value.folder), hold };
+    log(`[export] interrupted export ${done.status}; runtime ${hold}`);
+    bound(profileId).writeJson(OUTCOME, done);
+    if (preparation.inspect(profileId)?.phase !== 'aborted') await preparation.abort(profileId);
+    return view(done);
+  }
+  const inspector = createProfileImport({ registry, runtimePool, source: '', upstreamRef: () => null });
+  // Imports that started and never finished. They are profiles in the registry, not libraries.
+  function interruptedImports() {
+    return registry.load().profiles.filter(p => !importing.has(p.id)).map(p => ({ profile: p, state: inspector.inspect(p.id) }))
+      .filter(({ state }) => ['restoring', 'restored', 'blocked'].includes(state.status))
+      .map(({ profile, state }) => ({ profileId: profile.id, name: profile.name, phase: state.status, exportedProfile: state.exportedProfile?.name || null, exportDir: state.exportDir || null,
+        exportAvailable: Boolean(state.exportDir && fs.existsSync(path.join(state.exportDir, 'manifest.json'))) }));
+  }
+  const isIncomplete = profileId => importing.has(profileId) || interruptedImports().some(entry => entry.profileId === profileId);
+  async function discardImport(profileId) {
+    const found = interruptedImports().find(entry => entry.profileId === profileId);
+    if (!found) fail('portable_discard', 'This profile is not an interrupted import');
+    await runtimePool.reclaim(profileId);
+    const removed = registry.removeProfile(profileId);
+    let moved = 'kept';
+    try { moved = (await trash(removed.directory)) !== false && !fs.existsSync(removed.directory) ? 'trashed' : 'kept'; } catch (error) { log(`[import] discarded profile folder kept: ${error.message}`); }
+    log(`[import] interrupted import discarded: ${profileId} folder ${moved}`);
+    return { profileId, name: found.name, folder: moved, exportDir: found.exportDir };
+  }
+  async function runImport(profileId, folder) {
+    const from = source(profileId), known = new Set(registry.load().profiles.map(p => p.id));
+    // The profile being made is not selectable, and not listed as interrupted, while this runs.
+    const made = (phase, detail) => { if (detail?.profileId && !known.has(detail.profileId)) importing.add(detail.profileId); step('import', profileId)(phase, detail); };
+    let result;
+    try { result = await createProfileImport({ registry, runtimePool, source: from, upstreamRef: () => upstreamRef(from), now, checkpoint: made }).importProfile(folder); }
+    catch (error) {
+      log(`[import] failed: ${error.code || ''} ${error.message}`);
+      if (error.profileId) { importing.delete(error.profileId); try { await discardImport(error.profileId); } catch (cleanup) { log(`[import] half-made profile kept: ${cleanup.message}`); } }
+      throw error;
+    }
+    importing.delete(result.profileId);
+    const profile = registry.load().profiles.find(p => p.id === result.profileId);
+    return { profile: { id: profile.id, name: profile.name }, ...counted(result.manifest), files: result.record.files, exportedProfile: result.manifest.profile.name };
   }
   async function importChosen(profileId) {
-    const from = source(profileId);
+    source(profileId);
     const folder = await chooseFolder({ title: 'Choose a Barkdown profile export', buttonLabel: 'Import', properties: ['openDirectory'] });
     if (!folder) return null;
-    const importer = createProfileImport({ registry, runtimePool, source: from, upstreamRef: () => upstreamRef(from), now, checkpoint: step('import', profileId) });
-    let result;
-    try { result = await importer.importProfile(folder); }
-    catch (error) { log(`[import] failed: ${error.code || ''} ${error.message}`); throw error; }
-    const profile = registry.load().profiles.find(p => p.id === result.profileId);
-    return { profile: { id: profile.id, name: profile.name }, papers: result.manifest.counts.papers + (result.manifest.counts.drafts || 0), media: result.manifest.media.length, files: result.record.files,
-      exportedProfile: result.manifest.profile.name, exportedAt: result.manifest.exportedAt };
+    return runImport(profileId, folder);
   }
-  return Object.freeze({ chooseExport, exportChosen, importChosen, outcome });
+  // Run an interrupted import again from the export folder it named: the half-made profile is discarded first.
+  async function importAgain(profileId, interruptedId) {
+    source(profileId);
+    const found = interruptedImports().find(entry => entry.profileId === interruptedId);
+    if (!found) fail('portable_discard', 'This profile is not an interrupted import');
+    if (!found.exportAvailable || !sealed(found.exportDir)) fail('portable_source', 'The export folder of this import is missing or no longer verifies. Discard the import and choose the export again');
+    await discardImport(interruptedId);
+    return runImport(profileId, found.exportDir);
+  }
+  return Object.freeze({ chooseExport, exportChosen, importChosen, outcome, discardExport, interruptedImports, isIncomplete, discardImport, importAgain });
 }
 module.exports = { createProfilePortable };

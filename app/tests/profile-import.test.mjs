@@ -54,7 +54,9 @@ test('import creates a new profile, restores first, re-owns navigation and keeps
   assert.equal(fs.readFileSync(path.join(result.storeDir, 'documents/note.json'), 'utf8'), fs.readFileSync(path.join(f.dir, 'profile/documents/note.json'), 'utf8'), 'retained originals are copied verbatim');
   assert.deepEqual(store.readJson('settings.json', null).barkpark, { enabled: true, local: { enabled: true, source: '/built/barkpark' }, viaCli: false, server: '' });
   assert.equal(result.record.phase, 'imported'); assert.deepEqual(result.record.navigation, { from: OLD_OWNER, to: owner });
-  assert.deepEqual(f.importer.inspect(result.profileId), { status: 'imported', exportedProfile: { id: OLD_PROFILE, name: 'Writing desk' }, exportedAt: '2026-09-29T00:00:00.000Z' });
+  const inspected = f.importer.inspect(result.profileId);
+  assert.equal(path.basename(inspected.exportDir), 'export', 'the journal names the export folder it came from');
+  assert.deepEqual({ ...inspected, exportDir: null }, { status: 'imported', exportedProfile: { id: OLD_PROFILE, name: 'Writing desk' }, exportedAt: '2026-09-29T00:00:00.000Z', exportDir: null });
   assert.equal(fs.readFileSync(path.join(f.dir, 'profile/workspace.json'), 'utf8').includes(OLD_OWNER), true, 'the export folder is untouched');
 });
 test('a tampered export, another Barkpark version and a failed restore are refused; the journal names the phase', async () => {

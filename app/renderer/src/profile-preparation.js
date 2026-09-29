@@ -58,12 +58,18 @@ export function installProfilePreparation({ api, root, state, controllers, seria
   const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
   const exported = value => { const o = value.exportOutcome; if (!o) return '';
     return o.status === 'exported' ? `The export completed: ${plural(o.papers, 'Paper')}, ${plural(o.media, 'picture')} and ${plural(o.files, 'profile file')} are in ${o.folder}. Nothing in this profile changed.`
-      : `The export did not complete: ${o.message}. Nothing in this profile changed${o.partial === 'trashed' ? '; the partial folder is in the trash' : o.partial === 'kept' ? '; the partial folder was kept' : ''}.`; };
+      : o.status === 'discarded' ? `The interrupted export was discarded${o.partial === 'trashed' ? '; its partial folder is in the trash' : o.partial === 'kept' ? '; its partial folder was kept at ' + o.folder : ''}. Nothing in this profile changed.`
+      : o.status === 'failed' ? `The export did not complete: ${o.message}. Nothing in this profile changed${o.partial === 'trashed' ? '; the partial folder is in the trash' : o.partial === 'kept' ? '; the partial folder was kept' : ''}.` : ''; };
+  const interrupted = value => value.exportOutcome?.status === 'interrupted';
   async function status() {
     let value;
     try { value = await api.preparation.status(); }
     catch (error) { root.inert = true; pauseSaves(true); showNotice('Preparation status could not be verified. Keep this window open. ' + error.message); throw error; }
-    if (value.readOnly) {
+    if (interrupted(value)) {
+      // A host ended in the middle of an export. Nothing resumes a half-written export: it is discarded and taken again.
+      root.inert = true; pauseSaves(true);
+      showNotice(`An export of this profile was interrupted. ${value.exportOutcome.partial === 'present' ? 'Its folder is incomplete and cannot be imported: ' + value.exportOutcome.folder + '.' : 'It left no folder.'} Discard it to continue: ${value.exportOutcome.partial === 'present' ? 'the folder goes to the trash and ' : ''}the library is reopened for writing. Nothing in this profile changed.`);
+    } else if (value.readOnly) {
       root.inert = true;
       pauseSaves(true);
       // A reopened writer belongs to a fresh host by design (main/profile-launch-admission.js):
@@ -79,7 +85,8 @@ export function installProfilePreparation({ api, root, state, controllers, seria
     }
     lastStatus = value;
     if (notice) {
-      notice.querySelector('[data-abort]').hidden = !value.record || value.record.phase === 'aborted' && !value.readOnly || value.restartRequired;
+      notice.querySelector('[data-abort]').hidden = !value.record || value.record.phase === 'aborted' && !value.readOnly || value.restartRequired || interrupted(value);
+      notice.querySelector('[data-discard-export]').hidden = !interrupted(value);
       notice.querySelector('[data-dismiss]').hidden = Boolean(value.readOnly);
       notice.querySelector('[data-restart]').hidden = !value.restartRequired;
     }
@@ -88,7 +95,7 @@ export function installProfilePreparation({ api, root, state, controllers, seria
   function showNotice(message) {
     if (!notice) {
       notice = document.createElement('aside'); notice.className = 'bw-preparation-notice'; notice.setAttribute('role', 'status');
-      notice.innerHTML = '<p></p><div class="bw-preparation-actions"><button class="bw-btn" data-drafts>Review retained drafts</button><button class="bw-btn" data-abort hidden>Cancel preparation</button><button class="bw-btn" data-dismiss hidden>Dismiss</button><button class="bw-btn" data-restart hidden>Restart Barkdown</button></div><label>Switch profile <select aria-label="Preparation profile"></select></label><button class="bw-btn" data-switch>Switch</button>';
+      notice.innerHTML = '<p></p><div class="bw-preparation-actions"><button class="bw-btn" data-drafts>Review retained drafts</button><button class="bw-btn" data-abort hidden>Cancel preparation</button><button class="bw-btn" data-discard-export hidden>Discard the interrupted export</button><button class="bw-btn" data-dismiss hidden>Dismiss</button><button class="bw-btn" data-restart hidden>Restart Barkdown</button></div><label>Switch profile <select aria-label="Preparation profile"></select></label><button class="bw-btn" data-switch>Switch</button>';
       document.body.append(notice);
       notice.querySelector('[data-switch]').onclick = async () => {
         try { const id = notice.querySelector('select').value; if (id && id !== state.profileId) { await api.profiles.select(id); window.location.reload(); } }
@@ -98,6 +105,12 @@ export function installProfilePreparation({ api, root, state, controllers, seria
         isCurrent: owner => owner.profileId === state.profileId && owner.generation === state.generation });
       notice.querySelector('[data-dismiss]').onclick = () => { if (!lastStatus?.readOnly) { notice.remove(); notice = null; } };
       notice.querySelector('[data-restart]').onclick = async event => { event.currentTarget.disabled = true; try { await api.app.relaunch(); } catch (error) { event.currentTarget.disabled = false; notice.querySelector('p').textContent = 'Barkdown could not restart itself. ' + error.message; } };
+      notice.querySelector('[data-discard-export]').onclick = async event => {
+        const button = event.currentTarget; button.disabled = true; notice.querySelector('p').textContent = 'Discarding the interrupted export and reopening the library…';
+        try { await api.portable.discardExport(); await status(); }
+        catch (error) { await status().catch(() => {}); notice.querySelector('p').textContent = 'The interrupted export could not be discarded. ' + error.message; }
+        finally { button.disabled = false; }
+      };
       notice.querySelector('[data-abort]').onclick = async event => {
         event.currentTarget.disabled = true;
         try { await api.preparation.abort(); await status(); }
@@ -105,7 +118,7 @@ export function installProfilePreparation({ api, root, state, controllers, seria
         finally { notice.querySelector('[data-abort]').disabled = false; }
       };
       api.profiles.status().then(info => {
-        for (const profile of info.profiles || []) { const option = document.createElement('option'); option.value = profile.id; option.textContent = profile.name; option.selected = profile.id === state.profileId; notice.querySelector('select').append(option); }
+        for (const profile of (info.profiles || []).filter(p => !p.interruptedImport)) { const option = document.createElement('option'); option.value = profile.id; option.textContent = profile.name; option.selected = profile.id === state.profileId; notice.querySelector('select').append(option); }
       }).catch(() => {});
     }
     notice.querySelector('p').textContent = message;
