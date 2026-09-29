@@ -115,6 +115,28 @@ try {
     report.checks.push({ name: `crash at ${point}: nothing selected, resume completes the same switch, exactly two Papers added`, staged: resumed.staged, papersAdded: after - before }); persist();
     await preparation.abort(p.id);
   }
+  // The rollback's own interruption: a crash right after the legacy workspace is restored, before
+  // the journal says rolled-back. The second rollback completes the same operation.
+  {
+    const p = registry.createProfile({ name: 'Crash in rollback' }), dir = registry.storeFor(p.id).storeDir;
+    require('../main/paper-evidence-owner').createPaperEvidenceOwner(createStore(dir, { create: false })).identify({ server, token, dataset: 'production', viaCli: false }, { create: true });
+    const d = createDocuments(createStore(dir, { create: false }));
+    const one = d.create({ title: 'Orchard fieldbook', markdown: 'A fieldbook whose rollback is interrupted.' });
+    const legacyText = JSON.stringify({ version: 1, profileId: p.id, chats: {}, order: [], current: null, pages: { layoutVersion: 2, seeded: true, roots: [one.id], children: {}, expanded: {} }, favorites: [] });
+    fs.writeFileSync(path.join(dir, 'workspace.json'), legacyText);
+    await preparation.prepare(p.id);
+    let armedHere = true;
+    const crashing = createMigrationSwitch({ registry, preparation, runtimePool, userData, checkpoint: phase => { if (armedHere && phase === 'after-workspace-restored') { armedHere = false; throw Object.assign(new Error('simulated crash after the workspace was restored'), { code: 'crash' }); } } });
+    assert.equal((await crashing.switchToPaper(p.id)).selection.status, 'selected');
+    await assert.rejects(crashing.rollback(p.id), { code: 'crash' });
+    const midway = crashing.status(p.id);
+    assert.equal(midway.selection.status, 'rolling-back'); assert.deepEqual(midway.selection.actions, ['rollback']);
+    assert.equal(fs.readFileSync(path.join(dir, 'workspace.json'), 'utf8'), legacyText, 'the legacy navigation is already back');
+    const done = await crashing.rollback(p.id);
+    assert.equal(done.selection.status, 'rolled-back'); assert.equal(done.selection.operationId, midway.selection.operationId); assert.equal(done.selection.reconciliationRequired, false);
+    report.checks.push({ name: 'a crash after the workspace is restored leaves rolling-back with the legacy navigation in place; the second rollback completes the same operation', passed: true }); persist();
+    await preparation.abort(p.id);
+  }
   report.status = 'passed'; persist(); console.log(JSON.stringify(report, null, 2));
 } catch (error) { report.status = 'failed'; report.error = String(error?.stack || error); persist(); throw error; }
 finally { goals.close(); }
