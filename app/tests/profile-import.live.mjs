@@ -61,7 +61,8 @@ try {
   const destination = path.join(root, 'export');
   const { manifest } = await exporter.exportProfile(a.id, destination);
   await preparation.abort(a.id);
-  assert.equal(manifest.counts.papers, 3); assert.equal(manifest.navigation.owner, ownerA); assert.ok(manifest.media.length >= 1);
+  const libraryA = await listAllPapers(A);
+  assert.equal(manifest.counts.papers, libraryA.length); assert.ok(libraryA.length >= 3); assert.equal(manifest.navigation.owner, ownerA); assert.ok(manifest.media.length >= 1);
   report.checks.push({ name: 'profile A exported under the hold through the real runtime pool', papers: manifest.counts.papers, media: manifest.media.length, store: manifest.store.length }); persist();
   const before = (await listAllPapers(A)).map(p => p.id).sort();
   const importer = createProfileImport({ registry, runtimePool: pool, source, upstreamRef: () => upstream });
