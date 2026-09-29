@@ -26,7 +26,13 @@ async function http(method, route, body) {
   let data = null; try { data = await response.json(); } catch {}
   return { status: response.status, data };
 }
-const read = async id => { const r = await http('GET', '/v1/data/doc/production/paper/' + id + '?perspective=raw'); assert.equal(r.status, 200, JSON.stringify(r.data)); return r.data.document || r.data; };
+// The Paper as the server holds it: its revision and its blocks, wherever the row carries them.
+const read = async id => {
+  const r = await http('GET', '/v1/data/doc/production/paper/' + id + '?perspective=published'); assert.equal(r.status, 200, JSON.stringify(r.data));
+  const doc = r.data.document || r.data, blocks = doc.blocks ?? doc.content?.blocks, rev = doc.rev ?? doc.content?.rev;
+  assert.ok(Array.isArray(blocks) && Number.isInteger(rev), 'a Paper read carries its blocks and revision: ' + Object.keys(doc).join(','));
+  return { rev, blocks };
+};
 try {
   const WRITERS = 6, run = crypto.randomBytes(3).toString('hex');
   const tag = await http('POST', '/v1/data/mutate/production', { mutations: [{ createOrReplace: { _id: 'inflight', _type: 'tag', title: 'In flight' } }, { publish: { id: 'inflight', type: 'tag' } }] });
