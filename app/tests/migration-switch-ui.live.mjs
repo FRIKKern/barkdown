@@ -140,6 +140,13 @@ try {
   // The window saved its own navigation while on Paper (a tab was opened); that copy is retained, the legacy one restored.
   assert.ok(rolled.selection.retainedPaperWorkspace, 'the Paper-era workspace is retained');
   assert.ok(fs.existsSync(path.join(a.dir, 'selection', 'workspace-paper.json')));
+  assert.equal(rolled.retainedDir, path.join(a.dir, 'selection'));
+  // Settings names the retained navigation and offers the retained files.
+  const afterRollback = await openLibrarySwitch();
+  assert.match(afterRollback, /Switched back to legacy notes.*retained, not restored/);
+  assert.equal(await page.locator('[data-act="switch-retained"]').isVisible(), true, 'Open retained files is offered');
+  await shot('05b-rolled-back-settings');
+  await page.keyboard.press('Escape');
   const created = await page.evaluate(() => window.barkdown.docs.create({ title: 'After rollback', markdown: 'Legacy writes return after the rollback.' }));
   assert.ok(created.id);
   assert.ok((await page.evaluate(() => window.barkdown.barkpark.list())).some(p => p.title === 'Orchard fieldbook'), 'Papers stay on the runtime after rollback');
@@ -149,7 +156,8 @@ try {
   await page.evaluate(() => document.querySelector('#bw-settings').click());
   await page.locator('#profile-choice').selectOption(b.profile.id);
   await page.locator('#profile-switch').click();
-  await page.waitForFunction(async id => { try { return window.__barkdown?.state.loaded && (await window.barkdown.profiles.status()).profileId === id; } catch { return false; } }, b.profile.id, { timeout: 60000 });
+  // The select reloads the window; the renderer state names the profile only after that reload.
+  await page.waitForFunction(id => window.__barkdown?.state.loaded && window.__barkdown.state.profileId === id, b.profile.id, { timeout: 60000 });
   await runtimeReady();
   await app.evaluate(() => {
     const fs = process.getBuiltinModule('fs'), original = fs.renameSync; global.__switchCrashArmed = true;

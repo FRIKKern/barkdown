@@ -40,7 +40,10 @@ function createMigrationSwitch({ registry, preparation, runtimePool, userData, a
     const record = preparation.inspect?.(profileId) ?? null;
     const backup = fs.existsSync(path.join(destinationDir, 'intent.json'));
     const staged = backup && fs.existsSync(path.join(destinationDir, 'staging', 'complete.json'));
-    return { profileId, preparation: record?.phase ?? null, backup, staged, selection: selection.inspect(profileId, sourceDir), destinationDir };
+    const inspected = selection.inspect(profileId, sourceDir);
+    // Where a rollback's retained copies live (the legacy and Paper-era navigation, D-migration-rollback-workspace).
+    const retainedDir = inspected.status === 'none' ? null : path.join(sourceDir, 'selection');
+    return { profileId, preparation: record?.phase ?? null, backup, staged, selection: inspected, destinationDir, retainedDir };
   }
   async function withRuntime(profileId, fn) {
     const lease = await runtimePool.acquire(profileId, { ownerId: 'migration-switch', writes: true });
