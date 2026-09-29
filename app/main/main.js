@@ -303,7 +303,7 @@ function registerIpc() {
     preparationForeground = require('./preparation-foreground').createPreparationForeground({ isClosed: profileId => preparationStatus(profileId).readOnly });
     const bridge = require('./preparation-bridge').createPreparationBridge({ profiles: profileService, foreground: preparationForeground,
       webContents: () => win?.webContents, draftsFor: paperDrafts, writerState });
-    preparation = require('./profile-preparation').createProfilePreparation({ registry: profileRegistry, profiles: profileService, goals: goalService,
+    preparation = require('./profile-preparation').createProfilePreparation({ registry: profileRegistry, profiles: profileService, goals: goalService, checkpoint: (phase, detail) => console.error(`[preparation] ${phase}`),
       freezeForeground: bridge.freeze, drainForeground: preparationForeground.drain, drainTerminals: profileId => terminal.stopAll(profileId) });
     handle('preparation:prepare', () => preparation.prepare(profileService.view().profileId));
     handle('preparation:abort', () => preparation.abort(profileService.view().profileId));
@@ -315,11 +315,20 @@ function registerIpc() {
     // profile's own runtime lease is taken for the duration; after a completed switch or
     // rollback the preparation is released so launches reopen (old handles stay frozen; the
     // window reloads).
-    const migration = require('./migration-switch').createMigrationSwitch({ registry: profileRegistry, preparation, userData: app.getPath('userData'),
+    // Coordinator checkpoints go to stderr: a stalled switch is diagnosable from the process log.
+    const trace = owner => (phase, detail) => console.error(`[${owner}] ${phase}${detail?.operationId ? ' ' + detail.operationId : ''}`);
+    const migration = require('./migration-switch').createMigrationSwitch({ registry: profileRegistry, preparation, userData: app.getPath('userData'), checkpoint: trace('switch'),
       runtimePool: { acquire: (...args) => profilePool ? profilePool.acquire(...args) : Promise.reject(Object.assign(new Error('Enable the local Barkpark runtime for this profile first'), { code: 'switch_runtime' })) } });
     handle('migration:status', () => migration.status(profileService.view().profileId));
-    handle('migration:switch', async () => { const id = profileService.view().profileId; const result = await migration.switchToPaper(id); if (result.selection.status === 'selected') await preparation.abort(id); return migration.status(id); });
-    handle('migration:rollback', async () => { const id = profileService.view().profileId; const result = await migration.rollback(id); if (result.selection.status === 'rolled-back') await preparation.abort(id); return migration.status(id); });
+    const migrationAction = (name, run, done) => async () => {
+      const id = profileService.view().profileId;
+      let result;
+      try { result = await run(id); } catch (error) { console.error(`[switch] ${name} failed: ${error.code || ''} ${error.message}`); throw error; }
+      if (result.selection.status === done) await preparation.abort(id);
+      return migration.status(id);
+    };
+    handle('migration:switch', migrationAction('switch', id => migration.switchToPaper(id), 'selected'));
+    handle('migration:rollback', migrationAction('rollback', id => migration.rollback(id), 'rolled-back'));
   } else { handle('preparation:status', () => ({ record: null, readOnly: false })); handle('migration:status', () => null); }
   const originalHistory = () => {
     if (!profileService) throw new Error('Original history requires an owned profile.');
@@ -335,6 +344,8 @@ function registerIpc() {
   });
   handle('app:openExternal', url => { if (/^https?:/.test(url)) shell.openExternal(url); return true; });
   handle('app:openPath', p => shell.openPath(p));
+  // A fresh host after an aborted preparation (profile-launch-admission.js): the owned shutdown path runs first.
+  handle('app:relaunch', () => { app.relaunch(); app.quit(); return true; }, true);
   handle('app:info', () => ({ version: app.getVersion(), electron: process.versions.electron, chrome: process.versions.chrome, node: process.versions.node, platform: process.platform, arch: process.arch, userData: store.dir() }));
 
   handle('state:load', () => {

@@ -61,7 +61,11 @@ export function installProfilePreparation({ api, root, state, controllers, seria
     if (value.readOnly) {
       root.inert = true;
       pauseSaves(true);
-      showNotice(value.restartRequired ? 'Preparation was cancelled. Close and reopen Barkdown to continue editing; retained drafts are kept.' : 'Editing is paused for this profile while preparation is resolved.');
+      // A reopened writer belongs to a fresh host by design (main/profile-launch-admission.js):
+      // the process that aborted the preparation restarts. The selection journal names the outcome.
+      showNotice(value.restartRequired ? (state.selection === 'selected' ? 'The library switch completed. Notes now live on Paper; legacy notes are retained read-only. Restart Barkdown to continue; retained drafts are kept.'
+        : state.selection === 'rolled-back' ? 'The rollback completed. Legacy notes are back; Papers and their later edits stay on Paper. Restart Barkdown to continue editing; retained drafts are kept.'
+        : 'Preparation was cancelled. Restart Barkdown to continue editing; retained drafts are kept.') : 'Editing is paused for this profile while preparation is resolved.');
     } else if (value.record?.phase === 'aborted') {
       // The same release transition ends a completed switch or rollback; the selection journal says which.
       showNotice(state.selection === 'selected' ? 'The library switch completed. Notes now live on Paper; legacy notes are retained read-only. Retained drafts are available.'
@@ -72,13 +76,14 @@ export function installProfilePreparation({ api, root, state, controllers, seria
     if (notice) {
       notice.querySelector('[data-abort]').hidden = !value.record || value.record.phase === 'aborted' && !value.readOnly || value.restartRequired;
       notice.querySelector('[data-dismiss]').hidden = Boolean(value.readOnly);
+      notice.querySelector('[data-restart]').hidden = !value.restartRequired;
     }
     return value;
   }
   function showNotice(message) {
     if (!notice) {
       notice = document.createElement('aside'); notice.className = 'bw-preparation-notice'; notice.setAttribute('role', 'status');
-      notice.innerHTML = '<p></p><div class="bw-preparation-actions"><button class="bw-btn" data-drafts>Review retained drafts</button><button class="bw-btn" data-abort hidden>Cancel preparation</button><button class="bw-btn" data-dismiss hidden>Dismiss</button></div><label>Switch profile <select aria-label="Preparation profile"></select></label><button class="bw-btn" data-switch>Switch</button>';
+      notice.innerHTML = '<p></p><div class="bw-preparation-actions"><button class="bw-btn" data-drafts>Review retained drafts</button><button class="bw-btn" data-abort hidden>Cancel preparation</button><button class="bw-btn" data-dismiss hidden>Dismiss</button><button class="bw-btn" data-restart hidden>Restart Barkdown</button></div><label>Switch profile <select aria-label="Preparation profile"></select></label><button class="bw-btn" data-switch>Switch</button>';
       document.body.append(notice);
       notice.querySelector('[data-switch]').onclick = async () => {
         try { const id = notice.querySelector('select').value; if (id && id !== state.profileId) { await api.profiles.select(id); window.location.reload(); } }
@@ -87,6 +92,7 @@ export function installProfilePreparation({ api, root, state, controllers, seria
       notice.querySelector('[data-drafts]').onclick = () => openRetainedDrafts({ api, owner: { profileId: state.profileId, generation: state.generation },
         isCurrent: owner => owner.profileId === state.profileId && owner.generation === state.generation });
       notice.querySelector('[data-dismiss]').onclick = () => { if (!lastStatus?.readOnly) { notice.remove(); notice = null; } };
+      notice.querySelector('[data-restart]').onclick = async event => { event.currentTarget.disabled = true; try { await api.app.relaunch(); } catch (error) { event.currentTarget.disabled = false; notice.querySelector('p').textContent = 'Barkdown could not restart itself. ' + error.message; } };
       notice.querySelector('[data-abort]').onclick = async event => {
         event.currentTarget.disabled = true;
         try { await api.preparation.abort(); await status(); }

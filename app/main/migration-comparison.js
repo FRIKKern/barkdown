@@ -140,7 +140,13 @@ function createMigrationComparison({ preparation }) {
       const baseline = read(store, baselineName);
       if (baseline?.version !== 1 || !Array.isArray(baseline.rows) || !Array.isArray(baseline.media)) fail('comparison_baseline', 'Missing complete pre-staging baseline');
       if (!/^[a-f0-9]{64}$/.test(options.expectedBaselineHash || '') || hash(baseline) !== options.expectedBaselineHash) fail('comparison_baseline', 'A caller-pinned baseline hash is required');
-      same(baseline.identity, identity, 'Baseline belongs to a different preparation, source or runtime');
+      // A rollback after a restart runs under the successor of the preparation that captured
+      // the baseline (the aborted one is its `previousId`). The fence identity then differs by
+      // design; the source, manifest, projection and runtime binding must still match.
+      const successor = baseline.identity?.preparationId !== identity.preparationId && baseline.identity?.preparationId === scope.preparation.previousId;
+      const fenceless = ({ preparationId, closureId, writer, draftKeys, ...rest }) => rest;
+      if (successor) same(fenceless(baseline.identity), fenceless(identity), 'Baseline belongs to a different source or runtime');
+      else same(baseline.identity, identity, 'Baseline belongs to a different preparation, source or runtime');
       function journalHash() {
         const entries = [];
         for (const dir of ['staging', 'media']) {

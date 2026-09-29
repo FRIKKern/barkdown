@@ -67,9 +67,9 @@ function createProfilePreparation({ registry, profiles, goals, freezeForeground,
   const abort = profileId => dispatch(profileId, 'abort', () => abortRun(profileId));
   async function drain(profileId, closureId) {
     const settled = await Promise.allSettled([
-      () => profiles.drainOrdinary(profileId), () => goals.drain(profileId),
-      () => drainForeground(profileId), () => drainTerminals(profileId),
-    ].map(operation => Promise.resolve().then(operation)));
+      ['ordinary', () => profiles.drainOrdinary(profileId)], ['goals', () => goals.drain(profileId)],
+      ['foreground', () => drainForeground(profileId)], ['terminals', () => drainTerminals(profileId)],
+    ].map(([name, operation]) => Promise.resolve().then(operation).finally(() => checkpoint('drained:' + name, { profileId }))));
     const rejected = settled.find(r => r.status === 'rejected'); if (rejected) throw rejected.reason;
     for (const [index, scope] of ['ordinary', 'goals'].entries()) {
       const receipt = settled[index].value;
@@ -129,6 +129,7 @@ function createProfilePreparation({ registry, profiles, goals, freezeForeground,
         if (!candidate || candidate.profileId !== profileId || !uuid(candidate.sessionId) || typeof candidate.release !== 'function') fail('Foreground freeze belongs to another owner or is incomplete.');
         frozen = candidate; held.set(profileId, frozen);
       }
+      checkpoint('after-freeze', { profileId });
       await assertFrozen();
       if (!Array.isArray(frozen.draftKeys) || frozen.draftKeys.some(k => !digest(k))) fail('Foreground recovery inventory is invalid.');
       const keys = [...new Set([...current.value.draftKeys, ...frozen.draftKeys])].sort();
@@ -139,7 +140,9 @@ function createProfilePreparation({ registry, profiles, goals, freezeForeground,
       // Start all drains together, but wait for every settlement even on error.
       // A rejected drain must not leave other owned cleanup detached.
       await drain(profileId, closure.id);
+      checkpoint('after-drains', { profileId });
       await assertFrozen(); verifyDrafts(keys);
+      checkpoint('after-frozen-assert', { profileId });
       if (!crossed) {
         // Journal the intended cut first. An interruption on either side can
         // match the exact old/new generation without guessing another owner's.

@@ -205,10 +205,10 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
       if (!await askConfirm(confirm.message, { title: confirm.title, confirm: confirm.confirm, danger: action === 'rollback' })) return;
       switchBtn.disabled = rollbackBtn.disabled = true; switchStatus.textContent = action === 'switch' ? 'Preparing, backing up, staging and comparing under the hold…' : 'Rolling back under the hold…';
       try { await window.__barkdown.prepareProfile(); const value = action === 'switch' ? await api.migration.switch() : await api.migration.rollback(); showSwitch(value); toast(action === 'switch' ? 'Notes now live on Paper. Reloading.' : 'Back on legacy notes. Reloading.'); setTimeout(() => window.location.reload(), 800); }
-      catch (error) { switchStatus.textContent = error.message; switchBtn.disabled = rollbackBtn.disabled = false; api.migration.status().then(showSwitch).catch(() => {}); }
+      catch (error) { switchStatus.textContent = error.message; toast(error.message, 'error'); switchBtn.disabled = rollbackBtn.disabled = false; api.migration.status().then(showSwitch).catch(() => {}); }
     };
     switchBtn.onclick = () => run('switch', { title: 'Switch this library to Paper?', message: 'Every legacy note is backed up, staged as a Paper and compared while the runtime refuses other writers. Legacy notes stay retained and read-only. You can roll back afterwards.', confirm: 'Switch' });
-    rollbackBtn.onclick = () => run('rollback', { title: 'Roll back to legacy notes?', message: 'The legacy navigation is restored exactly. Papers and any edits made on them stay on Paper; nothing is converted back.', confirm: 'Roll back' });
+    rollbackBtn.onclick = () => run('rollback', { title: 'Roll back to legacy notes?', message: 'The legacy navigation is restored exactly. Papers and any edits made on them stay on Paper; nothing is converted back. Chats, tabs and page changes made while on Paper are retained beside the backup, not restored.', confirm: 'Roll back' });
   }
   q('[data-act="local-retry"]').onclick = async () => { try { showLocal(await api.barkpark.localRetry()); } catch (error) { q('#bp-local-status').textContent = error.message; } };
 

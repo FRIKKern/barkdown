@@ -27,7 +27,10 @@ async function allocatePorts(used) {
   throw new Error('Could not allocate distinct profile ports');
 }
 
-function createProfileRuntimePool({ registry, readSecrets, createRuntime = ({ descriptor, dataDir, secrets }) => new LocalBarkpark(new SourceDriver(descriptor, dataDir, secrets)), allocate = allocatePorts }) {
+// A profile runtime is a managed instance (C083): it boots with write admission so the
+// library switch can hold it. The instance id is the profile id, which is a lowercase UUID.
+const managedDescriptor = descriptor => ({ ...descriptor, writeAdmission: { instanceId: 'profile-' + descriptor.profileId } });
+function createProfileRuntimePool({ registry, readSecrets, createRuntime = ({ descriptor, dataDir, secrets }) => new LocalBarkpark(new SourceDriver(managedDescriptor(descriptor), dataDir, secrets)), allocate = allocatePorts }) {
   if (!registry?.storeFor || typeof readSecrets !== 'function') throw new Error('Runtime pool requires a registry and trusted credential reader');
   const entries = new Map();
   let foreground = null, closing = false, selection = Promise.resolve(), descriptors = Promise.resolve();
@@ -192,4 +195,4 @@ function createProfileRuntimePool({ registry, readSecrets, createRuntime = ({ de
   return Object.freeze({ acquire, select, selectWithoutRuntime, clearSelection, shutdown, status });
 }
 
-module.exports = { createProfileRuntimePool, validateDescriptor };
+module.exports = { managedDescriptor, createProfileRuntimePool, validateDescriptor };

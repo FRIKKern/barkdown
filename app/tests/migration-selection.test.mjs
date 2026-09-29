@@ -44,7 +44,7 @@ test('selection replaces the workspace atomically under both fences and records 
   assert.deepEqual(result.seal, { operation: 'select-' + f.profileId, generation: 5, boot: 'boot' }); assert.equal(result.reopenedGeneration, 6);
   assert.equal(f.workspace(), f.projectedText);
   const order = f.calls.map(c => c[0] === 'checkpoint' ? 'cp:' + c[1] : c[0]);
-  assert.deepEqual(order, ['withPrepared', 'hold', 'awaitHeld', 'compare', 'project', 'cp:after-intent', 'cp:after-replacing', 'cp:after-workspace-replaced', 'cp:after-selected', 'reopen', 'cp:after-selected']);
+  assert.deepEqual(order, ['withPrepared', 'cp:hold:begin', 'hold', 'cp:hold:begun', 'awaitHeld', 'cp:hold:held', 'compare', 'project', 'cp:after-intent', 'cp:after-replacing', 'cp:after-workspace-replaced', 'cp:after-selected', 'reopen', 'cp:hold:reopened', 'cp:after-selected']);
   assert.equal(f.calls.find(c => c[0] === 'compare')[1], 'held');
   const store = createStore(f.sourceDir, { create: false });
   const journal = store.readJson('selection.json');
@@ -58,7 +58,7 @@ test('selection replaces the workspace atomically under both fences and records 
   assert.equal(f.state.phase, 'open');
 });
 
-test('rollback restores the retained legacy workspace and refuses after a later change', async () => {
+test('rollback restores the retained legacy workspace and retains navigation changed on Paper', async () => {
   const f = fixture();
   await f.selection().select(f.options, f.target);
   const back = await f.selection().rollback(f.options, f.target);
@@ -71,8 +71,12 @@ test('rollback restores the retained legacy workspace and refuses after a later 
   await g.selection().select(g.options, g.target);
   fs.writeFileSync(path.join(g.sourceDir, 'workspace.json'), g.projectedText.replace('"fav"', '"fav-2"'));
   assert.equal(g.selection().inspect(g.profileId, g.sourceDir).changed, true);
-  await assert.rejects(g.selection().rollback(g.options, g.target), { code: 'selection_changed' });
-  assert.equal(g.state.phase, 'open', 'the hold is reopened after a refused rollback');
+  // Navigation changed on Paper is retained beside the legacy copy; the legacy navigation is restored exactly.
+  const later = await g.selection().rollback(g.options, g.target);
+  assert.equal(later.status, 'rolled-back'); assert.equal(g.workspace(), g.legacyText);
+  const retained = JSON.parse(fs.readFileSync(path.join(g.sourceDir, 'selection', 'workspace-paper.json'), 'utf8'));
+  assert.equal(retained.bytes, g.projectedText.replace('"fav"', '"fav-2"')); assert.equal(later.retainedPaperWorkspace, retained.sha);
+  assert.equal(g.state.phase, 'open', 'the hold is reopened after the rollback');
 });
 
 test('an interrupted selection resumes with the same operation, or rolls back from the intent', async () => {

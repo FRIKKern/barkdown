@@ -49,9 +49,9 @@ function createMigrationSelection({ preparation, comparison, admission = createU
       switch (j.phase) {
         case 'intent': return { status: 'intent', authority: 'legacy', operationId: j.operationId, actions: digest === j.workspaceBefore ? ['resume', 'rollback'] : [], changed: digest !== j.workspaceBefore };
         case 'replacing': return { status: 'replacing', authority: 'legacy', operationId: j.operationId, actions: digest === j.workspaceBefore || digest === j.workspaceAfter ? ['resume', 'rollback'] : [], changed: digest !== j.workspaceBefore && digest !== j.workspaceAfter };
-        case 'selected': return { status: 'selected', authority: 'paper', operationId: j.operationId, seal: j.seal, reopenedGeneration: j.reopenedGeneration ?? null, actions: digest === j.workspaceAfter ? ['rollback'] : [], changed: digest !== j.workspaceAfter };
+        case 'selected': return { status: 'selected', authority: 'paper', operationId: j.operationId, seal: j.seal, reopenedGeneration: j.reopenedGeneration ?? null, actions: ['rollback'], changed: digest !== j.workspaceAfter };
         case 'rolling-back': return { status: 'rolling-back', authority: 'legacy', operationId: j.operationId, actions: digest === j.workspaceAfter || digest === j.workspaceBefore ? ['rollback'] : [], changed: false };
-        default: return { status: 'rolled-back', authority: 'legacy', operationId: j.operationId, actions: [], changed: digest !== j.workspaceBefore, divergence: j.divergence ?? null, reconciliationRequired: Boolean(j.divergence) };
+        default: return { status: 'rolled-back', authority: 'legacy', operationId: j.operationId, actions: [], changed: digest !== j.workspaceBefore, divergence: j.divergence ?? null, retainedPaperWorkspace: j.workspaceRetained ?? null, reconciliationRequired: Boolean(j.divergence) };
       }
     } catch (error) { return { status: 'blocked', authority: 'legacy', error: error.message, code: error.code, actions: [] }; }
   }
@@ -61,12 +61,15 @@ function createMigrationSelection({ preparation, comparison, admission = createU
     return preparation.withPrepared(options.profileId, async scope => {
       const store = createStore(options.sourceDir, { create: false });
       if (store.dir() !== scope.sourceDir) fail('selection_source', 'Source does not belong to the live preparation');
+      checkpoint('hold:begin', { operation });
       const begun = await admission.hold(target, operation);
+      checkpoint('hold:begun', { operation, phase: begun.phase });
       const held = begun.phase === 'held' ? begun : await admission.awaitHeld(target, begun.capability, { timeoutMs });
+      checkpoint('hold:held', { operation });
       let result, failure = null;
       try { result = await fn({ store, scope, held }); } catch (error) { failure = error; }
       let reopened;
-      try { reopened = await admission.reopen(target, held.capability); }
+      try { reopened = await admission.reopen(target, held.capability); checkpoint('hold:reopened', { operation }); }
       catch (error) { throw Object.assign(new Error('The runtime could not be reopened and stays held for explicit recovery: ' + error.message), { code: error.code || 'upstream_reopen', cause: error, selectionFailure: failure }); }
       if (failure) throw failure;
       const j = journal(store);
@@ -135,9 +138,16 @@ function createMigrationSelection({ preparation, comparison, admission = createU
         return transition(store, j, { ...j, phase: 'rolled-back', rolledBackAt: now() });
       }
       if (!legacy || legacy.operationId !== j.operationId || sha(Buffer.from(legacy.bytes)) !== j.workspaceBefore) fail('selection_retained', 'The retained legacy workspace is missing or changed; explicit inspection required');
-      if (digest !== j.workspaceAfter && digest !== j.workspaceBefore) fail('selection_changed', 'The workspace changed after selection; a changed target needs explicit reconciliation, never a blind reverse conversion');
-      if (j.phase !== 'rolling-back') { await scope.assertCurrent(); j = transition(store, j, { ...j, phase: 'rolling-back' }); }
-      if (digest === j.workspaceAfter) { await scope.assertCurrent(); atomicWrite(workspace, legacy.bytes, { expectedBytes: current, assertOwned: () => {} }); checkpoint('after-workspace-restored', { operationId: j.operationId }); }
+      // Ordinary use on Paper rewrites the workspace (tabs, chats, expanded pages). That is
+      // navigation, not notes: it is retained beside the legacy copy, never merged back, and
+      // the legacy navigation is restored exactly (D-migration-rollback-workspace).
+      let workspaceRetained = j.workspaceRetained ?? null;
+      if (digest !== j.workspaceAfter && digest !== j.workspaceBefore) {
+        record(store, 'selection/workspace-paper.json', { version: 1, operationId: j.operationId, sha: digest, bytes: current.toString('utf8') });
+        workspaceRetained = digest;
+      }
+      if (j.phase !== 'rolling-back' || workspaceRetained !== (j.workspaceRetained ?? null)) { await scope.assertCurrent(); j = transition(store, j, { ...j, phase: 'rolling-back', workspaceRetained }); }
+      if (digest !== j.workspaceBefore) { await scope.assertCurrent(); atomicWrite(workspace, legacy.bytes, { expectedBytes: current, assertOwned: () => {} }); checkpoint('after-workspace-restored', { operationId: j.operationId }); }
       if (sha(bytes(workspace)) !== j.workspaceBefore) fail('selection_changed', 'Restored workspace does not read back as retained');
       // Paper edits made after the switch stay on Paper. With the legacy navigation back
       // in place the source matches its pinned backup again, so the comparison can say
