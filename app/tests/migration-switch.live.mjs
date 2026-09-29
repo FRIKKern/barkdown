@@ -101,6 +101,8 @@ try {
     const two = d.create({ title: 'Soil moisture protocol', markdown: 'Measure soil moisture at dawn; crash point ' + point + '.' });
     fs.writeFileSync(path.join(dir, 'workspace.json'), JSON.stringify({ version: 1, profileId: p.id, chats: {}, order: [], current: null, pages: { layoutVersion: 2, seeded: true, roots: [one.id, two.id], children: {}, expanded: {} }, favorites: [] }));
     await preparation.prepare(p.id);
+    const countTitled = async () => { const raw = await (await fetch(server + '/v1/data/query/production/paper?limit=200&count=true&perspective=published&fields=title', { headers: { authorization: 'Bearer ' + token } })).json(); const docs = (raw.result ?? raw).documents || []; return docs.filter(x => x.title === 'Orchard fieldbook' || x.title === 'Soil moisture protocol').length; };
+    const before = await countTitled();
     let armedHere = true;
     const crashing = createMigrationSwitch({ registry, preparation, runtimePool, userData, checkpoint: phase => { if (armedHere && phase === point) { armedHere = false; throw Object.assign(new Error('simulated crash at ' + point), { code: 'crash' }); } } });
     await assert.rejects(crashing.switchToPaper(p.id), { code: 'crash' });
@@ -108,9 +110,9 @@ try {
     assert.equal(midway.selection.status, 'none', 'nothing is selected after a crash before the intent');
     const resumed = await crashing.switchToPaper(p.id);
     assert.equal(resumed.selection.status, 'selected');
-    const listing = await (await fetch(server + '/v1/data/query/production/paper?limit=200&count=true&perspective=published', { headers: { authorization: 'Bearer ' + token } })).json();
-    const titles = (listing.documents || []).map(x => x.title).filter(t => t === 'Orchard fieldbook' || t === 'Soil moisture protocol');
-    report.checks.push({ name: `crash at ${point}: nothing selected, resume completes the same switch`, staged: resumed.staged, papersWithTheseTitlesOnRuntime: titles.length }); persist();
+    const after = await countTitled();
+    assert.equal(after - before, 2, 'resume stages each note exactly once: no duplicate Papers');
+    report.checks.push({ name: `crash at ${point}: nothing selected, resume completes the same switch, exactly two Papers added`, staged: resumed.staged, papersAdded: after - before }); persist();
     await preparation.abort(p.id);
   }
   report.status = 'passed'; persist(); console.log(JSON.stringify(report, null, 2));
