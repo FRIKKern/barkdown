@@ -131,6 +131,10 @@ function inventoryProfile({ profileId, sourceDir, quiesced }) {
   for (const [i, { file, value }] of sources.entries()) {
     const references = new Map(), images = new Map();
     issues.push(...inspectContent(value.content, { documents: lookup, references, files, sourceDir: store.dir(), images }).map(issue => ({ file: file.path, ...issue })));
+    // Paper refuses a paper with a title and no body block (the create is halted upstream),
+    // so a note that is only headings, or empty, is named here instead of failing mid-staging.
+    const top = Array.isArray(value.content?.content) ? value.content.content : [];
+    if (!top.some(node => node && typeof node === 'object' && node.type !== 'heading')) issues.push({ file: file.path, path: '$', reason: 'Paper requires at least one body block; this note is only a heading or empty. Add a line to it before switching' });
     if (images.size) documents[i].images = [...images.values()];
     if (references.size) documents[i].references = [...references.values()].sort((a, b) => a.sourceId < b.sourceId ? -1 : a.sourceId > b.sourceId ? 1 : 0);
   }

@@ -47,7 +47,13 @@ try {
   const png = new PNG({ width: 64, height: 48 }); for (let i = 0; i < png.data.length; i += 4) { png.data[i] = 40; png.data[i + 1] = 160; png.data[i + 2] = 80; png.data[i + 3] = 255; }
   fs.writeFileSync(path.join(sourceDir, 'attachments/synthetic.png'), PNG.sync.write(png));
   const docs = [];
-  const write = (id, title, sample, extra = {}) => { fs.writeFileSync(path.join(sourceDir, 'documents', id + '.json'), JSON.stringify({ id, title, rev: 1, content: sample.source, ...extra })); docs.push({ id, sample }); };
+  // Paper refuses a paper without a body block, so a heading-only case becomes a note with the
+  // heading and one body line; the expectation grows by that line. A heading-only note is
+  // refused up front by preflight (checked below on a second profile).
+  const bodyLine = { source: { type: 'paragraph', content: [{ type: 'text', text: 'Body kept.' }] }, expected: { type: 'paragraph', content: [{ type: 'text', value: 'Body kept.' }] } };
+  const withBody = sample => sample.source.content.every(n => n.type === 'heading')
+    ? { ...sample, source: { ...sample.source, content: [...sample.source.content, bodyLine.source] }, expected: { ...sample.expected, blocks: [...sample.expected.blocks, bodyLine.expected] } } : sample;
+  const write = (id, title, sample, extra = {}) => { sample = withBody(sample); fs.writeFileSync(path.join(sourceDir, 'documents', id + '.json'), JSON.stringify({ id, title, rev: 1, content: sample.source, ...extra })); docs.push({ id, sample }); };
   write('overview', 'Overview', cases.find(c => c.id === 'plain-unicode'), { rev: 4, revisions: [{ rev: 1, content: cases.find(c => c.id === 'heading-plain').source }], proposals: [{ id: 'pending-review', baseRev: 4, mode: 'append', markdown: 'A pending agent proposal', actor: 'agent' }] });
   for (const c of standalone) if (c.id !== 'plain-unicode') write(c.id, 'Case ' + c.id, c);
   for (const c of linked) write(c.id, 'Case ' + c.id, c);
@@ -111,6 +117,17 @@ try {
   assert.equal((await request('GET', '/v1/data/query/production/paper?limit=1000&offset=0&count=true&perspective=published')).documents.filter(r => Object.values(targetOf).includes(r._id)).length, docs.length, 'migrated Papers survive rollback');
   report.checks.push({ name: 'rollback restores the legacy workspace and keeps every migrated Paper', passed: true }); persist();
   await preparation.abort(profile.id);
+  // A heading-only note is named before anything is staged.
+  const stubProfile = registry.createProfile({ name: 'Heading-only stub' }), stubDir = registry.storeFor(stubProfile.id).storeDir;
+  require('../main/paper-evidence-owner').createPaperEvidenceOwner(createStore(stubDir, { create: false })).identify({ server, token, dataset: 'production', viaCli: false }, { create: true });
+  fs.mkdirSync(path.join(stubDir, 'documents'), { recursive: true });
+  fs.writeFileSync(path.join(stubDir, 'documents/stub.json'), JSON.stringify({ id: 'stub', title: 'Stub', rev: 1, content: cases.find(c => c.id === 'heading-aligned').source }));
+  fs.writeFileSync(path.join(stubDir, 'workspace.json'), JSON.stringify({ version: 1, profileId: stubProfile.id, chats: {}, order: [], current: null, pages: { layoutVersion: 2, seeded: true, roots: ['stub'], children: {}, expanded: {} }, favorites: [] }));
+  await preparation.prepare(stubProfile.id);
+  await assert.rejects(migration.switchToPaper(stubProfile.id), error => { assert.equal(error.code, 'switch_preflight'); assert.match(error.message, /body block/); return true; });
+  assert.equal(migration.status(stubProfile.id).selection.status, 'none');
+  await preparation.abort(stubProfile.id);
+  report.checks.push({ name: 'a heading-only note is refused by preflight with a plain reason, nothing staged', passed: true }); persist();
   report.status = 'passed'; persist(); console.log(JSON.stringify(report, null, 2));
 } catch (error) { report.status = 'failed'; report.error = String(error?.stack || error); persist(); throw error; }
 finally { goals.close(); }

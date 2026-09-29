@@ -168,3 +168,13 @@ test('inherited object names remain unsupported originals instead of crashing in
   assert.equal(fs.readFileSync(path.join(f.destinationDir, 'source/documents/note.json'), 'utf8'), before);
   assert.equal(fs.readFileSync(p, 'utf8'), before);
 });
+
+test('a heading-only or empty note is named before staging: Paper refuses a paper without a body block', () => {
+  const f = fixture();
+  fs.writeFileSync(path.join(f.sourceDir, 'documents/stub.json'), JSON.stringify({ id: 'stub', title: 'Stub', rev: 1, content: { type: 'doc', content: [{ type: 'heading', attrs: { level: 2 }, content: [{ type: 'text', text: 'Only a heading' }] }] } }));
+  fs.writeFileSync(path.join(f.sourceDir, 'documents/blank.json'), JSON.stringify({ id: 'blank', title: 'Blank', rev: 1, content: { type: 'doc', content: [] } }));
+  const inventory = inventoryProfile(f);
+  const named = inventory.issues.filter(i => /body block/.test(i.reason)).map(i => i.file).sort();
+  assert.deepEqual(named, ['documents/blank.json', 'documents/stub.json']);
+  assert.ok(!inventory.issues.some(i => i.file === 'documents/note.json'), 'a note with a paragraph is fine');
+});
