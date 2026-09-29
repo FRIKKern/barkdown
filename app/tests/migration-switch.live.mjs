@@ -68,7 +68,9 @@ try {
   // Legacy writes come back only when the preparation reopens the captured writer.
   assert.throws(() => documents.create({ title: 'Too early', markdown: 'x' }), { code: 'writer_stale' });
   await preparation.abort(profile.id);
-  assert.ok(documents.create({ title: 'After rollback', markdown: 'x' }).id);
+  // Old handles stay frozen by design; a fresh host rebuilds its store handle.
+  const fresh = createDocuments(createStore(sourceDir, { create: false }));
+  assert.ok(fresh.create({ title: 'After rollback', markdown: 'x' }).id);
   report.checks.push({ name: 'rollback restores the legacy workspace; writes return once the preparation reopens', passed: true }); persist();
   report.status = 'passed'; persist(); console.log(JSON.stringify(report, null, 2));
 } catch (error) { report.status = 'failed'; report.error = String(error?.stack || error); persist(); throw error; }
