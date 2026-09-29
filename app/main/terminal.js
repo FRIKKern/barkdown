@@ -1,5 +1,4 @@
 // Pipe terminals capture owner and cwd. Windows shells and descendants live in an owned Job.
-const { spawn } = require('node:child_process');
 const os = require('node:os'),
   path = require('node:path'),
   crypto = require('node:crypto');
@@ -78,7 +77,6 @@ function createTerminalService({
     const current = sessions.get(key(o));
     if (current && !current.stopping && !pending.has(key(o))) return { state: 'running', session: view(current) };
     if (current) return { state: 'uncertain', session: view(current) };
-    if (platform !== 'win32') return { state: 'new' };
     const old = prior(o);
     if (!old) return { state: 'new' };
     if (old.launchState === 'not-dispatched') return { state: 'stopped', cwd: old.cwd };
@@ -111,7 +109,6 @@ function createTerminalService({
       );
     } catch (error) {
       if (
-        platform !== 'win32' ||
         !(await bounded(
           verify({ storeDir: s.storeDir, profileId: s.profileId, attemptId: s.sessionId }),
           timeout,
@@ -136,7 +133,7 @@ function createTerminalService({
       const spec = shellSpec(),
         cwd = path.resolve(options.root || os.homedir()),
         s = { ...options, cwd, sessionId: crypto.randomUUID(), stopping: false };
-      if (platform === 'win32') {
+      {
         const { store, name } = journal(options),
           old = prior(options);
         if (old && old.launchState !== 'not-dispatched') {
@@ -170,7 +167,7 @@ function createTerminalService({
       });
       ready.catch(() => {});
       s.launching = (async () => {
-        if (platform === 'win32') {
+        {
           s.host = await launch({
             storeDir: options.storeDir,
             profileId: options.profileId,
@@ -206,28 +203,6 @@ function createTerminalService({
             return;
           }
           s.host.send({ type: 'start', command: spec.command, args: spec.args, cwd });
-        } else {
-          const child = spawn(spec.command, spec.args, {
-            cwd,
-            env: { ...process.env, TERM: 'dumb', NO_COLOR: '1' },
-            windowsHide: true,
-          });
-          s.host = {
-            stop: () => child.kill(),
-            send: (message) => child.stdin.write(String(message.line).replace(/\r?\n$/, '') + os.EOL),
-          };
-          s.finished = new Promise((resolve, reject) => {
-            child.on('spawn', readyResolve);
-            child.on('error', reject);
-            child.on('close', (code) => {
-              if (sessions.get(k) === s) sessions.delete(k);
-              emit(s, { type: 'exit', code, verified: false });
-              resolve();
-            });
-          });
-          s.finished.catch(readyReject);
-          child.stdout.on('data', (b) => emit(s, { type: 'data', data: b.toString('utf8') }));
-          child.stderr.on('data', (b) => emit(s, { type: 'data', data: b.toString('utf8'), stream: 'stderr' }));
         }
       })();
       try {

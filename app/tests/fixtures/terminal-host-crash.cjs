@@ -8,7 +8,7 @@ const owner = JSON.parse(process.argv[2]);
   const marker = path.join(owner.storeDir, 'pids.jsonl');
   service.input(
     { ...owner, ...session },
-    `& '${process.execPath}' '${path.join(__dirname, 'terminal-descendants.cjs')}' '${marker}'`,
+    `${process.platform === 'win32' ? '& ' : ''}'${process.execPath}' '${path.join(__dirname, 'terminal-descendants.cjs')}' '${marker}'`,
   );
   for (let i = 0; i < 150; i++) {
     await new Promise((r) => setTimeout(r, 100));

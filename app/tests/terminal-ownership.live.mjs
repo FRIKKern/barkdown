@@ -6,8 +6,6 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { skipUnlessWindows } from './helpers/host.mjs';
-skipUnlessWindows("terminal live flow drives PowerShell commands; owned trees work on POSIX (goal-process.test) but the shell-specific tour needs a POSIX twin");
 const require = createRequire(import.meta.url);
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-terminal-ui-'));
 const out = process.env.BARKDOWN_TERMINAL_OUT || userData;
@@ -57,6 +55,11 @@ const alive = (pid) => {
 let app,
   page,
   passed = false;
+// The tour speaks the host shell: PowerShell on Windows, $SHELL elsewhere (main/terminal.js shellSpec).
+const POSIX = process.platform !== 'win32';
+const shellLabel = POSIX ? (process.env.SHELL || '/bin/bash').split('/').pop() : 'PowerShell';
+const runNode = (script, marker) => POSIX ? `'${process.execPath}' '${script}' '${marker}'` : `& '${process.execPath}' '${script}' '${marker}'`;
+const appendOnce = counter => POSIX ? `printf 'once\n' >> '${counter}'` : `Add-Content -LiteralPath '${counter}' -Value once`;
 let legacyData = null;
 const trees = [],
   errors = [];
@@ -75,7 +78,7 @@ async function boot(managed = true, dataRoot = userData) {
 async function startTree(index) {
   const marker = path.join(folders[index], 'pids-' + trees.length + '.jsonl');
   const input = page.locator('.bw-terminal #in');
-  await input.fill(`& '${process.execPath}' '${script}' '${marker}'`);
+  await input.fill(runNode(script, marker));
   await input.press('Enter');
   for (
     let i = 0;
@@ -96,7 +99,7 @@ async function startTree(index) {
 }
 try {
   await boot();
-  await page.waitForFunction(() => document.querySelector('.bw-terminal #out')?.textContent.includes('PowerShell in'));
+  await page.waitForFunction(label => document.querySelector('.bw-terminal #out')?.textContent.includes(label + ' in'), shellLabel);
   const sessionA = await page.evaluate(() => window.barkdown.term.status('same-terminal', 'same'));
   const ta = await startTree(0);
   await page.locator('.bw-terminal #in').fill('echo unsent A command');
@@ -164,7 +167,7 @@ try {
   await page.setViewportSize({ width: 1000, height: 800 });
   await page.screenshot({ path: path.join(out, 'restart-narrow.png') });
   const counter=path.join(folders[1],'explicit-submit-count.txt'),command=page.locator('.bw-terminal #in');
-  await command.fill(`Add-Content -LiteralPath '${counter}' -Value once`);
+  await command.fill(appendOnce(counter));
   await command.press('Enter'); await command.press('Enter');
   await command.fill('new command draft typed during shell launch');
   for(let i=0;i<100&&!fs.existsSync(counter);i++)await delay(50);

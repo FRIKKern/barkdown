@@ -27,10 +27,12 @@ const owner = () => ({
   storeDir: fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-terminal-owned-')),
 });
 const script = fileURLToPath(new URL('./fixtures/terminal-descendants.cjs', import.meta.url));
+const POSIX = process.platform !== 'win32';
+const runNode = (script, marker) => POSIX ? `'${process.execPath}' '${script}' '${marker}'` : `& '${process.execPath}' '${script}' '${marker}'`;
 async function tree(service, o) {
   const marker = path.join(o.storeDir, 'pids.jsonl');
   const s = await service.start({ ...o, root: o.storeDir, send: () => {} });
-  service.input({ ...o, ...s }, `& '${process.execPath}' '${script}' '${marker}'`);
+  service.input({ ...o, ...s }, runNode(script, marker));
   for (
     let i = 0;
     i < 150 && (!fs.existsSync(marker) || fs.readFileSync(marker, 'utf8').trim().split('\n').length < 3);
@@ -47,8 +49,8 @@ async function tree(service, o) {
   return { s, marker, pids };
 }
 test(
-  'Windows terminal closes its real descendants and same-tab profile B remains alive',
-  { skip: process.platform !== 'win32' && 'PowerShell shell semantics; POSIX twin pending', timeout: 60000 },
+  'the terminal closes its real descendants and same-tab profile B remains alive',
+  { timeout: 60000 },
   async (t) => {
     const service = createTerminalService(),
       a = owner(),
@@ -99,7 +101,7 @@ test('profile authority does not change on failed terminal drain and can retry',
 });
 test(
   'abrupt terminal host death kills all descendants and does not replay commands',
-  { skip: process.platform !== 'win32' && 'PowerShell shell semantics; POSIX twin pending', timeout: 30000 },
+  { timeout: 30000 },
   async () => {
     const o = owner();
     const child = spawn(
@@ -326,7 +328,7 @@ test('shutdown admission rejects a new terminal even after the owned map drains'
 
 test(
   'missing launch folder never falls back to home and failed shell can be explicitly retried',
-  { skip: process.platform !== 'win32' && 'PowerShell shell semantics; POSIX twin pending', timeout: 30000 },
+  { timeout: 30000 },
   async () => {
     const service = createTerminalService(),
       o = owner(),

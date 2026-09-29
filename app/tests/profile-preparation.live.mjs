@@ -90,10 +90,10 @@ try {
   } finally { await app.evaluate(() => global.releaseLegacy()); }
   await page.waitForFunction(() => [...window.__barkdown.controllers.values()].filter(c => c.type === 'doc').every(c => !c.isDirty?.()));
   report.checks.push('Real CodeMirror dirty file and actual Tiptap pending save refuse preparation; text stays visible, file bytes change only on explicit Save, and legacy persistence completes after its test barrier releases.');
-  // Owned terminal process trees are verified through main/goal-process.js, which is Windows-only
-  // (job objects). Off Windows this half is a recorded gap (D-hosts), not a silent pass.
+  // Owned terminal process trees are verified through main/goal-process.js: a job object on Windows,
+  // a process group elsewhere.
   let terminalTab, tree, alive;
-  if (process.platform === 'win32') {
+  {
     await page.evaluate(() => window.__barkdown.openTarget({ kind: 'terminal' }));
     await page.locator('.bw-terminal #in').waitFor();
     // The terminal banner names the host shell: PowerShell on Windows, $SHELL's basename elsewhere.
@@ -111,9 +111,6 @@ try {
     assert.equal(tree.length, 3); assert(tree.every(alive));
     await page.locator('.bw-terminal #in').fill('echo retained but never run');
     await shot('09-owned-terminal-before-preparation');
-  } else {
-    console.log(`SKIP profile-preparation.live.mjs terminal half: owned terminal trees are Windows-only (main/goal-process.js); POSIX twin pending (host: ${process.platform})`);
-    report.checks.push('Terminal ownership half skipped on ' + process.platform + ': owned process trees are Windows-only pending a POSIX twin.');
   }
   await openFixturePaper(page, 'draft-fixture');
   await page.locator('.bw-paper-pane .bp-canvas-code-area').waitFor();
@@ -137,7 +134,7 @@ try {
   assert.equal(retained.content.draft.snapshot.raw_source, raw);
   const workspace = await page.evaluate(() => window.barkdown.state.load());
   assert.equal(workspace.chats[originalChat].draft, 'Keep this unsent conversation draft.');
-  if (process.platform === 'win32') {
+  {
     assert.equal(workspace.chats[originalChat].tabs.find(tab => tab.id === terminalTab).commandDraft, 'echo retained but never run');
     assert(tree.every(pid => !alive(pid)), 'owned terminal root and descendants must be stopped');
     assert.equal((await page.evaluate(({ id, chatId }) => window.barkdown.term.status(id, chatId), { id: terminalTab, chatId: originalChat })).state, 'stopped');
