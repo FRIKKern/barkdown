@@ -71,12 +71,21 @@ function createMigrationSwitch({ registry, preparation, runtimePool, userData, a
     if (current.preparation !== 'prepared') fail('switch_preparation', 'Prepare this profile first: it fences the foreground, drafts and captured writers');
     return withRuntime(profileId, async target => {
       const opts = options(profileId);
-      const manifest = prepareMigration(opts);
-      if (manifest.status !== 'prepared' || manifest.issues?.length) fail('switch_preflight', 'Unsupported source content: ' + (manifest.issues?.[0]?.reason || manifest.status));
-      opts.expectedSourceHash = manifest.sourceHash;
-      checkpoint('after-backup', { profileId });
+      const resuming = ['intent', 'replacing'].includes(current.selection.status);
+      if (resuming) {
+        // The workspace may already be replaced, so the source no longer matches its
+        // backup by design; the recorded intent carries the pinned source hash.
+        const intent = createStore(opts.destinationDir, { create: false }).readJson('intent.json', null);
+        if (!intent?.sourceHash) fail('switch_backup', 'The backup intent for this switch is missing; inspect the backup before resuming');
+        opts.expectedSourceHash = intent.sourceHash;
+      } else {
+        const manifest = prepareMigration(opts);
+        if (manifest.status !== 'prepared' || manifest.issues?.length) fail('switch_preflight', 'Unsupported source content: ' + (manifest.issues?.[0]?.reason || manifest.status));
+        opts.expectedSourceHash = manifest.sourceHash;
+        checkpoint('after-backup', { profileId });
+      }
       let baseline;
-      if (!current.selection.status || current.selection.status === 'none') {
+      if (!resuming) {
         const store = createStore(opts.destinationDir, { create: false });
         const staged = fs.existsSync(store.filePath('staging')) && fs.readdirSync(store.filePath('staging')).length > 0;
         if (!staged) { await ensureTag(target); baseline = await comparison.captureBaseline(opts, target); checkpoint('after-baseline', { profileId }); }
