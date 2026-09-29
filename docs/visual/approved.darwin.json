@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-09-29T05-29-10-488Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-29T05-29-10-488Z/comparison.json",
-  "manifestHash": "04602f2a7bb8fec0e2c55873dcd5894aaa041f1f0c8404f495a1b2ba6902efcf",
-  "reportHash": "df79f9074d174be8a5dc0eaa69b1ff0324258beb4b69996d27fcda58178ffb40",
+  "manifest": "docs/visual/runs/2026-09-29T05-38-59-417Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-29T05-38-59-417Z/comparison.json",
+  "manifestHash": "608d075f9493a4c51dbb1e0b6e1df4b2745440c4bc4cf8abc8f28c59e5aab995",
+  "reportHash": "4159d5fa2c763107554ec55b75e461ed0433278c89a689ad7b5fe476824de2bc",
   "reviewer": "Claude Fable 5.1 (agent, this session)",
-  "note": "Inspected the 2026-09-29T05-29-10-488Z comparison: 46 frames, every one within tolerance against the darwin baseline (side-chat open differs by two pixels, no geometry change). The renderer change this covers is text in the preparation notice and the rollback confirm sheet plus a Restart button that the fixture tour does not reach; the behavior is proven by app/tests/migration-switch-ui.live.mjs (docs/cycles/evidence/C083/live/2026-09-29T05-23-42-582Z-switch-ui).",
-  "reviewedAt": "2026-09-29T05:30:53.211Z",
-  "reviewPath": "docs/visual/reviews/approval-4232a40b813e47474337957bbc89afe4e31e639a64650c538806b0aa8b4b0051.json",
-  "reviewHash": "4232a40b813e47474337957bbc89afe4e31e639a64650c538806b0aa8b4b0051"
+  "note": "Inspected the 2026-09-29T05-38-59-417Z comparison: 46 frames within tolerance against the darwin baseline (chat dismiss differs by two pixels, no geometry change). The renderer change is the rollback status line and an Open retained files button in Settings › Barkpark, outside the fixture tour; proven by app/tests/migration-switch-ui.live.mjs (docs/cycles/evidence/C083/live/2026-09-29T05-34-59-389Z-switch-ui, screenshot 05b).",
+  "reviewedAt": "2026-09-29T05:39:46.974Z",
+  "reviewPath": "docs/visual/reviews/approval-6b0b843c3b1672fb426e02cd6ae1ee1c130524e85225b0c921054e871e83057f.json",
+  "reviewHash": "6b0b843c3b1672fb426e02cd6ae1ee1c130524e85225b0c921054e871e83057f"
 }
