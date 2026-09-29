@@ -34,11 +34,23 @@
     },
     {
       "file": "settings-barkpark.ba61bf94.png",
-      "caption": "Settings › Barkpark: the connection Barkdown edits through — here the local server."
+      "caption": "Settings \u203a Barkpark: the connection Barkdown edits through \u2014 here the local server."
     },
     {
       "file": "editing.534e6f98.gif",
-      "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
+      "caption": "An editing loop in the canvas: slash menu \u2192 Quote, typing, Tab through the table, quick open."
+    }
+  ],
+  "uiExemptions": [
+    {
+      "commit": "97b50b02",
+      "date": "2026-09-29",
+      "reason": "main/migration-switch.js: the library switch as one operator action (backup, baseline, staging, selection, rollback). No renderer change (C083)."
+    },
+    {
+      "commit": "dd84e2fb",
+      "date": "2026-09-29",
+      "reason": "main/migration-switch.js: the library switch as one operator action (backup, baseline, staging, selection, rollback). No renderer change (C083)."
     }
   ]
 }
