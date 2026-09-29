@@ -56,7 +56,8 @@ try {
   // Every note opens with its own sentence, as a person's notes do; the corpus block follows.
   const lead = id => { const value = `${id}: ${cases.find(c => c.id === id)?.note || 'corpus case'}`; return { source: { type: 'paragraph', content: [{ type: 'text', text: value }] }, expected: { type: 'paragraph', content: [{ type: 'text', value }] } }; };
   const withBody = sample => { const l = lead(sample.id), b = bodyLine(sample.id); const headingOnly = sample.source.content.every(n => n.type === 'heading');
-    return { ...sample, source: { ...sample.source, content: [l.source, ...sample.source.content, ...(headingOnly ? [b.source] : [])] }, expected: { ...sample.expected, blocks: [l.expected, ...sample.expected.blocks, ...(headingOnly ? [b.expected] : [])] } }; };
+    const blocks = Array.isArray(sample.expected?.blocks) ? [l.expected, ...sample.expected.blocks, ...(headingOnly ? [b.expected] : [])] : null;
+    return { ...sample, source: { ...sample.source, content: [l.source, ...sample.source.content, ...(headingOnly ? [b.source] : [])] }, expected: blocks ? { ...sample.expected, blocks } : sample.expected }; };
   const write = (id, title, sample, extra = {}) => { sample = withBody(sample); fs.writeFileSync(path.join(sourceDir, 'documents', id + '.json'), JSON.stringify({ id, title, rev: 1, content: sample.source, ...extra })); docs.push({ id, sample }); };
   write('overview', 'Overview', cases.find(c => c.id === 'plain-unicode'), { rev: 4, revisions: [{ rev: 1, content: cases.find(c => c.id === 'heading-plain').source }], proposals: [{ id: 'pending-review', baseRev: 4, mode: 'append', markdown: 'A pending agent proposal', actor: 'agent' }] });
   for (const c of standalone) if (c.id !== 'plain-unicode') write(c.id, 'Case ' + c.id, c);
@@ -91,7 +92,7 @@ try {
   let compared = 0, linksChecked = 0, imageChecked = 0;
   for (const { id, sample } of docs) {
     const paper = byId.get(targetOf[id]); assert.ok(paper, 'migrated Paper exists: ' + id);
-    if (id === image.id) { assert.equal(paper.blocks[0].type, 'image'); assert.match(String(paper.blocks[0].src), /^\/media\/files\//); imageChecked++; continue; }
+    if (id === image.id) { const img = paper.blocks.find(b => b.type === 'image'); assert.ok(img, 'image block present'); assert.match(String(img.src), /^\/media\/files\//); imageChecked++; continue; }
     if (linked.some(c => c.id === id)) {
       const text = JSON.stringify(paper.blocks);
       assert.ok(text.includes('"wikilink"') && text.includes(targetOf.overview), 'internal link rewritten to the overview Paper: ' + id); linksChecked++; continue;
