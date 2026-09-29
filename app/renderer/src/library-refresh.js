@@ -26,7 +26,10 @@ export function createLibraryRefresh({ state, api, render, report }) {
     if (results[1].status === 'fulfilled') { state.barkparkDocs = results[1].value; state.barkparkLibraryError = null; }
     else {
       state.barkparkLibraryError = results[1].reason.message;
-      report('Barkpark: ' + results[1].reason.message + (state.barkparkDocs.length ? ' Showing the last successful library.' : ''));
+      // A library that is away answers with a server status or not at all; the person reads what it means.
+      const reason = String(results[1].reason.message || '').replace(/^\[[\w-]+\]\s*/, '');
+      const away = /^5\d\d\b|fetch failed|ECONNREFUSED|ECONNRESET|socket hang up|timed out|timeout|is not running|stopped answering/i.test(reason);
+      report((away ? 'The library did not answer. It restarts by itself.' : 'Barkpark: ' + reason) + (state.barkparkDocs.length ? ' Showing the last successful library.' : ''));
     }
     render();
   };

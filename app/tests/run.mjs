@@ -45,6 +45,8 @@ try {
   await page.mouse.down();
   await page.mouse.move(gripBounds.x + gripBounds.width / 2 + 110, 220, { steps: 10 });
   await page.mouse.up();
+  // The width settles a frame or more after the pointer is released; on a loaded machine that is not at once.
+  await page.waitForFunction(() => Math.round(document.querySelector('.bw-sidebar').getBoundingClientRect().width) === 310, null, { timeout: 5000 }).catch(() => {});
   step('sidebar edge drags without changing the conversation split', await sidebarWidth() === 310 && await page.evaluate(() => window.__barkdown.state.settings.chatWidth === 60));
   await page.waitForFunction(async () => (await window.barkdown.settings.get()).sidebarWidth === 310, null, { timeout: 10000 });
   await page.reload();
@@ -277,6 +279,8 @@ try {
   step('switching back restores the workspace', (await page.locator('#bw-tabs [data-tab]').count()) === tabsBefore);
   await page.reload();
   await page.waitForSelector('#bw-documents .bw-nav', { timeout: 20000 });
+  // The navigation appears before the tabs and the conversation have rendered.
+  await page.waitForFunction(n => document.querySelectorAll('#bw-tabs [data-tab]').length === n && document.querySelectorAll('.bw-user-message').length === 2, tabsBefore, { timeout: 10000 }).catch(() => {});
   step('workspace persisted across reload', (await page.locator('#bw-tabs [data-tab]').count()) === tabsBefore && (await page.locator('.bw-user-message').count()) === 2);
   await page.screenshot({ path: path.join(out, '07-after-reload.png') });
 

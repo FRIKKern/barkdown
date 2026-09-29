@@ -50,3 +50,11 @@ test('initial render waits for local documents before Pages can be seeded', asyn
   f.pending[0].resolve([]); await pending;
   assert.deepEqual(f.state.documents, [{ id: 'local' }]); assert.equal(f.snapshots.length, 1);
 });
+test('a library that is away is said in plain words; any other refusal keeps its reason', async () => {
+  const f = fixture();
+  const first = f.refresh(); f.pending[0].resolve([{ id: 'a' }]); await first;
+  const second = f.refresh(); f.pending[1].reject(new Error('503 Service Unavailable')); await second;
+  assert.equal(f.errors[0], 'The library did not answer. It restarts by itself. Showing the last successful library.');
+  const third = f.refresh(); f.pending[2].reject(new Error('[forbidden] This token may not list Papers')); await third;
+  assert.equal(f.errors[1], 'Barkpark: This token may not list Papers Showing the last successful library.');
+});

@@ -124,3 +124,7 @@ The runtime supervisor already restarted a runtime whose database stopped answer
 ### 2026-09-30 — quit while a note has unsaved words (C085, A3)
 
 Before the runtime stops at quit, main asks the window to settle its open notes (`app:settle`): each note sends what is still pending and waits briefly; what does not arrive is kept as a retained draft and marked for the note. A window that does not answer within nine seconds is not waited for. A note reopened with undelivered words can put them back itself: one revision-checked write replaces the note's text below the title with the kept words, and the replaced text stays in the note's history.
+
+### 2026-09-30 — small things (C085)
+
+While the library is away the sidebar toast says so in plain words instead of a server status. Two steps of the sidebar journey (`tests/run.mjs`) waited for nothing and failed about one run in four on a loaded machine; they now wait for the width and the restored workspace. The remaining Electron rehearsals wait for the first window through a first boot.
