@@ -1,0 +1,36 @@
+{
+  "source": "169811e2756c19b3def637c0dc8b6eec2e3a8bde",
+  "upstream": "9f1874235449f9763c1b3e8cfcaf1b5a36aee9b3",
+  "upstreamOfSecondInstallation": "b3ce61f3128687258c7601fe74fdfdff2a11e5a4",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "An export of a later version is refused by the earlier installation, with the reason, and creates nothing",
+      "said": "This export was taken at Barkpark b3ce61f31; this Barkdown runs 9f1874235. Import needs the same version or an earlier one that this one descends from"
+    },
+    {
+      "name": "Installation one: a library switched to Paper with a note, a picture and a conversation is exported to a folder outside the installation; the runtime token is in no exported file",
+      "papers": 5,
+      "files": 19
+    },
+    {
+      "name": "The export was taken at an earlier Barkpark and imported by a later one that descends from it; the imported profile runs the later version",
+      "exportedAt": "9f1874235",
+      "importedBy": "b3ce61f31"
+    },
+    {
+      "name": "Installation two: the folder is imported from Settings as a new profile with its own identity, database, port and token; it opens with the same Papers, the conversation, Pages owned here, the retained original and the picture; the first installation's token is refused; writing works"
+    },
+    {
+      "name": "Nothing else moved: the profile already on installation two, installation one and the carried folder are unchanged"
+    }
+  ],
+  "screenshots": [
+    "01-imported-on-the-other-installation.png",
+    "02-opened-on-the-other-installation.png"
+  ],
+  "limits": [
+    "Two installations on one machine, one after the other: separate user data, registries and credentials, but the same operating system, tools, Postgres and Barkpark checkout. A second machine, another OS and another Postgres major version are not exercised. The native folder picker is stubbed in the main process."
+  ]
+}

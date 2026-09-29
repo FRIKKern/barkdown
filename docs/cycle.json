@@ -19,9 +19,11 @@
   ],
   "checkpoint": "2026-09-29",
   "handoff": "docs/cycles/C085-portable-profile.md",
-  "nextAction": "1) Two installations on this Mac (separate user data, registries and credentials): an export from one imported into the other, as the closest stand-in for a second machine. 2) An export taken at an older Barkpark version imported by a newer Barkdown. 3) When the Windows machine is back (about 2026-10-05): the return checkpoint, a real library, an export across machines, the reclaim path on Windows. 4) For the user: whether pre-existing cloud references get the managed owner at projection.",
+  "nextAction": "1) When the Windows machine is back (about 2026-10-05): an export across machines and operating systems, the reclaim path on Windows, the return checkpoint and a real library. 2) When upstream next adds a database migration: an earlier export brought forward by a later runtime at first boot. 3) For the user: whether pre-existing cloud references get the managed owner at projection; a retention rule for committed visual runs.",
   "evidence": [
-    "docs/cycles/evidence/C085/live/2026-09-29T15-22-51-620Z-portable-ui/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T18-44-58-185Z-portable-ui/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T18-39-38-882Z-two-installs/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T18-42-13-170Z-two-installs-newer/result.json",
     "docs/cycles/evidence/C085/live/2026-09-29T14-44-58-038Z-portable-interrupt/result.json",
     "docs/cycles/evidence/C085/live/2026-09-29T14-42-36-398Z-runtime-recovery/result.json",
     "docs/cycles/evidence/C085/live/2026-09-29T14-03-05-371Z-dying-writer/result.json",
@@ -29,15 +31,14 @@
     "docs/cycles/evidence/C085/live/2026-09-29T15-25-57-178Z-export/result.json",
     "docs/cycles/evidence/C085/live/2026-09-29T15-25-32-863Z-import/result.json"
   ],
-  "truthReview": "2026-09-29: export and import are Settings actions, rehearsed in Electron on macOS with the imported profile opened. A host killed with SIGKILL is rehearsed three ways: idle (the runtime is reclaimed by its launch record), in the middle of an export (named, discarded, exported again) and in the middle of an import (listed, not selectable, imported again). A note with a picture is exported, imported and shown in the imported profile, answered by that profile's runtime while the stored address keeps the exporting port. Five refusals (tampered, truncated, added to, other version, not an export) are rehearsed from Settings and create nothing; an export folder opened in a file manager still imports. The library switch killed under the hold is resumed from the notice and completes; a kill while held with no operation in flight is reopened at launch. A writer whose connection is cut during a drain is not killed by it: the write completes and the hold is reached, so a writer that raises inside the runtime is not produced by any rehearsal. One stall point per operation; the folder picker and the system trash are stubbed in those rehearsals; the Windows reclaim path is written and not rehearsed; no second machine is claimed.",
-  "screenshotReview": "Visual run 2026-09-29T15-27-20-752Z approved: 46 entries pixel-identical to the previous approved run. The imported picture, notices and rows that the fixture tours do not reach were inspected in the live rehearsal screenshots.",
+  "truthReview": "2026-09-29: export and import are Settings actions, rehearsed in Electron on macOS with the imported profile opened. A host killed with SIGKILL is rehearsed three ways: idle (the runtime is reclaimed by its launch record), in the middle of an export (named, discarded, exported again) and in the middle of an import (listed, not selectable, imported again). An export is carried between two installations on one Mac with separate user data and credentials, also into an installation running a later Barkpark that descends from the exporting one; no database migration lies between the two versions. A note with a picture is exported, imported and shown in the imported profile, answered by that profile's runtime while the stored address keeps the exporting port. Five refusals (tampered, truncated, added to, other version, not an export) are rehearsed from Settings and create nothing; an export folder opened in a file manager still imports. The library switch killed under the hold is resumed from the notice and completes; a kill while held with no operation in flight is reopened at launch. A writer whose connection is cut during a drain is not killed by it: the write completes and the hold is reached, so a writer that raises inside the runtime is not produced by any rehearsal. One stall point per operation; the folder picker and the system trash are stubbed in those rehearsals; the Windows reclaim path is written and not rehearsed; no second machine is claimed.",
+  "screenshotReview": "Visual run 2026-09-29T18-48-46-181Z approved: 46 entries pixel-identical to the previous approved run. The fixture tours stop above the import description in Settings; its new wording, the imported profile on the second installation and the refusal that names both versions were inspected in the live rehearsal screenshots, all dark.",
   "delivery": {
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "Two installations on one Mac",
-      "An older export into a newer Barkdown",
       "A second machine and the reclaim path on Windows (Windows return)",
+      "An earlier export across a database migration",
       "Carried from C083: Windows return checkpoint, real library, cloud-reference decision"
     ]
   }
