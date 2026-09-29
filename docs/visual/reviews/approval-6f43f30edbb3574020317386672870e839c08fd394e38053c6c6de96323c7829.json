@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-09-29T01-42-22-602Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-29T01-42-22-602Z/comparison.json",
+  "manifestHash": "9961a9e16bde7f20fe59bd864202e977600f9f7f04437517d3f42013c93c3ebc",
+  "reportHash": "505ab6407f2ef6eeeecdf4e6c7dd0f67b56665447e01e6f466d22fb3bbe6e1cd",
+  "reviewer": "Claude Fable 5.1 (agent, macOS host)",
+  "note": "New interrupted frame in the retained area: the start-time notice for a library switch interrupted during replacement, with Resume switch and Roll back as its only actions, over the read-only legacy note. All other frames within tolerance against the 2026-09-28T22-23-42 darwin baseline (two-pixel anti-aliasing on send buttons). Settings › Barkpark's new Library switch row sits below the captured fold. Behavior evidence: migration-switch live rehearsal (prepare, backup, baseline, stage, select, rollback) on this host; documents-selection and migration-selection unit tests. Limits: darwin only; the notice's actions are not exercised in the tour.",
+  "reviewedAt": "2026-09-29T01:43:25.842Z"
+}

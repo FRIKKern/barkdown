@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-09-28T22-23-42-282Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-28T22-23-42-282Z/comparison.json",
-  "manifestHash": "7ef82037a115bf84632224cd1a815810ee4a382b44139578cd13472779c16d90",
-  "reportHash": "eb23ae0cec11c94b91d068f4807485b37eb4c660715ccf322426692cb1a8adad",
+  "manifest": "docs/visual/runs/2026-09-29T01-42-22-602Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-29T01-42-22-602Z/comparison.json",
+  "manifestHash": "9961a9e16bde7f20fe59bd864202e977600f9f7f04437517d3f42013c93c3ebc",
+  "reportHash": "505ab6407f2ef6eeeecdf4e6c7dd0f67b56665447e01e6f466d22fb3bbe6e1cd",
   "reviewer": "Claude Fable 5.1 (agent, macOS host)",
-  "note": "New retained area (4 frames) for the library switch: lock badge beside legacy notes in Pages and a read-only meta line on the opened note, light and dark, driven by a fixture selection journal. All other areas within tolerance against the 2026-09-28T22-04-21 darwin baseline (two-pixel anti-aliasing on send buttons). Inspected: retained open (light), retained dark, badge frame, settings/profiles unchanged after the fixture reapply fix. Behavior evidence: documents-selection unit tests (legacy writes refused, retained summaries and reads), selection rehearsals live on this host. Limits: darwin only; the start-time prompt and reconciliation view are not in this tour; win32 stays stale until the Windows return checkpoint.",
-  "reviewedAt": "2026-09-28T22:24:55.584Z",
-  "reviewPath": "docs/visual/reviews/approval-6b1503bb18382db626039ea96a380f0852cef7fc9ef4bc8c59a40728be433ce9.json",
-  "reviewHash": "6b1503bb18382db626039ea96a380f0852cef7fc9ef4bc8c59a40728be433ce9"
+  "note": "New interrupted frame in the retained area: the start-time notice for a library switch interrupted during replacement, with Resume switch and Roll back as its only actions, over the read-only legacy note. All other frames within tolerance against the 2026-09-28T22-23-42 darwin baseline (two-pixel anti-aliasing on send buttons). Settings › Barkpark's new Library switch row sits below the captured fold. Behavior evidence: migration-switch live rehearsal (prepare, backup, baseline, stage, select, rollback) on this host; documents-selection and migration-selection unit tests. Limits: darwin only; the notice's actions are not exercised in the tour.",
+  "reviewedAt": "2026-09-29T01:43:25.842Z",
+  "reviewPath": "docs/visual/reviews/approval-6f43f30edbb3574020317386672870e839c08fd394e38053c6c6de96323c7829.json",
+  "reviewHash": "6f43f30edbb3574020317386672870e839c08fd394e38053c6c6de96323c7829"
 }
