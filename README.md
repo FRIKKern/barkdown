@@ -8,7 +8,7 @@ We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT,
 
 **Migration effort estimate: about 75% · plausible scenarios 30–90% · low confidence.** Up from about 70% earlier on September 29. The server-side boundary for the switch is merged upstream and Barkdown is pinned to it; on a Mac, the library switch and the way back were rehearsed live against a runtime built from that commit: compare under the hold, select Paper with the workspace replaced in one atomic step, roll back after a later Paper edit without converting anything back, resume after an interruption. The app offers the switch in Settings › Barkpark. The supported migration corpus (24 notes with links, an image, nested and archived pages, favorites) was switched, compared exactly and rolled back the same way, and the switch, rollback, an interruption and its Resume were driven from the app's own Settings screen in real Electron; after a rollback, Papers changed since the switch are named there, compared side by side, and kept or restored from that line. Not yet done: any run on Windows or Linux, and a real library. This provisional estimate weights demonstrated work against expected work left; it is not a safety rating or a whole-project percentage. [Estimates, calculation and next calibration](docs/PLAN.md#migration-effort-estimate).
 
-**Portable profiles, first step:** a profile can be exported while its runtime is held (database, media, conversations, organization; no credentials) and imported as a new profile with its own database. Rehearsed between two runtimes on one Mac; not in the app yet ([C085](docs/cycles/C085-portable-profile.md)).
+**Portable profiles, first step:** a profile can be exported while its runtime is held (database, media, conversations, organization; no credentials) and imported as a new profile with its own database. Both are in Settings now: choose a folder, export, restart; choose an export, import, switch to the new profile. Rehearsed in the app on one Mac; a second machine is not proven ([C085](docs/cycles/C085-portable-profile.md)).
 
 **Working today:** the source prototype supports [writing, searching and restarting](docs/visual/paper-notes/README.md), [agent edits with Undo](docs/visual/agent-notes/README.md), and [deleted-note recovery](docs/visual/paper-deletions/README.md). We’re working toward one dependable Paper note engine; existing libraries have not switched yet.
 
@@ -31,7 +31,7 @@ A notebook in motion: write together, check things off, find your next idea. Rea
 <details>
 <summary>Still view</summary>
 
-![Barkdown: a conversation beside a Paper document in dark mode.](docs/images/status/paper-dark.e2dbc40d.png)
+![Barkdown: a conversation beside a Paper document in dark mode.](docs/images/status/paper-dark.68cfc360.png)
 
 </details>
 

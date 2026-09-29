@@ -19,20 +19,20 @@
   ],
   "checkpoint": "2026-09-29",
   "handoff": "docs/cycles/C085-portable-profile.md",
-  "nextAction": "1) Export and import from the app: Settings actions on a prepared profile, with progress and refusal reasons, rehearsed in Electron. 2) Interrupt the export and the import at each phase and resume or discard. 3) Open the imported profile in the app: Pages, a conversation, a retained original, an agent edit. 4) Carried from C083: the Windows return checkpoint and a real library (about 2026-10-05), the decision on pre-existing cloud references, recovery with a writer that dies inside the runtime.",
+  "nextAction": "1) Interrupt the export and the import at each phase: an interrupted export is named at the next start and its partial folder discarded; an interrupted import is never selectable and is discarded or run again. 2) Refuse a truncated, tampered or other-version export from the app, with the reason on screen. 3) Carried from C083: the Windows return checkpoint and a real library (about 2026-10-05), the decision on pre-existing cloud references, recovery with a writer that dies inside the runtime.",
   "evidence": [
-    "docs/cycles/evidence/C085/live/2026-09-29T11-44-58-403Z-export/result.json",
-    "docs/cycles/evidence/C085/live/2026-09-29T12-03-39-481Z-import/result.json"
+    "docs/cycles/evidence/C085/live/2026-09-29T12-53-15-409Z-portable-ui/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T12-55-48-018Z-export/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T12-56-05-500Z-import/result.json"
   ],
-  "truthReview": "Opened 2026-09-29 while P2's remaining exits wait for the Windows machine. Export and import exist as main-process modules with unit tests and two live rehearsals on macOS; nothing is reachable from the app yet and no second machine is claimed.",
-  "screenshotReview": "No renderer change at opening.",
+  "truthReview": "2026-09-29: export and import are Settings actions. One Electron rehearsal on macOS exports a switched profile, imports it as a new profile and opens it (Pages, conversation with its draft, retained original, assistant edit with Undo); the exporting profile and the export folder are unchanged. The native folder picker is stubbed in that rehearsal. Interruption is not rehearsed; no second machine is claimed.",
+  "screenshotReview": "Visual run 2026-09-29T12-58-12-379Z approved: four profile frames changed by the two new Storage rows, inspected at standard and narrow width; all other stills pixel-identical. Live screenshots of the export notice, the import status and the imported profile are in the rehearsal folder.",
   "delivery": {
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "Export and import from the app",
-      "Interruption and resume of both",
-      "The imported profile opened in the app",
+      "Interruption and discard of export and import",
+      "Refusals from the app for a damaged or other-version export",
       "A second machine (Windows return)",
       "Carried from C083: Windows return checkpoint, real library, cloud-reference decision, recovery with a dying writer"
     ]
