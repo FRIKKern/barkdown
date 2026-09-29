@@ -88,9 +88,10 @@ try {
       if (ok) { acknowledged++; assert.ok(present.has(e.marker), `acknowledged write ${e.marker} is on its Paper`); }
       else { assert.ok(!present.has(e.marker), `refused write ${e.marker} (status ${e.status}) is not on its Paper`); if (e.status === 503) refused++; else other++; }
       // A write sent after the runtime reported held and answered before the reopen began was refused.
-      // A write sent after the runtime reported held and answered before the reopen began was refused:
-      // by the door (503 storage_unavailable), or earlier by request validation. Never acknowledged.
+      // A write sent after the runtime reported held and answered before the reopen began was refused.
       if (e.sentAt > heldAt && e.answeredAt < reopenAt) { duringHold++; assert.ok(!ok, `write ${e.marker} during the hold was refused (status ${e.status})`); codes[e.status + ' ' + (e.code || '')] = (codes[e.status + ' ' + (e.code || '')] || 0) + 1; if (e.status !== 503) odd.push(e); }
+      // Upstream slice 8: the door's refusal is the canonical transient, so a client can retry.
+      if (e.sentAt > heldAt && e.answeredAt < reopenAt) { assert.equal(e.status, 503, `write ${e.marker} during the hold answers 503`); assert.equal(e.code, 'storage_unavailable'); }
     }
     assert.equal(finals[w].blocks.length, 1 + entries.filter(e => e.status >= 200 && e.status < 300).length, `Paper ${papers[w]} holds its seed and exactly its acknowledged writes`);
     assert.ok(entries.some(e => e.sentAt > reopenAt && e.status >= 200 && e.status < 300), `writer ${w} writes again after the reopen`);

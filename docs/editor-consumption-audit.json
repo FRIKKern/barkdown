@@ -1,7 +1,7 @@
 {
-  "source": "74e38574b3974e82f10b65b94c07bcc83e57a667",
-  "builtSha1": "5d2fc57fc943e095e90393b21f10bcd86890329e",
-  "committedSha1": "5d2fc57fc943e095e90393b21f10bcd86890329e",
+  "source": "9f1874235449f9763c1b3e8cfcaf1b5a36aee9b3",
+  "builtSha1": "e33b44676571d16bb06a23f5f40042e7c17e78ff",
+  "committedSha1": "e33b44676571d16bb06a23f5f40042e7c17e78ff",
   "scope": "C074 exact merged source bundle reproduction, unchanged locked package closure and retained license provenance verified",
   "bundledPackages": [
     {
@@ -339,8 +339,8 @@
   "assets": [
     {
       "file": "bp-paper-editor.bundle.js",
-      "vendorSha1": "5d2fc57fc943e095e90393b21f10bcd86890329e",
-      "upstreamSha1": "5d2fc57fc943e095e90393b21f10bcd86890329e"
+      "vendorSha1": "e33b44676571d16bb06a23f5f40042e7c17e78ff",
+      "upstreamSha1": "e33b44676571d16bb06a23f5f40042e7c17e78ff"
     },
     {
       "file": "bp-paper-editor.css",
@@ -365,6 +365,21 @@
       "preserveSha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
     }
   ],
-  "pinMovedFrom": "4532a25eacb796eb54bf40b1d70871c09e428a7f",
-  "pinMovedAt": "2026-09-29"
+  "pinMovedFrom": "74e38574b3974e82f10b65b94c07bcc83e57a667",
+  "pinMovedAt": "2026-09-29",
+  "editorUpgrades": [
+    {
+      "from": "74e38574b3974e82f10b65b94c07bcc83e57a667",
+      "to": "9f1874235449f9763c1b3e8cfcaf1b5a36aee9b3",
+      "at": "2026-09-29",
+      "changed": [
+        {
+          "file": "bp-paper-editor.bundle.js",
+          "from": "ce2619622b1c13e686c3aafc86dedd69c74ad97cfe336afdd9b04e314b494224",
+          "to": "cc2599371d99837a659b7c31a01dcd73a7dcaab224ca45c7a15fde89b0cfac8c"
+        }
+      ],
+      "proof": "bundle rebuilt from the target source with the locked dependencies, byte-identical to the committed bundle"
+    }
+  ]
 }
