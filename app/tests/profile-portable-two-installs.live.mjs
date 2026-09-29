@@ -23,13 +23,18 @@ const { verifyExport } = require('../main/profile-export');
 const source = path.resolve(process.env.BARKDOWN_TEST_BP_SOURCE || path.join(appRoot, '../../barkpark-editor'));
 if (!fs.existsSync(path.join(source, 'api', '_build', 'dev', 'lib', 'barkpark', 'ebin', 'barkpark.app'))) throw new Error('BARKDOWN_TEST_BP_SOURCE must point at a built Barkpark checkout');
 const upstream = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: source, encoding: 'utf8' }).trim();
+// Optional: the second installation runs a later Barkpark that descends from the first one's.
+const newer = process.env.BARKDOWN_TEST_BP_SOURCE_NEWER ? path.resolve(process.env.BARKDOWN_TEST_BP_SOURCE_NEWER) : null;
+if (newer && !fs.existsSync(path.join(newer, 'api', '_build', 'dev', 'lib', 'barkpark', 'ebin', 'barkpark.app'))) throw new Error('BARKDOWN_TEST_BP_SOURCE_NEWER must point at a built Barkpark checkout');
+const upstreamNewer = newer ? execFileSync('git', ['rev-parse', 'HEAD'], { cwd: newer, encoding: 'utf8' }).trim() : null;
+if (newer) execFileSync('git', ['merge-base', '--is-ancestor', upstream, upstreamNewer], { cwd: newer });
 const host = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
-const out = path.resolve('../docs/cycles/evidence/C085/live', new Date().toISOString().replace(/[:.]/g, '-') + '-two-installs');
+const out = path.resolve('../docs/cycles/evidence/C085/live', new Date().toISOString().replace(/[:.]/g, '-') + (newer ? '-two-installs-newer' : '-two-installs'));
 fs.mkdirSync(out, { recursive: true });
 const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-two-installs-')));
 const first = path.join(root, 'installation-one'), second = path.join(root, 'installation-two'), carry = path.join(root, 'carried-between');
 for (const dir of [first, second, carry]) fs.mkdirSync(dir);
-const report = { source: host, upstream, host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],
+const report = { source: host, upstream, ...(newer ? { upstreamOfSecondInstallation: upstreamNewer } : {}), host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],
   limits: ['Two installations on one machine, one after the other: separate user data, registries and credentials, but the same operating system, tools, Postgres and Barkpark checkout. A second machine, another OS and another Postgres major version are not exercised. The native folder picker is stubbed in the main process.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();
 const settings = { theme: 'dark', provider: 'api', barkpark: { enabled: true, viaCli: false, writes: true, dataset: 'production', local: { enabled: true, source } } };
@@ -47,7 +52,7 @@ one.selectProfile(desk.id);
 // Installation two: somebody else's Barkdown, with its own empty profile.
 const two = createProfileRegistry(path.join(second, 'profile-data'));
 const home = two.createProfile({ name: 'Home desk' });
-createStore(two.storeFor(home.id).storeDir).writeJson('settings.json', settings);
+createStore(two.storeFor(home.id).storeDir).writeJson('settings.json', newer ? { ...settings, barkpark: { ...settings.barkpark, local: { enabled: true, source: newer } } } : settings);
 two.selectProfile(home.id);
 
 let app, page;
@@ -107,6 +112,21 @@ try {
   await page.locator('#profile-export').click();
   await page.locator('.bw-preparation-notice', { hasText: 'The export completed' }).waitFor({ timeout: 180000 });
   await quit();
+  if (newer) {
+    // The other direction: an export that claims the later version is refused by this earlier installation.
+    await launch(first); await runtimeReady();
+    const done = page.locator('.bw-preparation-notice', { hasText: 'The export completed' }); await done.waitFor({ timeout: 30000 }); await done.locator('[data-dismiss]').click();
+    const ahead = path.join(root, 'from-a-later-version'); fs.cpSync(path.join(carry, fs.readdirSync(carry)[0]), ahead, { recursive: true });
+    const file = path.join(ahead, 'manifest.json'), manifest = JSON.parse(fs.readFileSync(file, 'utf8')); manifest.upstream = upstreamNewer; fs.writeFileSync(file, JSON.stringify(manifest, null, 2) + '\n');
+    await pick(ahead); await openSettings();
+    await page.locator('#profile-import').click();
+    await page.waitForFunction(() => document.querySelector('#profile-import-status')?.classList.contains('err'), null, { timeout: 120000 });
+    const refusedText = await page.locator('#profile-import-status').textContent();
+    assert.match(refusedText, new RegExp(`^This export was taken at Barkpark ${upstreamNewer.slice(0, 9)}; this Barkdown runs ${upstream.slice(0, 9)}\\. Import needs the same version or an earlier one`), refusedText);
+    assert.equal(one.load().profiles.length, 1);
+    report.checks.push({ name: 'An export of a later version is refused by the earlier installation, with the reason, and creates nothing', said: refusedText }); persist();
+    await quit();
+  }
   const exportDir = path.join(carry, fs.readdirSync(carry)[0]);
   const verified = verifyExport(exportDir);
   const credentialsOne = fs.readFileSync(path.join(deskDir, 'local-credentials.json'), 'utf8');
@@ -155,6 +175,12 @@ try {
   assert.equal(await probe(tokenTwo), 200); assert.ok([401, 403].includes(await probe(tokenOne)), 'the exporting installation\'s token is refused');
   const written = await page.evaluate(() => window.barkdown.barkpark.createNote(crypto.randomUUID()));
   assert.ok(written.id, 'writing works on the imported profile');
+  if (newer) {
+    const record = JSON.parse(fs.readFileSync(path.join(importedDir, 'profile-import.json'), 'utf8'));
+    assert.equal(record.upstream, upstream); assert.equal(record.importedAtUpstream, upstreamNewer);
+    assert.equal(JSON.parse(fs.readFileSync(path.join(importedDir, 'runtime.json'), 'utf8')).source, newer, 'the imported profile runs the later Barkpark');
+    report.checks.push({ name: 'The export was taken at an earlier Barkpark and imported by a later one that descends from it; the imported profile runs the later version', exportedAt: upstream.slice(0, 9), importedBy: upstreamNewer.slice(0, 9) }); persist();
+  }
   report.checks.push({ name: 'Installation two: the folder is imported from Settings as a new profile with its own identity, database, port and token; it opens with the same Papers, the conversation, Pages owned here, the retained original and the picture; the first installation\'s token is refused; writing works' }); persist();
 
   await page.evaluate(() => document.querySelector('#bw-settings').click());

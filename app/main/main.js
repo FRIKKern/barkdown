@@ -352,6 +352,8 @@ function registerIpc() {
     portable = require('./profile-portable').createProfilePortable({ registry: profileRegistry, preparation, log: line => console.error(line),
       runtimePool: { acquire: (...args) => profilePool.acquire(...args), restore: (...args) => profilePool.restore(...args), reclaim: (...args) => profilePool.reclaim(...args) },
       sourceFor: () => { const local = readSettings().barkpark.local; return local?.enabled && local.source ? local.source : null; }, upstreamRef: upstreamOf,
+      // An earlier version is one the runtime's checkout descends from. Without that history nothing precedes.
+      precedes: (source, earlier, later) => { if (!/^[0-9a-f]{40}$/.test(earlier) || !/^[0-9a-f]{40}$/.test(later)) return false; try { require('node:child_process').execFileSync('git', ['merge-base', '--is-ancestor', earlier, later], { cwd: source, stdio: 'ignore' }); return true; } catch { return false; } },
       chooseFolder: async options => { const result = await dialog.showOpenDialog(win, options); return result.canceled ? null : result.filePaths[0]; },
       trash: folder => shell.trashItem(folder),
       progress: event => { if (win && !win.isDestroyed() && !win.webContents.isDestroyed()) win.webContents.send('portable:progress', event); } });

@@ -112,3 +112,7 @@ A runtime whose host was killed while it was held comes back in recovery and ref
 ### 2026-09-29 — pictures of an imported profile (C085)
 
 A picture's address is written into a note with the origin of the runtime it was uploaded to. An imported profile runs on its own port, so its pictures were broken. The export manifest now records the runtime origin and the origins that library already carried; the import journal keeps them; `media-origins.js` answers requests for `/media/` at those loopback origins from the profile's current runtime. Nothing in the library is rewritten, so the address a person or an assistant reads in the note still names the exporting port. The export notice counts media files, not pictures: one upload is several files.
+
+### 2026-09-29 — an earlier export into a later Barkdown (C085)
+
+Import accepted only the exact Barkpark version of the export, so every move of the pin would have made all earlier exports unimportable. It now accepts the same version or an earlier one that the importing runtime's checkout descends from; the journal records both versions. A later or unrelated version is refused before anything is created. Rehearsed between two installations, the second running upstream `b3ce61f31` against an export taken at the pin `9f1874235`; there is no database migration between the two, so bringing a restored database forward at first boot is not yet proven.

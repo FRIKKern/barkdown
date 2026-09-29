@@ -15,19 +15,22 @@ const JOURNAL = 'profile-import.json';
 // Copied verbatim: retained originals and the evidence a rollback reads. Everything else that is
 // JSON has the exported profile's id and navigation owner rewritten to the importing ones.
 const VERBATIM = file => file.startsWith('profile/documents/') || file.startsWith('profile/attachments/') || file.startsWith('profile/selection/');
-function createProfileImport({ registry, runtimePool, source, upstreamRef = () => null, now = () => new Date().toISOString(), checkpoint = () => {} }) {
+function createProfileImport({ registry, runtimePool, source, upstreamRef = () => null, precedes = () => false, now = () => new Date().toISOString(), checkpoint = () => {} }) {
   if (!registry?.createProfile || typeof runtimePool?.restore !== 'function') throw new TypeError('Registry and a runtime pool that can restore are required');
   async function importProfile(exportDir, { name } = {}) {
     if (typeof exportDir !== 'string' || !path.isAbsolute(exportDir)) fail('source', 'Choose the export folder');
     const { manifest } = verifyExport(exportDir);
     const local = upstreamRef();
-    if (!manifest.upstream || manifest.upstream !== local) fail('upstream', `This export was taken at Barkpark ${String(manifest.upstream).slice(0, 9)}; this Barkdown runs ${String(local).slice(0, 9)}. Import needs the same version`);
+    // The same version, or an earlier one this runtime descends from: its first boot brings the restored
+    // database forward. A later or unrelated version is refused; this runtime cannot read ahead.
+    const same = Boolean(manifest.upstream) && manifest.upstream === local;
+    if (!same && !(/^[0-9a-f]{40}$/.test(String(manifest.upstream)) && /^[0-9a-f]{40}$/.test(String(local)) && precedes(manifest.upstream, local))) fail('upstream', `This export was taken at Barkpark ${String(manifest.upstream).slice(0, 9)}; this Barkdown runs ${String(local).slice(0, 9)}. Import needs the same version or an earlier one that this one descends from`);
     const profile = registry.createProfile({ name: (typeof name === 'string' && name.trim()) || manifest.profile.name + ' (imported)' });
     const store = registry.storeFor(profile.id), storeDir = store.storeDir, bound = createStore(storeDir, { create: false });
     // A new profile is seeded with defaults; the import may replace exactly those, nothing else.
     const seeded = new Set(fs.readdirSync(storeDir, { recursive: true }).map(f => String(f).split(path.sep).join('/')));
     const journal = value => { bound.writeJson(JOURNAL, value); checkpoint('after-' + value.phase, { profileId: profile.id }); return value; };
-    let record = journal({ version: 1, phase: 'restoring', profileId: profile.id, exportedProfile: manifest.profile, exportedAt: manifest.exportedAt, exportDir, upstream: manifest.upstream, manifestSha256: crypto.createHash('sha256').update(fs.readFileSync(path.join(exportDir, 'manifest.json'))).digest('hex'), startedAt: now() });
+    let record = journal({ version: 1, phase: 'restoring', profileId: profile.id, importedAtUpstream: local, exportedProfile: manifest.profile, exportedAt: manifest.exportedAt, exportDir, upstream: manifest.upstream, manifestSha256: crypto.createHash('sha256').update(fs.readFileSync(path.join(exportDir, 'manifest.json'))).digest('hex'), startedAt: now() });
     // From here a failure leaves a profile that is not a library: the error names it so the caller can discard it.
     try {
     // The database and the media, into a private cluster that has never booted.

@@ -17,7 +17,7 @@ const { createStore } = require('./store');
 const OUTCOME = 'profile-export-last.json';
 const fail = (code, message) => { throw Object.assign(new Error(message), { code }); };
 const folderName = (name, at) => `Barkdown export - ${String(name).replace(/[^\p{L}\p{N} ._-]+/gu, '-').trim().slice(0, 60) || 'profile'} - ${at.slice(0, 16).replace('T', ' ').replace(':', '')}`;
-function createProfilePortable({ registry, preparation, runtimePool, sourceFor, upstreamRef, chooseFolder, trash = async () => false, progress = () => {}, now = () => new Date().toISOString(), log = () => {}, admission = createUpstreamAdmission(), exportOptions = {} }) {
+function createProfilePortable({ registry, preparation, runtimePool, sourceFor, upstreamRef, precedes = () => false, chooseFolder, trash = async () => false, progress = () => {}, now = () => new Date().toISOString(), log = () => {}, admission = createUpstreamAdmission(), exportOptions = {} }) {
   if (typeof sourceFor !== 'function' || typeof upstreamRef !== 'function' || typeof chooseFolder !== 'function') throw new TypeError('Source, upstream version and folder picker are required');
   const pending = new Map(), exporting = new Set(), importing = new Set();
   const step = (action, profileId) => (phase, detail) => { log(`[${action}] ${phase}`); progress({ action, profileId, phase }); };
@@ -127,7 +127,7 @@ function createProfilePortable({ registry, preparation, runtimePool, sourceFor, 
     // The profile being made is not selectable, and not listed as interrupted, while this runs.
     const made = (phase, detail) => { if (detail?.profileId && !known.has(detail.profileId)) importing.add(detail.profileId); step('import', profileId)(phase, detail); };
     let result;
-    try { result = await createProfileImport({ registry, runtimePool, source: from, upstreamRef: () => upstreamRef(from), now, checkpoint: made }).importProfile(folder); }
+    try { result = await createProfileImport({ registry, runtimePool, source: from, upstreamRef: () => upstreamRef(from), precedes: (earlier, later) => precedes(from, earlier, later), now, checkpoint: made }).importProfile(folder); }
     catch (error) {
       log(`[import] failed: ${error.code || ''} ${error.message}`);
       if (error.profileId) { importing.delete(error.profileId); try { await discardImport(error.profileId); } catch (cleanup) { log(`[import] half-made profile kept: ${cleanup.message}`); } }

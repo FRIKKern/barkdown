@@ -37,7 +37,7 @@ function fixture(options) {
   const connection = { enabled: true, server: 'http://127.0.0.1:4999', token: 'new-token', dataset: 'production', viaCli: false };
   const runtimePool = { restore: async (profileId, input) => { restores.push({ profileId, ...input }); if (options?.restoreFails) throw new Error('pg_restore failed'); return { profileId, storeDir: registry.storeFor(profileId).storeDir, counts: { papers: 3 }, connection }; } };
   const importer = createProfileImport({ registry, runtimePool, source: '/built/barkpark', upstreamRef: () => 'pin', now: () => '2026-09-30T00:00:00.000Z' });
-  return { root, registry, restores, connection, importer, dir: exported(root, options) };
+  return { root, registry, restores, connection, importer, runtimePool, dir: exported(root, options) };
 }
 test('import creates a new profile, restores first, re-owns navigation and keeps retained originals verbatim', async () => {
   const f = fixture();
@@ -72,4 +72,18 @@ test('a tampered export, another Barkpark version and a failed restore are refus
   assert.deepEqual(h.importer.inspect(stranded.id).status, 'restoring');
   const untouched = fs.readFileSync(path.join(h.registry.storeFor(stranded.id).storeDir, 'workspace.json'), 'utf8');
   assert.ok(!untouched.includes(OLD_OWNER) && !untouched.includes('note-1'), 'no profile file is copied before the restore succeeds');
+});
+test('an export of an earlier version that this runtime descends from is imported; a later or unrelated one is refused before anything is created', async () => {
+  const older = 'a'.repeat(40), newer = 'b'.repeat(40), stranger = 'c'.repeat(40);
+  const make = exported => { const f = fixture({ upstream: exported }); const registry = f.registry;
+    const importer = createProfileImport({ registry, runtimePool: f.runtimePool, source: '/built/barkpark', upstreamRef: () => newer, precedes: (earlier, later) => earlier === older && later === newer });
+    return { f, importer }; };
+  const accepted = make(older);
+  const result = await accepted.importer.importProfile(accepted.f.dir);
+  assert.equal(result.record.phase, 'imported'); assert.equal(result.record.importedAtUpstream, newer); assert.equal(result.record.upstream, older);
+  for (const exported of [stranger, 'not-a-commit']) {
+    const refused = make(exported);
+    await assert.rejects(refused.importer.importProfile(refused.f.dir), { code: 'import_upstream', message: /same version or an earlier one/ });
+    assert.equal(refused.f.registry.load(), null, 'no registry, no profile: nothing was created');
+  }
 });

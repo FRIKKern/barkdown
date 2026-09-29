@@ -160,7 +160,7 @@ try {
   await refuse('tampered', variant('tampered', folder => fs.appendFileSync(path.join(folder, 'database.dump'), 'x')), /^Changed since the export: database\.dump$/);
   await refuse('truncated', variant('truncated', folder => fs.rmSync(path.join(folder, aStoreFile))), /^Missing from the export: profile\/workspace\.json$/);
   await refuse('added to', variant('added', folder => fs.writeFileSync(path.join(folder, 'profile', 'planted.json'), '{}')), /^Files the manifest does not list: profile\/planted\.json$/);
-  await refuse('another version', variant('version', folder => { const file = path.join(folder, 'manifest.json'), manifest = JSON.parse(fs.readFileSync(file, 'utf8')); manifest.upstream = '0123456789abcdef0123456789abcdef01234567'; fs.writeFileSync(file, JSON.stringify(manifest, null, 2) + '\n'); }), /^This export was taken at Barkpark 012345678; this Barkdown runs [0-9a-f]{9}\. Import needs the same version$/);
+  await refuse('another version', variant('version', folder => { const file = path.join(folder, 'manifest.json'), manifest = JSON.parse(fs.readFileSync(file, 'utf8')); manifest.upstream = '0123456789abcdef0123456789abcdef01234567'; fs.writeFileSync(file, JSON.stringify(manifest, null, 2) + '\n'); }), /^This export was taken at Barkpark 012345678; this Barkdown runs [0-9a-f]{9}\. Import needs the same version or an earlier one that this one descends from$/);
   await refuse('not an export', chosen, /^This folder is not a Barkdown profile export/);
   report.checks.push({ name: 'Refused from Settings with the reason on screen, nothing created: a tampered, a truncated, an added-to and an other-version export, and a folder that is not an export', refusals }); persist();
   await shot('02b-refusal-on-screen');
