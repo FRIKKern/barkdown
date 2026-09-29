@@ -58,7 +58,8 @@ const shot = async name => { await page.screenshot({ path: path.join(out, name +
 const launch = async () => {
   app = await electron.launch({ executablePath: require('electron'), args: [appRoot, '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', ANTHROPIC_BASE_URL: transport.url } });
   await app.context().addInitScript(() => { window.__toasts = []; new MutationObserver(records => { for (const r of records) for (const n of r.addedNodes) if (n.nodeType === 1 && n.matches?.('.bw-toast, .bw-toast *')) window.__toasts.push(n.textContent); }).observe(document.documentElement, { childList: true, subtree: true }); });
-  page = await app.firstWindow(); page.setDefaultTimeout(30000);
+  // The window opens after the profile's runtime has started; the first boot of a new library takes about 30 seconds.
+  page = await app.firstWindow({ timeout: 120000 }); page.setDefaultTimeout(30000);
   page.on('pageerror', error => (report.pageErrors ||= []).push(error.message));
   app.process().stderr?.on('data', chunk => (report.mainStderr ||= []).push(String(chunk).slice(0, 400)));
   await page.waitForFunction(() => window.__barkdown?.state.loaded);

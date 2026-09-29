@@ -60,7 +60,8 @@ const shot = async name => { await page.screenshot({ path: path.join(out, name +
 const launch = async userData => {
   app = await electron.launch({ executablePath: require('electron'), args: [appRoot, '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api' } });
   app.process().stderr?.on('data', chunk => (report.mainStderr ||= []).push(String(chunk).slice(0, 300)));
-  page = await app.firstWindow(); page.setDefaultTimeout(30000);
+  // The window opens after the profile's runtime has started; the first boot of a new library takes about 30 seconds.
+  page = await app.firstWindow({ timeout: 120000 }); page.setDefaultTimeout(30000);
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
   await page.setViewportSize({ width: 1300, height: 900 });
 };
