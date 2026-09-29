@@ -1,0 +1,11 @@
+{
+  "source": "dd84e2fb41987cbeb3fc1b2cca73556620aff1d6",
+  "upstream": "a994e99ebe1c1bd0957f744998935aeac3ab786b",
+  "host": "darwin 24.3.0 arm64",
+  "status": "failed",
+  "checks": [],
+  "limits": [
+    "Headless profile with controlled foreground hooks; fake runtime lease over the harness server; labels generated, not reviewed; one run, one host."
+  ],
+  "error": "Error: Create-only Paper write refused: 422 (unknown_tag)\n    at fail (/Users/frikkjarl/Documents/GitHub/barkdown/app/main/migration-journal.js:9:46)\n    at stageMigration (/Users/frikkjarl/Documents/GitHub/barkdown/app/main/migration-staging.js:157:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async /Users/frikkjarl/Documents/GitHub/barkdown/app/main/migration-switch.js:78:9\n    at async withRuntime (/Users/frikkjarl/Documents/GitHub/barkdown/app/main/migration-switch.js:51:14)\n    at async file:///Users/frikkjarl/Documents/GitHub/barkdown/app/tests/migration-switch.live.mjs:51:20"
+}

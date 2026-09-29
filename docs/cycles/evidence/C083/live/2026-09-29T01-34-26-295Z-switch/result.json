@@ -1,0 +1,11 @@
+{
+  "source": "97b50b02c979454027f9d95ca239177b9d4633a3",
+  "upstream": "a994e99ebe1c1bd0957f744998935aeac3ab786b",
+  "host": "darwin 24.3.0 arm64",
+  "status": "failed",
+  "checks": [],
+  "limits": [
+    "Headless profile with controlled foreground hooks; fake runtime lease over the harness server; labels generated, not reviewed; one run, one host."
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n    'after-backup',\n    'after-baseline',\n    'after-staging',\n+   'after-intent',\n+   'after-replacing',\n+   'after-workspace-replaced',\n+   'after-selected',\n+   'after-selected',\n    'after-selection'\n  ]\n\n    at file:///Users/frikkjarl/Documents/GitHub/barkdown/app/tests/migration-switch.live.mjs:53:10\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)"
+}
