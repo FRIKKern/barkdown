@@ -92,7 +92,7 @@ try {
   let compared = 0, linksChecked = 0, imageChecked = 0;
   for (const { id, sample } of docs) {
     const paper = byId.get(targetOf[id]); assert.ok(paper, 'migrated Paper exists: ' + id);
-    if (id === image.id) { const img = paper.blocks.find(b => b.type === 'image'); assert.ok(img, 'image block present'); assert.match(String(img.src), /^\/media\/files\//); imageChecked++; continue; }
+    if (id === image.id) { const img = paper.blocks.find(b => b.type === 'image'); assert.ok(img, 'image block present'); assert.ok(new URL(img.src, server).origin === server && /^\/media\/files\//.test(new URL(img.src, server).pathname), 'owned media on the runtime: ' + img.src); imageChecked++; continue; }
     if (linked.some(c => c.id === id)) {
       const text = JSON.stringify(paper.blocks);
       assert.ok(text.includes('"wikilink"') && text.includes(targetOf.overview), 'internal link rewritten to the overview Paper: ' + id); linksChecked++; continue;
