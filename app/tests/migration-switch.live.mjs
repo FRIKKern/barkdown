@@ -37,7 +37,7 @@ try {
   fs.writeFileSync(path.join(sourceDir, 'workspace.json'), JSON.stringify({ version: 1, profileId: profile.id, chats: {}, order: [], current: null, pages: { layoutVersion: 2, seeded: true, roots: [orchard.id], children: { [orchard.id]: [soil.id] }, expanded: {} }, favorites: [{ id: 'fav', target: { kind: 'doc', id: soil.id, source: 'local' } }] }));
   const legacyBytes = fs.readFileSync(path.join(sourceDir, 'workspace.json'));
   const preparation = createProfilePreparation({ registry, profiles, goals,
-    freezeForeground: async () => ({ profileId: profile.id, sessionId: crypto.randomUUID(), draftKeys: [], assertCurrent: async () => true, release: async () => {} }),
+    freezeForeground: async id => ({ profileId: id, sessionId: crypto.randomUUID(), draftKeys: [], assertCurrent: async () => true, release: async () => {} }),
     drainForeground: async () => true, drainTerminals: async () => true });
   const leases = [];
   const runtimePool = { acquire: async (profileId, { ownerId, writes }) => { leases.push([profileId, ownerId, writes]); return { connection: { server, token, dataset: 'production' }, release: async () => { leases.push(['released']); } }; } };
