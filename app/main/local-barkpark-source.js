@@ -54,6 +54,15 @@ class SourceDriver {
     try { return await exec(path.join(this.pgBin, tool + this.exe), args, { windowsHide: true, timeout, signal, env: { ...process.env, PGPASSWORD: this.secrets.password }, maxBuffer: 1024 * 1024 }); }
     catch (error) { throw new Error(`${tool} failed${signal?.aborted ? ' (cancelled)' : ''}. ${String(error.stderr || error.stdout || error.message).slice(-1500).split(this.secrets.password).join('[redacted]')}`); }
   }
+  // A logical export of this runtime's database (P3): custom-format pg_dump, never a copy of the
+  // live data directory. The caller holds the runtime first so the dump is one consistent state.
+  async dump(file, signal) {
+    if (!path.isAbsolute(file) || fs.existsSync(file)) throw new Error('A database export needs a new absolute file path.');
+    await this.run('pg_dump', ['-h', '127.0.0.1', '-p', String(this.config.pgPort), '-U', 'postgres', '-d', 'barkdown', '--format=custom', '--no-owner', '--no-privileges', '--file', file], signal, 10 * 60 * 1000);
+    const { stdout } = await this.run('psql', ['-h', '127.0.0.1', '-p', String(this.config.pgPort), '-U', 'postgres', '-d', 'barkdown', '-tAc', 'SHOW server_version'], signal, 5000);
+    return { file, serverVersion: String(stdout).trim() };
+  }
+  get mediaDir() { return path.join(this.dataDir, 'media'); }
   async acquire() {
     if (this.lease) return;
     for (const file of [this.mix, path.join(this.pgBin, 'initdb' + this.exe), path.join(this.pgBin, 'pg_ctl' + this.exe)]) if (!fs.existsSync(file)) throw new Error(`Missing local tool: ${file}. Install the Barkpark Windows toolchain first.`);

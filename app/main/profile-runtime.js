@@ -134,7 +134,10 @@ function createProfileRuntimePool({ registry, readSecrets, createRuntime = ({ de
       releasePromise = drain(entry).catch(error => { releasePromise = null; throw error; });
       return releasePromise;
     };
-    return Object.freeze({ profileId, storeDir: entry.store.storeDir, connection: Object.freeze({ ...entry.connection, writes, managedProfileId: profileId }), release });
+    // What an export needs from the owned runtime (P3): a logical dump and the media directory.
+    const driver = entry.runtime?.driver;
+    const data = driver?.dump ? Object.freeze({ dump: (file, signal) => driver.dump(file, signal), mediaDir: driver.mediaDir }) : null;
+    return Object.freeze({ profileId, storeDir: entry.store.storeDir, connection: Object.freeze({ ...entry.connection, writes, managedProfileId: profileId }), data, release });
   }
   function select(profileId, options = {}) {
     const operation = selection.catch(() => {}).then(async () => {
