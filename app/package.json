@@ -101,6 +101,7 @@
     "test:migration-corpus-switch:isolated": "BARKDOWN_SHOTS_WRITE_ADMISSION=1 node tests/status-shots-isolated.mjs tests/migration-corpus-switch.live.mjs",
     "test:sealed-comparison:isolated": "BARKDOWN_SHOTS_WRITE_ADMISSION=1 node tests/status-shots-isolated.mjs tests/sealed-comparison.live.mjs",
     "test:migration-switch-ui": "npm run build && node tests/migration-switch-ui.live.mjs",
+    "test:dying-writer:isolated": "BARKDOWN_SHOTS_WRITE_ADMISSION=1 node tests/status-shots-isolated.mjs tests/admission-dying-writer.live.mjs",
     "test:writers-in-flight:isolated": "BARKDOWN_SHOTS_WRITE_ADMISSION=1 node tests/status-shots-isolated.mjs tests/admission-writers-in-flight.live.mjs",
     "test:profile-export": "node tests/profile-export.live.mjs",
     "test:profile-import": "node tests/profile-import.live.mjs",
