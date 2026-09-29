@@ -88,3 +88,7 @@ Goal-service `drain(profileId)` pauses that profile, waits for queued/running ad
 ### 2026-09-26 — owned migration preview (C080)
 
 Migration projection and comparison now bind destinations to the captured library and preserve unplaced notes for local Archive. [Behavior and visual evidence](../../docs/cycles/C080-owned-navigation.md) distinguish this read-only preview from activation. Existing live Paper imagery above remains general editor evidence, not proof of this new path.
+
+### 2026-09-29 — export and import from the app (C085)
+
+`profile-portable.js` is the operator surface over `profile-export.js` and `profile-import.js`. The folder comes from the native picker in the main process and is held there; the window never names a path to write to. An export runs on a prepared profile, reports its phases, releases the preparation when it ends either way and records its outcome against that preparation, so the restart notice names what happened and where the folder is. A failed export's partial folder goes to the system trash. Import creates a new profile and changes no existing one. The manifest counts published Papers and draft-only notes separately. `portable:` requests pass the foreground gate the way `migration:` requests do. [Cycle handoff and limits](../../docs/cycles/C085-portable-profile.md).

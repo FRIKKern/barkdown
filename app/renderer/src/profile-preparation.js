@@ -54,6 +54,11 @@ export function installProfilePreparation({ api, root, state, controllers, seria
     throw new Error('Unknown preparation request.');
   });
   let notice, lastStatus;
+  // An export ends its preparation; main records the outcome against that preparation.
+  const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
+  const exported = value => { const o = value.exportOutcome; if (!o) return '';
+    return o.status === 'exported' ? `The export completed: ${plural(o.papers, 'Paper')}, ${plural(o.media, 'picture')} and ${plural(o.files, 'profile file')} are in ${o.folder}. Nothing in this profile changed.`
+      : `The export did not complete: ${o.message}. Nothing in this profile changed${o.partial === 'trashed' ? '; the partial folder is in the trash' : o.partial === 'kept' ? '; the partial folder was kept' : ''}.`; };
   async function status() {
     let value;
     try { value = await api.preparation.status(); }
@@ -63,12 +68,12 @@ export function installProfilePreparation({ api, root, state, controllers, seria
       pauseSaves(true);
       // A reopened writer belongs to a fresh host by design (main/profile-launch-admission.js):
       // the process that aborted the preparation restarts. The selection journal names the outcome.
-      showNotice(value.restartRequired ? (state.selection === 'selected' ? 'The library switch completed. Notes now live on Paper; legacy notes are retained read-only. Restart Barkdown to continue; retained drafts are kept.'
+      showNotice(value.restartRequired ? (exported(value) ? exported(value) + ' Restart Barkdown to continue editing; retained drafts are kept.' : state.selection === 'selected' ? 'The library switch completed. Notes now live on Paper; legacy notes are retained read-only. Restart Barkdown to continue; retained drafts are kept.'
         : state.selection === 'rolled-back' ? 'The rollback completed. Legacy notes are back; Papers and their later edits stay on Paper. Restart Barkdown to continue editing; retained drafts are kept.'
         : 'Preparation was cancelled. Restart Barkdown to continue editing; retained drafts are kept.') : 'Editing is paused for this profile while preparation is resolved.');
     } else if (value.record?.phase === 'aborted') {
       // The same release transition ends a completed switch or rollback; the selection journal says which.
-      showNotice(state.selection === 'selected' ? 'The library switch completed. Notes now live on Paper; legacy notes are retained read-only. Retained drafts are available.'
+      showNotice(exported(value) ? exported(value) + ' Retained drafts are available.' : state.selection === 'selected' ? 'The library switch completed. Notes now live on Paper; legacy notes are retained read-only. Retained drafts are available.'
         : state.selection === 'rolled-back' ? 'The rollback completed. Legacy notes are back; Papers and their later edits stay on Paper. Retained drafts are available.'
         : 'Preparation was cancelled. Your retained drafts are available; the current Paper has not been replaced.');
     }
@@ -105,6 +110,9 @@ export function installProfilePreparation({ api, root, state, controllers, seria
     }
     notice.querySelector('p').textContent = message;
   }
+  // The export runs behind the frozen foreground; its phases are said where the person is looking.
+  const exporting = { 'hold:begin': 'Pausing other writers.', 'hold:held': 'Writing the database.', 'after-dump': 'Copying pictures.', 'after-media': 'Copying profile files.', 'after-store': 'Sealing the export.' };
+  api.portable?.onProgress?.(event => { if (event.action === 'export' && exporting[event.phase]) showNotice('Exporting this profile. ' + exporting[event.phase] + ' Keep Barkdown open.'); });
   async function prepare() {
     preflight();
     pauseSaves(true);

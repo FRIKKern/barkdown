@@ -293,12 +293,13 @@ function registerIpc() {
     clipboard.writeText(text); return true;
   });
   if (profileService) {
+    let portable = null;
     const writerState = profileId => require('./writer-admission').controller(store.createStore(profileRegistry.storeFor(profileId).storeDir, { create: false })).inspect();
     const preparationStatus = profileId => {
       const record = preparation?.inspect(profileId), restartRequired = profileService.launchAdmission.requiresRestart(profileId);
       const readOnly = writerState(profileId).phase !== 'open' || record?.phase === 'reopening' ||
         record?.phase === 'aborted' && profileService.launchAdmission.isClosed(profileId);
-      return { record, readOnly: Boolean(readOnly), restartRequired };
+      return { record, readOnly: Boolean(readOnly), restartRequired, exportOutcome: portable?.outcome(profileId) || null };
     };
     preparationForeground = require('./preparation-foreground').createPreparationForeground({ isClosed: profileId => preparationStatus(profileId).readOnly });
     const bridge = require('./preparation-bridge').createPreparationBridge({ profiles: profileService, foreground: preparationForeground,
@@ -331,7 +332,19 @@ function registerIpc() {
     handle('migration:rollback', migrationAction('rollback', id => migration.rollback(id), 'rolled-back'));
     handle('migration:changed', id => migration.changedPaper(profileService.view().profileId, id));
     handle('migration:reconcile', async ({ id, action }) => { const profileId = profileService.view().profileId; try { await migration.reconcilePaper(profileId, id, action); } catch (error) { console.error(`[switch] reconcile ${action} ${id} failed: ${error.code || ''} ${error.message}`); throw error; } return migration.status(profileId); });
-  } else { handle('preparation:status', () => ({ record: null, readOnly: false })); handle('migration:status', () => null); handle('migration:changed', () => null); handle('migration:reconcile', () => null); }
+    // Portable profile (C085): export this profile to a chosen folder, import an export as a new
+    // profile. The version that must match is the commit of the checkout the runtime is built from.
+    const upstreamOf = source => { try { return require('node:child_process').execFileSync('git', ['rev-parse', 'HEAD'], { cwd: source, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); } catch { try { return fs.readFileSync(path.join(__dirname, '..', 'BARKPARK_REF'), 'utf8').trim(); } catch { return null; } } };
+    portable = require('./profile-portable').createProfilePortable({ registry: profileRegistry, preparation, log: line => console.error(line),
+      runtimePool: { acquire: (...args) => profilePool.acquire(...args), restore: (...args) => profilePool.restore(...args) },
+      sourceFor: () => { const local = readSettings().barkpark.local; return local?.enabled && local.source ? local.source : null; }, upstreamRef: upstreamOf,
+      chooseFolder: async options => { const result = await dialog.showOpenDialog(win, options); return result.canceled ? null : result.filePaths[0]; },
+      trash: folder => shell.trashItem(folder),
+      progress: event => { if (win && !win.isDestroyed() && !win.webContents.isDestroyed()) win.webContents.send('portable:progress', event); } });
+    handle('portable:chooseExport', () => portable.chooseExport(profileService.view().profileId));
+    handle('portable:export', () => portable.exportChosen(profileService.view().profileId));
+    handle('portable:import', () => portable.importChosen(profileService.view().profileId));
+  } else { handle('preparation:status', () => ({ record: null, readOnly: false })); handle('migration:status', () => null); for (const channel of ['portable:chooseExport', 'portable:export', 'portable:import']) handle(channel, () => { throw new Error('Export and import need an owned profile.'); }); handle('migration:changed', () => null); handle('migration:reconcile', () => null); }
   const originalHistory = () => {
     if (!profileService) throw new Error('Original history requires an owned profile.');
     const profileId = profileService.view().profileId;

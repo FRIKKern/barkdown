@@ -96,8 +96,8 @@ function createProfileExport({ registry, preparation, runtimePool, admission = c
           await scope.assertCurrent();
           // Navigation keys carry the owner of this library's connection; the import re-owns them.
           let owner = null; try { owner = createPaperEvidenceOwner(createStore(storeDir, { create: false })).identify({ server: target.server, token: target.token, dataset: target.dataset, viaCli: false }); } catch {}
-          const papers = await countPapers(target);
-          manifest = { version: 1, kind: KIND, exportedAt: now(), profile: { id: profile.id, name: profile.name }, upstream: upstreamRef(), navigation: { owner }, counts: { papers },
+          const counted = await countPapers(target), counts = typeof counted === 'number' ? { papers: counted } : { papers: counted.papers, drafts: counted.drafts };
+          manifest = { version: 1, kind: KIND, exportedAt: now(), profile: { id: profile.id, name: profile.name }, upstream: upstreamRef(), navigation: { owner }, counts,
             seal: { operation, generation: held.generation, boot: held.boot },
             database: { path: 'database.dump', format: 'pg_dump custom', serverVersion: database.serverVersion, bytes: fs.statSync(database.file).size, sha256: sha(database.file) },
             media, store: store.sort((a, b) => a.path.localeCompare(b.path)), excluded: EXCLUDED };
@@ -128,10 +128,24 @@ function verifyExport(destinationDir) {
     if (extra.length) fail('extra', 'Files the manifest does not list: ' + extra.slice(0, 5).join(', '));
     return { manifest, files: listed.length };
 }
+// Published Papers, and the notes that exist only as drafts (a note written in the app is a draft
+// until it is published). The app lists both; the manifest counts both.
 async function defaultCount(target) {
-  const response = await fetch(`${target.server}/v1/data/query/${encodeURIComponent(target.dataset)}/paper?limit=1&offset=0&count=true&perspective=published`, { headers: { authorization: 'Bearer ' + target.token }, signal: AbortSignal.timeout(20000) });
-  const data = await response.json(); const page = data?.result ?? data;
-  if (!response.ok || !Number.isSafeInteger(page?.total)) fail('count', 'The library could not be counted for the export');
-  return page.total;
+  const page = async query => {
+    const response = await fetch(`${target.server}/v1/data/query/${encodeURIComponent(target.dataset)}/paper?${query}`, { headers: { authorization: 'Bearer ' + target.token }, signal: AbortSignal.timeout(20000) });
+    const data = await response.json(); const value = data?.result ?? data;
+    if (!response.ok || !Number.isSafeInteger(value?.total)) fail('count', 'The library could not be counted for the export');
+    return value;
+  };
+  const papers = (await page('limit=1&offset=0&count=true&perspective=published')).total;
+  let drafts = 0;
+  for (let offset = 0; ; offset += 200) {
+    const value = await page(`limit=200&offset=${offset}&count=true&perspective=drafts&order=_createdAt:asc&fields=title`);
+    const rows = value.documents || value.items || value.results || [];
+    drafts += rows.filter(d => d?._draft === true || String(d?._id || '').startsWith('drafts.')).length;
+    if (!rows.length || offset + rows.length >= value.total) break;
+    if (offset > 100000) fail('count', 'The library is larger than the export can count');
+  }
+  return { papers, drafts };
 }
 module.exports = { createProfileExport, verifyExport, KIND };

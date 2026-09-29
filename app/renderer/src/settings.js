@@ -276,7 +276,42 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
     const box = q('#profile-settings'); box.hidden = false;
     box.innerHTML = setting('Library profile', 'Each profile keeps its own pages, conversations, drafts and connections. Working folders still belong to individual chats.',
       `${selectHtml('profile-choice', status.profiles.map(profile => `<option value="${esc(profile.id)}" ${profile.id === status.profileId ? 'selected' : ''}>${esc(profile.name)}</option>`).join(''))}<button type="button" class="bw-btn" id="profile-switch">Switch</button>`) +
-      setting('New profile', 'Start with an empty library. Your existing profiles stay available.', '<input type="text" id="profile-name" aria-label="New profile name" placeholder="Profile name"><button type="button" class="bw-btn" id="profile-create">Create</button>');
+      setting('New profile', 'Start with an empty library. Your existing profiles stay available.', '<input type="text" id="profile-name" aria-label="New profile name" placeholder="Profile name"><button type="button" class="bw-btn" id="profile-create">Create</button>') +
+      setting('Export this profile', 'Writes the library, its pictures, conversations and retained originals to a new folder you choose. Agent turns stop and editing pauses while it runs; Barkdown restarts afterwards. Keys and passwords stay on this machine.<span class="bw-status bw-set-note" id="profile-export-status" role="status"></span>', `<button type="button" class="bw-btn" id="profile-export">${iconHtml('folder-output', 13)}Export…</button>`) +
+      setting('Import a profile', 'Reads an export folder and creates a new profile with its own database. The export and your existing profiles are not changed. Needs the same Barkpark version as the export.<span class="bw-status bw-set-note" id="profile-import-status" role="status"></span>', `<button type="button" class="bw-btn" id="profile-import">${iconHtml('folder-input', 13)}Import…</button>`);
+    const phases = { 'hold:begin': 'Pausing other writers…', 'hold:held': 'Writing the database…', 'after-dump': 'Copying pictures…', 'after-media': 'Copying profile files…', 'after-store': 'Sealing the export…', 'hold:reopened': 'Finishing…',
+      'after-restoring': 'Restoring the database…', 'after-restored': 'Copying profile files…', 'after-imported': 'Finishing…' };
+    const stopProgress = api.portable.onProgress(event => { const n = q(event.action === 'export' ? '#profile-export-status' : '#profile-import-status'); if (n && phases[event.phase]) n.textContent = phases[event.phase]; else if (!n) stopProgress(); });
+    const busy = on => { for (const id of ['#profile-export', '#profile-import', '#profile-switch', '#profile-create']) { const n = q(id); if (n) n.disabled = on; } };
+    q('#profile-export').onclick = async () => {
+      const note = q('#profile-export-status'); note.className = 'bw-status bw-set-note';
+      if (dirty) { toast('Save or cancel Settings changes before exporting.', 'error'); return; }
+      busy(true);
+      try {
+        const chosen = await api.portable.chooseExport();
+        if (!chosen) { note.textContent = ''; return; }
+        note.textContent = 'Preparing the profile…';
+        await window.__barkdown.prepareProfile();
+        const done = await api.portable.export();
+        note.textContent = `Exported ${done.papers} Paper${done.papers === 1 ? '' : 's'} to ${done.folder}`; note.className = 'bw-status bw-set-note ok';
+        toast('Export completed. Restart Barkdown to continue editing.');
+      } catch (error) { note.textContent = error.message; note.className = 'bw-status bw-set-note err'; toast(error.message, 'error'); }
+      finally { busy(false); await window.__barkdown.preparationStatus?.().catch(() => {}); }
+    };
+    q('#profile-import').onclick = async () => {
+      const note = q('#profile-import-status'); note.className = 'bw-status bw-set-note';
+      busy(true);
+      try {
+        note.textContent = 'Choose the export folder…';
+        const done = await api.portable.import();
+        if (!done) { note.textContent = ''; return; }
+        const option = document.createElement('option'); option.value = done.profile.id; option.textContent = done.profile.name;
+        q('#profile-choice').append(option); q('#profile-choice').value = done.profile.id;
+        note.textContent = `Imported “${done.profile.name}” with ${done.papers} Paper${done.papers === 1 ? '' : 's'}. Choose it above and press Switch to open it.`; note.className = 'bw-status bw-set-note ok';
+        toast('Profile imported.');
+      } catch (error) { note.textContent = error.message; note.className = 'bw-status bw-set-note err'; toast(error.message, 'error'); }
+      finally { busy(false); }
+    };
     q('#profile-switch').onclick = async () => {
       try {
         if (q('#profile-choice').value === status.profileId) return;

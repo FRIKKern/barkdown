@@ -15,6 +15,8 @@ async function call(channel, ...args) {
 }
 
 const api = {
+  portable: { chooseExport: () => call('portable:chooseExport'), export: () => call('portable:export'), import: () => call('portable:import'),
+    onProgress: handler => { const listener = (_e, event) => { if (event.profileId === owner?.profileId) handler(event); }; ipcRenderer.on('portable:progress', listener); return () => ipcRenderer.removeListener('portable:progress', listener); } },
   migration: { status: () => call('migration:status'), switch: () => call('migration:switch'), rollback: () => call('migration:rollback'), changed: id => call('migration:changed', id), reconcile: (id, action) => call('migration:reconcile', { id, action }) },
   preparation: {
     prepare: () => call('preparation:prepare'), status: () => call('preparation:status'),
