@@ -17,7 +17,7 @@ test('platform-only skips are pinned per kind and named', () => {
     // had dropped them without rerunning the segment on macOS).
     unitSkipsOffWindows: { pattern: /skip:\s*process\.platform\s*!==\s*'win32'/g, expected: 10 },
     // live files that exit early off Windows through helpers/host.mjs: PowerShell terminal tour, recovery review tour, DPAPI durability.
-    liveFilesSkippedOffWindows: { pattern: /^skipUnlessWindows\(/gm, expected: 3 },
+    liveFilesSkippedOffWindows: { pattern: /^skipUnlessWindows\(/gm, expected: 2 },
     // blocks gated inline on win32 (profile-preparation's terminal ownership halves, profile-registry).
     inlineWindowsHalves: { pattern: /^\s*if \(process\.platform === 'win32'\) \{$/gm, expected: 3 },
   };

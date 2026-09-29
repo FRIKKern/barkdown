@@ -9,7 +9,9 @@ const { createWorkspaceRepository } = require('./workspace-repository');
 const { captureChatContext, assertChatContext } = require('./chat-context');
 const { assertProviderFolder } = require('./provider-folder');
 
-function createProfileService({ registry, agent = process.platform === 'win32' ? require('./goal-worker-agent').createOwnedWorkerAgent() : require('./agent'), workspaces = createWorkspaceRepository({ registry }),
+// Ordinary turns run in an owned worker on every host: job objects on Windows, a process group on
+// POSIX (goal-process.js), so an interrupted turn can be verified stopped and recovered anywhere.
+function createProfileService({ registry, agent = require('./goal-worker-agent').createOwnedWorkerAgent(), workspaces = createWorkspaceRepository({ registry }),
   settingsFor = store => store.readJson('settings.json', {}), connectionFor = () => ({ enabled: false }), runtimePool = null,
   sendEvent = () => {}, assertAuthentication = async () => {}, defaultProvider = () => 'api' }) {
   let generation = crypto.randomUUID();
@@ -231,7 +233,9 @@ function createProfileService({ registry, agent = process.platform === 'win32' ?
     const { attempt } = workspaces.ordinaryRecovery(profileId, chatId, attemptId);
     if (!attempt.request || !agent.verifyTermination) throw new Error('This older attempt has no owned-process receipt. Keep it blocked until its process and effects can be verified.');
     if (!['verify', 'review'].includes(action)) throw new Error('Unknown recovery action');
+    console.error(`[recovery] ${action} ${attemptId}: verifying the previous process`);
     const stopped = await agent.verifyTermination({ request: { profileId, attemptId, storeDir: registry.storeFor(profileId).storeDir }, runId: attempt.runId });
+    console.error(`[recovery] ${action} ${attemptId}: previous process ${stopped ? 'verified stopped' : 'not verified stopped'}`);
     validate(owner);
     if (!stopped) throw new Error('The previous process is not verified stopped. No new turn was allowed.');
     workspaces.verifyOrdinary(profileId, chatId, attemptId);

@@ -4,8 +4,6 @@ import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { createAnthropicFixture } from './fixtures/anthropic-http.mjs';
-import { skipUnlessWindows } from './helpers/host.mjs';
-skipUnlessWindows("recovery review tour times out on POSIX after the owned-process twin; investigate with the terminal tour");
 const require = createRequire(import.meta.url);
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-chat-recovery-'));
 const out = process.env.BARKDOWN_CHAT_RECOVERY_OUT || userData;
@@ -13,7 +11,7 @@ fs.mkdirSync(out, { recursive: true });
 const transport = await createAnthropicFixture();
 const launch = () => electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${userData}`], recordVideo: { dir: out, size: { width: 1400, height: 900 } }, env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', ANTHROPIC_BASE_URL: transport.url } });
 let app, page, passed = false;
-async function boot() { app = await launch(); page = await app.firstWindow(); await page.waitForFunction(() => window.__barkdown?.state.loaded); }
+async function boot() { app = await launch(); app.process().stderr?.on('data', chunk => { const text = String(chunk); if (/\[(recovery|owned)\]/.test(text)) process.stdout.write(text); }); page = await app.firstWindow(); await page.waitForFunction(() => window.__barkdown?.state.loaded); }
 try {
   await boot();
   const chatId = await page.evaluate(async () => {
@@ -46,8 +44,11 @@ try {
   await page.locator('#bw-prompt').press('Enter');
   assert.equal(await page.locator('#bw-prompt').inputValue(), 'Draft after partial response', 'blocked send preserves draft');
   await page.screenshot({ path: path.join(out, 'interrupted.png') });
+  const said = []; page.on('console', m => { if (['error', 'warning'].includes(m.type())) said.push(m.text().slice(0, 300)); });
+  await page.evaluate(() => { window.__toasts = []; new MutationObserver(records => { for (const r of records) for (const n of r.addedNodes) if (n.nodeType === 1) window.__toasts.push(n.textContent); }).observe(document.getElementById('bw-toasts'), { childList: true }); });
   await page.locator('[data-recover="verify"]').click();
-  await page.locator('[data-recover="review"]').waitFor();
+  // A refused verification stays on screen; say what it said instead of timing out silently.
+  await page.locator('[data-recover="review"]').waitFor().catch(async error => { throw new Error(`Review step never appeared. Recovery banner: ${await page.locator('[data-recovery]').textContent().catch(() => '(none)')}; toasts: ${JSON.stringify(await page.evaluate(() => window.__toasts).catch(() => null))}; console: ${said.join(' | ')}`, { cause: error }); });
   assert.equal(transport.requests.length, 1, 'checking shutdown cannot replay');
   await page.locator('[data-recovery-note]').fill('Reviewed partial response; this fixture changed no files.');
   await page.screenshot({ path: path.join(out, 'verified.png') });

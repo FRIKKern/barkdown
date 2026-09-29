@@ -55,6 +55,10 @@ export function getPaper(slug) { const r = bp(['doc', 'get', 'paper', slug, '--p
 export function paperFixtureScope() {
   const scope = bp(['whoami']);
   if (typeof scope.server !== 'string' || !/^https?:\/\//.test(scope.server) || typeof scope.dataset !== 'string' || !scope.dataset) throw new Error('Fixture CLI did not report its server and dataset');
+  // The fixture publishes through the CLI's active server. Outside the isolated harness that is
+  // whatever `bp use` last selected, which may be a cloud instance; refuse anything but loopback
+  // unless the operator says so explicitly.
+  if (!/^https?:\/\/(127\.0\.0\.1|localhost)(:\d+)?\/?$/.test(scope.server) && process.env.BARKDOWN_ALLOW_REMOTE_FIXTURE !== '1') throw new Error(`Fixture CLI points at ${scope.server}, not a private loopback runtime. Run this tour through tests/status-shots-isolated.mjs (or set BARKDOWN_ALLOW_REMOTE_FIXTURE=1 on purpose).`);
   const expected = process.env.BARKDOWN_SHOTS_SERVER || process.env.BARKPARK_API_URL;
   if (expected && scope.server.replace(/\/$/, '') !== expected.replace(/\/$/, '')) throw new Error('Fixture CLI does not match the selected private server');
   return { server: scope.server, dataset: scope.dataset };

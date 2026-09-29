@@ -54,6 +54,7 @@ async function sweep(pgid) {
 // the group still holds, and it answers true only at zero. Under a live host it only observes.
 async function verifyGroup(receipt) {
   const pgid = receipt.helperPid;
+  console.error(`[owned] verify group ${pgid} phase=${receipt.phase} active=${receipt.activeProcesses} host=${receipt.hostPid}`);
   if (receipt.phase === 'stopped' && receipt.activeProcesses === 0) return true;
   const hostAlive = receipt.hostPid && startedAt(receipt.hostPid) === receipt.hostStarted;
   if (hostAlive) return groupMembers(pgid).length === 0;
