@@ -50,3 +50,10 @@ test('a switch in flight blocks legacy edits; a rolled-back switch reopens them'
   fs.writeFileSync(f.store.filePath('selection.json'), '{not json');
   assert.throws(() => f.documents.create({ title: 'Corrupt', markdown: 'x' }), { code: 'BARKDOWN_SELECTION_PENDING', selection: 'blocked' });
 });
+
+test('a registry store handle (storeDir only) reads as none, never blocked', () => {
+  const f = fixture();
+  assert.deepEqual(selectionStatus({ storeDir: f.store.dir() }), { status: 'none', authority: 'legacy' });
+  f.journal('selected');
+  assert.equal(selectionStatus({ storeDir: f.store.dir() }).authority, 'paper');
+});

@@ -157,6 +157,8 @@ function createMigrationSelection({ preparation, comparison, admission = createU
 // store before every write and by the profile view.
 function selectionStatus(store) {
   try {
+    // Registry store handles carry storeDir but no filePath; read through a file store.
+    if (typeof store?.filePath !== 'function' && typeof store?.storeDir === 'string') store = createStore(store.storeDir, { create: false });
     const value = read(store, journalName);
     if (!value) return { status: 'none', authority: 'legacy' };
     if (value.version !== 1 || !phases.has(value.phase)) return { status: 'blocked', authority: 'legacy', error: 'Unreadable selection journal' };
