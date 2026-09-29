@@ -8,7 +8,7 @@ import { openRetainedDrafts } from './retained-drafts.js';
 import { el, esc, iconHtml, toast } from './ui.js';
 import { state } from './state.js';
 import { modelsFor, defaultModelLabel } from './models.js';
-import { openDialog } from './dialogs.js';
+import { openDialog, askConfirm } from './dialogs.js';
 import { ensureCanvasBundle, describeCanvasBundle, refreshCanvasBundleAfterSettings } from './canvas-bundle.js';
 
 const api = window.barkdown;
@@ -114,6 +114,8 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
         <div class="bw-set"><div class="bw-set-text"><span class="bw-status" id="bp-status" aria-live="polite"></span></div><div class="bw-set-ctl"><button type="button" class="bw-btn" data-act="test">${iconHtml('plug-zap', 13)}Test connection</button></div></div>
         <h3>Writing</h3>
         ${switchHtml('bp-writes', 'Allow fenced writes to Barkpark', 'Off by default. When on, you and the assistant can edit papers directly, with revision checks and Undo for assistant edits.')}
+        ${state.profileId ? `<h3>Library switch</h3>
+        ${setting('Move this library to Paper', 'Prepares the profile (agent turns stop, drafts are kept), backs up the legacy notes, stages them as Papers, compares the library while the runtime is held, then selects Paper. Legacy notes stay retained and read-only. Labels are generated at the switch and reviewed on Paper afterwards. The window reloads when it is done.', `<div class="bw-inline"><span class="bw-status" id="bp-switch-status" aria-live="polite">Checking…</span><button type="button" class="bw-btn" data-act="switch-paper" disabled>${iconHtml('file-plus', 13)}Switch to Paper</button><button type="button" class="bw-btn" data-act="switch-rollback" hidden>Roll back</button></div>`, { stack: true })}` : ''}
       </section>
       <section data-pane="shortcuts" ${pane !== 'shortcuts' ? 'hidden' : ''}>
         ${SHORTCUTS.map(([group, ...rows]) => `<h3>${esc(group)}</h3><table class="bw-keys">${rows.map(([combo, what]) => `<tr><td>${keys(combo)}</td><td>${esc(what)}</td></tr>`).join('')}</table>`).join('')}
@@ -186,6 +188,27 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
   const unsubscribeLocal = api.barkpark.onLocalStatus(showLocal);
   q('[data-act="local-source"]').onclick = async () => { const folder = await api.app.pickFolder(); if (folder) { q('#bp-source').value = folder; markDirty(); } };
   q('[data-act="local-logs"]').onclick = () => api.app.openPath(localDataDir || s.userData);
+  if (state.profileId) {
+    const label = { none: 'Legacy notes, not switched', selected: 'Notes live on Paper since the switch', 'rolled-back': 'Switched back to legacy notes; Paper edits stay on Paper', intent: 'Switch interrupted before replacement', replacing: 'Switch interrupted during replacement', 'rolling-back': 'Rollback interrupted', blocked: 'Switch journal needs inspection' };
+    const switchStatus = q('#bp-switch-status'), switchBtn = q('[data-act="switch-paper"]'), rollbackBtn = q('[data-act="switch-rollback"]');
+    const showSwitch = value => {
+      const st = value?.selection?.status || 'none';
+      switchStatus.textContent = (label[st] || st) + (value?.selection?.reconciliationRequired ? ' · Paper changed after the switch; reconcile before switching again' : '') + (st === 'none' && !s.barkpark.local?.enabled ? ' · needs the local runtime' : '');
+      switchBtn.disabled = st === 'blocked' || st === 'rolling-back' || (st === 'none' && !s.barkpark.local?.enabled);
+      switchBtn.hidden = st === 'selected' || st === 'rolled-back';
+      switchBtn.textContent = ['intent', 'replacing'].includes(st) ? 'Resume switch' : 'Switch to Paper';
+      rollbackBtn.hidden = !['selected', 'intent', 'replacing', 'rolling-back'].includes(st);
+    };
+    api.migration.status().then(showSwitch).catch(error => { switchStatus.textContent = error.message; });
+    const run = async (action, confirm) => {
+      if (!await askConfirm(confirm.message, { title: confirm.title, confirm: confirm.confirm, danger: action === 'rollback' })) return;
+      switchBtn.disabled = rollbackBtn.disabled = true; switchStatus.textContent = action === 'switch' ? 'Preparing, backing up, staging and comparing under the hold…' : 'Rolling back under the hold…';
+      try { await window.__barkdown.prepareProfile(); const value = action === 'switch' ? await api.migration.switch() : await api.migration.rollback(); showSwitch(value); toast(action === 'switch' ? 'Notes now live on Paper. Reloading.' : 'Back on legacy notes. Reloading.'); setTimeout(() => window.location.reload(), 800); }
+      catch (error) { switchStatus.textContent = error.message; switchBtn.disabled = rollbackBtn.disabled = false; api.migration.status().then(showSwitch).catch(() => {}); }
+    };
+    switchBtn.onclick = () => run('switch', { title: 'Switch this library to Paper?', message: 'Every legacy note is backed up, staged as a Paper and compared while the runtime refuses other writers. Legacy notes stay retained and read-only. You can roll back afterwards.', confirm: 'Switch' });
+    rollbackBtn.onclick = () => run('rollback', { title: 'Roll back to legacy notes?', message: 'The legacy navigation is restored exactly. Papers and any edits made on them stay on Paper; nothing is converted back.', confirm: 'Roll back' });
+  }
   q('[data-act="local-retry"]').onclick = async () => { try { showLocal(await api.barkpark.localRetry()); } catch (error) { q('#bp-local-status').textContent = error.message; } };
 
   q('#bp-server').value = s.barkpark.server || '';

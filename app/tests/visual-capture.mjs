@@ -53,7 +53,8 @@ try{
   await p.reload();await p.waitForFunction(()=>window.__barkdown?.state.loaded);await p.waitForTimeout(600);await p.locator('.bw-toast').waitFor({state:'hidden',timeout:15000}).catch(()=>{});await fixtures();await p.emulateMedia({colorScheme:'light',reducedMotion:'reduce'});await settled();};
  await selection({version:1,profileId:'fixture',operationId:'00000000-0000-4000-8000-000000000000',phase:'selected',seal:{generation:1},reportHash:'fixture',workspaceBefore:'fixture',workspaceAfter:'fixture'});
  await tour('retained','After the library switch the legacy notes are retained read-only: a badge in Pages and a read-only editor. Fixture journal; no Paper server.',[
-  ['badge',async()=>{await p.locator('#bw-pages .bw-page-row').first().hover();}],['open',async()=>{await p.locator('#bw-pages .bw-page-row').first().click();}],['dark',()=>p.emulateMedia({colorScheme:'dark'})],['light',()=>p.emulateMedia({colorScheme:'light'})]
+  ['badge',async()=>{await p.locator('#bw-pages .bw-page-row').first().hover();}],['open',async()=>{await p.locator('#bw-pages .bw-page-row').first().click();}],['dark',()=>p.emulateMedia({colorScheme:'dark'})],['light',()=>p.emulateMedia({colorScheme:'light'})],
+  ['interrupted',async()=>{await selection({version:1,profileId:'fixture',operationId:'00000000-0000-4000-8000-000000000000',phase:'replacing',retained:true,seal:{generation:1},reportHash:'fixture',workspaceBefore:'fixture',workspaceAfter:'fixture'});await p.locator('.bw-switch-notice').waitFor();}]
  ]);
  await selection(null);
  await tour('settings','Real Settings navigation. No server connection or credential is configured.',[

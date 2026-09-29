@@ -15,6 +15,7 @@ The [capture manifest](../../../docs/images/status/manifest.json) identifies the
 | Settings and profile switching | [Settings](../../../docs/visual/settings/README.md), [profiles](../../../docs/visual/profiles/README.md), [A1 evidence](../../../docs/cycles/A1-current-evidence.md) |
 | Goal planning and workers | [Component tour](../../../docs/visual/goals/README.md), [actual coordinator recovery](../../../docs/visual/coordinator-recovery/README.md) |
 | Document and file hosts | [Tab health](tabs/README.md) |
+| Library switch (Settings › Barkpark › Library switch; start-time notice for an interrupted switch) | [macOS gallery](../../../docs/visual/README.darwin.md) `retained` (interrupted frame) and `settings`; the switch runs main/migration-switch.js under the preparation and the upstream hold and reloads the window; the notice offers only Resume and Roll back. |
 | Retained legacy notes after the library switch | [macOS gallery](../../../docs/visual/README.darwin.md) `retained`; once a profile is selected onto Paper (`state.authority === 'paper'`) legacy notes carry a Retained badge and open read-only; new notes already go to Paper. |
 
 Keep human-organized Pages, the separate Cloud archive, the 60% default chat width and per-chat navigation. Closing a side-chat tab does not delete its conversation. Persist the original unsent draft while browsing history. Use owner/generation checks for asynchronous work; never infer ownership from whichever chat is visible when a promise settles.

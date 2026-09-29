@@ -75,6 +75,7 @@ export async function load() {
   const data = await api.state.load();
   if (data && data.version === 1) {
     state.profileId = data.profileId || null; state.generation = data.generation || null;
+    state.authority = typeof data.authority === 'string' ? data.authority : 'legacy'; state.selection = typeof data.selection === 'string' ? data.selection : 'none';
     state.chats = data.chats || {};
     state.order = (data.order || []).filter(id => state.chats[id]);
     const missingChats = Object.values(state.chats).filter(c => c.id !== 'direct' && !state.order.includes(c.id)).sort((a,b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));

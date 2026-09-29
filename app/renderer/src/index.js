@@ -1,5 +1,6 @@
 import { mountComposer } from './composer.js';
 import { installProfilePreparation } from './profile-preparation.js';
+import { installSwitchNotice } from './switch-notice.js';
 import { createLibraryRefresh, libraryScope } from './library-refresh.js';
 import { createNoteAction } from './note-creation.js';
 import { openProviderLogin } from './provider-login.js';
@@ -816,6 +817,7 @@ function wire() {
   applyTheme(state.settings.theme || 'system');
   await load();
   await profilePreparation.status().catch(error => console.warn('Preparation status:', error.message));
+  installSwitchNotice({ api, state, prepareProfile: profilePreparation.prepare });
   if (state.profileId) {
     let refreshTimer;
     api.goals.subscribe({ profileId: state.profileId }, () => { clearTimeout(refreshTimer); refreshTimer = setTimeout(() => refreshManagedChats().catch(error => console.warn('Goal transcript refresh:', error)), 80); });

@@ -311,7 +311,16 @@ function registerIpc() {
     handle('preparation:retain', bridge.retain);
     handle('preparation:saveView', bridge.saveView);
     handle('preparation:status', () => preparationStatus(profileService.view().profileId));
-  } else handle('preparation:status', () => ({ record: null, readOnly: false }));
+    // The library switch (C083): one operator action over the proven migration pieces. The
+    // profile's own runtime lease is taken for the duration; after a completed switch or
+    // rollback the preparation is released so launches reopen (old handles stay frozen; the
+    // window reloads).
+    const migration = require('./migration-switch').createMigrationSwitch({ registry: profileRegistry, preparation, userData: app.getPath('userData'),
+      runtimePool: { acquire: (...args) => profilePool ? profilePool.acquire(...args) : Promise.reject(Object.assign(new Error('Enable the local Barkpark runtime for this profile first'), { code: 'switch_runtime' })) } });
+    handle('migration:status', () => migration.status(profileService.view().profileId));
+    handle('migration:switch', async () => { const id = profileService.view().profileId; const result = await migration.switchToPaper(id); if (result.selection.status === 'selected') await preparation.abort(id); return migration.status(id); });
+    handle('migration:rollback', async () => { const id = profileService.view().profileId; const result = await migration.rollback(id); if (result.selection.status === 'rolled-back') await preparation.abort(id); return migration.status(id); });
+  } else { handle('preparation:status', () => ({ record: null, readOnly: false })); handle('migration:status', () => null); }
   const originalHistory = () => {
     if (!profileService) throw new Error('Original history requires an owned profile.');
     const profileId = profileService.view().profileId;
