@@ -98,6 +98,7 @@
     "test:migration-selection": "node --test tests/migration-selection.test.mjs",
     "test:migration-selection:isolated": "BARKDOWN_SHOTS_WRITE_ADMISSION=1 node tests/status-shots-isolated.mjs tests/migration-selection.live.mjs",
     "test:migration-switch:isolated": "BARKDOWN_SHOTS_WRITE_ADMISSION=1 node tests/status-shots-isolated.mjs tests/migration-switch.live.mjs",
+    "test:migration-corpus-switch:isolated": "BARKDOWN_SHOTS_WRITE_ADMISSION=1 node tests/status-shots-isolated.mjs tests/migration-corpus-switch.live.mjs",
     "test:sealed-comparison:isolated": "BARKDOWN_SHOTS_WRITE_ADMISSION=1 node tests/status-shots-isolated.mjs tests/sealed-comparison.live.mjs"
   },
   "engines": {
