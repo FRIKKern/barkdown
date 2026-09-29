@@ -5,7 +5,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
-const { createUpstreamAdmission } = require('./upstream-admission');
+const { createUpstreamAdmission, holdReconciled } = require('./upstream-admission');
 const { createPaperEvidenceOwner } = require('./paper-evidence-owner');
 const { createStore } = require('./store');
 const fail = (code, message, cause) => { throw Object.assign(new Error(message), { code: 'export_' + code, cause }); };
@@ -69,8 +69,7 @@ function createProfileExport({ registry, preparation, runtimePool, admission = c
         if (!lease.data?.dump) fail('runtime', 'This profile has no owned runtime to export; enable its local runtime first');
         const target = { profileId, server: lease.connection.server, token: lease.connection.token, dataset: lease.connection.dataset || 'production' };
         checkpoint('hold:begin', { operation });
-        const begun = await admission.hold(target, operation);
-        const held = begun.phase === 'held' ? begun : await admission.awaitHeld(target, begun.capability, { timeoutMs });
+        const held = await holdReconciled(admission, target, operation, { timeoutMs });
         checkpoint('hold:held', { operation });
         let manifest, failure = null;
         try {

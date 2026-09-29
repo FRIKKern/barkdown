@@ -105,6 +105,7 @@
     "test:writers-in-flight:isolated": "BARKDOWN_SHOTS_WRITE_ADMISSION=1 node tests/status-shots-isolated.mjs tests/admission-writers-in-flight.live.mjs",
     "test:profile-export": "node tests/profile-export.live.mjs",
     "test:profile-import": "node tests/profile-import.live.mjs",
+    "test:runtime-recovery": "npm run build && node tests/runtime-recovery.live.mjs",
     "test:runtime-reclaim": "npm run build && node tests/runtime-reclaim.live.mjs",
     "test:profile-portable-interrupt": "npm run build && node tests/profile-portable-interrupt.live.mjs",
     "test:profile-portable-ui": "npm run build && node tests/profile-portable-ui.live.mjs"

@@ -188,3 +188,27 @@ test('independent processes racing quiescence retain admitted receipts and rejec
     await Promise.all(children.map(async child => { if (child.exitCode === null) { const exited = once(child, 'exit'); child.kill(); await exited; } }));
   }
 });
+
+test('a write the server answered is settled; a write without an answer stays uncertain', async () => {
+  const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-writer-answered-'))), store = createStore(root);
+  const control = controller(store), token = control.capture();
+  const refused = Object.assign(new Error('The library is held'), { status: 503, code: 'storage_unavailable' });
+  await assert.rejects(control.run(token, 'barkpark:createNote', async () => { throw refused; }), /held/);
+  await assert.rejects(control.run(token, 'barkpark:applyOps', async () => { throw new Error('Stale revision', { cause: Object.assign(new Error('ifRev did not match'), { status: 409 }) }); }), /Stale/);
+  assert.deepEqual(control.inspect().pending, [], 'both were answered');
+  await assert.rejects(control.run(token, 'barkpark:applyOps', async () => { throw Object.assign(new Error('socket hang up'), { code: 'ECONNRESET' }); }), /hang up/);
+  assert.equal(control.inspect().pending.length, 1); assert.equal(control.inspect().pending[0].status, 'uncertain');
+});
+test('writes of a departed host are settled for runtime operations only, never for a live host', async () => {
+  const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-writer-departed-'))), store = createStore(root);
+  const control = controller(store), token = control.capture();
+  await assert.rejects(control.run(token, 'barkpark:applyOps', async () => { throw new Error('timeout'); }));
+  await assert.rejects(control.run(token, 'docs:update', async () => { throw new Error('disk'); }));
+  // The same journal, read by a later host: the entries belong to another process.
+  const file = path.join(root, 'writer-state.json'), state = JSON.parse(fs.readFileSync(file, 'utf8'));
+  state.pending = state.pending.map(p => ({ ...p, pid: 2147483600 })); fs.writeFileSync(file, JSON.stringify(state));
+  const later = controller(createStore(root, { create: false }));
+  assert.deepEqual(later.settleDeparted({ alive: () => true }), { settled: 0, remaining: 2 }, 'a host that still runs keeps its writes');
+  assert.deepEqual(later.settleDeparted({ alive: () => false }), { settled: 1, remaining: 1 });
+  assert.deepEqual(later.inspect().pending.map(p => p.operation), ['docs:update'], 'a local write stays for inspection');
+});

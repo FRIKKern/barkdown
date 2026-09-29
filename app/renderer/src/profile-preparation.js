@@ -129,8 +129,11 @@ export function installProfilePreparation({ api, root, state, controllers, seria
   async function prepare() {
     preflight();
     pauseSaves(true);
+    let failure = null;
     try { return await api.preparation.prepare(); }
-    finally { try { await status(); } finally { if (!root.inert) pauseSaves(false); } }
+    catch (error) { failure = error; throw error; }
+    // A preparation that stopped says why, where the person is looking.
+    finally { try { const value = await status(); if (failure && notice && value.readOnly && !value.restartRequired) notice.querySelector('p').textContent = `Preparation stopped: ${String(failure.message).replace(/^\[[\w-]+\]\s*/, '')} Nothing was changed. Cancel preparation to continue editing.`; } finally { if (!root.inert) pauseSaves(false); } }
   }
   return Object.freeze({ prepare, status });
 }

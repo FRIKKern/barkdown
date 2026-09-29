@@ -44,7 +44,7 @@ test('selection replaces the workspace atomically under both fences and records 
   assert.deepEqual(result.seal, { operation: 'select-' + f.profileId, generation: 5, boot: 'boot' }); assert.equal(result.reopenedGeneration, 6);
   assert.equal(f.workspace(), f.projectedText);
   const order = f.calls.map(c => c[0] === 'checkpoint' ? 'cp:' + c[1] : c[0]);
-  assert.deepEqual(order, ['withPrepared', 'cp:hold:begin', 'hold', 'cp:hold:begun', 'awaitHeld', 'cp:hold:held', 'compare', 'project', 'cp:after-intent', 'cp:after-replacing', 'cp:after-workspace-replaced', 'cp:after-selected', 'reopen', 'cp:hold:reopened', 'cp:after-selected']);
+  assert.deepEqual(order, ['withPrepared', 'cp:hold:begin', 'hold', 'awaitHeld', 'cp:hold:held', 'compare', 'project', 'cp:after-intent', 'cp:after-replacing', 'cp:after-workspace-replaced', 'cp:after-selected', 'reopen', 'cp:hold:reopened', 'cp:after-selected']);
   assert.equal(f.calls.find(c => c[0] === 'compare')[1], 'held');
   const store = createStore(f.sourceDir, { create: false });
   const journal = store.readJson('selection.json');

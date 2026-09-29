@@ -12,7 +12,7 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const { createProfileExport, verifyExport } = require('./profile-export');
 const { createProfileImport } = require('./profile-import');
-const { createUpstreamAdmission } = require('./upstream-admission');
+const { createUpstreamAdmission, holdReconciled } = require('./upstream-admission');
 const { createStore } = require('./store');
 const OUTCOME = 'profile-export-last.json';
 const fail = (code, message) => { throw Object.assign(new Error(message), { code }); };
@@ -85,18 +85,10 @@ function createProfilePortable({ registry, preparation, runtimePool, sourceFor, 
       let seen;
       try { seen = await admission.instance(target); } catch (error) { if (error.code === 'upstream_admission_unavailable') return 'unmanaged'; throw error; }
       if (seen.phase === 'open' || seen.phase === 'unconfigured') return 'open';
-      try {
-        const begun = await admission.hold(target, operation);
-        const held = begun.phase === 'held' ? begun : await admission.awaitHeld(target, begun.capability, { timeoutMs: 60000 });
-        await admission.reopen(target, held.capability);
-        return 'reopened';
-      } catch (error) {
-        const again = await admission.instance(target);
-        if (again.phase === 'open') return 'open';
-        const recovered = await admission.recover(target, { generation: again.generation, pending: again.pending });
-        if (recovered.phase !== 'open') fail('portable_hold', `The runtime stays ${recovered.phase} after recovery; writers are still refused`);
-        return 'recovered';
-      }
+      // Recover if the runtime came back in recovery, take the hold this export owned, release it.
+      const held = await holdReconciled(admission, target, operation, { timeoutMs: 60000, log });
+      await admission.reopen(target, held.capability);
+      return 'reopened';
     } finally { await lease.release(); }
   }
   async function discardExport(profileId) {

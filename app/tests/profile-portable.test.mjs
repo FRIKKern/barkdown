@@ -90,11 +90,11 @@ test('a runtime that answers recovery instead of a hold is recovered; an already
   const refused = fixture(); interrupted(refused); refused.runtime.phase = 'recovery_required';
   const stubborn = createProfilePortable({ registry: refused.registry, preparation: { inspect: () => structuredClone(refused.record), abort: async () => { refused.events.push('abort'); refused.record.phase = 'aborted'; } },
     runtimePool: { acquire: async () => ({ connection: { server: 'http://127.0.0.1:1', token: 't' }, release: async () => {} }), restore: async () => {}, reclaim: async () => {} },
-    admission: { instance: async () => ({ ...refused.runtime, pending: 0 }), hold: async () => { throw Object.assign(new Error('closed'), { code: 'upstream_admission_closed' }); },
+    admission: { instance: async () => ({ ...refused.runtime, pending: 0 }), hold: async () => { if (refused.runtime.phase === 'recovery_required') throw Object.assign(new Error('closed'), { code: 'upstream_admission_closed' }); refused.events.push('hold'); return { phase: 'held', capability: 'cap-12345678' }; }, reopen: async () => { refused.events.push('reopen'); return { phase: 'open' }; },
       recover: async (_t, proof) => { refused.events.push(['recover', proof]); refused.runtime.phase = 'open'; return { phase: 'open' }; } },
     sourceFor: () => '/checkout', upstreamRef: () => 'ref', chooseFolder: async () => null, trash: async folder => { fs.rmSync(folder, { recursive: true }); } });
   assert.equal((await stubborn.discardExport(refused.profileId)).status, 'discarded');
-  assert.deepEqual(refused.events, [['recover', { generation: 1, pending: 0 }], 'abort']);
+  assert.deepEqual(refused.events, [['recover', { generation: 1, pending: 0 }], 'hold', 'reopen', 'abort']);
   const f = fixture(), { next } = interrupted(f);
   f.runtime.phase = 'open';
   assert.equal((await next.discardExport(f.profileId)).status, 'discarded');

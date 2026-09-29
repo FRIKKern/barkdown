@@ -8,7 +8,7 @@ const fs = require('node:fs');
 const crypto = require('node:crypto');
 const { createStore } = require('./store');
 const { atomicWrite } = require('./atomic-write');
-const { createUpstreamAdmission } = require('./upstream-admission');
+const { createUpstreamAdmission, holdReconciled } = require('./upstream-admission');
 const { projectOwnedWorkspace } = require('./migration-workspace');
 const { canonical, hash, fail, record, read } = require('./migration-journal');
 
@@ -79,9 +79,8 @@ function createMigrationSelection({ preparation, comparison, admission = createU
       const store = createStore(options.sourceDir, { create: false });
       if (store.dir() !== scope.sourceDir) fail('selection_source', 'Source does not belong to the live preparation');
       checkpoint('hold:begin', { operation });
-      const begun = await admission.hold(target, operation);
-      checkpoint('hold:begun', { operation, phase: begun.phase });
-      const held = begun.phase === 'held' ? begun : await admission.awaitHeld(target, begun.capability, { timeoutMs });
+      // A runtime left in recovery by a killed host is recovered first: this journal reconciles it.
+      const held = await holdReconciled(admission, target, operation, { timeoutMs });
       checkpoint('hold:held', { operation });
       let result, failure = null;
       try { result = await fn({ store, scope, held }); } catch (error) { failure = error; }

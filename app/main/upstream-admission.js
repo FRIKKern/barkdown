@@ -92,4 +92,33 @@ function createUpstreamAdmission({ send = request } = {}) {
   return { hold, status, reopen, awaitHeld, instance, recover };
 }
 
-module.exports = { admissionEnv, createUpstreamAdmission, route };
+// Hold for an operation that reconciles by its own journal (switch, rollback, comparison,
+// export). A runtime whose host was killed while it was held or draining comes back in
+// recovery and refuses every hold; it is recovered with the generation and pending count
+// just read, then held. Upstream refuses recovery while a writer is still admitted.
+async function holdReconciled(admission, connection, operation, { timeoutMs = 60000, log = line => console.error(line) } = {}) {
+  const recoverable = async cause => {
+    if (typeof admission.instance !== 'function' || typeof admission.recover !== 'function') throw cause;
+    let seen; try { seen = await admission.instance(connection); } catch { throw cause; }
+    if (seen.phase !== 'recovery_required') throw cause;
+    const recovered = await admission.recover(connection, { generation: seen.generation, pending: seen.pending });
+    log(`[recovery] runtime recovered before ${operation}: generation ${seen.generation}, ${seen.pending} unsettled, ${seen.deadWriters ?? 0} dead writers`);
+    if (recovered.phase !== 'open') throw cause;
+    return admission.hold(connection, operation);
+  };
+  let begun;
+  try { begun = await admission.hold(connection, operation); } catch (error) { begun = await recoverable(error); }
+  if (begun.phase === 'recovery_required') begun = await recoverable(Object.assign(new Error('The runtime is in recovery and refuses the hold.'), { code: 'upstream_drain_failed' }));
+  return begun.phase === 'held' ? begun : admission.awaitHeld(connection, begun.capability, { timeoutMs });
+}
+// At launch, with no operation in flight: a runtime in recovery has nothing left to reconcile.
+async function reopenUnowned(admission, connection, { inFlight = () => false, log = line => console.error(line) } = {}) {
+  let seen; try { seen = await admission.instance(connection); } catch { return { phase: 'unmanaged', reopened: false }; }
+  if (seen.phase !== 'recovery_required') return { phase: seen.phase, reopened: false };
+  const owner = await inFlight();
+  if (owner) { log(`[recovery] runtime in recovery is left to ${owner}`); return { phase: seen.phase, reopened: false, owner }; }
+  const recovered = await admission.recover(connection, { generation: seen.generation, pending: seen.pending });
+  log(`[recovery] runtime reopened at launch, no operation in flight: generation ${seen.generation}, ${seen.pending} unsettled, ${seen.deadWriters ?? 0} dead writers`);
+  return { phase: recovered.phase, reopened: recovered.phase === 'open', was: seen };
+}
+module.exports = { admissionEnv, createUpstreamAdmission, holdReconciled, reopenUnowned, route };

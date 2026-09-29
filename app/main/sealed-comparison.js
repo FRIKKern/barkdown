@@ -2,7 +2,7 @@
 // managed runtime refuses every writer, so the report describes a fenced library at one
 // admission generation, not observed drift. Still `authority: legacy` and
 // `activationAllowed: false`: no selector, no authority write, no source cleanup here.
-const { createUpstreamAdmission } = require('./upstream-admission');
+const { createUpstreamAdmission, holdReconciled } = require('./upstream-admission');
 
 const observed = 'Observed reads are not a server snapshot';
 
@@ -13,8 +13,7 @@ function createSealedComparison({ comparison, admission = createUpstreamAdmissio
     // One operation per profile: a retry after a failed traversal reconciles to the same
     // hold instead of being refused as a second operation.
     const operation = options.operation || `compare-${options.profileId}`;
-    const begun = await admission.hold(target, operation);
-    const held = begun.phase === 'held' ? begun : await admission.awaitHeld(target, begun.capability, { timeoutMs });
+    const held = await holdReconciled(admission, target, operation, { timeoutMs });
     let report = null, failure = null;
     try { report = await comparison.compare(options, target); } catch (error) { failure = error; }
     // Reopen always. A reopen failure outranks the result: the runtime stays held for

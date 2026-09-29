@@ -87,8 +87,10 @@ function createDraftNotes({ store, config, paperOwner, profileId, assertOwned, r
         } }] });
       } catch (error) {
         if ([400, 401, 403, 409, 422].includes(error.status)) { record.status = 'refused'; persist(); throw error; }
+        // A held or recovering library refuses at its door: nothing was written, and the same request may be sent again later.
+        if (error.status === 503 && error.code === 'storage_unavailable') { record.status = 'prepared'; persist(); throw error; }
         // A transport error may follow a committed create. Read the exact row once.
-        try { return await reconcile(); } catch { throw Object.assign(new Error('Creation is unconfirmed. Retry this request to check the same note; no second note will be created.'), { code: 'draft_creation_uncertain' }); }
+        try { return await reconcile(); } catch { throw Object.assign(new Error('Creation is unconfirmed. Retry this request to check the same note; no second note will be created.', { cause: error }), { code: 'draft_creation_uncertain' }); }
       }
       return await reconcile();
       } finally { lease.release(); }

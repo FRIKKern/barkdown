@@ -15,7 +15,7 @@ const { LocalBarkpark } = require('./local-barkpark');
 const { SourceDriver, validate: validateLocal } = require('./local-barkpark-source');
 const crypto = require('crypto');
 const credentialDurability = require('./credential-durability').createCredentialDurability({ safeStorage, sessionData: () => app.getPath('sessionData') });
-let portable = null, profileRegistry = null, profileService = null, profileGate = null, profilePool = null, profileConnection = null, profileConnectionOwner = null, appSettingsStore = null, goalService = null;
+let runtimeReadyHook = null, portable = null, profileRegistry = null, profileService = null, profileGate = null, profilePool = null, profileConnection = null, profileConnectionOwner = null, appSettingsStore = null, goalService = null;
 const PROFILE_MODE = process.argv.includes('--profiles');
 let authorityOwnership = null, adoptionView = null, bootBusy = false;
 let preparation = null, preparationForeground = null;
@@ -126,6 +126,7 @@ function reconcileLocal() {
     localTransition = localTransition.catch(() => {}).then(async () => {
       const profileId = profileService.view().profileId, s = readSettings();
       const result = s.barkpark.local?.enabled ? await profilePool.select(profileId, { source: s.barkpark.local.source, writes: Boolean(s.barkpark.writes) }) : await profilePool.selectWithoutRuntime(profileId);
+      if (runtimeReadyHook && result.connection?.server) await runtimeReadyHook(profileId, result.connection).catch(error => console.error(`[recovery] launch check failed: ${error.message}`));
       profileConnection = result.connection; profileConnectionOwner = result.profileId; localStartupError = null; syncBarkparkEnv(); emitLocalStatus(localStatus());
     }).catch(error => { localStartupError = error.message; emitLocalStatus(localStatus()); throw error; });
     return localTransition;
@@ -354,6 +355,19 @@ function registerIpc() {
       chooseFolder: async options => { const result = await dialog.showOpenDialog(win, options); return result.canceled ? null : result.filePaths[0]; },
       trash: folder => shell.trashItem(folder),
       progress: event => { if (win && !win.isDestroyed() && !win.webContents.isDestroyed()) win.webContents.send('portable:progress', event); } });
+    // A runtime that comes back in recovery with no operation in flight has nothing to reconcile: it is reopened.
+    // An interrupted switch or export keeps it: their resume, rollback or discard recovers it.
+    // This host started the profile's runtime anew: writes an earlier host sent to the old one have ended.
+    const settleDeparted = profileId => {
+      if (!readSettings().barkpark.local?.enabled) return;
+      const alive = pid => { try { process.kill(pid, 0); return true; } catch (error) { return error.code === 'EPERM'; } };
+      const done = require('./writer-admission').controller(store.createStore(profileRegistry.storeFor(profileId).storeDir, { create: false })).settleDeparted({ alive });
+      if (done.settled) console.error(`[recovery] ${done.settled} write${done.settled === 1 ? '' : 's'} of an earlier host settled: their runtime no longer runs`);
+    };
+    runtimeReadyHook = async (profileId, connection) => { try { settleDeparted(profileId); } catch (error) { console.error(`[recovery] departed writes kept: ${error.message}`); } return reopenLeft(profileId, connection); };
+    const reopenLeft = (profileId, connection) => require('./upstream-admission').reopenUnowned(require('./upstream-admission').createUpstreamAdmission(),
+      { profileId, server: connection.server, token: connection.token, dataset: connection.dataset || 'production' },
+      { inFlight: async () => { const selection = (await migration.status(profileId))?.selection?.status; if (['intent', 'replacing', 'rolling-back', 'blocked'].includes(selection)) return 'the interrupted library switch'; return portable.outcome(profileId)?.status === 'interrupted' ? 'the interrupted export' : null; } });
     handle('portable:chooseExport', () => portable.chooseExport(profileService.view().profileId));
     handle('portable:export', () => portable.exportChosen(profileService.view().profileId));
     handle('portable:import', () => portable.importChosen(profileService.view().profileId));
@@ -622,6 +636,8 @@ app.whenReady().then(async () => {
   for (const word of ['Barkdown', 'Barkpark', 'PortableDoc', 'Codex']) session.defaultSession.addWordToSpellCheckerDictionary(word);
   documents.loadAll({ seed: !profileService });
   registerIpc();
+  // The first runtime start ran before the handlers existed: check the launched profile's runtime now.
+  if (runtimeReadyHook && profileService && profileConnection?.server) await runtimeReadyHook(profileService.view().profileId, profileConnection).catch(error => console.error(`[recovery] launch check failed: ${error.message}`));
   buildMenu();
   session.defaultSession.setPermissionRequestHandler((_wc, permission, callback) => callback(['clipboard-read', 'fullscreen'].includes(permission)));
   createWindow();

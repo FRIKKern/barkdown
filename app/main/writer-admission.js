@@ -104,6 +104,13 @@ function controller(inputStore) {
       return item;
     });
   }
+  // A write the server answered has ended there, whatever the answer: nothing of it can still
+  // land. Only a write without an answer (a lost connection, a timeout, a local failure) stays
+  // uncertain. Wrapping layers keep the answering error as their cause.
+  function answered(error) {
+    for (let e = error, depth = 0; e && depth < 6; e = e.cause, depth++) if (Number.isInteger(e.status) && e.status >= 400 && e.status <= 599) return true;
+    return false;
+  }
   function finish(token, item, error) {
     locked(lease => {
       const snapshot = load(), value = snapshot.value;
@@ -111,7 +118,19 @@ function controller(inputStore) {
       if (value.owner !== token.owner || !pending || pending.generation !== token.generation || pending.pid !== process.pid || pending.status !== 'active') fail('owner', 'Writer completion no longer owns its admission.');
       // A thrown operation may have changed local files or committed remotely.
       // Retain uncertainty without storing document text or exception messages.
-      save(snapshot, { ...value, pending: error ? value.pending.map(p => p.id === item.id ? { ...p, status: 'uncertain' } : p) : value.pending.filter(p => p.id !== item.id) }, lease);
+      save(snapshot, { ...value, pending: error && !answered(error) ? value.pending.map(p => p.id === item.id ? { ...p, status: 'uncertain' } : p) : value.pending.filter(p => p.id !== item.id) }, lease);
+    });
+  }
+  // Writes sent to a managed runtime by a host that no longer runs. The caller proves the
+  // runtime they were sent to is gone (this host started it anew), so nothing of them can still
+  // land: what they did is in the database. Other operations and live hosts are left alone.
+  function settleDeparted({ alive, remote = operation => operation.startsWith('barkpark:') }) {
+    if (typeof alive !== 'function') fail('owner', 'Settling departed writers needs a liveness check.');
+    return locked(lease => {
+      const snapshot = load(true), value = snapshot.value;
+      const departed = value.pending.filter(p => p.pid !== process.pid && remote(p.operation) && !alive(p.pid));
+      if (departed.length) save(snapshot, { ...value, pending: value.pending.filter(p => !departed.includes(p)) }, lease);
+      return { settled: departed.length, remaining: value.pending.length - departed.length };
     });
   }
   function run(token, operation, action) {
@@ -174,7 +193,7 @@ function controller(inputStore) {
       return Object.freeze({ version: 1, owner: next.owner, generation: next.generation });
     });
   }
-  return Object.freeze({ capture, run, quiesce, reopen, assertQuiescent, inspect: () => structuredClone(load(true).value) });
+  return Object.freeze({ capture, run, quiesce, reopen, assertQuiescent, settleDeparted, inspect: () => structuredClone(load(true).value) });
 }
 
 // The foreground compatibility facade can follow profile roots, but never
