@@ -126,6 +126,9 @@ try {
   await shot('04-after-reload-paper-authority');
   report.checks.push({ name: 'Settings › Barkpark › Library switch: confirm sheet, switch under the hold, the completed notice with Restart, a fresh host on Paper authority; both Papers on the runtime, legacy note retained read-only', seal: status.selection.seal, retainedBadges: await page.locator('.bw-retained').count() }); persist();
 
+  // A Paper edit after the switch: the rollback must keep it on Paper and name it as a divergence.
+  const orchardId = papers.find(p => p.title === 'Orchard fieldbook').id;
+  await page.evaluate(async id => { const paper = await window.barkdown.barkpark.get(id); await window.barkdown.barkpark.applyOps(id, [{ op: 'append-block', block: { id: 'later-human', type: 'paragraph', content: [{ type: 'text', value: 'A later human sentence on Paper.' }] } }], paper.rev, paper.binding); }, orchardId);
   await openLibrarySwitch();
   assert.equal(await page.locator('[data-act="switch-paper"]').isHidden(), true, 'switch button hidden once selected');
   await page.locator('[data-act="switch-rollback"]').click();
@@ -136,17 +139,21 @@ try {
   await quit(); await launch(); await runtimeReady();
   await dismissCompleted('The rollback completed');
   const rolled = await page.evaluate(() => window.barkdown.migration.status());
-  assert.equal(rolled.selection.status, 'rolled-back'); assert.equal(rolled.selection.reconciliationRequired, false);
+  assert.equal(rolled.selection.status, 'rolled-back'); assert.equal(rolled.selection.reconciliationRequired, true, 'the later Paper edit is a recorded divergence');
+  assert.ok(rolled.selection.divergence?.details?.some(d => d.id === orchardId && d.what === 'content'), 'the divergence names the edited Paper');
   // The window saved its own navigation while on Paper (a tab was opened); that copy is retained, the legacy one restored.
   assert.ok(rolled.selection.retainedPaperWorkspace, 'the Paper-era workspace is retained');
   assert.ok(fs.existsSync(path.join(a.dir, 'selection', 'workspace-paper.json')));
   assert.equal(rolled.retainedDir, path.join(a.dir, 'selection'));
   // Settings names the retained navigation and offers the retained files.
   const afterRollback = await openLibrarySwitch();
-  assert.match(afterRollback, /Switched back to legacy notes.*retained, not restored/);
+  assert.match(afterRollback, /Switched back to legacy notes.*1 Paper changed after the switch \(Orchard fieldbook\).*retained, not restored/);
   assert.equal(await page.locator('[data-act="switch-retained"]').isVisible(), true, 'Open retained files is offered');
   await shot('05b-rolled-back-settings');
-  await page.keyboard.press('Escape');
+  // The changed Paper opens from the reconciliation line.
+  await page.locator(`#bp-switch-changed [data-changed="${orchardId}"]`).click();
+  await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror', { hasText: 'A later human sentence on Paper.' }).waitFor({ timeout: 60000 });
+  await shot('05c-changed-paper-opened');
   const created = await page.evaluate(() => window.barkdown.docs.create({ title: 'After rollback', markdown: 'Legacy writes return after the rollback.' }));
   assert.ok(created.id);
   assert.ok((await page.evaluate(() => window.barkdown.barkpark.list())).some(p => p.title === 'Orchard fieldbook'), 'Papers stay on the runtime after rollback');
