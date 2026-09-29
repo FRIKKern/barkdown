@@ -78,7 +78,8 @@ try{
   await unchangedOrganization();editorBundle=JSON.parse(fs.readFileSync(path.join(userData,'canvas-bundle/current.json')));assert.equal(editorBundle.source,'server');assert.equal(editorBundle.sha,crypto.createHash('sha1').update(fs.readFileSync(path.join(process.env.BARKDOWN_TEST_BP_SOURCE,'api/priv/static/assets/bp-paper-editor.bundle.js'))).digest('hex'));
   await page.setViewportSize({width:760,height:900});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await shot('09-narrow');
   await page.waitForFunction(async()=>{const saved=await window.barkdown.state.load();return saved?.mode==='chat'&&saved.current==='main'&&saved.chats.main.active==='cloud-view'&&saved.chats.main.draft==='Keep my main draft.'&&saved.chats.side.draft==='Keep my independent side draft.';});await close('projected-navigation');
-  await launch();await arrived('alpha');await unchangedOrganization();await shot('10-restarted');
+  // The restored active tab is the unowned cloud reference: still refused, still saved as it was.
+  await launch();await page.waitForFunction(()=>document.querySelector('.bw-paper-pane:not([hidden])')?.textContent.includes('The original library is unknown'),null,{timeout:30000});await unchangedOrganization();await shot('10-restarted');
   for(const file of snapshot.files){assert.deepEqual(fs.readFileSync(path.join(sourceDir,file.path)),file.data);assert.deepEqual(fs.readFileSync(path.join(backupDir,'source',file.path)),file.data);}
   for(const [id,originalPaper] of Object.entries(papers))assert.deepEqual(await read(id),originalPaper);
   assert.deepEqual(errors,[]);results.push('Pages order/nesting, distinct same-slug cloud identity, parent/side drafts and paths, direct navigation/favorites/restart; source/backup/Papers unchanged');
