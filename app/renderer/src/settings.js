@@ -115,7 +115,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
         <h3>Writing</h3>
         ${switchHtml('bp-writes', 'Allow fenced writes to Barkpark', 'Off by default. When on, you and the assistant can edit papers directly, with revision checks and Undo for assistant edits.')}
         ${`<h3>Library switch</h3>
-        ${setting('Move this library to Paper', 'Prepares the profile (agent turns stop, drafts are kept), backs up the legacy notes, stages them as Papers, compares the library while the runtime is held, then selects Paper. Legacy notes stay retained and read-only. Labels are generated at the switch and reviewed on Paper afterwards. The window reloads when it is done.', `<div class="bw-inline"><span class="bw-status" id="bp-switch-status" aria-live="polite">Checking…</span><button type="button" class="bw-btn" data-act="switch-paper" disabled>${iconHtml('file-plus', 13)}Switch to Paper</button><button type="button" class="bw-btn" data-act="switch-rollback" hidden>Roll back</button><button type="button" class="bw-btn" data-act="switch-retained" hidden>Open retained files</button></div><div class="bw-inline" id="bp-switch-changed" hidden></div>`, { stack: true })}`}
+        ${setting('Move this library to Paper', 'Prepares the profile (agent turns stop, drafts are kept), backs up the legacy notes, stages them as Papers, compares the library while the runtime is held, then selects Paper. Legacy notes stay retained and read-only. Labels are generated at the switch and reviewed on Paper afterwards. The window reloads when it is done.', `<div class="bw-inline"><span class="bw-status" id="bp-switch-status" aria-live="polite">Checking…</span><button type="button" class="bw-btn" data-act="switch-paper" disabled>${iconHtml('file-plus', 13)}Switch to Paper</button><button type="button" class="bw-btn" data-act="switch-rollback" hidden>Roll back</button><button type="button" class="bw-btn" data-act="switch-retained" hidden>Open retained files</button></div><div class="bw-inline" id="bp-switch-changed" hidden></div><div class="bw-compare" id="bp-switch-compare" hidden></div>`, { stack: true })}`}
       </section>
       <section data-pane="shortcuts" ${pane !== 'shortcuts' ? 'hidden' : ''}>
         ${SHORTCUTS.map(([group, ...rows]) => `<h3>${esc(group)}</h3><table class="bw-keys">${rows.map(([combo, what]) => `<tr><td>${keys(combo)}</td><td>${esc(what)}</td></tr>`).join('')}</table>`).join('')}
@@ -207,7 +207,9 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
       for (const c of (Array.isArray(changed) ? changed : []).slice(0, 12)) {
         const b = el(`<button type="button" class="bw-btn" data-changed="${esc(c.id)}" title="${esc(c.kind + ' Paper, ' + c.what)}">${iconHtml('file-text', 13)}${esc(c.title || c.id)}</button>`);
         b.onclick = () => { cancel(); const owner = window.__barkdown.state.barkparkDocs.find(d => d.id === c.id)?.paperOwner || null; window.__barkdown.openTarget({ kind: 'doc', id: c.id, source: 'barkpark', paperOwner: owner, title: c.title || undefined }); };
-        changedBox.append(b);
+        const cmp = el(`<button type="button" class="bw-btn" data-compare="${esc(c.id)}">${iconHtml('columns-2', 13)}Compare</button>`);
+        cmp.onclick = async () => { cmp.disabled = true; try { showComparison(await api.migration.changed(c.id)); } catch (error) { toast(error.message, 'error'); } finally { cmp.disabled = false; } };
+        changedBox.append(b, cmp);
       }
       switchBtn.disabled = st === 'blocked' || st === 'rolling-back' || (st === 'none' && !s.barkpark.local?.enabled);
       switchBtn.hidden = st === 'selected' || st === 'rolled-back';
@@ -225,6 +227,16 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
     rollbackBtn.onclick = () => run('rollback', { title: 'Roll back to legacy notes?', message: 'The legacy navigation is restored exactly. Papers and any edits made on them stay on Paper; nothing is converted back. Chats, tabs and page changes made while on Paper are retained beside the backup, not restored.', confirm: 'Roll back' });
   }
   q('[data-act="local-retry"]').onclick = async () => { try { showLocal(await api.barkpark.localRetry()); } catch (error) { q('#bp-local-status').textContent = error.message; } };
+  // Side by side, inside the sheet: the Paper as the switch staged it (or the baseline held it) and as it is now. Read-only.
+  function showComparison(view) {
+    const box = q('#bp-switch-compare');
+    box.innerHTML = `<h4>${esc(view.after.title || view.before.title || view.id)}</h4>
+      <p class="bw-muted">${esc(view.kind === 'staged' ? 'Left: as the switch staged it. Right: on Paper now' + (view.after.rev != null ? ' (rev ' + view.after.rev + ')' : '') + '.' : 'Left: in the pre-switch baseline. Right: on Paper now.')} Nothing here changes either side.</p>
+      <div class="bw-compare-columns"><pre data-side="before">${esc(view.before.markdown ?? '(no readable content)')}</pre><pre data-side="after">${esc(view.after.markdown ?? '(no readable content)')}</pre></div>
+      <div class="bw-inline"><button type="button" class="bw-btn" data-close>Close comparison</button></div>`;
+    box.hidden = false; box.querySelector('[data-close]').onclick = () => { box.hidden = true; box.innerHTML = ''; };
+    box.scrollIntoView({ block: 'nearest' });
+  }
 
   q('#bp-server').value = s.barkpark.server || '';
   q('#bp-dataset').value = s.barkpark.dataset || 'production';

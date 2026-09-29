@@ -15,7 +15,7 @@ async function call(channel, ...args) {
 }
 
 const api = {
-  migration: { status: () => call('migration:status'), switch: () => call('migration:switch'), rollback: () => call('migration:rollback') },
+  migration: { status: () => call('migration:status'), switch: () => call('migration:switch'), rollback: () => call('migration:rollback'), changed: id => call('migration:changed', id) },
   preparation: {
     prepare: () => call('preparation:prepare'), status: () => call('preparation:status'),
     abort: () => call('preparation:abort'),

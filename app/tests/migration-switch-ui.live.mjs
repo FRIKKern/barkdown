@@ -150,6 +150,13 @@ try {
   assert.match(afterRollback, /Switched back to legacy notes.*1 Paper changed after the switch \(Orchard fieldbook\).*retained, not restored/);
   assert.equal(await page.locator('[data-act="switch-retained"]').isVisible(), true, 'Open retained files is offered');
   await shot('05b-rolled-back-settings');
+  // Side by side: the staged text on the left, the later sentence only on the right.
+  await page.locator(`#bp-switch-changed [data-compare="${orchardId}"]`).click();
+  await page.locator('#bp-switch-compare [data-side="after"]', { hasText: 'A later human sentence on Paper.' }).waitFor({ timeout: 60000 });
+  assert.doesNotMatch(await page.locator('#bp-switch-compare [data-side="before"]').textContent(), /later human sentence/, 'the staged text has no later sentence');
+  assert.match(await page.locator('#bp-switch-compare [data-side="before"]').textContent(), /\[\[Soil moisture protocol\]\]/, 'the staged text is the migrated note with its link rewritten to the Paper');
+  await shot('05d-compare-changed-paper');
+  await page.locator('#bp-switch-compare [data-close]').click();
   // The changed Paper opens from the reconciliation line.
   await page.locator(`#bp-switch-changed [data-changed="${orchardId}"]`).click();
   await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror', { hasText: 'A later human sentence on Paper.' }).waitFor({ timeout: 60000 });

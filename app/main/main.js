@@ -329,7 +329,8 @@ function registerIpc() {
     };
     handle('migration:switch', migrationAction('switch', id => migration.switchToPaper(id), 'selected'));
     handle('migration:rollback', migrationAction('rollback', id => migration.rollback(id), 'rolled-back'));
-  } else { handle('preparation:status', () => ({ record: null, readOnly: false })); handle('migration:status', () => null); }
+    handle('migration:changed', id => migration.changedPaper(profileService.view().profileId, id));
+  } else { handle('preparation:status', () => ({ record: null, readOnly: false })); handle('migration:status', () => null); handle('migration:changed', () => null); }
   const originalHistory = () => {
     if (!profileService) throw new Error('Original history requires an owned profile.');
     const profileId = profileService.view().profileId;

@@ -29,7 +29,7 @@ function generatedLabels(sourceDir) {
   return labels;
 }
 
-function createMigrationSwitch({ registry, preparation, runtimePool, userData, admission, selectionFor = null, stage = stageMigration, checkpoint = () => {} }) {
+function createMigrationSwitch({ registry, preparation, runtimePool, userData, admission, selectionFor = null, stage = stageMigration, checkpoint = () => {}, readPaper = (target, id) => require('./barkpark').getPaper({ server: target.server, token: target.token, dataset: target.dataset, viaCli: false, enabled: true }, id) }) {
   if (!registry?.storeFor || typeof preparation?.withPrepared !== 'function' || typeof runtimePool?.acquire !== 'function' || typeof userData !== 'string') throw new TypeError('Registry, preparation, runtime pool and user data root are required');
   const comparison = createMigrationComparison({ preparation });
   const selection = selectionFor ? selectionFor({ preparation, comparison }) : createMigrationSelection({ preparation, comparison, ...(admission ? { admission } : {}), checkpoint });
@@ -52,6 +52,23 @@ function createMigrationSwitch({ registry, preparation, runtimePool, userData, a
       if (!/^http:\/\/127\.0\.0\.1:\d+$/.test(server || '') || !token) fail('switch_runtime', 'The library switch needs this profile’s own managed runtime');
       const target = { profileId, runtimeId: 'managed-' + profileId, server, dataset: dataset || 'production', token, assertOwned: async () => true };
       return await fn(target);
+    } finally { await lease.release(); }
+  }
+  // Reconciliation reads: what a changed Paper held before the switch (its staged payload, or the
+  // comparison baseline for a pre-existing Paper) against what it holds now. Nothing is written.
+  async function changedPaper(profileId, id) {
+    if (typeof id !== 'string' || !/^[\w.-]{1,128}$/.test(id)) fail('changed_id', 'A Paper id is required');
+    const store = createStore(backupDirOf(profileId), { create: false });
+    const plan = store.readJson('staging/plan.json', null), baseline = store.readJson('comparison-baseline.json', null);
+    const staged = plan?.documents?.find(d => d.targetId === id), row = baseline?.rows?.find(r => r._id === id);
+    if (!staged && !row) fail('changed_unknown', 'This Paper is neither a migrated note nor part of the pre-switch baseline');
+    const { blocksToMarkdown } = require('./barkpark');
+    const before = staged ? { title: staged.payload.title, markdown: blocksToMarkdown(staged.payload.blocks) } : { title: row.title ?? null, markdown: blocksToMarkdown(row.blocks || []) };
+    const lease = await runtimePool.acquire(profileId, { ownerId: 'migration-reconcile', writes: false });
+    try {
+      const { server, token, dataset } = lease.connection;
+      const current = await readPaper({ server, token, dataset: dataset || 'production' }, id);
+      return { id, kind: staged ? 'staged' : 'pre-existing', before, after: { title: current.title ?? null, markdown: current.markdown ?? null, rev: current.rev ?? null } };
     } finally { await lease.release(); }
   }
   function options(profileId) {
@@ -120,6 +137,6 @@ function createMigrationSwitch({ registry, preparation, runtimePool, userData, a
       return status(profileId);
     });
   }
-  return Object.freeze({ status, switchToPaper, rollback, generatedLabels: profileId => generatedLabels(sourceDirOf(profileId)) });
+  return Object.freeze({ status, switchToPaper, rollback, changedPaper, generatedLabels: profileId => generatedLabels(sourceDirOf(profileId)) });
 }
 module.exports = { createMigrationSwitch, generatedLabels };
