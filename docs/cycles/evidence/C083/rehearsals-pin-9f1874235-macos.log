@@ -1,0 +1,28 @@
+Rehearsals against upstream 9f1874235 (slice 8 and the paper-editor fix #20471; editor upgrade), Barkdown 19ee6d51, Darwin 24.3.0 arm64, 2026-09-29T12:20Z
+Each line: verdict, seconds, rehearsal. Dataset-owning rehearsals ran on their own fresh runtime.
+ok 34s local-barkpark
+ok 21s upstream-admission
+ok 15s profile-export
+ok 20s admission-writers-in-flight
+ok 14s sealed-comparison
+ok 17s migration-selection
+ok 21s migration-switch
+ok 20s migration-corpus-switch
+ok 18s migration-comparison
+FAIL 65s migration-media
+ok 40s migration-references
+ok 19s migration-workspace
+ok 20s paper-catalog
+FAIL 16s paper-fallback-consumption
+ok 23s paper-evidence-owner
+FAIL 25s paper-agent-takeover
+ok 19s paper-proposal
+FAIL 220s switch-ui
+ok 241s generic-chain
+
+After the fixes that pass exposed (writer admission lock waits under contention; fallback tour reads audited hashes; media tour selects the picture through the editor):
+ok migration-media (three consecutive runs)
+ok paper-fallback-consumption
+ok switch-ui (six checks, docs/cycles/evidence/C083/live/2026-09-29T12-05-56-088Z-switch-ui)
+ok profile-import (docs/cycles/evidence/C085/live/2026-09-29T12-03-39-481Z-import)
+FAIL paper-agent-takeover remains: the caret step after a beforeinput yield, recorded in the handoff.
