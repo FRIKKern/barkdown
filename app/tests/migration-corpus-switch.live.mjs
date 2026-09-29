@@ -50,9 +50,11 @@ try {
   // Paper refuses a paper without a body block, so a heading-only case becomes a note with the
   // heading and one body line; the expectation grows by that line. A heading-only note is
   // refused up front by preflight (checked below on a second profile).
-  const bodyLine = { source: { type: 'paragraph', content: [{ type: 'text', text: 'Body kept.' }] }, expected: { type: 'paragraph', content: [{ type: 'text', value: 'Body kept.' }] } };
+  // The body line names the case: upstream's dedup wall refuses near-duplicate papers, and a
+  // library of distinct notes must not read as duplicates of each other.
+  const bodyLine = id => { const value = `Body kept for the ${id} case, a distinct note in this library.`; return { source: { type: 'paragraph', content: [{ type: 'text', text: value }] }, expected: { type: 'paragraph', content: [{ type: 'text', value }] } }; };
   const withBody = sample => sample.source.content.every(n => n.type === 'heading')
-    ? { ...sample, source: { ...sample.source, content: [...sample.source.content, bodyLine.source] }, expected: { ...sample.expected, blocks: [...sample.expected.blocks, bodyLine.expected] } } : sample;
+    ? (line => ({ ...sample, source: { ...sample.source, content: [...sample.source.content, line.source] }, expected: { ...sample.expected, blocks: [...sample.expected.blocks, line.expected] } }))(bodyLine(sample.id)) : sample;
   const write = (id, title, sample, extra = {}) => { sample = withBody(sample); fs.writeFileSync(path.join(sourceDir, 'documents', id + '.json'), JSON.stringify({ id, title, rev: 1, content: sample.source, ...extra })); docs.push({ id, sample }); };
   write('overview', 'Overview', cases.find(c => c.id === 'plain-unicode'), { rev: 4, revisions: [{ rev: 1, content: cases.find(c => c.id === 'heading-plain').source }], proposals: [{ id: 'pending-review', baseRev: 4, mode: 'append', markdown: 'A pending agent proposal', actor: 'agent' }] });
   for (const c of standalone) if (c.id !== 'plain-unicode') write(c.id, 'Case ' + c.id, c);
