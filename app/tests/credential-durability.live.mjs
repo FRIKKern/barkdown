@@ -5,8 +5,9 @@ import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
-import { skipUnlessWindows } from './helpers/host.mjs';
-skipUnlessWindows("DPAPI Local State durability is Windows-only by design (main/credential-durability.js); Keychain twin pending");
+// Credentials at rest: safeStorage wraps them with the OS store (DPAPI on Windows, the Keychain on
+// macOS, the secret service on Linux). The Local State key file and its refusal path are Windows-only
+// by design (main/credential-durability.js); everything else here runs on every host.
 const require = createRequire(import.meta.url);
 const roots = [], errors = [], frames = [], shots = path.resolve('test-results/credential-durability');
 fs.mkdirSync(shots, { recursive: true });
@@ -43,8 +44,11 @@ try {
     frames.push('saving-awaits-key.png');
   }
   await page.locator('.bw-settings').waitFor({ state: 'detached' });
-  const localState = JSON.parse(fs.readFileSync(path.join(first, 'Local State')));
-  assert.ok(localState.os_crypt.encrypted_key);
+  if (process.platform === 'win32') {
+    const localState = JSON.parse(fs.readFileSync(path.join(first, 'Local State')));
+    assert.ok(localState.os_crypt.encrypted_key);
+  }
+  assert.equal(await app.evaluate(({ safeStorage }) => safeStorage.isEncryptionAvailable()), true, 'the OS credential store is available to this host');
   const saved = settings(first, owner);
   assert.match(saved.apiKeyEncrypted, /^enc:/); assert.match(saved.barkpark.tokenEncrypted, /^enc:/);
   await killMain(first); await boot(first);
@@ -55,16 +59,18 @@ try {
   await page.keyboard.press('Control+,'); await page.locator('button[data-pane="assistant"]').click();
   await page.screenshot({ path: path.join(shots, 'configured-after-crash.png') });
   frames.push('configured-after-crash.png');
-  const keyFile = path.join(first, 'Local State'), originalKeyFile = fs.readFileSync(keyFile);
-  fs.writeFileSync(keyFile + '.fixture-before-refusal', originalKeyFile);
-  try {
-    // Only this disposable synthetic app's key file is changed. A refusal must
-    // leave previously acknowledged credential ciphertext byte-for-byte intact.
-    fs.writeFileSync(keyFile, '{}');
-    await assert.rejects(page.evaluate(() => window.barkdown.settings.set({ apiKey: 'must-not-replace-old-key' })), /protected key/);
-    assert.equal(settings(first, owner).apiKeyEncrypted, saved.apiKeyEncrypted);
-    assert.equal(settings(first, owner).barkpark.tokenEncrypted, saved.barkpark.tokenEncrypted);
-  } finally { fs.writeFileSync(keyFile, originalKeyFile); }
+  if (process.platform === 'win32') {
+    const keyFile = path.join(first, 'Local State'), originalKeyFile = fs.readFileSync(keyFile);
+    fs.writeFileSync(keyFile + '.fixture-before-refusal', originalKeyFile);
+    try {
+      // Only this disposable synthetic app's key file is changed. A refusal must
+      // leave previously acknowledged credential ciphertext byte-for-byte intact.
+      fs.writeFileSync(keyFile, '{}');
+      await assert.rejects(page.evaluate(() => window.barkdown.settings.set({ apiKey: 'must-not-replace-old-key' })), /protected key/);
+      assert.equal(settings(first, owner).apiKeyEncrypted, saved.apiKeyEncrypted);
+      assert.equal(settings(first, owner).barkpark.tokenEncrypted, saved.barkpark.tokenEncrypted);
+    } finally { fs.writeFileSync(keyFile, originalKeyFile); }
+  } else console.log('credential-durability.live.mjs: the Local State refusal half is Windows-only by design (no key file to corrupt with the Keychain); the rest ran on ' + process.platform);
   await app.close(); app = null;
 
   const second = makeRoot(); await boot(second);

@@ -116,3 +116,7 @@ Agent decision under the user's standing mandate and the D-hosts twin rule; the 
 
 Agent decision under the D-hosts twin rule; the user may reverse it. Off Windows the shell was a plain spawn: no session journal, exits reported unverified, and `status` answered `new` after every restart, so a shell left running by a crashed Barkdown was nobody's. The owned worker that already hosts goal and ordinary turns now hosts the shell on every platform, with the same journal, ownership across restart and verified shutdown. The terminal tour, the preparation tour's terminal half and the three terminal unit cases speak the host shell (PowerShell or `$SHELL`) and run on macOS (`c80038e7`). Remaining Windows-only site: the credential-durability tour (DPAPI).
 
+## D-hosts-credentials — Credential durability is proven on every host; the key-file refusal stays Windows-only (2026-09-29)
+
+The credential tour (save an API key and a server token, crash the host, decrypt after restart, profile isolation) now runs on macOS: `safeStorage` reports the OS store available and the values are `enc:` at rest and readable after a SIGKILL restart. The Local State key-file checks and the refusal when that file is corrupted are DPAPI-specific by design; the Keychain has no local key file to corrupt, so those two halves stay Windows-only and are counted by the ratchet (inline halves 1 → 3, live files skipped off Windows 1 → 0). No live tour is skipped off Windows any more.
+
