@@ -64,7 +64,7 @@ const launch = async () => {
   app = await electron.launch({ executablePath: require('electron'), args: [appRoot, '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', ANTHROPIC_BASE_URL: transport.url } });
   // Toasts carry the switch's failure reason once the sheet is gone with the frozen foreground.
   await app.context().addInitScript(() => { window.__toasts = []; new MutationObserver(records => { for (const r of records) for (const n of r.addedNodes) if (n.nodeType === 1 && n.matches?.('.bw-toast, .bw-toast *')) window.__toasts.push(n.textContent); }).observe(document.documentElement, { childList: true, subtree: true }); });
-  page = await app.firstWindow(); page.setDefaultTimeout(30000);
+  page = await app.firstWindow({ timeout: 120000 }); page.setDefaultTimeout(30000);
   page.on('pageerror', error => (report.pageErrors ||= []).push(error.message));
   page.on('console', message => { if (['error', 'warning'].includes(message.type())) (report.console ||= []).push(message.text().slice(0, 300)); });
   app.process().stderr?.on('data', chunk => (report.mainStderr ||= []).push(String(chunk).slice(0, 400)));

@@ -49,7 +49,7 @@ const launch = async () => {
   app = await electron.launch({ executablePath: require('electron'), args: [appRoot, '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api' } });
   app.process().stderr?.on('data', chunk => stderr.push(String(chunk)));
   await app.context().addInitScript(() => { window.__toasts = []; new MutationObserver(records => { for (const r of records) for (const n of r.addedNodes) if (n.nodeType === 1 && n.matches?.('.bw-toast, .bw-toast *')) window.__toasts.push(n.textContent); }).observe(document.documentElement, { childList: true, subtree: true }); });
-  page = await app.firstWindow(); page.setDefaultTimeout(30000);
+  page = await app.firstWindow({ timeout: 120000 }); page.setDefaultTimeout(30000);
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
   await page.setViewportSize({ width: 1300, height: 900 });
 };

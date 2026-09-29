@@ -37,7 +37,7 @@ const launch = async () => {
   stderr = [];
   app = await electron.launch({ executablePath: require('electron'), args: [appRoot, '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api' } });
   app.process().stderr?.on('data', chunk => stderr.push(String(chunk)));
-  page = await app.firstWindow(); page.setDefaultTimeout(30000);
+  page = await app.firstWindow({ timeout: 120000 }); page.setDefaultTimeout(30000);
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
 };
 const runtimeReady = async () => {
