@@ -72,7 +72,8 @@ try{
     await canvas().locator('.ProseMirror').focus();await page.keyboard.press(`${MOD}+z`);const undone=await saved(edited.rev);assert.deepEqual(undone.blocks,original.blocks);await rendered();await shot('03-undo-'+field);results.push({field,editedRev:edited.rev,undoneRev:undone.rev});revision=undone.rev;
   }
   // Native deletion selects the real atom; acknowledged Undo restores its media identity.
-  await figure().focus();await page.keyboard.press('Enter');
+  // Click the picture itself: keyboard focus can sit on the composer on macOS, where Enter opens its model menu.
+  await figure().locator('img').click();
   await page.waitForFunction(()=>document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.state.selection.node?.attrs.bpId==='migration-1');
   await page.keyboard.press('Backspace');const deleted=await saved(revision);assert.deepEqual(deleted.blocks,original.blocks.filter((_,i)=>i!==1));await shot('04-deleted');
   await page.keyboard.press(`${MOD}+z`);const restored=await saved(deleted.rev);assert.deepEqual(restored.blocks,original.blocks);await rendered();await shot('05-restored');results.push({field:'delete',editedRev:deleted.rev,undoneRev:restored.rev});
