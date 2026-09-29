@@ -27,7 +27,8 @@ try {
   const storeDir = await page.evaluate(() => window.__barkdown.state.settings.userData);
 
   // The MCP server the agents use, pointed at the app's own store.
-  const transport = new StdioClientTransport({ command: process.execPath, args: [path.resolve('main/mcp-server.js'), storeDir] });
+  // Main hands the MCP server the stored token as BARKDOWN_BP_TOKEN (main/providers/runs.js); the tour does the same.
+  const transport = new StdioClientTransport({ command: process.execPath, args: [path.resolve('main/mcp-server.js'), storeDir], env: { ...process.env, BARKDOWN_BP_TOKEN: process.env.BARKPARK_API_TOKEN || '' } });
   const client = new Client({ name: 'barkdown-test', version: '0.0.0' });
   await client.connect(transport);
   const listing = JSON.parse((await client.callTool({ name: 'list_documents', arguments: {} })).content[0].text);
