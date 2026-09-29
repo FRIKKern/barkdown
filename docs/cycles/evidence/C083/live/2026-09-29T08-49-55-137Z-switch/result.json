@@ -1,5 +1,5 @@
 {
-  "source": "3f38cb5b46f58dcefde15ff2259990c4e3b5a74c",
+  "source": "6630ecdb553141d2f6858887fe3c010149b33730",
   "upstream": "4532a25eacb796eb54bf40b1d70871c09e428a7f",
   "host": "darwin 24.3.0 arm64",
   "status": "passed",
@@ -7,9 +7,9 @@
     {
       "name": "prepare → backup → baseline → stage → select under the hold, one lease, legacy store read-only",
       "seal": {
-        "boot": "674ab0f890a506cc01b90b1dea6e292b",
+        "boot": "8db2a9046b6344f2026a39a37b7b476d",
         "generation": 1,
-        "operation": "select-b0e65015-abc1-4f2e-9aa8-c5adf2875eb9"
+        "operation": "select-f1c096c6-5dfa-40f0-b76a-4026ed68cd68"
       },
       "checkpoints": [
         "after-backup",
@@ -75,6 +75,10 @@
       "name": "crash at after-staging: nothing selected, resume completes the same switch, exactly two Papers added",
       "staged": true,
       "papersAdded": 2
+    },
+    {
+      "name": "a crash after the workspace is restored leaves rolling-back with the legacy navigation in place; the second rollback completes the same operation",
+      "passed": true
     }
   ],
   "limits": [
