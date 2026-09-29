@@ -1,0 +1,40 @@
+{
+  "source": "1a82e13d7b12063afd5cb88db0b8cf1459ccfb7b",
+  "upstream": "4532a25eacb796eb54bf40b1d70871c09e428a7f",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "traversal ran while held; a probe write inside it was refused; reopened afterwards",
+      "seal": {
+        "operation": "compare-86af2489-4ec5-4628-a48d-f3c156f85ce4",
+        "generation": 1,
+        "boot": "b3c78680e0ecaf9422bf1a7c3c21f406",
+        "reopenedGeneration": 2,
+        "at": "2026-09-29T02:59:45.133Z"
+      },
+      "probe": {
+        "code": "storage_unavailable",
+        "message": "writes are not admitted while this instance is being switched",
+        "reason": "write_admission_admission_closed",
+        "hint": "Transient: this instance is holding writes for a migration step, so nothing was stored or refused on its merits. Retry once the switch completes; if it persists, the instance needs explicit recovery.",
+        "request_id": "GNmrZtVVQ_NRQF4AADpB"
+      },
+      "documents": 3,
+      "limits": [
+        "The managed runtime held every writer for the whole traversal (generation 1); this report describes a fenced library, not observed drift. It authorizes nothing: authority stays legacy."
+      ]
+    },
+    {
+      "name": "sealed and unsealed reports agree on every field but the seal and its limit",
+      "passed": true
+    },
+    {
+      "name": "a refused comparison reopens the runtime",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Headless coordinator with controlled foreground hooks; no selection, rollback or media in flight; the runtime was idle so the hold was held at once."
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "source": "1a82e13d7b12063afd5cb88db0b8cf1459ccfb7b",
+  "upstream": "4532a25eacb796eb54bf40b1d70871c09e428a7f",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "prepare → backup → baseline → stage → select under the hold, one lease, legacy store read-only",
+      "seal": {
+        "boot": "06b9bed51701e825d8949c7060bd8c4b",
+        "generation": 1,
+        "operation": "select-0a5f2844-6733-423a-a363-96b8411a097b"
+      },
+      "checkpoints": [
+        "after-backup",
+        "after-baseline",
+        "staging:plan",
+        "staging:intent:orchard-fieldbook",
+        "staging:response:orchard-fieldbook",
+        "staging:readback:orchard-fieldbook",
+        "staging:receipt:orchard-fieldbook",
+        "staging:intent:soil-moisture-protocol",
+        "staging:response:soil-moisture-protocol",
+        "staging:readback:soil-moisture-protocol",
+        "staging:receipt:soil-moisture-protocol",
+        "staging:before-complete",
+        "after-staging",
+        "after-intent",
+        "after-replacing",
+        "after-workspace-replaced",
+        "after-selected",
+        "after-selected",
+        "after-selection",
+        "after-rolling-back",
+        "after-workspace-restored",
+        "after-rolled-back"
+      ]
+    },
+    {
+      "name": "switch again is idempotent",
+      "passed": true
+    },
+    {
+      "name": "rollback restores the legacy workspace; writes return once the preparation reopens",
+      "passed": true
+    },
+    {
+      "name": "a crash after replacement leaves replacing; resume completes the same operation without a second comparison",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Headless profile with controlled foreground hooks; fake runtime lease over the harness server; labels generated, not reviewed; one run, one host."
+  ]
+}
