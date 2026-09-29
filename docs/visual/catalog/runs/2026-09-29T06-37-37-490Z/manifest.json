@@ -1,0 +1,43 @@
+{
+  "capturedAt": "2026-09-29T06:37:45.259Z",
+  "barkdownCommit": "9aa9dd20a7fc67ab51f2e2fb06d77b2d898d6108",
+  "barkparkCommit": "4532a25eacb796eb54bf40b1d70871c09e428a7f",
+  "isolatedRuntime": true,
+  "targetCount": 201,
+  "observedCount": 201,
+  "results": [
+    "Real HTTP and explicitly scoped CLI discover an exactly full final page of 200 papers",
+    "Real HTTP and CLI discover 201 unique papers across two pages",
+    "Superseded relay request cannot overwrite a new connection refresh; human Pages and both drafts remain intact",
+    "Failures preserve only the same connection catalog; retry/narrow layout/restart preserve the actual library and human organization"
+  ],
+  "frames": [
+    "01-complete-library.png",
+    "02-paper-beyond-first-page.png",
+    "03-failed-refresh-preserves-library.png",
+    "04-retry-recovers.png",
+    "05-new-connection-does-not-borrow.png",
+    "06-narrow-retry.png",
+    "07-narrow-paper.png",
+    "08-restarted-library.png"
+  ],
+  "artifacts": {
+    "01-complete-library.png": "629eaa0606a9743e08a075209b27610b43afa08cf80a7eae47fe9ce08f68b4e3",
+    "02-paper-beyond-first-page.png": "a8d74cc1720e6e22e60ca9b3cc88561f44b2c90bf12319c4001bc220584ff01e",
+    "03-failed-refresh-preserves-library.png": "d59d4a4ca8190e48746d86646a4ad500bb2b3d441efcaf287de924d9dd97064d",
+    "04-retry-recovers.png": "4538da4d4e8742211399814d6e11fa09c77f6be2537c95c2d68decd3aa5153a4",
+    "05-new-connection-does-not-borrow.png": "8d616964ed498c2415d659d6f66cf69fba6a8b637082817512420794723fc147",
+    "06-narrow-retry.png": "e15e0aeab3eca5605d620725b7f2f52e5bf7d820e24addebaae84b6c510ca740",
+    "07-narrow-paper.png": "69e68f305bf75e2c4515a811618bf36799e182ba768a24483520ce0815433f27",
+    "08-restarted-library.png": "5474b5f970beb481905afd5365355f8d40a5639ca8d4fda642778e2e471b39e7",
+    "discovery-and-recovery.webm": "6ff5b2b05c196f7149c69c0218ab1c23e1f436c25a2b9def3057283f2a2eb238",
+    "restart-or-failure.webm": "2c4d01872f2fab034101ff2bb8c14c0a59d85ff45c73a2798cf29199bfba547e"
+  },
+  "queryCount": 15,
+  "limits": [
+    "Disposable legacy-mode app with real private Paper storage; no authority switch",
+    "Relay injects transport failures and delay; never replaces server paper data",
+    "Offset discovery is not an atomic snapshot; bounded to10000papers/32MiB/60seconds after routing",
+    "Provider list tool remains limited; source origin classification is the next cycle"
+  ]
+}
