@@ -77,7 +77,7 @@ export function installProfilePreparation({ api, root, state, controllers, seria
       showNotice(value.restartRequired ? (exported(value) ? exported(value) + ' Restart Barkdown to continue editing; retained drafts are kept.' : state.selection === 'selected' ? 'The library switch completed. Notes now live on Paper; legacy notes are retained read-only. Restart Barkdown to continue; retained drafts are kept.'
         : state.selection === 'rolled-back' ? 'The rollback completed. Legacy notes are back; Papers and their later edits stay on Paper. Restart Barkdown to continue editing; retained drafts are kept.'
         : 'Preparation was cancelled. Restart Barkdown to continue editing; retained drafts are kept.') : 'Editing is paused for this profile while preparation is resolved.');
-    } else if (value.record?.phase === 'aborted') {
+    } else if (value.record?.phase === 'aborted' && !value.dismissed) {
       // The same release transition ends a completed switch or rollback; the selection journal says which.
       showNotice(exported(value) ? exported(value) + ' Retained drafts are available.' : state.selection === 'selected' ? 'The library switch completed. Notes now live on Paper; legacy notes are retained read-only. Retained drafts are available.'
         : state.selection === 'rolled-back' ? 'The rollback completed. Legacy notes are back; Papers and their later edits stay on Paper. Retained drafts are available.'
@@ -103,7 +103,7 @@ export function installProfilePreparation({ api, root, state, controllers, seria
       };
       notice.querySelector('[data-drafts]').onclick = () => openRetainedDrafts({ api, owner: { profileId: state.profileId, generation: state.generation },
         isCurrent: owner => owner.profileId === state.profileId && owner.generation === state.generation });
-      notice.querySelector('[data-dismiss]').onclick = () => { if (!lastStatus?.readOnly) { notice.remove(); notice = null; } };
+      notice.querySelector('[data-dismiss]').onclick = () => { if (!lastStatus?.readOnly) { notice.remove(); notice = null; api.preparation.dismiss?.().catch(() => {}); } };
       notice.querySelector('[data-restart]').onclick = async event => { event.currentTarget.disabled = true; try { await api.app.relaunch(); } catch (error) { event.currentTarget.disabled = false; notice.querySelector('p').textContent = 'Barkdown could not restart itself. ' + error.message; } };
       notice.querySelector('[data-discard-export]').onclick = async event => {
         const button = event.currentTarget; button.disabled = true; notice.querySelector('p').textContent = 'Discarding the interrupted export and reopening the library…';

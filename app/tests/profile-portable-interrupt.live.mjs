@@ -155,8 +155,7 @@ try {
   report.checks.push({ name: 'The host is killed after the import restored its database: a profile with a journal at restoring, its private database left running' }); persist();
 
   await launch(); await runtimeReady();
-  const still = page.locator('.bw-preparation-notice', { hasText: 'The export completed' });
-  await still.waitFor({ timeout: 30000 }); await still.locator('[data-dismiss]').click();
+  assert.equal(await page.locator('.bw-preparation-notice').count(), 0, 'the dismissed outcome does not return at the next launch');
   assert.deepEqual(await library(), grown, 'the current profile is untouched');
   await openSettings();
   const row = page.locator('#profile-settings .bw-set', { hasText: 'Unfinished import: Writing desk (imported)' });

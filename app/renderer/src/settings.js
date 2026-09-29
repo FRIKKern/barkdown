@@ -274,6 +274,8 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
   const phases = { 'hold:begin': 'Pausing other writers…', 'hold:held': 'Writing the database…', 'after-dump': 'Copying pictures…', 'after-media': 'Copying profile files…', 'after-store': 'Sealing the export…', 'hold:reopened': 'Finishing…',
     'after-restoring': 'Restoring the database…', 'after-restored': 'Copying profile files…', 'after-imported': 'Finishing…' };
   const stopProgress = api.portable?.onProgress?.(event => { const n = q(event.action === 'export' ? '#profile-export-status' : '#profile-import-status'); if (n && phases[event.phase]) n.textContent = phases[event.phase]; else if (!n) stopProgress?.(); });
+  // Refusal reasons are read by a person: the internal code stays in the log.
+  const plain = error => String(error?.message || error).replace(/^\[[\w-]+\]\s*/, '');
   const loadProfiles = () => api.profiles.status().then(showProfiles);
   const showProfiles = status => {
     if (!status.enabled) return;
@@ -290,7 +292,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
       const note = box.querySelector(`[data-unfinished-status="${profile.id}"]`), act = async (run, saying, done) => {
         for (const b of box.querySelectorAll('button')) b.disabled = true; note.className = 'bw-status bw-set-note'; note.textContent = saying;
         try { const result = await run(); toast(done(result)); await loadProfiles(); if (result?.profile) { q('#profile-choice').value = result.profile.id; const said = q('#profile-import-status'); said.textContent = done(result) + ' Choose it above and press Switch to open it.'; said.className = 'bw-status bw-set-note ok'; } }
-        catch (error) { await loadProfiles().catch(() => {}); const n = box.querySelector(`[data-unfinished-status="${profile.id}"]`) || q('#profile-import-status'); n.textContent = error.message; n.className = 'bw-status bw-set-note err'; toast(error.message, 'error'); }
+        catch (error) { await loadProfiles().catch(() => {}); const n = box.querySelector(`[data-unfinished-status="${profile.id}"]`) || q('#profile-import-status'); n.textContent = plain(error); n.className = 'bw-status bw-set-note err'; toast(plain(error), 'error'); }
       };
       const again = box.querySelector(`[data-import-again="${profile.id}"]`);
       if (again) again.onclick = () => act(() => api.portable.importAgain(profile.id), 'Importing again…', result => `Imported “${result.profile.name}” with ${result.papers} Paper${result.papers === 1 ? '' : 's'}.`);
@@ -309,7 +311,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
         const done = await api.portable.export();
         note.textContent = `Exported ${done.papers} Paper${done.papers === 1 ? '' : 's'} to ${done.folder}`; note.className = 'bw-status bw-set-note ok';
         toast('Export completed. Restart Barkdown to continue editing.');
-      } catch (error) { note.textContent = error.message; note.className = 'bw-status bw-set-note err'; toast(error.message, 'error'); }
+      } catch (error) { note.textContent = plain(error); note.className = 'bw-status bw-set-note err'; toast(plain(error), 'error'); }
       finally { busy(false); await window.__barkdown.preparationStatus?.().catch(() => {}); }
     };
     q('#profile-import').onclick = async () => {
@@ -323,7 +325,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
         q('#profile-choice').append(option); q('#profile-choice').value = done.profile.id;
         note.textContent = `Imported “${done.profile.name}” with ${done.papers} Paper${done.papers === 1 ? '' : 's'}. Choose it above and press Switch to open it.`; note.className = 'bw-status bw-set-note ok';
         toast('Profile imported.');
-      } catch (error) { note.textContent = error.message; note.className = 'bw-status bw-set-note err'; toast(error.message, 'error'); }
+      } catch (error) { note.textContent = plain(error); note.className = 'bw-status bw-set-note err'; toast(plain(error), 'error'); }
       finally { busy(false); }
     };
     q('#profile-switch').onclick = async () => {
@@ -333,14 +335,14 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
         if (!await beforeProfileSwitch()) return;
         await api.profiles.select(q('#profile-choice').value);
         window.location.reload();
-      } catch (error) { toast(error.message, 'error'); }
+      } catch (error) { toast(plain(error), 'error'); }
     };
     q('#profile-create').onclick = async () => {
       try {
         const profile = await api.profiles.create(q('#profile-name').value.trim());
         const option = document.createElement('option'); option.value = profile.id; option.textContent = profile.name;
         q('#profile-choice').append(option); q('#profile-choice').value = profile.id; q('#profile-name').value = '';
-      } catch (error) { toast(error.message, 'error'); }
+      } catch (error) { toast(plain(error), 'error'); }
     };
   };
   api.profiles?.status().then(showProfiles).catch(error => toast(error.message, 'error'));

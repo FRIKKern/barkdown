@@ -304,7 +304,9 @@ function registerIpc() {
       const record = preparation?.inspect(profileId), restartRequired = profileService.launchAdmission.requiresRestart(profileId);
       const readOnly = writerState(profileId).phase !== 'open' || record?.phase === 'reopening' ||
         record?.phase === 'aborted' && profileService.launchAdmission.isClosed(profileId);
-      return { record, readOnly: Boolean(readOnly), restartRequired, exportOutcome: portable?.outcome(profileId) || null };
+      // A completed outcome is said until the person dismisses it, not at every launch.
+      let dismissed = false; try { dismissed = Boolean(record?.id) && store.createStore(profileRegistry.storeFor(profileId).storeDir, { create: false }).readJson('preparation-notice.json', null)?.dismissed === record.id; } catch {}
+      return { record, readOnly: Boolean(readOnly), restartRequired, dismissed, exportOutcome: portable?.outcome(profileId) || null };
     };
     preparationForeground = require('./preparation-foreground').createPreparationForeground({ isClosed: profileId => preparationStatus(profileId).readOnly });
     const bridge = require('./preparation-bridge').createPreparationBridge({ profiles: profileService, foreground: preparationForeground,
@@ -317,6 +319,12 @@ function registerIpc() {
     handle('preparation:retain', bridge.retain);
     handle('preparation:saveView', bridge.saveView);
     handle('preparation:status', () => preparationStatus(profileService.view().profileId));
+    handle('preparation:dismiss', () => {
+      const profileId = profileService.view().profileId, current = preparationStatus(profileId);
+      if (!current.record || current.record.phase !== 'aborted' || current.readOnly) throw new Error('Only a completed outcome can be dismissed.');
+      store.createStore(profileRegistry.storeFor(profileId).storeDir, { create: false }).writeJson('preparation-notice.json', { version: 1, dismissed: current.record.id });
+      return preparationStatus(profileId);
+    });
     // The library switch (C083): one operator action over the proven migration pieces. The
     // profile's own runtime lease is taken for the duration; after a completed switch or
     // rollback the preparation is released so launches reopen (old handles stay frozen; the
@@ -352,7 +360,7 @@ function registerIpc() {
     handle('portable:discardExport', async () => { const id = profileService.view().profileId; try { await portable.discardExport(id); } catch (error) { console.error(`[export] discard failed: ${error.code || ''} ${error.message}`); throw error; } return preparationStatus(id); });
     handle('portable:discardImport', profileId => portable.discardImport(profileId));
     handle('portable:importAgain', profileId => portable.importAgain(profileService.view().profileId, profileId));
-  } else { handle('preparation:status', () => ({ record: null, readOnly: false })); handle('migration:status', () => null); for (const channel of ['portable:chooseExport', 'portable:export', 'portable:import', 'portable:discardExport', 'portable:discardImport', 'portable:importAgain']) handle(channel, () => { throw new Error('Export and import need an owned profile.'); }); handle('migration:changed', () => null); handle('migration:reconcile', () => null); }
+  } else { handle('preparation:status', () => ({ record: null, readOnly: false })); handle('preparation:dismiss', () => ({ record: null, readOnly: false })); handle('migration:status', () => null); for (const channel of ['portable:chooseExport', 'portable:export', 'portable:import', 'portable:discardExport', 'portable:discardImport', 'portable:importAgain']) handle(channel, () => { throw new Error('Export and import need an owned profile.'); }); handle('migration:changed', () => null); handle('migration:reconcile', () => null); }
   const originalHistory = () => {
     if (!profileService) throw new Error('Original history requires an owned profile.');
     const profileId = profileService.view().profileId;

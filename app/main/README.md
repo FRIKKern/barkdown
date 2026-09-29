@@ -100,3 +100,7 @@ Migration projection and comparison now bind destinations to the captured librar
 ### 2026-09-29 — interrupted export and import (C085)
 
 An export writes its journal before the hold. After a host that died in the middle, the next launch names the interrupted export in the notice; Discard reopens or recovers the runtime, moves the partial folder to the system trash and releases the preparation. A folder that verifies is kept as a complete export. An import that did not finish is listed in Settings, cannot be selected, and is discarded or run again from the export folder its journal names; an import that fails in the running app is discarded at once. `profile-registry.js` gained `removeProfile`, which never removes the selected profile and leaves the folder for the caller to move. Nothing resumes a half-written export or a half-restored database: both are taken again from the start.
+
+### 2026-09-29 — refusals and a notice said once (C085)
+
+The export verifier ignores the files a file manager leaves in a folder a person merely opened (`.DS_Store`, `Thumbs.db`, `desktop.ini`, `._*`); any other unlisted file still refuses the import. A folder without a manifest is called what it is: not a Barkdown profile export. Reasons shown in Settings carry no internal code. A completed outcome (switch, rollback, export) is dismissed once: `preparation:dismiss` records the dismissed preparation, and the notice does not return at later launches.

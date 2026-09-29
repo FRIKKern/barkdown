@@ -112,8 +112,9 @@ function createProfileExport({ registry, preparation, runtimePool, admission = c
   return Object.freeze({ exportProfile, verifyExport });
 }
 // Re-read every exported file against the manifest. Says nothing about whether it imports.
+const HOST_FILES = /^(\.DS_Store|Thumbs\.db|desktop\.ini|\._.*)$/i;
 function verifyExport(destinationDir) {
-    let manifest; try { manifest = JSON.parse(fs.readFileSync(path.join(destinationDir, 'manifest.json'), 'utf8')); } catch (error) { fail('manifest', 'The export has no readable manifest', error); }
+    let manifest; try { manifest = JSON.parse(fs.readFileSync(path.join(destinationDir, 'manifest.json'), 'utf8')); } catch (error) { fail('manifest', 'This folder is not a Barkdown profile export: it has no readable manifest', error); }
     if (manifest?.version !== 1 || manifest.kind !== KIND || !manifest.database?.path || !Array.isArray(manifest.media) || !Array.isArray(manifest.store)) fail('manifest', 'Unsupported export manifest');
     const listed = [manifest.database, ...manifest.media, ...manifest.store];
     for (const entry of listed) {
@@ -123,7 +124,8 @@ function verifyExport(destinationDir) {
       if (fs.statSync(file).size !== entry.bytes || sha(file) !== entry.sha256) fail('changed', 'Changed since the export: ' + entry.path);
     }
     const known = new Set([...listed.map(e => e.path), 'manifest.json']);
-    const extra = walk(destinationDir).filter(rel => !known.has(rel));
+    // A file manager leaves its own files in a folder a person merely opened; they are never imported.
+    const extra = walk(destinationDir).filter(rel => !known.has(rel) && !HOST_FILES.test(rel.split('/').pop()));
     if (extra.length) fail('extra', 'Files the manifest does not list: ' + extra.slice(0, 5).join(', '));
     return { manifest, files: listed.length };
 }

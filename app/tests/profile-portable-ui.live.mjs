@@ -133,7 +133,31 @@ try {
   assert.deepEqual(await library(), before, 'the exporting library is unchanged');
   report.checks.push({ name: 'Export from Settings: folder chosen in the picker, profile prepared, exported under the hold, the notice names the outcome and the folder and offers Restart, a fresh host edits again', folder: folders[0], files: verified.files, store: verified.manifest.store.length }); persist();
 
-  // Import from Settings, as a new profile.
+  // What must be refused, before anything is created: each is a copy of the export with one thing wrong.
+  const refusals = [];
+  const refuse = async (name, folder, expected) => {
+    await pick(folder); await openSettings();
+    await page.locator('#profile-import').click();
+    await page.waitForFunction(() => document.querySelector('#profile-import-status')?.classList.contains('err'), null, { timeout: 120000 });
+    const said = await page.locator('#profile-import-status').textContent();
+    assert.match(said, expected, name + ': ' + said);
+    assert.equal(registry.load().profiles.length, 1, name + ': no profile was created');
+    assert.deepEqual(fs.readdirSync(path.join(userData, 'profile-data', 'profiles')), [profile.id], name + ': no folder was created');
+    refusals.push({ name, said });
+    await page.keyboard.press('Escape'); await page.waitForFunction(() => !document.querySelector('#profile-import'));
+  };
+  const variant = (name, change) => { const folder = path.join(userData, 'variants', name); fs.cpSync(exportDir, folder, { recursive: true }); change(folder); return folder; };
+  const aStoreFile = verified.manifest.store.find(entry => entry.path === 'profile/workspace.json').path;
+  await refuse('tampered', variant('tampered', folder => fs.appendFileSync(path.join(folder, 'database.dump'), 'x')), /^Changed since the export: database\.dump$/);
+  await refuse('truncated', variant('truncated', folder => fs.rmSync(path.join(folder, aStoreFile))), /^Missing from the export: profile\/workspace\.json$/);
+  await refuse('added to', variant('added', folder => fs.writeFileSync(path.join(folder, 'profile', 'planted.json'), '{}')), /^Files the manifest does not list: profile\/planted\.json$/);
+  await refuse('another version', variant('version', folder => { const file = path.join(folder, 'manifest.json'), manifest = JSON.parse(fs.readFileSync(file, 'utf8')); manifest.upstream = '0123456789abcdef0123456789abcdef01234567'; fs.writeFileSync(file, JSON.stringify(manifest, null, 2) + '\n'); }), /^This export was taken at Barkpark 012345678; this Barkdown runs [0-9a-f]{9}\. Import needs the same version$/);
+  await refuse('not an export', chosen, /^This folder is not a Barkdown profile export/);
+  report.checks.push({ name: 'Refused from Settings with the reason on screen, nothing created: a tampered, a truncated, an added-to and an other-version export, and a folder that is not an export', refusals }); persist();
+  await shot('02b-refusal-on-screen');
+
+  // Import from Settings, as a new profile. The folder was opened in a file manager first.
+  fs.writeFileSync(path.join(exportDir, '.DS_Store'), 'left by a file manager');
   await pick(exportDir);
   await openSettings();
   await page.locator('#profile-import').click();
@@ -149,7 +173,7 @@ try {
   await page.locator('#profile-switch').click();
   await page.waitForFunction(id => window.__barkdown?.state.loaded && window.__barkdown.state.profileId === id, imported.id, { timeout: 60000 });
   await runtimeReady();
-  report.checks.push({ name: 'Import from Settings: export folder chosen in the picker, a new profile with its own database, chosen in the profile list, opened with Switch', profile: imported.name }); persist();
+  report.checks.push({ name: 'Import from Settings: export folder chosen in the picker (opened in a file manager first), a new profile with its own database, chosen in the profile list, opened with Switch', profile: imported.name }); persist();
 
   // The imported profile, opened.
   const view = await page.evaluate(() => { const st = window.__barkdown.state; return { authority: st.authority, selection: st.selection, order: st.order, chat: st.chats.main && { title: st.chats.main.title, messages: st.chats.main.messages.map(m => m.text), draft: st.chats.main.draft }, roots: st.pages.roots, children: st.pages.children, favorites: st.favorites.map(f => f.target) }; });
@@ -200,6 +224,8 @@ try {
   const back = await page.evaluate(({ id }) => window.barkdown.barkpark.get(id, undefined, window.__barkdown.state.barkparkDocs.find(d => d.id === id)?.paperOwner), { id: harbour.id });
   assert.deepEqual(back.blocks, original.blocks, 'the exporting profile never saw the imported profile\'s edit');
   assert.equal(verifyExport(exportDir).files, verified.files, 'the export folder is unchanged by the import');
+  // A completed outcome is said once: dismissed after the export, it did not return at later launches.
+  assert.equal(await page.locator('.bw-preparation-notice').count(), 0);
   report.checks.push({ name: 'The exporting profile afterwards: same Papers, same words; the export folder verifies as written' }); persist();
   await quit();
   report.status = 'passed'; persist(); console.log(JSON.stringify(report, null, 2));

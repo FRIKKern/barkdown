@@ -66,3 +66,11 @@ test('the verifier refuses a missing file, an unlisted file and an unsafe path',
   const m = JSON.parse(fs.readFileSync(path.join(g.out, 'manifest.json'), 'utf8')); m.media[0].path = '../outside'; fs.writeFileSync(path.join(g.out, 'manifest.json'), JSON.stringify(m));
   assert.throws(() => g.exporter.verifyExport(g.out), { code: 'export_path' });
 });
+test('a folder a person opened in a file manager still verifies; any other unlisted file does not', async () => {
+  const f = fixture(); await f.exporter.exportProfile(f.profileId, f.out);
+  for (const name of ['.DS_Store', 'Thumbs.db', 'desktop.ini', 'media/._a.png', 'profile/.DS_Store']) fs.writeFileSync(path.join(f.out, name), 'host');
+  assert.equal(f.exporter.verifyExport(f.out).files, 6);
+  fs.writeFileSync(path.join(f.out, 'profile', 'added.json'), '{}');
+  assert.throws(() => f.exporter.verifyExport(f.out), { code: 'export_extra' });
+  assert.throws(() => f.exporter.verifyExport(path.dirname(f.out)), { code: 'export_manifest', message: /not a Barkdown profile export/ });
+});
