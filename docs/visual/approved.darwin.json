@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-09-29T01-42-22-602Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-29T01-42-22-602Z/comparison.json",
-  "manifestHash": "9961a9e16bde7f20fe59bd864202e977600f9f7f04437517d3f42013c93c3ebc",
-  "reportHash": "505ab6407f2ef6eeeecdf4e6c7dd0f67b56665447e01e6f466d22fb3bbe6e1cd",
+  "manifest": "docs/visual/runs/2026-09-29T01-54-31-353Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-29T01-54-31-353Z/comparison.json",
+  "manifestHash": "818c82e5e2e20a73363d0d14f17f818628d76be8ac82d2af0cac23aeadc5735a",
+  "reportHash": "175b7c78b11318f4a3445bcea630aac089fd46932eb64216e6dec22a34c8b0de",
   "reviewer": "Claude Fable 5.1 (agent, macOS host)",
-  "note": "New interrupted frame in the retained area: the start-time notice for a library switch interrupted during replacement, with Resume switch and Roll back as its only actions, over the read-only legacy note. All other frames within tolerance against the 2026-09-28T22-23-42 darwin baseline (two-pixel anti-aliasing on send buttons). Settings › Barkpark's new Library switch row sits below the captured fold. Behavior evidence: migration-switch live rehearsal (prepare, backup, baseline, stage, select, rollback) on this host; documents-selection and migration-selection unit tests. Limits: darwin only; the notice's actions are not exercised in the tour.",
-  "reviewedAt": "2026-09-29T01:43:25.842Z",
-  "reviewPath": "docs/visual/reviews/approval-6f43f30edbb3574020317386672870e839c08fd394e38053c6c6de96323c7829.json",
-  "reviewHash": "6f43f30edbb3574020317386672870e839c08fd394e38053c6c6de96323c7829"
+  "note": "Renderer text change only: the preparation release notice names a completed switch or rollback instead of a cancellation, in a state the tour does not enter. All 45 frames within tolerance against the 2026-09-29T01-42-22 darwin baseline; comparison report inspected. Limits: darwin only.",
+  "reviewedAt": "2026-09-29T01:55:12.915Z",
+  "reviewPath": "docs/visual/reviews/approval-decb3f29886ea8ecab9d59f9daba33f8b30ba6740231e522848ca0385414de7d.json",
+  "reviewHash": "decb3f29886ea8ecab9d59f9daba33f8b30ba6740231e522848ca0385414de7d"
 }
