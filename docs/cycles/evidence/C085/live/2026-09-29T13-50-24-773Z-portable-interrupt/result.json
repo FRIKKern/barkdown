@@ -1,0 +1,35 @@
+{
+  "source": "614b4c7d84805150afd8de8565337c46adff35b7",
+  "upstream": "9f1874235449f9763c1b3e8cfcaf1b5a36aee9b3",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "The host is killed while the export copies profile files under the hold: a partial folder with a dump and no manifest, the runtime left running",
+      "stalledAt": "Barkdown export - Writing desk - 2026-09-29 1350/profile/workspace.json"
+    },
+    {
+      "name": "The next launch reclaims the runtime and names the interrupted export; Discard reopens the runtime, moves the partial folder to the trash and releases the preparation; after a restart the library is intact and writable",
+      "runtimeAfterDiscard": "recovered"
+    },
+    {
+      "name": "The export taken again completes and verifies",
+      "files": 6
+    },
+    {
+      "name": "The host is killed after the import restored its database: a profile with a journal at restoring, its private database left running"
+    },
+    {
+      "name": "The next launch lists the unfinished import, refuses to open it, and Import again stops its leftover database, moves it to the trash and imports from the same export; the imported profile opens with the same library"
+    }
+  ],
+  "screenshots": [
+    "01-interrupted-export-named.png",
+    "02-interrupted-export-discarded.png",
+    "03-unfinished-import-listed.png",
+    "04-imported-again.png"
+  ],
+  "limits": [
+    "One machine, one run, a small library. One stall point per operation: the export while it copies profile files under the hold, the import after its database was restored. The host is ended with SIGKILL. The native folder picker and the system trash are stubbed in the main process (the trash stand-in is a folder of this rehearsal). POSIX only."
+  ]
+}

@@ -19,24 +19,23 @@
   ],
   "checkpoint": "2026-09-29",
   "handoff": "docs/cycles/C085-portable-profile.md",
-  "nextAction": "1) Refusals from the app: a truncated, tampered or other-version export and a folder that is not an export are refused before anything is created, with the reason on screen; a folder merely opened in a file manager still imports. 2) The completed-outcome notice is dismissed once, not at every launch. 3) Carried from C083: the Windows return checkpoint and a real library (about 2026-10-05), the decision on pre-existing cloud references, recovery with a writer that dies inside the runtime.",
+  "nextAction": "1) A library left refusing changes (runtime in recovery after a writer died during a drain, or a hold nobody owns) is named in the app with one action that reopens it; rehearsed with a writer that dies inside the runtime. 2) Carried from C083: the Windows return checkpoint and a real library (about 2026-10-05), the decision on pre-existing cloud references. 3) A second machine and another operating system when the Windows machine is back.",
   "evidence": [
-    "docs/cycles/evidence/C085/live/2026-09-29T13-33-33-713Z-portable-ui/result.json",
-    "docs/cycles/evidence/C085/live/2026-09-29T13-30-41-952Z-portable-interrupt/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T13-53-17-297Z-portable-ui/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T13-50-24-773Z-portable-interrupt/result.json",
     "docs/cycles/evidence/C085/live/2026-09-29T13-28-46-130Z-runtime-reclaim/result.json",
     "docs/cycles/evidence/C085/live/2026-09-29T12-55-48-018Z-export/result.json",
     "docs/cycles/evidence/C085/live/2026-09-29T12-56-05-500Z-import/result.json"
   ],
-  "truthReview": "2026-09-29: export and import are Settings actions, rehearsed in Electron on macOS with the imported profile opened. A host killed with SIGKILL is rehearsed three ways: idle (the runtime is reclaimed by its launch record), in the middle of an export (named, discarded, exported again) and in the middle of an import (listed, not selectable, imported again). One stall point per operation; the folder picker and the system trash are stubbed in those rehearsals; the Windows reclaim path is written and not rehearsed; no second machine is claimed.",
-  "screenshotReview": "Visual run 2026-09-29T13-37-38-917Z approved: 46 entries pixel-identical to the run approved earlier the same day (which carried the two new Storage rows). The interrupted-export notice and the unfinished-import row are not in the fixture tours; they were inspected in the live rehearsal screenshots.",
+  "truthReview": "2026-09-29: export and import are Settings actions, rehearsed in Electron on macOS with the imported profile opened. A host killed with SIGKILL is rehearsed three ways: idle (the runtime is reclaimed by its launch record), in the middle of an export (named, discarded, exported again) and in the middle of an import (listed, not selectable, imported again). Five refusals (tampered, truncated, added to, other version, not an export) are rehearsed from Settings and create nothing; an export folder opened in a file manager still imports. One stall point per operation; the folder picker and the system trash are stubbed in those rehearsals; the Windows reclaim path is written and not rehearsed; no second machine is claimed.",
+  "screenshotReview": "Visual run 2026-09-29T13-56-30-158Z approved: 46 entries pixel-identical to the previous approved run. Refusal reasons, the interrupted-export notice and the unfinished-import row were inspected in the live rehearsal screenshots.",
   "delivery": {
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "Refusals from the app for a damaged or other-version export",
-      "Completed-outcome notice dismissed once",
+      "A visible way back for a library that refuses changes",
       "A second machine (Windows return)",
-      "Carried from C083: Windows return checkpoint, real library, cloud-reference decision, recovery with a dying writer"
+      "Carried from C083: Windows return checkpoint, real library, cloud-reference decision"
     ]
   }
 }
