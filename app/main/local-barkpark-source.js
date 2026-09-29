@@ -9,6 +9,7 @@ const exec = promisify(execFile);
 const { acquireFileLease } = require('./file-lease');
 const { prepareRuntimeBuild } = require('./runtime-build');
 const { admissionEnv } = require('./upstream-admission');
+const { createRuntimeRecord } = require('./runtime-orphan');
 
 function freePort(port) {
   return new Promise((resolve, reject) => {
@@ -78,6 +79,7 @@ class SourceDriver {
       try { await this.run('initdb', ['-D', this.pgData, '-U', 'postgres', '--auth=scram-sha-256', '--pwfile=' + passwordFile, '-E', 'UTF8'], signal, 60000); }
       finally { fs.unlinkSync(passwordFile); }
       const log = path.join(this.dataDir, `postgres-restore-${Date.now()}.log`), at = ['-h', '127.0.0.1', '-p', String(this.config.pgPort), '-U', 'postgres'];
+      this.processRecord.write({ pid: null, port: this.config.port, pgPort: this.config.pgPort });
       await this.run('pg_ctl', ['-D', this.pgData, '-l', log, '-o', `-h 127.0.0.1 -p ${this.config.pgPort}`, '-w', '-t', '20', 'start'], signal); started = true;
       await this.run('createdb', [...at, 'barkdown'], signal, 60000);
       await this.run('pg_restore', [...at, '-d', 'barkdown', '--no-owner', '--no-privileges', '--exit-on-error', dumpFile], signal, 10 * 60 * 1000);
@@ -87,6 +89,7 @@ class SourceDriver {
       return { papers: Number(String(stdout).trim()) };
     } finally {
       if (started) await this.run('pg_ctl', ['-D', this.pgData, '-m', 'fast', '-w', '-t', '20', 'stop']).catch(() => {});
+      if (!await this.databaseRunning()) this.processRecord.clear();
       this.ownership?.release(); this.ownership = null; this.lease = null;
     }
   }
@@ -107,7 +110,18 @@ class SourceDriver {
     this.ownership = null;
     this.lease = null;
   }
+  // What this driver launched, so a later host can prove a leftover is its own (runtime-orphan.js).
+  get processRecord() { return this.record ||= createRuntimeRecord({ dataDir: this.dataDir }); }
+  databaseRunning() { return fs.existsSync(path.join(this.pgData, 'PG_VERSION')) ? this.run('pg_ctl', ['-D', this.pgData, 'status']).then(() => true, () => false) : Promise.resolve(false); }
+  async stopDatabase() {
+    try { await this.run('pg_ctl', ['-D', this.pgData, '-m', 'fast', '-w', '-t', '10', 'stop']); }
+    catch { if (await this.databaseRunning()) await this.run('pg_ctl', ['-D', this.pgData, '-m', 'immediate', '-w', '-t', '10', 'stop']); }
+  }
+  // A host that died left its runtime and database running: stop them, proven by the launch record.
+  reclaim() { return this.processRecord.reclaim({ databaseRunning: () => this.databaseRunning(), stopDatabase: () => this.stopDatabase() }); }
   async start(signal) {
+    await this.reclaim();
+    signal.throwIfAborted();
     await freePort(this.config.port); await freePort(this.config.pgPort);
     signal.throwIfAborted();
     if (!fs.existsSync(path.join(this.pgData, 'PG_VERSION'))) {
@@ -122,6 +136,7 @@ class SourceDriver {
     this.pgLog = path.join(this.dataDir, `postgres-${Date.now()}.log`); this.logOffset = 0;
     // Claim only this private directory; pg_ctl never addresses a global service.
     this.pgOwned = true;
+    this.processRecord.write({ pid: null, port: this.config.port, pgPort: this.config.pgPort });
     await this.run('pg_ctl', ['-D', this.pgData, '-l', this.pgLog, '-o', `-h 127.0.0.1 -p ${this.config.pgPort}`, '-w', '-t', '20', 'start'], signal);
     signal.throwIfAborted();
     this.bootId = crypto.randomUUID();
@@ -141,6 +156,7 @@ class SourceDriver {
       ? spawn('powershell.exe', ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', externalResource('local-barkpark-launch.ps1')], { env, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] })
       // POSIX: a detached leader makes the runtime its own process group (see stop()).
       : spawn('/bin/sh', [externalResource('local-barkpark-launch.sh')], { env, detached: true, stdio: ['ignore', 'pipe', 'pipe'] });
+    if (this.child.pid) this.processRecord.write({ pid: this.child.pid, port: this.config.port, pgPort: this.config.pgPort, bootId: this.bootId });
     const log = text => fs.appendFileSync(path.join(this.dataDir, 'server.log'), String(text).split(this.secrets.password).join('[redacted]').split(this.secrets.token).join('[redacted]'));
     this.child.stdout.on('data', log); this.child.stderr.on('data', log);
     this.child.on('error', error => { this.processError = error.message; });
@@ -181,6 +197,8 @@ class SourceDriver {
       }
       this.pgOwned = false;
     }
+    // Everything this driver launched has stopped; nothing is left to reclaim.
+    this.processRecord.clear();
   }
 }
 // POSIX: signal the whole group (the leader was spawned detached), give the BEAM a
