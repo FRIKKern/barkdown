@@ -109,7 +109,7 @@ test('instance view and explicit recovery', async t => {
   await assert.rejects(admission.recover(connection, { generation: 3, pending: 0 }), { code: 'upstream_recovery_refused' });
   state.phase = 'recovery_required'; state.pendingRoots = 1;
   const view = await admission.instance(connection);
-  assert.deepEqual(view, { phase: 'recovery_required', generation: 3, boot: 'boot-a', pending: 1, operation: null, held: null });
+  assert.deepEqual(view, { phase: 'recovery_required', generation: 3, boot: 'boot-a', pending: 1, writers: null, deadWriters: null, operation: null, held: null });
   await assert.rejects(admission.recover(connection, { generation: 2, pending: 1 }), { code: 'upstream_admission_closed' });
   await assert.rejects(admission.recover(connection, { generation: 3, pending: 0 }), { code: 'upstream_recovery_refused' });
   await assert.rejects(admission.recover(connection, { generation: '3', pending: 1 }), { code: 'upstream_recovery' });

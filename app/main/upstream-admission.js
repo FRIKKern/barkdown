@@ -27,7 +27,8 @@ function instanceView(data) {
   const d = data && typeof data === 'object' && data.result && typeof data.result === 'object' ? data.result : data;
   if (!d || typeof d !== 'object' || !phases.has(String(d.phase || ''))) fail('response', 'The runtime answered without an instance view.');
   return { phase: String(d.phase), generation: Number.isInteger(d.generation) ? d.generation : null, boot: typeof d.boot === 'string' ? d.boot : null,
-    pending: Number.isInteger(d.pending) ? d.pending : null, operation: d.operation ?? null, held: d.held ?? null };
+    pending: Number.isInteger(d.pending) ? d.pending : null, writers: Number.isInteger(d.writers) ? d.writers : null, deadWriters: Number.isInteger(d.dead_writers) ? d.dead_writers : null,
+    operation: d.operation ?? null, held: d.held ?? null };
 }
 function view(data) {
   const d = data && typeof data === 'object' && data.result && typeof data.result === 'object' ? data.result : data;
