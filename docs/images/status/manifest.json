@@ -34,11 +34,18 @@
     },
     {
       "file": "settings-barkpark.7f05f63f.png",
-      "caption": "Settings › Barkpark: the connection Barkdown edits through — here the local server."
+      "caption": "Settings \u203a Barkpark: the connection Barkdown edits through \u2014 here the local server."
     },
     {
       "file": "editing.7e05f24e.gif",
-      "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
+      "caption": "An editing loop in the canvas: slash menu \u2192 Quote, typing, Tab through the table, quick open."
+    }
+  ],
+  "uiExemptions": [
+    {
+      "commit": "d43e23fa 1ebdfd98 b6773cfe ",
+      "date": "2026-09-29",
+      "reason": "main/migration-staging.js or main/migration-preflight.js: corpus-review findings (refusal reason, heading-only rule, dedup bypass). No renderer change (C083)."
     }
   ]
 }

@@ -17,7 +17,7 @@
   ],
   "checkpoint": "2026-09-29",
   "handoff": "docs/cycles/C083-writer-admission.md",
-  "nextAction": "1) User merges PR20438 (green; `gh pr merge 20438 --squash --delete-branch`), then retire the barkdown-c083 worktree. 2) A2 review of the whole corpus on a real library (the user's data, Windows machine), then the Windows return checkpoint (native suites, visual recapture, P1 re-acceptance); Barkdown's own Actions budget is exhausted, so no Windows or Linux lane runs until it resets or is raised. 3) Upstream, when useful: bypass proof with writers in flight and recovery with live writers as live cases.",
+  "nextAction": "1) User merges PR20438 (green). 2) The switch driven from the app's own Settings UI in Electron with the local runtime enabled (profiles mode), then an interruption of that UI run. 3) A real library on the Windows machine and the Windows return checkpoint (Barkdown's Actions budget is exhausted; no Windows lane). 4) Upstream, when useful: a migration-scoped exemption for the dedup wall instead of the per-paper bypass.",
   "evidence": [
     "docs/cycles/evidence/C082/merge.json",
     "docs/cycles/evidence/C082/integration-review.json",

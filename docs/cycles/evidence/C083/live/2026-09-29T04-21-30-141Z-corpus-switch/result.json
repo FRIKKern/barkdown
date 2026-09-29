@@ -1,0 +1,12 @@
+{
+  "source": "a66ed1192340fb8b1155b0f191ff2c34b8555856",
+  "upstream": "4532a25eacb796eb54bf40b1d70871c09e428a7f",
+  "host": "darwin 24.3.0 arm64",
+  "status": "failed",
+  "checks": [],
+  "notes": [],
+  "limits": [
+    "Synthetic corpus, not a person’s library; headless foreground hooks; fake runtime lease over the harness server; unsupported corpus cases are excluded up front (they block preflight by design)."
+  ],
+  "error": "TypeError: sample.expected.blocks is not iterable\n    at withBody (file:///Users/frikkjarl/Documents/GitHub/barkdown/app/tests/migration-corpus-switch.live.mjs:59:210)\n    at write (file:///Users/frikkjarl/Documents/GitHub/barkdown/app/tests/migration-corpus-switch.live.mjs:60:63)\n    at file:///Users/frikkjarl/Documents/GitHub/barkdown/app/tests/migration-corpus-switch.live.mjs:64:3"
+}

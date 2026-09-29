@@ -1,0 +1,23 @@
+{
+  "source": "1f103ea4f0819bd3de8c1ee92256c2b4658ea370",
+  "upstream": "4532a25eacb796eb54bf40b1d70871c09e428a7f",
+  "host": "darwin 24.3.0 arm64",
+  "status": "failed",
+  "checks": [],
+  "notes": [
+    {
+      "documents": 24,
+      "standalone": 21,
+      "linked": 2,
+      "image": 1,
+      "nested": 4,
+      "archived": 1,
+      "favorites": 2,
+      "tabs": 1
+    }
+  ],
+  "limits": [
+    "Synthetic corpus, not a person’s library; headless foreground hooks; fake runtime lease over the harness server; unsupported corpus cases are excluded up front (they block preflight by design)."
+  ],
+  "error": "Error: Create-only Paper write refused: 409 (duplicate_of): this document near-duplicates the already-published local-eeb7207a4864e906e68a511faf02d4e9 — extend that document instead, or, if this one REPLACES it, declare content.supersedes: \"local-eeb7207a4864e906e68a511faf02d4e9\" and republish (the wall exempts exactly the declared pair; any other near-dupli\n    at fail (/Users/frikkjarl/Documents/GitHub/barkdown/app/main/migration-journal.js:9:46)\n    at stageMigration (/Users/frikkjarl/Documents/GitHub/barkdown/app/main/migration-staging.js:158:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async /Users/frikkjarl/Documents/GitHub/barkdown/app/main/migration-switch.js:94:9\n    at async withRuntime (/Users/frikkjarl/Documents/GitHub/barkdown/app/main/migration-switch.js:51:14)\n    at async file:///Users/frikkjarl/Documents/GitHub/barkdown/app/tests/migration-corpus-switch.live.mjs:81:20"
+}

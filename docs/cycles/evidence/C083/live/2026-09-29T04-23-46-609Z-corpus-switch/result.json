@@ -1,0 +1,33 @@
+{
+  "source": "d43e23fa939a18751c02ccd7bfe433df3968387c",
+  "upstream": "4532a25eacb796eb54bf40b1d70871c09e428a7f",
+  "host": "darwin 24.3.0 arm64",
+  "status": "failed",
+  "checks": [
+    {
+      "name": "switch of 24 notes selected Paper under the hold",
+      "seal": {
+        "boot": "51804ffcfb956bab0657536d11115a48",
+        "generation": 1,
+        "operation": "select-5f328577-aaa3-430d-a24e-2a4b08d33d6d"
+      },
+      "ms": 5816
+    }
+  ],
+  "notes": [
+    {
+      "documents": 24,
+      "standalone": 21,
+      "linked": 2,
+      "image": 1,
+      "nested": 4,
+      "archived": 1,
+      "favorites": 2,
+      "tabs": 1
+    }
+  ],
+  "limits": [
+    "Synthetic corpus, not a person’s library; headless foreground hooks; fake runtime lease over the harness server; unsupported corpus cases are excluded up front (they block preflight by design)."
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /^\\/media\\/files\\//. Input:\n\n'http://127.0.0.1:64962/media/files/d/ab784c3d-30ba-4a1f-908f-3482061b4a1e/2026/09/bdm90af130289bfa0c3eff4b0444381f76a8e225327-3e50cf0c.png'\n\n    at file:///Users/frikkjarl/Documents/GitHub/barkdown/app/tests/migration-corpus-switch.live.mjs:95:130\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)"
+}

@@ -91,3 +91,11 @@ User decision. Development moved from the Windows source machine to a Mac for at
 - **One host module.** Platform branches in `app/` live behind one module; new inline `process.platform` checks outside it are refused by a ratchet on the current count.
 - **Twin rule.** A change to process, path, window or keyboard behavior ships with its twin on the other desktop platforms or records the gap as a cycle item with an owner. No platform-only features.
 - **Return checkpoint.** The week on macOS ends with a bounded cycle on the Windows machine that reruns the native suites and re-accepts P1 on both hosts.
+
+## D-migration-dedup — Migrated papers bypass the publish wall's near-duplicate gate (2026-09-29)
+
+Agent decision under the user's standing mandate to keep the run moving; the user may reverse it. The upstream `DedupWall` scores title and tag tokens and refuses a new paper that near-duplicates a published one; it exists so an authoring corpus does not fill with duplicates. A library switch ingests a person's existing notes, where two notes with alike titles are still two notes, and every migrated paper also carries the same `migrated` tag, which inflates the score. So a staged paper declares `content.dedup_bypass: true`, the wall's own deliberate, logged escape ([corpus rehearsal](cycles/C083-writer-admission.md)). Alternatives considered: refusing the switch on the first near-duplicate (the person cannot rename notes from inside a fenced switch), or `content.supersedes` (which asserts replacement, a false claim). Revisit when upstream offers a migration-scoped exemption.
+
+## D-migration-heading-only — A heading-only or empty note is named before the switch (2026-09-29)
+
+Paper refuses a paper with a title and no body block, mid-create. Preflight now names such notes with a plain reason and the switch does not start; the person adds a line first. Content is never padded by the migration.

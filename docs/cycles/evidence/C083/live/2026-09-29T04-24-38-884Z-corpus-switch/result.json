@@ -1,0 +1,51 @@
+{
+  "source": "79898507b2dcff20199789963d06dbe21083a19d",
+  "upstream": "4532a25eacb796eb54bf40b1d70871c09e428a7f",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "switch of 24 notes selected Paper under the hold",
+      "seal": {
+        "boot": "2cb99fec7e570868ee455e451f41e638",
+        "generation": 1,
+        "operation": "select-3e27af03-1dd4-42d8-8a76-ea9a614ed37f"
+      },
+      "ms": 5565
+    },
+    {
+      "name": "every migrated Paper reads back as the corpus expects",
+      "compared": 21,
+      "linksChecked": 2,
+      "imageChecked": 1
+    },
+    {
+      "name": "Pages order, nesting and archive, favorites, tab and draft carried over",
+      "roots": 19,
+      "nested": 4
+    },
+    {
+      "name": "rollback restores the legacy workspace and keeps every migrated Paper",
+      "passed": true
+    },
+    {
+      "name": "a heading-only note is refused by preflight with a plain reason, nothing staged",
+      "passed": true
+    }
+  ],
+  "notes": [
+    {
+      "documents": 24,
+      "standalone": 21,
+      "linked": 2,
+      "image": 1,
+      "nested": 4,
+      "archived": 1,
+      "favorites": 2,
+      "tabs": 1
+    }
+  ],
+  "limits": [
+    "Synthetic corpus, not a person’s library; headless foreground hooks; fake runtime lease over the harness server; unsupported corpus cases are excluded up front (they block preflight by design)."
+  ]
+}

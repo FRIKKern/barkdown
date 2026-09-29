@@ -1,0 +1,23 @@
+{
+  "source": "1b146b56d9b0c8d75f46bdafbac481d803bdc404",
+  "upstream": "4532a25eacb796eb54bf40b1d70871c09e428a7f",
+  "host": "darwin 24.3.0 arm64",
+  "status": "failed",
+  "checks": [],
+  "notes": [
+    {
+      "documents": 24,
+      "standalone": 21,
+      "linked": 2,
+      "image": 1,
+      "nested": 4,
+      "archived": 1,
+      "favorites": 2,
+      "tabs": 1
+    }
+  ],
+  "limits": [
+    "Synthetic corpus, not a person’s library; headless foreground hooks; fake runtime lease over the harness server; unsupported corpus cases are excluded up front (they block preflight by design)."
+  ],
+  "error": "Error: Create-only Paper write refused: 409 (halted)\n    at fail (/Users/frikkjarl/Documents/GitHub/barkdown/app/main/migration-journal.js:9:46)\n    at stageMigration (/Users/frikkjarl/Documents/GitHub/barkdown/app/main/migration-staging.js:157:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async /Users/frikkjarl/Documents/GitHub/barkdown/app/main/migration-switch.js:94:9\n    at async withRuntime (/Users/frikkjarl/Documents/GitHub/barkdown/app/main/migration-switch.js:51:14)\n    at async file:///Users/frikkjarl/Documents/GitHub/barkdown/app/tests/migration-corpus-switch.live.mjs:70:20"
+}
