@@ -108,6 +108,7 @@
     "test:runtime-recovery": "npm run build && node tests/runtime-recovery.live.mjs",
     "test:runtime-reclaim": "npm run build && node tests/runtime-reclaim.live.mjs",
     "test:profile-portable-interrupt": "npm run build && node tests/profile-portable-interrupt.live.mjs",
+    "test:profile-portable-two-installs": "npm run build && node tests/profile-portable-two-installs.live.mjs",
     "test:profile-portable-ui": "npm run build && node tests/profile-portable-ui.live.mjs"
   },
   "engines": {
