@@ -17,7 +17,7 @@
   ],
   "checkpoint": "2026-09-29",
   "handoff": "docs/cycles/C083-writer-admission.md",
-  "nextAction": "1) Upstream slice 8 (block ops refused by the door answer 503 storage_unavailable): land, pin, rerun the writers-in-flight rehearsal expecting 503. 2) Life on Paper after the switch: create, edit with an agent, search, delete and recover, restart on the switched profile, with no fallback to legacy creation (A2, first exit). 3) A real library and the Windows return checkpoint when the Windows machine is back (about 2026-10-05). 4) Decide whether pre-existing cloud references get the managed owner at projection. 5) Recovery with a writer that dies inside the runtime. 6) Upstream, when useful: a migration-scoped exemption for the dedup wall.",
+  "nextAction": "1) Upstream slice 8 (block ops refused by the door answer 503 storage_unavailable): land, pin, rerun the writers-in-flight rehearsal expecting 503. 2) An agent edit with Undo on the switched profile (the rest of life on Paper after the switch is rehearsed). 3) A real library and the Windows return checkpoint when the Windows machine is back (about 2026-10-05). 4) Decide whether pre-existing cloud references get the managed owner at projection. 5) Recovery with a writer that dies inside the runtime. 6) Upstream, when useful: a migration-scoped exemption for the dedup wall.",
   "evidence": [
     "docs/cycles/evidence/C082/merge.json",
     "docs/cycles/evidence/C082/integration-review.json",
