@@ -1,7 +1,9 @@
 // Run several live tours against one disposable runtime: the isolated harness starts the
 // runtime once and hands this runner its environment. Usage:
 //   node tests/status-shots-isolated.mjs tests/run-isolated-chain.mjs tests/a.live.mjs tests/b.live.mjs
-// Every tour runs to its end; the summary names each verdict and the runner exits non-zero
+// Tours that own the dataset (the migration comparison, selection, switch and sealed-comparison
+// rehearsals, and anything publishing a fixed slug) need a fresh runtime each: run those through
+// the harness one at a time. Every tour runs to its end; the summary names each verdict and the runner exits non-zero
 // if any tour failed. Output of failed tours is kept under test-results/isolated-chain/.
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';

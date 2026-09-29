@@ -14,7 +14,7 @@ function bpFlag() { return capturedConnection || {}; }
 function barkparkOn() { const f = bpFlag(); return Boolean(f.enabled && (f.viaCli || f.server)); }
 const isPaper = id => typeof id === 'string' && id.startsWith('bp:');
 const slugOf = id => id.slice(3);
-async function paperListing() { if (!barkparkOn()) return []; try { return (await paper.list()).map(d => ({ id: 'bp:' + d.id, title: d.title, excerpt: d.excerpt, rev: d.rev, source: 'barkpark' })); } catch (error) { if (paper.managed) throw error; return []; } }
+async function paperListing() { if (!barkparkOn()) return []; try { return (await paper.list()).map(d => ({ id: 'bp:' + d.id, title: d.title, excerpt: d.excerpt, rev: d.rev, source: 'barkpark' })); } catch (error) { if (paper.managed) throw error; console.error('Barkpark listing unavailable to the MCP server: ' + error.message); return []; } }
 
 const storeDir = process.argv[2];
 if (!storeDir) { console.error('usage: mcp-server.js <storeDir>'); process.exit(2); }
