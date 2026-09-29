@@ -53,8 +53,10 @@ try {
   // The body line names the case: upstream's dedup wall refuses near-duplicate papers, and a
   // library of distinct notes must not read as duplicates of each other.
   const bodyLine = id => { const value = `Body kept for the ${id} case, a distinct note in this library.`; return { source: { type: 'paragraph', content: [{ type: 'text', text: value }] }, expected: { type: 'paragraph', content: [{ type: 'text', value }] } }; };
-  const withBody = sample => sample.source.content.every(n => n.type === 'heading')
-    ? (line => ({ ...sample, source: { ...sample.source, content: [...sample.source.content, line.source] }, expected: { ...sample.expected, blocks: [...sample.expected.blocks, line.expected] } }))(bodyLine(sample.id)) : sample;
+  // Every note opens with its own sentence, as a person's notes do; the corpus block follows.
+  const lead = id => { const value = `${id}: ${cases.find(c => c.id === id)?.note || 'corpus case'}`; return { source: { type: 'paragraph', content: [{ type: 'text', text: value }] }, expected: { type: 'paragraph', content: [{ type: 'text', value }] } }; };
+  const withBody = sample => { const l = lead(sample.id), b = bodyLine(sample.id); const headingOnly = sample.source.content.every(n => n.type === 'heading');
+    return { ...sample, source: { ...sample.source, content: [l.source, ...sample.source.content, ...(headingOnly ? [b.source] : [])] }, expected: { ...sample.expected, blocks: [l.expected, ...sample.expected.blocks, ...(headingOnly ? [b.expected] : [])] } }; };
   const write = (id, title, sample, extra = {}) => { sample = withBody(sample); fs.writeFileSync(path.join(sourceDir, 'documents', id + '.json'), JSON.stringify({ id, title, rev: 1, content: sample.source, ...extra })); docs.push({ id, sample }); };
   write('overview', 'Overview', cases.find(c => c.id === 'plain-unicode'), { rev: 4, revisions: [{ rev: 1, content: cases.find(c => c.id === 'heading-plain').source }], proposals: [{ id: 'pending-review', baseRev: 4, mode: 'append', markdown: 'A pending agent proposal', actor: 'agent' }] });
   for (const c of standalone) if (c.id !== 'plain-unicode') write(c.id, 'Case ' + c.id, c);

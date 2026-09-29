@@ -58,7 +58,9 @@ test('heading marks and top-level alignment retain structure while unmapped alig
   for (const id of ['heading-rich-external', 'heading-aligned', 'heading-break', 'paragraph-alignment', 'paragraph-right', 'paragraph-literal-break']) {
     const f = fixture(), file = path.join(f.sourceDir, 'documents/note.json');
     const source = cases.find(sample => sample.id === id).source;
-    const value = JSON.parse(fs.readFileSync(file)); value.content = source;
+    const value = JSON.parse(fs.readFileSync(file));
+    // A heading-only note is refused by preflight (Paper needs a body block); keep one line.
+    value.content = source.content.every(n => n.type === 'heading') ? { ...source, content: [...source.content, { type: 'paragraph', content: [{ type: 'text', text: 'Body line.' }] }] } : source;
     fs.writeFileSync(file, JSON.stringify(value)); const original = fs.readFileSync(file);
     assert.equal(prepareMigration(f).status, 'prepared', id);
     assert.deepEqual(fs.readFileSync(file), original);
