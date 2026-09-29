@@ -17,7 +17,7 @@
   ],
   "checkpoint": "2026-09-29",
   "handoff": "docs/cycles/C083-writer-admission.md",
-  "nextAction": "1) User merges PR20438 (green). 2) A real library on the Windows machine and the Windows return checkpoint (Barkdown's Actions budget is exhausted; no Windows lane). 3) Recovery with live writers on the runtime (upstream slice 7's writer counts once pinned). 4) A reconciliation view for a retained Paper-era workspace and for a recorded divergence. 5) Upstream, when useful: a migration-scoped exemption for the dedup wall.",
+  "nextAction": "1) User merges PR20438 (green); then bump BARKPARK_REF and rerun the five admission rehearsals. 2) A real library on the Windows machine and the Windows return checkpoint (Barkdown's Actions budget is exhausted; no Windows lane). 3) Recovery with live writers on the runtime (needs slice 7's writer counts). 4) A reconciliation view for a recorded divergence beyond 'Open retained files'. 5) Rewrite tests/migration-workspace.live.mjs on the owned projection or retire it in favour of migration-owned-navigation. 6) Upstream, when useful: a migration-scoped exemption for the dedup wall.",
   "evidence": [
     "docs/cycles/evidence/C082/merge.json",
     "docs/cycles/evidence/C082/integration-review.json",
