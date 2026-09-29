@@ -99,3 +99,12 @@ Agent decision under the user's standing mandate to keep the run moving; the use
 ## D-migration-heading-only — A heading-only or empty note is named before the switch (2026-09-29)
 
 Paper refuses a paper with a title and no body block, mid-create. Preflight now names such notes with a plain reason and the switch does not start; the person adds a line first. Content is never padded by the migration.
+
+## D-migration-rollback-workspace — Rollback retains the Paper-era navigation and restores the legacy one exactly (2026-09-29)
+
+Agent decision under the user's standing mandate; the user may reverse it. Ordinary use after a switch (opening a tab, a chat, expanding a page) rewrites `workspace.json`, so the first rollback driven from the app's own screen was refused as a "changed target". That change is navigation, not notes. The rollback now retains the current workspace as `selection/workspace-paper.json` (operation-bound, hashed into the journal as `workspaceRetained`) and restores the retained legacy workspace byte for byte; nothing is merged back. Chats, tabs and page changes made while on Paper are therefore absent from the restored navigation and kept on disk; the confirm sheet says so. Alternatives considered: refusing (the person cannot roll back after touching anything), or merging chats and tabs into the legacy navigation (a partial reverse projection with its own edge cases). Revisit when a reconciliation view exists.
+
+## D-migration-successor-baseline — A rollback after a restart accepts the baseline of the preceding preparation (2026-09-29)
+
+The comparison baseline is bound to the preparation that captured it (id, closure, writer generation, retained drafts). A completed switch aborts that preparation and the app restarts; the rollback then runs under a new preparation whose `previousId` is the switch's. In that one case the fence identity is allowed to differ; the profile, source hash, backup manifest, projection and runtime binding must still match, and the caller still pins the baseline hash. Any other preparation is refused as before. Without this, every rollback from the app recorded a divergence and demanded reconciliation for nothing.
+
