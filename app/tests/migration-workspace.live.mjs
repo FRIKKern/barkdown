@@ -64,7 +64,8 @@ try{
   await page.locator('#bw-transcript [data-parent]').click();await page.locator('.bw-side-chat').waitFor();assert.equal(await page.locator('#bw-prompt').inputValue(),original.chats.main.draft);
   await page.locator('#bw-tabs [data-tab="path-main"]').click();await arrived(ids.beta);assert.deepEqual(await page.evaluate(()=>window.__barkdown.state.chats.main.tabs.find(t=>t.id==='path-main').path),[ids.alpha,ids.beta]);await shot('03-parent-document-path');
   await page.locator(`#bw-pages [data-open="${key(ids.alpha)}"]`).click();await arrived(ids.alpha);assert.equal(await page.evaluate(()=>window.__barkdown.state.mode),'document');await shot('04-direct-local-page');
-  await page.locator(`#bw-pages [data-open="${key('alpha')}"]`).click();await arrived('alpha');await shot('05-distinct-cloud-page');
+  // A pre-existing cloud page keeps its unowned key in the projection (migration-workspace.js leaves barkpark entries alone).
+  await page.locator('#bw-pages [data-open="bp:alpha"]').click();await arrived('alpha');await shot('05-distinct-cloud-page');
   await page.locator(`#bw-pages [data-open="${key(ids.beta)}"]`).click();await arrived(ids.beta);assert.equal(await page.locator(`#bw-pages [data-page="${key(ids.beta)}"]`).getAttribute('data-depth'),'1');await shot('06-nested-page');
   await page.locator('#bw-favorites').click();await page.locator('#bw-fav-menu [data-open="local-fav"]').click();await arrived(ids.alpha);await shot('07-local-favorite');
   await page.locator('#bw-favorites').click();await page.locator('#bw-fav-menu [data-open="cloud-fav"]').click();await arrived('alpha');await shot('08-cloud-favorite');
