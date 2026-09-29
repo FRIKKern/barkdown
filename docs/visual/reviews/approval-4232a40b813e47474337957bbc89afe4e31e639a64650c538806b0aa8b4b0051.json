@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-09-29T05-29-10-488Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-29T05-29-10-488Z/comparison.json",
+  "manifestHash": "04602f2a7bb8fec0e2c55873dcd5894aaa041f1f0c8404f495a1b2ba6902efcf",
+  "reportHash": "df79f9074d174be8a5dc0eaa69b1ff0324258beb4b69996d27fcda58178ffb40",
+  "reviewer": "Claude Fable 5.1 (agent, this session)",
+  "note": "Inspected the 2026-09-29T05-29-10-488Z comparison: 46 frames, every one within tolerance against the darwin baseline (side-chat open differs by two pixels, no geometry change). The renderer change this covers is text in the preparation notice and the rollback confirm sheet plus a Restart button that the fixture tour does not reach; the behavior is proven by app/tests/migration-switch-ui.live.mjs (docs/cycles/evidence/C083/live/2026-09-29T05-23-42-582Z-switch-ui).",
+  "reviewedAt": "2026-09-29T05:30:53.211Z"
+}

@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-09-29T03-01-01-669Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-29T03-01-01-669Z/comparison.json",
-  "manifestHash": "ad67a847c780d70ee91b9ae45dafe7546740ba2c7e0c8f4a86ff1f3978d63dff",
-  "reportHash": "db018ec6407763d9adb88de5f45a02203d09cc312c6d935661534195fa79daa5",
-  "reviewer": "Claude Fable 5.1 (agent, macOS host)",
-  "note": "Input-only change: app/BARKPARK_REF and the vendored editor provenance moved to upstream 4532a25ea with byte-identical editor assets. All 46 frames within tolerance against the 2026-09-29T02-02-28 darwin baseline (two-pixel anti-aliasing on send buttons). Limits: darwin only.",
-  "reviewedAt": "2026-09-29T03:02:03.524Z",
-  "reviewPath": "docs/visual/reviews/approval-0b50b368013549a2190f87b1d4fed8641cfac0bf43c90e4f3e678aa6d69089d3.json",
-  "reviewHash": "0b50b368013549a2190f87b1d4fed8641cfac0bf43c90e4f3e678aa6d69089d3"
+  "manifest": "docs/visual/runs/2026-09-29T05-29-10-488Z/manifest.json",
+  "report": "docs/visual/runs/2026-09-29T05-29-10-488Z/comparison.json",
+  "manifestHash": "04602f2a7bb8fec0e2c55873dcd5894aaa041f1f0c8404f495a1b2ba6902efcf",
+  "reportHash": "df79f9074d174be8a5dc0eaa69b1ff0324258beb4b69996d27fcda58178ffb40",
+  "reviewer": "Claude Fable 5.1 (agent, this session)",
+  "note": "Inspected the 2026-09-29T05-29-10-488Z comparison: 46 frames, every one within tolerance against the darwin baseline (side-chat open differs by two pixels, no geometry change). The renderer change this covers is text in the preparation notice and the rollback confirm sheet plus a Restart button that the fixture tour does not reach; the behavior is proven by app/tests/migration-switch-ui.live.mjs (docs/cycles/evidence/C083/live/2026-09-29T05-23-42-582Z-switch-ui).",
+  "reviewedAt": "2026-09-29T05:30:53.211Z",
+  "reviewPath": "docs/visual/reviews/approval-4232a40b813e47474337957bbc89afe4e31e639a64650c538806b0aa8b4b0051.json",
+  "reviewHash": "4232a40b813e47474337957bbc89afe4e31e639a64650c538806b0aa8b4b0051"
 }
