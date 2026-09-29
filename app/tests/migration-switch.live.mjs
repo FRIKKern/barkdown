@@ -50,7 +50,9 @@ try {
   assert.ok(labels[soil.id].description.length > 20 && labels[orchard.id].tags[0].rationale.length >= 20);
   const switched = await migration.switchToPaper(profile.id);
   assert.equal(switched.selection.status, 'selected'); assert.equal(switched.selection.authority, 'paper'); assert.equal(switched.staged, true);
-  assert.deepEqual(checkpoints.filter(c => !c.startsWith('staging:')), ['after-backup', 'after-baseline', 'after-staging', 'after-selection']);
+  // The selection's own checkpoints share the sink; the switch adds its four around them.
+  assert.deepEqual(checkpoints.filter(c => ['after-backup', 'after-baseline', 'after-staging', 'after-selection'].includes(c)), ['after-backup', 'after-baseline', 'after-staging', 'after-selection']);
+  assert.ok(checkpoints.indexOf('after-intent') > checkpoints.indexOf('after-staging') && checkpoints.indexOf('after-selected') < checkpoints.indexOf('after-selection'));
   assert.deepEqual(leases, [[profile.id, 'migration-switch', true], ['released']]);
   const replaced = JSON.parse(fs.readFileSync(path.join(sourceDir, 'workspace.json'), 'utf8'));
   assert.equal(replaced.favorites[0].target.source, 'barkpark');
