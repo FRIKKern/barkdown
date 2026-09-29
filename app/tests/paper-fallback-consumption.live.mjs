@@ -39,8 +39,10 @@ try{
  await openFixturePaper(page, slug);await page.waitForSelector('.bw-paper-pane .ProseMirror',{timeout:60000});
  editorBundle=await page.evaluate(()=>window.__barkdown.state.canvasBundle);
  assert.equal(editorBundle.source,'vendored');
- const expectedJs='5d2fc57fc943e095e90393b21f10bcd86890329e';
- const expectedCss='db17bf8a3ec890f14436c68e7af98124b3cfcb3f';
+ // The audited vendored bytes (docs/editor-consumption-audit.json), so an editor upgrade moves one record.
+ const audited=JSON.parse(fs.readFileSync(path.resolve('../docs/editor-consumption-audit.json'),'utf8')).assets;
+ const expectedJs=audited.find(a=>a.file==='bp-paper-editor.bundle.js').vendorSha1;
+ const expectedCss=audited.find(a=>a.file==='bp-paper-editor.css').vendorSha1;
  const loaded=await page.evaluate(()=>({js:document.querySelector('script[data-canvas-bundle]')?.src,css:document.querySelector('link[data-canvas-bundle]')?.href}));
  for(const [kind,expected] of [['js',expectedJs],['css',expectedCss]]){
   const actual=fileURLToPath(loaded[kind]);const vendor=path.resolve('renderer/vendor',kind==='js'?'bp-paper-editor.bundle.js':'bp-paper-editor.css');

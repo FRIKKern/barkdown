@@ -56,13 +56,17 @@ function controller(inputStore) {
     if (value.retiredGenerations !== undefined && (!Array.isArray(value.retiredGenerations) || value.retiredGenerations.some(g => !uuid(g)) || new Set(value.retiredGenerations).size !== value.retiredGenerations.length)) fail('metadata', 'Writer generation history is invalid.');
     return { value, rawIdentity, rawState };
   }
+  const waits = [5, 10, 20, 40, 80, 160, 320, 320, 320];
   function locked(action) {
     let lease;
     for (let attempt = 0; ; attempt++) {
       try { lease = acquireFileLease(store.filePath('writer-admission.lock'), { completeOwner: true, busy: 'Writer admission is busy' }); break; }
       catch (error) {
-        if (error.message !== 'Writer admission is busy' || attempt >= 4) throw error;
-        Atomics.wait(sleep, 0, 0, [5, 10, 20, 40][attempt]);
+        // The lock guards one journal write. Another process of this profile (the app, an owned
+        // worker's MCP server) may hold it or be recovering it for a moment: wait, never fail raw.
+        const contended = error.message === 'Writer admission is busy' || error.code === 'EEXIST' || /^Lease recovery is already owned/.test(error.message);
+        if (!contended || attempt >= waits.length) throw error.code === 'EEXIST' ? Object.assign(new Error('Writer admission is busy'), { cause: error }) : error;
+        Atomics.wait(sleep, 0, 0, waits[attempt]);
       }
     }
     try { return action(lease); } finally { lease.release(); }

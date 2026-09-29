@@ -82,7 +82,8 @@ function acquireFileLease(file, { busy = 'Storage is owned by another writer', c
       let owner;
       try { owner = JSON.parse(fs.readFileSync(file, 'utf8')); }
       catch (failure) {
-        if (failure.code === 'ENOENT') { fd = open(); }
+        // The lock vanished between the refusal and this read: another contender may take it first.
+        if (failure.code === 'ENOENT') { try { fd = open(); } catch (raced) { if (raced.code === 'EEXIST') throw new Error(busy); throw raced; } }
         else throw new Error('Storage lease is unreadable; inspect it before recovery');
       }
       if (fd === undefined) {
@@ -91,7 +92,7 @@ function acquireFileLease(file, { busy = 'Storage is owned by another writer', c
         try { process.kill(owner.pid, 0); throw new Error(busy); } catch (probe) { if (probe.code !== 'ESRCH') throw probe; }
         checkpoint('stale-owner-read');
         fs.renameSync(file, file + '.abandoned-' + crypto.randomUUID());
-        fd = open();
+        try { fd = open(); } catch (raced) { if (raced.code === 'EEXIST') throw new Error(busy); throw raced; }
       }
     } catch (error) { primary = error; throw error; }
     finally {
