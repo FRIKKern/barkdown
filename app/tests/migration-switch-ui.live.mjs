@@ -13,6 +13,7 @@ import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { LINE_END } from './helpers/keys.mjs';
+import { createToolFixture } from './fixtures/anthropic-tools-http.mjs';
 const require = createRequire(import.meta.url);
 const appRoot = fileURLToPath(new URL('..', import.meta.url));
 process.chdir(appRoot);
@@ -48,10 +49,19 @@ const a = seed('Writing desk', documents => {
 const b = seed('Other notebook', documents => [documents.create({ title: 'Lone note', markdown: 'A single note that survives an interrupted switch.' }).id]);
 registry.selectProfile(a.profile.id);
 
+// The agent on the switched profile: the real API SDK against scripted model turns.
+let agentTarget = null;
+const transport = await createToolFixture((body, index) => {
+  const result = body.messages.at(-1).content?.find?.(b => b.type === 'tool_result');
+  if (index === 0) return { name: 'read_document', input: { id: 'bp:' + agentTarget, format: 'structured' } };
+  if (index === 1) { assert.ok(result && !result.is_error, JSON.stringify(result)); return { name: 'edit_document', input: { id: 'bp:' + agentTarget, mode: 'append', markdown: 'One assistant addition after the switch.', summary: 'Add one thought' } }; }
+  if (index === 2) { assert.ok(result && !result.is_error, JSON.stringify(result)); return { text: 'Added one thought. Undo is available.' }; }
+  throw Error('Unexpected model turn ' + index);
+});
 let app, page;
 const shot = async name => { await page.screenshot({ path: path.join(out, name + '.png') }); report.screenshots.push(name + '.png'); persist(); };
 const launch = async () => {
-  app = await electron.launch({ executablePath: require('electron'), args: [appRoot, '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '' } });
+  app = await electron.launch({ executablePath: require('electron'), args: [appRoot, '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', ANTHROPIC_BASE_URL: transport.url } });
   // Toasts carry the switch's failure reason once the sheet is gone with the frozen foreground.
   await app.context().addInitScript(() => { window.__toasts = []; new MutationObserver(records => { for (const r of records) for (const n of r.addedNodes) if (n.nodeType === 1 && n.matches?.('.bw-toast, .bw-toast *')) window.__toasts.push(n.textContent); }).observe(document.documentElement, { childList: true, subtree: true }); });
   page = await app.firstWindow(); page.setDefaultTimeout(30000);
@@ -255,8 +265,31 @@ try {
   assert.equal(await page.evaluate(() => window.__barkdown.state.authority), 'paper');
   assert.ok((await page.evaluate(() => window.barkdown.barkpark.list())).some(p => p.id === copy.id), 'the recovered note is in the library after a restart');
   report.checks.push({ name: 'Life on Paper after the switch: a new note is a Paper (legacy creation refused), typed, found by its body, deleted, recovered after a restart and still in the library after another', note: written.id, recovered: copy.id }); persist();
+  // The assistant on the switched profile: an owned worker reads the note through the MCP server,
+  // appends one paragraph, the canvas presents it, and Undo takes it back.
+  agentTarget = copy.id;
+  await page.evaluate(async () => { window.__barkdown.state.settings = await window.barkdown.settings.set({ provider: 'api', apiKey: 'synthetic-fixture' }); });
+  await page.evaluate(({ id, owner }) => window.__barkdown.openTarget({ kind: 'doc', id, source: 'barkpark', paperOwner: owner }), { id: copy.id, owner: copy.paperOwner });
+  await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror', { hasText: 'Saffron notebooks' }).waitFor({ timeout: 60000 });
+  await page.waitForFunction(() => !window.__barkdown.state.chats[window.__barkdown.state.current].runId);
+  await page.locator('#bw-prompt').fill('Add one thought to the note.'); await page.locator('#bw-prompt').press('Enter');
+  await page.waitForFunction(() => document.querySelector('.bw-paper-pane:not([hidden]) .ProseMirror')?.textContent.includes('One assistant addition after the switch.'), null, { timeout: 120000 });
+  await page.waitForFunction(() => !document.querySelector('[data-agent-phase]'));
+  await page.waitForFunction(() => !window.__barkdown.state.chats[window.__barkdown.state.current].runId, null, { timeout: 120000 });
+  const edited = await page.evaluate(({ id, owner }) => window.barkdown.barkpark.get(id, undefined, owner), { id: copy.id, owner: copy.paperOwner });
+  assert.match(edited.markdown, /One assistant addition after the switch\./); assert.match(edited.markdown, /Saffron notebooks keep the exact words/);
+  await page.locator('.bw-paper-pane:not([hidden]) #agent-edit button').waitFor();
+  await shot('13-agent-edit-with-undo');
+  await page.locator('.bw-paper-pane:not([hidden]) #agent-edit button').click();
+  await page.waitForFunction(() => !document.querySelector('.bw-paper-pane:not([hidden]) .ProseMirror')?.textContent.includes('One assistant addition after the switch.'), null, { timeout: 60000 });
+  const undone = await page.evaluate(({ id, owner }) => window.barkdown.barkpark.get(id, undefined, owner), { id: copy.id, owner: copy.paperOwner });
+  assert.doesNotMatch(undone.markdown, /One assistant addition/); assert.deepEqual(undone.blocks, copy.blocks, 'Undo restores the blocks exactly');
+  assert.equal(transport.requests.length, 3, 'three scripted model turns, no replay');
+  await shot('14-agent-edit-undone');
+  report.checks.push({ name: 'The assistant on the switched profile: an owned worker reads and appends through the MCP server, the canvas presents the edit, Undo restores the blocks exactly', modelTurns: transport.requests.length, model: 'scripted turns through the real API SDK; not a live model' }); persist();
   await quit();
   report.status = 'passed'; persist(); console.log(JSON.stringify(report, null, 2));
+  await transport.close?.();
 } catch (error) {
   report.status = 'failed'; report.error = String(error?.stack || error);
   try { report.toasts = await page.evaluate(() => window.__toasts); } catch {}
@@ -264,5 +297,6 @@ try {
   persist();
   try { if (page && !page.isClosed()) await shot('99-failure'); } catch {}
   try { await quit(); } catch (quitError) { report.quitError = quitError.message; persist(); try { app?.process().kill('SIGKILL'); } catch {} }
+  try { await transport.close?.(); } catch {}
   throw error;
 }
