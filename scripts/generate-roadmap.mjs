@@ -21,7 +21,7 @@ export const summaries = {
     ['active', 'Save and draft recovery', 'docs/cycles/C076-profile-preparation.md'],
     ['active', 'Export notes and media', 'docs/cycles/C085-portable-profile.md'], ['active', 'Include chats and links', 'docs/cycles/C085-portable-profile.md'],
     ['active', 'Import into a fresh profile', 'docs/cycles/C085-portable-profile.md'], ['todo', 'Continue on another device'],
-  ], scope: 'Groundwork only while P2 waits for its Windows exits: draft retention, interrupted preparation and restart (C076), and in C085 an export taken under the hold and its import as a new profile with its own database, rehearsed between two runtimes and from Settings in the app on one Mac, including a host killed in the middle of each. More stall points, a second machine and credential handover remain unproved, and A3 is not claimed.'},
+  ], scope: 'Groundwork only while P2 waits for its Windows exits: draft retention, interrupted preparation and restart (C076), and in C085 crash recovery of the runtime and an export taken under the hold and its import as a new profile with its own database, rehearsed between two runtimes and from Settings in the app on one Mac, including a host killed in the middle of each. More stall points, a second machine and credential handover remain unproved, and A3 is not claimed.'},
   P4: {reviewedStageStatus: 'todo', title: ['Cloud sync'], items: [
     ['todo', 'Work offline, sync later'], ['todo', 'Reconcile device edits'],
     ['todo', 'Resolve edit/delete overlap'], ['todo', 'Respect access changes'], ['todo', 'Keep sync optional'],

@@ -128,6 +128,14 @@ Agent decision under the user's standing mandate; the user may reverse it. After
 
 Agent decision under the user's standing mandate ("we still have 6 days until Windows is back"); the user may reverse it. P2's remaining exits are a real library and the Windows return checkpoint, both bound to a machine that returns about 2026-10-05. Rather than idle, [C085](cycles/C085-portable-profile.md) starts the portable profile of P3 on macOS, building on the hold that C083 delivered. P2 stays active in the plan and is not claimed complete; nothing in C085 retires legacy or changes a default.
 
+## D-writer-settled — An answered write is settled (2026-09-29)
+
+Agent decision; the user may reverse it. The writer journal kept every failed write uncertain, and one uncertain write refused every later preparation with no way to clear it. A write the server answered has ended at the server, whatever the answer, so it is settled; the operations that follow hold the runtime and read its actual state. Only a write without an answer stays uncertain. When this host has started the profile's managed runtime anew, the runtime writes of a host that no longer runs are settled too: the runtime they were sent to is gone. Local document writes are not settled this way.
+
+## D-runtime-recover — Who reopens a runtime in recovery (2026-09-29)
+
+Agent decision; the user may reverse it. Upstream asks for explicit recovery after the uncertain effects are reconciled. In Barkdown the reconciliation is the journal of the operation that held the runtime: the switch, the rollback, the comparison and the export each recover the runtime before they hold it again and then read the library's actual state. With no operation in flight there is nothing to reconcile, and the launch reopens it. An interrupted switch or export keeps the runtime in recovery until it is resumed, rolled back or discarded.
+
 ## D-portable-interrupt — Nothing resumes a half-written export or import (2026-09-29)
 
 Agent decision; the user may reverse it. An export is one held state of the library; a half-written one cannot be completed later against a library that has moved, so it is discarded and taken again. A half-restored database is likewise never continued: the unfinished import is removed from the profile list and imported again from the export folder its journal names. Discarded folders go to the system trash, never deleted. An unfinished import cannot be selected. The registry can remove a profile, never the selected one.

@@ -1,0 +1,55 @@
+{
+  "source": "a1bfbe7877bbe33b7db95c400a70bf07787345ed",
+  "upstream": "9f1874235449f9763c1b3e8cfcaf1b5a36aee9b3",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "A large write is slow enough to be in flight",
+      "mutations": 800,
+      "tookMs": 2046
+    },
+    {
+      "name": "The connection of the admitted writer is cut while the hold drains",
+      "admittedView": {
+        "phase": "open",
+        "generation": 1,
+        "boot": "8ed2b5a9c99a670c4eed66b9b46ebad8",
+        "pending": 1,
+        "writers": 1,
+        "deadWriters": 0,
+        "operation": null,
+        "held": null
+      },
+      "duringDrain": {
+        "phase": "closing",
+        "generation": 1,
+        "boot": "8ed2b5a9c99a670c4eed66b9b46ebad8",
+        "pending": 1,
+        "writers": 1,
+        "deadWriters": 0,
+        "operation": "dying-writer-b281e6",
+        "held": "dying-writer-b281e6"
+      },
+      "afterCut": {
+        "phase": "held",
+        "generation": 1,
+        "boot": "8ed2b5a9c99a670c4eed66b9b46ebad8",
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0,
+        "operation": "dying-writer-b281e6",
+        "held": "dying-writer-b281e6"
+      },
+      "settledMs": 3471
+    },
+    {
+      "name": "The writer outlived its connection and settled; the hold was reached and reopened",
+      "sampledPresent": 3
+    }
+  ],
+  "limits": [
+    "One machine, one disposable runtime, one run. The writer is one large mutate request whose connection is cut from the client; a writer killed by the operating system or a failing disk is not produced here."
+  ],
+  "finding": "A cut connection does not kill an admitted writer on this runtime; the drain completes."
+}

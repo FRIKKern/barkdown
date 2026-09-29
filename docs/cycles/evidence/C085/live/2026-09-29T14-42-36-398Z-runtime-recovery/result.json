@@ -1,0 +1,25 @@
+{
+  "source": "2961aa4e6003cfef549e9431236e6c83bc9276f6",
+  "upstream": "9f1874235449f9763c1b3e8cfcaf1b5a36aee9b3",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "A note refused by the held library leaves no uncertain write. Killed while held with no operation in flight: the next launch reclaims the runtime, finds it in recovery, reopens it and a new note is written",
+      "log": [
+        "[runtime] reclaimed after host 95744 ended: runtime 95976, private database",
+        "[recovery] runtime reopened at launch, no operation in flight: generation 2, 0 unsettled, 0 dead writers"
+      ]
+    },
+    {
+      "name": "The switch killed under the hold at replacing: the next launch leaves the runtime to the switch, Resume recovers it, completes the same operation, and the library is on Paper and writable, each note once"
+    }
+  ],
+  "screenshots": [
+    "01-switch-interrupted-by-a-kill.png",
+    "02-switch-completed-after-resume.png"
+  ],
+  "limits": [
+    "One machine, one run. The host is ended with SIGKILL; the switch is stalled at one point, after its journal reached replacing. The unowned hold is taken by the rehearsal over HTTP with the runtime token, as a stand-in for an operation that died after its journal completed. A writer that raises inside the runtime during a drain is not produced: a cut connection does not kill an admitted writer (see the dying-writer rehearsal). POSIX only."
+  ]
+}
