@@ -17,7 +17,7 @@
   ],
   "checkpoint": "2026-09-29",
   "handoff": "docs/cycles/C083-writer-admission.md",
-  "nextAction": "1) User merges PR20438 (green); then bump BARKPARK_REF and rerun the five admission rehearsals. 2) A real library on the Windows machine and the Windows return checkpoint (Barkdown's Actions budget is exhausted; no Windows lane). 3) Recovery with live writers on the runtime (needs slice 7's writer counts). 4) Merging a reconciled difference (keep and restore exist; a merge of both texts does not). 5) Decide whether pre-existing cloud references get the managed owner at projection (see the workspace tour note). 6) Upstream, when useful: a migration-scoped exemption for the dedup wall.",
+  "nextAction": "1) Upstream slice 8 (block ops refused by the door answer 503 storage_unavailable): land, pin, rerun the writers-in-flight rehearsal expecting 503. 2) Life on Paper after the switch: create, edit with an agent, search, delete and recover, restart on the switched profile, with no fallback to legacy creation (A2, first exit). 3) A real library and the Windows return checkpoint when the Windows machine is back (about 2026-10-05). 4) Decide whether pre-existing cloud references get the managed owner at projection. 5) Recovery with a writer that dies inside the runtime. 6) Upstream, when useful: a migration-scoped exemption for the dedup wall.",
   "evidence": [
     "docs/cycles/evidence/C082/merge.json",
     "docs/cycles/evidence/C082/integration-review.json",

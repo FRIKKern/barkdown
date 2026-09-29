@@ -1,0 +1,24 @@
+Rehearsals against upstream 74e38574b (slice 7 merged), Barkdown d2c905cd, Darwin 24.3.0 arm64, 2026-09-29T10:28Z
+Each line: verdict, seconds, rehearsal. Dataset-owning rehearsals ran on their own fresh runtime.
+ok 32s local-barkpark
+ok 18s upstream-admission
+ok 13s sealed-comparison
+ok 12s migration-selection
+ok 18s migration-switch
+ok 17s migration-corpus-switch
+ok 17s migration-comparison
+ok 161s switch-ui
+FAIL 311s generic-chain
+ok 20s paper-catalog
+ok 17s migration-workspace
+ok 20s paper-fallback-consumption
+
+One-runtime chain of 20 generic tours: 18 passed; migration-media and paper-evidence-owner failed inside the shared runtime and are rerun alone below.
+2026-09-29T10-17-21-038Z passed 3 checks
+2026-09-29T10-17-33-660Z-selection passed 3 checks
+2026-09-29T10-17-45-617Z-switch passed 9 checks
+2026-09-29T10-18-03-303Z-corpus-switch passed 5 checks
+2026-09-29T10-18-31-611Z-switch-ui passed 4 checks
+
+Rerun alone on fresh runtimes after the chain: ok migration-media, ok paper-evidence-owner.
+Added: ok admission-writers-in-flight (2026-09-29T10-31-58-997Z-writers-in-flight).

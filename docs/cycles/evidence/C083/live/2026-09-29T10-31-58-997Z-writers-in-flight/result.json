@@ -1,0 +1,80 @@
+{
+  "source": "828c635817bed010c8c1de3a020ea2342a60e302",
+  "upstream": "74e38574b3974e82f10b65b94c07bcc83e57a667",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "six writers in flight across hold, held and reopen: every acknowledged write is on its Paper, every refused one is not, nothing lands while held, no admitted writer remains once held",
+      "writers": 6,
+      "acknowledged": 277,
+      "refused503": 0,
+      "otherRefusals": 137,
+      "attemptsWhileHeld": 126,
+      "refusalsWhileHeld": {
+        "422 invalid_op": 126
+      },
+      "nonDoorRefusalsWhileHeld": [
+        {
+          "marker": "w0-n24",
+          "sentAt": 1790677921084,
+          "answeredAt": 1790677921241,
+          "status": 422,
+          "code": "invalid_op",
+          "message": "an op could not be applied",
+          "ifRev": 24
+        },
+        {
+          "marker": "w0-n25",
+          "sentAt": 1790677921312,
+          "answeredAt": 1790677921378,
+          "status": 422,
+          "code": "invalid_op",
+          "message": "an op could not be applied",
+          "ifRev": 24
+        },
+        {
+          "marker": "w0-n26",
+          "sentAt": 1790677921439,
+          "answeredAt": 1790677921516,
+          "status": 422,
+          "code": "invalid_op",
+          "message": "an op could not be applied",
+          "ifRev": 24
+        },
+        {
+          "marker": "w0-n27",
+          "sentAt": 1790677921589,
+          "answeredAt": 1790677921658,
+          "status": 422,
+          "code": "invalid_op",
+          "message": "an op could not be applied",
+          "ifRev": 24
+        },
+        {
+          "marker": "w0-n28",
+          "sentAt": 1790677921741,
+          "answeredAt": 1790677921816,
+          "status": 422,
+          "code": "invalid_op",
+          "message": "an op could not be applied",
+          "ifRev": 24
+        }
+      ],
+      "drainMs": 186,
+      "instanceAtHeld": {
+        "phase": "held",
+        "generation": 1,
+        "boot": "1155648609c69e03ede54fc80103ecde",
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0,
+        "operation": "writers-in-flight-442d4e",
+        "held": "writers-in-flight-442d4e"
+      }
+    }
+  ],
+  "limits": [
+    "HTTP writers on one machine against one disposable runtime; block appends only; one run. A writer that dies inside the runtime mid-write is not produced here."
+  ]
+}
