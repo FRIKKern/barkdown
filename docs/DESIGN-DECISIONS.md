@@ -128,6 +128,10 @@ Agent decision under the user's standing mandate; the user may reverse it. After
 
 Agent decision under the user's standing mandate ("we still have 6 days until Windows is back"); the user may reverse it. P2's remaining exits are a real library and the Windows return checkpoint, both bound to a machine that returns about 2026-10-05. Rather than idle, [C085](cycles/C085-portable-profile.md) starts the portable profile of P3 on macOS, building on the hold that C083 delivered. P2 stays active in the plan and is not claimed complete; nothing in C085 retires legacy or changes a default.
 
+## D-media-origins — Pictures of an imported library (2026-09-29)
+
+Agent decision; the user may reverse it. Notes store a picture's address with the origin of the runtime it was uploaded to, and an imported profile runs on another port. The import does not rewrite the restored database: content lives in several upstream tables and their history, and a rewrite there cannot be taken back. Instead the export records the origin, the import keeps it with the origins that library already carried, and the app answers requests for media at those loopback origins from the profile's current runtime. The cost: the address shown in a note, and read by an assistant, still names the exporting port.
+
 ## D-writer-settled — An answered write is settled (2026-09-29)
 
 Agent decision; the user may reverse it. The writer journal kept every failed write uncertain, and one uncertain write refused every later preparation with no way to clear it. A write the server answered has ended at the server, whatever the answer, so it is settled; the operations that follow hold the runtime and read its actual state. Only a write without an answer stays uncertain. When this host has started the profile's managed runtime anew, the runtime writes of a host that no longer runs are settled too: the runtime they were sent to is gone. Local document writes are not settled this way.
