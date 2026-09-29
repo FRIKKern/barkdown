@@ -29,7 +29,7 @@ function generatedLabels(sourceDir) {
   return labels;
 }
 
-function createMigrationSwitch({ registry, preparation, runtimePool, userData, admission, selectionFor = null, stage = stageMigration, checkpoint = () => {}, readPaper = (target, id) => require('./barkpark').getPaper({ server: target.server, token: target.token, dataset: target.dataset, viaCli: false, enabled: true }, id) }) {
+function createMigrationSwitch({ registry, preparation, runtimePool, userData, admission, selectionFor = null, stage = stageMigration, checkpoint = () => {}, readPaper = (target, id) => require('./barkpark').getPaper({ server: target.server, token: target.token, dataset: target.dataset, viaCli: false, enabled: true }, id), applyPaperOps = (target, id, ops, ifRev) => require('./barkpark').applyOps({ server: target.server, token: target.token, dataset: target.dataset, viaCli: false, enabled: true }, id, ops, ifRev), now = () => new Date().toISOString() }) {
   if (!registry?.storeFor || typeof preparation?.withPrepared !== 'function' || typeof runtimePool?.acquire !== 'function' || typeof userData !== 'string') throw new TypeError('Registry, preparation, runtime pool and user data root are required');
   const comparison = createMigrationComparison({ preparation });
   const selection = selectionFor ? selectionFor({ preparation, comparison }) : createMigrationSelection({ preparation, comparison, ...(admission ? { admission } : {}), checkpoint });
@@ -69,6 +69,28 @@ function createMigrationSwitch({ registry, preparation, runtimePool, userData, a
       const { server, token, dataset } = lease.connection;
       const current = await readPaper({ server, token, dataset: dataset || 'production' }, id);
       return { id, kind: staged ? 'staged' : 'pre-existing', before, after: { title: current.title ?? null, markdown: current.markdown ?? null, rev: current.rev ?? null } };
+    } finally { await lease.release(); }
+  }
+  // Acting on a reconciled difference. Keep records the decision; restore replaces the Paper's
+  // blocks with the staged (or baseline) blocks under the Paper's current revision, then records it.
+  // Either way the divergence stays on record; the demand clears once every changed Paper has a decision.
+  async function reconcilePaper(profileId, id, action) {
+    if (!['keep', 'restore'].includes(action)) fail('reconcile_action', 'Reconcile keeps the Paper or restores the staged text');
+    const sourceDir = sourceDirOf(profileId);
+    if (action === 'keep') return selection.reconcile(profileId, sourceDir, id, { action: 'keep', at: now() });
+    const store = createStore(backupDirOf(profileId), { create: false });
+    const plan = store.readJson('staging/plan.json', null), baseline = store.readJson('comparison-baseline.json', null);
+    const staged = plan?.documents?.find(d => d.targetId === id), row = baseline?.rows?.find(r => r._id === id);
+    const blocks = staged ? staged.payload.blocks : row?.blocks;
+    if (!Array.isArray(blocks)) fail('changed_unknown', 'This Paper has no staged or baseline text to restore');
+    const lease = await runtimePool.acquire(profileId, { ownerId: 'migration-reconcile', writes: true });
+    try {
+      const target = { server: lease.connection.server, token: lease.connection.token, dataset: lease.connection.dataset || 'production' };
+      const current = await readPaper(target, id);
+      if (!Array.isArray(current.blocks) || current.rev == null) fail('reconcile_read', 'The Paper could not be read for restoring');
+      const ops = [...current.blocks.filter(b => b?.id).map(b => ({ op: 'remove-block', id: b.id })), ...blocks.map((b, i) => ({ op: 'append-block', block: { ...b, id: 'restored-' + i } }))];
+      const result = await applyPaperOps(target, id, ops, current.rev);
+      return selection.reconcile(profileId, sourceDir, id, { action: 'restore', at: now(), fromRev: current.rev, rev: result.rev ?? null });
     } finally { await lease.release(); }
   }
   function options(profileId) {
@@ -137,6 +159,6 @@ function createMigrationSwitch({ registry, preparation, runtimePool, userData, a
       return status(profileId);
     });
   }
-  return Object.freeze({ status, switchToPaper, rollback, changedPaper, generatedLabels: profileId => generatedLabels(sourceDirOf(profileId)) });
+  return Object.freeze({ status, switchToPaper, rollback, changedPaper, reconcilePaper, generatedLabels: profileId => generatedLabels(sourceDirOf(profileId)) });
 }
 module.exports = { createMigrationSwitch, generatedLabels };

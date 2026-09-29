@@ -157,9 +157,20 @@ try {
   assert.match(await page.locator('#bp-switch-compare [data-side="before"]').textContent(), /\[\[Soil moisture protocol\]\]/, 'the staged text is the migrated note with its link rewritten to the Paper');
   await shot('05d-compare-changed-paper');
   await page.locator('#bp-switch-compare [data-close]').click();
+  // The decision: restore the staged text. The Paper gets a new revision; the demand clears.
+  await page.locator(`#bp-switch-changed [data-restore="${orchardId}"]`).click();
+  await page.locator(`#bp-switch-changed [data-restore="${orchardId}"]`, { hasText: 'Confirm' }).click();
+  await page.locator(`#bp-switch-changed [data-reconciled="${orchardId}"]`, { hasText: 'staged text restored' }).waitFor({ timeout: 60000 });
+  assert.match(await page.locator('#bp-switch-status').textContent(), /every change has a decision/);
+  const restoredPaper = await page.evaluate(id => window.barkdown.barkpark.get(id), orchardId);
+  assert.doesNotMatch(restoredPaper.markdown || '', /later human sentence/, 'the later sentence is gone from Paper');
+  assert.match(restoredPaper.markdown || '', /\[\[Soil moisture protocol\]\]/, 'the staged text is back on Paper');
+  await shot('05e-restored-staged-text');
   // The changed Paper opens from the reconciliation line.
   await page.locator(`#bp-switch-changed [data-changed="${orchardId}"]`).click();
-  await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror', { hasText: 'A later human sentence on Paper.' }).waitFor({ timeout: 60000 });
+  // The canvas shows the link's text; the markdown projection showed the linked Paper's title.
+  const opened = page.locator('.bw-paper-pane:not([hidden]) .ProseMirror', { hasText: 'soil measurements' }); await opened.waitFor({ timeout: 60000 });
+  assert.doesNotMatch(await opened.textContent(), /later human sentence/, 'the restored Paper no longer carries the later sentence');
   await shot('05c-changed-paper-opened');
   const created = await page.evaluate(() => window.barkdown.docs.create({ title: 'After rollback', markdown: 'Legacy writes return after the rollback.' }));
   assert.ok(created.id);

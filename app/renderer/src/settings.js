@@ -195,7 +195,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
       if (!value) { switchStatus.textContent = 'Needs an owned profile and its local runtime'; switchBtn.disabled = true; rollbackBtn.hidden = retainedBtn.hidden = true; return; }
       const st = value?.selection?.status || 'none';
       const changed = value?.selection?.divergence?.details;
-      const diverged = Array.isArray(changed) && changed.length ? ` · ${changed.length} Paper${changed.length === 1 ? '' : 's'} changed after the switch (${changed.slice(0, 3).map(c => c.title || c.id).join(', ')}${changed.length > 3 ? ', …' : ''}); reconcile before switching again`
+      const diverged = Array.isArray(changed) && changed.length ? ` · ${changed.length} Paper${changed.length === 1 ? '' : 's'} changed after the switch (${changed.slice(0, 3).map(c => c.title || c.id).join(', ')}${changed.length > 3 ? ', …' : ''})${value?.selection?.divergence?.reconciled ? '; every change has a decision' : '; reconcile before switching again'}`
         : value?.selection?.reconciliationRequired ? ' · Paper changed after the switch; reconcile before switching again' : '';
       switchStatus.textContent = (label[st] || st) + diverged
         + (value?.selection?.retainedPaperWorkspace ? ' · chats, tabs and page changes from the Paper period are retained, not restored' : '') + (st === 'none' && !s.barkpark.local?.enabled ? ' · needs the local runtime' : '');
@@ -210,6 +210,18 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
         const cmp = el(`<button type="button" class="bw-btn" data-compare="${esc(c.id)}">${iconHtml('columns-2', 13)}Compare</button>`);
         cmp.onclick = async () => { cmp.disabled = true; try { showComparison(await api.migration.changed(c.id)); } catch (error) { toast(error.message, 'error'); } finally { cmp.disabled = false; } };
         changedBox.append(b, cmp);
+        // The decision for this Paper: keep what is on Paper, or restore the text the switch staged.
+        if (c.reconciled) changedBox.append(el(`<span class="bw-status" data-reconciled="${esc(c.id)}">${esc(c.reconciled.action === 'restore' ? 'staged text restored' + (c.reconciled.rev != null ? ' · rev ' + c.reconciled.rev : '') : 'kept as on Paper')}</span>`));
+        else {
+          const decide = async action => {
+            try { showSwitch(await api.migration.reconcile(c.id, action)); toast(action === 'restore' ? 'Staged text restored on Paper.' : 'Kept as on Paper.'); } catch (error) { toast(error.message, 'error'); }
+          };
+          const keep = el(`<button type="button" class="bw-btn" data-keep="${esc(c.id)}">Keep on Paper</button>`); keep.onclick = () => decide('keep');
+          // Restore replaces the Paper's blocks as a new revision: it asks twice, in place (a sheet would replace this one).
+          const restore = el(`<button type="button" class="bw-btn" data-restore="${esc(c.id)}" title="Replace the Paper's current blocks with the text the switch staged, as a new revision. Later edits stay in the Paper's history; the legacy notes are untouched.">Restore staged text</button>`);
+          restore.onclick = () => { if (restore.dataset.armed) { restore.disabled = true; decide('restore'); } else { restore.dataset.armed = '1'; restore.textContent = 'Confirm: replace the Paper with the staged text'; restore.classList.add('danger'); } };
+          changedBox.append(keep, restore);
+        }
       }
       switchBtn.disabled = st === 'blocked' || st === 'rolling-back' || (st === 'none' && !s.barkpark.local?.enabled);
       switchBtn.hidden = st === 'selected' || st === 'rolled-back';

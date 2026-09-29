@@ -330,7 +330,8 @@ function registerIpc() {
     handle('migration:switch', migrationAction('switch', id => migration.switchToPaper(id), 'selected'));
     handle('migration:rollback', migrationAction('rollback', id => migration.rollback(id), 'rolled-back'));
     handle('migration:changed', id => migration.changedPaper(profileService.view().profileId, id));
-  } else { handle('preparation:status', () => ({ record: null, readOnly: false })); handle('migration:status', () => null); handle('migration:changed', () => null); }
+    handle('migration:reconcile', async ({ id, action }) => { const profileId = profileService.view().profileId; try { await migration.reconcilePaper(profileId, id, action); } catch (error) { console.error(`[switch] reconcile ${action} ${id} failed: ${error.code || ''} ${error.message}`); throw error; } return migration.status(profileId); });
+  } else { handle('preparation:status', () => ({ record: null, readOnly: false })); handle('migration:status', () => null); handle('migration:changed', () => null); handle('migration:reconcile', () => null); }
   const originalHistory = () => {
     if (!profileService) throw new Error('Original history requires an owned profile.');
     const profileId = profileService.view().profileId;

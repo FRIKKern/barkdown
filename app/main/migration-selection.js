@@ -37,6 +37,23 @@ function createMigrationSelection({ preparation, comparison, admission = createU
     checkpoint('after-' + next.phase, structuredClone(next));
     return next;
   }
+  // A recorded divergence carries what the person decided per Paper (keep or restore); the
+  // reconciliation demand stands until every changed Paper has a decision.
+  function divergenceView(j) {
+    if (!j.divergence) return null;
+    const reconciled = j.reconciled || {};
+    const details = Array.isArray(j.divergence.details) ? j.divergence.details.map(d => ({ ...d, reconciled: reconciled[d.id] || null })) : undefined;
+    return { ...j.divergence, ...(details ? { details } : {}), reconciled: details ? details.every(d => d.reconciled) : Object.keys(reconciled).length > 0 };
+  }
+  function reconcile(profileId, sourceDir, id, entry) {
+    const store = createStore(sourceDir, { create: false }), j = journal(store);
+    if (!j || j.profileId !== profileId) fail('selection_owner', 'No selection journal for this profile');
+    if (j.phase !== 'rolled-back' || !j.divergence) fail('selection_state', 'Only a rolled-back selection with a recorded divergence can be reconciled');
+    if (!Array.isArray(j.divergence.details) || !j.divergence.details.some(d => d.id === id)) fail('selection_unknown', 'This Paper is not part of the recorded divergence');
+    if (!['keep', 'restore'].includes(entry?.action) || typeof entry.at !== 'string') fail('selection_entry', 'A reconciliation names its action and time');
+    transition(store, j, { ...j, reconciled: { ...(j.reconciled || {}), [id]: entry } });
+    return inspect(profileId, sourceDir);
+  }
   function inspect(profileId, sourceDir) {
     const store = createStore(sourceDir, { create: false });
     try {
@@ -51,7 +68,7 @@ function createMigrationSelection({ preparation, comparison, admission = createU
         case 'replacing': return { status: 'replacing', authority: 'legacy', operationId: j.operationId, actions: digest === j.workspaceBefore || digest === j.workspaceAfter ? ['resume', 'rollback'] : [], changed: digest !== j.workspaceBefore && digest !== j.workspaceAfter };
         case 'selected': return { status: 'selected', authority: 'paper', operationId: j.operationId, seal: j.seal, reopenedGeneration: j.reopenedGeneration ?? null, actions: ['rollback'], changed: digest !== j.workspaceAfter };
         case 'rolling-back': return { status: 'rolling-back', authority: 'legacy', operationId: j.operationId, actions: digest === j.workspaceAfter || digest === j.workspaceBefore ? ['rollback'] : [], changed: false };
-        default: return { status: 'rolled-back', authority: 'legacy', operationId: j.operationId, actions: [], changed: digest !== j.workspaceBefore, divergence: j.divergence ?? null, retainedPaperWorkspace: j.workspaceRetained ?? null, reconciliationRequired: Boolean(j.divergence) };
+        default: return { status: 'rolled-back', authority: 'legacy', operationId: j.operationId, actions: [], changed: digest !== j.workspaceBefore, divergence: divergenceView(j), retainedPaperWorkspace: j.workspaceRetained ?? null, reconciliationRequired: Boolean(j.divergence) };
       }
     } catch (error) { return { status: 'blocked', authority: 'legacy', error: error.message, code: error.code, actions: [] }; }
   }
@@ -160,7 +177,7 @@ function createMigrationSelection({ preparation, comparison, admission = createU
       return transition(store, j, { ...j, phase: 'rolled-back', divergence, rolledBackAt: now() });
     }, settings);
   }
-  return Object.freeze({ select, rollback, inspect });
+  return Object.freeze({ select, rollback, reconcile, inspect });
 }
 // The boot-side question, answered from the journal alone: which engine owns this
 // profile's notes, and whether a switch is mid-flight. Read by the legacy document

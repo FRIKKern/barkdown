@@ -106,7 +106,13 @@ test('rollback after Paper edits records the divergence and never converts back'
   const back = await f.selection().rollback(f.options, f.target);
   assert.equal(back.status, 'rolled-back'); assert.equal(back.reconciliationRequired, true);
   assert.equal(back.divergence.code, 'comparison_changed'); assert.match(back.divergence.message, /p-note/);
-  assert.deepEqual(back.divergence.details, [{ id: 'p-note', title: 'Note', kind: 'pre-existing', what: 'content' }], 'the divergence names every changed Paper');
+  assert.deepEqual(back.divergence.details, [{ id: 'p-note', title: 'Note', kind: 'pre-existing', what: 'content', reconciled: null }], 'the divergence names every changed Paper');
+  assert.equal(back.divergence.reconciled, false);
+  assert.throws(() => f.selection().reconcile(f.profileId, f.sourceDir, 'other', { action: 'keep', at: 't' }), { code: 'selection_unknown' });
+  assert.throws(() => f.selection().reconcile(f.profileId, f.sourceDir, 'p-note', { action: 'merge', at: 't' }), { code: 'selection_entry' });
+  const decided = f.selection().reconcile(f.profileId, f.sourceDir, 'p-note', { action: 'keep', at: '2026-09-29T00:00:00.000Z' });
+  assert.equal(decided.divergence.reconciled, true); assert.deepEqual(decided.divergence.details[0].reconciled, { action: 'keep', at: '2026-09-29T00:00:00.000Z' });
+  assert.equal(decided.divergence.message, back.divergence.message, 'the divergence itself stays on record');
   assert.equal(f.workspace(), f.legacyText, 'the legacy navigation is restored');
   assert.equal(f.state.phase, 'open');
   const g = fixture();
