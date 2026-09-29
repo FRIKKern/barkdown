@@ -120,3 +120,7 @@ Import accepted only the exact Barkpark version of the export, so every move of 
 ### 2026-09-30 — the database dies while a note is open (C085, A3)
 
 The runtime supervisor already restarted a runtime whose database stopped answering; in profile mode the window was never told, because only the pool saw the status. `profile-runtime.js` now reports status changes and the window of the owning profile hears them. A save the library did not answer keeps the words at once as a retained draft and is sent again, under the same revision, when the library reports ready; if the earlier attempt did land, that is the ordinary conflict. Before, words typed during an outage and left unsaved at quit were lost. `paper-unsaved.json` remembers, per note, which retained draft holds undelivered words until a later save succeeds; a note reopened in that state says so and opens the retained drafts.
+
+### 2026-09-30 — quit while a note has unsaved words (C085, A3)
+
+Before the runtime stops at quit, main asks the window to settle its open notes (`app:settle`): each note sends what is still pending and waits briefly; what does not arrive is kept as a retained draft and marked for the note. A window that does not answer within nine seconds is not waited for. A note reopened with undelivered words can put them back itself: one revision-checked write replaces the note's text below the title with the kept words, and the replaced text stays in the note's history.

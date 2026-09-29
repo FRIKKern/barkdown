@@ -131,10 +131,23 @@ try {
     await page.getByRole('dialog').locator('option', { hasText: 'Tide table' }).first().waitFor({ state: 'attached', timeout: 30000 });
     await shot('05-retained-drafts-opened-from-the-note');
     await page.keyboard.press('Escape');
+    // The words are put back from the note itself: one revision-checked write, the replaced text in history.
+    const restore = told.locator('[data-act="restore"]');
+    await restore.click();
+    assert.match(await restore.textContent(), /^Confirm: replace this note/);
+    await restore.click();
+    await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror', { hasText: 'Typed during the second outage and left unsaved.' }).waitFor({ timeout: 60000 });
+    await page.waitForFunction(() => !document.querySelector('.bw-paper-pane:not([hidden]) [data-unsaved-words]'));
+    const back = await read();
+    for (const words of ['Acknowledged before the database died.', 'Typed while the database was gone.', 'Typed during the second outage and left unsaved.']) assert.equal(back.markdown.split(words).length, 2, `"${words}" is in the note exactly once`);
+    assert.equal(back.title, 'Tide table'); assert.ok(back.rev > left.rev);
+    assert.equal(await page.evaluate(({ id, paperOwner, rev }) => window.barkdown.paperDrafts.unsaved({ id, paperOwner, rev }), { id: note.id, paperOwner: note.paperOwner, rev: back.rev }), null);
+    await shot('06-words-put-back');
+    report.checks.push({ name: 'The kept words are put back from the note: one revision-checked write, every sentence once, the title kept, the mark cleared', fromRev: left.rev, rev: back.rev }); persist();
   }
   report.checks.push({ name: 'Words left unsaved at quit while the library was away are not lost: they are a retained draft, and the reopened note says so and opens the retained drafts', where: /Typed during the second outage/.test(left.markdown) ? 'on the Paper' : 'in a retained draft' }); persist();
   const again = await read(), afterSecond = again;
-  assert.ok(again.markdown.startsWith(after.markdown.trimEnd().slice(0, 40)));
+  assert.match(again.markdown, /Typed during the second outage and left unsaved\./, 'the words are there after another restart');
   assert.ok((await page.evaluate(() => window.barkdown.barkpark.createNote(crypto.randomUUID()))).id, 'writing works');
   await quit();
   await new Promise(resolve => setTimeout(resolve, 1500));

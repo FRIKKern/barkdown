@@ -460,7 +460,28 @@ export function mountPaper(tab, host, ctx) {
     api.paperDrafts.unsaved?.({ id, paperOwner: tab.paperOwner || null, rev: fetched.rev }).then(entry => {
       if (!entry || !current() || q('#conflict').children.length) return;
       unsavedMarked = true;
-      const node = el(`<div class="bw-conflict" data-unsaved-words><strong>Words were not saved:</strong> the last time this note was open, a save did not reach the library. What you had written is kept as a retained draft from ${esc(new Date(entry.at).toLocaleString())}. <button data-act="drafts">View retained drafts</button><button data-act="dismiss">Dismiss</button></div>`);
+      const node = el(`<div class="bw-conflict" data-unsaved-words><strong>Words were not saved:</strong> the last time this note was open, a save did not reach the library. What you had written is kept as a retained draft from ${esc(new Date(entry.at).toLocaleString())}. <button data-act="restore">Put the words back</button><button data-act="drafts">View retained drafts</button><button data-act="dismiss">Dismiss</button></div>`);
+      // Putting the words back is one revision-checked write: the note's present text goes to its history.
+      node.querySelector('[data-act="restore"]').onclick = async event => {
+        const button = event.currentTarget;
+        if (!button.dataset.armed) { button.dataset.armed = '1'; button.textContent = 'Confirm: replace this note’s text with the kept words'; return; }
+        button.disabled = true;
+        try {
+          if (!current() || hasUnsavedWork()) throw new Error('Finish saving your edit first.');
+          if (!writesOn()) throw new Error(writeUnavailable());
+          const record = await api.paperDrafts.read(entry.key), snapshot = record.content.draft.snapshot;
+          if (!Array.isArray(snapshot?.blocks) || snapshot.mode === 'markdown') throw new Error('These words were kept as source text. Copy them from the retained drafts.');
+          const title = block => block?.role === 'title', stamp = Date.now().toString(36);
+          const ops = [...(paper.blocks || []).filter(b => b?.id && !title(b)).map(b => ({ op: 'remove-block', id: b.id })),
+            ...snapshot.blocks.filter(b => !title(b)).map((b, i) => ({ op: 'append-block', block: { ...b, id: `kept-${stamp}-${i}` } }))];
+          if (!ops.length) throw new Error('The retained draft holds no words.');
+          await api.barkpark.applyOps(id, ops, rev, paper.binding);
+          await api.paperDrafts.clearUnsaved({ id, paperOwner: tab.paperOwner || null });
+          unsavedMarked = false; node.remove();
+          toast('The kept words are back in the note. The text they replaced is in its history.');
+          await load();
+        } catch (error) { button.disabled = false; delete button.dataset.armed; button.textContent = 'Put the words back'; toast(errorMessage(error), 'error'); }
+      };
       node.querySelector('[data-act="drafts"]').onclick = () => ctx.openRetainedDrafts?.();
       node.querySelector('[data-act="dismiss"]').onclick = () => { node.remove(); unsavedMarked = false; api.paperDrafts.clearUnsaved?.({ id, paperOwner: tab.paperOwner || null }).catch(() => {}); };
       q('#conflict').appendChild(node);
@@ -630,6 +651,17 @@ export function mountPaper(tab, host, ctx) {
     savePosition() { if (positionReady && !destroyed) tab.scroll = scroller.scrollTop; },
     focus() { canvas?.querySelector('.ProseMirror')?.focus(); },
     isDirty: hasUnsavedWork,
+    // Before the app quits: send what is still pending, wait briefly, and keep as a retained draft what did not arrive.
+    async settle({ timeoutMs = 6000 } = {}) {
+      if (destroyed || !canvas || !paper) return { saved: true };
+      try { if (canvas.hasPendingChanges?.() && !pendingRetry && writesOn()) canvas.flushPendingChanges(); } catch {}
+      const started = Date.now();
+      while ((saving || canvas.hasPendingChanges?.() && !pendingRetry) && Date.now() - started < timeoutMs) await new Promise(resolve => setTimeout(resolve, 50));
+      if (!hasUnsavedWork()) return { saved: true };
+      if (unsavedMarked && pendingRetry && !canvas.hasPendingChanges?.()) return { saved: false, kept: true };
+      try { const receipt = await retainRecovery(); await api.paperDrafts.markUnsaved({ id: slug(), paperOwner: tab.paperOwner || null, key: receipt.key, rev }); unsavedMarked = true; return { saved: false, kept: true }; }
+      catch (error) { return { saved: false, kept: false, error: String(error?.message || error) }; }
+    },
     flush: () => canvas?.flushPendingChanges?.(),
     markdown: () => blocksToMarkdown(canvas?.blocks || paper?.blocks || []),
     destroy() { offLocal(); destroyed = true; cancelPositionRestore(); for (const event of positionEvents) scroller.removeEventListener(event, takePosition); presence.destroy(); try { canvas?.flushPendingChanges?.(); } catch {} pane.remove(); },

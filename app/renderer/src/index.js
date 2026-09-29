@@ -803,6 +803,13 @@ function wire() {
   });
   api.onMenu(command => { if (root.inert || document.querySelector('.bw-retained-drafts[open]')) return; if (command === 'new-chat') createChat(); if (command === 'new-document') createDocument(); if (command === 'palette') openPalette(); if (command === 'settings') openSettings(applySettings); if (command === 'close-tab') { const chat = workspaceChat(); if (chat?.active) { closeTab(chat, chat.active); render(); } } });
   window.addEventListener('beforeunload', () => { savePositions(); save.flush(); });
+  // Quit: open notes send what is pending or keep it as a retained draft before the library stops (main: settleWindow).
+  api.app.onSettle?.(async id => {
+    let results = [];
+    try { results = await Promise.all([...controllers.values()].map(c => typeof c.settle === 'function' ? c.settle().catch(error => ({ saved: false, kept: false, error: String(error?.message || error) })) : null)); } catch {}
+    try { savePositions(); save.flush(); } catch {}
+    api.app.settled(id, results.filter(Boolean)).catch(() => {});
+  });
   wireSplitter();
 }
 
