@@ -55,6 +55,8 @@ try {
   console.log('PASS restart while held stays blocked: writes refused, old capability unknown, a new hold refused (explicit recovery required).');
   const view = await admission.instance(connection);
   assert.equal(view.phase, 'recovery_required'); assert.equal(view.pending, 0); assert.equal(view.held, null);
+  // Slice 7 (upstream 74e38574b): the instance view counts admitted writers, live and dead; none after a restart.
+  assert.equal(view.writers, 0); assert.equal(view.deadWriters, 0);
   await assert.rejects(admission.recover(connection, { generation: view.generation + 1, pending: 0 }), { code: 'upstream_admission_closed' });
   const recovered = await admission.recover(connection, { generation: view.generation, pending: view.pending });
   assert.equal(recovered.phase, 'open'); assert.equal(recovered.generation, view.generation + 1);
