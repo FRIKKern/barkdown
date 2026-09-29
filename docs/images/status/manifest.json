@@ -46,6 +46,11 @@
       "commit": "4055e0ee",
       "date": "2026-09-29",
       "reason": "main/profile-service.js and main/goal-process.js: ordinary turns as owned workers on every host, recovery traces. No renderer change (C083)."
+    },
+    {
+      "commit": "c80038e7",
+      "date": "2026-09-29",
+      "reason": "main/terminal.js: the shell runs in the owned worker on every host. No renderer change (C083)."
     }
   ]
 }
