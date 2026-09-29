@@ -72,6 +72,25 @@ try {
   const fresh = createDocuments(createStore(sourceDir, { create: false }));
   assert.ok(fresh.create({ title: 'After rollback', markdown: 'x' }).id);
   report.checks.push({ name: 'rollback restores the legacy workspace; writes return once the preparation reopens', passed: true }); persist();
+  // Interruption inside the coordinator: a crash right after the workspace is replaced,
+  // before the journal says selected. The notice's Resume runs the same switch again.
+  const second = registry.createProfile({ name: 'Interrupted switch' }), sourceDir2 = registry.storeFor(second.id).storeDir;
+  require('../main/paper-evidence-owner').createPaperEvidenceOwner(createStore(sourceDir2, { create: false })).identify({ server, token, dataset: 'production', viaCli: false }, { create: true });
+  const docs2 = createDocuments(createStore(sourceDir2, { create: false }));
+  const note = docs2.create({ title: 'Lone note', markdown: 'A single note that survives an interrupted switch.' });
+  fs.writeFileSync(path.join(sourceDir2, 'workspace.json'), JSON.stringify({ version: 1, profileId: second.id, chats: {}, order: [], current: null, pages: { layoutVersion: 2, seeded: true, roots: [note.id], children: {}, expanded: {} }, favorites: [] }));
+  await preparation.prepare(second.id);
+  let armed = true;
+  const interrupted = createMigrationSwitch({ registry, preparation, runtimePool, userData, checkpoint: phase => { if (armed && phase === 'after-workspace-replaced') { armed = false; throw Object.assign(new Error('simulated crash after replacement'), { code: 'crash' }); } } });
+  await assert.rejects(interrupted.switchToPaper(second.id), { code: 'crash' });
+  const mid = interrupted.status(second.id);
+  assert.equal(mid.selection.status, 'replacing'); assert.ok(mid.selection.actions.includes('resume'));
+  assert.equal(leases.at(-1)[0], 'released', 'the runtime lease is released after the crash');
+  const resumed = await interrupted.switchToPaper(second.id);
+  assert.equal(resumed.selection.status, 'selected'); assert.equal(resumed.selection.operationId, mid.selection.operationId);
+  assert.equal(JSON.parse(fs.readFileSync(path.join(sourceDir2, 'workspace.json'), 'utf8')).pages.roots.length, 1);
+  report.checks.push({ name: 'a crash after replacement leaves replacing; resume completes the same operation without a second comparison', passed: true }); persist();
+  await preparation.abort(second.id);
   report.status = 'passed'; persist(); console.log(JSON.stringify(report, null, 2));
 } catch (error) { report.status = 'failed'; report.error = String(error?.stack || error); persist(); throw error; }
 finally { goals.close(); }
