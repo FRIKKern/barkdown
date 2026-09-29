@@ -169,18 +169,26 @@ function createMigrationComparison({ preparation }) {
       if (journal.some(item => !item.existingIntent || !item.existingReceipt) || !read(store, 'staging/complete.json')) fail('comparison_journal', 'Every staged document needs its completed receipt');
       const rows = await corpus(), byId = new Map(rows.map(row => [row._id, row]));
       const expectedIds = new Set();
+      // Every Paper is checked before the verdict, so a divergence names all of them at once:
+      // the reconciliation after a rollback reads this list instead of the first mismatch.
+      const changed = [];
+      const differs = (a, b) => canonical(a) !== canonical(b);
       for (const row of baseline.rows) {
         if (!row || typeof row._id !== 'string' || expectedIds.has(row._id)) fail('comparison_baseline', 'Invalid or duplicate baseline identity');
-        expectedIds.add(row._id); same(byId.get(row._id), row, 'A pre-existing Paper changed or disappeared: ' + row._id);
+        expectedIds.add(row._id);
+        const saved = byId.get(row._id);
+        if (!saved) changed.push({ id: row._id, title: row.title ?? null, kind: 'pre-existing', what: 'missing' });
+        else if (differs(saved, row)) changed.push({ id: row._id, title: saved.title ?? row.title ?? null, kind: 'pre-existing', what: 'content' });
       }
       for (const { doc, existingReceipt } of journal) {
         if (expectedIds.has(doc.targetId)) fail('comparison_baseline', 'Baseline overlaps a staged target');
         expectedIds.add(doc.targetId);
         const saved = byId.get(doc.targetId), expected = { ...doc.payload }; delete expected.slug;
         if (!saved) fail('comparison_target', 'A staged Paper disappeared: ' + doc.id);
-        same(Object.fromEntries(Object.keys(expected).map(k => [k, saved[k]])), expected, 'Staged content differs: ' + doc.id);
-        same([saved._rev, saved.rev], [existingReceipt.revision, existingReceipt.paperRevision], 'Staged revisions differ: ' + doc.id);
+        if (differs(Object.fromEntries(Object.keys(expected).map(k => [k, saved[k]])), expected)) changed.push({ id: doc.targetId, title: saved.title ?? expected.title ?? null, kind: 'staged', what: 'content' });
+        else if (differs([saved._rev, saved.rev], [existingReceipt.revision, existingReceipt.paperRevision])) changed.push({ id: doc.targetId, title: saved.title ?? null, kind: 'staged', what: 'revision' });
       }
+      if (changed.length) throw Object.assign(new Error(`${changed.length} ${[...new Set(changed.map(c => c.kind))].join(' and ')} Paper${changed.length === 1 ? '' : 's'} changed or disappeared after the baseline: ${changed.slice(0, 5).map(c => c.id).join(', ')}${changed.length > 5 ? ', …' : ''}`), { code: 'comparison_changed', details: changed });
       if (rows.length !== expectedIds.size || rows.some(row => !expectedIds.has(row._id))) fail('comparison_target', 'Unexpected Paper or draft twin in the library');
       const assets = await mediaFor(rows);
       for (const asset of baseline.media) same(assets.find(a => a.path === asset.path), asset, 'Pre-existing media changed');

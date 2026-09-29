@@ -89,6 +89,7 @@ try {
   assert.equal(back.status, 'rolled-back');
   assert.equal(back.reconciliationRequired, true, 'the Paper edit after the switch is recorded as divergence');
   assert.match(String(back.divergence?.code), /^comparison_/);
+  assert.ok(Array.isArray(back.divergence?.details) && back.divergence.details.length >= 1 && back.divergence.details.every(d => typeof d.id === 'string' && ['content', 'revision', 'missing'].includes(d.what)), 'the divergence names the changed Papers');
   assert.ok(fs.readFileSync(workspaceFile).equals(legacyBytes), 'rollback restores the retained bytes exactly');
   assert.equal((await admission.instance(connection)).phase, 'open');
   const rows = await request('GET', '/v1/data/query/production/paper?limit=1000&offset=0&count=true&perspective=published');

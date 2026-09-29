@@ -155,7 +155,7 @@ function createMigrationSelection({ preparation, comparison, admission = createU
       // reconciliation, never converted back.
       let divergence = null;
       try { if (typeof comparison.compareWithin === 'function') await comparison.compareWithin(scope, options, target); else await comparison.compare(options, target); }
-      catch (error) { if (!String(error?.code || '').startsWith('comparison_')) throw error; divergence = { code: error.code, message: error.message, at: now() }; }
+      catch (error) { if (!String(error?.code || '').startsWith('comparison_')) throw error; divergence = { code: error.code, message: error.message, at: now(), ...(Array.isArray(error.details) ? { details: error.details.slice(0, 200) } : {}) }; }
       await scope.assertCurrent();
       return transition(store, j, { ...j, phase: 'rolled-back', divergence, rolledBackAt: now() });
     }, settings);

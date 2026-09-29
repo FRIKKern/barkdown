@@ -102,10 +102,11 @@ test('an interrupted selection resumes with the same operation, or rolls back fr
 test('rollback after Paper edits records the divergence and never converts back', async () => {
   const f = fixture();
   await f.selection().select(f.options, f.target);
-  f.comparison.compare = async () => { throw Object.assign(new Error('A pre-existing Paper changed or disappeared: p-note'), { code: 'comparison_changed' }); };
+  f.comparison.compare = async () => { throw Object.assign(new Error('1 Paper changed after the baseline: p-note'), { code: 'comparison_changed', details: [{ id: 'p-note', title: 'Note', kind: 'pre-existing', what: 'content' }] }); };
   const back = await f.selection().rollback(f.options, f.target);
   assert.equal(back.status, 'rolled-back'); assert.equal(back.reconciliationRequired, true);
   assert.equal(back.divergence.code, 'comparison_changed'); assert.match(back.divergence.message, /p-note/);
+  assert.deepEqual(back.divergence.details, [{ id: 'p-note', title: 'Note', kind: 'pre-existing', what: 'content' }], 'the divergence names every changed Paper');
   assert.equal(f.workspace(), f.legacyText, 'the legacy navigation is restored');
   assert.equal(f.state.phase, 'open');
   const g = fixture();

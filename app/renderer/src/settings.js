@@ -194,7 +194,10 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
     const showSwitch = value => {
       if (!value) { switchStatus.textContent = 'Needs an owned profile and its local runtime'; switchBtn.disabled = true; rollbackBtn.hidden = retainedBtn.hidden = true; return; }
       const st = value?.selection?.status || 'none';
-      switchStatus.textContent = (label[st] || st) + (value?.selection?.reconciliationRequired ? ' · Paper changed after the switch; reconcile before switching again' : '')
+      const changed = value?.selection?.divergence?.details;
+      const diverged = Array.isArray(changed) && changed.length ? ` · ${changed.length} Paper${changed.length === 1 ? '' : 's'} changed after the switch (${changed.slice(0, 3).map(c => c.title || c.id).join(', ')}${changed.length > 3 ? ', …' : ''}); reconcile before switching again`
+        : value?.selection?.reconciliationRequired ? ' · Paper changed after the switch; reconcile before switching again' : '';
+      switchStatus.textContent = (label[st] || st) + diverged
         + (value?.selection?.retainedPaperWorkspace ? ' · chats, tabs and page changes from the Paper period are retained, not restored' : '') + (st === 'none' && !s.barkpark.local?.enabled ? ' · needs the local runtime' : '');
       // Retained copies (the legacy navigation, the Paper-era one, a recorded divergence) are files the person can open.
       retainedBtn.hidden = !(value?.retainedDir && (st === 'rolled-back' || value?.selection?.reconciliationRequired));
