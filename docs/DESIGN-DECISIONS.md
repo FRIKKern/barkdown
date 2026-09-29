@@ -128,6 +128,10 @@ Agent decision under the user's standing mandate; the user may reverse it. After
 
 Agent decision under the user's standing mandate ("we still have 6 days until Windows is back"); the user may reverse it. P2's remaining exits are a real library and the Windows return checkpoint, both bound to a machine that returns about 2026-10-05. Rather than idle, [C085](cycles/C085-portable-profile.md) starts the portable profile of P3 on macOS, building on the hold that C083 delivered. P2 stays active in the plan and is not claimed complete; nothing in C085 retires legacy or changes a default.
 
+## D-save-again — A save the library did not answer (2026-09-30)
+
+Agent decision; the user may reverse it. It supersedes the rule that a failed save is only ever repeated by the person. When the library does not answer, the note keeps the words as a retained draft at once and sends the save again when the library reports ready. The save carries the revision it was written against: if the unanswered attempt did land, the revision has moved and the person gets the ordinary conflict, never the words twice. A save the library refused for a reason (a conflict, a changed connection, read-only) still waits for the person.
+
 ## D-portable-version — Which exports a Barkdown imports (2026-09-29)
 
 Agent decision; the user may reverse it. An export names the Barkpark commit it was taken at. A Barkdown imports an export of its own version or of an earlier one that its runtime's checkout descends from; the first boot of the imported runtime brings the database forward the way any update does. An export of a later or unrelated version is refused: a runtime cannot read ahead. Where the checkout carries no history, only the same version is accepted.

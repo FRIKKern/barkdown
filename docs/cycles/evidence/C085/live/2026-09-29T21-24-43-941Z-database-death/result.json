@@ -1,0 +1,62 @@
+{
+  "source": "3681cc29ab0d9233c801e0accac1d35490d92d68",
+  "upstream": "9f1874235449f9763c1b3e8cfcaf1b5a36aee9b3",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "The database is stopped at once under an open note: the supervisor notices, restarts the runtime with its database, and reports ready again by itself",
+      "phases": [
+        "ready",
+        "recovering",
+        "ready"
+      ],
+      "readyAgainMs": 19565
+    },
+    {
+      "name": "The words typed while the database was gone stayed in the editor and were saved after it came back; the acknowledged words are intact",
+      "savedBy": "itself, when the library was back",
+      "stateAfter": "Saved · rev 3"
+    },
+    {
+      "name": "Words left unsaved at quit while the library was away are not lost: they are a retained draft, and the reopened note says so and opens the retained drafts",
+      "where": "in a retained draft"
+    },
+    {
+      "name": "After a restart the note reads the same, revision included, and writing works; a clean quit leaves nothing running"
+    }
+  ],
+  "screenshots": [
+    "01-after-the-database-came-back.png",
+    "02-words-typed-during-the-outage-saved.png",
+    "03-not-saved-words-kept.png",
+    "04-reopened-note-says-words-were-not-saved.png",
+    "05-retained-drafts-opened-from-the-note.png"
+  ],
+  "observed": [
+    {
+      "phases": [
+        "ready",
+        "recovering",
+        "ready"
+      ],
+      "saveStates": [
+        "Saved · rev N",
+        "Saving…",
+        "Not saved"
+      ],
+      "toasts": [],
+      "readyAgainMs": 19565
+    },
+    {
+      "afterQuitWithUnsavedWords": {
+        "onThePaper": false,
+        "retainedDrafts": 2,
+        "offeredOnScreen": "Could not save: The library did not answer. It restarts by itself and your words are sent again then. Your words are kept as a retained draft. RetryDiscard unsaved edits"
+      }
+    }
+  ],
+  "limits": [
+    "One machine, one run, one note. The database is stopped with pg_ctl in immediate mode on the profile's private directory, which ends it the way a crash does; a disk failure or a corrupted cluster is not produced."
+  ]
+}
