@@ -54,6 +54,8 @@ const two = createProfileRegistry(path.join(second, 'profile-data'));
 const home = two.createProfile({ name: 'Home desk' });
 createStore(two.storeFor(home.id).storeDir).writeJson('settings.json', newer ? { ...settings, barkpark: { ...settings.barkpark, local: { enabled: true, source: newer } } } : settings);
 two.selectProfile(home.id);
+// Appearance belongs to an installation, not to a profile: the second installation has chosen dark for itself.
+createStore(path.join(second, 'app-settings')).writeJson('appearance.json', { theme: 'dark' });
 
 let app, page;
 const shot = async name => { await page.screenshot({ path: path.join(out, name + '.png') }); report.screenshots.push(name + '.png'); persist(); };
@@ -166,6 +168,7 @@ try {
   assert.equal((await page.evaluate(id => window.barkdown.docs.get(id), soil.id)).retained, true, 'the retained original is readable');
   await page.evaluate(({ id, paperOwner }) => window.__barkdown.openTarget({ kind: 'doc', id, source: 'barkpark', paperOwner }), { id: pictured.id, paperOwner: view.owners[0] });
   await page.waitForFunction(() => { const img = document.querySelector('.bw-paper-pane:not([hidden]) figure[data-bp-type="image"] img'); return img && img.complete && img.naturalWidth === 1; }, null, { timeout: 60000 });
+  assert.equal(await page.evaluate(() => document.documentElement.dataset.theme), 'dark', 'the imported profile opens in the appearance of this installation');
   await shot('02-opened-on-the-other-installation');
   // Credentials belong to this installation: its own token, and the first installation's token is refused.
   const tokenTwo = await app.evaluate(() => process.env.BARKDOWN_BP_TOKEN);
