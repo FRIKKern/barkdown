@@ -9,7 +9,7 @@ import { spawn } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { _electron as electron } from 'playwright';
-import {  } from './helpers/keys.mjs';
+import { MOD } from './helpers/keys.mjs';
 const require=createRequire(import.meta.url),{PNG}=require('pngjs');
 const {stageMigration}=require('../main/migration-staging'),{inventoryProfile}=require('../main/migration-preflight');
 const server=process.env.BARKDOWN_SHOTS_SERVER,token=process.env.BARKPARK_API_TOKEN;
