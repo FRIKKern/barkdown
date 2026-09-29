@@ -39,6 +39,10 @@ function payloads(manifest, store, metadata, media = {}) {
     return { id: doc.id, targetId: doc.targetId, sourceHash: doc.sourceHash, payload: {
       slug: doc.targetId, title: source.title, style: 'article', description: labels.description,
       tags: structuredClone(labels.tags), blocks,
+      // The switch ingests a person's existing library: two of their own notes with alike titles
+      // are still two notes. The publish wall's near-duplicate gate is an authoring gate for new
+      // papers, so a migrated paper declares the deliberate, logged bypass (C083 assumption).
+      dedup_bypass: true,
       source_doc: `barkdown-migration:v1:${manifest.profileId}:${doc.id}:${doc.sourceHash}`,
     } };
   });
