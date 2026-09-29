@@ -6,6 +6,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const { createUpstreamAdmission } = require('./upstream-admission');
+const { createPaperEvidenceOwner } = require('./paper-evidence-owner');
+const { createStore } = require('./store');
 const fail = (code, message, cause) => { throw Object.assign(new Error(message), { code: 'export_' + code, cause }); };
 const sha = file => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 const KIND = 'barkdown-profile-export';
@@ -52,7 +54,7 @@ function sanitizedSettings(storeDir) {
   if (settings.barkpark) { delete settings.barkpark.tokenEncrypted; if (settings.barkpark.local) settings.barkpark.local = { enabled: Boolean(settings.barkpark.local.enabled) }; }
   return JSON.stringify(settings, null, 2) + '\n';
 }
-function createProfileExport({ registry, preparation, runtimePool, admission = createUpstreamAdmission(), upstreamRef = () => null, now = () => new Date().toISOString(), checkpoint = () => {} }) {
+function createProfileExport({ registry, preparation, runtimePool, admission = createUpstreamAdmission(), upstreamRef = () => null, now = () => new Date().toISOString(), checkpoint = () => {}, countPapers = defaultCount }) {
   if (!registry?.storeFor || typeof preparation?.withPrepared !== 'function' || typeof runtimePool?.acquire !== 'function') throw new TypeError('Registry, preparation and runtime pool are required');
   async function exportProfile(profileId, destinationDir, { timeoutMs = 60000 } = {}) {
     if (typeof destinationDir !== 'string' || !path.isAbsolute(destinationDir)) fail('destination', 'Choose an absolute folder for the export');
@@ -92,7 +94,10 @@ function createProfileExport({ registry, preparation, runtimePool, admission = c
           if (settings) { const file = path.join(destinationDir, 'profile', 'settings.json'); fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, settings, { flag: 'wx' }); store.push({ path: 'profile/settings.json', bytes: Buffer.byteLength(settings), sha256: sha(file), sanitized: true }); }
           checkpoint('after-store', { operation });
           await scope.assertCurrent();
-          manifest = { version: 1, kind: KIND, exportedAt: now(), profile: { id: profile.id, name: profile.name }, upstream: upstreamRef(),
+          // Navigation keys carry the owner of this library's connection; the import re-owns them.
+          let owner = null; try { owner = createPaperEvidenceOwner(createStore(storeDir, { create: false })).identify({ server: target.server, token: target.token, dataset: target.dataset, viaCli: false }); } catch {}
+          const papers = await countPapers(target);
+          manifest = { version: 1, kind: KIND, exportedAt: now(), profile: { id: profile.id, name: profile.name }, upstream: upstreamRef(), navigation: { owner }, counts: { papers },
             seal: { operation, generation: held.generation, boot: held.boot },
             database: { path: 'database.dump', format: 'pg_dump custom', serverVersion: database.serverVersion, bytes: fs.statSync(database.file).size, sha256: sha(database.file) },
             media, store: store.sort((a, b) => a.path.localeCompare(b.path)), excluded: EXCLUDED };
@@ -105,8 +110,10 @@ function createProfileExport({ registry, preparation, runtimePool, admission = c
       } finally { await lease.release(); }
     });
   }
-  // Re-read every exported file against the manifest. Says nothing about whether it imports.
-  function verifyExport(destinationDir) {
+  return Object.freeze({ exportProfile, verifyExport });
+}
+// Re-read every exported file against the manifest. Says nothing about whether it imports.
+function verifyExport(destinationDir) {
     let manifest; try { manifest = JSON.parse(fs.readFileSync(path.join(destinationDir, 'manifest.json'), 'utf8')); } catch (error) { fail('manifest', 'The export has no readable manifest', error); }
     if (manifest?.version !== 1 || manifest.kind !== KIND || !manifest.database?.path || !Array.isArray(manifest.media) || !Array.isArray(manifest.store)) fail('manifest', 'Unsupported export manifest');
     const listed = [manifest.database, ...manifest.media, ...manifest.store];
@@ -120,7 +127,11 @@ function createProfileExport({ registry, preparation, runtimePool, admission = c
     const extra = walk(destinationDir).filter(rel => !known.has(rel));
     if (extra.length) fail('extra', 'Files the manifest does not list: ' + extra.slice(0, 5).join(', '));
     return { manifest, files: listed.length };
-  }
-  return Object.freeze({ exportProfile, verifyExport });
 }
-module.exports = { createProfileExport, KIND };
+async function defaultCount(target) {
+  const response = await fetch(`${target.server}/v1/data/query/${encodeURIComponent(target.dataset)}/paper?limit=1&offset=0&count=true&perspective=published`, { headers: { authorization: 'Bearer ' + target.token }, signal: AbortSignal.timeout(20000) });
+  const data = await response.json(); const page = data?.result ?? data;
+  if (!response.ok || !Number.isSafeInteger(page?.total)) fail('count', 'The library could not be counted for the export');
+  return page.total;
+}
+module.exports = { createProfileExport, verifyExport, KIND };

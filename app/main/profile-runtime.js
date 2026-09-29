@@ -30,7 +30,7 @@ async function allocatePorts(used) {
 // A profile runtime is a managed instance (C083): it boots with write admission so the
 // library switch can hold it. The instance id is the profile id, which is a lowercase UUID.
 const managedDescriptor = descriptor => ({ ...descriptor, writeAdmission: { instanceId: 'profile-' + descriptor.profileId } });
-function createProfileRuntimePool({ registry, readSecrets, createRuntime = ({ descriptor, dataDir, secrets }) => new LocalBarkpark(new SourceDriver(managedDescriptor(descriptor), dataDir, secrets)), allocate = allocatePorts }) {
+function createProfileRuntimePool({ registry, readSecrets, createRuntime = ({ descriptor, dataDir, secrets }) => new LocalBarkpark(new SourceDriver(managedDescriptor(descriptor), dataDir, secrets)), createDriver = ({ descriptor, dataDir, secrets }) => new SourceDriver(managedDescriptor(descriptor), dataDir, secrets), allocate = allocatePorts }) {
   if (!registry?.storeFor || typeof readSecrets !== 'function') throw new Error('Runtime pool requires a registry and trusted credential reader');
   const entries = new Map();
   let foreground = null, closing = false, selection = Promise.resolve(), descriptors = Promise.resolve();
@@ -195,7 +195,23 @@ function createProfileRuntimePool({ registry, readSecrets, createRuntime = ({ de
   function status() {
     return [...entries.values()].map(entry => ({ profileId: entry.profileId, owners: [...entry.refs.values()], phase: entry.runtime?.status().phase || (entry.error ? 'failed' : 'starting'), error: entry.error?.message || null }));
   }
-  return Object.freeze({ acquire, select, selectWithoutRuntime, clearSelection, shutdown, status });
+  // Restore an export into a profile that has never run (P3). The profile gets its descriptor and
+  // credentials the ordinary way; its runtime is not started here.
+  async function restore(profileId, { source, dumpFile, mediaDir }) {
+    if (closing) throw new Error('Profile runtime pool is shutting down');
+    validateProfileId(profileId);
+    if (entries.has(profileId)) throw new Error('This profile already runs; an import needs a profile that has never started');
+    const prepared = descriptors.catch(() => {}).then(() => descriptorFor(profileId, source));
+    descriptors = prepared;
+    const { store, descriptor } = await prepared;
+    const secrets = await readSecrets(store);
+    if (!secrets || typeof secrets.password !== 'string' || !secrets.password || typeof secrets.token !== 'string' || !secrets.token) throw new Error('Cannot unlock this profile runtime credentials');
+    const dataDir = path.join(store.storeDir, 'local-barkpark', 'runtime');
+    const driver = createDriver({ descriptor, dataDir, secrets: Object.freeze({ password: secrets.password, token: secrets.token }) });
+    const counts = await driver.restore({ dumpFile, mediaDir });
+    return Object.freeze({ profileId, storeDir: store.storeDir, counts, connection: Object.freeze({ enabled: true, server: `http://127.0.0.1:${descriptor.port}`, token: secrets.token, dataset: 'production', viaCli: false }) });
+  }
+  return Object.freeze({ acquire, select, selectWithoutRuntime, clearSelection, shutdown, status, restore });
 }
 
 module.exports = { managedDescriptor, createProfileRuntimePool, validateDescriptor };

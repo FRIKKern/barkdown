@@ -29,14 +29,14 @@ function fixture({ dumpFails = false } = {}) {
     data: { mediaDir, dump: async file => { events.push('dump'); if (dumpFails) throw new Error('pg_dump failed'); fs.writeFileSync(file, 'dump-bytes'); return { file, serverVersion: '15.18' }; } }, release: async () => events.push('release') }; } };
   const preparation = { withPrepared: async (id, fn) => { events.push('prepared'); return fn({ sourceDir: storeDir, assertCurrent: async () => true }); } };
   const registry = { load: () => ({ profiles: [{ id: profileId, name: 'Writing desk' }] }), storeFor: () => ({ storeDir }) };
-  const exporter = createProfileExport({ registry, preparation, runtimePool, admission, upstreamRef: () => 'abc', now: () => '2026-09-29T00:00:00.000Z' });
+  const exporter = createProfileExport({ registry, preparation, runtimePool, admission, upstreamRef: () => 'abc', now: () => '2026-09-29T00:00:00.000Z', countPapers: async () => 3 });
   return { root, storeDir, profileId, events, exporter, out: path.join(root, 'export') };
 }
 test('export copies the dump, the media and the profile files while held, and leaves credentials behind', async () => {
   const f = fixture();
   const { manifest } = await f.exporter.exportProfile(f.profileId, f.out);
   assert.deepEqual(f.events, ['prepared', ['lease', 'profile-export', false], 'hold', 'dump', 'reopen', 'release']);
-  assert.equal(manifest.kind, 'barkdown-profile-export'); assert.deepEqual(manifest.profile, { id: 'p1', name: 'Writing desk' }); assert.equal(manifest.seal.generation, 3);
+  assert.equal(manifest.kind, 'barkdown-profile-export'); assert.deepEqual(manifest.counts, { papers: 3 }); assert.deepEqual(manifest.navigation, { owner: null }, 'a profile that never identified its library has no navigation owner'); assert.deepEqual(manifest.profile, { id: 'p1', name: 'Writing desk' }); assert.equal(manifest.seal.generation, 3);
   assert.deepEqual(manifest.media.map(m => m.path), ['media/files/a.png']);
   assert.deepEqual(manifest.store.map(s => s.path), ['profile/agent-edits/receipt.json', 'profile/documents/note.json', 'profile/settings.json', 'profile/workspace.json']);
   const settings = JSON.parse(fs.readFileSync(path.join(f.out, 'profile/settings.json'), 'utf8'));

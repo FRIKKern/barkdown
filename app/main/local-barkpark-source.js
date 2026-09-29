@@ -63,6 +63,33 @@ class SourceDriver {
     return { file, serverVersion: String(stdout).trim() };
   }
   get mediaDir() { return path.join(this.dataDir, 'media'); }
+  // Restore a logical export into this runtime's private cluster before its first boot (P3).
+  // Refuses a data directory that already holds a database: an import never merges into one.
+  // The exporter's token rows are removed; the first boot seeds this runtime's own token.
+  async restore({ dumpFile, mediaDir }, signal = AbortSignal.timeout(15 * 60 * 1000)) {
+    if (fs.existsSync(path.join(this.pgData, 'PG_VERSION')) || fs.existsSync(path.join(this.dataDir, 'seeded'))) throw new Error('This runtime already holds a database; an import needs a new one.');
+    if (!fs.existsSync(dumpFile)) throw new Error('The database export is missing.');
+    await this.acquire();
+    let started = false;
+    try {
+      await freePort(this.config.pgPort);
+      const passwordFile = path.join(this.dataDir, 'init-password');
+      fs.writeFileSync(passwordFile, this.secrets.password, { mode: 0o600 });
+      try { await this.run('initdb', ['-D', this.pgData, '-U', 'postgres', '--auth=scram-sha-256', '--pwfile=' + passwordFile, '-E', 'UTF8'], signal, 60000); }
+      finally { fs.unlinkSync(passwordFile); }
+      const log = path.join(this.dataDir, `postgres-restore-${Date.now()}.log`), at = ['-h', '127.0.0.1', '-p', String(this.config.pgPort), '-U', 'postgres'];
+      await this.run('pg_ctl', ['-D', this.pgData, '-l', log, '-o', `-h 127.0.0.1 -p ${this.config.pgPort}`, '-w', '-t', '20', 'start'], signal); started = true;
+      await this.run('createdb', [...at, 'barkdown'], signal, 60000);
+      await this.run('pg_restore', [...at, '-d', 'barkdown', '--no-owner', '--no-privileges', '--exit-on-error', dumpFile], signal, 10 * 60 * 1000);
+      await this.run('psql', [...at, '-d', 'barkdown', '-v', 'ON_ERROR_STOP=1', '-tAc', 'DELETE FROM api_tokens'], signal, 60000);
+      const { stdout } = await this.run('psql', [...at, '-d', 'barkdown', '-tAc', "SELECT count(*) FROM documents WHERE type = 'paper'"], signal, 60000);
+      if (mediaDir && fs.existsSync(mediaDir)) await fs.promises.cp(mediaDir, this.mediaDir, { recursive: true, errorOnExist: true, force: false });
+      return { papers: Number(String(stdout).trim()) };
+    } finally {
+      if (started) await this.run('pg_ctl', ['-D', this.pgData, '-m', 'fast', '-w', '-t', '20', 'stop']).catch(() => {});
+      this.ownership?.release(); this.ownership = null; this.lease = null;
+    }
+  }
   async acquire() {
     if (this.lease) return;
     for (const file of [this.mix, path.join(this.pgBin, 'initdb' + this.exe), path.join(this.pgBin, 'pg_ctl' + this.exe)]) if (!fs.existsSync(file)) throw new Error(`Missing local tool: ${file}. Install the Barkpark Windows toolchain first.`);
