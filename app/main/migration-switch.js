@@ -55,6 +55,13 @@ function createMigrationSwitch({ registry, preparation, runtimePool, userData, a
     const sourceDir = sourceDirOf(profileId), destinationDir = backupDirOf(profileId);
     return { profileId, sourceDir, destinationDir, quiesced: true, metadata: generatedLabels(sourceDir) };
   }
+  // The publish wall needs every tag to exist as a published `tag` document. Ensuring
+  // the one generated tag is a target-library write before the hold, never a legacy write.
+  async function ensureTag(target) {
+    const response = await fetch(target.server + '/v1/data/mutate/' + target.dataset, { method: 'POST', headers: { authorization: 'Bearer ' + target.token, 'content-type': 'application/json' },
+      body: JSON.stringify({ mutations: [{ createOrReplace: { _id: 'migrated', _type: 'tag', title: 'Migrated' } }, { publish: { id: 'migrated', type: 'tag' } }] }), signal: AbortSignal.timeout(20000) });
+    if (!response.ok) fail('switch_tag', 'The migrated tag could not be published on the runtime: ' + response.status + ' ' + (await response.text()).slice(0, 200));
+  }
   // Prepare → backup → baseline → stage → select. Every step is journaled by its owner
   // and idempotent, so a retry after an interruption continues where it stopped.
   async function switchToPaper(profileId) {
@@ -72,7 +79,7 @@ function createMigrationSwitch({ registry, preparation, runtimePool, userData, a
       if (!current.selection.status || current.selection.status === 'none') {
         const store = createStore(opts.destinationDir, { create: false });
         const staged = fs.existsSync(store.filePath('staging')) && fs.readdirSync(store.filePath('staging')).length > 0;
-        if (!staged) { baseline = await comparison.captureBaseline(opts, target); checkpoint('after-baseline', { profileId }); }
+        if (!staged) { await ensureTag(target); baseline = await comparison.captureBaseline(opts, target); checkpoint('after-baseline', { profileId }); }
         const existing = store.readJson('comparison-baseline.json', null);
         opts.expectedBaselineHash = baseline?.baselineHash || (existing ? require('./migration-journal').hash(existing) : null);
         await stage(opts, target, { checkpoint: phase => checkpoint('staging:' + phase, { profileId }) });
