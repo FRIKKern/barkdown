@@ -65,6 +65,9 @@ for (const provider of providers) {
         result.events.push(event); if (event.runId) runId ||= event.runId;
         if (event.type === 'tool_start') {
           const tool = String(event.tool || '').replace(/^mcp__barkdown__/, '');
+          // Claude Code 2.1+ defers MCP tool schemas and loads the Barkdown ones through its own
+          // ToolSearch before calling them: a meta-step of the CLI, not a document target.
+          if (tool === 'ToolSearch' && /^select:(mcp__barkdown__[a-z_]+,?)+$/.test(String(event.input?.query || ''))) return;
           if (!['read_document', 'edit_document'].includes(tool) || event.input?.id !== original.id || (tool === 'edit_document' && (event.input.mode !== 'append' || event.input.markdown !== marker))) rejectFailure(Error('Unexpected tool or target outside the fixture contract'));
         }
         if (event.type === 'approval') { agent.respondApproval(event.runId, event.approvalId, false); rejectFailure(Error('Unexpected approval request denied')); }
