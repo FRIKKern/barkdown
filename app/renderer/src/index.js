@@ -14,6 +14,7 @@ import { transcriptHtml, handleAgentEvent, respondApproval, providerFor, formatD
 import { mountDocument } from './tabs/document.js';
 import { mountPaper } from './tabs/paper.js';
 import { openDeletedNotes } from './paper-recovery.js';
+import { openRetainedDrafts } from './retained-drafts.js';
 import { mountWebsite } from './tabs/website.js';
 import { mountReview } from './tabs/review.js';
 import { mountProject, buffers, dirtyCount } from './tabs/project.js';
@@ -116,6 +117,7 @@ function tabContext(chat) {
     askAbout: text => { q('#bw-prompt').value = text; q('#bw-prompt').focus(); if (state.mode !== 'chat') { state.mode = 'chat'; render(); } },
     libraryChanged: () => refreshLibrary(),
     openDeletedNotes: showDeletedNotes,
+    openRetainedDrafts: () => openRetainedDrafts({ api, owner: { profileId: state.profileId, generation: state.generation }, isCurrent: owner => owner.profileId === state.profileId && owner.generation === state.generation }),
     deletePaper: async paper => {
       const sameNote = c => c.tab?.source === 'barkpark' && c.tab.paperOwner === paper.paperOwner && c.tab.path.at(-1) === paper.id;
       const panes = [...controllers.values()].filter(sameNote);

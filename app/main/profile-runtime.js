@@ -30,7 +30,7 @@ async function allocatePorts(used) {
 // A profile runtime is a managed instance (C083): it boots with write admission so the
 // library switch can hold it. The instance id is the profile id, which is a lowercase UUID.
 const managedDescriptor = descriptor => ({ ...descriptor, writeAdmission: { instanceId: 'profile-' + descriptor.profileId } });
-function createProfileRuntimePool({ registry, readSecrets, createRuntime = ({ descriptor, dataDir, secrets }) => new LocalBarkpark(new SourceDriver(managedDescriptor(descriptor), dataDir, secrets)), createDriver = ({ descriptor, dataDir, secrets }) => new SourceDriver(managedDescriptor(descriptor), dataDir, secrets), allocate = allocatePorts }) {
+function createProfileRuntimePool({ registry, readSecrets, onStatus = () => {}, createRuntime = ({ descriptor, dataDir, secrets }) => new LocalBarkpark(new SourceDriver(managedDescriptor(descriptor), dataDir, secrets)), createDriver = ({ descriptor, dataDir, secrets }) => new SourceDriver(managedDescriptor(descriptor), dataDir, secrets), allocate = allocatePorts }) {
   if (!registry?.storeFor || typeof readSecrets !== 'function') throw new Error('Runtime pool requires a registry and trusted credential reader');
   const entries = new Map();
   let foreground = null, closing = false, selection = Promise.resolve(), descriptors = Promise.resolve();
@@ -89,6 +89,8 @@ function createProfileRuntimePool({ registry, readSecrets, createRuntime = ({ de
       store.readJson('local-barkpark/runtime/.ownership-check.json', null);
       const dataDir = path.join(store.storeDir, 'local-barkpark', 'runtime');
       entry.runtime = createRuntime({ descriptor, dataDir, secrets: Object.freeze({ password: secrets.password, token: secrets.token }) });
+      // A runtime that stops answering and comes back says so; the owner of the window listens.
+      entry.runtime.on?.('status', status => { try { onStatus(profileId, status); } catch {} });
       await entry.runtime.start();
       return entry;
     })().catch(error => { entry.error = error; throw error; });

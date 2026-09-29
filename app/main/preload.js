@@ -45,7 +45,7 @@ const api = {
   } },
   settings: { get: () => call('settings:get'), set: patch => call('settings:set', patch) },
   originalHistory: { list: () => call('originalHistory:list'), choose: () => call('originalHistory:choose'), read: input => call('originalHistory:read', input) },
-  paperDrafts: { retain: (token, draft) => call('paperDrafts:retain', { token, draft }), list: () => call('paperDrafts:list'), read: key => call('paperDrafts:read', key), copy: (key, format) => call('paperDrafts:copy', { key, format }) },
+  paperDrafts: { retain: (token, draft) => call('paperDrafts:retain', { token, draft }), list: () => call('paperDrafts:list'), markUnsaved: input => call('paperDrafts:markUnsaved', input), clearUnsaved: input => call('paperDrafts:clearUnsaved', input), unsaved: input => call('paperDrafts:unsaved', input), read: key => call('paperDrafts:read', key), copy: (key, format) => call('paperDrafts:copy', { key, format }) },
   attachments: { save: input => call('attachments:save', input) },
   app: { pickFolder: () => call('app:pickFolder'), openExternal: url => call('app:openExternal', url), openPath: p => call('app:openPath', p), info: () => call('app:info'), relaunch: () => rawCall('app:relaunch'), platform: process.platform },
   state: { load: () => call('state:load'), save: state => call('state:save', state), command: command => call('state:command', command) },

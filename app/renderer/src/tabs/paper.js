@@ -22,7 +22,7 @@ export function mountPaper(tab, host, ctx) {
   const presence = agentPresence(pane, () => q('.ProseMirror'), q('#current'));
   let refreshing = false, refreshAgain = false;
   const updateUndo = () => renderAgentUndo(q('#agent-edit'), 'bp:' + slug(), rev, async () => { if (hasUnsavedWork()) throw new Error('Finish saving your edit before Undo.'); presence.stop(); await api.docs.undoAgentEdit('bp:' + slug(), q('#agent-edit').dataset.editId, paper?.binding); await controller.refresh(); ctx.libraryChanged(); }, paper?.binding);
-  let paper = null;
+  let paper = null, unsavedMarked = false;
   let deletionPending = false, deleted = false;
   let canvas = null;
   let positionReady = false, positionIntent = 0, cancelPositionRestore = () => {};
@@ -276,6 +276,7 @@ export function mountPaper(tab, host, ctx) {
       // during this request is still debouncing in the canvas. Either way the paper is not saved yet.
       if (seq === latestSeq && !canvas.hasPendingChanges?.()) setSaveState('Saved · rev ' + rev, 'saved');
       if (pendingRetry?.seq !== seq) { pendingRetry = null; q('#conflict').innerHTML = ''; }
+      if (unsavedMarked) { unsavedMarked = false; api.paperDrafts.clearUnsaved?.({ id, paperOwner: tab.paperOwner || null }).catch(() => {}); }
       renderMeta();
       // Echo: minted ids for new blocks come back on the paper itself.
       try {
@@ -311,15 +312,21 @@ export function mountPaper(tab, host, ctx) {
         renderBanner();
       } else {
         setSaveState('Not saved', 'error');
-        pendingRetry = { ops, seq, connectionChanged: code === 'paper_connection_changed' };
+        // No answer, or the server failed: the library is away. It restarts by itself and this save is sent again then.
+        const away = !code && /^5\d\d\b|fetch failed|ECONNREFUSED|ECONNRESET|socket hang up|timed out|timeout|is not running|stopped answering/i.test(errorMessage(error));
+        pendingRetry = { ops, seq, connectionChanged: code === 'paper_connection_changed', away };
+        // The words are made durable now, not at quit: a retained draft outlives this window.
+        const failedRev = rev;
+        retainRecovery().then(receipt => { if (!receipt?.key || !current()) return; unsavedMarked = true; return api.paperDrafts.markUnsaved?.({ id, paperOwner: tab.paperOwner || null, key: receipt.key, rev: failedRev }); })
+          .then(() => { const kept = q('#conflict [data-kept]'); if (kept) kept.hidden = false; }).catch(() => {});
         // Tell the canvas the batch was refused, or every later edit stays queued behind it. It keeps the author's
         // state and, on the next edit, diffs against the last saved blocks, so the refused change rides along —
         // a vetoed batch (say, one that would empty the paper) then saves as soon as the author writes again.
         const discarded = canvas.discardInflightOps?.(seq) === true;
         const box = q('#conflict');
         box.innerHTML = '';
-        const message = /known DocPatchOp/.test(error.message) && ops.some(o => o.op === 'move-block') ? 'Moving blocks needs the newer Barkpark server (move-block landed on main; this server predates it). Your edit is still on screen.' : errorMessage(error);
-        const node = el(`<div class="bw-conflict"><strong>Could not save:</strong> ${esc(message)} <button data-act="retry">Retry</button><button data-act="discard">Discard unsaved edits</button></div>`);
+        const message = /known DocPatchOp/.test(error.message) && ops.some(o => o.op === 'move-block') ? 'Moving blocks needs the newer Barkpark server (move-block landed on main; this server predates it). Your edit is still on screen.' : away ? 'The library did not answer. It restarts by itself and your words are sent again then.' : errorMessage(error);
+        const node = el(`<div class="bw-conflict"><strong>Could not save:</strong> ${esc(message)} <span data-kept hidden>Your words are kept as a retained draft.</span> <button data-act="retry">Retry</button><button data-act="discard">Discard unsaved edits</button></div>`);
         // After a discard the canvas re-diffs on Retry (resending the old ops would land an insert twice); an older
         // canvas without the seam keeps the batch in flight and Retry resends it as before.
         node.querySelector('[data-act="retry"]').onclick = async () => { box.innerHTML = ''; const p = pendingRetry; pendingRetry = null; if (discarded) { setSaveState('Saving…', 'saving'); if (!canvas.resendPendingOps?.()) setSaveState('Saved · rev ' + rev, 'saved'); } else if (p) await applyOps(p.ops, p.seq); };
@@ -450,6 +457,14 @@ export function mountPaper(tab, host, ctx) {
     if (hasUnsavedWork() || inputVersion !== beforeInput || rev !== beforeRev) { tab.path = [...mountedPath]; tab.source = mountedSource; ctx.tabChanged(tab); return false; }
     q('.bw-paper-document').classList.remove('bw-paper-unavailable');
     paper = fetched; mountedPath = path; mountedSource = source;
+    api.paperDrafts.unsaved?.({ id, paperOwner: tab.paperOwner || null, rev: fetched.rev }).then(entry => {
+      if (!entry || !current() || q('#conflict').children.length) return;
+      unsavedMarked = true;
+      const node = el(`<div class="bw-conflict" data-unsaved-words><strong>Words were not saved:</strong> the last time this note was open, a save did not reach the library. What you had written is kept as a retained draft from ${esc(new Date(entry.at).toLocaleString())}. <button data-act="drafts">View retained drafts</button><button data-act="dismiss">Dismiss</button></div>`);
+      node.querySelector('[data-act="drafts"]').onclick = () => ctx.openRetainedDrafts?.();
+      node.querySelector('[data-act="dismiss"]').onclick = () => { node.remove(); unsavedMarked = false; api.paperDrafts.clearUnsaved?.({ id, paperOwner: tab.paperOwner || null }).catch(() => {}); };
+      q('#conflict').appendChild(node);
+    }).catch(() => {});
     deleted = false;
     rev = paper.rev;
     lastAcked = paper.blocks || [];
@@ -525,6 +540,9 @@ export function mountPaper(tab, host, ctx) {
     if (status.phase !== 'ready' || destroyed) return;
     // Never reload over an unsaved edit or replay a write with uncertain acknowledgement.
     if (loadFailed) load(); else if (canvas && !saving && !pendingRetry && !canvas.hasPendingChanges?.()) controller.refresh();
+    // A save the library never answered is sent again under the same revision: if the earlier attempt did land,
+    // the revision has moved and this becomes the ordinary conflict, never a second copy of the words.
+    else if (canvas && !saving && pendingRetry?.away) q('#conflict [data-act="retry"]')?.click();
   });
   load();
 

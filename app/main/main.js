@@ -292,6 +292,20 @@ function registerIpc() {
   };
   handle('paperDrafts:retain', ({ token, draft }) => paperDrafts().retain(token, draft));
   handle('paperDrafts:list', () => paperDrafts().list());
+  // Words a save could not deliver (A3): the note's retained draft is remembered per note until a later save succeeds.
+  const unsavedWords = () => {
+    const profileId = profileService.view().profileId, bound = store.createStore(profileRegistry.storeFor(profileId).storeDir, { create: false });
+    const read = () => { const value = bound.readJson('paper-unsaved.json', null); return value?.version === 1 && value.profileId === profileId && value.notes && typeof value.notes === 'object' ? value : { version: 1, profileId, notes: {} }; };
+    const name = (id, paperOwner) => `${paperOwner || 'unowned'}:${id}`;
+    return {
+      mark({ id, paperOwner, key, rev }) { if (typeof id !== 'string' || typeof key !== 'string' || !Number.isSafeInteger(rev)) throw new Error('A note, its retained draft and its revision are required.'); const record = paperDrafts().read(key); if (record.content.documentId !== id) throw new Error('The retained draft belongs to another note.'); const value = read(); value.notes[name(id, paperOwner)] = { key, rev, at: record.retainedAt }; bound.writeJson('paper-unsaved.json', value); return true; },
+      clear({ id, paperOwner }) { const value = read(); if (value.notes[name(id, paperOwner)]) { delete value.notes[name(id, paperOwner)]; bound.writeJson('paper-unsaved.json', value); } return true; },
+      find({ id, paperOwner, rev }) { const entry = read().notes[name(id, paperOwner)]; return entry && entry.rev === rev ? entry : null; },
+    };
+  };
+  handle('paperDrafts:markUnsaved', input => unsavedWords().mark(input));
+  handle('paperDrafts:clearUnsaved', input => unsavedWords().clear(input));
+  handle('paperDrafts:unsaved', input => unsavedWords().find(input));
   handle('paperDrafts:read', key => paperDrafts().read(key));
   handle('paperDrafts:copy', ({ key, format }) => {
     if (!['text', 'record'].includes(format)) throw new Error('Unknown retained-draft copy format.');
@@ -618,7 +632,8 @@ app.whenReady().then(async () => {
       if (!boot.createEmpty) throw new Error('Verified adopted registry is missing; refusing to create an empty library');
       profileRegistry.createProfile({ name: 'Personal' });
     }
-    profilePool = require('./profile-runtime').createProfileRuntimePool({ registry: profileRegistry, readSecrets: preparedLocalSecrets });
+    profilePool = require('./profile-runtime').createProfileRuntimePool({ registry: profileRegistry, readSecrets: preparedLocalSecrets,
+      onStatus: profileId => { if (profileService?.view().profileId === profileId) emitLocalStatus(localStatus()); } });
     profileService = require('./profile-service').createProfileService({ registry: profileRegistry, runtimePool: profilePool, assertAuthentication: assertProviderAuthentication,
       settingsFor: source => { const s = readSettings(source); return { ...s, provider: s.provider || defaultProvider(), apiKey: decrypt(s.apiKeyEncrypted) }; },
       connectionFor: s => ({ ...s.barkpark, token: decrypt(s.barkpark.tokenEncrypted), viaCli: false }), defaultProvider,

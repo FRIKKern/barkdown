@@ -116,3 +116,7 @@ A picture's address is written into a note with the origin of the runtime it was
 ### 2026-09-29 — an earlier export into a later Barkdown (C085)
 
 Import accepted only the exact Barkpark version of the export, so every move of the pin would have made all earlier exports unimportable. It now accepts the same version or an earlier one that the importing runtime's checkout descends from; the journal records both versions. A later or unrelated version is refused before anything is created. Rehearsed between two installations, the second running upstream `b3ce61f31` against an export taken at the pin `9f1874235`; there is no database migration between the two, so bringing a restored database forward at first boot is not yet proven.
+
+### 2026-09-30 — the database dies while a note is open (C085, A3)
+
+The runtime supervisor already restarted a runtime whose database stopped answering; in profile mode the window was never told, because only the pool saw the status. `profile-runtime.js` now reports status changes and the window of the owning profile hears them. A save the library did not answer keeps the words at once as a retained draft and is sent again, under the same revision, when the library reports ready; if the earlier attempt did land, that is the ordinary conflict. Before, words typed during an outage and left unsaved at quit were lost. `paper-unsaved.json` remembers, per note, which retained draft holds undelivered words until a later save succeeds; a note reopened in that state says so and opens the retained drafts.
