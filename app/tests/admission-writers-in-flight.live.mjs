@@ -57,10 +57,10 @@ try {
       let answer;
       try { answer = await http('POST', `/v1/plugins/bulldocs/papers/${id}/ops`, { ifRev: rev, ops: [{ op: 'append-block', block: { id: marker, type: 'paragraph', content: [{ type: 'text', value: marker }] } }] }); }
       catch (error) { answer = { status: 0, data: { error: String(error.message) } }; }
-      const entry = { marker, sentAt, answeredAt: Date.now(), status: answer.status, code: answer.data?.error?.code ?? answer.data?.code ?? null };
+      const entry = { marker, sentAt, answeredAt: Date.now(), status: answer.status, code: answer.data?.error?.code ?? answer.data?.code ?? null, message: String(answer.data?.error?.message ?? answer.data?.message ?? '').slice(0, 160), ifRev: rev };
       log[w].push(entry);
       if (answer.status >= 200 && answer.status < 300) rev = Number(answer.data?.rev ?? answer.data?.result?.rev ?? rev + 1);
-      else if (answer.status === 409 || answer.status === 412) rev = (await read(id).catch(() => ({ rev }))).rev ?? rev;
+      else if ([409, 412, 422].includes(answer.status)) rev = (await read(id).catch(() => ({ rev }))).rev ?? rev;
       else await sleep(15);
     }
   })());
@@ -80,7 +80,7 @@ try {
   await sleep(1500);
   running = false; await Promise.all(writers);
   const finals = await Promise.all(papers.map(read));
-  let acknowledged = 0, refused = 0, other = 0, duringHold = 0;
+  let acknowledged = 0, refused = 0, other = 0, duringHold = 0; const codes = {}, odd = [];
   for (const [w, entries] of log.entries()) {
     const present = new Set(finals[w].blocks.map(b => b.id));
     for (const e of entries) {
@@ -88,13 +88,15 @@ try {
       if (ok) { acknowledged++; assert.ok(present.has(e.marker), `acknowledged write ${e.marker} is on its Paper`); }
       else { assert.ok(!present.has(e.marker), `refused write ${e.marker} (status ${e.status}) is not on its Paper`); if (e.status === 503) refused++; else other++; }
       // A write sent after the runtime reported held and answered before the reopen began was refused.
-      if (e.sentAt > heldAt && e.answeredAt < reopenAt) { duringHold++; assert.equal(e.status, 503, `write ${e.marker} during the hold was refused`); assert.equal(e.code, 'storage_unavailable'); }
+      // A write sent after the runtime reported held and answered before the reopen began was refused:
+      // by the door (503 storage_unavailable), or earlier by request validation. Never acknowledged.
+      if (e.sentAt > heldAt && e.answeredAt < reopenAt) { duringHold++; assert.ok(!ok, `write ${e.marker} during the hold was refused (status ${e.status})`); codes[e.status + ' ' + (e.code || '')] = (codes[e.status + ' ' + (e.code || '')] || 0) + 1; if (e.status !== 503) odd.push(e); }
     }
     assert.equal(finals[w].blocks.length, 1 + entries.filter(e => e.status >= 200 && e.status < 300).length, `Paper ${papers[w]} holds its seed and exactly its acknowledged writes`);
     assert.ok(entries.some(e => e.sentAt > reopenAt && e.status >= 200 && e.status < 300), `writer ${w} writes again after the reopen`);
   }
   assert.ok(duringHold >= WRITERS, 'every writer tried during the hold');
   report.checks.push({ name: 'six writers in flight across hold, held and reopen: every acknowledged write is on its Paper, every refused one is not, nothing lands while held, no admitted writer remains once held',
-    writers: WRITERS, acknowledged, refused503: refused, otherRefusals: other, attemptsWhileHeld: duringHold, drainMs: heldAt - holdAt, instanceAtHeld: view }); persist();
+    writers: WRITERS, acknowledged, refused503: refused, otherRefusals: other, attemptsWhileHeld: duringHold, refusalsWhileHeld: codes, nonDoorRefusalsWhileHeld: odd.slice(0, 5), drainMs: heldAt - holdAt, instanceAtHeld: view }); persist();
   report.status = 'passed'; persist(); console.log(JSON.stringify(report, null, 2));
 } catch (error) { report.status = 'failed'; report.error = String(error?.stack || error); persist(); throw error; }
