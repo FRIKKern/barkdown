@@ -9,7 +9,7 @@ import {fileURLToPath} from 'node:url';
 import {_electron as electron} from 'playwright';
 const require=createRequire(import.meta.url);
 const {createStore}=require('../main/store'),{createDocuments}=require('../main/documents');
-const {inventoryProfile}=require('../main/migration-preflight'),{stageMigration}=require('../main/migration-staging'),{projectWorkspace}=require('../main/migration-workspace');
+const {inventoryProfile}=require('../main/migration-preflight'),{stageMigration}=require('../main/migration-staging'),{projectWorkspace,projectOwnedWorkspace}=require('../main/migration-workspace'),{createPaperEvidenceOwner}=require('../main/paper-evidence-owner');
 const server=process.env.BARKDOWN_SHOTS_SERVER,token=process.env.BARKPARK_API_TOKEN;
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1'||!/^http:\/\/127\.0\.0\.1:\d+$/.test(server||'')||!token)throw Error('Owned isolated runtime required');
 const appDir=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),temporary=fs.mkdtempSync(path.join(os.tmpdir(),'bd-navigation-preview-')),profileId=crypto.randomUUID();
@@ -42,21 +42,30 @@ async function arrived(id){
   assert.deepEqual(await canvas().evaluate(c=>c.recoverySnapshot().blocks),expected.blocks);
   await page.waitForFunction(()=>document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent.includes('Editing live'));
 }
-async function unchangedOrganization(){const state=await page.evaluate(()=>window.__barkdown.state);assert.deepEqual(state.pages,projection.workspace.pages);assert.deepEqual(state.favorites,projection.workspace.favorites);assert.equal(state.chats.side.parent,'main');for(const id of ['main','side']){assert.equal(state.chats[id].draft,original.chats[id].draft);assert.deepEqual(state.chats[id].messages,original.chats[id].messages);}assert.deepEqual(state.chats.side.tabs.find(t=>t.id==='path-side').path,[ids.beta]);}
+// The live app only accepts owned navigation (C080): the preview projection is inspected, the owned one is loaded.
+let owned,paperOwner;const key=id=>`bp:v1:${paperOwner}:${encodeURIComponent(id)}`;
+async function unchangedOrganization(){const state=await page.evaluate(()=>window.__barkdown.state);assert.deepEqual(state.pages,owned.workspace.pages);assert.deepEqual(state.favorites,owned.workspace.favorites);assert.equal(state.chats.side.parent,'main');for(const id of ['main','side']){assert.equal(state.chats[id].draft,original.chats[id].draft);assert.deepEqual(state.chats[id].messages,original.chats[id].messages);}assert.deepEqual(state.chats.side.tabs.find(t=>t.id==='path-side').path,[ids.beta]);}
 try{
   await request('POST','/v1/data/mutate/production',{mutations:[{create:{_id:'navproof',_type:'tag',title:'Navigation proof'}},{publish:{id:'navproof',type:'tag'}}]});
   await request('POST','/v1/plugins/bulldocs/papers/alpha/create',{slug:'alpha',title:'Cloud Alpha',style:'article',description:'A deliberately separate cloud paper sharing the legacy slug, whose identity and existing placement must remain independent',tags:[{tag:'navproof',strength:95,rationale:'Existing cloud identity proof'}],blocks:[{id:'cloud-original',type:'paragraph',content:[{type:'text',value:'This is the existing cloud Alpha, never the migrated local note.'}]}]},201);
   const target={profileId,runtimeId:'private-navigation-'+profileId,server,dataset:'production',token,assertOwned:b=>b.profileId===profileId&&b.server===server};await stageMigration(options,target);
   const papers=Object.fromEntries(await Promise.all([ids.alpha,ids.beta,'alpha'].map(async id=>[id,await read(id)])));
-  createStore(path.join(userData,'barkdown')).writeJson('workspace.json',projection.workspace);
+  const connection={server,token,dataset:'production',viaCli:false};
+  paperOwner=createPaperEvidenceOwner(sourceStore).identify(connection,{create:true});
+  owned=await projectOwnedWorkspace(options,target);assert.equal(owned.status,'preview');assert.equal(owned.paperOwner,paperOwner);
+  fs.writeFileSync(path.join(out,'owned-projection.json'),JSON.stringify(owned,null,2)+'\n');
+  // The disposable app must derive the same owner for the same connection: it gets the source's owner key.
+  const appStore=createStore(path.join(userData,'barkdown'));fs.mkdirSync(path.dirname(appStore.filePath('agent-edits/paper-owner-key.json')),{recursive:true});
+  fs.copyFileSync(sourceStore.filePath('agent-edits/paper-owner-key.json'),appStore.filePath('agent-edits/paper-owner-key.json'));
+  appStore.writeJson('workspace.json',owned.workspace);
   await launch();await page.evaluate(async c=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,writes:true,viaCli:false,...c}});await window.__barkdown.refreshLibrary();},{server,token});
   await page.locator('.bw-side-chat').waitFor();await unchangedOrganization();assert.equal(await page.locator('#bw-prompt').inputValue(),original.chats.main.draft);assert.equal(await page.locator('.bw-side-chat textarea').inputValue(),original.chats.side.draft);await shot('01-projected-sidechat-and-pages');
   await page.locator('.bw-side-chat #open-chat').click();await arrived(ids.beta);assert.equal(await page.locator('#bw-prompt').inputValue(),original.chats.side.draft);await shot('02-sidechat-owned-path');
   await page.locator('#bw-transcript [data-parent]').click();await page.locator('.bw-side-chat').waitFor();assert.equal(await page.locator('#bw-prompt').inputValue(),original.chats.main.draft);
   await page.locator('#bw-tabs [data-tab="path-main"]').click();await arrived(ids.beta);assert.deepEqual(await page.evaluate(()=>window.__barkdown.state.chats.main.tabs.find(t=>t.id==='path-main').path),[ids.alpha,ids.beta]);await shot('03-parent-document-path');
-  await page.locator(`#bw-pages [data-open="bp:${ids.alpha}"]`).click();await arrived(ids.alpha);assert.equal(await page.evaluate(()=>window.__barkdown.state.mode),'document');await shot('04-direct-local-page');
-  await page.locator('#bw-pages [data-open="bp:alpha"]').click();await arrived('alpha');await shot('05-distinct-cloud-page');
-  await page.locator(`#bw-pages [data-open="bp:${ids.beta}"]`).click();await arrived(ids.beta);assert.equal(await page.locator(`#bw-pages [data-page="bp:${ids.beta}"]`).getAttribute('data-depth'),'1');await shot('06-nested-page');
+  await page.locator(`#bw-pages [data-open="${key(ids.alpha)}"]`).click();await arrived(ids.alpha);assert.equal(await page.evaluate(()=>window.__barkdown.state.mode),'document');await shot('04-direct-local-page');
+  await page.locator(`#bw-pages [data-open="${key('alpha')}"]`).click();await arrived('alpha');await shot('05-distinct-cloud-page');
+  await page.locator(`#bw-pages [data-open="${key(ids.beta)}"]`).click();await arrived(ids.beta);assert.equal(await page.locator(`#bw-pages [data-page="${key(ids.beta)}"]`).getAttribute('data-depth'),'1');await shot('06-nested-page');
   await page.locator('#bw-favorites').click();await page.locator('#bw-fav-menu [data-open="local-fav"]').click();await arrived(ids.alpha);await shot('07-local-favorite');
   await page.locator('#bw-favorites').click();await page.locator('#bw-fav-menu [data-open="cloud-fav"]').click();await arrived('alpha');await shot('08-cloud-favorite');
   await unchangedOrganization();editorBundle=JSON.parse(fs.readFileSync(path.join(userData,'canvas-bundle/current.json')));assert.equal(editorBundle.source,'server');assert.equal(editorBundle.sha,crypto.createHash('sha1').update(fs.readFileSync(path.join(process.env.BARKDOWN_TEST_BP_SOURCE,'api/priv/static/assets/bp-paper-editor.bundle.js'))).digest('hex'));
