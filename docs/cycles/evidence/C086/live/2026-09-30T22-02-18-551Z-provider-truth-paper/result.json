@@ -1,0 +1,17 @@
+{
+  "source": "ed83b926b2cccba281920eadfd7142dceedb04cd",
+  "upstream": "9f1874235449f9763c1b3e8cfcaf1b5a36aee9b3",
+  "runtime": "packaged release",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "summary": {
+    "tests": 25,
+    "pass": 25,
+    "fail": 0,
+    "skipped": 0
+  },
+  "fixture": "a Paper on the isolated runtime for every scenario; the scripted transport performs the edit through the app's edit service",
+  "limits": [
+    "One machine, one disposable runtime. The transport is scripted, not a live provider; the live providers are exercised by tests/providers.live.mjs on demand."
+  ]
+}

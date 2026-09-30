@@ -18,17 +18,19 @@
   ],
   "checkpoint": "2026-10-01",
   "handoff": "docs/cycles/C086-packaged-runtime.md",
-  "nextAction": "1) A Mac without developer tools runs the application: a clean account on this Mac, and a signature other than ad hoc. 2) Size: the two agent command-line tools are half of the 1 GB. 3) The provider truth runner's successful-edit scenarios on a Paper under the isolated runtime (left by C087).",
+  "nextAction": "1) The release's first seed boot dies after five seconds and is recovered by a retry (three of three today): find why. 2) A Mac without developer tools runs the application: a clean account on this Mac, and a signature other than ad hoc. 3) Size: the two agent command-line tools are half of the 1 GB.",
   "evidence": [
     "docs/cycles/evidence/C086/live/2026-09-30T16-48-11-085Z-app-packaged/result.json",
-    "docs/cycles/evidence/C086/live/2026-09-30T16-13-52-486Z-runtime-release/result.json"
+    "docs/cycles/evidence/C086/live/2026-09-30T16-13-52-486Z-runtime-release/result.json",
+    "docs/cycles/evidence/C086/live/2026-09-30T22-02-18-551Z-provider-truth-paper/result.json"
   ],
-  "truthReview": "2026-09-30: the macOS application is built with the runtime folder inside and started as an application, with only system folders on the PATH: a never-configured profile runs on the carried server and Postgres, New page makes a Paper, and the note reads the same after a restart. Built and run on one Mac, signed ad hoc, not notarized, started from its build folder with --profiles. The runtime folder rehearsal covers export, import and reclaim. No Mac without developer tools has run either. Windows is not covered. Resumed 2026-10-01 after C087 closed. 2026-10-01: notices for every carried component are generated and kept (86 rows, each with a licence text; six Hex packages ship none and the standard Apache-2.0 text stands in for them, said so in the table).",
+  "truthReview": "2026-09-30: the macOS application is built with the runtime folder inside and started as an application, with only system folders on the PATH: a never-configured profile runs on the carried server and Postgres, New page makes a Paper, and the note reads the same after a restart. Built and run on one Mac, signed ad hoc, not notarized, started from its build folder with --profiles. The runtime folder rehearsal covers export, import and reclaim. No Mac without developer tools has run either. Windows is not covered. Resumed 2026-10-01 after C087 closed. 2026-10-01: notices for every carried component are generated and kept (86 rows, each with a licence text; six Hex packages ship none and the standard Apache-2.0 text stands in for them, said so in the table). 2026-10-01: the provider truth runner's 25 scenarios pass against the packaged release under the isolated harness, the successful edits landing on a Paper (scripted transport, one Mac); the harness accepts a release as its source. The release's first seed boot died and was retried on every run today; not yet explained.",
   "screenshotReview": "No renderer change. Live screenshots of a note on the packaged runtime and in the built application are in the rehearsal folders.",
   "delivery": {
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
+      "The release's first seed boot dies once and is retried",
       "A Mac without developer tools; a real signature",
       "Application size",
       "Windows: no upstream release for that host"

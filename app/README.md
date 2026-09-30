@@ -41,6 +41,8 @@ From `app/`, `npm start` builds and launches; `npm run dev` also opens DevTools.
 | Codex | Existing local login, Codex SDK | Per-chat sessions; sandboxed to the captured folder, read-only without a folder |
 | Claude API | Key in Settings or environment | Barkdown's streaming tool loop and tool approval handling |
 
+The provider truth runner (`tests/providers.live.mjs`) classifies what a provider did to one note; since the legacy retirement its successful edits land on a Paper, so `npm run test:providers-runner:isolated` runs every scenario under the isolated runtime (point `BARKDOWN_TEST_BP_SOURCE` at a packaged release under `runtime/`), and the plain `test:providers-runner` skips the three that need it.
+
 No-folder conversations remain valid. A folder selected in the composer never scopes the global sidebar. Side chats inherit settings once and may change them independently.
 
 ## Source map
