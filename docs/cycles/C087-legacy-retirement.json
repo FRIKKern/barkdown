@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "id": "C087",
+  "stage": "P2",
+  "status": "done",
+  "goal": "The legacy editor is retired stage by stage: retained originals render without it, profiles are the ordinary launch, a new profile starts on Paper, and the legacy write paths go.",
+  "scope": [
+    "R1: retained originals and read-only copies render without the editor",
+    "R3: a new profile starts with its managed runtime on, so New page is a Paper",
+    "R2: profiles mode is the ordinary launch; an old library is adopted into a profile",
+    "R4: the legacy write paths and the Tiptap editor leave the app"
+  ],
+  "acceptance": [
+    "A retained original shows its text with no editing surface, links open, history reads",
+    "A new profile on an installation that knows a runtime, or an application that carries one, runs its runtime with no setup",
+    "An ordinary launch opens profiles; a legacy library found at launch is adopted, never lost",
+    "After R4 no code path writes the legacy store; rollback, retained originals and adoption still work; the Tiptap packages are gone"
+  ],
+  "checkpoint": "2026-09-30",
+  "handoff": "docs/cycles/C087-legacy-retirement.md",
+  "nextAction": "Closed. Next cycle: resume C086 (licences of what the application carries, a Mac without developer tools, size) until the Windows machine is back (about 2026-10-05); then C085's Windows exits and the real-library review that closes P2.",
+  "evidence": [
+    "docs/cycles/evidence/C087/live/2026-09-30T21-14-12-290Z-launch-default/result.json",
+    "docs/cycles/evidence/C083/live/2026-09-30T21-09-23-992Z-switch-ui/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-30T19-41-09-632Z-portable-ui/result.json"
+  ],
+  "truthReview": "2026-10-01: R1 to R4 delivered on macOS. No code path in the app writes the legacy store; the legacy tab is read-only; the Tiptap packages are gone from the app and its lockfile. Unit suite 684 cases green; the legacy journey (76 steps), the switch, launch and preparation tours pass at the R4 commit. Not chased: the writer-fence tour outside the suite predates the preparation gate and expects a writer refusal where the gate now answers first. The provider truth runner's successful-edit scenarios wait for a Paper runtime. No Windows run; the real-library review is still owed to P2.",
+  "screenshotReview": "Visual run 2026-09-30T21-20-32-970Z approved: 46 entries pixel-identical, the legacy document tour now rendered without the editor. The adoption offer, the adopted profile and the read-only original were inspected in the live rehearsal screenshots.",
+  "delivery": {
+    "phase": "delivered",
+    "owner": "primary agent",
+    "remaining": []
+  }
+}

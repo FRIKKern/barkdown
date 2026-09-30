@@ -1,6 +1,6 @@
 # C086 — A runtime without a checkout
 
-**Status:** active, opened 2026-09-30. Stage P5 groundwork, started while [C085](C085-portable-profile.md) waits for the Windows machine ([D-cycle-order](../DESIGN-DECISIONS.md#d-cycle-order--p3-groundwork-starts-while-p2-waits-for-windows-2026-09-29), extended to P5 in [D-packaged-runtime](../DESIGN-DECISIONS.md#d-packaged-runtime--a-release-beside-the-checkout-2026-09-30)).
+**Status:** active; opened 2026-09-30, paused behind C087 the same day, resumed 2026-10-01. Stage P5 groundwork, started while [C085](C085-portable-profile.md) waits for the Windows machine ([D-cycle-order](../DESIGN-DECISIONS.md#d-cycle-order--p3-groundwork-starts-while-p2-waits-for-windows-2026-09-29), extended to P5 in [D-packaged-runtime](../DESIGN-DECISIONS.md#d-packaged-runtime--a-release-beside-the-checkout-2026-09-30)).
 
 **Outcome so far:** `Barkdown.app` builds with its runtime inside and starts a profile with nothing else installed: no checkout, no Elixir, no Postgres.
 
@@ -20,4 +20,4 @@
 
 **Decisions:** [D-packaged-runtime](../DESIGN-DECISIONS.md#d-packaged-runtime--a-release-beside-the-checkout-2026-09-30).
 
-**Next action:** collect the licences of everything the application carries into the third-party notices; stop when `THIRD-PARTY.md` names each carried component with its licence text or a generated list for the server's packages.
+**Next action:** collect the licences of everything the application carries into the third-party notices; stop when `THIRD-PARTY.md` names each carried component with its licence text or a generated list for the server's packages. Then a clean account on this Mac, then size, then the provider truth runner on Paper (left by C087).
