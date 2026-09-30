@@ -4,25 +4,31 @@ Barkdown is an experiment in what Barkpark can do, and a tool for figuring out w
 
 We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT, taking the parts we love from each. We’re doing this for fun and learning, with no plans to make money from it. The aim is an excellent app shaped by our taste and Barkpark.
 
-## Where we are · September 29, 2026
+## Where we are · September 30, 2026
 
-**Migration effort estimate: about 75% · plausible scenarios 30–90% · low confidence.** Up from about 70% earlier on September 29. The server-side boundary for the switch is merged upstream and Barkdown is pinned to it; on a Mac, the library switch and the way back were rehearsed live against a runtime built from that commit: compare under the hold, select Paper with the workspace replaced in one atomic step, roll back after a later Paper edit without converting anything back, resume after an interruption. The app offers the switch in Settings › Barkpark. The supported migration corpus (24 notes with links, an image, nested and archived pages, favorites) was switched, compared exactly and rolled back the same way, and the switch, rollback, an interruption and its Resume were driven from the app's own Settings screen in real Electron; after a rollback, Papers changed since the switch are named there, compared side by side, and kept or restored from that line. Not yet done: any run on Windows or Linux, and a real library. This provisional estimate weights demonstrated work against expected work left; it is not a safety rating or a whole-project percentage. [Estimates, calculation and next calibration](docs/PLAN.md#migration-effort-estimate).
+**The short version:** notes live on Paper, a whole library can move between machines, and the app survives crashes without losing a word. What's missing is proof on a real library and on Windows.
 
-**Portable profiles, first step:** a profile can be exported while its runtime is held (database, media, conversations, organization; no credentials) and imported as a new profile with its own database. Both are in Settings now: choose a folder, export, restart; choose an export, import, switch to the new profile. An export or import cut short by a crash is named at the next start and discarded or run again, a runtime left behind by a crashed Barkdown is reclaimed instead of blocking the launch, and a library that was refusing changes after such a crash is reopened or handed back to the operation that owns it. An export moves between two separate installations on one Mac and into a later Barkdown version. Rehearsed in the app on one Mac; a second machine is not proven ([C085](docs/cycles/C085-portable-profile.md)).
+**Working, and shown working**
+- Profiles keep notes, chats and keys apart. [Accepted](docs/cycles/C039-completion-audit.md).
+- Paper notes: [write and search](docs/visual/paper-notes/README.md), let an [agent edit with Undo](docs/visual/agent-notes/README.md), get a [deleted note back](docs/visual/paper-deletions/README.md).
+- The switch to Paper, with a way back. Started from Settings, interrupted, resumed, rolled back. Rehearsed on macOS with a 24-note corpus ([C083](docs/cycles/C083-writer-admission.md)).
+- Portable profiles: export and import from Settings, carried between two installations and into a newer version.
+- Rough treatment: a killed app, a killed export or import, a dead database, a quit mid-save. Nothing acknowledged is lost ([C085](docs/cycles/C085-portable-profile.md)).
 
-**Working today:** the source prototype supports [writing, searching and restarting](docs/visual/paper-notes/README.md), [agent edits with Undo](docs/visual/agent-notes/README.md), and [deleted-note recovery](docs/visual/paper-deletions/README.md). We’re working toward one dependable Paper note engine; existing libraries have not switched yet.
+**Not yet**
+- No real library has switched. The corpus so far is ours.
+- Nothing has run on Windows since September. The machine is back around October 5.
+- Sync and installation are later stages.
 
-**Recent progress:** the controller that keeps writes out during migration is now connected to the note, Paper and media writers in production, and a held instance refuses them without changing a row or a byte. Background jobs are admitted the same way and queues pause before a hold. See the [six migration checkpoints](docs/ROADMAP.md#inside-migration).
+**Next**
+- Windows returns: switch a real library, carry an export across machines, recover from a crash there.
+- Until then: whatever else the Mac can prove.
 
-**Next result:** decide, cluster by cluster, whether the 70 audited writers get a door or are refused while a library switches, and add the one boundary that covers the task board. Then prove an interrupted switch restarts and rolls back safely. Alongside: measure the app on macOS, where development now happens, so the Windows prototype does not become the only tested host.
-
-**Why timing is uncertain:** the audit is done and the count is known, but the policy is not. Best plausible path: most clusters are refused during a switch, one boundary covers the task board, and the recovery checks pass. Adverse path: boot-time and one-shot writes need their own refusal, several clusters need doors, and another full rehearsal follows. We cannot responsibly bound completion time until the policy is recorded.
-
-We report delivered results and reduced uncertainty, not equal-sized checkboxes. Small steps can finish quickly while one safety boundary takes several iterations. This overview changes when the evidence, obstacle or outlook changes; details stay in the linked records. Recovery and portability follow migration; sync and installation remain later work.
+**How far along:** migration is about 75% by effort, low confidence, plausible range 30–90%. That weighs demonstrated work against what's left; it is not a safety rating. [How it's calculated](docs/PLAN.md#migration-effort-estimate).
 
 [Current work](docs/NEXT-AGENT.md) · [Plan](docs/PLAN.md) · [Verified results](docs/VALIDATION.md) · [Screenshots & recordings](docs/visual/README.md)
 
-[![Barkdown roadmap: accepted profile isolation, current Paper migration, then recovery, optional sync and installation.](docs/images/roadmap.svg)](docs/ROADMAP.md)
+[![Barkdown roadmap: profiles accepted, Paper migration in progress, recovery and portability rehearsed on one Mac, then optional sync and installation.](docs/images/roadmap.svg)](docs/ROADMAP.md)
 
 ![A working notebook with a checklist, table and callout: an agent rewrites the opening, Undo restores it, and a person checks a task, edits a cell and finds a note.](docs/visual/agent-notes/runs/2026-09-24T23-33-22-364Z-notebook/readme-notebook.gif)
 
@@ -45,7 +51,7 @@ The Barkpark capabilities we’re exploring:
 
 ## Run it
 
-Windows source prototype. Node 22.13+ and a desktop session:
+Source prototype on macOS and Windows. Node 22.13+ and a desktop session:
 
 ```sh
 npm ci

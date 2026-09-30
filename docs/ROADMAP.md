@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** C083: every supported writer and job admitted; audit found 70 more files writing outside the doors, in nine clusters.
+**Latest advance:** C085: profiles export and import from Settings; crashes, a dead database and a quit mid-save lose nothing.
 
-**Next observable result:** Decide door-or-refuse per audited cluster, then prove drain, restart and rollback of a real switch. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Windows is back about October 5: switch a real library, carry an export across machines, reclaim after a crash there. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
@@ -53,13 +53,13 @@ Demonstrated ordinary-note journeys are in the merged baseline; their linked cyc
 
 | State | Journey | Evidence / acceptance |
 |---|---|---|
-| ◐ In progress | Save and draft recovery | [Work and limits](cycles/C076-profile-preparation.md) |
-| ◐ In progress | Export notes and media | [Work and limits](cycles/C085-portable-profile.md) |
-| ◐ In progress | Include chats and links | [Work and limits](cycles/C085-portable-profile.md) |
-| ◐ In progress | Import into a fresh profile | [Work and limits](cycles/C085-portable-profile.md) |
-| ○ Remaining | Continue on another device | [A3 gate](ACCEPTANCE.md#a3--recovery-and-portability) |
+| ✓ Demonstrated | Save and draft recovery | [Demonstrated scope](cycles/C085-portable-profile.md) |
+| ✓ Demonstrated | Export notes and media | [Demonstrated scope](cycles/C085-portable-profile.md) |
+| ✓ Demonstrated | Include chats and links | [Demonstrated scope](cycles/C085-portable-profile.md) |
+| ✓ Demonstrated | Import into a fresh profile | [Demonstrated scope](cycles/C085-portable-profile.md) |
+| ◐ In progress | Continue on another device | [Work and limits](cycles/C085-portable-profile.md) |
 
-Groundwork only while P2 waits for its Windows exits: draft retention, interrupted preparation and restart (C076), and in C085 crash recovery of the runtime and an export taken under the hold and its import as a new profile with its own database, rehearsed between two runtimes and from Settings in the app on one Mac, including a host killed in the middle of each. More stall points, a second machine and credential handover remain unproved, and A3 is not claimed.
+Groundwork while P2 waits for its Windows exits, rehearsed in the app on one Mac: draft retention (C076); export under the hold and import as a new profile with its own database, from Settings; a crash mid-export, mid-import or mid-switch survived; a database that dies under an open note; a quit with unsaved words; an export carried between two installations and into a later Barkdown version. A second machine and another operating system are not exercised.
 
 ## Cloud sync · later
 
