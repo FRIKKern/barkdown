@@ -37,7 +37,7 @@ A notebook in motion: write together, check things off, find your next idea. Rea
 <details>
 <summary>Still view</summary>
 
-![Barkdown: a conversation beside a Paper document in dark mode.](docs/images/status/paper-dark.ad54157c.png)
+![Barkdown: a conversation beside a Paper document in dark mode.](docs/images/status/paper-dark.4c404b5f.png)
 
 </details>
 
