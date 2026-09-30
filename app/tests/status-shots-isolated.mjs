@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { cleanSource, captureWithCleanup, verifyStatusReadme } from './helpers/capture-lifecycle.mjs';
 const require = createRequire(import.meta.url);
 const { LocalBarkpark } = require('../main/local-barkpark');
-const { SourceDriver } = require('../main/local-barkpark-source');
+const { SourceDriver, releaseOf } = require('../main/local-barkpark-source');
 const appDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const source = path.resolve(process.env.BARKDOWN_TEST_BP_SOURCE || path.join(appDir, '../../barkpark-editor'));
 // Validate before allocating data or starting a driver. New append-only host
@@ -20,7 +20,10 @@ const hostRoot = path.dirname(appDir);
 const captureArgs = process.argv.length > 2 ? process.argv.slice(2) : ['tests/status-shots.mjs'];
 const statusCapture = path.resolve(appDir, captureArgs[0]) === path.join(appDir, 'tests/status-shots.mjs');
 const originalReadme = statusCapture ? fs.readFileSync(path.join(hostRoot, 'README.md'), 'utf8') : null;
-const captured = cleanSource(source);
+// A packaged release (C086) is identified by its stamp: it is what ships, and it never has a working tree.
+const release = releaseOf(source);
+if (release && !release.upstream) throw Error(`The packaged runtime at ${source} has no readable barkdown-release.json stamp`);
+const captured = release ? { commit: release.upstream, ignoredEvidence: [] } : cleanSource(source);
 const commit = captured.commit;
 const data = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-shots-runtime-'));
 const free = () => new Promise((resolve, reject) => { const s = net.createServer(); s.on('error', reject); s.listen(0, '127.0.0.1', () => { const port = s.address().port; s.close(() => resolve(port)); }); });
@@ -42,7 +45,7 @@ await captureWithCleanup({ runtime, data,
   launch() {
     return spawn(process.execPath, captureArgs, { cwd: appDir, windowsHide: true, detached: process.platform !== 'win32', stdio: 'inherit', env: {
       ...process.env, XDG_CONFIG_HOME: path.join(data, 'cli-config'), BARKPARK_API_URL: driver.server, BARKPARK_API_TOKEN: secrets.token, BARKPARK_DATASET: 'production',
-      BARKDOWN_SHOTS_SERVER: driver.server, BARKDOWN_SHOTS_BP_COMMIT: commit, BARKDOWN_SHOTS_BP_DIRTY: 'false', BARKDOWN_SHOTS_ISOLATED: '1', BARKDOWN_SHOTS_HOST_COMMIT: host.commit,
+      BARKDOWN_SHOTS_SERVER: driver.server, BARKDOWN_SHOTS_BP_COMMIT: commit, BARKDOWN_SHOTS_BP_DIRTY: 'false', BARKDOWN_SHOTS_BP_RELEASE: release ? source : '', BARKDOWN_SHOTS_ISOLATED: '1', BARKDOWN_SHOTS_HOST_COMMIT: host.commit,
       BARKDOWN_SHOTS_BUILD_FINGERPRINT: driver.build?.fingerprint || '',
     } });
   },
