@@ -60,6 +60,7 @@ for (const file of modules) {
 for (const name of fs.readdirSync(path.join(out, 'bin'))) { const file = path.join(out, 'bin', name); if (fs.lstatSync(file).isSymbolicLink()) continue; for (const dep of linked(file)) if (dep.startsWith(libDir + '/')) tool(['-change', dep, '@loader_path/../lib/' + path.basename(dep), file]); }
 // Re-sign after editing load commands (required on Apple silicon), and drop what a runtime never uses.
 for (const file of [...modules, ...under(path.join(out, 'bin'))]) execFileSync('codesign', ['--force', '--sign', '-', file], { stdio: 'ignore' });
+fs.copyFileSync(path.join(src, 'COPYRIGHT'), path.join(out, 'COPYRIGHT'));
 for (const dir of ['include', 'share/doc', 'share/man', 'lib/pkgconfig', 'lib/pgxs']) fs.rmSync(path.join(out, dir), { recursive: true, force: true });
 for (const name of fs.readdirSync(libDir)) if (name.endsWith('.a')) fs.rmSync(path.join(libDir, name));
 const foreign = [];
