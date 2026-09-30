@@ -32,7 +32,7 @@ const capture = process.env.BARKDOWN_EDITOR_CAPTURE === '1';
 const out = path.resolve((capture ? '../docs/visual/api-paper/runs/' : 'test-results/api-paper/') + new Date().toISOString().replace(/[:.]/g, '-')); fs.mkdirSync(out, { recursive: true });
 const sourceCommit = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 const sourceDirty = execFileSync('git', ['status', '--porcelain', '--', '.'], { encoding: 'utf8' }).trim() !== '';
-const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), `--user-data=${userData}`], recordVideo: { dir: out, size: { width: 1400, height: 900 } }, env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', ANTHROPIC_BASE_URL: transport.url } });
+const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], recordVideo: { dir: out, size: { width: 1400, height: 900 } }, env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', ANTHROPIC_BASE_URL: transport.url } });
 let page, video, editorBundle; const errors = [];
 try {
   page = await app.firstWindow(); video = page.video(); await page.setViewportSize({ width: 1400, height: 900 });

@@ -20,7 +20,7 @@ bp(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'
 const capture=process.env.BARKDOWN_EDITOR_CAPTURE==='1';
 const out=path.resolve((capture?'../docs/visual/rich-clipboard/runs/':'test-results/paper-rich-clipboard/')+new Date().toISOString().replace(/[:.]/g,'-'));fs.mkdirSync(out,{recursive:true});
 const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-rich-clipboard-'));
-const app=await electron.launch({executablePath:require('electron'),args:[path.resolve('.'),`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
+const app=await electron.launch({executablePath:require('electron'),args:[path.resolve('.'), '--legacy',`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
 const read=()=>{const r=bp(['doc','get','paper',slug,'--perspective','raw']);return r.document||r;};
 const htmlImage='<img src="https://clipboard-original.invalid/image.png" alt="Copied diagram">';
 const htmlTable='<table><tr><td>Important table text</td></tr></table>';

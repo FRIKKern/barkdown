@@ -1,5 +1,5 @@
 // Startup policy only. The transaction helper verifies/copies data; no store is opened here.
-async function prepareAdoptionBoot({ adoption, requested = false, rollback = false, profiles = false, choose }) {
+async function prepareAdoptionBoot({ adoption, requested = false, legacyPresent = false, rollback = false, profiles = false, choose }) {
   if (!adoption || typeof choose !== 'function') throw new Error('Adoption startup dependencies required');
   if (requested && rollback) throw new Error('Adoption and rollback must be separate actions');
   let state = await adoption.inspect();
@@ -20,8 +20,11 @@ async function prepareAdoptionBoot({ adoption, requested = false, rollback = fal
     }
     if (state.status === 'none') {
       if (rollback) throw new Error('No adoption exists to roll back');
-      if (!requested) return { mode: profiles ? 'profiles' : 'legacy', root: state.finalRoot, createEmpty: profiles };
-      const action = await choose({ ...state, actions: ['prepare', 'quit'] });
+      // An ordinary profiles launch that finds a legacy library offers to adopt it (R2); declining
+      // opens an empty profile and leaves the legacy library where it is, for the next launch.
+      if (!requested && !(profiles && legacyPresent)) return { mode: profiles ? 'profiles' : 'legacy', root: state.finalRoot, createEmpty: profiles };
+      const action = await choose({ ...state, actions: requested ? ['prepare', 'quit'] : ['prepare', 'later', 'quit'] });
+      if (action === 'later' && !requested) return { mode: 'profiles', root: state.finalRoot, createEmpty: true };
       if (action !== 'prepare') return { mode: 'quit' };
       await adoption.prepare({});
       state = await adoption.inspect();

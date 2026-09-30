@@ -108,6 +108,7 @@
     "test:runtime-recovery": "npm run build && node tests/runtime-recovery.live.mjs",
     "test:paper-quit-during-save": "npm run build && node tests/paper-quit-during-save.live.mjs",
     "test:app-packaged": "node tests/app-packaged.live.mjs",
+    "test:launch-default": "npm run build && node tests/launch-default.live.mjs",
     "test:runtime-release": "npm run build && node tests/runtime-release.live.mjs",
     "test:runtime-database-death": "npm run build && node tests/runtime-database-death.live.mjs",
     "test:runtime-reclaim": "npm run build && node tests/runtime-reclaim.live.mjs",

@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import { DOC_START } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-history-'));
-const app = await electron.launch({executablePath:require('electron'),args:[path.resolve('.'),`--user-data=${userData}`],env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
+const app = await electron.launch({executablePath:require('electron'),args:[path.resolve('.'), '--legacy',`--user-data=${userData}`],env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
 const page = await app.firstWindow(), errors = [];
 page.on('pageerror', e => errors.push(e.message));
 try {

@@ -43,7 +43,7 @@ fs.mkdirSync(out, { recursive: true });
 let app, page, video, editorBundle;
 const results = [], frames = [], errors = [];
 const launch = async () => {
-  app = await electron.launch({ executablePath: require('electron'), args: [appDir, `--user-data=${userData}`], recordVideo: { dir: out, size: { width: 1400, height: 900 } }, env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
+  app = await electron.launch({ executablePath: require('electron'), args: [appDir, '--legacy', `--user-data=${userData}`], recordVideo: { dir: out, size: { width: 1400, height: 900 } }, env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
   page = await app.firstWindow(); video = page.video(); page.on('pageerror', e => errors.push(e.message));
   await page.waitForSelector('#bw-pages .bw-page-row'); await page.setViewportSize({ width: 1400, height: 900 });
 };

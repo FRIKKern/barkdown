@@ -30,7 +30,7 @@ for (const chosen of [null,'api','codex']) {
   `);
   let app;
   try {
-    app=await electron.launch({executablePath:require('electron'),args:[boot,'--user-data='+root],env:{...process.env,BARKDOWN_PROVIDER:'',ANTHROPIC_API_KEY:'',ANTHROPIC_AUTH_TOKEN:'',CLAUDE_CODE_OAUTH_TOKEN:'',CODEX_API_KEY:''}});
+    app=await electron.launch({executablePath:require('electron'),args:[boot, '--legacy','--user-data='+root],env:{...process.env,BARKDOWN_PROVIDER:'',ANTHROPIC_API_KEY:'',ANTHROPIC_AUTH_TOKEN:'',CLAUDE_CODE_OAUTH_TOKEN:'',CODEX_API_KEY:''}});
     const page=await app.firstWindow();await page.waitForFunction(()=>window.__barkdown?.state.loaded);
     const settings=await page.evaluate(()=>window.__barkdown.state.settings);
     assert.equal(settings.provider,chosen||'claude');

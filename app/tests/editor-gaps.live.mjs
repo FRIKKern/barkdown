@@ -65,7 +65,7 @@ async function step(name, action, check) {
 try {
   publishFixture({ slug: SLUG, title: 'Gap probe, the long tail', description: 'Disposable asserted Barkdown native editor checks for input rules, rich paste, links, list and quote transforms, native history and full acknowledged server content.', blocks: [{ type: 'heading', level: 1, text: 'Gap probe' }, { type: 'paragraph', content: [{ type: 'text', value: 'Start here.' }] }] });
   for (const block of read().blocks) if (block.id) seededIds.add(block.id);
-  app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), `--user-data=${userData}`], recordVideo: { dir: out, size: { width: 1400, height: 900 } }, env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
+  app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], recordVideo: { dir: out, size: { width: 1400, height: 900 } }, env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
   page = await app.firstWindow(); video = page.video();
   page.on('pageerror', error => errors.push(error.message));
   await page.waitForSelector('#bw-pages .bw-page-row');

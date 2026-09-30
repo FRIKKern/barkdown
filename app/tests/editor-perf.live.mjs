@@ -28,7 +28,7 @@ for (let i = 1; i < N; i++) {
 publishFixture({ slug: SLUG, title: 'Five hundred blocks of prose', description: 'Scratch paper for Barkdown row 16: five hundred blocks the canvas must open, type into and reorder without lag, with the ops batched. Rewritten on every run of tests/editor-perf.live.mjs.', blocks });
 
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-perf-'));
-const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
+const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });
 await page.waitForSelector('#bw-pages .bw-page-row');

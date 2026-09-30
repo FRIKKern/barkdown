@@ -6,7 +6,7 @@ import fs from 'node:fs';import os from 'node:os';import path from 'node:path';i
 const require=createRequire(import.meta.url),appDir=path.resolve(import.meta.dirname,'..');
 const profile=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-goal-ui-'));
 const out=path.join(appDir,'test-results','goals');fs.mkdirSync(out,{recursive:true});
-const app=await electron.launch({executablePath:require('electron'),args:[appDir,`--user-data=${profile}`],env:{...process.env,ANTHROPIC_API_KEY:'',ANTHROPIC_AUTH_TOKEN:'',BARKDOWN_PROVIDER:'api'}});
+const app=await electron.launch({executablePath:require('electron'),args:[appDir, '--legacy',`--user-data=${profile}`],env:{...process.env,ANTHROPIC_API_KEY:'',ANTHROPIC_AUTH_TOKEN:'',BARKDOWN_PROVIDER:'api'}});
 try{
  const page=await app.firstWindow();const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.waitForFunction(()=>window.__barkdown?.state.loaded);await page.setViewportSize({width:1100,height:800});
  await page.locator('#bw-prompt').fill('Keep my main conversation draft.');

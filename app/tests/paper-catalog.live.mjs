@@ -48,7 +48,7 @@ const title = i => `${i < 200 ? places[Math.floor(i / 10)] + ' ' + subjects[i % 
 const create = i => request('POST', `/v1/plugins/bulldocs/papers/${id(i)}/create`, { slug: id(i), title: title(i), style: 'article', description: 'A private complete-library fixture proving discovery, human organization and recovery beyond the first catalog page.', tags: [{ tag: 'catalogproof', strength: 95, rationale: 'Private complete catalog discovery proof' }], blocks: [{ id: 'text', type: 'paragraph', content: [{ type: 'text', value: `Native library note ${i}: ${title(i)}, kept in its human-selected place.` }] }] }, 201);
 const shot = async name => { await page.evaluate(() => document.fonts.ready); await page.screenshot({ path: path.join(out, name + '.png') }); frames.push(name + '.png'); };
 const launch = async () => {
-  app = await electron.launch({ executablePath: require('electron'), args: [appDir, `--user-data=${userData}`], recordVideo: { dir: out, size: { width: 1400, height: 900 } }, env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
+  app = await electron.launch({ executablePath: require('electron'), args: [appDir, '--legacy', `--user-data=${userData}`], recordVideo: { dir: out, size: { width: 1400, height: 900 } }, env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
   page = await app.firstWindow(); video = page.video(); page.on('pageerror', e => errors.push(e.message));
   await page.waitForFunction(() => window.__barkdown?.state.loaded); await page.setViewportSize({ width: 1400, height: 900 });
 };

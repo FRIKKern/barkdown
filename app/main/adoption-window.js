@@ -1,7 +1,7 @@
 const path = require('path');
 const { BrowserWindow, ipcMain } = require('electron');
 const esc = value => String(value || '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
-const labels = { prepare: 'Adopt existing library', activate: 'Use verified profile', resume: 'Resume preparation', rollback: 'Restore legacy authority', quit: 'Quit' };
+const labels = { prepare: 'Adopt existing library', later: 'Not now, start empty', activate: 'Use verified profile', resume: 'Resume preparation', rollback: 'Restore legacy authority', quit: 'Quit' };
 function createAdoptionWindow() {
   let window = null, pending = null, busy = false;
   function ensureWindow() {
@@ -26,7 +26,7 @@ function createAdoptionWindow() {
     const description = state.status === 'active' && state.actions?.includes('rollback')
       ? 'Restore the retained legacy library as the startup authority. Changes made inside the adopted profile remain in its retained copy and are not merged into the old library. Close older Barkdown windows and stop the owned library server cleanly before continuing.'
       : prepare
-      ? 'Your existing library stays intact while a verified profile copy is prepared. Close every older Barkdown window before continuing. Any local library server must be stopped cleanly.'
+      ? (state.actions.includes('later') ? 'Barkdown found your existing library. It stays intact while a verified profile copy is prepared; you can also start with an empty profile now and adopt it at a later launch. Close every older Barkdown window before continuing.' : 'Your existing library stays intact while a verified profile copy is prepared. Close every older Barkdown window before continuing. Any local library server must be stopped cleanly.')
       : state.status === 'busy' ? 'Barkdown is verifying the library and its recovery record. Keep this window open until the operation finishes.'
       : 'Barkdown has not opened a library. Choose an available recovery step, or quit and inspect the retained recovery record.';
     const actions = state.actions || [];

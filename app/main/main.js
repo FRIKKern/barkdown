@@ -16,7 +16,9 @@ const { SourceDriver, validate: validateLocal } = require('./local-barkpark-sour
 const crypto = require('crypto');
 const credentialDurability = require('./credential-durability').createCredentialDurability({ safeStorage, sessionData: () => app.getPath('sessionData') });
 let runtimeReadyHook = null, portable = null, profileRegistry = null, profileService = null, profileGate = null, profilePool = null, profileConnection = null, profileConnectionOwner = null, appSettingsStore = null, goalService = null;
-const PROFILE_MODE = process.argv.includes('--profiles');
+// Profiles are the ordinary launch (legacy retirement R2, D-profiles-default). `--legacy` keeps the
+// single legacy library for development tours until R4 removes it; `--profiles` is accepted and means nothing more.
+const PROFILE_MODE = !process.argv.includes('--legacy');
 let authorityOwnership = null, adoptionView = null, bootBusy = false;
 let preparation = null, preparationForeground = null;
 let localRuntime = null, localConfigKey = '';
@@ -253,7 +255,7 @@ function registerIpc() {
   }, true);
   handle('profiles:create', name => profileRegistry.createProfile({ name }));
   handle('profiles:select', async ({ owner, profileId }) => {
-    if (!profileService) throw new Error('Start with --profiles to enable isolated profiles');
+    if (!profileService) throw new Error('Profiles are unavailable in a legacy launch');
     if (portable?.isIncomplete(profileId)) throw Object.assign(new Error('This profile is an import that did not finish. Discard it or import again from Settings.'), { code: 'portable_incomplete' });
     return profileGate.select(owner, profileId, async () => {
       store.init(profileRegistry.storeFor(profileId).storeDir);
@@ -647,7 +649,9 @@ app.whenReady().then(async () => {
   authorityOwnership = await acquireAuthorityLease(app.getPath('userData'));
   const adoption = createLegacyAdoption({ userData: app.getPath('userData'), ownership: authorityOwnership, readSecrets: adoptionSecrets });
   adoptionView = require('./adoption-window').createAdoptionWindow();
-  const boot = await require('./adoption-boot').prepareAdoptionBoot({ adoption, requested: process.argv.includes('--adopt-legacy'), rollback: process.argv.includes('--rollback-adoption'), profiles: PROFILE_MODE, choose: state => adoptionView.choose(state) });
+  // A legacy library beside no profile registry is offered for adoption at an ordinary launch.
+  const legacyPresent = fs.existsSync(path.join(app.getPath('userData'), 'barkdown', 'workspace.json')) && !fs.existsSync(path.join(app.getPath('userData'), 'profile-data', 'registry.json'));
+  const boot = await require('./adoption-boot').prepareAdoptionBoot({ adoption, requested: process.argv.includes('--adopt-legacy'), legacyPresent, rollback: process.argv.includes('--rollback-adoption'), profiles: PROFILE_MODE, choose: state => adoptionView.choose(state) });
   authorityOwnership.assertOwned();
   if (boot.mode === 'quit') { bootBusy = false; app.quit(); return; }
   if (boot.mode === 'profiles') {

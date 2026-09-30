@@ -26,7 +26,7 @@ const out=path.resolve((capture?'../docs/visual/fallback-consumption/runs/':'tes
 const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-upload-history-'));
 const proxy=await startEditorAssetProxy(process.env.BARKDOWN_SHOTS_SERVER);
 let app;
-const launch=()=>electron.launch({executablePath:require('electron'),args:[path.resolve('.'),`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
+const launch=()=>electron.launch({executablePath:require('electron'),args:[path.resolve('.'), '--legacy',`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
 const read=()=>{const r=bp(['doc','get','paper',slug,'--perspective','raw']);return r.document||r;};
 const htmlImage='<img src="https://clipboard-original.invalid/image.png" alt="Copied diagram">';
 const htmlTable='<table><tr><td>Important table text</td></tr></table>';

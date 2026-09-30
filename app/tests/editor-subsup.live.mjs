@@ -12,7 +12,7 @@ const SLUG = 'barkdown-editor-subsup';
 publishFixture({ slug: SLUG, title: 'Below and above the line', description: 'Scratch paper for the Barkdown subscript/superscript row: the 2 in H2O goes below the line with Ctrl+, and the 2 in mc2 above it with Ctrl+., the server holds sub and sup wrappers, the reader renders the tags. Rewritten on every run of tests/editor-subsup.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Below and above the line' }, para('Water is H2O and energy is mc2 in this line.'), { type: 'paragraph', content: [{ type: 'text', value: 'Already ' }, { type: 'sup', children: [{ type: 'text', value: 'raised' }] }, { type: 'text', value: ' on the server.' }] }] });
 
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-subsup-'));
-const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
+const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });
 await page.waitForSelector('#bw-pages .bw-page-row');

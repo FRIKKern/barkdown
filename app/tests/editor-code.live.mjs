@@ -9,7 +9,7 @@ import { bp, publishFixture } from './lib/paper-fixture.mjs';
 import { MOD } from './helpers/keys.mjs';
 publishFixture({ slug: SLUG, title: 'Code fence checks', description: 'Scratch paper for the Barkdown code-block checks: the fence, the language, keyboard exits and the server round trip; rewritten on every run of tests/editor-code.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Code probe' }, { type: 'paragraph', content: [{ type: 'text', value: 'Start here.' }] }] });
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-code-'));
-const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
+const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push(e.message));
 await page.waitForSelector('#bw-pages .bw-page-row');

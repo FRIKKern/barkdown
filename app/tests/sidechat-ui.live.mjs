@@ -6,7 +6,7 @@ const require = createRequire(import.meta.url);
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-side-ui-'));
 const parentFolder = path.join(userData,'parent'), childFolder = path.join(userData,'child');
 fs.mkdirSync(parentFolder); fs.mkdirSync(childFolder); fs.writeFileSync(path.join(childFolder,'note.txt'),'Child-owned file');
-const app = await electron.launch({executablePath:require('electron'),args:[path.resolve('.'),`--user-data=${userData}`],env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
+const app = await electron.launch({executablePath:require('electron'),args:[path.resolve('.'), '--legacy',`--user-data=${userData}`],env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
 const page=await app.firstWindow(), errors=[];
 page.on('pageerror',e=>errors.push(e.message));
 try {

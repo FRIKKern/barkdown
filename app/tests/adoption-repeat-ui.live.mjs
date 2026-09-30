@@ -34,7 +34,7 @@ const git = (args, cwd = path.resolve('..')) => execFileSync('git', args, { cwd,
 const report = { sourceCommit: git(['rev-parse', 'HEAD']), sourceDirty: git(['status', '--porcelain', '--', 'app']) !== '', barkparkCommit: git(['rev-parse', 'HEAD'], source), barkparkDirty: git(['status', '--porcelain'], source) !== '', userData, frames: [], checks: [], stopped: false, portability: false };
 const record = text => { report.checks.push(text); console.log('PASS ' + text); };
 let app, page, profileDir;
-const launch = flags => electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), `--user-data=${userData}`, ...flags], timeout: 180000, env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
+const launch = flags => electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`, ...flags], timeout: 180000, env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const shot = async name => { const file = name + '.png'; await page.screenshot({ path: path.join(out, file) }); report.frames.push(file); };
 function hashTree(root, exclude = []) {
   if (!fs.existsSync(root)) return {};

@@ -23,7 +23,7 @@ bp(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'
 const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-structured-table-'));
 const capture=process.env.BARKDOWN_EDITOR_CAPTURE==='1';
 const out=path.resolve((capture?'../docs/visual/structured-table/runs/':'test-results/paper-structured-table/')+new Date().toISOString().replace(/[:.]/g,'-'));fs.mkdirSync(out,{recursive:true});
-const app=await electron.launch({executablePath:require('electron'),args:[path.resolve('.'),`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
+const app=await electron.launch({executablePath:require('electron'),args:[path.resolve('.'), '--legacy',`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
 const results=[];let video,page,editorBundle,client;
 const scenarios=[
  {name:'headerless',index:1,cells:[{row:0,column:0,text:'Agent first\nAgent second',align:'right'}],expected:'Agent first'},

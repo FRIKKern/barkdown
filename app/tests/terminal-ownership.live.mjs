@@ -66,7 +66,7 @@ const trees = [],
 async function boot(managed = true, dataRoot = userData) {
   app = await electron.launch({
     executablePath: process.env.BARKDOWN_TEST_PACKAGED_EXE || require('electron'),
-    args: [...(process.env.BARKDOWN_TEST_PACKAGED_EXE ? [] : [path.resolve('.')]), ...(managed ? ['--profiles'] : []), `--user-data=${dataRoot}`],
+    args: [...(process.env.BARKDOWN_TEST_PACKAGED_EXE ? [] : [path.resolve('.')]), ...(managed ? ['--profiles'] : ['--legacy']), `--user-data=${dataRoot}`],
     recordVideo: { dir: out, size: { width: 1400, height: 900 } },
     env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' },
   });

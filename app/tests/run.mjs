@@ -25,7 +25,7 @@ const assert = (ok, message) => { if (!ok) throw new Error(message); };
 const results = [];
 const step = (name, ok) => { results.push({ name, ok }); if (!ok) throw new Error('Failed: ' + name); };
 
-const app = await electron.launch({ executablePath: require('electron'), args: [appDir, `--user-data=${userData}`], env: { ...process.env, ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', BARKDOWN_PROVIDER: 'api' } });
+const app = await electron.launch({ executablePath: require('electron'), args: [appDir, '--legacy', `--user-data=${userData}`], env: { ...process.env, ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', BARKDOWN_PROVIDER: 'api' } });
 const page = await app.firstWindow();
 const errors = [];
 page.on('pageerror', e => errors.push(e.message));

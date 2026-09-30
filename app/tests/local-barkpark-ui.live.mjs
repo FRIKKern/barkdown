@@ -9,7 +9,7 @@ const dataDir = path.join(userData, 'barkdown'); fs.mkdirSync(dataDir);
 const source = path.resolve(process.env.BARKDOWN_TEST_BP_SOURCE || '../../barkpark-editor');
 fs.writeFileSync(path.join(dataDir, 'settings.json'), JSON.stringify({ barkpark: { enabled: true, writes: true, local: { enabled: true, source, port: 4548, pgPort: 5548 } } }));
 console.log('Electron local runtime data:', userData);
-const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
+const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow(), errors = [];
 page.on('pageerror', error => errors.push(error.message));
 page.on('console', message => { if (message.text().startsWith('LOCAL ')) console.log(message.text()); });
@@ -48,7 +48,7 @@ try {
 } finally { await app.close(); }
 assert.equal(fs.existsSync(path.join(pgData, 'postmaster.pid')), false, 'quit stopped the private database');
 assert.equal(fs.existsSync(path.join(dataDir, 'local-barkpark', 'default', 'owner.json')), false, 'quit released ownership');
-const reopened = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
+const reopened = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const secondPage = await reopened.firstWindow();
 try {
   const deadline = Date.now() + 180000;

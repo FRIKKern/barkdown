@@ -50,7 +50,7 @@ bp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug:
 ] }));
 
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-status-'));
-const app = await electron.launch({ executablePath: require('electron'), args: [appDir, `--user-data=${userData}`], env: { ...process.env } });
+const app = await electron.launch({ executablePath: require('electron'), args: [appDir, '--legacy', `--user-data=${userData}`], env: { ...process.env } });
 try {
 const page = await app.firstWindow();
 await page.waitForSelector('#bw-pages .bw-page-row');

@@ -110,7 +110,7 @@ await worker.ready;
 const launch = () =>
   electron.launch({
     executablePath: require("electron"),
-    args: [appDir, `--user-data=${userData}`, "--rollback-adoption"],
+    args: [appDir, '--legacy', `--user-data=${userData}`, "--rollback-adoption"],
     env: { ...process.env, BARKDOWN_PROVIDER: "api", ANTHROPIC_API_KEY: "" },
     recordVideo: { dir: out, size: { width: 760, height: 540 } },
   });

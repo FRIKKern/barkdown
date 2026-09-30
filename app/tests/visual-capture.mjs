@@ -7,7 +7,7 @@ import { MOD } from './helpers/keys.mjs';
 const require=createRequire(import.meta.url),{PNG}=require('pngjs'),{GIFEncoder,quantize,applyPalette}=require('gifenc');
 const run=new Date().toISOString().replace(/[:.]/g,'-'),dir=`docs/visual/runs/${run}`;fs.mkdirSync(safe(dir),{recursive:true});
 const profile=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-visual-'));
-const app=await electron.launch({executablePath:require('electron'),args:[path.join(root,'app'),`--user-data=${profile}`],env:{...process.env,ANTHROPIC_API_KEY:'',ANTHROPIC_AUTH_TOKEN:'',BARKDOWN_PROVIDER:'api'}});
+const app=await electron.launch({executablePath:require('electron'),args:[path.join(root, '--legacy','app'),`--user-data=${profile}`],env:{...process.env,ANTHROPIC_API_KEY:'',ANTHROPIC_AUTH_TOKEN:'',BARKDOWN_PROVIDER:'api'}});
 const errors=[],shots=[],hashes={};
 try{
  let p=await app.firstWindow();p.on('pageerror',e=>errors.push(e.message));await p.waitForFunction(()=>window.__barkdown?.state.loaded);await p.setViewportSize({width:1100,height:740});

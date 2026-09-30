@@ -13,7 +13,7 @@ publishFixture({ slug: TARGET, title: 'Mentionable target paper', description: '
 publishFixture({ slug: SLUG, title: 'Mentions by at-sign', description: 'Scratch paper for the Barkdown "@" row: typing @ and part of a title opens the wikilink popup, Enter picks, and the server holds a wikilink inline to the target paper. Rewritten on every run of tests/editor-mention.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Mentions by at-sign' }, para('Link the target after this sentence:'), para('An address like me@example.com must stay plain text:')] });
 
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-mention-'));
-const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
+const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });
 await page.waitForSelector('#bw-pages .bw-page-row');

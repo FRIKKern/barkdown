@@ -6,7 +6,7 @@ const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-boot-draft-')), legac
 fs.mkdirSync(legacy);
 const chat = (id, draft, extra = {}) => ({ id, title: id, draft, messages: [], events: [], apiHistory: [], tabs: [], following: true, ...extra });
 fs.writeFileSync(path.join(legacy, 'workspace.json'), JSON.stringify({ version: 1, current: 'parent', order: ['parent', 'side'], chats: { parent: chat('parent', 'Saved parent draft'), side: chat('side', 'Saved side draft', { side: true, parent: 'parent' }) } }));
-const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
+const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 try {
   const page = await app.firstWindow();
   await page.waitForFunction(() => document.querySelector('#bw-prompt')?.value === 'Saved parent draft');

@@ -25,7 +25,7 @@ async function saved(previous){
 }
 const keyState=()=>page.evaluate(()=>{const c=document.querySelector('bp-paper-canvas'),e=c._editor,s=e.state,h=s.plugins.find(p=>p.key.startsWith('history$'))?.getState(s);return{active:document.activeElement?.outerHTML.slice(0,250),documentFocus:document.hasFocus(),editorFocus:e.isFocused,selection:s.selection.toJSON(),undo:h?.done?.eventCount,redo:h?.undone?.eventCount,keys:window.__identityKeys?.slice(-12),save:document.querySelector('.bw-paper-pane #save-state')?.textContent,blocks:c.recoverySnapshot().blocks};});
 try{
- app=await electron.launch({executablePath:require('electron'),args:[path.resolve('.'),`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
+ app=await electron.launch({executablePath:require('electron'),args:[path.resolve('.'), '--legacy',`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
  page=await app.firstWindow();video=page.video();await page.waitForSelector('#bw-pages .bw-page-row');await page.setViewportSize({width:1400,height:900});
  await page.evaluate(async server=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,viaCli:true,writes:true,server}});await window.__barkdown.refreshLibrary();},process.env.BARKDOWN_SHOTS_SERVER);
  await openFixturePaper(page, slug);await page.waitForSelector('.bw-paper-pane .ProseMirror',{timeout:60000});

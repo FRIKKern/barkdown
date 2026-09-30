@@ -57,3 +57,14 @@ test('active rollback is explicit, confirmed and re-inspected before legacy boot
   assert.deepEqual(f.calls, ['rollback']);
   await assert.rejects(prepareAdoptionBoot({ ...fixture('none'), rollback: true, choose: () => 'rollback' }), /No adoption/);
 });
+
+test('an ordinary profiles launch offers to adopt a legacy library it finds; later opens an empty profile, quit quits', async () => {
+  const offered = fixture('none');
+  const result = await prepareAdoptionBoot({ ...offered, profiles: true, legacyPresent: true, choose: s => { assert.deepEqual(s.actions, ['prepare', 'later', 'quit']); return 'prepare'; } });
+  assert.deepEqual(offered.calls, ['prepare', 'activate']); assert.equal(result.mode, 'profiles'); assert.equal(result.createEmpty, false);
+  const later = fixture('none');
+  assert.deepEqual(await prepareAdoptionBoot({ ...later, profiles: true, legacyPresent: true, choose: () => 'later' }), { mode: 'profiles', root: '/verified/profiles', createEmpty: true });
+  assert.deepEqual(later.calls, []);
+  assert.equal((await prepareAdoptionBoot({ ...fixture('none'), profiles: true, legacyPresent: true, choose: () => 'quit' })).mode, 'quit');
+  assert.equal((await prepareAdoptionBoot({ ...fixture('none'), profiles: false, legacyPresent: true, choose: () => assert.fail('a legacy launch asks nothing') })).mode, 'legacy');
+});

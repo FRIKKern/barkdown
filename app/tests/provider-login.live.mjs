@@ -33,7 +33,7 @@ try {
   };
   const boot=path.join(userData,'controlled-boot.cjs');
   fs.writeFileSync(boot,`const {app}=require('electron');app.setAppPath(${JSON.stringify(appDir)});(${install.toString()})({app});require(${JSON.stringify(path.join(appDir,'main/main.js'))});`);
-  app=await electron.launch({executablePath:require('electron'),args:[boot,'--user-data='+userData],env:{...process.env,BARKDOWN_PROVIDER:'codex',ANTHROPIC_API_KEY:'',ANTHROPIC_AUTH_TOKEN:'',CODEX_API_KEY:''},recordVideo:{dir:out,size:{width:1400,height:900}}});
+  app=await electron.launch({executablePath:require('electron'),args:[boot, '--legacy','--user-data='+userData],env:{...process.env,BARKDOWN_PROVIDER:'codex',ANTHROPIC_API_KEY:'',ANTHROPIC_AUTH_TOKEN:'',CODEX_API_KEY:''},recordVideo:{dir:out,size:{width:1400,height:900}}});
   page=await app.firstWindow();await page.waitForFunction(()=>window.__barkdown?.state.loaded);await page.setViewportSize({width:1400,height:900});
 
   const parent=await page.evaluate(()=>window.__barkdown.state.current);
