@@ -194,8 +194,10 @@ class SourceDriver {
       DATABASE_URL: `ecto://postgres:${encodeURIComponent(this.secrets.password)}@127.0.0.1:${this.config.pgPort}/barkdown`, POOL_SIZE: '3',
       PORT: String(this.config.port), PHX_HOST: '127.0.0.1', RELEASE_DISTRIBUTION: 'none', RELEASE_TMP: path.join(this.dataDir, 'release-tmp'), ERL_CRASH_DUMP: path.join(this.dataDir, 'erl_crash.dump'),
       BARKPARK_INGEST_TOKEN: this.secrets.token, BARKPARK_SEED_PROFILE: 'clean', BARKPARK_SEED_ADMIN_TOKEN: this.secrets.token, BARKPARK_PLUGINS: 'bulldocs,media',
-      BARKPARK_MEDIA_DIR: path.join(this.dataDir, 'media'), BARKPARK_INDX_STATE_DIR: path.join(this.dataDir, 'indx'), BARKPARK_BUNDLE_SPILL_DIR: path.join(this.dataDir, 'bundles'),
-      ...(this.config.writeAdmission ? admissionEnv(this.dataDir, this.config.writeAdmission.instanceId) : {}) };
+      BARKPARK_MEDIA_DIR: path.join(this.dataDir, 'media'), BARKPARK_INDX_STATE_DIR: path.join(this.dataDir, 'indx'), BARKPARK_BUNDLE_SPILL_DIR: path.join(this.dataDir, 'bundles') };
+    // Migration and seed are one-shot tasks and run without admission, as the release demands: a
+    // managed instance refuses a seed boot. The server itself is started with it.
+    const serverEnv = { ...env, ...(this.config.writeAdmission ? admissionEnv(this.dataDir, this.config.writeAdmission.instanceId) : {}) };
     const clean = text => this.redact.reduce((out, secret) => out.split(secret).join('[redacted]'), String(text));
     const log = text => fs.appendFileSync(path.join(this.dataDir, 'server.log'), clean(text));
     const evaluate = async (expression, timeout) => {
@@ -217,7 +219,7 @@ class SourceDriver {
     // The database is ready for this boot; the server answering is checked by healthy().
     fs.writeFileSync(path.join(this.dataDir, 'boot-ready'), this.bootId);
     this.processError = null;
-    this.child = spawn(this.packaged.bin, ['start'], { env: { ...env, PHX_SERVER: 'true' }, detached: true, stdio: ['ignore', 'pipe', 'pipe'] });
+    this.child = spawn(this.packaged.bin, ['start'], { env: { ...serverEnv, PHX_SERVER: 'true' }, detached: true, stdio: ['ignore', 'pipe', 'pipe'] });
     if (this.child.pid) this.processRecord.write({ pid: this.child.pid, port: this.config.port, pgPort: this.config.pgPort, bootId: this.bootId });
     this.child.stdout.on('data', log); this.child.stderr.on('data', log);
     this.child.on('error', error => { this.processError = error.message; });
