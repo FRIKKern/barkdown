@@ -8,7 +8,7 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** C086: a profile runs on a packaged runtime, no checkout and no Elixir on the machine. C085: crashes lose nothing.
+**Latest advance:** C086: the Mac application carries its runtime and database and starts with nothing else installed.
 
 **Next observable result:** Windows is back about October 5: switch a real library, carry an export across machines, reclaim after a crash there. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
@@ -83,6 +83,6 @@ Existing cloud access is not two-way synchronization. Two real devices must demo
 | ○ Remaining | Keep data on uninstall | [A5 gate](ACCEPTANCE.md#a5--install-and-daily-use) |
 | ○ Remaining | Keyboard, zoom, daily use | [A5 gate](ACCEPTANCE.md#a5--install-and-daily-use) |
 
-Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. The runtime folder carries its own Postgres; the app still runs from source, and Windows has no release. Clean-machine installation, upgrade/rollback, retained user data and the daily-use pilot remain pending.
+Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. The Mac application builds with that runtime and its own Postgres inside and starts a profile with nothing else installed; it is signed ad hoc, about 1 GB, and Windows has no release. Clean-machine installation, upgrade/rollback, retained user data and the daily-use pilot remain pending.
 
 Stage order and release gates remain in [PLAN.md](PLAN.md); [the current cycle](NEXT-AGENT.md) owns the next action. This view summarizes that plan and is not another backlog.

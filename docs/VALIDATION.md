@@ -1,6 +1,6 @@
 # Evidence and remaining proof
 
-[C086 packaged runtime](cycles/C086-packaged-runtime.md), active: a profile runs on a packaged Barkpark release with only system folders on the PATH, rehearsed in Electron on one Mac (boot, write, restart, export, import, reclaim); the folder carries its own Postgres built from the verified source; the app runs from source, no Windows.
+[C086 packaged runtime](cycles/C086-packaged-runtime.md), active: a profile runs on a packaged Barkpark release with only system folders on the PATH, rehearsed in Electron on one Mac (boot, write, restart, export, import, reclaim); the folder carries its own Postgres built from the verified source, and the built macOS application starts a profile on it (ad hoc signed, one Mac); no Windows.
 
 [C085 portable profile](cycles/C085-portable-profile.md), active: a profile is exported under the hold (logical dump, media, profile files, manifest; no credentials) and imported as a new profile with its own database, rehearsed between two real runtimes and from Settings in the app on one Mac, with the imported profile opened; a host killed in the middle of an export, of an import and of the library switch is rehearsed at one stall point each, and a kill while held with no operation in flight; the database stopped under an open note, twice; a quit in the moment of the last keystroke; two installations on one Mac; no second machine.
 

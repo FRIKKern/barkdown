@@ -22,7 +22,7 @@ We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT,
 
 **Next**
 - Windows returns: switch a real library, carry an export across machines, recover from a crash there.
-- Until then: a Barkdown that needs no source checkout. The runtime and its database already run [packaged](docs/cycles/C086-packaged-runtime.md); the app itself is next.
+- Until then: a Barkdown that installs. The Mac application already [builds with its runtime and database inside](docs/cycles/C086-packaged-runtime.md) and starts with nothing else installed. Not yet signed, and about 1 GB.
 
 **How far along:** migration is about 75% by effort, low confidence, plausible range 30–90%. That weighs demonstrated work against what's left; it is not a safety rating. [How it's calculated](docs/PLAN.md#migration-effort-estimate).
 
@@ -37,7 +37,7 @@ A notebook in motion: write together, check things off, find your next idea. Rea
 <details>
 <summary>Still view</summary>
 
-![Barkdown: a conversation beside a Paper document in dark mode.](docs/images/status/paper-dark.2a2c15d6.png)
+![Barkdown: a conversation beside a Paper document in dark mode.](docs/images/status/paper-dark.c59264f3.png)
 
 </details>
 

@@ -29,7 +29,7 @@ export const summaries = {
   P5: {reviewedStageStatus: 'todo', title: ['Installation'], items: [
     ['active', 'Install without a checkout', 'docs/cycles/C086-packaged-runtime.md'], ['todo', 'Update without losing work'],
     ['todo', 'Recover a failed upgrade'], ['todo', 'Keep data on uninstall'], ['todo', 'Keyboard, zoom, daily use'],
-  ], scope: 'Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. The runtime folder carries its own Postgres; the app still runs from source, and Windows has no release. Clean-machine installation, upgrade/rollback, retained user data and the daily-use pilot remain pending.'},
+  ], scope: 'Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. The Mac application builds with that runtime and its own Postgres inside and starts a profile with nothing else installed; it is signed ad hoc, about 1 GB, and Windows has no release. Clean-machine installation, upgrade/rollback, retained user data and the daily-use pilot remain pending.'},
 };
 // This is the active journey's evidence summary, not a percentage or a task queue.
 export const migrationProgress = [
@@ -40,7 +40,7 @@ export const migrationProgress = [
   {status:'active', title:'Switch and recover', lines:['Switched from Settings on macOS.', 'Survives a crash under the hold.'], evidence:'docs/cycles/C083-writer-admission.md', detail:'The switch runs from Settings › Barkpark in the real app on macOS, is interrupted at every phase and resumes without duplicate Papers, and the switched profile creates, edits, finds, deletes and recovers notes on Paper with agent edits and Undo. Still to demonstrate: a real library and a run on Windows.'},
   {status:'active', title:'Prove the way back', lines:['Rollback keeps later Paper edits.', 'Real library on Windows still to run.'], evidence:'docs/cycles/C083-writer-admission.md', detail:'Rollback restores the legacy navigation exactly, keeps Papers and later edits on Paper, names every changed Paper, and lets a person compare, keep or restore each one; its own interruption resumes. Retirement of the separate editor and store is audited in four stages and not started.'},
 ];
-const latestAdvance = 'C086: a profile runs on a packaged runtime, no checkout and no Elixir on the machine. C085: crashes lose nothing.';
+const latestAdvance = 'C086: the Mac application carries its runtime and database and starts with nothing else installed.';
 const nextOutcome = 'Windows is back about October 5: switch a real library, carry an export across machines, reclaim after a crash there.';
 const marks = {done: '✓', active: '◐', todo: '○'};
 const meanings = {done: 'Demonstrated', active: 'In progress', todo: 'Remaining'};
