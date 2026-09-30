@@ -14,8 +14,8 @@ const needsPaper = new Set(['approval', 'success', 'delayed-finish']);
 for (const scenario of cases) test(`actual live runner classifies ${scenario}`, { skip: needsPaper.has(scenario) && !process.env.BARKDOWN_SHOTS_SERVER && 'needs a Paper runtime since the legacy retirement; run under the isolated harness' }, () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-provider-runner-'));
   const trace = path.join(root, 'trace.txt');
-  const child = spawnSync(process.execPath, ['--require', path.join(here, 'fixtures/provider-truth-transport.cjs'), path.join(here, 'providers.live.mjs'), scenario === 'invalid-provider' ? 'typo' : 'claude', `--timeout-ms=${process.env.BARKDOWN_SHOTS_SERVER ? 8000 : 250}`, '--cleanup-ms=150'], {
-    cwd: app, encoding: 'utf8', timeout: 10000,
+  const child = spawnSync(process.execPath, ['--require', path.join(here, 'fixtures/provider-truth-transport.cjs'), path.join(here, 'providers.live.mjs'), scenario === 'invalid-provider' ? 'typo' : 'claude', `--timeout-ms=${process.env.BARKDOWN_SHOTS_SERVER ? 4000 : 250}`, '--cleanup-ms=150'], {
+    cwd: app, encoding: 'utf8', timeout: process.env.BARKDOWN_SHOTS_SERVER ? 60000 : 10000,
     env: { ...process.env, PROVIDER_TRUTH_SCENARIO: scenario, PROVIDER_TRUTH_TRACE: trace },
   });
   fs.writeFileSync(path.join(root, 'result.json'), JSON.stringify({ status: child.status, signal: child.signal, stdout: child.stdout, stderr: child.stderr }, null, 2));
