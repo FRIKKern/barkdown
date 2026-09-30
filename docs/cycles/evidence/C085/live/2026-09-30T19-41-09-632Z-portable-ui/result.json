@@ -1,0 +1,199 @@
+{
+  "source": "5247a515bd2e2bdaf5a1eecaf3ecde689d4dc40a",
+  "upstream": "9f1874235449f9763c1b3e8cfcaf1b5a36aee9b3",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "A library to carry: two notes switched to Paper, one written on Paper, the welcome Paper, one conversation",
+      "papers": 5
+    },
+    {
+      "name": "Export from Settings: folder chosen in the picker, profile prepared, exported under the hold, the notice names the outcome and the folder and offers Restart, a fresh host edits again",
+      "folder": "Barkdown export - Writing desk - 2026-09-30 1941",
+      "files": 19,
+      "store": 12
+    },
+    {
+      "name": "Refused from Settings with the reason on screen, nothing created: a tampered, a truncated, an added-to and an other-version export, and a folder that is not an export",
+      "refusals": [
+        {
+          "name": "tampered",
+          "said": "Changed since the export: database.dump"
+        },
+        {
+          "name": "truncated",
+          "said": "Missing from the export: profile/workspace.json"
+        },
+        {
+          "name": "added to",
+          "said": "Files the manifest does not list: profile/planted.json"
+        },
+        {
+          "name": "another version",
+          "said": "This export was taken at Barkpark 012345678; this Barkdown runs 9f1874235. Import needs the same version or an earlier one that this one descends from"
+        },
+        {
+          "name": "not an export",
+          "said": "This folder is not a Barkdown profile export: it has no readable manifest"
+        }
+      ]
+    },
+    {
+      "name": "Import from Settings: export folder chosen in the picker (opened in a file manager first), a new profile with its own database, chosen in the profile list, opened with Switch",
+      "profile": "Writing desk (imported)"
+    },
+    {
+      "name": "The picture of a note arrives and is shown in the imported profile, served by its own runtime",
+      "storedAddress": "http://127.0.0.1:PORT/media/files/d/25087ad5-fa65-4210-8269-5e73767937d6/2026/09/lantern-7ab3a3af.png",
+      "note": "the stored address keeps the exporting port; the request is answered by the importing runtime"
+    },
+    {
+      "name": "The imported profile opened: Paper authority, the conversation with its unsent draft, Pages owned by the importing library, the same Papers, a retained original readable",
+      "owner": "dd36607a"
+    },
+    {
+      "name": "The assistant on the imported profile: reads and appends through the MCP server, Undo restores the blocks exactly",
+      "modelTurns": 3
+    },
+    {
+      "name": "A new profile starts with its managed runtime on: the runtime this installation last configured, no setup",
+      "profile": "Fresh desk"
+    },
+    {
+      "name": "The exporting profile afterwards: same Papers, same words; the export folder verifies as written"
+    }
+  ],
+  "screenshots": [
+    "01-settings-export-and-import.png",
+    "02-export-completed-restart-offered.png",
+    "02b-refusal-on-screen.png",
+    "03-import-completed.png",
+    "04-imported-profile-pages-and-conversation.png",
+    "04b-imported-picture-shown.png",
+    "05-imported-profile-agent-edit.png"
+  ],
+  "limits": [
+    "One machine, one run, a small library. Both profiles live in one registry: a second machine, another OS and another Postgres major version are not exercised. The native folder picker is stubbed in the main process; everything after it is the app. The assistant is scripted model turns through the real API SDK, not a live model."
+  ],
+  "pageErrors": [
+    "Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.",
+    "Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.",
+    "Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.",
+    "Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.",
+    "Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.",
+    "Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.",
+    "Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'."
+  ],
+  "mainStderr": [
+    "2026-09-30 22:41:22.376 Electron[18509:36122673] +[IMKClient subclass]: chose IMKClient_Modern\n",
+    "2026-09-30 22:41:22.376 Electron[18509:36122673] +[IMKInputSession subclass]: chose IMKInputSession_Modern\n",
+    "[preparation] after-launch-closure\n",
+    "[preparation] after-collecting\n",
+    "[preparation] after-freeze\n",
+    "[preparation] after-draining\n",
+    "[preparation] drained:foreground\n",
+    "[preparation] drained:ordinary\n[preparation] drained:terminals\n",
+    "[preparation] drained:goals\n[preparation] after-drains\n",
+    "[preparation] after-frozen-assert\n[preparation] after-quiescing\n",
+    "[preparation] after-writer-closure\n",
+    "[preparation] after-prepared\n",
+    "[switch] after-backup\n",
+    "[preparation] after-launch-closure\n",
+    "[preparation] after-freeze\n",
+    "[preparation] drained:goals\n",
+    "[preparation] drained:foreground\n[preparation] drained:ordinary\n[preparation] drained:terminals\n[preparation] after-drains\n",
+    "[preparation] after-frozen-assert\n",
+    "[switch] after-baseline\n",
+    "[switch] staging:plan\n",
+    "[switch] staging:intent:orchard-fieldbook\n",
+    "[switch] staging:response:orchard-fieldbook\n",
+    "[switch] staging:readback:orchard-fieldbook\n",
+    "[switch] staging:receipt:orchard-fieldbook\n",
+    "[switch] staging:intent:soil-moisture-protocol\n",
+    "[switch] staging:response:soil-moisture-protocol\n",
+    "[switch] staging:readback:soil-moisture-protocol\n",
+    "[switch] staging:receipt:soil-moisture-protocol\n",
+    "[switch] staging:before-complete\n",
+    "[switch] after-staging\n",
+    "[preparation] after-launch-closure\n",
+    "[preparation] after-freeze\n",
+    "[preparation] drained:goals\n",
+    "[preparation] drained:foreground\n",
+    "[preparation] drained:ordinary\n[preparation] drained:terminals\n[preparation] after-drains\n",
+    "[preparation] after-frozen-assert\n",
+    "[switch] hold:begin\n",
+    "[switch] hold:held\n",
+    "[switch] after-intent 8236b127-df39-4871-baa4-f1f437c6557e\n",
+    "[switch] after-replacing 8236b127-df39-4871-baa4-f1f437c6557e\n",
+    "[switch] after-workspace-replaced 8236b127-df39-4871-baa4-f1f437c6557e\n",
+    "[switch] after-selected 8236b127-df39-4871-baa4-f1f437c6557e\n",
+    "[switch] hold:reopened\n",
+    "[switch] after-selected 8236b127-df39-4871-baa4-f1f437c6557e\n",
+    "[switch] after-selection\n",
+    "[preparation] after-launch-closure\n",
+    "[preparation] after-freeze\n",
+    "[preparation] drained:goals\n[preparation] drained:foreground\n[preparation] drained:ordinary\n[preparation] drained:terminals\n[preparation] after-drains\n",
+    "[preparation] after-frozen-assert\n",
+    "[preparation] after-reopening\n",
+    "[preparation] drained:goals\n[preparation] drained:foreground\n[preparation] drained:ordinary\n[preparation] drained:terminals\n",
+    "[preparation] after-reopened-writer\n",
+    "[preparation] after-aborted\n",
+    "[preparation] after-reopened-launches\n",
+    "Debugger ending on ws://127.0.0.1:57925/55338707-9e3a-4ccb-8202-3c778aaec2e3\nFor help, see: https://nodejs.org/en/docs/inspector\n",
+    "2026-09-30 22:41:38.674 Electron[20103:36126205] +[IMKClient subclass]: chose IMKClient_Modern\n",
+    "2026-09-30 22:41:38.674 Electron[20103:36126205] +[IMKInputSession subclass]: chose IMKInputSession_Modern\n",
+    "[preparation] after-launch-closure\n",
+    "[preparation] after-collecting\n",
+    "[preparation] after-freeze\n",
+    "[preparation] after-draining\n",
+    "[preparation] drained:foreground\n",
+    "[preparation] drained:ordinary\n[preparation] drained:terminals\n",
+    "[preparation] drained:goals\n[preparation] after-drains\n",
+    "[preparation] after-frozen-assert\n",
+    "[preparation] after-quiescing\n",
+    "[preparation] after-writer-closure\n",
+    "[preparation] after-prepared\n",
+    "[preparation] after-launch-closure\n",
+    "[preparation] after-freeze\n",
+    "[preparation] drained:goals\n",
+    "[preparation] drained:foreground\n",
+    "[preparation] drained:ordinary\n",
+    "[preparation] drained:terminals\n[preparation] after-drains\n",
+    "[preparation] after-frozen-assert\n",
+    "[export] hold:begin\n",
+    "[export] hold:held\n",
+    "[export] after-dump\n",
+    "[export] after-media\n",
+    "[export] after-store\n",
+    "[export] hold:reopened\n",
+    "[preparation] after-launch-closure\n",
+    "[preparation] after-freeze\n",
+    "[preparation] drained:goals\n",
+    "[preparation] drained:foreground\n[preparation] drained:ordinary\n",
+    "[preparation] drained:terminals\n[preparation] after-drains\n",
+    "[preparation] after-frozen-assert\n",
+    "[preparation] after-reopening\n",
+    "[preparation] drained:goals\n",
+    "[preparation] drained:foreground\n",
+    "[preparation] drained:ordinary\n",
+    "[preparation] drained:terminals\n",
+    "[preparation] after-reopened-writer\n",
+    "[preparation] after-aborted\n",
+    "[preparation] after-reopened-launches\n",
+    "Debugger ending on ws://127.0.0.1:58045/9e496a6a-9eeb-412c-9a3b-1fee4353015b\nFor help, see: https://nodejs.org/en/docs/inspector\n",
+    "[quit] 1 note not saved at quit: 0 kept as retained drafts\n",
+    "2026-09-30 22:41:54.358 Electron[21624:36129312] +[IMKClient subclass]: chose IMKClient_Modern\n2026-09-30 22:41:54.358 Electron[21624:36129312] +[IMKInputSession subclass]: chose IMKInputSession_Modern\n",
+    "[import] failed: export_changed Changed since the export: database.dump\n",
+    "[import] failed: export_missing Missing from the export: profile/workspace.json\n",
+    "[import] failed: export_extra Files the manifest does not list: profile/planted.json\n",
+    "[import] failed: import_upstream This export was taken at Barkpark 012345678; this Barkdown runs 9f1874235. Import needs the same version or an earlier one that this one descends from\n",
+    "[import] failed: export_manifest This folder is not a Barkdown profile export: it has no readable manifest\n",
+    "[import] after-restoring\n",
+    "[import] after-restored\n",
+    "[import] after-imported\n",
+    "[owned] verify group 23759 phase=stopped active=0 host=21624\n",
+    "2026-09-30 22:42:26.564 Electron[21624:36129312] _TIPropertyValueIsValid called with 16 on nil context!\n2026-09-30 22:42:26.564 Electron[21624:36129312] imkxpc_getApplicationProperty:reply: called with incorrect property value 16, bailing.\n2026-09-30 22:42:26.564 Electron[21624:36129312] Text input context does not respond to _valueForTIProperty:\n",
+    "Debugger ending on ws://127.0.0.1:58142/613f77de-da0b-49a6-8650-bdf1fe56f093\nFor help, see: https://nodejs.org/en/docs/inspector\n"
+  ]
+}
