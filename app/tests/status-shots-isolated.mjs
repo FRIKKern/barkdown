@@ -37,7 +37,7 @@ runtime.on('status', s => console.log('Capture runtime:', s.phase, s.error || ''
 console.log('Isolated capture data:', data);
 await captureWithCleanup({ runtime, data,
   verifySource(phase) {
-    if (cleanSource(source).commit !== commit) throw Error('Runtime source commit changed during capture');
+    if ((release ? releaseOf(source)?.upstream : cleanSource(source).commit) !== commit) throw Error('Runtime source commit changed during capture');
     const outputs = phase === 'after-capture' && statusCapture;
     if (cleanSource(hostRoot, { allowEvidence: true, allowStatusOutputs: outputs }).commit !== host.commit) throw Error('Host source commit changed during capture');
     if (outputs) verifyStatusReadme(hostRoot, originalReadme);
