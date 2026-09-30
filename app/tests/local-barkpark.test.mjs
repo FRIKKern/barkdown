@@ -40,6 +40,20 @@ function driver() {
   assert.equal(r.status().phase, 'stopped');
 }
 {
+  // Two missed probes in a row are a slow runtime, not a dead one; the third restarts it.
+  const d = driver(); let answers = 0; d.healthy = async () => { answers++; return answers <= 1 || answers > 3; };
+  const r = new LocalBarkpark(d, { interval: 10 });
+  await r.start(); assert.equal(d.starts, 1);
+  for (let i = 0; i < 100 && answers < 4; i++) await sleep(5);
+  assert.equal(d.starts, 1, 'two misses do not restart');
+  const flaky = driver(); flaky.healthy = async () => flaky.up && false; flaky.start = async () => { flaky.starts++; flaky.up = true; flaky.healthy = async () => flaky.up; };
+  await r.stop();
+  const s = new LocalBarkpark(flaky, { interval: 10 });
+  flaky.healthy = async () => flaky.up; await s.start(); flaky.healthy = async () => false;
+  for (let i = 0; i < 200 && flaky.starts < 2; i++) await sleep(5);
+  assert.equal(flaky.starts, 2, 'the third miss restarts'); await s.stop();
+}
+{
   const d = driver(); d.acquire = async () => { throw new Error('owned elsewhere'); };
   const r = new LocalBarkpark(d); await assert.rejects(r.start(), /owned elsewhere/);
   assert.equal(d.starts, 0); assert.equal(d.stops, 0);
@@ -57,4 +71,4 @@ function driver() {
   await assert.rejects(d.checkFailure(), /487/);
   d.child.exitCode = 1; await assert.rejects(d.checkFailure(), /exited/);
 }
-console.log('Local Barkpark lifecycle: duplicate starts, health recovery, retry budget, cancellation, ownership refusal and Windows worker failure detection passed.');
+console.log('Local Barkpark lifecycle: duplicate starts, health recovery after three misses, retry budget, cancellation, ownership refusal and Windows worker failure detection passed.');

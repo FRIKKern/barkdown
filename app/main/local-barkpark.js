@@ -3,9 +3,11 @@ const { EventEmitter } = require('events');
 const { setTimeout: delay } = require('timers/promises');
 
 class LocalBarkpark extends EventEmitter {
-  constructor(driver, { interval = 5000, startupTimeout = 180000, retries = 3 } = {}) {
-    super(); Object.assign(this, { driver, interval, startupTimeout, retries });
-    this.state = { phase: 'stopped', attempts: 0, error: null };
+  // A runtime is in recovery after `misses` probes in a row fail, not after one: a request that takes
+  // seconds under load is not a runtime that stopped answering.
+  constructor(driver, { interval = 5000, startupTimeout = 180000, retries = 3, misses = 3 } = {}) {
+    super(); Object.assign(this, { driver, interval, startupTimeout, retries, misses });
+    this.state = { phase: 'stopped', attempts: 0, error: null }; this.missed = 0;
   }
   status() { return { ...this.state, server: this.driver.server, dataDir: this.driver.dataDir }; }
   update(phase, error = null) { this.state = { ...this.state, phase, error }; this.emit('status', this.status()); }
@@ -28,7 +30,7 @@ class LocalBarkpark extends EventEmitter {
           while (Date.now() < deadline) {
             signal.throwIfAborted();
             if (await this.driver.healthy(signal)) {
-              this.update('ready'); this.schedule(); return this.status();
+              this.missed = 0; this.update('ready'); this.schedule(); return this.status();
             }
             await this.driver.checkFailure();
             await delay(Math.min(this.interval, 1000), null, { signal });
@@ -48,17 +50,19 @@ class LocalBarkpark extends EventEmitter {
       throw error;
     }
   }
-  schedule() {
+  schedule(soon = false) {
     clearTimeout(this.timer);
-    this.timer = setTimeout(() => this.monitor(), this.interval); this.timer.unref?.();
+    this.timer = setTimeout(() => this.monitor(), soon ? Math.min(this.interval, 1000) : this.interval); this.timer.unref?.();
   }
   async monitor() {
     if (this.abort?.signal.aborted || this.operation) return;
     const signal = this.abort.signal;
     this.operation = (async () => {
       try {
-        if (await this.driver.healthy(signal)) { this.schedule(); return; }
+        if (await this.driver.healthy(signal)) { this.missed = 0; this.schedule(); return; }
         signal.throwIfAborted();
+        if (++this.missed < this.misses) { this.schedule(true); return; }
+        this.missed = 0;
         this.update('recovering', 'Local Barkpark stopped answering; restarting its private runtime.');
         await this.driver.stop();
         if (++this.state.attempts > this.retries) throw new Error('Local Barkpark recovery limit reached. Retry from Settings.');
