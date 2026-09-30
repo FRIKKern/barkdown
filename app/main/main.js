@@ -619,6 +619,13 @@ function registerIpc() {
   });
 }
 
+// The keychain item that protects stored secrets is named after the application. A source run
+// keeps the development name. The built application is "Barkdown", so it never asks for the
+// development item. An isolated instance (its own user data folder) may carry its own name,
+// so a rehearsal's keychain item is its own and can be removed with it.
+const appNameArg = process.argv.find(a => a.startsWith('--app-name='));
+if (appNameArg && process.argv.some(a => a.startsWith('--user-data=')) && /^[\w .-]{3,60}$/.test(appNameArg.slice('--app-name='.length))) app.setName(appNameArg.slice('--app-name='.length));
+else if (app.isPackaged) app.setName('Barkdown');
 const userDataArg = process.argv.find(a => a.startsWith('--user-data='));
 if (userDataArg) app.setPath('userData', path.resolve(userDataArg.slice('--user-data='.length)));
 const ownsInstance = app.requestSingleInstanceLock();

@@ -27,18 +27,22 @@ fs.mkdirSync(out, { recursive: true });
 const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-app-')));
 const bytes = dir => Number(execFileSync('du', ['-sk', dir], { encoding: 'utf8' }).split(/\s+/)[0]) * 1024;
 const report = { source: host, upstream: stamp.upstream, application: { megabytes: Math.round(bytes(bundle) / 1e6), runtimeMegabytes: Math.round(bytes(carried) / 1e6) }, host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],
-  limits: ['One Mac, one run. The application was built on this machine from the working tree named in `source`, signed ad hoc, not notarized, and started from its build folder, not installed. It is started with --profiles; an ordinary launch still opens the single legacy library. No Mac without developer tools has run it.'] };
+  limits: ['One Mac, one run. The application was built on this machine from the working tree named in `source`, signed ad hoc, not notarized, and started from its build folder, not installed, under a name of its own so its keychain item is its own. It is started with --profiles; an ordinary launch still opens the single legacy library. No Mac without developer tools has run it.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();
 const registry = createProfileRegistry(path.join(userData, 'profile-data'));
 const profile = registry.createProfile({ name: 'Writing desk' }), dir = registry.storeFor(profile.id).storeDir;
 registry.selectProfile(profile.id);
 const dataDir = path.join(dir, 'local-barkpark', 'runtime'), record = createRuntimeRecord({ dataDir, log: () => {} });
+// The rehearsal's own name: its keychain item is created by this build and removed at the end.
+// (An ad hoc signed build has a new identity each time, and macOS asks before it reads an item another build made.)
+const rehearsalName = 'Barkdown Rehearsal ' + path.basename(userData).slice(-6);
+const forgetKeychain = () => { try { execFileSync('security', ['delete-generic-password', '-s', rehearsalName + ' Safe Storage'], { stdio: 'ignore' }); } catch {} };
 const alive = pid => { try { process.kill(pid, 0); return true; } catch (error) { return error.code === 'EPERM'; } };
 let app, page, stderr = [];
 const launch = async () => {
   stderr = [];
   const env = { ...process.env, PATH: '/usr/bin:/bin:/usr/sbin:/sbin', BARKDOWN_PROVIDER: 'api' }; delete env.BARKDOWN_CARRIED_RUNTIME;
-  app = await electron.launch({ executablePath: executable, args: ['--profiles', `--user-data=${userData}`], env });
+  app = await electron.launch({ executablePath: executable, args: ['--profiles', `--user-data=${userData}`, `--app-name=${rehearsalName}`], env });
   app.process().stderr?.on('data', chunk => stderr.push(String(chunk)));
   page = await app.firstWindow({ timeout: 300000 }); page.setDefaultTimeout(30000);
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
@@ -81,6 +85,7 @@ try {
   assert.equal(read.title, 'From the application'); assert.match(read.markdown, /Rhubarb notes written in the built application\./);
   report.checks.push({ name: 'After a quit and a restart of the application the note reads the same; nothing was left running in between' }); persist();
   await quit();
+  forgetKeychain();
   report.status = 'passed'; persist(); console.log(JSON.stringify(report, null, 2));
 } catch (error) {
   report.status = 'failed'; report.error = String(error?.stack || error); report.mainStderr = stderr.join('').split('\n').filter(l => !/IMK/.test(l)).slice(-20);
@@ -89,6 +94,7 @@ try {
   persist();
   try { if (page && !page.isClosed()) await page.screenshot({ path: path.join(out, '99-failure.png') }); } catch {}
   try { await quit(); } catch {}
+  forgetKeychain();
   let left = null; try { left = record.read(); } catch {}
   if (left?.pid && alive(left.pid)) { try { process.kill(-left.pid, 'SIGTERM'); } catch {} }
   try { execFileSync(path.join(carried, 'postgres', 'bin', 'pg_ctl'), ['-D', path.join(dataDir, 'pgdata'), '-m', 'fast', '-w', '-t', '20', 'stop'], { stdio: 'ignore' }); } catch {}
