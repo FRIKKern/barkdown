@@ -12,7 +12,11 @@ const agent = {
       const effects = ['success', 'delayed-finish', 'late-error', 'error-note', 'tool-error', 'cleanup-failed', 'unverified', 'approval', 'wrong-content', 'no-receipt', 'wrong-revision', 'no-read', 'no-effect', 'extra-document', 'malformed-extra', 'unexpected-tool', 'folder-change', 'wrong-target', 'sentinel-change'];
       if (effects.includes(scenario)) {
         const scope = options.scope;
-        const doc = scope.documents.list()[0];
+        // The target is named in the prompt: a Paper (bp:) under the isolated runtime, else the legacy fixture.
+        const targetId = /Read document (\S+)\./.exec(options.prompt)[1];
+        const paperSlug = targetId.startsWith('bp:') ? targetId.slice(3) : null;
+        const http = async (method, route, body) => { const r = await fetch(scope.connection.server + route, { method, headers: { authorization: 'Bearer ' + scope.connection.token, 'content-type': 'application/json' }, ...(body ? { body: JSON.stringify(body) } : {}) }); const data = await r.json().catch(() => null); if (!r.ok) throw new Error(method + ' ' + route + ' ' + r.status); return data; };
+        const doc = paperSlug ? await http('GET', `/v1/data/doc/production/paper/${paperSlug}?perspective=raw`).then(r => { const p = r.document || r; return { id: targetId, rev: p.rev, blocks: p.blocks }; }) : scope.documents.list()[0];
         if (scenario === 'extra-document') scope.documents.create({ title: 'Unexpected second fixture', markdown: 'worker-created extra content' });
         if (scenario === 'malformed-extra') fs.writeFileSync(scope.store.filePath('documents/extra.json'), 'invalid');
         const marker = JSON.parse(/exactly ("[^"]+")/.exec(options.prompt)[1]);
@@ -21,11 +25,14 @@ const agent = {
           options.send({ type: 'tool_result', tool, toolUseId: id, ok: true });
         };
         if (scenario !== 'no-read') emitTool('read_document', 'read-before');
-        if (scenario !== 'no-effect') await scope.edits.apply({ id: doc.id, baseRev: doc.rev, mode: 'append', markdown: scenario === 'wrong-content' ? 'WRONG' : marker, summary: 'Controlled edit' });
+        if (scenario !== 'no-effect') await scope.edits.apply({ id: doc.id, baseRev: doc.rev, mode: 'append', markdown: scenario === 'wrong-content' ? 'WRONG' : marker, summary: 'Controlled edit' }, paperSlug ? scope.connection : undefined);
         emitTool('edit_document', 'edit');
         emitTool('read_document', 'read-after');
-        if (scenario === 'no-receipt') scope.store.remove('agent-edits/' + require('crypto').createHash('sha256').update(doc.id).digest('hex') + '.json');
-        if (scenario === 'wrong-revision') { const current = scope.documents.get(doc.id); scope.documents.save({ id: doc.id, baseRev: current.rev, content: current.content }); }
+        if (scenario === 'no-receipt') for (const name of scope.store.list('agent-edits', '.json')) scope.store.remove('agent-edits/' + require('path').basename(name));
+        if (scenario === 'wrong-revision') {
+          if (paperSlug) { const current = (await http('GET', `/v1/data/doc/production/paper/${paperSlug}?perspective=raw`)); const p = current.document || current; await http('POST', `/v1/plugins/bulldocs/papers/${paperSlug}/ops`, { ifRev: p.rev, ops: [{ op: 'append-block', block: { id: 'later', type: 'paragraph', content: [{ type: 'text', value: 'A later revision.' }] } }] }); }
+          else { const current = scope.documents.get(doc.id); scope.documents.save({ id: doc.id, baseRev: current.rev, content: current.content }); }
+        }
         if (scenario === 'unexpected-tool') { options.send({ type: 'tool_start', tool: 'Bash', toolUseId: 'unexpected-command', input: { command: 'fixture-only, never executed' } }); options.send({ type: 'tool_result', tool: 'Bash', toolUseId: 'unexpected-command', ok: true }); }
         if (scenario === 'wrong-target') options.send({ type: 'tool_start', tool: 'read_document', toolUseId: 'other-document', input: { id: 'not-the-fixture' } });
         if (scenario === 'sentinel-change') fs.writeFileSync(require('path').join(scope.context.folder, 'fixture-sentinel.txt'), 'changed');

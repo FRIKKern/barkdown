@@ -71,6 +71,7 @@
     "test:fallback-consumption:isolated": "npm run build && node tests/status-shots-isolated.mjs tests/paper-fallback-consumption.live.mjs",
     "test:context-reservation": "node --test tests/context-reservation.test.mjs",
     "test:providers-runner": "node --test tests/providers-runner.test.mjs",
+    "test:providers-runner:isolated": "BARKDOWN_SHOTS_WRITE_ADMISSION=1 node tests/status-shots-isolated.mjs tests/providers-runner.isolated.mjs",
     "test:providers": "node tests/providers.live.mjs",
     "test:package-resources": "node tests/package-resources.test.mjs",
     "test:capture-lifecycle": "node --test tests/capture-lifecycle.test.mjs tests/status-history.test.mjs",

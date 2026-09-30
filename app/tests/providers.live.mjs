@@ -35,8 +35,20 @@ const { createDocuments } = require('../main/documents.js');
 const { captureScope } = require('../main/providers/run-scope.js');
 const { createOwnedWorkerAgent } = require('../main/goal-worker-agent.js');
 const { markdownToDoc } = require('../shared/markdown.js');
+// Since the legacy retirement (C087 R4) an assistant edit lands only on a Paper. Under the isolated
+// runtime (BARKDOWN_SHOTS_SERVER + BARKPARK_API_TOKEN) the fixture document is a Paper on it; without
+// one the legacy fixture stays, and only the scenarios in which the edit is refused can pass.
+const paperServer = /^http:\/\/127\.0\.0\.1:\d+$/.test(process.env.BARKDOWN_SHOTS_SERVER || '') && process.env.BARKPARK_API_TOKEN ? process.env.BARKDOWN_SHOTS_SERVER : null;
+async function paperHttp(method, route, body) {
+  const response = await fetch(paperServer + route, { method, redirect: 'error', headers: { authorization: 'Bearer ' + process.env.BARKPARK_API_TOKEN, 'content-type': 'application/json' }, ...(body ? { body: JSON.stringify(body) } : {}), signal: AbortSignal.timeout(30000) });
+  let data = null; try { data = await response.json(); } catch {}
+  if (!response.ok) throw Error(`${method} ${route} answered ${response.status}: ${JSON.stringify(data).slice(0, 200)}`);
+  return data;
+}
+const readPaper = async slug => { const r = await paperHttp('GET', `/v1/data/doc/production/paper/${slug}?perspective=raw`); return r.document || r; };
+const blockText = block => (block?.content || []).map(node => node.value ?? node.text ?? '').join('');
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-provider-proof-'));
-const report = { version: 1, root, authentication: 'Existing device provider login; no profile-authentication-isolation claim', results: [] };
+const report = { version: 1, root, fixture: paperServer ? 'a Paper on the isolated runtime' : 'a legacy document (edits are refused since C087 R4)', authentication: 'Existing device provider login; no profile-authentication-isolation claim', results: [] };
 const reportPath = path.join(root, 'report.json');
 const persist = () => fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n');
 console.log(`Retained provider evidence: ${reportPath}`);
@@ -50,9 +62,17 @@ for (const provider of providers) {
   const seed = `Original fixture ${identity}`;
   const sentinel = path.join(folder, 'fixture-sentinel.txt');
   fs.writeFileSync(sentinel, seed, { flag: 'wx' });
-  const original = documents.create({ title: `Provider proof ${identity}`, markdown: seed });
+  let original, connection = { enabled: false, viaCli: false, writes: false };
+  if (paperServer) {
+    const slug = `provider-proof-${identity.slice(0, 8)}`;
+    await paperHttp('POST', '/v1/data/mutate/production', { mutations: [{ createOrReplace: { _id: 'proof', _type: 'tag', title: 'Proof' } }, { publish: { id: 'proof', type: 'tag' } }] });
+    await paperHttp('POST', `/v1/plugins/bulldocs/papers/${slug}/create`, { slug, title: `Provider proof ${identity}`, style: 'article', dedup_bypass: true, description: 'A disposable Paper for the provider truth runner', tags: [{ tag: 'proof', strength: 95, rationale: 'Provider truth runner fixture' }], blocks: [{ id: 'seed', type: 'paragraph', content: [{ type: 'text', value: seed }] }] });
+    const paper = await readPaper(slug);
+    original = { id: 'bp:' + slug, slug, rev: paper.rev, title: paper.title, blocks: paper.blocks };
+    connection = { enabled: true, server: paperServer, token: process.env.BARKPARK_API_TOKEN, dataset: 'production', viaCli: false, writes: true };
+  } else original = documents.create({ title: `Provider proof ${identity}`, markdown: seed });
   const profileId = crypto.randomUUID(), attemptId = crypto.randomUUID();
-  const scope = captureScope({ profileId, storeDir, context: { folder }, connection: { enabled: false, viaCli: false, writes: false } });
+  const scope = captureScope({ profileId, storeDir, context: { folder }, connection });
   const agent = createOwnedWorkerAgent();
   const result = { provider, profileId, attemptId, documentId: original.id, marker, beforeRev: original.rev, events: [], pass: false, driverFinished: false, terminationVerified: false };
   report.results.push(result); persist();
@@ -102,10 +122,20 @@ for (const provider of providers) {
     if (folderEntries.length !== 1 || folderEntries[0] !== 'fixture-sentinel.txt' || !sentinelStat.isFile() || sentinelStat.isSymbolicLink() || fs.readFileSync(sentinel, 'utf8') !== seed) throw Error('Working-folder inventory/content changed outside the fixture contract');
     const inventory = documents.list();
     const documentFiles = store.list('documents', '.json');
-    if (inventory.length !== 1 || inventory[0].id !== original.id || documentFiles.length !== 1 || path.basename(documentFiles[0]) !== `${original.id}.json`) throw Error('Persisted document inventory differs from the fixture');
-    const saved = documents.get(original.id), receipt = scope.edits.latest(original.id);
-    const expected = markdownToDoc(`${seed}\n\n${marker}`);
-    if (!saved || saved.rev !== original.rev + 1 || saved.title !== original.title || JSON.stringify(saved.content) !== JSON.stringify(expected) || documents.list().length !== 1) throw Error('Persisted document revision/content did not match the unique edit');
+    let saved, receipt;
+    if (paperServer) {
+      // The legacy store must hold nothing; the Paper must hold the seed and exactly the one appended paragraph.
+      if (inventory.length !== 0 || documentFiles.length !== 0) throw Error('The legacy store gained documents; nothing may be written there');
+      const paper = await readPaper(original.slug);
+      const texts = (paper.blocks || []).map(blockText);
+      if (paper.rev !== original.rev + 1 || paper.title !== original.title || JSON.stringify(texts) !== JSON.stringify([seed, marker])) throw Error('Paper revision/content did not match the unique edit: rev ' + paper.rev + ' ' + JSON.stringify(texts));
+      saved = { rev: paper.rev }; receipt = scope.edits.latest(original.id, scope.connection);
+    } else {
+      if (inventory.length !== 1 || inventory[0].id !== original.id || documentFiles.length !== 1 || path.basename(documentFiles[0]) !== `${original.id}.json`) throw Error('Persisted document inventory differs from the fixture');
+      saved = documents.get(original.id); receipt = scope.edits.latest(original.id);
+      const expected = markdownToDoc(`${seed}\n\n${marker}`);
+      if (!saved || saved.rev !== original.rev + 1 || saved.title !== original.title || JSON.stringify(saved.content) !== JSON.stringify(expected) || documents.list().length !== 1) throw Error('Persisted document revision/content did not match the unique edit');
+    }
     if (!receipt || receipt.documentId !== original.id || receipt.beforeRev !== original.rev || receipt.afterRev !== saved.rev || receipt.mode !== 'append') throw Error('No matching direct-edit receipt');
     result.afterRev = saved.rev; result.receiptId = receipt.id;
     result.terminationVerified = await bounded(agent.verifyTermination({ request: { storeDir, profileId, attemptId }, runId }), cleanupMs, 'Owned termination verification');
