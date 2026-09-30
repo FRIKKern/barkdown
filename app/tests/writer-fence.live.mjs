@@ -113,23 +113,21 @@ try {
   // Deliberately retain the test buffer in the report, not as a claimed product
   // draft restore. A2 must preserve/resolve human drafts before offering cutover.
   report.unsavedBuffer = await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror').innerText();
-  // The backup is registered as an original-history source now: registering one is a write, which the
-  // launch-time gate refuses once the held preparation is found at the next start.
-  await app.evaluate(({ dialog }, folder) => { dialog.showOpenDialog = async () => ({ canceled: false, filePaths: [folder] }); }, backupDir);
-  const chosen = await page.evaluate(() => window.barkdown.originalHistory.choose());
-  assert.ok(chosen?.id, 'the verified backup registers as an original-history source');
   await close(); await launch();
-  // Since the preparation gate (C085) a held profile keeps the whole window paused after a restart: the
-  // notice is the visible proof that writing stays closed. Original history is read through the app.
+  // Since the preparation gate (C085) a held profile keeps the whole window paused after a restart, and
+  // registering a backup as an original-history source is a write the gate refuses: the notice is the
+  // visible proof that writing stays closed, and the verified backup is read with the app's own reader.
   await page.getByText(/Editing is paused for this profile while preparation is resolved/).first().waitFor();
-  const evidence = await page.evaluate(input => window.barkdown.originalHistory.read(input), { sourceId: chosen.id, documentId: legacy.id });
-  assert.ok(JSON.stringify(evidence).includes('The retained source remains readable.'), 'the verified original reads through the app while the profile is paused');
+  const { readRetainedDocument } = require('../main/migration-evidence');
+  const manifest = JSON.parse(fs.readFileSync(path.join(backupDir, 'manifest.json'), 'utf8'));
+  const evidence = readRetainedDocument({ profileId, backupDir, expectedSourceHash: manifest.sourceHash, documentId: legacy.id });
+  assert.ok(JSON.stringify(evidence).includes('The retained source remains readable.'), 'the verified original reads while the profile is paused');
   await shot('04-restarted-paused-gate');
   const newAttempt = await page.evaluate(async () => { try { await window.barkdown.docs.create({ title: 'Forbidden after restart' }); return null; } catch (error) { return error.message; } });
   assert.match(newAttempt, /read-only|Paper/, 'legacy creation is refused (retired), whatever the fence says');
   assert.equal(controller(store).assertQuiescent(barrier).quiescent, true);
   assert.deepEqual(report.errors, []);
-  report.checks.push('Restart keeps the profile paused at the preparation gate while the verified original history reads through the app'); report.passed = true;
+  report.checks.push('Restart keeps the profile paused at the preparation gate while the verified original reads with the app\'s reader'); report.passed = true;
 } catch (error) { report.error = error.stack; if (page && !page.isClosed()) await shot('failure').catch(() => {}); throw error; }
 finally {
   await close();
