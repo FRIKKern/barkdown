@@ -152,7 +152,12 @@ for (const provider of providers) {
       } catch (cleanupError) { result.cleanupError = String(cleanupError.message || cleanupError); }
     }
     if (!result.terminationVerified) uncertainCleanup = true;
-  } finally { if (runId) result.runId = runId; persist(); }
+  } finally {
+    if (runId) result.runId = runId;
+    // The Paper is retained beside the report the way a legacy fixture already is, after the store was checked.
+    if (paperServer) { try { fs.mkdirSync(path.join(storeDir, 'documents'), { recursive: true }); fs.writeFileSync(path.join(storeDir, 'documents', encodeURIComponent(original.id) + '.json'), JSON.stringify(await readPaper(original.slug), null, 2) + '\n'); } catch (error) { result.retainedPaper = String(error.message); } }
+    persist();
+  }
   console.log(`${provider}: ${result.pass ? 'PASS' : 'FAIL'}; driverFinished=${result.driverFinished}; terminationVerified=${result.terminationVerified}`);
   if (!result.pass) break; // Never spend a second provider's quota after a failure.
 }

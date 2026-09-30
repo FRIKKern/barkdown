@@ -28,7 +28,7 @@ for (const scenario of cases) test(`actual live runner classifies ${scenario}`, 
   const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
   const result = report.results[0];
   assert.equal(result.pass, pass);
-  assert.ok(fs.existsSync(path.join(report.root, 'claude', 'documents', result.documentId + '.json')), 'document evidence is retained');
+  assert.ok(fs.existsSync(path.join(report.root, 'claude', 'documents', encodeURIComponent(result.documentId) + '.json')), 'document evidence is retained');
   if (pass) { assert.equal(result.driverFinished, true); assert.equal(result.terminationVerified, true); assert.equal(result.afterRev, result.beforeRev + 1); }
   if (scenario === 'incomplete') { assert.equal(result.driverFinished, false); assert.equal(result.terminationVerified, false); assert.match(fs.readFileSync(trace, 'utf8'), /cancel/); }
   if (scenario === 'cancelled-cleanup') { assert.equal(result.driverFinished, true); assert.equal(result.terminationVerified, true); }
