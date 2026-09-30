@@ -35,7 +35,8 @@ On a switched profile legacy is already closed: the store refuses writes (`BARKD
 | R3 | A new profile starts with its managed runtime on, so New page is always a Paper. | the packaged runtime ([A5](../ACCEPTANCE.md#a5--install-and-daily-use)) |
 | R4 | The legacy write paths go: `docs:create`, `docs:save`, `docs:delete`, `docs:restore`, `docs:proposal`, the local branches of the agent tools, the local branch of `agent-edits.js`. | R1 to R3, every profile switched or exported, the real-library review |
 
-## Open questions for the user
+## Answered by the user (2026-09-30)
 
-- How long does rollback stay available after a switch? Rollback needs the retained store, not the editor, so R1 to R4 do not shorten it; deleting retained originals would.
-- Pre-existing cloud references stay unowned after a switch and are refused by owned navigation ([C083](../cycles/C083-writer-admission.md)). Retirement makes that the only behavior a person sees, so it should be decided first.
+- Rollback stays available as long as the retained originals exist; retirement does not shorten it.
+- Pre-existing cloud references stay references and are not given the local owner ([D-cloud-references](../DESIGN-DECISIONS.md#d-cloud-references--a-reference-to-the-cloud-stays-a-reference-a-copy-is-ours-2026-09-30)).
+- Retirement is a go ([D-legacy-retirement](../DESIGN-DECISIONS.md#d-legacy-retirement--go-2026-09-30)); the packaged runtime R3 depends on exists on macOS ([C086](../cycles/C086-packaged-runtime.md)).

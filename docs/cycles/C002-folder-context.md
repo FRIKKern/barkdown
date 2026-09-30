@@ -43,7 +43,7 @@ The full desktop suite passed on c66744b. A targeted new offline test then expos
 - `npm run visual:capture`, `npm run visual:compare` and explicit Codex review completed. All 21 action frames and control geometries match the prior reviewed baseline within tolerance, with the same environment. Current source fingerprint and artifact hashes passed validation.
 - `npm run verify` passed in full; final handoff/queue/link checks are repeated before commit. `git diff --check` passed.
 
-[Completed cycle record](C002-folder-context.json) · [Live capture provenance](../images/status/history/C002-3e2ed6f.json) · [Visual comparison](../visual/runs/2026-09-21T21-48-36-561Z/README.md)
+[Completed cycle record](C002-folder-context.json) · [Live capture provenance](../images/status/history/C002-3e2ed6f.json) · Visual comparison (`docs/visual/runs/2026-09-21T21-48-36-561Z/README.md`, kept in git history)
 
 The live gallery changes are a fresh private library, a new real transcript, revision/timing metadata and the private endpoint. Layout and editor affordances remain intact. Screenshot review does not prove folder-answer latency or guarantee model compliance; request/dispatcher tests prove the injected guidance. No focused live folder-location benchmark was run. P1 is still pending.
 

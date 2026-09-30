@@ -18,9 +18,9 @@ The complete Paper stack was integrated with upstream main `c423813d7` in Barkpa
 
 ## Visual review
 
-![Private runtime in dark mode](../../../images/status/paper-dark.3092fc0a.png)
+*Private runtime in dark mode* (`docs/images/status/paper-dark.3092fc0a.png`, kept in git history)
 
-Five live stills, their five differences and all 37 GIF frames were inspected and [explicitly accepted](status-review.json). [Comparison metrics](visual-comparison.json) retain the old and new image names; [manifest](../../../images/status/history/2026-09-25T00-08-09-647Z.json) binds the capture to Barkdown `d4e3567` and upstream `1aaa857e6`. Light views support theme contrast review. The transcript is a real Claude Code turn on disposable content. [Full editing GIF](../../../images/status/editing.0cfaf231.gif) retains all captured steps; `motion-*.jpg` sheets expose every frame for review.
+Five live stills, their five differences and all 37 GIF frames were inspected and [explicitly accepted](status-review.json). [Comparison metrics](visual-comparison.json) retain the old and new image names; [manifest](../../../images/status/history/2026-09-25T00-08-09-647Z.json) binds the capture to Barkdown `d4e3567` and upstream `1aaa857e6`. Light views support theme contrast review. The transcript is a real Claude Code turn on disposable content. Full editing GIF (`docs/images/status/editing.0cfaf231.gif`, kept in git history) retains all captured steps; `motion-*.jpg` sheets expose every frame for review.
 
 The first capture timed out on the settings screenshot; [failed log](live-shots.log) and four partial views in `capture-timeout/` are retained as diagnostics. The [complete retry](live-shots-retry.log) stopped its private runtime normally. Neither partial screenshots nor the optional token-skipped hosted parity job count as behavior acceptance.
 

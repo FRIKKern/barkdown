@@ -1,6 +1,6 @@
 # C076 delivery evidence
 
-[PR40 merged](merge.json) atf3ab179b after final source4c030a0c passed [full desktop](final-validation-corrected/result.json) in664.106s and [root verification](closeout/result.json) in47.253s. [Native recovery gallery](../../../visual/profile-preparation/README.md), [standard comparison](../../../visual/runs/2026-09-25T16-56-52-628Z/comparison.json), [live Paper review](live-review.json) and [hosted review](hosted-review.json) retain scope and limits. Hosted Verify/Visual and real parity20/20 passed. No deployment, authority selection or real-library migration.
+[PR40 merged](merge.json) atf3ab179b after final source4c030a0c passed [full desktop](final-validation-corrected/result.json) in664.106s and [root verification](closeout/result.json) in47.253s. [Native recovery gallery](../../../visual/profile-preparation/README.md), standard comparison (`docs/visual/runs/2026-09-25T16-56-52-628Z/comparison.json`, kept in git history), [live Paper review](live-review.json) and [hosted review](hosted-review.json) retain scope and limits. Hosted Verify/Visual and real parity20/20 passed. No deployment, authority selection or real-library migration.
 
 The records below describe earlier checkpoints and failures, not the current task queue.
 

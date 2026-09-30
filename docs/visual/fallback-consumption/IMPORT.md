@@ -2,7 +2,7 @@
 
 Imported from `d9d36c1` onto integration base `22ef23b`, without production changes or new execution. Native galleries retain `cefe312`; final deterministic and standard status retain `cc17fca`. These are original lane passes, not combined-source approval.
 
-[Original handoff](../../cycles/E011-fallback-consumption.md), [native galleries](README.md), [deterministic run](../runs/2026-09-22T05-31-59-959Z/README.md), [immutable review](../reviews/approval-09aa9a14923fcad33fcb21202a3134dc890425528a8787d15be921eb111791a7.json), [archived live status](../../images/status/history/E011-cc17fca.json), [live review](../../images/status/history/E011-cc17fca.review.json).
+[Original handoff](../../cycles/E011-fallback-consumption.md), [native galleries](README.md), deterministic run (`docs/visual/runs/2026-09-22T05-31-59-959Z/README.md`, kept in git history), [immutable review](../reviews/approval-09aa9a14923fcad33fcb21202a3134dc890425528a8787d15be921eb111791a7.json), [archived live status](../../images/status/history/E011-cc17fca.json), [live review](../../images/status/history/E011-cc17fca.review.json).
 
 Verification used committed source blobs and staged destination blobs, rather than working-tree line endings. All 755 selected originals match exactly: 130 imported, 625 already identical, zero conflicting historical files. All 53 review-bound hashes and 392 deterministic artifact hashes pass. Eleven deterministic runs retain the complete recursive comparison baseline chain. Imported Markdown links resolve. [Machine-readable verification](import-verification.json) records paths, hashes and preserved pointers.
 

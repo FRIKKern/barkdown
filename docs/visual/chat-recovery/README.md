@@ -12,7 +12,7 @@ Source e3a6554, clean actual capture 23139, disposable tp1w78. The [manifest](e3
 
 - [Verified review](e3a6554/verified.png), [new explicit turn](e3a6554/new-turn.png), [side chat](e3a6554/side-interrupted.png), [narrow side review](e3a6554/side-verified-narrow.png).
 - [Parent recovery video](e3a6554/page@04d21c4f391597e5de14354fc28b72a0.webm), [side restart video](e3a6554/page@a21fc5f8b99794a3ed39feb72ddc99c8.webm), [initial launch video](e3a6554/page@ba1af2023cc0c4caacf375d20e400c40.webm).
-- [Cycle scope and validation](../../cycles/C014-chat-recovery.md); [unchanged deterministic comparison](../runs/2026-09-22T01-03-52-492Z/README.md). Separate live Paper regression passed at the same source; five stills and all 37 GIF frames reviewed. See [source manifest](../../images/status/history/C014-e3a6554.json) and [review](../../images/status/history/C014-e3a6554-review.json).
+- [Cycle scope and validation](../../cycles/C014-chat-recovery.md); unchanged deterministic comparison (`docs/visual/runs/2026-09-22T01-03-52-492Z/README.md`, kept in git history). Separate live Paper regression passed at the same source; five stills and all 37 GIF frames reviewed. See [source manifest](../../images/status/history/C014-e3a6554.json) and [review](../../images/status/history/C014-e3a6554-review.json).
 
 ## Limits and changelog
 

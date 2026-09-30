@@ -10,7 +10,7 @@ Source implementation3fb18db; capture serialization1573a6a; final capture inputs
 | Real editor/server parity | [Initial19/20](initial-parity.json), [report](initial-parity.md), [IME failure](initial-parity-ime.log); overlapping native suites interfered with CJK composition. [Isolated IME4/4](isolated-ime.json) after desktop completion. This is not one full20/20 local run. |
 | Real asset-refusal fallback | [Manifest](../../../visual/fallback-consumption/runs/2026-09-25T10-24-51-699Z/manifest.json), [review](../../../visual/fallback-consumption/runs/2026-09-25T10-24-51-699Z/review.json): exact bundled JS/CSS, real server save/reload, upload and history |
 | Native original history | [Manifest](../../../visual/original-history/runs/2026-09-25T10-25-30-744Z/manifest.json), [review](../../../visual/original-history/runs/2026-09-25T10-25-30-744Z/review.json): ownership, unsupported originals, revision/proposal/receipt views, tamper refusal, restart and620px |
-| Standard and live Paper | [Named combined review](review.json), [standard comparison](../../../visual/runs/2026-09-25T10-28-54-722Z/README.md), [live provenance](../../../images/status/history/2026-09-25T10-28-17-838Z.json) |
+| Standard and live Paper | [Named combined review](review.json), standard comparison (`docs/visual/runs/2026-09-25T10-28-54-722Z/README.md`, kept in git history), [live provenance](../../../images/status/history/2026-09-25T10-28-17-838Z.json) |
 | Repository verification | [Exit0](verify.log) |
 | Next boundary preparation | [Captured-writer audit](writer-boundary-audit.json), not implemented fencing |
 

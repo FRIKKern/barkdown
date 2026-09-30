@@ -20,5 +20,5 @@ The goal body scrolls while the footer stays reachable. All17 original normal/re
 
 - C020: explicit native host death after acknowledged partial review/summary; no worker replay, explicit retry, retained human draft. [Proof and scope](../../goals/evidence/17c2cc8/README.md).
 - Full desktop57965 and root4562 passed on the original lane. Current integration gates remain pending; original image hashes/source manifests are preserved.
-- [Fixture motion and comparison](../runs/2026-09-22T03-10-25-041Z/comparison.json) covers34 inspected action frames. Dedicated recovery images are stills; no dedicated recovery-video claim.
+- Fixture motion and comparison (`docs/visual/runs/2026-09-22T03-10-25-041Z/comparison.json`, kept in git history) covers34 inspected action frames. Dedicated recovery images are stills; no dedicated recovery-video claim.
 - Observed Windows rename contention is retained as C023 work, not hidden by the passing retry fixture.

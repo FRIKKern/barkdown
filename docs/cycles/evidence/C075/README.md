@@ -9,7 +9,7 @@ Final runtime source **e4a60ac9**; private upstream **b70214090**. Windows sourc
 | Desktop, adoption, recovery, profiles and Undo | [Final desktop](desktop-release.log) |Pass on e4a60ac9 |
 | Native refusal/open buffer/restarted originals | [Gallery](../../../visual/writer-fence/README.md), [log](native-release.log) |Pass;4 stills,81 raw1fps samples and51 GIF frames inspected |
 | Real Claude and Paper | [Live manifest](../../../images/status/history/2026-09-25T12-49-12-713Z.json), [log](live-release.log) |Pass;5 stills/37 GIF frames inspected; table headers/alignment6/6 |
-| Standard fixture review | [Gallery](../../../visual/runs/2026-09-25T12-49-16-707Z/README.md), [log](visual-release.log) |40 stills/40 differences/40 GIF frames inspected; zero pixel/geometry changes; explicit approval |
+| Standard fixture review | Gallery (`docs/visual/runs/2026-09-25T12-49-16-707Z/README.md`, kept in git history), [log](visual-release.log) |40 stills/40 differences/40 GIF frames inspected; zero pixel/geometry changes; explicit approval |
 | Root verification | [Final log](root-release.log) |Pass |
 | Real Paper/server matrix before provider-only follow-up | [Local report](parity.md), [initial hosted result](hosted-parity-initial.json) |20/20 at6033ee4 and944d8154 respectively; [final hosted20/20](hosted-parity-final.json) passes on0f2cfc93 |
 

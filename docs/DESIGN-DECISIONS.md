@@ -128,6 +128,18 @@ Agent decision under the user's standing mandate; the user may reverse it. After
 
 Agent decision under the user's standing mandate ("we still have 6 days until Windows is back"); the user may reverse it. P2's remaining exits are a real library and the Windows return checkpoint, both bound to a machine that returns about 2026-10-05. Rather than idle, [C085](cycles/C085-portable-profile.md) starts the portable profile of P3 on macOS, building on the hold that C083 delivered. P2 stays active in the plan and is not claimed complete; nothing in C085 retires legacy or changes a default.
 
+## D-cloud-references — A reference to the cloud stays a reference; a copy is ours (2026-09-30)
+
+User decision. Notes that point at a cloud Barkpark are references: they are not given the local owner when a library is switched, and when access to the cloud is withdrawn they go with it. A note or folder duplicated from the cloud is ours from that moment and is used like anything we wrote. Nothing in Barkdown polices what people share: once something is on the internet, copies exist, and the person who shared it knew that. Barkdown makes collaborating easy and makes it clear what is a reference and what is a copy. This settles the question C083 left open and sets the ground for sync (P4): share, withdraw, duplicate.
+
+## D-picture-retention — Two sets of pictures in the tree (2026-09-30)
+
+User decision. The repository keeps the two newest visual runs per platform plus every run an approval names, and the two newest sets of status screenshots. Everything older stays in git history, and links to it in old cycle records say so. `scripts/visual-retain.mjs` applies the rule after every capture and approval; `npm run check` refuses a tree that exceeds it.
+
+## D-legacy-retirement — Go (2026-09-30)
+
+User decision: retire the legacy editor, stage by stage as [legacy-retirement.md](migration/legacy-retirement.md) lays them out, R1 first.
+
 ## D-packaged-runtime — A release beside the checkout (2026-09-30)
 
 Agent decision; the user may reverse it. With Windows away, installation groundwork starts on the Mac, the way portability groundwork started while migration waited. A profile's runtime folder may be a packaged Barkpark release instead of a source checkout; the driver tells them apart by their contents, so nothing else in the app changes. The release is built from a checkout by a script and stamped with its commit, because a release has no git history to ask. The keys the production server demands are derived from the profile's database password: stable across boots, different per profile, nothing new to store or lose. The node is not distributed and is stopped through its process group. The checkout path stays for development and for Windows, where upstream has no release yet.

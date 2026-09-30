@@ -198,6 +198,8 @@ for (const shotEntry of manifest.shots) {
 }
 fs.writeFileSync(readmePath, rootReadme);
 fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
+// The repository keeps two sets of status screenshots; the rest live in git history (scripts/visual-retain.mjs).
+execFileSync(process.execPath, [path.join(repo, 'scripts', 'visual-retain.mjs')], { stdio: 'inherit' });
 archiveStatusManifest(out, manifest);
 // Retain temporary capture data for diagnosis; shutdown always runs below.
 console.log(`wrote ${shots.length} pictures + manifest to ${out}`);
