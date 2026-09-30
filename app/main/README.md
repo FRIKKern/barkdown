@@ -128,3 +128,7 @@ Before the runtime stops at quit, main asks the window to settle its open notes 
 ### 2026-09-30 — small things (C085)
 
 While the library is away the sidebar toast says so in plain words instead of a server status. Two steps of the sidebar journey (`tests/run.mjs`) waited for nothing and failed about one run in four on a loaded machine; they now wait for the width and the restored workspace. The remaining Electron rehearsals wait for the first window through a first boot.
+
+### 2026-09-30 — a packaged runtime (C086, P5 groundwork)
+
+A profile's runtime folder can now be a packaged Barkpark release instead of a source checkout. `local-barkpark-source.js` recognises one by `bin/barkpark` and `releases/`, and reads the commit it holds from `barkdown-release.json`, written by `scripts/build-runtime-release.mjs`. For a release the driver creates the database, runs the release's own migration and seed, and starts the server as its own process group with a system-only PATH: no Elixir, no mix, no checkout, and no distribution port. The keys the production server demands are derived from the profile's database password, so they are stable and nothing new is stored. Export, import, reclaim after a kill and the launch record work unchanged. Postgres is still the machine's own, and the upstream release is assembled for unix hosts only.
