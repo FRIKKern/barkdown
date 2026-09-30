@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "commit": "c0197f713875d7b7f36f0145fdec526b66591b66",
-  "capturedAt": "2026-09-29T22:17:58.691Z",
+  "commit": "bf5e2285e79ca3ac41040279a8ffe675f266ba66",
+  "capturedAt": "2026-09-30T19:27:06.088Z",
   "environment": {
     "platform": "darwin",
     "osRelease": "24.3.0",
@@ -158,7 +158,7 @@
     "app/shared/portabledoc.js": "ed151516f2b7ef780fd63801bb0dffee6957ad9262f5cd9edf759592213820ad",
     "app/shared/table-edits.js": "3265150011a2c6c1238ed1733a5f300a60ba9beda092914ebb0411e69036c9a3",
     "app/tests/status-shots-isolated.mjs": "a86f74b1beb900ba16dff69a67a05fcdcb03f5f5be921fe8099c298d4f8e7911",
-    "app/tests/status-shots.mjs": "d4c8ef04c3a10c17695ad43d7dd6da98d61acfa07ea94780c4c64bea5585d3b9",
+    "app/tests/status-shots.mjs": "c85edce9ae506113be1420a9113635bf0df7223b1edc226aef0cbba305b9bd82",
     "app/tests/visual-capture.mjs": "45a4003a202d197e659e7e6c62d455d7905b04b788e3f2e879b0faaee1056343",
     "docs/visual/coverage.json": "d820a65e01afe452935393421ef09a00069f67d1c9cc8b43d29efe03356a0a4c",
     "package-lock.json": "bc208101142a019f3169bace5e5b17f992835e1a4f71c254f64cbb78dfe76900",
@@ -166,17 +166,18 @@
     "scripts/visual-approval.test.mjs": "0c437f6f25f08b5b8feb61f323e327e488d8503272d61b62bcf2f1dd182fce7c",
     "scripts/visual-core.mjs": "7f66f3beca9b98c18f4bca360936b67b51ec21b51f09d650dbd183c530863ca5",
     "scripts/visual-diff.mjs": "ce26ba1d95d0be3438732342f864275e117392b257f7d2a7049aba404439c66e",
-    "scripts/visual.mjs": "f57300c3621d62b58713f0d3c1c3955e5c5e7a6b1f1de0898749ec276e2064c1",
+    "scripts/visual-retain.mjs": "f8faa633bd9fb0de52dea9d5f951037033b164dedadcd21c65d58b53c24363a1",
+    "scripts/visual.mjs": "0d3d9ac739636c35fc59156ee035de95fbd641d10ecd6e2abd05612515a0dc9f",
     "scripts/visual.test.mjs": "f8548f5a5c867a51b5fa1f28d860bcd9b7c91dc983214b7f91800d44897f7121"
   },
   "shots": [
     {
       "area": "workspace",
       "caption": "Real desktop navigation with disposable local notes; no cloud or provider.",
-      "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/workspace.gif",
+      "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/workspace.gif",
       "frames": [
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/workspace-0.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/workspace-0.png",
           "step": "default",
           "geometry": [
             {
@@ -380,7 +381,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/workspace-1.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/workspace-1.png",
           "step": "quick-open",
           "geometry": [
             {
@@ -738,7 +739,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/workspace-2.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/workspace-2.png",
           "step": "dismiss",
           "geometry": [
             {
@@ -942,7 +943,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/workspace-3.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/workspace-3.png",
           "step": "narrow",
           "geometry": [
             {
@@ -1047,7 +1048,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/workspace-4.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/workspace-4.png",
           "step": "restore",
           "geometry": [
             {
@@ -1255,10 +1256,10 @@
     {
       "area": "chat",
       "caption": "Shared main composer: draft, provider chooser and model chooser. No message is sent.",
-      "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/chat.gif",
+      "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/chat.gif",
       "frames": [
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/chat-0.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/chat-0.png",
           "step": "draft",
           "geometry": [
             {
@@ -1462,7 +1463,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/chat-1.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/chat-1.png",
           "step": "provider",
           "geometry": [
             {
@@ -1699,7 +1700,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/chat-2.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/chat-2.png",
           "step": "dismiss",
           "geometry": [
             {
@@ -1903,7 +1904,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/chat-3.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/chat-3.png",
           "step": "model",
           "geometry": [
             {
@@ -2173,7 +2174,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/chat-4.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/chat-4.png",
           "step": "ready",
           "geometry": [
             {
@@ -2381,10 +2382,10 @@
     {
       "area": "side-chat",
       "caption": "A real saved side conversation and its independent composer, using disposable fixture state.",
-      "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/side-chat.gif",
+      "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/side-chat.gif",
       "frames": [
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/side-chat-0.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/side-chat-0.png",
           "step": "open",
           "geometry": [
             {
@@ -2764,7 +2765,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/side-chat-1.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/side-chat-1.png",
           "step": "draft",
           "geometry": [
             {
@@ -3144,7 +3145,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/side-chat-2.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/side-chat-2.png",
           "step": "provider",
           "geometry": [
             {
@@ -3557,7 +3558,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/side-chat-3.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/side-chat-3.png",
           "step": "ready",
           "geometry": [
             {
@@ -3941,10 +3942,10 @@
     {
       "area": "documents",
       "caption": "Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.",
-      "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/documents.gif",
+      "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/documents.gif",
       "frames": [
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/documents-0.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/documents-0.png",
           "step": "open",
           "geometry": [
             {
@@ -4192,7 +4193,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/documents-1.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/documents-1.png",
           "step": "dark",
           "geometry": [
             {
@@ -4440,7 +4441,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/documents-2.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/documents-2.png",
           "step": "light",
           "geometry": [
             {
@@ -4692,10 +4693,10 @@
     {
       "area": "retained",
       "caption": "After the library switch the legacy notes are retained read-only: a badge in Pages and a read-only editor. Fixture journal; no Paper server.",
-      "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/retained.gif",
+      "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/retained.gif",
       "frames": [
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/retained-0.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/retained-0.png",
           "step": "badge",
           "geometry": [
             {
@@ -4943,7 +4944,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/retained-1.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/retained-1.png",
           "step": "open",
           "geometry": [
             {
@@ -5191,7 +5192,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/retained-2.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/retained-2.png",
           "step": "dark",
           "geometry": [
             {
@@ -5439,7 +5440,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/retained-3.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/retained-3.png",
           "step": "light",
           "geometry": [
             {
@@ -5687,7 +5688,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/retained-4.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/retained-4.png",
           "step": "interrupted",
           "geometry": [
             {
@@ -5961,10 +5962,10 @@
     {
       "area": "settings",
       "caption": "Real Settings navigation. No server connection or credential is configured.",
-      "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/settings.gif",
+      "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/settings.gif",
       "frames": [
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/settings-0.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/settings-0.png",
           "step": "general",
           "geometry": [
             {
@@ -6355,7 +6356,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/settings-1.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/settings-1.png",
           "step": "assistant",
           "geometry": [
             {
@@ -6757,7 +6758,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/settings-2.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/settings-2.png",
           "step": "barkpark",
           "geometry": [
             {
@@ -7192,7 +7193,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/settings-3.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/settings-3.png",
           "step": "library-switch",
           "geometry": [
             {
@@ -7627,7 +7628,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/settings-4.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/settings-4.png",
           "step": "shortcuts",
           "geometry": [
             {
@@ -7956,10 +7957,10 @@
     {
       "area": "goals",
       "caption": "Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.",
-      "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/goals.gif",
+      "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/goals.gif",
       "frames": [
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/goals-0.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/goals-0.png",
           "step": "new-goal",
           "geometry": [
             {
@@ -8262,7 +8263,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/goals-1.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/goals-1.png",
           "step": "new-goal-narrow",
           "geometry": [
             {
@@ -8455,7 +8456,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/goals-2.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/goals-2.png",
           "step": "new-goal-restore",
           "geometry": [
             {
@@ -8758,7 +8759,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/goals-3.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/goals-3.png",
           "step": "planned",
           "geometry": [
             {
@@ -9281,7 +9282,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/goals-4.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/goals-4.png",
           "step": "running",
           "geometry": [
             {
@@ -9804,7 +9805,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/goals-5.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/goals-5.png",
           "step": "paused",
           "geometry": [
             {
@@ -10492,7 +10493,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/goals-6.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/goals-6.png",
           "step": "narrow",
           "geometry": [
             {
@@ -11037,7 +11038,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/goals-7.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/goals-7.png",
           "step": "restore",
           "geometry": [
             {
@@ -11725,7 +11726,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/goals-8.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/goals-8.png",
           "step": "worker-chat",
           "geometry": [
             {
@@ -11988,10 +11989,10 @@
     {
       "area": "profiles",
       "caption": "Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.",
-      "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/profiles.gif",
+      "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/profiles.gif",
       "frames": [
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/profiles-0.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/profiles-0.png",
           "step": "settings",
           "geometry": [
             {
@@ -12448,7 +12449,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/profiles-1.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/profiles-1.png",
           "step": "new-name",
           "geometry": [
             {
@@ -12905,7 +12906,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/profiles-2.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/profiles-2.png",
           "step": "narrow",
           "geometry": [
             {
@@ -13219,7 +13220,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/profiles-3.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/profiles-3.png",
           "step": "restore",
           "geometry": [
             {
@@ -13680,10 +13681,10 @@
     {
       "area": "adoption",
       "caption": "Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.",
-      "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/adoption.gif",
+      "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/adoption.gif",
       "frames": [
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/adoption-0.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/adoption-0.png",
           "step": "confirm",
           "geometry": [
             {
@@ -13711,12 +13712,12 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/adoption-1.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/adoption-1.png",
           "step": "busy",
           "geometry": []
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/adoption-2.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/adoption-2.png",
           "step": "interrupted",
           "geometry": [
             {
@@ -13744,7 +13745,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/adoption-3.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/adoption-3.png",
           "step": "narrow",
           "geometry": [
             {
@@ -13772,7 +13773,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/adoption-4.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/adoption-4.png",
           "step": "blocked",
           "geometry": [
             {
@@ -13789,7 +13790,7 @@
           ]
         },
         {
-          "file": "docs/visual/runs/2026-09-29T22-17-35-446Z/adoption-5.png",
+          "file": "docs/visual/runs/2026-09-30T19-26-25-926Z/adoption-5.png",
           "step": "restore",
           "geometry": [
             {
@@ -13809,60 +13810,60 @@
     }
   ],
   "hashes": {
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/workspace-0.png": "31a895fb42e51cd09467777f42263b83a3ea2ffc69624bfc2b340e6e2cf78dcb",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/workspace-1.png": "d7547f57c0ddfa0706de1d4d47e61444ff25ecb58373e07481d9929d8ac24af0",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/workspace-2.png": "f5d6a5cb50fdc6080a1e287b287da8ff52c2f5fb82c7389becf9af7ac6d0ea8b",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/workspace-3.png": "6d2b3abea9f547a2b05618979c8bc60f151fd0b5c5b10b508bd20bc2027a0750",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/workspace-4.png": "f5d6a5cb50fdc6080a1e287b287da8ff52c2f5fb82c7389becf9af7ac6d0ea8b",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/workspace.gif": "0dcecdb508ca40f6eccca1bb4cb83593c31d737e042adbd24c2881dd876ed023",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/chat-0.png": "f85f5e881391466c6ffaca20583e2c9f4ce756b5bb547909eb70395330912c78",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/chat-1.png": "5135391f262e0b8b0d97254dfee8f371d98d1ba6a0cdafa262c35db471acbb4c",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/chat-2.png": "c195feb09e74b09d371b1db1f32c29f7360ba6cdb9088a230c3853e0ec098f20",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/chat-3.png": "738eafda957714da5336ba1069725475e02356066a173413f00e22645f6fe3b6",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/chat-4.png": "eebad649e66ef5465dd6558b799c6279c33bd00204e53742bede4fe7dde4db5e",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/chat.gif": "7bd8cfd9ebfefc0287af51fbf45f02d378bcea13653b65bb5e2df8c240630dfe",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/side-chat-0.png": "b2dd8b870be0992fab41c8beb2aa1f47d60e3d9a5cda985df028421b9efffb9f",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/side-chat-1.png": "a0c9360c4c0a09ec4c9d51ac5c480b25cb28dd69ed09a6c9e115c508718c76c7",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/side-chat-2.png": "5a808406bdabf1f45c2b9b962745d0c144ed40594e7c862895aa40f5c916eeae",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/side-chat-3.png": "57bed98603b79b8caa89a0c6fd6de65130cf747651da6323bae200b9cc169a1d",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/side-chat.gif": "b2425421874597861b8434b3da20a45fc3b9bf3ad76b805dedd1a2e0df3ee92f",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/documents-0.png": "3f6acae33dd062a57a38de254451c0f4fa8f3419c8de0290df2b3ac79b4cf010",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/documents-1.png": "8c23af65de0f1770c2c9e46f251b2e1b7b1aa4c472ef344333c427d363e28c79",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/documents-2.png": "3f6acae33dd062a57a38de254451c0f4fa8f3419c8de0290df2b3ac79b4cf010",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/documents.gif": "d3cc83fd6626c8713a067bb33aba4ef04b200732dfcc38612146db270344e0f4",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/retained-0.png": "6c897820b73404c602fb4209aed1735fe2994faec0dde3939b13f2affec59d83",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/retained-1.png": "6c897820b73404c602fb4209aed1735fe2994faec0dde3939b13f2affec59d83",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/retained-2.png": "8ecb56088b34a7099371c208d01b0dc602bdd3cc5fa9b3063d365c0d5afcc0aa",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/retained-3.png": "6c897820b73404c602fb4209aed1735fe2994faec0dde3939b13f2affec59d83",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/retained-4.png": "3f84ed0c99cdea7f6a5fb0dbe1b5ad1f809c0c3b9b91e0a407f4eba3273f669f",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/retained.gif": "a6e068d6e2b5ced9003dad2184b80bce38467c0824177bc039de279d7d77c3f9",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/settings-0.png": "4bd8480ef6a44eeef1f7d8e8a954c79c528dacbb4ced4f0f5182513684769db9",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/settings-1.png": "89431110d5e914921f6363917e0fd5ebbc8925cc15c31c6fbba32a09fa176fd5",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/settings-2.png": "aa0965b109ad11ac44303626cac72294b1b5c56faf633e5d97728b97ab545d13",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/settings-3.png": "a2631302bd02e1569d8c3646b75c82e9a9f57859752379000fc1dfe04ffc97c7",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/settings-4.png": "e1270e8dec35d89d82864839b3efb7c2396f99d5b39d8bdf9bd40b5710f3a3eb",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/settings.gif": "4bf0ee41bcb58ff78a0ae0c6867322404d572cb09fe2ace77ac50071d954934b",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/goals-0.png": "c73154f996e6ed14292b32e50c055d29c027e1e3a338ab2a64f396a63fd5400b",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/goals-1.png": "00708323f20bf847f5d1fc2268f629323974c03377a8827b62e9f1495f31f244",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/goals-2.png": "c73154f996e6ed14292b32e50c055d29c027e1e3a338ab2a64f396a63fd5400b",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/goals-3.png": "3dbeb2faa892e48c1f57b7dc8d0499c249c40b5c78d6887461e619805b7dc861",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/goals-4.png": "6f9bd2d14643ef3c68bcec302b9a2b4a6f22290410087c41926d50898762acd3",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/goals-5.png": "c0e4823fd0be442185e5d2a87b130cca52c3edcef0460c8c864fd437c57190f5",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/goals-6.png": "5aab06dc89585c78929543a56a9b16dbd9b16662ab47b43d5a5fa3234a7662f3",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/goals-7.png": "c0e4823fd0be442185e5d2a87b130cca52c3edcef0460c8c864fd437c57190f5",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/goals-8.png": "fca2ecb970ba1faf6b6ba88c9c8ddaaf43b8640d148e0f86a93eb4d6ed2c2ab9",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/goals.gif": "ded2ec91275e6e1b081a01fbf831c38b157b7c48ab87639ccfad7e1c3b75fbc5",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/profiles-0.png": "728fcb249954a3a62ee1c74f4771aa03a4867c0202d2d548b726866b94fc43de",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/profiles-1.png": "f52f9a6f328383d64e4d6fc947bd02f3f6e16bea94389a7c39294226565b579d",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/profiles-2.png": "20483aea819c97e7320fd690b705a01c837efb8f6fd7dd4f17470dc1f045f22d",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/profiles-3.png": "f52f9a6f328383d64e4d6fc947bd02f3f6e16bea94389a7c39294226565b579d",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/profiles.gif": "05a27fd09e0c227d22c17422c104fe395449cb7201431de6165bf237340e6350",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/adoption-0.png": "0afc892cf33103a79d6a93793cbc968639d49902f0f1de31f4a5a07539348d89",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/adoption-1.png": "afbe18ce582aab4a6f81cb0d5606bf191ddf2254cb3a09aaa7eed41cc8927ba0",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/adoption-2.png": "32e45ab98ed984df04f4472922714bb8cb76f605263967a444818474c868b24f",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/adoption-3.png": "c5406013677876b900fdf951ae03a28f642bf23d1351d23f741ff3a2fa12212d",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/adoption-4.png": "e04eaad986efa3818bfc790bd3d3d13f2a78545a8ab759f5b441ccb4828ff8cd",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/adoption-5.png": "b12cd5259413382d1284f9df1ca04226ea09704ede063f60aab4102e067ac939",
-    "docs/visual/runs/2026-09-29T22-17-35-446Z/adoption.gif": "c6985e9600d86c31cea697a6e6661552ebfc739b6c284109893cf2c3c5997ba0"
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/workspace-0.png": "31a895fb42e51cd09467777f42263b83a3ea2ffc69624bfc2b340e6e2cf78dcb",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/workspace-1.png": "d7547f57c0ddfa0706de1d4d47e61444ff25ecb58373e07481d9929d8ac24af0",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/workspace-2.png": "f5d6a5cb50fdc6080a1e287b287da8ff52c2f5fb82c7389becf9af7ac6d0ea8b",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/workspace-3.png": "6d2b3abea9f547a2b05618979c8bc60f151fd0b5c5b10b508bd20bc2027a0750",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/workspace-4.png": "f5d6a5cb50fdc6080a1e287b287da8ff52c2f5fb82c7389becf9af7ac6d0ea8b",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/workspace.gif": "0dcecdb508ca40f6eccca1bb4cb83593c31d737e042adbd24c2881dd876ed023",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/chat-0.png": "f85f5e881391466c6ffaca20583e2c9f4ce756b5bb547909eb70395330912c78",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/chat-1.png": "5135391f262e0b8b0d97254dfee8f371d98d1ba6a0cdafa262c35db471acbb4c",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/chat-2.png": "c195feb09e74b09d371b1db1f32c29f7360ba6cdb9088a230c3853e0ec098f20",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/chat-3.png": "7124d28e45180a470d43a08419916eb3eba1ba70b21706a0d0eb34c64091792e",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/chat-4.png": "eebad649e66ef5465dd6558b799c6279c33bd00204e53742bede4fe7dde4db5e",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/chat.gif": "e8f8a34ea65acf04483ff82ab8e23e62c6312bca64507ed9034dc8c3b7f22697",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/side-chat-0.png": "ccdd98fe3b7b9a16e4428ccabe098fb9312e34093816b8b226cab054080cde96",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/side-chat-1.png": "a0c9360c4c0a09ec4c9d51ac5c480b25cb28dd69ed09a6c9e115c508718c76c7",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/side-chat-2.png": "5a808406bdabf1f45c2b9b962745d0c144ed40594e7c862895aa40f5c916eeae",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/side-chat-3.png": "7744cca4748cc3da3e32089a77bdf3401dec186a8e0c7eb71bf66d810cd99c99",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/side-chat.gif": "c7c96182c93f407a07485d1b4a045f84de21234ce45b922afe75c4d8e7d3075c",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/documents-0.png": "3f6acae33dd062a57a38de254451c0f4fa8f3419c8de0290df2b3ac79b4cf010",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/documents-1.png": "8c23af65de0f1770c2c9e46f251b2e1b7b1aa4c472ef344333c427d363e28c79",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/documents-2.png": "3f6acae33dd062a57a38de254451c0f4fa8f3419c8de0290df2b3ac79b4cf010",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/documents.gif": "d3cc83fd6626c8713a067bb33aba4ef04b200732dfcc38612146db270344e0f4",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/retained-0.png": "6c897820b73404c602fb4209aed1735fe2994faec0dde3939b13f2affec59d83",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/retained-1.png": "6c897820b73404c602fb4209aed1735fe2994faec0dde3939b13f2affec59d83",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/retained-2.png": "8ecb56088b34a7099371c208d01b0dc602bdd3cc5fa9b3063d365c0d5afcc0aa",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/retained-3.png": "6c897820b73404c602fb4209aed1735fe2994faec0dde3939b13f2affec59d83",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/retained-4.png": "3f84ed0c99cdea7f6a5fb0dbe1b5ad1f809c0c3b9b91e0a407f4eba3273f669f",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/retained.gif": "a6e068d6e2b5ced9003dad2184b80bce38467c0824177bc039de279d7d77c3f9",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/settings-0.png": "946b11bb4a1c947c15db372970c76a8af0ac52f8190c27b340aea13f170993b4",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/settings-1.png": "89431110d5e914921f6363917e0fd5ebbc8925cc15c31c6fbba32a09fa176fd5",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/settings-2.png": "aa0965b109ad11ac44303626cac72294b1b5c56faf633e5d97728b97ab545d13",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/settings-3.png": "a2631302bd02e1569d8c3646b75c82e9a9f57859752379000fc1dfe04ffc97c7",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/settings-4.png": "e1270e8dec35d89d82864839b3efb7c2396f99d5b39d8bdf9bd40b5710f3a3eb",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/settings.gif": "6fbd08d815a00ac9db1b1ad8bd386150e963eb6bed9c3eb135519073bff5bcdb",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/goals-0.png": "c73154f996e6ed14292b32e50c055d29c027e1e3a338ab2a64f396a63fd5400b",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/goals-1.png": "00708323f20bf847f5d1fc2268f629323974c03377a8827b62e9f1495f31f244",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/goals-2.png": "c73154f996e6ed14292b32e50c055d29c027e1e3a338ab2a64f396a63fd5400b",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/goals-3.png": "3dbeb2faa892e48c1f57b7dc8d0499c249c40b5c78d6887461e619805b7dc861",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/goals-4.png": "6f9bd2d14643ef3c68bcec302b9a2b4a6f22290410087c41926d50898762acd3",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/goals-5.png": "c0e4823fd0be442185e5d2a87b130cca52c3edcef0460c8c864fd437c57190f5",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/goals-6.png": "3c4db5e8ab66117d7361a7d6da86ac029073ca01f436ff5ba0b2ef4064d8d1b1",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/goals-7.png": "9cea306c5316ef9734ef17d21c9ac898c58a06ed05080adbbe0e84a83ea1f0c8",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/goals-8.png": "fca2ecb970ba1faf6b6ba88c9c8ddaaf43b8640d148e0f86a93eb4d6ed2c2ab9",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/goals.gif": "804f261a7a373cf1b6a5930394ca394b475b5642d5da9d30428cd1d57453dae6",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/profiles-0.png": "fff13bce7e95aefd690a3bbbf1a869c3fe8bb2d2e94f686cb2a5fd8d8aff7bd2",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/profiles-1.png": "ac67873d4f603a17b7ed6adc28efecceae2d2ff87c70cca50ad67f8206ede133",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/profiles-2.png": "20483aea819c97e7320fd690b705a01c837efb8f6fd7dd4f17470dc1f045f22d",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/profiles-3.png": "f52f9a6f328383d64e4d6fc947bd02f3f6e16bea94389a7c39294226565b579d",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/profiles.gif": "513878e96b06a46a33e2d0030caed55d7f315dab08ed83a9fb2d09ccedc2a8d0",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/adoption-0.png": "0afc892cf33103a79d6a93793cbc968639d49902f0f1de31f4a5a07539348d89",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/adoption-1.png": "afbe18ce582aab4a6f81cb0d5606bf191ddf2254cb3a09aaa7eed41cc8927ba0",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/adoption-2.png": "32e45ab98ed984df04f4472922714bb8cb76f605263967a444818474c868b24f",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/adoption-3.png": "c5406013677876b900fdf951ae03a28f642bf23d1351d23f741ff3a2fa12212d",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/adoption-4.png": "e04eaad986efa3818bfc790bd3d3d13f2a78545a8ab759f5b441ccb4828ff8cd",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/adoption-5.png": "b12cd5259413382d1284f9df1ca04226ea09704ede063f60aab4102e067ac939",
+    "docs/visual/runs/2026-09-30T19-26-25-926Z/adoption.gif": "c6985e9600d86c31cea697a6e6661552ebfc739b6c284109893cf2c3c5997ba0"
   }
 }
