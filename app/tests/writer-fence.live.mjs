@@ -1,6 +1,7 @@
 // The real Paper canvas and main IPC against an app-owned disposable runtime.
 // Quiescence is invoked by the test controller; no migration switch is exposed.
 import assert from 'node:assert/strict';
+import { LINE_END } from './helpers/keys.mjs';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -70,7 +71,7 @@ try {
   await page.locator('#bw-new-page').click();
   await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror h1').click();
   await page.keyboard.type('A dependable writing desk'); await saved();
-  await page.keyboard.press('End'); await page.keyboard.press('Enter');
+  await page.keyboard.press(LINE_END); await page.keyboard.press('Enter');
   await page.keyboard.type('These words were acknowledged before preparation.'); await saved();
   const paper = await page.evaluate(() => {
     const s = window.__barkdown.state, tab = s.chats[s.current].tabs.find(t => t.id === s.chats[s.current].active);
@@ -97,9 +98,9 @@ try {
   // Since the preparation foreground gate (C085) a held profile refuses in main before the writer fence is
   // reached; the fence itself still answers writer_stale for anything that gets past the gate.
   for (const message of Object.values(refusal)) assert.match(message, /\[(writer_stale|BARKDOWN_PROFILE_PREPARING)\]/);
-  await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror p').last().click(); await page.keyboard.press('End');
+  await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror p').last().click(); await page.keyboard.press(LINE_END);
   await page.keyboard.type(' This unsaved thought stays in the open buffer.');
-  await page.getByText(/earlier library generation/).first().waitFor();
+  await page.getByText(/This profile is preparing|earlier library generation/).first().waitFor();
   assert.match(await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror').innerText(), /unsaved thought stays/);
   const remote = await page.evaluate(p => window.barkdown.barkpark.get(p.id, p.binding, p.paperOwner), paper);
   assert.equal(remote.rev, paper.rev); assert.equal(remote.markdown, paper.markdown);
