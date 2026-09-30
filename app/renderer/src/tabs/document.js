@@ -11,6 +11,7 @@ import TaskItem from '@tiptap/extension-task-item';
 import { TableKit } from '@tiptap/extension-table';
 import { el, esc, icon, iconHtml, relativeTime, toast, debounce } from '../ui.js';
 import { markdownToDoc } from '../../../shared/markdown.js';
+import { docToHtml } from '../../../shared/doc-html.js';
 import { askText, askConfirm } from '../dialogs.js';
 
 const api = window.barkdown;
@@ -45,6 +46,17 @@ export function mountDocument(tab, host, ctx) {
   let typesOpen = false;
 
   const docId = () => tab.path.at(-1);
+  // Retained originals and read-only copies are shown without the editor (legacy retirement R1):
+  // the document's blocks rendered once, links opening the same way.
+  function showReadOnly(content) {
+    const hostNode = q('#editor'); hostNode.innerHTML = `<div class="ProseMirror bw-readonly-doc" tabindex="0">${docToHtml(content)}</div>`;
+    hostNode.querySelector('.bw-readonly-doc').onclick = event => {
+      const anchor = event.target.closest('a[href]'); if (!anchor) return;
+      event.preventDefault(); const href = anchor.getAttribute('href') || '';
+      const m = /^barkdown:\/\/doc\/([\w-]+)/.exec(href);
+      if (m) ctx.openLinked(tab, m[1], 'local'); else if (/^https?:/.test(href)) ctx.openWebsite(href);
+    };
+  }
 
   async function fetchDoc(id) {
     if (tab.source === 'barkpark') throw new Error('This Paper must be opened in its original Paper editor.');
@@ -82,7 +94,7 @@ export function mountDocument(tab, host, ctx) {
     const box = q('#conflict');
     box.innerHTML = '';
     box.appendChild(el(`<div class="bw-conflict"><strong>This document changed elsewhere</strong> (now rev ${current.rev}, ${esc(relativeTime(current.updatedAt))}). Your unsaved edits are still here.<div><button data-act="theirs">Load the newer version</button><button data-act="mine">Keep mine and overwrite</button></div></div>`));
-    box.querySelector('[data-act="theirs"]').onclick = () => { doc = current; editor.commands.setContent(doc.content, { emitUpdate: false }); q('#title').value = doc.title; dirty = false; box.innerHTML = ''; setSaveState('Loaded rev ' + doc.rev); renderMeta(); };
+    box.querySelector('[data-act="theirs"]').onclick = () => { doc = current; editor?.commands.setContent(doc.content, { emitUpdate: false }); q('#title').value = doc.title; dirty = false; box.innerHTML = ''; setSaveState('Loaded rev ' + doc.rev); renderMeta(); };
     box.querySelector('[data-act="mine"]').onclick = () => { doc.rev = current.rev; dirty = true; box.innerHTML = ''; persist(); persist.flush(); };
   }
 
@@ -109,7 +121,7 @@ export function mountDocument(tab, host, ctx) {
     try {
       const result = await api.docs.resolveProposal(doc.id, proposalId, accept);
       doc = result.doc || doc;
-      if (accept && editor) { editor.commands.setContent(doc.content, { emitUpdate: false }); dirty = false; setSaveState('Applied · rev ' + doc.rev); }
+      if (accept) { if (editor) editor.commands.setContent(doc.content, { emitUpdate: false }); else showReadOnly(doc.content); dirty = false; setSaveState('Applied · rev ' + doc.rev); }
       renderProposals(); renderMeta(); renderLinks();
       ctx.documentChanged(doc);
       toast(accept ? 'Change applied' : 'Proposal discarded');
@@ -134,7 +146,7 @@ export function mountDocument(tab, host, ctx) {
       !references.length && !(doc.backlinks || []).length && !related.length ? '<h3>Linked documents</h3><p class="bw-small bw-muted">Link another document with the link button (barkdown://doc/&lt;id&gt;) and it will appear here with its backlink.</p>' : '',
     ].join('');
     host.querySelectorAll('[data-open]').forEach(b => { b.onclick = () => ctx.openLinked(tab, b.dataset.open, b.dataset.source); });
-    host.querySelectorAll('[data-restore]').forEach(b => { b.onclick = async () => { try { const r = await api.docs.restore(doc.id, Number(b.dataset.restore)); doc = r.doc; editor.commands.setContent(doc.content, { emitUpdate: false }); dirty = false; setSaveState('Restored · rev ' + doc.rev); renderMeta(); renderLinks(); ctx.documentChanged(doc); } catch (error) { toast(error.message, 'error'); } }; });
+    host.querySelectorAll('[data-restore]').forEach(b => { b.onclick = async () => { try { const r = await api.docs.restore(doc.id, Number(b.dataset.restore)); doc = r.doc; if (editor) editor.commands.setContent(doc.content, { emitUpdate: false }); else showReadOnly(doc.content); dirty = false; setSaveState('Restored · rev ' + doc.rev); renderMeta(); renderLinks(); ctx.documentChanged(doc); } catch (error) { toast(error.message, 'error'); } }; });
   }
 
   function renderPath() {
@@ -178,7 +190,7 @@ export function mountDocument(tab, host, ctx) {
       if (destroyed) return;
       pane.hidden = false;
       pane.innerHTML = `<div class="bw-kicker">Source document</div><h2>${esc(source.title)}</h2><div id="source-body"></div>`;
-      new Editor({ element: pane.querySelector('#source-body'), editable: false, extensions: [StarterKit.configure({ link: false }), Link.configure({ openOnClick: false }), TaskList, TaskItem.configure({ nested: true }), TableKit.configure({ table: { resizable: false } })], content: source.content });
+      pane.querySelector('#source-body').innerHTML = `<div class="ProseMirror bw-readonly-doc">${docToHtml(source.content)}</div>`;
     } catch { pane.innerHTML = ''; }
   }
 
@@ -284,6 +296,14 @@ export function mountDocument(tab, host, ctx) {
     q('#title').disabled = readOnly;
     if (editor) { editor.destroy(); editor = null; }
     q('#editor').innerHTML = '';
+    if (readOnly) {
+      showReadOnly(doc.content);
+      q('#title').oninput = null; q('#title').onkeydown = null;
+      q('#state').textContent = doc.retained ? 'Retained original. This profile’s notes moved to Paper when the library was switched; this legacy copy stays readable and is never edited.' : 'This paper is read from Barkpark. Import it to edit a local copy.';
+      renderMeta(); renderProposals(); renderPath(); renderLinks(); renderSource();
+      q('#current').scrollTop = tab.scroll || 0;
+      return;
+    }
     editor = new Editor({
       element: q('#editor'),
       editable: !readOnly,
@@ -337,7 +357,7 @@ export function mountDocument(tab, host, ctx) {
         if (destroyed || !fresh || doc.id !== id || dirty || saving) return;
         const edit = await api.docs.agentEdit(id);
         const allowed = () => !destroyed && doc.id === id && doc.rev === beforeRev && !dirty && !saving;
-        const apply = () => { doc = fresh; if (editor && fresh.rev !== beforeRev) editor.commands.setContent(doc.content, { emitUpdate: false }); q('#title').value = doc.title; setSaveState('Saved · rev ' + doc.rev); };
+        const apply = () => { doc = fresh; if (fresh.rev !== beforeRev) { if (editor) editor.commands.setContent(doc.content, { emitUpdate: false }); else showReadOnly(doc.content); } q('#title').value = doc.title; setSaveState('Saved · rev ' + doc.rev); };
         if (edit && !edit.undone && edit.beforeRev === beforeRev && edit.afterRev === fresh.rev) await presence.run(edit, apply, allowed);
         else if (allowed()) apply();
         renderProposals(); renderMeta(); renderLinks(); renderPath(); tab.title = doc.title; ctx.tabChanged(tab);

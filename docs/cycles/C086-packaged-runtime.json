@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "id": "C086",
+  "stage": "P5",
+  "status": "blocked",
+  "goal": "Barkdown runs its library without a source checkout or an Elixir toolchain on the machine: the runtime is a packaged release, and step by step the rest of what an installation needs.",
+  "scope": [
+    "A profile's runtime from a packaged Barkpark release, built and stamped by a script",
+    "The portable profile, crash reclaim and recovery unchanged on the packaged runtime",
+    "Postgres without a machine install",
+    "The app itself as a macOS application that carries its runtime"
+  ],
+  "acceptance": [
+    "With only system folders on the PATH the app boots a profile's runtime, writes, restarts and reads the same",
+    "Export, import and reclaim after a kill pass on the packaged runtime",
+    "A machine with no Postgres installed runs a profile",
+    "A built macOS application starts a profile with nothing else installed"
+  ],
+  "checkpoint": "2026-09-30",
+  "handoff": "docs/cycles/C086-packaged-runtime.md",
+  "nextAction": "1) Licences of everything the application carries (Erlang, the server's packages, Postgres, OpenSSL) collected into the third-party notices; nothing is handed to another person before that. 2) A Mac without developer tools runs the application: needs a second Mac or a clean account, and a signature other than ad hoc. 3) Size: the two agent command-line tools are half of the 1 GB.",
+  "evidence": [
+    "docs/cycles/evidence/C086/live/2026-09-30T16-48-11-085Z-app-packaged/result.json",
+    "docs/cycles/evidence/C086/live/2026-09-30T16-13-52-486Z-runtime-release/result.json"
+  ],
+  "truthReview": "2026-09-30: the macOS application is built with the runtime folder inside and started as an application, with only system folders on the PATH: a never-configured profile runs on the carried server and Postgres, New page makes a Paper, and the note reads the same after a restart. Built and run on one Mac, signed ad hoc, not notarized, started from its build folder with --profiles. The runtime folder rehearsal covers export, import and reclaim. No Mac without developer tools has run either. Windows is not covered.",
+  "screenshotReview": "No renderer change. Live screenshots of a note on the packaged runtime and in the built application are in the rehearsal folders.",
+  "delivery": {
+    "phase": "implementing",
+    "owner": "primary agent",
+    "remaining": [
+      "Third-party notices for what the application carries",
+      "A Mac without developer tools; a real signature",
+      "Application size",
+      "Windows: no upstream release for that host"
+    ]
+  },
+  "reason": "Paused behind the legacy retirement the user asked for on 2026-09-30; its Mac scope (packaged runtime, Postgres, the built application) is delivered. Next when resumed: licences of what the application carries, a Mac without developer tools, size."
+}

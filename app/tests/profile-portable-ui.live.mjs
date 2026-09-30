@@ -234,6 +234,19 @@ try {
   assert.deepEqual(undone.blocks, original.blocks, 'Undo restores the blocks exactly');
   report.checks.push({ name: 'The assistant on the imported profile: reads and appends through the MCP server, Undo restores the blocks exactly', modelTurns: transport.requests.length }); persist();
 
+  // A new profile made here starts with its managed runtime on, the one this installation last configured (R3).
+  await page.evaluate(() => document.querySelector('#bw-settings').click());
+  await page.locator('#profile-name').fill('Fresh desk'); await page.locator('#profile-create').click();
+  await page.waitForFunction(() => [...document.querySelectorAll('#profile-choice option')].some(o => o.textContent === 'Fresh desk'));
+  const fresh = registry.load().profiles.find(p => p.name === 'Fresh desk');
+  await page.locator('#profile-switch').click();
+  await page.waitForFunction(id => window.__barkdown?.state.loaded && window.__barkdown.state.profileId === id, fresh.id, { timeout: 60000 });
+  await runtimeReady();
+  const freshSettings = await page.evaluate(() => window.barkdown.settings.get());
+  assert.equal(freshSettings.barkpark?.local?.enabled, true, 'the new profile runs a managed runtime without being configured');
+  assert.equal(await page.evaluate(() => window.barkdown.barkpark.localStatus()).then(s => s.phase), 'ready');
+  report.checks.push({ name: 'A new profile starts with its managed runtime on: the runtime this installation last configured, no setup', profile: fresh.name }); persist();
+  await page.evaluate(() => document.querySelector('#bw-settings').click());
   // Back on the exporting profile: nothing moved.
   await page.evaluate(() => document.querySelector('#bw-settings').click());
   await page.locator('#profile-choice').selectOption(profile.id);

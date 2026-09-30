@@ -144,3 +144,7 @@ A profile's runtime folder can now be a packaged Barkpark release instead of a s
 ### 2026-09-30 — a profile follows its carried runtime (C086)
 
 A profile records the folder of its runtime. When the application moves or is updated, that folder is gone and the application carries its runtime at a new path; the profile now follows when the old folder no longer exists and the new one is a packaged release. Ports and data stay. A checkout, or an old folder that still exists, is never swapped silently.
+
+### 2026-09-30 — legacy retirement R1 and R3 (C087)
+
+R1: retained originals and read-only copies are rendered by `shared/doc-html.js` from the document's blocks, in the markup the note styles know, with no editor mounted; links open the same way, and the editor is created only for a document that may be edited. R3: a new profile that has never been configured starts with its managed runtime on: the one the application carries, or else the runtime folder this installation last started, remembered in `app-settings/runtime.json`. Both rehearsed in the switch and portable-profile tours.

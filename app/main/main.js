@@ -59,7 +59,14 @@ function carriedRuntime() {
   const candidates = [process.env.BARKDOWN_CARRIED_RUNTIME, app.isPackaged ? path.join(process.resourcesPath, 'runtime') : null].filter(Boolean);
   return carriedRuntimeDir = candidates.find(dir => require('./local-barkpark-source').releaseOf(dir)) || null;
 }
-function readSettings(source = store) { const stored = source.readJson('settings.json', {}), carried = PROFILE_MODE && stored.barkpark === undefined ? carriedRuntime() : null,
+// A new profile starts with its managed runtime on (legacy retirement R3): the runtime the
+// application carries, or else the runtime folder the last configured profile chose, remembered
+// for the installation. A profile that has been configured keeps its own choice.
+function rememberedRuntime() {
+  try { const value = appSettingsStore?.readJson('runtime.json', null); return value?.version === 1 && typeof value.source === 'string' && path.isAbsolute(value.source) && validateLocal({ source: value.source, port: 4540, pgPort: 5540 }) ? value.source : null; } catch { return null; }
+}
+function rememberRuntime(source) { try { if (appSettingsStore && typeof source === 'string' && path.isAbsolute(source)) appSettingsStore.writeJson('runtime.json', { version: 1, source, at: new Date().toISOString() }); } catch {} }
+function readSettings(source = store) { const stored = source.readJson('settings.json', {}), carried = PROFILE_MODE && stored.barkpark === undefined ? (carriedRuntime() || rememberedRuntime()) : null,
   saved = carried ? { ...stored, barkpark: { enabled: true, writes: true, local: { ...DEFAULT_SETTINGS.barkpark.local, enabled: true, source: carried } } } : stored, appearance = appSettingsStore?.readJson('appearance.json', profileRegistry?.load()?.appSettings || {}) || {}; return { ...DEFAULT_SETTINGS, ...saved, ...appearance, barkpark: { ...DEFAULT_SETTINGS.barkpark, ...(saved.barkpark || {}) } }; }
 function writeSettings(settings) {
   if (!appSettingsStore) return store.writeJson('settings.json', settings);
@@ -136,6 +143,7 @@ function reconcileLocal() {
       const profileId = profileService.view().profileId, s = readSettings();
       const result = s.barkpark.local?.enabled ? await profilePool.select(profileId, { source: s.barkpark.local.source, writes: Boolean(s.barkpark.writes) }) : await profilePool.selectWithoutRuntime(profileId);
       if (runtimeReadyHook && result.connection?.server) await runtimeReadyHook(profileId, result.connection).catch(error => console.error(`[recovery] launch check failed: ${error.message}`));
+      if (s.barkpark.local?.enabled && s.barkpark.local.source) rememberRuntime(s.barkpark.local.source);
       profileConnection = result.connection; profileConnectionOwner = result.profileId; localStartupError = null; syncBarkparkEnv(); emitLocalStatus(localStatus());
     }).catch(error => { localStartupError = error.message; emitLocalStatus(localStatus()); throw error; });
     return localTransition;
@@ -271,7 +279,7 @@ function registerIpc() {
       if (profileService && b.viaCli) throw new Error('Profiles require an explicit server connection; shared CLI routing is unavailable');
       if (b.local) {
         const config = { ...DEFAULT_SETTINGS.barkpark.local, ...s.barkpark.local, ...b.local };
-        if (config.enabled) validateLocal(config);
+        if (config.enabled) { validateLocal(config); if (profileService) rememberRuntime(config.source); }
         s.barkpark.local = config;
       }
       if (b.enabled != null) s.barkpark.enabled = b.enabled;

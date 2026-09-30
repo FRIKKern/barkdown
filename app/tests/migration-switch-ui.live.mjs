@@ -133,9 +133,13 @@ try {
   const retained = await page.evaluate(id => window.barkdown.docs.get(id), a.ids[1]);
   assert.equal(retained.retained, true);
   await page.evaluate(id => window.__barkdown.openTarget({ kind: 'doc', id, source: 'local' }), a.ids[1]);
+  // A retained original is shown without the editor (legacy retirement R1): its text is there, nothing is editable.
+  await page.locator('.bw-doc-pane:not([hidden]) .bw-readonly-doc', { hasText: 'Measure soil moisture at dawn' }).waitFor({ timeout: 30000 });
+  assert.equal(await page.locator('.bw-doc-pane:not([hidden]) [contenteditable="true"]').count(), 0, 'no editing surface on a retained original');
+  assert.match(await page.locator('.bw-doc-pane:not([hidden]) #state').textContent(), /Retained original/);
   await page.locator('.bw-doc-pane:not([hidden]) .bw-doc-meta', { hasText: 'Retained original' }).waitFor({ timeout: 8000 }).catch(() => {});
   await shot('04-after-reload-paper-authority');
-  report.checks.push({ name: 'Settings › Barkpark › Library switch: confirm sheet, switch under the hold, the completed notice with Restart, a fresh host on Paper authority; both Papers on the runtime, legacy note retained read-only', seal: status.selection.seal, retainedBadges: await page.locator('.bw-retained').count() }); persist();
+  report.checks.push({ name: 'Settings › Barkpark › Library switch: confirm sheet, switch under the hold, the completed notice with Restart, a fresh host on Paper authority; both Papers on the runtime, legacy note retained and shown without an editor', seal: status.selection.seal, retainedBadges: await page.locator('.bw-retained').count() }); persist();
 
   // A Paper edit after the switch: the rollback must keep it on Paper and name it as a divergence.
   const orchardId = papers.find(p => p.title === 'Orchard fieldbook').id;
