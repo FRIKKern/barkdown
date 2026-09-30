@@ -83,6 +83,6 @@ Existing cloud access is not two-way synchronization. Two real devices must demo
 | ○ Remaining | Keep data on uninstall | [A5 gate](ACCEPTANCE.md#a5--install-and-daily-use) |
 | ○ Remaining | Keyboard, zoom, daily use | [A5 gate](ACCEPTANCE.md#a5--install-and-daily-use) |
 
-Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. Postgres is still the machine’s own, the app runs from source, and Windows has no release. Clean-machine installation, upgrade/rollback, retained user data and the daily-use pilot remain pending.
+Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. The runtime folder carries its own Postgres; the app still runs from source, and Windows has no release. Clean-machine installation, upgrade/rollback, retained user data and the daily-use pilot remain pending.
 
 Stage order and release gates remain in [PLAN.md](PLAN.md); [the current cycle](NEXT-AGENT.md) owns the next action. This view summarizes that plan and is not another backlog.

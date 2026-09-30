@@ -1,0 +1,32 @@
+{
+  "source": "74e060a8ae1a7ac6148d31d774807d9edb4e1174",
+  "upstream": "9f1874235449f9763c1b3e8cfcaf1b5a36aee9b3",
+  "release": "barkpark-9f1874235-darwin-arm64",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "First boot from the packaged release with only system folders on the PATH: database created, brought forward and seeded; a note is written, saved and found by its body",
+      "firstBootMs": 27542,
+      "path": "/usr/bin:/bin:/usr/sbin:/sbin"
+    },
+    {
+      "name": "After a restart the note reads the same",
+      "secondBootMs": 4596
+    },
+    {
+      "name": "Export under the hold and import as a new profile, both on the packaged runtime; the imported profile serves the same library",
+      "papers": 2
+    },
+    {
+      "name": "The app is killed: the next launch reclaims the packaged runtime and its database and serves the same library"
+    }
+  ],
+  "screenshots": [
+    "01-note-on-the-packaged-runtime.png"
+  ],
+  "limits": [
+    "One Mac, one run, a small library. The release and its Postgres were built on this machine, for this macOS version and this processor; a Mac without developer tools has not run it. The app itself runs from source under Electron, not as an installed application. The native folder picker is stubbed. No Windows: the upstream release is assembled for unix hosts only."
+  ],
+  "postgres": "carried in the runtime folder"
+}

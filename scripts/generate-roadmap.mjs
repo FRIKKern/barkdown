@@ -29,7 +29,7 @@ export const summaries = {
   P5: {reviewedStageStatus: 'todo', title: ['Installation'], items: [
     ['active', 'Install without a checkout', 'docs/cycles/C086-packaged-runtime.md'], ['todo', 'Update without losing work'],
     ['todo', 'Recover a failed upgrade'], ['todo', 'Keep data on uninstall'], ['todo', 'Keyboard, zoom, daily use'],
-  ], scope: 'Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. Postgres is still the machine’s own, the app runs from source, and Windows has no release. Clean-machine installation, upgrade/rollback, retained user data and the daily-use pilot remain pending.'},
+  ], scope: 'Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. The runtime folder carries its own Postgres; the app still runs from source, and Windows has no release. Clean-machine installation, upgrade/rollback, retained user data and the daily-use pilot remain pending.'},
 };
 // This is the active journey's evidence summary, not a percentage or a task queue.
 export const migrationProgress = [

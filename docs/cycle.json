@@ -18,19 +18,19 @@
   ],
   "checkpoint": "2026-09-30",
   "handoff": "docs/cycles/C086-packaged-runtime.md",
-  "nextAction": "1) Postgres without a machine install: carry the server binaries beside the release and point the driver at them; rehearse with Homebrew's Postgres hidden. 2) Build the macOS application with the runtime inside and start a profile from it. 3) Settings: choose a packaged runtime for a new profile without typing a path.",
+  "nextAction": "1) Build the macOS application with the runtime folder inside and start a profile from it, with nothing else installed. 2) A new profile uses the carried runtime by default; Settings says which runtime a profile runs. 3) Licences of what is carried (Erlang, Postgres, OpenSSL) in the third-party notices before anything is handed to another person.",
   "evidence": [
-    "docs/cycles/evidence/C086/live/2026-09-30T15-42-57-363Z-runtime-release/result.json"
+    "docs/cycles/evidence/C086/live/2026-09-30T16-13-52-486Z-runtime-release/result.json"
   ],
-  "truthReview": "2026-09-30: one Electron rehearsal on macOS runs a profile on a release built on the same machine, with only system folders on the app's PATH: first boot, a note written and read after a restart, export and import, reclaim after a kill. Postgres is still the machine's own. The app runs from source. Windows is not covered: the upstream release is assembled for unix hosts only.",
+  "truthReview": "2026-09-30: one Electron rehearsal on macOS runs a profile on a runtime folder that carries the server, its Erlang and a Postgres built from the verified official source, with only system folders on the app's PATH: first boot, a note written and read after a restart, export and import, reclaim after a kill. Both were built on this Mac for this macOS version; no Mac without developer tools has run them. The app runs from source. Windows is not covered.",
   "screenshotReview": "No renderer change. One live screenshot of a note on the packaged runtime is in the rehearsal folder.",
   "delivery": {
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "Postgres without a machine install",
       "A built macOS application that carries the runtime",
-      "Choosing a packaged runtime in Settings",
+      "A carried runtime as the default for a new profile",
+      "Third-party notices for what is carried",
       "Windows: no upstream release for that host"
     ]
   }
