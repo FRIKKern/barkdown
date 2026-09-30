@@ -94,7 +94,9 @@ try {
     return result;
   }, { paper, legacy });
   report.refusal = refusal;
-  for (const message of Object.values(refusal)) assert.match(message, /\[writer_stale\]/);
+  // Since the preparation foreground gate (C085) a held profile refuses in main before the writer fence is
+  // reached; the fence itself still answers writer_stale for anything that gets past the gate.
+  for (const message of Object.values(refusal)) assert.match(message, /\[(writer_stale|BARKDOWN_PROFILE_PREPARING)\]/);
   await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror p').last().click(); await page.keyboard.press('End');
   await page.keyboard.type(' This unsaved thought stays in the open buffer.');
   await page.getByText(/earlier library generation/).first().waitFor();
