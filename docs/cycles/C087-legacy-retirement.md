@@ -2,7 +2,7 @@
 
 **Status:** active, opened 2026-09-30 on the user's go ([D-legacy-retirement](../DESIGN-DECISIONS.md#d-legacy-retirement--go-2026-09-30)). The stages are [legacy-retirement.md](../migration/legacy-retirement.md): R1 read-only rendering, R2 profiles by default with adoption, R3 a runtime by default, R4 removal. [C086](C086-packaged-runtime.md) is paused behind this cycle.
 
-**Outcome so far:** R1, R2 and R3 are in. Nothing removed yet.
+**Outcome so far:** R1 to R4 are in. The app no longer writes the legacy store, the legacy editor and its packages are gone.
 
 **R1 read-only rendering (`shared/doc-html.js`):** a retained original or a read-only copy is rendered from its blocks with no editor mounted; links open as before. Asserted in the switch rehearsal: the retained original shows its text, nothing on the page is editable. [D-read-only-render](../DESIGN-DECISIONS.md#d-read-only-render--retained-originals-without-the-editor-2026-09-30).
 
@@ -12,4 +12,8 @@
 
 **Limits:** the adoption offered at launch is the existing adoption; a library with a managed runtime is covered by the runtime adoption tour, not here. Tours that write the legacy library still exist and pass `--legacy`; R4 moves or retires them.
 
-**Next action:** R4: remove the legacy write paths and the Tiptap packages; keep the readers, retained originals, rollback and adoption; stop when no code path writes the legacy store and the app builds without `@tiptap`.
+**R4 removal:** the legacy write requests refuse with one reason, the assistant's tools refuse on legacy notes, New page without a runtime says so, rename and delete of a legacy note are refused, and the legacy tab is a read-only rendering; the eight `@tiptap` packages left `app/package.json`. Tours that used legacy writes as their vehicle now expect the refusal; the legacy agent-edit tour is retired; the native-defaults migration test builds by hand what the retired editor persisted, and fixtures that need libraries of the retired era (receipts, revisions) build them through a fixture-only option of the edit service that the app never passes. A rolled-back library is read-only until switched again, which the switch rehearsal now asserts.
+
+**Limits after R4:** the provider truth runner (`tests/providers.live.mjs`) proved successful assistant edits on a legacy document; those three scenarios (approval, success, delayed finish) now need a Paper runtime and are skipped in the unit suite until the harness makes its document a Paper under the isolated runtime. No Windows run yet.
+
+**Next action:** rehearsals at the R4 commit, pictures approved, closeout; then the provider truth runner on Paper.

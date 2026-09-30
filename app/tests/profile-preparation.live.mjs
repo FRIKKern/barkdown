@@ -67,29 +67,8 @@ try {
   await shot('07-project-buffer-refused');
   await projectEditor.click(); await page.keyboard.press(`${MOD}+s`); await page.waitForFunction(() => !document.querySelector('.bw-dot-dirty'));
   assert.equal(fs.readFileSync(file, 'utf8'), projectDraft);
-  const legacy = await page.evaluate(() => window.barkdown.docs.create({ title: 'Legacy migration source', markdown: 'Original legacy text.' }));
-  await page.evaluate(id => window.__barkdown.openTarget({ kind: 'doc', id, source: 'local' }), legacy.id);
-  const legacyEditor = page.locator('.bw-doc-pane:not(.bw-paper-pane):not([hidden]) .ProseMirror'); await legacyEditor.waitFor();
-  // Hold the actual persistence adapter after real Tiptap input: a pending save
-  // must still count as unsaved, and refusal must not discard the visible text.
-  const pendingSaveMarker = path.join(folder, 'legacy-save-held');
-  await app.evaluate(({ app }, marker) => {
-    const docs = process.getBuiltinModule('module').createRequire(app.getAppPath() + '/main/main.js')('./documents'), save = docs.save;
-    let release; const gate = new Promise(resolve => release = resolve); global.legacySaveHeld = false;
-    docs.save = async (...args) => { process.getBuiltinModule('fs').writeFileSync(marker, 'held'); await gate; return save(...args); };
-    global.releaseLegacy = () => { docs.save = save; release(); };
-  }, pendingSaveMarker);
-  try {
-    await legacyEditor.click(); await page.keyboard.press(`${MOD}+a`); await page.keyboard.insertText('Human legacy buffer must survive.');
-    for (let i = 0; i < 100 && !fs.existsSync(pendingSaveMarker); i++) await new Promise(resolve => setTimeout(resolve, 30));
-    assert.equal(fs.existsSync(pendingSaveMarker), true);
-    await assert.rejects(page.evaluate(() => window.__barkdown.prepareProfile()), /unsaved editors/);
-    assert.match(await legacyEditor.innerText(), /Human legacy buffer must survive/);
-    assert.equal((await page.evaluate(id => window.barkdown.docs.get(id), legacy.id)).markdown, legacy.markdown);
-    await shot('08-legacy-save-refused');
-  } finally { await app.evaluate(() => global.releaseLegacy()); }
-  await page.waitForFunction(() => [...window.__barkdown.controllers.values()].filter(c => c.type === 'doc').every(c => !c.isDirty?.()));
-  report.checks.push('Real CodeMirror dirty file and actual Tiptap pending save refuse preparation; text stays visible, file bytes change only on explicit Save, and legacy persistence completes after its test barrier releases.');
+  // Legacy retirement R4: there is no legacy editor to hold a pending save any more; legacy notes are read-only.
+  report.checks.push('Real CodeMirror dirty file refuses preparation; text stays visible and file bytes change only on explicit Save (the legacy editor is retired, R4)eases.');
   // Owned terminal process trees are verified through main/goal-process.js: a job object on Windows,
   // a process group elsewhere.
   let terminalTab, tree, alive;
@@ -116,6 +95,9 @@ try {
   await page.locator('.bw-paper-pane .bp-canvas-code-area').waitFor();
   const originalChat = await page.evaluate(() => window.__barkdown.state.current);
   await page.locator('#bw-prompt').fill('Keep this unsent conversation draft.');
+  // The composition lands in the focused prompt; nothing else is focused since the legacy editor left.
+  await page.locator('#bw-prompt').focus();
+  await page.waitForFunction(() => document.activeElement?.id === 'bw-prompt');
   const cdp = await page.context().newCDPSession(page);
   await cdp.send('Input.imeSetComposition', { text: 'にほん', selectionStart: 3, selectionEnd: 3 });
   await assert.rejects(page.evaluate(() => window.__barkdown.prepareProfile()), /Finish composing/);

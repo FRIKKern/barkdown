@@ -32,7 +32,7 @@ const original = { type: 'doc', content: [
 async function seed(profile, label) {
   const store = createStore(registry.storeFor(profile.id).storeDir), documents = createDocuments(store); documents.loadAll({ seed: false });
   const note = documents.create({ title: 'Field notes — a quieter workspace', content: original });
-  const edits = createAgentEdits({ store, documents });
+  const edits = createAgentEdits({ store, documents, retiredLegacyWrites: true }); // a library written before the retirement
   await edits.apply({ id: note.id, baseRev: 1, mode: 'append', markdown: `An acknowledged ${label} agent addition.`, summary: 'Keep the original context' });
   documents.addProposal(note.id, { baseRev: 2, mode: 'replace', markdown: 'A suggestion that was never accepted.', summary: 'A different opening', status: 'pending' });
   documents.save({ id: note.id, baseRev: 2, content: original, actor: 'you', summary: 'Keep the calmer wording' });

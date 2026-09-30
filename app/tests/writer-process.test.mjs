@@ -46,7 +46,8 @@ test('a surviving real MCP child refuses stale create/edit and keeps original re
     ]) {
       const response = await client.callTool({ name, arguments: input });
       assert.equal(response.isError, true, name);
-      assert.match(response.content[0].text, /earlier library generation/);
+      // Legacy retirement R4: legacy writes are refused before the fence is consulted; the store stays as it was either way.
+      assert.match(response.content[0].text, /earlier library generation|read-only|no local runtime/);
     }
     const retained = await client.callTool({ name: 'read_document', arguments: { id: doc.id } });
     assert.match(retained.content[0].text, /Original body/);
@@ -88,7 +89,7 @@ test('a new read-only MCP child can list a quiescent empty legacy store without 
     const listed = await client.callTool({ name: 'list_documents', arguments: {} });
     assert.deepEqual(JSON.parse(listed.content[0].text), []);
     const refused = await client.callTool({ name: 'create_document', arguments: { title: 'Forbidden', markdown: 'No seed' } });
-    assert.equal(refused.isError, true); assert.match(refused.content[0].text, /new writes are stopped/);
+    assert.equal(refused.isError, true); assert.match(refused.content[0].text, /no local runtime/);
     assert.deepEqual(store.list('documents', '.json'), []);
     assert.equal(control.assertQuiescent(barrier).quiescent, true);
   } finally { await client.close(); }

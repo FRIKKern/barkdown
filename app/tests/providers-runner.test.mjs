@@ -8,7 +8,10 @@ import { fileURLToPath } from 'node:url';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const app = path.dirname(here);
 const cases = ['error', 'nonzero', 'no-effect', 'empty', 'incomplete', 'cancelled-cleanup', 'late-error', 'error-note', 'tool-error', 'cleanup-failed', 'unverified', 'approval', 'wrong-content', 'no-receipt', 'wrong-revision', 'no-read', 'success', 'delayed-finish', 'invalid-provider', 'extra-document', 'malformed-extra', 'unexpected-tool', 'folder-change', 'wrong-target', 'sentinel-change'];
-for (const scenario of cases) test(`actual live runner classifies ${scenario}`, () => {
+// Since the legacy retirement (C087 R4) an assistant edit lands only on a Paper: the scenarios in which
+// the edit succeeds need a runtime and run under the isolated harness; without one they are skipped here.
+const needsPaper = new Set(['approval', 'success', 'delayed-finish']);
+for (const scenario of cases) test(`actual live runner classifies ${scenario}`, { skip: needsPaper.has(scenario) && !process.env.BARKDOWN_SHOTS_SERVER && 'needs a Paper runtime since the legacy retirement; run under the isolated harness' }, () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-provider-runner-'));
   const trace = path.join(root, 'trace.txt');
   const child = spawnSync(process.execPath, ['--require', path.join(here, 'fixtures/provider-truth-transport.cjs'), path.join(here, 'providers.live.mjs'), scenario === 'invalid-provider' ? 'typo' : 'claude', '--timeout-ms=250', '--cleanup-ms=150'], {

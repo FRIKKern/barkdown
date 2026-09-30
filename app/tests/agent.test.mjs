@@ -47,22 +47,18 @@ async function runScenario(turns, { context = {}, respond } = {}) {
   return events;
 }
 
-// 1. Read and edit directly, then Undo.
+// 1. Read, then an edit the tool refuses: legacy notes are read-only since the retirement (C087 R4).
 const overview = documents.list().find(d => d.title === 'Overview');
 let events = await runScenario([
   { stop_reason: 'tool_use', content: [text('Looking.'), use('t1', 'read_document', { id: overview.id })] },
-  params => { const last = params.messages.at(-1); assert(last.role === 'user' && last.content[0].type === 'tool_result' && last.content[0].content.includes('# Overview'), 'tool_result missing document markdown'); return { stop_reason: 'tool_use', content: [use('t2', 'edit_document', { id: overview.id, mode: 'append', markdown: '## Added\n\nProposed text.', summary: 'Add a section' })] }; },
-  { stop_reason: 'end_turn', content: [text('Proposed a section.')] },
+  params => { const last = params.messages.at(-1); assert(last.role === 'user' && last.content[0].type === 'tool_result' && last.content[0].content.includes('# Overview'), 'tool_result missing document markdown'); return { stop_reason: 'tool_use', content: [use('t2', 'edit_document', { id: overview.id, mode: 'append', markdown: 'Proposed text.', summary: 'Add a section' })] }; },
+  params => { const last = params.messages.at(-1); assert(last.content[0].type === 'tool_result' && last.content[0].is_error && /read-only|Paper/.test(String(last.content[0].content)), 'the legacy edit was not refused: ' + JSON.stringify(last.content[0]).slice(0, 200)); return { stop_reason: 'end_turn', content: [text('Could not edit.')] }; },
 ]);
 assert(events.some(e => e.type === 'activity' && e.target.kind === 'doc' && e.label.startsWith('Opened')), 'read_document did not emit an activity');
-assert(events.some(e => e.type === 'activity' && e.agentEdit), 'direct edit activity missing');
+assert(!events.some(e => e.type === 'activity' && e.agentEdit), 'no edit activity for a refused legacy edit');
 const doc = documents.get(overview.id);
-assert(doc.proposals.length === 0 && doc.rev === 2 && doc.markdown.includes('Proposed text.'), 'edit was not saved directly');
-assert(events.at(-1).type === 'done' && events.at(-1).history.length === 6, 'history should contain user, assistant, tool_result, assistant, tool_result... turns');
-const agentEdits = require('../main/agent-edits');
-await agentEdits.undo(overview.id, agentEdits.latest(overview.id).id);
-assert(!documents.get(overview.id).markdown.includes('Proposed text.'), 'Undo did not restore the document');
-console.log('scenario 1 ok: read + direct edit + Undo');
+assert(doc.rev === 1 && !doc.markdown.includes('Proposed text.'), 'the legacy note changed');
+console.log('scenario 1 ok: read + refused legacy edit');
 
 // 2. write_file waits for approval; declined writes do not touch disk; approved writes do.
 events = await runScenario([

@@ -6,15 +6,21 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { createRequire } from 'node:module';
 const require=createRequire(import.meta.url);
-const {JSDOM}=require('jsdom'),{Editor}=require('@tiptap/core'),{StarterKit}=require('@tiptap/starter-kit'),{Link}=require('@tiptap/extension-link'),{TableKit}=require('@tiptap/extension-table'),{TaskList}=require('@tiptap/extension-task-list'),{TaskItem}=require('@tiptap/extension-task-item');
+// The legacy editor (Tiptap 3, retired in C087) persisted these attribute defaults; libraries written by it still hold them.
 const {markdownToDoc}=require('../shared/markdown'),{pmDocToBlocks}=require('../shared/portabledoc'),{inspectContent,prepareMigration}=require('../main/migration-preflight'),{stageMigration}=require('../main/migration-staging');
 function native(content){
-  const dom=new JSDOM('<div id="editor"></div>'),names=['window','document','navigator','getComputedStyle'];
-  const old=names.map(name=>Object.getOwnPropertyDescriptor(globalThis,name));
-  for(const name of names)Object.defineProperty(globalThis,name,{configurable:true,writable:true,value:name==='window'?dom.window:name==='document'?dom.window.document:name==='navigator'?dom.window.navigator:dom.window.getComputedStyle});
-  let editor;
-  try {editor=new Editor({element:document.querySelector('#editor'),extensions:[StarterKit.configure({link:false,heading:{levels:[1,2,3]}}),Link.configure({openOnClick:false,autolink:true,protocols:['barkdown']}),TaskList,TaskItem.configure({nested:true}),TableKit.configure({table:{resizable:false}})],content});return JSON.parse(JSON.stringify(editor.getJSON()));}
-  finally{editor?.destroy();dom.window.close();names.forEach((name,i)=>{if(old[i])Object.defineProperty(globalThis,name,old[i]);else delete globalThis[name];});}
+  const walk=node=>{
+    if(!node||typeof node!=='object')return node;
+    if(Array.isArray(node))return node.map(walk);
+    const out={...node};
+    if(out.marks)out.marks=out.marks.map(mark=>mark.type==='link'?{...mark,attrs:{href:mark.attrs?.href||null,target:'_blank',rel:'noopener noreferrer nofollow',class:null,title:null}}:mark);
+    if(out.type==='orderedList')out.attrs={start:out.attrs?.start??1,type:null};
+    if(out.type==='tableCell'||out.type==='tableHeader')out.attrs={colspan:1,rowspan:1,colwidth:null,...(out.attrs||{})};
+    if(out.type==='taskItem')out.attrs={checked:Boolean(out.attrs?.checked)};
+    if(out.content)out.content=walk(out.content);
+    return out;
+  };
+  return walk(structuredClone(content));
 }
 const markdown='# Native defaults\n\n[A link](https://example.org) and **rich** text.\n\n1. First\n2. Second\n\n> A quote\n\n| Header | Value |\n| --- | --- |\n| Cell | More |\n\n- [x] Done\n\n```js\nconst value=1;\n```';
 function fixture(content){

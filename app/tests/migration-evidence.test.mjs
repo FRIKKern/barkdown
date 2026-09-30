@@ -15,7 +15,7 @@ async function fixture({undo=false,laterHuman=true}={}) {
   const store=createStore(sourceDir),docs=createDocuments(store);docs.loadAll({seed:false});
   const note=docs.create({title:'Original note',markdown:'Original æ 🌲 wording.'});
   docs.save({id:note.id,baseRev:1,content:body('A human second revision.'),actor:'you',summary:'Human revision'});
-  const edits=createAgentEdits({store,documents:docs});
+  const edits=createAgentEdits({store,documents:docs,retiredLegacyWrites:true});// a library written before the retirement
   const receipt=await edits.apply({id:note.id,baseRev:2,mode:'append',markdown:'An acknowledged agent addition.',summary:'Agent addition'});
   const proposal=docs.addProposal(note.id,{mode:'replace',baseRev:3,markdown:'An old pending suggestion.',summary:'Keep pending'});
   if(undo)await edits.undo(note.id,receipt.id);

@@ -446,14 +446,13 @@ function registerIpc() {
   handle('docs:undoAgentEdit', ({ id, editId, binding }) => id.startsWith('bp:') ? paperConnection.write(binding, c => require('./agent-edits').undo(id, editId, c)) : require('./agent-edits').undo(id, editId, barkparkConfig()));
   handle('docs:list', () => documents.list());
   handle('docs:get', id => documents.get(id));
-  handle('docs:create', input => documents.create(input));
-  handle('docs:save', input => documents.save(input));
-  handle('docs:delete', id => documents.remove(id));
+  // Legacy retirement R4: the legacy store is never written by the app. Notes live on Paper; a
+  // profile without a runtime enables one in Settings. Retained originals, rollback and adoption read the store.
+  const legacyRefused = () => { throw Object.assign(new Error('Notes live on Paper now. Legacy notes are read-only; enable this profile’s local runtime in Settings to write a new note.'), { code: 'BARKDOWN_LEGACY_RETIRED' }); };
+  for (const channel of ['docs:create', 'docs:save', 'docs:delete', 'docs:restore', 'docs:proposal']) handle(channel, legacyRefused);
   handle('docs:search', q => documents.search(q));
   handle('docs:related', id => documents.related(id));
   handle('docs:history', id => documents.history(id));
-  handle('docs:restore', ({ id, rev }) => documents.restore(id, rev));
-  handle('docs:proposal', ({ id, proposalId, accept }) => documents.resolveProposal(id, proposalId, accept));
   handle('docs:paperProposals', async ({ slug, binding }) => (await paperConnection.read(binding, c => documents.paperProposals(slug, c), true)).value);
   handle('docs:resolvePaperProposal', async ({ slug, proposalId, accept, rev, binding }) => {
     // Refuse a stale connection before taking the retained proposal.

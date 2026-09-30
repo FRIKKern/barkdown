@@ -96,38 +96,14 @@ try {
   await page.keyboard.press('Escape'); await page.locator('#bw-lightbox').click({ position: { x: 5, y: 5 } }).catch(() => {});
   await page.screenshot({ path: path.join(out, '02b-image-message.png') });
 
-  // Real document editing with autosave and revision.
+  // Legacy notes are read-only since the retirement (C087 R4): rendered from their blocks, no editor.
   const docTab = page.locator('#bw-tabs [data-tab]').first();
   await docTab.click();
-  await page.waitForSelector('.bw-doc-pane:not([hidden]) .ProseMirror', { timeout: 10000 });
-  const editor = page.locator('.bw-doc-pane:not([hidden]) .ProseMirror');
-  await editor.locator('p').first().click();
-  await page.keyboard.press(DOC_END);
-  await page.keyboard.press('Enter');
-  await page.keyboard.type('A sentence added by the end-to-end test.');
-  await page.waitForFunction(() => /Saved · rev \d+/.test(document.querySelector('.bw-doc-pane:not([hidden]) #save-state')?.textContent || ''), null, { timeout: 8000 });
-  step('document autosaved with a new revision', true);
-  // Re-anchor the caret on the last paragraph before the slash command: after the autosave the editor
-  // occasionally drops focus, which made this step flaky.
-  await editor.locator('p').last().click();
-  // Put the caret at the very end of the last paragraph (a click lands mid-text and End is a visual-line key).
-  await page.evaluate(() => { const pm = document.querySelector('.bw-doc-pane:not([hidden]) .ProseMirror'); const p = [...pm.querySelectorAll('p')].pop(); const r = document.createRange(); r.selectNodeContents(p); r.collapse(false); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); });
-  await page.waitForTimeout(150);
-  await page.keyboard.press('Enter');
-  await page.waitForFunction(() => document.activeElement?.closest('.bw-doc-pane:not([hidden]) .ProseMirror') != null, null, { timeout: 3000 }).catch(() => {});
-  await page.waitForTimeout(300);
-  await page.keyboard.type('/heading 2');
-  try { await page.waitForSelector('.bw-doc-pane:not([hidden]) .bw-slash:not([hidden]) [data-slash="h2"][aria-selected="true"]', { timeout: 4000 }); } catch (error) { console.log('SLASH DEBUG', await page.evaluate(() => { const p = document.querySelector('.bw-doc-pane:not([hidden])'); return { slashHidden: p.querySelector('#slash').hidden, slash: p.querySelector('#slash').innerHTML.slice(0, 200), tail: p.querySelector('.ProseMirror').innerHTML.slice(-400), active: document.activeElement?.className }; })); throw error; }
-  await page.keyboard.press('Enter');
-  await page.keyboard.type('Slash heading');
-  step('slash command created a heading', (await editor.locator('h2:has-text("Slash heading")').count()) === 1);
-  await page.keyboard.press('Shift+Home');
-  await page.waitForSelector('.bw-doc-pane:not([hidden]) .bw-bubble:not([hidden])', { timeout: 4000 });
-  await page.locator('.bw-doc-pane:not([hidden]) .bw-bubble [data-types]').click();
-  await page.locator('.bw-doc-pane:not([hidden]) .bw-bubble [data-type="quote"]').click();
-  step('attached Types submenu changed the block', (await editor.locator('blockquote').count()) >= 1);
-  await page.waitForFunction(() => /Saved · rev \d+/.test(document.querySelector('.bw-doc-pane:not([hidden]) #save-state')?.textContent || ''), null, { timeout: 8000 });
-  await page.screenshot({ path: path.join(out, '03-document-editing.png') });
+  await page.waitForSelector('.bw-doc-pane:not([hidden]) .bw-readonly-doc', { timeout: 10000 });
+  const editor = page.locator('.bw-doc-pane:not([hidden]) .bw-readonly-doc');
+  step('a legacy note renders its blocks without an editor', (await editor.locator('p').count()) >= 1 && (await page.locator('.bw-doc-pane:not([hidden]) [contenteditable="true"]').count()) === 0);
+  step('a legacy note says it is read-only and where notes live now', /read-only/.test(await page.locator('.bw-doc-pane:not([hidden]) #state').innerText()));
+  await page.screenshot({ path: path.join(out, '03-document-readonly.png') });
 
   // Direct document mode hides the chat; linked documents open to the right.
   await page.locator('#bw-pages .bw-page-row:has-text("Interaction notes")').click();
@@ -186,11 +162,12 @@ try {
   step('the favorites menu shows the name, wider than its remove button', (await favRow.locator('.bw-fav-label').innerText()) === favLabel && favBox && removeBox && favBox.width > 60 && removeBox.width < 40);
   await favRow.click();
   step('a favorite reopens its tab after it was closed', (await page.locator('#bw-tabs .bw-tab.active .bw-tab-label').innerText()) === favLabel);
+  // A document tab's name is the note's title; a legacy note cannot be renamed since the retirement (C087 R4).
   await page.locator('#bw-tabs .bw-tab.active [data-tab]').dblclick();
   await page.locator('#bw-tabs .bw-tab-rename').fill('Renamed tab');
   await page.locator('#bw-tabs .bw-tab-rename').press('Enter');
-  await page.waitForTimeout(400);
-  step('double-clicking a tab renames it and its favorite', (await page.locator('#bw-tabs .bw-tab.active .bw-tab-label').innerText()) === 'Renamed tab' && (await page.evaluate(() => window.__barkdown.state.favorites[0].label)) === 'Renamed tab');
+  await page.waitForSelector('.bw-toast', { timeout: 5000 });
+  step('renaming a legacy note from its tab is refused with the reason, and the tab and its favorite keep their name', /read-only/.test(await page.locator('.bw-toast').last().innerText()) && (await page.locator('#bw-tabs .bw-tab.active .bw-tab-label').innerText()) === favLabel && (await page.evaluate(() => window.__barkdown.state.favorites[0].label)) === favLabel);
   await page.locator('#bw-plus').click();
   await page.locator('#bw-new-menu [data-new="chat"]').click();
   await page.waitForSelector('.bw-side-chat', { timeout: 5000 });
@@ -312,18 +289,11 @@ try {
   step('the typed model id lands on the chip', (await page.locator('#bw-model-label').innerText()).includes('claude-test-model'));
   await page.evaluate(() => { const s = window.__barkdown.state; s.chats[s.current].model = null; window.__barkdown.render(); });
 
-  // New page goes through the same dialog.
+  // New page in a legacy launch is refused: notes live on Paper, and this library has no runtime.
   const pagesBefore = await page.locator('#bw-pages .bw-page-row').count();
   await page.locator('#bw-new-doc').click();
-  await page.waitForSelector('.bw-ask input', { timeout: 5000 });
-  await page.locator('.bw-ask input').fill('Dialog page');
-  await page.locator('.bw-ask input').press('Enter');
-  await page.waitForFunction(n => document.querySelectorAll('#bw-pages .bw-page-row').length === n + 1, pagesBefore, { timeout: 5000 });
-  step('New document asks for a title in a dialog and creates the page', (await page.locator('#bw-pages .bw-page-row').count()) === pagesBefore + 1 && (await page.locator('#bw-tabs .bw-tab.active .bw-tab-label').innerText()) === 'Dialog page');
-  const tableDoc = await page.evaluate(() => window.barkdown.docs.create({ title: 'Table page', markdown: '| Mode | What it does |\n| --- | --- |\n| Append | Adds blocks |\n| Replace | Rewrites |\n' }));
-  await page.evaluate(id => window.__barkdown.openTarget({ kind: 'doc', id, source: 'local' }), tableDoc.id);
-  await page.waitForSelector('.ProseMirror table', { timeout: 8000 });
-  step('a Markdown table in a document renders as a table', (await page.locator('.ProseMirror table th').count()) === 2 && (await page.locator('.ProseMirror table td').count()) === 4);
+  await page.waitForSelector('.bw-toast', { timeout: 5000 });
+  step('New document is refused with the reason in a legacy launch', /Paper/.test(await page.locator('.bw-toast').last().innerText()) && (await page.locator('#bw-pages .bw-page-row').count()) === pagesBefore && (await page.locator('.bw-ask input').count()) === 0);
   await page.locator('#bw-recent-chats [data-context]').first().click({ button: 'right' });
   await page.waitForSelector('.bw-ask[role="alertdialog"]', { timeout: 5000 });
   step('deleting a chat asks in an app dialog', (await page.locator('.bw-ask[role="alertdialog"] h2').innerText()) === 'Delete chat?');

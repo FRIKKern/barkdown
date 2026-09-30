@@ -10,6 +10,7 @@ import { createRequire } from 'node:module';
 import { _electron as electron } from 'playwright';
 import { cleanSource } from './helpers/capture-lifecycle.mjs';
 const require = createRequire(import.meta.url);
+const { createDocuments } = require('../main/documents');
 const { createStore } = require('../main/store');
 const { createProfileRegistry } = require('../main/profile-registry');
 const { controller } = require('../main/writer-admission');
@@ -63,7 +64,9 @@ try {
   const profileId = await page.evaluate(() => window.__barkdown.state.profileId);
   const registry = createProfileRegistry(path.join(userData, 'profile-data'));
   const store = createStore(registry.storeFor(profileId).storeDir, { create: false });
-  const legacy = await page.evaluate(() => window.barkdown.docs.create({ title: 'Preserved source', markdown: 'The retained source remains readable.' }));
+  // The legacy note is written into the store from here (the app no longer writes legacy notes, R4); the app reads it.
+  const legacy = createDocuments(store).create({ title: 'Preserved source', markdown: 'The retained source remains readable.' });
+  await page.evaluate(() => window.barkdown.docs.list());
   await page.locator('#bw-new-page').click();
   await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror h1').click();
   await page.keyboard.type('A dependable writing desk'); await saved();
@@ -83,7 +86,6 @@ try {
   const refusal = await page.evaluate(async ({ paper, legacy }) => {
     const result = {};
     for (const [name, action] of Object.entries({
-      legacy: () => window.barkdown.docs.save({ id: legacy.id, baseRev: legacy.rev, title: 'Forbidden' }),
       create: () => window.barkdown.barkpark.createNote(crypto.randomUUID()),
       paper: () => window.barkdown.barkpark.applyOps(paper.id, [{ op: 'append-block', block: { id: 'forbidden', type: 'paragraph', content: [{ type: 'text', value: 'Forbidden' }] } }], paper.rev, paper.binding),
       attachment: () => window.barkdown.attachments.save({ name: 'forbidden.png', mime: 'image/png', dataUrl: 'data:image/png;base64,AA==' }),
@@ -114,7 +116,7 @@ try {
   await page.locator('[data-choose]').click(); await page.locator(`[data-document="${legacy.id}"]`).click();
   await page.getByText('The retained source remains readable.', { exact: true }).waitFor(); await shot('04-restarted-original-history');
   const newAttempt = await page.evaluate(async () => { try { await window.barkdown.docs.create({ title: 'Forbidden after restart' }); return null; } catch (error) { return error.message; } });
-  assert.match(newAttempt, /\[writer_closed\]/);
+  assert.match(newAttempt, /read-only|Paper/, 'legacy creation is refused (retired), whatever the fence says');
   assert.equal(controller(store).assertQuiescent(barrier).quiescent, true);
   assert.deepEqual(report.errors, []);
   report.checks.push('Restart keeps writer admission closed while verified original history remains readable'); report.passed = true;

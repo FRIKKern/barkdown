@@ -187,10 +187,10 @@ try {
   const opened = page.locator('.bw-paper-pane:not([hidden]) .ProseMirror', { hasText: 'soil measurements' }); await opened.waitFor({ timeout: 60000 });
   assert.doesNotMatch(await opened.textContent(), /later human sentence/, 'the restored Paper no longer carries the later sentence');
   await shot('05c-changed-paper-opened');
-  const created = await page.evaluate(() => window.barkdown.docs.create({ title: 'After rollback', markdown: 'Legacy writes return after the rollback.' }));
-  assert.ok(created.id);
+  // Legacy retirement R4: the legacy library is read-only even after a rollback; a new note needs the switch again.
+  await assert.rejects(page.evaluate(() => window.barkdown.docs.create({ title: 'After rollback', markdown: 'x' })), /Paper/, 'legacy writes stay refused after the rollback');
   assert.ok((await page.evaluate(() => window.barkdown.barkpark.list())).some(p => p.title === 'Orchard fieldbook'), 'Papers stay on the runtime after rollback');
-  report.checks.push({ name: 'Rollback from the same screen: the completed notice, a fresh host on legacy authority, legacy writes return, Papers stay', passed: true }); persist();
+  report.checks.push({ name: 'Rollback from the same screen: the completed notice, a fresh host on legacy authority, legacy writes stay refused, Papers stay', passed: true }); persist();
 
   // Second profile: the crash lands in the main process at the journal rename to `replacing`.
   await page.evaluate(() => document.querySelector('#bw-settings').click());

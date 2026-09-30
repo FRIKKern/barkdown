@@ -4,6 +4,11 @@ import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'
 import assert from 'node:assert/strict';
 import http from 'node:http';
 const require = createRequire(import.meta.url);
+const { createProfileRegistry } = require('../main/profile-registry');
+const { createStore } = require('../main/store');
+const { createDocuments } = require('../main/documents');
+// The app no longer writes legacy notes (C087 R4); the same-slug notes are written into each profile's store from here.
+const seedNote = (profileId, markdown) => createDocuments(createStore(createProfileRegistry(path.join(userData, 'profile-data')).storeFor(profileId).storeDir, { create: false })).create({ title: 'Shared slug', markdown });
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-profile-ui-'));
 const site = http.createServer((_request, response) => response.end('<title>Profile website fixture</title><p>Owned website storage</p>'));
 await new Promise(resolve => site.listen(0, '127.0.0.1', resolve));
@@ -23,9 +28,9 @@ try {
     const api = window.barkdown, status = await api.profiles.status(), ws = await api.state.load();
     ws.chats.same = { id: 'same', title: 'A chat', messages: [], draft: 'A draft', tabs: [] }; ws.order = ['same']; ws.current = 'same';
     await api.state.save(ws);
-    await api.docs.create({ title: 'Shared slug', markdown: 'A document' });
     return { status, ws };
   });
+  seedNote(original.status.profileId, 'A document');
   assert(original.status.enabled);
   assert(!fs.existsSync(path.join(userData, 'barkdown')), 'legacy library must remain untouched');
   await page.reload(); await page.waitForFunction(() => window.__barkdown?.state.loaded);
@@ -38,11 +43,11 @@ try {
   const second = await page.evaluate(async () => {
     const api = window.barkdown, status = await api.profiles.status();
     const docs = await api.docs.list();
-    await api.docs.create({ title: 'Shared slug', markdown: 'B document' });
     const ws = await api.state.load(); ws.chats.same = { id: 'same', title: 'B chat', messages: [], draft: 'B draft', tabs: [] }; ws.order = ['same']; ws.current = 'same'; await api.state.save(ws);
     return { status, docs };
   });
   assert.equal(second.docs.length, 0);
+  seedNote(second.status.profileId, 'B document');
   assert.deepEqual(await website(), { storage: null, cookie: '' });
   await website('B');
   const stale = await page.evaluate(async ws => { try { await window.barkdown.state.save(ws); return null; } catch (error) { return error.message; } }, original.ws);

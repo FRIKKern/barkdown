@@ -6,8 +6,9 @@ const barkpark = require('./barkpark');
 const { markdownToDoc } = require('../shared/markdown');
 const { markdownToBlocks } = require('../shared/portabledoc');
 
-function createAgentEdits({ store, documents }) {
+function createAgentEdits({ store, documents, retiredLegacyWrites = false }) {
 const writer = documents.writer || require('./writer-admission').writerForStore(store);
+const legacyRetired = () => Object.assign(new Error('Notes live on Paper now. This legacy note is read-only; open it as a Paper (bp:) or enable the profile’s local runtime.'), { code: 'BARKDOWN_LEGACY_RETIRED' });
 const ownership = require('./paper-evidence-owner').createPaperEvidenceOwner(store);
 const receiptPath = id => 'agent-edits/' + crypto.createHash('sha256').update(id).digest('hex') + '.json';
 const ownedPath = (id, owner) => 'agent-edits/remote-' + crypto.createHash('sha256').update(JSON.stringify([id, owner])).digest('hex') + '.json';
@@ -78,6 +79,8 @@ async function apply(input, config, persist) {
     if (!Number.isFinite(result.rev)) throw new Error('Server did not acknowledge a revision; read the paper before retrying.');
     afterRev = result.rev;
   } else {
+    // What the retired app wrote (legacy retirement R4): reachable only from fixtures that build
+    // libraries of that era, through `retiredLegacyWrites`; the app never passes it.
     documents.reload(id);
     before = structuredClone(documents.get(id));
     if (!before) throw new Error('Document not found.');
@@ -133,9 +136,10 @@ async function undo(id, editId, config, persist) {
   return result;
 }
 return {
-  apply: async (input, config) => writer.run('agent-edit.apply', () => withReceipt(input.id, config, persist => apply(input, config, persist))),
+  // Legacy retirement R4: a legacy note is refused before the writer is asked, so nothing is left uncertain.
+  apply: async (input, config) => { if (!String(input?.id || '').startsWith('bp:') && !retiredLegacyWrites) throw legacyRetired(); return writer.run('agent-edit.apply', () => withReceipt(input.id, config, persist => apply(input, config, persist))); },
   applyTable: async (input, config) => writer.run('agent-edit.table', () => withReceipt(input.id, config, persist => applyTable(input, config, persist))),
-  undo: async (id, editId, config) => writer.run('agent-edit.undo', () => withReceipt(id, config, persist => undo(id, editId, config, persist))), latest,
+  undo: async (id, editId, config) => { if (!String(id || '').startsWith('bp:') && !retiredLegacyWrites) throw legacyRetired(); return writer.run('agent-edit.undo', () => withReceipt(id, config, persist => undo(id, editId, config, persist))); }, latest,
 };
 }
 module.exports = { ...createAgentEdits({ store: require('./store'), documents: require('./documents') }), createAgentEdits };

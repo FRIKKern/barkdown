@@ -62,12 +62,11 @@ try {
   finish(legacyRun);
   checks.push('authoritative event envelope and exact acknowledged create identity');
 
-  const receipt = await a.edits.apply({ id: docA.id, baseRev: 1, mode: 'append', markdown: 'changed A' });
-  assert.equal(b.edits.latest(docB.id), null);
-  assert.equal(b.documents.reload(docB.id).markdown.trim(), 'owner B');
-  await a.edits.undo(docA.id, receipt.id);
-  assert.equal(a.documents.reload(docA.id).markdown.trim(), 'owner A');
-  checks.push('bound edit receipts and guarded Undo do not cross same-slug stores');
+  // Legacy retirement R4: the app's edit service refuses a legacy note before any writer or receipt.
+  await assert.rejects(a.edits.apply({ id: docA.id, baseRev: 1, mode: 'append', markdown: 'changed A' }), /read-only/);
+  assert.equal(a.edits.latest(docA.id), null); assert.equal(b.edits.latest(docB.id), null);
+  assert.equal(a.documents.reload(docA.id).markdown.trim(), 'owner A'); assert.equal(b.documents.reload(docB.id).markdown.trim(), 'owner B');
+  checks.push('a legacy edit is refused by the bound scope and neither same-slug store changes');
 
   for (const name of ['../b/workspace.json', path.join(rootB, 'workspace.json'), 'documents/../../b/workspace.json', 'documents/alternate:stream']) {
     assert.throws(() => a.store.readJson(name, null), /path/);

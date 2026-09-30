@@ -94,10 +94,8 @@ server.registerTool('create_document', { description: 'Create a new document in 
       return text('Created document ' + id + ' (' + JSON.stringify(doc.title) + ') at rev ' + doc.rev + '.');
     } catch (error) { return { ...text(error.message), isError: true }; }
   }
-  documents.loadAll({ seed: false });
-  const doc = documents.create({ title, markdown, actor: 'agent' });
-  readRevisions.set(doc.id, doc.rev);
-  return text(`Created document ${doc.id} ("${doc.title}") at rev 1.`);
+  // Legacy retirement R4: nothing writes the legacy store.
+  return { ...text('Notes live on Paper now. This profile has no local runtime, so no note can be created; enable one in Settings.'), isError: true };
 });
 
 server.registerTool('list_conversations', { description: 'List the conversations in this Barkdown workspace: the main chat and its side chats, each with its last question and reply, open tabs and working folder. Use it to see what another chat is doing.', inputSchema: {} }, async () => text(conversations.listConversations()));

@@ -17,7 +17,7 @@ async function fixture() {
   const profileId = crypto.randomUUID(), sourceDir = path.join(root, profileId), backupDir = path.join(root, 'backup');
   const store = createStore(sourceDir), docs = createDocuments(store); docs.loadAll({ seed: false });
   const doc = docs.create({ title: 'Retained original', markdown: 'Before the agent.' });
-  const edits = createAgentEdits({ store, documents: docs });
+  const edits = createAgentEdits({ store, documents: docs, retiredLegacyWrites: true }); // a library written before the retirement
   await edits.apply({ id: doc.id, baseRev: 1, mode: 'append', markdown: 'Agent wording.', summary: 'Agent addition' });
   docs.addProposal(doc.id, { mode: 'replace', baseRev: 2, markdown: 'Pending proposal.' });
   store.writeJson('workspace.json', { version: 1, chats: {}, order: [] });

@@ -67,12 +67,13 @@ test('bound documents and captured API scopes retain the old generation; reads s
   const doc = documents.create({ title: 'Original', markdown: 'Keep me' });
   const scope = captureScope({ storeDir: store.dir(), connection: { enabled: false } });
   const edits = createAgentEdits({ store, documents });
-  const edit = await edits.apply({ id: doc.id, baseRev: doc.rev, mode: 'append', markdown: 'Agent', summary: 'Append' });
-  await edits.undo(doc.id, edit.id);
+  // Legacy retirement R4: the assistant's legacy edit is refused before any writer question arises.
+  await assert.rejects(edits.apply({ id: doc.id, baseRev: doc.rev, mode: 'append', markdown: 'Agent', summary: 'Append' }), /read-only/);
   const before = fs.readFileSync(store.filePath('documents/' + doc.id + '.json'));
   const barrier = control.quiesce(documents.writer.token);
   for (const action of [() => documents.create({ title: 'Rejected' }), () => documents.save({ id: doc.id }), () => documents.remove(doc.id), () => scope.documents.create({ title: 'Rejected API' })]) assert.throws(action, { code: 'writer_stale' });
-  await assert.rejects(edits.apply({ id: doc.id, baseRev: 3, mode: 'append', markdown: 'Rejected' }), { code: 'writer_stale' });
+  // Behind the barrier as well: the legacy refusal comes before the writer is asked, and the store stays as it was.
+  await assert.rejects(edits.apply({ id: doc.id, baseRev: 3, mode: 'append', markdown: 'Rejected' }), /read-only/);
   assert.equal(documents.get(doc.id).title, 'Original');
   assert.deepEqual(fs.readFileSync(store.filePath('documents/' + doc.id + '.json')), before);
   assert.throws(() => captureScope({ storeDir: store.dir(), connection: { enabled: false }, writerToken: scope.writerToken }), { code: 'writer_stale' });

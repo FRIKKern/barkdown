@@ -412,7 +412,7 @@ function renderSidebar() {
     onNewPage: parent => createDocument(parent),
     onNewSubpage: parent => createDocument(parent),
     onImport: async (id, paperOwner) => { try { const bound = await api.barkpark.get(id, undefined, paperOwner || null); const doc = await importPaper(id, bound.binding); openDirect(doc.id); toast('Imported as ' + doc.title); } catch (error) { toast(error.message, 'error'); } },
-    onDelete: async id => { const d = state.documents.find(x => x.id === id); if (!d || !await askConfirm(`Delete "${d.title}"? This cannot be undone.`, { title: 'Delete page?', confirm: 'Delete', danger: true })) return; await api.docs.delete(id); for (const c of [...controllers.values()]) if (c.type === 'doc' && c.tab.path.at(-1) === id) closeTab(workspaceChat(), c.tab.id); refreshLibrary(); },
+    onDelete: async id => { const d = state.documents.find(x => x.id === id); if (!d || !await askConfirm(`Delete "${d.title}"? This cannot be undone.`, { title: 'Delete page?', confirm: 'Delete', danger: true })) return; throw new Error('Legacy notes are read-only now; retained originals stay for reading and rollback.'); for (const c of [...controllers.values()]) if (c.type === 'doc' && c.tab.path.at(-1) === id) closeTab(workspaceChat(), c.tab.id); refreshLibrary(); },
   });
   const recents = q('#bw-recent-chats');
   recents.innerHTML = state.order.map(id => state.chats[id]).filter(Boolean).slice(0, 30).map(c => `<button class="bw-nav ${c.id === state.current && state.mode === 'chat' ? 'selected' : ''}" data-context="${c.id}"><span>${esc(c.title)}<small>${c.parent ? '↳ ' + esc(state.chats[c.parent]?.title || c.parentTitle || 'deleted conversation') + ' · ' : ''}${esc(c.folder ? basename(c.folder) : 'no folder')}${c.runId ? ' · working' : ''} · ${esc(relativeTime(c.updatedAt))}</small></span></button>`).join('');
@@ -546,8 +546,7 @@ async function renameTab(chat, tabId, value) {
         if (!controller?.renameTitle) throw new Error('Open this Paper before renaming its tab.');
         await controller.renameTitle(title);
       } else {
-        const result = await api.docs.save({ id, title, actor: 'you', summary: 'Renamed' });
-        if (result?.conflict) throw new Error('The document changed. Read it again before renaming.');
+        throw new Error('Legacy notes are read-only now; notes live on Paper.');
       }
       refreshLibrary();
     } catch (error) { toast(errorMessage(error), 'error'); renderTabs(); return; }
@@ -656,12 +655,9 @@ async function importPaper(id, binding) {
 
 async function createDocument(parent = null) {
   if (state.profileId && state.settings?.barkpark?.local?.enabled) return createLocalPaper(parent);
-  const title = await askText({ title: parent ? 'New sub-page' : 'New page', label: 'Title', value: 'Untitled', confirm: 'Create' });
-  if (title === null) return;
-  const doc = await api.docs.create({ title: title || 'Untitled', markdown: '' });
-  addPage(doc.id, typeof parent === 'string' ? parent : null);
-  await refreshLibrary();
-  if (state.mode === 'document') openDirect(doc.id); else openDocTab(currentChat(), doc.id, 'local');
+  // Legacy retirement R4: a new page is a Paper or nothing.
+  toast('Notes live on Paper now. Enable this profile’s local runtime in Settings › Barkpark to write a new note.', 'error');
+  return;
 }
 
 // ---------- agent events ----------
