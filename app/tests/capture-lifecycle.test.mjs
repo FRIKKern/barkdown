@@ -21,6 +21,7 @@ for (const scenario of scenarios) test(`actual isolated wrapper: ${scenario}`, (
   fs.writeFileSync(path.join(harness, 'main/local-barkpark-source.js'), `
     const fs=require('fs'),path=require('path');
     const log=x=>fs.appendFileSync(process.env.CAPTURE_TRACE,x+'\\n');
+    exports.releaseOf=()=>null; // the fixture source is a checkout, never a packaged release
     exports.SourceDriver=class {
       constructor(config,data){this.dataDir=data;this.server='http://fixture.invalid';this.pid=path.join(data,'pgdata/postmaster.pid');}
       async acquire(){log('acquire');}
