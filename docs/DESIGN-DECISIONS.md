@@ -128,6 +128,18 @@ Agent decision under the user's standing mandate; the user may reverse it. After
 
 Agent decision under the user's standing mandate ("we still have 6 days until Windows is back"); the user may reverse it. P2's remaining exits are a real library and the Windows return checkpoint, both bound to a machine that returns about 2026-10-05. Rather than idle, [C085](cycles/C085-portable-profile.md) starts the portable profile of P3 on macOS, building on the hold that C083 delivered. P2 stays active in the plan and is not claimed complete; nothing in C085 retires legacy or changes a default.
 
+## D-read-only-render — Retained originals without the editor (2026-09-30)
+
+Agent decision under the retirement go. A retained original or a read-only copy is rendered from its blocks by `shared/doc-html.js`, in the markup the note styles know, with no editor mounted: nothing on such a page can be edited by accident, and the editing packages are needed only where editing is still allowed (until R4). Links open as before; history, references and proposals read as before.
+
+## D-runtime-default — A new profile starts on a known runtime (2026-09-30)
+
+Agent decision under the retirement go (R3). A profile that has never been configured runs the runtime the application carries, or else the runtime folder this installation last started, remembered in the app settings. A profile that has been configured keeps its own choice, cloud or local. New page is therefore a Paper from the first launch on any installation that knows a runtime.
+
+## D-profiles-default — Profiles are the ordinary launch (2026-09-30)
+
+Agent decision under the retirement go (R2). An ordinary launch opens profiles; `--legacy` keeps the single legacy library for development tours until R4 removes it. A legacy library found at an ordinary launch, with no profile registry beside it, is offered for adoption at once (prepare or quit), through the adoption window that already exists; nothing is adopted without that choice, and nothing legacy is deleted.
+
 ## D-cloud-references — A reference to the cloud stays a reference; a copy is ours (2026-09-30)
 
 User decision. Notes that point at a cloud Barkpark are references: they are not given the local owner when a library is switched, and when access to the cloud is withdrawn they go with it. A note or folder duplicated from the cloud is ours from that moment and is used like anything we wrote. Nothing in Barkdown polices what people share: once something is on the internet, copies exist, and the person who shared it knew that. Barkdown makes collaborating easy and makes it clear what is a reference and what is a copy. This settles the question C083 left open and sets the ground for sync (P4): share, withdraw, duplicate.
