@@ -29,10 +29,10 @@ On a switched profile legacy is already closed: the store refuses writes (`BARKD
 
 | Stage | Change | Depends on |
 |---|---|---|
-| R0 (now) | Nothing removed. Switched profiles cannot write legacy. | done |
-| R1 | Retained originals render read-only without the editing surface (no toolbar, no input rules, no save path); the Tiptap editing extensions leave the bundle. | a read-only renderer for the legacy Markdown |
-| R2 | Profiles mode becomes the default launch; an ordinary launch adopts the old library into a profile. | the adoption tours on every host |
-| R3 | A new profile starts with its managed runtime on, so New page is always a Paper. | the packaged runtime ([A5](../ACCEPTANCE.md#a5--install-and-daily-use)) |
+| R0 | Nothing removed. Switched profiles cannot write legacy. | done |
+| R1 (done 2026-09-30, C087) | Retained originals render read-only without the editing surface. The Tiptap packages leave with R4. | `shared/doc-html.js` |
+| R2 (done 2026-09-30, C087) | Profiles are the ordinary launch; a legacy library is offered for adoption at launch. | the launch rehearsal; Windows not yet |
+| R3 (done 2026-09-30, C087) | A new profile starts on the carried or remembered runtime, so New page is a Paper. | [C086](../cycles/C086-packaged-runtime.md) |
 | R4 | The legacy write paths go: `docs:create`, `docs:save`, `docs:delete`, `docs:restore`, `docs:proposal`, the local branches of the agent tools, the local branch of `agent-edits.js`. | R1 to R3, every profile switched or exported, the real-library review |
 
 ## Answered by the user (2026-09-30)

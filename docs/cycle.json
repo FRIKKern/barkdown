@@ -18,17 +18,18 @@
   ],
   "checkpoint": "2026-09-30",
   "handoff": "docs/cycles/C087-legacy-retirement.md",
-  "nextAction": "1) R1 and R3 rehearsed (the switch rehearsal opens a retained original without an editor; a new profile runs the remembered runtime). 2) R2: profiles by default, adoption of a legacy library at launch, rehearsed with the adoption tours. 3) R4: remove the legacy write paths and the Tiptap packages; keep the readers, rollback and adoption.",
-  "evidence": [],
-  "truthReview": "Opened 2026-09-30 on the user's go (D-legacy-retirement). Nothing removed yet.",
-  "screenshotReview": "Not yet.",
+  "nextAction": "R4: remove the legacy write paths (docs:create, docs:save, docs:delete, docs:restore, docs:proposal, the local branches of the agent tools and of agent-edits.js) and the Tiptap packages; keep the readers, retained originals, rollback and adoption; move the development tours that still write the legacy library onto profiles or retire them. Stop when no code path writes the legacy store and the app builds without @tiptap.",
+  "evidence": [
+    "docs/cycles/evidence/C087/live/2026-09-30T20-00-38-778Z-launch-default/result.json",
+    "docs/cycles/evidence/C083/live/2026-09-30T19-37-43-680Z-switch-ui/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-30T19-41-09-632Z-portable-ui/result.json"
+  ],
+  "truthReview": "2026-09-30: R1, R2 and R3 are in and rehearsed on macOS: a retained original renders without an editor (switch rehearsal), a new profile starts on the remembered runtime (portable rehearsal), and an ordinary launch opens profiles, offers adoption of a legacy library, honours not now, and --legacy still opens the legacy library (launch rehearsal). 61 development tours now pass --legacy; the unit suite and the legacy journey pass. Nothing removed yet.",
+  "screenshotReview": "Visual runs approved the same day: all entries pixel-identical, including the retained-view stills now rendered without the editor. Screenshots of the adoption offer and the adopted profile are in the launch rehearsal folder.",
   "delivery": {
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "R1 read-only rendering",
-      "R3 runtime by default",
-      "R2 profiles by default with adoption",
       "R4 removal"
     ]
   }

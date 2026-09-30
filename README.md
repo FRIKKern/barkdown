@@ -22,7 +22,7 @@ We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT,
 
 **Next**
 - Windows returns: switch a real library, carry an export across machines, recover from a crash there.
-- Until then: a Barkdown that installs. The Mac application already [builds with its runtime and database inside](docs/cycles/C086-packaged-runtime.md) and starts with nothing else installed. Not yet signed, and about 1 GB.
+- Until then: retiring the old editor. Profiles are now the ordinary launch, an old library is offered for adoption, retained originals render without an editor, and a new profile starts on Paper ([C087](docs/cycles/C087-legacy-retirement.md)). The Mac application [builds with its runtime and database inside](docs/cycles/C086-packaged-runtime.md); not yet signed, about 1 GB.
 
 **How far along:** migration is about 75% by effort, low confidence, plausible range 30–90%. That weighs demonstrated work against what's left; it is not a safety rating. [How it's calculated](docs/PLAN.md#migration-effort-estimate).
 

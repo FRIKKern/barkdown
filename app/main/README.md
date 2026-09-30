@@ -148,3 +148,7 @@ A profile records the folder of its runtime. When the application moves or is up
 ### 2026-09-30 — legacy retirement R1 and R3 (C087)
 
 R1: retained originals and read-only copies are rendered by `shared/doc-html.js` from the document's blocks, in the markup the note styles know, with no editor mounted; links open the same way, and the editor is created only for a document that may be edited. R3: a new profile that has never been configured starts with its managed runtime on: the one the application carries, or else the runtime folder this installation last started, remembered in `app-settings/runtime.json`. Both rehearsed in the switch and portable-profile tours.
+
+### 2026-09-30 — legacy retirement R2 (C087)
+
+Profiles are the ordinary launch. A legacy library found beside no profile registry is offered for adoption at launch by the adoption window that already existed, now with a third choice: adopt, not now (an empty profile opens, the library stays for a later launch), or quit. `--legacy` keeps the single legacy library for the development tours, which now pass it; `--profiles` is accepted and means nothing more. Rehearsed: a fresh launch, adoption from the offer, "not now", and a `--legacy` launch.
