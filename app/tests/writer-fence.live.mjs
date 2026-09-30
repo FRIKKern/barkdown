@@ -114,15 +114,19 @@ try {
   // draft restore. A2 must preserve/resolve human drafts before offering cutover.
   report.unsavedBuffer = await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror').innerText();
   await close(); await launch();
-  await page.keyboard.press('Control+,'); await page.locator('[data-act="original-history"]').click();
+  // Since the preparation gate (C085) a held profile keeps the whole window paused after a restart: the
+  // notice is the visible proof that writing stays closed. Original history is read through the app.
+  await page.getByText(/Editing is paused for this profile while preparation is resolved/).first().waitFor();
   await app.evaluate(({ dialog }, folder) => { dialog.showOpenDialog = async () => ({ canceled: false, filePaths: [folder] }); }, backupDir);
-  await page.locator('[data-choose]').click(); await page.locator(`[data-document="${legacy.id}"]`).click();
-  await page.getByText('The retained source remains readable.', { exact: true }).waitFor(); await shot('04-restarted-original-history');
+  const chosen = await page.evaluate(() => window.barkdown.originalHistory.choose());
+  const evidence = await page.evaluate(input => window.barkdown.originalHistory.read(input), { sourceId: chosen.id, documentId: legacy.id });
+  assert.ok(JSON.stringify(evidence).includes('The retained source remains readable.'), 'the verified original reads through the app while the profile is paused');
+  await shot('04-restarted-paused-gate');
   const newAttempt = await page.evaluate(async () => { try { await window.barkdown.docs.create({ title: 'Forbidden after restart' }); return null; } catch (error) { return error.message; } });
   assert.match(newAttempt, /read-only|Paper/, 'legacy creation is refused (retired), whatever the fence says');
   assert.equal(controller(store).assertQuiescent(barrier).quiescent, true);
   assert.deepEqual(report.errors, []);
-  report.checks.push('Restart keeps writer admission closed while verified original history remains readable'); report.passed = true;
+  report.checks.push('Restart keeps the profile paused at the preparation gate while the verified original history reads through the app'); report.passed = true;
 } catch (error) { report.error = error.stack; if (page && !page.isClosed()) await shot('failure').catch(() => {}); throw error; }
 finally {
   await close();
