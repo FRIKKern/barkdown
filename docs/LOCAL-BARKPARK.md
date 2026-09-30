@@ -1,6 +1,6 @@
 # Local Barkpark runtime
 
-Barkdown can own a real Barkpark process and a private PostgreSQL cluster for each local profile on Windows. This is the source-checkout path before a packaged Barkpark release is available. Profile isolation is accepted; managed-local ordinary Paper notes have human/agent editing and deletion/recovery evidence. Migration activation, portability and cloud sync remain unfinished; see [current acceptance](VALIDATION.md).
+Barkdown can own a real Barkpark process and a private PostgreSQL cluster for each local profile on Windows. This is the source-checkout path. On macOS a profile can instead run a packaged release built with `node scripts/build-runtime-release.mjs <checkout>` ([C086](cycles/C086-packaged-runtime.md)); set the profile's runtime folder to the release. Profile isolation is accepted; managed-local ordinary Paper notes have human/agent editing and deletion/recovery evidence. Migration activation, portability and cloud sync remain unfinished; see [current acceptance](VALIDATION.md).
 
 ## Start it
 

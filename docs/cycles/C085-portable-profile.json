@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "id": "C085",
+  "stage": "P3",
+  "status": "blocked",
+  "goal": "A profile leaves one Barkdown as a verified export and arrives in another as a new profile with its own database: notes, media, conversations, links and organization, without credentials.",
+  "scope": [
+    "Export under the hold: a logical database dump, owned media and the profile files with a manifest",
+    "Import into a new profile: restore before first boot, navigation re-owned, credentials created on the importing side",
+    "The same from the app: Settings actions, progress, refusal reasons, interruption and resume",
+    "A second machine and another operating system when the Windows machine is back"
+  ],
+  "acceptance": [
+    "An export verifies against its manifest and carries no credential, owner key or machine-bound file",
+    "An import of that export serves the same Papers, revisions, blocks and media bytes on its own runtime and refuses the exporting runtime token",
+    "Navigation, conversations and drafts arrive owned by the importing library; the exported profile and the export folder are unchanged",
+    "An interrupted export or import leaves a journal that names its phase and can be resumed or discarded without touching an existing profile",
+    "A truncated, tampered or other-version export is refused before anything is created"
+  ],
+  "checkpoint": "2026-09-29",
+  "handoff": "docs/cycles/C085-portable-profile.md",
+  "nextAction": "1) When the Windows machine is back (about 2026-10-05): an export across machines and operating systems, the reclaim path on Windows, the return checkpoint and a real library. 2) When upstream next adds a database migration: an earlier export brought forward by a later runtime at first boot. 3) For the user: whether pre-existing cloud references get the managed owner at projection; a retention rule for committed visual runs. 4) Known, not chased: keystrokes of the last moments before a kill of the process are lost.",
+  "evidence": [
+    "docs/cycles/evidence/C085/live/2026-09-29T21-51-43-277Z-quit-during-save/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T21-49-19-245Z-database-death/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T21-56-40-393Z-portable-interrupt/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T18-44-58-185Z-portable-ui/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T18-39-38-882Z-two-installs/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T18-42-13-170Z-two-installs-newer/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T14-42-36-398Z-runtime-recovery/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T14-03-05-371Z-dying-writer/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T13-28-46-130Z-runtime-reclaim/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T15-25-57-178Z-export/result.json",
+    "docs/cycles/evidence/C085/live/2026-09-29T15-25-32-863Z-import/result.json"
+  ],
+  "truthReview": "2026-09-29: export and import are Settings actions, rehearsed in Electron on macOS with the imported profile opened. A host killed with SIGKILL is rehearsed three ways: idle (the runtime is reclaimed by its launch record), in the middle of an export (named, discarded, exported again) and in the middle of an import (listed, not selectable, imported again). An export is carried between two installations on one Mac with separate user data and credentials, also into an installation running a later Barkpark that descends from the exporting one; no database migration lies between the two versions. The database stopped at once under an open note is rehearsed: the runtime comes back by itself, words typed meanwhile are kept as a retained draft and sent again, and words left unsaved at quit are in a retained draft that the reopened note names; the note puts them back itself in one revision-checked write. A quit in the moment the last key is pressed sends the pending words first; with the database dead they are kept at quit. A stale revision under a concurrent edit is covered by the existing Paper tour, not rehearsed again here. A note with a picture is exported, imported and shown in the imported profile, answered by that profile's runtime while the stored address keeps the exporting port. Five refusals (tampered, truncated, added to, other version, not an export) are rehearsed from Settings and create nothing; an export folder opened in a file manager still imports. The library switch killed under the hold is resumed from the notice and completes; a kill while held with no operation in flight is reopened at launch. A writer whose connection is cut during a drain is not killed by it: the write completes and the hold is reached, so a writer that raises inside the runtime is not produced by any rehearsal. One stall point per operation; the folder picker and the system trash are stubbed in those rehearsals; the Windows reclaim path is written and not rehearsed; no second machine is claimed.",
+  "screenshotReview": "Visual run 2026-09-29T22-17-35-446Z approved: 46 entries pixel-identical to the previous approved run. The notice of a reopened note with its three actions was inspected in the live rehearsal screenshots.",
+  "delivery": {
+    "phase": "implementing",
+    "owner": "primary agent",
+    "remaining": [
+      "A second machine and the reclaim path on Windows (Windows return)",
+      "An earlier export across a database migration",
+      "Carried from C083: Windows return checkpoint, real library, cloud-reference decision"
+    ]
+  },
+  "reason": "Every remaining exit needs the Windows machine (back about 2026-10-05) or a user decision; the Mac scope is delivered."
+}

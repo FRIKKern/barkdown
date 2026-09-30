@@ -22,7 +22,7 @@ We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT,
 
 **Next**
 - Windows returns: switch a real library, carry an export across machines, recover from a crash there.
-- Until then: whatever else the Mac can prove.
+- Until then: a Barkdown that needs no source checkout. The runtime already runs [packaged](docs/cycles/C086-packaged-runtime.md); Postgres and the app itself are next.
 
 **How far along:** migration is about 75% by effort, low confidence, plausible range 30–90%. That weighs demonstrated work against what's left; it is not a safety rating. [How it's calculated](docs/PLAN.md#migration-effort-estimate).
 
