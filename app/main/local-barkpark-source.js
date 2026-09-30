@@ -208,7 +208,9 @@ class SourceDriver {
     await evaluate('Barkpark.Release.migrate()', 10 * 60 * 1000);
     signal.throwIfAborted();
     if (!fs.existsSync(path.join(this.dataDir, 'seeded'))) {
-      await evaluate('{:ok, _} = Application.ensure_all_started(:barkpark); Barkpark.Seeds.run()', 5 * 60 * 1000);
+      // The release's own seed entry: it boots the tree without the listener and with the job queue
+      // inert. Starting the whole application under eval bound the port and died after five seconds.
+      await evaluate('Barkpark.Release.seed()', 5 * 60 * 1000);
       fs.writeFileSync(path.join(this.dataDir, 'seeded'), 'clean\n');
     }
     signal.throwIfAborted();
