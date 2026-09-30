@@ -132,3 +132,7 @@ While the library is away the sidebar toast says so in plain words instead of a 
 ### 2026-09-30 — a packaged runtime (C086, P5 groundwork)
 
 A profile's runtime folder can now be a packaged Barkpark release instead of a source checkout. `local-barkpark-source.js` recognises one by `bin/barkpark` and `releases/`, and reads the commit it holds from `barkdown-release.json`, written by `scripts/build-runtime-release.mjs`. For a release the driver creates the database, runs the release's own migration and seed, and starts the server as its own process group with a system-only PATH: no Elixir, no mix, no checkout, and no distribution port. The keys the production server demands are derived from the profile's database password, so they are stable and nothing new is stored. Export, import, reclaim after a kill and the launch record work unchanged. Postgres is still the machine's own, and the upstream release is assembled for unix hosts only.
+
+### 2026-09-30 — Postgres carried in the runtime folder (C086)
+
+`scripts/build-runtime-postgres.mjs` builds Postgres 15 from the official source, checked against the published checksum, with the three extensions the server needs, OpenSSL linked statically and its libraries addressed relative to the binaries; the build refuses to finish if anything links outside the system. `build-runtime-release.mjs --add-postgres` copies it into a release as `postgres/`. The driver prefers a Postgres carried in the runtime folder over the machine's. With both in place a profile needs neither Elixir nor Postgres installed.

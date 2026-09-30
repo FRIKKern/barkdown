@@ -33,7 +33,9 @@ function toolchain(config) {
     return { pgBin, mix, exe: '.exe', toolPath: [path.dirname(mix), path.join(scoop, 'apps', 'erlang', 'current', 'bin'), pgBin, path.join(scoop, 'shims')].join(';') };
   }
   const candidates = [17, 16, 15, 14].flatMap(v => [`/opt/homebrew/opt/postgresql@${v}/bin`, `/usr/local/opt/postgresql@${v}/bin`, `/usr/lib/postgresql/${v}/bin`]);
-  const pgBin = config.pgBin || onPath('pg_ctl') || candidates.find(dir => fs.existsSync(path.join(dir, 'pg_ctl'))) || '/opt/homebrew/bin';
+  // A runtime folder may carry its own Postgres (scripts/build-runtime-postgres.mjs): then the machine needs none.
+  const carried = config.source ? path.join(config.source, 'postgres', 'bin') : null;
+  const pgBin = config.pgBin || (carried && fs.existsSync(path.join(carried, 'pg_ctl')) ? carried : null) || onPath('pg_ctl') || candidates.find(dir => fs.existsSync(path.join(dir, 'pg_ctl'))) || '/opt/homebrew/bin';
   const mixDir = onPath('mix') || '/opt/homebrew/bin';
   return { pgBin, mix: path.join(mixDir, 'mix'), exe: '', toolPath: [mixDir, pgBin].join(path.delimiter) };
 }

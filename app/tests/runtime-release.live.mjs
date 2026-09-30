@@ -2,7 +2,7 @@
 // Real Electron started with a PATH that holds only the system folders. The profile's runtime
 // is the release built by scripts/build-runtime-release.mjs. Shown: first boot, a note written
 // and found again after a restart, an export and its import as a new profile, and a killed app
-// whose runtime is reclaimed. Postgres still comes from the machine.
+// whose runtime is reclaimed. The runtime folder may carry its own Postgres.
 // Needs BARKDOWN_TEST_BP_RELEASE (default ../runtime/barkpark-<pin>-<platform>-<arch>).
 import { _electron as electron } from 'playwright';
 import { createRequire } from 'node:module';
@@ -31,7 +31,7 @@ fs.mkdirSync(out, { recursive: true });
 const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-release-'))), carry = path.join(userData, 'carried'); fs.mkdirSync(carry);
 const systemPath = '/usr/bin:/bin:/usr/sbin:/sbin';
 const report = { source: host, upstream: packaged.upstream, release: path.basename(release), host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],
-  limits: ['One Mac, one run, a small library. The release was built on this machine. Postgres is the machine\'s own (Homebrew), found by its usual location; it is not packaged. The app itself runs from source under Electron, not as an installed application. The native folder picker is stubbed. No Windows: the upstream release is assembled for unix hosts only.'] };
+  limits: ['One Mac, one run, a small library. The release and its Postgres were built on this machine, for this macOS version and this processor; a Mac without developer tools has not run it. The app itself runs from source under Electron, not as an installed application. The native folder picker is stubbed. No Windows: the upstream release is assembled for unix hosts only.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();
 const registry = createProfileRegistry(path.join(userData, 'profile-data'));
 const profile = registry.createProfile({ name: 'Writing desk' }), dir = registry.storeFor(profile.id).storeDir;
@@ -67,6 +67,12 @@ try {
   const running = record.read();
   const command = execFileSync('ps', ['-o', 'command=', '-p', String(running.pid)], { encoding: 'utf8' });
   assert.ok(command.includes(release), 'the runtime process is the packaged release: ' + command.slice(0, 160));
+  // When the runtime folder carries its own Postgres, the database server is that one, not the machine's.
+  const carried = fs.existsSync(path.join(release, 'postgres', 'bin', 'pg_ctl'));
+  const postmaster = Number(fs.readFileSync(path.join(dataDir, 'pgdata', 'postmaster.pid'), 'utf8').split('\n')[0]);
+  const database = execFileSync('ps', ['-o', 'command=', '-p', String(postmaster)], { encoding: 'utf8' }).trim();
+  if (carried) assert.ok(database.startsWith(path.join(release, 'postgres', 'bin') + path.sep), 'the database server is the carried one: ' + database.slice(0, 160));
+  report.postgres = carried ? 'carried in the runtime folder' : 'the machine\'s own';
   const note = await page.evaluate(() => window.barkdown.barkpark.createNote(crypto.randomUUID()));
   await page.evaluate(({ id, paperOwner }) => window.__barkdown.openTarget({ kind: 'doc', id, source: 'barkpark', paperOwner }), { id: note.id, paperOwner: note.paperOwner });
   await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror h1').click({ timeout: 60000 });

@@ -9,6 +9,21 @@ import os from 'node:os';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+// Second form: node scripts/build-runtime-release.mjs --add-postgres <release folder> <postgres folder>
+// copies a Postgres built by scripts/build-runtime-postgres.mjs into the release as postgres/,
+// so the runtime folder needs nothing from the machine.
+if (process.argv[2] === '--add-postgres') {
+  const [release, postgres] = process.argv.slice(3).map(value => value && path.resolve(value));
+  const markFile = release && path.join(release, 'barkdown-release.json'), pgMark = postgres && path.join(postgres, 'barkdown-postgres.json');
+  if (!release || !postgres || !fs.existsSync(markFile) || !fs.existsSync(pgMark)) { console.error('Usage: --add-postgres <release built by this script> <postgres built by build-runtime-postgres.mjs>'); process.exit(2); }
+  const target = path.join(release, 'postgres');
+  if (fs.existsSync(target)) { console.error('This release already carries a Postgres; nothing is overwritten.'); process.exit(2); }
+  fs.cpSync(postgres, target, { recursive: true, verbatimSymlinks: true });
+  const releaseMark = JSON.parse(fs.readFileSync(markFile, 'utf8'));
+  fs.writeFileSync(markFile, JSON.stringify({ ...releaseMark, postgres: JSON.parse(fs.readFileSync(pgMark, 'utf8')) }, null, 2) + '\n');
+  console.log('Postgres ' + releaseMark.upstream.slice(0, 9) + ' release now carries ' + path.basename(postgres));
+  process.exit(0);
+}
 const [checkoutArg, outArg] = process.argv.slice(2);
 if (!checkoutArg) { console.error('Usage: node scripts/build-runtime-release.mjs <barkpark checkout> [output folder]'); process.exit(2); }
 if (process.platform === 'win32') { console.error('The upstream release is assembled for unix hosts only; on Windows Barkdown still runs the checkout.'); process.exit(2); }
