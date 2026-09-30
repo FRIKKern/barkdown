@@ -124,7 +124,7 @@ try {
   assert.ok(JSON.stringify(evidence).includes('The retained source remains readable.'), 'the verified original reads while the profile is paused');
   await shot('04-restarted-paused-gate');
   const newAttempt = await page.evaluate(async () => { try { await window.barkdown.docs.create({ title: 'Forbidden after restart' }); return null; } catch (error) { return error.message; } });
-  assert.match(newAttempt, /read-only|Paper/, 'legacy creation is refused (retired), whatever the fence says');
+  assert.match(newAttempt, /read-only|Paper|profile is preparing/, 'legacy creation is refused (retired, or held at the gate), whatever the fence says');
   assert.equal(controller(store).assertQuiescent(barrier).quiescent, true);
   assert.deepEqual(report.errors, []);
   report.checks.push('Restart keeps the profile paused at the preparation gate while the verified original reads with the app\'s reader'); report.passed = true;
