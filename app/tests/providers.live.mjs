@@ -128,7 +128,7 @@ for (const provider of providers) {
       if (inventory.length !== 0 || documentFiles.length !== 0) throw Error('The legacy store gained documents; nothing may be written there');
       const paper = await readPaper(original.slug);
       const texts = (paper.blocks || []).map(blockText);
-      if (paper.rev !== original.rev + 1 || paper.title !== original.title || JSON.stringify(texts) !== JSON.stringify([seed, marker])) throw Error('Paper revision/content did not match the unique edit: rev ' + paper.rev + ' ' + JSON.stringify(texts));
+      if (paper.rev !== original.rev + 1 || paper.title !== original.title || JSON.stringify(texts) !== JSON.stringify([seed, marker])) throw Error('Persisted document revision/content did not match the unique edit: rev ' + paper.rev + ' ' + JSON.stringify(texts));
       saved = { rev: paper.rev }; receipt = scope.edits.latest(original.id, scope.connection);
     } else {
       if (inventory.length !== 1 || inventory[0].id !== original.id || documentFiles.length !== 1 || path.basename(documentFiles[0]) !== `${original.id}.json`) throw Error('Persisted document inventory differs from the fixture');
