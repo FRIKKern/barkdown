@@ -15,7 +15,7 @@ const agent = {
         // The target is named in the prompt: a Paper (bp:) under the isolated runtime, else the legacy fixture.
         const targetId = /Read document (\S+)\./.exec(options.prompt)[1];
         const paperSlug = targetId.startsWith('bp:') ? targetId.slice(3) : null;
-        const http = async (method, route, body) => { const r = await fetch(scope.connection.server + route, { method, headers: { authorization: 'Bearer ' + scope.connection.token, 'content-type': 'application/json' }, ...(body ? { body: JSON.stringify(body) } : {}) }); const data = await r.json().catch(() => null); if (!r.ok) throw new Error(method + ' ' + route + ' ' + r.status); return data; };
+        const http = async (method, route, body) => { const r = await fetch(scope.connection.server + route, { method, headers: { authorization: 'Bearer ' + scope.connection.token, 'content-type': 'application/json' }, ...(body ? { body: JSON.stringify(body) } : {}) }); const data = await r.json().catch(() => null); if (!r.ok) throw new Error(method + ' ' + route + ' ' + r.status); return data && data.result && typeof data.result === 'object' ? data.result : data; };
         const doc = paperSlug ? await http('GET', `/v1/data/doc/production/paper/${paperSlug}?perspective=raw`).then(r => { const p = r.document || r; return { id: targetId, rev: p.rev, blocks: p.blocks }; }) : scope.documents.list()[0];
         if (scenario === 'extra-document') scope.documents.create({ title: 'Unexpected second fixture', markdown: 'worker-created extra content' });
         if (scenario === 'malformed-extra') fs.writeFileSync(scope.store.filePath('documents/extra.json'), 'invalid');
@@ -30,7 +30,7 @@ const agent = {
         emitTool('read_document', 'read-after');
         if (scenario === 'no-receipt') for (const name of scope.store.list('agent-edits', '.json')) scope.store.remove('agent-edits/' + require('path').basename(name));
         if (scenario === 'wrong-revision') {
-          if (paperSlug) { const current = (await http('GET', `/v1/data/doc/production/paper/${paperSlug}?perspective=raw`)); const p = current.document || current; await http('POST', `/v1/plugins/bulldocs/papers/${paperSlug}/ops`, { ifRev: p.rev, ops: [{ op: 'append-block', block: { id: 'later', type: 'paragraph', content: [{ type: 'text', value: 'A later revision.' }] } }] }); }
+          if (paperSlug) { const current = await http('GET', `/v1/data/doc/production/paper/${paperSlug}?perspective=raw`); const p = current.document || current; await http('POST', `/v1/plugins/bulldocs/papers/${paperSlug}/ops`, { ifRev: p.rev, ops: [{ op: 'append-block', block: { id: 'later', type: 'paragraph', content: [{ type: 'text', value: 'A later revision.' }] } }] }); }
           else { const current = scope.documents.get(doc.id); scope.documents.save({ id: doc.id, baseRev: current.rev, content: current.content }); }
         }
         if (scenario === 'unexpected-tool') { options.send({ type: 'tool_start', tool: 'Bash', toolUseId: 'unexpected-command', input: { command: 'fixture-only, never executed' } }); options.send({ type: 'tool_result', tool: 'Bash', toolUseId: 'unexpected-command', ok: true }); }

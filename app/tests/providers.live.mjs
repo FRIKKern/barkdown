@@ -43,7 +43,7 @@ async function paperHttp(method, route, body) {
   const response = await fetch(paperServer + route, { method, redirect: 'error', headers: { authorization: 'Bearer ' + process.env.BARKPARK_API_TOKEN, 'content-type': 'application/json' }, ...(body ? { body: JSON.stringify(body) } : {}), signal: AbortSignal.timeout(30000) });
   let data = null; try { data = await response.json(); } catch {}
   if (!response.ok) throw Error(`${method} ${route} answered ${response.status}: ${JSON.stringify(data).slice(0, 200)}`);
-  return data;
+  return data && typeof data === 'object' && data.result && typeof data.result === 'object' ? data.result : data;
 }
 const readPaper = async slug => { const r = await paperHttp('GET', `/v1/data/doc/production/paper/${slug}?perspective=raw`); return r.document || r; };
 const blockText = block => (block?.content || []).map(node => node.value ?? node.text ?? '').join('');
