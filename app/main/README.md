@@ -136,3 +136,7 @@ A profile's runtime folder can now be a packaged Barkpark release instead of a s
 ### 2026-09-30 — Postgres carried in the runtime folder (C086)
 
 `scripts/build-runtime-postgres.mjs` builds Postgres 15 from the official source, checked against the published checksum, with the three extensions the server needs, OpenSSL linked statically and its libraries addressed relative to the binaries; the build refuses to finish if anything links outside the system. `build-runtime-release.mjs --add-postgres` copies it into a release as `postgres/`. The driver prefers a Postgres carried in the runtime folder over the machine's. With both in place a profile needs neither Elixir nor Postgres installed.
+
+### 2026-09-30 — the application carries its runtime (C086)
+
+`scripts/build-mac-app.mjs` builds `Barkdown.app` with the runtime folder under `Contents/Resources/runtime` (ad hoc signed, not notarized). In profile mode a profile that has never had a Barkpark connection configured runs on the carried runtime; any saved choice, cloud or local, is left alone. `BARKDOWN_CARRIED_RUNTIME` names a carried runtime for a source run. The application is about 1 GB: the two agent command-line tools are 510 MB of it, Electron 254, the runtime 146.

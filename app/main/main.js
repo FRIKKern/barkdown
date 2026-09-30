@@ -51,7 +51,16 @@ let win = null;
 const DEFAULT_SETTINGS = { sidebarWidth: 200, chatWidth: 60, theme: 'system', model: 'claude-opus-5', provider: null, claudeModel: '', codexModel: '', apiKeyEncrypted: null, barkpark: { enabled: false, server: '', tokenEncrypted: null, dataset: 'production', writes: false, viaCli: false, local: { enabled: false, source: '', port: 4540, pgPort: 5540 } }, recentFolders: [], windowBounds: null };
 
 const APPEARANCE_KEYS = ['theme', 'sidebarWidth', 'chatWidth', 'windowBounds'];
-function readSettings(source = store) { const saved = source.readJson('settings.json', {}), appearance = appSettingsStore?.readJson('appearance.json', profileRegistry?.load()?.appSettings || {}) || {}; return { ...DEFAULT_SETTINGS, ...saved, ...appearance, barkpark: { ...DEFAULT_SETTINGS.barkpark, ...(saved.barkpark || {}) } }; }
+// A built application carries its runtime (Resources/runtime). A profile that has never had a
+// Barkpark connection configured runs on it; any saved choice, cloud or local, is left alone.
+let carriedRuntimeDir;
+function carriedRuntime() {
+  if (carriedRuntimeDir !== undefined) return carriedRuntimeDir;
+  const candidates = [process.env.BARKDOWN_CARRIED_RUNTIME, app.isPackaged ? path.join(process.resourcesPath, 'runtime') : null].filter(Boolean);
+  return carriedRuntimeDir = candidates.find(dir => require('./local-barkpark-source').releaseOf(dir)) || null;
+}
+function readSettings(source = store) { const stored = source.readJson('settings.json', {}), carried = PROFILE_MODE && stored.barkpark === undefined ? carriedRuntime() : null,
+  saved = carried ? { ...stored, barkpark: { enabled: true, writes: true, local: { ...DEFAULT_SETTINGS.barkpark.local, enabled: true, source: carried } } } : stored, appearance = appSettingsStore?.readJson('appearance.json', profileRegistry?.load()?.appSettings || {}) || {}; return { ...DEFAULT_SETTINGS, ...saved, ...appearance, barkpark: { ...DEFAULT_SETTINGS.barkpark, ...(saved.barkpark || {}) } }; }
 function writeSettings(settings) {
   if (!appSettingsStore) return store.writeJson('settings.json', settings);
   const owned = { ...settings }, appearance = {};
