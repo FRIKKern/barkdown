@@ -58,6 +58,28 @@ async function terminateCapture(child, closed) {
   await deadline(closed.catch(() => {}), 15000, 'Owned capture child did not close after cancellation');
 }
 
+// A capture's runtime folder is retained for diagnosis. A successful one has nothing to diagnose
+// after an hour, so the next capture removes its siblings that succeeded, are that old and hold
+// no live process; failed and interrupted runs stay (2026-10-01: 675 folders, 23 GB, had piled up).
+const alive = pid => { try { process.kill(pid, 0); return true; } catch (error) { return error.code === 'EPERM'; } };
+export function pruneRetainedCaptures(data, { maxAgeMs = 3600000, now = Date.now() } = {}) {
+  const parent = path.dirname(data), removed = [];
+  for (const name of fs.readdirSync(parent)) {
+    const dir = path.join(parent, name);
+    if (!name.startsWith('barkdown-shots-runtime-') || dir === data) continue;
+    try {
+      if (!fs.statSync(dir).isDirectory() || now - fs.statSync(dir).mtimeMs < maxAgeMs) continue;
+      const result = JSON.parse(fs.readFileSync(path.join(dir, 'capture-result.json'), 'utf8'));
+      if (result?.success !== true) continue;
+      const pids = [];
+      try { pids.push(Number(fs.readFileSync(path.join(dir, 'pgdata', 'postmaster.pid'), 'utf8').split('\n')[0])); } catch {}
+      try { const record = JSON.parse(fs.readFileSync(path.join(dir, 'runtime-process.json'), 'utf8')); pids.push(record.pid, record.hostPid); } catch {}
+      if (pids.some(pid => Number.isInteger(pid) && pid > 1 && alive(pid))) continue;
+      fs.rmSync(dir, { recursive: true, force: true }); removed.push(dir);
+    } catch {}
+  }
+  return removed;
+}
 export async function captureWithCleanup({ runtime, launch, data, verifySource = () => {} }) {
   let child, closed, interrupted, primary, rejectCancellation;
   const cleanup = [];
@@ -97,4 +119,5 @@ export async function captureWithCleanup({ runtime, launch, data, verifySource =
     const errors = [...(primary ? [primary] : []), ...cleanup];
     throw new AggregateError(errors, errors.map(error => error.message).join('\n'));
   }
+  try { const removed = pruneRetainedCaptures(data); if (removed.length) console.error(`Removed ${removed.length} retained runtime folder(s) of earlier successful captures.`); } catch {}
 }

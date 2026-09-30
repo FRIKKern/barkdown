@@ -1,0 +1,27 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { pruneRetainedCaptures } from './helpers/capture-lifecycle.mjs';
+const parent = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'bd-prune-'));
+const make = (name, { result, ageMs, pid }) => {
+  const dir = path.join(parent, name); fs.mkdirSync(path.join(dir, 'pgdata'), { recursive: true });
+  if (result) fs.writeFileSync(path.join(dir, 'capture-result.json'), JSON.stringify(result));
+  if (pid) fs.writeFileSync(path.join(dir, 'pgdata', 'postmaster.pid'), pid + '\n');
+  const at = new Date(Date.now() - ageMs); fs.utimesSync(dir, at, at);
+  return dir;
+};
+const hour = 3600000;
+const current = make('barkdown-shots-runtime-current', { result: { success: true }, ageMs: 5 * hour });
+const oldSuccess = make('barkdown-shots-runtime-a', { result: { success: true }, ageMs: 2 * hour });
+const oldFailure = make('barkdown-shots-runtime-b', { result: { success: false, primaryError: 'x' }, ageMs: 2 * hour });
+const fresh = make('barkdown-shots-runtime-c', { result: { success: true }, ageMs: hour / 2 });
+const noReceipt = make('barkdown-shots-runtime-d', { ageMs: 3 * hour });
+const live = make('barkdown-shots-runtime-e', { result: { success: true }, ageMs: 2 * hour, pid: process.pid });
+const other = make('bd-other-f', { result: { success: true }, ageMs: 2 * hour });
+const removed = pruneRetainedCaptures(current);
+assert.deepEqual(removed, [oldSuccess]);
+for (const dir of [current, oldFailure, fresh, noReceipt, live, other]) assert.ok(fs.existsSync(dir), dir + ' stays');
+assert.equal(fs.existsSync(oldSuccess), false);
+fs.rmSync(parent, { recursive: true, force: true });
+console.log('Capture prune: only successful, hour-old sibling runs without a live process are removed; the current run, failures, fresh runs, runs without a receipt, live databases and other folders stay.');
