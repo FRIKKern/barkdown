@@ -18,7 +18,7 @@
   ],
   "checkpoint": "2026-09-30",
   "handoff": "docs/cycles/C086-packaged-runtime.md",
-  "nextAction": "1) Licences of everything the application carries (Erlang, the server's packages, Postgres, OpenSSL) collected into the third-party notices; nothing is handed to another person before that. 2) A Mac without developer tools runs the application: needs a second Mac or a clean account, and a signature other than ad hoc. 3) Size: the two agent command-line tools are half of the 1 GB. 4) A profile's runtime follows the application when the application moves or updates.",
+  "nextAction": "1) Licences of everything the application carries (Erlang, the server's packages, Postgres, OpenSSL) collected into the third-party notices; nothing is handed to another person before that. 2) A Mac without developer tools runs the application: needs a second Mac or a clean account, and a signature other than ad hoc. 3) Size: the two agent command-line tools are half of the 1 GB.",
   "evidence": [
     "docs/cycles/evidence/C086/live/2026-09-30T16-48-11-085Z-app-packaged/result.json",
     "docs/cycles/evidence/C086/live/2026-09-30T16-13-52-486Z-runtime-release/result.json"
@@ -32,7 +32,6 @@
       "Third-party notices for what the application carries",
       "A Mac without developer tools; a real signature",
       "Application size",
-      "A profile's runtime path after the application moves",
       "Windows: no upstream release for that host"
     ]
   }

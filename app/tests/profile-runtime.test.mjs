@@ -171,4 +171,18 @@ await test('descriptor lease refuses another writer and does not change its owne
   await f.pool.shutdown();
 });
 
+await test('a profile follows a carried runtime to its new folder; a checkout or a folder that still exists is never swapped', async () => {
+  const f = fixture('moved');
+  const release = name => { const dir = path.join(root, name); fs.mkdirSync(path.join(dir, 'bin'), { recursive: true }); fs.mkdirSync(path.join(dir, 'releases')); fs.writeFileSync(path.join(dir, 'bin', 'barkpark'), '#!/bin/sh\n'); return fs.realpathSync(dir); };
+  const first = release('app-one-runtime'), second = release('app-two-runtime');
+  const lease = await f.pool.acquire(f.a.id, { source: first, ownerId: 'one' }); await lease.release(); await f.pool.shutdown();
+  const before = f.registry.storeFor(f.a.id).readJson('runtime.json', null);
+  const again = createProfileRuntimePool({ ...f.options });
+  await assert.rejects(again.acquire(f.a.id, { source: second, ownerId: 'two' }), /source changed/, 'the old folder still exists');
+  fs.rmSync(first, { recursive: true });
+  await assert.rejects(again.acquire(f.a.id, { source: f.source, ownerId: 'two' }), /source changed/, 'a checkout is not a carried runtime');
+  const moved = await again.acquire(f.a.id, { source: second, ownerId: 'two' }); await moved.release(); await again.shutdown();
+  const after = f.registry.storeFor(f.a.id).readJson('runtime.json', null);
+  assert.equal(after.source, second); assert.equal(after.port, before.port); assert.equal(after.pgPort, before.pgPort);
+});
 console.log(`${checks} runtime-pool checks passed; fixtures retained at ${root}`);

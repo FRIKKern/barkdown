@@ -6,7 +6,7 @@ const net = require('node:net');
 const crypto = require('node:crypto');
 const { validateProfileId } = require('./profile-registry');
 const { LocalBarkpark } = require('./local-barkpark');
-const { SourceDriver } = require('./local-barkpark-source');
+const { SourceDriver, releaseOf } = require('./local-barkpark-source');
 const { acquireFileLease } = require('./file-lease');
 
 const portValid = port => Number.isInteger(port) && port >= 1024 && port <= 65535;
@@ -56,7 +56,14 @@ function createProfileRuntimePool({ registry, readSecrets, onStatus = () => {}, 
       }
       if (descriptor) {
         descriptor = validateDescriptor(descriptor, profileId);
-        if (source && path.resolve(source) !== descriptor.source) throw new Error('Profile runtime source changed; stop and explicitly reconfigure it first');
+        if (source && path.resolve(source) !== descriptor.source) {
+          // An application that moved or was updated carries its runtime to a new path. The profile
+          // follows it when the old folder is gone and the new one is a packaged release; its ports
+          // and its data stay. A checkout, or an old folder that still exists, is never swapped silently.
+          if (fs.existsSync(descriptor.source) || !releaseOf(path.resolve(source))) throw new Error('Profile runtime source changed; stop and explicitly reconfigure it first');
+          descriptor = validateDescriptor({ ...descriptor, source: path.resolve(source) }, profileId);
+          store.writeJson('runtime.json', descriptor);
+        }
       }
       const used = new Set();
       for (const profile of registry.load().profiles) {
