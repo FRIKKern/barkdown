@@ -1,0 +1,31 @@
+{
+  "source": "aeb0a895678bbd416dcaefde94be509a927b8c53",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "A fresh launch with no flags opens profiles with one profile, Personal"
+    },
+    {
+      "name": "A legacy library found at an ordinary launch is offered for adoption; Adopt moves notes, chats and settings into a profile, leaves the legacy files, and later launches open the profile"
+    },
+    {
+      "name": "Not now opens an empty profile and leaves the legacy library untouched",
+      "offeredAgain": false
+    },
+    {
+      "name": "A --legacy launch still opens the single legacy library, for the development tours"
+    }
+  ],
+  "screenshots": [
+    "01-fresh-launch-opens-a-profile.png",
+    "02-legacy-library-offered-for-adoption.png",
+    "03-adopted-into-a-profile.png"
+  ],
+  "limits": [
+    "One machine, one run. The legacy library is a small fixture without a runtime; adoption of a library with a managed runtime is covered by the runtime adoption tour. No provider is signed in."
+  ],
+  "observed": {
+    "offeredAgainAfterNotNow": false
+  }
+}

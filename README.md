@@ -22,7 +22,7 @@ We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT,
 
 **Next**
 - Windows returns: switch a real library, carry an export across machines, recover from a crash there.
-- Until then: retiring the old editor. Profiles are now the ordinary launch, an old library is offered for adoption, retained originals render without an editor, and a new profile starts on Paper ([C087](docs/cycles/C087-legacy-retirement.md)). The Mac application [builds with its runtime and database inside](docs/cycles/C086-packaged-runtime.md); not yet signed, about 1 GB.
+- The old editor is retired ([C087](docs/cycles/C087-legacy-retirement.md)): profiles are the ordinary launch, an old library is offered for adoption, every note is written on Paper, and legacy notes stay readable. The Mac application [builds with its runtime and database inside](docs/cycles/C086-packaged-runtime.md); not yet signed, about 1 GB.
 
 **How far along:** migration is about 75% by effort, low confidence, plausible range 30–90%. That weighs demonstrated work against what's left; it is not a safety rating. [How it's calculated](docs/PLAN.md#migration-effort-estimate).
 
@@ -37,7 +37,7 @@ A notebook in motion: write together, check things off, find your next idea. Rea
 <details>
 <summary>Still view</summary>
 
-![Barkdown: a conversation beside a Paper document in dark mode.](docs/images/status/paper-dark.b183b6bc.png)
+![Barkdown: a conversation beside a Paper document in dark mode.](docs/images/status/paper-dark.0b07af7e.png)
 
 </details>
 

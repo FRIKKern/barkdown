@@ -1,8 +1,8 @@
 # C087 — Retiring the legacy editor
 
-**Status:** active, opened 2026-09-30 on the user's go ([D-legacy-retirement](../DESIGN-DECISIONS.md#d-legacy-retirement--go-2026-09-30)). The stages are [legacy-retirement.md](../migration/legacy-retirement.md): R1 read-only rendering, R2 profiles by default with adoption, R3 a runtime by default, R4 removal. [C086](C086-packaged-runtime.md) is paused behind this cycle.
+**Status:** done 2026-10-01; opened 2026-09-30 on the user's go ([D-legacy-retirement](../DESIGN-DECISIONS.md#d-legacy-retirement--go-2026-09-30)). The stages are [legacy-retirement.md](../migration/legacy-retirement.md): R1 read-only rendering, R2 profiles by default with adoption, R3 a runtime by default, R4 removal. [C086](C086-packaged-runtime.md) is paused behind this cycle.
 
-**Outcome so far:** R1 to R4 are in. The app no longer writes the legacy store, the legacy editor and its packages are gone.
+**Outcome:** R1 to R4 are in. The app no longer writes the legacy store, the legacy editor and its packages are gone, profiles are the ordinary launch and a new profile starts on Paper.
 
 **R1 read-only rendering (`shared/doc-html.js`):** a retained original or a read-only copy is rendered from its blocks with no editor mounted; links open as before. Asserted in the switch rehearsal: the retained original shows its text, nothing on the page is editable. [D-read-only-render](../DESIGN-DECISIONS.md#d-read-only-render--retained-originals-without-the-editor-2026-09-30).
 
@@ -16,4 +16,6 @@
 
 **Limits after R4:** the provider truth runner (`tests/providers.live.mjs`) proved successful assistant edits on a legacy document; those three scenarios (approval, success, delayed finish) now need a Paper runtime and are skipped in the unit suite until the harness makes its document a Paper under the isolated runtime. No Windows run yet.
 
-**Next action:** rehearsals at the R4 commit, pictures approved, closeout; then the provider truth runner on Paper.
+**Closeout (2026-10-01):** unit suite 684 cases green; the legacy journey, the [switch](evidence/C083/live/2026-09-30T21-09-23-992Z-switch-ui/result.json) and [launch](evidence/C087/live/2026-09-30T21-14-12-290Z-launch-default/result.json) rehearsals pass at the R4 commit; visual run approved, pixel-identical. Not chased: the writer-fence tour outside the suite predates the preparation gate and expects a writer refusal where the gate now answers first. Still owed to P2: the real-library review on Windows. Repository clutter: none new; `runtime/` (ignored) holds the built runtimes.
+
+**Next action:** none in this cycle; resume [C086](C086-packaged-runtime.md) until the Windows machine is back.

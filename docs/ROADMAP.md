@@ -8,7 +8,7 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** C086: the Mac application carries its runtime and database and starts with nothing else installed.
+**Latest advance:** C087: the legacy editor is retired; profiles are the ordinary launch and every note is written on Paper.
 
 **Next observable result:** Windows is back about October 5: switch a real library, carry an export across machines, reclaim after a crash there. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
