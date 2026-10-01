@@ -61,6 +61,11 @@
       "commit": "1cb43023",
       "reason": "Main process only: agent:start awaits the shell environment through a named collaborator.",
       "date": "2026-10-01"
+    },
+    {
+      "commit": "465113dc",
+      "reason": "Main process only: providers load the SDK before the tool check.",
+      "date": "2026-10-01"
     }
   ]
 }
