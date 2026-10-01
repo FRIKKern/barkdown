@@ -1,0 +1,24 @@
+{
+  "source": "a7e46a861c4fcb958a3ee1421c304cbaef2487fd",
+  "host": "darwin 24.3.0 arm64",
+  "image": "Barkdown-0.6.0-arm64.dmg",
+  "imageMb": 165,
+  "checks": [
+    {
+      "name": "The disk image mounts read-only and holds Barkdown.app beside an Applications link",
+      "imageMb": 165
+    },
+    {
+      "name": "The application copied out of the image carries the pinned runtime; the image is detached before it runs"
+    },
+    {
+      "name": "The packaged rehearsal (first boot, note, restart) passes against the copy installed from the image",
+      "rehearsal": "evidence/C086/live/2026-10-01T11-41-54-720Z-app-packaged/result.json"
+    }
+  ],
+  "status": "passed",
+  "rehearsal": "evidence/C086/live/2026-10-01T11-41-54-720Z-app-packaged/result.json",
+  "limits": [
+    "One Mac. The image is ad hoc signed and not notarized: on another Mac Gatekeeper refuses it until the signature exists. Dragging is simulated by a copy."
+  ]
+}
