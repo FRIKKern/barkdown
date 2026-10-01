@@ -42,7 +42,7 @@ test('double start reuses one operation and success waits for verified job drain
   const h=harness(), first=await h.service.start('codex');
   assert.equal((await h.service.start('codex')).id,first.id); assert.equal(h.calls,1);
   h.launched.resolve(h.host);h.ready.resolve();await new Promise(setImmediate);
-  assert.deepEqual(h.sends,[{type:'start',provider:'codex',operation:'login'}]);
+  assert.deepEqual(h.sends,[{type:'start',provider:'codex',operation:'login',binary:''}]);
   h.result('signed-in');assert.equal(h.service.status('codex').state,'waiting');assert.equal(h.service.hasSessions(),true);
   h.finished.resolve();await new Promise(setImmediate);
   assert.equal(h.service.status('codex').state,'signed-in');assert.equal(h.service.hasSessions(),false);
