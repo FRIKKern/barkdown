@@ -40,5 +40,22 @@
       "file": "editing.ab41a998.gif",
       "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
     }
+  ],
+  "uiExemptions": [
+    {
+      "commit": "885e72d1",
+      "reason": "Main process and build configuration only: providers run the user's own tool; platform packages excluded from the packaged app (C088 S4).",
+      "date": "2026-10-01"
+    },
+    {
+      "commit": "6a48806a",
+      "reason": "Main process only: assistant runs and the MCP server never seed the legacy store.",
+      "date": "2026-10-01"
+    },
+    {
+      "commit": "99f17808",
+      "reason": "Main process only: the MCP server's explicit seed removed.",
+      "date": "2026-10-01"
+    }
   ]
 }
