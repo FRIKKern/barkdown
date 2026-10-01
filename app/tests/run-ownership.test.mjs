@@ -13,6 +13,10 @@ const { runs, cancel, captureScope, createRun, finish, waitForRunFinish, activit
 const agent = require('../main/agent');
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-run-owners-'));
 const rootA = path.join(root, 'a'), rootB = path.join(root, 'b');
+// Fixture tools (C088 S4): a provider finds and checks its tool before the SDK; these answer like the real ones.
+const toolsDir = path.join(root, 'tools'); fs.mkdirSync(toolsDir, { recursive: true });
+const fixtureTool = (name, answer) => { const file = path.join(toolsDir, name); fs.writeFileSync(file, `#!/bin/sh\necho "${answer}"\n`); fs.chmodSync(file, 0o755); return file; };
+const providerBinary = { claude: fixtureTool('claude', '9.9.9 (Claude Code)'), codex: fixtureTool('codex', 'codex-cli 9.9.9') };
 const idA = crypto.randomUUID(), idB = crypto.randomUUID();
 const oldToken = process.env.BARKDOWN_BP_TOKEN;
 const checks = [];
@@ -151,7 +155,7 @@ try {
     const transport = require('../main/providers/' + provider);
     let releaseSdk, observed, threadOptions;
     transport.setSdkLoader(() => new Promise(resolve => { releaseSdk = resolve; }));
-    const settings = { claudeModel: 'model-A', codexModel: 'model-A', effort: 'high' };
+    const settings = { claudeModel: 'model-A', codexModel: 'model-A', effort: 'high', providerBinary };
     const ctx = { folder: path.join(root, 'folder-A') }, captured = [];
     const finished = new Promise(resolve => {
       transport.start({ chatId: 'same', profileId: idA, storeDir: rootA, context: ctx, settings,
@@ -184,7 +188,7 @@ try {
     let releaseSdk, cleanupCalls = 0, launched = false;
     transport.setSdkLoader(() => new Promise(resolve => { releaseSdk = resolve; }));
     try {
-      const { runId } = transport.start({ chatId: 'cancel-loading', scope: a, prompt: 'cancel me', settings: {}, send() {}, onFinish: async () => { cleanupCalls++; } });
+      const { runId } = transport.start({ chatId: 'cancel-loading', scope: a, prompt: 'cancel me', settings: { providerBinary }, send() {}, onFinish: async () => { cleanupCalls++; } });
       const completion = waitForRunFinish(runId);
       cancel(runId);
       releaseSdk(provider === 'claude' ? { query() { launched = true; throw Error('should not launch'); } } : { Codex: class { constructor() { launched = true; throw Error('should not launch'); } } });

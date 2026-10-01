@@ -29,10 +29,11 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
   settings = frozenCopy(settings || {}); images = frozenCopy(images || []);
   (async () => {
     try {
-      // The user's own tool (C088 S4): the path from Settings or the login-shell PATH, checked with --version.
+      const { Codex } = await loadSdk();
+      // The user's own tool (C088 S4): the path from Settings or the login-shell PATH, checked with --version,
+      // before anything is asked of the SDK (the import itself resolves no tool).
       const tool = await require('../provider-tools').createProviderTools({ settings: () => settings, env: async () => run.scope.env }).inspect('codex');
       if (!tool.ok) throw Object.assign(new Error(tool.problem + (tool.install ? ` Install: ${tool.install}` : '')), { code: 'provider_tool' });
-      const { Codex } = await loadSdk();
       await require('./runs').preparePaperNavigation(run);
       const spec = mcpServerSpec(storeDir, run.scope);
       if (run.cancelled) { run.emit({ type: 'done', cancelled: true, provider: 'codex' }); return; }
