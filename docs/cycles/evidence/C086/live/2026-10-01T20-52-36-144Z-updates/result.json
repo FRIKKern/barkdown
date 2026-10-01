@@ -1,0 +1,15 @@
+{
+  "source": "3424557bc18742f77e98f94a5a1a899a149f4399",
+  "host": "darwin 24.3.0 arm64",
+  "checks": [
+    "With a feed named, the updater is on, idle, on the latest channel, and has downloaded nothing",
+    "A check reads latest-mac.yml and reports 0.6.1 available without downloading",
+    "A download fetches the zip the feed names and verifies its digest",
+    "Installing is refused with the ad hoc reason; nothing restarts",
+    "Settings › About shows the downloaded update and the reason it cannot install"
+  ],
+  "status": "passed",
+  "limits": [
+    "One Mac, from source under Electron with a local feed; the digest check is real, the zip is random bytes, and the install step waits for a Developer ID signature."
+  ]
+}

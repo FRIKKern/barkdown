@@ -25,11 +25,11 @@ No dry run: every run of the script is a real release. The script says so.
 
 ## Phase 2 — signature and notarization (when a Developer ID exists)
 
-`notarytool` in the same script; the rehearsal gains a Gatekeeper assessment (`spctl`) on the copied application.
+Built in, idle until the secrets exist: with `CSC_NAME` (a Developer ID Application identity in the login keychain) and `APPLE_API_KEY`, `APPLE_API_KEY_ID`, `APPLE_API_ISSUER` in the environment, `build-mac-app.mjs` signs with that identity, enables the hardened runtime and notarizes through electron-builder; without them it signs ad hoc. Still to do once an identity exists: a Gatekeeper assessment (`spctl`) in the install rehearsal.
 
 ## Phase 3 — the updater
 
-`electron-updater` with the GitHub provider, `latest-mac.yml` and `nightly-mac.yml` from the same releases, blockmaps kept. The T3 Code behaviour: a background check, one click to download, one to restart, never on its own. Before a trial, an export of the profile (C085) is the snapshot; a failed trial restores it.
+Built in (`app/main/updates.js`, Settings › About): `electron-updater` with the GitHub provider against the running channel's feed (`nightly-mac.yml` for a nightly build, `latest-mac.yml` for a stable), which every release now carries beside the image with the zip and its blockmap. A background check a minute after launch and every six hours; one click to download; one to restart; never on its own. While the application is signed ad hoc the install is refused with the reason (Squirrel.Mac validates the new bundle's signature against the running one), so the step is exercised only after phase 2. `BARKDOWN_UPDATE_URL` points the updater at any static feed for a rehearsal (`npm run test:updates`). Note: a private repository cannot serve the GitHub feed to an installed app without a token; the feed must be public or hosted elsewhere before updates reach anyone but the owner. Still to do: an export of the profile (C085) as the snapshot before an install, restored if the new version fails to start.
 
 ## Phase 4 — Windows, then the graph
 
