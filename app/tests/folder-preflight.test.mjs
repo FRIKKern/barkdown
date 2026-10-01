@@ -54,7 +54,7 @@ test('legacy actual handler and preload expose known refusal, unknown errors sta
   let handler, calls = 0;
   vm.runInNewContext(main.slice(main.indexOf("  handle('agent:start',"), main.indexOf("  handle('agent:cancel',")), {
     handle: (_name, fn) => handler = fn, profileService: null, readSettings: () => ({ provider: 'codex', barkpark: {} }), defaultProvider: () => 'api',
-    assertProviderFolder, assertProviderAuthentication: async()=>{}, captureScope: options=>({...options,context:options.context||{}}), decrypt: () => '', store: { dir: () => root }, barkparkConfig: () => ({ enabled: false }), agent: { start: () => { calls++; return { runId: 'legacy-accepted' }; } },
+    assertProviderFolder, assertProviderAuthentication: async()=>{}, providerEnvReady: async()=>{}, captureScope: options=>({...options,context:options.context||{}}), decrypt: () => '', store: { dir: () => root }, barkparkConfig: () => ({ enabled: false }), agent: { start: () => { calls++; return { runId: 'legacy-accepted' }; } },
   });
   let exposed;
   vm.runInNewContext(fs.readFileSync(new URL('../main/preload.js', import.meta.url), 'utf8'), {

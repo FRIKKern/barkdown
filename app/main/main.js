@@ -35,6 +35,7 @@ let providerLogin = null;
 // The user's login-shell PATH, for finding and running their own tools (C088 S1). Started now so it is
 // ready by the time a chat or a sign-in check needs it; never applied to the packaged runtime.
 const shellEnvironment = require('./shell-environment').install(require('./shell-environment').createShellEnvironment({ log: line => console.error(line) }), { hydrate: process.env.BARKDOWN_SHELL_ENV !== 'off' });
+const providerEnvReady = () => require('./shell-environment').providerEnvReady();
 function loginService() { return providerLogin ||= require('./provider-login').createProviderLogin({ storeDir: app.getPath('userData'), binaryFor: provider => readSettings().providerBinary?.[provider] || '' }); }
 // Which file is the user's tool, and whether it answers like one (C088 S2).
 const providerTools = require('./provider-tools').createProviderTools({ settings: () => readSettings(), env: () => require('./shell-environment').providerEnvReady() });
@@ -554,7 +555,7 @@ function registerIpc() {
     // A chat's own model and effort win over the settings defaults.
     const settings = { providerBinary: s.providerBinary || {}, apiKey: decrypt(s.apiKeyEncrypted), model: chosen === 'api' ? (o.model || s.model) : s.model, claudeModel: chosen === 'claude' ? (o.model || s.claudeModel) : s.claudeModel, codexModel: chosen === 'codex' ? (o.model || s.codexModel) : s.codexModel, effort: o.effort || undefined };
     const runStoreDir = store.dir();
-    await require('./shell-environment').providerEnvReady();
+    await providerEnvReady();
     const scope = captureScope({ storeDir: runStoreDir, context, connection: barkparkConfig() });
     await assertProviderAuthentication(chosen, settings, scope);
     assertProviderFolder(chosen, scope.context.folder);
