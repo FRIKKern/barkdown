@@ -28,7 +28,9 @@ const conversations = require('./conversations').createConversations(store);
 capturedConnection ||= Object.freeze({ ...(store.readJson('barkpark.json', null) || {}), token: process.env.BARKDOWN_BP_TOKEN || '' });
 const paper = require('./paper-tools').createPaperTools({ store, writer, connection: capturedConnection, profileId: process.env.BARKDOWN_PROFILE_ID || null });
 const toolConnection = paper.connection;
-documents.loadAll({ seed: !paper.managed && require('./writer-admission').controller(store).inspect().phase === 'open' });
+// Never seed from here: the welcome notes belong to the legacy launch alone (C087); an assistant's
+// library is the Paper runtime, and an empty legacy store stays empty.
+documents.loadAll({ seed: false });
 
 const text = value => ({ content: [{ type: 'text', text: typeof value === 'string' ? value : JSON.stringify(value, null, 1) }] });
 
