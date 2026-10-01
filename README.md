@@ -4,7 +4,7 @@ Barkdown is an experiment in what Barkpark can do, and a tool for figuring out w
 
 We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT, taking the parts we love from each. We’re doing this for fun and learning, with no plans to make money from it. The aim is an excellent app shaped by our taste and Barkpark.
 
-## Where we are · October 1, 2026
+## Where we are · October 2, 2026
 
 **The short version:** notes live on Paper, a whole library can move between machines, the app survives crashes without losing a word, and a Mac installs it from a 165 MB disk image that runs your own Claude Code or Codex. What's missing is a signature, proof on a real library, and Windows.
 
@@ -13,6 +13,7 @@ We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT,
 - Paper notes: [write and search](docs/visual/paper-notes/README.md), let an [agent edit with Undo](docs/visual/agent-notes/README.md), get a [deleted note back](docs/visual/paper-deletions/README.md).
 - The switch to Paper, with a way back. Started from Settings, interrupted, resumed, rolled back. Rehearsed on macOS with a 24-note corpus ([C083](docs/cycles/C083-writer-admission.md)).
 - Portable profiles: export and import from Settings, carried between two installations and into a newer version.
+- Nightlies cut themselves from this Mac on a schedule, from a commit with a green chain receipt, with an updater feed beside the image ([how](docs/RELEASE.md)); the app is 420 MB and works at 200 % zoom.
 - Rough treatment: a killed app, a killed export or import, a dead database, a quit mid-save. Nothing acknowledged is lost ([C085](docs/cycles/C085-portable-profile.md)).
 
 **Not yet**
