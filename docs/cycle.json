@@ -1,39 +1,40 @@
 {
   "version": 1,
-  "id": "C088",
+  "id": "C086",
   "stage": "P5",
   "status": "active",
-  "goal": "Barkdown runs chats through the Claude Code and Codex the user installed, found reliably from a desktop app, and stops carrying its own copies: the app halves in size and the vendor's installer owns the tool.",
+  "goal": "Barkdown runs its library without a source checkout or an Elixir toolchain on the machine: the runtime is a packaged release, and step by step the rest of what an installation needs.",
   "scope": [
-    "Login-shell PATH hydration at launch for provider resolution (macOS, Linux; Windows registry PATH), scoped to providers so the packaged runtime keeps its system-only PATH",
-    "A binary path override per provider in Settings and a --version sanity run on whatever is resolved",
-    "A tested-with version range per SDK pin with a warning card outside it",
-    "The two platform packages removed from the packaged app; the SDKs given the resolved executable; rehearsals for no tool, a signed-out tool, a shim, and a Finder launch on a clean account"
+    "A profile's runtime from a packaged Barkpark release, built and stamped by a script",
+    "The portable profile, crash reclaim and recovery unchanged on the packaged runtime",
+    "Postgres without a machine install",
+    "The app itself as a macOS application that carries its runtime"
   ],
   "acceptance": [
-    "A Finder-launched app finds a Homebrew- and an npm-installed tool; a shell probe that hangs or an unusual login shell does not break resolution",
-    "The Settings override wins and a file that is not the tool is refused with its --version output",
-    "Outside the tested range the provider card warns and names the range; inside it, nothing",
-    "Barkdown.app builds at about half its size and a chat runs through the user's tool; without one the install card shows; signed out, the login card shows"
+    "With only system folders on the PATH the app boots a profile's runtime, writes, restarts and reads the same",
+    "Export, import and reclaim after a kill pass on the packaged runtime",
+    "A machine with no Postgres installed runs a profile",
+    "A built macOS application starts a profile with nothing else installed"
   ],
   "checkpoint": "2026-10-01",
-  "handoff": "docs/cycles/C088-own-agents.md",
-  "nextAction": "With the user: a Finder launch on a clean macOS account with a real Claude Code installed through Homebrew or npm (the only unsimulated proof of the PATH probe), and the signature. When the Windows machine is back: the registry PATH and the .cmd shim rows. Then close.",
+  "handoff": "docs/cycles/C086-packaged-runtime.md",
+  "nextAction": "The disk image: build-mac-app.mjs --dmg writes release/Barkdown-<version>-<arch>.dmg; a rehearsal mounts it, copies the application out, detaches, and runs the packaged rehearsal against the installed copy. Then with the user: the clean account and the signature.",
   "evidence": [
-    "docs/cycles/evidence/C088/live/2026-10-01T10-05-16-540Z-shell-environment/result.json",
-    "docs/cycles/evidence/C088/live/2026-10-01T10-14-28-158Z-provider-tools/result.json",
-    "docs/cycles/evidence/C088/live/2026-10-01T10-25-13-735Z-provider-tools/result.json",
-    "docs/cycles/evidence/C086/live/2026-10-01T10-34-00-104Z-app-packaged/result.json",
-    "docs/cycles/evidence/C088/live/2026-10-01T10-36-42-000Z-real-claude-code/result.json"
+    "docs/cycles/evidence/C086/live/2026-09-30T16-48-11-085Z-app-packaged/result.json",
+    "docs/cycles/evidence/C086/live/2026-09-30T16-13-52-486Z-runtime-release/result.json",
+    "docs/cycles/evidence/C086/live/2026-09-30T22-13-04-398Z-provider-truth-paper/result.json",
+    "docs/cycles/evidence/C086/live/2026-09-30T22-21-11-396Z-runtime-release/result.json"
   ],
-  "truthReview": "2026-10-01: opened. Decision and analysis in the paper The CLI Is Already There (guerrilla.barkpark.cloud/papers/the-cli-is-already-there), linked from C086. Nothing delivered yet. S1 delivered 2026-10-01: shell-environment.js probes the login shell with a bounded time per candidate, merges its PATH ahead of the inherited one, falls back to launchctl (macOS) or the registry (Windows), and feeds provider runs, the sign-in worker, owned workers and the terminal; the main process PATH stays as launched. Unit cases: merge order, a hung shell skipped within budget, a shell that rejects -ilc, launchctl and registry fallbacks, parsers, the singleton. Live: an Electron app launched with the system PATH and a fixture login shell finds a fixture Claude Code and reports signed in, with its own PATH unchanged. One Mac; fixtures, not a real shell. S2 delivered 2026-10-01: provider-tools.js resolves the tool (Settings path first, then the login-shell PATH), runs --version once within a bounded time and accepts only a file that names itself; an impostor, a broken, a hanging, a missing or a relative path each give a plain reason; the sign-in worker follows the chosen path; Settings shows a Tool field per provider. Unit: resolution, sanity run, cache, override. Live: five checks on fixtures. Visual run approved for the new field. Seen on this Mac: another application's bundled claude on the PATH, the wrong-binary case the sanity run exists for. S3 delivered 2026-10-01: scripts/provider-versions.mjs stamps the tool versions the pinned SDKs carry (Claude Code 2.1.276, codex 0.155.0) into main/provider-versions.json, and the unit test fails on an SDK bump without a new stamp; after the --version check the installed version is placed against the stamp: same or a newer minor is silent, older than tested or a different major warns and names the tested version; a tool that is not found gets its install link and login command, opened outside the window. Live: six checks on fixtures (an older tool warns, a different major warns, a current one is silent; Settings shows the warning). Visual run approved. S4 delivered 2026-10-01: each provider finds the tool first and hands it to its SDK as the executable; without one the run fails at once with the reason and the install link (unit test with an impostor and a missing path). The fourteen platform packages are excluded from the packaged application: Barkdown.app is 456 MB, down from about 1 GB, and the packaged rehearsal passes its four checks plus the absence of any agent package. The installed Claude Code 2.1.286, newer than the 2.1.276 the pinned SDK carries, ran a complete edit of a Paper through the SDK on an isolated runtime. That first real run exposed a leftover legacy write: the MCP server seeded the two welcome notes into an empty legacy store on an open, unmanaged connection; it no longer does, and only the legacy launch seeds. One Mac; the Finder launch on a clean account and the Windows rows remain. 2026-10-01 afternoon: the full desktop chain (unit suite, the 76-step journey, every live tour) is green on this Mac at 3f6ad5ec after four fixes the chain forced: the login start message names the binary, agent:start awaits the probe through a named collaborator, providers load their SDK before the tool check, and the shell environment composes over the live environment (a frozen copy had hidden a variable set after launch from every run).",
-  "screenshotReview": "2026-10-01 S4: no renderer change; the build configuration changed, so the visual run was recaptured and approved.",
+  "truthReview": "2026-09-30: the macOS application is built with the runtime folder inside and started as an application, with only system folders on the PATH: a never-configured profile runs on the carried server and Postgres, New page makes a Paper, and the note reads the same after a restart. Built and run on one Mac, signed ad hoc, not notarized, started from its build folder with --profiles. The runtime folder rehearsal covers export, import and reclaim. No Mac without developer tools has run either. Windows is not covered. Resumed 2026-10-01 after C087 closed. 2026-10-01: notices for every carried component are generated and kept (86 rows, each with a licence text; six Hex packages ship none and the standard Apache-2.0 text stands in for them, said so in the table). 2026-10-01: the provider truth runner's 25 scenarios pass against the packaged release under the isolated harness, the successful edits landing on a Paper (scripted transport, one Mac); the harness accepts a release as its source. The release's first seed boot died and was retried on every run: the seed booted the whole tree under eval; it now runs through Barkpark.Release.seed() without admission and a first boot goes straight to ready. One slow request no longer restarts the runtime: recovery needs three missed probes in a row. The release rehearsal passes its four checks on the fixed boot.",
+  "screenshotReview": "No renderer change. Live screenshots of a note on the packaged runtime and in the built application are in the rehearsal folders.",
   "delivery": {
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "Windows rows when the machine is back",
-      "Finder launch on a clean account with a real tool (user)"
+      "The disk image people install from",
+      "A Mac without developer tools; a real signature",
+      "Application size",
+      "Windows: no upstream release for that host"
     ]
   }
 }
