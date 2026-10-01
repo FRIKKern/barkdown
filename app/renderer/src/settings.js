@@ -136,7 +136,9 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
   const qa = sel => [...dialog.querySelectorAll(sel)];
 
   // What was found for each tool: filled in after the sheet opens, so opening never waits on a process.
-  const describeTool = t => !t ? 'Not checked.' : t.ok ? `Found <code>${esc(t.path)}</code>${t.version ? ` · ${esc(t.version)}` : ''}${t.source === 'settings' ? ' (from this setting)' : ''}.` : `<span class="bw-warn">${esc(t.problem || 'Not found.')}</span>${t.path && !t.ok && t.source === 'settings' ? ` <code>${esc(t.path)}</code>` : ''}`;
+  const describeTool = t => !t ? 'Not checked.' : t.ok ? `Found <code>${esc(t.path)}</code>${t.version ? ` · ${esc(t.version)}` : ''}${t.source === 'settings' ? ' (from this setting)' : ''}.${t.advice ? ` <span class="bw-warn" data-tool-fit="${esc(t.fit)}">${esc(t.advice)}</span>` : ''}` : `<span class="bw-warn">${esc(t.problem || 'Not found.')}</span>${t.path && !t.ok && t.source === 'settings' ? ` <code>${esc(t.path)}</code>` : ''}${t.install ? ` <a href="${esc(t.install)}" data-external>Install</a>, then run <code>${esc(t.login)}</code>.` : ''}`;
+  // Install links open in the browser, never in this window.
+  q('#providers')?.addEventListener('click', e => { const a = e.target.closest('a[data-external]'); if (a) { e.preventDefault(); api.app.openExternal(a.href); } });
   api.providers.tools().then(tools => { for (const name of ['claude', 'codex']) { const el = q(`[data-tool-status="${name}"]`); if (el) el.innerHTML = describeTool(tools[name]); } }).catch(() => {});
   const loginDisposers = qa('[data-login-provider]').map(host => mountProviderLogin(host, host.dataset.loginProvider, result => { const badge = host.closest('[data-provider]').querySelector('.bw-badge'); const ok = result.state === 'signed-in'; badge.textContent = ok ? 'Signed in' : 'Not signed in'; badge.classList.toggle('ok', ok); badge.classList.toggle('off', !ok); }));
 

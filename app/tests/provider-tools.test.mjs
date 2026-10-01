@@ -44,5 +44,22 @@ const env = { PATH: `${bin}:/usr/bin:/bin`, HOME: root };
   assert.equal(resolveProviderCli('claude', { env, override: 'claude' }), null);
   assert.equal(resolveProviderCli('claude', { env, home: root }), claude);
 }
+{
+  // The fit against the tested version: same or newer minor is silent; older or another major warns and names the tested version.
+  const { fitOf, compareVersions, TESTED } = require('../main/provider-tools');
+  const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+  const installed = name => JSON.parse(fs.readFileSync(path.join('node_modules', name, 'package.json'), 'utf8')).version;
+  assert.equal(TESTED.claude.sdk, installed('@anthropic-ai/claude-agent-sdk'), 'the stamp matches the installed Agent SDK: run scripts/provider-versions.mjs after a bump');
+  assert.equal(TESTED.codex.sdk, installed('@openai/codex-sdk'), 'the stamp matches the installed Codex SDK');
+  assert.ok(pkg.dependencies['@anthropic-ai/claude-agent-sdk'] && pkg.dependencies['@openai/codex-sdk']);
+  assert.equal(compareVersions('2.1.286', '2.1.276'), 1); assert.equal(compareVersions('2.1.276', '2.1.276'), 0); assert.equal(compareVersions('2.0.9', '2.1.0'), -1);
+  const t = TESTED.claude.cli;
+  assert.equal(fitOf('claude', t).fit, 'tested');
+  assert.equal(fitOf('claude', t.replace(/\d+$/, n => String(Number(n) + 5))).fit, 'newer');
+  const older = fitOf('claude', '2.0.1'); assert.equal(older.fit, 'older'); assert.match(older.advice, new RegExp(`older than the ${t.replace(/\./g, '\\.')} Barkdown was tested with`));
+  const major = fitOf('claude', '3.0.0'); assert.equal(major.fit, 'major'); assert.match(major.advice, /different major/);
+  assert.equal(fitOf('codex', TESTED.codex.cli).fit, 'tested'); assert.equal(fitOf('claude', null).fit, 'unknown');
+}
+console.log('Provider versions: the stamp matches the pinned SDKs and the fit classification passed.');
 fs.rmSync(root, { recursive: true, force: true });
 console.log('Provider tools: PATH and Settings resolution, --version sanity run with impostor, broken, slow and missing files, caching, and the resolver override passed.');
