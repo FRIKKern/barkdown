@@ -6,7 +6,7 @@ We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT,
 
 ## Where we are · October 2, 2026
 
-**The short version:** notes live on Paper, a whole library can move between machines, the app survives crashes without losing a word, and a Mac installs it from a 165 MB disk image that runs your own Claude Code or Codex. What's missing is a signature, proof on a real library, and Windows.
+**The short version:** notes live on Paper, a whole library can move between machines, the app survives crashes without losing a word, and a Mac installs it from a 156 MB disk image that runs your own Claude Code or Codex. What's missing is a signature, proof on a real library, and Windows.
 
 **Working, and shown working**
 - Profiles keep notes, chats and keys apart. [Accepted](docs/cycles/C039-completion-audit.md).
