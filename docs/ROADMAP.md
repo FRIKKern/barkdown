@@ -78,11 +78,11 @@ Existing cloud access is not two-way synchronization. Two real devices must demo
 | State | Journey | Evidence / acceptance |
 |---|---|---|
 | ◐ In progress | Install without a checkout | [Work and limits](cycles/C086-packaged-runtime.md) |
-| ○ Remaining | Update without losing work | [A5 gate](ACCEPTANCE.md#a5--install-and-daily-use) |
+| ◐ In progress | Update without losing work | [Work and limits](RELEASE.md) |
 | ○ Remaining | Recover a failed upgrade | [A5 gate](ACCEPTANCE.md#a5--install-and-daily-use) |
 | ○ Remaining | Keep data on uninstall | [A5 gate](ACCEPTANCE.md#a5--install-and-daily-use) |
-| ○ Remaining | Keyboard, zoom, daily use | [A5 gate](ACCEPTANCE.md#a5--install-and-daily-use) |
+| ◐ In progress | Keyboard, zoom, daily use | [Work and limits](cycles/C086-packaged-runtime.md) |
 
-Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. The Mac application builds with that runtime and its own Postgres inside and starts a profile with nothing else installed; it is signed ad hoc, about 1 GB, and Windows has no release. Clean-machine installation, upgrade/rollback, retained user data and the daily-use pilot remain pending.
+Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. The Mac application builds with that runtime and its own Postgres inside and starts a profile with nothing else installed; it is signed ad hoc, 420 MB, and Windows has no release. Nightlies are cut from this Mac on a schedule with an updater feed; the install step and clean-machine installation wait for a signing identity; the daily-use checks pass on one Mac, not yet with a person.
 
 Stage order and release gates remain in [PLAN.md](PLAN.md); [the current cycle](NEXT-AGENT.md) owns the next action. This view summarizes that plan and is not another backlog.

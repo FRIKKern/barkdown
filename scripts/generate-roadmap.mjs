@@ -27,9 +27,9 @@ export const summaries = {
     ['todo', 'Resolve edit/delete overlap'], ['todo', 'Respect access changes'], ['todo', 'Keep sync optional'],
   ], scope: 'Existing cloud access is not two-way synchronization. Two real devices must demonstrate convergence, overlap handling and permission changes without reorganizing human Pages.'},
   P5: {reviewedStageStatus: 'todo', title: ['Installation'], items: [
-    ['active', 'Install without a checkout', 'docs/cycles/C086-packaged-runtime.md'], ['todo', 'Update without losing work'],
-    ['todo', 'Recover a failed upgrade'], ['todo', 'Keep data on uninstall'], ['todo', 'Keyboard, zoom, daily use'],
-  ], scope: 'Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. The Mac application builds with that runtime and its own Postgres inside and starts a profile with nothing else installed; it is signed ad hoc, about 1 GB, and Windows has no release. Clean-machine installation, upgrade/rollback, retained user data and the daily-use pilot remain pending.'},
+    ['active', 'Install without a checkout', 'docs/cycles/C086-packaged-runtime.md'], ['active', 'Update without losing work', 'docs/RELEASE.md'],
+    ['todo', 'Recover a failed upgrade'], ['todo', 'Keep data on uninstall'], ['active', 'Keyboard, zoom, daily use', 'docs/cycles/C086-packaged-runtime.md'],
+  ], scope: 'Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. The Mac application builds with that runtime and its own Postgres inside and starts a profile with nothing else installed; it is signed ad hoc, 420 MB, and Windows has no release. Nightlies are cut from this Mac on a schedule with an updater feed; the install step and clean-machine installation wait for a signing identity; the daily-use checks pass on one Mac, not yet with a person.'},
 };
 // This is the active journey's evidence summary, not a percentage or a task queue.
 export const migrationProgress = [
