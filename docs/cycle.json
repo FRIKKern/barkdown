@@ -18,15 +18,16 @@
   ],
   "checkpoint": "2026-10-01",
   "handoff": "docs/cycles/C088-own-agents.md",
-  "nextAction": "S1: app/main/shell-environment.js (candidate login shells, per-shell timeout, merge, launchctl and registry fallbacks), used by provider resolution and provider runs; unit tests with fake shells; a live tour with a fixture shell and a fixture tool.",
-  "evidence": [],
-  "truthReview": "2026-10-01: opened. Decision and analysis in the paper The CLI Is Already There (guerrilla.barkpark.cloud/papers/the-cli-is-already-there), linked from C086. Nothing delivered yet.",
+  "nextAction": "S2: a binary path override per provider in Settings and a --version sanity run on whatever is resolved; a file that is not the tool is refused with its output.",
+  "evidence": [
+    "docs/cycles/evidence/C088/live/2026-10-01T10-05-16-540Z-shell-environment/result.json"
+  ],
+  "truthReview": "2026-10-01: opened. Decision and analysis in the paper The CLI Is Already There (guerrilla.barkpark.cloud/papers/the-cli-is-already-there), linked from C086. Nothing delivered yet. S1 delivered 2026-10-01: shell-environment.js probes the login shell with a bounded time per candidate, merges its PATH ahead of the inherited one, falls back to launchctl (macOS) or the registry (Windows), and feeds provider runs, the sign-in worker, owned workers and the terminal; the main process PATH stays as launched. Unit cases: merge order, a hung shell skipped within budget, a shell that rejects -ilc, launchctl and registry fallbacks, parsers, the singleton. Live: an Electron app launched with the system PATH and a fixture login shell finds a fixture Claude Code and reports signed in, with its own PATH unchanged. One Mac; fixtures, not a real shell.",
   "screenshotReview": "No renderer change yet. S3 adds three provider cards and takes one visual approval.",
   "delivery": {
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "S1 PATH hydration",
       "S2 binary path override and sanity run",
       "S3 tested-with range and cards",
       "S4 drop the packages, rebuild, rehearse",
