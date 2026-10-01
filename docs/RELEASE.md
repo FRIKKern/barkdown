@@ -1,6 +1,6 @@
 # Releasing Barkdown — proposed workflow
 
-Status: proposal, 2026-10-01, awaiting the owner's go. Learned from T3 Code's release pipeline; the reading and the reasoning are in the paper [Nightly Is the Release Candidate](https://guerrilla.barkpark.cloud/papers/nightly-is-the-release-candidate).
+Status: phase 1 in use since 2026-10-01 (`scripts/chain.mjs`, `scripts/release.mjs`); phases 2–4 pending. Learned from T3 Code's release pipeline; the reading and the reasoning are in the paper [Nightly Is the Release Candidate](https://guerrilla.barkpark.cloud/papers/nightly-is-the-release-candidate).
 
 ## The idea
 
@@ -12,14 +12,14 @@ One Mac (arm64). A private repository whose Actions runs start with zero jobs (b
 
 ## Phase 1 — a release script with the invariants (this Mac)
 
-`scripts/release.mjs <nightly|stable>` will:
+`node scripts/chain.mjs` runs `npm run check` and the full `npm test` on the exact commit at HEAD, stdin closed, and writes a receipt to `.release/chain/<sha>.json` (ignored; the release uploads it). `node scripts/release.mjs <nightly|stable>` then:
 
 1. refuse a dirty tree and a commit without a green full-chain receipt in the cycle evidence;
 2. build the runtime stamp, `Barkdown.app` and the disk image (`scripts/build-mac-app.mjs --dmg`);
 3. run `test:app-dmg` (install, uninstall, reinstall, failed-upgrade rollback) and `test:daily-use`;
 4. write `SHA256SUMS` from the final bytes about to be uploaded;
 5. generate notes against the previous tag in the same channel, with the cycle record's evidence links;
-6. tag that commit and create the GitHub Release with `gh`: nightly as `vX.Y.Z-nightly.<date>.<n>` (prerelease, never latest), stable as `vX.Y.Z` on a nightly's commit (latest).
+6. tag that commit and create the GitHub Release with `gh`: nightly as `vX.Y.Z-nightly.<date>.<n>` (prerelease, never latest), stable as `vX.Y.Z` on a nightly's commit (latest, `--from <nightly tag>` to choose one). `app/package.json` holds the *next* stable version; after a stable release it moves to the next patch on `main`. The rehearsal results and the chain receipt are uploaded beside the image.
 
 No dry run: every run of the script is a real release. The script says so.
 
