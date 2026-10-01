@@ -33,7 +33,7 @@ const noLaunchctl = ['/usr/bin/false'];
   assert.equal(mod.providerEnv(), process.env);
   const inst = mod.install(createShellEnvironment({ platform: 'darwin', env: { ...base, SHELL: path.join(shells, 'good.sh') }, home, timeoutMs: 2000, launchctl: noLaunchctl, exists: f => f === path.join(shells, 'good.sh') }), { hydrate: true });
   const ready = await mod.providerEnvReady();
-  assert.ok(ready.PATH.startsWith(tools + ':')); assert.equal(mod.providerEnv(), inst.current());
+  assert.ok(ready.PATH.startsWith(tools + ':')); assert.deepEqual(mod.providerEnv(), inst.current(), 'the installed instance answers, composed afresh each call');
 }
 {
   // A hanging shell is skipped within its budget, a shell that rejects -ilc is skipped, and the next candidate answers.
