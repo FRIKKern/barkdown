@@ -179,8 +179,8 @@ h1,h2,h3,p{margin:0}
 .bw-toasts{position:absolute;right:14px;bottom:14px;z-index:90;display:flex;flex-direction:column;gap:6px;pointer-events:none}.bw-toast{background:var(--bw-side);border:1px solid var(--bw-border);border-radius:8px;padding:8px 12px;font-size:11px;box-shadow:0 8px 30px #0005;max-width:360px;animation:bw-toast .2s ease-out}.bw-toast.err{border-color:var(--bw-delete)}@keyframes bw-toast{from{opacity:0;transform:translateY(6px)}}
 .bw-mobile-back{display:none}
 /* The narrow layout hides the sidebar; this button, shown only there, lays it over the chat (A5: 200% zoom, small windows). */
-.bw-pages-toggle{display:none}
-@media(max-width:760px){.bw-pages-toggle{display:inline-flex}.bw.bw-pages-open .bw-sidebar{display:flex;position:absolute;left:0;top:0;bottom:0;width:min(300px,86vw);z-index:6;box-shadow:12px 0 28px #0003;border-right:1px solid var(--bw-border)}.bw.bw-pages-open::before{content:'';position:absolute;inset:40px 0 0 0;z-index:5;background:#0006}}
+.bw-context .bw-pages-toggle{display:none}
+@media(max-width:760px){.bw-context .bw-pages-toggle{display:grid}.bw.bw-pages-open .bw-sidebar{display:flex;position:absolute;left:0;top:0;bottom:0;width:min(300px,86vw);z-index:6;box-shadow:12px 0 28px #0003;border-right:1px solid var(--bw-border)}.bw.bw-pages-open::before{content:'';position:absolute;inset:40px 0 0 0;z-index:5;background:#0006}}
 @media(max-width:920px){.bw-transcript{padding:21px 15px}.bw-tab{flex-basis:90px}}
 @media(max-width:760px){.bw-palette{left:50%;width:min(640px,calc(100% - 24px))}.bw{grid-template-columns:minmax(0,var(--bw-chat)) minmax(0,var(--bw-work))}.bw-brand,.bw-sidebar{display:none}.bw-context,.bw-chat{grid-column:1}.bw-workbar,.bw-workspace,.bw-splitter{grid-column:2}.bw[data-mode="document"],.bw[data-mode="editor"]{grid-template-columns:minmax(0,1fr)}.bw[data-mode="document"] .bw-workbar,.bw[data-mode="document"] .bw-workspace,.bw[data-mode="editor"] .bw-workbar,.bw[data-mode="editor"] .bw-workspace{grid-column:1}}
 @media(prefers-reduced-motion:reduce){.bw-pulse{animation:none}}
