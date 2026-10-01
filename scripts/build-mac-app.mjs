@@ -1,7 +1,12 @@
 // Build the macOS application with its runtime inside: Barkdown.app carries the Barkpark
 // release, its Erlang and its Postgres under Contents/Resources/runtime, so a profile starts
 // with nothing else installed. Unsigned for distribution: signed ad hoc, for this machine.
-// Usage: node scripts/build-mac-app.mjs [runtime folder] [--dmg] [--version X.Y.Z[-channel.…]]
+// Usage: node scripts/build-mac-app.mjs [runtime folder] [--dmg] [--version X.Y.Z[-channel.…]] [--channel nightly|latest]
+// --channel also writes the updater feed for that channel beside the image (<channel>-mac.yml, a zip
+// and its blockmap, what electron-updater reads), as a release carries them. Nothing is uploaded here.
+// Signing: with CSC_NAME (a Developer ID Application identity in the login keychain) and the three
+// APPLE_API_* notarization variables set, the build is signed with it, hardened and notarized;
+// otherwise it is signed ad hoc without the hardened runtime, which an ad hoc signature cannot honour.
 // --dmg also writes the disk image people install from (release/Barkdown-<version>-<arch>.dmg).
 // --version stamps the built application and its artefact names with a release version without
 // touching app/package.json (a nightly carries its own version; the manifest holds the next stable).
@@ -15,7 +20,10 @@ if (process.platform !== 'darwin') { console.error('This script builds the macOS
 const pin = fs.readFileSync(path.join(appDir, 'BARKPARK_REF'), 'utf8').trim();
 const wantDmg = process.argv.includes('--dmg');
 const versionArg = process.argv.find(a => a.startsWith('--version='))?.slice(10) || (process.argv.includes('--version') ? process.argv[process.argv.indexOf('--version') + 1] : null);
-const positional = process.argv.slice(2).filter((a, i, all) => !a.startsWith('--') && all[i - 1] !== '--version');
+const channelArg = process.argv.includes('--channel') ? process.argv[process.argv.indexOf('--channel') + 1] : null;
+if (channelArg && !['nightly', 'latest'].includes(channelArg)) { console.error('--channel is nightly or latest'); process.exit(2); }
+const signing = ['CSC_NAME', 'APPLE_API_KEY', 'APPLE_API_KEY_ID', 'APPLE_API_ISSUER'].every(name => process.env[name]);
+const positional = process.argv.slice(2).filter((a, i, all) => !a.startsWith('--') && all[i - 1] !== '--version' && all[i - 1] !== '--channel');
 const runtime = path.resolve(positional[0] || path.join(root, 'runtime', `barkpark-${pin.slice(0, 9)}-${process.platform}-${process.arch}`));
 let mark; try { mark = JSON.parse(fs.readFileSync(path.join(runtime, 'barkdown-release.json'), 'utf8')); } catch { console.error('Not a runtime folder built by build-runtime-release.mjs: ' + runtime); process.exit(2); }
 if (mark.upstream !== pin) { console.error(`The runtime holds ${mark.upstream.slice(0, 9)} but Barkdown is pinned to ${pin.slice(0, 9)}.`); process.exit(2); }
@@ -23,14 +31,20 @@ if (!mark.postgres || !fs.existsSync(path.join(runtime, 'postgres', 'bin', 'pg_c
 const manifest = JSON.parse(fs.readFileSync(path.join(appDir, 'package.json'), 'utf8'));
 if (versionArg && !/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.]+)?$/.test(versionArg)) { console.error('Not a version: ' + versionArg); process.exit(2); }
 const version = versionArg || manifest.version;
-const config = { ...manifest.build, extraResources: [...(manifest.build.extraResources || []), { from: runtime, to: 'runtime' }], mac: { ...(manifest.build.mac || {}), target: wantDmg ? ['dir', 'dmg'] : 'dir', identity: '-' },
+const remote = (() => { try { return /github\.com[:/]([^/]+)\/([^/.]+)/.exec(execFileSync('git', ['config', '--get', 'remote.origin.url'], { cwd: root, encoding: 'utf8' })); } catch { return null; } })();
+const config = { ...manifest.build, extraResources: [...(manifest.build.extraResources || []), { from: runtime, to: 'runtime' }],
+  mac: { ...(manifest.build.mac || {}), target: wantDmg ? ['dir', 'dmg', ...(channelArg ? ['zip'] : [])] : 'dir',
+    ...(signing ? { identity: process.env.CSC_NAME, hardenedRuntime: true, gatekeeperAssess: false, notarize: true } : { identity: '-', hardenedRuntime: false }) },
   ...(versionArg ? { extraMetadata: { version } } : {}),
-  ...(wantDmg ? { artifactName: 'Barkdown-${version}-${arch}.${ext}', dmg: { sign: false, writeUpdateInfo: false } } : {}) };
+  ...(wantDmg ? { artifactName: 'Barkdown-${version}-${arch}.${ext}', dmg: { sign: false, writeUpdateInfo: Boolean(channelArg) } } : {}),
+  ...(channelArg && remote ? { publish: [{ provider: 'github', owner: remote[1], repo: remote[2], releaseType: channelArg === 'nightly' ? 'prerelease' : 'release', ...(channelArg === 'nightly' ? { channel: 'nightly' } : {}) }] } : {}) };
+if (channelArg && !remote) { console.error('--channel needs a GitHub remote to name the feed'); process.exit(2); }
+console.log(signing ? `Signing with ${process.env.CSC_NAME} and notarizing.` : 'Signing ad hoc (no CSC_NAME / APPLE_API_* in the environment).');
 const configFile = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-mac-app-')), 'builder.json');
 fs.writeFileSync(configFile, JSON.stringify(config, null, 2));
-const run = (command, args) => execFileSync(command, args, { cwd: appDir, stdio: ['ignore', 'inherit', 'inherit'], env: { ...process.env, CSC_IDENTITY_AUTO_DISCOVERY: 'false' } });
+const run = (command, args) => execFileSync(command, args, { cwd: appDir, stdio: ['ignore', 'inherit', 'inherit'], env: { ...process.env, CSC_IDENTITY_AUTO_DISCOVERY: signing ? 'true' : 'false' } });
 run('npm', ['run', 'build']);
-run(path.join(appDir, 'node_modules', '.bin', 'electron-builder'), ['--mac', ...(wantDmg ? [] : ['--dir']), `--${process.arch}`, '--config', configFile]);
+run(path.join(appDir, 'node_modules', '.bin', 'electron-builder'), ['--mac', ...(wantDmg ? [] : ['--dir']), `--${process.arch}`, '--publish', 'never', '--config', configFile]);
 const built = path.join(appDir, 'release', process.arch === 'arm64' ? 'mac-arm64' : 'mac', 'Barkdown.app');
 if (!fs.existsSync(path.join(built, 'Contents', 'Resources', 'runtime', 'bin', 'barkpark'))) { console.error('The built application does not carry the runtime.'); process.exit(1); }
 console.log('Built ' + built);
@@ -41,4 +55,9 @@ if (wantDmg) {
   const digest = (await import('node:crypto')).createHash('sha256').update(fs.readFileSync(dmg)).digest('hex');
   fs.writeFileSync(dmg + '.sha256', `${digest}  ${path.basename(dmg)}\n`);
   console.log(`Disk image ${dmg} (${Math.round(fs.statSync(dmg).size / 1048576)} MB), sha256 ${digest.slice(0, 12)}…`);
+  if (channelArg) {
+    const feed = path.join(appDir, 'release', `${channelArg}-mac.yml`);
+    if (!fs.existsSync(feed)) { console.error('The updater feed was not written: ' + feed); process.exit(1); }
+    console.log(`Updater feed ${feed}`);
+  }
 }

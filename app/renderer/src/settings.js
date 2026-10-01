@@ -6,6 +6,7 @@ import { openRetainedDrafts } from './retained-drafts.js';
 // Shortcuts (reference) and About. Appearance changes preview live and are reverted on Cancel;
 // everything else lands on Save.
 import { el, esc, iconHtml, toast } from './ui.js';
+const errorMessage = error => String(error?.message || error).replace(/^Error invoking remote method '[^']+': /, '');
 import { state } from './state.js';
 import { modelsFor, defaultModelLabel } from './models.js';
 import { openDialog, askConfirm } from './dialogs.js';
@@ -124,6 +125,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
       </section>
       <section data-pane="about" ${pane !== 'about' ? 'hidden' : ''}>
         <div class="bw-about"><span class="bw-mark">b</span><div><b>Barkdown</b><small id="about-version">…</small></div></div>
+        ${setting('Updates', '<span id="about-updates">…</span>', '<div class="bw-inline"><button type="button" class="bw-btn" data-act="update-check">Check for updates</button><button type="button" class="bw-btn" data-act="update-download" hidden>Download</button><button type="button" class="bw-btn bw-primary" data-act="update-install" hidden>Restart to update</button></div>')}
         <h3>Runtime</h3>
         <table class="bw-keys" id="about-runtime"><tr><td>Loading…</td></tr></table>
         <h3>Data</h3>
@@ -140,6 +142,14 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
   // Install links open in the browser, never in this window.
   q('#providers')?.addEventListener('click', e => { const a = e.target.closest('a[data-external]'); if (a) { e.preventDefault(); api.app.openExternal(a.href); } });
   api.providers.tools().then(tools => { for (const name of ['claude', 'codex']) { const el = q(`[data-tool-status="${name}"]`); if (el) el.innerHTML = describeTool(tools[name]); } }).catch(() => {});
+  // Updates: what the checker knows, and the one action that fits it. Nothing starts on its own.
+  const describeUpdates = u => { const when = u.checkedAt ? ` Checked ${new Date(u.checkedAt).toLocaleTimeString()}.` : ''; return ({ off: u.message, idle: `Version ${esc(u.version)} on the ${esc(u.channel)} channel. Not checked yet.`, checking: 'Checking…', current: `Version ${esc(u.version)} is the newest on the ${esc(u.channel)} channel.${when}`, available: `Barkdown ${esc(u.latest)} is available.${when}`, downloading: `Downloading Barkdown ${esc(u.latest)}… ${u.percent}%`, downloaded: `Barkdown ${esc(u.latest)} is downloaded.${u.message ? ' <span class="bw-warn">' + esc(u.message) + '</span>' : ''}`, error: `<span class="bw-warn">${esc(u.message || 'The update check failed.')}</span>` })[u.phase] || esc(u.phase); };
+  const renderUpdates = u => { const el = q('#about-updates'); if (!el) return; el.innerHTML = describeUpdates(u); const show = (sel, on) => { const b = q(sel); if (b) b.hidden = !on; }; show('[data-act="update-check"]', ['idle', 'current', 'error', 'available'].includes(u.phase)); show('[data-act="update-download"]', u.phase === 'available' || (u.phase === 'error' && u.latest)); show('[data-act="update-install"]', u.phase === 'downloaded' && u.signed); };
+  api.updates.status().then(renderUpdates).catch(() => {});
+  const stopUpdates = api.updates.onChange(renderUpdates);
+  q('[data-act="update-check"]').onclick = () => api.updates.check().then(renderUpdates).catch(error => toast(errorMessage(error), 'error'));
+  q('[data-act="update-download"]').onclick = () => api.updates.download().then(renderUpdates).catch(error => toast(errorMessage(error), 'error'));
+  q('[data-act="update-install"]').onclick = () => api.updates.install().then(renderUpdates).catch(error => toast(errorMessage(error), 'error'));
   const loginDisposers = qa('[data-login-provider]').map(host => mountProviderLogin(host, host.dataset.loginProvider, result => { const badge = host.closest('[data-provider]').querySelector('.bw-badge'); const ok = result.state === 'signed-in'; badge.textContent = ok ? 'Signed in' : 'Not signed in'; badge.classList.toggle('ok', ok); badge.classList.toggle('off', !ok); }));
 
   // navigation
@@ -364,7 +374,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
   function markDirty() { dirty = true; q('#dirty').hidden = false; }
   qa('input[type=text], input[type=password], input[type=checkbox], select').forEach(n => n.addEventListener('input', markDirty));
   const dismiss = openDialog(dialog, { onDismiss: () => cancel() });
-  const close = () => { loginDisposers.forEach(dispose => dispose()); unsubscribeLocal(); dismiss(); };
+  const close = () => { loginDisposers.forEach(dispose => dispose()); stopUpdates(); unsubscribeLocal(); dismiss(); };
   const cancel = () => { if (saving) return; onChange({ theme: original.theme, chatWidth: original.chatWidth }, true); close(); };
   q('[data-act="cancel"]').onclick = cancel;
   q('[data-act="original-history"]').onclick = () => {

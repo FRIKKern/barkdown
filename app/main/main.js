@@ -36,6 +36,15 @@ let providerLogin = null;
 // ready by the time a chat or a sign-in check needs it; never applied to the packaged runtime.
 const shellEnvironment = require('./shell-environment').install(require('./shell-environment').createShellEnvironment({ log: line => console.error(line) }), { hydrate: process.env.BARKDOWN_SHELL_ENV !== 'off' });
 const providerEnvReady = () => require('./shell-environment').providerEnvReady();
+// Updates (C086, docs/RELEASE.md phase 3): checked in the background, downloaded and installed only when asked.
+let updates;
+function installUpdates() {
+  const packaged = app.isPackaged;
+  // codesign prints "Signature=adhoc" for an ad hoc signature; a Developer ID signature names its authority.
+  let signed = false; try { if (packaged && process.platform === 'darwin') { const out = require('node:child_process').spawnSync('codesign', ['-dv', '--verbose=2', process.execPath], { encoding: 'utf8' }); signed = !/Signature=adhoc/.test(out.stderr + out.stdout) && /Authority=Developer ID Application/.test(out.stderr + out.stdout); } } catch { signed = false; }
+  updates = require('./updates').createUpdates({ app, autoUpdater: require('electron-updater').autoUpdater, version: app.getVersion(), repository: { owner: 'FRIKKern', repo: 'barkdown' }, signed, configDir: app.getPath('userData'), log: line => console.error(line), onChange: status => win?.webContents.send('updates:changed', status) });
+  updates.start();
+}
 function loginService() { return providerLogin ||= require('./provider-login').createProviderLogin({ storeDir: app.getPath('userData'), binaryFor: provider => readSettings().providerBinary?.[provider] || '' }); }
 // Which file is the user's tool, and whether it answers like one (C088 S2).
 const providerTools = require('./provider-tools').createProviderTools({ settings: () => readSettings(), env: () => require('./shell-environment').providerEnvReady() });
@@ -440,6 +449,10 @@ function registerIpc() {
   handle('app:openPath', p => shell.openPath(p));
   // A fresh host after an aborted preparation (profile-launch-admission.js): the owned shutdown path runs first.
   handle('app:relaunch', () => { app.relaunch(); app.quit(); return true; }, true);
+  handle('updates:status', () => updates.status());
+  handle('updates:check', () => updates.check());
+  handle('updates:download', () => updates.download());
+  handle('updates:install', () => updates.install());
   handle('app:settled', ({ id, result }) => { const waiting = settling.get(id); if (waiting) { settling.delete(id); waiting(result); } return true; }, true);
   handle('app:info', () => ({ version: app.getVersion(), electron: process.versions.electron, chrome: process.versions.chrome, node: process.versions.node, platform: process.platform, arch: process.arch, userData: store.dir() }));
 
@@ -660,6 +673,7 @@ if (!ownsInstance) app.quit();
 app.on('second-instance', () => { if (win) { if (win.isMinimized()) win.restore(); win.focus(); } });
 
 app.whenReady().then(async () => {
+  installUpdates();
   if (!ownsInstance) return;
   bootBusy = true;
   const { acquireAuthorityLease, createLegacyAdoption } = require('./legacy-authority-adoption');
