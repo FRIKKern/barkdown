@@ -6,6 +6,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { execFileSync, spawnSync } from 'node:child_process';
+import { _electron as electron } from 'playwright';
 import { fileURLToPath } from 'node:url';
 const appRoot = fileURLToPath(new URL('..', import.meta.url));
 const manifest = JSON.parse(fs.readFileSync(path.join(appRoot, 'package.json'), 'utf8'));
@@ -20,6 +21,11 @@ const mountpoint = path.join(root, 'image'), applications = path.join(root, 'App
 let mounted = false;
 try {
   assert.ok(report.imageMb < 650, `the image is ${report.imageMb} MB, under 650`);
+  // The checksum beside the image matches the image: what a person verifies after a download.
+  const written = fs.readFileSync(dmg + '.sha256', 'utf8').trim().split(/\s+/);
+  const digest = (await import('node:crypto')).createHash('sha256').update(fs.readFileSync(dmg)).digest('hex');
+  assert.deepEqual(written, [digest, path.basename(dmg)], 'the .sha256 beside the image names the image and matches it');
+  report.sha256 = digest; report.checks.push({ name: 'The SHA-256 written beside the image matches the image' }); persist();
   execFileSync('hdiutil', ['attach', dmg, '-nobrowse', '-readonly', '-noautoopen', '-mountpoint', mountpoint], { stdio: 'ignore' }); mounted = true;
   const entries = fs.readdirSync(mountpoint);
   assert.ok(entries.includes('Barkdown.app'), 'the image holds Barkdown.app: ' + entries.join(', '));
@@ -27,17 +33,36 @@ try {
   report.checks.push({ name: 'The disk image mounts read-only and holds Barkdown.app beside an Applications link', imageMb: report.imageMb }); persist();
   // A person drags the application to Applications: a plain copy, attributes kept.
   execFileSync('cp', ['-R', path.join(mountpoint, 'Barkdown.app'), applications], { stdio: 'ignore' });
+  const reinstall = path.join(root, 'reinstall'); fs.mkdirSync(reinstall); execFileSync('cp', ['-R', path.join(mountpoint, 'Barkdown.app'), reinstall], { stdio: 'ignore' });
   execFileSync('hdiutil', ['detach', mountpoint, '-force'], { stdio: 'ignore' }); mounted = false;
   const installed = path.join(applications, 'Barkdown.app');
   const mark = JSON.parse(fs.readFileSync(path.join(installed, 'Contents', 'Resources', 'runtime', 'barkdown-release.json'), 'utf8'));
   assert.equal(mark.upstream, fs.readFileSync(path.join(appRoot, 'BARKPARK_REF'), 'utf8').trim(), 'the installed copy carries the pinned runtime');
   report.checks.push({ name: 'The application copied out of the image carries the pinned runtime; the image is detached before it runs' }); persist();
-  const rehearsal = spawnSync(process.execPath, [path.join(appRoot, 'tests', 'app-packaged.live.mjs')], { cwd: appRoot, env: { ...process.env, BARKDOWN_TEST_APP: installed }, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+  const userData = path.join(root, 'user-data'); fs.mkdirSync(userData);
+  const rehearsal = spawnSync(process.execPath, [path.join(appRoot, 'tests', 'app-packaged.live.mjs')], { cwd: appRoot, env: { ...process.env, BARKDOWN_TEST_APP: installed, BARKDOWN_TEST_USER_DATA: userData, BARKDOWN_TEST_KEEP: '1' }, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
   fs.writeFileSync(path.join(out, 'packaged-rehearsal.log'), rehearsal.stdout + rehearsal.stderr);
   assert.equal(rehearsal.status, 0, 'the packaged rehearsal passes against the installed copy; see packaged-rehearsal.log');
   const latest = fs.readdirSync(path.resolve(appRoot, '../docs/cycles/evidence/C086/live')).filter(d => d.endsWith('-app-packaged')).sort().at(-1);
   report.rehearsal = latest ? `evidence/C086/live/${latest}/result.json` : null;
   report.checks.push({ name: 'The packaged rehearsal (first boot, note, restart) passes against the copy installed from the image', rehearsal: report.rehearsal }); persist();
+  // Uninstall: the application goes, the library stays. Reinstall from the image: the same note reads back.
+  const previous = JSON.parse(fs.readFileSync(path.resolve(appRoot, '../docs/cycles', report.rehearsal), 'utf8'));
+  fs.rmSync(installed, { recursive: true, force: true });
+  assert.equal(fs.existsSync(installed), false);
+  assert.ok(fs.existsSync(path.join(userData, 'profile-data', 'registry.json')), 'the profile registry survives the uninstall');
+  const dataMb = Math.round(Number(execFileSync('du', ['-sk', userData], { encoding: 'utf8' }).split('\t')[0]) / 1024);
+  report.checks.push({ name: 'Removing the application leaves the user data where it was', userDataMb: dataMb }); persist();
+  fs.renameSync(path.join(reinstall, 'Barkdown.app'), installed);
+  const app = await electron.launch({ executablePath: path.join(installed, 'Contents', 'MacOS', 'Barkdown'), args: ['--profiles', `--user-data=${userData}`, `--app-name=${previous.note.rehearsalName}`], env: { HOME: os.homedir(), USER: process.env.USER, PATH: '/usr/bin:/bin:/usr/sbin:/sbin', TMPDIR: process.env.TMPDIR, BARKDOWN_PROVIDER: 'api' } });
+  try {
+    const page = await app.firstWindow({ timeout: 300000 }); page.setDefaultTimeout(60000);
+    await page.waitForFunction(() => window.__barkdown?.state.loaded);
+    for (let i = 0; i < 900; i++) { const s = await page.evaluate(() => window.barkdown.barkpark.localStatus()).catch(() => ({ phase: 'pending' })); if (s.phase === 'ready') break; if (s.phase === 'failed') throw new Error('runtime failed after reinstall: ' + s.error); await new Promise(r => setTimeout(r, 200)); }
+    const read = await page.evaluate(({ id, paperOwner }) => window.barkdown.barkpark.get(id, undefined, paperOwner), previous.note);
+    assert.equal(read.title, 'From the application'); assert.match(read.markdown, /Rhubarb notes written in the built application\./);
+    report.checks.push({ name: 'The application reinstalled from the image opens the same library and the note reads the same' }); persist();
+  } finally { await app.close().catch(() => {}); try { execFileSync('security', ['delete-generic-password', '-s', previous.note.rehearsalName + ' Safe Storage'], { stdio: 'ignore' }); } catch {} }
   report.status = 'passed'; report.limits = ['One Mac. The image is ad hoc signed and not notarized: on another Mac Gatekeeper refuses it until the signature exists. Dragging is simulated by a copy.']; persist();
   console.log(JSON.stringify({ status: report.status, imageMb: report.imageMb, checks: report.checks.map(c => c.name) }, null, 2));
 } catch (error) { report.error = String(error.stack || error); persist(); console.error(report.error); process.exitCode = 1; }

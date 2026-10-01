@@ -24,7 +24,10 @@ const stamp = JSON.parse(fs.readFileSync(path.join(carried, 'barkdown-release.js
 const host = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 const out = path.resolve('../docs/cycles/evidence/C086/live', new Date().toISOString().replace(/[:.]/g, '-') + '-app-packaged');
 fs.mkdirSync(out, { recursive: true });
-const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-app-')));
+// A caller may hand in the user-data folder and ask to keep the keychain item, so a later launch of a
+// reinstalled application can open the same library (the disk-image rehearsal does).
+const userData = process.env.BARKDOWN_TEST_USER_DATA ? fs.realpathSync(process.env.BARKDOWN_TEST_USER_DATA) : fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-app-')));
+const keepSecrets = process.env.BARKDOWN_TEST_KEEP === '1';
 const bytes = dir => Number(execFileSync('du', ['-sk', dir], { encoding: 'utf8' }).split(/\s+/)[0]) * 1024;
 const report = { source: host, upstream: stamp.upstream, application: { megabytes: Math.round(bytes(bundle) / 1e6), runtimeMegabytes: Math.round(bytes(carried) / 1e6) }, host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],
   limits: ['One Mac, one run. The application was built on this machine from the working tree named in `source`, signed ad hoc, not notarized, and started from its build folder, not installed, under a name of its own so its keychain item is its own. It is started with --profiles; an ordinary launch still opens the single legacy library. No Mac without developer tools has run it.'] };
@@ -96,7 +99,8 @@ try {
   assert.equal(read.title, 'From the application'); assert.match(read.markdown, /Rhubarb notes written in the built application\./);
   report.checks.push({ name: 'After a quit and a restart of the application the note reads the same; nothing was left running in between' }); persist();
   await quit();
-  forgetKeychain();
+  if (!keepSecrets) forgetKeychain();
+  report.note = { id: note.id, paperOwner: note.paperOwner, rehearsalName };
   report.status = 'passed'; persist(); console.log(JSON.stringify(report, null, 2));
 } catch (error) {
   report.status = 'failed'; report.error = String(error?.stack || error); report.mainStderr = stderr.join('').split('\n').filter(l => !/IMK/.test(l)).slice(-20);

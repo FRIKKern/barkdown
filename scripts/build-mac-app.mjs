@@ -30,5 +30,8 @@ console.log('Built ' + built);
 if (wantDmg) {
   const dmg = path.join(appDir, 'release', `Barkdown-${manifest.version}-${process.arch}.dmg`);
   if (!fs.existsSync(dmg)) { console.error('The disk image was not written: ' + dmg); process.exit(1); }
-  console.log(`Disk image ${dmg} (${Math.round(fs.statSync(dmg).size / 1048576)} MB)`);
+  // The checksum people verify a download against, beside the image (A5: artifact integrity).
+  const digest = (await import('node:crypto')).createHash('sha256').update(fs.readFileSync(dmg)).digest('hex');
+  fs.writeFileSync(dmg + '.sha256', `${digest}  ${path.basename(dmg)}\n`);
+  console.log(`Disk image ${dmg} (${Math.round(fs.statSync(dmg).size / 1048576)} MB), sha256 ${digest.slice(0, 12)}…`);
 }

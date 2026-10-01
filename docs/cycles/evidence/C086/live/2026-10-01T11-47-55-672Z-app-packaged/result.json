@@ -1,0 +1,38 @@
+{
+  "source": "dd1d4c06dd8dd940c973b23ec46a6463b11ced40",
+  "upstream": "9f1874235449f9763c1b3e8cfcaf1b5a36aee9b3",
+  "application": {
+    "megabytes": 478,
+    "runtimeMegabytes": 151
+  },
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "The built application starts a never-configured profile on the runtime and the Postgres it carries, with only system folders on the PATH",
+      "firstBootMs": 10034
+    },
+    {
+      "name": "The application carries no Claude Code or Codex of its own and is under 650 MB",
+      "sizeMb": 456
+    },
+    {
+      "name": "New page in the built application is a Paper on the carried runtime; typed and saved"
+    },
+    {
+      "name": "After a quit and a restart of the application the note reads the same; nothing was left running in between"
+    }
+  ],
+  "screenshots": [
+    "01-note-in-the-built-application.png"
+  ],
+  "limits": [
+    "One Mac, one run. The application was built on this machine from the working tree named in `source`, signed ad hoc, not notarized, and started from its build folder, not installed, under a name of its own so its keychain item is its own. It is started with --profiles; an ordinary launch still opens the single legacy library. No Mac without developer tools has run it."
+  ],
+  "sizeMb": 456,
+  "note": {
+    "id": "drafts.bd-note-5c9d36ca-53a9-442b-9eb4-bffa4628aaf4",
+    "paperOwner": "49ef84191b5d647f41f7706470c3c3361e7483f3c604f50f5bc57bb04f2bc58c",
+    "rehearsalName": "Barkdown Rehearsal r-data"
+  }
+}
