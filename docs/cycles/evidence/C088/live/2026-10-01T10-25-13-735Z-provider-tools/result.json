@@ -1,0 +1,80 @@
+{
+  "source": null,
+  "host": "darwin 24.3.0 arm64",
+  "checks": [
+    "On the login-shell PATH the fixture Claude Code is found and its --version answer accepted; Codex is reported as found or as not found",
+    "A path set in Settings wins; a file that is not the tool is refused with what it answered, and the sign-in check through it does not report signed in",
+    "The chosen path is checked again and the sign-in check follows it",
+    "A relative path is refused on save",
+    "An older tool warns and names the tested version; a different major warns; at or past the tested version nothing is said",
+    "Settings shows the tool field with what was found and the version warning"
+  ],
+  "status": "passed",
+  "found": {
+    "claude": {
+      "provider": "claude",
+      "path": "/private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-provider-tools-live-UlO1NZ/tools/claude",
+      "source": "path",
+      "version": "9.9.9",
+      "ok": true,
+      "problem": null,
+      "checkedAt": "2026-10-01T10:25:16.095Z",
+      "answer": "9.9.9 (Claude Code)",
+      "fit": "major",
+      "tested": "2.1.276",
+      "advice": "Claude Code 9.9.9 is a different major version than the 2.1.276 Barkdown was tested with; chats may fail until one of them changes."
+    },
+    "codex": {
+      "provider": "codex",
+      "path": "/Users/frikkjarl/Documents/GitHub/barkdown/app/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/bin/codex",
+      "source": "path",
+      "version": "0.155.0",
+      "ok": true,
+      "problem": null,
+      "checkedAt": "2026-10-01T10:25:16.099Z",
+      "answer": "codex-cli 0.155.0",
+      "fit": "tested",
+      "tested": "0.155.0"
+    }
+  },
+  "refused": {
+    "provider": "claude",
+    "path": "/private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-provider-tools-live-UlO1NZ/tools/impostor",
+    "source": "settings",
+    "version": null,
+    "ok": false,
+    "problem": "Not Claude Code: --version answered “hello from a script”",
+    "checkedAt": "2026-10-01T10:25:16.222Z"
+  },
+  "fit": {
+    "old": {
+      "provider": "claude",
+      "path": "/private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-provider-tools-live-UlO1NZ/tools/claude-old",
+      "source": "settings",
+      "version": "2.0.1",
+      "ok": true,
+      "problem": null,
+      "checkedAt": "2026-10-01T10:25:16.878Z",
+      "answer": "2.0.1 (Claude Code)",
+      "fit": "older",
+      "tested": "2.1.276",
+      "advice": "Claude Code 2.0.1 is older than the 2.1.276 Barkdown was tested with. Update it with its own installer."
+    },
+    "next": {
+      "provider": "claude",
+      "path": "/private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-provider-tools-live-UlO1NZ/tools/claude-next",
+      "source": "settings",
+      "version": "3.0.0",
+      "ok": true,
+      "problem": null,
+      "checkedAt": "2026-10-01T10:25:17.074Z",
+      "answer": "3.0.0 (Claude Code)",
+      "fit": "major",
+      "tested": "2.1.276",
+      "advice": "Claude Code 3.0.0 is a different major version than the 2.1.276 Barkdown was tested with; chats may fail until one of them changes."
+    }
+  },
+  "limits": [
+    "One Mac. The tools and the login shell are fixtures; a real Claude Code on a clean account is the S4 rehearsal."
+  ]
+}
