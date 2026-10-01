@@ -62,7 +62,37 @@ try {
     const read = await page.evaluate(({ id, paperOwner }) => window.barkdown.barkpark.get(id, undefined, paperOwner), previous.note);
     assert.equal(read.title, 'From the application'); assert.match(read.markdown, /Rhubarb notes written in the built application\./);
     report.checks.push({ name: 'The application reinstalled from the image opens the same library and the note reads the same' }); persist();
-  } finally { await app.close().catch(() => {}); try { execFileSync('security', ['delete-generic-password', '-s', previous.note.rehearsalName + ' Safe Storage'], { stdio: 'ignore' }); } catch {} }
+  } finally { await app.close().catch(() => {}); }
+  // A failed upgrade: the replacement bundle has no runtime inside. The library must not be touched
+  // and the app must say so; putting the previous bundle back must bring the note back.
+  const registryBefore = fs.readFileSync(path.join(userData, 'profile-data', 'registry.json'), 'utf8');
+  const countFiles = dir => { let n = 0; for (const e of fs.readdirSync(dir, { withFileTypes: true })) n += e.isDirectory() ? countFiles(path.join(dir, e.name)) : 1; return n; };
+  const filesBefore = countFiles(path.join(userData, 'profile-data'));
+  const good = path.join(root, 'previous'); fs.renameSync(installed, good);
+  execFileSync('cp', ['-R', good, installed], { stdio: 'ignore' });
+  fs.rmSync(path.join(installed, 'Contents', 'Resources', 'runtime'), { recursive: true, force: true });
+  const broken = await electron.launch({ executablePath: path.join(installed, 'Contents', 'MacOS', 'Barkdown'), args: ['--profiles', `--user-data=${userData}`, `--app-name=${previous.note.rehearsalName}`], env: { HOME: os.homedir(), USER: process.env.USER, PATH: '/usr/bin:/bin:/usr/sbin:/sbin', TMPDIR: process.env.TMPDIR, BARKDOWN_PROVIDER: 'api' } });
+  let brokenStatus;
+  try {
+    const page = await broken.firstWindow({ timeout: 120000 }); page.setDefaultTimeout(60000);
+    await page.waitForFunction(() => window.__barkdown?.state.loaded);
+    for (let i = 0; i < 150; i++) { brokenStatus = await page.evaluate(() => window.barkdown.barkpark.localStatus()).catch(() => ({ phase: 'pending' })); if (['ready', 'failed', 'stopped', 'unconfigured'].includes(brokenStatus.phase)) break; await new Promise(r => setTimeout(r, 200)); }
+    await page.screenshot({ path: path.join(out, '02-broken-replacement.png') });
+  } finally { await broken.close().catch(() => {}); }
+  assert.notEqual(brokenStatus?.phase, 'ready', 'a bundle without its runtime does not claim to be ready: ' + JSON.stringify(brokenStatus));
+  assert.equal(fs.readFileSync(path.join(userData, 'profile-data', 'registry.json'), 'utf8'), registryBefore, 'the profile registry is untouched by the broken replacement');
+  assert.ok(countFiles(path.join(userData, 'profile-data')) >= filesBefore, 'no profile file was removed by the broken replacement');
+  report.checks.push({ name: 'A replacement bundle without its runtime does not start the library and leaves the profile data untouched', observed: brokenStatus }); persist();
+  fs.rmSync(installed, { recursive: true, force: true }); fs.renameSync(good, installed);
+  const back = await electron.launch({ executablePath: path.join(installed, 'Contents', 'MacOS', 'Barkdown'), args: ['--profiles', `--user-data=${userData}`, `--app-name=${previous.note.rehearsalName}`], env: { HOME: os.homedir(), USER: process.env.USER, PATH: '/usr/bin:/bin:/usr/sbin:/sbin', TMPDIR: process.env.TMPDIR, BARKDOWN_PROVIDER: 'api' } });
+  try {
+    const page = await back.firstWindow({ timeout: 300000 }); page.setDefaultTimeout(60000);
+    await page.waitForFunction(() => window.__barkdown?.state.loaded);
+    for (let i = 0; i < 900; i++) { const s = await page.evaluate(() => window.barkdown.barkpark.localStatus()).catch(() => ({ phase: 'pending' })); if (s.phase === 'ready') break; if (s.phase === 'failed') throw new Error('runtime failed after rollback: ' + s.error); await new Promise(r => setTimeout(r, 200)); }
+    const read = await page.evaluate(({ id, paperOwner }) => window.barkdown.barkpark.get(id, undefined, paperOwner), previous.note);
+    assert.equal(read.title, 'From the application'); assert.match(read.markdown, /Rhubarb notes written in the built application\./);
+    report.checks.push({ name: 'The previous bundle put back opens the same library and the note reads the same (failed-upgrade rollback)' }); persist();
+  } finally { await back.close().catch(() => {}); try { execFileSync('security', ['delete-generic-password', '-s', previous.note.rehearsalName + ' Safe Storage'], { stdio: 'ignore' }); } catch {} }
   report.status = 'passed'; report.limits = ['One Mac. The image is ad hoc signed and not notarized: on another Mac Gatekeeper refuses it until the signature exists. Dragging is simulated by a copy.']; persist();
   console.log(JSON.stringify({ status: report.status, imageMb: report.imageMb, checks: report.checks.map(c => c.name) }, null, 2));
 } catch (error) { report.error = String(error.stack || error); persist(); console.error(report.error); process.exitCode = 1; }

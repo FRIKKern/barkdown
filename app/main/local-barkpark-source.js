@@ -58,6 +58,9 @@ function releaseSecrets(password) {
     PREVIEW_JWT_SECRET: derive('preview-jwt', 32).toString('hex'), BARKPARK_RELEASE_CAPTURE_HMAC_SECRET: derive('release-capture', 32).toString('hex') };
 }
 function validate(config) {
+  // A packaged application whose own runtime folder is gone is a damaged install, and the person
+  // needs the way out, not the developer's choice of sources.
+  if (typeof config?.source === 'string' && process.resourcesPath && config.source.startsWith(process.resourcesPath + path.sep) && !releaseOf(config.source)) throw new Error('This copy of Barkdown is missing the runtime it should carry. Reinstall Barkdown from its disk image; your notes and profiles are kept.');
   if (!config?.source || !path.isAbsolute(config.source) || !(fs.existsSync(path.join(config.source, 'api', 'mix.exs')) || releaseOf(config.source))) throw new Error('Choose a built Barkpark source checkout (containing api/mix.exs) or a packaged Barkpark release (containing bin/barkpark).');
   for (const key of ['port', 'pgPort']) if (!Number.isInteger(config[key]) || config[key] < 1024 || config[key] > 65535) throw new Error(`Invalid local ${key}.`);
   if (config.port === config.pgPort) throw new Error('HTTP and database ports must be different.');
