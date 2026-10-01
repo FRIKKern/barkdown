@@ -4,7 +4,9 @@ const path = require('path');
 const crypto = require('crypto');
 const { markdownToDoc, docToMarkdown, docToText } = require('../shared/markdown');
 
-function createDocuments(store, { writer = null, lazyWriter = false } = {}) {
+// `seed` is the legacy launch's welcome notes for an empty library; an assistant run or the MCP server
+// must never write them (C087: nothing but the legacy launch writes the legacy store).
+function createDocuments(store, { writer = null, lazyWriter = false, seed: seedByDefault = true } = {}) {
 writer ||= require('./writer-admission').writerForStore(store, { lazy: lazyWriter });
 const paperOwnership = require('./paper-evidence-owner').createPaperEvidenceOwner(store);
 const MAX_REVISIONS = 60;
@@ -28,7 +30,7 @@ function reload(id) {
   return doc;
 }
 
-function loadAll({ seed: seedEmpty = true } = {}) {
+function loadAll({ seed: seedEmpty = seedByDefault } = {}) {
   void writer.token;
   cache.clear();
   for (const file of store.list('documents', '.json')) {

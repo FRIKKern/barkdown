@@ -22,7 +22,7 @@ const store = require('./store').createStore(storeDir);
 const writer = require('./writer-admission').writerForStore(store, {
   token: process.env.BARKDOWN_WRITER_TOKEN ? JSON.parse(process.env.BARKDOWN_WRITER_TOKEN) : undefined,
 });
-const documents = require('./documents').createDocuments(store, { writer });
+const documents = require('./documents').createDocuments(store, { writer, seed: false });
 const agentEdits = require('./agent-edits').createAgentEdits({ store, documents });
 const conversations = require('./conversations').createConversations(store);
 capturedConnection ||= Object.freeze({ ...(store.readJson('barkpark.json', null) || {}), token: process.env.BARKDOWN_BP_TOKEN || '' });

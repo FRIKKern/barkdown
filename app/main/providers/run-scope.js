@@ -20,7 +20,7 @@ function captureScope({ profileId = null, storeDir, context = {}, connection, wr
   if (profileId && (!storeDir || !path.isAbsolute(storeDir))) throw new Error('A profile run requires its resolved store directory');
   const store = storeModule.createStore(storeDir || storeModule.dir(), { create: false });
   const writer = require('../writer-admission').writerForStore(store, { token: writerToken });
-  const documents = documentModule.createDocuments(store, { writer });
+  const documents = documentModule.createDocuments(store, { writer, seed: false });
   const conversations = conversationModule.createConversations(store);
   const edits = editModule.createAgentEdits({ store, documents });
   // Provider runs see the user's login-shell PATH (shell-environment.js); the packaged runtime does not.
