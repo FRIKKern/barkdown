@@ -4,9 +4,9 @@ Barkdown is an experiment in what Barkpark can do, and a tool for figuring out w
 
 We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT, taking the parts we love from each. We’re doing this for fun and learning, with no plans to make money from it. The aim is an excellent app shaped by our taste and Barkpark.
 
-## Where we are · September 30, 2026
+## Where we are · October 1, 2026
 
-**The short version:** notes live on Paper, a whole library can move between machines, and the app survives crashes without losing a word. What's missing is proof on a real library and on Windows.
+**The short version:** notes live on Paper, a whole library can move between machines, the app survives crashes without losing a word, and a Mac installs it from a 165 MB disk image that runs your own Claude Code or Codex. What's missing is a signature, proof on a real library, and Windows.
 
 **Working, and shown working**
 - Profiles keep notes, chats and keys apart. [Accepted](docs/cycles/C039-completion-audit.md).
