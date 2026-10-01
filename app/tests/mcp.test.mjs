@@ -9,6 +9,8 @@ const require = createRequire(import.meta.url);
 const here = path.dirname(fileURLToPath(import.meta.url));
 const assert = (ok, message) => { if (!ok) throw new Error(message); };
 const storeDir = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-mcp-'));
+// The legacy launch seeds a brand-new library; the MCP server never does (C087, C088): the fixture is seeded here.
+require('../main/documents').createDocuments(require('../main/store').createStore(storeDir)).loadAll();
 
 const transport = new StdioClientTransport({ command: process.execPath, args: [path.join(here, '..', 'main', 'mcp-server.js'), storeDir] });
 const client = new Client({ name: 'barkdown-test', version: '0.0.0' });
@@ -28,7 +30,7 @@ assert(['edit_table', 'create_document', 'list_conversations', 'list_documents',
   assert((await client.callTool({ name: 'read_conversation', arguments: { id: 'nope' } })).content[0].text.startsWith('No conversation'), 'unknown id should say so');
 }
 const list = JSON.parse((await client.callTool({ name: 'list_documents', arguments: {} })).content[0].text);
-assert(list.length === 2, 'seeded library should have two documents');
+assert(list.length === 2, 'the seeded library has its two documents and the server added none');
 const overview = list.find(d => d.title === 'Overview');
 const read = (await client.callTool({ name: 'read_document', arguments: { id: overview.id } })).content[0].text;
 assert(read.includes('# Overview') && read.includes('Top-level blocks'), 'read_document did not return markdown with block indexes');
