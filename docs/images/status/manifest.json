@@ -1,13 +1,13 @@
 {
-  "capturedAt": "2026-09-30T21:20:14.655Z",
-  "barkdownCommit": "aeb0a895678bbd416dcaefde94be509a927b8c53",
+  "capturedAt": "2026-10-01T10:18:08.444Z",
+  "barkdownCommit": "8108e50b75c92b5119c37574d2d5ecdf1abe860a",
   "barkdownTreeDirty": false,
   "barkparkCommit": "9f1874235449f9763c1b3e8cfcaf1b5a36aee9b3",
   "barkparkTreeDirty": false,
   "isolatedRuntime": true,
   "server": {
-    "url": "http://127.0.0.1:52791",
-    "version": "0.2.26.4491"
+    "url": "http://127.0.0.1:60491",
+    "version": "0.2.26.4501"
   },
   "chat": {
     "real": true,
@@ -17,55 +17,28 @@
   "rows": {},
   "shots": [
     {
-      "file": "paper-light.7f97d074.png",
+      "file": "paper-light.9f00222f.png",
       "caption": "A Barkpark paper edited live in the canvas inside Barkdown, beside a real Claude Code turn on it: quote, checklist, table, callout and code, saved as ops to a local Barkpark."
     },
     {
-      "file": "paper-dark.0b07af7e.png",
+      "file": "paper-dark.e4ca69be.png",
       "caption": "The same paper and conversation in dark mode."
     },
     {
-      "file": "slash-menu.57a839e0.png",
+      "file": "slash-menu.c6059436.png",
       "caption": "The slash menu inside the paper, with the plain Quote row beside Callout and Code."
     },
     {
-      "file": "quick-open.390f10ab.png",
+      "file": "quick-open.f302c02a.png",
       "caption": "Quick open (Ctrl+K) over tabs, papers, chats and actions."
     },
     {
-      "file": "settings-barkpark.c1acba07.png",
+      "file": "settings-barkpark.67730bf8.png",
       "caption": "Settings › Barkpark: the connection Barkdown edits through — here the local server."
     },
     {
-      "file": "editing.4c2bbe3f.gif",
+      "file": "editing.4a262e36.gif",
       "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
-    }
-  ],
-  "uiExemptions": [
-    {
-      "commit": "1b7c6e16e3b764e077e9cd04fd21fc5248255747",
-      "reason": "app/main/README.md changelog entry only (notices for the carried runtime); no process or renderer code changed",
-      "date": "2026-10-01"
-    },
-    {
-      "commit": "a38a1d55",
-      "reason": "Main process only: the packaged runtime seeds through Barkpark.Release.seed() instead of a full application boot.",
-      "date": "2026-10-01"
-    },
-    {
-      "commit": "73282527",
-      "reason": "Main process only: migration and seed of the packaged runtime run without the admission environment; the server starts with it.",
-      "date": "2026-10-01"
-    },
-    {
-      "commit": "15f2fca3",
-      "reason": "Main process only: the local runtime monitor needs three missed probes in a row before recovery.",
-      "date": "2026-10-01"
-    },
-    {
-      "commit": "7fd677f7",
-      "reason": "Main process only: login-shell PATH hydration for provider resolution (C088 S1); no renderer change.",
-      "date": "2026-10-01"
     }
   ]
 }

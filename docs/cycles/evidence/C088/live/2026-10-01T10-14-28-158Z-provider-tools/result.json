@@ -1,0 +1,46 @@
+{
+  "source": null,
+  "host": "darwin 24.3.0 arm64",
+  "checks": [
+    "On the login-shell PATH the fixture Claude Code is found and its --version answer accepted; Codex is reported as found or as not found",
+    "A path set in Settings wins; a file that is not the tool is refused with what it answered, and the sign-in check through it does not report signed in",
+    "The chosen path is checked again and the sign-in check follows it",
+    "A relative path is refused on save",
+    "Settings shows the tool field with what was found, from this setting"
+  ],
+  "status": "passed",
+  "found": {
+    "claude": {
+      "provider": "claude",
+      "path": "/private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-provider-tools-live-UveWGy/tools/claude",
+      "source": "path",
+      "version": "9.9.9",
+      "ok": true,
+      "problem": null,
+      "checkedAt": "2026-10-01T10:14:32.983Z",
+      "answer": "9.9.9 (Claude Code)"
+    },
+    "codex": {
+      "provider": "codex",
+      "path": "/Users/frikkjarl/Documents/GitHub/barkdown/app/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/bin/codex",
+      "source": "path",
+      "version": "0.155.0",
+      "ok": true,
+      "problem": null,
+      "checkedAt": "2026-10-01T10:14:32.994Z",
+      "answer": "codex-cli 0.155.0"
+    }
+  },
+  "refused": {
+    "provider": "claude",
+    "path": "/private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-provider-tools-live-UveWGy/tools/impostor",
+    "source": "settings",
+    "version": null,
+    "ok": false,
+    "problem": "Not Claude Code: --version answered “hello from a script”",
+    "checkedAt": "2026-10-01T10:14:33.131Z"
+  },
+  "limits": [
+    "One Mac. The tools and the login shell are fixtures; a real Claude Code on a clean account is the S4 rehearsal."
+  ]
+}
