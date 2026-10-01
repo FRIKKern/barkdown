@@ -18,17 +18,17 @@
   ],
   "checkpoint": "2026-10-01",
   "handoff": "docs/cycles/C088-own-agents.md",
-  "nextAction": "S2: a binary path override per provider in Settings and a --version sanity run on whatever is resolved; a file that is not the tool is refused with its output.",
+  "nextAction": "S3: a tested-with version per SDK pin (Claude Code 2.1.276 for Agent SDK 0.3.276, codex 0.155.0 for Codex SDK 0.155.0) stamped at build; the provider card warns when the installed tool is older than that or a different major, names the range, and stays quiet inside it; the install and sign-in cards; one visual approval.",
   "evidence": [
-    "docs/cycles/evidence/C088/live/2026-10-01T10-05-16-540Z-shell-environment/result.json"
+    "docs/cycles/evidence/C088/live/2026-10-01T10-05-16-540Z-shell-environment/result.json",
+    "docs/cycles/evidence/C088/live/2026-10-01T10-14-28-158Z-provider-tools/result.json"
   ],
-  "truthReview": "2026-10-01: opened. Decision and analysis in the paper The CLI Is Already There (guerrilla.barkpark.cloud/papers/the-cli-is-already-there), linked from C086. Nothing delivered yet. S1 delivered 2026-10-01: shell-environment.js probes the login shell with a bounded time per candidate, merges its PATH ahead of the inherited one, falls back to launchctl (macOS) or the registry (Windows), and feeds provider runs, the sign-in worker, owned workers and the terminal; the main process PATH stays as launched. Unit cases: merge order, a hung shell skipped within budget, a shell that rejects -ilc, launchctl and registry fallbacks, parsers, the singleton. Live: an Electron app launched with the system PATH and a fixture login shell finds a fixture Claude Code and reports signed in, with its own PATH unchanged. One Mac; fixtures, not a real shell.",
-  "screenshotReview": "No renderer change yet. S3 adds three provider cards and takes one visual approval.",
+  "truthReview": "2026-10-01: opened. Decision and analysis in the paper The CLI Is Already There (guerrilla.barkpark.cloud/papers/the-cli-is-already-there), linked from C086. Nothing delivered yet. S1 delivered 2026-10-01: shell-environment.js probes the login shell with a bounded time per candidate, merges its PATH ahead of the inherited one, falls back to launchctl (macOS) or the registry (Windows), and feeds provider runs, the sign-in worker, owned workers and the terminal; the main process PATH stays as launched. Unit cases: merge order, a hung shell skipped within budget, a shell that rejects -ilc, launchctl and registry fallbacks, parsers, the singleton. Live: an Electron app launched with the system PATH and a fixture login shell finds a fixture Claude Code and reports signed in, with its own PATH unchanged. One Mac; fixtures, not a real shell. S2 delivered 2026-10-01: provider-tools.js resolves the tool (Settings path first, then the login-shell PATH), runs --version once within a bounded time and accepts only a file that names itself; an impostor, a broken, a hanging, a missing or a relative path each give a plain reason; the sign-in worker follows the chosen path; Settings shows a Tool field per provider. Unit: resolution, sanity run, cache, override. Live: five checks on fixtures. Visual run approved for the new field. Seen on this Mac: another application's bundled claude on the PATH, the wrong-binary case the sanity run exists for.",
+  "screenshotReview": "2026-10-01 S2: visual run 2026-10-01T10-18-28-806Z approved; settings: assistant shows the Tool field; other differences are relative-time text.",
   "delivery": {
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "S2 binary path override and sanity run",
       "S3 tested-with range and cards",
       "S4 drop the packages, rebuild, rehearse",
       "Windows rows when the machine is back"
