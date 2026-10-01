@@ -552,7 +552,7 @@ function registerIpc() {
     assertProviderFolder(chosen, context?.folder);
     const o = options || {};
     // A chat's own model and effort win over the settings defaults.
-    const settings = { apiKey: decrypt(s.apiKeyEncrypted), model: chosen === 'api' ? (o.model || s.model) : s.model, claudeModel: chosen === 'claude' ? (o.model || s.claudeModel) : s.claudeModel, codexModel: chosen === 'codex' ? (o.model || s.codexModel) : s.codexModel, effort: o.effort || undefined };
+    const settings = { providerBinary: s.providerBinary || {}, apiKey: decrypt(s.apiKeyEncrypted), model: chosen === 'api' ? (o.model || s.model) : s.model, claudeModel: chosen === 'claude' ? (o.model || s.claudeModel) : s.claudeModel, codexModel: chosen === 'codex' ? (o.model || s.codexModel) : s.codexModel, effort: o.effort || undefined };
     const runStoreDir = store.dir();
     await require('./shell-environment').providerEnvReady();
     const scope = captureScope({ storeDir: runStoreDir, context, connection: barkparkConfig() });

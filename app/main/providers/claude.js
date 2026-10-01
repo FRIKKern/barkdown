@@ -39,6 +39,9 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
   settings = frozenCopy(settings || {}); images = frozenCopy(images || []);
   (async () => {
     try {
+      // The user's own tool (C088 S4): the path from Settings or the login-shell PATH, checked with --version.
+      const tool = await require('../provider-tools').createProviderTools({ settings: () => settings, env: async () => run.scope.env }).inspect('claude');
+      if (!tool.ok) throw Object.assign(new Error(tool.problem + (tool.install ? ` Install: ${tool.install}` : '')), { code: 'provider_tool' });
       const { query } = await loadSdk();
       await require('./runs').preparePaperNavigation(run);
       const spec = mcpServerSpec(storeDir, run.scope);
@@ -61,7 +64,7 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
         return approved ? { behavior: 'allow', updatedInput: input } : { behavior: 'deny', message: 'The person declined this action. Ask before retrying.' };
       };
       const options = {
-        cwd, env, canUseTool, includePartialMessages: true, permissionMode: 'default', abortController: run.abort, maxTurns: 60,
+        cwd, env, canUseTool, includePartialMessages: true, permissionMode: 'default', abortController: run.abort, maxTurns: 60, pathToClaudeCodeExecutable: tool.path,
         systemPrompt: { type: 'preset', preset: 'claude_code', append: SYSTEM_APPEND + (folder ? `\nThe working folder is ${folder}.` : '\nThis chat has no working folder, so do not read or write files; work with library documents and the web.') },
         mcpServers: { barkdown: { type: 'stdio', ...spec } },
         settingSources: ['user'],

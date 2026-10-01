@@ -64,6 +64,17 @@ try {
   assert.ok(commandOf(postmaster).startsWith(path.join(carried, 'postgres', 'bin') + path.sep), 'the database server is the one the application carries');
   assert.equal(fs.existsSync(path.join(dir, 'settings.json')) && JSON.parse(fs.readFileSync(path.join(dir, 'settings.json'), 'utf8')).barkpark !== undefined, false, 'the profile was never configured');
   report.checks.push({ name: 'The built application starts a never-configured profile on the runtime and the Postgres it carries, with only system folders on the PATH', firstBootMs }); persist();
+  // C088 S4: the application carries no agent tool of its own, and is about half the size it was.
+  const resources = path.join(bundle, 'Contents', 'Resources');
+  const unpacked = path.join(resources, 'app.asar.unpacked', 'node_modules');
+  for (const name of ['@openai/codex-darwin-arm64', '@anthropic-ai/claude-agent-sdk-darwin-arm64']) assert.equal(fs.existsSync(path.join(unpacked, name)), false, name + ' is not unpacked in the application');
+  const listed = require('@electron/asar').listPackage(path.join(resources, 'app.asar'));
+  const carriedTools = listed.filter(entry => /node_modules\/@(?:openai\/codex-(?:darwin|linux|win32)-|anthropic-ai\/claude-agent-sdk-(?:darwin|linux|win32))/.test(entry));
+  assert.deepEqual(carriedTools.slice(0, 3), [], 'no agent platform package inside the application');
+  const sizeMb = Math.round(Number(execFileSync('du', ['-sk', bundle], { encoding: 'utf8' }).split('\t')[0]) / 1024);
+  assert.ok(sizeMb < 650, `the application is ${sizeMb} MB, under 650`);
+  report.sizeMb = sizeMb;
+  report.checks.push({ name: 'The application carries no Claude Code or Codex of its own and is under 650 MB', sizeMb }); persist();
 
   await page.locator('#bw-new-page').click();
   await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror h1').click({ timeout: 60000 });

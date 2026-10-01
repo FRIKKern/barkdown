@@ -29,12 +29,15 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
   settings = frozenCopy(settings || {}); images = frozenCopy(images || []);
   (async () => {
     try {
+      // The user's own tool (C088 S4): the path from Settings or the login-shell PATH, checked with --version.
+      const tool = await require('../provider-tools').createProviderTools({ settings: () => settings, env: async () => run.scope.env }).inspect('codex');
+      if (!tool.ok) throw Object.assign(new Error(tool.problem + (tool.install ? ` Install: ${tool.install}` : '')), { code: 'provider_tool' });
       const { Codex } = await loadSdk();
       await require('./runs').preparePaperNavigation(run);
       const spec = mcpServerSpec(storeDir, run.scope);
       if (run.cancelled) { run.emit({ type: 'done', cancelled: true, provider: 'codex' }); return; }
       const folder = context.folder || null;
-      const codex = new Codex({ env: { ...run.scope.env }, config: { ...(settings.goalWorker ? { agents: { enabled: false }, features: { goals: false } } : {}), mcp_servers: { barkdown: { command: spec.command, args: spec.args, env: spec.env, default_tools_approval_mode: 'approve' } } } });
+      const codex = new Codex({ codexPathOverride: tool.path, env: { ...run.scope.env }, config: { ...(settings.goalWorker ? { agents: { enabled: false }, features: { goals: false } } : {}), mcp_servers: { barkdown: { command: spec.command, args: spec.args, env: spec.env, default_tools_approval_mode: 'approve' } } } });
       const threadOptions = { workingDirectory: folder || scratchFolder(storeDir), skipGitRepoCheck: true, sandboxMode: folder ? 'workspace-write' : 'read-only', approvalPolicy: 'on-failure', threadSource: 'barkdown' };
       if (settings.codexModel) threadOptions.model = settings.codexModel;
       if (settings.effort) threadOptions.modelReasoningEffort = settings.effort;
