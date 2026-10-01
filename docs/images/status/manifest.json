@@ -66,6 +66,11 @@
       "commit": "465113dc",
       "reason": "Main process only: providers load the SDK before the tool check.",
       "date": "2026-10-01"
+    },
+    {
+      "commit": "669e9cfe",
+      "reason": "Main process only: the shell environment composes over the live environment; api chats start without the probe.",
+      "date": "2026-10-01"
     }
   ]
 }
