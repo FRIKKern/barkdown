@@ -72,7 +72,10 @@ function createProfileService({ registry, agent = require('./goal-worker-agent')
       const labels = { api: 'API', claude: 'Claude Code', codex: 'Codex' };
       const catchUp = chat.messages.slice(seen).filter(m => m.text).map(m => ({ role: m.role, text: m.text,
         provider: m.role === 'assistant' ? labels[m.provider] || m.provider || undefined : undefined }));
-      if (provider !== 'api') await require('./shell-environment').providerEnvReady();
+      // Awaited for every provider, api included: resolve() must take the same number of turns whatever
+      // the provider, or the goal service's start captures a task's choices out of order. The wait is
+      // over as soon as the login-shell probe has answered once.
+      await require('./shell-environment').providerEnvReady();
       const scope = captureScope({ profileId, storeDir: store.storeDir, connection,
         context: { profileId, chatId, title: chat.title, folder: chat.folder || null, catchUp } });
       return { scope, chat: { ...structuredClone(chat), provider }, chatContext, settings: s,
