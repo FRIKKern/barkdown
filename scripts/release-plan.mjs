@@ -23,3 +23,15 @@ export function planRelease({ channel, tags, manifestVersion, date, from = null,
   throw new Error('channel is nightly or stable');
 }
 export const nextPatch = version => { const [a, b, c] = version.split('.').map(Number); return `${a}.${b}.${c + 1}`; };
+// Whether a scheduled nightly is due: new commits on main since the last nightly, and at least six
+// hours since it was cut. A manual nightly skips this. `isAncestor(lastSha, headSha)` says whether the
+// last nightly's commit is behind HEAD.
+export const NIGHTLY_GAP_MS = 6 * 60 * 60 * 1000;
+export function nightlyDue({ lastNightly = null, headSha, isAncestor, now = Date.now() }) {
+  if (!lastNightly) return { due: true, reason: 'no nightly yet' };
+  const age = now - Date.parse(lastNightly.at);
+  if (age < NIGHTLY_GAP_MS) return { due: false, reason: `the last nightly ${lastNightly.tag} is ${Math.round(age / 60000)} minutes old; six hours must pass` };
+  if (lastNightly.sha === headSha) return { due: false, reason: `${lastNightly.tag} already shipped ${headSha.slice(0, 9)}` };
+  if (!isAncestor(lastNightly.sha, headSha)) return { due: false, reason: `${lastNightly.tag} is not behind ${headSha.slice(0, 9)}; nothing to ship from here` };
+  return { due: true, reason: `new commits since ${lastNightly.tag} and the gap has passed` };
+}

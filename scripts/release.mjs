@@ -6,14 +6,16 @@
 // (scripts/chain.mjs) for that exact commit; the image rehearsed after it is built; checksums from
 // the bytes that are uploaded; notes against the previous tag in the same channel. There is no
 // dry run: every run of this script that passes its gates is a real release.
-// Usage: node scripts/release.mjs nightly | stable [--from v0.6.0-nightly.20261001.1] [--version X.Y.Z] [--skip-rehearsal]
+// Usage: node scripts/release.mjs nightly | stable [--from v0.6.0-nightly.20261001.1] [--version X.Y.Z] [--skip-rehearsal] [--if-due]
+// --if-due (nightly, for a schedule): exit 0 without doing anything unless main has new commits since
+// the last nightly and six hours have passed since it was cut.
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { planRelease, nextPatch } from './release-plan.mjs';
+import { planRelease, nextPatch, nightlyDue } from './release-plan.mjs';
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url))), appDir = path.join(root, 'app');
 const args = process.argv.slice(2), channel = args[0];
 const flag = name => { const i = args.indexOf(name); return i >= 0 ? args[i + 1] : null; };
@@ -32,6 +34,13 @@ if (!git('branch', '-r', '--contains', sha).includes('origin/main')) fail(`commi
 const tags = git('tag', '--list', '--sort=-creatordate').split('\n').filter(Boolean);
 const manifest = JSON.parse(fs.readFileSync(path.join(appDir, 'package.json'), 'utf8'));
 if (channel === 'nightly' && git('rev-parse', '--abbrev-ref', 'HEAD') !== 'main') fail('a nightly is cut from main');
+if (channel === 'nightly' && args.includes('--if-due')) {
+  const lastTag = tags.find(t => /^v\d+\.\d+\.\d+-nightly\.\d{8}\.\d+$/.test(t)) || null;
+  const last = lastTag ? { tag: lastTag, sha: git('rev-list', '-n', '1', lastTag), at: git('log', '-1', '--format=%cI', lastTag) } : null;
+  const verdict = nightlyDue({ lastNightly: last, headSha: sha, isAncestor: (a, b) => spawnSync('git', ['merge-base', '--is-ancestor', a, b], { cwd: root }).status === 0 });
+  console.log(`release: nightly ${verdict.due ? 'due' : 'not due'}: ${verdict.reason}`);
+  if (!verdict.due) process.exit(0);
+}
 let plan; try { plan = planRelease({ channel, tags, manifestVersion: manifest.version, date: new Date().toISOString().slice(0, 10).replace(/-/g, ''), from: flag('--from'), version: flag('--version') }); } catch (error) { fail(error.message); }
 const { version, tag, previousTag, fromTag } = plan;
 if (fromTag) { const nightlySha = git('rev-list', '-n', '1', fromTag); if (nightlySha !== sha) fail(`HEAD is ${short} but ${fromTag} is ${nightlySha.slice(0, 9)}: a stable release is the nightly's commit, so check it out (git checkout ${nightlySha.slice(0, 9)}) and run again`); }

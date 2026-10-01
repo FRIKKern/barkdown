@@ -33,7 +33,7 @@ Built in (`app/main/updates.js`, Settings › About): `electron-updater` with th
 
 ## Phase 4 — Windows, then the graph
 
-NSIS on the Windows machine as a self-hosted runner, per-arch manifests merged. When there is a place to run it, `release.yml` with `resolve_commit`, `preflight`, quality, build, publish and finalize, serialised per channel, the version bump committed by a GitHub App after a stable release.
+`.github/workflows/release.yml` exists and is inert: it runs the same two commands (`chain.mjs`, then `release.mjs`) on a self-hosted macOS runner, by hand for either channel or every two hours as a nightly gated by `--if-due` (new commits on `main` since the last nightly and six hours passed). A self-hosted runner spends no Actions minutes, so registering a Mac makes it live despite the exhausted budget; nothing is registered yet. Windows: NSIS on the Windows machine as a second runner, per-arch manifests merged.
 
 ## Not copied
 

@@ -1,0 +1,56 @@
+name: Release
+
+# The release script, run where a release can be built: a macOS runner this repository registers
+# itself (a self-hosted runner spends no Actions minutes). Until one exists this workflow has nowhere
+# to run and stays inert; the same two commands run by hand on the owner's Mac (docs/RELEASE.md).
+# Nightly and stable are real releases; there is no dry run.
+on:
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: "Release channel"
+        required: true
+        default: nightly
+        type: choice
+        options: [nightly, stable]
+      from:
+        description: "Stable only: the nightly tag to promote (default: the newest)"
+        required: false
+        type: string
+  schedule:
+    # A nightly when main has new commits and six hours have passed since the last one.
+    - cron: "17 */2 * * *"
+
+concurrency:
+  group: release-${{ github.event_name == 'schedule' && 'nightly' || inputs.channel }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: ${{ github.event_name == 'schedule' && 'Scheduled nightly' || inputs.channel }}
+    runs-on: [self-hosted, macOS, ARM64]
+    timeout-minutes: 120
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Install
+        run: npm ci && npm --prefix app ci
+      - name: Chain receipt on this commit
+        run: node scripts/chain.mjs < /dev/null
+      - name: Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            node scripts/release.mjs nightly --if-due < /dev/null
+          elif [ "${{ inputs.channel }}" = "stable" ]; then
+            node scripts/release.mjs stable ${{ inputs.from && format('--from {0}', inputs.from) || '' }} < /dev/null
+          else
+            node scripts/release.mjs nightly < /dev/null
+          fi

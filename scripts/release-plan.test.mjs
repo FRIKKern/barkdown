@@ -17,3 +17,14 @@ assert.throws(() => planRelease({ channel: 'stable', tags, manifestVersion: '0.6
 assert.throws(() => planRelease({ channel: 'beta', tags, manifestVersion: '0.6.0' }), /nightly or stable/);
 assert.equal(nextPatch('0.6.0'), '0.6.1'); assert.ok(isNightlyTag('v1.2.3-nightly.20260101.9')); assert.ok(!isStableTag('v1.2.3-rc.1')); assert.ok(isStableTag('v1.2.3'));
 console.log('Release plan: nightly numbering per day, stable promotion of a nightly, previous tag per channel and the refusals passed.');
+{
+  const { nightlyDue, NIGHTLY_GAP_MS } = await import('./release-plan.mjs');
+  const now = Date.parse('2026-10-02T12:00:00Z');
+  const last = { tag: 'v0.6.0-nightly.20261002.1', sha: 'a'.repeat(40), at: new Date(now - NIGHTLY_GAP_MS - 1000).toISOString() };
+  assert.equal(nightlyDue({ lastNightly: null, headSha: 'b'.repeat(40), isAncestor: () => true, now }).due, true);
+  assert.equal(nightlyDue({ lastNightly: last, headSha: 'b'.repeat(40), isAncestor: () => true, now }).due, true);
+  assert.match(nightlyDue({ lastNightly: { ...last, at: new Date(now - 60000).toISOString() }, headSha: 'b'.repeat(40), isAncestor: () => true, now }).reason, /six hours/);
+  assert.match(nightlyDue({ lastNightly: last, headSha: last.sha, isAncestor: () => true, now }).reason, /already shipped/);
+  assert.match(nightlyDue({ lastNightly: last, headSha: 'c'.repeat(40), isAncestor: () => false, now }).reason, /not behind/);
+  console.log('Nightly due: none yet, gap, same commit, not an ancestor, and new commits passed.');
+}
