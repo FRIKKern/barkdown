@@ -45,9 +45,21 @@ try {
   await page.evaluate(() => document.body.focus());
   const reached = [], positions = {};
   for (let i = 0; i < 80; i++) { await page.keyboard.press('Tab'); const id = await page.evaluate(() => { const a = document.activeElement; return a ? (a.id ? '#' + a.id : a.tagName.toLowerCase() + (a.className ? '.' + String(a.className).split(' ')[0] : '')) : null; }); if (id && !reached.includes(id)) { reached.push(id); positions[id] = i + 1; } }
-  const wanted = ['#bw-new-page', '#bw-settings', '#bw-prompt', '#bw-send'];
+  const wanted = ['#bw-new-page', '#bw-open-work', '#bw-prompt', '#bw-send'];
   const got = wanted.filter(w => reached.includes(w));
-  finding('keyboard: Tab reaches the main controls within 80 presses', got.length === wanted.length, { reached: got, missing: wanted.filter(w => !got.includes(w)), presses: Object.fromEntries(wanted.map(w => [w, positions[w] || null])), order: reached.slice(0, 80) });
+  finding('keyboard: Tab reaches New page, the work pane, the composer and Send', got.length === wanted.length, { reached: got, missing: wanted.filter(w => !got.includes(w)), presses: Object.fromEntries(wanted.map(w => [w, positions[w] || null])), order: reached.slice(0, 80) });
+  // Settings lives in the work bar, which exists only while a work tab is open: by keyboard it is the
+  // shortcut, or the work pane first and then Tab.
+  await page.keyboard.press(process.platform === 'darwin' ? 'Meta+,' : 'Control+,');
+  const viaShortcut = await page.locator('.bw-sheet').first().isVisible({ timeout: 3000 }).catch(() => false);
+  if (viaShortcut) await page.keyboard.press('Escape');
+  await page.evaluate(() => document.body.focus());
+  for (let i = 0; i < 10; i++) { await page.keyboard.press('Tab'); if (await page.evaluate(() => document.activeElement?.id === 'bw-open-work')) break; }
+  await page.keyboard.press('Enter'); await new Promise(r => setTimeout(r, 400));
+  let settingsPress = null;
+  for (let i = 0; i < 40; i++) { await page.keyboard.press('Tab'); if (await page.evaluate(() => document.activeElement?.id === 'bw-settings')) { settingsPress = i + 1; break; } }
+  await page.keyboard.press('Escape');
+  finding('keyboard: Settings is reachable (the shortcut, or the work pane then Tab)', viaShortcut || settingsPress !== null, { viaShortcut, settingsPressAfterOpeningWorkPane: settingsPress });
   // Reached by the keyboard, not by script: :focus-visible is what a Tab press earns.
   await page.evaluate(() => document.body.focus());
   for (let i = 0; i < 40; i++) { await page.keyboard.press('Tab'); if (await page.evaluate(() => document.activeElement?.id === 'bw-prompt')) break; }
@@ -58,10 +70,9 @@ try {
   await app.evaluate(({ BrowserWindow }) => { BrowserWindow.getAllWindows()[0].webContents.setZoomFactor(2); });
   await new Promise(r => setTimeout(r, 600));
   const zoomOverflow = await overflow(), zoomPrompt = await visible('#bw-prompt'), zoomSend = await visible('#bw-send'), zoomNew = await visible('#bw-new-page');
-  const zoomToggle = await page.evaluate(() => { const t = [...document.querySelectorAll('button')].find(b => /sidebar/i.test(b.getAttribute('aria-label') || '') || /sidebar/i.test(b.id)); if (!t) return { present: false }; const r = t.getBoundingClientRect(); return { present: true, id: '#' + t.id, label: t.getAttribute('aria-label'), inView: r.width > 0 && r.height > 0 }; });
   await shot('01-zoom-200');
   finding('zoom 200%: no horizontal page scroll', zoomOverflow.scrollWidth <= zoomOverflow.clientWidth + 1, zoomOverflow);
-  finding('zoom 200%: composer, send and New page are in view', zoomPrompt.inView && zoomSend.inView && zoomNew.inView, { zoomPrompt, zoomSend, zoomNew, sidebarToggle: zoomToggle, note: zoomNew.inView ? undefined : 'the window is 650 CSS px wide at 200%, so the sidebar collapses as it does in a narrow window; New page needs the sidebar toggle first' });
+  finding('zoom 200%: composer, send and New page are in view', zoomPrompt.inView && zoomSend.inView && zoomNew.inView, { zoomPrompt, zoomSend, zoomNew, note: zoomNew.inView ? undefined : 'the window is 650 CSS px wide at 200%, so the layout is the narrow one and the sidebar is collapsed; New page is behind it' });
   await app.evaluate(({ BrowserWindow }) => { BrowserWindow.getAllWindows()[0].webContents.setZoomFactor(1); });
   // 3. Narrow window.
   await page.setViewportSize({ width: 820, height: 860 }); await new Promise(r => setTimeout(r, 600));

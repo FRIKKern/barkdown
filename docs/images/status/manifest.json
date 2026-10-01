@@ -1,12 +1,12 @@
 {
-  "capturedAt": "2026-10-01T10:26:54.193Z",
-  "barkdownCommit": "89f7412abe6238c95af180efb014736f0751321a",
+  "capturedAt": "2026-10-01T11:57:17.921Z",
+  "barkdownCommit": "ffcba1272a22217035f591a3f445576ccd8d7ed9",
   "barkdownTreeDirty": false,
   "barkparkCommit": "9f1874235449f9763c1b3e8cfcaf1b5a36aee9b3",
   "barkparkTreeDirty": false,
   "isolatedRuntime": true,
   "server": {
-    "url": "http://127.0.0.1:60884",
+    "url": "http://127.0.0.1:63536",
     "version": "0.2.26.4501"
   },
   "chat": {
@@ -17,60 +17,28 @@
   "rows": {},
   "shots": [
     {
-      "file": "paper-light.e6d58528.png",
+      "file": "paper-light.3329627a.png",
       "caption": "A Barkpark paper edited live in the canvas inside Barkdown, beside a real Claude Code turn on it: quote, checklist, table, callout and code, saved as ops to a local Barkpark."
     },
     {
-      "file": "paper-dark.2d3e730c.png",
+      "file": "paper-dark.d172d13b.png",
       "caption": "The same paper and conversation in dark mode."
     },
     {
-      "file": "slash-menu.a9b92f83.png",
+      "file": "slash-menu.c9fe0232.png",
       "caption": "The slash menu inside the paper, with the plain Quote row beside Callout and Code."
     },
     {
-      "file": "quick-open.9b030ea9.png",
+      "file": "quick-open.0d4d34d1.png",
       "caption": "Quick open (Ctrl+K) over tabs, papers, chats and actions."
     },
     {
-      "file": "settings-barkpark.b077e740.png",
+      "file": "settings-barkpark.8131a5ff.png",
       "caption": "Settings › Barkpark: the connection Barkdown edits through — here the local server."
     },
     {
-      "file": "editing.ab41a998.gif",
+      "file": "editing.7512d868.gif",
       "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
-    }
-  ],
-  "uiExemptions": [
-    {
-      "commit": "885e72d1",
-      "reason": "Main process and build configuration only: providers run the user's own tool; platform packages excluded from the packaged app (C088 S4).",
-      "date": "2026-10-01"
-    },
-    {
-      "commit": "6a48806a",
-      "reason": "Main process only: assistant runs and the MCP server never seed the legacy store.",
-      "date": "2026-10-01"
-    },
-    {
-      "commit": "99f17808",
-      "reason": "Main process only: the MCP server's explicit seed removed.",
-      "date": "2026-10-01"
-    },
-    {
-      "commit": "1cb43023",
-      "reason": "Main process only: agent:start awaits the shell environment through a named collaborator.",
-      "date": "2026-10-01"
-    },
-    {
-      "commit": "465113dc",
-      "reason": "Main process only: providers load the SDK before the tool check.",
-      "date": "2026-10-01"
-    },
-    {
-      "commit": "669e9cfe",
-      "reason": "Main process only: the shell environment composes over the live environment; api chats start without the probe.",
-      "date": "2026-10-01"
     }
   ]
 }
