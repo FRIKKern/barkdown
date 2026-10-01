@@ -61,7 +61,7 @@ npm run desktop
 
 Use your Claude Code or Codex login, or an API key in Settings. Paper needs a connected Barkpark; [local setup](docs/LOCAL-BARKPARK.md) requires a built checkout.
 
-Or install the macOS disk image instead: the [latest nightly release](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261001.1) carries `Barkdown-<version>-arm64.dmg` (165 MB) with the server, Erlang and Postgres inside, `SHA256SUMS`, and the test receipts it was cut with; `node scripts/build-mac-app.mjs --dmg` builds the same image here. It is signed ad hoc, so open it with right-click › Open; [what is proven and what is not](docs/cycles/C086-packaged-runtime.md), [how releases are cut](docs/RELEASE.md).
+Or install the macOS disk image instead: the [latest nightly release](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261001.2) carries `Barkdown-<version>-arm64.dmg` (165 MB) with the server, Erlang and Postgres inside, `SHA256SUMS`, and the test receipts it was cut with; `node scripts/build-mac-app.mjs --dmg` builds the same image here. It is signed ad hoc, so open it with right-click › Open; [what is proven and what is not](docs/cycles/C086-packaged-runtime.md), [how releases are cut](docs/RELEASE.md).
 
 [Contributing](CONTRIBUTING.md) · [Agent instructions](AGENTS.md) · [Docs](docs/README.md) · [Capture source](docs/images/status/manifest.json) · [Third-party notices](THIRD-PARTY.md)
 

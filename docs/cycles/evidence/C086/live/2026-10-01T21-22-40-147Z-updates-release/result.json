@@ -1,0 +1,16 @@
+{
+  "source": "72398262ebeef84ae3bd42f02622c75a84048bad",
+  "host": "darwin 24.3.0 arm64",
+  "installed": "v0.6.0-nightly.20261001.2",
+  "offered": "v0.6.0-nightly.20261001.3",
+  "checks": [
+    "The installed v0.6.0-nightly.20261001.2 runs on the nightly channel, ad hoc signed, updater on",
+    "A check reads the feed and offers v0.6.0-nightly.20261001.3 (the release's own assets under a raised version) without downloading",
+    "The real zip is downloaded and its digest verified against the feed",
+    "Installing is refused with the ad hoc reason; the running application stays"
+  ],
+  "status": "passed",
+  "limits": [
+    "The installed application is the newest nightly and the offered update is its own zip under a raised version, because the previous nightly predates the updater; from the next nightly on, the previous one is installed and the newest is offered. Assets are served from a local folder because the repository is private. The install step waits for a Developer ID signature."
+  ]
+}

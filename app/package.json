@@ -115,6 +115,7 @@
     "test:app-dmg": "node tests/app-dmg.live.mjs",
     "test:daily-use": "node tests/daily-use.live.mjs",
     "test:updates": "node tests/updates.live.mjs",
+    "test:updates-release": "node tests/updates-release.live.mjs",
     "test:launch-default": "npm run build && node tests/launch-default.live.mjs",
     "test:runtime-release": "npm run build && node tests/runtime-release.live.mjs",
     "test:runtime-database-death": "npm run build && node tests/runtime-database-death.live.mjs",

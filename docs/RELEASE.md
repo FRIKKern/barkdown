@@ -1,6 +1,6 @@
 # Releasing Barkdown — proposed workflow
 
-Status: phase 1 in use since 2026-10-01 (`scripts/chain.mjs`, `scripts/release.mjs`); first nightly [v0.6.0-nightly.20261001.1](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261001.1); phases 2–4 pending. Learned from T3 Code's release pipeline; the reading and the reasoning are in the paper [Nightly Is the Release Candidate](https://guerrilla.barkpark.cloud/papers/nightly-is-the-release-candidate).
+Status: phase 1 in use since 2026-10-01 (`scripts/chain.mjs`, `scripts/release.mjs`); nightlies [v0.6.0-nightly.20261001.1](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261001.1) and [v0.6.0-nightly.20261001.2](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261001.2) (the first with the updater feed); phases 2–4 pending. Learned from T3 Code's release pipeline; the reading and the reasoning are in the paper [Nightly Is the Release Candidate](https://guerrilla.barkpark.cloud/papers/nightly-is-the-release-candidate).
 
 ## The idea
 
