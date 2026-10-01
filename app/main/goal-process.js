@@ -80,6 +80,8 @@ async function launchOwnedWorker(options) {
   }
 }
 async function launchOwnedWorkerInternal({ storeDir, profileId, attemptId, script, args = [], onMessage = () => {} }, dispatch) {
+  // The worker inherits the user's login-shell PATH, so the tools it runs are found (C088 S1).
+  const workerEnv = await require('./shell-environment').providerEnvReady();
   const options = { storeDir, profileId, attemptId }, names = files(options), nonce = crypto.randomUUID();
   const launch = { version: 1, profileId, attemptId, nonce, jobName: `Local\\BarkdownGoal-${nonce}` };
   const fd = fs.openSync(names.launch, 'wx'); try { fs.writeFileSync(fd, JSON.stringify(launch)); fs.fsyncSync(fd); } finally { fs.closeSync(fd); }
@@ -117,13 +119,13 @@ async function launchOwnedWorkerInternal({ storeDir, profileId, attemptId, scrip
   dispatch.started = true;
   if (WINDOWS) {
     helperProcess = spawn(powershell(), ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', helper], {
-      windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'], env: { ...process.env, ELECTRON_RUN_AS_NODE: '1' },
+      windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'], env: { ...workerEnv, ELECTRON_RUN_AS_NODE: '1' },
     });
   } else {
     // No helper: the worker itself leads the group. detached gives it a new session, so the group
     // id is its pid and the whole tree can be signalled and counted by that one number.
     helperProcess = spawn(process.execPath, [script, pipe, nonce, ...args], {
-      detached: true, cwd: storeDir, stdio: ['pipe', 'pipe', 'pipe'], env: { ...process.env, ELECTRON_RUN_AS_NODE: '1' },
+      detached: true, cwd: storeDir, stdio: ['pipe', 'pipe', 'pipe'], env: { ...workerEnv, ELECTRON_RUN_AS_NODE: '1' },
     });
     const identity = { version: 1, containment: CONTAINMENT, nonce, profileId, attemptId, jobName: launch.jobName, helperPid: helperProcess.pid, helperStarted: startedAt(helperProcess.pid), hostPid: process.pid, hostStarted: startedAt(process.pid) };
     saveReceipt(names.receipt, { ...identity, phase: 'assigned', childPid: helperProcess.pid, activeProcesses: 1 });

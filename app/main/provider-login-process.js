@@ -3,7 +3,7 @@ const { fork } = require('node:child_process');
 // Windows uses the stronger existing Job Object host instead.
 async function launchLoginProcess({ script, onMessage }) {
   let child;
-  try { child = fork(script, [], { detached: true, silent: true, env: { ...process.env, ELECTRON_RUN_AS_NODE: '1' } }); }
+  try { child = fork(script, [], { detached: true, silent: true, env: { ...(await require('./shell-environment').providerEnvReady()), ELECTRON_RUN_AS_NODE: '1' } }); }
   catch (error) { error.ownedProcessNotDispatched = true; throw error; }
   child.stdout.resume(); child.stderr.resume();
   let resolveReady, rejectReady, resolveFinished, rejectFinished, stopping = false;

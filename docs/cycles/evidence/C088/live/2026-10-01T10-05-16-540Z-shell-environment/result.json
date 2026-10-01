@@ -1,0 +1,39 @@
+{
+  "source": null,
+  "host": "darwin 24.3.0 arm64",
+  "checks": [
+    "The login shell fixture was probed and its PATH adopted",
+    "A sign-in check found the tool through the login-shell PATH, not the app’s PATH",
+    "The main process PATH stays as launched: the packaged runtime never sees the shell PATH"
+  ],
+  "status": "passed",
+  "shellEnvironment": {
+    "source": "login-shell:/Users/frikkjarl/Documents/GitHub/barkdown/app/tests/fixtures/shells/good.sh",
+    "pathEntries": 9,
+    "probed": [
+      {
+        "shell": "/Users/frikkjarl/Documents/GitHub/barkdown/app/tests/fixtures/shells/good.sh",
+        "ok": true,
+        "ms": 1168,
+        "values": {
+          "BARKDOWN_PROVIDER": "",
+          "SHELL": "/Users/frikkjarl/Documents/GitHub/barkdown/app/tests/fixtures/shells/good.sh",
+          "BD_FIXTURE_PATH": "/private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-shell-env-live-o9MVNw/tools:/usr/bin:/bin:/usr/sbin:/sbin",
+          "TMPDIR": "/private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/",
+          "USER": "frikkjarl",
+          "SSH_AUTH_SOCK": "/tmp/fixture-agent.sock",
+          "__CF_USER_TEXT_ENCODING": "0x1F5:0x0:0x0",
+          "PATH": "/private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-shell-env-live-o9MVNw/tools:/usr/bin:/bin:/usr/sbin:/sbin",
+          "PWD": "/Users/frikkjarl/Documents/GitHub/barkdown/app",
+          "ANTHROPIC_API_KEY": "",
+          "HOME": "/Users/frikkjarl",
+          "SHLVL": "1",
+          "_": "/usr/bin/printenv"
+        }
+      }
+    ]
+  },
+  "limits": [
+    "One Mac. The login shell and the tool are fixtures; a real zsh with a real Claude Code is the clean-account rehearsal in S4."
+  ]
+}

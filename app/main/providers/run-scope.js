@@ -23,7 +23,8 @@ function captureScope({ profileId = null, storeDir, context = {}, connection, wr
   const documents = documentModule.createDocuments(store, { writer });
   const conversations = conversationModule.createConversations(store);
   const edits = editModule.createAgentEdits({ store, documents });
-  const env = { ...process.env };
+  // Provider runs see the user's login-shell PATH (shell-environment.js); the packaged runtime does not.
+  const env = { ...require('../shell-environment').providerEnv() };
   const capturedConnection = frozenCopy(connection ?? { ...(store.readJson('barkpark.json', null) || {}), token: env.BARKDOWN_BP_TOKEN || '' });
   if (capturedConnection.managedProfileId && capturedConnection.managedProfileId !== profileId) throw new Error('Managed Paper runtime belongs to another run profile');
   if (profileId && capturedConnection.viaCli) throw new Error('Profile runs require an explicit Barkpark connection; the shared CLI selection is not profile-owned');

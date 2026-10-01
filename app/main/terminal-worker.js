@@ -27,7 +27,7 @@ socket.on('data', (chunk) => {
         const { command, args, cwd } = message;
         shell = spawn(command, args, {
           cwd,
-          env: { ...process.env, TERM: 'dumb', NO_COLOR: '1', ELECTRON_RUN_AS_NODE: undefined },
+          env: { ...require('./shell-environment').providerEnv(), TERM: 'dumb', NO_COLOR: '1', ELECTRON_RUN_AS_NODE: undefined },
           windowsHide: true,
         });
         shell.stdout.on('data', (b) => send({ type: 'data', data: b.toString('utf8') }));
