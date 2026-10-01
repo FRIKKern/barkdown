@@ -19,6 +19,11 @@ const noLaunchctl = ['/usr/bin/false'];
   assert.equal(result.env.SSH_AUTH_SOCK, '/tmp/fixture-agent.sock');
   assert.equal(result.env.HOME, home, 'inherited values are kept');
   assert.equal(await shell.hydrate(), result, 'hydration happens once');
+  // A variable set after the probe still reaches a run: the shell's contribution lays over the live environment.
+  const live = { ...base, SHELL: path.join(shells, 'good.sh') }; const liveShell = createShellEnvironment({ platform: 'darwin', env: live, home, timeoutMs: 2000, launchctl: noLaunchctl, exists: f => f === path.join(shells, 'good.sh') || f === path.join(home, '.local', 'bin') });
+  await liveShell.hydrate(); live.ANTHROPIC_API_KEY = 'set-later'; live.PATH = '/usr/bin:/bin:/late';
+  assert.equal(liveShell.current().ANTHROPIC_API_KEY, 'set-later'); assert.equal(liveShell.current().PATH, [tools, '/opt/homebrew/bin', '/usr/bin', '/bin', '/late', path.join(home, '.local', 'bin')].join(':'));
+  assert.equal(liveShell.current().SSH_AUTH_SOCK, '/tmp/fixture-agent.sock');
   assert.equal(shell.status().pathEntries, 5);
   assert.deepEqual(Object.keys(shell.status().probed[0]).sort(), ['ms', 'ok', 'shell'], 'a probe record never carries the shell environment');
 }

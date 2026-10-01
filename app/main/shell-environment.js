@@ -106,19 +106,23 @@ function createShellEnvironment({ platform = process.platform, env = process.env
       let found;
       try { found = await (platform === 'win32' ? hydrateWindows() : hydratePosix()); }
       catch (error) { log(`[shell-env] hydration failed: ${error.message}`); found = { source: 'inherited', values: {}, probed: [] }; }
-      const merged = { ...env };
-      merged[pathKey] = mergePath(splitPath(found.values.PATH, delimiter), splitPath(env[pathKey], delimiter), knownDirs(), delimiter);
-      for (const name of ADOPTED) if (merged[name] === undefined && found.values[name] !== undefined) merged[name] = found.values[name];
-      hydrated = Object.freeze({ env: Object.freeze(merged), source: found.source, probed: found.probed, pathEntries: splitPath(merged[pathKey], delimiter).length });
+      // What the shell contributed is kept, not a frozen copy of the whole environment: `current()`
+      // lays it over the live environment each time, so a variable set after launch still reaches a run.
+      found.shellPath = splitPath(found.values.PATH, delimiter);
+      const merged = compose(found);
+      hydrated = Object.freeze({ get env() { return compose(found); }, probedFound: found, source: found.source, probed: found.probed, pathEntries: splitPath(merged[pathKey], delimiter).length });
       return hydrated;
     })();
   }
-  // The best environment known right now: hydrated when it is, else inherited plus the known folders.
-  function current() {
-    if (hydrated) return hydrated.env;
-    const merged = { ...env }; merged[pathKey] = mergePath([], splitPath(env[pathKey], delimiter), knownDirs(), delimiter);
+  function compose(found) {
+    const merged = { ...env };
+    merged[pathKey] = mergePath(found?.shellPath || [], splitPath(env[pathKey], delimiter), knownDirs(), delimiter);
+    if (found) for (const name of ADOPTED) if (merged[name] === undefined && found.values[name] !== undefined) merged[name] = found.values[name];
     return Object.freeze(merged);
   }
+  // The best environment known right now: the shell's contribution over the live environment, or the
+  // live environment plus the known folders before the probe has answered.
+  function current() { return compose(hydrated ? hydrated.probedFound : null); }
   return Object.freeze({ hydrate, current, status: () => hydrated ? { source: hydrated.source, pathEntries: hydrated.pathEntries, probed: hydrated.probed } : { source: 'pending' } });
 }
 let installed = null, enabled = true;

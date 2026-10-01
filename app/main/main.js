@@ -555,7 +555,8 @@ function registerIpc() {
     // A chat's own model and effort win over the settings defaults.
     const settings = { providerBinary: s.providerBinary || {}, apiKey: decrypt(s.apiKeyEncrypted), model: chosen === 'api' ? (o.model || s.model) : s.model, claudeModel: chosen === 'claude' ? (o.model || s.claudeModel) : s.claudeModel, codexModel: chosen === 'codex' ? (o.model || s.codexModel) : s.codexModel, effort: o.effort || undefined };
     const runStoreDir = store.dir();
-    await providerEnvReady();
+    // Only a run on the user's own tool needs the login-shell PATH; the API provider starts at once.
+    if (chosen !== 'api') await providerEnvReady();
     const scope = captureScope({ storeDir: runStoreDir, context, connection: barkparkConfig() });
     await assertProviderAuthentication(chosen, settings, scope);
     assertProviderFolder(chosen, scope.context.folder);
