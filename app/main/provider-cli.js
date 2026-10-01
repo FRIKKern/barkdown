@@ -2,9 +2,11 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const os = require('node:os');
-function resolveProviderCli(provider, { platform = process.platform, arch = process.arch, env = process.env, home = os.homedir(), resolve = require.resolve } = {}) {
+function resolveProviderCli(provider, { platform = process.platform, arch = process.arch, env = process.env, home = os.homedir(), resolve = require.resolve, override = '' } = {}) {
   if (!['claude', 'codex'].includes(provider)) throw new Error('Unsupported sign-in provider');
   const exists = file => { try { return fs.statSync(file).isFile(); } catch { return false; } };
+  // A path chosen in Settings is the answer, right or wrong; nothing else is searched (C088 S2).
+  if (override) return path.isAbsolute(override) && exists(override) ? override : null;
   if (provider === 'codex') {
     try {
       const triples = { win32: { x64: 'x86_64-pc-windows-msvc', arm64: 'aarch64-pc-windows-msvc' }, darwin: { x64: 'x86_64-apple-darwin', arm64: 'aarch64-apple-darwin' }, linux: { x64: 'x86_64-unknown-linux-musl', arm64: 'aarch64-unknown-linux-musl' } };

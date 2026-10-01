@@ -3,7 +3,7 @@ const path = require('node:path');
 const { launchOwnedWorker } = require('./goal-process');
 const { launchLoginProcess } = require('./provider-login-process');
 // Device authentication is shared; only these short-lived processes are owned here.
-function createProviderLogin({ storeDir, platform = process.platform, launch = platform === 'win32' ? launchOwnedWorker : launchLoginProcess, loginTimeout = 300000, statusTimeout = 20000 } = {}) {
+function createProviderLogin({ storeDir, platform = process.platform, launch = platform === 'win32' ? launchOwnedWorker : launchLoginProcess, loginTimeout = 300000, statusTimeout = 20000, binaryFor = () => '' } = {}) {
   const ownerId = crypto.randomUUID(), sessions = new Map();
   let shuttingDown = false;
   const validate = provider => { if (!['claude', 'codex'].includes(provider)) throw new Error('Unsupported sign-in provider'); };
@@ -27,7 +27,7 @@ function createProviderLogin({ storeDir, platform = process.platform, launch = p
         const finished = record.host.finished;
         await record.host.ready;
         if (record.cancelled || record.result) record.host.stop();
-        else { record.state = operation === 'login' ? 'waiting' : 'checking'; record.host.send({ type: 'start', provider, operation }); }
+        else { record.state = operation === 'login' ? 'waiting' : 'checking'; record.host.send({ type: 'start', provider, operation, binary: binaryFor(provider) }); }
         await finished;
         if (!record.cancelled) record.state = record.result || 'failed';
       } catch (error) {

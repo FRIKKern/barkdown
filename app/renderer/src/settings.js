@@ -70,6 +70,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
             <div class="bw-card-body">
               ${setting('Model', 'Leave on the default to use what Claude Code itself is set to.', `<div class="bw-model">${selectHtml('claude-model', modelOptions('claude', s))}<input id="claude-model-custom" type="text" placeholder="model id" aria-label="Claude model id" hidden></div>`)}
               ${setting('Reasoning effort', `Claude Code's own default is <b>${esc(p.claude?.effort || 'high')}</b>${p.claude?.effortSeen && p.claude.effortSeen !== p.claude.effort ? ` (the last run reported ${esc(p.claude.effortSeen)})` : ''}. Change it per chat from the Effort chip.`, '')}
+              ${setting('Tool', `<span data-tool-status="claude">Looking for <code>claude</code>…</span>`, `<input id="claude-binary" type="text" value="${esc(s.providerBinary?.claude || '')}" placeholder="claude on the PATH" aria-label="Claude Code path" spellcheck="false">`)}
               <div data-login-provider="claude"></div>
             </div>
           </article>
@@ -78,6 +79,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
             <div class="bw-card-body">
               ${setting('Model', 'Leave on the default to use <code>~/.codex/config.toml</code>.', `<div class="bw-model">${selectHtml('codex-model', modelOptions('codex', s))}<input id="codex-model-custom" type="text" placeholder="model id" aria-label="Codex model id" hidden></div>`)}
               ${setting('Reasoning effort', `Codex's own default is <b>${esc(p.codex?.effort || 'medium')}</b>. Change it per chat from the Effort chip.`, '')}
+              ${setting('Tool', `<span data-tool-status="codex">Looking for <code>codex</code>…</span>`, `<input id="codex-binary" type="text" value="${esc(s.providerBinary?.codex || '')}" placeholder="codex on the PATH" aria-label="Codex path" spellcheck="false">`)}
               <div data-login-provider="codex"></div>
             </div>
           </article>
@@ -133,6 +135,9 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
   const q = sel => dialog.querySelector(sel);
   const qa = sel => [...dialog.querySelectorAll(sel)];
 
+  // What was found for each tool: filled in after the sheet opens, so opening never waits on a process.
+  const describeTool = t => !t ? 'Not checked.' : t.ok ? `Found <code>${esc(t.path)}</code>${t.version ? ` · ${esc(t.version)}` : ''}${t.source === 'settings' ? ' (from this setting)' : ''}.` : `<span class="bw-warn">${esc(t.problem || 'Not found.')}</span>${t.path && !t.ok && t.source === 'settings' ? ` <code>${esc(t.path)}</code>` : ''}`;
+  api.providers.tools().then(tools => { for (const name of ['claude', 'codex']) { const el = q(`[data-tool-status="${name}"]`); if (el) el.innerHTML = describeTool(tools[name]); } }).catch(() => {});
   const loginDisposers = qa('[data-login-provider]').map(host => mountProviderLogin(host, host.dataset.loginProvider, result => { const badge = host.closest('[data-provider]').querySelector('.bw-badge'); const ok = result.state === 'signed-in'; badge.textContent = ok ? 'Signed in' : 'Not signed in'; badge.classList.toggle('ok', ok); badge.classList.toggle('off', !ok); }));
 
   // navigation
@@ -157,6 +162,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
   const syncCards = () => qa('.bw-card').forEach(c => c.classList.toggle('on', c.querySelector('input[name="provider"]').checked));
   syncCards();
   qa('input[name="provider"]').forEach(r => { r.onchange = () => { syncCards(); markDirty(); }; });
+  for (const id of ['claude-binary', 'codex-binary']) { const el = q('#' + id); if (el) el.oninput = markDirty; }
   for (const [provider, key] of [['claude', 'claudeModel'], ['codex', 'codexModel']]) {
     const select = q(`#${provider}-model`), custom = q(`#${provider}-model-custom`);
     const value = s[key] || '';
@@ -373,6 +379,8 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
     if (saving) return;
     const patch = { model: q('#model').value, provider: q('input[name="provider"]:checked').value, claudeModel: modelValue('claude'), codexModel: modelValue('codex'), theme: theme(), chatWidth: Number(q('#width').value), barkpark: { enabled: q('#bp-enabled').checked, viaCli: bpMode() === 'cli', server: q('#bp-server').value.trim(), dataset: q('#bp-dataset').value.trim() || 'production', writes: q('#bp-writes').checked, local: { ...s.barkpark.local, enabled: bpMode() === 'local', source: q('#bp-source').value.trim() } } };
     if (q('#api-key').value.trim()) patch.apiKey = q('#api-key').value.trim(); else if (clearKey) patch.apiKey = '';
+    const binaries = { claude: q('#claude-binary')?.value.trim() ?? '', codex: q('#codex-binary')?.value.trim() ?? '' };
+    if (binaries.claude !== (s.providerBinary?.claude || '') || binaries.codex !== (s.providerBinary?.codex || '')) patch.providerBinary = binaries;
     if (q('#bp-token').value.trim()) patch.barkpark.token = q('#bp-token').value.trim();
     saving = true; dialog.setAttribute('aria-busy', 'true');
     const controls = qa('input, select, button').map(control => ({ control, disabled: control.disabled }));

@@ -35,7 +35,9 @@ let providerLogin = null;
 // The user's login-shell PATH, for finding and running their own tools (C088 S1). Started now so it is
 // ready by the time a chat or a sign-in check needs it; never applied to the packaged runtime.
 const shellEnvironment = require('./shell-environment').install(require('./shell-environment').createShellEnvironment({ log: line => console.error(line) }), { hydrate: process.env.BARKDOWN_SHELL_ENV !== 'off' });
-function loginService() { return providerLogin ||= require('./provider-login').createProviderLogin({ storeDir: app.getPath('userData') }); }
+function loginService() { return providerLogin ||= require('./provider-login').createProviderLogin({ storeDir: app.getPath('userData'), binaryFor: provider => readSettings().providerBinary?.[provider] || '' }); }
+// Which file is the user's tool, and whether it answers like one (C088 S2).
+const providerTools = require('./provider-tools').createProviderTools({ settings: () => readSettings(), env: () => require('./shell-environment').providerEnvReady() });
 const assertProviderAuthentication = require('./provider-authentication').createProviderAuthentication({ checkLogin: provider => loginService().check(provider) });
 
 const providerDiscovery = require('./provider-discovery').createProviderDiscovery({ service: loginService });
@@ -53,7 +55,7 @@ const DEV = process.argv.includes('--dev');
 let win = null;
 
 // ---------- settings ----------
-const DEFAULT_SETTINGS = { sidebarWidth: 200, chatWidth: 60, theme: 'system', model: 'claude-opus-5', provider: null, claudeModel: '', codexModel: '', apiKeyEncrypted: null, barkpark: { enabled: false, server: '', tokenEncrypted: null, dataset: 'production', writes: false, viaCli: false, local: { enabled: false, source: '', port: 4540, pgPort: 5540 } }, recentFolders: [], windowBounds: null };
+const DEFAULT_SETTINGS = { sidebarWidth: 200, chatWidth: 60, theme: 'system', model: 'claude-opus-5', provider: null, claudeModel: '', codexModel: '', providerBinary: { claude: '', codex: '' }, apiKeyEncrypted: null, barkpark: { enabled: false, server: '', tokenEncrypted: null, dataset: 'production', writes: false, viaCli: false, local: { enabled: false, source: '', port: 4540, pgPort: 5540 } }, recentFolders: [], windowBounds: null };
 
 const APPEARANCE_KEYS = ['theme', 'sidebarWidth', 'chatWidth', 'windowBounds'];
 // A built application carries its runtime (Resources/runtime). A profile that has never had a
@@ -99,7 +101,7 @@ function ordinaryNoteOptions(config) {
 function publicSettings() {
   const s = readSettings();
   if (profileConnection && s.barkpark.local?.enabled) s.barkpark.local = { ...s.barkpark.local, port: Number(new URL(profileConnection.server).port) };
-  return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN) && !s.apiKeyEncrypted, barkpark: { catalogKind: profileService && s.barkpark.local?.enabled ? 'local' : 'cloud', connectionIdentity: paperConnection.currentIdentity(), catalogGeneration, effectiveServer: s.barkpark.local?.enabled ? `http://127.0.0.1:${s.barkpark.local.port}` : s.barkpark.server, enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, local: s.barkpark.local || DEFAULT_SETTINGS.barkpark.local }, recentFolders: s.recentFolders, userData: store.dir() };
+  return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), providerBinary: { claude: s.providerBinary?.claude || '', codex: s.providerBinary?.codex || '' }, claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN) && !s.apiKeyEncrypted, barkpark: { catalogKind: profileService && s.barkpark.local?.enabled ? 'local' : 'cloud', connectionIdentity: paperConnection.currentIdentity(), catalogGeneration, effectiveServer: s.barkpark.local?.enabled ? `http://127.0.0.1:${s.barkpark.local.port}` : s.barkpark.server, enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, local: s.barkpark.local || DEFAULT_SETTINGS.barkpark.local }, recentFolders: s.recentFolders, userData: store.dir() };
 }
 // What the MCP server and the context note need to know about Barkpark, refreshed on every save.
 function localSecrets(source = store) {
@@ -278,6 +280,14 @@ function registerIpc() {
     if (patch.provider !== undefined) s.provider = patch.provider || null;
     if (patch.claudeModel !== undefined) s.claudeModel = patch.claudeModel;
     if (patch.codexModel !== undefined) s.codexModel = patch.codexModel;
+    if (patch.providerBinary) {
+      s.providerBinary = { ...(s.providerBinary || {}) };
+      for (const provider of ['claude', 'codex']) if (patch.providerBinary[provider] !== undefined) {
+        const value = String(patch.providerBinary[provider] || '').trim();
+        if (value && !path.isAbsolute(value)) throw new Error(`The ${provider === 'claude' ? 'Claude Code' : 'Codex'} path must be absolute`);
+        s.providerBinary[provider] = value;
+      }
+    }
     if (patch.apiKey !== undefined) s.apiKeyEncrypted = patch.apiKey ? encrypt(patch.apiKey) : null;
     if (patch.barkpark) {
       const b = patch.barkpark;
@@ -512,6 +522,7 @@ function registerIpc() {
 
   handle('providers:status', () => providerStatus());
   handle('providers:shellEnvironment', () => shellEnvironment.status());
+  handle('providers:tools', fresh => providerTools.all({ fresh: Boolean(fresh) }));
   handle('providers:login', provider => loginService().start(provider));
   handle('providers:loginStatus', provider => loginService().status(provider));
   handle('providers:loginCheck', provider => loginService().start(provider, 'status'));

@@ -36,7 +36,7 @@ async function handle(message) {
   if (started || message.type !== 'start' || !['claude', 'codex'].includes(message.provider) || !['login', 'status'].includes(message.operation)) return process.exit(2);
   started = true;
   const { provider, operation } = message;
-  const file = resolveProviderCli(provider);
+  const file = resolveProviderCli(provider, { override: typeof message.binary === 'string' ? message.binary : '' });
   if (!file) return complete({ state: 'unavailable' });
   if (operation === 'login') {
     const login = await run(file, commandArgs(provider, 'login'));
