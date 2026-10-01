@@ -40,7 +40,7 @@ try {
   assert.equal(got.phase, 'downloaded', JSON.stringify(got)); assert.ok(served.some(u => u.endsWith('.zip')));
   report.checks.push('A download fetches the zip the feed names and verifies its digest'); persist();
   const refused = await page.evaluate(() => window.barkdown.updates.install());
-  assert.equal(refused.phase, 'downloaded'); assert.match(refused.message, /signed ad hoc and cannot replace itself/);
+  assert.equal(refused.phase, 'downloaded'); assert.match(refused.message, /^This copy is signed ad hoc and cannot replace itself/);
   report.checks.push('Installing is refused with the ad hoc reason; nothing restarts'); persist();
   await page.evaluate(() => document.querySelector('#bw-settings')?.click() ?? window.__barkdown.openSettings?.());
   await page.locator('button[data-pane="about"]').click();

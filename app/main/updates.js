@@ -43,7 +43,7 @@ function createUpdates({ app, autoUpdater, version, feedUrl = process.env.BARKDO
   function install() {
     if (state.phase !== 'downloaded') return status();
     // Squirrel.Mac validates the new bundle's signature against the running one; ad hoc fails that.
-    if (process.platform === 'darwin' && !signed) { set({ message: `Barkdown ${state.latest} is downloaded, but this copy is signed ad hoc and cannot replace itself. Install the new disk image from the release page; your notes and profiles are kept.` }); return status(); }
+    if (process.platform === 'darwin' && !signed) { set({ message: 'This copy is signed ad hoc and cannot replace itself. Install the new disk image from the release page; your notes and profiles are kept.' }); return status(); }
     autoUpdater.quitAndInstall(false, true); return status();
   }
   function start() { if (!enabled) return; timer = timers.setTimeout(() => { check().catch(() => {}); timer = timers.setTimeout(function again() { check().catch(() => {}); timer = timers.setTimeout(again, CHECK_EVERY_MS); }, CHECK_EVERY_MS); }, CHECK_DELAY_MS); timer.unref?.(); }

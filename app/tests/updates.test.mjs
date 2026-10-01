@@ -19,7 +19,7 @@ assert.equal(channelOf('0.6.0-nightly.20261001.1'), 'nightly'); assert.equal(cha
   const after = await updates.check(); assert.equal(after.phase, 'available'); assert.equal(after.latest, '0.6.0-nightly.20261002.1'); assert.equal(u.downloads, 0);
   const got = await updates.download(); assert.equal(got.phase, 'downloaded'); assert.equal(got.percent, 100);
   // Ad hoc signed: the install is refused with the reason, and nothing restarts.
-  const refused = updates.install(); assert.equal(u.installs, 0); assert.match(refused.message, /signed ad hoc and cannot replace itself/);
+  const refused = updates.install(); assert.equal(u.installs, 0); assert.match(refused.message, /^This copy is signed ad hoc and cannot replace itself/);
   assert.deepEqual(changes, ['checking', 'available', 'downloading', 'downloading', 'downloaded', 'downloaded']);
 }
 {
