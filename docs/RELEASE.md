@@ -23,6 +23,10 @@ One Mac (arm64). A private repository whose Actions runs start with zero jobs (b
 
 No dry run: every run of the script is a real release. The script says so.
 
+## The schedule (this Mac, since 2026-10-02)
+
+A launchd agent runs `scripts/nightly-tick.sh` every two hours (`node scripts/nightly-schedule.mjs install | remove | status`; the agent is `~/Library/LaunchAgents/no.guerrilla.barkdown.nightly.plist`, written from `scripts/launchd/`). A tick does nothing unless the checkout is idle — on `main`, no tracked changes, and `origin/main` fast-forwards — then runs `release.mjs nightly --if-due --chain`: not due (no new commits, or the last nightly is under six hours old) means exit 0 and one log line; due means the chain runs first when the commit has no receipt (about twenty minutes of Electron windows opening and closing on this Mac), and the nightly is cut from a passing receipt. A commit whose chain failed is not retried; the next commit gets its own chain. Log: `.release/nightly-tick.log`. The GitHub Actions workflow (`.github/workflows/release.yml`) has the same cron for the day a self-hosted runner exists; until then this agent is the schedule.
+
 ## Phase 2 — signature and notarization (when a Developer ID exists)
 
 Built in, idle until the secrets exist: with `CSC_NAME` (a Developer ID Application identity in the login keychain) and `APPLE_API_KEY`, `APPLE_API_KEY_ID`, `APPLE_API_ISSUER` in the environment, `build-mac-app.mjs` signs with that identity, enables the hardened runtime and notarizes through electron-builder; without them it signs ad hoc. Still to do once an identity exists: a Gatekeeper assessment (`spctl`) in the install rehearsal.

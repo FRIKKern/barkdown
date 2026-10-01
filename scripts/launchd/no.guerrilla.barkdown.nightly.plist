@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- The nightly schedule on this Mac: scripts/nightly-tick.sh every two hours (docs/RELEASE.md, "The schedule").
+     Install: node scripts/nightly-schedule.mjs install   (writes the agent with this checkout's path and loads it)
+     Remove:  node scripts/nightly-schedule.mjs remove -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>no.guerrilla.barkdown.nightly</string>
+  <key>ProgramArguments</key>
+  <array><string>/bin/zsh</string><string>__REPO__/scripts/nightly-tick.sh</string></array>
+  <key>StartInterval</key><integer>7200</integer>
+  <key>RunAtLoad</key><false/>
+  <key>ProcessType</key><string>Background</string>
+  <key>StandardOutPath</key><string>__REPO__/.release/nightly-launchd.log</string>
+  <key>StandardErrorPath</key><string>__REPO__/.release/nightly-launchd.log</string>
+</dict>
+</plist>

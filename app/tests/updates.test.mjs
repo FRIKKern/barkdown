@@ -19,14 +19,14 @@ assert.equal(channelOf('0.6.0-nightly.20261001.1'), 'nightly'); assert.equal(cha
   const after = await updates.check(); assert.equal(after.phase, 'available'); assert.equal(after.latest, '0.6.0-nightly.20261002.1'); assert.equal(u.downloads, 0);
   const got = await updates.download(); assert.equal(got.phase, 'downloaded'); assert.equal(got.percent, 100);
   // Ad hoc signed: the install is refused with the reason, and nothing restarts.
-  const refused = updates.install(); assert.equal(u.installs, 0); assert.match(refused.message, /^This copy is signed ad hoc and cannot replace itself/);
+  const refused = await updates.install(); assert.equal(u.installs, 0); assert.match(refused.message, /^This copy is signed ad hoc and cannot replace itself/);
   assert.deepEqual(changes, ['checking', 'available', 'downloading', 'downloading', 'downloaded', 'downloaded']);
 }
 {
   // Signed: the install proceeds. A rehearsal feed (generic provider) is used when given, even unpackaged.
   const u = fakeUpdater(); const updates = createUpdates({ app: { isPackaged: false }, autoUpdater: u, version: '0.6.0', feedUrl: 'http://127.0.0.1:9/feed', signed: true });
   assert.deepEqual(u.feed, { provider: 'generic', url: 'http://127.0.0.1:9/feed', channel: 'latest' }); assert.equal(u.forceDevUpdateConfig, true);
-  await updates.check(); await updates.download(); updates.install(); assert.equal(u.installs, 1);
+  await updates.check(); await updates.download(); await updates.install(); assert.equal(u.installs, 1);
 }
 {
   // A failing check reports the error and stays usable; the timer starts only when enabled.
@@ -36,4 +36,14 @@ assert.equal(channelOf('0.6.0-nightly.20261001.1'), 'nightly'); assert.equal(cha
   assert.equal((await updates.check()).phase, 'error'); assert.match(updates.status().message, /ENOTFOUND/);
   updates.start(); assert.equal(timers.calls, 1); updates.stop();
 }
-console.log('Updates: off without a feed, GitHub channel feeds, check without download, download without install, ad hoc refusal, signed install, errors and the schedule passed.');
+{
+  // Signed with the snapshot collaborator: the copy is taken before the install; a copy that cannot be taken installs nothing.
+  const u = fakeUpdater(); const taken = []; let failing = true;
+  const snapshots = { current: () => taken.at(-1) || null, take: async ({ from, to }) => { if (failing) throw new Error('pg_dump failed'); const m = { from, to, folder: '/snap/' + to }; taken.push(m); return m; } };
+  const updates = createUpdates({ app: { isPackaged: false }, autoUpdater: u, version: '0.6.0', feedUrl: 'http://127.0.0.1:9/feed', signed: true, snapshots });
+  assert.equal(updates.status().snapshots, true); assert.equal(updates.status().snapshot, null);
+  await updates.check(); await updates.download();
+  const kept = await updates.install(); assert.equal(u.installs, 0); assert.equal(kept.phase, 'downloaded'); assert.match(kept.message, /could not be taken: pg_dump failed\. Nothing was installed\.$/);
+  failing = false; const went = await updates.install(); assert.equal(u.installs, 1); assert.deepEqual(went.snapshot, { from: '0.6.0', to: went.latest, folder: '/snap/' + went.latest });
+}
+console.log('Updates: off without a feed, GitHub channel feeds, check without download, download without install, ad hoc refusal, signed install, the copy before the install, errors and the schedule passed.');

@@ -769,6 +769,13 @@ function wire() {
     openProject: () => openProject(true), startFolderChat,
   }, true);
   q('#bw-go-chat').onclick = () => { pauseFollow(); root.classList.add('mobile-chat'); q('#bw-prompt').focus(); };
+  // Narrow layout: the sidebar is a layer over the chat, opened from the context bar, closed by the same
+  // button, Escape, the backdrop, or choosing something in it.
+  const pagesToggle = q('#bw-pages-toggle');
+  const setPagesOpen = open => { root.classList.toggle('bw-pages-open', open); pagesToggle.setAttribute('aria-expanded', String(open)); if (open) q('#bw-sidebar')?.querySelector('button, a, [tabindex]')?.focus(); else pagesToggle.focus(); };
+  pagesToggle.onclick = () => setPagesOpen(!root.classList.contains('bw-pages-open'));
+  root.addEventListener('click', e => { if (!root.classList.contains('bw-pages-open')) return; const inside = e.target.closest('#bw-sidebar'); if (!inside && !e.target.closest('#bw-pages-toggle')) setPagesOpen(false); else if (inside && e.target.closest('button, a')) setTimeout(() => setPagesOpen(false), 0); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && root.classList.contains('bw-pages-open')) { e.stopPropagation(); setPagesOpen(false); } }, true);
   q('#bw-mobile-back').onclick = () => { if (state.mode === 'document') { state.mode = 'chat'; render(); } root.classList.toggle('mobile-chat'); };
   document.addEventListener('click', e => { const img = e.target.closest('[data-lightbox]'); const box = q('#bw-lightbox'); if (img) { box.querySelector('img').src = img.dataset.lightbox; box.hidden = false; } else if (!box.hidden) box.hidden = true; });
   q('#bw-tabs').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; const chat = workspaceChat(); if (b.dataset.tab) focusTab(chat, b.dataset.tab); else if (b.dataset.close) closeTab(chat, b.dataset.close); else if (b.dataset.fav) toggleFavorite(b.dataset.fav); });

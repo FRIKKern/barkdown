@@ -6,9 +6,10 @@
 // (scripts/chain.mjs) for that exact commit; the image rehearsed after it is built; checksums from
 // the bytes that are uploaded; notes against the previous tag in the same channel. There is no
 // dry run: every run of this script that passes its gates is a real release.
-// Usage: node scripts/release.mjs nightly | stable [--from v0.6.0-nightly.20261001.1] [--version X.Y.Z] [--skip-rehearsal] [--if-due]
+// Usage: node scripts/release.mjs nightly | stable [--from v0.6.0-nightly.20261001.1] [--version X.Y.Z] [--skip-rehearsal] [--if-due] [--chain]
 // --if-due (nightly, for a schedule): exit 0 without doing anything unless main has new commits since
-// the last nightly and six hours have passed since it was cut.
+// the last nightly and six hours have passed since it was cut. --chain: run scripts/chain.mjs first when
+// the commit has no receipt (scripts/nightly-tick.sh passes both).
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -45,8 +46,10 @@ let plan; try { plan = planRelease({ channel, tags, manifestVersion: manifest.ve
 const { version, tag, previousTag, fromTag } = plan;
 if (fromTag) { const nightlySha = git('rev-list', '-n', '1', fromTag); if (nightlySha !== sha) fail(`HEAD is ${short} but ${fromTag} is ${nightlySha.slice(0, 9)}: a stable release is the nightly's commit, so check it out (git checkout ${nightlySha.slice(0, 9)}) and run again`); }
 if (tags.includes(tag)) fail(`${tag} already exists`);
-// 2. The chain receipt for this exact commit.
+// 2. The chain receipt for this exact commit. --chain runs the chain here when the commit has none yet
+//    (the schedule's case, after the due gate); a chain that fails is a release that does not happen.
 const receiptFile = path.join(root, '.release', 'chain', sha + '.json');
+if (args.includes('--chain') && !fs.existsSync(receiptFile)) sh(process.execPath, [path.join(root, 'scripts', 'chain.mjs')], { env });
 let receipt; try { receipt = JSON.parse(fs.readFileSync(receiptFile, 'utf8')); } catch { fail(`no chain receipt for ${short}: run node scripts/chain.mjs on this commit first`); }
 if (receipt.status !== 'passed' || receipt.sha !== sha) fail(`the chain receipt for ${short} did not pass`);
 console.log(`release: ${channel} ${tag} from ${short}${fromTag ? ` (promoting ${fromTag})` : ''}, previous ${previousTag || 'none'}`);

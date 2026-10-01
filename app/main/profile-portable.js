@@ -31,17 +31,32 @@ function createProfilePortable({ registry, preparation, runtimePool, sourceFor, 
     if (!partial(folder)) return typeof folder === 'string' && fs.existsSync(folder) ? 'kept' : 'none';
     try { return (await trash(folder)) !== false && !fs.existsSync(folder) ? 'trashed' : 'kept'; } catch (error) { log(`[export] partial folder kept: ${error.message}`); return 'kept'; }
   }
-  async function chooseExport(profileId) {
+  const exportable = profileId => {
     source(profileId);
     const profile = registry.load().profiles.find(p => p.id === profileId);
     if (!profile) fail('portable_profile', 'Unknown profile');
     if (journal(profileId)?.status === 'exporting' && !exporting.has(profileId)) fail('portable_interrupted', 'An earlier export of this profile was interrupted. Discard it first');
-    const parent = await chooseFolder({ title: 'Choose where the profile export goes', buttonLabel: 'Export here', properties: ['openDirectory', 'createDirectory'] });
-    if (!parent) { pending.delete(profileId); return null; }
-    const folder = path.join(parent, folderName(profile.name, now()));
+    return profile;
+  };
+  const planExport = (profileId, parent, name) => {
+    const folder = path.join(parent, name || folderName(exportable(profileId).name, now()));
     if (fs.existsSync(folder)) fail('portable_destination', 'An export with this name already exists there; nothing is overwritten');
     pending.set(profileId, folder);
     return { folder };
+  };
+  async function chooseExport(profileId) {
+    exportable(profileId);
+    const parent = await chooseFolder({ title: 'Choose where the profile export goes', buttonLabel: 'Export here', properties: ['openDirectory', 'createDirectory'] });
+    if (!parent) { pending.delete(profileId); return null; }
+    return planExport(profileId, parent);
+  }
+  // An export into a folder the application chose, no picker: the copy taken before an update installs
+  // (main/updates.js). The same preparation, run and journal as a chosen export.
+  async function exportTo(profileId, parent, { name = null } = {}) {
+    exportable(profileId);
+    fs.mkdirSync(parent, { recursive: true });
+    planExport(profileId, parent, name);
+    return exportChosen(profileId);
   }
   async function exportChosen(profileId) {
     const folder = pending.get(profileId); pending.delete(profileId);
@@ -152,6 +167,6 @@ function createProfilePortable({ registry, preparation, runtimePool, sourceFor, 
     await discardImport(interruptedId);
     return runImport(profileId, found.exportDir);
   }
-  return Object.freeze({ chooseExport, exportChosen, importChosen, outcome, discardExport, interruptedImports, isIncomplete, discardImport, importAgain });
+  return Object.freeze({ chooseExport, exportTo, exportChosen, importChosen, outcome, discardExport, interruptedImports, isIncomplete, discardImport, importAgain });
 }
 module.exports = { createProfilePortable };

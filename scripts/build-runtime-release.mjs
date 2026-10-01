@@ -19,8 +19,13 @@ if (process.argv[2] === '--add-postgres') {
   const target = path.join(release, 'postgres');
   if (fs.existsSync(target)) { console.error('This release already carries a Postgres; nothing is overwritten.'); process.exit(2); }
   fs.cpSync(postgres, target, { recursive: true, verbatimSymlinks: true });
+  // Only the programs the driver runs ship (app/main/local-barkpark-source.js). The rest of a Postgres
+  // install (pgbench, pg_upgrade, pg_dumpall, ecpg, …) is some 15 MB nothing in Barkdown can reach.
+  const programs = ['initdb', 'pg_ctl', 'postgres', 'psql', 'createdb', 'pg_dump', 'pg_restore'];
+  const dropped = fs.readdirSync(path.join(target, 'bin')).filter(name => !programs.includes(name.replace(/\.exe$/, '')));
+  for (const name of dropped) fs.rmSync(path.join(target, 'bin', name), { force: true });
   const releaseMark = JSON.parse(fs.readFileSync(markFile, 'utf8'));
-  fs.writeFileSync(markFile, JSON.stringify({ ...releaseMark, postgres: JSON.parse(fs.readFileSync(pgMark, 'utf8')) }, null, 2) + '\n');
+  fs.writeFileSync(markFile, JSON.stringify({ ...releaseMark, postgres: { ...JSON.parse(fs.readFileSync(pgMark, 'utf8')), programs } }, null, 2) + '\n');
   console.log('Postgres ' + releaseMark.upstream.slice(0, 9) + ' release now carries ' + path.basename(postgres));
   process.exit(0);
 }

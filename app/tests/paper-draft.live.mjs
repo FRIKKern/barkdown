@@ -59,7 +59,10 @@ try {
     const receipt = await c.retainRecovery();
     return { receipt, record: await window.barkdown.paperDrafts.read(receipt.key), dirty: c.isDirty() };
   });
-  assert.equal(first.receipt.current, true); assert.equal(first.dirty, true);
+  // The receipt is current unless the code node's debounce commits while the retain is in flight, which a
+  // loaded machine shows (chain run 2026-10-02). By contract a non-current receipt means "capture again".
+  const settled = first.receipt.current ? first : await page.evaluate(async () => { const c = [...window.__barkdown.controllers.values()].find(c => c.el.matches('.bw-paper-pane')); const receipt = await c.retainRecovery(); return { receipt, record: await window.barkdown.paperDrafts.read(receipt.key), dirty: c.isDirty() }; });
+  assert.equal(settled.receipt.current, true, 'the second recovery receipt is current'); assert.equal(first.dirty, true, 'the pane is dirty after typing');
   assert.equal(first.record.content.draft.title, '  My unfinished title  ');
   assert.match(JSON.stringify(first.record.content.draft.snapshot), /before debounce/);
   report.checks.push('Actual debounced code and raw title retained through profile IPC before a server save.');

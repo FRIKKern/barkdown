@@ -38,11 +38,29 @@ const shellEnvironment = require('./shell-environment').install(require('./shell
 const providerEnvReady = () => require('./shell-environment').providerEnvReady();
 // Updates (C086, docs/RELEASE.md phase 3): checked in the background, downloaded and installed only when asked.
 let updates;
+// The copy of the profile taken before an update installs (docs/RELEASE.md, phase 3): an export into the
+// application's own folder, no picker, one kept; a marker names it so Settings › About can point at it
+// after the restart, whether or not the new version opened the profile. Without a local runtime there is
+// nothing local to copy, and the install goes ahead.
+function updateSnapshots() {
+  const fs = require('node:fs'), path = require('node:path');
+  const markerFile = () => path.join(app.getPath('userData'), 'update-snapshot.json');
+  const current = () => { try { const m = JSON.parse(fs.readFileSync(markerFile(), 'utf8')); return m?.version === 1 && fs.existsSync(path.join(m.folder, 'manifest.json')) ? m : null; } catch { return null; } };
+  return { current, take: async ({ from, to }) => {
+    const local = readSettings().barkpark.local; if (!local?.enabled || !portable) return null;
+    const profileId = profileService.view().profileId, earlier = current();
+    const done = await portable.exportTo(profileId, path.join(app.getPath('userData'), 'update-snapshots'), { name: `Before Barkdown ${to} - ${new Date().toISOString().slice(0, 16).replace('T', ' ').replace(':', '')}` });
+    const marker = { version: 1, from, to, profileId, folder: done.folder, at: new Date().toISOString() };
+    fs.writeFileSync(markerFile(), JSON.stringify(marker, null, 2) + '\n');
+    if (earlier && earlier.folder !== marker.folder) { try { await shell.trashItem(earlier.folder); } catch (error) { console.error(`[updates] earlier snapshot kept: ${error.message}`); } }
+    return marker;
+  } };
+}
 function installUpdates() {
   const packaged = app.isPackaged;
   // codesign prints "Signature=adhoc" for an ad hoc signature; a Developer ID signature names its authority.
   let signed = false; try { if (packaged && process.platform === 'darwin') { const out = require('node:child_process').spawnSync('codesign', ['-dv', '--verbose=2', process.execPath], { encoding: 'utf8' }); signed = !/Signature=adhoc/.test(out.stderr + out.stdout) && /Authority=Developer ID Application/.test(out.stderr + out.stdout); } } catch { signed = false; }
-  updates = require('./updates').createUpdates({ app, autoUpdater: require('electron-updater').autoUpdater, version: app.getVersion(), repository: { owner: 'FRIKKern', repo: 'barkdown' }, signed, configDir: app.getPath('userData'), log: line => console.error(line), onChange: status => win?.webContents.send('updates:changed', status) });
+  updates = require('./updates').createUpdates({ app, autoUpdater: require('electron-updater').autoUpdater, version: app.getVersion(), repository: { owner: 'FRIKKern', repo: 'barkdown' }, signed, configDir: app.getPath('userData'), snapshots: updateSnapshots(), log: line => console.error(line), onChange: status => win?.webContents.send('updates:changed', status) });
   updates.start();
 }
 function loginService() { return providerLogin ||= require('./provider-login').createProviderLogin({ storeDir: app.getPath('userData'), binaryFor: provider => readSettings().providerBinary?.[provider] || '' }); }

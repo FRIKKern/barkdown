@@ -72,7 +72,15 @@ try {
   const zoomOverflow = await overflow(), zoomPrompt = await visible('#bw-prompt'), zoomSend = await visible('#bw-send'), zoomNew = await visible('#bw-new-page');
   await shot('01-zoom-200');
   finding('zoom 200%: no horizontal page scroll', zoomOverflow.scrollWidth <= zoomOverflow.clientWidth + 1, zoomOverflow);
-  finding('zoom 200%: composer, send and New page are in view', zoomPrompt.inView && zoomSend.inView && zoomNew.inView, { zoomPrompt, zoomSend, zoomNew, note: zoomNew.inView ? undefined : 'the window is 650 CSS px wide at 200%, so the layout is the narrow one and the sidebar is collapsed; New page is behind it' });
+  // In the narrow layout the sidebar is behind the Pages button: open it, New page is in view, Escape closes it.
+  let zoomPages = { opened: false };
+  if (!zoomNew.inView) {
+    await page.locator('#bw-pages-toggle').click(); await new Promise(r => setTimeout(r, 300));
+    const opened = await visible('#bw-new-page'); await shot('01b-zoom-200-pages-open');
+    await page.keyboard.press('Escape'); await new Promise(r => setTimeout(r, 300));
+    zoomPages = { opened: opened.inView, closedByEscape: !(await visible('#bw-new-page')).inView, toggleExpanded: await page.evaluate(() => document.querySelector('#bw-pages-toggle').getAttribute('aria-expanded')) };
+  }
+  finding('zoom 200%: composer, send and New page are in view, or the Pages button brings New page into view and Escape closes it', zoomPrompt.inView && zoomSend.inView && (zoomNew.inView || (zoomPages.opened && zoomPages.closedByEscape)), { zoomPrompt, zoomSend, zoomNew, zoomPages });
   await app.evaluate(({ BrowserWindow }) => { BrowserWindow.getAllWindows()[0].webContents.setZoomFactor(1); });
   // 3. Narrow window.
   await page.setViewportSize({ width: 820, height: 860 }); await new Promise(r => setTimeout(r, 600));

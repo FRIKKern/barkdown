@@ -2,13 +2,15 @@
 // a download only when asked, a restart only when asked. Nothing happens on its own. The feed is the
 // GitHub release of the running channel, or BARKDOWN_UPDATE_URL for a rehearsal against a local one.
 // The last step, installing, needs an application signed with a Developer ID; until then a download
-// completes and the install is refused with the reason, so a person is never left guessing.
+// completes and the install is refused with the reason, so a person is never left guessing. Before an
+// install, `snapshots.take` copies the profile (an export into the application's folder) and the marker it
+// returns is shown after the restart, so what was there before the update is always one import away.
 const CHECK_DELAY_MS = 60 * 1000, CHECK_EVERY_MS = 6 * 60 * 60 * 1000;
 function channelOf(version) { return /-nightly\.\d{8}\.\d+$/.test(version) ? 'nightly' : 'latest'; }
-function createUpdates({ app, autoUpdater, version, feedUrl = process.env.BARKDOWN_UPDATE_URL || '', repository = null, signed = false, configDir = null, log = () => {}, onChange = () => {}, timers = { setTimeout, clearTimeout } }) {
+function createUpdates({ app, autoUpdater, version, feedUrl = process.env.BARKDOWN_UPDATE_URL || '', repository = null, signed = false, configDir = null, log = () => {}, onChange = () => {}, snapshots = null, timers = { setTimeout, clearTimeout } }) {
   const channel = channelOf(version);
   const enabled = Boolean(feedUrl) || (app.isPackaged && Boolean(repository));
-  let state = { phase: enabled ? 'idle' : 'off', channel, version, latest: null, percent: 0, message: enabled ? null : 'Updates run in the installed application.', checkedAt: null, signed };
+  let state = { phase: enabled ? 'idle' : 'off', channel, version, latest: null, percent: 0, message: enabled ? null : 'Updates run in the installed application.', checkedAt: null, signed, snapshots: Boolean(snapshots), snapshot: snapshots?.current?.() || null };
   let timer = null, pending = null;
   const set = patch => { state = { ...state, ...patch }; onChange(status()); };
   function status() { return { ...state }; }
@@ -40,10 +42,15 @@ function createUpdates({ app, autoUpdater, version, feedUrl = process.env.BARKDO
     try { set({ phase: 'downloading', percent: 0, message: null }); await autoUpdater.downloadUpdate(); } catch (error) { set({ phase: 'error', message: String(error?.message || error).split('\n')[0].slice(0, 200) }); }
     return status();
   }
-  function install() {
+  async function install() {
     if (state.phase !== 'downloaded') return status();
     // Squirrel.Mac validates the new bundle's signature against the running one; ad hoc fails that.
     if (process.platform === 'darwin' && !signed) { set({ message: 'This copy is signed ad hoc and cannot replace itself. Install the new disk image from the release page; your notes and profiles are kept.' }); return status(); }
+    if (snapshots) {
+      set({ phase: 'snapshotting', message: null });
+      try { const marker = await snapshots.take({ from: version, to: state.latest }); set({ phase: 'downloaded', snapshot: marker || state.snapshot }); }
+      catch (error) { set({ phase: 'downloaded', message: `The copy of the profile before the update could not be taken: ${String(error?.message || error).split('\n')[0].slice(0, 160)}. Nothing was installed.` }); return status(); }
+    }
     autoUpdater.quitAndInstall(false, true); return status();
   }
   function start() { if (!enabled) return; timer = timers.setTimeout(() => { check().catch(() => {}); timer = timers.setTimeout(function again() { check().catch(() => {}); timer = timers.setTimeout(again, CHECK_EVERY_MS); }, CHECK_EVERY_MS); }, CHECK_DELAY_MS); timer.unref?.(); }

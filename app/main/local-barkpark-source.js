@@ -137,6 +137,17 @@ class SourceDriver {
   }
   // What this driver launched, so a later host can prove a leftover is its own (runtime-orphan.js).
   get processRecord() { return this.record ||= createRuntimeRecord({ dataDir: this.dataDir }); }
+  // A data folder made by one Postgres major cannot be opened by another: the server refuses it with a
+  // cryptic line, or worse. Before anything is started, the folder's PG_VERSION is compared with the
+  // Postgres this runtime brings, and a mismatch is said in plain words with the way out.
+  assertDatabaseCompatible() {
+    const file = path.join(this.pgData, 'PG_VERSION');
+    if (!fs.existsSync(file)) return;
+    const have = String(fs.readFileSync(file, 'utf8')).trim().split('.')[0];
+    let carried = this.packaged?.postgres?.postgres ? String(this.packaged.postgres.postgres).split('.')[0] : null;
+    if (!carried) { try { carried = /\) (\d+)\./.exec(require('node:child_process').execFileSync(path.join(this.pgBin, 'pg_ctl' + this.exe), ['--version'], { encoding: 'utf8', timeout: 15000 }))?.[1] || null; } catch {} }
+    if (carried && have && carried !== have) throw Object.assign(new Error(`This profile's database was made by PostgreSQL ${have}, and this runtime brings PostgreSQL ${carried}. Nothing was changed. Export the profile from the Barkdown that made it, then import it here.`), { code: 'runtime_database_major' });
+  }
   databaseRunning() { return fs.existsSync(path.join(this.pgData, 'PG_VERSION')) ? this.run('pg_ctl', ['-D', this.pgData, 'status']).then(() => true, () => false) : Promise.resolve(false); }
   async stopDatabase() {
     try { await this.run('pg_ctl', ['-D', this.pgData, '-m', 'fast', '-w', '-t', '10', 'stop']); }
@@ -149,6 +160,7 @@ class SourceDriver {
     signal.throwIfAborted();
     await freePort(this.config.port); await freePort(this.config.pgPort);
     signal.throwIfAborted();
+    this.assertDatabaseCompatible();
     if (!fs.existsSync(path.join(this.pgData, 'PG_VERSION'))) {
       const passwordFile = path.join(this.dataDir, 'init-password');
       fs.writeFileSync(passwordFile, this.secrets.password, { mode: 0o600 });

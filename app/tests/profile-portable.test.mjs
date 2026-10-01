@@ -151,6 +151,14 @@ test('an import interrupted by a dead host is listed, never selectable, and disc
   assert.equal((await portable.discardImport(lost.id)).folder, 'trashed');
   assert.ok(!f.registry.load().profiles.some(p => p.id === lost.id));
 });
+test('an export into a folder the application chose needs no picker, and refuses to overwrite', async () => {
+  const f = fixture({ pick: async () => assert.fail('no picker is shown') });
+  const parent = path.join(f.root, 'snapshots'), name = 'Before Barkdown 0.7.0 - 2026-10-02 0100';
+  const done = await f.portable.exportTo(f.profileId, parent, { name });
+  assert.equal(done.status, 'exported'); assert.equal(done.folder, path.join(parent, name));
+  assert.ok(fs.existsSync(path.join(done.folder, 'manifest.json')));
+  await assert.rejects(f.portable.exportTo(f.profileId, parent, { name }), { code: 'portable_destination' });
+});
 test('the registry never removes the selected profile', () => {
   const f = fixture();
   assert.throws(() => f.registry.removeProfile(f.profileId), /selected profile cannot be removed/);
