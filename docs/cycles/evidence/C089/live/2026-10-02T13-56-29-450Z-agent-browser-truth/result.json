@@ -1,0 +1,52 @@
+{
+  "source": "4a41e05f7c46aab14f937a2456614d0c84135a78",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "runs": [
+    {
+      "provider": "claude",
+      "status": "passed",
+      "startedAt": "2026-10-02T13:56:29.523Z",
+      "tools": [
+        {
+          "tool": "browser.tabs_context",
+          "input": {},
+          "ok": true,
+          "preview": "This chat has no website tab yet. Open one with tabs_create; it appears beside the person's tabs in this chat."
+        },
+        {
+          "tool": "browser.tabs_create",
+          "input": {
+            "url": "http://localhost:55696/facts"
+          },
+          "ok": true,
+          "preview": "{\n  \"tab\": {\n    \"tabId\": \"cfcdd237-010a-4dec-89cf-91aa2fd18d77\",\n    \"url\": \"http://localhost:55696/facts\",\n    \"title\": \"Badger facts\",\n    \"active\": true,\n  "
+        },
+        {
+          "tool": "browser.get_page_text",
+          "input": {
+            "tabId": "cfcdd237-010a-4dec-89cf-91aa2fd18d77"
+          },
+          "ok": true,
+          "preview": "Badger facts — http://localhost:55696/facts\n\nThe badger register\n\nToday's badger is called Oleander-7421. It prefers quiet afternoons."
+        }
+      ],
+      "text": "I'll open the page in a Barkdown browser tab and read it.\n\nToday's badger is called Oleander-7421, according to the badger register page at localhost:55696/facts.\n\n",
+      "findings": [],
+      "seconds": 91,
+      "error": null,
+      "notes": [],
+      "browserTools": [
+        "tabs_context",
+        "tabs_create",
+        "get_page_text"
+      ]
+    }
+  ],
+  "screenshots": [
+    "claude-after-run.png"
+  ],
+  "limits": [
+    "Real providers on the person's logins; one prompt each against a local page. What a model does varies run to run; this records one run per provider, not a rate."
+  ]
+}

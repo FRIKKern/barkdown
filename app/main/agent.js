@@ -381,9 +381,15 @@ function withCatchUp(params) {
   return { ...params, prompt: note + (params.prompt || '') };
 }
 
+// The browser a run receives (C089): main registers how to make the MCP server spec for a chat, so every
+// path that starts a run — the window, profiles, goals — hands the agent its browser.
+let browserSpecFor = null;
+function useBrowser(fn) { browserSpecFor = typeof fn === 'function' ? fn : null; }
 async function start(rawParams) {
   const scope = rawParams.scope || providerRuns.captureScope(rawParams);
-  const params = withConversationContext(withCatchUp({ ...rawParams, scope, context: scope.context,
+  let browser = rawParams.browser ?? null;
+  if (!browser && browserSpecFor) { try { browser = browserSpecFor(rawParams.chatId) || null; } catch (error) { console.error('[browser] no server for this run: ' + error.message); } }
+  const params = withConversationContext(withCatchUp({ ...rawParams, browser, scope, context: scope.context,
     settings: frozenCopy(rawParams.settings || {}), messages: frozenCopy(rawParams.messages || []), images: frozenCopy(rawParams.images || []) }));
   const provider = params.provider || 'api';
   if (provider === 'claude') return require('./providers/claude').start(params);
@@ -391,4 +397,4 @@ async function start(rawParams) {
   return startApi({ ...params, originalMessages: rawParams.messages });
 }
 
-module.exports = { start, startApi, cancel, waitForRunFinish: providerRuns.waitForRunFinish, respondApproval, toolDefinitions, setClientFactory, imageBlocks, withImages, withConversationContext, withCatchUp };
+module.exports = { start, startApi, cancel, waitForRunFinish: providerRuns.waitForRunFinish, respondApproval, toolDefinitions, setClientFactory, imageBlocks, withImages, withConversationContext, withCatchUp, useBrowser };

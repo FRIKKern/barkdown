@@ -11,7 +11,7 @@ const { assertProviderFolder } = require('./provider-folder');
 
 // Ordinary turns run in an owned worker on every host: job objects on Windows, a process group on
 // POSIX (goal-process.js), so an interrupted turn can be verified stopped and recovered anywhere.
-function createProfileService({ registry, agent = require('./goal-worker-agent').createOwnedWorkerAgent(), workspaces = createWorkspaceRepository({ registry }),
+function createProfileService({ registry, browserFor = null, agent = require('./goal-worker-agent').createOwnedWorkerAgent(), workspaces = createWorkspaceRepository({ registry }),
   settingsFor = store => store.readJson('settings.json', {}), connectionFor = () => ({ enabled: false }), runtimePool = null,
   sendEvent = () => {}, assertAuthentication = async () => {}, defaultProvider = () => 'api' }) {
   let generation = crypto.randomUUID();
@@ -167,7 +167,9 @@ function createProfileService({ registry, agent = require('./goal-worker-agent')
       const model = resolved.chat.model;
       const providerSettings = { ...resolved.settings, effort: resolved.chat.effort || undefined };
       if (model) providerSettings[request.provider === 'api' ? 'model' : request.provider === 'claude' ? 'claudeModel' : 'codexModel'] = model;
-      const result = await agent.start({ attemptId, profileId, chatId: request.chatId, scope: resolved.scope, storeDir: resolved.scope.storeDir,
+      // The run's browser (C089): the MCP server spec for this chat travels with the params into the worker.
+      const browser = browserFor ? browserFor(request.chatId) : null;
+      const result = await agent.start({ attemptId, profileId, chatId: request.chatId, scope: resolved.scope, storeDir: resolved.scope.storeDir, browser,
         context: resolved.scope.context, provider: request.provider, session: resolved.chat.sessions?.[request.provider] || null,
         settings: providerSettings, messages: reservation.history, prompt: request.prompt, images: request.images, onFinish: release,
         send(event) {

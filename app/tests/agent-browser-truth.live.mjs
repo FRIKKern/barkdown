@@ -45,6 +45,7 @@ async function runWith(provider) {
   try {
     // The person's own login shell finds the tool (C088); the restricted PATH here is what a Finder launch gives.
     app = await electron.launch({ executablePath: require('electron'), args: [appRoot, '--profiles', `--user-data=${userData}`], env: { ...process.env, PATH: '/usr/bin:/bin:/usr/sbin:/sbin' } });
+    const stderr = fs.createWriteStream(path.join(out, `${provider}-main-stderr.log`)); app.process().stderr?.on('data', chunk => stderr.write(chunk));
     const page = await app.firstWindow({ timeout: 120000 }); page.setDefaultTimeout(60000);
     await page.waitForFunction(() => window.__barkdown?.state.loaded);
     await page.setViewportSize({ width: 1300, height: 900 });

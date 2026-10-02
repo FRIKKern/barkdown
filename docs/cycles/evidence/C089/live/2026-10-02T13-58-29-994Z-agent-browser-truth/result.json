@@ -1,0 +1,52 @@
+{
+  "source": "4a41e05f7c46aab14f937a2456614d0c84135a78",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "runs": [
+    {
+      "provider": "codex",
+      "status": "passed",
+      "startedAt": "2026-10-02T13:58:30.107Z",
+      "tools": [
+        {
+          "tool": "tabs_context",
+          "input": {},
+          "ok": true,
+          "preview": "This chat has no website tab yet. Open one with tabs_create; it appears beside the person's tabs in this chat."
+        },
+        {
+          "tool": "tabs_create",
+          "input": {
+            "url": "http://localhost:55736/facts"
+          },
+          "ok": true,
+          "preview": "{\n  \"tab\": {\n    \"tabId\": \"7c96c6bb-ce47-4dbb-9288-0c3c91afe146\",\n    \"url\": \"http://localhost:55736/facts\",\n    \"title\": \"Badger facts\",\n    \"active\": true,\n  "
+        },
+        {
+          "tool": "get_page_text",
+          "input": {
+            "tabId": "7c96c6bb-ce47-4dbb-9288-0c3c91afe146"
+          },
+          "ok": true,
+          "preview": "Badger facts — http://localhost:55736/facts\n\nThe badger register\n\nToday's badger is called Oleander-7421. It prefers quiet afternoons."
+        }
+      ],
+      "text": "I’ll open the page and check today’s badger.\nToday’s badger is called Oleander-7421.\n\n",
+      "findings": [],
+      "seconds": 37,
+      "error": null,
+      "notes": [],
+      "browserTools": [
+        "tabs_context",
+        "tabs_create",
+        "get_page_text"
+      ]
+    }
+  ],
+  "screenshots": [
+    "codex-after-run.png"
+  ],
+  "limits": [
+    "Real providers on the person's logins; one prompt each against a local page. What a model does varies run to run; this records one run per provider, not a rate."
+  ]
+}

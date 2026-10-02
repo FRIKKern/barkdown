@@ -251,6 +251,8 @@ function browserSession() {
 let browserToolsInstance = null, browserBridgeInstance = null;
 function browserTools() { return browserToolsInstance ||= require('./browser-tools').createBrowserTools({ webContentsFromId: id => require('electron').webContents.fromId(id), send: (channel, detail) => win?.webContents.send(channel, detail), log: line => console.error(line) }); }
 function browserBridge() { return browserBridgeInstance ||= require('./browser-tools').createBrowserBridge(browserTools(), { log: line => console.error(line) }); }
+// Every run, whichever path starts it, gets the browser server for its chat.
+agent.useBrowser(chatId => browserBridge().serverSpec(chatId));
 // Address-bar suggestions read the imported places once per file change, not per keystroke.
 let placesCache = null;
 function places() {
@@ -760,7 +762,7 @@ app.whenReady().then(async () => {
     }
     profilePool = require('./profile-runtime').createProfileRuntimePool({ registry: profileRegistry, readSecrets: preparedLocalSecrets,
       onStatus: profileId => { if (profileService?.view().profileId === profileId) emitLocalStatus(localStatus()); } });
-    profileService = require('./profile-service').createProfileService({ registry: profileRegistry, runtimePool: profilePool, assertAuthentication: assertProviderAuthentication,
+    profileService = require('./profile-service').createProfileService({ browserFor: chatId => browserBridge().serverSpec(chatId), registry: profileRegistry, runtimePool: profilePool, assertAuthentication: assertProviderAuthentication,
       settingsFor: source => { const s = readSettings(source); return { ...s, provider: s.provider || defaultProvider(), apiKey: decrypt(s.apiKeyEncrypted) }; },
       connectionFor: s => ({ ...s.barkpark, token: decrypt(s.barkpark.tokenEncrypted), viaCli: false }), defaultProvider,
       sendEvent: event => { if (event.libraryChanged || event.type === 'library_changed') documents.loadAll({ seed: false }); win?.webContents.send('agent:event', event); } });

@@ -66,6 +66,8 @@ Scored per run: finished · steps · minutes · asked-for-help · other browser 
 
 **Limits:** driven by the test, not by a model — what Claude and Codex do with these tools is the next proof (a real run through Barkdown whose log shows only Barkdown's tools) and then the bench (D). Tabs in a chat that is not on screen have no web contents until shown. No `gif` tool yet.
 
+**The real-agent proof (2026-10-02 evening):** `tests/agent-browser-truth.live.mjs` runs Claude Code and Codex on the person's own logins inside Barkdown, asked to open a local page in their browser and name the badger on it. Claude Code: browser.tabs_context → browser.tabs_create → browser.get_page_text in 91 s, "Today's badger is called Oleander-7421, according to the badger register page at localhost:55696/facts." ([log](evidence/C089/live/2026-10-02T13-56-29-450Z-agent-browser-truth/result.json)). Codex: tabs_context → tabs_create → get_page_text in 37 s, "Today’s badger is called Oleander-7421." ([log](evidence/C089/live/2026-10-02T13-58-29-994Z-agent-browser-truth/result.json)). Neither reached for another browser. The first two attempts failed usefully: both agents *knew* Barkdown was their browser from the system text and called `tabs_context`, but the server was not in the session — profile runs execute in a dedicated worker process (`goal-worker.js`), so the server spec now travels inside the run's params (`profile-service.js` gets `browserFor` from main; `agent.start` also takes it from a registered hook for the window's own path). The session's connected MCP servers are logged at init. This proof spends the providers' quota and is not in the chain; run it by hand (`npm run test:agent-browser-truth`).
+
 ## Not yet
 
-The real-agent proof for B, then slices C–E.
+Slices C–E. Next: safety (C) — pauses on sensitive actions, modes, a site allow-list, logged-out mode, dialogs that never strand a run, a stop button.

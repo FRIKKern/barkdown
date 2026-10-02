@@ -93,7 +93,7 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
       const pendingTools = new Map(); // tool_use id -> { name, input }
       for await (const message of q) {
         if (run.cancelled) break;
-        if (message.type === 'system' && message.subtype === 'init') { sessionId = message.session_id; run.emit({ type: 'status', model: message.model, effort: message.effort || undefined, apiKeySource: message.apiKeySource, version: message.claude_code_version }); }
+        if (message.type === 'system' && message.subtype === 'init') { sessionId = message.session_id; console.error('[browser] session servers: ' + JSON.stringify((message.mcp_servers || []).map(s => `${s.name}:${s.status}`)) + (browser ? '' : ' (no browser spec given to this run)')); run.emit({ type: 'status', model: message.model, effort: message.effort || undefined, apiKeySource: message.apiKeySource, version: message.claude_code_version }); }
         else if (message.type === 'stream_event') {
           const event = message.event;
           if (message.parent_tool_use_id != null) continue;
