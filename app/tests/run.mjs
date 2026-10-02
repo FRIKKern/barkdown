@@ -303,7 +303,7 @@ try {
   // Settings: panes, live theme preview, cancel reverts, save persists.
   await page.keyboard.press('Control+,');
   await page.waitForSelector('.bw-settings', { timeout: 5000 });
-  step('settings opens as a sheet with five panes and General first', (await page.locator('.bw-settings-nav [data-pane]').count()) === 5 && await page.locator('section[data-pane="general"]').isVisible() && await page.locator('#dirty').isHidden());
+  step('settings opens as a sheet with six panes and General first', (await page.locator('.bw-settings-nav [data-pane]').count()) === 6 && await page.locator('section[data-pane="general"]').isVisible() && await page.locator('#dirty').isHidden());
   await page.locator('#theme [data-value="dark"]').click();
   step('choosing a theme previews it and marks the sheet dirty', (await page.evaluate(() => document.documentElement.dataset.theme)) === 'dark' && await page.locator('#dirty').isVisible());
   await page.locator('.bw-settings [data-act="cancel"]').click();
