@@ -12,4 +12,6 @@ Upstream work for this lane uses a fresh worktree under `barkpark-worktrees/` fr
 
 The [roadmap](ROADMAP.md) and its SVG, plus the README status, are the watchable face of this work: every merge that changes what is usable updates the summaries in `scripts/generate-roadmap.mjs`, the README status and the PLAN estimate in the same commit, then `npm run build`.
 
-**Task board (as of 2026-09-29):** task `task-a2d6f4de10681bab` on the Guerrilla instance, worker `claude-barkdown-c083`. A claim lapses whenever no PR is open against it; re-claim with `bp -s Guerrilla task claim <id> <worker> --yes` before opening the next upstream PR.
+**Task board (C089, 2026-10-02):** parent `task-c5dddf97a8ee643d` with slices A–E `task-7ee7aecb9a5e8b90`, `task-a7c2a77e7d5690ea`, `task-f97ed92c0b8c5253`, `task-fde8c74fcecce552`, `task-511ba8325baf5216` on the Guerrilla instance (ids and verbs in the C089 handoff).
+
+**Task board (upstream lane, as of 2026-09-29):** task `task-a2d6f4de10681bab` on the Guerrilla instance, worker `claude-barkdown-c083`. A claim lapses whenever no PR is open against it; re-claim with `bp -s Guerrilla task claim <id> <worker> --yes` before opening the next upstream PR.

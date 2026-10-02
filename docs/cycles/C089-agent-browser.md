@@ -26,6 +26,10 @@
 | D | **The bench.** The twelve tasks below, run by Claude and by Codex in Barkdown; the owner runs them once in Claude Desktop and once in ChatGPT desktop; three columns side by side; what loses gets a slice. | A6's bench line met, or the gap named. |
 | E | **Human daily basics.** Downloads (`will-download`, Downloads folder, progress line), find in page, zoom, context menu (copy link, open in Barkdown tab, save image into a note), Cmd+L, tab restore, EasyList blocking on the partition with a per-site switch. | A working day without opening Chrome; the reasons to return listed. |
 
+## Task board (Guerrilla, `bp -s Guerrilla task …`)
+
+Parent `task-c5dddf97a8ee643d` · A `task-7ee7aecb9a5e8b90` · B `task-a7c2a77e7d5690ea` · C `task-f97ed92c0b8c5253` · D `task-fde8c74fcecce552` · E `task-511ba8325baf5216`. Each carries the slice's acceptance criteria; claim before working (`task claim <id>`), stamp criteria with evidence as they are met (`task stamp <id> --criterion N --met --evidence …`), record landings (`task landed`).
+
 ## The bench
 
 1. Find the cheapest flight for given dates and report it — no booking.
