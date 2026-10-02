@@ -40,5 +40,12 @@
       "file": "editing.bee7e553.gif",
       "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
     }
+  ],
+  "uiExemptions": [
+    {
+      "commit": "f840c137e61700bb9215d65db822236412e7a6fa",
+      "reason": "Main-process change only: a debug line removed from the blocking hook; the launchd plist changed; no renderer file changed.",
+      "date": "2026-10-02"
+    }
   ]
 }
