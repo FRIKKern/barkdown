@@ -40,5 +40,12 @@
       "file": "editing.441538a0.gif",
       "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
     }
+  ],
+  "uiExemptions": [
+    {
+      "commit": "232cade593ec6b01f000263961b4de600d5d96c4",
+      "reason": "Main-process and test change only: the browser server spec travels into the profile worker (agent.js, profile-service.js, main.js), an init log in providers/claude.js, and the real-agent proof test; no renderer file changed.",
+      "date": "2026-10-02"
+    }
   ]
 }
