@@ -1,48 +1,38 @@
 {
   "version": 1,
-  "id": "C086",
-  "stage": "P5",
+  "id": "C089",
+  "stage": "P6",
   "status": "active",
-  "goal": "Barkdown runs its library without a source checkout or an Elixir toolchain on the machine: the runtime is a packaged release, and step by step the rest of what an installation needs.",
+  "goal": "Claude and Codex, run through the user's own CLIs, perceive Barkdown's tabs as their browser and use them as well as they use Claude Desktop and ChatGPT desktop — with the user's sessions, never opening another browser, pausing on sensitive actions — and a person can live in that browser for a working day.",
   "scope": [
-    "A profile's runtime from a packaged Barkpark release, built and stamped by a script",
-    "The portable profile, crash reclaim and recovery unchanged on the packaged runtime",
-    "Postgres without a machine install",
-    "The app itself as a macOS application that carries its runtime"
+    "A. Sign-in works and the Chrome import: Chrome user agent where needed, OAuth popups as a child window, permission prompts; bookmarks, history and cookies copied from the Chrome profile on demand",
+    "B. The browser tool server: Claude in Chrome's vocabulary (tabs, navigate, read_page, find, get_page_text, form_input, computer, javascript, console, network, gif) over the chat's tabs through the DevTools Protocol; the perception layer (system line, tool gating, no other browser reachable); visible cursor and agent-tab badges",
+    "C. Safety: approval modes, pauses on sensitive actions, site allow-list, logged-out mode, dialogs never strand a run",
+    "D. The bench: twelve tasks, both agents, compared with the two desktop products; fix what loses",
+    "E. Human daily basics: downloads, find, zoom, context menu, address bar, content blocking"
   ],
   "acceptance": [
-    "With only system folders on the PATH the app boots a profile's runtime, writes, restarts and reads the same",
-    "Export, import and reclaim after a kill pass on the packaged runtime",
-    "A machine with no Postgres installed runs a profile",
-    "A built macOS application starts a profile with nothing else installed"
+    "On the bench Claude and Codex in Barkdown finish as many of the twelve tasks as they do in Claude Desktop and ChatGPT desktop, within one step per task on average, with the differences recorded",
+    "No run opens or names another browser; the run log shows only Barkdown's tools",
+    "Google, GitHub and Microsoft sign-in work in a Barkdown tab; one Chrome import brings bookmarks, history and sessions; a session survives a restart",
+    "Purchases, messages, passwords, deletions and account changes pause for approval in every mode",
+    "One person browses in Barkdown for a working day and every reason to return to Chrome has a slice or is struck"
   ],
   "checkpoint": "2026-10-02",
-  "handoff": "docs/cycles/C086-packaged-runtime.md",
-  "nextAction": "With the user: a clean macOS account on this Mac (install from the disk image there, Finder launch with a real Claude Code: closes C086 and C088's last Mac item) and a signing identity other than ad hoc, which also unlocks the install step the pre-update copy guards. Watch .release/nightly-tick.log for the first scheduled nightly.",
-  "evidence": [
-    "docs/cycles/evidence/C086/live/2026-09-30T16-13-52-486Z-runtime-release/result.json",
-    "docs/cycles/evidence/C086/live/2026-09-30T22-13-04-398Z-provider-truth-paper/result.json",
-    "docs/cycles/evidence/C086/live/2026-09-30T22-21-11-396Z-runtime-release/result.json",
-    "docs/cycles/evidence/C086/live/2026-10-01T11-58-20-421Z-daily-use/result.json",
-    "docs/cycles/evidence/C086/live/2026-10-01T12-06-09-927Z-app-dmg/result.json",
-    "docs/cycles/evidence/C086/live/2026-10-01T12-06-25-798Z-app-packaged/result.json",
-    "docs/cycles/evidence/C086/live/2026-10-01T14-42-48-107Z-app-dmg/result.json",
-    "docs/cycles/evidence/C086/live/2026-10-01T14-47-54-413Z-daily-use/result.json",
-    "docs/cycles/evidence/C086/live/2026-10-01T20-52-36-144Z-updates/result.json",
-    "docs/cycles/evidence/C086/live/2026-10-01T21-22-40-147Z-updates-release/result.json",
-    "docs/cycles/evidence/C086/live/2026-10-01T21-07-29-571Z-app-dmg/result.json",
-    "docs/cycles/evidence/C086/live/2026-10-01T21-10-13-976Z-daily-use/result.json"
-  ],
-  "truthReview": "2026-09-30: the macOS application is built with the runtime folder inside and started as an application, with only system folders on the PATH: a never-configured profile runs on the carried server and Postgres, New page makes a Paper, and the note reads the same after a restart. Built and run on one Mac, signed ad hoc, not notarized, started from its build folder with --profiles. The runtime folder rehearsal covers export, import and reclaim. No Mac without developer tools has run either. Windows is not covered. Resumed 2026-10-01 after C087 closed. 2026-10-01: notices for every carried component are generated and kept (86 rows, each with a licence text; six Hex packages ship none and the standard Apache-2.0 text stands in for them, said so in the table). 2026-10-01: the provider truth runner's 25 scenarios pass against the packaged release under the isolated harness, the successful edits landing on a Paper (scripted transport, one Mac); the harness accepts a release as its source. The release's first seed boot died and was retried on every run: the seed booted the whole tree under eval; it now runs through Barkpark.Release.seed() without admission and a first boot goes straight to ready. One slow request no longer restarts the runtime: recovery needs three missed probes in a row. The release rehearsal passes its four checks on the fixed boot. 2026-10-01 afternoon: the disk image. build-mac-app.mjs --dmg writes release/Barkdown-0.6.0-arm64.dmg, 165 MB; the rehearsal mounts it read-only, copies the application out as a person drags it, detaches, and the packaged rehearsal (first boot, note, restart; no agent package inside; under 650 MB) passes against that installed copy. Ad hoc signed, not notarized: another Mac's Gatekeeper refuses it until the signature exists. Later the same afternoon: a SHA-256 is written beside the image and verified by the rehearsal; removing the installed application leaves the user data where it was, and the application reinstalled from the image opens the same library and reads the same note (A5: artifact integrity, uninstall preserves user data). Six checks. A5 daily-use checks on the carried runtime (9 findings): keyboard-only reaches New page, the work pane, the composer and Send, and Settings opens with the shortcut; the focused composer is indicated by its frame; no sideways scroll at 200% zoom or in an 820 px window; reduced motion now collapses every animation; a 400-paragraph note writes in 260 ms, opens in 102 ms and saves a typed line in 481 ms. Observed, not fixed: at 200% zoom the 1300 px window is 650 CSS px wide, the layout is the narrow one and New page sits behind the collapsed sidebar. The failed-upgrade case: a replacement bundle without its runtime does not start the library and leaves the profile data untouched — it now says \"This copy of Barkdown is missing the runtime it should carry. Reinstall Barkdown from its disk image; your notes and profiles are kept.\" — and the previous bundle put back opens the same library (A5: failed-upgrade rollback preserves profiles). Eight checks in the disk-image rehearsal. End of 2026-10-01: the full desktop chain (unit suite, the 76-step journey, every live tour) is green again at e3601c54 after the profile-run await was made uniform. Evening 2026-10-01: the first release. node scripts/chain.mjs wrote a passing receipt for 2e78f0e9 (check and the full npm test); node scripts/release.mjs nightly built the image under 0.6.0-nightly.20261001.1, rehearsed it (install, uninstall, reinstall, failed-upgrade rollback; the daily-use checks), wrote SHA256SUMS from the uploaded bytes, tagged the commit and published v0.6.0-nightly.20261001.1 as a prerelease with the image, the checksums, the chain receipt and both rehearsal results. Ad hoc signed; no updater; one architecture. Later: release phases 2–3 groundwork. The build writes the channel's updater feed beside the image and signs, hardens and notarizes with a Developer ID when CSC_NAME and APPLE_API_* are set (unexercised until they are; the ad hoc path is proven unchanged); the release plan is a tested pure module; the app checks its channel's feed in the background, downloads only when asked, restarts only when asked, and while ad hoc refuses the install with the reason — rehearsed against a local feed through check and download (five checks). Installing waits for the signature. Night of 2026-10-01: v0.6.0-nightly.20261001.2 is the first release carrying the updater feed (nightly-mac.yml, the zip and its blockmap beside the image, SHA256SUMS over both; the feed's digest and size match the uploaded zip). The application installed from that image, pointed at a local server with the release's own assets under a raised version, found the update, downloaded the real zip, verified its digest and refused the install with the ad hoc reason: the updater works end to end up to the step that needs a Developer ID. 2026-10-02: three consecutive chain runs on 7e5c7756 (one flake, fixed), the narrow-layout Pages button passes the daily-use tour, the pre-install copy and the Postgres major guard pass their unit tests, the launchd schedule is installed; the application is 420 MB after the trims.",
-  "screenshotReview": "No renderer change. Live screenshots of a note on the packaged runtime and in the built application are in the rehearsal folders.",
+  "handoff": "docs/cycles/C089-agent-browser.md",
+  "nextAction": "Slice A: the Chrome user agent on sign-in domains, window.open as a child window in the same partition, permission prompts as a toast; then `Import from Chrome` in Settings (bookmarks → Favorites, history → address-bar suggestions, cookies decrypted under the keychain's \"Chrome Safe Storage\" into the profile's partition). Prove it with a tour that signs in to GitHub and Google and survives a restart. Then B.",
+  "evidence": [],
+  "truthReview": "2026-10-02: nothing demonstrated yet. Facts established: website tabs are a <webview> with one persistent partition per profile and a four-button toolbar (renderer/src/tabs/website.js, 66 lines); permissions beyond clipboard-read and fullscreen are denied silently; popups load in place; Electron cannot load the Claude in Chrome or Codex extensions (no debugger, sidePanel, nativeMessaging or MV3 background support) but exposes the DevTools Protocol on every tab (webContents.debugger).",
+  "screenshotReview": "No renderer change yet.",
   "delivery": {
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "A Mac without developer tools; a real signature",
-      "Application size",
-      "Windows: no upstream release for that host",
-      "A signature: then notarization and the install step of the updater are exercised"
+      "Slice A",
+      "Slice B",
+      "Slice C",
+      "Slice D",
+      "Slice E"
     ]
   }
 }

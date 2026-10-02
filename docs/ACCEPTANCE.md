@@ -46,6 +46,17 @@ Accepted for the Windows source prototype at `27ea120`; see [completion audit](c
 - Complete A1–A3 as the local-only pilot; add A4 for the cloud pilot. G1/G2 must clear before claiming an integrated release.
 - Exercise keyboard-only navigation, 200% zoom, narrow layouts, long documents, accessible controls, reduced motion, background runs and realistic daily sessions. Record observed failures, not a proposed latency target as a measurement.
 
+## A6 — The agent's browser
+
+The browser inside Barkdown is the one Claude and Codex perceive as theirs, and the one a person can live in for a working day. Measured, not asserted:
+
+- **The bench.** Twelve real tasks (named in [C089](cycles/C089-agent-browser.md)) run by Claude Code and by Codex inside Barkdown, through the user's own CLIs, with the user's sessions. Score each run on finished / steps / minutes / asked-for-help. The same twelve run once in Claude Desktop (Claude in Chrome) and once in ChatGPT desktop by the owner; Barkdown's two columns finish as many tasks as those two, within one step per task on average, and record every difference.
+- **No other browser.** Across the bench no run opens, launches or mentions another browser (no `open -a`, no Playwright, no Claude in Chrome); the only browser tools offered are Barkdown's, and the run log proves it.
+- **Your sessions.** One import from Chrome brings bookmarks, history and cookies; Google, GitHub and Microsoft sign-in work in a Barkdown tab; a site's session survives a Barkdown restart; the import is a copy on demand, never silent.
+- **Sensitive actions pause.** Purchases, sending messages, password entry, deletions and account changes stop for approval in every mode; a site allow-list and a logged-out mode exist and are honoured; a dialog never strands the run.
+- **Daily basics.** Downloads land in the Downloads folder with a progress line; find in page, zoom, a context menu, address bar and tab restore work; content blocking is on with a per-site switch.
+- **A day without Chrome.** One person browses in Barkdown for a working day and records what sent them back to Chrome; the list is empty or every item has a cycle slice.
+
 ## Evidence required for each gate
 
 Record source commits (both repos when applicable), command/test name, platform and dataset scope, result, artifacts and remaining limits. Mocks validate orchestration only. Cloud sync requires real endpoint tests; profile portability requires another machine; concept tests never prove desktop persistence. No stage is complete solely because a tracker issue is closed.

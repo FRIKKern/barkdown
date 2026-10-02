@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** C088: chats run through the Claude Code and Codex on the machine, found from the login shell and checked first; the app carries no copy and is 456 MB.
+**Latest advance:** Night of 2026-10-02: nightlies cut themselves from this Mac on a schedule, a copy of the profile is taken before any update, Pages work at 200% zoom, and the app is 420 MB.
 
-**Next observable result:** Windows is back about October 5: switch a real library, carry an export across machines, reclaim after a crash there. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** C089: Claude and Codex get a browser of their own inside Barkdown, with your sessions from Chrome, measured against Claude Desktop and ChatGPT desktop on a twelve-task bench. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
@@ -84,5 +84,17 @@ Existing cloud access is not two-way synchronization. Two real devices must demo
 | ◐ In progress | Keyboard, zoom, daily use | [Work and limits](cycles/C086-packaged-runtime.md) |
 
 Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. The Mac application builds with that runtime and its own Postgres inside and starts a profile with nothing else installed; it is signed ad hoc, 420 MB, and Windows has no release. Nightlies are cut from this Mac on a schedule with an updater feed; the install step and clean-machine installation wait for a signing identity; the daily-use checks pass on one Mac, not yet with a person.
+
+## The agent’s browser · building now
+
+| State | Journey | Evidence / acceptance |
+|---|---|---|
+| ◐ In progress | Your sessions, signed in | [Work and limits](cycles/C089-agent-browser.md) |
+| ○ Remaining | Claude and Codex use your tabs | [Work and limits](cycles/C089-agent-browser.md) |
+| ○ Remaining | Pauses on sensitive actions | [Work and limits](cycles/C089-agent-browser.md) |
+| ○ Remaining | Bench vs the two desktops | [Work and limits](cycles/C089-agent-browser.md) |
+| ○ Remaining | A day without Chrome | [Work and limits](cycles/C089-agent-browser.md) |
+
+Opened 2026-10-02 (C089). Barkdown’s website tabs become the browser Claude and Codex perceive as theirs: Claude in Chrome’s tool vocabulary served over Barkdown’s own tabs through the DevTools Protocol, the user’s sessions imported from Chrome, pauses on sensitive actions, and a twelve-task bench against Claude Desktop and ChatGPT desktop. Nothing is demonstrated yet; the first slice is sign-in and the Chrome import.
 
 Stage order and release gates remain in [PLAN.md](PLAN.md); [the current cycle](NEXT-AGENT.md) owns the next action. This view summarizes that plan and is not another backlog.

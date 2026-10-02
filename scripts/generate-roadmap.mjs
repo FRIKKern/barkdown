@@ -30,6 +30,10 @@ export const summaries = {
     ['active', 'Install without a checkout', 'docs/cycles/C086-packaged-runtime.md'], ['active', 'Update without losing work', 'docs/RELEASE.md'],
     ['todo', 'Recover a failed upgrade'], ['todo', 'Keep data on uninstall'], ['active', 'Keyboard, zoom, daily use', 'docs/cycles/C086-packaged-runtime.md'],
   ], scope: 'Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. The Mac application builds with that runtime and its own Postgres inside and starts a profile with nothing else installed; it is signed ad hoc, 420 MB, and Windows has no release. Nightlies are cut from this Mac on a schedule with an updater feed; the install step and clean-machine installation wait for a signing identity; the daily-use checks pass on one Mac, not yet with a person.'},
+  P6: {reviewedStageStatus: 'active', title: ['The agent’s', 'browser'], items: [
+    ['active', 'Your sessions, signed in', 'docs/cycles/C089-agent-browser.md'], ['todo', 'Claude and Codex use your tabs'],
+    ['todo', 'Pauses on sensitive actions'], ['todo', 'Bench vs the two desktops'], ['todo', 'A day without Chrome'],
+  ], evidence: 'docs/cycles/C089-agent-browser.md', scope: 'Opened 2026-10-02 (C089). Barkdown’s website tabs become the browser Claude and Codex perceive as theirs: Claude in Chrome’s tool vocabulary served over Barkdown’s own tabs through the DevTools Protocol, the user’s sessions imported from Chrome, pauses on sensitive actions, and a twelve-task bench against Claude Desktop and ChatGPT desktop. Nothing is demonstrated yet; the first slice is sign-in and the Chrome import.'},
 };
 // This is the active journey's evidence summary, not a percentage or a task queue.
 export const migrationProgress = [
@@ -40,8 +44,8 @@ export const migrationProgress = [
   {status:'active', title:'Switch and recover', lines:['Switched from Settings on macOS.', 'Survives a crash under the hold.'], evidence:'docs/cycles/C083-writer-admission.md', detail:'The switch runs from Settings › Barkpark in the real app on macOS, is interrupted at every phase and resumes without duplicate Papers, and the switched profile creates, edits, finds, deletes and recovers notes on Paper with agent edits and Undo. Still to demonstrate: a real library and a run on Windows.'},
   {status:'active', title:'Prove the way back', lines:['Rollback keeps later Paper edits.', 'Real library on Windows still to run.'], evidence:'docs/cycles/C083-writer-admission.md', detail:'Rollback restores the legacy navigation exactly, keeps Papers and later edits on Paper, names every changed Paper, and lets a person compare, keep or restore each one; its own interruption resumes. Retirement of the separate editor and store is audited in four stages and not started.'},
 ];
-const latestAdvance = 'C088: chats run through the Claude Code and Codex on the machine, found from the login shell and checked first; the app carries no copy and is 456 MB.';
-const nextOutcome = 'Windows is back about October 5: switch a real library, carry an export across machines, reclaim after a crash there.';
+const latestAdvance = 'Night of 2026-10-02: nightlies cut themselves from this Mac on a schedule, a copy of the profile is taken before any update, Pages work at 200% zoom, and the app is 420 MB.';
+const nextOutcome = 'C089: Claude and Codex get a browser of their own inside Barkdown, with your sessions from Chrome, measured against Claude Desktop and ChatGPT desktop on a twelve-task bench.';
 const marks = {done: '✓', active: '◐', todo: '○'};
 const meanings = {done: 'Demonstrated', active: 'In progress', todo: 'Remaining'};
 const escape = s => String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
@@ -51,7 +55,7 @@ export function validateSummaries(plan, labels, exists) {
   for (const item of migrationProgress) {
     if (!marks[item.status] || !exists(item.evidence.split('#')[0])) throw new Error(`Missing evidence for migration progress: ${item.title}`);
   }
-  if (plan.stages.length !== 5 || plan.stages.some(s => !labels[s.id])) throw new Error('Review the roadmap layout for changed phases.');
+  if (plan.stages.length < 5 || plan.stages.length > 7 || plan.stages.some(s => !labels[s.id])) throw new Error('Review the roadmap layout for changed phases.');
   for (const stage of plan.stages) {
     const summary = labels[stage.id];
     if (stage.status !== summary.reviewedStageStatus) throw new Error(`Review roadmap claims after ${stage.id} status changes`);
@@ -67,7 +71,9 @@ export function validateSummaries(plan, labels, exists) {
 export function renderRoadmap(plan, labels = summaries) {
   const next = plan.stages.find(s => s.status === 'todo')?.id;
   const stageStatus = stage => ({done: 'ACCEPTED', active: 'BUILDING NOW', todo: stage.id === next ? 'UP NEXT' : 'LATER', blocked: 'BLOCKED'}[stage.status]);
-  const parts = [`<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1130" viewBox="0 0 1440 1130" role="img" aria-labelledby="title desc">
+  // One 272 px column per stage; the illustration grows with the plan.
+  const W = 128 + 272 * plan.stages.length;
+  const parts = [`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="1130" viewBox="0 0 ${W} 1130" role="img" aria-labelledby="title desc">
 <title id="title">Barkdown roadmap — demonstrated, in progress and remaining</title>
 <desc id="desc">${escape(plan.stages.map(s => `${labels[s.id].title.join(' ')}: ${stageStatus(s)}. ${labels[s.id].items.map(([status, label]) => `${label}: ${meanings[status]}`).join('; ')}`).join('. '))}. Checkmarks describe bounded demonstrated journeys, not completion of the whole stage. Profiles are accepted for the Windows source prototype.</desc>
 <defs>
@@ -75,15 +81,15 @@ export function renderRoadmap(plan, labels = summaries) {
   <linearGradient id="focus" x2="0" y2="1"><stop stop-color="#a9c787" stop-opacity=".09"/><stop offset="1" stop-color="#a9c787" stop-opacity="0"/></linearGradient>
 </defs>
 <g font-family="Segoe UI, Arial, sans-serif">
-<rect width="1440" height="1130" rx="14" fill="url(#background)"/>
+<rect width="${W}" height="1130" rx="14" fill="url(#background)"/>
 <text x="64" y="85" font-family="Georgia, serif" font-size="49" letter-spacing="-1.5" fill="#f0eee2">Barkdown</text>
 ${text(65, 124, 'A Barkpark Native App Experiment', 20, '#afbcaa')}
-<text x="1374" y="77" text-anchor="end" font-size="12" font-weight="600" letter-spacing="3" fill="#a3b49b">THE ROAD AHEAD</text>
+<text x="${W - 66}" y="77" text-anchor="end" font-size="12" font-weight="600" letter-spacing="3" fill="#a3b49b">THE ROAD AHEAD</text>
 ${text(65, 174, '✓  Demonstrated', 16, '#c2dca1')}
 ${text(275, 174, '◐  In progress', 16, '#e2ca93')}
 ${text(458, 174, '○  Remaining', 16, '#b6c1af')}
 ${text(870, 174, 'Ticks show proven parts, not whole-stage completion.', 16, '#a3b49b')}
-<path d="M70 224H1158" stroke="#475747" stroke-width="1"/>`];
+<path d="M70 224H${W - 282}" stroke="#475747" stroke-width="1"/>`];
   for (const [i, stage] of plan.stages.entries()) {
     const x = 64 + i * 272;
     const active = stage.status === 'active';
@@ -104,10 +110,10 @@ ${text(870, 174, 'Ticks show proven parts, not whole-stage completion.', 16, '#a
       parts.push(text(x, y, marks[itemStatus], 18, color, 600));
       parts.push(text(x + 25, y, item, 16, itemStatus === 'done' ? '#d4ddce' : '#b6c1af'));
     });
-    const note = done ? 'Windows source prototype' : stage.id === 'P2' ? 'Real library still to switch' : stage.id === 'P3' ? 'One Mac; second machine ahead' : stage.id === 'P5' ? 'Local pilot can precede sync' : 'Two-device proof still ahead';
+    const note = done ? 'Windows source prototype' : stage.id === 'P2' ? 'Real library still to switch' : stage.id === 'P3' ? 'One Mac; second machine ahead' : stage.id === 'P5' ? 'Local pilot can precede sync' : stage.id === 'P6' ? 'Sessions first, then the agent' : 'Two-device proof still ahead';
     parts.push(text(x, 590, note, 13, '#a3b49b'), '</g>');
   }
-  parts.push(`<path d="M64 624H1376" stroke="#344435"/>`);
+  parts.push(`<path d="M64 624H${W - 64}" stroke="#344435"/>`);
   parts.push(text(64, 669, 'Inside “Migrate with a way back”', 28, '#f0eee2', 600));
   parts.push(text(64, 698, 'Progress within the current stage · demonstrated parts stay visible while the complete journey is unfinished.', 16, '#afbcaa'));
   migrationProgress.forEach((item, i) => {
@@ -124,7 +130,7 @@ ${text(870, 174, 'Ticks show proven parts, not whole-stage completion.', 16, '#a
   parts.push(text(150, 1030, latestAdvance, 17, '#d4ddce'));
   parts.push(text(64, 1068, 'NEXT PROOF', 12, '#a3b49b', 600));
   parts.push(text(150, 1068, nextOutcome, 17, '#b6c1af'));
-  parts.push(text(64, 1110, 'Reviewed checkpoint: C086 · No real library has switched; nothing has run on Windows since September. The linked checklist has evidence and limits.', 15, '#a3b49b'));
+  parts.push(text(64, 1110, 'Reviewed checkpoint: C089 opened · No real library has switched; nothing has run on Windows since September. The linked checklist has evidence and limits.', 15, '#a3b49b'));
   parts.push('</g></svg>');
   const markdown = ['# Roadmap at a glance', '', '<!-- Generated by scripts/generate-roadmap.mjs. Edit its summaries, not this file. -->', '', '![Roadmap with checks for demonstrated journeys, in-progress markers and remaining work.](images/roadmap.svg)', '', '**✓ Demonstrated** · **◐ In progress / partial proof** · **○ Remaining**', '', 'Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.', '', `**Latest advance:** ${latestAdvance}`, '', `**Next observable result:** ${nextOutcome} See the [current handoff](NEXT-AGENT.md) for the delivery gate.`, '', '## Inside migration', '', 'Since C078, navigation ownership improved in C080, the write controller merged in C082, and C083 put its doors on the note, Paper and media writers in production. No real library has switched. These checkpoints show distinct results, not equal-sized units or a completion percentage.', '', '| Checkpoint | State | What this means |', '|---|---|---|'];
   for (const item of migrationProgress) {
