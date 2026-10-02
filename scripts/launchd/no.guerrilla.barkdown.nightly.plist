@@ -10,7 +10,9 @@
   <array><string>/bin/zsh</string><string>__REPO__/scripts/nightly-tick.sh</string></array>
   <key>StartInterval</key><integer>7200</integer>
   <key>RunAtLoad</key><false/>
-  <key>ProcessType</key><string>Background</string>
+  <!-- Standard, not Background: the tick builds and tests an Electron app; background throttling made a
+       thirty-second wait in the chain miss on the schedule's first real run. -->
+  <key>ProcessType</key><string>Standard</string>
   <key>StandardOutPath</key><string>__REPO__/.release/nightly-launchd.log</string>
   <key>StandardErrorPath</key><string>__REPO__/.release/nightly-launchd.log</string>
 </dict>

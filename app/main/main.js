@@ -295,7 +295,6 @@ function attachBlocking(ses) {
   if (blockingSessions.has(ses)) return; blockingSessions.add(ses);
   ses.webRequest.onBeforeRequest((details, callback) => {
     const policy = blockingPolicy();
-    if (process.env.BARKDOWN_BLOCKLIST) console.error(`[block] ${details.resourceType} ${details.url} initiator=${details.initiator || ''} referrer=${details.referrer || ''} wc=${details.webContentsId}`);
     if (!policy.enabled || details.resourceType === 'mainFrame') return callback({});
     const page = hostOfUrl(details.initiator || details.referrer || '');
     if (page && (policy.allow || []).some(h => page === h || page.endsWith('.' + h))) return callback({});
