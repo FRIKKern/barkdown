@@ -25,6 +25,27 @@ const MODIFIERS = { alt: 1, option: 1, ctrl: 2, control: 2, meta: 4, cmd: 4, com
 const COMMANDS = { a: 'selectAll', c: 'copy', v: 'paste', x: 'cut', z: 'undo' };
 const fail = (code, message) => { throw Object.assign(new Error(message), { code }); };
 const text = value => ({ content: [{ type: 'text', text: String(value) }] });
+// What an action is about, from the element's accessible name and role: the classes a person wants to be
+// asked about (slice C). A password field is told apart by its DOM type, not its name.
+const SENSITIVE = [
+  [/\b(buy|purchase|pay|payment|checkout|check out|place (the |your |my )?order|order now|subscribe|complete (the |your )?(purchase|order)|add (a )?card|confirm (the |your )?(payment|purchase|order))\b/i, 'a purchase or payment'],
+  [/\b(send|post|publish|tweet|reply|share|submit (a |the |your )?(message|comment|review|post))\b/i, 'sending or publishing'],
+  [/\b(delete|remove|erase|discard|trash|destroy|unsubscribe|cancel (the |your |my )?(subscription|account|order|plan))\b/i, 'a deletion'],
+  [/\b(sign out|log out|logout|signout|change (the |your |my )?(password|email|phone)|reset (the |your |my )?password|delete (the |your |my )?account|two[- ]factor|2fa|security key|verify (your |my )?(email|phone|identity))\b/i, 'an account change'],
+];
+function sensitivity({ name = '', role = '', password = false } = {}) {
+  if (password) return 'a password';
+  const text = `${name} ${role}`.trim();
+  for (const [pattern, reason] of SENSITIVE) if (pattern.test(text)) return reason;
+  return null;
+}
+const hostOf = url => { try { return new URL(url).hostname.toLowerCase(); } catch { return ''; } };
+// Is this address on the allow-list? Entries match the host or any subdomain of it.
+function siteAllowed(sites, url) {
+  if (!sites || sites.mode !== 'list') return true;
+  const host = hostOf(url); if (!host) return false;
+  return (sites.list || []).some(entry => { const e = String(entry).toLowerCase().replace(/^https?:\/\//, '').replace(/\/.*$/, ''); return e && (host === e || host.endsWith('.' + e)); });
+}
 const clip = (value, limit = TEXT_LIMIT) => { const s = String(value ?? ''); return s.length > limit ? s.slice(0, limit) + `\n… (${s.length - limit} more characters not shown)` : s; };
 
 // A key chord like "cmd+shift+p", "Return", "a" → the DevTools key events to send.
@@ -70,7 +91,7 @@ function flattenTree(nodes, { interactive = false, memory = null } = {}) {
   return { lines, refs, nodeRefs, counter };
 }
 
-function createBrowserTools({ webContentsFromId, send, log = () => {}, now = () => Date.now(), sleep = ms => new Promise(r => setTimeout(r, ms)) }) {
+function createBrowserTools({ webContentsFromId, send, ask = async () => true, policy = () => ({ mode: 'auto', sites: { mode: 'all', list: [] } }), log = () => {}, now = () => Date.now(), sleep = ms => new Promise(r => setTimeout(r, ms)) }) {
   if (typeof webContentsFromId !== 'function' || typeof send !== 'function') throw new TypeError('webContentsFromId and send are required');
   const inventory = new Map(); // chatId -> [{ id, webContentsId, url, title, active, agent }]
   const opening = new Map(); // requestId -> resolve
@@ -101,7 +122,7 @@ function createBrowserTools({ webContentsFromId, send, log = () => {}, now = () 
   async function cdp(contents) {
     let state = tabs.get(contents.id);
     if (!state) {
-      state = { refs: new Map(), nodeRefs: new Map(), counter: 0, console: [], network: new Map(), order: [] };
+      state = { refs: new Map(), nodeRefs: new Map(), nodeInfo: new Map(), counter: 0, console: [], network: new Map(), order: [], dialog: null };
       tabs.set(contents.id, state);
       if (!contents.debugger.isAttached()) contents.debugger.attach('1.3');
       contents.debugger.on('message', (_event, method, params) => {
@@ -111,6 +132,8 @@ function createBrowserTools({ webContentsFromId, send, log = () => {}, now = () 
         else if (method === 'Network.requestWillBeSent') { state.network.set(params.requestId, { at: now(), method: params.request.method, url: params.request.url, type: params.type }); state.order.push(params.requestId); if (state.order.length > NETWORK_LIMIT) state.network.delete(state.order.shift()); }
         else if (method === 'Network.responseReceived') { const r = state.network.get(params.requestId); if (r) { r.status = params.response.status; r.mimeType = params.response.mimeType; } }
         else if (method === 'Network.loadingFailed') { const r = state.network.get(params.requestId); if (r) r.failed = params.errorText; }
+        else if (method === 'Page.javascriptDialogOpening') state.dialog = { type: params.type, message: String(params.message || '').slice(0, 300) };
+        else if (method === 'Page.javascriptDialogClosed') { if (state.dialog) state.dialog.closed = true; } // keep it for the next result; Electron may have closed it itself
       });
       contents.on('destroyed', () => tabs.delete(contents.id));
       contents.on('did-navigate', () => { state.refs.clear(); state.nodeRefs.clear(); state.counter = 0; });
@@ -124,6 +147,39 @@ function createBrowserTools({ webContentsFromId, send, log = () => {}, now = () 
   const viewport = c => evaluate(c, '({ width: innerWidth, height: innerHeight, scrollX, scrollY, url: location.href, title: document.title })');
   // A short-lived marker where the agent acts, so the person sees it (hidden from the page's own layout).
   const showCursor = (c, x, y) => evaluate(c, `(() => { let el = document.getElementById('__barkdown_cursor'); if (!el) { el = document.createElement('div'); el.id = '__barkdown_cursor'; el.setAttribute('aria-hidden', 'true'); el.style.cssText = 'position:fixed;z-index:2147483647;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;border:2px solid #a9c787;background:#a9c78755;pointer-events:none;transition:opacity .6s'; document.documentElement.appendChild(el); } el.style.left='${x}px'; el.style.top='${y}px'; el.style.opacity='1'; clearTimeout(el.__t); el.__t = setTimeout(() => { el.style.opacity = '0'; }, 900); return true; })()`).catch(() => {});
+  // A page's alert/confirm/prompt blocks everything; it is dismissed and reported, never left standing.
+  async function settleDialog(c) {
+    const dialog = c.state.dialog; if (!dialog) return '';
+    c.state.dialog = null;
+    if (!dialog.closed) await c.send('Page.handleJavaScriptDialog', { accept: false }).catch(() => {});
+    return `A ${dialog.type} dialog said "${dialog.message}" and was dismissed. `;
+  }
+  // The element an action targets, by ref or by point: role, name, and whether it is a password field.
+  async function targetInfo(c, { ref, coordinate }) {
+    let backendNodeId = ref ? c.state.refs.get(ref) : null;
+    if (!backendNodeId && Array.isArray(coordinate) && coordinate.length === 2) { const hit = await c.send('DOM.getNodeForLocation', { x: Math.round(coordinate[0]), y: Math.round(coordinate[1]), includeUserAgentShadowDOM: false }).catch(() => null); backendNodeId = hit?.backendNodeId || null; }
+    if (!backendNodeId) return { role: '', name: '', password: false };
+    const info = { ...(c.state.nodeInfo.get(backendNodeId) || { role: '', name: '' }), password: false };
+    if (!info.role) { const ax = await c.send('Accessibility.getPartialAXTree', { backendNodeId, fetchRelatives: false }).catch(() => null); const node = ax?.nodes?.[0]; if (node) { info.role = node.role?.value || ''; info.name = String(node.name?.value || '').trim(); } }
+    try { const { object } = await c.send('DOM.resolveNode', { backendNodeId }); const r = await c.send('Runtime.callFunctionOn', { objectId: object.objectId, returnByValue: true, functionDeclaration: 'function () { const el = this.closest ? (this.matches("input,textarea") ? this : this.querySelector("input")) : null; return Boolean(el && el.type === "password"); }' }); info.password = Boolean(r.result?.value); } catch {}
+    return info;
+  }
+  // Before an action that changes something: the policy decides whether the person is asked. A refusal is
+  // a tool error the model can act on; a question left unanswered is a refusal.
+  async function allow(chatId, tab, contents, action, info, extra = {}) {
+    const { mode } = policy() || {};
+    const reason = sensitivity(info);
+    if (mode !== 'ask' && !reason) return;
+    const target = info.name ? `${info.role || 'element'} "${info.name}"` : info.role || 'the page';
+    const ok = await ask({ chatId, tabId: tab.id, action, reason: reason || 'an action, in ask-before-every-action mode', target, url: contents.getURL(), ...extra });
+    if (!ok) fail('browser_declined', `The person declined ${reason ? reason : 'this action'} (${action} on ${target}). Ask them before trying again.`);
+  }
+  async function allowSite(chatId, tab, url) {
+    const { sites, mode } = policy() || {};
+    if (siteAllowed(sites, url) && mode !== 'ask') return;
+    const ok = await ask({ chatId, tabId: tab?.id || null, action: 'navigate', reason: siteAllowed(sites, url) ? 'an action, in ask-before-every-action mode' : 'a site outside the allowed list', target: hostOf(url), url });
+    if (!ok) fail('browser_declined', `The person declined opening ${hostOf(url)}. Ask them before trying again.`);
+  }
   async function pointOf(c, state, ref) {
     const backendNodeId = state.refs.get(ref);
     if (!backendNodeId) fail('browser_ref', `Unknown ref ${ref}. Refs come from read_page or find on the current page; read it again after a navigation.`);
@@ -164,6 +220,7 @@ function createBrowserTools({ webContentsFromId, send, log = () => {}, now = () 
       return text(list.length ? JSON.stringify({ tabs: list }, null, 2) : 'This chat has no website tab yet. Open one with tabs_create; it appears beside the person\'s tabs in this chat.');
     },
     async tabs_create({ chatId, url }) {
+      if (url && /^https?:\/\//i.test(url)) await allowSite(chatId, null, url);
       const requestId = crypto.randomUUID();
       const tabId = await new Promise((resolve, reject) => {
         const timer = setTimeout(() => { opening.delete(requestId); reject(Object.assign(new Error('The window did not open a tab in time'), { code: 'browser_open' })); }, OPEN_TIMEOUT_MS);
@@ -183,6 +240,8 @@ function createBrowserTools({ webContentsFromId, send, log = () => {}, now = () 
     },
     async navigate({ chatId, tabId, url }) {
       const { tab, contents } = await active(chatId, tabId);
+      if (!/^https?:\/\//i.test(String(url || ''))) fail('browser_url', 'Only http(s) addresses can be opened');
+      await allowSite(chatId, tab, url);
       await navigateTo(contents, url);
       const s = tabs.get(contents.id); if (s) { s.refs.clear(); s.nodeRefs.clear(); s.counter = 0; }
       return text(JSON.stringify({ tab: { tabId: tab.id, ...describe(contents) } }));
@@ -192,8 +251,10 @@ function createBrowserTools({ webContentsFromId, send, log = () => {}, now = () 
       const tree = await c.send('Accessibility.getFullAXTree', {});
       const read = flattenTree(tree.nodes || [], { interactive: filter === 'interactive', memory: c.state });
       Object.assign(c.state, { refs: read.refs, nodeRefs: read.nodeRefs, counter: read.counter }); const { lines } = read;
+      for (const n of tree.nodes || []) if (n.backendDOMNodeId) c.state.nodeInfo.set(n.backendDOMNodeId, { role: n.role?.value || '', name: String(n.name?.value || '').replace(/\s+/g, ' ').trim() });
+      const dialog = await settleDialog(c);
       const head = `${describe(contents).title} — ${describe(contents).url}\n${lines.length} elements${filter === 'interactive' ? ' (interactive only)' : ''}; click or type with a ref, e.g. computer action=left_click ref=ref_3.\n\n`;
-      return text(head + clip(lines.join('\n')));
+      return text(dialog + head + clip(lines.join('\n')));
     },
     async find({ chatId, tabId, query }) {
       const { contents } = await active(chatId, tabId); const c = await cdp(contents);
@@ -201,18 +262,22 @@ function createBrowserTools({ webContentsFromId, send, log = () => {}, now = () 
       const tree = await c.send('Accessibility.getFullAXTree', {});
       const read = flattenTree(tree.nodes || [], { memory: c.state });
       Object.assign(c.state, { refs: read.refs, nodeRefs: read.nodeRefs, counter: read.counter }); const { lines } = read;
+      for (const n of tree.nodes || []) if (n.backendDOMNodeId) c.state.nodeInfo.set(n.backendDOMNodeId, { role: n.role?.value || '', name: String(n.name?.value || '').replace(/\s+/g, ' ').trim() });
       const words = q.split(/\s+/).filter(w => !['the', 'a', 'an', 'button', 'link', 'field', 'box'].includes(w));
       const scored = lines.filter(l => l.includes('[ref_')).map(l => ({ l, score: words.reduce((s, w) => s + (l.toLowerCase().includes(w) ? 1 : 0), 0) + (l.toLowerCase().includes(q) ? 3 : 0) })).filter(x => x.score > 0).sort((a, b) => b.score - a.score).slice(0, 12);
       return text(scored.length ? scored.map(x => x.l.trim()).join('\n') : `Nothing on the page matches "${query}". read_page shows everything there is.`);
     },
     async get_page_text({ chatId, tabId }) {
       const { contents } = tabIn(chatId, tabId); const c = await cdp(contents);
+      const dialog = await settleDialog(c);
       const body = await evaluate(c, 'document.body ? document.body.innerText : ""');
-      return text(`${describe(contents).title} — ${describe(contents).url}\n\n` + clip(body));
+      return text(dialog + `${describe(contents).title} — ${describe(contents).url}\n\n` + clip(body));
     },
     async form_input({ chatId, tabId, ref, value }) {
       const { contents } = await active(chatId, tabId); const c = await cdp(contents);
       const backendNodeId = c.state.refs.get(ref); if (!backendNodeId) fail('browser_ref', `Unknown ref ${ref}. Read the page first.`);
+      const tab = tabIn(chatId, tabId).tab;
+      await allow(chatId, tab, contents, 'form_input', await targetInfo(c, { ref }), { value: typeof value === 'string' ? value.slice(0, 80) : value });
       const { object } = await c.send('DOM.resolveNode', { backendNodeId });
       const r = await c.send('Runtime.callFunctionOn', { objectId: object.objectId, returnByValue: true, functionDeclaration: `function (v) {
         const el = this; const fire = n => el.dispatchEvent(new Event(n, { bubbles: true }));
@@ -226,29 +291,35 @@ function createBrowserTools({ webContentsFromId, send, log = () => {}, now = () 
     async computer({ chatId, tabId, action, coordinate, ref, text: typed, scroll_direction, scroll_amount, duration }) {
       const { tab, contents } = await active(chatId, tabId); const c = await cdp(contents);
       const where = async () => { if (ref) return pointOf(c, c.state, ref); if (Array.isArray(coordinate) && coordinate.length === 2) return { x: Math.round(coordinate[0]), y: Math.round(coordinate[1]) }; fail('browser_target', 'Give a ref from read_page/find or a [x, y] coordinate from the last screenshot'); };
+      const dialog = await settleDialog(c);
+      const guarded = async () => { if (['left_click', 'right_click', 'double_click', 'triple_click', 'type', 'form_input'].includes(action) && (ref || coordinate)) await allow(chatId, tab, contents, action, await targetInfo(c, { ref, coordinate }), action === 'type' ? { value: String(typed || '').slice(0, 80) } : {}); else if (action === 'key' && (policy() || {}).mode === 'ask') await allow(chatId, tab, contents, action, { role: 'keyboard', name: String(typed || '') }); };
+      const say = value => text(dialog + value);
       switch (action) {
         case 'screenshot': {
           const vp = await viewport(c);
           const shot = await c.send('Page.captureScreenshot', { format: 'png', clip: { x: 0, y: 0, width: vp.width, height: vp.height, scale: 1 } });
-          return { content: [{ type: 'text', text: `${vp.title} — ${vp.url}\nviewport ${vp.width}×${vp.height} CSS px, scrolled to ${vp.scrollX},${vp.scrollY}; coordinates in this picture are the coordinates to click.` }, { type: 'image', data: shot.data, mimeType: 'image/png' }] };
+          return { content: [{ type: 'text', text: `${dialog}${vp.title} — ${vp.url}\nviewport ${vp.width}×${vp.height} CSS px, scrolled to ${vp.scrollX},${vp.scrollY}; coordinates in this picture are the coordinates to click.` }, { type: 'image', data: shot.data, mimeType: 'image/png' }] };
         }
         case 'left_click': case 'right_click': case 'double_click': case 'triple_click': {
+          await guarded();
           const p = await where();
           await click(c, p.x, p.y, { button: action === 'right_click' ? 'right' : 'left', clickCount: action === 'double_click' ? 2 : action === 'triple_click' ? 3 : 1 });
           await sleep(120);
-          return text(`${action.replace('_', ' ')} at ${p.x},${p.y}${ref ? ` (${ref})` : ''}; now ${describe(contents).url}`);
+          return say(`${action.replace('_', ' ')} at ${p.x},${p.y}${ref ? ` (${ref})` : ''}; now ${describe(contents).url}`);
         }
         case 'mouse_move': case 'hover': { const p = await where(); await showCursor(c, p.x, p.y); await mouse(c, 'mouseMoved', p.x, p.y); return text(`moved to ${p.x},${p.y}`); }
         case 'type': {
           if (typeof typed !== 'string' || !typed) fail('browser_type', 'Give the text to type');
+          await guarded();
           if (ref || coordinate) { const p = await where(); await click(c, p.x, p.y); await sleep(60); }
           await c.send('Input.insertText', { text: typed });
-          return text(`typed ${typed.length} characters${ref ? ` into ${ref}` : ''}`);
+          return say(`typed ${typed.length} characters${ref ? ` into ${ref}` : ''}`);
         }
         case 'key': {
           const chords = String(typed || '').split(/\s+/).filter(Boolean); if (!chords.length) fail('browser_key', 'Give the key, like Return, Tab, or cmd+a');
+          await guarded();
           for (const chord of chords) { await key(c, chord); await sleep(40); }
-          return text(`pressed ${chords.join(' ')}; now ${describe(contents).url}`);
+          return say(`pressed ${chords.join(' ')}; now ${describe(contents).url}`);
         }
         case 'scroll': {
           const p = Array.isArray(coordinate) && coordinate.length === 2 ? { x: Math.round(coordinate[0]), y: Math.round(coordinate[1]) } : ref ? await pointOf(c, c.state, ref) : await viewport(c).then(v => ({ x: Math.round(v.width / 2), y: Math.round(v.height / 2) }));
@@ -320,4 +391,4 @@ function createBrowserBridge(tools, { log = () => {} } = {}) {
   const close = () => { server.close(); fs.rmSync(dir, { recursive: true, force: true }); };
   return Object.freeze({ socketPath, token, serverSpec, close });
 }
-module.exports = { createBrowserTools, createBrowserBridge, flattenTree, parseKey };
+module.exports = { createBrowserTools, createBrowserBridge, flattenTree, parseKey, sensitivity, siteAllowed };

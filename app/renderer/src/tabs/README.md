@@ -18,6 +18,8 @@ For Paper changes, test acknowledged revisions, native Undo/Redo, human takeover
 
 ## Changelog
 
+- 2 October, C089 (C): a pause card (warning colour) asks the person before a sensitive agent action; Settings › Browser gains the browsing policy (pauses mode, logged-out tabs, the host list); an agent tab is marked on its partition name so main can give it the private partition.
+
 - 2 October, C089 (B): a tab the assistant opens is underlined in the accent and named in its title; the strip keeps main's view of every chat's web tabs current, and an agent's request opens or focuses a tab in its chat.
 
 - 2 October, C089: the website tab is a browser a person lives in. Popups are allowed and become child windows in the same partition (a sign-in returns to its opener); a link that wants a new tab opens a Barkdown tab beside; the address bar suggests places imported from Chrome (Settings › Browser); a site's permission request is a card the person answers once per site. [Tour](../../../../docs/cycles/evidence/C089/live/2026-10-02T13-04-47-363Z-browser/result.json).

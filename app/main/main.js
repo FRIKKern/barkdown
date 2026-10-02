@@ -83,7 +83,7 @@ const DEV = process.argv.includes('--dev');
 let win = null;
 
 // ---------- settings ----------
-const DEFAULT_SETTINGS = { sidebarWidth: 200, chatWidth: 60, theme: 'system', model: 'claude-opus-5', provider: null, claudeModel: '', codexModel: '', providerBinary: { claude: '', codex: '' }, apiKeyEncrypted: null, barkpark: { enabled: false, server: '', tokenEncrypted: null, dataset: 'production', writes: false, viaCli: false, local: { enabled: false, source: '', port: 4540, pgPort: 5540 } }, recentFolders: [], windowBounds: null };
+const DEFAULT_SETTINGS = { sidebarWidth: 200, chatWidth: 60, theme: 'system', model: 'claude-opus-5', provider: null, claudeModel: '', codexModel: '', providerBinary: { claude: '', codex: '' }, apiKeyEncrypted: null, browser: { mode: 'auto', loggedOut: false, sites: { mode: 'all', list: [] } }, barkpark: { enabled: false, server: '', tokenEncrypted: null, dataset: 'production', writes: false, viaCli: false, local: { enabled: false, source: '', port: 4540, pgPort: 5540 } }, recentFolders: [], windowBounds: null };
 
 const APPEARANCE_KEYS = ['theme', 'sidebarWidth', 'chatWidth', 'windowBounds'];
 // A built application carries its runtime (Resources/runtime). A profile that has never had a
@@ -220,7 +220,11 @@ function createWindow() {
   // partition a browser's manners (C089): Chrome's user agent, permissions asked once per site, popups as
   // child windows, new-tab links as tabs beside.
   win.webContents.on('will-attach-webview', (_event, preferences, params) => {
-    const partition = browserSession().partition;
+    // The renderer only says whether this is a tab the agent opened; main decides from its settings whether
+    // such a tab runs in the private partition (logged-out mode: in memory, no sessions) or the profile's.
+    const agentTab = /-agent$/.test(String(params.partition || ''));
+    const loggedOut = Boolean(({ ...DEFAULT_SETTINGS.browser, ...(readSettings().browser || {}) }).loggedOut);
+    const partition = browserSession(agentTab && loggedOut ? 'private' : null).partition;
     preferences.partition = partition; params.partition = partition;
     preferences.nodeIntegration = false; preferences.contextIsolation = true; preferences.sandbox = true;
     delete preferences.preload;
@@ -229,8 +233,9 @@ function createWindow() {
 }
 // The browser session of the selected profile, configured once per partition.
 const browserSessions = new Map(), permissionPrompts = new Map();
-function browserSession() {
-  const partition = profileService ? `persist:barkdown-web-${profileService.view().profileId}` : 'persist:barkdown-web';
+function browserSession(kind = null) {
+  const base = profileService ? `barkdown-web-${profileService.view().profileId}` : 'barkdown-web';
+  const partition = kind === 'private' ? `${base}-private` : `persist:${base}`;
   if (!browserSessions.has(partition)) {
     browserSessions.set(partition, require('./browser-session').createBrowserSession({ session: session.fromPartition(partition), partition, store, log: line => console.error(line),
       parentWindow: () => win,
@@ -249,7 +254,17 @@ function browserSession() {
 // The browser the agents use (C089 slice B): tool semantics over the chat's tabs, and the bridge each
 // run's MCP child reaches them through. Both made once, on first use.
 let browserToolsInstance = null, browserBridgeInstance = null;
-function browserTools() { return browserToolsInstance ||= require('./browser-tools').createBrowserTools({ webContentsFromId: id => require('electron').webContents.fromId(id), send: (channel, detail) => win?.webContents.send(channel, detail), log: line => console.error(line) }); }
+const pausePrompts = new Map();
+function browserTools() { return browserToolsInstance ||= require('./browser-tools').createBrowserTools({ webContentsFromId: id => require('electron').webContents.fromId(id), send: (channel, detail) => win?.webContents.send(channel, detail), log: line => console.error(line),
+  policy: () => ({ ...DEFAULT_SETTINGS.browser, ...(readSettings().browser || {}) }),
+  // The person answers in the window; no answer within five minutes, or no window, is a refusal.
+  ask: request => new Promise(resolve => {
+    if (!win) return resolve(false);
+    const id = require('node:crypto').randomUUID();
+    const timer = setTimeout(() => { pausePrompts.delete(id); resolve(false); }, 300000);
+    pausePrompts.set(id, decision => { clearTimeout(timer); pausePrompts.delete(id); resolve(decision === 'allow'); });
+    win.webContents.send('browser:pause', { id, ...request });
+  }) }); }
 function browserBridge() { return browserBridgeInstance ||= require('./browser-tools').createBrowserBridge(browserTools(), { log: line => console.error(line) }); }
 // Every run, whichever path starts it, gets the browser server for its chat.
 agent.useBrowser(chatId => browserBridge().serverSpec(chatId));
@@ -337,6 +352,7 @@ function registerIpc() {
     if (Number.isFinite(patch.sidebarWidth)) s.sidebarWidth = Math.min(420, Math.max(160, Math.round(patch.sidebarWidth)));
     if (patch.chatWidth != null) s.chatWidth = patch.chatWidth;
     if (patch.theme) s.theme = patch.theme;
+    if (patch.browser && typeof patch.browser === 'object') s.browser = { ...DEFAULT_SETTINGS.browser, ...(s.browser || {}), ...patch.browser, sites: { ...DEFAULT_SETTINGS.browser.sites, ...((s.browser || {}).sites || {}), ...(patch.browser.sites || {}) } };
     if (patch.model) s.model = patch.model;
     if (patch.provider !== undefined) s.provider = patch.provider || null;
     if (patch.claudeModel !== undefined) s.claudeModel = patch.claudeModel;
@@ -520,6 +536,7 @@ function registerIpc() {
   // The window keeps the agents' view of the tabs current and answers their requests to open one.
   handle('browser:tabs', ({ chatId, tabs }) => { browserTools().setTabs(chatId, tabs); return true; });
   handle('browser:agent-opened', detail => { browserTools().opened(detail); return true; });
+  handle('browser:pause-answer', ({ id, decision }) => { pausePrompts.get(id)?.(decision === 'allow' ? 'allow' : 'deny'); return true; }, true);
   handle('browser:bridge', chatId => browserBridge().serverSpec(chatId));
   handle('app:settled', ({ id, result }) => { const waiting = settling.get(id); if (waiting) { settling.delete(id); waiting(result); } return true; }, true);
   handle('app:info', () => ({ version: app.getVersion(), electron: process.versions.electron, chrome: process.versions.chrome, node: process.versions.node, platform: process.platform, arch: process.arch, userData: store.dir() }));
@@ -641,7 +658,7 @@ function registerIpc() {
     const scope = captureScope({ storeDir: runStoreDir, context, connection: barkparkConfig() });
     await assertProviderAuthentication(chosen, settings, scope);
     assertProviderFolder(chosen, scope.context.folder);
-    return agent.start({ chatId, messages, prompt, images, context: scope.context, scope, provider: chosen, browser: browserBridge().serverSpec(chatId), session, storeDir: runStoreDir, connection: scope.connection, settings, send: event => { if ((event.type === 'library_changed' || event.libraryChanged) && store.dir() === runStoreDir) documents.loadAll(); win?.webContents.send('agent:event', event); } });
+    return agent.start({ chatId, messages, prompt, images, context: scope.context, scope, provider: chosen, session, storeDir: runStoreDir, connection: scope.connection, settings, send: event => { if ((event.type === 'library_changed' || event.libraryChanged) && store.dir() === runStoreDir) documents.loadAll(); win?.webContents.send('agent:event', event); } });
   });
   handle('agent:cancel', runId => profileService ? profileService.cancel(profileService.view(), runId) : agent.cancel(runId));
   handle('agent:recover', input => { if (!profileService) throw new Error('Recovery requires a managed profile'); return profileService.recover(profileService.view(), input); });

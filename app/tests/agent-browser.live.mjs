@@ -31,12 +31,16 @@ const pages = {
   '/': `<title>Person's page</title><p>The person's own tab.</p>`,
   '/form': `<title>Sign-up form</title><h1>Join</h1><form action="/submitted"><label>Name <input name="name" id="name" autocomplete="off"></label> <label>Plan <select name="plan"><option>free</option><option>pro</option></select></label> <label><input type="checkbox" name="agree"> Agree</label> <input name="q" id="q" placeholder="search" autocomplete="off"> <button type="submit">Send</button></form><script>console.log('[agent] form ready'); fetch('/ping').catch(() => {});</script>`,
   '/ping': 'pong',
+  '/shop': `<title>Shop</title><h1>Cart</h1><p>One badger hat.</p><button id="buy">Buy now</button> <button id="nothing">Nothing much</button> <label>Password <input type="password" id="pw" autocomplete="off"></label> <button id="alert" onclick="setTimeout(() => alert('Are you sure?'), 50)">Ask me</button>`,
+  '/whoami': `<title>Who am I</title><p id="who">cookie: __COOKIE__</p>`,
 };
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, 'http://x');
   if (url.pathname === '/submitted') { res.setHeader('Content-Type', 'text/html; charset=utf-8'); return res.end(`<title>Welcome</title><h1 id="hello">Hello, ${url.searchParams.get('name')} (${url.searchParams.get('plan')}, agree=${url.searchParams.get('agree') ? 'yes' : 'no'}, q=${url.searchParams.get('q')})</h1>`); }
   const body = pages[url.pathname]; if (!body) { res.statusCode = 404; return res.end('no'); }
-  res.setHeader('Content-Type', url.pathname === '/ping' ? 'text/plain' : 'text/html; charset=utf-8'); res.end(body);
+  const cookie = /session=([^;]+)/.exec(req.headers.cookie || '')?.[1] || 'none';
+  if (url.pathname === '/' && cookie === 'none') res.setHeader('Set-Cookie', 'session=person-9c1; Max-Age=86400; Path=/; SameSite=Lax');
+  res.setHeader('Content-Type', url.pathname === '/ping' ? 'text/plain' : 'text/html; charset=utf-8'); res.end(body.replace('__COOKIE__', cookie));
 }).listen(0, '127.0.0.1');
 await new Promise(r => server.once('listening', r));
 const site = `http://localhost:${server.address().port}`;
@@ -49,7 +53,8 @@ registry.selectProfile(profile.id);
 let app, page, client;
 const shot = async name => { await page.screenshot({ path: path.join(out, name + '.png') }); report.screenshots.push(name + '.png'); persist(); };
 const textOf = result => (result.content || []).filter(c => c.type === 'text').map(c => c.text).join('\n');
-const call = async (name, args = {}) => { const started = Date.now(); const result = await client.callTool({ name, arguments: args }); report.tools.push({ name, args, ms: Date.now() - started, isError: Boolean(result.isError), preview: textOf(result).slice(0, 160) }); persist(); if (result.isError) throw new Error(`${name}: ${textOf(result)}`); return result; };
+const LONG = { timeout: 400000 }; // calls may wait on the person
+const call = async (name, args = {}) => { const started = Date.now(); const result = await client.callTool({ name, arguments: args }, undefined, LONG); report.tools.push({ name, args, ms: Date.now() - started, isError: Boolean(result.isError), preview: textOf(result).slice(0, 160) }); persist(); if (result.isError) throw new Error(`${name}: ${textOf(result)}`); return result; };
 const webTabs = () => page.evaluate(() => { const s = window.__barkdown.state; const chat = s.chats[s.current]; return chat.tabs.filter(t => t.type === 'web').map(t => ({ url: t.url, agent: Boolean(t.agent), active: chat.active === t.id })); });
 
 try {
@@ -97,11 +102,13 @@ try {
   fs.writeFileSync(path.join(out, '02-agent-screenshot-form.png'), Buffer.from(image.data, 'base64')); report.screenshots.push('02-agent-screenshot-form.png');
   assert.match(textOf(shotBefore), /viewport \d+×\d+ CSS px/);
   await shot('03-window-while-agent-types');
-  await call('computer', { tabId: created.tabId, action: 'left_click', ref: sendRef });
-  await new Promise(r => setTimeout(r, 800));
+  // "Send" is sending: the click pauses for the person, who allows it.
+  const sending = call('computer', { tabId: created.tabId, action: 'left_click', ref: sendRef });
+  await page.locator('.bw-pause').waitFor(); const sendPause = await page.locator('.bw-pause span').innerText(); await page.locator('.bw-pause [data-decision="allow"]').click();
+  await sending; await new Promise(r => setTimeout(r, 800));
   const after = textOf(await call('get_page_text', { tabId: created.tabId }));
   assert.match(after, /Hello, Agent \(pro, agree=yes, q=shoes\)/);
-  check('form_input, computer type and click fill and submit a form; get_page_text reads the result', { after: after.split('\n').slice(-1)[0] });
+  check('form_input, computer type and click fill and submit a form (the Send click pauses first); get_page_text reads the result', { after: after.split('\n').slice(-1)[0], sendPause });
   // javascript, console and network.
   const title = textOf(await call('javascript', { tabId: created.tabId, code: 'document.title' }));
   assert.equal(title, 'Welcome');
@@ -129,6 +136,63 @@ try {
   const left = await webTabs(); assert.equal(left.length, 1); assert.match(left[0].url, /\/$/);
   check('a refusal is a tool error, not a crash; tabs_close removes the agent\'s tab and leaves the person\'s', { refusal: textOf(bad), left });
   await shot('04-after-close');
+  // --- slice C: pauses, ask mode, the allow-list, dialogs, logged-out tabs
+  const shop = JSON.parse(textOf(await call('tabs_create', { url: site + '/shop' }))).tab;
+  const shopTree = textOf(await call('read_page', { tabId: shop.tabId, filter: 'interactive' }));
+  const buyRef = /\[(ref_\d+)\] button "Buy now"/.exec(shopTree)?.[1], pwRef = /\[(ref_\d+)\] textbox "Password"/.exec(shopTree)?.[1], alertRef = /\[(ref_\d+)\] button "Ask me"/.exec(shopTree)?.[1], nothingRef = /\[(ref_\d+)\] button "Nothing much"/.exec(shopTree)?.[1];
+  assert.ok(buyRef && pwRef && alertRef && nothingRef, shopTree);
+  // A purchase pauses: the person blocks, the tool reports the refusal; the person allows, it proceeds.
+  const blocked = client.callTool({ name: 'computer', arguments: { tabId: shop.tabId, action: 'left_click', ref: buyRef } }, undefined, LONG);
+  await page.locator('.bw-pause').waitFor();
+  const pauseText = await page.locator('.bw-pause span').innerText();
+  await shot('05-pause-purchase');
+  await page.locator('.bw-pause [data-decision="deny"]').click();
+  const refusal = await blocked; assert.equal(refusal.isError, true); assert.match(textOf(refusal), /declined a purchase or payment/);
+  const allowed = client.callTool({ name: 'computer', arguments: { tabId: shop.tabId, action: 'left_click', ref: buyRef } }, undefined, LONG);
+  await page.locator('.bw-pause [data-decision="allow"]').click();
+  assert.equal((await allowed).isError, undefined);
+  check('a purchase pauses for the person; Block becomes a tool error, Allow lets the click through', { pauseText, refusal: textOf(refusal) });
+  // A password field pauses on type.
+  const typing = client.callTool({ name: 'computer', arguments: { tabId: shop.tabId, action: 'type', ref: pwRef, text: 'hunter2' } }, undefined, LONG);
+  await page.locator('.bw-pause').waitFor(); const pwText = await page.locator('.bw-pause span').innerText(); await page.locator('.bw-pause [data-decision="deny"]').click();
+  assert.match(textOf(await typing), /declined a password/); assert.match(pwText, /a password/);
+  check('typing into a password field pauses', { pwText });
+  // Ask mode: a harmless click pauses too; back to automatic afterwards.
+  await page.evaluate(() => window.barkdown.settings.set({ browser: { mode: 'ask' } }));
+  const plain = client.callTool({ name: 'computer', arguments: { tabId: shop.tabId, action: 'left_click', ref: nothingRef } }, undefined, LONG);
+  await page.locator('.bw-pause').waitFor(); const askText = await page.locator('.bw-pause span').innerText(); await page.locator('.bw-pause [data-decision="allow"]').click();
+  assert.equal((await plain).isError, undefined); assert.match(askText, /ask-before-every-action/);
+  await page.evaluate(() => window.barkdown.settings.set({ browser: { mode: 'auto' } }));
+  check('in ask mode even a harmless click pauses', { askText });
+  // The allow-list: a site off the list pauses; a listed one does not.
+  await page.evaluate(() => window.barkdown.settings.set({ browser: { sites: { mode: 'list', list: ['localhost'] } } }));
+  await call('navigate', { tabId: shop.tabId, url: site + '/shop' });
+  const offList = client.callTool({ name: 'navigate', arguments: { tabId: shop.tabId, url: 'https://example.com/' } }, undefined, LONG);
+  await page.locator('.bw-pause').waitFor(); const listText = await page.locator('.bw-pause span').innerText(); await page.locator('.bw-pause [data-decision="deny"]').click();
+  assert.match(textOf(await offList), /declined opening example\.com/);
+  await page.evaluate(() => window.barkdown.settings.set({ browser: { sites: { mode: 'all', list: [] } } }));
+  check('a site off the allow-list pauses and can be refused', { listText });
+  // A dialog the page raises is dismissed and reported with the next result, never stranding the run.
+  const shopTree2 = textOf(await call('read_page', { tabId: shop.tabId, filter: 'interactive' }));
+  const alertRef2 = /\[(ref_\d+)\] button "Ask me"/.exec(shopTree2)?.[1];
+  await call('computer', { tabId: shop.tabId, action: 'left_click', ref: alertRef2 });
+  await new Promise(r => setTimeout(r, 400));
+  const afterDialog = textOf(await call('get_page_text', { tabId: shop.tabId }));
+  assert.match(afterDialog, /^A alert dialog said "Are you sure\?" and was dismissed\./);
+  check('a page dialog is dismissed and reported; the run is not stranded');
+  // Logged-out mode: the agent's new tab carries none of the person's sessions.
+  await call('tabs_close', { tabId: shop.tabId });
+  await page.evaluate(() => window.barkdown.settings.set({ browser: { loggedOut: true } }));
+  const mine = JSON.parse(textOf(await call('tabs_context'))).tabs.find(t => !t.openedByYou);
+  await call('navigate', { tabId: mine.tabId, url: site + '/whoami' });
+  const personSees = textOf(await call('get_page_text', { tabId: mine.tabId }));
+  const priv = JSON.parse(textOf(await call('tabs_create', { url: site + '/whoami' }))).tab;
+  const agentSees = textOf(await call('get_page_text', { tabId: priv.tabId }));
+  assert.match(personSees, /cookie: person-9c1/); assert.match(agentSees, /cookie: none/);
+  await shot('06-logged-out-agent-tab');
+  await call('tabs_close', { tabId: priv.tabId });
+  await page.evaluate(() => window.barkdown.settings.set({ browser: { loggedOut: false } }));
+  check('in logged-out mode the agent\'s tab has none of the person\'s sessions', { personSees: personSees.split('\n').at(-1), agentSees: agentSees.split('\n').at(-1) });
   report.status = 'passed'; persist();
   console.log(JSON.stringify({ out, checks: report.checks.map(c => c.name), toolCalls: report.tools.length }, null, 2));
 } catch (error) {

@@ -400,3 +400,6 @@ h1,h2,h3,p{margin:0}
 
 /* A tab the assistant opened (C089): underlined in the accent, named in its title. */
 .bw-tab-agent>button{box-shadow:inset 0 -2px 0 var(--bw-accent)}
+
+/* A pause before a sensitive action (C089 C): the same card as a permission, with the warning colour. */
+.bw-pause{border-color:var(--bw-warn)}.bw-pause b{color:var(--bw-warn)}

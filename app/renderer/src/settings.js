@@ -125,6 +125,10 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
         <h3>Browser</h3>
         ${setting('Import from Chrome', 'Copies the bookmarks and the history of a Chrome, Edge, Brave, Arc or Vivaldi profile on this Mac into this Barkdown profile: the bookmarks bar becomes Favorites, everything else feeds the address bar. A copy, when you ask; nothing in the other browser changes. Signing in is done once, in a Barkdown tab.', '<div class="bw-sources" id="browser-sources">Looking for browsers…</div><div class="bw-status bw-set-note" id="browser-import-status"></div>', { stack: true })}
         ${setting('Site permissions', 'Sites you answered about your camera, microphone, notifications or location. Forget one to be asked again.', '<div class="bw-sites" id="browser-sites">…</div>', { stack: true })}
+        <h3>When the assistant browses</h3>
+        ${setting('Pauses', 'The assistant always pauses before a purchase or payment, sending or publishing, a password, a deletion or an account change, and asks you in this window. Ask-before-every-action pauses on every click, keystroke and address too.', `<div class="bw-seg" id="browser-mode" role="radiogroup" aria-label="When the assistant browses"><button type="button" data-value="auto" aria-checked="${(s.browser?.mode || 'auto') === 'auto'}">Automatic with pauses</button><button type="button" data-value="ask" aria-checked="${s.browser?.mode === 'ask'}">Ask before every action</button></div>`)}
+        ${setting('Logged-out tabs', 'Tabs the assistant opens carry none of your sessions: a private partition that forgets everything when the tab closes.', `<label class="bw-check"><input type="checkbox" id="browser-logged-out" ${s.browser?.loggedOut ? 'checked' : ''}> Start the assistant's tabs logged out</label>`)}
+        ${setting('Sites the assistant may open', 'Any site, or only the hosts listed (one per line; a host includes its subdomains). Anything else pauses for your answer.', `<div class="bw-seg" id="browser-sites-mode" role="radiogroup" aria-label="Sites the assistant may open"><button type="button" data-value="all" aria-checked="${(s.browser?.sites?.mode || 'all') === 'all'}">Any site</button><button type="button" data-value="list" aria-checked="${s.browser?.sites?.mode === 'list'}">Only these</button></div><textarea id="browser-sites-list" rows="3" placeholder="github.com&#10;docs.example.org" ${s.browser?.sites?.mode === 'list' ? '' : 'hidden'}>${esc((s.browser?.sites?.list || []).join('\n'))}</textarea>`, { stack: true })}
       </section>
       <section data-pane="shortcuts" ${pane !== 'shortcuts' ? 'hidden' : ''}>
         ${SHORTCUTS.map(([group, ...rows]) => `<h3>${esc(group)}</h3><table class="bw-keys">${rows.map(([combo, what]) => `<tr><td>${keys(combo)}</td><td>${esc(what)}</td></tr>`).join('')}</table>`).join('')}
@@ -411,6 +415,11 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
     } catch (error) { sites.innerHTML = `<small>${esc(plainError(error))}</small>`; }
   };
   renderBrowserPane();
+  // The assistant's browsing policy: segmented choices and the host list, saved with the rest.
+  const segPick = (id, onPick) => qa(`${id} button`).forEach(b => { b.onclick = () => { qa(`${id} button`).forEach(x => x.setAttribute('aria-checked', String(x === b))); onPick?.(b.dataset.value); markDirty(); }; });
+  segPick('#browser-mode'); segPick('#browser-sites-mode', v => { const list = q('#browser-sites-list'); if (list) list.hidden = v !== 'list'; });
+  q('#browser-logged-out').onchange = markDirty; q('#browser-sites-list').oninput = markDirty;
+  const browserPatch = () => ({ mode: q('#browser-mode [aria-checked="true"]')?.dataset.value || 'auto', loggedOut: q('#browser-logged-out').checked, sites: { mode: q('#browser-sites-mode [aria-checked="true"]')?.dataset.value || 'all', list: q('#browser-sites-list').value.split(/\n+/).map(v => v.trim().toLowerCase()).filter(Boolean) } });
   q('[data-act="original-history"]').onclick = () => {
     if (dirty || saving) { toast('Save or cancel Settings changes before opening original history.', 'error'); return; }
     close(); openOriginalHistory();
@@ -425,6 +434,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
     if (saving) return;
     const patch = { model: q('#model').value, provider: q('input[name="provider"]:checked').value, claudeModel: modelValue('claude'), codexModel: modelValue('codex'), theme: theme(), chatWidth: Number(q('#width').value), barkpark: { enabled: q('#bp-enabled').checked, viaCli: bpMode() === 'cli', server: q('#bp-server').value.trim(), dataset: q('#bp-dataset').value.trim() || 'production', writes: q('#bp-writes').checked, local: { ...s.barkpark.local, enabled: bpMode() === 'local', source: q('#bp-source').value.trim() } } };
     if (q('#api-key').value.trim()) patch.apiKey = q('#api-key').value.trim(); else if (clearKey) patch.apiKey = '';
+    patch.browser = browserPatch();
     const binaries = { claude: q('#claude-binary')?.value.trim() ?? '', codex: q('#codex-binary')?.value.trim() ?? '' };
     if (binaries.claude !== (s.providerBinary?.claude || '') || binaries.codex !== (s.providerBinary?.codex || '')) patch.providerBinary = binaries;
     if (q('#bp-token').value.trim()) patch.barkpark.token = q('#bp-token').value.trim();

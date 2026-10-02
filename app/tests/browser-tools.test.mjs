@@ -4,7 +4,7 @@
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
-const { createBrowserTools, createBrowserBridge, flattenTree, parseKey } = require('../main/browser-tools');
+const { createBrowserTools, createBrowserBridge, flattenTree, parseKey, sensitivity, siteAllowed } = require('../main/browser-tools');
 const { Client } = require('@modelcontextprotocol/sdk/client/index.js');
 const { StdioClientTransport } = require('@modelcontextprotocol/sdk/client/stdio.js');
 
@@ -39,7 +39,7 @@ function fakeContents(id, url = 'https://a.example/') {
   return { id, listeners, commands, destroyed: false, isDestroyed() { return this.destroyed; }, getURL: () => url, getTitle: () => 'Page ' + id,
     on(event, fn) { (listeners[event] ||= []).push(fn); }, removeListener(event, fn) { listeners[event] = (listeners[event] || []).filter(f => f !== fn); },
     loadURL: async next => { url = next; setTimeout(() => (listeners['did-finish-load'] || []).forEach(fn => fn()), 5); },
-    debugger: { attached: false, isAttached() { return this.attached; }, attach() { this.attached = true; }, on() {}, async sendCommand(method, params) { commands.push([method, params]); if (method === 'Runtime.evaluate') return { result: { value: params.expression.includes('innerText') ? 'hello world' : { width: 800, height: 600, scrollX: 0, scrollY: 0, url, title: 'Page ' + id } } }; if (method === 'Accessibility.getFullAXTree') return { nodes: [{ nodeId: '1', role: { value: 'RootWebArea' }, name: { value: 'T' }, childIds: ['2'], backendDOMNodeId: 1 }, { nodeId: '2', role: { value: 'button' }, name: { value: 'Buy now' }, properties: [{ name: 'focusable', value: { value: true } }], childIds: [], backendDOMNodeId: 9, parentId: '1' }] }; if (method === 'DOM.getBoxModel') return { model: { content: [10, 10, 50, 10, 50, 30, 10, 30] } }; if (method === 'Page.captureScreenshot') return { data: 'aGk=' }; return {}; } } };
+    debugger: { attached: false, listeners: [], isAttached() { return this.attached; }, attach() { this.attached = true; }, on(event, fn) { if (event === 'message') this.listeners.push(fn); }, emit(method, params) { for (const fn of this.listeners) fn({}, method, params); }, async sendCommand(method, params) { commands.push([method, params]); if (method === 'Runtime.evaluate') return { result: { value: params.expression.includes('innerText') ? 'hello world' : { width: 800, height: 600, scrollX: 0, scrollY: 0, url, title: 'Page ' + id } } }; if (method === 'Accessibility.getFullAXTree') return { nodes: [{ nodeId: '1', role: { value: 'RootWebArea' }, name: { value: 'T' }, childIds: ['2'], backendDOMNodeId: 1 }, { nodeId: '2', role: { value: 'button' }, name: { value: 'Buy now' }, properties: [{ name: 'focusable', value: { value: true } }], childIds: [], backendDOMNodeId: 9, parentId: '1' }] }; if (method === 'DOM.getBoxModel') return { model: { content: [10, 10, 50, 10, 50, 30, 10, 30] } }; if (method === 'DOM.getNodeForLocation') return { backendNodeId: 9 }; if (method === 'DOM.resolveNode') return { object: { objectId: 'o' + params.backendNodeId } }; if (method === 'Runtime.callFunctionOn') return { result: { value: params.functionDeclaration.includes('password') ? this.password === true : 'value set' } }; if (method === 'Page.captureScreenshot') return { data: 'aGk=' }; return {}; } } };
 }
 {
   const sent = [], contents = new Map([[101, fakeContents(101)]]);
@@ -102,4 +102,50 @@ function fakeContents(id, url = 'https://a.example/') {
   assert.deepEqual(answer, { id: 1, ok: false, error: 'refused' });
   await client.close(); bridge.close();
 }
-console.log('Browser tools: accessibility lines with refs, key chords, the chat\'s tabs and refusals, the open flow, and the MCP child over the bridge with every tool name passed.');
+// --- slice C: sensitivity, the allow-list, pauses, dialogs
+assert.equal(sensitivity({ name: 'Buy now', role: 'button' }), 'a purchase or payment');
+assert.equal(sensitivity({ name: 'Place your order', role: 'button' }), 'a purchase or payment');
+assert.equal(sensitivity({ name: 'Send', role: 'button' }), 'sending or publishing');
+assert.equal(sensitivity({ name: 'Delete account', role: 'link' }), 'a deletion');
+assert.equal(sensitivity({ name: 'Change password', role: 'link' }), 'an account change');
+assert.equal(sensitivity({ name: 'Password', role: 'textbox', password: true }), 'a password');
+assert.equal(sensitivity({ name: 'Search', role: 'textbox' }), null); assert.equal(sensitivity({ name: 'Read more', role: 'link' }), null);
+assert.equal(siteAllowed({ mode: 'all' }, 'https://x.example/'), true);
+assert.equal(siteAllowed({ mode: 'list', list: ['example.com', 'https://docs.other.org/x'] }, 'https://shop.example.com/cart'), true);
+assert.equal(siteAllowed({ mode: 'list', list: ['example.com'] }, 'https://notexample.com/'), false);
+assert.equal(siteAllowed({ mode: 'list', list: ['docs.other.org'] }, 'https://docs.other.org/'), true);
+{
+  const asked = []; let answer = false; let mode = 'auto', sites = { mode: 'all', list: [] };
+  const contents = new Map([[201, fakeContents(201, 'https://shop.example/cart')]]);
+  const tools = createBrowserTools({ webContentsFromId: id => contents.get(id), send: () => {}, sleep: async () => {}, ask: async request => { asked.push(request); return answer; }, policy: () => ({ mode, sites }) });
+  tools.setTabs('c9', [{ id: 't9', webContentsId: 201, url: 'https://shop.example/cart', active: true }]);
+  await tools.call('read_page', { chatId: 'c9', filter: 'interactive' }); // ref_1 is the Buy now button
+  // The Buy now button pauses; a refusal is a tool error naming the reason.
+  await assert.rejects(tools.call('computer', { chatId: 'c9', action: 'left_click', ref: 'ref_1' }), { code: 'browser_declined' });
+  assert.equal(asked.length, 1); assert.equal(asked[0].reason, 'a purchase or payment'); assert.match(asked[0].target, /button "Buy now"/); assert.equal(asked[0].url, 'https://shop.example/cart');
+  answer = true; await tools.call('computer', { chatId: 'c9', action: 'left_click', ref: 'ref_1' }); assert.equal(asked.length, 2, 'allowed once, asked again next time');
+  // A click by coordinate resolves the element under the point and pauses the same way.
+  answer = false; await assert.rejects(tools.call('computer', { chatId: 'c9', action: 'left_click', coordinate: [30, 20] }), { code: 'browser_declined' });
+  // A password field pauses on type; a plain field does not.
+  contents.get(201).debugger.password = true; answer = false;
+  await assert.rejects(tools.call('computer', { chatId: 'c9', action: 'type', ref: 'ref_1', text: 'hunter2' }), /declined a password/);
+  contents.get(201).debugger.password = false; const before = asked.length;
+  await tools.call('form_input', { chatId: 'c9', ref: 'ref_1', value: 'x' }).catch(() => {}); // the fake's node is a button: form_input asks because the name is "Buy now"
+  assert.equal(asked.length, before + 1);
+  // Ask mode: everything that changes something pauses, reads do not.
+  mode = 'ask'; answer = true; const n = asked.length;
+  await tools.call('get_page_text', { chatId: 'c9' }); assert.equal(asked.length, n, 'reading is free');
+  await tools.call('computer', { chatId: 'c9', action: 'key', text: 'Return' }); assert.equal(asked.length, n + 1); assert.match(asked.at(-1).reason, /ask-before-every-action/);
+  mode = 'auto';
+  // The allow-list: a site off the list asks; a listed one does not.
+  sites = { mode: 'list', list: ['shop.example'] }; const m = asked.length;
+  await tools.call('navigate', { chatId: 'c9', url: 'https://shop.example/checkout' }); assert.equal(asked.length, m);
+  answer = false; await assert.rejects(tools.call('navigate', { chatId: 'c9', url: 'https://elsewhere.example/' }), /declined opening elsewhere\.example/);
+  sites = { mode: 'all', list: [] };
+  // A dialog the page raised is dismissed and reported with the next result.
+  contents.get(201).debugger.emit('Page.javascriptDialogOpening', { type: 'alert', message: 'Are you sure?' });
+  const after = await tools.call('get_page_text', { chatId: 'c9' });
+  assert.match(after.content[0].text, /^A alert dialog said "Are you sure\?" and was dismissed\. /);
+  assert.ok(contents.get(201).commands.some(([m]) => m === 'Page.handleJavaScriptDialog'));
+}
+console.log('Browser tools: accessibility lines with refs, key chords, the chat\'s tabs and refusals, the open flow, the MCP child over the bridge with every tool name, sensitive-action pauses, ask mode, the allow-list and dialog dismissal passed.');

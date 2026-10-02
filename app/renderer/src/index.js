@@ -249,7 +249,7 @@ function openTarget(target, chat = currentChat(), manual = true, options = {}) {
   // options.beside names a tab: a new tab is made right after it even when a tab for that host exists
   // (a link that asked for a new tab wants a second tab, not the first one navigated away).
   let tab = options.beside || options.fresh ? null : findTabForTarget(chat, target);
-  if (!tab && !manual && chat.closedTargets.includes(targetKey(target))) return null; // deliberately closed during this run
+  if (!tab && !manual && !options.fresh && chat.closedTargets.includes(targetKey(target))) return null; // deliberately closed during this run (an explicit agent request for a fresh tab is not that)
   if (!tab) {
     if (target.kind === 'doc') tab = newTab('doc', { title: target.title || documentSummary(target.id, target.source, target.paperOwner || null)?.title || 'Document', path: [target.id], source: target.source || 'local', ...(target.source === 'barkpark' ? { paperOwner: target.paperOwner || null } : {}) });
     else if (target.kind === 'web') tab = newTab('web', { title: target.title || (target.url ? hostname(target.url) : 'Website'), url: target.url || '' });
@@ -257,6 +257,7 @@ function openTarget(target, chat = currentChat(), manual = true, options = {}) {
     else if (target.kind === 'review') tab = newTab('review', { title: 'Review', path: target.path || '' });
     else if (target.kind === 'chat') tab = newTab('chat', { title: target.title || 'New chat', sideChatId: target.id });
     else if (target.kind === 'terminal') tab = newTab('terminal', { title: 'Terminal' });
+    if (options.agent) tab.agent = true; // before it mounts: the webview's partition depends on it
     const after = options.beside ? chat.tabs.findIndex(t => t.id === options.beside) : -1;
     chat.tabs.splice(after >= 0 ? after + 1 : chat.tabs.length, 0, tab);
   } else {
@@ -846,14 +847,22 @@ function wire() {
     const chat = state.chats[chatId];
     if (!chat) { api.browser.agentOpened({ requestId, error: 'That chat no longer exists' }).catch(() => {}); return; }
     // The agent's tab becomes the active one: only the active tab is mounted, and the person watches the agent work.
-    const tab = openTarget({ kind: 'web', url: url || '', title: url ? hostname(url) : 'Website' }, chat, false, { beside: chat.active || undefined, fresh: true, focus: true });
+    const tab = openTarget({ kind: 'web', url: url || '', title: url ? hostname(url) : 'Website' }, chat, false, { beside: chat.active || undefined, fresh: true, focus: true, agent: true });
     if (!tab) { api.browser.agentOpened({ requestId, error: 'The tab could not be opened' }).catch(() => {}); return; }
-    tab.agent = true; renderTabs(); save();
+    renderTabs(); save();
     api.browser.agentOpened({ requestId, tabId: tab.id }).catch(() => {});
   });
   api.browser.onAgentClose(({ chatId, tabId }) => { const chat = state.chats[chatId]; if (chat) closeTab(chat, tabId); });
   // Acting on a tab needs it painted: the agent's target becomes the active tab of its chat.
   api.browser.onAgentFocus(({ chatId, tabId }) => { const chat = state.chats[chatId]; if (chat && chat.tabs.some(t => t.id === tabId) && chat.active !== tabId) { focusTab(chat, tabId, false); render(); } });
+  // The assistant is about to do something the person wants to be asked about (a purchase, a message, a
+  // password, a deletion, an account change, a site off the list, or everything in ask mode).
+  api.browser.onPause(request => {
+    const where = request.url ? ` on ${esc(String(request.url).replace(/^https?:\/\//, '').split('/')[0])}` : '';
+    const card = el(`<div class="bw-permission bw-pause" role="alertdialog" aria-live="assertive"><span><b>The assistant wants ${esc(request.reason)}</b>${where}: ${esc(request.action)} ${esc(request.target || '')}${request.value !== undefined ? ` with “${esc(String(request.value))}”` : ''}. Allow it this once?</span><div><button type="button" class="bw-btn" data-decision="deny">Block</button><button type="button" class="bw-btn bw-primary" data-decision="allow">Allow</button></div></div>`);
+    card.querySelectorAll('[data-decision]').forEach(b => { b.onclick = () => { api.browser.answerPause(request.id, b.dataset.decision); card.remove(); }; });
+    document.body.appendChild(card); card.querySelector('[data-decision="deny"]').focus();
+  });
   // A site asks for the camera, the microphone, notifications or the location: the person decides, once per site.
   api.browser.onPermission(request => {
     const what = request.permission === 'media' ? ((request.mediaTypes || []).includes('video') ? ((request.mediaTypes || []).includes('audio') ? 'your camera and microphone' : 'your camera') : 'your microphone') : request.permission === 'notifications' ? 'to show notifications' : 'your location';
