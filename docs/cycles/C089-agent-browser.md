@@ -76,6 +76,17 @@ In the same [tour](evidence/C089/live/2026-10-02T14-19-20-446Z-agent-browser/res
 
 **Classes that pause** (`SENSITIVE` in `browser-tools.js`): a purchase or payment (buy, pay, checkout, place order, subscribe, add a card…), sending or publishing (send, post, publish, reply, share…), a deletion (delete, remove, erase, unsubscribe, cancel subscription…), an account change (sign out, change password, delete account, two-factor, verify…), a password. Matching is on the element's accessible name and role; a coordinate click resolves the element under the point first. **Limits:** the word lists are English; a button that says "Kjøp nå" does not pause yet — a model-judged classifier is the next step if the bench shows misses.
 
+## The owner's checks (everything the tours cannot do)
+
+1. **Real sign-ins (A):** sign in to Google, GitHub and Microsoft in a Barkdown tab once; note anything a site refuses. Task `task-7ee7aecb9a5e8b90`, criterion 1.
+2. **A working day (E):** browse in Barkdown for a day; list every reason you opened Chrome instead. Each gets a slice or is struck. Task `task-511ba8325baf5216`, criteria 2–3.
+3. **The two desktop columns (D):** run the twelve tasks once in Claude Desktop (Claude in Chrome) and once in ChatGPT desktop, and fill `docs/cycles/bench/owner-desktops.json` (finished, steps if visible, minutes, notes); `npm run test:bench` then prints the four-column table. Tasks 2, 6 and 8 need your real sign-ins in Barkdown too.
+4. **Unchanged from C086:** a signing identity (unlocks the updater's install step, notarization), a clean macOS account, where the public update feed lives, the Windows machine.
+
+## Slice D — the bench, first run 2026-10-02
+
+[C089-bench.md](C089-bench.md): Claude Code 8/8 and Codex 8/8 on the eight tasks the local site can host, with the pauses holding under real models (the purchase blocked both times, never reaching the shop), 21 s vs 57 s a task, same step counts. One harness defect fixed (a comma thousands separator) with a `--rescore` mode that re-judges a recorded run. One finding: the user's claude.ai connector settings leak into Claude Code's replies. The owner's columns and the three sign-in tasks are theirs ([the owner's checks](#the-owners-checks-everything-the-tours-cannot-do)).
+
 ## Not yet
 
-Slices D (the bench) and E (human daily basics).
+The owner's items, and the decision on user settings in Barkdown's runs.
