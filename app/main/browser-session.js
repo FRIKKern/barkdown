@@ -33,6 +33,10 @@ function createBrowserSession({ session, partition, store, ask, openBeside, pare
   }
   // What the pages see: Chrome, not Electron.
   session.setUserAgent(cleanUserAgent(session.getUserAgent()));
+  // A sign-in reaches disk within a second of happening: Chromium commits cookies on a slow timer, and a
+  // quit or a crash in that window would lose the session the person just made.
+  let flush = null;
+  session.cookies?.on?.('changed', () => { clearTimeout(flush); flush = setTimeout(() => { session.cookies.flushStore().catch(error => log(`[browser] cookie flush: ${error.message}`)); }, 1000); });
   session.setPermissionCheckHandler((_contents, permission, requestingOrigin, details) => {
     if (GRANTED.has(permission)) return true;
     if (!ASKED.has(permission)) return false;

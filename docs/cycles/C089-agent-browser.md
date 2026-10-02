@@ -58,6 +58,8 @@ Scored per run: finished · steps · minutes · asked-for-help · other browser 
 
 [Tour](evidence/C089/live/2026-10-02T13-04-47-363Z-browser/result.json), 8 of 8 against a local site in real Electron: the tab names Chrome and not Electron; a popup opens as a child window, reports back to its opener and closes itself; a `target=_blank` link opens a Barkdown tab beside (a new `beside` option on `openTarget`, since one tab per host would otherwise have navigated the opener away); a site's permission is asked once in plain words and remembered, listed and forgettable in Settings › Browser; *Import from Chrome* lists the profiles of every Chromium browser on the Mac, the bookmarks bar becomes Favorites, bookmarks and history feed the address bar's suggestions; a session cookie set in a tab is still sent after a restart, and so is the remembered permission. Modules: `app/main/browser-session.js`, `app/main/chrome-import.js`; unit tests for both; `tests/browser.live.mjs` runs in the chain. Electron moved 38 → 44 first (`809c508e`).
 
+**Found by the chain, fixed:** Chromium commits cookies on a slow timer (about thirty seconds), so a session made seconds before a quit was lost once; the partition now flushes its cookie store a second after any cookie changes, and again before quit (`browser-session.js`, `main.js`).
+
 **The owner's check:** sign in to Google, GitHub and Microsoft in a Barkdown tab once. The tour proves the popup, cookie and user-agent mechanics against a local site; it cannot prove those three sites' own rules.
 
 ## Slice B — the tool server, delivered 2026-10-02 (the model's turn is next)
