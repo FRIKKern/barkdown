@@ -4,8 +4,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const dir = path.dirname(new URL(import.meta.url).pathname);
+const dir = path.dirname(fileURLToPath(import.meta.url));
 const files = fs.readdirSync(dir).filter(f => f.endsWith('.mjs') && f !== 'host-skips.test.mjs');
 const count = pattern => files.reduce((n, f) => n + (fs.readFileSync(path.join(dir, f), 'utf8').match(pattern) || []).length, 0);
 
