@@ -215,7 +215,9 @@ function createWindow() {
     webPreferences: { preload: path.join(__dirname, 'preload.js'), contextIsolation: true, nodeIntegration: false, sandbox: false, webviewTag: true, spellcheck: true },
   });
   win.loadFile(path.join(__dirname, '..', 'renderer', 'index.html'));
-  win.once('ready-to-show', () => win.show());
+  // An unattended test run (the schedule under launchd) gets no foreground activation, and focus-dependent
+  // steps — IME composition, a double-click — behave differently; the tick asks for it explicitly.
+  win.once('ready-to-show', () => { win.show(); if (process.env.BARKDOWN_TEST_FOREGROUND === '1') { app.focus({ steal: true }); win.focus(); } });
   win.on('closed', () => { win = null; });
   win.on('close', () => { const s = readSettings(); s.windowBounds = win.getBounds(); writeSettings(s); });
   win.webContents.setWindowOpenHandler(({ url }) => { if (/^https?:/.test(url)) shell.openExternal(url); return { action: 'deny' }; });

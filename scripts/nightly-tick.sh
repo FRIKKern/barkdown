@@ -9,6 +9,7 @@ mkdir -p .release; exec >> .release/nightly-tick.log 2>&1
 echo "== $(date '+%Y-%m-%dT%H:%M:%S%z') tick"
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 export GIT_TERMINAL_PROMPT=0   # never wait for a credential prompt that nobody can answer
+export BARKDOWN_TEST_FOREGROUND=1 # bring each test window to the front: focus-dependent steps need it under launchd
 export BARKDOWN_MOCK_KEYCHAIN=1 # a launchd process cannot answer a keychain prompt either; the chain's Electron runs use Chromium's mock keychain
 [ -s "$HOME/.nvm/nvm.sh" ] && source "$HOME/.nvm/nvm.sh" >/dev/null
 command -v node >/dev/null || { echo "skip: no node on PATH"; exit 0; }
