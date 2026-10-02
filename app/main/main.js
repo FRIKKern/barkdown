@@ -817,8 +817,16 @@ function settleWindow(timeoutMs = 9000) {
     try { win.webContents.send('app:settle', id); } catch { clearTimeout(timer); settling.delete(id); resolve(null); }
   });
 }
+let cookiesFlushed = false;
 app.on('before-quit', event => {
   if (bootBusy) { event.preventDefault(); return; }
+  // Sign-ins made in website tabs reach disk before the process ends: Chromium writes cookies lazily, and a
+  // quick quit lost a session once in the chain (C089). Two seconds at most, then the quit goes on.
+  if (!cookiesFlushed) {
+    event.preventDefault(); cookiesFlushed = true;
+    Promise.race([Promise.all([...browserSessions.keys()].map(p => session.fromPartition(p).cookies.flushStore().catch(() => {}))), new Promise(resolve => setTimeout(resolve, 2000))]).then(() => app.quit());
+    return;
+  }
   if (!localQuitDone && (profilePool || localRuntime || terminal.hasSessions() || providerLogin?.hasSessions() || require('./providers/runs').runs.size)) {
     event.preventDefault();
     if (localQuitting) return;
