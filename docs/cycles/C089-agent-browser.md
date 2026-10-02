@@ -87,6 +87,8 @@ In the same [tour](evidence/C089/live/2026-10-02T14-19-20-446Z-agent-browser/res
 
 [C089-bench.md](C089-bench.md): Claude Code 8/8 and Codex 8/8 on the eight tasks the local site can host, with the pauses holding under real models (the purchase blocked both times, never reaching the shop), 21 s vs 57 s a task, same step counts. One harness defect fixed (a comma thousands separator) with a `--rescore` mode that re-judges a recorded run. One finding: the user's claude.ai connector settings leak into Claude Code's replies. The owner's columns and the three sign-in tasks are theirs ([the owner's checks](#the-owners-checks-everything-the-tours-cannot-do)).
 
+The day is written up in [The Browser Is the Agent’s](https://guerrilla.barkpark.cloud/papers/the-browser-is-the-agents).
+
 ## Not yet
 
 The owner's items, and the decision on user settings in Barkdown's runs.
