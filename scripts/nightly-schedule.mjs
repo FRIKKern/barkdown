@@ -18,8 +18,12 @@ const action = process.argv[2];
 if (process.platform !== 'darwin') { console.error('The schedule is a launchd agent; macOS only.'); process.exit(2); }
 if (action === 'install') {
   // The schedule's own checkout, brought to origin/main, with its dependencies and the runtime folder.
+  // Cloned from this checkout (no credentials needed), then pointed at GitHub with gh as the credential
+  // helper for this repository only; git never prompts, it fails instead, so a tick cannot hang.
+  process.env.GIT_TERMINAL_PROMPT = '0';
   const origin = execFileSync('git', ['config', '--get', 'remote.origin.url'], { cwd: root, encoding: 'utf8' }).trim();
-  if (!fs.existsSync(path.join(checkout, '.git'))) { fs.mkdirSync(path.dirname(checkout), { recursive: true }); run('git', ['clone', '--quiet', origin, checkout], path.dirname(checkout)); }
+  if (!fs.existsSync(path.join(checkout, '.git'))) { fs.mkdirSync(path.dirname(checkout), { recursive: true }); run('git', ['clone', '--quiet', '--branch', 'main', root, checkout], path.dirname(checkout)); run('git', ['remote', 'set-url', 'origin', origin], checkout); }
+  run('git', ['config', 'credential.helper', '!gh auth git-credential'], checkout);
   run('git', ['fetch', '--quiet', 'origin'], checkout); run('git', ['checkout', '--quiet', 'main'], checkout); run('git', ['merge', '--quiet', '--ff-only', 'origin/main'], checkout);
   run('npm', ['ci', '--no-audit', '--no-fund', '--silent'], checkout); run('npm', ['ci', '--no-audit', '--no-fund', '--silent'], path.join(checkout, 'app')); run('npx', ['install-electron', '--no'], path.join(checkout, 'app'));
   run('npx', ['playwright', 'install', 'chromium'], checkout);

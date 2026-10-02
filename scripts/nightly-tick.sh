@@ -8,6 +8,7 @@ cd "$(dirname "$0")/.." || exit 1
 mkdir -p .release; exec >> .release/nightly-tick.log 2>&1
 echo "== $(date '+%Y-%m-%dT%H:%M:%S%z') tick"
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+export GIT_TERMINAL_PROMPT=0   # never wait for a credential prompt that nobody can answer
 [ -s "$HOME/.nvm/nvm.sh" ] && source "$HOME/.nvm/nvm.sh" >/dev/null
 command -v node >/dev/null || { echo "skip: no node on PATH"; exit 0; }
 [ "$(git rev-parse --abbrev-ref HEAD)" = main ] || { echo "skip: the checkout is not on main"; exit 0; }
