@@ -83,7 +83,7 @@ const DEV = process.argv.includes('--dev');
 let win = null;
 
 // ---------- settings ----------
-const DEFAULT_SETTINGS = { sidebarWidth: 200, chatWidth: 60, theme: 'system', model: 'claude-opus-5', provider: null, claudeModel: '', codexModel: '', providerBinary: { claude: '', codex: '' }, apiKeyEncrypted: null, browser: { mode: 'auto', loggedOut: false, sites: { mode: 'all', list: [] } }, barkpark: { enabled: false, server: '', tokenEncrypted: null, dataset: 'production', writes: false, viaCli: false, local: { enabled: false, source: '', port: 4540, pgPort: 5540 } }, recentFolders: [], windowBounds: null };
+const DEFAULT_SETTINGS = { sidebarWidth: 200, chatWidth: 60, theme: 'system', model: 'claude-opus-5', provider: null, claudeModel: '', codexModel: '', providerBinary: { claude: '', codex: '' }, apiKeyEncrypted: null, browser: { mode: 'auto', loggedOut: false, sites: { mode: 'all', list: [] }, blocking: { enabled: true, allow: [] } }, barkpark: { enabled: false, server: '', tokenEncrypted: null, dataset: 'production', writes: false, viaCli: false, local: { enabled: false, source: '', port: 4540, pgPort: 5540 } }, recentFolders: [], windowBounds: null };
 
 const APPEARANCE_KEYS = ['theme', 'sidebarWidth', 'chatWidth', 'windowBounds'];
 // A built application carries its runtime (Resources/runtime). A profile that has never had a
@@ -129,7 +129,7 @@ function ordinaryNoteOptions(config) {
 function publicSettings() {
   const s = readSettings();
   if (profileConnection && s.barkpark.local?.enabled) s.barkpark.local = { ...s.barkpark.local, port: Number(new URL(profileConnection.server).port) };
-  return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), providerBinary: { claude: s.providerBinary?.claude || '', codex: s.providerBinary?.codex || '' }, claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN) && !s.apiKeyEncrypted, barkpark: { catalogKind: profileService && s.barkpark.local?.enabled ? 'local' : 'cloud', connectionIdentity: paperConnection.currentIdentity(), catalogGeneration, effectiveServer: s.barkpark.local?.enabled ? `http://127.0.0.1:${s.barkpark.local.port}` : s.barkpark.server, enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, local: s.barkpark.local || DEFAULT_SETTINGS.barkpark.local }, recentFolders: s.recentFolders, userData: store.dir() };
+  return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), browser: { ...DEFAULT_SETTINGS.browser, ...(s.browser || {}), sites: { ...DEFAULT_SETTINGS.browser.sites, ...((s.browser || {}).sites || {}) }, blocking: { ...DEFAULT_SETTINGS.browser.blocking, ...((s.browser || {}).blocking || {}) } }, providerBinary: { claude: s.providerBinary?.claude || '', codex: s.providerBinary?.codex || '' }, claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN) && !s.apiKeyEncrypted, barkpark: { catalogKind: profileService && s.barkpark.local?.enabled ? 'local' : 'cloud', connectionIdentity: paperConnection.currentIdentity(), catalogGeneration, effectiveServer: s.barkpark.local?.enabled ? `http://127.0.0.1:${s.barkpark.local.port}` : s.barkpark.server, enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, local: s.barkpark.local || DEFAULT_SETTINGS.barkpark.local }, recentFolders: s.recentFolders, userData: store.dir() };
 }
 // What the MCP server and the context note need to know about Barkpark, refreshed on every save.
 function localSecrets(source = store) {
@@ -232,13 +232,17 @@ function createWindow() {
   win.webContents.on('did-attach-webview', (_event, contents) => { browserSession().attach(contents); });
 }
 // The browser session of the selected profile, configured once per partition.
-const browserSessions = new Map(), permissionPrompts = new Map();
+const browserSessions = new Map(), permissionPrompts = new Map(), downloadsSeen = new Map();
 function browserSession(kind = null) {
   const base = profileService ? `barkdown-web-${profileService.view().profileId}` : 'barkdown-web';
   const partition = kind === 'private' ? `${base}-private` : `persist:${base}`;
   if (!browserSessions.has(partition)) {
     browserSessions.set(partition, require('./browser-session').createBrowserSession({ session: session.fromPartition(partition), partition, store, log: line => console.error(line),
       parentWindow: () => win,
+      downloads: process.env.BARKDOWN_DOWNLOADS_DIR || app.getPath('downloads'),
+      onDownload: detail => { downloadsSeen.set(detail.id, detail); win?.webContents.send('browser:download', detail); },
+      onShortcut: detail => win?.webContents.send('browser:shortcut', detail),
+      onContextMenu: detail => win?.webContents.send('browser:context-menu', detail),
       openBeside: detail => win?.webContents.send('browser:open-beside', detail),
       // The person answers in the window; a closed window or no answer within two minutes is a refusal.
       ask: request => new Promise(resolve => {
@@ -249,6 +253,7 @@ function browserSession(kind = null) {
         win.webContents.send('browser:permission', { id, ...request });
       }) }));
   }
+  applyBlocking().catch(error => console.error('[browser] blocking: ' + error.message));
   return browserSessions.get(partition);
 }
 // The browser the agents use (C089 slice B): tool semantics over the chat's tabs, and the bridge each
@@ -268,6 +273,42 @@ function browserTools() { return browserToolsInstance ||= require('./browser-too
 function browserBridge() { return browserBridgeInstance ||= require('./browser-tools').createBrowserBridge(browserTools(), { log: line => console.error(line) }); }
 // Every run, whichever path starts it, gets the browser server for its chat.
 agent.useBrowser(chatId => browserBridge().serverSpec(chatId));
+// Ads and trackers (C089 E): Ghostery's engine over EasyList and friends decides what a request is; Barkdown's
+// own hook on each browser partition decides what to do — nothing on a site the person allowed, nothing to
+// the page itself, a cancel for the rest, counted per tab for the shield. The engine is built once from the
+// prebuilt lists (cached under userData) or, for tests, from a filter file in BARKDOWN_BLOCKLIST.
+let blockerPromise = null, blockerState = { enabled: true, ready: false, source: null, updatedAt: null, error: null }, blockedCounts = new Map();
+const blockingSessions = new Set();
+const blockingPolicy = () => ({ ...DEFAULT_SETTINGS.browser.blocking, ...((readSettings().browser || {}).blocking || {}) });
+function blocker() {
+  return blockerPromise ||= (async () => {
+    const { ElectronBlocker } = require('@ghostery/adblocker-electron');
+    let engine;
+    if (process.env.BARKDOWN_BLOCKLIST) { engine = ElectronBlocker.parse(fs.readFileSync(process.env.BARKDOWN_BLOCKLIST, 'utf8')); blockerState.source = 'list'; }
+    else { const cache = path.join(app.getPath('userData'), 'adblocker-engine.bin'); engine = await ElectronBlocker.fromPrebuiltAdsAndTracking(fetch, { path: cache, read: fs.promises.readFile, write: fs.promises.writeFile }); blockerState.source = 'prebuilt'; }
+    blockerState.ready = true; blockerState.updatedAt = new Date().toISOString(); blockerState.error = null;
+    return engine;
+  })().catch(error => { blockerState.error = error.message; blockerPromise = null; throw error; });
+}
+const hostOfUrl = url => { try { return new URL(url).hostname.toLowerCase(); } catch { return ''; } };
+function attachBlocking(ses) {
+  if (blockingSessions.has(ses)) return; blockingSessions.add(ses);
+  ses.webRequest.onBeforeRequest((details, callback) => {
+    const policy = blockingPolicy();
+    if (process.env.BARKDOWN_BLOCKLIST) console.error(`[block] ${details.resourceType} ${details.url} initiator=${details.initiator || ''} referrer=${details.referrer || ''} wc=${details.webContentsId}`);
+    if (!policy.enabled || details.resourceType === 'mainFrame') return callback({});
+    const page = hostOfUrl(details.initiator || details.referrer || '');
+    if (page && (policy.allow || []).some(h => page === h || page.endsWith('.' + h))) return callback({});
+    blocker().then(engine => {
+      const { fromElectronDetails } = require('@ghostery/adblocker-electron');
+      const { match } = engine.match(fromElectronDetails(details));
+      if (!match) return callback({});
+      const id = details.webContentsId; if (id) { const count = (blockedCounts.get(id) || 0) + 1; blockedCounts.set(id, count); win?.webContents.send('browser:blocked', { webContentsId: id, count }); }
+      callback({ cancel: true });
+    }, () => callback({}));
+  });
+}
+async function applyBlocking() { blockerState.enabled = blockingPolicy().enabled !== false; for (const s of browserSessions.values()) attachBlocking(session.fromPartition(s.partition)); if (blockerState.enabled) await blocker(); }
 // Address-bar suggestions read the imported places once per file change, not per keystroke.
 let placesCache = null;
 function places() {
@@ -352,7 +393,7 @@ function registerIpc() {
     if (Number.isFinite(patch.sidebarWidth)) s.sidebarWidth = Math.min(420, Math.max(160, Math.round(patch.sidebarWidth)));
     if (patch.chatWidth != null) s.chatWidth = patch.chatWidth;
     if (patch.theme) s.theme = patch.theme;
-    if (patch.browser && typeof patch.browser === 'object') s.browser = { ...DEFAULT_SETTINGS.browser, ...(s.browser || {}), ...patch.browser, sites: { ...DEFAULT_SETTINGS.browser.sites, ...((s.browser || {}).sites || {}), ...(patch.browser.sites || {}) } };
+    if (patch.browser && typeof patch.browser === 'object') { s.browser = { ...DEFAULT_SETTINGS.browser, ...(s.browser || {}), ...patch.browser, sites: { ...DEFAULT_SETTINGS.browser.sites, ...((s.browser || {}).sites || {}), ...(patch.browser.sites || {}) }, blocking: { ...DEFAULT_SETTINGS.browser.blocking, ...((s.browser || {}).blocking || {}), ...(patch.browser.blocking || {}) } }; setImmediate(() => applyBlocking().catch(error => console.error('[browser] blocking: ' + error.message))); }
     if (patch.model) s.model = patch.model;
     if (patch.provider !== undefined) s.provider = patch.provider || null;
     if (patch.claudeModel !== undefined) s.claudeModel = patch.claudeModel;
@@ -537,6 +578,9 @@ function registerIpc() {
   handle('browser:tabs', ({ chatId, tabs }) => { browserTools().setTabs(chatId, tabs); return true; });
   handle('browser:agent-opened', detail => { browserTools().opened(detail); return true; });
   handle('browser:pause-answer', ({ id, decision }) => { pausePrompts.get(id)?.(decision === 'allow' ? 'allow' : 'deny'); return true; }, true);
+  handle('browser:blocking', () => ({ ...blockerState }));
+  handle('browser:download-open', id => { const d = downloadsSeen.get(id); if (d?.state === 'completed') shell.openPath(d.path); return Boolean(d); });
+  handle('browser:download-show', id => { const d = downloadsSeen.get(id); if (d) shell.showItemInFolder(d.path); return Boolean(d); });
   handle('browser:bridge', chatId => browserBridge().serverSpec(chatId));
   handle('app:settled', ({ id, result }) => { const waiting = settling.get(id); if (waiting) { settling.delete(id); waiting(result); } return true; }, true);
   handle('app:info', () => ({ version: app.getVersion(), electron: process.versions.electron, chrome: process.versions.chrome, node: process.versions.node, platform: process.platform, arch: process.arch, userData: store.dir() }));

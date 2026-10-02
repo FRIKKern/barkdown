@@ -99,6 +99,8 @@ function tabContext(chat) {
     openChatTarget: (owner, target) => openConversationTarget(target, owner),
     folderChanged: owner => { for (const c of controllers.values()) if (owner.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); },
     tabChanged: tab => { renderTabs(); save(); },
+    // A link from a page's context menu opens a tab right after the one that asked.
+    openBeside: (url, from) => { const owner = Object.values(state.chats).find(ch => ch.tabs.some(t => t.id === from.id)); if (owner && /^https?:/.test(url)) openTarget({ kind: 'web', url, title: hostname(url) }, owner, true, { beside: from.id }); },
     documentSummary,
     pagePath: (id, source, paperOwner) => pagePath(pageKey(id, source, paperOwner)),
     openLinked: (fromTab, id, source = 'local', replace = false) => {
@@ -841,6 +843,22 @@ function wire() {
     const chat = owner ? Object.values(state.chats).find(ch => ch.tabs.some(t => t.id === owner[0])) : currentChat();
     if (!chat || !/^https?:/.test(url)) return;
     openTarget({ kind: 'web', url, title: hostname(url) }, chat, true, { beside: owner?.[0] || chat.active });
+  });
+  // Keys that landed inside a page, and the page's context menu, come back from main for the tab they belong to.
+  const webController = webContentsId => [...controllers.values()].find(c => c.type === 'web' && c.webContentsId?.() === webContentsId);
+  api.browser.onShortcut(({ webContentsId, key }) => webController(webContentsId)?.shortcut?.(key));
+  api.browser.onContextMenu(detail => webController(detail.webContentsId)?.contextMenu?.(detail));
+  // Downloads: one card per file, with progress, then Open and Show in Finder; gone twenty seconds after it finishes.
+  const downloadCards = new Map();
+  api.browser.onDownload(d => {
+    let card = downloadCards.get(d.id);
+    if (!card) { card = el(`<div class="bw-permission bw-download" role="status"><span class="bw-download-text"></span><div></div></div>`); downloadCards.set(d.id, card); document.body.appendChild(card); }
+    const pct = d.total > 0 ? Math.round(d.received / d.total * 100) : null;
+    const mb = n => (n / 1048576).toFixed(n > 10485760 ? 0 : 1) + ' MB';
+    card.querySelector('.bw-download-text').innerHTML = d.state === 'completed' ? `<b>${esc(d.filename)}</b> downloaded (${mb(d.received)}).` : d.state === 'progressing' || d.state === 'started' ? `Downloading <b>${esc(d.filename)}</b>… ${pct !== null ? pct + '%' : mb(d.received)}` : `<b>${esc(d.filename)}</b>: download ${esc(d.state)}.`;
+    const actions = card.querySelector('div');
+    if (d.state === 'completed' && !actions.children.length) { actions.innerHTML = '<button type="button" class="bw-btn" data-act="show">Show in Finder</button><button type="button" class="bw-btn bw-primary" data-act="open">Open</button>'; actions.querySelector('[data-act="show"]').onclick = () => api.browser.downloadShow(d.id); actions.querySelector('[data-act="open"]').onclick = () => api.browser.downloadOpen(d.id); }
+    if (d.state !== 'progressing' && d.state !== 'started') setTimeout(() => { card.remove(); downloadCards.delete(d.id); }, 20000);
   });
   // An agent in a chat asks for a tab of its own: opened beside the chat's active tab, badged, answered with its id.
   api.browser.onAgentOpen(({ requestId, chatId, url }) => {

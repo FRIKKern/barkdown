@@ -19,6 +19,9 @@ const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const out = path.resolve(appRoot, '../docs/cycles/evidence/C089/live', new Date().toISOString().replace(/[:.]/g, '-') + '-browser');
 fs.mkdirSync(out, { recursive: true });
 const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-browser-')));
+const downloadsDir = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-downloads-')));
+// A filter list of our own stands in for EasyList: deterministic, and no network in the test.
+const listDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-blocklist-')), blocklist = path.join(listDir, 'filters.txt'); fs.writeFileSync(blocklist, '! test list\n/tracker.js\n');
 const chromeHome = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-chrome-home-')));
 makeChromeFixture(chromeHome);
 const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],
@@ -33,9 +36,13 @@ const pages = {
   '/beside': `<title>Beside page</title><p>opened beside</p>`,
   '/perm': `<title>Permission page</title><button id="ask" onclick="Notification.requestPermission().then(r => { document.querySelector('#perm-result').textContent = 'permission: ' + r; })">notify</button><p id="perm-result">permission: unknown</p>`,
   '/whoami': `<title>Who am I</title><p id="who">cookie: __COOKIE__</p>`,
+  '/tracked': `<title>Tracked page</title><p id="t">tracker: waiting</p><script src="/tracker.js" onload="document.querySelector('#t').textContent='tracker: loaded'" onerror="document.querySelector('#t').textContent='tracker: blocked'"></script>`,
+  '/links': `<title>Links page</title><p>Some words to find: cookies, cookies again.</p><p><a id="dl" href="/file.txt" download>Download the file</a> · <a id="ctx" href="/beside">A link to right-click</a></p>`,
 };
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, 'http://x'), body = pages[url.pathname];
+  if (url.pathname === '/tracker.js') { res.setHeader('Content-Type', 'text/javascript'); return res.end('window.tracked = true;'); }
+  if (url.pathname === '/file.txt') { res.setHeader('Content-Type', 'text/plain'); res.setHeader('Content-Disposition', 'attachment; filename="badger-notes.txt"'); return res.end('A file the browser downloaded.\n'); }
   if (!body) { res.statusCode = 404; return res.end('no'); }
   const cookie = /session=([^;]+)/.exec(req.headers.cookie || '')?.[1] || 'none';
   if (url.pathname === '/' && cookie === 'none') res.setHeader('Set-Cookie', 'session=kept-7f3a; Max-Age=86400; Path=/; HttpOnly; SameSite=Lax');
@@ -51,7 +58,8 @@ createStore(path.join(userData, 'app-settings')).writeJson('appearance.json', { 
 registry.selectProfile(profile.id);
 let app, page;
 const launch = async () => {
-  app = await electron.launch({ executablePath: require('electron'), args: [appRoot, '--profiles', `--user-data=${userData}`], env: { ...process.env, PATH: '/usr/bin:/bin:/usr/sbin:/sbin', BARKDOWN_PROVIDER: 'api', BARKDOWN_CHROME_HOME: chromeHome } });
+  app = await electron.launch({ executablePath: require('electron'), args: [appRoot, '--profiles', `--user-data=${userData}`], env: { ...process.env, PATH: '/usr/bin:/bin:/usr/sbin:/sbin', BARKDOWN_PROVIDER: 'api', BARKDOWN_CHROME_HOME: chromeHome, BARKDOWN_DOWNLOADS_DIR: downloadsDir, BARKDOWN_BLOCKLIST: blocklist } });
+  const stderr = fs.createWriteStream(path.join(out, 'main-stderr.log'), { flags: 'a' }); app.process().stderr?.on('data', chunk => stderr.write(chunk));
   page = await app.firstWindow({ timeout: 120000 }); page.setDefaultTimeout(30000);
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
   await page.setViewportSize({ width: 1300, height: 900 });
@@ -127,6 +135,55 @@ try {
   await shot('06-suggestions');
   await page.keyboard.press('Escape');
   check('the address bar suggests imported history and bookmarks as you type', { typed: 'fixture pri', suggestions });
+  // --- slice E: the browser's own chrome — download, find in page, zoom, the context menu
+  await page.evaluate(u => window.__barkdown.openTarget({ kind: 'web', url: u, title: 'links' }), site + '/links'); await siteReady('Some words to find');
+  await inSite("document.querySelector('#dl').click(); 1");
+  await page.locator('.bw-download').waitFor();
+  await page.waitForFunction(() => /downloaded/.test(document.querySelector('.bw-download')?.textContent || ''));
+  const downloadText = await page.locator('.bw-download .bw-download-text').innerText();
+  const saved = fs.readdirSync(downloadsDir);
+  assert.deepEqual(saved, ['badger-notes.txt']); assert.equal(fs.readFileSync(path.join(downloadsDir, 'badger-notes.txt'), 'utf8'), 'A file the browser downloaded.\n');
+  assert.equal(await page.locator('.bw-download [data-act="open"]').count(), 1);
+  await shot('07-download-card');
+  check('a download lands in the Downloads folder under its own name, with a card that opens or shows it', { downloadText, saved });
+  // Find in page: ⌘F in the bar opens the find bar; the webview counts the matches.
+  const bar = page.locator('#address:visible').last(); await bar.click(); await page.keyboard.press(process.platform === 'darwin' ? 'Meta+f' : 'Control+f');
+  const findInput = page.locator('#find:visible #find-q').last(); await findInput.waitFor(); await findInput.type('cookies');
+  await page.waitForFunction(() => /of 2/.test([...document.querySelectorAll('#find-count')].map(e => e.textContent).join(' ')));
+  const count1 = await page.locator('#find:visible #find-count').last().innerText();
+  await findInput.press('Enter'); await page.waitForFunction(() => /2 of 2/.test([...document.querySelectorAll('#find-count')].map(e => e.textContent).join(' ')));
+  await shot('08-find-in-page');
+  await findInput.press('Escape'); assert.equal(await page.locator('#find:visible').count(), 0);
+  check('⌘F finds in the page and counts matches; Enter steps; Escape closes', { count1 });
+  // Zoom: ⌘= steps the page up and shows the chip; ⌘0 resets and hides it.
+  await bar.click(); await page.keyboard.press(process.platform === 'darwin' ? 'Meta+=' : 'Control+=');
+  await page.waitForFunction(() => [...document.querySelectorAll('#zoom')].some(z => !z.hidden && z.textContent === '110%'));
+  const zoomFactor = await inSite('window.devicePixelRatio / (window.visualViewport ? 1 : 1)', false).catch(() => null);
+  await page.keyboard.press(process.platform === 'darwin' ? 'Meta+0' : 'Control+0');
+  await page.waitForFunction(() => [...document.querySelectorAll('#zoom:not([hidden])')].length === 0);
+  check('⌘= zooms the page and shows 110%; ⌘0 resets', { zoomFactor });
+  // The page's context menu, from a right-click inside the page, offers to open a link beside.
+  const linkBox = await inSite("(() => { const r = document.querySelector('#ctx').getBoundingClientRect(); return { x: Math.round(r.left + 5), y: Math.round(r.top + 5) }; })()", false);
+  await page.evaluate(({ x, y }) => { const views = [...document.querySelectorAll('webview#view')]; const v = views.find(w => w.getBoundingClientRect().width > 0) || views.at(-1); v.sendInputEvent({ type: 'mouseDown', x, y, button: 'right', clickCount: 1 }); v.sendInputEvent({ type: 'mouseUp', x, y, button: 'right', clickCount: 1 }); }, linkBox);
+  await page.locator('.bw-context-menu:not([hidden])').waitFor();
+  const menuItems = await page.locator('.bw-context-menu:not([hidden]) button').allInnerTexts();
+  await shot('09-context-menu');
+  const tabsBefore = (await webTabs()).length;
+  await page.locator('.bw-context-menu:not([hidden]) button', { hasText: 'Open link in a new tab beside' }).click();
+  await page.waitForFunction(n => { const s = window.__barkdown.state; return s.chats[s.current].tabs.filter(t => t.type === 'web').length === n + 1; }, tabsBefore);
+  check('a right-click in the page shows Barkdown\'s context menu; a link opens beside', { menuItems });
+  // Ads and trackers: the list blocks the page's tracker script; the shield counts it and switches the site.
+  await page.evaluate(u => window.__barkdown.openTarget({ kind: 'web', url: u, title: 'tracked' }), site + '/tracked'); await siteReady('tracker: blocked');
+  const shieldStates = () => page.evaluate(() => [...document.querySelectorAll('#shield')].map(sh => ({ hidden: sh.hidden, text: sh.textContent, visible: sh.getBoundingClientRect().width > 0 })));
+  const blockedSeen = await page.waitForFunction(() => [...document.querySelectorAll('#shield')].some(sh => !sh.hidden && /1 blocked/.test(sh.textContent)), null, { timeout: 15000 }).then(() => true, () => false);
+  if (!blockedSeen) { report.diagnostics = { shields: await shieldStates(), tabs: await webTabs(), body: await inSite('document.body.innerText', false).catch(() => null), settings: await page.evaluate(() => window.__barkdown.state.settings.browser) }; persist(); throw new Error('shield did not show "1 blocked": ' + JSON.stringify(report.diagnostics)); }
+  await shot('10-shield');
+  await page.locator('#shield:visible').last().click();
+  await siteReady('tracker: loaded');
+  await page.waitForFunction(() => [...document.querySelectorAll('#shield')].some(sh => !sh.hidden && sh.textContent === 'ads on'));
+  const allowList = await page.evaluate(() => window.__barkdown.state.settings.browser.blocking.allow);
+  await page.locator('#shield:visible').last().click(); await siteReady('tracker: blocked');
+  check('a tracker script is blocked and counted; the shield allows the site and blocks it again', { allowList });
   // Restart: the session cookie set on the first visit is still sent.
   await app.close();
   await launch();
@@ -143,5 +200,5 @@ try {
   console.error(error); process.exitCode = 1;
 } finally {
   await app?.close().catch(() => {}); server.close();
-  fs.rmSync(userData, { recursive: true, force: true }); fs.rmSync(chromeHome, { recursive: true, force: true });
+  fs.rmSync(userData, { recursive: true, force: true }); fs.rmSync(chromeHome, { recursive: true, force: true }); fs.rmSync(downloadsDir, { recursive: true, force: true }); fs.rmSync(listDir, { recursive: true, force: true });
 }

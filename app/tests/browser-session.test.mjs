@@ -4,7 +4,7 @@
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
-const { createBrowserSession, cleanUserAgent, popupSize, PERMISSIONS_FILE } = require('../main/browser-session');
+const { createBrowserSession, cleanUserAgent, popupSize, chromeShortcut, freeName, PERMISSIONS_FILE } = require('../main/browser-session');
 
 function fakes() {
   const files = new Map();
@@ -70,4 +70,35 @@ assert.deepEqual(popupSize('width=10,height=99999'), { width: 200, height: 1600 
   const child = { webContents: { id: 10, setWindowOpenHandler: fn => handlers.push(fn), on: () => {} } };
   made[0][1](child); assert.equal(handlers.length, 2, 'the popup gets the same handler');
 }
-console.log('Browser session: Chrome user agent, permissions asked once per site and remembered, policy refusals, popups as child windows, new-tab links beside passed.');
+// --- slice E: the browser's own keys, download names, downloads and the context menu reaching the window
+assert.equal(chromeShortcut({ type: 'keyDown', key: 'f', meta: true }), 'cmd+f'); assert.equal(chromeShortcut({ type: 'keyDown', key: 'L', control: true }), 'cmd+l');
+assert.equal(chromeShortcut({ type: 'keyDown', key: '+', meta: true, shift: true }), 'shift+cmd+='); assert.equal(chromeShortcut({ type: 'keyDown', key: 'Escape' }), 'Escape');
+assert.equal(chromeShortcut({ type: 'keyDown', key: 'f' }), null, 'a plain letter is the page\'s'); assert.equal(chromeShortcut({ type: 'keyUp', key: 'f', meta: true }), null); assert.equal(chromeShortcut({ type: 'keyDown', key: 'f', meta: true, alt: true }), null);
+{
+  const taken = new Set(['/d/report.pdf', '/d/report (2).pdf']);
+  assert.equal(freeName('/d', 'report.pdf', p => taken.has(p)), 'report (3).pdf'); assert.equal(freeName('/d', 'notes', p => taken.has(p)), 'notes');
+}
+{
+  const events = [], store = { readJson: () => null, writeJson() {} };
+  const handlers = {}; const session = { getUserAgent: () => 'x Electron/1', setUserAgent() {}, setPermissionRequestHandler() {}, setPermissionCheckHandler() {}, on: (event, fn) => { handlers[event] = fn; } };
+  const browser = createBrowserSession({ session, partition: 'persist:p', store, ask: async () => 'deny', openBeside: () => {}, downloads: '/tmp/dl', fs: { existsSync: p => p === '/tmp/dl/a.txt' }, now: () => 7,
+    onDownload: d => events.push(['download', d.state, d.filename, d.received]), onShortcut: d => events.push(['shortcut', d.key]), onContextMenu: d => events.push(['menu', d.linkURL, d.mediaType]) });
+  // A download gets a free name in the folder and its progress is reported until done.
+  const itemHandlers = {}; let received = 0;
+  const item = { getFilename: () => 'a.txt', getURL: () => 'https://x.example/a.txt', getReceivedBytes: () => received, getTotalBytes: () => 100, savePath: null, setSavePath(p) { this.savePath = p; }, on: (e, fn) => { itemHandlers[e] = fn; }, once: (e, fn) => { itemHandlers[e] = fn; } };
+  handlers['will-download']({}, item, { id: 3 });
+  assert.equal(item.savePath, '/tmp/dl/a (2).txt');
+  received = 50; itemHandlers.updated({}, 'progressing'); received = 100; itemHandlers.done({}, 'completed');
+  assert.deepEqual(events.filter(e => e[0] === 'download'), [['download', 'started', 'a (2).txt', 0], ['download', 'progressing', 'a (2).txt', 50], ['download', 'completed', 'a (2).txt', 100]]);
+  // Keys the chrome owns are taken from the page and forwarded; the context menu is forwarded with what the page offered.
+  const contentsHandlers = {}; let prevented = 0;
+  const contents = { id: 9, setWindowOpenHandler() {}, on: (e, fn) => { contentsHandlers[e] = fn; } };
+  browser.attach(contents);
+  contentsHandlers['before-input-event']({ preventDefault: () => prevented++ }, { type: 'keyDown', key: 'f', meta: true });
+  contentsHandlers['before-input-event']({ preventDefault: () => prevented++ }, { type: 'keyDown', key: 'x', meta: true });
+  contentsHandlers['before-input-event']({ preventDefault: () => prevented++ }, { type: 'keyDown', key: 'Escape' });
+  assert.equal(prevented, 1, 'only the chrome\'s keys are taken from the page; Escape is only mirrored');
+  contentsHandlers['context-menu']({}, { x: 10, y: 20, linkURL: 'https://x.example/l', mediaType: 'none' });
+  assert.deepEqual(events.filter(e => e[0] !== 'download'), [['shortcut', 'cmd+f'], ['shortcut', 'Escape'], ['menu', 'https://x.example/l', 'none']]);
+}
+console.log('Browser session: Chrome user agent, permissions asked once per site and remembered, policy refusals, popups as child windows, new-tab links beside, chrome keys, download names and progress, and the context menu passed.');

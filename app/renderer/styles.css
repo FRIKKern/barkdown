@@ -403,3 +403,9 @@ h1,h2,h3,p{margin:0}
 
 /* A pause before a sensitive action (C089 C): the same card as a permission, with the warning colour. */
 .bw-pause{border-color:var(--bw-warn)}.bw-pause b{color:var(--bw-warn)}
+
+/* The browser's own chrome (C089 E): find bar under the address bar, a zoom chip, the page's context menu, download cards. */
+.bw-webfind{margin:6px 8px 0;border-radius:8px}.bw-webfind input{flex:1;min-width:120px;background:var(--bw-raised);border:1px solid var(--bw-border);border-radius:5px;padding:4px 7px;font-size:12px}.bw-webfind button{display:grid;place-items:center;padding:4px;border-radius:5px}
+.bw-web-pane{position:relative}.bw-zoom,.bw-shield{white-space:nowrap;font-size:11px;padding:2px 6px;border:1px solid var(--bw-border);border-radius:10px;color:var(--bw-muted)}.bw-zoom[hidden],.bw-shield[hidden]{display:none}.bw-shield[data-allowed="true"]{text-decoration:line-through}
+.bw-context-menu{position:absolute;z-index:8;min-width:220px;padding:4px;background:var(--bw-raised);border:1px solid var(--bw-border);border-radius:8px;box-shadow:0 10px 30px #0005;display:flex;flex-direction:column}.bw-context-menu[hidden]{display:none}.bw-context-menu button{text-align:left;padding:6px 10px;border-radius:5px;font-size:12px}.bw-context-menu button:hover,.bw-context-menu button:focus-visible{background:var(--bw-wash)}
+.bw-download{bottom:auto;top:52px}.bw-download+.bw-download{top:130px}

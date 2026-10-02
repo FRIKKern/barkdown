@@ -22,7 +22,23 @@ function popupSize(features) {
   return { width: get('width') || POPUP_DEFAULTS.width, height: get('height') || POPUP_DEFAULTS.height };
 }
 
-function createBrowserSession({ session, partition, store, ask, openBeside, parentWindow = () => null, log = () => {} }) {
+// The keys a page must not swallow: they belong to the person's browser chrome, whatever has focus.
+const CHROME_KEYS = new Set(['f', 'l', '=', '+', '-', '0']);
+function chromeShortcut(input) {
+  if (input.type !== 'keyDown') return null;
+  const key = String(input.key || '').toLowerCase();
+  if (key === 'escape') return 'Escape';
+  if (!(input.meta || input.control) || input.alt) return null;
+  if (!CHROME_KEYS.has(key)) return null;
+  return (input.shift ? 'shift+' : '') + 'cmd+' + (key === '+' ? '=' : key);
+}
+// A file name that is not already in the folder: "name.ext", "name (2).ext", …
+function freeName(dir, name, exists) {
+  const dot = name.lastIndexOf('.'); const stem = dot > 0 ? name.slice(0, dot) : name, ext = dot > 0 ? name.slice(dot) : '';
+  for (let n = 1; n < 1000; n++) { const candidate = n === 1 ? name : `${stem} (${n})${ext}`; if (!exists(`${dir}/${candidate}`)) return candidate; }
+  return `${stem}-${Date.now()}${ext}`;
+}
+function createBrowserSession({ session, partition, store, ask, openBeside, parentWindow = () => null, log = () => {}, downloads = null, onDownload = () => {}, onShortcut = () => {}, onContextMenu = () => {}, fs = require('node:fs'), now = () => Date.now() }) {
   if (!session || !partition || !store || typeof ask !== 'function' || typeof openBeside !== 'function') throw new TypeError('session, partition, store, ask and openBeside are required');
   const pending = new Map(); // `${origin} ${permission}` -> Promise<decision>, so a page asking twice gets one prompt
   const read = () => { const value = store.readJson(PERMISSIONS_FILE, null); return value?.version === 1 && value.sites && typeof value.sites === 'object' ? value : { version: 1, sites: {} }; };
@@ -58,6 +74,17 @@ function createBrowserSession({ session, partition, store, ask, openBeside, pare
     }
     pending.get(key).then(decision => callback(decision === 'allow'));
   });
+  // Downloads land in the person's Downloads folder under a free name; the window follows progress.
+  if (downloads) session.on?.('will-download', (_event, item, contents) => {
+    const id = `${now()}-${Math.random().toString(36).slice(2, 8)}`;
+    const filename = freeName(downloads, String(item.getFilename() || 'download').replace(/[\\/:*?"<>|]+/g, '_'), p => fs.existsSync(p));
+    const savePath = `${downloads}/${filename}`;
+    item.setSavePath(savePath);
+    const report = state => onDownload({ id, filename, path: savePath, url: item.getURL(), received: item.getReceivedBytes(), total: item.getTotalBytes(), state, webContentsId: contents?.id ?? null });
+    report('started');
+    item.on('updated', (_e, state) => report(state === 'interrupted' ? 'interrupted' : 'progressing'));
+    item.once('done', (_e, state) => report(state === 'completed' ? 'completed' : state));
+  });
   function windowOpen({ url, disposition, features }, contents) {
     if (!/^https?:\/\//i.test(String(url || ''))) return { action: 'deny' };
     if (disposition === 'new-window') {
@@ -74,9 +101,12 @@ function createBrowserSession({ session, partition, store, ask, openBeside, pare
   function attach(contents) {
     contents.setWindowOpenHandler(details => windowOpen(details, contents));
     contents.on?.('did-create-window', child => { attach(child.webContents); });
+    // Find, address, zoom and Escape belong to the browser chrome even while the page has focus.
+    contents.on?.('before-input-event', (event, input) => { const key = chromeShortcut(input); if (key && key !== 'Escape') { event.preventDefault(); onShortcut({ webContentsId: contents.id, key }); } else if (key === 'Escape') onShortcut({ webContentsId: contents.id, key }); });
+    contents.on?.('context-menu', (_event, params) => onContextMenu({ webContentsId: contents.id, x: params.x, y: params.y, linkURL: params.linkURL || '', linkText: params.linkText || '', srcURL: params.srcURL || '', mediaType: params.mediaType || 'none', selectionText: params.selectionText || '', isEditable: Boolean(params.isEditable), pageURL: params.pageURL || '' }));
   }
   const list = () => Object.entries(read().sites).map(([origin, value]) => ({ origin, ...value })).sort((a, b) => String(b.at).localeCompare(String(a.at)));
   function forget(origin) { const value = read(); if (!value.sites[origin]) return false; delete value.sites[origin]; store.writeJson(PERMISSIONS_FILE, value); return true; }
   return Object.freeze({ partition, attach, windowOpen, list, forget, userAgent: () => session.getUserAgent() });
 }
-module.exports = { createBrowserSession, cleanUserAgent, popupSize, PERMISSIONS_FILE };
+module.exports = { createBrowserSession, cleanUserAgent, popupSize, chromeShortcut, freeName, PERMISSIONS_FILE };
