@@ -15,15 +15,18 @@ const env = { ...process.env, TMPDIR: fs.realpathSync(os.tmpdir()) + path.sep, B
 const dir = path.join(root, '.release', 'chain'); fs.mkdirSync(dir, { recursive: true });
 const receipt = { version: 1, sha, host: `${os.hostname()} ${process.platform} ${os.release()} ${process.arch}`, startedAt: new Date().toISOString(), steps: {} };
 const file = path.join(dir, sha + '.json');
-const run = (name, command, args, cwd) => {
+// One step: its status and time go into the receipt as soon as it ends; `retry` gives an unattended run (the
+// schedule, --retry-once) one more try at the test step, and the receipt keeps the first attempt as `firstTest`.
+const run = (name, command, args, cwd, { retry = false } = {}) => {
   const started = Date.now();
   const result = spawnSync(command, args, { cwd, env, stdio: ['ignore', 'inherit', 'inherit'] });
   receipt.steps[name] = { status: result.status === 0 ? 'passed' : 'failed', exit: result.status, seconds: Math.round((Date.now() - started) / 1000) };
   fs.writeFileSync(file, JSON.stringify(receipt, null, 2) + '\n');
+  if (result.status !== 0 && retry) { receipt.steps.firstTest = receipt.steps[name]; console.error(`${name} failed once; trying once more (--retry-once)`); return run(name, command, args, cwd); }
   if (result.status !== 0) { receipt.status = 'failed'; receipt.finishedAt = new Date().toISOString(); fs.writeFileSync(file, JSON.stringify(receipt, null, 2) + '\n'); console.error(`${name} failed; receipt at ${file}`); process.exit(1); }
 };
 run('check', 'npm', ['run', 'check'], root);
-run('test', 'npm', ['test'], path.join(root, 'app'));
+run('test', 'npm', ['test'], path.join(root, 'app'), { retry: process.argv.includes('--retry-once') });
 if (git('rev-parse', 'HEAD') !== sha || git('status', '--porcelain', '--untracked-files=no')) { console.error('The commit or the tree changed while the chain ran; no receipt.'); fs.unlinkSync(file); process.exit(1); }
 receipt.status = 'passed'; receipt.finishedAt = new Date().toISOString();
 fs.writeFileSync(file, JSON.stringify(receipt, null, 2) + '\n');

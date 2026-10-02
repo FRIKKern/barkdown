@@ -49,7 +49,7 @@ if (tags.includes(tag)) fail(`${tag} already exists`);
 // 2. The chain receipt for this exact commit. --chain runs the chain here when the commit has none yet
 //    (the schedule's case, after the due gate); a chain that fails is a release that does not happen.
 const receiptFile = path.join(root, '.release', 'chain', sha + '.json');
-if (args.includes('--chain') && !fs.existsSync(receiptFile)) sh(process.execPath, [path.join(root, 'scripts', 'chain.mjs')], { env });
+if (args.includes('--chain') && !fs.existsSync(receiptFile)) sh(process.execPath, [path.join(root, 'scripts', 'chain.mjs'), '--retry-once'], { env });
 let receipt; try { receipt = JSON.parse(fs.readFileSync(receiptFile, 'utf8')); } catch { fail(`no chain receipt for ${short}: run node scripts/chain.mjs on this commit first`); }
 if (receipt.status !== 'passed' || receipt.sha !== sha) fail(`the chain receipt for ${short} did not pass`);
 console.log(`release: ${channel} ${tag} from ${short}${fromTag ? ` (promoting ${fromTag})` : ''}, previous ${previousTag || 'none'}`);

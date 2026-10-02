@@ -155,6 +155,9 @@ try {
   const favTab = await page.locator('#bw-tabs [data-tab]').first().getAttribute('data-tab');
   const favLabel = await page.locator('#bw-tabs [data-tab]').first().locator('.bw-tab-label').innerText();
   await page.locator(`#bw-tabs [data-close="${favTab}"]`).dispatchEvent('click');
+// A double-click on the active tab opens its rename field. The strip re-renders when a tab finishes mounting,
+// which can swallow the second click on a slow machine (seen on the schedule's launchd runs): try up to three times.
+const renameActiveTab = async () => { for (let i = 0; i < 3; i++) { await page.locator('#bw-tabs .bw-tab.active [data-tab]').dblclick(); if (await page.locator('#bw-tabs .bw-tab-rename').waitFor({ timeout: 2000 }).then(() => true, () => false)) return; await new Promise(r => setTimeout(r, 500)); } throw new Error('the rename field did not open after three double-clicks'); };
   await page.locator('#bw-favorites').click();
   const favRow = page.locator('#bw-fav-menu [data-open]').first();
   const favBox = await favRow.locator('.bw-fav-label').boundingBox();
@@ -163,7 +166,7 @@ try {
   await favRow.click();
   step('a favorite reopens its tab after it was closed', (await page.locator('#bw-tabs .bw-tab.active .bw-tab-label').innerText()) === favLabel);
   // A document tab's name is the note's title; a legacy note cannot be renamed since the retirement (C087 R4).
-  await page.locator('#bw-tabs .bw-tab.active [data-tab]').dblclick();
+  await renameActiveTab();
   await page.locator('#bw-tabs .bw-tab-rename').fill('Renamed tab');
   await page.locator('#bw-tabs .bw-tab-rename').press('Enter');
   await page.waitForSelector('.bw-toast', { timeout: 5000 });
@@ -171,7 +174,7 @@ try {
   await page.locator('#bw-plus').click();
   await page.locator('#bw-new-menu [data-new="chat"]').click();
   await page.waitForSelector('.bw-side-chat', { timeout: 5000 });
-  await page.locator('#bw-tabs .bw-tab.active [data-tab]').dblclick();
+  await renameActiveTab();
   await page.locator('#bw-tabs .bw-tab-rename').fill('Brainstorm');
   await page.locator('#bw-tabs .bw-tab-rename').press('Enter');
   step('renaming a side chat tab names the side chat', (await page.evaluate(() => { const chat = window.__barkdown.state.chats[window.__barkdown.state.current]; const tab = chat.tabs.find(t => t.id === chat.active); return window.__barkdown.state.chats[tab.sideChatId]?.title; })) === 'Brainstorm' && (await page.locator('.bw-side-chat #title').innerText()) === 'Brainstorm');
