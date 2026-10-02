@@ -367,11 +367,11 @@ function registerIpc() {
   handle('paperDrafts:clearUnsaved', input => unsavedWords().clear(input));
   handle('paperDrafts:unsaved', input => unsavedWords().find(input));
   handle('paperDrafts:read', key => paperDrafts().read(key));
-  handle('paperDrafts:copy', ({ key, format }) => {
+  handle('paperDrafts:copy', async ({ key, format }) => {
     if (!['text', 'record'].includes(format)) throw new Error('Unknown retained-draft copy format.');
     const record = paperDrafts().read(key), snapshot = record.content.draft.snapshot;
     const text = format === 'record' ? JSON.stringify(record, null, 2) : snapshot.mode === 'markdown' ? snapshot.raw_source : require('../shared/portabledoc').blocksToMarkdown(snapshot.blocks);
-    clipboard.writeText(text); return true;
+    await clipboard.writeText(text); return true; // asynchronous since Electron 44
   });
   if (profileService) {
     const writerState = profileId => require('./writer-admission').controller(store.createStore(profileRegistry.storeFor(profileId).storeDir, { create: false })).inspect();

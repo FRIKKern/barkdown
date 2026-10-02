@@ -46,7 +46,7 @@ jobs:
         run: |
           npm ci
           if [ "$RUNNER_OS" = Linux ]; then npx playwright install --with-deps chromium; else npx playwright install chromium; fi
-          cd app && npm ci
+          cd app && npm ci && npx install-electron --no
       - name: Build and test (Linux under Xvfb)
         if: runner.os == 'Linux'
         env:
