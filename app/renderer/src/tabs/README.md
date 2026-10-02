@@ -18,6 +18,8 @@ For Paper changes, test acknowledged revisions, native Undo/Redo, human takeover
 
 ## Changelog
 
+- 2 October, C089 (B): a tab the assistant opens is underlined in the accent and named in its title; the strip keeps main's view of every chat's web tabs current, and an agent's request opens or focuses a tab in its chat.
+
 - 2 October, C089: the website tab is a browser a person lives in. Popups are allowed and become child windows in the same partition (a sign-in returns to its opener); a link that wants a new tab opens a Barkdown tab beside; the address bar suggests places imported from Chrome (Settings › Browser); a site's permission request is a card the person answers once per site. [Tour](../../../../docs/cycles/evidence/C089/live/2026-10-02T13-04-47-363Z-browser/result.json).
 
 - 24 September, C071: owned local drafts have revision-checked Delete and a retained unavailable original tab. [Deleted notes](../../../../docs/visual/paper-deletions/README.md) recovers a separate copy after restart, without rewiring original references or overwriting later edits. Dirty panes refuse deletion; unconfirmed requests remain explicit.

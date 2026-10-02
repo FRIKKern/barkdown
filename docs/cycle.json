@@ -20,17 +20,18 @@
   ],
   "checkpoint": "2026-10-02",
   "handoff": "docs/cycles/C089-agent-browser.md",
-  "nextAction": "Slice B: main/browser-tools.js — an MCP server the run receives with Claude in Chrome's vocabulary (tabs_context, tabs_create, navigate, read_page with refs, find, get_page_text, form_input, computer, javascript, read_console_messages, read_network_requests, gif) over the chat's website tabs through webContents.debugger; the perception layer (system line, tool gating by an SDK hook, agent-tab badges, cursor overlay); verify the Codex SDK thread picks the server up from its config. Prove with both agents opening, reading, clicking, typing and screenshotting a local page.",
+  "nextAction": "B's real-agent proof: a run through Barkdown (Claude Code, then Codex, on the user's own logins) asked to open a local page in its browser and report what it reads; the run log must show only barkdown-browser tools and no other browser. Then slice C (safety pauses).",
   "evidence": [
-    "docs/cycles/evidence/C089/live/2026-10-02T13-04-47-363Z-browser/result.json"
+    "docs/cycles/evidence/C089/live/2026-10-02T13-04-47-363Z-browser/result.json",
+    "docs/cycles/evidence/C089/live/2026-10-02T13-44-33-795Z-agent-browser/result.json"
   ],
-  "truthReview": "2026-10-02: nothing demonstrated yet. Facts established: website tabs are a <webview> with one persistent partition per profile and a four-button toolbar (renderer/src/tabs/website.js, 66 lines); permissions beyond clipboard-read and fullscreen are denied silently; popups load in place; Electron cannot load the Claude in Chrome or Codex extensions (no debugger, sidePanel, nativeMessaging or MV3 background support) but exposes the DevTools Protocol on every tab (webContents.debugger). 2026-10-02 afternoon: slice A delivered — the browser tour passes 8/8 (user agent, popup to opener, tab beside, permission asked once and remembered, import to Favorites and suggestions, session and permission across a restart); unit tests for the session and the import pass. Real Google/GitHub/Microsoft sign-ins are the owner's check.",
+  "truthReview": "2026-10-02: nothing demonstrated yet. Facts established: website tabs are a <webview> with one persistent partition per profile and a four-button toolbar (renderer/src/tabs/website.js, 66 lines); permissions beyond clipboard-read and fullscreen are denied silently; popups load in place; Electron cannot load the Claude in Chrome or Codex extensions (no debugger, sidePanel, nativeMessaging or MV3 background support) but exposes the DevTools Protocol on every tab (webContents.debugger). 2026-10-02 afternoon: slice A delivered — the browser tour passes 8/8 (user agent, popup to opener, tab beside, permission asked once and remembered, import to Favorites and suggestions, session and permission across a restart); unit tests for the session and the import pass. Real Google/GitHub/Microsoft sign-ins are the owner's check. 2026-10-02 evening: slice B's tool server passes its tour 8/8 through the real MCP child (21 calls: tabs, read_page with stable refs, find, form_input, computer type/key/click/screenshot, text, javascript, console, network, close); both providers are wired. Not yet shown: a model using it — next.",
   "screenshotReview": "Settings gains a Browser pane and the website tab a suggestions list and a permission card; status shots and the visual run reviewed with this commit. Tour screenshots in the evidence folder.",
   "delivery": {
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "Slice B",
+      "Slice B: real-agent proof",
       "Slice C",
       "Slice D",
       "Slice E"

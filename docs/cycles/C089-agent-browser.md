@@ -60,6 +60,12 @@ Scored per run: finished · steps · minutes · asked-for-help · other browser 
 
 **The owner's check:** sign in to Google, GitHub and Microsoft in a Barkdown tab once. The tour proves the popup, cookie and user-agent mechanics against a local site; it cannot prove those three sites' own rules.
 
+## Slice B — the tool server, delivered 2026-10-02 (the model's turn is next)
+
+[Tour](evidence/C089/live/2026-10-02T13-44-33-795Z-agent-browser/result.json), 8 of 8, 21 tool calls through the same stdio MCP child a run receives (`main/browser-mcp.js`, env: bridge socket, token, chat): `tabs_context` lists the chat's tabs with who opened them; `tabs_create` opens the agent's tab beside the person's, badged and active (only the active tab is mounted, and the person watches the agent work); `read_page` gives an accessibility tree with refs that stay stable across reads of the same page, `find` answers a description with the right ref; `form_input` sets text, select and checkbox; `computer` types into a ref, presses keys (Enter carries its character, so forms submit), clicks a ref or a coordinate with a visible marker, and screenshots at scale 1 (a point in the picture is the point to click); `get_page_text`, `javascript`, `read_console_messages`, `read_network_requests`; a refusal is a tool error, `tabs_close` leaves the person's tab. Both providers receive the server (`mcpServers['barkdown-browser']` for Claude Code, `mcp_servers` for Codex — the same mechanism the documents server already uses), their system text names Barkdown as the only browser, and a Claude Code PreToolUse hook refuses a Bash command that would launch another one. Modules: `app/main/browser-tools.js` (CDP semantics, inventory, bridge), `app/main/browser-mcp.js`; unit test `tests/browser-tools.test.mjs` includes the MCP child round trip.
+
+**Limits:** driven by the test, not by a model — what Claude and Codex do with these tools is the next proof (a real run through Barkdown whose log shows only Barkdown's tools) and then the bench (D). Tabs in a chat that is not on screen have no web contents until shown. No `gif` tool yet.
+
 ## Not yet
 
-Slices B–E. Next: the browser tool server and the perception layer (B).
+The real-agent proof for B, then slices C–E.

@@ -90,11 +90,11 @@ Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with n
 | State | Journey | Evidence / acceptance |
 |---|---|---|
 | ◐ In progress | Your sessions, signed in | [Work and limits](cycles/C089-agent-browser.md) |
-| ○ Remaining | Claude and Codex use your tabs | [Work and limits](cycles/C089-agent-browser.md) |
+| ◐ In progress | Claude and Codex use your tabs | [Work and limits](cycles/C089-agent-browser.md) |
 | ○ Remaining | Pauses on sensitive actions | [Work and limits](cycles/C089-agent-browser.md) |
 | ○ Remaining | Bench vs the two desktops | [Work and limits](cycles/C089-agent-browser.md) |
 | ○ Remaining | A day without Chrome | [Work and limits](cycles/C089-agent-browser.md) |
 
-Opened 2026-10-02 (C089). Barkdown’s website tabs become the browser Claude and Codex perceive as theirs: Claude in Chrome’s tool vocabulary served over Barkdown’s own tabs through the DevTools Protocol, sign-in that works, bookmarks and history from Chrome, pauses on sensitive actions, and a twelve-task bench against Claude Desktop and ChatGPT desktop. Electron 44 is in and slice A is proven in a tour: Chrome’s user agent, popups that return to their opener, new-tab links beside, permissions asked once per site, bookmarks and history imported from Chrome, sessions across a restart. Next: the tool server the agents use.
+Opened 2026-10-02 (C089). Barkdown’s website tabs become the browser Claude and Codex perceive as theirs: Claude in Chrome’s tool vocabulary served over Barkdown’s own tabs through the DevTools Protocol, sign-in that works, bookmarks and history from Chrome, pauses on sensitive actions, and a twelve-task bench against Claude Desktop and ChatGPT desktop. Electron 44 is in and slice A is proven in a tour: Chrome’s user agent, popups that return to their opener, new-tab links beside, permissions asked once per site, bookmarks and history imported from Chrome, sessions across a restart. The tool server the agents use passes its tour through the real MCP child (B); a model driving it is the next proof.
 
 Stage order and release gates remain in [PLAN.md](PLAN.md); [the current cycle](NEXT-AGENT.md) owns the next action. This view summarizes that plan and is not another backlog.

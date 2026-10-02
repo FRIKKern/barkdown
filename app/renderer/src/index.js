@@ -187,10 +187,11 @@ function renderTabs() {
     const dirty = t.type === 'project' && chat.folder && dirtyCount(chat.folder) > 0;
     if (t.type === 'chat' && state.chats[t.sideChatId]?.title) t.title = state.chats[t.sideChatId].title;
     const title = t.type === 'doc' ? t.path.map(id => documentSummary(id, t.source, t.paperOwner || null)?.title || id).join(' → ') : t.type === 'web' ? t.url || t.title : t.title;
-    return `<div class="bw-tab ${t.id === chat.active ? 'active' : ''}"><button data-tab="${t.id}" aria-current="${t.id === chat.active ? 'page' : 'false'}" title="${esc(title)}">${iconHtml(TYPE_ICON[t.type])}<span class="bw-tab-label">${esc(t.title)}</span>${t.unread ? '<span class="bw-dot" aria-label="Updated by the assistant"></span>' : dirty ? '<span class="bw-dot bw-dot-dirty" aria-label="Unsaved edits"></span>' : ''}</button><div class="bw-tab-actions"><button data-fav="${t.id}" class="${favoriteFor(t) ? 'on' : ''}" aria-label="${favoriteFor(t) ? 'Remove from favorites' : 'Add to favorites'}" title="${favoriteFor(t) ? 'Remove from favorites' : 'Add to favorites'}">${iconHtml('star', 12)}</button><button data-close="${t.id}" aria-label="Close ${esc(t.title)}">${iconHtml('x', 12)}</button></div></div>`;
+    return `<div class="bw-tab ${t.id === chat.active ? 'active' : ''} ${t.agent ? 'bw-tab-agent' : ''}"><button data-tab="${t.id}" aria-current="${t.id === chat.active ? 'page' : 'false'}" title="${esc(title)}${t.agent ? ' · opened by the assistant' : ''}">${iconHtml(TYPE_ICON[t.type])}<span class="bw-tab-label">${esc(t.title)}</span>${t.unread ? '<span class="bw-dot" aria-label="Updated by the assistant"></span>' : dirty ? '<span class="bw-dot bw-dot-dirty" aria-label="Unsaved edits"></span>' : ''}</button><div class="bw-tab-actions"><button data-fav="${t.id}" class="${favoriteFor(t) ? 'on' : ''}" aria-label="${favoriteFor(t) ? 'Remove from favorites' : 'Add to favorites'}" title="${favoriteFor(t) ? 'Remove from favorites' : 'Add to favorites'}">${iconHtml('star', 12)}</button><button data-close="${t.id}" aria-label="Close ${esc(t.title)}">${iconHtml('x', 12)}</button></div></div>`;
   }).join('');
   // Only touch the DOM when the strip changed: keeps double-clicks (rename) and hover states intact.
   if (nav.innerHTML !== html) nav.innerHTML = html;
+  pushBrowserTabs();
   requestAnimationFrame(() => { const b = nav.querySelector(`[data-tab="${chat?.active}"]`); if (b) { const o = nav.getBoundingClientRect(), i = b.getBoundingClientRect(); if (i.right > o.right) nav.scrollLeft += i.right - o.right; else if (i.left < o.left) nav.scrollLeft -= o.left - i.left; } });
 }
 
@@ -247,11 +248,11 @@ function openTarget(target, chat = currentChat(), manual = true, options = {}) {
   if (manual) pauseFollow(chat);
   // options.beside names a tab: a new tab is made right after it even when a tab for that host exists
   // (a link that asked for a new tab wants a second tab, not the first one navigated away).
-  let tab = options.beside ? null : findTabForTarget(chat, target);
+  let tab = options.beside || options.fresh ? null : findTabForTarget(chat, target);
   if (!tab && !manual && chat.closedTargets.includes(targetKey(target))) return null; // deliberately closed during this run
   if (!tab) {
     if (target.kind === 'doc') tab = newTab('doc', { title: target.title || documentSummary(target.id, target.source, target.paperOwner || null)?.title || 'Document', path: [target.id], source: target.source || 'local', ...(target.source === 'barkpark' ? { paperOwner: target.paperOwner || null } : {}) });
-    else if (target.kind === 'web') tab = newTab('web', { title: target.title || hostname(target.url), url: target.url });
+    else if (target.kind === 'web') tab = newTab('web', { title: target.title || (target.url ? hostname(target.url) : 'Website'), url: target.url || '' });
     else if (target.kind === 'project') tab = newTab('project', { title: target.path ? basename(target.path) : 'Project', file: target.path || '', treeOpen: !target.path });
     else if (target.kind === 'review') tab = newTab('review', { title: 'Review', path: target.path || '' });
     else if (target.kind === 'chat') tab = newTab('chat', { title: target.title || 'New chat', sideChatId: target.id });
@@ -267,7 +268,7 @@ function openTarget(target, chat = currentChat(), manual = true, options = {}) {
     if (target.kind === 'project' && target.path) { tab.file = target.path; tab.title = basename(target.path); controllers.get(tab.id)?.openFile?.(target.path); }
     if (target.kind === 'review') controllers.get(tab.id)?.refresh();
   }
-  const shouldFocus = manual || (chat.following && chat.id === state.current && state.mode === 'chat' && !userIsTyping());
+  const shouldFocus = manual || options.focus || (chat.following && chat.id === state.current && state.mode === 'chat' && !userIsTyping());
   if (shouldFocus) { chat.active = tab.id; tab.unread = false; }
   else tab.unread = true;
   if (manual && state.mode !== 'chat' && chat.id !== DIRECT) state.mode = 'chat';
@@ -840,6 +841,19 @@ function wire() {
     if (!chat || !/^https?:/.test(url)) return;
     openTarget({ kind: 'web', url, title: hostname(url) }, chat, true, { beside: owner?.[0] || chat.active });
   });
+  // An agent in a chat asks for a tab of its own: opened beside the chat's active tab, badged, answered with its id.
+  api.browser.onAgentOpen(({ requestId, chatId, url }) => {
+    const chat = state.chats[chatId];
+    if (!chat) { api.browser.agentOpened({ requestId, error: 'That chat no longer exists' }).catch(() => {}); return; }
+    // The agent's tab becomes the active one: only the active tab is mounted, and the person watches the agent work.
+    const tab = openTarget({ kind: 'web', url: url || '', title: url ? hostname(url) : 'Website' }, chat, false, { beside: chat.active || undefined, fresh: true, focus: true });
+    if (!tab) { api.browser.agentOpened({ requestId, error: 'The tab could not be opened' }).catch(() => {}); return; }
+    tab.agent = true; renderTabs(); save();
+    api.browser.agentOpened({ requestId, tabId: tab.id }).catch(() => {});
+  });
+  api.browser.onAgentClose(({ chatId, tabId }) => { const chat = state.chats[chatId]; if (chat) closeTab(chat, tabId); });
+  // Acting on a tab needs it painted: the agent's target becomes the active tab of its chat.
+  api.browser.onAgentFocus(({ chatId, tabId }) => { const chat = state.chats[chatId]; if (chat && chat.tabs.some(t => t.id === tabId) && chat.active !== tabId) { focusTab(chat, tabId, false); render(); } });
   // A site asks for the camera, the microphone, notifications or the location: the person decides, once per site.
   api.browser.onPermission(request => {
     const what = request.permission === 'media' ? ((request.mediaTypes || []).includes('video') ? ((request.mediaTypes || []).includes('audio') ? 'your camera and microphone' : 'your camera') : 'your microphone') : request.permission === 'notifications' ? 'to show notifications' : 'your location';
@@ -864,6 +878,20 @@ function wire() {
 })();
 
 // Test and debugging hooks (no UI depends on these).
+// The agents' view of the website tabs (C089): every chat's web tabs, with the web contents id once the tab
+// is mounted, pushed to main whenever the strip renders or a tab finishes mounting.
+let pushedTabs = '';
+function pushBrowserTabs() {
+  const snapshot = {};
+  for (const chat of Object.values(state.chats)) {
+    const tabs = (chat.tabs || []).filter(t => t.type === 'web').map(t => ({ id: t.id, url: t.url || '', title: t.title || '', active: chat.active === t.id, agent: Boolean(t.agent), webContentsId: controllers.get(t.id)?.webContentsId?.() ?? null }));
+    if (tabs.length) snapshot[chat.id] = tabs;
+  }
+  const key = JSON.stringify(snapshot);
+  if (key === pushedTabs) return; pushedTabs = key;
+  for (const [chatId, tabs] of Object.entries(snapshot)) api.browser.tabs({ chatId, tabs }).catch(() => {});
+  for (const chatId of Object.keys(state.chats)) if (!snapshot[chatId]) api.browser.tabs({ chatId, tabs: [] }).catch(() => {});
+}
 // Favorites from an import (Settings › Browser): the bookmarks bar, each once, opening in the current chat.
 function addFavorites(items) {
   const chat = currentChat(); let added = 0;
@@ -875,4 +903,4 @@ function addFavorites(items) {
   if (added) { renderFavorites(); renderTabs(); save(); }
   return added;
 }
-window.__barkdown = { prepareProfile: profilePreparation.prepare, addFavorites, preparationStatus: profilePreparation.status, openGoalView, attachImages,  state, controllers, openTarget, render, refreshLibrary, expandArchive: () => { ensurePages().archiveOpen = true; ensurePages().cloudArchiveOpen = true; renderSidebar(); }, addPage, pagePath, setFolder: folder => { const chat = currentChat(); chat.folder = folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }, openProject, openDirect, openPalette, createChat, switchChat };
+window.__barkdown = { prepareProfile: profilePreparation.prepare, addFavorites, pushBrowserTabs, preparationStatus: profilePreparation.status, openGoalView, attachImages,  state, controllers, openTarget, render, refreshLibrary, expandArchive: () => { ensurePages().archiveOpen = true; ensurePages().cloudArchiveOpen = true; renderSidebar(); }, addPage, pagePath, setFolder: folder => { const chat = currentChat(); chat.folder = folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }, openProject, openDirect, openPalette, createChat, switchChat };

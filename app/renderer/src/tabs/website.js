@@ -65,7 +65,7 @@ export function mountWebsite(tab, host, ctx) {
       if (action === 'reload') view.reload();
     };
   });
-  view.addEventListener('dom-ready', () => { ready = true; });
+  view.addEventListener('dom-ready', () => { ready = true; window.__barkdown?.pushBrowserTabs?.(); });
   view.addEventListener('did-start-loading', () => { q('#status').textContent = 'Loading…'; });
   view.addEventListener('did-stop-loading', () => { q('#status').textContent = ''; });
   view.addEventListener('did-navigate', e => { tab.url = e.url; address.value = e.url; ctx.tabChanged(tab); });

@@ -246,6 +246,11 @@ function browserSession() {
   }
   return browserSessions.get(partition);
 }
+// The browser the agents use (C089 slice B): tool semantics over the chat's tabs, and the bridge each
+// run's MCP child reaches them through. Both made once, on first use.
+let browserToolsInstance = null, browserBridgeInstance = null;
+function browserTools() { return browserToolsInstance ||= require('./browser-tools').createBrowserTools({ webContentsFromId: id => require('electron').webContents.fromId(id), send: (channel, detail) => win?.webContents.send(channel, detail), log: line => console.error(line) }); }
+function browserBridge() { return browserBridgeInstance ||= require('./browser-tools').createBrowserBridge(browserTools(), { log: line => console.error(line) }); }
 // Address-bar suggestions read the imported places once per file change, not per keystroke.
 let placesCache = null;
 function places() {
@@ -510,6 +515,10 @@ function registerIpc() {
   });
   handle('browser:places', () => { const value = places(); return value ? { importedAt: value.importedAt, source: value.source, counts: value.counts } : null; });
   handle('browser:suggest', query => require('./chrome-import').suggest(places()?.places || [], query));
+  // The window keeps the agents' view of the tabs current and answers their requests to open one.
+  handle('browser:tabs', ({ chatId, tabs }) => { browserTools().setTabs(chatId, tabs); return true; });
+  handle('browser:agent-opened', detail => { browserTools().opened(detail); return true; });
+  handle('browser:bridge', chatId => browserBridge().serverSpec(chatId));
   handle('app:settled', ({ id, result }) => { const waiting = settling.get(id); if (waiting) { settling.delete(id); waiting(result); } return true; }, true);
   handle('app:info', () => ({ version: app.getVersion(), electron: process.versions.electron, chrome: process.versions.chrome, node: process.versions.node, platform: process.platform, arch: process.arch, userData: store.dir() }));
 
@@ -630,7 +639,7 @@ function registerIpc() {
     const scope = captureScope({ storeDir: runStoreDir, context, connection: barkparkConfig() });
     await assertProviderAuthentication(chosen, settings, scope);
     assertProviderFolder(chosen, scope.context.folder);
-    return agent.start({ chatId, messages, prompt, images, context: scope.context, scope, provider: chosen, session, storeDir: runStoreDir, connection: scope.connection, settings, send: event => { if ((event.type === 'library_changed' || event.libraryChanged) && store.dir() === runStoreDir) documents.loadAll(); win?.webContents.send('agent:event', event); } });
+    return agent.start({ chatId, messages, prompt, images, context: scope.context, scope, provider: chosen, browser: browserBridge().serverSpec(chatId), session, storeDir: runStoreDir, connection: scope.connection, settings, send: event => { if ((event.type === 'library_changed' || event.libraryChanged) && store.dir() === runStoreDir) documents.loadAll(); win?.webContents.send('agent:event', event); } });
   });
   handle('agent:cancel', runId => profileService ? profileService.cancel(profileService.view(), runId) : agent.cancel(runId));
   handle('agent:recover', input => { if (!profileService) throw new Error('Recovery requires a managed profile'); return profileService.recover(profileService.view(), input); });
@@ -823,5 +832,5 @@ app.on('before-quit', event => {
     return;
   }
 });
-app.on('will-quit', () => { adoptionView?.close(); authorityOwnership?.release(); });
+app.on('will-quit', () => { adoptionView?.close(); authorityOwnership?.release(); browserBridgeInstance?.close(); });
 app.on('window-all-closed', () => { if (process.platform !== 'darwin') app.quit(); });

@@ -397,3 +397,6 @@ h1,h2,h3,p{margin:0}
 .bw-permission{position:fixed;right:16px;bottom:16px;z-index:40;display:flex;flex-direction:column;gap:10px;max-width:360px;padding:12px 14px;background:var(--bw-raised);border:1px solid var(--bw-border);border-radius:10px;box-shadow:0 12px 36px #0006;font-size:12px;line-height:1.45}.bw-permission div{display:flex;gap:8px;justify-content:flex-end}
 .bw-sources{display:flex;flex-direction:column;gap:6px}.bw-source{display:flex;align-items:center;gap:10px;padding:6px 8px;border:1px solid var(--bw-border);border-radius:7px;font-size:12px}.bw-source b{font-weight:600}.bw-source small{color:var(--bw-muted)}.bw-source .bw-spacer{flex:1}
 .bw-sites{display:flex;flex-direction:column;gap:4px}.bw-site{display:flex;align-items:center;gap:8px;font-size:12px;padding:4px 0}.bw-site code{font-size:11px}.bw-site .bw-spacer{flex:1}
+
+/* A tab the assistant opened (C089): underlined in the accent, named in its title. */
+.bw-tab-agent>button{box-shadow:inset 0 -2px 0 var(--bw-accent)}
