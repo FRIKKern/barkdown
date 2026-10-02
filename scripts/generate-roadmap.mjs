@@ -33,7 +33,7 @@ export const summaries = {
   P6: {reviewedStageStatus: 'active', title: ['The agent’s', 'browser'], items: [
     ['active', 'Your sessions, signed in', 'docs/cycles/C089-agent-browser.md'], ['todo', 'Claude and Codex use your tabs'],
     ['todo', 'Pauses on sensitive actions'], ['todo', 'Bench vs the two desktops'], ['todo', 'A day without Chrome'],
-  ], evidence: 'docs/cycles/C089-agent-browser.md', scope: 'Opened 2026-10-02 (C089). Barkdown’s website tabs become the browser Claude and Codex perceive as theirs: Claude in Chrome’s tool vocabulary served over Barkdown’s own tabs through the DevTools Protocol, sign-in that works, bookmarks and history from Chrome, pauses on sensitive actions, and a twelve-task bench against Claude Desktop and ChatGPT desktop. Electron 44 is in; next are sign-in and the import of bookmarks and history.'},
+  ], evidence: 'docs/cycles/C089-agent-browser.md', scope: 'Opened 2026-10-02 (C089). Barkdown’s website tabs become the browser Claude and Codex perceive as theirs: Claude in Chrome’s tool vocabulary served over Barkdown’s own tabs through the DevTools Protocol, sign-in that works, bookmarks and history from Chrome, pauses on sensitive actions, and a twelve-task bench against Claude Desktop and ChatGPT desktop. Electron 44 is in and slice A is proven in a tour: Chrome’s user agent, popups that return to their opener, new-tab links beside, permissions asked once per site, bookmarks and history imported from Chrome, sessions across a restart. Next: the tool server the agents use.'},
 };
 // This is the active journey's evidence summary, not a percentage or a task queue.
 export const migrationProgress = [

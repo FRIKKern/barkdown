@@ -216,17 +216,43 @@ function createWindow() {
   win.on('close', () => { const s = readSettings(); s.windowBounds = win.getBounds(); writeSettings(s); });
   win.webContents.setWindowOpenHandler(({ url }) => { if (/^https?:/.test(url)) shell.openExternal(url); return { action: 'deny' }; });
   if (DEV) win.webContents.openDevTools({ mode: 'detach' });
-  // Website tabs use <webview>. Keep them sandboxed and stop them from opening windows.
+  // Website tabs use <webview>, sandboxed, in the profile's own partition; browser-session.js gives that
+  // partition a browser's manners (C089): Chrome's user agent, permissions asked once per site, popups as
+  // child windows, new-tab links as tabs beside.
   win.webContents.on('will-attach-webview', (_event, preferences, params) => {
-    const partition = profileService ? `persist:barkdown-web-${profileService.view().profileId}` : 'persist:barkdown-web';
+    const partition = browserSession().partition;
     preferences.partition = partition; params.partition = partition;
     preferences.nodeIntegration = false; preferences.contextIsolation = true; preferences.sandbox = true;
     delete preferences.preload;
-    session.fromPartition(partition).setPermissionRequestHandler((_contents, permission, callback) => callback(['clipboard-read', 'fullscreen'].includes(permission)));
   });
-  win.webContents.on('did-attach-webview', (_event, contents) => {
-    contents.setWindowOpenHandler(({ url }) => { contents.loadURL(url).catch(() => {}); return { action: 'deny' }; });
-  });
+  win.webContents.on('did-attach-webview', (_event, contents) => { browserSession().attach(contents); });
+}
+// The browser session of the selected profile, configured once per partition.
+const browserSessions = new Map(), permissionPrompts = new Map();
+function browserSession() {
+  const partition = profileService ? `persist:barkdown-web-${profileService.view().profileId}` : 'persist:barkdown-web';
+  if (!browserSessions.has(partition)) {
+    browserSessions.set(partition, require('./browser-session').createBrowserSession({ session: session.fromPartition(partition), partition, store, log: line => console.error(line),
+      parentWindow: () => win,
+      openBeside: detail => win?.webContents.send('browser:open-beside', detail),
+      // The person answers in the window; a closed window or no answer within two minutes is a refusal.
+      ask: request => new Promise(resolve => {
+        if (!win) return resolve('deny');
+        const id = require('node:crypto').randomUUID();
+        const timer = setTimeout(() => { permissionPrompts.delete(id); resolve('deny'); }, 120000);
+        permissionPrompts.set(id, decision => { clearTimeout(timer); permissionPrompts.delete(id); resolve(decision); });
+        win.webContents.send('browser:permission', { id, ...request });
+      }) }));
+  }
+  return browserSessions.get(partition);
+}
+// Address-bar suggestions read the imported places once per file change, not per keystroke.
+let placesCache = null;
+function places() {
+  const file = store.filePath(require('./chrome-import').PLACES_FILE);
+  let mtime = 0; try { mtime = fs.statSync(file).mtimeMs; } catch { placesCache = null; return null; }
+  if (!placesCache || placesCache.file !== file || placesCache.mtime !== mtime) { const value = store.readJson(require('./chrome-import').PLACES_FILE, null); placesCache = { file, mtime, value: value?.version === 1 ? value : null }; }
+  return placesCache.value;
 }
 
 function buildMenu() {
@@ -471,6 +497,19 @@ function registerIpc() {
   handle('updates:check', () => updates.check());
   handle('updates:download', () => updates.download());
   handle('updates:install', () => updates.install());
+  // The browser (C089): site permissions, the import of places from a Chromium browser, suggestions.
+  handle('browser:permission-answer', ({ id, decision }) => { permissionPrompts.get(id)?.(decision === 'allow' ? 'allow' : 'deny'); return true; }, true);
+  handle('browser:permissions', () => browserSession().list());
+  handle('browser:forgetPermission', origin => browserSession().forget(String(origin)));
+  handle('browser:sources', () => require('./chrome-import').listSources({ home: process.env.BARKDOWN_CHROME_HOME || undefined }));
+  handle('browser:import', source => {
+    const result = require('./chrome-import').importPlaces(source, { home: process.env.BARKDOWN_CHROME_HOME || undefined });
+    store.writeJson(require('./chrome-import').PLACES_FILE, { version: 1, importedAt: result.importedAt, source: result.source, counts: result.counts, places: result.places });
+    placesCache = null;
+    return { importedAt: result.importedAt, source: result.source, counts: result.counts, bar: result.bar };
+  });
+  handle('browser:places', () => { const value = places(); return value ? { importedAt: value.importedAt, source: value.source, counts: value.counts } : null; });
+  handle('browser:suggest', query => require('./chrome-import').suggest(places()?.places || [], query));
   handle('app:settled', ({ id, result }) => { const waiting = settling.get(id); if (waiting) { settling.delete(id); waiting(result); } return true; }, true);
   handle('app:info', () => ({ version: app.getVersion(), electron: process.versions.electron, chrome: process.versions.chrome, node: process.versions.node, platform: process.platform, arch: process.arch, userData: store.dir() }));
 

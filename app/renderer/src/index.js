@@ -245,7 +245,9 @@ function openTarget(target, chat = currentChat(), manual = true, options = {}) {
   if (!chat) return null;
   savePositions();
   if (manual) pauseFollow(chat);
-  let tab = findTabForTarget(chat, target);
+  // options.beside names a tab: a new tab is made right after it even when a tab for that host exists
+  // (a link that asked for a new tab wants a second tab, not the first one navigated away).
+  let tab = options.beside ? null : findTabForTarget(chat, target);
   if (!tab && !manual && chat.closedTargets.includes(targetKey(target))) return null; // deliberately closed during this run
   if (!tab) {
     if (target.kind === 'doc') tab = newTab('doc', { title: target.title || documentSummary(target.id, target.source, target.paperOwner || null)?.title || 'Document', path: [target.id], source: target.source || 'local', ...(target.source === 'barkpark' ? { paperOwner: target.paperOwner || null } : {}) });
@@ -254,7 +256,8 @@ function openTarget(target, chat = currentChat(), manual = true, options = {}) {
     else if (target.kind === 'review') tab = newTab('review', { title: 'Review', path: target.path || '' });
     else if (target.kind === 'chat') tab = newTab('chat', { title: target.title || 'New chat', sideChatId: target.id });
     else if (target.kind === 'terminal') tab = newTab('terminal', { title: 'Terminal' });
-    chat.tabs.push(tab);
+    const after = options.beside ? chat.tabs.findIndex(t => t.id === options.beside) : -1;
+    chat.tabs.splice(after >= 0 ? after + 1 : chat.tabs.length, 0, tab);
   } else {
     if (target.kind === 'doc' && tab.path.at(-1) !== target.id) {
       tab.path = tab.path.slice(0, tab.path.indexOf(target.id) + 1);
@@ -830,6 +833,20 @@ function wire() {
   await load();
   await profilePreparation.status().catch(error => console.warn('Preparation status:', error.message));
   installSwitchNotice({ api, state, prepareProfile: profilePreparation.prepare });
+  // The browser (C089): a link that wants a new tab opens beside the tab that asked, in that tab's chat.
+  api.browser.onOpenBeside(({ url, openerId }) => {
+    const owner = [...controllers.entries()].find(([, c]) => c.type === 'web' && c.webContentsId?.() === openerId);
+    const chat = owner ? Object.values(state.chats).find(ch => ch.tabs.some(t => t.id === owner[0])) : currentChat();
+    if (!chat || !/^https?:/.test(url)) return;
+    openTarget({ kind: 'web', url, title: hostname(url) }, chat, true, { beside: owner?.[0] || chat.active });
+  });
+  // A site asks for the camera, the microphone, notifications or the location: the person decides, once per site.
+  api.browser.onPermission(request => {
+    const what = request.permission === 'media' ? ((request.mediaTypes || []).includes('video') ? ((request.mediaTypes || []).includes('audio') ? 'your camera and microphone' : 'your camera') : 'your microphone') : request.permission === 'notifications' ? 'to show notifications' : 'your location';
+    const card = el(`<div class="bw-permission" role="alertdialog" aria-live="assertive"><span>${esc(request.origin.replace(/^https?:\/\//, ''))} asks for ${esc(what)}. Your answer is kept for this site; change it in Settings › Browser.</span><div><button type="button" class="bw-btn" data-decision="deny">Block</button><button type="button" class="bw-btn bw-primary" data-decision="allow">Allow</button></div></div>`);
+    card.querySelectorAll('[data-decision]').forEach(b => { b.onclick = () => { api.browser.answerPermission(request.id, b.dataset.decision); card.remove(); }; });
+    document.body.appendChild(card); card.querySelector('[data-decision="allow"]').focus();
+  });
   if (state.profileId) {
     let refreshTimer;
     api.goals.subscribe({ profileId: state.profileId }, () => { clearTimeout(refreshTimer); refreshTimer = setTimeout(() => refreshManagedChats().catch(error => console.warn('Goal transcript refresh:', error)), 80); });
@@ -847,4 +864,15 @@ function wire() {
 })();
 
 // Test and debugging hooks (no UI depends on these).
-window.__barkdown = { prepareProfile: profilePreparation.prepare, preparationStatus: profilePreparation.status, openGoalView, attachImages,  state, controllers, openTarget, render, refreshLibrary, expandArchive: () => { ensurePages().archiveOpen = true; ensurePages().cloudArchiveOpen = true; renderSidebar(); }, addPage, pagePath, setFolder: folder => { const chat = currentChat(); chat.folder = folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }, openProject, openDirect, openPalette, createChat, switchChat };
+// Favorites from an import (Settings › Browser): the bookmarks bar, each once, opening in the current chat.
+function addFavorites(items) {
+  const chat = currentChat(); let added = 0;
+  for (const item of Array.isArray(items) ? items : []) {
+    if (!/^https?:/.test(item?.url || '') || state.favorites.some(f => f.target.kind === 'web' && f.target.url === item.url)) continue;
+    state.favorites.push({ id: crypto.randomUUID(), label: String(item.title || hostname(item.url)).slice(0, 120), target: { kind: 'web', url: item.url }, chatId: chat?.id || null, chatTitle: chat?.title || null, folder: chat?.folder || null, at: new Date().toISOString(), imported: true });
+    added++;
+  }
+  if (added) { renderFavorites(); renderTabs(); save(); }
+  return added;
+}
+window.__barkdown = { prepareProfile: profilePreparation.prepare, addFavorites, preparationStatus: profilePreparation.status, openGoalView, attachImages,  state, controllers, openTarget, render, refreshLibrary, expandArchive: () => { ensurePages().archiveOpen = true; ensurePages().cloudArchiveOpen = true; renderSidebar(); }, addPage, pagePath, setFolder: folder => { const chat = currentChat(); chat.folder = folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }, openProject, openDirect, openPalette, createChat, switchChat };

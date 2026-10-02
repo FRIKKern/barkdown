@@ -18,6 +18,7 @@ const PANES = [
   ['general', 'sliders-horizontal', 'General'],
   ['assistant', 'sparkles', 'Assistant'],
   ['barkpark', 'library', 'Barkpark'],
+  ['browser', 'globe', 'Browser'],
   ['shortcuts', 'keyboard', 'Shortcuts'],
   ['about', 'info', 'About'],
 ];
@@ -119,6 +120,11 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
         ${switchHtml('bp-writes', 'Allow fenced writes to Barkpark', 'Off by default. When on, you and the assistant can edit papers directly, with revision checks and Undo for assistant edits.')}
         ${`<h3>Library switch</h3>
         ${setting('Move this library to Paper', 'Prepares the profile (agent turns stop, drafts are kept), backs up the legacy notes, stages them as Papers, compares the library while the runtime is held, then selects Paper. Legacy notes stay retained and read-only. Labels are generated at the switch and reviewed on Paper afterwards. The window reloads when it is done.', `<div class="bw-inline"><span class="bw-status" id="bp-switch-status" aria-live="polite">Checking…</span><button type="button" class="bw-btn" data-act="switch-paper" disabled>${iconHtml('file-plus', 13)}Switch to Paper</button><button type="button" class="bw-btn" data-act="switch-rollback" hidden>Roll back</button><button type="button" class="bw-btn" data-act="switch-retained" hidden>Open retained files</button></div><div class="bw-inline" id="bp-switch-changed" hidden></div><div class="bw-compare" id="bp-switch-compare" hidden></div>`, { stack: true })}`}
+      </section>
+      <section data-pane="browser" ${pane !== 'browser' ? 'hidden' : ''}>
+        <h3>Browser</h3>
+        ${setting('Import from Chrome', 'Copies the bookmarks and the history of a Chrome, Edge, Brave, Arc or Vivaldi profile on this Mac into this Barkdown profile: the bookmarks bar becomes Favorites, everything else feeds the address bar. A copy, when you ask; nothing in the other browser changes. Signing in is done once, in a Barkdown tab.', '<div class="bw-sources" id="browser-sources">Looking for browsers…</div><div class="bw-status bw-set-note" id="browser-import-status"></div>', { stack: true })}
+        ${setting('Site permissions', 'Sites you answered about your camera, microphone, notifications or location. Forget one to be asked again.', '<div class="bw-sites" id="browser-sites">…</div>', { stack: true })}
       </section>
       <section data-pane="shortcuts" ${pane !== 'shortcuts' ? 'hidden' : ''}>
         ${SHORTCUTS.map(([group, ...rows]) => `<h3>${esc(group)}</h3><table class="bw-keys">${rows.map(([combo, what]) => `<tr><td>${keys(combo)}</td><td>${esc(what)}</td></tr>`).join('')}</table>`).join('')}
@@ -381,6 +387,30 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
   const close = () => { loginDisposers.forEach(dispose => dispose()); stopUpdates(); unsubscribeLocal(); dismiss(); };
   const cancel = () => { if (saving) return; onChange({ theme: original.theme, chatWidth: original.chatWidth }, true); close(); };
   q('[data-act="cancel"]').onclick = cancel;
+  // The Browser pane: sources to import from, the last import, remembered site permissions.
+  const plainError = error => String(error?.message || error).replace(/^\[[\w-]+\]\s*/, '');
+  const renderBrowserPane = async () => {
+    const box = q('#browser-sources'), note = q('#browser-import-status'), sites = q('#browser-sites');
+    if (!box) return;
+    const working = on => box.querySelectorAll('[data-import]').forEach(b => { b.disabled = on; });
+    try {
+      const [sources, places] = await Promise.all([api.browser.sources(), api.browser.places()]);
+      box.innerHTML = sources.length ? sources.map((s, i) => `<div class="bw-source"><b>${esc(s.browserName)}</b><span>${esc(s.name)}</span><small>${s.has.bookmarks ? 'bookmarks' : ''}${s.has.bookmarks && s.has.history ? ' · ' : ''}${s.has.history ? 'history' : ''}</small><span class="bw-spacer"></span><button type="button" class="bw-btn" data-import="${i}">Import</button></div>`).join('') : '<small>No Chromium browser profile was found under this account.</small>';
+      note.textContent = places ? `Last import: ${places.counts.bookmarks} bookmarks (${places.counts.bar} on the bar) and ${places.counts.history} history entries from ${places.source.browserName} “${places.source.profileDir}” on ${new Date(places.importedAt).toLocaleString()}.` : '';
+      box.querySelectorAll('[data-import]').forEach(b => { b.onclick = async () => {
+        const s = sources[Number(b.dataset.import)]; working(true); note.className = 'bw-status bw-set-note'; note.textContent = `Importing from ${s.browserName}…`;
+        try { const result = await api.browser.import({ browser: s.browser, profileDir: s.profileDir }); const added = window.__barkdown?.addFavorites?.(result.bar) || 0; note.className = 'bw-status bw-set-note ok'; note.textContent = `Imported ${result.counts.bookmarks} bookmarks and ${result.counts.history} history entries; ${added} new Favorite${added === 1 ? '' : 's'} from the bookmarks bar. The address bar suggests them now.`; }
+        catch (error) { note.className = 'bw-status bw-set-note err'; note.textContent = plainError(error); }
+        finally { working(false); }
+      }; });
+    } catch (error) { box.innerHTML = `<small>${esc(plainError(error))}</small>`; }
+    try {
+      const list = await api.browser.permissions();
+      sites.innerHTML = list.length ? list.map(site => `<div class="bw-site"><code>${esc(site.origin)}</code><span>${['media', 'notifications', 'geolocation'].filter(k => site[k]).map(k => `${k === 'media' ? 'camera/microphone' : k}: ${esc(site[k])}`).join(', ')}</span><span class="bw-spacer"></span><button type="button" class="bw-btn" data-forget="${esc(site.origin)}">Forget</button></div>`).join('') : '<small>No site has asked yet.</small>';
+      sites.querySelectorAll('[data-forget]').forEach(b => { b.onclick = async () => { await api.browser.forgetPermission(b.dataset.forget); renderBrowserPane(); }; });
+    } catch (error) { sites.innerHTML = `<small>${esc(plainError(error))}</small>`; }
+  };
+  renderBrowserPane();
   q('[data-act="original-history"]').onclick = () => {
     if (dirty || saving) { toast('Save or cancel Settings changes before opening original history.', 'error'); return; }
     close(); openOriginalHistory();
