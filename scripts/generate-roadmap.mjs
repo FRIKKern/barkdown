@@ -33,7 +33,7 @@ export const summaries = {
   P6: {reviewedStageStatus: 'active', title: ['The agent’s', 'browser'], items: [
     ['active', 'Your sessions, signed in', 'docs/cycles/C089-agent-browser.md'], ['todo', 'Claude and Codex use your tabs'],
     ['todo', 'Pauses on sensitive actions'], ['todo', 'Bench vs the two desktops'], ['todo', 'A day without Chrome'],
-  ], evidence: 'docs/cycles/C089-agent-browser.md', scope: 'Opened 2026-10-02 (C089). Barkdown’s website tabs become the browser Claude and Codex perceive as theirs: Claude in Chrome’s tool vocabulary served over Barkdown’s own tabs through the DevTools Protocol, the user’s sessions imported from Chrome, pauses on sensitive actions, and a twelve-task bench against Claude Desktop and ChatGPT desktop. Nothing is demonstrated yet; the first slice is sign-in and the Chrome import.'},
+  ], evidence: 'docs/cycles/C089-agent-browser.md', scope: 'Opened 2026-10-02 (C089). Barkdown’s website tabs become the browser Claude and Codex perceive as theirs: Claude in Chrome’s tool vocabulary served over Barkdown’s own tabs through the DevTools Protocol, sign-in that works, bookmarks and history from Chrome, pauses on sensitive actions, and a twelve-task bench against Claude Desktop and ChatGPT desktop. Electron 44 is in; next are sign-in and the import of bookmarks and history.'},
 };
 // This is the active journey's evidence summary, not a percentage or a task queue.
 export const migrationProgress = [
@@ -45,7 +45,7 @@ export const migrationProgress = [
   {status:'active', title:'Prove the way back', lines:['Rollback keeps later Paper edits.', 'Real library on Windows still to run.'], evidence:'docs/cycles/C083-writer-admission.md', detail:'Rollback restores the legacy navigation exactly, keeps Papers and later edits on Paper, names every changed Paper, and lets a person compare, keep or restore each one; its own interruption resumes. Retirement of the separate editor and store is audited in four stages and not started.'},
 ];
 const latestAdvance = 'Night of 2026-10-02: nightlies cut themselves from this Mac on a schedule, a copy of the profile is taken before any update, Pages work at 200% zoom, and the app is 420 MB.';
-const nextOutcome = 'C089: Claude and Codex get a browser of their own inside Barkdown, with your sessions from Chrome, measured against Claude Desktop and ChatGPT desktop on a twelve-task bench.';
+const nextOutcome = 'C089: Claude and Codex get a browser of their own inside Barkdown, on Electron 44, measured against Claude Desktop and ChatGPT desktop on a twelve-task bench.';
 const marks = {done: '✓', active: '◐', todo: '○'};
 const meanings = {done: 'Demonstrated', active: 'In progress', todo: 'Remaining'};
 const escape = s => String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');

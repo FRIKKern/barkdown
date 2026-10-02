@@ -5,7 +5,7 @@
   "status": "active",
   "goal": "Claude and Codex, run through the user's own CLIs, perceive Barkdown's tabs as their browser and use them as well as they use Claude Desktop and ChatGPT desktop — with the user's sessions, never opening another browser, pausing on sensitive actions — and a person can live in that browser for a working day.",
   "scope": [
-    "A. Sign-in works and the Chrome import: Chrome user agent where needed, OAuth popups as a child window, permission prompts; bookmarks, history and cookies copied from the Chrome profile on demand",
+    "A. Sign-in works and the Chrome import: Electron 44, a clean Chrome user agent, popups as child windows, new-tab links beside, permission prompts remembered per site; bookmarks and history imported on demand",
     "B. The browser tool server: Claude in Chrome's vocabulary (tabs, navigate, read_page, find, get_page_text, form_input, computer, javascript, console, network, gif) over the chat's tabs through the DevTools Protocol; the perception layer (system line, tool gating, no other browser reachable); visible cursor and agent-tab badges",
     "C. Safety: approval modes, pauses on sensitive actions, site allow-list, logged-out mode, dialogs never strand a run",
     "D. The bench: twelve tasks, both agents, compared with the two desktop products; fix what loses",
@@ -14,13 +14,13 @@
   "acceptance": [
     "On the bench Claude and Codex in Barkdown finish as many of the twelve tasks as they do in Claude Desktop and ChatGPT desktop, within one step per task on average, with the differences recorded",
     "No run opens or names another browser; the run log shows only Barkdown's tools",
-    "Google, GitHub and Microsoft sign-in work in a Barkdown tab; one Chrome import brings bookmarks, history and sessions; a session survives a restart",
+    "Google, GitHub and Microsoft sign-in work in a Barkdown tab, popups included; a session survives a restart; one Chrome import brings bookmarks and history",
     "Purchases, messages, passwords, deletions and account changes pause for approval in every mode",
     "One person browses in Barkdown for a working day and every reason to return to Chrome has a slice or is struck"
   ],
   "checkpoint": "2026-10-02",
   "handoff": "docs/cycles/C089-agent-browser.md",
-  "nextAction": "Slice A: the Chrome user agent on sign-in domains, window.open as a child window in the same partition, permission prompts as a toast; then `Import from Chrome` in Settings (bookmarks → Favorites, history → address-bar suggestions, cookies decrypted under the keychain's \"Chrome Safe Storage\" into the profile's partition). Prove it with a tour that signs in to GitHub and Google and survives a restart. Then B.",
+  "nextAction": "Slice A after Electron 44 (809c508e): clean Chrome user agent, popups as child windows, new-tab links beside, permission prompts remembered per site; then Import from Chrome (bookmarks, history) with address-bar suggestions. Prove it with a tour.",
   "evidence": [],
   "truthReview": "2026-10-02: nothing demonstrated yet. Facts established: website tabs are a <webview> with one persistent partition per profile and a four-button toolbar (renderer/src/tabs/website.js, 66 lines); permissions beyond clipboard-read and fullscreen are denied silently; popups load in place; Electron cannot load the Claude in Chrome or Codex extensions (no debugger, sidePanel, nativeMessaging or MV3 background support) but exposes the DevTools Protocol on every tab (webContents.debugger).",
   "screenshotReview": "No renderer change yet.",

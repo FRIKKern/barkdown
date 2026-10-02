@@ -10,7 +10,7 @@ Checks refer to the bounded journeys linked below. Stage acceptance comes from [
 
 **Latest advance:** Night of 2026-10-02: nightlies cut themselves from this Mac on a schedule, a copy of the profile is taken before any update, Pages work at 200% zoom, and the app is 420 MB.
 
-**Next observable result:** C089: Claude and Codex get a browser of their own inside Barkdown, with your sessions from Chrome, measured against Claude Desktop and ChatGPT desktop on a twelve-task bench. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** C089: Claude and Codex get a browser of their own inside Barkdown, on Electron 44, measured against Claude Desktop and ChatGPT desktop on a twelve-task bench. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
@@ -95,6 +95,6 @@ Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with n
 | ○ Remaining | Bench vs the two desktops | [Work and limits](cycles/C089-agent-browser.md) |
 | ○ Remaining | A day without Chrome | [Work and limits](cycles/C089-agent-browser.md) |
 
-Opened 2026-10-02 (C089). Barkdown’s website tabs become the browser Claude and Codex perceive as theirs: Claude in Chrome’s tool vocabulary served over Barkdown’s own tabs through the DevTools Protocol, the user’s sessions imported from Chrome, pauses on sensitive actions, and a twelve-task bench against Claude Desktop and ChatGPT desktop. Nothing is demonstrated yet; the first slice is sign-in and the Chrome import.
+Opened 2026-10-02 (C089). Barkdown’s website tabs become the browser Claude and Codex perceive as theirs: Claude in Chrome’s tool vocabulary served over Barkdown’s own tabs through the DevTools Protocol, sign-in that works, bookmarks and history from Chrome, pauses on sensitive actions, and a twelve-task bench against Claude Desktop and ChatGPT desktop. Electron 44 is in; next are sign-in and the import of bookmarks and history.
 
 Stage order and release gates remain in [PLAN.md](PLAN.md); [the current cycle](NEXT-AGENT.md) owns the next action. This view summarizes that plan and is not another backlog.

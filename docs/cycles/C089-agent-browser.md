@@ -2,7 +2,7 @@
 
 **Why.** GPT-class and Claude-class models have become very good at browser and computer use. Barkdown's chats already run Claude Code and Codex through the user's own CLIs (C088). What they lack is a browser they perceive as their own: today a website tab is a `<webview>` with back, forward, reload and open-externally, popups load in place, permissions other than clipboard and fullscreen are denied silently, and Google refuses to sign in. An agent in that position reaches for another browser. The goal is that it never has reason to — and that a person can live in the same browser for a working day.
 
-**The idea.** Claude in Chrome and the Codex extension cannot load in Electron (they need `debugger`, `sidePanel`, `nativeMessaging` and MV3 background support, none of which Electron provides). They do not need to: both exist to give an agent a browser with the user's sessions, driven through the Chrome DevTools Protocol — and Electron exposes that protocol on every tab (`webContents.debugger`). Barkdown therefore serves **the extension's tool vocabulary over its own tabs**: `tabs_context`, `tabs_create`, `navigate`, `read_page` (accessibility tree with element refs), `find`, `get_page_text`, `form_input`, `computer` (screenshot, click, type, scroll, key, wait), `javascript`, `read_console_messages`, `read_network_requests`, `gif`. Claude recognises the surface it was trained on; GPT models get the screenshot-and-coordinates subset they were trained on; both get the user's sessions, imported from Chrome; the tabs sit in the chat, as the product model already says.
+**The idea.** Claude in Chrome and the Codex extension cannot load in Electron (they need `debugger`, `sidePanel`, `nativeMessaging` and MV3 background support, none of which Electron provides). They do not need to: both exist to give an agent a browser with the user's sessions, driven through the Chrome DevTools Protocol — and Electron exposes that protocol on every tab (`webContents.debugger`). Barkdown therefore serves **the extension's tool vocabulary over its own tabs**: `tabs_context`, `tabs_create`, `navigate`, `read_page` (accessibility tree with element refs), `find`, `get_page_text`, `form_input`, `computer` (screenshot, click, type, scroll, key, wait), `javascript`, `read_console_messages`, `read_network_requests`, `gif`. Claude recognises the surface it was trained on; GPT models get the screenshot-and-coordinates subset they were trained on; both get the sites the person signed in to inside Barkdown; the tabs sit in the chat, as the product model already says.
 
 ```
  chat ─── run (Claude Code SDK | Codex SDK, the user's own CLI — C088)
@@ -13,14 +13,14 @@
  barkdown-browser (main/, beside mcp-server.js)
             │ CDP: Accessibility · Input · Page · Runtime · Network · Log
             ▼
- website tabs of this chat   ← sessions imported from Chrome · visible cursor · "agent" badge
+ website tabs of this chat   ← signed in once in Barkdown · visible cursor · "agent" badge
 ```
 
 ## Slices, in order
 
 | | Slice | Exit |
 |---|---|---|
-| A | **Sign-in and the Chrome import.** Chrome user agent on sign-in domains; `window.open` as a child window in the same partition; permission prompts as a toast. *Import from Chrome* in Settings: `Bookmarks` (JSON) → Favorites, `History` (SQLite, copied) → address-bar suggestions, `Cookies` (SQLite, values under the keychain item "Chrome Safe Storage": AES-128-CBC, PBKDF2 1003 rounds, salt `saltysalt`) → the profile's partition, where Electron keeps them under its own Safe Storage key. A copy on demand, never silent; one keychain prompt the first time. | Tour: sign in to GitHub and Google in a Barkdown tab, restart, still signed in. |
+| A | **Sign-in works, and the Chrome import.** Electron 44 first (done, `809c508e`). A clean Chrome user agent on the tab partition; `window.open` popups as child windows in the same partition so sign-in flows return to their opener; new-tab links open a Barkdown tab beside; permission prompts as a choice remembered per site. *Import from Chrome* in Settings: the bar's bookmarks become Favorites, all bookmarks and the history feed address-bar suggestions. The person signs in once inside Barkdown; the profile's partition keeps it. | Tour: a popup returns to its opener, a new-tab link opens beside, a permission is asked and remembered, a session survives a restart, the import fills Favorites and suggestions. |
 | B | **The tool server and the perception layer.** `main/browser-tools.js`, an MCP server the run receives; `read_page` from `Accessibility.getFullAXTree` with stable refs; `computer` from `Page.captureScreenshot` at device scale and `Input.dispatch*`; `find` by tree match, a small model call when ambiguous; agent-opened tabs badged; a cursor overlay while the agent acts. System line and tool gating: the Claude in Chrome and Playwright routes denied through an SDK hook; verify the Codex SDK thread picks the MCP server up from its config. | Both agents open a page, read it, click, type and screenshot through Barkdown's tabs; the run log names no other browser. |
 | C | **Safety.** Modes as Claude in Chrome has them (automatic with pauses, ask every step); pauses on purchases, messages, passwords, deletions, account changes; site allow-list; logged-out mode; dialogs detected and dismissed, never stranding a run; a stop button. | Each pause rehearsed; a tempting purchase task stops. |
 | D | **The bench.** The twelve tasks below, run by Claude and by Codex in Barkdown; the owner runs them once in Claude Desktop and once in ChatGPT desktop; three columns side by side; what loses gets a slice. | A6's bench line met, or the gap named. |
@@ -49,7 +49,7 @@ Scored per run: finished · steps · minutes · asked-for-help · other browser 
 
 ## Decisions and facts
 
-- Import is a copy, not a sync; Chrome stays the source until the owner decides otherwise ([D-chrome-import](../DESIGN-DECISIONS.md), to record with slice A).
+- Import is a copy, not a sync, of bookmarks and history; Chrome stays the source.
 - The Chrome user-agent string on sign-in domains is the trick every Electron browser uses; it is pretending, and it is what makes Google sign-in work.
 - Electron's extension layer is for DevTools extensions; arbitrary store extensions are a stated non-goal. Not a path.
 - Claude Code's `/chrome` launches Google Chrome by name; Barkdown cannot stand in for it. Barkdown's browser is for runs inside Barkdown.
