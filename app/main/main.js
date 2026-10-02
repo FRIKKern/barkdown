@@ -83,6 +83,10 @@ const DEV = process.argv.includes('--dev');
 let win = null;
 
 // ---------- settings ----------
+// A process that cannot answer a keychain prompt (the nightly schedule under launchd) would lose every cookie
+// across a relaunch: Chromium's cookie key lives in the keychain. The schedule opts into Chromium's mock
+// keychain for its test runs; a person's own Barkdown never does.
+if (process.env.BARKDOWN_MOCK_KEYCHAIN === '1') app.commandLine.appendSwitch('use-mock-keychain');
 const DEFAULT_SETTINGS = { sidebarWidth: 200, chatWidth: 60, theme: 'system', model: 'claude-opus-5', provider: null, claudeModel: '', codexModel: '', providerBinary: { claude: '', codex: '' }, apiKeyEncrypted: null, browser: { mode: 'auto', loggedOut: false, sites: { mode: 'all', list: [] }, blocking: { enabled: true, allow: [] } }, barkpark: { enabled: false, server: '', tokenEncrypted: null, dataset: 'production', writes: false, viaCli: false, local: { enabled: false, source: '', port: 4540, pgPort: 5540 } }, recentFolders: [], windowBounds: null };
 
 const APPEARANCE_KEYS = ['theme', 'sidebarWidth', 'chatWidth', 'windowBounds'];
