@@ -1,0 +1,198 @@
+=== node tests/local-barkpark.live.mjs
+Isolated runtime data: /private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/barkdown-sidecar-ntncsH
+starting 
+ready 
+recovering Local Barkpark stopped answering; restarting its private runtime.
+recovering 
+ready 
+stopping 
+stopped 
+starting 
+ready 
+PASS real private Postgres + Barkpark startup, authenticated read, database crash recovery, restart.
+stopping 
+stopped 
+rc=0
+=== node tests/upstream-admission.live.mjs
+Isolated runtime data: /private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/barkdown-hold-2qZEJn instance rehearsal-0d91f880
+starting 
+ready 
+held { generation: 1, boot: 'f1aa141ada649318d7d3525f68851530' }
+PASS hold refuses an admin write, reopen admits it, the old capability refuses.
+stopping 
+stopped 
+starting 
+ready 
+PASS restart while held stays blocked: writes refused, old capability unknown, a new hold refused (explicit recovery required).
+PASS explicit recovery reopens the restarted runtime with a fresh generation; a new hold and reopen follow.
+stopping 
+stopped 
+rc=0
+=== BARKDOWN_SHOTS_WRITE_ADMISSION=1 node tests/status-shots-isolated.mjs tests/sealed-comparison.live.mjs
+Isolated capture data: /private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/barkdown-shots-runtime-JrojbT
+Capture runtime: starting 
+Capture runtime: ready 
+{
+  "source": "1a82e13d7b12063afd5cb88db0b8cf1459ccfb7b",
+  "upstream": "4532a25eacb796eb54bf40b1d70871c09e428a7f",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "traversal ran while held; a probe write inside it was refused; reopened afterwards",
+      "seal": {
+        "operation": "compare-86af2489-4ec5-4628-a48d-f3c156f85ce4",
+        "generation": 1,
+        "boot": "b3c78680e0ecaf9422bf1a7c3c21f406",
+        "reopenedGeneration": 2,
+        "at": "2026-09-29T02:59:45.133Z"
+      },
+      "probe": {
+        "code": "storage_unavailable",
+        "message": "writes are not admitted while this instance is being switched",
+        "reason": "write_admission_admission_closed",
+        "hint": "Transient: this instance is holding writes for a migration step, so nothing was stored or refused on its merits. Retry once the switch completes; if it persists, the instance needs explicit recovery.",
+        "request_id": "GNmrZtVVQ_NRQF4AADpB"
+      },
+      "documents": 3,
+      "limits": [
+        "The managed runtime held every writer for the whole traversal (generation 1); this report describes a fenced library, not observed drift. It authorizes nothing: authority stays legacy."
+      ]
+    },
+    {
+      "name": "sealed and unsealed reports agree on every field but the seal and its limit",
+      "passed": true
+    },
+    {
+      "name": "a refused comparison reopens the runtime",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Headless coordinator with controlled foreground hooks; no selection, rollback or media in flight; the runtime was idle so the hold was held at once."
+  ]
+}
+Capture runtime: stopping 
+Capture runtime: stopped 
+Live screenshots complete; private runtime stopped; user CLI configuration unchanged.
+rc=0
+=== BARKDOWN_SHOTS_WRITE_ADMISSION=1 node tests/status-shots-isolated.mjs tests/migration-selection.live.mjs
+Isolated capture data: /private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/barkdown-shots-runtime-d6nnVw
+Capture runtime: starting 
+Capture runtime: ready 
+{
+  "source": "1a82e13d7b12063afd5cb88db0b8cf1459ccfb7b",
+  "upstream": "4532a25eacb796eb54bf40b1d70871c09e428a7f",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "selection under both fences replaced the workspace with the owned projection",
+      "seal": {
+        "boot": "25258947c6e94749c1b03887fb80488f",
+        "generation": 1,
+        "operation": "select-a36bf6bc-5c98-4d11-b95b-f3b211fa149b"
+      },
+      "reopenedGeneration": 2,
+      "checkpoints": [
+        "after-intent",
+        "after-replacing",
+        "after-workspace-replaced",
+        "after-selected",
+        "after-selected",
+        "after-rolling-back",
+        "after-workspace-restored",
+        "after-rolled-back"
+      ],
+      "favorite": {
+        "id": "local-170e584cec567c56f694ccd855c894b2",
+        "kind": "doc",
+        "paperOwner": "bdf4dd010c8de98c9f14b43d3e2a013b012b9e4679710737094592a531915888",
+        "source": "barkpark"
+      }
+    },
+    {
+      "name": "reselect is idempotent",
+      "passed": true
+    },
+    {
+      "name": "rollback after a Paper edit restores the legacy workspace, keeps the edit on Paper and records the divergence",
+      "divergence": {
+        "at": "2026-09-29T02:59:59.672Z",
+        "code": "comparison_changed",
+        "message": "Staged content differs: orchard"
+      },
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Headless profile with controlled foreground hooks; the renderer does not yet show the selection; one Paper edit between selection and rollback; the runtime was idle so the hold was held at once."
+  ]
+}
+Capture runtime: stopping 
+Capture runtime: stopped 
+Live screenshots complete; private runtime stopped; user CLI configuration unchanged.
+rc=0
+=== BARKDOWN_SHOTS_WRITE_ADMISSION=1 node tests/status-shots-isolated.mjs tests/migration-switch.live.mjs
+Isolated capture data: /private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/barkdown-shots-runtime-vmr9Jp
+Capture runtime: starting 
+Capture runtime: ready 
+{
+  "source": "1a82e13d7b12063afd5cb88db0b8cf1459ccfb7b",
+  "upstream": "4532a25eacb796eb54bf40b1d70871c09e428a7f",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "prepare → backup → baseline → stage → select under the hold, one lease, legacy store read-only",
+      "seal": {
+        "boot": "06b9bed51701e825d8949c7060bd8c4b",
+        "generation": 1,
+        "operation": "select-0a5f2844-6733-423a-a363-96b8411a097b"
+      },
+      "checkpoints": [
+        "after-backup",
+        "after-baseline",
+        "staging:plan",
+        "staging:intent:orchard-fieldbook",
+        "staging:response:orchard-fieldbook",
+        "staging:readback:orchard-fieldbook",
+        "staging:receipt:orchard-fieldbook",
+        "staging:intent:soil-moisture-protocol",
+        "staging:response:soil-moisture-protocol",
+        "staging:readback:soil-moisture-protocol",
+        "staging:receipt:soil-moisture-protocol",
+        "staging:before-complete",
+        "after-staging",
+        "after-intent",
+        "after-replacing",
+        "after-workspace-replaced",
+        "after-selected",
+        "after-selected",
+        "after-selection",
+        "after-rolling-back",
+        "after-workspace-restored",
+        "after-rolled-back"
+      ]
+    },
+    {
+      "name": "switch again is idempotent",
+      "passed": true
+    },
+    {
+      "name": "rollback restores the legacy workspace; writes return once the preparation reopens",
+      "passed": true
+    },
+    {
+      "name": "a crash after replacement leaves replacing; resume completes the same operation without a second comparison",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Headless profile with controlled foreground hooks; fake runtime lease over the harness server; labels generated, not reviewed; one run, one host."
+  ]
+}
+Capture runtime: stopping 
+Capture runtime: stopped 
+Live screenshots complete; private runtime stopped; user CLI configuration unchanged.
+rc=0
