@@ -1,12 +1,12 @@
 {
-  "capturedAt": "2026-10-02T13:47:15.451Z",
-  "barkdownCommit": "aba9e5ff8cc4e18849ca4318eca7916d2e080576",
+  "capturedAt": "2026-10-02T14:21:49.748Z",
+  "barkdownCommit": "042e87469f1ab5a8b1c199b326a6e18b11c93447",
   "barkdownTreeDirty": false,
   "barkparkCommit": "9f1874235449f9763c1b3e8cfcaf1b5a36aee9b3",
   "barkparkTreeDirty": false,
   "isolatedRuntime": true,
   "server": {
-    "url": "http://127.0.0.1:55363",
+    "url": "http://127.0.0.1:56449",
     "version": "0.2.26.4501"
   },
   "chat": {
@@ -17,45 +17,28 @@
   "rows": {},
   "shots": [
     {
-      "file": "paper-light.39e89e10.png",
+      "file": "paper-light.ce0ee8f8.png",
       "caption": "A Barkpark paper edited live in the canvas inside Barkdown, beside a real Claude Code turn on it: quote, checklist, table, callout and code, saved as ops to a local Barkpark."
     },
     {
-      "file": "paper-dark.7c546309.png",
+      "file": "paper-dark.5bb9c951.png",
       "caption": "The same paper and conversation in dark mode."
     },
     {
-      "file": "slash-menu.90fa7747.png",
+      "file": "slash-menu.ed648db8.png",
       "caption": "The slash menu inside the paper, with the plain Quote row beside Callout and Code."
     },
     {
-      "file": "quick-open.5ae0e2aa.png",
+      "file": "quick-open.bb6086e6.png",
       "caption": "Quick open (Ctrl+K) over tabs, papers, chats and actions."
     },
     {
-      "file": "settings-barkpark.54fdf51f.png",
+      "file": "settings-barkpark.33c0d6ce.png",
       "caption": "Settings › Barkpark: the connection Barkdown edits through — here the local server."
     },
     {
-      "file": "editing.441538a0.gif",
+      "file": "editing.361c13da.gif",
       "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
-    }
-  ],
-  "uiExemptions": [
-    {
-      "commit": "232cade593ec6b01f000263961b4de600d5d96c4",
-      "reason": "Main-process and test change only: the browser server spec travels into the profile worker (agent.js, profile-service.js, main.js), an init log in providers/claude.js, and the real-agent proof test; no renderer file changed.",
-      "date": "2026-10-02"
-    },
-    {
-      "commit": "6f1e32416ec3802e9561e182b0f716708f2e948c",
-      "reason": "Main-process change only: cookie stores flushed before quit; no renderer file changed.",
-      "date": "2026-10-02"
-    },
-    {
-      "commit": "c99994cbc8f35b49dd8f74a6db76dc00ef788aee",
-      "reason": "Main-process change only: the browser partition flushes its cookie store on change; no renderer file changed.",
-      "date": "2026-10-02"
     }
   ]
 }
