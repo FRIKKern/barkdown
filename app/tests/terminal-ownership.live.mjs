@@ -70,9 +70,19 @@ async function boot(managed = true, dataRoot = userData) {
     recordVideo: { dir: out, size: { width: 1400, height: 900 } },
     env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' },
   });
-  page = await app.firstWindow();
+  // A cold machine (a hosted Windows runner, a first launch under a virus scanner) starts slowly: the
+  // window and the loaded state get two minutes, and a failure says what the app printed.
+  const diagnostics = []; const note = line => { diagnostics.push(String(line).slice(0, 400)); if (diagnostics.length > 60) diagnostics.shift(); };
+  app.process().stderr?.on('data', chunk => note('main stderr: ' + chunk)); app.process().stdout?.on('data', chunk => note('main stdout: ' + chunk));
+  page = await app.firstWindow({ timeout: 120000 });
   page.on('pageerror', (e) => errors.push(e.message));
-  await page.waitForFunction(() => window.__barkdown?.state.loaded);
+  page.on('console', message => { if (['error', 'warning'].includes(message.type())) note(`console ${message.type()}: ${message.text()}`); });
+  try { await page.waitForFunction(() => window.__barkdown?.state.loaded, null, { timeout: 120000 }); }
+  catch (error) {
+    const seen = await page.evaluate(() => ({ url: location.href, title: document.title, hasApp: Boolean(window.__barkdown), loaded: window.__barkdown?.state?.loaded, body: document.body?.innerText.slice(0, 300) })).catch(e => ({ evaluate: e.message }));
+    console.error('boot did not reach the loaded state:', JSON.stringify(seen)); console.error(diagnostics.join('\n')); console.error('windows:', app.windows().map(w => w.url()).join(' | '));
+    throw error;
+  }
   if (managed) await page.locator('.bw-terminal .bw-term-host').waitFor();
 }
 // A real terminal (C090): keystrokes go to the pty, the emulator's buffer is read through the controller.
