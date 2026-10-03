@@ -79,7 +79,8 @@ try {
     // prompt follows; keystrokes go to the pty, so the test types only once the prompt shows.
     const shellLabel = process.platform === 'win32' ? 'PowerShell' : path.basename(process.env.SHELL || '/bin/bash');
     const termText = () => page.evaluate(() => [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal')?.text() || '');
-    for (let i = 0; i < 600 && !(await termText()).includes(shellLabel + ' in'); i++) await new Promise(resolve => setTimeout(resolve, 100));
+    // The path bar names the shell (ConPTY clears the tab's first line on Windows, so that line is not relied on).
+    for (let i = 0; i < 600 && !(await page.locator('.bw-terminal #path').innerText()).includes(shellLabel); i++) await new Promise(resolve => setTimeout(resolve, 100));
     for (let i = 0; i < 300 && !/[%$#>] ?$/.test(await termText()); i++) await new Promise(resolve => setTimeout(resolve, 100));
     terminalTab = await page.evaluate(() => [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal').tab.id);
     const marker = path.join(folder, 'owned-tree.jsonl'), script = fileURLToPath(new URL('./fixtures/terminal-descendants.cjs', import.meta.url));

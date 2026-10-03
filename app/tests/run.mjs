@@ -236,7 +236,8 @@ const renameActiveTab = async () => { for (let i = 0; i < 3; i++) { await page.l
   // A real terminal (C090): keystrokes go to the pty; the emulator's buffer is read through the controller.
   const termOf = () => [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal');
   await page.waitForSelector('.bw-terminal .bw-term-host', { timeout: 10000 });
-  await page.waitForFunction(() => { const c = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal'); return c && / in /.test(c.text()); }, null, { timeout: 30000 }).catch(() => {});
+  // The shell is up when the tab has a session and the prompt shows (the tab's own first line is erased by ConPTY on Windows).
+  await page.waitForFunction(() => { const c = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal'); return c && c.session() && /[%$#>] ?$/.test(c.text()); }, null, { timeout: 30000 }).catch(() => {});
   await page.locator('.bw-terminal .bw-term-host').click();
   await page.keyboard.type('echo hello-from-terminal\r');
   await page.waitForFunction(() => { const c = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal'); return c && c.text().split('hello-from-terminal').length >= 3; }, null, { timeout: 20000 }).catch(() => {});

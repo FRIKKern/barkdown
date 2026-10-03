@@ -154,10 +154,16 @@ try {
   step('launching the app');
   await boot();
   step('the app is loaded');
-  for (let i = 0; i < 300 && !(await termText()).includes(shellLabel + ' in'); i++) await delay(100);
-  assert.ok((await termText()).includes(shellLabel + ' in'), 'the shell banner names the shell');
+  // The shell is named in the tab's path bar. The dim "shell in folder" line the tab prints first is not relied on:
+  // ConPTY clears the screen when PowerShell starts, so on Windows that line is gone by the time the prompt shows.
+  await ensureShell();
+  const pathBar = () => page.locator('.bw-terminal #path').innerText();
+  for (let i = 0; i < 100 && !(await pathBar()).includes(shellLabel); i++) await delay(100);
+  assert.ok((await pathBar()).includes(shellLabel), 'the path bar names the shell: ' + await pathBar());
+  for (let i = 0; i < 300 && !/[%$#>] ?$/.test(await termText()); i++) await delay(100);
+  assert.ok(/[%$#>] ?$/.test(await termText()), 'the shell shows its prompt');
   const sessionA = await page.evaluate(() => window.barkdown.term.status('same-terminal', 'same'));
-  step('the shell banner is shown: ' + JSON.stringify((await termText()).slice(0, 200)));
+  step('the shell is up: ' + JSON.stringify(await pathBar()) + ' ' + JSON.stringify((await termText()).slice(0, 200)));
   // What the pty really sends and what the emulator paints with: kept in the log for the platform at hand.
   await page.evaluate(() => { window.__raw = []; window.barkdown.term.onData(event => { if (event.type === 'data') window.__raw.push(event.data); }); });
   const ta = await startTree(0);
