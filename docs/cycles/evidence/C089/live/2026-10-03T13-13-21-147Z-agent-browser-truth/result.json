@@ -1,0 +1,63 @@
+{
+  "source": "65fc64edb758c4ce9933c43dc29575c4ac9f1f28",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "runs": [
+    {
+      "provider": "claude",
+      "status": "passed",
+      "startedAt": "2026-10-03T13:13:21.797Z",
+      "tools": [
+        {
+          "tool": "browser.tabs_create",
+          "input": {
+            "url": "http://localhost:54436/facts"
+          },
+          "ok": true,
+          "preview": "{\n  \"tab\": {\n    \"tabId\": \"8db3c6a8-21ee-41a9-92a1-da5c84111ad7\",\n    \"url\": \"http://localhost:54436/facts\",\n    \"title\": \"Badger facts\",\n    \"active\": true,\n  "
+        },
+        {
+          "tool": "browser.get_page_text",
+          "input": {
+            "tabId": "8db3c6a8-21ee-41a9-92a1-da5c84111ad7"
+          },
+          "ok": true,
+          "preview": "Badger facts — http://localhost:54436/facts\n\nThe badger register\n\nToday's badger is called Oleander-7421. It prefers quiet afternoons."
+        }
+      ],
+      "text": "The facts page says today's badger is called Oleander-7421.\n\n",
+      "findings": [],
+      "seconds": 12,
+      "error": null,
+      "notes": [],
+      "usage": {
+        "type": "usage",
+        "cost": 0.10973619999999999,
+        "turns": 3,
+        "durationMs": 7307,
+        "tokens": {
+          "input": 37040,
+          "output": 182
+        },
+        "runId": "d51bfcc8-5fea-4791-a577-a24ad1e54109",
+        "chatId": "0e81e796-3e3a-47c9-8ecc-0aa65f5db4d6",
+        "provider": "claude",
+        "profileId": "8cda7ee0-af82-4bd3-8f95-adef22d9eaa5",
+        "sequence": 9,
+        "assistantId": "assistant-f32468f1-c010-4453-b260-5cb53f9b6089",
+        "attemptId": "f32468f1-c010-4453-b260-5cb53f9b6089"
+      },
+      "servers": null,
+      "browserTools": [
+        "tabs_create",
+        "get_page_text"
+      ]
+    }
+  ],
+  "screenshots": [
+    "claude-after-run.png"
+  ],
+  "limits": [
+    "Real providers on the person's logins; one prompt each against a local page. What a model does varies run to run; this records one run per provider, not a rate."
+  ]
+}

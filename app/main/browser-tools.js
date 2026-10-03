@@ -201,8 +201,13 @@ function createBrowserTools({ webContentsFromId, send, ask = async () => true, p
     await c.send('Input.dispatchKeyEvent', { type: k.text ? 'keyDown' : 'rawKeyDown', ...base, ...(k.text ? { text: k.text } : {}), ...(k.commands ? { commands: k.commands } : {}) });
     await c.send('Input.dispatchKeyEvent', { type: 'keyUp', ...base });
   }
-  async function navigateTo(contents, url) {
+  // A connection reset on the first try is retried once: Gmail's first load reset in the owner's chat (C089 F3).
+  async function navigateTo(contents, url, { retried = false } = {}) {
     if (!/^https?:\/\//i.test(String(url || ''))) fail('browser_url', 'Only http(s) addresses can be opened');
+    try { await loadOnce(contents, url); }
+    catch (error) { if (!retried && /ERR_CONNECTION_RESET|ERR_NETWORK_CHANGED|ERR_TIMED_OUT/.test(error.message)) { log(`[browser] ${url}: ${error.message}; trying once more`); await sleep(500); return navigateTo(contents, url, { retried: true }); } throw error; }
+  }
+  async function loadOnce(contents, url) {
     await new Promise((resolve, reject) => {
       const timer = setTimeout(() => { off(); resolve(); }, NAVIGATE_TIMEOUT_MS);
       const done = () => { off(); resolve(); };
@@ -227,11 +232,14 @@ function createBrowserTools({ webContentsFromId, send, ask = async () => true, p
         opening.set(requestId, value => { clearTimeout(timer); Promise.resolve(value).then(resolve, reject); });
         send('browser:agent-open', { requestId, chatId, url: url && /^https?:\/\//i.test(url) ? url : null });
       });
-      // The tab exists in the window; its web contents arrive with the next inventory push.
-      for (let i = 0; i < 100 && !tabsOf(chatId).find(t => t.id === tabId)?.webContentsId; i++) await sleep(100);
+      // The tab exists in the window; its web contents arrive with the next inventory push. A slow first
+      // load (Gmail took longer than ten seconds once) is waited for up to the navigation timeout, and the
+      // answer is the loaded tab, never "still opening".
+      for (let i = 0; i < NAVIGATE_TIMEOUT_MS / 100 && !tabsOf(chatId).find(t => t.id === tabId)?.webContentsId; i++) await sleep(100);
       const { tab, contents } = tabIn(chatId, tabId);
-      if (url && /^https?:\/\//i.test(url)) { await navigateTo(contents, url).catch(error => log(`[browser] open ${url}: ${error.message}`)); }
-      return text(JSON.stringify({ tab: { ...view(tab), ...describe(contents) } }, null, 2));
+      let note = '';
+      if (url && /^https?:\/\//i.test(url)) { try { await navigateTo(contents, url); } catch (error) { log(`[browser] open ${url}: ${error.message}`); note = ` ${error.message}`; } }
+      return text(JSON.stringify({ tab: { ...view(tab), ...describe(contents) } }, null, 2) + note);
     },
     async tabs_close({ chatId, tabId }) {
       const { tab } = tabIn(chatId, tabId);

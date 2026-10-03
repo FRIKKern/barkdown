@@ -31,3 +31,15 @@ test('an empty or malformed document says so instead of throwing', () => {
   assert.equal(docToHtml({ type: 'doc', content: [] }), '<p class="bw-muted">This document is empty.</p>');
   assert.equal(docToHtml({ type: 'doc', content: [{ type: 'mystery', content: [{ type: 'paragraph', content: [{ type: 'text', text: 'kept' }] }] }, 7, null] }), '<p>kept</p>');
 });
+
+test('a reply renders the way a document does: tables, nested lists with start numbers, task lists, strikethrough, a fenced diagram, a long line (C089 F4)', () => {
+  const reply = ['# Findings', '', '| Part | Tokens | Verdict |', '|---|---|---|', '| tools | 2k | keep |', '| docs | 2.5k | ~~drop~~ |', '', '8. eighth', '   - nested one', '   - nested two', '9. ninth', '', '- [x] done', '- [ ] open', '', '```', '┌─ box ─┐', '│  60   │', '└───────┘', '```', '', 'A ' + 'long '.repeat(80) + 'line.', '', 'See https://example.com/x and *soft*'].join('\n');
+  const html = docToHtml(markdownToDoc(reply));
+  assert.match(html, /<h1>Findings<\/h1>/);
+  assert.match(html, /<table><tbody><tr><th><p>Part<\/p><\/th><th><p>Tokens<\/p><\/th><th><p>Verdict<\/p><\/th><\/tr><tr><td><p>tools<\/p><\/td>/);
+  assert.match(html, /<s>drop<\/s>/);
+  assert.match(html, /<ol start="8"><li><p>eighth<\/p><ul><li><p>nested one<\/p><\/li><li><p>nested two<\/p><\/li><\/ul><\/li><li><p>ninth<\/p><\/li><\/ol>/, 'the list keeps its number and nests');
+  assert.match(html, /<ul data-type="taskList"><li data-type="taskItem" data-checked="true">/);
+  assert.match(html, /<pre><code>┌─ box ─┐\n│  60   │\n└───────┘<\/code><\/pre>/, 'the diagram keeps its whitespace');
+  assert.doesNotMatch(html, /\|---\|/, 'no raw table pipes');
+});

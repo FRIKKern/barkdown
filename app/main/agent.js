@@ -251,7 +251,7 @@ function withImages(messages, images) {
   return out;
 }
 
-async function startApi({ chatId, messages, context, settings, send, images, originalMessages, scope, storeDir, profileId, connection, onFinish }) {
+async function startApi({ chatId, messages, context, settings, send, images, originalMessages, scope, storeDir, profileId, connection, onFinish, workspaceNote = '' }) {
   const run = providerRuns.createRun({ chatId, context, send, provider: 'api', scope, storeDir, profileId, connection, onFinish, batchText: true });
   context = run.context;
   settings = frozenCopy(settings || {});
@@ -282,7 +282,7 @@ async function startApi({ chatId, messages, context, settings, send, images, ori
         const stream = client.messages.stream({
           model: settings.model || 'claude-opus-5',
           max_tokens: 16000,
-          system: [{ type: 'text', text: SYSTEM + '\n\n' + contextNote, cache_control: { type: 'ephemeral' } }],
+          system: [{ type: 'text', text: SYSTEM + '\n\n' + contextNote + (workspaceNote ? '\n\n[Workspace context]\n' + workspaceNote + '\n[End of context]' : ''), cache_control: { type: 'ephemeral' } }],
           tools,
           messages: history,
         }, { signal: run.abort.signal });
@@ -342,6 +342,9 @@ function withConversationContext(params) {
     ? `This chat's current working folder is ${JSON.stringify(folder)}. This is the folder captured for this run; use it even if earlier messages name a different folder. When the person asks where you are, which folder you are in, or what "this folder" means, answer directly with this path. No shell command, directory listing, document search or conversation read is needed just to identify it. Inspect files only when the person asks about their contents, a listing, or filesystem verification. Do not claim you inspected files unless you did.`
     : 'This chat has no working folder selected. Answer folder-location questions directly with that fact; do not infer a folder from another chat, an open file, or a provider scratch directory.';
   const note = [folderNote, (params.scope?.conversations || conversations).contextNote(params.chatId)].filter(Boolean).join('\n');
+  // Claude Code and the API loop take the note through their system channel, where pasted text cannot forge it
+  // (C089 F5); Codex has no per-turn system channel, so its prompt keeps the marked block.
+  if (params.provider !== 'codex') return { ...params, workspaceNote: note };
   const wrap = text => `[Workspace context]\n${note}\n[End of context]\n\n${text}`;
   const prompt = wrap(params.prompt || '');
   const messages = Array.isArray(params.messages) ? params.messages.map(m => ({ ...m })) : params.messages;

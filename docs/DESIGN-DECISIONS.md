@@ -203,3 +203,11 @@ Agent decision; the user may reverse it. `window.open` from a website tab makes 
 ## D-browser-pauses — The browser asks before five kinds of action, in the window, for every agent (2026-10-02)
 
 Agent decision; the user may reverse it. When an agent acts in Barkdown's browser, five classes of action pause for the person's answer in the window — a purchase or payment, sending or publishing, a password, a deletion, an account change — whatever the agent and whatever process the run lives in, because the pause is enforced where the tabs are driven (`browser-tools.js`), not in a provider. *Ask before every action* pauses on every click, keystroke and address; reads never pause. An allow-list of hosts makes any other site pause. A page dialog is dismissed and reported rather than left blocking. A tab the agent opens in logged-out mode runs in a private in-memory partition with none of the person's sessions. A refusal, or no answer within five minutes, is a tool error the model can act on; nothing retries by itself.
+
+## D-context-channel — The workspace note rides the system channel where one exists (2026-10-03)
+
+Agent decision; the user may reverse it. The `[Workspace context]` note (the run's folder, what the other chats are doing) used to be prepended to the person's message. Pasted text could forge it, and it cost its tokens on every turn. For Claude Code and the API loop it is now appended to the system prompt; Codex has no per-turn system channel, so its prompt keeps the marked block. A run's own tools come from Barkdown alone: the user's claude.ai settings are not loaded into Barkdown's runs.
+
+## D-chat-renders-like-documents — One Markdown path for replies and documents (2026-10-03)
+
+Agent decision; the user may reverse it. A reply in the chat is rendered by the same converter and markup as a document (`shared/markdown.js`, `shared/doc-html.js`): tables, task lists, nested lists with their numbering, quotes, code fences, strikethrough. The models write GitHub-flavored Markdown because their harness tells them to; the pane now shows it, and the system text says so. The hand-rolled renderer remains only as a fallback for text the converter refuses.

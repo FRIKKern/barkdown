@@ -55,8 +55,10 @@ async function runWith(provider) {
     await page.locator('#bw-prompt').press('Enter');
     // The reply streams until the run ends; tools and text accumulate on it.
     await page.waitForFunction(() => { const s = window.__barkdown.state; const chat = s.chats[s.current]; const reply = [...chat.messages].reverse().find(m => m.role === 'assistant'); return reply && reply.streaming === false; }, null, { timeout: 300000 });
-    const reply = await page.evaluate(() => { const s = window.__barkdown.state; const chat = s.chats[s.current]; const r = [...chat.messages].reverse().find(m => m.role === 'assistant'); return { text: r.text || '', error: r.error || null, tools: (r.tools || []).map(t => ({ tool: t.tool, input: t.input, ok: t.ok, preview: String(t.preview || '').slice(0, 160) })), notes: r.notes || [] }; });
+    const reply = await page.evaluate(() => { const s = window.__barkdown.state; const chat = s.chats[s.current]; const r = [...chat.messages].reverse().find(m => m.role === 'assistant'); return { text: r.text || '', error: r.error || null, usage: r.usage || null, tools: (r.tools || []).map(t => ({ tool: t.tool, input: t.input, ok: t.ok, preview: String(t.preview || '').slice(0, 160) })), notes: r.notes || [] }; });
     entry.seconds = Math.round((Date.now() - started) / 1000); entry.text = reply.text; entry.error = reply.error; entry.notes = reply.notes; entry.tools = reply.tools;
+    entry.usage = reply.usage; // the first turn's input is the overlay the run starts with (C089 F7)
+    entry.servers = (fs.readFileSync(path.join(out, `${provider}-main-stderr.log`), 'utf8').match(/\[browser\] session servers: .*/) || [null])[0];
     await page.screenshot({ path: path.join(out, `${provider}-after-run.png`) }); report.screenshots.push(`${provider}-after-run.png`); persist();
     const used = reply.tools.map(t => String(t.tool).replace(/^browser\./, ''));
     const browserUsed = used.filter(n => BROWSER_TOOLS.has(n)), others = used.filter(n => !BROWSER_TOOLS.has(n));

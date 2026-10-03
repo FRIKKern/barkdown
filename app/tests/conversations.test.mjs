@@ -61,20 +61,24 @@ const lone = conversations.contextNote('main1', { budget: 80 });
 assert(lone.length <= 80 && lone.endsWith('…'), 'budget clips');
 console.log('ok context notes');
 
-// the run sees the note ahead of the message, in prompt and in the last user turn, and the raw params are untouched
+// Claude Code and the API take the note as workspaceNote (their system channel); Codex keeps it ahead of the
+// message, in prompt and in the last user turn; the raw params are untouched either way (C089 F5)
 const raw = { chatId: 'side1', prompt: 'And Ulriken?', messages: [{ role: 'user', content: 'earlier' }, { role: 'assistant', content: 'ok' }, { role: 'user', content: [{ type: 'image', source: {} }, { type: 'text', text: 'And Ulriken?' }] }] };
-const wrapped = agent.withConversationContext(raw);
-assert(wrapped.prompt.startsWith('[Workspace context]') && wrapped.prompt.endsWith('[End of context]\n\nAnd Ulriken?'), 'prompt wrapped');
-assert(wrapped.messages[2].content[1].text.startsWith('[Workspace context]') && wrapped.messages[0].content === 'earlier', 'last user turn wrapped, earlier turns untouched');
+const wrapped = agent.withConversationContext({ ...raw, provider: 'codex' });
+assert(wrapped.prompt.startsWith('[Workspace context]') && wrapped.prompt.endsWith('[End of context]\n\nAnd Ulriken?'), 'codex prompt wrapped');
+assert(wrapped.messages[2].content[1].text.startsWith('[Workspace context]') && wrapped.messages[0].content === 'earlier', 'codex: last user turn wrapped, earlier turns untouched');
+const noted = agent.withConversationContext(raw);
+assert(noted.prompt === 'And Ulriken?' && noted.messages[2].content[1].text === 'And Ulriken?' && noted.workspaceNote.includes('no working folder selected'), 'Claude Code/API: prompt untouched, the note travels as workspaceNote');
 assert(raw.prompt === 'And Ulriken?' && raw.messages[2].content[1].text === 'And Ulriken?', 'raw params not mutated');
-const alone = agent.withConversationContext({ chatId: 'nope', prompt: 'hi', messages: [] });
+const alone = agent.withConversationContext({ chatId: 'nope', prompt: 'hi', messages: [], provider: 'codex' });
 assert(alone.prompt.includes('no working folder selected') && alone.prompt.endsWith('\n\nhi'), 'unknown chat still gets folderless guidance');
 for (const provider of ['codex', 'claude', 'api']) {
   for (const chatId of ['main1', 'side1', 'nope']) {
     const current = agent.withConversationContext({ provider, chatId, session: 'resumed', context: { folder: 'C:/work/current' }, prompt: 'Where are you?', messages: [{ role: 'user', content: 'Where are you?' }] });
-    assert(current.prompt.includes('current working folder is "C:/work/current"'), 'captured run folder for ' + provider + '/' + chatId);
-    assert(current.messages[0].content.includes('No shell command'), 'API history gets direct-answer guidance');
-    assert(current.prompt.includes('filesystem verification'), 'explicit inspection remains available');
+    const carried = provider === 'codex' ? current.prompt : current.workspaceNote;
+    assert(carried.includes('current working folder is "C:/work/current"'), 'captured run folder for ' + provider + '/' + chatId);
+    assert((provider === 'codex' ? current.messages[0].content : carried).includes('No shell command'), 'direct-answer guidance reaches ' + provider);
+    assert(carried.includes('filesystem verification'), 'explicit inspection remains available');
   }
 }
 // Exercise the real shared dispatcher, with transport seams stubbed so no login/provider is used.
@@ -88,11 +92,12 @@ for (const provider of ['claude', 'codex']) {
       await agent.start({ provider, chatId: 'side1', session: 'existing-session', context: { folder }, prompt: 'Where are you?', messages: [] });
     }
     assert(requests[1].session === 'existing-session' && requests[1].context.folder === 'C:/work/current', 'resume and captured folder preserved at ' + provider + ' dispatch');
-    assert(requests[1].prompt.includes('current working folder is "C:/work/current"') && !requests[1].prompt.includes('C:/work/first'), 'changed folder replaces prior run guidance');
-    assert(requests[2].prompt.startsWith('[Workspace context]\nThis chat has no working folder selected.'), 'clearing a folder does not reuse parent or resumed folder');
+    const carried = i => provider === 'codex' ? requests[i].prompt : requests[i].workspaceNote;
+    assert(carried(1).includes('current working folder is "C:/work/current"') && !carried(1).includes('C:/work/first'), 'changed folder replaces prior run guidance');
+    assert(provider === 'codex' ? requests[2].prompt.startsWith('[Workspace context]\nThis chat has no working folder selected.') : requests[2].workspaceNote.startsWith('This chat has no working folder selected.'), 'clearing a folder does not reuse parent or resumed folder');
   } finally { transport.start = originalStart; }
 }
-const imageOnly = { chatId: 'side1', context: { folder: 'C:/work/image' }, messages: [{ role: 'user', content: [{ type: 'image', source: {} }] }] };
+const imageOnly = { provider: 'codex', chatId: 'side1', context: { folder: 'C:/work/image' }, messages: [{ role: 'user', content: [{ type: 'image', source: {} }] }] };
 const imageWrapped = agent.withConversationContext(imageOnly);
 assert(imageWrapped.messages[0].content[1].text.includes('C:/work/image'), 'image-only API turn still receives current folder guidance');
 assert(imageOnly.messages[0].content.length === 1 && imageWrapped.messages[0].content[0].type === 'image', 'image-only original input and image order preserved');

@@ -33,6 +33,25 @@ function paragraph(text) {
   return content.length ? { type: 'paragraph', content } : { type: 'paragraph' };
 }
 
+// Lists, with nesting by indentation. Returns the list node and the index after it.
+const LIST_ITEM = /^(\s*)([-*+]|\d+[.)])\s+(.*)$/;
+function parseList(lines, start) {
+  const first = LIST_ITEM.exec(lines[start]);
+  const indent = first[1].length, ordered = /\d/.test(first[2]);
+  const node = ordered ? { type: 'orderedList', attrs: { start: parseInt(first[2], 10) || 1 }, content: [] } : { type: 'bulletList', content: [] };
+  let i = start;
+  while (i < lines.length) {
+    const m = LIST_ITEM.exec(lines[i]);
+    if (!m || m[1].length < indent) break;
+    if (m[1].length > indent) { const child = parseList(lines, i); const last = node.content.at(-1); if (last) last.content.push(child.node); else node.content.push({ type: 'listItem', content: [child.node] }); i = child.next; continue; }
+    if (/\d/.test(m[2]) !== ordered) break; // the other kind at the same indent starts a new list
+    node.content.push({ type: 'listItem', content: [paragraph(m[3])] });
+    i++;
+    // Continuation lines: indented text under an item that is not itself an item joins the item's paragraph.
+    while (i < lines.length && lines[i].trim() && !LIST_ITEM.test(lines[i]) && /^\s{2,}/.test(lines[i]) && lines[i].search(/\S/) > indent) { const p = node.content.at(-1).content[0]; p.content.push(...parseInline(' ' + lines[i].trim())); i++; }
+  }
+  return { node, next: i };
+}
 function markdownToDoc(markdown, options = {}) {
   const lines = String(markdown || '').replace(/\r\n?/g, '\n').split('\n');
   if (options.strictPortable) {
@@ -85,22 +104,11 @@ function markdownToDoc(markdown, options = {}) {
       content.push({ type: 'taskList', content: items });
       continue;
     }
-    if (/^\s*[-*+]\s+/.test(line)) {
-      const items = [];
-      while (i < lines.length && /^\s*[-*+]\s+/.test(lines[i])) {
-        items.push({ type: 'listItem', content: [paragraph(lines[i].replace(/^\s*[-*+]\s+/, ''))] });
-        i++;
-      }
-      content.push({ type: 'bulletList', content: items });
-      continue;
-    }
-    if (/^\s*\d+[.)]\s+/.test(line)) {
-      const items = [];
-      while (i < lines.length && /^\s*\d+[.)]\s+/.test(lines[i])) {
-        items.push({ type: 'listItem', content: [paragraph(lines[i].replace(/^\s*\d+[.)]\s+/, ''))] });
-        i++;
-      }
-      content.push({ type: 'orderedList', attrs: { start: 1 }, content: items });
+    if (/^\s*(?:[-*+]|\d+[.)])\s+/.test(line)) {
+      // A list: items at one indent, deeper lines become a child list of the item above (indentation of
+      // two or more spaces relative to the parent), an ordered list keeps its first number as `start`.
+      const { node, next } = parseList(lines, i);
+      content.push(node); i = next;
       continue;
     }
     const buffer = [line];

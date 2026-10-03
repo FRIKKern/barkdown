@@ -1,4 +1,6 @@
 import { createElement, icons as allIcons } from 'lucide';
+import { markdownToDoc } from '../../shared/markdown.js';
+import { docToHtml } from '../../shared/doc-html.js';
 
 const ICONS = {
   'file-text': allIcons.FileText, 'file-plus': allIcons.FilePlus, lock: allIcons.Lock, image: allIcons.Image, globe: allIcons.Globe, terminal: allIcons.SquareTerminal, cpu: allIcons.Cpu, gauge: allIcons.Gauge, star: allIcons.Star, 'panel-right-open': allIcons.PanelRightOpen, 'git-pull-request': allIcons.GitPullRequest, 'message-circle': allIcons.MessageCircle,
@@ -66,7 +68,14 @@ export function debounce(fn, wait) {
 }
 
 // Minimal markdown to HTML for assistant replies in the transcript.
+// A reply renders the way a document does: the shared converter (tables, task lists, nested lists, quotes,
+// code fences, strikethrough) and the same markup, so what the model writes is what the person sees (C089 F4).
+// The hand-rolled renderer below is the fallback for text the converter refuses.
 export function inlineMarkdownHtml(text) {
+  try { const html = docToHtml(markdownToDoc(String(text || ''))); if (html && !/^<p class="bw-muted">This document is empty/.test(html)) return html; return ''; }
+  catch { return legacyMarkdownHtml(text); }
+}
+function legacyMarkdownHtml(text) {
   const lines = String(text || '').replace(/\r/g, '').split('\n');
   const out = [];
   let list = null;

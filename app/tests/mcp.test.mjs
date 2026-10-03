@@ -17,7 +17,9 @@ const client = new Client({ name: 'barkdown-test', version: '0.0.0' });
 await client.connect(transport);
 
 const tools = (await client.listTools()).tools.map(t => t.name).sort();
-assert(['edit_table', 'create_document', 'list_conversations', 'list_documents', 'open_project_file', 'open_website', 'propose_document_edit', 'read_conversation', 'read_document', 'search_documents'].every(t => tools.includes(t)), 'tools missing: ' + tools.join(','));
+assert(['edit_table', 'edit_document', 'list_conversations', 'list_documents', 'open_project_file', 'open_website', 'read_conversation', 'read_document', 'search_documents'].every(t => tools.includes(t)), 'tools missing: ' + tools.join(','));
+// Without a library no note can be created, so the tool is not offered (C089 F1); the old edit name is only for resumed sessions (F6).
+assert(!tools.includes('create_document') && !tools.includes('propose_document_edit'), 'tools that could only refuse are offered: ' + tools.join(','));
 {
   fs.writeFileSync(path.join(storeDir, 'workspace.json'), JSON.stringify({ version: 1, chats: {
     main1: { id: 'main1', title: 'Trip to Bergen', side: false, parent: null, updatedAt: '2026-09-18T10:00:00Z', tabs: [{ title: 'Overview' }], messages: [{ role: 'user', text: 'Plan a weekend in Bergen.', at: '2026-09-18T09:58:00Z' }, { role: 'assistant', text: 'Two days: Bryggen and Fløyen first.', at: '2026-09-18T09:59:00Z', tools: [{ tool: 'read_document' }], events: [{ label: 'Opened Overview' }] }] },
@@ -35,10 +37,8 @@ const overview = list.find(d => d.title === 'Overview');
 const read = (await client.callTool({ name: 'read_document', arguments: { id: overview.id } })).content[0].text;
 assert(read.includes('# Overview') && read.includes('Top-level blocks'), 'read_document did not return markdown with block indexes');
 // Legacy retirement R4: the legacy library is read-only for the tools; reads still work.
-const proposed = await client.callTool({ name: 'propose_document_edit', arguments: { id: overview.id, mode: 'append', markdown: '## From MCP\n\nAdded via the tool.', summary: 'Add a section' } });
-assert(proposed.isError && /read-only|Paper/.test(proposed.content[0].text), 'legacy alias edit was not refused: ' + proposed.content[0].text);
-const created = await client.callTool({ name: 'create_document', arguments: { title: 'MCP made this', markdown: 'Hello from **MCP**.' } });
-assert(created.isError && /Paper|runtime/.test(created.content[0].text), 'create_document was not refused: ' + created.content[0].text);
+const edited = await client.callTool({ name: 'edit_document', arguments: { id: overview.id, mode: 'append', markdown: '## From MCP\n\nAdded via the tool.', summary: 'Add a section' } });
+assert(edited.isError && /read-only|Paper/.test(edited.content[0].text), 'legacy edit was not refused: ' + edited.content[0].text);
 const search = JSON.parse((await client.callTool({ name: 'search_documents', arguments: { query: 'overview' } })).content[0].text);
 assert(search.some(d => d.id === overview.id), 'search does not find the seeded document');
 const store = require('../main/store.js'); const documents = require('../main/documents.js');

@@ -70,7 +70,9 @@ server.registerTool('read_document', { description: 'Read a Barkdown document (o
 });
 
 // Keep the old tool name as an alias for resumed provider sessions.
-for (const name of ['edit_document', 'propose_document_edit']) server.registerTool(name, { description: 'Apply a document edit directly and save it, with Undo available in the document. Read the document first. No Keep step. Prefer replace_block for targeted edits; append adds blocks, replace rewrites the body while preserving a locked title.', inputSchema: { id: z.string(), mode: z.enum(['append', 'replace', 'replace_block']), blockIndex: z.number().int().optional(), markdown: z.string(), summary: z.string() } }, async input => {
+// propose_document_edit is the old name of edit_document; a session resumed from before the retirement may
+// still call it (BARKDOWN_RESUMED_SESSION), a new session never sees it (C089 F6).
+for (const name of ['edit_document', ...(process.env.BARKDOWN_RESUMED_SESSION ? ['propose_document_edit'] : [])]) server.registerTool(name, { description: 'Apply a document edit directly and save it, with Undo available in the document. Read the document first. No Keep step. Prefer replace_block for targeted edits; append adds blocks, replace rewrites the body while preserving a locked title.', inputSchema: { id: z.string(), mode: z.enum(['append', 'replace', 'replace_block']), blockIndex: z.number().int().optional(), markdown: z.string(), summary: z.string() } }, async input => {
   try {
     const edit = await agentEdits.apply({ ...input, baseRev: readRevisions.get(input.id) }, isPaper(input.id) ? await toolConnection() : bpFlag());
     readRevisions.set(input.id, edit.afterRev);
@@ -88,7 +90,9 @@ server.registerTool('edit_table', { description: 'Edit existing cells in a Barkp
   } catch (error) { return { ...text(error.message), isError: true }; }
 });
 
-server.registerTool('create_document', { description: 'Create a new document in the Barkdown library from markdown. It opens beside the chat.', inputSchema: { title: z.string(), markdown: z.string(), requestId: z.string().uuid().optional().describe('Reuse an uncertain creation request UUID with its original content; never retry as a new creation.') } }, async ({ title, markdown, requestId }) => {
+// Offered only when a library can take a note: without a managed runtime the call could only refuse, and the
+// text the model wrote was lost with it (C089 F1).
+if (paper.managed) server.registerTool('create_document', { description: 'Create a new document in the Barkdown library from markdown. It opens beside the chat.', inputSchema: { title: z.string(), markdown: z.string(), requestId: z.string().uuid().optional().describe('Reuse an uncertain creation request UUID with its original content; never retry as a new creation.') } }, async ({ title, markdown, requestId }) => {
   if (paper.managed) {
     try {
       const doc = await paper.create({ title, markdown, requestId }), id = 'bp:' + doc.id;

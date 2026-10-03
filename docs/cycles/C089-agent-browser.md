@@ -76,6 +76,16 @@ In the same [tour](evidence/C089/live/2026-10-02T14-19-20-446Z-agent-browser/res
 
 **Classes that pause** (`SENSITIVE` in `browser-tools.js`): a purchase or payment (buy, pay, checkout, place order, subscribe, add a card…), sending or publishing (send, post, publish, reply, share…), a deletion (delete, remove, erase, unsubscribe, cancel subscription…), an account change (sign out, change password, delete account, two-factor, verify…), a password. Matching is on the element's accessible name and role; a coordinate click resolves the element under the point first. **Limits:** the word lists are English; a button that says "Kjøp nå" does not pause yet — a model-judged classifier is the next step if the bench shows misses.
 
+## Running it from source for the owner
+
+A dev launch carries no runtime unless told where one is; without it no note can be saved (F1). The line that gives the owner's profile a library:
+
+```
+cd app && BARKDOWN_CARRIED_RUNTIME=$PWD/../runtime/barkpark-9f1874235-darwin-arm64 ./node_modules/.bin/electron . --profiles --user-data="$HOME/Library/Application Support/Barkdown/owner-browser"
+```
+
+The nightly image needs none of this.
+
 ## The owner's checks (everything the tours cannot do)
 
 1. **Real sign-ins (A):** sign in to Google, GitHub and Microsoft in a Barkdown tab once; note anything a site refuses. Task `task-7ee7aecb9a5e8b90`, criterion 1.
@@ -89,6 +99,10 @@ In the same [tour](evidence/C089/live/2026-10-02T14-19-20-446Z-agent-browser/res
 
 [v0.6.0-nightly.20261002.1](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261002.1) carries all of it (175 MB; the ad-blocker's engine adds 19 MB to the image — a trim for later). The day is written up in [The Browser Is the Agent’s](https://guerrilla.barkpark.cloud/papers/the-browser-is-the-agents).
 
+## Findings from inside — F1–F7, delivered 2026-10-03
+
+The owner asked Claude Code, running in Barkdown, to describe what it was loaded with ([What the Agent Saw From Inside](https://guerrilla.barkpark.cloud/papers/what-the-agent-saw-from-inside)); every finding was checked against the code and filed as a task under the C089 parent. **F1** — three saves of a paper failed because the dev launch carried no runtime (`BARKDOWN_CARRIED_RUNTIME`, see above) and `create_document` was offered anyway: the tool is now registered only when a library can take a note. **F2** — `settingSources: ['user']` loaded the owner's claude.ai connectors (Claude Docs, Gmail, Calendar, Drive) into every run; Barkdown's runs now carry Barkdown's two servers only. Measured in a [real run](evidence/C089/live/2026-10-03T13-13-21-147Z-agent-browser-truth/result.json): the badger task took 12 s instead of 91, no connector note, and the per-turn input fell from the 14.6k the owner saw to about 12.3k (37,040 input tokens over three turns). **F3** — `tabs_create` waits for the page up to the navigation timeout and never answers "still opening"; a first-load connection reset is retried once (Gmail's was). **F4** — a reply renders the way a document does: the chat's copy goes through `shared/markdown.js` → `shared/doc-html.js` (tables, task lists, strikethrough, quotes, code fences, headings), and the converter now parses nested lists by indentation and keeps an ordered list's first number as `start` (the "item 9 → 1." bug); the hand-rolled renderer stays as the fallback. A fixture reply is under test in `tests/doc-html.test.mjs`. **F5** — the `[Workspace context]` note leaves the user turn for Claude Code and the API loop (it rides the system prompt, where pasted text cannot forge it); Codex has no per-turn system channel and keeps the marked block. One line in both providers' system text says what the chat renders, overriding "markdown in a terminal". **F6** — `propose_document_edit` is registered only for resumed sessions (`BARKDOWN_RESUMED_SESSION`). The second half — a stable memory directory for folder-less chats — is struck: the scratch directory is per profile and stable, and per-profile memory is profile isolation, not a defect. **F7** — the Agent SDK defers MCP tools behind tool search by default (`alwaysLoad` is the opt-out), so Claude Code's browser tools were never in the prefix in full; the measured per-turn figure above is the before/after that exists. Codex has no deferral; its overlay is unmeasured.
+
 ## Not yet
 
-The owner's items, and the decision on user settings in Barkdown's runs.
+The owner's items. F7's Codex overlay. A model-judged pause classifier if the bench shows misses.
