@@ -138,8 +138,15 @@ try {
     check('⌘F opens find in the terminal and Escape returns to the shell');
   }
   // The assistant's commands mirror into the tab.
+  // What happens to the mirrored lines is recorded: the pty's bytes after the write, the buffer in use and the text at once and later.
+  await page.evaluate(() => { window.__afterMirror = []; window.barkdown.term.onData(event => { if (event.type === 'data') window.__afterMirror.push(event.data); }); });
+  const state = () => page.evaluate(() => { const c = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal'), t = c.terminal(), b = t.buffer.active; return { buffer: b.type, cursor: [b.cursorX, b.cursorY], base: b.baseY, viewport: b.viewportY, rows: t.rows, tail: c.text().slice(-260), bytes: window.__afterMirror.join('').slice(0, 500) }; });
+  const beforeMirror = await state();
   await page.evaluate(() => { const c = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal'); c.agentEvent({ type: 'tool_start', tool: 'Bash', input: { command: 'ls -la' } }); c.agentEvent({ type: 'tool_result', tool: 'Bash', ok: true, output: 'total 0\ndrwxr-xr-x  work' }); });
-  const mirrored = await until(t => /assistant \$ ls -la/.test(t) && /drwxr-xr-x  work/.test(t));
+  await new Promise(r => setTimeout(r, 150)); const atOnce = await state();
+  await new Promise(r => setTimeout(r, 2500)); const later = await state();
+  report.mirror = { beforeMirror, atOnce, later }; persist();
+  await until(t => /assistant \$ ls -la/.test(t) && /drwxr-xr-x  work/.test(t));
   check('the assistant\'s commands and output mirror into the tab');
   await shot('03-mirror');
   // Readable text in the theme at hand. The first tours ran dark only and missed white text on the light
