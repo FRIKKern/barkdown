@@ -10,7 +10,7 @@ jobs:
   terminal:
     name: Terminal (windows-latest)
     runs-on: windows-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -39,6 +39,18 @@ jobs:
         env:
           BARKDOWN_TERMINAL_OUT: ${{ github.workspace }}/app/test-results/terminal-windows
         run: cd app && node tests/terminal-ownership.live.mjs
+      - name: Interactive tour in PowerShell on xterm.js (prompt, one-key read, colours, resize, Ctrl+C, Ctrl+V, find, themes, restart)
+        if: always()
+        shell: bash
+        env:
+          BARKDOWN_TERMINAL_OUT: ${{ github.workspace }}/app/test-results/terminal-windows
+        run: cd app && node tests/terminal.live.mjs --engine xterm --theme dark
+      - name: The same tour on the Ghostty engine
+        if: always()
+        shell: bash
+        env:
+          BARKDOWN_TERMINAL_OUT: ${{ github.workspace }}/app/test-results/terminal-windows
+        run: cd app && node tests/terminal.live.mjs --engine ghostty --theme dark
       - uses: actions/upload-artifact@v4
         if: always()
         continue-on-error: true
