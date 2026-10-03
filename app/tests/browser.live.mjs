@@ -190,7 +190,7 @@ try {
   const closedAt = Date.now(); await app.close(); report.quitMs = Date.now() - closedAt;
   try {
     const partitions = fs.readdirSync(path.join(userData, 'Partitions'));
-    report.cookiesOnDisk = partitions.map(p => { const file = path.join(userData, 'Partitions', p, 'Cookies'); const copy = path.join(out, 'Cookies.copy'); fs.copyFileSync(file, copy); const rows = execFileSync('/usr/bin/sqlite3', [copy, 'select host_key, name, length(encrypted_value), is_persistent from cookies'], { encoding: 'utf8' }).trim(); fs.rmSync(copy, { force: true }); return { partition: p, rows }; });
+    report.cookiesOnDisk = partitions.map(p => { const file = path.join(userData, 'Partitions', p, 'Cookies'); const copy = path.join(out, 'Cookies.copy'); fs.copyFileSync(file, copy); const rows = execFileSync('/usr/bin/sqlite3', [copy, 'select host_key, name, length(value), length(encrypted_value), is_persistent from cookies'], { encoding: 'utf8' }).trim(); fs.rmSync(copy, { force: true }); return { partition: p, rows }; });
   } catch (error) { report.cookiesOnDisk = String(error.message); }
   persist();
   await launch();
