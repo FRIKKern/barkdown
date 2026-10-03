@@ -18,7 +18,7 @@
   ],
   "checkpoint": "2026-10-03",
   "handoff": "docs/cycles/C090-real-terminal.md",
-  "nextAction": "Windows: run app/tests/terminal-ownership.live.mjs and the journey on the owner's machine with the pty worker (ConPTY, pwsh on PATH or Windows PowerShell); then C089's owner items (a working day in the browser; the two desktop bench columns).",
+  "nextAction": "Quiet machine: chain in ~/Documents/GitHub/barkdown-chain at main (39e1ce46 or later has no green receipt; two attempts failed on unrelated timing tests under load above 40), then the nightly. Windows: run app/tests/terminal-ownership.live.mjs and the journey on the owner's machine with the pty worker, and try Ctrl+V / Ctrl+C there. Then C089's owner items.",
   "evidence": [
     "docs/cycles/evidence/C090/live/2026-10-03T19-57-09-644Z-terminal-xterm/result.json",
     "docs/cycles/evidence/C090/live/2026-10-03T19-57-34-938Z-terminal-ghostty/result.json",
@@ -30,6 +30,7 @@
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
+      "Chain receipt and nightly for the Windows copy and paste keys (blocked on machine load)",
       "Windows proof (owner, when the machine is back)"
     ]
   }
