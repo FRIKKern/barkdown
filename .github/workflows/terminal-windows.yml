@@ -1,0 +1,49 @@
+name: Terminal on Windows
+# C090: the one proof a Mac cannot give. On demand only: PowerShell through ConPTY inside the owned
+# Job, with the ownership journal and the verified stop, in the real app on a Windows runner.
+# Local runs stay the authority for everything else (D-hosts, 2026-09-28).
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  terminal:
+    name: Terminal (windows-latest)
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: npm 11 (the lockfiles are written by npm 11)
+        run: npm install -g npm@11
+      - name: Install (root holds playwright; app holds electron, node-pty and the app's deps)
+        shell: bash
+        run: |
+          npm ci
+          cd app && npm ci && npx install-electron --no
+      - name: Build
+        shell: bash
+        run: cd app && npm run build
+      - name: node-pty spawns PowerShell through ConPTY under Electron's node
+        shell: bash
+        run: |
+          cd app
+          ELECTRON_RUN_AS_NODE=1 ./node_modules/electron/dist/electron.exe -e "const pty=require('node-pty');const p=pty.spawn('powershell.exe',['-NoLogo','-NoProfile','-Command','Write-Output conpty-ok; exit 0'],{name:'xterm-256color',cols:100,rows:30,useConpty:true});let out='';p.onData(d=>out+=d);p.onExit(({exitCode})=>{console.log('exit',exitCode,'saw',out.includes('conpty-ok'));process.exit(out.includes('conpty-ok')?0:1)});setTimeout(()=>{console.log('timeout',JSON.stringify(out));process.exit(2)},30000)"
+      - name: Ownership unit tests (real worker, Job, journal, verified stop; Windows copy and paste keys)
+        shell: bash
+        run: cd app && node --test tests/terminal-ownership.test.mjs
+      - name: The app's terminal tab on Windows (profile switch, killed app, quit, legacy launch)
+        shell: bash
+        env:
+          BARKDOWN_TERMINAL_OUT: ${{ github.workspace }}/app/test-results/terminal-windows
+        run: cd app && node tests/terminal-ownership.live.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        continue-on-error: true
+        with:
+          name: terminal-windows
+          path: app/test-results/terminal-windows/
+          if-no-files-found: ignore
+          retention-days: 7
