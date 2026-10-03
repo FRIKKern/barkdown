@@ -197,7 +197,11 @@ try {
   } catch (error) { report.cookiesOnDisk = String(error.message); }
   persist();
   await launch();
-  await openWeb(site + '/whoami'); const who = await siteReady('cookie: kept-7f3a');
+  // The restored workspace lands after state.loaded; opening a tab before it is in place lost the race under
+  // chain load (the restore put the previous active tab back). Wait for the restored tabs, then read our own tab.
+  await page.waitForFunction(() => { const s = window.__barkdown.state; return s.chats[s.current]?.tabs.filter(t => t.type === 'web').length >= 3; }, null, { timeout: 30000 });
+  await openWeb(site + '/whoami');
+  const who = await (async () => { for (let i = 0; i < 300; i++) { const t = await page.evaluate(() => { const v = [...document.querySelectorAll('webview#view')].find(w => /\/whoami$/.test(w.getAttribute('src') || '') || /\/whoami$/.test(w.getURL?.() || '')); return v ? v.executeJavaScript('document.body && document.body.innerText', false) : null; }).catch(() => null); if (t && String(t).includes('cookie: kept-7f3a')) return t; await new Promise(r => setTimeout(r, 100)); } throw new Error('the whoami tab did not show the kept cookie'); })();
   check('a session set in a tab survives a restart of Barkdown', { who: who.split('\n').find(l => l.startsWith('cookie:')) });
   const again = await page.evaluate(() => window.barkdown.browser.permissions());
   assert.equal(again[0]?.notifications, 'allow');
