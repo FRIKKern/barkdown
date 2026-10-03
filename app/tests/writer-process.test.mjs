@@ -40,15 +40,12 @@ test('a surviving real MCP child refuses stale create/edit and keeps original re
     assert.match(read.content[0].text, /Original body/);
     const before = fs.readFileSync(store.filePath(`documents/${doc.id}.json`));
     const control = controller(store), barrier = control.quiesce(scope.writerToken);
-    for (const [name, input] of [
-      ['edit_document', { id: doc.id, mode: 'append', markdown: 'Forbidden', summary: 'Stale' }],
-      ['create_document', { title: 'Forbidden', markdown: 'Stale' }],
-    ]) {
-      const response = await client.callTool({ name, arguments: input });
-      assert.equal(response.isError, true, name);
-      // Legacy retirement R4: legacy writes are refused before the fence is consulted; the store stays as it was either way.
-      assert.match(response.content[0].text, /earlier library generation|read-only|no local runtime/);
-    }
+    // Legacy retirement R4: legacy writes are refused before the fence is consulted; the store stays as it was either way.
+    // Without a library create_document is not offered at all (C089 F1): the stronger refusal.
+    const response = await client.callTool({ name: 'edit_document', arguments: { id: doc.id, mode: 'append', markdown: 'Forbidden', summary: 'Stale' } });
+    assert.equal(response.isError, true); assert.match(response.content[0].text, /earlier library generation|read-only|no local runtime/);
+    const absent = await client.callTool({ name: 'create_document', arguments: { title: 'Forbidden', markdown: 'Stale' } });
+    assert.equal(absent.isError, true); assert.match(absent.content[0].text, /not found/);
     const retained = await client.callTool({ name: 'read_document', arguments: { id: doc.id } });
     assert.match(retained.content[0].text, /Original body/);
     assert.deepEqual(fs.readFileSync(store.filePath(`documents/${doc.id}.json`)), before);
@@ -88,8 +85,9 @@ test('a new read-only MCP child can list a quiescent empty legacy store without 
     await client.connect(transport);
     const listed = await client.callTool({ name: 'list_documents', arguments: {} });
     assert.deepEqual(JSON.parse(listed.content[0].text), []);
+    // No library: create_document is not offered (C089 F1), so nothing can seed the store.
     const refused = await client.callTool({ name: 'create_document', arguments: { title: 'Forbidden', markdown: 'No seed' } });
-    assert.equal(refused.isError, true); assert.match(refused.content[0].text, /no local runtime/);
+    assert.equal(refused.isError, true); assert.match(refused.content[0].text, /not found/);
     assert.deepEqual(store.list('documents', '.json'), []);
     assert.equal(control.assertQuiescent(barrier).quiescent, true);
   } finally { await client.close(); }
