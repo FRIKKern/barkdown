@@ -180,7 +180,7 @@ test('uncertain shutdown keeps session blocked, trusted verification permits ret
 function fakeEngine() {
   const handlers = { data: [], resize: [], selection: [], key: null };
   const lines = [];
-  const term = { cols: 80, rows: 24, written: '', buffer: { active: { get length() { return lines.length; }, getLine: i => ({ translateToString: () => lines[i] || '' }) } },
+  const term = { cols: 80, rows: 24, written: '', buffer: { active: { get length() { return lines.length; }, getLine: i => ({ isWrapped: false, translateToString: () => lines[i] || '' }) } },
     write(data) { term.written += data; for (const part of String(data).split(/\r?\n/)) { if (part) lines.push(part.replace(/\x1b\[[0-9;]*m/g, '')); } },
     onData: fn => handlers.data.push(fn), onResize: fn => handlers.resize.push(fn), onSelectionChange: fn => handlers.selection.push(fn), attachCustomKeyEventHandler: fn => { handlers.key = fn; },
     clear() { lines.length = 0; }, focus() {}, dispose() {}, selection: '', getSelection: () => term.selection, clearSelection() { term.selection = ''; }, paste: text => handlers.data.forEach(fn => fn(text)), options: {} };

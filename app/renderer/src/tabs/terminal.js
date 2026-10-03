@@ -116,8 +116,14 @@ export function mountTerminal(tab, host, ctx) {
       if (event.type === 'tool_start' && event.tool === 'Bash') say(`\r\n▶ assistant $ ${event.input?.command || ''}`, WARN);
       else if (event.type === 'tool_result' && event.tool === 'Bash') { const text = String(event.output ?? event.preview ?? '').replace(/\s+$/, ''); if (text) term?.write(DIM + text.replace(/\r?\n/g, '\r\n') + RESET + '\r\n'); if (event.ok === false) say('[failed]', ERR); }
     },
-    // What the terminal shows, for tests and the assistant: the buffer's lines, trailing blanks dropped.
-    text() { if (!term) return ''; const b = term.buffer.active, lines = []; for (let i = 0; i < b.length; i++) lines.push(b.getLine(i)?.translateToString(true) || ''); while (lines.length && !lines.at(-1)) lines.pop(); return lines.join('\n'); },
+    // What the terminal shows, for tests and the assistant: logical lines. A line the emulator wrapped at the pane's
+    // edge continues the one before it, so a narrow pane reads the same as a wide one; trailing blanks are dropped.
+    text() {
+      if (!term) return '';
+      const b = term.buffer.active, lines = [];
+      for (let i = 0; i < b.length; i++) { const line = b.getLine(i); if (!line) continue; const piece = line.translateToString(false); if (line.isWrapped && lines.length) lines[lines.length - 1] += piece; else lines.push(piece); }
+      const out = lines.map(line => line.trimEnd()); while (out.length && !out.at(-1)) out.pop(); return out.join('\n');
+    },
     engine: () => engine, session: () => session, terminal: () => term, theme: () => themeOf?.() || null,
     refresh() { renderPath(); try { fit?.fit(); } catch {} },
     navigate() { renderPath(); },
