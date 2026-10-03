@@ -37,7 +37,7 @@ for (const provider of ['api', 'claude', 'codex']) for (const folder of [missing
       observed = JSON.stringify(options); return { on() { return this; }, async finalMessage() { return { content: [{ type: 'text', text: 'controlled routing response' }], stop_reason: 'end_turn', usage: {} }; } };
     } } }));
     if (provider === 'claude') transport.setSdkLoader(async () => ({ query({ prompt, options }) {
-      observed = prompt; cwd = options.cwd; resumed = options.resume;
+      observed = options.systemPrompt.append; cwd = options.cwd; resumed = options.resume; // the note rides the system prompt (C089 F5)
       return { async *[Symbol.asyncIterator]() { yield { type: 'result', subtype: 'success', result: 'controlled routing response' }; } };
     } }));
     if (provider === 'codex') transport.setSdkLoader(async () => ({ Codex: class {
@@ -48,8 +48,9 @@ for (const provider of ['api', 'claude', 'codex']) for (const folder of [missing
         messages: [{ role: 'user', content: 'Where am I?' }], settings: { apiKey: 'fixture', forceOnline: true }, send: e => events.push(e) });
       await agent.waitForRunFinish(runId);
       assert(!events.some(e => e.type === 'error'), JSON.stringify(events));
-      // API JSON encoding doubles slashes; decode before checking the captured user note.
-      const prompt = provider === 'api' ? JSON.parse(observed).messages.at(-1).content : observed;
+      // The note rides the system channel for the API and Claude Code (C089 F5) and the prompt for Codex;
+      // API JSON encoding doubles slashes, so decode before checking.
+      const prompt = provider === 'api' ? JSON.parse(observed).system[0].text : observed;
       assert.equal(typeof prompt, 'string');
       if (folder) assert(prompt.includes(JSON.stringify(folder)), prompt);
       else assert.match(prompt, /no working folder selected/);
