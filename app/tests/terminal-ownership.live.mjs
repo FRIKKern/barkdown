@@ -49,7 +49,19 @@ const logFile = path.join(out, 'log.txt');
 const step = name => { const line = `[${new Date().toISOString().slice(11, 19)}] ${name}`; console.log(line); try { fs.appendFileSync(logFile, line + '\n'); } catch {} };
 // A watchdog for a hosted runner: if the process is still alive after twelve minutes, say so and leave,
 // so the job's log shows the phase reached instead of a cancelled step with nothing in it.
-setTimeout(() => { step('watchdog: the tour did not finish within 12 minutes; exiting'); process.exit(3); }, 12 * 60 * 1000).unref();
+const diagnostics = []; const note = line => { const text = String(line).trimEnd().slice(0, 600); if (!text) return; diagnostics.push(text); if (diagnostics.length > 200) diagnostics.shift(); try { fs.appendFileSync(path.join(out, 'app-output.txt'), text + '\n'); } catch {} };
+// What the screen shows, taken by the operating system: a native dialog or a blank window is invisible to the page's own tools.
+function desktopShot(name) {
+  if (process.platform !== 'win32') return;
+  try { execFileSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command', `Add-Type -AssemblyName System.Windows.Forms,System.Drawing; $b=[System.Windows.Forms.SystemInformation]::VirtualScreen; $bmp=New-Object System.Drawing.Bitmap $b.Width,$b.Height; $g=[System.Drawing.Graphics]::FromImage($bmp); $g.CopyFromScreen($b.Left,$b.Top,0,0,$bmp.Size); $bmp.Save('${path.join(out, name).replaceAll("'", "''")}')`], { timeout: 30000, stdio: 'ignore' }); step('desktop screenshot: ' + name); }
+  catch (error) { step('desktop screenshot failed: ' + error.message.slice(0, 200)); }
+}
+function report(why) {
+  step(why); desktopShot('desktop-' + Date.now() + '.png');
+  step('the app printed ' + diagnostics.length + ' lines; the last ones:'); for (const line of diagnostics.slice(-40)) step('  ' + line);
+  try { step('windows: ' + (app ? app.windows().map(w => w.url()).join(' | ') || 'none' : 'no app')); } catch (error) { step('windows unreadable: ' + error.message); }
+}
+setTimeout(() => { report('watchdog: the tour did not finish within 8 minutes; exiting'); try { app?.process().kill('SIGKILL'); } catch {} process.exit(3); }, 8 * 60 * 1000).unref();
 const within = (promise, ms, what) => Promise.race([promise, delay(ms).then(() => { throw new Error(`${what} did not finish within ${ms / 1000} s`); })]);
 const alive = (pid) => {
   try {
@@ -72,23 +84,27 @@ let legacyData = null;
 const trees = [],
   errors = [];
 async function boot(managed = true, dataRoot = userData) {
+  step('launching Electron');
   app = await electron.launch({
     executablePath: process.env.BARKDOWN_TEST_PACKAGED_EXE || require('electron'),
     args: [...(process.env.BARKDOWN_TEST_PACKAGED_EXE ? [] : [path.resolve('.')]), ...(managed ? ['--profiles'] : ['--legacy']), `--user-data=${dataRoot}`],
     recordVideo: { dir: out, size: { width: 1400, height: 900 } },
-    env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' },
+    env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ELECTRON_ENABLE_LOGGING: '1' },
   });
   // A cold machine (a hosted Windows runner, a first launch under a virus scanner) starts slowly: the
-  // window and the loaded state get two minutes, and a failure says what the app printed.
-  const diagnostics = []; const note = line => { diagnostics.push(String(line).slice(0, 400)); if (diagnostics.length > 60) diagnostics.shift(); };
+  // window and the loaded state get two minutes, and a failure says what the app printed. No diagnostic may hang.
   app.process().stderr?.on('data', chunk => note('main stderr: ' + chunk)); app.process().stdout?.on('data', chunk => note('main stdout: ' + chunk));
+  app.on('window', w => note('window opened: ' + w.url()));
+  step('the app process is up; waiting for its first window');
   page = await app.firstWindow({ timeout: 120000 });
-  page.on('pageerror', (e) => errors.push(e.message));
-  page.on('console', message => { if (['error', 'warning'].includes(message.type())) note(`console ${message.type()}: ${message.text()}`); });
+  step('first window: ' + page.url());
+  page.on('pageerror', (e) => { errors.push(e.message); note('pageerror: ' + e.message); });
+  page.on('console', message => note(`console ${message.type()}: ${message.text()}`));
+  page.on('crash', () => note('the page crashed'));
   try { await page.waitForFunction(() => window.__barkdown?.state.loaded, null, { timeout: 120000 }); }
   catch (error) {
-    const seen = await page.evaluate(() => ({ url: location.href, title: document.title, hasApp: Boolean(window.__barkdown), loaded: window.__barkdown?.state?.loaded, body: document.body?.innerText.slice(0, 300) })).catch(e => ({ evaluate: e.message }));
-    console.error('boot did not reach the loaded state:', JSON.stringify(seen)); console.error(diagnostics.join('\n')); console.error('windows:', app.windows().map(w => w.url()).join(' | '));
+    const seen = await Promise.race([page.evaluate(() => ({ url: location.href, title: document.title, hasApp: Boolean(window.__barkdown), loaded: window.__barkdown?.state?.loaded, body: document.body?.innerText.slice(0, 300) })).catch(e => ({ evaluate: e.message })), delay(10000).then(() => ({ evaluate: 'no answer from the page in 10 s' }))]);
+    report('boot did not reach the loaded state: ' + JSON.stringify(seen));
     throw error;
   }
   if (managed) await page.locator('.bw-terminal .bw-term-host').waitFor();
