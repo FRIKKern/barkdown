@@ -68,7 +68,8 @@ const shot = async name => { await page.screenshot({ path: path.join(out, name +
 const openWeb = async url => { await page.evaluate(u => window.__barkdown.openTarget({ kind: 'web', url: u, title: 'site' }), url); await page.locator('webview#view').last().waitFor(); };
 // Inside the active website tab: the <webview> tag's own executeJavaScript, as a user gesture.
 const inSite = (code, gesture = true) => page.evaluate(([c, g]) => { const views = [...document.querySelectorAll('webview#view')]; const shown = views.filter(v => v.getBoundingClientRect().width > 0); return (shown.at(-1) || views.at(-1)).executeJavaScript(c, g); }, [code, gesture]);
-const siteReady = async text => { for (let i = 0; i < 100; i++) { const t = await inSite('document.body && document.body.innerText', false).catch(() => ''); if (String(t).includes(text)) return t; await new Promise(r => setTimeout(r, 100)); } throw new Error('site did not show: ' + text); };
+// Thirty seconds: the step after a cold relaunch under chain load missed a ten-second budget once (2026-10-03).
+const siteReady = async text => { for (let i = 0; i < 300; i++) { const t = await inSite('document.body && document.body.innerText', false).catch(() => ''); if (String(t).includes(text)) return t; await new Promise(r => setTimeout(r, 100)); } throw new Error('site did not show: ' + text); };
 const webTabs = () => page.evaluate(() => { const s = window.__barkdown.state; const chat = s.chats[s.current]; return chat.tabs.filter(t => t.type === 'web').map(t => t.url); });
 
 try {
