@@ -1,42 +1,36 @@
 {
   "version": 1,
-  "id": "C089",
-  "stage": "P6",
+  "id": "C090",
+  "stage": "P5",
   "status": "active",
-  "goal": "Claude and Codex, run through the user's own CLIs, perceive Barkdown's tabs as their browser and use them as well as they use Claude Desktop and ChatGPT desktop — with the user's sessions, never opening another browser, pausing on sensitive actions — and a person can live in that browser for a working day.",
+  "goal": "The terminal tab is a real terminal on macOS and Windows: a pty behind a full emulator, so interactive programs, prompts, colours and resizing work as they do in PowerShell or Ghostty, with the ownership contract (one shell per tab, a journal, a verified stop) unchanged.",
   "scope": [
-    "A. Sign-in works and the Chrome import: Electron 44, a clean Chrome user agent, popups as child windows, new-tab links beside, permission prompts remembered per site; bookmarks and history imported on demand",
-    "B. The browser tool server: Claude in Chrome's vocabulary (tabs, navigate, read_page, find, get_page_text, form_input, computer, javascript, console, network, gif) over the chat's tabs through the DevTools Protocol; the perception layer (system line, tool gating, no other browser reachable); visible cursor and agent-tab badges",
-    "C. Safety: approval modes, pauses on sensitive actions, site allow-list, logged-out mode, dialogs never strand a run",
-    "D. The bench: twelve tasks, both agents, compared with the two desktop products; fix what loses",
-    "E. Human daily basics: downloads, find, zoom, context menu, address bar, content blocking"
+    "A. node-pty inside the owned worker: a login shell on macOS, PowerShell 7 (or Windows PowerShell) through ConPTY on Windows; the service gains raw write and resize and keeps line input for the ownership contract",
+    "B. xterm.js in the tab: keystrokes to the pty, bytes to the emulator, fit on resize, the app's theme, ⌘F find, copy on select, links, the assistant's command mirror, Clear and Restart",
+    "C. Ghostty as an engine: ghostty-web (Ghostty's VT core in WebAssembly, xterm-compatible surface) chosen in Settings › General, loaded only when chosen, falling back to xterm.js when it cannot load",
+    "D. Windows: the ownership live test with the pty worker on the owner's machine when it is back (~2026-10-05)"
   ],
   "acceptance": [
-    "On the bench Claude and Codex in Barkdown finish as many of the twelve tasks as they do in Claude Desktop and ChatGPT desktop, within one step per task on average, with the differences recorded",
-    "No run opens or names another browser; the run log shows only Barkdown's tools",
-    "Google, GitHub and Microsoft sign-in work in a Barkdown tab, popups included; a session survives a restart; one Chrome import brings bookmarks and history",
-    "Purchases, messages, passwords, deletions and account changes pause for approval in every mode",
-    "One person browses in Barkdown for a working day and every reason to return to Chrome has a slice or is struck"
+    "Interactive programs run in the tab on macOS: a prompt that reads input, less on the alternate screen, colours, a resize the shell sees; the login shell with TERM=xterm-256color (tour)",
+    "On Windows PowerShell runs through ConPTY inside the owned Job with the same ownership journal and verified stop (owner's check until the machine is back)",
+    "The assistant's commands still mirror into the tab; ownership refusals and the unverified-shutdown path are unchanged (unit tests)",
+    "A Ghostty-based engine can be chosen in Settings and passes the same tour, or the reason it cannot is recorded"
   ],
-  "checkpoint": "2026-10-02",
-  "handoff": "docs/cycles/C089-agent-browser.md",
-  "nextAction": "The owner's checks (sign-ins done for Google and GitHub; a working day in the browser; the two desktop columns). F1's draft when no library exists. Find what re-applies the workspace after state.loaded. Then Codex's overlay measured; a model-judged pause classifier if the bench shows misses.",
+  "checkpoint": "2026-10-03",
+  "handoff": "docs/cycles/C090-real-terminal.md",
+  "nextAction": "Windows: run app/tests/terminal-ownership.live.mjs and the journey on the owner's machine with the pty worker (ConPTY, pwsh on PATH or Windows PowerShell); then C089's owner items (a working day in the browser; the two desktop bench columns).",
   "evidence": [
-    "docs/cycles/evidence/C089/live/2026-10-02T14-46-15-443Z-browser/result.json",
-    "docs/cycles/evidence/C089/live/2026-10-02T13-56-29-450Z-agent-browser-truth/result.json",
-    "docs/cycles/evidence/C089/live/2026-10-02T13-58-29-994Z-agent-browser-truth/result.json",
-    "docs/cycles/evidence/C089/live/2026-10-02T14-19-20-446Z-agent-browser/result.json",
-    "docs/cycles/evidence/C089/bench/2026-10-02T15-00-22-895Z/result.json",
-    "docs/cycles/evidence/C089/live/2026-10-03T13-13-21-147Z-agent-browser-truth/result.json"
+    "docs/cycles/evidence/C090/live/2026-10-03T16-34-06-815Z-terminal-xterm/result.json",
+    "docs/cycles/evidence/C090/live/2026-10-03T16-32-20-666Z-terminal-ghostty/result.json"
   ],
-  "truthReview": "2026-10-02: nothing demonstrated yet. Facts established: website tabs are a <webview> with one persistent partition per profile and a four-button toolbar (renderer/src/tabs/website.js, 66 lines); permissions beyond clipboard-read and fullscreen are denied silently; popups load in place; Electron cannot load the Claude in Chrome or Codex extensions (no debugger, sidePanel, nativeMessaging or MV3 background support) but exposes the DevTools Protocol on every tab (webContents.debugger). 2026-10-02 afternoon: slice A delivered — the browser tour passes 8/8 (user agent, popup to opener, tab beside, permission asked once and remembered, import to Favorites and suggestions, session and permission across a restart); unit tests for the session and the import pass. Real Google/GitHub/Microsoft sign-ins are the owner's check. 2026-10-02 evening: slice B's tool server passes its tour 8/8 through the real MCP child (21 calls: tabs, read_page with stable refs, find, form_input, computer type/key/click/screenshot, text, javascript, console, network, close); both providers are wired. Not yet shown: a model using it — next. 2026-10-02 later: the real-agent proof passes — Claude Code (91 s) and Codex (37 s), on the user's own logins, open a page in Barkdown's browser and read it with only barkdown-browser tools; the first attempts exposed that profile runs live in a worker process, fixed by carrying the server spec in the run's params. 2026-10-02 night: slice C passes in the tour (purchase pause with Block and Allow, password pause, ask mode, allow-list, dialog dismissed and reported, logged-out agent tab without sessions); Settings › Browser carries the policy. 2026-10-02 night, the bench: Claude Code 8/8 and Codex 8/8 on the automated tasks (docs/cycles/C089-bench.md); the pauses hold under real models; a comma-separator defect in one check was fixed and the run rescored. 2026-10-02 late: v0.6.0-nightly.20261002.1 cut from e0049d9d with every slice; the launchd schedule fires but its unattended chain still loses focus-dependent steps (five environment fixes landed, the last unverified). 2026-10-03: F1–F7 from the owner's conversation delivered (create_document only with a library; runs carry Barkdown's servers only, 91 s → 12 s on the badger task, ~12.3k input a turn; tabs_create waits and retries a reset; chat renders like a document with nested lists and start numbers; the context note rides the system channel for Claude Code and the API; the old edit name only for resumed sessions); journey 76/76. 2026-10-03 afternoon: v0.6.0-nightly.20261003.1 cut from b34f9b6f after a green chain; the schedule's overlapping chains were the flake source and are gated on an idle Mac; F2–F5 and F7 closed on the board.",
-  "screenshotReview": "Settings gains a Browser pane and the website tab a suggestions list and a permission card; status shots and the visual run reviewed with this commit. Tour screenshots in the evidence folder.",
+  "truthReview": "2026-10-03: the old tab was a line-at-a-time pipe to a shell (no tty): nothing interactive could run, no colours, no resize. Now main/terminal-worker.js spawns a pty with node-pty 1.1.0 (N-API prebuilds for darwin and win32, arm64 and x64; spawn-helper's execute bit set at runtime) inside the same owned worker, so the journal, the Job on Windows and the verified stop are untouched (tests/terminal-ownership.test.mjs: 10 of 10; tests/terminal-ownership.live.mjs passes on this Mac). The renderer tab is xterm.js 6 with the DOM renderer (the WebGL addon drew at the wrong scale under Electron here and was dropped), fit, search, links, Unicode 11. Ghostty: ghostty-web 0.4.0 works once three things are known — it fetches its WebAssembly from a data: URL (answered from memory, the CSP now allows wasm-unsafe-eval), it reads the custom key handler the opposite way from xterm.js, and it has no search addon (Find is absent on that engine). Both engines pass the nine-check tour. Windows is unrun.",
+  "screenshotReview": "Tour screenshots in both evidence folders reviewed: the prompt, the answered read, colours and less on the alternate screen render at the right size on both engines; the ghostty canvas clips its last column slightly. Status shots and the visual run follow the implementation commit.",
   "delivery": {
     "phase": "implementing",
     "owner": "primary agent",
     "remaining": [
-      "The owner's checks and desktop columns",
-      "Decision on user settings in runs"
+      "Status shots, visual run, chain and nightly",
+      "Windows proof (owner, when the machine is back)"
     ]
   }
 }

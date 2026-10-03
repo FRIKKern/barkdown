@@ -5,11 +5,15 @@ const os = require('node:os'),
 const fs = require('node:fs');
 const { createStore } = require('./store');
 const { launchOwnedWorker, verifyOwnedWorker } = require('./goal-process');
+// The shell a tab runs (C090): on Windows PowerShell 7 when it is on the PATH, else Windows PowerShell, through
+// ConPTY; elsewhere the person's login shell in a pty. The pty echoes, so nothing here does.
 function shellSpec() {
-  if (process.platform === 'win32')
-    return { command: 'powershell.exe', args: ['-NoLogo', '-NoProfile'], label: 'PowerShell', echoes: true };
+  if (process.platform === 'win32') {
+    const pwsh = (process.env.PATH || '').split(path.delimiter).map(dir => path.join(dir, 'pwsh.exe')).find(file => { try { return fs.statSync(file).isFile(); } catch { return false; } });
+    return pwsh ? { command: pwsh, args: ['-NoLogo'], label: 'PowerShell 7', echoes: false } : { command: 'powershell.exe', args: ['-NoLogo'], label: 'PowerShell', echoes: false };
+  }
   const shell = process.env.SHELL || '/bin/bash';
-  return { command: shell, args: ['-s'], label: shell.split('/').pop(), echoes: false };
+  return { command: shell, args: ['-l'], label: shell.split('/').pop(), echoes: false };
 }
 const fail = (message) => Object.assign(new Error(message), { code: 'terminal_ownership' });
 const bounded = (promise, ms, message) => {
@@ -202,7 +206,7 @@ function createTerminalService({
             s.host.stop();
             return;
           }
-          s.host.send({ type: 'start', command: spec.command, args: spec.args, cwd });
+          s.host.send({ type: 'start', command: spec.command, args: spec.args, cwd, cols: options.cols, rows: options.rows });
         }
       })();
       try {
@@ -231,12 +235,29 @@ function createTerminalService({
       pending.delete(k);
     }
   }
-  function input(owner, line) {
+  function live(owner) {
     if (shuttingDown) throw fail('Barkdown is shutting down; terminal commands are blocked');
     const s = owned(owner);
     if (s.stopping) throw fail('Shell shutdown is pending; commands are blocked');
+    return s;
+  }
+  // A command line, run as typed and entered (the ownership contract); raw keystrokes; the pty's size.
+  function input(owner, line) {
+    const s = live(owner);
     if (typeof line !== 'string' || line.length > 256 * 1024) throw fail('Terminal command is too large');
     s.host.send({ type: 'input', line });
+    return true;
+  }
+  function write(owner, data) {
+    const s = live(owner);
+    if (typeof data !== 'string' || data.length > 256 * 1024) throw fail('Terminal input is too large');
+    s.host.send({ type: 'write', data });
+    return true;
+  }
+  function resize(owner, cols, rows) {
+    const s = live(owner);
+    if (!Number.isInteger(cols) || !Number.isInteger(rows) || cols < 2 || rows < 1 || cols > 1000 || rows > 1000) throw fail('Terminal size is out of range');
+    s.host.send({ type: 'resize', cols, rows });
     return true;
   }
   async function stop(owner) {
@@ -254,6 +275,6 @@ function createTerminalService({
     shuttingDown = true;
     return stopAll();
   }
-  return { start, input, stop, stopAll, shutdown, status, shellSpec, hasSessions: () => sessions.size > 0 };
+  return { start, input, write, resize, stop, stopAll, shutdown, status, shellSpec, hasSessions: () => sessions.size > 0 };
 }
 module.exports = { ...createTerminalService(), createTerminalService, shellSpec };

@@ -73,13 +73,21 @@ async function boot(managed = true, dataRoot = userData) {
   page = await app.firstWindow();
   page.on('pageerror', (e) => errors.push(e.message));
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
-  if (managed) await page.locator('.bw-terminal #in').waitFor();
+  if (managed) await page.locator('.bw-terminal .bw-term-host').waitFor();
+}
+// A real terminal (C090): keystrokes go to the pty, the emulator's buffer is read through the controller.
+const termCtl = () => page.evaluate(() => { const c = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal'); return c ? { text: c.text(), session: Boolean(c.session()) } : null; });
+const termText = async () => (await termCtl())?.text || '';
+const typeInTerminal = async text => { await page.locator('.bw-terminal .bw-term-host').click(); await page.keyboard.type(text); };
+// The shell must be up before keystrokes mean anything; a stopped shell is started with the tab's Start.
+async function ensureShell() {
+  for (let i = 0; i < 300; i++) { const c = await termCtl(); if (c?.session) return; if (c && /verified closed|Press Start/.test(c.text) && !c.session) { await page.locator('.bw-terminal [data-act="restart"]').click(); } await delay(100); }
+  throw new Error('no shell in the terminal tab');
 }
 async function startTree(index) {
   const marker = path.join(folders[index], 'pids-' + trees.length + '.jsonl');
-  const input = page.locator('.bw-terminal #in');
-  await input.fill(runNode(script, marker));
-  await input.press('Enter');
+  await ensureShell();
+  await typeInTerminal(runNode(script, marker) + '\r');
   for (
     let i = 0;
     i < 150 && (!fs.existsSync(marker) || fs.readFileSync(marker, 'utf8').trim().split('\n').length < 3);
@@ -99,10 +107,11 @@ async function startTree(index) {
 }
 try {
   await boot();
-  await page.waitForFunction(label => document.querySelector('.bw-terminal #out')?.textContent.includes(label + ' in'), shellLabel);
+  for (let i = 0; i < 300 && !(await termText()).includes(shellLabel + ' in'); i++) await delay(100);
+  assert.ok((await termText()).includes(shellLabel + ' in'), 'the shell banner names the shell');
   const sessionA = await page.evaluate(() => window.barkdown.term.status('same-terminal', 'same'));
   const ta = await startTree(0);
-  await page.locator('.bw-terminal #in').fill('echo unsent A command');
+  await typeInTerminal('echo unsent A command'); // typed, not entered: it lives in the shell's line, as in any terminal
   await page.screenshot({ path: path.join(out, 'a-running.png') });
   await page.evaluate((folder) => window.__barkdown.setFolder(folder), folders[1]);
   assert.equal(
@@ -132,20 +141,7 @@ try {
   assert.match(foreign, /no longer active/);
   assert.equal(await page.locator('#bw-prompt').inputValue(), 'B draft');
   const tb = await startTree(1);
-  await page.locator('.bw-terminal #in').fill('echo unsent B command');
-  for (let i = 0; i < 100; i++) {
-    if (
-      await page.evaluate(
-        async () => (await window.barkdown.state.load()).chats.same.tabs[0].commandDraft === 'echo unsent B command',
-      )
-    )
-      break;
-    await delay(50);
-  }
-  assert.equal(
-    (await page.evaluate(() => window.barkdown.state.load())).chats.same.tabs[0].commandDraft,
-    'echo unsent B command',
-  );
+  await typeInTerminal('echo unsent B command'); // typed, not entered
   await page.screenshot({ path: path.join(out, 'b-running.png') });
   const mainPid = await app.evaluate(() => process.pid);
   assert.equal(JSON.parse(fs.readFileSync(path.join(userData, 'workspace-owner.json'))).pid, mainPid);
@@ -154,27 +150,24 @@ try {
   await exited;
   app = null;
   await boot();
-  await page.waitForFunction(() =>
-    document.querySelector('.bw-terminal #out')?.textContent.includes('process tree is verified closed'),
-  );
+  for (let i = 0; i < 300 && !(await termText()).includes('process tree is verified closed'); i++) await delay(100);
+  assert.ok((await termText()).includes('process tree is verified closed'));
   assert.ok(tb.pids.every((p) => !alive(p)));
   const before = fs.readFileSync(tb.marker + '.effects', 'utf8');
   await delay(200);
   assert.equal(fs.readFileSync(tb.marker + '.effects', 'utf8'), before);
   assert.equal(await page.locator('#bw-prompt').inputValue(), 'B draft');
-  assert.equal(await page.locator('.bw-terminal #in').inputValue(), 'echo unsent B command');
   await page.screenshot({ path: path.join(out, 'restart-stopped.png') });
   await page.setViewportSize({ width: 1000, height: 800 });
   await page.screenshot({ path: path.join(out, 'restart-narrow.png') });
-  const counter=path.join(folders[1],'explicit-submit-count.txt'),command=page.locator('.bw-terminal #in');
-  await command.fill(appendOnce(counter));
-  await command.press('Enter'); await command.press('Enter');
-  await command.fill('new command draft typed during shell launch');
+  // A stopped shell is started explicitly; a command entered twice in a row runs once (the second Enter is an empty line).
+  const counter=path.join(folders[1],'explicit-submit-count.txt');
+  await ensureShell();
+  await typeInTerminal(appendOnce(counter) + '\r\r');
   for(let i=0;i<100&&!fs.existsSync(counter);i++)await delay(50);
   assert.ok(fs.existsSync(counter));await delay(250);
-  assert.deepEqual(fs.readFileSync(counter,'utf8').trim().split(/\r?\n/),['once'],'rapid Enter dispatched one explicit intent');
-  assert.equal(await command.inputValue(),'new command draft typed during shell launch');
-  await page.screenshot({path:path.join(out,'launch-keeps-new-draft.png')});
+  assert.deepEqual(fs.readFileSync(counter,'utf8').trim().split(/\r?\n/),['once'],'the command ran once');
+  await page.screenshot({path:path.join(out,'explicit-start.png')});
   const tc = await startTree(1);
   await page.screenshot({ path: path.join(out, 'explicit-new-shell.png') });
   await app.close();
@@ -187,11 +180,11 @@ try {
   await boot(false, legacyData);
   await page.evaluate(folder => window.__barkdown.setFolder(folder), legacyData);
   await page.evaluate(() => window.__barkdown.openTarget({ kind: 'terminal' }));
-  await page.locator('.bw-terminal #in').fill('echo legacy-terminal-proof');
-  await page.locator('.bw-terminal #in').press('Enter');
-  await page.waitForFunction(() =>
-    /legacy-terminal-proof\r?\n/.test(document.querySelector('.bw-terminal #out')?.textContent || ''),
-  );
+  await page.locator('.bw-terminal .bw-term-host').waitFor();
+  await ensureShell();
+  await typeInTerminal('echo legacy-terminal-proof\r');
+  for (let i = 0; i < 300 && (await termText()).split('legacy-terminal-proof').length < 3; i++) await delay(100);
+  assert.ok((await termText()).split('legacy-terminal-proof').length >= 3, 'the legacy terminal ran the command');
   await page.screenshot({ path: path.join(out, 'legacy-terminal.png') });
   await app.close();
   app = null;

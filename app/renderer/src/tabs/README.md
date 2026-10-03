@@ -18,6 +18,8 @@ For Paper changes, test acknowledged revisions, native Undo/Redo, human takeover
 
 ## Changelog
 
+- 3 October, C090: the terminal tab is a real terminal. Keystrokes go to a pty, bytes come back to xterm.js (fit, find with ⌘F, links, copy on select, the app's theme live); Ghostty's core is an engine chosen in Settings › General and falls back to xterm.js. The assistant's commands mirror as before; Start/Restart, Clear and the verified stop are unchanged. The per-tab command draft is gone. [C090](../../../../docs/cycles/C090-real-terminal.md).
+
 - 2 October, C089 (C): a pause card (warning colour) asks the person before a sensitive agent action; Settings › Browser gains the browsing policy (pauses mode, logged-out tabs, the host list); an agent tab is marked on its partition name so main can give it the private partition.
 
 - 2 October, C089 (B): a tab the assistant opens is underlined in the accent and named in its title; the strip keeps main's view of every chat's web tabs current, and an agent's request opens or focuses a tab in its chat.

@@ -233,11 +233,14 @@ const renameActiveTab = async () => { for (let i = 0; i < 3; i++) { await page.l
 
   // Terminal work tab: a shell in the working folder that runs what is typed.
   await page.evaluate(() => window.__barkdown.openTarget({ kind: 'terminal' }));
-  await page.waitForSelector('.bw-terminal #in', { timeout: 10000 });
-  await page.locator('.bw-terminal #in').fill('echo hello-from-terminal');
-  await page.locator('.bw-terminal #in').press('Enter');
-  await page.waitForFunction(() => (document.querySelector('.bw-terminal .bw-term-out')?.textContent || '').includes('hello-from-terminal\n'), null, { timeout: 20000 }).catch(() => {});
-  const termText = await page.locator('.bw-terminal .bw-term-out').innerText();
+  // A real terminal (C090): keystrokes go to the pty; the emulator's buffer is read through the controller.
+  const termOf = () => [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal');
+  await page.waitForSelector('.bw-terminal .bw-term-host', { timeout: 10000 });
+  await page.waitForFunction(() => { const c = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal'); return c && / in /.test(c.text()); }, null, { timeout: 30000 }).catch(() => {});
+  await page.locator('.bw-terminal .bw-term-host').click();
+  await page.keyboard.type('echo hello-from-terminal\r');
+  await page.waitForFunction(() => { const c = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal'); return c && c.text().split('hello-from-terminal').length >= 3; }, null, { timeout: 20000 }).catch(() => {});
+  const termText = await page.evaluate(() => [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal').text());
   if (termText.split('hello-from-terminal').length < 3) console.log('TERM DEBUG', JSON.stringify(termText.slice(0, 400)));
   step('terminal tab runs a command and shows its output', termText.split('hello-from-terminal').length >= 3);
   await page.screenshot({ path: path.join(out, '02d-terminal.png') });

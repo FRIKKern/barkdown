@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' file:; style-src 'self' 'unsafe-inline' file:; media-src 'self' https: http: file:; img-src 'self' file: data: blob: https: http:; font-src 'self' data:; connect-src 'self' https: http:; frame-src https: http:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' file: 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline' file:; media-src 'self' https: http: file:; img-src 'self' file: data: blob: https: http:; font-src 'self' data:; connect-src 'self' https: http:; frame-src https: http:">
 <title>Barkdown</title>
 <link rel="stylesheet" href="vendor/bp-paper-popups.css">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="paper-notion.css">
 <link rel="stylesheet" href="goals.css">
+<link rel="stylesheet" href="dist/app.css">
 <script src="vendor/bp-flags.js"></script>
 </head>
 <body>

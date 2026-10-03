@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Night of 2026-10-02: nightlies cut themselves from this Mac on a schedule, a copy of the profile is taken before any update, Pages work at 200% zoom, and the app is 420 MB.
+**Latest advance:** Evening of 2026-10-03: the terminal tab is a real terminal — a pty behind xterm.js or Ghostty’s core — with prompts, colours, less and resize proven on the Mac (C090).
 
-**Next observable result:** C089: Claude and Codex get a browser of their own inside Barkdown, on Electron 44, measured against Claude Desktop and ChatGPT desktop on a twelve-task bench. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Windows: the terminal through ConPTY and the real-library switch on the owner’s machine (C090, then C083); C089’s bench columns from the two desktops. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
@@ -81,7 +81,7 @@ Existing cloud access is not two-way synchronization. Two real devices must demo
 | ◐ In progress | Update without losing work | [Work and limits](RELEASE.md) |
 | ○ Remaining | Recover a failed upgrade | [A5 gate](ACCEPTANCE.md#a5--install-and-daily-use) |
 | ○ Remaining | Keep data on uninstall | [A5 gate](ACCEPTANCE.md#a5--install-and-daily-use) |
-| ◐ In progress | Keyboard, zoom, daily use | [Work and limits](cycles/C086-packaged-runtime.md) |
+| ◐ In progress | Keyboard, zoom, a real terminal | [Work and limits](cycles/C090-real-terminal.md) |
 
 Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. The Mac application builds with that runtime and its own Postgres inside and starts a profile with nothing else installed; it is signed ad hoc, 420 MB, and Windows has no release. Nightlies are cut from this Mac on a schedule with an updater feed; the install step and clean-machine installation wait for a signing identity; the daily-use checks pass on one Mac, not yet with a person.
 

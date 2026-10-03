@@ -211,3 +211,7 @@ Agent decision; the user may reverse it. The `[Workspace context]` note (the run
 ## D-chat-renders-like-documents — One Markdown path for replies and documents (2026-10-03)
 
 Agent decision; the user may reverse it. A reply in the chat is rendered by the same converter and markup as a document (`shared/markdown.js`, `shared/doc-html.js`): tables, task lists, nested lists with their numbering, quotes, code fences, strikethrough. The models write GitHub-flavored Markdown because their harness tells them to; the pane now shows it, and the system text says so. The hand-rolled renderer remains only as a fallback for text the converter refuses.
+
+## D-real-terminal — The terminal tab is a pty behind an emulator, with the ownership contract unchanged (2026-10-03)
+
+Owner decision (C090): the terminal must hold an interactive program and work on both Mac and Windows, like PowerShell or Ghostty. The pipe-and-textarea tab is replaced by a pty (node-pty: the login shell on macOS, PowerShell 7 or Windows PowerShell through ConPTY on Windows) inside the same owned worker, drawn by xterm.js by default; Ghostty's VT core (ghostty-web) is an engine chosen in Settings and falls back to xterm.js when it cannot load. The ownership rules stay: one shell per tab, a journal, a verified stop, refusals in words. The per-tab command draft is gone — a half-typed line lives in the shell's line editor. Find is absent on the Ghostty engine; the renderer's CSP allows WebAssembly compilation (`wasm-unsafe-eval`) and nothing else new.

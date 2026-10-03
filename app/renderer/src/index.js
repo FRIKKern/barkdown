@@ -1,3 +1,4 @@
+import '@xterm/xterm/css/xterm.css'; // the terminal's stylesheet rides in dist/app.css (C090)
 import { mountComposer } from './composer.js';
 import { installProfilePreparation } from './profile-preparation.js';
 import { installSwitchNotice } from './switch-notice.js';

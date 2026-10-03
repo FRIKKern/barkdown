@@ -47,6 +47,8 @@ The [migration contract](../../docs/migration/README.md) owns the current P2 lim
 
 ## Changelog
 
+- 3 October, C090: `terminal-worker.js` spawns a pty with node-pty inside the owned worker (login shell on macOS, PowerShell through ConPTY on Windows, `xterm-256color`, the pane's size); `terminal.js` adds `write` and `resize`, keeps `input`, refuses a missing folder before spawning; `settings.terminal.engine` chooses the emulator. [C090](../../docs/cycles/C090-real-terminal.md).
+
 - 24 September, C056: complete foreground Paper discovery validates every page and refuses partial success; failed same-connection refresh keeps known notes with a conditional Retry notice. Changed connection generations cannot borrow the previous catalog. [Native catalog proof](../../docs/visual/catalog/README.md) records the200/201-paper journey, failure/retry and restart; limited provider list queries remain unchanged. The current handoff records acceptance and remaining scope.
 
 - 24 September, C057: foreground Paper reads and mutations carry a main-process connection binding; settings changes refuse old-buffer access before transmission. The host retains unsaved text and shows the original-connection requirement. Captured CLI routes avoid ambient destination changes. [Connection evidence](../../docs/visual/paper-connection/README.md) and the current handoff record actual acceptance; this is an in-session boundary, not durable bookmark migration.

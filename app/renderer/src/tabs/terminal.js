@@ -1,45 +1,32 @@
-// Terminal work tab: a shell in the chat's working folder, plus a live mirror of every command the
-// assistant runs in this chat (its commands and their output print here as they happen).
+// Terminal work tab (C090): a real terminal — a pty in the chat's working folder behind a full emulator
+// (xterm.js, or ghostty-web when chosen in Settings) — plus a live mirror of every command the assistant
+// runs in this chat. Keystrokes go to the pty as they are typed; the shell echoes, draws and resizes.
+// The ownership contract is unchanged: one shell per tab, a journal, a verified stop, refusals in words.
 import { el, esc, iconHtml, basename } from '../ui.js';
+import { state } from '../state.js';
+import { createTerminal } from '../terminal-engine.js';
 
 const api = window.barkdown;
-const MAX_CHARS = 400000;
+const DIM = '\x1b[2m', WARN = '\x1b[33m', ERR = '\x1b[31m', RESET = '\x1b[0m';
 
 export function mountTerminal(tab, host, ctx) {
-  const pane = el(`<div class="bw-pane bw-terminal"><div class="bw-path" id="path"></div><pre class="bw-term-out" id="out" tabindex="0"></pre><form class="bw-term-form" id="form"><span class="bw-term-prompt" id="prompt">$</span><input id="in" autocomplete="off" spellcheck="false" aria-label="Command"><button type="submit" hidden></button></form></div>`);
+  const pane = el(`<div class="bw-pane bw-terminal"><div class="bw-path" id="path"></div><div class="bw-term-search" id="search" hidden><input id="search-q" aria-label="Find in terminal" placeholder="Find"><button type="button" id="search-prev" title="Previous (Shift+Enter)">${iconHtml('chevron-up', 12)}</button><button type="button" id="search-next" title="Next (Enter)">${iconHtml('chevron-down', 12)}</button><button type="button" id="search-close" title="Close (Escape)">${iconHtml('x', 12)}</button></div><div class="bw-term-host" id="term"></div></div>`);
   host.appendChild(pane);
   const q = s => pane.querySelector(s);
-  const out = q('#out');
-  let session = null;
-  let destroyed = false;
-  let starting = null;
-  let uncertain = false;
-  let submitting = false;
-  let buffer = '';
-  const history = [];
-  let historyIndex = 0;
-  q('#in').value = typeof tab.commandDraft === 'string' ? tab.commandDraft : '';
-  const saveDraft = () => { tab.commandDraft = q('#in').value; ctx.tabChanged?.(tab); };
-  q('#in').addEventListener('input', saveDraft);
-
-  function append(text, cls) {
-    if (!text) return;
-    buffer += text;
-    if (buffer.length > MAX_CHARS) buffer = buffer.slice(-MAX_CHARS);
-    const span = document.createElement('span');
-    if (cls) span.className = cls;
-    span.textContent = text;
-    out.appendChild(span);
-    while (out.childNodes.length > 4000) out.removeChild(out.firstChild);
-    out.scrollTop = out.scrollHeight;
-  }
+  let session = null, destroyed = false, starting = null, uncertain = false, engine = null, observer = null;
+  const engineName = state.settings?.terminal?.engine || 'xterm';
+  // ctx.engine lets a test hand in a fake terminal; otherwise the chosen engine loads.
+  const ready = ctx.engine ? Promise.resolve(ctx.engine()) : createTerminal(engineName, { log: line => console.warn('[terminal] ' + line) });
+  let term = null, fit = null, search = null;
+  const say = (text, color = DIM) => term?.write(`${color}${text}${RESET}\r\n`);
+  const size = () => term ? { cols: term.cols, rows: term.rows } : { cols: 80, rows: 24 };
 
   function renderPath() {
     const root = session?.cwd || ctx.folder();
-    q('#path').innerHTML = `<span class="bw-muted">${iconHtml('terminal', 12)} ${session ? esc(session.shell) : 'Terminal'} · ${root ? esc(basename(root)) : 'no working folder (home)'}</span><div class="bw-doc-actions"><button data-act="clear" title="Clear">${iconHtml('x')}</button><button data-act="restart" title="Restart the shell">${iconHtml('rotate-cw')}</button></div>`;
+    q('#path').innerHTML = `<span class="bw-muted">${iconHtml('terminal', 12)} ${session ? esc(session.shell) : 'Terminal'} · ${root ? esc(basename(root)) : 'no working folder (home)'}${engine && engine !== 'xterm' ? ` · ${esc(engine)}` : ''}</span><div class="bw-spacer"></div>${search ? `<button type="button" class="bw-icon-button" data-act="find" title="Find (⌘F)">${iconHtml('search', 12)}</button>` : ''}<button type="button" class="bw-icon-button" data-act="clear" title="Clear">${iconHtml('eraser', 12)}</button><button type="button" class="bw-icon-button" data-act="restart" title="${session ? 'Restart the shell' : 'Start the shell'}">${iconHtml('rotate-cw', 12)}</button>`;
     q('#path').title = root || '';
-    q('[data-act="clear"]').onclick = () => { out.innerHTML = ''; buffer = ''; };
-    q('[data-act="restart"]').title = session ? 'Restart the shell' : 'Start the shell';
+    if (q('[data-act="find"]')) q('[data-act="find"]').onclick = openSearch;
+    q('[data-act="clear"]').onclick = () => { term?.clear(); term?.focus(); };
     q('[data-act="restart"]').onclick = async () => { await initializing; await start(true); };
   }
 
@@ -47,85 +34,90 @@ export function mountTerminal(tab, host, ctx) {
     if (starting) return starting;
     starting = (async () => {
       try {
+        await ready;
         if (session && restart) { await api.term.stop(session); session = null; }
         if (session) return;
-        const next = await api.term.start(tab.id, ctx.folder(), ctx.chatId);
+        const next = await api.term.start(tab.id, ctx.folder(), ctx.chatId, size());
         if (destroyed) { await api.term.stop(next); return; }
         session = next; uncertain = false;
-        append(`${session.shell} in ${session.cwd}\n`, 'bw-term-meta');
-      } catch (error) { append(`Could not start a shell: ${error.message}\n`, 'bw-term-err'); }
-      renderPath();
+        say(`${session.shell} in ${session.cwd}`);
+      } catch (error) { say(`Could not start a shell: ${error.message}`, ERR); }
+      renderPath(); term?.focus();
     })();
     try { await starting; } finally { starting = null; }
   }
 
   const off = api.term.onData(event => {
     if (event.id !== tab.id || event.chatId !== ctx.chatId || destroyed || !session || event.sessionId !== session.sessionId) return;
-    if (event.type === 'data') append(event.data, event.stream === 'stderr' ? 'bw-term-err' : '');
-    else if (event.type === 'uncertain') { uncertain = true; append(`\n[shutdown unverified: ${event.error}; retry stopping before continuing]\n`, 'bw-term-err'); }
-    else if (event.type === 'exit') { append(`\n[shell exited${event.code != null ? ' with code ' + event.code : ''}${event.error ? ': ' + event.error : ''}]\n`, 'bw-term-meta'); if (event.verified === true) uncertain = false; session = null; renderPath(); }
+    if (event.type === 'data') term?.write(event.data);
+    else if (event.type === 'uncertain') { uncertain = true; say(`shutdown unverified: ${event.error}; retry stopping before continuing`, ERR); }
+    else if (event.type === 'exit') { say(`shell exited${event.code != null ? ' with code ' + event.code : ''}${event.error ? ': ' + event.error : ''}`); if (event.verified === true) { session = null; uncertain = false; renderPath(); } }
   });
 
-  q('#form').onsubmit = async e => {
-    e.preventDefault();
-    if (submitting) return;
-    const line = q('#in').value;
-    if (!line.trim()) return;
-    submitting = true; q('#form').setAttribute('aria-busy', 'true');
-    try {
-      await initializing;
-      if (uncertain) { append('Shutdown is unverified. Use Restart to retry stopping this shell.\n', 'bw-term-err'); return; }
-      if (!session) await start();
-      if (!session || destroyed) return;
-      if (!session.echoes) append(`$ ${line}\n`, 'bw-term-cmd');
-      await api.term.input(session, line);
-      if (q('#in').value === line) q('#in').value = '';
-      saveDraft(); history.push(line); historyIndex = history.length;
-    } catch (error) { append(`${error.message}\n`, 'bw-term-err'); }
-    finally { submitting = false; q('#form').removeAttribute('aria-busy'); }
-  };
-  q('#in').addEventListener('keydown', e => {
-    if (e.key === 'ArrowUp' && history.length) { e.preventDefault(); historyIndex = Math.max(0, historyIndex - 1); q('#in').value = history[historyIndex] || ''; saveDraft(); }
-    else if (e.key === 'ArrowDown' && history.length) { e.preventDefault(); historyIndex = Math.min(history.length, historyIndex + 1); q('#in').value = history[historyIndex] || ''; saveDraft(); }
-    else if (e.key === 'c' && e.ctrlKey && !q('#in').value) { e.preventDefault(); start(true); }
-  });
-  out.addEventListener('click', () => { if (!getSelection()?.toString()) q('#in').focus(); });
+  // Search: ⌘F opens the bar; Enter and Shift+Enter step; Escape closes and returns focus to the shell.
+  const openSearch = () => { if (!search) return; q('#search').hidden = false; q('#search-q').focus(); q('#search-q').select(); };
+  const closeSearch = () => { q('#search').hidden = true; search?.clearDecorations?.(); term?.focus(); };
+  q('#search-q').addEventListener('input', () => { if (q('#search-q').value) search?.findNext(q('#search-q').value, { incremental: true, decorations: { matchOverviewRuler: '#a9c787', activeMatchColorOverviewRuler: '#e2ca93' } }); });
+  q('#search-q').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.shiftKey ? search?.findPrevious(q('#search-q').value) : search?.findNext(q('#search-q').value); } else if (e.key === 'Escape') { e.preventDefault(); closeSearch(); } });
+  q('#search-prev').onclick = () => search?.findPrevious(q('#search-q').value);
+  q('#search-next').onclick = () => search?.findNext(q('#search-q').value);
+  q('#search-close').onclick = closeSearch;
 
-  renderPath();
+  ready.then(created => {
+    if (destroyed) { created.term.dispose(); return; }
+    ({ term, fit, search, engine } = created);
+    created.open(q('#term'));
+    term.onData(data => { if (session && !uncertain) api.term.write(session, data).catch(error => say(error.message, ERR)); });
+    term.onResize(({ cols, rows }) => { if (session) api.term.resize(session, cols, rows).catch(() => {}); });
+    // Copy on select, like a terminal: a selection made with the mouse lands on the clipboard.
+    term.onSelectionChange(() => { const text = term.getSelection(); if (text) navigator.clipboard?.writeText(text).catch(() => {}); });
+    // The two engines read the handler's answer the opposite way: xterm.js takes false as "mine, skip",
+    // ghostty-web takes true as "handled, swallow". `taken` is the app's claim; the engine gets its own idiom.
+    const taken = e => { if (e.type !== 'keydown') return false; const mod = e.metaKey || e.ctrlKey; if (mod && !e.altKey && e.key.toLowerCase() === 'f') { openSearch(); return true; } if (e.metaKey && !e.altKey && e.key.toLowerCase() === 'k') { term.clear(); return true; } return false; };
+    term.attachCustomKeyEventHandler(engine === 'ghostty' ? taken : e => !taken(e));
+    observer = new ResizeObserver(() => { if (pane.hidden || !q('#term').offsetWidth) return; try { fit.fit(); } catch {} });
+    observer.observe(q('#term'));
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', created.retheme);
+    new MutationObserver(created.retheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    renderPath();
+  }).catch(error => { q('#term').textContent = 'The terminal emulator could not start: ' + error.message; });
+
   const initializing = api.term.status(tab.id, ctx.chatId).then(async result => {
     if (destroyed) return;
+    await ready;
     if (result.state === 'new') await start();
-    else if (result.state === 'running') { session = result.session; append(`${session.shell} in ${session.cwd}\n`, 'bw-term-meta'); renderPath(); }
+    else if (result.state === 'running') { session = result.session; say(`${session.shell} in ${session.cwd} (still running)`); renderPath(); api.term.resize(session, size().cols, size().rows).catch(() => {}); }
     else {
-      uncertain = result.state !== 'stopped';
-      session = result.session || null;
-      renderPath();
-      append(uncertain ? 'Previous shell shutdown is unverified. Use Start to check again; commands are blocked.\n' : 'Previous shell stopped; its process tree is verified closed. Enter a command or use Start for a new shell. Previous commands are not resumed.\n', 'bw-term-meta');
+      uncertain = result.state !== 'stopped'; session = result.session || null; renderPath();
+      say(uncertain ? 'Previous shell shutdown is unverified. Use Start to check again; input is blocked.' : 'Previous shell stopped; its process tree is verified closed. Press Start to open a new shell.', uncertain ? ERR : DIM);
     }
-  }).catch(error => { uncertain = true; append(`Could not verify the previous shell: ${error.message}\n`, 'bw-term-err'); });
+  }).catch(error => { uncertain = true; say(`Could not verify the previous shell: ${error.message}`, ERR); });
 
   return {
     el: pane, type: 'terminal', tab,
     // The assistant's commands in this chat, mirrored as they run.
     agentEvent(event) {
-      if (event.type === 'tool_start' && event.tool === 'Bash') append(`\n▶ assistant $ ${event.input?.command || ''}\n`, 'bw-term-agent');
-      else if (event.type === 'tool_result' && event.tool === 'Bash') append(`${(event.output ?? event.preview ?? '').replace(/\s+$/, '')}\n${event.ok === false ? '[failed]\n' : ''}`, event.ok === false ? 'bw-term-err' : 'bw-term-agent-out');
+      if (event.type === 'tool_start' && event.tool === 'Bash') say(`\r\n▶ assistant $ ${event.input?.command || ''}`, WARN);
+      else if (event.type === 'tool_result' && event.tool === 'Bash') { const text = String(event.output ?? event.preview ?? '').replace(/\s+$/, ''); if (text) term?.write(DIM + text.replace(/\r?\n/g, '\r\n') + RESET + '\r\n'); if (event.ok === false) say('[failed]', ERR); }
     },
-    refresh() { renderPath(); },
+    // What the terminal shows, for tests and the assistant: the buffer's lines, trailing blanks dropped.
+    text() { if (!term) return ''; const b = term.buffer.active, lines = []; for (let i = 0; i < b.length; i++) lines.push(b.getLine(i)?.translateToString(true) || ''); while (lines.length && !lines.at(-1)) lines.pop(); return lines.join('\n'); },
+    engine: () => engine, session: () => session, terminal: () => term,
+    refresh() { renderPath(); try { fit?.fit(); } catch {} },
     navigate() { renderPath(); },
-    savePosition() { tab.commandDraft = q('#in').value; },
-    focus() { q('#in').focus(); },
+    savePosition() {},
+    focus() { term?.focus(); },
     async beforeClose() {
       await initializing;
       if (starting) await starting;
       if (!session) {
         if (!uncertain) return true;
-        try { const result = await api.term.status(tab.id, ctx.chatId); uncertain = !['new', 'stopped'].includes(result.state); if (uncertain) append('Previous shell shutdown is still unverified. Retry Start to check recovery before closing this tab.\n', 'bw-term-err'); return !uncertain; }
-        catch (error) { append(`Shutdown is still unverified: ${error.message}\n`, 'bw-term-err'); return false; }
+        try { const result = await api.term.status(tab.id, ctx.chatId); uncertain = !['new', 'stopped'].includes(result.state); if (uncertain) say('Previous shell shutdown is still unverified. Retry Start to check again before closing.', ERR); return !uncertain; }
+        catch (error) { say(`Shutdown is still unverified: ${error.message}`, ERR); return false; }
       }
       try { await api.term.stop(session); session = null; uncertain = false; return true; }
-      catch (error) { uncertain = true; append(`Could not verify shutdown: ${error.message}. The tab remains open.\n`, 'bw-term-err'); return false; }
+      catch (error) { uncertain = true; say(`Could not verify shutdown: ${error.message}. The tab remains open.`, ERR); return false; }
     },
-    destroy() { destroyed = true; off(); if (session) api.term.stop(session).catch(() => {}); pane.remove(); },
+    destroy() { destroyed = true; off(); observer?.disconnect(); if (session) api.term.stop(session).catch(() => {}); try { term?.dispose(); } catch {} pane.remove(); },
   };
 }

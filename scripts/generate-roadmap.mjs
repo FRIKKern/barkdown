@@ -28,7 +28,7 @@ export const summaries = {
   ], scope: 'Existing cloud access is not two-way synchronization. Two real devices must demonstrate convergence, overlap handling and permission changes without reorganizing human Pages.'},
   P5: {reviewedStageStatus: 'todo', title: ['Installation'], items: [
     ['active', 'Install without a checkout', 'docs/cycles/C086-packaged-runtime.md'], ['active', 'Update without losing work', 'docs/RELEASE.md'],
-    ['todo', 'Recover a failed upgrade'], ['todo', 'Keep data on uninstall'], ['active', 'Keyboard, zoom, daily use', 'docs/cycles/C086-packaged-runtime.md'],
+    ['todo', 'Recover a failed upgrade'], ['todo', 'Keep data on uninstall'], ['active', 'Keyboard, zoom, a real terminal', 'docs/cycles/C090-real-terminal.md'],
   ], scope: 'Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. The Mac application builds with that runtime and its own Postgres inside and starts a profile with nothing else installed; it is signed ad hoc, 420 MB, and Windows has no release. Nightlies are cut from this Mac on a schedule with an updater feed; the install step and clean-machine installation wait for a signing identity; the daily-use checks pass on one Mac, not yet with a person.'},
   P6: {reviewedStageStatus: 'active', title: ['The agent’s', 'browser'], items: [
     ['active', 'Your sessions, signed in', 'docs/cycles/C089-agent-browser.md'], ['active', 'Claude and Codex use your tabs', 'docs/cycles/C089-agent-browser.md'],
@@ -44,8 +44,8 @@ export const migrationProgress = [
   {status:'active', title:'Switch and recover', lines:['Switched from Settings on macOS.', 'Survives a crash under the hold.'], evidence:'docs/cycles/C083-writer-admission.md', detail:'The switch runs from Settings › Barkpark in the real app on macOS, is interrupted at every phase and resumes without duplicate Papers, and the switched profile creates, edits, finds, deletes and recovers notes on Paper with agent edits and Undo. Still to demonstrate: a real library and a run on Windows.'},
   {status:'active', title:'Prove the way back', lines:['Rollback keeps later Paper edits.', 'Real library on Windows still to run.'], evidence:'docs/cycles/C083-writer-admission.md', detail:'Rollback restores the legacy navigation exactly, keeps Papers and later edits on Paper, names every changed Paper, and lets a person compare, keep or restore each one; its own interruption resumes. Retirement of the separate editor and store is audited in four stages and not started.'},
 ];
-const latestAdvance = 'Night of 2026-10-02: nightlies cut themselves from this Mac on a schedule, a copy of the profile is taken before any update, Pages work at 200% zoom, and the app is 420 MB.';
-const nextOutcome = 'C089: Claude and Codex get a browser of their own inside Barkdown, on Electron 44, measured against Claude Desktop and ChatGPT desktop on a twelve-task bench.';
+const latestAdvance = 'Evening of 2026-10-03: the terminal tab is a real terminal — a pty behind xterm.js or Ghostty’s core — with prompts, colours, less and resize proven on the Mac (C090).';
+const nextOutcome = 'Windows: the terminal through ConPTY and the real-library switch on the owner’s machine (C090, then C083); C089’s bench columns from the two desktops.';
 const marks = {done: '✓', active: '◐', todo: '○'};
 const meanings = {done: 'Demonstrated', active: 'In progress', todo: 'Remaining'};
 const escape = s => String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');

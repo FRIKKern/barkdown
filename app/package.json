@@ -141,10 +141,16 @@
     "@codemirror/language": "^6.11.0",
     "@codemirror/state": "^6.5.0",
     "@codemirror/view": "^6.36.0",
+    "@xterm/addon-fit": "^0.11.0",
+    "@xterm/addon-search": "^0.16.0",
+    "@xterm/addon-unicode11": "^0.9.0",
+    "@xterm/addon-web-links": "^0.12.0",
+    "@xterm/xterm": "^6.0.0",
     "codemirror": "^6.0.1",
     "electron": "^44.5.1",
     "electron-builder": "^26.0.0",
     "esbuild": "^0.25.0",
+    "ghostty-web": "^0.4.0",
     "gifenc": "^1.0.3",
     "jsdom": "^26.1.0",
     "lucide": "^0.540.0",
@@ -157,6 +163,7 @@
     "@modelcontextprotocol/sdk": "^1.30.0",
     "@openai/codex-sdk": "^0.155.0",
     "electron-updater": "^6.8.9",
+    "node-pty": "^1.1.0",
     "zod": "^4.6.5"
   },
   "build": {
@@ -189,7 +196,8 @@
       "main/goal-worker-host.ps1",
       "main/local-barkpark-launch.ps1",
       "main/local-barkpark-launch.sh",
-      "main/local-barkpark-boot.exs"
+      "main/local-barkpark-boot.exs",
+      "node_modules/node-pty/**"
     ]
   }
 }

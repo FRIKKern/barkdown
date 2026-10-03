@@ -176,90 +176,63 @@ test('uncertain shutdown keeps session blocked, trusted verification permits ret
   assert.equal(service.hasSessions(), false);
 });
 
+// A fake emulator with the xterm surface the tab uses: writes are kept as text, keystrokes come from the test.
+function fakeEngine() {
+  const handlers = { data: [], resize: [], selection: [], key: null };
+  const lines = [];
+  const term = { cols: 80, rows: 24, written: '', buffer: { active: { get length() { return lines.length; }, getLine: i => ({ translateToString: () => lines[i] || '' }) } },
+    write(data) { term.written += data; for (const part of String(data).split(/\r?\n/)) { if (part) lines.push(part.replace(/\x1b\[[0-9;]*m/g, '')); } },
+    onData: fn => handlers.data.push(fn), onResize: fn => handlers.resize.push(fn), onSelectionChange: fn => handlers.selection.push(fn), attachCustomKeyEventHandler: fn => { handlers.key = fn; },
+    clear() { lines.length = 0; }, focus() {}, dispose() {}, getSelection: () => '', options: {} };
+  const engine = { term, fit: { fit() {} }, search: null, open() {}, retheme() {}, engine: 'fake' };
+  return { engine, handlers, type: data => handlers.data.forEach(fn => fn(data)), text: () => lines.join('\n') };
+}
 test('terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output', async () => {
   const { JSDOM } = require('jsdom');
   const dom = new JSDOM('<main></main>');
-  globalThis.window = dom.window;
-  globalThis.document = dom.window.document;
-  let nextState = 'new',
-    starts = 0,
-    listener,
-    folder = 'C:/folder-A',
-    stopped = 0;
-  window.barkdown = {
-    term: {
-      status: async () => ({ state: nextState }),
-      start: async (id, cwd, chatId) => ({
-        id,
-        chatId,
-        cwd,
-        shell: 'PowerShell',
-        echoes: true,
-        sessionId: 'session-' + ++starts,
-      }),
-      input: async () => true,
-      stop: async () => {
-        stopped++;
-      },
-      onData: (fn) => {
-        listener = fn;
-        return () => {};
-      },
-    },
-  };
+  globalThis.window = dom.window; globalThis.document = dom.window.document;
+  globalThis.ResizeObserver = class { observe() {} disconnect() {} }; globalThis.MutationObserver = dom.window.MutationObserver; globalThis.matchMedia = () => ({ matches: false, addEventListener() {} });
+  let nextState = 'new', starts = 0, listener, folder = 'C:/folder-A', stopped = 0; const writes = [], resizes = [];
+  window.barkdown = { term: {
+    status: async () => ({ state: nextState }),
+    start: async (id, cwd, chatId, size) => ({ id, chatId, cwd, shell: 'PowerShell', echoes: false, sessionId: 'session-' + ++starts, size }),
+    write: async (session, data) => { writes.push([session.sessionId, data]); return true; }, resize: async (session, cols, rows) => { resizes.push([session.sessionId, cols, rows]); return true; },
+    input: async () => true, stop: async () => { stopped++; }, onData: fn => { listener = fn; return () => {}; } } };
   const { mountTerminal } = await import('../renderer/src/tabs/terminal.js');
-  const tab = { id: 'same', commandDraft: 'unsent original' },
-    ctx = { chatId: 'chat', folder: () => folder },
-    host = document.querySelector('main');
+  const fake = fakeEngine();
+  const tab = { id: 'same' }, ctx = { chatId: 'chat', folder: () => folder, engine: () => fake.engine }, host = document.querySelector('main');
   const first = mountTerminal(tab, host, ctx);
-  await delay(0);
-  assert.equal(starts, 1, 'fresh tab is explicit shell creation');
-  assert.equal(host.querySelector('#in').value, 'unsent original');
-  folder = 'C:/folder-B';
-  first.navigate();
+  await delay(5);
+  assert.equal(starts, 1, 'a new tab starts its shell');
+  assert.match(fake.text(), /PowerShell in C:\/folder-A/);
+  // Keystrokes go to the pty as typed; the session that receives them is the live one.
+  fake.type('ls\r'); await delay(0);
+  assert.deepEqual(writes, [['session-1', 'ls\r']]);
+  // Output for a stale session is dropped; output for the live one is shown.
+  listener({ id: 'same', chatId: 'chat', sessionId: 'stale', type: 'data', data: 'STALE\r\n' });
+  listener({ id: 'same', chatId: 'chat', sessionId: 'session-1', type: 'data', data: 'fresh output\r\n' });
+  assert.ok(!fake.text().includes('STALE') && fake.text().includes('fresh output'));
+  // The launch folder is the shell's cwd; a later folder change does not rebind the running shell.
+  folder = 'C:/folder-B'; first.navigate();
   assert.equal(host.querySelector('#path').title, 'C:/folder-A');
-  listener({ type: 'data', id: 'same', chatId: 'chat', sessionId: 'stale', data: 'FOREIGN' });
-  assert.ok(!host.textContent.includes('FOREIGN'));
-  listener({ type: 'uncertain', id: 'same', chatId: 'chat', sessionId: 'session-1', error: 'waiting for proof' });
-  listener({ type: 'exit', id: 'same', chatId: 'chat', sessionId: 'session-1', verified: true });
-  host.querySelector('#in').value = 'echo after proof';
-  await host.querySelector('#form').onsubmit({ preventDefault() {} });
-  assert.equal(starts, 2, 'verified late exit clears uncertainty before explicit new input');
-  assert.equal(await first.beforeClose(), true);
-  first.destroy();
-  assert.equal(stopped, 1);
-  tab.commandDraft = 'unsent after crash';
+  assert.ok(await first.beforeClose()); assert.equal(stopped, 1); first.destroy();
+  // A tab restored over a stopped shell does not launch by itself; Start launches it in the current folder.
   nextState = 'stopped';
-  const restored = mountTerminal(tab, host, ctx);
-  await delay(0);
-  assert.equal(starts, 2, 'restored stopped shell does not launch');
-  assert.match(host.textContent, /process tree is verified closed/);
-  assert.equal(host.querySelector('#in').value, 'unsent after crash');
-  host.querySelector('#in').value = 'echo explicit';
-  await host.querySelector('#form').onsubmit({ preventDefault() {} });
-  assert.equal(starts, 3);
-  assert.equal(host.querySelector('#path').title, 'C:/folder-B');
-  assert.equal(tab.commandDraft, '', 'only accepted explicit submission clears the draft');
-  await restored.beforeClose();
+  const restored = mountTerminal(tab, host, ctx); await delay(5);
+  assert.equal(starts, 1, 'restored stopped shell does not launch');
+  assert.match(fake.text(), /process tree is verified closed/);
+  fake.type('echo too-early\r'); await delay(0);
+  assert.equal(writes.length, 1, 'keystrokes without a shell are dropped, never queued');
+  await host.querySelector('[data-act="restart"]').onclick(); await delay(5);
+  assert.equal(starts, 2); assert.equal(host.querySelector('#path').title, 'C:/folder-B');
+  // An unverified shutdown blocks input in words.
+  listener({ id: 'same', chatId: 'chat', sessionId: 'session-2', type: 'uncertain', error: 'fixture' });
+  fake.type('x'); await delay(0);
+  assert.equal(writes.length, 1, 'input is blocked while the shutdown is unverified');
+  assert.match(fake.text(), /shutdown unverified: fixture/);
   restored.destroy();
-  let releaseStart, releaseInput;
-  const submitted=[];
-  window.barkdown.term.start=(id,cwd,chatId)=>new Promise(resolve=>{releaseStart=()=>resolve({id,cwd,chatId,sessionId:'delayed',shell:'PowerShell',echoes:true})});
-  window.barkdown.term.input=(_session,line)=>{submitted.push(line);return new Promise(resolve=>{releaseInput=resolve})};
-  const delayedTab={id:'delayed-tab'},delayed=mountTerminal(delayedTab,host,ctx);await delay(0);
-  const form=host.querySelector('#form'),input=host.querySelector('#in');input.value='echo first intent';
-  const sent=form.onsubmit({preventDefault(){}});await delay(0);
-  await form.onsubmit({preventDefault(){}});
-  input.value='new draft during launch';input.dispatchEvent(new dom.window.Event('input'));
-  releaseStart();await delay(0);
-  input.value='newer draft during input';input.dispatchEvent(new dom.window.Event('input'));
-  await form.onsubmit({preventDefault(){}});releaseInput(true);await sent;
-  assert.deepEqual(submitted,['echo first intent'],'rapid Enter cannot dispatch duplicate or unacknowledged new intent');
-  assert.equal(input.value,'newer draft during input');assert.equal(delayedTab.commandDraft,input.value);
-  await delayed.beforeClose();delayed.destroy();
   dom.window.close();
 });
-
 test('known pre-dispatch failure permits retry but generic launch failure needs native proof', async () => {
   const o = owner();
   let known = true,

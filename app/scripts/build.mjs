@@ -20,6 +20,8 @@ const options = {
   define: { 'process.env.NODE_ENV': '"development"' },
 };
 
+import fs from 'fs';
+
 if (watch) {
   const ctx = await esbuild.context(options);
   await ctx.watch();

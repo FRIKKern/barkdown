@@ -1,10 +1,12 @@
 # Current handoff
 
+Evening of 2026-10-03: [C090 A real terminal](cycles/C090-real-terminal.md) is the current cycle (stage P5): the terminal tab is a pty (node-pty, the login shell on macOS, PowerShell through ConPTY on Windows) behind xterm.js, with Ghostty's VT core as an engine chosen in Settings. Interactive programs, prompts, colours and resizing are proven on this Mac on both engines; Windows is the owner's check when the machine is back. C089 is parked on its owner items (a working day in the browser, the two desktop bench columns); its handoff keeps the state.
+
 Afternoon of 2026-10-03: [v0.6.0-nightly.20261003.1](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261003.1) carries F1–F7 from the owner's in-app review ([paper](https://guerrilla.barkpark.cloud/papers/what-the-agent-saw-from-inside)); the schedule now runs only on an idle Mac.
 
 Evening of 2026-10-02: [v0.6.0-nightly.20261002.1](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261002.1) carries C089 A–E; the launchd schedule's unattended chain is not yet green (docs/RELEASE.md, "The schedule"), so nightlies are cut by hand meanwhile.
 
-[C089 The agent's browser](cycles/C089-agent-browser.md) is the current cycle (opened 2026-10-02, stage P6): Barkdown's tabs become the browser Claude and Codex perceive as theirs — Claude in Chrome's tool vocabulary over the DevTools Protocol, sign-in that works, bookmarks and history from Chrome, pauses on sensitive actions, a twelve-task bench against Claude Desktop and ChatGPT desktop. Slices A–E in the handoff; A (sign-in + Chrome import) is next. [C086](cycles/C086-packaged-runtime.md) is parked on the owner's items (signing identity, clean account); its nightlies cut themselves on a schedule meanwhile.
+[C089 The agent's browser](cycles/C089-agent-browser.md) was the current cycle until the evening of 2026-10-03 (opened 2026-10-02, stage P6; parked on the owner's items): Barkdown's tabs become the browser Claude and Codex perceive as theirs — Claude in Chrome's tool vocabulary over the DevTools Protocol, sign-in that works, bookmarks and history from Chrome, pauses on sensitive actions, a twelve-task bench against Claude Desktop and ChatGPT desktop. Slices A–E in the handoff; A (sign-in + Chrome import) is next. [C086](cycles/C086-packaged-runtime.md) is parked on the owner's items (signing identity, clean account); its nightlies cut themselves on a schedule meanwhile.
 
 Night of 2026-10-02 (`5269d505`): the narrow-layout Pages button, the copy of the profile before an update installs, the Postgres major guard, the nightly schedule on this Mac (launchd, every two hours, `.release/nightly-tick.log`), one chain flake fixed after three consecutive runs, and the size trims — all in [C086](cycles/C086-packaged-runtime.md), paragraph "Night of 2026-10-02".
 
@@ -15,6 +17,8 @@ Night of 2026-10-02 (`5269d505`): the narrow-layout Pages button, the copy of th
 Upstream work for this lane uses a fresh worktree under `barkpark-worktrees/` from `origin/main`, the claimed task `task-a2d6f4de10681bab` (worker `claude-barkdown-c083`, re-claim before pushing), `MIX_TEST_PARTITION` for an isolated test database, and `scoped_conn()` in new controller tests. `barkpark-worktrees/barkdown-ref` stays checked out at the pin and compiled; it is the built source every rehearsal runs. Live tours that publish need the isolated harness (`node tests/status-shots-isolated.mjs tests/<tour>.live.mjs`, a clean tree); the paper fixture refuses a non-loopback server. Never stop processes by name on this machine: other sessions run Barkpark servers.
 
 The [roadmap](ROADMAP.md) and its SVG, plus the README status, are the watchable face of this work: every merge that changes what is usable updates the summaries in `scripts/generate-roadmap.mjs`, the README status and the PLAN estimate in the same commit, then `npm run build`.
+
+**Task board (C090, 2026-10-03):** parent `task-a75334fdb1e798ef`, slices A–D `task-060949d501edeab7`, `task-1bd13cbabf7a820c`, `task-a14be84d3826d268`, `task-db0a2a496b79a20f` (D is the owner's Windows check); worker `claude-barkdown-c090`.
 
 **Task board (C089, 2026-10-02):** parent `task-c5dddf97a8ee643d` with slices A–E `task-7ee7aecb9a5e8b90`, `task-a7c2a77e7d5690ea`, `task-f97ed92c0b8c5253`, `task-fde8c74fcecce552`, `task-511ba8325baf5216` on the Guerrilla instance (ids and verbs in the C089 handoff).
 
