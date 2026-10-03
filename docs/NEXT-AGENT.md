@@ -1,5 +1,7 @@
 # Current handoff
 
+Afternoon of 2026-10-03: [v0.6.0-nightly.20261003.1](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261003.1) carries F1–F7 from the owner's in-app review ([paper](https://guerrilla.barkpark.cloud/papers/what-the-agent-saw-from-inside)); the schedule now runs only on an idle Mac.
+
 Evening of 2026-10-02: [v0.6.0-nightly.20261002.1](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261002.1) carries C089 A–E; the launchd schedule's unattended chain is not yet green (docs/RELEASE.md, "The schedule"), so nightlies are cut by hand meanwhile.
 
 [C089 The agent's browser](cycles/C089-agent-browser.md) is the current cycle (opened 2026-10-02, stage P6): Barkdown's tabs become the browser Claude and Codex perceive as theirs — Claude in Chrome's tool vocabulary over the DevTools Protocol, sign-in that works, bookmarks and history from Chrome, pauses on sensitive actions, a twelve-task bench against Claude Desktop and ChatGPT desktop. Slices A–E in the handoff; A (sign-in + Chrome import) is next. [C086](cycles/C086-packaged-runtime.md) is parked on the owner's items (signing identity, clean account); its nightlies cut themselves on a schedule meanwhile.
