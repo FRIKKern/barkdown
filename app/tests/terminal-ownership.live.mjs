@@ -95,9 +95,18 @@ async function boot(managed = true, dataRoot = userData) {
   // window and the loaded state get two minutes, and a failure says what the app printed. No diagnostic may hang.
   app.process().stderr?.on('data', chunk => note('main stderr: ' + chunk)); app.process().stdout?.on('data', chunk => note('main stdout: ' + chunk));
   app.on('window', w => note('window opened: ' + w.url()));
-  step('the app process is up; waiting for its first window');
-  page = await app.firstWindow({ timeout: 120000 });
-  step('first window: ' + page.url());
+  step('the app process is up; waiting for the app window');
+  // The app's window is the one showing renderer/index.html. On Windows the first page Playwright reports
+  // has an empty address and goes away, so the window is chosen by what it shows, and main says what exists.
+  const mainView = () => Promise.race([app.evaluate(({ BrowserWindow, webContents }) => ({ windows: BrowserWindow.getAllWindows().map(w => ({ url: w.webContents.getURL().slice(-40), visible: w.isVisible(), title: w.getTitle() })), contents: webContents.getAllWebContents().map(c => `${c.getType()}:${c.getURL().slice(-30)}`) })).catch(e => ({ error: e.message })), delay(5000).then(() => ({ error: 'main did not answer in 5 s' }))]);
+  page = null;
+  for (let i = 0; i < 240 && !page; i++) {
+    page = app.windows().find(w => !w.isClosed() && /renderer\/index\.html/.test(w.url())) || null;
+    if (!page) { if (i % 20 === 0) step(`pages Playwright sees: [${app.windows().map(w => w.url() || '(empty)').join(', ')}]; main sees: ${JSON.stringify(await mainView())}`); await delay(500); }
+  }
+  if (!page) { report('the app window never appeared to Playwright'); throw new Error('the app window never appeared to Playwright'); }
+  step('app window: ' + page.url().slice(-40));
+  page.on('close', () => note('the app page closed'));
   page.on('pageerror', (e) => { errors.push(e.message); note('pageerror: ' + e.message); });
   page.on('console', message => note(`console ${message.type()}: ${message.text()}`));
   page.on('crash', () => note('the page crashed'));
@@ -147,8 +156,14 @@ try {
   assert.ok((await termText()).includes(shellLabel + ' in'), 'the shell banner names the shell');
   const sessionA = await page.evaluate(() => window.barkdown.term.status('same-terminal', 'same'));
   step('the shell banner is shown: ' + JSON.stringify((await termText()).slice(0, 200)));
+  // What the pty really sends and what the emulator paints with: kept in the log for the platform at hand.
+  await page.evaluate(() => { window.__raw = []; window.barkdown.term.onData(event => { if (event.type === 'data') window.__raw.push(event.data); }); });
   const ta = await startTree(0);
   step('a command ran in the shell and started its descendants');
+  step('colours: ' + JSON.stringify(await page.evaluate(() => { const c = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal'), t = c.terminal().options.theme || {}; return { engine: c.engine(), dataTheme: document.documentElement.dataset.theme, prefersDark: matchMedia('(prefers-color-scheme: dark)').matches, foreground: t.foreground, background: t.background, white: t.white, brightWhite: t.brightWhite, cssText: getComputedStyle(document.documentElement).getPropertyValue('--bw-text').trim(), cssTermBg: getComputedStyle(document.documentElement).getPropertyValue('--bw-term-bg').trim() }; })));
+  step('pty bytes after the command: ' + JSON.stringify(await page.evaluate(() => window.__raw.join('').slice(0, 700))));
+  step('terminal text: ' + JSON.stringify((await termText()).slice(-400)));
+  desktopShot('desktop-a-running.png');
   await typeInTerminal('echo unsent A command'); // typed, not entered: it lives in the shell's line, as in any terminal
   await page.screenshot({ path: path.join(out, 'a-running.png') });
   await page.evaluate((folder) => window.__barkdown.setFolder(folder), folders[1]);
