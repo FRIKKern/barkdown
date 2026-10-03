@@ -146,7 +146,7 @@ try {
       assert.equal(observed.scope.storeDir, rootA);
       assert.equal(observed.scope.connection.token, 'A');
       assert.equal(observed.settings.model, 'A');
-      assert.match(observed.prompt, /folder-A/);
+      assert.match(provider === 'codex' ? observed.prompt : observed.workspaceNote, /folder-A/); // the note rides the system channel for Claude Code (C089 F5)
     } finally { transport.start = original; }
   }
   checks.push('shared Claude/Codex dispatch captures before delayed transport');
