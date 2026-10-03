@@ -185,8 +185,14 @@ try {
   const allowList = await page.evaluate(() => window.__barkdown.state.settings.browser.blocking.allow);
   await page.locator('#shield:visible').last().click(); await siteReady('tracker: blocked');
   check('a tracker script is blocked and counted; the shield allows the site and blocks it again', { allowList });
-  // Restart: the session cookie set on the first visit is still sent.
-  await app.close();
+  // Restart: the session cookie set on the first visit is still sent. Between the quit and the relaunch the
+  // partition's cookie file is read directly (sqlite3), so a miss says whether the cookie ever reached disk.
+  const closedAt = Date.now(); await app.close(); report.quitMs = Date.now() - closedAt;
+  try {
+    const partitions = fs.readdirSync(path.join(userData, 'Partitions'));
+    report.cookiesOnDisk = partitions.map(p => { const file = path.join(userData, 'Partitions', p, 'Cookies'); const copy = path.join(out, 'Cookies.copy'); fs.copyFileSync(file, copy); const rows = execFileSync('/usr/bin/sqlite3', [copy, 'select host_key, name, length(encrypted_value), is_persistent from cookies'], { encoding: 'utf8' }).trim(); fs.rmSync(copy, { force: true }); return { partition: p, rows }; });
+  } catch (error) { report.cookiesOnDisk = String(error.message); }
+  persist();
   await launch();
   await openWeb(site + '/whoami'); const who = await siteReady('cookie: kept-7f3a');
   check('a session set in a tab survives a restart of Barkdown', { who: who.split('\n').find(l => l.startsWith('cookie:')) });
