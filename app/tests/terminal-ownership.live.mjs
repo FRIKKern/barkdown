@@ -44,6 +44,9 @@ const folders = profiles.map((id, index) => {
 registry.selectProfile(profiles[0]);
 const script = fileURLToPath(new URL('./fixtures/terminal-descendants.cjs', import.meta.url));
 const delay = (ms) => new Promise((r) => setTimeout(r, ms));
+// Progress on stdout, so a run that stalls shows where; and no wait without an end.
+const step = name => console.log(`[${new Date().toISOString().slice(11, 19)}] ${name}`);
+const within = (promise, ms, what) => Promise.race([promise, delay(ms).then(() => { throw new Error(`${what} did not finish within ${ms / 1000} s`); })]);
 const alive = (pid) => {
   try {
     process.kill(pid, 0);
@@ -54,6 +57,7 @@ const alive = (pid) => {
 };
 let app,
   page,
+  failure = null,
   passed = false;
 // The tour speaks the host shell: PowerShell on Windows, $SHELL elsewhere (main/terminal.js shellSpec).
 const POSIX = process.platform !== 'win32';
@@ -120,7 +124,9 @@ try {
   for (let i = 0; i < 300 && !(await termText()).includes(shellLabel + ' in'); i++) await delay(100);
   assert.ok((await termText()).includes(shellLabel + ' in'), 'the shell banner names the shell');
   const sessionA = await page.evaluate(() => window.barkdown.term.status('same-terminal', 'same'));
+  step('the shell banner is shown: ' + JSON.stringify((await termText()).slice(0, 200)));
   const ta = await startTree(0);
+  step('a command ran in the shell and started its descendants');
   await typeInTerminal('echo unsent A command'); // typed, not entered: it lives in the shell's line, as in any terminal
   await page.screenshot({ path: path.join(out, 'a-running.png') });
   await page.evaluate((folder) => window.__barkdown.setFolder(folder), folders[1]);
@@ -150,14 +156,17 @@ try {
   }, sessionA.session);
   assert.match(foreign, /no longer active/);
   assert.equal(await page.locator('#bw-prompt').inputValue(), 'B draft');
+  step('profile switch stopped A and refused the foreign session');
   const tb = await startTree(1);
+  step('B has its own shell and descendants');
   await typeInTerminal('echo unsent B command'); // typed, not entered
   await page.screenshot({ path: path.join(out, 'b-running.png') });
   const mainPid = await app.evaluate(() => process.pid);
   assert.equal(JSON.parse(fs.readFileSync(path.join(userData, 'workspace-owner.json'))).pid, mainPid);
   const exited = new Promise((resolve) => app.process().once('exit', resolve));
   process.kill(mainPid, 'SIGKILL');
-  await exited;
+  await within(exited, 30000, 'the killed app process exiting');
+  step('the app was killed');
   app = null;
   await boot();
   for (let i = 0; i < 300 && !(await termText()).includes('process tree is verified closed'); i++) await delay(100);
@@ -178,10 +187,12 @@ try {
   assert.ok(fs.existsSync(counter));await delay(250);
   assert.deepEqual(fs.readFileSync(counter,'utf8').trim().split(/\r?\n/),['once'],'the command ran once');
   await page.screenshot({path:path.join(out,'explicit-start.png')});
+  step('restart verified the old tree closed; an explicit start ran a command once');
   const tc = await startTree(1);
   await page.screenshot({ path: path.join(out, 'explicit-new-shell.png') });
-  await app.close();
+  await within(app.close(), 60000, 'an ordinary quit with a running shell');
   app = null;
+  step('an ordinary quit finished');
   assert.ok(
     tc.pids.every((p) => !alive(p)),
     'normal app quit drains descendants',
@@ -196,8 +207,9 @@ try {
   for (let i = 0; i < 300 && (await termText()).split('legacy-terminal-proof').length < 3; i++) await delay(100);
   assert.ok((await termText()).split('legacy-terminal-proof').length >= 3, 'the legacy terminal ran the command');
   await page.screenshot({ path: path.join(out, 'legacy-terminal.png') });
-  await app.close();
+  await within(app.close(), 60000, 'the legacy launch quitting');
   app = null;
+  step('the legacy launch ran a command and quit');
   const legacyRoot = path.join(legacyData, 'barkdown');
   assert.ok(!fs.existsSync(path.join(legacyRoot, 'terminal-sessions')));
   assert.ok(!fs.existsSync(path.join(legacyRoot, 'terminal-owner.json')));
@@ -208,9 +220,16 @@ try {
   assert.deepEqual(errors, []);
   passed = true;
   console.log(JSON.stringify({ passed, userData, trees }));
+} catch (error) {
+  // Say why at once: a close that hangs afterwards must not swallow the reason.
+  failure = String(error?.stack || error);
+  console.error('FAILED:', failure);
+  if (page && !page.isClosed()) console.error('terminal shows:\n' + await Promise.race([termText().catch(e => 'unreadable: ' + e.message), delay(5000).then(() => 'unreadable: timed out')]));
+  process.exitCode = 1;
 } finally {
-  if(!passed&&page&&!page.isClosed())await page.screenshot({path:path.join(out,'failure.png')}).catch(()=>{});
-  await app?.close();
+  if(!passed&&page&&!page.isClosed())await Promise.race([page.screenshot({path:path.join(out,'failure.png')}).catch(()=>{}), delay(10000)]);
+  // The app this test launched gets twenty seconds to quit; after that its own process is ended.
+  if (app) { const child = app.process(); await Promise.race([app.close().catch(() => {}), delay(20000)]); if (child.exitCode === null && child.signalCode === null) { console.error('the app did not quit within 20 s; ending the process this test launched'); child.kill('SIGKILL'); await delay(1000); } }
   const stopped = [];
   for (const profileId of profiles) {
     const storeDir = registry.storeFor(profileId).storeDir,
@@ -257,11 +276,12 @@ try {
         userData,
         legacyData,
         passed,
+        failure,
         errors,
         trees,
         stopped,
         reducedMotion: false,
-        capture: 'Actual Electron Windows pipe shell and native descendants; no provider or Barkpark runtime',
+        capture: `Actual Electron on ${process.platform}: a pty shell (node-pty) and native descendants; no provider or Barkpark runtime`,
       },
       null,
       2,
