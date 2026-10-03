@@ -13,6 +13,11 @@ export BARKDOWN_TEST_FOREGROUND=1 # bring each test window to the front: focus-d
 export BARKDOWN_MOCK_KEYCHAIN=1 # a launchd process cannot answer a keychain prompt either; the chain's Electron runs use Chromium's mock keychain
 [ -s "$HOME/.nvm/nvm.sh" ] && source "$HOME/.nvm/nvm.sh" >/dev/null
 command -v node >/dev/null || { echo "skip: no node on PATH"; exit 0; }
+# The chain opens and focuses Electron windows for ten minutes: only when nobody is at the Mac (no input for
+# ten minutes) and no other chain is running (two chains at once made both flaky, 2026-10-03).
+idle_ns=$(ioreg -c IOHIDSystem 2>/dev/null | awk '/HIDIdleTime/ { print $NF; exit }'); idle_s=$(( ${idle_ns:-0} / 1000000000 ))
+[ "$idle_s" -ge 600 ] || { echo "skip: the Mac is in use (idle ${idle_s}s)"; exit 0; }
+pgrep -f "scripts/chain.mjs" >/dev/null && { echo "skip: another chain is running"; exit 0; }
 [ "$(git rev-parse --abbrev-ref HEAD)" = main ] || { echo "skip: the checkout is not on main"; exit 0; }
 [ -z "$(git status --porcelain --untracked-files=no)" ] || { echo "skip: the tree has tracked changes"; exit 0; }
 git fetch origin --quiet || { echo "skip: fetch failed"; exit 0; }
