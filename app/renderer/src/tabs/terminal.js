@@ -78,7 +78,9 @@ export function mountTerminal(tab, host, ctx) {
     // ghostty-web takes true as "handled, swallow". `taken` is the app's claim; the engine gets its own idiom.
     // Off macOS the terminal follows Windows Terminal: Ctrl+V (and Ctrl+Shift+V) pastes, Ctrl+C copies when text is
     // selected and interrupts when none is, Ctrl+Shift+C always copies. On macOS ⌘C and ⌘V are the system's own.
-    const paste = async () => { try { const text = await clipboard?.readText(); if (!text) return; if (typeof term.paste === 'function') term.paste(text); else if (session && !uncertain) await api.term.write(session, text); } catch (error) { say(`Could not paste: ${error.message}`, ERR); } };
+    // The emulator's own paste wraps the text in bracketed-paste marks when the shell asked for them. On Windows the
+    // Ghostty engine's marks did not survive ConPTY (PowerShell received one stray character), so there the text goes raw.
+    const paste = async () => { try { const text = await clipboard?.readText(); if (!text) return; const raw = engine === 'ghostty' && platform === 'win32'; if (!raw && typeof term.paste === 'function') term.paste(text); else if (session && !uncertain) await api.term.write(session, text); } catch (error) { say(`Could not paste: ${error.message}`, ERR); } };
     const taken = e => {
       if (e.type !== 'keydown') return false;
       const key = (e.key || '').toLowerCase(), mod = e.metaKey || e.ctrlKey;

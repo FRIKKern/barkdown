@@ -246,6 +246,13 @@ test('terminal UI distinguishes fresh/restored shells, keeps launch cwd and reje
   assert.deepEqual(press(win, { key: 'c', ctrlKey: true }), { claimed: false, prevented: false }, 'Ctrl+C without a selection reaches the shell as an interrupt');
   assert.equal(writes.length, before + 1, 'a copy writes nothing to the shell');
   winTab.destroy();
+  // The Ghostty engine on Windows gets the clipboard raw, not through the emulator's bracketed paste.
+  const gw = fakeEngine(); gw.engine.engine = 'ghostty'; let bracketed = 0; gw.engine.term.paste = () => { bracketed++; };
+  const gwTab = mountTerminal({ id: 'same' }, host, { ...ctx, engine: () => gw.engine, platform: 'win32', clipboard: { readText: async () => 'raw text', writeText: async () => {} } });
+  await delay(5); const mark = writes.length;
+  gw.handlers.key({ type: 'keydown', key: 'v', ctrlKey: true, shiftKey: false, altKey: false, metaKey: false, preventDefault() {} }); await delay(5);
+  assert.equal(bracketed, 0); assert.deepEqual(writes.slice(mark).map(w => w[1]), ['raw text']);
+  gwTab.destroy();
   const mac = fakeEngine(), macTab = mountTerminal({ id: 'same' }, host, { ...ctx, engine: () => mac.engine, platform: 'darwin', clipboard: board });
   await delay(5);
   assert.deepEqual(press(mac, { key: 'v', ctrlKey: true }), { claimed: false, prevented: false }, 'macOS keeps Ctrl+V for the shell');

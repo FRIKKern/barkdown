@@ -148,6 +148,9 @@ try {
   report.mirror = { beforeMirror, atOnce, later }; persist();
   await until(t => /assistant \$ ls -la/.test(t) && /drwxr-xr-x  work/.test(t));
   check('the assistant\'s commands and output mirror into the tab');
+  // Whether the mirrored lines survive the shell's next output is observed (ConPTY keeps its own model of the screen).
+  await type(WIN ? "echo ('after-'+'mirror')\r" : 'echo after-""mirror\r'); await until(t => /after-mirror/.test(t));
+  { const t = await text(); const kept = /assistant \$ ls -la/.test(t) && /drwxr-xr-x  work/.test(t); report.observations.push(`mirrored lines after the next command's output: ${kept ? 'kept' : 'overwritten'}`); persist(); if (!WIN) assert.ok(kept, 'the mirrored lines stay in the scrollback'); }
   await shot('03-mirror');
   // Readable text in the theme at hand. The first tours ran dark only and missed white text on the light
   // background: the colours handed to the emulator must be plain colours, and the text must differ from its ground.
