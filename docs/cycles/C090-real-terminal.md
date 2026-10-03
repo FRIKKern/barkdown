@@ -31,6 +31,7 @@ The tour `app/tests/terminal.live.mjs [--engine ghostty]` proves nine things per
 - `app/tests/terminal-ownership.test.mjs` 10/10 (the UI test now drives a fake emulator through the same surface: keystrokes to the live session, stale output dropped, keystrokes without a shell dropped, input blocked while a shutdown is unverified)
 - `app/tests/terminal-ownership.live.mjs` passes (descendants closed on profile switch, on a killed app and on quit; a stopped shell is started explicitly; the legacy launch runs a command)
 - `app/tests/run.mjs` 76 checks (the terminal step types into the emulator and reads its buffer)
+- Delivered in [v0.6.0-nightly.20261003.2](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261003.2): chain receipt `.release/chain/19a64bac….json`; the ownership live test passes against the packaged `Barkdown.app` (node-pty's prebuilds in `app.asar.unpacked`, no native rebuild at build time)
 
 ## Limits
 
