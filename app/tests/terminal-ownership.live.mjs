@@ -45,7 +45,11 @@ registry.selectProfile(profiles[0]);
 const script = fileURLToPath(new URL('./fixtures/terminal-descendants.cjs', import.meta.url));
 const delay = (ms) => new Promise((r) => setTimeout(r, ms));
 // Progress on stdout, so a run that stalls shows where; and no wait without an end.
-const step = name => console.log(`[${new Date().toISOString().slice(11, 19)}] ${name}`);
+const logFile = path.join(out, 'log.txt');
+const step = name => { const line = `[${new Date().toISOString().slice(11, 19)}] ${name}`; console.log(line); try { fs.appendFileSync(logFile, line + '\n'); } catch {} };
+// A watchdog for a hosted runner: if the process is still alive after twelve minutes, say so and leave,
+// so the job's log shows the phase reached instead of a cancelled step with nothing in it.
+setTimeout(() => { step('watchdog: the tour did not finish within 12 minutes; exiting'); process.exit(3); }, 12 * 60 * 1000).unref();
 const within = (promise, ms, what) => Promise.race([promise, delay(ms).then(() => { throw new Error(`${what} did not finish within ${ms / 1000} s`); })]);
 const alive = (pid) => {
   try {
@@ -120,7 +124,9 @@ async function startTree(index) {
   return tree;
 }
 try {
+  step('launching the app');
   await boot();
+  step('the app is loaded');
   for (let i = 0; i < 300 && !(await termText()).includes(shellLabel + ' in'); i++) await delay(100);
   assert.ok((await termText()).includes(shellLabel + ' in'), 'the shell banner names the shell');
   const sessionA = await page.evaluate(() => window.barkdown.term.status('same-terminal', 'same'));
@@ -223,6 +229,7 @@ try {
 } catch (error) {
   // Say why at once: a close that hangs afterwards must not swallow the reason.
   failure = String(error?.stack || error);
+  step('FAILED: ' + failure.split('\n').slice(0, 3).join(' | '));
   console.error('FAILED:', failure);
   if (page && !page.isClosed()) console.error('terminal shows:\n' + await Promise.race([termText().catch(e => 'unreadable: ' + e.message), delay(5000).then(() => 'unreadable: timed out')]));
   process.exitCode = 1;
@@ -287,8 +294,8 @@ try {
       2,
     ),
   );
-  assert.ok(
-    stopped.every((s) => s.verified),
-    'all terminal jobs verified stopped',
-  );
+  const allVerified = stopped.every((s) => s.verified);
+  step(`cleanup: ${stopped.length} owned worker receipts, all verified stopped: ${allVerified}`);
+  // Playwright's transport to a killed Electron can keep the event loop alive on Windows: leave explicitly.
+  process.exit(allVerified && passed ? 0 : 1);
 }
