@@ -88,7 +88,9 @@ async function boot(managed = true, dataRoot = userData) {
   app = await electron.launch({
     executablePath: process.env.BARKDOWN_TEST_PACKAGED_EXE || require('electron'),
     args: [...(process.env.BARKDOWN_TEST_PACKAGED_EXE ? [] : [path.resolve('.')]), ...(managed ? ['--profiles'] : ['--legacy']), `--user-data=${dataRoot}`],
-    recordVideo: { dir: out, size: { width: 1400, height: 900 } },
+    // On a hosted Windows runner Playwright's page for the window stayed at an empty address and never answered
+    // while the app itself was up; the recording attaches while the window is still hidden, so it is left out there.
+    ...(process.platform === 'win32' && process.env.CI ? {} : { recordVideo: { dir: out, size: { width: 1400, height: 900 } } }),
     env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ELECTRON_ENABLE_LOGGING: '1' },
   });
   // A cold machine (a hosted Windows runner, a first launch under a virus scanner) starts slowly: the
@@ -160,7 +162,7 @@ try {
   await page.evaluate(() => { window.__raw = []; window.barkdown.term.onData(event => { if (event.type === 'data') window.__raw.push(event.data); }); });
   const ta = await startTree(0);
   step('a command ran in the shell and started its descendants');
-  step('colours: ' + JSON.stringify(await page.evaluate(() => { const c = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal'), t = c.terminal().options.theme || {}; return { engine: c.engine(), dataTheme: document.documentElement.dataset.theme, prefersDark: matchMedia('(prefers-color-scheme: dark)').matches, foreground: t.foreground, background: t.background, white: t.white, brightWhite: t.brightWhite, cssText: getComputedStyle(document.documentElement).getPropertyValue('--bw-text').trim(), cssTermBg: getComputedStyle(document.documentElement).getPropertyValue('--bw-term-bg').trim() }; })));
+  step('colours: ' + JSON.stringify(await page.evaluate(() => { const c = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal'), t = c.theme() || {}; return { engine: c.engine(), dataTheme: document.documentElement.dataset.theme, prefersDark: matchMedia('(prefers-color-scheme: dark)').matches, foreground: t.foreground, background: t.background, white: t.white, brightWhite: t.brightWhite, cssText: getComputedStyle(document.documentElement).getPropertyValue('--bw-text').trim(), cssTermBg: getComputedStyle(document.documentElement).getPropertyValue('--bw-term-bg').trim() }; })));
   step('pty bytes after the command: ' + JSON.stringify(await page.evaluate(() => window.__raw.join('').slice(0, 700))));
   step('terminal text: ' + JSON.stringify((await termText()).slice(-400)));
   desktopShot('desktop-a-running.png');

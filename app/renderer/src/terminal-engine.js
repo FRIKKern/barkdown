@@ -6,13 +6,15 @@
 // Both engines load lazily: the tab module can be imported without a DOM (the unit tests do), and ghostty's
 // WebAssembly is fetched only when chosen.
 
-const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+// A custom property can hold an expression (the app's text colour is light-dark(…)); an emulator needs a plain
+// colour and silently falls back to white when it cannot parse one. Only a plain hex or rgb value is taken.
+const css = name => { const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim(); return /^(#[0-9a-f]{3,8}|rgba?\([\d\s.,%/]+\))$/i.test(value) ? value : ''; };
 const dark = () => (document.documentElement.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark';
 // The app's palette for the frame, a readable ANSI set for the content: both change with the theme.
 export function terminalTheme() {
   const d = dark();
   return {
-    background: css('--bw-term-bg') || (d ? '#141613' : '#fbfaf5'), foreground: css('--bw-text') || (d ? '#e7ebdf' : '#242a20'),
+    background: d ? '#141613' : '#fbfaf5', foreground: d ? '#e7ebdf' : '#242a20',
     cursor: css('--bw-accent') || (d ? '#a9c787' : '#5f7a3a'), cursorAccent: d ? '#141613' : '#fbfaf5', selectionBackground: d ? '#a9c78744' : '#5f7a3a33',
     black: d ? '#2b2e28' : '#3a3f36', red: d ? '#e07a73' : '#b4443a', green: d ? '#a9c787' : '#4f7a2d', yellow: d ? '#e2ca93' : '#9a7a1f', blue: d ? '#86b0d6' : '#2f6b9e', magenta: d ? '#c9a0d9' : '#8a4f9e', cyan: d ? '#7fc4c0' : '#2a7f7a', white: d ? '#d4ddce' : '#5e665a',
     brightBlack: d ? '#6c7466' : '#8a9284', brightRed: d ? '#f29b94' : '#c7524a', brightGreen: d ? '#c2dca1' : '#5e8f38', brightYellow: d ? '#f0dcae' : '#b58f2a', brightBlue: d ? '#a5c7e8' : '#3b7fb8', brightMagenta: d ? '#dbb8ea' : '#9f63b4', brightCyan: d ? '#9fd9d5' : '#35968f', brightWhite: d ? '#f0eee2' : '#242a20',
@@ -47,7 +49,8 @@ export async function createTerminal(engine = 'xterm', { log = () => {} } = {}) 
   let kit = null;
   if (engine === 'ghostty') { try { kit = await ghosttyEngine(); } catch (error) { log(`ghostty-web could not load (${error.message}); using xterm.js`); } }
   kit ||= await xtermEngine();
-  const term = new kit.Terminal(OPTIONS());
+  let painted = terminalTheme();
+  const term = new kit.Terminal({ ...OPTIONS(), theme: painted });
   const fit = new kit.FitAddon(); term.loadAddon(fit);
   let search = null;
   if (kit.name === 'xterm') {
@@ -59,6 +62,10 @@ export async function createTerminal(engine = 'xterm', { log = () => {} } = {}) 
     term.open(element);
     fit.fit();
   };
-  const retheme = () => { term.options.theme = terminalTheme(); };
-  return { term, fit, search, open, retheme, engine: kit.name };
+  // xterm.js repaints when its theme option changes. ghostty-web cannot: its default colours are fixed when the
+  // terminal opens (handing its renderer a new palette repaints the margins and leaves every cell as it was), so
+  // a Ghostty tab keeps the theme it opened with until it is reopened. theme() keeps saying what is painted.
+  const retheme = () => { if (kit.name === 'ghostty') return; painted = terminalTheme(); term.options.theme = painted; };
+  // theme() is the palette the emulator was last handed, whichever engine paints it.
+  return { term, fit, search, open, retheme, engine: kit.name, theme: () => painted };
 }

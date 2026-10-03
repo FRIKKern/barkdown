@@ -17,7 +17,7 @@ export function mountTerminal(tab, host, ctx) {
   const engineName = state.settings?.terminal?.engine || 'xterm';
   // ctx.engine lets a test hand in a fake terminal; otherwise the chosen engine loads.
   const ready = ctx.engine ? Promise.resolve(ctx.engine()) : createTerminal(engineName, { log: line => console.warn('[terminal] ' + line) });
-  let term = null, fit = null, search = null;
+  let term = null, fit = null, search = null, themeOf = null;
   // The platform decides the copy and paste keys; a test may hand in both the platform and a clipboard.
   const platform = ctx.platform || (/mac/i.test(navigator.platform || '') ? 'darwin' : /win/i.test(navigator.platform || '') ? 'win32' : 'linux');
   const clipboard = ctx.clipboard || navigator.clipboard;
@@ -68,7 +68,7 @@ export function mountTerminal(tab, host, ctx) {
 
   ready.then(created => {
     if (destroyed) { created.term.dispose(); return; }
-    ({ term, fit, search, engine } = created);
+    ({ term, fit, search, engine } = created); themeOf = created.theme || null;
     created.open(q('#term'));
     term.onData(data => { if (session && !uncertain) api.term.write(session, data).catch(error => say(error.message, ERR)); });
     term.onResize(({ cols, rows }) => { if (session) api.term.resize(session, cols, rows).catch(() => {}); });
@@ -118,7 +118,7 @@ export function mountTerminal(tab, host, ctx) {
     },
     // What the terminal shows, for tests and the assistant: the buffer's lines, trailing blanks dropped.
     text() { if (!term) return ''; const b = term.buffer.active, lines = []; for (let i = 0; i < b.length; i++) lines.push(b.getLine(i)?.translateToString(true) || ''); while (lines.length && !lines.at(-1)) lines.pop(); return lines.join('\n'); },
-    engine: () => engine, session: () => session, terminal: () => term,
+    engine: () => engine, session: () => session, terminal: () => term, theme: () => themeOf?.() || null,
     refresh() { renderPath(); try { fit?.fit(); } catch {} },
     navigate() { renderPath(); },
     savePosition() {},

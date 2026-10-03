@@ -17,19 +17,20 @@ const { createProfileRegistry } = require('../main/profile-registry');
 const { createStore } = require('../main/store');
 const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const engine = process.argv.includes('--engine') ? process.argv[process.argv.indexOf('--engine') + 1] : 'xterm';
-const out = path.resolve(appRoot, '../docs/cycles/evidence/C090/live', new Date().toISOString().replace(/[:.]/g, '-') + '-terminal-' + engine);
+const theme = process.argv.includes('--theme') ? process.argv[process.argv.indexOf('--theme') + 1] : 'dark';
+const out = path.resolve(appRoot, '../docs/cycles/evidence/C090/live', new Date().toISOString().replace(/[:.]/g, '-') + '-terminal-' + engine + (theme === 'dark' ? '' : '-' + theme));
 fs.mkdirSync(out, { recursive: true });
 if (process.platform === 'win32') { console.log('The interactive proof speaks POSIX shells; the Windows half is the ownership live test and the owner\'s check.'); process.exit(0); }
 const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-terminal-')));
 const folder = path.join(userData, 'work'); fs.mkdirSync(folder);
-const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), host: `${process.platform} ${os.release()} ${process.arch}`, engine, status: 'running', checks: [], screenshots: [],
+const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), host: `${process.platform} ${os.release()} ${process.arch}`, engine, theme, status: 'running', checks: [], screenshots: [],
   limits: ['One Mac, the login shell of this account, under Electron from source. Windows (ConPTY) is not run here.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();
 const check = (name, detail) => { report.checks.push({ name, ...(detail ? { detail } : {}) }); persist(); console.log('ok  ' + name); };
 const registry = createProfileRegistry(path.join(userData, 'profile-data'));
 const profile = registry.createProfile({ name: 'Terminal desk' });
-createStore(registry.storeFor(profile.id).storeDir).writeJson('settings.json', { theme: 'dark', provider: 'api', terminal: { engine }, barkpark: { enabled: false } });
-createStore(path.join(userData, 'app-settings')).writeJson('appearance.json', { theme: 'dark' });
+createStore(registry.storeFor(profile.id).storeDir).writeJson('settings.json', { theme, provider: 'api', terminal: { engine }, barkpark: { enabled: false } });
+createStore(path.join(userData, 'app-settings')).writeJson('appearance.json', { theme });
 registry.selectProfile(profile.id);
 let app, page;
 const shot = async name => { await page.screenshot({ path: path.join(out, name + '.png') }); report.screenshots.push(name + '.png'); persist(); };
@@ -100,6 +101,29 @@ try {
   const mirrored = await until(t => /assistant \$ ls -la/.test(t) && /drwxr-xr-x  work/.test(t));
   check('the assistant\'s commands and output mirror into the tab');
   await shot('03-mirror');
+  // Readable text in the theme at hand. The first tours ran dark only and missed white text on the light
+  // background: the colours handed to the emulator must be plain colours, and the text must differ from its ground.
+  const palette = () => page.evaluate(() => { const t = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal').theme() || {}; return { foreground: t.foreground, background: t.background, cursor: t.cursor }; });
+  const plain = value => /^(#[0-9a-f]{3,8}|rgba?\([\d\s.,%/]+\))$/i.test(value || '');
+  const readable = (name, p) => { assert.ok(plain(p.foreground) && plain(p.background) && plain(p.cursor), `${name} theme hands the emulator plain colours: ${JSON.stringify(p)}`); assert.notEqual(p.foreground.toLowerCase(), p.background.toLowerCase()); };
+  const opened = await palette(); readable(theme, opened);
+  assert.equal(opened.background, theme === 'dark' ? '#141613' : '#fbfaf5', 'the terminal opened in the app\'s theme');
+  if (engine === 'ghostty') {
+    // The Ghostty engine paints on a canvas; what it painted is read from a cell at the left edge, half way down.
+    const cell = await page.evaluate(() => { const canvas = document.querySelector('.bw-term-host canvas'); const d = canvas.getContext('2d').getImageData(3, Math.floor(canvas.height * 0.9), 1, 1).data; return [d[0], d[1], d[2]]; });
+    assert.ok(theme === 'dark' ? cell[0] < 60 : cell[0] > 200, `the canvas is painted in the ${theme} theme: ${cell}`);
+    report.limits.push('A Ghostty tab keeps the theme it opened with: ghostty-web fixes its default colours at open, so a live theme change applies to tabs opened afterwards.');
+    check(`the Ghostty canvas is painted in the ${theme} theme it opened with (a live theme change is recorded as a limit)`, { opened, cell });
+  } else {
+    const other = theme === 'dark' ? 'light' : 'dark';
+    await page.evaluate(value => { document.documentElement.dataset.theme = value; }, other); await new Promise(r => setTimeout(r, 400));
+    const switched = await palette(); readable(other, switched);
+    assert.notEqual(switched.background, opened.background, 'the terminal follows a theme change live');
+    await type('echo other-theme-text\r'); await until(t => t.split('other-theme-text').length >= 3);
+    await shot('04-' + other + '-theme'); // the light frame is on purpose: it is the proof of the light theme's text colour
+    await page.evaluate(value => { document.documentElement.dataset.theme = value; }, theme); await new Promise(r => setTimeout(r, 300));
+    check('both themes hand the emulator plain colours, and a live theme change repaints', { [theme]: opened, [other]: switched });
+  }
   // Restart keeps the tab, verifies the stop, opens a new shell.
   await page.locator('.bw-terminal [data-act="restart"]').click();
   await until(t => (t.match(/ in /g) || []).length >= 2, 60000);
