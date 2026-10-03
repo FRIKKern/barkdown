@@ -187,7 +187,10 @@ try {
   check('a tracker script is blocked and counted; the shield allows the site and blocks it again', { allowList });
   // Restart: the session cookie set on the first visit is still sent. Between the quit and the relaunch the
   // partition's cookie file is read directly (sqlite3), so a miss says whether the cookie ever reached disk.
-  const closedAt = Date.now(); await app.close(); report.quitMs = Date.now() - closedAt;
+  // app.close() resolves before the Electron process has exited; a relaunch that opens the cookie file while
+  // the old process still holds it starts with an empty store (seen in the chain, 2026-10-03). Wait for the exit.
+  const closedAt = Date.now(); const proc = app.process(); const exited = new Promise(r => { if (proc.exitCode !== null) r(); else proc.once('exit', r); });
+  await app.close(); await Promise.race([exited, new Promise(r => setTimeout(r, 15000))]); report.quitMs = Date.now() - closedAt; report.exitCode = proc.exitCode;
   try {
     const partitions = fs.readdirSync(path.join(userData, 'Partitions'));
     report.cookiesOnDisk = partitions.map(p => { const file = path.join(userData, 'Partitions', p, 'Cookies'); const copy = path.join(out, 'Cookies.copy'); fs.copyFileSync(file, copy); const rows = execFileSync('/usr/bin/sqlite3', [copy, 'select host_key, name, length(value), length(encrypted_value), is_persistent from cookies'], { encoding: 'utf8' }).trim(); fs.rmSync(copy, { force: true }); return { partition: p, rows }; });
