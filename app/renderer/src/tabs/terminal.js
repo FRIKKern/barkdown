@@ -18,6 +18,9 @@ export function mountTerminal(tab, host, ctx) {
   // ctx.engine lets a test hand in a fake terminal; otherwise the chosen engine loads.
   const ready = ctx.engine ? Promise.resolve(ctx.engine()) : createTerminal(engineName, { log: line => console.warn('[terminal] ' + line) });
   let term = null, fit = null, search = null;
+  // The platform decides the copy and paste keys; a test may hand in both the platform and a clipboard.
+  const platform = ctx.platform || (/mac/i.test(navigator.platform || '') ? 'darwin' : /win/i.test(navigator.platform || '') ? 'win32' : 'linux');
+  const clipboard = ctx.clipboard || navigator.clipboard;
   const say = (text, color = DIM) => term?.write(`${color}${text}${RESET}\r\n`);
   const size = () => term ? { cols: term.cols, rows: term.rows } : { cols: 80, rows: 24 };
 
@@ -70,10 +73,23 @@ export function mountTerminal(tab, host, ctx) {
     term.onData(data => { if (session && !uncertain) api.term.write(session, data).catch(error => say(error.message, ERR)); });
     term.onResize(({ cols, rows }) => { if (session) api.term.resize(session, cols, rows).catch(() => {}); });
     // Copy on select, like a terminal: a selection made with the mouse lands on the clipboard.
-    term.onSelectionChange(() => { const text = term.getSelection(); if (text) navigator.clipboard?.writeText(text).catch(() => {}); });
+    term.onSelectionChange(() => { const text = term.getSelection(); if (text) clipboard?.writeText(text).catch(() => {}); });
     // The two engines read the handler's answer the opposite way: xterm.js takes false as "mine, skip",
     // ghostty-web takes true as "handled, swallow". `taken` is the app's claim; the engine gets its own idiom.
-    const taken = e => { if (e.type !== 'keydown') return false; const mod = e.metaKey || e.ctrlKey; if (mod && !e.altKey && e.key.toLowerCase() === 'f') { openSearch(); return true; } if (e.metaKey && !e.altKey && e.key.toLowerCase() === 'k') { term.clear(); return true; } return false; };
+    // Off macOS the terminal follows Windows Terminal: Ctrl+V (and Ctrl+Shift+V) pastes, Ctrl+C copies when text is
+    // selected and interrupts when none is, Ctrl+Shift+C always copies. On macOS ⌘C and ⌘V are the system's own.
+    const paste = async () => { try { const text = await clipboard?.readText(); if (!text) return; if (typeof term.paste === 'function') term.paste(text); else if (session && !uncertain) await api.term.write(session, text); } catch (error) { say(`Could not paste: ${error.message}`, ERR); } };
+    const taken = e => {
+      if (e.type !== 'keydown') return false;
+      const key = (e.key || '').toLowerCase(), mod = e.metaKey || e.ctrlKey;
+      if (mod && !e.altKey && key === 'f') { openSearch(); return true; }
+      if (e.metaKey && !e.altKey && key === 'k') { term.clear(); return true; }
+      if (platform !== 'darwin' && e.ctrlKey && !e.altKey && !e.metaKey) {
+        if (key === 'v') { e.preventDefault?.(); paste(); return true; }
+        if (key === 'c' && (e.shiftKey || term.getSelection())) { e.preventDefault?.(); const text = term.getSelection(); if (text) clipboard?.writeText(text).catch(() => {}); term.clearSelection?.(); return true; }
+      }
+      return false;
+    };
     term.attachCustomKeyEventHandler(engine === 'ghostty' ? taken : e => !taken(e));
     observer = new ResizeObserver(() => { if (pane.hidden || !q('#term').offsetWidth) return; try { fit.fit(); } catch {} });
     observer.observe(q('#term'));

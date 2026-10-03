@@ -1,0 +1,69 @@
+{
+  "source": "8735e30ae56a7de6aa61e2e5c1de5246eca05524",
+  "host": "darwin 24.3.0 arm64",
+  "engine": "xterm",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "the tab opens a shell in the chat's working folder on the chosen engine",
+      "detail": {
+        "engine": "xterm",
+        "banner": "zsh in /private/var/folders/_r/kq063w1977n05tznlk42_nkh0"
+      }
+    },
+    {
+      "name": "TERM is xterm-256color and tput cols answers with the pane's width",
+      "detail": {
+        "cols": 56,
+        "shell": "/bin/zsh"
+      }
+    },
+    {
+      "name": "the pty follows the pane: tput cols shrinks with the window",
+      "detail": {
+        "before": 56,
+        "after": 35
+      }
+    },
+    {
+      "name": "an interactive prompt (read -p) is answered as it waits",
+      "detail": {
+        "line": "hello-Pelle"
+      }
+    },
+    {
+      "name": "an ANSI red sequence is rendered, not printed",
+      "detail": {
+        "note": "the buffer text reads RED-TEXT plain with no escape bytes",
+        "hasEscapes": false
+      }
+    },
+    {
+      "name": "less takes the alternate screen and q gives the main screen back",
+      "detail": {
+        "backHas": [
+          "cols2-done",
+          "RED-TEXT"
+        ]
+      }
+    },
+    {
+      "name": "⌘F opens find in the terminal and Escape returns to the shell"
+    },
+    {
+      "name": "the assistant's commands and output mirror into the tab"
+    },
+    {
+      "name": "Restart stops the shell with verification and opens a new one"
+    }
+  ],
+  "screenshots": [
+    "01-interactive.png",
+    "02-less-alternate-screen.png",
+    "03-mirror.png"
+  ],
+  "limits": [
+    "One Mac, the login shell of this account, under Electron from source. Windows (ConPTY) is not run here."
+  ],
+  "console": []
+}

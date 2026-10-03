@@ -183,7 +183,7 @@ function fakeEngine() {
   const term = { cols: 80, rows: 24, written: '', buffer: { active: { get length() { return lines.length; }, getLine: i => ({ translateToString: () => lines[i] || '' }) } },
     write(data) { term.written += data; for (const part of String(data).split(/\r?\n/)) { if (part) lines.push(part.replace(/\x1b\[[0-9;]*m/g, '')); } },
     onData: fn => handlers.data.push(fn), onResize: fn => handlers.resize.push(fn), onSelectionChange: fn => handlers.selection.push(fn), attachCustomKeyEventHandler: fn => { handlers.key = fn; },
-    clear() { lines.length = 0; }, focus() {}, dispose() {}, getSelection: () => '', options: {} };
+    clear() { lines.length = 0; }, focus() {}, dispose() {}, selection: '', getSelection: () => term.selection, clearSelection() { term.selection = ''; }, paste: text => handlers.data.forEach(fn => fn(text)), options: {} };
   const engine = { term, fit: { fit() {} }, search: null, open() {}, retheme() {}, engine: 'fake' };
   return { engine, handlers, type: data => handlers.data.forEach(fn => fn(data)), text: () => lines.join('\n') };
 }
@@ -231,6 +231,25 @@ test('terminal UI distinguishes fresh/restored shells, keeps launch cwd and reje
   assert.equal(writes.length, 1, 'input is blocked while the shutdown is unverified');
   assert.match(fake.text(), /shutdown unverified: fixture/);
   restored.destroy();
+  // Windows conventions (C090): Ctrl+V pastes, Ctrl+C copies a selection and otherwise interrupts; macOS leaves both alone.
+  nextState = 'new';
+  const board = { text: 'pasted text', readText: async () => board.text, writeText: async value => { board.text = value; } };
+  const win = fakeEngine(), winTab = mountTerminal({ id: 'same' }, host, { ...ctx, engine: () => win.engine, platform: 'win32', clipboard: board });
+  await delay(5);
+  const press = (fake, init) => { let prevented = false; const answer = fake.handlers.key({ type: 'keydown', key: 'x', ctrlKey: false, shiftKey: false, altKey: false, metaKey: false, preventDefault() { prevented = true; }, ...init }); return { claimed: answer === false, prevented }; };
+  const before = writes.length;
+  assert.deepEqual(press(win, { key: 'v', ctrlKey: true }), { claimed: true, prevented: true }); await delay(5);
+  assert.deepEqual(writes.slice(before), [['session-3', 'pasted text']], 'Ctrl+V sends the clipboard to the live shell');
+  win.engine.term.selection = 'copied line';
+  assert.deepEqual(press(win, { key: 'c', ctrlKey: true }), { claimed: true, prevented: true }); await delay(0);
+  assert.equal(board.text, 'copied line'); assert.equal(win.engine.term.selection, '', 'the selection clears after a copy');
+  assert.deepEqual(press(win, { key: 'c', ctrlKey: true }), { claimed: false, prevented: false }, 'Ctrl+C without a selection reaches the shell as an interrupt');
+  assert.equal(writes.length, before + 1, 'a copy writes nothing to the shell');
+  winTab.destroy();
+  const mac = fakeEngine(), macTab = mountTerminal({ id: 'same' }, host, { ...ctx, engine: () => mac.engine, platform: 'darwin', clipboard: board });
+  await delay(5);
+  assert.deepEqual(press(mac, { key: 'v', ctrlKey: true }), { claimed: false, prevented: false }, 'macOS keeps Ctrl+V for the shell');
+  macTab.destroy();
   dom.window.close();
 });
 test('known pre-dispatch failure permits retry but generic launch failure needs native proof', async () => {
