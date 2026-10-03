@@ -1,6 +1,7 @@
 // Terminal work tab (C090): a real terminal — a pty in the chat's working folder behind a full emulator
 // (xterm.js, or ghostty-web when chosen in Settings) — plus a live mirror of every command the assistant
-// runs in this chat. Keystrokes go to the pty as they are typed; the shell echoes, draws and resizes.
+// runs in this chat. The mirror is a strip of its own under the terminal: the shell's screen belongs to the
+// shell (on Windows ConPTY overwrote lines written into it; on any platform they would scribble over vim). Keystrokes go to the pty as they are typed; the shell echoes, draws and resizes.
 // The ownership contract is unchanged: one shell per tab, a journal, a verified stop, refusals in words.
 import { el, esc, iconHtml, basename } from '../ui.js';
 import { state } from '../state.js';
@@ -10,7 +11,7 @@ const api = window.barkdown;
 const DIM = '\x1b[2m', WARN = '\x1b[33m', ERR = '\x1b[31m', RESET = '\x1b[0m';
 
 export function mountTerminal(tab, host, ctx) {
-  const pane = el(`<div class="bw-pane bw-terminal"><div class="bw-path" id="path"></div><div class="bw-term-search" id="search" hidden><input id="search-q" aria-label="Find in terminal" placeholder="Find"><button type="button" id="search-prev" title="Previous (Shift+Enter)">${iconHtml('chevron-up', 12)}</button><button type="button" id="search-next" title="Next (Enter)">${iconHtml('chevron-down', 12)}</button><button type="button" id="search-close" title="Close (Escape)">${iconHtml('x', 12)}</button></div><div class="bw-term-host" id="term"></div></div>`);
+  const pane = el(`<div class="bw-pane bw-terminal"><div class="bw-path" id="path"></div><div class="bw-term-search" id="search" hidden><input id="search-q" aria-label="Find in terminal" placeholder="Find"><button type="button" id="search-prev" title="Previous (Shift+Enter)">${iconHtml('chevron-up', 12)}</button><button type="button" id="search-next" title="Next (Enter)">${iconHtml('chevron-down', 12)}</button><button type="button" id="search-close" title="Close (Escape)">${iconHtml('x', 12)}</button></div><div class="bw-term-host" id="term"></div><div class="bw-term-mirror" id="mirror" hidden><div class="bw-term-mirror-head"><span class="bw-muted">Assistant ran</span><span class="bw-muted" id="mirror-count"></span><div class="bw-spacer"></div><button type="button" class="bw-icon-button" id="mirror-toggle" title="Collapse" aria-expanded="true">${iconHtml('chevron-down', 12)}</button><button type="button" class="bw-icon-button" id="mirror-clear" title="Clear the assistant's commands">${iconHtml('x', 12)}</button></div><div class="bw-term-mirror-body" id="mirror-body" tabindex="0" role="log" aria-label="Commands the assistant ran in this chat"></div></div></div>`);
   host.appendChild(pane);
   const q = s => pane.querySelector(s);
   let session = null, destroyed = false, starting = null, uncertain = false, engine = null, observer = null;
@@ -22,6 +23,16 @@ export function mountTerminal(tab, host, ctx) {
   const platform = ctx.platform || (/mac/i.test(navigator.platform || '') ? 'darwin' : /win/i.test(navigator.platform || '') ? 'win32' : 'linux');
   const clipboard = ctx.clipboard || navigator.clipboard;
   const say = (text, color = DIM) => term?.write(`${color}${text}${RESET}\r\n`);
+  // The assistant's commands: appended to the strip, never to the shell's screen. The newest stays in view.
+  let mirrored = 0;
+  function mirrorLine(className, text, command = false) {
+    const body = q('#mirror-body'), line = document.createElement('div'); line.className = className; line.textContent = text; body.appendChild(line);
+    while (body.children.length > 160) body.firstChild.remove();
+    if (command) { mirrored++; q('#mirror-count').textContent = `· ${mirrored}`; }
+    q('#mirror').hidden = false; body.scrollTop = body.scrollHeight;
+  }
+  q('#mirror-toggle').onclick = () => { const body = q('#mirror-body'), open = body.hidden; body.hidden = !open; q('#mirror-toggle').setAttribute('aria-expanded', String(open)); q('#mirror-toggle').title = open ? 'Collapse' : 'Expand'; q('#mirror-toggle').innerHTML = iconHtml(open ? 'chevron-down' : 'chevron-up', 12); };
+  q('#mirror-clear').onclick = () => { q('#mirror-body').replaceChildren(); mirrored = 0; q('#mirror-count').textContent = ''; q('#mirror').hidden = true; term?.focus(); };
   const size = () => term ? { cols: term.cols, rows: term.rows } : { cols: 80, rows: 24 };
 
   function renderPath() {
@@ -115,9 +126,11 @@ export function mountTerminal(tab, host, ctx) {
     el: pane, type: 'terminal', tab,
     // The assistant's commands in this chat, mirrored as they run.
     agentEvent(event) {
-      if (event.type === 'tool_start' && event.tool === 'Bash') say(`\r\n▶ assistant $ ${event.input?.command || ''}`, WARN);
-      else if (event.type === 'tool_result' && event.tool === 'Bash') { const text = String(event.output ?? event.preview ?? '').replace(/\s+$/, ''); if (text) term?.write(DIM + text.replace(/\r?\n/g, '\r\n') + RESET + '\r\n'); if (event.ok === false) say('[failed]', ERR); }
+      if (event.type === 'tool_start' && event.tool === 'Bash') mirrorLine('bw-term-agent', `▶ assistant $ ${event.input?.command || ''}`, true);
+      else if (event.type === 'tool_result' && event.tool === 'Bash') { const text = String(event.output ?? event.preview ?? '').replace(/\s+$/, ''); if (text) mirrorLine('bw-term-agent-out', text.length > 4000 ? '…' + text.slice(-4000) : text); if (event.ok === false) mirrorLine('bw-term-agent-err', '[failed]'); }
     },
+    // The strip's text, for tests and the assistant.
+    mirror: () => [...q('#mirror-body').children].map(node => node.textContent).join('\n'),
     // What the terminal shows, for tests and the assistant: logical lines. A line the emulator wrapped at the pane's
     // edge continues the one before it, so a narrow pane reads the same as a wide one; trailing blanks are dropped.
     text() {

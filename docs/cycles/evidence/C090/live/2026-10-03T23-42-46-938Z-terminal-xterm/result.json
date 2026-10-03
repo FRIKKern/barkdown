@@ -1,5 +1,5 @@
 {
-  "source": "69f9129e0fdb2dfa314ba58ac9a1d620294c9cb1",
+  "source": "92ea2967897d9692ff1bd0e11f36ca8b37947e1a",
   "host": "darwin 24.3.0 arm64",
   "engine": "xterm",
   "theme": "dark",
@@ -9,7 +9,7 @@
       "name": "the tab opens a shell in the chat's working folder on the chosen engine",
       "detail": {
         "engine": "xterm",
-        "banner": "zsh in /private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-terminal-KFosgy/work"
+        "banner": "zsh in /private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-terminal-l7H7qQ/work"
       }
     },
     {
@@ -55,7 +55,7 @@
       "name": "⌘F opens find in the terminal and Escape returns to the shell"
     },
     {
-      "name": "the assistant's commands and output mirror into the tab"
+      "name": "the assistant's commands mirror into the strip under the terminal and survive the shell's next output"
     },
     {
       "name": "both themes hand the emulator plain colours, and a live theme change repaints",
@@ -86,43 +86,5 @@
   "limits": [
     "One Mac, the login shell of this account, under Electron from source."
   ],
-  "console": [],
-  "mirror": {
-    "beforeMirror": {
-      "buffer": "normal",
-      "cursor": [
-        21,
-        25
-      ],
-      "base": 0,
-      "viewport": 0,
-      "rows": 43,
-      "tail": "92 work % printf '\\033[31mRED-TEXT\\033[0m pla\nin\\n'\nRED-TEXT plain\nfrikkjarl@192 work % sleep 60\n^C\nfrikkjarl@192 work % echo after-int\"\"errupt\nafter-interrupt\nfrikkjarl@192 work % printf 'line %s\\n' $(seq 1 200) > m\nany.txt; less many.txt\nfrikkjarl@192 work %",
-      "bytes": ""
-    },
-    "atOnce": {
-      "buffer": "normal",
-      "cursor": [
-        21,
-        29
-      ],
-      "base": 0,
-      "viewport": 0,
-      "rows": 45,
-      "tail": "frikkjarl@192 work % sleep 60\n^C\nfrikkjarl@192 work % echo after-int\"\"errupt\nafter-interrupt\nfrikkjarl@192 work % printf 'line %s\\n' $(seq 1 200) > m\nany.txt; less many.txt\nfrikkjarl@192 work %\n▶ assistant $ ls -la\ntotal 0\ndrwxr-xr-x  work\nfrikkjarl@192 work %",
-      "bytes": "\r\r\u001b[0m\u001b[27m\u001b[24m\u001b[Jfrikkjarl@192 work % "
-    },
-    "later": {
-      "buffer": "normal",
-      "cursor": [
-        21,
-        29
-      ],
-      "base": 0,
-      "viewport": 0,
-      "rows": 45,
-      "tail": "frikkjarl@192 work % sleep 60\n^C\nfrikkjarl@192 work % echo after-int\"\"errupt\nafter-interrupt\nfrikkjarl@192 work % printf 'line %s\\n' $(seq 1 200) > m\nany.txt; less many.txt\nfrikkjarl@192 work %\n▶ assistant $ ls -la\ntotal 0\ndrwxr-xr-x  work\nfrikkjarl@192 work %",
-      "bytes": "\r\r\u001b[0m\u001b[27m\u001b[24m\u001b[Jfrikkjarl@192 work % "
-    }
-  }
+  "console": []
 }

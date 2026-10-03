@@ -212,6 +212,11 @@ test('terminal UI distinguishes fresh/restored shells, keeps launch cwd and reje
   listener({ id: 'same', chatId: 'chat', sessionId: 'stale', type: 'data', data: 'STALE\r\n' });
   listener({ id: 'same', chatId: 'chat', sessionId: 'session-1', type: 'data', data: 'fresh output\r\n' });
   assert.ok(!fake.text().includes('STALE') && fake.text().includes('fresh output'));
+  // The assistant's commands go to the strip, never into the shell's screen.
+  first.agentEvent({ type: 'tool_start', tool: 'Bash', input: { command: 'ls' } }); first.agentEvent({ type: 'tool_result', tool: 'Bash', ok: false, output: 'no such file' });
+  assert.equal(first.mirror(), '▶ assistant $ ls\nno such file\n[failed]'); assert.ok(!fake.text().includes('assistant $'));
+  assert.equal(host.querySelector('#mirror').hidden, false);
+  host.querySelector('#mirror-clear').onclick(); assert.equal(first.mirror(), ''); assert.equal(host.querySelector('#mirror').hidden, true);
   // The launch folder is the shell's cwd; a later folder change does not rebind the running shell.
   folder = 'C:/folder-B'; first.navigate();
   assert.equal(host.querySelector('#path').title, 'C:/folder-A');

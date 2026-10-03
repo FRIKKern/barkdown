@@ -1,29 +1,29 @@
 {
-  "source": "9ce4a8073a2f30c650ca19bb51c3c6ce90fbdfdc",
+  "source": "92ea2967897d9692ff1bd0e11f36ca8b37947e1a",
   "host": "darwin 24.3.0 arm64",
-  "engine": "xterm",
-  "theme": "dark",
+  "engine": "ghostty",
+  "theme": "light",
   "status": "passed",
   "checks": [
     {
       "name": "the tab opens a shell in the chat's working folder on the chosen engine",
       "detail": {
-        "engine": "xterm",
-        "banner": "zsh in /private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-terminal-LwVrbf/work"
+        "engine": "ghostty",
+        "banner": "zsh in /private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-terminal-thWkyg/work"
       }
     },
     {
-      "name": "TERM is xterm-256color and tput cols answers with the pane's width",
+      "name": "TERM is xterm-256color and the shell's width is the pane's",
       "detail": {
-        "cols": 56,
+        "cols": 51,
         "shell": "/bin/zsh"
       }
     },
     {
       "name": "the pty follows the pane: tput cols shrinks with the window",
       "detail": {
-        "before": 56,
-        "after": 35
+        "before": 51,
+        "after": 31
       }
     },
     {
@@ -40,6 +40,9 @@
       }
     },
     {
+      "name": "Ctrl+C interrupts a running command and the prompt returns"
+    },
+    {
       "name": "less takes the alternate screen and q gives the main screen back",
       "detail": {
         "backHas": [
@@ -49,24 +52,24 @@
       }
     },
     {
-      "name": "⌘F opens find in the terminal and Escape returns to the shell"
+      "name": "the Ghostty engine offers no Find (recorded as a limit)"
     },
     {
-      "name": "the assistant's commands and output mirror into the tab"
+      "name": "the assistant's commands mirror into the strip under the terminal and survive the shell's next output"
     },
     {
-      "name": "both themes hand the emulator plain colours, and a live theme change repaints",
+      "name": "the Ghostty canvas is painted in the light theme it opened with (a live theme change is recorded as a limit)",
       "detail": {
-        "dark": {
-          "foreground": "#e7ebdf",
-          "background": "#141613",
-          "cursor": "#a9c787"
-        },
-        "light": {
+        "opened": {
           "foreground": "#242a20",
           "background": "#fbfaf5",
           "cursor": "#5f7a3a"
-        }
+        },
+        "cell": [
+          251,
+          250,
+          245
+        ]
       }
     },
     {
@@ -76,11 +79,13 @@
   "screenshots": [
     "01-interactive.png",
     "02-less-alternate-screen.png",
-    "03-mirror.png",
-    "04-light-theme.png"
+    "03-mirror.png"
   ],
+  "observations": [],
   "limits": [
-    "One Mac, the login shell of this account, under Electron from source. Windows (ConPTY) is not run here."
+    "One Mac, the login shell of this account, under Electron from source.",
+    "Find is not offered on the Ghostty engine: ghostty-web has no search addon, so the Find button is absent there.",
+    "A Ghostty tab keeps the theme it opened with: ghostty-web fixes its default colours at open, so a live theme change applies to tabs opened afterwards."
   ],
   "console": []
 }
