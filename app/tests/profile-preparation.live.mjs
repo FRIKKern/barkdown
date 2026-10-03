@@ -74,21 +74,23 @@ try {
   let terminalTab, tree, alive;
   {
     await page.evaluate(() => window.__barkdown.openTarget({ kind: 'terminal' }));
-    await page.locator('.bw-terminal #in').waitFor();
-    // The terminal banner names the host shell: PowerShell on Windows, $SHELL's basename elsewhere.
+    await page.locator('.bw-terminal .bw-term-host').waitFor();
+    // A real terminal (C090): the banner names the host shell (PowerShell on Windows, $SHELL's basename elsewhere) and the
+    // prompt follows; keystrokes go to the pty, so the test types only once the prompt shows.
     const shellLabel = process.platform === 'win32' ? 'PowerShell' : path.basename(process.env.SHELL || '/bin/bash');
-    await page.waitForFunction(label => document.querySelector('.bw-terminal #out')?.textContent.includes(label + ' in'), shellLabel);
+    const termText = () => page.evaluate(() => [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal')?.text() || '');
+    for (let i = 0; i < 600 && !(await termText()).includes(shellLabel + ' in'); i++) await new Promise(resolve => setTimeout(resolve, 100));
+    for (let i = 0; i < 300 && !/[%$#>] ?$/.test(await termText()); i++) await new Promise(resolve => setTimeout(resolve, 100));
     terminalTab = await page.evaluate(() => [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal').tab.id);
     const marker = path.join(folder, 'owned-tree.jsonl'), script = fileURLToPath(new URL('./fixtures/terminal-descendants.cjs', import.meta.url));
     const quote = value => "'" + value.replaceAll("'", "''") + "'";
     // PowerShell needs the call operator; a POSIX shell runs the quoted command as is.
-    await page.locator('.bw-terminal #in').fill(`${process.platform === 'win32' ? '& ' : ''}${quote(process.execPath)} ${quote(script)} ${quote(marker)}`);
-    await page.locator('.bw-terminal #in').press('Enter');
+    await page.locator('.bw-terminal .bw-term-host').click();
+    await page.keyboard.type(`${process.platform === 'win32' ? '& ' : ''}${quote(process.execPath)} ${quote(script)} ${quote(marker)}\r`);
     for (let i = 0; i < 150 && (!fs.existsSync(marker) || fs.readFileSync(marker, 'utf8').trim().split('\n').length < 3); i++) await new Promise(resolve => setTimeout(resolve, 50));
     tree = fs.readFileSync(marker, 'utf8').trim().split('\n').map(line => JSON.parse(line).pid);
     alive = pid => { try { process.kill(pid, 0); return true; } catch { return false; } };
     assert.equal(tree.length, 3); assert(tree.every(alive));
-    await page.locator('.bw-terminal #in').fill('echo retained but never run');
     await shot('09-owned-terminal-before-preparation');
   }
   await openFixturePaper(page, 'draft-fixture');
@@ -117,12 +119,11 @@ try {
   const workspace = await page.evaluate(() => window.barkdown.state.load());
   assert.equal(workspace.chats[originalChat].draft, 'Keep this unsent conversation draft.');
   {
-    assert.equal(workspace.chats[originalChat].tabs.find(tab => tab.id === terminalTab).commandDraft, 'echo retained but never run');
     assert(tree.every(pid => !alive(pid)), 'owned terminal root and descendants must be stopped');
     assert.equal((await page.evaluate(({ id, chatId }) => window.barkdown.term.status(id, chatId), { id: terminalTab, chatId: originalChat })).state, 'stopped');
     await assert.rejects(page.evaluate(({ id, folder, chatId }) => window.barkdown.term.start(id, folder, chatId), { id: terminalTab, folder, chatId: originalChat }), /preparing/);
   }
-  report.checks.push('Production preparation verifies owned terminal root/child/grandchild shutdown, retains its unsent command and rejects a new terminal launch.');
+  report.checks.push('Production preparation verifies owned terminal root/child/grandchild shutdown and rejects a new terminal launch (a half-typed line lives in the shell since C090, not in the tab).');
   assert.equal(await page.locator('#app').evaluate(el => el.inert), true);
   assert.match(await page.locator('.bw-paper-pane #meta').innerText(), /Editing paused/);
   await page.keyboard.type('Must not overwrite');
