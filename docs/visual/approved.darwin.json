@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-10-03T16-54-33-835Z/manifest.json",
-  "report": "docs/visual/runs/2026-10-03T16-54-33-835Z/comparison.json",
-  "manifestHash": "7fa9c8588fe0a1da06263f3691e278e5dd4433dec4045b575c38412d21431177",
-  "reportHash": "b944d6ad696c22f1045ac51caa81859865f3c0f00417afc1a91542b05a799bd2",
+  "manifest": "docs/visual/runs/2026-10-03T20-01-14-853Z/manifest.json",
+  "report": "docs/visual/runs/2026-10-03T20-01-14-853Z/comparison.json",
+  "manifestHash": "6f00e671b6924740d29b8e5147dbc2e485d2ece06e516e0452fcdfc1dc27d6f8",
+  "reportHash": "6e52f7b0a3dd8ba32090e48356534a78210bfa830be7b56d5d08173f5de7f75e",
   "reviewer": "Claude Fable 5.1 (agent)",
-  "note": "Dependency input changed (app/package.json: npmRebuild off for node-pty's prebuilds); no UI change. The only differences are the sub-pixel cursor blink in four frames.",
-  "reviewedAt": "2026-10-03T16:55:17.344Z",
-  "reviewPath": "docs/visual/reviews/approval-91b1d9b9d2a95ce4f50eb982da8e9f45e822632f2b121e438010939f29a45321.json",
-  "reviewHash": "91b1d9b9d2a95ce4f50eb982da8e9f45e822632f2b121e438010939f29a45321"
+  "note": "Terminal key handling changed (Windows copy and paste keys); nothing is drawn differently. The four differing frames are a single cursor pixel each.",
+  "reviewedAt": "2026-10-03T20:02:06.568Z",
+  "reviewPath": "docs/visual/reviews/approval-c46f05519823f02e807cc3f2f0e7756c55623f7c4096fd8d74322cd5fba7d1f0.json",
+  "reviewHash": "c46f05519823f02e807cc3f2f0e7756c55623f7c4096fd8d74322cd5fba7d1f0"
 }
