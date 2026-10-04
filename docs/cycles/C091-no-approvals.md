@@ -13,7 +13,7 @@
 
 - `approvals` is an app setting: `none` (the default, also for existing profiles that never set it) or `ask`.
 - The main process hands the run registry a policy that is asked on every request, so switching it takes effect in a run already in flight. A process without a policy (the goal worker) emits the request and the main process decides. If the settings cannot be read, the assistant asks.
-- A chip under the composer shows the state ("No approvals" in the warning colour, or "Asks first") and switches it. Turning approvals off answers the cards already waiting, in every chat.
+- A chip under the composer shows the state ("No approvals" with a check, or "Asks first" with a lock) and switches it. It is drawn like the chips beside it: no approvals is the chosen default, not a warning (the first version used the warning colour and a triangle, and the owner had it changed). Turning approvals off answers the cards already waiting, in every chat.
 - Settings › Assistant has the same choice.
 
 **What did not change.** The browser's pauses on purchases, messages, passwords, deletions and account changes (D-browser-pauses) are a separate layer with their own setting in Settings › Browser. Codex keeps its own sandbox and approval policy; it never showed these cards. Goal workers still cannot start workers, and a run still may not launch another browser.

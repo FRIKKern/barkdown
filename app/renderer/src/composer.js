@@ -50,13 +50,14 @@ export function mountComposer(form, getChat, hooks, main = false) {
     if (!main) { menus[name].id = 'composer-' + (++nextComposer); document.getElementById('app').append(menus[name]); }
   }
   const q = selector => { const name = selector.replace(/^#bw-/, ''); return name === 'compose' ? form : menus[name] || form.querySelector('[data-composer="' + name + '"]'); };
-  // Approvals: the chip says which way the app is set (an app setting, not a chat's). Every composer on screen
+  // Approvals: the chip says which way the app is set (an app setting, not a chat's), in the same quiet colour as
+  // the chips beside it: no approvals is the owner's chosen default, not a warning. Every composer on screen
   // repaints its chip when the setting changes, wherever it was changed.
   function paintApprovals() {
     const asks = state.settings?.approvals === 'ask';
     q('#bw-approvals-label').textContent = asks ? 'Asks first' : 'No approvals';
     q('#bw-approvals').setAttribute('aria-pressed', String(!asks));
-    q('#bw-approvals').querySelector('svg, i')?.replaceWith(el(iconHtml(asks ? 'lock' : 'alert-triangle', 15)));
+    q('#bw-approvals').querySelector('svg, i')?.replaceWith(el(iconHtml(asks ? 'lock' : 'circle-check', 15)));
     q('#bw-approvals').title = asks ? 'The assistant asks before it writes files, runs commands or uses a tool that changes something. Click to stop asking.' : 'The assistant writes files, runs commands and uses tools without asking. Click to be asked first. The browser still pauses on purchases, passwords and similar (Settings › Browser).';
   }
   window.addEventListener('barkdown:approvals', paintApprovals);
