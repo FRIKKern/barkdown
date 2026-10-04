@@ -36,11 +36,11 @@ try{
   ['narrow',()=>p.setViewportSize({width:740,height:740})],['restore',()=>p.setViewportSize({width:1100,height:740})]
  ]);
  await tour('chat','Shared main composer: draft, provider chooser and model chooser. No message is sent.',[
-  ['draft',()=>p.locator('#bw-prompt').fill('Help me think through this note.')],['provider',()=>p.locator('#bw-provider').click()],['dismiss',()=>p.keyboard.press('Escape')],['model',()=>p.locator('#bw-model').click()],['ready',()=>p.keyboard.press('Escape')]
+  ['draft',()=>p.locator('#bw-prompt').fill('Help me think through this note.')],['assistant',()=>p.locator('#bw-assistant').click()],['ready',()=>p.keyboard.press('Escape')]
  ]);
  await tour('side-chat','A real saved side conversation and its independent composer, using disposable fixture state.',[
   ['open',async()=>{await p.locator('#bw-open-work').click();await p.locator('[data-new="chat"]').click();await p.locator('.bw-side-chat').waitFor();}],
-  ['draft',()=>p.locator('.bw-side-chat textarea').fill('Explore this separately.')],['provider',()=>p.locator('.bw-side-chat [data-composer="provider"]').click()],['ready',()=>p.keyboard.press('Escape')]
+  ['draft',()=>p.locator('.bw-side-chat textarea').fill('Explore this separately.')],['assistant',()=>p.locator('.bw-side-chat [data-composer="assistant"]').click()],['ready',()=>p.keyboard.press('Escape')]
  ]);
  await tour('documents','Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.',[
   ['open',async()=>{await p.locator('#bw-pages .bw-page-row').first().click();}],['dark',()=>p.emulateMedia({colorScheme:'dark'})],['light',()=>p.emulateMedia({colorScheme:'light'})]

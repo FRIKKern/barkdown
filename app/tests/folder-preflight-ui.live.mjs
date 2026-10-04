@@ -37,7 +37,7 @@ try {
   await page.locator('#bw-open-work').click(); await page.locator('[data-new="chat"]').click();
   const side = page.locator('.bw-side-chat'); await side.waitFor();
   const child = await page.evaluate(() => { const s = window.__barkdown.state, c = s.chats[s.current]; return c.tabs.find(t => t.id === c.active).sideChatId; });
-  await side.locator('[data-composer="provider"]').click(); await page.locator('.bw-menu:not([hidden]) [data-choice="codex"]').click();
+  await side.locator('[data-composer="assistant"]').click(); await page.locator('.bw-menu:not([hidden]) [data-provider="codex"]').click(); await page.keyboard.press('Escape');
   await side.locator('textarea').fill('Keep this side-chat prompt'); await side.locator('textarea').press('Enter');
   await page.waitForFunction(id => window.__barkdown.state.chats[id].messages.at(-1)?.error?.includes('Selected working folder'), child);
   assert.equal(await side.locator('textarea').inputValue(), 'Keep this side-chat prompt'); assert.equal(await page.locator('#bw-prompt').inputValue(), 'Keep this main-chat prompt');

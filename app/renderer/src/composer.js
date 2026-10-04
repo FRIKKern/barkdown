@@ -45,8 +45,8 @@ export function mountComposer(form, getChat, hooks, main = false) {
   const currentChat = getChat;
   for (const node of form.querySelectorAll('[id^="bw-"]')) node.dataset.composer = node.id.slice(3);
   const menus = {};
-  for (const name of ['model-menu','provider-menu','effort-menu','project-menu']) {
-    menus[name] = main ? document.getElementById('bw-' + name) : el('<div class="bw-menu bw-menu-chip" hidden></div>');
+  for (const name of ['assistant-menu','project-menu']) {
+    menus[name] = main ? document.getElementById('bw-' + name) : el(`<div class="bw-menu bw-menu-chip${name === 'assistant-menu' ? ' bw-menu-assistant' : ''}" hidden></div>`);
     if (!main) { menus[name].id = 'composer-' + (++nextComposer); document.getElementById('app').append(menus[name]); }
   }
   const q = selector => { const name = selector.replace(/^#bw-/, ''); return name === 'compose' ? form : menus[name] || form.querySelector('[data-composer="' + name + '"]'); };
@@ -56,6 +56,7 @@ export function mountComposer(form, getChat, hooks, main = false) {
     const asks = state.settings?.approvals === 'ask';
     q('#bw-approvals-label').textContent = asks ? 'Asks first' : 'No approvals';
     q('#bw-approvals').setAttribute('aria-pressed', String(!asks));
+    q('#bw-approvals').querySelector('svg, i')?.replaceWith(el(iconHtml(asks ? 'lock' : 'alert-triangle', 15)));
     q('#bw-approvals').title = asks ? 'The assistant asks before it writes files, runs commands or uses a tool that changes something. Click to stop asking.' : 'The assistant writes files, runs commands and uses tools without asking. Click to be asked first. The browser still pauses on purchases, passwords and similar (Settings › Browser).';
   }
   window.addEventListener('barkdown:approvals', paintApprovals);
@@ -147,21 +148,19 @@ function renderProjectMenu() {
   const provider = providerFor(chat);
   const available = state.settings?.providers || {};
   const ready = provider === 'claude' ? available.claude?.loggedIn : provider === 'codex' ? available.codex?.loggedIn : available.api?.hasKey;
-  q('#bw-provider-label').textContent = (PROVIDER_LABEL[provider] || provider) + (ready ? '' : ' · not signed in');
-  q('#bw-provider').classList.toggle('off', !ready);
-  q('#bw-provider').title = ready ? `Runs on ${PROVIDER_LABEL[provider]} using your local login. Click to switch.` : `${PROVIDER_LABEL[provider]} is not available. Click to switch or open Settings.`;
-  // The chips always name the value in force; a provider default is shown as such, never as a blank word.
-  const modelLabel = (modelChoices(provider)).find(([v]) => v === (chat.model || ''))?.[1] || chat.model;
+  // One chip names what the chat runs on: the model and the effort in force, defaults included. When the provider
+  // is not signed in it says that instead, in the warning colour.
   const defaultModel = defaultModelInForce(provider);
-  q('#bw-model-label').textContent = chat.model ? modelLabel : `${defaultModel.label} (default)`;
-  q('#bw-model').title = chat.model ? `Model for this chat: ${chat.model}` : `Model for this chat: the provider default${defaultModel.id ? ', ' + defaultModel.id : ''}. Click to choose another.`;
-  const efforts = effortChoices(provider);
-  q('#bw-effort').hidden = !efforts.length;
+  const modelLabel = chat.model ? modelName(chat.model) : defaultModel.label;
   const p = state.settings?.providers?.[provider] || {};
   const defaultEffort = p.effortSeen || p.effort;
   const effortName = v => (EFFORT_LEVELS[provider] || []).find(([id]) => id === v)?.[1] || v;
-  q('#bw-effort-label').textContent = chat.effort ? effortName(chat.effort) : defaultEffort ? `${effortName(defaultEffort)} (default)` : 'Effort';
-  q('#bw-effort').title = chat.effort ? `Reasoning effort for this chat: ${chat.effort}` : `Reasoning effort for this chat: the provider default${defaultEffort ? ', ' + defaultEffort : ''}. Click to choose another.`;
+  const effortLabel = (EFFORT_LEVELS[provider] || []).length ? effortName(chat.effort || defaultEffort || '') : '';
+  q('#bw-assistant-label').textContent = ready ? [modelLabel, effortLabel].filter(Boolean).join(' · ') : `${PROVIDER_LABEL[provider] || provider} · not signed in`;
+  q('#bw-assistant').classList.toggle('off', !ready);
+  q('#bw-assistant').title = ready
+    ? `${PROVIDER_LABEL[provider]} · ${chat.model ? chat.model : 'its default model' + (defaultModel.id ? ', ' + defaultModel.id : '')}${effortLabel ? ' · effort ' + (chat.effort || (defaultEffort ? defaultEffort + ' (default)' : 'default')) : ''}. Click to choose the model and the effort.`
+    : `${PROVIDER_LABEL[provider]} is not available. Click to switch or get sign-in help.`;
   paintApprovals();
   q('#bw-working').hidden = !chat.runId;
   q('#bw-working').innerHTML = `<span class="bw-pulse"></span>${esc(chat.workingLabel || 'Working…')}`;
@@ -169,16 +168,29 @@ function renderProjectMenu() {
   q('#bw-stop').hidden = !chat.runId;
   }
   q('#bw-folder-context').onclick = () => { renderProjectMenu(); toggleMenu(q('#bw-project-menu'), q('#bw-folder-context'), { side: 'above' }); };
-  const chipMenu = (chipId, menuId, choices, current, apply, customLabel) => {
-    const menu = q(menuId);
-    menu.innerHTML = `<h3>${esc(customLabel.title)}</h3>` + choices.map(([value, label]) => `<button data-choice="${esc(value)}" aria-selected="${value === (current || '')}" role="menuitemradio">${value === (current || '') ? iconHtml('check', 12) : '<i class="bw-menu-blank"></i>'}${esc(label)}</button>`).join('') + (customLabel.custom ? `<button data-custom>${iconHtml('square-pen', 12)}${esc(customLabel.custom)}</button>` : '');
-    menu.querySelectorAll('[data-choice]').forEach(b => { b.onclick = () => { apply(b.dataset.choice || null); hideMenus(); renderChat(); save(); }; });
-    menu.querySelector('[data-custom]') && (menu.querySelector('[data-custom]').onclick = async () => { hideMenus(); const v = await askText({ title: customLabel.custom.replace(/…$/, ''), label: customLabel.prompt, value: current || '', placeholder: 'model id' }); if (v != null) { apply(v || null); renderChat(); save(); } });
-    toggleMenu(q(menuId), q(chipId), { side: 'above' });
-  };
-  q('#bw-model').onclick = () => { const chat = currentChat(); const provider = providerFor(chat); chipMenu('#bw-model', '#bw-model-menu', modelChoices(provider), chat.model, v => { chat.model = v; }, { title: 'Model for this chat', custom: 'Other model id…', prompt: 'Model id (as the provider names it)' }); };
-  q('#bw-effort').onclick = () => { const chat = currentChat(); const provider = providerFor(chat); chipMenu('#bw-effort', '#bw-effort-menu', effortChoices(provider), chat.effort, v => { chat.effort = v; }, { title: 'Reasoning effort' }); };
-  q('#bw-provider').onclick = () => { const chat = currentChat(); const p = state.settings?.providers || {}; const ready = { claude: p.claude?.loggedIn, codex: p.codex?.loggedIn, api: p.api?.hasKey }; const choices = ['claude', 'codex', 'api'].map(id => [id, `${PROVIDER_LABEL[id]}${ready[id] ? '' : ' · not signed in'}`]); chipMenu('#bw-provider', '#bw-provider-menu', choices, providerFor(chat), v => { chat.provider = v; chat.sessions = {}; }, { title: 'Provider for this chat' }); const selected = providerFor(chat); if (selected !== 'api') { const signIn = el('<button type="button">Sign-in help for ' + esc(PROVIDER_LABEL[selected]) + '</button>'); signIn.onclick = () => { hideMenus(); openProviderLogin(selected, renderControls); }; q('#bw-provider-menu').appendChild(signIn); } };
+  // The assistant menu: provider across the top, that provider's models, and its effort levels. Picking a provider
+  // redraws the menu in place (its models and levels differ); picking a model or an effort closes it.
+  function drawAssistantMenu() {
+    const chat = currentChat(), provider = providerFor(chat), menu = q('#bw-assistant-menu');
+    const p = state.settings?.providers || {}, ready = { claude: p.claude?.loggedIn, codex: p.codex?.loggedIn, api: p.api?.hasKey };
+    const row = (attr, value, label, selected) => `<button ${attr}="${esc(value)}" aria-selected="${selected}" role="menuitemradio">${selected ? iconHtml('check', 12) : '<i class="bw-menu-blank"></i>'}${esc(label)}</button>`;
+    const efforts = effortChoices(provider);
+    menu.innerHTML = `<div class="bw-menu-seg" role="radiogroup" aria-label="Provider for this chat">${['claude', 'codex', 'api'].map(id => `<button type="button" data-provider="${id}" role="radio" aria-checked="${id === provider}" title="${esc(PROVIDER_LABEL[id] + (ready[id] ? '' : ' · not signed in'))}"${ready[id] ? '' : ' class="off"'}>${esc(id === 'api' ? 'API key' : PROVIDER_LABEL[id])}</button>`).join('')}</div>`
+      + `<h3>Model</h3>` + modelChoices(provider).map(([value, label]) => row('data-model', value, label, value === (chat.model || ''))).join('')
+      + (chat.model && !modelChoices(provider).some(([value]) => value === chat.model) ? row('data-model', chat.model, modelName(chat.model), true) : '')
+      + `<button data-custom>${iconHtml('square-pen', 12)}Other model id…</button>`
+      + (efforts.length ? `<h3>Effort</h3><div class="bw-menu-pills" role="radiogroup" aria-label="Reasoning effort">${efforts.map(([value, label]) => `<button type="button" data-effort="${esc(value)}" role="radio" aria-checked="${value === (chat.effort || '')}">${esc(label)}</button>`).join('')}</div>` : '')
+      + (provider !== 'api' ? `<button type="button" data-signin>${iconHtml('key-round', 12)}Sign-in help for ${esc(PROVIDER_LABEL[provider])}</button>` : '');
+    menu.querySelectorAll('[data-provider]').forEach(b => { b.onclick = () => {
+      if (b.dataset.provider !== provider) { chat.provider = b.dataset.provider; chat.sessions = {}; chat.model = null; if (!(EFFORT_LEVELS[chat.provider] || []).some(([id]) => id === chat.effort)) chat.effort = null; renderChat(); save(); }
+      drawAssistantMenu();
+    }; });
+    menu.querySelectorAll('[data-model]').forEach(b => { b.onclick = () => { chat.model = b.dataset.model || null; hideMenus(); renderChat(); save(); }; });
+    menu.querySelectorAll('[data-effort]').forEach(b => { b.onclick = () => { chat.effort = b.dataset.effort || null; hideMenus(); renderChat(); save(); }; });
+    menu.querySelector('[data-custom]').onclick = async () => { hideMenus(); const v = await askText({ title: 'Other model id', label: 'Model id (as the provider names it)', value: chat.model || '', placeholder: 'model id' }); if (v != null) { chat.model = v || null; renderChat(); save(); } };
+    menu.querySelector('[data-signin]') && (menu.querySelector('[data-signin]').onclick = () => { hideMenus(); openProviderLogin(provider, renderControls); });
+  }
+  q('#bw-assistant').onclick = () => { drawAssistantMenu(); toggleMenu(q('#bw-assistant-menu'), q('#bw-assistant'), { side: 'above' }); };
   // Turning approvals off answers the cards that are already waiting, in every chat.
   q('#bw-approvals').onclick = async () => {
     const next = state.settings?.approvals === 'ask' ? 'none' : 'ask';

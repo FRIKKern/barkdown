@@ -3,24 +3,26 @@
   "id": "C091",
   "stage": "P5",
   "status": "active",
-  "goal": "The assistant acts without asking by default, and one toggle under the composer brings the approval card back.",
+  "goal": "The composer bar gets out of the way: the assistant acts without asking by default with one toggle to bring the approval card back, and one chip chooses provider, model and effort.",
   "scope": [
     "A. One policy at the single door every approval passes (main/providers/runs.js), asked each time so the toggle applies to a run in flight",
     "B. A chip under the composer and a row in Settings › Assistant for the same app setting, approvals: none | ask",
-    "C. The browser's pauses on sensitive actions stay as they are, under their own setting"
+    "C. The browser's pauses on sensitive actions stay as they are, under their own setting",
+    "D. One chip for provider, model and effort: it names the model and effort in force and opens one menu (provider across the top, that provider's models, effort as pills)"
   ],
   "acceptance": [
     "By default no approval card appears and the action proceeds; choosing Ask first brings the card back, including in a run already in flight",
     "A toggle under the composer and the same setting in Settings › Assistant",
+    "One chip shows the model and effort in force and opens one menu to choose provider, model and effort",
     "Delivered in a nightly from a green chain"
   ],
   "checkpoint": "2026-10-04",
   "handoff": "docs/cycles/C091-no-approvals.md",
-  "nextAction": "Picture cycle, chain and nightly for the approvals change; then the Windows terminal job on pull requests and C089's owner items.",
+  "nextAction": "Picture cycle, chain and nightly for the approvals default and the single assistant chip; then the Windows terminal job on pull requests and C089's owner items.",
   "evidence": [
     "app/tests/approval-policy.test.mjs"
   ],
-  "truthReview": "2026-10-04: every approval (Claude Code's canUseTool for writes, commands, files outside the folder and unknown tools; the API loop's write_file; a goal worker's request relayed to main) goes through requestApproval in main/providers/runs.js. A policy handed in by the main process is asked each time: approvals other than 'ask' resolve at once with no card. Probed in the real app: default 'No approvals' resolves approved with zero cards; one click on the chip and the same request waits with one card; a second click and it resolves again. Unit test 3/3, journey 76/76. Not covered by a tour with a real provider run. Unchanged: Codex's own sandbox and approval policy (it never showed cards), the browser's pauses on sensitive actions, the rule that goal workers cannot start workers, the refusal to launch another browser.",
+  "truthReview": "2026-10-04: every approval (Claude Code's canUseTool for writes, commands, files outside the folder and unknown tools; the API loop's write_file; a goal worker's request relayed to main) goes through requestApproval in main/providers/runs.js. A policy handed in by the main process is asked each time: approvals other than 'ask' resolve at once with no card. Probed in the real app: default 'No approvals' resolves approved with zero cards; one click on the chip and the same request waits with one card; a second click and it resolves again. Unit test 3/3, journey 76/76. Not covered by a tour with a real provider run. Unchanged: Codex's own sandbox and approval policy (it never showed cards), the browser's pauses on sensitive actions, the rule that goal workers cannot start workers, the refusal to launch another browser. Same day, second ask: the three chips (provider, model, effort) are one chip, 'Sonnet 5.5 · Low', with one menu; picking a provider redraws the menu in place and resets the chat's model to that provider's default; picking a model or an effort closes it. Probed in the real app and covered by the journey, the side-chat tour and the sign-in tour. The model list gained Opus 5.5 and Sonnet 5.5, and an unknown Claude id now reads as a name. Several buttons used icon names the app does not have and showed a fallback page icon (the approvals chip, sign-in help, the terminal's Clear and find buttons, the website tab's find-previous); they use existing icons now.",
   "screenshotReview": "The composer shows the chip in both states and Settings › Assistant shows the row (probe frames reviewed); status shots and the visual run follow the implementation commit.",
   "delivery": {
     "phase": "implementing",

@@ -80,7 +80,7 @@ try {
   await page.getByRole('button',{name:'General',exact:true}).click();await page.locator('#theme [data-value="dark"]').click();
   await page.getByRole('button',{name:'Assistant',exact:true}).click();await shot('08-settings-dark');
   await page.locator('.bw-settings [data-act="save"]').click();await page.locator('.bw-settings').waitFor({state:'detached'});
-  await page.locator('#bw-provider').click();await page.getByRole('button',{name:'Sign-in help for Codex',exact:true}).click();
+  await page.locator('#bw-assistant').click();await page.getByRole('button',{name:'Sign-in help for Codex',exact:true}).click();
   await page.setViewportSize({width:390,height:800});await shot('09-login-dark-narrow');
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
   await page.locator('[data-login-close]').click();

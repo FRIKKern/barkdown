@@ -29,9 +29,7 @@ try {
   await page.locator('#bw-favorites').click(); await shot('menu-favorites'); await esc();
   await page.locator('#bw-folder-context').click(); await shot('menu-project'); await esc();
   await page.evaluate(() => { const s = window.__barkdown.state; s.chats[s.current].provider = 'claude'; window.__barkdown.render(); });
-  await page.locator('#bw-provider').click(); await shot('menu-provider'); await esc();
-  await page.locator('#bw-model').click(); await shot('menu-model'); await esc();
-  await page.locator('#bw-effort').click(); await shot('menu-effort'); await esc();
+  await page.locator('#bw-assistant').click(); await shot('menu-assistant'); await esc();
   await page.keyboard.press(`${MOD}+k`); await shot('palette'); await esc();
   await page.locator('#bw-new-doc').click(); await shot('ask-new-page'); await esc();
   for (const theme of ['light', 'dark']) {

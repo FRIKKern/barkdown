@@ -1,6 +1,6 @@
 // The model and effort choices Barkdown offers per provider, shared by the composer chips and Settings.
 // An empty id means the provider's own default; any other id can be typed by hand where a custom entry exists.
-export const CLAUDE_MODELS = [['claude-fable-5-1', 'Fable 5.1'], ['claude-opus-5', 'Opus 5'], ['claude-sonnet-5', 'Sonnet 5'], ['claude-haiku-4-5-20251001', 'Haiku 4.5']];
+export const CLAUDE_MODELS = [['claude-fable-5-1', 'Fable 5.1'], ['claude-opus-5-5', 'Opus 5.5'], ['claude-sonnet-5-5', 'Sonnet 5.5'], ['claude-opus-5', 'Opus 5'], ['claude-sonnet-5', 'Sonnet 5'], ['claude-haiku-4-5-20251001', 'Haiku 4.5']];
 export const CODEX_MODELS = [['gpt-6-astra', 'GPT-6 Astra'], ['gpt-6', 'GPT-6'], ['gpt-5-codex', 'GPT-5 Codex']];
 export const EFFORT_LEVELS = {
   claude: [['low', 'Low'], ['medium', 'Medium'], ['high', 'High'], ['xhigh', 'Extra high'], ['max', 'Max']],
@@ -14,7 +14,9 @@ export function modelName(id) {
   if (!id) return '';
   const m = /^(.*?)(\[1m\])?$/i.exec(String(id));
   const base = m[1], long = Boolean(m[2]);
-  const label = [...CLAUDE_MODELS, ...CODEX_MODELS].find(([v]) => v === base)?.[1] || ALIASES[base.toLowerCase()] || base;
+  // An id the list does not know still reads as a name when it follows Claude's pattern (claude-opus-6-1 → Opus 6.1).
+  const family = /^claude-(fable|opus|sonnet|haiku)-(\d+)(?:-(\d{1,2}))?(?:-\d{8})?$/i.exec(base);
+  const label = [...CLAUDE_MODELS, ...CODEX_MODELS].find(([v]) => v === base)?.[1] || ALIASES[base.toLowerCase()] || (family ? `${family[1][0].toUpperCase()}${family[1].slice(1).toLowerCase()} ${family[2]}${family[3] ? '.' + family[3] : ''}` : base);
   return long ? `${label} · 1M` : label;
 }
 

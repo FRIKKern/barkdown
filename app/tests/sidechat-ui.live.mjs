@@ -29,13 +29,13 @@ try {
   let childState=await page.evaluate(id=>window.__barkdown.state.chats[id],child);
   assert.equal(childState.folder,parentFolder);assert.equal(childState.parent,parent);assert.equal(childState.model,'parent-model');
   assert.equal(await page.locator(`#bw-recent-chats [data-context="${child}"]`).count(),1);
-  for(const name of ['provider','model','effort','attach','folder-context']) assert.ok(await side.locator(`[data-composer="${name}"]`).isVisible());
-  await side.locator('[data-composer="provider"]').click(); await page.locator('.bw-menu:not([hidden]) [data-choice="claude"]').click();
+  for(const name of ['assistant','approvals','attach','folder-context']) assert.ok(await side.locator(`[data-composer="${name}"]`).isVisible());
+  await side.locator('[data-composer="assistant"]').click(); await page.locator('.bw-menu:not([hidden]) [data-provider="claude"]').click();
   assert.equal(await page.evaluate(id=>window.__barkdown.state.chats[id].provider,parent),'codex');
-  await side.locator('[data-composer="provider"]').click(); await page.locator('.bw-menu:not([hidden]) [data-choice="codex"]').click();
-  await side.locator('[data-composer="model"]').click(); await page.locator('.bw-menu:not([hidden]) [data-custom]').click();
+  await page.locator('.bw-menu:not([hidden]) [data-provider="codex"]').click();
+  await page.locator('.bw-menu:not([hidden]) [data-custom]').click();
   await page.locator('.bw-ask input').fill('side-model'); await page.locator('.bw-ask button[type="submit"]').click();
-  await side.locator('[data-composer="effort"]').click(); await page.locator('.bw-menu:not([hidden]) [data-choice="low"]').click();
+  await side.locator('[data-composer="assistant"]').click(); await page.locator('.bw-menu:not([hidden]) [data-effort="low"]').click();
   await side.locator('[data-composer="folder-context"]').click(); await page.locator('.bw-menu:not([hidden]) [data-act="choose"]').click();
   await page.waitForFunction(({child,folder})=>window.__barkdown.state.chats[child].folder===folder,{child,folder:childFolder});
   assert.equal(await page.evaluate(id=>window.__barkdown.state.chats[id].folder,parent),parentFolder);
@@ -59,7 +59,7 @@ try {
   await page.locator('#bw-tabs .bw-tab.active [data-close]').dispatchEvent('click');
   await page.locator(`#bw-recent-chats [data-context="${child}"]`).click();
   assert.equal(await page.locator('#bw-prompt').inputValue(),'Child draft');
-  assert.equal(await page.locator('#bw-model-label').innerText(),'side-model');
+  assert.match(await page.locator('#bw-assistant-label').innerText(),/^side-model/);
   await page.locator('#bw-prompt').fill('Draft edited in main view');
   await page.locator('#bw-transcript [data-parent]').click();
   assert.equal(await page.locator('#bw-prompt').inputValue(),'Parent draft');

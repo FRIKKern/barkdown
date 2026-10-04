@@ -219,15 +219,16 @@ const renameActiveTab = async () => { for (let i = 0; i < 3; i++) { await page.l
   step('the change card lists files and the document with counts', (await page.locator('.bw-changes-head').innerText()).includes('Edited 2 files · 1 document') && (await page.locator('.bw-change').count()) === 3 && (await page.locator('.bw-change').nth(0).innerText()).includes('+2') && (await page.locator('[data-undo-file]').count()) === 2);
   await page.screenshot({ path: path.join(out, '02c-verbose-reply.png') });
 
-  // Model and effort chips set the chat's own choices.
-  await page.locator('#bw-model').click();
-  await page.locator('#bw-model-menu [data-choice="claude-sonnet-5"]').click();
-  step('model chip stores the chat model', (await page.locator('#bw-model-label').innerText()) === 'Sonnet 5' && (await page.evaluate(() => window.__barkdown.state.chats[window.__barkdown.state.current].model)) === 'claude-sonnet-5');
+  // One chip under the composer sets the chat's model and effort (the owner's ask, 2026-10-04).
+  await page.locator('#bw-assistant').click();
+  await page.locator('#bw-assistant-menu [data-model="claude-sonnet-5"]').click();
+  // The controlled run uses the API loop with no key, so the chip says "not signed in" here; the label is checked below on Claude Code.
+  step('model chip stores the chat model', (await page.evaluate(() => window.__barkdown.state.chats[window.__barkdown.state.current].model)) === 'claude-sonnet-5' && await page.locator('#bw-assistant-menu').isHidden());
   // Effort exists for the login providers only; the controlled run uses the API loop, so switch the chat to Claude Code for the chip.
   await page.evaluate(() => { const chat = window.__barkdown.state.chats[window.__barkdown.state.current]; chat.provider = 'claude'; chat.model = null; chat.effort = null; window.__barkdown.render(); });
-  step('the chips name the defaults in force instead of saying Model and Effort', (await page.locator('#bw-model-label').innerText()).endsWith(' (default)') && /^(Low|Medium|High|Extra high|Max) [(]default[)]$/.test(await page.locator('#bw-effort-label').innerText()));
-  await page.locator('#bw-effort').click();
-  await page.locator('#bw-effort-menu [data-choice="high"]').click();
+  step('the chip names the model and effort in force instead of saying Model and Effort', /^.+ · (Low|Medium|High|Extra high|Max)$/.test(await page.locator('#bw-assistant-label').innerText()));
+  await page.locator('#bw-assistant').click();
+  await page.locator('#bw-assistant-menu [data-effort="high"]').click();
   step('effort chip stores the chat effort', (await page.evaluate(() => window.__barkdown.state.chats[window.__barkdown.state.current].effort)) === 'high');
   await page.evaluate(() => { const chat = window.__barkdown.state.chats[window.__barkdown.state.current]; chat.provider = 'api'; window.__barkdown.render(); });
 
@@ -283,19 +284,20 @@ const renameActiveTab = async () => { for (let i = 0; i < 3; i++) { await page.l
   await page.keyboard.press('Escape');
   step('Escape closes a menu', await page.locator('#bw-project-menu').isHidden());
   await page.evaluate(() => { const s = window.__barkdown.state; s.chats[s.current].provider = 'claude'; s.chats[s.current].model = null; window.__barkdown.render(); });
-  await page.locator('#bw-provider').click();
-  step('the provider chip opens a menu instead of cycling', (await page.locator('#bw-provider-menu [data-choice]').count()) === 3 && (await page.locator('#bw-provider-menu [aria-selected="true"]').innerText()).includes('Claude Code'));
-  await page.locator('#bw-provider-menu [data-choice="codex"]').click();
-  step('choosing a provider updates the chip', (await page.locator('#bw-provider-label').innerText()).startsWith('Codex'));
+  await page.locator('#bw-assistant').click();
+  step('the menu offers the three providers with the chat\'s one chosen', (await page.locator('#bw-assistant-menu [data-provider]').count()) === 3 && (await page.locator('#bw-assistant-menu [data-provider][aria-checked="true"]').innerText()).includes('Claude Code'));
+  await page.locator('#bw-assistant-menu [data-provider="codex"]').click();
+  step('choosing a provider keeps the menu open on that provider\'s models and updates the chat', await page.locator('#bw-assistant-menu').isVisible() && (await page.locator('#bw-assistant-menu [data-provider][aria-checked="true"]').innerText()).includes('Codex') && (await page.evaluate(() => window.__barkdown.state.chats[window.__barkdown.state.current].provider)) === 'codex');
+  await page.keyboard.press('Escape');
   await page.evaluate(() => { const s = window.__barkdown.state; s.chats[s.current].provider = 'claude'; window.__barkdown.render(); });
-  await page.locator('#bw-model').click();
-  { const m = await box('#bw-model-menu'), b = await box('#bw-model'); step('the model menu opens above its chip', m && b && m.y + m.height <= b.y); }
-  await page.locator('#bw-model-menu [data-custom]').click();
+  await page.locator('#bw-assistant').click();
+  { const m = await box('#bw-assistant-menu'), b = await box('#bw-assistant'); step('the model menu opens above its chip', m && b && m.y + m.height <= b.y); }
+  await page.locator('#bw-assistant-menu [data-custom]').click();
   await page.waitForSelector('.bw-ask input', { timeout: 5000 });
-  step('"Other model id" asks in an app dialog (Electron has no prompt())', await page.locator('.bw-ask input').isVisible() && await page.locator('#bw-model-menu').isHidden());
+  step('"Other model id" asks in an app dialog (Electron has no prompt())', await page.locator('.bw-ask input').isVisible() && await page.locator('#bw-assistant-menu').isHidden());
   await page.locator('.bw-ask input').fill('claude-test-model');
   await page.locator('.bw-ask input').press('Enter');
-  step('the typed model id lands on the chip', (await page.locator('#bw-model-label').innerText()).includes('claude-test-model'));
+  step('the typed model id lands on the chip', (await page.locator('#bw-assistant-label').innerText()).includes('claude-test-model'));
   await page.evaluate(() => { const s = window.__barkdown.state; s.chats[s.current].model = null; window.__barkdown.render(); });
 
   // New page in a legacy launch is refused: notes live on Paper, and this library has no runtime.

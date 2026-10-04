@@ -228,3 +228,7 @@ Owner decision; it supersedes the Ghostty option in D-real-terminal. For one day
 ## D-no-approvals — The assistant acts without asking unless the person chooses to be asked (2026-10-04)
 
 Owner decision. Until now a run asked before it wrote a file, ran a command, touched a file outside the working folder or used a connected tool that changes something; the owner found the cards a constant interruption. The default is now no approvals, and a chip under the composer (also Settings › Assistant) switches asking back on, live, for runs in flight too. The browser's pauses on sensitive actions (D-browser-pauses) are untouched and keep their own setting.
+
+## D-one-assistant-chip — Provider, model and effort are one chip with one menu (2026-10-04)
+
+Owner decision. The composer showed three chips (provider, model, effort), each with its own menu. They are one chip that names the model and effort in force and opens one menu: provider across the top, that provider's models, effort as pills. Changing the provider resets the chat's model to that provider's default.
