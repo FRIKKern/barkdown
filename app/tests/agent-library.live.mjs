@@ -16,7 +16,9 @@ const require = createRequire(import.meta.url);
 const { createProfileRegistry } = require('../main/profile-registry');
 const { createStore } = require('../main/store');
 const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const runtime = process.env.BARKDOWN_CARRIED_RUNTIME || path.resolve(appRoot, '../runtime/barkpark-9f1874235-darwin-arm64');
+// The carried runtime is the packaged release at the pinned Barkpark commit (app/BARKPARK_REF).
+const pin = fs.readFileSync(path.join(appRoot, 'BARKPARK_REF'), 'utf8').trim();
+const runtime = process.env.BARKDOWN_CARRIED_RUNTIME || path.resolve(appRoot, `../runtime/barkpark-${pin.slice(0, 9)}-${process.platform}-${process.arch}`);
 const out = path.resolve(appRoot, '../docs/cycles/evidence/C092/live', new Date().toISOString().replace(/[:.]/g, '-') + '-agent-library');
 fs.mkdirSync(out, { recursive: true });
 const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], runs: [],

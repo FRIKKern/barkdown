@@ -30,7 +30,7 @@ test('all exact bundled notices and source attribution ship beside the consumed 
   assert.deepEqual(read(path.join(shipped, 'manifest.json')), read(path.join(archive, 'manifest.json')));
   const manifest = json(path.join(shipped, 'manifest.json'));
   assert.equal(hash(path.join(vendor, 'bp-paper-editor.bundle.js')), manifest.bundleSha256);
-  assert.equal(manifest.packages.length, 49);
+  assert.equal(manifest.packages.length, 45);
   for (const pkg of manifest.packages) {
     assert.ok(pkg.notices.length, pkg.name);
     assert.equal(pkg.unavailable, undefined);

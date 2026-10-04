@@ -207,7 +207,10 @@ class SourceDriver {
     this.redact = [this.secrets.password, this.secrets.token, ...Object.values(keys)];
     const env = { PATH: '/usr/bin:/bin:/usr/sbin:/sbin', HOME: process.env.HOME || this.dataDir, LANG: process.env.LANG || 'en_US.UTF-8', ...keys,
       DATABASE_URL: `ecto://postgres:${encodeURIComponent(this.secrets.password)}@127.0.0.1:${this.config.pgPort}/barkdown`, POOL_SIZE: '3',
-      PORT: String(this.config.port), PHX_HOST: '127.0.0.1', RELEASE_DISTRIBUTION: 'none', RELEASE_TMP: path.join(this.dataDir, 'release-tmp'), ERL_CRASH_DUMP: path.join(this.dataDir, 'erl_crash.dump'),
+      // Since Barkpark separated its public port from its listen port, a release assumes the scheme's standard port in
+      // every absolute address it hands out (pictures came back as http://127.0.0.1/media/… and could not be fetched).
+      // The local runtime's public port is the one it listens on: PHX_PORT says so.
+      PORT: String(this.config.port), PHX_PORT: String(this.config.port), PHX_HOST: '127.0.0.1', RELEASE_DISTRIBUTION: 'none', RELEASE_TMP: path.join(this.dataDir, 'release-tmp'), ERL_CRASH_DUMP: path.join(this.dataDir, 'erl_crash.dump'),
       BARKPARK_INGEST_TOKEN: this.secrets.token, BARKPARK_SEED_PROFILE: 'clean', BARKPARK_SEED_ADMIN_TOKEN: this.secrets.token, BARKPARK_PLUGINS: 'bulldocs,media',
       BARKPARK_MEDIA_DIR: path.join(this.dataDir, 'media'), BARKPARK_INDX_STATE_DIR: path.join(this.dataDir, 'indx'), BARKPARK_BUNDLE_SPILL_DIR: path.join(this.dataDir, 'bundles') };
     // Migration and seed are one-shot tasks and run without admission, as the release demands: a
