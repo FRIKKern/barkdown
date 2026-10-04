@@ -16,6 +16,8 @@ export function terminalTheme() {
   return {
     background: d ? '#141613' : '#fbfaf5', foreground: d ? '#e7ebdf' : '#242a20',
     cursor: css('--bw-accent') || (d ? '#a9c787' : '#5f7a3a'), cursorAccent: d ? '#141613' : '#fbfaf5', selectionBackground: d ? '#a9c78744' : '#5f7a3a33',
+    // The scrollback's slider is a faint thumb with no track or ruler border (it stood out as a grey bar on Windows).
+    scrollbarSliderBackground: d ? '#e7ebdf24' : '#242a2024', scrollbarSliderHoverBackground: d ? '#e7ebdf4d' : '#242a204d', scrollbarSliderActiveBackground: d ? '#e7ebdf66' : '#242a2066', overviewRulerBorder: '#00000000',
     black: d ? '#2b2e28' : '#3a3f36', red: d ? '#e07a73' : '#b4443a', green: d ? '#a9c787' : '#4f7a2d', yellow: d ? '#e2ca93' : '#9a7a1f', blue: d ? '#86b0d6' : '#2f6b9e', magenta: d ? '#c9a0d9' : '#8a4f9e', cyan: d ? '#7fc4c0' : '#2a7f7a', white: d ? '#d4ddce' : '#5e665a',
     brightBlack: d ? '#6c7466' : '#8a9284', brightRed: d ? '#f29b94' : '#c7524a', brightGreen: d ? '#c2dca1' : '#5e8f38', brightYellow: d ? '#f0dcae' : '#b58f2a', brightBlue: d ? '#a5c7e8' : '#3b7fb8', brightMagenta: d ? '#dbb8ea' : '#9f63b4', brightCyan: d ? '#9fd9d5' : '#35968f', brightWhite: d ? '#f0eee2' : '#242a20',
   };
@@ -59,7 +61,14 @@ export async function createTerminal(engine = 'xterm', { log = () => {} } = {}) 
     term.loadAddon(new kit.WebLinksAddon((event, uri) => { event.preventDefault(); window.barkdown?.app?.openExternal(uri); }));
   }
   const open = element => {
-    term.open(element);
+    // ghostty-web's fit measures the parent of the element it was opened into, borders and padding included; it gets
+    // a box of its own inside the surface so that parent is the padding-free surface.
+    let target = element;
+    if (kit.name === 'ghostty') { target = document.createElement('div'); target.style.cssText = 'width:100%;height:100%'; element.appendChild(target); }
+    term.open(target);
+    // ghostty-web paints a scrollbar inside its canvas and first clears a 14-pixel strip for it, erasing the last
+    // column and a half of text until those rows are drawn again. The strip is not painted: the wheel still scrolls.
+    if (kit.name === 'ghostty' && term.renderer && typeof term.renderer.renderScrollbar === 'function') term.renderer.renderScrollbar = () => {};
     fit.fit();
   };
   // xterm.js repaints when its theme option changes. ghostty-web cannot: its default colours are fixed when the

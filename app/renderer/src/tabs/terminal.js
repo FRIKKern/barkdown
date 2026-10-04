@@ -11,7 +11,7 @@ const api = window.barkdown;
 const DIM = '\x1b[2m', WARN = '\x1b[33m', ERR = '\x1b[31m', RESET = '\x1b[0m';
 
 export function mountTerminal(tab, host, ctx) {
-  const pane = el(`<div class="bw-pane bw-terminal"><div class="bw-path" id="path"></div><div class="bw-term-search" id="search" hidden><input id="search-q" aria-label="Find in terminal" placeholder="Find"><button type="button" id="search-prev" title="Previous (Shift+Enter)">${iconHtml('chevron-up', 12)}</button><button type="button" id="search-next" title="Next (Enter)">${iconHtml('chevron-down', 12)}</button><button type="button" id="search-close" title="Close (Escape)">${iconHtml('x', 12)}</button></div><div class="bw-term-host" id="term"></div><div class="bw-term-mirror" id="mirror" hidden><div class="bw-term-mirror-head"><span class="bw-muted">Assistant ran</span><span class="bw-muted" id="mirror-count"></span><div class="bw-spacer"></div><button type="button" class="bw-icon-button" id="mirror-toggle" title="Collapse" aria-expanded="true">${iconHtml('chevron-down', 12)}</button><button type="button" class="bw-icon-button" id="mirror-clear" title="Clear the assistant's commands">${iconHtml('x', 12)}</button></div><div class="bw-term-mirror-body" id="mirror-body" tabindex="0" role="log" aria-label="Commands the assistant ran in this chat"></div></div></div>`);
+  const pane = el(`<div class="bw-pane bw-terminal"><div class="bw-path" id="path"></div><div class="bw-term-search" id="search" hidden><input id="search-q" aria-label="Find in terminal" placeholder="Find"><button type="button" id="search-prev" title="Previous (Shift+Enter)">${iconHtml('chevron-up', 12)}</button><button type="button" id="search-next" title="Next (Enter)">${iconHtml('chevron-down', 12)}</button><button type="button" id="search-close" title="Close (Escape)">${iconHtml('x', 12)}</button></div><div class="bw-term-host" id="term"><div class="bw-term-surface" id="surface"></div></div><div class="bw-term-mirror" id="mirror" hidden><div class="bw-term-mirror-head"><span class="bw-muted">Assistant ran</span><span class="bw-muted" id="mirror-count"></span><div class="bw-spacer"></div><button type="button" class="bw-icon-button" id="mirror-toggle" title="Collapse" aria-expanded="true">${iconHtml('chevron-down', 12)}</button><button type="button" class="bw-icon-button" id="mirror-clear" title="Clear the assistant's commands">${iconHtml('x', 12)}</button></div><div class="bw-term-mirror-body" id="mirror-body" tabindex="0" role="log" aria-label="Commands the assistant ran in this chat"></div></div></div>`);
   host.appendChild(pane);
   const q = s => pane.querySelector(s);
   let session = null, destroyed = false, starting = null, uncertain = false, engine = null, observer = null;
@@ -80,7 +80,9 @@ export function mountTerminal(tab, host, ctx) {
   ready.then(created => {
     if (destroyed) { created.term.dispose(); return; }
     ({ term, fit, search, engine } = created); themeOf = created.theme || null;
-    created.open(q('#term'));
+    // The emulator opens into a box without padding: an engine that sizes itself from its element's full width
+    // (ghostty-web) otherwise draws its last column under the pane's edge.
+    created.open(q('#surface'));
     term.onData(data => { if (session && !uncertain) api.term.write(session, data).catch(error => say(error.message, ERR)); });
     term.onResize(({ cols, rows }) => { if (session) api.term.resize(session, cols, rows).catch(() => {}); });
     // Copy on select, like a terminal: a selection made with the mouse lands on the clipboard.
@@ -91,7 +93,7 @@ export function mountTerminal(tab, host, ctx) {
     // selected and interrupts when none is, Ctrl+Shift+C always copies. On macOS ⌘C and ⌘V are the system's own.
     // The emulator's own paste wraps the text in bracketed-paste marks when the shell asked for them. On Windows the
     // Ghostty engine's marks did not survive ConPTY (PowerShell received one stray character), so there the text goes raw.
-    const paste = async () => { try { const text = await clipboard?.readText(); if (!text) return; const raw = engine === 'ghostty' && platform === 'win32'; if (!raw && typeof term.paste === 'function') term.paste(text); else if (session && !uncertain) await api.term.write(session, text); } catch (error) { say(`Could not paste: ${error.message}`, ERR); } };
+    const paste = async () => { try { const text = await clipboard?.readText(); if (!text) return; const raw = engine === 'ghostty' && platform === 'win32'; console.debug(`[terminal] paste: ${text.length} characters, ${raw ? 'raw' : 'through the emulator'}, session ${session ? 'live' : 'none'}`); if (!raw && typeof term.paste === 'function') term.paste(text); else if (session && !uncertain) await api.term.write(session, text); } catch (error) { say(`Could not paste: ${error.message}`, ERR); } };
     const taken = e => {
       if (e.type !== 'keydown') return false;
       const key = (e.key || '').toLowerCase(), mod = e.metaKey || e.ctrlKey;

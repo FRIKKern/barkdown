@@ -43,8 +43,8 @@ What Windows taught, all fixed or recorded: ConPTY clears the screen at shell st
 
 - The Windows proof is a hosted runner running from source: not the packaged app, not the owner's machine, and no Windows nightly exists.
 - On Windows the Ghostty engine does not paste with Ctrl+V (the pty answered a single `p`); xterm.js, the default, does.
-- A Ghostty tab keeps the theme it opened with and has no Find; its canvas clips its last column slightly at the pane's right edge. Its WebAssembly (≈400 KB, base64 inside the bundle) loads only when chosen.
-- On Windows a grey scrollbar track shows at the terminal's right edge (seen in the runner's frames; not yet styled away).
+- A Ghostty tab keeps the theme it opened with and has no Find. Its last column and a half used to go blank: ghostty-web clears a strip for a scrollbar it paints inside the canvas; that strip is no longer painted (frames in `evidence/C090/live/2026-10-04T00-16-33-322Z-terminal-ghostty/`), so the Ghostty engine shows no scroll position. Its WebAssembly (≈400 KB, base64 inside the bundle) loads only when chosen.
+- The scrollback's slider is a faint six-pixel thumb with no track (it stood out as a grey bar in the Windows runner's frames).
 - The Windows copy keys (Ctrl+C with a selection, Ctrl+Shift+C) are unit-tested only; Ctrl+V is proven in the real app.
 - The tab keeps no command draft: a half-typed line lives in the shell's line editor.
 - Three dependencies entered: node-pty (MIT, prebuilt native code for darwin/win32 arm64/x64; the Mac build does not rebuild native modules), @xterm/xterm and addons (MIT), ghostty-web (MIT).

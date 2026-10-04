@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C090",
   "stage": "P5",
-  "status": "done",
+  "status": "active",
   "goal": "The terminal tab is a real terminal on macOS and Windows: a pty behind a full emulator, so interactive programs, prompts, colours and resizing work as they do in PowerShell or Ghostty, with the ownership contract (one shell per tab, a journal, a verified stop) unchanged.",
   "scope": [
     "A. node-pty inside the owned worker: a login shell on macOS, PowerShell 7 (or Windows PowerShell) through ConPTY on Windows; the service gains raw write and resize and keeps line input for the ownership contract",
@@ -18,7 +18,7 @@
   ],
   "checkpoint": "2026-10-04",
   "handoff": "docs/cycles/C090-real-terminal.md",
-  "nextAction": "C090 is delivered in v0.6.0-nightly.20261003.3. Next: C089's owner items (a working day in the browser; the two desktop bench columns), and the terminal polish list in the C090 handoff (the scrollbar track on Windows, Ghostty's Ctrl+V under ConPTY, the Ghostty last-column clip).",
+  "nextAction": "Polish batch after v0.6.0-nightly.20261003.3: run the Windows job on it, the picture cycle, the chain and a nightly; then mark the cycle done again. Then C089's owner items.",
   "evidence": [
     "docs/cycles/evidence/C090/live/2026-10-03T23-42-46-938Z-terminal-xterm/result.json",
     "docs/cycles/evidence/C090/live/2026-10-03T23-42-56-263Z-terminal-ghostty/result.json",
@@ -32,8 +32,11 @@
   "truthReview": "2026-10-04: the terminal tab is a pty (node-pty 1.1.0 in the owned worker: login shell on macOS, PowerShell 7 or Windows PowerShell through ConPTY on Windows) behind xterm.js 6, with ghostty-web 0.4.0 as a chosen engine. Proven on this Mac (four tours: two engines, two themes, eleven checks each; ownership unit tests 10/10; ownership tour; journey 76/76; the packaged app in the earlier nightly) and on a hosted Windows runner at be728eaf (https://github.com/FRIKKern/barkdown/actions/runs/37162736078): node-pty spawns PowerShell through ConPTY under Electron's node, unit tests 10/10, the ownership tour in the real app (commands, profile switch, killed app, explicit start, quit, legacy launch; five owned workers verified stopped) and the interactive tour with thirteen checks on each engine (Read-Host answered live, a one-key read, colours, resize, Ctrl+C, Ctrl+V, the alternate screen, find, the mirror strip, themes, restart). Found and fixed on the way: white text in the light theme (a light-dark() colour xterm.js cannot parse); the assistant's mirrored lines overwritten by ConPTY, now a strip of their own under the terminal on both platforms; the text read breaking at soft wraps; Playwright's page never answering on a Windows runner when video recording is on (tests only). Corrections to earlier statements: hosted Windows runners were available (the Actions budget block was September's; the zero-job failures were visual.yml's duplicate key, now removed). Limits: on Windows the Ghostty engine does not paste with Ctrl+V; a Ghostty tab keeps its open-time theme and has no Find; the Windows proof is a hosted runner from source, not the packaged app and not the owner's machine; no Windows nightly exists. Delivered for macOS in v0.6.0-nightly.20261003.3 (chain receipt on b684800f).",
   "screenshotReview": "Reviewed: the Mac tour frames in both themes and engines (prompt, colours, less, the mirror strip, the light-theme frame kept on purpose as the proof of the text colour) and the Windows runner's frames (PowerShell 7 with PSReadLine colours, the strip, the alternate screen, the desktop screenshot). Status shots and the visual run were retaken and approved after each app change; they hold no terminal frame. Seen and not yet fixed: a grey scrollbar track on the terminal's right edge on Windows.",
   "delivery": {
-    "phase": "delivered",
+    "phase": "implementing",
     "owner": "primary agent",
-    "remaining": []
+    "remaining": [
+      "Polish after delivery: chain and nightly for the scrollback slider, the Ghostty strip fix and the paste trace",
+      "Ghostty's Ctrl+V under ConPTY (limit, being traced)"
+    ]
   }
 }
