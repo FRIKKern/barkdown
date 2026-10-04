@@ -69,6 +69,11 @@ export async function createTerminal(engine = 'xterm', { log = () => {} } = {}) 
     // ghostty-web paints a scrollbar inside its canvas and first clears a 14-pixel strip for it, erasing the last
     // column and a half of text until those rows are drawn again. The strip is not painted: the wheel still scrolls.
     if (kit.name === 'ghostty' && term.renderer && typeof term.renderer.renderScrollbar === 'function') term.renderer.renderScrollbar = () => {};
+    // ghostty-web copies a selection to the clipboard itself on mouse-up, and a plain click selects the cell under it:
+    // a click replaced the clipboard with one letter (seen on the Windows runner just before a paste). One character
+    // is left alone; longer selections copy as before.
+    const selection = kit.name === 'ghostty' ? term.selectionManager : null;
+    if (selection && typeof selection.copyToClipboard === 'function') { const copy = selection.copyToClipboard.bind(selection); selection.copyToClipboard = text => (text && text.length > 1 ? copy(text) : Promise.resolve()); }
     fit.fit();
   };
   // xterm.js repaints when its theme option changes. ghostty-web cannot: its default colours are fixed when the
