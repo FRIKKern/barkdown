@@ -29,7 +29,11 @@ const SHORTCUTS = [
   ['Composer', [['↑'], 'Previous message from the first line (up to 100)'], [['↓'], 'Next message from the last line; return to your draft'], [['Enter'], 'Send'], [['Shift', 'Enter'], 'New line'], [['Ctrl', 'V'], 'Paste an image from the clipboard']],
   ['Paper editor', [['/'], 'Slash menu'], [['Ctrl', 'Shift', '↑ / ↓'], 'Move the block'], [['Ctrl', 'D'], 'Duplicate the block'], [['Ctrl', 'K'], 'Link the selection'], [['Ctrl', 'U'], 'Underline'], [['Ctrl', 'Shift', '0–8'], 'Turn into text, headings, lists, code']],
   ['Project editor', [['Ctrl', 'S'], 'Save the file']],
-  ['Terminal', [['Ctrl', 'F'], 'Find in the terminal'], [['Ctrl', 'C'], 'Interrupt; on Windows and Linux it copies instead when text is selected'], [['Ctrl', 'V'], 'Paste on Windows and Linux (⌘V on macOS)']],
+  // The terminal's keys differ by platform, and the label map above turns Ctrl into ⌘ on a Mac: there the
+  // interrupt key is the Control key itself, so it is spelled out.
+  /Mac/i.test(navigator.platform || '')
+    ? ['Terminal', [['Ctrl', 'F'], 'Find in the terminal'], [['Ctrl', 'K'], 'Clear the screen'], [['Control', 'C'], 'Interrupt the running command']]
+    : ['Terminal', [['Ctrl', 'F'], 'Find in the terminal'], [['Ctrl', 'V'], 'Paste'], [['Ctrl', 'C'], 'Copy the selection; with nothing selected, interrupt the running command'], [['Ctrl', 'Shift', 'C'], 'Copy the selection']],
 ];
 
 // The app accepts Ctrl or Cmd everywhere; the pane shows the chord the host expects.
