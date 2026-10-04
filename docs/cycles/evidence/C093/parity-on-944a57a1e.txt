@@ -1,0 +1,33 @@
+Parity matrix against runtime/barkpark-944a57a1e-darwin-arm64 with the vendored editor at 944a57a1e
+Run locally on 2026-10-04 on branch codex/pin-944a57a1e (commit 0d0ff9de), isolated runtime harness.
+
+GREEN tables       11/11 green                  23s  (row 10)
+GREEN multiblock   11/11 green                  25s  (row 11)
+GREEN opaque       22/22 note block types mount editable; 10/10 edits held by the server; 9/9 slash inserts land on the server; editor bundle from the server 38s  (row 12)
+RED   images       exit 1; 5/6 green            11s  (row 13)
+    failed: the uploaded picture is served by the Barkpark (200, image/png)
+            fetch failed
+GREEN row14        4/4 green                    13s  (row 14)
+GREEN ime          4/4 green                    15s  (row 15)
+GREEN perf         3/3 green                    12s  (row 16)
+RED   gaps         exit 1; 4/13 green           48s  (rows 1–7 (Notion behaviours))
+GREEN paper        11/11 paper checks           16s  (row 9 (ifRev, 412, re-apply))
+GREEN highlight    6/6 green                    15s  (#15)
+GREEN find         6/6 green                    15s  (#17)
+GREEN emoji        4/4 green                    14s  (#18)
+GREEN mention      4/4 green                    15s  (#19)
+RED   subsup       exit 1; 3/6 green            32s  (#20)
+GREEN align        6/6 green                    26s  (#21)
+RED   linkpreview  exit 1; 5/6 green            45s  (#23)
+    failed: Open on an address asks the shell to open it externally (no in-app navigation)
+            locator.click: Timeout 30000ms exceeded. Call log:   - waiting for locator('body .bp-link-preview').locator('.bp-link-preview__open')     - locator resolved to <button type="button" class="bp-link-preview__btn bp-link-preview__
+GREEN codehl       4/4 green                    14s  (#27)
+GREEN tablespans   7/7 green                    12s  (#24)
+RED   tablewidths  exit 1; 1/5 green            40s  (#25)
+RED   tablehead    exit 1; 2/6 green            106s  (#26)
+    failed: the bubble's align-right button on the Qty cell aligns the CELL; the server holds { content, align: "right" }
+            page.waitForFunction: Timeout 30000ms exceeded.
+    failed: align-left on the same cell drops the attribute: the server holds the plain cell again
+            page.waitForFunction: Timeout 30000ms exceeded.
+    failed: centre the Price cell, reload: header column and alignment come back from the server as shown
+            page.waitForFunction: Timeout 30000ms exceeded.
