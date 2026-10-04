@@ -1,6 +1,6 @@
 # Current handoff
 
-2026-10-04, later: the owner had the Ghostty engine removed (D-one-terminal-engine, task `task-bc5bb59ac655593f`). xterm.js is the terminal's only emulator; the setting, the dependency and the WebAssembly exception in the security policy are gone. C090 is active again until this removal has its Windows run, pictures, chain and nightly.
+2026-10-04, later: [v0.6.0-nightly.20261004.2](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261004.2) delivers the terminal with one emulator. The owner had the Ghostty engine removed (D-one-terminal-engine): the setting, the dependency and the WebAssembly exception in the security policy are gone. Chain green on `0a3346be`, the Windows job green on `3e0e2db2` ([run 37191999825](https://github.com/FRIKKern/barkdown/actions/runs/37191999825)), and the packaged app's terminal proven against this nightly. C090 is done; paragraphs below that mention two engines describe the day before.
 
 Morning of 2026-10-04: [v0.6.0-nightly.20261004.1](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261004.1) carries the C090 polish — a faint scrollback slider, the Ghostty engine's last columns and clipboard fixed (Ctrl+V now pastes on both engines on the Windows runner) — chain green on `db4f012c`. C090 is done.
 
