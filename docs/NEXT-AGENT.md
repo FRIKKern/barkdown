@@ -1,5 +1,7 @@
 # Current handoff
 
+2026-10-04, later: the owner had the Ghostty engine removed (D-one-terminal-engine, task `task-bc5bb59ac655593f`). xterm.js is the terminal's only emulator; the setting, the dependency and the WebAssembly exception in the security policy are gone. C090 is active again until this removal has its Windows run, pictures, chain and nightly.
+
 Morning of 2026-10-04: [v0.6.0-nightly.20261004.1](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261004.1) carries the C090 polish — a faint scrollback slider, the Ghostty engine's last columns and clipboard fixed (Ctrl+V now pastes on both engines on the Windows runner) — chain green on `db4f012c`. C090 is done.
 
 Small hours of 2026-10-04: [v0.6.0-nightly.20261003.3](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261003.3) delivers C090 on macOS (chain green on `b684800f`), and the terminal is proven on Windows by a hosted runner ([run 37165383336](https://github.com/FRIKKern/barkdown/actions/runs/37165383336): the ownership tour and a thirteen-check interactive tour in PowerShell through ConPTY, both engines). Hosted Windows runners work again; `.github/workflows/terminal-windows.yml` is the on-demand job, and an earlier note here that they were unavailable was wrong. The assistant's commands now show in a strip under the terminal; the light theme is readable. [C090](cycles/C090-real-terminal.md) is done; its handoff lists the limits and a polish list. Next: C089's owner items.

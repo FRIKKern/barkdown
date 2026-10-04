@@ -1,5 +1,5 @@
 // Terminal work tab (C090): a real terminal — a pty in the chat's working folder behind a full emulator
-// (xterm.js, or ghostty-web when chosen in Settings) — plus a live mirror of every command the assistant
+// (xterm.js) — plus a live mirror of every command the assistant
 // runs in this chat. The mirror is a strip of its own under the terminal: the shell's screen belongs to the
 // shell (on Windows ConPTY overwrote lines written into it; on any platform they would scribble over vim). Keystrokes go to the pty as they are typed; the shell echoes, draws and resizes.
 // The ownership contract is unchanged: one shell per tab, a journal, a verified stop, refusals in words.
@@ -14,10 +14,9 @@ export function mountTerminal(tab, host, ctx) {
   const pane = el(`<div class="bw-pane bw-terminal"><div class="bw-path" id="path"></div><div class="bw-term-search" id="search" hidden><input id="search-q" aria-label="Find in terminal" placeholder="Find"><button type="button" id="search-prev" title="Previous (Shift+Enter)">${iconHtml('chevron-up', 12)}</button><button type="button" id="search-next" title="Next (Enter)">${iconHtml('chevron-down', 12)}</button><button type="button" id="search-close" title="Close (Escape)">${iconHtml('x', 12)}</button></div><div class="bw-term-host" id="term"><div class="bw-term-surface" id="surface"></div></div><div class="bw-term-mirror" id="mirror" hidden><div class="bw-term-mirror-head"><span class="bw-muted">Assistant ran</span><span class="bw-muted" id="mirror-count"></span><div class="bw-spacer"></div><button type="button" class="bw-icon-button" id="mirror-toggle" title="Collapse" aria-expanded="true">${iconHtml('chevron-down', 12)}</button><button type="button" class="bw-icon-button" id="mirror-clear" title="Clear the assistant's commands">${iconHtml('x', 12)}</button></div><div class="bw-term-mirror-body" id="mirror-body" tabindex="0" role="log" aria-label="Commands the assistant ran in this chat"></div></div></div>`);
   host.appendChild(pane);
   const q = s => pane.querySelector(s);
-  let session = null, destroyed = false, starting = null, uncertain = false, engine = null, observer = null;
-  const engineName = state.settings?.terminal?.engine || 'xterm';
-  // ctx.engine lets a test hand in a fake terminal; otherwise the chosen engine loads.
-  const ready = ctx.engine ? Promise.resolve(ctx.engine()) : createTerminal(engineName, { log: line => console.warn('[terminal] ' + line) });
+  let session = null, destroyed = false, starting = null, uncertain = false, observer = null;
+  // ctx.engine lets a test hand in a fake terminal; otherwise xterm.js loads.
+  const ready = ctx.engine ? Promise.resolve(ctx.engine()) : createTerminal();
   let term = null, fit = null, search = null, themeOf = null;
   // The platform decides the copy and paste keys; a test may hand in both the platform and a clipboard.
   const platform = ctx.platform || (/mac/i.test(navigator.platform || '') ? 'darwin' : /win/i.test(navigator.platform || '') ? 'win32' : 'linux');
@@ -37,7 +36,7 @@ export function mountTerminal(tab, host, ctx) {
 
   function renderPath() {
     const root = session?.cwd || ctx.folder();
-    q('#path').innerHTML = `<span class="bw-muted">${iconHtml('terminal', 12)} ${session ? esc(session.shell) : 'Terminal'} · ${root ? esc(basename(root)) : 'no working folder (home)'}${engine && engine !== 'xterm' ? ` · ${esc(engine)}` : ''}</span><div class="bw-spacer"></div>${search ? `<button type="button" class="bw-icon-button" data-act="find" title="Find (⌘F)">${iconHtml('search', 12)}</button>` : ''}<button type="button" class="bw-icon-button" data-act="clear" title="Clear">${iconHtml('eraser', 12)}</button><button type="button" class="bw-icon-button" data-act="restart" title="${session ? 'Restart the shell' : 'Start the shell'}">${iconHtml('rotate-cw', 12)}</button>`;
+    q('#path').innerHTML = `<span class="bw-muted">${iconHtml('terminal', 12)} ${session ? esc(session.shell) : 'Terminal'} · ${root ? esc(basename(root)) : 'no working folder (home)'}</span><div class="bw-spacer"></div>${search ? `<button type="button" class="bw-icon-button" data-act="find" title="Find (⌘F)">${iconHtml('search', 12)}</button>` : ''}<button type="button" class="bw-icon-button" data-act="clear" title="Clear">${iconHtml('eraser', 12)}</button><button type="button" class="bw-icon-button" data-act="restart" title="${session ? 'Restart the shell' : 'Start the shell'}">${iconHtml('rotate-cw', 12)}</button>`;
     q('#path').title = root || '';
     if (q('[data-act="find"]')) q('[data-act="find"]').onclick = openSearch;
     q('[data-act="clear"]').onclick = () => { term?.clear(); term?.focus(); };
@@ -79,18 +78,13 @@ export function mountTerminal(tab, host, ctx) {
 
   ready.then(created => {
     if (destroyed) { created.term.dispose(); return; }
-    ({ term, fit, search, engine } = created); themeOf = created.theme || null;
-    // The emulator opens into a box without padding: an engine that sizes itself from its element's full width
-    // (ghostty-web) otherwise draws its last column under the pane's edge.
+    ({ term, fit, search } = created); themeOf = created.theme || null;
+    // The emulator opens into a box without padding, so its fit measures exactly the space it may draw in.
     created.open(q('#surface'));
     term.onData(data => { if (session && !uncertain) api.term.write(session, data).catch(error => say(error.message, ERR)); });
     term.onResize(({ cols, rows }) => { if (session) api.term.resize(session, cols, rows).catch(() => {}); });
-    // Copy on select, like a terminal: a selection made with the mouse lands on the clipboard. A selection of one
-    // character is left alone: in the Ghostty engine a plain click selects the cell under it, and that click
-    // replaced the clipboard with one letter just before a paste (seen on the Windows runner).
-    term.onSelectionChange(() => { const text = term.getSelection(); if (text && text.length > 1) clipboard?.writeText(text).catch(() => {}); });
-    // The two engines read the handler's answer the opposite way: xterm.js takes false as "mine, skip",
-    // ghostty-web takes true as "handled, swallow". `taken` is the app's claim; the engine gets its own idiom.
+    // Copy on select, like a terminal: a selection made with the mouse lands on the clipboard.
+    term.onSelectionChange(() => { const text = term.getSelection(); if (text) clipboard?.writeText(text).catch(() => {}); });
     // Off macOS the terminal follows Windows Terminal: Ctrl+V (and Ctrl+Shift+V) pastes, Ctrl+C copies when text is
     // selected and interrupts when none is, Ctrl+Shift+C always copies. On macOS ⌘C and ⌘V are the system's own.
     // The emulator's own paste wraps the text in bracketed-paste marks when the shell asked for them.
@@ -106,7 +100,8 @@ export function mountTerminal(tab, host, ctx) {
       }
       return false;
     };
-    term.attachCustomKeyEventHandler(engine === 'ghostty' ? taken : e => !taken(e));
+    // xterm.js reads the handler's answer as "shall I handle it": a key the tab took is answered false.
+    term.attachCustomKeyEventHandler(e => !taken(e));
     observer = new ResizeObserver(() => { if (pane.hidden || !q('#term').offsetWidth) return; try { fit.fit(); } catch {} });
     observer.observe(q('#term'));
     matchMedia('(prefers-color-scheme: dark)').addEventListener('change', created.retheme);
@@ -142,7 +137,7 @@ export function mountTerminal(tab, host, ctx) {
       for (let i = 0; i < b.length; i++) { const line = b.getLine(i); if (!line) continue; const piece = line.translateToString(false); if (line.isWrapped && lines.length) lines[lines.length - 1] += piece; else lines.push(piece); }
       const out = lines.map(line => line.trimEnd()); while (out.length && !out.at(-1)) out.pop(); return out.join('\n');
     },
-    engine: () => engine, session: () => session, terminal: () => term, theme: () => themeOf?.() || null,
+    session: () => session, terminal: () => term, theme: () => themeOf?.() || null,
     refresh() { renderPath(); try { fit?.fit(); } catch {} },
     navigate() { renderPath(); },
     savePosition() {},

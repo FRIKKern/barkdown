@@ -15,7 +15,7 @@ We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT,
 - Portable profiles: export and import from Settings, carried between two installations and into a newer version.
 - Nightlies cut themselves from this Mac on a schedule, from a commit with a green chain receipt, with an updater feed beside the image ([how](docs/RELEASE.md)); the app is 420 MB and works at 200 % zoom.
 - Rough treatment: a killed app, a killed export or import, a dead database, a quit mid-save. Nothing acknowledged is lost ([C085](docs/cycles/C085-portable-profile.md)).
-- A real terminal in the tab: a pty behind xterm.js, or Ghostty's core if you choose it. Prompts, colours, `less`, resize, Ctrl+C, and the assistant's commands in a strip of their own. Proven on the Mac and, from source, in PowerShell on a hosted Windows runner ([C090](docs/cycles/C090-real-terminal.md)).
+- A real terminal in the tab: a pty behind xterm.js. Prompts, colours, `less`, resize, Ctrl+C, and the assistant's commands in a strip of their own. Proven on the Mac and, from source, in PowerShell on a hosted Windows runner ([C090](docs/cycles/C090-real-terminal.md)).
 
 **Not yet**
 - No real library has switched. The corpus so far is ours.

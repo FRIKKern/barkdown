@@ -39,18 +39,12 @@ jobs:
         env:
           BARKDOWN_TERMINAL_OUT: ${{ github.workspace }}/app/test-results/terminal-windows
         run: cd app && node tests/terminal-ownership.live.mjs
-      - name: Interactive tour in PowerShell on xterm.js (prompt, one-key read, colours, resize, Ctrl+C, Ctrl+V, find, themes, restart)
+      - name: Interactive tour in PowerShell (prompt, one-key read, colours, resize, Ctrl+C, Ctrl+V, find, themes, restart)
         if: always()
         shell: bash
         env:
           BARKDOWN_TERMINAL_OUT: ${{ github.workspace }}/app/test-results/terminal-windows
-        run: cd app && node tests/terminal.live.mjs --engine xterm --theme dark
-      - name: The same tour on the Ghostty engine
-        if: always()
-        shell: bash
-        env:
-          BARKDOWN_TERMINAL_OUT: ${{ github.workspace }}/app/test-results/terminal-windows
-        run: cd app && node tests/terminal.live.mjs --engine ghostty --theme dark
+        run: cd app && node tests/terminal.live.mjs --theme dark
       - uses: actions/upload-artifact@v4
         if: always()
         continue-on-error: true

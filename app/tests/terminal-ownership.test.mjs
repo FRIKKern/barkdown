@@ -184,7 +184,7 @@ function fakeEngine() {
     write(data) { term.written += data; for (const part of String(data).split(/\r?\n/)) { if (part) lines.push(part.replace(/\x1b\[[0-9;]*m/g, '')); } },
     onData: fn => handlers.data.push(fn), onResize: fn => handlers.resize.push(fn), onSelectionChange: fn => handlers.selection.push(fn), attachCustomKeyEventHandler: fn => { handlers.key = fn; },
     clear() { lines.length = 0; }, focus() {}, dispose() {}, selection: '', getSelection: () => term.selection, clearSelection() { term.selection = ''; }, paste: text => handlers.data.forEach(fn => fn(text)), options: {} };
-  const engine = { term, fit: { fit() {} }, search: null, open() {}, retheme() {}, engine: 'fake' };
+  const engine = { term, fit: { fit() {} }, search: null, open() {}, retheme() {} };
   return { engine, handlers, type: data => handlers.data.forEach(fn => fn(data)), text: () => lines.join('\n') };
 }
 test('terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output', async () => {
@@ -251,10 +251,9 @@ test('terminal UI distinguishes fresh/restored shells, keeps launch cwd and reje
   assert.deepEqual(press(win, { key: 'c', ctrlKey: true }), { claimed: false, prevented: false }, 'Ctrl+C without a selection reaches the shell as an interrupt');
   assert.equal(writes.length, before + 1, 'a copy writes nothing to the shell');
   winTab.destroy();
-  // Copy on select ignores a one-character selection (a plain click selects a cell in the Ghostty engine).
-  const sel = fakeEngine(), selBoard = { text: 'kept', readText: async () => selBoard.text, writeText: async value => { selBoard.text = value; } };
+  // Copy on select: a selection made with the mouse lands on the clipboard.
+  const sel = fakeEngine(), selBoard = { text: 'before', readText: async () => selBoard.text, writeText: async value => { selBoard.text = value; } };
   const selTab = mountTerminal({ id: 'same' }, host, { ...ctx, engine: () => sel.engine, platform: 'win32', clipboard: selBoard }); await delay(5);
-  sel.engine.term.selection = 'p'; sel.handlers.selection.forEach(fn => fn()); await delay(0); assert.equal(selBoard.text, 'kept');
   sel.engine.term.selection = 'two words'; sel.handlers.selection.forEach(fn => fn()); await delay(0); assert.equal(selBoard.text, 'two words');
   selTab.destroy();
   const mac = fakeEngine(), macTab = mountTerminal({ id: 'same' }, host, { ...ctx, engine: () => mac.engine, platform: 'darwin', clipboard: board });

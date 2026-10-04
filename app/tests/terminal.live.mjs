@@ -3,7 +3,7 @@
 // pane's (tput cols matches the emulator's cols, and follows a resize); a prompt that reads input is
 // answered live (read -p); a full-screen program takes the alternate screen and gives it back (less);
 // colours arrive as colours (the emulator's cell carries the red); the assistant's commands mirror into
-// the tab; ⌘F finds; the engine chosen in Settings is the one in the tab.
+// the tab; ⌘F finds.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -16,10 +16,9 @@ const require = createRequire(import.meta.url);
 const { createProfileRegistry } = require('../main/profile-registry');
 const { createStore } = require('../main/store');
 const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const engine = process.argv.includes('--engine') ? process.argv[process.argv.indexOf('--engine') + 1] : 'xterm';
 const theme = process.argv.includes('--theme') ? process.argv[process.argv.indexOf('--theme') + 1] : 'dark';
 const WIN = process.platform === 'win32';
-const out = process.env.BARKDOWN_TERMINAL_OUT ? path.join(process.env.BARKDOWN_TERMINAL_OUT, `tour-${engine}-${theme}`) : path.resolve(appRoot, '../docs/cycles/evidence/C090/live', new Date().toISOString().replace(/[:.]/g, '-') + '-terminal-' + engine + (theme === 'dark' ? '' : '-' + theme));
+const out = process.env.BARKDOWN_TERMINAL_OUT ? path.join(process.env.BARKDOWN_TERMINAL_OUT, `tour-${theme}`) : path.resolve(appRoot, '../docs/cycles/evidence/C090/live', new Date().toISOString().replace(/[:.]/g, '-') + '-terminal' + (theme === 'dark' ? '' : '-' + theme));
 fs.mkdirSync(out, { recursive: true });
 // The tour speaks the host's shell: a POSIX login shell, or PowerShell through ConPTY on Windows.
 const sh = WIN ? {
@@ -37,25 +36,25 @@ const sh = WIN ? {
 };
 const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-terminal-')));
 const folder = path.join(userData, 'work'); fs.mkdirSync(folder);
-const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), host: `${process.platform} ${os.release()} ${process.arch}`, engine, theme, status: 'running', checks: [], screenshots: [],
+const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), host: `${process.platform} ${os.release()} ${process.arch}`, theme, status: 'running', checks: [], screenshots: [],
   observations: [], limits: [WIN ? 'A hosted Windows runner, PowerShell through ConPTY, under Electron from source.' : 'One Mac, the login shell of this account, under Electron from source.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();
 const check = (name, detail) => { report.checks.push({ name, ...(detail ? { detail } : {}) }); persist(); console.log('ok  ' + name); };
 const registry = createProfileRegistry(path.join(userData, 'profile-data'));
 const profile = registry.createProfile({ name: 'Terminal desk' });
-createStore(registry.storeFor(profile.id).storeDir).writeJson('settings.json', { theme, provider: 'api', terminal: { engine }, barkpark: { enabled: false } });
+createStore(registry.storeFor(profile.id).storeDir).writeJson('settings.json', { theme, provider: 'api', barkpark: { enabled: false } });
 createStore(path.join(userData, 'app-settings')).writeJson('appearance.json', { theme });
 registry.selectProfile(profile.id);
 let app, page;
 const shot = async name => { await page.screenshot({ path: path.join(out, name + '.png') }); report.screenshots.push(name + '.png'); persist(); };
-const ctl = () => page.evaluate(() => { const c = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal'); return c ? { text: c.text(), session: Boolean(c.session()), engine: c.engine() } : null; });
+const ctl = () => page.evaluate(() => { const c = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal'); return c ? { text: c.text(), session: Boolean(c.session()) } : null; });
 const text = async () => (await ctl())?.text || '';
 const until = async (test, ms = 20000) => { const started = Date.now(); while (Date.now() - started < ms) { const t = await text(); if (test(t)) return t; await new Promise(r => setTimeout(r, 100)); } throw new Error('terminal did not show what was expected; last text:\n' + (await text()).slice(-600)); };
 const type = async s => { await page.locator('.bw-terminal .bw-term-host').click(); await page.keyboard.type(s); };
 try {
   app = await electron.launch({ executablePath: require('electron'), args: [appRoot, '--profiles', `--user-data=${userData}`], env: { ...process.env, ...(WIN ? {} : { PATH: '/usr/bin:/bin:/usr/sbin:/sbin' }), BARKDOWN_PROVIDER: 'api' } });
   page = await app.firstWindow({ timeout: 120000 }); page.setDefaultTimeout(60000);
-  report.console = []; page.on('console', m => { if (/\[terminal\]|ghostty|wasm/i.test(m.text())) { report.console.push(m.text().slice(0, 300)); persist(); } });
+  report.console = []; page.on('console', m => { if (/\[terminal\]/i.test(m.text())) { report.console.push(m.text().slice(0, 300)); persist(); } });
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
   await page.setViewportSize({ width: 1300, height: 900 });
   await page.evaluate(f => window.__barkdown.setFolder(f), folder);
@@ -67,8 +66,8 @@ try {
   const prompt = /[%$#>] ?$/;
   await until(t => prompt.test(t), 30000);
   const started = await ctl();
-  assert.equal(started.session, true); assert.equal(started.engine, engine === 'ghostty' ? 'ghostty' : 'xterm');
-  check('the tab opens a shell in the chat\'s working folder on the chosen engine', { engine: started.engine, banner: started.text.split('\n')[0] });
+  assert.equal(started.session, true);
+  check('the tab opens a shell in the chat\'s working folder', { firstLine: started.text.split('\n')[0] });
   // The login shell, with the terminal a program expects.
   await type(sh.env);
   const t1 = await until(t => /cols-done/.test(t));
@@ -111,18 +110,9 @@ try {
     await app.evaluate(({ clipboard }) => clipboard.writeText("echo ('pasted-'+'ok')"));
     await page.evaluate(() => { window.__afterPaste = []; window.barkdown.term.onData(event => { if (event.type === 'data') window.__afterPaste.push(event.data); }); });
     await page.locator('.bw-terminal .bw-term-host').click(); await page.keyboard.press('Control+v');
-    try {
-      await until(t => t.includes("('pasted-'+'ok')"), 15000);
-      await page.keyboard.press('Enter'); await until(t => /pasted-ok/.test(t));
-      check('Ctrl+V pastes the clipboard into PowerShell');
-    } catch (error) {
-      // The default engine must paste. On the experimental Ghostty engine a failure is recorded with what the pty answered.
-      if (engine !== 'ghostty') throw error;
-      const bytes = await page.evaluate(() => JSON.stringify(window.__afterPaste.join('').slice(0, 300)));
-      report.limits.push('On Windows the Ghostty engine does not paste with Ctrl+V; the pty answered ' + bytes); persist();
-      await page.keyboard.press('Escape'); await new Promise(r => setTimeout(r, 500));
-      check('Ctrl+V on the Ghostty engine under ConPTY does not paste (recorded as a limit)');
-    }
+    await until(t => t.includes("('pasted-'+'ok')"), 15000);
+    await page.keyboard.press('Enter'); await until(t => /pasted-ok/.test(t));
+    check('Ctrl+V pastes the clipboard into PowerShell');
     // The alternate screen through ConPTY: observed, not required.
     try {
       await type('Write-Host "`e[?1049hALT-SCREEN-ON"\r'); await until(t => /ALT-SCREEN-ON/.test(t) && !/cols2-done/.test(t), 8000);
@@ -140,14 +130,10 @@ try {
     check('less takes the alternate screen and q gives the main screen back', { backHas: ['cols2-done', 'RED-TEXT'] });
   }
   // ⌘F finds in the scrollback.
-  if (engine === 'ghostty') { report.limits.push('Find is not offered on the Ghostty engine: ghostty-web has no search addon, so the Find button is absent there.'); assert.equal(await page.locator('.bw-terminal [data-act="find"]').count(), 0); check('the Ghostty engine offers no Find (recorded as a limit)'); }
-  else {
-    await page.keyboard.press(process.platform === 'darwin' ? 'Meta+f' : 'Control+f');
-    await page.locator('.bw-term-search:not([hidden]) #search-q').waitFor({ timeout: 5000 });
-    await page.keyboard.type('hello-Pelle'); await page.keyboard.press('Escape');
-    check('⌘F opens find in the terminal and Escape returns to the shell');
-  }
-  // The assistant's commands mirror into the tab.
+  await page.keyboard.press(process.platform === 'darwin' ? 'Meta+f' : 'Control+f');
+  await page.locator('.bw-term-search:not([hidden]) #search-q').waitFor({ timeout: 5000 });
+  await page.keyboard.type('hello-Pelle'); await page.keyboard.press('Escape');
+  check('⌘F opens find in the terminal and Escape returns to the shell');
   // The assistant's commands show in the strip under the terminal and never in the shell's screen, where the next
   // output would overwrite them (seen on Windows through ConPTY) or they would scribble over a full-screen program.
   const mirror = () => page.evaluate(() => [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal').mirror());
@@ -166,22 +152,14 @@ try {
   const readable = (name, p) => { assert.ok(plain(p.foreground) && plain(p.background) && plain(p.cursor), `${name} theme hands the emulator plain colours: ${JSON.stringify(p)}`); assert.notEqual(p.foreground.toLowerCase(), p.background.toLowerCase()); };
   const opened = await palette(); readable(theme, opened);
   assert.equal(opened.background, theme === 'dark' ? '#141613' : '#fbfaf5', 'the terminal opened in the app\'s theme');
-  if (engine === 'ghostty') {
-    // The Ghostty engine paints on a canvas; what it painted is read from a cell at the left edge, half way down.
-    const cell = await page.evaluate(() => { const canvas = document.querySelector('.bw-term-host canvas'); const d = canvas.getContext('2d').getImageData(3, Math.floor(canvas.height * 0.9), 1, 1).data; return [d[0], d[1], d[2]]; });
-    assert.ok(theme === 'dark' ? cell[0] < 60 : cell[0] > 200, `the canvas is painted in the ${theme} theme: ${cell}`);
-    report.limits.push('A Ghostty tab keeps the theme it opened with: ghostty-web fixes its default colours at open, so a live theme change applies to tabs opened afterwards.');
-    check(`the Ghostty canvas is painted in the ${theme} theme it opened with (a live theme change is recorded as a limit)`, { opened, cell });
-  } else {
-    const other = theme === 'dark' ? 'light' : 'dark';
-    await page.evaluate(value => { document.documentElement.dataset.theme = value; }, other); await new Promise(r => setTimeout(r, 400));
-    const switched = await palette(); readable(other, switched);
-    assert.notEqual(switched.background, opened.background, 'the terminal follows a theme change live');
-    await type('echo other-theme-text\r'); await until(t => t.split('other-theme-text').length >= 3);
-    await shot('04-' + other + '-theme'); // the light frame is on purpose: it is the proof of the light theme's text colour
-    await page.evaluate(value => { document.documentElement.dataset.theme = value; }, theme); await new Promise(r => setTimeout(r, 300));
-    check('both themes hand the emulator plain colours, and a live theme change repaints', { [theme]: opened, [other]: switched });
-  }
+  const other = theme === 'dark' ? 'light' : 'dark';
+  await page.evaluate(value => { document.documentElement.dataset.theme = value; }, other); await new Promise(r => setTimeout(r, 400));
+  const switched = await palette(); readable(other, switched);
+  assert.notEqual(switched.background, opened.background, 'the terminal follows a theme change live');
+  await type('echo other-theme-text\r'); await until(t => t.replace(/\s+/g, '').split('other-theme-text').length >= 3);
+  await shot('04-' + other + '-theme'); // the light frame is on purpose: it is the proof of the light theme's text colour
+  await page.evaluate(value => { document.documentElement.dataset.theme = value; }, theme); await new Promise(r => setTimeout(r, 300));
+  check('both themes hand the emulator plain colours, and a live theme change repaints', { [theme]: opened, [other]: switched });
   // Restart keeps the tab, verifies the stop, opens a new shell.
   const sessionId = () => page.evaluate(() => [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal').session()?.sessionId || null);
   const before = await sessionId();
@@ -190,7 +168,7 @@ try {
   assert.ok(await sessionId() && await sessionId() !== before, 'a new session replaced the old one');
   check('Restart stops the shell with verification and opens a new one');
   report.status = 'passed'; persist();
-  console.log(JSON.stringify({ out, engine, checks: report.checks.map(c => c.name) }, null, 2));
+  console.log(JSON.stringify({ out, checks: report.checks.map(c => c.name) }, null, 2));
 } catch (error) {
   report.status = 'failed'; report.error = String(error?.stack || error); persist();
   try { await shot('99-failure'); } catch {}

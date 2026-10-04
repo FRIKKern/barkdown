@@ -10,7 +10,7 @@
    │ resize     ──► term:resize                                          │  login shell  (macOS)
    ▼                                                                     │  pwsh/ConPTY  (Windows)
  emulator (renderer/src/terminal-engine.js)   ◄── term:data ◄────────────┘
-   xterm.js 6 (default)  |  ghostty-web (Settings › General › Terminal)
+   xterm.js 6
 ```
 
 ## Slices
@@ -19,17 +19,17 @@
 |---|---|---|
 | A | **The pty.** `main/terminal-worker.js` spawns the shell with node-pty 1.1.0 (`xterm-256color`, the pane's cols/rows, `TERM_PROGRAM=Barkdown`, the provider environment). macOS: `$SHELL -l`. Windows: `pwsh.exe` from PATH with `-NoLogo`, else `powershell.exe`, through ConPTY. The service adds `write` (raw bytes, ≤256 KiB) and `resize` (2..1000) and keeps `input` (a line) for the ownership tests. The worker refuses a missing folder before spawning. node-pty's prebuilt `spawn-helper` ships without its execute bit; the worker sets it. `asarUnpack` carries node-pty. | Unit tests 10/10; the ownership live test passes on this Mac. |
 | B | **The emulator.** xterm.js 6 with fit, search, web links and Unicode 11, the DOM renderer (the WebGL addon drew at the wrong scale under Electron on this Mac, so it is out). The theme follows the app's light/dark palette and re-themes live (the colours handed to the emulator are plain hex: the app's text colour is a `light-dark()` expression, which xterm.js cannot parse and silently replaced with white, unreadable on the light background until the tour ran in light mode too). ⌘F opens a find bar (Enter / Shift+Enter step, Escape returns to the shell); ⌘K clears; a mouse selection lands on the clipboard. Off macOS the keys follow Windows Terminal: Ctrl+V and Ctrl+Shift+V paste, Ctrl+C copies when text is selected and interrupts when none is, Ctrl+Shift+C always copies; on macOS ⌘C and ⌘V stay the system's own. The assistant's Bash commands in the chat mirror into a strip of their own under the terminal ("Assistant ran", collapsible, clearable): the shell's screen belongs to the shell. Written into the emulator they were overwritten by the shell's next output on Windows (ConPTY keeps its own model of the screen) and would scribble over a full-screen program anywhere. Start/Restart and Clear in the path bar. | The journey's terminal step and the tour pass. |
-| C | **Ghostty.** ghostty-web 0.4.0 (coder's build of Ghostty's VT core to WebAssembly with an xterm-compatible surface), chosen in Settings › General › Terminal, loaded only when chosen, falling back to xterm.js when it cannot load. Three things had to be learned: it fetches its WebAssembly from a `data:` URL, which the renderer's CSP refuses — the engine answers that fetch from memory and the CSP now allows `wasm-unsafe-eval` (WebAssembly compilation, not JavaScript eval); it reads `attachCustomKeyEventHandler`'s answer the opposite way from xterm.js (true means "handled, swallow"), so the tab hands each engine its own idiom; it has no search addon, so Find is absent on that engine. | The same tour passes on ghostty. |
+| C | **Ghostty, tried and removed.** ghostty-web 0.4.0 was a second engine in Settings from 3 to 4 October. It passed the same tours on both platforms, but did less than xterm.js and needed five workarounds and a security-policy exception; the owner had it removed (D-one-terminal-engine). The tours and frames from that day stay in `evidence/C090/` as history. | Removed 2026-10-04. |
 | D | **Windows.** An on-demand job on a hosted Windows runner (`.github/workflows/terminal-windows.yml`): node-pty spawning PowerShell through ConPTY under Electron's node, the ownership unit tests, the ownership tour in the real app, and the interactive tour in PowerShell on both engines. | Green at `2c541667` ([run](https://github.com/FRIKKern/barkdown/actions/runs/37165383336)). |
 
 ## Evidence
 
-**macOS (this Mac, Electron from source, the login shell of this account).** The tour `app/tests/terminal.live.mjs [--engine ghostty] [--theme light]` passes eleven checks on each engine in each theme: the shell opens in the chat's folder; `TERM=xterm-256color` and the shell's width is the pane's; the pty follows a resize; a prompt that reads input is answered as it waits; ANSI red renders as colour; Ctrl+C interrupts a running `sleep`; `less` takes the alternate screen and `q` gives it back; ⌘F finds (xterm.js); the assistant's commands show in the strip and survive the shell's next output; both themes are readable (xterm.js repaints live; a Ghostty tab keeps the theme it opened with); Restart stops with verification and opens a new shell.
+**macOS (this Mac, Electron from source, the login shell of this account).** The tour `app/tests/terminal.live.mjs [--theme light]` passes eleven checks in each theme: the shell opens in the chat's folder; `TERM=xterm-256color` and the shell's width is the pane's; the pty follows a resize; a prompt that reads input is answered as it waits; ANSI red renders as colour; Ctrl+C interrupts a running `sleep`; `less` takes the alternate screen and `q` gives it back; ⌘F finds; the assistant's commands show in the strip and survive the shell's next output; both themes are readable and a theme change repaints live; Restart stops with verification and opens a new shell.
 
-- `evidence/C090/live/2026-10-03T23-42-46-938Z-terminal-xterm/`, `…T23-42-56-263Z-terminal-ghostty/`, `…T23-43-11-345Z-terminal-xterm-light/`, `…T23-43-04-057Z-terminal-ghostty-light/`
+- `evidence/C090/live/2026-10-04T09-17-58-885Z-terminal/`, `…T09-18-10-038Z-terminal-light/`
 - `app/tests/terminal-ownership.test.mjs` 10/10 (a fake emulator through the same surface: keystrokes to the live session, stale output dropped, input blocked while a shutdown is unverified, the mirror strip, the Windows copy and paste keys)
 - `app/tests/terminal-ownership.live.mjs`, `app/tests/profile-preparation.live.mjs` and `app/tests/run.mjs` (76 checks) pass
-- Delivered in [v0.6.0-nightly.20261003.3](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261003.3): chain receipt `.release/chain/b684800f….json`. The packaged app's terminal was proven against the earlier nightly's `Barkdown.app` with the ownership tour.
+- The packaged app's terminal was proven against an earlier nightly's `Barkdown.app` with the ownership tour.
 
 **Windows (a hosted windows-latest runner, Electron from source, PowerShell 7 through ConPTY).** [Run 37165383336](https://github.com/FRIKKern/barkdown/actions/runs/37165383336) at `2c541667`, files in `evidence/C090/windows/37165383336/`:
 
@@ -42,12 +42,10 @@ What Windows taught, all fixed or recorded: ConPTY clears the screen at shell st
 ## Limits and polish list
 
 - The Windows proof is a hosted runner running from source: not the packaged app, not the owner's machine, and no Windows nightly exists.
-- Under the Ghostty engine a plain click used to replace the clipboard with one character (ghostty-web copies a selection itself, and a click selects a cell); that is what pasted a lone `p` on the Windows runner. A one-character selection is no longer copied by either path, and Ctrl+V pastes on both engines there.
-- A Ghostty tab keeps the theme it opened with and has no Find. Its last column and a half used to go blank: ghostty-web clears a strip for a scrollbar it paints inside the canvas; that strip is no longer painted (frames in `evidence/C090/live/2026-10-04T00-16-33-322Z-terminal-ghostty/`), so the Ghostty engine shows no scroll position. Its WebAssembly (≈400 KB, base64 inside the bundle) loads only when chosen.
 - The scrollback's slider is a faint six-pixel thumb with no track (it stood out as a grey bar in the Windows runner's frames).
 - The Windows copy keys (Ctrl+C with a selection, Ctrl+Shift+C) are unit-tested only; Ctrl+V is proven in the real app.
 - The tab keeps no command draft: a half-typed line lives in the shell's line editor.
-- Three dependencies entered: node-pty (MIT, prebuilt native code for darwin/win32 arm64/x64; the Mac build does not rebuild native modules), @xterm/xterm and addons (MIT), ghostty-web (MIT).
+- Two dependencies entered: node-pty (MIT, prebuilt native code for darwin/win32 arm64/x64; the Mac build does not rebuild native modules) and @xterm/xterm with four addons (MIT). ghostty-web came and went.
 
 ## Task board (Guerrilla, `bp -s Guerrilla task …`)
 

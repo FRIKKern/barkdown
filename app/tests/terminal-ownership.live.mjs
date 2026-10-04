@@ -168,7 +168,7 @@ try {
   await page.evaluate(() => { window.__raw = []; window.barkdown.term.onData(event => { if (event.type === 'data') window.__raw.push(event.data); }); });
   const ta = await startTree(0);
   step('a command ran in the shell and started its descendants');
-  step('colours: ' + JSON.stringify(await page.evaluate(() => { const c = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal'), t = c.theme() || {}; return { engine: c.engine(), dataTheme: document.documentElement.dataset.theme, prefersDark: matchMedia('(prefers-color-scheme: dark)').matches, foreground: t.foreground, background: t.background, white: t.white, brightWhite: t.brightWhite, cssText: getComputedStyle(document.documentElement).getPropertyValue('--bw-text').trim(), cssTermBg: getComputedStyle(document.documentElement).getPropertyValue('--bw-term-bg').trim() }; })));
+  step('colours: ' + JSON.stringify(await page.evaluate(() => { const c = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal'), t = c.theme() || {}; return { dataTheme: document.documentElement.dataset.theme, prefersDark: matchMedia('(prefers-color-scheme: dark)').matches, foreground: t.foreground, background: t.background, white: t.white, brightWhite: t.brightWhite, cssText: getComputedStyle(document.documentElement).getPropertyValue('--bw-text').trim(), cssTermBg: getComputedStyle(document.documentElement).getPropertyValue('--bw-term-bg').trim() }; })));
   step('pty bytes after the command: ' + JSON.stringify(await page.evaluate(() => window.__raw.join('').slice(0, 700))));
   step('terminal text: ' + JSON.stringify((await termText()).slice(-400)));
   desktopShot('desktop-a-running.png');

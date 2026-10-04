@@ -44,7 +44,7 @@ export const migrationProgress = [
   {status:'active', title:'Switch and recover', lines:['Switched from Settings on macOS.', 'Survives a crash under the hold.'], evidence:'docs/cycles/C083-writer-admission.md', detail:'The switch runs from Settings › Barkpark in the real app on macOS, is interrupted at every phase and resumes without duplicate Papers, and the switched profile creates, edits, finds, deletes and recovers notes on Paper with agent edits and Undo. Still to demonstrate: a real library and a run on Windows.'},
   {status:'active', title:'Prove the way back', lines:['Rollback keeps later Paper edits.', 'Real library on Windows still to run.'], evidence:'docs/cycles/C083-writer-admission.md', detail:'Rollback restores the legacy navigation exactly, keeps Papers and later edits on Paper, names every changed Paper, and lets a person compare, keep or restore each one; its own interruption resumes. Retirement of the separate editor and store is audited in four stages and not started.'},
 ];
-const latestAdvance = '2026-10-04: the terminal tab is a real terminal — a pty behind xterm.js or Ghostty’s core — proven on the Mac and in PowerShell on a hosted Windows runner (C090).';
+const latestAdvance = '2026-10-04: the terminal tab is a real terminal — a pty behind xterm.js — proven on the Mac and in PowerShell on a hosted Windows runner (C090).';
 const nextOutcome = 'C089’s bench columns from the two desktops and a working day in the browser; the real-library switch on the owner’s Windows machine (C083).';
 const marks = {done: '✓', active: '◐', todo: '○'};
 const meanings = {done: 'Demonstrated', active: 'In progress', todo: 'Remaining'};

@@ -29,7 +29,7 @@ const SHORTCUTS = [
   ['Composer', [['↑'], 'Previous message from the first line (up to 100)'], [['↓'], 'Next message from the last line; return to your draft'], [['Enter'], 'Send'], [['Shift', 'Enter'], 'New line'], [['Ctrl', 'V'], 'Paste an image from the clipboard']],
   ['Paper editor', [['/'], 'Slash menu'], [['Ctrl', 'Shift', '↑ / ↓'], 'Move the block'], [['Ctrl', 'D'], 'Duplicate the block'], [['Ctrl', 'K'], 'Link the selection'], [['Ctrl', 'U'], 'Underline'], [['Ctrl', 'Shift', '0–8'], 'Turn into text, headings, lists, code']],
   ['Project editor', [['Ctrl', 'S'], 'Save the file']],
-  ['Terminal', [['↑ / ↓'], 'Recall history'], [['Ctrl', 'C'], 'Restart the shell on an empty line']],
+  ['Terminal', [['Ctrl', 'F'], 'Find in the terminal'], [['Ctrl', 'C'], 'Interrupt; on Windows and Linux it copies instead when text is selected'], [['Ctrl', 'V'], 'Paste on Windows and Linux (⌘V on macOS)']],
 ];
 
 // The app accepts Ctrl or Cmd everywhere; the pane shows the chord the host expects.
@@ -57,7 +57,6 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
         <h3>Appearance</h3>
         ${setting('Theme', 'Follow the system, or pick one. Previews as you choose.', `<div class="bw-seg" id="theme" role="radiogroup" aria-label="Theme"><button type="button" data-value="system">${iconHtml('monitor', 13)}System</button><button type="button" data-value="light">${iconHtml('sun', 13)}Light</button><button type="button" data-value="dark">${iconHtml('moon', 13)}Dark</button></div>`)}
         ${setting('Conversation width', 'How much of the window the chat takes when a work tab is open. Drag the divider between them for the same thing.', `<div class="bw-range"><input id="width" type="range" min="40" max="70" step="5" aria-label="Conversation width"><output id="width-value"></output></div>`)}
-        ${setting('Terminal', 'The emulator behind the terminal tab. xterm.js is the default. Ghostty is ghostty-web, Ghostty\'s own terminal core built to WebAssembly; experimental, and it falls back to xterm.js when it cannot load. A change applies to tabs opened afterwards.', `<div class="bw-seg" id="terminal-engine" role="radiogroup" aria-label="Terminal engine"><button type="button" data-value="xterm" aria-checked="${(s.terminal?.engine || 'xterm') === 'xterm'}">xterm.js</button><button type="button" data-value="ghostty" aria-checked="${s.terminal?.engine === 'ghostty'}">Ghostty (experimental)</button></div>`)}
         <h3>Storage</h3>
         <div id="profile-settings" hidden></div>
         ${setting('Original history', 'Read notes, revisions and agent changes kept in a migration backup.', `<button type="button" class="bw-btn" data-act="original-history">${iconHtml('history', 13)}View originals</button>`)}
@@ -419,7 +418,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
   renderBrowserPane();
   // The assistant's browsing policy: segmented choices and the host list, saved with the rest.
   const segPick = (id, onPick) => qa(`${id} button`).forEach(b => { b.onclick = () => { qa(`${id} button`).forEach(x => x.setAttribute('aria-checked', String(x === b))); onPick?.(b.dataset.value); markDirty(); }; });
-  segPick('#terminal-engine'); segPick('#browser-mode'); segPick('#browser-sites-mode', v => { const list = q('#browser-sites-list'); if (list) list.hidden = v !== 'list'; });
+  segPick('#browser-mode'); segPick('#browser-sites-mode', v => { const list = q('#browser-sites-list'); if (list) list.hidden = v !== 'list'; });
   q('#browser-logged-out').onchange = markDirty; q('#browser-sites-list').oninput = markDirty; q('#browser-blocking').onchange = markDirty; q('#browser-blocking-allow').oninput = markDirty;
   api.browser.blocking().then(b => { const n = q('#browser-blocking-status'); if (n) n.textContent = !b.enabled ? 'Off.' : b.ready ? `Lists ${b.source === 'list' ? 'from a file' : 'from Ghostery'}, loaded ${new Date(b.updatedAt).toLocaleString()}.` : b.error ? `The lists could not be loaded: ${b.error}` : 'Loading the lists…'; }).catch(() => {});
   const browserPatch = () => ({ mode: q('#browser-mode [aria-checked="true"]')?.dataset.value || 'auto', loggedOut: q('#browser-logged-out').checked, sites: { mode: q('#browser-sites-mode [aria-checked="true"]')?.dataset.value || 'all', list: q('#browser-sites-list').value.split(/\n+/).map(v => v.trim().toLowerCase()).filter(Boolean) }, blocking: { enabled: q('#browser-blocking').checked, allow: q('#browser-blocking-allow').value.split(/\n+/).map(v => v.trim().toLowerCase()).filter(Boolean) } });
@@ -437,7 +436,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
     if (saving) return;
     const patch = { model: q('#model').value, provider: q('input[name="provider"]:checked').value, claudeModel: modelValue('claude'), codexModel: modelValue('codex'), theme: theme(), chatWidth: Number(q('#width').value), barkpark: { enabled: q('#bp-enabled').checked, viaCli: bpMode() === 'cli', server: q('#bp-server').value.trim(), dataset: q('#bp-dataset').value.trim() || 'production', writes: q('#bp-writes').checked, local: { ...s.barkpark.local, enabled: bpMode() === 'local', source: q('#bp-source').value.trim() } } };
     if (q('#api-key').value.trim()) patch.apiKey = q('#api-key').value.trim(); else if (clearKey) patch.apiKey = '';
-    patch.browser = browserPatch(); patch.terminal = { engine: q('#terminal-engine [aria-checked="true"]')?.dataset.value || 'xterm' };
+    patch.browser = browserPatch();
     const binaries = { claude: q('#claude-binary')?.value.trim() ?? '', codex: q('#codex-binary')?.value.trim() ?? '' };
     if (binaries.claude !== (s.providerBinary?.claude || '') || binaries.codex !== (s.providerBinary?.codex || '')) patch.providerBinary = binaries;
     if (q('#bp-token').value.trim()) patch.barkpark.token = q('#bp-token').value.trim();
