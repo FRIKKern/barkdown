@@ -68,7 +68,9 @@ await row('a dropped picture lands where it was dropped, with its src on the ser
 });
 await row('the uploaded picture is served by the Barkpark (200, image/png)', async () => {
   const b = images().find(x => x.alt === 'red-square');
-  const r = await fetch(b.src); return { pass: r.ok && /image\/png/.test(r.headers.get('content-type') || ''), status: r.status, type: r.headers.get('content-type') };
+  // A failure names the address and the cause: "fetch failed" alone does not say where the picture was looked for.
+  let r; try { r = await fetch(b.src); } catch (error) { return { pass: false, src: b.src, error: `${error.message}: ${error.cause?.code || error.cause?.message || ''}` }; }
+  return { pass: r.ok && /image\/png/.test(r.headers.get('content-type') || ''), src: b.src, status: r.status, type: r.headers.get('content-type') };
 });
 await row('alt and width typed on the node land on the server', async () => {
   const img = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas figure[data-bp-type="image"]').first();
