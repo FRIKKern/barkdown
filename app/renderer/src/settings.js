@@ -451,7 +451,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
     for (const { control } of controls) control.disabled = true;
     q('[data-act="save"]').textContent = 'Saving…';
     try {
-      state.settings = await api.settings.set(patch); onChange(patch, false); toast('Settings saved'); close();
+      state.settings = await api.settings.set(patch); window.dispatchEvent(new Event('barkdown:approvals')); onChange(patch, false); toast('Settings saved'); close();
       // A (re)connected Barkpark: fetch its editor bundle now; if a different build is already running, say so.
       refreshCanvasBundleAfterSettings().then(info => { if (state.canvasBundle?.next) toast(`Barkpark's editor bundle (sha1 ${info.sha.slice(0, 8)}) is fetched — restart Barkdown to use it`); });
     } catch (error) { toast(error.message, 'error'); }

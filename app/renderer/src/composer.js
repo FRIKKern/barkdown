@@ -50,6 +50,15 @@ export function mountComposer(form, getChat, hooks, main = false) {
     if (!main) { menus[name].id = 'composer-' + (++nextComposer); document.getElementById('app').append(menus[name]); }
   }
   const q = selector => { const name = selector.replace(/^#bw-/, ''); return name === 'compose' ? form : menus[name] || form.querySelector('[data-composer="' + name + '"]'); };
+  // Approvals: the chip says which way the app is set (an app setting, not a chat's). Every composer on screen
+  // repaints its chip when the setting changes, wherever it was changed.
+  function paintApprovals() {
+    const asks = state.settings?.approvals === 'ask';
+    q('#bw-approvals-label').textContent = asks ? 'Asks first' : 'No approvals';
+    q('#bw-approvals').setAttribute('aria-pressed', String(!asks));
+    q('#bw-approvals').title = asks ? 'The assistant asks before it writes files, runs commands or uses a tool that changes something. Click to stop asking.' : 'The assistant writes files, runs commands and uses tools without asking. Click to be asked first. The browser still pauses on purchases, passwords and similar (Settings › Browser).';
+  }
+  window.addEventListener('barkdown:approvals', paintApprovals);
   const renderChat = () => hooks.render();
   const renderSidebar = () => hooks.changed?.();
   const render = () => { renderChat(); save(); };
@@ -153,11 +162,7 @@ function renderProjectMenu() {
   const effortName = v => (EFFORT_LEVELS[provider] || []).find(([id]) => id === v)?.[1] || v;
   q('#bw-effort-label').textContent = chat.effort ? effortName(chat.effort) : defaultEffort ? `${effortName(defaultEffort)} (default)` : 'Effort';
   q('#bw-effort').title = chat.effort ? `Reasoning effort for this chat: ${chat.effort}` : `Reasoning effort for this chat: the provider default${defaultEffort ? ', ' + defaultEffort : ''}. Click to choose another.`;
-  // Approvals: the chip says which way the app is set, for every chat (it is an app setting, not a chat's).
-  const asks = state.settings?.approvals === 'ask';
-  q('#bw-approvals-label').textContent = asks ? 'Asks first' : 'No approvals';
-  q('#bw-approvals').setAttribute('aria-pressed', String(!asks));
-  q('#bw-approvals').title = asks ? 'The assistant asks before it writes files, runs commands or uses a tool that changes something. Click to stop asking.' : 'The assistant writes files, runs commands and uses tools without asking. Click to be asked first. The browser still pauses on purchases, passwords and similar (Settings › Browser).';
+  paintApprovals();
   q('#bw-working').hidden = !chat.runId;
   q('#bw-working').innerHTML = `<span class="bw-pulse"></span>${esc(chat.workingLabel || 'Working…')}`;
 
@@ -179,7 +184,7 @@ function renderProjectMenu() {
     const next = state.settings?.approvals === 'ask' ? 'none' : 'ask';
     try { state.settings = await api.settings.set({ approvals: next }); } catch (error) { toast(errorMessage(error), 'error'); return; }
     if (next === 'none') for (const chat of Object.values(state.chats)) for (const message of chat.messages || []) for (const approval of (message.approvals || []).filter(a => a.status === 'pending')) await respondApproval(chat, approval.approvalId, true);
-    renderChat(); toast(next === 'none' ? 'No approvals: the assistant acts without asking' : 'The assistant asks before it writes or runs');
+    window.dispatchEvent(new Event('barkdown:approvals')); renderChat(); toast(next === 'none' ? 'No approvals: the assistant acts without asking' : 'The assistant asks before it writes or runs');
   };
   q('#bw-stop').onclick = () => cancelRun(currentChat());
   q('#bw-compose').onsubmit = e => { e.preventDefault(); const chat = currentChat(); const text = q('#bw-prompt').value; const images = chat.draftImages || []; if ((!text.trim() && !images.length) || isSubmitting(chat)) return; if (chat.interruption) { toast('Review the interrupted turn before sending a new message.', 'error'); return; } if (chat.runId) { toast('Wait for the current run to finish, or stop it.'); return; } resetComposerHistory(chat); chat.draft = text; sendMessage(chat, text, { render: () => { renderChat(); renderSidebar(); }, runChanged: () => { renderChat(); renderSidebar(); } }, images); };
@@ -195,5 +200,5 @@ function renderProjectMenu() {
   q('#bw-attachments').addEventListener('click', e => { const remove = e.target.closest('[data-remove]'); if (!remove) return; const chat = currentChat(); chat.draftImages = (chat.draftImages || []).filter(i => i.id !== remove.dataset.remove); markDraftChanged(chat); renderAttachments(chat); save(); q('#bw-prompt').focus(); });
   q('#bw-prompt').addEventListener('keydown', e => { if (recallComposer(e, q('#bw-prompt'), currentChat(), save)) { markDraftChanged(currentChat()); return; } if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); q('#bw-compose').requestSubmit(); } });
   q('#bw-prompt').addEventListener('input', () => { const chat = currentChat(); if (chat) { chat.draft = q('#bw-prompt').value; markDraftChanged(chat); save(); } });
-  return {render:renderControls,attachImages,chooseFolder,renderProjectMenu,destroy(){if(Object.values(menus).some(menu => !menu.hidden)) hideMenus(); for(const menu of Object.values(menus)) if(!main) menu.remove();}};
+  return {render:renderControls,attachImages,chooseFolder,renderProjectMenu,destroy(){window.removeEventListener('barkdown:approvals', paintApprovals); if(Object.values(menus).some(menu => !menu.hidden)) hideMenus(); for(const menu of Object.values(menus)) if(!main) menu.remove();}};
 }
