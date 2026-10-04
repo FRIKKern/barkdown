@@ -16,6 +16,7 @@ We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT,
 - Nightlies cut themselves from this Mac on a schedule, from a commit with a green chain receipt, with an updater feed beside the image ([how](docs/RELEASE.md)); the app is 420 MB and works at 200 % zoom.
 - Rough treatment: a killed app, a killed export or import, a dead database, a quit mid-save. Nothing acknowledged is lost ([C085](docs/cycles/C085-portable-profile.md)).
 - Six heading levels in notes, on the upgraded editor; every row of the editor matrix is green ([C093](docs/cycles/C093-pin-six-headings.md)).
+- Barkdown operates itself: a `barkdown` command line and an `app` tool for assistants start chats, send messages, write notes, open tabs and run the terminal. Settings, profiles and deletions need the Full YOLO switch, which only a person can flip. Shown with a real assistant starting a helper; from source on the Mac only ([C094](docs/cycles/C094-barkdown-controls-itself.md)).
 - A real terminal in the tab: a pty behind xterm.js. Prompts, colours, `less`, resize, Ctrl+C, and the assistant's commands in a strip of their own. Proven on the Mac and, from source, in PowerShell on a hosted Windows runner ([C090](docs/cycles/C090-real-terminal.md)).
 
 **Not yet**
@@ -42,7 +43,7 @@ A notebook in motion: write together, check things off, find your next idea. Rea
 <details>
 <summary>Still view</summary>
 
-![Barkdown: a conversation beside a Paper document in dark mode.](docs/images/status/paper-dark.9979530b.png)
+![Barkdown: a conversation beside a Paper document in dark mode.](docs/images/status/paper-dark.c65a76d8.png)
 
 </details>
 

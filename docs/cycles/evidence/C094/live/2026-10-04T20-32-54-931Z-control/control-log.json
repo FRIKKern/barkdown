@@ -1,0 +1,202 @@
+[
+  {
+    "at": "2026-10-04T20:34:37.923Z",
+    "origin": "cli",
+    "command": "chat.new",
+    "args": "{\"folder\":\"/private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-control-live-v5W2ZT/work\",\"message\":\"Say hello to the desk\",\"wait\":true,\"title\":\"Helper\"}",
+    "ok": true,
+    "ms": 20387
+  },
+  {
+    "at": "2026-10-04T20:34:48.039Z",
+    "origin": "cli",
+    "command": "chat.send",
+    "args": "{\"chat\":\"Helper\",\"wait\":true,\"message\":\"And a second question\"}",
+    "ok": true,
+    "ms": 8473
+  },
+  {
+    "at": "2026-10-04T20:34:48.890Z",
+    "origin": "cli",
+    "command": "chat.set",
+    "args": "{\"chat\":\"Helper\",\"model\":\"claude-sonnet-5-5\",\"effort\":\"low\"}",
+    "ok": true,
+    "ms": 22
+  },
+  {
+    "at": "2026-10-04T20:34:49.124Z",
+    "origin": "cli",
+    "command": "chat.rename",
+    "args": "{\"chat\":\"Helper\",\"title\":\"Desk helper\"}",
+    "ok": true,
+    "ms": 6
+  },
+  {
+    "at": "2026-10-04T20:34:55.640Z",
+    "origin": "cli",
+    "command": "note.new",
+    "args": "{\"markdown\":\"# Notes from the command line\\n\\nWritten by `barkdown note new`.\\n\\n- first\\n- second\"}",
+    "ok": true,
+    "ms": 4516
+  },
+  {
+    "at": "2026-10-04T20:34:57.649Z",
+    "origin": "cli",
+    "command": "note.page",
+    "args": "{\"note\":\"drafts.bd-note-4e07a32d-1ed1-4cfc-b46e-2c8055550d0a\"}",
+    "ok": true,
+    "ms": 8
+  },
+  {
+    "at": "2026-10-04T20:34:58.634Z",
+    "origin": "cli",
+    "command": "tab.open",
+    "args": "{\"kind\":\"web\",\"target\":\"http://127.0.0.1:64741/\"}",
+    "ok": true,
+    "ms": 246
+  },
+  {
+    "at": "2026-10-04T20:35:00.385Z",
+    "origin": "cli",
+    "command": "favorite.add",
+    "args": "{}",
+    "ok": true,
+    "ms": 15
+  },
+  {
+    "at": "2026-10-04T20:35:00.662Z",
+    "origin": "cli",
+    "command": "tab.activate",
+    "args": "{\"tab\":\"1\"}",
+    "ok": true,
+    "ms": 42
+  },
+  {
+    "at": "2026-10-04T20:35:01.077Z",
+    "origin": "cli",
+    "command": "tab.open",
+    "args": "{\"kind\":\"terminal\"}",
+    "ok": true,
+    "ms": 85
+  },
+  {
+    "at": "2026-10-04T20:35:01.257Z",
+    "origin": "cli",
+    "command": "tab.rename",
+    "args": "{\"tab\":\"4a179aab-d048-4cfc-8915-104bf8594ce5\",\"title\":\"Shell\"}",
+    "ok": true,
+    "ms": 5
+  },
+  {
+    "at": "2026-10-04T20:35:01.604Z",
+    "origin": "cli",
+    "command": "tab.close",
+    "args": "{\"tab\":\"4babb58b-aaa2-4591-b614-4e3cb1d70b26\"}",
+    "ok": true,
+    "ms": 33
+  },
+  {
+    "at": "2026-10-04T20:35:04.938Z",
+    "origin": "cli",
+    "command": "terminal.run",
+    "args": "{\"wait\":3,\"command\":\"echo ctl-$((40+2))\"}",
+    "ok": true,
+    "ms": 3020
+  },
+  {
+    "at": "2026-10-04T20:35:11.264Z",
+    "origin": "cli",
+    "command": "terminal.run",
+    "args": "{\"wait\":6,\"command\":\"barkdown status | grep -c \\\"app: Barkdown\\\" | sed \\\"s/^/found-/\\\"\"}",
+    "ok": true,
+    "ms": 6086
+  },
+  {
+    "at": "2026-10-04T20:35:13.752Z",
+    "origin": "cli",
+    "command": "ui.show",
+    "args": "{\"what\":\"settings\",\"pane\":\"assistant\"}",
+    "ok": true,
+    "ms": 76
+  },
+  {
+    "at": "2026-10-04T20:35:15.623Z",
+    "origin": "cli",
+    "command": "settings.set",
+    "args": "{\"key\":\"theme\",\"value\":\"light\"}",
+    "ok": true,
+    "ms": 213
+  },
+  {
+    "at": "2026-10-04T20:35:15.970Z",
+    "origin": "cli",
+    "command": "settings.set",
+    "args": "{\"key\":\"theme\",\"value\":\"dark\"}",
+    "ok": true,
+    "ms": 98
+  },
+  {
+    "at": "2026-10-04T20:35:16.314Z",
+    "origin": "cli",
+    "command": "settings.set",
+    "args": "{\"key\":\"approvals\",\"value\":\"ask\"}",
+    "ok": true,
+    "ms": 83
+  },
+  {
+    "at": "2026-10-04T20:35:16.667Z",
+    "origin": "cli",
+    "command": "settings.set",
+    "args": "{\"key\":\"approvals\",\"value\":\"none\"}",
+    "ok": true,
+    "ms": 78
+  },
+  {
+    "at": "2026-10-04T20:35:16.892Z",
+    "origin": "cli",
+    "command": "profile.create",
+    "args": "{\"name\":\"Second desk\"}",
+    "ok": true,
+    "ms": 75
+  },
+  {
+    "at": "2026-10-04T20:35:17.932Z",
+    "origin": "cli",
+    "command": "chat.new",
+    "args": "{\"title\":\"Scratch\"}",
+    "ok": true,
+    "ms": 634
+  },
+  {
+    "at": "2026-10-04T20:35:18.205Z",
+    "origin": "cli",
+    "command": "chat.delete",
+    "args": "{\"chat\":\"Scratch\"}",
+    "ok": true,
+    "ms": 78
+  },
+  {
+    "at": "2026-10-04T20:35:21.409Z",
+    "origin": "assistant",
+    "command": "chat.new",
+    "args": "{\"title\":\"Started by an assistant\",\"message\":\"Summarise the README\",\"wait\":true}",
+    "ok": true,
+    "ms": 1380
+  },
+  {
+    "at": "2026-10-04T20:35:21.457Z",
+    "origin": "assistant",
+    "command": "chat.send",
+    "args": "{\"message\":\"to myself\"}",
+    "ok": false,
+    "error": "Name the chat to message with --chat: an assistant does not message its own chat."
+  },
+  {
+    "at": "2026-10-04T20:35:21.788Z",
+    "origin": "cli",
+    "command": "ui.show",
+    "args": "{\"what\":\"settings\",\"pane\":\"assistant\"}",
+    "ok": true,
+    "ms": 58
+  }
+]

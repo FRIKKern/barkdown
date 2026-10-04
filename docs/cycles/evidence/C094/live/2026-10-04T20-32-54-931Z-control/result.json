@@ -1,0 +1,307 @@
+{
+  "source": "de839e3975191773fb4ccff55037f89031fddeb6",
+  "dirty": false,
+  "host": "darwin 24.3.0 arm64",
+  "model": "Scripted replies through the API SDK; not a real model",
+  "status": "passed",
+  "checks": [
+    "status: the command finds the running app and Full YOLO is off at first",
+    "the overview lists every command and marks what needs Full YOLO",
+    "agent add: a new chat with its folder, a first message, and the reply read back",
+    "chat send / read / list / set / rename act on the chat a person sees",
+    "note new / read / list / page: a note with its text, open beside the chat and in Pages",
+    "tab open / activate / rename / list / close and favorite add work on the chat's tabs",
+    "terminal run / read: the terminal tab runs a command, and `barkdown` works inside it",
+    "without Full YOLO: settings, profiles and deletions are refused; the switch, quit and restart are never commands",
+    "a person turns Full YOLO on with the switch in Settings › Assistant",
+    "with Full YOLO: settings change live, a profile is created, a chat is deleted",
+    "with Full YOLO on, Barkdown still cannot switch Full YOLO, quit, or write a secret",
+    "the assistant's app tool: starts a helper chat and reads its reply; its own chat is the default; the switch and quit are refused",
+    "Full YOLO off again: administrative commands are refused for both callers; the log names who did what"
+  ],
+  "screenshots": [
+    "01-agent-added.png",
+    "02-note-created.png",
+    "03-terminal.png",
+    "04-settings-full-yolo-off.png",
+    "05-settings-full-yolo-on.png",
+    "06-assistant-started-a-chat.png"
+  ],
+  "transcript": [
+    {
+      "command": "barkdown status --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"app\": \"Barkdown\",\n    \"version\": \"0.6.0\",\n    \"pid\": 15413,\n    \"platform\": \"darwin\",\n    \"userData\": \"/private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-control-live-v5W2ZT\",\n    \"fullYolo\": false,\n    \"approvals\": \"none\",\n    \"provider\": \"api\",\n    \"profile\": \"Personal\",\n    \"library\": \"ready\",\n    \"window\": {\n      \"mode\": \"chat\",\n      \"chat\": {\n        \"id\": \"55bea413-c76e-4c2e-8778-c2bad4d2c14a\",\n        \"title\": \"Shaping Barkdown\",\n        \"running\": false,\n        \"tabs\": 0\n      },\n      \"chats\": 1,\n      \"notes\": 1\n    }\n  }\n}"
+    },
+    {
+      "command": "barkdown ",
+      "code": 0,
+      "out": "barkdown: control the running Barkdown app\n\nUsage: barkdown <group> <action> [arguments] [--flag value] [--json]\n\napp\n  status               What is running: version, profile, Full YOLO, the library, the current chat\n  commands             Every command, with what it needs and whether it may run now\n  log                  The last commands this control surface carried out\nchat\n  chat list            The chats, newest first, with folder, provider and whether a run is in flight\n  chat read            A chat's messages as text\n  chat new             Start a chat (an agent): optionally with a folder, a provider, a model, an effort and a first message\n  chat open            Switch to a chat\n  cha"
+    },
+    {
+      "command": "barkdown agent add Helper --folder /private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-control-live-v5W2ZT/work --message Say hello to the desk --wait --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"created\": \"c5a90db1-0617-48e0-8808-892859b32725\",\n    \"chat\": \"c5a90db1-0617-48e0-8808-892859b32725\",\n    \"title\": \"Helper\",\n    \"text\": \"Scripted reply to: Say hello to the desk\"\n  }\n}"
+    },
+    {
+      "command": "barkdown chat send And a second question --chat Helper --wait --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"chat\": \"c5a90db1-0617-48e0-8808-892859b32725\",\n    \"title\": \"Helper\",\n    \"text\": \"Scripted reply to: And a second question\"\n  }\n}"
+    },
+    {
+      "command": "barkdown chat read Helper --last 2",
+      "code": 0,
+      "out": "chat: c5a90db1-0617-48e0-8808-892859b32725 · title: Helper · messages: 4\n\nYou: And a second question\n\nAssistant: Scripted reply to: And a second question"
+    },
+    {
+      "command": "barkdown chat list --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": [\n    {\n      \"id\": \"c5a90db1-0617-48e0-8808-892859b32725\",\n      \"title\": \"Helper\",\n      \"current\": true,\n      \"running\": false,\n      \"provider\": \"api\",\n      \"model\": null,\n      \"effort\": null,\n      \"folder\": \"/private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-control-live-v5W2ZT/work\",\n      \"side\": false,\n      \"tabs\": 0,\n      \"updated\": \"2026-10-04T20:34:47.768Z\"\n    },\n    {\n      \"id\": \"55bea413-c76e-4c2e-8778-c2bad4d2c14a\",\n      \"title\": \"Shaping Barkdown\",\n      \"current\": false,\n      \"running\": false,\n      \"provider\": \"api\",\n      \"model\": null,\n      \"effort\": null,\n      \"folder\": null,\n      \"side\": false,\n      \"tabs\": 0,\n      \"upd"
+    },
+    {
+      "command": "barkdown chat set --chat Helper --model claude-sonnet-5-5 --effort low --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"c5a90db1-0617-48e0-8808-892859b32725\",\n    \"title\": \"Helper\",\n    \"current\": true,\n    \"running\": false,\n    \"provider\": \"api\",\n    \"model\": \"claude-sonnet-5-5\",\n    \"effort\": \"low\",\n    \"folder\": \"/private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-control-live-v5W2ZT/work\",\n    \"side\": false,\n    \"tabs\": 0,\n    \"updated\": \"2026-10-04T20:34:47.768Z\"\n  }\n}"
+    },
+    {
+      "command": "barkdown chat rename Helper Desk helper",
+      "code": 0,
+      "out": "chat: c5a90db1-0617-48e0-8808-892859b32725\ntitle: Desk helper"
+    },
+    {
+      "command": "barkdown note new # Notes from the command line\n\nWritten by `barkdown note new`.\n\n- first\n- second --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-4e07a32d-1ed1-4cfc-b46e-2c8055550d0a\",\n    \"title\": \"Notes from the command line\",\n    \"text\": \"Created the note \\\"Notes from the command line\\\" (drafts.bd-note-4e07a32d-1ed1-4cfc-b46e-2c8055550d0a).\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note read Notes from the command line",
+      "code": 0,
+      "out": "id: drafts.bd-note-4e07a32d-1ed1-4cfc-b46e-2c8055550d0a · title: Notes from the command line\n\n# Notes from the command line\n\nWritten by `barkdown note new`.\n\n- first\n- second"
+    },
+    {
+      "command": "barkdown note list --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": [\n    {\n      \"id\": \"welcome\",\n      \"title\": \"Welcome to Barkpark\",\n      \"updated\": \"2026-10-04T20:33:43.840026Z\"\n    },\n    {\n      \"id\": \"drafts.bd-note-4e07a32d-1ed1-4cfc-b46e-2c8055550d0a\",\n      \"title\": \"Notes from the command line\",\n      \"updated\": \"2026-10-04T20:34:53.834531Z\"\n    }\n  ]\n}"
+    },
+    {
+      "command": "barkdown note page drafts.bd-note-4e07a32d-1ed1-4cfc-b46e-2c8055550d0a",
+      "code": 0,
+      "out": "id: drafts.bd-note-4e07a32d-1ed1-4cfc-b46e-2c8055550d0a · title: Notes from the command line\n\n\"Notes from the command line\" is in Pages."
+    },
+    {
+      "command": "barkdown tab open web http://127.0.0.1:64741/ --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"n\": 2,\n    \"id\": \"4babb58b-aaa2-4591-b614-4e3cb1d70b26\",\n    \"type\": \"web\",\n    \"title\": \"127.0.0.1\",\n    \"active\": true,\n    \"url\": \"http://127.0.0.1:64741/\"\n  }\n}"
+    },
+    {
+      "command": "barkdown tab list --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": [\n    {\n      \"n\": 1,\n      \"id\": \"b56bf71e-923f-41b1-b475-95cd668d8842\",\n      \"type\": \"doc\",\n      \"title\": \"Notes from the command line\",\n      \"active\": false,\n      \"note\": \"drafts.bd-note-4e07a32d-1ed1-4cfc-b46e-2c8055550d0a\"\n    },\n    {\n      \"n\": 2,\n      \"id\": \"4babb58b-aaa2-4591-b614-4e3cb1d70b26\",\n      \"type\": \"web\",\n      \"title\": \"Control fixture\",\n      \"active\": true,\n      \"url\": \"http://127.0.0.1:64741/\"\n    }\n  ]\n}"
+    },
+    {
+      "command": "barkdown favorite add",
+      "code": 0,
+      "out": "label: Control fixture\n\n\"Control fixture\" is in Favorites."
+    },
+    {
+      "command": "barkdown favorite list --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": [\n    {\n      \"id\": \"ce8c4dc4-6990-4d5f-8eec-bca5c8a88426\",\n      \"label\": \"Control fixture\",\n      \"kind\": \"web\",\n      \"where\": \"http://127.0.0.1:64741/\"\n    }\n  ]\n}"
+    },
+    {
+      "command": "barkdown tab activate 1",
+      "code": 0,
+      "out": "n: 1\nid: b56bf71e-923f-41b1-b475-95cd668d8842\ntype: doc\ntitle: Notes from the command line\nactive: true\nnote: drafts.bd-note-4e07a32d-1ed1-4cfc-b46e-2c8055550d0a"
+    },
+    {
+      "command": "barkdown tab list --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": [\n    {\n      \"n\": 1,\n      \"id\": \"b56bf71e-923f-41b1-b475-95cd668d8842\",\n      \"type\": \"doc\",\n      \"title\": \"Notes from the command line\",\n      \"active\": true,\n      \"note\": \"drafts.bd-note-4e07a32d-1ed1-4cfc-b46e-2c8055550d0a\"\n    },\n    {\n      \"n\": 2,\n      \"id\": \"4babb58b-aaa2-4591-b614-4e3cb1d70b26\",\n      \"type\": \"web\",\n      \"title\": \"Control fixture\",\n      \"active\": false,\n      \"url\": \"http://127.0.0.1:64741/\"\n    }\n  ]\n}"
+    },
+    {
+      "command": "barkdown tab open terminal --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"n\": 3,\n    \"id\": \"4a179aab-d048-4cfc-8915-104bf8594ce5\",\n    \"type\": \"terminal\",\n    \"title\": \"Terminal\",\n    \"active\": true\n  }\n}"
+    },
+    {
+      "command": "barkdown tab rename 4a179aab-d048-4cfc-8915-104bf8594ce5 Shell",
+      "code": 0,
+      "out": "n: 3\nid: 4a179aab-d048-4cfc-8915-104bf8594ce5\ntype: terminal\ntitle: Shell\nactive: true"
+    },
+    {
+      "command": "barkdown tab list --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": [\n    {\n      \"n\": 1,\n      \"id\": \"b56bf71e-923f-41b1-b475-95cd668d8842\",\n      \"type\": \"doc\",\n      \"title\": \"Notes from the command line\",\n      \"active\": false,\n      \"note\": \"drafts.bd-note-4e07a32d-1ed1-4cfc-b46e-2c8055550d0a\"\n    },\n    {\n      \"n\": 2,\n      \"id\": \"4babb58b-aaa2-4591-b614-4e3cb1d70b26\",\n      \"type\": \"web\",\n      \"title\": \"Control fixture\",\n      \"active\": false,\n      \"url\": \"http://127.0.0.1:64741/\"\n    },\n    {\n      \"n\": 3,\n      \"id\": \"4a179aab-d048-4cfc-8915-104bf8594ce5\",\n      \"type\": \"terminal\",\n      \"title\": \"Shell\",\n      \"active\": true\n    }\n  ]\n}"
+    },
+    {
+      "command": "barkdown tab close 4babb58b-aaa2-4591-b614-4e3cb1d70b26",
+      "code": 0,
+      "out": "closed: 4babb58b-aaa2-4591-b614-4e3cb1d70b26\ntitle: Control fixture"
+    },
+    {
+      "command": "barkdown tab list --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": [\n    {\n      \"n\": 1,\n      \"id\": \"b56bf71e-923f-41b1-b475-95cd668d8842\",\n      \"type\": \"doc\",\n      \"title\": \"Notes from the command line\",\n      \"active\": false,\n      \"note\": \"drafts.bd-note-4e07a32d-1ed1-4cfc-b46e-2c8055550d0a\"\n    },\n    {\n      \"n\": 2,\n      \"id\": \"4a179aab-d048-4cfc-8915-104bf8594ce5\",\n      \"type\": \"terminal\",\n      \"title\": \"Shell\",\n      \"active\": true\n    }\n  ]\n}"
+    },
+    {
+      "command": "barkdown terminal run echo ctl-$((40+2)) --wait 3",
+      "code": 0,
+      "out": "chat: c5a90db1-0617-48e0-8808-892859b32725\n\nzsh in /private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-control-live-v5W2ZT/work\necho ctl-$((40+2))\nfrikkjarl@Mac work % echo ctl-$((40+2))\nctl-42\nfrikkjarl@Mac work %"
+    },
+    {
+      "command": "barkdown terminal run barkdown status | grep -c \"app: Barkdown\" | sed \"s/^/found-/\" --wait 6",
+      "code": 0,
+      "out": "chat: c5a90db1-0617-48e0-8808-892859b32725\n\nzsh in /private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-control-live-v5W2ZT/work\necho ctl-$((40+2))\nfrikkjarl@Mac work % echo ctl-$((40+2))\nctl-42\nfrikkjarl@Mac work % barkdown status | grep -c \"app: Barkdow\nn\" | sed \"s/^/found-/\"\nfound-1\nfrikkjarl@Mac work %"
+    },
+    {
+      "command": "barkdown terminal read --lines 30",
+      "code": 0,
+      "out": "chat: c5a90db1-0617-48e0-8808-892859b32725\n\nzsh in /private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-control-live-v5W2ZT/work\necho ctl-$((40+2))\nfrikkjarl@Mac work % echo ctl-$((40+2))\nctl-42\nfrikkjarl@Mac work % barkdown status | grep -c \"app: Barkdow\nn\" | sed \"s/^/found-/\"\nfound-1\nfrikkjarl@Mac work %"
+    },
+    {
+      "command": "barkdown settings set theme light",
+      "code": 4,
+      "out": "barkdown: This is an administrative command. A person must switch on Full YOLO in Settings › Assistant first; Barkdown cannot switch it on for itself."
+    },
+    {
+      "command": "barkdown profile create Second desk",
+      "code": 4,
+      "out": "barkdown: This is an administrative command. A person must switch on Full YOLO in Settings › Assistant first; Barkdown cannot switch it on for itself."
+    },
+    {
+      "command": "barkdown chat delete Desk helper",
+      "code": 4,
+      "out": "barkdown: This is an administrative command. A person must switch on Full YOLO in Settings › Assistant first; Barkdown cannot switch it on for itself."
+    },
+    {
+      "command": "barkdown settings get theme --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": \"dark\"\n}"
+    },
+    {
+      "command": "barkdown fullyolo on",
+      "code": 4,
+      "out": "barkdown: Full YOLO is switched on and off by a person in Settings › Assistant. Barkdown cannot switch it for itself."
+    },
+    {
+      "command": "barkdown app quit",
+      "code": 4,
+      "out": "barkdown: Barkdown does not turn itself off: quitting is the person's."
+    },
+    {
+      "command": "barkdown app relaunch",
+      "code": 4,
+      "out": "barkdown: Barkdown does not turn itself off and on: restarting is the person's."
+    },
+    {
+      "command": "barkdown updates install",
+      "code": 4,
+      "out": "barkdown: Installing an update restarts Barkdown, and restarting is the person's."
+    },
+    {
+      "command": "barkdown status --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"app\": \"Barkdown\",\n    \"version\": \"0.6.0\",\n    \"pid\": 15413,\n    \"platform\": \"darwin\",\n    \"userData\": \"/private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-control-live-v5W2ZT\",\n    \"fullYolo\": false,\n    \"approvals\": \"none\",\n    \"provider\": \"api\",\n    \"profile\": \"Personal\",\n    \"library\": \"ready\",\n    \"window\": {\n      \"mode\": \"chat\",\n      \"chat\": {\n        \"id\": \"c5a90db1-0617-48e0-8808-892859b32725\",\n        \"title\": \"Desk helper\",\n        \"running\": false,\n        \"tabs\": 2\n      },\n      \"chats\": 2,\n      \"notes\": 2\n    }\n  }\n}"
+    },
+    {
+      "command": "barkdown ui show settings assistant",
+      "code": 0,
+      "out": "shown: settings\npane: assistant"
+    },
+    {
+      "command": "barkdown status --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"app\": \"Barkdown\",\n    \"version\": \"0.6.0\",\n    \"pid\": 15413,\n    \"platform\": \"darwin\",\n    \"userData\": \"/private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-control-live-v5W2ZT\",\n    \"fullYolo\": true,\n    \"approvals\": \"none\",\n    \"provider\": \"api\",\n    \"profile\": \"Personal\",\n    \"library\": \"ready\",\n    \"window\": {\n      \"mode\": \"chat\",\n      \"chat\": {\n        \"id\": \"c5a90db1-0617-48e0-8808-892859b32725\",\n        \"title\": \"Desk helper\",\n        \"running\": false,\n        \"tabs\": 2\n      },\n      \"chats\": 2,\n      \"notes\": 2\n    }\n  }\n}"
+    },
+    {
+      "command": "barkdown settings set theme light",
+      "code": 0,
+      "out": "key: theme · value: light\n\ntheme is now \"light\"."
+    },
+    {
+      "command": "barkdown settings set theme dark",
+      "code": 0,
+      "out": "key: theme · value: dark\n\ntheme is now \"dark\"."
+    },
+    {
+      "command": "barkdown settings set approvals ask",
+      "code": 0,
+      "out": "key: approvals · value: ask\n\napprovals is now \"ask\"."
+    },
+    {
+      "command": "barkdown settings get approvals --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": \"ask\"\n}"
+    },
+    {
+      "command": "barkdown settings set approvals none",
+      "code": 0,
+      "out": "key: approvals · value: none\n\napprovals is now \"none\"."
+    },
+    {
+      "command": "barkdown profile create Second desk --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"2b3af1e4-db67-4a48-9c5b-b5b2ba3ef828\",\n    \"name\": \"Second desk\",\n    \"text\": \"Created the profile \\\"Second desk\\\". Switch with: barkdown profile switch \\\"Second desk\\\"\"\n  }\n}"
+    },
+    {
+      "command": "barkdown profile list --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": [\n    {\n      \"id\": \"bd7898d6-ab3e-400a-ad1d-f31be6b43662\",\n      \"name\": \"Personal\",\n      \"selected\": true\n    },\n    {\n      \"id\": \"2b3af1e4-db67-4a48-9c5b-b5b2ba3ef828\",\n      \"name\": \"Second desk\",\n      \"selected\": false\n    }\n  ]\n}"
+    },
+    {
+      "command": "barkdown chat new Scratch",
+      "code": 0,
+      "out": "chat: f431dff8-1dc3-4344-a108-d3afc05faaee · title: Scratch\n\nStarted \"Scratch\" (f431dff8-1dc3-4344-a108-d3afc05faaee)."
+    },
+    {
+      "command": "barkdown chat delete Scratch",
+      "code": 0,
+      "out": "deleted: f431dff8-1dc3-4344-a108-d3afc05faaee\ntitle: Scratch"
+    },
+    {
+      "command": "barkdown chat list --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": [\n    {\n      \"id\": \"c5a90db1-0617-48e0-8808-892859b32725\",\n      \"title\": \"Desk helper\",\n      \"current\": true,\n      \"running\": false,\n      \"provider\": \"api\",\n      \"model\": \"claude-sonnet-5-5\",\n      \"effort\": \"low\",\n      \"folder\": \"/private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-control-live-v5W2ZT/work\",\n      \"side\": false,\n      \"tabs\": 2,\n      \"updated\": \"2026-10-04T20:34:47.768Z\"\n    },\n    {\n      \"id\": \"55bea413-c76e-4c2e-8778-c2bad4d2c14a\",\n      \"title\": \"Shaping Barkdown\",\n      \"current\": false,\n      \"running\": false,\n      \"provider\": \"api\",\n      \"model\": null,\n      \"effort\": null,\n      \"folder\": null,\n      \"side\": false,\n      "
+    },
+    {
+      "command": "barkdown settings set control.fullYolo false",
+      "code": 4,
+      "out": "barkdown: Full YOLO is switched on and off by a person in Settings › Assistant. Barkdown cannot switch it for itself."
+    },
+    {
+      "command": "barkdown fullyolo off",
+      "code": 4,
+      "out": "barkdown: Full YOLO is switched on and off by a person in Settings › Assistant. Barkdown cannot switch it for itself."
+    },
+    {
+      "command": "barkdown app quit",
+      "code": 4,
+      "out": "barkdown: Barkdown does not turn itself off: quitting is the person's."
+    },
+    {
+      "command": "barkdown settings set apiKey x",
+      "code": 4,
+      "out": "barkdown: The setting \"apiKey\" holds a secret or a machine path and is not written from here."
+    },
+    {
+      "command": "barkdown status --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"app\": \"Barkdown\",\n    \"version\": \"0.6.0\",\n    \"pid\": 15413,\n    \"platform\": \"darwin\",\n    \"userData\": \"/private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-control-live-v5W2ZT\",\n    \"fullYolo\": true,\n    \"approvals\": \"none\",\n    \"provider\": \"api\",\n    \"profile\": \"Personal\",\n    \"library\": \"ready\",\n    \"window\": {\n      \"mode\": \"chat\",\n      \"chat\": {\n        \"id\": \"c5a90db1-0617-48e0-8808-892859b32725\",\n        \"title\": \"Desk helper\",\n        \"running\": false,\n        \"tabs\": 2\n      },\n      \"chats\": 2,\n      \"notes\": 2\n    }\n  }\n}"
+    },
+    {
+      "command": "barkdown ui show settings assistant",
+      "code": 0,
+      "out": "shown: settings\npane: assistant"
+    },
+    {
+      "command": "barkdown settings set theme light",
+      "code": 4,
+      "out": "barkdown: This is an administrative command. A person must switch on Full YOLO in Settings › Assistant first; Barkdown cannot switch it on for itself."
+    },
+    {
+      "command": "barkdown log --limit 50 --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": [\n    {\n      \"at\": \"2026-10-04T20:34:37.923Z\",\n      \"origin\": \"cli\",\n      \"command\": \"chat.new\",\n      \"args\": \"{\\\"folder\\\":\\\"/private/var/folders/_r/kq063w1977n05tznlk42_nkh0000gn/T/bd-control-live-v5W2ZT/work\\\",\\\"message\\\":\\\"Say hello to the desk\\\",\\\"wait\\\":true,\\\"title\\\":\\\"Helper\\\"}\",\n      \"ok\": true,\n      \"ms\": 20387\n    },\n    {\n      \"at\": \"2026-10-04T20:34:48.039Z\",\n      \"origin\": \"cli\",\n      \"command\": \"chat.send\",\n      \"args\": \"{\\\"chat\\\":\\\"Helper\\\",\\\"wait\\\":true,\\\"message\\\":\\\"And a second question\\\"}\",\n      \"ok\": true,\n      \"ms\": 8473\n    },\n    {\n      \"at\": \"2026-10-04T20:34:48.890Z\",\n      \"origin\": \"cli\",\n      \"command\": \"chat.set\",\n      \""
+    }
+  ]
+}

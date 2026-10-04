@@ -1,0 +1,65 @@
+barkdown: control the running Barkdown app
+
+Usage: barkdown <group> <action> [arguments] [--flag value] [--json]
+
+app
+  status               What is running: version, profile, Full YOLO, the library, the current chat
+  commands             Every command, with what it needs and whether it may run now
+  log                  The last commands this control surface carried out
+chat
+  chat list            The chats, newest first, with folder, provider and whether a run is in flight
+  chat read            A chat's messages as text
+  chat new             Start a chat (an agent): optionally with a folder, a provider, a model, an effort and a first message
+  chat open            Switch to a chat
+  chat rename          Rename a chat
+  chat set             Change a chat's working folder, provider, model or effort
+  chat send            Send a message in a chat, as typing it and pressing Enter does
+  chat wait            Wait until a chat's run has finished, then print the reply
+  chat stop            Stop the run in a chat
+  chat approve         Answer a waiting approval card: allow it, or decline with --decline
+  chat side            Open a side chat beside the current chat
+  chat delete          Delete a chat  [needs Full YOLO]
+note
+  note list            The notes in the library
+  note search          Search the library
+  note read            A note as Markdown
+  note new             Create a note in the library and open it; give its text as Markdown (the first heading is the title)
+  note open            Open a note in a tab beside the current chat
+  note page            Put a note in the sidebar's Pages
+tab
+  tab list             The work tabs of a chat
+  tab open             Open a work tab: a website, a terminal, a project file, a review, or a note
+  tab activate         Bring a tab to the front
+  tab rename           Rename a tab
+  tab close            Close a tab
+terminal
+  terminal run         Type a command into the chat's terminal tab (opening one if needed) and press Enter
+  terminal read        What the chat's terminal tab shows
+favorite
+  favorite list        The favorites
+  favorite add         Bookmark the active tab of the current chat
+ui
+  ui show              Show a part of the window to the person: settings (optionally a pane), palette, sidebar
+  ui notify            Show a short notice in the window
+settings
+  settings get         The settings (secrets are never included)
+  settings set         Change a setting, as saving Settings does  [needs Full YOLO]
+profile
+  profile list         The profiles, and which is selected
+  profile create       Create a profile  [needs Full YOLO]
+  profile switch       Switch to another profile, as the switch in Settings does  [needs Full YOLO]
+library
+  library status       The local library: connected or not, and why not
+  library retry        Start the local library again after a failure  [needs Full YOLO]
+provider
+  provider status      Which assistant providers are signed in
+browser
+  browser permissions  What sites were allowed or denied
+  browser forget       Forget a site's remembered permission  [needs Full YOLO]
+updates
+  updates status       Whether an update is available
+  updates check        Look for an update now  [needs Full YOLO]
+
+Everywhere: --json for the raw answer, --instance <pid> or --user-data <dir> to pick an app, --timeout <seconds>.
+Text arguments take "-" for standard input and "@file" for a file.
+Full YOLO, quitting and restarting are a person's: no command does them.

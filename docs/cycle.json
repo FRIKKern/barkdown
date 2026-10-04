@@ -1,33 +1,40 @@
 {
   "version": 1,
-  "id": "C093",
+  "id": "C094",
   "stage": "P2",
-  "status": "done",
-  "goal": "Barkdown carries the Barkpark that has six heading levels (944a57a1e) with the parity matrix green, so issue #13 can close.",
+  "status": "active",
+  "goal": "Barkdown can operate itself: a barkdown command line and an app tool for assistants drive the running app as a person does, and a Full YOLO switch that only a person reaches opens settings, profiles and deletions.",
   "scope": [
-    "A. Editor upgrade and runtime at 944a57a1e",
-    "B. What the new pin broke in Barkdown: the local runtime's public port",
-    "C. The parity matrix, the app's test chain and the pictures on the new pin",
-    "D. Merge, chain, nightly, close #13"
+    "A. The command catalogue, the gate in the main process, the CLI and its launcher",
+    "B. The window carries commands out with the functions a click calls: chats, messages, notes, tabs, terminal, favorites",
+    "C. Full YOLO: a switch in Settings only; admin commands need it; no command switches it, quits or restarts",
+    "D. The assistant's app tool on the run's bridge; proof with a real assistant",
+    "E. Pictures, check, push, chain, nightly"
   ],
   "acceptance": [
-    "The vendored editor and its notices are the ones at 944a57a1e, rebuilt byte-identical; a packaged runtime at that commit is carried",
-    "The parity matrix is green including row 14, and the app's test chain passes on the new runtime",
-    "Delivered in a nightly from a green chain; issue #13 closed"
+    "The barkdown CLI drives the running app in a live tour: an agent added and answered, a note created, tabs and the terminal used",
+    "Admin commands are refused without Full YOLO; with it they work; the switch, quit and restart are never commands (unit and live)",
+    "A real assistant inside Barkdown starts a helper chat with the app tool and changes a setting only after a person switched Full YOLO on",
+    "Delivered in a nightly from a green chain"
   ],
   "checkpoint": "2026-10-04",
-  "handoff": "docs/cycles/C093-pin-six-headings.md",
-  "nextAction": "Delivered in v0.6.0-nightly.20261004.4. Open issues: #4 (Barkpark's CI needs a read credential from the owner) and #7 (cloud sync, plan stage P4). Next cycle is the owner's call: C089's owner items, or the three parity tests that press Control on macOS.",
+  "handoff": "docs/cycles/C094-barkdown-controls-itself.md",
+  "nextAction": "Implementation (de839e39) and pictures are committed. Remaining: push, chain on the pushed commit, nightly, then close the task.",
   "evidence": [
-    "docs/cycles/evidence/C093/parity-on-944a57a1e.txt",
-    "docs/third-party/paper-editor/manifest.json",
-    "app/renderer/vendor/paper-editor-provenance.json"
+    "docs/cycles/evidence/C094/live/2026-10-04T20-32-54-931Z-control/result.json",
+    "docs/cycles/evidence/C094/live/2026-10-04T20-35-32-763Z-agent-control/result.json",
+    "app/tests/control.test.mjs"
   ],
-  "truthReview": "2026-10-04: the pin is moved and merged. The bundle rebuilt from 944a57a1e is byte-identical to upstream's; the notices are regenerated for the changed lock (45 packages, Tiptap 3.31.4, all copied from the installed packages); a packaged runtime at the commit is built on this Mac. The first local matrix on the new pin was 14 of 20. Two causes, neither an editor regression: (1) upstream separated its public port from its listen port, so a release handed out addresses on port 80 and uploaded pictures could not be fetched; the launcher now passes PHX_PORT, which turned images, link preview and table widths green; (2) gaps, subsup and tablehead fail identically on this Mac with the old pin, because those tests press Control where macOS uses Command; they are green on Linux. On GitHub's Linux runner the branch is 20 of 20 rows green, row 14 included (https://github.com/FRIKKern/barkdown/actions/runs/37201636752). On this Mac the app's whole test chain passes on the branch with the new runtime, and the visual run differs from the approved baseline in two frames only, both by the editor bundle's sha1 line in Settings. Not verified: the three Control-key rows on macOS (a test limitation that predates this cycle); the new runtime inside the packaged app until the nightly's own tours run; Windows. Merged at 28f4327a; the parity workflow on main is 20 of 20 (https://github.com/FRIKKern/barkdown/actions/runs/37215017462); the chain is green on that commit and v0.6.0-nightly.20261004.4 carries the new runtime, with the nightly's packaged tours passing on it.",
-  "screenshotReview": "The visual run on the upgraded editor differs beyond tolerance in two frames, settings: barkpark and settings: library-switch, both by the bundle's sha1 line (reviewed and approved on the branch).",
+  "truthReview": "2026-10-04: the catalogue has 44 commands; the unit tests prove the gate's rules without Electron (token, tiers, the never-list, secrets, arguments, the log, the CLI's exit codes, the launcher) and that every command has a handler. The scripted tour proves 13 behaviours in real Electron through the launcher the app wrote, including barkdown run inside the app's own terminal tab. The real-assistant tour proves Claude Code uses the app tool: helper chat started and answered, settings refused then allowed after a person's click, Full YOLO and quit refused. Not verified: the packaged app's launcher until the nightly's tours run, Windows, Codex, Full YOLO across a restart (the seal is read at launch; no test restarts the app), and the commands listed as missing in the handoff.",
+  "screenshotReview": "Visual run 2026-10-04T20-46-19-405Z reviewed and approved: settings: assistant shows the new section (Full YOLO switch, the command's path); the documents, retained and goals frames differ only in clock-dependent text. The path in that Settings frame is a temporary folder and will differ on every capture.",
   "delivery": {
-    "phase": "delivered",
+    "phase": "validating",
     "owner": "primary agent",
-    "remaining": []
+    "remaining": [
+      "npm run check",
+      "Push",
+      "Chain receipt on the pushed commit",
+      "Nightly"
+    ]
   }
 }
