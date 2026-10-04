@@ -105,7 +105,11 @@ function rememberedRuntime() {
   try { const value = appSettingsStore?.readJson('runtime.json', null); return value?.version === 1 && typeof value.source === 'string' && path.isAbsolute(value.source) && validateLocal({ source: value.source, port: 4540, pgPort: 5540 }) ? value.source : null; } catch { return null; }
 }
 function rememberRuntime(source) { try { if (appSettingsStore && typeof source === 'string' && path.isAbsolute(source)) appSettingsStore.writeJson('runtime.json', { version: 1, source, at: new Date().toISOString() }); } catch {} }
-function readSettings(source = store) { const stored = source.readJson('settings.json', {}), carried = PROFILE_MODE && stored.barkpark === undefined ? (carriedRuntime() || rememberedRuntime()) : null,
+// A profile whose Barkpark block is all off and empty, and that the person never saved from Settings › Barkpark
+// (no `decided`), counts as never configured: saving any other setting used to store that empty block, and the
+// local library then stayed off for good (issue #72).
+const barkparkUntouched = b => !b || (!b.decided && !b.enabled && !b.server && !b.tokenEncrypted && !b.viaCli && !b.local?.enabled);
+function readSettings(source = store) { const stored = source.readJson('settings.json', {}), carried = PROFILE_MODE && barkparkUntouched(stored.barkpark) ? (carriedRuntime() || rememberedRuntime()) : null,
   saved = carried ? { ...stored, barkpark: { enabled: true, writes: true, local: { ...DEFAULT_SETTINGS.barkpark.local, enabled: true, source: carried } } } : stored, appearance = appSettingsStore?.readJson('appearance.json', profileRegistry?.load()?.appSettings || {}) || {}; return { ...DEFAULT_SETTINGS, ...saved, ...appearance, barkpark: { ...DEFAULT_SETTINGS.barkpark, ...(saved.barkpark || {}) } }; }
 function writeSettings(settings) {
   if (!appSettingsStore) return store.writeJson('settings.json', settings);
@@ -172,10 +176,21 @@ function barkparkConfig() {
   if (b.local?.enabled) return { server: `http://127.0.0.1:${b.local.port}`, token: localSecrets().token, dataset: 'production', writes: b.writes, viaCli: false, enabled: b.enabled };
   return { server: b.server, token: decrypt(b.tokenEncrypted), dataset: b.dataset, writes: b.writes, viaCli: b.viaCli, enabled: b.enabled };
 }
+// Why there is no Barkpark connection, in words the person and the agent can act on (issue #72).
+function barkparkReason(settings) {
+  const b = settings.barkpark || {};
+  if (localStartupError) return `the local Barkpark failed to start: ${String(localStartupError).split('\n')[0].slice(0, 160)}`;
+  if (b.local?.enabled && profileService && !profileConnection) return 'the local Barkpark is still starting';
+  if (b.decided) return 'turned off in Settings › Barkpark';
+  if (PROFILE_MODE && !(carriedRuntime() || rememberedRuntime())) return 'this copy of Barkdown carries no local Barkpark (the installed app does; a launch from source needs BARKDOWN_CARRIED_RUNTIME)';
+  return 'not set up yet: Settings › Barkpark';
+}
 function syncBarkparkEnv() {
-  const c = barkparkConfig();
+  let c; try { c = barkparkConfig(); } catch { c = { enabled: false }; }
   process.env.BARKDOWN_BP_TOKEN = c.token || '';
-  store.writeJson('barkpark.json', { ...c, token: undefined, hasToken: Boolean(c.token) });
+  const connected = Boolean(c.enabled && (c.viaCli || c.server));
+  let reason; if (!connected) { try { reason = barkparkReason(readSettings()); } catch { reason = 'see Settings › Barkpark'; } }
+  store.writeJson('barkpark.json', { ...c, token: undefined, hasToken: Boolean(c.token), ...(connected ? {} : { reason }) });
 }
 function emitLocalStatus(status) { if (win && !win.isDestroyed() && !win.webContents.isDestroyed()) win.webContents.send('barkpark:localStatus', status); }
 function localStatus() { if (profilePool) return profilePool.status().find(s => s.profileId === profileService.view().profileId) || { phase: localStartupError ? 'failed' : 'stopped', error: localStartupError }; return localRuntime?.status() || { phase: localStartupError ? 'failed' : 'stopped', attempts: 0, error: localStartupError }; }
@@ -187,7 +202,7 @@ function reconcileLocal() {
       if (runtimeReadyHook && result.connection?.server) await runtimeReadyHook(profileId, result.connection).catch(error => console.error(`[recovery] launch check failed: ${error.message}`));
       if (s.barkpark.local?.enabled && s.barkpark.local.source) rememberRuntime(s.barkpark.local.source);
       profileConnection = result.connection; profileConnectionOwner = result.profileId; localStartupError = null; syncBarkparkEnv(); emitLocalStatus(localStatus());
-    }).catch(error => { localStartupError = error.message; emitLocalStatus(localStatus()); throw error; });
+    }).catch(error => { localStartupError = error.message; try { syncBarkparkEnv(); } catch {} emitLocalStatus(localStatus()); throw error; });
     return localTransition;
   }
   const desired = readSettings().barkpark.local;
@@ -204,7 +219,7 @@ function reconcileLocal() {
     localRuntime = new LocalBarkpark(driver); localConfigKey = key;
     localRuntime.on('status', status => emitLocalStatus(status));
     await localRuntime.start();
-  }).catch(error => { localStartupError = error.message; emitLocalStatus(localStatus()); throw error; });
+  }).catch(error => { localStartupError = error.message; try { syncBarkparkEnv(); } catch {} emitLocalStatus(localStatus()); throw error; });
   return localTransition;
 }
 
@@ -418,6 +433,7 @@ function registerIpc() {
     if (patch.apiKey !== undefined) s.apiKeyEncrypted = patch.apiKey ? encrypt(patch.apiKey) : null;
     if (patch.barkpark) {
       const b = patch.barkpark;
+      s.barkpark.decided = true; // the person saved Barkpark's settings: on or off, it is their choice from here
       if (profileService && b.viaCli) throw new Error('Profiles require an explicit server connection; shared CLI routing is unavailable');
       if (b.local) {
         const config = { ...DEFAULT_SETTINGS.barkpark.local, ...s.barkpark.local, ...b.local };

@@ -1,0 +1,104 @@
+{
+  "source": "25215729b3a0b0c80a2398da8d9600efedefdc23",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "a profile stored as empty and off gets its local library by default",
+      "detail": {
+        "server": "http://127.0.0.1:53456"
+      }
+    },
+    {
+      "name": "\"create a paper\" makes a document in the Barkdown library with create_document",
+      "detail": {
+        "tools": [
+          "create_document"
+        ],
+        "reply": "I created the paper \"Library home test\" with one sentence about badgers.\n\nIts id is `bp:drafts.bd-note-e4bbfdf9-f3f9-4631-bc52-6aec7331714b`",
+        "inputTokens": 19020,
+        "turns": 2
+      }
+    },
+    {
+      "name": "the paper is open beside the chat as a library document",
+      "detail": {
+        "tabs": [
+          {
+            "type": "doc",
+            "title": "Library home test",
+            "id": "773b4b36-195e-4ff3-b7bd-8f56b06c180f"
+          }
+        ]
+      }
+    },
+    {
+      "name": "no claude.ai connector tool is present in a Barkdown run",
+      "detail": {
+        "reply": "NONE",
+        "inputTokens": 10097,
+        "turns": 1
+      }
+    }
+  ],
+  "runs": [
+    {
+      "prompt": "Create a paper titled \"Library home test\" with one sentence about badgers, then reply with the id of the document you created.",
+      "seconds": 8,
+      "text": "I created the paper \"Library home test\" with one sentence about badgers.\n\nIts id is `bp:drafts.bd-note-e4bbfdf9-f3f9-4631-bc52-6aec7331714b`\n\n",
+      "error": null,
+      "usage": {
+        "type": "usage",
+        "cost": 0.0331616,
+        "turns": 2,
+        "durationMs": 3911,
+        "tokens": {
+          "input": 19020,
+          "output": 179
+        },
+        "runId": "0d22ff1b-9b7f-4cd7-8b29-93f44b7e56c6",
+        "chatId": "74056237-bb7a-4178-a85a-110e3850e360",
+        "provider": "claude",
+        "profileId": "3bd1e740-7672-4d93-9df8-744f4523a4bf",
+        "sequence": 9,
+        "assistantId": "assistant-a23abb89-3f7a-4005-a68f-14de17b92e14",
+        "attemptId": "a23abb89-3f7a-4005-a68f-14de17b92e14"
+      },
+      "tools": [
+        {
+          "tool": "create_document",
+          "ok": true
+        }
+      ],
+      "approvals": 0
+    },
+    {
+      "prompt": "List every tool or deferred tool you can see whose name starts with mcp__claude_ai. If there are none, reply with exactly NONE.",
+      "seconds": 9,
+      "text": "NONE\n\n",
+      "error": null,
+      "usage": {
+        "type": "usage",
+        "cost": 0.0401706,
+        "turns": 1,
+        "durationMs": 2097,
+        "tokens": {
+          "input": 10097,
+          "output": 58
+        },
+        "runId": "e9858c9c-e4da-4891-a7a0-d6fe91ef0c20",
+        "chatId": "74056237-bb7a-4178-a85a-110e3850e360",
+        "provider": "claude",
+        "profileId": "3bd1e740-7672-4d93-9df8-744f4523a4bf",
+        "sequence": 5,
+        "assistantId": "assistant-936e3404-8289-42d2-984d-e1de725d87f5",
+        "attemptId": "936e3404-8289-42d2-984d-e1de725d87f5"
+      },
+      "tools": [],
+      "approvals": 0
+    }
+  ],
+  "limits": [
+    "One real provider run per prompt on the person's login; what a model does varies run to run. The profile is a fresh one in the stored-empty-off shape, not the owner's own."
+  ]
+}

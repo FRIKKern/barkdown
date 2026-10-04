@@ -47,6 +47,8 @@ The [migration contract](../../docs/migration/README.md) owns the current P2 lim
 
 ## Changelog
 
+- 4 October, C092: a Claude Code run carries Barkdown's servers only (`strictMcpConfig`); a profile whose Barkpark block was never decided gets the carried runtime; `barkpark.json` carries the reason when there is no connection; the run's context points at the working folder's `AGENTS.md` or `CLAUDE.md`. [C092](../../docs/cycles/C092-agent-context.md).
+
 - 4 October, C091: approvals are skipped by default. `providers/runs.js` asks a policy on every `requestApproval`; `main.js` hands it `settings.approvals !== 'ask'`, read live. The browser's pauses are a separate layer. [C091](../../docs/cycles/C091-no-approvals.md).
 
 - 3 October, C090: `terminal-worker.js` spawns a pty with node-pty inside the owned worker (login shell on macOS, PowerShell through ConPTY on Windows, `xterm-256color`, the pane's size); `terminal.js` adds `write` and `resize`, keeps `input`, refuses a missing folder before spawning; `settings.terminal.engine` chose the emulator until the Ghostty engine was removed on 4 October. [C090](../../docs/cycles/C090-real-terminal.md).

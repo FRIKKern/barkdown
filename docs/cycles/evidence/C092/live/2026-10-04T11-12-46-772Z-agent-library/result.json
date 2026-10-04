@@ -1,0 +1,60 @@
+{
+  "source": "25215729b3a0b0c80a2398da8d9600efedefdc23",
+  "host": "darwin 24.3.0 arm64",
+  "status": "failed",
+  "checks": [
+    {
+      "name": "a profile stored as empty and off gets its local library by default",
+      "detail": {
+        "server": "http://127.0.0.1:52852"
+      }
+    },
+    {
+      "name": "\"create a paper\" makes a document in the Barkdown library with create_document",
+      "detail": {
+        "tools": [
+          "create_document"
+        ],
+        "reply": "I created the paper \"Library home test\". Its id is `bp:drafts.bd-note-3f6c2a1e-8b4d-4e7a-9c2f-5d1e0a7b9c34`.",
+        "inputTokens": 19083,
+        "turns": 2
+      }
+    }
+  ],
+  "runs": [
+    {
+      "prompt": "Create a paper titled \"Library home test\" with one sentence about badgers, then reply with the id of the document you created.",
+      "seconds": 7,
+      "text": "I created the paper \"Library home test\". Its id is `bp:drafts.bd-note-3f6c2a1e-8b4d-4e7a-9c2f-5d1e0a7b9c34`.\n\n",
+      "error": null,
+      "usage": {
+        "type": "usage",
+        "cost": 0.0848362,
+        "turns": 2,
+        "durationMs": 4265,
+        "tokens": {
+          "input": 19083,
+          "output": 231
+        },
+        "runId": "a6e1a2e4-b690-43f9-aba2-ce633ee5c034",
+        "chatId": "bbe1d83a-1294-4f69-9ca1-1aba3aa5b59d",
+        "provider": "claude",
+        "profileId": "8e099d5a-1f8b-4b06-beab-60404881d496",
+        "sequence": 9,
+        "assistantId": "assistant-b6035a7c-6da9-410f-9603-6d3e8e385439",
+        "attemptId": "b6035a7c-6da9-410f-9603-6d3e8e385439"
+      },
+      "tools": [
+        {
+          "tool": "create_document",
+          "ok": true
+        }
+      ],
+      "approvals": 0
+    }
+  ],
+  "limits": [
+    "One real provider run per prompt on the person's login; what a model does varies run to run. The profile is a fresh one in the stored-empty-off shape, not the owner's own."
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: the paper is in the library: \n    at file:///Users/frikkjarl/Documents/GitHub/barkdown/app/tests/agent-library.live.mjs:58:10"
+}

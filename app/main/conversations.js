@@ -126,7 +126,7 @@ function contextNote(chatId, { budget = 3500 } = {}) {
 // One line on the Barkpark connection, from the flag file the main process keeps current.
 function barkparkLine() {
   const bp = store.readJson('barkpark.json', null);
-  if (!bp || !bp.enabled || !(bp.viaCli || bp.server)) return 'Barkpark: not connected (Settings → Barkpark); only local documents are available.';
+  if (!bp || !bp.enabled || !(bp.viaCli || bp.server)) return `Barkpark: not connected (${bp?.reason || 'see Settings › Barkpark'}). There is no library on this profile, so documents cannot be listed or created; if the person asks for one, say this and ask what to do.`;
   const where = bp.viaCli ? `the bp CLI's active server${bp.server ? ` (${bp.server})` : ''}` : bp.server;
   const how = bp.viaCli ? 'reads go through the bp CLI' : bp.hasToken ? 'direct HTTP with a stored token' : 'direct HTTP without a token, so published papers only';
   return `Barkpark: connected to ${where}, dataset ${bp.dataset || 'production'}; ${how}. Its papers are in list_documents and search_documents with ids bp:<slug>.`;

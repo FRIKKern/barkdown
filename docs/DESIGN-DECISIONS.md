@@ -232,3 +232,11 @@ Owner decision. Until now a run asked before it wrote a file, ran a command, tou
 ## D-one-assistant-chip — Provider, model and effort are one chip with one menu (2026-10-04)
 
 Owner decision. The composer showed three chips (provider, model, effort), each with its own menu. They are one chip that names the model and effort in force and opens one menu: provider across the top, that provider's models, effort as pills. Changing the provider resets the chat's model to that provider's default.
+
+## D-barkdown-servers-only — A run carries Barkdown's servers and no account connectors (2026-10-04)
+
+Agent decision carrying out the owner's C089 F2 ruling; the user may reverse it. The claude.ai connectors (Claude Docs, Gmail, Calendar, Drive) were meant to stay out of Barkdown chats since F2, but `settingSources: []` did not exclude them. `strictMcpConfig` does. They pulled documents out of the library (Claude Docs' instructions tell the agent to make docs there), repeated a sign-in notice and dropped out and came back mid-chat, for about 2.9K input tokens a turn. If a connector is wanted in Barkdown later, it becomes a setting.
+
+## D-library-on-by-default — A profile gets its local library unless the person decided otherwise (2026-10-04)
+
+Agent decision; the user may reverse it. Saving any setting used to store an empty, switched-off Barkpark block, and the profile then never received the carried runtime. A block that is all off and empty and never saved from Settings › Barkpark counts as never configured. A disconnect states its reason.

@@ -56,3 +56,7 @@ The owner's second ask the same afternoon: "Vendor + Model + Effort should only 
 ## Task board
 
 `task-87af991e7d957c39` (approvals) and its child for the single chip; worker `claude-barkdown-c091`.
+
+## Delivery
+
+Pushed and verified on 2026-10-04. Two chain attempts were stopped (one for a follow-up change, one under a machine load of 40); the composer changes are delivered by the chain and nightly of [C092](C092-agent-context.md).
