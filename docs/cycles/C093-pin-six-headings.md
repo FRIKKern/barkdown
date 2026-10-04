@@ -31,6 +31,10 @@ The first local run looked like six regressions. Three were the port (images, li
 - Barkpark's own pull-request check for these rows still passes without running them (issue #4), so upstream drift is caught only when the pin moves.
 - Windows is unrun.
 
+## Delivery
+
+Merged at `28f4327a`. Parity on main: 20 of 20 ([run](https://github.com/FRIKKern/barkdown/actions/runs/37215017462)). Delivered in [v0.6.0-nightly.20261004.4](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261004.4), chain receipt on `28f4327a`; the nightly's packaged tours ran on the new runtime. Issue #13 closed. The branch `codex/pin-944a57a1e`, its worktree and the upstream worktree were retired after the merge.
+
 ## Task board
 
 "C093 Move the Barkpark pin", `task-dcf96433fb131cca`, worker `claude-barkdown-c093`.
