@@ -60,3 +60,5 @@ The owner's second ask the same afternoon: "Vendor + Model + Effort should only 
 ## Delivery
 
 Pushed and verified on 2026-10-04. Two chain attempts were stopped (one for a follow-up change, one under a machine load of 40); the composer changes are delivered by the chain and nightly of [C092](C092-agent-context.md).
+
+Delivered in [v0.6.0-nightly.20261004.3](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261004.3).

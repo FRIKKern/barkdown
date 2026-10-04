@@ -49,3 +49,7 @@
 ## Task board
 
 `bp -s Guerrilla task list` → "C092 Agent context", worker `claude-barkdown-c092`.
+
+## Delivery
+
+Delivered in [v0.6.0-nightly.20261004.3](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261004.3), chain receipt on `ddda96ae`. Issues #67 to #73 closed; #67, #70 and #72 rewritten with the measured facts.
