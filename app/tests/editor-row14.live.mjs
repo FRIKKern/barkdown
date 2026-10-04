@@ -1,6 +1,6 @@
 import { openFixturePaper } from './lib/paper-fixture.mjs';
 import { connectPaperFixture } from './lib/paper-fixture.mjs';
-// Row 14 (plan #10, with #22's decision): heading levels stay at three and a deeper stored level survives;
+// Row 14 (plan #10, with #22's decision — six levels since the owner ruling of 2026-10-03): "#### " makes an H4 and a stored level-4 heading shows as one;
 // nested checklists with Tab; editing a link in place from the bubble; the placeholder on an empty block.
 // Each behaviour is compared canvas against server. Live against the bp-connected server.
 import { _electron as electron } from 'playwright';
@@ -49,19 +49,18 @@ const caretEnd = async sel => {
   }, expected);
 };
 
-await row('headings: the canvas offers three levels; a stored level-4 heading shows at the nearest level, a text edit keeps level 4 on the server; "#### " stays text', async () => {
+await row('headings: the canvas offers six levels; a stored level-4 heading shows as level 4 and a text edit keeps it; "#### " makes a level-4 heading', async () => {
   const levels = await page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); return c._editor.extensionManager.extensions.find(e => e.name === 'heading')?.options?.levels; });
   const mounted = await page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); const h = c._editor.getJSON().content.filter(n => n.type === 'heading')[1]; return h && h.attrs.level; });
-  // The deeper level is shown at the nearest of the three, and an edit to its text keeps it.
-  await caretEnd('h3:has-text("level-four heading")');
+  // The stored level shows as itself, and an edit to its text keeps it.
+  await caretEnd('h4:has-text("level-four heading")');
   await page.keyboard.type(', edited');
   await caretEnd('p:has-text("The last paragraph")');
-  await page.keyboard.press('Enter'); await page.keyboard.type('#### four hashes stay text');
-  const b = await waitBlocks(x => x.some(y => y.type === 'paragraph' && /#### four hashes stay text/.test(inl(y.content))) && x.some(y => y.type === 'heading' && /, edited$/.test(y.text || '')));
+  await page.keyboard.press('Enter'); await page.keyboard.type('#### four hashes make a heading');
+  const b = await waitBlocks(x => x.some(y => y.type === 'heading' && /four hashes make a heading/.test(y.text || '')) && x.some(y => y.type === 'heading' && /, edited$/.test(y.text || '')));
   const h4 = b.find(x => x.type === 'heading' && /level-four heading/.test(x.text || ''));
-  const literal = b.find(x => x.type === 'paragraph' && /#### four hashes stay text/.test(inl(x.content)));
-  const noH4Made = !b.some(x => x.type === 'heading' && /four hashes/.test(x.text || ''));
-  return { pass: JSON.stringify(levels) === '[1,2,3]' && mounted === 3 && !!h4 && h4.level === 4 && h4.text === 'A level-four heading an agent wrote, edited' && !!literal && noH4Made, levels, mounted, h4, literal: literal ? inl(literal.content) : null };
+  const made = b.find(x => x.type === 'heading' && /four hashes make a heading/.test(x.text || ''));
+  return { pass: JSON.stringify(levels) === '[1,2,3,4,5,6]' && mounted === 4 && !!h4 && h4.level === 4 && h4.text === 'A level-four heading an agent wrote, edited' && !!made && made.level === 4, levels, mounted, h4, made };
 });
 await row('nested checklist: "[ ] first", Enter, "second", Tab nests it; the server holds the nested task list; ticking the nested box lands checked:true', async () => {
   await caretEnd('p:has-text("Tasks start after")');
