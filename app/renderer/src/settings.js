@@ -70,6 +70,10 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
       <section data-pane="assistant" ${pane !== 'assistant' ? 'hidden' : ''}>
         <h3>Approvals</h3>
         ${setting('Approvals', 'Whether the assistant asks before it writes files, runs commands or uses a tool that changes something. The chip under the composer switches the same setting. The browser\'s pauses on purchases, passwords and similar are separate: Settings › Browser.', `<div class="bw-seg" id="approvals" role="radiogroup" aria-label="Approvals"><button type="button" data-value="none" aria-checked="${s.approvals !== 'ask'}">No approvals</button><button type="button" data-value="ask" aria-checked="${s.approvals === 'ask'}">Ask first</button></div>`)}
+        <h3>Barkdown controls itself</h3>
+        <p class="bw-sheet-note">Assistants (their <code>app</code> tool) and the <code>barkdown</code> command do what you do all day: start chats, send messages, write notes, open tabs, run the terminal.</p>
+        ${switchHtml('full-yolo', 'Full YOLO', 'They can also change settings, switch profiles and delete chats. Only this switch turns it on or off: no command can, and none can quit or restart Barkdown.')}
+        ${s.control?.command ? setting('Command line', 'Barkdown\'s terminal tabs have it on their path as <code>barkdown</code>. Elsewhere, run this file. Start with <code>barkdown commands</code>.', `<code class="bw-path" id="control-command">${esc(s.control.command)}</code>`, { stack: true }) : ''}
         <h3>Providers</h3>
         <p class="bw-sheet-note">Barkdown runs on the sign-ins already on this computer: Claude Code (<code>claude</code> login) or Codex (<code>codex login</code>). A Claude API key is the fallback. Pick the default here; the chips under the composer change provider, model and effort per chat.</p>
         <div class="bw-cards" id="providers">
@@ -393,7 +397,9 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
   // dirty tracking and close
   let dirty = false, saving = false;
   function markDirty() { dirty = true; q('#dirty').hidden = false; }
-  qa('input[type=text], input[type=password], input[type=checkbox], select').forEach(n => n.addEventListener('input', markDirty));
+  qa('input[type=text], input[type=password], input[type=checkbox]:not(#full-yolo), select').forEach(n => n.addEventListener('input', markDirty));
+  // Full YOLO is not part of Save: the switch itself is the act, and only a person reaches it (C094).
+  const yolo = q('#full-yolo'); if (yolo) { yolo.checked = Boolean(s.control?.fullYolo); yolo.onchange = async () => { try { const result = await api.control.setFullYolo(yolo.checked); state.settings = { ...state.settings, control: { ...(state.settings.control || {}), fullYolo: result.fullYolo } }; yolo.checked = result.fullYolo; toast(result.fullYolo ? (result.kept ? 'Full YOLO is on' : 'Full YOLO is on until Barkdown closes (the system keychain is unavailable)') : 'Full YOLO is off'); } catch (error) { yolo.checked = !yolo.checked; toast(error.message, 'error'); } }; }
   const dismiss = openDialog(dialog, { onDismiss: () => cancel() });
   const close = () => { loginDisposers.forEach(dispose => dispose()); stopUpdates(); unsubscribeLocal(); dismiss(); };
   const cancel = () => { if (saving) return; onChange({ theme: original.theme, chatWidth: original.chatWidth }, true); close(); };

@@ -34,6 +34,8 @@ socket.on('data', chunk => {
         if (!cwd || !fs.existsSync(cwd) || !fs.statSync(cwd).isDirectory()) throw Object.assign(Error(`ENOENT: the working folder does not exist: ${cwd}`), { code: 'ENOENT' });
         const env = { ...require('./shell-environment').providerEnv(), TERM: 'xterm-256color', COLORTERM: 'truecolor', TERM_PROGRAM: 'Barkdown', LANG: process.env.LANG || 'en_US.UTF-8' };
         delete env.ELECTRON_RUN_AS_NODE; delete env.NO_COLOR;
+        // The `barkdown` command reaches the app this shell belongs to (C094).
+        if (process.env.BARKDOWN_CONTROL) { env.BARKDOWN_CONTROL = process.env.BARKDOWN_CONTROL; const key = Object.keys(env).find(k => k.toUpperCase() === 'PATH') || 'PATH'; env[key] = process.env.BARKDOWN_BIN + require('node:path').delimiter + (env[key] || ''); }
         shell = loadPty().spawn(command, args, { name: 'xterm-256color', cols: Math.max(2, cols | 0 || 80), rows: Math.max(1, rows | 0 || 24), cwd, env, useConpty: true });
         shell.onData(data => send({ type: 'data', data }));
         shell.onExit(({ exitCode, signal }) => { send({ type: 'shell-exit', code: exitCode, signal }); socket.end(() => process.exit(0)); });

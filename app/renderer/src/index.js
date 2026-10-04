@@ -11,7 +11,7 @@ import { captureManagedView, mergeManagedView } from './managed-workspace.js';
 // Barkdown desktop renderer: app-wide navigation, per-chat workspaces, agent runs, pins, quick open.
 import { el, esc, iconHtml, renderIcons, toast, basename, relativeTime, errorMessage } from './ui.js';
 import { state, load, save, pauseWorkspaceSaves, serialise, newChat, newTab, currentChat, activeTab, touch, chatTitleFrom } from './state.js';
-import { transcriptHtml, handleAgentEvent, respondApproval, providerFor, formatDuration } from './conversation.js';
+import { transcriptHtml, handleAgentEvent, respondApproval, providerFor, formatDuration, sendMessage, cancelRun } from './conversation.js';
 import { mountDocument } from './tabs/document.js';
 import { mountPaper } from './tabs/paper.js';
 import { openDeletedNotes } from './paper-recovery.js';
@@ -27,6 +27,7 @@ import { toggleMenu, hideMenus as closeMenus, installMenuDismissal } from './men
 import { askText, askConfirm } from './dialogs.js';
 import { renderPages, seedTree, addPage, pagePath, pageKey, ensurePages } from './pages.js';
 import { tabToTarget, favoriteKey } from './state.js';
+import { mountControl } from './control.js';
 
 const api = window.barkdown;
 const root = document.getElementById('app');
@@ -931,4 +932,18 @@ function addFavorites(items) {
   if (added) { renderFavorites(); renderTabs(); save(); }
   return added;
 }
+// Barkdown controlling itself (C094): commands the main process allowed, carried out by the functions above.
+const beforeProfileSwitch = async () => {
+  if ([...controllers.values()].some(controller => controller.canClose?.() === false)) return false;
+  if (dirtyCount()) return false;
+  await api.state.save(serialise());
+  return true;
+};
+if (api.control) mountControl({ api, state, controllers, DIRECT, currentChat, createChat, switchChat, deleteChat, openTarget, openDirect, focusTab, closeTab, renameTab, addPage, pageKey, openPalette, refreshLibrary, render, save, serialise, toast, providerFor, respondApproval, cancelRun, applySettings, beforeProfileSwitch,
+  send: (chat, text) => { const hooks = { render: () => { renderChatViews(chat); renderSidebar(); }, runChanged: () => { renderChat(); renderSidebar(); } }; return sendMessage(chat, text, hooks); },
+  openSide: (parent, title) => { const side = newChat({ title, folder: parent.folder, side: true, parent: parent.id }); Object.assign(side, { parentTitle: parent.title, provider: providerFor(parent), model: parent.model || null, effort: parent.effort || null }); openTarget({ kind: 'chat', id: side.id, title }, parent, true); save(); return side; },
+  favorite: (chat, tab) => { const existing = favoriteFor(tab); if (existing) return existing.label; state.favorites.unshift({ id: crypto.randomUUID(), label: tab.title, target: tabToTarget(tab), chatId: chat.id, chatTitle: chat.title, folder: chat.folder || null, at: new Date().toISOString() }); renderTabs(); renderFavorites(); save(); return tab.title; },
+  openSettings: pane => { const open = document.querySelector('.bw-settings'); if (open) open.querySelector(`nav [data-pane="${pane}"]`)?.click(); else openSettings(applySettings, { pane }); },
+  showSidebar: () => { if (!root.classList.contains('bw-pages-open')) q('#bw-pages-toggle')?.click(); },
+});
 window.__barkdown = { prepareProfile: profilePreparation.prepare, addFavorites, pushBrowserTabs, preparationStatus: profilePreparation.status, openGoalView, attachImages,  state, controllers, openTarget, render, refreshLibrary, expandArchive: () => { ensurePages().archiveOpen = true; ensurePages().cloudArchiveOpen = true; renderSidebar(); }, addPage, pagePath, setFolder: folder => { const chat = currentChat(); chat.folder = folder; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); render(); }, openProject, openDirect, openPalette, createChat, switchChat };

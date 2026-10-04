@@ -90,7 +90,7 @@ function fakeContents(id, url = 'https://a.example/') {
   const client = new Client({ name: 'test', version: '0' });
   await client.connect(new StdioClientTransport({ command: spec.command, args: spec.args, env: { ...process.env, ...spec.env }, stderr: 'pipe' }));
   const listed = (await client.listTools()).tools.map(t => t.name).sort();
-  assert.deepEqual(listed, ['computer', 'find', 'form_input', 'get_page_text', 'javascript', 'navigate', 'read_console_messages', 'read_network_requests', 'read_page', 'tabs_close', 'tabs_context', 'tabs_create'].sort());
+  assert.deepEqual(listed, ['app', 'app_commands', 'computer', 'find', 'form_input', 'get_page_text', 'javascript', 'navigate', 'read_console_messages', 'read_network_requests', 'read_page', 'tabs_close', 'tabs_context', 'tabs_create'].sort());
   const result = await client.callTool({ name: 'read_page', arguments: { filter: 'interactive' } });
   assert.equal(result.content[0].text, 'read_page ok for chat-7');
   assert.deepEqual(calls.at(-1), ['read_page', { filter: 'interactive', chatId: 'chat-7' }]);

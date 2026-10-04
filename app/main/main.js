@@ -140,7 +140,7 @@ require('./providers/runs').setApprovalPolicy(() => { try { return readSettings(
 function publicSettings() {
   const s = readSettings();
   if (profileConnection && s.barkpark.local?.enabled) s.barkpark.local = { ...s.barkpark.local, port: Number(new URL(profileConnection.server).port) };
-  return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, approvals: s.approvals === 'ask' ? 'ask' : 'none', model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), browser: { ...DEFAULT_SETTINGS.browser, ...(s.browser || {}), sites: { ...DEFAULT_SETTINGS.browser.sites, ...((s.browser || {}).sites || {}) }, blocking: { ...DEFAULT_SETTINGS.browser.blocking, ...((s.browser || {}).blocking || {}) } }, providerBinary: { claude: s.providerBinary?.claude || '', codex: s.providerBinary?.codex || '' }, claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN) && !s.apiKeyEncrypted, barkpark: { catalogKind: profileService && s.barkpark.local?.enabled ? 'local' : 'cloud', connectionIdentity: paperConnection.currentIdentity(), catalogGeneration, effectiveServer: s.barkpark.local?.enabled ? `http://127.0.0.1:${s.barkpark.local.port}` : s.barkpark.server, enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, local: s.barkpark.local || DEFAULT_SETTINGS.barkpark.local }, recentFolders: s.recentFolders, userData: store.dir() };
+  return { sidebarWidth: Number.isFinite(s.sidebarWidth) ? Math.min(420, Math.max(160, s.sidebarWidth)) : 200, chatWidth: s.chatWidth, theme: s.theme, approvals: s.approvals === 'ask' ? 'ask' : 'none', model: s.model, provider: s.provider || defaultProvider(), providerChosen: Boolean(s.provider), browser: { ...DEFAULT_SETTINGS.browser, ...(s.browser || {}), sites: { ...DEFAULT_SETTINGS.browser.sites, ...((s.browser || {}).sites || {}) }, blocking: { ...DEFAULT_SETTINGS.browser.blocking, ...((s.browser || {}).blocking || {}) } }, providerBinary: { claude: s.providerBinary?.claude || '', codex: s.providerBinary?.codex || '' }, claudeModel: s.claudeModel, codexModel: s.codexModel, providers: providerStatus(), hasApiKey: Boolean(s.apiKeyEncrypted) || Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN), apiKeyFromEnv: Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN) && !s.apiKeyEncrypted, barkpark: { catalogKind: profileService && s.barkpark.local?.enabled ? 'local' : 'cloud', connectionIdentity: paperConnection.currentIdentity(), catalogGeneration, effectiveServer: s.barkpark.local?.enabled ? `http://127.0.0.1:${s.barkpark.local.port}` : s.barkpark.server, enabled: s.barkpark.enabled, server: s.barkpark.server, hasToken: Boolean(s.barkpark.tokenEncrypted), dataset: s.barkpark.dataset, writes: s.barkpark.writes, viaCli: s.barkpark.viaCli, local: s.barkpark.local || DEFAULT_SETTINGS.barkpark.local }, recentFolders: s.recentFolders, userData: store.dir(), control: { fullYolo: fullYoloOn, command: control?.command || '' } };
 }
 // What the MCP server and the context note need to know about Barkpark, refreshed on every save.
 function localSecrets(source = store) {
@@ -294,7 +294,43 @@ function browserTools() { return browserToolsInstance ||= require('./browser-too
     pausePrompts.set(id, decision => { clearTimeout(timer); pausePrompts.delete(id); resolve(decision === 'allow'); });
     win.webContents.send('browser:pause', { id, ...request });
   }) }); }
-function browserBridge() { return browserBridgeInstance ||= require('./browser-tools').createBrowserBridge(browserTools(), { log: line => console.error(line) }); }
+// The assistant's `app` tool rides the same private bridge as its browser tools; the control gate decides (C094).
+function browserBridge() { return browserBridgeInstance ||= require('./browser-tools').createBrowserBridge({ call: (tool, args) => tool === 'app' || tool === 'app_commands' ? appTool(tool, args) : browserTools().call(tool, args) }, { log: line => console.error(line) }); }
+// ---- Barkdown controlling itself (C094): the `barkdown` CLI and the assistant's `app` tool, one gate (control.js).
+// Full YOLO lives in this process's memory. It is read once at launch from a value sealed with the system keychain
+// and changed only by the Settings switch, so editing a file while the app runs changes nothing.
+let control = null, fullYoloOn = false;
+const controlWaiting = new Map(), YOLO_SEAL = 'barkdown-full-yolo:on';
+const controlSettingsFile = () => path.join(app.getPath('userData'), 'control-settings.json');
+function loadFullYolo() { try { const seal = JSON.parse(fs.readFileSync(controlSettingsFile(), 'utf8')).fullYoloSeal; return Boolean(seal && safeStorage.isEncryptionAvailable() && safeStorage.decryptString(Buffer.from(seal, 'base64')) === `${YOLO_SEAL}:${app.getPath('userData')}`); } catch { return false; } }
+function saveFullYolo(on) { try { const sealed = on && safeStorage.isEncryptionAvailable() ? safeStorage.encryptString(`${YOLO_SEAL}:${app.getPath('userData')}`).toString('base64') : null; fs.writeFileSync(controlSettingsFile(), JSON.stringify({ fullYoloSeal: sealed }, null, 2) + '\n', { mode: 0o600 }); return Boolean(sealed) || !on; } catch (error) { console.error('[control] ' + error.message); return false; } }
+function toWindow(command, args, timeoutMs = 30000, context = {}) {
+  return new Promise((resolve, reject) => {
+    if (!win || win.isDestroyed() || win.webContents.isDestroyed()) return reject(Object.assign(new Error('Barkdown has no window open yet.'), { code: 'not_ready' }));
+    const id = crypto.randomUUID();
+    const timer = setTimeout(() => { controlWaiting.delete(id); reject(Object.assign(new Error(`The window did not finish "${command}" within ${Math.round(timeoutMs / 1000)} s.`), { code: 'timeout' })); }, timeoutMs);
+    controlWaiting.set(id, answer => { clearTimeout(timer); controlWaiting.delete(id); if (answer.ok) resolve(answer.result); else reject(Object.assign(new Error(answer.error || 'failed'), { code: answer.code || 'failed' })); });
+    win.webContents.send('control:invoke', { id, command, args, context });
+  });
+}
+const dotted = (value, key) => String(key).split('.').reduce((at, part) => (at && typeof at === 'object' ? at[part] : undefined), value);
+function startControl() {
+  fullYoloOn = loadFullYolo();
+  control = require('./control').createControl({ userDataDir: app.getPath('userData'), appVersion: app.getVersion(), fullYolo: () => fullYoloOn, toWindow, log: line => console.error(line), mainHandlers: {
+    status: async () => ({ app: 'Barkdown', version: app.getVersion(), pid: process.pid, platform: process.platform, userData: app.getPath('userData'), fullYolo: fullYoloOn, approvals: readSettings().approvals === 'ask' ? 'ask' : 'none', provider: readSettings().provider || defaultProvider(), profile: profileService ? (profileRegistry.load().profiles.find(p => p.id === profileService.view().profileId)?.name || profileService.view().profileId) : null, library: localStatus().phase || 'unknown', window: await toWindow('window.summary', {}, 5000).catch(() => null) }),
+    'settings.get': ({ key }) => { const { providers, userData, ...settings } = publicSettings(); if (!key) return settings; const value = dotted(settings, key); if (value === undefined) throw Object.assign(new Error(`There is no setting "${key}". Run "barkdown settings get" to see them.`), { code: 'usage' }); return value; },
+    'profile.list': () => profileService ? profileRegistry.load().profiles.map(p => ({ id: p.id, name: p.name, selected: p.id === profileService.view().profileId })) : [],
+    'library.status': () => { const b = readSettings().barkpark, status = localStatus(); return { enabled: Boolean(b.enabled), kind: b.local?.enabled ? 'local' : b.viaCli ? 'cli' : b.server ? 'server' : 'none', phase: status.phase || null, error: status.error || null, ...(b.enabled ? {} : { reason: barkparkReason(readSettings()) }) }; },
+    'provider.status': () => providerStatus(),
+    'updates.status': () => updates ? updates.status() : { state: 'unavailable' },
+  } });
+  Object.assign(process.env, control.env()); // the app's terminal tabs find the command and the app through these
+}
+async function appTool(tool, args = {}) {
+  if (!control) throw new Error('Barkdown is still starting.');
+  if (tool === 'app_commands') return control.invoke('commands', args.group ? { group: args.group } : {}, 'assistant');
+  return control.invoke(args.command, args.args && typeof args.args === 'object' ? args.args : {}, 'assistant', { chatId: args.chatId });
+}
 // Every run, whichever path starts it, gets the browser server for its chat.
 agent.useBrowser(chatId => browserBridge().serverSpec(chatId));
 // Ads and trackers (C089 E): Ghostery's engine over EasyList and friends decides what a request is; Barkdown's
@@ -367,7 +403,7 @@ function buildMenu() {
 const noteMutationChannels = new Set([
   'state:save', 'state:command', 'attachments:save',
   'docs:agentEdit', 'docs:undoAgentEdit', 'docs:create', 'docs:save', 'docs:delete', 'docs:restore', 'docs:proposal', 'docs:resolvePaperProposal',
-  'barkpark:createNote', 'barkpark:deleteNote', 'barkpark:checkDeletion', 'barkpark:recoverNote',
+  'barkpark:createNote', 'barkpark:createNoteWith', 'barkpark:deleteNote', 'barkpark:checkDeletion', 'barkpark:recoverNote',
   'barkpark:applyOps', 'barkpark:uploadMedia', 'barkpark:publish', 'barkpark:patchTitle', 'barkpark:import',
 ]);
 function handle(channel, fn, unowned = false) {
@@ -607,6 +643,9 @@ function registerIpc() {
   handle('browser:download-open', id => { const d = downloadsSeen.get(id); if (d?.state === 'completed') shell.openPath(d.path); return Boolean(d); });
   handle('browser:download-show', id => { const d = downloadsSeen.get(id); if (d) shell.showItemInFolder(d.path); return Boolean(d); });
   handle('browser:bridge', chatId => browserBridge().serverSpec(chatId));
+  // The window answers a control command; only the Settings switch changes Full YOLO (never `settings:set`).
+  handle('control:result', ({ id, ...answer }) => { controlWaiting.get(id)?.(answer); return true; }, true);
+  handle('control:setFullYolo', on => { fullYoloOn = Boolean(on); const kept = saveFullYolo(fullYoloOn); console.error(`[control] Full YOLO ${fullYoloOn ? 'on' : 'off'} (set in Settings)`); return { fullYolo: fullYoloOn, kept }; }, true);
   handle('app:settled', ({ id, result }) => { const waiting = settling.get(id); if (waiting) { settling.delete(id); waiting(result); } return true; }, true);
   handle('app:info', () => ({ version: app.getVersion(), electron: process.versions.electron, chrome: process.versions.chrome, node: process.versions.node, platform: process.platform, arch: process.arch, userData: store.dir() }));
 
@@ -766,6 +805,13 @@ function registerIpc() {
     const paper = await paperConnection.write(captured.binding, c => draftNotes(c).create(requestId));
     return { ...paper, binding: captured.binding, connectionIdentity: captured.connectionIdentity };
   });
+  // A note created with its text in one step (the control surface's `note new`): the same owned draft store.
+  handle('barkpark:createNoteWith', async ({ requestId, title, markdown }) => {
+    if (!/^[a-f0-9-]{36}$/.test(String(requestId || ''))) throw new Error('A creation request id is required');
+    const captured = await paperConnection.read(undefined, c => { draftNotes(c); });
+    const paper = await paperConnection.write(captured.binding, c => draftNotes(c).create(requestId, { title: String(title || ''), markdown: String(markdown || '') }));
+    return { ...paper, binding: captured.binding, connectionIdentity: captured.connectionIdentity };
+  });
   const deletions = c => require('./paper-deletions').createPaperDeletions(ordinaryNoteOptions(c));
   handle('barkpark:deletedNotes', async () => {
     const result = await paperConnection.read(undefined, c => deletions(c).list());
@@ -879,6 +925,7 @@ app.whenReady().then(async () => {
   if (runtimeReadyHook && profileService && profileConnection?.server) await runtimeReadyHook(profileService.view().profileId, profileConnection).catch(error => console.error(`[recovery] launch check failed: ${error.message}`));
   buildMenu();
   session.defaultSession.setPermissionRequestHandler((_wc, permission, callback) => callback(['clipboard-read', 'fullscreen'].includes(permission)));
+  startControl();
   createWindow();
   bootBusy = false;
   adoptionView.close(); adoptionView = null;
@@ -930,5 +977,5 @@ app.on('before-quit', event => {
     return;
   }
 });
-app.on('will-quit', () => { adoptionView?.close(); authorityOwnership?.release(); browserBridgeInstance?.close(); });
+app.on('will-quit', () => { adoptionView?.close(); authorityOwnership?.release(); browserBridgeInstance?.close(); control?.close(); });
 app.on('window-all-closed', () => { if (process.platform !== 'darwin') app.quit(); });

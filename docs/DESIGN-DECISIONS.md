@@ -240,3 +240,12 @@ Agent decision carrying out the owner's C089 F2 ruling; the user may reverse it.
 ## D-library-on-by-default — A profile gets its local library unless the person decided otherwise (2026-10-04)
 
 Agent decision; the user may reverse it. Saving any setting used to store an empty, switched-off Barkpark block, and the profile then never received the carried runtime. A block that is all off and empty and never saved from Settings › Barkpark counts as never configured. A disconnect states its reason.
+
+## D-barkdown-controls-itself — One command catalogue, for the command line and for assistants (2026-10-04)
+
+Owner decision: everything a person can do in Barkdown should be reachable from a command line, so Barkdown can operate itself: add agents, write notes, use the app as a person does. One catalogue (`app/shared/control-commands.js`) names every command. The `barkdown` command and the assistant's `app` tool both send commands from it to one gate in the main process (`app/main/control.js`), and the window carries a command out with the same function a click calls. An agent is a chat: `barkdown agent add` starts one. A helper chat started by an assistant does not take the person's view.
+
+## D-full-yolo — Administrative control is a switch only a person reaches (2026-10-04)
+
+Owner decision: a "Full YOLO" switch in Settings lets Barkdown control every part of itself, and the one thing Barkdown may not do is turn Full YOLO on or off itself. Everyday work (chats, messages, notes, tabs, the terminal) needs no switch. Settings, profiles, deletions, the library and update checks need Full YOLO. The switch lives in Settings › Assistant, has its own request to the main process that no command handler calls, is held in the main process's memory and read once at launch from a value sealed with the system keychain, so a file edited while the app runs changes nothing. Agent reading of "turning on / off": no command quits, restarts or starts Barkdown, or installs an update, Full YOLO or not; the user may widen that. Secrets (API key, tokens) and the runtime path are never written by a command.
+
