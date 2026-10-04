@@ -116,7 +116,7 @@ try {
       await page.keyboard.press('Enter'); await until(t => /pasted-ok/.test(t));
       check('Ctrl+V pastes the clipboard into PowerShell');
     } catch (error) {
-      // The default engine must paste. On the experimental Ghostty engine the failure is recorded with what the pty answered.
+      // The default engine must paste. On the experimental Ghostty engine a failure is recorded with what the pty answered.
       if (engine !== 'ghostty') throw error;
       const bytes = await page.evaluate(() => JSON.stringify(window.__afterPaste.join('').slice(0, 300)));
       report.limits.push('On Windows the Ghostty engine does not paste with Ctrl+V; the pty answered ' + bytes); persist();

@@ -85,15 +85,16 @@ export function mountTerminal(tab, host, ctx) {
     created.open(q('#surface'));
     term.onData(data => { if (session && !uncertain) api.term.write(session, data).catch(error => say(error.message, ERR)); });
     term.onResize(({ cols, rows }) => { if (session) api.term.resize(session, cols, rows).catch(() => {}); });
-    // Copy on select, like a terminal: a selection made with the mouse lands on the clipboard.
-    term.onSelectionChange(() => { const text = term.getSelection(); if (text) clipboard?.writeText(text).catch(() => {}); });
+    // Copy on select, like a terminal: a selection made with the mouse lands on the clipboard. A selection of one
+    // character is left alone: in the Ghostty engine a plain click selects the cell under it, and that click
+    // replaced the clipboard with one letter just before a paste (seen on the Windows runner).
+    term.onSelectionChange(() => { const text = term.getSelection(); if (text && text.length > 1) clipboard?.writeText(text).catch(() => {}); });
     // The two engines read the handler's answer the opposite way: xterm.js takes false as "mine, skip",
     // ghostty-web takes true as "handled, swallow". `taken` is the app's claim; the engine gets its own idiom.
     // Off macOS the terminal follows Windows Terminal: Ctrl+V (and Ctrl+Shift+V) pastes, Ctrl+C copies when text is
     // selected and interrupts when none is, Ctrl+Shift+C always copies. On macOS ⌘C and ⌘V are the system's own.
-    // The emulator's own paste wraps the text in bracketed-paste marks when the shell asked for them. On Windows the
-    // Ghostty engine's marks did not survive ConPTY (PowerShell received one stray character), so there the text goes raw.
-    const paste = async () => { try { const text = await clipboard?.readText(); if (!text) return; const raw = engine === 'ghostty' && platform === 'win32'; console.debug(`[terminal] paste: ${text.length} characters, ${raw ? 'raw' : 'through the emulator'}, session ${session ? 'live' : 'none'}`); if (!raw && typeof term.paste === 'function') term.paste(text); else if (session && !uncertain) await api.term.write(session, text); } catch (error) { say(`Could not paste: ${error.message}`, ERR); } };
+    // The emulator's own paste wraps the text in bracketed-paste marks when the shell asked for them.
+    const paste = async () => { try { const text = await clipboard?.readText(); if (!text) return; console.debug(`[terminal] paste: ${text.length} characters, session ${session ? 'live' : 'none'}`); if (typeof term.paste === 'function') term.paste(text); else if (session && !uncertain) await api.term.write(session, text); } catch (error) { say(`Could not paste: ${error.message}`, ERR); } };
     const taken = e => {
       if (e.type !== 'keydown') return false;
       const key = (e.key || '').toLowerCase(), mod = e.metaKey || e.ctrlKey;

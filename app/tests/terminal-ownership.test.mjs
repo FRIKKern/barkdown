@@ -251,13 +251,12 @@ test('terminal UI distinguishes fresh/restored shells, keeps launch cwd and reje
   assert.deepEqual(press(win, { key: 'c', ctrlKey: true }), { claimed: false, prevented: false }, 'Ctrl+C without a selection reaches the shell as an interrupt');
   assert.equal(writes.length, before + 1, 'a copy writes nothing to the shell');
   winTab.destroy();
-  // The Ghostty engine on Windows gets the clipboard raw, not through the emulator's bracketed paste.
-  const gw = fakeEngine(); gw.engine.engine = 'ghostty'; let bracketed = 0; gw.engine.term.paste = () => { bracketed++; };
-  const gwTab = mountTerminal({ id: 'same' }, host, { ...ctx, engine: () => gw.engine, platform: 'win32', clipboard: { readText: async () => 'raw text', writeText: async () => {} } });
-  await delay(5); const mark = writes.length;
-  gw.handlers.key({ type: 'keydown', key: 'v', ctrlKey: true, shiftKey: false, altKey: false, metaKey: false, preventDefault() {} }); await delay(5);
-  assert.equal(bracketed, 0); assert.deepEqual(writes.slice(mark).map(w => w[1]), ['raw text']);
-  gwTab.destroy();
+  // Copy on select ignores a one-character selection (a plain click selects a cell in the Ghostty engine).
+  const sel = fakeEngine(), selBoard = { text: 'kept', readText: async () => selBoard.text, writeText: async value => { selBoard.text = value; } };
+  const selTab = mountTerminal({ id: 'same' }, host, { ...ctx, engine: () => sel.engine, platform: 'win32', clipboard: selBoard }); await delay(5);
+  sel.engine.term.selection = 'p'; sel.handlers.selection.forEach(fn => fn()); await delay(0); assert.equal(selBoard.text, 'kept');
+  sel.engine.term.selection = 'two words'; sel.handlers.selection.forEach(fn => fn()); await delay(0); assert.equal(selBoard.text, 'two words');
+  selTab.destroy();
   const mac = fakeEngine(), macTab = mountTerminal({ id: 'same' }, host, { ...ctx, engine: () => mac.engine, platform: 'darwin', clipboard: board });
   await delay(5);
   assert.deepEqual(press(mac, { key: 'v', ctrlKey: true }), { claimed: false, prevented: false }, 'macOS keeps Ctrl+V for the shell');
