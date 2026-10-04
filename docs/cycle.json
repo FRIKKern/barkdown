@@ -1,35 +1,36 @@
 {
   "version": 1,
-  "id": "C092",
-  "stage": "P6",
-  "status": "done",
-  "goal": "The agent in a Barkdown chat has a lean, stable context and a library to write in: the seven issues filed from the owner's in-app chat on 2026-10-04 (#67 to #73) are solved or rewritten against what the code and measurements say.",
+  "id": "C093",
+  "stage": "P2",
+  "status": "active",
+  "goal": "Barkdown carries the Barkpark that has six heading levels: the editor bundle, its notices and the packaged runtime move from 9f1874235 to 944a57a1e, the parity matrix is green again including row 14, and issue #13 closes.",
   "scope": [
-    "A. Only Barkdown's servers in a run: strictMcpConfig keeps the claude.ai connectors out, which settingSources: [] never did (#67, #68, #69)",
-    "B. The library is the home for documents: a rule in every provider's instructions, 'paper' defined, the old tool alias described as what it is (#68, #70, #71)",
-    "C. The local library is on by default for a profile that never decided otherwise, and a disconnect states its reason to the person and the agent (#72)",
-    "D. A pointer to the working folder's own project notes (#73)",
-    "E. The issues rewritten and closed with measured facts; C091's composer changes ride in the same chain and nightly"
+    "A. Editor upgrade: the bundle rebuilt byte-identical from the target source, the stylesheet, the full notices procedure for the changed dependency lock (Tiptap 2 to 3), the pin files",
+    "B. A packaged runtime at 944a57a1e with the carried Postgres",
+    "C. Regression on the new pin: the app's test chain, the parity matrix, the pictures; fix what 526 upstream commits break in Barkdown",
+    "D. Delivery and issue #13"
   ],
   "acceptance": [
-    "A Barkdown run carries only Barkdown's servers: no claude.ai connector, no sign-in notice, a stable tool set",
-    "A profile stored as empty and off gets its local library by default; asked for a paper, a real agent creates it there with create_document",
-    "When there is no library the context says why",
-    "A chat with a working folder is pointed at that folder's project notes",
-    "Every issue is closed or rewritten with the measured facts; delivered in a nightly from a green chain"
+    "The vendored editor and its notices are the ones at 944a57a1e, rebuilt byte-identical; a packaged runtime at that commit is carried",
+    "The parity matrix is green including row 14, and the app's test chain passes on the new runtime",
+    "Delivered in a nightly from a green chain; issue #13 closed"
   ],
   "checkpoint": "2026-10-04",
-  "handoff": "docs/cycles/C092-agent-context.md",
-  "nextAction": "Delivered in v0.6.0-nightly.20261004.3 with C091. Open issues after this cycle: #13 (row 14 is red until the Barkpark pin moves 526 commits to the six-headings commit 944a57a1e: an editor upgrade with a changed dependency lock and a runtime rebuild), #4 (needs the owner's read credential for Barkpark's CI), #7 (cloud sync, stage P4). The owner's app needs a restart to pick up its library.",
+  "handoff": "docs/cycles/C093-pin-six-headings.md",
+  "nextAction": "Run the parity matrix and the app's test chain against runtime/barkpark-944a57a1e-darwin-arm64; fix what breaks; pictures; chain; nightly; close #13.",
   "evidence": [
-    "docs/cycles/evidence/C092/live/2026-10-04T11-15-51-027Z-agent-library/result.json",
-    "app/tests/agent-library.live.mjs"
+    "docs/third-party/paper-editor/manifest.json",
+    "app/renderer/vendor/paper-editor-provenance.json"
   ],
-  "truthReview": "2026-10-04. Measured with the Agent SDK on the owner's login (Claude Code 2.1.289, Opus 5.5): a one-turn run costs about 16.7K input tokens with no MCP server at all, so that floor is Claude Code's own prompt and built-in tools; the 36K the issue claimed is two turns added together. With the claude.ai connectors present the second turn was 19.7K against 16.8K without: the connectors cost about 2.9K a turn (their tools are already deferred behind tool search; the cost is Claude Docs' instructions, the tool names and the sign-in notice), not 15 to 18K. settingSources: [] did not keep the connectors out as C089 F2 believed: all four were listed; strictMcpConfig: true does. In the real app a profile stored as empty and off now starts its local library (probe: connected), one deliberately turned off stays off and says so (probe: reason 'turned off in Settings › Barkpark'), and a real Claude run asked for a paper used create_document, opened it beside the chat, and answered NONE when asked for claude.ai tools (tests/agent-library.live.mjs, four checks). The app's test chain passes apart from the load-sensitive profile tour's website wait, which passes alone. Not done: the owner's own profile has not been restarted on this build; Codex and the API loop got the same library rule but no real run; the under-10K target of #67 is not reachable while Claude Code's own prompt is 16.7K. Delivered in v0.6.0-nightly.20261004.3 (chain receipt on ddda96ae). Issues #67 to #73 and #6 are closed with the evidence; #67, #70 and #72 were rewritten. The parity workflow, run again on GitHub, is 19 of 20 rows green: row 14 fails because pull request #66 changed its test to expect six heading levels ahead of the Barkpark pin.",
-  "screenshotReview": "No renderer change; the real-agent run's frame shows the created paper beside the chat. Status shots and the visual run follow the implementation commit.",
+  "truthReview": "2026-10-04: slice A and B are done and unproven by the suite. The bundle rebuilt from 944a57a1e with the locked dependencies is byte-identical to the one committed upstream (sha256 9cd597ec…); the notices were regenerated for the new lock (45 packages, Tiptap 3.31.4; 35 superseded notice folders removed from the archive and from beside the bundle); the pin script wrote the pin, provenance, consumption audit and both manifests; the runtime release was built from a clean worktree at the commit and carries Postgres 15.18. The vendor tests pass. Nothing else has run against the new pin yet.",
+  "screenshotReview": "Not yet: the editor's look may have changed across 526 upstream commits; the visual run decides.",
   "delivery": {
-    "phase": "delivered",
+    "phase": "implementing",
     "owner": "primary agent",
-    "remaining": []
+    "remaining": [
+      "Parity matrix and test chain on the new pin",
+      "Pictures, chain and nightly",
+      "Close #13"
+    ]
   }
 }
