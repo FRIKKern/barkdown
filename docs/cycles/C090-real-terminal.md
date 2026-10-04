@@ -55,4 +55,4 @@ Parent `task-a75334fdb1e798ef`; A `task-060949d501edeab7`, B `task-1bd13cbabf7a8
 
 ## Next
 
-C090 is delivered. The polish list above has no gate. Then C089's owner items: a working day in the browser and the two desktop bench columns.
+C090 is delivered; the polish batch shipped in [v0.6.0-nightly.20261004.1](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261004.1). The polish list above has no gate. Then C089's owner items: a working day in the browser and the two desktop bench columns.
