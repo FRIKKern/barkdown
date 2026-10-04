@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C094",
   "stage": "P2",
-  "status": "active",
+  "status": "done",
   "goal": "Barkdown can operate itself: a barkdown command line and an app tool for assistants drive the running app as a person does, and a Full YOLO switch that only a person reaches opens settings, profiles and deletions.",
   "scope": [
     "A. The command catalogue, the gate in the main process, the CLI and its launcher",
@@ -19,22 +19,17 @@
   ],
   "checkpoint": "2026-10-04",
   "handoff": "docs/cycles/C094-barkdown-controls-itself.md",
-  "nextAction": "Implementation (de839e39) and pictures are committed. Remaining: push, chain on the pushed commit, nightly, then close the task.",
+  "nextAction": "Delivered in v0.6.0-nightly.20261004.5. Next is the owner's call: widen the catalogue (profile export and import, the Paper switch, provider sign-in, goals, note text edits), put barkdown on the system path at install, a Windows run, or C089's owner items. Open issues: #4 (credential from the owner) and #7 (plan stage P4).",
   "evidence": [
     "docs/cycles/evidence/C094/live/2026-10-04T20-32-54-931Z-control/result.json",
     "docs/cycles/evidence/C094/live/2026-10-04T20-35-32-763Z-agent-control/result.json",
     "app/tests/control.test.mjs"
   ],
-  "truthReview": "2026-10-04: the catalogue has 44 commands; the unit tests prove the gate's rules without Electron (token, tiers, the never-list, secrets, arguments, the log, the CLI's exit codes, the launcher) and that every command has a handler. The scripted tour proves 13 behaviours in real Electron through the launcher the app wrote, including barkdown run inside the app's own terminal tab. The real-assistant tour proves Claude Code uses the app tool: helper chat started and answered, settings refused then allowed after a person's click, Full YOLO and quit refused. Not verified: the packaged app's launcher until the nightly's tours run, Windows, Codex, Full YOLO across a restart (the seal is read at launch; no test restarts the app), and the commands listed as missing in the handoff.",
+  "truthReview": "2026-10-04: the catalogue has 44 commands; the unit tests prove the gate's rules without Electron (token, tiers, the never-list, secrets, arguments, the log, the CLI's exit codes, the launcher) and that every command has a handler. The scripted tour proves 13 behaviours in real Electron through the launcher the app wrote, including barkdown run inside the app's own terminal tab. The real-assistant tour proves Claude Code uses the app tool: helper chat started and answered, settings refused then allowed after a person's click, Full YOLO and quit refused. Not verified: the packaged app's launcher until the nightly's tours run, Windows, Codex, Full YOLO across a restart (the seal is read at launch; no test restarts the app), and the commands listed as missing in the handoff. Delivered: the chain is green on 4a30cd10 and v0.6.0-nightly.20261004.5 is published; the packaged app's own launcher answered status and chat new and refused settings set (exit 4) in a run against the built Barkdown.app.",
   "screenshotReview": "Visual run 2026-10-04T20-46-19-405Z reviewed and approved: settings: assistant shows the new section (Full YOLO switch, the command's path); the documents, retained and goals frames differ only in clock-dependent text. The path in that Settings frame is a temporary folder and will differ on every capture.",
   "delivery": {
-    "phase": "validating",
+    "phase": "delivered",
     "owner": "primary agent",
-    "remaining": [
-      "npm run check",
-      "Push",
-      "Chain receipt on the pushed commit",
-      "Nightly"
-    ]
+    "remaining": []
   }
 }

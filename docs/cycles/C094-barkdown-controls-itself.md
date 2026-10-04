@@ -25,6 +25,8 @@
 | The gate, the client and the CLI, without Electron | 6 tests pass | `app/tests/control.test.mjs` (in `npm test`) |
 | The real app driven by the `barkdown` launcher, replies scripted | 13 checks pass | `evidence/C094/live/2026-10-04T20-32-54-931Z-control/` (`result.json` holds every command and its answer) |
 | Real Claude Code inside Barkdown using the `app` tool | 4 checks pass | `evidence/C094/live/2026-10-04T20-35-32-763Z-agent-control/` |
+| Pictures | approved | visual run `2026-10-04T20-46-19-405Z`: Settings › Assistant gains the section; other differences are clock text |
+| Delivery | chain green on `4a30cd10`, [v0.6.0-nightly.20261004.5](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261004.5) | receipt `.release/chain/4a30cd10….json` (uploaded with the release) |
 
 The scripted tour: status and the overview; `agent add` with a folder and a first message, reply read back; `chat send`, `read`, `list`, `set`, `rename`; `note new` with text, `read`, `list`, `page`; `tab open`, `activate`, `rename`, `list`, `close`; `favorite add`; `terminal run` and `read`, including `barkdown status` typed inside the app's own terminal; settings, profile creation and chat deletion refused without Full YOLO; the switch clicked in Settings; the same commands working; the switch, quit, relaunch, update install and a secret refused with Full YOLO on; the assistant's `app` tool over the real bridge; the switch clicked off and both callers refused again; the log naming who did what.
 
@@ -32,7 +34,7 @@ The real assistant: it started a chat titled "Helper from Claude", the helper an
 
 ## Limits
 
-- Proven on this Mac from source. The packaged app writes the same launcher against its own executable; that path is first exercised by the nightly's tours, and Windows (named pipe, `barkdown.cmd`) has not run.
+- Proven on this Mac. The tours ran from source; the packaged nightly's own launcher was run by hand against the built app (status, `chat new`, a refused `settings set`), not by a kept test. Windows (named pipe, `barkdown.cmd`) has not run.
 - The real-assistant proof is Claude Code, one run per prompt. Codex gets the same tools and instruction line; not run.
 - Full YOLO survives a restart only when the system keychain is available; otherwise it lasts until the app closes, and the toast says so. A process running as the person with keychain access, or a person-approved restart after a replayed file, is outside what the seal protects against.
 - Not in the catalogue yet: export and import of a profile, the Paper migration switch, sign-in to a provider, goals, deleted-note recovery, attaching images to a message, and editing a note's text in place (assistants edit notes with their document tools; the CLI can create and read). Website tabs are driven by the assistant's browser tools, not by `barkdown`.
@@ -45,4 +47,4 @@ The real assistant: it started a chat titled "Helper from Claude", the helper an
 
 ## Next
 
-Delivery: pictures, check, push, chain, nightly. Then the owner's call: widen the catalogue (the list under Limits), put `barkdown` on the system path at install, or return to C089's owner items.
+Delivered in [v0.6.0-nightly.20261004.5](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261004.5). The owner's call: widen the catalogue (the list under Limits), put `barkdown` on the system path at install, run it on Windows, or return to C089's owner items.
