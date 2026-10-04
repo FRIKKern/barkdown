@@ -47,6 +47,8 @@ The [migration contract](../../docs/migration/README.md) owns the current P2 lim
 
 ## Changelog
 
+- 4 October, C091: approvals are skipped by default. `providers/runs.js` asks a policy on every `requestApproval`; `main.js` hands it `settings.approvals !== 'ask'`, read live. The browser's pauses are a separate layer. [C091](../../docs/cycles/C091-no-approvals.md).
+
 - 3 October, C090: `terminal-worker.js` spawns a pty with node-pty inside the owned worker (login shell on macOS, PowerShell through ConPTY on Windows, `xterm-256color`, the pane's size); `terminal.js` adds `write` and `resize`, keeps `input`, refuses a missing folder before spawning; `settings.terminal.engine` chose the emulator until the Ghostty engine was removed on 4 October. [C090](../../docs/cycles/C090-real-terminal.md).
 
 - 24 September, C056: complete foreground Paper discovery validates every page and refuses partial success; failed same-connection refresh keeps known notes with a conditional Retry notice. Changed connection generations cannot borrow the previous catalog. [Native catalog proof](../../docs/visual/catalog/README.md) records the200/201-paper journey, failure/retry and restart; limited provider list queries remain unchanged. The current handoff records acceptance and remaining scope.

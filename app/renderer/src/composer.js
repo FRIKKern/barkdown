@@ -1,7 +1,7 @@
 import { openProviderLogin } from './provider-login.js';
 import { el, esc, iconHtml, toast, basename, errorMessage } from './ui.js';
 import { state, save } from './state.js';
-import { sendMessage, cancelRun, PROVIDER_LABEL, providerFor, isSubmitting, markDraftChanged } from './conversation.js';
+import { sendMessage, cancelRun, PROVIDER_LABEL, providerFor, isSubmitting, markDraftChanged, respondApproval } from './conversation.js';
 import { CLAUDE_MODELS, CODEX_MODELS, EFFORT_LEVELS, defaultModelLabel, defaultModelId, modelName } from './models.js';
 import { toggleMenu, hideMenus } from './menus.js';
 import { askText } from './dialogs.js';
@@ -153,6 +153,11 @@ function renderProjectMenu() {
   const effortName = v => (EFFORT_LEVELS[provider] || []).find(([id]) => id === v)?.[1] || v;
   q('#bw-effort-label').textContent = chat.effort ? effortName(chat.effort) : defaultEffort ? `${effortName(defaultEffort)} (default)` : 'Effort';
   q('#bw-effort').title = chat.effort ? `Reasoning effort for this chat: ${chat.effort}` : `Reasoning effort for this chat: the provider default${defaultEffort ? ', ' + defaultEffort : ''}. Click to choose another.`;
+  // Approvals: the chip says which way the app is set, for every chat (it is an app setting, not a chat's).
+  const asks = state.settings?.approvals === 'ask';
+  q('#bw-approvals-label').textContent = asks ? 'Asks first' : 'No approvals';
+  q('#bw-approvals').setAttribute('aria-pressed', String(!asks));
+  q('#bw-approvals').title = asks ? 'The assistant asks before it writes files, runs commands or uses a tool that changes something. Click to stop asking.' : 'The assistant writes files, runs commands and uses tools without asking. Click to be asked first. The browser still pauses on purchases, passwords and similar (Settings › Browser).';
   q('#bw-working').hidden = !chat.runId;
   q('#bw-working').innerHTML = `<span class="bw-pulse"></span>${esc(chat.workingLabel || 'Working…')}`;
 
@@ -169,6 +174,13 @@ function renderProjectMenu() {
   q('#bw-model').onclick = () => { const chat = currentChat(); const provider = providerFor(chat); chipMenu('#bw-model', '#bw-model-menu', modelChoices(provider), chat.model, v => { chat.model = v; }, { title: 'Model for this chat', custom: 'Other model id…', prompt: 'Model id (as the provider names it)' }); };
   q('#bw-effort').onclick = () => { const chat = currentChat(); const provider = providerFor(chat); chipMenu('#bw-effort', '#bw-effort-menu', effortChoices(provider), chat.effort, v => { chat.effort = v; }, { title: 'Reasoning effort' }); };
   q('#bw-provider').onclick = () => { const chat = currentChat(); const p = state.settings?.providers || {}; const ready = { claude: p.claude?.loggedIn, codex: p.codex?.loggedIn, api: p.api?.hasKey }; const choices = ['claude', 'codex', 'api'].map(id => [id, `${PROVIDER_LABEL[id]}${ready[id] ? '' : ' · not signed in'}`]); chipMenu('#bw-provider', '#bw-provider-menu', choices, providerFor(chat), v => { chat.provider = v; chat.sessions = {}; }, { title: 'Provider for this chat' }); const selected = providerFor(chat); if (selected !== 'api') { const signIn = el('<button type="button">Sign-in help for ' + esc(PROVIDER_LABEL[selected]) + '</button>'); signIn.onclick = () => { hideMenus(); openProviderLogin(selected, renderControls); }; q('#bw-provider-menu').appendChild(signIn); } };
+  // Turning approvals off answers the cards that are already waiting, in every chat.
+  q('#bw-approvals').onclick = async () => {
+    const next = state.settings?.approvals === 'ask' ? 'none' : 'ask';
+    try { state.settings = await api.settings.set({ approvals: next }); } catch (error) { toast(errorMessage(error), 'error'); return; }
+    if (next === 'none') for (const chat of Object.values(state.chats)) for (const message of chat.messages || []) for (const approval of (message.approvals || []).filter(a => a.status === 'pending')) await respondApproval(chat, approval.approvalId, true);
+    renderChat(); toast(next === 'none' ? 'No approvals: the assistant acts without asking' : 'The assistant asks before it writes or runs');
+  };
   q('#bw-stop').onclick = () => cancelRun(currentChat());
   q('#bw-compose').onsubmit = e => { e.preventDefault(); const chat = currentChat(); const text = q('#bw-prompt').value; const images = chat.draftImages || []; if ((!text.trim() && !images.length) || isSubmitting(chat)) return; if (chat.interruption) { toast('Review the interrupted turn before sending a new message.', 'error'); return; } if (chat.runId) { toast('Wait for the current run to finish, or stop it.'); return; } resetComposerHistory(chat); chat.draft = text; sendMessage(chat, text, { render: () => { renderChat(); renderSidebar(); }, runChanged: () => { renderChat(); renderSidebar(); } }, images); };
   // Images: paste into the prompt, drop on the composer, or pick with the attach button. Each is saved

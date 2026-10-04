@@ -78,7 +78,16 @@ function waitForRunFinish(runId) {
   return Promise.reject(new Error('Unknown or expired run completion'));
 }
 
+// Approvals (D-no-approvals). The main process hands in a policy that is asked each time, so the toggle under the
+// composer takes effect in the middle of a run. A process that was handed none (the goal worker) asks: its
+// request travels to the main process, which decides. The browser's pauses on sensitive actions are a separate
+// layer with its own setting and never pass through here.
+let approvalPolicy = () => false;
+function setApprovalPolicy(skips) { approvalPolicy = typeof skips === 'function' ? skips : () => false; }
+
 function requestApproval(run, request) {
+  let skip = false; try { skip = approvalPolicy(request) === true; } catch { skip = false; }
+  if (skip) return Promise.resolve(true);
   return new Promise(resolve => {
     const id = crypto.randomUUID();
     run.approvals.set(id, resolve);
@@ -186,4 +195,4 @@ function scratchFolder(storeDir) {
   return dir;
 }
 
-module.exports = { runs, captureScope, createRun, finish, emitFailure, waitForRunFinish, requestApproval, respondApproval, cancel, activityForTool, relativeTo, mcpServerSpec, scratchFolder, preparePaperNavigation };
+module.exports = { runs, captureScope, createRun, finish, emitFailure, waitForRunFinish, requestApproval, setApprovalPolicy, respondApproval, cancel, activityForTool, relativeTo, mcpServerSpec, scratchFolder, preparePaperNavigation };

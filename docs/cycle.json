@@ -1,36 +1,32 @@
 {
   "version": 1,
-  "id": "C090",
+  "id": "C091",
   "stage": "P5",
-  "status": "done",
-  "goal": "The terminal tab is a real terminal on macOS and Windows: a pty behind xterm.js, so interactive programs, prompts, colours and resizing work as they do in PowerShell or Ghostty, with the ownership contract (one shell per tab, a journal, a verified stop) unchanged.",
+  "status": "active",
+  "goal": "The assistant acts without asking by default, and one toggle under the composer brings the approval card back.",
   "scope": [
-    "A. node-pty inside the owned worker: a login shell on macOS, PowerShell 7 (or Windows PowerShell) through ConPTY on Windows; the service gains raw write and resize and keeps line input for the ownership contract",
-    "B. xterm.js in the tab: keystrokes to the pty, bytes to the emulator, fit on resize, the app's theme, ⌘F find, copy on select, links, the assistant's command mirror, Clear and Restart",
-    "C. Ghostty as a second engine: tried 3–4 October, removed by the owner's decision (D-one-terminal-engine)",
-    "D. Windows: the ownership tour and the interactive tour in the real app on a hosted Windows runner (.github/workflows/terminal-windows.yml, on demand)"
+    "A. One policy at the single door every approval passes (main/providers/runs.js), asked each time so the toggle applies to a run in flight",
+    "B. A chip under the composer and a row in Settings › Assistant for the same app setting, approvals: none | ask",
+    "C. The browser's pauses on sensitive actions stay as they are, under their own setting"
   ],
   "acceptance": [
-    "Interactive programs run in the tab on macOS: a prompt that reads input, less on the alternate screen, colours, a resize the shell sees; the login shell with TERM=xterm-256color (tour)",
-    "On Windows PowerShell runs through ConPTY inside the owned Job with the same ownership journal and verified stop (hosted Windows runner)",
-    "The assistant's commands still mirror into the tab; ownership refusals and the unverified-shutdown path are unchanged (unit tests)",
-    "One emulator: the Ghostty engine, its setting, dependency and security-policy exception are removed (owner decision 2026-10-04)"
+    "By default no approval card appears and the action proceeds; choosing Ask first brings the card back, including in a run already in flight",
+    "A toggle under the composer and the same setting in Settings › Assistant",
+    "Delivered in a nightly from a green chain"
   ],
   "checkpoint": "2026-10-04",
-  "handoff": "docs/cycles/C090-real-terminal.md",
-  "nextAction": "C090 is delivered in v0.6.0-nightly.20261004.2 with xterm.js as the only emulator. Next: run the Windows terminal job on pull requests that touch the terminal; then C089's owner items (a working day in the browser; the two desktop bench columns).",
+  "handoff": "docs/cycles/C091-no-approvals.md",
+  "nextAction": "Picture cycle, chain and nightly for the approvals change; then the Windows terminal job on pull requests and C089's owner items.",
   "evidence": [
-    "docs/cycles/evidence/C090/live/2026-10-04T09-17-58-885Z-terminal/result.json",
-    "docs/cycles/evidence/C090/live/2026-10-04T09-18-10-038Z-terminal-light/result.json",
-    "docs/cycles/evidence/C090/windows/37191999825/tour-dark/result.json",
-    "docs/cycles/evidence/C090/windows/37191999825/log.txt",
-    "docs/cycles/evidence/C090/windows/37191999825/manifest.json"
+    "app/tests/approval-policy.test.mjs"
   ],
-  "truthReview": "2026-10-04: the terminal tab is a pty (node-pty 1.1.0 in the owned worker: login shell on macOS, PowerShell 7 or Windows PowerShell through ConPTY on Windows) behind xterm.js 6, with ghostty-web 0.4.0 as a chosen engine. Proven on this Mac (four tours: two engines, two themes, eleven checks each; ownership unit tests 10/10; ownership tour; journey 76/76; the packaged app in the earlier nightly) and on a hosted Windows runner at 2c541667 (https://github.com/FRIKKern/barkdown/actions/runs/37165383336): node-pty spawns PowerShell through ConPTY under Electron's node, unit tests 10/10, the ownership tour in the real app (commands, profile switch, killed app, explicit start, quit, legacy launch; five owned workers verified stopped) and the interactive tour with thirteen checks (Read-Host answered live, a one-key read, colours, resize, Ctrl+C, Ctrl+V, the alternate screen, find, the mirror strip, themes, restart). Found and fixed on the way: white text in the light theme (a light-dark() colour xterm.js cannot parse); the assistant's mirrored lines overwritten by ConPTY, now a strip of their own under the terminal on both platforms; the text read breaking at soft wraps; Playwright's page never answering on a Windows runner when video recording is on (tests only). Corrections to earlier statements: hosted Windows runners were available (the Actions budget block was September's; the zero-job failures were visual.yml's duplicate key, now removed). Limits: a Ghostty tab keeps its open-time theme and has no Find; the Windows proof is a hosted runner from source, not the packaged app and not the owner's machine; no Windows nightly exists. Delivered for macOS in v0.6.0-nightly.20261003.3 (chain receipt on b684800f). Polish after that nightly: a faint scrollback slider; ghostty-web's in-canvas scrollbar strip no longer blanks the last columns; a plain click under Ghostty no longer replaces the clipboard (that, not ConPTY, was why its Ctrl+V pasted one letter on Windows — both engines paste there now). Delivered with the polish in v0.6.0-nightly.20261004.1 (chain receipt on db4f012c). 2026-10-04, owner decision: the Ghostty engine is removed (code, setting, dependency, the wasm-unsafe-eval exception; the bundle went from 3.3 MB to 2.7 MB). xterm.js is the only emulator; the tour is eleven checks in each theme. The removal is delivered in v0.6.0-nightly.20261004.2 (chain receipt on 0a3346be); the Windows job is green on 3e0e2db2 (run 37191999825) and the ownership tour passes against the packaged Barkdown.app from that nightly.",
-  "screenshotReview": "Reviewed: the Mac tour frames in both themes and engines (prompt, colours, less, the mirror strip, the light-theme frame kept on purpose as the proof of the text colour) and the Windows runner's frames (PowerShell 7 with PSReadLine colours, the strip, the alternate screen, the desktop screenshot). Status shots and the visual run were retaken and approved after each app change; they hold no terminal frame. Seen and not yet fixed: a grey scrollbar track on the terminal's right edge on Windows.",
+  "truthReview": "2026-10-04: every approval (Claude Code's canUseTool for writes, commands, files outside the folder and unknown tools; the API loop's write_file; a goal worker's request relayed to main) goes through requestApproval in main/providers/runs.js. A policy handed in by the main process is asked each time: approvals other than 'ask' resolve at once with no card. Probed in the real app: default 'No approvals' resolves approved with zero cards; one click on the chip and the same request waits with one card; a second click and it resolves again. Unit test 3/3, journey 76/76. Not covered by a tour with a real provider run. Unchanged: Codex's own sandbox and approval policy (it never showed cards), the browser's pauses on sensitive actions, the rule that goal workers cannot start workers, the refusal to launch another browser.",
+  "screenshotReview": "The composer shows the chip in both states and Settings › Assistant shows the row (probe frames reviewed); status shots and the visual run follow the implementation commit.",
   "delivery": {
-    "phase": "delivered",
+    "phase": "implementing",
     "owner": "primary agent",
-    "remaining": []
+    "remaining": [
+      "Pictures, chain and nightly"
+    ]
   }
 }

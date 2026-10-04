@@ -68,6 +68,8 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
         ${setting('Local data', `Chats, documents, attachments and these settings live in <code>${esc(s.userData)}</code>. Secrets are encrypted with the operating system keychain when it is available.`, `<button type="button" class="bw-btn" data-act="open-data">${iconHtml('folder-open', 13)}Open folder</button>`)}
       </section>
       <section data-pane="assistant" ${pane !== 'assistant' ? 'hidden' : ''}>
+        <h3>Approvals</h3>
+        ${setting('Approvals', 'Whether the assistant asks before it writes files, runs commands or uses a tool that changes something. The chip under the composer switches the same setting. The browser\'s pauses on purchases, passwords and similar are separate: Settings › Browser.', `<div class="bw-seg" id="approvals" role="radiogroup" aria-label="Approvals"><button type="button" data-value="none" aria-checked="${s.approvals !== 'ask'}">No approvals</button><button type="button" data-value="ask" aria-checked="${s.approvals === 'ask'}">Ask first</button></div>`)}
         <h3>Providers</h3>
         <p class="bw-sheet-note">Barkdown runs on the sign-ins already on this computer: Claude Code (<code>claude</code> login) or Codex (<code>codex login</code>). A Claude API key is the fallback. Pick the default here; the chips under the composer change provider, model and effort per chat.</p>
         <div class="bw-cards" id="providers">
@@ -422,7 +424,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
   renderBrowserPane();
   // The assistant's browsing policy: segmented choices and the host list, saved with the rest.
   const segPick = (id, onPick) => qa(`${id} button`).forEach(b => { b.onclick = () => { qa(`${id} button`).forEach(x => x.setAttribute('aria-checked', String(x === b))); onPick?.(b.dataset.value); markDirty(); }; });
-  segPick('#browser-mode'); segPick('#browser-sites-mode', v => { const list = q('#browser-sites-list'); if (list) list.hidden = v !== 'list'; });
+  segPick('#approvals'); segPick('#browser-mode'); segPick('#browser-sites-mode', v => { const list = q('#browser-sites-list'); if (list) list.hidden = v !== 'list'; });
   q('#browser-logged-out').onchange = markDirty; q('#browser-sites-list').oninput = markDirty; q('#browser-blocking').onchange = markDirty; q('#browser-blocking-allow').oninput = markDirty;
   api.browser.blocking().then(b => { const n = q('#browser-blocking-status'); if (n) n.textContent = !b.enabled ? 'Off.' : b.ready ? `Lists ${b.source === 'list' ? 'from a file' : 'from Ghostery'}, loaded ${new Date(b.updatedAt).toLocaleString()}.` : b.error ? `The lists could not be loaded: ${b.error}` : 'Loading the lists…'; }).catch(() => {});
   const browserPatch = () => ({ mode: q('#browser-mode [aria-checked="true"]')?.dataset.value || 'auto', loggedOut: q('#browser-logged-out').checked, sites: { mode: q('#browser-sites-mode [aria-checked="true"]')?.dataset.value || 'all', list: q('#browser-sites-list').value.split(/\n+/).map(v => v.trim().toLowerCase()).filter(Boolean) }, blocking: { enabled: q('#browser-blocking').checked, allow: q('#browser-blocking-allow').value.split(/\n+/).map(v => v.trim().toLowerCase()).filter(Boolean) } });
@@ -440,7 +442,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
     if (saving) return;
     const patch = { model: q('#model').value, provider: q('input[name="provider"]:checked').value, claudeModel: modelValue('claude'), codexModel: modelValue('codex'), theme: theme(), chatWidth: Number(q('#width').value), barkpark: { enabled: q('#bp-enabled').checked, viaCli: bpMode() === 'cli', server: q('#bp-server').value.trim(), dataset: q('#bp-dataset').value.trim() || 'production', writes: q('#bp-writes').checked, local: { ...s.barkpark.local, enabled: bpMode() === 'local', source: q('#bp-source').value.trim() } } };
     if (q('#api-key').value.trim()) patch.apiKey = q('#api-key').value.trim(); else if (clearKey) patch.apiKey = '';
-    patch.browser = browserPatch();
+    patch.browser = browserPatch(); patch.approvals = q('#approvals [aria-checked="true"]')?.dataset.value === 'ask' ? 'ask' : 'none';
     const binaries = { claude: q('#claude-binary')?.value.trim() ?? '', codex: q('#codex-binary')?.value.trim() ?? '' };
     if (binaries.claude !== (s.providerBinary?.claude || '') || binaries.codex !== (s.providerBinary?.codex || '')) patch.providerBinary = binaries;
     if (q('#bp-token').value.trim()) patch.barkpark.token = q('#bp-token').value.trim();
