@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Evening of 2026-10-03: the terminal tab is a real terminal — a pty behind xterm.js or Ghostty’s core — with prompts, colours, less and resize proven on the Mac (C090).
+**Latest advance:** 2026-10-04: the terminal tab is a real terminal — a pty behind xterm.js or Ghostty’s core — proven on the Mac and in PowerShell on a hosted Windows runner (C090).
 
-**Next observable result:** Windows: the terminal through ConPTY and the real-library switch on the owner’s machine (C090, then C083); C089’s bench columns from the two desktops. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** C089’s bench columns from the two desktops and a working day in the browser; the real-library switch on the owner’s Windows machine (C083). See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 

@@ -1,0 +1,192 @@
+{
+  "source": "b684800f2a2d1747d25d1cae9c615419933a4efd",
+  "upstream": "9f1874235449f9763c1b3e8cfcaf1b5a36aee9b3",
+  "host": "darwin 24.3.0 arm64",
+  "status": "passed",
+  "findings": [
+    {
+      "check": "keyboard: Tab reaches New page, the work pane, the composer and Send",
+      "ok": true,
+      "detail": {
+        "reached": [
+          "#bw-new-page",
+          "#bw-open-work",
+          "#bw-prompt",
+          "#bw-send"
+        ],
+        "missing": [],
+        "presses": {
+          "#bw-new-page": 5,
+          "#bw-open-work": 3,
+          "#bw-prompt": 11,
+          "#bw-send": 17
+        },
+        "order": [
+          "#bw-new-doc",
+          "#bw-go-chat",
+          "#bw-open-work",
+          "#bw-deleted-notes",
+          "#bw-new-page",
+          "#bw-archive-toggle",
+          "#bw-cloud-archive-toggle",
+          "#bw-new-chat",
+          "button.bw-nav",
+          "#bw-sidebar-resizer",
+          "#bw-prompt",
+          "#bw-folder-context",
+          "#bw-attach",
+          "#bw-provider",
+          "#bw-model",
+          "#bw-effort",
+          "#bw-send"
+        ]
+      }
+    },
+    {
+      "check": "keyboard: Settings is reachable (the shortcut, or the work pane then Tab)",
+      "ok": true,
+      "detail": {
+        "viaShortcut": true,
+        "settingsPressAfterOpeningWorkPane": null
+      }
+    },
+    {
+      "check": "keyboard: the focused composer shows a focus indication (its own outline or its frame)",
+      "ok": true,
+      "detail": {
+        "element": "#bw-prompt",
+        "outlineStyle": "none",
+        "outlineWidth": "0px",
+        "focusVisible": true,
+        "frame": {
+          "id": "#bw-compose",
+          "borderColor": "rgb(55, 59, 48)",
+          "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+        },
+        "framed": true
+      }
+    },
+    {
+      "check": "zoom 200%: no horizontal page scroll",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 650,
+        "clientWidth": 650,
+        "bodyScroll": 650
+      }
+    },
+    {
+      "check": "zoom 200%: composer, send and New page are in view, or the Pages button brings New page into view and Escape closes it",
+      "ok": true,
+      "detail": {
+        "zoomPrompt": {
+          "present": true,
+          "inView": true,
+          "rect": {
+            "x": 23,
+            "y": 328,
+            "w": 604,
+            "h": 58
+          }
+        },
+        "zoomSend": {
+          "present": true,
+          "inView": true,
+          "rect": {
+            "x": 600,
+            "y": 398,
+            "w": 27,
+            "h": 29
+          }
+        },
+        "zoomNew": {
+          "present": true,
+          "inView": false,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 0,
+            "h": 0
+          }
+        },
+        "zoomPages": {
+          "opened": true,
+          "closedByEscape": true,
+          "toggleExpanded": "false"
+        }
+      }
+    },
+    {
+      "check": "narrow 820px: no horizontal page scroll",
+      "ok": true,
+      "detail": {
+        "scrollWidth": 820,
+        "clientWidth": 820,
+        "bodyScroll": 820
+      }
+    },
+    {
+      "check": "narrow 820px: composer, send and New page are in view",
+      "ok": true,
+      "detail": {
+        "narrowPrompt": {
+          "present": true,
+          "inView": true,
+          "rect": {
+            "x": 223,
+            "y": 738,
+            "w": 574,
+            "h": 58
+          }
+        },
+        "narrowSend": {
+          "present": true,
+          "inView": true,
+          "rect": {
+            "x": 770,
+            "y": 808,
+            "w": 27,
+            "h": 29
+          }
+        },
+        "narrowPages": {
+          "present": true,
+          "inView": true,
+          "rect": {
+            "x": 156,
+            "y": 58,
+            "w": 25,
+            "h": 25
+          }
+        }
+      }
+    },
+    {
+      "check": "reduced motion: the stylesheet has a prefers-reduced-motion rule and animated elements report no duration",
+      "ok": true,
+      "detail": {
+        "rules": 3,
+        "animated": []
+      }
+    },
+    {
+      "check": "long note: 400 paragraphs written, opened, typed at the end and saved",
+      "ok": true,
+      "detail": {
+        "writeMs": 273,
+        "openMs": 120,
+        "saveMs": 514,
+        "paragraphs": 402
+      }
+    }
+  ],
+  "screenshots": [
+    "01-zoom-200.png",
+    "01b-zoom-200-pages-open.png",
+    "02-narrow-820.png",
+    "03-long-note-end.png"
+  ],
+  "limits": [
+    "One Mac, one run, from source under Electron on the carried runtime. Findings are what one session observed at 1300×900 and 820×860; no latency target is claimed."
+  ]
+}

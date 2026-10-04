@@ -2,38 +2,38 @@
   "version": 1,
   "id": "C090",
   "stage": "P5",
-  "status": "active",
+  "status": "done",
   "goal": "The terminal tab is a real terminal on macOS and Windows: a pty behind a full emulator, so interactive programs, prompts, colours and resizing work as they do in PowerShell or Ghostty, with the ownership contract (one shell per tab, a journal, a verified stop) unchanged.",
   "scope": [
     "A. node-pty inside the owned worker: a login shell on macOS, PowerShell 7 (or Windows PowerShell) through ConPTY on Windows; the service gains raw write and resize and keeps line input for the ownership contract",
     "B. xterm.js in the tab: keystrokes to the pty, bytes to the emulator, fit on resize, the app's theme, ⌘F find, copy on select, links, the assistant's command mirror, Clear and Restart",
     "C. Ghostty as an engine: ghostty-web (Ghostty's VT core in WebAssembly, xterm-compatible surface) chosen in Settings › General, loaded only when chosen, falling back to xterm.js when it cannot load",
-    "D. Windows: the ownership live test with the pty worker on the owner's machine when it is back (~2026-10-05)"
+    "D. Windows: the ownership tour and the interactive tour in the real app on a hosted Windows runner (.github/workflows/terminal-windows.yml, on demand)"
   ],
   "acceptance": [
     "Interactive programs run in the tab on macOS: a prompt that reads input, less on the alternate screen, colours, a resize the shell sees; the login shell with TERM=xterm-256color (tour)",
-    "On Windows PowerShell runs through ConPTY inside the owned Job with the same ownership journal and verified stop (owner's check until the machine is back)",
+    "On Windows PowerShell runs through ConPTY inside the owned Job with the same ownership journal and verified stop (hosted Windows runner)",
     "The assistant's commands still mirror into the tab; ownership refusals and the unverified-shutdown path are unchanged (unit tests)",
     "A Ghostty-based engine can be chosen in Settings and passes the same tour, or the reason it cannot is recorded"
   ],
-  "checkpoint": "2026-10-03",
+  "checkpoint": "2026-10-04",
   "handoff": "docs/cycles/C090-real-terminal.md",
-  "nextAction": "Quiet machine: chain in ~/Documents/GitHub/barkdown-chain at main (39e1ce46 or later has no green receipt; two attempts failed on unrelated timing tests under load above 40), then the nightly. Windows: run app/tests/terminal-ownership.live.mjs and the journey on the owner's machine with the pty worker, and try Ctrl+V / Ctrl+C there. Then C089's owner items.",
+  "nextAction": "C090 is delivered in v0.6.0-nightly.20261003.3. Next: C089's owner items (a working day in the browser; the two desktop bench columns), and the terminal polish list in the C090 handoff (the scrollbar track on Windows, Ghostty's Ctrl+V under ConPTY, the Ghostty last-column clip).",
   "evidence": [
     "docs/cycles/evidence/C090/live/2026-10-03T23-42-46-938Z-terminal-xterm/result.json",
     "docs/cycles/evidence/C090/live/2026-10-03T23-42-56-263Z-terminal-ghostty/result.json",
     "docs/cycles/evidence/C090/live/2026-10-03T23-43-11-345Z-terminal-xterm-light/result.json",
     "docs/cycles/evidence/C090/live/2026-10-03T23-43-04-057Z-terminal-ghostty-light/result.json",
-    ".release/chain/19a64baced4cc5f075c73baaa1af3e67da7646ad.json"
+    "docs/cycles/evidence/C090/windows/37162736078/tour-xterm-dark/result.json",
+    "docs/cycles/evidence/C090/windows/37162736078/tour-ghostty-dark/result.json",
+    "docs/cycles/evidence/C090/windows/37162736078/log.txt",
+    "docs/cycles/evidence/C090/windows/37162736078/manifest.json"
   ],
-  "truthReview": "2026-10-03: the old tab was a line-at-a-time pipe to a shell (no tty): nothing interactive could run, no colours, no resize. Now main/terminal-worker.js spawns a pty with node-pty 1.1.0 (N-API prebuilds for darwin and win32, arm64 and x64; spawn-helper's execute bit set at runtime) inside the same owned worker, so the journal, the Job on Windows and the verified stop are untouched (tests/terminal-ownership.test.mjs: 10 of 10; tests/terminal-ownership.live.mjs passes on this Mac). The renderer tab is xterm.js 6 with the DOM renderer (the WebGL addon drew at the wrong scale under Electron here and was dropped), fit, search, links, Unicode 11. Ghostty: ghostty-web 0.4.0 works once three things are known — it fetches its WebAssembly from a data: URL (answered from memory, the CSP now allows wasm-unsafe-eval), it reads the custom key handler the opposite way from xterm.js, and it has no search addon (Find is absent on that engine). Both engines pass the nine-check tour. Windows is unrun. Delivered in v0.6.0-nightly.20261003.2 (chain receipt on 19a64bac); electron-builder no longer rebuilds native modules (node-pty's N-API prebuilds ride in app.asar.unpacked), and app/tests/terminal-ownership.live.mjs passes against the packaged Barkdown.app on this Mac. Later the same evening: off macOS the tab pastes on Ctrl+V and copies a selection on Ctrl+C (unit-tested through the fake emulator; both tours and the journey rerun green on this Mac). GitHub Actions starts no jobs for this repository, so no hosted Windows run exists. Night of 2026-10-03: the light theme painted white text on cream (the text colour came from a light-dark() custom property xterm.js cannot parse); fixed with plain colours and the tour now runs in both themes on both engines (ten checks each). A Ghostty tab keeps its open-time theme. A hosted Windows runner (the Actions budget block from September has cleared) proves node-pty spawning PowerShell through ConPTY under Electron's node and the ownership unit tests 10/10; in the real app the runner's desktop shows PowerShell 7 in the tab, but Playwright's page for the window does not answer there, so the app-level tour has not passed on Windows yet.",
-  "screenshotReview": "Tour screenshots in both evidence folders reviewed: the prompt, the answered read, colours and less on the alternate screen render at the right size on both engines; the ghostty canvas clips its last column slightly. Status shots and the visual run follow the implementation commit.",
+  "truthReview": "2026-10-04: the terminal tab is a pty (node-pty 1.1.0 in the owned worker: login shell on macOS, PowerShell 7 or Windows PowerShell through ConPTY on Windows) behind xterm.js 6, with ghostty-web 0.4.0 as a chosen engine. Proven on this Mac (four tours: two engines, two themes, eleven checks each; ownership unit tests 10/10; ownership tour; journey 76/76; the packaged app in the earlier nightly) and on a hosted Windows runner at be728eaf (https://github.com/FRIKKern/barkdown/actions/runs/37162736078): node-pty spawns PowerShell through ConPTY under Electron's node, unit tests 10/10, the ownership tour in the real app (commands, profile switch, killed app, explicit start, quit, legacy launch; five owned workers verified stopped) and the interactive tour with thirteen checks on each engine (Read-Host answered live, a one-key read, colours, resize, Ctrl+C, Ctrl+V, the alternate screen, find, the mirror strip, themes, restart). Found and fixed on the way: white text in the light theme (a light-dark() colour xterm.js cannot parse); the assistant's mirrored lines overwritten by ConPTY, now a strip of their own under the terminal on both platforms; the text read breaking at soft wraps; Playwright's page never answering on a Windows runner when video recording is on (tests only). Corrections to earlier statements: hosted Windows runners were available (the Actions budget block was September's; the zero-job failures were visual.yml's duplicate key, now removed). Limits: on Windows the Ghostty engine does not paste with Ctrl+V; a Ghostty tab keeps its open-time theme and has no Find; the Windows proof is a hosted runner from source, not the packaged app and not the owner's machine; no Windows nightly exists. Delivered for macOS in v0.6.0-nightly.20261003.3 (chain receipt on b684800f).",
+  "screenshotReview": "Reviewed: the Mac tour frames in both themes and engines (prompt, colours, less, the mirror strip, the light-theme frame kept on purpose as the proof of the text colour) and the Windows runner's frames (PowerShell 7 with PSReadLine colours, the strip, the alternate screen, the desktop screenshot). Status shots and the visual run were retaken and approved after each app change; they hold no terminal frame. Seen and not yet fixed: a grey scrollbar track on the terminal's right edge on Windows.",
   "delivery": {
-    "phase": "implementing",
+    "phase": "delivered",
     "owner": "primary agent",
-    "remaining": [
-      "Chain receipt and nightly for the Windows copy and paste keys (blocked on machine load)",
-      "Windows proof (owner, when the machine is back)"
-    ]
+    "remaining": []
   }
 }

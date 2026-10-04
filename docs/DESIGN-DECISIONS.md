@@ -215,3 +215,7 @@ Agent decision; the user may reverse it. A reply in the chat is rendered by the 
 ## D-real-terminal — The terminal tab is a pty behind an emulator, with the ownership contract unchanged (2026-10-03)
 
 Owner decision (C090): the terminal must hold an interactive program and work on both Mac and Windows, like PowerShell or Ghostty. The pipe-and-textarea tab is replaced by a pty (node-pty: the login shell on macOS, PowerShell 7 or Windows PowerShell through ConPTY on Windows) inside the same owned worker, drawn by xterm.js by default; Ghostty's VT core (ghostty-web) is an engine chosen in Settings and falls back to xterm.js when it cannot load. The ownership rules stay: one shell per tab, a journal, a verified stop, refusals in words. The per-tab command draft is gone — a half-typed line lives in the shell's line editor. Find is absent on the Ghostty engine; the renderer's CSP allows WebAssembly compilation (`wasm-unsafe-eval`) and nothing else new.
+
+## D-terminal-mirror-strip — The assistant's commands show beside the terminal, not inside it (2026-10-04)
+
+Agent decision; the user may reverse it. The tab used to write the assistant's commands and output into the emulator between the shell's own lines. On Windows ConPTY keeps its own model of the screen and overwrote those lines with the shell's next output (seen on a hosted runner); on any platform they would scribble over a full-screen program. They now appear in an "Assistant ran" strip under the terminal — collapsible, clearable, newest in view — and the shell's screen belongs to the shell.

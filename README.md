@@ -4,7 +4,7 @@ Barkdown is an experiment in what Barkpark can do, and a tool for figuring out w
 
 We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT, taking the parts we love from each. We’re doing this for fun and learning, with no plans to make money from it. The aim is an excellent app shaped by our taste and Barkpark.
 
-## Where we are · October 3, 2026
+## Where we are · October 4, 2026
 
 **The short version:** notes live on Paper, a whole library can move between machines, the app survives crashes without losing a word, and a Mac installs it from a 156 MB disk image that runs your own Claude Code or Codex. What's missing is a signature, proof on a real library, and Windows.
 
@@ -15,15 +15,15 @@ We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT,
 - Portable profiles: export and import from Settings, carried between two installations and into a newer version.
 - Nightlies cut themselves from this Mac on a schedule, from a commit with a green chain receipt, with an updater feed beside the image ([how](docs/RELEASE.md)); the app is 420 MB and works at 200 % zoom.
 - Rough treatment: a killed app, a killed export or import, a dead database, a quit mid-save. Nothing acknowledged is lost ([C085](docs/cycles/C085-portable-profile.md)).
-- A real terminal in the tab: a pty behind xterm.js, or Ghostty's core if you choose it. Prompts, colours, `less`, resize, the assistant's commands mirrored. Proven on the Mac ([C090](docs/cycles/C090-real-terminal.md)); Windows waits for the machine.
+- A real terminal in the tab: a pty behind xterm.js, or Ghostty's core if you choose it. Prompts, colours, `less`, resize, Ctrl+C, and the assistant's commands in a strip of their own. Proven on the Mac and, from source, in PowerShell on a hosted Windows runner ([C090](docs/cycles/C090-real-terminal.md)).
 
 **Not yet**
 - No real library has switched. The corpus so far is ours.
-- Nothing has run on Windows since September, the new terminal included. The machine is back around October 5.
+- On Windows only the terminal has run since September, on a hosted runner from source. The rest waits for the machine, back around October 5; there is no Windows build.
 - Sync and installation are later stages.
 
 **Next**
-- Windows: the terminal through ConPTY, then the real-library switch there ([C090](docs/cycles/C090-real-terminal.md)).
+- Windows: the real-library switch on the machine, and more of the app on the hosted runner now that it works.
 - [C089 The agent's browser](docs/cycles/C089-agent-browser.md): Claude and Codex get a browser of their own inside Barkdown — the Claude in Chrome tool set over Barkdown's tabs, sign-in that works, bookmarks and history from Chrome, pauses on sensitive actions — measured against Claude Desktop and ChatGPT desktop on a twelve-task bench. Opened October 2; by the evening both agents finish 8 of 8 automated tasks with Barkdown's browser alone ([bench](docs/cycles/C089-bench.md)).
 - Windows returns: switch a real library, carry an export across machines, recover from a crash there.
 - The old editor is retired ([C087](docs/cycles/C087-legacy-retirement.md)): profiles are the ordinary launch, an old library is offered for adoption, every note is written on Paper, and legacy notes stay readable. The Mac application [builds with its runtime and database inside](docs/cycles/C086-packaged-runtime.md), not yet signed. It runs chats through [the Claude Code and Codex you already have](docs/cycles/C088-own-agents.md) instead of carrying its own copies: 456 MB, down from 1 GB.
