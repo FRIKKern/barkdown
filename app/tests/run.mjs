@@ -240,10 +240,12 @@ const renameActiveTab = async () => { for (let i = 0; i < 3; i++) { await page.l
   await page.waitForFunction(() => { const c = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal'); return c && c.session() && /[%$#>] ?$/.test(c.text()); }, null, { timeout: 30000 }).catch(() => {});
   await page.locator('.bw-terminal .bw-term-host').click();
   await page.keyboard.type('echo hello-from-terminal\r');
-  await page.waitForFunction(() => { const c = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal'); return c && c.text().split('hello-from-terminal').length >= 3; }, null, { timeout: 20000 }).catch(() => {});
+  await page.waitForFunction(() => { const c = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal'); return c && c.text().replace(/\s+/g, '').split('hello-from-terminal').length >= 3; }, null, { timeout: 20000 }).catch(() => {});
   const termText = await page.evaluate(() => [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal').text());
-  if (termText.split('hello-from-terminal').length < 3) console.log('TERM DEBUG', JSON.stringify(termText.slice(0, 400)));
-  step('terminal tab runs a command and shows its output', termText.split('hello-from-terminal').length >= 3);
+  // The shell wraps a long typed line at the pane's edge with a line break of its own, so the text is compared without whitespace.
+  const seen = termText.replace(/\s+/g, '').split('hello-from-terminal').length - 1;
+  if (seen < 2) console.log('TERM DEBUG', JSON.stringify(termText.slice(0, 400)));
+  step('terminal tab runs a command and shows its output', seen >= 2);
   await page.screenshot({ path: path.join(out, '02d-terminal.png') });
 
   // Ctrl+W is a menu accelerator that closes the active work tab, not the window.
