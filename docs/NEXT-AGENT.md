@@ -1,5 +1,7 @@
 # Current handoff
 
+2026-10-05, late night: [v0.6.0-nightly.20261005.2](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261005.2) delivers C096: the Paper switch carries Paper notes already open (`drafts.<id>`). C096 is done; next is the owner's call (system path, Windows, C089's owner items). Open issues: #4, #7.
+
 2026-10-05, night: [C096 The switch carries Paper notes already open](cycles/C096-switch-drafts.md) is the current cycle: `migration-workspace.js` accepts `drafts.<id>` for Paper destinations. Task `task-40bc35d902c777e8`, worker `claude-barkdown-c096`.
 
 2026-10-05, evening: [v0.6.0-nightly.20261005.1](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261005.1) delivers [C095 The wider catalogue](cycles/C095-wider-catalogue.md), cut on a second Mac. Chain green on `53d4a5e4`. On that Mac the release needs `TMPDIR=/tmp/` (an external-volume temp folder refuses `hdiutil attach`) and builds need `CC=/usr/bin/clang`. C095 is done; next is the owner's call. Open: `task-40bc35d902c777e8` (the switch refuses `drafts.*` ids in tabs and Pages).

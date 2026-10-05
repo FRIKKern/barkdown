@@ -19,14 +19,12 @@
     "app/tests/migration-workspace.test.mjs",
     "app/tests/migration-switch-drafts.live.mjs"
   ],
-  "truthReview": "2026-10-05: migration-workspace accepts drafts.<id> only for Paper destinations (barkpark tabs and favorites, bp: and bp:v1: Page keys); local and conversation ids stay strict, other dotted ids are refused (unit cases). The live tour at b99df73b switches with a Paper note in a tab, Pages and Favorites and finds it open after a restart; the same tour without the fix fails at the switch. All 173 migration unit tests pass. Not run: migration-switch-ui.live.mjs (needs a dev-built Barkpark checkout), Windows, the packaged app.",
+  "truthReview": "2026-10-05: migration-workspace accepts drafts.<id> only for Paper destinations (barkpark tabs and favorites, bp: and bp:v1: Page keys); local and conversation ids stay strict, other dotted ids are refused (unit cases). The live tour at b99df73b switches with a Paper note in a tab, Pages and Favorites and finds it open after a restart; the same tour without the fix fails at the switch. All 173 migration unit tests pass. Not run: migration-switch-ui.live.mjs (needs a dev-built Barkpark checkout), Windows, the packaged app. Delivered: chain green on de9d9418, v0.6.0-nightly.20261005.2 published with its install and daily-use rehearsals.",
   "screenshotReview": "No renderer change. The tour's stills (note open before the switch, note open after the restart) were inspected.",
   "delivery": {
-    "phase": "validating",
+    "phase": "delivered",
     "owner": "primary agent",
-    "remaining": [
-      "push, chain and nightly"
-    ]
+    "remaining": []
   },
-  "nextAction": "Push, chain and nightly; then the owner's call: barkdown on the system path, Windows, or C089's owner items."
+  "nextAction": "Delivered in v0.6.0-nightly.20261005.2. Next is the owner's call: barkdown on the system path, Windows, or C089's owner items. Open issues: #4 and #7."
 }

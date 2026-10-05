@@ -23,4 +23,4 @@
 
 ## Next
 
-Commit, evidence, push, chain and nightly. Then the owner's call: `barkdown` on the system path, Windows, or C089's owner items.
+Delivered in [v0.6.0-nightly.20261005.2](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261005.2), chain green on `de9d9418`. Next is the owner's call: `barkdown` on the system path, Windows, or C089's owner items.
