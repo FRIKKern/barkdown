@@ -34,11 +34,18 @@
     },
     {
       "file": "settings-barkpark.d5090027.png",
-      "caption": "Settings › Barkpark: the connection Barkdown edits through — here the local server."
+      "caption": "Settings \u203a Barkpark: the connection Barkdown edits through \u2014 here the local server."
     },
     {
       "file": "editing.1f7955f4.gif",
-      "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
+      "caption": "An editing loop in the canvas: slash menu \u2192 Quote, typing, Tab through the table, quick open."
+    }
+  ],
+  "uiExemptions": [
+    {
+      "commit": "b99df73b2",
+      "reason": "Main-process change only: migration-workspace accepts drafts.<id> for Paper destinations during the Paper switch; no renderer file changed and the status pictures never run a switch.",
+      "date": "2026-10-05"
     }
   ]
 }

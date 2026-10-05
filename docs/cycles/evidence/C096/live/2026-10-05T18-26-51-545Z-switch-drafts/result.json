@@ -1,0 +1,68 @@
+{
+  "source": "b99df73b272d10ca081ddea1df50470594f3300d",
+  "dirty": false,
+  "host": "darwin 24.5.0 arm64",
+  "model": "Scripted replies through the API SDK; not a real model",
+  "status": "passed",
+  "checks": [
+    "a Paper note (drafts.<id>) is open in a tab, in Pages and in Favorites before the switch",
+    "paper switch completes with that note in the workspace",
+    "after a person's restart the library is on Paper and the note is still open, in Pages and in Favorites"
+  ],
+  "screenshots": [
+    "01-note-open-before-switch.png",
+    "02-note-open-after-restart.png"
+  ],
+  "transcript": [
+    {
+      "command": "barkdown ui show settings assistant",
+      "code": 0,
+      "out": "shown: settings\npane: assistant"
+    },
+    {
+      "command": "barkdown paper status --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"status\": \"none\",\n    \"changed\": [],\n    \"reconcileFirst\": false,\n    \"retained\": null\n  }\n}"
+    },
+    {
+      "command": "barkdown agent add Desk --folder /Volumes/SATECHI/dev-caches/tmp/bd-switch-drafts-5hdavL/work",
+      "code": 0,
+      "out": "chat: 7a950b47-2772-4e1a-870f-56cce60600fc · title: Desk · folder: /Volumes/SATECHI/dev-caches/tmp/bd-switch-drafts-5hdavL/work\n\nStarted \"Desk\" (7a950b47-2772-4e1a-870f-56cce60600fc)."
+    },
+    {
+      "command": "barkdown note new # Field notes\n\nWritten before the switch. --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-674ee8f2-cb8e-43d4-be46-f8e42ad4d274\",\n    \"title\": \"Field notes\",\n    \"text\": \"Created the note \\\"Field notes\\\" (drafts.bd-note-674ee8f2-cb8e-43d4-be46-f8e42ad4d274).\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note page drafts.bd-note-674ee8f2-cb8e-43d4-be46-f8e42ad4d274",
+      "code": 0,
+      "out": "id: drafts.bd-note-674ee8f2-cb8e-43d4-be46-f8e42ad4d274 · title: Field notes\n\n\"Field notes\" is in Pages."
+    },
+    {
+      "command": "barkdown favorite add",
+      "code": 0,
+      "out": "label: Field notes\n\n\"Field notes\" is in Favorites."
+    },
+    {
+      "command": "barkdown paper switch --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"status\": \"selected\",\n    \"text\": \"Notes now live on Paper. The window is reloading; editing resumes after a person restarts Barkdown.\"\n  }\n}"
+    },
+    {
+      "command": "barkdown paper status --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"status\": \"selected\",\n    \"changed\": [],\n    \"reconcileFirst\": false,\n    \"retained\": \"/Volumes/SATECHI/dev-caches/tmp/bd-switch-drafts-5hdavL/profile-data/profiles/f74050bd-224e-4cbf-aa9a-64b2e262a03d/selection\"\n  }\n}"
+    },
+    {
+      "command": "barkdown chat open Desk",
+      "code": 0,
+      "out": "chat: 7a950b47-2772-4e1a-870f-56cce60600fc\ntitle: Desk"
+    },
+    {
+      "command": "barkdown note read drafts.bd-note-674ee8f2-cb8e-43d4-be46-f8e42ad4d274 --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-674ee8f2-cb8e-43d4-be46-f8e42ad4d274\",\n    \"title\": \"Field notes\",\n    \"rev\": 0,\n    \"text\": \"# Field notes\\n\\nWritten before the switch.\"\n  }\n}"
+    }
+  ]
+}

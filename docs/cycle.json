@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C096",
   "stage": "P2",
-  "status": "active",
+  "status": "done",
   "goal": "The Paper switch carries a workspace that already holds Paper notes made on the local runtime (drafts.<id>) in tabs, favorites and Pages.",
   "scope": [
     "A. migration-workspace accepts drafts.<id> for Paper destinations; local ids stay strict",
@@ -14,16 +14,19 @@
   ],
   "checkpoint": "2026-10-05",
   "handoff": "docs/cycles/C096-switch-drafts.md",
-  "evidence": [],
-  "truthReview": "",
-  "screenshotReview": "",
+  "evidence": [
+    "docs/cycles/evidence/C096/live/2026-10-05T18-26-51-545Z-switch-drafts/result.json",
+    "app/tests/migration-workspace.test.mjs",
+    "app/tests/migration-switch-drafts.live.mjs"
+  ],
+  "truthReview": "2026-10-05: migration-workspace accepts drafts.<id> only for Paper destinations (barkpark tabs and favorites, bp: and bp:v1: Page keys); local and conversation ids stay strict, other dotted ids are refused (unit cases). The live tour at b99df73b switches with a Paper note in a tab, Pages and Favorites and finds it open after a restart; the same tour without the fix fails at the switch. All 173 migration unit tests pass. Not run: migration-switch-ui.live.mjs (needs a dev-built Barkpark checkout), Windows, the packaged app.",
+  "screenshotReview": "No renderer change. The tour's stills (note open before the switch, note open after the restart) were inspected.",
   "delivery": {
-    "phase": "implementing",
+    "phase": "validating",
     "owner": "primary agent",
     "remaining": [
-      "evidence run",
-      "push, chain, nightly"
+      "push, chain and nightly"
     ]
   },
-  "nextAction": "Commit the fix, run tests/migration-switch-drafts.live.mjs from the clean tree, then push, chain and nightly."
+  "nextAction": "Push, chain and nightly; then the owner's call: barkdown on the system path, Windows, or C089's owner items."
 }
