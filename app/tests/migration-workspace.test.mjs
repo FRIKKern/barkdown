@@ -62,6 +62,10 @@ const refusals=[
  ['recorded run',f=>f.ws.chats.main.runId='running',/recorded run/],
  ['unfinished attempt',f=>f.ws.ownership.attempts.done.driverFinished=false,/Unfinished attempt/],
  ['bad ownership',f=>f.ws.ownership='unknown',/ownership ledger/],
+ ['dotted local tab',f=>f.ws.chats.main.tabs[0].path.push('drafts.alpha'),/Invalid destination identity/],
+ ['dotted local favorite',f=>f.ws.favorites[0].target.id='drafts.alpha',/Invalid destination identity/],
+ ['other dotted Paper id',f=>f.ws.chats.main.tabs[1].path=['notes.alpha'],/Invalid destination identity/],
+ ['dotted Page key',f=>f.ws.pages.roots.push('bp:other.alpha'),/Invalid destination identity/],
  ['unplaced local archive',f=>{delete f.ws.pages.children.alpha;},/local-Paper archive adapter/],
 ];
 for(const [name,mutate,reason] of refusals)test(name+' refuses without partial projection or filesystem mutation',()=>{
@@ -141,4 +145,19 @@ test('owned state-map collisions and uninitialized Pages refuse instead of auto-
   let p = await projectOwnedWorkspace(f.options, f.target); assert.equal(p.status, 'blocked'); assert.match(p.issues[0].reason, /collide/);
   delete f.ws.pages; f.write(); p = await projectOwnedWorkspace(f.options, f.target);
   assert.equal(p.status, 'blocked'); assert.match(p.issues[0].reason, /initialized Pages/);
+});
+
+// A note created on the local runtime before the switch is drafts.<id>: it stays a Paper destination (C096).
+test('Paper notes on the local runtime (drafts.<id>) in tabs, favorites and Pages project unchanged',()=>{
+  const f=fixture();
+  f.ws.chats.main.tabs.push({id:'draft-tab',type:'doc',source:'barkpark',path:['drafts.note-1']});
+  f.ws.favorites.push({id:'fav-draft',target:{kind:'doc',id:'drafts.note-1',source:'barkpark'}});
+  f.ws.pages.roots.push('bp:drafts.note-1','bp:v1:'+'a'.repeat(64)+':drafts.note-2');
+  f.write();prepareMigration(f.options);
+  const value=projectWorkspace(f.options);
+  assert.equal(value.status,'preview',JSON.stringify(value.issues));
+  assert.deepEqual(value.workspace.chats.main.tabs.at(-1).path,['drafts.note-1']);
+  assert.equal(value.workspace.favorites.at(-1).target.id,'drafts.note-1');
+  assert.ok(value.workspace.pages.roots.includes('bp:drafts.note-1'));
+  assert.ok(value.workspace.pages.roots.includes('bp:v1:'+'a'.repeat(64)+':drafts.note-2'));
 });

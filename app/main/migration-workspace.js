@@ -20,6 +20,9 @@ function projection(options, paperOwner = null) {
   function fail(at, reason) { const error = new Error(reason); error.projectionIssue = { path: at, reason }; throw error; }
   function check(ok, at, reason) { if (!ok) fail(at, reason); }
   function identity(id, at) { check(typeof id === 'string' && /^[\w-]{1,128}$/.test(id), at, 'Invalid destination identity'); return id; }
+  // A Paper already in the library keeps its own id, and a note on the local runtime is drafts.<id>
+  // (the same form migration-comparison accepts). Local note and conversation ids stay strict.
+  function paperIdentity(id, at) { check(typeof id === 'string' && /^(?:drafts\.)?[\w-]{1,128}$/.test(id), at, 'Invalid destination identity'); return id; }
   function local(id, at) { identity(id, at); check(ids.has(id), at, 'Missing local document; never substitute a same-slug cloud paper'); return ids.get(id); }
   function changed(at, before, after) { if (JSON.stringify(before) !== JSON.stringify(after)) changes.push({ path: at, before: structuredClone(before), after: structuredClone(after) }); return after; }
   function source(value, at) { check(value === undefined || value === 'local' || value === 'barkpark', at, 'Unknown document source'); return value || 'local'; }
@@ -28,7 +31,7 @@ function projection(options, paperOwner = null) {
     if (value.type !== 'doc') return;
     const kind = source(value.source, at + '.source');
     check(Array.isArray(value.path), at + '.path', 'Document tab requires an ordered path');
-    value.path.forEach((id, i) => identity(id, `${at}.path[${i}]`));
+    value.path.forEach((id, i) => (kind === 'barkpark' ? paperIdentity : identity)(id, `${at}.path[${i}]`));
     if (kind === 'barkpark' || !value.path.length) return;
     value.path = changed(at + '.path', value.path, value.path.map((id, i) => local(id, `${at}.path[${i}]`)));
     value.source = changed(at + '.source', value.source ?? null, 'barkpark');
@@ -37,8 +40,8 @@ function projection(options, paperOwner = null) {
   function target(value, at) {
     check(object(value) && typeof value.kind === 'string', at, 'Invalid favorite destination');
     if (value.kind !== 'doc') return;
+    if (source(value.source, at + '.source') === 'barkpark') { paperIdentity(value.id, at + '.id'); return; }
     identity(value.id, at + '.id');
-    if (source(value.source, at + '.source') === 'barkpark') return;
     value.id = changed(at + '.id', value.id, local(value.id, at + '.id'));
     value.source = changed(at + '.source', value.source ?? null, 'barkpark');
     if (paperOwner) value.paperOwner = changed(at + '.paperOwner', value.paperOwner ?? null, paperOwner);
@@ -89,10 +92,10 @@ function projection(options, paperOwner = null) {
       function pageKey(key, at) {
         check(typeof key === 'string', at, 'Invalid Page key');
         if (key.startsWith('bp:v1:')) {
-          const match = /^bp:v1:([a-f0-9]{64}):([\w-]{1,128})$/.exec(key);
+          const match = /^bp:v1:([a-f0-9]{64}):((?:drafts\.)?[\w-]{1,128})$/.exec(key);
           check(match, at, 'Invalid owned Page key'); return key;
         }
-        if (key.startsWith('bp:')) { identity(key.slice(3), at); return key; }
+        if (key.startsWith('bp:')) { paperIdentity(key.slice(3), at); return key; }
         return (paperOwner ? 'bp:v1:' + paperOwner + ':' : 'bp:') + local(key, at);
       }
       const parents = new Map();

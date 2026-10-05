@@ -1,36 +1,29 @@
 {
   "version": 1,
-  "id": "C095",
+  "id": "C096",
   "stage": "P2",
-  "status": "done",
-  "goal": "The barkdown command reaches what a person can still only do by hand: edit, undo, recover and delete notes; export and import profiles; the Paper switch; provider sign-in; goals; images on a message. Same gate, same tiers, same never-list.",
+  "status": "active",
+  "goal": "The Paper switch carries a workspace that already holds Paper notes made on the local runtime (drafts.<id>) in tabs, favorites and Pages.",
   "scope": [
-    "A. Notes: note edit (append or replace, revision-checked, with the Undo receipt), note undo, note deleted, note recover, note delete",
-    "B. Profiles: profile export to a folder, profile import from one, the portable outcome, discarding an unfinished import",
-    "C. The Paper switch: status, compare, switch, rollback, reconcile one changed note",
-    "D. Provider sign-in: check, sign in (finished by a person in the browser), its state, cancel",
-    "E. Goals: list, new, start, pause, cancel, open; review and termination stay a person's",
-    "F. Images on chat send and agent add",
-    "G. Unit and live proof, pictures, records"
+    "A. migration-workspace accepts drafts.<id> for Paper destinations; local ids stay strict",
+    "B. Unit cases and a live tour: note open, switch, restart"
   ],
   "acceptance": [
-    "Every new command is in the catalogue with a handler; unit tests prove the tiers, the never-list additions and the argument rules",
-    "A live tour in real Electron drives the new commands through the launcher the app writes",
-    "Pictures reviewed, verify green, handoff, README and roadmap current"
+    "Unit tests prove drafts ids pass for Paper destinations and dotted local ids are refused",
+    "A live tour switches with a Paper note open in a tab, in Pages and in Favorites, and the note is open after a restart"
   ],
   "checkpoint": "2026-10-05",
-  "handoff": "docs/cycles/C095-wider-catalogue.md",
-  "evidence": [
-    "docs/cycles/evidence/C095/live/2026-10-05T16-36-24-695Z-wider/result.json",
-    "app/tests/control.test.mjs",
-    "app/tests/control-wider.live.mjs"
-  ],
-  "truthReview": "2026-10-05: the catalogue has 67 commands (23 new). Unit tests prove the new tiers, the never-list additions, required arguments and a file list given twice. The live tour proves 13 behaviours in real Electron through the launcher the app wrote, at 2474cd04 from a clean tree; C094's tour still passes. Two pre-existing defects were found and fixed (a deleted note's tab blocking preparation; a refused stale edit holding the writer fence); a third (the switch refusing dotted Paper ids) is filed as task-40bc35d902c777e8. Not verified: provider login against a real sign-in, a goal run, paper rollback and reconcile beyond their refusals, the packaged app, Windows. Delivered: the chain is green on 53d4a5e4 (check and the full app test, 258 s on this Mac) and v0.6.0-nightly.20261005.1 is published; its install rehearsal and daily-use runs passed.",
-  "screenshotReview": "Visual run 2026-10-05T16-37-02-383Z reviewed and approved for darwin: review-required frames differ only in clock text (documents, retained, goals worker chat) and the temporary command path (settings: assistant). The tour's own stills (note edited with Undo, image sent, goal view, recovered note, export completed with the restart offered) were inspected.",
+  "handoff": "docs/cycles/C096-switch-drafts.md",
+  "evidence": [],
+  "truthReview": "",
+  "screenshotReview": "",
   "delivery": {
-    "phase": "delivered",
+    "phase": "implementing",
     "owner": "primary agent",
-    "remaining": []
+    "remaining": [
+      "evidence run",
+      "push, chain, nightly"
+    ]
   },
-  "nextAction": "Delivered in v0.6.0-nightly.20261005.1. Next is the owner's call: the switch fix (task-40bc35d902c777e8), barkdown on the system path, Windows, or C089's owner items. Open issues: #4 and #7."
+  "nextAction": "Commit the fix, run tests/migration-switch-drafts.live.mjs from the clean tree, then push, chain and nightly."
 }
