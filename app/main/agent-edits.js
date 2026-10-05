@@ -41,13 +41,16 @@ function remote(config) {
     apply: (slug, ops, rev) => notes && slug.startsWith('drafts.') ? notes.apply(slug, ops, rev) : config.viaCli ? barkpark.cliApplyOps(slug, ops, rev, config.cliRouting) : barkpark.applyOps(config, slug, ops, rev),
   };
 }
+// A refusal before anything is sent carries a 409, so the writer fence records it as answered, not as an
+// uncertain write that would hold back an export or the Paper switch until the process ends (C095).
+const refused = message => Object.assign(new Error(message), { status: 409 });
 function validate(input, blocks) {
-  if (!['append', 'replace', 'replace_block'].includes(input.mode) || typeof input.markdown !== 'string') throw new Error('Invalid document edit.');
-  if (input.mode === 'replace_block' && (!Number.isInteger(input.blockIndex) || !blocks[input.blockIndex])) throw new Error('Block no longer exists. Read the document again.');
+  if (!['append', 'replace', 'replace_block'].includes(input.mode) || typeof input.markdown !== 'string') throw refused('Invalid document edit.');
+  if (input.mode === 'replace_block' && (!Number.isInteger(input.blockIndex) || !blocks[input.blockIndex])) throw refused('Block no longer exists. Read the document again.');
 }
 function guard(actual, expected) {
-  if (expected == null) throw new Error('Read the document before editing it.');
-  if (actual !== expected) throw new Error('Document changed since it was read. Read it again before editing.');
+  if (expected == null) throw refused('Read the document before editing it.');
+  if (actual !== expected) throw refused('Document changed since it was read. Read it again before editing.');
 }
 async function apply(input, config, persist) {
   const { id, baseRev } = input;

@@ -83,6 +83,13 @@ export function mountPaper(tab, host, ctx) {
   }
   async function freezeRecovery({ retain = (token, draft) => api.paperDrafts.retain(token, draft) } = {}) {
     if (preparationLock) throw new Error('This Paper is already frozen for preparation.');
+    // A tab showing a deleted note holds no editor and no words to keep: its snapshot is already retained
+    // by the deletion. It must not stop the profile from being prepared (an export, the Paper switch).
+    if (deleted && !canvas) {
+      const lock = {}; preparationLock = lock;
+      const release = () => { if (preparationLock !== lock) throw new Error('Paper preparation freeze ownership changed.'); preparationLock = null; };
+      return Object.freeze({ profileId: state.profileId, sessionId: recoverySession, draftKeys: Object.freeze([]), assertCurrent: () => !destroyed && deleted && !canvas && preparationLock === lock, release });
+    }
     // Inspect composition before inert removes focus. Never make composition
     // disappear merely to obtain a serializable recovery projection.
     const draft = recoveryDraft(), fingerprint = JSON.stringify(draft);

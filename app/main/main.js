@@ -15,7 +15,7 @@ const { LocalBarkpark } = require('./local-barkpark');
 const { SourceDriver, validate: validateLocal } = require('./local-barkpark-source');
 const crypto = require('crypto');
 const credentialDurability = require('./credential-durability').createCredentialDurability({ safeStorage, sessionData: () => app.getPath('sessionData') });
-let runtimeReadyHook = null, portable = null, profileRegistry = null, profileService = null, profileGate = null, profilePool = null, profileConnection = null, profileConnectionOwner = null, appSettingsStore = null, goalService = null;
+let runtimeReadyHook = null, portable = null, migrationSwitch = null, profileRegistry = null, profileService = null, profileGate = null, profilePool = null, profileConnection = null, profileConnectionOwner = null, appSettingsStore = null, goalService = null;
 // Profiles are the ordinary launch (legacy retirement R2, D-profiles-default). `--legacy` keeps the
 // single legacy library for development tours until R4 removes it; `--profiles` is accepted and means nothing more.
 const PROFILE_MODE = !process.argv.includes('--legacy');
@@ -313,6 +313,8 @@ function toWindow(command, args, timeoutMs = 30000, context = {}) {
     win.webContents.send('control:invoke', { id, command, args, context });
   });
 }
+const ownedProfile = what => { if (!profileService || !portable || !migrationSwitch) throw Object.assign(new Error(`${what} needs an owned profile.`), { code: 'failed' }); return profileService.view().profileId; };
+const signInProvider = provider => { if (!['claude', 'codex'].includes(provider)) throw Object.assign(new Error('provider is claude or codex: the API key is set in Settings › Assistant, by a person'), { code: 'usage' }); return provider; };
 const dotted = (value, key) => String(key).split('.').reduce((at, part) => (at && typeof at === 'object' ? at[part] : undefined), value);
 function startControl() {
   fullYoloOn = loadFullYolo();
@@ -323,6 +325,19 @@ function startControl() {
     'library.status': () => { const b = readSettings().barkpark, status = localStatus(); return { enabled: Boolean(b.enabled), kind: b.local?.enabled ? 'local' : b.viaCli ? 'cli' : b.server ? 'server' : 'none', phase: status.phase || null, error: status.error || null, ...(b.enabled ? {} : { reason: barkparkReason(readSettings()) }) }; },
     'provider.status': () => providerStatus(),
     'updates.status': () => updates ? updates.status() : { state: 'unavailable' },
+    // C095: profiles carried between machines, the Paper switch, provider sign-in.
+    'profile.portable': () => { const profileId = ownedProfile('Export and import'); return { export: portable.outcome(profileId), unfinishedImports: portable.interruptedImports() }; },
+    'profile.discard': ({ profile }) => { ownedProfile('Export and import'); const list = portable.interruptedImports(), ref = String(profile).trim().toLowerCase(); const found = list.find(p => p.profileId === profile) || list.find(p => String(p.name).toLowerCase() === ref); if (!found) throw Object.assign(new Error(`"${profile}" is not an unfinished import. See: barkdown profile portable`), { code: 'not_found' }); return portable.discardImport(found.profileId); },
+    'paper.status': async () => { const profileId = ownedProfile('The Paper switch'); const value = await migrationSwitch.status(profileId); const selection = value?.selection || {}; return { status: selection.status || 'none', changed: (selection.divergence?.details || []).map(c => ({ id: c.id, title: c.title || null, kind: c.kind, what: c.what, decided: c.reconciled?.action || null })), reconcileFirst: Boolean(selection.reconciliationRequired && !selection.divergence?.reconciled), retained: value?.retainedDir || null }; },
+    'paper.compare': async ({ note }) => { const profileId = ownedProfile('The Paper switch'), listed = (await migrationSwitch.status(profileId))?.selection?.divergence?.details || []; const view = listed.some(c => c.id === note) ? await migrationSwitch.changedPaper(profileId, String(note)) : null; if (!view) throw Object.assign(new Error(`"${note}" is not a Paper changed after the switch. See: barkdown paper status`), { code: 'not_found' }); return { id: view.id, kind: view.kind, before: view.before?.markdown ?? null, after: view.after?.markdown ?? null, afterRev: view.after?.rev ?? null }; },
+    'paper.reconcile': async ({ note, action }) => { if (!['keep', 'restore'].includes(action)) throw Object.assign(new Error('action is keep or restore'), { code: 'usage' }); const profileId = ownedProfile('The Paper switch'), listed = (await migrationSwitch.status(profileId))?.selection?.divergence?.details || []; if (!listed.some(c => c.id === note)) throw Object.assign(new Error(`"${note}" is not a Paper changed after the switch. See: barkdown paper status`), { code: 'not_found' }); await migrationSwitch.reconcilePaper(profileId, String(note), action); return { id: note, action, text: action === 'restore' ? 'The staged text is restored on Paper as a new revision.' : 'Kept as on Paper.' }; },
+    'provider.check': ({ provider }) => loginService().check(signInProvider(provider)),
+    'provider.login': async ({ provider, wait }) => {
+      const name = signInProvider(provider); let view = await loginService().start(name);
+      if (wait) { const until = Date.now() + 5.5 * 60 * 1000; while (['starting', 'waiting'].includes(view.state) && Date.now() < until) { await new Promise(resolve => setTimeout(resolve, 500)); view = loginService().status(name); } }
+      return { ...view, text: ['starting', 'waiting'].includes(view.state) ? `The ${name === 'claude' ? 'Claude Code' : 'Codex'} sign-in is open in the browser: a person finishes it there. Check with: barkdown provider check ${name}` : `Sign-in ${view.state}.` };
+    },
+    'provider.cancel': async ({ provider }) => { const name = signInProvider(provider), view = loginService().status(name); if (!['starting', 'waiting', 'checking'].includes(view.state)) return { ...view, text: 'No sign-in is in progress.' }; return loginService().cancel(name, view.id); },
   } });
   Object.assign(process.env, control.env()); // the app's terminal tabs find the command and the app through these
 }
@@ -559,6 +574,7 @@ function registerIpc() {
     const trace = owner => (phase, detail) => console.error(`[${owner}] ${phase}${detail?.operationId ? ' ' + detail.operationId : ''}`);
     const migration = require('./migration-switch').createMigrationSwitch({ registry: profileRegistry, preparation, userData: app.getPath('userData'), checkpoint: trace('switch'),
       runtimePool: { acquire: (...args) => profilePool ? profilePool.acquire(...args) : Promise.reject(Object.assign(new Error('Enable the local Barkpark runtime for this profile first'), { code: 'switch_runtime' })) } });
+    migrationSwitch = migration;
     handle('migration:status', () => migration.status(profileService.view().profileId));
     const migrationAction = (name, run, done) => async () => {
       const id = profileService.view().profileId;
@@ -598,10 +614,13 @@ function registerIpc() {
     handle('portable:chooseExport', () => portable.chooseExport(profileService.view().profileId));
     handle('portable:export', () => portable.exportChosen(profileService.view().profileId));
     handle('portable:import', () => portable.importChosen(profileService.view().profileId));
+    // The control surface's `profile export` and `profile import` (C095): a folder given instead of the picker.
+    handle('portable:exportTo', parent => portable.exportTo(profileService.view().profileId, String(parent || '')));
+    handle('portable:importFrom', folder => portable.importFrom(profileService.view().profileId, String(folder || '')));
     handle('portable:discardExport', async () => { const id = profileService.view().profileId; try { await portable.discardExport(id); } catch (error) { console.error(`[export] discard failed: ${error.code || ''} ${error.message}`); throw error; } return preparationStatus(id); });
     handle('portable:discardImport', profileId => portable.discardImport(profileId));
     handle('portable:importAgain', profileId => portable.importAgain(profileService.view().profileId, profileId));
-  } else { handle('preparation:status', () => ({ record: null, readOnly: false })); handle('preparation:dismiss', () => ({ record: null, readOnly: false })); handle('migration:status', () => null); for (const channel of ['portable:chooseExport', 'portable:export', 'portable:import', 'portable:discardExport', 'portable:discardImport', 'portable:importAgain']) handle(channel, () => { throw new Error('Export and import need an owned profile.'); }); handle('migration:changed', () => null); handle('migration:reconcile', () => null); }
+  } else { handle('preparation:status', () => ({ record: null, readOnly: false })); handle('preparation:dismiss', () => ({ record: null, readOnly: false })); handle('migration:status', () => null); for (const channel of ['portable:chooseExport', 'portable:export', 'portable:import', 'portable:exportTo', 'portable:importFrom', 'portable:discardExport', 'portable:discardImport', 'portable:importAgain']) handle(channel, () => { throw new Error('Export and import need an owned profile.'); }); handle('migration:changed', () => null); handle('migration:reconcile', () => null); }
   const originalHistory = () => {
     if (!profileService) throw new Error('Original history requires an owned profile.');
     const profileId = profileService.view().profileId;
@@ -664,6 +683,11 @@ function registerIpc() {
     return id.startsWith('bp:') ? (await paperConnection.read(binding, c => require('./agent-edits').latest(id, c), true)).value : require('./agent-edits').latest(id);
   });
   handle('docs:undoAgentEdit', ({ id, editId, binding }) => id.startsWith('bp:') ? paperConnection.write(binding, c => require('./agent-edits').undo(id, editId, c)) : require('./agent-edits').undo(id, editId, barkparkConfig()));
+  // The control surface's `note edit` (C095): the assistants' edit path, with its revision check and Undo receipt.
+  handle('docs:applyEdit', ({ id, mode, markdown, summary, baseRev, binding }) => {
+    if (!String(id || '').startsWith('bp:') || !['append', 'replace'].includes(mode)) throw new Error('A Paper note and an edit mode (append or replace) are required.');
+    return paperConnection.write(binding, c => require('./agent-edits').apply({ id, mode, markdown: String(markdown || ''), summary: String(summary || 'Edited from the command line'), baseRev }, c));
+  });
   handle('docs:list', () => documents.list());
   handle('docs:get', id => documents.get(id));
   // Legacy retirement R4: the legacy store is never written by the app. Notes live on Paper; a
@@ -738,12 +762,8 @@ function registerIpc() {
   handle('providers:loginCancel', ({ provider, id }) => loginService().cancel(provider, id));
   // Pasted or dropped images land as files under userData/attachments; messages keep the path, and the
   // providers read the bytes when the prompt is sent (base64 blocks for Claude, local_image for Codex).
-  handle('attachments:save', ({ name, mime, dataUrl }) => {
-    const m = /^data:([\w.+-]+\/[\w.+-]+);base64,(.+)$/s.exec(dataUrl || '');
-    if (!m) throw Object.assign(new Error('Unsupported attachment payload'), { code: 'bad_attachment' });
-    const type = mime || m[1];
+  const saveAttachment = (name, type, bytes) => {
     if (!/^image\/(png|jpeg|gif|webp)$/.test(type)) throw Object.assign(new Error('Only PNG, JPEG, GIF and WebP images can be attached'), { code: 'bad_attachment' });
-    const bytes = Buffer.from(m[2], 'base64');
     if (bytes.length > 20 * 1024 * 1024) throw Object.assign(new Error('Images are limited to 20 MB'), { code: 'bad_attachment' });
     const dir = path.join(store.dir(), 'attachments');
     fs.mkdirSync(dir, { recursive: true });
@@ -752,6 +772,25 @@ function registerIpc() {
     const file = path.join(dir, id + '.' + ext);
     fs.writeFileSync(file, bytes);
     return { id, path: file, url: 'file:///' + file.replace(/\\/g, '/').replace(/^\//, ''), name: name || id + '.' + ext, mime: type, size: bytes.length };
+  };
+  handle('attachments:save', ({ name, mime, dataUrl }) => {
+    const m = /^data:([\w.+-]+\/[\w.+-]+);base64,(.+)$/s.exec(dataUrl || '');
+    if (!m) throw Object.assign(new Error('Unsupported attachment payload'), { code: 'bad_attachment' });
+    return saveAttachment(name, mime || m[1], Buffer.from(m[2], 'base64'));
+  });
+  // An image named by path (the control surface's --image, C095). The bytes decide the type, so a path can
+  // bring in an image and nothing else.
+  handle('attachments:fromFile', file => {
+    const target = String(file || '');
+    if (!path.isAbsolute(target)) throw Object.assign(new Error('Give the image as an absolute path'), { code: 'bad_attachment' });
+    let stat; try { stat = fs.statSync(target); } catch { throw Object.assign(new Error(`There is no file at ${target}`), { code: 'bad_attachment' }); }
+    if (!stat.isFile()) throw Object.assign(new Error(`${target} is not a file`), { code: 'bad_attachment' });
+    if (stat.size > 20 * 1024 * 1024) throw Object.assign(new Error('Images are limited to 20 MB'), { code: 'bad_attachment' });
+    const bytes = fs.readFileSync(target), head = bytes.subarray(0, 12);
+    const type = head.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])) ? 'image/png' : head[0] === 0xff && head[1] === 0xd8 && head[2] === 0xff ? 'image/jpeg'
+      : /^GIF8[79]a/.test(head.toString('latin1', 0, 6)) ? 'image/gif' : head.toString('latin1', 0, 4) === 'RIFF' && head.toString('latin1', 8, 12) === 'WEBP' ? 'image/webp' : null;
+    if (!type) throw Object.assign(new Error(`${path.basename(target)} is not a PNG, JPEG, GIF or WebP image`), { code: 'bad_attachment' });
+    return saveAttachment(path.basename(target), type, bytes);
   });
   handle('agent:start', async ({ chatId, messages, context, provider, session, prompt, images, options }) => {
     if (profileService) return profileService.start(profileService.view(), { chatId, prompt, images, provider, attemptId: options?.attemptId });

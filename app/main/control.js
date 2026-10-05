@@ -41,6 +41,7 @@ function createControl({ userDataDir, appVersion = '', fullYolo, mainHandlers = 
       if (args[name] === undefined) { if (spec.required) throw fail('usage', `${command.name} needs ${name}: ${spec.help}. Example: ${command.example}`); continue; }
       if (spec.type === 'number') { const n = Number(args[name]); if (!Number.isFinite(n)) throw fail('usage', `${name} must be a number`); args[name] = n; }
       if (spec.type === 'boolean') args[name] = args[name] === true || /^(1|true|yes|on)$/i.test(String(args[name]));
+      if (spec.type === 'paths') { const list = (Array.isArray(args[name]) ? args[name] : [args[name]]).map(String).filter(Boolean); if (!list.length) throw fail('usage', `${name} needs a file path`); args[name] = list; }
       if (spec.type === 'json' && typeof args[name] === 'string') { try { args[name] = JSON.parse(args[name]); } catch { /* a bare word is a string */ } }
     }
     for (const name of Object.keys(args)) if (!(name in command.args)) throw fail('usage', `${command.name} has no argument "${name}". It takes: ${Object.keys(command.args).join(', ') || 'nothing'}`);

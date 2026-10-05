@@ -31,7 +31,10 @@ function parse(argv) {
       let [key, value] = item.slice(2).split(/=(.*)/s, 2);
       const negated = key.startsWith('no-') && value === undefined; if (negated) key = key.slice(3);
       if (value === undefined) value = negated ? false : (i + 1 < argv.length && !/^--./.test(argv[i + 1]) && !(GLOBAL.has(key) && ['json', 'help'].includes(key)) && takesValue(key, words) ? argv[++i] : true);
-      (GLOBAL.has(key) ? globals : flags)[key.replace(/-([a-z])/g, (_, c) => c.toUpperCase())] = value;
+      const name = key.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+      // A flag that takes several files (--image a.png --image b.png) collects them.
+      if (!GLOBAL.has(key) && find(resolve(words).name)?.args[name]?.type === 'paths') (flags[name] ||= []).push(value);
+      else (GLOBAL.has(key) ? globals : flags)[name] = value;
     } else if (item === '-h') globals.help = true;
     else words.push(item);
   }
@@ -99,10 +102,11 @@ async function main(argv) {
     const { name, rest } = resolve(words);
     const command = find(name);
     const args = { ...flags };
-    for (const key of Object.keys(args)) args[key] = expand(args[key]);
+    for (const key of Object.keys(args)) args[key] = Array.isArray(args[key]) ? args[key] : expand(args[key]);
     if (rest.length) args._ = rest.map(expand);
     // A folder is named the way a shell names it: relative to here, or from the home folder.
     for (const [key, spec] of Object.entries(command?.args || {})) if (spec.type === 'path' && typeof args[key] === 'string' && args[key] !== 'none') args[key] = path.resolve(args[key].replace(/^~(?=$|[\\/])/, os.homedir()));
+      else if (spec.type === 'paths' && Array.isArray(args[key])) args[key] = args[key].map(file => path.resolve(String(file).replace(/^~(?=$|[\\/])/, os.homedir())));
     const pointer = findInstance({ instance: globals.instance, userData: globals.userData });
     const timeoutMs = globals.timeout ? Number(globals.timeout) * 1000 : (command?.timeoutMs || 30000) + 5000;
     const result = await call(pointer, name, args, { timeoutMs });

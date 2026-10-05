@@ -134,3 +134,32 @@ test('every command in the catalogue has someone to carry it out', () => {
   }
   assert.doesNotMatch(windowSource, /setFullYolo/, 'the window\'s command handlers cannot reach the Full YOLO switch');
 });
+
+// C095: the wider catalogue rides the same gate.
+test('the wider catalogue: what needs Full YOLO, what stays a person\'s, and files given more than once', async () => {
+  const t = setup();
+  try {
+    const pointer = t.pointer(), tier = name => COMMANDS.find(c => c.name === name)?.tier;
+    for (const name of ['note.delete', 'profile.export', 'profile.import', 'profile.discard', 'paper.switch', 'paper.rollback', 'paper.reconcile', 'provider.login']) assert.equal(tier(name), 'admin', name);
+    for (const name of ['note.edit', 'note.undo', 'note.recover', 'goal.new', 'goal.start', 'goal.pause', 'goal.cancel', 'goal.open', 'provider.cancel']) assert.equal(tier(name), 'act', name);
+    for (const name of ['note.deleted', 'profile.portable', 'paper.status', 'paper.compare', 'provider.check', 'goal.list']) assert.equal(tier(name), 'read', name);
+    // A person's attestations and the restart after an export are never commands, Full YOLO or not.
+    t.state.yolo = true;
+    for (const name of ['goal.review', 'goal.accept', 'goal.complete', 'goal.reconcile', 'profile.restart', 'provider.logout']) await refused(call(pointer, name, {}), 'forbidden');
+    assert.ok(!COMMANDS.some(c => /review|accept|complete|logout|signout/i.test(c.name)), 'no command attests a worker\'s result or signs out');
+    assert.equal(t.seen.length, 0);
+    // Required arguments.
+    await refused(call(pointer, 'goal.new', { _: ['Ship it'] }), 'usage');
+    await refused(call(pointer, 'note.edit', { _: ['Plan'] }), 'usage');
+    await refused(call(pointer, 'paper.reconcile', { _: ['drafts.a'] }), 'usage');
+    assert.deepEqual((await call(pointer, 'goal.new', { _: ['Ship it'], minutes: '30', start: 'false' })).args, { objective: 'Ship it', minutes: 30, start: false });
+    assert.deepEqual((await call(pointer, 'note.edit', { _: ['Plan', '- one more'], rev: '4', mode: 'replace' })).args, { note: 'Plan', markdown: '- one more', rev: 4, mode: 'replace' });
+    // A list of files: one becomes a list of one; an empty one is refused.
+    assert.deepEqual((await call(pointer, 'chat.send', { _: ['look'], image: '/tmp/a.png' })).args.image, ['/tmp/a.png']);
+    await refused(call(pointer, 'chat.send', { _: ['look'], image: [] }), 'usage');
+    const r = await t.run('chat', 'send', 'look at these', '--image', 'a.png', '--image', '~/b.png', '--json');
+    assert.equal(r.code, 0, r.err);
+    assert.deepEqual(JSON.parse(r.out).result.args, { message: 'look at these', image: [path.join(process.cwd(), 'a.png'), path.join(os.homedir(), 'b.png')] });
+    const help = await t.run('help', 'note', 'edit'); assert.match(help.out, /--rev/); assert.match(help.out, /required for replace/);
+  } finally { t.control.close(); }
+});

@@ -158,6 +158,12 @@ function createProfilePortable({ registry, preparation, runtimePool, sourceFor, 
     if (!folder) return null;
     return runImport(profileId, folder);
   }
+  // An import from a folder named by the control surface (C095), no picker: the same run as a chosen one.
+  async function importFrom(profileId, folder) {
+    source(profileId);
+    if (!path.isAbsolute(folder) || !fs.existsSync(path.join(folder, 'manifest.json'))) fail('portable_source', 'That folder is not a profile export: it has no manifest.json');
+    return runImport(profileId, folder);
+  }
   // Run an interrupted import again from the export folder it named: the half-made profile is discarded first.
   async function importAgain(profileId, interruptedId) {
     source(profileId);
@@ -167,6 +173,6 @@ function createProfilePortable({ registry, preparation, runtimePool, sourceFor, 
     await discardImport(interruptedId);
     return runImport(profileId, found.exportDir);
   }
-  return Object.freeze({ chooseExport, exportTo, exportChosen, importChosen, outcome, discardExport, interruptedImports, isIncomplete, discardImport, importAgain });
+  return Object.freeze({ chooseExport, exportTo, exportChosen, importChosen, importFrom, outcome, discardExport, interruptedImports, isIncomplete, discardImport, importAgain });
 }
 module.exports = { createProfilePortable };

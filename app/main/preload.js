@@ -15,7 +15,7 @@ async function call(channel, ...args) {
 }
 
 const api = {
-  portable: { chooseExport: () => call('portable:chooseExport'), export: () => call('portable:export'), import: () => call('portable:import'), discardExport: () => call('portable:discardExport'), discardImport: id => call('portable:discardImport', id), importAgain: id => call('portable:importAgain', id),
+  portable: { chooseExport: () => call('portable:chooseExport'), export: () => call('portable:export'), import: () => call('portable:import'), discardExport: () => call('portable:discardExport'), discardImport: id => call('portable:discardImport', id), importAgain: id => call('portable:importAgain', id), exportTo: parent => call('portable:exportTo', parent), importFrom: folder => call('portable:importFrom', folder),
     onProgress: handler => { const listener = (_e, event) => { if (event.profileId === owner?.profileId) handler(event); }; ipcRenderer.on('portable:progress', listener); return () => ipcRenderer.removeListener('portable:progress', listener); } },
   migration: { status: () => call('migration:status'), switch: () => call('migration:switch'), rollback: () => call('migration:rollback'), changed: id => call('migration:changed', id), reconcile: (id, action) => call('migration:reconcile', { id, action }) },
   preparation: {
@@ -48,7 +48,7 @@ const api = {
   control: { onInvoke: handler => { const listener = (_e, request) => handler(request); ipcRenderer.on('control:invoke', listener); return () => ipcRenderer.removeListener('control:invoke', listener); }, result: answer => rawCall('control:result', answer), setFullYolo: on => rawCall('control:setFullYolo', Boolean(on)) },
   originalHistory: { list: () => call('originalHistory:list'), choose: () => call('originalHistory:choose'), read: input => call('originalHistory:read', input) },
   paperDrafts: { retain: (token, draft) => call('paperDrafts:retain', { token, draft }), list: () => call('paperDrafts:list'), markUnsaved: input => call('paperDrafts:markUnsaved', input), clearUnsaved: input => call('paperDrafts:clearUnsaved', input), unsaved: input => call('paperDrafts:unsaved', input), read: key => call('paperDrafts:read', key), copy: (key, format) => call('paperDrafts:copy', { key, format }) },
-  attachments: { save: input => call('attachments:save', input) },
+  attachments: { save: input => call('attachments:save', input), fromFile: file => call('attachments:fromFile', file) },
   browser: { sources: () => call('browser:sources'), import: source => call('browser:import', source), places: () => call('browser:places'), suggest: query => call('browser:suggest', query),
     permissions: () => call('browser:permissions'), forgetPermission: origin => call('browser:forgetPermission', origin), answerPermission: (id, decision) => rawCall('browser:permission-answer', { id, decision }),
     onPermission: handler => { const listener = (_e, request) => handler(request); ipcRenderer.on('browser:permission', listener); return () => ipcRenderer.removeListener('browser:permission', listener); },
@@ -70,7 +70,7 @@ const api = {
     // The legacy write requests stay on the surface so a caller hears why they refuse (legacy retirement R4).
     list: () => call('docs:list'), get: id => call('docs:get', id), create: input => call('docs:create', input), save: input => call('docs:save', input), delete: id => call('docs:delete', id), restore: (id, rev) => call('docs:restore', { id, rev }), resolveProposal: (id, proposalId, accept) => call('docs:proposal', { id, proposalId, accept }), 
     search: q => call('docs:search', q), related: id => call('docs:related', id), history: id => call('docs:history', id),
-    agentEdit: (id, binding) => call('docs:agentEdit', { id, binding }), undoAgentEdit: (id, editId, binding) => call('docs:undoAgentEdit', { id, editId, binding }),
+    agentEdit: (id, binding) => call('docs:agentEdit', { id, binding }), undoAgentEdit: (id, editId, binding) => call('docs:undoAgentEdit', { id, editId, binding }), applyEdit: input => call('docs:applyEdit', input),
     paperProposals: (slug, binding) => call('docs:paperProposals', { slug, binding }), resolvePaperProposal: (slug, proposalId, accept, rev, binding) => call('docs:resolvePaperProposal', { slug, proposalId, accept, rev, binding }), exportMarkdown: id => call('docs:exportMarkdown', id),
   },
   files: { tree: root => call('files:tree', root), read: (root, path) => call('files:read', { root, path }), write: (root, path, text, mtime) => call('files:write', { root, path, text, mtime }), search: (root, query) => call('files:search', { root, query }), exists: (root, path) => call('files:exists', { root, path }) },

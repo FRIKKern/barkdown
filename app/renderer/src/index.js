@@ -122,18 +122,7 @@ function tabContext(chat) {
     libraryChanged: () => refreshLibrary(),
     openDeletedNotes: showDeletedNotes,
     openRetainedDrafts: () => openRetainedDrafts({ api, owner: { profileId: state.profileId, generation: state.generation }, isCurrent: owner => owner.profileId === state.profileId && owner.generation === state.generation }),
-    deletePaper: async paper => {
-      const sameNote = c => c.tab?.source === 'barkpark' && c.tab.paperOwner === paper.paperOwner && c.tab.path.at(-1) === paper.id;
-      const panes = [...controllers.values()].filter(sameNote);
-      if (panes.some(c => c.isDirty?.())) throw new Error('Finish saving this note in every open tab before deleting it.');
-      panes.forEach(c => c.setDeletionPending?.(true));
-      try {
-        const result = await api.barkpark.deleteNote(paper.id, paper.revision, paper.binding);
-        for (const c of controllers.values()) if (sameNote(c)) c.showDeletion?.(result);
-        await refreshLibrary();
-        return result;
-      } finally { panes.forEach(c => c.setDeletionPending?.(false)); }
-    },
+    deletePaper,
     importPaper,
     closeTab: tab => closeTab(chat, tab.id),
     documentChanged: doc => { refreshLibrary(); for (const c of controllers.values()) if (c.type === 'doc' && c.tab.path.at(-1) === String(doc.id).replace(/^bp:/, '')) c.refresh?.(doc.id); },
@@ -408,6 +397,19 @@ function renderChat() {
 
 function initials() { return 'FJ'; }
 
+// Delete a note everywhere it is open (the note's own button and the control surface's `note delete`).
+async function deletePaper(paper) {
+  const sameNote = c => c.tab?.source === 'barkpark' && c.tab.paperOwner === paper.paperOwner && c.tab.path.at(-1) === paper.id;
+  const panes = [...controllers.values()].filter(sameNote);
+  if (panes.some(c => c.isDirty?.())) throw new Error('Finish saving this note in every open tab before deleting it.');
+  panes.forEach(c => c.setDeletionPending?.(true));
+  try {
+    const result = await api.barkpark.deleteNote(paper.id, paper.revision, paper.binding);
+    for (const c of controllers.values()) if (sameNote(c)) c.showDeletion?.(result);
+    await refreshLibrary();
+    return result;
+  } finally { panes.forEach(c => c.setDeletionPending?.(false)); }
+}
 function showDeletedNotes() { return openDeletedNotes({ refresh: refreshLibrary, openPaper: paper => openDirect(paper.id, 'barkpark', paper.paperOwner) }); }
 
 function renderSidebar() {
@@ -940,7 +942,9 @@ const beforeProfileSwitch = async () => {
   return true;
 };
 if (api.control) mountControl({ api, state, controllers, DIRECT, currentChat, createChat, switchChat, deleteChat, openTarget, openDirect, focusTab, closeTab, renameTab, addPage, pageKey, openPalette, refreshLibrary, render, save, serialise, toast, providerFor, respondApproval, cancelRun, applySettings, beforeProfileSwitch,
-  send: (chat, text) => { const hooks = { render: () => { renderChatViews(chat); renderSidebar(); }, runChanged: () => { renderChat(); renderSidebar(); } }; return sendMessage(chat, text, hooks); },
+  send: (chat, text, images = []) => { const hooks = { render: () => { renderChatViews(chat); renderSidebar(); }, runChanged: () => { renderChat(); renderSidebar(); } }; return sendMessage(chat, text, hooks, images); },
+  deletePaper, prepareProfile: () => profilePreparation.prepare(), preparationStatus: () => profilePreparation.status(), refreshManagedChats,
+  openGoals: chat => { if (state.current !== chat.id) switchChat(chat.id); return openConversationGoals(); },
   openSide: (parent, title) => { const side = newChat({ title, folder: parent.folder, side: true, parent: parent.id }); Object.assign(side, { parentTitle: parent.title, provider: providerFor(parent), model: parent.model || null, effort: parent.effort || null }); openTarget({ kind: 'chat', id: side.id, title }, parent, true); save(); return side; },
   favorite: (chat, tab) => { const existing = favoriteFor(tab); if (existing) return existing.label; state.favorites.unshift({ id: crypto.randomUUID(), label: tab.title, target: tabToTarget(tab), chatId: chat.id, chatTitle: chat.title, folder: chat.folder || null, at: new Date().toISOString() }); renderTabs(); renderFavorites(); save(); return tab.title; },
   openSettings: pane => { const open = document.querySelector('.bw-settings'); if (open) open.querySelector(`nav [data-pane="${pane}"]`)?.click(); else openSettings(applySettings, { pane }); },

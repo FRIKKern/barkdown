@@ -45,12 +45,14 @@ export function mountControl(ctx) {
       await sleep(250);
     }
   }
-  async function send(chat, message, wait) {
+  // Images named by path become attachments as a pasted image does; the main process reads only images.
+  const attach = async files => { const images = []; for (const file of files || []) images.push(await api.attachments.fromFile(file)); return images; };
+  async function send(chat, message, wait, images = []) {
     const text = String(message || '').trim();
     if (!text) throw fail('usage', 'The message is empty.');
     if (chat.interruption) throw fail('busy', 'This chat has an interrupted turn a person must review first.');
     if (busy(chat)) throw fail('busy', `"${chat.title}" is still answering. Wait for it (barkdown chat wait) or stop it (barkdown chat stop). An assistant cannot message its own chat while it is answering.`);
-    const accepted = await ctx.send(chat, text);
+    const accepted = await ctx.send(chat, text, images);
     if (accepted === false) { const reply = lastReply(chat); throw fail('failed', reply?.error || 'The message was not sent.'); }
     return wait ? waitFor(chat) : { chat: chat.id, title: chat.title, sent: true, text: 'Sent. Read the reply with: barkdown chat wait' };
   }
@@ -67,13 +69,38 @@ export function mountControl(ctx) {
     'browser.mode': v => typeof v === 'string', 'browser.loggedOut': v => typeof v === 'boolean', 'browser.blocking.enabled': v => typeof v === 'boolean', 'browser.blocking.allow': Array.isArray, 'browser.sites.mode': v => ['all', 'list'].includes(v), 'browser.sites.list': Array.isArray,
     'barkpark.enabled': v => typeof v === 'boolean', 'barkpark.writes': v => typeof v === 'boolean', 'barkpark.dataset': v => typeof v === 'string', 'barkpark.server': v => typeof v === 'string', 'barkpark.local.enabled': v => typeof v === 'boolean' };
 
+  const panesOf = note => [...controllers.values()].filter(c => c.type === 'doc' && c.tab?.source === 'barkpark' && c.tab.path.at(-1) === note.id);
+  const openNote = (note, context) => { const chat = (context?.chatId && state.chats[context.chatId]) || ctx.currentChat(); if (chat && chat.id !== DIRECT && state.mode === 'chat') ctx.openTarget({ kind: 'doc', id: note.id, source: 'barkpark', paperOwner: note.paperOwner }, chat, !context?.chatId, { focus: true }); else if (!context?.chatId) ctx.openDirect(note.id, 'barkpark', note.paperOwner); };
+  // Goals belong to a chat in a profile; the main process checks this owner on every call.
+  const goalOwner = chat => { if (!state.profileId) throw fail('failed', 'Goals need an owned profile.'); return { profileId: state.profileId, generation: state.generation, chatId: chat.id }; };
+  const goalRow = goal => ({ id: goal.id, objective: goal.objective, status: goal.status, deadline: goal.deadline ? new Date(goal.deadline).toISOString() : null, tasks: (goal.tasks || []).map(task => ({ id: task.id, title: task.title || task.chatTitle || task.id, status: task.status, chat: task.chatId || null })) });
+  async function goalCommand(ref, chatRef, context, action) {
+    const chat = chatOf(chatRef, context), owner = goalOwner(chat);
+    const goal = pick(await api.goals.list(owner), ref, g => g.objective, 'goal');
+    const after = await api.goals.command(owner, goal.id, action);
+    await ctx.refreshManagedChats().catch(() => {});
+    return { ...goalRow(after || goal), text: `${{ start: 'Started', pause: 'Paused', cancel: 'Cancelled' }[action]} "${goal.objective}".` };
+  }
+  // The library switch as the Settings buttons run it: prepare the profile, act under the hold, reload.
+  async function switchLibrary(action) {
+    if (Object.values(state.chats).some(busy)) throw fail('busy', 'A chat is still answering. Stop it or wait first.');
+    const before = await api.migration.status();
+    if (!before) throw fail('failed', 'The Paper switch needs an owned profile and its local runtime.');
+    await ctx.prepareProfile();
+    const value = action === 'switch' ? await api.migration.switch() : await api.migration.rollback();
+    setTimeout(() => window.location.reload(), 300); // after this answer has left
+    return { status: value?.selection?.status || null, text: (action === 'switch' ? 'Notes now live on Paper.' : 'Back on legacy notes.') + ' The window is reloading; editing resumes after a person restarts Barkdown.' };
+  }
+
   const commands = {
     'window.summary': () => { const chat = ctx.currentChat(); return { mode: state.mode, chat: chat && chat.id !== DIRECT ? { id: chat.id, title: chat.title, running: busy(chat), tabs: chat.tabs.length } : null, chats: chats().length, notes: state.barkparkDocs.length }; },
 
     'chat.list': () => chats().map(chatRow),
     'chat.read': ({ chat: ref, last }, context) => { const chat = chatOf(ref, context); const messages = chat.messages.filter(m => m.text || m.error); const shown = last ? messages.slice(-last) : messages; return { chat: chat.id, title: chat.title, messages: messages.length, text: shown.map(m => `${m.role === 'user' ? 'You' : 'Assistant'}: ${m.text || ''}${m.error ? ` [failed: ${m.error}]` : ''}`).join('\n\n') || '(no messages yet)' }; },
-    'chat.new': async ({ title, folder, provider, model, effort, message, wait }, context) => {
+    'chat.new': async ({ title, folder, provider, model, effort, message, image, wait }, context) => {
       if (provider && !['claude', 'codex', 'api'].includes(provider)) throw fail('usage', 'provider is one of: claude, codex, api');
+      if (image && !message) throw fail('usage', 'An image goes with a first message: add --message.');
+      const images = await attach(image);
       if (folder && !(await api.files.exists(folder, '.').catch(() => false))) throw fail('usage', `The folder ${folder} does not exist. Give an absolute path to a folder that does.`);
       // A person's new chat comes to the front. An assistant's helper does not take the view from the person.
       const before = context?.chatId ? { current: state.current, mode: state.mode } : null;
@@ -82,7 +109,7 @@ export function mountControl(ctx) {
       if (provider) chat.provider = provider; if (model) chat.model = model; if (effort) chat.effort = effort;
       ctx.render(); await settled();
       if (!message) return { chat: chat.id, title: chat.title, folder: chat.folder, text: `Started "${chat.title}" (${chat.id}).` };
-      return { created: chat.id, ...await send(chat, message, wait) };
+      return { created: chat.id, ...await send(chat, message, wait, images) };
     },
     'chat.open': ({ chat: ref }) => { const chat = chatOf(ref); show(chat); return { chat: chat.id, title: chat.title }; },
     'chat.rename': ({ chat: ref, title }) => { const chat = chatOf(ref); chat.title = String(title).trim().slice(0, 120); ctx.render(); ctx.save(); return { chat: chat.id, title: chat.title }; },
@@ -95,7 +122,7 @@ export function mountControl(ctx) {
       if (folder !== undefined) { const next = same(folder, 'none') ? null : folder; if (next && !(await api.files.exists(next, '.').catch(() => false))) throw fail('usage', `The folder ${next} does not exist.`); chat.folder = next; chat.sessions = {}; for (const c of controllers.values()) if (chat.tabs.some(t => t.id === c.tab.id)) c.navigate?.(); }
       ctx.render(); ctx.save(); return chatRow(chat);
     },
-    'chat.send': ({ message, chat: ref, wait }, context) => { if (!ref && context?.chatId) throw fail('usage', 'Name the chat to message with --chat: an assistant does not message its own chat.'); return send(chatOf(ref, context), message, wait); },
+    'chat.send': async ({ message, chat: ref, image, wait }, context) => { if (!ref && context?.chatId) throw fail('usage', 'Name the chat to message with --chat: an assistant does not message its own chat.'); const chat = chatOf(ref, context); return send(chat, message, wait, await attach(image)); },
     'chat.wait': ({ chat: ref }, context) => { const chat = chatOf(ref, context); if (context?.chatId === chat.id) throw fail('usage', 'An assistant cannot wait for its own chat. Name another with the chat argument.'); return waitFor(chat); },
     'chat.stop': async ({ chat: ref }, context) => { const chat = chatOf(ref, context); if (!chat.runId) return { chat: chat.id, text: 'Nothing is running in this chat.' }; await ctx.cancelRun(chat); return { chat: chat.id, text: 'Stop requested.' }; },
     'chat.approve': async ({ chat: ref, decline }, context) => { const chat = chatOf(ref, context); const approval = pendingApproval(chat); if (!approval) throw fail('not_found', 'No approval is waiting in this chat.'); await ctx.respondApproval(chat, approval.approvalId, !decline); ctx.render(); return { chat: chat.id, text: decline ? 'Declined.' : 'Allowed.' }; },
@@ -104,7 +131,7 @@ export function mountControl(ctx) {
 
     'note.list': async () => { await ctx.refreshLibrary(); return state.barkparkDocs.map(note => ({ id: note.id, title: note.title, updated: note.updatedAt || note.updated || null })); },
     'note.search': async ({ query }) => (await api.barkpark.search(query)).map(hit => ({ id: hit.id || hit.slug, title: hit.title, snippet: hit.snippet || hit.excerpt || '' })),
-    'note.read': async ({ note: ref }) => { const note = noteOf(ref); const open = [...controllers.values()].find(c => c.type === 'doc' && c.tab.source === 'barkpark' && c.tab.path.at(-1) === note.id && c.markdown); const paper = open ? null : await api.barkpark.get(note.id, undefined, note.paperOwner); return { id: note.id, title: paper?.title || note.title, text: open ? open.markdown() : blocksToMarkdown(paper.blocks || []) }; },
+    'note.read': async ({ note: ref }) => { const note = noteOf(ref); const open = [...controllers.values()].find(c => c.type === 'doc' && c.tab.source === 'barkpark' && c.tab.path.at(-1) === note.id && c.markdown); const paper = await api.barkpark.get(note.id, undefined, note.paperOwner), typing = Boolean(open?.isDirty?.()); return { id: note.id, title: paper?.title || note.title, rev: paper?.rev ?? null, ...(typing ? { unsaved: true } : {}), text: typing ? open.markdown() : blocksToMarkdown(paper.blocks || []) }; },
     'note.new': async ({ markdown, title }, context) => {
       if (!state.profileId || !state.settings?.barkpark?.local?.enabled) throw fail('failed', 'Notes need this profile\'s local library, which is off. See: barkdown library status');
       let body = String(markdown || ''), name = String(title || '').trim();
@@ -121,6 +148,58 @@ export function mountControl(ctx) {
     },
     'note.open': ({ note: ref }, context) => { const note = noteOf(ref); const chat = (context?.chatId && state.chats[context.chatId]) || ctx.currentChat(); if (chat && chat.id !== DIRECT) ctx.openTarget({ kind: 'doc', id: note.id, source: 'barkpark', paperOwner: note.paperOwner }, chat, !context?.chatId, { focus: true }); else ctx.openDirect(note.id, 'barkpark', note.paperOwner); return { id: note.id, title: note.title }; },
     'note.page': ({ note: ref }) => { const note = noteOf(ref); ctx.addPage(ctx.pageKey(note.id, 'barkpark', note.paperOwner)); ctx.render(); ctx.save(); return { id: note.id, title: note.title, text: `"${note.title}" is in Pages.` }; },
+
+    'note.edit': async ({ note: ref, markdown, mode = 'append', rev, summary }) => {
+      if (!['append', 'replace'].includes(mode)) throw fail('usage', 'mode is append or replace');
+      if (mode === 'replace' && rev === undefined) throw fail('usage', 'replace rewrites the whole note: give --rev with the revision note read printed, so a note changed since is not overwritten.');
+      const note = noteOf(ref), open = panesOf(note);
+      if (open.some(c => c.isDirty?.())) throw fail('busy', `"${note.title}" has unsaved typing in a tab. Let it save first.`);
+      const paper = await api.barkpark.get(note.id, undefined, note.paperOwner);
+      const edit = await api.docs.applyEdit({ id: 'bp:' + note.id, mode, markdown: String(markdown), summary: summary || (mode === 'replace' ? 'Replaced the text from the command line' : 'Added text from the command line'), baseRev: rev ?? paper.rev, binding: paper.binding });
+      await Promise.all(open.map(c => c.refresh?.())); await ctx.refreshLibrary();
+      return { id: note.id, title: note.title, rev: edit.afterRev, edit: edit.id, text: `Saved to "${note.title}" at revision ${edit.afterRev}. Undo: barkdown note undo "${note.title}"` };
+    },
+    'note.undo': async ({ note: ref }) => {
+      const note = noteOf(ref), open = panesOf(note);
+      if (open.some(c => c.isDirty?.())) throw fail('busy', `"${note.title}" has unsaved typing in a tab. Let it save first.`);
+      const paper = await api.barkpark.get(note.id, undefined, note.paperOwner), edit = await api.docs.agentEdit('bp:' + note.id, paper.binding);
+      if (!edit || edit.undone || edit.undoUnavailable) throw fail('not_found', `"${note.title}" has no edit to undo.`);
+      const result = await api.docs.undoAgentEdit('bp:' + note.id, edit.id, paper.binding);
+      await Promise.all(open.map(c => c.refresh?.())); await ctx.refreshLibrary();
+      return { id: note.id, title: note.title, rev: result?.rev ?? null, text: `Undid "${edit.summary}" in "${note.title}".` };
+    },
+    'note.deleted': async () => (await api.barkpark.deletedNotes()).records.map(r => ({ key: r.key, title: r.title, status: r.status, at: r.at, recovered: r.copyId || null })),
+    'note.recover': async ({ note: ref }, context) => {
+      const { records, binding } = await api.barkpark.deletedNotes();
+      const record = pick(records.map(r => ({ ...r, id: r.key })), ref, r => r.title, 'deleted note');
+      const paper = await api.barkpark.recoverNote(record.key, binding);
+      await ctx.refreshLibrary();
+      openNote({ id: paper.id, paperOwner: paper.paperOwner }, context);
+      return { id: paper.id, title: paper.title, text: record.copyId ? `Opened the copy recovered earlier (${paper.id}).` : `Recovered a copy of "${record.title}" (${paper.id}).` };
+    },
+    'note.delete': async ({ note: ref }) => {
+      const note = noteOf(ref), paper = await api.barkpark.get(note.id, undefined, note.paperOwner);
+      if (paper.paperOrigin?.kind !== 'local' || !note.id.startsWith('drafts.')) throw fail('failed', 'Only notes in this profile\'s local library can be deleted.');
+      const result = await ctx.deletePaper({ ...paper, id: note.id, paperOwner: note.paperOwner });
+      return { deleted: note.id, title: note.title, status: result.status, text: result.status === 'deleted' ? `Deleted "${note.title}". Its snapshot is kept: barkdown note recover "${note.title}"` : 'The deletion is unconfirmed. See: barkdown note deleted' };
+    },
+
+    'goal.list': async ({ chat: ref }, context) => (await api.goals.list(goalOwner(chatOf(ref, context)))).map(goalRow),
+    'goal.new': async ({ objective, minutes, chat: ref, start = true }, context) => {
+      const chat = chatOf(ref, context);
+      if (context?.chatId === chat.id) throw fail('forbidden', 'An assistant does not give its own chat a goal: a goal starts more workers. Start a helper chat (barkdown agent add) and give it the goal.');
+      if (chat.goalId) throw fail('usage', 'A goal\'s worker chat cannot have a goal of its own.');
+      if (!(minutes >= 1 && minutes <= 10080)) throw fail('usage', 'minutes is 1 to 10080');
+      await api.state.save(ctx.serialise());
+      const owner = goalOwner(chat); let goal = await api.goals.create(owner, { objective: String(objective).trim(), durationMinutes: minutes, mode: 'coordinated' });
+      if (start) goal = await api.goals.command(owner, goal.id, 'start');
+      await ctx.refreshManagedChats().catch(() => {});
+      return { ...goalRow(goal), text: `${start ? 'Started' : 'Created'} the goal "${goal.objective}" (${goal.id}) in "${chat.title}".` };
+    },
+    'goal.start': ({ goal, chat }, context) => goalCommand(goal, chat, context, 'start'),
+    'goal.pause': ({ goal, chat }, context) => goalCommand(goal, chat, context, 'pause'),
+    'goal.cancel': ({ goal, chat }, context) => goalCommand(goal, chat, context, 'cancel'),
+    'goal.open': async ({ chat: ref }, context) => { const chat = chatOf(ref, context); if (chat.goalId) throw fail('usage', 'This is a goal\'s worker chat. Open its coordinator chat\'s goals.'); await ctx.openGoals(chat); return { chat: chat.id, text: `The goals of "${chat.title}" are open in the window.` }; },
 
     'tab.list': ({ chat: ref }, context) => { const chat = chatOf(ref, context); return chat.tabs.map((tab, index) => tabRow(chat, tab, index)); },
     'tab.open': ({ kind, target }, context) => {
@@ -166,6 +245,15 @@ export function mountControl(ctx) {
       setTimeout(() => window.location.reload(), 200); // after this answer has left
       return { id: profile.id, name: profile.name, text: `Switched to "${profile.name}". The window is reloading.` };
     },
+    'profile.export': async ({ folder }) => {
+      if (Object.values(state.chats).some(busy)) throw fail('busy', 'A chat is still answering. Stop it or wait before exporting.');
+      await ctx.prepareProfile();
+      let done; try { done = await api.portable.exportTo(folder); } finally { await ctx.preparationStatus().catch(() => {}); }
+      return { ...done, text: `Exported ${done.papers} Paper${done.papers === 1 ? '' : 's'} to ${done.folder}. Editing is paused until a person restarts Barkdown.` };
+    },
+    'profile.import': async ({ folder }) => { const done = await api.portable.importFrom(folder); return { ...done, text: `Imported "${done.profile.name}" with ${done.papers} Paper${done.papers === 1 ? '' : 's'}. Switch to it with: barkdown profile switch "${done.profile.name}"` }; },
+    'paper.switch': () => switchLibrary('switch'),
+    'paper.rollback': () => switchLibrary('rollback'),
     'library.retry': async () => { const status = await api.barkpark.localRetry(); await ctx.refreshLibrary(); return { phase: status?.phase || null, error: status?.error || null }; },
     'browser.permissions': () => api.browser.permissions(),
     'browser.forget': async ({ site }) => { const forgotten = await api.browser.forgetPermission(site); if (!forgotten) throw fail('not_found', `Nothing is remembered for ${site}.`); return { forgotten: site }; },
