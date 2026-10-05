@@ -2,7 +2,7 @@
   "version": 1,
   "id": "C095",
   "stage": "P2",
-  "status": "active",
+  "status": "done",
   "goal": "The barkdown command reaches what a person can still only do by hand: edit, undo, recover and delete notes; export and import profiles; the Paper switch; provider sign-in; goals; images on a message. Same gate, same tiers, same never-list.",
   "scope": [
     "A. Notes: note edit (append or replace, revision-checked, with the Undo receipt), note undo, note deleted, note recover, note delete",
@@ -20,13 +20,19 @@
   ],
   "checkpoint": "2026-10-05",
   "handoff": "docs/cycles/C095-wider-catalogue.md",
-  "evidence": [],
-  "truthReview": "",
-  "screenshotReview": "",
+  "evidence": [
+    "docs/cycles/evidence/C095/live/2026-10-05T16-36-24-695Z-wider/result.json",
+    "app/tests/control.test.mjs",
+    "app/tests/control-wider.live.mjs"
+  ],
+  "truthReview": "2026-10-05: the catalogue has 67 commands (23 new). Unit tests prove the new tiers, the never-list additions, required arguments and a file list given twice. The live tour proves 13 behaviours in real Electron through the launcher the app wrote, at 2474cd04 from a clean tree; C094's tour still passes. Two pre-existing defects were found and fixed (a deleted note's tab blocking preparation; a refused stale edit holding the writer fence); a third (the switch refusing dotted Paper ids) is filed as task-40bc35d902c777e8. Not verified: provider login against a real sign-in, a goal run, paper rollback and reconcile beyond their refusals, the packaged app, Windows.",
+  "screenshotReview": "Visual run 2026-10-05T16-37-02-383Z reviewed and approved for darwin: review-required frames differ only in clock text (documents, retained, goals worker chat) and the temporary command path (settings: assistant). The tour's own stills (note edited with Undo, image sent, goal view, recovered note, export completed with the restart offered) were inspected.",
   "delivery": {
-    "phase": "implementing",
+    "phase": "validating",
     "owner": "primary agent",
-    "remaining": ["A–F in code", "unit tests", "live tour", "pictures", "verify", "push, chain and nightly (owner's go-ahead)"]
+    "remaining": [
+      "push, chain and nightly (owner's go-ahead)"
+    ]
   },
-  "nextAction": "Build slices A–F in app/shared/control-commands.js, app/main/main.js and app/renderer/src/control.js; extend control.test.mjs and control.live.mjs."
+  "nextAction": "Ask the owner to push; then chain and nightly. After that the owner's call: the switch fix (task-40bc35d902c777e8), barkdown on the system path, Windows, or C089's owner items."
 }

@@ -1,0 +1,308 @@
+{
+  "source": "2474cd045447b100fddcd961b032f74f970697c1",
+  "dirty": false,
+  "host": "darwin 24.5.0 arm64",
+  "model": "Scripted replies through the API SDK; not a real model",
+  "status": "passed",
+  "checks": [
+    "without Full YOLO: deleting notes, export, import, the switch and sign-in are refused",
+    "a person turns Full YOLO on in Settings › Assistant",
+    "paper switch moves the library to Paper; after a person's restart the library is on Paper",
+    "note edit appends to a note: the open tab shows it, and the note offers Undo as for an assistant's edit",
+    "note undo takes the edit back, once",
+    "note edit --mode replace needs the revision read, and refuses a stale one",
+    "chat send --image attaches an image as a pasted one; a file that is not an image is refused",
+    "goal new / list / open / cancel; accepting, completing and reconciling stay a person's",
+    "provider check asks the provider, cancel is safe when nothing runs, and there is no sign-out",
+    "note delete keeps a snapshot; note deleted lists it; note recover opens a separate copy",
+    "profile export writes a verified export into the folder given; profile portable reports it; the restart stays a person's",
+    "profile import makes a new profile from the export and does not switch to it; a folder that is not an export is refused",
+    "the log names every change and who asked"
+  ],
+  "screenshots": [
+    "00-switched-restart-offered.png",
+    "01-note-edited-undo-offered.png",
+    "02-image-sent.png",
+    "03-goal-open.png",
+    "04-note-recovered.png",
+    "05-profile-exported.png"
+  ],
+  "transcript": [
+    {
+      "command": "barkdown note delete Anything",
+      "code": 4,
+      "out": "barkdown: This is an administrative command. A person must switch on Full YOLO in Settings › Assistant first; Barkdown cannot switch it on for itself."
+    },
+    {
+      "command": "barkdown profile export /Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/exports",
+      "code": 4,
+      "out": "barkdown: This is an administrative command. A person must switch on Full YOLO in Settings › Assistant first; Barkdown cannot switch it on for itself."
+    },
+    {
+      "command": "barkdown profile import /Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/exports",
+      "code": 4,
+      "out": "barkdown: This is an administrative command. A person must switch on Full YOLO in Settings › Assistant first; Barkdown cannot switch it on for itself."
+    },
+    {
+      "command": "barkdown paper switch",
+      "code": 4,
+      "out": "barkdown: This is an administrative command. A person must switch on Full YOLO in Settings › Assistant first; Barkdown cannot switch it on for itself."
+    },
+    {
+      "command": "barkdown paper rollback",
+      "code": 4,
+      "out": "barkdown: This is an administrative command. A person must switch on Full YOLO in Settings › Assistant first; Barkdown cannot switch it on for itself."
+    },
+    {
+      "command": "barkdown paper reconcile drafts.x keep",
+      "code": 4,
+      "out": "barkdown: This is an administrative command. A person must switch on Full YOLO in Settings › Assistant first; Barkdown cannot switch it on for itself."
+    },
+    {
+      "command": "barkdown provider login codex",
+      "code": 4,
+      "out": "barkdown: This is an administrative command. A person must switch on Full YOLO in Settings › Assistant first; Barkdown cannot switch it on for itself."
+    },
+    {
+      "command": "barkdown profile discard x",
+      "code": 4,
+      "out": "barkdown: This is an administrative command. A person must switch on Full YOLO in Settings › Assistant first; Barkdown cannot switch it on for itself."
+    },
+    {
+      "command": "barkdown ui show settings assistant",
+      "code": 0,
+      "out": "shown: settings\npane: assistant"
+    },
+    {
+      "command": "barkdown paper status --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"status\": \"none\",\n    \"changed\": [],\n    \"reconcileFirst\": false,\n    \"retained\": null\n  }\n}"
+    },
+    {
+      "command": "barkdown paper compare drafts.nothing",
+      "code": 1,
+      "out": "barkdown: \"drafts.nothing\" is not a Paper changed after the switch. See: barkdown paper status"
+    },
+    {
+      "command": "barkdown paper switch --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"status\": \"selected\",\n    \"text\": \"Notes now live on Paper. The window is reloading; editing resumes after a person restarts Barkdown.\"\n  }\n}"
+    },
+    {
+      "command": "barkdown paper status --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"status\": \"selected\",\n    \"changed\": [],\n    \"reconcileFirst\": false,\n    \"retained\": \"/Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/profile-data/profiles/0fd4e0e7-3d48-44a2-9699-a4a01ca6e7bd/selection\"\n  }\n}"
+    },
+    {
+      "command": "barkdown ui show settings assistant",
+      "code": 0,
+      "out": "shown: settings\npane: assistant"
+    },
+    {
+      "command": "barkdown agent add Desk --folder /Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/work",
+      "code": 0,
+      "out": "chat: 1a6a50b4-3927-4445-b348-d8db36feb5fb · title: Desk · folder: /Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/work\n\nStarted \"Desk\" (1a6a50b4-3927-4445-b348-d8db36feb5fb)."
+    },
+    {
+      "command": "barkdown note new # Release plan\n\n- draft the notes --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-63790e0e-c48c-4eb3-ac45-1d897e06d901\",\n    \"title\": \"Release plan\",\n    \"text\": \"Created the note \\\"Release plan\\\" (drafts.bd-note-63790e0e-c48c-4eb3-ac45-1d897e06d901).\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note read Release plan --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-63790e0e-c48c-4eb3-ac45-1d897e06d901\",\n    \"title\": \"Release plan\",\n    \"rev\": 0,\n    \"text\": \"# Release plan\\n\\n- draft the notes\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note edit Release plan - ship on Friday --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-63790e0e-c48c-4eb3-ac45-1d897e06d901\",\n    \"title\": \"Release plan\",\n    \"rev\": 1,\n    \"edit\": \"3a98aafe-0b44-4c84-9107-4ade36ab6fbc\",\n    \"text\": \"Saved to \\\"Release plan\\\" at revision 1. Undo: barkdown note undo \\\"Release plan\\\"\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note read Release plan --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-63790e0e-c48c-4eb3-ac45-1d897e06d901\",\n    \"title\": \"Release plan\",\n    \"rev\": 1,\n    \"text\": \"# Release plan\\n\\n- draft the notes\\n\\n- ship on Friday\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note undo Release plan",
+      "code": 0,
+      "out": "id: drafts.bd-note-63790e0e-c48c-4eb3-ac45-1d897e06d901 · title: Release plan · rev: 2\n\nUndid \"Added text from the command line\" in \"Release plan\"."
+    },
+    {
+      "command": "barkdown note read Release plan --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-63790e0e-c48c-4eb3-ac45-1d897e06d901\",\n    \"title\": \"Release plan\",\n    \"rev\": 2,\n    \"text\": \"# Release plan\\n\\n- draft the notes\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note undo Release plan",
+      "code": 1,
+      "out": "barkdown: \"Release plan\" has no edit to undo."
+    },
+    {
+      "command": "barkdown note edit Release plan Everything new --mode replace",
+      "code": 2,
+      "out": "barkdown: replace rewrites the whole note: give --rev with the revision note read printed, so a note changed since is not overwritten."
+    },
+    {
+      "command": "barkdown note read Release plan --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-63790e0e-c48c-4eb3-ac45-1d897e06d901\",\n    \"title\": \"Release plan\",\n    \"rev\": 2,\n    \"text\": \"# Release plan\\n\\n- draft the notes\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note edit Release plan Stale --mode replace --rev 1",
+      "code": 1,
+      "out": "barkdown: Document changed since it was read. Read it again before editing."
+    },
+    {
+      "command": "barkdown note edit Release plan - one line only --mode replace --rev 2",
+      "code": 0,
+      "out": "id: drafts.bd-note-63790e0e-c48c-4eb3-ac45-1d897e06d901 · title: Release plan · rev: 3 · edit: a899f78e-57f0-4f0b-85ca-ac9aea3e557c\n\nSaved to \"Release plan\" at revision 3. Undo: barkdown note undo \"Release plan\""
+    },
+    {
+      "command": "barkdown note read Release plan --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-63790e0e-c48c-4eb3-ac45-1d897e06d901\",\n    \"title\": \"Release plan\",\n    \"rev\": 3,\n    \"text\": \"# Release plan\\n\\n- one line only\"\n  }\n}"
+    },
+    {
+      "command": "barkdown chat send What colour is this? --chat Desk --image /Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/work/red.png --wait --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"chat\": \"1a6a50b4-3927-4445-b348-d8db36feb5fb\",\n    \"title\": \"Desk\",\n    \"text\": \"Scripted reply to: What colour is this?\"\n  }\n}"
+    },
+    {
+      "command": "barkdown chat send And this? --chat Desk --image /Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/work/red.png.txt",
+      "code": 1,
+      "out": "barkdown: [bad_attachment] red.png.txt is not a PNG, JPEG, GIF or WebP image"
+    },
+    {
+      "command": "barkdown chat send And this? --chat Desk --image /Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/work/missing.png",
+      "code": 1,
+      "out": "barkdown: [bad_attachment] There is no file at /Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/work/missing.png"
+    },
+    {
+      "command": "barkdown goal new Tidy the release notes --minutes 30 --no-start --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"93a9a871-ee0b-4194-9ded-82db1f939270\",\n    \"objective\": \"Tidy the release notes\",\n    \"status\": \"planned\",\n    \"deadline\": \"2026-10-05T17:06:46.029Z\",\n    \"tasks\": [\n      {\n        \"id\": \"plan\",\n        \"title\": \"Coordinator plan\",\n        \"status\": \"pending\",\n        \"chat\": \"1a6a50b4-3927-4445-b348-d8db36feb5fb\"\n      }\n    ],\n    \"text\": \"Created the goal \\\"Tidy the release notes\\\" (93a9a871-ee0b-4194-9ded-82db1f939270) in \\\"Desk\\\".\"\n  }\n}"
+    },
+    {
+      "command": "barkdown goal list --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": [\n    {\n      \"id\": \"93a9a871-ee0b-4194-9ded-82db1f939270\",\n      \"objective\": \"Tidy the release notes\",\n      \"status\": \"planned\",\n      \"deadline\": \"2026-10-05T17:06:46.029Z\",\n      \"tasks\": [\n        {\n          \"id\": \"plan\",\n          \"title\": \"Coordinator plan\",\n          \"status\": \"pending\",\n          \"chat\": \"1a6a50b4-3927-4445-b348-d8db36feb5fb\"\n        }\n      ]\n    }\n  ]\n}"
+    },
+    {
+      "command": "barkdown goal open",
+      "code": 0,
+      "out": "chat: 1a6a50b4-3927-4445-b348-d8db36feb5fb\n\nThe goals of \"Desk\" are open in the window."
+    },
+    {
+      "command": "barkdown goal cancel 93a9a871-ee0b-4194-9ded-82db1f939270 --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"93a9a871-ee0b-4194-9ded-82db1f939270\",\n    \"objective\": \"Tidy the release notes\",\n    \"status\": \"cancelled\",\n    \"deadline\": \"2026-10-05T17:06:46.029Z\",\n    \"tasks\": [\n      {\n        \"id\": \"plan\",\n        \"title\": \"Coordinator plan\",\n        \"status\": \"pending\",\n        \"chat\": \"1a6a50b4-3927-4445-b348-d8db36feb5fb\"\n      }\n    ],\n    \"text\": \"Cancelled \\\"Tidy the release notes\\\".\"\n  }\n}"
+    },
+    {
+      "command": "barkdown goal review 93a9a871-ee0b-4194-9ded-82db1f939270",
+      "code": 4,
+      "out": "barkdown: Accepting or retrying a worker's result is a person's word that it was verified: do it in the goal view (barkdown goal open)."
+    },
+    {
+      "command": "barkdown goal accept 93a9a871-ee0b-4194-9ded-82db1f939270",
+      "code": 4,
+      "out": "barkdown: Accepting or retrying a worker's result is a person's word that it was verified: do it in the goal view (barkdown goal open)."
+    },
+    {
+      "command": "barkdown goal complete 93a9a871-ee0b-4194-9ded-82db1f939270",
+      "code": 4,
+      "out": "barkdown: Completing a goal is a person's word that its results were verified: do it in the goal view (barkdown goal open)."
+    },
+    {
+      "command": "barkdown goal reconcile 93a9a871-ee0b-4194-9ded-82db1f939270",
+      "code": 4,
+      "out": "barkdown: Confirming that a worker has stopped is a person's: do it in the goal view (barkdown goal open)."
+    },
+    {
+      "command": "barkdown provider check codex --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"provider\": \"codex\",\n    \"id\": \"32b84bc3-02e8-48ce-80d1-8fd90c44d60a\",\n    \"state\": \"signed-in\",\n    \"operation\": \"status\"\n  }\n}"
+    },
+    {
+      "command": "barkdown provider check api",
+      "code": 2,
+      "out": "barkdown: provider is claude or codex: the API key is set in Settings › Assistant, by a person"
+    },
+    {
+      "command": "barkdown provider cancel claude --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"provider\": \"claude\",\n    \"id\": \"775b34bf-b705-471d-94d2-3cd7c6da6a2f\",\n    \"state\": \"signed-in\",\n    \"operation\": \"status\",\n    \"text\": \"No sign-in is in progress.\"\n  }\n}"
+    },
+    {
+      "command": "barkdown provider logout",
+      "code": 4,
+      "out": "barkdown: Barkdown has no sign-out. Sign out in Claude Code or Codex itself."
+    },
+    {
+      "command": "barkdown note delete Release plan --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"deleted\": \"drafts.bd-note-63790e0e-c48c-4eb3-ac45-1d897e06d901\",\n    \"title\": \"Release plan\",\n    \"status\": \"deleted\",\n    \"text\": \"Deleted \\\"Release plan\\\". Its snapshot is kept: barkdown note recover \\\"Release plan\\\"\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note deleted --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": [\n    {\n      \"key\": \"4740ffa4af5efd9443cf2a2589d27d221f579e9163bf324f601e5d3cff4d5eed\",\n      \"title\": \"Release plan\",\n      \"status\": \"deleted\",\n      \"at\": \"2026-10-05T16:36:46.884Z\",\n      \"recovered\": null\n    }\n  ]\n}"
+    },
+    {
+      "command": "barkdown note recover Release plan --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-c607b5d6-f0e4-47b8-9b7d-d73b944aa710\",\n    \"title\": \"Release plan\",\n    \"text\": \"Recovered a copy of \\\"Release plan\\\" (drafts.bd-note-c607b5d6-f0e4-47b8-9b7d-d73b944aa710).\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note list --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": [\n    {\n      \"id\": \"welcome\",\n      \"title\": \"Welcome to Barkpark\",\n      \"updated\": \"2026-10-05T16:36:29.092526Z\"\n    },\n    {\n      \"id\": \"drafts.bd-note-c607b5d6-f0e4-47b8-9b7d-d73b944aa710\",\n      \"title\": \"Release plan\",\n      \"updated\": \"2026-10-05T16:36:47.048624Z\"\n    }\n  ]\n}"
+    },
+    {
+      "command": "barkdown paper reconcile drafts.nothing keep",
+      "code": 1,
+      "out": "barkdown: \"drafts.nothing\" is not a Paper changed after the switch. See: barkdown paper status"
+    },
+    {
+      "command": "barkdown profile export /Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/exports --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"status\": \"exported\",\n    \"folder\": \"/Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/exports/Barkdown export - Personal - 2026-10-05 1636\",\n    \"papers\": 2,\n    \"media\": 0,\n    \"files\": 11,\n    \"exportedAt\": \"2026-10-05T16:36:47.505Z\",\n    \"text\": \"Exported 2 Papers to /Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/exports/Barkdown export - Personal - 2026-10-05 1636. Editing is paused until a person restarts Barkdown.\"\n  }\n}"
+    },
+    {
+      "command": "barkdown profile portable --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"export\": {\n      \"status\": \"exported\",\n      \"folder\": \"/Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/exports/Barkdown export - Personal - 2026-10-05 1636\",\n      \"papers\": 2,\n      \"media\": 0,\n      \"files\": 11,\n      \"exportedAt\": \"2026-10-05T16:36:47.505Z\"\n    },\n    \"unfinishedImports\": []\n  }\n}"
+    },
+    {
+      "command": "barkdown profile restart",
+      "code": 4,
+      "out": "barkdown: After an export, a person restarts Barkdown to edit again: restarting is the person's."
+    },
+    {
+      "command": "barkdown profile import /Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/exports/Barkdown export - Personal - 2026-10-05 1636 --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"profile\": {\n      \"id\": \"a1ac7a1b-e170-4465-9007-857f5ed863fa\",\n      \"name\": \"Personal (imported)\"\n    },\n    \"exportedAt\": \"2026-10-05T16:36:47.505Z\",\n    \"papers\": 2,\n    \"media\": 0,\n    \"files\": 11,\n    \"exportedProfile\": \"Personal\",\n    \"text\": \"Imported \\\"Personal (imported)\\\" with 2 Papers. Switch to it with: barkdown profile switch \\\"Personal (imported)\\\"\"\n  }\n}"
+    },
+    {
+      "command": "barkdown profile list --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": [\n    {\n      \"id\": \"0fd4e0e7-3d48-44a2-9699-a4a01ca6e7bd\",\n      \"name\": \"Personal\",\n      \"selected\": true\n    },\n    {\n      \"id\": \"a1ac7a1b-e170-4465-9007-857f5ed863fa\",\n      \"name\": \"Personal (imported)\",\n      \"selected\": false\n    }\n  ]\n}"
+    },
+    {
+      "command": "barkdown profile import /Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/work",
+      "code": 1,
+      "out": "barkdown: [portable_source] That folder is not a profile export: it has no manifest.json"
+    },
+    {
+      "command": "barkdown log --limit 80 --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": [\n    {\n      \"at\": \"2026-10-05T16:36:30.770Z\",\n      \"origin\": \"cli\",\n      \"command\": \"ui.show\",\n      \"args\": \"{\\\"what\\\":\\\"settings\\\",\\\"pane\\\":\\\"assistant\\\"}\",\n      \"ok\": true,\n      \"ms\": 19\n    },\n    {\n      \"at\": \"2026-10-05T16:36:31.362Z\",\n      \"origin\": \"cli\",\n      \"command\": \"paper.compare\",\n      \"args\": \"{\\\"note\\\":\\\"drafts.nothing\\\"}\",\n      \"ok\": false,\n      \"error\": \"\\\"drafts.nothing\\\" is not a Paper changed after the switch. See: barkdown paper status\"\n    },\n    {\n      \"at\": \"2026-10-05T16:36:31.701Z\",\n      \"origin\": \"cli\",\n      \"command\": \"paper.switch\",\n      \"args\": \"{}\",\n      \"ok\": true,\n      \"ms\": 300\n    },\n    {\n      \"at\": \"2026-10"
+    }
+  ],
+  "paperStatus": {
+    "status": "none",
+    "changed": [],
+    "reconcileFirst": false,
+    "retained": null
+  }
+}

@@ -1,0 +1,210 @@
+[
+  {
+    "at": "2026-10-05T16:36:30.770Z",
+    "origin": "cli",
+    "command": "ui.show",
+    "args": "{\"what\":\"settings\",\"pane\":\"assistant\"}",
+    "ok": true,
+    "ms": 19
+  },
+  {
+    "at": "2026-10-05T16:36:31.362Z",
+    "origin": "cli",
+    "command": "paper.compare",
+    "args": "{\"note\":\"drafts.nothing\"}",
+    "ok": false,
+    "error": "\"drafts.nothing\" is not a Paper changed after the switch. See: barkdown paper status"
+  },
+  {
+    "at": "2026-10-05T16:36:31.701Z",
+    "origin": "cli",
+    "command": "paper.switch",
+    "args": "{}",
+    "ok": true,
+    "ms": 300
+  },
+  {
+    "at": "2026-10-05T16:36:41.498Z",
+    "origin": "cli",
+    "command": "ui.show",
+    "args": "{\"what\":\"settings\",\"pane\":\"assistant\"}",
+    "ok": true,
+    "ms": 31
+  },
+  {
+    "at": "2026-10-05T16:36:41.699Z",
+    "origin": "cli",
+    "command": "chat.new",
+    "args": "{\"folder\":\"/Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/work\",\"title\":\"Desk\"}",
+    "ok": true,
+    "ms": 23
+  },
+  {
+    "at": "2026-10-05T16:36:41.845Z",
+    "origin": "cli",
+    "command": "note.new",
+    "args": "{\"markdown\":\"# Release plan\\n\\n- draft the notes\"}",
+    "ok": true,
+    "ms": 105
+  },
+  {
+    "at": "2026-10-05T16:36:43.349Z",
+    "origin": "cli",
+    "command": "note.edit",
+    "args": "{\"note\":\"Release plan\",\"markdown\":\"- ship on Friday\"}",
+    "ok": true,
+    "ms": 1377
+  },
+  {
+    "at": "2026-10-05T16:36:43.593Z",
+    "origin": "cli",
+    "command": "note.undo",
+    "args": "{\"note\":\"Release plan\"}",
+    "ok": true,
+    "ms": 105
+  },
+  {
+    "at": "2026-10-05T16:36:43.702Z",
+    "origin": "cli",
+    "command": "note.undo",
+    "args": "{\"note\":\"Release plan\"}",
+    "ok": false,
+    "error": "\"Release plan\" has no edit to undo."
+  },
+  {
+    "at": "2026-10-05T16:36:43.744Z",
+    "origin": "cli",
+    "command": "note.edit",
+    "args": "{\"mode\":\"replace\",\"note\":\"Release plan\",\"markdown\":\"Everything new\"}",
+    "ok": false,
+    "error": "replace rewrites the whole note: give --rev with the revision note read printed, so a note changed since is not overwritten."
+  },
+  {
+    "at": "2026-10-05T16:36:43.860Z",
+    "origin": "cli",
+    "command": "note.edit",
+    "args": "{\"mode\":\"replace\",\"rev\":1,\"note\":\"Release plan\",\"markdown\":\"Stale\"}",
+    "ok": false,
+    "error": "Document changed since it was read. Read it again before editing."
+  },
+  {
+    "at": "2026-10-05T16:36:45.263Z",
+    "origin": "cli",
+    "command": "note.edit",
+    "args": "{\"mode\":\"replace\",\"rev\":2,\"note\":\"Release plan\",\"markdown\":\"- one line only\"}",
+    "ok": true,
+    "ms": 1364
+  },
+  {
+    "at": "2026-10-05T16:36:45.815Z",
+    "origin": "cli",
+    "command": "chat.send",
+    "args": "{\"chat\":\"Desk\",\"image\":[\"/Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/work/red.png\"],\"wait\":true,\"message\":\"What colour is this?\"}",
+    "ok": true,
+    "ms": 467
+  },
+  {
+    "at": "2026-10-05T16:36:45.864Z",
+    "origin": "cli",
+    "command": "chat.send",
+    "args": "{\"chat\":\"Desk\",\"image\":[\"/Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/work/red.png.txt\"],\"message\":\"And this?\"}",
+    "ok": false,
+    "error": "[bad_attachment] red.png.txt is not a PNG, JPEG, GIF or WebP image"
+  },
+  {
+    "at": "2026-10-05T16:36:45.905Z",
+    "origin": "cli",
+    "command": "chat.send",
+    "args": "{\"chat\":\"Desk\",\"image\":[\"/Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/work/missing.png\"],\"message\":\"And this?\"}",
+    "ok": false,
+    "error": "[bad_attachment] There is no file at /Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/work/missing.png"
+  },
+  {
+    "at": "2026-10-05T16:36:46.036Z",
+    "origin": "cli",
+    "command": "goal.new",
+    "args": "{\"minutes\":30,\"start\":false,\"objective\":\"Tidy the release notes\"}",
+    "ok": true,
+    "ms": 58
+  },
+  {
+    "at": "2026-10-05T16:36:46.142Z",
+    "origin": "cli",
+    "command": "goal.open",
+    "args": "{}",
+    "ok": true,
+    "ms": 24
+  },
+  {
+    "at": "2026-10-05T16:36:46.454Z",
+    "origin": "cli",
+    "command": "goal.cancel",
+    "args": "{\"goal\":\"93a9a871-ee0b-4194-9ded-82db1f939270\"}",
+    "ok": true,
+    "ms": 14
+  },
+  {
+    "at": "2026-10-05T16:36:46.741Z",
+    "origin": "cli",
+    "command": "provider.check",
+    "args": "{\"provider\":\"api\"}",
+    "ok": false,
+    "error": "provider is claude or codex: the API key is set in Settings › Assistant, by a person"
+  },
+  {
+    "at": "2026-10-05T16:36:46.780Z",
+    "origin": "cli",
+    "command": "provider.cancel",
+    "args": "{\"provider\":\"claude\"}",
+    "ok": true,
+    "ms": 0
+  },
+  {
+    "at": "2026-10-05T16:36:46.928Z",
+    "origin": "cli",
+    "command": "note.delete",
+    "args": "{\"note\":\"Release plan\"}",
+    "ok": true,
+    "ms": 70
+  },
+  {
+    "at": "2026-10-05T16:36:47.087Z",
+    "origin": "cli",
+    "command": "note.recover",
+    "args": "{\"note\":\"Release plan\"}",
+    "ok": true,
+    "ms": 75
+  },
+  {
+    "at": "2026-10-05T16:36:47.236Z",
+    "origin": "cli",
+    "command": "paper.reconcile",
+    "args": "{\"note\":\"drafts.nothing\",\"action\":\"keep\"}",
+    "ok": false,
+    "error": "\"drafts.nothing\" is not a Paper changed after the switch. See: barkdown paper status"
+  },
+  {
+    "at": "2026-10-05T16:36:47.558Z",
+    "origin": "cli",
+    "command": "profile.export",
+    "args": "{\"folder\":\"/Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/exports\"}",
+    "ok": true,
+    "ms": 283
+  },
+  {
+    "at": "2026-10-05T16:36:48.761Z",
+    "origin": "cli",
+    "command": "profile.import",
+    "args": "{\"folder\":\"/Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/exports/Barkdown export - Personal - 2026-10-05 1636\"}",
+    "ok": true,
+    "ms": 1050
+  },
+  {
+    "at": "2026-10-05T16:36:48.842Z",
+    "origin": "cli",
+    "command": "profile.import",
+    "args": "{\"folder\":\"/Volumes/SATECHI/dev-caches/tmp/bd-control-wider-DQBWSD/work\"}",
+    "ok": false,
+    "error": "[portable_source] That folder is not a profile export: it has no manifest.json"
+  }
+]
