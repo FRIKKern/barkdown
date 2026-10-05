@@ -25,14 +25,12 @@
     "app/tests/control.test.mjs",
     "app/tests/control-wider.live.mjs"
   ],
-  "truthReview": "2026-10-05: the catalogue has 67 commands (23 new). Unit tests prove the new tiers, the never-list additions, required arguments and a file list given twice. The live tour proves 13 behaviours in real Electron through the launcher the app wrote, at 2474cd04 from a clean tree; C094's tour still passes. Two pre-existing defects were found and fixed (a deleted note's tab blocking preparation; a refused stale edit holding the writer fence); a third (the switch refusing dotted Paper ids) is filed as task-40bc35d902c777e8. Not verified: provider login against a real sign-in, a goal run, paper rollback and reconcile beyond their refusals, the packaged app, Windows.",
+  "truthReview": "2026-10-05: the catalogue has 67 commands (23 new). Unit tests prove the new tiers, the never-list additions, required arguments and a file list given twice. The live tour proves 13 behaviours in real Electron through the launcher the app wrote, at 2474cd04 from a clean tree; C094's tour still passes. Two pre-existing defects were found and fixed (a deleted note's tab blocking preparation; a refused stale edit holding the writer fence); a third (the switch refusing dotted Paper ids) is filed as task-40bc35d902c777e8. Not verified: provider login against a real sign-in, a goal run, paper rollback and reconcile beyond their refusals, the packaged app, Windows. Delivered: the chain is green on 53d4a5e4 (check and the full app test, 258 s on this Mac) and v0.6.0-nightly.20261005.1 is published; its install rehearsal and daily-use runs passed.",
   "screenshotReview": "Visual run 2026-10-05T16-37-02-383Z reviewed and approved for darwin: review-required frames differ only in clock text (documents, retained, goals worker chat) and the temporary command path (settings: assistant). The tour's own stills (note edited with Undo, image sent, goal view, recovered note, export completed with the restart offered) were inspected.",
   "delivery": {
-    "phase": "validating",
+    "phase": "delivered",
     "owner": "primary agent",
-    "remaining": [
-      "push, chain and nightly (owner's go-ahead)"
-    ]
+    "remaining": []
   },
-  "nextAction": "Ask the owner to push; then chain and nightly. After that the owner's call: the switch fix (task-40bc35d902c777e8), barkdown on the system path, Windows, or C089's owner items."
+  "nextAction": "Delivered in v0.6.0-nightly.20261005.1. Next is the owner's call: the switch fix (task-40bc35d902c777e8), barkdown on the system path, Windows, or C089's owner items. Open issues: #4 and #7."
 }

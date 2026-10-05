@@ -12,6 +12,8 @@ One Mac (arm64). A private repository whose Actions runs start with zero jobs (b
 
 ## Phase 1 — a release script with the invariants (this Mac)
 
+A machine whose `TMPDIR` is on an external volume refuses `hdiutil attach` there ("Permission denied"), and the disk image rehearsal fails: run the release with `TMPDIR=/tmp/` (found 2026-10-05).
+
 `node scripts/chain.mjs` runs `npm run check` and the full `npm test` on the exact commit at HEAD, stdin closed, and writes a receipt to `.release/chain/<sha>.json` (ignored; the release uploads it). `node scripts/release.mjs <nightly|stable>` then:
 
 1. refuse a dirty tree and a commit without a green full-chain receipt in the cycle evidence;

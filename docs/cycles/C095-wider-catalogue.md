@@ -28,6 +28,7 @@
 | The gate, tiers, never-list additions, a file list given twice, help | 7 tests pass (one new) | `app/tests/control.test.mjs` |
 | The real app driven by the `barkdown` launcher, replies scripted | 13 checks pass at `2474cd04` | `evidence/C095/live/2026-10-05T16-36-24-695Z-wider/` |
 | C094's tour, unchanged | 13 checks pass | run locally, not kept |
+| Delivery | chain green on `53d4a5e4`, [v0.6.0-nightly.20261005.1](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261005.1) | receipt uploaded with the release; install and daily-use rehearsals passed |
 | Pictures | approved (darwin) | visual run `2026-10-05T16-37-02-383Z`: clock text and a temporary path only |
 
 The tour: admin commands refused without Full YOLO; the switch clicked on; `paper status` and `paper switch` on a library with no notes yet, then a person's restart and the library on Paper; `note edit` appending with Undo shown in the note; `note undo` once; `note edit --mode replace` refused without `--rev` and with a stale one, then done with the right one; `chat send --image` with a PNG (the model got an image block), a text file and a missing file refused; `goal new --no-start`, `list`, `open`, `cancel`, and review, accept, complete, reconcile refused; `provider check`, `cancel` with nothing running, no sign-out; `note delete`, `deleted`, `recover` as a separate copy; `profile export` into a folder with its manifest and the notice offering the restart; `profile import` as a new profile not switched to, a folder without a manifest refused; the log naming every change.
@@ -54,4 +55,4 @@ The tour: admin commands refused without Full YOLO; the switch clicked on; `pape
 
 ## Next
 
-Push, chain and nightly when the owner says so. Then the owner's call: the switch fix (`task-40bc35d902c777e8`), `barkdown` on the system path, Windows, or C089's owner items.
+Delivered in [v0.6.0-nightly.20261005.1](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261005.1). The first release attempt failed at the disk image test: on this Mac `TMPDIR` is on an external volume, where `hdiutil attach` is denied (kept: `evidence/C086/live/2026-10-05T16-54-52-847Z-app-dmg/`); with `TMPDIR=/tmp/` it passed. Next is the owner's call: the switch fix (`task-40bc35d902c777e8`), `barkdown` on the system path, Windows, or C089's owner items.

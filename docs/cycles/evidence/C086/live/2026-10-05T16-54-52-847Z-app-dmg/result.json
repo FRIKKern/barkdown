@@ -1,0 +1,14 @@
+{
+  "source": "53d4a5e42681707c5f217af998f0d3d277b1b5f0",
+  "host": "darwin 24.5.0 arm64",
+  "image": "Barkdown-0.6.0-nightly.20261005.1-arm64.dmg",
+  "imageMb": 177,
+  "checks": [
+    {
+      "name": "The SHA-256 written beside the image matches the image"
+    }
+  ],
+  "status": "failed",
+  "sha256": "c0b8efb555263633f6d2ff7833e8ff9eba66d92c4b0613095047a2bc9eff4998",
+  "error": "Error: Command failed: hdiutil attach /Volumes/SATECHI/github/barkdown/app/release/Barkdown-0.6.0-nightly.20261005.1-arm64.dmg -nobrowse -readonly -noautoopen -mountpoint /Volumes/SATECHI/dev-caches/tmp/bd-dmg-DYeVvz/image\n    at genericNodeError (node:internal/errors:983:15)\n    at wrappedFn (node:internal/errors:537:14)\n    at checkExecSyncError (node:child_process:916:11)\n    at execFileSync (node:child_process:952:15)\n    at file:///Volumes/SATECHI/github/barkdown/app/tests/app-dmg.live.mjs:29:3"
+}

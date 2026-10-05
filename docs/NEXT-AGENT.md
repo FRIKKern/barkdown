@@ -1,5 +1,7 @@
 # Current handoff
 
+2026-10-05, evening: [v0.6.0-nightly.20261005.1](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261005.1) delivers [C095 The wider catalogue](cycles/C095-wider-catalogue.md), cut on a second Mac. Chain green on `53d4a5e4`. On that Mac the release needs `TMPDIR=/tmp/` (an external-volume temp folder refuses `hdiutil attach`) and builds need `CC=/usr/bin/clang`. C095 is done; next is the owner's call. Open: `task-40bc35d902c777e8` (the switch refuses `drafts.*` ids in tabs and Pages).
+
 2026-10-05: [C095 The wider catalogue](cycles/C095-wider-catalogue.md) is the current cycle (the owner chose to widen the catalogue): `barkdown` gains note edits, undo, recovery and deletion; profile export and import; the Paper switch; provider sign-in; goals; images on a message. Same gate and tiers. Work happens on a second Mac this time: the runtime is built from `barkpark-worktrees/barkdown-ref` into `runtime/` (see the handoff's preflight). Task `task-2cc53c96d6e24010`, worker `claude-barkdown-c095`.
 
 2026-10-04, close of night: [v0.6.0-nightly.20261004.5](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261004.5) delivers [C094 Barkdown controls itself](cycles/C094-barkdown-controls-itself.md): the `barkdown` command line, the assistants' `app` tool and the Full YOLO switch. Chain green on `4a30cd10`; the packaged app's launcher answered. C094 is done. Next is the owner's call (the cycle's `nextAction`). The owner's own Barkdown window still runs older code until they restart it.
