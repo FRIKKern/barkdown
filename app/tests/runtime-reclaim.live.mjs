@@ -9,6 +9,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import net from 'node:net';
 import assert from 'node:assert/strict';
 const require = createRequire(import.meta.url);
 const appRoot = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
@@ -70,6 +71,10 @@ try {
   // Both must recover the recorded private database after the host is killed.
   assert.equal(alive(left.pid), process.platform !== 'win32', 'runtime lifetime matches the host launcher contract');
   assert.ok(record.read(), 'the record outlived the host');
+  if (process.platform === 'win32') await new Promise((resolve, reject) => {
+    const probe = net.createServer(); probe.once('error', reject);
+    probe.listen(left.port, '127.0.0.1', () => probe.close(resolve));
+  }); // A dead launcher must not leave BEAM holding the profile's HTTP port.
   report.checks.push({ name: 'The host is killed and the launch record remains', runtimeSurvived: alive(left.pid) }); persist();
 
   await launch(); const ms = await runtimeReady();

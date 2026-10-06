@@ -188,3 +188,5 @@ The browser MCP bridge uses a Windows named pipe with the existing per-call toke
 Chromium import discovers native Windows and Linux profile roots as well as macOS, honors the platform config directory, and reads History from a private copy. The disposable Windows browser tour checks Favorites, suggestions and session persistence; actual sign-ins and cross-machine transfer remain owner checks.
 
 Agent screenshots now composite transparent pixels onto the same white backdrop as the website tab, preserving opaque site colors and CSS-pixel coordinates. The existing MIT-licensed `pngjs` 7.0.0 package is now a runtime dependency. Native browser evidence checks the returned pixels as well as tool completion.
+
+- 7 October, C097: the Windows source launcher joins a kill-on-close Job Object before starting mix/BEAM, so launcher death cannot strand the server on the profile port. Crash/restart validation is recorded in the [Windows cycle](../../docs/cycles/C097-windows-return.md).
