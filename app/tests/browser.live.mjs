@@ -124,6 +124,20 @@ try {
   const status = await page.locator('#browser-import-status').innerText();
   assert.match(status, /Imported 4 bookmarks and 3 history entries; 2 new Favorites/);
   await shot('05-imported');
+  await page.setViewportSize({ width: 700, height: 800 });
+  await page.locator('#browser-blocking-allow').scrollIntoViewIfNeeded();
+  const blockingGeometry = await page.evaluate(() => {
+    const box = selector => { const r = document.querySelector(selector).getBoundingClientRect(); return { top: r.top, bottom: r.bottom, width: r.width }; };
+    const body = document.querySelector('.bw-settings-body');
+    return { checkbox: box('#browser-blocking'), label: box('#browser-blocking').bottom, allow: box('#browser-blocking-allow'), status: box('#browser-blocking-status'), overflow: body.scrollWidth - body.clientWidth };
+  });
+  assert.ok(blockingGeometry.checkbox.width <= 24, 'the checkbox keeps its native control width');
+  assert.ok(blockingGeometry.allow.top > blockingGeometry.label && blockingGeometry.status.top >= blockingGeometry.allow.bottom, 'the checkbox, allow-list and status occupy separate rows');
+  assert.ok(blockingGeometry.overflow <= 1, 'the narrow Settings pane does not overflow horizontally');
+  await shot('05a-blocking-narrow');
+  await page.locator('#browser-blocking-allow').focus(); await page.keyboard.press('Tab');
+  assert.notEqual(await page.evaluate(() => document.activeElement?.id), 'browser-blocking-allow', 'the allow-list remains keyboard reachable and escapable');
+  await page.setViewportSize({ width: 1300, height: 900 });
   await page.keyboard.press('Escape');
   const favorites = await page.evaluate(() => window.__barkdown.state.favorites.map(f => f.target.url));
   assert.deepEqual(favorites, ['https://docs.barkpark.cloud/', 'https://fixture.example/']);

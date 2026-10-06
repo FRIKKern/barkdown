@@ -61,3 +61,5 @@ C076 adds Cancel preparation and a read-only retained-draft dialog reachable fro
 C076 validation found a command-palette race: Enter now waits for the current search before selecting an action, rather than executing an earlier result. The native goal-recovery regression delays search before opening goals and still exercises crash, reconciliation and retry.
 
 C097 makes the browser import description platform-neutral now that Windows profile discovery is supported. [Windows return](../../../docs/cycles/C097-windows-return.md) records the native browser journey and review status.
+
+C097 visual review found the browser checkbox inheriting full-width text-field styling. Browser controls now keep a compact checkbox, a full-width labelled allow-list and a separate status row; the browser tour checks narrow geometry and keyboard exit before capture approval.
