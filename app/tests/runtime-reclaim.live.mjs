@@ -66,20 +66,23 @@ try {
   process.kill(hostPid, 'SIGKILL');
   await new Promise(resolve => setTimeout(resolve, 4000));
   assert.equal(alive(left.hostPid), false, 'the host is gone');
-  assert.equal(alive(left.pid), true, 'the runtime outlived its host');
+  // Windows uses a console-bound launcher; POSIX has a detached process group.
+  // Both must recover the recorded private database after the host is killed.
+  assert.equal(alive(left.pid), process.platform !== 'win32', 'runtime lifetime matches the host launcher contract');
   assert.ok(record.read(), 'the record outlived the host');
-  report.checks.push({ name: 'The host is killed: its runtime and database keep running, the record remains' }); persist();
+  report.checks.push({ name: 'The host is killed and the launch record remains', runtimeSurvived: alive(left.pid) }); persist();
 
   await launch(); const ms = await runtimeReady();
   assert.equal(alive(left.pid), false, 'the leftover runtime was stopped');
-  assert.ok(stderr.join('').includes(`[runtime] reclaimed after host ${left.hostPid} ended: runtime ${left.pid}, private database`), stderr.join('').slice(-600));
+  const reclaimed = process.platform === 'win32' ? 'private database' : `runtime ${left.pid}, private database`;
+  assert.ok(stderr.join('').includes(`[runtime] reclaimed after host ${left.hostPid} ended: ${reclaimed}`), stderr.join('').slice(-600));
   const now = record.read();
   assert.ok(now && now.pid !== left.pid && now.hostPid === hostPid);
   const after = (await page.evaluate(() => window.barkdown.barkpark.list())).map(p => p.id).sort();
   assert.deepEqual(after, before, 'the library is intact');
   const edited = await page.evaluate(() => window.barkdown.barkpark.createNote(crypto.randomUUID()));
   assert.ok(edited.id);
-  report.checks.push({ name: 'The next launch reclaims both by the record, starts again and serves the same library; writing works', readyMs: ms }); persist();
+  report.checks.push({ name: 'The next launch reclaims recorded leftovers, starts again and serves the same library; writing works', readyMs: ms }); persist();
 
   await quit();
   await new Promise(resolve => setTimeout(resolve, 1500));
