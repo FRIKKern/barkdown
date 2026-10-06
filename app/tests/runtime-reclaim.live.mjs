@@ -11,7 +11,7 @@ import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 const require = createRequire(import.meta.url);
-const appRoot = fileURLToPath(new URL('..', import.meta.url));
+const appRoot = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 process.chdir(appRoot);
 const { createProfileRegistry } = require('../main/profile-registry');
 const { createStore } = require('../main/store');

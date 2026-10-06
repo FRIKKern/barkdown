@@ -61,7 +61,9 @@ try {
   app = await electron.launch({ executablePath: require('electron'), args: [appRoot, '--profiles', `--user-data=${userData}`], env: { ...process.env, PATH: '/usr/bin:/bin:/usr/sbin:/sbin', BARKDOWN_PROVIDER: 'api' } });
   page = await app.firstWindow({ timeout: 120000 }); page.setDefaultTimeout(30000);
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
-  await page.setViewportSize({ width: 1300, height: 900 });
+  // Resize the real host window. Chromium device emulation leaks the host viewport into webviews.
+  await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].setContentSize(1300, 900));
+  await page.waitForFunction(() => innerWidth === 1300 && innerHeight === 900);
   // The person's own tab, then the bridge a run in this chat would be given.
   await page.evaluate(u => window.__barkdown.openTarget({ kind: 'web', url: u, title: 'mine' }), site + '/');
   await page.locator('webview#view').waitFor();
@@ -101,6 +103,11 @@ try {
   const image = shotBefore.content.find(c => c.type === 'image'); assert.ok(image?.data);
   fs.writeFileSync(path.join(out, '02-agent-screenshot-form.png'), Buffer.from(image.data, 'base64')); report.screenshots.push('02-agent-screenshot-form.png');
   assert.match(textOf(shotBefore), /viewport \d+×\d+ CSS px/);
+  const pixels = require('pngjs').PNG.sync.read(Buffer.from(image.data, 'base64'));
+  const viewSize = await page.locator('webview#view').last().evaluate(v => { const r = v.getBoundingClientRect(); return { width: r.width, height: r.height }; });
+  assert.ok(Math.abs(pixels.width - viewSize.width) <= 1 && Math.abs(pixels.height - viewSize.height) <= 1, 'agent screenshot matches the visible tab viewport, not the host window');
+  const bottom = ((pixels.height - 4) * pixels.width + 4) * 4;
+  assert.ok(pixels.data[bottom] > 240 && pixels.data[bottom + 3] === 255, 'the blank fixture page remains opaque white, without transparent tiled copies');
   await shot('03-window-while-agent-types');
   // "Send" is sending: the click pauses for the person, who allows it.
   const sending = call('computer', { tabId: created.tabId, action: 'left_click', ref: sendRef });

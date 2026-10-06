@@ -12,6 +12,18 @@ const os = require('node:os');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const fs = require('node:fs');
+const { PNG } = require('pngjs');
+// The host webview has a white backdrop (styles.css). CDP omits that surface.
+// Composite alpha in the returned image without changing the website's DOM or styles.
+function screenshotOnBackdrop(data) {
+  const png = PNG.sync.read(Buffer.from(data, 'base64'));
+  for (let i = 0; i < png.data.length; i += 4) {
+    const alpha = png.data[i + 3] / 255;
+    for (let channel = 0; channel < 3; channel++) png.data[i + channel] = Math.round(png.data[i + channel] * alpha + 255 * (1 - alpha));
+    png.data[i + 3] = 255;
+  }
+  return PNG.sync.write(png).toString('base64');
+}
 
 const INTERACTIVE = new Set(['link', 'button', 'textbox', 'searchbox', 'checkbox', 'radio', 'combobox', 'listbox', 'option', 'menuitem', 'menuitemcheckbox', 'menuitemradio', 'tab', 'switch', 'slider', 'spinbutton', 'treeitem']);
 const SKIP_ROLES = new Set(['none', 'presentation', 'generic', 'InlineTextBox', 'LineBreak']);
@@ -306,7 +318,7 @@ function createBrowserTools({ webContentsFromId, send, ask = async () => true, p
         case 'screenshot': {
           const vp = await viewport(c);
           const shot = await c.send('Page.captureScreenshot', { format: 'png', clip: { x: 0, y: 0, width: vp.width, height: vp.height, scale: 1 } });
-          return { content: [{ type: 'text', text: `${dialog}${vp.title} — ${vp.url}\nviewport ${vp.width}×${vp.height} CSS px, scrolled to ${vp.scrollX},${vp.scrollY}; coordinates in this picture are the coordinates to click.` }, { type: 'image', data: shot.data, mimeType: 'image/png' }] };
+          return { content: [{ type: 'text', text: `${dialog}${vp.title} — ${vp.url}\nviewport ${vp.width}×${vp.height} CSS px, scrolled to ${vp.scrollX},${vp.scrollY}; coordinates in this picture are the coordinates to click.` }, { type: 'image', data: screenshotOnBackdrop(shot.data), mimeType: 'image/png' }] };
         }
         case 'left_click': case 'right_click': case 'double_click': case 'triple_click': {
           await guarded();

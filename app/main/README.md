@@ -186,3 +186,5 @@ Provider discovery uses the installed tool, including the native Codex executabl
 The browser MCP bridge uses a Windows named pipe with the existing per-call token; POSIX retains a private filesystem socket. The real MCP subprocess test verifies the round trip and wrong-token refusal. Updater policy tests exercise macOS signing refusal and Windows/Linux profile-export gating separately.
 
 Chromium import discovers native Windows and Linux profile roots as well as macOS, honors the platform config directory, and reads History from a private copy. The disposable Windows browser tour checks Favorites, suggestions and session persistence; actual sign-ins and cross-machine transfer remain owner checks.
+
+Agent screenshots now composite transparent pixels onto the same white backdrop as the website tab, preserving opaque site colors and CSS-pixel coordinates. The existing MIT-licensed `pngjs` 7.0.0 package is now a runtime dependency. Native browser evidence checks the returned pixels as well as tool completion.
