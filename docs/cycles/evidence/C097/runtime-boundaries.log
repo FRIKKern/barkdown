@@ -1,0 +1,50 @@
+TAP version 13
+# Subtest: external resources map only the direct app.asar parent of main
+ok 1 - external resources map only the direct app.asar parent of main
+  ---
+  duration_ms: 3.0808
+  ...
+# Subtest: no record means nothing to reclaim, and nothing is asked of the database
+ok 2 - no record means nothing to reclaim, and nothing is asked of the database
+  ---
+  duration_ms: 4.2907
+  ...
+# Subtest: a runtime and a database left by a dead host are stopped and the record is cleared
+ok 3 - a runtime and a database left by a dead host are stopped and the record is cleared
+  ---
+  duration_ms: 4.5392
+  ...
+# Subtest: a recycled process id is never signalled; a live host keeps its runtime
+ok 4 - a recycled process id is never signalled; a live host keeps its runtime
+  ---
+  duration_ms: 3.9551
+  ...
+# Subtest: a leftover that will not stop is an error and the record stays
+ok 5 - a leftover that will not stop is an error and the record stays
+  ---
+  duration_ms: 4.3369
+  ...
+# Subtest: a real detached process group left behind is stopped by its record
+ok 6 - a real detached process group left behind is stopped by its record # SKIP POSIX process groups
+  ---
+  duration_ms: 0.2219
+  ...
+# Subtest: a packaged release is recognised by its launcher and its releases folder, and names its commit
+ok 7 - a packaged release is recognised by its launcher and its releases folder, and names its commit
+  ---
+  duration_ms: 8.3044
+  ...
+# Subtest: release keys are stable for one password, differ between passwords, and meet the lengths the server demands
+ok 8 - release keys are stable for one password, differ between passwords, and meet the lengths the server demands
+  ---
+  duration_ms: 1.927
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 150.9633

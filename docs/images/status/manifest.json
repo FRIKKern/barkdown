@@ -1,51 +1,49 @@
 {
-  "capturedAt": "2026-10-05T16:39:19.648Z",
-  "barkdownCommit": "9d64cef17c848c9f720f2b29ea1cee4728ca1653",
+  "capturedAt": "2026-10-06T22:39:06.446Z",
+  "barkdownCommit": "29bf8df8ff03b30cf5f0d4e09255beb2fcc0a5b3",
   "barkdownTreeDirty": false,
   "barkparkCommit": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
   "barkparkTreeDirty": false,
   "isolatedRuntime": true,
   "server": {
-    "url": "http://127.0.0.1:53811",
-    "version": "0.2.27.31"
+    "url": "http://127.0.0.1:52900",
+    "version": "0.2.26.5027"
   },
   "chat": {
-    "real": true,
+    "real": false,
+    "seeded": true,
     "provider": "claude"
   },
   "split": "36fr",
-  "rows": {},
+  "rows": {
+    "tables": "11/11 green",
+    "multiblock": "11/11 green",
+    "tablehead": "6/6 green"
+  },
   "shots": [
     {
-      "file": "paper-light.214bdcf3.png",
-      "caption": "A Barkpark paper edited live in the canvas inside Barkdown, beside a real Claude Code turn on it: quote, checklist, table, callout and code, saved as ops to a local Barkpark."
+      "file": "paper-light.4551d7a8.png",
+      "caption": "A Barkpark paper edited live in the canvas inside Barkdown, beside the assistant transcript: quote, checklist, table, callout and code, saved as ops to a local Barkpark."
     },
     {
-      "file": "paper-dark.2a332d98.png",
+      "file": "paper-dark.b3686d34.png",
       "caption": "The same paper and conversation in dark mode."
     },
     {
-      "file": "slash-menu.f85981fb.png",
+      "file": "slash-menu.d0b49ff0.png",
       "caption": "The slash menu inside the paper, with the plain Quote row beside Callout and Code."
     },
     {
-      "file": "quick-open.80b0978c.png",
+      "file": "quick-open.60639976.png",
       "caption": "Quick open (Ctrl+K) over tabs, papers, chats and actions."
     },
     {
-      "file": "settings-barkpark.d5090027.png",
-      "caption": "Settings \u203a Barkpark: the connection Barkdown edits through \u2014 here the local server."
+      "file": "settings-barkpark.163936f5.png",
+      "caption": "Settings › Barkpark: the connection Barkdown edits through — here the local server."
     },
     {
-      "file": "editing.1f7955f4.gif",
-      "caption": "An editing loop in the canvas: slash menu \u2192 Quote, typing, Tab through the table, quick open."
-    }
-  ],
-  "uiExemptions": [
-    {
-      "commit": "b99df73b2",
-      "reason": "Main-process change only: migration-workspace accepts drafts.<id> for Paper destinations during the Paper switch; no renderer file changed and the status pictures never run a switch.",
-      "date": "2026-10-05"
+      "file": "editing.155b8924.gif",
+      "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
     }
   ]
 }

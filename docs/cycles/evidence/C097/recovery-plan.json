@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "reclaim",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/runtime-reclaim.live.mjs"
+      ]
+    },
+    {
+      "name": "recovery",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/runtime-recovery.live.mjs"
+      ]
+    },
+    {
+      "name": "portable",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-portable-two-installs.live.mjs"
+      ]
+    }
+  ]
+}

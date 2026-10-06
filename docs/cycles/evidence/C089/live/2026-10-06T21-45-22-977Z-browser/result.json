@@ -1,0 +1,132 @@
+{
+  "source": "bb3c8ad74be3b8647c78ad9a97513e98f42338b5",
+  "host": "win32 10.0.26200 x64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "the tab names Chrome and not Electron",
+      "detail": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) barkdown-desktop/0.6.0 Chrome/152.0.7977.130 Safari/537.36"
+      }
+    },
+    {
+      "name": "a popup opens as a child window, reports back to its opener and closes itself",
+      "detail": {
+        "popupUrl": "http://localhost:62138/popup",
+        "opener": "popup: signed-in"
+      }
+    },
+    {
+      "name": "a target=_blank link opens a Barkdown tab beside, not a window",
+      "detail": {
+        "tabs": [
+          "http://localhost:62138/",
+          "http://localhost:62138/beside"
+        ]
+      }
+    },
+    {
+      "name": "a site's permission is asked once in plain words and remembered",
+      "detail": {
+        "prompt": "localhost:62138 asks for to show notifications. Your answer is kept for this site; change it in Settings › Browser.",
+        "remembered": {
+          "origin": "http://localhost:62138",
+          "notifications": "allow",
+          "at": "2026-10-06T21:45:26.881Z"
+        }
+      }
+    },
+    {
+      "name": "Import from Chrome: the bookmarks bar becomes Favorites, the import is named with its counts",
+      "detail": {
+        "sources": [
+          "Google Chrome\nPerson 1\nbookmarks · history\nImport",
+          "Google Chrome\nWork desk\nImport"
+        ],
+        "status": "Imported 4 bookmarks and 3 history entries; 2 new Favorites from the bookmarks bar. The address bar suggests them now.",
+        "favorites": [
+          "https://docs.barkpark.cloud/",
+          "https://fixture.example/"
+        ]
+      }
+    },
+    {
+      "name": "the address bar suggests imported history and bookmarks as you type",
+      "detail": {
+        "typed": "fixture pri",
+        "suggestions": [
+          "https://fixture.example/pricing"
+        ]
+      }
+    },
+    {
+      "name": "a download lands in the Downloads folder under its own name, with a card that opens or shows it",
+      "detail": {
+        "downloadText": "badger-notes.txt downloaded (0.0 MB).",
+        "saved": [
+          "badger-notes.txt"
+        ]
+      }
+    },
+    {
+      "name": "⌘F finds in the page and counts matches; Enter steps; Escape closes",
+      "detail": {
+        "count1": "1 of 2"
+      }
+    },
+    {
+      "name": "⌘= zooms the page and shows 110%; ⌘0 resets",
+      "detail": {
+        "zoomFactor": 1.100000023841858
+      }
+    },
+    {
+      "name": "a right-click in the page shows Barkdown's context menu; a link opens beside",
+      "detail": {
+        "menuItems": [
+          "Open link in a new tab beside",
+          "Copy link",
+          "Back",
+          "Forward",
+          "Reload",
+          "Open in your browser"
+        ]
+      }
+    },
+    {
+      "name": "a tracker script is blocked and counted; the shield allows the site and blocks it again",
+      "detail": {
+        "allowList": [
+          "localhost"
+        ]
+      }
+    },
+    {
+      "name": "a session set in a tab survives a restart of Barkdown",
+      "detail": {
+        "who": "cookie: kept-7f3a"
+      }
+    },
+    {
+      "name": "the remembered permission survives the restart too"
+    }
+  ],
+  "screenshots": [
+    "01-popup-returned.png",
+    "02-opened-beside.png",
+    "03-permission-asked.png",
+    "04-settings-browser.png",
+    "05-imported.png",
+    "06-suggestions.png",
+    "07-download-card.png",
+    "08-find-in-page.png",
+    "09-context-menu.png",
+    "10-shield.png"
+  ],
+  "limits": [
+    "A local site stands in for Google, GitHub and Microsoft: the popup, new-tab, permission and cookie mechanics are what is proven here; real sign-ins are a person's check. One Mac, from source under Electron."
+  ],
+  "quitMs": 264,
+  "exitCode": 0,
+  "cookiesOnDisk": "ENOENT: no such file or directory, copyfile 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-browser-5pQgG7\\Partitions\\barkdown-web-cc9c496d-a12c-42b3-b5d7-61b57c0098f9\\Cookies' -> 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C089\\live\\2026-10-06T21-45-22-977Z-browser\\Cookies.copy'"
+}

@@ -1,0 +1,45 @@
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+electron.launch: Process failed to launch!
+Call log:
+[2m  - <launching> "C:\Users\Frikk\Documents\GitHub\barkdown\app\node_modules\electron\dist\electron.exe" "--inspect=0" "--remote-debugging-port=0" "C:\Users\Frikk\Documents\GitHub\barkdown\app\" "--profiles" "--user-data=C:\Users\Frikk\AppData\Local\Temp\bd-switch-ui-jpznV9"[22m
+[2m  - <launched> pid=27476[22m
+[2m  - [pid=27476][out][22m
+[2m  - [pid=27476][err] Debugger listening on ws://127.0.0.1:54962/44cc468f-787f-4da3-812e-a663ad1c387b[22m
+[2m  - [pid=27476][err] For help, see: https://nodejs.org/learn/getting-started/debugging[22m
+[2m  - <ws connecting> ws://127.0.0.1:54962/44cc468f-787f-4da3-812e-a663ad1c387b[22m
+[2m  - <ws connected> ws://127.0.0.1:54962/44cc468f-787f-4da3-812e-a663ad1c387b[22m
+[2m  - [pid=27476][err] Debugger attached.[22m
+[2m  - <ws disconnected> ws://127.0.0.1:54962/44cc468f-787f-4da3-812e-a663ad1c387b code=1006 reason=[22m
+[2m  - [pid=27476] <kill>[22m
+[2m  - [pid=27476] <will force kill>[22m
+[2m  - [pid=27476] taskkill stderr: ERROR: The process "27476" not found.[22m
+[2m  - [pid=27476] <process did exit: exitCode=1, signal=null>[22m
+[2m  - [pid=27476] starting temporary directories cleanup[22m
+[2m  - [pid=27476] finished temporary directories cleanup[22m
+
+    at async launch (C:\Users\Frikk\Documents\GitHub\barkdown\app\tests\migration-switch-ui.live.mjs:64:9)
+    at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/migration-switch-ui.live.mjs:108:3 {
+  log: [
+    '  - <launching> "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\node_modules\\electron\\dist\\electron.exe" "--inspect=0" "--remote-debugging-port=0" "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\" "--profiles" "--user-data=C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-switch-ui-jpznV9"',
+    '  - <launched> pid=27476',
+    '  - [pid=27476][out]',
+    '  - [pid=27476][err] Debugger listening on ws://127.0.0.1:54962/44cc468f-787f-4da3-812e-a663ad1c387b',
+    '  - [pid=27476][err] For help, see: https://nodejs.org/learn/getting-started/debugging',
+    '  - <ws connecting> ws://127.0.0.1:54962/44cc468f-787f-4da3-812e-a663ad1c387b',
+    '  - <ws connected> ws://127.0.0.1:54962/44cc468f-787f-4da3-812e-a663ad1c387b',
+    '  - [pid=27476][err] Debugger attached.',
+    '  - <ws disconnected> ws://127.0.0.1:54962/44cc468f-787f-4da3-812e-a663ad1c387b code=1006 reason=',
+    '  - [pid=27476] <kill>',
+    '  - [pid=27476] <will force kill>',
+    '  - [pid=27476] taskkill stderr: ERROR: The process "27476" not found.',
+    '  - [pid=27476] <process did exit: exitCode=1, signal=null>',
+    '  - [pid=27476] starting temporary directories cleanup',
+    '  - [pid=27476] finished temporary directories cleanup'
+  ],
+  name: 'Error'
+}
+
+Node.js v22.13.1

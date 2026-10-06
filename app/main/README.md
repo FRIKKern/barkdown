@@ -190,3 +190,5 @@ Chromium import discovers native Windows and Linux profile roots as well as macO
 Agent screenshots now composite transparent pixels onto the same white backdrop as the website tab, preserving opaque site colors and CSS-pixel coordinates. The existing MIT-licensed `pngjs` 7.0.0 package is now a runtime dependency. Native browser evidence checks the returned pixels as well as tool completion.
 
 - 7 October, C097: the Windows source launcher joins a kill-on-close Job Object before starting mix/BEAM, so launcher death cannot strand the server on the profile port. Crash/restart validation is recorded in the [Windows cycle](../../docs/cycles/C097-windows-return.md).
+
+- 7 October, C097 capture review: the unavailable-provider fallback now uses the current completed-tool schema, labels itself as a sample and invents no usage or proposal. Timed-out turns are cancelled before the transcript is replaced. This is capture-fixture behavior, not real-provider proof.

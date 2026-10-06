@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-06T22:19:51.462Z",
+  "source": "7a1a4bedc3315ab838e7cacf7e7643c3ee176ea4",
+  "sourceStatus": "?? docs/cycles/evidence/C083/live/2026-10-06T21-59-10-713Z-switch-ui/\n?? docs/cycles/evidence/C083/live/2026-10-06T22-05-35-899Z-switch-ui/\n?? docs/cycles/evidence/C085/live/2026-10-06T22-13-43-504Z-runtime-reclaim/\n?? docs/cycles/evidence/C085/live/2026-10-06T22-16-14-663Z-runtime-reclaim/\n?? docs/cycles/evidence/C089/live/2026-10-06T21-41-57-811Z-browser/\n?? docs/cycles/evidence/C089/live/2026-10-06T21-45-22-977Z-browser/\n?? docs/cycles/evidence/C089/live/2026-10-06T21-46-05-343Z-agent-browser/\n?? docs/cycles/evidence/C089/live/2026-10-06T21-57-34-496Z-browser/\n?? docs/cycles/evidence/C089/live/2026-10-06T21-58-18-094Z-agent-browser/\n?? docs/cycles/evidence/C089/live/2026-10-06T22-01-53-645Z-agent-browser/\n?? docs/cycles/evidence/C089/live/2026-10-06T22-02-33-354Z-agent-browser/\n?? docs/cycles/evidence/C089/live/2026-10-06T22-03-17-491Z-agent-browser/\n?? docs/cycles/evidence/C089/live/2026-10-06T22-04-40-201Z-agent-browser/\n?? docs/cycles/evidence/C089/live/2026-10-06T22-05-22-799Z-agent-browser/\n?? docs/cycles/evidence/C090/live/2026-10-06T21-58-30-529Z-terminal/\n?? docs/cycles/evidence/C097/agent-browser-review.jpg\n?? docs/cycles/evidence/C097/browser-review.jpg\n?? docs/cycles/evidence/C097/desktop-01/\n?? docs/cycles/evidence/C097/desktop-02/\n?? docs/cycles/evidence/C097/desktop-03/\n?? docs/cycles/evidence/C097/desktop-04/\n?? docs/cycles/evidence/C097/desktop-plan.json\n?? docs/cycles/evidence/C097/desktop-remaining-plan.json\n?? docs/cycles/evidence/C097/desktop-resume-plan.json\n?? docs/cycles/evidence/C097/live-01/\n?? docs/cycles/evidence/C097/live-02/\n?? docs/cycles/evidence/C097/live-03/\n?? docs/cycles/evidence/C097/live-plan.json\n?? docs/cycles/evidence/C097/live-resume-plan.json\n?? docs/cycles/evidence/C097/recovery-plan.json\n?? docs/cycles/evidence/C097/repository-inventory.json\n?? docs/cycles/evidence/C097/switch-review-1.jpg\n?? docs/cycles/evidence/C097/switch-review-2.jpg\n?? docs/cycles/evidence/C097/terminal-review.jpg\n?? docs/cycles/evidence/C097/toolchain.json",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "reclaim",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/runtime-reclaim.live.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-06T22:19:51.584Z",
+      "log": "reclaim.log",
+      "elapsedMs": 98940,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "recovery",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/runtime-recovery.live.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "portable",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/profile-portable-two-installs.live.mjs"
+      ],
+      "status": "not-run"
+    }
+  ],
+  "finishedAt": "2026-10-06T22:21:30.527Z"
+}

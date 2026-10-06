@@ -1,0 +1,150 @@
+TAP version 13
+# Subtest: without a policy the person is asked and the answer decides
+ok 1 - without a policy the person is asked and the answer decides
+  ---
+  duration_ms: 23.4858
+  ...
+# Subtest: a policy that skips approves at once and shows no card
+ok 2 - a policy that skips approves at once and shows no card
+  ---
+  duration_ms: 29.3234
+  ...
+# Subtest: a policy that fails asks
+ok 3 - a policy that fails asks
+  ---
+  duration_ms: 30.8886
+  ...
+# Subtest: actual live runner classifies error
+ok 4 - actual live runner classifies error
+  ---
+  duration_ms: 146.5338
+  ...
+# Subtest: actual live runner classifies nonzero
+ok 5 - actual live runner classifies nonzero
+  ---
+  duration_ms: 125.9836
+  ...
+# Subtest: actual live runner classifies no-effect
+ok 6 - actual live runner classifies no-effect
+  ---
+  duration_ms: 131.2184
+  ...
+# Subtest: actual live runner classifies empty
+ok 7 - actual live runner classifies empty
+  ---
+  duration_ms: 127.3188
+  ...
+# Subtest: actual live runner classifies incomplete
+ok 8 - actual live runner classifies incomplete
+  ---
+  duration_ms: 541.1304
+  ...
+# Subtest: actual live runner classifies cancelled-cleanup
+ok 9 - actual live runner classifies cancelled-cleanup
+  ---
+  duration_ms: 387.5509
+  ...
+# Subtest: actual live runner classifies late-error
+ok 10 - actual live runner classifies late-error
+  ---
+  duration_ms: 126.3659
+  ...
+# Subtest: actual live runner classifies error-note
+ok 11 - actual live runner classifies error-note
+  ---
+  duration_ms: 125.964
+  ...
+# Subtest: actual live runner classifies tool-error
+ok 12 - actual live runner classifies tool-error
+  ---
+  duration_ms: 128.2816
+  ...
+# Subtest: actual live runner classifies cleanup-failed
+ok 13 - actual live runner classifies cleanup-failed
+  ---
+  duration_ms: 126.1305
+  ...
+# Subtest: actual live runner classifies unverified
+ok 14 - actual live runner classifies unverified
+  ---
+  duration_ms: 125.2061
+  ...
+# Subtest: actual live runner classifies approval
+ok 15 - actual live runner classifies approval # SKIP needs a Paper runtime since the legacy retirement; run under the isolated harness
+  ---
+  duration_ms: 0.0833
+  ...
+# Subtest: actual live runner classifies wrong-content
+ok 16 - actual live runner classifies wrong-content
+  ---
+  duration_ms: 128.208
+  ...
+# Subtest: actual live runner classifies no-receipt
+ok 17 - actual live runner classifies no-receipt
+  ---
+  duration_ms: 130.0621
+  ...
+# Subtest: actual live runner classifies wrong-revision
+ok 18 - actual live runner classifies wrong-revision
+  ---
+  duration_ms: 132.9231
+  ...
+# Subtest: actual live runner classifies no-read
+ok 19 - actual live runner classifies no-read
+  ---
+  duration_ms: 124.053
+  ...
+# Subtest: actual live runner classifies success
+ok 20 - actual live runner classifies success # SKIP needs a Paper runtime since the legacy retirement; run under the isolated harness
+  ---
+  duration_ms: 0.0665
+  ...
+# Subtest: actual live runner classifies delayed-finish
+ok 21 - actual live runner classifies delayed-finish # SKIP needs a Paper runtime since the legacy retirement; run under the isolated harness
+  ---
+  duration_ms: 0.0451
+  ...
+# Subtest: actual live runner classifies invalid-provider
+ok 22 - actual live runner classifies invalid-provider
+  ---
+  duration_ms: 60.2467
+  ...
+# Subtest: actual live runner classifies extra-document
+ok 23 - actual live runner classifies extra-document
+  ---
+  duration_ms: 145.9223
+  ...
+# Subtest: actual live runner classifies malformed-extra
+ok 24 - actual live runner classifies malformed-extra
+  ---
+  duration_ms: 126.5601
+  ...
+# Subtest: actual live runner classifies unexpected-tool
+ok 25 - actual live runner classifies unexpected-tool
+  ---
+  duration_ms: 131.0854
+  ...
+# Subtest: actual live runner classifies folder-change
+ok 26 - actual live runner classifies folder-change
+  ---
+  duration_ms: 126.6235
+  ...
+# Subtest: actual live runner classifies wrong-target
+ok 27 - actual live runner classifies wrong-target
+  ---
+  duration_ms: 126.5945
+  ...
+# Subtest: actual live runner classifies sentinel-change
+ok 28 - actual live runner classifies sentinel-change
+  ---
+  duration_ms: 124.6747
+  ...
+1..28
+# tests 28
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 3
+# todo 0
+# duration_ms 3554.5683

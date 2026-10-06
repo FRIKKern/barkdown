@@ -1,0 +1,14 @@
+ok enter split at end -> zero,one typed,,two,three
+ok move up one -> zero,one,three,two
+ok move down one -> zero,two,one,three
+ok move to top -> three,zero,one,two
+ok move to bottom -> one,two,three,zero
+ok move and patch -> zero,two edited,one,three
+ok insert and move -> one,dup,two,three,zero
+ok remove and move -> zero,three,two
+ok patch passthrough
+Ops rewrite checks passed.
+(node:25236) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/shared/ops.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\Frikk\Documents\GitHub\barkdown\app\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)

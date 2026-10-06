@@ -1,0 +1,15 @@
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: [{"type":"error","message":"Could not run it: spawn C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-run-owners-zEwWWh\\tools\\claude ENOENT","runId":"4efb72a6-cdc7-4bdf-a63c-6450dd71bb36","chatId":"same","provider":"claude","profileId":"c5c5cb48-1bc3-4bd1-9928-b1353bcd8d63","sequence":1}]
+    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/run-ownership.test.mjs:176:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '=='
+}
+
+Node.js v22.13.1

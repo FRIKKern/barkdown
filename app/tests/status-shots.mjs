@@ -76,7 +76,7 @@ const caretAtEndOf = async text => { await pm().locator(`p:has-text("${text}")`)
 // next provider, and only then seed a transcript — flagged in the manifest and the caption.
 let chat = { real: false };
 const prompt = 'Read the paper "Status: what the canvas does today" and append one short sentence at the end, noting that table header columns and alignment now survive a reload. Keep your reply to two lines.';
-const clearChat = () => page.evaluate(() => { const s = window.__barkdown.state; const c = s.chats[s.current]; c.messages = []; c.runId = null; c.workingLabel = null; window.__barkdown.render(); });
+const clearChat = () => page.evaluate(async () => { const s = window.__barkdown.state; const c = s.chats[s.current]; if (c.runId) await window.barkdown.agent.cancel(c.runId); c.messages = []; c.runId = null; c.workingLabel = null; window.__barkdown.render(); });
 for (const provider of ['claude', 'codex']) {
   try {
     await clearChat();
@@ -94,7 +94,20 @@ for (const provider of ['claude', 'codex']) {
 if (!chat.real) {
   console.error('seeding a transcript instead');
   await clearChat();
-  await page.evaluate(() => { const s = window.__barkdown.state; const c = s.chats[s.current]; c.provider = 'claude'; c.messages.push({ role: 'user', text: 'Read the status note and summarize the verified table features.', at: new Date().toISOString() }); c.messages.push({ role: 'assistant', text: 'Header columns and cell alignment now save and survive a reload. The live row also checks that the reader matches the canvas.', at: new Date().toISOString(), provider: 'claude', tools: [{ id: 't1', name: 'read_document', input: { id: 'bp:barkdown-status' }, output: 'heading, paragraph, blockquote, list, table, callout, code' }], parts: [{ kind: 'tool', id: 't1' }, { kind: 'text', text: 'Header columns and cell alignment now save and survive a reload. The live row also checks that the reader matches the canvas.' }], usage: { cost: 0.012, durationMs: 21000, tokens: { input: 2100, output: 90 } }, events: [{ label: 'Proposed a change to Status: what the canvas does today', target: { kind: 'doc', id: 'bp:barkdown-status', title: 'Status: what the canvas does today' }, at: new Date().toISOString() }], approvals: [] }); window.__barkdown.render(); });
+  await page.evaluate(() => {
+    const s = window.__barkdown.state, c = s.chats[s.current];
+    const text = 'This sample transcript describes the note: a quote, checklist, table, callout and code. The editor beside it is connected to the live test server.';
+    c.provider = 'claude';
+    c.messages.push({ role: 'user', text: 'Summarize the status note.', at: new Date().toISOString() });
+    c.messages.push({ role: 'assistant', text, at: new Date().toISOString(), provider: 'claude',
+      tools: [{ id: 't1', tool: 'read_document', done: true, ok: true, input: { id: 'bp:barkdown-status' }, output: 'heading, paragraph, blockquote, list, table, callout, code' }],
+      parts: [{ kind: 'tool', id: 't1' }, { kind: 'text', text }], events: [], approvals: [] });
+    window.__barkdown.render();
+  });
+  await page.waitForFunction(() => {
+    const transcript = document.querySelector('#bw-transcript');
+    return transcript?.textContent.includes('Read document bp:barkdown-status') && !transcript.textContent.includes('undefined') && !transcript.querySelector('.bw-step.running, .bw-changes');
+  });
   chat = { real: false, seeded: true, provider: 'claude' };
 }
 await page.waitForTimeout(600);
@@ -110,7 +123,7 @@ const tidyChat = (where = 'top') => page.evaluate(w => { document.querySelectorA
 await tidyChat('top');
 const shots = [];
 const shot = async (file, caption, fn, check) => { await split(36); if (fn) await fn(); await settled(); if (check) await check(); await page.screenshot({ path: path.join(out, file) }); shots.push({ file, caption }); console.log('shot', file); };
-await shot('paper-light.png', `A Barkpark paper edited live in the canvas inside Barkdown, beside ${chat.real ? `a real ${chat.provider === 'codex' ? 'Codex' : 'Claude Code'} turn on it` : 'the assistant transcript'}: quote, checklist, table, callout and code, saved as ops to a local Barkpark.`, async () => { await pm().locator('p').first().hover(); });
+await shot('paper-light.png', `A Barkpark paper edited live in the canvas inside Barkdown, beside ${chat.real ? `a real ${chat.provider === 'codex' ? 'Codex' : 'Claude Code'} turn on it` : 'a labeled sample transcript (providers unavailable)'}: quote, checklist, table, callout and code, saved as ops to a local Barkpark.`, async () => { await pm().locator('p').first().hover(); });
 await shot('paper-dark.png', 'The same paper and conversation in dark mode.', async () => { await page.emulateMedia({ colorScheme: 'dark' }); });
 await page.emulateMedia({ colorScheme: 'light' });
 await shot('slash-menu.png', 'The slash menu inside the paper, with the plain Quote row beside Callout and Code.', async () => { await caretAtEndOf('A note in Barkdown'); await page.keyboard.press('Enter'); await settled(); await page.keyboard.type('/'); }, async () => { await page.locator('body .bp-slash-menu').waitFor({ state: 'visible' }); });

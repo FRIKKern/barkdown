@@ -1,0 +1,17 @@
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: the runtime outlived its host
+
+false !== true
+
+    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/runtime-reclaim.live.mjs:69:10 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: 'strictEqual'
+}
+
+Node.js v22.13.1

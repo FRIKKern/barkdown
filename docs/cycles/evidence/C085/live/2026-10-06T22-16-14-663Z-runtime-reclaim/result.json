@@ -1,0 +1,18 @@
+{
+  "source": "e9a58ba33b6628950e3582caa8d7ec87489bfd31",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "host": "win32 10.0.26200 x64",
+  "status": "failed",
+  "checks": [
+    {
+      "name": "The launch is recorded: host, runtime process and its start time, ports",
+      "runtime": 36220,
+      "host": 39224
+    }
+  ],
+  "limits": [
+    "One machine, one run. The host is ended with SIGKILL while idle; a kill in the middle of a write is not produced here. Process ownership is checked on the host named in this report."
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: the runtime outlived its host\n\nfalse !== true\n\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/runtime-reclaim.live.mjs:69:10",
+  "mainStderr": ""
+}

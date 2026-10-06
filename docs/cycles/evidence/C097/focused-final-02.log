@@ -1,0 +1,80 @@
+TAP version 13
+# Chrome import: sources from Local State, bar bookmarks to Favorites, history with the 1601 epoch, merged places, ranked suggestions and refusals passed.
+# (node:29812) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: tests\\chrome-import.test.mjs
+ok 1 - tests\\chrome-import.test.mjs
+  ---
+  duration_ms: 178.1582
+  ...
+# Subtest: fixed commands and strict successful status avoid shell input and malformed status
+ok 2 - fixed commands and strict successful status avoid shell input and malformed status
+  ---
+  duration_ms: 1.7679
+  ...
+# Subtest: resolver ignores relative PATH and Windows shell wrappers
+ok 3 - resolver ignores relative PATH and Windows shell wrappers
+  ---
+  duration_ms: 1.9927
+  ...
+# Subtest: double start reuses one operation and success waits for verified job drain
+ok 4 - double start reuses one operation and success waits for verified job drain
+  ---
+  duration_ms: 6.1832
+  ...
+# Subtest: cancel during launch prevents login dispatch and waits for cleanup
+ok 5 - cancel during launch prevents login dispatch and waits for cleanup
+  ---
+  duration_ms: 0.8222
+  ...
+# Subtest: stale cancellation cannot stop a later login and shutdown prevents new launches
+ok 6 - stale cancellation cannot stop a later login and shutdown prevents new launches
+  ---
+  duration_ms: 1.1297
+  ...
+# Subtest: unverified cleanup remains visible and cannot be replaced by another operation
+ok 7 - unverified cleanup remains visible and cannot be replaced by another operation
+  ---
+  duration_ms: 0.7429
+  ...
+# Subtest: missing executable and provider failure remain explicit without emitting raw output
+ok 8 - missing executable and provider failure remain explicit without emitting raw output
+  ---
+  duration_ms: 1.1241
+  ...
+# Subtest: timeout waits for owned cleanup and cannot turn a late successful result into success
+ok 9 - timeout waits for owned cleanup and cannot turn a late successful result into success
+  ---
+  duration_ms: 36.5066
+  ...
+# Subtest: startup known not dispatched permits retry, uncertain startup remains blocked
+ok 10 - startup known not dispatched permits retry, uncertain startup remains blocked
+  ---
+  duration_ms: 2.0427
+  ...
+# Subtest: POSIX authentication host verifies its own process group stopped
+ok 11 - POSIX authentication host verifies its own process group stopped # SKIP
+  ---
+  duration_ms: 0.5018
+  ...
+# Subtest: Windows Codex npm and pnpm shims resolve native files without executing wrapper commands
+ok 12 - Windows Codex npm and pnpm shims resolve native files without executing wrapper commands
+  ---
+  duration_ms: 19.1748
+  ...
+# Provider versions: the stamp matches the pinned SDKs and the fit classification passed.
+# Provider tools: PATH and Settings resolution, --version sanity run with impostor, broken, slow and missing files, caching, and the resolver override passed.
+# Subtest: tests\\provider-tools.test.mjs
+ok 3 - tests\\provider-tools.test.mjs
+  ---
+  duration_ms: 769.7906
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 799.7184

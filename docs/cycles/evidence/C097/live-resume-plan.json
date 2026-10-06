@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "agent-browser",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/agent-browser.live.mjs"
+      ]
+    },
+    {
+      "name": "switch",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/migration-switch-ui.live.mjs"
+      ]
+    },
+    {
+      "name": "reclaim",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/runtime-reclaim.live.mjs"
+      ]
+    },
+    {
+      "name": "recovery",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/runtime-recovery.live.mjs"
+      ]
+    },
+    {
+      "name": "portable",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-portable-two-installs.live.mjs"
+      ]
+    }
+  ]
+}
