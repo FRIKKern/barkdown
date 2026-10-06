@@ -32,10 +32,11 @@ createStore(dir).writeJson('settings.json', { theme: 'dark', provider: 'api', ba
 registry.selectProfile(profile.id);
 const dataDir = path.join(dir, 'local-barkpark', 'runtime'), record = createRuntimeRecord({ dataDir, log: () => {} });
 const alive = pid => { try { process.kill(pid, 0); return true; } catch (error) { return error.code === 'EPERM'; } };
-let app, page, stderr = [];
+let app, page, hostPid, stderr = [];
 const launch = async () => {
   stderr = [];
   app = await electron.launch({ executablePath: require('electron'), args: [appRoot, '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api' } });
+  hostPid = await app.evaluate(() => process.pid);
   app.process().stderr?.on('data', chunk => stderr.push(String(chunk)));
   page = await app.firstWindow({ timeout: 120000 }); page.setDefaultTimeout(30000);
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
@@ -50,7 +51,7 @@ const runtimeReady = async () => {
     await new Promise(resolve => setTimeout(resolve, 500));
   }
 };
-const quit = async () => { await Promise.race([app.close(), new Promise((_, reject) => setTimeout(() => reject(new Error('The app did not quit within 90 seconds')), 90000))]); };
+const quit = async () => { let timer; try { await Promise.race([app.close(), new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('The app did not quit within 90 seconds')), 90000); })]); } finally { clearTimeout(timer); } };
 let left = null;
 try {
   await launch(); await runtimeReady();
@@ -59,10 +60,10 @@ try {
   assert.ok(before.includes(note.id));
   left = record.read();
   assert.ok(left && Number.isSafeInteger(left.pid) && alive(left.pid), 'the launch is recorded with a live runtime');
-  assert.equal(left.hostPid, app.process().pid);
+  assert.equal(left.hostPid, hostPid);
   report.checks.push({ name: 'The launch is recorded: host, runtime process and its start time, ports', runtime: left.pid, host: left.hostPid }); persist();
 
-  process.kill(app.process().pid, 'SIGKILL');
+  process.kill(hostPid, 'SIGKILL');
   await new Promise(resolve => setTimeout(resolve, 4000));
   assert.equal(alive(left.hostPid), false, 'the host is gone');
   assert.equal(alive(left.pid), true, 'the runtime outlived its host');
@@ -73,7 +74,7 @@ try {
   assert.equal(alive(left.pid), false, 'the leftover runtime was stopped');
   assert.ok(stderr.join('').includes(`[runtime] reclaimed after host ${left.hostPid} ended: runtime ${left.pid}, private database`), stderr.join('').slice(-600));
   const now = record.read();
-  assert.ok(now && now.pid !== left.pid && now.hostPid === app.process().pid);
+  assert.ok(now && now.pid !== left.pid && now.hostPid === hostPid);
   const after = (await page.evaluate(() => window.barkdown.barkpark.list())).map(p => p.id).sort();
   assert.deepEqual(after, before, 'the library is intact');
   const edited = await page.evaluate(() => window.barkdown.barkpark.createNote(crypto.randomUUID()));
