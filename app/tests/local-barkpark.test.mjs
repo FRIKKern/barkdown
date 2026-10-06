@@ -74,7 +74,12 @@ function driver() {
 {
   // A data folder from another Postgres major is refused in plain words before anything starts.
   const data = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-pg-major-')); const pgBin = path.join(data, 'bin'); fs.mkdirSync(pgBin);
-  fs.writeFileSync(path.join(pgBin, 'pg_ctl'), '#!/bin/sh\necho "pg_ctl (PostgreSQL) 16.4"\n'); fs.chmodSync(path.join(pgBin, 'pg_ctl'), 0o755);
+  const childProcess = require('node:child_process'), originalExec = childProcess.execFileSync;
+  childProcess.execFileSync = (file, args, options) => {
+    assert.equal(file, path.join(pgBin, 'pg_ctl')); assert.deepEqual(args, ['--version']);
+    return originalExec(process.execPath, ['-e', 'console.log("pg_ctl (PostgreSQL) 16.4")'], options);
+  };
+  try {
   const d = Object.assign(Object.create(SourceDriver.prototype), { pgData: path.join(data, 'pgdata'), pgBin, exe: '', packaged: null });
   d.assertDatabaseCompatible();
   fs.mkdirSync(d.pgData); fs.writeFileSync(path.join(d.pgData, 'PG_VERSION'), '15\n');
@@ -82,5 +87,6 @@ function driver() {
   fs.writeFileSync(path.join(d.pgData, 'PG_VERSION'), '16\n'); d.assertDatabaseCompatible();
   // A packaged runtime names its Postgres in the release mark; that wins over asking the binary.
   d.packaged = { postgres: { postgres: '15.18' } }; assert.throws(() => d.assertDatabaseCompatible(), /made by PostgreSQL 16, and this runtime brings PostgreSQL 15/);
+  } finally { childProcess.execFileSync = originalExec; }
 }
 console.log('Local Barkpark lifecycle: duplicate starts, health recovery after three misses, retry budget, cancellation, ownership refusal, Windows worker failure detection and the Postgres major guard passed.');
