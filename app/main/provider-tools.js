@@ -48,13 +48,16 @@ function createProviderTools({ settings = () => ({}), env = async () => process.
     if (override) {
       if (!path.isAbsolute(override)) return { ...result, source: 'settings', problem: 'The binary path must be absolute.' };
       if (!fileStamp(override)) return { ...result, source: 'settings', path: override, problem: 'No file at this path.' };
-      result.path = override; result.source = 'settings';
+      result.path = resolveProviderCli(provider, { env: environment, home, override }); result.source = 'settings';
+      if (!result.path) return { ...result, path: override, problem: 'This wrapper does not identify an installed native tool. Choose its executable.' };
     } else {
       const found = resolveProviderCli(provider, { env: environment, home });
       if (!found) return { ...result, problem: `${TESTED[provider].name} was not found on the PATH. Install it, or set its path here.`, install: TESTED[provider].install, login: TESTED[provider].login };
       result.path = found; result.source = 'path';
     }
-    const stamp = fileStamp(result.path);
+    // A file validated for Codex is not validated for Claude, and a Settings override
+    // must keep its provenance even when the same file was previously found on PATH.
+    const stamp = `${provider}:${result.source}:${fileStamp(result.path)}`;
     if (!fresh && cache.has(stamp)) return { ...cache.get(stamp), checkedAt: result.checkedAt };
     const ran = await runVersion(result.path, { timeoutMs, env: environment, spawnImpl });
     const line = firstLine(ran.output);

@@ -4,9 +4,9 @@ Barkdown is an experiment in what Barkpark can do, and a tool for figuring out w
 
 We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT, taking the parts we love from each. We’re doing this for fun and learning, with no plans to make money from it. The aim is an excellent app shaped by our taste and Barkpark.
 
-## Where we are · October 4, 2026
+## Where we are · October 6, 2026
 
-**The short version:** notes live on Paper, a whole library can move between machines, the app survives crashes without losing a word, and a Mac installs it from a 156 MB disk image that runs your own Claude Code or Codex. What's missing is a signature, proof on a real library, and Windows.
+**The short version:** notes live on Paper; migration, recovery and export/import have passed bounded Mac rehearsals. Mac nightlies carry the runtime and use your installed Claude Code or Codex. The latest source is now on Windows; [C097](docs/cycles/C097-windows-return.md) is verifying its native runtime and recovery. Real-library, cross-machine and signed-installation acceptance remain.
 
 **Working, and shown working**
 - Profiles keep notes, chats and keys apart. [Accepted](docs/cycles/C039-completion-audit.md).
@@ -21,7 +21,7 @@ We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT,
 
 **Not yet**
 - No real library has switched. The corpus so far is ours.
-- On Windows only the terminal has run since September, on a hosted runner from source. The rest waits for the machine, back around October 5; there is no Windows build.
+- Windows is back: latest dependencies, app build and root verification passed at entry. The complete current desktop suite and runtime journeys are being revalidated; there is no Windows installer.
 - Sync and installation are later stages.
 
 **Next**
@@ -30,7 +30,7 @@ We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT,
 - Windows returns: switch a real library, carry an export across machines, recover from a crash there.
 - The old editor is retired ([C087](docs/cycles/C087-legacy-retirement.md)): profiles are the ordinary launch, an old library is offered for adoption, every note is written on Paper, and legacy notes stay readable. The Mac application [builds with its runtime and database inside](docs/cycles/C086-packaged-runtime.md), not yet signed. It runs chats through [the Claude Code and Codex you already have](docs/cycles/C088-own-agents.md) instead of carrying its own copies: 456 MB, down from 1 GB.
 
-**How far along:** migration is about 75% by effort, low confidence, plausible range 30–90%. That weighs demonstrated work against what's left; it is not a safety rating. [How it's calculated](docs/PLAN.md#migration-effort-estimate).
+**How far along (reviewed October 6):** migration remains provisionally about 75% by effort, low confidence, plausible range 30–90%. That weighs demonstrated work against what's left; it is not a safety rating. [How it's calculated](docs/PLAN.md#migration-effort-estimate).
 
 [Current work](docs/NEXT-AGENT.md) · [Plan](docs/PLAN.md) · [Verified results](docs/VALIDATION.md) · [Screenshots & recordings](docs/visual/README.md)
 

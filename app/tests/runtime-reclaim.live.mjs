@@ -24,7 +24,7 @@ const out = path.resolve('../docs/cycles/evidence/C085/live', new Date().toISOSt
 fs.mkdirSync(out, { recursive: true });
 const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-reclaim-')));
 const report = { source: host, upstream, host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [],
-  limits: ['One machine, one run. The host is ended with SIGKILL while idle; a kill in the middle of a write is not produced here. POSIX process groups only: the Windows path (taskkill on the recorded process tree) is written and not rehearsed.'] };
+  limits: ['One machine, one run. The host is ended with SIGKILL while idle; a kill in the middle of a write is not produced here. Process ownership is checked on the host named in this report.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();
 const registry = createProfileRegistry(path.join(userData, 'profile-data'));
 const profile = registry.createProfile({ name: 'Writing desk' }), dir = registry.storeFor(profile.id).storeDir;
@@ -90,7 +90,7 @@ try {
   report.status = 'failed'; report.error = String(error?.stack || error); report.mainStderr = stderr.join('').slice(-2000); persist();
   try { await quit(); } catch {}
   // Only what this rehearsal launched: the recorded process group and the private database directory.
-  for (const r of [left, (() => { try { return record.read(); } catch { return null; } })()]) if (r?.pid && alive(r.pid)) { try { process.kill(-r.pid, 'SIGTERM'); } catch {} }
+  try { await record.reclaim(); } catch (cleanupError) { console.error('Recorded runtime cleanup:', cleanupError.message); }
   try { execFileSync('pg_ctl', ['-D', path.join(dataDir, 'pgdata'), '-m', 'fast', '-w', '-t', '20', 'stop'], { stdio: 'ignore' }); } catch {}
   throw error;
 }

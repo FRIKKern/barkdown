@@ -376,7 +376,7 @@ function createBrowserTools({ webContentsFromId, send, ask = async () => true, p
 function createBrowserBridge(tools, { log = () => {} } = {}) {
   const token = crypto.randomBytes(24).toString('hex');
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-browser-')); fs.chmodSync(dir, 0o700);
-  const socketPath = path.join(dir, 'bridge.sock');
+  const socketPath = require('./platform').ipcPath(dir, 'browser');
   const server = net.createServer(socket => {
     let buffer = '';
     socket.on('data', chunk => {

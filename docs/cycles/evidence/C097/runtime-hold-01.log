@@ -1,0 +1,13 @@
+Isolated runtime data: C:\Users\Frikk\AppData\Local\Temp\barkdown-hold-kEAqVu instance rehearsal-e2ba3b28
+starting 
+ready 
+held { generation: 1, boot: '3e797a8d62f5f5dfff3079a35ae01194' }
+PASS hold refuses an admin write, reopen admits it, the old capability refuses.
+stopping 
+stopped 
+starting 
+ready 
+PASS restart while held stays blocked: writes refused, old capability unknown, a new hold refused (explicit recovery required).
+PASS explicit recovery reopens the restarted runtime with a fresh generation; a new hold and reopen follow.
+stopping 
+stopped 

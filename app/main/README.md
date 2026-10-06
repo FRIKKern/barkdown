@@ -178,3 +178,11 @@ Nothing in the app writes the legacy store any more. The `docs:create`, `docs:sa
 ### 2026-10-01 — notices for the carried runtime (C086)
 
 `scripts/collect-runtime-notices.mjs <runtime folder> <checkout>` lists every application the release carries (Hex packages from the checkout's `deps`, Erlang/OTP and Elixir applications, the runtime system), the carried PostgreSQL and the OpenSSL linked into it, with the licence each declares and its text under `docs/third-party/runtime/licenses/`. A Hex package that does not ship its text has it fetched from the repository its metadata names, at the release tag, and the notices say where from. `build-runtime-postgres.mjs` now keeps PostgreSQL's COPYRIGHT in the folder.
+
+### Windows return (C097)
+
+Provider discovery uses the installed tool, including the native Codex executable identified by a standard Windows npm/pnpm wrapper; it never executes that wrapper through a shell or falls back to an app-bundled Codex. Version checks cache provider identity and Settings/PATH provenance separately. Portable subprocess fixtures retain timeout, refusal and fallback coverage on Windows. Current native runtime and recovery acceptance is tracked in [C097](../../docs/cycles/C097-windows-return.md).
+
+The browser MCP bridge uses a Windows named pipe with the existing per-call token; POSIX retains a private filesystem socket. The real MCP subprocess test verifies the round trip and wrong-token refusal. Updater policy tests exercise macOS signing refusal and Windows/Linux profile-export gating separately.
+
+Chromium import discovers native Windows and Linux profile roots as well as macOS, honors the platform config directory, and reads History from a private copy. The disposable Windows browser tour checks Favorites, suggestions and session persistence; actual sign-ins and cross-machine transfer remain owner checks.

@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
-const { createUpdates, channelOf } = require('../main/updates');
+const { createUpdates: createPlatformUpdates, channelOf } = require('../main/updates');
+const createUpdates = options => createPlatformUpdates({ platform: 'darwin', ...options });
 import { EventEmitter } from 'node:events';
 function fakeUpdater() { const u = new EventEmitter(); Object.assign(u, { feed: null, setFeedURL(f) { this.feed = f; }, checks: 0, downloads: 0, installs: 0, async checkForUpdates() { this.checks++; this.emit('checking-for-update'); this.emit('update-available', { version: '0.6.0-nightly.20261002.1' }); }, async downloadUpdate() { this.downloads++; this.emit('download-progress', { percent: 50 }); this.emit('update-downloaded', { version: '0.6.0-nightly.20261002.1' }); }, quitAndInstall() { this.installs++; } }); return u; }
 assert.equal(channelOf('0.6.0-nightly.20261001.1'), 'nightly'); assert.equal(channelOf('0.6.0'), 'latest');
@@ -47,3 +48,11 @@ assert.equal(channelOf('0.6.0-nightly.20261001.1'), 'nightly'); assert.equal(cha
   failing = false; const went = await updates.install(); assert.equal(u.installs, 1); assert.deepEqual(went.snapshot, { from: '0.6.0', to: went.latest, folder: '/snap/' + went.latest });
 }
 console.log('Updates: off without a feed, GitHub channel feeds, check without download, download without install, ad hoc refusal, signed install, the copy before the install, errors and the schedule passed.');
+for (const platform of ['win32', 'linux']) {
+  const u = fakeUpdater(); let copied = false;
+  const updates = createUpdates({ platform, app: { isPackaged: true }, autoUpdater: u, version: '0.6.0', repository: { owner: 'o', repo: 'r' }, signed: false,
+    snapshots: { take: async () => { copied = true; return { folder: '/fixture/export' }; } } });
+  await updates.check(); await updates.download(); await updates.install();
+  assert.equal(copied, true, `${platform} keeps the profile export gate`);
+  assert.equal(u.installs, 1, `${platform} has no macOS ad hoc signature restriction`);
+}

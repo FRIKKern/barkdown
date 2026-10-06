@@ -10,8 +10,9 @@ const require = createRequire(import.meta.url);
 const { captureScope } = require('../main/providers/run-scope');
 const root = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'bd-tool-refusal-'));
 const storeDir = path.join(root, 'store'); fs.mkdirSync(storeDir); const folder = path.join(root, 'folder'); fs.mkdirSync(folder);
-const impostor = path.join(root, 'impostor'); fs.writeFileSync(impostor, '#!/bin/sh\necho "hello from a script"\n'); fs.chmodSync(impostor, 0o755);
-for (const [provider, binary, expected] of [['claude', impostor, /Not Claude Code: --version answered “hello from a script”/], ['codex', path.join(root, 'missing-codex'), /No file at this path\./]]) {
+// Node is a real native executable on every host, but its version never identifies Claude.
+const impostor = process.execPath;
+for (const [provider, binary, expected] of [['claude', impostor, /Not Claude Code: --version answered “v\d/], ['codex', path.join(root, 'missing-codex'), /No file at this path\./]]) {
   const scope = captureScope({ profileId: crypto.randomUUID(), storeDir, context: { folder }, connection: { enabled: false, viaCli: false, writes: false } });
   const bare = Object.freeze({ ...scope, env: Object.freeze({ ...scope.env, PATH: '/usr/bin:/bin', HOME: root }) });
   const events = [];

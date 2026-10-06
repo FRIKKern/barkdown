@@ -1,30 +1,36 @@
 {
   "version": 1,
-  "id": "C096",
+  "id": "C097",
   "stage": "P2",
-  "status": "done",
-  "goal": "The Paper switch carries a workspace that already holds Paper notes made on the local runtime (drafts.<id>) in tabs, favorites and Pages.",
+  "status": "active",
+  "goal": "Verify the Mac-delivered application on Windows with an isolated pinned runtime, migration and recovery journeys.",
   "scope": [
-    "A. migration-workspace accepts drafts.<id> for Paper destinations; local ids stay strict",
-    "B. Unit cases and a live tour: note open, switch, restart"
+    "Windows toolchain and provider/process compatibility",
+    "Disposable-profile migration, restart, export/import and recovery",
+    "Current Windows evidence and reconciled handoff"
   ],
   "acceptance": [
-    "Unit tests prove drafts ids pass for Paper destinations and dotted local ids are refused",
-    "A live tour switches with a Paper note open in a tab, in Pages and in Favorites, and the note is open after a restart"
+    "Pinned Windows source runtime starts and serves Paper",
+    "Native profile, terminal and provider boundaries pass",
+    "Migration and recovery journeys pass on disposable profiles",
+    "Root verification and reviewed Windows visual evidence pass"
   ],
-  "checkpoint": "2026-10-05",
-  "handoff": "docs/cycles/C096-switch-drafts.md",
+  "checkpoint": "2026-10-06",
+  "handoff": "docs/cycles/C097-windows-return.md",
   "evidence": [
-    "docs/cycles/evidence/C096/live/2026-10-05T18-26-51-545Z-switch-drafts/result.json",
-    "app/tests/migration-workspace.test.mjs",
-    "app/tests/migration-switch-drafts.live.mjs"
+    "docs/cycles/evidence/C097/runtime-hold-01.log",
+    "docs/cycles/evidence/C097/runtime-crash-01.log"
   ],
-  "truthReview": "2026-10-05: migration-workspace accepts drafts.<id> only for Paper destinations (barkpark tabs and favorites, bp: and bp:v1: Page keys); local and conversation ids stay strict, other dotted ids are refused (unit cases). The live tour at b99df73b switches with a Paper note in a tab, Pages and Favorites and finds it open after a restart; the same tour without the fix fails at the switch. All 173 migration unit tests pass. Not run: migration-switch-ui.live.mjs (needs a dev-built Barkpark checkout), Windows, the packaged app. Delivered: chain green on de9d9418, v0.6.0-nightly.20261005.2 published with its install and daily-use rehearsals.",
-  "screenshotReview": "No renderer change. The tour's stills (note open before the switch, note open after the restart) were inspected.",
+  "truthReview": "Entry: source synchronized to bb3c8ad7. Windows acceptance remains unverified after Mac delivery; historical plan prose needs reconciliation.",
+  "screenshotReview": "Windows captures are stale; refresh after implementation.",
   "delivery": {
-    "phase": "delivered",
-    "owner": "primary agent",
-    "remaining": []
+    "phase": "implementing",
+    "owner": "Codex Windows return",
+    "remaining": [
+      "Finish Windows desktop regression checks",
+      "Migration/recovery and visual proof",
+      "Commit and push checkpoint"
+    ]
   },
-  "nextAction": "Delivered in v0.6.0-nightly.20261005.2. Next is the owner's call: barkdown on the system path, Windows, or C089's owner items. Open issues: #4 and #7."
+  "nextAction": "Finish desktop-03, commit implementation, then rehearse migration/recovery and review Windows visual captures."
 }

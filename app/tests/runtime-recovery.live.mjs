@@ -29,7 +29,7 @@ const out = path.resolve('../docs/cycles/evidence/C085/live', new Date().toISOSt
 fs.mkdirSync(out, { recursive: true });
 const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-recovery-'))), marker = path.join(userData, 'stalled');
 const report = { source: host, upstream, host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],
-  limits: ['One machine, one run. The host is ended with SIGKILL; the switch is stalled at one point, after its journal reached replacing. The unowned hold is taken by the rehearsal over HTTP with the runtime token, as a stand-in for an operation that died after its journal completed. A writer that raises inside the runtime during a drain is not produced: a cut connection does not kill an admitted writer (see the dying-writer rehearsal). POSIX only.'] };
+  limits: ['One machine, one run. The host is ended with SIGKILL; the switch is stalled at one point, after its journal reached replacing. The unowned hold is taken by the rehearsal over HTTP with the runtime token, as a stand-in for an operation that died after its journal completed. A writer that raises inside the runtime during a drain is not produced: a cut connection does not kill an admitted writer (see the dying-writer rehearsal). Only the host named in this report is exercised.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();
 const registry = createProfileRegistry(path.join(userData, 'profile-data'));
 const profile = registry.createProfile({ name: 'Writing desk' }), dir = registry.storeFor(profile.id).storeDir;
@@ -136,8 +136,7 @@ try {
   persist();
   try { if (page && !page.isClosed()) await shot('99-failure'); } catch {}
   try { await quit(); } catch {}
-  let left = null; try { left = record.read(); } catch {}
-  if (left?.pid && alive(left.pid)) { try { process.kill(-left.pid, 'SIGTERM'); } catch {} }
+  try { await record.reclaim(); } catch (cleanupError) { console.error('Recorded runtime cleanup:', cleanupError.message); }
   try { execFileSync('pg_ctl', ['-D', path.join(dataDir, 'pgdata'), '-m', 'fast', '-w', '-t', '20', 'stop'], { stdio: 'ignore' }); } catch {}
   throw error;
 }

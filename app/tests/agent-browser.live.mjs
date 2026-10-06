@@ -23,7 +23,7 @@ const out = path.resolve(appRoot, '../docs/cycles/evidence/C089/live', new Date(
 fs.mkdirSync(out, { recursive: true });
 const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-agent-browser-')));
 const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [], tools: [],
-  limits: ['The tools are driven by this test through the same MCP child a run receives, not by a model; what a model does with them is the bench (slice D). One Mac, from source under Electron, a local site.'] };
+  limits: ['The tools are driven by this test through the same MCP child a run receives, not by a model; what a model does with them is the bench (slice D). One machine, from source under Electron, a local site.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();
 const check = (name, detail) => { report.checks.push({ name, ...(detail ? { detail } : {}) }); persist(); console.log('ok  ' + name); };
 

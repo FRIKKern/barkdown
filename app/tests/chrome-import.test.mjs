@@ -10,12 +10,12 @@ const require = createRequire(import.meta.url);
 const { listSources, importPlaces, suggest, readBookmarks } = require('../main/chrome-import');
 
 const home = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-chrome-'));
-makeChromeFixture(home);
-assert.deepEqual(listSources({ home, platform: 'linux' }), [], 'macOS only for now');
-const sources = listSources({ home, platform: 'darwin' });
+const fixtureRoot = makeChromeFixture(home);
+assert.deepEqual(listSources({ home, platform: 'unsupported' }), [], 'unknown host layouts are not guessed');
+const sources = listSources({ home });
 assert.deepEqual(sources.map(s => [s.browser, s.profileDir, s.name, s.has.bookmarks, s.has.history]), [['chrome', 'Default', 'Person 1', true, true], ['chrome', 'Profile 1', 'Work desk', false, false]], 'a profile named in Local State but missing on disk is not offered');
 
-const bookmarks = readBookmarks(path.join(home, 'Library', 'Application Support', 'Google', 'Chrome', 'Default'));
+const bookmarks = readBookmarks(path.join(fixtureRoot, 'Default'));
 assert.deepEqual(bookmarks.bar.map(b => b.url), ['https://docs.barkpark.cloud/', 'https://fixture.example/'], 'only the bar\'s own links become Favorites');
 assert.deepEqual(bookmarks.all.map(b => [b.url, b.folder.join('/')]), [['https://docs.barkpark.cloud/', ''], ['https://fixture.example/', ''], ['https://reading.example/long', 'Reading'], ['https://other.example/x', 'Other bookmarks']]);
 
@@ -39,7 +39,16 @@ assert.throws(() => importPlaces({ browser: 'netscape', profileDir: 'Default' },
 assert.throws(() => importPlaces({ browser: 'chrome', profileDir: '../Default' }, { home }), { code: 'import_profile' });
 assert.throws(() => importPlaces({ browser: 'chrome', profileDir: 'Profile 9' }, { home }), { code: 'import_profile' });
 // A profile with no History still imports its bookmarks.
-fs.writeFileSync(path.join(home, 'Library', 'Application Support', 'Google', 'Chrome', 'Profile 1', 'Bookmarks'), JSON.stringify({ roots: { bookmark_bar: { children: [{ type: 'url', name: 'Only', url: 'https://only.example/' }] } } }));
+fs.writeFileSync(path.join(fixtureRoot, 'Profile 1', 'Bookmarks'), JSON.stringify({ roots: { bookmark_bar: { children: [{ type: 'url', name: 'Only', url: 'https://only.example/' }] } } }));
 assert.deepEqual(importPlaces({ browser: 'chrome', profileDir: 'Profile 1' }, { home }).counts, { bookmarks: 1, bar: 1, history: 0, places: 1 });
 fs.rmSync(home, { recursive: true, force: true });
 console.log('Chrome import: sources from Local State, bar bookmarks to Favorites, history with the 1601 epoch, merged places, ranked suggestions and refusals passed.');
+
+for (const platform of ['darwin', 'win32', 'linux']) {
+  const hostHome = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-chrome-host-'));
+  const root = makeChromeFixture(hostHome, platform);
+  const before = fs.readFileSync(path.join(root, 'Default', 'History'));
+  assert.equal(listSources({ home: hostHome, platform })[0].browser, 'chrome');
+  assert.deepEqual(importPlaces({ browser: 'chrome', profileDir: 'Default' }, { home: hostHome, platform }).counts, { bookmarks: 4, bar: 2, history: 3, places: 6 });
+  assert.deepEqual(fs.readFileSync(path.join(root, 'Default', 'History')), before, platform + ' import leaves source bytes unchanged');
+}
